@@ -21,6 +21,7 @@ class Pagination extends Component {
     pagesPerPage: PropTypes.number,
     totalPageCount: PropTypes.number,
     pages: PropTypes.arrayOf(PropTypes.number),
+    onPageChange: PropTypes.func,
   }
 
   static defaultProps = {
@@ -28,6 +29,7 @@ class Pagination extends Component {
     pagesPerPage: 4,
     totalPageCount: 10,
     pages: [1, 2, 3, 4],
+    onPageChange: () => { console.log('page changed'); },
   }
 
   state = {
@@ -38,6 +40,7 @@ class Pagination extends Component {
 
   handlePageSelect = ({ pageNumber }) => {
     this.setState({ activePage: pageNumber });
+    this.props.onPageChange({ activePage: pageNumber });
   }
 
   handleNextPage = () => {
@@ -46,14 +49,22 @@ class Pagination extends Component {
     const lastPageInSet = pages[pages.length - 1];
     const pageCount = ((totalPageCount - activePage) > pagesPerPage) ? pagesPerPage : (totalPageCount - activePage);
     if (activePage < lastPageInSet) {
-      this.setState(prevState => ({ activePage: (prevState.activePage + 1) }));
+      this.setState((prevState) => {
+        const newPageNumber = (prevState.activePage + 1);
+        this.props.onPageChange({ activePage: newPageNumber });
+        return ({ activePage: newPageNumber });
+      });
     }
 
     if (activePage === lastPageInSet && activePage < totalPageCount) {
-      this.setState(() => ({
-        pages: createPages((lastPageInSet + 1), pageCount),
-        activePage: (lastPageInSet + 1),
-      }));
+      this.setState(() => {
+        const newPageNumber = (lastPageInSet + 1);
+        this.props.onPageChange({ activePage: newPageNumber });
+        return ({
+          pages: createPages((newPageNumber), pageCount),
+          activePage: newPageNumber,
+        });
+      });
     }
   }
 
@@ -62,14 +73,22 @@ class Pagination extends Component {
     const { pagesPerPage } = this.props;
     const [firstPageInSet] = pages;
     if (activePage > firstPageInSet) {
-      this.setState(prevState => ({ activePage: (prevState.activePage - 1) }));
+      this.setState((prevState) => {
+        const newPage = (prevState.activePage - 1);
+        this.props.onPageChange({ activePage: newPage });
+        return ({ activePage: newPage });
+      });
     }
 
     if (activePage === firstPageInSet && activePage > 1) {
-      this.setState(() => ({
-        pages: createPages((firstPageInSet - (pagesPerPage)), pagesPerPage),
-        activePage: (firstPageInSet - 1),
-      }));
+      this.setState(() => {
+        const newPage = (firstPageInSet - 1);
+        this.props.onPageChange({ activePage: newPage });
+        return ({
+          pages: createPages((firstPageInSet - (pagesPerPage)), pagesPerPage),
+          activePage: newPage,
+        });
+      });
     }
   }
 
@@ -77,6 +96,7 @@ class Pagination extends Component {
     const { pagesPerPage } = this.props;
     const FIRST_PAGE = 1;
     this.setState({ pages: createPages(FIRST_PAGE, pagesPerPage), activePage: FIRST_PAGE });
+    this.props.onPageChange({ activePage: FIRST_PAGE });
   }
 
   handleLastPage = () => {
@@ -87,6 +107,7 @@ class Pagination extends Component {
       pages: createPages(((totalPageCount - lastPagePageCount) + 1), lastPagePageCount),
       activePage: totalPageCount,
     });
+    this.props.onPageChange({ activePage: totalPageCount });
   }
 
   render() {
