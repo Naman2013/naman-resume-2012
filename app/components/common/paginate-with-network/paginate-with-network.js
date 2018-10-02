@@ -3,9 +3,6 @@ import PropTypes from 'prop-types';
 import Request from 'components/common/network/Request';
 import Pagination from '../pagination';
 
-const PAGE_TYPES = ['all', 'artCulture', 'diy', 'humanSpirit', 'scienceLog'];
-const SORT_OPTIONS = ['recent', 'likes', 'atoz', 'ztoa'];
-
 // responsible for reporting the target page
 // takes options, like filter type and sorting
 
@@ -23,12 +20,22 @@ class PaginateWithNetwork extends Component {
     filterOptions: {},
   }
 
-  state = { activePage: this.props.activePageNumber }
+  state = {}
 
   render() {
-    const { activePage } = this.state;
+    const { apiURL, activePageNumber, filterOptions } = this.props;
+
     return (
-      <Pagination activePage={activePage} />
+      <Request
+        serviceURL={apiURL}
+        requestBody={filterOptions}
+        render={() => (
+          <Pagination
+            activePage={activePageNumber}
+            pagesPerPage={4}
+          />
+        )}
+      />
     );
   }
 }

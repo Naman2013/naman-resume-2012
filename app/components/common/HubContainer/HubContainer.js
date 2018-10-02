@@ -10,6 +10,7 @@ import HubSort from 'components/common/HubSort';
 import UnderlineNav from 'components/common/UnderlineNav';
 import { seashell } from 'styles/variables/colors_tiles_v4';
 import { goldCompass } from 'styles/variables/iconURLs';
+
 import style from './HubContainer.style';
 
 const {

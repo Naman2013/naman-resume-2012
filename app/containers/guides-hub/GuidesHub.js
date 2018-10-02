@@ -2,6 +2,9 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import values from 'lodash/values';
 
+import PaginateWithNetwork from 'components/common/paginate-with-network';
+import { GET_STORIES } from 'services/content';
+
 import Request from 'components/common/network/Request';
 import HubContainer from 'components/common/HubContainer';
 import GuideTiles from 'components/guides-hub/guide-tiles';
@@ -95,6 +98,13 @@ const Guides = props => (
                         hubTitle="Guides"
                       />
                       <GuideTiles guides={guideTiles} />
+                      <PaginateWithNetwork
+                        apiURL={GET_STORIES}
+                        filterOptions={{
+                          sortBy: 'recent',
+                          page: 1,
+                        }}
+                      />
                     </Fragment>
                   )}
                 </DeviceContext.Consumer>
