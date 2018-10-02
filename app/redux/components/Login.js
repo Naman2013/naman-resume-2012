@@ -275,6 +275,7 @@ const mapDispatchToProps = dispatch => ({
     resetLogIn,
     logUserIn,
     logGoogleUserIn,
+    logGoogleUserIn,
   }, dispatch),
 });
 
