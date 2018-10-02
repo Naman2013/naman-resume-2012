@@ -142,24 +142,6 @@ class ResponsiveTwoColumnContainer extends Component {
           width: 100%;
         }
 
-
-        @media ${screenMedium} {
-          .root {
-            width: 768px;
-            margin: 0 auto;
-          }
-
-          .split-nav {
-            display: none;
-            width: 100%;
-          }
-
-          .right-container {
-            width: 300px;
-          }
-
-        }
-
         @media ${screenLarge} {
           .root {
             width: 940px;
