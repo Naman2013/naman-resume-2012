@@ -3,6 +3,18 @@ import { astronaut } from 'styles/variables/colors_tiles_v4';
 import { primaryFont } from 'styles/variables/fonts';
 
 export default css`
+button {
+  background: none;
+  border: none;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  transition: background-color 0.25s ease-in-out;
+}
+
+button:focus {
+  outline: none;
+}
   .text {
     vertical-align: middle;
     font-size: 11px;

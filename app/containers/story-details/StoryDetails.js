@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import Request from 'components/common/network/Request';
 import { DeviceContext } from 'providers/DeviceProvider';
+import ConnectUserAndResponseAccess from 'redux/components/ConnectUserAndResponseAccess';
 import { STORY_DETAILS } from 'services/stories';
 import BootstrappedStoryDetails from './BootstrappedStoryDetails';
 
@@ -30,17 +31,21 @@ const StoryDetail = props => (
         <Fragment>
           {
             !fetchingContent &&
-              <Fragment>
-                <DeviceContext.Consumer>
-                  {context => (
-                    <BootstrappedStoryDetails
-                      {...props}
-                      {...context}
-                      {...STORY_DETAILS_MODEL}
-                    />
-                  )}
-                </DeviceContext.Consumer>
+            <ConnectUserAndResponseAccess
+              render={({ user, validateResponseAccess }) => (
+                <Fragment>
+                  <DeviceContext.Consumer>
+                    {context => (
+                      <BootstrappedStoryDetails
+                        {...props}
+                        {...context}
+                        {...STORY_DETAILS_MODEL}
+                        user={user}
+                      />
+                    )}
+                  </DeviceContext.Consumer>
               </Fragment>
+              )} />
           }
         </Fragment>
       )}
