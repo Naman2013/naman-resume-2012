@@ -18,7 +18,10 @@ class ToggleReadingList extends Component {
     promptIconUrl: string,
     readingListPrompt: string,
   };
-  static defaultProps = {};
+  static defaultProps = {
+    promptIconUrl: '',
+    readingListPrompt: '',
+  };
 
   state = {
     icon: this.props.promptIconUrl,
