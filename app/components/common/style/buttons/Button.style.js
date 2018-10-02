@@ -19,6 +19,9 @@ export default css`
     font-family: ${primaryFont};
   }
 
+  .button-container:active,
+  .button-container:focus { outline: none; }
+
   .circular {
     width: 40px;
     height: 40px;

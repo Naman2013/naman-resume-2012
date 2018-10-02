@@ -1,13 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router';
+import classnames from 'classnames';
 import style from './pages.style';
 
-const Pages = ({ pages }) => (
+const Pages = ({ pages, activePage, onPageSelect }) => (
   <div>
     <ul className="page-select-root">
       {pages
-        .map(page => <li className="page-select" key={`pagination-page-${page}`}><Link href="/home">{page}</Link></li>)
+        .map(page => (
+          <li className="page-select" key={`pagination-page-${page}`}>
+            <button
+              className={classnames('action', { active: page === activePage })}
+              onClick={() => { onPageSelect({ pageNumber: page }); }}
+            >
+              {page}
+            </button>
+          </li>
+        ))
       }
     </ul>
     <style jsx>{style}</style>
@@ -16,6 +25,8 @@ const Pages = ({ pages }) => (
 
 Pages.propTypes = {
   pages: PropTypes.arrayOf(PropTypes.number),
+  activePage: PropTypes.number.isRequired,
+  onPageSelect: PropTypes.func.isRequired,
 };
 
 Pages.defaultProps = {

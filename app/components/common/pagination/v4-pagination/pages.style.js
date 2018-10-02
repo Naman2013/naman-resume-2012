@@ -17,15 +17,26 @@ export default css`
     padding: 0 10px;
   }
 
-  .page-select :global(a) {
+  .action {
+    outline: none;
+    background: none;
+    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     text-decoration: none;
+    font-family: ${primaryFont};
+    font-weight: 800;
     color: ${lightHeadedAstronaut};
     border: 1px solid ${faintBlue};
     border-radius: 50%;
     width: 40px;
     height: 40px;
+  }
+
+  .action.active {
+    background-color: ${lightHeadedAstronaut};
+    border: none;
+    color: white;
   }
 `;
