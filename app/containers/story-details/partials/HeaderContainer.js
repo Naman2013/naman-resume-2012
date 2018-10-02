@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import LikeSomethingButton from 'components/common/LikeSomethingButton';
 import ToggleReadingList from 'components/common/ToggleReadingList';
+import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
 import { STORY } from 'services/reading-lists';
 import like from 'services/community-content/like';
 
@@ -19,25 +20,30 @@ const {
 const HeaderContainer = ({
   authorInfo,
   canLikeFlag,
-  readingListPrompt,
-  promptIconUrl,
   isDesktop,
-  postId,
   likeParams,
   likePrompt,
   likesCount,
+  mainImage,
   objectId,
+  postId,
+  promptIconUrl,
+  readingListPrompt,
   showLikePrompt,
   title,
   toggleReadingListFlag,
   user,
-  mainImage,
 }) =>
   (<div className="header-container shadowed">
     <div className="">
       <div dangerouslySetInnerHTML={{ __html: title }} className="story-title" />
       <div className="flex by-line">
-        <span className="author">Written by Helen Avery</span>
+        <DisplayAtBreakpoint screenMedium screenLarge screenXLarge>
+          <span className="author" dangerouslySetInnerHTML={{ __html: authorInfo.byline}} />
+        </DisplayAtBreakpoint>
+        <DisplayAtBreakpoint screenSmall>
+          <span className="author short" dangerouslySetInnerHTML={{ __html: authorInfo.shortByline}} />
+        </DisplayAtBreakpoint>
         <div className="flex actions">
           {toggleReadingListFlag ? <ToggleReadingList
             itemId={postId}

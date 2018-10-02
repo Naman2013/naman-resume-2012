@@ -50,7 +50,7 @@ const BootstrappedStoryDetails = (props) => {
   };
 
   return (
-    <div className="root">
+    <div className="root story-details">
       <CenterColumn
         widths={['768px', '940px', '940px']}
         theme={{ paddingTop: '25px' }}
