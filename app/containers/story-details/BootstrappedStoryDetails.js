@@ -12,7 +12,6 @@ import TwoTabbedNav from 'components/TwoTabbedNav';
 import ResponsiveTwoColumnContainer from 'components/ResponsiveTwoColumnContainer';
 import LabeledTitleTiles from 'components/common/style/LabeledTitleTiles';
 import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
-
 import MainContainer from './partials/MainContainer';
 import AsideContainer from './partials/AsideContainer';
 import HeaderContainer from './partials/HeaderContainer';
@@ -30,13 +29,25 @@ const {
 const BootstrappedStoryDetails = (props) => {
   const {
     actions,
+    authorInfo,
     isDesktop,
     isScreenLarge,
-    user,
+    membershipType,
+    postId,
     S3Files,
+    slug,
+    type,
+    user,
   } = props;
 
-  const likeParams = {}
+  const likeParams = {
+    likeType: 'post',
+    likeId: postId,
+    authorId: authorInfo.customerId,
+    objectSlug: slug,
+    type,
+    membershipType,
+  };
 
   return (
     <div className="root">
@@ -110,6 +121,7 @@ BootstrappedStoryDetails.propTypes = {
 
 BootstrappedStoryDetails.defaultProps = {
   S3Files: [''],
+  user: {},
 };
 
 export default BootstrappedStoryDetails;

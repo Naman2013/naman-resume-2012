@@ -8,7 +8,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-modal';
-import noop from 'lodash/noop'
+import noop from 'lodash/noop';
 import { likeReply } from 'services/discussions/like';
 import LikeButton from 'components/common/style/buttons/LikeButton';
 import { customModalStylesV4 } from 'styles/mixins/utilities';
@@ -37,6 +37,23 @@ class LikeHeartButton extends Component {
       token: oneOfType([number, string]),
       cid: oneOfType([number, string]),
     }).isRequired,
+    likeParams: shape({
+      authorId: oneOfType([number, string]), // required for all
+
+      likeType: string, // required for post/story
+      likeId: oneOfType([number, string]), // required for post/story
+      objectSlug: string, // required for post/story
+      type: string, // required for post/story
+      membershipType: string, //required for post/story
+
+      callSource: oneOfType([number, string]), //	optional for threads but required for qanda
+      objectId: oneOfType([number, string]), //	optional for threads but required for qanda
+      threadId: oneOfType([number, string]), // required for thread
+      forumId: oneOfType([number, string]), // required for thread
+      topicId: oneOfType([number, string]), // required for thread
+      // STORIES/COMMUNITY-CONTENT: https://docs.google.com/document/d/1f_j2BVr0DPddREt9BbdWomp2UWOUYB7-IQqNR6ny3bc/edit#heading=h.468bhs5xy24i
+      // THREADS https://docs.google.com/document/d/1f_j2BVr0DPddREt9BbdWomp2UWOUYB7-IQqNR6ny3bc/edit#heading=h.aefbaw7ffr19
+    }),
   };
 
   static defaultProps = {

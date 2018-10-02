@@ -32,7 +32,7 @@ const MainContainer = ({
 }) => {
   const contentFooter = () => (
     <div>
-      {canLikeFlag ? <LikeSomethingButton
+      <LikeSomethingButton
         likeHandler={like}
         likesCount={likesCount}
         likePrompt={likePrompt}
@@ -40,7 +40,7 @@ const MainContainer = ({
         showLikePrompt={showLikePrompt}
         user={user}
         customerId={user.cid}
-      /> : null}
+      />
     </div>
   );
   return (

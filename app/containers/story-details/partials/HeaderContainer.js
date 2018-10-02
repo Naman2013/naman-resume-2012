@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import LikeSomethingButton from 'components/common/LikeSomethingButton';
 import ToggleReadingList from 'components/common/ToggleReadingList';
 import { STORY } from 'services/reading-lists';
+import like from 'services/community-content/like';
 
 import styles from '../StoryDetails.style';
 
@@ -16,16 +17,15 @@ const {
 } = PropTypes;
 
 const HeaderContainer = ({
+  authorInfo,
   canLikeFlag,
   readingListPrompt,
   promptIconUrl,
   isDesktop,
   postId,
-  like,
   likeParams,
   likePrompt,
   likesCount,
-  likesParams,
   objectId,
   showLikePrompt,
   title,
@@ -45,15 +45,15 @@ const HeaderContainer = ({
             readingListPrompt={readingListPrompt}
             promptIconUrl={promptIconUrl}
           /> : null}
-          {canLikeFlag ? <LikeSomethingButton
+          <LikeSomethingButton
             likeHandler={like}
             likesCount={likesCount}
             likePrompt={likePrompt}
             likeParams={likeParams}
             showLikePrompt={showLikePrompt}
             user={user}
-            customerId={user.cid}
-          /> : null}
+            customerId={authorInfo.customerId}
+          />
         </div>
       </div>
       {mainImage ? <div className="vert-line-container">
