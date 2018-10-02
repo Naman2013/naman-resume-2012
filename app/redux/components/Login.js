@@ -75,6 +75,8 @@ class Login extends Component {
         authenticationCode: googleTokenData.code
       })
       .then(response => {
+        const { actions } = this.props;
+
         const res = response.data;
         if (res.apiError == false) {
           const googleProfileResult = {
