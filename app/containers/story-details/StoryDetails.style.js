@@ -72,6 +72,11 @@ export default css`
     flex-direction: row;
   }
 
+  .actions {
+    align-items: center;
+    justify-content: space-between;
+  }
+
   .author {
     flex: 3;
     text-transform: uppercase;
@@ -82,7 +87,6 @@ export default css`
 
   .by-line {
     color: ${astronaut};
-    padding: 15px;
     border-top: 1px solid ${shadows};
     border-bottom: 1px solid ${shadows};
     align-items: center;
