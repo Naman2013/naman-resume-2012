@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router';
+import { Link, browserHistory } from 'react-router';
 import findIndex from 'lodash/findIndex';
 import find from 'lodash/find';
 import classnames from 'classnames';
@@ -19,46 +19,45 @@ const {
 
 class UnderlineNav extends Component {
   static propTypes = {
-    defaultIndex: number,
+    activeFilter: number,
     navItems: arrayOf(shape({
       label: string,
-      value: string,
+      linkURL: string,
     })),
-    onItemClick: func,
   };
 
   static defaultProps = {
-    defaultIndex: 0,
+    activeFilter: null,
     navItems: [],
     onItemClick: noop,
 
   };
 
   state = {
-    activeIndex: this.props.defaultIndex,
+    activeIndex: findIndex(this.props.navItems, navItem => navItem.linkURL === `/guides/${this.props.activeFilter}`),
   }
 
   handleClick = (e, selected) => {
     if (e) e.preventDefault();
 
     const {
-      onItemClick,
       navItems,
     } = this.props;
 
     this.setState(() => ({
-      activeIndex: findIndex(navItems, navItem => navItem.value === selected.value),
+      activeIndex: findIndex(navItems, navItem => navItem.linkURL === selected.value),
     }));
 
-    onItemClick(selected.value);
+    browserHistory.push(selected.value);
   }
 
   render() {
     const {
+      activeFilter,
       navItems,
     } = this.props;
     const { activeIndex } = this.state;
-
+    const dropdownOptions = navItems.map(item => ({ label: item.title, value: item.linkURL }))
     return (
       <div className="root">
         <DisplayAtBreakpoint
@@ -66,17 +65,17 @@ class UnderlineNav extends Component {
           screenLarge
           screenXLarge
         >
-          {navItems.map((item, i) => (
+          {navItems.map((item) => (
             <div className={classnames('item-container', {
-              'is-active': activeIndex === i,
+              'is-active': activeFilter === item.linkURL.split('/')[2] || (!activeFilter && !item.linkURL.split('/')[2]),
               })}
-              key={`${item.label}+${i}`}
+              key={`${item.linkURL}`}
             >
-              <a
-                className="nav-item"
-                onClick={(e) => this.handleClick(e, item)}
-                dangerouslySetInnerHTML={{ __html: item.label }}
-              />
+              <Link
+                to={item.linkURL}
+              >
+              <span className="nav-item" dangerouslySetInnerHTML={{ __html: item.title }} />
+              </Link>
             </div>
           ))}
         </DisplayAtBreakpoint>
@@ -87,7 +86,7 @@ class UnderlineNav extends Component {
           <DropDown
             handleSelect={this.handleClick}
             selectedIndex={activeIndex}
-            options={navItems}
+            options={dropdownOptions}
           />
         </DisplayAtBreakpoint>
 

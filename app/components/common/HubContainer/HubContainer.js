@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import queryString from 'query-string';
-import { Link, browserHistory } from 'react-router';
+import { NavLink, browserHistory } from 'react-router';
 import findIndex from 'lodash/findIndex';
 import pick from 'lodash/pick';
 import CenterColumn from 'components/common/CenterColumn';
@@ -33,6 +33,7 @@ class HubContainer extends Component {
       label: string,
       value: string,
     })),
+    filterType: string,
     sortOptions: arrayOf(shape({
       label: string,
       value: string,
@@ -48,6 +49,7 @@ class HubContainer extends Component {
   };
 
   static defaultProps = {
+    filterType: null,
     hubTitle: '',
     iconURL: goldCompass,
     filterOptions: [],
@@ -58,22 +60,15 @@ class HubContainer extends Component {
   };
 
   state = {
-    filter: this.props.location.query.filter || '*',
     page: this.props.location.query.page || 1,
     sort: this.props.location.query.sort || 'asc',
-    defaultFilterIndex: getDefaultIndex(this.props.filterOptions, this.props.location.query.filter || '*'),
     defaultSortIndex: getDefaultIndex(this.props.sortOptions, this.props.location.query.sort || 'asc'),
   }
 
   componentWillReceiveProps(nextProps) {
-    let { filter, page, sort } = this.props.location.query;
-    const { filter: nextFilter, page: nextPage, sort: nextSort } = nextProps.location.query;
+    let { page, sort } = this.props.location.query;
+    const { page: nextPage, sort: nextSort } = nextProps.location.query;
     let changeState = false;
-
-    if (filter !== nextFilter) {
-      filter = nextFilter;
-      changeState = true;
-    }
 
     if (page !== nextPage) {
       page = nextPage;
@@ -86,8 +81,8 @@ class HubContainer extends Component {
     }
 
     if (changeState) {
-      this.setState({ filter, page, sort });
-      this.setQueryParams({ filter, page, sort });
+      this.setState({ page, sort });
+      this.setQueryParams({ page, sort });
     }
   }
 
@@ -96,16 +91,6 @@ class HubContainer extends Component {
     browserHistory.push({
       pathname: '/guides',
       search: `?${params}`,
-    });
-  }
-
-  handleFilterChange = (filter) => {
-    this.setState((state) => {
-      const query = Object.assign({}, state, { filter });
-      this.setQueryParams(pick(query, QUERY_TYPES));
-      return ({
-        filter,
-      });
     });
   }
 
@@ -122,13 +107,14 @@ class HubContainer extends Component {
   render() {
     const {
       filterOptions,
+      filterType,
       hubTitle,
       iconURL,
+      render,
       sortOptions,
     } = this.props;
 
     const {
-      defaultFilterIndex,
       defaultSortIndex,
     } = this.state;
     return (
@@ -139,9 +125,8 @@ class HubContainer extends Component {
           renderNav={() => (
             <div className="navigation-bar">
               <UnderlineNav
-                defaultIndex={defaultFilterIndex}
+                activeFilter={filterType}
                 navItems={filterOptions}
-                onItemClick={this.handleFilterChange}
               />
               <HubSort
                 defaultIndex={defaultSortIndex}
@@ -151,7 +136,7 @@ class HubContainer extends Component {
             </div>
           )}
         />
-        <CenterColumn theme={{ backgroundColor: seashell }} />
+        <CenterColumn theme={{ backgroundColor: seashell }}>{render()}</CenterColumn>
         <style jsx>{style}</style>
       </div>
     );

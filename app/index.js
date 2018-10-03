@@ -497,7 +497,7 @@ ReactDOM.render(
         <Route path="help/privacy" component={Privacy} />
 
         <Route path="bookclub" component={BookclubHandoff} />
-        <Route path="guides" component={GuidesHub} onEnter={validateUser} />
+        <Route path="guides(/:filterType)" component={GuidesHub} onEnter={validateUser} />
         <Route path="guide-details/:guideId" component={GuideDetails} onEnter={validateUser} />
 
         <Route path="guides/subject/:guideId" component={SubjectGuides} onEnter={validateUser} />
