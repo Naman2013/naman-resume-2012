@@ -110,8 +110,19 @@ export default css`
     padding: 25px;
   }
 
+  .display-none {
+    margin: 0;
+    visibility: hidden;
+    height: 0;
+  }
+
   @media ${screenLarge} {
     .root { margin: 25px 0 }
+    .display-none {
+      margin: 0;
+      visibility: hidden;
+      height: 0;
+    }
   }
 
 `;

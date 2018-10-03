@@ -4,6 +4,10 @@ import DescriptionContainer from 'components/common/description-container';
 import LikeSomethingButton from 'components/common/LikeSomethingButton';
 import LabeledTitleTiles from 'components/common/style/LabeledTitleTiles';
 import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
+import StaticCell from 'components/object-details/grid/StaticCell';
+import GridContainer from 'components/object-details/grid/GridContainer';
+import Row from 'components/object-details/grid/Row';
+import HostLongTile from 'components/HostLongTile';
 import like from 'services/community-content/like';
 import { romance } from 'styles/variables/colors_tiles_v4';
 import styles from '../StoryDetails.style';
@@ -18,6 +22,7 @@ const {
 } = PropTypes;
 
 const MainContainer = ({
+  authorInfo,
   canLikeFlag,
   content,
   isDesktop,
@@ -55,10 +60,52 @@ const MainContainer = ({
             direction="column"
           />
       </DisplayAtBreakpoint>
+      {storyDetails.length > 0 ? <DisplayAtBreakpoint
+        screenMedium
+        >
+          <GridContainer theme={{ marginTop: '25px' }}>
+            <Row>
+              <StaticCell
+                title={storyDetails[0].label}
+                flexScale={['100%']}
+              >
+                <p>{storyDetails[0].text}</p>
+              </StaticCell>
+            </Row>
+            <Row>
+            <StaticCell
+              title={storyDetails[1].label}
+              flexScale={['50%']}
+              hasBorderScale={[false, true, false]}
+            >
+              <p>{storyDetails[1].text}</p>
+            </StaticCell>
+            <StaticCell
+              title={storyDetails[2].label}
+              flexScale={['50%']}
+            >
+              <p>{storyDetails[2].text}</p>
+            </StaticCell>
+            </Row>
+            <Row>
+              <StaticCell flexScale={['100%']}>
+                <HostLongTile
+                  hostGravity={authorInfo.gravity}
+                  hostName={authorInfo.displayName}
+                  hostPhotoURL={authorInfo.iconUrl}
+                  hostTitle={authorInfo.gravityLabel}
+                  hostURL={authorInfo.linkUrl}
+                  isDesktop={isDesktop}
+                  title={authorInfo.label}
+                />
+              </StaticCell>
+            </Row>
+          </GridContainer>
+      </DisplayAtBreakpoint> : null}
       <div className="shadowed">
         <DescriptionContainer
           content={content}
-          theme={{ backgroundColor: romance }}
+          theme={{ backgroundColor: romance, 'margin-top': '25px' }}
           footer={contentFooter}
         />
       </div>

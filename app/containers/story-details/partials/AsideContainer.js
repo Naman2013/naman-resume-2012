@@ -43,7 +43,7 @@ const AsideContainer = ({
         title={authorInfo.label}
       />
     </DisplayAtBreakpoint>
-    <RelatedObject {...relatedObject} user={user} isDesktop={isDesktop} />
+    <RelatedObject slugLookupId={slugLookupId} user={user} isDesktop={isDesktop} />
     <BlueLineDrop
       title="Related Shows"
       isDesktop={isDesktop}

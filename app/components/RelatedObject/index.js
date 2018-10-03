@@ -1,3 +1,3 @@
-import RelatedObject from './RelatedObject';
+import RelatedObject from './RelatedObject.redux';
 
 export default RelatedObject;
