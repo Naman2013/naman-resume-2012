@@ -14,6 +14,7 @@
     "prod:deneb": "rimraf dist && rimraf node_modules && npm cache clean && npm install && apiUrl=https://deneb.slooh.com apiPortNumber=443 NODE_ENV=production webpack -p --config webpack.production.config.js --colors --progress",
     "prod:venus": "rimraf dist && rimraf node_modules && npm cache clean && npm install && apiUrl=https://venus.slooh.com apiPortNumber=443 NODE_ENV=production webpack -p --config webpack.production.config.js --colors --progress",
     "prod:nova": "rimraf dist && rimraf node_modules && npm cache clean && npm install && apiUrl=https://nova.slooh.com apiPortNumber=443 NODE_ENV=production webpack -p --config webpack.production.config.js --colors --progress",
+    "prod:supernova": "rimraf dist && rimraf node_modules && npm cache clean && npm install && apiUrl=https://supernova.slooh.com apiPortNumber=443 NODE_ENV=production webpack -p --config webpack.production.config.js --colors --progress",
     "prod:eris": "rimraf dist && rimraf node_modules && npm cache clean && npm install && apiUrl=https://eris.slooh.com apiPortNumber=443 NODE_ENV=production webpack -p --config webpack.production.config.js --colors --progress",
     "prod": "rimraf dist && rimraf node_modules && npm cache clean && npm install && apiUrl=https://slooh.com apiPortNumber=443 NODE_ENV=production webpack -p --config webpack.production.config.js --colors --progress",
     "storybook": "start-storybook ./assets -p 6006",
