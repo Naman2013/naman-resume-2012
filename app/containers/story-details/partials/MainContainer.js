@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import DescriptionContainer from 'components/common/description-container';
-import ObjectDetailList from 'components/common/ObjectDetailList';
 import LikeSomethingButton from 'components/common/LikeSomethingButton';
-import GenericButton from 'components/common/style/buttons/Button';
+import LabeledTitleTiles from 'components/common/style/LabeledTitleTiles';
+import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
 import like from 'services/community-content/like';
 import { romance } from 'styles/variables/colors_tiles_v4';
 import styles from '../StoryDetails.style';
@@ -27,6 +27,7 @@ const MainContainer = ({
   objectId,
   scheduledMissionId,
   showLikePrompt,
+  storyDetails,
   title,
   user,
 }) => {
@@ -45,15 +46,15 @@ const MainContainer = ({
   );
   return (
     <div>
-      {!isDesktop && objectId !== '0' ?
-        <div>
-          <ObjectDetailList
-            isDesktop={isDesktop}
-            objectId={objectId}
-            scheduledMissionId={scheduledMissionId}
+      <DisplayAtBreakpoint
+          screenSmall
+        >
+          <LabeledTitleTiles
+            theme={{ backgroundColor: romance }}
+            tiles={storyDetails}
+            direction="column"
           />
-        </div> :
-      null}
+      </DisplayAtBreakpoint>
       <div className="shadowed">
         <DescriptionContainer
           content={content}

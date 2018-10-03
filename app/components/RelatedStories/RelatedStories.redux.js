@@ -11,7 +11,7 @@ import { connect } from 'react-redux';
 import { DeviceContext } from 'providers/DeviceProvider';
 import Request from 'components/common/network/Request';
 import BootstrappedRelatedStories from './BootstrappedRelatedStories';
-import { RELATED_SHOWS } from 'services/events';
+import { CONTENT_RELATED_STORIES } from 'services/content';
 
 const {
   bool,
@@ -39,7 +39,7 @@ class RelatedStories extends Component {
     postId: null,
     slugLookupId: null,
     showId: null,
-    serviceUrl: RELATED_SHOWS,
+    serviceUrl: CONTENT_RELATED_STORIES,
   };
 
   render() {

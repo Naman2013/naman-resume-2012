@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Host from 'components/Host';
 import BlueLineDrop from 'components/common/BlueLineDrop';
+import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
 import RelatedShows from 'components/RelatedShows';
 import RelatedStories from 'components/RelatedStories';
 import RelatedGuides from 'components/RelatedGuides';
@@ -28,15 +29,20 @@ const AsideContainer = ({
   user,
 }) => (
   <div>
-    <Host
-      hostGravity={authorInfo.gravity}
-      hostName={authorInfo.displayName}
-      hostPhotoURL={authorInfo.iconUrl}
-      hostTitle={authorInfo.gravityLabel}
-      hostURL={authorInfo.linkUrl}
-      isDesktop={isDesktop}
-      title={authorInfo.label}
-    />
+    <DisplayAtBreakpoint
+      screenLarge
+      screenXLarge
+    >
+      <Host
+        hostGravity={authorInfo.gravity}
+        hostName={authorInfo.displayName}
+        hostPhotoURL={authorInfo.iconUrl}
+        hostTitle={authorInfo.gravityLabel}
+        hostURL={authorInfo.linkUrl}
+        isDesktop={isDesktop}
+        title={authorInfo.label}
+      />
+    </DisplayAtBreakpoint>
     <RelatedObject {...relatedObject} user={user} isDesktop={isDesktop} />
     <BlueLineDrop
       title="Related Shows"
