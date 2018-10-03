@@ -120,7 +120,7 @@ class GroupMemberList extends Component {
                   totalCount={members.length}
                   page={page}
                   idField="customerId"
-                  buttonText="More Members"
+                  buttonText={['MORE MEMBER', 'MORE MEMBERS']}
                 />}
                 {renderToggle ? renderToggle() : null}
               </div>

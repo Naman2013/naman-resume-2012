@@ -139,6 +139,8 @@ class RelatedObject extends Component {
   render() {
     const {
       isDesktop,
+      fetching,
+      relatedObjectsCount,
       label,
       objectIconURL,
       linkURL,
@@ -149,9 +151,10 @@ class RelatedObject extends Component {
     } = this.props;
 
     const { promptText, modalIsOpen } = this.state;
+    const hide = relatedObjectsCount === 0;
 
     const { list } = dataBlocks;
-    return (<div className="root">
+    return (<div className={classnames('root', { 'display-none': fetching || hide })}>
       <div className="title-container" dangerouslySetInnerHTML={{ __html: label }} />
       <Link to={linkURL}>
         <div className="info-container">

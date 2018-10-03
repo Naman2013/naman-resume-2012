@@ -141,6 +141,7 @@ import CommunityGroupOverview from './pages/community-groups/GroupOverview';
 import GroupOverviewInfo from './pages/community-groups/GroupOverviewInfo';
 import ImageDetails from './pages/image-details';
 import Show from './pages/show';
+import StoryDetails from './containers/story-details';
 import GuidesHub from './containers/guides-hub';
 import PlaceholderPage from './pages/Placeholder';
 
@@ -519,6 +520,7 @@ ReactDOM.render(
         <Route path="shows" component={PlaceholderPage} onEnter={validateUser} />
 
         <Route path="stories" component={PlaceholderPage} onEnter={validateUser} />
+        <Route path="stories/:postId" component={StoryDetails} onEnter={validateUser} />
 
         <Route path="lists" component={PlaceholderPage} onEnter={validateUser}>
           <IndexRedirect to="my-lists" />

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import style from './DescriptionContainer.style';
+import style from './description-container.style';
 
 const DescriptionContainer = ({ title, content, footer, theme }) => (
   <div className="root" style={theme}>

@@ -25,13 +25,13 @@ const {
 class BootstrappedRelatedStories extends Component {
   static propTypes = {
     isDesktop: bool,
-    posts: arrayOf(shape()),
-    postsCount: number,
+    relatedStoriesList: arrayOf(shape()),
+    relatedStoriesListCount: number,
   }
 
   static defaultProps = {
     isDesktop: false,
-    posts: [],
+    relatedStoriesList: [],
     postsCount: 0,
 
   };
@@ -45,14 +45,14 @@ class BootstrappedRelatedStories extends Component {
   render() {
     const {
       isDesktop,
-      posts,
-      postsCount,
+      relatedStoriesList,
+      relatedStoriesListCount,
     } = this.props;
 
     return (<div className="root">
-      <div className="related-stories-title">Related Stories <span className="related-stories-count">({postsCount})</span></div>
-      {posts.length > 0  ?
-        <AveryTile title={posts[0].title} avatarURL={posts[0].avatarURL} /> :
+      <div className="related-stories-title">Related Stories <span className="related-stories-count">({relatedStoriesListCount})</span></div>
+      {relatedStoriesList.length > 0  ?
+        <AveryTile title={relatedStoriesList[0].title} avatarURL={relatedStoriesList[0].avatarURL} /> :
         null
       }
       <style jsx>{styles}</style>

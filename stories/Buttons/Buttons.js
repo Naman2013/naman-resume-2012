@@ -11,6 +11,7 @@ import PhotoUploadButton from '../../app/components/common/style/buttons/PhotoUp
 import LargeButtonWithRightIcon from '../../app/components/common/style/buttons/LargeButtonWithRightIcon';
 import LikeSomethingButton from '../../app/components/common/LikeSomethingButton';
 import ViewImagesButton from '../../app/components/common/style/buttons/ViewImagesButton';
+import ToggleReadingList from '../../app/components/common/ToggleReadingList';
 
 const images = ['https://castor.slooh.com/dev101/2018/07/720d/b712/1530882220.jpg', 'https://castor.slooh.com/dev101/2018/07/9879/452d/1531688297.JPG']
 
@@ -63,5 +64,12 @@ storiesOf('Buttons ', module)
   .add('Renders an adaptive button that opens a lightbox of images', () => (
     <ViewImagesButton
       images={images}
+    />
+  ))
+  .add('Renders a button that calls the reading list API', () => (
+    <ToggleReadingList
+      promptIconUrl="https://vega.slooh.com/assets/v4/common/plus_icon.svg"
+      readingListPrompt="Reading List"
+      itemId={3941}
     />
   ));

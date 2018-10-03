@@ -31,6 +31,7 @@ const profPic = photoUrl => Object.assign(profilePhotoStyle(photoUrl), {
 class Hosts extends Component {
   static propTypes = {
     isDesktop: bool,
+    title: string,
     hostDesc: string.isRequired,
     hostName: string.isRequired,
     hostPhotoURL: string.isRequired,
@@ -46,6 +47,7 @@ class Hosts extends Component {
   }
 
   static defaultProps = {
+    title: 'Host',
     isDesktop: false,
     orgName: '',
     orgURL: '',
@@ -56,6 +58,7 @@ class Hosts extends Component {
 
   render() {
     const {
+      title,
       isDesktop,
       hostDesc,
       hostName,
@@ -67,14 +70,18 @@ class Hosts extends Component {
 
 
     return (<div className="root">
-      <div className="title-container">Host</div>
+      <div className="title-container">{title}</div>
       <Link to={hostURL}>
         <div className="info-container">
           <span className="host-name" dangerouslySetInnerHTML={{ __html: hostName }} />
           <span className="icon-line-horz" />
           <div className="icon-container flex-item">
-            <div className="icon" style={profPic(hostPhotoURL)} />
-            <span className="circle-icon-line" />
+            <div className="vert-line" />
+            <div className="icon-container-circle">
+              <div className="circle-icon-line">
+                <div className="icon" style={profPic(hostPhotoURL)} />
+              </div>
+            </div>
           </div>
           <span className="icon-line-horz" />
           <div className="member-info">

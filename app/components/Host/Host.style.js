@@ -75,6 +75,15 @@ export default css`
     border-right: 1px solid ${shadows};
   }
 
+  .vert-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+    border-right: 1px solid ${shadows};
+  }
+
   .star {
     margin-right: 15px;
   }
@@ -111,14 +120,22 @@ export default css`
     padding: 5px 0;
   }
 
+  .icon-container-circle {
+    background-color: ${romance};
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   .circle-icon-line {
-    display: block;
     border: 1px solid ${shadows};
     width: 115px;
     height: 115px;
     border-radius: 50%;
-    margin: 0 auto;
-    margin-top: -111px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .icon-line {

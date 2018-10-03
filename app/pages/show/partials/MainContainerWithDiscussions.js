@@ -11,7 +11,7 @@ import { romance } from 'styles/variables/colors_tiles_v4';
 import LabeledTitleTiles from 'components/common/style/LabeledTitleTiles';
 import LikeSomethingButton from 'components/common/LikeSomethingButton';
 import UpcomingShowCountdown from 'components/UpcomingShowCountdown';
-import DescriptionContainer from './DescriptionContainer';
+import DescriptionContainer from 'components/common/description-container';
 import like from 'services/events/like';
 import AboutTab from './AboutTab';
 import CommentsTab from './CommentsTab';
