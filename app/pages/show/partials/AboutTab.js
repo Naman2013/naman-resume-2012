@@ -9,7 +9,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import LikeSomethingButton from 'components/common/LikeSomethingButton';
 import { romance } from 'styles/variables/colors_tiles_v4';
-import DescriptionContainer from './DescriptionContainer';
+import DescriptionContainer from 'components/common/description-container';
 import like from 'services/events/like';
 import LabeledTitleTiles from 'components/common/style/LabeledTitleTiles';
 import styles from './AboutTab.style';

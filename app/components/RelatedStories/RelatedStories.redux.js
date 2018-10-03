@@ -11,7 +11,7 @@ import { connect } from 'react-redux';
 import { DeviceContext } from 'providers/DeviceProvider';
 import Request from 'components/common/network/Request';
 import BootstrappedRelatedStories from './BootstrappedRelatedStories';
-import { SHOW_CONTENT } from 'services/content';
+import { RELATED_SHOWS } from 'services/events';
 
 const {
   bool,
@@ -29,29 +29,41 @@ const mapStateToProps = ({
 class RelatedStories extends Component {
   static propTypes = {
     isDesktop: bool,
-    showId: oneOfType([string, number]).isRequired,
+    postId: oneOfType([string, number]),
+    slugLookupId: oneOfType([string, number]),
+    showId: oneOfType([string, number]),
+    serviceUrl: string,
   };
   static defaultProps = {
     isDesktop: false,
+    postId: null,
+    slugLookupId: null,
+    showId: null,
+    serviceUrl: RELATED_SHOWS,
   };
 
   render() {
     const {
       isDesktop,
       user,
+      postId,
+      slugLookupId,
       showId,
+      serviceUrl,
     } = this.props;
 
     return (
       <Request
         authorizationRedirect={true}
-        serviceURL={SHOW_CONTENT}
+        serviceURL={serviceUrl}
         method="POST"
         serviceExpiresFieldName="expires"
         requestBody={{
           cid: user.cid,
           token: user.token,
           at: user.at,
+          postId,
+          slugLookupId,
           showId,
           listType: 'sluglookupids',
         }}
@@ -65,7 +77,8 @@ class RelatedStories extends Component {
                 isDesktop={isDesktop}
                 fetching={fetchingContent}
                 user={user}
-                showId={showId}
+                postId={postId}
+                slugLookupId={slugLookupId}
                 {...context}
                 {...serviceResponse}
               />)}

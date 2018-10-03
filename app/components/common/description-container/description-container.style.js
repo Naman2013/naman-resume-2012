@@ -7,8 +7,14 @@ export default css`
   .root {
     color: ${astronaut};
     font-family: ${primaryFont};
-    padding: 0 35px;
+    padding: 50px 35px;
     padding-bottom: 35px;
+  }
+
+  .big-title {
+    font-family: ${secondaryFont};
+    font-size: 24px;
+
   }
 
   .title {

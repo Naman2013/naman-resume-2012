@@ -58,6 +58,7 @@ class DetailsTab extends Component {
       isDesktop,
       isScreenMedium,
       isScreenLarge,
+      slugLookupId,
       relatedObject,
       showId,
       user,
