@@ -16,6 +16,11 @@ export default css`
   .root {
     background-color: ${seashell};
   }
+
+  .main-root {
+    margin-bottom: 25px;
+  }
+  
   .shadowed {
     ${faintShadow}
   }

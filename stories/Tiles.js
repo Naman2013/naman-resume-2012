@@ -110,7 +110,7 @@ storiesOf('Tiles', module)
     />
   ))
   .add('HostLongTile', () => (
-    <Host
+    <HostLongTile
       hostName="Helen Avery"
       hostPhotoURL="https://vega.slooh.com/icons/placeholders/avatar-dummy.png"
       hostTitle="Astronomer"
