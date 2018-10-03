@@ -10,9 +10,12 @@ import PropTypes from 'prop-types';
 import CenterColumn from 'components/common/CenterColumn';
 import TwoTabbedNav from 'components/TwoTabbedNav';
 import ResponsiveTwoColumnContainer from 'components/ResponsiveTwoColumnContainer';
-import ObjectDetailList from 'components/common/ObjectDetailList';
+import LabeledTitleTiles from 'components/common/style/LabeledTitleTiles';
+import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
+
 import MainContainer from './partials/MainContainer';
 import AsideContainer from './partials/AsideContainer';
+import HeaderContainer from './partials/HeaderContainer';
 import styles from './StoryDetails.style';
 
 const {
@@ -27,34 +30,48 @@ const {
 const BootstrappedStoryDetails = (props) => {
   const {
     actions,
-    imageTitle,
-    imageURL,
     isDesktop,
     isScreenLarge,
-    objectId,
-    scheduledMissionId,
     user,
+    S3Files,
   } = props;
-  console.log(props);
+
+  const likeParams = {}
+
   return (
     <div className="root">
-      <CenterColumn widths={['768px', '940px', '940px']} theme={{ paddingTop: '25px' }}>
-        <div className="header-container">
-          <div className="obs-header">
-            <div className="obs-img-header">AN OBSERVATION OF</div>
-            <div className="obs-img-subheader" dangerouslySetInnerHTML={{ __html: imageTitle }}/>
-          </div>
-          <div className="obs-image-container">
-            <img className="obs-image" src={imageURL} />
-          </div>
-          <div className="object-details">
-            {objectId !== '0' ? <ObjectDetailList
-              isDesktop={isDesktop}
-              objectId={objectId}
-              scheduledMissionId={scheduledMissionId}
-            /> : null}
-          </div>
-        </div>
+      <CenterColumn
+        widths={['768px', '940px', '940px']}
+        theme={{ paddingTop: '25px' }}
+      >
+        <HeaderContainer
+          {...props}
+          isDesktop={isDesktop}
+          likeParams={likeParams}
+          user={user}
+          mainImage={S3Files[0]}
+        />
+        <DisplayAtBreakpoint
+          screenLarge
+          screenXLarge
+        >
+          <LabeledTitleTiles
+            tiles={{
+              type: {
+                label: 'Type',
+                text: 'Public'
+              },
+              created: {
+                label: 'Created',
+                text: 'Apr 13, 2018'
+              },
+              members: {
+                label: 'Members',
+                text: '3'
+              }
+            }}
+          />
+        </DisplayAtBreakpoint>
         <div className="main-container">
           <ResponsiveTwoColumnContainer
             renderNavigationComponent={navProps =>
@@ -73,7 +90,7 @@ const BootstrappedStoryDetails = (props) => {
               </div>
             )}
             isScreenLarge={isScreenLarge}
-            renderMainContent={() => <MainContainer {...props} actions={actions} user={user} />}
+            renderMainContent={() => <MainContainer {...props} actions={actions} user={user} likeParams={likeParams} />}
           />
         </div>
       </CenterColumn>
@@ -83,6 +100,7 @@ const BootstrappedStoryDetails = (props) => {
 };
 
 BootstrappedStoryDetails.propTypes = {
+  S3Files: arrayOf(string),
   user: shape({
     at: oneOfType([number, string]),
     token: oneOfType([number, string]),
@@ -91,6 +109,7 @@ BootstrappedStoryDetails.propTypes = {
 };
 
 BootstrappedStoryDetails.defaultProps = {
+  S3Files: [''],
 };
 
 export default BootstrappedStoryDetails;
