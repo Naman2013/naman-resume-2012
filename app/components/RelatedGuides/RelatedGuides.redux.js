@@ -28,30 +28,38 @@ const mapStateToProps = ({
 @connect(mapStateToProps, null)
 class RelatedGuides extends Component {
   static propTypes = {
+    serviceUrl: string,
     isDesktop: bool,
-    showId: oneOfType([string, number]).isRequired,
+    slugLookupId: oneOfType([string, number]),
+    showId: oneOfType([string, number])
   };
   static defaultProps = {
+    serviceUrl: RELATED_GUIDES,
     isDesktop: false,
+    showId: null,
+    slugLookupId: null,
   };
 
   render() {
     const {
+      serviceUrl,
       isDesktop,
       user,
+      slugLookupId,
       showId,
     } = this.props;
 
     return (
       <Request
         authorizationRedirect={true}
-        serviceURL={RELATED_GUIDES}
+        serviceURL={serviceUrl}
         method="POST"
         serviceExpiresFieldName="expires"
         requestBody={{
           cid: user.cid,
           token: user.token,
           at: user.at,
+          slugLookupId,
           showId,
         }}
         render={({
@@ -64,7 +72,7 @@ class RelatedGuides extends Component {
                 isDesktop={isDesktop}
                 fetching={fetchingContent}
                 user={user}
-                showId={showId}
+                slugLookupId={slugLookupId}
                 {...context}
                 {...serviceResponse}
               />)}
