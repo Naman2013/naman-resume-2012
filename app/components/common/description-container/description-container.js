@@ -2,9 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import style from './description-container.style';
 
-const DescriptionContainer = ({ mainTitle, title, content, footer, theme }) => (
+const DescriptionContainer = ({ title, content, footer, theme }) => (
   <div className="root" style={theme}>
-    {mainTitle ? <div className="big-title">{mainTitle}</div> : null }
     <h4 className="title">{title}</h4>
     <p dangerouslySetInnerHTML={{ __html: content }}></p>
     {footer ? footer() : null}
@@ -13,7 +12,6 @@ const DescriptionContainer = ({ mainTitle, title, content, footer, theme }) => (
 );
 
 DescriptionContainer.propTypes = {
-  mainTitle: PropTypes.string,
   footer: PropTypes.func,
   theme: PropTypes.shape({}),
   title: PropTypes.string,
@@ -21,7 +19,6 @@ DescriptionContainer.propTypes = {
 };
 
 DescriptionContainer.defaultProps = {
-  mainTitle: null,
   footer: null,
   theme: {},
   title: '',

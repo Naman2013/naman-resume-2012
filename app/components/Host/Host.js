@@ -76,8 +76,12 @@ class Hosts extends Component {
           <span className="host-name" dangerouslySetInnerHTML={{ __html: hostName }} />
           <span className="icon-line-horz" />
           <div className="icon-container flex-item">
-            <div className="icon" style={profPic(hostPhotoURL)} />
-            <span className="circle-icon-line" />
+            <div className="vert-line" />
+            <div className="icon-container-circle">
+              <div className="circle-icon-line">
+                <div className="icon" style={profPic(hostPhotoURL)} />
+              </div>
+            </div>
           </div>
           <span className="icon-line-horz" />
           <div className="member-info">
