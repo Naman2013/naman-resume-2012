@@ -28,7 +28,7 @@ const StaticCell = ({
     }, theme)}
   >
     <div className="positioning-container">
-      { title && <h2 className="title">{title}:</h2> }
+      { title && <h2 className="title">{title}</h2> }
       {children}
     </div>
 

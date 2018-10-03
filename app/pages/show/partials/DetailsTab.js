@@ -13,7 +13,7 @@ import BlueLineDrop from 'components/common/BlueLineDrop';
 import RelatedShows from 'components/RelatedShows';
 import RelatedStories from 'components/RelatedStories';
 import RelatedGuides from 'components/RelatedGuides';
-import RelatedObject from 'components/RelatedObject';
+import RelatedObject from 'components/RelatedObject/BootstrappedRelatedObject';
 import styles from './MainContent.style';
 
 const {
