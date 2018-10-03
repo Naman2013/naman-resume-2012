@@ -24,6 +24,8 @@ export default css`
     border-bottom: 1px solid ${hawkesBlue};
     text-transform: uppercase;
     font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 1px;
   }
 
   .author {
@@ -57,6 +59,9 @@ export default css`
     padding: 10px 0;
     border-bottom: 1px solid ${hawkesBlue};
     width: 100%;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 1px;
   }
 
 

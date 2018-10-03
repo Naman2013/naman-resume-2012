@@ -5,11 +5,13 @@ import { screenMedium, screenLarge, screenXLarge } from '../../styles/variables/
 
 export default css`
 
-  .ask-astronomer {
-    background-color: #F2F3F4;
+  .full-bg {
+     background-color: #F2F3F4;
   }
-
   
+  .ask-astronomer {
+   
+  }
 
   .loader {
     display: block;
@@ -53,6 +55,14 @@ export default css`
     transform: translate(-50%, -50%);
   }
 
+  .show {
+    display: block;
+  }
+
+  .hidden {
+    display: none;
+  }
+
 
   .btn-nav {
     position: absolute;
@@ -74,12 +84,12 @@ export default css`
     right: 50px;
   }
 
-  .btn-nav.active {
+  .btn-nav.show {
     color: ${astronaut};
     font-weight: 600;
   }
 
-  .btn-nav.active:after {
+  .btn-nav.show:after {
     content: ""; 
     display: block;
     position: absolute;
@@ -89,14 +99,9 @@ export default css`
     background: url("https://vega.slooh.com/assets/v4/common/icon_navarrow_blue.svg") no-repeat center center; 
   }
 
-  .show {
-    display: block;
+  .btn-nav.hidden {
+    display: block !important;
   }
-
-  .hidden {
-    display: none;
-  }
-
 
   .center-line {
     border-right: 1px solid ${hawkesBlue};
@@ -106,11 +111,35 @@ export default css`
 
   @media ${screenMedium} {
 
+    /* .ask-astronomer {
+      display: flex;
+      flex-direction: row;
+      padding: 0;
+    }
+
+    .loader {
+      display: block;
+      text-align: center;
+      margin: 25px;
+      padding: 25px;
+    }
+
+    .left {
+      flex: 3;
+    }
+
+    .right {
+      flex: 1;
+    } */
+  }
+
+  @media ${screenXLarge} {
+
     .ask-mobile-header {
       display: none;
     }
 
-    .ask-astronomer {
+.ask-astronomer {
       display: flex;
       flex-direction: row;
       padding: 0;
@@ -130,16 +159,12 @@ export default css`
     .right {
       flex: 1;
     }
-  }
-
-  @media ${screenXLarge} {
-
     .show {
       display: block;
     }
 
     .hidden {
-      display: block;
+      display: block important!;
     }
   }
 `;

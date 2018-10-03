@@ -9,7 +9,6 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import classnames from 'classnames';
 import {
   fetchAstronomerQuestions,
 } from '../../modules/ask-astronomer-questions/actions';
@@ -19,9 +18,7 @@ import {
 import AskQuestionTile from '../../components/ask-astronomer/AskQuestionTile';
 import QuestionList from '../../components/ask-astronomer/question-list';
 import AskAstronomerQuestionForm from '../../components/ask-astronomer/question-form';
-import noop from 'lodash/noop';
-import GenericButton from '../../components/common/style/buttons/Button';
-import DeviceProvider from '../../../app/providers/DeviceProvider';
+import { DeviceContext } from '../../providers/DeviceProvider';
 import ObjectDetailsSectionTitle from '../../components/object-details/ObjectDetailsSectionTitle';
 import CenterColumn from '../../../app/components/common/CenterColumn';
 import style from './AskAstronomer.style';
@@ -95,8 +92,9 @@ class AskAstronomer extends Component {
     super(props);
 
     this.state = {
-      leftView: "hidden",
+      leftView: "show",
       rightView: "show",
+      "mobile": false,
     };
   
   }
@@ -146,15 +144,29 @@ class AskAstronomer extends Component {
 
   handleMobileClick = () => {
     let lefty = (this.state.leftView === "hidden") ? "show" : "hidden";
-    this.setState({"leftView":lefty});
     let righty = (this.state.rightView === "hidden") ? "show" : "hidden";
-    this.setState({"rightView":righty});
-
-    this.updateAstroView ();
+    
+    this.setState ({
+      "leftView": lefty,
+      "rightView": righty,
+      "mobile": true,
+    });
   }
 
-  updateAstroView = () => {
-    console.log('this is:', this.state);   
+  setMobileView = () => {
+    this.setState ({
+      "leftView": "show",
+      "rightView": "hidden",
+      "mobile": true,
+    });
+  }
+
+  setDesktopView = () => {
+    this.setState ({
+      "leftView": "show",
+      "rightView": "show",
+      "mobile": false,
+    });
   }
 
   render() {
@@ -178,7 +190,7 @@ class AskAstronomer extends Component {
       user,
     } = this.props;
     return (
-      <Fragment>
+      <div className="full-bg">
           <ObjectDetailsSectionTitle title={objectTitle + "'s"} subTitle="Ask An Astronomer" />        
           <CenterColumn>
             <div className="ask-astronomer">
@@ -191,8 +203,8 @@ class AskAstronomer extends Component {
                   </div>
                 </div>
                 <div className="center-line" />
-                <span className="btn-nav active" onClick={this.handleMobileClick}>Questions</span>
-                <span className="btn-nav" onClick={this.handleMobileClick}>Ask Now</span>      
+                <span className={'btn-nav ' + this.state.leftView} onClick={this.handleMobileClick}>Questions</span>
+                <span className={'btn-nav ' + this.state.rightView} onClick={this.handleMobileClick}>Ask Now</span>      
               </div>            
               <div className={'left ' + this.state.leftView}>
                 {fetchingQuestions && <div className="fa fa-spinner loader" />}
@@ -209,6 +221,21 @@ class AskAstronomer extends Component {
                   totalCount={totalCount}
                 />}
               </div>
+              <Fragment>
+                <DeviceContext.Consumer>
+                  {
+                    (context) => {
+                      if (context.isScreenXLarge && this.state.mobile === true) {
+                        this.setDesktopView ();
+                      } 
+                      else if (!context.isScreenXLarge && this.state.mobile === false) {
+                        this.setMobileView ();
+                      }
+                    }
+                  }
+                </DeviceContext.Consumer>
+              </Fragment>
+
               <div className={'right ' + this.state.rightView}>
                 {/*<AskAstronomerQuestionForm
                   objectId={objectId}
@@ -221,7 +248,7 @@ class AskAstronomer extends Component {
             </div>
           </CenterColumn>
         <style jsx>{style}</style>
-      </Fragment>
+      </div>
     )
   }
 }
