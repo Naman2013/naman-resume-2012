@@ -36,6 +36,7 @@ const BootstrappedStoryDetails = (props) => {
     postId,
     S3Files,
     slug,
+    storyDetails,
     type,
     user,
   } = props;
@@ -67,20 +68,7 @@ const BootstrappedStoryDetails = (props) => {
           screenXLarge
         >
           <LabeledTitleTiles
-            tiles={{
-              type: {
-                label: 'Type',
-                text: 'Public'
-              },
-              created: {
-                label: 'Created',
-                text: 'Apr 13, 2018'
-              },
-              members: {
-                label: 'Members',
-                text: '3'
-              }
-            }}
+            tiles={storyDetails}
           />
         </DisplayAtBreakpoint>
         <div className="main-container">
