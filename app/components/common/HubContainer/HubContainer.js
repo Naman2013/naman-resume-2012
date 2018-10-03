@@ -8,6 +8,7 @@ import CenterColumn from 'components/common/CenterColumn';
 import HubHeader from 'components/common/HubHeader';
 import HubSort from 'components/common/HubSort';
 import UnderlineNav from 'components/common/UnderlineNav';
+import PaginateWithNetwork from 'components/common/paginate-with-network';
 import { seashell } from 'styles/variables/colors_tiles_v4';
 import { goldCompass } from 'styles/variables/iconURLs';
 
@@ -17,6 +18,7 @@ const {
   arrayOf,
   shape,
   string,
+  func,
 } = PropTypes;
 
 const getDefaultIndex = (set, item) => {
@@ -24,15 +26,17 @@ const getDefaultIndex = (set, item) => {
   return idx < 0 ? 0 : idx;
 };
 
-const QUERY_TYPES = ['sort', 'filter', 'page'];
+const QUERY_TYPES = ['sort', 'page'];
 
 class HubContainer extends Component {
   static propTypes = {
-    hubTitle: string,
+    updateList: func.isRequired,
+    pageTitle: string,
     filterOptions: arrayOf(shape({
       label: string,
       value: string,
     })),
+    paginateURL: string,
     filterType: string,
     sortOptions: arrayOf(shape({
       label: string,
@@ -50,7 +54,8 @@ class HubContainer extends Component {
 
   static defaultProps = {
     filterType: null,
-    hubTitle: '',
+    pageTitle: '',
+    paginateURL: null,
     iconURL: goldCompass,
     filterOptions: [],
     sortOptions: [],
@@ -61,8 +66,8 @@ class HubContainer extends Component {
 
   state = {
     page: this.props.location.query.page || 1,
-    sort: this.props.location.query.sort || 'asc',
-    defaultSortIndex: getDefaultIndex(this.props.sortOptions, this.props.location.query.sort || 'asc'),
+    sort: this.props.location.query.sort || 'atoz',
+    defaultSortIndex: getDefaultIndex(this.props.sortOptions, this.props.location.query.sort || 'atoz'),
   }
 
   componentWillReceiveProps(nextProps) {
@@ -88,8 +93,9 @@ class HubContainer extends Component {
 
   setQueryParams = (query) => {
     const params = queryString.stringify(query);
+    const { filterType } = this.props;
     browserHistory.push({
-      pathname: '/guides',
+      pathname: filterType ? `/guides/${filterType}` : '/guides',
       search: `?${params}`,
     });
   }
@@ -104,24 +110,37 @@ class HubContainer extends Component {
     });
   }
 
+  handlePaginationResponse = (resp) => {
+    if (!resp.apiError)
+    this.props.updateList(resp)
+  }
+
+  handlePaginationChange = ({ activePage }) => {
+    this.setState({ page: activePage });
+  }
+
   render() {
     const {
       filterOptions,
       filterType,
-      hubTitle,
+      pageTitle,
       iconURL,
+      paginateURL,
       render,
       sortOptions,
     } = this.props;
+    console.log('PORPS', this.props)
 
     const {
       defaultSortIndex,
+      sort,
+      page
     } = this.state;
     return (
       <div className="root">
         <HubHeader
           icon={iconURL}
-          title={hubTitle}
+          title={pageTitle}
           renderNav={() => (
             <div className="navigation-bar">
               <UnderlineNav
@@ -136,7 +155,22 @@ class HubContainer extends Component {
             </div>
           )}
         />
-        <CenterColumn theme={{ backgroundColor: seashell }}>{render()}</CenterColumn>
+        <div>
+          {render()}
+          <div className="pagination-container">
+            <PaginateWithNetwork
+              apiURL={paginateURL}
+              activePageNumber={page}
+              onServiceResponse={this.handlePaginationResponse}
+              onPaginationChange={this.handlePaginationChange}
+              filterOptions={{
+                sortBy: sort,
+                page,
+                type: filterType,
+              }}
+            />
+          </div>
+        </div>
         <style jsx>{style}</style>
       </div>
     );

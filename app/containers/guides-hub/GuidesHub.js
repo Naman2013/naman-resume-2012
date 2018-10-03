@@ -1,11 +1,16 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-
+import axios from 'axios';
+import noop from 'lodash/noop';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import GuideTiles from 'components/guides-hub/guide-tiles';
 import Request from 'components/common/network/Request';
 import HubContainer from 'components/common/HubContainer';
+
 import { GUIDES_PAGE_ENDPOINT_URL, GUIDES_ENDPOINT_URL } from 'services/guides/guide-data';
 import { DeviceContext } from 'providers/DeviceProvider';
-import BootstrappedGuidesHub from './BootstrappedGuidesHub';
+import { validateResponseAccess } from 'modules/authorization/actions'
 import style from './guides-hub.style';
 
 const COUNT = 9;
@@ -20,70 +25,87 @@ const guidesHubModel = {
   }),
 };
 
-const Guides = props => (
-  <div>
-    <Request
-      serviceURL={GUIDES_PAGE_ENDPOINT_URL}
-      model={guidesHubModel}
-      requestBody={{}}
-      render={({
-        fetchingContent,
-        modeledResponses: { GUIDE_HUB_MODEL },
-        serviceRes = {},
-      }) => (
-        <Fragment>
-          {
-            !fetchingContent &&
-              <DeviceContext.Consumer>
-                {context => (
-                  <HubContainer
-                    {...props}
-                    {...GUIDE_HUB_MODEL}
-                    {...context}
-                    iconURL={serviceRes.pageIconURL}
-                    hubTitle={serviceRes.pageTitle}
-                    filterType={props.params.filterType}
-                    render={() => (
-                      <Request
-                        serviceURL={GUIDES_ENDPOINT_URL}
-                        requestBody={{
-                          count: COUNT,
-                          page: DEFAULT_PAGE,
-                          type: props.params.filterType,
-                        }}
-                        render={({
-                          fetchingGuides,
-                          serviceResponse,
-                        }) => (
-                          <BootstrappedGuidesHub
-                            {...context}
-                            {...serviceResponse}
-                            fetching={fetchingGuides}
-                            page={DEFAULT_PAGE}
-                            count={COUNT}
-                          />
-                        )}
-                      />
-                    )}
-                  />
-                )}
-              </DeviceContext.Consumer>
-          }
-        </Fragment>
-      )}
-    />
-    <style jsx>{style}</style>
-  </div>
-);
+class Guides extends Component {
+  static propTypes = {
+    validateResponseAccess: PropTypes.func,
+    params: PropTypes.shape({
+      filterType: PropTypes.string.isRequired,
+    }),
+  };
 
-Guides.propTypes = {
-  params: PropTypes.shape({
-    filterType: PropTypes.string.isRequired,
-  }),
-};
+  static defaultProps = {
+    validateResponseAccess: noop,
+    params: {},
+  };
 
-Guides.defaultProps = {
-  params: {},
-};
+  state = {
+    guides: [],
+  };
 
-export default Guides;
+  updateGuidesList = (resData) => {
+    this.setState(() => ({
+      guides: resData.guidesList,
+    }));
+  }
+
+  render() {
+    const {} = this.props;
+    const {
+      guides
+    } = this.state;
+    return (<div>
+      <Request
+        serviceURL={GUIDES_PAGE_ENDPOINT_URL}
+        model={guidesHubModel}
+        requestBody={{}}
+        render={({
+          fetchingContent,
+          modeledResponses: { GUIDE_HUB_MODEL },
+          serviceResponse = {},
+        }) => (
+          <Fragment>
+            {
+              !fetchingContent &&
+                <DeviceContext.Consumer>
+                  {context => (
+                    <HubContainer
+                      {...this.props}
+                      {...GUIDE_HUB_MODEL}
+                      {...context}
+                      paginateURL={GUIDES_ENDPOINT_URL}
+                      page={DEFAULT_PAGE}
+                      count={COUNT}
+                      updateList={this.updateGuidesList}
+                      iconURL={serviceResponse.pageIconURL}
+                      pageTitle={serviceResponse.pageTitle}
+                      filterType={this.props.params.filterType}
+                      render={() => (
+                        <GuideTiles guides={guides} />
+                      )}
+                    />
+                  )}
+                </DeviceContext.Consumer>
+            }
+          </Fragment>
+        )}
+      />
+      <style jsx>{style}</style>
+    </div>)
+  }
+}
+
+
+
+const mapStateToProps = ({
+  user,
+}) => ({
+  user,
+});
+
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators({
+    validateResponseAccess,
+  }, dispatch),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Guides);
