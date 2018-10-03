@@ -50,7 +50,7 @@ const MainContainer = ({
     </div>
   );
   return (
-    <div>
+    <div className="main-root">
       <DisplayAtBreakpoint
           screenSmall
         >
