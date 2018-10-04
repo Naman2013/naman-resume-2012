@@ -29,7 +29,7 @@ const MOCK_RESPONSE = {
         },
         primaryLink4: {
           'name': 'Guides',
-          'link': '/guides',
+          'link': '/guides/all',
         },
         primaryLink5: {
           'name': 'Groups',

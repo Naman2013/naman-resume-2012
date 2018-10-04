@@ -19,7 +19,7 @@ const {
 
 class UnderlineNav extends Component {
   static propTypes = {
-    activeFilter: number,
+    activeFilter: string,
     navItems: arrayOf(shape({
       label: string,
       linkURL: string,

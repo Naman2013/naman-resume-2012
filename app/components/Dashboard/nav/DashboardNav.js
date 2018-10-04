@@ -53,7 +53,7 @@ class DashboardNav extends Component {
           </Link>
         </div>
         <div className="dash-nav-item">
-          <Link to="/guides">
+          <Link to="/guides/all">
             <div className="link-container">
               <img alt="guides" src={guides} />
               <div className="title-item">guides</div>

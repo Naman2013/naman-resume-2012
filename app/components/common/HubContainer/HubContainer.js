@@ -53,7 +53,7 @@ class HubContainer extends Component {
   };
 
   static defaultProps = {
-    filterType: null,
+    filterType: 'all',
     pageTitle: '',
     paginateURL: null,
     iconURL: goldCompass,

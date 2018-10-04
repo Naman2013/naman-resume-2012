@@ -29,13 +29,15 @@ class Guides extends Component {
   static propTypes = {
     validateResponseAccess: PropTypes.func,
     params: PropTypes.shape({
-      filterType: PropTypes.string.isRequired,
+      filterType: PropTypes.string,
     }),
   };
 
   static defaultProps = {
     validateResponseAccess: noop,
-    params: {},
+    params: {
+      filterType: 'all'
+    },
   };
 
   state = {
