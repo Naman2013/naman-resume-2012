@@ -80,7 +80,10 @@ class Guides extends Component {
                       pageTitle={serviceResponse.pageTitle}
                       filterType={this.props.params.filterType}
                       render={() => (
-                        <GuideTiles guides={guides} />
+                        <Fragment>
+                        {fetchingContent ? <div>Loading</div> : null}
+                        {!fetchingContent && guides ?  <GuideTiles guides={guides} /> : <div>There are no guides.</div>}
+                        </Fragment>
                       )}
                     />
                   )}

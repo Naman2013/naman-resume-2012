@@ -65,20 +65,16 @@ class HubContainer extends Component {
   };
 
   state = {
-    page: this.props.location.query.page || 1,
+    page: 1,
     sort: this.props.location.query.sort || 'atoz',
     defaultSortIndex: getDefaultIndex(this.props.sortOptions, this.props.location.query.sort || 'atoz'),
   }
 
   componentWillReceiveProps(nextProps) {
-    let { page, sort } = this.props.location.query;
+    let { sort } = this.props.location.query;
     const { page: nextPage, sort: nextSort } = nextProps.location.query;
     let changeState = false;
 
-    if (page !== nextPage) {
-      page = nextPage;
-      changeState = true;
-    }
 
     if (sort !== nextSort) {
       sort = nextSort;
@@ -86,8 +82,8 @@ class HubContainer extends Component {
     }
 
     if (changeState) {
-      this.setState({ page, sort });
-      this.setQueryParams({ page, sort });
+      this.setState({ sort });
+      this.setQueryParams({ sort });
     }
   }
 
@@ -112,11 +108,18 @@ class HubContainer extends Component {
 
   handlePaginationResponse = (resp) => {
     if (!resp.apiError)
-    this.props.updateList(resp)
+    this.props.updateList(resp);
   }
 
   handlePaginationChange = ({ activePage }) => {
-    this.setState({ page: activePage });
+    this.setState((state) => {
+      // TODO: preserve page in query params
+      // const query = Object.assign({}, state, { page: activePage });
+      // this.setQueryParams(pick(query, QUERY_TYPES));
+      return ({
+        page: activePage,
+      });
+    });
   }
 
   render() {
@@ -129,7 +132,6 @@ class HubContainer extends Component {
       render,
       sortOptions,
     } = this.props;
-    console.log('PORPS', this.props)
 
     const {
       defaultSortIndex,
@@ -160,7 +162,7 @@ class HubContainer extends Component {
           <div className="pagination-container">
             <PaginateWithNetwork
               apiURL={paginateURL}
-              activePageNumber={page}
+              activePageNumber={Number(page)}
               onServiceResponse={this.handlePaginationResponse}
               onPaginationChange={this.handlePaginationChange}
               filterOptions={{

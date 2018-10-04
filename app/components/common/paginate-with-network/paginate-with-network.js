@@ -18,13 +18,8 @@ class PaginateWithNetwork extends Component {
     filterOptions: {},
   }
 
-  state = { totalPageCount: 10 }
-
   handleServiceResponse = (resp) => {
     this.props.onServiceResponse(resp);
-
-    // TODO: refactor, this is too brittle...
-    this.setState({ totalPageCount: resp.pages });
   }
 
   render() {
@@ -39,9 +34,11 @@ class PaginateWithNetwork extends Component {
         serviceURL={apiURL}
         requestBody={Object.assign({ page: activePageNumber }, filterOptions)}
         serviceResponseHandler={this.handleServiceResponse}
-        render={() => (
+        render={({
+          serviceResponse,
+        }) => (
           <Pagination
-            totalPageCount={this.state.totalPageCount}
+            totalPageCount={serviceResponse.pages}
             activePage={activePageNumber}
             pagesPerPage={4}
             onPageChange={this.props.onPaginationChange}
