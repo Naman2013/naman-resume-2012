@@ -194,6 +194,7 @@ class AskAstronomer extends Component {
           <ObjectDetailsSectionTitle title={objectTitle + "'s"} subTitle="Ask An Astronomer" />        
           <CenterColumn>
             <div className="ask-astronomer">
+
               <div className="ask-mobile-header">         
                 <div className="icon-container">
                   <div className="border">
@@ -205,7 +206,23 @@ class AskAstronomer extends Component {
                 <div className="center-line" />
                 <span className={'btn-nav ' + this.state.leftView} onClick={this.handleMobileClick}>Questions</span>
                 <span className={'btn-nav ' + this.state.rightView} onClick={this.handleMobileClick}>Ask Now</span>      
-              </div>            
+              </div>  
+
+              <div className={'right ' + this.state.rightView}>
+                {/*<AskAstronomerQuestionForm
+                  objectId={objectId}
+                  topicId={faqTopicId}
+                  objectTitle={objectTitle}
+                  user={user}
+                />*/}
+                <AskQuestionTile></AskQuestionTile>
+                <div className="ask-tablet-subnav">         
+                  <div className="center-line" />
+                  <span className={'btn-nav ' + this.state.leftView} onClick={this.handleMobileClick}>Questions</span>
+                  <span className={'btn-nav ' + this.state.rightView} onClick={this.handleMobileClick}>MVP ASTRONOMERS</span>      
+                </div>            
+              </div>  
+
               <div className={'left ' + this.state.leftView}>
                 {fetchingQuestions && <div className="fa fa-spinner loader" />}
                 {!fetchingQuestions && <QuestionList
@@ -221,14 +238,15 @@ class AskAstronomer extends Component {
                   totalCount={totalCount}
                 />}
               </div>
+
               <Fragment>
                 <DeviceContext.Consumer>
                   {
                     (context) => {
-                      if (context.isScreenXLarge && this.state.mobile === true) {
+                      if (context.isScreenMedium && this.state.mobile === true) {
                         this.setDesktopView ();
                       } 
-                      else if (!context.isScreenXLarge && this.state.mobile === false) {
+                      else if (!context.isScreenMedium && this.state.mobile === false) {
                         this.setMobileView ();
                       }
                     }
@@ -236,15 +254,6 @@ class AskAstronomer extends Component {
                 </DeviceContext.Consumer>
               </Fragment>
 
-              <div className={'right ' + this.state.rightView}>
-                {/*<AskAstronomerQuestionForm
-                  objectId={objectId}
-                  topicId={faqTopicId}
-                  objectTitle={objectTitle}
-                  user={user}
-                />*/}
-                <AskQuestionTile></AskQuestionTile>
-              </div>  
             </div>
           </CenterColumn>
         <style jsx>{style}</style>

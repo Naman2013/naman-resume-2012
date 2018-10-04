@@ -8,7 +8,7 @@ export default css`
   .full-bg {
      background-color: #F2F3F4;
   }
-  
+
   .ask-astronomer {
    
   }
@@ -111,6 +111,16 @@ export default css`
 
   @media ${screenMedium} {
 
+    .ask-mobile-header {
+      display: none;
+    }
+
+    .ask-tablet-subnav {
+      position: relative;
+      display: block;
+      box-shadow: 0px 3px 1px 0px rgba(0,0,0,0.1);
+    }
+
     /* .ask-astronomer {
       display: flex;
       flex-direction: row;
@@ -139,10 +149,15 @@ export default css`
       display: none;
     }
 
-.ask-astronomer {
+    .ask-tablet-subnav {
+      display: none;
+    }
+
+    .ask-astronomer {
       display: flex;
       flex-direction: row;
       padding: 0;
+      position: relative;
     }
 
     .loader {
@@ -153,12 +168,14 @@ export default css`
     }
 
     .left {
-      flex: 3;
+      width: 66%;
     }
 
     .right {
-      flex: 1;
+      position: absolute;
+      right: 0;
     }
+
     .show {
       display: block;
     }
