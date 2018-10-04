@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import noop from 'lodash/noop';
 import axios from 'axios';
 import ShowMore from 'components/common/ShowMore';
 
@@ -15,6 +16,9 @@ class ShowMoreWithNetwork extends Component {
       currentCount: PropTypes.string,
       totalCount: PropTypes.string,
     }),
+    validateResponseAccess: PropTypes.func,
+    user: PropTypes.shape({
+    })
   }
 
   static defaultProps = {
@@ -26,24 +30,45 @@ class ShowMoreWithNetwork extends Component {
       currentCount: 'count',
       totalCount: 'total',
     },
+    user: {},
+    validateResponseAccess: noop,
   }
 
-  state = {
-
+  constructor(props) {
+    super();
+    this.state = {
+      numberOfItems: 0,
+      totalNumberOfItems: 0,
+    };
+    axios.post(props.apiURL, Object.assign({ page: props.activePageNumber }, props.filterOptions)).then(res => this.handleServiceResponse(res.data));
   }
 
-  componentDidMount() {
+  getPage = (page) => {
     const {
       apiURL,
-      activePageNumber,
       filterOptions,
-      responseFieldNames,
+      onPaginationChange,
+      user,
+      validateResponseAccess,
     } = this.props;
-    axios.post(apiURL, Object.assign({ page: activePageNumber }, filterOptions)).then(this.handleServiceResponse(res.data));
+    onPaginationChange({ activePage: page });
+
+    const params = Object.assign({ ...user, page }, filterOptions);
+    axios.post(apiURL, params).then((res) => {
+      validateResponseAccess(res);
+      return this.handleServiceResponse(res.data);
+    });
   }
 
   handleServiceResponse = (resp) => {
+    const {
+      responseFieldNames,
+    } = this.props;
     this.props.onServiceResponse(resp);
+    this.setState(state => ({
+      numberOfItems: state.numberOfItems + resp[responseFieldNames.currentCount],
+      totalNumberOfItems: resp[responseFieldNames.totalCount],
+    }));
   }
 
   render() {
@@ -54,13 +79,15 @@ class ShowMoreWithNetwork extends Component {
       responseFieldNames,
     } = this.props;
 
+    const { numberOfItems, totalNumberOfItems } = this.state;
+
     return (
       <Fragment>
         <ShowMore
-          currentCount={serviceResponse[responseFieldNames.currentCount]}
-          totalCount={serviceResponse[responseFieldNames.totalCount]}
-          defaultPage={activePageNumber}
-          handleShowMore={this.props.onPaginationChange}
+          currentCount={numberOfItems}
+          totalCount={totalNumberOfItems}
+          page={activePageNumber}
+          handleShowMore={this.getPage}
         />
       </Fragment>
     );

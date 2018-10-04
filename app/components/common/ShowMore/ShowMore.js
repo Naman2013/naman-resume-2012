@@ -17,18 +17,18 @@ const {
   number,
 } = PropTypes;
 
-class ShowMoreFullSet extends Component {
+class ShowMore extends Component {
 
   static propTypes = {
     currentCount: number,
-    defaultPage: number,
+    page: number,
     totalCount: number,
     handleShowMore: func.isRequired,
   }
 
   static defaultProps = {
     currentCount: 10,
-    defaultPage: 1,
+    page: 1,
     totalCount: 0,
   }
 
@@ -38,16 +38,8 @@ class ShowMoreFullSet extends Component {
 
   showMore = (e) => {
     e.preventDefault();
-    const {
-      currentCount,
-      handleShowMore,
-      totalCount,
-    } = this.props;
-    const { page } = this.state;
-    const amountDisplayed = (count * page);
-    const updatedDataSet = take(fullDataSet, amountDisplayed + count)
-      .map(item => item[idField]);
-    return handleShowMore(updatedDataSet, (page + 1));
+    const { page, handleShowMore } = this.props;
+    return handleShowMore(Number(page) + 1);
   };
 
   render() {
@@ -57,13 +49,13 @@ class ShowMoreFullSet extends Component {
       page,
       totalCount,
     } = this.props;
-    const remaining = totalCount - (currentCount * page);
+    const remaining = totalCount - currentCount;
     return (
       <div>
-        {remaining > 0 ? <Button text={`Show More(${remaining})`} onClickEvent={this.showMore} /> : null}
+        {remaining > 0 ? <Button text={`Show More(${remaining})`} onClickEvent={this.showMore} theme={{ margin: '15px auto' }}/> : null}
       </div>
     )
   }
 }
 
-export default ShowMoreFullSet;
+export default ShowMore;

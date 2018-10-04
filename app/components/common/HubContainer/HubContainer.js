@@ -7,6 +7,7 @@ import pick from 'lodash/pick';
 import CenterColumn from 'components/common/CenterColumn';
 import HubHeader from 'components/common/HubHeader';
 import HubSort from 'components/common/HubSort';
+import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
 import UnderlineNav from 'components/common/UnderlineNav';
 import PaginateWithNetwork from 'components/common/paginate-with-network';
 import { seashell } from 'styles/variables/colors_tiles_v4';
@@ -16,6 +17,7 @@ import style from './HubContainer.style';
 
 const {
   arrayOf,
+  bool,
   shape,
   string,
   func,
@@ -31,6 +33,7 @@ const QUERY_TYPES = ['sort'];
 class HubContainer extends Component {
   static propTypes = {
     updateList: func.isRequired,
+    appendToList: func.isRequired,
     pageTitle: string,
     filterOptions: arrayOf(shape({
       label: string,
@@ -50,6 +53,7 @@ class HubContainer extends Component {
         sort: string,
       }),
     }),
+    isMobile: bool,
   };
 
   static defaultProps = {
@@ -62,6 +66,7 @@ class HubContainer extends Component {
     location: {
       query: {},
     },
+    isMobile: false,
   };
 
   state = {
@@ -122,6 +127,11 @@ class HubContainer extends Component {
     });
   }
 
+  handleShowMoreResponse = (resp) => {
+    if (!resp.apiError)
+    this.props.appendToList(resp);
+  }
+
   render() {
     const {
       filterOptions,
@@ -130,6 +140,7 @@ class HubContainer extends Component {
       iconURL,
       paginateURL,
       render,
+      isMobile,
       sortOptions,
     } = this.props;
 
@@ -158,20 +169,28 @@ class HubContainer extends Component {
           )}
         />
         <div>
-          {render()}
-          <div className="pagination-container">
-            <PaginateWithNetwork
-              apiURL={paginateURL}
-              activePageNumber={Number(page)}
-              onServiceResponse={this.handlePaginationResponse}
-              onPaginationChange={this.handlePaginationChange}
-              filterOptions={{
-                sortBy: sort,
-                page,
-                type: filterType,
-              }}
-            />
-          </div>
+          {render({
+            page,
+            sort,
+            filterType,
+            handleShowMoreChange: this.handlePaginationChange,
+            handleShowMoreResponse: this.handleShowMoreResponse,
+          })}
+          {!isMobile ?
+            <div className="pagination-container">
+              <PaginateWithNetwork
+                apiURL={paginateURL}
+                activePageNumber={Number(page)}
+                onServiceResponse={this.handlePaginationResponse}
+                onPaginationChange={this.handlePaginationChange}
+                filterOptions={{
+                  sortBy: sort,
+                  page,
+                  type: filterType,
+                }}
+              />
+            </div>
+          : null}
         </div>
         <style jsx>{style}</style>
       </div>

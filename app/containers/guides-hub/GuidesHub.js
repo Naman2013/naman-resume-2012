@@ -7,7 +7,8 @@ import { connect } from 'react-redux';
 import GuideTiles from 'components/guides-hub/guide-tiles';
 import Request from 'components/common/network/Request';
 import HubContainer from 'components/common/HubContainer';
-
+import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
+import ShowMoreWithNetwork from 'components/common/show-more-with-network';
 import { GUIDES_PAGE_ENDPOINT_URL, GUIDES_ENDPOINT_URL } from 'services/guides/guide-data';
 import { DeviceContext } from 'providers/DeviceProvider';
 import { validateResponseAccess } from 'modules/authorization/actions'
@@ -50,8 +51,20 @@ class Guides extends Component {
     }));
   }
 
+  appendToGuidesList = (resData) => {
+    this.setState((state) => {
+      const guides = [].concat(state.guides, resData.guidesList)
+      return {
+        guides
+      };
+    });
+  }
+
   render() {
-    const {} = this.props;
+    const {
+      user,
+      actions,
+    } = this.props;
     const {
       guides
     } = this.state;
@@ -78,13 +91,35 @@ class Guides extends Component {
                       page={DEFAULT_PAGE}
                       count={COUNT}
                       updateList={this.updateGuidesList}
+                      appendToList={this.appendToGuidesList}
                       iconURL={serviceResponse.pageIconURL}
                       pageTitle={serviceResponse.pageTitle}
                       filterType={this.props.params.filterType}
-                      render={() => (
+                      render={props => (
                         <Fragment>
-                        {fetchingContent ? <div>Loading</div> : null}
-                        {!fetchingContent && guides ?  <GuideTiles guides={guides} /> : <div>There are no guides.</div>}
+                          {fetchingContent ? <div>Loading</div> : null}
+                          {!fetchingContent && guides.length ? <GuideTiles guides={guides} /> : <div>There are no guides.</div>}
+                          {context.isMobile ?
+                            <div className="pagination-container">
+                              <ShowMoreWithNetwork
+                                apiURL={GUIDES_ENDPOINT_URL}
+                                activePageNumber={Number(props.page)}
+                                onServiceResponse={props.handleShowMoreResponse}
+                                onPaginationChange={props.handleShowMoreChange}
+                                responseFieldNames={{
+                                  currentCount: 'guidesCount',
+                                  totalCount: 'totalGuidesCount',
+                                }}
+                                validateResponseAccess={actions.validateResponseAccess}
+                                user={user}
+                                filterOptions={{
+                                  sortBy: props.sort,
+                                  type: props.filterType,
+                                  count: 5,
+                                }}
+                              />
+                            </div>
+                          : null}
                         </Fragment>
                       )}
                     />
