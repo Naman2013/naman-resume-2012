@@ -26,7 +26,7 @@ const getDefaultIndex = (set, item) => {
   return idx < 0 ? 0 : idx;
 };
 
-const QUERY_TYPES = ['sort', 'page'];
+const QUERY_TYPES = ['sort'];
 
 class HubContainer extends Component {
   static propTypes = {

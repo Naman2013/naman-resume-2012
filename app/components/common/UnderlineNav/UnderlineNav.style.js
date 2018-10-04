@@ -16,6 +16,12 @@ export default css`
     padding: 15px;
   }
 
+  .item-container :global(a:active),
+  .item-container :global(a:focus),
+  .item-container :global(a:hover) {
+    text-decoration: none;
+  }
+
   .item-container.is-active {
     border-bottom: 2px solid ${astronaut};
   }

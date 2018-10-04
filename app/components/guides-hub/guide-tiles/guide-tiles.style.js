@@ -10,9 +10,21 @@ export default css`
   }
 
   .tile {
+    position: relative;
     ${resetMarginPadding}
     margin-bottom: 10px;
     padding: 0 10px;
+  }
+
+  .excerpt {
+    visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 10px;
+  }
+
+  .show-excerpt {
+    visibility: visible;
   }
 
   @media ${screenMedium} {
