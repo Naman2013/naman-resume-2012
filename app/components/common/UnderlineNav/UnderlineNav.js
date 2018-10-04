@@ -47,8 +47,8 @@ class UnderlineNav extends Component {
     this.setState(() => ({
       activeIndex: findIndex(navItems, navItem => navItem.linkURL === selected.value),
     }));
-
     browserHistory.push(selected.value);
+    window.location.reload();
   }
 
   render() {

@@ -44,6 +44,7 @@ class HubSort extends Component {
     }));
 
     handleSort(selectedItem.value);
+    window.location.reload();
   }
 
   toggleMobileDropdown = () => {
