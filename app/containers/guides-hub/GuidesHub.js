@@ -98,7 +98,7 @@ class Guides extends Component {
                       render={props => (
                         <Fragment>
                           {fetchingContent ? <div>Loading</div> : null}
-                          {!fetchingContent && guides.length ? <GuideTiles guides={guides} /> : <div>There are no guides.</div>}
+                          {!fetchingContent && guides.length ? <GuideTiles guides={guides} isMobile={context.isMobile} /> : <div>There are no guides.</div>}
                           {context.isMobile ?
                             <div className="pagination-container">
                               <ShowMoreWithNetwork

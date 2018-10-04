@@ -13,10 +13,12 @@ class GuideTiles extends Component {
       title: PropTypes.string.isRequired,
       subTitle: PropTypes.string.isRequired,
     })).isRequired,
+    isMobile: PropTypes.bool,
   };
 
   state = {
     activeId: null,
+    isMobile: false,
   }
 
   setActiveTile = (e, id) => {
@@ -34,12 +36,12 @@ class GuideTiles extends Component {
 
 
   render() {
-    const { guides } = this.props;
+    const { guides, isMobile } = this.props;
     const { activeId } = this.state;
     return (
       <CenterColumn widths={['645px', '965px', '965px']}>
         <ul className="guide-tiles-root">
-          {guides.map(guide => (
+          {!isMobile && guides.map(guide => (
             <li
               key={`guide-tile-${guide.subTitle}`}
               className="tile"
@@ -56,6 +58,14 @@ class GuideTiles extends Component {
               </div>
 
 
+            </li>
+          ))}
+          {isMobile && guides.map(guide => (
+            <li
+              key={`guide-tile-${guide.subTitle}`}
+              className="tile"
+            >
+              <GuideTile {...guide} />
             </li>
           ))}
         </ul>
