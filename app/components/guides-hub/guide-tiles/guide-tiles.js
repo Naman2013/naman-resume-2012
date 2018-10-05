@@ -24,9 +24,11 @@ class GuideTiles extends Component {
 
   setActiveTile = (e, id) => {
     e.preventDefault();
-    this.setState(state => ({
-      activeId: id,
-    }));
+    if (this.state.activeId !== id) {
+      this.setState(state => ({
+        activeId: id,
+      }));
+    }
   }
 
   removeActiveTile = (e) => {

@@ -23,12 +23,17 @@ class StoriesTiles extends Component {
 
   setActiveTile = (e, id) => {
     e.preventDefault();
-    this.setState(state => ({
-      activeId: id,
-    }));
+
+    if (this.state.activeId !== id) {
+      this.setState(state => ({
+        activeId: id,
+      }));
+    }
+
   }
 
   removeActiveTile = (e) => {
+    e.preventDefault();
     this.setState(state => ({
       activeId: null,
     }));
@@ -38,7 +43,6 @@ class StoriesTiles extends Component {
   render() {
     const { stories, isMobile } = this.props;
     const { activeId } = this.state;
-
     return (
       <CenterColumn widths={['645px', '965px', '965px']}>
         <ul className="story-tiles-root">

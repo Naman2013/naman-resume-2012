@@ -50,6 +50,10 @@ const BootstrappedStoryDetails = (props) => {
     membershipType,
   };
 
+  const headerTheme = storyDetails.length <= 0 ? {
+    padding: '100px'
+  } : {};
+
   return (
     <div className="root story-details">
       <CenterColumn
@@ -62,15 +66,17 @@ const BootstrappedStoryDetails = (props) => {
           likeParams={likeParams}
           user={user}
           mainImage={S3Files[0]}
+          theme={headerTheme}
+
         />
-        <DisplayAtBreakpoint
+        {storyDetails.length > 0 ? <DisplayAtBreakpoint
           screenLarge
           screenXLarge
         >
           <LabeledTitleTiles
             tiles={storyDetails}
           />
-        </DisplayAtBreakpoint>
+        </DisplayAtBreakpoint> : null }
         <div className="main-container">
           <ResponsiveTwoColumnContainer
             renderNavigationComponent={navProps =>
