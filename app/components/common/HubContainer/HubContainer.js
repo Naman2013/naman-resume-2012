@@ -94,9 +94,9 @@ class HubContainer extends Component {
 
   setQueryParams = (query) => {
     const params = queryString.stringify(query);
-    const { filterType } = this.props;
+    const { filterType, hubName } = this.props;
     browserHistory.push({
-      pathname: filterType ? `/guides/${filterType}` : '/guides',
+      pathname: filterType ? `/${hubName}/${filterType}` : `/${hubName}`,
       search: `?${params}`,
     });
   }

@@ -20,7 +20,7 @@ export default css`
   .main-root {
     margin-bottom: 25px;
   }
-  
+
   .shadowed {
     ${faintShadow}
   }
@@ -69,7 +69,7 @@ export default css`
   .story-main-image {
     border-radius: 100%;
     height: 200px;
-    width: 200px;
+    width: auto;
   }
 
   .flex {
@@ -142,7 +142,7 @@ export default css`
 
     .story-main-image {
       height: 440px;
-      width: 440px;
+      width: auto;
     }
   }
 
@@ -167,7 +167,7 @@ export default css`
 
     .story-main-image {
       height: 440px;
-      width: 440px;
+      width: auto;
     }
   }
 

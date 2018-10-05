@@ -1,146 +1,150 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import values from 'lodash/values';
-
-import PaginateWithNetwork from 'components/common/paginate-with-network';
-import { GET_STORIES } from 'services/content';
-
+import noop from 'lodash/noop';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import StoryTiles from 'components/stories-hub/stories-tiles';
 import Request from 'components/common/network/Request';
 import HubContainer from 'components/common/HubContainer';
-import GuideTiles from 'components/stories-hub/guide-tiles';
-import { STORY_DETAILS } from 'services/stories/index';
+import ShowMoreWithNetwork from 'components/common/show-more-with-network';
+import { STORIES_PAGE_ENDPOINT_URL, STORIES_ENDPOINT_URL } from 'services/stories';
 import { DeviceContext } from 'providers/DeviceProvider';
-import { goldCompass } from 'styles/variables/iconURLs';
+import { validateResponseAccess } from 'modules/authorization/actions'
 import style from './stories-hub.style';
 
-const MOCK_DATA = {
-  guideFilterOptions: [
-    {
-      filterOption1: {
-        name: 'All Guides',
-        filter: '*',
-      },
-    },
-    {
-      filterOption2: {
-        name: 'Another Type',
-        filter: 'another',
-      },
-    },
-    {
-      filterOption2: {
-        name: 'Object Type',
-        filter: 'objectType',
-      },
-    },
-  ],
-  guideSortOptions: [
-    {
-      sortOption2: {
-        name: 'A-Z',
-        sort: 'asc',
-      },
-    },
-    {
-      sortOption2: {
-        name: 'Z-A',
-        sort: 'desc',
-      },
-    },
-  ],
-};
+const COUNT = 9;
+const DEFAULT_PAGE = 1;
 
-const guideTiles = [
-  { title: 'A guide to', subTitle: 'Object guide name', linkURL: '#' },
-  { title: 'A guide to', subTitle: 'Object guide name', linkURL: '#' },
-  { title: 'A guide to', subTitle: 'Object guide name', linkURL: '#' },
-  { title: 'A guide to', subTitle: 'Object guide name', linkURL: '#' },
-  { title: 'A guide to', subTitle: 'Object guide name', linkURL: '#' },
-  { title: 'A guide to', subTitle: 'Object guide name', linkURL: '#' },
-  { title: 'A guide to', subTitle: 'Object guide name', linkURL: '#' },
-  { title: 'A guide to', subTitle: 'Object guide name', linkURL: '#' },
-  { title: 'A guide to', subTitle: 'Object guide name', linkURL: '#' },
-  { title: 'A guide to', subTitle: 'Object guide name', linkURL: '#' },
-  { title: 'A guide to', subTitle: 'Object guide name', linkURL: '#' },
-];
 
 const storiesHubModel = {
   name: 'STORIES_HUB_MODEL',
   model: resp => ({
-    filterOptions: MOCK_DATA.guideFilterOptions.map(opt => values(opt)[0]).map(opt => ({ label: opt.name, value: opt.filter })),
-    sortOptions: MOCK_DATA.guideSortOptions.map(opt => values(opt)[0]).map(opt => ({ label: opt.name, value: opt.sort })),
+    filterOptions: resp.navigationConfig,
+    sortOptions: resp.filterOptions.options,
   }),
 };
 
-class Guides extends Component {
+class Stories extends Component {
   static propTypes = {
+    validateResponseAccess: PropTypes.func,
     params: PropTypes.shape({
-      guideId: PropTypes.string.isRequired,
-    }).isRequired,
+      filterType: PropTypes.string,
+    }),
+  };
+
+  static defaultProps = {
+    validateResponseAccess: noop,
+    params: {
+      filterType: 'all'
+    },
+  };
+
+  state = {
+    stories: [],
+  };
+
+  updateStoriesList = (resData) => {
+    this.setState(() => ({
+      stories: resData.storiesList,
+    }));
   }
 
-  handlePaginationResponse(resp) {
-    console.log(resp);
-  }
-
-  state = { currentPage: 1 }
-
-  handlePaginationChange = ({ activePage }) => {
-    this.setState({ currentPage: activePage });
+  appendToStoriesList = (resData) => {
+    this.setState((state) => {
+      const stories = [].concat(state.stories, resData.storiesList)
+      return {
+        stories
+      };
+    });
   }
 
   render() {
-    const { currentPage } = this.state;
-
-    return (
-      <div>
-        <Request
-          serviceURL={STORY_DETAILS}
-          model={storiesHubModel}
-          requestBody={{}}
-          render={({
-            fetchingContent,
-            modeledResponses: { STORIES_HUB_MODEL },
-          }) => (
-            <Fragment>
-              {
-                !fetchingContent &&
-                  <Fragment>
-                    <DeviceContext.Consumer>
-                      {context => (
+    const {
+      user,
+      actions,
+    } = this.props;
+    const {
+      stories
+    } = this.state;
+    return (<div>
+      <Request
+        serviceURL={STORIES_PAGE_ENDPOINT_URL}
+        model={storiesHubModel}
+        requestBody={{}}
+        render={({
+          fetchingContent,
+          modeledResponses: { STORIES_HUB_MODEL },
+          serviceResponse = {},
+        }) => (
+          <Fragment>
+            {
+              !fetchingContent &&
+                <DeviceContext.Consumer>
+                  {context => (
+                    <HubContainer
+                      {...this.props}
+                      {...STORIES_HUB_MODEL}
+                      {...context}
+                      hubName="stories"
+                      paginateURL={STORIES_ENDPOINT_URL}
+                      page={DEFAULT_PAGE}
+                      count={COUNT}
+                      updateList={this.updateStoriesList}
+                      appendToList={this.appendToStoriesList}
+                      iconURL={serviceResponse.pageIconURL}
+                      pageTitle={serviceResponse.pageTitle}
+                      filterType={this.props.params.filterType}
+                      render={props => (
                         <Fragment>
-                          <HubContainer
-                            {...this.props}
-                            {...STORIES_HUB_MODEL}
-                            {...context}
-                            iconURL={goldCompass}
-                            hubTitle="Guides"
-                          />
-                          <GuideTiles stories={guideTiles} />
-                          <div className="pagination-container">
-                            <PaginateWithNetwork
-                              apiURL={GET_STORIES}
-                              activePageNumber={currentPage}
-                              onServiceResponse={this.handlePaginationResponse}
-                              onPaginationChange={this.handlePaginationChange}
-                              filterOptions={{
-                                sortBy: 'recent',
-                                page: currentPage,
-                              }}
-                            />
-                          </div>
+                          {fetchingContent ? <div>Loading</div> : null}
+                          {!fetchingContent && stories.length ? <StoryTiles stories={stories} isMobile={context.isMobile} /> : <div>There are no stories.</div>}
+                          {context.isMobile ?
+                            <div className="pagination-container">
+                              <ShowMoreWithNetwork
+                                apiURL={STORIES_ENDPOINT_URL}
+                                activePageNumber={Number(props.page)}
+                                onServiceResponse={props.handleShowMoreResponse}
+                                onPaginationChange={props.handleShowMoreChange}
+                                responseFieldNames={{
+                                  currentCount: 'storiesCount',
+                                  totalCount: 'totalStoriesCount',
+                                }}
+                                validateResponseAccess={actions.validateResponseAccess}
+                                user={user}
+                                filterOptions={{
+                                  sortBy: props.sort,
+                                  type: props.filterType,
+                                  count: 5,
+                                }}
+                              />
+                            </div>
+                          : null}
                         </Fragment>
                       )}
-                    </DeviceContext.Consumer>
-                  </Fragment>
-              }
-            </Fragment>
-          )}
-        />
-        <style jsx>{style}</style>
-      </div>
-    );
+                    />
+                  )}
+                </DeviceContext.Consumer>
+            }
+          </Fragment>
+        )}
+      />
+      <style jsx>{style}</style>
+    </div>)
   }
 }
 
-export default Guides;
+
+
+const mapStateToProps = ({
+  user,
+}) => ({
+  user,
+});
+
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators({
+    validateResponseAccess,
+  }, dispatch),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Stories);

@@ -41,10 +41,10 @@ class HubSort extends Component {
     const { handleSort, sortItems } = this.props;
     this.setState(() => ({
       activeIndex: findIndex(sortItems, sorItem => sorItem.value === selectedItem.value),
+      mobileDropdownIsShowing: false,
     }));
 
     handleSort(selectedItem.value);
-    window.location.reload();
   }
 
   toggleMobileDropdown = () => {
@@ -76,14 +76,14 @@ class HubSort extends Component {
             screenSmall
           >
             <div className="context-container">
-              {mobileDropdownIsShowing ? null : <div
+              {mobileDropdownIsShowing ? null : (<div
                 className="dots-container"
                 onClick={this.toggleMobileDropdown}
               >
                 <Dots
                   theme={{ circleColor: astronaut }}
                 />
-              </div>}
+              </div>)}
               {mobileDropdownIsShowing ?
                 <div
                   className="sort-dropdown-container"

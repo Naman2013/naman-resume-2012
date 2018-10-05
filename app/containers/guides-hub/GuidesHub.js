@@ -87,6 +87,7 @@ class Guides extends Component {
                       {...this.props}
                       {...GUIDE_HUB_MODEL}
                       {...context}
+                      hubName="guides"
                       paginateURL={GUIDES_ENDPOINT_URL}
                       page={DEFAULT_PAGE}
                       count={COUNT}
