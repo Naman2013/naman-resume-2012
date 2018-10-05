@@ -18,48 +18,26 @@ const {
   string,
 } = PropTypes;
 
-const MOCK_RESPONSE = {
-  copyrightText: '2018 Slooh LLC. All rights reserved',
-  primaryLinks: {
-    primaryLink1: {
-      'name': 'Sitemap',
-      'link': '/sitemap',
-    },
-    primaryLink2: {
-      'name': 'Terms',
-      'link': '/help/terms-and-conditions',
-    },
-    primaryLink3: {
-      'name': 'Privacy',
-      'link': '/help/privacy',
-    },
-    primaryLink4: {
-      'name': 'Patent',
-      'link': '/patent',
-    },
-  },
-}
 
-const footerModel = {
-  name: 'FOOTER_MENU',
-  model: resp => ({
-    ...MOCK_RESPONSE,
-    primaryLinks: Object.values(MOCK_RESPONSE.primaryLinks),
-  }),
-};
+// const footerModel = {
+//   name: 'FOOTER_MENU',
+//   model: resp => ({
+//     ...resp
+//   }),
+// };
 
 const Footer = () => (
   <Request
     serviceURL={GET_FOOTER_NAVIGATION}
     method="POST"
     serviceExpiresFieldName="expires"
-    model={footerModel}
+    // model={footerModel}
     render={({
-      modeledResponses: { FOOTER_MENU },
+      serviceResponse,
     }) => (
       <div>
         {<BootstrappedFooter
-          {...FOOTER_MENU}
+          {...serviceResponse}
         />}
       </div>
     )}

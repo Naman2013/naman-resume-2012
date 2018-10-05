@@ -49,6 +49,7 @@ export default css`
     font-family: ${secondaryFont};
     color: ${astronaut};
     font-size: 19px;
+    padding-top: 15px;
   }
 
   .actions {
