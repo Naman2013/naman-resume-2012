@@ -1,9 +1,10 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router';
 import AveryTile from 'components/common/tiles/AveryTile';
 import style from './story-tile.style';
 
-const StoryTile = ({ title, imageUrl, isMobile, photoSize }) => {
+const StoryTile = ({ title, imageUrl, linkUrl, isMobile, photoSize }) => {
   const mobileStyles = {
     height: '200px',
     width: '300px',
@@ -18,7 +19,9 @@ const StoryTile = ({ title, imageUrl, isMobile, photoSize }) => {
   const theme = isMobile ? mobileStyles : nonMobileStyles;
   return (
     <div className="root">
-      <AveryTile title={title} iconUrl={imageUrl} theme={theme} photoSize={photoSize} />
+      <Link to={linkUrl}>
+        <AveryTile title={title} iconUrl={imageUrl} theme={theme} photoSize={photoSize} />
+      </Link>
       <style jsx>{style}</style>
     </div>
   );

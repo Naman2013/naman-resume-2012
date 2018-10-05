@@ -28,7 +28,7 @@ export default css`
     margin: 0;
     margin-bottom: 10px;
     font-family: ${secondaryFont};
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 0;
   }
 

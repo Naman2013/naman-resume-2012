@@ -31,10 +31,11 @@ const HeaderContainer = ({
   readingListPrompt,
   showLikePrompt,
   title,
+  theme={},
   toggleReadingListFlag,
   user,
 }) =>
-  (<div className="header-container shadowed">
+  (<div className="header-container shadowed" style={theme}>
     <div className="">
       <div dangerouslySetInnerHTML={{ __html: title }} className="story-title" />
       <div className="flex by-line">
