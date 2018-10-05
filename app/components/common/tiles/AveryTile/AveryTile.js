@@ -30,7 +30,7 @@ AveryTile.defaultProps = {
 };
 
 AveryTile.propTypes = {
-  photoSize: PropTypes.string,
+  photoSize: PropTypes.number,
   title: PropTypes.string,
   theme: PropTypes.shape({}),
   iconUrl: PropTypes.string.isRequired,

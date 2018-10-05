@@ -26,10 +26,14 @@ const StoryTile = ({ title, imageUrl, isMobile, photoSize }) => {
 
 StoryTile.propTypes = {
   photoSize: PropTypes.number,
-  isMobile: PropTypes.bool.isRequired,
+  isMobile: PropTypes.bool,
   imageUrl: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   author: PropTypes.string.isRequired,
+};
+
+StoryTile.defaultProps = {
+  isMobile: true,
 };
 
 export default StoryTile;

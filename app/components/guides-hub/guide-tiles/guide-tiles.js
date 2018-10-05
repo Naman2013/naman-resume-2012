@@ -43,7 +43,7 @@ class GuideTiles extends Component {
         <ul className="guide-tiles-root">
           {!isMobile && guides.map(guide => (
             <li
-              key={`guide-tile-${guide.subTitle}`}
+              key={`guide-tile-${guide.guideId}`}
               className="tile"
               onMouseOver={(e) => this.setActiveTile(e, guide.guideId)}
               onMouseOut={this.removeActiveTile}

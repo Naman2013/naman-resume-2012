@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import noop from 'lodash/noop';
+import isMatch from 'lodash/isMatch';
 import axios from 'axios';
 import ShowMore from 'components/common/ShowMore';
 
@@ -10,7 +11,7 @@ class ShowMoreWithNetwork extends Component {
     activePageNumber: PropTypes.number,
     filterOptions: PropTypes.shape({}),
     apiURL: PropTypes.string.isRequired,
-    onPaginationChange: PropTypes.func.isRequired,
+    onPaginationChange: PropTypes.func,
     count: PropTypes.number,
     responseFieldNames: PropTypes.shape({
       currentCount: PropTypes.string,
@@ -23,6 +24,7 @@ class ShowMoreWithNetwork extends Component {
 
   static defaultProps = {
     onServiceResponse: (resp) => { console.log(resp); },
+    onPaginationChange: (q) => { console.log (q); },
     activePageNumber: 1,
     filterOptions: {},
     count: 10,
@@ -41,6 +43,12 @@ class ShowMoreWithNetwork extends Component {
       totalNumberOfItems: 0,
     };
     axios.post(props.apiURL, Object.assign({ page: props.activePageNumber }, props.filterOptions)).then(res => this.handleServiceResponse(res.data));
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (!isMatch(this.props.filterOptions, nextProps.filterOptions)) {
+      axios.post(nextProps.apiURL, Object.assign({ page: nextProps.activePageNumber }, nextProps.filterOptions)).then(res => this.handleServiceResponse(res.data));
+    }
   }
 
   getPage = (page) => {

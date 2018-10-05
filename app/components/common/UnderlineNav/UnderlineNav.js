@@ -24,6 +24,7 @@ class UnderlineNav extends Component {
       label: string,
       linkURL: string,
     })),
+    parentPath: string.isRequired,
   };
 
   static defaultProps = {
@@ -34,7 +35,7 @@ class UnderlineNav extends Component {
   };
 
   state = {
-    activeIndex: findIndex(this.props.navItems, navItem => navItem.linkURL === `/guides/${this.props.activeFilter}`),
+    activeIndex: findIndex(this.props.navItems, navItem => navItem.linkURL === `/${this.props.parentPath}/${this.props.activeFilter}`),
   }
 
   handleClick = (e, selected) => {
@@ -48,7 +49,6 @@ class UnderlineNav extends Component {
       activeIndex: findIndex(navItems, navItem => navItem.linkURL === selected.value),
     }));
     browserHistory.push(selected.value);
-    window.location.reload();
   }
 
   render() {

@@ -5,13 +5,13 @@ import ToggleReadingList from 'components/common/ToggleReadingList';
 import Button from 'components/common/style/buttons/Button';
 import style from './story-excerpt-tile.style';
 
-const StoryTile = ({
+const StoryExcerptTile = ({
   postId,
   title,
   author,
   linkLabel,
   linkUrl,
-  excerpt,
+  shortDescription,
   readingListPrompt,
   readingListType,
   toggleReadingListFlag,
@@ -20,7 +20,7 @@ const StoryTile = ({
   <div className="story-tile-root">
     <div className="title" dangerouslySetInnerHTML={{ __html: title }} />
     <div className="sub-title" dangerouslySetInnerHTML={{ __html: author }} />
-    <div className="description" dangerouslySetInnerHTML={{ __html: excerpt }} />
+    <div className="description" dangerouslySetInnerHTML={{ __html: shortDescription }} />
     <div className="actions">
       <Button text={linkLabel} onClickEvent={() => browserHistory.push(linkUrl)} />
       {toggleReadingListFlag ? <ToggleReadingList
@@ -34,10 +34,10 @@ const StoryTile = ({
   </div>
 );
 
-StoryTile.propTypes = {
-  storyReferenceTitle: PropTypes.string.isRequired,
+StoryExcerptTile.propTypes = {
+  title: PropTypes.string.isRequired,
   author: PropTypes.string.isRequired,
-  excerpt: PropTypes.string.isRequired,
+  shortDescription: PropTypes.string.isRequired,
   linkLabel: PropTypes.string.isRequired,
   linkUrl: PropTypes.string.isRequired,
   readingListPrompt: PropTypes.string.isRequired,
@@ -46,4 +46,4 @@ StoryTile.propTypes = {
   promptIconUrl: PropTypes.string.isRequired,
 };
 
-export default StoryTile;
+export default StoryExcerptTile;

@@ -15,6 +15,7 @@ const {
   func,
   string,
   number,
+  oneOfType,
 } = PropTypes;
 
 class ShowMore extends Component {
@@ -22,7 +23,7 @@ class ShowMore extends Component {
   static propTypes = {
     currentCount: number,
     page: number,
-    totalCount: number,
+    totalCount: oneOfType([string, number]),
     handleShowMore: func.isRequired,
   }
 
@@ -49,10 +50,10 @@ class ShowMore extends Component {
       page,
       totalCount,
     } = this.props;
-    const remaining = totalCount - currentCount;
+    const remaining = Number(totalCount) - currentCount;
     return (
       <div>
-        {remaining > 0 ? <Button text={`Show More(${remaining})`} onClickEvent={this.showMore} theme={{ margin: '15px auto' }}/> : null}
+        {remaining > 0 ? <Button text={`Show More (${remaining})`} onClickEvent={this.showMore} theme={{ margin: '15px auto' }}/> : null}
       </div>
     )
   }

@@ -7,6 +7,7 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router';
 import uniqueId from 'lodash/uniqueId';
 import Select from 'react-select';
 import styles from './DropDown.style';
@@ -22,9 +23,9 @@ const {
   string,
 } = PropTypes;
 
-const CustomOption = ({ innerRef, innerProps, children }) => (
-  <div ref={innerRef} {...innerProps} className="dropdown-opt">
-    <div className="dropdown-name">{children}</div>
+const CustomOption = (props) => (
+  <div ref={props.innerRef} {...props.innerProps} className="dropdown-opt">
+    <div className="dropdown-name">{props.children}</div>
     <div className="focused-ind" />
   </div>
 );
