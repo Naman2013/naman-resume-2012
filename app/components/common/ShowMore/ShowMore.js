@@ -33,10 +33,6 @@ class ShowMore extends Component {
     totalCount: 0,
   }
 
-  state = {
-    page: this.props.defaultPage,
-  }
-
   showMore = (e) => {
     e.preventDefault();
     const { page, handleShowMore } = this.props;

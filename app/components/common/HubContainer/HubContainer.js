@@ -203,7 +203,7 @@ class HubContainer extends Component {
                   apiURL={paginateURL}
                   activePageNumber={Number(page)}
                   onServiceResponse={this.handleShowMoreResponse}
-                  onPaginationChange={this.handleShowMoreChange}
+                  onPaginationChange={this.handlePaginationChange}
                   responseFieldNames={responseFieldNames}
                   validateResponseAccess={this.validateResponseAccess}
                   user={user}

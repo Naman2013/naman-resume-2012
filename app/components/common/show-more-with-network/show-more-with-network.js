@@ -60,8 +60,7 @@ class ShowMoreWithNetwork extends Component {
       validateResponseAccess,
     } = this.props;
     onPaginationChange({ activePage: page });
-
-    const params = Object.assign({ ...user, page }, filterOptions);
+    const params = Object.assign({ ...user }, filterOptions, { page });
     axios.post(apiURL, params).then((res) => {
       validateResponseAccess(res);
       return this.handleServiceResponse(res.data);
