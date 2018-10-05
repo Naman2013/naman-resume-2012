@@ -32,6 +32,7 @@ class ToggleReadingList extends Component {
     const {
       itemId,
       readingListType,
+      readingListPrompt,
     } = this.props;
     toggleReadingListState({
       listItemId: itemId,
@@ -41,7 +42,7 @@ class ToggleReadingList extends Component {
       if (!res.data.apiError) {
         this.setState(() => ({
           icon: res.data.promptIconUrl,
-          text: res.data.readingListPrompt,
+          text: readingListPrompt ? res.data.readingListPrompt : null,
         }));
       }
     });

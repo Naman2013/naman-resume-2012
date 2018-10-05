@@ -46,38 +46,50 @@ class DashboardNav extends Component {
       <div className="root">
         <div className="dash-nav-item">
           <Link to="/missions">
-            <img alt="missions" src={missions} />
-            <div className="title-item">missions</div>
+            <div className="link-container">
+              <img alt="missions" src={missions} />
+              <div className="title-item">missions</div>
+            </div>
           </Link>
         </div>
         <div className="dash-nav-item">
-          <Link to="/guides">
-            <img alt="guides" src={guides} />
-            <div className="title-item">guides</div>
+          <Link to="/guides/all">
+            <div className="link-container">
+              <img alt="guides" src={guides} />
+              <div className="title-item">guides</div>
+            </div>
           </Link>
         </div>
         <div className="dash-nav-item">
           <Link to="/quests">
-            <img alt="quests" src={quests} />
-            <div className="title-item">quests</div>
+            <div className="link-container">
+              <img alt="quests" src={quests} />
+              <div className="title-item">quests</div>
+            </div>
           </Link>
         </div>
         <div className="dash-nav-item">
           <Link to="/shows">
-            <img alt="shows" src={shows} />
-            <div className="title-item">shows</div>
+            <div className="link-container">
+              <img alt="shows" src={shows} />
+              <div className="title-item">shows</div>
+            </div>
           </Link>
         </div>
         <div className="dash-nav-item">
           <Link to="/stories">
-            <img alt="stories" src={stories} />
-            <div className="title-item">stories</div>
+            <div className="link-container">
+              <img alt="stories" src={stories} />
+              <div className="title-item">stories</div>
+            </div>
           </Link>
         </div>
         <div className="dash-nav-item">
           <Link to="/community-groups/public">
-            <img alt="groups" src={groups} />
-            <div className="title-item">groups</div>
+            <div className="link-container">
+              <img alt="groups" src={groups} />
+              <div className="title-item">groups</div>
+            </div>
           </Link>
         </div>
         <style jsx>{styles}</style>

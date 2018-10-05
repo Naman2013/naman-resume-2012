@@ -33,6 +33,11 @@ export default css`
     margin: 50px 0 30px 0;
   }
 
+  .link-container {
+    height: 100%;
+    width: 100%;
+  }
+
   .dash-nav-item .title-item {
     color: ${romance};
     text-transform: uppercase;

@@ -22,6 +22,7 @@ export default css`
     margin: 5px;
     box-sizing: border-box;
     display: flex;
+    height: 100%;
     flex-direction: column;
     border: 1px solid ${shadows};
   }
@@ -40,31 +41,32 @@ export default css`
     left: 0;
     top: 0;
     width: 50%;
-    height: 55px;
+    height: 50%;
     border-right: 1px solid ${shadows};
   }
 
   .avatar-circle {
-    display: block;
-    border: 1px solid #ced2d8;
+    position: absolute;
+    border: 1px solid ${shadows};
+    background-color: ${romance};
     width: 60px;
     height: 60px;
     border-radius: 50%;
-    margin: 0 auto;
-    margin-top: -56px;
   }
 
   .avatar-container {
     position: relative;
     height: 100%;
     width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
     flex: 1 1 0;
   }
 
   .avatar-img {
-    margin: 60px auto 0 auto;
     position: relative;
-    z-index: 1;
   }
 
 `;

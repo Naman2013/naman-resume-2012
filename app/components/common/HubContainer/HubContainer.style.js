@@ -16,4 +16,7 @@ export default css`
     justify-content: space-between;
   }
 
+  .pagination-container {
+    margin: 20px 0;
+  }
 `;

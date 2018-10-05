@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import queryString from 'query-string';
-import { Link, browserHistory } from 'react-router';
+import { NavLink, browserHistory } from 'react-router';
 import findIndex from 'lodash/findIndex';
 import pick from 'lodash/pick';
+import noop from 'lodash/noop';
 import CenterColumn from 'components/common/CenterColumn';
 import HubHeader from 'components/common/HubHeader';
 import HubSort from 'components/common/HubSort';
+import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
+import ShowMoreWithNetwork from 'components/common/show-more-with-network';
 import UnderlineNav from 'components/common/UnderlineNav';
+import PaginateWithNetwork from 'components/common/paginate-with-network';
 import { seashell } from 'styles/variables/colors_tiles_v4';
 import { goldCompass } from 'styles/variables/iconURLs';
 
@@ -15,8 +19,10 @@ import style from './HubContainer.style';
 
 const {
   arrayOf,
+  bool,
   shape,
   string,
+  func,
 } = PropTypes;
 
 const getDefaultIndex = (set, item) => {
@@ -24,15 +30,20 @@ const getDefaultIndex = (set, item) => {
   return idx < 0 ? 0 : idx;
 };
 
-const QUERY_TYPES = ['sort', 'filter', 'page'];
+const QUERY_TYPES = ['sort'];
 
 class HubContainer extends Component {
   static propTypes = {
-    hubTitle: string,
+    updateList: func.isRequired,
+    appendToList: func.isRequired,
+    pageTitle: string,
+    validateResponseAccess: func,
     filterOptions: arrayOf(shape({
       label: string,
       value: string,
     })),
+    paginateURL: string,
+    filterType: string,
     sortOptions: arrayOf(shape({
       label: string,
       value: string,
@@ -45,40 +56,41 @@ class HubContainer extends Component {
         sort: string,
       }),
     }),
+    user: shape({}),
+    responseFieldNames: shape({
+      currentCount: string,
+      totalCount: string,
+    }),
+    isMobile: bool,
   };
 
   static defaultProps = {
-    hubTitle: '',
+    filterType: 'all',
+    pageTitle: '',
+    paginateURL: null,
     iconURL: goldCompass,
     filterOptions: [],
     sortOptions: [],
     location: {
       query: {},
     },
+    user: {},
+    isMobile: false,
+    responseFieldNames: {},
+    validateResponseAccess: noop,
   };
 
   state = {
-    filter: this.props.location.query.filter || '*',
-    page: this.props.location.query.page || 1,
-    sort: this.props.location.query.sort || 'asc',
-    defaultFilterIndex: getDefaultIndex(this.props.filterOptions, this.props.location.query.filter || '*'),
-    defaultSortIndex: getDefaultIndex(this.props.sortOptions, this.props.location.query.sort || 'asc'),
+    page: 1,
+    sort: this.props.location.query.sort || 'atoz',
+    defaultSortIndex: getDefaultIndex(this.props.sortOptions, this.props.location.query.sort || 'atoz'),
   }
 
   componentWillReceiveProps(nextProps) {
-    let { filter, page, sort } = this.props.location.query;
-    const { filter: nextFilter, page: nextPage, sort: nextSort } = nextProps.location.query;
+    let { sort } = this.props.location.query;
+    const { sort: nextSort } = nextProps.location.query;
     let changeState = false;
 
-    if (filter !== nextFilter) {
-      filter = nextFilter;
-      changeState = true;
-    }
-
-    if (page !== nextPage) {
-      page = nextPage;
-      changeState = true;
-    }
 
     if (sort !== nextSort) {
       sort = nextSort;
@@ -86,26 +98,17 @@ class HubContainer extends Component {
     }
 
     if (changeState) {
-      this.setState({ filter, page, sort });
-      this.setQueryParams({ filter, page, sort });
+      this.setState(() => ({ sort }));
+      this.setQueryParams({ sort });
     }
   }
 
   setQueryParams = (query) => {
     const params = queryString.stringify(query);
+    const { filterType, hubName } = this.props;
     browserHistory.push({
-      pathname: '/guides',
+      pathname: filterType ? `/${hubName}/${filterType}` : `/${hubName}`,
       search: `?${params}`,
-    });
-  }
-
-  handleFilterChange = (filter) => {
-    this.setState((state) => {
-      const query = Object.assign({}, state, { filter });
-      this.setQueryParams(pick(query, QUERY_TYPES));
-      return ({
-        filter,
-      });
     });
   }
 
@@ -119,29 +122,58 @@ class HubContainer extends Component {
     });
   }
 
+  handlePaginationResponse = (resp) => {
+    if (!resp.apiError)
+    this.props.updateList(resp);
+  }
+
+  handlePaginationChange = ({ activePage }) => {
+    this.setState((state) => {
+      // TODO: preserve page in query params
+      // const query = Object.assign({}, state, { page: activePage });
+      // this.setQueryParams(pick(query, QUERY_TYPES));
+      return ({
+        page: activePage,
+      });
+    });
+  }
+
+  handleShowMoreResponse = (resp) => {
+    if (!resp.apiError)
+    this.props.appendToList(resp);
+  }
+
   render() {
     const {
       filterOptions,
-      hubTitle,
+      filterType,
+      hubName,
       iconURL,
+      isMobile,
+      pageTitle,
+      paginateURL,
+      render,
+      responseFieldNames,
       sortOptions,
+      user,
     } = this.props;
 
     const {
-      defaultFilterIndex,
       defaultSortIndex,
+      sort,
+      page
     } = this.state;
     return (
       <div className="root">
         <HubHeader
           icon={iconURL}
-          title={hubTitle}
+          title={pageTitle}
           renderNav={() => (
             <div className="navigation-bar">
               <UnderlineNav
-                defaultIndex={defaultFilterIndex}
+                activeFilter={filterType}
                 navItems={filterOptions}
-                onItemClick={this.handleFilterChange}
+                parentPath={hubName}
               />
               <HubSort
                 defaultIndex={defaultSortIndex}
@@ -151,7 +183,38 @@ class HubContainer extends Component {
             </div>
           )}
         />
-        <CenterColumn theme={{ backgroundColor: seashell }} />
+        <div>
+          {render()}
+
+            <div className="pagination-container">
+              {!isMobile ?
+                <PaginateWithNetwork
+                  apiURL={paginateURL}
+                  activePageNumber={Number(page)}
+                  onServiceResponse={this.handlePaginationResponse}
+                  onPaginationChange={this.handlePaginationChange}
+                  filterOptions={{
+                    sortBy: sort,
+                    page,
+                    type: filterType,
+                  }}
+                />
+              : <ShowMoreWithNetwork
+                  apiURL={paginateURL}
+                  activePageNumber={Number(page)}
+                  onServiceResponse={this.handleShowMoreResponse}
+                  onPaginationChange={this.handleShowMoreChange}
+                  responseFieldNames={responseFieldNames}
+                  validateResponseAccess={this.validateResponseAccess}
+                  user={user}
+                  filterOptions={{
+                    sortBy: sort,
+                    type: filterType,
+                    count: 5,
+                  }}
+              />}
+            </div>
+        </div>
         <style jsx>{style}</style>
       </div>
     );

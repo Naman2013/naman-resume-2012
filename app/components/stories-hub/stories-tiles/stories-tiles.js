@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import uniqueId from 'lodash/uniqueId';
 import CenterColumn from 'components/common/CenterColumn';
-import GuideTile from 'components/common/tiles/guide-tile';
-import GuideExcerptTile from 'components/common/tiles/guide-excerpt-tile';
+import StoryTile from 'components/common/tiles/story-tile';
+import StoryExcerptTile from 'components/common/tiles/story-excerpt-tile';
 
-import style from './guide-tiles.style';
+import style from './stories-tiles.style';
 
-class GuideTiles extends Component {
+class StoriesTiles extends Component {
   static propTypes = {
-    guides: PropTypes.arrayOf(PropTypes.shape({
+    stories: PropTypes.arrayOf(PropTypes.shape({
       title: PropTypes.string.isRequired,
-      subTitle: PropTypes.string.isRequired,
     })).isRequired,
     isMobile: PropTypes.bool,
   };
@@ -36,36 +36,37 @@ class GuideTiles extends Component {
 
 
   render() {
-    const { guides, isMobile } = this.props;
+    const { stories, isMobile } = this.props;
     const { activeId } = this.state;
+
     return (
       <CenterColumn widths={['645px', '965px', '965px']}>
-        <ul className="guide-tiles-root">
-          {!isMobile && guides.map(guide => (
+        <ul className="story-tiles-root">
+          {!isMobile && stories.map(story => (
             <li
-              key={`guide-tile-${guide.guideId}`}
+              key={uniqueId()}
               className="tile"
-              onMouseOver={(e) => this.setActiveTile(e, guide.guideId)}
+              onMouseOver={(e) => this.setActiveTile(e, story.postId)}
               onMouseOut={this.removeActiveTile}
             >
               <div>
-                <GuideTile {...guide} />
+                <StoryTile {...story} isMobile={isMobile} photoSize={100} />
               </div>
               <div className={classnames('excerpt', {
-                'show-excerpt': activeId === guide.guideId,
+                'show-excerpt': activeId === story.postId,
               })}>
-                <GuideExcerptTile {...guide} />
+                <StoryExcerptTile {...story} />
               </div>
 
 
             </li>
           ))}
-          {isMobile && guides.map(guide => (
+          {isMobile && stories.map(story => (
             <li
-              key={`guide-tile-${guide.subTitle}`}
+              key={uniqueId()}
               className="tile"
             >
-              <GuideTile {...guide} />
+              <StoryTile {...story} isMobile={isMobile} photoSize={50} />
             </li>
           ))}
         </ul>
@@ -75,4 +76,4 @@ class GuideTiles extends Component {
   }
 }
 
-export default GuideTiles;
+export default StoriesTiles;

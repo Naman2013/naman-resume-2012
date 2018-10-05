@@ -143,6 +143,7 @@ import ImageDetails from './pages/image-details';
 import Show from './pages/show';
 import StoryDetails from './containers/story-details';
 import GuidesHub from './containers/guides-hub';
+import StoriesHub from './containers/stories-hub';
 import PlaceholderPage from './pages/Placeholder';
 
 import DashboardPage from 'components/Dashboard';
@@ -311,15 +312,6 @@ ReactDOM.render(
             <IndexRedirect to="all" />
             <Route path="all" name="all" component={PulseSearch} />
           </Route>
-        </Route>
-
-        <Route path="community" component={PulsePost}>
-          <Route
-            path="post(/:id)"
-            name="post"
-            component={PulsePostContent}
-            onEnter={validateUser}
-          />
         </Route>
 
         {/**
@@ -497,7 +489,7 @@ ReactDOM.render(
         <Route path="help/privacy" component={Privacy} />
 
         <Route path="bookclub" component={BookclubHandoff} />
-        <Route path="guides" component={GuidesHub} onEnter={validateUser} />
+        <Route path="guides(/:filterType)" component={GuidesHub} onEnter={validateUser} />
         <Route path="guide-details/:guideId" component={GuideDetails} onEnter={validateUser} />
 
         <Route path="guides/subject/:guideId" component={SubjectGuides} onEnter={validateUser} />
@@ -519,8 +511,8 @@ ReactDOM.render(
 
         <Route path="shows" component={PlaceholderPage} onEnter={validateUser} />
 
-        <Route path="stories" component={PlaceholderPage} onEnter={validateUser} />
-        <Route path="stories/:postId" component={StoryDetails} onEnter={validateUser} />
+        <Route path="stories(/:filterType)" component={StoriesHub} onEnter={validateUser} />
+        <Route path="community/post/:postId" component={StoryDetails} onEnter={validateUser} />
 
         <Route path="lists" component={PlaceholderPage} onEnter={validateUser}>
           <IndexRedirect to="my-lists" />

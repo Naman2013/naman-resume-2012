@@ -5,12 +5,14 @@ import { horizontalArrow } from 'styles/variables/iconURLs';
 import Pages from './pages';
 import style from './pagination.style';
 
+const DEFAULT_ACTIVE_PAGE = 1;
+const DEFAULT_PAGES_PER_PAGE = 4;
+
 function createPages(pageStart = 0, numberOfPages) {
   const pages = [];
   for (let i = 0; i < numberOfPages; i += 1) {
     pages.push((pageStart + i));
   }
-
   return pages;
 }
 
@@ -25,18 +27,47 @@ class Pagination extends Component {
   }
 
   static defaultProps = {
-    activePage: 1,
-    pagesPerPage: 4,
+    activePage: DEFAULT_ACTIVE_PAGE,
+    pagesPerPage: DEFAULT_PAGES_PER_PAGE,
     totalPageCount: 10,
-    pages: [1, 2, 3, 4],
+    pages: createPages(DEFAULT_ACTIVE_PAGE, DEFAULT_PAGES_PER_PAGE),
     onPageChange: () => { console.log('page changed'); },
   }
 
   state = {
     pages: this.props.pages,
     activePage: this.props.activePage,
-    totalPageCount: this.props.totalPageCount,
   }
+
+  // componentWillReceiveProps(nextProps) {
+  //   const { activePage, pages  } = this.state;
+  //   const { pagesPerPage, totalPageCount } = nextProps;
+  //
+  //   if (this.props.totalPageCount !== totalPageCount) {
+  //     let firstPageInSet = activePage;
+  //     let lastPageInSet = totalPageCount
+  //
+  //     if (activePage + pagesPerPage > totalPageCount) {
+  //       lastPageInSet = totalPageCount - firstPageInSet;
+  //     } else {
+  //       lastPageInSet = firstPageInSet + pagesPerPage;
+  //     }
+  //
+  //     if (firstPageInSet < 1) {
+  //       firstPageInSet = 1;
+  //     }
+  //
+  //     if (lastPageInSet > totalPageCount) {
+  //       lastPageInSet = totalPageCount;
+  //     }
+  //     this.setState(() => {
+  //       this.props.onPageChange({ activePage });
+  //       return ({
+  //         pages: createPages(firstPageInSet, (lastPageInSet - firstPageInSet)),
+  //       });
+  //     });
+  //   }
+  // }
 
   handlePageSelect = ({ pageNumber }) => {
     this.setState({ activePage: pageNumber });
