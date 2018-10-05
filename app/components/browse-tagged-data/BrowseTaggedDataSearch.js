@@ -306,7 +306,7 @@ class BrowseTaggedDataSearch extends Component {
                           {Object.keys(renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].subnodes).map(function (itemKey) {
                               return (
                                 <div className="search-results-item">
-                                  <Link onClick={(event) => { this.endSearch(); }} to={`/${renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].subnodes[itemKey].dataType}-details/${renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].subnodes[itemKey].dataId}`}>{renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].subnodes[itemKey].title}</Link>
+                                  <Link onClick={(event) => { this.endSearch(); }} to={renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].subnodes[itemKey].linkURL}>{renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].subnodes[itemKey].title}</Link>
                                 </div>
                               )
                             }, this)
@@ -378,7 +378,7 @@ class BrowseTaggedDataSearch extends Component {
                             {Object.keys(renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].subnodes).map(function (itemKey) {
                                 return (
                                   <div className="search-results-item">
-                                    {grandParentKey === grandParentNodeID && parentKey === parentNodeID && <Link onClick={(event) => { this.endSearch(); }} to={`/${renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].subnodes[itemKey].dataType}-details/${renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].subnodes[itemKey].dataId}`}>{renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].subnodes[itemKey].title}</Link>}
+                                    {grandParentKey === grandParentNodeID && parentKey === parentNodeID && <Link onClick={(event) => { this.endSearch(); }} to={renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].subnodes[itemKey].linkURL}>{renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].subnodes[itemKey].title}</Link>}
                                   </div>
                                 )
                               }, this)
