@@ -50,7 +50,7 @@ const BootstrappedStoryDetails = (props) => {
     membershipType,
   };
 
-  const headerTheme = storyDetails.length <= 0 ? {
+  const headerTheme = !S3Files[0] ? {
     padding: '100px'
   } : {};
 
