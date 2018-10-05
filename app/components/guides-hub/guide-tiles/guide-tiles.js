@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import uniqueId from 'lodash/uniqueId';
 import CenterColumn from 'components/common/CenterColumn';
 import GuideTile from 'components/common/tiles/guide-tile';
 import GuideExcerptTile from 'components/common/tiles/guide-excerpt-tile';
@@ -43,7 +44,7 @@ class GuideTiles extends Component {
         <ul className="guide-tiles-root">
           {!isMobile && guides.map(guide => (
             <li
-              key={`guide-tile-${guide.guideId}`}
+              key={uniqueId()}
               className="tile"
               onMouseOver={(e) => this.setActiveTile(e, guide.guideId)}
               onMouseOut={this.removeActiveTile}
@@ -62,7 +63,7 @@ class GuideTiles extends Component {
           ))}
           {isMobile && guides.map(guide => (
             <li
-              key={`guide-tile-${guide.subTitle}`}
+              key={uniqueId()}
               className="tile"
             >
               <GuideTile {...guide} />

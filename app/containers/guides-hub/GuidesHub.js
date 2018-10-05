@@ -91,36 +91,21 @@ class Guides extends Component {
                       paginateURL={GUIDES_ENDPOINT_URL}
                       page={DEFAULT_PAGE}
                       count={COUNT}
+                      user={user}
+                      validateResponseAccess={actions.validateResponseAccess}
+                      responseFieldNames={{
+                        currentCount: 'guidesCount',
+                        totalCount: 'totalGuidesCount',
+                      }}
                       updateList={this.updateGuidesList}
                       appendToList={this.appendToGuidesList}
                       iconURL={serviceResponse.pageIconURL}
                       pageTitle={serviceResponse.pageTitle}
                       filterType={this.props.params.filterType}
-                      render={props => (
+                      render={() => (
                         <Fragment>
                           {fetchingContent ? <div>Loading</div> : null}
                           {!fetchingContent && guides.length ? <GuideTiles guides={guides} isMobile={context.isMobile} /> : <div>There are no guides.</div>}
-                          {context.isMobile ?
-                            <div className="pagination-container">
-                              <ShowMoreWithNetwork
-                                apiURL={GUIDES_ENDPOINT_URL}
-                                activePageNumber={Number(props.page)}
-                                onServiceResponse={props.handleShowMoreResponse}
-                                onPaginationChange={props.handleShowMoreChange}
-                                responseFieldNames={{
-                                  currentCount: 'guidesCount',
-                                  totalCount: 'totalGuidesCount',
-                                }}
-                                validateResponseAccess={actions.validateResponseAccess}
-                                user={user}
-                                filterOptions={{
-                                  sortBy: props.sort,
-                                  type: props.filterType,
-                                  count: 5,
-                                }}
-                              />
-                            </div>
-                          : null}
                         </Fragment>
                       )}
                     />
