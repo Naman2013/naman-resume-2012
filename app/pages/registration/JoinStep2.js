@@ -127,9 +127,11 @@ class JoinStep2 extends Component {
           /* Set the customer's information that we got from google as a starting place for the user */
           accountFormDetailsData.givenName.hintText = googleProfileResult.googleProfileGivenName;
           accountFormDetailsData.givenName.value = googleProfileResult.googleProfileGivenName;
+          this.props.change('givenName', googleProfileResult.googleProfileGivenName);
 
           accountFormDetailsData.familyName.hintText = googleProfileResult.googleProfileFamilyName;
           accountFormDetailsData.familyName.value = googleProfileResult.googleProfileFamilyName;
+          this.props.change('familyName', googleProfileResult.googleProfileFamilyName);
 
           /* The primary key for Google Single Sign-in is the user's email address which can't be changed if using Google, update the form on screen accordingly so certain fields are hidden and not editable */
           accountFormDetailsData.loginEmailAddress.hintText = googleProfileResult.googleProfileEmail;
@@ -347,8 +349,8 @@ class JoinStep2 extends Component {
 }
 
 
-const mapStateToProps = ({ appConfig }) => ({
-  appConfig,
+const mapStateToProps = ({ joinAccountForm }) => ({
+  joinAccountForm: joinAccountForm,
 });
 
 const joinStep2Validation = createValidator({
