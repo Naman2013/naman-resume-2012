@@ -54,6 +54,7 @@ class JoinStep2 extends Component {
 
   handleSubmit = (formValues) => {
     formValues.preventDefault();
+    console.log(this.state.accountFormDetails);
   }
 
   processGoogleFailureResponse = (googleMessageData) => {
