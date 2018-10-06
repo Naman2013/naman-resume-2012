@@ -1,7 +1,9 @@
 import React from 'react';
 
 const TelescopeDetails = () => (
-  <div />
+  <div>
+    New telescope details...
+  </div>
 );
 
-export default TelescopeDetails;
+export { TelescopeDetails };

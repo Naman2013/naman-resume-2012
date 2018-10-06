@@ -46,7 +46,8 @@ import ObjectDetailsObservations from './containers/object-details/ObjectDetails
 
 // pages
 import TelescopeOverview from './pages/telescope-overview';
-import TelescopeDetails from './pages/telescope-details/telescope-details';
+// import TelescopeDetails from './pages/telescope-details/telescope-details';
+import { TelescopeDetails } from './pages/telescope-details';
 import NewMissions from './pages/new-missions';
 import ExistingMissions from './pages/existing-missions';
 import ReserveByTelescope from './pages/reserve-by-telescope';
