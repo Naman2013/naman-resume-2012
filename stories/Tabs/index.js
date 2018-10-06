@@ -5,5 +5,4 @@ import DefaultTabs from '../../app/components/Tabs';
 import testTabs from './test-configuration';
 
 storiesOf('Tab systems', module)
-  .add('Several options',
-    () => <DefaultTabs tabConfiguration={testTabs} />);
+  .add('Several options', () => (<DefaultTabs tabConfiguration={testTabs} />));

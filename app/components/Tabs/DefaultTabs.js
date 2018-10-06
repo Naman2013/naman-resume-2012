@@ -44,18 +44,20 @@ const DefaultTabs = ({ handleTabSelect, selectedIndex, tabConfiguration }) => {
 
         <TabList className="tab-list">
           {
-            tabsText.map((tabText, index) =>
-              <Tab key={uniqueId()} className="tab">
+            tabsText.map((tabText, index) => (
+              <Tab key={`generated-tabs-${tabText}`} className="tab">
                 <button className={buttonClassnames(selectedIndex, index)}>{tabText}</button>
-              </Tab>)
+              </Tab>
+            ))
           }
         </TabList>
 
         {
-          tabsContent.map(tabContent =>
+          tabsContent.map(tabContent => (
             <TabPanel key={uniqueId()} className="tab-content">
               {tabContent}
-            </TabPanel>)
+            </TabPanel>
+          ))
         }
       </Tabs>
 
@@ -106,7 +108,8 @@ const DefaultTabs = ({ handleTabSelect, selectedIndex, tabConfiguration }) => {
         :global(.generic-tabs-component .tab-content) {
           width: 100%;
         }
-      `}</style>
+      `}
+      </style>
     </div>
   );
 };
