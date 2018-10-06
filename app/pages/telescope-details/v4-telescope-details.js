@@ -1,8 +1,9 @@
 import React from 'react';
+import { ColumnTabs } from 'components/Tabs';
 
 const TelescopeDetails = () => (
   <div>
-    New telescope details...
+    <ColumnTabs />
   </div>
 );
 
