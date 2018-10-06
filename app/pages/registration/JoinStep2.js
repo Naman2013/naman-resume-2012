@@ -76,9 +76,6 @@ class JoinStep2 extends Component {
 
   handleSubmit = (formValues) => {
     formValues.preventDefault();
-
-    store.setState( { "joinAccountForm": formValues } );
-
     console.log(this.state);
   }
 
