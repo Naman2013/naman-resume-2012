@@ -247,7 +247,7 @@ class JoinStep2 extends Component {
                       <br/>
                       <p>{JOIN_PAGE_MODEL.formFieldLabels.loginemailaddress.label}:
                         <Field
-                          input={{'disabled': this.state.accountFormDetails.loginEmailAddress.editable}}
+                          input={{'disabled': ! this.state.accountFormDetails.loginEmailAddress.editable}}
                           name="loginEmailAddress"
                           type="email"
                           label={JOIN_PAGE_MODEL.formFieldLabels.loginemailaddress.hintText}
