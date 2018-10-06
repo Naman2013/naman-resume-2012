@@ -255,7 +255,7 @@ class JoinStep2 extends Component {
                         <Field
                           name="givenName"
                           type="name"
-                          label={JOIN_PAGE_MODEL.formFieldLabels.firstname.hintText}
+                          label={this.state.accountFormDetails.givenName.hintText}
                           component={InputField}
                           onChange={(event) => { this.handleFieldChange({ field: 'givenName', value: event.target.value }); }}
                           value={this.state.accountFormDetails.givenName.value}
@@ -266,7 +266,7 @@ class JoinStep2 extends Component {
                         <Field
                           name="familyName"
                           type="name"
-                          label={JOIN_PAGE_MODEL.formFieldLabels.lastname.hintText}
+                          label={this.state.accountFormDetails.familyName.hintText}
                           component={InputField}
                           onChange={(event) => { this.handleFieldChange({ field: 'familyName', value: event.target.value }); }}
                           value={this.state.accountFormDetails.familyName.value}
@@ -277,7 +277,7 @@ class JoinStep2 extends Component {
                         <Field
                           name="displayName"
                           type="name"
-                          label={JOIN_PAGE_MODEL.formFieldLabels.displayname.hintText}
+                          label={this.state.accountFormDetails.displayName.hintText}
                           component={InputField}
                           onChange={(event) => { this.handleFieldChange({ field: 'displayName', value: event.target.value }); }}
                         />
