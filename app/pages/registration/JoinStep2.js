@@ -318,4 +318,4 @@ const joinStep2Validation = createValidator({
   username: [required],
 });
 
-export default connect(mapStateToProps, null)(reduxForm({ form: 'joinAccountForm', validate: joinStep2Validation })(JoinStep2));
+export default connect(mapStateToProps, null)(reduxForm({ form: 'joinAccountForm', validate: joinStep2Validation, enableReinitialize: true, })(JoinStep2));
