@@ -117,4 +117,4 @@ const DefaultTabs = ({ handleTabSelect, selectedIndex, tabConfiguration }) => {
 DefaultTabs.defaultProps = defaultProps;
 DefaultTabs.propTypes = propTypes;
 
-export default DefaultTabs;
+export { DefaultTabs };

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchAllSkyAction } from '../../../modules/Telescope-Overview';
 import generateAllSkyTabConfiguration from './generate-tab-configuration';
-import DefaultTabs from '../../Tabs';
+import { DefaultTabs } from '../../Tabs';
 import './allsky-tabs.scss';
 
 const mapStateToProps = ({ telescopeDetails }) => ({

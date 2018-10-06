@@ -1,3 +1,2 @@
-import DefaultTabs from './DefaultTabs';
-
-export default DefaultTabs;
+export * from './DefaultTabs';
+export * from './column-tabs';

@@ -11,7 +11,7 @@ class ColumnTabs extends Component {
 
   static defaultProps = {
     activeTabIndex: 0,
-    tabConfiguration: [],
+    tabConfiguration: [{ content: () => 'Please provide tab configuration.' }],
   }
 
   state = { activeTabIndex: this.props.activeTabIndex }
@@ -37,4 +37,4 @@ class ColumnTabs extends Component {
   }
 }
 
-export default ColumnTabs;
+export { ColumnTabs };
