@@ -173,7 +173,7 @@ class Login extends Component {
           <Request
             serviceURL={GOOGLE_CLIENT_ID_ENDPOINT}
             model={googleClientIDModel}
-            requestBody={{ }}
+            requestBody={{ 'callSource': 'login' }}
             render={({
               fetchingContent,
               modeledResponses: { GOOGLE_CLIENT_ID_MODEL },

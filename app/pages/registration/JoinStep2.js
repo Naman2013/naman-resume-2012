@@ -13,14 +13,64 @@ import Button from 'components/common/style/buttons/Button';
 
 import Request from 'components/common/network/Request';
 
+import { GoogleLogin } from 'react-google-login';
+
 class JoinStep2 extends Component {
   constructor(props) {
     super(props);
   }
 
+  state = {
+    'googleProfileData': {
+      googleAPIFlowState: '',
+      googleAccessToken: '',
+      googleRefreshToken: '',
+      googleProfileId: '',
+      googleProfileEmail: '',
+      googleProfileGivenName: '',
+      googleProfileFamilyName: '',
+      googleProfilePictureURL: '',
+    },
+    'accountFormDetails': {
+      'givenName': {
+        'visible': true,
+        'editable': true,
+        'value': '',
+      },
+      'familyName': {
+        'visible': true,
+        'editable': true,
+        'value': '',
+      },
+      'loginEmailAddress': {
+        'visible': true,
+        'editable': true,
+        'value': '',
+      },
+      'loginEmailAddressVerification': {
+        'visible': true,
+        'editable': true,
+        'value': '',
+      },
+      'password': {
+        'visible': true,
+        'editable': true,
+        'value': true,
+      },
+      'passwordVerification': {
+        'visible': true,
+        'editable': true,
+        'value': true,
+      },
+    },
+  };
+
   handleFieldChange({ field, value }) {
+    var accountFormDetailsData = this.state.accountFormDetails;
+    accountFormDetailsData[field].value = value;
+
     this.setState({
-      [field]: value,
+      'accountFormDetails': accountFormDetailsData,
     });
   }
 
@@ -30,6 +80,56 @@ class JoinStep2 extends Component {
     store.setState( { "joinAccountForm": formValues } );
 
     console.log(this.state);
+  }
+
+  processGoogleFailureResponse = (googleMessageData) => {
+      console.log(googleMessageData);
+  };
+
+  processGoogleSuccessResponse = (googleTokenData) => {
+    //console.log("Processing Google Signin: " + googleTokenData);
+
+    /* Process the token and get back information about this user, etc. */
+    const googleSSOResult = axios.post('/api/registration/processGoogleSSOSignin',
+      {
+        authenticationCode: googleTokenData.code
+      })
+      .then(response => {
+        const { actions } = this.props;
+
+        const res = response.data;
+        if (res.apiError == false) {
+          const googleProfileResult = {
+            googleAPIFlowState: res.flow_state,
+            googleAccessToken: res.googleAccessToken,
+            googleRefreshToken: res.googleRefreshToken,
+            googleProfileId: res.googleProfileId,
+            googleProfileEmail: res.googleProfileInfo.email,
+            googleProfileGivenName: res.googleProfileInfo.givenName,
+            googleProfileFamilyName: res.googleProfileInfo.familyName,
+            googleProfilePictureURL: res.googleProfileInfo.profilePictureURL,
+          }
+
+          this.setState({'googleProfileData': googleProfileResult});
+
+          /* Log this user in via Google SSO */
+          //actions.logGoogleUserIn(googleProfileResult);
+        }
+      })
+      .catch(err => {
+        throw ('Error: ', err);
+      });
+
+      //process the Google Response Token data
+      //const googleProfileData = {
+      //  email: response.profileObj.email,
+      //  givenName: response.profileObj.givenName,
+      //  familyName: response.profileObj.familyName,
+      //  googleId: response.profileObj.googleId,
+      //  name: response.profileObj.name
+      //}
+
+      //console.log(googleProfileData);
   }
 
   render() {
@@ -45,6 +145,23 @@ class JoinStep2 extends Component {
         formFieldLabels: resp.formFieldLabels,
       }),
     };
+
+    const GOOGLE_CLIENT_ID_ENDPOINT = '/api/registration/getGoogleClientID';
+
+    const googleClientIDModel = {
+      name: 'GOOGLE_CLIENT_ID_MODEL',
+      model: resp => ({
+        googleAPIFlowState: resp.apiFlowState,
+        googleClientID: resp.googleClientID,
+        googleClientScope: resp.googleClientScope,
+        googleClientAccessType: resp.googleClientAccessType,
+        googleClientResponseType: resp.googleClientResponseType,
+        loginButtonText: resp.loginButtonText,
+      }),
+    };
+
+    const googleProfileData = this.state.googleProfileData;
+    const accountFormDetails = this.state.accountFormDetails;
 
     return (
       <div style={{'paddingTop': '55px', 'marginLeft': 'auto', 'marginRight': 'auto', 'width': '600px'}}>
@@ -72,6 +189,43 @@ class JoinStep2 extends Component {
                     <p>Selected Plan: {JOIN_PAGE_MODEL.selectedSubscriptionPlan.planName} (Plan ID: {this.props.params.subscriptionPlanID})</p>
                     <br/>
                     <br/>
+                    <div>
+                      <p>Flow State for Google: {googleProfileData.googleAPIFlowState}</p>
+                      <p>Google Profile ID: {googleProfileData.googleProfileId}</p>
+                      <p>Google Profile Name: {googleProfileData.googleProfileGivenName} {googleProfileData.googleProfileFamilyName}</p>
+                      <p>Google Profile Email: {googleProfileData.googleProfileEmail}</p>
+                    </div>
+
+                    <Request
+                      serviceURL={GOOGLE_CLIENT_ID_ENDPOINT}
+                      model={googleClientIDModel}
+                      requestBody={{ 'callSource': 'join' }}
+                      render={({
+                        fetchingContent,
+                        modeledResponses: { GOOGLE_CLIENT_ID_MODEL },
+                      }) => (
+                        <Fragment>
+                          {
+                            !fetchingContent &&
+                              <Fragment>
+                                <div style={{'paddingTop': '15px', 'marginLeft': 'auto', 'marginRight': 'auto', 'textAlign': 'center'}}>
+                                  <GoogleLogin
+                                      responseType={GOOGLE_CLIENT_ID_MODEL.googleClientResponseType}
+                                      fetchBasicProfile={GOOGLE_CLIENT_ID_MODEL.googleClientFetchBasicProfile}
+                                      accessType={GOOGLE_CLIENT_ID_MODEL.googleClientAccessType}
+                                      scope={GOOGLE_CLIENT_ID_MODEL.googleClientScope}
+                                      clientId={GOOGLE_CLIENT_ID_MODEL.googleClientID}
+                                      buttonText={GOOGLE_CLIENT_ID_MODEL.loginButtonText}
+                                      onSuccess={this.processGoogleSuccessResponse}
+                                      onFailure={this.processGoogleFailureResponse}
+                                    />
+                                </div>
+                              </Fragment>
+                            }
+                        </Fragment>
+                      )}
+                    />
+                    <br/>
                     <form className="form" onSubmit={this.handleSubmit}>
                       <p>{JOIN_PAGE_MODEL.formFieldLabels.firstname.label}:
                         <Field
@@ -79,7 +233,8 @@ class JoinStep2 extends Component {
                           type="name"
                           label={JOIN_PAGE_MODEL.formFieldLabels.firstname.hintText}
                           component={InputField}
-                          onChange={(event) => { this.handleFieldChange({ field: 'firstName', value: event.target.value }); }}
+                          onChange={(event) => { this.handleFieldChange({ field: 'givenName', value: event.target.value }); }}
+                          value={this.state.accountFormDetails.givenName.value}
                           />
                       </p>
                       <br/>
@@ -89,7 +244,8 @@ class JoinStep2 extends Component {
                           type="name"
                           label={JOIN_PAGE_MODEL.formFieldLabels.lastname.hintText}
                           component={InputField}
-                          onChange={(event) => { this.handleFieldChange({ field: 'lastName', value: event.target.value }); }}
+                          onChange={(event) => { this.handleFieldChange({ field: 'familyName', value: event.target.value }); }}
+                          value={this.state.accountFormDetails.familyName.value}
                         />
                       </p>
                       <br/>
@@ -143,7 +299,7 @@ class JoinStep2 extends Component {
                         />
                       </p>
 
-                      <Link to="/join/step3"><Button theme={{ margin: '0 auto'}} type="submit" text="Goto Payment" onClickEvent={null} /></Link>
+                      <Button theme={{ margin: '0 auto'}} type="submit" text="Goto Payment" onClickEvent={null} />
                       <br/>
                       <br/>
                       <Link to="/join/step1"><Button theme={{ margin: '0 auto'}} type="button" text="Go Back"/></Link><br/>
