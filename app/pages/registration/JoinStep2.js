@@ -20,9 +20,20 @@ class JoinStep2 extends Component {
   constructor(props) {
     super(props);
 
+    /* bind the Join Page Service Response to "this" so it can access the form on the page */
     this.handleJoinPageServiceResponse = this.handleJoinPageServiceResponse.bind(this);
   }
 
+  /* Configure the default state for:
+    Account Creation Type (userpass or googleaccount)
+    googleProfileData - the data returned from a Google SSO request
+    accountFormDetails - the details and data values of the account signup form
+  */
+
+  /*
+    Given Name = Firstname
+    Family Name = Lastname
+  */
   state = {
     'accountCreationType': 'userpass',
     'googleProfileData': {
@@ -46,7 +57,7 @@ class JoinStep2 extends Component {
     },
   };
 
-  /* Obtain access to the join api service response */
+  /* Obtain access to the join api service response and update the accountFormDetails state to reflect the Join Page response (set form labels)*/
   handleJoinPageServiceResponse(result) {
       var accountFormDetailsData = this.state.accountFormDetails;
       accountFormDetailsData.givenName.hintText = result.formFieldLabels.firstname.hintText;
@@ -57,12 +68,13 @@ class JoinStep2 extends Component {
       accountFormDetailsData.password.hintText = result.formFieldLabels.password.hintText;
       accountFormDetailsData.passwordVerification.hintText = result.formFieldLabels.passwordverification.hintText;
 
-      /* update the account form details state */
+      /* update the account form details state so the correct hinText will show on each form field */
       this.setState({'accountFormDetails': accountFormDetailsData});
   }
 
   /* This function handles a field change in the form and sets the state accordingly */
   handleFieldChange({ field, value }) {
+    /* Get the existing state of the signup form, modify it and re-set the state */
     var accountFormDetailsData = this.state.accountFormDetails;
     accountFormDetailsData[field].value = value;
 
@@ -71,19 +83,17 @@ class JoinStep2 extends Component {
     });
   }
 
+  /* Submit the Join Form and perform any validations as needed */
   handleSubmit = (formValues) => {
     formValues.preventDefault();
     console.log(this.state.accountFormDetails);
   }
 
-  processGoogleFailureResponse = (googleMessageData) => {
-      console.log(googleMessageData);
-  };
-
+  /* The API response to the Google SSO Request was successful, process the response data elements accordingly and send the information back to the Slooh servers */
   processGoogleSuccessResponse = (googleTokenData) => {
     //console.log("Processing Google Signin: " + googleTokenData);
 
-    /* Process the token and get back information about this user, etc. */
+    /* Process the Google SSO tokens and get back information about this user via the Slooh APIs/Google APIs, etc. */
     const googleSSOResult = axios.post('/api/registration/processGoogleSSOSignin',
       {
         authenticationCode: googleTokenData.code
@@ -104,22 +114,27 @@ class JoinStep2 extends Component {
             googleProfilePictureURL: res.googleProfileInfo.profilePictureURL,
           }
 
+          /* Capture the Google Profile Data and store it in state */
           this.setState({'googleProfileData': googleProfileResult});
 
           /* Update the Account Form parameters to show/hide fields as a result of Google Login */
           var accountFormDetailsData = this.state.accountFormDetails;
-          /* Google Authentication does not require the customer to create a password */
+
+          /* Google Authentication does not require the customer to create a password/hide the form field */
           accountFormDetailsData.password.visible = false;
           accountFormDetailsData.passwordVerification.visible = false;
 
-          /* Set the customer's information that we got from google */
+          /* Set the customer's information that we got from google as a starting place for the user */
+          accountFormDetailsData.givenName.hintText = googleProfileResult.googleProfileGivenName;
           accountFormDetailsData.givenName.value = googleProfileResult.googleProfileGivenName;
+
+          accountFormDetailsData.familyName.hintText = googleProfileResult.googleProfileFamilyName;
           accountFormDetailsData.familyName.value = googleProfileResult.googleProfileFamilyName;
 
-          /* The data for Google Single Sign-in is the user's email address which can't be changed if using Google */
-          accountFormDetailsData.loginEmailAddress.value = googleProfileResult.googleProfileEmail;
-          accountFormDetailsData.loginEmailAddress.editable = false;
+          /* The primary key for Google Single Sign-in is the user's email address which can't be changed if using Google, update the form on screen accordingly so certain fields are hidden and not editable */
           accountFormDetailsData.loginEmailAddress.hintText = googleProfileResult.googleProfileEmail;
+          accountFormDetailsData.loginEmailAddress.editable = false;
+          accountFormDetailsData.loginEmailAddress.value = googleProfileResult.googleProfileEmail;
 
           /* No need to verify the email address as its Google and it was already provided */
           accountFormDetailsData.loginEmailAddressVerification.visible = false;
@@ -127,15 +142,16 @@ class JoinStep2 extends Component {
 
           /* Set the account creation type as Google */
           this.setState({'accountCreationType': 'googleaccount'});
-
-          /* Log this user in via Google SSO */
-          //actions.logGoogleUserIn(googleProfileResult);
         }
       })
       .catch(err => {
         throw ('Error: ', err);
       });
   }
+
+  processGoogleFailureResponse = (googleMessageData) => {
+      console.log(googleMessageData);
+  };
 
   render() {
     const JOIN_PAGE_ENDPOINT_URL = '/api/page/join';
