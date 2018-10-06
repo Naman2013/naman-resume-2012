@@ -34,15 +34,21 @@ class JoinStep2 extends Component {
       googleProfilePictureURL: '',
     },
     'accountFormDetails': {
-      givenName: { 'value': '' },
-      familyName: { 'value': '' },
-      loginEmailAddress: { 'editable': true, 'value': '' },
-      loginEmailAddressVerification: {'visible': true, 'value': '' },
-      password: { 'visible': true, 'value': '' },
-      passwordVerification: { 'visible': true, 'value': '' },
+      givenName: { value: '', label: ''},
+      familyName: { value: '', label: ''},
+      loginEmailAddress: { editable: true, value: '', label: '' },
+      loginEmailAddressVerification: {visible: true, value: '', label: '' },
+      password: { visible: true, value: '', label: '' },
+      passwordVerification: { visible: true, value: '', label: '' },
     },
   };
 
+  /* Obtain access to the join api service response */
+  handleJoinPageServiceResponse(result) {
+      console.log(result);
+  }
+
+  /* This function handles a field change in the form and sets the state accordingly */
   handleFieldChange({ field, value }) {
     var accountFormDetailsData = this.state.accountFormDetails;
     accountFormDetailsData[field].value = value;
@@ -155,6 +161,7 @@ class JoinStep2 extends Component {
         serviceURL={JOIN_PAGE_ENDPOINT_URL}
         model={joinPageModel}
         requestBody={{ 'callSource': 'setupCredentials', 'selectedPlanID': this.props.params.subscriptionPlanID }}
+        serviceResponseHandler={this.handleJoinPageServiceResponse}
         render={({
           fetchingContent,
           modeledResponses: { JOIN_PAGE_MODEL },
