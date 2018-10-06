@@ -93,15 +93,15 @@ class JoinStep2 extends Component {
           accountFormDetailsData.passwordVerification.visible = false;
 
           /* Set the customer's information that we got from google */
-          accountFormDetails.givenName.value = googleProfileResult.googleProfileGivenName;
-          accountFormDetails.familyName.value = googleProfileResult.googleProfileFamilyName;
+          accountFormDetailsData.givenName.value = googleProfileResult.googleProfileGivenName;
+          accountFormDetailsData.familyName.value = googleProfileResult.googleProfileFamilyName;
 
           /* The data for Google Single Sign-in is the user's email address which can't be changed if using Google */
-          accountFormDetails.loginEmailAddress.value = googleProfileResult.googleProfileEmail;
-          accountFormDetails.loginEmailAddress.editable = false;
+          accountFormDetailsData.loginEmailAddress.value = googleProfileResult.googleProfileEmail;
+          accountFormDetailsData.loginEmailAddress.editable = false;
 
           /* No need to verify the email address as its Google and it was already provided */
-          accountFormDetails.loginEmailAddressVerification.visible = false;
+          accountFormDetailsData.loginEmailAddressVerification.visible = false;
           this.setState({'accountFormDetails': accountFormDetailsData});
 
           /* Set the account creation type as Google */
