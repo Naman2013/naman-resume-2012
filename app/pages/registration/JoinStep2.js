@@ -90,7 +90,7 @@ class JoinStep2 extends Component {
           var accountFormDetailsData = this.state.accountFormDetails;
           /* Google Authentication does not require the customer to create a password */
           accountFormDetailsData.password.visible = false;
-          accountFormDetailsdata.passwordVerification.visible = false;
+          accountFormDetailsData.passwordVerification.visible = false;
 
           /* Set the customer's information that we got from google */
           accountFormDetails.givenName.value = googleProfileResult.googleProfileGivenName;
