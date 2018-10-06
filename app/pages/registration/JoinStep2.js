@@ -101,7 +101,7 @@ class JoinStep2 extends Component {
           accountFormDetails.loginEmailAddress.editable = false;
 
           /* No need to verify the email address as its Google and it was already provided */
-          accountFormDetais.loginEmailAddressVerification.visible = false;
+          accountFormDetails.loginEmailAddressVerification.visible = false;
           this.setState({'accountFormDetails': accountFormDetailsData});
 
           /* Set the account creation type as Google */
@@ -247,7 +247,7 @@ class JoinStep2 extends Component {
                       <br/>
                       <p>{JOIN_PAGE_MODEL.formFieldLabels.loginemailaddress.label}:
                         <Field
-                          input={{'disabled': this.state.accountFormDetais.loginEmailAddress.editable}}
+                          input={{'disabled': this.state.accountFormDetails.loginEmailAddress.editable}}
                           name="loginEmailAddress"
                           type="email"
                           label={JOIN_PAGE_MODEL.formFieldLabels.loginemailaddress.hintText}
