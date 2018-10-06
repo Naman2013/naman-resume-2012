@@ -19,6 +19,8 @@ import { GoogleLogin } from 'react-google-login';
 class JoinStep2 extends Component {
   constructor(props) {
     super(props);
+
+    this.handleJoinPageServiceResponse = this.handleJoinPageServiceResponse.bind(this);
   }
 
   state = {
@@ -34,18 +36,29 @@ class JoinStep2 extends Component {
       googleProfilePictureURL: '',
     },
     'accountFormDetails': {
-      givenName: { value: '', label: ''},
-      familyName: { value: '', label: ''},
-      loginEmailAddress: { editable: true, value: '', label: '' },
-      loginEmailAddressVerification: {visible: true, value: '', label: '' },
-      password: { visible: true, value: '', label: '' },
-      passwordVerification: { visible: true, value: '', label: '' },
+      givenName: { value: '', hintText: ''},
+      familyName: { value: '', hintText: ''},
+      displayName: { value: '', hintText: ''},
+      loginEmailAddress: { editable: true, value: '', hintText: '' },
+      loginEmailAddressVerification: {visible: true, value: '', hintText: '' },
+      password: { visible: true, value: '', hintText: '' },
+      passwordVerification: { visible: true, value: '', hintText: '' },
     },
   };
 
   /* Obtain access to the join api service response */
   handleJoinPageServiceResponse(result) {
-      console.log(result);
+      var accountFormDetailsData = this.state.accountFormDetails;
+      accountFormDetailsData.givenName.hintText = result.formFieldLabels.firstname.hintText;
+      accountFormDetailsData.familyName.hintText = result.formFieldLabels.lastname.hintText;
+      accountFormDetailsData.displayName.hintText = result.formFieldLabels.displayname.hintText;
+      accountFormDetailsData.loginEmailAddress.hintText = result.formFieldLabels.loginemailaddress.hintText;
+      accountFormDetailsData.loginEmailAddressVerification.hintText = result.formFieldLabels.loginemailaddressverification.hintText;
+      accountFormDetailsData.password.hintText = result.formFieldLabels.password.hintText;
+      accountFormDetailsData.passwordVerification.hintText = result.formFieldLabels.passwordverification.hintText;
+
+      /* update the account form details state */
+      this.setState({'accountFormDetails': accountFormDetailsData});
   }
 
   /* This function handles a field change in the form and sets the state accordingly */
@@ -106,6 +119,7 @@ class JoinStep2 extends Component {
           /* The data for Google Single Sign-in is the user's email address which can't be changed if using Google */
           accountFormDetailsData.loginEmailAddress.value = googleProfileResult.googleProfileEmail;
           accountFormDetailsData.loginEmailAddress.editable = false;
+          accountFormDetailsData.loginEmailAddress.hintText = googleProfileResult.googleProfileEmail;
 
           /* No need to verify the email address as its Google and it was already provided */
           accountFormDetailsData.loginEmailAddressVerification.visible = false;
@@ -258,7 +272,7 @@ class JoinStep2 extends Component {
                           input={{'disabled': ! this.state.accountFormDetails.loginEmailAddress.editable}}
                           name="loginEmailAddress"
                           type="email"
-                          label={JOIN_PAGE_MODEL.formFieldLabels.loginemailaddress.hintText}
+                          label={this.state.accountFormDetails.loginEmailAddress.hintText}
                           component={InputField}
                           onChange={(event) => { this.handleFieldChange({ field: 'loginEmailAddress', value: event.target.value }); }}
                           value={this.state.accountFormDetails.loginEmailAddress.value}
