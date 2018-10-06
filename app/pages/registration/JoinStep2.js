@@ -21,6 +21,7 @@ class JoinStep2 extends Component {
   }
 
   state = {
+    'accountCreationType': 'userpass',
     'googleProfileData': {
       googleAPIFlowState: '',
       googleAccessToken: '',
@@ -32,36 +33,12 @@ class JoinStep2 extends Component {
       googleProfilePictureURL: '',
     },
     'accountFormDetails': {
-      'givenName': {
-        'visible': true,
-        'editable': true,
-        'value': '',
-      },
-      'familyName': {
-        'visible': true,
-        'editable': true,
-        'value': '',
-      },
-      'loginEmailAddress': {
-        'visible': true,
-        'editable': true,
-        'value': '',
-      },
-      'loginEmailAddressVerification': {
-        'visible': true,
-        'editable': true,
-        'value': '',
-      },
-      'password': {
-        'visible': true,
-        'editable': true,
-        'value': true,
-      },
-      'passwordVerification': {
-        'visible': true,
-        'editable': true,
-        'value': true,
-      },
+      givenName: { 'value': '' },
+      familyName: { 'value': '' },
+      loginEmailAddress: { 'editable': true, 'value': '' },
+      loginEmailAddressVerification: {'visible': true, 'value': '' },
+      password: { 'visible': true, 'value': '' },
+      passwordVerification: { 'visible': true, 'value': '' },
     },
   };
 
@@ -76,7 +53,6 @@ class JoinStep2 extends Component {
 
   handleSubmit = (formValues) => {
     formValues.preventDefault();
-    console.log(this.state);
   }
 
   processGoogleFailureResponse = (googleMessageData) => {
@@ -109,6 +85,27 @@ class JoinStep2 extends Component {
 
           this.setState({'googleProfileData': googleProfileResult});
 
+          /* Update the Account Form parameters to show/hide fields as a result of Google Login */
+          var accountFormDetailsData = this.state.accountFormDetails;
+          /* Google Authentication does not require the customer to create a password */
+          accountFormDetailsData.password.visible = false;
+          accountFormDetailsdata.passwordVerification.visible = false;
+
+          /* Set the customer's information that we got from google */
+          accountFormDetails.givenName.value = googleProfileResult.googleProfileGivenName;
+          accountFormDetails.familyName.value = googleProfileResult.googleProfileFamilyName;
+
+          /* The data for Google Single Sign-in is the user's email address which can't be changed if using Google */
+          accountFormDetails.loginEmailAddress.value = googleProfileResult.googleProfileEmail;
+          accountFormDetails.loginEmailAddress.editable = false;
+
+          /* No need to verify the email address as its Google and it was already provided */
+          accountFormDetais.loginEmailAddressVerification.visible = false;
+          this.setState({'accountFormDetails': accountFormDetailsData});
+
+          /* Set the account creation type as Google */
+          this.setState({'accountCreationType': 'googleaccount'});
+
           /* Log this user in via Google SSO */
           //actions.logGoogleUserIn(googleProfileResult);
         }
@@ -116,17 +113,6 @@ class JoinStep2 extends Component {
       .catch(err => {
         throw ('Error: ', err);
       });
-
-      //process the Google Response Token data
-      //const googleProfileData = {
-      //  email: response.profileObj.email,
-      //  givenName: response.profileObj.givenName,
-      //  familyName: response.profileObj.familyName,
-      //  googleId: response.profileObj.googleId,
-      //  name: response.profileObj.name
-      //}
-
-      //console.log(googleProfileData);
   }
 
   render() {
@@ -159,6 +145,7 @@ class JoinStep2 extends Component {
 
     const googleProfileData = this.state.googleProfileData;
     const accountFormDetails = this.state.accountFormDetails;
+    const accountCreationType = this.state.accountCreationType;
 
     return (
       <div style={{'paddingTop': '55px', 'marginLeft': 'auto', 'marginRight': 'auto', 'width': '600px'}}>
@@ -184,6 +171,7 @@ class JoinStep2 extends Component {
                     <br/>
                     <br/>
                     <p>Selected Plan: {JOIN_PAGE_MODEL.selectedSubscriptionPlan.planName} (Plan ID: {this.props.params.subscriptionPlanID})</p>
+                    <p>Account Creation Type: {accountCreationType}</p>
                     <br/>
                     <br/>
                     <div>
@@ -226,7 +214,7 @@ class JoinStep2 extends Component {
                     <form className="form" onSubmit={this.handleSubmit}>
                       <p>{JOIN_PAGE_MODEL.formFieldLabels.firstname.label}:
                         <Field
-                          name="firstName"
+                          name="givenName"
                           type="name"
                           label={JOIN_PAGE_MODEL.formFieldLabels.firstname.hintText}
                           component={InputField}
@@ -237,7 +225,7 @@ class JoinStep2 extends Component {
                       <br/>
                       <p>{JOIN_PAGE_MODEL.formFieldLabels.lastname.label}:
                         <Field
-                          name="lastName"
+                          name="familyName"
                           type="name"
                           label={JOIN_PAGE_MODEL.formFieldLabels.lastname.hintText}
                           component={InputField}
@@ -258,25 +246,29 @@ class JoinStep2 extends Component {
                       <br/>
                       <p>{JOIN_PAGE_MODEL.formFieldLabels.loginemailaddress.label}:
                         <Field
+                          input={{'disabled': true}}
                           name="loginEmailAddress"
                           type="email"
                           label={JOIN_PAGE_MODEL.formFieldLabels.loginemailaddress.hintText}
                           component={InputField}
                           onChange={(event) => { this.handleFieldChange({ field: 'loginEmailAddress', value: event.target.value }); }}
+                          value={this.state.accountFormDetails.loginEmailAddress.value}
                         />
                       </p>
                       <br/>
-                      <p>{JOIN_PAGE_MODEL.formFieldLabels.loginemailaddressverification.label}:
+                      {this.state.accountFormDetails.loginEmailAddressVerification.visible == true && <p>{JOIN_PAGE_MODEL.formFieldLabels.loginemailaddressverification.label}:
                         <Field
-                          name="loginEmailAddressVerification"
-                          type="email"
-                          label={JOIN_PAGE_MODEL.formFieldLabels.loginemailaddressverification.hintText}
-                          component={InputField}
-                          onChange={(event) => { this.handleFieldChange({ field: 'loginEmailAddressVerification', value: event.target.value }); }}
-                        />
+                            name="loginEmailAddressVerification"
+                            type="email"
+                            label={JOIN_PAGE_MODEL.formFieldLabels.loginemailaddressverification.hintText}
+                            component={InputField}
+                            onChange={(event) => { this.handleFieldChange({ field: 'loginEmailAddressVerification', value: event.target.value }); }}
+                            value={this.state.accountFormDetails.loginEmailAddressVerification.value}
+                          />
                       </p>
+                      }
                       <br/>
-                      <p>{JOIN_PAGE_MODEL.formFieldLabels.password.label}:
+                      {this.state.accountFormDetails.password.visible == true && <p>{JOIN_PAGE_MODEL.formFieldLabels.password.label}:
                         <Field
                           name="password"
                           type="password"
@@ -285,8 +277,9 @@ class JoinStep2 extends Component {
                           onChange={(event) => { this.handleFieldChange({ field: 'password', value: event.target.value }); }}
                         />
                       </p>
+                      }
                       <br/>
-                      <p>{JOIN_PAGE_MODEL.formFieldLabels.passwordverification.label}:
+                      {this.state.accountFormDetails.passwordVerification.visible == true && <p>{JOIN_PAGE_MODEL.formFieldLabels.passwordverification.label}:
                         <Field
                           name="passwordVerification"
                           type="password"
@@ -295,7 +288,7 @@ class JoinStep2 extends Component {
                           onChange={(event) => { this.handleFieldChange({ field: 'passwordVerification', value: event.target.value }); }}
                         />
                       </p>
-
+                      }
                       <Button theme={{ margin: '0 auto'}} type="submit" text="Goto Payment" onClickEvent={null} />
                       <br/>
                       <br/>
