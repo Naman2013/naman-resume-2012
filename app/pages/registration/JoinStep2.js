@@ -87,6 +87,13 @@ class JoinStep2 extends Component {
   handleSubmit = (formValues) => {
     formValues.preventDefault();
     console.log(this.state.accountFormDetails);
+
+    window.localStorage.setItem('join_accountFormDetails', this.state.accountFormDetails);
+
+    /*****************************************
+    * Set up a Pending Customer Accou
+    * Set a cid_pending cookie
+    */
   }
 
   /* The API response to the Google SSO Request was successful, process the response data elements accordingly and send the information back to the Slooh servers */
@@ -153,7 +160,7 @@ class JoinStep2 extends Component {
 
   processGoogleFailureResponse = (googleMessageData) => {
       console.log(googleMessageData);
-  };
+  }
 
   render() {
     const JOIN_PAGE_ENDPOINT_URL = '/api/page/join';
@@ -186,13 +193,14 @@ class JoinStep2 extends Component {
     const googleProfileData = this.state.googleProfileData;
     const accountFormDetails = this.state.accountFormDetails;
     const accountCreationType = this.state.accountCreationType;
+    const selectedPlanId = window.localStorage.getItem('selectedPlanId');
 
     return (
       <div style={{'paddingTop': '55px', 'marginLeft': 'auto', 'marginRight': 'auto', 'width': '600px'}}>
       <Request
         serviceURL={JOIN_PAGE_ENDPOINT_URL}
         model={joinPageModel}
-        requestBody={{ 'callSource': 'setupCredentials', 'selectedPlanID': this.props.params.subscriptionPlanID }}
+        requestBody={{ 'callSource': 'setupCredentials', 'selectedPlanID': selectedPlanId }}
         serviceResponseHandler={this.handleJoinPageServiceResponse}
         render={({
           fetchingContent,
@@ -200,7 +208,7 @@ class JoinStep2 extends Component {
         }) => (
           <Fragment>
             {
-              !fetchingContent && this.props.params.subscriptionPlanID &&
+              !fetchingContent && selectedPlanId &&
                 <Fragment>
                     <header className="header">
                       <div className="icon"></div>
@@ -211,7 +219,7 @@ class JoinStep2 extends Component {
                     <h3>Step 2: {JOIN_PAGE_MODEL.sectionHeading}</h3>
                     <br/>
                     <br/>
-                    <p>Selected Plan: {JOIN_PAGE_MODEL.selectedSubscriptionPlan.planName} (Plan ID: {this.props.params.subscriptionPlanID})</p>
+                    <p>Selected Plan: {JOIN_PAGE_MODEL.selectedSubscriptionPlan.planName} (Plan ID: {selectedPlanId})</p>
                     <p>Account Creation Type: {accountCreationType}</p>
                     <br/>
                     <br/>

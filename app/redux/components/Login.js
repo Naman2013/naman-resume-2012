@@ -199,7 +199,7 @@ class Login extends Component {
                   </Fragment>
                 )}
               />
-s
+
           <div className="register-container">
             <span className="title-link">{`Don't have an account?`}</span>
             <Link to="/join/step1">

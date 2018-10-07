@@ -14,6 +14,11 @@ class JoinStep1 extends Component {
     super(props);
   }
 
+  setSelectedPlan(subscriptionPlanId) {
+    window.localStorage.setItem('selectedPlanId', subscriptionPlanId);
+    console.log('setting selected plan of: ' + subscriptionPlanId);
+  }
+
   render() {
     const JOIN_PAGE_ENDPOINT_URL = '/api/page/join';
     const SUBSCRIPTION_PLANS_ENDPOINT_URL = '/api/registration/getSubscriptionPlans';
@@ -84,7 +89,7 @@ class JoinStep1 extends Component {
                                           <div id={'subscriptionPlanDetails_' + subscriptionPlan.planID} dangerouslySetInnerHTML={{ __html: subscriptionPlan.aboutThisPlan }}/><br/>
                                           <br/>
                                           <br/>
-                                          <Link to={'/join/step2/' + subscriptionPlan.planID}><Button theme={{ margin: '0 auto'}} type="button" text={subscriptionPlan.selectButtonText}/></Link><br/>
+                                          <Link onClick={e => this.setSelectedPlan(subscriptionPlan.planID)} to={'/join/step2'}><Button theme={{ margin: '0 auto'}} type="button" text={subscriptionPlan.selectButtonText}/></Link><br/>
                                         </div>
                                        </div>
                                       </li>)}
