@@ -54,7 +54,7 @@ class JoinStep3 extends Component  {
     }
     else {
       // Render a countdown
-      return <span>{hours}:{minutes}:{seconds}</span>;
+      return <p>Please complete signup: {minutes}:{seconds} before this request expires.</p>;
     }
   };
 
@@ -96,8 +96,7 @@ class JoinStep3 extends Component  {
                   <h3>Step 3: {JOIN_PAGE_MODEL.sectionHeading}</h3>
                   <br/>
                   <br/>
-                  <Countdown date={Date.now() + 360} renderer={this.CountdownRenderer}/>
-                  <p>Please complete signup: xx:yy before this request expires.</p>
+                  <Countdown date={Date.now() + 360000} renderer={this.CountdownRenderer}/>
                   <br/>
                   <br/>
                   <p>Selected Plan: {JOIN_PAGE_MODEL.selectedSubscriptionPlan.planName} (Plan ID: {selectedPlanId})</p>
