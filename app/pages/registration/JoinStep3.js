@@ -46,22 +46,18 @@ class JoinStep3 extends Component  {
     }
   }
 
-  /* Countdown Renderer and Completion */
-  CountdownComplete = () => {
-      return <span>You are good to go!</span>;
-  };
-
   CountdownRenderer = ({ hours, minutes, seconds, completed }) => {
     if (completed) {
       // Render a completed state
       console.log('The countdown has completed.....');
-      return <CountdownComplete />;
-    } else {
+      return <span>You are good to go!</span>;
+    }
+    else {
       // Render a countdown
       return <span>{hours}:{minutes}:{seconds}</span>;
     }
   };
-  
+
   render() {
     const joinPageModel = {
       name: 'JOIN_PAGE_MODEL',
