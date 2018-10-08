@@ -57,7 +57,7 @@ class JoinStep3 extends Component  {
     }
     else {
       // Render a countdown
-      return <p style={{'fontSize': '1.3em', 'color': 'green'}}>This signup request will expire in: {minutes > 0 && <span>{minutes} minutes, </span>}{seconds} seconds.</p>;
+      return <p style={{'fontSize': '1.3em', 'color': 'green'}}>This signup request will expire in: {minutes != "00" && <span>{minutes} minutes, </span>}{seconds} seconds.</p>;
     }
   };
 
