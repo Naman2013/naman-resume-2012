@@ -64,7 +64,7 @@ class JoinStep3 extends Component  {
   CountdownExpiredRenderer = ({ hours, minutes, seconds, completed }) => {
     if (!completed) {
       // Render a countdown
-      return <p style={{'fontSize': '1.3em', 'fontWeight': 'bold', 'color': 'red'}}>Signup was not completed in the allotted time.....redirecting to the Homepage: {seconds} seconds.</p>;
+      return <p style={{'fontSize': '1.3em', 'fontWeight': 'bold', 'color': 'red'}}>Signup was not completed in the allotted time.....redirecting to the Homepage: {minutes > 0 && <span>{minutes} minutes, </span>}{seconds} seconds.</p>;
     }
   };
 
