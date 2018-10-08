@@ -23,6 +23,8 @@ class JoinStep3 extends Component  {
 
   constructor(props) {
     super(props);
+
+    this.CountdownRenderer = this.CountdownRenderer.bind(this);
   }
 
   componentDidMount() {
@@ -98,7 +100,7 @@ class JoinStep3 extends Component  {
                   <h3>Step 3: {JOIN_PAGE_MODEL.sectionHeading}</h3>
                   <br/>
                   <br/>
-                  <Countdown date={Date.now() + 360} renderer={CountdownRenderer}/>
+                  <Countdown date={Date.now() + 360} renderer={this.CountdownRenderer}/>
                   <p>Please complete signup: xx:yy before this request expires.</p>
                   <br/>
                   <br/>
