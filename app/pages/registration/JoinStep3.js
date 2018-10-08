@@ -50,7 +50,7 @@ class JoinStep3 extends Component  {
     if (completed) {
       // Render a completed state
       console.log('The countdown has completed.....');
-      return <span>You are good to go!</span>;
+      return <span>Your signup request has expired.....</span>;
     }
     else {
       // Render a countdown
@@ -96,7 +96,7 @@ class JoinStep3 extends Component  {
                   <h3>Step 3: {JOIN_PAGE_MODEL.sectionHeading}</h3>
                   <br/>
                   <br/>
-                  <Countdown date={Date.now() + 360000} renderer={this.CountdownRenderer}/>
+                  <Countdown date={Date.now() + 1080000} renderer={this.CountdownRenderer}/>
                   <br/>
                   <br/>
                   <p>Selected Plan: {JOIN_PAGE_MODEL.selectedSubscriptionPlan.planName} (Plan ID: {selectedPlanId})</p>
