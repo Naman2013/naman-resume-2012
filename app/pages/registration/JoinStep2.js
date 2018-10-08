@@ -93,6 +93,8 @@ class JoinStep2 extends Component {
     * Set up a Pending Customer Account
     * Set a cid_pending localStorage key
     */
+
+    this.props.navigation.navigate('JoinStep3');
   }
 
   /* The API response to the Google SSO Request was successful, process the response data elements accordingly and send the information back to the Slooh servers */
