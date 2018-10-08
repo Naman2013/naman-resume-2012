@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import InputField from 'components/form/InputField';
 import { createValidator, required } from 'modules/utils/validation';
+import { browserHistory } from 'react-router';
 import Button from 'components/common/style/buttons/Button';
 import Request from 'components/common/network/Request';
 import axios from 'axios';
@@ -94,7 +95,7 @@ class JoinStep2 extends Component {
     * Set a cid_pending localStorage key
     */
 
-    this.props.navigation.navigate('JoinStep3');
+    browserHistory.push('/join/step3');
   }
 
   /* The API response to the Google SSO Request was successful, process the response data elements accordingly and send the information back to the Slooh servers */

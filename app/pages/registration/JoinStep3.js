@@ -7,6 +7,7 @@ import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Request from 'components/common/network/Request';
+import { browserHistory } from 'react-router';
 import { JOIN_PAGE_ENDPOINT_URL, SUBSCRIPTION_PLANS_ENDPOINT_URL } from 'services/registration/registration.js';
 import Countdown from 'react-countdown-now';
 
@@ -63,7 +64,7 @@ class JoinStep3 extends Component  {
     if (completed) {
       console.log('Redirecting the user away from this page....');
       window.localStorage.removeItem('selectedPlanId');
-      this.props.navigation.navigate('/');
+      browserHistory.push('/');
     }
     else {
       // Render a countdown
