@@ -25,6 +25,7 @@ class JoinStep3 extends Component  {
     super(props);
 
     this.CountdownRenderer = this.CountdownRenderer.bind(this);
+    this.CountdownExpiredRenderer = this.CountdownExpiredRenderer.bind(this);
   }
 
   componentDidMount() {
@@ -50,11 +51,21 @@ class JoinStep3 extends Component  {
     if (completed) {
       // Render a completed state
       console.log('The countdown has completed.....');
-      return <span>Your signup request has expired.....</span>;
+      return <Countdown date={Date.now() + 15000} renderer={this.CountdownExpiredRenderer}/>;
     }
     else {
       // Render a countdown
       return <p>Please complete signup: {minutes}:{seconds} before this request expires.</p>;
+    }
+  };
+
+  CountdownExpiredRenderer = ({ hours, minutes, seconds, completed }) => {
+    if (completed) {
+      console.log('Redirecting the user away from this page....');
+    }
+    else {
+      // Render a countdown
+      return <p>Signup was not completed in the allotted time.....Resetting join flow in: {seconds} seconds.</p>;
     }
   };
 
