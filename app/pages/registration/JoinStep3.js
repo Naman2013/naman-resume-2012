@@ -46,11 +46,11 @@ class JoinStep3 extends Component  {
     }
 
     /* Countdown Renderer and Completion */
-    const CountdownComplete = () => {
+    CountdownComplete = () => {
         return <span>You are good to go!</span>;
     };
 
-    const CountdownRenderer = ({ hours, minutes, seconds, completed }) => {
+    CountdownRenderer = ({ hours, minutes, seconds, completed }) => {
       if (completed) {
         // Render a completed state
         console.log('The countdown has completed.....');
