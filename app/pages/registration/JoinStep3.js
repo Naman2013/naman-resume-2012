@@ -53,18 +53,18 @@ class JoinStep3 extends Component  {
     if (completed) {
       // Render a completed state
       console.log('The countdown has completed.....');
-      return <Countdown date={Date.now() + 15000} renderer={this.CountdownExpiredRenderer} onComplete={this.CountdownExpiredComplete}/>;
+      return <Countdown date={Date.now() + 5000} renderer={this.CountdownExpiredRenderer} onComplete={this.CountdownExpiredComplete}/>;
     }
     else {
       // Render a countdown
-      return <p>Please complete signup: {minutes}:{seconds} before this request expires.</p>;
+      return <p style={{'fontSize': '1.3em', 'color': 'green'}}>This signup request will expire in: {minutes} minutes, {seconds} seconds.</p>;
     }
   };
 
   CountdownExpiredRenderer = ({ hours, minutes, seconds, completed }) => {
     if (!completed) {
       // Render a countdown
-      return <p>Signup was not completed in the allotted time.....Resetting join flow in: {seconds} seconds.</p>;
+      return <p style={{'fontSize': '1.3m', 'fontWeight': 'bold', 'color': 'red'}}>Signup was not completed in the allotted time.....redirecting to the Homepage: {seconds} seconds.</p>;
     }
   };
 
@@ -112,7 +112,7 @@ class JoinStep3 extends Component  {
                   <h3>Step 3: {JOIN_PAGE_MODEL.sectionHeading}</h3>
                   <br/>
                   <br/>
-                  <Countdown date={Date.now() + 3000} renderer={this.CountdownRenderer} onComplete={this.CountdownComplete}/>
+                  <Countdown date={Date.now() + 900000} renderer={this.CountdownRenderer} onComplete={this.CountdownComplete}/>
                   <br/>
                   <br/>
                   <p>Selected Plan: {JOIN_PAGE_MODEL.selectedSubscriptionPlan.planName} (Plan ID: {selectedPlanId})</p>
