@@ -50,6 +50,7 @@ class JoinStep3 extends Component  {
         pageHeading1: resp.pageHeading1,
         pageHeading2: resp.pageHeading2,
         sectionHeading: resp.sectionHeading,
+        selectedSubscriptionPlan: resp.selectedSubscriptionPlan,
         hostedPaymentFormURL: resp.hostedPaymentFormURL,
       }),
     };
