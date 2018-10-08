@@ -49,7 +49,7 @@ const HeaderContainer = ({
           {toggleReadingListFlag ? <ToggleReadingList
             itemId={postId}
             readingListType={STORY}
-            readingListPrompt={readingListPrompt}
+            readingListPrompt={null}
             promptIconUrl={promptIconUrl}
           /> : null}
           <LikeSomethingButton

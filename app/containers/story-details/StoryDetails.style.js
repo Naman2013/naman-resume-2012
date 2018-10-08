@@ -70,6 +70,7 @@ export default css`
     border-radius: 100%;
     height: 200px;
     width: auto;
+    max-width: 200px;
   }
 
   .flex {
@@ -143,6 +144,7 @@ export default css`
     .story-main-image {
       height: 440px;
       width: auto;
+      max-width: 440px;
     }
   }
 
@@ -168,6 +170,7 @@ export default css`
     .story-main-image {
       height: 440px;
       width: auto;
+      max-width: 440px;
     }
   }
 
@@ -192,7 +195,8 @@ export default css`
 
     .story-main-image {
       height: 440px;
-      width: 440px;
+      width: auto;
+      max-width: 440px;
     }
   }
 `;

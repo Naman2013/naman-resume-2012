@@ -22,7 +22,7 @@ const StoryExcerptTile = ({
     <div className="sub-title" dangerouslySetInnerHTML={{ __html: author }} />
     <div className="description" dangerouslySetInnerHTML={{ __html: shortDescription }} />
     <div className="actions">
-      <Button text={linkLabel} onClickEvent={() => browserHistory.push(linkUrl)} />
+      <Button text={linkLabel} onClickEvent={() => browserHistory.push(linkUrl)} theme={{ height: '40px' }}/>
       {toggleReadingListFlag ? <ToggleReadingList
         itemId={postId}
         readingListType={readingListType}

@@ -19,20 +19,20 @@ class GuideTiles extends Component {
 
   state = {
     activeId: null,
-    isMobile: false,
   }
 
   setActiveTile = (e, id) => {
     e.preventDefault();
+    e.stopPropagation();
     if (this.state.activeId !== id) {
-      this.setState(state => ({
+      this.setState(() => ({
         activeId: id,
       }));
     }
   }
 
   removeActiveTile = (e) => {
-    this.setState(state => ({
+    this.setState(() => ({
       activeId: null,
     }));
   }
@@ -49,7 +49,7 @@ class GuideTiles extends Component {
               key={uniqueId()}
               className="tile"
               onMouseOver={(e) => this.setActiveTile(e, guide.guideId)}
-              onMouseOut={this.removeActiveTile}
+              onMouseLeave={this.removeActiveTile}
             >
               <div>
                 <GuideTile {...guide} />

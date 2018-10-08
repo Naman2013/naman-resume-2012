@@ -18,25 +18,27 @@ class StoriesTiles extends Component {
 
   state = {
     activeId: null,
-    isMobile: false,
   }
 
-  setActiveTile = (e, id) => {
+  setActiveTile = (e) => {
     e.preventDefault();
-
-    if (this.state.activeId !== id) {
-      this.setState(state => ({
-        activeId: id,
+    e.stopPropagation();
+    const { id } = e.currentTarget.dataset;
+    const parsedId = Number(id);
+    if (this.state.activeId !== parsedId) {
+      this.setState(() => ({
+        activeId: Number(parsedId),
       }));
     }
-
   }
 
   removeActiveTile = (e) => {
     e.preventDefault();
-    this.setState(state => ({
-      activeId: null,
-    }));
+    if (this.state.activeId) {
+      this.setState(() => ({
+        activeId: null,
+      }));
+    }
   }
 
 
@@ -50,8 +52,9 @@ class StoriesTiles extends Component {
             <li
               key={uniqueId()}
               className="tile"
-              onMouseOver={(e) => this.setActiveTile(e, story.postId)}
-              onMouseOut={this.removeActiveTile}
+              data-id={story.postId}
+              onMouseOver={this.setActiveTile}
+              onMouseLeave={this.removeActiveTile}
             >
               <div>
                 <StoryTile {...story} isMobile={isMobile} photoSize={100} />
@@ -61,8 +64,6 @@ class StoriesTiles extends Component {
               })}>
                 <StoryExcerptTile {...story} />
               </div>
-
-
             </li>
           ))}
           {isMobile && stories.map(story => (

@@ -52,7 +52,6 @@ class ToggleReadingList extends Component {
       icon,
       text,
     } = this.state;
-
     return (
       <Fragment>
         <ReadingListButton
