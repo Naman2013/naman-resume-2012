@@ -118,6 +118,18 @@ class Login extends Component {
       forgotPasswordURL,
     } = this.props;
 
+    const googleClientIDModel = {
+      name: 'GOOGLE_CLIENT_ID_MODEL',
+      model: resp => ({
+        googleAPIFlowState: resp.apiFlowState,
+        googleClientID: resp.googleClientID,
+        googleClientScope: resp.googleClientScope,
+        googleClientAccessType: resp.googleClientAccessType,
+        googleClientResponseType: resp.googleClientResponseType,
+        loginButtonText: resp.loginButtonText,
+      }),
+    };
+    
     const googleProfileData = this.state.googleProfileData;
 
     return (
