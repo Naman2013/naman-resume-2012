@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Request from 'components/common/network/Request';
 import { JOIN_PAGE_ENDPOINT_URL, SUBSCRIPTION_PLANS_ENDPOINT_URL } from 'services/registration/registration.js';
+import Countdown from 'react-countdown-now';
 
 const mapStateToProps = ({ appConfig }) => ({
   appConfig,
@@ -41,6 +42,22 @@ class JoinStep3 extends Component  {
         console.log('Payment Token!! ' + paymentNonceTokenData);
       }
     }
+
+    /* Countdown Renderer and Completion */
+    const CountdownComplete = () => {
+        return <span>You are good to go!</span>;
+    };
+
+    const CountdownRenderer = ({ hours, minutes, seconds, completed }) => {
+      if (completed) {
+        // Render a completed state
+        console.log('The countdown has completed.....');
+        return <CountdownComplete />;
+      } else {
+        // Render a countdown
+        return <span>{hours}:{minutes}:{seconds}</span>;
+      }
+    };
   }
 
   render() {
@@ -79,6 +96,10 @@ class JoinStep3 extends Component  {
                   <h1>{JOIN_PAGE_MODEL.pageHeading1}</h1>
                   <h2>{JOIN_PAGE_MODEL.pageHeading2}</h2>
                   <h3>Step 3: {JOIN_PAGE_MODEL.sectionHeading}</h3>
+                  <br/>
+                  <br/>
+                  <Countdown date={Date.now() + 360} renderer={CountdownRenderer}/>
+                  <p>Please complete signup: xx:yy before this request expires.</p>
                   <br/>
                   <br/>
                   <p>Selected Plan: {JOIN_PAGE_MODEL.selectedSubscriptionPlan.planName} (Plan ID: {selectedPlanId})</p>
