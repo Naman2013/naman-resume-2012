@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Button from 'components/common/style/buttons/Button';
 import Request from 'components/common/network/Request';
-
+import { JOIN_PAGE_ENDPOINT_URL, SUBSCRIPTION_PLANS_ENDPOINT_URL } from 'services/registration/registration.js';
 class JoinStep1 extends Component {
   constructor(props) {
     super(props);
@@ -16,13 +16,10 @@ class JoinStep1 extends Component {
 
   setSelectedPlan(subscriptionPlanId) {
     window.localStorage.setItem('selectedPlanId', subscriptionPlanId);
-    console.log('setting selected plan of: ' + subscriptionPlanId);
+    //console.log('setting selected plan of: ' + subscriptionPlanId);
   }
 
   render() {
-    const JOIN_PAGE_ENDPOINT_URL = '/api/page/join';
-    const SUBSCRIPTION_PLANS_ENDPOINT_URL = '/api/registration/getSubscriptionPlans';
-
     const joinPageModel = {
       name: 'JOIN_PAGE_MODEL',
       model: resp => ({

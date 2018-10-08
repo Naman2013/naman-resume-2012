@@ -6,8 +6,8 @@ import React, { Component , cloneElement, Fragment } from 'react';
 import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-
 import Request from 'components/common/network/Request';
+import { JOIN_PAGE_ENDPOINT_URL, SUBSCRIPTION_PLANS_ENDPOINT_URL } from 'services/registration/registration.js';
 
 const mapStateToProps = ({ appConfig }) => ({
   appConfig,
@@ -44,8 +44,6 @@ class JoinStep3 extends Component  {
   }
 
   render() {
-    const JOIN_PAGE_ENDPOINT_URL = '/api/page/join';
-
     const joinPageModel = {
       name: 'JOIN_PAGE_MODEL',
       model: resp => ({
@@ -58,12 +56,14 @@ class JoinStep3 extends Component  {
 
     const paymentTokenNonce = this.state.paymentToken;
 
+    const selectedPlanId = window.localStorage.getItem('selectedPlanId');
+
     return (
       <div style={{'paddingTop': '55px', 'marginLeft': 'auto', 'marginRight': 'auto', 'width': '600px'}}>
       <Request
         serviceURL={JOIN_PAGE_ENDPOINT_URL}
         model={joinPageModel}
-        requestBody={{ 'callSource': 'providePaymentDetails', 'selectedPlanID': this.props.params.subscriptionPlanID }}
+        requestBody={{ 'callSource': 'providePaymentDetails', 'selectedPlanID': selectedPlanId }}
         render={({
           fetchingContent,
           modeledResponses: { JOIN_PAGE_MODEL },
@@ -78,6 +78,9 @@ class JoinStep3 extends Component  {
                   <h1>{JOIN_PAGE_MODEL.pageHeading1}</h1>
                   <h2>{JOIN_PAGE_MODEL.pageHeading2}</h2>
                   <h3>Step 3: {JOIN_PAGE_MODEL.sectionHeading}</h3>
+                  <br/>
+                  <br/>
+                  <p>Selected Plan: {JOIN_PAGE_MODEL.selectedSubscriptionPlan.planName} (Plan ID: {selectedPlanId})</p>
                   <br/>
                   <br/>
                   <p style={{'fontWeight': 'bold', 'fontSize': '1.3em'}}>Payment Token nonce:</p>

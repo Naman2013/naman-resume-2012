@@ -10,11 +10,10 @@ import { Field, reduxForm } from 'redux-form';
 import InputField from 'components/form/InputField';
 import { createValidator, required } from 'modules/utils/validation';
 import Button from 'components/common/style/buttons/Button';
-
 import Request from 'components/common/network/Request';
 import axios from 'axios';
-
 import { GoogleLogin } from 'react-google-login';
+import { JOIN_PAGE_ENDPOINT_URL, SUBSCRIPTION_PLANS_ENDPOINT_URL, GOOGLE_CLIENT_ID_ENDPOINT } from 'services/registration/registration.js';
 
 class JoinStep2 extends Component {
   constructor(props) {
@@ -91,8 +90,8 @@ class JoinStep2 extends Component {
     window.localStorage.setItem('join_accountFormDetails', this.state.accountFormDetails);
 
     /*****************************************
-    * Set up a Pending Customer Accou
-    * Set a cid_pending cookie
+    * Set up a Pending Customer Account
+    * Set a cid_pending localStorage key
     */
   }
 
@@ -163,7 +162,6 @@ class JoinStep2 extends Component {
   }
 
   render() {
-    const JOIN_PAGE_ENDPOINT_URL = '/api/page/join';
 
     const joinPageModel = {
       name: 'JOIN_PAGE_MODEL',
@@ -175,8 +173,6 @@ class JoinStep2 extends Component {
         formFieldLabels: resp.formFieldLabels,
       }),
     };
-
-    const GOOGLE_CLIENT_ID_ENDPOINT = '/api/registration/getGoogleClientID';
 
     const googleClientIDModel = {
       name: 'GOOGLE_CLIENT_ID_MODEL',
