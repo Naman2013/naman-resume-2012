@@ -44,24 +44,24 @@ class JoinStep3 extends Component  {
         console.log('Payment Token!! ' + paymentNonceTokenData);
       }
     }
-
-    /* Countdown Renderer and Completion */
-    CountdownComplete = () => {
-        return <span>You are good to go!</span>;
-    };
-
-    CountdownRenderer = ({ hours, minutes, seconds, completed }) => {
-      if (completed) {
-        // Render a completed state
-        console.log('The countdown has completed.....');
-        return <CountdownComplete />;
-      } else {
-        // Render a countdown
-        return <span>{hours}:{minutes}:{seconds}</span>;
-      }
-    };
   }
 
+  /* Countdown Renderer and Completion */
+  CountdownComplete = () => {
+      return <span>You are good to go!</span>;
+  };
+
+  CountdownRenderer = ({ hours, minutes, seconds, completed }) => {
+    if (completed) {
+      // Render a completed state
+      console.log('The countdown has completed.....');
+      return <CountdownComplete />;
+    } else {
+      // Render a countdown
+      return <span>{hours}:{minutes}:{seconds}</span>;
+    }
+  };
+  
   render() {
     const joinPageModel = {
       name: 'JOIN_PAGE_MODEL',
