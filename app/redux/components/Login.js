@@ -13,12 +13,10 @@ import { nightfall, astronaut, romance, shadows } from 'styles/variables/colors_
 import { faintShadow } from 'styles/variables/shadows';
 import { primaryFont } from 'styles/variables/fonts';
 import{ horizontalArrowRightWhite } from 'styles/variables/iconURLs';
-
+import {GOOGLE_CLIENT_ID_ENDPOINT, googleClientIDModel} from 'services/registration/registration.js';
 import Request from 'components/common/network/Request';
 import axios from 'axios';
-
 import { GoogleLogin } from 'react-google-login';
-
 
 const propTypes = {
   forgotPasswordURL: PropTypes.string,
@@ -113,7 +111,12 @@ class Login extends Component {
   }
 
   render() {
-    const GOOGLE_CLIENT_ID_ENDPOINT = '/api/registration/getGoogleClientID';
+
+    const {
+      loginFailed,
+      registerNewMemberURL,
+      forgotPasswordURL,
+    } = this.props;
 
     const googleClientIDModel = {
       name: 'GOOGLE_CLIENT_ID_MODEL',
@@ -126,13 +129,7 @@ class Login extends Component {
         loginButtonText: resp.loginButtonText,
       }),
     };
-
-    const {
-      loginFailed,
-      registerNewMemberURL,
-      forgotPasswordURL,
-    } = this.props;
-
+    
     const googleProfileData = this.state.googleProfileData;
 
     return (
@@ -173,7 +170,7 @@ class Login extends Component {
           <Request
             serviceURL={GOOGLE_CLIENT_ID_ENDPOINT}
             model={googleClientIDModel}
-            requestBody={{ }}
+            requestBody={{ 'callSource': 'login' }}
             render={({
               fetchingContent,
               modeledResponses: { GOOGLE_CLIENT_ID_MODEL },
