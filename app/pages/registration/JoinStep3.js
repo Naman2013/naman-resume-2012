@@ -62,6 +62,8 @@ class JoinStep3 extends Component  {
   CountdownExpiredRenderer = ({ hours, minutes, seconds, completed }) => {
     if (completed) {
       console.log('Redirecting the user away from this page....');
+      window.localStorage.removeItem('selectedPlanId');
+      this.props.navigation.navigate('/');
     }
     else {
       // Render a countdown
@@ -107,7 +109,7 @@ class JoinStep3 extends Component  {
                   <h3>Step 3: {JOIN_PAGE_MODEL.sectionHeading}</h3>
                   <br/>
                   <br/>
-                  <Countdown date={Date.now() + 1080000} renderer={this.CountdownRenderer}/>
+                  <Countdown date={Date.now() + 3000} renderer={this.CountdownRenderer}/>
                   <br/>
                   <br/>
                   <p>Selected Plan: {JOIN_PAGE_MODEL.selectedSubscriptionPlan.planName} (Plan ID: {selectedPlanId})</p>
