@@ -21,12 +21,14 @@ class GuideTiles extends Component {
     activeId: null,
   }
 
-  setActiveTile = (e, id) => {
+  setActiveTile = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    if (this.state.activeId !== id) {
+    const { id } = e.currentTarget.dataset;
+    const parsedId = Number(id);
+    if (this.state.activeId !== parsedId) {
       this.setState(() => ({
-        activeId: id,
+        activeId: Number(parsedId),
       }));
     }
   }
@@ -48,7 +50,8 @@ class GuideTiles extends Component {
             <li
               key={uniqueId()}
               className="tile"
-              onMouseOver={(e) => this.setActiveTile(e, guide.guideId)}
+              data-id={guide.guideId}
+              onMouseOver={this.setActiveTile}
               onMouseLeave={this.removeActiveTile}
             >
               <div>
