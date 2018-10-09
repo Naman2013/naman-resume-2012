@@ -379,7 +379,7 @@ class JoinStep2 extends Component {
                     />
                     <br/>
                     <form className="form" onSubmit={this.handleSubmit}>
-                      {this.state.isAstronomyClub === true && <p>{this.state.accountFormDetails.astronomyClubName.label}:
+                      {this.state.isAstronomyClub === true && <div>{this.state.accountFormDetails.astronomyClubName.label}:
                             <Field
                               name="astronomyClubName"
                               type="name"
@@ -389,7 +389,15 @@ class JoinStep2 extends Component {
                             />
                           <br/>
                           <br/>
-                        </p>
+                          <div style={{'display': 'block-inline'}}>{this.state.accountFormDetails.astronomyClub18AndOver.hintText}:
+                            <Field style={{'display': 'inline'}}
+                              name="astronomyClub18AndOver"
+                              component={InputField}
+                              type="checkbox"
+                              onChange={(event) => { this.handleFieldChange({ field: 'astronomyClub18AndOver', value: event.target.value }); }}
+                            />
+                          </div>
+                        </div>
                       }
                       <p>{this.state.accountFormDetails.givenName.label}: <span style={{'color': 'red', 'fontStyle': 'italic'}}>{this.state.accountFormDetails.givenName.errorText}</span>
                         <Field
