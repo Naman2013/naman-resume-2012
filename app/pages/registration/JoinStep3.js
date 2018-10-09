@@ -133,6 +133,10 @@ class JoinStep3 extends Component  {
                   <br/>
                   <br/>
                   <p style={{'fontSize': '1.2em'}}>Selected Plan: {JOIN_PAGE_MODEL.selectedSubscriptionPlan.planName} (Plan ID: {selectedPlanId})</p>
+                  <p style={{'fontSize': '1.0em'}}>{JOIN_PAGE_MODEL.selectedSubscriptionPlan.startDateText}</p>
+                  <p style={{'fontSize': '1.0em'}}>{JOIN_PAGE_MODEL.selectedSubscriptionPlan.nextRenewalDate}</p>
+                  <p style={{'fontSize': '1.0em'}}>{JOIN_PAGE_MODEL.selectedSubscriptionPlan.planCostPrefix}{JOIN_PAGE_MODEL.selectedSubscriptionPlan.planCost}</p>
+                  <p style={{'fontSize': '1.0em'}}>{JOIN_PAGE_MODEL.selectedSubscriptionPlan.planCostPostfix}</p>
                   <br/>
                   <br/>
                   <p style={{'fontWeight': 'bold', 'fontSize': '1.3em'}}>Payment Token nonce:</p>
