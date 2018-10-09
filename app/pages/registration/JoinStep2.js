@@ -43,8 +43,8 @@ class JoinStep2 extends Component {
     Family Name = Lastname
   */
   state = {
-    'accountCreationType': 'userpass',
-    'googleProfileData': {
+    accountCreationType: 'userpass',
+    googleProfileData: {
       googleAPIFlowState: '',
       googleAccessToken: '',
       googleRefreshToken: '',
@@ -54,7 +54,7 @@ class JoinStep2 extends Component {
       googleProfileFamilyName: '',
       googleProfilePictureURL: '',
     },
-    'accountFormDetails': {
+    accountFormDetails: {
       givenName: { label: '', value: '', hintText: '', errorText: ''},
       familyName: { label: '', value: '', hintText: '', errorText: ''},
       displayName: { label: '', value: '', hintText: '', errorText: ''},
@@ -251,6 +251,7 @@ class JoinStep2 extends Component {
           accountFormDetailsData.loginEmailAddress.hintText = googleProfileResult.googleProfileEmail;
           accountFormDetailsData.loginEmailAddress.editable = false;
           accountFormDetailsData.loginEmailAddress.value = googleProfileResult.googleProfileEmail;
+          this.props.change('loginEmailAddress', googleProfileResult.googleProfileFamilyName);
 
           /* No need to verify the email address as its Google and it was already provided */
           accountFormDetailsData.loginEmailAddressVerification.visible = false;
