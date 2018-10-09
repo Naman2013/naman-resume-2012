@@ -55,19 +55,27 @@ class JoinStep2 extends Component {
       googleProfilePictureURL: '',
     },
     'accountFormDetails': {
-      givenName: { value: '', hintText: ''},
-      familyName: { value: '', hintText: ''},
-      displayName: { value: '', hintText: ''},
-      loginEmailAddress: { editable: true, value: '', hintText: '' },
-      loginEmailAddressVerification: {visible: true, value: '', hintText: '' },
-      password: { visible: true, value: '', hintText: '' },
-      passwordVerification: { visible: true, value: '', hintText: '' },
+      givenName: { label: '', value: '', hintText: '', errorText: ''},
+      familyName: { label: '', value: '', hintText: '', errorText: ''},
+      displayName: { label: '', value: '', hintText: '', errorText: ''},
+      loginEmailAddress: { label: '', editable: true, value: '', hintText: '', errorText: '' },
+      loginEmailAddressVerification: {label: '', visible: true, value: '', hintText: '', errorText: '' },
+      password: { label: '', visible: true, value: '', hintText: '', errorText: '' },
+      passwordVerification: { label: '', visible: true, value: '', hintText: '', errorText: '' },
     },
   };
 
   /* Obtain access to the join api service response and update the accountFormDetails state to reflect the Join Page response (set form labels)*/
   handleJoinPageServiceResponse(result) {
       var accountFormDetailsData = this.state.accountFormDetails;
+      accountFormDetailsData.givenName.label = result.formFieldLabels.firstname.label;
+      accountFormDetailsData.familyName.label = result.formFieldLabels.lastname.label;
+      accountFormDetailsData.displayName.label = result.formFieldLabels.displayname.label;
+      accountFormDetailsData.loginEmailAddress.label = result.formFieldLabels.loginemailaddress.label;
+      accountFormDetailsData.loginEmailAddressVerification.label = result.formFieldLabels.loginemailaddressverification.label;
+      accountFormDetailsData.password.label = result.formFieldLabels.password.label;
+      accountFormDetailsData.passwordVerification.label = result.formFieldLabels.passwordverification.label;
+
       accountFormDetailsData.givenName.hintText = result.formFieldLabels.firstname.hintText;
       accountFormDetailsData.familyName.hintText = result.formFieldLabels.lastname.hintText;
       accountFormDetailsData.displayName.hintText = result.formFieldLabels.displayname.hintText;
@@ -96,7 +104,24 @@ class JoinStep2 extends Component {
     formValues.preventDefault();
     //console.log(this.state.accountFormDetails);
 
+    /* Validate that the necessary form fields are in place */
     window.localStorage.setItem('join_accountFormDetails', this.state.accountFormDetails);
+
+    if (this.state.accountCreationType == 'userpass') {
+        /* Verify that the user has provided:
+            Firstname
+            Lastname
+            Displayname - optional
+            Email address and matches verification email fields
+            Password and matches password verification field
+        */
+    }
+    else if (this.state.accountCreationType == 'googleaccount') {
+        /* Verify that the user has provided:
+          Firstname
+          Lastname
+        */
+    }
 
     /*****************************************
     * Set up a Pending Customer Account
@@ -279,7 +304,7 @@ class JoinStep2 extends Component {
                     />
                     <br/>
                     <form className="form" onSubmit={this.handleSubmit}>
-                      <p>{JOIN_PAGE_MODEL.formFieldLabels.firstname.label}:
+                      <p>{this.state.accountFormDetails.givenName.label}: {this.state.accountFormDetails.givenName.errorText}
                         <Field
                           name="givenName"
                           type="name"
@@ -290,7 +315,7 @@ class JoinStep2 extends Component {
                           />
                       </p>
                       <br/>
-                      <p>{JOIN_PAGE_MODEL.formFieldLabels.lastname.label}:
+                      <p>{this.state.accountFormDetails.familyName.label}: {this.state.accountFormDetails.familyName.errorText}
                         <Field
                           name="familyName"
                           type="name"
@@ -301,7 +326,7 @@ class JoinStep2 extends Component {
                         />
                       </p>
                       <br/>
-                      <p>{JOIN_PAGE_MODEL.formFieldLabels.displayname.label}:
+                      <p>{this.state.accountFormDetails.displayName.label}:
                         <Field
                           name="displayName"
                           type="name"
@@ -311,7 +336,7 @@ class JoinStep2 extends Component {
                         />
                       </p>
                       <br/>
-                      <p>{JOIN_PAGE_MODEL.formFieldLabels.loginemailaddress.label}:
+                      <p>{this.state.accountFormDetails.loginEmailAddress.label}: {this.state.accountFormDetails.loginEmailAddress.errorText}
                         <Field
                           input={{'disabled': ! this.state.accountFormDetails.loginEmailAddress.editable}}
                           name="loginEmailAddress"
@@ -323,7 +348,7 @@ class JoinStep2 extends Component {
                         />
                       </p>
                       <br/>
-                      {this.state.accountFormDetails.loginEmailAddressVerification.visible == true && <p>{JOIN_PAGE_MODEL.formFieldLabels.loginemailaddressverification.label}:
+                      {this.state.accountFormDetails.loginEmailAddressVerification.visible == true && <p>{this.state.accountFormDetails.loginEmailAddressVerification.label}: {this.state.accountFormDetails.loginEmailAddressVerification.errorText}
                         <Field
                             name="loginEmailAddressVerification"
                             type="email"
@@ -335,22 +360,22 @@ class JoinStep2 extends Component {
                       </p>
                       }
                       <br/>
-                      {this.state.accountFormDetails.password.visible == true && <p>{JOIN_PAGE_MODEL.formFieldLabels.password.label}:
+                      {this.state.accountFormDetails.password.visible == true && <p>{this.state.accountFormDetails.password.label}: {this.state.accountFormDetails.password.errorText}
                         <Field
                           name="password"
                           type="password"
-                          label={JOIN_PAGE_MODEL.formFieldLabels.password.hintText}
+                          label={this.state.accountFormDetails.password.hintText}
                           component={InputField}
                           onChange={(event) => { this.handleFieldChange({ field: 'password', value: event.target.value }); }}
                         />
                       </p>
                       }
                       <br/>
-                      {this.state.accountFormDetails.passwordVerification.visible == true && <p>{JOIN_PAGE_MODEL.formFieldLabels.passwordverification.label}:
+                      {this.state.accountFormDetails.passwordVerification.visible == true && <p>{JOIN_PAGE_MODEL.formFieldLabels.passwordverification.label}: {this.state.accountFormDetails.passwordVerification.errorText}
                         <Field
                           name="passwordVerification"
                           type="password"
-                          label={JOIN_PAGE_MODEL.formFieldLabels.passwordverification.hintText}
+                          label={this.state.accountFormDetails.passwordVerification.hintText}
                           component={InputField}
                           onChange={(event) => { this.handleFieldChange({ field: 'passwordVerification', value: event.target.value }); }}
                         />
