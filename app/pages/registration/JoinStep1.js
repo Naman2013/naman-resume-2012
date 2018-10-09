@@ -13,6 +13,12 @@ import { JOIN_PAGE_ENDPOINT_URL, SUBSCRIPTION_PLANS_ENDPOINT_URL } from 'service
 class JoinStep1 extends Component {
   constructor(props) {
     super(props);
+
+    /* reset all browser localstorage data points for the Join flow */
+    window.localStorage.removeItem('selectedPlanId');
+    window.localStorage.removeItem('accountCreationType');
+    window.localStorage.removeItem('join_accountFormDetails');
+    window.localStorage.removeItem('googleProfileId');
   }
 
   setSelectedPlan(subscriptionPlanId) {

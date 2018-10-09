@@ -14,7 +14,13 @@ import Button from 'components/common/style/buttons/Button';
 import Request from 'components/common/network/Request';
 import axios from 'axios';
 import { GoogleLogin } from 'react-google-login';
-import { JOIN_PAGE_ENDPOINT_URL, SUBSCRIPTION_PLANS_ENDPOINT_URL, GOOGLE_CLIENT_ID_ENDPOINT_URL, GOOGLE_SSO_SIGNIN_ENDPOINT_URL } from 'services/registration/registration.js';
+import {
+  JOIN_PAGE_ENDPOINT_URL,
+  SUBSCRIPTION_PLANS_ENDPOINT_URL,
+  GOOGLE_CLIENT_ID_ENDPOINT_URL,
+  GOOGLE_SSO_SIGNIN_ENDPOINT_URL,
+  JOIN_CREATE_PENDING_CUSTOMER_ENDPOINT_URL
+} from 'services/registration/registration.js';
 
 class JoinStep2 extends Component {
   constructor(props) {
@@ -22,6 +28,8 @@ class JoinStep2 extends Component {
 
     /* bind the Join Page Service Response to "this" so it can access the form on the page */
     this.handleJoinPageServiceResponse = this.handleJoinPageServiceResponse.bind(this);
+
+    window.localStorage.setItem('accountCreationType', 'userpass');
   }
 
   /* Configure the default state for:
@@ -93,7 +101,8 @@ class JoinStep2 extends Component {
     /*****************************************
     * Set up a Pending Customer Account
     * Set a cid_pending localStorage key
-    */
+    *****************************************/
+    //JOIN_CREATE_PENDING_CUSTOMER_ENDPOINT_URL
 
     browserHistory.push('/join/step3');
   }
@@ -153,6 +162,10 @@ class JoinStep2 extends Component {
 
           /* Set the account creation type as Google */
           this.setState({'accountCreationType': 'googleaccount'});
+
+          /* Set the account creation type as Google and the Google Profile Id in browser storage */
+          window.localStorage.setItem('accountCreationType', 'googleaccount');
+          window.localStorage.setItem('googleProfileId', googleProfileResult.googleProfileId);
         }
       })
       .catch(err => {
