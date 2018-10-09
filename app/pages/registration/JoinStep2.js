@@ -107,13 +107,15 @@ class JoinStep2 extends Component {
     //assume the form is ready to submit unless validation issues occur.
     var formIsComplete = true;
 
+    var accountFormDetailsData = this.status.accountFormDetails;
+
     /* reset the error conditions */
-    this.state.accountFormDetails.givenName.errorText = '';
-    this.state.accountFormDetails.familyName.errorText = '';
-    this.state.accountFormDetails.loginEmailAddress.errorText = '';
-    this.state.accountFormDetails.loginEmailAddressVerification.errorText = '';
-    this.state.accountFormDetails.password.errorText = '';
-    this.state.accountFormDetails.passwordVerification.errorText = '';
+    accountFormDetailsData.givenName.errorText = '';
+    accountFormDetailsData.familyName.errorText = '';
+    accountFormDetailsData.loginEmailAddress.errorText = '';
+    accountFormDetailsData.loginEmailAddressVerification.errorText = '';
+    accountFormDetailsData.password.errorText = '';
+    accountFormDetailsData.passwordVerification.errorText = '';
 
     if (this.state.accountCreationType == 'userpass') {
         /* Verify that the user has provided:
@@ -125,35 +127,35 @@ class JoinStep2 extends Component {
         */
 
         if (this.state.accountFormDetails.givenName.value == '') {
-          this.state.accountFormDetails.givenName.errorText = 'Please enter in your first name.';
+          accountFormDetailsData.givenName.errorText = 'Please enter in your first name.';
           formIsComplete = false;
         }
 
         if (this.state.accountFormDetails.familyName.value == '') {
-          this.state.accountFormDetails.familyName.errorText = 'Please enter in your last name.';
+          accountFormDetailsData.familyName.errorText = 'Please enter in your last name.';
           formIsComplete = false;
         }
 
         if (this.state.accountFormDetails.loginEmailAddress.value == '') {
-          this.state.accountFormDetails.loginEmailAddress.errorText = 'Please enter in your email address.';
+          accountFormDetailsData.loginEmailAddress.errorText = 'Please enter in your email address.';
           formIsComplete = false;
         }
         else {
           /* verify the email address and the verification email address fields match */
           if (this.state.accountFormDetails.loginEmailAddress.value != this.state.accountFormDetails.loginEmailAddressVerification.value) {
-            this.state.accountFormDetails.loginEmailAddressVerification.errorText = 'The Login Email Address and the Login Email Verification fields must match.';
+            accountFormDetailsData.loginEmailAddressVerification.errorText = 'The Login Email Address and the Login Email Verification fields must match.';
             formIsComplete = false;
           }
         }
 
         if (this.state.accountFormDetails.password.value == '') {
-          this.state.accountFormDetails.password.errorText = 'Please enter in a password.';
+          accountFormDetailsData.password.errorText = 'Please enter in a password.';
           formIsComplete = false;
         }
         else {
           /* verify the password and the verification password fields match */
           if (this.state.accountFormDetails.password.value != this.state.accountFormDetails.passwordVerification.value) {
-            this.state.accountFormDetails.passwordVerification.errorText = 'Your password and the password you entered into the verification field must match.';
+            accountFormDetailsData.passwordVerification.errorText = 'Your password and the password you entered into the verification field must match.';
             formIsComplete = false;
           }
         }
@@ -167,12 +169,12 @@ class JoinStep2 extends Component {
         */
 
         if (this.state.accountFormDetails.givenName.value == '') {
-          this.state.accountFormDetails.givenName.errorText = 'Please enter in your first name.';
+          accountFormDetailsData.givenName.errorText = 'Please enter in your first name.';
           formIsComplete = false;
         }
 
         if (this.state.accountFormDetails.familyName.value == '') {
-          this.state.accountFormDetails.familyName.errorText = 'Please enter in your last name.';
+          accountFormDetailsData.familyName.errorText = 'Please enter in your last name.';
           formIsComplete = false;
         }
     }
@@ -189,6 +191,9 @@ class JoinStep2 extends Component {
         window.localStorage.setItem('join_accountFormDetails', this.state.accountFormDetails);
 
         browserHistory.push('/join/step3');
+    }
+    else {
+      this.setState({'accountFormDetails', accountFormDetailsData});
     }
   }
 
