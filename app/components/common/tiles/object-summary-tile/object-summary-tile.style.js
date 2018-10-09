@@ -57,7 +57,7 @@ export default css`
     margin: 0 auto;
   }
 
-  .attribute-list {
+  .attribute-list, .action-list {
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -72,5 +72,21 @@ export default css`
   .attribute-name {
     padding-left: 20px;
     width: 100%;
+  }
+
+  .action-list {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+
+  .action-list li {
+    padding: 0 5px;
+  }
+
+  .action-list li:first-child {
+    flex: 2;
+    padding: 0;
   }
 `;

@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import GenericButton from 'components/common/style/buttons/Button';
+import { plus, info } from 'styles/variables/iconURLs';
 import style from './object-summary-tile.style';
 
 import Dots from 'atoms/icons/Dots';
@@ -35,6 +37,11 @@ const ObjectSummaryTile = () => (
       </li>
     </ul>
 
+    <ul className="action-list">
+      <li><GenericButton theme={{ width: '100%' }} text="Follow" /></li>
+      <li><GenericButton icon={plus} /></li>
+      <li><GenericButton icon={info} /></li>
+    </ul>
     <style jsx>{style}</style>
   </div>
 );
