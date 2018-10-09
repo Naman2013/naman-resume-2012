@@ -15,31 +15,34 @@ class GuideTiles extends Component {
       subTitle: PropTypes.string.isRequired,
     })).isRequired,
     isMobile: PropTypes.bool,
+    updateReadingListInfo: PropTypes.func.isRequired,
   };
 
   state = {
     activeId: null,
-    isMobile: false,
   }
 
-  setActiveTile = (e, id) => {
+  setActiveTile = (e) => {
     e.preventDefault();
-    if (this.state.activeId !== id) {
-      this.setState(state => ({
-        activeId: id,
+    e.stopPropagation();
+    const { id } = e.currentTarget.dataset;
+    const parsedId = Number(id);
+    if (this.state.activeId !== parsedId) {
+      this.setState(() => ({
+        activeId: Number(parsedId),
       }));
     }
   }
 
   removeActiveTile = (e) => {
-    this.setState(state => ({
+    this.setState(() => ({
       activeId: null,
     }));
   }
 
 
   render() {
-    const { guides, isMobile } = this.props;
+    const { guides, isMobile, updateReadingListInfo } = this.props;
     const { activeId } = this.state;
     return (
       <CenterColumn widths={['645px', '965px', '965px']}>
@@ -48,8 +51,9 @@ class GuideTiles extends Component {
             <li
               key={uniqueId()}
               className="tile"
-              onMouseOver={(e) => this.setActiveTile(e, guide.guideId)}
-              onMouseOut={this.removeActiveTile}
+              data-id={guide.guideId}
+              onMouseOver={this.setActiveTile}
+              onMouseLeave={this.removeActiveTile}
             >
               <div>
                 <GuideTile {...guide} />
@@ -57,7 +61,7 @@ class GuideTiles extends Component {
               <div className={classnames('excerpt', {
                 'show-excerpt': activeId === guide.guideId,
               })}>
-                <GuideExcerptTile {...guide} />
+                <GuideExcerptTile {...guide} updateReadingInfoInList={updateReadingListInfo} />
               </div>
 
 

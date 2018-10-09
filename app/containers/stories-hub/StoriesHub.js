@@ -48,6 +48,21 @@ class Stories extends Component {
     }));
   }
 
+  updateReadingListInStories = (id, resData) => {
+    let newStoriesList = [].concat(this.state.stories);
+
+    newStoriesList = newStoriesList.map((story) => {
+      if (story.postId === id) {
+        return Object.assign(story, resData);
+      }
+      return story;
+    });
+
+    this.setState(() => ({
+      stories: newStoriesList,
+    }));
+  }
+
   appendToStoriesList = (resData) => {
     this.setState((state) => {
       const stories = [].concat(state.stories, resData.storiesList)
@@ -102,7 +117,11 @@ class Stories extends Component {
                       render={() => (
                         <Fragment>
                           {fetchingContent ? <div>Loading</div> : null}
-                          {!fetchingContent && stories.length ? <StoryTiles stories={stories} isMobile={context.isMobile} /> : <div>There are no stories.</div>}
+                          {!fetchingContent && stories.length ?
+                            <StoryTiles
+                              stories={stories}
+                              updateReadingListInfo={this.updateReadingListInStories}
+                              isMobile={context.isMobile} /> : <div>There are no stories.</div>}
                         </Fragment>
                       )}
                     />

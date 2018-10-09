@@ -14,34 +14,37 @@ class StoriesTiles extends Component {
       title: PropTypes.string.isRequired,
     })).isRequired,
     isMobile: PropTypes.bool,
+    updateReadingListInfo: PropTypes.func.isRequired,
   };
 
   state = {
     activeId: null,
-    isMobile: false,
   }
 
-  setActiveTile = (e, id) => {
+  setActiveTile = (e) => {
     e.preventDefault();
-
-    if (this.state.activeId !== id) {
-      this.setState(state => ({
-        activeId: id,
+    e.stopPropagation();
+    const { id } = e.currentTarget.dataset;
+    const parsedId = Number(id);
+    if (this.state.activeId !== parsedId) {
+      this.setState(() => ({
+        activeId: Number(parsedId),
       }));
     }
-
   }
 
   removeActiveTile = (e) => {
     e.preventDefault();
-    this.setState(state => ({
-      activeId: null,
-    }));
+    if (this.state.activeId) {
+      this.setState(() => ({
+        activeId: null,
+      }));
+    }
   }
 
 
   render() {
-    const { stories, isMobile } = this.props;
+    const { stories, isMobile, updateReadingListInfo } = this.props;
     const { activeId } = this.state;
     return (
       <CenterColumn widths={['645px', '965px', '965px']}>
@@ -50,8 +53,9 @@ class StoriesTiles extends Component {
             <li
               key={uniqueId()}
               className="tile"
-              onMouseOver={(e) => this.setActiveTile(e, story.postId)}
-              onMouseOut={this.removeActiveTile}
+              data-id={story.postId}
+              onMouseOver={this.setActiveTile}
+              onMouseLeave={this.removeActiveTile}
             >
               <div>
                 <StoryTile {...story} isMobile={isMobile} photoSize={100} />
@@ -59,10 +63,8 @@ class StoriesTiles extends Component {
               <div className={classnames('excerpt', {
                 'show-excerpt': activeId === story.postId,
               })}>
-                <StoryExcerptTile {...story} />
+                <StoryExcerptTile {...story} updateReadingInfoInList={updateReadingListInfo} />
               </div>
-
-
             </li>
           ))}
           {isMobile && stories.map(story => (

@@ -51,6 +51,21 @@ class Guides extends Component {
     }));
   }
 
+  updateReadingListInGuide = (id, resData) => {
+    let newGuidesList = [].concat(this.state.guides);
+
+    newGuidesList = newGuidesList.map((guide) => {
+      if (guide.guideId === id) {
+        return Object.assign(guide, resData);
+      }
+      return guide;
+    });
+
+    this.setState(() => ({
+      guides: newGuidesList,
+    }));
+  }
+
   appendToGuidesList = (resData) => {
     this.setState((state) => {
       const guides = [].concat(state.guides, resData.guidesList)
@@ -105,7 +120,13 @@ class Guides extends Component {
                       render={() => (
                         <Fragment>
                           {fetchingContent ? <div>Loading</div> : null}
-                          {!fetchingContent && guides.length ? <GuideTiles guides={guides} isMobile={context.isMobile} /> : <div>There are no guides.</div>}
+                          {!fetchingContent && guides.length ?
+                            <GuideTiles
+                              updateReadingListInfo={this.updateReadingListInGuide}
+                              guides={guides}
+                              isMobile={context.isMobile}
+                            /> :
+                            <div>There are no guides.</div>}
                         </Fragment>
                       )}
                     />

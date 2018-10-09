@@ -18,6 +18,10 @@ export default css`
     background-color: ${romance};
   }
 
+  .no-image {
+    justify-content: center;
+  }
+
   .inner-container {
     margin: 5px;
     box-sizing: border-box;
@@ -33,7 +37,6 @@ export default css`
     font-size: 20px;
     padding-bottom: 25px;
   }
-
 
   .avatar-line {
     display: block;

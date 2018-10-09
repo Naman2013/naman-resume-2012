@@ -7,16 +7,17 @@ import Button from 'components/common/style/buttons/Button';
 import style from './guide-excerpt-tile.style';
 
 const GuideTile = ({
+  guideAuthor,
   guideId,
   guideReferenceTitle,
-  guideAuthor,
   linkLabel,
   linkUrl,
-  shortDescription,
+  promptIconUrl,
   readingListPrompt,
   readingListType,
+  shortDescription,
   toggleReadingListFlag,
-  promptIconUrl,
+  updateReadingInfoInList,
 }) => (
   <div className="guide-tile-root">
     <div className="title" dangerouslySetInnerHTML={{ __html: guideReferenceTitle }} />
@@ -25,6 +26,7 @@ const GuideTile = ({
     <div className="actions">
       <Button text={linkLabel} onClickEvent={() => browserHistory.push(linkUrl)} />
       {toggleReadingListFlag ? <ToggleReadingList
+        updateReadingInfoInList={updateReadingInfoInList}
         itemId={guideId}
         readingListType={readingListType}
         readingListPrompt={null}
@@ -36,15 +38,16 @@ const GuideTile = ({
 );
 
 GuideTile.propTypes = {
-  guideReferenceTitle: PropTypes.string.isRequired,
   guideAuthor: PropTypes.string.isRequired,
-  shortDescription: PropTypes.string.isRequired,
+  guideReferenceTitle: PropTypes.string.isRequired,
   linkLabel: PropTypes.string.isRequired,
   linkUrl: PropTypes.string.isRequired,
+  promptIconUrl: PropTypes.string.isRequired,
   readingListPrompt: PropTypes.string.isRequired,
   readingListType: PropTypes.string.isRequired,
+  shortDescription: PropTypes.string.isRequired,
   toggleReadingListFlag: PropTypes.bool.isRequired,
-  promptIconUrl: PropTypes.string.isRequired,
+  updateReadingInfoInList: PropTypes.func.isRequired,
 };
 
 export default GuideTile;

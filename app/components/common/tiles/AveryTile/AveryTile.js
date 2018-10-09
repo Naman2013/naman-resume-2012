@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 import { profilePhotoStyle } from 'styles/mixins/utilities';
 import style from './AveryTile.style';
 
@@ -11,12 +12,12 @@ const profPic = (photoUrl, photoSize) => Object.assign(profilePhotoStyle(photoUr
 });
 const AveryTile = ({ title, iconUrl, theme, photoSize }) => (
   <div className="root avery-tile" style={theme}>
-    <div className="inner-container">
-      <div className="avatar-container">
+    <div className={classnames('inner-container', { 'no-image': !iconUrl })}>
+      {iconUrl ? <div className="avatar-container">
         <div className="avatar-circle" style={{ height: `${photoSize + (photoSize * .10)}px`, width: `${photoSize + (photoSize * .10)}px` }} />
         <div className="avatar-line" />
         <div className="avatar-img" style={profPic(iconUrl, photoSize)} />
-      </div>
+      </div> : null}
       <div className="title-text" dangerouslySetInnerHTML={{ __html: title }} />
     </div>
     <style jsx>{style}</style>

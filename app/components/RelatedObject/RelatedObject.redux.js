@@ -21,6 +21,15 @@ const {
   string,
 } = PropTypes;
 
+const relatedObjectsModel = {
+  name: 'RELATED_OBJECTS_MODEL',
+  model: resp => ({
+    objectTitle: resp.title,
+    objectIconURL: resp.iconURL,
+  }),
+};
+
+
 const RelatedObject = ({
   isDesktop,
   user,
@@ -39,11 +48,13 @@ const RelatedObject = ({
       slugLookupId,
       maxCount: 1,
     }}
+    model={relatedObjectsModel}
     render={({
       fetchingContent,
       serviceResponse,
+      RELATED_OBJECTS_MODEL,
     }) => {
-      const firstObject = (has(serviceResponse.relatedObjectsList) && serviceResponse.relatedObjectsList[0]) || {}
+      const firstObject = (has(serviceResponse, 'relatedObjectsList') && serviceResponse.relatedObjectsList[0]) || {};
       return (
         <div>
           <DeviceContext.Consumer>
@@ -53,7 +64,7 @@ const RelatedObject = ({
               relatedObjectsCount={serviceResponse.relatedObjectsCount}
               user={user}
               {...context}
-              {...firstObject}
+              {...RELATED_OBJECTS_MODEL}
             />)}
           </DeviceContext.Consumer>
         </div>

@@ -49,7 +49,7 @@ const HeaderContainer = ({
           {toggleReadingListFlag ? <ToggleReadingList
             itemId={postId}
             readingListType={STORY}
-            readingListPrompt={readingListPrompt}
+            readingListPrompt={null}
             promptIconUrl={promptIconUrl}
           /> : null}
           <LikeSomethingButton
@@ -66,7 +66,9 @@ const HeaderContainer = ({
       {mainImage ? <div className="vert-line-container">
         <div className="vert-line" />
           <div className="story-main-image-container">
-            <img src={mainImage} className="story-main-image" />
+            <div className="story-circle-container">
+              <img style={{ backgroundImage: `url(${mainImage})`}} className="story-main-image" />
+            </div>
           </div>
         </div> :
         null}
