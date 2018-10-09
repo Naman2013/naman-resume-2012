@@ -107,6 +107,14 @@ class JoinStep2 extends Component {
     //assume the form is ready to submit unless validation issues occur.
     var formIsComplete = true;
 
+    /* reset the error conditions */
+    this.state.accountFormDetails.givenName.errorText = '';
+    this.state.accountFormDetails.familyName.errorText = '';
+    this.state.accountFormDetails.loginEmailAddress.errorText = '';
+    this.state.accountFormDetails.loginEmailAddressVerification.errorText = '';
+    this.state.accountFormDetails.password.errorText = '';
+    this.state.accountFormDetails.passwordVerification.errorText = '';
+
     if (this.state.accountCreationType == 'userpass') {
         /* Verify that the user has provided:
             Firstname
@@ -356,7 +364,7 @@ class JoinStep2 extends Component {
                     />
                     <br/>
                     <form className="form" onSubmit={this.handleSubmit}>
-                      <p>{this.state.accountFormDetails.givenName.label}: {this.state.accountFormDetails.givenName.errorText}
+                      <p>{this.state.accountFormDetails.givenName.label}: <span style={{'color': 'red', 'fontStyle': 'italic'}}>{this.state.accountFormDetails.givenName.errorText}</span>
                         <Field
                           name="givenName"
                           type="name"
@@ -367,7 +375,7 @@ class JoinStep2 extends Component {
                           />
                       </p>
                       <br/>
-                      <p>{this.state.accountFormDetails.familyName.label}: {this.state.accountFormDetails.familyName.errorText}
+                      <p>{this.state.accountFormDetails.familyName.label}: <span style={{'color': 'red', 'fontStyle': 'italic'}}>{this.state.accountFormDetails.familyName.errorText}</span>
                         <Field
                           name="familyName"
                           type="name"
@@ -388,7 +396,7 @@ class JoinStep2 extends Component {
                         />
                       </p>
                       <br/>
-                      <p>{this.state.accountFormDetails.loginEmailAddress.label}: {this.state.accountFormDetails.loginEmailAddress.errorText}
+                      <p>{this.state.accountFormDetails.loginEmailAddress.label}: <span style={{'color': 'red', 'fontStyle': 'italic'}}>{this.state.accountFormDetails.loginEmailAddress.errorText}</span>
                         <Field
                           input={{'disabled': ! this.state.accountFormDetails.loginEmailAddress.editable}}
                           name="loginEmailAddress"
@@ -400,7 +408,7 @@ class JoinStep2 extends Component {
                         />
                       </p>
                       <br/>
-                      {this.state.accountFormDetails.loginEmailAddressVerification.visible == true && <p>{this.state.accountFormDetails.loginEmailAddressVerification.label}: {this.state.accountFormDetails.loginEmailAddressVerification.errorText}
+                      {this.state.accountFormDetails.loginEmailAddressVerification.visible == true && <p>{this.state.accountFormDetails.loginEmailAddressVerification.label}: <span style={{'color': 'red', 'fontStyle': 'italic'}}>{this.state.accountFormDetails.loginEmailAddressVerification.errorText}</span>
                         <Field
                             name="loginEmailAddressVerification"
                             type="email"
@@ -412,7 +420,7 @@ class JoinStep2 extends Component {
                       </p>
                       }
                       <br/>
-                      {this.state.accountFormDetails.password.visible == true && <p>{this.state.accountFormDetails.password.label}: {this.state.accountFormDetails.password.errorText}
+                      {this.state.accountFormDetails.password.visible == true && <p>{this.state.accountFormDetails.password.label}: <span style={{'color': 'red', 'fontStyle': 'italic'}}>{this.state.accountFormDetails.password.errorText}</span>
                         <Field
                           name="password"
                           type="password"
@@ -423,7 +431,7 @@ class JoinStep2 extends Component {
                       </p>
                       }
                       <br/>
-                      {this.state.accountFormDetails.passwordVerification.visible == true && <p>{JOIN_PAGE_MODEL.formFieldLabels.passwordverification.label}: {this.state.accountFormDetails.passwordVerification.errorText}
+                      {this.state.accountFormDetails.passwordVerification.visible == true && <p>{JOIN_PAGE_MODEL.formFieldLabels.passwordverification.label}: <span style={{'color': 'red', 'fontStyle': 'italic'}}>{this.state.accountFormDetails.passwordVerification.errorText}</span>
                         <Field
                           name="passwordVerification"
                           type="password"
