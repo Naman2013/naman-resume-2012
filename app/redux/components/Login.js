@@ -90,6 +90,8 @@ class Login extends Component {
 
           this.setState({'googleProfileData': googleProfileResult});
 
+          window.localStorage.setItem('googleProfileId', googleProfileResult.googleProfileId);
+          
           /* Log this user in via Google SSO */
           actions.logGoogleUserIn(googleProfileResult);
         }
@@ -160,12 +162,14 @@ class Login extends Component {
           </Link>
           <Button theme={{ margin: '0 auto', color: astronaut }} type="submit" text="Sign in with email" onClickEvent={null} />
 
-          <div>
+          {/*
+            <div>
             <p>Flow State for Google: {googleProfileData.googleAPIFlowState}</p>
             <p>Google Profile ID: {googleProfileData.googleProfileId}</p>
             <p>Google Profile Name: {googleProfileData.googleProfileGivenName} {googleProfileData.googleProfileFamilyName}</p>
             <p>Google Profile Email: {googleProfileData.googleProfileEmail}</p>
           </div>
+          */}
 
           <Request
             serviceURL={GOOGLE_CLIENT_ID_ENDPOINT_URL}
