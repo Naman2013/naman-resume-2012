@@ -1,6 +1,6 @@
 import css from 'styled-jsx/css';
 import { primaryFont, secondaryFont } from 'styles/variables/fonts';
-import { astronaut, hawkesBlue } from 'styles/variables/colors_tiles_v4';
+import { astronaut, hawkesBlue, white, blue_tile_feat } from 'styles/variables/colors_tiles_v4';
 import { faintShadow } from 'styles/variables/shadows';
 
 export default css`
@@ -19,6 +19,29 @@ export default css`
     border-bottom: 1px solid ${hawkesBlue};
     padding-bottom: 15px;
     margin: 0;
+  }
+
+  .icon-border {
+    width: 112px;
+    height: 112px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    border: 1px solid ${hawkesBlue};
+    background-color: ${white};
+  }
+
+  .icon-inner-ring {
+    background-image: url(${blue_tile_feat});
+    width: 96px;
+    height: 96px;
+    margin: 0;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .vertical-line {
