@@ -78,6 +78,8 @@ class JoinStep2 extends Component {
       accountFormDetailsData.loginEmailAddressVerification.label = result.formFieldLabels.loginemailaddressverification.label;
       accountFormDetailsData.password.label = result.formFieldLabels.password.label;
       accountFormDetailsData.passwordVerification.label = result.formFieldLabels.passwordverification.label;
+      accountFormDetailsData.astronomyClubName.label = result.formFieldLabels.astronomyClubName.label;
+      accountFormDetailsData.astronomyClub18AndOver.label = result.formFieldLabels.astronomyClub18AndOver.label;
 
       accountFormDetailsData.givenName.hintText = result.formFieldLabels.firstname.hintText;
       accountFormDetailsData.familyName.hintText = result.formFieldLabels.lastname.hintText;
@@ -86,6 +88,8 @@ class JoinStep2 extends Component {
       accountFormDetailsData.loginEmailAddressVerification.hintText = result.formFieldLabels.loginemailaddressverification.hintText;
       accountFormDetailsData.password.hintText = result.formFieldLabels.password.hintText;
       accountFormDetailsData.passwordVerification.hintText = result.formFieldLabels.passwordverification.hintText;
+      accountFormDetailsData.astronomyClubName.hintText = result.formFieldLabels.astronomyClubName.hintText;
+      accountFormDetailsData.astronomyClub18AndOver.hintText = result.formFieldLabels.astronomyClub18AndOver.hintText;
 
       /* update the account form details state so the correct hinText will show on each form field */
       this.setState({accountFormDetails: accountFormDetailsData});
@@ -189,6 +193,14 @@ class JoinStep2 extends Component {
           accountFormDetailsData.familyName.errorText = 'Please enter in your last name.';
           formIsComplete = false;
         }
+    }
+
+    /* Special Verifications if this is an Astronomy Club */
+    if (this.state.isAstronomyClub) {
+      if (this.state.accountFormDetails.astronomyClubName.value === '') {
+        accountFormDetailsData.astronomyClubName.errorText = 'Please enter in a name for your Astronomy Club.';
+        formIsComplete = false;
+      }
     }
 
     if (formIsComplete == true) {
@@ -379,7 +391,7 @@ class JoinStep2 extends Component {
                     />
                     <br/>
                     <form className="form" onSubmit={this.handleSubmit}>
-                      {this.state.isAstronomyClub === true && <div>{this.state.accountFormDetails.astronomyClubName.label}:
+                      {this.state.isAstronomyClub === true && <div><br/>{this.state.accountFormDetails.astronomyClubName.label}: <span style={{'color': 'red', 'fontStyle': 'italic'}}>{this.state.accountFormDetails.familyName.errorText}</span>
                             <Field
                               name="astronomyClubName"
                               type="name"
@@ -389,7 +401,7 @@ class JoinStep2 extends Component {
                             />
                           <br/>
                           <br/>
-                          <div style={{'display': 'block-inline'}}>{this.state.accountFormDetails.astronomyClub18AndOver.hintText}:
+                          <div style={{'display': 'block-inline'}}>{this.state.accountFormDetails.astronomyClub18AndOver.label}:
                             <Field style={{'display': 'inline'}}
                               name="astronomyClub18AndOver"
                               component={InputField}
@@ -397,6 +409,7 @@ class JoinStep2 extends Component {
                               onChange={(event) => { this.handleFieldChange({ field: 'astronomyClub18AndOver', value: event.target.value }); }}
                             />
                           </div>
+                          <br/>
                         </div>
                       }
                       <p>{this.state.accountFormDetails.givenName.label}: <span style={{'color': 'red', 'fontStyle': 'italic'}}>{this.state.accountFormDetails.givenName.errorText}</span>
