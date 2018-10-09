@@ -107,7 +107,7 @@ class JoinStep2 extends Component {
     //assume the form is ready to submit unless validation issues occur.
     var formIsComplete = true;
 
-    var accountFormDetailsData = this.status.accountFormDetails;
+    var accountFormDetailsData = this.state.accountFormDetails;
 
     /* reset the error conditions */
     accountFormDetailsData.givenName.errorText = '';
