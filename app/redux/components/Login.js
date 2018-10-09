@@ -91,7 +91,7 @@ class Login extends Component {
           this.setState({'googleProfileData': googleProfileResult});
 
           window.localStorage.setItem('googleProfileId', googleProfileResult.googleProfileId);
-          
+
           /* Log this user in via Google SSO */
           actions.logGoogleUserIn(googleProfileResult);
         }

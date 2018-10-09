@@ -94,7 +94,7 @@ class JoinStep2 extends Component {
   /* Submit the Join Form and perform any validations as needed */
   handleSubmit = (formValues) => {
     formValues.preventDefault();
-    console.log(this.state.accountFormDetails);
+    //console.log(this.state.accountFormDetails);
 
     window.localStorage.setItem('join_accountFormDetails', this.state.accountFormDetails);
 
@@ -232,15 +232,17 @@ class JoinStep2 extends Component {
                     <br/>
                     <br/>
                     <p>Selected Plan: {JOIN_PAGE_MODEL.selectedSubscriptionPlan.planName} (Plan ID: {selectedPlanId})</p>
-                    <p>Account Creation Type: {accountCreationType}</p>
-                    <br/>
-                    <br/>
-                    <div>
-                      <p>Flow State for Google: {googleProfileData.googleAPIFlowState}</p>
-                      <p>Google Profile ID: {googleProfileData.googleProfileId}</p>
-                      <p>Google Profile Name: {googleProfileData.googleProfileGivenName} {googleProfileData.googleProfileFamilyName}</p>
-                      <p>Google Profile Email: {googleProfileData.googleProfileEmail}</p>
-                    </div>
+                    {/*
+                      <p>Account Creation Type: {accountCreationType}</p>
+                      <br/>
+                      <br/>
+                      <div>
+                        <p>Flow State for Google: {googleProfileData.googleAPIFlowState}</p>
+                        <p>Google Profile ID: {googleProfileData.googleProfileId}</p>
+                        <p>Google Profile Name: {googleProfileData.googleProfileGivenName} {googleProfileData.googleProfileFamilyName}</p>
+                        <p>Google Profile Email: {googleProfileData.googleProfileEmail}</p>
+                      </div>
+                    */}
 
                     <Request
                       serviceURL={GOOGLE_CLIENT_ID_ENDPOINT_URL}

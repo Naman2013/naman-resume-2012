@@ -20,6 +20,7 @@ class JoinStep3 extends Component  {
 
   state = {
     'paymentToken': '',
+    'redirectInXSecondsOnExpiredSignupRequest': 0,
   };
 
   constructor(props) {
@@ -49,11 +50,17 @@ class JoinStep3 extends Component  {
     }
   }
 
+  /* Obtain access to the join api service response and update the  redirectInX Seconds state */
+  handleJoinPageServiceResponse(result) {
+      /* update the account form details state so the correct hinText will show on each form field */
+      this.setState({'redirectInXSecondsOnExpiredSignupRequest': result.redirectInXSecondsOnExpiredSignupRequest});
+  }
+
   CountdownRenderer = ({ hours, minutes, seconds, completed }) => {
     if (completed) {
       // Render a completed state
-      console.log('The countdown has completed.....');
-      return <Countdown date={Date.now() + 5000} renderer={this.CountdownExpiredRenderer} onComplete={this.CountdownExpiredComplete}/>;
+      //console.log('The countdown has completed.....');
+      return <Countdown date={Date.now() + this.state.redirectInXSecondsOnExpiredSignupRequest} renderer={this.CountdownExpiredRenderer} onComplete={this.CountdownExpiredComplete}/>;
     }
     else {
       // Render a countdown
@@ -69,7 +76,7 @@ class JoinStep3 extends Component  {
   };
 
   CountdownExpiredComplete() {
-    console.log('Redirecting the user away from this page....');
+    //console.log('Redirecting the user away from this page....');
 
     /* reset all browser localstorage data points for the Join flow */
     window.localStorage.removeItem('selectedPlanId');
@@ -89,6 +96,8 @@ class JoinStep3 extends Component  {
         sectionHeading: resp.sectionHeading,
         selectedSubscriptionPlan: resp.selectedSubscriptionPlan,
         hostedPaymentFormURL: resp.hostedPaymentFormURL,
+        customerHasXSecondsToCompleteSignup: resp.customerHasXSecondsToCompleteSignup,
+        redirectInXSecondsOnExpiredSignupRequest: resp.redirectInXSecondsOnExpiredSignupRequest,
       }),
     };
 
@@ -102,6 +111,7 @@ class JoinStep3 extends Component  {
         serviceURL={JOIN_PAGE_ENDPOINT_URL}
         model={joinPageModel}
         requestBody={{ 'callSource': 'providePaymentDetails', 'selectedPlanID': selectedPlanId }}
+        serviceResponseHandler={this.handleJoinPageServiceResponse}
         render={({
           fetchingContent,
           modeledResponses: { JOIN_PAGE_MODEL },
@@ -118,7 +128,7 @@ class JoinStep3 extends Component  {
                   <h3>Step 3: {JOIN_PAGE_MODEL.sectionHeading}</h3>
                   <br/>
                   <br/>
-                  <Countdown date={Date.now() + 900000} renderer={this.CountdownRenderer} onComplete={this.CountdownComplete}/>
+                  <Countdown date={Date.now() + JOIN_PAGE_MODEL.customerHasXSecondsToCompleteSignup} renderer={this.CountdownRenderer} onComplete={this.CountdownComplete}/>
                   <br/>
                   <br/>
                   <p style={{'fontSize': '1.2em'}}>Selected Plan: {JOIN_PAGE_MODEL.selectedSubscriptionPlan.planName} (Plan ID: {selectedPlanId})</p>
