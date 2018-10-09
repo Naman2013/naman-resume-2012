@@ -391,7 +391,7 @@ class JoinStep2 extends Component {
                     />
                     <br/>
                     <form className="form" onSubmit={this.handleSubmit}>
-                      {this.state.isAstronomyClub === true && <div><br/>{this.state.accountFormDetails.astronomyClubName.label}: <span style={{'color': 'red', 'fontStyle': 'italic'}}>{this.state.accountFormDetails.familyName.errorText}</span>
+                      {this.state.isAstronomyClub === true && <div><br/>{this.state.accountFormDetails.astronomyClubName.label}: <span style={{'color': 'red', 'fontStyle': 'italic'}}>{this.state.accountFormDetails.astronomyClubName.errorText}</span>
                             <Field
                               name="astronomyClubName"
                               type="name"
