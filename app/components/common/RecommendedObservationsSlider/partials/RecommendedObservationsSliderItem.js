@@ -18,7 +18,6 @@ class RecommendedObservationsItem extends Component {
 
   componentDidMount() {
     const { customerImageId, currentIndex, imageIndex } = this.props;
-    console.log('props', this.props)
     if (currentIndex === imageIndex) {
     axios.post(IMAGE_DETAILS, {
       customerImageId,

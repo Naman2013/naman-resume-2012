@@ -1,13 +1,29 @@
 import React from 'react';
 import uniqueId from 'lodash/uniqueId';
+import defaultSliderConfiguration from 'components/common/Slider/sliderConfig';
 import RecommendedObservationSliderItem from './partials/RecommendedObservationsSliderItem';
 
-const sliderConfiguration = {
-  slidesToShow: 1,
-  slidesToScroll: 1,
-  initialSlide: 1,
-  emptyMessage: 'There are no recommended observations.',
-};
+const getSliderConfiguration = () => Object.assign(
+  {},
+  defaultSliderConfiguration(),
+  {
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    initialSlide: 1,
+    centerPadding: '50px',
+    responsive: [
+      {
+        breakpoint: 1200,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          centerMode: true,
+          centerPadding: '50px',
+        }
+      },
+    ],
+  },
+)
 
 const getRecommendedObservationsItems = (imageList = []) => {
   return imageList.map(object => ({
@@ -15,8 +31,11 @@ const getRecommendedObservationsItems = (imageList = []) => {
   }))
 }
 
-export const getSliderConfiguration = (slideList = []) => (
+export const getSliderProps = (slideList = []) => (
   Object.assign({
     slideList: getRecommendedObservationsItems(slideList),
-  }, sliderConfiguration)
+  }, {
+    sliderConfig: getSliderConfiguration(),
+    emptyMessage: 'There are no recommended observations.',
+  })
 );

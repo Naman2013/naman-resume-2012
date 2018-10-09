@@ -37,8 +37,14 @@ class SloohSlider extends Component {
   }
 
   state = {
-    // currentIndex: this.props.sliderConfig.initialSlide || this.props.slideList.length - 1,
+    currentIndex: this.props.sliderConfig.initialSlide || this.props.slideList.length - 1,
   }
+
+  // beforeSlideChange = (prevIndex, currentIndex) => {
+  //   this.setState({
+  //     currentIndex,
+  //   });
+  // }
 
   render() {
     const {
@@ -46,8 +52,7 @@ class SloohSlider extends Component {
       sliderConfig,
       slideList,
     } = this.props;
-    console.log(sliderConfig)
-    // const { currentIndex } = this.state;
+    const { currentIndex } = this.state;
     return (
       <div className="root" key={uniqueId()}>
         {slideList.length === 0 && <div className="empty" dangerouslySetInnerHTML={{ __html: sliderConfig.emptyMessage }} />}
@@ -56,9 +61,10 @@ class SloohSlider extends Component {
           <div className="slider-container">
             <Slider
               {...sliderConfig}
+              beforeChange={this.beforeSlideChange}
               ref={(c) => { this.slider = c; }}
             >
-              {slideList.map(slideElement => <div key={uniqueId()}>{slideElement.render()}</div>)}
+              {slideList.map(slideElement => <div key={uniqueId()}>{slideElement.render({ currentIndex })}</div>)}
             </Slider>
           </div>
         }
