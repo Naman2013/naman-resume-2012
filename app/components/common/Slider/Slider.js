@@ -8,9 +8,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Slider from 'react-slick';
 import uniqueId from 'lodash/uniqueId';
+import defaultSliderConfiguration from './sliderConfig';
 import '../community-perspectives/slick.min.css';
 import '../community-perspectives/slick-theme.min.css';
-import { black, gray } from 'styles/variables/colors';
+import { golda, romance } from 'styles/variables/colors_tiles_v4';
 
 const {
   any,
@@ -25,91 +26,46 @@ const {
 class SloohSlider extends Component {
   static propTypes = {
     slideList: arrayOf(any),
-    slidesToShow: number,
-    slidesToScroll: number,
-    initialSlide: number,
     emptyMessage: string,
+    sliderConfig: shape({}),
   }
 
   static defaultProps = {
     slideList: [],
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    initialSlide: null,
+    sliderConfig: defaultSliderConfiguration,
     emptyMessage: 'There is nothing to show',
   }
 
   state = {
-    currentIndex: this.props.initialSlide || this.props.slideList.length - 1,
+    // currentIndex: this.props.sliderConfig.initialSlide || this.props.slideList.length - 1,
   }
 
-  beforeSlideChange = (prevIndex, currentIndex) => {
-    this.setState({
-      currentIndex,
-    });
-  }
-
-  changeSlide = (image) => {
-    this.slider.slickGoTo(image.imageIndex);
-    this.setState({
-      currentIndex: image.imageIndex,
-    });
+  beforeChange = (prev, next) => {
+    console.log(prev, next)
   }
 
   render() {
     const {
       emptyMessage,
+      sliderConfig,
       slideList,
-      slidesToShow,
-      slidesToScroll,
     } = this.props;
 
-    const { currentIndex } = this.state;
+    // const { currentIndex } = this.state;
 
-    const sliderSettings = {
-      arrows: true,
-      dots: false,
-      infinite: false,
-      speed: 500,
-      slidesToShow,
-      slidesToScroll,
-      centerMode: true,
-      //centerPadding: '50px',
-      lazyLoading: true,
-      initialSlide: currentIndex,
-      adaptiveHeight: false,
-      beforeChange: this.beforeSlideChange,
-      // nextArrow: <div>Next<i className="fa fa-arrow-right" /></div>,
-      // prevArrow: <div><i className="fa fa-arrow-left" /><div>Previous</div></div>,
-      responsive: [
-        {
-          breakpoint: 1200,
-          settings: {
-            slidesToShow: 2,
-            slidesToScroll: 1,
-          }
-        },
-        {
-          breakpoint: 600,
-          settings: {
-            slidesToShow: 1,
-            slidesToScroll: 1,
-          }
-        }
-      ],
-    };
 
     return (
       <div className="root" key={uniqueId()}>
-        {slideList.length === 0 && <div className="empty" dangerouslySetInnerHTML={{ __html: emptyMessage }} />}
+        {slideList.length === 0 && <div className="empty" dangerouslySetInnerHTML={{ __html: sliderConfig.emptyMessage }} />}
         {
           slideList.length > 0 &&
           <div className="slider-container">
             <Slider
-              {...sliderSettings}
+              {...sliderConfig}
+              onClick={this.beforeChange}
               ref={(c) => { this.slider = c; }}
             >
-              {slideList.map(slideElement => <div>{slideElement.render({ currentIndex })}</div>)}
+              {slideList.map(slideElement => <div>{slideElement.render()}</div>)}
             </Slider>
           </div>
         }
@@ -127,9 +83,10 @@ class SloohSlider extends Component {
               margin: 0 15px;
               transform: translate(0, -50%);
               cursor: pointer;
-              color: #41566F;
-              border: solid 2px #41566F;
+              color: ${romance};
+              border: solid 2px ${golda};
               border-radius: 50%;
+              z-index: 9;
               background-color: transparent;
             }
 
@@ -140,7 +97,7 @@ class SloohSlider extends Component {
               height: 14px;
               top: 35%;
               left: 35%;
-              z-index: -1;
+              z-index: 9;
               background: url('https://vega.slooh.com/assets/v4/common/slider_arrow_blue.svg') 0 0 no-repeat;
             }
             .slick-next:before {
@@ -150,7 +107,7 @@ class SloohSlider extends Component {
               height: 14px;
               top: 35%;
               left: 35%;
-              z-index: -1;
+              z-index: 9;
               background: url('https://vega.slooh.com/assets/v4/common/slider_arrow_blue.svg') 0 0 no-repeat;
               transform: rotate(180deg);
             }

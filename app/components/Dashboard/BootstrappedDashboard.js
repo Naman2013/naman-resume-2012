@@ -22,13 +22,13 @@ const {
 } = PropTypes;
 
 const sectionOrder = [
-  'recommendedObjects',
-  'featuredObservations',
-  'recommendedGuides',
+  //'recommendedObjects',
+  //'featuredObservations',
+  //'recommendedGuides',
   // 'recommendedQuests',
-  'recommendedShows',
+  //'recommendedShows',
   'recommendedStories',
-  'popularGroups',
+  //'popularGroups',
 ];
 
 class BootstrappedDashboard extends Component {
