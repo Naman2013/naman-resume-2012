@@ -248,7 +248,7 @@ class JoinStep2 extends Component {
           /* The primary key for Google Single Sign-in is the user's email address which can't be changed if using Google, update the form on screen accordingly so certain fields are hidden and not editable */
           accountFormDetailsData.loginEmailAddress.editable = false;
           accountFormDetailsData.loginEmailAddress.value = googleProfileResult.googleProfileEmail;
-          this.props.change('loginEmailAddress', googleProfileResult.googleProfileFamilyName);
+          this.props.change('loginEmailAddress', googleProfileResult.googleProfileEmail);
 
           /* No need to verify the email address as its Google and it was already provided */
           accountFormDetailsData.loginEmailAddressVerification.visible = false;
