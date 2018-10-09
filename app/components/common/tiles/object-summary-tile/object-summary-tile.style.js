@@ -56,4 +56,21 @@ export default css`
     width: 100%;
     margin: 0 auto;
   }
+
+  .attribute-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .attribute {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid ${hawkesBlue};
+  }
+
+  .attribute-name {
+    padding-left: 20px;
+    width: 100%;
+  }
 `;
