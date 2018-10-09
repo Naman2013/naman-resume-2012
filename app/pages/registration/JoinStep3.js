@@ -63,7 +63,7 @@ class JoinStep3 extends Component  {
 
   CountdownExpiredRenderer = ({ hours, minutes, seconds, completed }) => {
     if (!completed) {
-      // Render a countdown
+      // Render a countdown to redirect to the homepage
       return <p style={{'fontSize': '1.3em', 'fontWeight': 'bold', 'color': 'red'}}>Signup request expired...redirecting to the homepage in 00:{seconds}.</p>;
     }
   };
@@ -115,7 +115,7 @@ class JoinStep3 extends Component  {
                   <Countdown date={Date.now() + 900000} renderer={this.CountdownRenderer} onComplete={this.CountdownComplete}/>
                   <br/>
                   <br/>
-                  <p>Selected Plan: {JOIN_PAGE_MODEL.selectedSubscriptionPlan.planName} (Plan ID: {selectedPlanId})</p>
+                  <p style={{'fontSize': '1.2em'}}>Selected Plan: {JOIN_PAGE_MODEL.selectedSubscriptionPlan.planName} (Plan ID: {selectedPlanId})</p>
                   <br/>
                   <br/>
                   <p style={{'fontWeight': 'bold', 'fontSize': '1.3em'}}>Payment Token nonce:</p>
