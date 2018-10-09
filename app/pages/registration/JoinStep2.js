@@ -130,6 +130,7 @@ class JoinStep2 extends Component {
     accountFormDetailsData.loginEmailAddressVerification.errorText = '';
     accountFormDetailsData.password.errorText = '';
     accountFormDetailsData.passwordVerification.errorText = '';
+    accountFormDetailsData.astronomyClubName.errorText = '';
 
     if (this.state.accountCreationType === 'userpass') {
         /* Verify that the user has provided:
@@ -211,15 +212,33 @@ class JoinStep2 extends Component {
         *****************************************/
         //JOIN_CREATE_PENDING_CUSTOMER_ENDPOINT_URL
 
-        /* Validate that the necessary form fields are in place */
-        window.localStorage.setItem('join_accountFormDetails', this.state.accountFormDetails);
 
-        browserHistory.push('/join/step3');
+        /* Last Validation....password validation, not required for Google Accounts as their is no password */
+        if (this.state.accountCreationType == 'userpass') {
+            /* reach out to the Slooh API and verify the user's password */
+            var isValidPassword = true;
+
+            //window.localStorage.setItem('join_accountFormDetails', this.state.accountFormDetails);
+
+            this.createPendingCustomerRecordAndNextScreen();
+        }
+        else if (this.state.accountCreationType == 'googleaccount') {
+            //window.localStorage.setItem('join_accountFormDetails', this.state.accountFormDetails);
+
+            /* no additional verifications are needed, create the pending customer record and continue to the next screen */
+            this.createPendingCustomerRecordAndNextScreen();
+        }
     }
     else {
+      /* make sure to persist any changes to the account signup form (error messages) */
       this.setState({ accountFormDetails: accountFormDetailsData });
     }
   }
+
+  createPendingCustomerRecordAndNextScreen = () => {
+    /* Create the pending customer record and move onto the next screen */
+    browserHistory.push('/join/step3');
+  };
 
   /* The API response to the Google SSO Request was successful, process the response data elements accordingly and send the information back to the Slooh servers */
   processGoogleSuccessResponse = (googleTokenData) => {
