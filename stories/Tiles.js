@@ -15,6 +15,7 @@ import AveryTile from 'components/common/tiles/AveryTile';
 import Host from 'components/Host';
 import HostLongTile from 'components/HostLongTile';
 import GuideTile from 'components/common/tiles/guide-tile';
+import { ObjectSummaryTile } from 'components/common/tiles';
 
 import { SAMPLE_IMAGE_HTML_BLOB, SAMPLE_VIDEO_HTML_BLOB } from './content/getGuidesPanels';
 
@@ -119,4 +120,7 @@ storiesOf('Tiles', module)
   ))
   .add('GuideTile', () => (
     <GuideTile title="A Guide to" subTitle="Object guide name" />
+  ))
+  .add('ObjectSummaryTile', () => (
+    <ObjectSummaryTile />
   ));
