@@ -96,7 +96,7 @@ class JoinStep2 extends Component {
 
     console.log(field);
     console.log(value);
-    console.log(accountFormDetails);
+    console.log(accountFormDetailsData);
 
     this.setState({
       accountFormDetails: accountFormDetailsData,
