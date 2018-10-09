@@ -117,7 +117,7 @@ class JoinStep2 extends Component {
         */
 
         if (this.state.accountFormDetails.givenName.value == '') {
-          this.state.accountFormDetails.giveName.errorText = 'Please enter in your first name.';
+          this.state.accountFormDetails.givenName.errorText = 'Please enter in your first name.';
           formIsComplete = false;
         }
 
