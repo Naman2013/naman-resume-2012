@@ -44,6 +44,7 @@ class JoinStep2 extends Component {
   */
   state = {
     accountCreationType: 'userpass',
+    isAstronomyClub: false,
     googleProfileData: {
       googleAPIFlowState: '',
       googleAccessToken: '',
@@ -62,6 +63,8 @@ class JoinStep2 extends Component {
       loginEmailAddressVerification: {label: '', visible: true, value: '', hintText: '', errorText: '' },
       password: { label: '', visible: true, value: '', hintText: '', errorText: '' },
       passwordVerification: { label: '', visible: true, value: '', hintText: '', errorText: '' },
+      astronomyClubName: { label: '', visible: true, value: '', hintText: '', errorText: '' },
+      astronomyClub18AndOver: { label: '', visible: true, value: false, hintText: '', errorText: '' },
     },
   };
 
@@ -86,6 +89,9 @@ class JoinStep2 extends Component {
 
       /* update the account form details state so the correct hinText will show on each form field */
       this.setState({accountFormDetails: accountFormDetailsData});
+
+      /* was the selected plan an astronomy club? */
+      this.setState({isAstronomyClub: result.selectedSubscriptionPlan.isAstronomyClub});
   }
 
   /* This function handles a field change in the form and sets the state accordingly */
@@ -373,6 +379,18 @@ class JoinStep2 extends Component {
                     />
                     <br/>
                     <form className="form" onSubmit={this.handleSubmit}>
+                      {this.state.isAstronomyClub === true && <p>{this.state.accountFormDetails.astronomyClubName.label}:
+                            <Field
+                              name="astronomyClubName"
+                              type="name"
+                              label={this.state.accountFormDetails.astronomyClubName.hintText}
+                              component={InputField}
+                              onChange={(event) => { this.handleFieldChange({ field: 'astronomyClubName', value: event.target.value }); }}
+                            />
+                          <br/>
+                          <br/>
+                        </p>
+                      }
                       <p>{this.state.accountFormDetails.givenName.label}: <span style={{'color': 'red', 'fontStyle': 'italic'}}>{this.state.accountFormDetails.givenName.errorText}</span>
                         <Field
                           name="givenName"
