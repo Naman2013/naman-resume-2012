@@ -407,7 +407,6 @@ class JoinStep2 extends Component {
                       <br/>
                       <p>{this.state.accountFormDetails.loginEmailAddress.label}: <span style={{'color': 'red', 'fontStyle': 'italic'}}>{this.state.accountFormDetails.loginEmailAddress.errorText}</span>
                         <Field
-                          {/* input={{'disabled': ! this.state.accountFormDetails.loginEmailAddress.editable}} */}
                           name="loginEmailAddress"
                           type="email"
                           label={this.state.accountFormDetails.loginEmailAddress.hintText}
