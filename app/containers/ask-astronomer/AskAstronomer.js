@@ -9,18 +9,22 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { OBJECT_SPECIALISTS } from 'services/objects';
+import { DeviceContext } from '../../providers/DeviceProvider';
+
 import {
   fetchAstronomerQuestions,
 } from '../../modules/ask-astronomer-questions/actions';
 import {
   toggleAllAnswersAndDisplay,
 } from '../../modules/ask-astronomer-answers/actions';
+
 import AskQuestionTile from '../../components/ask-astronomer/AskQuestionTile';
 import QuestionList from '../../components/ask-astronomer/question-list';
 import AskAstronomerQuestionForm from '../../components/ask-astronomer/question-form';
-import { DeviceContext } from '../../providers/DeviceProvider';
 import ObjectDetailsSectionTitle from '../../components/object-details/ObjectDetailsSectionTitle';
 import CenterColumn from '../../../app/components/common/CenterColumn';
+import MVPAstronomerList from '../../../app/components/common/MVPAstronomer/MVPAstronomerList';
 import style from './AskAstronomer.style';
 
 const {
@@ -75,6 +79,8 @@ class AskAstronomer extends Component {
     actions: shape({
       fetchAstronomerQuestions: func.isRequired,
     }).isRequired,
+    serviceUrl: string,
+    //slugLookupId: oneOfType([string, number]),
   }
 
   static defaultProps = {
@@ -85,7 +91,10 @@ class AskAstronomer extends Component {
     count: 0,
     actions: { },
     objectId: '',
+    serviceUrl: OBJECT_SPECIALISTS,
+    //slugLookupId: null,
   }
+
 
 
   constructor(props) {
@@ -95,8 +104,7 @@ class AskAstronomer extends Component {
       leftView: "show",
       rightView: "show",
       "mobile": false,
-    };
-  
+    };  
   }
 
   componentWillReceiveProps(nextProps) {
@@ -110,7 +118,6 @@ class AskAstronomer extends Component {
       this.props.actions.fetchAstronomerQuestions({ topicId: faqTopicId });
     }
   }
-
 
   componentWillMount() {
     const {
@@ -188,7 +195,10 @@ class AskAstronomer extends Component {
       count,
       page,
       user,
+      serviceUrl,
+      //slugLookupId,
     } = this.props;
+
     return (
       <div className="full-bg">
           <ObjectDetailsSectionTitle title={objectTitle + "'s"} subTitle="Ask An Astronomer" />        
@@ -220,7 +230,13 @@ class AskAstronomer extends Component {
                   <div className="center-line" />
                   <span className={'btn-nav ' + this.state.leftView} onClick={this.handleMobileClick}>Questions</span>
                   <span className={'btn-nav ' + this.state.rightView} onClick={this.handleMobileClick}>MVP ASTRONOMERS</span>      
-                </div>            
+                </div>
+                
+                {/*<div>
+                  <h1>MVP ASTRONOMERS GO HERE</h1>
+                  <MVPAstronomerList objectId={objectId} />
+                </div>*/}
+
               </div>  
 
               <div className={'left ' + this.state.leftView}>

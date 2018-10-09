@@ -17,7 +17,6 @@ import './icons';
 import './InAppNavigation';
 import './LabeledTitleTiles';
 import './MissionAudio';
-import './MVPAstronomers';
 import './ObjectDetailsSectionTitle';
 import './ResponsiveTwoColumnContainer';
 import './RevealSubmitForm';

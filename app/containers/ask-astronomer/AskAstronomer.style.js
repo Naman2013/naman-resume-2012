@@ -109,6 +109,10 @@ export default css`
     height: 60px;
   }
 
+  .ask-tablet-subnav {
+    display: none;
+  }
+
   @media ${screenMedium} {
 
     .ask-mobile-header {
