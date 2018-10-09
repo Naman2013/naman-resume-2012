@@ -70,7 +70,13 @@ class JoinStep3 extends Component  {
 
   CountdownExpiredComplete() {
     console.log('Redirecting the user away from this page....');
+
+    /* reset all browser localstorage data points for the Join flow */
     window.localStorage.removeItem('selectedPlanId');
+    window.localStorage.removeItem('accountCreationType');
+    window.localStorage.removeItem('join_accountFormDetails');
+    window.localStorage.removeItem('googleProfileId');
+
     browserHistory.push('/');
   }
 
