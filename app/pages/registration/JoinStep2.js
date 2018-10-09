@@ -94,6 +94,10 @@ class JoinStep2 extends Component {
     var accountFormDetailsData = this.state.accountFormDetails;
     accountFormDetailsData[field].value = value;
 
+    console.log(field);
+    console.log(value);
+    console.log(accountFormDetails);
+
     this.setState({
       accountFormDetails: accountFormDetailsData,
     });
@@ -117,7 +121,7 @@ class JoinStep2 extends Component {
     accountFormDetailsData.password.errorText = '';
     accountFormDetailsData.passwordVerification.errorText = '';
 
-    if (this.state.accountCreationType == 'userpass') {
+    if (this.state.accountCreationType === 'userpass') {
         /* Verify that the user has provided:
             Firstname
             Lastname
@@ -126,37 +130,37 @@ class JoinStep2 extends Component {
             Password and matches password verification field
         */
 
-        if (this.state.accountFormDetails.givenName.value == '') {
+        if (this.state.accountFormDetails.givenName.value === '') {
           accountFormDetailsData.givenName.errorText = 'Please enter in your first name.';
           formIsComplete = false;
         }
 
-        if (this.state.accountFormDetails.familyName.value == '') {
+        if (this.state.accountFormDetails.familyName.value === '') {
           accountFormDetailsData.familyName.errorText = 'Please enter in your last name.';
           formIsComplete = false;
         }
 
-        if (this.state.accountFormDetails.loginEmailAddress.value == '') {
+        if (this.state.accountFormDetails.loginEmailAddress.value === '') {
           accountFormDetailsData.loginEmailAddress.errorText = 'Please enter in your email address.';
           formIsComplete = false;
         }
         else {
           /* verify the email address and the verification email address fields match */
           accountFormDetailsData.loginEmailAddress.errorText = '';
-          if (this.state.accountFormDetails.loginEmailAddress.value != this.state.accountFormDetails.loginEmailAddressVerification.value) {
+          if (this.state.accountFormDetails.loginEmailAddress.value !== this.state.accountFormDetails.loginEmailAddressVerification.value) {
             accountFormDetailsData.loginEmailAddressVerification.errorText = 'The Login Email Address and the Login Email Verification fields must match.';
             formIsComplete = false;
           }
         }
 
-        if (this.state.accountFormDetails.password.value == '') {
+        if (this.state.accountFormDetails.password.value === '') {
           accountFormDetailsData.password.errorText = 'Please enter in a password.';
           formIsComplete = false;
         }
         else {
           /* verify the password and the verification password fields match */
           accountFormDetailsData.password.errorText = '';
-          if (this.state.accountFormDetails.password.value != this.state.accountFormDetails.passwordVerification.value) {
+          if (this.state.accountFormDetails.password.value !== this.state.accountFormDetails.passwordVerification.value) {
             accountFormDetailsData.passwordVerification.errorText = 'Your password and the password you entered into the verification field must match.';
             formIsComplete = false;
           }
@@ -164,18 +168,18 @@ class JoinStep2 extends Component {
 
         /* need to verify that the password meets the Slooh requirements */
     }
-    else if (this.state.accountCreationType == 'googleaccount') {
+    else if (this.state.accountCreationType === 'googleaccount') {
         /* Verify that the user has provided:
           Firstname
           Lastname
         */
 
-        if (this.state.accountFormDetails.givenName.value == '') {
+        if (this.state.accountFormDetails.givenName.value === '') {
           accountFormDetailsData.givenName.errorText = 'Please enter in your first name.';
           formIsComplete = false;
         }
 
-        if (this.state.accountFormDetails.familyName.value == '') {
+        if (this.state.accountFormDetails.familyName.value === '') {
           accountFormDetailsData.familyName.errorText = 'Please enter in your last name.';
           formIsComplete = false;
         }
