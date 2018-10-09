@@ -416,18 +416,7 @@ class JoinStep2 extends Component {
                         />
                       </p>
                       }
-                      {this.state.accountCreationType === 'googleaccount' && <p>{this.state.accountFormDetails.loginEmailAddress.label}: <span style={{'color': 'red', 'fontStyle': 'italic'}}>{this.state.accountFormDetails.loginEmailAddress.errorText}</span>
-                        <Field
-                          name="loginEmailAddress"
-                          type="email"
-                          input={{'disabled': true}}
-                          label={this.state.accountFormDetails.loginEmailAddress.hintText}
-                          component={InputField}
-                          onChange={(event) => { this.handleFieldChange({ field: 'loginEmailAddress', value: event.target.value }); }}
-                          value={this.state.accountFormDetails.loginEmailAddress.value}
-                        />
-                      </p>
-                      }
+                      {this.state.accountCreationType === 'googleaccount' && <p>{this.state.accountFormDetails.loginEmailAddress.label}: <span style={{'fontWeight': 'bold'}}>{this.state.accountFormDetails.loginEmailAddress.value}</span></p>}
                       <br/>
                       {this.state.accountFormDetails.loginEmailAddressVerification.visible == true && <p>{this.state.accountFormDetails.loginEmailAddressVerification.label}: <span style={{'color': 'red', 'fontStyle': 'italic'}}>{this.state.accountFormDetails.loginEmailAddressVerification.errorText}</span>
                         <Field
