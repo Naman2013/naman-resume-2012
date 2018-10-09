@@ -104,8 +104,8 @@ class JoinStep2 extends Component {
     formValues.preventDefault();
     //console.log(this.state.accountFormDetails);
 
-    /* Validate that the necessary form fields are in place */
-    window.localStorage.setItem('join_accountFormDetails', this.state.accountFormDetails);
+    //assume the form is ready to submit unless validation issues occur.
+    var formIsComplete = true;
 
     if (this.state.accountCreationType == 'userpass') {
         /* Verify that the user has provided:
@@ -115,21 +115,73 @@ class JoinStep2 extends Component {
             Email address and matches verification email fields
             Password and matches password verification field
         */
+
+        if (this.state.accountFormDetails.givenName.value == '') {
+          this.state.accountFormDetails.giveName.errorText = 'Please enter in your first name.';
+          formIsComplete = false;
+        }
+
+        if (this.state.accountFormDetails.familyName.value == '') {
+          this.state.accountFormDetails.familyName.errorText = 'Please enter in your last name.';
+          formIsComplete = false;
+        }
+
+        if (this.state.accountFormDetails.loginEmailAddress.value == '') {
+          this.state.accountFormDetails.loginEmailAddress.errorText = 'Please enter in your email address.';
+          formIsComplete = false;
+        }
+        else {
+          /* verify the email address and the verification email address fields match */
+          if (this.state.accountFormDetails.loginEmailAddress.value != this.state.accountFormDetails.loginEmailAddressVerification.value) {
+            this.state.accountFormDetails.loginEmailAddressVerification.errorText = 'The Login Email Address and the Login Email Verification fields must match.';
+            formIsComplete = false;
+          }
+        }
+
+        if (this.state.accountFormDetails.password.value == '') {
+          this.state.accountFormDetails.password.errorText = 'Please enter in a password.';
+          formIsComplete = false;
+        }
+        else {
+          /* verify the password and the verification password fields match */
+          if (this.state.accountFormDetails.password.value != this.state.accountFormDetails.passwordVerification.value) {
+            this.state.accountFormDetails.passwordVerification.errorText = 'Your password and the password you entered into the verification field must match.';
+            formIsComplete = false;
+          }
+        }
+
+        /* need to verify that the password meets the Slooh requirements */
     }
     else if (this.state.accountCreationType == 'googleaccount') {
         /* Verify that the user has provided:
           Firstname
           Lastname
         */
+
+        if (this.state.accountFormDetails.givenName.value == '') {
+          this.state.accountFormDetails.givenName.errorText = 'Please enter in your first name.';
+          formIsComplete = false;
+        }
+
+        if (this.state.accountFormDetails.familyName.value == '') {
+          this.state.accountFormDetails.familyName.errorText = 'Please enter in your last name.';
+          formIsComplete = false;
+        }
     }
 
-    /*****************************************
-    * Set up a Pending Customer Account
-    * Set a cid_pending localStorage key
-    *****************************************/
-    //JOIN_CREATE_PENDING_CUSTOMER_ENDPOINT_URL
+    if (formIsComplete == true) {
+        /* The form is complete and valid, submit the pending customer request */
+        /*****************************************
+        * Set up a Pending Customer Account
+        * Set a cid_pending localStorage key
+        *****************************************/
+        //JOIN_CREATE_PENDING_CUSTOMER_ENDPOINT_URL
 
-    browserHistory.push('/join/step3');
+        /* Validate that the necessary form fields are in place */
+        window.localStorage.setItem('join_accountFormDetails', this.state.accountFormDetails);
+
+        browserHistory.push('/join/step3');
+    }
   }
 
   /* The API response to the Google SSO Request was successful, process the response data elements accordingly and send the information back to the Slooh servers */
