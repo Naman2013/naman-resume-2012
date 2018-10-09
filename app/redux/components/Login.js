@@ -13,7 +13,7 @@ import { nightfall, astronaut, romance, shadows } from 'styles/variables/colors_
 import { faintShadow } from 'styles/variables/shadows';
 import { primaryFont } from 'styles/variables/fonts';
 import{ horizontalArrowRightWhite } from 'styles/variables/iconURLs';
-import {GOOGLE_CLIENT_ID_ENDPOINT, googleClientIDModel} from 'services/registration/registration.js';
+import {GOOGLE_CLIENT_ID_ENDPOINT_URL, googleClientIDModel, GOOGLE_SSO_SIGNIN_ENDPOINT_URL} from 'services/registration/registration.js';
 import Request from 'components/common/network/Request';
 import axios from 'axios';
 import { GoogleLogin } from 'react-google-login';
@@ -68,7 +68,7 @@ class Login extends Component {
     //console.log("Processing Google Signin: " + googleTokenData);
 
     /* Process the token and get back information about this user, etc. */
-    const googleSSOResult = axios.post('/api/registration/processGoogleSSOSignin',
+    const googleSSOResult = axios.post(GOOGLE_SSO_SIGNIN_ENDPOINT_URL,
       {
         authenticationCode: googleTokenData.code
       })
@@ -129,7 +129,7 @@ class Login extends Component {
         loginButtonText: resp.loginButtonText,
       }),
     };
-    
+
     const googleProfileData = this.state.googleProfileData;
 
     return (
@@ -168,7 +168,7 @@ class Login extends Component {
           </div>
 
           <Request
-            serviceURL={GOOGLE_CLIENT_ID_ENDPOINT}
+            serviceURL={GOOGLE_CLIENT_ID_ENDPOINT_URL}
             model={googleClientIDModel}
             requestBody={{ 'callSource': 'login' }}
             render={({

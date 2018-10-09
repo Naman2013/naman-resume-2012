@@ -1,6 +1,6 @@
-/** *********************************
-* V4 Join
-********************************** */
+/** ********************************************
+* V4 Join - Step 3 - Collect Payment Details
+********************************************** */
 
 import React, { Component , cloneElement, Fragment } from 'react';
 import { Link } from 'react-router';

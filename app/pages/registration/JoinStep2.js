@@ -14,7 +14,7 @@ import Button from 'components/common/style/buttons/Button';
 import Request from 'components/common/network/Request';
 import axios from 'axios';
 import { GoogleLogin } from 'react-google-login';
-import { JOIN_PAGE_ENDPOINT_URL, SUBSCRIPTION_PLANS_ENDPOINT_URL, GOOGLE_CLIENT_ID_ENDPOINT } from 'services/registration/registration.js';
+import { JOIN_PAGE_ENDPOINT_URL, SUBSCRIPTION_PLANS_ENDPOINT_URL, GOOGLE_CLIENT_ID_ENDPOINT_URL, GOOGLE_SSO_SIGNIN_ENDPOINT_URL } from 'services/registration/registration.js';
 
 class JoinStep2 extends Component {
   constructor(props) {
@@ -103,7 +103,7 @@ class JoinStep2 extends Component {
     //console.log("Processing Google Signin: " + googleTokenData);
 
     /* Process the Google SSO tokens and get back information about this user via the Slooh APIs/Google APIs, etc. */
-    const googleSSOResult = axios.post('/api/registration/processGoogleSSOSignin',
+    const googleSSOResult = axios.post(GOOGLE_SSO_SIGNIN_ENDPOINT_URL,
       {
         authenticationCode: googleTokenData.code
       })
@@ -230,7 +230,7 @@ class JoinStep2 extends Component {
                     </div>
 
                     <Request
-                      serviceURL={GOOGLE_CLIENT_ID_ENDPOINT}
+                      serviceURL={GOOGLE_CLIENT_ID_ENDPOINT_URL}
                       model={googleClientIDModel}
                       requestBody={{ 'callSource': 'join' }}
                       render={({
