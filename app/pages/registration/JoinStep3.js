@@ -26,6 +26,7 @@ class JoinStep3 extends Component  {
   constructor(props) {
     super(props);
 
+    this.handleJoinPageServiceResponse = this.handleJoinPageServiceResponse.bind(this);
     this.CountdownRenderer = this.CountdownRenderer.bind(this);
     this.CountdownExpiredRenderer = this.CountdownExpiredRenderer.bind(this);
     this.CountdownExpiredComplete = this.CountdownExpiredComplete.bind(this);
