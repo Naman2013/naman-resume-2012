@@ -155,6 +155,7 @@ class JoinStep2 extends Component {
         }
         else {
           /* verify the password and the verification password fields match */
+          accountFormDetailsData.password.errorText = '';
           if (this.state.accountFormDetails.password.value != this.state.accountFormDetails.passwordVerification.value) {
             accountFormDetailsData.passwordVerification.errorText = 'Your password and the password you entered into the verification field must match.';
             formIsComplete = false;
