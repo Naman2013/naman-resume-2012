@@ -142,6 +142,7 @@ class JoinStep2 extends Component {
         }
         else {
           /* verify the email address and the verification email address fields match */
+          accountFormDetailsData.loginEmailAddress.errorText = '';
           if (this.state.accountFormDetails.loginEmailAddress.value != this.state.accountFormDetails.loginEmailAddressVerification.value) {
             accountFormDetailsData.loginEmailAddressVerification.errorText = 'The Login Email Address and the Login Email Verification fields must match.';
             formIsComplete = false;
