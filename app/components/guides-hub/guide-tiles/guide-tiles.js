@@ -15,6 +15,7 @@ class GuideTiles extends Component {
       subTitle: PropTypes.string.isRequired,
     })).isRequired,
     isMobile: PropTypes.bool,
+    updateReadingListInfo: PropTypes.func.isRequired,
   };
 
   state = {
@@ -41,7 +42,7 @@ class GuideTiles extends Component {
 
 
   render() {
-    const { guides, isMobile } = this.props;
+    const { guides, isMobile, updateReadingListInfo } = this.props;
     const { activeId } = this.state;
     return (
       <CenterColumn widths={['645px', '965px', '965px']}>
@@ -60,7 +61,7 @@ class GuideTiles extends Component {
               <div className={classnames('excerpt', {
                 'show-excerpt': activeId === guide.guideId,
               })}>
-                <GuideExcerptTile {...guide} />
+                <GuideExcerptTile {...guide} updateReadingInfoInList={updateReadingListInfo} />
               </div>
 
 
