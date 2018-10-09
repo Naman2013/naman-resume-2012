@@ -85,7 +85,7 @@ class JoinStep2 extends Component {
       accountFormDetailsData.passwordVerification.hintText = result.formFieldLabels.passwordverification.hintText;
 
       /* update the account form details state so the correct hinText will show on each form field */
-      this.setState({'accountFormDetails': accountFormDetailsData});
+      this.setState({accountFormDetails: accountFormDetailsData});
   }
 
   /* This function handles a field change in the form and sets the state accordingly */
@@ -95,7 +95,7 @@ class JoinStep2 extends Component {
     accountFormDetailsData[field].value = value;
 
     this.setState({
-      'accountFormDetails': accountFormDetailsData,
+      accountFormDetails: accountFormDetailsData,
     });
   }
 
@@ -193,7 +193,7 @@ class JoinStep2 extends Component {
         browserHistory.push('/join/step3');
     }
     else {
-      this.setState({'accountFormDetails', accountFormDetailsData});
+      this.setState({ accountFormDetails: accountFormDetailsData });
     }
   }
 
@@ -223,7 +223,7 @@ class JoinStep2 extends Component {
           }
 
           /* Capture the Google Profile Data and store it in state */
-          this.setState({'googleProfileData': googleProfileResult});
+          this.setState({googleProfileData: googleProfileResult});
 
           /* Update the Account Form parameters to show/hide fields as a result of Google Login */
           var accountFormDetailsData = this.state.accountFormDetails;
@@ -248,10 +248,10 @@ class JoinStep2 extends Component {
 
           /* No need to verify the email address as its Google and it was already provided */
           accountFormDetailsData.loginEmailAddressVerification.visible = false;
-          this.setState({'accountFormDetails': accountFormDetailsData});
+          this.setState({accountFormDetails: accountFormDetailsData});
 
           /* Set the account creation type as Google */
-          this.setState({'accountCreationType': 'googleaccount'});
+          this.setState({accountCreationType: 'googleaccount'});
 
           /* Set the account creation type as Google and the Google Profile Id in browser storage */
           window.localStorage.setItem('accountCreationType', 'googleaccount');
