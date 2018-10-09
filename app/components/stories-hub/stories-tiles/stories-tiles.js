@@ -14,6 +14,7 @@ class StoriesTiles extends Component {
       title: PropTypes.string.isRequired,
     })).isRequired,
     isMobile: PropTypes.bool,
+    updateReadingListInfo: PropTypes.func.isRequired,
   };
 
   state = {
@@ -43,7 +44,7 @@ class StoriesTiles extends Component {
 
 
   render() {
-    const { stories, isMobile } = this.props;
+    const { stories, isMobile, updateReadingListInfo } = this.props;
     const { activeId } = this.state;
     return (
       <CenterColumn widths={['645px', '965px', '965px']}>
@@ -62,7 +63,7 @@ class StoriesTiles extends Component {
               <div className={classnames('excerpt', {
                 'show-excerpt': activeId === story.postId,
               })}>
-                <StoryExcerptTile {...story} />
+                <StoryExcerptTile {...story} updateReadingInfoInList={updateReadingListInfo} />
               </div>
             </li>
           ))}

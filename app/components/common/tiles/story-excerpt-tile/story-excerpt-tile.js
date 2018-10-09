@@ -6,16 +6,17 @@ import Button from 'components/common/style/buttons/Button';
 import style from './story-excerpt-tile.style';
 
 const StoryExcerptTile = ({
-  postId,
-  title,
   author,
   linkLabel,
   linkUrl,
-  shortDescription,
+  postId,
+  promptIconUrl,
   readingListPrompt,
   readingListType,
+  shortDescription,
+  title,
   toggleReadingListFlag,
-  promptIconUrl,
+  updateReadingInfoInList,
 }) => (
   <div className="story-tile-root">
     <div className="title" dangerouslySetInnerHTML={{ __html: title }} />
@@ -25,9 +26,10 @@ const StoryExcerptTile = ({
       <Button text={linkLabel} onClickEvent={() => browserHistory.push(linkUrl)} theme={{ height: '40px' }}/>
       {toggleReadingListFlag ? <ToggleReadingList
         itemId={postId}
-        readingListType={readingListType}
-        readingListPrompt={null}
         promptIconUrl={promptIconUrl}
+        readingListPrompt={null}
+        readingListType={readingListType}
+        updateReadingInfoInList={updateReadingInfoInList}
       /> : null}
     </div>
     <style jsx>{style}</style>
@@ -35,15 +37,16 @@ const StoryExcerptTile = ({
 );
 
 StoryExcerptTile.propTypes = {
-  title: PropTypes.string.isRequired,
   author: PropTypes.string.isRequired,
-  shortDescription: PropTypes.string.isRequired,
   linkLabel: PropTypes.string.isRequired,
   linkUrl: PropTypes.string.isRequired,
+  promptIconUrl: PropTypes.string.isRequired,
   readingListPrompt: PropTypes.string.isRequired,
   readingListType: PropTypes.string.isRequired,
+  shortDescription: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
   toggleReadingListFlag: PropTypes.bool.isRequired,
-  promptIconUrl: PropTypes.string.isRequired,
+  updateReadingInfoInList: PropTypes.func.isRequired,
 };
 
 export default StoryExcerptTile;
