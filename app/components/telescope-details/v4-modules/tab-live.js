@@ -5,6 +5,7 @@ import FAUX_MISSIONS, { nonMission } from 'content/fauxMissions';
 
 import { StarShareCamera } from '../star-share-camera';
 import { ObjectSummaryTile, ScheduledByTile } from 'components/common/tiles';
+import { WhereInTheSky } from './';
 
 import style from './tab-live.style';
 
@@ -23,6 +24,10 @@ const TabLive = () => (
 
     <div className="tile-container">
       <ScheduledByTile />
+    </div>
+
+    <div className="tile-container">
+      <WhereInTheSky />
     </div>
 
     <style jsx>{style}</style>
