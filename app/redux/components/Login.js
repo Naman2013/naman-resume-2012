@@ -185,6 +185,7 @@ class Login extends Component {
                     <Fragment>
                       <div style={{'paddingTop': '15px', 'marginLeft': 'auto', 'marginRight': 'auto', 'textAlign': 'center'}}>
                         <GoogleLogin
+                            prompt="select_account"
                             responseType={GOOGLE_CLIENT_ID_MODEL.googleClientResponseType}
                             fetchBasicProfile={GOOGLE_CLIENT_ID_MODEL.googleClientFetchBasicProfile}
                             accessType={GOOGLE_CLIENT_ID_MODEL.googleClientAccessType}
