@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux';
 import { fetchAllWidgets } from '../../../modules/telescope-details/actions';
 
 import generateTelescopeDetailsTabConfiguration from './generate-tab-configuration';
-import DefaultTabs from '../../Tabs';
+import { DefaultTabs } from '../../Tabs';
 
 const mapStateToProps = ({ telescopeDetails }) => ({
   currentConditionsURL: telescopeDetails.weatherConditionWidgetResult.currentConditionsURL,
