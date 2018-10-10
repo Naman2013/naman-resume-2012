@@ -1,0 +1,17 @@
+import React from 'react';
+import Telescope from 'components/Telescope';
+import telescopeConfig from 'components/Telescope/telescopeConfig';
+import FAUX_MISSIONS, { nonMission } from 'content/fauxMissions';
+
+const TabLive = () => (
+  <div>
+    <Telescope
+      missionMetaData={nonMission}
+      activeInstrumentID={telescopeConfig.CANARY_ONE_HALF_METER.instrumentID}
+      previousInstrumentID={telescopeConfig.CANARY_ONE_HALF_METER.instrumentID}
+      increment={5}
+    />
+  </div>
+);
+
+export { TabLive };

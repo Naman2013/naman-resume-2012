@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { storiesOf } from '@storybook/react';
-import { withKnobs, number } from '@storybook/addon-knobs';
 
 import Telescope from '../app/components/Telescope';
 import telescopeConfig from '../app/components/Telescope/telescopeConfig';
@@ -28,9 +27,7 @@ class FauxTelescopeDetailsPage extends Component {
 
   render() {
     const { currentMission, currentTelescope } = this.state;
-    const horizontalResolutionKnob = currentTelescope.PORTAL.horizontal;
-    const verticalResolutionKnob = currentTelescope.PORTAL.vertical;
-    const incrementKnob = 5;
+    const largeTickSpacing = 5;
     const TELESCOPES = Object.keys(telescopeConfig);
 
     return (
@@ -68,7 +65,7 @@ class FauxTelescopeDetailsPage extends Component {
           missionMetaData={currentMission}
           activeInstrumentID={currentTelescope.instrumentID}
           previousInstrumentID={this.previousInstrumentID}
-          increment={incrementKnob}
+          increment={largeTickSpacing}
         />
       </div>
     );
