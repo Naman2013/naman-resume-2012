@@ -233,13 +233,13 @@ class JoinStep2 extends Component {
                     passwordNotAcceptedMessage: res.passwordNotAcceptedMessage,
                   }
 
-                  if (passwordAcceptable == true) {
+                  if (passwordResult.passwordAcceptable == true) {
                     /* create the pending customer result */
                     this.createPendingCustomerRecordAndNextScreen();
                   }
                   else {
                     /* Password did not meet Slooh requirements, provide the error messaging */
-                    accountFormDetailsData.password.errorText = passwordNotAcceptedMessage;
+                    accountFormDetailsData.password.errorText = passwordResult.passwordNotAcceptedMessage;
 
                     /* make sure to persist any changes to the account signup form (error messages) */
                     this.setState({ accountFormDetails: accountFormDetailsData });
