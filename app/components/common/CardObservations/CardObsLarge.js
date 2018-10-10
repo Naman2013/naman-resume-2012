@@ -10,6 +10,7 @@ const CardObsLarge = ({
   hasLink,
   linkLabel,
   linkUrl,
+  shareTimeDisplay,
 }) => (
   <Fragment>
     <div className="card-obs">
@@ -22,16 +23,13 @@ const CardObsLarge = ({
         <div className="card-obs-desc">{description}</div>
       </div>
       <div className="card-bottom">
-        {
-          hasLink &&
-            <ul>
-              <li>
-                <a href={linkUrl}>
-                  {linkLabel} <img src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg" alt="" />
-                </a>
-              </li>
-            </ul>
-        }
+        <ul>
+          <li>
+            <a href={linkUrl}>
+              Details <img src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg" alt="" />
+            </a>
+          </li>
+        </ul>
       </div>
     </div>
     <style jsx>{style}</style>

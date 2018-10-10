@@ -11,7 +11,7 @@ import take from 'lodash/take';
 import has from 'lodash/has';
 import RecommendedObservationSliderItem from './partials/RecommendedObservationsSliderItem';
 import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
-import SloohSlider from 'components/common/Slider';
+import SloohSlider from 'components/common/Slider/ObservationsSlider';
 import Request from 'components/common/network/Request';
 import { SHARED_MEMBER_PHOTOS } from 'services/shared-photos';
 // import { secondaryFont } from 'styles/variables/fonts';

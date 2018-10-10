@@ -28,7 +28,22 @@ class RecommendedObservationsItem extends Component {
         ...res.data,
       })
     });
-  };
+  }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { currentIndex } = this.props;
+    if (currentIndex !== nextProps.currentIndex && nextProps.imageIndex === nextProps.currentIndex) {
+    axios.post(IMAGE_DETAILS, {
+      customerImageId: nextProps.customerImageId,
+      useShareToken: 'n',
+      callSource: 'sharedpictures',
+    }).then((res) => {
+      this.setState({
+        ...res.data,
+      })
+    });
+  }
   }
 
   render() {
