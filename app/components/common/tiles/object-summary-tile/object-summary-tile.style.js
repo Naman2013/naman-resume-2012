@@ -67,6 +67,7 @@ export default css`
     display: flex;
     align-items: center;
     border-bottom: 1px solid ${hawkesBlue};
+    padding: 10px 0;
   }
 
   .attribute-name {
