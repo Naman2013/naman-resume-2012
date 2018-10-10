@@ -1,7 +1,7 @@
 import css from 'styled-jsx/css';
 
 export default css`
-  .object-summary-container {
+  .tile-container {
     padding: 10px;
   }
 `;

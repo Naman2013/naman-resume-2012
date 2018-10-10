@@ -31,6 +31,9 @@ export default css`
   }
 
   .list-attributes {
+    text-transform: uppercase;
+    font-size: 10px;
+    font-weight: bold;
     list-style-type: none;
     margin: 0;
     padding: 0;
