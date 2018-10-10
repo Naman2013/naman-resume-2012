@@ -207,13 +207,7 @@ class JoinStep2 extends Component {
     }
 
     if (formIsComplete === true) {
-        /* The form is complete and valid, submit the pending customer request */
-        /*****************************************
-        * Set up a Pending Customer Account
-        * Set a cid_pending localStorage key
-        *****************************************/
-        //JOIN_CREATE_PENDING_CUSTOMER_ENDPOINT_URL
-
+        /* The form is complete and valid, submit the pending customer request if the Password Enters meets the Slooh Requirements */
 
         /* Last Validation....password validation, not required for Google Accounts as their is no password */
         if (this.state.accountCreationType == 'userpass') {
@@ -267,9 +261,41 @@ class JoinStep2 extends Component {
   }
 
   createPendingCustomerRecordAndNextScreen() {
-    /* Create the pending customer record and move onto the next screen */
-    console.log('Proceeding to create the customers pending account');
-    browserHistory.push('/join/step3');
+    /*****************************************
+    * Set up a Pending Customer Account
+    * Set a cid_pending localStorage key
+    *****************************************/
+
+    /* prepare the payload to the Create Pending Customer API call. */
+    const createPendingCustomerData = {
+      googleProfileData: this.state.googleProfileData,
+      accountFormDetails: this.state.accountFormDetails,
+    };
+
+    //JOIN_CREATE_PENDING_CUSTOMER_ENDPOINT_URL
+    const createPendingCustomerResult = axios.post(JOIN_CREATE_PENDING_CUSTOMER_ENDPOINT_URL, createPendingCustomerData)
+      .then(response => {
+        const res = response.data;
+        if (res.apiError == false) {
+          const pendingCustomerResult = {
+            status: res.status,
+            customerId: res.cid,
+          }
+
+          if (pendingCustomerResult.status === "success") {
+            window.localStorage.setItem('pending_cid', pendingCustomerResult.customerId);
+
+            console.log('Proceeding to create the customers pending account');
+            browserHistory.push('/join/step3');
+          }
+          else {
+            /* process / display error to user */
+          }
+        }
+      })
+      .catch(err => {
+        throw ('Error: ', err);
+      });
   }
 
   /* The API response to the Google SSO Request was successful, process the response data elements accordingly and send the information back to the Slooh servers */
