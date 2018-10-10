@@ -93,7 +93,11 @@ class Login extends Component {
           window.localStorage.setItem('googleProfileId', googleProfileResult.googleProfileId);
 
           /* Log this user in via Google SSO */
-          actions.logGoogleUserIn(googleProfileResult);
+          const googleProfileLoginData = {
+            googleProfileId: googleProfileResult.googleProfileId,
+            googleProfileEmail: googleProfileResult.googleProfileEmail,
+          }
+          actions.logGoogleUserIn(googleProfileLoginData);
         }
       })
       .catch(err => {
@@ -278,7 +282,6 @@ const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     resetLogIn,
     logUserIn,
-    logGoogleUserIn,
     logGoogleUserIn,
   }, dispatch),
 });
