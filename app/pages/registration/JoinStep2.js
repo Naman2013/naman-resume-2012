@@ -268,7 +268,7 @@ class JoinStep2 extends Component {
     }
   }
 
-  createPendingCustomerRecordAndNextScreen = () => {
+  createPendingCustomerRecordAndNextScreen() {
     /* Create the pending customer record and move onto the next screen */
     console.log('Proceeding to create the customers pending account');
     browserHistory.push('/join/step3');
