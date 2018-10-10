@@ -228,8 +228,6 @@ class JoinStep2 extends Component {
                 userEnteredPassword: this.state.accountFormDetails.password.value
               })
               .then(response => {
-                const { actions } = this.props;
-                console.log(this.props);
 
                 const res = response.data;
                 if (res.apiError == false) {
@@ -242,7 +240,7 @@ class JoinStep2 extends Component {
                     formIsComplete = true;
 
                     /* create the pending customer result */
-                    //createPendingCustomerRecordAndNextScreenFunction();
+                    this.props.createPendingCustomerRecordAndNextScreen();
                   }
                   else {
                     /* Password did not meet Slooh requirements, provide the error messaging */
