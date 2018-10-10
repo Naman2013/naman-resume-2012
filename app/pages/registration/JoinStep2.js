@@ -28,7 +28,6 @@ class JoinStep2 extends Component {
     super(props);
 
     /* bind the Join Page Service Response to "this" so it can access the form on the page */
-    this.handleSubmit = this.handleSubmit.bind(this);
     this.handleJoinPageServiceResponse = this.handleJoinPageServiceResponse.bind(this);
     this.createPendingCustomerRecordAndNextScreen = this.createPendingCustomerRecordAndNextScreen.bind(this);
 
@@ -118,8 +117,6 @@ class JoinStep2 extends Component {
 
   /* Submit the Join Form and perform any validations as needed */
   handleSubmit = (formValues) => {
-    var self=this;
-
     formValues.preventDefault();
     //console.log(this.state.accountFormDetails);
 
@@ -239,7 +236,7 @@ class JoinStep2 extends Component {
                     formIsComplete = true;
 
                     /* create the pending customer result */
-                    self.createPendingCustomerRecordAndNextScreen();
+                    this.createPendingCustomerRecordAndNextScreen();
                   }
                   else {
                     /* Password did not meet Slooh requirements, provide the error messaging */
