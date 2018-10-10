@@ -28,6 +28,7 @@ class JoinStep2 extends Component {
     super(props);
 
     /* bind the Join Page Service Response to "this" so it can access the form on the page */
+    this.handleSubmit = this.handleSubmit.bind(this);
     this.handleJoinPageServiceResponse = this.handleJoinPageServiceResponse.bind(this);
     this.createPendingCustomerRecordAndNextScreen = this.createPendingCustomerRecordAndNextScreen.bind(this);
 
@@ -272,7 +273,7 @@ class JoinStep2 extends Component {
     /* Create the pending customer record and move onto the next screen */
     console.log('Proceeding to create the customers pending account');
     browserHistory.push('/join/step3');
-  };
+  }
 
   /* The API response to the Google SSO Request was successful, process the response data elements accordingly and send the information back to the Slooh servers */
   processGoogleSuccessResponse = (googleTokenData) => {
