@@ -229,8 +229,8 @@ class JoinStep2 extends Component {
               })
               .then(response => {
                 const { actions } = this.props;
-                console.log(actions);
-                
+                console.log(this.props);
+
                 const res = response.data;
                 if (res.apiError == false) {
                   const passwordResult = {
