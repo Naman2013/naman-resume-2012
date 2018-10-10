@@ -23,6 +23,7 @@ import './ObjectProfile';
 import './pagination';
 import './ResponsiveTwoColumnContainer';
 import './RevealSubmitForm';
+import './star-share-camera';
 import './SubPageNavigation';
 import './SingleFieldSubmitForm';
 import './ShowMoreFullSet';
