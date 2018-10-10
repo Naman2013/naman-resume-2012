@@ -35,6 +35,7 @@ const Shows = ({
   }) => {
     const sliderProps = serviceResponse.eventList ? getSliderProps(serviceResponse.eventList) : {};
     const shortList = take(serviceResponse.eventList, 2) || [];
+    console.log(shortList)
     return (
       <div className="root">
         <DisplayAtBreakpoint

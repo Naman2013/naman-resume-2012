@@ -22,8 +22,8 @@ const {
 } = PropTypes;
 
 const sectionOrder = [
-  //'recommendedObjects',
-  'featuredObservations',
+  'recommendedObjects',
+  // 'featuredObservations',
   'recommendedGuides',
   // 'recommendedQuests',
   'recommendedShows',

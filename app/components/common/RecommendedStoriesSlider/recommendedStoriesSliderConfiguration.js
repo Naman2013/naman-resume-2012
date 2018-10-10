@@ -10,7 +10,7 @@ const getSliderConfiguration = () => Object.assign(
   {
     slidesToShow: 3,
     slidesToScroll: 1,
-    initialSlide: 1,
+    initialSlide: 0,
     centerPadding: '25px',
   },
 );

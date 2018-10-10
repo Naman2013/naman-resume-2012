@@ -17,7 +17,7 @@ export default css`
     background-size: cover;
     transition: width, height 0.4s ease-in-out;
     text-align: center;
-    margin: 0 auto;
+    margin: 20px auto;
   }
 
   .show-tile-title {
@@ -70,7 +70,7 @@ export default css`
     }
     .show-tile-header {
       bottom: auto;
-      top: 80px; 
+      top: 80px;
     }
     .show-tile-title {
       font-size: 24px;
@@ -89,7 +89,7 @@ export default css`
     }
     .show-tile-header {
       bottom: auto;
-      top: 60px; 
+      top: 60px;
     }
     .show-tile-title {
       font-size: 22px;

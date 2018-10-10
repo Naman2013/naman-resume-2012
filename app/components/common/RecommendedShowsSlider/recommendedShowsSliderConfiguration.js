@@ -9,7 +9,7 @@ const getSliderConfiguration = () => Object.assign(
   {
     slidesToShow: 1,
     slidesToScroll: 1,
-    initialSlide: 1,
+    initialSlide: 0,
     centerPadding: '50px',
     responsive: [
       {

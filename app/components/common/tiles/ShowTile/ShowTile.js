@@ -6,7 +6,6 @@ import style from './ShowTile.style';
 const ShowTile = ({ header, title, time, author, linkUrl }) => (
   <div className="root">
     <div className="show-tile-header">{header}</div>
-    <div className="show-tile-title">{title}</div>
     <Link to={linkUrl} href={linkUrl}><div className="show-tile-title">{title}</div></Link>
     <div className="show-tile-author">{time}<span>|</span>{author}</div>
     <style jsx>{style}</style>
