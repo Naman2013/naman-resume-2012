@@ -286,7 +286,7 @@ class JoinStep2 extends Component {
           if (pendingCustomerResult.status === "success") {
             window.localStorage.setItem('pending_cid', pendingCustomerResult.customerId);
 
-            console.log('Proceeding to create the customers pending account');
+            //console.log('Proceeding to create the customers pending account');
             browserHistory.push('/join/step3');
           }
           else {
@@ -452,6 +452,7 @@ class JoinStep2 extends Component {
                               <Fragment>
                                 <div style={{'paddingTop': '15px', 'marginLeft': 'auto', 'marginRight': 'auto', 'textAlign': 'center'}}>
                                   <GoogleLogin
+                                      prompt="select_account consent"
                                       responseType={GOOGLE_CLIENT_ID_MODEL.googleClientResponseType}
                                       fetchBasicProfile={GOOGLE_CLIENT_ID_MODEL.googleClientFetchBasicProfile}
                                       accessType={GOOGLE_CLIENT_ID_MODEL.googleClientAccessType}
