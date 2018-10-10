@@ -49,6 +49,33 @@ class JoinStep3 extends Component  {
         console.log('Payment Token!! ' + paymentNonceTokenData);
 
         /* Process the Customer's Activation and Sign the User into the website */
+        const activatePendingCustomerData = {
+          paymentToken: paymentNonceTokenData,
+          customerId: window.localStorage.pending_cid,
+        };
+
+        const activatePendingCustomerResult = axios.post(JOIN_ACTIVATE_PENDING_CUSTOMER_ENDPOINT_URL, activatePendingCustomerData)
+          .then(response => {
+            const res = response.data;
+            if (res.apiError == false) {
+              const activateCustomerResult = {
+                status: res.status,
+              }
+
+              if (activateCustomerResult.status === "success") {
+
+                //log the user in
+
+              }
+              else {
+                /* process / display error to user */
+              }
+            }
+          })
+          .catch(err => {
+            throw ('Error: ', err);
+          });
+
       }
     }
   }
