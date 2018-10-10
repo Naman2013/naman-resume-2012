@@ -209,7 +209,7 @@ class JoinStep2 extends Component {
       }
     }
 
-    if (formIsComplete == true) {
+    if (formIsComplete === true) {
         /* The form is complete and valid, submit the pending customer request */
         /*****************************************
         * Set up a Pending Customer Account
@@ -228,7 +228,6 @@ class JoinStep2 extends Component {
                 userEnteredPassword: this.state.accountFormDetails.password.value
               })
               .then(response => {
-                self.createPendingCustomerRecordAndNextScreen.bind(self);
 
                 const res = response.data;
                 if (res.apiError == false) {
@@ -237,8 +236,10 @@ class JoinStep2 extends Component {
                     passwordNotAcceptedMessage: res.passwordNotAcceptedMessage,
                   }
 
-                  if (passwordResult.passwordAcceptable == true) {
+                  if (passwordResult.passwordAcceptable === true) {
                     formIsComplete = true;
+
+                    console.log('here');
 
                     /* create the pending customer result */
                     self.createPendingCustomerRecordAndNextScreen();
