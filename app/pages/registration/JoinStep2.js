@@ -29,6 +29,7 @@ class JoinStep2 extends Component {
 
     /* bind the Join Page Service Response to "this" so it can access the form on the page */
     this.handleJoinPageServiceResponse = this.handleJoinPageServiceResponse.bind(this);
+    this.createPendingCustomerRecordAndNextScreen = this.createPendingCustomerRecordAndNextScreen.bind(this);
 
     window.localStorage.setItem('accountCreationType', 'userpass');
   }
@@ -234,6 +235,8 @@ class JoinStep2 extends Component {
                   }
 
                   if (passwordResult.passwordAcceptable == true) {
+                    formIsComplete = true;
+
                     /* create the pending customer result */
                     this.createPendingCustomerRecordAndNextScreen();
                   }
@@ -243,6 +246,8 @@ class JoinStep2 extends Component {
 
                     /* make sure to persist any changes to the account signup form (error messages) */
                     this.setState({ accountFormDetails: accountFormDetailsData });
+
+                    formIsComplete = false;
                   }
                 }
               })
@@ -265,6 +270,7 @@ class JoinStep2 extends Component {
 
   createPendingCustomerRecordAndNextScreen = () => {
     /* Create the pending customer record and move onto the next screen */
+    console.log('Proceeding to create the customers pending account');
     browserHistory.push('/join/step3');
   };
 
