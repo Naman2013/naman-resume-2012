@@ -270,6 +270,7 @@ class JoinStep2 extends Component {
     const createPendingCustomerData = {
       googleProfileData: this.state.googleProfileData,
       accountFormDetails: this.state.accountFormDetails,
+      accountCreationType: this.state.accountCreationType,
     };
 
     //JOIN_CREATE_PENDING_CUSTOMER_ENDPOINT_URL
