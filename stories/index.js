@@ -26,6 +26,7 @@ import './SingleFieldSubmitForm';
 import './ShowMoreFullSet';
 import './Tabs';
 import './Telescope';
+import './telescope-details';
 import './TelescopeThumbnailView';
 import './TiaraTitleSection';
 
