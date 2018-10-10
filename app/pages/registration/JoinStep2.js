@@ -19,7 +19,8 @@ import {
   SUBSCRIPTION_PLANS_ENDPOINT_URL,
   GOOGLE_CLIENT_ID_ENDPOINT_URL,
   GOOGLE_SSO_SIGNIN_ENDPOINT_URL,
-  JOIN_CREATE_PENDING_CUSTOMER_ENDPOINT_URL
+  JOIN_CREATE_PENDING_CUSTOMER_ENDPOINT_URL,
+  VERIFY_PASSWORD_MEETS_REQUIREMENTS_ENDPOINT_URL
 } from 'services/registration/registration.js';
 
 class JoinStep2 extends Component {
@@ -218,9 +219,36 @@ class JoinStep2 extends Component {
             /* reach out to the Slooh API and verify the user's password */
             var isValidPassword = true;
 
-            //window.localStorage.setItem('join_accountFormDetails', this.state.accountFormDetails);
+            const passwordMeetsRequirementsResult = axios.post(VERIFY_PASSWORD_MEETS_REQUIREMENTS_ENDPOINT_URL,
+              {
+                userEnteredPassword: this.state.accountFormDetails.password.value
+              })
+              .then(response => {
+                const { actions } = this.props;
 
-            this.createPendingCustomerRecordAndNextScreen();
+                const res = response.data;
+                if (res.apiError == false) {
+                  const passwordResult = {
+                    passwordAcceptable: res.passwordAcceptable,
+                    passwordNotAcceptedMessage: res.passwordNotAcceptedMessage,
+                  }
+
+                  if (passwordAcceptable == true) {
+                    /* create the pending customer result */
+                    this.createPendingCustomerRecordAndNextScreen();
+                  }
+                  else {
+                    /* Password did not meet Slooh requirements, provide the error messaging */
+                    accountFormDetailsData.password.errorText = passwordNotAcceptedMessage;
+
+                    /* make sure to persist any changes to the account signup form (error messages) */
+                    this.setState({ accountFormDetails: accountFormDetailsData });
+                  }
+                }
+              })
+              .catch(err => {
+                throw ('Error: ', err);
+              });
         }
         else if (this.state.accountCreationType == 'googleaccount') {
             //window.localStorage.setItem('join_accountFormDetails', this.state.accountFormDetails);
