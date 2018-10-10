@@ -228,7 +228,6 @@ class JoinStep2 extends Component {
                 userEnteredPassword: this.state.accountFormDetails.password.value
               })
               .then(response => {
-
                 const res = response.data;
                 if (res.apiError == false) {
                   const passwordResult = {
@@ -236,10 +235,8 @@ class JoinStep2 extends Component {
                     passwordNotAcceptedMessage: res.passwordNotAcceptedMessage,
                   }
 
-                  if (passwordResult.passwordAcceptable === true) {
+                  if (passwordResult.passwordAcceptable === "true") {
                     formIsComplete = true;
-
-                    console.log('here');
 
                     /* create the pending customer result */
                     self.createPendingCustomerRecordAndNextScreen();
@@ -538,8 +535,7 @@ class JoinStep2 extends Component {
                       }
                       <br/>
                       {this.state.accountFormDetails.passwordVerification.visible == true && <p>{JOIN_PAGE_MODEL.formFieldLabels.passwordverification.label}: <span style={{'color': 'red', 'fontStyle': 'italic'}}>{this.state.accountFormDetails.passwordVerification.errorText}</span>
-                        <Field
-                          name="passwordVerification"
+                        <Field name="passwordVerification"
                           type="password"
                           label={this.state.accountFormDetails.passwordVerification.hintText}
                           component={InputField}
