@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ModuleHeader } from '../';
+import { ModuleHeader } from './module-header';
 import style from './module-container.style';
 
 const ModuleContainer = () => (
