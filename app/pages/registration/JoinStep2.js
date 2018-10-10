@@ -280,7 +280,7 @@ class JoinStep2 extends Component {
         if (res.apiError == false) {
           const pendingCustomerResult = {
             status: res.status,
-            customerId: res.cid,
+            customerId: res.customerId,
           }
 
           if (pendingCustomerResult.status === "success") {
