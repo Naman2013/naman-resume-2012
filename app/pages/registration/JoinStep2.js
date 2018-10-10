@@ -118,6 +118,8 @@ class JoinStep2 extends Component {
 
   /* Submit the Join Form and perform any validations as needed */
   handleSubmit = (formValues) => {
+    var self = this;
+
     formValues.preventDefault();
     //console.log(this.state.accountFormDetails);
 
@@ -239,7 +241,7 @@ class JoinStep2 extends Component {
                     formIsComplete = true;
 
                     /* create the pending customer result */
-                    this.createPendingCustomerRecordAndNextScreen();
+                    self.createPendingCustomerRecordAndNextScreen();
                   }
                   else {
                     /* Password did not meet Slooh requirements, provide the error messaging */
