@@ -47,6 +47,8 @@ class JoinStep3 extends Component  {
         const paymentNonceTokenData = String.prototype.replace.call(paymentMessageData, '__ECOMMERCE_PAYMENT_TOKEN__', '');
         this.setState( { 'paymentToken': paymentNonceTokenData });
         console.log('Payment Token!! ' + paymentNonceTokenData);
+
+        /* Process the Customer's Activation and Sign the User into the website */
       }
     }
   }
