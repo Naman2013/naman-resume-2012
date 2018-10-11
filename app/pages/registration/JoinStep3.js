@@ -5,6 +5,7 @@
 import React, { Component , cloneElement, Fragment } from 'react';
 import { Link } from 'react-router';
 import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Request from 'components/common/network/Request';
 import { browserHistory } from 'react-router';
@@ -99,7 +100,7 @@ class JoinStep3 extends Component  {
                   /* cleanup local storage */
                   window.localStorage.removeItem('username');
                   window.localStorage.removeItem('password');
-                  
+
                   actions.logUserIn(loginDataPayload);
                 }
                 else if (accountCreationType === 'googleaccount') {
