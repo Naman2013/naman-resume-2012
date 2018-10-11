@@ -88,7 +88,7 @@ import JoinStep1SchoolSelection from './pages/registration/JoinStep1SchoolSelect
 import JoinStep2 from './pages/registration/JoinStep2';
 import JoinStep3 from './pages/registration/JoinStep3';
 import JoinByInviteStep1 from './pages/registration/JoinByInviteStep1';
-
+import Memberships from './pages/registration/Memberships';
 
 import Notifications from './pages/settings/Notifications';
 import PaymentInfo from './pages/settings/PaymentInfo';
@@ -216,6 +216,8 @@ ReactDOM.render(
 
       <Route path="/" component={App}>
         <IndexRoute component={DashboardPage} onEnter={validateUser} />
+
+        <Route path="memberships" component={Memberships}/>
 
         <Route path="join">
           <Route path="step1" component={JoinStep1}/>
