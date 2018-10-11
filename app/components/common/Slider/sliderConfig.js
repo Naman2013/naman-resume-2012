@@ -32,4 +32,6 @@ const DEFAULT_CONFIG = {
   ],
 };
 
-export default DEFAULT_CONFIG;
+const getDefaultConfig = () => JSON.parse(JSON.stringify(DEFAULT_CONFIG)); // deepclone
+
+export default getDefaultConfig;

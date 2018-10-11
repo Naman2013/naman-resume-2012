@@ -32,7 +32,7 @@ class SloohSlider extends Component {
 
   static defaultProps = {
     slideList: [],
-    sliderConfig: defaultSliderConfiguration,
+    sliderConfig: defaultSliderConfiguration(),
     emptyMessage: 'There is nothing to show',
   }
 
@@ -46,10 +46,8 @@ class SloohSlider extends Component {
       sliderConfig,
       slideList,
     } = this.props;
-
+    console.log(sliderConfig)
     // const { currentIndex } = this.state;
-
-
     return (
       <div className="root" key={uniqueId()}>
         {slideList.length === 0 && <div className="empty" dangerouslySetInnerHTML={{ __html: sliderConfig.emptyMessage }} />}

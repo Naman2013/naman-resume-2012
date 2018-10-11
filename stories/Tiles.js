@@ -8,6 +8,7 @@ import QuestTile from 'components/common/tiles/QuestTile';
 import MissionTile from 'components/common/tiles/MissionTile';
 import StoryTile from 'components/common/tiles/StoryTile';
 import ShowTile from 'components/common/tiles/ShowTile';
+import BigShowTile from 'components/common/tiles/BigShowTile';
 import GroupTile from 'components/common/tiles/GroupTile';
 import BigGuideTile from 'components/common/tiles/BigGuideTile/BigGuideTile';
 import BobbieTile from 'components/common/tiles/BobbieTile';
@@ -129,11 +130,30 @@ storiesOf('Tiles', module)
       accessDescription="Public Group"
       iconURL="https://vega.slooh.com/icons/placeholders/avatar-dummy.png"
     />
-    .add('Big GuideTile', () => (
-      <BigGuideTile
-        title="Chile One"
-        heading="A guide to"
+  ))
+  .add('Big GuideTile', () => (
+    <BigGuideTile
+      title="Chile One"
+      heading="A guide to"
+    />
+  ))
+  .add('Big GuideTile', () => (
+    <BigGuideTile
+      title="Chile One"
+      heading="A guide to"
+    />
+  ))
+  .add('Big ShowTile', () => (
+    <CenterColumn>
+      <BigShowTile
+        header="Upcoming Show"
+        title="Countdown to the Slooh Messier Marathon"
+        time="30 mins"
+        author="Helen Avery"
+        linkUrl="#"
       />
+    </CenterColumn>
+  ))
   .add('ObjectSummaryTile', () => (
     <ObjectSummaryTile />
   ))

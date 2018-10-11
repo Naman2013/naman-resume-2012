@@ -3,12 +3,16 @@ import uniqueId from 'lodash/uniqueId';
 import defaultSliderConfiguration from 'components/common/Slider/sliderConfig';
 import GroupTile from 'components/common/tiles/GroupTile';
 
-const sliderConfiguration = Object.assign(defaultSliderConfiguration, {
-  slidesToShow: 3,
-  slidesToScroll: 1,
-  initialSlide: 1,
-  centerPadding: '25px',
-});
+const getSliderConfiguration = () => Object.assign(
+  {},
+  defaultSliderConfiguration(),
+  {
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    initialSlide: 1,
+    centerPadding: '25px',
+  },
+);
 
 const getRecommendedGroupsItems = (groupList = []) =>
 groupList.map(object => ({
@@ -27,7 +31,7 @@ export const getSliderProps = (slideList = []) => (
   Object.assign({
     slideList: getRecommendedGroupsItems(slideList),
   }, {
-    sliderConfig: sliderConfiguration,
+    sliderConfig: getSliderConfiguration(),
     emptyMessage: 'There are no recommended groups.',
   })
 );

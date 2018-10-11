@@ -4,12 +4,16 @@ import defaultSliderConfiguration from 'components/common/Slider/sliderConfig';
 import BigGuideTile from 'components/common/tiles/BigGuideTile/BigGuideTile';
 
 
-const sliderConfiguration = Object.assign(defaultSliderConfiguration, {
-  slidesToShow: 3,
-  slidesToScroll: 1,
-  initialSlide: 1,
-  centerPadding: '25px',
-});
+const getSliderConfiguration = () => Object.assign(
+  {},
+  defaultSliderConfiguration(),
+  {
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    initialSlide: 1,
+    centerPadding: '25px',
+  },
+);
 
 const getGuidesItems = (recommendedGuidesList = []) =>
   recommendedGuidesList.map(object => ({
@@ -26,7 +30,7 @@ export const getSliderProps = (slideList = []) => (
   Object.assign({
     slideList: getGuidesItems(slideList),
   }, {
-    sliderConfig: sliderConfiguration,
+    sliderConfig: getSliderConfiguration(),
     emptyMessage: 'There are no recommended guides.',
   })
 );
