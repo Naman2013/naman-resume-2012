@@ -1,23 +1,48 @@
 import React from 'react';
+import uniqueId from 'lodash/uniqueId';
+import defaultSliderConfiguration from 'components/common/Slider/sliderConfig';
+import BigShowTile from 'components/common/tiles/BigShowTile';
 
-const sliderConfiguration = {
-  slidesToShow: 2,
-  slidesToScroll: 1,
-  initialSlide: 1,
-  emptyMessage: 'There are no recommended shows.',
-};
+const getSliderConfiguration = () => Object.assign(
+  {},
+  defaultSliderConfiguration(),
+  {
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    initialSlide: 0,
+    centerPadding: '50px',
+    responsive: [
+      {
+        breakpoint: 1200,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          centerMode: true,
+          centerPadding: '50px',
+        }
+      },
+    ],
+  },
+)
+
 
 const getRecommendedEventsItems = (imageList = []) =>
-imageList.map(object => ({
-  render: () => (<div key={object.eventId} className="card-shows">
-    <div className="show-card-head">SLOOH SHOW</div>
-    <div className="show-card-title">{object.title}Constellation Stories with Helen Avery (Libra)</div>
-    <div className="show-card-author">30 MINS &nbsp;&nbsp; | &nbsp;&nbsp; HELEN AVERY</div>
-  </div>)
+  imageList.map(object => ({
+    render: () => (<BigShowTile
+      header={object.header}
+      time={object.time}
+      author={object.author}
+      key={uniqueId()}
+      linkUrl={object.linkUrl}
+      title={object.eventTitle}
+    />)
 }));
 
-export const getSliderConfiguration = (slideList = []) => (
+export const getSliderProps = (slideList = []) => (
   Object.assign({
     slideList: getRecommendedEventsItems(slideList),
-  }, sliderConfiguration)
+  }, {
+    sliderConfig: getSliderConfiguration(),
+    emptyMessage: 'There are no recommended shows.',
+  })
 );

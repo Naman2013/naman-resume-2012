@@ -27,23 +27,17 @@ const getIconStyle = (iconURL) => ({
   backgroundImage: iconURL,
 });
 
-const descriptionContent = 'Nam dapibus nisl vitae elit fringilla rutrum. Aenean lene lorem sollicitudin, erat a elementum toirutrum neeque sem pretium metuis, quis mollis nisl nunc it tristique de ullam ecorpere pretium…';
-const tempProps = {
-  title: 'The Moon!',
-  author: 'JESSICA ANDERSON',
-  descContent: descriptionContent,
-  imageSrcUrl: 'https://vega.slooh.com/assets/v4/placeholder/moon_sample.jpg',
-  likesCount: '1000',
-  commentsCount: '007',
-  detailsLinkUrl: 'https://www.slooh.com/',
-  capturedDate: 'Jan 22, 2018',
-};
 
-const BootstrappedObservationSliderItem = ({serviceResponse
-
-}) => (
+const BootstrappedObservationSliderItem = (props) => (
   <div className="card-obs" key={uniqueId()}>
-    <CardObservations {...tempProps} />
+    <CardObservations
+      title={props.observationTitle || props.imageTitle}
+      description={props.observationLog}
+      imageUrl={props.imageURL}
+      hasLink={props.hasLink}
+      linkLabel={props.linkLabel}
+      linkUrl={props.linkUrl}
+    />
     <style jsx>{`
       .card-obs {
         padding: 0 40px;

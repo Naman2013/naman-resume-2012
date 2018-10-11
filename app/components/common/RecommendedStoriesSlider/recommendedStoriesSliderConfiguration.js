@@ -1,26 +1,35 @@
 import React from 'react';
 import uniqueId from 'lodash/uniqueId';
+import has from 'lodash/has';
+import defaultSliderConfiguration from 'components/common/Slider/sliderConfig';
 import StoryTile from 'components/common/tiles/StoryTile';
 
-const sliderConfiguration = {
-  slidesToShow: 3,
-  slidesToScroll: 1,
-  initialSlide: 1,
-  emptyMessage: 'There are no recommended stories.',
-};
-
+const getSliderConfiguration = () => Object.assign(
+  {},
+  defaultSliderConfiguration(),
+  {
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    initialSlide: 0,
+    centerPadding: '25px',
+  },
+);
 const getRecommendedStoriesItems = (storiesList = []) =>
 storiesList.map(object => ({
   render: () => (<StoryTile
     key={uniqueId()}
     iconURL={object.iconURL}
     title={object.title}
-    author={'BY ' + object.author}
+    linkUrl={object.linkUrl}
+    author={has(object, 'authorInfo.byline') ? object.authorInfo.byline : ''}
   />),
 }));
 
-export const getSliderConfiguration = (slideList = []) => (
+export const getSliderProps = (slideList = []) => (
   Object.assign({
     slideList: getRecommendedStoriesItems(slideList),
-  }, sliderConfiguration)
+  }, {
+    sliderConfig: getSliderConfiguration(),
+    emptyMessage: 'There are no recommended stories.',
+  })
 );

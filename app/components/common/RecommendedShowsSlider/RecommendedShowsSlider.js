@@ -6,11 +6,16 @@
 ***********************************/
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import uniqueId from 'lodash/uniqueId';
+import take from 'lodash/take';
+import has from 'lodash/has';
 import SloohSlider from 'components/common/Slider';
 import Request from 'components/common/network/Request';
+import ShowTile from 'components/common/tiles/ShowTile';
+import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
 import { HIGHLIGHTED_EVENTS } from 'services/events';
 // import { secondaryFont } from 'styles/variables/fonts';
-import { getSliderConfiguration } from './recommendedShowsSliderConfiguration';
+import { getSliderProps } from './recommendedShowsSliderConfiguration';
 const {
   arrayOf,
   bool,
@@ -28,53 +33,32 @@ const Shows = ({
     fetchingContent,
     serviceResponse,
   }) => {
-    const sliderConfig = getSliderConfiguration(serviceResponse.eventList);
+    const sliderProps = serviceResponse.eventList ? getSliderProps(serviceResponse.eventList) : {};
+    const shortList = take(serviceResponse.eventList, 2) || [];
+    console.log(shortList)
     return (
       <div className="root">
-        <SloohSlider
-          {...sliderConfig}
-        />
-
-        <style jsx>{`
-
-        `}
-        </style>
-
-        <style jsx global>
-          {`
-          .card-shows {
-            background-image: url("https://vega.slooh.com/assets/v4/dashboard/show-card-bg.jpg");
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: 50%;
-            font-weight: 600;
-            letter-spacing: 1px;
-            padding: 0 40px;
-            font-size: 10px;
-            height: 259px;
-            width: 460px !important;
-            color: white;
-          }
-          .show-card-head {
-            color: #FAD59A;
-            font-weight: 400;
-            padding: 60px 0 20px 0;
-          }
-          .show-card-title {
-            color: white;
-            font-family: "Adobe Garamond Pro","adobe-garamond-pro","Adobe Garamond","Garamond",serif;
-            font-size: 22px;
-            line-height: 22px;
-            font-weight: 400;
-            max-width: 80%;
-            margin: 0 auto 55px auto;
-          }
-          .show-card-author {
-            font-weight: 400;
-          }
-
-          `}
-        </style>
+        <DisplayAtBreakpoint
+          screenMedium
+          screenLarge
+          screenXLarge
+        >
+          <SloohSlider {...sliderProps} />
+        </DisplayAtBreakpoint>
+        <DisplayAtBreakpoint
+          screenSmall
+        >
+          {shortList.map(show => (
+            <ShowTile
+              header={show.header}
+              time={show.time}
+              author={show.author}
+              key={uniqueId()}
+              linkUrl={show.linkUrl}
+              title={show.eventTitle}
+            />
+          ))}
+        </DisplayAtBreakpoint>
       </div>)
   }}
 />);

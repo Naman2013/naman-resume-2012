@@ -31,6 +31,7 @@ const BootstrappedStoryDetails = (props) => {
     actions,
     authorInfo,
     isDesktop,
+    isMobile,
     isScreenLarge,
     membershipType,
     postId,
@@ -50,7 +51,7 @@ const BootstrappedStoryDetails = (props) => {
     membershipType,
   };
 
-  const headerTheme = !S3Files[0] ? {
+  const headerTheme = !S3Files[0] && !isMobile ? {
     padding: '100px'
   } : {};
 

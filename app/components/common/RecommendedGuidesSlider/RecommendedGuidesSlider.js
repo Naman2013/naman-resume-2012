@@ -6,9 +6,14 @@
 ***********************************/
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import uniqueId from 'lodash/uniqueId';
+import take from 'lodash/take';
+import has from 'lodash/has';
 import SloohSlider from 'components/common/Slider';
-// import { secondaryFont } from 'styles/variables/fonts';
-import { getSliderConfiguration } from './recommendedGuidesConfiguration';
+import { romance } from 'styles/variables/colors_tiles_v4';
+import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
+import BigGuideTile from 'components/common/tiles/BigGuideTile/BigGuideTile';
+import { getSliderProps } from './recommendedGuidesConfiguration';
 const {
   arrayOf,
   bool,
@@ -21,53 +26,28 @@ const {
 const Guides = ({
   recommendedGuidesList,
 }) => {
-  const sliderConfig = getSliderConfiguration(recommendedGuidesList);
-  return (
-    <div className="root-dash">
-      <SloohSlider
-        {...sliderConfig}
-      />
-
-      <style jsx>{`
-        .root-dash {
-          background-color: white;
-        }
-      `}
-      </style>
-
-      <style jsx global>
-        {`
-          .card-guides {
-            background-image: url("https://s3.amazonaws.com/webassets-slooh-com/assets/v4/dashboard/guide-card-bg.png");
-            background-color: #213043;
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: 50%;
-            color: white;
-            font-weight: 600;
-            letter-spacing: 1px;
-            padding: 0 40px;
-            font-size: 10px;
-            width: 300px !important;
-            min-height: 462px;
-          }
-          .card-guides-head {
-            color: #FAD59A;
-            font-weight: 400;
-            padding: 200px 0 20px 0;
-            letter-spacing: 2px;
-          }
-          .card-guides-title {
-            color: white;
-            font-family: "Adobe Garamond Pro","adobe-garamond-pro","Adobe Garamond","Garamond",serif;
-            font-size: 22px;
-            line-height: 22px;
-            font-weight: 400;
-            max-width: 80%;
-            margin: 0 auto;
-          }
-        `}
-      </style>
-    </div>)
+  const sliderProps = getSliderProps(recommendedGuidesList);
+  const shortList = take(recommendedGuidesList, 2) || [];
+  return (<div className="root-dash">
+    <DisplayAtBreakpoint
+      screenMedium
+      screenLarge
+      screenXLarge
+    >
+      <SloohSlider {...sliderProps} />
+    </DisplayAtBreakpoint>
+    <DisplayAtBreakpoint
+      screenSmall
+    >
+      {shortList.map(guide => (
+        <BigGuideTile
+          key={uniqueId()}
+          heading={guide.heading}
+          title={guide.title}
+          linkUrl={guide.linkUrl}
+        />
+      ))}
+    </DisplayAtBreakpoint>
+  </div>);
 };
 export default Guides;

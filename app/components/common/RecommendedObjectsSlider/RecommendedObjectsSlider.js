@@ -7,8 +7,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import uniqueId from 'lodash/uniqueId';
+import take from 'lodash/take';
+import has from 'lodash/has';
 import SloohSlider from 'components/common/Slider';
-import { getSliderConfiguration } from './recommendedObjectsSliderConfiguration';
+import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
+import { getSliderProps } from './recommendedObjectsSliderConfiguration';
+import RecommendedObjectsSliderItem from './partials/RecommendedObjectsSliderItem';
 
 // import { secondaryFont } from 'styles/variables/fonts';
 const {
@@ -23,13 +27,27 @@ const {
 const RecommendedObjects = ({
   recommendedObjectsList = [],
 }) => {
-  const sliderConfig = getSliderConfiguration(recommendedObjectsList);
+  const sliderProps = getSliderProps(recommendedObjectsList);
+  const shortList = take(recommendedObjectsList, 2) || [];
   return (
     <div className="root" key={uniqueId()}>
-      <SloohSlider
-        {...sliderConfig}
-      />
-
+      <DisplayAtBreakpoint
+        screenMedium
+        screenLarge
+        screenXLarge
+      >
+        <SloohSlider {...sliderProps} />
+      </DisplayAtBreakpoint>
+      <DisplayAtBreakpoint
+        screenSmall
+      >
+        {shortList.map(object => (
+          <RecommendedObjectsSliderItem
+            key={uniqueId()}
+            {...object}
+          />
+        ))}
+      </DisplayAtBreakpoint>
       <style jsx>{`
 
       `}

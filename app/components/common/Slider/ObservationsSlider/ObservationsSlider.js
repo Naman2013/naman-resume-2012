@@ -7,10 +7,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Slider from 'react-slick';
+import axios from 'axios';
+import has from 'lodash/has';
 import uniqueId from 'lodash/uniqueId';
-import defaultSliderConfiguration from './sliderConfig';
-import '../community-perspectives/slick.min.css';
-import '../community-perspectives/slick-theme.min.css';
+import defaultSliderConfiguration from '../sliderConfig';
+import '../../community-perspectives/slick.min.css';
+import '../../community-perspectives/slick-theme.min.css';
+import { IMAGE_DETAILS } from 'services/image-details';
 import { golda, romance } from 'styles/variables/colors_tiles_v4';
 
 const {
@@ -23,7 +26,7 @@ const {
   string,
 } = PropTypes;
 
-class SloohSlider extends Component {
+class ObservationsSlider extends Component {
   static propTypes = {
     slideList: arrayOf(any),
     emptyMessage: string,
@@ -36,23 +39,36 @@ class SloohSlider extends Component {
     emptyMessage: 'There is nothing to show',
   }
 
+  state = {
+    currentIndex: '',
+  }
+
+  beforeSlideChange = (prev, nextIndex) => {
+    this.setState({
+      currentIndex: nextIndex,
+    })
+
+  }
+
   render() {
     const {
       emptyMessage,
       sliderConfig,
       slideList,
     } = this.props;
+    const { currentIndex } = this.state;
     return (
-      <div className="root" key={uniqueId()}>
+      <div className="root slooh-slider" key={uniqueId()}>
         {slideList.length === 0 && <div className="empty" dangerouslySetInnerHTML={{ __html: sliderConfig.emptyMessage }} />}
         {
           slideList.length > 0 &&
           <div className="slider-container">
             <Slider
               {...sliderConfig}
+              beforeChange={this.beforeSlideChange}
               ref={(c) => { this.slider = c; }}
             >
-              {slideList.map(slideElement => <div key={uniqueId()}>{slideElement.render()}</div>)}
+              {slideList.map((slideElement) => <div key={uniqueId()}>{slideElement.render({ currentIndex })}</div>)}
             </Slider>
           </div>
         }
@@ -64,9 +80,6 @@ class SloohSlider extends Component {
 
         <style jsx global>
           {`
-
-
-
             .slick-prev, .slick-next {
               width: 50px;
               height: 50px;
@@ -123,4 +136,4 @@ class SloohSlider extends Component {
   }
 }
 
-export default SloohSlider;
+export default ObservationsSlider;
