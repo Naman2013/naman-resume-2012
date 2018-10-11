@@ -9,7 +9,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Request from 'components/common/network/Request';
 import { browserHistory } from 'react-router';
-import { logUserIn, logGoogleUserIn } from 'modules/login/actions';
+import { resetLogIn, logUserIn, logGoogleUserIn } from 'modules/login/actions';
 import { JOIN_PAGE_ENDPOINT_URL, SUBSCRIPTION_PLANS_ENDPOINT_URL } from 'services/registration/registration.js';
 import Countdown from 'react-countdown-now';
 
