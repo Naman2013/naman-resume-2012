@@ -112,10 +112,11 @@ class JoinStep3 extends Component  {
                   const loginDataPayload = {
                     googleProfileId: window.localStorage.googleProfileId,
                     username: window.localStorage.googleProfileEmail,
-                    passwd: 'notrequiredforthiscall',
+                    pwd: 'notrequiredforthiscall',
                   };
 
                   actions.logGoogleUserIn(loginDataPayload);
+                  browserHistory.push('/');
                 }
               }
               else {
