@@ -218,6 +218,8 @@ ReactDOM.render(
       <Route path="/" component={App}>
         <IndexRoute component={DashboardPage} onEnter={validateUser} />
 
+        <Route path="memberships" component={Memberships}/>
+
         <Route path="join">
           <Route path="step1" component={JoinStep1}/>
           <Route path="step1SchoolSelection" component={JoinStep1SchoolSelection}/>
