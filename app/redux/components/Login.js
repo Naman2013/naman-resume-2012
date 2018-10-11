@@ -13,7 +13,7 @@ import { nightfall, astronaut, romance, shadows } from 'styles/variables/colors_
 import { faintShadow } from 'styles/variables/shadows';
 import { primaryFont } from 'styles/variables/fonts';
 import{ horizontalArrowRightWhite } from 'styles/variables/iconURLs';
-import {GOOGLE_CLIENT_ID_ENDPOINT, googleClientIDModel} from 'services/registration/registration.js';
+import {GOOGLE_CLIENT_ID_ENDPOINT_URL, googleClientIDModel, GOOGLE_SSO_SIGNIN_ENDPOINT_URL} from 'services/registration/registration.js';
 import Request from 'components/common/network/Request';
 import axios from 'axios';
 import { GoogleLogin } from 'react-google-login';
@@ -39,9 +39,6 @@ class Login extends Component {
 
   state = {
     'googleProfileData': {
-      googleAPIFlowState: '',
-      googleAccessToken: '',
-      googleRefreshToken: '',
       googleProfileId: '',
       googleProfileEmail: '',
       googleProfileGivenName: '',
@@ -68,7 +65,7 @@ class Login extends Component {
     //console.log("Processing Google Signin: " + googleTokenData);
 
     /* Process the token and get back information about this user, etc. */
-    const googleSSOResult = axios.post('/api/registration/processGoogleSSOSignin',
+    const googleSSOResult = axios.post(GOOGLE_SSO_SIGNIN_ENDPOINT_URL,
       {
         authenticationCode: googleTokenData.code
       })
@@ -78,9 +75,6 @@ class Login extends Component {
         const res = response.data;
         if (res.apiError == false) {
           const googleProfileResult = {
-            googleAPIFlowState: res.flow_state,
-            googleAccessToken: res.googleAccessToken,
-            googleRefreshToken: res.googleRefreshToken,
             googleProfileId: res.googleProfileId,
             googleProfileEmail: res.googleProfileInfo.email,
             googleProfileGivenName: res.googleProfileInfo.givenName,
@@ -90,24 +84,19 @@ class Login extends Component {
 
           this.setState({'googleProfileData': googleProfileResult});
 
+          window.localStorage.setItem('googleProfileId', googleProfileResult.googleProfileId);
+
           /* Log this user in via Google SSO */
-          actions.logGoogleUserIn(googleProfileResult);
+          const googleProfileLoginData = {
+            googleProfileId: googleProfileResult.googleProfileId,
+            googleProfileEmail: googleProfileResult.googleProfileEmail,
+          }
+          actions.logGoogleUserIn(googleProfileLoginData);
         }
       })
       .catch(err => {
         throw ('Error: ', err);
       });
-
-    //process the Google Response Token data
-    //const googleProfileData = {
-    //  email: response.profileObj.email,
-    //  givenName: response.profileObj.givenName,
-    //  familyName: response.profileObj.familyName,
-    //  googleId: response.profileObj.googleId,
-    //  name: response.profileObj.name
-    //}
-
-    //console.log(googleProfileData);
   }
 
   render() {
@@ -121,7 +110,6 @@ class Login extends Component {
     const googleClientIDModel = {
       name: 'GOOGLE_CLIENT_ID_MODEL',
       model: resp => ({
-        googleAPIFlowState: resp.apiFlowState,
         googleClientID: resp.googleClientID,
         googleClientScope: resp.googleClientScope,
         googleClientAccessType: resp.googleClientAccessType,
@@ -129,7 +117,7 @@ class Login extends Component {
         loginButtonText: resp.loginButtonText,
       }),
     };
-    
+
     const googleProfileData = this.state.googleProfileData;
 
     return (
@@ -160,15 +148,8 @@ class Login extends Component {
           </Link>
           <Button theme={{ margin: '0 auto', color: astronaut }} type="submit" text="Sign in with email" onClickEvent={null} />
 
-          <div>
-            <p>Flow State for Google: {googleProfileData.googleAPIFlowState}</p>
-            <p>Google Profile ID: {googleProfileData.googleProfileId}</p>
-            <p>Google Profile Name: {googleProfileData.googleProfileGivenName} {googleProfileData.googleProfileFamilyName}</p>
-            <p>Google Profile Email: {googleProfileData.googleProfileEmail}</p>
-          </div>
-
           <Request
-            serviceURL={GOOGLE_CLIENT_ID_ENDPOINT}
+            serviceURL={GOOGLE_CLIENT_ID_ENDPOINT_URL}
             model={googleClientIDModel}
             requestBody={{ 'callSource': 'login' }}
             render={({
@@ -181,6 +162,7 @@ class Login extends Component {
                     <Fragment>
                       <div style={{'paddingTop': '15px', 'marginLeft': 'auto', 'marginRight': 'auto', 'textAlign': 'center'}}>
                         <GoogleLogin
+                            prompt="select_account"
                             responseType={GOOGLE_CLIENT_ID_MODEL.googleClientResponseType}
                             fetchBasicProfile={GOOGLE_CLIENT_ID_MODEL.googleClientFetchBasicProfile}
                             accessType={GOOGLE_CLIENT_ID_MODEL.googleClientAccessType}
@@ -273,7 +255,6 @@ const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     resetLogIn,
     logUserIn,
-    logGoogleUserIn,
     logGoogleUserIn,
   }, dispatch),
 });

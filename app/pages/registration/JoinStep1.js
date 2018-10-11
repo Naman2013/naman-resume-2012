@@ -7,16 +7,29 @@ import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Button from 'components/common/style/buttons/Button';
+import { browserHistory } from 'react-router';
 import Request from 'components/common/network/Request';
 import { JOIN_PAGE_ENDPOINT_URL, SUBSCRIPTION_PLANS_ENDPOINT_URL } from 'services/registration/registration.js';
 class JoinStep1 extends Component {
   constructor(props) {
     super(props);
+
+    /* reset all browser localstorage data points for the Join flow */
+    window.localStorage.removeItem('pending_cid');
+    window.localStorage.removeItem('selectedPlanId');
+    window.localStorage.removeItem('accountCreationType');
+    window.localStorage.removeItem('googleProfileId');
+    window.localStorage.removeItem('googleProfileEmail');
+    window.localStorage.removeItem('username');
+    window.localStorage.removeItem('password');
   }
 
   setSelectedPlan(subscriptionPlanId) {
     window.localStorage.setItem('selectedPlanId', subscriptionPlanId);
     //console.log('setting selected plan of: ' + subscriptionPlanId);
+
+    /* move to step 2 in the join flow */
+    browserHistory.push('/join/step2');
   }
 
   render() {
@@ -86,7 +99,7 @@ class JoinStep1 extends Component {
                                           <div id={'subscriptionPlanDetails_' + subscriptionPlan.planID} dangerouslySetInnerHTML={{ __html: subscriptionPlan.aboutThisPlan }}/><br/>
                                           <br/>
                                           <br/>
-                                          <Link onClick={e => this.setSelectedPlan(subscriptionPlan.planID)} to={'/join/step2'}><Button theme={{ margin: '0 auto'}} type="button" text={subscriptionPlan.selectButtonText}/></Link><br/>
+                                          <Link onClick={e => this.setSelectedPlan(subscriptionPlan.planID)}><Button theme={{ margin: '0 auto'}} type="button" text={subscriptionPlan.selectButtonText}/></Link><br/>
                                         </div>
                                        </div>
                                       </li>)}
