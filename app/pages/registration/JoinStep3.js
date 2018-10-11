@@ -106,6 +106,7 @@ class JoinStep3 extends Component  {
                   window.localStorage.removeItem('password');
 
                   actions.logUserIn(loginDataPayload);
+                  browserHistory.push('/');
                 }
                 else if (accountCreationType === 'googleaccount') {
                   const loginDataPayload = {
