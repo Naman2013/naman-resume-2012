@@ -5,8 +5,8 @@ import uniqueId from 'lodash/uniqueId';
 import classnames from 'classnames';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
-import { pink, white, turqoise } from '../../styles/variables/colors';
-import { primaryFont } from '../../styles/variables/fonts';
+import { pink, white, turqoise } from '../../../styles/variables/colors';
+import { primaryFont } from '../../../styles/variables/fonts';
 
 function buttonClassnames(selectedIndex, index) {
   return classnames('action', {

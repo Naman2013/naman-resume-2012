@@ -1,6 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { DefaultTabs, ColumnTabs } from '../../app/components/Tabs';
+import { DefaultTabs, ColumnTabs } from '../../app/components/common/Tabs';
 
 import testTabs from './test-configuration';
 
