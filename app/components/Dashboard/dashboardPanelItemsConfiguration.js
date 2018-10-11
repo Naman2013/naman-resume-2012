@@ -89,13 +89,13 @@ const PopularGroupsPanel = props => (
 
 export const getSectionComponent = (section, props) => {
   const sectionComponents = {
-    recommendedObjects: <RecommendedObjectsPanel {...props} />,
-    featuredObservations: <FeaturedObservationsPanel {...props} />,
-    recommendedGuides: <RecommendedGuidesPanel {...props} />,
-    // recommendedQuests: <RecommendedQuestsPanel {...props} />,
-    recommendedShows: <RecommendedShowsPanel {...props} />,
-    recommendedStories: <RecommendedStoriesPanel {...props} />,
-    popularGroups: <PopularGroupsPanel {...props} />,
+    recommendedObjects: <RecommendedObjectsPanel {...props} key={uniqueId()} />,
+    featuredObservations: <FeaturedObservationsPanel {...props} key={uniqueId()} />,
+    recommendedGuides: <RecommendedGuidesPanel {...props} key={uniqueId()} />,
+    // recommendedQuests: <RecommendedQuestsPanel {...props} key={uniqueId()} />,
+    recommendedShows: <RecommendedShowsPanel {...props} key={uniqueId()} />,
+    recommendedStories: <RecommendedStoriesPanel {...props} key={uniqueId()} />,
+    popularGroups: <PopularGroupsPanel {...props} key={uniqueId()} />,
   };
   return sectionComponents[section];
 };

@@ -1,24 +1,33 @@
 import React from 'react';
 import uniqueId from 'lodash/uniqueId';
+import defaultSliderConfiguration from 'components/common/Slider/sliderConfig';
+import GroupTile from 'components/common/tiles/GroupTile';
 
-const sliderConfiguration = {
+const sliderConfiguration = Object.assign(defaultSliderConfiguration, {
   slidesToShow: 3,
   slidesToScroll: 1,
   initialSlide: 1,
-  emptyMessage: 'There are no recommended groups.',
-};
+  centerPadding: '25px',
+});
 
 const getRecommendedGroupsItems = (groupList = []) =>
 groupList.map(object => ({
-  render: () => (<div key={uniqueId()} className="card-groups">
-    <div className="card-groups-img"></div>
-    <div className="card-title">{object.title}</div>
-    PUBLIC GROUP
-  </div>),
+  render: () => (
+    <GroupTile
+      key={uniqueId()}
+      title={object.title}
+      accessDescription={object.accessDescription}
+      iconURL={object.iconURL}
+      linkUrl={object.linkUrl}
+    />
+  ),
 }))
 
-export const getSliderConfiguration = (slideList = []) => (
+export const getSliderProps = (slideList = []) => (
   Object.assign({
     slideList: getRecommendedGroupsItems(slideList),
-  }, sliderConfiguration)
+  }, {
+    sliderConfig: sliderConfiguration,
+    emptyMessage: 'There are no recommended groups.',
+  })
 );

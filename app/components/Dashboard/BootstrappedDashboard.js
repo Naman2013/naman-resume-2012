@@ -28,7 +28,7 @@ const sectionOrder = [
   // 'recommendedQuests',
   //'recommendedShows',
   'recommendedStories',
-  //'popularGroups',
+  'popularGroups',
 ];
 
 class BootstrappedDashboard extends Component {

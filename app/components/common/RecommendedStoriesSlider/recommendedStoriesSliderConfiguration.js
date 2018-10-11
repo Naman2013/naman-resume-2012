@@ -18,7 +18,7 @@ storiesList.map(object => ({
     iconURL={object.iconURL}
     title={object.title}
     linkUrl={object.linkUrl}
-    author={has(object, 'authoInfo.byline') ? object.authoInfo.byline : ''}
+    author={has(object, 'authorInfo.byline') ? object.authorInfo.byline : ''}
   />),
 }));
 

@@ -40,10 +40,6 @@ class SloohSlider extends Component {
     // currentIndex: this.props.sliderConfig.initialSlide || this.props.slideList.length - 1,
   }
 
-  beforeChange = (prev, next) => {
-    console.log(prev, next)
-  }
-
   render() {
     const {
       emptyMessage,
@@ -62,7 +58,6 @@ class SloohSlider extends Component {
           <div className="slider-container">
             <Slider
               {...sliderConfig}
-              onClick={this.beforeChange}
               ref={(c) => { this.slider = c; }}
             >
               {slideList.map(slideElement => <div>{slideElement.render()}</div>)}
