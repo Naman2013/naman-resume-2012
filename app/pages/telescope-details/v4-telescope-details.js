@@ -1,5 +1,5 @@
 import React from 'react';
-import { ColumnTabs } from 'components/Tabs';
+import { ColumnTabs } from 'components/common/Tabs';
 import {
   TabConditions,
   TabLive,
