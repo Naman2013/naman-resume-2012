@@ -64,7 +64,7 @@ class Memberships extends Component {
                       <Request
                         serviceURL={SUBSCRIPTION_PLANS_ENDPOINT_URL}
                         model={subscriptionPlansModel}
-                        requestBody={{ 'callSource': 'join' }}
+                        requestBody={{ 'callSource': 'membershipspage' }}
                         render={({
                           fetchingContent,
                           modeledResponses: { SUBSCRIPTION_PLANS_MODEL },

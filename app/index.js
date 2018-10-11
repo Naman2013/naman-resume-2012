@@ -187,6 +187,7 @@ ReactDOM.render(
 
       <Route path="about" component={StaticAppContainer} onEnter={validateUser}>
         <IndexRedirect to="mission" />
+        <Route path="memberships" component={Memberships} />
         <Route path="mission" component={Mission} />
         <Route path="news" component={News} title="In The News" subTitle=" " />
         <Route
@@ -216,8 +217,6 @@ ReactDOM.render(
 
       <Route path="/" component={App}>
         <IndexRoute component={DashboardPage} onEnter={validateUser} />
-
-        <Route path="memberships" component={Memberships}/>
 
         <Route path="join">
           <Route path="step1" component={JoinStep1}/>
