@@ -21,8 +21,15 @@ class Memberships extends Component {
     window.localStorage.setItem('selectedPlanId', subscriptionPlanId);
     //console.log('setting selected plan of: ' + subscriptionPlanId);
 
-    /* move to step 2 in the join flow */
-    browserHistory.push('/join/step2');
+    /* Teacher Subscription Plans should prompt for School Selection */
+    if (subscriptionPlanId == 11) {
+      /* move to step 2 in the join flow */
+      browserHistory.push('/join/step1SchoolSelection');
+    }
+    else {
+      /* move to step 2 in the join flow */
+      browserHistory.push('/join/step2');
+    }
   }
 
   render() {
