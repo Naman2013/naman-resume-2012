@@ -24,7 +24,7 @@ const {
 const sectionOrder = [
   //'recommendedObjects',
   //'featuredObservations',
-  //'recommendedGuides',
+  'recommendedGuides',
   // 'recommendedQuests',
   //'recommendedShows',
   'recommendedStories',

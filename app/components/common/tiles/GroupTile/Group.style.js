@@ -18,6 +18,8 @@ export default css`
     padding: 0 40px;
     font-size: 10px;
     margin: 20px auto;
+    font-family: ${primaryFont};
+    text-align: center;
   }
   .card-groups-img {
     background-image: url(https://vega.slooh.com/assets/v4/dashboard/group-graphic-1.png);
@@ -27,7 +29,9 @@ export default css`
     width: 100%;
     height: 250px;
   }
-  .card-title {
+  :global(a .card-title) {
+    color: ${romance};
+    text-decoration: none;
     font-family: ${secondaryFont};
     font-size: 22px;
     line-height: 22px;

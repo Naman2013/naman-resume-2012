@@ -9,6 +9,7 @@ import MissionTile from 'components/common/tiles/MissionTile';
 import StoryTile from 'components/common/tiles/StoryTile';
 import ShowTile from 'components/common/tiles/ShowTile';
 import GroupTile from 'components/common/tiles/GroupTile';
+import BigGuideTile from 'components/common/tiles/BigGuideTile/BigGuideTile';
 import BobbieTile from 'components/common/tiles/BobbieTile';
 import MonotonousTile from 'components/common/tiles/MonotonousTile';
 import WinstonTile from 'components/common/tiles/WinstonTile';
@@ -128,6 +129,11 @@ storiesOf('Tiles', module)
       accessDescription="Public Group"
       iconURL="https://vega.slooh.com/icons/placeholders/avatar-dummy.png"
     />
+    .add('Big GuideTile', () => (
+      <BigGuideTile
+        title="Chile One"
+        heading="A guide to"
+      />
   .add('ObjectSummaryTile', () => (
     <ObjectSummaryTile />
   ))

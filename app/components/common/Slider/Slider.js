@@ -60,7 +60,7 @@ class SloohSlider extends Component {
               {...sliderConfig}
               ref={(c) => { this.slider = c; }}
             >
-              {slideList.map(slideElement => <div>{slideElement.render()}</div>)}
+              {slideList.map(slideElement => <div key={uniqueId()}>{slideElement.render()}</div>)}
             </Slider>
           </div>
         }
