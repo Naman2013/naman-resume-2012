@@ -8,15 +8,33 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Request from 'components/common/network/Request';
 import { browserHistory } from 'react-router';
+import { logUserIn, logGoogleUserIn } from 'modules/login/actions';
 import { JOIN_PAGE_ENDPOINT_URL, SUBSCRIPTION_PLANS_ENDPOINT_URL } from 'services/registration/registration.js';
 import Countdown from 'react-countdown-now';
+
+const propTypes = {
+  actions: PropTypes.shape({
+    logUserIn: PropTypes.func.isRequired,
+    resetLogIn: PropTypes.func.isRequired,
+    logGoogleUserIn: PropTypes.func.isRequired,
+  }).isRequired,
+};
 
 const mapStateToProps = ({ appConfig }) => ({
   appConfig,
 });
 
-@connect(mapStateToProps, null)
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators({
+    resetLogIn,
+    logUserIn,
+    logGoogleUserIn,
+  }, dispatch),
+});
+
+@connect(mapStateToProps, mapDispatchToProps)
 class JoinStep3 extends Component  {
+  static propTypes = propTypes;
 
   state = {
     'paymentToken': '',
@@ -30,6 +48,11 @@ class JoinStep3 extends Component  {
     this.CountdownRenderer = this.CountdownRenderer.bind(this);
     this.CountdownExpiredRenderer = this.CountdownExpiredRenderer.bind(this);
     this.CountdownExpiredComplete = this.CountdownExpiredComplete.bind(this);
+  }
+
+  componentWillUnmount() {
+    const { actions } = this.props;
+    actions.resetLogIn();
   }
 
   componentDidMount() {
@@ -63,9 +86,31 @@ class JoinStep3 extends Component  {
               }
 
               if (activateCustomerResult.status === "success") {
+                const { actions } = this.props;
 
-                //log the user in
+                //log the user in (userpass or googleaccount logins supported)
+                const accountCreationType = window.localStorage.accountCreationType;
+                if (accountCreationType === 'userpass') {
+                  const loginDataPayload = {
+                    username: window.localStorage.username,
+                    passwd: window.localStorage.password,
+                  };
 
+                  /* cleanup local storage */
+                  window.localStorage.removeItem('username');
+                  window.localStorage.removeItem('password');
+                  
+                  actions.logUserIn(loginDataPayload);
+                }
+                else if (accountCreationType === 'googleaccount') {
+                  const loginDataPayload = {
+                    googleProfileId: window.localStorage.googleProfileId,
+                    username: window.localStorage.googleProfileEmail,
+                    passwd: 'notrequiredforthiscall',
+                  };
+
+                  actions.logGoogleUserIn(loginDataPayload);
+                }
               }
               else {
                 /* process / display error to user */

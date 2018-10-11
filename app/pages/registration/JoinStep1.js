@@ -15,10 +15,13 @@ class JoinStep1 extends Component {
     super(props);
 
     /* reset all browser localstorage data points for the Join flow */
+    window.localStorage.removeItem('pending_cid');
     window.localStorage.removeItem('selectedPlanId');
     window.localStorage.removeItem('accountCreationType');
-    window.localStorage.removeItem('join_accountFormDetails');
     window.localStorage.removeItem('googleProfileId');
+    window.localStorage.removeItem('googleProfileEmail');
+    window.localStorage.removeItem('username');
+    window.localStorage.removeItem('password');
   }
 
   setSelectedPlan(subscriptionPlanId) {

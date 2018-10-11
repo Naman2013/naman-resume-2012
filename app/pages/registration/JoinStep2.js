@@ -1,6 +1,6 @@
-/** *********************************
+/***********************************
 * V4 Join
-********************************** */
+***********************************/
 
 import React, { Component, cloneElement, Fragment } from 'react';
 import { Link } from 'react-router';
@@ -48,9 +48,6 @@ class JoinStep2 extends Component {
     accountCreationType: 'userpass',
     isAstronomyClub: false,
     googleProfileData: {
-      googleAPIFlowState: '',
-      googleAccessToken: '',
-      googleRefreshToken: '',
       googleProfileId: '',
       googleProfileEmail: '',
       googleProfileGivenName: '',
@@ -106,9 +103,9 @@ class JoinStep2 extends Component {
     var accountFormDetailsData = this.state.accountFormDetails;
     accountFormDetailsData[field].value = value;
 
-    console.log(field);
-    console.log(value);
-    console.log(accountFormDetailsData);
+    //console.log(field);
+    //console.log(value);
+    //console.log(accountFormDetailsData);
 
     this.setState({
       accountFormDetails: accountFormDetailsData,
@@ -248,8 +245,6 @@ class JoinStep2 extends Component {
               });
         }
         else if (this.state.accountCreationType == 'googleaccount') {
-            //window.localStorage.setItem('join_accountFormDetails', this.state.accountFormDetails);
-
             /* no additional verifications are needed, create the pending customer record and continue to the next screen */
             this.createPendingCustomerRecordAndNextScreen();
         }
@@ -268,9 +263,10 @@ class JoinStep2 extends Component {
 
     /* prepare the payload to the Create Pending Customer API call. */
     const createPendingCustomerData = {
-      googleProfileData: this.state.googleProfileData,
-      accountFormDetails: this.state.accountFormDetails,
       accountCreationType: this.state.accountCreationType,
+      selectedPlanId: window.localStorage.selectedPlanId,
+      googleProfileId: this.state.googleProfileData.googleProfileId,
+      accountFormDetails: this.state.accountFormDetails,
     };
 
     //JOIN_CREATE_PENDING_CUSTOMER_ENDPOINT_URL
@@ -285,6 +281,8 @@ class JoinStep2 extends Component {
 
           if (pendingCustomerResult.status === "success") {
             window.localStorage.setItem('pending_cid', pendingCustomerResult.customerId);
+            window.localStorage.setItem('username', this.state.accountFormDetails.loginEmailAddress.value);
+            window.localStorage.setItem('password', this.state.accountFormDetails.password.value);
 
             //console.log('Proceeding to create the customers pending account');
             browserHistory.push('/join/step3');
@@ -314,9 +312,6 @@ class JoinStep2 extends Component {
         const res = response.data;
         if (res.apiError == false) {
           const googleProfileResult = {
-            googleAPIFlowState: res.flow_state,
-            googleAccessToken: res.googleAccessToken,
-            googleRefreshToken: res.googleRefreshToken,
             googleProfileId: res.googleProfileId,
             googleProfileEmail: res.googleProfileInfo.email,
             googleProfileGivenName: res.googleProfileInfo.givenName,
@@ -356,6 +351,7 @@ class JoinStep2 extends Component {
           /* Set the account creation type as Google and the Google Profile Id in browser storage */
           window.localStorage.setItem('accountCreationType', 'googleaccount');
           window.localStorage.setItem('googleProfileId', googleProfileResult.googleProfileId);
+          window.localStorage.setItem('googleProfileEmail', googleProfileResult.googleProfileEmail);
         }
       })
       .catch(err => {

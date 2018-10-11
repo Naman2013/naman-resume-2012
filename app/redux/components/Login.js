@@ -39,9 +39,6 @@ class Login extends Component {
 
   state = {
     'googleProfileData': {
-      googleAPIFlowState: '',
-      googleAccessToken: '',
-      googleRefreshToken: '',
       googleProfileId: '',
       googleProfileEmail: '',
       googleProfileGivenName: '',
@@ -78,9 +75,6 @@ class Login extends Component {
         const res = response.data;
         if (res.apiError == false) {
           const googleProfileResult = {
-            googleAPIFlowState: res.flow_state,
-            googleAccessToken: res.googleAccessToken,
-            googleRefreshToken: res.googleRefreshToken,
             googleProfileId: res.googleProfileId,
             googleProfileEmail: res.googleProfileInfo.email,
             googleProfileGivenName: res.googleProfileInfo.givenName,
@@ -103,17 +97,6 @@ class Login extends Component {
       .catch(err => {
         throw ('Error: ', err);
       });
-
-    //process the Google Response Token data
-    //const googleProfileData = {
-    //  email: response.profileObj.email,
-    //  givenName: response.profileObj.givenName,
-    //  familyName: response.profileObj.familyName,
-    //  googleId: response.profileObj.googleId,
-    //  name: response.profileObj.name
-    //}
-
-    //console.log(googleProfileData);
   }
 
   render() {
@@ -127,7 +110,6 @@ class Login extends Component {
     const googleClientIDModel = {
       name: 'GOOGLE_CLIENT_ID_MODEL',
       model: resp => ({
-        googleAPIFlowState: resp.apiFlowState,
         googleClientID: resp.googleClientID,
         googleClientScope: resp.googleClientScope,
         googleClientAccessType: resp.googleClientAccessType,
@@ -165,15 +147,6 @@ class Login extends Component {
             <span className="forgot title-link">Forgot Your Password?</span>
           </Link>
           <Button theme={{ margin: '0 auto', color: astronaut }} type="submit" text="Sign in with email" onClickEvent={null} />
-
-          {/*
-            <div>
-            <p>Flow State for Google: {googleProfileData.googleAPIFlowState}</p>
-            <p>Google Profile ID: {googleProfileData.googleProfileId}</p>
-            <p>Google Profile Name: {googleProfileData.googleProfileGivenName} {googleProfileData.googleProfileFamilyName}</p>
-            <p>Google Profile Email: {googleProfileData.googleProfileEmail}</p>
-          </div>
-          */}
 
           <Request
             serviceURL={GOOGLE_CLIENT_ID_ENDPOINT_URL}
