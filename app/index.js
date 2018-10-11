@@ -84,6 +84,7 @@ import SignIn from './pages/registration/SignIn';
 import Upgrade from './pages/registration/Upgrade';
 
 import JoinStep1 from './pages/registration/JoinStep1';
+import JoinStep1SchoolSelection from './pages/registration/JoinStep1SchoolSelection';
 import JoinStep2 from './pages/registration/JoinStep2';
 import JoinStep3 from './pages/registration/JoinStep3';
 import JoinByInviteStep1 from './pages/registration/JoinByInviteStep1';
@@ -218,6 +219,7 @@ ReactDOM.render(
 
         <Route path="join">
           <Route path="step1" component={JoinStep1}/>
+          <Route path="step1SchoolSelection" component={JoinStep1SchoolSelection}/>
           <Route path="step2" component={JoinStep2}/>
           <Route path="step3" component={JoinStep3}/>
           <Route path="acceptInvite/:invitationId/:creationDateEpoch" component={JoinByInviteStep1}/>
