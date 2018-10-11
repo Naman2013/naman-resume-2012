@@ -111,7 +111,7 @@ class JoinStep3 extends Component  {
                 else if (accountCreationType === 'googleaccount') {
                   const loginDataPayload = {
                     googleProfileId: window.localStorage.googleProfileId,
-                    username: window.localStorage.googleProfileEmail,
+                    username: window.localStorage.username,
                     pwd: 'notrequiredforthiscall',
                   };
 
