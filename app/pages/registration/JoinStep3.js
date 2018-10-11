@@ -98,6 +98,9 @@ class JoinStep3 extends Component  {
                     passwd: window.localStorage.password,
                   };
 
+                  console.log(loginDataPayload);
+                  console.log(window.localStorage);
+                  
                   /* cleanup local storage */
                   window.localStorage.removeItem('username');
                   window.localStorage.removeItem('password');
