@@ -95,12 +95,12 @@ class JoinStep3 extends Component  {
                 if (accountCreationType === 'userpass') {
                   const loginDataPayload = {
                     username: window.localStorage.username,
-                    passwd: window.localStorage.password,
+                    pwd: window.localStorage.password,
                   };
 
-                  console.log(loginDataPayload);
-                  console.log(window.localStorage);
-                  
+                  //console.log(loginDataPayload);
+                  //console.log(window.localStorage);
+
                   /* cleanup local storage */
                   window.localStorage.removeItem('username');
                   window.localStorage.removeItem('password');
