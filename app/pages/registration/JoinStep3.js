@@ -8,10 +8,11 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Request from 'components/common/network/Request';
-import { browserHistory } from 'react-router';
+import axios from 'axios';
 import { resetLogIn, logUserIn, logGoogleUserIn } from 'modules/login/actions';
 import { JOIN_PAGE_ENDPOINT_URL, SUBSCRIPTION_PLANS_ENDPOINT_URL } from 'services/registration/registration.js';
 import Countdown from 'react-countdown-now';
+import { browserHistory } from 'react-router';
 
 const propTypes = {
   actions: PropTypes.shape({
