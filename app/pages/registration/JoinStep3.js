@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 import Request from 'components/common/network/Request';
 import axios from 'axios';
 import { resetLogIn, logUserIn, logGoogleUserIn } from 'modules/login/actions';
-import { JOIN_PAGE_ENDPOINT_URL, SUBSCRIPTION_PLANS_ENDPOINT_URL } from 'services/registration/registration.js';
+import { JOIN_ACTIVATE_PENDING_CUSTOMER_ENDPOINT_URL, JOIN_PAGE_ENDPOINT_URL } from 'services/registration/registration.js';
 import Countdown from 'react-countdown-now';
 import { browserHistory } from 'react-router';
 
