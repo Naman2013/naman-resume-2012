@@ -262,12 +262,20 @@ class JoinStep2 extends Component {
     *****************************************/
 
     /* prepare the payload to the Create Pending Customer API call. */
-    const createPendingCustomerData = {
+    let createPendingCustomerData = {
       accountCreationType: this.state.accountCreationType,
       selectedPlanId: window.localStorage.selectedPlanId,
       googleProfileId: this.state.googleProfileData.googleProfileId,
       accountFormDetails: this.state.accountFormDetails,
     };
+
+    /* update tool/false values for Astronomy Club */
+    if (createPendingCustomerData.accountFormDetails.astronomyClub18AndOver.value === false) {
+      createPendingCustomerData.accountFormDetails.astronomyClub18AndOver.value = 'false';
+    }
+    else {
+      createPendingCustomerData.accountFormDetails.astronomyClub18AndOver.value = 'true';
+    }
 
     //JOIN_CREATE_PENDING_CUSTOMER_ENDPOINT_URL
     const createPendingCustomerResult = axios.post(JOIN_CREATE_PENDING_CUSTOMER_ENDPOINT_URL, createPendingCustomerData)
