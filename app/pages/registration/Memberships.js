@@ -81,7 +81,7 @@ class Memberships extends Component {
                               !fetchingContent &&
                                 <Fragment>
                                   <ul style={{'listStyle': 'none', 'marginLeft': 'auto', 'marginRight': 'auto', 'width': '400px'}}>
-                                    {SUBSCRIPTION_PLANS_MODEL.subscriptionPlans.map(subscriptionPlan => <li style={{'paddingTop': '10px', 'paddingBottom': '10px'}} key={`subscriptionplan-tile-${subscriptionPlan.planID}`}>
+                                    {SUBSCRIPTION_PLANS_MODEL.subscriptionPlans.map(subscriptionPlan => <li style={{'paddingTop': '10px', 'paddingBottom': '10px'}} key={`subscriptionplan-tile-${subscriptionPlan.planId}`}>
                                       <div style={{'border': '1px solid'}}>
                                         <div style={{'marginLeft': '30px', 'marginRight': '10px'}}>
                                           <br/>
@@ -96,10 +96,10 @@ class Memberships extends Component {
                                           {subscriptionPlan.planCostPostfix}<br/>
                                           <br/>
                                           <hr/>
-                                          <div id={'subscriptionPlanDetails_' + subscriptionPlan.planID} dangerouslySetInnerHTML={{ __html: subscriptionPlan.aboutThisPlan }}/><br/>
+                                          <div id={'subscriptionPlanDetails_' + subscriptionPlan.planId} dangerouslySetInnerHTML={{ __html: subscriptionPlan.aboutThisPlan }}/><br/>
                                           <br/>
                                           <br/>
-                                          <Link onClick={e => this.setSelectedPlan(subscriptionPlan.planID)}><Button theme={{ margin: '0 auto'}} type="button" text={subscriptionPlan.selectButtonText}/></Link><br/>
+                                          <Link onClick={e => this.setSelectedPlan(subscriptionPlan.planId)}><Button theme={{ margin: '0 auto'}} type="button" text={subscriptionPlan.selectButtonText}/></Link><br/>
                                         </div>
                                        </div>
                                       </li>)}
