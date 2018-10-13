@@ -96,10 +96,10 @@ class Memberships extends Component {
                                           {subscriptionPlan.planCostPostfix}<br/>
                                           <br/>
                                           <hr/>
-                                          <div id={'subscriptionPlanDetails_' + subscriptionPlan.planId} dangerouslySetInnerHTML={{ __html: subscriptionPlan.aboutThisPlan }}/><br/>
+                                          <div id={'subscriptionPlanDetails_' + subscriptionPlan.planID} dangerouslySetInnerHTML={{ __html: subscriptionPlan.aboutThisPlan }}/><br/>
                                           <br/>
                                           <br/>
-                                          <Link onClick={e => this.setSelectedPlan(subscriptionPlan.planId)}><Button theme={{ margin: '0 auto'}} type="button" text={subscriptionPlan.selectButtonText}/></Link><br/>
+                                          <Link onClick={e => this.setSelectedPlan(subscriptionPlan.planID)}><Button theme={{ margin: '0 auto'}} type="button" text={subscriptionPlan.selectButtonText}/></Link><br/>
                                         </div>
                                        </div>
                                       </li>)}
