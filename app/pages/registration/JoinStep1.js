@@ -88,7 +88,7 @@ class JoinStep1 extends Component {
                               !fetchingContent &&
                                 <Fragment>
                                   <ul style={{'listStyle': 'none', 'marginLeft': 'auto', 'marginRight': 'auto', 'width': '400px'}}>
-                                    {SUBSCRIPTION_PLANS_MODEL.subscriptionPlans.map(subscriptionPlan => <li style={{'paddingTop': '10px', 'paddingBottom': '10px'}} key={`subscriptionplan-tile-${subscriptionPlan.planID}`}>
+                                    {SUBSCRIPTION_PLANS_MODEL.subscriptionPlans.map(subscriptionPlan => <li style={{'paddingTop': '10px', 'paddingBottom': '10px'}} key={`subscriptionplan-tile-${subscriptionPlan.planId}`}>
                                       <div style={{'border': '1px solid'}}>
                                         <div style={{'marginLeft': '30px', 'marginRight': '10px'}}>
                                           <br/>

@@ -191,7 +191,7 @@ class JoinStep3 extends Component  {
       <Request
         serviceURL={JOIN_PAGE_ENDPOINT_URL}
         model={joinPageModel}
-        requestBody={{ 'callSource': 'providePaymentDetails', 'selectedPlanID': selectedPlanId }}
+        requestBody={{ 'callSource': 'providePaymentDetails', 'selectedPlanId': selectedPlanId }}
         serviceResponseHandler={this.handleJoinPageServiceResponse}
         render={({
           fetchingContent,

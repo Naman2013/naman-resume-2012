@@ -261,12 +261,16 @@ class JoinStep2 extends Component {
     * Set a cid_pending localStorage key
     *****************************************/
 
+    //for classroom accounts
+    const selectedSchoolId = window.localStorage.getItem('selectedSchoolId');
+
     /* prepare the payload to the Create Pending Customer API call. */
     let createPendingCustomerData = {
       accountCreationType: this.state.accountCreationType,
       selectedPlanId: window.localStorage.selectedPlanId,
       googleProfileId: this.state.googleProfileData.googleProfileId,
       accountFormDetails: this.state.accountFormDetails,
+      selectedSchoolId: selectedSchoolId,
     };
 
     /* update tool/false values for Astronomy Club */
@@ -381,6 +385,8 @@ class JoinStep2 extends Component {
         sectionHeading: resp.sectionHeading,
         selectedSubscriptionPlan: resp.selectedSubscriptionPlan,
         formFieldLabels: resp.formFieldLabels,
+        hasSelectedSchool: resp.hasSelectedSchool,
+        selectedSchool: resp.selectedSchool,
       }),
     };
 
@@ -401,12 +407,15 @@ class JoinStep2 extends Component {
     const accountCreationType = this.state.accountCreationType;
     const selectedPlanId = window.localStorage.getItem('selectedPlanId');
 
+    //for classroom accounts
+    const selectedSchoolId = window.localStorage.getItem('selectedSchoolId');
+
     return (
       <div style={{'paddingTop': '55px', 'marginLeft': 'auto', 'marginRight': 'auto', 'width': '600px'}}>
       <Request
         serviceURL={JOIN_PAGE_ENDPOINT_URL}
         model={joinPageModel}
-        requestBody={{ 'callSource': 'setupCredentials', 'selectedPlanID': selectedPlanId }}
+        requestBody={{ 'callSource': 'setupCredentials', 'selectedPlanId': selectedPlanId, 'selectedSchoolId': selectedSchoolId }}
         serviceResponseHandler={this.handleJoinPageServiceResponse}
         render={({
           fetchingContent,
@@ -441,7 +450,15 @@ class JoinStep2 extends Component {
                         <p>Google Profile Email: {googleProfileData.googleProfileEmail}</p>
                       </div>
                     */}
-
+                    <br/>
+                    <br/>
+                    {JOIN_PAGE_MODEL.hasSelectedSchool === "yes" && <div>
+                      <p>Your School: {JOIN_PAGE_MODEL.selectedSchool.schoolName}</p>
+                      <p style={{'fontSize': '1.0em'}}>Your School District: {JOIN_PAGE_MODEL.selectedSchool.districtName}</p>
+                      <br/>
+                      <br/>
+                    </div>
+                    }
                     <Request
                       serviceURL={GOOGLE_CLIENT_ID_ENDPOINT_URL}
                       model={googleClientIDModel}
