@@ -385,6 +385,8 @@ class JoinStep2 extends Component {
         sectionHeading: resp.sectionHeading,
         selectedSubscriptionPlan: resp.selectedSubscriptionPlan,
         formFieldLabels: resp.formFieldLabels,
+        hasSelectedSchool: resp.hasSelectedSchool,
+        selectedSchool: resp.selectedSchool,
       }),
     };
 
