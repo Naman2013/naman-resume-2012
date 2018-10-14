@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Measure from 'react-measure';
 import { ModuleContainer } from './';
 import HowBig from '../../Telescope/HowBig';
+import style from './how-big-module.style';
 
 import fauxMission from 'content/fauxMissions';
 
@@ -17,7 +18,7 @@ class HowBigModule extends Component {
       width: 0,
       x: 0,
       y: 0,
-    }
+    },
   }
 
   handleDimensionChange = (contentBox) => {
@@ -30,7 +31,6 @@ class HowBigModule extends Component {
 
   render() {
     const { dimensions: { width } } = this.state;
-    console.log(width);
     return (
       <Measure
         bounds
@@ -59,32 +59,11 @@ class HowBigModule extends Component {
                 </svg>
               </div>
 
-              <style jsx>{`
-                .portal {
-                  width: 100%;
-                  overflow: hidden;
-                  background: none;
-                  position: relative;
-                  background-color: black;
-                }
+              <ul>
+                <li><button>ADD BUTTONS!</button></li>
+              </ul>
 
-                .portal:before {
-                  content: '';
-                  padding-top: 100%;
-                  float: left;
-                }
-
-                svg {
-                  position: absolute;
-                  left: 0;
-                  right: 0;
-                  bottom: 0;
-                  top: 0;
-                  width: 100%;
-                  height: 100%;
-                }
-              `}
-              </style>
+              <style jsx>{style}</style>
             </ModuleContainer>
           )
         }
