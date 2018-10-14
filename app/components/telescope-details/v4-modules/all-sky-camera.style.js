@@ -26,6 +26,8 @@ export default css`
     border-bottom: 1px solid ${hawkesBlue};
   }
 
+  .attribute-list li { font-size: 18px; }
+
   .copy {
     font-size: 19px;
     padding-top: 30px;

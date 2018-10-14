@@ -4,13 +4,11 @@ import { ImagePortal } from './';
 import { ModuleContainer } from './module-container';
 import style from './all-sky-camera.style';
 
-import planetJupiter from '../../../../assets/images/objects/planet-jupiter.png';
-
 const AllSkyCamera = ({ imageURL }) => (
   <div>
     <ModuleContainer title="All sky camera snap">
       <div className="content">
-        <ImagePortal src={planetJupiter} />
+        <ImagePortal src={imageURL} />
         <div className="vertical-line" />
         <ul className="attribute-list">
           <li>00%</li>
