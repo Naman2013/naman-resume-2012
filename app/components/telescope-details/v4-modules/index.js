@@ -4,3 +4,5 @@ export * from './tab-queue';
 export * from './tab-telescope';
 export * from './module-container';
 export * from './where-in-the-sky';
+export * from './all-sky-camera';
+export * from './image-portal';
