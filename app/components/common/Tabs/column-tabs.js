@@ -34,7 +34,7 @@ class ColumnTabs extends Component {
         <div>
           <ul className="column-tab-set">
             {this.props.tabConfiguration.map((tab, index) => (
-              <li className="column-tab">
+              <li key={`column-tab-${tab.tabTitle}`} className="column-tab">
                 <button
                   className={classnames('column-tab-button', { active: (index == this.state.activeTabIndex) })}
                   data-index={index}
