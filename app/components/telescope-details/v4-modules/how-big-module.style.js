@@ -24,4 +24,9 @@ export default css`
     width: 100%;
     height: 100%;
   }
+
+  .tile-actions {
+    list-style-type: none;
+    padding: 35px 40px;
+  }
 `;

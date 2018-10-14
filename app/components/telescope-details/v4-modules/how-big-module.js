@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Measure from 'react-measure';
+import DefaultButton from 'components/common/style/buttons/Button';
 import { ModuleContainer } from './';
 import HowBig from '../../Telescope/HowBig';
 import style from './how-big-module.style';
@@ -59,8 +60,10 @@ class HowBigModule extends Component {
                 </svg>
               </div>
 
-              <ul>
-                <li><button>ADD BUTTONS!</button></li>
+              <ul className="tile-actions">
+                <li>
+                  <DefaultButton theme={{ width: '100%' }} text="View our guide" />
+                </li>
               </ul>
 
               <style jsx>{style}</style>
