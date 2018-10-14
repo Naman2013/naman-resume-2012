@@ -6,7 +6,7 @@ export default css`
     height: 220px;
     margin: 0 auto;
     border-radius: 50%;
-    box-shadow: inset 0px 0px 13px 0px rgba(26,26,26,0.08);
+    box-shadow: inset 0px 0px 13px -1px rgba(26,26,26,0.2);
     display: flex;
     justify-content: center;
     align-items: center;
