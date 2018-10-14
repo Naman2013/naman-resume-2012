@@ -85,6 +85,8 @@ class Memberships extends Component {
                                       <div style={{'border': '1px solid'}}>
                                         <div style={{'marginLeft': '30px', 'marginRight': '10px'}}>
                                           <br/>
+                                          <img src={subscriptionPlan.imageUrl}/>
+                                          <br/>
                                           <b>{subscriptionPlan.planName}</b><br/>
                                           <hr/>
                                           <br/>
