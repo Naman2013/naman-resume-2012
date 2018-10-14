@@ -137,12 +137,6 @@ storiesOf('Tiles', module)
       heading="A guide to"
     />
   ))
-  .add('Big GuideTile', () => (
-    <BigGuideTile
-      title="Chile One"
-      heading="A guide to"
-    />
-  ))
   .add('Big ShowTile', () => (
     <CenterColumn>
       <BigShowTile

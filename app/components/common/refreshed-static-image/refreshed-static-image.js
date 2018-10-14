@@ -1,5 +1,7 @@
 /**
-  TODO: DEPRECATE
+  TODO: fading is incomplete
+  TODO: deprecate the RefreshedImage.js version of this component
+
   This component is designed to handle the displaying of some image
   and refreshing the image based on some duration.
 
@@ -11,7 +13,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-export default class RefreshedImage extends Component {
+class RefreshedStaticImage extends Component {
   static propTypes = {
     imageURL: PropTypes.string.isRequired,
     refreshIntervalSec: PropTypes.number.isRequired,
@@ -113,3 +115,5 @@ export default class RefreshedImage extends Component {
     );
   }
 }
+
+export { RefreshedStaticImage };

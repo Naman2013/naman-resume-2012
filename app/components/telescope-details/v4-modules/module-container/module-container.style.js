@@ -4,5 +4,6 @@ import { faintShadow } from 'styles/variables/shadows';
 export default css`
   .container {
     ${faintShadow}
+    padding: 0;
   }
 `;
