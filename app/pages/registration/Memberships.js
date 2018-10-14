@@ -85,6 +85,8 @@ class Memberships extends Component {
                                       <div style={{'border': '1px solid'}}>
                                         <div style={{'marginLeft': '30px', 'marginRight': '10px'}}>
                                           <br/>
+                                          <img src="https://vega.slooh.com/assets/v4/common/membership/slooh_member.png"/>
+                                          <br/>
                                           <b>{subscriptionPlan.planName}</b><br/>
                                           <hr/>
                                           <br/>
