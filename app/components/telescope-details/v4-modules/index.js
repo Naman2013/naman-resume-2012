@@ -6,3 +6,4 @@ export * from './module-container';
 export * from './where-in-the-sky';
 export * from './all-sky-camera';
 export * from './image-portal';
+export * from './how-big-module';
