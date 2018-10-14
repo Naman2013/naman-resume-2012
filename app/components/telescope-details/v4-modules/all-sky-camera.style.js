@@ -3,6 +3,10 @@ import { hawkesBlue, astronaut } from 'styles/variables/colors_tiles_v4';
 import { secondaryFont } from 'styles/variables/fonts';
 
 export default css`
+  .root {
+    padding: 0;
+  }
+
   .content {
     padding: 30px 40px;
     color: ${astronaut};

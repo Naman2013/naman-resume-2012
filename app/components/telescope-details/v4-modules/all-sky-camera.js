@@ -5,7 +5,7 @@ import { ModuleContainer } from './module-container';
 import style from './all-sky-camera.style';
 
 const AllSkyCamera = ({ imageURL }) => (
-  <div>
+  <div className="root">
     <ModuleContainer title="All sky camera snap">
       <div className="content">
         <ImagePortal src={imageURL} />
