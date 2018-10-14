@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import style from './image-portal.style';
 
-const ImagePortal = ({ src, alt }) => (
+const ImagePortal = ({ src }) => (
   <div className="image-portal-root">
     <div
       className="image-clip"
@@ -17,11 +17,6 @@ const ImagePortal = ({ src, alt }) => (
 
 ImagePortal.propTypes = {
   src: PropTypes.string.isRequired,
-  alt: PropTypes.string,
-};
-
-ImagePortal.defaultProps = {
-  alt: '',
 };
 
 export { ImagePortal };
