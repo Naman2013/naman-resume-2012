@@ -4,10 +4,8 @@
 
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-//import { OBJECT_SPECIALISTS } from 'services/objects';
 import { fetchObjectSpecialistsAction } from '../../modules/object-details/actions';
 import { DeviceContext } from '../../providers/DeviceProvider';
 
@@ -81,7 +79,6 @@ class AskAstronomer extends Component {
       fetchAstronomerQuestions: func.isRequired,
     }).isRequired,
     serviceUrl: string,
-    //slugLookupId: oneOfType([string, number]),
   }
 
   static defaultProps = {
@@ -92,11 +89,10 @@ class AskAstronomer extends Component {
     count: 0,
     actions: { },
     objectId: '',
-    //serviceUrl: OBJECT_SPECIALISTS,
-    //slugLookupId: null,
     leftView: "show",
     rightView: "show",
-    "mobile": false
+    leftTab: "show",
+    rightTab: "show",
   }
 
 
@@ -107,7 +103,7 @@ class AskAstronomer extends Component {
     this.state = {
       leftView: "show",
       rightView: "show",
-      "mobile": false,
+      "view": '',
     };  
   }
 
@@ -160,7 +156,18 @@ class AskAstronomer extends Component {
     this.setState ({
       "leftView": lefty,
       "rightView": righty,
-      "mobile": true,
+      "view": "mobile",
+    });
+  }
+
+  handleTabletClick = () => {
+    let left = (this.state.leftView === "hidden") ? "show" : "hidden";
+    let right = (this.state.rightView === "hidden") ? "show" : "hidden";
+    
+    this.setState ({
+      "leftView": left,
+      "rightView": right,
+      "view": "tablet",
     });
   }
 
@@ -168,7 +175,7 @@ class AskAstronomer extends Component {
     this.setState ({
       "leftView": "show",
       "rightView": "hidden",
-      "mobile": true,
+      "view": "mobile",
     });
   }
 
@@ -176,7 +183,15 @@ class AskAstronomer extends Component {
     this.setState ({
       "leftView": "show",
       "rightView": "show",
-      "mobile": false,
+      "view": "desktop",
+    });
+  }
+
+  setTabletView = () => {
+    this.setState ({
+      "leftView": "show",
+      "rightView": "hidden",
+      "view": "tablet",
     });
   }
 
@@ -191,24 +206,14 @@ class AskAstronomer extends Component {
         objectId,
       },
       objectData: {
-        faqTopicId,
         objectTitle,
       },
       questions,
       totalCount,
       count,
       page,
-      user,
-      serviceUrl,
       objectSpecialists,
-      //slugLookupId,
     } = this.props;
-
-    const btnClass = classNames({
-      btn: true,
-      'btn-pressed': this.state.isPressed,
-      'btn-over': !this.state.isPressed && this.state.isHovered
-    });
 
     return (
       <div className="full-bg">
@@ -239,8 +244,8 @@ class AskAstronomer extends Component {
                 <AskQuestionTile></AskQuestionTile>
                 <div className="ask-tablet-subnav">         
                   <div className="center-line" />
-                  <span className={'btn-nav ' + this.state.leftView} onClick={this.handleMobileClick}>Questions</span>
-                  <span className={'btn-nav ' + this.state.rightView} onClick={this.handleMobileClick}>MVP ASTRONOMERS</span>      
+                  <span className={'btn-nav ' + this.state.leftView} onClick={this.handleTabletClick}>Questions</span>
+                  <span className={'btn-nav ' + this.state.rightView} onClick={this.handleTabletClick}>MVP ASTRONOMERS</span>      
                 </div>
                 
                 <div className="mvp">
@@ -278,10 +283,13 @@ class AskAstronomer extends Component {
                 <DeviceContext.Consumer>
                   {
                     (context) => {
-                      if (context.isScreenMedium && this.state.mobile === true) {
+                      if (context.isDesktop && this.state.view !== 'desktop') {
                         this.setDesktopView ();
                       } 
-                      else if (!context.isScreenMedium && this.state.mobile === false) {
+                      else if (context.isTablet && this.state.view !== 'tablet') {
+                        this.setTabletView ();
+                      }
+                      else if (context.isMobile && this.state.view !== 'mobile') {
                         this.setMobileView ();
                       }
                     }

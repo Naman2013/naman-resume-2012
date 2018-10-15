@@ -121,6 +121,7 @@ export default css`
   }
 
   .mvp .mvp-header {
+    display: block;
     padding: 30px 40px;
     border-bottom: solid 4px ${astronaut};
   }
@@ -155,26 +156,16 @@ export default css`
       box-shadow: 0px 3px 1px 0px rgba(0,0,0,0.1);
     }
 
-    /* .ask-astronomer {
-      display: flex;
-      flex-direction: row;
-      padding: 0;
+    .mvp {
+      box-shadow: none;
+      margin: 0;
+      width: 100%;
+      background-color: #F2F3F4;
     }
 
-    .loader {
-      display: block;
-      text-align: center;
-      margin: 25px;
-      padding: 25px;
+    .mvp .mvp-header {
+      display: none;
     }
-
-    .left {
-      flex: 3;
-    }
-
-    .right {
-      flex: 1;
-    } */
   }
 
   @media ${screenXLarge} {
@@ -216,6 +207,16 @@ export default css`
 
     .hidden {
       display: block important!;
+    }
+
+    .mvp {
+      width: 300px;
+      box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.1);
+      margin: 10px;
+      background-color: ${romance};
+    }
+    .mvp .mvp-header {
+      display: block;
     }
   }
 `;

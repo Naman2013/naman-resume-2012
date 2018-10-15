@@ -16,7 +16,7 @@ const MVPAstronomer = ({
   linkURL,
 }) => (
   <div className="mvp-card" key={'card_' + id}>
-    <div className="mvp-icon"><img src={iconURL}/></div>
+    <div className="mvp-icon"><img className="mvp-icon-content" src={iconURL}/></div>
     <h5>{displayName}</h5>
     {linkFlag &&                 
       <a className="mvp-btn" href={linkURL}>{gravityRank}</a>

@@ -5,21 +5,22 @@ import { screenMedium, screenLarge, screenXLarge } from '../../../styles/variabl
 
 export default css`
 
-  .card-container__mvp {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-  }
   .mvp-card {
     background-color: ${romance};
-    width: 90%;
+    width: 100%;
     height: 200px;
-    padding: 25px;
+    padding: 25px 40px;
     margin: 25px auto;
     min-width: 28%;
-    box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.1);
+    box-shadow: none;
+    border-bottom: 1px solid ${hawkesBlue};
     transition: width 0.4s ease-in-out, height 0.4s ease-in-out;
   }
+
+  .mvp-card:last-of-type {
+    border-bottom: none;
+  }
+
   .mvp-card h5 {
     font-family: ${secondaryFont};
     color: ${lightHeadedAstronaut};
@@ -27,6 +28,7 @@ export default css`
     border-bottom: 1px solid ${hawkesBlue};
     padding: 15px 0;
   }
+
   .mvp-card a {
     font-size: 10px;
     text-transform: uppercase;
@@ -35,18 +37,71 @@ export default css`
     color: ${lightHeadedAstronaut};
     font-family: ${primaryFont};
   }
+
   .mvp-icon {
     background-color: ${midnight_express};
     width: 40px;
     height: 40px;
     border-radius: 50%;
     padding: 10px;
+    position: relative;
+    overflow: hidden;
   }
+
+  .mvp-icon-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: inline;
+    margin: 0 auto;
+    height: 100%;
+    width: auto;
+  }
+
+
 
   @media ${screenMedium} {
 
     .mvp-card {
       width: 100%;
+      background-color: ${romance};
+      max-height: 140px;
+      padding: 10px 40px;
+      margin: 25px auto;
+      box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.1);
+    }
+
+    .mvp-icon {
+      width: 30px;
+      height: 30px;
+      float: left;
+      margin: 20px 15px 0 0;
     }
   }
+
+
+
+   @media ${screenXLarge} {
+
+     .mvp-card {
+        background-color: ${romance};
+        width: 100%;
+        height: auto;
+        max-height: unset;
+        padding: 25px 40px;
+        margin: 25px auto;
+        min-width: unset;
+        box-shadow: none;
+        border-bottom: 1px solid ${hawkesBlue};
+      }
+
+
+      .mvp-icon {
+        width: 40px;
+        height: 40px;
+        float: none;
+        margin: 0;
+      }
+   }
 `;
