@@ -1,15 +1,14 @@
 /***********************************
-* V4 Ask an Astronomer Wrapper
-*   Markdown support on elements????
-*   UTF-8 support....
-*   Multi-National Languages.....
+* V4 Ask an Astronomer
 ***********************************/
 
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { OBJECT_SPECIALISTS } from 'services/objects';
+//import { OBJECT_SPECIALISTS } from 'services/objects';
+import { fetchObjectSpecialistsAction } from '../../modules/object-details/actions';
 import { DeviceContext } from '../../providers/DeviceProvider';
 
 import {
@@ -54,12 +53,14 @@ const mapStateToProps = ({
   fetchingAnswers: astronomerAnswers.fetchingObj,
   user,
   objectDetails,
+  objectSpecialists: objectDetails.objectSpecialists,
 });
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     fetchAstronomerQuestions,
     toggleAllAnswersAndDisplay,
+    fetchObjectSpecialistsAction,
   }, dispatch),
 });
 
@@ -91,8 +92,11 @@ class AskAstronomer extends Component {
     count: 0,
     actions: { },
     objectId: '',
-    serviceUrl: OBJECT_SPECIALISTS,
+    //serviceUrl: OBJECT_SPECIALISTS,
     //slugLookupId: null,
+    leftView: "show",
+    rightView: "show",
+    "mobile": false
   }
 
 
@@ -196,8 +200,15 @@ class AskAstronomer extends Component {
       page,
       user,
       serviceUrl,
+      objectSpecialists,
       //slugLookupId,
     } = this.props;
+
+    const btnClass = classNames({
+      btn: true,
+      'btn-pressed': this.state.isPressed,
+      'btn-over': !this.state.isPressed && this.state.isHovered
+    });
 
     return (
       <div className="full-bg">
@@ -232,11 +243,19 @@ class AskAstronomer extends Component {
                   <span className={'btn-nav ' + this.state.rightView} onClick={this.handleMobileClick}>MVP ASTRONOMERS</span>      
                 </div>
                 
-                {/*<div>
-                  <h1>MVP ASTRONOMERS GO HERE</h1>
-                  <MVPAstronomerList objectId={objectId} />
-                </div>*/}
-
+                <div className="mvp">
+                  <div className="mvp-header">
+                    <h1>THIS OBJECT’S</h1>
+                    <h2>MVP ASTRONOMERS</h2>
+                  </div>
+                  {objectSpecialists && objectSpecialists.specialistsCount > 0 ? (
+                    <MVPAstronomerList {...objectSpecialists} />
+                  ) : (
+                    <div className="card-container__specialists">
+                      Sorry, there are no MVP Astronomers available.
+                    </div>
+                  )}
+                </div>
               </div>  
 
               <div className={'left ' + this.state.leftView}>

@@ -63,7 +63,6 @@ export default css`
     display: none;
   }
 
-
   .btn-nav {
     position: absolute;
     bottom: 20px;
@@ -112,6 +111,37 @@ export default css`
   .ask-tablet-subnav {
     display: none;
   }
+
+
+  .mvp {
+    box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.1);
+    margin: 10px;
+    width: calc(100% - 20px);
+    background-color: ${romance};
+  }
+
+  .mvp .mvp-header {
+    padding: 30px 40px;
+    border-bottom: solid 4px ${astronaut};
+  }
+
+  .mvp .mvp-header h1 {
+    font-family: ${primaryFont};
+    text-transform: uppercase;
+    font-size: 11px;
+    font-weight: 600;
+    color: ${lightHeadedAstronaut};
+  }
+
+  .mvp .mvp-header h2 {
+    font-family: ${primaryFont};
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 800;
+    color: ${lightHeadedAstronaut};
+  }
+
+
 
   @media ${screenMedium} {
 

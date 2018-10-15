@@ -1,4 +1,9 @@
-import React, { Fragment } from 'react';
+
+/***********************************
+* MVP Astronomer Card
+***********************************/
+
+import React from 'react';
 import PropTypes from 'prop-types';
 import style from './MVPAstronomer.style';
 
@@ -14,7 +19,7 @@ const MVPAstronomer = ({
     <div className="mvp-icon"><img src={iconURL}/></div>
     <h5>{displayName}</h5>
     {linkFlag &&                 
-      <a className="mvp-btn" href={linkURL}>View Specialist</a>
+      <a className="mvp-btn" href={linkURL}>{gravityRank}</a>
     }
     <style jsx>{style}</style>
   </div>
