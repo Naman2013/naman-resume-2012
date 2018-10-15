@@ -4,6 +4,7 @@
 
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchObjectSpecialistsAction } from '../../modules/object-details/actions';
@@ -89,10 +90,6 @@ class AskAstronomer extends Component {
     count: 0,
     actions: { },
     objectId: '',
-    leftView: "show",
-    rightView: "show",
-    leftTab: "show",
-    rightTab: "show",
   }
 
 
@@ -103,7 +100,9 @@ class AskAstronomer extends Component {
     this.state = {
       leftView: "show",
       rightView: "show",
-      "view": '',
+      tabQuestions: "show",
+      tabMvp: "hide",
+      mobile: false,
     };  
   }
 
@@ -154,44 +153,40 @@ class AskAstronomer extends Component {
     let righty = (this.state.rightView === "hidden") ? "show" : "hidden";
     
     this.setState ({
-      "leftView": lefty,
-      "rightView": righty,
-      "view": "mobile",
+      leftView: lefty,
+      rightView: righty,
+      tabMvp: "show",
+      tabQuestions: "show",
+      "mobile": true,
     });
   }
 
   handleTabletClick = () => {
-    let left = (this.state.leftView === "hidden") ? "show" : "hidden";
-    let right = (this.state.rightView === "hidden") ? "show" : "hidden";
+    let mvp = (this.state.tabMvp === "hidden") ? "show" : "hidden";
+    let questions = (this.state.tabQuestions === "hidden") ? "show" : "hidden";
     
     this.setState ({
-      "leftView": left,
-      "rightView": right,
-      "view": "tablet",
+      tabMvp: mvp,
+      tabQuestions: questions,
     });
   }
-
   setMobileView = () => {
     this.setState ({
-      "leftView": "show",
-      "rightView": "hidden",
-      "view": "mobile",
+      leftView: "show",
+      rightView: "hidden",
+      tabQuestions: "show",
+      tabMvp: "hidden",
+      "mobile": true,
     });
   }
 
   setDesktopView = () => {
     this.setState ({
-      "leftView": "show",
-      "rightView": "show",
-      "view": "desktop",
-    });
-  }
-
-  setTabletView = () => {
-    this.setState ({
-      "leftView": "show",
-      "rightView": "hidden",
-      "view": "tablet",
+      leftView: "show",
+      rightView: "show",
+      tabQuestions: "show",
+      tabMvp: "hidden",
+      "mobile": false,
     });
   }
 
@@ -244,8 +239,8 @@ class AskAstronomer extends Component {
                 <AskQuestionTile></AskQuestionTile>
                 <div className="ask-tablet-subnav">         
                   <div className="center-line" />
-                  <span className={'btn-nav ' + this.state.leftView} onClick={this.handleTabletClick}>Questions</span>
-                  <span className={'btn-nav ' + this.state.rightView} onClick={this.handleTabletClick}>MVP ASTRONOMERS</span>      
+                  <span className={'btn-nav ' + this.state.tabQuestions} onClick={this.handleTabletClick}>Questions</span>
+                  <span className={'btn-nav ' + this.state.tabMvp} onClick={this.handleTabletClick}>MVP ASTRONOMERS</span>      
                 </div>
                 
                 <div className="mvp">
@@ -283,13 +278,10 @@ class AskAstronomer extends Component {
                 <DeviceContext.Consumer>
                   {
                     (context) => {
-                      if (context.isDesktop && this.state.view !== 'desktop') {
+                      if (context.isScreenMedium && this.state.mobile === true) {
                         this.setDesktopView ();
                       } 
-                      else if (context.isTablet && this.state.view !== 'tablet') {
-                        this.setTabletView ();
-                      }
-                      else if (context.isMobile && this.state.view !== 'mobile') {
+                      else if (!context.isScreenMedium && this.state.mobile === false) {
                         this.setMobileView ();
                       }
                     }
