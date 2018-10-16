@@ -78,13 +78,16 @@ class JoinHeader extends Component {
         <DisplayAtBreakpoint
           screenSmall
         >
-          <div>
-            <TabbedNav
-              tabs={TABS}
-              activeTabValue={activeTab}
-              onTabClick={this.changeActiveTab}
-            />
+          <div className="inner-header-text">
+            <div className="big">{mainHeading}</div>
+            <div className="little">{subHeading}</div>
           </div>
+          <TabbedNav
+            tabs={TABS}
+            activeTabValue={activeTab}
+            onTabClick={this.changeActiveTab}
+          />
+
         </DisplayAtBreakpoint>
         <style>{styles}</style>
       </div>

@@ -28,6 +28,7 @@ export default css`
   }
 
   .inner-header-text {
+    background-color: ${romance};
     font-family: ${secondaryFont};
     padding: 50px;
   }

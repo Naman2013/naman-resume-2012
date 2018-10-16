@@ -1,7 +1,8 @@
 import React, { Component, cloneElement } from 'react';
-import { browserHistory } from 'react-router';
 import PropTypes from 'prop-types';
+import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
 import Button from 'components/common/style/buttons/Button';
+import { info } from 'styles/variables/iconURLs';
 import styles from './SubscriptionPlanCard.style';
 
 const {
@@ -57,6 +58,11 @@ class SubscriptionPlanCard extends Component {
 
     return (
       <div className="root">
+        <DisplayAtBreakpoint
+          screenMedium
+          screenLarge
+          screenXLarge
+        >
         <div className="inner-container">
           <div className="emphasize border-bottom title">Slooh Membership</div>
           <div className="flex border-bottom padded-top-bottom">
@@ -85,6 +91,36 @@ class SubscriptionPlanCard extends Component {
             />
           </div>
         </div>
+        </DisplayAtBreakpoint>
+        <DisplayAtBreakpoint
+          screenSmall
+        >
+          <div className="inner-container">
+            <div
+              className="plan-name border-bottom"
+              dangerouslySetInnerHTML={{ __html: planName }}
+            />
+            <div
+              className="emphasize border-bottom padded-top-bottom"
+            >
+              {`${planCostPrefix}${planCost} ${planCostPostfix}`}
+            </div>
+            <div className="flex padded-top-bottom">
+              <div>
+                <Button
+                  icon={info}
+                  isActive={showDetails}
+                  onClickEvent={this.toggleDetails}
+                />
+
+              </div>
+              <Button
+                text={selectButtonText}
+                onClickEvent={setSelectedPlan}
+              />
+            </div>
+          </div>
+        </DisplayAtBreakpoint>
         {showDetails ? <div
           className="inner-container"
           id={'subscriptionPlanDetails_' + planID}
