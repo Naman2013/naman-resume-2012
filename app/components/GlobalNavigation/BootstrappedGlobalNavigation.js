@@ -15,7 +15,7 @@ import {
   toggleGlobalNavMenu,
   toggleGlobalNavNotificationMenu,
 } from 'modules/global-navigation/actions';
-import { customModalStyles } from 'styles/mixins/utilities';
+import { customModalStylesBlackOverlay } from 'styles/mixins/utilities';
 
 const mapStateToProps = ({ globalNavigation, routing: { locationBeforeTransitions: { key } }, user }) => ({
   routeKey: key,
@@ -177,7 +177,7 @@ class GlobalNavigation extends Component {
         <Modal
           ariaHideApp={false}
           isOpen={showUpsellModal}
-          style={customModalStyles}
+          style={customModalStylesBlackOverlay}
           contentLabel="Upsell"
           shouldCloseOnOverlayClick={false}
           onRequestClose={this.closeUpsellModal}
