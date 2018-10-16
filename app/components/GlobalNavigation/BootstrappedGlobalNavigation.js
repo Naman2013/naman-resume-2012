@@ -1,32 +1,56 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import TopBar from './TopBar';
 import Menu from './Menu';
 import MENU_INTERFACE, {
   isLeft,
   isRight,
 } from './Menus/MenuInterface';
+import {
+  closeAllMenus,
+  toggleGlobalNavMenu,
+  toggleGlobalNavNotificationMenu,
+} from 'modules/global-navigation/actions';
 
-const mapStateToProps = ({ routing: { locationBeforeTransitions: { key } }, user }) => ({
+const mapStateToProps = ({ globalNavigation, routing: { locationBeforeTransitions: { key } }, user }) => ({
   routeKey: key,
   user,
+  ...globalNavigation,
 });
 
-@connect(mapStateToProps, null)
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators({
+    closeAllMenus,
+    toggleGlobalNavMenu,
+    toggleGlobalNavNotificationMenu,
+  }, dispatch),
+});
+
+@connect(mapStateToProps, mapDispatchToProps)
 class GlobalNavigation extends Component {
   static propTypes = {
     routeKey: PropTypes.string,
+    isLeftOpen: PropTypes.bool,
+    isRightOpen: PropTypes.bool,
+    isNotificationMenuOpen: PropTypes.bool,
+    activeMenu: PropTypes.string,
+    activeLeft: PropTypes.string,
+    activeRight: PropTypes.string,
+    actions: PropTypes.shape({}),
   };
 
-  state = {
+  static defaultProps = {
     isLeftOpen: false,
     isRightOpen: false,
     isNotificationMenuOpen: false,
-    activeMenu: MENU_INTERFACE.DEFAULT.name,
-    activeLeft: MENU_INTERFACE.DEFAULT.name,
-    activeRight: MENU_INTERFACE.DEFAULT.name,
+    activeMenu: '',
+    activeLeft: '',
+    activeRight: '',
+    actions: {},
   };
+
 
   componentDidMount() {
     window.addEventListener('scroll', this.closeAll);
@@ -43,43 +67,37 @@ class GlobalNavigation extends Component {
   }
 
   closeAll = (e) => {
-    this.setState({
-      activeMenu: MENU_INTERFACE.DEFAULT.name,
-      isLeftOpen: false,
-      isRightOpen: false,
-      isNotificationMenuOpen: false,
-    });
+    const { actions } = this.props;
+    actions.closeAllMenus();
   }
 
   handleMenuClick = (menuName) => {
-    const { activeMenu } = this.state;
+    const { activeMenu } = this.props;
     const sameMenu = menuName === activeMenu;
     const nextMenu = (sameMenu) ? MENU_INTERFACE.DEFAULT.name : menuName;
     const isDefault = (menuName) === MENU_INTERFACE.DEFAULT.name;
     const isLeftUpdate = !sameMenu && !isDefault && isLeft(menuName);
     const isRightUpdate = !sameMenu && !isDefault && isRight(menuName);
-
-    this.setState(prevState => ({
+    actions.toggleGlobalNavMenu({
       activeMenu: nextMenu,
       isLeftOpen: isLeftUpdate,
       isRightOpen: isRightUpdate,
-      activeLeft: (isLeftUpdate) ? menuName : prevState.activeLeft,
-      activeRight: (isRightUpdate) ? menuName : prevState.activeRight,
+      activeLeft: (isLeftUpdate) ? menuName : this.props.activeLeft,
+      activeRight: (isRightUpdate) ? menuName : this.props.activeRight,
       isNotificationMenuOpen: false,
-    }));
+    });
   }
 
   handleNotificationClick = (menuName) => {
-    const { activeMenu } = this.state;
+    const { activeMenu } = this.props;
     const sameMenu = menuName === activeMenu;
     const nextMenu = (sameMenu) ? MENU_INTERFACE.DEFAULT.name : menuName;
     const isDefault = (menuName) === MENU_INTERFACE.DEFAULT.name;
     const isRightUpdate = !sameMenu && !isDefault && isRight(menuName);
-
-    this.setState(prevState => ({
+    actions.toggleGlobalNavNotificationMenu({
       activeMenu: nextMenu,
       isNotificationMenuOpen: isRightUpdate,
-    }));
+    });
   }
 
   render() {
@@ -90,8 +108,10 @@ class GlobalNavigation extends Component {
       isLeftOpen,
       isNotificationMenuOpen,
       isRightOpen,
-    } = this.state;
-    const { user, userMenu, mainMenu } = this.props;
+      mainMenu,
+      user,
+      userMenu,
+    } = this.props;
 
     const leftMenuContent = MENU_INTERFACE[activeLeft];
     const rightMenuContent = MENU_INTERFACE[activeRight];

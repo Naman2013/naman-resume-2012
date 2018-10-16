@@ -40,6 +40,7 @@ import eventInfo from './event-info/reducer';
 import galleries from './my-pictures-galleries/reducer';
 import galleryPictures from './my-pictures-gallery-pictures/reducer';
 import galleryActions from './my-pictures-gallery-actions/reducer';
+import globalNavigation from './global-navigation/reducer';
 import guardian from './guardian/reducer';
 import guideDetails from './guide-details/reducer';
 import homeContent from './home-content/reducer';
@@ -125,6 +126,7 @@ export default combineReducers({
   galleries,
   galleryActions,
   galleryPictures,
+  globalNavigation,
   guardian,
   guideDetails,
   homeContent,
