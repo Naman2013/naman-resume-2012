@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import Button from 'components/common/style/buttons/Button';
 import { browserHistory } from 'react-router';
 import JoinHeader from './partials/JoinHeader';
+import SubscriptionPlanCard from './partials/SubscriptionPlanCard';
 import Request from 'components/common/network/Request';
 import { JOIN_PAGE_ENDPOINT_URL, SUBSCRIPTION_PLANS_ENDPOINT_URL } from 'services/registration/registration.js';
 import styles from './JoinStep1.style';
@@ -76,31 +77,15 @@ class JoinStep1 extends Component {
                             <Fragment>
                               {
                                 !fetchingContent &&
-                                  <Fragment>
-                                    <ul>
-                                      {serviceRes.subscriptionPlans.map(subscriptionPlan => <li key={`subscriptionplan-tile-${subscriptionPlan.planID}`}>
-                                        <div>
-                                          <div>
-                                            <b>{subscriptionPlan.planName}</b><br/>
-                                            <hr/>
-                                            <br/>
-                                            <i>{subscriptionPlan.planDescription}</i><br/>
-                                            <br/>
-                                            <hr/>
-                                            <br/>
-                                            {subscriptionPlan.planCostPrefix}{subscriptionPlan.planCost}<br/>
-                                            {subscriptionPlan.planCostPostfix}<br/>
-                                            <br/>
-                                            <hr/>
-                                            <div id={'subscriptionPlanDetails_' + subscriptionPlan.planID} dangerouslySetInnerHTML={{ __html: subscriptionPlan.aboutThisPlan }}/><br/>
-                                            <br/>
-                                            <br/>
-                                            <Link onClick={e => this.setSelectedPlan(subscriptionPlan.planID)}><Button theme={{ margin: '0 auto'}} type="button" text={subscriptionPlan.selectButtonText}/></Link><br/>
-                                          </div>
-                                         </div>
-                                        </li>)}
-                                      </ul>
-                                    </Fragment>
+                                  <ul className="subscription-plans-list">
+                                    {serviceRes.subscriptionPlans.map(subscriptionPlan => (
+                                      <li
+                                        key={`subscriptionplan-tile-${subscriptionPlan.planID}`}
+                                        className="subscription-plans-list-item"
+                                      >
+                                        <SubscriptionPlanCard {...subscriptionPlan} setSelectedPlan={() => this.setSelectedPlan(subscriptionPlan.planID)}/>
+                                      </li>))}
+                                    </ul>
                                   }
                                 </Fragment>
                               )}
@@ -111,8 +96,6 @@ class JoinStep1 extends Component {
                   </Fragment>
                 )}
           />
-          <br/>
-          <br/>
           <style jsx>{styles}</style>
       </div>
     )

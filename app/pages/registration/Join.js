@@ -16,6 +16,7 @@ class Join extends Component {
     } = this.props;
     return (
       <div className="root">
+        
         {
           cloneElement(children, {
             pathname: location.pathname,

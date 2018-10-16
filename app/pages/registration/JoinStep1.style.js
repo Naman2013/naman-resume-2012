@@ -16,5 +16,16 @@ export default css`
     text-transform: uppercase;
     font-weight: bold;
     text-align: center;
+    padding: 25px 0;
+    letter-spacing: 2px;
+  }
+
+  .subscription-plans-list {
+    padding: 0;
+    list-style-type: none;
+  }
+
+  .subscription-plans-list-item {
+
   }
 `;
