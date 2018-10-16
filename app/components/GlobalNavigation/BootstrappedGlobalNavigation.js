@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import Modal from 'react-modal';
 import TopBar from './TopBar';
 import Menu from './Menu';
 import MENU_INTERFACE, {
@@ -10,9 +11,11 @@ import MENU_INTERFACE, {
 } from './Menus/MenuInterface';
 import {
   closeAllMenus,
+  closeUpsellModal,
   toggleGlobalNavMenu,
   toggleGlobalNavNotificationMenu,
 } from 'modules/global-navigation/actions';
+import { customModalStyles } from 'styles/mixins/utilities';
 
 const mapStateToProps = ({ globalNavigation, routing: { locationBeforeTransitions: { key } }, user }) => ({
   routeKey: key,
@@ -23,6 +26,7 @@ const mapStateToProps = ({ globalNavigation, routing: { locationBeforeTransition
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     closeAllMenus,
+    closeUpsellModal,
     toggleGlobalNavMenu,
     toggleGlobalNavNotificationMenu,
   }, dispatch),
@@ -31,24 +35,26 @@ const mapDispatchToProps = dispatch => ({
 @connect(mapStateToProps, mapDispatchToProps)
 class GlobalNavigation extends Component {
   static propTypes = {
-    routeKey: PropTypes.string,
-    isLeftOpen: PropTypes.bool,
-    isRightOpen: PropTypes.bool,
-    isNotificationMenuOpen: PropTypes.bool,
-    activeMenu: PropTypes.string,
-    activeLeft: PropTypes.string,
-    activeRight: PropTypes.string,
     actions: PropTypes.shape({}),
+    activeLeft: PropTypes.string,
+    activeMenu: PropTypes.string,
+    activeRight: PropTypes.string,
+    isLeftOpen: PropTypes.bool,
+    isNotificationMenuOpen: PropTypes.bool,
+    isRightOpen: PropTypes.bool,
+    routeKey: PropTypes.string,
+    showUpsellModal: PropTypes.bool,
   };
 
   static defaultProps = {
-    isLeftOpen: false,
-    isRightOpen: false,
-    isNotificationMenuOpen: false,
-    activeMenu: '',
-    activeLeft: '',
-    activeRight: '',
     actions: {},
+    activeLeft: '',
+    activeMenu: '',
+    activeRight: '',
+    isLeftOpen: false,
+    isNotificationMenuOpen: false,
+    isRightOpen: false,
+    showUpsellModal: false,
   };
 
 
@@ -69,6 +75,11 @@ class GlobalNavigation extends Component {
   closeAll = (e) => {
     const { actions } = this.props;
     actions.closeAllMenus();
+  }
+
+  closeUpsellModal = () => {
+    const { actions } = this.props;
+    actions.closeUpsellModal();
   }
 
   handleMenuClick = (menuName) => {
@@ -109,6 +120,7 @@ class GlobalNavigation extends Component {
       isNotificationMenuOpen,
       isRightOpen,
       mainMenu,
+      showUpsellModal,
       user,
       userMenu,
     } = this.props;
@@ -162,7 +174,17 @@ class GlobalNavigation extends Component {
             notificationMenuContent.render(props)
           )}
         /> : null}
+        <Modal
+          ariaHideApp={false}
+          isOpen={showUpsellModal}
+          style={customModalStyles}
+          contentLabel="Upsell"
+          shouldCloseOnOverlayClick={false}
+          onRequestClose={this.closeUpsellModal}
+        >
 
+          upsell text goes here
+        </Modal>
         <style jsx>{`
           .root {
             margin: 0;

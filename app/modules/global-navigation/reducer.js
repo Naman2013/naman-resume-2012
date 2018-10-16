@@ -2,6 +2,8 @@ import createReducer from '../utils/createReducer';
 import MENU_INTERFACE from 'components/GlobalNavigation/Menus/MenuInterface';
 import {
   CLOSE_ALL_GLOBAL_NAV_MENUS,
+  CLOSE_UPSELL_MODAL,
+  OPEN_UPSELL_MODAL,
   TOGGLE_GLOBAL_NAV_MENU,
   TOGGLE_GLOBAL_NAV_NOTIFICATION_MENU,
 } from './actions';
@@ -13,6 +15,7 @@ const initialState = {
   activeMenu: MENU_INTERFACE.DEFAULT.name,
   activeLeft: MENU_INTERFACE.DEFAULT.name,
   activeRight: MENU_INTERFACE.DEFAULT.name,
+  showUpsellModal: false,
 };
 
 export default createReducer(initialState, {
@@ -42,6 +45,18 @@ export default createReducer(initialState, {
       ...state,
       activeMenu: payload.activeMenu,
       isNotificationMenuOpen: payload.isNotificationMenuOpen,
+    };
+  },
+  [OPEN_UPSELL_MODAL](state) {
+    return {
+      ...state,
+      showUpsellModal: true,
+    };
+  },
+  [CLOSE_UPSELL_MODAL](state) {
+    return {
+      ...state,
+      showUpsellModal: false,
     };
   },
 });

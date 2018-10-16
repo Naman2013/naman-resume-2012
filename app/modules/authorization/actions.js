@@ -2,7 +2,7 @@ import { push } from 'react-router-redux';
 import { fetchHandleErrors } from '../../services/authorization/handle-error';
 import { destroySession, removeUser } from '../User';
 import MENU_INTERFACE from 'components/GlobalNavigation/Menus/MenuInterface';
-import { toggleGlobalNavMenu } from 'modules/global-navigation/actions';
+import { toggleGlobalNavMenu, openUpsellModal } from 'modules/global-navigation/actions';
 import SETTINGS from '../../config';
 
 export const FETCH_ERRORS_START = 'FETCH_ERRORS_START';
@@ -74,8 +74,8 @@ export const fetchErrors = () => (dispatch, getState) => {
         const { responseType, responseURL } = result.data;
 
         if (responseType === MEMBER_UPSELL) {
-          dispatch(push('/registration/upgrade'));
-          // TODO: pop up modal instead
+          dispatch(push('/'));
+          dispatch(openUpsellModal());
         }
 
         if (responseType === GOTO_HOMEPAGE) {
