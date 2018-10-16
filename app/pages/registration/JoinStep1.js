@@ -5,12 +5,13 @@
 import React, { Component, cloneElement, Fragment } from 'react';
 import { Link } from 'react-router';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import Button from 'components/common/style/buttons/Button';
 import { browserHistory } from 'react-router';
 import JoinHeader from './partials/JoinHeader';
 import Request from 'components/common/network/Request';
 import { JOIN_PAGE_ENDPOINT_URL, SUBSCRIPTION_PLANS_ENDPOINT_URL } from 'services/registration/registration.js';
+import styles from './JoinStep1.style';
+
 class JoinStep1 extends Component {
   constructor(props) {
     super(props);
@@ -63,48 +64,48 @@ class JoinStep1 extends Component {
                         subHeading={serviceResponse.pageHeading2}
                         activeTab={pathname}
                       />
-                      <h3>Step 1: {serviceResponse.sectionHeading}</h3>
-                      <br/>
-                      <br/>
-                      <Request
-                        serviceURL={SUBSCRIPTION_PLANS_ENDPOINT_URL}
-                        requestBody={{ 'callSource': 'join' }}
-                        render={({
-                          fetchingContent,
-                          serviceResponse: serviceRes,
-                        }) => (
-                          <Fragment>
-                            {
-                              !fetchingContent &&
-                                <Fragment>
-                                  <ul>
-                                    {serviceRes.subscriptionPlans.map(subscriptionPlan => <li key={`subscriptionplan-tile-${subscriptionPlan.planID}`}>
-                                      <div>
+                      <div className="step-root">
+                        <div className="section-heading">{serviceResponse.sectionHeading}</div>
+                        <Request
+                          serviceURL={SUBSCRIPTION_PLANS_ENDPOINT_URL}
+                          requestBody={{ 'callSource': 'join' }}
+                          render={({
+                            fetchingContent,
+                            serviceResponse: serviceRes,
+                          }) => (
+                            <Fragment>
+                              {
+                                !fetchingContent &&
+                                  <Fragment>
+                                    <ul>
+                                      {serviceRes.subscriptionPlans.map(subscriptionPlan => <li key={`subscriptionplan-tile-${subscriptionPlan.planID}`}>
                                         <div>
-                                          <b>{subscriptionPlan.planName}</b><br/>
-                                          <hr/>
-                                          <br/>
-                                          <i>{subscriptionPlan.planDescription}</i><br/>
-                                          <br/>
-                                          <hr/>
-                                          <br/>
-                                          {subscriptionPlan.planCostPrefix}{subscriptionPlan.planCost}<br/>
-                                          {subscriptionPlan.planCostPostfix}<br/>
-                                          <br/>
-                                          <hr/>
-                                          <div id={'subscriptionPlanDetails_' + subscriptionPlan.planID} dangerouslySetInnerHTML={{ __html: subscriptionPlan.aboutThisPlan }}/><br/>
-                                          <br/>
-                                          <br/>
-                                          <Link onClick={e => this.setSelectedPlan(subscriptionPlan.planID)}><Button theme={{ margin: '0 auto'}} type="button" text={subscriptionPlan.selectButtonText}/></Link><br/>
-                                        </div>
-                                       </div>
-                                      </li>)}
-                                    </ul>
-                                  </Fragment>
-                                }
-                              </Fragment>
-                            )}
-                          />
+                                          <div>
+                                            <b>{subscriptionPlan.planName}</b><br/>
+                                            <hr/>
+                                            <br/>
+                                            <i>{subscriptionPlan.planDescription}</i><br/>
+                                            <br/>
+                                            <hr/>
+                                            <br/>
+                                            {subscriptionPlan.planCostPrefix}{subscriptionPlan.planCost}<br/>
+                                            {subscriptionPlan.planCostPostfix}<br/>
+                                            <br/>
+                                            <hr/>
+                                            <div id={'subscriptionPlanDetails_' + subscriptionPlan.planID} dangerouslySetInnerHTML={{ __html: subscriptionPlan.aboutThisPlan }}/><br/>
+                                            <br/>
+                                            <br/>
+                                            <Link onClick={e => this.setSelectedPlan(subscriptionPlan.planID)}><Button theme={{ margin: '0 auto'}} type="button" text={subscriptionPlan.selectButtonText}/></Link><br/>
+                                          </div>
+                                         </div>
+                                        </li>)}
+                                      </ul>
+                                    </Fragment>
+                                  }
+                                </Fragment>
+                              )}
+                            />
+                      </div>
                       </Fragment>
                     }
                   </Fragment>
@@ -112,13 +113,11 @@ class JoinStep1 extends Component {
           />
           <br/>
           <br/>
+          <style jsx>{styles}</style>
       </div>
     )
   }
 }
 
-const mapStateToProps = ({ appConfig }) => ({
-  appConfig,
-});
 
-export default connect(mapStateToProps, null)(JoinStep1);
+export default JoinStep1;
