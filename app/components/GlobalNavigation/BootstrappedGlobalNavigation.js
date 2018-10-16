@@ -72,7 +72,7 @@ class GlobalNavigation extends Component {
   }
 
   handleMenuClick = (menuName) => {
-    const { activeMenu } = this.props;
+    const { activeMenu, actions } = this.props;
     const sameMenu = menuName === activeMenu;
     const nextMenu = (sameMenu) ? MENU_INTERFACE.DEFAULT.name : menuName;
     const isDefault = (menuName) === MENU_INTERFACE.DEFAULT.name;
@@ -89,7 +89,7 @@ class GlobalNavigation extends Component {
   }
 
   handleNotificationClick = (menuName) => {
-    const { activeMenu } = this.props;
+    const { activeMenu, actions } = this.props;
     const sameMenu = menuName === activeMenu;
     const nextMenu = (sameMenu) ? MENU_INTERFACE.DEFAULT.name : menuName;
     const isDefault = (menuName) === MENU_INTERFACE.DEFAULT.name;

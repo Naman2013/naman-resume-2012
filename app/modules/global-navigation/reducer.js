@@ -29,9 +29,9 @@ export default createReducer(initialState, {
   [TOGGLE_GLOBAL_NAV_MENU](state, { payload }) {
     return {
       ...state,
-      activeMenu: payload.nextMenu,
-      isLeftOpen: payload.isLeftUpdate,
-      isRightOpen: payload.isRightUpdate,
+      activeMenu: payload.activeMenu,
+      isLeftOpen: payload.isLeftOpen,
+      isRightOpen: payload.isRightOpen,
       activeLeft: payload.activeLeft,
       activeRight: payload.activeRight,
       isNotificationMenuOpen: false,
@@ -40,8 +40,8 @@ export default createReducer(initialState, {
   [TOGGLE_GLOBAL_NAV_NOTIFICATION_MENU](state, { payload }) {
     return {
       ...state,
-      activeMenu: payload.nextMenu,
-      isNotificationMenuOpen: payload.isRightUpdate,
+      activeMenu: payload.activeMenu,
+      isNotificationMenuOpen: payload.isNotificationMenuOpen,
     };
   },
 });

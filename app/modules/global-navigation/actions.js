@@ -8,10 +8,10 @@ export const closeAllMenus = () => ({
 });
 
 export const toggleGlobalNavMenu = payload => ({
-  type: CLOSE_ALL_GLOBAL_NAV_MENUS,
+  type: TOGGLE_GLOBAL_NAV_MENU,
   payload,
 });
 export const toggleGlobalNavNotificationMenu = payload => ({
-  type: CLOSE_ALL_GLOBAL_NAV_MENUS,
+  type: TOGGLE_GLOBAL_NAV_NOTIFICATION_MENU,
   payload,
 });
