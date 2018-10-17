@@ -16,6 +16,7 @@ export default css`
     display: flex;
     align-items: flex-end;
     justify-content: center;
+    color: ${astronaut};
   }
 
   .inner-header-container {

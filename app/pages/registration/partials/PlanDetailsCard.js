@@ -28,7 +28,7 @@ const PlanDetailsCard = (props) => {
     planCostPostfix,
     planCostPrefix,
     planName,
-    selectedPlanId,
+    planId,
     startDateText,
   } = props;
 
@@ -61,7 +61,7 @@ PlanDetailsCard.propTypes = {
   planCostPostfix: string.isRequired,
   planCostPrefix: string.isRequired,
   planName: string.isRequired,
-  selectedPlanId: oneOfType([number, string]).isRequired,
+  planId: oneOfType([number, string]).isRequired,
   startDateText: string.isRequired,
 };
 

@@ -10,5 +10,6 @@ export default css`
   .join-root {
     background-color: ${seashell};
     padding-bottom: 50px;
+    color: ${astronaut};
   }
 `;
