@@ -7,6 +7,7 @@ export default css`
   .mission-slot-root {
     ${faintShadow}
     padding: 40px;
+    margin-bottom: 10px;
     color: ${astronaut};
   }
 

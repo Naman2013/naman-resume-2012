@@ -160,7 +160,12 @@ storiesOf('Tiles', module)
     <ScheduledByTile />
   ))
   .add('AvailableSlotTile', () => (
-    <AvailableSlotTile missionTitle="The moon" time="20:30" date="Mon. Jan. 06" telescopeName="Canary three" />
+    <AvailableSlotTile
+      missionTitle="The moon"
+      time="20:30"
+      date="Mon. Jan. 06"
+      telescopeName="Canary three"
+    />
   ))
   .add('MissionSlotTile', () => (
     <MissionSlotTile

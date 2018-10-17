@@ -6,6 +6,7 @@ import { astronaut, hawkesBlue } from 'styles/variables/colors_tiles_v4';
 export default css`
   .available-slot-root {
     padding: 40px;
+    margin-bottom: 10px;
     color: white;
     background-color: #34455b;
   }
