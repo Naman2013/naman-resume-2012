@@ -4,13 +4,12 @@ import DefaultButton from 'components/common/style/buttons/Button';
 import style from './available-slot-tile.style';
 
 const AvailableSlotTile = ({
-  missionTitle,
   time,
   date,
   handleScheduleClick,
 }) => (
   <div className="available-slot-root">
-    <h4 className="object-title">{missionTitle}</h4>
+    <h4 className="object-title">Available slot</h4>
 
     <div className="time">
       <div className="utc-time">
