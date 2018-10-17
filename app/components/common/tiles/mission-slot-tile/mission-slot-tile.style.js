@@ -13,6 +13,7 @@ export default css`
   .object-title {
     margin: 0;
     padding-bottom: 20px;
+    text-transform: capitalize;
     font-size: 20px;
     font-weight: normal;
     font-family: ${secondaryFont};
