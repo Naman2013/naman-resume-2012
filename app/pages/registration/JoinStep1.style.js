@@ -10,6 +10,7 @@ export default css`
     margin: 0 auto;
     width: 100%;
   }
+
   .section-heading {
     font-size: 14px;
     font-family: ${primaryFont};

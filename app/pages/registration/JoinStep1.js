@@ -19,9 +19,11 @@ const {
 
 class JoinStep1 extends Component {
   static propTypes = {
-    pathname: string.isRequired,
+    pathname: string,
   };
-  static defaultProps = {};
+  static defaultProps = {
+    pathname: '/join/step1',
+  };
 
   constructor(props) {
     super(props);
