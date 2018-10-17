@@ -202,7 +202,7 @@ class Login extends Component {
           </div>
           <div className="register-container">
             <span className="title-link">{`Have an Invitation Code?`}</span>
-            <Link to="/join/byInviteCode">
+            <Link to="/join/inviteByCode">
               <LargeButtonWithRightIcon
                 icon={horizontalArrowRightWhite}
                 theme={{
