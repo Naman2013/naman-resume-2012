@@ -34,6 +34,7 @@ export default css`
 }
 
 .split-nav-item {
+  cursor: pointer;
   margin: 0 5px;
   margin-top: 15px;
 }

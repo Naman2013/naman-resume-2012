@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
+import axios from 'axios';
 import { Link } from 'react-router';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
@@ -15,8 +16,8 @@ import { primaryFont } from 'styles/variables/fonts';
 import{ horizontalArrowRightWhite } from 'styles/variables/iconURLs';
 import {GOOGLE_CLIENT_ID_ENDPOINT_URL, googleClientIDModel, GOOGLE_SSO_SIGNIN_ENDPOINT_URL} from 'services/registration/registration.js';
 import Request from 'components/common/network/Request';
-import axios from 'axios';
 import { GoogleLogin } from 'react-google-login';
+import styles from './Login.style';
 
 const propTypes = {
   forgotPasswordURL: PropTypes.string,
@@ -147,7 +148,10 @@ class Login extends Component {
             <span className="forgot title-link">Forgot Your Password?</span>
           </Link>
           <Button theme={{ margin: '0 auto', color: astronaut }} type="submit" text="Sign in with email" onClickEvent={null} />
-
+          <div className="or-container">
+            <div className="or-text">or</div>
+            {/*<div className="or-line" />*/}
+          </div>
           <Request
             serviceURL={GOOGLE_CLIENT_ID_ENDPOINT_URL}
             model={googleClientIDModel}
@@ -160,9 +164,11 @@ class Login extends Component {
                 {
                   !fetchingContent &&
                     <Fragment>
-                      <div style={{'paddingTop': '15px', 'marginLeft': 'auto', 'marginRight': 'auto', 'textAlign': 'center'}}>
+                      <div className="google-container">
                         <GoogleLogin
+                            className="google-button"
                             prompt="select_account"
+                            buttonText="Google"
                             responseType={GOOGLE_CLIENT_ID_MODEL.googleClientResponseType}
                             fetchBasicProfile={GOOGLE_CLIENT_ID_MODEL.googleClientFetchBasicProfile}
                             accessType={GOOGLE_CLIENT_ID_MODEL.googleClientAccessType}
@@ -195,45 +201,7 @@ class Login extends Component {
             </Link>
           </div>
         </form>
-        <style>{`
-          .root {
-            background-color: ${romance};
-          }
-
-          .form {
-            padding: 25px 0;
-            ${faintShadow}
-          }
-
-          .form-submit {
-            margin: 0 auto;
-          }
-
-          .forgot {
-            display: block;
-            margin: 15px;
-            margin-bottom: 15px;
-          }
-
-          .field-error {
-            color: red;
-            font-family: ${primaryFont};
-          }
-
-          .title-link, .title-link:hover {
-            font-weight: bold;
-            font-size: 11px;
-            color: ${astronaut};
-            font-family: ${primaryFont};
-            text-transform: uppercase;
-          }
-
-          .register-container {
-            border-top: 1px solid ${shadows};
-            padding: 15px;
-            margin: 15px;
-          }
-        `}</style>
+        <style>{styles}</style>
       </div>
     );
   }

@@ -30,3 +30,5 @@ export const plus = 'https://vega.slooh.com/assets/v4/common/plus_icon.svg';
 export const downwardFacingChevron = 'https://vega.slooh.com/assets/v4/common/arrow_down.svg';
 
 export const guideCorner = 'https://vega.slooh.com/assets/v4/common/guide_corner.svg';
+
+export const googleButton = 'https://vega.slooh.com/assets/v4/icons/google_button.svg';
