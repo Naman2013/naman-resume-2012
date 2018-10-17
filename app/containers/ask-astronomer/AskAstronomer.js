@@ -150,41 +150,21 @@ class AskAstronomer extends Component {
   handleMobileClick = () => {
     let lefty = (this.state.leftView === "hidden") ? "show" : "hidden";
     let righty = (this.state.rightView === "hidden") ? "show" : "hidden";
-    
-    this.setState ({
-      leftView: lefty,
-      rightView: righty,
-      tabMvp: "show",
-      mobile: true,
-    });
+    this.setView (lefty, righty, 'show', true);
   }
 
   handleTabletClick = () => {
     let mvp = (this.state.tabMvp === "hidden") ? "show" : "hidden";
     let questions = (this.state.leftView === "hidden") ? "show" : "hidden";
-    
-    this.setState ({
-      tabMvp: mvp,
-      leftView: questions,
-      view: "tablet"
-    });
+    this.setView (questions, 'show', mvp, false);
   }
 
-  setMobileView = () => {
+  setView = (left, right, tab, mob) => {
     this.setState ({
-      leftView: "show",
-      rightView: "hidden",
-      tabMvp: "hidden",
-      "mobile": true
-    });
-  }
-
-  setDesktopView = () => {
-    this.setState ({
-      leftView: "show",
-      rightView: "show",
-      tabMvp: "hidden",
-      "mobile": false
+      leftView: left,
+      rightView: right,
+      tabMvp: tab,
+      mobile: mob,
     });
   }
 
@@ -277,10 +257,10 @@ class AskAstronomer extends Component {
                   {
                     (context) => {
                       if (context.isScreenMedium && this.state.mobile === true) {
-                        this.setDesktopView ();
+                        this.setView ('show', 'show', 'hidden', false);
                       } 
                       else if (!context.isScreenMedium && this.state.mobile === false) {
-                        this.setMobileView ();
+                        this.setView ('show', 'hidden', 'hidden', true);
                       }
                     }
                   }
