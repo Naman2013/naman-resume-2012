@@ -1,32 +1,62 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import Modal from 'react-modal';
 import TopBar from './TopBar';
 import Menu from './Menu';
 import MENU_INTERFACE, {
   isLeft,
   isRight,
 } from './Menus/MenuInterface';
+import {
+  closeAllMenus,
+  closeUpsellModal,
+  toggleGlobalNavMenu,
+  toggleGlobalNavNotificationMenu,
+} from 'modules/global-navigation/actions';
+import { customModalStylesBlackOverlay } from 'styles/mixins/utilities';
 
-const mapStateToProps = ({ routing: { locationBeforeTransitions: { key } }, user }) => ({
+const mapStateToProps = ({ globalNavigation, routing: { locationBeforeTransitions: { key } }, user }) => ({
   routeKey: key,
   user,
+  ...globalNavigation,
 });
 
-@connect(mapStateToProps, null)
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators({
+    closeAllMenus,
+    closeUpsellModal,
+    toggleGlobalNavMenu,
+    toggleGlobalNavNotificationMenu,
+  }, dispatch),
+});
+
+@connect(mapStateToProps, mapDispatchToProps)
 class GlobalNavigation extends Component {
   static propTypes = {
+    actions: PropTypes.shape({}),
+    activeLeft: PropTypes.string,
+    activeMenu: PropTypes.string,
+    activeRight: PropTypes.string,
+    isLeftOpen: PropTypes.bool,
+    isNotificationMenuOpen: PropTypes.bool,
+    isRightOpen: PropTypes.bool,
     routeKey: PropTypes.string,
+    showUpsellModal: PropTypes.bool,
   };
 
-  state = {
+  static defaultProps = {
+    actions: {},
+    activeLeft: '',
+    activeMenu: '',
+    activeRight: '',
     isLeftOpen: false,
-    isRightOpen: false,
     isNotificationMenuOpen: false,
-    activeMenu: MENU_INTERFACE.DEFAULT.name,
-    activeLeft: MENU_INTERFACE.DEFAULT.name,
-    activeRight: MENU_INTERFACE.DEFAULT.name,
+    isRightOpen: false,
+    showUpsellModal: false,
   };
+
 
   componentDidMount() {
     window.addEventListener('scroll', this.closeAll);
@@ -43,43 +73,42 @@ class GlobalNavigation extends Component {
   }
 
   closeAll = (e) => {
-    this.setState({
-      activeMenu: MENU_INTERFACE.DEFAULT.name,
-      isLeftOpen: false,
-      isRightOpen: false,
-      isNotificationMenuOpen: false,
-    });
+    const { actions } = this.props;
+    actions.closeAllMenus();
+  }
+
+  closeUpsellModal = () => {
+    const { actions } = this.props;
+    actions.closeUpsellModal();
   }
 
   handleMenuClick = (menuName) => {
-    const { activeMenu } = this.state;
+    const { activeMenu, actions } = this.props;
     const sameMenu = menuName === activeMenu;
     const nextMenu = (sameMenu) ? MENU_INTERFACE.DEFAULT.name : menuName;
     const isDefault = (menuName) === MENU_INTERFACE.DEFAULT.name;
     const isLeftUpdate = !sameMenu && !isDefault && isLeft(menuName);
     const isRightUpdate = !sameMenu && !isDefault && isRight(menuName);
-
-    this.setState(prevState => ({
+    actions.toggleGlobalNavMenu({
       activeMenu: nextMenu,
       isLeftOpen: isLeftUpdate,
       isRightOpen: isRightUpdate,
-      activeLeft: (isLeftUpdate) ? menuName : prevState.activeLeft,
-      activeRight: (isRightUpdate) ? menuName : prevState.activeRight,
+      activeLeft: (isLeftUpdate) ? menuName : this.props.activeLeft,
+      activeRight: (isRightUpdate) ? menuName : this.props.activeRight,
       isNotificationMenuOpen: false,
-    }));
+    });
   }
 
   handleNotificationClick = (menuName) => {
-    const { activeMenu } = this.state;
+    const { activeMenu, actions } = this.props;
     const sameMenu = menuName === activeMenu;
     const nextMenu = (sameMenu) ? MENU_INTERFACE.DEFAULT.name : menuName;
     const isDefault = (menuName) === MENU_INTERFACE.DEFAULT.name;
     const isRightUpdate = !sameMenu && !isDefault && isRight(menuName);
-
-    this.setState(prevState => ({
+    actions.toggleGlobalNavNotificationMenu({
       activeMenu: nextMenu,
       isNotificationMenuOpen: isRightUpdate,
-    }));
+    });
   }
 
   render() {
@@ -90,8 +119,11 @@ class GlobalNavigation extends Component {
       isLeftOpen,
       isNotificationMenuOpen,
       isRightOpen,
-    } = this.state;
-    const { user, userMenu, mainMenu } = this.props;
+      mainMenu,
+      showUpsellModal,
+      user,
+      userMenu,
+    } = this.props;
 
     const leftMenuContent = MENU_INTERFACE[activeLeft];
     const rightMenuContent = MENU_INTERFACE[activeRight];
@@ -142,7 +174,17 @@ class GlobalNavigation extends Component {
             notificationMenuContent.render(props)
           )}
         /> : null}
+        <Modal
+          ariaHideApp={false}
+          isOpen={showUpsellModal}
+          style={customModalStylesBlackOverlay}
+          contentLabel="Upsell"
+          shouldCloseOnOverlayClick={false}
+          onRequestClose={this.closeUpsellModal}
+        >
 
+          upsell text goes here
+        </Modal>
         <style jsx>{`
           .root {
             margin: 0;

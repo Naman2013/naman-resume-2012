@@ -68,6 +68,23 @@ export const customModalStylesV4 = {
   },
 };
 
+export const customModalStylesBlackOverlay = {
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+    maxWidth: '650px',
+    padding: '50px 25px',
+    fontFamily: primaryFont,
+  },
+  overlay: {
+    backgroundColor: 'rgba(0, 0, 0, .7)',
+  },
+};
+
 export const modalStyleFullPage = {
   content: {
     top: 0,

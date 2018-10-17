@@ -5,18 +5,33 @@
 import React, { Component, cloneElement, Fragment } from 'react';
 import { Link } from 'react-router';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import Button from 'components/common/style/buttons/Button';
 import { browserHistory } from 'react-router';
+import JoinHeader from './partials/JoinHeader';
+import SubscriptionPlanCard from './partials/SubscriptionPlanCard';
 import Request from 'components/common/network/Request';
 import { JOIN_PAGE_ENDPOINT_URL, SUBSCRIPTION_PLANS_ENDPOINT_URL } from 'services/registration/registration.js';
+import styles from './JoinStep1.style';
+
+const {
+  string,
+} = PropTypes;
+
 class JoinStep1 extends Component {
+  static propTypes = {
+    pathname: string,
+  };
+  static defaultProps = {
+    pathname: '/join/step1',
+  };
+
   constructor(props) {
     super(props);
 
     /* reset all browser localstorage data points for the Join flow */
     window.localStorage.removeItem('pending_cid');
     window.localStorage.removeItem('selectedPlanId');
+    window.localStorage.removeItem('selectedSchoolId');
     window.localStorage.removeItem('accountCreationType');
     window.localStorage.removeItem('googleProfileId');
     window.localStorage.removeItem('googleProfileEmail');
@@ -40,96 +55,64 @@ class JoinStep1 extends Component {
   }
 
   render() {
-    const joinPageModel = {
-      name: 'JOIN_PAGE_MODEL',
-      model: resp => ({
-        pageHeading1: resp.pageHeading1,
-        pageHeading2: resp.pageHeading2,
-        sectionHeading: resp.sectionHeading,
-      }),
-    };
-
-    const subscriptionPlansModel = {
-      name: 'SUBSCRIPTION_PLANS_MODEL',
-      model: resp => ({
-        subscriptionPlans: resp.subscriptionPlans,
-      }),
-    };
+    const {
+      pathname,
+    } = this.props;
 
     return (
-      <div style={{'paddingTop': '55px', 'marginLeft': 'auto', 'marginRight': 'auto', 'width': '600px'}}>
+      <div>
         <Request
           serviceURL={JOIN_PAGE_ENDPOINT_URL}
-          model={joinPageModel}
           requestBody={{ 'callSource': 'selectSubscriptionPlan' }}
           render={({
             fetchingContent,
-            modeledResponses: { JOIN_PAGE_MODEL },
+            serviceResponse,
           }) => (
             <Fragment>
               {
                 !fetchingContent &&
                   <Fragment>
-                      <h1>{JOIN_PAGE_MODEL.pageHeading1}</h1>
-                      <h2>{JOIN_PAGE_MODEL.pageHeading2}</h2>
-                      <h3>Step 1: {JOIN_PAGE_MODEL.sectionHeading}</h3>
-                      <br/>
-                      <br/>
-                      <Request
-                        serviceURL={SUBSCRIPTION_PLANS_ENDPOINT_URL}
-                        model={subscriptionPlansModel}
-                        requestBody={{ 'callSource': 'join' }}
-                        render={({
-                          fetchingContent,
-                          modeledResponses: { SUBSCRIPTION_PLANS_MODEL },
-                        }) => (
-                          <Fragment>
-                            {
-                              !fetchingContent &&
-                                <Fragment>
-                                  <ul style={{'listStyle': 'none', 'marginLeft': 'auto', 'marginRight': 'auto', 'width': '400px'}}>
-                                    {SUBSCRIPTION_PLANS_MODEL.subscriptionPlans.map(subscriptionPlan => <li style={{'paddingTop': '10px', 'paddingBottom': '10px'}} key={`subscriptionplan-tile-${subscriptionPlan.planId}`}>
-                                      <div style={{'border': '1px solid'}}>
-                                        <div style={{'marginLeft': '30px', 'marginRight': '10px'}}>
-                                          <br/>
-                                          <b>{subscriptionPlan.planName}</b><br/>
-                                          <hr/>
-                                          <br/>
-                                          <i>{subscriptionPlan.planDescription}</i><br/>
-                                          <br/>
-                                          <hr/>
-                                          <br/>
-                                          {subscriptionPlan.planCostPrefix}{subscriptionPlan.planCost}<br/>
-                                          {subscriptionPlan.planCostPostfix}<br/>
-                                          <br/>
-                                          <hr/>
-                                          <div id={'subscriptionPlanDetails_' + subscriptionPlan.planID} dangerouslySetInnerHTML={{ __html: subscriptionPlan.aboutThisPlan }}/><br/>
-                                          <br/>
-                                          <br/>
-                                          <Link onClick={e => this.setSelectedPlan(subscriptionPlan.planID)}><Button theme={{ margin: '0 auto'}} type="button" text={subscriptionPlan.selectButtonText}/></Link><br/>
-                                        </div>
-                                       </div>
-                                      </li>)}
+                      <JoinHeader
+                        mainHeading={serviceResponse.pageHeading1}
+                        subHeading={serviceResponse.pageHeading2}
+                        activeTab={pathname}
+                      />
+                      <div className="step-root">
+                        <div className="section-heading">{serviceResponse.sectionHeading}</div>
+                        <Request
+                          serviceURL={SUBSCRIPTION_PLANS_ENDPOINT_URL}
+                          requestBody={{ 'callSource': 'join' }}
+                          render={({
+                            fetchingContent,
+                            serviceResponse: serviceRes,
+                          }) => (
+                            <Fragment>
+                              {
+                                !fetchingContent &&
+                                  <ul className="subscription-plans-list">
+                                    {serviceRes.subscriptionPlans.map(subscriptionPlan => (
+                                      <li
+                                        key={`subscriptionplan-tile-${subscriptionPlan.planID}`}
+                                        className="subscription-plans-list-item"
+                                      >
+                                        <SubscriptionPlanCard {...subscriptionPlan} setSelectedPlan={() => this.setSelectedPlan(subscriptionPlan.planID)}/>
+                                      </li>))}
                                     </ul>
-                                  </Fragment>
-                                }
-                              </Fragment>
-                            )}
-                          />
+                                  }
+                                </Fragment>
+                              )}
+                            />
+                      </div>
                       </Fragment>
                     }
                   </Fragment>
                 )}
           />
-          <br/>
-          <br/>
+          <style jsx>{styles}</style>
       </div>
     )
   }
 }
 
-const mapStateToProps = ({ appConfig }) => ({
-  appConfig,
-});
 
-export default connect(mapStateToProps, null)(JoinStep1);
+export default JoinStep1;
