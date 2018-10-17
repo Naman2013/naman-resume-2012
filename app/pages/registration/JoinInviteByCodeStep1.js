@@ -1,5 +1,5 @@
 /** *********************************
-* V4 Join
+* V4 Join by Invitation Code
 ********************************** */
 
 import React, { Component, cloneElement } from 'react';

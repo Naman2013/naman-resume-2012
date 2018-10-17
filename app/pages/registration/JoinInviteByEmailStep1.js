@@ -1,6 +1,6 @@
-/** *********************************
-* V4 Join
-********************************** */
+/** **********************************************************************************
+* V4 Join with an Invitation Email which has all the necessary validation parameters
+*************************************************************************************/
 
 import React, { Component, cloneElement, Fragment } from 'react';
 import { Link } from 'react-router';
@@ -46,16 +46,14 @@ class JoinByInviteEmailStep1 extends Component {
     } = this.props;
 
     const {
-      invitationCode, invitationCreationEpoch
+      invitationCodeHash, invitationCreationEpoch
     } = this.props.params;
 
-    console.log(this.props.params);
-    
     return (
       <div>
         <Request
           serviceURL={JOIN_PAGE_ENDPOINT_URL}
-          requestBody={{ 'callSource': 'joinByInvitationEmail', 'invitationCode': invitationCode, 'invitationCreationEpoch': invitationCreationEpoch }}
+          requestBody={{ 'callSource': 'joinByInvitationEmail', 'invitationCodeHash': invitationCodeHash, 'invitationCreationEpoch': invitationCreationEpoch }}
           render={({
             fetchingContent,
             serviceResponse,
