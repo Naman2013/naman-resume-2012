@@ -7,12 +7,17 @@ import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import Request from 'components/common/network/Request';
-import axios from 'axios';
-import { resetLogIn, logUserIn, logGoogleUserIn } from 'modules/login/actions';
-import { JOIN_ACTIVATE_PENDING_CUSTOMER_ENDPOINT_URL, JOIN_PAGE_ENDPOINT_URL } from 'services/registration/registration.js';
 import Countdown from 'react-countdown-now';
 import { browserHistory } from 'react-router';
+import axios from 'axios';
+import { resetLogIn, logUserIn, logGoogleUserIn } from 'modules/login/actions';
+import Request from 'components/common/network/Request';
+import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
+import JoinHeader from './partials/JoinHeader';
+import { JOIN_ACTIVATE_PENDING_CUSTOMER_ENDPOINT_URL, JOIN_PAGE_ENDPOINT_URL } from 'services/registration/registration.js';
+import PlanDetailsCard from './partials/PlanDetailsCard';
+import styles from './JoinStep3.style';
+
 
 const propTypes = {
   actions: PropTypes.shape({
@@ -43,23 +48,14 @@ class JoinStep3 extends Component  {
     'redirectInXSecondsOnExpiredSignupRequest': 0,
   };
 
-  constructor(props) {
-    super(props);
-
-    this.handleJoinPageServiceResponse = this.handleJoinPageServiceResponse.bind(this);
-    this.CountdownRenderer = this.CountdownRenderer.bind(this);
-    this.CountdownExpiredRenderer = this.CountdownExpiredRenderer.bind(this);
-    this.CountdownExpiredComplete = this.CountdownExpiredComplete.bind(this);
+  componentDidMount() {
+    //Listen for a message from the Window/IFrames to capture the ECommerce Hosted Payment Form Messaging
+    window.addEventListener('message', this.handleIframeTask);
   }
 
   componentWillUnmount() {
     const { actions } = this.props;
     actions.resetLogIn();
-  }
-
-  componentDidMount() {
-    //Listen for a message from the Window/IFrames to capture the ECommerce Hosted Payment Form Messaging
-    window.addEventListener('message', this.handleIframeTask);
   }
 
   handleIframeTask = (e) => {
@@ -79,27 +75,23 @@ class JoinStep3 extends Component  {
           customerId: window.localStorage.pending_cid,
         };
 
-        const activatePendingCustomerResult = axios.post(JOIN_ACTIVATE_PENDING_CUSTOMER_ENDPOINT_URL, activatePendingCustomerData)
-          .then(response => {
+        axios.post(JOIN_ACTIVATE_PENDING_CUSTOMER_ENDPOINT_URL, activatePendingCustomerData)
+          .then((response) => {
             const res = response.data;
-            if (res.apiError == false) {
-              const activateCustomerResult = {
-                status: res.status,
-              }
-
-              if (activateCustomerResult.status === "success") {
+            if (!res.apiError) {
+              if (res.status === 'success') {
                 const { actions } = this.props;
 
-                //log the user in (userpass or googleaccount logins supported)
-                const accountCreationType = window.localStorage.accountCreationType;
+                // log the user in (userpass or googleaccount logins supported)
+                const { accountCreationType } = window.localStorage;
                 if (accountCreationType === 'userpass') {
                   const loginDataPayload = {
                     username: window.localStorage.username,
                     pwd: window.localStorage.password,
                   };
 
-                  //console.log(loginDataPayload);
-                  //console.log(window.localStorage);
+                  // console.log(loginDataPayload);
+                  // console.log(window.localStorage);
 
                   /* cleanup local storage */
                   window.localStorage.removeItem('username');
@@ -107,8 +99,7 @@ class JoinStep3 extends Component  {
 
                   actions.logUserIn(loginDataPayload);
                   browserHistory.push('/');
-                }
-                else if (accountCreationType === 'googleaccount') {
+                } else if (accountCreationType === 'googleaccount') {
                   const loginDataPayload = {
                     googleProfileId: window.localStorage.googleProfileId,
                     googleProfileEmail: window.localStorage.username,
@@ -117,47 +108,52 @@ class JoinStep3 extends Component  {
                   actions.logGoogleUserIn(loginDataPayload);
                   browserHistory.push('/');
                 }
-              }
-              else {
+              } else {
                 /* process / display error to user */
               }
             }
           })
-          .catch(err => {
+          .catch((err) => {
             throw ('Error: ', err);
           });
-
       }
     }
   }
 
   /* Obtain access to the join api service response and update the  redirectInX Seconds state */
-  handleJoinPageServiceResponse(result) {
+  handleJoinPageServiceResponse = (result) => {
       /* update the account form details state so the correct hinText will show on each form field */
-      this.setState({'redirectInXSecondsOnExpiredSignupRequest': result.redirectInXSecondsOnExpiredSignupRequest});
+      this.setState(() => ({
+        redirectInXSecondsOnExpiredSignupRequest: result.redirectInXSecondsOnExpiredSignupRequest,
+      }));
   }
 
-  CountdownRenderer = ({ hours, minutes, seconds, completed }) => {
+  CountdownRenderer = ({
+    completed,
+    minutes,
+    seconds,
+  }) => {
     if (completed) {
       // Render a completed state
       //console.log('The countdown has completed.....');
       return <Countdown date={Date.now() + this.state.redirectInXSecondsOnExpiredSignupRequest} renderer={this.CountdownExpiredRenderer} onComplete={this.CountdownExpiredComplete}/>;
     }
-    else {
-      // Render a countdown
-      return <p style={{'fontSize': '1.3em', 'color': 'green'}}>This signup request will expire in {minutes}:{seconds}.</p>;
-    }
+    // Render a countdown
+    return <p style={{'fontSize': '1.3em', 'color': 'green'}}>This signup request will expire in {minutes}:{seconds}.</p>;
   };
 
-  CountdownExpiredRenderer = ({ hours, minutes, seconds, completed }) => {
+  CountdownExpiredRenderer = ({
+    seconds,
+    completed,
+  }) => {
     if (!completed) {
       // Render a countdown to redirect to the homepage
       return <p style={{'fontSize': '1.3em', 'fontWeight': 'bold', 'color': 'red'}}>Signup request expired...redirecting to the homepage in 00:{seconds}.</p>;
     }
   };
 
-  CountdownExpiredComplete() {
-    //console.log('Redirecting the user away from this page....');
+  CountdownExpiredComplete = () => {
+    // console.log('Redirecting the user away from this page....');
 
     /* reset all browser localstorage data points for the Join flow */
     window.localStorage.removeItem('selectedPlanId');
@@ -169,66 +165,54 @@ class JoinStep3 extends Component  {
   }
 
   render() {
-    const joinPageModel = {
-      name: 'JOIN_PAGE_MODEL',
-      model: resp => ({
-        pageHeading1: resp.pageHeading1,
-        pageHeading2: resp.pageHeading2,
-        sectionHeading: resp.sectionHeading,
-        selectedSubscriptionPlan: resp.selectedSubscriptionPlan,
-        hostedPaymentFormURL: resp.hostedPaymentFormURL,
-        customerHasXSecondsToCompleteSignup: resp.customerHasXSecondsToCompleteSignup,
-        redirectInXSecondsOnExpiredSignupRequest: resp.redirectInXSecondsOnExpiredSignupRequest,
-      }),
-    };
-
+    const { pathname } = this.props;
     const paymentTokenNonce = this.state.paymentToken;
 
     const selectedPlanId = window.localStorage.getItem('selectedPlanId');
 
     return (
-      <div style={{'paddingTop': '55px', 'marginLeft': 'auto', 'marginRight': 'auto', 'width': '600px'}}>
-      <Request
-        serviceURL={JOIN_PAGE_ENDPOINT_URL}
-        model={joinPageModel}
-        requestBody={{ 'callSource': 'providePaymentDetails', 'selectedPlanId': selectedPlanId }}
-        serviceResponseHandler={this.handleJoinPageServiceResponse}
-        render={({
-          fetchingContent,
-          modeledResponses: { JOIN_PAGE_MODEL },
-        }) => (
-          <Fragment>
-            {
-              !fetchingContent &&
-                <Fragment>
-                  <header className="header">
-                    <div className="icon"></div>
-                  </header>
-                  <h1>{JOIN_PAGE_MODEL.pageHeading1}</h1>
-                  <h2>{JOIN_PAGE_MODEL.pageHeading2}</h2>
-                  <h3>Step 3: {JOIN_PAGE_MODEL.sectionHeading}</h3>
-                  <br/>
-                  <br/>
-                  <Countdown date={Date.now() + JOIN_PAGE_MODEL.customerHasXSecondsToCompleteSignup} renderer={this.CountdownRenderer} onComplete={this.CountdownComplete}/>
-                  <br/>
-                  <br/>
-                  <p style={{'fontSize': '1.2em'}}>Selected Plan: {JOIN_PAGE_MODEL.selectedSubscriptionPlan.planName} (Plan ID: {selectedPlanId})</p>
-                  <p style={{'fontSize': '1.0em'}}>{JOIN_PAGE_MODEL.selectedSubscriptionPlan.startDateText}</p>
-                  <p style={{'fontSize': '1.0em'}}>{JOIN_PAGE_MODEL.selectedSubscriptionPlan.nextRenewalDate}</p>
-                  <p style={{'fontSize': '1.0em'}}>{JOIN_PAGE_MODEL.selectedSubscriptionPlan.planCostPrefix}{JOIN_PAGE_MODEL.selectedSubscriptionPlan.planCost}</p>
-                  <p style={{'fontSize': '1.0em'}}>{JOIN_PAGE_MODEL.selectedSubscriptionPlan.planCostPostfix}</p>
-                  <br/>
-                  <br/>
-                  <p style={{'fontWeight': 'bold', 'fontSize': '1.3em'}}>Payment Token nonce:</p>
-                  {paymentTokenNonce}<br/>
-                  <br/>
-                  <br/>
-                  <iframe frameBorder="0" style={{'width': '100%', 'minHeight': '600px'}} src={JOIN_PAGE_MODEL.hostedPaymentFormURL}></iframe>
+      <div>
+        <Request
+          serviceURL={JOIN_PAGE_ENDPOINT_URL}
+          requestBody={{ callSource: 'providePaymentDetails', selectedPlanId }}
+          serviceResponseHandler={this.handleJoinPageServiceResponse}
+          render={({
+            fetchingContent,
+            serviceResponse: joinPageResponse,
+          }) => (
+            <Fragment>
+              {
+                !fetchingContent &&
+                  <Fragment>
+                    <JoinHeader
+                      mainHeading={joinPageResponse.pageHeading1}
+                      subHeading={joinPageResponse.pageHeading2}
+                      activeTab={pathname}
+                    />
+                    <div className="step-root">
+                      <DisplayAtBreakpoint
+                        screenMedium
+                        screenLarge
+                        screenXLarge
+                      >
+                        <PlanDetailsCard {...joinPageResponse.selectedSubscriptionPlan} />
+                      </DisplayAtBreakpoint>
+                      <div className="section-heading">{joinPageResponse.sectionHeading}</div>
+                      <Countdown date={Date.now() + joinPageResponse.customerHasXSecondsToCompleteSignup} renderer={this.CountdownRenderer} onComplete={this.CountdownComplete}/>
+                      <div className="inner-container">
+
+                        <p style={{'fontWeight': 'bold', 'fontSize': '1.3em'}}>Payment Token nonce:</p>
+                        {paymentTokenNonce}<br/>
+
+                        <iframe frameBorder="0" style={{'width': '100%', 'minHeight': '600px'}} src={joinPageResponse.hostedPaymentFormURL}></iframe>
+                      </div>
+                    </div>
+                  </Fragment>
+                }
                 </Fragment>
-              }
-              </Fragment>
-            )}
-          />
+              )}
+            />
+        <style jsx>{styles}</style>
       </div>
     )
   }
