@@ -206,10 +206,11 @@ export default css`
     }
 
     .hidden {
-      display: block important!;
+      display: block !important;
     }
 
     .mvp {
+      display: block !important;
       width: 300px;
       box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.1);
       margin: 10px;

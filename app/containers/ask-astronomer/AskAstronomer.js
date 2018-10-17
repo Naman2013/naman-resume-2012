@@ -100,8 +100,7 @@ class AskAstronomer extends Component {
     this.state = {
       leftView: "show",
       rightView: "show",
-      tabQuestions: "show",
-      tabMvp: "hide",
+      tabMvp: "hidden",
       mobile: false,
     };  
   }
@@ -156,27 +155,27 @@ class AskAstronomer extends Component {
       leftView: lefty,
       rightView: righty,
       tabMvp: "show",
-      tabQuestions: "show",
-      "mobile": true,
+      mobile: true,
     });
   }
 
   handleTabletClick = () => {
     let mvp = (this.state.tabMvp === "hidden") ? "show" : "hidden";
-    let questions = (this.state.tabQuestions === "hidden") ? "show" : "hidden";
+    let questions = (this.state.leftView === "hidden") ? "show" : "hidden";
     
     this.setState ({
       tabMvp: mvp,
-      tabQuestions: questions,
+      leftView: questions,
+      view: "tablet"
     });
   }
+
   setMobileView = () => {
     this.setState ({
       leftView: "show",
       rightView: "hidden",
-      tabQuestions: "show",
       tabMvp: "hidden",
-      "mobile": true,
+      "mobile": true
     });
   }
 
@@ -184,9 +183,8 @@ class AskAstronomer extends Component {
     this.setState ({
       leftView: "show",
       rightView: "show",
-      tabQuestions: "show",
       tabMvp: "hidden",
-      "mobile": false,
+      "mobile": false
     });
   }
 
@@ -239,11 +237,11 @@ class AskAstronomer extends Component {
                 <AskQuestionTile></AskQuestionTile>
                 <div className="ask-tablet-subnav">         
                   <div className="center-line" />
-                  <span className={'btn-nav ' + this.state.tabQuestions} onClick={this.handleTabletClick}>Questions</span>
+                  <span className={'btn-nav ' + this.state.leftView} onClick={this.handleTabletClick}>Questions</span>
                   <span className={'btn-nav ' + this.state.tabMvp} onClick={this.handleTabletClick}>MVP ASTRONOMERS</span>      
                 </div>
                 
-                <div className="mvp">
+                <div className={'mvp ' + this.state.tabMvp}>
                   <div className="mvp-header">
                     <h1>THIS OBJECT’S</h1>
                     <h2>MVP ASTRONOMERS</h2>
