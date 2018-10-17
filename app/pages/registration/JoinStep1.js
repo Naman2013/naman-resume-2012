@@ -13,7 +13,16 @@ import Request from 'components/common/network/Request';
 import { JOIN_PAGE_ENDPOINT_URL, SUBSCRIPTION_PLANS_ENDPOINT_URL } from 'services/registration/registration.js';
 import styles from './JoinStep1.style';
 
+const {
+  string,
+} = PropTypes;
+
 class JoinStep1 extends Component {
+  static propTypes = {
+    pathname: string.isRequired,
+  };
+  static defaultProps = {};
+
   constructor(props) {
     super(props);
 
