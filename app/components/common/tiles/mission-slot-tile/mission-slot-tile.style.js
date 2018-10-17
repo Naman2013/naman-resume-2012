@@ -22,25 +22,36 @@ export default css`
 
   .time {
     display: flex;
-    align-items: baseline;
+    justify-content: space-between;
     border-bottom: 1px solid ${hawkesBlue};
     padding: 15px 0;
   }
 
-  .time p {
+  .utc-time {
+    display: flex;
+    align-items: baseline;
+  }
+
+  .utc-time p {
     font-family: ${primaryFont};
     margin: 0;
   }
 
-  .time p:first-child {
+  .utc-time p:first-child {
     margin: 0;
     font-size: 48px;
     font-weight: 300;
   }
 
-  .time p:last-child {
+  .utc-time p:last-child {
     font-size: 10px;
     transform: rotate(90deg) translateX(-5px);
+  }
+
+  .times {
+    list-style-type: none;
+    padding: 0;
+    font-family: ${primaryFont};
   }
 
   .attendee-info {

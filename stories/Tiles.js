@@ -163,5 +163,10 @@ storiesOf('Tiles', module)
     <AvailableSlotTile missionTitle="The moon" time="20:30" date="Mon. Jan. 06" telescopeName="Canary three" />
   ))
   .add('MissionSlotTile', () => (
-    <MissionSlotTile missionTitle="The moon" time="20:30" date="Mon. Jan. 06" attendeeCount="17" />
+    <MissionSlotTile
+      missionTitle="The moon"
+      time="20:30"
+      date="Mon. Jan. 06"
+      scheduledBy="Paul"
+    />
   ));
