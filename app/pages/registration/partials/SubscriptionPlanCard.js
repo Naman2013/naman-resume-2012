@@ -15,13 +15,14 @@ const {
 class SubscriptionPlanCard extends Component {
 
   static propTypes = {
+    aboutThisPlan: string.isRequired,
+    imageUrl: string.isRequired,
+    planCost: string.isRequired,
+    planCostPostfix: string.isRequired,
+    planCostPrefix: string.isRequired,
+    planDescription: string.isRequired,
     planID: oneOfType([number, string]).isRequired,
     planName: string.isRequired,
-    planDescription: string.isRequired,
-    planCostPrefix: string.isRequired,
-    planCostPostfix: string.isRequired,
-    planCost: string.isRequired,
-    aboutThisPlan: string.isRequired,
     selectButtonText: string.isRequired,
     setSelectedPlan: func.isRequired,
   };
@@ -42,6 +43,7 @@ class SubscriptionPlanCard extends Component {
   render() {
     const {
       aboutThisPlan,
+      imageUrl,
       planCost,
       planCostPrefix,
       planCostPostfix,
@@ -95,6 +97,7 @@ class SubscriptionPlanCard extends Component {
         <DisplayAtBreakpoint
           screenSmall
         >
+          <img src={imageUrl} className="plan-image" />
           <div className="inner-container">
             <div
               className="plan-name border-bottom"

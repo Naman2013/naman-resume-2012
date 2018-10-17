@@ -17,6 +17,10 @@ export default css`
     ${faintShadow}
   }
 
+  .plan-image {
+    width: 100%;
+  }
+
   .title {
     padding-bottom: 15px;
   }
