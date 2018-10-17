@@ -526,7 +526,7 @@ class JoinStep2 extends Component {
                             </Fragment>
                           )}
                         />
-                        <form className="form" onSubmit={this.handleSubmit}>
+                        <form onSubmit={this.handleSubmit}>
                           {isAstronomyClub ? (
                             <div className="form-section">
                               <div className="form-field-container">
