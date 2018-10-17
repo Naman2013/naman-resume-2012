@@ -200,6 +200,21 @@ class Login extends Component {
               />
             </Link>
           </div>
+          <div className="register-container">
+            <span className="title-link">{`Have an Invitation Code?`}</span>
+            <Link to="/join/byInviteCode">
+              <LargeButtonWithRightIcon
+                icon={horizontalArrowRightWhite}
+                theme={{
+                  backgroundColor: nightfall,
+                  color: romance,
+                  border: 0,
+                  width: '100%',
+                }}
+                text="Redeem Invitation Code"
+              />
+            </Link>
+          </div>
         </form>
         <style>{styles}</style>
       </div>

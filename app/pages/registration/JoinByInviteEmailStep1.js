@@ -7,7 +7,7 @@ import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-class JoinByInviteStep1 extends Component {
+class JoinByInviteEmailStep1 extends Component {
   constructor(props) {
     super(props);
   }
@@ -54,4 +54,4 @@ class JoinByInviteStep1 extends Component {
   }
 }
 
-export default JoinByInviteStep1;
+export default JoinByInviteEmailStep1;
