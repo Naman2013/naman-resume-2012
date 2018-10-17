@@ -204,7 +204,21 @@ class JoinStep3 extends Component  {
                         <p style={{'fontWeight': 'bold', 'fontSize': '1.3em'}}>Payment Token nonce:</p>
                         {paymentTokenNonce}<br/>
 
-                        <iframe frameBorder="0" style={{'width': '100%', 'minHeight': '600px'}} src={joinPageResponse.hostedPaymentFormURL}></iframe>
+                        <DisplayAtBreakpoint
+                          screenMedium
+                          screenLarge
+                          screenXLarge
+                        >
+                          <iframe frameBorder="0" style={{width: '100%', minHeight: '750px'}} src={joinPageResponse.hostedPaymentFormURL}></iframe>
+                        </DisplayAtBreakpoint>
+
+                        <DisplayAtBreakpoint
+                          screenSmall
+                        >
+                          <iframe frameBorder="0" style={{width: '100%', minHeight: '850px'}} src={joinPageResponse.hostedPaymentFormURL}></iframe>
+                        </DisplayAtBreakpoint>
+
+
                       </div>
                     </div>
                   </Fragment>
