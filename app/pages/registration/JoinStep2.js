@@ -5,6 +5,8 @@
 import React, { Component, cloneElement, Fragment } from 'react';
 import { Link } from 'react-router';
 import PropTypes from 'prop-types';
+import axios from 'axios';
+import { GoogleLogin } from 'react-google-login';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import cloneDeep from 'lodash/cloneDeep';
@@ -13,8 +15,10 @@ import { createValidator, required } from 'modules/utils/validation';
 import { browserHistory } from 'react-router';
 import Button from 'components/common/style/buttons/Button';
 import Request from 'components/common/network/Request';
-import axios from 'axios';
-import { GoogleLogin } from 'react-google-login';
+import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
+import JoinHeader from './partials/JoinHeader';
+import PlanDetailsCard from './partials/PlanDetailsCard';
+
 import {
   JOIN_PAGE_ENDPOINT_URL,
   SUBSCRIPTION_PLANS_ENDPOINT_URL,
@@ -23,6 +27,8 @@ import {
   JOIN_CREATE_PENDING_CUSTOMER_ENDPOINT_URL,
   VERIFY_PASSWORD_MEETS_REQUIREMENTS_ENDPOINT_URL
 } from 'services/registration/registration.js';
+
+import styles from './JoinStep2.style';
 
 class JoinStep2 extends Component {
   constructor(props) {
@@ -172,9 +178,8 @@ class JoinStep2 extends Component {
     //console.log(this.state.accountFormDetails);
 
     //assume the form is ready to submit unless validation issues occur.
-    var formIsComplete = true;
-
-    var accountFormDetailsData = this.state.accountFormDetails;
+    let formIsComplete = true;
+    const accountFormDetailsData = cloneDeep(this.state.accountFormDetails);
 
     /* reset the error conditions */
     accountFormDetailsData.givenName.errorText = '';
@@ -263,7 +268,6 @@ class JoinStep2 extends Component {
         /* Last Validation....password validation, not required for Google Accounts as their is no password */
         if (this.state.accountCreationType == 'userpass') {
             /* reach out to the Slooh API and verify the user's password */
-            var isValidPassword = true;
 
             const passwordMeetsRequirementsResult = axios.post(VERIFY_PASSWORD_MEETS_REQUIREMENTS_ENDPOINT_URL,
               {
@@ -277,7 +281,7 @@ class JoinStep2 extends Component {
                     passwordNotAcceptedMessage: res.passwordNotAcceptedMessage,
                   }
 
-                  if (passwordResult.passwordAcceptable === "true") {
+                  if (passwordResult.passwordAcceptable) {
                     formIsComplete = true;
 
                     /* create the pending customer result */
@@ -368,61 +372,64 @@ class JoinStep2 extends Component {
     //console.log("Processing Google Signin: " + googleTokenData);
 
     /* Process the Google SSO tokens and get back information about this user via the Slooh APIs/Google APIs, etc. */
-    const googleSSOResult = axios.post(GOOGLE_SSO_SIGNIN_ENDPOINT_URL,
+    axios.post(GOOGLE_SSO_SIGNIN_ENDPOINT_URL,
       {
         authenticationCode: googleTokenData.code
-      })
-      .then(response => {
-        const { actions } = this.props;
+      }
+    )
+    .then((response) => {
+      const { actions } = this.props;
 
-        const res = response.data;
-        if (res.apiError == false) {
-          const googleProfileResult = {
-            googleProfileId: res.googleProfileId,
-            googleProfileEmail: res.googleProfileInfo.email,
-            googleProfileGivenName: res.googleProfileInfo.givenName,
-            googleProfileFamilyName: res.googleProfileInfo.familyName,
-            googleProfilePictureURL: res.googleProfileInfo.profilePictureURL,
-          }
-
-          /* Capture the Google Profile Data and store it in state */
-          this.setState({googleProfileData: googleProfileResult});
-
-          /* Update the Account Form parameters to show/hide fields as a result of Google Login */
-          var accountFormDetailsData = this.state.accountFormDetails;
-
-          /* Google Authentication does not require the customer to create a password/hide the form field */
-          accountFormDetailsData.password.visible = false;
-          accountFormDetailsData.passwordVerification.visible = false;
-
-          /* Set the customer's information that we got from google as a starting place for the user */
-          accountFormDetailsData.givenName.value = googleProfileResult.googleProfileGivenName;
-          this.props.change('givenName', googleProfileResult.googleProfileGivenName);
-
-          accountFormDetailsData.familyName.value = googleProfileResult.googleProfileFamilyName;
-          this.props.change('familyName', googleProfileResult.googleProfileFamilyName);
-
-          /* The primary key for Google Single Sign-in is the user's email address which can't be changed if using Google, update the form on screen accordingly so certain fields are hidden and not editable */
-          accountFormDetailsData.loginEmailAddress.editable = false;
-          accountFormDetailsData.loginEmailAddress.value = googleProfileResult.googleProfileEmail;
-          this.props.change('loginEmailAddress', googleProfileResult.googleProfileEmail);
-
-          /* No need to verify the email address as its Google and it was already provided */
-          accountFormDetailsData.loginEmailAddressVerification.visible = false;
-          this.setState({accountFormDetails: accountFormDetailsData});
-
-          /* Set the account creation type as Google */
-          this.setState({accountCreationType: 'googleaccount'});
-
-          /* Set the account creation type as Google and the Google Profile Id in browser storage */
-          window.localStorage.setItem('accountCreationType', 'googleaccount');
-          window.localStorage.setItem('googleProfileId', googleProfileResult.googleProfileId);
-          window.localStorage.setItem('googleProfileEmail', googleProfileResult.googleProfileEmail);
+      const res = response.data;
+      if (res.apiError == false) {
+        const googleProfileResult = {
+          googleProfileId: res.googleProfileId,
+          googleProfileEmail: res.googleProfileInfo.email,
+          googleProfileGivenName: res.googleProfileInfo.givenName,
+          googleProfileFamilyName: res.googleProfileInfo.familyName,
+          googleProfilePictureURL: res.googleProfileInfo.profilePictureURL,
         }
-      })
-      .catch(err => {
-        throw ('Error: ', err);
-      });
+
+        /* Capture the Google Profile Data and store it in state */
+        this.setState(() => ({ googleProfileData: googleProfileResult }));
+
+        /* Update the Account Form parameters to show/hide fields as a result of Google Login */
+        const accountFormDetailsData = cloneDeep(this.state.accountFormDetails);
+        /* Google Authentication does not require the customer to create a password/hide the form field */
+        accountFormDetailsData.password.visible = false;
+        accountFormDetailsData.passwordVerification.visible = false;
+
+        /* Set the customer's information that we got from google as a starting place for the user */
+        accountFormDetailsData.givenName.value = googleProfileResult.googleProfileGivenName;
+        this.props.change('givenName', googleProfileResult.googleProfileGivenName);
+
+        accountFormDetailsData.familyName.value = googleProfileResult.googleProfileFamilyName;
+        this.props.change('familyName', googleProfileResult.googleProfileFamilyName);
+
+        /* The primary key for Google Single Sign-in is the user's email address which can't be changed if using Google, update the form on screen accordingly so certain fields are hidden and not editable */
+        accountFormDetailsData.loginEmailAddress.editable = false;
+        accountFormDetailsData.loginEmailAddress.value = googleProfileResult.googleProfileEmail;
+        this.props.change('loginEmailAddress', googleProfileResult.googleProfileEmail);
+
+        /* No need to verify the email address as its Google and it was already provided */
+        accountFormDetailsData.loginEmailAddressVerification.visible = false;
+
+        this.setState(() => ({
+          accountFormDetails: accountFormDetailsData,
+          /* Set the account creation type as Google */
+          accountCreationType: 'googleaccount',
+        }));
+
+
+        /* Set the account creation type as Google and the Google Profile Id in browser storage */
+        window.localStorage.setItem('accountCreationType', 'googleaccount');
+        window.localStorage.setItem('googleProfileId', googleProfileResult.googleProfileId);
+        window.localStorage.setItem('googleProfileEmail', googleProfileResult.googleProfileEmail);
+      }
+    })
+    .catch(err => {
+      throw ('Error: ', err);
+    });
   }
 
   processGoogleFailureResponse = (googleMessageData) => {
@@ -430,6 +437,7 @@ class JoinStep2 extends Component {
   }
 
   render() {
+    const { pathname } = this.props;
     const {
       googleProfileData,
       accountFormDetails,
@@ -442,195 +450,195 @@ class JoinStep2 extends Component {
     const selectedSchoolId = window.localStorage.getItem('selectedSchoolId');
 
     return (
-      <div style={{'paddingTop': '55px', 'marginLeft': 'auto', 'marginRight': 'auto', 'width': '600px'}}>
-      <Request
-        serviceURL={JOIN_PAGE_ENDPOINT_URL}
-        requestBody={{ 'callSource': 'setupCredentials', 'selectedPlanId': selectedPlanId, 'selectedSchoolId': selectedSchoolId }}
-        serviceResponseHandler={this.handleJoinPageServiceResponse}
-        render={({
-          fetchingContent,
-          serviceResponse: joinPageRes,
-        }) => (
-          <Fragment>
-            {
-              !fetchingContent && selectedPlanId &&
-                <Fragment>
-                    <header className="header">
-                      <div className="icon"></div>
-                    </header>
-                    <h1>{joinPageRes.pageHeading1}</h1>
-                    <h2>{joinPageRes.pageHeading2}</h2>
-                    <br/>
-                    <h3>Step 2: {joinPageRes.sectionHeading}</h3>
-                    <br/>
-                    <br/>
-                    <p>Selected Plan: {joinPageRes.selectedSubscriptionPlan.planName} (Plan ID: {selectedPlanId})</p>
-                    <p style={{'fontSize': '1.0em'}}>{joinPageRes.selectedSubscriptionPlan.startDateText}</p>
-                    <p style={{'fontSize': '1.0em'}}>{joinPageRes.selectedSubscriptionPlan.nextRenewalDate}</p>
-                    <p style={{'fontSize': '1.0em'}}>{joinPageRes.selectedSubscriptionPlan.planCostPrefix}{joinPageRes.selectedSubscriptionPlan.planCost}</p>
-                    <p style={{'fontSize': '1.0em'}}>{joinPageRes.selectedSubscriptionPlan.planCostPostfix}</p>
-                    {/*
-                      <p>Account Creation Type: {accountCreationType}</p>
-                      <br/>
-                      <br/>
-                      <div>
-                        <p>Flow State for Google: {googleProfileData.googleAPIFlowState}</p>
-                        <p>Google Profile ID: {googleProfileData.googleProfileId}</p>
-                        <p>Google Profile Name: {googleProfileData.googleProfileGivenName} {googleProfileData.googleProfileFamilyName}</p>
-                        <p>Google Profile Email: {googleProfileData.googleProfileEmail}</p>
-                      </div>
-                    */}
-                    <br/>
-                    <br/>
-                    {JOIN_PAGE_MODEL.hasSelectedSchool === "yes" && <div>
-                      <p>Your School: {JOIN_PAGE_MODEL.selectedSchool.schoolName}</p>
-                      <p style={{'fontSize': '1.0em'}}>Your School District: {JOIN_PAGE_MODEL.selectedSchool.districtName}</p>
-                      <br/>
-                      <br/>
-                    </div>
-                    }
-                    <Request
-                      serviceURL={GOOGLE_CLIENT_ID_ENDPOINT_URL}
-                      requestBody={{ 'callSource': 'join' }}
-                      render={({
-                        fetchingContent,
-                        serviceResponse: googleClientResponse,
-                      }) => (
-                        <Fragment>
-                          {
-                            !fetchingContent &&
-                              <Fragment>
-                                <div style={{'paddingTop': '15px', 'marginLeft': 'auto', 'marginRight': 'auto', 'textAlign': 'center'}}>
-                                  <GoogleLogin
-                                      prompt="select_account"
-                                      responseType={googleClientResponse.googleClientResponseType}
-                                      fetchBasicProfile={googleClientResponse.googleClientFetchBasicProfile}
-                                      accessType={googleClientResponse.googleClientAccessType}
-                                      scope={googleClientResponse.googleClientScope}
-                                      clientId={googleClientResponse.googleClientID}
-                                      buttonText={googleClientResponse.loginButtonText}
-                                      onSuccess={this.processGoogleSuccessResponse}
-                                      onFailure={this.processGoogleFailureResponse}
-                                    />
-                                </div>
-                              </Fragment>
-                            }
-                        </Fragment>
-                      )}
+      <div className="step-root">
+        <Request
+          serviceURL={JOIN_PAGE_ENDPOINT_URL}
+          requestBody={{ 'callSource': 'setupCredentials', 'selectedPlanId': selectedPlanId, 'selectedSchoolId': selectedSchoolId }}
+          serviceResponseHandler={this.handleJoinPageServiceResponse}
+          render={({
+            fetchingContent,
+            serviceResponse: joinPageRes,
+          }) => (
+            <Fragment>
+              {
+                !fetchingContent && selectedPlanId &&
+                  <Fragment>
+                    <JoinHeader
+                      mainHeading={joinPageRes.pageHeading1}
+                      subHeading={joinPageRes.pageHeading2}
+                      activeTab={pathname}
                     />
-                    <br/>
-                    <form className="form" onSubmit={this.handleSubmit}>
-                      {this.state.isAstronomyClub === true && <div><br/>{this.state.accountFormDetails.astronomyClubName.label}: <span style={{'color': 'red', 'fontStyle': 'italic'}}>{this.state.accountFormDetails.astronomyClubName.errorText}</span>
-                            <Field
-                              name="astronomyClubName"
-                              type="name"
-                              label={this.state.accountFormDetails.astronomyClubName.hintText}
-                              component={InputField}
-                              onChange={(event) => { this.handleFieldChange({ field: 'astronomyClubName', value: event.target.value }); }}
-                            />
-                          <br/>
-                          <br/>
-                          <div style={{'display': 'block-inline'}}>{this.state.accountFormDetails.astronomyClub18AndOver.label}:
-                            <Field style={{'display': 'inline'}}
-                              name="astronomyClub18AndOver"
-                              component={InputField}
-                              type="checkbox"
-                              onChange={(event) => { this.handleFieldChange({ field: 'astronomyClub18AndOver', value: event.target.value }); }}
-                            />
-                          </div>
-                          <br/>
+                    <DisplayAtBreakpoint
+                      screenMedium
+                      screenLarge
+                      screenXLarge
+                    >
+                      <PlanDetailsCard {...joinPageRes.selectedSubscriptionPlan} />
+                    </DisplayAtBreakpoint>
+                    <div className="section-heading">{joinPageRes.sectionHeading}</div>
+                      {/*
+                        <p>Account Creation Type: {accountCreationType}</p>
+                        <br/>
+                        <br/>
+                        <div>
+                          <p>Flow State for Google: {googleProfileData.googleAPIFlowState}</p>
+                          <p>Google Profile ID: {googleProfileData.googleProfileId}</p>
+                          <p>Google Profile Name: {googleProfileData.googleProfileGivenName} {googleProfileData.googleProfileFamilyName}</p>
+                          <p>Google Profile Email: {googleProfileData.googleProfileEmail}</p>
                         </div>
-                      }
-                      <p>{this.state.accountFormDetails.givenName.label}: <span style={{'color': 'red', 'fontStyle': 'italic'}}>{this.state.accountFormDetails.givenName.errorText}</span>
-                        <Field
-                          name="givenName"
-                          type="name"
-                          label={this.state.accountFormDetails.givenName.hintText}
-                          component={InputField}
-                          onChange={(event) => { this.handleFieldChange({ field: 'givenName', value: event.target.value }); }}
-                          value={this.state.accountFormDetails.givenName.value}
-                          />
-                      </p>
-                      <br/>
-                      <p>{this.state.accountFormDetails.familyName.label}: <span style={{'color': 'red', 'fontStyle': 'italic'}}>{this.state.accountFormDetails.familyName.errorText}</span>
-                        <Field
-                          name="familyName"
-                          type="name"
-                          label={this.state.accountFormDetails.familyName.hintText}
-                          component={InputField}
-                          onChange={(event) => { this.handleFieldChange({ field: 'familyName', value: event.target.value }); }}
-                          value={this.state.accountFormDetails.familyName.value}
-                        />
-                      </p>
-                      <br/>
-                      <p>{this.state.accountFormDetails.displayName.label}:
-                        <Field
-                          name="displayName"
-                          type="name"
-                          label={this.state.accountFormDetails.displayName.hintText}
-                          component={InputField}
-                          onChange={(event) => { this.handleFieldChange({ field: 'displayName', value: event.target.value }); }}
-                        />
-                      </p>
-                      <br/>
-                      {this.state.accountCreationType === 'userpass' && <p>{this.state.accountFormDetails.loginEmailAddress.label}: <span style={{'color': 'red', 'fontStyle': 'italic'}}>{this.state.accountFormDetails.loginEmailAddress.errorText}</span>
-                        <Field
-                          name="loginEmailAddress"
-                          type="email"
-                          label={this.state.accountFormDetails.loginEmailAddress.hintText}
-                          component={InputField}
-                          onChange={(event) => { this.handleFieldChange({ field: 'loginEmailAddress', value: event.target.value }); }}
-                          value={this.state.accountFormDetails.loginEmailAddress.value}
-                        />
-                      </p>
-                      }
-                      {this.state.accountCreationType === 'googleaccount' && <p>{this.state.accountFormDetails.loginEmailAddress.label}: <span style={{'fontWeight': 'bold'}}>{this.state.accountFormDetails.loginEmailAddress.value}</span></p>}
-                      <br/>
-                      {this.state.accountFormDetails.loginEmailAddressVerification.visible == true && <p>{this.state.accountFormDetails.loginEmailAddressVerification.label}: <span style={{'color': 'red', 'fontStyle': 'italic'}}>{this.state.accountFormDetails.loginEmailAddressVerification.errorText}</span>
-                        <Field
-                            name="loginEmailAddressVerification"
-                            type="email"
-                            label={joinPageRes.formFieldLabels.loginemailaddressverification.hintText}
-                            component={InputField}
-                            onChange={(event) => { this.handleFieldChange({ field: 'loginEmailAddressVerification', value: event.target.value }); }}
-                            value={this.state.accountFormDetails.loginEmailAddressVerification.value}
-                          />
-                      </p>
-                      }
-                      <br/>
-                      {this.state.accountFormDetails.password.visible == true && <p>{this.state.accountFormDetails.password.label}: <span style={{'color': 'red', 'fontStyle': 'italic'}}>{this.state.accountFormDetails.password.errorText}</span>
-                        <Field
-                          name="password"
-                          type="password"
-                          label={this.state.accountFormDetails.password.hintText}
-                          component={InputField}
-                          onChange={(event) => { this.handleFieldChange({ field: 'password', value: event.target.value }); }}
-                        />
-                      </p>
-                      }
-                      <br/>
-                      {this.state.accountFormDetails.passwordVerification.visible == true && <p>{joinPageRes.formFieldLabels.passwordverification.label}: <span style={{'color': 'red', 'fontStyle': 'italic'}}>{this.state.accountFormDetails.passwordVerification.errorText}</span>
-                        <Field name="passwordVerification"
-                          type="password"
-                          label={this.state.accountFormDetails.passwordVerification.hintText}
-                          component={InputField}
-                          onChange={(event) => { this.handleFieldChange({ field: 'passwordVerification', value: event.target.value }); }}
-                        />
-                      </p>
-                      }
-                      <Button theme={{ margin: '0 auto'}} type="submit" text="Goto Payment" onClickEvent={null} />
-                      <br/>
-                      <br/>
-                      <Link to="/join/step1"><Button theme={{ margin: '0 auto'}} type="button" text="Go Back"/></Link><br/>
+                      */}
 
-                    </form>
-                    <br/>
-                    <br/>
+                      {joinPageRes.hasSelectedSchool === "yes" && <div>
+                        <p>Your School: {joinPageRes.selectedSchool.schoolName}</p>
+                        <p style={{'fontSize': '1.0em'}}>Your School District: {joinPageRes.selectedSchool.districtName}</p>
+                        <br/>
+                        <br/>
+                      </div>
+                      }
+
+                      <Request
+                        serviceURL={GOOGLE_CLIENT_ID_ENDPOINT_URL}
+                        requestBody={{ 'callSource': 'join' }}
+                        render={({
+                          fetchingContent,
+                          serviceResponse: googleClientResponse,
+                        }) => (
+                          <Fragment>
+                            {
+                              !fetchingContent &&
+                                <Fragment>
+                                  <div style={{'paddingTop': '15px', 'marginLeft': 'auto', 'marginRight': 'auto', 'textAlign': 'center'}}>
+                                    <GoogleLogin
+                                        prompt="select_account"
+                                        responseType={googleClientResponse.googleClientResponseType}
+                                        fetchBasicProfile={googleClientResponse.googleClientFetchBasicProfile}
+                                        accessType={googleClientResponse.googleClientAccessType}
+                                        scope={googleClientResponse.googleClientScope}
+                                        clientId={googleClientResponse.googleClientID}
+                                        buttonText={googleClientResponse.loginButtonText}
+                                        onSuccess={this.processGoogleSuccessResponse}
+                                        onFailure={this.processGoogleFailureResponse}
+                                      />
+                                  </div>
+                                </Fragment>
+                              }
+                          </Fragment>
+                        )}
+                      />
+                      <br/>
+                      <form className="form" onSubmit={this.handleSubmit}>
+                        {this.state.isAstronomyClub === true && <div><br/>{this.state.accountFormDetails.astronomyClubName.label}: <span style={{'color': 'red', 'fontStyle': 'italic'}}>{this.state.accountFormDetails.astronomyClubName.errorText}</span>
+                              <Field
+                                name="astronomyClubName"
+                                type="name"
+                                label={this.state.accountFormDetails.astronomyClubName.hintText}
+                                component={InputField}
+                                onChange={(event) => { this.handleFieldChange({ field: 'astronomyClubName', value: event.target.value }); }}
+                              />
+                            <br/>
+                            <br/>
+                            <div style={{'display': 'block-inline'}}>{this.state.accountFormDetails.astronomyClub18AndOver.label}:
+                              <Field style={{'display': 'inline'}}
+                                name="astronomyClub18AndOver"
+                                component={InputField}
+                                type="checkbox"
+                                onChange={(event) => { this.handleFieldChange({ field: 'astronomyClub18AndOver', value: event.target.value }); }}
+                              />
+                            </div>
+                            <br/>
+                          </div>
+                        }
+                        <p>{this.state.accountFormDetails.givenName.label}: <span style={{'color': 'red', 'fontStyle': 'italic'}}>{this.state.accountFormDetails.givenName.errorText}</span>
+                          <Field
+                            name="givenName"
+                            type="name"
+                            label={this.state.accountFormDetails.givenName.hintText}
+                            component={InputField}
+                            onChange={(event) => { this.handleFieldChange({ field: 'givenName', value: event.target.value }); }}
+                            value={this.state.accountFormDetails.givenName.value}
+                            />
+                        </p>
+                        <br/>
+                        <p>{this.state.accountFormDetails.familyName.label}: <span style={{'color': 'red', 'fontStyle': 'italic'}}>{this.state.accountFormDetails.familyName.errorText}</span>
+                          <Field
+                            name="familyName"
+                            type="name"
+                            label={this.state.accountFormDetails.familyName.hintText}
+                            component={InputField}
+                            onChange={(event) => { this.handleFieldChange({ field: 'familyName', value: event.target.value }); }}
+                            value={this.state.accountFormDetails.familyName.value}
+                          />
+                        </p>
+                        <br/>
+                        <p>{this.state.accountFormDetails.displayName.label}:
+                          <Field
+                            name="displayName"
+                            type="name"
+                            label={this.state.accountFormDetails.displayName.hintText}
+                            component={InputField}
+                            onChange={(event) => { this.handleFieldChange({ field: 'displayName', value: event.target.value }); }}
+                          />
+                        </p>
+                        <br/>
+                        {this.state.accountCreationType === 'userpass' && <p>{this.state.accountFormDetails.loginEmailAddress.label}: <span style={{'color': 'red', 'fontStyle': 'italic'}}>{this.state.accountFormDetails.loginEmailAddress.errorText}</span>
+                          <Field
+                            name="loginEmailAddress"
+                            type="email"
+                            label={this.state.accountFormDetails.loginEmailAddress.hintText}
+                            component={InputField}
+                            onChange={(event) => { this.handleFieldChange({ field: 'loginEmailAddress', value: event.target.value }); }}
+                            value={this.state.accountFormDetails.loginEmailAddress.value}
+                          />
+                        </p>
+                        }
+                        {this.state.accountCreationType === 'googleaccount' && <p>{this.state.accountFormDetails.loginEmailAddress.label}: <span style={{'fontWeight': 'bold'}}>{this.state.accountFormDetails.loginEmailAddress.value}</span></p>}
+                        <br/>
+                        {this.state.accountFormDetails.loginEmailAddressVerification.visible == true && <p>{this.state.accountFormDetails.loginEmailAddressVerification.label}: <span style={{'color': 'red', 'fontStyle': 'italic'}}>{this.state.accountFormDetails.loginEmailAddressVerification.errorText}</span>
+                          <Field
+                              name="loginEmailAddressVerification"
+                              type="email"
+                              label={joinPageRes.formFieldLabels.loginemailaddressverification.hintText}
+                              component={InputField}
+                              onChange={(event) => { this.handleFieldChange({ field: 'loginEmailAddressVerification', value: event.target.value }); }}
+                              value={this.state.accountFormDetails.loginEmailAddressVerification.value}
+                            />
+                        </p>
+                        }
+                        <br/>
+                        {this.state.accountFormDetails.password.visible == true && <p>{this.state.accountFormDetails.password.label}: <span style={{'color': 'red', 'fontStyle': 'italic'}}>{this.state.accountFormDetails.password.errorText}</span>
+                          <Field
+                            name="password"
+                            type="password"
+                            label={this.state.accountFormDetails.password.hintText}
+                            component={InputField}
+                            onChange={(event) => { this.handleFieldChange({ field: 'password', value: event.target.value }); }}
+                          />
+                        </p>
+                        }
+                        <br/>
+                        {this.state.accountFormDetails.passwordVerification.visible == true && <p>{joinPageRes.formFieldLabels.passwordverification.label}: <span style={{'color': 'red', 'fontStyle': 'italic'}}>{this.state.accountFormDetails.passwordVerification.errorText}</span>
+                          <Field name="passwordVerification"
+                            type="password"
+                            label={this.state.accountFormDetails.passwordVerification.hintText}
+                            component={InputField}
+                            onChange={(event) => { this.handleFieldChange({ field: 'passwordVerification', value: event.target.value }); }}
+                          />
+                        </p>
+                        }
+                        <Button theme={{ margin: '0 auto'}} type="submit" text="Goto Payment" onClickEvent={null} />
+                        <br/>
+                        <br/>
+                        <Link to="/join/step1"><Button theme={{ margin: '0 auto'}} type="button" text="Go Back"/></Link><br/>
+
+                      </form>
+                      <br/>
+                      <br/>
+                  </Fragment>
+                }
                 </Fragment>
-              }
-              </Fragment>
-            )}
-          />
+              )}
+            />
+          <style jsx>{styles}</style>
       </div>
     )
   }
@@ -638,7 +646,7 @@ class JoinStep2 extends Component {
 
 
 const mapStateToProps = ({ joinAccountForm }) => ({
-  joinAccountForm: joinAccountForm,
+  joinAccountForm,
 });
 
 const joinStep2Validation = createValidator({
