@@ -2,53 +2,105 @@
 * V4 Join
 ********************************** */
 
-import React, { Component, cloneElement } from 'react';
+import React, { Component, cloneElement, Fragment } from 'react';
 import { Link } from 'react-router';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import Button from 'components/common/style/buttons/Button';
+import { browserHistory } from 'react-router';
+import JoinHeader from './partials/JoinHeader';
+import SubscriptionPlanCard from './partials/SubscriptionPlanCard';
+import Request from 'components/common/network/Request';
+import { JOIN_PAGE_ENDPOINT_URL } from 'services/registration/registration.js';
+import styles from './JoinStep1.style';
+
+const {
+  string,
+} = PropTypes;
 
 class JoinByInviteEmailStep1 extends Component {
+  static propTypes = {
+    pathname: string,
+  };
+
+  static defaultProps = {
+    pathname: '/join/step1',
+  };
+
   constructor(props) {
     super(props);
+
+    /* reset all browser localstorage data points for the Join flow */
+    window.localStorage.removeItem('pending_cid');
+    window.localStorage.removeItem('selectedPlanId');
+    window.localStorage.removeItem('selectedSchoolId');
+    window.localStorage.removeItem('accountCreationType');
+    window.localStorage.removeItem('googleProfileId');
+    window.localStorage.removeItem('googleProfileEmail');
+    window.localStorage.removeItem('username');
+    window.localStorage.removeItem('password');
   }
 
   render() {
-    const myData = this.props.params;
+    const {
+      pathname,
+    } = this.props;
 
+    const {
+      invitationCode, invitationCreationEpoch
+    } = this.props.params;
+
+    console.log(this.props.params);
+    
     return (
-      <div style={{'paddingTop': '55px', 'marginLeft': 'auto', 'marginRight': 'auto', 'width': '600px'}}>
-        <table style={{'marginLeft': 'auto', 'marginRight': 'auto'}} width="300px">
-        {Object.keys(myData).map(function (key) {
-            if ( typeof myData[key] != 'object') {
-              var val = new String(myData[key]);
-
-              return( <tr key={'row_' + key}>
-                  <td style={{'width': '30%'}} key={'k_' + key}style={{'paddingTop': '5px', 'paddingBottom': '5px'}}>{key}</td>
-                  <td key={'v_' + key}style={{'paddingTop': '5px', 'paddingBottom': '5px'}}>
-                    {myData[key]}
-                  </td>
-                </tr>
-              );
-            }
-          })
-        }
-        </table>
-        <h1>Welcome: treisel@gmail.com</h1>
-        <br/>
-        <br/>
-        <p>You have been invited by your Teacher: todd@slooh.com</p>
-        <br/>
-        <br/>
-        <p>First Name:</p>
-        <p>Last Name:</p>
-        <p>Display Name:</p>
-        <p>Login Email Address:</p>
-        <p>Confirm Email Address:</p>
-        <p>Password:</p>
-        <p>Confirm Password:</p>
-        <p>Are you under the Age of 13?</p>
-
-        <Link to="/join/step2">Submit to Join!</Link>
+      <div>
+        <Request
+          serviceURL={JOIN_PAGE_ENDPOINT_URL}
+          requestBody={{ 'callSource': 'joinByInvitationEmail', 'invitationCode': invitationCode, 'invitationCreationEpoch': invitationCreationEpoch }}
+          render={({
+            fetchingContent,
+            serviceResponse,
+          }) => (
+            <Fragment>
+              {
+                !fetchingContent &&
+                  <Fragment>
+                      <JoinHeader
+                        mainHeading={serviceResponse.pageHeading1}
+                        subHeading={serviceResponse.pageHeading2}
+                        activeTab={pathname}
+                      />
+                      <div className="step-root">
+                        <div className="section-heading">{serviceResponse.sectionHeading}</div>
+                        <Request
+                          serviceURL={SUBSCRIPTION_PLANS_ENDPOINT_URL}
+                          requestBody={{ 'callSource': 'join' }}
+                          render={({
+                            fetchingContent,
+                            serviceResponse: serviceRes,
+                          }) => (
+                            <Fragment>
+                              {
+                                !fetchingContent &&
+                                  <ul className="subscription-plans-list">
+                                    {serviceRes.subscriptionPlans.map(subscriptionPlan => (
+                                      <li
+                                        key={`subscriptionplan-tile-${subscriptionPlan.planID}`}
+                                        className="subscription-plans-list-item"
+                                      >
+                                        <SubscriptionPlanCard {...subscriptionPlan} setSelectedPlan={() => this.setSelectedPlan(subscriptionPlan.planID)}/>
+                                      </li>))}
+                                    </ul>
+                                  }
+                                </Fragment>
+                              )}
+                            />
+                      </div>
+                      </Fragment>
+                    }
+                  </Fragment>
+                )}
+          />
+          <style jsx>{styles}</style>
       </div>
     )
   }

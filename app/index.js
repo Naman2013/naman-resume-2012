@@ -227,7 +227,7 @@ ReactDOM.render(
           <Route path="step1SchoolSelection" component={JoinStep1SchoolSelection} />
           <Route path="step2" component={JoinStep2} />
           <Route path="step3" component={JoinStep3} />
-          <Route path="byInviteEmail/:invitationId/:creationDateEpoch" component={JoinByInviteEmailStep1} />
+          <Route path="byInviteEmail/:invitationCode/:invitationCreationEpoch" component={JoinByInviteEmailStep1} />
           <Route path="byInviteCode" component={JoinByInviteCodeStep1} />
         </Route>
 

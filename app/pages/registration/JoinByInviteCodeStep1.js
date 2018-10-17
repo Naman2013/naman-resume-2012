@@ -10,6 +10,16 @@ import { connect } from 'react-redux';
 class JoinByInviteCodeStep1 extends Component {
   constructor(props) {
     super(props);
+
+    /* reset all browser localstorage data points for the Join flow */
+    window.localStorage.removeItem('pending_cid');
+    window.localStorage.removeItem('selectedPlanId');
+    window.localStorage.removeItem('selectedSchoolId');
+    window.localStorage.removeItem('accountCreationType');
+    window.localStorage.removeItem('googleProfileId');
+    window.localStorage.removeItem('googleProfileEmail');
+    window.localStorage.removeItem('username');
+    window.localStorage.removeItem('password');
   }
 
   render() {
