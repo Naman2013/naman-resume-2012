@@ -286,7 +286,8 @@ class JoinStep2 extends Component {
                 passwordNotAcceptedMessage: res.passwordNotAcceptedMessage,
               }
 
-              if (passwordResult.passwordAcceptable) {
+              /* need to force evaulation of "true"/"false" vs. true/false. */
+              if (passwordResult.passwordAcceptable === "true") {
                 formIsComplete = true;
 
                 /* create the pending customer result */

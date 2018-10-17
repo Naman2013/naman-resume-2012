@@ -31,6 +31,7 @@ class JoinStep1 extends Component {
     /* reset all browser localstorage data points for the Join flow */
     window.localStorage.removeItem('pending_cid');
     window.localStorage.removeItem('selectedPlanId');
+    window.localStorage.removeItem('selectedSchoolId');
     window.localStorage.removeItem('accountCreationType');
     window.localStorage.removeItem('googleProfileId');
     window.localStorage.removeItem('googleProfileEmail');
