@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
 import Button from 'components/common/style/buttons/Button';
 import { info } from 'styles/variables/iconURLs';
-import SubscriptionPlanCardSmall from './SubscriptionPlanCardSmall';
 import styles from './SubscriptionPlanCard.style';
 
 const {
@@ -13,7 +12,7 @@ const {
   string,
 } = PropTypes;
 
-class SubscriptionPlanCard extends Component {
+class SubscriptionPlanCardSmall extends Component {
 
   static propTypes = {
     aboutThisPlan: string.isRequired,
@@ -61,28 +60,21 @@ class SubscriptionPlanCard extends Component {
 
     return (
       <div className="root">
-        <DisplayAtBreakpoint
-          screenMedium
-          screenLarge
-          screenXLarge
-        >
+        <img src={imageUrl} className="plan-image" />
         <div className="inner-container">
-          <div className="emphasize border-bottom title">Slooh Membership</div>
-          <div className="flex border-bottom padded-top-bottom">
-            <div className="plan-name" dangerouslySetInnerHTML={{ __html: planName }} />
-            <div className="plan-cost">
-              <span dangerouslySetInnerHTML={{ __html: planCostPrefix}} />
-              <span dangerouslySetInnerHTML={{ __html: planCost}} />
-            </div>
-          </div>
-          <div className="flex border-bottom padded-top-bottom">
-            <div className="emphasize" dangerouslySetInnerHTML={{ __html: planDescription }} />
-            <span className="emphasize" dangerouslySetInnerHTML={{ __html: planCostPostfix}} />
+          <div
+            className="plan-name border-bottom"
+            dangerouslySetInnerHTML={{ __html: planName }}
+          />
+          <div
+            className="emphasize border-bottom padded-top-bottom"
+          >
+            {`${planCostPrefix}${planCost} ${planCostPostfix}`}
           </div>
           <div className="flex padded-top-bottom">
             <div>
               <Button
-                text="Details"
+                icon={info}
                 isActive={showDetails}
                 onClickEvent={this.toggleDetails}
               />
@@ -94,12 +86,6 @@ class SubscriptionPlanCard extends Component {
             />
           </div>
         </div>
-        </DisplayAtBreakpoint>
-        <DisplayAtBreakpoint
-          screenSmall
-        >
-          <SubscriptionPlanCardSmall {...this.props} />
-        </DisplayAtBreakpoint>
         {showDetails ? <div
           className="inner-container"
           id={'subscriptionPlanDetails_' + planID}
@@ -111,4 +97,4 @@ class SubscriptionPlanCard extends Component {
   }
 }
 
-export default SubscriptionPlanCard;
+export default SubscriptionPlanCardSmall;

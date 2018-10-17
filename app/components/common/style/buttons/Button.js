@@ -36,7 +36,7 @@ const Button = ({
         })} dangerouslySetInnerHTML={{ __html: text }} />
     }
 
-    {icon && <img alt="" className="icon" src={icon} />}
+    {icon && <img alt="" className="button-icon" src={icon} />}
 
     {renderIcon && renderIcon()}
 
