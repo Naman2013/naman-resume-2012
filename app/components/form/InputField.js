@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { lynch, seashell, shadows, gainsboro } from 'styles/variables/colors_tiles_v4';
+import { astronomer, lynch, seashell, shadows, gainsboro } from 'styles/variables/colors_tiles_v4';
 import { primaryFont } from 'styles/variables/fonts';
 const { shape, string } = PropTypes;
 
@@ -35,7 +35,7 @@ const renderField = ({
         font-family: Arial, sans-serif;
         font-weight: normal;
         line-height: 1.5;
-        color: ${gainsboro};
+        color: ${astronomer};
         background-color: ${seashell};
         background-clip: padding-box;
         border: 1px solid ${shadows};
