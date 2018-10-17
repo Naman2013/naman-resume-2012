@@ -148,6 +148,7 @@ import Show from './pages/show';
 import StoryDetails from './containers/story-details';
 import GuidesHub from './containers/guides-hub';
 import StoriesHub from './containers/stories-hub';
+import GroupsHub from './containers/groups-hub';
 import PlaceholderPage from './pages/Placeholder';
 
 import DashboardPage from 'components/Dashboard';
@@ -543,21 +544,7 @@ ReactDOM.render(
         <Route path="profile/private" component={UserPrivateProfile} onEnter={validateUser} />
         <Route path="profile/public/:cid" component={UserPublicProfile} onEnter={validateUser} />
 
-        <Route path="community-groups/private" component={CommunityGroups} onEnter={validateUser}>
-          <IndexRedirect to="alphabetic" />
-          <Route path="alphabetic" component={CommunityGroupsList} onEnter={validateUser} />
-          <Route path="popular" component={CommunityGroupsList} onEnter={validateUser} />
-        </Route>
-        <Route path="community-groups/public" component={CommunityGroups} onEnter={validateUser}>
-          <IndexRedirect to="alphabetic" />
-          <Route path="alphabetic" component={CommunityGroupsList} onEnter={validateUser} />
-          <Route path="popular" component={CommunityGroupsList} onEnter={validateUser} />
-        </Route>
-        <Route path="community-groups/my-groups" component={CommunityGroups}>
-          <IndexRedirect to="alphabetic" />
-          <Route path="alphabetic" component={CommunityGroupsList} />
-          <Route path="popular" component={CommunityGroupsList} />
-        </Route>
+        <Route path="groups(/:filterType)" component={GroupsHub} />
 
         <Route path="community-groups/:groupId" onEnter={validateUser} component={CommunityGroupOverview} />
         <Route path="community-groups/:groupId/info" onEnter={validateUser} component={GroupOverviewInfo} />
