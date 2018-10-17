@@ -88,7 +88,8 @@ import JoinStep1 from './pages/registration/JoinStep1';
 import JoinStep1SchoolSelection from './pages/registration/JoinStep1SchoolSelection';
 import JoinStep2 from './pages/registration/JoinStep2';
 import JoinStep3 from './pages/registration/JoinStep3';
-import JoinByInviteStep1 from './pages/registration/JoinByInviteStep1';
+import JoinInviteByEmailStep1 from './pages/registration/JoinInviteByEmailStep1';
+import JoinInviteByCodeStep1 from './pages/registration/JoinInviteByCodeStep1';
 import Memberships from './pages/registration/Memberships';
 
 import Notifications from './pages/settings/Notifications';
@@ -226,7 +227,8 @@ ReactDOM.render(
           <Route path="step1SchoolSelection" component={JoinStep1SchoolSelection} />
           <Route path="step2" component={JoinStep2} />
           <Route path="step3" component={JoinStep3} />
-          <Route path="acceptInvite/:invitationId/:creationDateEpoch" component={JoinByInviteStep1} />
+          <Route path="inviteByEmail/:invitationCodeHash/:invitationCreationEpoch" component={JoinInviteByEmailStep1} />
+          <Route path="inviteByCode" component={JoinInviteByCodeStep1} />
         </Route>
 
         <Route
