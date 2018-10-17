@@ -7,6 +7,7 @@ import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
+import cloneDeep from 'lodash/cloneDeep';
 import InputField from 'components/form/InputField';
 import { createValidator, required } from 'modules/utils/validation';
 import { browserHistory } from 'react-router';
@@ -55,61 +56,114 @@ class JoinStep2 extends Component {
       googleProfilePictureURL: '',
     },
     accountFormDetails: {
-      givenName: { label: '', value: '', hintText: '', errorText: ''},
-      familyName: { label: '', value: '', hintText: '', errorText: ''},
-      displayName: { label: '', value: '', hintText: '', errorText: ''},
-      loginEmailAddress: { label: '', editable: true, value: '', hintText: '', errorText: '' },
-      loginEmailAddressVerification: {label: '', visible: true, value: '', hintText: '', errorText: '' },
-      password: { label: '', visible: true, value: '', hintText: '', errorText: '' },
-      passwordVerification: { label: '', visible: true, value: '', hintText: '', errorText: '' },
-      astronomyClubName: { label: '', visible: true, value: '', hintText: '', errorText: '' },
-      astronomyClub18AndOver: { label: '', visible: true, value: false, hintText: '', errorText: '' },
+      givenName: {
+        label: '',
+        value: '',
+        hintText: '',
+        errorText: '',
+      },
+      familyName: {
+        label: '',
+        value: '',
+        hintText: '',
+        errorText: '',
+      },
+      displayName: {
+        label: '',
+        value: '',
+        hintText: '',
+        errorText: '',
+      },
+      loginEmailAddress: {
+        label: '',
+        editable: true,
+        value: '',
+        hintText: '',
+        errorText: '',
+      },
+      loginEmailAddressVerification: {
+        label: '',
+        visible: true,
+        value: '',
+        hintText: '',
+        errorText: '',
+      },
+      password: {
+        label: '',
+        visible: true,
+        value: '',
+        hintText: '',
+        errorText: '',
+      },
+      passwordVerification: {
+        label: '',
+        visible: true,
+        value: '',
+        hintText: '',
+        errorText: '',
+      },
+      astronomyClubName: {
+        label: '',
+        visible: true,
+        value: '',
+        hintText: '',
+        errorText: '',
+      },
+      astronomyClub18AndOver: {
+        label: '',
+        visible: true,
+        value: false,
+        hintText: '',
+        errorText: '',
+      },
     },
   };
 
   /* Obtain access to the join api service response and update the accountFormDetails state to reflect the Join Page response (set form labels)*/
   handleJoinPageServiceResponse(result) {
-      var accountFormDetailsData = this.state.accountFormDetails;
-      accountFormDetailsData.givenName.label = result.formFieldLabels.firstname.label;
-      accountFormDetailsData.familyName.label = result.formFieldLabels.lastname.label;
-      accountFormDetailsData.displayName.label = result.formFieldLabels.displayname.label;
-      accountFormDetailsData.loginEmailAddress.label = result.formFieldLabels.loginemailaddress.label;
-      accountFormDetailsData.loginEmailAddressVerification.label = result.formFieldLabels.loginemailaddressverification.label;
-      accountFormDetailsData.password.label = result.formFieldLabels.password.label;
-      accountFormDetailsData.passwordVerification.label = result.formFieldLabels.passwordverification.label;
-      accountFormDetailsData.astronomyClubName.label = result.formFieldLabels.astronomyClubName.label;
-      accountFormDetailsData.astronomyClub18AndOver.label = result.formFieldLabels.astronomyClub18AndOver.label;
+    const newAccountFormData = cloneDeep(this.state.accountFormDetails);
 
-      accountFormDetailsData.givenName.hintText = result.formFieldLabels.firstname.hintText;
-      accountFormDetailsData.familyName.hintText = result.formFieldLabels.lastname.hintText;
-      accountFormDetailsData.displayName.hintText = result.formFieldLabels.displayname.hintText;
-      accountFormDetailsData.loginEmailAddress.hintText = result.formFieldLabels.loginemailaddress.hintText;
-      accountFormDetailsData.loginEmailAddressVerification.hintText = result.formFieldLabels.loginemailaddressverification.hintText;
-      accountFormDetailsData.password.hintText = result.formFieldLabels.password.hintText;
-      accountFormDetailsData.passwordVerification.hintText = result.formFieldLabels.passwordverification.hintText;
-      accountFormDetailsData.astronomyClubName.hintText = result.formFieldLabels.astronomyClubName.hintText;
-      accountFormDetailsData.astronomyClub18AndOver.hintText = result.formFieldLabels.astronomyClub18AndOver.hintText;
+    newAccountFormData.givenName.label = result.formFieldLabels.firstname.label;
+    newAccountFormData.familyName.label = result.formFieldLabels.lastname.label;
+    newAccountFormData.displayName.label = result.formFieldLabels.displayname.label;
+    newAccountFormData.loginEmailAddress.label = result.formFieldLabels.loginemailaddress.label;
+    newAccountFormData.loginEmailAddressVerification.label = result.formFieldLabels.loginemailaddressverification.label;
+    newAccountFormData.password.label = result.formFieldLabels.password.label;
+    newAccountFormData.passwordVerification.label = result.formFieldLabels.passwordverification.label;
+    newAccountFormData.astronomyClubName.label = result.formFieldLabels.astronomyClubName.label;
+    newAccountFormData.astronomyClub18AndOver.label = result.formFieldLabels.astronomyClub18AndOver.label;
 
-      /* update the account form details state so the correct hinText will show on each form field */
-      this.setState({accountFormDetails: accountFormDetailsData});
+    newAccountFormData.givenName.hintText = result.formFieldLabels.firstname.hintText;
+    newAccountFormData.familyName.hintText = result.formFieldLabels.lastname.hintText;
+    newAccountFormData.displayName.hintText = result.formFieldLabels.displayname.hintText;
+    newAccountFormData.loginEmailAddress.hintText = result.formFieldLabels.loginemailaddress.hintText;
+    newAccountFormData.loginEmailAddressVerification.hintText = result.formFieldLabels.loginemailaddressverification.hintText;
+    newAccountFormData.password.hintText = result.formFieldLabels.password.hintText;
+    newAccountFormData.passwordVerification.hintText = result.formFieldLabels.passwordverification.hintText;
+    newAccountFormData.astronomyClubName.hintText = result.formFieldLabels.astronomyClubName.hintText;
+    newAccountFormData.astronomyClub18AndOver.hintText = result.formFieldLabels.astronomyClub18AndOver.hintText;
 
+    /* update the account form details state so the correct hinText will show on each form field */
+    this.setState(() => ({
+      accountFormDetails: newAccountFormData,
       /* was the selected plan an astronomy club? */
-      this.setState({isAstronomyClub: result.selectedSubscriptionPlan.isAstronomyClub});
+      isAstronomyClub: result.selectedSubscriptionPlan.isAstronomyClub
+    }));
   }
 
   /* This function handles a field change in the form and sets the state accordingly */
   handleFieldChange({ field, value }) {
     /* Get the existing state of the signup form, modify it and re-set the state */
-    var accountFormDetailsData = this.state.accountFormDetails;
-    accountFormDetailsData[field].value = value;
+    const newAccountFormData = cloneDeep(this.state.accountFormDetails);
+    newAccountFormData[field].value = value;
 
     //console.log(field);
     //console.log(value);
     //console.log(accountFormDetailsData);
 
-    this.setState({
-      accountFormDetails: accountFormDetailsData,
-    });
+    this.setState(() => ({
+      accountFormDetails: newAccountFormData,
+    }));
   }
 
   /* Submit the Join Form and perform any validations as needed */
@@ -376,35 +430,12 @@ class JoinStep2 extends Component {
   }
 
   render() {
+    const {
+      googleProfileData,
+      accountFormDetails,
+      accountCreationType,
+    } = this.state;
 
-    const joinPageModel = {
-      name: 'JOIN_PAGE_MODEL',
-      model: resp => ({
-        pageHeading1: resp.pageHeading1,
-        pageHeading2: resp.pageHeading2,
-        sectionHeading: resp.sectionHeading,
-        selectedSubscriptionPlan: resp.selectedSubscriptionPlan,
-        formFieldLabels: resp.formFieldLabels,
-        hasSelectedSchool: resp.hasSelectedSchool,
-        selectedSchool: resp.selectedSchool,
-      }),
-    };
-
-    const googleClientIDModel = {
-      name: 'GOOGLE_CLIENT_ID_MODEL',
-      model: resp => ({
-        googleAPIFlowState: resp.apiFlowState,
-        googleClientID: resp.googleClientID,
-        googleClientScope: resp.googleClientScope,
-        googleClientAccessType: resp.googleClientAccessType,
-        googleClientResponseType: resp.googleClientResponseType,
-        loginButtonText: resp.loginButtonText,
-      }),
-    };
-
-    const googleProfileData = this.state.googleProfileData;
-    const accountFormDetails = this.state.accountFormDetails;
-    const accountCreationType = this.state.accountCreationType;
     const selectedPlanId = window.localStorage.getItem('selectedPlanId');
 
     //for classroom accounts
@@ -414,12 +445,11 @@ class JoinStep2 extends Component {
       <div style={{'paddingTop': '55px', 'marginLeft': 'auto', 'marginRight': 'auto', 'width': '600px'}}>
       <Request
         serviceURL={JOIN_PAGE_ENDPOINT_URL}
-        model={joinPageModel}
         requestBody={{ 'callSource': 'setupCredentials', 'selectedPlanId': selectedPlanId, 'selectedSchoolId': selectedSchoolId }}
         serviceResponseHandler={this.handleJoinPageServiceResponse}
         render={({
           fetchingContent,
-          modeledResponses: { JOIN_PAGE_MODEL },
+          serviceResponse: joinPageRes,
         }) => (
           <Fragment>
             {
@@ -428,17 +458,17 @@ class JoinStep2 extends Component {
                     <header className="header">
                       <div className="icon"></div>
                     </header>
-                    <h1>{JOIN_PAGE_MODEL.pageHeading1}</h1>
-                    <h2>{JOIN_PAGE_MODEL.pageHeading2}</h2>
+                    <h1>{joinPageRes.pageHeading1}</h1>
+                    <h2>{joinPageRes.pageHeading2}</h2>
                     <br/>
-                    <h3>Step 2: {JOIN_PAGE_MODEL.sectionHeading}</h3>
+                    <h3>Step 2: {joinPageRes.sectionHeading}</h3>
                     <br/>
                     <br/>
-                    <p>Selected Plan: {JOIN_PAGE_MODEL.selectedSubscriptionPlan.planName} (Plan ID: {selectedPlanId})</p>
-                    <p style={{'fontSize': '1.0em'}}>{JOIN_PAGE_MODEL.selectedSubscriptionPlan.startDateText}</p>
-                    <p style={{'fontSize': '1.0em'}}>{JOIN_PAGE_MODEL.selectedSubscriptionPlan.nextRenewalDate}</p>
-                    <p style={{'fontSize': '1.0em'}}>{JOIN_PAGE_MODEL.selectedSubscriptionPlan.planCostPrefix}{JOIN_PAGE_MODEL.selectedSubscriptionPlan.planCost}</p>
-                    <p style={{'fontSize': '1.0em'}}>{JOIN_PAGE_MODEL.selectedSubscriptionPlan.planCostPostfix}</p>
+                    <p>Selected Plan: {joinPageRes.selectedSubscriptionPlan.planName} (Plan ID: {selectedPlanId})</p>
+                    <p style={{'fontSize': '1.0em'}}>{joinPageRes.selectedSubscriptionPlan.startDateText}</p>
+                    <p style={{'fontSize': '1.0em'}}>{joinPageRes.selectedSubscriptionPlan.nextRenewalDate}</p>
+                    <p style={{'fontSize': '1.0em'}}>{joinPageRes.selectedSubscriptionPlan.planCostPrefix}{joinPageRes.selectedSubscriptionPlan.planCost}</p>
+                    <p style={{'fontSize': '1.0em'}}>{joinPageRes.selectedSubscriptionPlan.planCostPostfix}</p>
                     {/*
                       <p>Account Creation Type: {accountCreationType}</p>
                       <br/>
@@ -461,11 +491,10 @@ class JoinStep2 extends Component {
                     }
                     <Request
                       serviceURL={GOOGLE_CLIENT_ID_ENDPOINT_URL}
-                      model={googleClientIDModel}
                       requestBody={{ 'callSource': 'join' }}
                       render={({
                         fetchingContent,
-                        modeledResponses: { GOOGLE_CLIENT_ID_MODEL },
+                        serviceResponse: googleClientResponse,
                       }) => (
                         <Fragment>
                           {
@@ -474,12 +503,12 @@ class JoinStep2 extends Component {
                                 <div style={{'paddingTop': '15px', 'marginLeft': 'auto', 'marginRight': 'auto', 'textAlign': 'center'}}>
                                   <GoogleLogin
                                       prompt="select_account"
-                                      responseType={GOOGLE_CLIENT_ID_MODEL.googleClientResponseType}
-                                      fetchBasicProfile={GOOGLE_CLIENT_ID_MODEL.googleClientFetchBasicProfile}
-                                      accessType={GOOGLE_CLIENT_ID_MODEL.googleClientAccessType}
-                                      scope={GOOGLE_CLIENT_ID_MODEL.googleClientScope}
-                                      clientId={GOOGLE_CLIENT_ID_MODEL.googleClientID}
-                                      buttonText={GOOGLE_CLIENT_ID_MODEL.loginButtonText}
+                                      responseType={googleClientResponse.googleClientResponseType}
+                                      fetchBasicProfile={googleClientResponse.googleClientFetchBasicProfile}
+                                      accessType={googleClientResponse.googleClientAccessType}
+                                      scope={googleClientResponse.googleClientScope}
+                                      clientId={googleClientResponse.googleClientID}
+                                      buttonText={googleClientResponse.loginButtonText}
                                       onSuccess={this.processGoogleSuccessResponse}
                                       onFailure={this.processGoogleFailureResponse}
                                     />
@@ -561,7 +590,7 @@ class JoinStep2 extends Component {
                         <Field
                             name="loginEmailAddressVerification"
                             type="email"
-                            label={JOIN_PAGE_MODEL.formFieldLabels.loginemailaddressverification.hintText}
+                            label={joinPageRes.formFieldLabels.loginemailaddressverification.hintText}
                             component={InputField}
                             onChange={(event) => { this.handleFieldChange({ field: 'loginEmailAddressVerification', value: event.target.value }); }}
                             value={this.state.accountFormDetails.loginEmailAddressVerification.value}
@@ -580,7 +609,7 @@ class JoinStep2 extends Component {
                       </p>
                       }
                       <br/>
-                      {this.state.accountFormDetails.passwordVerification.visible == true && <p>{JOIN_PAGE_MODEL.formFieldLabels.passwordverification.label}: <span style={{'color': 'red', 'fontStyle': 'italic'}}>{this.state.accountFormDetails.passwordVerification.errorText}</span>
+                      {this.state.accountFormDetails.passwordVerification.visible == true && <p>{joinPageRes.formFieldLabels.passwordverification.label}: <span style={{'color': 'red', 'fontStyle': 'italic'}}>{this.state.accountFormDetails.passwordVerification.errorText}</span>
                         <Field name="passwordVerification"
                           type="password"
                           label={this.state.accountFormDetails.passwordVerification.hintText}

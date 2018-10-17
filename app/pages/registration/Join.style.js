@@ -7,7 +7,7 @@ import { backgroundImageCover, dropShadowContainer } from 'styles/mixins/utiliti
 
 export default css`
 
-  .root {
+  .join-root {
     background-color: ${seashell};
     padding-bottom: 50px;
   }

@@ -40,7 +40,8 @@ class JoinHeader extends Component {
 
 
   changeActiveTab = (activeTab) => {
-    browserHistory.push(activeTab);
+    // do nothing for now
+    // browserHistory.push(activeTab);
   }
 
   render() {
