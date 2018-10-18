@@ -11,38 +11,42 @@ const {
   string,
 } = PropTypes;
 
-const Button = ({
-  isActive,
-  text,
-  type,
-  renderIcon,
-  icon, // remove prop when refactoring for icon library
-  onClickEvent,
-  theme = {},
-}) => (
-  <button
-    type={type}
-    className={classnames('button-container', {
-      circular: (icon && !text) || (renderIcon && !text),
-      active: isActive,
-    })}
-    style={theme}
-    onClick={onClickEvent}
-  >
-    {
-      text &&
-        <span className={classnames('text', {
-          'pad-right': text && icon,
-        })} dangerouslySetInnerHTML={{ __html: text }} />
-    }
+const Button = (props) => {
+  const {
+    isActive,
+    text,
+    type,
+    renderIcon,
+    icon, // remove prop when refactoring for icon library
+    onClickEvent,
+    theme = {},
+  } = props;
+  return (
+    <button
+      {...props}
+      type={type}
+      className={classnames('button-container', {
+        circular: (icon && !text) || (renderIcon && !text),
+        active: isActive,
+      })}
+      style={theme}
+      onClick={onClickEvent}
+    >
+      {
+        text &&
+          <span className={classnames('text', {
+            'pad-right': text && icon,
+          })} dangerouslySetInnerHTML={{ __html: text }} />
+      }
 
-    {icon && <img alt="" className="button-icon" src={icon} />}
+      {icon && <img alt="" className="button-icon" src={icon} />}
 
-    {renderIcon && renderIcon()}
+      {renderIcon && renderIcon()}
 
-    <style jsx>{styles}</style>
-  </button>
-);
+      <style jsx>{styles}</style>
+    </button>
+  )
+};
 
 Button.propTypes = {
   isActive: bool,

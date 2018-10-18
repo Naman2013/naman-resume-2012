@@ -19,6 +19,7 @@ button:focus {
     vertical-align: middle;
     font-size: 11px;
     margin: 0 10px;
+    white-space: nowrap;
   }
   .button-container {
     display: flex;
