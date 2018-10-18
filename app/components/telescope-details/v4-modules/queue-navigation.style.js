@@ -18,6 +18,10 @@ export default css`
     padding-left: 25px;
   }
 
+  .prev {
+    transform: rotate(180deg);
+  }
+
   .action-list {
     padding: 0;
     margin: 0;

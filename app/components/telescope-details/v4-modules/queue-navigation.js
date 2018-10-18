@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { downwardFacingChevron } from 'styles/variables/iconURLs';
+import chevron from 'atoms/icons/chevron.svg';
 import style from './queue-navigation.style';
 
 const QueueNavigation = ({ handlePrevClick, handleNextClick, title }) => (
@@ -12,7 +12,7 @@ const QueueNavigation = ({ handlePrevClick, handleNextClick, title }) => (
           className="action"
           onClick={handlePrevClick}
         >
-          <img alt="previous" src={downwardFacingChevron} />
+          <img className="prev" alt="previous" src={chevron} />
         </button>
       </li>
 
@@ -21,7 +21,7 @@ const QueueNavigation = ({ handlePrevClick, handleNextClick, title }) => (
           className="action"
           onClick={handleNextClick}
         >
-          <img alt="next" src={downwardFacingChevron} />
+          <img alt="next" src={chevron} />
         </button>
       </li>
     </ul>
