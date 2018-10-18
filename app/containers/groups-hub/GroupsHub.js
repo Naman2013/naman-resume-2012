@@ -8,6 +8,7 @@ import Modal from 'react-modal';
 import GroupTiles from 'components/groups-hub/group-tiles';
 import Request from 'components/common/network/Request';
 import RequestGroupForm from 'components/community-groups/request-group-form';
+import RequestGroupFormFeedback from 'components/community-groups/request-group-form-feedback';
 import HubContainer from 'components/common/HubContainer';
 import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
 import ShowMoreWithNetwork from 'components/common/show-more-with-network';
@@ -15,7 +16,8 @@ import { GROUPS_PAGE_ENDPOINT_URL, GET_GROUPS } from 'services/community-groups'
 import { DeviceContext } from 'providers/DeviceProvider';
 import Button from 'components/common/style/buttons/Button';
 import { validateResponseAccess } from 'modules/authorization/actions'
-import { customModalStylesV4 } from 'styles/mixins/utilities';
+import { customModalStylesBlackOverlay } from 'styles/mixins/utilities';
+import { requestGroup } from 'services/community-groups/request-group';
 import style from './groups-hub.style';
 
 const COUNT = 9;
@@ -89,8 +91,42 @@ class Groups extends Component {
 
   }
 
-  submitRequestForm = () => {
-
+  submitRequestForm = ({
+    requestFormTitle,
+    requestFormText,
+    requestFormPrivacy,
+  }) => {
+    const { actions, user } = this.props;
+    requestGroup({
+      at: user.at,
+      token: user.token,
+      cid: user.cid,
+      title: requestFormTitle,
+      access: requestFormPrivacy,
+      definition: requestFormText,
+    })
+      .then((res) => {
+        if (!res.data.apiError) {
+          this.setState({
+            showPrompt: res.data.showResponse,
+            promptText: (<RequestGroupFormFeedback
+              promptText={res.data.response}
+              closeForm={this.closeModal}
+              requestNew={this.requestGroup}
+            />),
+          });
+        } else {
+          this.setState({
+            showPrompt: true,
+            promptText: (<RequestGroupFormFeedback
+              promptText="There was an error submitting your form."
+              closeForm={this.closeModal}
+              requestNew={this.requestGroup}
+            />),
+          });
+        }
+        actions.validateResponseAccess(res);
+      });
   }
 
   requestGroup = () => {
@@ -177,11 +213,11 @@ class Groups extends Component {
       <Modal
         ariaHideApp={false}
         isOpen={showPrompt}
-        style={customModalStylesV4}
+        style={customModalStylesBlackOverlay}
         contentLabel="Groups"
+        shouldCloseOnOverlayClick={false}
         onRequestClose={this.closeModal}
       >
-        <i className="fa fa-close" onClick={this.closeModal} />
         {promptText}
       </Modal>
       <style jsx>{style}</style>

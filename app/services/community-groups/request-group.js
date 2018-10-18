@@ -19,21 +19,23 @@ import axios from 'axios';
 */
 
 export const requestGroup = ({
-  cid,
-  at,
-  token,
   access,
+  at,
+  cid,
   definition,
-  ver,
   lang,
+  title,
+  token,
+  ver,
 }) => (
   axios.post('/api/discussiongroups/requestGroup', {
-    cid,
-    at,
-    token,
     access,
+    at,
+    cid,
     definition,
-    ver,
     lang,
+    title,
+    token,
+    ver,
   })
 );
