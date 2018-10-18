@@ -56,9 +56,10 @@ export default css`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    width: 60%;
+    width: 100%;
     margin: 0 auto;
     padding: 15px 0;
+    align-items: center;
   }
 
   @media ${screenMedium} {

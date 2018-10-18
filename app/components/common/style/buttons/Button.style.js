@@ -45,6 +45,7 @@ export default css`
     display: inline-block;
     font-size: 11px;
     margin: 0 auto;
+    white-space: nowrap;
   }
 
   .pad-right {

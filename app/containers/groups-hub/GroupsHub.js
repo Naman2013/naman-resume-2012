@@ -8,6 +8,7 @@ import Modal from 'react-modal';
 import GroupTiles from 'components/groups-hub/group-tiles';
 import Request from 'components/common/network/Request';
 import RequestGroupForm from 'components/community-groups/request-group-form';
+import PromptWithClose from 'components/community-groups/prompt-with-close';
 import RequestGroupFormFeedback from 'components/community-groups/request-group-form-feedback';
 import HubContainer from 'components/common/HubContainer';
 import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
@@ -59,11 +60,10 @@ class Groups extends Component {
     }));
   }
 
-  updateReadingListInGroup = (id, resData) => {
+  updateGroupItemInfo = (id, resData) => {
     let newGroupsList = [].concat(this.state.groups);
-
     newGroupsList = newGroupsList.map((group) => {
-      if (group.groupId === id) {
+      if (group.discussionGroupId === id) {
         return Object.assign(group, resData);
       }
       return group;
@@ -83,13 +83,7 @@ class Groups extends Component {
     });
   }
 
-  askToJoinGroup = () => { // for private groups
 
-  }
-
-  toggleJoinGroup = () => { // for public groups
-
-  }
 
   submitRequestForm = ({
     requestFormTitle,
@@ -137,6 +131,16 @@ class Groups extends Component {
         closeForm={this.closeModal}
       />
     });
+  }
+
+  updatePrompt = (data) => {
+    this.setState({
+      showPrompt: data.showPrompt,
+      promptText: <PromptWithClose
+        promptText={data.promptText}
+        closeForm={this.closeModal}
+      />,
+    })
   }
 
   closeModal = () => {
@@ -196,7 +200,9 @@ class Groups extends Component {
                           {fetchingContent ? <div>Loading</div> : null}
                           {!fetchingContent && groups && groups.length ?
                             <GroupTiles
-                              updateReadingListInfo={this.updateReadingListInGroup}
+                              closeModal={this.closeModal}
+                              updateGroupItemInfo={this.updateGroupItemInfo}
+                              updatePrompt={this.updatePrompt}
                               groups={groups}
                               isMobile={context.isMobile}
                             /> :

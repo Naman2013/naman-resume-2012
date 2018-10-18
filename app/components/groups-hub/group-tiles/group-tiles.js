@@ -5,17 +5,20 @@ import uniqueId from 'lodash/uniqueId';
 import CenterColumn from 'components/common/CenterColumn';
 import GroupTile from 'components/common/tiles/GroupTile';
 import GroupExcerptTile from 'components/common/tiles/group-excerpt-tile';
-
+import { askToJoin } from 'services/community-groups/ask-to-join';
+import { toggleJoinGroup } from 'services/community-groups/toggle-join-group';
 import style from './group-tiles.style';
 
 class GroupTiles extends Component {
   static propTypes = {
+    closeModal: PropTypes.func.isRequired,
     groups: PropTypes.arrayOf(PropTypes.shape({
       title: PropTypes.string.isRequired,
       subTitle: PropTypes.string.isRequired,
     })).isRequired,
     isMobile: PropTypes.bool,
-    updateReadingListInfo: PropTypes.func.isRequired,
+    updateGroupItemInfo: PropTypes.func.isRequired,
+    updatePrompt: PropTypes.func.isRequired,
   };
 
   state = {
@@ -40,9 +43,29 @@ class GroupTiles extends Component {
     }));
   }
 
+  askToJoinGroup = () => { // for private groups
+
+  }
+
+  toggleJoinGroup = (e) => { // for public groups
+    const {
+      closeModal,
+      params,
+    } = this.props;
+
+    const { discussionGroupId } = e.currentTarget.dataset;
+
+    this.closeModal();
+
+    toggleJoinGroup({
+      discussionGroupId,
+      groupSet: params.filterType,
+    });
+  }
+
 
   render() {
-    const { groups, isMobile, updateReadingListInfo } = this.props;
+    const { groups, isMobile, updateGroupItemInfo, updatePrompt } = this.props;
     const { activeId } = this.state;
     return (
       <CenterColumn widths={['645px', '965px', '965px']}>
@@ -61,7 +84,11 @@ class GroupTiles extends Component {
               <div className={classnames('excerpt', {
                 'show-excerpt': Number(activeId) === Number(group.discussionGroupId),
               })}>
-                <GroupExcerptTile {...group} updateReadingInfoInList={updateReadingListInfo} />
+                <GroupExcerptTile
+                  {...group}
+                  updateGroupItemInfo={updateGroupItemInfo}
+                  updatePrompt={updatePrompt}
+                />
               </div>
 
 
