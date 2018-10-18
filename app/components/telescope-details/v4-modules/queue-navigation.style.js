@@ -10,6 +10,8 @@ export default css`
     background-image: url(${blue_tile_feat});
     color: white;
     font-family: ${secondaryFont};
+    height: 68px;
+    align-items: center;
   }
 
   .current-label {
