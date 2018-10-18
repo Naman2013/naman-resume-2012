@@ -185,7 +185,7 @@ class Groups extends Component {
                         currentCount: 'groupsCount',
                         totalCount: 'totalGroupsCount',
                       }}
-                      renderRightMenu={() => (<Button text="Request Group" onClickEvent={this.requestGroup} />)}
+                      renderRightMenu={serviceResponse.canRequestGroup ? () => (<Button text="Request Group" onClickEvent={this.requestGroup} />) : null}
                       updateList={this.updateGroupsList}
                       appendToList={this.appendToGroupsList}
                       iconURL={serviceResponse.pageIconURL}

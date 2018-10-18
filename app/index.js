@@ -544,7 +544,7 @@ ReactDOM.render(
         <Route path="profile/private" component={UserPrivateProfile} onEnter={validateUser} />
         <Route path="profile/public/:cid" component={UserPublicProfile} onEnter={validateUser} />
 
-        <Route path="groups(/:filterType)" component={GroupsHub} />
+        <Route path="groups(/:filterType)" component={GroupsHub} onEnter={validateUser} />
 
         <Route path="community-groups/:groupId" onEnter={validateUser} component={CommunityGroupOverview} />
         <Route path="community-groups/:groupId/info" onEnter={validateUser} component={GroupOverviewInfo} />
