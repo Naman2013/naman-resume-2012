@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import uniqueId from 'lodash/uniqueId';
 import CenterColumn from 'components/common/CenterColumn';
 import GroupTile from 'components/common/tiles/GroupTile';
-import GuideExcerptTile from 'components/common/tiles/group-excerpt-tile';
+import GroupExcerptTile from 'components/common/tiles/group-excerpt-tile';
 
 import style from './group-tiles.style';
 
@@ -51,7 +51,7 @@ class GroupTiles extends Component {
             <li
               key={uniqueId()}
               className="tile"
-              data-id={group.groupId}
+              data-id={group.discussionGroupId}
               onMouseOver={this.setActiveTile}
               onMouseLeave={this.removeActiveTile}
             >
@@ -59,9 +59,9 @@ class GroupTiles extends Component {
                 <GroupTile {...group} />
               </div>
               <div className={classnames('excerpt', {
-                'show-excerpt': activeId === group.groupId,
+                'show-excerpt': Number(activeId) === Number(group.discussionGroupId),
               })}>
-                <GuideExcerptTile {...group} updateReadingInfoInList={updateReadingListInfo} />
+                <GroupExcerptTile {...group} updateReadingInfoInList={updateReadingListInfo} />
               </div>
 
 

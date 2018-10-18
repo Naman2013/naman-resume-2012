@@ -4,7 +4,7 @@ import { primaryFont, secondaryFont } from 'styles/variables/fonts';
 import { astronaut, romance, shadows } from 'styles/variables/colors_tiles_v4';
 
 export default css`
-  .guide-tile-root {
+  .group-tile-root {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -19,7 +19,7 @@ export default css`
     border-bottom: 4px solid ${astronaut};
   }
 
-  .guide-tile-root :global(a) {
+  .group-tile-root :global(a) {
     display: block;
     height: 100%;
   }
@@ -62,9 +62,9 @@ export default css`
   }
 
   @media ${screenMedium} {
-    .guide-tile-root {
+    .group-tile-root {
       width: 300px;
-      height: 300px;
+      height: 370px;
     }
   }
 `;

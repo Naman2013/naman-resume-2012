@@ -153,6 +153,7 @@ class HubContainer extends Component {
       pageTitle,
       paginateURL,
       render,
+      renderRightMenu,
       responseFieldNames,
       sortOptions,
       user,
@@ -168,6 +169,7 @@ class HubContainer extends Component {
         <HubHeader
           icon={iconURL}
           title={pageTitle}
+          renderRightMenu={renderRightMenu}
           renderNav={() => (
             <div className="navigation-bar">
               <UnderlineNav
@@ -196,6 +198,7 @@ class HubContainer extends Component {
                   filterOptions={{
                     sortBy: sort,
                     page,
+                    count: 9,
                     type: filterType,
                   }}
                 />

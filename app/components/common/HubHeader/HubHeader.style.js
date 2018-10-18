@@ -20,22 +20,31 @@ export default css`
     display: none;
   }
 
-  .hub-header-title {
+  .hub-header-title-container {
     flex: 1;
-    display: flex;
-    align-items: center;
     width: 100%;
+    padding: 25px 0;
+    border-bottom: 1px solid ${shadows};
+  }
+
+  .hub-header-title  {
+    display: flex;
+    flex: 0 100%;
+    align-items: center;
     font-size: 14px;
     color: ${astronaut};
-    padding: 25px 0;
     font-weight: bold;
     text-transform: uppercase;
-    border-bottom: 1px solid ${shadows};
   }
 
   .hub-header-nav {
     width: 100%;
     border: 0;
+  }
+
+  .right-menu-nav {
+    width: 150px;
+    margin-left: 28px;
   }
 
   @media ${screenMedium} {
@@ -53,18 +62,30 @@ export default css`
       border: 1px solid ${shadows};
     }
 
-    .hub-header-title {
+    .hub-header-title-container {
       flex: 1;
       height: 100px;
       font-size: 29px;
       padding: 0;
+      display: flex;
+      align-items: center;
+      flex: 1;
       padding-left: 50px;
       border: 1px solid ${shadows};
       border-left: 0;
     }
 
+
+    .hub-header-title  {
+      font-size: 29px;
+    }
+
     .hub-header-nav {
       width: 100%;
+    }
+
+    .right-menu-nav {
+      margin-left: 0;
     }
   }
 

@@ -4,14 +4,18 @@ import axios from 'axios';
 import noop from 'lodash/noop';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import Modal from 'react-modal';
 import GroupTiles from 'components/groups-hub/group-tiles';
 import Request from 'components/common/network/Request';
+import RequestGroupForm from 'components/community-groups/request-group-form';
 import HubContainer from 'components/common/HubContainer';
 import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
 import ShowMoreWithNetwork from 'components/common/show-more-with-network';
 import { GROUPS_PAGE_ENDPOINT_URL, GET_GROUPS } from 'services/community-groups';
 import { DeviceContext } from 'providers/DeviceProvider';
+import Button from 'components/common/style/buttons/Button';
 import { validateResponseAccess } from 'modules/authorization/actions'
+import { customModalStylesV4 } from 'styles/mixins/utilities';
 import style from './groups-hub.style';
 
 const COUNT = 9;
@@ -43,6 +47,8 @@ class Groups extends Component {
 
   state = {
     groups: [],
+    showPrompt: false,
+    promptText: '',
   };
 
   updateGroupsList = (resData) => {
@@ -75,13 +81,44 @@ class Groups extends Component {
     });
   }
 
+  askToJoinGroup = () => { // for private groups
+
+  }
+
+  toggleJoinGroup = () => { // for public groups
+
+  }
+
+  submitRequestForm = () => {
+
+  }
+
+  requestGroup = () => {
+    this.setState({
+      showPrompt: true,
+      promptText: <RequestGroupForm
+        submitForm={this.submitRequestForm}
+        closeForm={this.closeModal}
+      />
+    });
+  }
+
+  closeModal = () => {
+    this.setState({
+      showPrompt: false,
+      promptText: '',
+    });
+  }
+
   render() {
     const {
       user,
       actions,
     } = this.props;
     const {
-      groups
+      groups,
+      showPrompt,
+      promptText,
     } = this.state;
     return (<div>
       <Request
@@ -112,6 +149,7 @@ class Groups extends Component {
                         currentCount: 'groupsCount',
                         totalCount: 'totalGroupsCount',
                       }}
+                      renderRightMenu={() => (<Button text="Request Group" onClickEvent={this.requetGroup} />)}
                       updateList={this.updateGroupsList}
                       appendToList={this.appendToGroupsList}
                       iconURL={serviceResponse.pageIconURL}
@@ -120,7 +158,7 @@ class Groups extends Component {
                       render={() => (
                         <Fragment>
                           {fetchingContent ? <div>Loading</div> : null}
-                          {!fetchingContent && groups.length ?
+                          {!fetchingContent && groups && groups.length ?
                             <GroupTiles
                               updateReadingListInfo={this.updateReadingListInGroup}
                               groups={groups}
@@ -136,6 +174,16 @@ class Groups extends Component {
           </Fragment>
         )}
       />
+      <Modal
+        ariaHideApp={false}
+        isOpen={showPrompt}
+        style={customModalStylesV4}
+        contentLabel="Groups"
+        onRequestClose={this.closeModal}
+      >
+        <i className="fa fa-close" onClick={this.closeModal} />
+        {promptText}
+      </Modal>
       <style jsx>{style}</style>
     </div>)
   }

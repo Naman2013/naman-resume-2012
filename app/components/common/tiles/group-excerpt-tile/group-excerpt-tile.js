@@ -6,28 +6,29 @@ import ToggleReadingList from 'components/common/ToggleReadingList';
 import Button from 'components/common/style/buttons/Button';
 import style from './group-excerpt-tile.style';
 
-const GuideTile = ({
-  guideAuthor,
-  guideId,
-  guideReferenceTitle,
-  linkLabel,
+const GroupExcerptTile = ({
+  memberCountDisplay,
+  discussionGroupId,
+  title,
+  viewMessage,
   linkUrl,
   promptIconUrl,
+  canView,
   readingListPrompt,
   readingListType,
-  shortDescription,
+  accessDescription,
   toggleReadingListFlag,
   updateReadingInfoInList,
 }) => (
-  <div className="guide-tile-root">
-    <div className="title" dangerouslySetInnerHTML={{ __html: guideReferenceTitle }} />
-    <div className="sub-title" dangerouslySetInnerHTML={{ __html: guideAuthor }} />
-    <div className="description" dangerouslySetInnerHTML={{ __html: shortDescription }} />
+  <div className="group-tile-root">
+    <div className="title" dangerouslySetInnerHTML={{ __html: title }} />
+    <div className="sub-title" dangerouslySetInnerHTML={{ __html: memberCountDisplay }} />
+    <div className="description" dangerouslySetInnerHTML={{ __html: accessDescription }} />
     <div className="actions">
-      <Button text={linkLabel} onClickEvent={() => browserHistory.push(linkUrl)} />
+      {canView ? <Button text={viewMessage} onClickEvent={() => browserHistory.push(linkUrl)} /> : null}
       {toggleReadingListFlag ? <ToggleReadingList
         updateReadingInfoInList={updateReadingInfoInList}
-        itemId={guideId}
+        itemId={discussionGroupId}
         readingListType={readingListType}
         readingListPrompt={null}
         promptIconUrl={promptIconUrl}
@@ -37,17 +38,18 @@ const GuideTile = ({
   </div>
 );
 
-GuideTile.propTypes = {
-  guideAuthor: PropTypes.string.isRequired,
-  guideReferenceTitle: PropTypes.string.isRequired,
-  linkLabel: PropTypes.string.isRequired,
+GroupExcerptTile.propTypes = {
+  accessDescription: PropTypes.string.isRequired,
+  canView: PropTypes.bool.isRequired,
   linkUrl: PropTypes.string.isRequired,
+  memberCountDisplay: PropTypes.string.isRequired,
   promptIconUrl: PropTypes.string.isRequired,
   readingListPrompt: PropTypes.string.isRequired,
   readingListType: PropTypes.string.isRequired,
-  shortDescription: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
   toggleReadingListFlag: PropTypes.bool.isRequired,
   updateReadingInfoInList: PropTypes.func.isRequired,
+  viewMessage: PropTypes.string.isRequired,
 };
 
-export default GuideTile;
+export default GroupExcerptTile;
