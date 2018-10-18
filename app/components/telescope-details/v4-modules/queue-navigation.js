@@ -1,26 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { downwardFacingChevron } from 'styles/variables/iconURLs';
 import style from './queue-navigation.style';
 
 const QueueNavigation = ({ handlePrevClick, handleNextClick, title }) => (
-  <div>
-    <h5 className="current-label">Mon. Jan 06</h5>
+  <div className="queue-root">
+    <h5 className="current-label">{title}</h5>
     <ul className="action-list">
-      <li>
+      <li className="action-container">
         <button
           className="action"
           onClick={handlePrevClick}
         >
-          PREV
+          <img alt="previous" src={downwardFacingChevron} />
         </button>
       </li>
 
-      <li>
+      <li className="action-container">
         <button
           className="action"
-          onClick={handlePrevClick}
+          onClick={handleNextClick}
         >
-          NEXT
+          <img alt="next" src={downwardFacingChevron} />
         </button>
       </li>
     </ul>
