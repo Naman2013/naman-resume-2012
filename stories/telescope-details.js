@@ -1,7 +1,14 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
+import {
+  ModuleContainer,
+  WhereInTheSky,
+  AllSkyCamera,
+  ImagePortal,
+  QueueNavigation,
+} from 'components/telescope-details/v4-modules';
+
 import eclipseArtwork from '../assets/images/photos/eclipse-artwork-2.jpg';
-import { ModuleContainer, WhereInTheSky, AllSkyCamera, ImagePortal } from 'components/telescope-details/v4-modules';
 
 storiesOf('Telescope Details Modules', module)
   .add('ModuleContainer: base for other modules', () => (
@@ -15,4 +22,11 @@ storiesOf('Telescope Details Modules', module)
   ))
   .add('ImagePortal', () => (
     <ImagePortal src={eclipseArtwork} alt="Eclipse" />
+  ))
+  .add('QueueNavigation', () => (
+    <QueueNavigation
+      handlePrevClick={() => {}}
+      handleNextClick={() => {}}
+      title="Mon. Jan 06"
+    />
   ));
