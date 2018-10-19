@@ -1,7 +1,8 @@
 import React from 'react';
 import Telescope from 'components/Telescope';
 import telescopeConfig from 'components/Telescope/telescopeConfig';
-import FAUX_MISSIONS, { nonMission } from 'content/fauxMissions';
+import { nonMission } from 'content/fauxMissions';
+import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
 
 import { StarShareCamera } from '../star-share-camera';
 import { ObjectSummaryTile, ScheduledByTile } from 'components/common/tiles';
@@ -11,13 +12,17 @@ import style from './tab-live.style';
 
 const TabLive = () => (
   <div>
-    <Telescope
-      missionMetaData={nonMission}
-      activeInstrumentID={telescopeConfig.CANARY_ONE_HALF_METER.instrumentID}
-      previousInstrumentID={telescopeConfig.CANARY_ONE_HALF_METER.instrumentID}
-      increment={5}
-    />
-    <StarShareCamera />
+    <DisplayAtBreakpoint screenSmall screenMedium>
+      <Telescope
+        missionMetaData={nonMission}
+        activeInstrumentID={telescopeConfig.CANARY_ONE_HALF_METER.instrumentID}
+        previousInstrumentID={telescopeConfig.CANARY_ONE_HALF_METER.instrumentID}
+        increment={5}
+      />
+
+      <StarShareCamera />
+    </DisplayAtBreakpoint>
+
     <div className="tile-container">
       <ObjectSummaryTile />
     </div>
