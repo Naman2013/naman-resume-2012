@@ -51,8 +51,8 @@ const LoggedIn = ({ displayName, avatarURL, menuItems }) => (
       }
       .avatar {
         margin: 15px;
-        height: 25px;
-        width: 25px;
+        height: 50px;
+        width: 50px;
         background-size: cover;
         border-radius: 100%;
       }

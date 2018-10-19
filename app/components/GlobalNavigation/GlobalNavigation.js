@@ -17,6 +17,7 @@ const {
 const userMenuModel = {
   name: 'USER_MENU',
   model: resp => ({
+    userInfo: has(resp, 'mainMenu.userInfo') ? resp.mainMenu.userInfo : {},
     userLinks: has(resp, 'mainMenu.userInfo.userLinks') ? resp.mainMenu.userInfo.userLinks : [],
   }),
 };
