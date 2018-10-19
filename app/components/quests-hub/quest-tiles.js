@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import uniqueId from 'lodash/uniqueId';
 import CenterColumn from 'components/common/CenterColumn';
-import QuestTile from 'components/common/tiles/QuestTile';
+import QuestHubTileBig from 'components/common/tiles/QuestHubTileBig';
+import QuestHubTileSmall from 'components/common/tiles/QuestHubTileSmall';
 import QuestExcerptTile from 'components/common/tiles/quest-excerpt-tile';
 
 import style from './quest-tiles.style';
@@ -56,7 +57,7 @@ class QuestTiles extends Component {
               onMouseLeave={this.removeActiveTile}
             >
               <div>
-                <QuestTile {...quest} />
+                <QuestHubTileBig {...quest} />
               </div>
               <div className={classnames('excerpt', {
                 'show-excerpt': activeId === quest.questId,
@@ -72,7 +73,7 @@ class QuestTiles extends Component {
               key={uniqueId()}
               className="tile"
             >
-              <QuestTile {...quest} />
+              <QuestHubTileSmall {...quest} />
             </li>
           ))}
         </ul>
