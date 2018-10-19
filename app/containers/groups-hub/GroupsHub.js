@@ -184,6 +184,7 @@ class Groups extends Component {
                       page={DEFAULT_PAGE}
                       count={COUNT}
                       user={user}
+                      filterTypeFieldName="groupSet"
                       validateResponseAccess={actions.validateResponseAccess}
                       responseFieldNames={{
                         currentCount: 'groupsCount',
