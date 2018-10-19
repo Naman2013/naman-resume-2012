@@ -146,6 +146,7 @@ import GroupOverviewInfo from './pages/community-groups/GroupOverviewInfo';
 import ImageDetails from './pages/image-details';
 import Show from './pages/show';
 import StoryDetails from './containers/story-details';
+import QuestsHub from './containers/quests-hub';
 import GuidesHub from './containers/guides-hub';
 import StoriesHub from './containers/stories-hub';
 import GroupsHub from './containers/groups-hub';
@@ -534,10 +535,7 @@ ReactDOM.render(
           <Route path="my-qa" component={PlaceholderPage} />
         </Route>
 
-        <Route path="quests" component={PlaceholderPage} onEnter={validateUser}>
-          <IndexRedirect to="my-quests" />
-          <Route path="my-quests" component={PlaceholderPage} />
-        </Route>
+        <Route path="quests(/:filterType)" component={QuestsHub} onEnter={validateUser} />
 
         <Route path="quest-details/:questId" component={QuestDetails} onEnter={validateUser} />
 

@@ -32,3 +32,4 @@ export const downwardFacingChevron = 'https://vega.slooh.com/assets/v4/common/ar
 export const guideCorner = 'https://vega.slooh.com/assets/v4/common/guide_corner.svg';
 
 export const googleButton = 'https://vega.slooh.com/assets/v4/icons/google_button.svg';
+export const questShield = 'https://vega.slooh.com/assets/v4/common/quest_shield.png';
