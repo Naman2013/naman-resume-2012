@@ -67,12 +67,16 @@ class JoinStep3 extends Component  {
       if (paymentMessageData.startsWith('__ECOMMERCE_PAYMENT_TOKEN__')) {
         const paymentNonceTokenData = String.prototype.replace.call(paymentMessageData, '__ECOMMERCE_PAYMENT_TOKEN__', '');
         this.setState( { 'paymentToken': paymentNonceTokenData });
-        console.log('Payment Token!! ' + paymentNonceTokenData);
+        //console.log('Payment Token!! ' + paymentNonceTokenData);
 
         /* Process the Customer's Activation and Sign the User into the website */
         const activatePendingCustomerData = {
           paymentToken: paymentNonceTokenData,
-          customerId: window.localStorage.pending_cid,
+          customerId: window.localStorage.getItem('pending_cid'),
+          selectedSchoolId: window.localStorage.getItem('selectedSchoolId'),
+          isAstronomyClub: window.localStorage.getItem('isAstronomyClub'),
+          astronomyClubName: window.localStorage.getItem('astronomyClubName'),
+          isAstronomyClubForMembers18AndOver: window.localStorage.getItem('isAstronomyClubForMembers18AndOver'),
         };
 
         axios.post(JOIN_ACTIVATE_PENDING_CUSTOMER_ENDPOINT_URL, activatePendingCustomerData)
@@ -82,29 +86,38 @@ class JoinStep3 extends Component  {
               if (res.status === 'success') {
                 const { actions } = this.props;
 
+                //Cleanup local localStorage
+                window.localStorage.removeItem('pending_cid');
+                window.localStorage.removeItem('selectedPlanId');
+                window.localStorage.removeItem('selectedSchoolId');
+                window.localStorage.removeItem('isAstronomyClub');
+                window.localStorage.removeItem('astronomyClubName');
+                window.localStorage.removeItem('isAstronomyClubForMembers18AndOver');
+
                 // log the user in (userpass or googleaccount logins supported)
                 const { accountCreationType } = window.localStorage;
                 if (accountCreationType === 'userpass') {
+
                   const loginDataPayload = {
                     username: window.localStorage.username,
                     pwd: window.localStorage.password,
                   };
 
-                  // console.log(loginDataPayload);
-                  // console.log(window.localStorage);
-
                   /* cleanup local storage */
+                  window.localStorage.removeItem('accountCreationType');
                   window.localStorage.removeItem('username');
                   window.localStorage.removeItem('password');
 
                   actions.logUserIn(loginDataPayload);
                   browserHistory.push('/');
+
                 } else if (accountCreationType === 'googleaccount') {
                   const loginDataPayload = {
                     googleProfileId: window.localStorage.googleProfileId,
                     googleProfileEmail: window.localStorage.username,
                   };
 
+                  window.localStorage.removeItem('accountCreationType');
                   actions.logGoogleUserIn(loginDataPayload);
                   browserHistory.push('/');
                 }
@@ -200,10 +213,6 @@ class JoinStep3 extends Component  {
                       <div className="section-heading">{joinPageResponse.sectionHeading}</div>
                       <Countdown date={Date.now() + joinPageResponse.customerHasXSecondsToCompleteSignup} renderer={this.CountdownRenderer} onComplete={this.CountdownComplete}/>
                       <div className="inner-container">
-
-                        <p style={{'fontWeight': 'bold', 'fontSize': '1.3em'}}>Payment Token nonce:</p>
-                        {paymentTokenNonce}<br/>
-
                         <DisplayAtBreakpoint
                           screenMedium
                           screenLarge
