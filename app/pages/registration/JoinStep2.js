@@ -355,7 +355,9 @@ class JoinStep2 extends Component {
             window.localStorage.setItem('pending_cid', pendingCustomerResult.customerId);
             window.localStorage.setItem('username', this.state.accountFormDetails.loginEmailAddress.value);
             window.localStorage.setItem('password', this.state.accountFormDetails.password.value);
-
+            window.localStorage.setItem('isAstronomyClub', this.state.isAstronomyClub);
+            window.localStorage.setItem('astronomyClubName', this.state.accountFormDetails.astronomyClubName.value);
+            window.localStorage.setItem('isAstronomyClubForMembers18AndOver', this.state.accountFormDetails.astronomyClub18AndOver.value);
             // console.log('Proceeding to create the customers pending account');
             browserHistory.push('/join/step3');
           }
