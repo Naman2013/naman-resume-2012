@@ -53,6 +53,7 @@ export default css`
   .column-tab-button:focus { outline: none; }
 
   @media ${screenLarge} {
+    .tabs-root { width: 300px; }
     .menu-title { display: block; }
 
     .column-tab-set {

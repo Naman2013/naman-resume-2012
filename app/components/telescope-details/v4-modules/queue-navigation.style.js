@@ -42,6 +42,7 @@ export default css`
     cursor: pointer;
     background: none;
     outline: none;
+    border: 1px solid white;
     width: 40px;
     height: 40px;
     border-radius: 50%;

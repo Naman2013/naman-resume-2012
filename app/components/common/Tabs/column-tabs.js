@@ -32,7 +32,7 @@ class ColumnTabs extends Component {
 
   render() {
     return (
-      <div>
+      <div className="tabs-root">
         <div>
           <h3 className="menu-title">Canary Three</h3>
           <ul className="column-tab-set">

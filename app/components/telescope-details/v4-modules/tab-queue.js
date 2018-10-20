@@ -1,11 +1,12 @@
 import React from 'react';
 import { AvailableSlotTile, MissionSlotTile } from 'components/common/tiles';
 import { QueueNavigation } from './';
+import style from './tab-queue.style';
 
 const testStuff = [0, 0, 1, 1, 0, 1, 0, 1];
 
 const TabQueue = () => (
-  <div>
+  <div className="tab-queue-root">
     <QueueNavigation
       handlePrevClick={() => { console.log('click-prev'); }}
       handleNextClick={() => { console.log('click-next'); }}
@@ -13,7 +14,7 @@ const TabQueue = () => (
     />
     {
       testStuff.map((thing) => {
-        if (thing === 0) {
+        if (thing) {
           return (<MissionSlotTile
             missionTitle="The moon"
             time="20:30"
@@ -29,6 +30,7 @@ const TabQueue = () => (
         />);
       })
     }
+    <style jsx>{style}</style>
   </div>
 );
 
