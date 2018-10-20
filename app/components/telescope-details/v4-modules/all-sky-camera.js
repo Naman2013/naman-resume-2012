@@ -10,7 +10,6 @@ const AllSkyCamera = ({ imageURL }) => (
       <div className="content">
         <ImagePortal src={imageURL} />
         <div className="meta-data">
-          <div className="vertical-line" />
           <p className="copy">Restibulum rutrum quameli mitae fringilla lorem ipsum.</p>
         </div>
       </div>

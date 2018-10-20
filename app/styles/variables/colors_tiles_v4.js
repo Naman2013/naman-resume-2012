@@ -1,11 +1,3 @@
-///////////////
-/*
-    SLOOH V4 COLOR PALETTE VARIABLES
-
-    For examples see:
-    common-components/Slooh_v4_color_palette.html
-*/
-///////////////
 export const midnight_express     = '#1a2636';
 export const astronaut            = '#415671';
 export const nightfall            = '#253446';
