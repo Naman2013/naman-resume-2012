@@ -19,6 +19,7 @@ import JoinHeader from './partials/JoinHeader';
 
 import {
   JOIN_PAGE_ENDPOINT_URL,
+  JOIN_VALIDATE_INVITATIONCODE_ENDPOINT_URL,
 } from 'services/registration/registration.js';
 import styles from './JoinStep2.style';
 
@@ -96,7 +97,6 @@ class JoinByInviteCodeStep1 extends Component {
     let formIsComplete = true;
     const {
       accountFormDetails,
-      accountCreationType,
     } = this.state;
 
     const accountFormDetailsData = cloneDeep(accountFormDetails);
@@ -111,35 +111,37 @@ class JoinByInviteCodeStep1 extends Component {
     }
 
     if (accountFormDetailsData.invitationCode.value === '') {
-      accountFormDetailsData.invitationCode.errorText = 'Please enter in your email address.';
+      accountFormDetailsData.invitationCode.errorText = 'Please enter in your invitation code.';
       formIsComplete = false;
     }
 
     if (formIsComplete === true) {
       /* Validate the Invitation Email Address and Code */
 
-      const passwordMeetsRequirementsResult = axios.post(VERIFY_PASSWORD_MEETS_REQUIREMENTS_ENDPOINT_URL, {
-        userEnteredPassword: this.state.accountFormDetails.password.value
+      const validInvitationCodeResult = axios.post(JOIN_VALIDATE_INVITATIONCODE_ENDPOINT_URL, {
+        invitationCode: this.state.accountFormDetails.invitationCode.value,
+        loginEmailAddress: this.state.accountFormDetails.loginEmailAddress.value,
       })
       .then((response) => {
         const res = response.data;
         if (res.apiError == false) {
           const invitationResult = {
-            isValidInvitation: res.isValidInvitation,
+            isInvitationValid: res.isInvitationValid,
+            invitationNotValidMessage: res.invitationNotValidMessage,
           }
 
           /* need to force evaulation of "true"/"false" vs. true/false. */
-          if (invitationResult.isValidInvitation === "true") {
+          if (invitationResult.isInvitationValid === "true") {
             formIsComplete = true;
 
             /* set the email address and the invitation code */
-            window.localStorage.setItem('invite_emailaddress', this.state.accountFormDetails.loginEmailAddress.value);
-            window.localStorage.setItem('invite_code', this.state.accountFormDetails.invitationCode.value);
+            window.localStorage.setItem('inviteeEmailAddress', this.state.accountFormDetails.loginEmailAddress.value);
+            window.localStorage.setItem('invitationCodeAlt', this.state.accountFormDetails.invitationCode.value);
 
-            browser.push('/join/inviteByCodeStep2');
+            browserHistory.push('/join/inviteByCodeStep2');
           } else {
                 /* Invitation Validation failed */
-                accountFormDetailsData.invitationCode.errorText = passwordResult.passwordNotAcceptedMessage;
+                accountFormDetailsData.invitationCode.errorText = invitationResult.invitationNotValidMessage;
 
                 /* make sure to persist any changes to the account signup form (error messages) */
                 this.setState({ accountFormDetails: accountFormDetailsData });
@@ -193,8 +195,8 @@ class JoinByInviteCodeStep1 extends Component {
                                   <span className="form-error" dangerouslySetInnerHTML={{ __html: accountFormDetails.invitationCode.errorText }} />
                                 </div>
                                 <Field
-                                  name="password"
-                                  type="password"
+                                  name="invitationCode"
+                                  type="text"
                                   className="form-field"
                                   label={accountFormDetails.invitationCode.hintText}
                                   component={InputField}
@@ -209,8 +211,8 @@ class JoinByInviteCodeStep1 extends Component {
                                   <span className="form-label" dangerouslySetInnerHTML={{ __html: accountFormDetails.loginEmailAddress.label }} />:
                                   <span className="form-error" dangerouslySetInnerHTML={{ __html: accountFormDetails.loginEmailAddress.errorText }} />
                                 </div>
-                                <Field name="passwordVerification"
-                                  type="password"
+                                <Field name="loginEmailAddress"
+                                  type="text"
                                   className="form-field"
                                   label={accountFormDetails.loginEmailAddress.hintText}
                                   component={InputField}
@@ -222,12 +224,12 @@ class JoinByInviteCodeStep1 extends Component {
                               <Button
                                 type="button"
                                 text="Go Back"
-                                onClickEvent={() => { browserHistory.push('/join/step1'); }}
+                                onClickEvent={() => { browserHistory.push('/'); }}
                               />
                               <button
                                 className="submit-button"
                                 type="submit"
-                              >Go to payment
+                              >Continue
                               </button>
                             </div>
                           </form>
