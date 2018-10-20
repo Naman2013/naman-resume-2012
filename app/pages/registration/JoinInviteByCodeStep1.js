@@ -1,53 +1,252 @@
-/** *********************************
-* V4 Join by Invitation Code
-********************************** */
-
-import React, { Component, cloneElement } from 'react';
+/** **********************************************************************************
+* V4 Join with an Invitation Code - Enter Email Address/Invitation Code
+*************************************************************************************/
+import React, { Component, cloneElement, Fragment } from 'react';
 import { Link } from 'react-router';
 import PropTypes from 'prop-types';
+import axios from 'axios';
+import { GoogleLogin } from 'react-google-login';
 import { connect } from 'react-redux';
+import { Field, reduxForm } from 'redux-form';
+import cloneDeep from 'lodash/cloneDeep';
+import noop from 'lodash/noop';
+import InputField from 'components/form/InputField';
+import { createValidator, required } from 'modules/utils/validation';
+import { browserHistory } from 'react-router';
+import Button from 'components/common/style/buttons/Button';
 import Request from 'components/common/network/Request';
-import { JOIN_PAGE_ENDPOINT_URL } from 'services/registration/registration.js';
+import JoinHeader from './partials/JoinHeader';
+
+import {
+  JOIN_PAGE_ENDPOINT_URL,
+} from 'services/registration/registration.js';
+import styles from './JoinStep2.style';
+
+const {
+  string,
+  func,
+} = PropTypes;
 
 class JoinByInviteCodeStep1 extends Component {
+  static propTypes = {
+    pathname: string.isRequired,
+    change: func,
+  };
+  static defaultProps = {
+    change: noop,
+  };
+
   constructor(props) {
     super(props);
 
-    /* reset all browser localstorage data points for the Join flow */
-    window.localStorage.removeItem('pending_cid');
-    window.localStorage.removeItem('selectedPlanId');
-    window.localStorage.removeItem('selectedSchoolId');
-    window.localStorage.removeItem('accountCreationType');
-    window.localStorage.removeItem('googleProfileId');
-    window.localStorage.removeItem('googleProfileEmail');
-    window.localStorage.removeItem('username');
-    window.localStorage.removeItem('password');
+    this.state = {
+      accountFormDetails: {
+        loginEmailAddress: {
+          label: '',
+          editable: true,
+          visible: true,
+          value: '',
+          hintText: '',
+          errorText: '',
+        },
+        invitationCode: {
+          label: '',
+          visible: true,
+          value: '',
+          hintText: '',
+          errorText: '',
+        },
+      },
+    }
+  }
+
+  // Obtain access to the join api service response and update the accountFormDetails state to reflect the Join Page response (set form labels)
+  handleJoinPageServiceResponse = (result) => {
+    const newAccountFormData = cloneDeep(this.state.accountFormDetails);
+
+    newAccountFormData.loginEmailAddress.label = result.formFieldLabels.loginemailaddress.label;
+    newAccountFormData.invitationCode.label = result.formFieldLabels.invitationcode.label;
+
+    newAccountFormData.loginEmailAddress.hintText = result.formFieldLabels.loginemailaddress.hintText;
+    newAccountFormData.invitationCode.hintText = result.formFieldLabels.invitationcode.hintText;
+
+    /* update the account form details state so the correct hinText will show on each form field */
+    this.setState(() => ({
+      accountFormDetails: newAccountFormData,
+    }));
+  }
+
+  /* This function handles a field change in the form and sets the state accordingly */
+  handleFieldChange = ({ field, value }) => {
+    /* Get the existing state of the signup form, modify it and re-set the state */
+    const newAccountFormData = cloneDeep(this.state.accountFormDetails);
+    newAccountFormData[field].value = value;
+
+    this.setState(() => ({
+      accountFormDetails: newAccountFormData,
+    }));
+  }
+
+  /* Submit the Join Form and perform any validations as needed */
+  handleSubmit = (formValues) => {
+    formValues.preventDefault();
+    //console.log(this.state.accountFormDetails);
+
+    //assume the form is ready to submit unless validation issues occur.
+    let formIsComplete = true;
+    const {
+      accountFormDetails,
+      accountCreationType,
+    } = this.state;
+
+    const accountFormDetailsData = cloneDeep(accountFormDetails);
+
+    /* reset the error conditions */
+    accountFormDetailsData.loginEmailAddress.errorText = '';
+    accountFormDetailsData.invitationCode.errorText = '';
+
+    if (accountFormDetailsData.loginEmailAddress.value === '') {
+      accountFormDetailsData.loginEmailAddress.errorText = 'Please enter in your email address.';
+      formIsComplete = false;
+    }
+
+    if (accountFormDetailsData.invitationCode.value === '') {
+      accountFormDetailsData.invitationCode.errorText = 'Please enter in your email address.';
+      formIsComplete = false;
+    }
+
+    if (formIsComplete === true) {
+      /* Validate the Invitation Email Address and Code */
+
+      const passwordMeetsRequirementsResult = axios.post(VERIFY_PASSWORD_MEETS_REQUIREMENTS_ENDPOINT_URL, {
+        userEnteredPassword: this.state.accountFormDetails.password.value
+      })
+      .then((response) => {
+        const res = response.data;
+        if (res.apiError == false) {
+          const invitationResult = {
+            isValidInvitation: res.isValidInvitation,
+          }
+
+          /* need to force evaulation of "true"/"false" vs. true/false. */
+          if (invitationResult.isValidInvitation === "true") {
+            formIsComplete = true;
+
+            /* set the email address and the invitation code */
+            window.localStorage.setItem('invite_emailaddress', this.state.accountFormDetails.loginEmailAddress.value);
+            window.localStorage.setItem('invite_code', this.state.accountFormDetails.invitationCode.value);
+
+            browser.push('/join/inviteByCodeStep2');
+          } else {
+                /* Invitation Validation failed */
+                accountFormDetailsData.invitationCode.errorText = passwordResult.passwordNotAcceptedMessage;
+
+                /* make sure to persist any changes to the account signup form (error messages) */
+                this.setState({ accountFormDetails: accountFormDetailsData });
+
+                formIsComplete = false;
+              }
+            }
+          })
+          .catch((err) => {
+            throw ('Error: ', err);
+          });
+    } else {
+      /* make sure to persist any changes to the account signup form (error messages) */
+      this.setState(() => ({ accountFormDetails: accountFormDetailsData }));
+    }
   }
 
   render() {
+    const { pathname } = this.props;
+    const {
+      accountFormDetails,
+    } = this.state;
+
     return (
-      <div style={{'paddingTop': '55px', 'marginLeft': 'auto', 'marginRight': 'auto', 'width': '600px'}}>
-        <h1>Welcome.....</h1>
-        <br/>
-        <br/>
-        <p>Please enter in your email address and your invitiation code to continue:</p>
-        <br/>
-        <br/>
-        <p>Your Email Address:</p>
-        <p>Invitation Code:</p>
-        <br/>
-        <p>First Name:</p>
-        <p>Last Name:</p>
-        <p>Display Name:</p>
-        <p>Password:</p>
-        <p>Confirm Password:</p>
-        <p>Are you under the Age of 13?</p>
-        <br/>
-        <br/>
-        <Link to="/join/step2">Submit to Join!</Link>
+      <div>
+        <Request
+          serviceURL={JOIN_PAGE_ENDPOINT_URL}
+          requestBody={{ 'callSource': 'joinByInvitationAltStep1' }}
+          serviceResponseHandler={this.handleJoinPageServiceResponse}
+          render={({
+            fetchingContent,
+            serviceResponse: joinPageRes,
+          }) => (
+            <Fragment>
+              {
+                !fetchingContent &&
+                  <Fragment>
+                    <JoinHeader
+                      mainHeading={joinPageRes.pageHeading1}
+                      subHeading={joinPageRes.pageHeading2}
+                      activeTab={pathname}
+                    />
+                    <div className="step-root">
+                      <div className="inner-container">
+                        <div className="section-heading">{joinPageRes.sectionHeading}</div>
+                          <form onSubmit={this.handleSubmit}>
+                            {accountFormDetails.invitationCode.visible ? (
+                              <div className="form-section">
+                                <div className="form-field-container">
+                                  <span className="form-label" dangerouslySetInnerHTML={{ __html: accountFormDetails.invitationCode.label }} />:
+                                  <span className="form-error" dangerouslySetInnerHTML={{ __html: accountFormDetails.invitationCode.errorText }} />
+                                </div>
+                                <Field
+                                  name="password"
+                                  type="password"
+                                  className="form-field"
+                                  label={accountFormDetails.invitationCode.hintText}
+                                  component={InputField}
+                                  onChange={(event) => { this.handleFieldChange({ field: 'invitationCode', value: event.target.value }); }}
+                                />
+                              </div>
+                            ) : null}
+
+                            {accountFormDetails.loginEmailAddress.visible ? (
+                              <div className="form-section">
+                                <div className="form-field-container">
+                                  <span className="form-label" dangerouslySetInnerHTML={{ __html: accountFormDetails.loginEmailAddress.label }} />:
+                                  <span className="form-error" dangerouslySetInnerHTML={{ __html: accountFormDetails.loginEmailAddress.errorText }} />
+                                </div>
+                                <Field name="passwordVerification"
+                                  type="password"
+                                  className="form-field"
+                                  label={accountFormDetails.loginEmailAddress.hintText}
+                                  component={InputField}
+                                  onChange={(event) => { this.handleFieldChange({ field: 'loginEmailAddress', value: event.target.value }); }}
+                                />
+                              </div>
+                            ) : null}
+                            <div className="button-container">
+                              <Button
+                                type="button"
+                                text="Go Back"
+                                onClickEvent={() => { browserHistory.push('/join/step1'); }}
+                              />
+                              <button
+                                className="submit-button"
+                                type="submit"
+                              >Go to payment
+                              </button>
+                            </div>
+                          </form>
+                      </div>
+                    </div>
+                  </Fragment>
+                }
+                </Fragment>
+              )}
+            />
+          <style jsx>{styles}</style>
       </div>
     )
   }
 }
 
-export default JoinByInviteCodeStep1;
+
+const mapStateToProps = ({ joinAccountForm }) => ({
+  joinAccountForm,
+});
+
+export default connect(mapStateToProps, null)(reduxForm({ form: 'joinAccountForm', enableReinitialize: true, })(JoinByInviteCodeStep1));

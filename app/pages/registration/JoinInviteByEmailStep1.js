@@ -115,13 +115,6 @@ class JoinByInviteEmailStep1 extends Component {
           hintText: '',
           errorText: '',
         },
-        astronomyClub18AndOver: {
-          label: '',
-          visible: true,
-          value: false,
-          hintText: '',
-          errorText: '',
-        },
       },
     }
   }
@@ -137,7 +130,6 @@ class JoinByInviteEmailStep1 extends Component {
     newAccountFormData.password.label = result.formFieldLabels.password.label;
     newAccountFormData.passwordVerification.label = result.formFieldLabels.passwordverification.label;
     newAccountFormData.astronomyClubName.label = result.formFieldLabels.astronomyClubName.label;
-    newAccountFormData.astronomyClub18AndOver.label = result.formFieldLabels.astronomyClub18AndOver.label;
 
     newAccountFormData.givenName.hintText = result.formFieldLabels.firstname.hintText;
     newAccountFormData.familyName.hintText = result.formFieldLabels.lastname.hintText;
@@ -146,7 +138,6 @@ class JoinByInviteEmailStep1 extends Component {
     newAccountFormData.password.hintText = result.formFieldLabels.password.hintText;
     newAccountFormData.passwordVerification.hintText = result.formFieldLabels.passwordverification.hintText;
     newAccountFormData.astronomyClubName.hintText = result.formFieldLabels.astronomyClubName.hintText;
-    newAccountFormData.astronomyClub18AndOver.hintText = result.formFieldLabels.astronomyClub18AndOver.hintText;
 
     newAccountFormData.givenName.value = result.invitee.firstName;
     this.props.change('givenName', result.invitee.firstName);
