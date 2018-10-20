@@ -1,8 +1,7 @@
 import css from 'styled-jsx/css';
 
 export default css`
-  .tile-container {
+  .tab-queue-root {
     width: 100%;
-    padding: 10px;
   }
 `;

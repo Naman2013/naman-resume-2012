@@ -8,3 +8,6 @@ export * from './all-sky-camera';
 export * from './image-portal';
 export * from './how-big-module';
 export * from './queue-navigation';
+export * from './satellite';
+export * from './sky-conditions';
+export * from './weather-conditions';

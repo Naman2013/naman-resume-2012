@@ -5,6 +5,7 @@ import style from './column-tabs.style';
 
 class ColumnTabs extends Component {
   static propTypes = {
+    title: PropTypes.string,
     activeTabIndex: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     tabConfiguration: PropTypes.arrayOf(PropTypes.shape({
       tabTitle: PropTypes.string.isRequired,
@@ -13,6 +14,7 @@ class ColumnTabs extends Component {
   }
 
   static defaultProps = {
+    title: '',
     activeTabIndex: 0,
     tabConfiguration: [
       { tabTitle: 'Live', content: () => (<h1>Live stuff!</h1>) },
@@ -30,8 +32,9 @@ class ColumnTabs extends Component {
 
   render() {
     return (
-      <div>
+      <div className="tabs-root">
         <div>
+          <h3 className="menu-title">Canary Three</h3>
           <ul className="column-tab-set">
             {this.props.tabConfiguration.map((tab, index) => (
               <li key={`column-tab-${tab.tabTitle}`} className="column-tab">
