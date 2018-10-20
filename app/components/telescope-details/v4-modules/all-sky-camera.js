@@ -9,14 +9,10 @@ const AllSkyCamera = ({ imageURL }) => (
     <ModuleContainer title="All sky camera snap">
       <div className="content">
         <ImagePortal src={imageURL} />
-        <div className="vertical-line" />
-        <ul className="attribute-list">
-          <li>00%</li>
-          <li>00%</li>
-          <li>00%</li>
-          <li>00%</li>
-        </ul>
-        <p className="copy">Restibulum rutrum quameli mitae fringilla lorem ipsum.</p>
+        <div className="meta-data">
+          <div className="vertical-line" />
+          <p className="copy">Restibulum rutrum quameli mitae fringilla lorem ipsum.</p>
+        </div>
       </div>
     </ModuleContainer>
     <style jsx>{style}</style>

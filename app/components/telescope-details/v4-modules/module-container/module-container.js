@@ -4,7 +4,7 @@ import { ModuleHeader } from './module-header';
 import style from './module-container.style';
 
 const ModuleContainer = ({ children, title }) => (
-  <div className="container">
+  <div className="module-container">
     <ModuleHeader title={title} />
     {children}
     <style jsx>{style}</style>
