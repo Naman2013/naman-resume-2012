@@ -6,6 +6,8 @@ import React, { Component, cloneElement } from 'react';
 import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import Request from 'components/common/network/Request';
+import { JOIN_PAGE_ENDPOINT_URL } from 'services/registration/registration.js';
 
 class JoinByInviteCodeStep1 extends Component {
   constructor(props) {

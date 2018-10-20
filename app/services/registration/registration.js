@@ -6,3 +6,4 @@ export const GOOGLE_SSO_SIGNIN_ENDPOINT_URL = '/api/registration/processGoogleSS
 export const VERIFY_PASSWORD_MEETS_REQUIREMENTS_ENDPOINT_URL='/api/registration/verifyPasswordMeetsRequirements';
 export const JOIN_CREATE_PENDING_CUSTOMER_ENDPOINT_URL='/api/registration/createPendingCustomer';
 export const JOIN_ACTIVATE_PENDING_CUSTOMER_ENDPOINT_URL='/api/registration/activatePendingCustomer';
+export const JOIN_CREATE_INVITED_CUSTOMER_ENDPOINT_URL='/api/registration/activateInvitedCustomer';
