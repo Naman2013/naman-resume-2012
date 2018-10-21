@@ -5,6 +5,50 @@ import { screenMedium, screenLarge, screenXLarge } from '../../styles/variables/
 
 export default css`
 
+  .ask-modal {
+    font-family: ${primaryFont};
+    text-transform: uppercase;
+  }
+  .question-title {
+    font-family: ${primaryFont};
+    text-transform: uppercase;
+    font-size: 12px;
+    padding: 40px;
+    padding-bottom: 10px;
+    width: 100%;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+  }
+  .flex-right {
+    display: flex;
+    justify-content: flex-end;
+  }
+  .form {
+    padding: 15px;
+  }
+  .question-input {
+    border-width: 1px;
+    height: 200px;
+    width: calc(100% - 30px);
+    padding: 15px;
+    vertical-align: top;
+    margin: 10px;
+  }
+  .question-button {
+    display: block;
+    width: 100px;
+    padding: 5px 10px;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 10px;
+    margin-top: 10px;
+  }
+
+
+
+
+
+
   .question-container {
     box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.1);
     margin: 10px 0;

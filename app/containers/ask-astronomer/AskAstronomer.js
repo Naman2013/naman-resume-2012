@@ -20,7 +20,7 @@ import {
 import AskQuestionTile from '../../components/ask-astronomer/AskQuestionTile';
 import QuestionList from '../../components/ask-astronomer/question-list';
 import ModalGeneric from '../../components/common/modals/modal-generic';
-import AskAstronomerQuestionForm from '../../components/ask-astronomer/question-form';
+import AskAstronomerQuestionForm from '../../components/ask-astronomer/AskQuestionForm';
 import ObjectDetailsSectionTitle from '../../components/object-details/ObjectDetailsSectionTitle';
 import CenterColumn from '../../../app/components/common/CenterColumn';
 import MVPAstronomerList from '../../../app/components/common/MVPAstronomer/MVPAstronomerList';
@@ -226,17 +226,19 @@ class AskAstronomer extends Component {
               </div>  
 
               <div className={'right ' + this.state.rightView}>
-                <ModalGeneric
+                {/*<ModalGeneric
                   open={showPrompt}
                   closeModal={this.closeModal}
                   description={'test'}
-                />
-                {/*<AskAstronomerQuestionForm
+                />*/}
+                <AskAstronomerQuestionForm
+                  open={showPrompt}
+                  hideModal={this.closeModal}
                   objectId={objectId}
                   topicId={faqTopicId}
                   objectTitle={objectTitle}
                   user={user}
-                />*/}
+                />
                 <AskQuestionTile showModal={this.showModal} ></AskQuestionTile>
                 <div className="ask-tablet-subnav">         
                   <div className="center-line" />
