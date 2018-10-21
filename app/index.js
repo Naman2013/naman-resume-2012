@@ -90,6 +90,7 @@ import JoinStep2 from './pages/registration/JoinStep2';
 import JoinStep3 from './pages/registration/JoinStep3';
 import JoinInviteByEmailStep1 from './pages/registration/JoinInviteByEmailStep1';
 import JoinInviteByCodeStep1 from './pages/registration/JoinInviteByCodeStep1';
+import JoinInviteByCodeStep2 from './pages/registration/JoinInviteByCodeStep2';
 import Memberships from './pages/registration/Memberships';
 
 import Notifications from './pages/settings/Notifications';
@@ -230,7 +231,8 @@ ReactDOM.render(
           <Route path="step2" component={JoinStep2} />
           <Route path="step3" component={JoinStep3} />
           <Route path="inviteByEmail/:invitationCodeHash/:invitationCreationEpoch" component={JoinInviteByEmailStep1} />
-          <Route path="inviteByCode" component={JoinInviteByCodeStep1} />
+          <Route path="inviteByCodeStep1" component={JoinInviteByCodeStep1} />
+          <Route path="inviteByCodeStep2" component={JoinInviteByCodeStep2} />
         </Route>
 
         <Route
