@@ -312,12 +312,12 @@ class JoinByInviteEmailStep1 extends Component {
       .then((response) => {
         const res = response.data;
         if (!res.apiError) {
-          const pendingCustomerResult = {
+          const createCustomerResult = {
             status: res.status,
             customerId: res.customerId,
           }
 
-          if (pendingCustomerResult.status === 'success') {
+          if (createCustomerResult.status === 'success') {
             window.localStorage.setItem('pending_cid', pendingCustomerResult.customerId);
             window.localStorage.setItem('username', this.state.accountFormDetails.loginEmailAddress.value);
             window.localStorage.setItem('password', this.state.accountFormDetails.password.value);
