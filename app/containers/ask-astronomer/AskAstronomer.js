@@ -176,6 +176,7 @@ class AskAstronomer extends Component {
       fetchingAnswers,
       fetchingQuestions,
       params: {
+        faqTopicId,
         objectId,
       },
       objectData: {
@@ -185,6 +186,7 @@ class AskAstronomer extends Component {
       totalCount,
       count,
       page,
+      user,
       objectSpecialists,
     } = this.props;
 
