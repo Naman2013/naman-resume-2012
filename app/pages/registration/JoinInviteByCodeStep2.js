@@ -45,8 +45,11 @@ class JoinByInviteCodeStep2 extends Component {
       inviteeEmailAddress: this.state.inviteeEmailAddress
     };
 
+    const numSteps = 2;
+    const stepNumber = 2;
+
     return (
-      <JoinByInviteAccountSignup joinByInviteParams={joinByInviteParams}/>
+      <JoinByInviteAccountSignup stepNumber={stepNumber} numberOfSteps={numSteps} joinByInviteParams={joinByInviteParams}/>
     )
   }
 }

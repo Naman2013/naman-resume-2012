@@ -39,8 +39,11 @@ class JoinByInviteEmailStep1 extends Component {
       invitationCreationEpoch: this.props.params.invitationCreationEpoch,
     }
 
+    const numSteps = 1;
+    const stepNumber = 1;
+
     return (
-      <JoinByInviteAccountSignup joinByInviteParams={joinByInviteParams}/>
+      <JoinByInviteAccountSignup stepNumber={stepNumber} numberOfSteps={numSteps} joinByInviteParams={joinByInviteParams}/>
     )
   }
 }

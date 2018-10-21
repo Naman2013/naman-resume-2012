@@ -188,38 +188,34 @@ class JoinByInviteCodeStep1 extends Component {
                       <div className="inner-container">
                         <div className="section-heading">{joinPageRes.sectionHeading}</div>
                           <form onSubmit={this.handleSubmit}>
-                            {accountFormDetails.invitationCode.visible ? (
-                              <div className="form-section">
-                                <div className="form-field-container">
-                                  <span className="form-label" dangerouslySetInnerHTML={{ __html: accountFormDetails.invitationCode.label }} />:
-                                  <span className="form-error" dangerouslySetInnerHTML={{ __html: accountFormDetails.invitationCode.errorText }} />
-                                </div>
-                                <Field
-                                  name="invitationCode"
-                                  type="text"
-                                  className="form-field"
-                                  label={accountFormDetails.invitationCode.hintText}
-                                  component={InputField}
-                                  onChange={(event) => { this.handleFieldChange({ field: 'invitationCode', value: event.target.value }); }}
-                                />
+                            <div className="form-section">
+                              <div className="form-field-container">
+                                <span className="form-label" dangerouslySetInnerHTML={{ __html: accountFormDetails.loginEmailAddress.label }} />:
+                                <span className="form-error" dangerouslySetInnerHTML={{ __html: accountFormDetails.loginEmailAddress.errorText }} />
                               </div>
-                            ) : null}
+                              <Field name="loginEmailAddress"
+                                type="text"
+                                className="form-field"
+                                label={accountFormDetails.loginEmailAddress.hintText}
+                                component={InputField}
+                                onChange={(event) => { this.handleFieldChange({ field: 'loginEmailAddress', value: event.target.value }); }}
+                              />
+                            </div>
 
-                            {accountFormDetails.loginEmailAddress.visible ? (
-                              <div className="form-section">
-                                <div className="form-field-container">
-                                  <span className="form-label" dangerouslySetInnerHTML={{ __html: accountFormDetails.loginEmailAddress.label }} />:
-                                  <span className="form-error" dangerouslySetInnerHTML={{ __html: accountFormDetails.loginEmailAddress.errorText }} />
-                                </div>
-                                <Field name="loginEmailAddress"
-                                  type="text"
-                                  className="form-field"
-                                  label={accountFormDetails.loginEmailAddress.hintText}
-                                  component={InputField}
-                                  onChange={(event) => { this.handleFieldChange({ field: 'loginEmailAddress', value: event.target.value }); }}
-                                />
+                            <div className="form-section">
+                              <div className="form-field-container">
+                                <span className="form-label" dangerouslySetInnerHTML={{ __html: accountFormDetails.invitationCode.label }} />:
+                                <span className="form-error" dangerouslySetInnerHTML={{ __html: accountFormDetails.invitationCode.errorText }} />
                               </div>
-                            ) : null}
+                              <Field
+                                name="invitationCode"
+                                type="text"
+                                className="form-field"
+                                label={accountFormDetails.invitationCode.hintText}
+                                component={InputField}
+                                onChange={(event) => { this.handleFieldChange({ field: 'invitationCode', value: event.target.value }); }}
+                              />
+                            </div>
                             <div className="button-container">
                               <Button
                                 type="button"
