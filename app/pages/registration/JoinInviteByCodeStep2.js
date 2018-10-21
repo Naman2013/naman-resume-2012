@@ -4,23 +4,14 @@
 import React, { Component, cloneElement, Fragment } from 'react';
 import { Link } from 'react-router';
 import PropTypes from 'prop-types';
-import axios from 'axios';
-import { GoogleLogin } from 'react-google-login';
 import { connect } from 'react-redux';
-import { Field, reduxForm } from 'redux-form';
 import cloneDeep from 'lodash/cloneDeep';
 import noop from 'lodash/noop';
-import InputField from 'components/form/InputField';
 import { createValidator, required } from 'modules/utils/validation';
 import { browserHistory } from 'react-router';
 import Button from 'components/common/style/buttons/Button';
-import Request from 'components/common/network/Request';
 import JoinHeader from './partials/JoinHeader';
-
-import {
-  JOIN_PAGE_ENDPOINT_URL,
-} from 'services/registration/registration.js';
-import styles from './JoinStep2.style';
+import JoinByInviteAccountSignup from './common/JoinByInviteAccountSignup';
 
 const {
   string,
@@ -45,44 +36,17 @@ class JoinByInviteCodeStep2 extends Component {
     }
   }
 
-  // Obtain access to the join api service response and update the accountFormDetails state to reflect the Join Page response (set form labels)
-  handleJoinPageServiceResponse = (result) => {
-  }
-
   render() {
     const { pathname } = this.props;
 
+    const joinByInviteParams = {
+      callSource: 'joinByInvitationAltStep2',
+      invitationCodeAlt: this.state.invitationCodeAlt,
+      inviteeEmailAddress: this.state.inviteeEmailAddress
+    };
+
     return (
-      <div>
-        <Request
-          serviceURL={JOIN_PAGE_ENDPOINT_URL}
-          requestBody={{ 'callSource': 'joinByInvitationAltStep2', invitationCodeAlt: this.state.invitationCodeAlt, inviteeEmailAddress: this.state.inviteeEmailAddress }}
-          serviceResponseHandler={this.handleJoinPageServiceResponse}
-          render={({
-            fetchingContent,
-            serviceResponse: joinPageRes,
-          }) => (
-            <Fragment>
-              {
-                !fetchingContent &&
-                  <Fragment>
-                    <JoinHeader
-                      mainHeading={joinPageRes.pageHeading1}
-                      subHeading={joinPageRes.pageHeading2}
-                      activeTab={pathname}
-                    />
-                    <div className="step-root">
-                      <div className="inner-container">
-                        <div className="section-heading">{joinPageRes.sectionHeading}</div>
-                      </div>
-                    </div>
-                  </Fragment>
-                }
-                </Fragment>
-              )}
-            />
-          <style jsx>{styles}</style>
-      </div>
+      <JoinByInviteAccountSignup joinByInviteParams={joinByInviteParams}/>
     )
   }
 }
@@ -92,4 +56,4 @@ const mapStateToProps = ({ joinAccountForm }) => ({
   joinAccountForm,
 });
 
-export default connect(mapStateToProps, null)(reduxForm({ form: 'joinAccountForm', enableReinitialize: true, })(JoinByInviteCodeStep2));
+export default connect(mapStateToProps, null)(JoinByInviteCodeStep2);
