@@ -46,9 +46,19 @@ class GroupMemberList extends Component {
     page: 1,
   }
 
+  componentDidMount() {
+    const { membersList, count } = this.props;
+    const displayedMembers = take([].concat(membersList), count)
+      .map(member => member.customerId);
+      this.setState({
+        displayedMembers,
+        members: membersList,
+      });
+  }
+
   componentWillReceiveProps(nextProps) {
-    const { count, membersList } = this.props;
-    if (membersList.length !== nextProps.membersList.length) {
+    const { count, membersList, membersSort } = this.props;
+    if (membersList.length !== nextProps.membersList.length || (membersSort !== nextProps.membersSort)) {
       const displayedMembers = take([].concat(nextProps.membersList), nextProps.count)
         .map(member => member.customerId);
         this.setState({
@@ -80,6 +90,7 @@ class GroupMemberList extends Component {
       discussionGroupId,
       fetchGroupMembers,
       renderToggle,
+      theme,
     } = this.props;
 
     const {
@@ -87,8 +98,9 @@ class GroupMemberList extends Component {
       displayedMembers,
       page,
     } = this.state;
+
     return (
-      <div className="members-list">
+      <div className="members-list" style={theme}>
         <BlueLineDrop
           title={`Group Members (${membersCount})`}
           isDesktop={isDesktop}
@@ -108,7 +120,7 @@ class GroupMemberList extends Component {
                   totalCount={members.length}
                   page={page}
                   idField="customerId"
-                  buttonText="More Members"
+                  buttonText={['MORE MEMBER', 'MORE MEMBERS']}
                 />}
                 {renderToggle ? renderToggle() : null}
               </div>

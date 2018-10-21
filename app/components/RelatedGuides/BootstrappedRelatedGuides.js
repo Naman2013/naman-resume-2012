@@ -52,7 +52,7 @@ class BootstrappedRelatedShows extends Component {
     return (<div className="root">
       <div className="related-shows-title">Related Guides <span className="related-shows-count">({guideCount})</span></div>
       {guideList.length > 0  ?
-        <WinstonTile title={guideList[0].guideTitle} linkUrl={guideList[0].linkUrl} linkText={guideList[0].linkText} /> :
+        <WinstonTile title={guideList[0].guideTitle} linkUrl={guideList[0].linkUrl} linkText={guideList[0].linkText} theme={{ backgroundSize: '100%', backgroundImage: `url('https://vega.slooh.com/assets/v4/common/guide_tile_bg_rect.jpg')`}} /> :
         null
       }
       <style jsx>{styles}</style>

@@ -1,23 +1,29 @@
 import React, { Fragment } from 'react';
-import { DeviceContext } from '../../../providers/DeviceProvider';
+import PropTypes from 'prop-types';
+import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
 import CardObsLarge from './CardObsLarge';
 import CardObsSmall from './CardObsSmall';
 
-const CardObs = (props) => (
+const CardObs = props => (
   <Fragment>
-    <DeviceContext.Consumer>
-      {
-        (context) => {
-          if (!context.isMobile) {
-            return ( <CardObsLarge {...props} /> );
-          }
-          return ( <CardObsSmall {...props} />);
-        }
-      }
+    <DisplayAtBreakpoint screenSmall>
+      <CardObsSmall {...props} />
+    </DisplayAtBreakpoint>
 
-    </DeviceContext.Consumer>
+    <DisplayAtBreakpoint screenMedium screenLarge screenXLarge>
+      <CardObsLarge {...props} />
+    </DisplayAtBreakpoint>
   </Fragment>
 );
 
+CardObs.propTypes = {
+  title: PropTypes.string.isRequired,
+  subTitle: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  imageUrl: PropTypes.string.isRequired,
+  hasLink: PropTypes.bool.isRequired,
+  linkLabel: PropTypes.string.isRequired,
+  linkUrl: PropTypes.string.isRequired,
+};
 
 export default CardObs;

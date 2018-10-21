@@ -2,9 +2,10 @@ import css from 'styled-jsx/css';
 import {
   seashell,
   shadows,
+  romance,
 } from 'styles/variables/colors_tiles_v4';
 import { secondaryFont } from 'styles/variables/fonts';
-import { screenMedium } from 'styles/variables/breakpoints';
+import { screenMedium, screenLarge } from 'styles/variables/breakpoints';
 
 export default css`
   .root {
@@ -18,6 +19,7 @@ export default css`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
   }
   .flex-right {
     display: flex;
@@ -25,6 +27,7 @@ export default css`
   }
   .form {
     padding: 15px;
+    background-color: ${romance};
 
   }
   .fake-input {
@@ -57,12 +60,22 @@ export default css`
     padding: 25px;
     resize: none;
     vertical-align: top;
-    width: 260px;
+    width: 100%;
   }
 
 
 
   @media ${screenMedium} {
+    .fake-input {
+      width: 540px;
+    }
+    .reveal-form-input {
+      height: 393px;
+      width: 628px;
+    }
+  }
+
+  @media ${screenLarge} {
     .fake-input {
       width: 540px;
     }

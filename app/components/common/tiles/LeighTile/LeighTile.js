@@ -5,14 +5,16 @@ import style from './LeighTile.style';
 import { horizontalArrow } from 'styles/variables/iconURLs';
 
 const LeighTile = ({ title, anchorText, link }) => (
-  <div className="root">
-    <h5 className="title">{title}</h5>
-    <div className="action-container">
-      <Link to={link}>{anchorText}</Link>
-      <img alt="" src={horizontalArrow} />
+  <Link to={link}>
+    <div className="root">
+      <h5 className="title">{title}</h5>
+      <div className="action-container">
+        {anchorText}
+        <img alt="" src={horizontalArrow} />
+      </div>
     </div>
     <style jsx>{style}</style>
-  </div>
+  </Link>
 );
 
 LeighTile.propTypes = {

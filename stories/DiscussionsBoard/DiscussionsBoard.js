@@ -1,6 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import DiscussionsBoard from '../../app/components/common/DiscussionsBoard/BootstrappedDiscussionsBoard';
+import DiscussionsBoard from '../../app/components/common/DiscussionsBoard/DiscussionsThreads';
 import mock from './mockResponse'
 
 storiesOf('Discussions Board', module)

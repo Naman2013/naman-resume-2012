@@ -46,7 +46,8 @@ import ObjectDetailsObservations from './containers/object-details/ObjectDetails
 
 // pages
 import TelescopeOverview from './pages/telescope-overview';
-import TelescopeDetails from './pages/telescope-details/telescope-details';
+// import TelescopeDetails from './pages/telescope-details/telescope-details';
+import { TelescopeDetails } from './pages/telescope-details';
 import NewMissions from './pages/new-missions';
 import ExistingMissions from './pages/existing-missions';
 import ReserveByTelescope from './pages/reserve-by-telescope';
@@ -81,6 +82,15 @@ import UpgradeApprentice from './pages/registration/UpgradeApprentice';
 import UpgradeAstronomer from './pages/registration/UpgradeAstronomer';
 import SignIn from './pages/registration/SignIn';
 import Upgrade from './pages/registration/Upgrade';
+
+import Join from './pages/registration/Join';
+import JoinStep1 from './pages/registration/JoinStep1';
+import JoinStep1SchoolSelection from './pages/registration/JoinStep1SchoolSelection';
+import JoinStep2 from './pages/registration/JoinStep2';
+import JoinStep3 from './pages/registration/JoinStep3';
+import JoinInviteByEmailStep1 from './pages/registration/JoinInviteByEmailStep1';
+import JoinInviteByCodeStep1 from './pages/registration/JoinInviteByCodeStep1';
+import Memberships from './pages/registration/Memberships';
 
 import Notifications from './pages/settings/Notifications';
 import PaymentInfo from './pages/settings/PaymentInfo';
@@ -127,7 +137,6 @@ import BookclubHandoff from './pages/bookclub-handoff/BookclubHandoff';
 import GuideDetails from './pages/guide-details/GuideDetails';
 import ObjectDetails from './pages/object-details/ObjectDetails';
 import QuestDetails from './pages/quest-details/QuestDetails';
-import UserProfile from './pages/profiles/Profile';
 import UserPrivateProfile from './pages/profiles/private-profile';
 import UserPublicProfile from './pages/profiles/public-profile';
 import CommunityGroups from './pages/community-groups/Groups';
@@ -136,6 +145,12 @@ import CommunityGroupOverview from './pages/community-groups/GroupOverview';
 import GroupOverviewInfo from './pages/community-groups/GroupOverviewInfo';
 import ImageDetails from './pages/image-details';
 import Show from './pages/show';
+import StoryDetails from './containers/story-details';
+import QuestsHub from './containers/quests-hub';
+import GuidesHub from './containers/guides-hub';
+import StoriesHub from './containers/stories-hub';
+import GroupsHub from './containers/groups-hub';
+import PlaceholderPage from './pages/Placeholder';
 
 import DashboardPage from 'components/Dashboard';
 // router functions
@@ -166,6 +181,7 @@ history.listen((location) => {
     location: pathname,
   });
   store.dispatch(fetchPlayer({ pageURL: pathname }));
+  //console.log(location);
 });
 
 ReactDOM.render(
@@ -175,6 +191,7 @@ ReactDOM.render(
 
       <Route path="about" component={StaticAppContainer} onEnter={validateUser}>
         <IndexRedirect to="mission" />
+        <Route path="memberships" component={Memberships} />
         <Route path="mission" component={Mission} />
         <Route path="news" component={News} title="In The News" subTitle=" " />
         <Route
@@ -186,6 +203,7 @@ ReactDOM.render(
         <Route path="contact" component={Contact} title="Contact US" subTitle=" " />
         <Route path="leadership" component={Leadership} title="Leadership" subTitle=" " />
       </Route>
+
 
       <Route path="registration" component={StaticAppContainer} onEnter={validateRegistrationPaths}>
         <Route path="sign-in" component={SignIn} />
@@ -203,6 +221,17 @@ ReactDOM.render(
 
       <Route path="/" component={App}>
         <IndexRoute component={DashboardPage} onEnter={validateUser} />
+
+        <Route path="memberships" component={Memberships} />
+
+        <Route path="join" component={Join}>
+          <Route path="step1" component={JoinStep1} />
+          <Route path="step1SchoolSelection" component={JoinStep1SchoolSelection} />
+          <Route path="step2" component={JoinStep2} />
+          <Route path="step3" component={JoinStep3} />
+          <Route path="inviteByEmail/:invitationCodeHash/:invitationCreationEpoch" component={JoinInviteByEmailStep1} />
+          <Route path="inviteByCode" component={JoinInviteByCodeStep1} />
+        </Route>
 
         <Route
           path="telescope-overview/:observatoryId"
@@ -294,15 +323,6 @@ ReactDOM.render(
             <IndexRedirect to="all" />
             <Route path="all" name="all" component={PulseSearch} />
           </Route>
-        </Route>
-
-        <Route path="community" component={PulsePost}>
-          <Route
-            path="post(/:id)"
-            name="post"
-            component={PulsePostContent}
-            onEnter={validateUser}
-          />
         </Route>
 
         {/**
@@ -480,12 +500,12 @@ ReactDOM.render(
         <Route path="help/privacy" component={Privacy} />
 
         <Route path="bookclub" component={BookclubHandoff} />
-
+        <Route path="guides(/:filterType)" component={GuidesHub} onEnter={validateUser} />
         <Route path="guide-details/:guideId" component={GuideDetails} onEnter={validateUser} />
 
-        <Route path="guides/subject/:guideId" component={SubjectGuides} />
-        <Route path="guides/topic/:guideId" component={TopicGuides} />
-        <Route path="guides/object-category/:guideId" component={ObjectCategoryGuide} />
+        <Route path="guides/subject/:guideId" component={SubjectGuides} onEnter={validateUser} />
+        <Route path="guides/topic/:guideId" component={TopicGuides} onEnter={validateUser} />
+        <Route path="guides/object-category/:guideId" component={ObjectCategoryGuide} onEnter={validateUser} />
 
         <Route path="object-details/:objectId" component={ObjectDetails} onEnter={validateUser}>
           <IndexRedirect to="overview" />
@@ -498,31 +518,39 @@ ReactDOM.render(
           <Route path="ask" component={AskAstronomer} onEnter={validateUser} />
         </Route>
 
+        <Route path="telescopes" component={PlaceholderPage} onEnter={validateUser} />
+
+        <Route path="shows" component={PlaceholderPage} onEnter={validateUser} />
+
+        <Route path="stories(/:filterType)" component={StoriesHub} onEnter={validateUser} />
+        <Route path="community/post/:postId" component={StoryDetails} onEnter={validateUser} />
+
+        <Route path="lists" component={PlaceholderPage} onEnter={validateUser}>
+          <IndexRedirect to="my-lists" />
+          <Route path="my-lists" component={PlaceholderPage} />
+        </Route>
+
+        <Route path="qa" component={PlaceholderPage} onEnter={validateUser}>
+          <IndexRedirect to="my-qa" />
+          <Route path="my-qa" component={PlaceholderPage} />
+        </Route>
+
+        <Route path="quests(/:filterType)" component={QuestsHub} onEnter={validateUser} />
+
         <Route path="quest-details/:questId" component={QuestDetails} onEnter={validateUser} />
 
         <Route path="profile/private" component={UserPrivateProfile} onEnter={validateUser} />
         <Route path="profile/public/:cid" component={UserPublicProfile} onEnter={validateUser} />
 
-        <Route path="community-groups/private" component={CommunityGroups} onEnter={validateUser}>
-          <IndexRedirect to="alphabetic" />
-          <Route path="alphabetic" component={CommunityGroupsList} onEnter={validateUser} />
-          <Route path="popular" component={CommunityGroupsList} onEnter={validateUser} />
-        </Route>
-        <Route path="community-groups/public" component={CommunityGroups} onEnter={validateUser}>
-          <IndexRedirect to="alphabetic" />
-          <Route path="alphabetic" component={CommunityGroupsList} onEnter={validateUser} />
-          <Route path="popular" component={CommunityGroupsList} onEnter={validateUser} />
-        </Route>
-        <Route path="community-groups/my-groups" component={CommunityGroups}>
-          <IndexRedirect to="alphabetic" />
-          <Route path="alphabetic" component={CommunityGroupsList} />
-          <Route path="popular" component={CommunityGroupsList} />
-        </Route>
+        <Route path="groups(/:filterType)" component={GroupsHub} onEnter={validateUser} />
 
         <Route path="community-groups/:groupId" onEnter={validateUser} component={CommunityGroupOverview} />
         <Route path="community-groups/:groupId/info" onEnter={validateUser} component={GroupOverviewInfo} />
-
       </Route>
+
+      <Route path="sitemap" component={PlaceholderPage} onEnter={validateUser} />
+
+      <Route path="patent" component={PlaceholderPage} onEnter={validateUser} />
       <Redirect from="*" to="/" />
     </Router>
   </Provider>,

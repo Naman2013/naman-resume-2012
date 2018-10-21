@@ -1,5 +1,5 @@
 import { primaryFont } from 'styles/variables/fonts';
-import { shadows } from 'styles/variables/colors_tiles_v4';
+import { shadows, romance } from 'styles/variables/colors_tiles_v4';
 
 export const profilePhotoStyle = photoUrl => ({
   backgroundImage: `url(${photoUrl})`,
@@ -68,6 +68,23 @@ export const customModalStylesV4 = {
   },
 };
 
+export const customModalStylesBlackOverlay = {
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+    maxWidth: '650px',
+    padding: '50px 25px',
+    fontFamily: primaryFont,
+  },
+  overlay: {
+    backgroundColor: 'rgba(0, 0, 0, .7)',
+  },
+};
+
 export const modalStyleFullPage = {
   content: {
     top: 0,
@@ -79,9 +96,10 @@ export const modalStyleFullPage = {
     padding: 0,
     fontFamily: primaryFont,
     borderRadius: 0,
+    backgroundColor: romance,
   },
   overlay: {
-    backgroundColor: 'rgba(255, 255, 255, 0)',
+    backgroundColor: romance,
   },
 };
 

@@ -2,10 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { connect } from 'react-redux';
-import { red, white, black } from 'styles/variables/colors';
-const AlertsIcon = ({ notificationsCount }) => (
+import { romance, astronaut } from 'styles/variables/colors_tiles_v4';
+import {
+  sloohLogoAstronaut,
+  threeLinesAstronaut,
+  telescopeAstronaut,
+  searchAstronaut,
+  userAstronaut,
+} from 'styles/variables/iconURLs';
+const AlertsIcon = ({ notificationsCount, isActive }) => (
   <span className="root">
-    <span className="fa fa-bell" />
+    <span className={classnames('fa fa-bell', {
+      'is-active': isActive,
+    })}/>
     <span className={classnames('count', {
       zero: notificationsCount === 0,
     })}>{notificationsCount}</span>
@@ -14,11 +23,20 @@ const AlertsIcon = ({ notificationsCount }) => (
         display: block;
         position: relative;
       }
+
+      .fa-bell {
+        color: ${astronaut};
+      }
+
+      .fa-bell.is-active {
+        color: ${romance};
+      }
       .count {
         position: absolute;
         top: -5px;
         right: 5px;
-        background-color: ${red};
+        color: ${romance};
+        background-color: red;
         border-radius: 50%;
         width: 15px;
         height: 15px;
@@ -26,8 +44,8 @@ const AlertsIcon = ({ notificationsCount }) => (
       }
 
       .zero {
-        background-color: ${black};
-        color: ${white};
+        background-color: ${astronaut};
+        color: ${romance};
       }
     `}</style>
   </span>

@@ -51,8 +51,8 @@ class BootstrappedRelatedShows extends Component {
 
     return (<div className="root">
       <div className="related-shows-title">Related Shows <span className="related-shows-count">({showCount})</span></div>
-      {showList.length > 0  ?
-        <WinstonTile title={showList[0].showTitle} linkUrl={showList[0].linkUrl} linkText={showList[0].linkText} /> :
+      {showList.length > 0 ?
+        <WinstonTile title={showList[0].showTitle} linkUrl={showList[0].linkUrl} linkText={showList[0].linkText} theme={{ backgroundSize: 'cover', backgroundImage: `url('https://vega.slooh.com/assets/v4/common/show_card_bg.jpg')` }} /> :
         null
       }
       <style jsx>{styles}</style>

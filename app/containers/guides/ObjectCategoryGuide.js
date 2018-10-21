@@ -3,12 +3,13 @@ import PropTypes from 'prop-types';
 import Request from 'components/common/network/Request';
 import CenterColumn from 'components/common/CenterColumn';
 import TiaraTitleSection from 'components/common/TiaraTitleSection';
+import SterlingTitle from 'components/common/titles/SterlingTitle';
 import GuideSection from 'components/guides/GuideSection';
 import GuideBodyContent from 'components/guides/GuideBodyContent';
 import GuideContentList from 'components/guides/GuideContentList';
 import FeaturedGallery from 'components/guides/FeaturedGallery';
-import SterlingTitle from 'components/common/titles/SterlingTitle';
 import GuideTopics from 'components/guides/GuideTopics';
+import GuidePanels from 'components/guides/GuidePanels';
 import { GUIDE_ENDPOINT_URL, GUIDE_OBJECTS_ENDPOINT_URL } from 'services/guides/guide-data';
 
 const guidePageModel = {
@@ -20,16 +21,29 @@ const guidePageModel = {
       iconURL: resp.guideIconURL,
     },
     guideSectionProps: {
-      content: () => (
-        <GuideBodyContent title={resp.AboutThisTitle} content={resp.AboutThisContent} />
+      content: ({ guideId }) => (
+        <GuideBodyContent
+          title={resp.AboutThisTitle}
+          content={resp.AboutThisContent}
+          topicActionProps={{
+            followButtonIconURL: resp.promptIconUrl,
+            followButtonText: resp.readingListPrompt,
+          }}
+          guideId={guideId}
+        />
       ),
-      column: () => (
+      column: ({ guideId }) => (
         <GuideContentList
           list={[
             resp.guideBulletPoint1,
             resp.guideBulletPoint2,
             resp.guideBulletPoint3,
           ]}
+          topicActionProps={{
+            followButtonIconURL: resp.promptIconUrl,
+            followButtonText: resp.readingListPrompt,
+          }}
+          guideId={guideId}
         />
       ),
       alignContent: 'right',
@@ -77,10 +91,12 @@ const Guides = ({ params: { guideId } }) => (
               <TiaraTitleSection {...GUIDE_PAGE_MODEL.tiaraTitleProps} />
 
               <CenterColumn theme={{ boxShadow: 'rgba(65, 86, 113, 0.2) 0px 3px 8px 1px', marginBottom: '60px' }}>
-                <GuideSection {...GUIDE_PAGE_MODEL.guideSectionProps} />
+                <GuideSection {...GUIDE_PAGE_MODEL.guideSectionProps} guideId={guideId} />
               </CenterColumn>
 
               <FeaturedGallery />
+
+              <GuidePanels guideId={guideId} />
 
               <SterlingTitle {...GUIDE_PAGE_MODEL.sterlingTitleProps} />
               <Request

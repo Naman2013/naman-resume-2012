@@ -8,7 +8,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Home from 'pages/home';
-import SignedInDashboard from './SignedInDashboard';
+import DashboardDisplay from './DashboardDisplay';
 
 const mapStateToProps = ({
   user,
@@ -22,7 +22,7 @@ class Dashboard extends Component {
   render () {
     const { user } = this.props;
     return (<div>
-      {user.isAuthorized ? <SignedInDashboard /> : <Home />}
+      <DashboardDisplay />
     </div>)
   }
 }

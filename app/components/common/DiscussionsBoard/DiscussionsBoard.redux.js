@@ -5,60 +5,164 @@
 *
 ***********************************/
 
-import React from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import Request from 'components/common/network/Request';
-import ConnectUser from 'redux/components/ConnectUser';
+import axios from 'axios';
+import ConnectUserAndResponseAccess from 'redux/components/ConnectUserAndResponseAccess';
 import { DeviceContext } from 'providers/DeviceProvider';
-import { THREAD_LIST } from 'services/discussions';
-import BootstrappedDiscussionsBoard from './BootstrappedDiscussionsBoard';
+import DiscussionsThreads from './DiscussionsThreads';
+import DiscussionComments from './DiscussionComments';
+
 
 const {
   any,
+  bool,
   func,
   number,
   shape,
   string,
 } = PropTypes;
 
-const DiscussionsBoard = ({
-  callSource,
-  count,
-  errorMessage,
-  forumId,
-  page,
-  topicId,
-  createThread,
-  createThreadFormParams,
-}) => (
-  <Request
-    authorizationRedirect={true}
-    serviceURL={THREAD_LIST}
-    method="POST"
-    serviceExpiresFieldName="expires"
-    // model={modelNotificationsFromApiRes}
-    // serviceResponseHandler={(result) => {
-    //   updateNotificationsCount({ count: result.notificationsCount })
-    // }}
-    requestBody={{
+class DiscussionsBoard extends Component {
+  static propTypes = {
+    callSource: string,
+    count: number,
+    errorMessage: string,
+    forumId: number,
+    page: number,
+    topicId: number,
+    topLevelThread: bool,
+    createThread: func.isRequired,
+    createThreadFormParams: shape({}),
+  };
+
+  static defaultProps = {
+    callSource: null,
+    count: 10,
+    errorMessage: 'There was an error.',
+    forumId: null,
+    page: 1,
+    topicId: null,
+    topLevelThread: true,
+    createThreadFormParams: {},
+  };
+
+  state = {
+    threadsList: [],
+    displayedThreads: [],
+    threadsCount: 0,
+    commentsList: {},
+    displayedComments: {},
+  };
+
+  updateThreadsProps = (threadsList, threadsCount, displayed) => {
+    const newThreadsList = threadsList || this.state.threadsList;
+    const newThreadsCount = threadsCount || this.state.threadsCount;
+    const displayedThreads = displayed || this.state.displayedThreads;
+
+    this.setState({
+      threadsList: newThreadsList,
+      threadsCount: newThreadsCount,
+      displayedThreads,
+    });
+  }
+
+  updateCommentsProps = (id, comments, displayed) => {
+    this.setState(state => {
+      const { commentsList, displayedComments } = state;
+      const newCommentsList = Object.assign({}, commentsList);
+      const newDisplayedComments = Object.assign({}, displayedComments);
+      if (id) {
+        if (comments) {
+          newCommentsList[id] = comments;
+        }
+
+        if (displayed) {
+          newDisplayedComments[id] = displayed;
+        }
+      }
+      return ({
+        commentsList: newCommentsList,
+        displayedComments: newDisplayedComments,
+      })
+    });
+  }
+
+  toggleThreadComments = (threadId) => {
+    const { threadsList } = this.state;
+    let newThreadsList = [].concat(threadsList);
+    newThreadsList = newThreadsList.map((thread) => {
+      const newThread = Object.assign({}, thread);
+      if (newThread.threadId === threadId) {
+        newThread.showComments = !newThread.showComments;
+      }
+      return newThread;
+    });
+    this.setState({
+      threadsList: newThreadsList,
+    });
+  }
+
+  toggleCommentsReplies = (threadId, replyId) => {
+    const { commentsList } = this.state;
+    const newCommentsList = Object.assign({}, commentsList);
+    let comments = newCommentsList[threadId] || [];
+    comments = comments.map((reply) => {
+      const newReply = Object.assign({}, reply);
+      if (newReply.replyId === replyId) {
+        newReply.showComments = !newReply.showComments;
+      }
+      return newReply;
+    });
+
+    newCommentsList[threadId] = comments;
+
+    this.setState({
+      commentsList: newCommentsList,
+    });
+  }
+
+  render() {
+    const {
+      props,
+      updateThreadsProps,
+      updateCommentsProps,
+      toggleThreadComments,
+      toggleCommentsReplies,
+    } = this;
+
+    const {
       callSource,
       count,
+      errorMessage,
+      forumId,
       page,
       topicId,
-    }}
-    render={({
-      fetchingContent,
-      // modeledResponses: { ALERTS_ONLY },
-      serviceResponse,
-    }) => (
+      threadId,
+      topLevelThread,
+      createThread,
+      createThreadFormParams,
+    } = props;
+
+    const discussionsActions = {
+      updateThreadsProps,
+      updateCommentsProps,
+      toggleThreadComments,
+      toggleCommentsReplies,
+    };
+
+    return (
       <div>
-        <ConnectUser
-          render={user => (
-              <DeviceContext.Consumer>
-                {context => (
-                  <BootstrappedDiscussionsBoard
+        <ConnectUserAndResponseAccess
+          render={({ user, validateResponseAccess }) => (
+            <DeviceContext.Consumer>
+              {context => (
+                <Fragment>
+                  {topLevelThread ? <DiscussionsThreads
+                    validateResponseAccess={validateResponseAccess}
+                    discussions={this.state}
+                    discussionsActions={discussionsActions}
                     errorMessage={errorMessage}
-                    fetching={fetchingContent}
                     callSource={callSource}
                     count={count}
                     page={page}
@@ -68,35 +172,30 @@ const DiscussionsBoard = ({
                     createThread={createThread}
                     createThreadFormParams={createThreadFormParams}
                     {...context}
-                    {...serviceResponse}
-                  />
-                )}
-              </DeviceContext.Consumer>
-            )}
+                  /> : <DiscussionComments
+                    validateResponseAccess={validateResponseAccess}
+                    discussions={this.state}
+                    discussionsActions={discussionsActions}
+                    errorMessage={errorMessage}
+                    callSource={callSource}
+                    count={count}
+                    threadId={threadId}
+                    formPlaceholder="Write a public comment"
+                    page={page}
+                    topicId={topicId}
+                    forumId={forumId}
+                    user={user}
+                   />}
+                </Fragment>
+              )}
+            </DeviceContext.Consumer>
+          )}
         />
       </div>
-    )}
-  />
-);
+    );
+  }
+}
 
-DiscussionsBoard.propTypes = {
-  callSource: string,
-  count: number,
-  errorMessage: string,
-  forumId: number,
-  page: number,
-  topicId: number,
-  createThread: func.isRequired,
-  createThreadFormParams: shape({}),
-};
-DiscussionsBoard.defaultProps = {
-  callSource: null,
-  count: 10,
-  errorMessage: 'There was an error.',
-  forumId: null,
-  page: 1,
-  topicId: null,
-  createThreadFormParams: {},
-};
+
 
 export default DiscussionsBoard;

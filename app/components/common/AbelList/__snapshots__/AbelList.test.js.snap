@@ -32,9 +32,40 @@ ShallowWrapper {
     "nodeType": "function",
     "props": Object {
       "children": Array [
-        <UNDEFINED>
-          [Function]
-        </UNDEFINED>,
+        <DisplayAtBreakpoint
+          screenLarge={false}
+          screenMedium={true}
+          screenSmall={false}
+          screenXLarge={false}
+        >
+          <HorizontalList
+            list={
+              Array [
+                "Contains 10 objects",
+                "category guide",
+                "beginners and up",
+              ]
+            }
+            theme={Object {}}
+          />
+        </DisplayAtBreakpoint>,
+        <DisplayAtBreakpoint
+          screenLarge={true}
+          screenMedium={false}
+          screenSmall={true}
+          screenXLarge={true}
+        >
+          <VerticalList
+            list={
+              Array [
+                "Contains 10 objects",
+                "category guide",
+                "beginners and up",
+              ]
+            }
+            theme={Object {}}
+          />
+        </DisplayAtBreakpoint>,
         <JSXStyle
           css={
             Array [
@@ -53,26 +84,78 @@ ShallowWrapper {
         "key": undefined,
         "nodeType": "function",
         "props": Object {
-          "children": [Function],
+          "children": <HorizontalList
+            list={
+              Array [
+                "Contains 10 objects",
+                "category guide",
+                "beginners and up",
+              ]
+            }
+            theme={Object {}}
+          />,
+          "screenLarge": false,
+          "screenMedium": true,
+          "screenSmall": false,
+          "screenXLarge": false,
         },
         "ref": null,
-        "rendered": [Function],
-        "type": Object {
-          "$$typeof": Symbol(react.context),
-          "Consumer": [Circular],
-          "Provider": Object {
-            "$$typeof": Symbol(react.provider),
-            "_context": [Circular],
+        "rendered": Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "function",
+          "props": Object {
+            "list": Array [
+              "Contains 10 objects",
+              "category guide",
+              "beginners and up",
+            ],
+            "theme": Object {},
           },
-          "_calculateChangedBits": null,
-          "_changedBits": 0,
-          "_changedBits2": 0,
-          "_currentRenderer": null,
-          "_currentRenderer2": null,
-          "_currentValue": undefined,
-          "_currentValue2": undefined,
-          "_defaultValue": undefined,
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
         },
+        "type": [Function],
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "function",
+        "props": Object {
+          "children": <VerticalList
+            list={
+              Array [
+                "Contains 10 objects",
+                "category guide",
+                "beginners and up",
+              ]
+            }
+            theme={Object {}}
+          />,
+          "screenLarge": true,
+          "screenMedium": false,
+          "screenSmall": true,
+          "screenXLarge": true,
+        },
+        "ref": null,
+        "rendered": Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "function",
+          "props": Object {
+            "list": Array [
+              "Contains 10 objects",
+              "category guide",
+              "beginners and up",
+            ],
+            "theme": Object {},
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+        "type": [Function],
       },
       Object {
         "instance": null,
@@ -99,9 +182,40 @@ ShallowWrapper {
       "nodeType": "function",
       "props": Object {
         "children": Array [
-          <UNDEFINED>
-            [Function]
-          </UNDEFINED>,
+          <DisplayAtBreakpoint
+            screenLarge={false}
+            screenMedium={true}
+            screenSmall={false}
+            screenXLarge={false}
+          >
+            <HorizontalList
+              list={
+                Array [
+                  "Contains 10 objects",
+                  "category guide",
+                  "beginners and up",
+                ]
+              }
+              theme={Object {}}
+            />
+          </DisplayAtBreakpoint>,
+          <DisplayAtBreakpoint
+            screenLarge={true}
+            screenMedium={false}
+            screenSmall={true}
+            screenXLarge={true}
+          >
+            <VerticalList
+              list={
+                Array [
+                  "Contains 10 objects",
+                  "category guide",
+                  "beginners and up",
+                ]
+              }
+              theme={Object {}}
+            />
+          </DisplayAtBreakpoint>,
           <JSXStyle
             css={
               Array [
@@ -120,26 +234,78 @@ ShallowWrapper {
           "key": undefined,
           "nodeType": "function",
           "props": Object {
-            "children": [Function],
+            "children": <HorizontalList
+              list={
+                Array [
+                  "Contains 10 objects",
+                  "category guide",
+                  "beginners and up",
+                ]
+              }
+              theme={Object {}}
+            />,
+            "screenLarge": false,
+            "screenMedium": true,
+            "screenSmall": false,
+            "screenXLarge": false,
           },
           "ref": null,
-          "rendered": [Function],
-          "type": Object {
-            "$$typeof": Symbol(react.context),
-            "Consumer": [Circular],
-            "Provider": Object {
-              "$$typeof": Symbol(react.provider),
-              "_context": [Circular],
+          "rendered": Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "function",
+            "props": Object {
+              "list": Array [
+                "Contains 10 objects",
+                "category guide",
+                "beginners and up",
+              ],
+              "theme": Object {},
             },
-            "_calculateChangedBits": null,
-            "_changedBits": 0,
-            "_changedBits2": 0,
-            "_currentRenderer": null,
-            "_currentRenderer2": null,
-            "_currentValue": undefined,
-            "_currentValue2": undefined,
-            "_defaultValue": undefined,
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
           },
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "function",
+          "props": Object {
+            "children": <VerticalList
+              list={
+                Array [
+                  "Contains 10 objects",
+                  "category guide",
+                  "beginners and up",
+                ]
+              }
+              theme={Object {}}
+            />,
+            "screenLarge": true,
+            "screenMedium": false,
+            "screenSmall": true,
+            "screenXLarge": true,
+          },
+          "ref": null,
+          "rendered": Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "function",
+            "props": Object {
+              "list": Array [
+                "Contains 10 objects",
+                "category guide",
+                "beginners and up",
+              ],
+              "theme": Object {},
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+          "type": [Function],
         },
         Object {
           "instance": null,

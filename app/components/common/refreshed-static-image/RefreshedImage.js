@@ -1,4 +1,5 @@
 /**
+  TODO: DEPRECATE
   This component is designed to handle the displaying of some image
   and refreshing the image based on some duration.
 

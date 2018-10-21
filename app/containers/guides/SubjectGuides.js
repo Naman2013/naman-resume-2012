@@ -19,18 +19,28 @@ const subjectGuideModel = {
       iconURL: resp.guideIconURL,
     },
     guideSectionProps: {
-      content: () => (
+      content: ({ guideId }) => (
         <GuideBodyContent
           title={resp.AboutThisTitle}
           content={resp.AboutThisContent}
+          topicActionProps={{
+            followButtonIconURL: resp.promptIconUrl,
+            followButtonText: resp.readingListPrompt,
+          }}
+          guideId={guideId}
         />),
-      column: () => (
+      column: ({ guideId }) => (
         <GuideContentList
           list={[
             resp.guideBulletPoint1,
             resp.guideBulletPoint2,
             resp.guideBulletPoint3,
           ]}
+          topicActionProps={{
+            followButtonIconURL: resp.promptIconUrl,
+            followButtonText: resp.readingListPrompt,
+          }}
+          guideId={guideId}
         />
       ),
       alignContent: 'right',
@@ -66,7 +76,7 @@ const SubjectGuides = ({ params: { guideId } }) => (
                 <TiaraTitleSection {...SUBJECT_GUIDE_MODEL.tiaraTitleSectionProps} />
 
                 <CenterColumn theme={{ boxShadow: 'rgba(65, 86, 113, 0.2) 0px 3px 8px 1px', marginBottom: '60px' }}>
-                  <GuideSection {...SUBJECT_GUIDE_MODEL.guideSectionProps} />
+                  <GuideSection {...SUBJECT_GUIDE_MODEL.guideSectionProps} guideId={guideId} />
                 </CenterColumn>
 
                 <SterlingTitle {...SUBJECT_GUIDE_MODEL.sterlingTitleProps} />

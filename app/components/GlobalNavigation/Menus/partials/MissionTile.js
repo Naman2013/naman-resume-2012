@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { white, darkGray } from 'styles/variables/colors';
+import { romance, astronaut } from 'styles/variables/colors_tiles_v4';
 import { primaryFont } from 'styles/variables/fonts';
 
 const propTypes = {
@@ -44,9 +44,9 @@ const MissionTile = ({
       .root {
         width: 90%;
         margin: 0 auto;
-        background: ${white};
+        background: ${romance};
         padding: 15px;
-        color: ${darkGray};
+        color: ${astronaut};
         font-family: ${primaryFont};
         margin-bottom: 10px;
       }

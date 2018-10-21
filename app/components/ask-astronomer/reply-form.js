@@ -7,7 +7,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { avatarImgStyle } from './styles';
-import { black, darkBlueGray, white, turqoise } from '../../styles/variables/colors';
+import { astronaut, romance } from '../../styles/variables/colors_tiles_v4';
 import { secondaryFont } from '../../styles/variables/fonts';
 const {
   arrayOf,
@@ -113,6 +113,7 @@ class ReplyForm extends Component {
           .reply-form-container {
             padding: 15px;
             margin-left: 25px;
+            background-color: ${romance};
           }
 
           .reply-form {
@@ -132,12 +133,12 @@ class ReplyForm extends Component {
             float: right;
             display: block;
             width: 100px;
-            background-color: ${darkBlueGray};
+            background-color: ${astronaut};
             padding: 5px 10px;
             text-transform: uppercase;
             font-weight: bold;
             font-size: 10px;
-            color: ${white};
+            color: ${romance};
             margin-top: 10px;
           }
 

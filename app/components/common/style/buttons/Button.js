@@ -11,27 +11,42 @@ const {
   string,
 } = PropTypes;
 
-const Button = ({
-  isActive,
-  text,
-  renderIcon,
-  icon, // remove prop when refactoring for icon library
-  onClickEvent,
-}) => (
-  <button
-    className={classnames('button-container', {
-      circular: icon && !text || renderIcon && !text,
-      active: isActive,
-    })}
+const Button = (props) => {
+  const {
+    isActive,
+    text,
+    type,
+    renderIcon,
+    icon, // remove prop when refactoring for icon library
+    onClickEvent,
+    theme = {},
+  } = props;
+  return (
+    <button
+      {...props}
+      type={type}
+      className={classnames('button-container', {
+        circular: (icon && !text) || (renderIcon && !text),
+        active: isActive,
+      })}
+      style={theme}
+      onClick={onClickEvent}
+    >
+      {
+        text &&
+          <span className={classnames('text', {
+            'pad-right': text && icon,
+          })} dangerouslySetInnerHTML={{ __html: text }} />
+      }
 
-    onClick={onClickEvent}
-  >
-    {text ? <span className="text" dangerouslySetInnerHTML={{ __html: text }} /> : null}
-    {icon ? <img className="text" src={icon} /> : null}
-    {renderIcon ? renderIcon() : null}
-    <style jsx>{styles}</style>
-  </button>
-);
+      {icon && <img alt="" className="button-icon" src={icon} />}
+
+      {renderIcon && renderIcon()}
+
+      <style jsx>{styles}</style>
+    </button>
+  )
+};
 
 Button.propTypes = {
   isActive: bool,
@@ -39,8 +54,10 @@ Button.propTypes = {
   icon: string,
   onClickEvent: func.isRequired,
   renderIcon: func,
+  type: string,
 };
 Button.defaultProps = {
+  type: 'text',
   isActive: false,
   icon: null,
   text: null,

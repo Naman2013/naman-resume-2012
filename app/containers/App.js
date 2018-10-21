@@ -7,7 +7,7 @@ import PageMetaManagement from '../components/PageMetaManagement';
 
 import GlobalNavigation from '../components/GlobalNavigation';
 
-import Footer from '../components/common/footer';
+import Footer from '../components/Footer';
 import { fetchEvents } from '../modules/upcoming-events/upcoming-events-actions';
 
 function mapDispatchToProps(dispatch) {
@@ -53,13 +53,18 @@ class App extends Component {
             <GlobalNavigation />
           </nav>
 
-          <section className="app-content-container clearfix">
+          <section className="app-content-container clearfix v4">
             <div className="clearfix">
               { this.props.children }
             </div>
           </section>
           <Footer />
         </DeviceProvider>
+        <style jsx>{`
+          .v4 {
+            margin-top: 60px !important;
+          }
+          `}</style>
       </div>
     );
   }

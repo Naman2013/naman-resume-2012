@@ -1,8 +1,9 @@
 import css from 'styled-jsx/css';
 import { profilePhotoStyle } from 'styles/mixins/utilities';
 
-import { astronaut, geyser, shadows } from 'styles/variables/colors_tiles_v4';
+import { astronaut, geyser, shadows, romance } from 'styles/variables/colors_tiles_v4';
 import { primaryFont, secondaryFont } from 'styles/variables/fonts';
+import { faintShadow } from 'styles/variables/shadows';
 import { dropShadowContainer } from 'styles/mixins/utilities';
 import { screenMedium, screenLarge } from 'styles/variables/breakpoints';
 
@@ -14,13 +15,25 @@ export const profPic = photoUrl => Object.assign(profilePhotoStyle(photoUrl), {
 
 export default css`
   .root {
+    background-color: ${romance};
+    border: 1px solid ${shadows};
+    border-bottom: 1px solid ${shadows};
+  }
+
+  .root:first-child {
+    border-top: 0;
+  }
+
+  .root:last-child {
+    border-bottom: 0;
   }
 
   .comment-item {
-    ${dropShadowContainer};
     padding: 25px;
     font-family: ${primaryFont};
     color: ${astronaut};
+    text-transform: uppercase;
+
   }
 
   .user-info, .user-info-container {
@@ -30,6 +43,7 @@ export default css`
     align-items: center;
     text-transform: uppercase;
     font-weight: bold;
+    text-transform: uppercase;
   }
 
   .user-info-container {
@@ -47,6 +61,7 @@ export default css`
     font-size: 19px;
     color: ${astronaut};
     padding: 25px 0;
+    text-transform:none;
   }
 
   .date {
@@ -65,6 +80,7 @@ export default css`
     flex-direction: row;
     justify-content: space-evenly;
     min-width: 100px;
+    align-items: center;
   }
 
 

@@ -1,79 +1,46 @@
 import css from 'styled-jsx/css';
 import { primaryFont, secondaryFont } from '../../styles/variables/fonts';
-import { hawkesBlue, romance, midnight_express, geyser, blue_tile_guides, white_tile_texture, lightHeadedAstronaut, faintGray } from '../../styles/variables/colors_tiles_v4';
-import { screenMedium, screenLarge, screenXLarge } from '../../styles/variables/breakpoints';
+import { screenMedium } from '../../styles/variables/breakpoints';
+import {
+  hawkesBlue,
+  romance,
+  lightHeadedAstronaut,
+  faintGray,
+  midnight_express,
+  blue_tile_guides,
+  white_tile_texture,
+} from '../../styles/variables/colors_tiles_v4';
 
 export default css`
-
   .contain {
     margin: 5%;
     padding: 25px;
     background-color: #f2f2f2;
   }
+
   .white-paper-bg {
     padding: 80px 0;
     background: url(${white_tile_texture});
     background-size: 16px;
   }
+
   .blue-tile-bg {
     text-align: center;
     background-image: url(${blue_tile_guides});
     background-size: 100px;
     padding: 40px 0 100px 0;
   }
+
   .off-white-bg {
     background-color: ${faintGray};
+    padding-bottom: 50px;
   }
+
   .off-white-bg-top-shadow {
     background-color: ${faintGray};
     box-shadow: inset 0 10px 30px 10px rgba(237,240,242,.7);
   }
 
-
-  /* GRID */
-  .object-details-grid {
-    display: flex;
-    flex-wrap: wrap;
-    box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.1);
-    width: 90%;
-    margin: 0 auto;
-    background-color: ${romance};
-    font-family: ${secondaryFont};
-    font-size: 18px;
-    transition: width 0.3s ease-in-out;
-  }
-
-  .object-details-grid div {
-    color: ${lightHeadedAstronaut};
-    padding: 40px;
-    transition: width 0.4s ease-in-out, height 0.4s ease-in-out;
-    border-bottom: solid 1px ${geyser};
-    width: 100%;
-  }
-
-  .object-details-grid h2 {
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-weight: 600;
-    font-family: ${primaryFont};
-    margin: 0;
-    margin-bottom: 25px;
-  }
-
-  .object-details-grid p {
-    margin: 0;
-    padding: 0;
-    font-size: 20px;
-    letter-spacing: 1px;
-    font-family: ${secondaryFont};
-  }
-
-
-
-
-
-  
   h1 {
     font-size: 30px;
     font-weight: 600;
@@ -84,12 +51,17 @@ export default css`
     padding-bottom: 30px;
   }
 
-
   .card-container__specialists {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
   }
+
+  .error-message {
+    text-align: center;
+    padding-bottom: 50px;
+  }
+
   .specialists-card {
     background-color: ${romance};
     width: 90%;
@@ -100,6 +72,7 @@ export default css`
     box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.1);
     transition: width 0.4s ease-in-out, height 0.4s ease-in-out;
   }
+
   .specialists-card h5 {
     font-family: ${secondaryFont};
     color: ${lightHeadedAstronaut};
@@ -107,6 +80,7 @@ export default css`
     border-bottom: 1px solid ${hawkesBlue};
     padding: 15px 0;
   }
+
   .specialists-card a {
     font-size: 10px;
     text-transform: uppercase;
@@ -115,6 +89,7 @@ export default css`
     color: ${lightHeadedAstronaut};
     font-family: ${primaryFont};
   }
+
   .specialists-icon {
     background-color: ${midnight_express};
     width: 40px;
@@ -123,28 +98,9 @@ export default css`
     padding: 10px;
   }
 
-  .f1, .f2, .f3, .f4 {
-    flex: 100%;
-  }
-
-  .f2:first-of-type { border-right: none; }
-
-
-
   @media ${screenMedium} {
-    .object-details-grid {
-      width: 100%;
-    }
-
     .specialists-card {
       width: 100%;
     }
-
-    .f1 { flex: 25%; }
-    .f2 { flex: 50%; }
-    .f3 { flex: 75%; }
-    .f4 { flex: 100%; }
-
-    .f2:first-of-type { border-right: 1px solid ${hawkesBlue}; }
   }
 `;

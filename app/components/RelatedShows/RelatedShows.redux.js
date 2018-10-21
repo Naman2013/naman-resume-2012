@@ -29,10 +29,14 @@ const mapStateToProps = ({
 class RelatedShows extends Component {
   static propTypes = {
     isDesktop: bool,
-    showId: oneOfType([string, number]).isRequired,
+    slugLookupId: oneOfType([string, number]),
+    showId: oneOfType([string, number]),
+    serviceUrl: string,
   };
   static defaultProps = {
     isDesktop: false,
+    showId: null,
+    serviceUrl: RELATED_SHOWS,
   };
 
   render() {
@@ -40,18 +44,21 @@ class RelatedShows extends Component {
       isDesktop,
       user,
       showId,
+      slugLookupId,
+      serviceUrl,
     } = this.props;
 
     return (
       <Request
         authorizationRedirect={true}
-        serviceURL={RELATED_SHOWS}
+        serviceURL={serviceUrl}
         method="POST"
         serviceExpiresFieldName="expires"
         requestBody={{
           cid: user.cid,
           token: user.token,
           at: user.at,
+          slugLookupId,
           showId,
         }}
         render={({

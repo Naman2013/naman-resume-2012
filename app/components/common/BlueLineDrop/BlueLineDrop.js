@@ -51,9 +51,11 @@ class BlueLineDrop extends Component {
     } = this.props;
     const { showInfo } = this.state;
     return (<div style={theme} className={classnames({
-      'component-container': isDesktop,
+      'component-container': isDesktop && !showInfo,
     })}>
-      {isDesktop ? <div className="title-container">
+      {isDesktop ? <div className={classnames('title-container', {
+        'open': showInfo,
+      })}>
         <span className="title" dangerouslySetInnerHTML={{ __html: title}} />
         <img
           className={classnames('action', {

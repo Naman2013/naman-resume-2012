@@ -1,5 +1,4 @@
 import css from 'styled-jsx/css';
-import { secondaryFont } from 'styles/variables/fonts';
 import { screenMedium, screenLarge } from 'styles/variables/breakpoints';
 
 export default css`
@@ -8,14 +7,13 @@ export default css`
     padding: 20px 35px;
   }
 
-  .title-wrapper {
-    padding: 15px 0;
+  .action-container {
+    margin-top: 20px;
+    display: none;
   }
 
-  .root :global(p) {
-    font-family: ${secondaryFont};
-    line-height: 1.5;
-    font-size: 18px;
+  .title-wrapper {
+    padding: 15px 0;
   }
 
   @media ${screenMedium} {
@@ -26,6 +24,8 @@ export default css`
     .title-wrapper {
       padding-bottom: 40px;
     }
+
+    .action-container { display: block; }
   }
 
   @media ${screenLarge} {
@@ -33,5 +33,7 @@ export default css`
       padding: 70px;
       width: 90%;
     }
+
+    .action-container { display: none; }
   }
 `;

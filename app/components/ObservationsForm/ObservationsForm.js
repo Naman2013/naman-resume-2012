@@ -10,8 +10,8 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import Modal from 'react-modal';
 import { customModalStyles } from 'styles/mixins/utilities';
-import { astronaut, shadows } from 'styles/variables/colors_tiles_v4';
-import { primaryFont, secondaryFont } from 'styles/variables/fonts';
+import Button from 'components/common/style/buttons/Button';
+import styles from './ObservationsForm.style';
 
 const {
   arrayOf,
@@ -28,6 +28,7 @@ class ObservationsForm extends Component {
     observationTitle: string,
     observationLog: string,
     saveLabel: string,
+    canShareFlag: bool,
     scheduledMissionId: oneOfType([number, string]).isRequired,
     user: shape({
       at: oneOfType([number, string]).isRequired,
@@ -41,6 +42,7 @@ class ObservationsForm extends Component {
     saveLabel: '',
     observationLog: '',
     observationTitle: '',
+    canShareFlag: true,
   };
 
   state = {
@@ -48,11 +50,16 @@ class ObservationsForm extends Component {
     observation: this.props.observationLog || '',
     showPrompt: false,
     promptText: '',
+    saveLabelText: this.props.saveLabel,
+    allowShare: this.props.canShareFlag,
   };
 
   componentWillReceiveProps(nextProps) {
     let title = this.state.observationTitle;
     let observation = this.state.observationLog;
+    let allowShare = this.state.allowShare;
+    let saveLabelText = this.state.saveLabelText;
+
     if (nextProps.observationTitle !== this.state.observationTitle) {
       title = nextProps.observationTitle;
     }
@@ -60,9 +67,19 @@ class ObservationsForm extends Component {
       observation = nextProps.observationLog;
     }
 
+    if (nextProps.canShareFlag !== this.state.allowShare) {
+      allowShare = nextProps.canShareFlag;
+    }
+
+    if (nextProps.saveLabel !== this.state.saveLabelText) {
+      saveLabelText = nextProps.saveLabel;
+    }
+
     this.setState({
       title,
       observation,
+      allowShare,
+      saveLabelText,
     });
   }
 
@@ -85,6 +102,7 @@ class ObservationsForm extends Component {
   onSubmitForm = (e) => {
     e.preventDefault();
     const {
+      actions,
       customerImageId,
       scheduledMissionId,
       user,
@@ -102,22 +120,27 @@ class ObservationsForm extends Component {
         token: user.token,
         cid: user.cid,
       }).then((res) => {
-        if (!res.data.apiError) {
+
+        if (!res.data.apiError && this.state.allowShare) {
           axios.post('/api/images/shareMemberPicture', {
-            scheduledMissionId,
+            customerImageId,
             at: user.at,
             token: user.token,
             cid: user.cid,
           }).then((shareRes) => {
             this.setState({
-              title: '',
-              observation: '',
               showPrompt: shareRes.data.showSharePrompt,
               promptText: shareRes.data.sharePrompt,
-            })
+              allowShare: false,
+              saveLabelText: 'Save',
+            });
           });
         }
-      })
+
+        actions.validateResponseAccess(res)
+      });
+
+
     }
   }
 
@@ -129,13 +152,13 @@ class ObservationsForm extends Component {
 
   render() {
     const {
-      saveLabel,
     } = this.props;
     const {
       title,
       observation,
       showPrompt,
       promptText,
+      saveLabelText
     } = this.state;
 
 
@@ -160,10 +183,9 @@ class ObservationsForm extends Component {
           className="obs-form-textarea"
         />
         <span className="obs-form-required">*required</span>
-        <button
-          onClick={this.onSubmitForm}
-          dangerouslySetInnerHTML={{ __html: saveLabel}}
-          className="obs-form-button"
+        <Button
+          onClickEvent={this.onSubmitForm}
+          text={saveLabelText}
         />
       </form>
       <Modal
@@ -176,88 +198,7 @@ class ObservationsForm extends Component {
         <i className="fa fa-close" onClick={this.closeModal} />
         {promptText}
       </Modal>
-      <style jsx>{`
-
-        .root {
-          font-family: ${primaryFont};
-          color: ${astronaut};
-          margin: 25px;
-          padding: 50px;
-          -moz-box-shadow: 0 2px 4px 1px ${shadows};
-          -webkit-box-shadow: 0 2px 4px 1px ${shadows};
-          box-shadow: 0 2px 4px 1px ${shadows};
-        }
-
-        .header {
-          border-bottom: 1px solid ${shadows};
-          padding-bottom: 25px;
-          margin-bottom: 25px;
-        }
-
-        .inspire {
-          display: block;
-          font-size: 11px;
-          text-transform: uppercase;
-        }
-        .write {
-          display: block;
-          font-weight: bold;
-          font-size: 20px;
-          text-transform: uppercase;
-        }
-        .root-form {
-          display: flex;
-          flex-direction: column;
-        }
-        .obs-form-required {
-          display: block;
-          padding-bottom: 15px;
-          text-align: right;
-          padding-top: 5px;
-        }
-        .obs-form-input {
-          display: block;
-          width: 100%;
-          padding: 15px;
-          background-color: ${shadows};
-          -moz-box-shadow: 0 2px 4px 1px ${shadows};
-          -webkit-box-shadow: 0 2px 4px 1px ${shadows};
-          box-shadow: 0 2px 4px 1px ${shadows};
-          border: 1px solid ${shadows};
-          outline: none;
-        }
-        .obs-form-textarea {
-          resize: none;
-          display: block;
-          width: 100%;
-          padding: 15px;
-          background-color: ${shadows};
-          -moz-box-shadow: 0 2px 4px 1px ${shadows};
-          -webkit-box-shadow: 0 2px 4px 1px ${shadows};
-          box-shadow: 0 2px 4px 1px ${shadows};
-          border: 1px solid ${shadows};
-          outline: none;
-        }
-        .obs-form-button {
-          display: block;
-          border: 1px dotted ${astronaut};
-          border-radius: 100px;
-          width: 110px;
-          margin: 15px 0;
-          font-size: 11px;
-          font-weight: bold;
-          padding: 5px 0;
-          text-transform: uppercase;
-          margin-left: auto;
-        }
-        .fa-close {
-          position: absolute;
-          top: 5px;
-          right: 10px;
-          cursor: pointer;
-        }
-
-      `}</style>
+      <style jsx>{styles}</style>
     </div>);
   }
 }

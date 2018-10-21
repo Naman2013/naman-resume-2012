@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchWeatherForecast } from '../../../modules/Telescope-Overview';
 import generateWeatherTabConfiguration from './generate-tab-configuration';
-import DefaultTabs from '../../Tabs';
+import { DefaultTabs } from '../../common/Tabs';
 import './weather-tabs.scss';
 
 const mapStateToProps = ({ telescopeDetails }) => ({

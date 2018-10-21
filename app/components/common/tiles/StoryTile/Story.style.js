@@ -17,11 +17,14 @@ export default css`
     background-size: 30px;
     transition: width, height 0.15s ease-out;
     margin: 20px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .container {
-    width: 280px;
-    height: 350px;
+    width: 99%;
+    height: 99%;
     border: 1px solid ${hawkesBlue};
     position: relative;
   }
@@ -83,7 +86,7 @@ export default css`
   }
 
   .title {
-    margin: 0 auto;    
+    margin: 0 auto;
     font-family: ${secondaryFont};
     font-weight: 300;
     font-size: 22px;

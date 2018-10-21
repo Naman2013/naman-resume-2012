@@ -12,9 +12,9 @@ import { bindActionCreators } from 'redux';
 
 import GroupsHeader from '../../components/community-groups/groups-header';
 import {
-  darkBlueGray,
-  white,
-} from '../../styles/variables/colors';
+  astronaut,
+  seashell,
+} from '../../styles/variables/colors_tiles_v4';
 import {
   fetchGroupsPageMeta,
 } from '../../modules/community-groups/actions';
@@ -59,12 +59,15 @@ class CommunityGroups extends Component {
     } = this.props;
     const currentParentRoute = path.split('/')[1];
     return (
-      <div>
+      <div className="root">
         <GroupsHeader {...pageMeta} />
         {cloneElement(children, {
           currentParentRoute,
         })}
         <style jsx>{`
+          .root {
+            background-color: ${seashell};
+          }
         `}</style>
       </div>
     )

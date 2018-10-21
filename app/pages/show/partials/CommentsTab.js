@@ -9,8 +9,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import LikeSomethingButton from 'components/common/LikeSomethingButton';
 import { romance } from 'styles/variables/colors_tiles_v4';
-import DiscussionComments from 'components/common/DiscussionsBoard/DiscussionComments';
-import styles from './MainContent.style';
+import DiscussionComments from 'components/common/DiscussionsBoard';
+import styles from './CommentsTab.style';
 
 const {
   any,
@@ -26,6 +26,7 @@ const {
 class CommentsTab extends Component {
   static propTypes = {
     content: string,
+    canSubmitReplies: bool,
     isDesktop: bool.isRequired,
     isScreenMedium: bool.isRequired,
     user: shape({
@@ -36,7 +37,7 @@ class CommentsTab extends Component {
   };
 
   static defaultProps = {
-
+    canSubmitReplies: true,
   };
 
   state = {
@@ -51,18 +52,25 @@ class CommentsTab extends Component {
       discussionForumId,
       discussionTopicId,
       discussionThreadId,
+      canSubmitReplies,
       isDesktop,
       isScreenMedium,
       user,
     } = this.props;
 
     return (
-      <div>
+      <div className="root">
         <DiscussionComments
+          topLevelThread={false}
           forumId={discussionForumId}
           threadId={discussionThreadId}
+          replyTo={discussionThreadId}
           topicId={discussionTopicId}
           user={user}
+          isDesktop={isDesktop}
+          header="Comments"
+          canSubmitReplies={canSubmitReplies}
+          callSource="shows"
         />
         <style jsx>{styles}</style>
       </div>

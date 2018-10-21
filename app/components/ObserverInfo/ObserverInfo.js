@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import uniqueId from 'lodash/uniqueId';
 import { profilePhotoStyle } from 'styles/mixins/utilities';
-import { astronaut, shadows } from 'styles/variables/colors_tiles_v4';
+import { astronaut, shadows, romance } from 'styles/variables/colors_tiles_v4';
 import { primaryFont, secondaryFont } from 'styles/variables/fonts';
 import { aspectRatio, backgroundImageCover, dropShadowContainer } from '../../styles/mixins/utilities';
 import { screenMedium } from 'styles/variables/breakpoints';
@@ -51,6 +51,9 @@ const ObserverInfo = ({
   </div>
 
   <style jsx>{`
+    .root {
+      background-color: ${romance};
+    }
     .component-container {
       margin: 25px;
       ${dropShadowContainer}

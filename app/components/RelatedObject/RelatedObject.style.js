@@ -21,7 +21,7 @@ export default css`
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding: 25px 15px;;
+    padding: 25px;
   }
 
   .icon-line-horz {
@@ -37,6 +37,15 @@ export default css`
 
   .icon {
     margin: 0 auto;
+  }
+
+  .icon-background {
+    position: absolute;
+    margin: 0 auto;
+    height: 105px;
+    width: 105px;
+    border-radius: 50%;
+
   }
 
   .info-container {
@@ -61,6 +70,15 @@ export default css`
 
   .info-list-item {
     border-top: 1px solid ${shadows};
+    padding: 10px;
+  }
+
+  .info-list-item:first-child {
+    border-top: 0;
+    padding: 10px;
+  }
+
+  .info-list-item:last-child {
     border-bottom: 1px solid ${shadows};
     padding: 10px;
   }
@@ -92,8 +110,19 @@ export default css`
     padding: 25px;
   }
 
+  .display-none {
+    margin: 0;
+    visibility: hidden;
+    height: 0;
+  }
+
   @media ${screenLarge} {
     .root { margin: 25px 0 }
+    .display-none {
+      margin: 0;
+      visibility: hidden;
+      height: 0;
+    }
   }
 
 `;

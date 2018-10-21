@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import DiscussionComments from 'components/common/DiscussionsBoard/DiscussionComments';
+import DiscussionsBoard from 'components/common/DiscussionsBoard';
 import ObservationsForm from 'components/ObservationsForm';
 import ObservationInformation from './ObservationInformation';
 
@@ -14,6 +14,8 @@ const {
 } = PropTypes;
 
 const MainContainer = ({
+  actions,
+  canShareFlag,
   callSource,
   canEditFlag,
   canLikeFlag,
@@ -45,6 +47,8 @@ const MainContainer = ({
     user={user}
   />}
   {canEditFlag && <ObservationsForm
+    canShareFlag={canShareFlag}
+    actions={actions}
     customerImageId={customerImageId}
     observationLog={observationLog}
     observationTitle={observationTitle}
@@ -52,7 +56,8 @@ const MainContainer = ({
     scheduledMissionId={scheduledMissionId}
     user={user}
   />}
-  {showCommentsLink ? <DiscussionComments
+  {showCommentsLink ? <DiscussionsBoard
+    topLevelThread={false}
     callSource={callSource}
     count={10}
     commentsCount={commentsCount}

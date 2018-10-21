@@ -16,6 +16,7 @@ import setPostImages from 'modules/set-post-images';
 import Button from 'components/common/style/buttons/Button';
 import BackBar from 'components/common/style/buttons/BackBar';
 import { modalStyleFullPage } from 'styles/mixins/utilities';
+import ViewImagesButton from 'components/common/style/buttons/ViewImagesButton';
 import styles from './RevealSubmitForm.style';
 const {
   bool,
@@ -163,6 +164,7 @@ class RevealSubmitForm extends Component {
     } = this.props;
 
     const {
+      S3URLs,
       formText,
       modalDescription,
       showPopup,
@@ -194,10 +196,11 @@ class RevealSubmitForm extends Component {
             />
             {maxLength ? <div className="flex-right">{formText.length}/<span dangerouslySetInnerHTML={{__html: maxLength }} /></div> : null}
             <div className="flex-container">
-              <div>
+              <div className="flex-container">
                 <PhotoUploadButton handleUploadImage={this.handleUploadImage} />
                 {uploadError && <span className="errorMsg">{uploadError}</span>}
                 {(!uploadError && uploadLoading) && <div className="fa fa-spinner" />}
+                {S3URLs.length > 0 ? <ViewImagesButton images={S3URLs} /> : null}
               </div>
               <div>
                 <Button text={submitLabel} onClickEvent={this.submitForm} />

@@ -34,28 +34,144 @@ import {
   FETCH_OBJECT_SPECIALISTS_SUCCESS,
   FETCH_OBJECT_SPECIALISTS_FAIL,
   RESET_OBJECT_SPECIALISTS,
-
-  } from './actions';
+} from './actions';
 
 const initialState = {
   objectDetails: {},
-  objectData: {},
+  objectData: {
+    objectTitle: null,
+    objectSubtitle: null,
+    objectTagline: null,
+    objectDescription: null,
+    objectConstellation: null,
+    objectDomain: null,
+    objectType: null,
+    objectIconURL: null,
+    objectAudioURL: null,
+    objectRA: null,
+    objectDeclination: null,
+    objectMagnitude: null,
+    objectSizeArcSeconds: null,
+    objectDistance: null,
+    faqTopicId: null,
+    slugLookupId: null,
+    showFollowPromptFlag: null,
+    followPrompt: null,
+    followPromptIconUrl: null,
+    followActionIconUrl: null,
+    toggleFollowConfirmationFlag: null,
+    toggleFollowConfirmationPrompt: null,
+    hasBurnhamsData: null,
+    pointsList: {
+      listCount: null,
+      list: {
+        objectType: null,
+        domain: null,
+        constellation: null,
+      },
+    },
+    hasBestTelescopesFlag: null,
+    bestTelescopes: {
+      listTitle: null,
+      listCount: null,
+      list: [],
+    },
+    visibilitySeason: {
+      label: null,
+      observatories: [
+        {
+          label: null,
+          text: null,
+        },
+      ],
+    },
+    midnightCulmination: {
+      label: null,
+      text: null,
+      description: null,
+    },
+    hasFeaturedObservation: null,
+    featuredObservation: {
+      title: null,
+      subTitle: null,
+      description: null,
+      iconUrl: null,
+      imageUrl: null,
+      imageLabel: null,
+      imageTitle: null,
+      hasLink: null,
+      linkLabel: null,
+      linkUrl: null,
+    },
+    hasRelatedGuide: null,
+    relatedGuide: {
+      title: null,
+      subTitle: null,
+      description: null,
+      iconUrl: null,
+      imageUrl: null,
+      imageLabel: null,
+      imageTitle: null,
+      hasLink: null,
+      linkLabel: null,
+      linkUrl: null,
+    },
+    hasRelatedObject: null,
+    relatedObject: {
+      title: null,
+      subTitle: null,
+      description: null,
+      iconUrl: null,
+      imageUrl: null,
+      imageLabel: null,
+      imageTitle: null,
+      hasLink: null,
+      linkLabel: null,
+      linkUrl: null,
+    },
+    hasRelatedShow: null,
+    relatedShow: {
+      title: null,
+      subTitle: null,
+      description: null,
+      iconUrl: null,
+      imageUrl: null,
+      imageLabel: null,
+      imageTitle: null,
+      hasLink: null,
+      linkLabel: null,
+      linkUrl: null,
+    },
+    hasRelatedStory: null,
+    relatedStory: {
+      title: null,
+      subTitle: null,
+      description: null,
+      iconUrl: null,
+      imageUrl: null,
+      imageLabel: null,
+      imageTitle: null,
+      hasLink: null,
+      linkLabel: null,
+      linkUrl: null,
+    },
+  },
   objectMissions: {},
   objectQuests: {},
   objectFollow: {},
   objectSpecialists: {},
 };
 
-export default createReducer(initialState, {  
+export default createReducer(initialState, {
 
   /* DETAILS */
 
   [FETCH_OBJECT_DETAILS_SUCCESS](state, { payload }) {
-      return {
-        ...state,
-        objectDetails: payload,
-      };
-    },
+    return {
+      ...state,
+      objectDetails: payload,
+    };
+  },
   [RESET_OBJECT_DETAILS](state) {
     return {
       ...state,
@@ -75,8 +191,6 @@ export default createReducer(initialState, {
       errorBody: payload,
     };
   },
-
-
 
   /* DATA */
 
@@ -105,7 +219,6 @@ export default createReducer(initialState, {
       errorBody: payload,
     };
   },
-
 
   /* MISSIONS */
 
@@ -152,8 +265,6 @@ export default createReducer(initialState, {
     };
   },
 
-
-
   /* FOLLOW */
 
   [FETCH_OBJECT_FOLLOW_SUCCESS](state, { payload }) {
@@ -176,15 +287,14 @@ export default createReducer(initialState, {
     };
   },
 
-
   /* SPECIALISTS */
 
   [FETCH_OBJECT_SPECIALISTS_SUCCESS](state, { payload }) {
-      return {
-        ...state,
-        objectSpecialists: payload,
-      };
-    },
+    return {
+      ...state,
+      objectSpecialists: payload,
+    };
+  },
   [RESET_OBJECT_SPECIALISTS](state) {
     return {
       ...state,
@@ -204,5 +314,4 @@ export default createReducer(initialState, {
       errorBody: payload,
     };
   },
-
 });

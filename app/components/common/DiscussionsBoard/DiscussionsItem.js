@@ -25,24 +25,30 @@ const {
 
 const DiscussionsItem = props => (
   <div
-    className="margin"
+    className="shadowed-container margin"
     key={uniqueId()}
   >
     <DiscussionsCard
       {...props}
+      replyTo={props.threadId}
+      toggleComments={() => props.discussionsActions.toggleThreadComments(props.threadId)}
       likeHandler={likeThread}
       isDesktop={props.isDesktop}
       allowReplies={true}
       renderChildReplies={({
         renderToggle,
       }) => (<DiscussionComments
+        validateResponseAccess={props.validateResponseAccess}
+        discussions={props.discussions}
+        discussionsActions={props.discussionsActions}
         callSource={props.callSource}
         threadId={props.threadId}
         count={props.count}
+        replyToponlyCount={props.replyToponlyCount}
+        page={props.page}
         topicId={props.topicId}
         forumId={props.forumId}
         user={props.user}
-        replyTo={props.threadId}
         isDesktop={props.isDesktop}
         renderToggle={renderToggle}
       />)}
@@ -69,7 +75,7 @@ DiscussionsItem.propTypes = {
   likePrompt: string.isRequired,
   likesCount: number.isRequired,
   membershipDisplay: string,
-  replyCount: number.isRequired,
+  replyToponlyCount: number.isRequired,
   S3Files: arrayOf(string),
   showLikePrompt: bool.isRequired,
   threadId: number.isRequired,

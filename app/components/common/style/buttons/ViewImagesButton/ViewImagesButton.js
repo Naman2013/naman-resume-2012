@@ -36,7 +36,8 @@ class ViewImagesButton extends Component {
     });
   }
 
-  toggleLightbox = () => {
+  toggleLightbox = (e) => {
+    e.preventDefault();
     this.setState(state => ({
       lightboxIsOpen: !state.lightboxIsOpen,
       currentImageIdx: 0,

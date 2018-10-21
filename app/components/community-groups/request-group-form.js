@@ -7,7 +7,8 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
+import Button from 'components/common/style/buttons/Button';
+import styles from './request-group-form.style';
 const {
   func,
 } = PropTypes;
@@ -34,9 +35,17 @@ class RequestGroupForm extends Component {
     });
   }
 
-  changeFormPrivacy = (e) => {
+  changeFormTitle = (e) => {
     this.setState({
-      requestFormPrivacy: e.target.value,
+      requestFormTitle: e.target.value,
+    });
+  }
+
+
+  changeFormPrivacy = (e) => {
+    e.preventDefault();
+    this.setState({
+      requestFormPrivacy: e.currentTarget.dataset.privacy,
     });
   }
 
@@ -44,11 +53,13 @@ class RequestGroupForm extends Component {
     e.preventDefault();
     const { submitForm } = this.props;
     const {
+      requestFormTitle,
       requestFormText,
       requestFormPrivacy
     } = this.state;
 
     submitForm({
+      requestFormTitle,
       requestFormText,
       requestFormPrivacy
     });
@@ -57,61 +68,49 @@ class RequestGroupForm extends Component {
 
   render() {
     const {
-      submitForm,
       closeForm,
     } = this.props;
 
     const {
+      requestFormTitle,
       requestFormText,
       requestFormPrivacy,
     } = this.state;
 
 
     return (
-      <form>
-        <h2>Request a group</h2>
-        <h4>Step 1: Define</h4>
-        <textarea className="request-textarea" value={requestFormText} onChange={this.onChangeRequestForm} />
-        <h4>Step 2: Privacy Settings</h4>
-        <div className="privacy-settings">
-          <label htmlFor="public-privacy">
-            <input
-              name="privacy"
-              type="radio"
-              id="public-privacy"
-              value="public"
-              checked={requestFormPrivacy === 'public'}
-              onChange={this.changeFormPrivacy}
-            />
-            Public Group
-          </label>
-          <label htmlFor="private-privacy">
-            <input
-              name="privacy"
-              type="radio"
-              value="private"
-              id="private-privacy"
-              checked={requestFormPrivacy === 'private'}
-              onChange={this.changeFormPrivacy}
-            />
-            Private Group
-          </label>
+      <form className="root">
+        <div className="title">Request a group</div>
+        <div className="input-container">
+          <input
+            name="title"
+            className="field-input"
+            type="text"
+            id="group-title"
+            value={requestFormTitle}
+            placeholder="Name your Group"
+            onChange={this.changeFormTitle}
+          />
         </div>
-        <div>
-          <button onClick={closeForm}>Cancel</button>
-          <button onClick={e => this.submitRequestForm(e)}>Submit</button>
+        <div className="input-container">
+          <textarea
+            className="field-input"
+            value={requestFormText}
+            onChange={this.onChangeRequestForm}
+            placeholder="Tell us about the Group you'd like to request"
+          />
         </div>
-        <style jsx>{`
-          .privacy-settings {
-            display: flex;
-            flex-direction: row;
-          }
-
-          .request-textarea {
-            height: 200px;
-            width: 300px;
-          }
-        `}</style>
+        <div className="button-container">
+          <div className="privacy-buttons">
+            <Button onClickEvent={this.changeFormPrivacy} data-privacy="public" text="Public Group" isActive={requestFormPrivacy === 'public'} />
+            <Button onClickEvent={this.changeFormPrivacy} data-privacy="private" text="Private Group" isActive={requestFormPrivacy === 'private'} />
+          </div>
+          <div className="actions">
+            <Button onClickEvent={closeForm} text="Cancel" />
+            <Button onClickEvent={this.submitRequestForm} text="Submit" />
+          </div>
+        </div>
+        <style jsx>{styles}</style>
       </form>
     )
   }

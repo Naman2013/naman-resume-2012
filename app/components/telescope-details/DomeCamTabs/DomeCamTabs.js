@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchDomeCamAction } from '../../../modules/Telescope-Overview';
 import generateDomecamTabConfiguration from './generate-tab-configuration';
-import DefaultTabs from '../../Tabs';
+import { DefaultTabs } from '../../common/Tabs';
 import './domecam-tabs.scss';
 
 const mapStateToProps = ({ telescopeDetails }) => ({

@@ -11,8 +11,9 @@ import pick from 'lodash/pick';
 import LabeledTitleTiles from 'components/common/style/LabeledTitleTiles';
 import LargeButtonWithRightIcon from 'components/common/style/buttons/LargeButtonWithRightIcon';
 import Button from 'components/common/style/buttons/Button';
-import { astronaut, romance, white_tile_paper } from 'styles/variables/colors_tiles_v4';
+import { astronaut, romance, white_tile_paper, nightfall } from 'styles/variables/colors_tiles_v4';
 import { secondaryFont } from 'styles/variables/fonts';
+import { info } from 'styles/variables/iconURLs';
 import {
   screenMedium,
   screenLarge,
@@ -24,40 +25,47 @@ const {
 } = PropTypes;
 
 const GroupsHeader = ({
-  title,
-  subtitleList={},
-  showJoinPrompt,
-  joinPrompt,
-  joinOrLeaveGroup,
-  showInformation,
+  condensed=false,
   description,
+  isMobile,
+  joinOrLeaveGroup,
+  joinPrompt,
+  showInformation,
+  showJoinPrompt,
+  subtitleList={},
+  title,
 }) => (
   <div className="root">
     <div className="image-and-main-container">
-      <div className="groups-header-image"></div>
+      {!condensed ? <div className="groups-header-image">
+        <img
+          className="header-img"
+          src="https://s3.amazonaws.com/webassets-slooh-com/assets/v4/icons/Group_Graphic_Placeholder.png"
+        />
+      </div> : null}
       <div className="main-container">
         <div className="groups-header-title desktop-hide" dangerouslySetInnerHTML={{ __html: title }} />
-        <LabeledTitleTiles tiles={subtitleList} />
+        <LabeledTitleTiles tiles={subtitleList} theme={{ boxShadow: 'none' }} />
+        {condensed ? (<div className="groups-header-information" dangerouslySetInnerHTML={{ __html:   description }} />) : null}
         <div className="action-container">
-          {showJoinPrompt &&
+          {showJoinPrompt ?
             <LargeButtonWithRightIcon
               icon="https://vega.slooh.com/assets/v4/common/comment.svg"
               text={joinPrompt}
               onClickEvent={joinOrLeaveGroup}
-            />}
-            {/*<Button icon="https://vega.slooh.com/assets/v4/common/info_icon.svg" onClickEvent={showInformation} />*/}
+            /> : null}
+            {isMobile && !condensed ? <Button icon={info} onClickEvent={showInformation} /> : null}
         </div>
       </div>
     </div>
 
-    <div className="info-container">
+    {!condensed ? (<div className="info-container">
       <div className="info-inner-container">
         <div className="groups-header-subtitle">Community Group</div>
         <div className="groups-header-title" dangerouslySetInnerHTML={{ __html: title }} />
         <div className="groups-header-information" dangerouslySetInnerHTML={{ __html:   description }} />
       </div>
-
-    </div>
+    </div>) : null}
 
     <style jsx>{`
       .root {
@@ -78,11 +86,18 @@ const GroupsHeader = ({
         padding: 0 30px;
       }
 
+      .header-img {
+        height: 65%;
+        margin-top: 50%;
+        transform: translateY(-90%);
+      }
+
       .groups-header-image {
         margin: 0 auto;
         height: 200px;
         width: 300px;
-        background-color: ${astronaut};
+        background-color: ${nightfall};
+        text-align: center;
       }
 
       .groups-header-title {
@@ -91,10 +106,16 @@ const GroupsHeader = ({
         font-family: ${secondaryFont};
       }
 
+      .groups-header-information {
+        font-family: ${secondaryFont};
+        font-size: 19px;
+      }
+
       .action-container {
         display: flex;
         flex-direction: row;
         justify-content: space-evenly;
+        align-items: center;
       }
 
       .left {
@@ -163,7 +184,7 @@ const GroupsHeader = ({
         }
 
         .info-inner-container {
-          width: 480px;
+          width: 300px;
           margin: 0 auto;
         }
 

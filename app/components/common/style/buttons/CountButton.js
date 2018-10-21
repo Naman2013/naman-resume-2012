@@ -49,7 +49,7 @@ const CountButton = ({
 CountButton.propTypes = {
   alwaysShowCount: bool,
   isActive: bool,
-  count: oneOfType([string, number]).isRequired,
+  count: oneOfType([string, number]),
   icon: string.isRequired,
   onClickEvent: func.isRequired,
 };

@@ -9,6 +9,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Live from './Live';
 import Recent from './Recent';
+import Upcoming from './Upcoming';
 import CenterColumn from 'components/common/CenterColumn';
 import { seashell } from 'styles/variables/colors_tiles_v4';
 import styles from './BootstrappedShow.style';
@@ -142,10 +143,10 @@ class BootstrappedShow extends Component {
 
     return (
       <div className="root">
-        <CenterColumn theme={{ backgroundColor: seashell }}>
+        <CenterColumn theme={{ backgroundColor: seashell }} theme={{ paddingTop: '25px' }}>
           {isLiveShow ? <Live {...this.props} /> : null}
           {isRecentShow ? <Recent {...this.props} /> : null}
-          {isUpcomingShow ? <div /> : null}
+          {isUpcomingShow ? <Upcoming {...this.props} /> : null}
         </CenterColumn>
         <style jsx>{styles}</style>
       </div>

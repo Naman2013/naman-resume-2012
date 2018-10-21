@@ -19,6 +19,7 @@ import {
 
 import AskQuestionTile from '../../components/ask-astronomer/AskQuestionTile';
 import QuestionList from '../../components/ask-astronomer/question-list';
+import ModalGeneric from '../../components/common/modals/modal-generic';
 import AskAstronomerQuestionForm from '../../components/ask-astronomer/question-form';
 import ObjectDetailsSectionTitle from '../../components/object-details/ObjectDetailsSectionTitle';
 import CenterColumn from '../../../app/components/common/CenterColumn';
@@ -102,6 +103,7 @@ class AskAstronomer extends Component {
       rightView: "show",
       tabMvp: "hidden",
       mobile: false,
+      showPrompt: false,
     };  
   }
 
@@ -168,6 +170,18 @@ class AskAstronomer extends Component {
     });
   }
 
+  showModal = () => {
+    this.setState({
+      showPrompt: true,
+    });
+  }
+
+  closeModal = () => {
+    this.setState({
+      showPrompt: false,
+    });
+  }
+
   render() {
     const {
       actions,
@@ -190,6 +204,8 @@ class AskAstronomer extends Component {
       objectSpecialists,
     } = this.props;
 
+    const { leftView, rightView, tabMvp, mobile, showPrompt } = this.state;
+
     return (
       <div className="full-bg">
           <ObjectDetailsSectionTitle title={objectTitle + "'s"} subTitle="Ask An Astronomer" />        
@@ -210,13 +226,18 @@ class AskAstronomer extends Component {
               </div>  
 
               <div className={'right ' + this.state.rightView}>
+                <ModalGeneric
+                  open={showPrompt}
+                  closeModal={this.closeModal}
+                  description={'test'}
+                />
                 {/*<AskAstronomerQuestionForm
                   objectId={objectId}
                   topicId={faqTopicId}
                   objectTitle={objectTitle}
                   user={user}
                 />*/}
-                <AskQuestionTile></AskQuestionTile>
+                <AskQuestionTile showModal={this.showModal} ></AskQuestionTile>
                 <div className="ask-tablet-subnav">         
                   <div className="center-line" />
                   <span className={'btn-nav ' + this.state.leftView} onClick={this.handleTabletClick}>Questions</span>

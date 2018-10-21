@@ -1,3 +1,2 @@
 export const OBJECT_DETAIL_LIST = '/api/object/getObjectDetailList';
-
-export const OBJECT_SPECIALISTS = '/api/object/getObjectSpecialists';
+export const RISE_SET_TIMES = '/api/object/getRiseAndSetTimes';
