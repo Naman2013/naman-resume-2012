@@ -49,7 +49,7 @@ class JoinByInviteCodeStep2 extends Component {
     const stepNumber = 2;
 
     return (
-      <JoinByInviteAccountSignup stepNumber={stepNumber} numberOfSteps={numSteps} joinByInviteParams={joinByInviteParams}/>
+      <JoinByInviteAccountSignup pathname="/join/inviteByCodeStep2" stepNumber={stepNumber} numberOfSteps={numSteps} joinByInviteParams={joinByInviteParams}/>
     )
   }
 }

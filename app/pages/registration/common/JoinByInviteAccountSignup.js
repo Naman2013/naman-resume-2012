@@ -4,6 +4,7 @@
 import React, { Component, cloneElement, Fragment } from 'react';
 import { Link } from 'react-router';
 import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
 import axios from 'axios';
 import { GoogleLogin } from 'react-google-login';
 import { connect } from 'react-redux';
@@ -18,6 +19,7 @@ import Request from 'components/common/network/Request';
 import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
 import JoinHeader from '../partials/JoinHeader';
 import PlanDetailsCard from '../partials/PlanDetailsCard';
+import { resetLogIn, logUserIn, logGoogleUserIn } from 'modules/login/actions';
 
 import {
   JOIN_PAGE_ENDPOINT_URL,
@@ -37,6 +39,11 @@ class JoinByInviteAccountSignup extends Component {
   static propTypes = {
     pathname: string.isRequired,
     change: func,
+    actions: PropTypes.shape({
+      logUserIn: PropTypes.func.isRequired,
+      resetLogIn: PropTypes.func.isRequired,
+      logGoogleUserIn: PropTypes.func.isRequired,
+    }).isRequired,
   };
   static defaultProps = {
     change: noop,
@@ -68,6 +75,11 @@ class JoinByInviteAccountSignup extends Component {
         googleProfileGivenName: '',
         googleProfileFamilyName: '',
         googleProfilePictureURL: '',
+      },
+      inviteDetails: {
+        parentCustomerId: '',
+        parentCustomerRole: '',
+        childCustomerRole: '',
       },
       accountFormDetails: {
         givenName: {
@@ -122,6 +134,7 @@ class JoinByInviteAccountSignup extends Component {
 
   // Obtain access to the join api service response and update the accountFormDetails state to reflect the Join Page response (set form labels)
   handleJoinPageServiceResponse = (result) => {
+    const newInviteDetails = cloneDeep(this.state.inviteDetails);
     const newAccountFormData = cloneDeep(this.state.accountFormDetails);
 
     newAccountFormData.givenName.label = result.formFieldLabels.firstname.label;
@@ -148,11 +161,16 @@ class JoinByInviteAccountSignup extends Component {
 
     newAccountFormData.loginEmailAddress.value = result.invitee.emailAddress;
 
+    newInviteDetails.parentCustomerId = result.invitedBy.customerId;
+    newInviteDetails.parentCustomerRole = result.invitedBy.role;
+    newInviteDetails.childCustomerRole = result.invitee.role;
+
     /* update the account form details state so the correct hinText will show on each form field */
     if (result.selectedSubscriptionPlan.isClassroom === 'yes') {
       this.setState(() => ({
         accountFormDetails: newAccountFormData,
-        /* was the selected plan an astronomy club? */
+        inviteDetails: newInviteDetails,
+        /* was the selected plan a classroom? */
         isAstronomyClub: result.selectedSubscriptionPlan.isAstronomyClub,
         isClassroom: result.selectedSubscriptionPlan.isClassroom,
         selectedSchoolId: result.selectedSchool.schoolId,
@@ -162,6 +180,7 @@ class JoinByInviteAccountSignup extends Component {
     else {
       this.setState(() => ({
         accountFormDetails: newAccountFormData,
+        inviteDetails: newInviteDetails,
         /* was the selected plan an astronomy club? */
         isAstronomyClub: result.selectedSubscriptionPlan.isAstronomyClub,
         isClassroom: result.selectedSubscriptionPlan.isClassroom,
@@ -259,7 +278,7 @@ class JoinByInviteAccountSignup extends Component {
     }
 
     if (formIsComplete === true) {
-    /* The form is complete and valid, submit the pending customer request if the Password Enters meets the Slooh Requirements */
+    /* The form is complete and valid, submit the customer request if the Password Enters meets the Slooh Requirements */
 
       /* Last Validation....password validation, not required for Google Accounts as their is no password */
       if (accountCreationType === 'userpass') {
@@ -280,8 +299,8 @@ class JoinByInviteAccountSignup extends Component {
               if (passwordResult.passwordAcceptable === "true") {
                 formIsComplete = true;
 
-                /* create the pending customer result */
-                this.createPendingCustomerRecordAndNextScreen();
+                /* create the customer record */
+                this.createCustomerRecordAndNextScreen();
               } else {
                 /* Password did not meet Slooh requirements, provide the error messaging */
                 accountFormDetailsData.password.errorText = passwordResult.passwordNotAcceptedMessage;
@@ -297,8 +316,8 @@ class JoinByInviteAccountSignup extends Component {
             throw ('Error: ', err);
           });
       } else if (accountCreationType === 'googleaccount') {
-        /* no additional verifications are needed, create the pending customer record and continue to the next screen */
-        this.createPendingCustomerRecordAndNextScreen();
+        /* no additional verifications are needed, create the customer record and login */
+        this.createCustomerRecordAndNextScreen();
       }
     } else {
       /* make sure to persist any changes to the account signup form (error messages) */
@@ -306,23 +325,25 @@ class JoinByInviteAccountSignup extends Component {
     }
   }
 
-  createPendingCustomerRecordAndNextScreen = () => {
+  createCustomerRecordAndNextScreen = () => {
     /*
-    * Set up a Pending Customer Account
-    * Set a cid_pending localStorage key
+    * Set up a Customer Account
     */
 
-    /* prepare the payload to the Create Pending Customer API call. */
-    let createPendingCustomerData = {
+    /* prepare the payload to the Create Customer API call. */
+    let createCustomerData = {
       accountCreationType: this.state.accountCreationType,
       selectedPlanId: this.state.selectedPlanId,
       googleProfileId: this.state.googleProfileData.googleProfileId,
       accountFormDetails: this.state.accountFormDetails,
       selectedSchoolId: this.state.selectedSchoolId,
+      isAstronomyClub: this.state.isAstronomyClub,
+      isClassroom: this.state.isClassroom,
+      inviteDetails: this.state.inviteDetails,
     };
 
     // JOIN_CREATE_INVITED_CUSTOMER_ENDPOINT_URL
-    axios.post(JOIN_CREATE_INVITED_CUSTOMER_ENDPOINT_URL, createPendingCustomerData)
+    axios.post(JOIN_CREATE_INVITED_CUSTOMER_ENDPOINT_URL, createCustomerData)
       .then((response) => {
         const res = response.data;
         if (!res.apiError) {
@@ -332,12 +353,25 @@ class JoinByInviteAccountSignup extends Component {
           }
 
           if (createCustomerResult.status === 'success') {
-            window.localStorage.setItem('pending_cid', pendingCustomerResult.customerId);
-            window.localStorage.setItem('username', this.state.accountFormDetails.loginEmailAddress.value);
-            window.localStorage.setItem('password', this.state.accountFormDetails.password.value);
+            if (this.state.accountCreationType === 'userpass') {
+              const loginDataPayload = {
+                username: this.state.accountFormDetails.loginEmailAddress.value,
+                pwd: this.state.accountFormDetails.password.value,
+              };
 
-            // console.log('Proceeding to create the customers pending account');
-            browserHistory.push('/join/step3');
+              /* Log the user in */
+              actions.logUserIn(loginDataPayload);
+              browserHistory.push("/");
+            }
+            else if (this.state.accountCreationType === 'googleaccount') {
+              const loginDataPayload = {
+                googleProfileId: window.localStorage.googleProfileId,
+                googleProfileEmail: window.localStorage.username,
+              };
+
+              actions.logGoogleUserIn(loginDataPayload);
+              browserHistory.push("/");
+            }
           }
           else {
             /* process / display error to user */
@@ -419,6 +453,7 @@ class JoinByInviteAccountSignup extends Component {
       accountFormDetails,
       accountCreationType,
       isAstronomyClub,
+      isClassroom,
     } = this.state;
 
     const joinByInviteParams = this.props.joinByInviteParams;
@@ -592,7 +627,7 @@ class JoinByInviteAccountSignup extends Component {
                             <button
                               className="submit-button"
                               type="submit"
-                            >Go to payment
+                            >Complete Signup
                             </button>
 
                           </div>
@@ -615,4 +650,12 @@ const mapStateToProps = ({ joinAccountForm }) => ({
   joinAccountForm,
 });
 
-export default connect(mapStateToProps, null)(reduxForm({ form: 'joinAccountForm', enableReinitialize: true, })(JoinByInviteAccountSignup));
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators({
+    resetLogIn,
+    logUserIn,
+    logGoogleUserIn,
+  }, dispatch),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({ form: 'joinAccountForm', enableReinitialize: true, })(JoinByInviteAccountSignup));
