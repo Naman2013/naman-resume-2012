@@ -132,6 +132,11 @@ class JoinByInviteAccountSignup extends Component {
     }
   }
 
+  componentWillUnmount() {
+    const { actions } = this.props;
+    actions.resetLogIn();
+  }
+
   // Obtain access to the join api service response and update the accountFormDetails state to reflect the Join Page response (set form labels)
   handleJoinPageServiceResponse = (result) => {
     const newInviteDetails = cloneDeep(this.state.inviteDetails);
@@ -347,6 +352,8 @@ class JoinByInviteAccountSignup extends Component {
       .then((response) => {
         const res = response.data;
         if (!res.apiError) {
+          const { actions } = this.props;
+
           const createCustomerResult = {
             status: res.status,
             customerId: res.customerId,
