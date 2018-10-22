@@ -8,6 +8,7 @@ import {
   DayNightBar,
   DayNightMap,
   ImagePortalViewer,
+  WeeklyForecast,
 } from './';
 import { ModuleContainer } from './module-container';
 import style from './tab-live.style';
@@ -48,6 +49,10 @@ const TabConditions = () => (
       <ModuleContainer title="Pico del teide cam">
         <ImagePortalViewer imageURL="" />
       </ModuleContainer>
+    </div>
+
+    <div className="tile-container">
+      <WeeklyForecast />
     </div>
 
     <div className="tile-container">
