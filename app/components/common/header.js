@@ -10,6 +10,8 @@ import Countdown from '../../containers/Countdown';
 import Member from '../../containers/Member';
 import AudioPlayer, { AudioPlayerProvider } from '../../components/AudioPlayer';
 
+import BrowseTaggedDataSearch from '../../components/browse-tagged-data/BrowseTaggedDataSearch';
+
 import { primaryFont } from '../../styles/variables/fonts';
 import { lightTurqoise, white } from '../../styles/variables/colors';
 
@@ -174,6 +176,7 @@ export default class Header extends Component {
           <p className="beta">beta</p>
         </Link>
 
+        <BrowseTaggedDataSearch />
         <Member />
         <Countdown />
 
@@ -186,6 +189,7 @@ export default class Header extends Component {
         )}
 
         <style jsx>{`
+
           .player-container {
             float: right;
             margin-right: 20px;

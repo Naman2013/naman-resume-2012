@@ -3,17 +3,12 @@ import PropTypes from 'prop-types';
 import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import Modal from 'react-modal';
 import ConfirmDeleteModal from './ConfirmDeleteModal';
-import { white, black, pink } from '../../../styles/variables/colors';
-import { secondaryFont, primaryFont } from '../../../styles/variables/fonts';
 import { fetchGalleryPictures } from '../../../modules/my-pictures-gallery-pictures/actions';
 import { fetchGalleriesCount } from '../../../modules/my-pictures-galleries/actions';
 import { removeImageFromGallery } from '../../../services/my-pictures/remove-image-from-gallery';
 
 const {
-  arrayOf,
-  bool,
   func,
   number,
   shape,
@@ -36,6 +31,7 @@ const mapDispatchToProps = dispatch => ({
 class RemoveFromGallery extends Component {
 
   static propTypes = {
+    theme: PropTypes.oneOf(['light', 'dark']),
     maxImageCount: number.isRequired,
     firstImageNumber: number.isRequired,
     customerImageId: number.isRequired,
@@ -50,12 +46,14 @@ class RemoveFromGallery extends Component {
       cid: string,
     }).isRequired,
   };
+
   static defaultProps = {
+    theme: 'light',
     user: {
       at: '',
       token: '',
-      cid: ''
-    }
+      cid: '',
+    },
   };
 
   removeFromGallery = (e) => {
@@ -91,13 +89,13 @@ class RemoveFromGallery extends Component {
 
         actions.fetchGalleriesCount({});
       }
-
     });
   }
   render() {
     return (
       <div>
         <ConfirmDeleteModal
+          theme={this.props.theme}
           confirmText="Are you sure you want to remove this image from the gallery?"
           buttonHoverText="Remove from gallery"
           removeAction={this.removeFromGallery}

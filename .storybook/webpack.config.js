@@ -1,3 +1,5 @@
+const path = require('path');
+
 // you can use this file to add your custom webpack plugins, loaders and anything you like.
 // This is just the basic way to add additional webpack configurations.
 // For more information refer the docs: https://storybook.js.org/configurations/custom-webpack-config
@@ -13,13 +15,11 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(png|jpg|gif)$/,
+        test: /\.(png|jpg|gif|svg)$/,
         use: [
           {
             loader: 'file-loader',
-            options: {
-              limit: 40,
-            },
+            options: {  },
           },
         ],
       },
@@ -29,10 +29,24 @@ module.exports = {
         loader: 'babel-loader',
         query: {
           cacheDirectory: true,
-          plugins: ['transform-runtime', 'transform-decorators-legacy', 'styled-jsx/babel'],
-          presets: ['es2015', 'es2016', 'es2017', 'react', 'stage-0'],
+          plugins: [
+            ['styled-jsx/babel', { 'optimizeForSpeed': false }],
+            'transform-object-rest-spread',
+            'transform-decorators-legacy',
+            'transform-class-properties',
+            'transform-function-bind',
+          ],
+          presets: ['env', 'react'],
         },
       },
+      {
+        test: /\.scss$/,
+        loaders: [
+          'style-loader',
+          'css-loader?modules&importLoaders=1&localIdentName=[local]',
+          'sass-loader',
+        ],
+      },
     ],
-  },
+  }
 };

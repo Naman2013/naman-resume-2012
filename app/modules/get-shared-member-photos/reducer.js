@@ -1,9 +1,11 @@
 import createReducer from '../utils/createReducer';
+import cloneDeep from 'lodash/cloneDeep';
 
 import {
   GET_SHARED_MEMBER_PHOTOS_SUCCESS,
   GET_SHARED_MEMBER_PHOTOS_FAIL,
   GET_SHARED_MEMBER_PHOTOS_START,
+  STORE_IMAGE_DETAIL_SUCCESS,
 } from './actions';
 
 const initialState = {
@@ -14,7 +16,8 @@ const initialState = {
   timelineData: {
     timelineCount: 0,
     timelineList: [],
-  }
+  },
+  allImages: {},
 };
 
 export default createReducer(initialState, {
@@ -36,6 +39,15 @@ export default createReducer(initialState, {
       ...state,
       error: true,
       fetching: false,
+    };
+  },
+  [STORE_IMAGE_DETAIL_SUCCESS](state, { payload }) {
+    const { customerImageId } = payload;
+    const newAllImages = cloneDeep(state.allImages);
+    newAllImages[customerImageId] = payload;
+    return {
+      ...state,
+      allImages: newAllImages,
     };
   },
 });

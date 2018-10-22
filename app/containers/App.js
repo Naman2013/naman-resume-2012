@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import DeviceProvider from 'providers/DeviceProvider';
 import PageMetaManagement from '../components/PageMetaManagement';
-import Menu from './Menu';
-import Header from '../components/common/header';
-import Footer from '../components/common/footer';
+
+import GlobalNavigation from '../components/GlobalNavigation';
+
+import Footer from '../components/Footer';
 import { fetchEvents } from '../modules/upcoming-events/upcoming-events-actions';
 
 function mapDispatchToProps(dispatch) {
@@ -40,16 +42,29 @@ class App extends Component {
   render() {
     const { isLanding } = this.props;
     return (
-      <div className={`wrapper ${isLanding ? 'is-landing' : null}`}>
-        <PageMetaManagement />
-        <Header />
-        <Menu source="nav.json" />
-        <section className="app-content-container clearfix">
-          <div className="clearfix">
-            { this.props.children }
-          </div>
-        </section>
-        <Footer />
+      <div
+        style={{ overflow: 'hidden' }}
+        className={`wrapper ${isLanding ? 'is-landing' : null}`}
+      >
+        <DeviceProvider>
+          <PageMetaManagement />
+
+          <nav className="navigation">
+            <GlobalNavigation />
+          </nav>
+
+          <section className="app-content-container clearfix v4">
+            <div className="clearfix">
+              { this.props.children }
+            </div>
+          </section>
+          <Footer />
+        </DeviceProvider>
+        <style jsx>{`
+          .v4 {
+            margin-top: 60px !important;
+          }
+          `}</style>
       </div>
     );
   }

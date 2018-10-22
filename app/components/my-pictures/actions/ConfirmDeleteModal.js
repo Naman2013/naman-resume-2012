@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-modal';
+import ActionButton from './ActionButton';
 import { white, black, pink } from '../../../styles/variables/colors';
-import { secondaryFont, primaryFont } from '../../../styles/variables/fonts';
+import { primaryFont } from '../../../styles/variables/fonts';
 
 const {
   func,
@@ -12,12 +13,15 @@ const {
 class DeleteGallery extends Component {
 
   static propTypes = {
+    theme: PropTypes.oneOf(['light', 'dark']),
     buttonClass: string,
     confirmText: string,
     buttonHoverText: string,
     removeAction: func.isRequired,
   };
+
   static defaultProps = {
+    theme: 'light',
     buttonClass: 'fa-close',
     buttonHoverText: 'Remove',
     confirmText: 'Are you sure you want to remove this?'
@@ -35,7 +39,7 @@ class DeleteGallery extends Component {
   }
 
   render() {
-    const { confirmText, removeAction, buttonClass, buttonHoverText } = this.props;
+    const { confirmText, removeAction, buttonClass, buttonHoverText, theme } = this.props;
     const { confirmModalIsOpen } = this.state;
     const customModalStyles = {
       content: {
@@ -56,10 +60,13 @@ class DeleteGallery extends Component {
 
     return (
       <div>
-        <button className="action" onClick={e => this.showModal(e, true)}>
-          <span className={`fa ${buttonClass}`} />
-          <div className="action-description">{buttonHoverText}</div>
-        </button>
+        <ActionButton
+          theme={theme}
+          handleClick={e => this.showModal(e, true)}
+          fontAwesomeIcon={buttonClass}
+          description={buttonHoverText}
+        />
+
         <Modal
           style={customModalStyles}
           isOpen={confirmModalIsOpen}

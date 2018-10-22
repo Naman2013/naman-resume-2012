@@ -146,7 +146,7 @@ MyPicturesNavigation.defaultProps = {
 
 MyPicturesNavigation.propTypes = {
   page: PropTypes.string,
-  scheduledMissionId: PropTypes.string,
+  scheduledMissionId: PropTypes.number,
   galleryId: PropTypes.string,
   filterMenuIsOpen: PropTypes.bool
 };

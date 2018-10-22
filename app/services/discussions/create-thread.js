@@ -26,6 +26,8 @@ export const createThread = ({
   content,
   S3URLs,
   topicId,
+  callSource,
+  objectId,
 }) => (
   axios.post('/api/forum/createThread', {
     cid,
@@ -39,5 +41,7 @@ export const createThread = ({
     content,
     S3URLs,
     topicId,
+    callSource,
+    objectId,
   })
 );

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import AddToGallery from './AddToGallery';
-import { white, black } from '../../../styles/variables/colors';
 import RemoveFromGallery from './RemoveFromGallery';
 import DeleteGallery from './DeleteGallery';
 import DeleteImage from './DeleteImage';
@@ -10,13 +9,14 @@ import ShareMemberPhoto from './ShareMemberPhoto';
 import SocialSharingBar from '../../common/social-sharing-bar/SocialSharingBar';
 import Heart from '../../common/heart/heart';
 import { likeImage } from '../../../services/my-pictures/like-image';
-import { actionsStyles } from './actions.style';
 
 const getTheme = actionSource => (
   (actionSource === 'galleryImageDetails' || actionSource === 'imageDetails') ?
   'dark' : 'light');
+
 class PhotoActions extends Component {
   static propTypes = {
+    theme: PropTypes.oneOf(['light', 'dark']),
     imageURL: PropTypes.string,
     canEditFlag: PropTypes.bool,
     canSocialShareFlag: PropTypes.bool,
@@ -33,10 +33,11 @@ class PhotoActions extends Component {
       theme: PropTypes.string,
       likeType: PropTypes.string,
       likeId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    })
+    }),
   };
 
   static defaultProps = {
+    theme: 'light',
     imageURL: '',
     canEditFlag: false,
     galleryId: null,
@@ -48,11 +49,9 @@ class PhotoActions extends Component {
     socialShareDescription: '',
   };
 
-  state = {
-  };
-
   render() {
     const {
+      theme,
       actionSource,
       canEditFlag,
       canShareFlag,
@@ -74,15 +73,14 @@ class PhotoActions extends Component {
     const canDeleteImage = actionSource === 'photoRoll' || actionSource === 'imageDetails' || actionSource === 'galleryPictures' || actionSource === 'galleryImageDetails';
     const canLikePhoto = actionSource === 'galleryImageDetails' || actionSource === 'imageDetails';
 
-    var encodeurl = require('encodeurl');
-    var base64 = require('base-64');
-    var socialShareImageTitle = imageTitle;
+    const encodeurl = require('encodeurl');
+    const base64 = require('base-64');
+    let socialShareImageTitle = imageTitle;
 
     if (socialShareImageTitle == '') {
       /* the social sharing modules require a title, so even a space is sufficient */
       socialShareImageTitle = encodeurl(base64.encode('Shared Photo from Slooh.com'));
-    }
-    else {
+    } else {
       socialShareImageTitle = encodeurl(base64.encode(imageTitle));
     }
 
@@ -102,17 +100,20 @@ class PhotoActions extends Component {
           showLikeText={false}
         />}
         {canEditFlag && <AddToGallery
+          theme={theme}
           actionSource={actionSource}
           customerImageId={customerImageId}
         />}
         {canEditFlag && canRemovePhoto &&
           <RemoveFromGallery
+            theme={theme}
             customerImageId={customerImageId}
             galleryId={galleryId}
             actionSource={actionSource}
           />}
         {canEditFlag && canDeleteImage &&
           <DeleteImage
+            theme={theme}
             galleryId={galleryId}
             customerImageId={customerImageId}
             actionSource={actionSource}
@@ -120,41 +121,30 @@ class PhotoActions extends Component {
           />}
         {canDeleteGallery &&
           <DeleteGallery
+            theme={theme}
             galleryId={galleryId}
           />}
         {canDownload && <DownloadImage
+          theme={theme}
           imageURL={imageURL}
         />}
         {canShareFlag && <ShareMemberPhoto
-            customerImageId={customerImageId}
-          />}
+          theme={theme}
+          customerImageId={customerImageId}
+        />}
         {canSocialShareFlag && <SocialSharingBar
-            contentLayout="horizontal"
-            shareTitle={socialShareImageTitle}
-            shareDescription={socialShareDescription}
-            shareURL={shareURL}
-            shareImageURL={imageURL}
-          />}
-        <style jsx>
-        {`
-          ${actionsStyles}
+          contentLayout="horizontal"
+          shareTitle={socialShareImageTitle}
+          shareDescription={socialShareDescription}
+          shareURL={shareURL}
+          shareImageURL={imageURL}
+        />}
+
+        <style jsx>{`
           .actions {
-            display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
-            display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
-            display: -ms-flexbox;      /* TWEENER - IE 10 */
-            display: -webkit-flex;     /* NEW - Chrome */
-            display: flex;             /* NEW, Spec - Opera 12.1, Firefox 20+ */
+            display: flex;
             flex-direction: row;
             margin-top: -5px;
-          }
-
-          .galleryList {
-            top: -15px;
-            height: 250px;
-            width: 200px;
-            position: absolute;
-            z-index: 99999;
-            background-color: ${white};
           }
         `}
         </style>

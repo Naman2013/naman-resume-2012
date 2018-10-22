@@ -1,14 +1,11 @@
 @import '../../styles/variables/fonts.scss';
 @import '../../styles/mixins/utilities.scss';
 
-$CONTAINER_WIDTH: 1260px;
-
 .telescope-details-page-wrapper {
   font-family: $primary-font;
   background-image: url(https://vega.slooh.com/assets/images/photos/milky-way-3.jpg);
   @include background-image-cover;
   background-position: center;
-  //min-width: $CONTAINER_WIDTH;
 
   .current-selection-header .title-container {
     color: #fff;
@@ -22,48 +19,12 @@ $CONTAINER_WIDTH: 1260px;
   }
 
   .details-content-wrapper {
-    //max-width: $CONTAINER_WIDTH;
-    //min-width: $CONTAINER_WIDTH;
     margin: 0 auto;
   }
 }
 
 .telescope-details {
-
   .viewer-container {
-    position: relative;
-  }
-
-  .react-tabs__tab-list {
-    font-weight: 300;
-    text-align: center;
-    margin: 0;
-    border-bottom: 0;
-    list-style: none;
-    padding: 0;
-
-    .react-tabs__tab {
- @media(min-width:769px){
-       padding: 10px 70px;
-       font-size: 18px;
-     }
-      padding: 10px 70px;
-      background: #3C4A55;
-
-      color: #FFFFFF;
-      margin: 0;
-      border: 0;
-      width: 50%;
-      display: inline-block;
-      &.react-tabs__tab--selected {
-        box-shadow: 6px 0px 6px 0px rgba(0,0,0,0.50);
-        background: #1F1F1F;
-        color: #FFFFFF;
-      }
-    }
-  }
-  .react-tabs__tab-panel {
-    background-color: #1F1F1F;
     position: relative;
   }
 }

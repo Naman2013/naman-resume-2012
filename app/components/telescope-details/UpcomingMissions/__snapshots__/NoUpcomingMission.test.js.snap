@@ -2,24 +2,10 @@
 
 exports[`<NoUpcomingMission /> should render no mission stuff... 1`] = `
 <div
-  data-jsx={942546412}
+  className="jsx-1258932483"
 >
   <h4
-    className="title"
-    data-jsx={942546412}
+    className="jsx-1258932483 title"
   />
-  <style
-    jsx={true}
-  >
-    
-      .title {
-        margin: 0;
-        text-align: center;
-        padding: 50px;
-        text-transform: none;
-        color: #D9D9D9;
-      }
-    
-  </style>
 </div>
 `;

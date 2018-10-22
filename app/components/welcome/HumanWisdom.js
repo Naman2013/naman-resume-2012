@@ -9,7 +9,7 @@ class HumanWisdom extends Component {
     const dataElements = {
       pageNumber: '03',
       title: "GATHERED<br/>HUMAN WISDOM",
-      subtitle: "Take in our curation of human response to space since the down of civilization, in Science, Art & Culture, Spirituality and more.",
+      subtitle: "Take in our curation of human response to space since the dawn of civilization, in Science, Art & Culture, Spirituality and more.",
       buttonText: 'Best of Illuminations',
       buttonLink: '/best-of-slooh',
     }

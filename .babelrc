@@ -1,10 +1,13 @@
 {
   "plugins": [
-    "transform-react-jsx",
-    "transform-class-properties",
-    "styled-jsx/babel",
+    ["styled-jsx/babel", { "optimizeForSpeed": true }],
     "transform-decorators-legacy",
-    "transform-object-rest-spread"
+    "transform-object-rest-spread",
+    "transform-class-properties",
+    "transform-function-bind",
+    ["module-resolver", {
+      "root": ["./app"]
+    }]
   ],
-  "presets": ["es2015", "es2016", "es2017", "react"]
+  "presets": ["env", "react"]
 }

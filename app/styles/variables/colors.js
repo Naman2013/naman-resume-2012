@@ -1,5 +1,7 @@
 export const lightGray = '#9B9B9B';
 export const gray = '#D9D9D9';
+export const grayer = '#333';
+export const darkGray = '#1E1E1E';
 export const pink = '#F310A7';
 export const turqoise = '#589A9B';
 export const blueGreen = '#7EC3C4';

@@ -1,6 +1,7 @@
+import css from 'styled-jsx/css';
 import { primaryFont, secondaryFont } from '../../../styles/variables/fonts';
 
-export default `
+export default css`
   .live-mission {
     font-family: ${primaryFont};
     color: white;

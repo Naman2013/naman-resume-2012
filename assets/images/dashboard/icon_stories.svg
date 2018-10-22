@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="30px" height="30px" viewBox="0 0 30 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+    <title>Gold</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Stories" transform="translate(-6.000000, 0.000000)">
+            <g id="Gold" transform="translate(6.000000, 0.000000)">
+                <g id="Group-22" fill="#C2A068">
+                    <g id="Group-20" transform="translate(15.210458, 14.926591) rotate(-40.000000) translate(-15.210458, -14.926591) translate(14.693216, -0.073409)">
+                        <g id="Group-14">
+                            <rect id="Rectangle-Copy-3" x="0" y="5.17241379" width="1.03448276" height="4.13793103" rx="0.517241379"></rect>
+                            <rect id="Rectangle-Copy-4" x="0" y="2.06896552" width="1.03448276" height="2.06896552" rx="0.517241379"></rect>
+                            <circle id="Oval-4-Copy-4" cx="0.517241379" cy="0.517241379" r="1"></circle>
+                        </g>
+                        <g id="Group-14-Copy" transform="translate(0.517241, 25.344828) scale(1, -1) translate(-0.517241, -25.344828) translate(0.000000, 20.689655)">
+                            <rect id="Rectangle-Copy-3" x="0" y="5.17241379" width="1.03448276" height="4.13793103" rx="0.517241379"></rect>
+                            <rect id="Rectangle-Copy-4" x="0" y="2.06896552" width="1.03448276" height="2.06896552" rx="0.517241379"></rect>
+                            <circle id="Oval-4-Copy-4" cx="0.517241379" cy="0.517241379" r="1"></circle>
+                        </g>
+                    </g>
+                    <g id="Group-20" transform="translate(15.210458, 14.926591) rotate(40.000000) translate(-15.210458, -14.926591) translate(14.693216, -0.073409)">
+                        <g id="Group-14">
+                            <rect id="Rectangle-Copy-3" x="0" y="5.17241379" width="1.03448276" height="4.13793103" rx="0.517241379"></rect>
+                            <rect id="Rectangle-Copy-4" x="0" y="2.06896552" width="1.03448276" height="2.06896552" rx="0.517241379"></rect>
+                            <circle id="Oval-4-Copy-4" cx="0.517241379" cy="0.517241379" r="1"></circle>
+                        </g>
+                        <g id="Group-14-Copy" transform="translate(0.517241, 25.344828) scale(1, -1) translate(-0.517241, -25.344828) translate(0.000000, 20.689655)">
+                            <rect id="Rectangle-Copy-3" x="0" y="5.17241379" width="1.03448276" height="4.13793103" rx="0.517241379"></rect>
+                            <rect id="Rectangle-Copy-4" x="0" y="2.06896552" width="1.03448276" height="2.06896552" rx="0.517241379"></rect>
+                            <circle id="Oval-4-Copy-4" cx="0.517241379" cy="0.517241379" r="1"></circle>
+                        </g>
+                    </g>
+                    <g id="Group-20" transform="translate(15.000000, 15.000000) rotate(90.000000) translate(-15.000000, -15.000000) translate(14.482759, 0.000000)">
+                        <rect id="Rectangle-Copy-5" x="0" y="0" width="1.03448276" height="9.31034483" rx="0.517241379"></rect>
+                        <rect id="Rectangle-Copy-6" x="0" y="20.6896552" width="1.03448276" height="9.31034483" rx="0.517241379"></rect>
+                    </g>
+                    <g id="Group-20" transform="translate(14.482759, 0.000000)">
+                        <rect id="Rectangle-Copy-5" x="0" y="0" width="1.03448276" height="9.31034483" rx="0.517241379"></rect>
+                        <rect id="Rectangle-Copy-6" x="0" y="20.6896552" width="1.03448276" height="9.31034483" rx="0.517241379"></rect>
+                    </g>
+                </g>
+                <circle id="Oval-3-Copy-2" stroke="#E2B979" stroke-width="1.5" cx="15" cy="15" r="5.97413793"></circle>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -37,23 +37,6 @@ class WeatherForecastWidget extends Component {
     }).isRequired,
   };
 
-  componentDidMount() {
-    const { obsId, miniWeatherPanelWidgetId } = this.props;
-    this.props.actions.fetchWeatherForecast({
-      obsId,
-      miniWeatherPanelWidgetId,
-    });
-  }
-
-  componentWillUpdate(nextProps) {
-    if (this.props.miniWeatherPanelWidgetId !== nextProps.miniWeatherPanelWidgetId && this.props.obsId !== nextProps.obsId) {
-      this.props.actions.fetchWeatherForecast({
-        obsId: nextProps.obsId,
-        miniWeatherPanelWidgetId: nextProps.miniWeatherPanelWidgetId,
-      });
-    }
-  }
-
   refreshLiveImageInterval = null;
 
   render() {

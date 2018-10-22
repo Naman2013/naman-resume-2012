@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import uniqueId from 'lodash/uniqueId';
 import { Link } from 'react-router';
 import useAbsoluteURL from '../../utils/useAbsoluteURL';
 import purgeHashURL from '../../utils/purgeHashURL';
@@ -79,7 +80,7 @@ class PromoPanel extends Component {
     }
 
     return (
-    	<div style={inlineStyle_PromoContainer}>
+    	<div style={inlineStyle_PromoContainer} key={uniqueId()}>
   		      <div style={inlineStyle_promo}>
           		<h2 style={inlineStyle_promo_Heading}>{this.props.heading}</h2>
   		        <h3 style={inlineStyle_promo_SubHeading}>{this.props.subhead}</h3>

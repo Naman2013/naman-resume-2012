@@ -13,6 +13,7 @@ import FITModalHeader from './FIT-image-modal-partials/FITModalHeader';
 import FITModalBody from './FIT-image-modal-partials/FITModalBody';
 import { resetFITImages } from '../../modules/my-pictures/actions';
 import { resetShareMemberPhoto } from '../../modules/share-member-photo/actions';
+
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     resetFITImages,

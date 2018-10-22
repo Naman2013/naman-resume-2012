@@ -66,8 +66,14 @@ module.exports = {
         loader: 'babel-loader',
         query: {
           cacheDirectory: true,
-          plugins: ['transform-runtime', 'transform-decorators-legacy', 'styled-jsx/babel'],
-          presets: ['es2015', 'es2016', 'es2017', 'react', 'stage-0'],
+          plugins: [
+            ['styled-jsx/babel', { optimizeForSpeed: false }],
+            'transform-object-rest-spread',
+            'transform-decorators-legacy',
+            'transform-class-properties',
+            'transform-function-bind',
+          ],
+          presets: ['env', 'react'],
         },
       },
       {
@@ -75,7 +81,6 @@ module.exports = {
         loaders: [
           'style-loader',
           'css-loader?modules&importLoaders=1&localIdentName=[local]',
-          'postcss-loader',
         ],
       },
       {
@@ -83,7 +88,6 @@ module.exports = {
         loaders: [
           'style-loader',
           'css-loader?modules&importLoaders=1&localIdentName=[local]',
-          'postcss-loader',
           'sass-loader',
         ],
       },
@@ -143,16 +147,16 @@ module.exports = {
   devtool: 'cheap-module-eval-source-map',
   devServer: {
     contentBase: path.join(__dirname, '/dist'),
-    compress: true,
+    compress: false,
     historyApiFallback: true,
     proxy: {
       '/api/**': {
-        target: 'https://saturn.slooh.com',
+        target: 'https://eris.slooh.com',
         changeOrigin: true,
         secure: true,
       },
       '/sloohapp/**': {
-        target: 'https://saturn.slooh.com',
+        target: 'https://eris.slooh.com',
         changeOrigin: true,
         secure: true,
       },

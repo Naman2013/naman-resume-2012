@@ -5,8 +5,6 @@ import { bindActionCreators } from 'redux';
 import RefreshedImage from '../../common/refreshed-static-image/RefreshedImage';
 import GenericLoadingBox from '../../common/loading-screens/generic-loading-box';
 import { fetchWeatherMissionControlStatus } from '../../../modules/Telescope-Overview';
-import './weather-mission-control-status-widget.scss';
-import { white } from '../../../styles/variables/colors';
 
 const mapStateToProps = ({
   telescopeOverview,

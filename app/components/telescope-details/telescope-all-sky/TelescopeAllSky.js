@@ -42,7 +42,7 @@ class TelescopeAllSky extends Component {
     const { obsId, AllskyWidgetId, scheduledMissionId } = this.props;
     this.props.actions.fetchSkyChartWidget({
       obsId,
-      AllskyWidgetId,
+      skyChartWidgetId: AllskyWidgetId,
       scheduledMissionId,
     });
   }
@@ -55,7 +55,7 @@ class TelescopeAllSky extends Component {
       scheduledMissionId !== nextProps.scheduledMissionId) {
       this.props.actions.fetchSkyChartWidget({
         obsId: nextProps.obsId,
-        AllskyWidgetId: nextProps.AllskyWidgetId,
+        skyChartWidgetId: nextProps.AllskyWidgetId,
         scheduledMissionId: nextProps.scheduledMissionId,
       });
     }
@@ -63,6 +63,7 @@ class TelescopeAllSky extends Component {
 
   render() {
     const { title, subTitle, starChartURL } = this.props.skyChartWidgetResult;
+
     return (
       <div className="where-sky">
         <div className="top">

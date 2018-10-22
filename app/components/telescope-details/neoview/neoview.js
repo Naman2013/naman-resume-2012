@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Progress from 'react-progressbar';
 import classnames from 'classnames';
 import uniqueId from 'lodash/uniqueId';
 import noop from 'lodash/noop';
@@ -97,8 +96,7 @@ export default class Neoview extends Component {
 
   render() {
     const {
-      percentageMissionTimeRemaining,
-      neoviewOpen
+      neoviewOpen,
     } = this.props;
 
     const neoviewContainerClassnames = classnames('neoview-wrapper', {
@@ -119,7 +117,6 @@ export default class Neoview extends Component {
         </div>
 
         <div className="top">
-          <Progress completed={percentageMissionTimeRemaining} color="#589A9A" height="35px" />
           <div className={s.progressBarStatus}>
             <p className="short">
               {this.state.latestMessage}

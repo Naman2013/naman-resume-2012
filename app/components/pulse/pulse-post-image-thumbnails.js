@@ -5,7 +5,7 @@ import uniqueId from 'lodash/uniqueId';
 
 class PulsePostThumbnail extends Component {
   static propTypes = {
-    images: PropTypes.arrayOf(PropTypes.string).isRequired
+    images: PropTypes.arrayOf(PropTypes.string).isRequired,
   }
 
   state = {
@@ -27,28 +27,33 @@ class PulsePostThumbnail extends Component {
 
   goToImage = (idx) => {
     this.setState({
-      currentImageIdx: idx
-    })
+      currentImageIdx: idx,
+    });
   }
 
-  toggleLightbox = (idx) => {
+  toggleLightbox = () => {
     this.setState(state => ({
       lightboxIsOpen: !state.lightboxIsOpen,
-      currentImageIdx: idx
+      currentImageIdx: 0,
     }));
   }
 
-  render () {
+  componentDidCatch(error, info) {
+    console.log(error);
+  }
+
+  render() {
     const { images } = this.props;
     const { currentImageIdx } = this.state;
     const formattedImgs = images.map(image => ({ src: image }));
     const firstImage = images.length > 0 && images[0];
+
     return (
       <div
         className="thumbnails-container"
       >
         <Lightbox
-        currentImage={currentImageIdx}
+          currentImage={currentImageIdx}
           images={formattedImgs}
           isOpen={this.state.lightboxIsOpen}
           onClose={this.toggleLightbox}
@@ -58,7 +63,7 @@ class PulsePostThumbnail extends Component {
           showThumbnails={images.length > 1}
         />
         {firstImage && <figure key={firstImage}>
-          <a onClick={() => this.toggleLightbox(0)}>
+          <a onClick={this.toggleLightbox}>
             {images.length > 1 && <div className="image-counter">1 of {images.length}</div>}
             <img
               key={uniqueId()}
@@ -87,10 +92,11 @@ class PulsePostThumbnail extends Component {
               text-align: right;
             }
           `}</style>
-          <style jsx global>{`
-            #lightboxBackdrop {
-              z-index: 9999999;
-          `}</style>
+
+        <style jsx global>{`
+          #lightboxBackdrop {
+          z-index: 9999999;
+        `}</style>
       </div>
     );
   }

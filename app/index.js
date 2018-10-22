@@ -3,6 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router, Route, IndexRoute, IndexRedirect, Redirect, browserHistory } from 'react-router';
+import { syncHistoryWithStore } from 'react-router-redux';
 
 // polyfills
 import 'event-source-polyfill/eventsource.min';
@@ -18,6 +19,7 @@ import RedirectConfirmation from './pages/redirect-confirmation/RedirectConfirma
 
 // containers
 import App from './containers/App';
+
 import StaticAppContainer from './containers/static-app-container';
 import Reservations from './containers/Reservations';
 import SloohRecommends from './containers/SloohRecommends';
@@ -33,11 +35,19 @@ import DiscussionsListWrapper from './containers/discussions/DiscussionsListWrap
 import DiscussionsTopicsWrapper from './containers/discussions/DiscussionsTopicsWrapper';
 import DiscussionsSearch from './containers/discussions/DiscussionsSearch';
 
+// V4 containers
+import AskAstronomer from './containers/ask-astronomer/AskAstronomer';
+import ObjectDetailsOverview from './containers/object-details/ObjectDetailsOverview';
+import ObjectDetailsMissions from './containers/object-details/ObjectDetailsMissions';
+import ObjectDetailsQuests from './containers/object-details/ObjectDetailsQuests';
+import ObjectDetailsStories from './containers/object-details/ObjectDetailsStories';
+import ObjectDetailsShows from './containers/object-details/ObjectDetailsShows';
+import ObjectDetailsObservations from './containers/object-details/ObjectDetailsObservations';
 
 // pages
-import Home from './pages/home';
 import TelescopeOverview from './pages/telescope-overview';
-import TelescopeDetails from './pages/telescope-details/telescope-details';
+// import TelescopeDetails from './pages/telescope-details/telescope-details';
+import { TelescopeDetails } from './pages/telescope-details';
 import NewMissions from './pages/new-missions';
 import ExistingMissions from './pages/existing-missions';
 import ReserveByTelescope from './pages/reserve-by-telescope';
@@ -52,8 +62,6 @@ import RecentShows from './pages/browse-video-viewer/RecentShows';
 import SloohMotion from './pages/browse-video-viewer/SloohMotion';
 import UpcomingShows from './pages/browse-video-viewer/UpcomingShows';
 
-import ShowVideoViewer from './pages/show-video-viewer/ShowVideoViewer';
-
 import BrowseShowsWrapper from './pages/browse-video-viewer/BrowseShowsWrapper';
 
 import Job from './pages/about/job';
@@ -61,14 +69,12 @@ import Contact from './pages/about/contact';
 import Leadership from './pages/about/leadership';
 import Mission from './pages/about/mission';
 import News from './pages/about/news';
-import PlansChange from './pages/about/PlansChange';
 
 import PhotoRoll from './pages/my-pictures/PhotoRoll';
 import Galleries from './pages/my-pictures/Galleries';
 import GalleryImages from './pages/my-pictures/GalleryImages';
 import Missions from './pages/my-pictures/Missions';
 import MissionImages from './pages/my-pictures/MissionImages';
-import ImageDetails from './pages/my-pictures/ImageDetails';
 import PublicGalleries from './pages/my-pictures/PublicGalleries';
 import GalleryImageDetails from './pages/my-pictures/GalleryImageDetails';
 
@@ -76,6 +82,16 @@ import UpgradeApprentice from './pages/registration/UpgradeApprentice';
 import UpgradeAstronomer from './pages/registration/UpgradeAstronomer';
 import SignIn from './pages/registration/SignIn';
 import Upgrade from './pages/registration/Upgrade';
+
+import Join from './pages/registration/Join';
+import JoinStep1 from './pages/registration/JoinStep1';
+import JoinStep1SchoolSelection from './pages/registration/JoinStep1SchoolSelection';
+import JoinStep2 from './pages/registration/JoinStep2';
+import JoinStep3 from './pages/registration/JoinStep3';
+import JoinInviteByEmailStep1 from './pages/registration/JoinInviteByEmailStep1';
+import JoinInviteByCodeStep1 from './pages/registration/JoinInviteByCodeStep1';
+import JoinInviteByCodeStep2 from './pages/registration/JoinInviteByCodeStep2';
+import Memberships from './pages/registration/Memberships';
 
 import Notifications from './pages/settings/Notifications';
 import PaymentInfo from './pages/settings/PaymentInfo';
@@ -98,6 +114,10 @@ import DiscussionsReplyTo from './pages/discussions/replies/DiscussionsReplyTo';
 import DiscussionsThreadWrapper from './pages/discussions/threads/DiscussionsThreadWrapper';
 import DiscussionsTopicsList from './pages/discussions/topics/DiscussionsTopicsList';
 
+import ObjectCategoryGuide from './containers/guides/ObjectCategoryGuide';
+import SubjectGuides from './containers/guides/SubjectGuides';
+import TopicGuides from './containers/guides/TopicGuides';
+
 import Landing from './pages/landing/Landing';
 
 import Welcome from './pages/welcome/Welcome';
@@ -112,9 +132,28 @@ import CustomerService from './pages/help/CustomerService';
 import SiteFeedback from './pages/help/SiteFeedback';
 import TermsAndConditions from './pages/help/TermsAndConditions';
 import Privacy from './pages/help/Privacy';
-
 import BookclubHandoff from './pages/bookclub-handoff/BookclubHandoff';
 
+//V4 pages
+import GuideDetails from './pages/guide-details/GuideDetails';
+import ObjectDetails from './pages/object-details/ObjectDetails';
+import QuestDetails from './pages/quest-details/QuestDetails';
+import UserPrivateProfile from './pages/profiles/private-profile';
+import UserPublicProfile from './pages/profiles/public-profile';
+import CommunityGroups from './pages/community-groups/Groups';
+import CommunityGroupsList from './pages/community-groups/GroupsListPage';
+import CommunityGroupOverview from './pages/community-groups/GroupOverview';
+import GroupOverviewInfo from './pages/community-groups/GroupOverviewInfo';
+import ImageDetails from './pages/image-details';
+import Show from './pages/show';
+import StoryDetails from './containers/story-details';
+import QuestsHub from './containers/quests-hub';
+import GuidesHub from './containers/guides-hub';
+import StoriesHub from './containers/stories-hub';
+import GroupsHub from './containers/groups-hub';
+import PlaceholderPage from './pages/Placeholder';
+
+import DashboardPage from 'components/Dashboard';
 // router functions
 import validateUser from './route-functions/validateUser';
 import { fetchPlayer } from './modules/get-audio-player/actions';
@@ -132,14 +171,18 @@ import './styles/static.scss';
 // load monitoring and global error handling
 import './monitoring';
 
+// Create an enhanced history that syncs navigation events with the store
+const history = syncHistoryWithStore(browserHistory, store);
+
 // handle to the listen callback on changes to the history
-const unlisten = browserHistory.listen((location, action) => {
+history.listen((location) => {
   const { pathname } = location;
 
   firePageview({
     location: pathname,
   });
   store.dispatch(fetchPlayer({ pageURL: pathname }));
+  //console.log(location);
 });
 
 ReactDOM.render(
@@ -149,6 +192,7 @@ ReactDOM.render(
 
       <Route path="about" component={StaticAppContainer} onEnter={validateUser}>
         <IndexRedirect to="mission" />
+        <Route path="memberships" component={Memberships} />
         <Route path="mission" component={Mission} />
         <Route path="news" component={News} title="In The News" subTitle=" " />
         <Route
@@ -160,6 +204,7 @@ ReactDOM.render(
         <Route path="contact" component={Contact} title="Contact US" subTitle=" " />
         <Route path="leadership" component={Leadership} title="Leadership" subTitle=" " />
       </Route>
+
 
       <Route path="registration" component={StaticAppContainer} onEnter={validateRegistrationPaths}>
         <Route path="sign-in" component={SignIn} />
@@ -176,7 +221,19 @@ ReactDOM.render(
       </Route>
 
       <Route path="/" component={App}>
-        <IndexRoute component={Home} onEnter={validateUser} />
+        <IndexRoute component={DashboardPage} onEnter={validateUser} />
+
+        <Route path="memberships" component={Memberships} />
+
+        <Route path="join" component={Join}>
+          <Route path="step1" component={JoinStep1} />
+          <Route path="step1SchoolSelection" component={JoinStep1SchoolSelection} />
+          <Route path="step2" component={JoinStep2} />
+          <Route path="step3" component={JoinStep3} />
+          <Route path="inviteByEmail/:invitationCodeHash/:invitationCreationEpoch" component={JoinInviteByEmailStep1} />
+          <Route path="inviteByCodeStep1" component={JoinInviteByCodeStep1} />
+          <Route path="inviteByCodeStep2" component={JoinInviteByCodeStep2} />
+        </Route>
 
         <Route
           path="telescope-overview/:observatoryId"
@@ -270,15 +327,6 @@ ReactDOM.render(
           </Route>
         </Route>
 
-        <Route path="community" component={PulsePost}>
-          <Route
-            path="post(/:id)"
-            name="post"
-            component={PulsePostContent}
-            onEnter={validateUser}
-          />
-        </Route>
-
         {/**
             example id: 6
             Entry types: latest-entries | all-time-best
@@ -341,10 +389,19 @@ ReactDOM.render(
 
         <Route
           path="shows/video-viewer(/:showId)"
-          component={ShowVideoViewer}
+          component={Show}
           onEnter={validateUser}
         />
-
+        <Route
+          path="my-pictures/show-image/:customerImageId/:shareToken(/:scheduledMissionId)"
+          component={ImageDetails}
+          onEnter={validateUser}
+        />
+        <Route
+          path="my-pictures/popular/show-image(/:customerImageId)(/:shareToken)"
+          component={ImageDetails}
+          onEnter={validateUser}
+        />
         <Route path="my-pictures" component={MyPictures} onEnter={validateUser}>
           <IndexRedirect to="missions" />
           <Route path="photo-roll" title="Photo roll" component={PhotoRoll} />
@@ -357,18 +414,10 @@ ReactDOM.render(
           />
           <Route path="missions" title="Missions" component={Missions} />
 
-          <Route
-            path="show-image/:customerImageId/:shareToken(/:scheduledMissionId)"
-            component={ImageDetails}
-          />
           <Route path="public-galleries/:cid" component={PublicGalleries} />
           <Route
             path="gallery/:galleryId/show-image(/:customerImageId)(/:shareToken)"
             component={GalleryImageDetails}
-          />
-          <Route
-            path="popular/show-image(/:customerImageId)(/:shareToken)"
-            component={ImageDetails}
           />
         </Route>
 
@@ -453,8 +502,57 @@ ReactDOM.render(
         <Route path="help/privacy" component={Privacy} />
 
         <Route path="bookclub" component={BookclubHandoff} />
+        <Route path="guides(/:filterType)" component={GuidesHub} onEnter={validateUser} />
+        <Route path="guide-details/:guideId" component={GuideDetails} onEnter={validateUser} />
+
+        <Route path="guides/subject/:guideId" component={SubjectGuides} onEnter={validateUser} />
+        <Route path="guides/topic/:guideId" component={TopicGuides} onEnter={validateUser} />
+        <Route path="guides/object-category/:guideId" component={ObjectCategoryGuide} onEnter={validateUser} />
+
+        <Route path="object-details/:objectId" component={ObjectDetails} onEnter={validateUser}>
+          <IndexRedirect to="overview" />
+          <Route path="overview" component={ObjectDetailsOverview} onEnter={validateUser} />
+          <Route path="missions" component={ObjectDetailsMissions} onEnter={validateUser} />
+          <Route path="quests" component={ObjectDetailsQuests} onEnter={validateUser} />
+          <Route path="stories" component={ObjectDetailsStories} onEnter={validateUser} />
+          <Route path="shows" component={ObjectDetailsShows} onEnter={validateUser} />
+          <Route path="observations" component={ObjectDetailsObservations} onEnter={validateUser} />
+          <Route path="ask" component={AskAstronomer} onEnter={validateUser} />
+        </Route>
+
+        <Route path="telescopes" component={PlaceholderPage} onEnter={validateUser} />
+
+        <Route path="shows" component={PlaceholderPage} onEnter={validateUser} />
+
+        <Route path="stories(/:filterType)" component={StoriesHub} onEnter={validateUser} />
+        <Route path="community/post/:postId" component={StoryDetails} onEnter={validateUser} />
+
+        <Route path="lists" component={PlaceholderPage} onEnter={validateUser}>
+          <IndexRedirect to="my-lists" />
+          <Route path="my-lists" component={PlaceholderPage} />
+        </Route>
+
+        <Route path="qa" component={PlaceholderPage} onEnter={validateUser}>
+          <IndexRedirect to="my-qa" />
+          <Route path="my-qa" component={PlaceholderPage} />
+        </Route>
+
+        <Route path="quests(/:filterType)" component={QuestsHub} onEnter={validateUser} />
+
+        <Route path="quest-details/:questId" component={QuestDetails} onEnter={validateUser} />
+
+        <Route path="profile/private" component={UserPrivateProfile} onEnter={validateUser} />
+        <Route path="profile/public/:cid" component={UserPublicProfile} onEnter={validateUser} />
+
+        <Route path="groups(/:filterType)" component={GroupsHub} onEnter={validateUser} />
+
+        <Route path="community-groups/:groupId" onEnter={validateUser} component={CommunityGroupOverview} />
+        <Route path="community-groups/:groupId/info" onEnter={validateUser} component={GroupOverviewInfo} />
       </Route>
 
+      <Route path="sitemap" component={PlaceholderPage} onEnter={validateUser} />
+
+      <Route path="patent" component={PlaceholderPage} onEnter={validateUser} />
       <Redirect from="*" to="/" />
     </Router>
   </Provider>,

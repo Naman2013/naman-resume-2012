@@ -1,0 +1,406 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BobbieTile should render correctly 1`] = `
+ShallowWrapper {
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <BobbieTile
+    HTMLBlob="<h1>Hello world...</h1>"
+    authorName="Paul Cox"
+    readDuration="30"
+    title="Check out this tutorial"
+  />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateError": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "host",
+    "props": Object {
+      "children": Array [
+        <div
+          className="jsx-3401312703 jsx-2352943703 tile-content-container"
+        >
+          <h3
+            className="jsx-3401312703 jsx-2352943703 title"
+            style={
+              Object {
+                "marginBottom": "20px",
+              }
+            }
+          >
+            Check out this tutorial
+          </h3>
+          <div
+            className="jsx-3401312703 jsx-2352943703 __html-blob-content-container__"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "<h1>Hello world...</h1>",
+              }
+            }
+          />
+        </div>,
+        <JSXStyle
+          css={
+            Array [
+              "div.jsx-3401312703,h3.jsx-3401312703,ul.jsx-3401312703,li.jsx-3401312703{
+  margin: 0;
+  padding: 0;
+;}",
+              ".root.jsx-3401312703{box-shadow: 0px 0px 5px 0px rgba(88, 88, 88, 0.5); background:white;}",
+              ".tile-content-container.jsx-3401312703{padding:40px;}",
+              ".title.jsx-3401312703{font-family:adobe-garamond-pro, serif;font-size:20px;color:#415671;border-bottom:1px solid #d9dee5;font-weight:300;padding-bottom:20px;}",
+              "ul.jsx-3401312703{list-style-type:none;font-family:brandon-grotesque, sans-serif;color:#415671;text-transform:uppercase;font-size:10px;font-weight:bold;padding-top:20px;}",
+              ".author-name.jsx-3401312703{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;}",
+              ".__html-blob-content-container__.jsx-3401312703,.read-duration.jsx-3401312703{display:none;}",
+              ".__html-blob-content-container__.jsx-3401312703 p{margin-bottom:10px;}",
+              "@media screen and (min-width: 768px){.__html-blob-content-container__.jsx-3401312703,.read-duration.jsx-3401312703{display:block;}.author-name.jsx-3401312703 img.jsx-3401312703,.author-name.jsx-3401312703 span.jsx-3401312703{display:none;}.tile-content-container.jsx-3401312703{padding:40px 50px;}ul.jsx-3401312703{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;padding:10px 0;margin-bottom:20px;border-bottom:1px solid #d9dee5;}.read-duration.jsx-3401312703{border-right:1px solid #d9dee5;padding-right:10px;margin-right:10px;}}",
+              "@media screen and (min-width: 1024px){.tile-content-container.jsx-3401312703{padding:80px;}.title.jsx-3401312703{font-size:24px;}}",
+            ]
+          }
+          styleId="3401312703"
+        />,
+        <JSXStyle
+          css={
+            Array [
+              ".__html-blob-content-container__.jsx-2352943703 *{
+  margin: 0;
+  padding: 0;
+ font-family:adobe-garamond-pro, serif;color:#41566f;vertical-align:top;}",
+              ".__html-blob-content-container__.jsx-2352943703 p{line-height:1.5;}",
+              ".__html-blob-content-container__.jsx-2352943703 .contentImageEmbedDIV{text-align:center;}",
+              ".__html-blob-content-container__.jsx-2352943703 .contentImageEmbedDIV .contentImageEmbed{padding:1px;border:1px solid #d9dee5;margin-bottom:10px;width:90%;}",
+              ".__html-blob-content-container__.jsx-2352943703 .videoEmbedIFrame{margin-bottom:10px;width:90%;}",
+              ".__html-blob-content-container__.jsx-2352943703 .contentImageEmbedCaption,.videoEmbedCaption{font-size:10px;}",
+              ".__html-blob-content-container__.jsx-2352943703 .videoEmbedDIV{text-align:center;}",
+            ]
+          }
+          styleId="2352943703"
+        />,
+      ],
+      "className": "jsx-3401312703 jsx-2352943703 root",
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": Array [
+            <h3
+              className="jsx-3401312703 jsx-2352943703 title"
+              style={
+                Object {
+                  "marginBottom": "20px",
+                }
+              }
+            >
+              Check out this tutorial
+            </h3>,
+            <div
+              className="jsx-3401312703 jsx-2352943703 __html-blob-content-container__"
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "<h1>Hello world...</h1>",
+                }
+              }
+            />,
+          ],
+          "className": "jsx-3401312703 jsx-2352943703 tile-content-container",
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": "Check out this tutorial",
+              "className": "jsx-3401312703 jsx-2352943703 title",
+              "style": Object {
+                "marginBottom": "20px",
+              },
+            },
+            "ref": null,
+            "rendered": "Check out this tutorial",
+            "type": "h3",
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "className": "jsx-3401312703 jsx-2352943703 __html-blob-content-container__",
+              "dangerouslySetInnerHTML": Object {
+                "__html": "<h1>Hello world...</h1>",
+              },
+            },
+            "ref": null,
+            "rendered": null,
+            "type": "div",
+          },
+        ],
+        "type": "div",
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "css": Array [
+            "div.jsx-3401312703,h3.jsx-3401312703,ul.jsx-3401312703,li.jsx-3401312703{
+  margin: 0;
+  padding: 0;
+;}",
+            ".root.jsx-3401312703{box-shadow: 0px 0px 5px 0px rgba(88, 88, 88, 0.5); background:white;}",
+            ".tile-content-container.jsx-3401312703{padding:40px;}",
+            ".title.jsx-3401312703{font-family:adobe-garamond-pro, serif;font-size:20px;color:#415671;border-bottom:1px solid #d9dee5;font-weight:300;padding-bottom:20px;}",
+            "ul.jsx-3401312703{list-style-type:none;font-family:brandon-grotesque, sans-serif;color:#415671;text-transform:uppercase;font-size:10px;font-weight:bold;padding-top:20px;}",
+            ".author-name.jsx-3401312703{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;}",
+            ".__html-blob-content-container__.jsx-3401312703,.read-duration.jsx-3401312703{display:none;}",
+            ".__html-blob-content-container__.jsx-3401312703 p{margin-bottom:10px;}",
+            "@media screen and (min-width: 768px){.__html-blob-content-container__.jsx-3401312703,.read-duration.jsx-3401312703{display:block;}.author-name.jsx-3401312703 img.jsx-3401312703,.author-name.jsx-3401312703 span.jsx-3401312703{display:none;}.tile-content-container.jsx-3401312703{padding:40px 50px;}ul.jsx-3401312703{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;padding:10px 0;margin-bottom:20px;border-bottom:1px solid #d9dee5;}.read-duration.jsx-3401312703{border-right:1px solid #d9dee5;padding-right:10px;margin-right:10px;}}",
+            "@media screen and (min-width: 1024px){.tile-content-container.jsx-3401312703{padding:80px;}.title.jsx-3401312703{font-size:24px;}}",
+          ],
+          "styleId": "3401312703",
+        },
+        "ref": null,
+        "rendered": null,
+        "type": [Function],
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "css": Array [
+            ".__html-blob-content-container__.jsx-2352943703 *{
+  margin: 0;
+  padding: 0;
+ font-family:adobe-garamond-pro, serif;color:#41566f;vertical-align:top;}",
+            ".__html-blob-content-container__.jsx-2352943703 p{line-height:1.5;}",
+            ".__html-blob-content-container__.jsx-2352943703 .contentImageEmbedDIV{text-align:center;}",
+            ".__html-blob-content-container__.jsx-2352943703 .contentImageEmbedDIV .contentImageEmbed{padding:1px;border:1px solid #d9dee5;margin-bottom:10px;width:90%;}",
+            ".__html-blob-content-container__.jsx-2352943703 .videoEmbedIFrame{margin-bottom:10px;width:90%;}",
+            ".__html-blob-content-container__.jsx-2352943703 .contentImageEmbedCaption,.videoEmbedCaption{font-size:10px;}",
+            ".__html-blob-content-container__.jsx-2352943703 .videoEmbedDIV{text-align:center;}",
+          ],
+          "styleId": "2352943703",
+        },
+        "ref": null,
+        "rendered": null,
+        "type": [Function],
+      },
+    ],
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": Array [
+          <div
+            className="jsx-3401312703 jsx-2352943703 tile-content-container"
+          >
+            <h3
+              className="jsx-3401312703 jsx-2352943703 title"
+              style={
+                Object {
+                  "marginBottom": "20px",
+                }
+              }
+            >
+              Check out this tutorial
+            </h3>
+            <div
+              className="jsx-3401312703 jsx-2352943703 __html-blob-content-container__"
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "<h1>Hello world...</h1>",
+                }
+              }
+            />
+          </div>,
+          <JSXStyle
+            css={
+              Array [
+                "div.jsx-3401312703,h3.jsx-3401312703,ul.jsx-3401312703,li.jsx-3401312703{
+  margin: 0;
+  padding: 0;
+;}",
+                ".root.jsx-3401312703{box-shadow: 0px 0px 5px 0px rgba(88, 88, 88, 0.5); background:white;}",
+                ".tile-content-container.jsx-3401312703{padding:40px;}",
+                ".title.jsx-3401312703{font-family:adobe-garamond-pro, serif;font-size:20px;color:#415671;border-bottom:1px solid #d9dee5;font-weight:300;padding-bottom:20px;}",
+                "ul.jsx-3401312703{list-style-type:none;font-family:brandon-grotesque, sans-serif;color:#415671;text-transform:uppercase;font-size:10px;font-weight:bold;padding-top:20px;}",
+                ".author-name.jsx-3401312703{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;}",
+                ".__html-blob-content-container__.jsx-3401312703,.read-duration.jsx-3401312703{display:none;}",
+                ".__html-blob-content-container__.jsx-3401312703 p{margin-bottom:10px;}",
+                "@media screen and (min-width: 768px){.__html-blob-content-container__.jsx-3401312703,.read-duration.jsx-3401312703{display:block;}.author-name.jsx-3401312703 img.jsx-3401312703,.author-name.jsx-3401312703 span.jsx-3401312703{display:none;}.tile-content-container.jsx-3401312703{padding:40px 50px;}ul.jsx-3401312703{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;padding:10px 0;margin-bottom:20px;border-bottom:1px solid #d9dee5;}.read-duration.jsx-3401312703{border-right:1px solid #d9dee5;padding-right:10px;margin-right:10px;}}",
+                "@media screen and (min-width: 1024px){.tile-content-container.jsx-3401312703{padding:80px;}.title.jsx-3401312703{font-size:24px;}}",
+              ]
+            }
+            styleId="3401312703"
+          />,
+          <JSXStyle
+            css={
+              Array [
+                ".__html-blob-content-container__.jsx-2352943703 *{
+  margin: 0;
+  padding: 0;
+ font-family:adobe-garamond-pro, serif;color:#41566f;vertical-align:top;}",
+                ".__html-blob-content-container__.jsx-2352943703 p{line-height:1.5;}",
+                ".__html-blob-content-container__.jsx-2352943703 .contentImageEmbedDIV{text-align:center;}",
+                ".__html-blob-content-container__.jsx-2352943703 .contentImageEmbedDIV .contentImageEmbed{padding:1px;border:1px solid #d9dee5;margin-bottom:10px;width:90%;}",
+                ".__html-blob-content-container__.jsx-2352943703 .videoEmbedIFrame{margin-bottom:10px;width:90%;}",
+                ".__html-blob-content-container__.jsx-2352943703 .contentImageEmbedCaption,.videoEmbedCaption{font-size:10px;}",
+                ".__html-blob-content-container__.jsx-2352943703 .videoEmbedDIV{text-align:center;}",
+              ]
+            }
+            styleId="2352943703"
+          />,
+        ],
+        "className": "jsx-3401312703 jsx-2352943703 root",
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": Array [
+              <h3
+                className="jsx-3401312703 jsx-2352943703 title"
+                style={
+                  Object {
+                    "marginBottom": "20px",
+                  }
+                }
+              >
+                Check out this tutorial
+              </h3>,
+              <div
+                className="jsx-3401312703 jsx-2352943703 __html-blob-content-container__"
+                dangerouslySetInnerHTML={
+                  Object {
+                    "__html": "<h1>Hello world...</h1>",
+                  }
+                }
+              />,
+            ],
+            "className": "jsx-3401312703 jsx-2352943703 tile-content-container",
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": "Check out this tutorial",
+                "className": "jsx-3401312703 jsx-2352943703 title",
+                "style": Object {
+                  "marginBottom": "20px",
+                },
+              },
+              "ref": null,
+              "rendered": "Check out this tutorial",
+              "type": "h3",
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "className": "jsx-3401312703 jsx-2352943703 __html-blob-content-container__",
+                "dangerouslySetInnerHTML": Object {
+                  "__html": "<h1>Hello world...</h1>",
+                },
+              },
+              "ref": null,
+              "rendered": null,
+              "type": "div",
+            },
+          ],
+          "type": "div",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "css": Array [
+              "div.jsx-3401312703,h3.jsx-3401312703,ul.jsx-3401312703,li.jsx-3401312703{
+  margin: 0;
+  padding: 0;
+;}",
+              ".root.jsx-3401312703{box-shadow: 0px 0px 5px 0px rgba(88, 88, 88, 0.5); background:white;}",
+              ".tile-content-container.jsx-3401312703{padding:40px;}",
+              ".title.jsx-3401312703{font-family:adobe-garamond-pro, serif;font-size:20px;color:#415671;border-bottom:1px solid #d9dee5;font-weight:300;padding-bottom:20px;}",
+              "ul.jsx-3401312703{list-style-type:none;font-family:brandon-grotesque, sans-serif;color:#415671;text-transform:uppercase;font-size:10px;font-weight:bold;padding-top:20px;}",
+              ".author-name.jsx-3401312703{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;}",
+              ".__html-blob-content-container__.jsx-3401312703,.read-duration.jsx-3401312703{display:none;}",
+              ".__html-blob-content-container__.jsx-3401312703 p{margin-bottom:10px;}",
+              "@media screen and (min-width: 768px){.__html-blob-content-container__.jsx-3401312703,.read-duration.jsx-3401312703{display:block;}.author-name.jsx-3401312703 img.jsx-3401312703,.author-name.jsx-3401312703 span.jsx-3401312703{display:none;}.tile-content-container.jsx-3401312703{padding:40px 50px;}ul.jsx-3401312703{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;padding:10px 0;margin-bottom:20px;border-bottom:1px solid #d9dee5;}.read-duration.jsx-3401312703{border-right:1px solid #d9dee5;padding-right:10px;margin-right:10px;}}",
+              "@media screen and (min-width: 1024px){.tile-content-container.jsx-3401312703{padding:80px;}.title.jsx-3401312703{font-size:24px;}}",
+            ],
+            "styleId": "3401312703",
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "css": Array [
+              ".__html-blob-content-container__.jsx-2352943703 *{
+  margin: 0;
+  padding: 0;
+ font-family:adobe-garamond-pro, serif;color:#41566f;vertical-align:top;}",
+              ".__html-blob-content-container__.jsx-2352943703 p{line-height:1.5;}",
+              ".__html-blob-content-container__.jsx-2352943703 .contentImageEmbedDIV{text-align:center;}",
+              ".__html-blob-content-container__.jsx-2352943703 .contentImageEmbedDIV .contentImageEmbed{padding:1px;border:1px solid #d9dee5;margin-bottom:10px;width:90%;}",
+              ".__html-blob-content-container__.jsx-2352943703 .videoEmbedIFrame{margin-bottom:10px;width:90%;}",
+              ".__html-blob-content-container__.jsx-2352943703 .contentImageEmbedCaption,.videoEmbedCaption{font-size:10px;}",
+              ".__html-blob-content-container__.jsx-2352943703 .videoEmbedDIV{text-align:center;}",
+            ],
+            "styleId": "2352943703",
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+      ],
+      "type": "div",
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+        "lifecycles": Object {
+          "componentDidUpdate": Object {
+            "onSetState": true,
+          },
+          "getDerivedStateFromProps": true,
+          "getSnapshotBeforeUpdate": true,
+          "setState": Object {
+            "skipsComponentDidUpdateOnNullish": true,
+          },
+        },
+      },
+    },
+  },
+}
+`;

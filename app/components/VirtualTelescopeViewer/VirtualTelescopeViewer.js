@@ -49,6 +49,7 @@ const propTypes = {
   missionEnd: PropTypes.number,
 
   onPositionChange: PropTypes.func,
+  resizeEventCallback: PropTypes.func,
 };
 
 const defaultProps = {
@@ -59,6 +60,7 @@ const defaultProps = {
   handleZoomOut: noop,
   activeZoomLevel: 0,
   zoomRange: 0,
+  showInfoButton: false,
   subjectScale: 1,
 
   timestamp: 0,
@@ -74,6 +76,7 @@ const defaultProps = {
   missionEnd: 0,
 
   onPositionChange: noop,
+  resizeEventCallback: noop,
 };
 
 class VirtualTelescopeView extends Component {
@@ -83,7 +86,6 @@ class VirtualTelescopeView extends Component {
       y: 0,
     },
     viewerControlInterfaceOpacity: 1,
-    zoomLevel: 0,
     dimensions: {
       width: 0,
       height: 0,
@@ -134,7 +136,8 @@ class VirtualTelescopeView extends Component {
   };
 
   handleRootContainerResize = (contentRect) => {
-    this.setState({ dimensions: contentRect.bounds })
+    this.props.resizeEventCallback(contentRect.bounds);
+    this.setState({ dimensions: contentRect.bounds });
   }
 
   render() {
@@ -183,7 +186,7 @@ class VirtualTelescopeView extends Component {
                 >
                   <Draggable
                     bounds={calculateDraggableBounds(subjectScale)}
-                    handle={'.drag-handle'}
+                    handle=".drag-handle"
                     position={controlledPosition}
                     onDrag={this.onDrag}
                   >
@@ -247,7 +250,6 @@ class VirtualTelescopeView extends Component {
           :global(.virtual-telescope-view-content-container .top-image) {
             position: absolute;
             top: 0;
-            width: 100%;
           }
 
           .virtual-telescope-view-content-container {

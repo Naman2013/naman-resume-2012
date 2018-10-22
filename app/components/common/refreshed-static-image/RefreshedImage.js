@@ -1,4 +1,5 @@
 /**
+  TODO: DEPRECATE
   This component is designed to handle the displaying of some image
   and refreshing the image based on some duration.
 
@@ -37,6 +38,10 @@ export default class RefreshedImage extends Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.imageURL !== this.props.imageURL) {
       this.bootstrapTimer();
+      this.setState({
+        backImageURL: `${nextProps.imageURL}?version=${new Date().getTime()}`,
+        frontImageURL: `${nextProps.imageURL}?version=${new Date().getTime()}`,
+      })
     }
   }
 
@@ -102,7 +107,8 @@ export default class RefreshedImage extends Component {
           img {
             height: auto;
           }
-        `}</style>
+        `}
+        </style>
       </div>
     );
   }

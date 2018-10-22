@@ -2,17 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import ConfirmDeleteModal from './ConfirmDeleteModal';
 import { browserHistory } from 'react-router';
-import { white, black, pink } from '../../../styles/variables/colors';
-import { secondaryFont, primaryFont } from '../../../styles/variables/fonts';
+import ConfirmDeleteModal from './ConfirmDeleteModal';
 import { fetchPhotoRoll, fetchMyPicturesCount, fetchMissionPhotos } from '../../../modules/my-pictures/actions';
 import { fetchGalleryPicsCount, fetchGalleryPictures } from '../../../modules/my-pictures-gallery-pictures/actions';
 import { deleteImage } from '../../../services/my-pictures/delete-image';
 
 const {
-  arrayOf,
-  bool,
   func,
   number,
   shape,
@@ -39,6 +35,7 @@ const mapDispatchToProps = dispatch => ({
 class DeleteImage extends Component {
 
   static propTypes = {
+    theme: PropTypes.oneOf(['light', 'dark']),
     galleryId: string,
     maxImageCount: number.isRequired,
     firstImageNumber: number.isRequired,
@@ -53,7 +50,9 @@ class DeleteImage extends Component {
       cid: string,
     }).isRequired,
   };
+
   static defaultProps = {
+    theme: 'light',
     galleryId: null,
     user: {
       at: '',
@@ -113,7 +112,7 @@ class DeleteImage extends Component {
             pagingMode: 'api',
           });
           actions.fetchMyPicturesCount({});
-          link = '/my-pictures/photo-roll'
+          link = '/my-pictures/photo-roll';
         }
       }
 
@@ -125,6 +124,7 @@ class DeleteImage extends Component {
     return (
       <div>
         <ConfirmDeleteModal
+          theme={this.props.theme}
           confirmText="Are you sure you want to permanently delete this image?"
           buttonHoverText="Delete Image"
           removeAction={this.removeImage}

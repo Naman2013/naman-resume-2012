@@ -41,7 +41,7 @@ const LiveStream = ({
           Decl (decimal): {objectDec}
           Constellation: {objectConstellation}
           Magnitude: {objectMagnitude}
-          Size (arc minutes): {objectSizeArcMinutes} 
+          Size (arc minutes): {objectSizeArcMinutes}
           Distance: {objectDistance}
           Rise Time: {objectRiseTime}
           Transit Time: {objectTransitTime}

@@ -1,13 +1,9 @@
 import React, { Component, cloneElement } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
-import NotificationSystem from 'react-notification-system';
 import PageMetaManagement from '../components/PageMetaManagement';
-import notificationStyles from '../components/common/notification-center/inline-styles';
-import Menu from './Menu';
-import Header from '../components/common/header';
-import Footer from '../components/common/footer';
+import GlobalNavigation from '../components/GlobalNavigation';
+import Footer from '../components/Footer';
 import { fetchEvents } from '../modules/upcoming-events/upcoming-events-actions';
 
 function mapDispatchToProps(dispatch) {
@@ -51,14 +47,11 @@ class StaticAppContainer extends Component {
   render() {
     const { children } = this.props;
     const displayTitle = !!children.props.route.subTitle;
-    const showContactButton = children.props.route.path !== 'contact';
 
     return (
       <div className="wrapper">
         <PageMetaManagement />
-        <NotificationSystem ref="notificationSystem" style={notificationStyles} />
-        <Header />
-        <Menu />
+        <GlobalNavigation />
         <section className="static-app-content-container clearfix">
           <div className="clearfix">
             <article className="static-page">

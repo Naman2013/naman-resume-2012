@@ -3,6 +3,25 @@
 @import './variables/layout.scss';
 @import './mixins/utilities.scss';
 
+html,
+body,
+#app {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  width: 100%;
+}
+
+#app,
+#app * {
+  -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+}
+
 a,
 a:hover {
   text-decoration: none;
@@ -46,7 +65,6 @@ img {
 .static-app-content-container {
   font-family: $primary-font;
   background: #fff;
-  padding: $slooh-header-height 0 0 $slooh-menu-width;
   overflow: hidden;
   min-height: 960px;
 

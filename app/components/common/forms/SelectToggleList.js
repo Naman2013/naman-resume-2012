@@ -30,7 +30,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import has from 'lodash/has';
 import classnames from 'classnames';
-import { customScrollBar } from '../../../styles/custom-ui';
 import { white, lightTurqoise, lightGray, darkBlueGray } from '../../../styles/variables/colors';
 
 function generateId(seed) {
@@ -68,7 +67,7 @@ class SelectToggleList extends Component {
       selectedIndex,
       handleSelectedChange,
       listHeight,
-      theme
+      theme,
     } = this.props;
 
     const inlineStyle = {
@@ -121,12 +120,24 @@ class SelectToggleList extends Component {
             );
           })
         }
-      <style jsx>{`
+
+        <style jsx>{`
         /**
           theme-dark: for placing over a light background
         */
+        .select-list::-webkit-scrollbar {
+            width: 4px;
+          }
 
-        ${customScrollBar('select-list')}
+        .select-list::-webkit-scrollbar-track {
+          background-color: #9b9b9b;
+        }
+
+        .select-list::-webkit-scrollbar-thumb {
+          background-color: #2e2e37;
+          // add fancy white ribbon from design
+          box-shadow: 3px 0px 0px 3px #fff;
+        }
 
         .select-list {
           overflow-y: scroll;

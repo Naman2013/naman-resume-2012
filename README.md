@@ -1,3 +1,9 @@
+## Dependency management
+
+Recording dependencies that do not fit React 16 and will require replacement or re-write.
+
+- "react-addons-css-transition-group": "^15.6.2",
+
 ## Development
 ---
 

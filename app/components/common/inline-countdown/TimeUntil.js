@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import inlineCountdownStyle from './inline-countdown.style';
+import { white } from '../../../styles/variables/colors';
 
 const pad = (number = 0) => {
   if (number < 10) {
@@ -15,6 +16,19 @@ class TimeUntil extends Component {
   static propTypes = {
     startTime: PropTypes.number.isRequired, // works with unix timestamp in seconds
     onExpired: PropTypes.func.isRequired,
+    style: PropTypes.shape({
+      textAlign: PropTypes.string,
+      color: PropTypes.string,
+      fontSize: PropTypes.string,
+    }),
+  };
+
+  static defaultProps = {
+    style: {
+      textAlign: 'auto',
+      color: white,
+      fontSize: 'inherit',
+    },
   };
 
   state = {
@@ -100,7 +114,7 @@ class TimeUntil extends Component {
     const seconds = pad(remainingSeconds);
 
     return (
-      <div className="inline-countdown">
+      <div className="inline-countdown" style={this.props.style}>
         {hours}:{minutes}:{seconds}
 
         <style jsx>{`
