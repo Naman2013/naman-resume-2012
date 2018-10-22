@@ -39,10 +39,6 @@ class AllSkyCamWidget extends Component {
     offlineImageURL: PropTypes.string.isRequired,
   };
 
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const {
       fetchingAllSkyWidgetResult,
