@@ -13,12 +13,15 @@ const data = [
 const WeatherConditions = () => (
   <ModuleContainer title="Weather conditions">
     <ul className="data-set">
-      <li className="node">
-        <ul className="datum">
-          <li className="title">Temperature</li>
-          <li className="field">67F</li>
-        </ul>
-      </li>
+      {
+        data.map(measurement => (
+          <li className="node">
+            <ul className="datum">
+              <li className="title">{measurement.title}</li>
+              <li className="field">{measurement.field}</li>
+            </ul>
+          </li>
+        ))}
     </ul>
     <style jsx>{style}</style>
   </ModuleContainer>
