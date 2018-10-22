@@ -1,5 +1,11 @@
 import React from 'react';
-import { Satellite, AllSkyCamera, SkyConditions, WeatherConditions } from './';
+import {
+  Satellite,
+  AllSkyCamera,
+  SkyConditions,
+  WeatherConditions,
+  MoonlightConditions,
+} from './';
 import style from './tab-live.style';
 
 const TabConditions = () => (
@@ -14,6 +20,10 @@ const TabConditions = () => (
 
     <div className="tile-container">
       <WeatherConditions />
+    </div>
+
+    <div className="tile-container">
+      <MoonlightConditions />
     </div>
 
     <div className="tile-container">
