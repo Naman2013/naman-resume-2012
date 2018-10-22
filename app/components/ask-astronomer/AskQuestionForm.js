@@ -1,21 +1,19 @@
 /***********************************
 * V4 Ask Astronomer Question Form
-*
-*
-*
 ***********************************/
+
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import ModalGeneric from '../common/modals/modal-generic';
+import { Modal } from 'react-bootstrap';
 import { createThread } from '../../services/discussions/create-thread';
 import { prepareThread } from '../../services/discussions/prepare-thread';
-import fetchSpecialists from '../../services/objects/specialists';
+import GenericButton from '../common/style/buttons/Button';
+import PhotoUploadButton from '../common/style/buttons/PhotoUploadButton';
 import deletePostImage from '../../services/post-creation/delete-post-image';
 import setPostImages from '../../modules/set-post-images';
-
-import { avatarImgStyle } from './styles';
-import { black, darkBlueGray, white } from '../../styles/variables/colors';
+import style from './AskQuestionForm.style';
 
 const {
   string,
@@ -65,6 +63,7 @@ class AskAstronomerQuestionForm extends Component {
     const {
       user,
       objectId,
+      hideModal,
     } = this.props;
 
     prepareThread({
@@ -78,20 +77,8 @@ class AskAstronomerQuestionForm extends Component {
         })
       }
     });
-
-    fetchSpecialists({
-      at: user.at,
-      token: user.token,
-      cid: user.cid,
-      objectId,
-    }).then((res) => {
-      if (!res.data.apiError) {
-        this.setState({
-          specialists: res.data.specialistsList,
-        });
-      }
-    });
   }
+
   onTextChange = (e) => {
     this.setState({
       questionText: e.target.value,
@@ -99,7 +86,6 @@ class AskAstronomerQuestionForm extends Component {
   }
 
   submitForm = (e) => {
-    e.preventDefault();
     const {
       objectId,
       topicId,
@@ -144,6 +130,10 @@ class AskAstronomerQuestionForm extends Component {
     this.setState({
       showPopup: false,
     });
+  }
+
+  clickHideHandler = () => {
+    this.props.hideModal();
   }
 
   handleUploadImage = (event) => {
@@ -191,69 +181,46 @@ class AskAstronomerQuestionForm extends Component {
   }
 
   render () {
-    const { objectTitle } = this.props;
+    const { objectTitle, open, hideModal } = this.props;
     const {
       questionText,
       showPopup,
       modalDescription,
       uploadError,
       uploadLoading,
-      specialists,
     } = this.state;
+
     return (
-      <div>
-        <div className="header">
-          {/*<h4>{`Don't see an answer?`}</h4>
-          <h3>Ask an Astronomer</h3>*/}
+      <Modal
+        show={open}
+        className={`ask-modal`}
+      >
+      <div className="container">
+        <div className="question-title">
+          Ask an Astronomer
         </div>
         <form className="form">
-          <div className="avatars">
-            {specialists.map((specialist) => {
-              const avatarStyle = Object.assign(avatarImgStyle(specialist.iconURL), { height: '50px', width: '50px' });
-              return (
-                <div
-                  key={specialist.customerId}
-                  className="avatar"
-                >
-                  {specialist.hasLinkFlag &&
-                    <Link to={specialist.linkURL}>
-                      <div
-                        style={avatarStyle}
-                      />
-                    </Link>
-                  }
-                  {!specialist.hasLinkFlag &&
-                    <div
-                      style={avatarStyle}
-                    />
-                  }
-                </div>
-              );
-          })}
-          </div>
-          <div>{`We've got a community of experts on Slooh to help you learn about space. Have a question about ${objectTitle}? Ask an Astronomer today!`}</div>
           <textarea
             className="question-input"
             onChange={this.onTextChange}
-            maxLength={100}
+            maxLength={260}
             value={questionText}
+            placeholder="Type your question here"
           />
-          <div className="flex-right">{questionText.length}/100</div>
-          <div className="image-upload">
-            <input
-              type="file"
-              className="upload-button"
-              onChange={this.handleUploadImage}
-              accept="image/*"
+          <div className="counter">{questionText.length}/260</div>
+          <div className="btn-row">
+            <PhotoUploadButton 
+              text="+ Photo" 
+              handleUploadImage="this.handleUploadImage"
             />
-            {uploadError && <span className="errorMsg">{uploadError}</span>}
-            {(!uploadError && uploadLoading) && <div className="fa fa-spinner" />}
-            <span>
-              <Link to="/help/posting-guidelines">Guidelines</Link>
-            </span>
-          </div>
-          <div className="flex-right">
-            <button type="button" className="question-button" onClick={this.submitForm}>Submit Your Question</button>
+            <div className="guide-link">
+              <Link to="/help/posting-guidelines" className="styld">Guidelines</Link>
+            </div>
+            <div className="flex-right">
+              <GenericButton onClickEvent={this.clickHideHandler} text="Cancel" />
+              &nbsp;
+              <GenericButton onClickEvent={this.submitForm} text="Submit" />
+            </div>
           </div>
         </form>
         <ModalGeneric
@@ -261,46 +228,9 @@ class AskAstronomerQuestionForm extends Component {
           closeModal={this.closeModal}
           description={modalDescription}
         />
-        <style jsx>{`
-          .header {
-            font-weight: bold;
-          }
-          .flex-right {
-            display: flex;
-            justify-content: flex-end;
-          }
-          .form {
-            padding: 15px;
-            border: 1px solid ${black};
-          }
-          .avatars {
-            display: flex;
-            justify-content: space-between;
-          }
-          .avatar {
-            display: inline-block;
-          }
-          .question-input {
-            border-width: 1px;
-            height: 75px;
-            width: 325px;
-            padding: 15px;
-            vertical-align: top;
-            margin: 10px;
-          }
-          .question-button {
-            display: block;
-            width: 100px;
-            background-color: ${darkBlueGray};
-            padding: 5px 10px;
-            text-transform: uppercase;
-            font-weight: bold;
-            font-size: 10px;
-            color: ${white};
-            margin-top: 10px;
-          }
-        `}</style>
+        <style jsx>{style}</style>
       </div>
+      </Modal>
     )
   }
 }

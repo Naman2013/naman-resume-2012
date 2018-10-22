@@ -1,23 +1,31 @@
 /***********************************
-* V4 Ask an Astronomer Wrapper
-*   Markdown support on elements????
-*   UTF-8 support....
-*   Multi-National Languages.....
+* V4 Ask an Astronomer
 ***********************************/
 
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import classnames from 'classnames';
+import { fetchObjectSpecialistsAction } from '../../modules/object-details/actions';
+import { DeviceContext } from '../../providers/DeviceProvider';
+
 import {
   fetchAstronomerQuestions,
 } from '../../modules/ask-astronomer-questions/actions';
 import {
   toggleAllAnswersAndDisplay,
 } from '../../modules/ask-astronomer-answers/actions';
+
+import AskQuestionTile from '../../components/ask-astronomer/AskQuestionTile';
 import QuestionList from '../../components/ask-astronomer/question-list';
-import AskAstronomerQuestionForm from '../../components/ask-astronomer/question-form';
+import ModalGeneric from '../../components/common/modals/modal-generic';
+import AskAstronomerQuestionForm from '../../components/ask-astronomer/AskQuestionForm';
+import ObjectDetailsSectionTitle from '../../components/object-details/ObjectDetailsSectionTitle';
+import CenterColumn from '../../../app/components/common/CenterColumn';
+import MVPAstronomerList from '../../../app/components/common/MVPAstronomer/MVPAstronomerList';
+import style from './AskAstronomer.style';
+
 const {
   bool,
   func,
@@ -45,16 +53,19 @@ const mapStateToProps = ({
   fetchingAnswers: astronomerAnswers.fetchingObj,
   user,
   objectDetails,
+  objectSpecialists: objectDetails.objectSpecialists,
 });
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     fetchAstronomerQuestions,
     toggleAllAnswersAndDisplay,
+    fetchObjectSpecialistsAction,
   }, dispatch),
 });
 
 @connect(mapStateToProps, mapDispatchToProps)
+
 class AskAstronomer extends Component {
 
   static propTypes = {
@@ -69,6 +80,7 @@ class AskAstronomer extends Component {
     actions: shape({
       fetchAstronomerQuestions: func.isRequired,
     }).isRequired,
+    serviceUrl: string,
   }
 
   static defaultProps = {
@@ -80,9 +92,19 @@ class AskAstronomer extends Component {
     actions: { },
     objectId: '',
   }
+
+
+
   constructor(props) {
     super(props);
 
+    this.state = {
+      leftView: "show",
+      rightView: "show",
+      tabMvp: "hidden",
+      mobile: false,
+      showPrompt: false,
+    };  
   }
 
   componentWillReceiveProps(nextProps) {
@@ -96,7 +118,6 @@ class AskAstronomer extends Component {
       this.props.actions.fetchAstronomerQuestions({ topicId: faqTopicId });
     }
   }
-
 
   componentWillMount() {
     const {
@@ -127,6 +148,40 @@ class AskAstronomer extends Component {
     });
   };
 
+
+  handleMobileClick = () => {
+    let lefty = (this.state.leftView === "hidden") ? "show" : "hidden";
+    let righty = (this.state.rightView === "hidden") ? "show" : "hidden";
+    this.setView (lefty, righty, 'show', true);
+  }
+
+  handleTabletClick = () => {
+    let mvp = (this.state.tabMvp === "hidden") ? "show" : "hidden";
+    let questions = (this.state.leftView === "hidden") ? "show" : "hidden";
+    this.setView (questions, 'show', mvp, false);
+  }
+
+  setView = (left, right, tab, mob) => {
+    this.setState ({
+      leftView: left,
+      rightView: right,
+      tabMvp: tab,
+      mobile: mob,
+    });
+  }
+
+  showModal = () => {
+    this.setState({
+      showPrompt: true,
+    });
+  }
+
+  closeModal = () => {
+    this.setState({
+      showPrompt: false,
+    });
+  }
+
   render() {
     const {
       actions,
@@ -135,10 +190,10 @@ class AskAstronomer extends Component {
       fetchingAnswers,
       fetchingQuestions,
       params: {
+        faqTopicId,
         objectId,
       },
       objectData: {
-        faqTopicId,
         objectTitle,
       },
       questions,
@@ -146,53 +201,95 @@ class AskAstronomer extends Component {
       count,
       page,
       user,
+      objectSpecialists,
     } = this.props;
+
+    const { leftView, rightView, tabMvp, mobile, showPrompt } = this.state;
+
     return (
-      <div className="ask-astronomer">
-        <div className="left">
-          {fetchingQuestions && <div className="fa fa-spinner loader" />}
-          {!fetchingQuestions && <QuestionList
-            allAnswers={allAnswers}
-            allDisplayedAnswers={allDisplayedAnswers}
-            count={count}
-            fetchingAnswers={fetchingAnswers}
-            handlePageChange={this.handlePageChange}
-            objectId={objectId}
-            page={page}
-            questions={questions}
-            toggleAllAnswersAndDisplay={actions.toggleAllAnswersAndDisplay}
-            totalCount={totalCount}
-          />}
-        </div>
-        <div className="right">
-          <AskAstronomerQuestionForm
-            objectId={objectId}
-            topicId={faqTopicId}
-            objectTitle={objectTitle}
-            user={user}
-          />
-        </div>
-        <style jsx>{`
-          .ask-astronomer {
-            display: flex;
-            flex-direction: row;
-            padding: 10px 25px;
-          }
-          .loader {
-            display: block;
-            text-align: center;
-            margin: 25px;
-            padding: 25px;
-          }
+      <div className="full-bg">
+          <ObjectDetailsSectionTitle title={objectTitle + "'s"} subTitle="Ask An Astronomer" />        
+          <CenterColumn>
+            <div className="ask-astronomer">
 
-          .left {
-            flex: 3;
-          }
+              <div className="ask-mobile-header">         
+                <div className="icon-container">
+                  <div className="border">
+                    <div className="icon">
+                      <img className="icon-content" alt="" width="180" height="180" src="https://vega.slooh.com/assets/v4/common/ask_mobile_bg.png" />
+                    </div>
+                  </div>
+                </div>
+                <div className="center-line" />
+                <span className={'btn-nav ' + this.state.leftView} onClick={this.handleMobileClick}>Questions</span>
+                <span className={'btn-nav ' + this.state.rightView} onClick={this.handleMobileClick}>Ask Now</span>      
+              </div>  
 
-          .right {
-            flex: 1;
-          }
-        `}</style>
+              <div className={'right ' + this.state.rightView}>
+                <AskAstronomerQuestionForm
+                  open={showPrompt}
+                  hideModal={this.closeModal}
+                  objectId={objectId}
+                  topicId={faqTopicId}
+                  objectTitle={objectTitle}
+                  user={user}
+                />
+                <AskQuestionTile showModal={this.showModal} ></AskQuestionTile>
+                <div className="ask-tablet-subnav">         
+                  <div className="center-line" />
+                  <span className={'btn-nav ' + this.state.leftView} onClick={this.handleTabletClick}>Questions</span>
+                  <span className={'btn-nav ' + this.state.tabMvp} onClick={this.handleTabletClick}>MVP ASTRONOMERS</span>      
+                </div>
+                
+                <div className={'mvp ' + this.state.tabMvp}>
+                  <div className="mvp-header">
+                    <h1>THIS OBJECT’S</h1>
+                    <h2>MVP ASTRONOMERS</h2>
+                  </div>
+                  {objectSpecialists && objectSpecialists.specialistsCount > 0 ? (
+                    <MVPAstronomerList {...objectSpecialists} />
+                  ) : (
+                    <div className="card-container__specialists">
+                      Sorry, there are no MVP Astronomers available.
+                    </div>
+                  )}
+                </div>
+              </div>  
+
+              <div className={'left ' + this.state.leftView}>
+                {fetchingQuestions && <div className="fa fa-spinner loader" />}
+                {!fetchingQuestions && <QuestionList
+                  allAnswers={allAnswers}
+                  allDisplayedAnswers={allDisplayedAnswers}
+                  count={count}
+                  fetchingAnswers={fetchingAnswers}
+                  handlePageChange={this.handlePageChange}
+                  objectId={objectId}
+                  page={page}
+                  questions={questions}
+                  toggleAllAnswersAndDisplay={actions.toggleAllAnswersAndDisplay}
+                  totalCount={totalCount}
+                />}
+              </div>
+
+              <Fragment>
+                <DeviceContext.Consumer>
+                  {
+                    (context) => {
+                      if (context.isScreenMedium && this.state.mobile === true) {
+                        this.setView ('show', 'show', 'hidden', false);
+                      } 
+                      else if (!context.isScreenMedium && this.state.mobile === false) {
+                        this.setView ('show', 'hidden', 'hidden', true);
+                      }
+                    }
+                  }
+                </DeviceContext.Consumer>
+              </Fragment>
+
+            </div>
+          </CenterColumn>
+        <style jsx>{style}</style>
       </div>
     )
   }

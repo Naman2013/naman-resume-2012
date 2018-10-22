@@ -9,12 +9,17 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import { likeReply } from '../../services/discussions/like';
 import Heart from '../common/heart/heart';
+import noop from 'lodash/noop';
+import GenericButton from '../common/style/buttons/Button';
+import LikeButton from '../common/style/buttons/LikeButton';
+import CommentButton from '../common/style/buttons/CommentButton';
 import AnswerReplyList from './answer-reply-list';
 
 import { avatarImgStyle } from './styles';
 import { black, darkBlueGray, white, turqoise } from '../../styles/variables/colors';
 import { secondaryFont } from '../../styles/variables/fonts';
 
+import style from './AnswerListItem.style.js';
 
 
 const {
@@ -43,20 +48,23 @@ const AnswerListItem = ({
   toggleAnswers,
   topicId,
 }) => {
-  const avatarStyle = Object.assign(avatarImgStyle(answer.avatarURL), { height: '50px', width: '50px'});
   return (
     <div className="answer">
       {isTopAnswer && <div className="top-answer">Top Answer</div>}
       <div>
-        <div style={avatarStyle} />
         <span className="display-name">{answer.displayName}</span>
       </div>
       <div className="content">
         <span dangerouslySetInnerHTML={{ __html: answer.content }} />
       </div>
+      <div className="date">Answered {moment(answer.creationDate).fromNow()}</div>
+      <div className="reply-count">Likes: {answer.likesCount} Replies: {answer.replyCount}</div>
       <div>
         <span className="action-item">
-          <Heart
+          <LikeButton onClickEvent={likeReply} count="1" />
+          <CommentButton onClickEvent={toggleAllAnswerReplies} count="1" />
+          <GenericButton onClickEvent={noop} text="Reply" />
+          {/* <Heart
             likeAction={likeReply}
             theme="dark"
             count={answer.likesCount}
@@ -64,7 +72,7 @@ const AnswerListItem = ({
             showLikePrompt={answer.showLikePrompt}
             likePrompt={answer.likePrompt}
             params={likeParams}
-            />
+          /> */}
         </span>
         <span className="action-item"><a onClick={toggleAnswerReplies}>Discuss ({answer.replyCount})</a></span>
         {!showAllReplies && showReplies && <span className="action-item"><a onClick={toggleAllAnswerReplies}>View All Discussions</a></span>}
@@ -85,72 +93,9 @@ const AnswerListItem = ({
             topicId={topicId}
           />
         }
-        {fetchingReplies && <div className="fa fa-spinner loader" />}
+        {fetchingReplies && <div className="fa fa-spinner loader" />} 
 
-      <style jsx>{`
-        .answer {
-          padding: 15px;
-          margin-left: 25px;
-
-        }
-
-        .answer:not(:last-child) {
-          border-bottom: 1px solid ${black};
-        }
-
-        .top-answer {
-          background-color: ${darkBlueGray};
-          padding: 5px 10px;
-          text-transform: uppercase;
-          font-weight: bold;
-          font-size: 10px;
-          color: ${white};
-          float: right;
-          margin-top: -15px;
-        }
-
-        .action-item,
-        .action-item a {
-          color: ${turqoise};
-          cursor: pointer;
-        }
-
-        .action-item :global(.heart-wrapper) {
-          display: inline-block;
-        }
-
-        .action-item :global(.likeText) {
-          font-size: 16px;
-          display: inline;
-        }
-        .action-item,
-        .display-name {
-          margin: 0 5px;
-        }
-
-        .display-name {
-          font-weight: bold;
-          text-transform: uppercase;
-          font-size: 10px;
-        }
-
-        .action-item:first-child {
-          margin-left: 25px;
-        }
-
-        .content {
-          margin: 15px 0;
-          margin-left: 25px;
-          font-family: ${secondaryFont};
-        }
-
-        .loader {
-          display: block;
-          text-align: center;
-          font-size: 12px;
-        }
-
-      `}</style>
+      <style jsx>{style}</style>
     </div>
   )
 };

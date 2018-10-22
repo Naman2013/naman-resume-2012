@@ -7,9 +7,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import { black } from '../../styles/variables/colors';
-import { primaryFont } from '../../styles/variables/fonts';
 import AnswerList from './answer-list';
+import style from './question-list-item.style';
+
+import noop from 'lodash/noop';
+import GenericButton from '../common/style/buttons/Button';
+import LikeButton from '../common/style/buttons/LikeButton';
+import likeReply from '../../services/discussions/like';
+import CommentButton from '../common/style/buttons/CommentButton';
+import ViewImagesButton from '../common/style/buttons/ViewImagesButton';
+
+const questionImages = ['https://castor.slooh.com/dev101/2018/07/720d/b712/1530882220.jpg', 'https://castor.slooh.com/dev101/2018/07/9879/452d/1531688297.JPG']
 
 const {
   arrayOf,
@@ -34,20 +42,28 @@ const QuestionListItem = ({
   });
   return (
     <div className="question-container">
-      {item.topicName}
       <div className="question-details">
-        <span className="date">{moment(item.creationDate).fromNow()}</span>
-        <span className="author">Asked By {item.displayName}</span>
+        <span className="author">{item.displayName} asked:</span>
       </div>
-
-      <div className="question"><span dangerouslySetInnerHTML={{ __html: item.content }} /></div>
-      {item.replyCount > 0 && <div className="bottom-container">
-        <div className="reply-count">
-          {answers.showAllAnswers ? `${item.replyCount} answers to this question` : `1 of ${item.replyCount} answers`}
+      <div className="question">
+        <span dangerouslySetInnerHTML={{ __html: item.content }} />
+      </div>
+      <div className="date">Asked {moment(item.creationDate).fromNow()}</div>
+      {item.replyCount > 0 && 
+        <div className="ask-mobile-details-container">
+          <div className="reply-count">
+            {answers.showAllAnswers ? `${item.replyCount} answers to this question` : `1 of ${item.replyCount} answers`}
+          </div>
+          {displayedAnswers.length > 1 && <div><a className="close-answers" onClick={closeAllAnswers}>Close (x)</a></div>}
         </div>
-        {displayedAnswers.length > 1 && <div><a className="close-answers" onClick={closeAllAnswers}>Close (x)</a></div>}
-      </div>}
+      }
       {item.replyCount === 0 && <div className="reply-count">0 Answers</div>}
+      <div className="ask-button-container">
+        <LikeButton onClickEvent={likeReply} count="1" />
+        <CommentButton onClickEvent={noop} count="1" />
+        <ViewImagesButton images={questionImages} />
+        <GenericButton onClickEvent={noop} text="Answer" />
+      </div>
       {!fetching && <AnswerList
         answers={answers}
         displayedAnswers={displayedAnswers}
@@ -56,65 +72,7 @@ const QuestionListItem = ({
         topicId={item.topicId}
       />}
       {fetching && <div className="fa fa-spinner loader" />}
-      <style jsx>{`
-        .question-container {
-          border: 1px solid ${black};
-          margin: 10px;
-          padding: 15px;
-        }
-        .question-details {
-          display: flex;
-          flex-direction: row;
-        }
-
-        .question {
-          margin: 20px;
-          font-weight: bold;
-          font-size: 18px;
-          font-family: ${primaryFont};
-        }
-
-        .date {
-          padding-right: 15px;
-          border-right: 1px solid ${black};
-        }
-
-        .author {
-          padding: 0 15px;
-        }
-
-        .date,
-        .author,
-        .reply-count {
-          text-transform: uppercase;
-          font-size: 10px;
-          font-weight: bold;
-        }
-
-        .bottom-container {
-          display: flex;
-          flex-direction: row;
-          justify-content: space-between;
-          padding-bottom: 10px;
-          border-bottom: 1px solid ${black};
-        }
-
-        .reply-count {
-          height: 25px;
-        }
-
-        .close-answers {
-          cursor: pointer;
-          height: 25px;
-        }
-
-        .loader {
-          display: block;
-          text-align: center;
-          font-size: 12px;
-        }
-
-      `}</style>
+      <style jsx>{style}</style>
     </div>
   )
 };
