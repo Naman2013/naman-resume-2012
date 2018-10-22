@@ -42,6 +42,7 @@ class HubContainer extends Component {
       label: string,
       value: string,
     })),
+    filterTypeFieldName: string,
     paginateURL: string,
     filterType: string,
     sortOptions: arrayOf(shape({
@@ -67,6 +68,7 @@ class HubContainer extends Component {
   static defaultProps = {
     filterType: 'all',
     pageTitle: '',
+    filterTypeFieldName: 'type',
     paginateURL: null,
     iconURL: goldCompass,
     filterOptions: [],
@@ -147,6 +149,7 @@ class HubContainer extends Component {
     const {
       filterOptions,
       filterType,
+      filterTypeFieldName,
       hubName,
       iconURL,
       isMobile,
@@ -199,7 +202,7 @@ class HubContainer extends Component {
                     sortBy: sort,
                     page,
                     count: 9,
-                    type: filterType,
+                    [filterTypeFieldName]: filterType,
                   }}
                 />
               : <ShowMoreWithNetwork
