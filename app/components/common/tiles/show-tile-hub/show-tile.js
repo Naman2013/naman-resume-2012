@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import style from './show-tile.style';
 
-const ShowTile = ({ header, eventTitle, time, author, linkUrl }) => (
+const ShowTile = ({ eventTitle, linkUrl }) => (
   <div className="root">
     <Link to={linkUrl} href={linkUrl}>
       <div className="show-tile-title">{eventTitle}</div>
@@ -14,11 +14,8 @@ const ShowTile = ({ header, eventTitle, time, author, linkUrl }) => (
 );
 
 ShowTile.propTypes = {
-  header: PropTypes.string.isRequired,
   eventTitle: PropTypes.string.isRequired,
-  time: PropTypes.string.isRequired,
-  author: PropTypes.string.isRequired,
-  link: PropTypes.string.isRequired,
+  linkUrl: PropTypes.string.isRequired,
 };
 
 export default ShowTile;

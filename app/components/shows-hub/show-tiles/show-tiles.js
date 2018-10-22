@@ -11,8 +11,7 @@ import style from './show-tiles.style';
 class ShowTiles extends Component {
   static propTypes = {
     shows: PropTypes.arrayOf(PropTypes.shape({
-      title: PropTypes.string.isRequired,
-      subTitle: PropTypes.string.isRequired,
+      eventTitle: PropTypes.string.isRequired,
     })).isRequired,
     isMobile: PropTypes.bool,
     updateReadingListInfo: PropTypes.func.isRequired,
