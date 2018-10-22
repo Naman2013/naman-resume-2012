@@ -5,35 +5,63 @@ import { screenMedium, screenLarge, screenXLarge } from '../../styles/variables/
 
 export default css`
 
+  .modal-content {
+    border-radius: 0;
+  }
+
   .ask-modal {
     font-family: ${primaryFont};
     text-transform: uppercase;
   }
+
+  .container {
+    padding: 40px;
+    width: 100%;
+  }
+
   .question-title {
     font-family: ${primaryFont};
     text-transform: uppercase;
     font-size: 12px;
-    padding: 40px;
-    padding-bottom: 10px;
     width: 100%;
+    padding-bottom: 40px;
     font-weight: 600;
     letter-spacing: 1.5px;
   }
+
+  .button-input-container {
+    flex: 1;
+  }
+
+
   .flex-right {
     display: flex;
     justify-content: flex-end;
+    flex: 2;
   }
-  .form {
-    padding: 15px;
+
+  .counter {
+    font-family: ${primaryFont};
+    font-size: 10px;
+    letter-spacing: 3px;
+    margin: -30px 20px 30px 0;
+    color: #8D969F;
+    display: flex;
+    justify-content: flex-end;
   }
+
   .question-input {
-    border-width: 1px;
+    border-width: 0px;
     height: 200px;
-    width: calc(100% - 30px);
-    padding: 15px;
+    width: 100%;
+    padding: 20px;
+    color: #8D969F !important;
     vertical-align: top;
-    margin: 10px;
-  }
+    letter-spacing: .5px;
+    resize: none; 
+    box-shadow: inset 0px 0px 14px 1px rgba(240,240,240,1);
+  } 
+  
   .question-button {
     display: block;
     width: 100px;
@@ -44,82 +72,19 @@ export default css`
     margin-top: 10px;
   }
 
-
-
-
-
-
-  .question-container {
-    box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.1);
-    margin: 10px 0;
-    padding: 40px;
-    background-color: ${romance};
-  }
-
-  .question {
-    margin: 30px 0;
-    font-size: 18px;
-    font-family: ${secondaryFont};
-  }
-
-  .date {
-    padding: 10px 0;
-    border-top: 1px solid ${hawkesBlue};
-    border-bottom: 1px solid ${hawkesBlue};
-    text-transform: uppercase;
-    font-size: 10px;
-    font-weight: 500;
+  .guide-link {
+    font-style: italic;
     letter-spacing: 1px;
+    flex: 1;
   }
 
-  .author {
-    font-family: ${primaryFont};
-    text-transform: uppercase;
-    font-size: 10px;
-    color: ${lightHeadedAstronaut};
-    height: 14px;
-    margin-left: 5px;
-    letter-spacing: 1px;
+  .guide-link .styld {
+    color: #41566F !important;
   }
 
-  .author:before {
-    content: url("https://vega.slooh.com/assets/v4/common/ask_avatar.svg");
-    position: relative;
-    left: -5px;
-    top: 3px;
-  }
-
-
-  .ask-mobile-details-container {
+  .btn-row {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    padding-bottom: 10px;
-  }
-
-  .reply-count {
-    text-transform: uppercase;
-    font-size: 10px;
-    padding: 10px 0;
-    border-bottom: 1px solid ${hawkesBlue};
-    width: 100%;
-    font-size: 10px;
-    font-weight: 500;
-    letter-spacing: 1px;
-  }
-
-
-  .ask-button-container {
-    width: 100%;
-    padding: 30px 0;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-  }
-
-  .close-answers {
-    cursor: pointer;
-    height: 25px;
+    align-items: center;
   }
 
   .loader {
@@ -127,5 +92,4 @@ export default css`
     text-align: center;
     font-size: 12px;
   }
-
 `;

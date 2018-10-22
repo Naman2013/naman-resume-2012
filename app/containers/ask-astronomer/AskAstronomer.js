@@ -226,11 +226,6 @@ class AskAstronomer extends Component {
               </div>  
 
               <div className={'right ' + this.state.rightView}>
-                {/*<ModalGeneric
-                  open={showPrompt}
-                  closeModal={this.closeModal}
-                  description={'test'}
-                />*/}
                 <AskAstronomerQuestionForm
                   open={showPrompt}
                   hideModal={this.closeModal}

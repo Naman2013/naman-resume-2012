@@ -21,7 +21,7 @@ class AskQuestionTile extends Component {
             <span className="dek">Have a Question?</span>
             <h2>Ask an Astronomer!</h2>
             <p>Nam dapibus nisl vitae elitem fringilla rutrum. Aenean lener elementum rutrum.</p>
-            <GenericButton onClickEvent={this.clickHandler} text="SUBMIT A QUESTION"icon="https://vega.slooh.com/assets/v4/common/plus_icon.svg" />
+            <GenericButton onClickEvent={this.clickHandler} text="SUBMIT A QUESTION" icon="https://vega.slooh.com/assets/v4/common/plus_icon.svg" />
           </div>
           <div className="icon-container">
             <div className="border">

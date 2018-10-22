@@ -9,10 +9,10 @@ import ModalGeneric from '../common/modals/modal-generic';
 import { Modal } from 'react-bootstrap';
 import { createThread } from '../../services/discussions/create-thread';
 import { prepareThread } from '../../services/discussions/prepare-thread';
-import fetchSpecialists from '../../services/objects/specialists';
+import GenericButton from '../common/style/buttons/Button';
+import PhotoUploadButton from '../common/style/buttons/PhotoUploadButton';
 import deletePostImage from '../../services/post-creation/delete-post-image';
 import setPostImages from '../../modules/set-post-images';
-
 import style from './AskQuestionForm.style';
 
 const {
@@ -77,20 +77,8 @@ class AskAstronomerQuestionForm extends Component {
         })
       }
     });
-
-    fetchSpecialists({
-      at: user.at,
-      token: user.token,
-      cid: user.cid,
-      objectId,
-    }).then((res) => {
-      if (!res.data.apiError) {
-        this.setState({
-          specialists: res.data.specialistsList,
-        });
-      }
-    });
   }
+
   onTextChange = (e) => {
     this.setState({
       questionText: e.target.value,
@@ -98,7 +86,6 @@ class AskAstronomerQuestionForm extends Component {
   }
 
   submitForm = (e) => {
-    e.preventDefault();
     const {
       objectId,
       topicId,
@@ -201,7 +188,6 @@ class AskAstronomerQuestionForm extends Component {
       modalDescription,
       uploadError,
       uploadLoading,
-      specialists,
     } = this.state;
 
     return (
@@ -209,7 +195,7 @@ class AskAstronomerQuestionForm extends Component {
         show={open}
         className={`ask-modal`}
       >
-      <div>
+      <div className="container">
         <div className="question-title">
           Ask an Astronomer
         </div>
@@ -217,26 +203,24 @@ class AskAstronomerQuestionForm extends Component {
           <textarea
             className="question-input"
             onChange={this.onTextChange}
-            maxLength={100}
+            maxLength={260}
             value={questionText}
+            placeholder="Type your question here"
           />
-          <div className="flex-right">{questionText.length}/100</div>
-          <div className="image-upload">
-            <input
-              type="file"
-              className="upload-button"
-              onChange={this.handleUploadImage}
-              accept="image/*"
+          <div className="counter">{questionText.length}/260</div>
+          <div className="btn-row">
+            <PhotoUploadButton 
+              text="+ Photo" 
+              handleUploadImage="this.handleUploadImage"
             />
-            {uploadError && <span className="errorMsg">{uploadError}</span>}
-            {(!uploadError && uploadLoading) && <div className="fa fa-spinner" />}
-            <span>
-              <Link to="/help/posting-guidelines">Guidelines</Link>
-            </span>
-          </div>
-          <div className="flex-right">
-            <button type="button" className="question-button" onClick={this.clickHideHandler}>Cancel</button>
-            <button type="button" className="question-button" onClick={this.submitForm}>Submit Your Question</button>
+            <div className="guide-link">
+              <Link to="/help/posting-guidelines" className="styld">Guidelines</Link>
+            </div>
+            <div className="flex-right">
+              <GenericButton onClickEvent={this.clickHideHandler} text="Cancel" />
+              &nbsp;
+              <GenericButton onClickEvent={this.submitForm} text="Submit" />
+            </div>
           </div>
         </form>
         <ModalGeneric
