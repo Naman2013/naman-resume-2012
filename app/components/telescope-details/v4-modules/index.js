@@ -13,5 +13,6 @@ export * from './sky-conditions';
 export * from './weather-conditions';
 export * from './moonlight-conditions';
 export * from './day-night-bar';
+export * from './day-night-map';
 
 export * from './lists/simple-list';

@@ -6,6 +6,7 @@ import {
   WeatherConditions,
   MoonlightConditions,
   DayNightBar,
+  DayNightMap,
 } from './';
 import style from './tab-live.style';
 
@@ -29,6 +30,10 @@ const TabConditions = () => (
 
     <div className="tile-container">
       <DayNightBar />
+    </div>
+
+    <div className="tile-container">
+      <DayNightMap />
     </div>
 
     <div className="tile-container">
