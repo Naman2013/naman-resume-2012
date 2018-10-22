@@ -1,25 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ImagePortal } from './';
+import { ImagePortalViewer } from './';
 import { ModuleContainer } from './module-container';
-import style from './all-sky-camera.style';
 
-const AllSkyCamera = ({ imageURL }) => (
+const AllSkyCamera = ({ imageURL, description }) => (
   <div className="root">
     <ModuleContainer title="All sky camera snap">
-      <div className="content">
-        <ImagePortal src={imageURL} />
-        <div className="meta-data">
-          <p className="copy">Restibulum rutrum quameli mitae fringilla lorem ipsum.</p>
-        </div>
-      </div>
+      <ImagePortalViewer imageURL={imageURL} description={description} />
     </ModuleContainer>
-    <style jsx>{style}</style>
   </div>
 );
 
 AllSkyCamera.propTypes = {
   imageURL: PropTypes.string.isRequired,
+  description: PropTypes.string,
+};
+
+AllSkyCamera.defaultProps = {
+  description: 'Restibulum rutrum quameli mitae fringilla lorem ipsum.',
 };
 
 export { AllSkyCamera };
