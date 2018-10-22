@@ -52,7 +52,6 @@ class ToggleReadingList extends Component {
       listItemId: itemId,
       readingListType,
     }).then((res) => {
-
       if (!res.data.apiError) {
         updateReadingInfoInList(
           res.data.listItemId,

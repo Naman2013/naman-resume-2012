@@ -3,11 +3,11 @@ import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import style from './BigShowTile.style';
 
-const BigShowTile = ({ header, title, time, author, linkUrl }) => (
+const BigShowTile = ({ header, title, displayTime, displayDate, eventHostName, linkUrl }) => (
   <div className="card-shows">
     <div className="show-card-head">{header}</div>
     <Link to={linkUrl} href={linkUrl}><div className="show-card-title">{title}</div></Link>
-    <div className="show-card-author">{time}<span>|</span>{author}</div>
+    <div className="show-card-author">{`${displayDate}, ${displayTime}`}<span>{`  |  `}</span>{eventHostName}</div>
     <style jsx>{style}</style>
   </div>
 );
@@ -15,8 +15,9 @@ const BigShowTile = ({ header, title, time, author, linkUrl }) => (
 BigShowTile.propTypes = {
   header: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  time: PropTypes.string.isRequired,
-  author: PropTypes.string.isRequired,
+  displayDate: PropTypes.string.isRequired,
+  displayTime: PropTypes.string.isRequired,
+  eventHostName: PropTypes.string.isRequired,
   linkUrl: PropTypes.string.isRequired,
 };
 

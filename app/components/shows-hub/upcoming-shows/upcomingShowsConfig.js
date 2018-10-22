@@ -2,6 +2,7 @@ import React from 'react';
 import uniqueId from 'lodash/uniqueId';
 import defaultSliderConfiguration from 'components/common/Slider/sliderConfig';
 import BigShowTile from 'components/common/tiles/BigShowTile';
+import UpcomingShowSliderItem from './upcoming-shows-slider-item';
 
 const getSliderConfiguration = () => Object.assign(
   {},
@@ -26,24 +27,16 @@ const getSliderConfiguration = () => Object.assign(
 )
 
 
-const getRecommendedEventsItems = (imageList = []) =>
+const getUpcomingShowsItem = (imageList = []) =>
   imageList.map(object => ({
-    render: () => (<BigShowTile
-      header={object.header}
-      displayDate={object.displayDate}
-      displayTime={object.displayTime}
-      eventHostName={object.eventHostName}
-      key={uniqueId()}
-      linkUrl={object.linkUrl}
-      title={object.eventTitle}
-    />)
+    render: () => (<UpcomingShowSliderItem {...object} />)
 }));
 
-export const getSliderProps = (slideList = []) => (
+export const getSliderProps = (imageList = []) => (
   Object.assign({
-    slideList: getRecommendedEventsItems(slideList),
+    slideList: getUpcomingShowsItem(imageList),
   }, {
     sliderConfig: getSliderConfiguration(),
-    emptyMessage: 'There are no recommended shows.',
+    emptyMessage: 'There are no upcoming shows.',
   })
 );
