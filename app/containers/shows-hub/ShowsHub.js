@@ -7,9 +7,10 @@ import { connect } from 'react-redux';
 import ShowTiles from 'components/shows-hub/show-tiles';
 import Request from 'components/common/network/Request';
 import HubContainer from 'components/common/HubContainer';
+import UpcomingShows from 'components/shows-hub/upcoming-shows';
 import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
 import {
-  SHOWS_PAGE_ENDPOINT_URL,
+  SHOWS_PAGE_ENDPOINT,
   SHOWS_PREVIOUS_ENDPOINT_URL,
   SHOWS_UPCOMING_ENDPOINT_URL,
 } from 'services/shows';
@@ -58,7 +59,7 @@ class Shows extends Component {
     let newShowsList = [].concat(this.state.shows);
 
     newShowsList = newShowsList.map((show) => {
-      if (show.showId === id) {
+      if (show.eventId === id) {
         return Object.assign(show, resData);
       }
       return show;
@@ -86,9 +87,10 @@ class Shows extends Component {
     const {
       shows
     } = this.state;
+
     return (<div>
       <Request
-        serviceURL={SHOWS_PAGE_ENDPOINT_URL}
+        serviceURL={SHOWS_PAGE_ENDPOINT}
         model={showsHubModel}
         requestBody={{}}
         render={({
@@ -123,6 +125,15 @@ class Shows extends Component {
                       filterType={this.props.params.filterType}
                       render={() => (
                         <Fragment>
+                          <DisplayAtBreakpoint
+                            screenMedium
+                            screenLarge
+                            screenXLarge
+                          >
+                            <UpcomingShows
+                              validateResponseAccess={actions.validateResponseAccess}
+                            />
+                          </DisplayAtBreakpoint>
                           {fetchingContent ? <div>Loading</div> : null}
                           {!fetchingContent && shows.length ?
                             <ShowTiles

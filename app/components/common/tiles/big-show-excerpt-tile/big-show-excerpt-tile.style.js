@@ -11,10 +11,11 @@ export default css`
     font-family: ${primaryFont};
     position: relative;
     background-color: ${romance};
-    width: 300px;
-    height: 300px;
+    height: 259px;
+    width: 600px;
     color: ${astronaut};
     padding: 25px;
+    margin: 20px auto;
     border: 1px solid ${shadows};
     border-bottom: 4px solid ${astronaut};
   }
@@ -28,11 +29,21 @@ export default css`
     margin: 0;
     margin-bottom: 10px;
     font-family: ${secondaryFont};
-    font-size: 16px;
+    font-size: 20px;
     font-weight: 0;
   }
 
+  .info-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: center;
+  }
+
   .sub-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     margin: 0;
     font-family: ${primaryFont};
     color: ${astronaut};
@@ -40,10 +51,15 @@ export default css`
     font-size: 10px;
     text-transform: uppercase;
     letter-spacing: 1px;
-    padding: 15px 0;
-    border-top: 1px solid ${shadows};
-    border-bottom: 1px solid ${shadows};
+    padding: 15px;
+    border: 1px solid ${shadows};
+    border-right: 0;
   }
+
+  .sub-title:nth-child(1) {
+    border-left: 0;
+  }
+
 
   .description {
     font-family: ${secondaryFont};
@@ -56,7 +72,7 @@ export default css`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    width: 65%;
+    width: 60%;
     margin: 0 auto;
     padding: 15px 0;
   }

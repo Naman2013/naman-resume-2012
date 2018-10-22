@@ -3,7 +3,7 @@ import { resetMarginPadding } from 'styles/variables/utils';
 import { screenMedium, screenLarge } from 'styles/variables/breakpoints';
 
 export default css`
-  .guide-tiles-root {
+  .show-tiles-root {
     ${resetMarginPadding}
     list-style-type: none;
     margin-top: 10px;
@@ -19,7 +19,7 @@ export default css`
   .excerpt {
     visibility: hidden;
     position: absolute;
-    top: 0;
+    top: 20px;
     left: 10px;
   }
 
@@ -28,7 +28,7 @@ export default css`
   }
 
   @media ${screenMedium} {
-    .guide-tiles-root {
+    .show-tiles-root {
       display: flex;
       flex-wrap: wrap;
       margin-top: 65px;
@@ -36,7 +36,7 @@ export default css`
   }
 
   @media ${screenLarge} {
-    .guide-tiles-root {
+    .show-tiles-root {
       margin-top: 40px;
     }
   }
