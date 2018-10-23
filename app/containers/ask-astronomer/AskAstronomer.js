@@ -7,23 +7,23 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { fetchObjectSpecialistsAction } from '../../modules/object-details/actions';
-import { DeviceContext } from '../../providers/DeviceProvider';
-
+import ResponsiveTwoColumnContainer from 'components/ResponsiveTwoColumnContainer';
+import TwoTabbedNav from 'components/TwoTabbedNav';
+import { fetchObjectSpecialistsAction } from 'modules/object-details/actions';
+import { DeviceContext } from 'providers/DeviceProvider';
 import {
   fetchAstronomerQuestions,
-} from '../../modules/ask-astronomer-questions/actions';
+} from 'modules/ask-astronomer-questions/actions';
 import {
   toggleAllAnswersAndDisplay,
-} from '../../modules/ask-astronomer-answers/actions';
-
-import AskQuestionTile from '../../components/ask-astronomer/AskQuestionTile';
-import QuestionList from '../../components/ask-astronomer/question-list';
-import ModalGeneric from '../../components/common/modals/modal-generic';
-import AskAstronomerQuestionForm from '../../components/ask-astronomer/AskQuestionForm';
-import ObjectDetailsSectionTitle from '../../components/object-details/ObjectDetailsSectionTitle';
-import CenterColumn from '../../../app/components/common/CenterColumn';
-import MVPAstronomerList from '../../../app/components/common/MVPAstronomer/MVPAstronomerList';
+} from 'modules/ask-astronomer-answers/actions';
+import AskAstronomerQuestionForm from 'components/ask-astronomer/AskQuestionForm';
+import ObjectDetailsSectionTitle from 'components/object-details/ObjectDetailsSectionTitle';
+import CenterColumn from 'components/common/CenterColumn';
+import MainContainer from './partials/MainContainer';
+import AskQuestionTile from 'components/ask-astronomer/AskQuestionTile';
+import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
+import AsideContainer from './partials/AsideContainer';
 import style from './AskAstronomer.style';
 
 const {
@@ -93,18 +93,8 @@ class AskAstronomer extends Component {
     objectId: '',
   }
 
-
-
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      leftView: "show",
-      rightView: "show",
-      tabMvp: "hidden",
-      mobile: false,
-      showPrompt: false,
-    };  
+  state = {
+    showPrompt: false ,
   }
 
   componentWillReceiveProps(nextProps) {
@@ -149,27 +139,6 @@ class AskAstronomer extends Component {
   };
 
 
-  handleMobileClick = () => {
-    let lefty = (this.state.leftView === "hidden") ? "show" : "hidden";
-    let righty = (this.state.rightView === "hidden") ? "show" : "hidden";
-    this.setView (lefty, righty, 'show', true);
-  }
-
-  handleTabletClick = () => {
-    let mvp = (this.state.tabMvp === "hidden") ? "show" : "hidden";
-    let questions = (this.state.leftView === "hidden") ? "show" : "hidden";
-    this.setView (questions, 'show', mvp, false);
-  }
-
-  setView = (left, right, tab, mob) => {
-    this.setState ({
-      leftView: left,
-      rightView: right,
-      tabMvp: tab,
-      mobile: mob,
-    });
-  }
-
   showModal = () => {
     this.setState({
       showPrompt: true,
@@ -204,93 +173,85 @@ class AskAstronomer extends Component {
       objectSpecialists,
     } = this.props;
 
-    const { leftView, rightView, tabMvp, mobile, showPrompt } = this.state;
-
+    const { showPrompt } = this.state;
+    const likeParams = {};
     return (
-      <div className="full-bg">
-          <ObjectDetailsSectionTitle title={objectTitle + "'s"} subTitle="Ask An Astronomer" />        
-          <CenterColumn>
-            <div className="ask-astronomer">
-
-              <div className="ask-mobile-header">         
-                <div className="icon-container">
-                  <div className="border">
-                    <div className="icon">
-                      <img className="icon-content" alt="" width="180" height="180" src="https://vega.slooh.com/assets/v4/common/ask_mobile_bg.png" />
+      <Fragment>
+        <DeviceContext.Consumer>
+          {(context) => (
+          <div className="full-bg">
+              <ObjectDetailsSectionTitle title={`${objectTitle}'s`} subTitle="Ask An Astronomer" theme={{ padding: '25px' }} />
+              <CenterColumn
+                widths={['768px', '940px', '940px']}
+                theme={{ paddingTop: '25px' }}
+              >
+                <div className="ask-astronomer">
+                  <DisplayAtBreakpoint
+                    screenSmall
+                  >
+                    <div className="ask-mobile-header">
+                      <div className="icon-container">
+                        <div className="border">
+                          <div className="icon">
+                            <img className="icon-content" alt="" width="180" height="180" src="https://vega.slooh.com/assets/v4/common/ask_mobile_bg.png" />
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
-                <div className="center-line" />
-                <span className={'btn-nav ' + this.state.leftView} onClick={this.handleMobileClick}>Questions</span>
-                <span className={'btn-nav ' + this.state.rightView} onClick={this.handleMobileClick}>Ask Now</span>      
-              </div>  
-
-              <div className={'right ' + this.state.rightView}>
-                <AskAstronomerQuestionForm
-                  open={showPrompt}
-                  hideModal={this.closeModal}
-                  objectId={objectId}
-                  topicId={faqTopicId}
-                  objectTitle={objectTitle}
-                  user={user}
-                />
-                <AskQuestionTile showModal={this.showModal} ></AskQuestionTile>
-                <div className="ask-tablet-subnav">         
-                  <div className="center-line" />
-                  <span className={'btn-nav ' + this.state.leftView} onClick={this.handleTabletClick}>Questions</span>
-                  <span className={'btn-nav ' + this.state.tabMvp} onClick={this.handleTabletClick}>MVP ASTRONOMERS</span>      
-                </div>
-                
-                <div className={'mvp ' + this.state.tabMvp}>
-                  <div className="mvp-header">
-                    <h1>THIS OBJECT’S</h1>
-                    <h2>MVP ASTRONOMERS</h2>
-                  </div>
-                  {objectSpecialists && objectSpecialists.specialistsCount > 0 ? (
-                    <MVPAstronomerList {...objectSpecialists} />
-                  ) : (
-                    <div className="card-container__specialists">
-                      Sorry, there are no MVP Astronomers available.
+                  </DisplayAtBreakpoint>
+                  <DisplayAtBreakpoint
+                    screenMedium
+                  >
+                    <div className="ask-tablet-header">
+                      <AskQuestionTile showModal={this.showModal} />
                     </div>
-                  )}
-                </div>
-              </div>  
-
-              <div className={'left ' + this.state.leftView}>
-                {fetchingQuestions && <div className="fa fa-spinner loader" />}
-                {!fetchingQuestions && <QuestionList
-                  allAnswers={allAnswers}
-                  allDisplayedAnswers={allDisplayedAnswers}
-                  count={count}
-                  fetchingAnswers={fetchingAnswers}
-                  handlePageChange={this.handlePageChange}
-                  objectId={objectId}
-                  page={page}
-                  questions={questions}
-                  toggleAllAnswersAndDisplay={actions.toggleAllAnswersAndDisplay}
-                  totalCount={totalCount}
-                />}
-              </div>
-
-              <Fragment>
-                <DeviceContext.Consumer>
-                  {
-                    (context) => {
-                      if (context.isScreenMedium && this.state.mobile === true) {
-                        this.setView ('show', 'show', 'hidden', false);
-                      } 
-                      else if (!context.isScreenMedium && this.state.mobile === false) {
-                        this.setView ('show', 'hidden', 'hidden', true);
-                      }
+                  </DisplayAtBreakpoint>
+                  <AskAstronomerQuestionForm
+                    open={showPrompt}
+                    hideModal={this.closeModal}
+                    objectId={objectId}
+                    topicId={faqTopicId}
+                    objectTitle={objectTitle}
+                    user={user}
+                  />
+                  <ResponsiveTwoColumnContainer
+                    renderNavigationComponent={navProps =>
+                      (<TwoTabbedNav
+                        firstTitle="Questions"
+                        secondTitle={context.isMobile ? 'Ask Now' : 'MVP Astronomers'}
+                        firstTabIsActive={navProps.showMainContainer}
+                        firstTabOnClick={navProps.onShowMainContainer}
+                        secondTabIsActive={navProps.showAsideContainer}
+                        secondTabOnClick={navProps.onShowAsideContainer}
+                      />)
                     }
-                  }
-                </DeviceContext.Consumer>
-              </Fragment>
-
-            </div>
-          </CenterColumn>
-        <style jsx>{style}</style>
-      </div>
+                    renderAsideContent={() => (
+                      <div>
+                        <AsideContainer
+                          {...this.props}
+                          {...context}
+                          showModal={this.showModal}
+                          showPrompt={showPrompt}
+                        />
+                      </div>
+                    )}
+                    isScreenLarge={context.isScreenLarge}
+                    renderMainContent={() => <MainContainer
+                      {...this.props}
+                      {...context}
+                      handlePageChange={this.handlePageChange}
+                      actions={actions}
+                      user={user}
+                      likeParams={likeParams}
+                    />}
+                  />
+                </div>
+              </CenterColumn>
+            <style jsx>{style}</style>
+          </div>
+        )}
+        </DeviceContext.Consumer>
+      </Fragment>
     )
   }
 }
