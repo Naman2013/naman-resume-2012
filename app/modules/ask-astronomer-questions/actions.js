@@ -29,13 +29,13 @@ export const fetchAstronomerQuestions = ({
   lang,
   page,
   token,
-  topicId,
+  answerState,
   ver,
 }) => (dispatch, getState) => {
   const { cid, at, token } = getState().user;
   const { count } = getState().astronomerQuestions;
   dispatch(fetchAstronomerQuestionsStart({ appendToList }));
-  return getThreadList({
+  return axios.post('/api/forum/getQuestionsList', {
     appendToList,
     at,
     callSource: 'qanda',
@@ -44,8 +44,8 @@ export const fetchAstronomerQuestions = ({
     lang,
     page,
     token,
-    topicId,
     ver,
+    answerState,
   })
   .then(result => {
     if (result.data.threads.length > 0) {

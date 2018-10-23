@@ -99,13 +99,10 @@ class AskAstronomer extends Component {
 
   componentWillReceiveProps(nextProps) {
     const {
-      objectData: {
-        faqTopicId,
-      }
     } = nextProps;
     //fetch the question data, the object page has been changed.
-    if (this.props.params.objectId != nextProps.params.objectId || this.props.objectData.faqTopicId != nextProps.objectData.faqTopicId) {
-      this.props.actions.fetchAstronomerQuestions({ topicId: faqTopicId });
+    if (this.props.params.objectId != nextProps.params.objectId) {
+      this.props.actions.fetchAstronomerQuestions({ answerState: 'all' });
     }
   }
 
@@ -114,27 +111,21 @@ class AskAstronomer extends Component {
       params: {
         objectId,
       },
-      objectData: {
-        faqTopicId,
-      }
     } = this.props;
-    if (faqTopicId && (this.props.objectData.objectId != objectId)) {
+    if (this.props.objectData.objectId != objectId) {
         //fetch questions only if the objectId changes.
-        this.props.actions.fetchAstronomerQuestions({ topicId: faqTopicId });
+        this.props.actions.fetchAstronomerQuestions({ answerState: 'all' });
     }
   }
 
   handlePageChange = (page) => {
     const {
       actions,
-      objectData: {
-        faqTopicId,
-      },
     } = this.props;
     actions.fetchAstronomerQuestions({
       appendToList: false,
       page,
-      topicId: faqTopicId,
+      answerState: 'all',
     });
   };
 
