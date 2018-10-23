@@ -137,6 +137,7 @@ class AnswerList extends Component {
               .filter(item => displayedReplies[answer.replyId] && displayedReplies[answer.replyId].indexOf(item.replyId) > -1);
             return (<AnswerListItem
               answer={answer}
+              numberOfRepliesToAnswer={answer.replyToponlyCount}
               isDesktop={isDesktop}
               answerReplies={allReplies[answer.replyId]}
               displayedReplies={allDisplayedRepliesObj}

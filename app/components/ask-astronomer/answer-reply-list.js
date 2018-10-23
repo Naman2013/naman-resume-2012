@@ -14,6 +14,7 @@ import AnswerReplyListItem from './answer-reply-list-item';
 import { updateAnswerRepliesDisplayList, replyToAnswer } from '../../modules/ask-astronomer-answer-discuss/actions';
 import ReplyForm from './reply-form';
 import PaginateSet from '../common/paginate-full-set/PaginateSet';
+import styles from './answer-list.style';
 
 const {
   arrayOf,
@@ -80,10 +81,6 @@ class AnswerReplyList extends Component {
     repliesSubmitted: shape({})
   }
 
-  constructor(props) {
-    super(props)
-  }
-
   handlePageChange = (paginatedSet, page) => {
     const {
       actions,
@@ -104,7 +101,9 @@ class AnswerReplyList extends Component {
       displayedReplies,
       objectId,
       paginationCount,
+      numberOfRepliesToAnswer,
       replyId,
+      isDesktop,
       repliesSubmitted,
       showAllReplies,
       submitId,
@@ -118,21 +117,7 @@ class AnswerReplyList extends Component {
     const showSubmitError = submitErrorId === replyId;
     const disableReplyButton = !!(submitId && submitId !== replyId);
 
-    return <div key={uniqueId()}>
-      {displayedReplies.map(reply => {
-        const likeParams = {
-          callSource: 'qanda',
-          objectId,
-          replyId: reply.replyId,
-          topicId,
-          replyType: 'debate',
-        };
-        return <AnswerReplyListItem
-          key={uniqueId()}
-          likeParams={likeParams}
-          reply={reply}
-        />
-      })}
+    return (<div key={uniqueId()}>
       <ReplyForm
         avatarURL={user.avatarURL}
         disableButton={disableReplyButton}
@@ -146,6 +131,28 @@ class AnswerReplyList extends Component {
         threadId={threadId}
         topicId={topicId}
       />
+      {numberOfRepliesToAnswer > 0 ? <div className="replies-list-contanier">
+        <div className="num-replies">
+          <span className="replies-number">Replies: {numberOfRepliesToAnswer}</span>
+        </div>
+        <div className="replies-list">
+          {displayedReplies.map((reply) => {
+            const likeParams = {
+              callSource: 'qanda',
+              objectId,
+              replyId: reply.replyId,
+              topicId,
+              replyType: 'debate',
+            };
+            return (<AnswerReplyListItem
+              key={uniqueId()}
+              isDesktop={isDesktop}
+              likeParams={likeParams}
+              reply={reply}
+            />)
+          })}
+        </div>
+      </div> : null}
       {showAllReplies && displayedReplies.length > 0 && <PaginateSet
         handlePageChange={this.handlePageChange}
         fullDataSet={answerReplies.replies}
@@ -153,9 +160,8 @@ class AnswerReplyList extends Component {
         totalCount={answerReplies.replies.length}
         page={answerReplies.page}
       />}
-      <style jsx>{`
-      `}</style>
-    </div>
+      <style jsx>{styles}</style>
+    </div>)
   }
 }
 

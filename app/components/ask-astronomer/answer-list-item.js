@@ -37,7 +37,7 @@ const AnswerListItem = (props) => {
     answer,
     answerReplies,
     displayedReplies,
-    numberOfAnswersToThread,
+    numberOfRepliesToAnswer,
     fetchingReplies,
     isTopAnswer,
     isDesktop,
@@ -56,28 +56,30 @@ const AnswerListItem = (props) => {
   return (
     <div className="answer-list-item">
       {isTopAnswer && <div className="top-answer">Top Answer</div>}
-        <DiscussionsCard
-          {...props.answer}
-          replyTo={answer.replyId}
-          showComments={answer.showAllReplies}
-          toggleComments={toggleAllAnswerReplies}
-          likeHandler={likeReply}
+      <DiscussionsCard
+        {...props.answer}
+        replyTo={answer.replyId}
+        showComments={answer.showAllReplies}
+        toggleComments={toggleAllAnswerReplies}
+        likeHandler={likeReply}
+        isDesktop={isDesktop}
+        allowReplies={true}
+        renderChildReplies={({
+          renderToggle,
+        }) => (<AnswerReplyList
+          answerReplies={answerReplies}
+          numberOfRepliesToAnswer={numberOfRepliesToAnswer}
+          displayedReplies={displayedReplies}
+          objectId={objectId}
           isDesktop={isDesktop}
-          allowReplies={true}
-          // renderChildReplies={({
-          //   renderToggle,
-          // }) => (<AnswerReplyList
-          //   answerReplies={answerReplies}
-          //   displayedReplies={displayedReplies}
-          //   objectId={objectId}
-          //   replyId={answer.replyId}
-          //   showAllReplies={showAllReplies}
-          //   showReplies={showReplies}
-          //   threadId={threadId}
-          //   topicId={topicId}
-          // />)}
-        />
-        {fetchingReplies && <div className="fa fa-spinner loader" />}
+          replyId={answer.replyId}
+          showAllReplies={showAllReplies}
+          showReplies={showReplies}
+          threadId={threadId}
+          topicId={topicId}
+        />)}
+      />
+      {fetchingReplies && <div className="fa fa-spinner loader" />}
       <style jsx>{style}</style>
     </div>
   )
