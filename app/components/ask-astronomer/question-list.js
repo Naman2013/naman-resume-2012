@@ -22,12 +22,13 @@ const QuestionList = ({
   allDisplayedAnswers,
   count,
   fetchingAnswers,
-  page,
-  totalCount,
   handlePageChange,
+  isDesktop,
   objectId,
+  page,
   questions,
   toggleAllAnswersAndDisplay,
+  totalCount,
 }) => (
   <div>
     {
@@ -42,6 +43,7 @@ const QuestionList = ({
           fetching={fetchingAnswers[item.threadId]}
           key={item.threadId}
           item={item}
+          isDesktop={isDesktop}
           toggleAllAnswersAndDisplay={toggleAllAnswersAndDisplay}
           objectId={objectId}
         />)

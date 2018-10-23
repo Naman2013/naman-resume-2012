@@ -22,6 +22,7 @@ const MainContainer = ({
   fetchingAnswers,
   fetchingQuestions,
   handlePageChange,
+  isDesktop,
   objectId,
   page,
   questions,
@@ -37,6 +38,7 @@ const MainContainer = ({
       handlePageChange={handlePageChange}
       objectId={objectId}
       page={page}
+      isDesktop={isDesktop}
       questions={questions}
       toggleAllAnswersAndDisplay={actions.toggleAllAnswersAndDisplay}
       totalCount={totalCount}

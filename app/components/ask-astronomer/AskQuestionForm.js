@@ -132,10 +132,6 @@ class AskAstronomerQuestionForm extends Component {
     });
   }
 
-  clickHideHandler = () => {
-    this.props.hideModal();
-  }
-
   handleUploadImage = (event) => {
     event.preventDefault();
 
@@ -209,15 +205,15 @@ class AskAstronomerQuestionForm extends Component {
           />
           <div className="counter">{questionText.length}/260</div>
           <div className="btn-row">
-            <PhotoUploadButton 
-              text="+ Photo" 
-              handleUploadImage="this.handleUploadImage"
+            <PhotoUploadButton
+              text="+ Photo"
+              handleUploadImage={this.handleUploadImage}
             />
             <div className="guide-link">
               <Link to="/help/posting-guidelines" className="styld">Guidelines</Link>
             </div>
             <div className="flex-right">
-              <GenericButton onClickEvent={this.clickHideHandler} text="Cancel" />
+              <GenericButton onClickEvent={this.hideModal} text="Cancel" />
               &nbsp;
               <GenericButton onClickEvent={this.submitForm} text="Submit" />
             </div>

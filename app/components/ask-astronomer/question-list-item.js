@@ -7,17 +7,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import noop from 'lodash/noop';
+import uniqueId from 'lodash/uniqueId';
+import { likeThread } from 'services/discussions/like';
+import DiscussionsCard from 'components/common/DiscussionsCard';
 import AnswerList from './answer-list';
+
 import style from './question-list-item.style';
 
-import noop from 'lodash/noop';
-import GenericButton from '../common/style/buttons/Button';
-import LikeButton from '../common/style/buttons/LikeButton';
-import likeReply from '../../services/discussions/like';
-import CommentButton from '../common/style/buttons/CommentButton';
-import ViewImagesButton from '../common/style/buttons/ViewImagesButton';
-
-const questionImages = ['https://castor.slooh.com/dev101/2018/07/720d/b712/1530882220.jpg', 'https://castor.slooh.com/dev101/2018/07/9879/452d/1531688297.JPG']
 
 const {
   arrayOf,
@@ -28,49 +25,42 @@ const {
   string,
 } = PropTypes;
 
-const QuestionListItem = ({
-  answers,
-  displayedAnswers,
-  fetching,
-  item,
-  objectId,
-  toggleAllAnswersAndDisplay,
-}) => {
-  const closeAllAnswers = () => toggleAllAnswersAndDisplay({
+const QuestionListItem = (props) => {
+  const {
+    answers,
+    isDesktop,
+    displayedAnswers,
+    fetching,
+    item,
+    objectId,
+    toggleAllAnswersAndDisplay,
+  } = props;
+  console.log('question list item props', props)
+  const toggleAllAnswers = () => toggleAllAnswersAndDisplay({
     threadId: item.threadId,
-    showAllAnswers: false,
+    showAllAnswers: !answers.showAllAnswers,
   });
-  return (
-    <div className="question-container">
-      <div className="question-details">
-        <span className="author">{item.displayName} asked:</span>
-      </div>
-      <div className="question">
-        <span dangerouslySetInnerHTML={{ __html: item.content }} />
-      </div>
-      <div className="date">Asked {moment(item.creationDate).fromNow()}</div>
-      {item.replyCount > 0 && 
-        <div className="ask-mobile-details-container">
-          <div className="reply-count">
-            {answers.showAllAnswers ? `${item.replyCount} answers to this question` : `1 of ${item.replyCount} answers`}
-          </div>
-          {displayedAnswers.length > 1 && <div><a className="close-answers" onClick={closeAllAnswers}>Close (x)</a></div>}
-        </div>
-      }
-      {item.replyCount === 0 && <div className="reply-count">0 Answers</div>}
-      <div className="ask-button-container">
-        <LikeButton onClickEvent={likeReply} count="1" />
-        <CommentButton onClickEvent={noop} count="1" />
-        <ViewImagesButton images={questionImages} />
-        <GenericButton onClickEvent={noop} text="Answer" />
-      </div>
-      {!fetching && <AnswerList
-        answers={answers}
-        displayedAnswers={displayedAnswers}
-        objectId={objectId}
-        threadId={item.threadId}
-        topicId={item.topicId}
-      />}
+    return (<div className="shadowed-container margin" key={uniqueId}>
+      <DiscussionsCard
+        {...props.item}
+        showComments={answers.showAllAnswers}
+        replyTo={item.threadId}
+        toggleComments={toggleAllAnswers}
+        likeHandler={likeThread}
+        isDesktop={isDesktop}
+        allowReplies={true}
+        renderChildReplies={({
+          renderToggle,
+        }) => (<AnswerList
+          isDesktop={isDesktop}
+          answers={answers}
+          numberOfAnswersToThread={item.replyToponlyCount}
+          displayedAnswers={displayedAnswers}
+          objectId={objectId}
+          threadId={item.threadId}
+          topicId={item.topicId}
+        />)}
+      />
       {fetching && <div className="fa fa-spinner loader" />}
       <style jsx>{style}</style>
     </div>

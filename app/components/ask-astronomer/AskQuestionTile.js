@@ -1,19 +1,27 @@
 import React, { Fragment, Component } from 'react';
+import PropTypes from 'prop-types';
 import noop from 'lodash/noop';
 import GenericButton from '../../components/common/style/buttons/Button';
 import style from './AskQuestionTile.style';
 
-class AskQuestionTile extends Component {
-  constructor(props) {
-    super(props);
-  };
+const {
+  func,
+} = PropTypes;
 
-  clickHandler = () => {
-    this.props.showModal();
+class AskQuestionTile extends Component {
+  static propTypes = {
+    showModal: func,
   }
 
-  render() {
+  static defaultProps = {
+    showModal: noop,
+  }
 
+  state = {
+
+  };
+  render() {
+    const { showModal } = this.props;
     return (
       <Fragment>
         <div className="ask-question-tile">
@@ -21,7 +29,7 @@ class AskQuestionTile extends Component {
             <span className="dek">Have a Question?</span>
             <h2>Ask an Astronomer!</h2>
             <p>Nam dapibus nisl vitae elitem fringilla rutrum. Aenean lener elementum rutrum.</p>
-            <GenericButton onClickEvent={this.clickHandler} text="SUBMIT A QUESTION" icon="https://vega.slooh.com/assets/v4/common/plus_icon.svg" />
+            <GenericButton onClickEvent={showModal} text="SUBMIT A QUESTION" icon="https://vega.slooh.com/assets/v4/common/plus_icon.svg" />
           </div>
           <div className="icon-container">
             <div className="border">

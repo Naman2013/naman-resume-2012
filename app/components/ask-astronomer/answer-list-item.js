@@ -10,6 +10,7 @@ import moment from 'moment';
 import { likeReply } from '../../services/discussions/like';
 import Heart from '../common/heart/heart';
 import noop from 'lodash/noop';
+import DiscussionsCard from 'components/common/DiscussionsCard';
 import GenericButton from '../common/style/buttons/Button';
 import LikeButton from '../common/style/buttons/LikeButton';
 import CommentButton from '../common/style/buttons/CommentButton';
@@ -31,70 +32,52 @@ const {
   string,
 } = PropTypes;
 
-const AnswerListItem = ({
-  answer,
-  answerReplies,
-  displayedReplies,
-  fetchingReplies,
-  isTopAnswer,
-  likeParams,
-  objectId,
-  showAllAnswers,
-  showAllReplies,
-  showReplies,
-  threadId,
-  toggleAllAnswerReplies,
-  toggleAnswerReplies,
-  toggleAnswers,
-  topicId,
-}) => {
+const AnswerListItem = (props) => {
+  const {
+    answer,
+    answerReplies,
+    displayedReplies,
+    numberOfAnswersToThread,
+    fetchingReplies,
+    isTopAnswer,
+    isDesktop,
+    likeParams,
+    objectId,
+    showAllAnswers,
+    showAllReplies,
+    showReplies,
+    threadId,
+    toggleAllAnswerReplies,
+    toggleAnswerReplies,
+    toggleAnswers,
+    topicId,
+  } = props;
+  console.log('props answer list item', props)
   return (
-    <div className="answer">
+    <div className="answer-list-item">
       {isTopAnswer && <div className="top-answer">Top Answer</div>}
-      <div>
-        <span className="display-name">{answer.displayName}</span>
-      </div>
-      <div className="content">
-        <span dangerouslySetInnerHTML={{ __html: answer.content }} />
-      </div>
-      <div className="date">Answered {moment(answer.creationDate).fromNow()}</div>
-      <div className="reply-count">Likes: {answer.likesCount} Replies: {answer.replyCount}</div>
-      <div>
-        <span className="action-item">
-          <LikeButton onClickEvent={likeReply} count="1" />
-          <CommentButton onClickEvent={toggleAllAnswerReplies} count="1" />
-          <GenericButton onClickEvent={noop} text="Reply" />
-          {/* <Heart
-            likeAction={likeReply}
-            theme="dark"
-            count={answer.likesCount}
-            authorId={answer.customerId}
-            showLikePrompt={answer.showLikePrompt}
-            likePrompt={answer.likePrompt}
-            params={likeParams}
-          /> */}
-        </span>
-        <span className="action-item"><a onClick={toggleAnswerReplies}>Discuss ({answer.replyCount})</a></span>
-        {!showAllReplies && showReplies && <span className="action-item"><a onClick={toggleAllAnswerReplies}>View All Discussions</a></span>}
-        {!showAllAnswers && <span className="action-item"><a onClick={toggleAnswers}>View All Answers to This Question</a></span>}
-      </div>
-
-      {!fetchingReplies &&
-        showReplies &&
-        answerReplies &&
-          <AnswerReplyList
-            answerReplies={answerReplies}
-            displayedReplies={displayedReplies}
-            objectId={objectId}
-            replyId={answer.replyId}
-            showAllReplies={showAllReplies}
-            showReplies={showReplies}
-            threadId={threadId}
-            topicId={topicId}
-          />
-        }
-        {fetchingReplies && <div className="fa fa-spinner loader" />} 
-
+        <DiscussionsCard
+          {...props.answer}
+          replyTo={answer.replyId}
+          showComments={answer.showAllReplies}
+          toggleComments={toggleAllAnswerReplies}
+          likeHandler={likeReply}
+          isDesktop={isDesktop}
+          allowReplies={true}
+          // renderChildReplies={({
+          //   renderToggle,
+          // }) => (<AnswerReplyList
+          //   answerReplies={answerReplies}
+          //   displayedReplies={displayedReplies}
+          //   objectId={objectId}
+          //   replyId={answer.replyId}
+          //   showAllReplies={showAllReplies}
+          //   showReplies={showReplies}
+          //   threadId={threadId}
+          //   topicId={topicId}
+          // />)}
+        />
+        {fetchingReplies && <div className="fa fa-spinner loader" />}
       <style jsx>{style}</style>
     </div>
   )

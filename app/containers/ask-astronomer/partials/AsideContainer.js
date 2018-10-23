@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import noop from 'lodash/noop';
 import AskQuestionTile from 'components/ask-astronomer/AskQuestionTile';
-import AskAstronomerQuestionForm from 'components/ask-astronomer/AskQuestionForm';
 import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
 import MVPAstronomerList from 'components/common/MVPAstronomer/MVPAstronomerList';
 import styles from '../AskAstronomer.style';
