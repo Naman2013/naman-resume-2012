@@ -148,7 +148,7 @@ class BootstrappedDashboard extends Component {
         <TourPopup />
         <div className="dash-hero">
           <span className="vertical-helper" />
-          <img alt="Welcome" className="hero-img" src="https://vega.slooh.com/assets/v4/dashboard/landing_fpo.png" />
+          <img alt="Welcome" className="hero-img" src="https://vega.slooh.com/assets/v4/placeholder/FPO_GRAPHIC.png" />
         </div>
         {promoPanelShow ?
           promoArray.map(promoObject => <PromoPanel {...promoObject} key={uniqueId()} />) : null
