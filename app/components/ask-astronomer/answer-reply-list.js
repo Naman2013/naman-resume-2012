@@ -112,25 +112,9 @@ class AnswerReplyList extends Component {
       topicId,
       user,
     } = this.props;
-    const count = showAllReplies ? paginationCount: 1;
-    const showSubmitLoader = submitId === replyId;
-    const showSubmitError = submitErrorId === replyId;
-    const disableReplyButton = !!(submitId && submitId !== replyId);
+    const count = showAllReplies ? paginationCount : 1;
 
     return (<div key={uniqueId()}>
-      <ReplyForm
-        avatarURL={user.avatarURL}
-        disableButton={disableReplyButton}
-        key={uniqueId()}
-        objectId={objectId}
-        replyId={replyId}
-        showSubmitError={showSubmitError}
-        showSubmitLoader={showSubmitLoader}
-        submitReply={actions.replyToAnswer}
-        submitted={repliesSubmitted[replyId]}
-        threadId={threadId}
-        topicId={topicId}
-      />
       {numberOfRepliesToAnswer > 0 ? <div className="replies-list-contanier">
         <div className="num-replies">
           <span className="replies-number">Replies: {numberOfRepliesToAnswer}</span>

@@ -104,7 +104,7 @@ class AskAstronomer extends Component {
     } = nextProps;
     //fetch the question data, the object page has been changed.
     if (this.props.params.objectId != nextProps.params.objectId) {
-      this.props.actions.fetchAstronomerQuestions({ answerState: 'all' });
+      this.props.actions.fetchAstronomerQuestions({ answerState: 'all', objectId });
     }
   }
 
@@ -116,7 +116,7 @@ class AskAstronomer extends Component {
     } = this.props;
     if (this.props.objectData.objectId != objectId) {
         //fetch questions only if the objectId changes.
-        this.props.actions.fetchAstronomerQuestions({ answerState: 'all' });
+        this.props.actions.fetchAstronomerQuestions({ answerState: 'all', objectId });
     }
   }
 
