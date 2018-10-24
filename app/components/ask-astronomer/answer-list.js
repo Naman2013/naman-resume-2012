@@ -15,7 +15,7 @@ import {
   updateAnswersDisplayList,
 } from '../../modules/ask-astronomer-answers/actions';
 import {
-  toggleAndDisplayReplies,
+  replyToAnswer,
   toggleAllAnswerRepliesAndDisplay,
 } from '../../modules/ask-astronomer-answer-discuss/actions';
 import PaginateSet from '../common/paginate-full-set/PaginateSet';
@@ -45,8 +45,8 @@ const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     toggleAllAnswerRepliesAndDisplay,
     toggleAllAnswersAndDisplay,
-    toggleAndDisplayReplies,
     updateAnswersDisplayList,
+    replyToAnswer,
   }, dispatch),
 });
 
@@ -102,6 +102,11 @@ class AnswerList extends Component {
     });
   }
 
+  submitReply = (params, callback) => {
+    const { actions } = this.props;
+    actions.replyToAnswer(params).then(res => callback(res.payload));
+  }
+
   render () {
     const {
       actions,
@@ -146,11 +151,6 @@ class AnswerList extends Component {
               replyTo: answer.replyId,
               showAllReplies: !answer.showAllReplies,
             });
-            const toggleAnswerReplies = () => actions.toggleAndDisplayReplies({
-              threadId,
-              replyTo: answer.replyId,
-              showReplies: !answer.showReplies,
-            });
 
             return (<AnswerListItem
               answer={answer}
@@ -164,12 +164,10 @@ class AnswerList extends Component {
               likeParams={likeParams}
               numberOfRepliesToAnswer={answer.replyToponlyCount}
               objectId={objectId}
-              showAllAnswers={showAllAnswers}
               showAllReplies={answer.showAllReplies}
-              showReplies={answer.showReplies}
+              submitReply={this.submitReply}
               threadId={threadId}
               toggleAllAnswerReplies={toggleAllAnswerReplies}
-              toggleAnswerReplies={toggleAnswerReplies}
               topicId={topicId}
             />);
           })}

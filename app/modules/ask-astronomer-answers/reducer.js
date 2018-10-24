@@ -129,24 +129,6 @@ export default createReducer(initialState, {
       allAnswers: newAllState,
     };
   },
-  [TOGGLE_ALL_ASK_ASTRONOMER_ANSWER_REPLIES](state, { payload }) {
-    const { threadId, replyTo } = payload;
-    const newAllAnswers = cloneDeep(state.allAnswers);
-
-    if (newAllAnswers[threadId] && newAllAnswers[threadId].replies) {
-      newAllAnswers[threadId].replies = newAllAnswers[threadId].replies.map(answer => {
-        if (answer.replyId === replyTo) {
-          answer.showAllReplies = payload.showAllReplies;
-        }
-        return answer;
-      });
-    }
-
-    return {
-      ...state,
-      allAnswers: newAllAnswers,
-    };
-  },
   [TOGGLE_ASK_ASTRONOMER_ANSWER_REPLIES](state, { payload }) {
     const { threadId, replyTo } = payload;
     const newAllAnswers = cloneDeep(state.allAnswers);
@@ -154,7 +136,7 @@ export default createReducer(initialState, {
     if (newAllAnswers[threadId] && newAllAnswers[threadId].replies) {
       newAllAnswers[threadId].replies = newAllAnswers[threadId].replies.map(answer => {
         if (answer.replyId === replyTo) {
-          answer.showReplies = payload.showReplies;
+          answer.showAllReplies = payload.showAllReplies;
         }
         return answer;
       });
@@ -189,9 +171,9 @@ export default createReducer(initialState, {
 
     const newAllAnswers = cloneDeep(state.allAnswers);
     const newAllDisplayedAnswers = cloneDeep(state.allDisplayedAnswers);
-    if (newAllAnswers[threadId].replies) {
+    if (newAllAnswers[threadId] && newAllAnswers[threadId].replies) {
       // then add the new submission to the list of answers
-      newAllAnswers[threadId].replies = newAllAnswers[threadId].replies.concat(reply);
+      newAllAnswers[threadId].replies = [].concat(newAllAnswers[threadId].replies, reply);
       // add the new submission to the displayedAnswers array
       // but only add it if the last page is the currently displayed page.
       if (newAllAnswers[threadId].showAllAnswers) {
@@ -203,6 +185,7 @@ export default createReducer(initialState, {
       } else {
         // make sure we always open the answers when an answer is submitted
         newAllAnswers[threadId].showAllAnswers = true;
+        // show first X answers
         newAllDisplayedAnswers[threadId] = take(newAllAnswers[threadId].replies, paginationCount).map(rep => rep.replyId);
       }
 

@@ -44,30 +44,26 @@ const AnswerListItem = (props) => {
     likeParams,
     numberOfRepliesToAnswer,
     objectId,
-    showAllAnswers,
     showAllReplies,
-    showReplies,
+    submitReply,
     threadId,
     toggleAllAnswerReplies,
-    toggleAnswerReplies,
-    toggleAnswers,
     topicId,
   } = props;
-  console.log('props answer list item', props)
+
   return (
     <div className="answer-list-item">
       {isTopAnswer && <div className="top-answer">Top Answer</div>}
       <DiscussionsCard
         {...props.answer}
+        allowReplies={canReplyToAnswers}
+        isDesktop={isDesktop}
+        likeHandler={likeReply}
         replyTo={answer.replyId}
         showComments={answer.showAllReplies}
+        submitReply={submitReply}
         toggleComments={toggleAllAnswerReplies}
-        likeHandler={likeReply}
-        isDesktop={isDesktop}
-        allowReplies={canReplyToAnswers}
-        renderChildReplies={({
-          renderToggle,
-        }) => (<AnswerReplyList
+        renderChildReplies={() => (<AnswerReplyList
           answerReplies={answerReplies}
           numberOfRepliesToAnswer={numberOfRepliesToAnswer}
           displayedReplies={displayedReplies}
@@ -75,7 +71,6 @@ const AnswerListItem = (props) => {
           isDesktop={isDesktop}
           replyId={answer.replyId}
           showAllReplies={showAllReplies}
-          showReplies={showReplies}
           threadId={threadId}
           topicId={topicId}
         />)}
@@ -134,9 +129,9 @@ AnswerListItem.propTypes = {
   objectId: string.isRequired,
   showAllReplies: bool,
   showReplies: bool,
+  submitReply: func.isRequired,
   threadId: number.isRequired,
   toggleAllAnswerReplies: func.isRequired,
-  toggleAnswerReplies: func.isRequired,
   toggleAnswers: func.isRequired,
   topicId: number.isRequired,
 };
