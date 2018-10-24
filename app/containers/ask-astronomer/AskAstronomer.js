@@ -16,6 +16,7 @@ import {
 } from 'modules/ask-astronomer-questions/actions';
 import {
   toggleAllAnswersAndDisplay,
+  submitAnswerToQuestion,
 } from 'modules/ask-astronomer-answers/actions';
 import AskAstronomerQuestionForm from 'components/ask-astronomer/AskQuestionForm';
 import ObjectDetailsSectionTitle from 'components/object-details/ObjectDetailsSectionTitle';
@@ -63,6 +64,7 @@ const mapDispatchToProps = dispatch => ({
     fetchAstronomerQuestions,
     toggleAllAnswersAndDisplay,
     fetchObjectSpecialistsAction,
+    submitAnswerToQuestion,
   }, dispatch),
 });
 
@@ -123,13 +125,22 @@ class AskAstronomer extends Component {
   handlePageChange = (page) => {
     const {
       actions,
+      params: {
+        objectId,
+      },
     } = this.props;
     actions.fetchAstronomerQuestions({
       appendToList: false,
       page,
       answerState: 'all',
+      objectId,
     });
   };
+
+  submitAnswer = (params, callback) => {
+    const { actions } = this.props;
+    actions.submitAnswerToQuestion(params).then(res => callback(res.payload));
+  }
 
 
   showModal = () => {
@@ -235,6 +246,7 @@ class AskAstronomer extends Component {
                       handlePageChange={this.handlePageChange}
                       actions={actions}
                       user={user}
+                      submitAnswer={this.submitAnswer}
                       likeParams={likeParams}
                     />}
                   />

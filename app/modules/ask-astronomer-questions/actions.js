@@ -6,6 +6,7 @@ export const FETCH_ASTRONOMER_QUESTIONS_START = 'FETCH_ASTRONOMER_QUESTIONS_STAR
 export const FETCH_ASTRONOMER_QUESTIONS_SUCCESS = 'FETCH_ASTRONOMER_QUESTIONS_SUCCESS';
 export const FETCH_ASTRONOMER_QUESTIONS_FAIL = 'FETCH_ASTRONOMER_QUESTIONS_FAIL';
 
+
 const fetchAstronomerQuestionsStart = payload => ({
   type: FETCH_ASTRONOMER_QUESTIONS_START,
   payload,
@@ -17,18 +18,15 @@ const fetchAstronomerQuestionsSuccess = payload => ({
 });
 
 const fetchAstronomerQuestionsFail = payload => ({
-  type: FETCH_ASTRONOMER_QUESTIONS_SUCCESS,
+  type: FETCH_ASTRONOMER_QUESTIONS_FAIL,
   payload,
 });
 
 export const fetchAstronomerQuestions = ({
   appendToList = false,
-  at,
-  cid,
   count,
   lang,
   page,
-  token,
   answerState,
   objectId,
   ver,

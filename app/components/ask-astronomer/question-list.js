@@ -30,6 +30,7 @@ const QuestionList = ({
   objectId,
   page,
   questions,
+  submitAnswer,
   toggleAllAnswersAndDisplay,
   totalCount,
 }) => (
@@ -51,6 +52,7 @@ const QuestionList = ({
           item={item}
           key={item.threadId}
           objectId={objectId}
+          submitAnswer={submitAnswer}
           toggleAllAnswersAndDisplay={toggleAllAnswersAndDisplay}
         />)
     },

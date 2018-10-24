@@ -5,6 +5,9 @@ import {
   FETCH_ASTRONOMER_QUESTIONS_SUCCESS,
   FETCH_ASTRONOMER_QUESTIONS_FAIL,
 } from './actions';
+import {
+  SUBMIT_ANSWER_FOR_ASTRONOMER_QUESTION_SUCCESS,
+} from '../ask-astronomer-answers/actions';
 
 const initialState = {
   error: false,
@@ -57,6 +60,23 @@ export default createReducer(initialState, {
       page: 0,
       canAnswerQuestions: false,
       canReplyToAnswers: false,
+    };
+  },
+  [SUBMIT_ANSWER_FOR_ASTRONOMER_QUESTION_SUCCESS](state, { payload }) {
+    debugger;
+    const { threadList } = state;
+    const { threadId } = payload;
+    let newThreadList = [].concat(threadList);
+    // when a user submits a new answer, we need to update the counts on that thread
+    newThreadList = newThreadList.map((thread) => {
+      if (threadId === thread.threadId) {
+        thread.replyToponlyCount += 1;
+      }
+      return thread;
+    })
+    return {
+      ...state,
+      threadList: newThreadList,
     };
   },
 });

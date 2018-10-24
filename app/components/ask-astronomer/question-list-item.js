@@ -10,7 +10,6 @@ import moment from 'moment';
 import noop from 'lodash/noop';
 import uniqueId from 'lodash/uniqueId';
 import { likeThread } from 'services/discussions/like';
-import { submitReply } from 'services/discussions/submit-reply';
 import DiscussionsCard from 'components/common/DiscussionsCard';
 import AnswerList from './answer-list';
 
@@ -37,6 +36,7 @@ const QuestionListItem = (props) => {
     fetching,
     item,
     objectId,
+    submitAnswer,
     toggleAllAnswersAndDisplay,
   } = props;
 
@@ -53,7 +53,7 @@ const QuestionListItem = (props) => {
         likeHandler={likeThread}
         isDesktop={isDesktop}
         allowReplies={canAnswerQuestions}
-        submitReply={submitReply}
+        submitReply={submitAnswer}
         renderChildReplies={() => (<AnswerList
           answers={answers}
           canAnswerQuestions={canAnswerQuestions}

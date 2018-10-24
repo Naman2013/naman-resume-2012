@@ -28,6 +28,7 @@ const MainContainer = ({
   objectId,
   page,
   questions,
+  submitAnswer,
   totalCount,
 }) => (
   <div>
@@ -45,6 +46,7 @@ const MainContainer = ({
       page={page}
       isDesktop={isDesktop}
       questions={questions}
+      submitAnswer={submitAnswer}
       toggleAllAnswersAndDisplay={actions.toggleAllAnswersAndDisplay}
       totalCount={totalCount}
     />}
