@@ -18,6 +18,8 @@ const MainContainer = ({
   actions,
   allAnswers,
   allDisplayedAnswers,
+  canReplyToAnswers,
+  canAnswerQuestions,
   count,
   fetchingAnswers,
   fetchingQuestions,
@@ -31,8 +33,11 @@ const MainContainer = ({
   <div>
     {fetchingQuestions && <div className="fa fa-spinner loader" />}
     {!fetchingQuestions && <QuestionList
+      actions={actions}
       allAnswers={allAnswers}
       allDisplayedAnswers={allDisplayedAnswers}
+      canReplyToAnswers={canReplyToAnswers}
+      canAnswerQuestions={canAnswerQuestions}
       count={count}
       fetchingAnswers={fetchingAnswers}
       handlePageChange={handlePageChange}

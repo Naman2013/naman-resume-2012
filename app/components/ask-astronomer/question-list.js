@@ -18,8 +18,11 @@ const {
 } = PropTypes;
 
 const QuestionList = ({
+  actions,
   allAnswers,
   allDisplayedAnswers,
+  canReplyToAnswers,
+  canAnswerQuestions,
   count,
   fetchingAnswers,
   handlePageChange,
@@ -32,20 +35,23 @@ const QuestionList = ({
 }) => (
   <div>
     {
-      questions.map(item => {
+      questions.map((item) => {
         const threadAnswers = allAnswers[item.threadId] || { replies: [] };
         const allDisplayedAnswersObjs = threadAnswers
           .replies
           .filter(answer => allDisplayedAnswers[item.threadId] && allDisplayedAnswers[item.threadId].indexOf(answer.replyId) > -1);
         return (<QuestionListItem
+          actions={actions}
           answers={allAnswers[item.threadId]}
+          canAnswerQuestions={canAnswerQuestions}
+          canReplyToAnswers={canReplyToAnswers}
           displayedAnswers={allDisplayedAnswersObjs}
           fetching={fetchingAnswers[item.threadId]}
-          key={item.threadId}
-          item={item}
           isDesktop={isDesktop}
-          toggleAllAnswersAndDisplay={toggleAllAnswersAndDisplay}
+          item={item}
+          key={item.threadId}
           objectId={objectId}
+          toggleAllAnswersAndDisplay={toggleAllAnswersAndDisplay}
         />)
     },
       )

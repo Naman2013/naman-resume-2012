@@ -19,7 +19,8 @@ import {
   toggleAllAnswerRepliesAndDisplay,
 } from '../../modules/ask-astronomer-answer-discuss/actions';
 import PaginateSet from '../common/paginate-full-set/PaginateSet';
-import styles from './answer-list.style'
+import styles from './answer-list.style';
+
 const {
   arrayOf,
   any,
@@ -78,6 +79,7 @@ class AnswerList extends Component {
       })),
       topAnswer: number,
     }), // answers only pertaining to a single question
+    canReplyToAnswers: bool.isRequired,
     fetchingReplies: shape({}),
     threadId: number,
     actions: shape({}),
@@ -105,18 +107,19 @@ class AnswerList extends Component {
       actions,
       allReplies,
       answers,
-      isDesktop,
-      fetchingReplies,
-      paginationCount,
-      numberOfAnswersToThread,
+      canReplyToAnswers,
       displayedAnswers,
       displayedReplies,
+      fetchingReplies,
+      isDesktop,
+      numberOfAnswersToThread,
       objectId,
+      paginationCount,
       threadId,
       topicId,
     } = this.props;
-    const showAllAnswers = answers.showAllAnswers;
-    const count = showAllAnswers ? paginationCount: 1;
+    const { showAllAnswers } = answers;
+    const count = showAllAnswers ? paginationCount : 1;
     return (<div key={threadId}>
       {numberOfAnswersToThread > 0 ? <div className="replies-list-contanier">
         <div className="num-replies">
@@ -130,30 +133,46 @@ class AnswerList extends Component {
               replyId: answer.replyId,
               topicId,
               replyType: 'answer',
-            }
+            };
             const answerReplies = allReplies[answer.replyId] || { replies: [] };
             const allDisplayedRepliesObj = answerReplies
               .replies
-              .filter(item => displayedReplies[answer.replyId] && displayedReplies[answer.replyId].indexOf(item.replyId) > -1);
+              .filter(item => (
+                displayedReplies[answer.replyId] &&
+                  displayedReplies[answer.replyId].indexOf(item.replyId) > -1)
+              );
+            const toggleAllAnswerReplies = () => actions.toggleAllAnswerRepliesAndDisplay({
+              threadId,
+              replyTo: answer.replyId,
+              showAllReplies: !answer.showAllReplies,
+            });
+            const toggleAnswerReplies = () => actions.toggleAndDisplayReplies({
+              threadId,
+              replyTo: answer.replyId,
+              showReplies: !answer.showReplies,
+            });
+
             return (<AnswerListItem
               answer={answer}
-              numberOfRepliesToAnswer={answer.replyToponlyCount}
-              isDesktop={isDesktop}
               answerReplies={allReplies[answer.replyId]}
+              canReplyToAnswers={canReplyToAnswers}
               displayedReplies={allDisplayedRepliesObj}
               fetchingReplies={fetchingReplies[answer.replyId]}
+              isDesktop={isDesktop}
               isTopAnswer={answers.topAnswer && answer.replyId === answers.topAnswer}
               key={answer.replyId}
               likeParams={likeParams}
+              numberOfRepliesToAnswer={answer.replyToponlyCount}
               objectId={objectId}
-              showReplies={answer.showReplies}
-              showAllReplies={answer.showAllReplies}
               showAllAnswers={showAllAnswers}
+              showAllReplies={answer.showAllReplies}
+              showReplies={answer.showReplies}
               threadId={threadId}
-              toggleAllAnswerReplies={() => actions.toggleAllAnswerRepliesAndDisplay({ threadId: threadId, replyTo: answer.replyId, showAllReplies: !answer.showAllReplies })}
-              toggleAnswerReplies={() => actions.toggleAndDisplayReplies({ threadId: threadId, replyTo: answer.replyId, showReplies: !answer.showReplies })}
+              toggleAllAnswerReplies={toggleAllAnswerReplies}
+              toggleAnswerReplies={toggleAnswerReplies}
               topicId={topicId}
-            />)})}
+            />);
+          })}
           {showAllAnswers && displayedAnswers.length > 0 && <PaginateSet
             handlePageChange={this.handlePageChange}
             fullDataSet={answers.replies}

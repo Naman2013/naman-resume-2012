@@ -36,12 +36,13 @@ const AnswerListItem = (props) => {
   const {
     answer,
     answerReplies,
+    canReplyToAnswers,
     displayedReplies,
-    numberOfRepliesToAnswer,
     fetchingReplies,
-    isTopAnswer,
     isDesktop,
+    isTopAnswer,
     likeParams,
+    numberOfRepliesToAnswer,
     objectId,
     showAllAnswers,
     showAllReplies,
@@ -63,7 +64,7 @@ const AnswerListItem = (props) => {
         toggleComments={toggleAllAnswerReplies}
         likeHandler={likeReply}
         isDesktop={isDesktop}
-        allowReplies={true}
+        allowReplies={canReplyToAnswers}
         renderChildReplies={({
           renderToggle,
         }) => (<AnswerReplyList
@@ -127,6 +128,7 @@ AnswerListItem.propTypes = {
       replyId: number.isRequired,
     })),
   }),
+  canReplyToAnswers: bool.isRequired,
   fetchingReplies: bool,
   isTopAnswer: bool,
   objectId: string.isRequired,

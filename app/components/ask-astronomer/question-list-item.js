@@ -27,7 +27,10 @@ const {
 
 const QuestionListItem = (props) => {
   const {
+    actions,
     answers,
+    canReplyToAnswers,
+    canAnswerQuestions,
     isDesktop,
     displayedAnswers,
     fetching,
@@ -35,7 +38,7 @@ const QuestionListItem = (props) => {
     objectId,
     toggleAllAnswersAndDisplay,
   } = props;
-  console.log('question list item props', props)
+
   const toggleAllAnswers = () => toggleAllAnswersAndDisplay({
     threadId: item.threadId,
     showAllAnswers: !answers.showAllAnswers,
@@ -48,14 +51,16 @@ const QuestionListItem = (props) => {
         toggleComments={toggleAllAnswers}
         likeHandler={likeThread}
         isDesktop={isDesktop}
-        allowReplies={true}
+        allowReplies={canAnswerQuestions}
         renderChildReplies={({
           renderToggle,
         }) => (<AnswerList
-          isDesktop={isDesktop}
           answers={answers}
-          numberOfAnswersToThread={item.replyToponlyCount}
+          canAnswerQuestions={canAnswerQuestions}
+          canReplyToAnswers={canReplyToAnswers}
           displayedAnswers={displayedAnswers}
+          isDesktop={isDesktop}
+          numberOfAnswersToThread={item.replyToponlyCount}
           objectId={objectId}
           threadId={item.threadId}
           topicId={item.topicId}

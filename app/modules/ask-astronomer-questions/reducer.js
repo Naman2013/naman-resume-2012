@@ -8,6 +8,8 @@ import {
 
 const initialState = {
   error: false,
+  canAnswerQuestions: false,
+  canReplyToAnswers: false,
   fetching: false,
   page: 0,
   threadCount: 0,
@@ -25,7 +27,14 @@ export default createReducer(initialState, {
     };
   },
   [FETCH_ASTRONOMER_QUESTIONS_SUCCESS](state, { payload }) {
-    const { threads, threadCount, page, appendToList } = payload;
+    const {
+      threads,
+      threadCount,
+      page,
+      appendToList,
+      canReplyToAnswers,
+      canAnswerQuestions,
+    } = payload;
     const threadList = appendToList ? [].concat(state.threadList, threads) : threads;
 
     return {
@@ -34,6 +43,8 @@ export default createReducer(initialState, {
       threadCount,
       page,
       threadList,
+      canAnswerQuestions,
+      canReplyToAnswers,
     };
   },
   [FETCH_ASTRONOMER_QUESTIONS_FAIL](state) {
@@ -44,6 +55,8 @@ export default createReducer(initialState, {
       threadList: [],
       threadCount: 0,
       page: 0,
+      canAnswerQuestions: false,
+      canReplyToAnswers: false,
     };
   },
 });

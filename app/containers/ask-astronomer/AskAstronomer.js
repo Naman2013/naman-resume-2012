@@ -49,6 +49,8 @@ const mapStateToProps = ({
   page: astronomerQuestions.page,
   totalCount: astronomerQuestions.threadCount,
   count: astronomerQuestions.count,
+  canAnswerQuestions: astronomerQuestions.canAnswerQuestions,
+  canReplyToAnswers: astronomerQuestions.canReplyToAnswers,
   fetchingQuestions: astronomerQuestions.fetching,
   fetchingAnswers: astronomerAnswers.fetchingObj,
   user,
