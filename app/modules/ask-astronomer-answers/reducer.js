@@ -76,7 +76,7 @@ export default createReducer(initialState, {
     };
   },
   [TOGGLE_ALL_ASK_ASTRONOMER_ANSWERS](state, { payload }) {
-    const { threadId, showAllReplies } = payload;
+    const { threadId } = payload;
     const newAllAnswers = cloneDeep(state.allAnswers);
 
     if (newAllAnswers[threadId]) {
@@ -118,7 +118,7 @@ export default createReducer(initialState, {
     if (newAllState[threadId] && newAllState[threadId].replies) {
       newAllState[threadId].replies = newAllState[threadId].replies.map((answer) => {
         if (answer.replyId === replyTo) {
-          answer.replyToponlyCount++;
+          answer.replyToponlyCount += 1;
         }
         return answer;
       });

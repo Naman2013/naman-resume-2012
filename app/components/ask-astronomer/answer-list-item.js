@@ -56,11 +56,14 @@ const AnswerListItem = (props) => {
       {isTopAnswer && <div className="top-answer">Top Answer</div>}
       <DiscussionsCard
         {...props.answer}
+        topicId={topicId}
+        objectId={objectId}
+        threadId={threadId}
         allowReplies={canReplyToAnswers}
         isDesktop={isDesktop}
         likeHandler={likeReply}
         replyTo={answer.replyId}
-        showComments={answer.showAllReplies}
+        showComments={showAllReplies}
         submitReply={submitReply}
         toggleComments={toggleAllAnswerReplies}
         renderChildReplies={() => (<AnswerReplyList

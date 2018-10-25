@@ -63,7 +63,6 @@ export default createReducer(initialState, {
     };
   },
   [SUBMIT_ANSWER_FOR_ASTRONOMER_QUESTION_SUCCESS](state, { payload }) {
-    debugger;
     const { threadList } = state;
     const { threadId } = payload;
     let newThreadList = [].concat(threadList);

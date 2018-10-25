@@ -11,7 +11,7 @@ import {
   REPLY_TO_ASTRONOMER_ANSWER_START,
   REPLY_TO_ASTRONOMER_ANSWER_SUCCESS,
   TOGGLE_ALL_ASK_ASTRONOMER_ANSWER_REPLIES,
-  UPDATE_TOGGLE_ASK_ASTRONOMER_ANSWER_REPLIES_DISPLAY_LIST,
+  UPDATE_ASK_ASTRONOMER_ANSWER_REPLIES_DISPLAY_LIST,
 } from './actions';
 
 const initialState = {
@@ -35,23 +35,22 @@ export default createReducer(initialState, {
     };
   },
   [FETCH_ASTRONOMER_ANSWER_REPLIES_SUCCESS](state, { payload }) {
-    const { replies, replyTo, resultsCount, showOnlyTopReply } = payload;
+    const { replies, replyTo, resultsCount, showAllReplies } = payload;
     const newAllReplies = cloneDeep(state.allReplies);
     const newAllDisplayedReplies = cloneDeep(state.allDisplayedReplies);
     const newFetching = cloneDeep(state.fetchingObj);
     newAllReplies[replyTo] = {
       replies,
-      showAllReplies: false,
+      showAllReplies,
       page: 1,
     };
     newAllDisplayedReplies[replyTo] = (replies && replies.length > 0) ?
-      (showOnlyTopReply ?
-        [replies[0].replyId] :
-        take(replies, state.paginationCount)
-          .map(reply => reply.replyId)) :
-        [];
+      take(replies, state.paginationCount)
+        .map(reply => reply.replyId) :
+      [];
 
     newFetching[replyTo] = false;
+
     return {
       ...state,
       fetchingObj: newFetching,
@@ -73,7 +72,19 @@ export default createReducer(initialState, {
       resultsCount: 0,
     };
   },
-  [UPDATE_TOGGLE_ASK_ASTRONOMER_ANSWER_REPLIES_DISPLAY_LIST](state, { payload }) {
+  [TOGGLE_ALL_ASK_ASTRONOMER_ANSWER_REPLIES](state, { payload }) {
+    const { replyId, showAllReplies } = payload;
+    const newAllReplies = cloneDeep(state.allReplies);
+
+    if (newAllReplies[replyId]) {
+      newAllReplies[replyId].showAllReplies = showAllReplies;
+    }
+    return {
+      ...state,
+      allReplies: newAllReplies,
+    };
+  },
+  [UPDATE_ASK_ASTRONOMER_ANSWER_REPLIES_DISPLAY_LIST](state, { payload }) {
     const {
       page,
       replyId,

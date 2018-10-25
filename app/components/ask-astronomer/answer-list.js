@@ -148,8 +148,8 @@ class AnswerList extends Component {
               );
             const toggleAllAnswerReplies = () => actions.toggleAllAnswerRepliesAndDisplay({
               threadId,
-              replyTo: answer.replyId,
-              showAllReplies: !answer.showAllReplies,
+              replyId: answer.replyId,
+              showAllReplies: !answerReplies.showAllReplies,
             });
 
             return (<AnswerListItem
@@ -164,7 +164,7 @@ class AnswerList extends Component {
               likeParams={likeParams}
               numberOfRepliesToAnswer={answer.replyToponlyCount}
               objectId={objectId}
-              showAllReplies={answer.showAllReplies}
+              showAllReplies={answerReplies.showAllReplies}
               submitReply={this.submitReply}
               threadId={threadId}
               toggleAllAnswerReplies={toggleAllAnswerReplies}

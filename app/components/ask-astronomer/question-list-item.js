@@ -47,6 +47,7 @@ const QuestionListItem = (props) => {
     return (<div className="shadowed-container margin" key={uniqueId}>
       <DiscussionsCard
         {...props.item}
+        objectId={objectId}
         showComments={answers.showAllAnswers}
         replyTo={item.threadId}
         toggleComments={toggleAllAnswers}

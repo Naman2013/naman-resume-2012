@@ -75,7 +75,10 @@ class ReplyForm extends Component {
       token: user.token,
       cid: user.cid,
       callSource,
-    }, (data) => this.handleSubmitReply(data, callback));
+    }, (data) => {
+      debugger;
+      return this.handleSubmitReply(data, callback)
+    });
   }
 
   handleSubmitReply = (data, callback) => {
