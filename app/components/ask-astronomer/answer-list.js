@@ -122,13 +122,14 @@ class AnswerList extends Component {
       paginationCount,
       threadId,
       topicId,
+      user,
     } = this.props;
     const { showAllAnswers } = answers;
     const count = showAllAnswers ? paginationCount : 1;
     return (<div key={threadId}>
       {numberOfAnswersToThread > 0 ? <div className="replies-list-contanier">
         <div className="num-replies">
-          <span className="replies-number">Replies: {numberOfAnswersToThread}</span>
+          <span className="replies-number">Answers: {numberOfAnswersToThread}</span>
         </div>
         <div className="replies-list">
           {displayedAnswers.map((answer) => {
@@ -169,6 +170,7 @@ class AnswerList extends Component {
               threadId={threadId}
               toggleAllAnswerReplies={toggleAllAnswerReplies}
               topicId={topicId}
+              user={user}
             />);
           })}
           {showAllAnswers && displayedAnswers.length > 0 && <PaginateSet

@@ -7,7 +7,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { likeReply } from '../../services/discussions/like';
-import DiscussionsCard from 'components/common/DiscussionsCard';
+import Card from 'components/ask-astronomer/Card';
 import { secondaryFont } from '../../styles/variables/fonts';
 const {
   arrayOf,
@@ -27,12 +27,14 @@ const ReplyListItem = (props) => {
   } = props;
   return (
     <div className="reply" key={reply.replyId}>
-      <DiscussionsCard
+      <Card
         {...reply}
         replyTo={reply.replyId}
         likeHandler={likeReply}
         isDesktop={props.isDesktop}
         allowReplies={false}
+        user={user}
+        commentText="Replies"
       />
 
       <style jsx>{`

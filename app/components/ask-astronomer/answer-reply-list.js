@@ -133,6 +133,7 @@ class AnswerReplyList extends Component {
               isDesktop={isDesktop}
               likeParams={likeParams}
               reply={reply}
+              user={user}
             />)
           })}
         </div>

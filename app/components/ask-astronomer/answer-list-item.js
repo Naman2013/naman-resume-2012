@@ -10,7 +10,7 @@ import moment from 'moment';
 import { likeReply } from '../../services/discussions/like';
 import Heart from '../common/heart/heart';
 import noop from 'lodash/noop';
-import DiscussionsCard from 'components/common/DiscussionsCard';
+import Card from 'components/ask-astronomer/Card';
 import GenericButton from '../common/style/buttons/Button';
 import LikeButton from '../common/style/buttons/LikeButton';
 import CommentButton from '../common/style/buttons/CommentButton';
@@ -49,12 +49,13 @@ const AnswerListItem = (props) => {
     threadId,
     toggleAllAnswerReplies,
     topicId,
+    user,
   } = props;
 
   return (
     <div className="answer-list-item">
       {isTopAnswer && <div className="top-answer">Top Answer</div>}
-      <DiscussionsCard
+      <Card
         {...props.answer}
         topicId={topicId}
         objectId={objectId}
@@ -65,6 +66,7 @@ const AnswerListItem = (props) => {
         replyTo={answer.replyId}
         showComments={showAllReplies}
         submitReply={submitReply}
+        user={user}
         toggleComments={toggleAllAnswerReplies}
         renderChildReplies={() => (<AnswerReplyList
           answerReplies={answerReplies}
