@@ -38,7 +38,7 @@ const WeeklyForecast = () => (
     </div>
 
     <div className="active-weather-condition-summary">
-      <h4 className="active-weather-title">Sunday, Jan 06, 2018</h4>
+      <h4 className="title">Sunday, Jan 06, 2018</h4>
       <ul className="weather-stats">
         <li className="weather-stat">Precipitation: 80%</li>
         <li className="weather-stat">Humidity: 62%</li>
@@ -47,8 +47,9 @@ const WeeklyForecast = () => (
     </div>
 
     <div className="condition-summary">
-      <h4 className="condition-title">Level 3</h4>
-      <p className="condition-summary">Almost continuous distortion with occasional brief good moments.</p>
+      <h4 className="title">Estimated seeing conditions</h4>
+      <h5 className="secondary-title">Level 3</h5>
+      <p className="condition-summary-content">Almost continuous distortion with occasional brief good moments.</p>
     </div>
     <style jsx>{style}</style>
   </ModuleContainer>
