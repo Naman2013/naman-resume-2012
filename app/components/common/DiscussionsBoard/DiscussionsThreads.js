@@ -209,7 +209,6 @@ class DiscussionsThreads extends Component {
             threadId: thread.threadId,
             topicId,
           };
-
           return (<DiscussionsItem
             {...thread}
             validateResponseAccess={validateResponseAccess}

@@ -26,7 +26,7 @@ const {
 } = PropTypes;
 
 
-class ReplyButton extends Component {
+class SubmitAnswerButton extends Component {
   static defaultProps = {
     avatarURL: '',
     replyTo: null,
@@ -41,7 +41,7 @@ class ReplyButton extends Component {
   }
   static propTypes = {
     avatarURL: string,
-    submitReply: func.isRequired,
+    submitForm: func.isRequired,
     replyButtonText: string,
     callSource: string,
     threadId: oneOfType([number, string]).isRequired,
@@ -60,7 +60,7 @@ class ReplyButton extends Component {
     modalActions.setModal({
       promptComponent: (<SubmitAnswerForm
         modalActions={modalActions}
-        submitReply={this.submitReply}
+        submitForm={this.submitForm}
         user={user}
         authorInfo={authorInfo}
         freshness={freshness}
@@ -76,14 +76,14 @@ class ReplyButton extends Component {
     const {
       callSource,
       replyTo,
-      submitReply,
+      submitForm,
       threadId,
       forumId,
       topicId,
       user,
     } = this.props;
 
-    submitReply({
+    submitForm({
       content,
       S3URLs,
       threadId,
@@ -121,15 +121,9 @@ class ReplyButton extends Component {
     return (
       <div className="reply-form-container">
         <Button text="Submit an Answer" onClickEvent={this.setAnswerModal} />
-        <RevealSubmitForm
-          {...this.props}
-          submitForm={this.submitForm}
-          placeholder="Write a public comment"
-          revealButtonRender={btnProps => <Button text={replyButtonText} onClickEvent={btnProps.displayForm} />}
-        />
       </div>
     );
   }
 }
 
-export default ReplyButton;
+export default SubmitAnswerButton;

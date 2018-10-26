@@ -30,7 +30,7 @@ const SubmitAnswerFeedbackModal = (props) => {
   return (
     <form className="root">
       <div className="title">Ask an Astronomer</div>
-      <div className="prompt-text" dangerouslySetInnerHTML={{ message }}/>
+      <div className="prompt-text" dangerouslySetInnerHTML={{ __html: message }}/>
       <div className="actions">
         <Button onClickEvent={modalActions.closeModal} text="Done" />
       </div>
@@ -49,7 +49,7 @@ SubmitAnswerFeedbackModal.propTypes = {
 };
 
 SubmitAnswerFeedbackModal.defaultProps = {
-
+  message: '',
 };
 
 export default SubmitAnswerFeedbackModal;

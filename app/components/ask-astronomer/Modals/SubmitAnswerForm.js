@@ -11,6 +11,7 @@ import Button from 'components/common/style/buttons/Button';
 import PhotoUploadButton from 'components/common/style/buttons/PhotoUploadButton';
 import deletePostImage from 'services/post-creation/delete-post-image';
 import setPostImages from 'modules/set-post-images';
+import { prepareReply } from 'services/discussions/prepare-reply';
 import styles from './Modals.style'
 
 const {
@@ -37,17 +38,35 @@ class SubmitAnswerFeedbackModal extends Component {
     }).isRequired,
     freshness: string.isRequired,
     content: string.isRequired,
+    submitReply: func.isRequired,
   };
 
   static defaultProps = {
 
   };
 
-  state = {
-    answerText: ''
+
+
+  constructor(props) {
+    super(props);
+    const { user } = props;
+    this.state = {
+      answerText: '',
+      S3URLs: [],
+      uuid: '',
+    }
+    prepareReply({
+      at: user.at,
+      token: user.token,
+      cid: user.cid
+    }).then((res) => {
+      this.setState(() => ({
+        uuid: res.data.postUUID,
+      }));
+    })
   }
 
-  onChangeAnswerText = () => {
+  onChangeAnswerText = (e) => {
     e.preventDefault();
     this.setState({
       answerText: e.target.value,
@@ -58,7 +77,7 @@ class SubmitAnswerFeedbackModal extends Component {
     event.preventDefault();
 
     const { cid, token, at } = this.props.user;
-    const { uuid } = this.props;
+    const { uuid } = this.state;
     const data = new FormData();
     data.append('cid', cid);
     data.append('token', token);
@@ -80,18 +99,28 @@ class SubmitAnswerFeedbackModal extends Component {
       }));
   }
 
+  submitForm = (e) => {
+    e.preventDefault();
+    const {
+      answerText,
+      S3URLs,
+    } = this.state;
+
+    this.props.submitForm(answerText, S3URLs);
+  }
+
   handleDeleteImage = (imageURL) => {
     if (!imageURL) { return; }
 
     const { cid, token, at } = this.props.user;
-    const { uuid, imageClass } = this.props;
+    const { uuid } = this.state;
 
     deletePostImage({
       cid,
       token,
       at,
       uniqueId: uuid,
-      imageClass,
+      imageClass: 'discussion',
       imageURL,
     }).then(result => this.handleUploadImageResponse(result.data));
   }
@@ -134,7 +163,7 @@ class SubmitAnswerFeedbackModal extends Component {
           <textarea
             className="field-input"
             value={answerText}
-            onChange={this.onChangeRequestForm}
+            onChange={this.onChangeAnswerText}
             placeholder="Write your answer"
           />
         </div>
@@ -144,7 +173,7 @@ class SubmitAnswerFeedbackModal extends Component {
           </div>
           <div className="actions">
             <Button onClickEvent={modalActions.closeModal} text="Cancel" theme={{ height: '40px' }} />
-            <Button onClickEvent={submitReply} text="Submit" theme={{ height: '40px' }} />
+            <Button onClickEvent={this.submitForm} text="Submit" theme={{ height: '40px' }} />
           </div>
         </div>
         <style jsx>{styles}</style>

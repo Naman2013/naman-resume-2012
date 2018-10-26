@@ -234,17 +234,9 @@ class AskAstronomer extends Component {
                     screenMedium
                   >
                     <div className="ask-tablet-header">
-                      
+
                     </div>
                   </DisplayAtBreakpoint>
-                  <AskAstronomerQuestionForm
-                    open={showPrompt}
-                    hideModal={this.closeModal}
-                    objectId={objectId}
-                    topicId={faqTopicId}
-                    objectTitle={objectTitle}
-                    user={user}
-                  />
                   <ResponsiveTwoColumnContainer
                     renderNavigationComponent={navProps =>
                       (<TwoTabbedNav
