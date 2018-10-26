@@ -124,8 +124,11 @@ import ObjectDetails from './pages/object-details/ObjectDetails';
 import QuestDetails from './pages/quest-details/QuestDetails';
 import UserPrivateProfile from './pages/profiles/private-profile';
 import UserPublicProfile from './pages/profiles/public-profile';
+
 import CommunityGroupOverview from './pages/community-groups/GroupOverview';
 import GroupOverviewInfo from './pages/community-groups/GroupOverviewInfo';
+import GroupCreate from './pages/community-groups/GroupCreate';
+
 import ImageDetails from './pages/image-details';
 import Show from './pages/show';
 import StoryDetails from './containers/story-details';
@@ -343,6 +346,7 @@ ReactDOM.render(
         <Route path="profile/private" component={UserPrivateProfile} onEnter={validateUser} />
         <Route path="profile/public/:cid" component={UserPublicProfile} onEnter={validateUser} />
 
+        <Route path="groups/create" component={GroupCreate} onEnter={validateUser} />
         <Route path="groups(/:filterType)" component={GroupsHub} onEnter={validateUser} />
 
         <Route path="community-groups/:groupId" onEnter={validateUser} component={CommunityGroupOverview} />
