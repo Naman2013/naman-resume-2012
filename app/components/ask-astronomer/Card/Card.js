@@ -12,7 +12,6 @@ import noop from 'lodash/noop';
 import moment from 'moment';
 import CommentButton from 'components/common/style/buttons/CommentButton';
 import LikeSomethingButton from 'components/common/LikeSomethingButton';
-import ReplyButton from 'components/ask-astronomer/ReplyButton';
 import Button from 'components/common/style/buttons/Button';
 import ViewImagesButton from 'components/common/style/buttons/ViewImagesButton';
 import styles, { profPic } from './Card.style'
@@ -44,14 +43,12 @@ const Card = (props) => {
     likesCount,
     modalActions,
     renderChildReplies,
-    replyButtonText,
+    renderReplyButton,
     replyToponlyCount,
-    replyTo,
     S3Files,
     toggleComments,
     showComments,
     showLikePrompt,
-    submitReply,
     title,
     user,
   } = props;
@@ -67,7 +64,7 @@ const Card = (props) => {
           <span className="date">{moment(creationDate).fromNow()}</span>
         </div>
 
-        <div className="content" dangerouslySetInnerHTML={{ __html: title || content }} />
+        <div className="content" dangerouslySetInnerHTML={{ __html: content }} />
         <div className="explainantion-container">
           <div className="explainantion-item">{moment(creationDate).fromNow()}</div>
           <div className="explainantion-item">{`Likes: ${likesCount} `}  {allowReplies ? <span>&nbsp;{`${commentText}: ${replyToponlyCount}`}</span> : null}</div>
@@ -92,12 +89,7 @@ const Card = (props) => {
             {S3Files.length > 0 ? <ViewImagesButton images={S3Files} /> : null}
           </div>
           <div className="action-right">
-            {allowReplies ? <ReplyButton
-              {...props}
-              replyTo={replyTo}
-              submitForm={submitReply}
-              replyButtonText={replyButtonText}
-            /> : null }
+            {allowReplies ? renderReplyButton() : null }
 
           </div>
         </div>
@@ -134,9 +126,8 @@ Card.propTypes = {
   likePrompt: string.isRequired,
   likesCount: number.isRequired,
   replyToponlyCount: number.isRequired,
+  renderReplyButton: func,
   S3Files: arrayOf(string),
-  submitReply: func,
-  replyButtonText: string,
   showLikePrompt: bool.isRequired,
   renderChildReplies: func,
 };
@@ -150,9 +141,8 @@ Card.defaultProps = {
     showModal: noop,
   },
   S3Files: [],
-  replyButtonText: 'Submit an Answer',
+  renderReplyButton: null,
   renderChildReplies: null,
-  submitReply: null,
 };
 
 export default Card;

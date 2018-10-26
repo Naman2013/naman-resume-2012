@@ -24,7 +24,7 @@ const {
 } = PropTypes;
 
 
-class ReplyButton extends Component {
+class SubmitButtonQues extends Component {
   static defaultProps = {
     avatarURL: '',
     replyTo: null,
@@ -110,4 +110,4 @@ class ReplyButton extends Component {
   }
 }
 
-export default ReplyButton;
+export default SubmitButtonQues;

@@ -15,7 +15,7 @@ import GenericButton from '../common/style/buttons/Button';
 import LikeButton from '../common/style/buttons/LikeButton';
 import CommentButton from '../common/style/buttons/CommentButton';
 import AnswerReplyList from './answer-reply-list';
-
+import SubmitAnswerButton from 'components/ask-astronomer/SubmitAnswerButton';
 import { avatarImgStyle } from './styles';
 import { black, darkBlueGray, white, turqoise } from '../../styles/variables/colors';
 import { secondaryFont } from '../../styles/variables/fonts';
@@ -65,13 +65,19 @@ const AnswerListItem = (props) => {
         isDesktop={isDesktop}
         likeHandler={likeReply}
         modalActions={modalActions}
-        replyTo={answer.replyId}
-        replyButtonText="Reply"
         commentText="Replies"
         showComments={showAllReplies}
         submitReply={submitReply}
         user={user}
         toggleComments={toggleAllAnswerReplies}
+        renderReplyButton={() => (<SubmitAnswerButton
+          {...props.answer}
+          replyTo={answer.replyId}
+          submitForm={submitReply}
+          modalActions={modalActions}
+          replyButtonText="Reply"
+          user={user}
+        />)}
         renderChildReplies={() => (<AnswerReplyList
           answerReplies={answerReplies}
           numberOfRepliesToAnswer={numberOfRepliesToAnswer}

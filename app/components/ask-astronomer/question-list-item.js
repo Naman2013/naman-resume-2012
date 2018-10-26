@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import noop from 'lodash/noop';
 import uniqueId from 'lodash/uniqueId';
+import SubmitAnswerButton from 'components/ask-astronomer/SubmitAnswerButton';
 import { likeThread } from 'services/discussions/like';
 import Card from 'components/ask-astronomer/Card';
 import AnswerList from './answer-list';
@@ -40,6 +41,7 @@ const QuestionListItem = (props) => {
     objectId,
     submitAnswer,
     toggleAllAnswersAndDisplay,
+    user,
   } = props;
 
   const toggleAllAnswers = () => toggleAllAnswersAndDisplay({
@@ -51,14 +53,19 @@ const QuestionListItem = (props) => {
         {...props.item}
         objectId={objectId}
         showComments={answers.showAllAnswers}
-        replyTo={item.threadId}
         toggleComments={toggleAllAnswers}
         likeHandler={likeThread}
         isDesktop={isDesktop}
+        user={user}
         allowReplies={canAnswerQuestions}
-        submitReply={submitAnswer}
+        renderReplyButton={() => (<SubmitAnswerButton
+          {...props.item}
+          replyTo={item.threadId}
+          submitForm={submitAnswer}
+          modalActions={modalActions}
+          user={user}
+        />)}
         commentText="Answers"
-        replyButtonText="Submit an Answer"
         modalActions={modalActions}
         renderChildReplies={() => (<AnswerList
           answers={answers}

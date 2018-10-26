@@ -31,6 +31,7 @@ const MainContainer = ({
   questions,
   submitAnswer,
   totalCount,
+  user={user}
 }) => (
   <div>
     {fetchingQuestions && <div className="fa fa-spinner loader" />}
@@ -51,6 +52,7 @@ const MainContainer = ({
       toggleAllAnswersAndDisplay={actions.toggleAllAnswersAndDisplay}
       totalCount={totalCount}
       modalActions={modalActions}
+      user={user}
     />}
     <style jsx>{styles}</style>
   </div>

@@ -10,6 +10,8 @@ import Button from 'components/common/style/buttons/Button';
 import RevealSubmitForm from 'components/common/RevealSubmitForm';
 import { romance, astronaut, shadows } from 'styles/variables/colors_tiles_v4';
 import { dropShadowContainer } from 'styles/mixins/utilities';
+import SubmitAnswerFeedbackModal from './Modals/SubmitAnswerFeedbackModal';
+import SubmitAnswerForm from './Modals/SubmitAnswerForm';
 import { customModalStylesBlackOverlay } from 'styles/mixins/utilities';
 
 const {
@@ -53,8 +55,24 @@ class ReplyButton extends Component {
     }),
   }
 
+  setAnswerModal = () => {
+    const { modalActions, user, authorInfo, freshness, content } = this.props;
+    modalActions.setModal({
+      promptComponent: (<SubmitAnswerForm
+        modalActions={modalActions}
+        submitReply={this.submitReply}
+        user={user}
+        authorInfo={authorInfo}
+        freshness={freshness}
+        content={content}
+      />),
+      promptStyles: customModalStylesBlackOverlay,
+    })
+    modalActions.showModal();
+  }
 
-  submitForm = (content, S3URLs, callback) => {
+
+  submitForm = (content, S3URLs) => {
     const {
       callSource,
       replyTo,
@@ -76,15 +94,17 @@ class ReplyButton extends Component {
       token: user.token,
       cid: user.cid,
       callSource,
-    }, (data) => this.handleSubmitReply(data, callback));
+    }, (data) => this.handleSubmitReply(data));
   }
 
   handleSubmitReply = (data) => {
     // set the AskAstronomer.js [parent] modal to say a success or error message
     const { modalActions } = this.props;
-    console.log('data', data)
+    const message = data.apiError ? `Error!
+    <p>There was an issue submitting your reply.</p>` : `Success!
+    <p>You answer has been submitted!</p>`;
     modalActions.setModal({
-      promptComponent: <div>testing 1 2 3</div>,
+      promptComponent: <SubmitAnswerFeedbackModal modalActions={modalActions} message={message} />,
       promptStyles: customModalStylesBlackOverlay,
     })
   }
@@ -95,10 +115,12 @@ class ReplyButton extends Component {
       isDesktop,
       user,
       replyButtonText,
+      modalActions,
     } = this.props;
 
     return (
       <div className="reply-form-container">
+        <Button text="Submit an Answer" onClickEvent={this.setAnswerModal} />
         <RevealSubmitForm
           {...this.props}
           submitForm={this.submitForm}

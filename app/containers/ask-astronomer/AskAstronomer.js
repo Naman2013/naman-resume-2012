@@ -148,15 +148,15 @@ class AskAstronomer extends Component {
 
 
   showModal = () => {
-    this.setState({
+    this.setState(() => ({
       showPrompt: true,
-    });
+    }));
   }
 
   closeModal = () => {
-    this.setState({
+    this.setState(() => ({
       showPrompt: false,
-    });
+    }));
   }
 
   setModal = ({ promptComponent, promptStyles }) => {
@@ -192,10 +192,10 @@ class AskAstronomer extends Component {
     const likeParams = {};
     const {
       setModal,
-      openModal,
+      showModal,
       closeModal,
     } = this;
-    const modalActions = { setModal, openModal, closeModal};
+    const modalActions = { setModal, showModal, closeModal};
 
     return (
       <Fragment>
@@ -234,7 +234,7 @@ class AskAstronomer extends Component {
                     screenMedium
                   >
                     <div className="ask-tablet-header">
-                      <AskQuestionTile showModal={this.showModal} />
+                      
                     </div>
                   </DisplayAtBreakpoint>
                   <AskAstronomerQuestionForm

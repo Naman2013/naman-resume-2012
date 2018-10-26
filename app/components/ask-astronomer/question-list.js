@@ -33,6 +33,7 @@ const QuestionList = ({
   questions,
   submitAnswer,
   toggleAllAnswersAndDisplay,
+  user,
   totalCount,
 }) => (
   <div>
@@ -51,6 +52,7 @@ const QuestionList = ({
           fetching={fetchingAnswers[item.threadId]}
           isDesktop={isDesktop}
           item={item}
+          user={user}
           key={item.threadId}
           objectId={objectId}
           submitAnswer={submitAnswer}
