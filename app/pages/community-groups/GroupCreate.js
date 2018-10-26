@@ -20,7 +20,7 @@ import { validateResponseAccess } from 'modules/authorization/actions'
 import { customModalStylesBlackOverlay } from 'styles/mixins/utilities';
 import { requestGroup } from 'services/community-groups/request-group';
 import { browserHistory } from 'react-router';
-import style from './groups-hub.style';
+import style from '../../containers/groups-hub/groups-hub.style';
 
 const COUNT = 9;
 const DEFAULT_PAGE = 1;
@@ -34,19 +34,21 @@ const groupsHubModel = {
   }),
 };
 
-class Groups extends Component {
+class GroupCreate extends Component {
   static propTypes = {
     validateResponseAccess: PropTypes.func,
     params: PropTypes.shape({
       filterType: PropTypes.string,
     }),
+    isCreateMode: PropTypes.bool,
   };
 
   static defaultProps = {
     validateResponseAccess: noop,
     params: {
-      filterType: 'all'
+      filterType: 'owner'
     },
+    isCreateMode: true,
   };
 
   state = {
@@ -176,7 +178,7 @@ class Groups extends Component {
       <Request
         serviceURL={GROUPS_PAGE_ENDPOINT_URL}
         model={groupsHubModel}
-        requestBody={{ currentGroupSet: this.props.params.filterType }}
+        requestBody={{ currentGroupSet: 'owner' }}
         serviceResponseHandler={this.handlePageServiceResponse}
         render={({
           fetchingContent,
@@ -208,25 +210,22 @@ class Groups extends Component {
                       appendToList={this.appendToGroupsList}
                       iconURL={serviceResponse.pageIconURL}
                       pageTitle={serviceResponse.pageTitle}
-                      filterType={this.props.params.filterType}
+                      filterType='owner'
                       render={() => (
                         <Fragment>
-                          {fetchingContent ? <div>Loading</div> : null}
-                          {serviceResponse.canCreateNewClubs && <div>
-                              <Button text={serviceResponse.createNewClubButtonText} onClickEvent={this.createClub} />
+                          {!fetchingContent && <div style={{'width': '400px', 'marginLeft': 'auto', 'marginRight': 'auto'}}>
+                              ...create a request object club create page-level API call with form fields, etc.....<br/>
+                              <br/>
+                              <h1>Create new Club</h1>
+                              <br/>
+                              <br/>
+                              Classroom Name:<br/>
+                              Classroom Description:<br/>
+                              <br/>
+                              <br/>
+                              <br/>
                           </div>}
-                          {!fetchingContent && groups && groups.length ?
-                            <GroupTiles
-                              closeModal={this.closeModal}
-                              updateGroupItemInfo={this.updateGroupItemInfo}
-                              updatePrompt={this.updatePrompt}
-                              groups={groups}
-                              isMobile={context.isMobile}
-                            /> :
-                            <div>
-                              There are no groups.
-                            </div>}
-                        </Fragment>
+                      </Fragment>
                       )}
                     />
                   )}
@@ -264,4 +263,4 @@ const mapDispatchToProps = dispatch => ({
   }, dispatch),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Groups);
+export default connect(mapStateToProps, mapDispatchToProps)(GroupCreate);
