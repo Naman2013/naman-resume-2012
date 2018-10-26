@@ -19,12 +19,13 @@ import {
   toggleAllAnswersAndDisplay,
   submitAnswerToQuestion,
 } from 'modules/ask-astronomer-answers/actions';
-import AskAstronomerQuestionForm from 'components/ask-astronomer/AskQuestionForm';
+import AskQuestionTile from 'components/ask-astronomer/AskQuestionTile';
 import ObjectDetailsSectionTitle from 'components/object-details/ObjectDetailsSectionTitle';
 import CenterColumn from 'components/common/CenterColumn';
+import { createThread } from 'services/discussions/create-thread';
 import MainContainer from './partials/MainContainer';
-import AskQuestionTile from 'components/ask-astronomer/AskQuestionTile';
 import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
+import { getAskAnAstronomer } from 'services/objects/ask-astronomer';
 import AsideContainer from './partials/AsideContainer';
 import { customModalStylesV4 } from 'styles/mixins/utilities';
 import style from './AskAstronomer.style';
@@ -99,10 +100,29 @@ class AskAstronomer extends Component {
     objectId: '',
   }
 
-  state = {
-    showPrompt: false,
-    promptComponent: null,
-    promptStyles: customModalStylesV4,
+  constructor(props) {
+    super();
+
+    const {
+      params: {
+        objectId,
+      },
+    } = props;
+
+    this.state = {
+      showPrompt: false,
+      promptComponent: null,
+      promptStyles: customModalStylesV4,
+      aaaQuestionPrompt: {},
+    }
+
+    getAskAnAstronomer({
+      objectId: objectId
+    }).then((res) => {
+      this.setState(() => ({
+        aaaQuestionPrompt: res.data,
+      }));
+    })
   }
 
   componentWillReceiveProps(nextProps) {
@@ -146,6 +166,10 @@ class AskAstronomer extends Component {
     actions.submitAnswerToQuestion(params).then(res => callback(res.payload));
   }
 
+  submitQuestion = (params, callback) => {
+    const { actions } = this.props;
+    createThread(params).then(res => callback(res.data));
+  }
 
   showModal = () => {
     this.setState(() => ({
@@ -188,7 +212,7 @@ class AskAstronomer extends Component {
       objectSpecialists,
     } = this.props;
 
-    const { showPrompt, promptComponent, promptStyles } = this.state;
+    const { showPrompt, promptComponent, promptStyles, aaaQuestionPrompt } = this.state;
     const likeParams = {};
     const {
       setModal,
@@ -234,7 +258,13 @@ class AskAstronomer extends Component {
                     screenMedium
                   >
                     <div className="ask-tablet-header">
-
+                      <AskQuestionTile
+                        modalActions={modalActions}
+                        objectId={objectId}
+                        user={user}
+                        submitQuestion={this.submitQuestion}
+                        {...aaaQuestionPrompt}
+                      />
                     </div>
                   </DisplayAtBreakpoint>
                   <ResponsiveTwoColumnContainer
@@ -254,6 +284,10 @@ class AskAstronomer extends Component {
                           {...this.props}
                           {...context}
                           modalActions={modalActions}
+                          objectId={objectId}
+                          user={user}
+                          submitQuestion={this.submitQuestion}
+                          aaaQuestionPrompt={aaaQuestionPrompt}
                         />
                       </div>
                     )}

@@ -56,7 +56,13 @@ class SubmitAnswerButton extends Component {
   }
 
   setAnswerModal = () => {
-    const { modalActions, user, authorInfo, freshness, content } = this.props;
+    const {
+      modalActions,
+      user,
+      authorInfo,
+      freshness,
+      content,
+    } = this.props;
     modalActions.setModal({
       promptComponent: (<SubmitAnswerForm
         modalActions={modalActions}

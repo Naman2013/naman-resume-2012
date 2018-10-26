@@ -28,21 +28,22 @@ const SubmitQuestionFeedback = (props) => {
     modalActions,
     promptText,
     requestQuestion,
+    title,
+    doneButtonLabel,
+    continueButtonLabel,
   } = props;
 
   return (
-    <div className="root" key={uniqueId()}>
-      <form className="root">
-        <div className="title">Ask an Astronomer</div>
-        <div className="prompt-text" dangerouslySetInnerHTML={{ __html: promptText}} />
-        <div className="actions">
-          <Button onClickEvent={modalActions.closeModal} text="Done" />
-          <Button onClickEvent={requestQuestion} text="Ask Another Question" />
-        </div>
-        <style jsx>{styles}</style>
-      </form>
+    <form className="root">
+      <div className="title" dangerouslySetInnerHTML={{ __html: title}} />
+      <div className="prompt-text" dangerouslySetInnerHTML={{ __html: promptText}} />
+      <div className="actions">
+        <Button onClickEvent={modalActions.closeModal} text={doneButtonLabel} />
+        <Button onClickEvent={requestQuestion} text={continueButtonLabel} />
+      </div>
       <style jsx>{styles}</style>
-    </div>
+    </form>
+
   );
 };
 

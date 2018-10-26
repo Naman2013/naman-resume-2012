@@ -19,6 +19,10 @@ const {
 const AsideContainer = ({
   modalActions,
   objectSpecialists,
+  objectId,
+  aaaQuestionPrompt,
+  user,
+  submitQuestion,
 }) => (
   <div>
     <DisplayAtBreakpoint
@@ -26,7 +30,13 @@ const AsideContainer = ({
       screenLarge
       screenXLarge
     >
-      <AskQuestionTile showModal={modalActions.showModal} />
+      <AskQuestionTile
+        modalActions={modalActions}
+        objectId={objectId}
+        user={user}
+        submitQuestion={submitQuestion}
+        {...aaaQuestionPrompt}
+      />
     </DisplayAtBreakpoint>
     <div className="mvp">
       <div className="mvp-header">

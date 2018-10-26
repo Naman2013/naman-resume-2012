@@ -1,35 +1,106 @@
 import React, { Fragment, Component } from 'react';
 import PropTypes from 'prop-types';
 import noop from 'lodash/noop';
-import GenericButton from '../../components/common/style/buttons/Button';
+import GenericButton from 'components/common/style/buttons/Button';
+import { customModalStylesBlackOverlay } from 'styles/mixins/utilities';
+import SubmitQuestionForm from './Modals/SubmitQuestionForm';
+import SubmitQuestionFeedbackModal from './Modals/SubmitQuestionFeedbackModal';
 import style from './AskQuestionTile.style';
 
 const {
   func,
+  shape,
 } = PropTypes;
 
 class AskQuestionTile extends Component {
   static propTypes = {
-    showModal: func,
+    modalActions: shape({
+      closeModal: func,
+      setModal: func,
+      showModal: func,
+    }).isRequired,
   }
 
   static defaultProps = {
-    showModal: noop,
   }
 
   state = {
 
   };
+
+  setAskQuestionModal = () => {
+    const {
+      modalActions,
+      user,
+      askQuestionInfo
+    } = this.props;
+    modalActions.setModal({
+      promptComponent: (<SubmitQuestionForm
+        modalActions={modalActions}
+        submitForm={this.submitForm}
+        user={user}
+        {...askQuestionInfo}
+
+      />),
+      promptStyles: customModalStylesBlackOverlay,
+    })
+    modalActions.showModal();
+  }
+
+  submitForm = (content, S3URLs) => {
+    const {
+      submitQuestion,
+      askQuestionInfo: { topicId, objectId },
+      user,
+    } = this.props;
+
+    submitQuestion({
+      content,
+      S3URLs,
+      objectId,
+      topicId,
+      at: user.at,
+      token: user.token,
+      cid: user.cid,
+      callSource: 'qanda',
+    }, (data) => this.handleSubmitReply(data));
+  }
+
+  handleSubmitReply = (data) => {
+    // set the AskAstronomer.js [parent] modal to say a success or error message
+    const { modalActions } = this.props;
+    const message = `${data.responseLabel}
+    <p>${data.responseText}</p>`;
+    modalActions.setModal({
+      promptComponent: <SubmitQuestionFeedbackModal
+        title={data.title}
+        doneButtonLabel={data.doneButtonLabel}
+        continueButtonLabel={data.continueButtonLabel}
+        modalActions={modalActions}
+        message={message}
+      />,
+      promptStyles: customModalStylesBlackOverlay,
+    })
+  }
+
+
   render() {
-    const { showModal } = this.props;
+    const {
+      askPrompt,
+      infoText,
+      modalActions,
+      promptIconUrl,
+      subTitle,
+      title,
+    } = this.props;
     return (
       <Fragment>
         <div className="ask-question-tile">
           <div className="ask-question-text">
-            <span className="dek">Have a Question?</span>
-            <h2>Ask an Astronomer!</h2>
-            <p>Nam dapibus nisl vitae elitem fringilla rutrum. Aenean lener elementum rutrum.</p>
-            <GenericButton onClickEvent={showModal} text="SUBMIT A QUESTION" icon="https://vega.slooh.com/assets/v4/common/plus_icon.svg" />
+            <span className="dek" dangerouslySetInnerHTML={{ __html: title }} />
+            <h2 dangerouslySetInnerHTML={{ __html: subTitle }} />
+            <p dangerouslySetInnerHTML={{ __html: infoText }} />
+            <GenericButton onClickEvent={this.setAskQuestionModal} text={askPrompt} icon={promptIconUrl} />
           </div>
           <div className="icon-container">
             <div className="border">
