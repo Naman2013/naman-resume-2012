@@ -75,6 +75,7 @@ class JoinStep3 extends Component  {
           customerId: window.localStorage.getItem('pending_cid'),
           selectedSchoolId: window.localStorage.getItem('selectedSchoolId'),
           isAstronomyClub: window.localStorage.getItem('isAstronomyClub'),
+          isClassroom: window.localStorage.getItem('isClassroom'),
           astronomyClubName: window.localStorage.getItem('astronomyClubName'),
           isAstronomyClubForMembers18AndOver: window.localStorage.getItem('isAstronomyClubForMembers18AndOver'),
         };
@@ -91,6 +92,7 @@ class JoinStep3 extends Component  {
                 window.localStorage.removeItem('selectedPlanId');
                 window.localStorage.removeItem('selectedSchoolId');
                 window.localStorage.removeItem('isAstronomyClub');
+                window.localStorage.removeItem('isClassroom');
                 window.localStorage.removeItem('astronomyClubName');
                 window.localStorage.removeItem('isAstronomyClubForMembers18AndOver');
 
