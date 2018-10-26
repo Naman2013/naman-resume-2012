@@ -227,7 +227,7 @@ class GroupCreate extends Component {
     const {
       user
     } = this.props;
-    
+
     const newGroupFormDetailsData = cloneDeep(newGroupFormDetails);
 
     /* reset the error conditions */
@@ -244,7 +244,7 @@ class GroupCreate extends Component {
     }));
 
     if (formIsComplete) {
-      console.log('submit the new group form and redirect to the new group page');
+      //console.log('submit the new group form and redirect to the new group page');
 
       const createNewGroupResults = axios.post(CLASSROOM_CREATENEWGROUP_ENDPOINT_URL, {
         groupName: this.state.newGroupFormDetails.groupName.value,
