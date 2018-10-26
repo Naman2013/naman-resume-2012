@@ -16,6 +16,7 @@ export * from './day-night-bar';
 export * from './day-night-map';
 export * from './weekly-forecast';
 export * from './telescope-detail';
+export * from './observatory-information';
 
 
 export * from './common/simple-list';
