@@ -17,7 +17,7 @@ const {
 } = PropTypes;
 
 const AsideContainer = ({
-  showModal,
+  modalActions,
   objectSpecialists,
 }) => (
   <div>
@@ -26,7 +26,7 @@ const AsideContainer = ({
       screenLarge
       screenXLarge
     >
-      <AskQuestionTile showModal={showModal} />
+      <AskQuestionTile showModal={modalActions.showModal} />
     </DisplayAtBreakpoint>
     <div className="mvp">
       <div className="mvp-header">
@@ -46,7 +46,9 @@ const AsideContainer = ({
 );
 
 AsideContainer.propTypes = {
-  showModal: func,
+  modalActions: shape({
+    showModal: func,
+  }).isRequired,
   objectSpecialists: shape({}),
 
 };

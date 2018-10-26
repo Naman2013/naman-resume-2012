@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import Modal from 'react-modal';
 import ResponsiveTwoColumnContainer from 'components/ResponsiveTwoColumnContainer';
 import TwoTabbedNav from 'components/TwoTabbedNav';
 import { fetchObjectSpecialistsAction } from 'modules/object-details/actions';
@@ -25,6 +26,7 @@ import MainContainer from './partials/MainContainer';
 import AskQuestionTile from 'components/ask-astronomer/AskQuestionTile';
 import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
 import AsideContainer from './partials/AsideContainer';
+import { customModalStylesV4 } from 'styles/mixins/utilities';
 import style from './AskAstronomer.style';
 
 const {
@@ -98,7 +100,9 @@ class AskAstronomer extends Component {
   }
 
   state = {
-    showPrompt: false ,
+    showPrompt: false,
+    promptComponent: null,
+    promptStyles: customModalStylesV4,
   }
 
   componentWillReceiveProps(nextProps) {
@@ -155,6 +159,13 @@ class AskAstronomer extends Component {
     });
   }
 
+  setModal = ({ promptComponent, promptStyles }) => {
+    this.setState(state => ({
+      promptComponent: promptComponent || state.promptComponent,
+      promptStyles: promptStyles || state.promptComponent,
+    }));
+  }
+
   render() {
     const {
       actions,
@@ -177,14 +188,30 @@ class AskAstronomer extends Component {
       objectSpecialists,
     } = this.props;
 
-    const { showPrompt } = this.state;
+    const { showPrompt, promptComponent, promptStyles } = this.state;
     const likeParams = {};
+    const {
+      setModal,
+      openModal,
+      closeModal,
+    } = this;
+    const modalActions = { setModal, openModal, closeModal};
+
     return (
       <Fragment>
         <DeviceContext.Consumer>
           {(context) => (
           <div className="full-bg">
               <ObjectDetailsSectionTitle title={`${objectTitle}'s`} subTitle="Ask An Astronomer" theme={{ padding: '25px' }} />
+              <Modal
+                ariaHideApp={false}
+                isOpen={showPrompt}
+                style={promptStyles}
+                contentLabel="askAstronomer"
+                onRequestClose={this.closeModal}
+              >
+                {promptComponent}
+              </Modal>
               <CenterColumn
                 widths={['768px', '940px', '940px']}
                 theme={{ paddingTop: '25px' }}
@@ -234,8 +261,7 @@ class AskAstronomer extends Component {
                         <AsideContainer
                           {...this.props}
                           {...context}
-                          showModal={this.showModal}
-                          showPrompt={showPrompt}
+                          modalActions={modalActions}
                         />
                       </div>
                     )}
@@ -248,6 +274,7 @@ class AskAstronomer extends Component {
                       user={user}
                       submitAnswer={this.submitAnswer}
                       likeParams={likeParams}
+                      modalActions={modalActions}
                     />}
                   />
                 </div>

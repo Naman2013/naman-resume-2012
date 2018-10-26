@@ -8,10 +8,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import uniqueId from 'lodash/uniqueId';
+import noop from 'lodash/noop';
 import moment from 'moment';
 import CommentButton from 'components/common/style/buttons/CommentButton';
 import LikeSomethingButton from 'components/common/LikeSomethingButton';
-import ReplyButton from 'components/common/DiscussionsBoard/ReplyButton';
+import ReplyButton from 'components/ask-astronomer/ReplyButton';
 import Button from 'components/common/style/buttons/Button';
 import ViewImagesButton from 'components/common/style/buttons/ViewImagesButton';
 import styles, { profPic } from './Card.style'
@@ -41,8 +42,9 @@ const Card = (props) => {
     likeParams,
     likePrompt,
     likesCount,
-    openModal,
+    modalActions,
     renderChildReplies,
+    replyButtonText,
     replyToponlyCount,
     replyTo,
     S3Files,
@@ -68,7 +70,7 @@ const Card = (props) => {
         <div className="content" dangerouslySetInnerHTML={{ __html: title || content }} />
         <div className="explainantion-container">
           <div className="explainantion-item">{moment(creationDate).fromNow()}</div>
-          <div className="explainantion-item">Likes: {likesCount}     {commentText}: {replyToponlyCount}</div>
+          <div className="explainantion-item">{`Likes: ${likesCount} `}  {allowReplies ? <span>&nbsp;{`${commentText}: ${replyToponlyCount}`}</span> : null}</div>
         </div>
         <div className="activity-actions">
           <div className="action-left">
@@ -77,7 +79,7 @@ const Card = (props) => {
               likesCount={likesCount}
               likePrompt={likePrompt}
               likeParams={likeParams}
-              openModal={openModal}
+              openModal={modalActions.showModal}
               showLikePrompt={showLikePrompt}
               user={user}
               customerId={customerId}
@@ -94,6 +96,7 @@ const Card = (props) => {
               {...props}
               replyTo={replyTo}
               submitForm={submitReply}
+              replyButtonText={replyButtonText}
             /> : null }
 
           </div>
@@ -118,6 +121,11 @@ Card.propTypes = {
   likeHandler: func,
   likeParams: shape({}),
   isDesktop: bool.isRequired,
+  modalActions: shape({
+    closeModal: func,
+    setModal: func,
+    showModal: func,
+  }).isRequired,
   user: shape({
     at: oneOfType([number, string]),
     token: oneOfType([number, string]),
@@ -128,6 +136,7 @@ Card.propTypes = {
   replyToponlyCount: number.isRequired,
   S3Files: arrayOf(string),
   submitReply: func,
+  replyButtonText: string,
   showLikePrompt: bool.isRequired,
   renderChildReplies: func,
 };
@@ -137,8 +146,11 @@ Card.defaultProps = {
   commentText: 'Answers',
   likeHandler: null,
   likeParams: {},
-  openModal: null,
+  modalActions: {
+    showModal: noop,
+  },
   S3Files: [],
+  replyButtonText: 'Submit an Answer',
   renderChildReplies: null,
   submitReply: null,
 };

@@ -42,6 +42,7 @@ const AnswerListItem = (props) => {
     isDesktop,
     isTopAnswer,
     likeParams,
+    modalActions,
     numberOfRepliesToAnswer,
     objectId,
     showAllReplies,
@@ -63,7 +64,10 @@ const AnswerListItem = (props) => {
         allowReplies={canReplyToAnswers}
         isDesktop={isDesktop}
         likeHandler={likeReply}
+        modalActions={modalActions}
         replyTo={answer.replyId}
+        replyButtonText="Reply"
+        commentText="Replies"
         showComments={showAllReplies}
         submitReply={submitReply}
         user={user}
@@ -73,6 +77,7 @@ const AnswerListItem = (props) => {
           numberOfRepliesToAnswer={numberOfRepliesToAnswer}
           displayedReplies={displayedReplies}
           objectId={objectId}
+          modalActions={modalActions}
           isDesktop={isDesktop}
           replyId={answer.replyId}
           showAllReplies={showAllReplies}
@@ -128,6 +133,11 @@ AnswerListItem.propTypes = {
       replyId: number.isRequired,
     })),
   }),
+  modalActions: shape({
+    closeModal: func,
+    setModal: func,
+    showModal: func,
+  }).isRequired,
   canReplyToAnswers: bool.isRequired,
   fetchingReplies: bool,
   isTopAnswer: bool,

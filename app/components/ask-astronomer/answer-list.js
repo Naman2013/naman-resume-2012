@@ -25,6 +25,7 @@ const {
   arrayOf,
   any,
   bool,
+  func,
   number,
   shape,
   string,
@@ -83,6 +84,11 @@ class AnswerList extends Component {
     fetchingReplies: shape({}),
     threadId: number,
     actions: shape({}),
+    modalActions: shape({
+      closeModal: func,
+      setModal: func,
+      showModal: func,
+    }).isRequired,
     allReplies: shape({}),
     displayedReplies: shape({}),
     displayedAnswers: arrayOf(any),
@@ -116,6 +122,7 @@ class AnswerList extends Component {
       displayedAnswers,
       displayedReplies,
       fetchingReplies,
+      modalActions,
       isDesktop,
       numberOfAnswersToThread,
       objectId,
@@ -171,6 +178,7 @@ class AnswerList extends Component {
               toggleAllAnswerReplies={toggleAllAnswerReplies}
               topicId={topicId}
               user={user}
+              modalActions={modalActions}
             />);
           })}
           {showAllAnswers && displayedAnswers.length > 0 && <PaginateSet

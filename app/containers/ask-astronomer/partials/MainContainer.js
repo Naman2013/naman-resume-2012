@@ -21,6 +21,7 @@ const MainContainer = ({
   canReplyToAnswers,
   canAnswerQuestions,
   count,
+  modalActions,
   fetchingAnswers,
   fetchingQuestions,
   handlePageChange,
@@ -49,6 +50,7 @@ const MainContainer = ({
       submitAnswer={submitAnswer}
       toggleAllAnswersAndDisplay={actions.toggleAllAnswersAndDisplay}
       totalCount={totalCount}
+      modalActions={modalActions}
     />}
     <style jsx>{styles}</style>
   </div>
@@ -66,6 +68,11 @@ MainContainer.propTypes = {
   page: number,
   questions: arrayOf(shape({})),
   totalCount: number,
+  modalActions: shape({
+    closeModal: func,
+    setModal: func,
+    showModal: func,
+  }).isRequired,
 };
 
 MainContainer.defaultProps = {

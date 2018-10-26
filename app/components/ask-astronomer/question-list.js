@@ -21,12 +21,13 @@ const QuestionList = ({
   actions,
   allAnswers,
   allDisplayedAnswers,
-  canReplyToAnswers,
   canAnswerQuestions,
+  canReplyToAnswers,
   count,
   fetchingAnswers,
   handlePageChange,
   isDesktop,
+  modalActions,
   objectId,
   page,
   questions,
@@ -53,6 +54,7 @@ const QuestionList = ({
           key={item.threadId}
           objectId={objectId}
           submitAnswer={submitAnswer}
+          modalActions={modalActions}
           toggleAllAnswersAndDisplay={toggleAllAnswersAndDisplay}
         />)
     },
@@ -81,6 +83,11 @@ QuestionList.propTypes = {
   })),
   toggleAllAnswersAndDisplay: func.isRequired,
   objectId: string.isRequired,
+  modalActions: shape({
+    closeModal: func,
+    setModal: func,
+    showModal: func,
+  }).isRequired,
 };
 
 export default QuestionList;

@@ -20,11 +20,13 @@ const {
 
 const ReplyListItem = (props) => {
   const {
-    reply,
     isDesktop,
-    user,
     likeParams,
+    modalActions,
+    reply,
+    user,
   } = props;
+
   return (
     <div className="reply" key={reply.replyId}>
       <Card
@@ -34,7 +36,7 @@ const ReplyListItem = (props) => {
         isDesktop={props.isDesktop}
         allowReplies={false}
         user={user}
-        commentText="Replies"
+        modalActions={modalActions}
       />
 
       <style jsx>{`
@@ -58,6 +60,11 @@ ReplyListItem.propTypes = {
     likesCount: number.isRequired,
     replyId: number.isRequired,
   }),
+  modalActions: shape({
+    closeModal: func,
+    setModal: func,
+    showModal: func,
+  }).isRequired,
   isTopReply: bool,
 };
 

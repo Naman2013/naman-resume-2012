@@ -17,9 +17,10 @@ import PaginateSet from '../common/paginate-full-set/PaginateSet';
 import styles from './answer-list.style';
 
 const {
-  arrayOf,
   any,
+  arrayOf,
   bool,
+  func,
   number,
   shape,
   string,
@@ -70,6 +71,11 @@ class AnswerReplyList extends Component {
       })),
     }), // replies only pertaining to a single question
     threadId: number,
+    modalActions: shape({
+      closeModal: func,
+      setModal: func,
+      showModal: func,
+    }).isRequired,
     showAllReplies: bool,
     displayedReplies: arrayOf(any),
     submitId: number,
@@ -104,6 +110,7 @@ class AnswerReplyList extends Component {
       numberOfRepliesToAnswer,
       replyId,
       isDesktop,
+      modalActions,
       repliesSubmitted,
       showAllReplies,
       submitId,
@@ -134,6 +141,7 @@ class AnswerReplyList extends Component {
               likeParams={likeParams}
               reply={reply}
               user={user}
+              modalActions={modalActions}
             />)
           })}
         </div>

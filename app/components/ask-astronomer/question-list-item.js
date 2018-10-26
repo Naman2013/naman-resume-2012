@@ -10,7 +10,7 @@ import moment from 'moment';
 import noop from 'lodash/noop';
 import uniqueId from 'lodash/uniqueId';
 import { likeThread } from 'services/discussions/like';
-import DiscussionsCard from 'components/common/DiscussionsCard';
+import Card from 'components/ask-astronomer/Card';
 import AnswerList from './answer-list';
 
 import style from './question-list-item.style';
@@ -20,6 +20,7 @@ const {
   arrayOf,
   any,
   bool,
+  func,
   number,
   shape,
   string,
@@ -29,12 +30,13 @@ const QuestionListItem = (props) => {
   const {
     actions,
     answers,
-    canReplyToAnswers,
     canAnswerQuestions,
-    isDesktop,
+    canReplyToAnswers,
     displayedAnswers,
     fetching,
+    isDesktop,
     item,
+    modalActions,
     objectId,
     submitAnswer,
     toggleAllAnswersAndDisplay,
@@ -45,7 +47,7 @@ const QuestionListItem = (props) => {
     showAllAnswers: !answers.showAllAnswers,
   });
     return (<div className="shadowed-container margin" key={uniqueId}>
-      <DiscussionsCard
+      <Card
         {...props.item}
         objectId={objectId}
         showComments={answers.showAllAnswers}
@@ -55,6 +57,9 @@ const QuestionListItem = (props) => {
         isDesktop={isDesktop}
         allowReplies={canAnswerQuestions}
         submitReply={submitAnswer}
+        commentText="Answers"
+        replyButtonText="Submit an Answer"
+        modalActions={modalActions}
         renderChildReplies={() => (<AnswerList
           answers={answers}
           canAnswerQuestions={canAnswerQuestions}
@@ -65,6 +70,7 @@ const QuestionListItem = (props) => {
           objectId={objectId}
           threadId={item.threadId}
           topicId={item.topicId}
+          modalActions={modalActions}
         />)}
       />
       {fetching && <div className="fa fa-spinner loader" />}
@@ -105,6 +111,11 @@ QuestionListItem.propTypes = {
   displayedAnswers: arrayOf(any), // array of ids
   objectId: string.isRequired,
   fetching: bool,
+  modalActions: shape({
+    closeModal: func,
+    setModal: func,
+    showModal: func,
+  }).isRequired,
 };
 
 export default QuestionListItem;
