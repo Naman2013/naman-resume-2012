@@ -239,6 +239,11 @@ class GroupCreate extends Component {
       formIsComplete = false;
     }
 
+    if (newGroupFormDetails.groupDescription.value === "") {
+      newGroupFormDetailsData.groupDescription.errorText = "Please enter in a message or description for your classroom.";
+      formIsComplete = false;
+    }
+
     this.setState(() => ({
       newGroupFormDetails: newGroupFormDetailsData,
     }));
