@@ -74,10 +74,10 @@ class JoinStep3 extends Component  {
           paymentToken: paymentNonceTokenData,
           customerId: window.localStorage.getItem('pending_cid'),
           selectedSchoolId: window.localStorage.getItem('selectedSchoolId'),
-          isAstronomyClub: window.localStorage.getItem('isAstronomyClub'),
-          isClassroom: window.localStorage.getItem('isClassroom'),
+          isAstronomyClub: window.localStorage.getItem('isAstronomyClub') === "true" ? true : false,
+          isClassroom: window.localStorage.getItem('isClassroom') === "true" ? true : false,
           astronomyClubName: window.localStorage.getItem('astronomyClubName'),
-          isAstronomyClubForMembers18AndOver: window.localStorage.getItem('isAstronomyClubForMembers18AndOver'),
+          isAstronomyClubForMembers18AndOver: window.localStorage.getItem('isAstronomyClubForMembers18AndOver')  === "true" ? true : false,
         };
 
         axios.post(JOIN_ACTIVATE_PENDING_CUSTOMER_ENDPOINT_URL, activatePendingCustomerData)

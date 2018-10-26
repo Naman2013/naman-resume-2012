@@ -171,28 +171,15 @@ class JoinByInviteAccountSignup extends Component {
     newInviteDetails.childCustomerRole = result.invitee.role;
 
     /* update the account form details state so the correct hinText will show on each form field */
-    if (result.selectedSubscriptionPlan.isClassroom === 'yes') {
-      this.setState(() => ({
-        accountFormDetails: newAccountFormData,
-        inviteDetails: newInviteDetails,
-        /* was the selected plan a classroom? */
-        isAstronomyClub: result.selectedSubscriptionPlan.isAstronomyClub,
-        isClassroom: result.selectedSubscriptionPlan.isClassroom,
-        selectedSchoolId: result.selectedSchool.schoolId,
-        selectedPlanId: result.selectedSubscriptionPlan.planId,
-      }));
-    }
-    else {
-      this.setState(() => ({
-        accountFormDetails: newAccountFormData,
-        inviteDetails: newInviteDetails,
-        /* was the selected plan an astronomy club? */
-        isAstronomyClub: result.selectedSubscriptionPlan.isAstronomyClub,
-        isClassroom: result.selectedSubscriptionPlan.isClassroom,
-        selectedSchoolId: '',
-        selectedPlanId: result.selectedSubscriptionPlan.planId,
-      }));
-    }
+    this.setState(() => ({
+      accountFormDetails: newAccountFormData,
+      inviteDetails: newInviteDetails,
+      /* was the selected plan a classroom? */
+      isAstronomyClub: result.selectedSubscriptionPlan.isAstronomyClub,
+      isClassroom: result.selectedSubscriptionPlan.isClassroom,
+      selectedSchoolId: result.selectedSchool.schoolId,
+      selectedPlanId: result.selectedSubscriptionPlan.planId,
+    }));
   }
 
   /* This function handles a field change in the form and sets the state accordingly */

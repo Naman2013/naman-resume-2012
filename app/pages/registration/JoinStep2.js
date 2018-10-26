@@ -60,7 +60,8 @@ class JoinStep2 extends Component {
     */
     this.state = {
       accountCreationType: 'userpass',
-      isAstronomyClub: false,
+      isAstronomyClub: window.localStorage.getItem('isAstronomyClub') === "true" ? true : false,
+      isClassroom: window.localStorage.getItem('isClassroom') === "true" ? true : false,
       googleProfileData: {
         googleProfileId: '',
         googleProfileEmail: '',
@@ -161,8 +162,6 @@ class JoinStep2 extends Component {
     this.setState(() => ({
       accountFormDetails: newAccountFormData,
       /* was the selected plan an astronomy club? */
-      isAstronomyClub: window.localStorage.getItem('isAstronomyClub'),
-      isClassroom: window.localStorage.getItem('isClassroom'),
     }));
   }
 
