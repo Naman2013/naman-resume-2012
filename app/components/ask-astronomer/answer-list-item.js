@@ -16,6 +16,7 @@ import LikeButton from '../common/style/buttons/LikeButton';
 import CommentButton from '../common/style/buttons/CommentButton';
 import AnswerReplyList from './answer-reply-list';
 import SubmitAnswerButton from 'components/ask-astronomer/SubmitAnswerButton';
+import SubmitAnswerReplyButton from 'components/ask-astronomer/SubmitAnswerReplyButton';
 import { avatarImgStyle } from './styles';
 import { black, darkBlueGray, white, turqoise } from '../../styles/variables/colors';
 import { secondaryFont } from '../../styles/variables/fonts';
@@ -52,7 +53,7 @@ const AnswerListItem = (props) => {
     topicId,
     user,
   } = props;
-
+  console.log('user2', user)
   return (
     <div className="answer-list-item">
       {isTopAnswer && <div className="top-answer">Top Answer</div>}
@@ -70,13 +71,16 @@ const AnswerListItem = (props) => {
         submitReply={submitReply}
         user={user}
         toggleComments={toggleAllAnswerReplies}
-        renderReplyButton={() => (<SubmitAnswerButton
+        renderReplyButton={() => (<SubmitAnswerReplyButton
           {...props.answer}
           replyTo={answer.replyId}
           submitForm={submitReply}
           modalActions={modalActions}
           replyButtonText="Reply"
           user={user}
+          topicId={topicId}
+          objectId={objectId}
+          threadId={threadId}
         />)}
         renderChildReplies={() => (<AnswerReplyList
           answerReplies={answerReplies}

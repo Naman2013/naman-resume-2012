@@ -40,6 +40,7 @@ const mapStateToProps = ({
   displayedReplies: astronomerDiscuss.allDisplayedReplies,
   fetchingReplies: astronomerDiscuss.fetchingObj,
   paginationCount: astronomerAnswers.paginationCount,
+  user,
 });
 
 const mapDispatchToProps = dispatch => ({

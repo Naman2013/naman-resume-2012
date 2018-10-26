@@ -25,7 +25,7 @@ const {
   string,
 } = PropTypes;
 
-class SubmitAnswerForm extends Component {
+class SubmitReplyForm extends Component {
   static propTypes = {
     modalActions: shape({
       closeModal: func,
@@ -138,7 +138,6 @@ class SubmitAnswerForm extends Component {
       freshness,
       content,
       modalActions,
-      submitReply,
     } = this.props;
 
     const {
@@ -164,7 +163,7 @@ class SubmitAnswerForm extends Component {
             className="field-input"
             value={answerText}
             onChange={this.onChangeAnswerText}
-            placeholder="Write your answer"
+            placeholder="Write your comment"
           />
         </div>
         <div className="button-container">
@@ -183,4 +182,4 @@ class SubmitAnswerForm extends Component {
 }
 
 
-export default SubmitAnswerForm;
+export default SubmitReplyForm;
