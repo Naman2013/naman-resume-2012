@@ -10,7 +10,7 @@ export default css`
   .root {
     width: 300px;
     background-color: ${romance};
-    padding: 25px;
+    padding: 15px;
     color: ${astronaut};
   }
 
