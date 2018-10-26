@@ -74,9 +74,10 @@ class JoinStep3 extends Component  {
           paymentToken: paymentNonceTokenData,
           customerId: window.localStorage.getItem('pending_cid'),
           selectedSchoolId: window.localStorage.getItem('selectedSchoolId'),
-          isAstronomyClub: window.localStorage.getItem('isAstronomyClub'),
+          isAstronomyClub: window.localStorage.getItem('isAstronomyClub') === "true" ? true : false,
+          isClassroom: window.localStorage.getItem('isClassroom') === "true" ? true : false,
           astronomyClubName: window.localStorage.getItem('astronomyClubName'),
-          isAstronomyClubForMembers18AndOver: window.localStorage.getItem('isAstronomyClubForMembers18AndOver'),
+          isAstronomyClubForMembers18AndOver: window.localStorage.getItem('isAstronomyClubForMembers18AndOver')  === "true" ? true : false,
         };
 
         axios.post(JOIN_ACTIVATE_PENDING_CUSTOMER_ENDPOINT_URL, activatePendingCustomerData)
@@ -91,6 +92,7 @@ class JoinStep3 extends Component  {
                 window.localStorage.removeItem('selectedPlanId');
                 window.localStorage.removeItem('selectedSchoolId');
                 window.localStorage.removeItem('isAstronomyClub');
+                window.localStorage.removeItem('isClassroom');
                 window.localStorage.removeItem('astronomyClubName');
                 window.localStorage.removeItem('isAstronomyClubForMembers18AndOver');
 

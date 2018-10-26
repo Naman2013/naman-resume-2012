@@ -21,12 +21,13 @@ class Memberships extends Component {
     window.localStorage.removeItem('selectedPlanId');
   }
 
-  setSelectedPlan(subscriptionPlanId) {
+  setSelectedPlan(subscriptionPlanId, isAstronomyClub, isClassroom) {
     window.localStorage.setItem('selectedPlanId', subscriptionPlanId);
-    //console.log('setting selected plan of: ' + subscriptionPlanId);
+    window.localStorage.setItem('isAstronomyClub', isAstronomyClub);
+    window.localStorage.setItem('isClassroom', isClassroom);
 
     /* Teacher Subscription Plans should prompt for School Selection */
-    if (subscriptionPlanId == 11) {
+    if (isClassroom) {
       /* move to step 2 in the join flow */
       browserHistory.push('/join/step1SchoolSelection');
     }
@@ -57,7 +58,7 @@ class Memberships extends Component {
                           key={`subscriptionplan-tile-${subscriptionPlan.planID}`}
                           className="subscription-plans-list-item"
                         >
-                          <SubscriptionPlanCardSmall {...subscriptionPlan} setSelectedPlan={() => this.setSelectedPlan(subscriptionPlan.planID)} />
+                          <SubscriptionPlanCardSmall {...subscriptionPlan} setSelectedPlan={() => this.setSelectedPlan(subscriptionPlan.planID, subscriptionPlan.isAstronomyClub, subscriptionPlan.isClassroom)} />
                         </li>
                       ))}
                     </ul>
