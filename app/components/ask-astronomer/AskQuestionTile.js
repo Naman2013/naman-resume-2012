@@ -28,22 +28,30 @@ class AskQuestionTile extends Component {
 
   };
 
-  setAskQuestionModal = () => {
+  get questionForm () {
     const {
       modalActions,
       user,
-      askQuestionInfo
+      askQuestionInfo,
+    } = this.props;
+    return (<SubmitQuestionForm
+      modalActions={modalActions}
+      submitForm={this.submitForm}
+      user={user}
+      {...askQuestionInfo}
+
+    />);
+  }
+
+  setAskQuestionModal = (e) => {
+    e.preventDefault();
+    const {
+      modalActions,
     } = this.props;
     modalActions.setModal({
-      promptComponent: (<SubmitQuestionForm
-        modalActions={modalActions}
-        submitForm={this.submitForm}
-        user={user}
-        {...askQuestionInfo}
-
-      />),
+      promptComponent: this.questionForm,
       promptStyles: customModalStylesBlackOverlay,
-    })
+    });
     modalActions.showModal();
   }
 
@@ -67,17 +75,17 @@ class AskQuestionTile extends Component {
   }
 
   handleSubmitReply = (data) => {
-    // set the AskAstronomer.js [parent] modal to say a success or error message
     const { modalActions } = this.props;
     const message = `${data.responseLabel}
     <p>${data.responseText}</p>`;
     modalActions.setModal({
       promptComponent: <SubmitQuestionFeedbackModal
-        title={data.title}
+        title={data.responseTitle}
         doneButtonLabel={data.doneButtonLabel}
         continueButtonLabel={data.continueButtonLabel}
         modalActions={modalActions}
-        message={message}
+        promptText={message}
+        requestQuestion={this.setAskQuestionModal}
       />,
       promptStyles: customModalStylesBlackOverlay,
     })
