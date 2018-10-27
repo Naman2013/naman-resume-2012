@@ -9,6 +9,7 @@ import {
   Satellite,
   TelescopeDetail,
   ObservatoryInformation,
+  TelescopeNavigation,
 } from 'components/telescope-details/v4-modules';
 
 import eclipseArtwork from '../assets/images/photos/eclipse-artwork-2.jpg';
@@ -35,4 +36,5 @@ storiesOf('Telescope Details Modules', module)
   ))
   .add('Satellite', () => (<Satellite />))
   .add('TelescopeDetail', () => (<TelescopeDetail />))
-  .add('ObservatoryInformation', () => (<ObservatoryInformation />));
+  .add('ObservatoryInformation', () => (<ObservatoryInformation />))
+  .add('Telescope Navigation', () => (<TelescopeNavigation />));
