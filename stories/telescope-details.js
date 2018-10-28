@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { storiesOf } from '@storybook/react';
 import {
   ModuleContainer,
@@ -11,6 +11,27 @@ import {
 } from 'components/telescope-details/v4-modules';
 
 import eclipseArtwork from '../assets/images/photos/eclipse-artwork-2.jpg';
+
+class TelescopeNavigationWrapper extends Component {
+  state = { selectedOption: 0 }
+  handleOptionChange = (event) => {
+    this.setState({ selectedOption: event.target.value });
+  }
+  render() {
+    return (
+      <TelescopeNavigation
+        options={[
+          { name: 'Canary one', thumbnailURL: '' },
+          { name: 'Canary two', thumbnailURL: '' },
+          { name: 'Canary three', thumbnailURL: '' },
+          { name: 'Chile', thumbnailURL: '' },
+        ]}
+        onSelect={this.handleOptionChange}
+        selectedIndex={this.state.selectedOption}
+      />
+    );
+  }
+}
 
 storiesOf('Telescope Details Modules', module)
   .add('ModuleContainer: base for other modules', () => (
@@ -33,4 +54,4 @@ storiesOf('Telescope Details Modules', module)
     />
   ))
   .add('Satellite', () => (<Satellite />))
-  .add('Telescope Navigation', () => (<TelescopeNavigation />));
+  .add('Telescope Navigation', () => (<TelescopeNavigationWrapper />));
