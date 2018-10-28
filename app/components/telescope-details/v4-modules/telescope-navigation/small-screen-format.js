@@ -1,6 +1,7 @@
 import React from 'react';
 import { Chevron } from 'atoms/icons';
 import { TelescopeNavigation } from './';
+import { minProps } from './common-prop-types';
 import style from './small-screen-format.style';
 
 const SmallScreenFormat = ({ onSelect, selectedIndex, options }) => (
@@ -28,7 +29,7 @@ const SmallScreenFormat = ({ onSelect, selectedIndex, options }) => (
   </div>
 );
 
-SmallScreenFormat.propTypes = TelescopeNavigation.propTypes;
+SmallScreenFormat.propTypes = minProps;
 SmallScreenFormat.defaultProps = TelescopeNavigation.defaultProps;
 
 export { SmallScreenFormat };
