@@ -21,10 +21,10 @@ class TelescopeNavigationWrapper extends Component {
     return (
       <TelescopeNavigation
         options={[
-          { name: 'Canary one', thumbnailURL: '' },
-          { name: 'Canary two', thumbnailURL: '' },
-          { name: 'Canary three', thumbnailURL: '' },
-          { name: 'Chile', thumbnailURL: '' },
+          { name: 'Canary one', thumbnailURL: 'https://polaris.slooh.com/teide/2/highmag/2018/10/24/0310_zetaaurigae/zetaaurigae_20181024_031235_0_wjwpsb_rgb.png' },
+          { name: 'Canary two', thumbnailURL: 'https://polaris.slooh.com/chile/1/widefield/2018/10/23/0825_ic2599/ic2599_20181023_082645_0_yac71p_lrgb.png' },
+          { name: 'Canary three', thumbnailURL: 'https://polaris.slooh.com/chile/1/highmag/2018/10/23/0805_ngc2362/ngc2362_20181023_080658_0_jdkoh8_lrgb.png' },
+          { name: 'Chile', thumbnailURL: 'https://polaris.slooh.com/chile/1/highmag/2018/10/23/0755_waxinggibbousmoon/waxinggibbousmoon_20181023_075558_0_9nxhzu_b.png' },
         ]}
         onSelect={this.handleOptionChange}
         selectedIndex={this.state.selectedOption}
