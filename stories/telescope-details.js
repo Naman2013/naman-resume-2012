@@ -20,6 +20,7 @@ class TelescopeNavigationWrapper extends Component {
   render() {
     return (
       <TelescopeNavigation
+        title="Great barred spiral galaxy"
         options={[
           { name: 'Canary one', thumbnailURL: 'https://polaris.slooh.com/teide/2/highmag/2018/10/24/0310_zetaaurigae/zetaaurigae_20181024_031235_0_wjwpsb_rgb.png' },
           { name: 'Canary two', thumbnailURL: 'https://polaris.slooh.com/chile/1/widefield/2018/10/23/0825_ic2599/ic2599_20181023_082645_0_yac71p_lrgb.png' },

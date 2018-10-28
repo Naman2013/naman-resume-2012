@@ -1,23 +1,38 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { SmallScreenFormat } from './';
+import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
+import { SmallScreenFormat, MediumScreenFormat } from './';
+import { enhancedProps } from './common-prop-types';
 import style from './telescope-navigation.style';
 
-const TelescopeNavigation = ({ onSelect, selectedIndex, options }) => (
+const TelescopeNavigation = ({
+  onSelect,
+  selectedIndex,
+  options,
+  title,
+}) => (
   <div>
-    <SmallScreenFormat onSelect={onSelect} selectedIndex={selectedIndex} options={options} />
+    <DisplayAtBreakpoint screenMedium>
+      <MediumScreenFormat
+        title={title}
+        onSelect={onSelect}
+        selectedIndex={selectedIndex}
+        options={options}
+      />
+    </DisplayAtBreakpoint>
+
+    <DisplayAtBreakpoint screenSmall>
+      <SmallScreenFormat
+        onSelect={onSelect}
+        selectedIndex={selectedIndex}
+        options={options}
+      />
+    </DisplayAtBreakpoint>
     <style jsx>{style}</style>
   </div>
 );
 
-TelescopeNavigation.propTypes = {
-  onSelect: PropTypes.func.isRequired,
-  selectedIndex: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-  options: PropTypes.arrayOf(PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    thumbnailURL: PropTypes.string.isRequired,
-  })),
-};
+TelescopeNavigation.propTypes = enhancedProps;
 
 TelescopeNavigation.defaultProps = {
   options: [],
