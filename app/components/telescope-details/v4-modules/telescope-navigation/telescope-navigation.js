@@ -1,21 +1,33 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Chevron } from 'atoms/icons';
 import style from './telescope-navigation.style';
 
 const TelescopeNavigation = ({ onSelect, selectedIndex, options }) => (
   <div>
-    <form action="POST">
-      <h4 className="active-selection">{options[selectedIndex].name}</h4>
-      <select
-        onChange={onSelect}
-        value={selectedIndex}
-        name="observatory"
-      >
-        {
-          options.map((telescope, i) => <option key={`telescope-navigation-${telescope.name}`} value={i}>{telescope.name}</option>)
-        }
-      </select>
-    </form>
+
+    <div className="small-screen-select">
+      <form action="POST">
+        <div className="active-selection-box">
+          <div className="image-container" style={{ backgroundImage: `url(${options[selectedIndex].thumbnailURL})` }} />
+          <h4 className="active-selection-title">{options[selectedIndex].name}</h4>
+          <aside className="chevron-box">
+            <Chevron />
+          </aside>
+        </div>
+        <select
+          className="navigation-options"
+          onChange={onSelect}
+          value={selectedIndex}
+          name="observatory"
+        >
+          {
+            options.map((telescope, i) => <option key={`telescope-navigation-${telescope.name}`} value={i}>{telescope.name}</option>)
+          }
+        </select>
+      </form>
+    </div>
+
     <style jsx>{style}</style>
   </div>
 );
