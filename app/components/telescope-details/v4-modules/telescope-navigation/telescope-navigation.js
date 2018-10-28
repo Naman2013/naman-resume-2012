@@ -22,11 +22,13 @@ const TelescopeNavigation = ({
     </DisplayAtBreakpoint>
 
     <DisplayAtBreakpoint screenSmall>
-      <SmallScreenFormat
-        onSelect={onSelect}
-        selectedIndex={selectedIndex}
-        options={options}
-      />
+      <div className="small-format-box">
+        <SmallScreenFormat
+          onSelect={onSelect}
+          selectedIndex={selectedIndex}
+          options={options}
+        />
+      </div>
     </DisplayAtBreakpoint>
     <style jsx>{style}</style>
   </div>
