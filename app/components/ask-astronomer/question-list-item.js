@@ -7,74 +7,89 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import noop from 'lodash/noop';
+import uniqueId from 'lodash/uniqueId';
+import SubmitAnswerButton from 'components/ask-astronomer/SubmitAnswerButton';
+import { likeThread } from 'services/discussions/like';
+import Card from 'components/ask-astronomer/Card';
 import AnswerList from './answer-list';
+
 import style from './question-list-item.style';
 
-import noop from 'lodash/noop';
-import GenericButton from '../common/style/buttons/Button';
-import LikeButton from '../common/style/buttons/LikeButton';
-import likeReply from '../../services/discussions/like';
-import CommentButton from '../common/style/buttons/CommentButton';
-import ViewImagesButton from '../common/style/buttons/ViewImagesButton';
-
-const questionImages = ['https://castor.slooh.com/dev101/2018/07/720d/b712/1530882220.jpg', 'https://castor.slooh.com/dev101/2018/07/9879/452d/1531688297.JPG']
 
 const {
   arrayOf,
   any,
   bool,
+  func,
   number,
   shape,
   string,
 } = PropTypes;
 
-const QuestionListItem = ({
-  answers,
-  displayedAnswers,
-  fetching,
-  item,
-  objectId,
-  toggleAllAnswersAndDisplay,
-}) => {
-  const closeAllAnswers = () => toggleAllAnswersAndDisplay({
+const QuestionListItem = (props) => {
+  const {
+    actions,
+    answers,
+    canAnswerQuestions,
+    canReplyToAnswers,
+    displayedAnswers,
+    likeParams,
+    fetching,
+    isDesktop,
+    item,
+    modalActions,
+    objectId,
+    submitAnswer,
+    toggleAllAnswersAndDisplay,
+    user,
+  } = props;
+
+  const toggleAllAnswers = () => toggleAllAnswersAndDisplay({
     threadId: item.threadId,
-    showAllAnswers: false,
+    showAllAnswers: !answers.showAllAnswers,
   });
-  return (
-    <div className="question-container">
-      <div className="question-details">
-        <span className="author">{item.displayName} asked:</span>
-      </div>
-      <div className="question">
-        <span dangerouslySetInnerHTML={{ __html: item.content }} />
-      </div>
-      <div className="date">Asked {moment(item.creationDate).fromNow()}</div>
-      {item.replyCount > 0 && 
-        <div className="ask-mobile-details-container">
-          <div className="reply-count">
-            {answers.showAllAnswers ? `${item.replyCount} answers to this question` : `1 of ${item.replyCount} answers`}
-          </div>
-          {displayedAnswers.length > 1 && <div><a className="close-answers" onClick={closeAllAnswers}>Close (x)</a></div>}
-        </div>
-      }
-      {item.replyCount === 0 && <div className="reply-count">0 Answers</div>}
-      <div className="ask-button-container">
-        <LikeButton onClickEvent={likeReply} count="1" />
-        <CommentButton onClickEvent={noop} count="1" />
-        <ViewImagesButton images={questionImages} />
-        <GenericButton onClickEvent={noop} text="Answer" />
-      </div>
-      {!fetching && <AnswerList
+  const likeThreadParams = Object.assign({}, likeParams, {
+    threadId: item.threadId,
+    authorId: item.customerId,
+    forumId: item.forumId,
+  });
+  return (<div className="shadowed-container margin" key={uniqueId}>
+    <Card
+      {...props.item}
+      objectId={objectId}
+      showComments={answers.showAllAnswers}
+      toggleComments={toggleAllAnswers}
+      likeHandler={likeThread}
+      isDesktop={isDesktop}
+      user={user}
+      likeParams={likeThreadParams}
+      allowReplies={canAnswerQuestions}
+      renderReplyButton={() => (<SubmitAnswerButton
+        {...props.item}
+        replyTo={item.threadId}
+        submitForm={submitAnswer}
+        modalActions={modalActions}
+        user={user}
+      />)}
+      commentText="Answers"
+      modalActions={modalActions}
+      renderChildReplies={() => (<AnswerList
         answers={answers}
+        canAnswerQuestions={canAnswerQuestions}
+        canReplyToAnswers={canReplyToAnswers}
         displayedAnswers={displayedAnswers}
+        isDesktop={isDesktop}
+        numberOfAnswersToThread={item.replyToponlyCount}
         objectId={objectId}
         threadId={item.threadId}
         topicId={item.topicId}
-      />}
-      {fetching && <div className="fa fa-spinner loader" />}
-      <style jsx>{style}</style>
-    </div>
-  )
+        modalActions={modalActions}
+      />)}
+    />
+    {fetching && <div className="fa fa-spinner loader" />}
+    <style jsx>{style}</style>
+  </div>)
 };
 
 QuestionListItem.defaultProps = {
@@ -109,6 +124,11 @@ QuestionListItem.propTypes = {
   displayedAnswers: arrayOf(any), // array of ids
   objectId: string.isRequired,
   fetching: bool,
+  modalActions: shape({
+    closeModal: func,
+    setModal: func,
+    showModal: func,
+  }).isRequired,
 };
 
 export default QuestionListItem;

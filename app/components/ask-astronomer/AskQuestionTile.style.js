@@ -1,6 +1,6 @@
 import css from 'styled-jsx/css';
 import { primaryFont, secondaryFont } from '../../styles/variables/fonts';
-import { hawkesBlue, astronaut, romance, midnight_express, geyser, lightHeadedAstronaut, faintGray } from '../../styles/variables/colors_tiles_v4';
+import { hawkesBlue, astronaut, shadows, romance, midnight_express, geyser, lightHeadedAstronaut, faintGray } from '../../styles/variables/colors_tiles_v4';
 import { screenMedium, screenLarge, screenXLarge } from '../../styles/variables/breakpoints';
 
 export default css`
@@ -46,6 +46,56 @@ export default css`
     display: none;
   }
 
+  .vert-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+    border-right: 1px solid ${shadows};
+  }
+
+  .icon-container-circle {
+    background-color: ${romance};
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .flex-item {
+    flex: 0 50%;
+  }
+
+  .circle-icon-line {
+    border: 1px solid ${shadows};
+    width: 115px;
+    height: 115px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .icon-line {
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    border-right: 1px solid ${shadows};
+  }
+
+  .border {
+    width: 140px;
+    height: 140px;
+    border: 1px solid ${hawkesBlue};
+    border-radius: 50%;
+    margin: 0 auto;
+    position: relative;
+  }
+
   .border {
     width: 140px;
     height: 140px;
@@ -73,6 +123,7 @@ export default css`
     transform: translate(-50%, -50%);
   }
 
+
   @media ${screenMedium} {
 
     .ask-question-tile {
@@ -84,7 +135,13 @@ export default css`
 
     .icon-container {
       display: block;
-      flex: 1;      
+      flex: 1;
+    }
+
+    .button-contain {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
     }
 
     .ask-question-tile h2 {
@@ -94,45 +151,33 @@ export default css`
     .ask-question-text {
       flex: 2;
     }
-    .ask-question-text p { 
-      display: none; 
+    .ask-question-text p {
+      display: none;
     }
   }
-
-  @media ${screenXLarge} {
+  @media ${screenLarge} {
     .ask-question-tile {
-      width: 300px;
-      height: 400px;
-      display: block;
-      position: relative;
-      margin: 10px;
+      flex-direction: column;
     }
 
     .icon-container {
-      flex: none;
-      position: absolute;
-      top: 130px;
-      left: 40px;
-      border-top: 1px solid ${hawkesBlue};
-      border-bottom: 1px solid ${hawkesBlue};
-      padding: 20px 0;
-      width: 210px;
-    }
-    .border {
-      width: 110px;
-      height: 110px;
-    }
-    .icon {
-      width: 100px;
-      height: 100px;
+      position: relative;
+      padding: 15% 0;
+      height: 200px;
     }
 
-    .ask-question-text {
-      height: 100%;
+    .icon-line-horz {
+      display: block;
+      text-align: center;
+      border-bottom: 1px solid ${shadows};
+      font-size: 10px;
+      font-family: ${primaryFont};
+      text-transform: uppercase;
+      font-weight: bold;
     }
 
-    .ask-question-tile h2 {
-      padding: 15px 0 200px;
+    .button-contain {
+      margin-top: 15px;
     }
   }
 `;

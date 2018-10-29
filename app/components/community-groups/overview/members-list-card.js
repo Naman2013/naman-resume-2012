@@ -29,9 +29,10 @@ const GroupMemberListSort = ({
   iconUrl,
   isModerator,
   isMonitor,
+  theme,
   linkUrl
 }) => (
-  <div className="members-list-card" key={uniqueId()}>
+  <div className="members-list-card" key={uniqueId()} style={theme}>
     <div className="header">
       <div className="pic" style={profilePicSmall(iconUrl)} />
       <div className="user-title" dangerouslySetInnerHTML={{ __html: displayName }} />
@@ -49,7 +50,7 @@ const GroupMemberListSort = ({
 
 
 GroupMemberListSort.propTypes = {
-
+  theme: PropTypes.shape({})
 };
 
 export default GroupMemberListSort;

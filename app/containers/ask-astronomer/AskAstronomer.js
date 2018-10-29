@@ -7,23 +7,28 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { fetchObjectSpecialistsAction } from '../../modules/object-details/actions';
-import { DeviceContext } from '../../providers/DeviceProvider';
-
+import Modal from 'react-modal';
+import ResponsiveTwoColumnContainer from 'components/ResponsiveTwoColumnContainer';
+import TwoTabbedNav from 'components/TwoTabbedNav';
+import { fetchObjectSpecialistsAction } from 'modules/object-details/actions';
+import { DeviceContext } from 'providers/DeviceProvider';
 import {
   fetchAstronomerQuestions,
-} from '../../modules/ask-astronomer-questions/actions';
+  askQuestion,
+  changeAnswerState,
+} from 'modules/ask-astronomer-questions/actions';
 import {
   toggleAllAnswersAndDisplay,
-} from '../../modules/ask-astronomer-answers/actions';
-
-import AskQuestionTile from '../../components/ask-astronomer/AskQuestionTile';
-import QuestionList from '../../components/ask-astronomer/question-list';
-import ModalGeneric from '../../components/common/modals/modal-generic';
-import AskAstronomerQuestionForm from '../../components/ask-astronomer/AskQuestionForm';
-import ObjectDetailsSectionTitle from '../../components/object-details/ObjectDetailsSectionTitle';
-import CenterColumn from '../../../app/components/common/CenterColumn';
-import MVPAstronomerList from '../../../app/components/common/MVPAstronomer/MVPAstronomerList';
+  submitAnswerToQuestion,
+} from 'modules/ask-astronomer-answers/actions';
+import AskQuestionTile from 'components/ask-astronomer/AskQuestionTile';
+import ObjectDetailsSectionTitle from 'components/object-details/ObjectDetailsSectionTitle';
+import CenterColumn from 'components/common/CenterColumn';
+import MainContainer from './partials/MainContainer';
+import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
+import { getAskAnAstronomer } from 'services/objects/ask-astronomer';
+import AsideContainer from './partials/AsideContainer';
+import { customModalStylesV4 } from 'styles/mixins/utilities';
 import style from './AskAstronomer.style';
 
 const {
@@ -45,10 +50,13 @@ const mapStateToProps = ({
   allDisplayedAnswers: astronomerAnswers.allDisplayedAnswers,
   appConfig,
   objectData: objectDetails.objectData,
+  questionFilter: astronomerQuestions.filter,
   questions: astronomerQuestions.threadList,
   page: astronomerQuestions.page,
   totalCount: astronomerQuestions.threadCount,
   count: astronomerQuestions.count,
+  canAnswerQuestions: astronomerQuestions.canAnswerQuestions,
+  canReplyToAnswers: astronomerQuestions.canReplyToAnswers,
   fetchingQuestions: astronomerQuestions.fetching,
   fetchingAnswers: astronomerAnswers.fetchingObj,
   user,
@@ -58,9 +66,12 @@ const mapStateToProps = ({
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
+    askQuestion,
+    changeAnswerState,
     fetchAstronomerQuestions,
     toggleAllAnswersAndDisplay,
     fetchObjectSpecialistsAction,
+    submitAnswerToQuestion,
   }, dispatch),
 });
 
@@ -81,6 +92,7 @@ class AskAstronomer extends Component {
       fetchAstronomerQuestions: func.isRequired,
     }).isRequired,
     serviceUrl: string,
+    questionFilter: string,
   }
 
   static defaultProps = {
@@ -91,31 +103,44 @@ class AskAstronomer extends Component {
     count: 0,
     actions: { },
     objectId: '',
+    questionFilter: 'all',
   }
 
-
-
   constructor(props) {
-    super(props);
+    super();
+
+    const {
+      params: {
+        objectId,
+      },
+    } = props;
 
     this.state = {
-      leftView: "show",
-      rightView: "show",
-      tabMvp: "hidden",
-      mobile: false,
       showPrompt: false,
-    };  
+      promptComponent: null,
+      promptStyles: customModalStylesV4,
+      aaaQuestionPrompt: {},
+    }
+
+    getAskAnAstronomer({
+      objectId: objectId
+    }).then((res) => {
+      this.setState(() => ({
+        aaaQuestionPrompt: res.data,
+      }));
+    })
   }
 
   componentWillReceiveProps(nextProps) {
     const {
-      objectData: {
-        faqTopicId,
-      }
+      questionFilter,
+      params: {
+        objectId,
+      },
     } = nextProps;
     //fetch the question data, the object page has been changed.
-    if (this.props.params.objectId != nextProps.params.objectId || this.props.objectData.faqTopicId != nextProps.objectData.faqTopicId) {
-      this.props.actions.fetchAstronomerQuestions({ topicId: faqTopicId });
+    if (this.props.params.objectId != nextProps.params.objectId || this.props.questionFilter !== nextProps.questionFilter) {
+      this.props.actions.fetchAstronomerQuestions({ objectId });
     }
   }
 
@@ -124,62 +149,54 @@ class AskAstronomer extends Component {
       params: {
         objectId,
       },
-      objectData: {
-        faqTopicId,
-      }
     } = this.props;
-    if (faqTopicId && (this.props.objectData.objectId != objectId)) {
+    if (this.props.objectData.objectId != objectId) {
         //fetch questions only if the objectId changes.
-        this.props.actions.fetchAstronomerQuestions({ topicId: faqTopicId });
+        this.props.actions.fetchAstronomerQuestions({ objectId });
     }
   }
 
   handlePageChange = (page) => {
     const {
       actions,
-      objectData: {
-        faqTopicId,
+      params: {
+        objectId,
       },
     } = this.props;
     actions.fetchAstronomerQuestions({
       appendToList: false,
       page,
-      topicId: faqTopicId,
+      objectId,
     });
   };
 
-
-  handleMobileClick = () => {
-    let lefty = (this.state.leftView === "hidden") ? "show" : "hidden";
-    let righty = (this.state.rightView === "hidden") ? "show" : "hidden";
-    this.setView (lefty, righty, 'show', true);
+  submitAnswer = (params, callback) => {
+    const { actions } = this.props;
+    actions.submitAnswerToQuestion(params).then(res => callback(res.payload));
   }
 
-  handleTabletClick = () => {
-    let mvp = (this.state.tabMvp === "hidden") ? "show" : "hidden";
-    let questions = (this.state.leftView === "hidden") ? "show" : "hidden";
-    this.setView (questions, 'show', mvp, false);
-  }
-
-  setView = (left, right, tab, mob) => {
-    this.setState ({
-      leftView: left,
-      rightView: right,
-      tabMvp: tab,
-      mobile: mob,
-    });
+  submitQuestion = (params, callback) => {
+    const { actions } = this.props;
+    actions.askQuestion(params).then(res => callback(res.payload));
   }
 
   showModal = () => {
-    this.setState({
+    this.setState(() => ({
       showPrompt: true,
-    });
+    }));
   }
 
   closeModal = () => {
-    this.setState({
+    this.setState(() => ({
       showPrompt: false,
-    });
+    }));
+  }
+
+  setModal = ({ promptComponent, promptStyles }) => {
+    this.setState(state => ({
+      promptComponent: promptComponent || state.promptComponent,
+      promptStyles: promptStyles || state.promptComponent,
+    }));
   }
 
   render() {
@@ -197,6 +214,7 @@ class AskAstronomer extends Component {
         objectTitle,
       },
       questions,
+      questionFilter,
       totalCount,
       count,
       page,
@@ -204,93 +222,109 @@ class AskAstronomer extends Component {
       objectSpecialists,
     } = this.props;
 
-    const { leftView, rightView, tabMvp, mobile, showPrompt } = this.state;
+    const { showPrompt, promptComponent, promptStyles, aaaQuestionPrompt } = this.state;
+    const likeParams = {
+      callSource: 'qanda',
+      objectId,
+      topicId: faqTopicId,
+    };
+    const {
+      setModal,
+      showModal,
+      closeModal,
+    } = this;
+    const modalActions = { setModal, showModal, closeModal};
 
     return (
-      <div className="full-bg">
-          <ObjectDetailsSectionTitle title={objectTitle + "'s"} subTitle="Ask An Astronomer" />        
-          <CenterColumn>
-            <div className="ask-astronomer">
-
-              <div className="ask-mobile-header">         
-                <div className="icon-container">
-                  <div className="border">
-                    <div className="icon">
-                      <img className="icon-content" alt="" width="180" height="180" src="https://vega.slooh.com/assets/v4/common/ask_mobile_bg.png" />
+      <Fragment>
+        <DeviceContext.Consumer>
+          {(context) => (
+          <div className="full-bg">
+              <ObjectDetailsSectionTitle title={`${objectTitle}'s`} subTitle="Ask An Astronomer" theme={{ padding: '25px' }} />
+              <Modal
+                ariaHideApp={false}
+                isOpen={showPrompt}
+                style={promptStyles}
+                contentLabel="askAstronomer"
+                onRequestClose={this.closeModal}
+              >
+                {promptComponent}
+              </Modal>
+              <CenterColumn
+                widths={['768px', '940px', '940px']}
+                theme={{ paddingTop: '25px' }}
+              >
+                <div className="ask-astronomer">
+                  <DisplayAtBreakpoint
+                    screenSmall
+                  >
+                    <div className="ask-mobile-header">
+                      <div className="icon-container">
+                        <div className="border">
+                          <div className="icon">
+                            <img className="icon-content" alt="" width="180" height="180" src="https://vega.slooh.com/assets/v4/common/ask_mobile_bg.png" />
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
-                <div className="center-line" />
-                <span className={'btn-nav ' + this.state.leftView} onClick={this.handleMobileClick}>Questions</span>
-                <span className={'btn-nav ' + this.state.rightView} onClick={this.handleMobileClick}>Ask Now</span>      
-              </div>  
-
-              <div className={'right ' + this.state.rightView}>
-                <AskAstronomerQuestionForm
-                  open={showPrompt}
-                  hideModal={this.closeModal}
-                  objectId={objectId}
-                  topicId={faqTopicId}
-                  objectTitle={objectTitle}
-                  user={user}
-                />
-                <AskQuestionTile showModal={this.showModal} ></AskQuestionTile>
-                <div className="ask-tablet-subnav">         
-                  <div className="center-line" />
-                  <span className={'btn-nav ' + this.state.leftView} onClick={this.handleTabletClick}>Questions</span>
-                  <span className={'btn-nav ' + this.state.tabMvp} onClick={this.handleTabletClick}>MVP ASTRONOMERS</span>      
-                </div>
-                
-                <div className={'mvp ' + this.state.tabMvp}>
-                  <div className="mvp-header">
-                    <h1>THIS OBJECT’S</h1>
-                    <h2>MVP ASTRONOMERS</h2>
-                  </div>
-                  {objectSpecialists && objectSpecialists.specialistsCount > 0 ? (
-                    <MVPAstronomerList {...objectSpecialists} />
-                  ) : (
-                    <div className="card-container__specialists">
-                      Sorry, there are no MVP Astronomers available.
+                  </DisplayAtBreakpoint>
+                  <DisplayAtBreakpoint
+                    screenMedium
+                  >
+                    <div className="ask-tablet-header">
+                      <AskQuestionTile
+                        modalActions={modalActions}
+                        objectId={objectId}
+                        user={user}
+                        submitQuestion={this.submitQuestion}
+                        {...aaaQuestionPrompt}
+                      />
                     </div>
-                  )}
-                </div>
-              </div>  
-
-              <div className={'left ' + this.state.leftView}>
-                {fetchingQuestions && <div className="fa fa-spinner loader" />}
-                {!fetchingQuestions && <QuestionList
-                  allAnswers={allAnswers}
-                  allDisplayedAnswers={allDisplayedAnswers}
-                  count={count}
-                  fetchingAnswers={fetchingAnswers}
-                  handlePageChange={this.handlePageChange}
-                  objectId={objectId}
-                  page={page}
-                  questions={questions}
-                  toggleAllAnswersAndDisplay={actions.toggleAllAnswersAndDisplay}
-                  totalCount={totalCount}
-                />}
-              </div>
-
-              <Fragment>
-                <DeviceContext.Consumer>
-                  {
-                    (context) => {
-                      if (context.isScreenMedium && this.state.mobile === true) {
-                        this.setView ('show', 'show', 'hidden', false);
-                      } 
-                      else if (!context.isScreenMedium && this.state.mobile === false) {
-                        this.setView ('show', 'hidden', 'hidden', true);
-                      }
+                  </DisplayAtBreakpoint>
+                  <ResponsiveTwoColumnContainer
+                    renderNavigationComponent={navProps =>
+                      (<TwoTabbedNav
+                        firstTitle="Questions"
+                        secondTitle={context.isMobile ? 'Ask Now' : 'MVP Astronomers'}
+                        firstTabIsActive={navProps.showMainContainer}
+                        firstTabOnClick={navProps.onShowMainContainer}
+                        secondTabIsActive={navProps.showAsideContainer}
+                        secondTabOnClick={navProps.onShowAsideContainer}
+                      />)
                     }
-                  }
-                </DeviceContext.Consumer>
-              </Fragment>
-
-            </div>
-          </CenterColumn>
-        <style jsx>{style}</style>
-      </div>
+                    renderAsideContent={() => (
+                      <div>
+                        <AsideContainer
+                          {...this.props}
+                          {...context}
+                          modalActions={modalActions}
+                          objectId={objectId}
+                          user={user}
+                          submitQuestion={this.submitQuestion}
+                          aaaQuestionPrompt={aaaQuestionPrompt}
+                        />
+                      </div>
+                    )}
+                    isScreenLarge={context.isScreenLarge}
+                    renderMainContent={() => <MainContainer
+                      {...this.props}
+                      {...context}
+                      questionFilter={questionFilter}
+                      handlePageChange={this.handlePageChange}
+                      actions={actions}
+                      user={user}
+                      submitAnswer={this.submitAnswer}
+                      likeParams={likeParams}
+                      modalActions={modalActions}
+                    />}
+                  />
+                </div>
+              </CenterColumn>
+            <style jsx>{style}</style>
+          </div>
+        )}
+        </DeviceContext.Consumer>
+      </Fragment>
     )
   }
 }

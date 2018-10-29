@@ -11,7 +11,7 @@ import Modal from 'react-modal';
 import noop from 'lodash/noop';
 import { likeReply } from 'services/discussions/like';
 import LikeButton from 'components/common/style/buttons/LikeButton';
-import { customModalStylesV4 } from 'styles/mixins/utilities';
+import { customModalStylesBlackOverlay } from 'styles/mixins/utilities';
 
 const {
   func,
@@ -31,6 +31,7 @@ class LikeHeartButton extends Component {
     alwaysShowCount: bool,
     likePrompt: string.isRequired,
     likesCount: number.isRequired,
+    // only pass openModal if you want to use a higher component modal
     openModal: func,
     user: shape({
       at: oneOfType([number, string]),
@@ -59,7 +60,7 @@ class LikeHeartButton extends Component {
   static defaultProps = {
     likeHandler: likeReply,
     likeParams: {},
-    openModal: noop,
+    openModal: null,
     alwaysShowCount: false,
     showLikePrompt: true,
   }
@@ -114,16 +115,17 @@ class LikeHeartButton extends Component {
       count,
       likePrompt,
     } = res.data;
+
     if (!apiError) {
-      this.setState({
-        likesCount: count,
-      });
+      this.setState(() => ({
+        likesCount: Number(count),
+      }));
     }
 
     if (showLikePrompt) {
-      this.setState({
+      this.setState(() => ({
         likePrompt,
-      });
+      }));
       this.setModal();
     }
   }
@@ -131,11 +133,14 @@ class LikeHeartButton extends Component {
   setModal = () => {
     if (this.props.openModal) {
       this.props.openModal(this.state.likePrompt);
+    } else  {
+      // if no open modal function is passed, use component's modal
+      this.setState({
+        isModalOpen: true,
+      });
     }
-    // if no open modal function is passed, use component's modal
-    this.setState({
-      isModalOpen: true,
-    });
+
+
   }
 
   closeModal = (e) => {
@@ -146,6 +151,7 @@ class LikeHeartButton extends Component {
   }
 
   render() {
+
     const {
       likePrompt,
       likesCount,
@@ -156,7 +162,7 @@ class LikeHeartButton extends Component {
       <Modal
         ariaHideApp={false}
         isOpen={isModalOpen}
-        style={customModalStylesV4}
+        style={customModalStylesBlackOverlay}
         contentLabel="Like"
         onRequestClose={this.closeModal}
       >
