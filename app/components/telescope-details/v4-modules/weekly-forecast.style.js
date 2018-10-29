@@ -1,5 +1,6 @@
 import css from 'styled-jsx/css';
-import { hawkesBlue } from 'styles/variables/colors_tiles_v4';
+import { hawkesBlue, astronaut } from 'styles/variables/colors_tiles_v4';
+import { primaryFont, secondaryFont } from 'styles/variables/fonts';
 
 export default css`
   .carousel-container {
@@ -13,6 +14,7 @@ export default css`
     justify-content: space-between;
     align-items: center;
     padding: 0 40px;
+    margin-top: 30px;
     border-bottom: 1px solid ${hawkesBlue};
   }
 
@@ -26,7 +28,7 @@ export default css`
     border-radius: 50%;
     width: 50px;
     height: 50px;
-    background: blue;
+    background: ${astronaut};
     display: flex;
     justify-content: center;
     align-items: center;
@@ -56,7 +58,39 @@ export default css`
     border-bottom: 1px solid ${hawkesBlue};
   }
 
-  .active-weather-title {
+  .title {
+    padding: 0;
+    font-family: ${primaryFont};
+    font-size: 11px;
+    color: ${astronaut};
+    text-transform: uppercase;
+    margin-bottom: 30px;
+  }
 
+  .weather-stats {
+    list-style-type: none;
+    padding: 0;
+    font-family: ${secondaryFont};
+    font-size: 20px;
+  }
+
+  .weather-stat {
+    margin-bottom: 10px;
+  }
+
+  .condition-summary {
+    padding: 40px;
+  }
+
+  .secondary-title {
+    font-family: ${secondaryFont};
+    font-size: 20px;
+    padding: 0;
+  }
+
+  .condition-summary-content {
+    padding: 0;
+    font-family: ${secondaryFont};
+    font-size: 19px;
   }
 `;
