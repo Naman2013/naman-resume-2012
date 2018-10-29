@@ -7,12 +7,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Button from 'components/common/style/buttons/Button';
-import RevealSubmitForm from 'components/common/RevealSubmitForm';
-import { romance, astronaut, shadows } from 'styles/variables/colors_tiles_v4';
-import { dropShadowContainer } from 'styles/mixins/utilities';
+import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
+import FullpageForm from './Modals/FullpageForm';
 import SubmitReplyFeedbackModal from './Modals/SubmitReplyFeedbackModal';
 import SubmitReplyForm from './Modals/SubmitReplyForm';
-import { customModalStylesBlackOverlay } from 'styles/mixins/utilities';
+import { prepareReply } from 'services/discussions/prepare-reply';
+import { customModalStylesBlackOverlay, modalStyleFullPage } from 'styles/mixins/utilities';
 
 const {
   arrayOf,
@@ -71,6 +71,22 @@ class SubmitReplyReplyButton extends Component {
     modalActions.showModal();
   }
 
+  setFullpageCommentModal = () => {
+    const { modalActions, user } = this.props;
+    modalActions.setModal({
+      promptComponent: (<FullpageForm
+        modalActions={modalActions}
+        submitForm={this.submitForm}
+        user={user}
+        prepareCall={prepareReply}
+        submitButtonText="Discuss"
+        fieldPlaceholder="Write your public reply"
+      />),
+      promptStyles: modalStyleFullPage,
+    })
+    modalActions.showModal();
+  }
+
 
   submitForm = (content, S3URLs) => {
     const {
@@ -120,7 +136,18 @@ class SubmitReplyReplyButton extends Component {
 
     return (
       <div className="reply-form-container">
-        <Button text="Reply" onClickEvent={this.setCommentModal} />
+        <DisplayAtBreakpoint
+          screenMedium
+          screenLarge
+          screenXLarge
+        >
+          <Button text="Reply" onClickEvent={this.setCommentModal} />
+        </DisplayAtBreakpoint>
+        <DisplayAtBreakpoint
+          screenSmall
+        >
+          <Button text="Reply" onClickEvent={this.setFullpageCommentModal} />
+        </DisplayAtBreakpoint>
       </div>
     );
   }
