@@ -45,6 +45,8 @@ class JoinStep1SchoolSelection extends Component {
     const field = "zipcode";
     const schoolDistrictFormDetailsData = cloneDeep(this.state.schoolDistrictFormDetails);
     schoolDistrictFormDetailsData[field].value = value;
+    schoolDistrictFormDetailsData["district"].value = "";
+    schoolDistrictFormDetailsData["school"].value = "";
 
     this.setState({
       schoolDistrictFormDetails: schoolDistrictFormDetailsData,
@@ -83,12 +85,28 @@ class JoinStep1SchoolSelection extends Component {
     }
   }
 
-  /* This function handles a zipcode change in the form and sets the state accordingly */
+  /* This function handles a school change */
+  handleSchoolChange({ value }) {
+    const field = "school";
+    const schoolDistrictFormDetailsData = cloneDeep(this.state.schoolDistrictFormDetails);
+    schoolDistrictFormDetailsData[field].value = value;
+
+    this.setState({
+      schoolDistrictFormDetails: schoolDistrictFormDetailsData,
+    });
+
+    if (value !== "") {
+
+    }
+  }
+
+  /* This function handles a School District change in the form and sets the state accordingly */
   handleSchoolDistrictChange({ value }) {
     /* Get the existing state of the signup form, modify it and re-set the state */
     const field = "district";
     const schoolDistrictFormDetailsData = cloneDeep(this.state.schoolDistrictFormDetails);
     schoolDistrictFormDetailsData[field].value = value;
+    schoolDistrictFormDetailsData["school"].value = "";
 
     this.setState({
       schoolDistrictFormDetails: schoolDistrictFormDetailsData,
@@ -128,9 +146,13 @@ class JoinStep1SchoolSelection extends Component {
   handleSubmit = (formValues) => {
     formValues.preventDefault();
 
-    window.localStorage.setItem('selectedSchoolId', '010000500871');
-
-    browserHistory.push('/join/step2');
+    if (this.state.schoolDistrictFormDetails.school.value !== "") {
+      window.localStorage.setItem('selectedSchoolId', this.state.schoolDistrictFormDetails.school.value);
+      browserHistory.push('/join/step2');
+    }
+    else {
+      console.log("nothing is selected, can't continue...");
+    }
   }
 
   render() {
@@ -174,6 +196,8 @@ class JoinStep1SchoolSelection extends Component {
                   name="school"
                   className="input-row form-group form-control"
                   component="select"
+                  onChange={(event) => { this.handleSchoolChange({ value: event.target.value }); }}
+
                   >
                   {this.state.schoolOptions.map(school =>
                     <option value={school.NCESSchoolId} key={school.NCESSchoolId}>{school.SchoolName}</option>)
