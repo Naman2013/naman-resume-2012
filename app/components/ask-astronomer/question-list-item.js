@@ -34,6 +34,7 @@ const QuestionListItem = (props) => {
     canAnswerQuestions,
     canReplyToAnswers,
     displayedAnswers,
+    likeParams,
     fetching,
     isDesktop,
     item,
@@ -48,42 +49,47 @@ const QuestionListItem = (props) => {
     threadId: item.threadId,
     showAllAnswers: !answers.showAllAnswers,
   });
-    return (<div className="shadowed-container margin" key={uniqueId}>
-      <Card
+  const likeThreadParams = Object.assign({}, likeParams, {
+    threadId: item.threadId,
+    authorId: item.customerId,
+    forumId: item.forumId,
+  });
+  return (<div className="shadowed-container margin" key={uniqueId}>
+    <Card
+      {...props.item}
+      objectId={objectId}
+      showComments={answers.showAllAnswers}
+      toggleComments={toggleAllAnswers}
+      likeHandler={likeThread}
+      isDesktop={isDesktop}
+      user={user}
+      likeParams={likeThreadParams}
+      allowReplies={canAnswerQuestions}
+      renderReplyButton={() => (<SubmitAnswerButton
         {...props.item}
-        objectId={objectId}
-        showComments={answers.showAllAnswers}
-        toggleComments={toggleAllAnswers}
-        likeHandler={likeThread}
-        isDesktop={isDesktop}
-        user={user}
-        allowReplies={canAnswerQuestions}
-        renderReplyButton={() => (<SubmitAnswerButton
-          {...props.item}
-          replyTo={item.threadId}
-          submitForm={submitAnswer}
-          modalActions={modalActions}
-          user={user}
-        />)}
-        commentText="Answers"
+        replyTo={item.threadId}
+        submitForm={submitAnswer}
         modalActions={modalActions}
-        renderChildReplies={() => (<AnswerList
-          answers={answers}
-          canAnswerQuestions={canAnswerQuestions}
-          canReplyToAnswers={canReplyToAnswers}
-          displayedAnswers={displayedAnswers}
-          isDesktop={isDesktop}
-          numberOfAnswersToThread={item.replyToponlyCount}
-          objectId={objectId}
-          threadId={item.threadId}
-          topicId={item.topicId}
-          modalActions={modalActions}
-        />)}
-      />
-      {fetching && <div className="fa fa-spinner loader" />}
-      <style jsx>{style}</style>
-    </div>
-  )
+        user={user}
+      />)}
+      commentText="Answers"
+      modalActions={modalActions}
+      renderChildReplies={() => (<AnswerList
+        answers={answers}
+        canAnswerQuestions={canAnswerQuestions}
+        canReplyToAnswers={canReplyToAnswers}
+        displayedAnswers={displayedAnswers}
+        isDesktop={isDesktop}
+        numberOfAnswersToThread={item.replyToponlyCount}
+        objectId={objectId}
+        threadId={item.threadId}
+        topicId={item.topicId}
+        modalActions={modalActions}
+      />)}
+    />
+    {fetching && <div className="fa fa-spinner loader" />}
+    <style jsx>{style}</style>
+  </div>)
 };
 
 QuestionListItem.defaultProps = {

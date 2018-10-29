@@ -21,6 +21,7 @@ const MainContainer = ({
   canReplyToAnswers,
   canAnswerQuestions,
   count,
+  likeParams,
   modalActions,
   fetchingAnswers,
   fetchingQuestions,
@@ -46,6 +47,7 @@ const MainContainer = ({
       handlePageChange={handlePageChange}
       objectId={objectId}
       page={page}
+      likeParams={likeParams}
       isDesktop={isDesktop}
       questions={questions}
       submitAnswer={submitAnswer}

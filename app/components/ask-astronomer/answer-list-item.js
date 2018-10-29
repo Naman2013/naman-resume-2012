@@ -53,7 +53,6 @@ const AnswerListItem = (props) => {
     topicId,
     user,
   } = props;
-  console.log('user2', user)
   return (
     <div className="answer-list-item">
       {isTopAnswer && <div className="top-answer">Top Answer</div>}
@@ -65,6 +64,7 @@ const AnswerListItem = (props) => {
         allowReplies={canReplyToAnswers}
         isDesktop={isDesktop}
         likeHandler={likeReply}
+        likeParams={likeParams}
         modalActions={modalActions}
         commentText="Replies"
         showComments={showAllReplies}

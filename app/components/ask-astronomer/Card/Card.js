@@ -14,6 +14,8 @@ import CommentButton from 'components/common/style/buttons/CommentButton';
 import LikeSomethingButton from 'components/common/LikeSomethingButton';
 import Button from 'components/common/style/buttons/Button';
 import ViewImagesButton from 'components/common/style/buttons/ViewImagesButton';
+import { customModalStylesBlackOverlay, profilePhotoStyle } from 'styles/mixins/utilities';
+
 import styles, { profPic } from './Card.style'
 
 const {
@@ -53,6 +55,14 @@ const Card = (props) => {
     user,
   } = props;
 
+  const setModalAndShow = (updatedLikePrompt) => {
+    modalActions.setModal({
+      promptComponent: <div dangerouslySetInnerHTML={{ __html: updatedLikePrompt }} />,
+      promptStyles: customModalStylesBlackOverlay,
+    })
+    modalActions.showModal();
+  }
+
   return (
     <div className="root" key={uniqueId()}>
       <div className="comment-item">
@@ -76,7 +86,7 @@ const Card = (props) => {
               likesCount={likesCount}
               likePrompt={likePrompt}
               likeParams={likeParams}
-              openModal={modalActions.showModal}
+              openModal={setModalAndShow}
               showLikePrompt={showLikePrompt}
               user={user}
               customerId={customerId}

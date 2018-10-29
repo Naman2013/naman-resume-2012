@@ -33,6 +33,7 @@ const ReplyListItem = (props) => {
         {...reply}
         replyTo={reply.replyId}
         likeHandler={likeReply}
+        likeParams={likeParams}
         isDesktop={props.isDesktop}
         allowReplies={false}
         user={user}

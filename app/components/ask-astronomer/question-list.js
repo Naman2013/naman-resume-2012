@@ -28,6 +28,7 @@ const QuestionList = ({
   handlePageChange,
   isDesktop,
   modalActions,
+  likeParams,
   objectId,
   page,
   questions,
@@ -52,6 +53,7 @@ const QuestionList = ({
           fetching={fetchingAnswers[item.threadId]}
           isDesktop={isDesktop}
           item={item}
+          likeParams={likeParams}
           user={user}
           key={item.threadId}
           objectId={objectId}

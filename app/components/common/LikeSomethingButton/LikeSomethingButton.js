@@ -84,6 +84,14 @@ class LikeHeartButton extends Component {
     }
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    if (Number(this.state.likesCount) === Number(nextState.likesCount)) {
+      return false;
+    }
+
+    return true;
+  }
+
   likeItem = (e) => {
     e.preventDefault();
     const {
@@ -94,7 +102,7 @@ class LikeHeartButton extends Component {
       user,
     } = this.props;
 
-    if (showLikePrompt) {
+    if (false) {
       this.setModal();
     } else {
       likeHandler({
@@ -114,16 +122,17 @@ class LikeHeartButton extends Component {
       count,
       likePrompt,
     } = res.data;
+
     if (!apiError) {
-      this.setState({
-        likesCount: count,
-      });
+      this.setState(() => ({
+        likesCount: Number(count),
+      }));
     }
 
     if (showLikePrompt) {
-      this.setState({
+      this.setState(() => ({
         likePrompt,
-      });
+      }));
       this.setModal();
     }
   }
@@ -131,11 +140,14 @@ class LikeHeartButton extends Component {
   setModal = () => {
     if (this.props.openModal) {
       this.props.openModal(this.state.likePrompt);
+    } else  {
+      // if no open modal function is passed, use component's modal
+      this.setState({
+        isModalOpen: true,
+      });
     }
-    // if no open modal function is passed, use component's modal
-    this.setState({
-      isModalOpen: true,
-    });
+
+
   }
 
   closeModal = (e) => {
@@ -146,6 +158,9 @@ class LikeHeartButton extends Component {
   }
 
   render() {
+    const {
+      closeModal,
+    } = this.props;
     const {
       likePrompt,
       likesCount,
@@ -158,7 +173,7 @@ class LikeHeartButton extends Component {
         isOpen={isModalOpen}
         style={customModalStylesV4}
         contentLabel="Like"
-        onRequestClose={this.closeModal}
+        onRequestClose={closeModal || this.closeModal}
       >
         <i className="fa fa-close" onClick={this.closeModal} />
         <p className="" dangerouslySetInnerHTML={{ __html: likePrompt }} />

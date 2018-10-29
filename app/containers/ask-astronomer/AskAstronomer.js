@@ -214,7 +214,11 @@ class AskAstronomer extends Component {
     } = this.props;
 
     const { showPrompt, promptComponent, promptStyles, aaaQuestionPrompt } = this.state;
-    const likeParams = {};
+    const likeParams = {
+      callSource: 'qanda',
+      objectId,
+      topicId: faqTopicId,
+    };
     const {
       setModal,
       showModal,
