@@ -7,6 +7,7 @@ import {
   ASK_QUESTION_START,
   ASK_QUESTION_SUCCESS,
   ASK_QUESTION_FAIL,
+  CHANGE_ANSWER_STATE,
 } from './actions';
 import {
   SUBMIT_ANSWER_FOR_ASTRONOMER_QUESTION_SUCCESS,
@@ -21,6 +22,7 @@ const initialState = {
   threadCount: 0,
   count: 5,
   threadList: [],
+  filter: 'all',
 };
 
 export default createReducer(initialState, {
@@ -102,6 +104,12 @@ export default createReducer(initialState, {
     return {
       ...state,
       threadList: newThreadList,
+    };
+  },
+  [CHANGE_ANSWER_STATE](state, { payload }) {
+    return {
+      ...state,
+      filter: payload.answerState,
     };
   },
 });

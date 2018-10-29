@@ -11,6 +11,8 @@ export const ASK_QUESTION_START = 'ASK_QUESTION_START';
 export const ASK_QUESTION_SUCCESS = 'ASK_QUESTION_SUCCESS';
 export const ASK_QUESTION_FAIL = 'ASK_QUESTION_FAIL';
 
+export const CHANGE_ANSWER_STATE = 'CHANGE_ANSWER_STATE';
+
 
 const fetchAstronomerQuestionsStart = payload => ({
   type: FETCH_ASTRONOMER_QUESTIONS_START,
@@ -29,15 +31,13 @@ const fetchAstronomerQuestionsFail = payload => ({
 
 export const fetchAstronomerQuestions = ({
   appendToList = false,
-  count,
   lang,
   page,
-  answerState,
   objectId,
   ver,
 }) => (dispatch, getState) => {
   const { cid, at, token } = getState().user;
-  const { count } = getState().astronomerQuestions;
+  const { count, filter } = getState().astronomerQuestions;
   dispatch(fetchAstronomerQuestionsStart({ appendToList }));
   return axios.post('/api/forum/getQuestionsList', {
     appendToList,
@@ -50,7 +50,7 @@ export const fetchAstronomerQuestions = ({
     token,
     ver,
     objectId,
-    answerState,
+    answerState: filter,
   })
   .then(result => {
     if (result.data.threads.length > 0) {
@@ -109,3 +109,8 @@ export const askQuestion = ({
     .then(res => dispatch(askQuestionSuccess(res.data)))
     .catch(err => dispatch(askQuestionFail(err)));
 };
+
+export const changeAnswerState = payload => ({
+  type: CHANGE_ANSWER_STATE,
+  payload,
+});

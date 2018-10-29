@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import noop from 'lodash/noop';
 import QuestionList from 'components/ask-astronomer/question-list';
+import Filter from 'components/ask-astronomer/question-filter';
 import styles from '../AskAstronomer.style';
 
 const {
@@ -30,11 +31,14 @@ const MainContainer = ({
   objectId,
   page,
   questions,
+  questionFilter,
   submitAnswer,
   totalCount,
   user={user}
 }) => (
   <div>
+
+    <Filter changeAnswerState={actions.changeAnswerState} totalCount={totalCount} selectedFilter={questionFilter} />
     {fetchingQuestions && <div className="fa fa-spinner loader" />}
     {!fetchingQuestions && <QuestionList
       actions={actions}

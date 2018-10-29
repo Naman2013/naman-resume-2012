@@ -15,6 +15,7 @@ import { DeviceContext } from 'providers/DeviceProvider';
 import {
   fetchAstronomerQuestions,
   askQuestion,
+  changeAnswerState,
 } from 'modules/ask-astronomer-questions/actions';
 import {
   toggleAllAnswersAndDisplay,
@@ -49,6 +50,7 @@ const mapStateToProps = ({
   allDisplayedAnswers: astronomerAnswers.allDisplayedAnswers,
   appConfig,
   objectData: objectDetails.objectData,
+  questionFilter: astronomerQuestions.filter,
   questions: astronomerQuestions.threadList,
   page: astronomerQuestions.page,
   totalCount: astronomerQuestions.threadCount,
@@ -65,6 +67,7 @@ const mapStateToProps = ({
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     askQuestion,
+    changeAnswerState,
     fetchAstronomerQuestions,
     toggleAllAnswersAndDisplay,
     fetchObjectSpecialistsAction,
@@ -89,6 +92,7 @@ class AskAstronomer extends Component {
       fetchAstronomerQuestions: func.isRequired,
     }).isRequired,
     serviceUrl: string,
+    questionFilter: string,
   }
 
   static defaultProps = {
@@ -99,6 +103,7 @@ class AskAstronomer extends Component {
     count: 0,
     actions: { },
     objectId: '',
+    questionFilter: 'all',
   }
 
   constructor(props) {
@@ -128,10 +133,14 @@ class AskAstronomer extends Component {
 
   componentWillReceiveProps(nextProps) {
     const {
+      questionFilter,
+      params: {
+        objectId,
+      },
     } = nextProps;
     //fetch the question data, the object page has been changed.
-    if (this.props.params.objectId != nextProps.params.objectId) {
-      this.props.actions.fetchAstronomerQuestions({ answerState: 'all', objectId });
+    if (this.props.params.objectId != nextProps.params.objectId || this.props.questionFilter !== nextProps.questionFilter) {
+      this.props.actions.fetchAstronomerQuestions({ objectId });
     }
   }
 
@@ -143,7 +152,7 @@ class AskAstronomer extends Component {
     } = this.props;
     if (this.props.objectData.objectId != objectId) {
         //fetch questions only if the objectId changes.
-        this.props.actions.fetchAstronomerQuestions({ answerState: 'all', objectId });
+        this.props.actions.fetchAstronomerQuestions({ objectId });
     }
   }
 
@@ -157,7 +166,6 @@ class AskAstronomer extends Component {
     actions.fetchAstronomerQuestions({
       appendToList: false,
       page,
-      answerState: 'all',
       objectId,
     });
   };
@@ -206,6 +214,7 @@ class AskAstronomer extends Component {
         objectTitle,
       },
       questions,
+      questionFilter,
       totalCount,
       count,
       page,
@@ -300,6 +309,7 @@ class AskAstronomer extends Component {
                     renderMainContent={() => <MainContainer
                       {...this.props}
                       {...context}
+                      questionFilter={questionFilter}
                       handlePageChange={this.handlePageChange}
                       actions={actions}
                       user={user}
