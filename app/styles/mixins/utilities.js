@@ -77,6 +77,8 @@ export const customModalStylesBlackOverlay = {
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)',
     maxWidth: '650px',
+    minWidth: '300px',
+    border: 0,
     padding: '50px 25px',
     fontFamily: primaryFont,
   },

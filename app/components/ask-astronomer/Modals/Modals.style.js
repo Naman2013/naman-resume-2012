@@ -8,7 +8,8 @@ import { backgroundImageCover, dropShadowContainer } from 'styles/mixins/utiliti
 export default css`
 
   .root {
-    width: 300px;
+    height: 100%;
+    width: 100%;
     background-color: ${romance};
     padding: 15px;
     color: ${astronaut};
@@ -19,6 +20,13 @@ export default css`
     letter-spacing: 2px;
     text-transform: uppercase:
     font-size: 10px;
+    color: ${astronaut};
+  }
+
+  .fullpage-form {
+    height: 100%;
+    width: 100%;
+    background-color: ${romance};
     color: ${astronaut};
   }
 

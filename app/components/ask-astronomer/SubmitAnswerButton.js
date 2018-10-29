@@ -7,12 +7,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Button from 'components/common/style/buttons/Button';
-import RevealSubmitForm from 'components/common/RevealSubmitForm';
-import { romance, astronaut, shadows } from 'styles/variables/colors_tiles_v4';
-import { dropShadowContainer } from 'styles/mixins/utilities';
+import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
+import FullpageForm from './Modals/FullpageForm';
 import SubmitAnswerFeedbackModal from './Modals/SubmitAnswerFeedbackModal';
 import SubmitAnswerForm from './Modals/SubmitAnswerForm';
-import { customModalStylesBlackOverlay } from 'styles/mixins/utilities';
+import { prepareReply } from 'services/discussions/prepare-reply';
+import { customModalStylesBlackOverlay, modalStyleFullPage } from 'styles/mixins/utilities';
 
 const {
   arrayOf,
@@ -77,6 +77,28 @@ class SubmitAnswerButton extends Component {
     modalActions.showModal();
   }
 
+  setFullpageAnswerModal = () => {
+    const {
+      modalActions,
+      user,
+      authorInfo,
+      freshness,
+      content,
+    } = this.props;
+    modalActions.setModal({
+      promptComponent: (<FullpageForm
+        modalActions={modalActions}
+        submitForm={this.submitForm}
+        user={user}
+        prepareCall={prepareReply}
+        submitButtonText="Reply"
+        fieldPlaceholder="Write your answer"
+      />),
+      promptStyles: modalStyleFullPage,
+    })
+    modalActions.showModal();
+  }
+
 
   submitForm = (content, S3URLs) => {
     const {
@@ -126,7 +148,19 @@ class SubmitAnswerButton extends Component {
 
     return (
       <div className="reply-form-container">
-        <Button text="Submit an Answer" onClickEvent={this.setAnswerModal} />
+        <DisplayAtBreakpoint
+          screenMedium
+          screenLarge
+          screenXLarge
+        >
+          <Button text="Submit an Answer" onClickEvent={this.setAnswerModal} />
+        </DisplayAtBreakpoint>
+        <DisplayAtBreakpoint
+          screenSmall
+        >
+          <Button text="Submit an Answer" onClickEvent={this.setFullpageAnswerModal} />
+        </DisplayAtBreakpoint>
+
       </div>
     );
   }

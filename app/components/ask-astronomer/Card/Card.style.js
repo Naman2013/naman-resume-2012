@@ -73,6 +73,7 @@ export default css`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
   }
 
   .action-left {
@@ -85,7 +86,9 @@ export default css`
 
 
   .action-right {
+    display: flex;
     margin-left: auto;
+    align-items: center;
   }
 
   .fa-close {
