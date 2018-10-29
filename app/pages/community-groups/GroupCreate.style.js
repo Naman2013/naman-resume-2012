@@ -12,25 +12,31 @@ export default css`
     color: ${astronaut};
   }
 
-  .inner-container {
-    padding: 25px;
-    width: 100%;
-    background-color: ${romance};
-    ${faintShadow}
-  }
   .section-heading {
     font-size: 14px;
     font-family: ${primaryFont};
     text-transform: uppercase;
     font-weight: bold;
     text-align: center;
-    padding: 25px 0;
+    padding: 25px;
     letter-spacing: 2px;
-    border-bottom: 1px solid ${shadows};
+    color: ${astronaut};
   }
 
+  .inner-container {
+    padding: 25px;
+    width: 100%;
+    background-color: ${romance};
+    ${faintShadow}
+  }
+
+  .inner-header-container {
+    height: auto;
+  }
+
+
   .form {
-    margin: 15px 0;
+    padding: 25px 15px;
     color: ${astronaut};
   }
 
@@ -50,6 +56,7 @@ export default css`
     font-family: Arial, sans-serif;
     font-size: 13px;
     font-weight: bold;
+    color: ${astronaut};
 
   }
 

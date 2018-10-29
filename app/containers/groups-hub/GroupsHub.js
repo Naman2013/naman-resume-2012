@@ -203,7 +203,13 @@ class Groups extends Component {
                         currentCount: 'groupsCount',
                         totalCount: 'totalGroupsCount',
                       }}
-                      renderRightMenu={serviceResponse.canRequestGroup ? () => (<Button text="Request Group" onClickEvent={this.requestGroup} />) : null}
+                      renderRightMenu={() => (
+                        <div className="flex">
+                          {serviceResponse.canCreateNewClubs ? <Button text={serviceResponse.createNewClubButtonText} onClickEvent={this.createClub} />
+                          : null}
+                          {serviceResponse.canRequestGroup ? <Button text="Request Group" onClickEvent={this.requestGroup} /> : null}
+                        </div>
+                      )}
                       updateList={this.updateGroupsList}
                       appendToList={this.appendToGroupsList}
                       iconURL={serviceResponse.pageIconURL}
@@ -212,9 +218,7 @@ class Groups extends Component {
                       render={() => (
                         <Fragment>
                           {fetchingContent ? <div>Loading</div> : null}
-                          {serviceResponse.canCreateNewClubs && <div>
-                              <Button text={serviceResponse.createNewClubButtonText} onClickEvent={this.createClub} />
-                          </div>}
+
                           {!fetchingContent && groups && groups.length ?
                             <GroupTiles
                               closeModal={this.closeModal}

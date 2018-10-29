@@ -46,6 +46,7 @@ export default css`
     font-size: 11px;
     margin: 0 auto;
     white-space: nowrap;
+    color: ${astronaut};
   }
 
   .pad-right {
