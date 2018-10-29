@@ -34,6 +34,7 @@ const GroupsHeader = ({
   showJoinPrompt,
   subtitleList={},
   title,
+  canEditGroup
 }) => (
   <div className="root">
     <div className="image-and-main-container">
@@ -47,6 +48,7 @@ const GroupsHeader = ({
         <div className="groups-header-title desktop-hide" dangerouslySetInnerHTML={{ __html: title }} />
         <LabeledTitleTiles tiles={subtitleList} theme={{ boxShadow: 'none' }} />
         {condensed ? (<div className="groups-header-information" dangerouslySetInnerHTML={{ __html:   description }} />) : null}
+
         <div className="action-container">
           {showJoinPrompt ?
             <LargeButtonWithRightIcon
@@ -63,7 +65,7 @@ const GroupsHeader = ({
       <div className="info-inner-container">
         <div className="groups-header-subtitle">Community Group</div>
         <div className="groups-header-title" dangerouslySetInnerHTML={{ __html: title }} />
-        <div className="groups-header-information" dangerouslySetInnerHTML={{ __html:   description }} />
+        <div className="groups-header-information"><span dangerouslySetInnerHTML={{ __html:   description }}/>{canEditGroup === true && <span style={{'paddingLeft': '10px'}}><br/>Edit Group</span>}</div>
       </div>
     </div>) : null}
 
