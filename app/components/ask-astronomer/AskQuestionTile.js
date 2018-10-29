@@ -2,9 +2,17 @@ import React, { Fragment, Component } from 'react';
 import PropTypes from 'prop-types';
 import noop from 'lodash/noop';
 import GenericButton from 'components/common/style/buttons/Button';
-import { customModalStylesBlackOverlay } from 'styles/mixins/utilities';
+import { customModalStylesBlackOverlay, profilePhotoStyle } from 'styles/mixins/utilities';
+import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
 import SubmitQuestionForm from './Modals/SubmitQuestionForm';
 import SubmitQuestionFeedbackModal from './Modals/SubmitQuestionFeedbackModal';
+import { info } from 'styles/variables/iconURLs';
+
+const circlePic = photoUrl => Object.assign(profilePhotoStyle(photoUrl), {
+  height: '105px',
+  width: '105px',
+  backgroundSize: 'cover',
+});
 import style from './AskQuestionTile.style';
 
 const {
@@ -55,11 +63,23 @@ class AskQuestionTile extends Component {
     modalActions.showModal();
   }
 
+  setInfoModal = (e) => {
+    e.preventDefault();
+    const {
+      infoText,
+      modalActions,
+    } = this.props;
+    modalActions.setModal({
+      promptComponent: <div dangerouslySetInnerHTML={{ __html: infoText}} />,
+      promptStyles: customModalStylesBlackOverlay,
+    });
+    modalActions.showModal();
+  }
+
   submitForm = (content, S3URLs) => {
     const {
       submitQuestion,
       askQuestionInfo: { topicId, objectId },
-      user,
     } = this.props;
 
     submitQuestion({
@@ -67,10 +87,6 @@ class AskQuestionTile extends Component {
       S3URLs,
       objectId,
       topicId,
-      at: user.at,
-      token: user.token,
-      cid: user.cid,
-      callSource: 'qanda',
     }, (data) => this.handleSubmitReply(data));
   }
 
@@ -96,6 +112,7 @@ class AskQuestionTile extends Component {
     const {
       askPrompt,
       infoText,
+      imageURL,
       modalActions,
       promptIconUrl,
       subTitle,
@@ -103,12 +120,39 @@ class AskQuestionTile extends Component {
     } = this.props;
     return (
       <Fragment>
+        <DisplayAtBreakpoint screenLarge screenXLarge>
+          <div className="ask-question-tile">
+            <div className="ask-question-text">
+              <span className="dek" dangerouslySetInnerHTML={{ __html: title }} />
+              <h2 dangerouslySetInnerHTML={{ __html: subTitle }} />
+              <p dangerouslySetInnerHTML={{ __html: infoText }} />
+            </div>
+            <span className="icon-line-horz" />
+            <div className="icon-container flex-item">
+              <div className="vert-line" />
+              <div className="icon-container-circle">
+                <div className="circle-icon-line">
+                  <div className="icon" style={circlePic(imageURL)} />
+                </div>
+              </div>
+            </div>
+            <span className="icon-line-horz" />
+            <div className="button-contain">
+              <GenericButton onClickEvent={this.setAskQuestionModal} text={askPrompt} icon={promptIconUrl} theme={{ width: '175px' }} />
+              <GenericButton onClickEvent={this.setInfoModal} icon={info} theme={{ height: '40px', width: '40px' }} />
+            </div>
+          </div>
+        </DisplayAtBreakpoint>
+        <DisplayAtBreakpoint screenSmall screenMedium>
         <div className="ask-question-tile">
           <div className="ask-question-text">
             <span className="dek" dangerouslySetInnerHTML={{ __html: title }} />
             <h2 dangerouslySetInnerHTML={{ __html: subTitle }} />
             <p dangerouslySetInnerHTML={{ __html: infoText }} />
-            <GenericButton onClickEvent={this.setAskQuestionModal} text={askPrompt} icon={promptIconUrl} />
+            <div className="button-contain">
+              <GenericButton onClickEvent={this.setAskQuestionModal} text={askPrompt} icon={promptIconUrl} theme={{ width: '175px' }} />
+              <GenericButton onClickEvent={this.setInfoModal} icon={info} theme={{ height: '40px', width: '40px' }} />
+            </div>
           </div>
           <div className="icon-container">
             <div className="border">
@@ -118,6 +162,7 @@ class AskQuestionTile extends Component {
             </div>
           </div>
         </div>
+        </DisplayAtBreakpoint>
         <style jsx>{style}</style>
       </Fragment>
     )

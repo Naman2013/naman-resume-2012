@@ -7,6 +7,7 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { browserHistory } from 'react-router';
 import Button from 'components/common/style/buttons/Button';
 import PhotoUploadButton from 'components/common/style/buttons/PhotoUploadButton';
 import deletePostImage from 'services/post-creation/delete-post-image';
@@ -143,7 +144,6 @@ class SubmitQuestionForm extends Component {
     const {
       questionText,
     } = this.state;
-    console.log('this.PORPOR', this.props)
     return (
       <form className="root">
         <div className="title" dangerouslySetInnerHTML={{ __html: title }}/>
@@ -156,9 +156,9 @@ class SubmitQuestionForm extends Component {
           />
         </div>
         <div className="button-container">
-          <div className="privacy-buttons">
+          <div className="left-buttons">
             <PhotoUploadButton handleUploadImage={this.handleUploadImage} />
-            <Button onClickEvent={null} text="Guidelines" theme={{ height: '40px' }} />
+            <Button onClickEvent={() => browserHistory('/help/posting-guidelines')} text="Guidelines" theme={{ height: '40px' }} />
           </div>
           <div className="actions">
             <Button onClickEvent={modalActions.closeModal} text="Cancel" theme={{ height: '40px' }} />

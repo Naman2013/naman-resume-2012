@@ -32,7 +32,6 @@ const SubmitQuestionFeedback = (props) => {
     doneButtonLabel,
     continueButtonLabel,
   } = props;
-  console.log('requestQuestion', requestQuestion)
   return (
     <form className="root">
       <div className="title" dangerouslySetInnerHTML={{ __html: title}} />

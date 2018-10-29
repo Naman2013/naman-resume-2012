@@ -4,6 +4,9 @@ import {
   FETCH_ASTRONOMER_QUESTIONS_START,
   FETCH_ASTRONOMER_QUESTIONS_SUCCESS,
   FETCH_ASTRONOMER_QUESTIONS_FAIL,
+  ASK_QUESTION_START,
+  ASK_QUESTION_SUCCESS,
+  ASK_QUESTION_FAIL,
 } from './actions';
 import {
   SUBMIT_ANSWER_FOR_ASTRONOMER_QUESTION_SUCCESS,
@@ -60,6 +63,29 @@ export default createReducer(initialState, {
       page: 0,
       canAnswerQuestions: false,
       canReplyToAnswers: false,
+    };
+  },
+  [ASK_QUESTION_START](state) {
+    return {
+      ...state,
+    };
+  },
+  [ASK_QUESTION_SUCCESS](state, { payload }) {
+    const {
+      thread,
+    } = payload;
+    const threadList = [].concat(state.threadList);
+    threadList.unshift(thread);
+    return {
+      ...state,
+      fetching: false,
+      threadCount: state.threadCount + 1,
+      threadList,
+    };
+  },
+  [ASK_QUESTION_FAIL](state) {
+    return {
+      ...state,
     };
   },
   [SUBMIT_ANSWER_FOR_ASTRONOMER_QUESTION_SUCCESS](state, { payload }) {

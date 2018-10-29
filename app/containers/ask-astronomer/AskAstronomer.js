@@ -14,6 +14,7 @@ import { fetchObjectSpecialistsAction } from 'modules/object-details/actions';
 import { DeviceContext } from 'providers/DeviceProvider';
 import {
   fetchAstronomerQuestions,
+  askQuestion,
 } from 'modules/ask-astronomer-questions/actions';
 import {
   toggleAllAnswersAndDisplay,
@@ -22,7 +23,6 @@ import {
 import AskQuestionTile from 'components/ask-astronomer/AskQuestionTile';
 import ObjectDetailsSectionTitle from 'components/object-details/ObjectDetailsSectionTitle';
 import CenterColumn from 'components/common/CenterColumn';
-import { createThread } from 'services/discussions/create-thread';
 import MainContainer from './partials/MainContainer';
 import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
 import { getAskAnAstronomer } from 'services/objects/ask-astronomer';
@@ -64,6 +64,7 @@ const mapStateToProps = ({
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
+    askQuestion,
     fetchAstronomerQuestions,
     toggleAllAnswersAndDisplay,
     fetchObjectSpecialistsAction,
@@ -168,7 +169,7 @@ class AskAstronomer extends Component {
 
   submitQuestion = (params, callback) => {
     const { actions } = this.props;
-    createThread(params).then(res => callback(res.data));
+    actions.askQuestion(params).then(res => callback(res.payload));
   }
 
   showModal = () => {

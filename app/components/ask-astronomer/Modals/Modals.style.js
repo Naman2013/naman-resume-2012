@@ -34,6 +34,12 @@ export default css`
     padding-bottom: 5px;
   }
 
+  .left-buttons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
   .info-container {
     font-size: 10px;
     font-weight: bold;
