@@ -49,6 +49,8 @@ class JoinHeader extends Component {
       activeTab,
       mainHeading,
       subHeading,
+      callSource,
+      numberOfSteps
     } = this.props;
 
 
@@ -66,11 +68,13 @@ class JoinHeader extends Component {
                 <div className="big">{mainHeading}</div>
                 <div className="little">{subHeading}</div>
               </div>
-              <TabbedNav
-                tabs={TABS}
-                activeTabValue={activeTab}
-                onTabClick={this.changeActiveTab}
-              />
+              { callSource !== 'joinByInvitationEmail' &&
+                <TabbedNav
+                  tabs={TABS}
+                  activeTabValue={activeTab}
+                  onTabClick={this.changeActiveTab}
+                />
+              }
             </div>
 
           </div>
@@ -82,11 +86,13 @@ class JoinHeader extends Component {
             <div className="big">{mainHeading}</div>
             <div className="little">{subHeading}</div>
           </div>
-          <TabbedNav
-            tabs={TABS}
-            activeTabValue={activeTab}
-            onTabClick={this.changeActiveTab}
-          />
+          { callSource !== 'joinByInvitationEmail' &&
+            <TabbedNav
+              tabs={TABS}
+              activeTabValue={activeTab}
+              onTabClick={this.changeActiveTab}
+            />
+          }
 
         </DisplayAtBreakpoint>
         <style>{styles}</style>

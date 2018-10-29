@@ -451,7 +451,9 @@ class JoinByInviteAccountSignup extends Component {
     } = this.state;
 
     const joinByInviteParams = this.props.joinByInviteParams;
-
+    //console.log ('joinByInviteParams : ' + joinByInviteParams.callSource);
+    const numberOfSteps = this.props.numberOfSteps;
+    //console.log ('numberOfSteps : ' + numberOfSteps);
     const selectedPlanId = this.state.selectedPlanId;
 
     //for classroom accounts
@@ -475,6 +477,8 @@ class JoinByInviteAccountSignup extends Component {
                       mainHeading={joinPageRes.pageHeading1}
                       subHeading={joinPageRes.pageHeading2}
                       activeTab={pathname}
+                      callSource={joinByInviteParams.callSource}
+                      numberOfSteps = {numberOfSteps}
                     />
                     <div className="step-root">
                       <DisplayAtBreakpoint
