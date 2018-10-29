@@ -9,22 +9,5 @@ export default css`
     transition: width 0.25s;
   }
 
-  @media ${screenMedium} {
-    .root {
-      width: 620px;
-    }
-  }
-
-  @media ${screenLarge} {
-    .root {
-      width: 780px;
-    }
-  }
-
-  @media ${screenXLarge} {
-    .root {
-      width: 300px;
-    }
-  }
 
 `;

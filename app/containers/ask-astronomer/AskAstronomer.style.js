@@ -117,7 +117,7 @@ export default css`
     }
   }
 
-  @media ${screenXLarge} {
+  @media ${screenLarge} {
 
     .ask-astronomer {
       display: flex;
@@ -137,7 +137,7 @@ export default css`
       display: block !important;
       width: 300px;
       box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.1);
-      margin: 10px;
+      margin: 10px 0;
       background-color: ${romance};
     }
     .mvp .mvp-header {

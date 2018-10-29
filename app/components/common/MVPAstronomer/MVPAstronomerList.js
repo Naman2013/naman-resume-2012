@@ -4,26 +4,35 @@
 ***********************************/
 
 import React from 'react';
-import MVPAstronomer from './MVPAstronomer';
+import MVPAstronomer from 'components/community-groups/overview/members-list-card';
+import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
 import style from './MVPAstronomerList.style';
 
-const MVPAstronomerList = (props) => (
+const MVPAstronomerList = props => (
   <div className="root">
-    {Object.keys(props.specialistsList).map(function(key) {
-      return(
+    <DisplayAtBreakpoint
+      screenSmall
+      screenXLarge
+      screenLarge>
+      {props.specialistsList.map(specialist =>
         <MVPAstronomer
-          id={props.specialistsList[key].customerId}
-          displayName={props.specialistsList[key].displayName}
-          iconURL={props.specialistsList[key].iconURL}
-          gravityRank={props.specialistsList[key].gravityRankLabel}
-          linkFlag={props.specialistsList[key].hasLinkFlag}
-          linkURL={props.specialistsList[key].linkURL}
+          theme={{ margin: 0 }}
+          {...specialist}
         />
-      )
-    })}
+      )}
+    </DisplayAtBreakpoint>
+
+    <DisplayAtBreakpoint
+      screenMedium>
+      {props.specialistsList.map(specialist =>
+        <MVPAstronomer
+          {...specialist}
+        />
+      )}
+    </DisplayAtBreakpoint>
+
     <style jsx>{style}</style>
   </div>
 );
 
 export default MVPAstronomerList;
-

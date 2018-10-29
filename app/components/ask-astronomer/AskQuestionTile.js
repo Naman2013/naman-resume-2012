@@ -151,7 +151,9 @@ class AskQuestionTile extends Component {
             <p dangerouslySetInnerHTML={{ __html: infoText }} />
             <div className="button-contain">
               <GenericButton onClickEvent={this.setAskQuestionModal} text={askPrompt} icon={promptIconUrl} theme={{ width: '175px' }} />
-              <GenericButton onClickEvent={this.setInfoModal} icon={info} theme={{ height: '40px', width: '40px' }} />
+              <DisplayAtBreakpoint screenMedium>
+                <GenericButton onClickEvent={this.setInfoModal} icon={info} theme={{ height: '40px', width: '40px' }} />
+              </DisplayAtBreakpoint>
             </div>
           </div>
           <div className="icon-container">
