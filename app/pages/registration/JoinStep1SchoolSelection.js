@@ -11,11 +11,26 @@ import Button from 'components/common/style/buttons/Button';
 import { browserHistory } from 'react-router';
 import { Field, reduxForm } from 'redux-form';
 import InputField from 'components/form/InputField';
-import styles from './JoinStep1SchoolSelection.style';
 import { CLASSROOM_GET_US_DISTRICTLIST_ENDPOINT_URL, CLASSROOM_GET_US_SCHOOLLIST_ENDPOINT_URL } from 'services/classroom/classroom';
+import { JOIN_PAGE_ENDPOINT_URL } from 'services/registration/registration.js';
 import axios from 'axios';
+import Request from 'components/common/network/Request';
+import JoinHeader from './partials/JoinHeader';
+import styles from './JoinStep1SchoolSelection.style';
+
+
+const {
+  string,
+} = PropTypes;
 
 class JoinStep1SchoolSelection extends Component {
+  static propTypes = {
+    pathname: string,
+  };
+  static defaultProps = {
+    pathname: '/join/step1',
+  };
+
   constructor(props) {
     super(props);
   }
@@ -38,6 +53,26 @@ class JoinStep1SchoolSelection extends Component {
       },
     },
   };
+
+
+// Obtain access to the join api service response and update the accountFormDetails state to reflect the Join Page response (set form labels)
+handleJoinPageServiceResponse = (result) => {
+  const newSchoolDistrictFormData = cloneDeep(this.state.schoolDistrictFormDetails);
+
+  newSchoolDistrictFormData.zipcode.label = result.formFieldLabels.zipcode.label;
+  newSchoolDistrictFormData.district.label = result.formFieldLabels.district.label;
+  newSchoolDistrictFormData.school.label = result.formFieldLabels.school.label;
+
+  newSchoolDistrictFormData.zipcode.hintText = result.formFieldLabels.zipcode.hintText;
+  newSchoolDistrictFormData.district.hintText = result.formFieldLabels.district.hintText;
+  newSchoolDistrictFormData.school.hintText = result.formFieldLabels.school.hintText;
+
+  /* update the account form details state so the correct hinText will show on each form field */
+  this.setState(() => ({
+    schoolDistrictFormDetails: newSchoolDistrictFormData,
+    /* was the selected plan an astronomy club? */
+  }));
+}
 
   /* This function handles a zipcode change in the form and sets the state accordingly */
   handleZipCodeChange({ value }) {
@@ -156,72 +191,98 @@ class JoinStep1SchoolSelection extends Component {
   }
 
   render() {
+    const {
+      pathname,
+    } = this.props;
+
     return (
       <div className="step-root">
         <div className="inner-container">
-          <div className="section-heading">Classroom (Teacher) account has been selected. </div>
-          <form className="form" onSubmit={this.handleSubmit}>
-            <div className="form-section">
-              <div className="form-field-container">
-                <span className="form-label">Zipcode:</span>
-                <Field
-                  name="zipcode"
-                  type="name"
-                  label="Enter your zipcode"
-                  component={InputField}
-                  onChange={(event) => { this.handleZipCodeChange({ value: event.target.value }); }}
-                />
-              </div>
+        <Request
+          serviceURL={JOIN_PAGE_ENDPOINT_URL}
+          requestBody={{ 'callSource': 'selectSchoolDistrict' }}
+          serviceResponseHandler={this.handleJoinPageServiceResponse}
+          render={({
+            fetchingContent,
+            serviceResponse,
+          }) => (
+            <Fragment>
+              {
+                !fetchingContent &&
+                  <Fragment>
+                    <JoinHeader
+                      mainHeading={serviceResponse.pageHeading1}
+                      subHeading={serviceResponse.pageHeading2}
+                      activeTab={pathname}
+                    />
+                    <div className="section-heading">{serviceResponse.sectionHeading}</div>
+                      <form className="form" onSubmit={this.handleSubmit}>
+                        <div className="form-section">
+                          <div className="form-field-container">
+                            <span className="form-label">{this.state.schoolDistrictFormDetails.zipcode.label}</span>
+                            <Field
+                              name="zipcode"
+                              type="name"
+                              label={this.state.schoolDistrictFormDetails.zipcode.hintText}
+                              component={InputField}
+                              onChange={(event) => { this.handleZipCodeChange({ value: event.target.value }); }}
+                            />
+                          </div>
 
-              {this.state.schoolDistrictOptions.length > 0 &&
-              <div className="form-field-container">
-                <span className="form-label">District:</span>
-                <Field
-                  name="district"
-                  className="input-row form-group form-control"
-                  component="select"
-                  onChange={(event) => { this.handleSchoolDistrictChange({ value: event.target.value }); }}
-                >
-                  {this.state.schoolDistrictOptions.map(schoolDistrict =>
-                    <option value={schoolDistrict.NCESDistrictId} key={schoolDistrict.NCESDistrictId}>{schoolDistrict.DistrictName}</option>)
+                          {this.state.schoolDistrictOptions.length > 0 &&
+                          <div className="form-field-container">
+                            <span className="form-label">{this.state.schoolDistrictFormDetails.district.label}</span>
+                            <Field
+                              name="district"
+                              className="input-row form-group form-control"
+                              component="select"
+                              onChange={(event) => { this.handleSchoolDistrictChange({ value: event.target.value }); }}
+                            >
+                              {this.state.schoolDistrictOptions.map(schoolDistrict =>
+                                <option value={schoolDistrict.NCESDistrictId} key={schoolDistrict.NCESDistrictId}>{schoolDistrict.DistrictName}</option>)
+                              }
+                            </Field>
+                          </div>
+                          }
+
+                          {this.state.schoolOptions.length &&
+                          <div className="form-field-container">
+                            <span className="form-label">{this.state.schoolDistrictFormDetails.school.label}</span>
+                            <Field
+                              name="school"
+                              className="input-row form-group form-control"
+                              component="select"
+                              onChange={(event) => { this.handleSchoolChange({ value: event.target.value }); }}
+
+                              >
+                              {this.state.schoolOptions.map(school =>
+                                <option value={school.NCESSchoolId} key={school.NCESSchoolId}>{school.SchoolName}</option>)
+                              }
+                            </Field>
+                          </div>
+                          }
+                          <br/>
+                        </div>
+                        <div className="button-container">
+                          <Button
+                            type="button"
+                            text="Go Back"
+                            onClickEvent={() => { browserHistory.push('/join/step1'); }}
+                          />
+                          <button
+                            className="submit-button"
+                            type="submit"
+                          >Continue
+                          </button>
+
+                        </div>
+                      </form>
+                    </Fragment>
                   }
-                </Field>
-              </div>
-              }
-
-              {this.state.schoolOptions.length &&
-              <div className="form-field-container">
-                <span className="form-label">School:</span>
-                <Field
-                  name="school"
-                  className="input-row form-group form-control"
-                  component="select"
-                  onChange={(event) => { this.handleSchoolChange({ value: event.target.value }); }}
-
-                  >
-                  {this.state.schoolOptions.map(school =>
-                    <option value={school.NCESSchoolId} key={school.NCESSchoolId}>{school.SchoolName}</option>)
-                  }
-                </Field>
-              </div>
-              }
-            </div>
-
-            <div className="button-container">
-              <Button
-                type="button"
-                text="Go Back"
-                onClickEvent={() => { browserHistory.push('/join/step1'); }}
-              />
-              <button
-                className="submit-button"
-                type="submit"
-              >Continue
-              </button>
-
-            </div>
-          </form>
-        </div>
+                </Fragment>
+              )}
+            />
+          </div>
         <style jsx>{styles}</style>
       </div>
     )
