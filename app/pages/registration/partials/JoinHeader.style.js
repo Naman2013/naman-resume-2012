@@ -20,6 +20,7 @@ export default css`
   }
 
   .inner-header-container {
+    position: relative;
     width: 620px;
     height: 260px;
     margin: 0 auto;

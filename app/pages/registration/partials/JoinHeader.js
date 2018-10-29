@@ -73,6 +73,7 @@ class JoinHeader extends Component {
                   tabs={TABS}
                   activeTabValue={activeTab}
                   onTabClick={this.changeActiveTab}
+                  theme={ {position: 'absolute', bottom: 0 } }
                 />
               }
             </div>
