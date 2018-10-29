@@ -24,12 +24,23 @@ export default css`
     text-transform: uppercase;
     letter-spacing: 2px;
     font-size: 14px;
-
+    border-bottom: 1px solid ${shadows};
+    margin: 15px;
+    display: block;
+    width: 100%;
+    padding: 15px;
   }
 
   @media ${screenMedium} {
     .root {
       flex-direction: row;
+    }
+
+    .title {
+      padding: 0;
+      border: 0;
+      margin: 0;
+      width: auto;
     }
   }
 
