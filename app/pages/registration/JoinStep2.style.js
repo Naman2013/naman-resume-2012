@@ -75,6 +75,32 @@ export default css`
 
   .form-field-container {}
 
+  .invited-by {
+    border: 1px solid ${shadows};
+    padding: 40px;
+    background-color: ${romance};
+  }
+
+  .invited-by .form-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 2px;
+  }
+
+  .invited-by .inviter {
+    border-top: 1px solid #ced2d8;
+    border-bottom: 1px solid #ced2d8;
+    padding: 40px 0;
+    margin: 20px 0;
+    font-size: 24px;
+    font-family: ${secondaryFont};
+    width: 100%;
+    text-transform: capitalize;
+    font-weight: normal;
+  }
+  
+
   .form-field-half {
     width: 100%;
   }

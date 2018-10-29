@@ -521,14 +521,12 @@ class JoinByInviteAccountSignup extends Component {
                         />
                         <form onSubmit={this.handleSubmit}>
                           <div className="form-section">
-                            <div className="form-field-container">
+                            <div className="form-field-container invited-by">
                               <span className="form-label" dangerouslySetInnerHTML={{ __html: joinPageRes.invitedBy.heading }} />
                               <br/>
-                              <span className="form-label" dangerouslySetInnerHTML={{ __html: joinPageRes.invitedBy.displayName }} />
+                              <span className="form-label inviter" dangerouslySetInnerHTML={{ __html: joinPageRes.invitedBy.displayName }} />
                               <br/>
-                              <span className="form-label" dangerouslySetInnerHTML={{ __html: joinPageRes.invitedBy.displayRole }} /> for&nbsp;
-                              <span className="form-label" dangerouslySetInnerHTML={{ __html: joinPageRes.invitedBy.organizationName }} />
-                              <br/>
+                              <span className="form-label" dangerouslySetInnerHTML={{ __html: joinPageRes.invitedBy.displayRole + ' for ' + joinPageRes.invitedBy.organizationName }} />
                               <br/>
                             </div>
                           </div>
