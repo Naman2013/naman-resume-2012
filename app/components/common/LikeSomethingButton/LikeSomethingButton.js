@@ -11,7 +11,7 @@ import Modal from 'react-modal';
 import noop from 'lodash/noop';
 import { likeReply } from 'services/discussions/like';
 import LikeButton from 'components/common/style/buttons/LikeButton';
-import { customModalStylesV4 } from 'styles/mixins/utilities';
+import { customModalStylesBlackOverlay } from 'styles/mixins/utilities';
 
 const {
   func,
@@ -31,6 +31,7 @@ class LikeHeartButton extends Component {
     alwaysShowCount: bool,
     likePrompt: string.isRequired,
     likesCount: number.isRequired,
+    // only pass openModal if you want to use a higher component modal
     openModal: func,
     user: shape({
       at: oneOfType([number, string]),
@@ -59,7 +60,7 @@ class LikeHeartButton extends Component {
   static defaultProps = {
     likeHandler: likeReply,
     likeParams: {},
-    openModal: noop,
+    openModal: null,
     alwaysShowCount: false,
     showLikePrompt: true,
   }
@@ -84,14 +85,6 @@ class LikeHeartButton extends Component {
     }
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    if (Number(this.state.likesCount) === Number(nextState.likesCount)) {
-      return false;
-    }
-
-    return true;
-  }
-
   likeItem = (e) => {
     e.preventDefault();
     const {
@@ -102,7 +95,7 @@ class LikeHeartButton extends Component {
       user,
     } = this.props;
 
-    if (false) {
+    if (showLikePrompt) {
       this.setModal();
     } else {
       likeHandler({
@@ -158,9 +151,7 @@ class LikeHeartButton extends Component {
   }
 
   render() {
-    const {
-      closeModal,
-    } = this.props;
+
     const {
       likePrompt,
       likesCount,
@@ -171,9 +162,9 @@ class LikeHeartButton extends Component {
       <Modal
         ariaHideApp={false}
         isOpen={isModalOpen}
-        style={customModalStylesV4}
+        style={customModalStylesBlackOverlay}
         contentLabel="Like"
-        onRequestClose={closeModal || this.closeModal}
+        onRequestClose={this.closeModal}
       >
         <i className="fa fa-close" onClick={this.closeModal} />
         <p className="" dangerouslySetInnerHTML={{ __html: likePrompt }} />

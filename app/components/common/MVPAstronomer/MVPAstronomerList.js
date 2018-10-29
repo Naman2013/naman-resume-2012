@@ -4,6 +4,7 @@
 ***********************************/
 
 import React from 'react';
+import uniqueId from 'lodash/uniqueId';
 import MVPAstronomer from 'components/community-groups/overview/members-list-card';
 import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
 import style from './MVPAstronomerList.style';
@@ -16,6 +17,7 @@ const MVPAstronomerList = props => (
       screenLarge>
       {props.specialistsList.map(specialist =>
         <MVPAstronomer
+          key={uniqueId()}
           theme={{ margin: 0 }}
           {...specialist}
         />
@@ -26,6 +28,7 @@ const MVPAstronomerList = props => (
       screenMedium>
       {props.specialistsList.map(specialist =>
         <MVPAstronomer
+          key={uniqueId()}
           {...specialist}
         />
       )}

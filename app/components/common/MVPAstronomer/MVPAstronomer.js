@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import uniqueId from 'lodash/uniqueId';
 import style from './MVPAstronomer.style';
 
 const MVPAstronomer = ({
@@ -15,10 +16,10 @@ const MVPAstronomer = ({
   linkFlag,
   linkURL,
 }) => (
-  <div className="mvp-card" key={'card_' + id}>
+  <div className="mvp-card" key={uniqueId()}>
     <div className="mvp-icon"><img className="mvp-icon-content" src={iconURL}/></div>
     <h5>{displayName}</h5>
-    {linkFlag &&                 
+    {linkFlag &&
       <a className="mvp-btn" href={linkURL}>{gravityRank}</a>
     }
     <style jsx>{style}</style>
@@ -33,5 +34,5 @@ MVPAstronomer.propTypes = {
   linkFlag: PropTypes.bool.isRequired,
   linkURL: PropTypes.string.isRequired,
 };
-  
+
 export default MVPAstronomer;

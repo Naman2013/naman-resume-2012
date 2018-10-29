@@ -86,7 +86,6 @@ const Card = (props) => {
               likesCount={likesCount}
               likePrompt={likePrompt}
               likeParams={likeParams}
-              openModal={setModalAndShow}
               showLikePrompt={showLikePrompt}
               user={user}
               customerId={customerId}
