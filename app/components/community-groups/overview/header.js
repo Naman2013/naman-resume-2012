@@ -49,7 +49,7 @@ const GroupsHeader = ({
       <div className="main-container">
         <div className="groups-header-title desktop-hide" dangerouslySetInnerHTML={{ __html: title }} />
         <LabeledTitleTiles tiles={subtitleList} theme={{ boxShadow: 'none' }} />
-        {condensed ? (<div className="groups-header-information" dangerouslySetInnerHTML={{ __html:   description }} />) : null}
+        {condensed ? (<DiscussionBoardDescription groupId={discussionGroupId} description={description} canEdit={canEditGroup} />) : null}
 
         <div className="action-container">
           {showJoinPrompt ?
@@ -67,7 +67,7 @@ const GroupsHeader = ({
       <div className="info-inner-container">
         <div className="groups-header-subtitle">Community Group</div>
         <div className="groups-header-title" dangerouslySetInnerHTML={{ __html: title }} />
-        <DiscussionBoardDescription groupId={discussionGroupId} description={description} canEdit={canEditGroup}/>
+        <DiscussionBoardDescription groupId={discussionGroupId} description={description} canEdit={canEditGroup} />
       </div>
     </div>) : null}
 
