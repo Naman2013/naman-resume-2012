@@ -32,6 +32,7 @@ class BootstrappedTourPopup extends Component {
       at: string,
       token: string,
       cid: string,
+      subscriptionPlanName: string,
     }).isRequired,
   };
 
@@ -49,6 +50,7 @@ class BootstrappedTourPopup extends Component {
       at: null,
       cid: null,
       token: null,
+      subscriptionPlanName: null,
     },
   };
 
@@ -86,10 +88,15 @@ class BootstrappedTourPopup extends Component {
       text,
       content,
       title,
+      user
     } = this.props;
+
     const {
       showModal,
     } = this.state;
+    
+    const { subscriptionPlanName } = this.props.user;
+
     return (
       <div className="root">
       <Modal
@@ -100,7 +107,7 @@ class BootstrappedTourPopup extends Component {
         ariaHideApp={false}
       >
         <i className="fa fa-close" onClick={this.closeModal} />
-        <BobbieTileWelcomeToPlan title={title} planName="astronomer" HTMLBlob={content} />
+        <BobbieTileWelcomeToPlan title={title} planName={subscriptionPlanName} HTMLBlob={content} />
 
         {hasLink ? <button className="user-btn">
           <Link to={linkURL}>
