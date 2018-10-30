@@ -126,7 +126,7 @@ class FullInformationOverview extends Component {
               <th>Last Name</th>
               <th>Email Address</th>
               <th>Status</th>
-              <th>Last Login</th>
+              <th>Last Activity</th>
             </thead>
 
             <tbody>

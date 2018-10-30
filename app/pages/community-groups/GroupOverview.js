@@ -120,7 +120,7 @@ class CommunityGroupOverview extends Component {
     const modalStyles = modalStyleFullPage;
 
      modalStyles.content = Object.assign(modalStyleFullPage.content, { backgroundColor: seashell });
-
+     
     return (
       <div className="root">
       <DeviceContext.Consumer>

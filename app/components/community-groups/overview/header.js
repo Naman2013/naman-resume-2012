@@ -19,6 +19,7 @@ import {
   screenLarge,
 } from 'styles/variables/breakpoints';
 import { dropShadowContainer } from 'styles/mixins/utilities';
+import DiscussionBoardDescription from 'components/common/DiscussionsBoard/DiscussionBoardDescription';
 
 const {
   string,
@@ -34,7 +35,8 @@ const GroupsHeader = ({
   showJoinPrompt,
   subtitleList={},
   title,
-  canEditGroup
+  canEditGroup,
+  discussionGroupId,
 }) => (
   <div className="root">
     <div className="image-and-main-container">
@@ -65,7 +67,7 @@ const GroupsHeader = ({
       <div className="info-inner-container">
         <div className="groups-header-subtitle">Community Group</div>
         <div className="groups-header-title" dangerouslySetInnerHTML={{ __html: title }} />
-        <div className="groups-header-information"><span dangerouslySetInnerHTML={{ __html:   description }}/>{canEditGroup === true && <span style={{'paddingLeft': '10px'}}><br/>Edit Group</span>}</div>
+        <DiscussionBoardDescription groupId={discussionGroupId} description={description} canEdit={canEditGroup}/>
       </div>
     </div>) : null}
 
