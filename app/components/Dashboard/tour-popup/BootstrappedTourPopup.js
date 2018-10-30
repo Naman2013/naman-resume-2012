@@ -7,6 +7,7 @@ import { customModalStyles } from 'styles/mixins/utilities';
 import Request from 'components/common/network/Request';
 import { DASHBOARD_DISMISS_TOUR_POPUP } from 'services/dashboard';
 // import { connect } from 'react-redux';
+import BobbieTileWelcomeToPlan from 'components/common/tiles/BobbieTile/BobbieTileWelcomeToPlan';
 
 const {
   bool,
@@ -25,6 +26,7 @@ class BootstrappedTourPopup extends Component {
     linkURL: string,
     subTitle: string,
     text: string,
+    content: string,
     title: string,
     user: shape({
       at: string,
@@ -41,6 +43,7 @@ class BootstrappedTourPopup extends Component {
     linkURL: '',
     subTitle: '',
     text: '',
+    content: '',
     title: '',
     user: {
       at: null,
@@ -81,6 +84,7 @@ class BootstrappedTourPopup extends Component {
       linkURL,
       subTitle,
       text,
+      content,
       title,
     } = this.props;
     const {
@@ -96,9 +100,8 @@ class BootstrappedTourPopup extends Component {
         ariaHideApp={false}
       >
         <i className="fa fa-close" onClick={this.closeModal} />
-        <h2 dangerouslySetInnerHTML={{ __html: title }} />
-        <h3 dangerouslySetInnerHTML={{ __html: subTitle }} />
-        <div dangerouslySetInnerHTML={{ __html: text }} />
+        <BobbieTileWelcomeToPlan title={title} planName="astronomer" HTMLBlob={content} />
+
         {hasLink ? <button className="user-btn">
           <Link to={linkURL}>
             <span dangerouslySetInnerHTML={{ __html: linkLabel }} />
