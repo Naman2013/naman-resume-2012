@@ -9,8 +9,12 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import { DeviceContext } from 'providers/DeviceProvider';
 import cloneDeep from 'lodash/cloneDeep';
-import InputField from 'components/form/InputField';
+import TextareaField from 'components/form/TextareaField';
 import Button from 'components/common/style/buttons/Button';
+import {
+  screenMedium,
+  screenLarge,
+} from 'styles/variables/breakpoints';
 import { CLASSROOM_SET_GROUP_DESCRIPTION_ENDPOINT_URL } from 'services/classroom/classroom';
 
 const {
@@ -27,7 +31,7 @@ class DiscussionBoardDescription extends Component {
     super(props);
 
     this.state = {
-      groupDescription: '',
+      groupDescription: props.description,
       inEditMode: false,
     }
   }
@@ -53,13 +57,13 @@ class DiscussionBoardDescription extends Component {
     }));
   }
 
-  enableEditMode() {
+  enableEditMode = () => {
     this.setState(() => ({
       inEditMode: true,
     }));
   }
 
-  cancelEditMode() {
+  cancelEditMode = () => {
     /* turn off edit mode and reset the group description back to the original description */
     this.setState(() => ({
       inEditMode: false,
@@ -117,41 +121,57 @@ class DiscussionBoardDescription extends Component {
 
     return (
       <div className="groups-header-information">
-        {!this.state.inEditMode && <span dangerouslySetInnerHTML={{ __html:   groupDescription }}/>}
+        {!this.state.inEditMode && <div dangerouslySetInnerHTML={{ __html: groupDescription }}/>}
         {this.state.inEditMode && <div>
           <form onSubmit={this.handleSubmit}>
             <Field
               name="groupDescription"
-              component={InputField}
+              component={TextareaField}
               value={this.state.groupDescription}
               onChange={(event) => { this.handleGroupDescriptionFieldChange({ value: event.target.value }); }}
             />
 
-            {inEditMode && canEdit && <span style={{'paddingLeft': '10px'}}>
-              <br/>
+            {inEditMode && canEdit && <div className="button-actions">
               <Button
                 type="button"
                 text="Cancel"
-                onClickEvent={() => { this.cancelEditMode(); }}/>
+                onClickEvent={this.cancelEditMode} />
 
-              <button
+              <Button
                 className="submit-button"
                 type="submit"
-                >Save Changes
-              </button>
-              </span>}
+                onClickEvent={this.handleSubmit}
+                text="Save Changes"
+              />
+            </div>}
 
           </form>
         </div>
         }
-        {!inEditMode && canEdit && <span style={{'paddingLeft': '10px'}}>
-          <br/>
+        {!inEditMode && canEdit && <div className="button-actions">
           <Button
             type="button"
-            text="Edit"
-            onClickEvent={() => { this.enableEditMode(); }}
+            text="Edit Description"
+            onClickEvent={this.enableEditMode}
             />
-        </span>}
+        </div>}
+        <style jsx>{`
+          .button-actions {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+          }
+
+          .submit-button {
+
+          }
+
+          @media ${screenLarge} {
+            justify-content: flex-end;
+          }
+
+
+        `}</style>
       </div>
     );
   }
