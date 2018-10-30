@@ -6,6 +6,7 @@ import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import axios from 'axios';
+import has from 'lodash/has';
 import { GoogleLogin } from 'react-google-login';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
@@ -175,10 +176,10 @@ class JoinByInviteAccountSignup extends Component {
       accountFormDetails: newAccountFormData,
       inviteDetails: newInviteDetails,
       /* was the selected plan a classroom? */
-      isAstronomyClub: result.selectedSubscriptionPlan.isAstronomyClub,
-      isClassroom: result.selectedSubscriptionPlan.isClassroom,
-      selectedSchoolId: result.selectedSchool.schoolId,
-      selectedPlanId: result.selectedSubscriptionPlan.planId,
+      isAstronomyClub: has(result, 'selectedSubscriptionPlan') ? result.selectedSubscriptionPlan.isAstronomyClub : false,
+      isClassroom: has(result, 'selectedSubscriptionPlan') ? result.selectedSubscriptionPlan.isClassroom : false,
+      selectedSchoolId: has(result, 'selectedSchool') ? result.selectedSchool.schoolId : null,
+      selectedPlanId: has(result, 'selectedSubscriptionPlan') ? result.selectedSubscriptionPlan.planId : null,
     }));
   }
 
@@ -441,7 +442,7 @@ class JoinByInviteAccountSignup extends Component {
   }
 
   render() {
-    const { pathname } = this.props;
+    const { pathname, navTabs } = this.props;
     const {
       // googleProfileData,
       accountFormDetails,
@@ -449,9 +450,8 @@ class JoinByInviteAccountSignup extends Component {
       isAstronomyClub,
       isClassroom,
     } = this.state;
-
     const joinByInviteParams = this.props.joinByInviteParams;
-
+    //console.log ('joinByInviteParams : ' + joinByInviteParams.callSource);
     const selectedPlanId = this.state.selectedPlanId;
 
     //for classroom accounts
@@ -475,6 +475,8 @@ class JoinByInviteAccountSignup extends Component {
                       mainHeading={joinPageRes.pageHeading1}
                       subHeading={joinPageRes.pageHeading2}
                       activeTab={pathname}
+                      callSource={joinByInviteParams.callSource}
+                      tabs={navTabs}
                     />
                     <div className="step-root">
                       <DisplayAtBreakpoint
@@ -517,14 +519,12 @@ class JoinByInviteAccountSignup extends Component {
                         />
                         <form onSubmit={this.handleSubmit}>
                           <div className="form-section">
-                            <div className="form-field-container">
+                            <div className="form-field-container invited-by">
                               <span className="form-label" dangerouslySetInnerHTML={{ __html: joinPageRes.invitedBy.heading }} />
                               <br/>
-                              <span className="form-label" dangerouslySetInnerHTML={{ __html: joinPageRes.invitedBy.displayName }} />
+                              <span className="form-label inviter" dangerouslySetInnerHTML={{ __html: joinPageRes.invitedBy.displayName }} />
                               <br/>
-                              <span className="form-label" dangerouslySetInnerHTML={{ __html: joinPageRes.invitedBy.displayRole }} /> for&nbsp;
-                              <span className="form-label" dangerouslySetInnerHTML={{ __html: joinPageRes.invitedBy.organizationName }} />
-                              <br/>
+                              <span className="form-label" dangerouslySetInnerHTML={{ __html: joinPageRes.invitedBy.displayRole + ' for ' + joinPageRes.invitedBy.organizationName }} />
                               <br/>
                             </div>
                           </div>

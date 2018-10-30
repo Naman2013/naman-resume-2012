@@ -16,6 +16,7 @@ import { browserHistory } from 'react-router';
 import Button from 'components/common/style/buttons/Button';
 import Request from 'components/common/network/Request';
 import JoinHeader from './partials/JoinHeader';
+import { JOIN_BY_INVITE_TABS } from './StaticNavTabs';
 
 import {
   JOIN_PAGE_ENDPOINT_URL,
@@ -183,6 +184,7 @@ class JoinByInviteCodeStep1 extends Component {
                       mainHeading={joinPageRes.pageHeading1}
                       subHeading={joinPageRes.pageHeading2}
                       activeTab={pathname}
+                      tabs={JOIN_BY_INVITE_TABS}
                     />
                     <div className="step-root">
                       <div className="inner-container">

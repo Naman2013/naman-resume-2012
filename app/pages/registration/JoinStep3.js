@@ -16,6 +16,8 @@ import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
 import JoinHeader from './partials/JoinHeader';
 import { JOIN_ACTIVATE_PENDING_CUSTOMER_ENDPOINT_URL, JOIN_PAGE_ENDPOINT_URL } from 'services/registration/registration.js';
 import PlanDetailsCard from './partials/PlanDetailsCard';
+import { DEFAULT_JOIN_TABS } from './StaticNavTabs';
+
 import styles from './JoinStep3.style';
 
 
@@ -203,6 +205,7 @@ class JoinStep3 extends Component  {
                       mainHeading={joinPageResponse.pageHeading1}
                       subHeading={joinPageResponse.pageHeading2}
                       activeTab={pathname}
+                      tabs={DEFAULT_JOIN_TABS}
                     />
                     <div className="step-root">
                       <DisplayAtBreakpoint

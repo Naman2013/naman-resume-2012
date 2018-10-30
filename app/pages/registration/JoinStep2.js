@@ -19,7 +19,7 @@ import Request from 'components/common/network/Request';
 import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
 import JoinHeader from './partials/JoinHeader';
 import PlanDetailsCard from './partials/PlanDetailsCard';
-
+import { DEFAULT_JOIN_TABS } from './StaticNavTabs';
 import {
   JOIN_PAGE_ENDPOINT_URL,
   SUBSCRIPTION_PLANS_ENDPOINT_URL,
@@ -467,6 +467,7 @@ class JoinStep2 extends Component {
                       mainHeading={joinPageRes.pageHeading1}
                       subHeading={joinPageRes.pageHeading2}
                       activeTab={pathname}
+                      tabs={DEFAULT_JOIN_TABS}
                     />
                     <div className="step-root">
                       <DisplayAtBreakpoint
