@@ -161,7 +161,6 @@ class JoinStep2 extends Component {
     /* update the account form details state so the correct hinText will show on each form field */
     this.setState(() => ({
       accountFormDetails: newAccountFormData,
-      /* was the selected plan an astronomy club? */
     }));
   }
 

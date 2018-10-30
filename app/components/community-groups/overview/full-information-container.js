@@ -113,8 +113,45 @@ class FullInformationOverview extends Component {
       topicId: pageMeta.topicId,
       user,
     };
+
     return (
       <div className="root">
+        <div className="invite-container">
+          <h2>Manage Classroom Students / Astronomy Club Members</h2>
+          <h3>1 / 30 student licenses in use.</h3>
+          <br/>
+          <table style={{'border': '1px', 'width': '100%'}}>
+            <thead>
+              <th>Student First Name</th>
+              <th>Last Name</th>
+              <th>Email Address</th>
+              <th>Status</th>
+              <th>Last Activity</th>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td>Todd</td>
+                <td>Reisel</td>
+                <td>treisel@gmail.com</td>
+                <td>Invitation Sent</td>
+                <td>n/a</td>
+              </tr>
+              <tr>
+                <td>Christine</td>
+                <td>Reisel</td>
+                <td>creiselct@gmail.com</td>
+                <td>Active</td>
+                <td>10/29/2018 18:17 UTC</td>
+              </tr>
+            </tbody>
+          </table>
+          <br/>
+          <br/>
+          <br/>
+          Invite New Student
+        </div>
+
         <ResponsiveTwoColumnContainer
           renderNavigationComponent={navProps =>
             (<TwoTabbedNav
