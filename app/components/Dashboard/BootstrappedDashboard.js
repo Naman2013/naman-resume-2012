@@ -141,11 +141,12 @@ class BootstrappedDashboard extends Component {
   render() {
     const {
       promoPanel: { promoArray, promoPanelShow },
+      user,
     } = this.props;
 
     return (
       <div className="root">
-        <TourPopup />
+        <TourPopup user={user}/>
         <div className="dash-hero">
           <span className="vertical-helper" />
           <img alt="Welcome" className="hero-img" src="https://vega.slooh.com/assets/v4/placeholder/FPO_GRAPHIC.png" />

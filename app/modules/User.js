@@ -156,7 +156,6 @@ const initialState = {
   errorCode: 0,
   playerVolume: 25,
   playerMuted: false,
-  subscriptionPlanName: '',
 };
 
 export default createReducer(initialState, {
@@ -182,7 +181,6 @@ export default createReducer(initialState, {
       membershipType: null,
       apiError: false,
       errorCode: 0,
-      subscriptionPlanName: null,
     };
   },
   [UPDATE_PLAYER_VOLUME](state, { volume }) {

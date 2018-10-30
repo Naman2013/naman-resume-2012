@@ -10,7 +10,7 @@ import Request from 'components/common/network/Request';
 import { DASHBOARD_META_DATA } from 'services/dashboard';
 import BootstrappedDashboard  from './BootstrappedDashboard';
 
-const Dashboard = () => (
+const Dashboard = (user) => (
   <Request
     authenticationRedirect={true}
     serviceURL={DASHBOARD_META_DATA}
@@ -20,7 +20,7 @@ const Dashboard = () => (
       serviceResponse,
     }) => (
       <div className="root">
-        <BootstrappedDashboard {...serviceResponse} />
+        <BootstrappedDashboard {...serviceResponse} user={user} />
       </div>
     )}
   />
