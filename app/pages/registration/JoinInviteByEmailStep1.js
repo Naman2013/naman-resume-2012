@@ -17,6 +17,7 @@ const {
   func,
 } = PropTypes;
 
+
 class JoinByInviteEmailStep1 extends Component {
   static propTypes = {
     pathname: string.isRequired,
@@ -38,12 +39,8 @@ class JoinByInviteEmailStep1 extends Component {
       invitationCodeHash: this.props.params.invitationCodeHash,
       invitationCreationEpoch: this.props.params.invitationCreationEpoch,
     }
-
-    const numSteps = 1;
-    const stepNumber = 1;
-
     return (
-      <JoinByInviteAccountSignup pathname="/join/inviteByEmailStep1" stepNumber={stepNumber} numberOfSteps={numSteps} joinByInviteParams={joinByInviteParams}/>
+      <JoinByInviteAccountSignup pathname={pathname} joinByInviteParams={joinByInviteParams}/>
     )
   }
 }

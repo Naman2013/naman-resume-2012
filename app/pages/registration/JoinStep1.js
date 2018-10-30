@@ -11,11 +11,14 @@ import JoinHeader from './partials/JoinHeader';
 import SubscriptionPlanCard from './partials/SubscriptionPlanCard';
 import Request from 'components/common/network/Request';
 import { JOIN_PAGE_ENDPOINT_URL, SUBSCRIPTION_PLANS_ENDPOINT_URL } from 'services/registration/registration.js';
+import { DEFAULT_JOIN_TABS } from './StaticNavTabs';
+
 import styles from './JoinStep1.style';
 
 const {
   string,
 } = PropTypes;
+
 
 class JoinStep1 extends Component {
   static propTypes = {
@@ -81,6 +84,7 @@ class JoinStep1 extends Component {
                         mainHeading={serviceResponse.pageHeading1}
                         subHeading={serviceResponse.pageHeading2}
                         activeTab={pathname}
+                        tabs={DEFAULT_JOIN_TABS}
                       />
                       <div className="step-root">
                         <div className="section-heading">{serviceResponse.sectionHeading}</div>

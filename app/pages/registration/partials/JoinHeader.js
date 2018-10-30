@@ -6,23 +6,11 @@ import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
 import styles from './JoinHeader.style';
 
 const {
-  string
+  string,
+  arrayOf,
+  shape,
 } = PropTypes;
 
-const TABS = [
-  {
-    label: 'Step 1',
-    value: '/join/step1',
-  },
-  {
-    label: 'Step 2',
-    value: '/join/step2',
-  },
-  {
-    label: 'Step 3',
-    value: '/join/step3',
-  },
-];
 
 class JoinHeader extends Component {
 
@@ -30,9 +18,14 @@ class JoinHeader extends Component {
     activeTab: string,
     mainHeading: string,
     subHeading: string,
+    tabs: arrayOf(shape({
+      label: string,
+      value: string,
+    })),
   };
 
   static defaultProps = {
+    tabs: [],
     activeTab: '/join/step1',
     mainHeading: 'Joining Slooh is easy!',
     subHeading: 'Join Slooh in three easy steps! Simply select a plan, enter your details, make your payment and you\'re in!',
@@ -49,8 +42,7 @@ class JoinHeader extends Component {
       activeTab,
       mainHeading,
       subHeading,
-      callSource,
-      numberOfSteps
+      tabs,
     } = this.props;
 
 
@@ -68,14 +60,12 @@ class JoinHeader extends Component {
                 <div className="big">{mainHeading}</div>
                 <div className="little">{subHeading}</div>
               </div>
-              { callSource !== 'joinByInvitationEmail' &&
-                <TabbedNav
-                  tabs={TABS}
-                  activeTabValue={activeTab}
-                  onTabClick={this.changeActiveTab}
-                  theme={ {position: 'absolute', bottom: 0 } }
-                />
-              }
+              <TabbedNav
+                tabs={tabs}
+                activeTabValue={activeTab}
+                onTabClick={this.changeActiveTab}
+                theme={ {position: 'absolute', bottom: 0 } }
+              />
             </div>
 
           </div>
@@ -87,13 +77,11 @@ class JoinHeader extends Component {
             <div className="big">{mainHeading}</div>
             <div className="little">{subHeading}</div>
           </div>
-          { callSource !== 'joinByInvitationEmail' &&
             <TabbedNav
-              tabs={TABS}
+              tabs={tabs}
               activeTabValue={activeTab}
               onTabClick={this.changeActiveTab}
             />
-          }
 
         </DisplayAtBreakpoint>
         <style>{styles}</style>
