@@ -74,12 +74,12 @@ export const QuestDetails = (props) => {
           title={pageMeta.stepsHeader}
           subTitle={pageMeta.stepsSubheader}
         />
-        <QuestStepList />
+        <QuestStepList list={pageMeta.stepList} />
       </CenterColumn>
       <style jsx>{styles}</style>
     </div>
   );
-}
+};
 
 QuestDetails.propTypes = {
   actions: shape({

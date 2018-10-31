@@ -16,5 +16,7 @@ import {
 } from '../../../styles/variables/breakpoints';
 
 export default css`
-  
+  .root {
+    margin-bottom: 100px;
+  }
 `;
