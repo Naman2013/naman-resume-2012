@@ -25,7 +25,7 @@ export const fetchQuestPageMeta = ({
 }) => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
   dispatch(fetchQuestPageMetaStart());
-  return axios.post('/api/page/quest', {
+  return axios.post('/api/quests/getQuest', {
     lang,
     questId,
     ver,
