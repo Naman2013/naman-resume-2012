@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import uniqueId from 'lodash/uniqueId';
 import {
   horizontalArrow,
   complete,
@@ -16,7 +17,7 @@ const StepListItem = ({
   stepStatusMsg,
   stepActionMsg,
 }) => (
-  <div className="root">
+  <div className="root" key={uniqueId()}>
     <h5 className="title">
       {stepTitle}
       {stepCompleted ? <img className="check-icon" src={complete} alt="completed icon" /> :

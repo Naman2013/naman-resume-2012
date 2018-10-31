@@ -28,7 +28,7 @@ const {
 
 export const QuestDetails = (props) => {
   const {
-    actions,
+    userActions,
     questId,
     pageMeta,
   } = props;
@@ -65,7 +65,7 @@ export const QuestDetails = (props) => {
         iconURL={pageMeta.iconURL}
         showActionButton={pageMeta.showStartQuestButton}
         actionButtonCaption={pageMeta.startQuestButtonCaption}
-        actionButtonEvent={actions.startQuest}
+        actionButtonEvent={userActions.setupQuest}
       />
       <CenterColumn>
         <GuideSection
