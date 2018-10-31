@@ -2,7 +2,7 @@ import css from 'styled-jsx/css';
 import { primaryFont, secondaryFont } from '../../../styles/variables/fonts';
 import {
   astronaut,
-  geyser,
+  shadows,
 } from '../../../styles/variables/colors_tiles_v4';
 import { faintShadow } from 'styles/variables/shadows';
 import {
@@ -15,8 +15,8 @@ export default css`
   .root {
     display: flex;
     flex-direction: column;
-    padding: 25px;
-    margin: 15px 0;
+    padding: 0;
+    margin: 15px 15px;
     ${faintShadow}
   }
 
@@ -25,30 +25,29 @@ export default css`
     justify-content: space-between;
     align-items: center;
     margin: 0;
-    padding: 0;
+    padding: 25px;
     font-family: ${secondaryFont};
     font-weight: normal;
     font-size: 18px;
     text-transform: capitalize;
     color: ${astronaut};
-    border-bottom: 1px solid ${geyser};
-    padding-bottom: 30px;
+    border-bottom: 1px solid ${shadows};
   }
 
   .action-container {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding-top: 20px;
+    padding: 25px;
+    padding-right: 0;
     margin: 0;
-    padding: 0;
-    padding-top: 20px;
     font-family: ${primaryFont};
     font-weight: 800;
     text-transform: uppercase;
     text-decoration: none;
     font-size: 10px;
     color: ${astronaut};
+    height: 50px;
   }
 
   .action-left {
@@ -69,10 +68,62 @@ export default css`
 
   .action-message {
     margin-right: 5px;
+    display: none;
   }
 
   .check-icon {
     height: 40px;
     width: 40px;
+    display: none;
   }
+
+  .check {
+    display: block;
+  }
+
+  .arrow-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    width: 50px;
+    border-left: 1px solid ${shadows};
+
+  }
+
+  @media ${screenMedium} {
+    .root {
+      padding: 25px;
+      margin: 15px 0;
+    }
+
+    .title {
+      padding: 15px 0;
+    }
+
+    .action-container {
+      height: auto;
+      padding: 15px 0;
+    }
+
+    .arrow-container {
+      display: block;
+      height: auto;
+      width: auto;
+      border: 0;
+    }
+
+    .action-message {
+      display: block;
+    }
+
+    .check-icon {
+      display: block;
+    }
+
+    .check {
+      display: none;
+    }
+  }
+
 `;

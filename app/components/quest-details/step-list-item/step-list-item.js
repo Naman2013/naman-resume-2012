@@ -12,8 +12,6 @@ const StepListItem = ({
   stepModuleIdUser,
   stepSequence,
   stepTitle,
-  stepFullTitle,
-  stepMenuTitle,
   stepCompleted,
   stepStatusMsg,
   stepActionMsg,
@@ -29,10 +27,13 @@ const StepListItem = ({
     <div className="action-container">
       <div className="action-left">
         {stepStatusMsg}
+        {stepCompleted ? <img className="check" src={complete} alt="completed icon" /> :
+        <img className="check" src={incomplete} alt="incompleted icon" />
+        }
       </div>
       <div className="action-right">
         <span className="action-message">{stepActionMsg}</span>
-        <img alt="" src={horizontalArrow} />
+        <div className="arrow-container"><img alt="go to" src={horizontalArrow} /></div>
       </div>
 
     </div>
@@ -40,7 +41,7 @@ const StepListItem = ({
   </div>
 );
 
-StepListItem.defaultProps = {
+StepListItem.propTypes = {
   stepModuleId: PropTypes.number.isRequired,
   stepModuleIdUser: PropTypes.number.isRequired,
   stepSequence: PropTypes.number.isRequired,
@@ -52,7 +53,7 @@ StepListItem.defaultProps = {
   stepActionMsg: PropTypes.string.isRequired,
 };
 
-StepListItem.propTypes = {
+StepListItem.defaultProps = {
 };
 
 export default StepListItem;
