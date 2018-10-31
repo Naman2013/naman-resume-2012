@@ -121,9 +121,10 @@ import BookclubHandoff from './pages/bookclub-handoff/BookclubHandoff';
 // V4 pages
 import GuideDetails from './pages/guide-details/GuideDetails';
 import ObjectDetails from './pages/object-details/ObjectDetails';
-import QuestDetails from './pages/quest-details/QuestDetails';
 import UserPrivateProfile from './pages/profiles/private-profile';
 import UserPublicProfile from './pages/profiles/public-profile';
+import Quest from './pages/quest-details';
+
 
 import CommunityGroupOverview from './pages/community-groups/GroupOverview';
 import GroupOverviewInfo from './pages/community-groups/GroupOverviewInfo';
@@ -341,7 +342,8 @@ ReactDOM.render(
 
         <Route path="quests(/:filterType)" component={QuestsHub} onEnter={validateUser} />
 
-        <Route path="quest-details/:questId" component={QuestDetails} onEnter={validateUser} />
+        <Route path="quest-details/:questId" component={Quest} onEnter={validateUser} />
+        <Route path="quest-details/:questId/:step" component={Quest} onEnter={validateUser} />
 
         <Route path="profile/private" component={UserPrivateProfile} onEnter={validateUser} />
         <Route path="profile/public/:cid" component={UserPublicProfile} onEnter={validateUser} />

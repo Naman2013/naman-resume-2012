@@ -1,140 +1,105 @@
 /***********************************
-* V4 Quest Details Page
-*   Markdown support on elements????
-*   UTF-8 support....
-*   Multi-National Languages.....
+* V4 Quest Details
+*
+*
+*
 ***********************************/
 
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import classnames from 'classnames';
-import has from 'lodash/has';
-import {
-  fetchQuestDataAction,
-} from '../../modules/quest-details/actions';
+import CenterColumn from 'components/common/CenterColumn';
+import SterlingTitle from 'components/common/titles/SterlingTitle';
+import GuideSection from 'components/guides/GuideSection';
+import BodyContent from 'components/quest-details/body-content';
+import ContentList from 'components/quest-details/content-list';
+import QuestTitleSection from 'components/quest-details/title-section';
+import QuestStepList from 'components/quest-details/step-list';
+import { resources } from 'styles/variables/iconURLs';
+import { romance } from 'styles/variables/colors_tiles_v4';
+import styles from './QuestDetails.style';
 
-const mapStateToProps = ({ questDetails, appConfig, user }) => ({
-  questData: questDetails.questData,
-  appConfig,
-  user,
-});
+const {
+  func,
+  number,
+  shape,
+  string,
+} = PropTypes;
 
-const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({
-    fetchQuestDataAction,
-  }, dispatch),
-});
 
-@connect(mapStateToProps, mapDispatchToProps)
-class QuestDetails extends Component {
-  constructor(props) {
-    super(props);
-  }
+export const QuestDetails = (props) => {
+  const {
+    userActions,
+    questId,
+    pageMeta,
+  } = props;
 
-  componentWillReceiveProps(nextProps) {
-    const {
-      params: {
-        questId,
-      }
-    } = nextProps;
+  const guideSectionProps = {
+    questId,
+    content: () => (
+      <BodyContent
+        title={pageMeta.aboutTitle}
+        content={pageMeta.aboutText}
+        resourcesProps={{
+          resourcesIconUrl: resources,
+          resourcesButtonText: pageMeta.resourcesButtonCaption,
+        }}
+      />
+    ),
+    column: () => (
+      <ContentList
+        list={pageMeta.aboutBulletPoints}
+        resourcesProps={{
+          resourcesIconUrl: resources,
+          resourcesButtonText: pageMeta.resourcesButtonCaption,
+        }}
+      />
+    ),
+    alignContent: 'right',
+  };
 
-    if (this.props.questData.questId != nextProps.questData.questId) {
-      //console.log('Quest has been loaded.....gather more data....');
-    }
+  return (
+    <div className="root">
+      <QuestTitleSection
+        preTitle={pageMeta.questSubtitle}
+        title={pageMeta.questTitle}
+        iconURL={pageMeta.iconURL}
+        showActionButton={pageMeta.showStartQuestButton}
+        actionButtonCaption={pageMeta.startQuestButtonCaption}
+        actionButtonEvent={userActions.setupQuest}
+      />
+      <CenterColumn>
+        <GuideSection
+          theme={{ backgroundColor: romance }}
+          {...guideSectionProps}
+        />
+        <SterlingTitle
+          title={pageMeta.stepsHeader}
+          subTitle={pageMeta.stepsSubheader}
+        />
+        <QuestStepList
+          list={pageMeta.stepList}
+          goToStep={userActions.goToStep}
+        />
+      </CenterColumn>
+      <style jsx>{styles}</style>
+    </div>
+  );
+};
 
-    //console.log(this.props.params.questId);
-    //console.log(nextProps.objectData.questId);
-
-    //fetch the object data, the object page has been changed.
-    if (this.props.params.questId != nextProps.params.questId) {
-      this.props.actions.fetchQuestDataAction(questId);
-    }
-  }
-
-  componentWillUpdate(nextProps) {
-
-  }
-
-  componentWillMount() {
-    const {
-      params: {
-        questId,
-      }
-    } = this.props;
-
-    if (this.props.questData.questId != questId) {
-        //fetch the quest-level meta data only if the guideId changes.
-        this.props.actions.fetchQuestDataAction(questId);
-    }
-  }
-
-  render() {
-    const {
-      params: {
-        questId,
-      },
-      questData,
-    } = this.props;
-
-    return (
-
-      <div style={{'marginLeft': '20px', 'marginRight': '20px', 'marginBottom': '20px'}}>
-        <h1>Quest ID: {questId}</h1>
-        <h1>{questData.questTitle}</h1>
-        <br/>
-        <h2>{questData.guideSubtitle}</h2>
-        <br/>
-
-        <hr/>
-
-        <h2>Quest Metadata</h2>
-        {questData && <div>
-          <table style={{'border': '1', 'marginLeft': '100px'}}>
-            <thead>
-              <th style={{'width': '30%'}}>Attribute</th>
-              <th>Value</th>
-            </thead>
-            <tbody>
-              {Object.keys(questData).map(function (key) {
-                  /* exclude things like missionsList, etc. */
-                  if ( typeof questData[key] != 'object') {
-                    var val = new String(questData[key]);
-                    var idxImg = val.indexOf('.svg');
-
-                    return( <tr key={'row_' + key}>
-                        <td style={{'width': '30%'}} key={'k_' + key}style={{'paddingTop': '5px', 'paddingBottom': '5px'}}>{key}</td>
-                        <td key={'v_' + key}style={{'paddingTop': '5px', 'paddingBottom': '5px'}}>
-                          {idxImg > 0 &&
-                            <div>
-                              <img style={{'backgroundColor': 'black'}} src={questData[key]}/><br/>
-                            </div>
-                          }
-                          {questData[key]}
-                        </td>
-                      </tr>
-                    );
-                  }
-                })
-              }
-            </tbody>
-          </table>
-        </div>
-        }
-      </div>
-    )
-  }
-}
-export default QuestDetails;
 QuestDetails.propTypes = {
-  params: PropTypes.shape({
-    questId: PropTypes.string,
+  actions: shape({
+    fetchQuestPageMeta: func.isRequired,
   }).isRequired,
-  actions: PropTypes.shape({ }).isRequired,
-};
-
+  pageMeta: shape({
+    iconURL: string.isRequired,
+    questId: number.isRequired,
+    questSubtitle: string.isRequired,
+    questTitle: string.isRequired,
+  }),
+  questId: string.isRequired,
+}
 QuestDetails.defaultProps = {
-  actions: { },
-  questId: '',
-};
+  pageMeta: {},
+}
+
+export default QuestDetails;
