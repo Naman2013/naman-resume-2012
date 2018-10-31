@@ -51,12 +51,13 @@ class DiscussionBoardInvitationsPanel extends Component {
     this.setState(() => ({
       inInviteMode: !this.state.inInviteMode,
     }));
-
-    //re-fire the Request object with exactly the same parameters....
   }
 
   newInvitationComplete = () => {
     this.toggleInviteMode();
+
+    //re-fire the Request object (CLASSROOM_GET_GROUP_INVITATION_PANEL_ENDPOINT_URL)  with exactly the same parameters so the invitation list is refreshed.
+
   }
 
   render() {
