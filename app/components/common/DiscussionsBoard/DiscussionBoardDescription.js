@@ -37,7 +37,7 @@ class DiscussionBoardDescription extends Component {
   }
 
   static propTypes = {
-    groupId: number,
+    groupId: string,
     description: string,
     canEdit: bool,
   };

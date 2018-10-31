@@ -82,6 +82,7 @@ import JoinInviteByEmailStep1 from './pages/registration/JoinInviteByEmailStep1'
 import JoinInviteByCodeStep1 from './pages/registration/JoinInviteByCodeStep1';
 import JoinInviteByCodeStep2 from './pages/registration/JoinInviteByCodeStep2';
 import Memberships from './pages/registration/Memberships';
+import MembershipPlanDetailsStep from './pages/registration/MembershipPlanDetailsStep';
 
 import Notifications from './pages/settings/Notifications';
 import PaymentInfo from './pages/settings/PaymentInfo';
@@ -211,6 +212,7 @@ ReactDOM.render(
           <Route path="inviteByEmail/:invitationCodeHash/:invitationCreationEpoch" component={JoinInviteByEmailStep1} />
           <Route path="inviteByCodeStep1" component={JoinInviteByCodeStep1} />
           <Route path="inviteByCodeStep2" component={JoinInviteByCodeStep2} />
+          <Route path="membershipPlanDetailsStep" component={MembershipPlanDetailsStep} />
         </Route>
 
         <Route
