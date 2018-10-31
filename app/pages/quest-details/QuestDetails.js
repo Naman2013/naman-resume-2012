@@ -5,7 +5,7 @@
 *
 ***********************************/
 
-import React, { Component, cloneElement, Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import CenterColumn from 'components/common/CenterColumn';
 import SterlingTitle from 'components/common/titles/SterlingTitle';
@@ -15,6 +15,7 @@ import ContentList from 'components/quest-details/content-list';
 import QuestTitleSection from 'components/quest-details/title-section';
 import QuestStepList from 'components/quest-details/step-list';
 import { resources } from 'styles/variables/iconURLs';
+import { romance } from 'styles/variables/colors_tiles_v4';
 import styles from './QuestDetails.style';
 
 const {
@@ -68,6 +69,7 @@ export const QuestDetails = (props) => {
       />
       <CenterColumn>
         <GuideSection
+          theme={{ backgroundColor: romance }}
           {...guideSectionProps}
         />
         <SterlingTitle

@@ -3,6 +3,7 @@ import { primaryFont, secondaryFont } from '../../../styles/variables/fonts';
 import {
   astronaut,
   shadows,
+  romance,
 } from '../../../styles/variables/colors_tiles_v4';
 import { faintShadow } from 'styles/variables/shadows';
 import {
@@ -17,6 +18,7 @@ export default css`
     flex-direction: column;
     padding: 0;
     margin: 15px 15px;
+    background-color: ${romance};
     ${faintShadow}
   }
 

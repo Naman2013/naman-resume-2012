@@ -7,6 +7,7 @@ ShallowWrapper {
     alignContent="left"
     column={[Function]}
     content={[Function]}
+    theme={Object {}}
   />,
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],
@@ -60,6 +61,7 @@ posuere vulputate. Etiam elit elit, elementum sed varius at.
         />,
       ],
       "className": "jsx-4130263873 root",
+      "style": Object {},
     },
     "ref": null,
     "rendered": Array [
@@ -188,6 +190,7 @@ posuere vulputate. Etiam elit elit, elementum sed varius at.
           />,
         ],
         "className": "jsx-4130263873 root",
+        "style": Object {},
       },
       "ref": null,
       "rendered": Array [

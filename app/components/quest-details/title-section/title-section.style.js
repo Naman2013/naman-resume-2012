@@ -27,7 +27,6 @@ export default css`
     color: ${astronaut};
     background-color: ${seashell};
     padding-top: 70px;
-    padding-bottom: 70px;
   }
 
   .title {
