@@ -76,7 +76,10 @@ export const QuestDetails = (props) => {
           title={pageMeta.stepsHeader}
           subTitle={pageMeta.stepsSubheader}
         />
-        <QuestStepList list={pageMeta.stepList} />
+        <QuestStepList
+          list={pageMeta.stepList}
+          goToStep={userActions.goToStep}
+        />
       </CenterColumn>
       <style jsx>{styles}</style>
     </div>

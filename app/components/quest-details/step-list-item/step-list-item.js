@@ -16,6 +16,7 @@ const StepListItem = ({
   stepCompleted,
   stepStatusMsg,
   stepActionMsg,
+  goToStep,
 }) => (
   <div className="root" key={uniqueId()}>
     <h5 className="title">
@@ -32,7 +33,7 @@ const StepListItem = ({
         <img className="check" src={incomplete} alt="incompleted icon" />
         }
       </div>
-      <div className="action-right">
+      <div className="action-right" onClick={() => goToStep(stepSequence)}>
         <span className="action-message">{stepActionMsg}</span>
         <div className="arrow-container"><img alt="go to" src={horizontalArrow} /></div>
       </div>
@@ -52,6 +53,7 @@ StepListItem.propTypes = {
   stepCompleted: PropTypes.bool.isRequired,
   stepStatusMsg: PropTypes.string.isRequired,
   stepActionMsg: PropTypes.string.isRequired,
+  goToStep: PropTypes.func.isRequired,
 };
 
 StepListItem.defaultProps = {

@@ -66,6 +66,7 @@ export class ConnectedQuestDetails extends Component {
   render() {
     const userActions = {
       setupQuest: this.setupQuest,
+      goToStep: this.goToStep,
     };
 
     return (
