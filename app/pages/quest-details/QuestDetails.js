@@ -10,10 +10,11 @@ import PropTypes from 'prop-types';
 import CenterColumn from 'components/common/CenterColumn';
 import SterlingTitle from 'components/common/titles/SterlingTitle';
 import GuideSection from 'components/guides/GuideSection';
-import GuideBodyContent from 'components/guides/GuideBodyContent';
-import GuideContentList from 'components/guides/GuideContentList';
+import BodyContent from 'components/quest-details/body-content';
+import ContentList from 'components/quest-details/content-list';
 import QuestTitleSection from 'components/quest-details/title-section';
 import QuestStepList from 'components/quest-details/step-list';
+import { resources } from 'styles/variables/iconURLs';
 import styles from './QuestDetails.style';
 
 const {
@@ -32,18 +33,24 @@ export const QuestDetails = (props) => {
   } = props;
 
   const guideSectionProps = {
-    guideId: questId,
+    questId,
     content: () => (
-      <GuideBodyContent
+      <BodyContent
         title={pageMeta.aboutTitle}
         content={pageMeta.aboutText}
-        topicActionProps={{}}
+        resourcesProps={{
+          resourcesIconUrl: resources,
+          resourcesButtonText: pageMeta.resourcesButtonCaption,
+        }}
       />
     ),
     column: () => (
-      <GuideContentList
+      <ContentList
         list={pageMeta.aboutBulletPoints}
-        topicActionProps={{}}
+        resourcesProps={{
+          resourcesIconUrl: resources,
+          resourcesButtonText: pageMeta.resourcesButtonCaption,
+        }}
       />
     ),
     alignContent: 'right',
