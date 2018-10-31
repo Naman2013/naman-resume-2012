@@ -12,7 +12,7 @@ import SterlingTitle from 'components/common/titles/SterlingTitle';
 import GuideSection from 'components/guides/GuideSection';
 import GuideBodyContent from 'components/guides/GuideBodyContent';
 import GuideContentList from 'components/guides/GuideContentList';
-import QuestDetailsTitleSection from 'components/quest-details/title-section';
+import QuestTitleSection from 'components/quest-details/title-section';
 import QuestStepList from 'components/quest-details/step-list';
 import styles from './QuestDetails.style';
 
@@ -26,6 +26,7 @@ const {
 
 export const QuestDetails = (props) => {
   const {
+    actions,
     questId,
     pageMeta,
   } = props;
@@ -50,10 +51,13 @@ export const QuestDetails = (props) => {
 
   return (
     <div className="root">
-      <QuestDetailsTitleSection
+      <QuestTitleSection
         preTitle={pageMeta.questSubtitle}
         title={pageMeta.questTitle}
         iconURL={pageMeta.iconURL}
+        showActionButton={pageMeta.showStartQuestButton}
+        actionButtonCaption={pageMeta.startQuestButtonCaption}
+        actionButtonEvent={actions.startQuest}
       />
       <CenterColumn>
         <GuideSection
@@ -75,14 +79,15 @@ QuestDetails.propTypes = {
     fetchQuestPageMeta: func.isRequired,
   }).isRequired,
   pageMeta: shape({
-    questIconURL: string.isRequired,
+    iconURL: string.isRequired,
     questId: number.isRequired,
     questSubtitle: string.isRequired,
-    questTitle:string.isRequired,
+    questTitle: string.isRequired,
   }),
   questId: string.isRequired,
 }
 QuestDetails.defaultProps = {
+  pageMeta: {},
 }
 
 export default QuestDetails;

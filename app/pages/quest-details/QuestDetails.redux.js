@@ -62,13 +62,14 @@ const mapStateToProps = ({
   questDetails,
 }, { routeParams }) => ({
   questDetails,
-  pageMeta: questDetails,
+  modal: questDetails.modal,
+  pageMeta: questDetails.pageMeta,
   questId: routeParams.questId,
 });
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
-    fetchQuestPageMeta: questActions.fetchQuestPageMeta,
+    ...questActions,
   }, dispatch),
 });
 

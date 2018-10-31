@@ -27,6 +27,7 @@ export default css`
     color: ${astronaut};
     background-color: ${seashell};
     padding-top: 70px;
+    padding-bottom: 70px;
   }
 
   .title {
@@ -68,7 +69,7 @@ export default css`
   }
 
   .icon-content {
-
+    z-index: 999;
   }
 
   .icon-container {
@@ -76,6 +77,13 @@ export default css`
     align-items: center;
     justify-content: center;
     height: 75px;
+  }
+
+  .action-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   @media ${screenMedium} {
@@ -91,7 +99,7 @@ export default css`
   @media ${screenLarge} {
     .title {
       font-size: 44px;
-      padding-bottom: 120px;
+      padding-bottom: 50px;
     }
 
     .pre-title {
