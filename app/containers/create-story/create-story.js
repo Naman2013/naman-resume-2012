@@ -7,6 +7,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import noop from 'lodash/noop';
 import CenterColumn from 'components/common/CenterColumn';
 import CreateStoryForm from 'components/stories/form/create-story-form';
 import styles from './create-story.style';
@@ -21,7 +22,8 @@ const {
 
 export const CreateStory = (props) => {
   const {
-    actions,
+    submitStory,
+    userActions,
     uuid,
     contentCategoriesDescText,
     objectCategoriesList,
@@ -32,7 +34,8 @@ export const CreateStory = (props) => {
     <div className="root">
       <CenterColumn>
         <CreateStoryForm
-          submitStory={actions.submitStory}
+          goBack={userActions.goToHubs}
+          submitStory={submitStory}
           uuid={uuid}
           contentCategoriesDescText={contentCategoriesDescText}
           objectCategoriesList={objectCategoriesList}
@@ -46,10 +49,18 @@ export const CreateStory = (props) => {
 };
 
 CreateStory.propTypes = {
-  actions: shape({}),
+  actions: shape({
+    submitStory: func,
+  }),
+  userActions: shape({
+    goToHubs: func.isRequired,
+  }),
 
 }
 CreateStory.defaultProps = {
+  actions: {
+    submitStory: noop,
+  },
 }
 
 export default CreateStory;

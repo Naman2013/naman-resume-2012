@@ -4,6 +4,7 @@
 
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { DeviceContext } from 'providers/DeviceProvider';
@@ -20,28 +21,6 @@ const {
   string,
 } = PropTypes;
 
-const categories = [
-  {
-    contentKey: 'scienceLogText',
-    title: 'Science log',
-    value: 'scienceLog',
-  },
-  {
-    contentKey: 'artCultureText',
-    title: 'Art & culture',
-    value: 'artCulture',
-  },
-  {
-    contentKey: 'humanSpiritText',
-    title: 'Human spirit',
-    value: 'humanSpirit',
-  },
-  {
-    contentKey: 'diyText',
-    title: 'diy',
-    value: 'diy',
-  },
-];
 
 class ConnectedCreateStory extends Component {
 
@@ -73,6 +52,11 @@ class ConnectedCreateStory extends Component {
     });
   }
 
+  goToHubs = () => {
+    const { category } = this.props;
+    browserHistory.push(`/stories/${category}`);
+  }
+
   handleCategoryTopicResponse = ({
     apiError,
     artCultureText,
@@ -82,6 +66,7 @@ class ConnectedCreateStory extends Component {
     introText,
     postUUID,
     scienceLogText,
+    categories,
   }) => {
     if (!apiError) {
       this.setState(() => ({
@@ -94,8 +79,13 @@ class ConnectedCreateStory extends Component {
           scienceLogText,
         },
         objectCategoriesList: categoryList,
+        contentCategories: categories,
       }));
     }
+  }
+
+  handleSubmit = (fields) => {
+
   }
 
   render() {
@@ -106,7 +96,12 @@ class ConnectedCreateStory extends Component {
       uuid,
       contentCategoriesDescText,
       objectCategoriesList,
+      contentCategories
     } = this.state;
+
+    const userActions = {
+      goToHubs: this.goToHubs,
+    };
 
 
     return (
@@ -117,9 +112,11 @@ class ConnectedCreateStory extends Component {
               {...this.props}
               {...context}
               uuid={uuid}
+              userActions={userActions}
               contentCategoriesDescText={contentCategoriesDescText}
               objectCategoriesList={objectCategoriesList}
-              contentCategories={categories}
+              contentCategories={contentCategories}
+              submitStory={this.handleSubmit}
             />
           )}
         </DeviceContext.Consumer>
