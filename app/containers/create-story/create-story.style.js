@@ -5,6 +5,7 @@ import {
   seashell,
   astronaut,
   romance,
+  shadows,
   midnight_express,
   geyser,
   lightHeadedAstronaut,
@@ -14,6 +15,19 @@ import { screenMedium, screenLarge, screenXLarge } from '../../styles/variables/
 
 export default css`
 
+  .root {
+    background-color: ${seashell};
+    padding-top: 50px;
+  }
+
+  .create-form-container {
+    border: 1px solid ${shadows};
+    background-color: ${romance};
+  }
+
+  .inner-container {
+    padding: 50px;
+  }
 
 
   @media ${screenMedium} {

@@ -10,6 +10,7 @@ import PropTypes from 'prop-types';
 import noop from 'lodash/noop';
 import CenterColumn from 'components/common/CenterColumn';
 import CreateStoryForm from 'components/stories/form/create-story-form';
+import BarHeader from 'components/common/form-sections/bar-header';
 import styles from './create-story.style';
 
 const {
@@ -33,14 +34,19 @@ export const CreateStory = (props) => {
   return (
     <div className="root">
       <CenterColumn>
-        <CreateStoryForm
-          goBack={userActions.goToHubs}
-          submitStory={submitStory}
-          uuid={uuid}
-          contentCategoriesDescText={contentCategoriesDescText}
-          objectCategoriesList={objectCategoriesList}
-          contentCategories={contentCategories}
-        />
+        <div className="create-form-container">
+          <BarHeader title="Submit a Story" />
+          <div className="inner-container">
+            <CreateStoryForm
+              goBack={userActions.goToHubs}
+              submitStory={submitStory}
+              uuid={uuid}
+              contentCategoriesDescText={contentCategoriesDescText}
+              objectCategoriesList={objectCategoriesList}
+              contentCategories={contentCategories}
+            />
+          </div>
+        </div>
 
       </CenterColumn>
       <style jsx>{styles}</style>
