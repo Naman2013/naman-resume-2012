@@ -69,6 +69,7 @@ import questDetails from './quest-details/reducer';
 import starshareCamera from './starshare-camera/starshare-camera-reducer';
 import shareMemberPhoto from './share-member-photo/reducer';
 import sharedMemberPhotos from './get-shared-member-photos/reducer';
+import stories from './stories/reducer';
 import tags from './tag-management/Tags';
 import telescopeDetails from './telescope-details/reducer';
 import telescopeOverview from './Telescope-Overview';
@@ -156,6 +157,7 @@ export default combineReducers({
   shareMemberPhoto,
   sharedMemberPhotos,
   starshareCamera,
+  stories,
   tags,
   telescopeDetails,
   telescopeOverview,

@@ -6,3 +6,4 @@ export const CONTENT_RELATED_GUIDES = '/api/content/getRelatedGuides';
 export const CONTENT_RELATED_OBJECTS = '/api/content/getRelatedObjects';
 
 export const BURNHAMS_CORNER_CONTENT = '/api/object/getBurnhamsCorner';
+export const OBJECT_CATEGORY_TOPIC_LIST = '/api/content/getObjectCategoryTopicList';
