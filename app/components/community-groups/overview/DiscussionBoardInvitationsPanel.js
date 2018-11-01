@@ -91,8 +91,10 @@ class DiscussionBoardInvitationsPanel extends Component {
                 {
                   !fetchingContent &&
                     <div>
-                      <h2>{serviceResponse.sectionHeading}</h2>
-                      <h3>{serviceResponse.sectionHeading_LicenseInfo}</h3>
+                      <br/>
+                      <h2>{serviceResponse.customerLinksData.sectionHeading}</h2>
+                      <h3>{serviceResponse.customerLinksData.sectionHeading_LicenseInfo}</h3>
+                      <br/>
                       <br/>
                       {serviceResponse.customerLinksData.customerLinks.length > 0 ? (<table style={{'border': '1px', 'width': '100%'}}>
                         <tbody>
@@ -107,6 +109,7 @@ class DiscussionBoardInvitationsPanel extends Component {
                                 <td key={`data_` + customerLink.firstname + `_` + i}>{customerLink.firstname}</td>
                                 <td key={`data_` + customerLink.lastname + `_` + i}>{customerLink.lastname}</td>
                                 <td key={`data_` + customerLink.emailaddress + `_` + i}>{customerLink.emailaddress}</td>
+                                <td key={`data_` + customerLink.invitationcode + `_` + i}>{customerLink.invitationcode}</td>
                                 <td key={`data_` + customerLink.status + `_` + i}>{customerLink.status}</td>
                                 <td key={`data_` + customerLink.lastactivity + `_` + i}>{customerLink.lastactivity}</td>
                               </tr>
@@ -137,6 +140,7 @@ class DiscussionBoardInvitationsPanel extends Component {
                           </div>
                         }
                       </div>
+                      <br/>
                     </div>
                     }
                   </Fragment>
