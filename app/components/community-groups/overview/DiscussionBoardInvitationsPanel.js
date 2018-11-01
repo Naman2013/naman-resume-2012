@@ -26,10 +26,8 @@ const {
 } = PropTypes;
 const mapStateToProps = ({
   user,
-  inInviteMode,
 }) => ({
   user,
-  inInviteMode,
 });
 
 @connect(mapStateToProps, null)
@@ -68,12 +66,23 @@ class DiscussionBoardInvitationsPanel extends Component {
       discussionGroupId,
     } = this.props;
 
+    const {
+      inInviteMode
+    } = this.state;
+
+    const inInviteModeStr = (inInviteMode === true ? "yes" : "no");
+
     return (
       <div className="root">
         <div className="invite-container">
+          {/*
+            Passing the forceRequestToUpdate parameter to the API so that a state
+            change will force the request object to re-call the API.
+          */}
           <Request
+            id="getGroupInvitationPanel"
             serviceURL={CLASSROOM_GET_GROUP_INVITATION_PANEL_ENDPOINT_URL}
-            requestBody={{ cid: user.cid, at: user.at, token: user.token, groupId: discussionGroupId }}
+            requestBody={{ forceRequestToUpdate: inInviteModeStr, cid: user.cid, at: user.at, token: user.token, groupId: discussionGroupId }}
             render={({
               fetchingContent,
               serviceResponse,
@@ -105,12 +114,12 @@ class DiscussionBoardInvitationsPanel extends Component {
                         </tbody>
                       </table>) : <p>There are no invitations</p>}
                       <br/>
-                      {this.state.inInviteMode === true && <div>
+                      {inInviteMode === true && <div>
                         <DiscussionBoardInviteNewMemberToSlooh {...this.props} newInvitationComplete={() => this.newInvitationComplete()}/>
                       </div>
                       }
                       <div className="button-actions">
-                        {this.state.inInviteMode === true && <div>
+                        {inInviteMode === true && <div>
                           <Button
                             type="button"
                             text="Cancel"
@@ -118,7 +127,7 @@ class DiscussionBoardInvitationsPanel extends Component {
                             <br/>
                           </div>
                         }
-                        {this.state.inInviteMode === false && <div>
+                        {inInviteMode === false && <div>
                           <Button
                             className="submit-button"
                             type="button"
