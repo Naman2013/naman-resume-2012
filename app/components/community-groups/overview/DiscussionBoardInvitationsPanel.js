@@ -3,10 +3,14 @@
 * for Classroom / Astronomy Clubs
 ***********************************/
 
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import Request from 'components/common/network/Request';
+import Button from 'components/common/style/buttons/Button';
+import DiscussionBoardInviteNewMemberToSlooh from 'components/community-groups/overview/DiscussionBoardInviteNewMemberToSlooh';
+import { CLASSROOM_GET_GROUP_INVITATION_PANEL_ENDPOINT_URL } from 'services/classroom/classroom';
 import {
   astronaut,
 } from '../../../styles/variables/colors_tiles_v4';
@@ -37,50 +41,111 @@ class DiscussionBoardInvitationsPanel extends Component {
     pageMeta: { },
   };
 
+  state = {
+      inInviteMode: false,
+  }
+
+  toggleInviteMode = () => {
+    this.setState(() => ({
+      inInviteMode: !this.state.inInviteMode,
+    }));
+  }
+
+  newInvitationComplete = () => {
+    this.toggleInviteMode();
+
+    //re-fire the Request object (CLASSROOM_GET_GROUP_INVITATION_PANEL_ENDPOINT_URL)  with exactly the same parameters so the invitation list is refreshed.
+
+  }
+
   render() {
     const {
       actions,
       pageMeta,
       user,
+      discussionGroupId,
     } = this.props;
+
+    const {
+      inInviteMode
+    } = this.state;
+
+    const inInviteModeStr = (inInviteMode === true ? "yes" : "no");
 
     return (
       <div className="root">
         <div className="invite-container">
-          <h2>Manage Classroom Students / Astronomy Club Members</h2>
-          <h3>2 / 30 student licenses in use.</h3>
-          <br/>
-          <p>Mock Data:</p>
-          <table style={{'border': '1px', 'width': '100%'}}>
-            <thead>
-              <th>Student First Name</th>
-              <th>Last Name</th>
-              <th>Email Address</th>
-              <th>Status</th>
-              <th>Last Activity</th>
-            </thead>
+          {/*
+            Passing the forceRequestToUpdate parameter to the API so that a state
+            change will force the request object to re-call the API.
+          */}
+          <Request
+            id="getGroupInvitationPanel"
+            serviceURL={CLASSROOM_GET_GROUP_INVITATION_PANEL_ENDPOINT_URL}
+            requestBody={{ forceRequestToUpdate: inInviteModeStr, cid: user.cid, at: user.at, token: user.token, groupId: discussionGroupId }}
+            render={({
+              fetchingContent,
+              serviceResponse,
+            }) => (
+              <Fragment>
+                {
+                  !fetchingContent &&
+                    <div>
+                      <br/>
+                      <h2>{serviceResponse.customerLinksData.sectionHeading}</h2>
+                      <h3>{serviceResponse.customerLinksData.sectionHeading_LicenseInfo}</h3>
+                      <br/>
+                      <br/>
+                      {serviceResponse.customerLinksData.customerLinks.length > 0 ? (<table style={{'border': '1px', 'width': '100%'}}>
+                        <tbody>
+                          <tr>
+                          {serviceResponse.customerLinksData.columnHeadings.map((columnHeading, i) =>
+                              <th key={`heading_` + i}>{columnHeading}</th>
+                          )}
+                          </tr>
 
-            <tbody>
-              <tr>
-                <td>Todd</td>
-                <td>Reisel</td>
-                <td>todd@slooh.com</td>
-                <td>Invitation Sent</td>
-                <td>n/a</td>
-              </tr>
-              <tr>
-                <td>Christine</td>
-                <td>Reisel</td>
-                <td>creiselct@gmail.com</td>
-                <td>Active</td>
-                <td>10/29/2018 18:17 UTC</td>
-              </tr>
-            </tbody>
-          </table>
-          <br/>
-          <br/>
-          <br/>
-          Invite New Student
+                          {serviceResponse.customerLinksData.customerLinks.map((customerLink, i) =>
+                              <tr key={`data_` + i}>
+                                <td key={`data_` + customerLink.firstname + `_` + i}>{customerLink.firstname}</td>
+                                <td key={`data_` + customerLink.lastname + `_` + i}>{customerLink.lastname}</td>
+                                <td key={`data_` + customerLink.emailaddress + `_` + i}>{customerLink.emailaddress}</td>
+                                <td key={`data_` + customerLink.invitationcode + `_` + i}>{customerLink.invitationcode}</td>
+                                <td key={`data_` + customerLink.status + `_` + i}>{customerLink.status}</td>
+                                <td key={`data_` + customerLink.lastactivity + `_` + i}>{customerLink.lastactivity}</td>
+                              </tr>
+                          )}
+                        </tbody>
+                      </table>) : <p>There are no invitations</p>}
+                      <br/>
+                      {inInviteMode === true && <div>
+                        <DiscussionBoardInviteNewMemberToSlooh {...this.props} newInvitationComplete={() => this.newInvitationComplete()}/>
+                      </div>
+                      }
+                      <div className="button-actions">
+                        {inInviteMode === true && <div>
+                          <Button
+                            type="button"
+                            text="Cancel"
+                            onClickEvent={this.toggleInviteMode} />
+                            <br/>
+                          </div>
+                        }
+                        {inInviteMode === false && <div>
+                          <Button
+                            className="submit-button"
+                            type="button"
+                            onClickEvent={this.toggleInviteMode}
+                            text={serviceResponse.formsubmitbutton.buttonText}/>
+                            <br/>
+                          </div>
+                        }
+                      </div>
+                      <br/>
+                    </div>
+                    }
+                  </Fragment>
+                )}
+              />
         </div>
 
       <style jsx>{`
@@ -91,8 +156,15 @@ class DiscussionBoardInvitationsPanel extends Component {
           margin-top: 15px;
         }
 
+        .button-actions {
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+        }
 
+        .submit-button {
 
+        }
 
       `}</style>
     </div>

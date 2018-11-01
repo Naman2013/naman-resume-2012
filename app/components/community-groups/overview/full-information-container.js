@@ -114,7 +114,7 @@ class FullInformationOverview extends Component {
       topicId: pageMeta.topicId,
       user,
     };
-
+    
     return (
       <div className="root">
         {pageMeta.canEditGroup && <DiscussionBoardInvitationsPanel {...this.props}/>}

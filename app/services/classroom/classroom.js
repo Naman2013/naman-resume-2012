@@ -5,3 +5,4 @@ export const CLASSROOM_GET_US_DISTRICTLIST_ENDPOINT_URL = '/api/school/getDistri
 export const CLASSROOM_GET_US_SCHOOLLIST_ENDPOINT_URL = '/api/school/getSchoolList';
 
 export const CLASSROOM_SET_GROUP_DESCRIPTION_ENDPOINT_URL = '/api/classroom/setGroupDescription';
+export const CLASSROOM_GET_GROUP_INVITATION_PANEL_ENDPOINT_URL = '/api/classroom/getGroupInvitationPanel';
