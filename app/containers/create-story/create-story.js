@@ -8,7 +8,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import CenterColumn from 'components/common/CenterColumn';
-import CreateStoryForm from 'components/stories/create-story-form';
+import CreateStoryForm from 'components/stories/form/create-story-form';
 import styles from './create-story.style';
 
 const {
@@ -22,14 +22,21 @@ const {
 export const CreateStory = (props) => {
   const {
     actions,
+    uuid,
+    contentCategoriesDescText,
+    objectCategoriesList,
+    contentCategories,
   } = props;
 
-  console.log(props)
   return (
     <div className="root">
       <CenterColumn>
         <CreateStoryForm
           submitStory={actions.submitStory}
+          uuid={uuid}
+          contentCategoriesDescText={contentCategoriesDescText}
+          objectCategoriesList={objectCategoriesList}
+          contentCategories={contentCategories}
         />
 
       </CenterColumn>
@@ -39,6 +46,7 @@ export const CreateStory = (props) => {
 };
 
 CreateStory.propTypes = {
+  actions: shape({}),
 
 }
 CreateStory.defaultProps = {

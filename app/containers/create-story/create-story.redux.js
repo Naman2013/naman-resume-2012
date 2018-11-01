@@ -20,6 +20,28 @@ const {
   string,
 } = PropTypes;
 
+const categories = [
+  {
+    contentKey: 'scienceLogText',
+    title: 'Science log',
+    value: 'scienceLog',
+  },
+  {
+    contentKey: 'artCultureText',
+    title: 'Art & culture',
+    value: 'artCulture',
+  },
+  {
+    contentKey: 'humanSpiritText',
+    title: 'Human spirit',
+    value: 'humanSpirit',
+  },
+  {
+    contentKey: 'diyText',
+    title: 'diy',
+    value: 'diy',
+  },
+];
 
 class ConnectedCreateStory extends Component {
 
@@ -33,8 +55,8 @@ class ConnectedCreateStory extends Component {
 
   state = {
     uuid: null,
-    categoryDescText: {},
-    categoryList: [],
+    contentCategoriesDescText: {},
+    objectCategoriesList: [],
   }
 
   componentDidMount() {
@@ -64,14 +86,14 @@ class ConnectedCreateStory extends Component {
     if (!apiError) {
       this.setState(() => ({
         uuid: postUUID,
-        categoryDescText: {
+        contentCategoriesDescText: {
           artCultureText,
           diyText,
           humanSpiritText,
           introText,
           scienceLogText,
         },
-        categoryList,
+        objectCategoriesList: categoryList,
       }));
     }
   }
@@ -82,8 +104,8 @@ class ConnectedCreateStory extends Component {
 
     const {
       uuid,
-      categoryDescText,
-      categoryList,
+      contentCategoriesDescText,
+      objectCategoriesList,
     } = this.state;
 
 
@@ -95,8 +117,9 @@ class ConnectedCreateStory extends Component {
               {...this.props}
               {...context}
               uuid={uuid}
-              categoryDescText={categoryDescText}
-              categoryList={categoryList}
+              contentCategoriesDescText={contentCategoriesDescText}
+              objectCategoriesList={objectCategoriesList}
+              contentCategories={categories}
             />
           )}
         </DeviceContext.Consumer>

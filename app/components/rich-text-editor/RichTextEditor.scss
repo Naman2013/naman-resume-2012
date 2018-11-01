@@ -8,12 +8,16 @@ $headerSize: 1rem;
   font-family: $secondary-font;
   font-weight: normal;
   min-width: 100%;
+  box-shadow: 0px 0px 5px 0px rgba(88, 88, 88, 0.5);
 
   .DraftEditor-root {
-    border: 1px solid #000;
+    border: 1px solid #ced2d8;
     margin: 0 auto;
     padding: 20px;
     text-align: left;
+    border-radius: .25rem;
+    background-color: #f2f2f2;
+    color: #415671;
 
     .public-DraftEditor-content {
       min-height: 220px;
@@ -22,9 +26,10 @@ $headerSize: 1rem;
 
   .RichEditor-controls-container {
     padding-top: 5px;
-    border: 1px solid;
+    border: 1px solid #ced2d8;
     border-bottom: 0;
     text-align: center;
+    background-color: #f2f2f2;
   }
 
   .buttons, .urlInputContainer {
@@ -42,14 +47,14 @@ $headerSize: 1rem;
   }
 
   .editor {
-    border: 1px solid #ccc;
+    border: 1px solid #ced2d8;
     cursor: text;
     min-height: 80px;
     padding: 10px;
   }
 
   .link {
-    color: $turqoise;
+    color: #1c2633;
     text-decoration: underline;
   }
 
@@ -78,7 +83,7 @@ $headerSize: 1rem;
   }
 
   .RichEditor-styleButton {
-    color: $black;
+    color: #415671;
     cursor: pointer;
     margin-right: 16px;
     padding: 2px 0;
@@ -86,10 +91,10 @@ $headerSize: 1rem;
   }
 
   .RichEditor-activeButton {
-    color: $pink;
+    color: #ffde00;
   }
 
   .RichEditor-horizontalRule {
-    border-top: 1px solid $black;
+    border-top: 1px solid #415671;
   }
 }
