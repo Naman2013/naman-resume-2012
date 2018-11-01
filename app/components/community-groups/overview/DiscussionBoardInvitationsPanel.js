@@ -49,13 +49,14 @@ class DiscussionBoardInvitationsPanel extends Component {
     this.setState(() => ({
       inInviteMode: !this.state.inInviteMode,
     }));
+
+    /* As a result of the toggle, the component Request object will re-fire.
+       This IS expected behavior as once an invitation is created in the backend, we want the invitation list/status to refresh!
+    */
   }
 
   newInvitationComplete = () => {
     this.toggleInviteMode();
-
-    //re-fire the Request object (CLASSROOM_GET_GROUP_INVITATION_PANEL_ENDPOINT_URL)  with exactly the same parameters so the invitation list is refreshed.
-
   }
 
   render() {
@@ -106,12 +107,17 @@ class DiscussionBoardInvitationsPanel extends Component {
 
                           {serviceResponse.customerLinksData.customerLinks.map((customerLink, i) =>
                               <tr key={`data_` + i}>
-                                <td key={`data_` + customerLink.firstname + `_` + i}>{customerLink.firstname}</td>
-                                <td key={`data_` + customerLink.lastname + `_` + i}>{customerLink.lastname}</td>
-                                <td key={`data_` + customerLink.emailaddress + `_` + i}>{customerLink.emailaddress}</td>
-                                <td key={`data_` + customerLink.invitationcode + `_` + i}>{customerLink.invitationcode}</td>
-                                <td key={`data_` + customerLink.status + `_` + i}>{customerLink.status}</td>
-                                <td key={`data_` + customerLink.lastactivity + `_` + i}>{customerLink.lastactivity}</td>
+                                <td key={`data_firstname_` + i}>{customerLink.firstname}</td>
+                                <td key={`data_lastname_` + i}>{customerLink.lastname}</td>
+                                <td key={`data_emailaddress_` + i}>{customerLink.emailaddress}</td>
+                                <td key={`data_invitationcode_` + i}>{customerLink.invitationcode}</td>
+                                <td key={`data_accountstatus_` + i}>{customerLink.status}</td>
+                                <td key={`data_lastactivity_` + i}>{customerLink.lastactivity}</td>
+
+                                {/* only one of these conditions will apply */}
+                                {customerLink.alreadyAMemberOfThisGroup === false && customerLink.canBeInvitedToThisGroup === true & <td key={`data_clubstatus_` + i}>Invite to Club</td>}
+                                {customerLink.alreadyAMemberOfThisGroup === true && customerLink.canBeInvitedToThisGroup === false & <td key={`data_clubstatus_` + i}>Active</td>}
+                                {customerLink.alreadyAMemberOfThisGroup === false && customerLink.canBeInvitedToThisGroup === false & <td key={`data_clubstatus_` + i}>Pending</td>}
                               </tr>
                           )}
                         </tbody>
