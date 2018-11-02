@@ -64,4 +64,4 @@ storiesOf('Telescope Details Modules', module)
   .add('Satellite', () => (<Satellite />))
   .add('TelescopeDetail', () => (<TelescopeDetail />))
   .add('ObservatoryInformation', () => (<ObservatoryInformation />))
-  .add('Telescope Navigation', () => (<TelescopeNavigation />));
+  .add('Telescope Navigation', () => (<TelescopeNavigationWrapper />));
