@@ -1,53 +1,110 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import flatten from 'lodash/flatten';
 import IntroText from 'components/common/form-sections/intro-text';
 import FormSectionHeader from 'components/common/form-sections/section-header';
+import SelectList from 'components/common/form-sections/select-list';
 import HeadlineAndContentInputs from './partials/headline-and-content-inputs';
 import ActionItems from './partials/action-items';
 import ContentCategorySelector from './partials/content-category-selector';
+import ObjectCategoryAndTopicSelects from './partials/object-category-and-topic-selects';
 
 class CreateStoryForm extends Component {
   static propTypes = {
+    contentCategories: PropTypes.arrayOf(PropTypes.shape({})),
+    goBack: PropTypes.func.isRequired,
+    objectCategoriesList: PropTypes.arrayOf(PropTypes.shape({})),
     submitStory: PropTypes.func.isRequired,
+    uuid: PropTypes.string.isRequired,
   }
-  static defaultProps = {}
+  static defaultProps = {
+    objectCategoriesList: [],
+    contentCategories: [],
+  }
   state = {
     bodyContent: '',
     headlineContent: '',
-    selectedContentCategory: '',
+    selectedContentCategory: null,
+    selectedObjectCategory: null,
+    selectedObjectCategoryIndex: null,
+    selectedObjectTopic: null,
   }
 
-  onSelectContentCategory = () => {
+  onSelectContentCategory = (value) => {
+    this.setState(() => ({
+      selectedContentCategory: value,
+    }));
+  }
 
+  onSelectObjectCategory = (event) => {
+    const { target, currentTarget } = event;
+    this.setState(() => ({
+      selectedObjectCategory: target.value,
+      selectedObjectCategoryIndex: Number(currentTarget.dataset.index),
+      selectedObjectTopic: null,
+    }));
+  }
+
+  onSelectObjectTopic = (event) => {
+    const { target } = event;
+    this.setState(() => ({
+      selectedObjectTopic: target.value,
+    }));
+  }
+
+  get formattedObjectCategories() {
+    return this.props.objectCategoriesList.map(category => ({
+      label: category.categoryDisplayName,
+      value: category.categorySlug,
+    }));
+  }
+
+  get currentCategoryTopics() {
+    const { objectCategoriesList } = this.props;
+    const { selectedObjectCategoryIndex } = this.state;
+    return objectCategoriesList[selectedObjectCategoryIndex] ?
+      objectCategoriesList[selectedObjectCategoryIndex].categoryTopicList : [];
+  }
+
+  get formattedCategoryTopics() {
+    return flatten(this.currentCategoryTopics.map(topic => ({
+      label: topic.topicDisplayName,
+      value: topic.topicSlug,
+    })));
   }
 
   handleHeadlineChange = (event) => {
-    this.setState({
-      headlineContent: event.target.value,
-    });
+    const { target } = event;
+    this.setState(() => ({
+      headlineContent: target.value,
+    }));
   }
 
   handleBodyContentChange = (editorHTML) => {
-    this.setState({
+    this.setState(() => ({
       bodyContent: editorHTML,
-    });
+    }));
   }
+
 
   render() {
     const {
-      goBack,
-      submitStory,
       contentCategories,
       contentCategoriesDescText,
+      goBack,
+      submitStory,
     } = this.props;
     const {
       bodyContent,
       headlineContent,
       selectedContentCategory,
+      selectedObjectCategory,
+      selectedObjectTopic,
     } = this.state;
     return (
       <form>
         <IntroText desc="Illuminations publishes stories by authors who lend their perspective to enrich the Slooh experience. Submissions are associated with celestial objects or types of objects. They are categorized into one of four content categories designed to provide a diversity of views regarding what is 'out there', fueled by science, imagination, spirituality and personal experience. In order to become a contributing author, please read our Guidelines and submit a post below for editorial review." />
+
         <FormSectionHeader
           title="I. Select Content Category"
         />
@@ -57,8 +114,17 @@ class CreateStoryForm extends Component {
           selectedContentCategory={selectedContentCategory}
           onSelectContentCategory={this.onSelectContentCategory}
         />
+
         <FormSectionHeader
           title="II. Select Object Category and Object Topic"
+        />
+        <ObjectCategoryAndTopicSelects
+          formattedObjectCategories={this.formattedObjectCategories}
+          formattedCategoryTopics={this.formattedCategoryTopics}
+          selectedObjectCategory={selectedObjectCategory}
+          selectedObjectTopic={selectedObjectTopic}
+          onSelectObjectCategory={this.onSelectObjectCategory}
+          onSelectObjectTopic={this.onSelectObjectTopic}
         />
 
         <FormSectionHeader

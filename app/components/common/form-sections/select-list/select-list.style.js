@@ -2,35 +2,34 @@ import css from 'styled-jsx/css';
 import { secondaryFont } from 'styles/variables/fonts';
 import {
   astronaut,
+  lynch,
+  romance,
   shadows,
-  lynch
 } from 'styles/variables/colors_tiles_v4';
 
 export default css`
-  .root {
-    font-family: ${secondaryFont};
-  }
 
-  .title-container {
-    height: 75px;
-    border-top: 1px solid ${shadows};
-    border-bottom: 1px solid ${shadows};
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
+  .root {
+    height: 340px;
+    overflow-y: scroll;
     color: ${astronaut};
   }
 
-  .title-text {
-    font-size: 24px;
-
-  }
-
-  .desc-text {
+  .multi-select-label {
+    cursor: pointer;
     display: block;
-    font-size: 19px;
-    padding: 15px;
-    color: ${lynch};
+    margin-bottom: 2px;
+    padding: 5px 0 5px 20px;
+    font-size: 16px;
+    border-radius: 0;
+    color: ${astronaut};
   }
+
+  .multi-select-label.active,
+  .multi-select-label:hover {
+    color: ${romance};
+    background-color: ${astronaut};
+   }
+
 
 `;

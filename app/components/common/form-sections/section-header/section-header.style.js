@@ -1,5 +1,7 @@
 import css from 'styled-jsx/css';
 import { secondaryFont } from 'styles/variables/fonts';
+import { screenMedium } from 'styles/variables/breakpoints';
+
 import {
   astronaut,
   shadows,
@@ -22,7 +24,7 @@ export default css`
   }
 
   .title-text {
-    font-size: 24px;
+    font-size: 20px;
 
   }
 
@@ -31,6 +33,12 @@ export default css`
     font-size: 19px;
     padding: 15px;
     color: ${lynch};
+  }
+
+  @media ${screenMedium} {
+    .title-text {
+      font-size: 20px;
+    }
   }
 
 `;
