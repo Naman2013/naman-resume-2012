@@ -12,7 +12,7 @@ export default css`
     justify-content: space-between;
     align-items: center;
     height: 75px;
-    border: 1px solid ${shadows};
+    border-bottom: 1px solid ${shadows};
   }
   .title-text {
     font-size: 10px;
