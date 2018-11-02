@@ -17,8 +17,13 @@ import eclipseArtwork from '../assets/images/photos/eclipse-artwork-2.jpg';
 class TelescopeNavigationWrapper extends Component {
   state = { selectedOption: 0 }
   handleOptionChange = (event) => {
-    this.setState({ selectedOption: event.target.value });
+    if (event.currentTarget.dataset.index) {
+      this.setState({ selectedOption: event.currentTarget.dataset.index });
+    } else {
+      this.setState({ selectedOption: event.target.value });
+    }
   }
+
   render() {
     return (
       <TelescopeNavigation
