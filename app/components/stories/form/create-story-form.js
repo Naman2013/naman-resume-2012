@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import flatten from 'lodash/flatten';
 import IntroText from 'components/common/form-sections/intro-text';
 import FormSectionHeader from 'components/common/form-sections/section-header';
-import SelectList from 'components/common/form-sections/select-list';
+import Tags from 'components/common/form-fields/tags';
 import HeadlineAndContentInputs from './partials/headline-and-content-inputs';
 import ActionItems from './partials/action-items';
 import ContentCategorySelector from './partials/content-category-selector';
@@ -16,8 +16,15 @@ class CreateStoryForm extends Component {
     objectCategoriesList: PropTypes.arrayOf(PropTypes.shape({})),
     submitStory: PropTypes.func.isRequired,
     uuid: PropTypes.string.isRequired,
+    user: PropTypes.shape({
+      at: PropTypes.isRequired,
+      token: PropTypes.isRequired,
+      cid: PropTypes.isRequired,
+    }).isRequired,
+    actions: PropTypes.shape({}),
   }
   static defaultProps = {
+    actions: {},
     objectCategoriesList: [],
     contentCategories: [],
   }
@@ -28,6 +35,7 @@ class CreateStoryForm extends Component {
     selectedObjectCategory: null,
     selectedObjectCategoryIndex: null,
     selectedObjectTopic: null,
+    tags: [],
   }
 
   onSelectContentCategory = (value) => {
@@ -49,6 +57,12 @@ class CreateStoryForm extends Component {
     const { target } = event;
     this.setState(() => ({
       selectedObjectTopic: target.value,
+    }));
+  }
+
+  onTagsChange = (tags) => {
+    this.setState(() => ({
+      tags,
     }));
   }
 
@@ -89,10 +103,13 @@ class CreateStoryForm extends Component {
 
   render() {
     const {
+      actions,
       contentCategories,
       contentCategoriesDescText,
       goBack,
       submitStory,
+      uuid,
+      user,
     } = this.props;
     const {
       bodyContent,
@@ -100,6 +117,7 @@ class CreateStoryForm extends Component {
       selectedContentCategory,
       selectedObjectCategory,
       selectedObjectTopic,
+      tags,
     } = this.state;
     return (
       <form>
@@ -139,6 +157,15 @@ class CreateStoryForm extends Component {
 
         <FormSectionHeader
           title="IV. Add Tags"
+        />
+        <Tags
+          onTagsChange={this.onTagsChange}
+          tagClass="content"
+          tags={tags}
+          tagType="post"
+          user={user}
+          uuid={uuid}
+          validateResponseAccess={actions.validateResponseAccess}
         />
 
         <FormSectionHeader

@@ -23,12 +23,14 @@ const {
 
 export const CreateStory = (props) => {
   const {
+    actions,
     submitStory,
     userActions,
     uuid,
     contentCategoriesDescText,
     objectCategoriesList,
     contentCategories,
+    user,
   } = props;
 
   return (
@@ -38,6 +40,8 @@ export const CreateStory = (props) => {
           <BarHeader title="Submit a Story" />
           <div className="inner-container">
             <CreateStoryForm
+              actions={actions}
+              user={user}
               goBack={userActions.goToHubs}
               submitStory={submitStory}
               uuid={uuid}
@@ -58,6 +62,11 @@ CreateStory.propTypes = {
   actions: shape({
     submitStory: func,
   }),
+  user: shape({
+    at: string.isRequired,
+    token: string.isRequired,
+    cid: string.isRequired,
+  }).isRequired,
   userActions: shape({
     goToHubs: func.isRequired,
   }),
