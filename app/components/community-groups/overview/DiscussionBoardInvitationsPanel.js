@@ -8,9 +8,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Request from 'components/common/network/Request';
+import axios from 'axios';
 import Button from 'components/common/style/buttons/Button';
 import DiscussionBoardInviteNewMemberToSlooh from 'components/community-groups/overview/DiscussionBoardInviteNewMemberToSlooh';
 import { CLASSROOM_GET_GROUP_INVITATION_PANEL_ENDPOINT_URL } from 'services/classroom/classroom';
+import { CREATE_CUSTOMER_LINK_INVITATION_ENDPOINT_URL } from 'services/registration/registration';
+
 import {
   astronaut,
 } from '../../../styles/variables/colors_tiles_v4';
@@ -43,19 +46,53 @@ class DiscussionBoardInvitationsPanel extends Component {
 
   state = {
       inInviteMode: false,
+      refreshModeStr: "false",
   }
 
   toggleInviteMode = () => {
     this.setState(() => ({
       inInviteMode: !this.state.inInviteMode,
+      refreshModeStr: (!this.state.inInviteMode === true ? "yes" : "no"),
     }));
+
+    /* As a result of the toggle, the component Request object will re-fire.
+       This IS expected behavior as once an invitation is created in the backend, we want the invitation list/status to refresh!
+    */
   }
 
-  newInvitationComplete = () => {
+  newInvitationComplete = (invitationCode, firstName, lastName, emailAddress) => {
     this.toggleInviteMode();
+  }
 
-    //re-fire the Request object (CLASSROOM_GET_GROUP_INVITATION_PANEL_ENDPOINT_URL)  with exactly the same parameters so the invitation list is refreshed.
+  addExistingMemberToDiscussionGroup = (firstName, lastName, emailAddress) => {
+    const {
+      discussionGroupId,
+      user,
+    } = this.props;
 
+    const setInviteCompleteResult = axios.post(CREATE_CUSTOMER_LINK_INVITATION_ENDPOINT_URL, {
+      cid: user.cid,
+      at: user.at,
+      token: user.token,
+      groupId: discussionGroupId,
+      inviteeDetails: {
+        firstName: firstName,
+        lastName: lastName,
+        emailAddress: emailAddress,
+      }
+    })
+      .then((response) => {
+        const serviceResponse = response.data;
+        if (serviceResponse.apiError == false) {
+          //the invitation was successful, reset/reload the form....(need to make this unique to the action)
+          this.setState(() => ({
+            refreshModeStr: "invitedDiscussionGroupMember" + discussionGroupId + emailAddress + "addToClub",
+          }));
+        }
+      })
+      .catch((err) => {
+        throw ('Error: ', err);
+      });
   }
 
   render() {
@@ -67,10 +104,9 @@ class DiscussionBoardInvitationsPanel extends Component {
     } = this.props;
 
     const {
-      inInviteMode
+      refreshModeStr,
+      inInviteMode,
     } = this.state;
-
-    const inInviteModeStr = (inInviteMode === true ? "yes" : "no");
 
     return (
       <div className="root">
@@ -79,15 +115,24 @@ class DiscussionBoardInvitationsPanel extends Component {
             Passing the forceRequestToUpdate parameter to the API so that a state
             change will force the request object to re-call the API.
           */}
+
           <Request
             id="getGroupInvitationPanel"
             serviceURL={CLASSROOM_GET_GROUP_INVITATION_PANEL_ENDPOINT_URL}
-            requestBody={{ forceRequestToUpdate: inInviteModeStr, cid: user.cid, at: user.at, token: user.token, groupId: discussionGroupId }}
+            requestBody={{ forceRequestToUpdate: refreshModeStr, cid: user.cid, at: user.at, token: user.token, groupId: discussionGroupId }}
             render={({
               fetchingContent,
               serviceResponse,
             }) => (
               <Fragment>
+                {fetchingContent && <div>
+                  <br/>
+                  <br/>
+                  <h3>Loading Club Invitations</h3>
+                  <br/>
+                  <br/>
+                </div>
+                }
                 {
                   !fetchingContent &&
                     <div>
@@ -106,12 +151,16 @@ class DiscussionBoardInvitationsPanel extends Component {
 
                           {serviceResponse.customerLinksData.customerLinks.map((customerLink, i) =>
                               <tr key={`data_` + i}>
-                                <td key={`data_` + customerLink.firstname + `_` + i}>{customerLink.firstname}</td>
-                                <td key={`data_` + customerLink.lastname + `_` + i}>{customerLink.lastname}</td>
-                                <td key={`data_` + customerLink.emailaddress + `_` + i}>{customerLink.emailaddress}</td>
-                                <td key={`data_` + customerLink.invitationcode + `_` + i}>{customerLink.invitationcode}</td>
-                                <td key={`data_` + customerLink.status + `_` + i}>{customerLink.status}</td>
-                                <td key={`data_` + customerLink.lastactivity + `_` + i}>{customerLink.lastactivity}</td>
+                                <td key={`data_name_` + i}>{customerLink.name}</td>
+                                <td key={`data_emailaddress_` + i}>{customerLink.emailaddress}</td>
+                                <td key={`data_invitationcode_` + i}>{customerLink.invitationcode}</td>
+                                <td key={`data_accountstatus_` + i}>{customerLink.status}</td>
+                                <td key={`data_lastactivity_` + i}>{customerLink.lastactivity}</td>
+
+                                {/* only one of these conditions will apply */}
+                                {customerLink.alreadyAMemberOfThisGroup === false && customerLink.canBeInvitedToThisGroup === true && <td key={`data_clubstatus_` + i}><Button type="button" text={customerLink.invitationPrompt} onClickEvent={() => this.addExistingMemberToDiscussionGroup(customerLink.firstname, customerLink.lastname, customerLink.emailaddress)} /></td>}
+                                {customerLink.alreadyAMemberOfThisGroup === true && customerLink.canBeInvitedToThisGroup === false && <td key={`data_clubstatus_` + i}>Active</td>}
+                                {customerLink.alreadyAMemberOfThisGroup === false && customerLink.canBeInvitedToThisGroup === false && <td key={`data_clubstatus_` + i}>Pending</td>}
                               </tr>
                           )}
                         </tbody>
