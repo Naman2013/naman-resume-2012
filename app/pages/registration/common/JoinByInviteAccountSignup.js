@@ -129,6 +129,13 @@ class JoinByInviteAccountSignup extends Component {
           hintText: '',
           errorText: '',
         },
+        student13YearsAndOlder: {
+          label: '',
+          visible: true,
+          value: false,
+          hintText: '',
+          errorText: '',
+        }
       },
     }
   }
@@ -150,6 +157,7 @@ class JoinByInviteAccountSignup extends Component {
     newAccountFormData.password.label = result.formFieldLabels.password.label;
     newAccountFormData.passwordVerification.label = result.formFieldLabels.passwordverification.label;
     newAccountFormData.astronomyClubName.label = result.formFieldLabels.astronomyClubName.label;
+    newAccountFormData.student13YearsAndOlder.label = result.formFieldLabels.student13YearsAndOlder.label;
 
     newAccountFormData.givenName.hintText = result.formFieldLabels.firstname.hintText;
     newAccountFormData.familyName.hintText = result.formFieldLabels.lastname.hintText;
@@ -158,6 +166,7 @@ class JoinByInviteAccountSignup extends Component {
     newAccountFormData.password.hintText = result.formFieldLabels.password.hintText;
     newAccountFormData.passwordVerification.hintText = result.formFieldLabels.passwordverification.hintText;
     newAccountFormData.astronomyClubName.hintText = result.formFieldLabels.astronomyClubName.hintText;
+    newAccountFormData.student13YearsAndOlder.hintText = result.formFieldLabels.student13YearsAndOlder.hintText;
 
     newAccountFormData.givenName.value = result.invitee.firstName;
     this.props.change('givenName', result.invitee.firstName);
@@ -215,6 +224,7 @@ class JoinByInviteAccountSignup extends Component {
     accountFormDetailsData.password.errorText = '';
     accountFormDetailsData.passwordVerification.errorText = '';
     accountFormDetailsData.astronomyClubName.errorText = '';
+    accountFormDetailsData.student13YearsAndOlder.errorText = '';
 
     if (accountCreationType === 'userpass') {
         /* Verify that the user has provided:
@@ -559,6 +569,23 @@ class JoinByInviteAccountSignup extends Component {
                             </div>
                           </div>
 
+                          {isClassroom && <div className="form-section">
+                              <div className="form-field-container">
+                                <span className="form-label" dangerouslySetInnerHTML={{ __html: accountFormDetails.student13YearsAndOlder.label }} />:
+                              </div>
+                              <Field
+                                name="student13YearsAndOlder"
+                                type="checkbox"
+                                className="form-field"
+                                label={accountFormDetails.student13YearsAndOlder.hintText}
+                                component={InputField}
+                                value={accountFormDetails.student13YearsAndOlder.value}
+                                onChange={(event) => { this.handleFieldChange({ field: 'student13YearsAndOlder', value: !event.target.value }); }}
+                              />
+                            </div>
+                          }
+                          <br/>
+                          <br/>
                           <div className="form-section">
                             <div className="form-field-container">
                               <span className="form-label" dangerouslySetInnerHTML={{ __html: accountFormDetails.displayName.label }} />:
