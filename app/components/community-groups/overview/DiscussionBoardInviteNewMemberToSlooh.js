@@ -145,7 +145,7 @@ class DiscussionBoardInviteNewMemberToSlooh extends Component {
     }
 
     if (isFormComplete === true) {
-      const setGroupDescriptionResult = axios.post(CREATE_CUSTOMER_LINK_INVITATION_ENDPOINT_URL, {
+      const setInviteCompleteResult = axios.post(CREATE_CUSTOMER_LINK_INVITATION_ENDPOINT_URL, {
         cid: user.cid,
         at: user.at,
         token: user.token,
@@ -157,9 +157,15 @@ class DiscussionBoardInviteNewMemberToSlooh extends Component {
         }
       })
         .then((response) => {
-          const res = response.data;
-          if (res.apiError == false) {
+          const serviceResponse = response.data;
+          if (serviceResponse.apiError == false) {
             //the invitation was successful, reset the form....
+
+            const inviteFormDataKeep = cloneDeep(this.state.inviteFormDetails);
+            const invitationCode = "a";
+            const firstName = inviteFormDataKeep.firstName.value;
+            const lastName = inviteFormDataKeep.lastName.value;
+            const emailAddress = inviteFormDataKeep.emailAddress.value;
 
             const inviteFormData = cloneDeep(this.state.inviteFormDetails);
             inviteFormData.firstName.value = '';
@@ -178,7 +184,7 @@ class DiscussionBoardInviteNewMemberToSlooh extends Component {
             }));
 
             //Tell the Parent Invitation Component to close this form and re-fire the Request object to retrieve the latest invitation status/details.
-            this.props.newInvitationComplete();
+            this.props.newInvitationComplete(invitationCode, firstName, lastName, emailAddress);
           }
         })
         .catch((err) => {
