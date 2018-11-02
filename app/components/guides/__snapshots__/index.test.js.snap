@@ -2,6 +2,7 @@
 
 exports[`FeaturedGallery should render correctly 1`] = `
 ShallowWrapper {
+  "length": 1,
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <FeaturedGallery
     items={Array []}
@@ -10,7 +11,6 @@ ShallowWrapper {
     "batchedUpdates": [Function],
     "getNode": [Function],
     "render": [Function],
-    "simulateError": [Function],
     "simulateEvent": [Function],
     "unmount": [Function],
   },
@@ -47,20 +47,19 @@ ShallowWrapper {
         "rendered": [Function],
         "type": Object {
           "$$typeof": Symbol(react.context),
-          "_calculateChangedBits": null,
-          "_context": Object {
-            "$$typeof": Symbol(react.context),
-            "Consumer": [Circular],
-            "Provider": Object {
-              "$$typeof": Symbol(react.provider),
-              "_context": [Circular],
-            },
-            "_calculateChangedBits": null,
-            "_currentRenderer": null,
-            "_currentRenderer2": null,
-            "_currentValue": undefined,
-            "_currentValue2": undefined,
+          "Consumer": [Circular],
+          "Provider": Object {
+            "$$typeof": Symbol(react.provider),
+            "_context": [Circular],
           },
+          "_calculateChangedBits": null,
+          "_changedBits": 0,
+          "_changedBits2": 0,
+          "_currentRenderer": null,
+          "_currentRenderer2": null,
+          "_currentValue": undefined,
+          "_currentValue2": undefined,
+          "_defaultValue": undefined,
         },
       },
       Object {
@@ -114,20 +113,19 @@ ShallowWrapper {
           "rendered": [Function],
           "type": Object {
             "$$typeof": Symbol(react.context),
-            "_calculateChangedBits": null,
-            "_context": Object {
-              "$$typeof": Symbol(react.context),
-              "Consumer": [Circular],
-              "Provider": Object {
-                "$$typeof": Symbol(react.provider),
-                "_context": [Circular],
-              },
-              "_calculateChangedBits": null,
-              "_currentRenderer": null,
-              "_currentRenderer2": null,
-              "_currentValue": undefined,
-              "_currentValue2": undefined,
+            "Consumer": [Circular],
+            "Provider": Object {
+              "$$typeof": Symbol(react.provider),
+              "_context": [Circular],
             },
+            "_calculateChangedBits": null,
+            "_changedBits": 0,
+            "_changedBits2": 0,
+            "_currentRenderer": null,
+            "_currentRenderer2": null,
+            "_currentValue": undefined,
+            "_currentValue2": undefined,
+            "_defaultValue": undefined,
           },
         },
         Object {
@@ -152,16 +150,6 @@ ShallowWrapper {
     "adapter": ReactSixteenAdapter {
       "options": Object {
         "enableComponentDidUpdateOnSetState": true,
-        "lifecycles": Object {
-          "componentDidUpdate": Object {
-            "onSetState": true,
-          },
-          "getDerivedStateFromProps": true,
-          "getSnapshotBeforeUpdate": true,
-          "setState": Object {
-            "skipsComponentDidUpdateOnNullish": true,
-          },
-        },
       },
     },
   },
@@ -170,6 +158,7 @@ ShallowWrapper {
 
 exports[`GuideBodyContent should render correctly 1`] = `
 ShallowWrapper {
+  "length": 1,
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <GuideBodyContent
     content="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
@@ -181,7 +170,6 @@ ShallowWrapper {
     "batchedUpdates": [Function],
     "getNode": [Function],
     "render": [Function],
-    "simulateError": [Function],
     "simulateEvent": [Function],
     "unmount": [Function],
   },
@@ -421,16 +409,6 @@ ShallowWrapper {
     "adapter": ReactSixteenAdapter {
       "options": Object {
         "enableComponentDidUpdateOnSetState": true,
-        "lifecycles": Object {
-          "componentDidUpdate": Object {
-            "onSetState": true,
-          },
-          "getDerivedStateFromProps": true,
-          "getSnapshotBeforeUpdate": true,
-          "setState": Object {
-            "skipsComponentDidUpdateOnNullish": true,
-          },
-        },
       },
     },
   },
@@ -439,6 +417,7 @@ ShallowWrapper {
 
 exports[`GuideTopics should render correctly 1`] = `
 ShallowWrapper {
+  "length": 1,
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <GuideTopics
     list={
@@ -458,7 +437,6 @@ ShallowWrapper {
     "batchedUpdates": [Function],
     "getNode": [Function],
     "render": [Function],
-    "simulateError": [Function],
     "simulateEvent": [Function],
     "unmount": [Function],
   },
@@ -788,16 +766,6 @@ ShallowWrapper {
     "adapter": ReactSixteenAdapter {
       "options": Object {
         "enableComponentDidUpdateOnSetState": true,
-        "lifecycles": Object {
-          "componentDidUpdate": Object {
-            "onSetState": true,
-          },
-          "getDerivedStateFromProps": true,
-          "getSnapshotBeforeUpdate": true,
-          "setState": Object {
-            "skipsComponentDidUpdateOnNullish": true,
-          },
-        },
       },
     },
   },
@@ -806,6 +774,7 @@ ShallowWrapper {
 
 exports[`SubjectGuideList should render correctly 1`] = `
 ShallowWrapper {
+  "length": 1,
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <SubjectGuideList
     list={
@@ -827,7 +796,6 @@ ShallowWrapper {
     "batchedUpdates": [Function],
     "getNode": [Function],
     "render": [Function],
-    "simulateError": [Function],
     "simulateEvent": [Function],
     "unmount": [Function],
   },
@@ -1065,16 +1033,6 @@ ShallowWrapper {
     "adapter": ReactSixteenAdapter {
       "options": Object {
         "enableComponentDidUpdateOnSetState": true,
-        "lifecycles": Object {
-          "componentDidUpdate": Object {
-            "onSetState": true,
-          },
-          "getDerivedStateFromProps": true,
-          "getSnapshotBeforeUpdate": true,
-          "setState": Object {
-            "skipsComponentDidUpdateOnNullish": true,
-          },
-        },
       },
     },
   },
@@ -1083,6 +1041,7 @@ ShallowWrapper {
 
 exports[`TopicBodyContent should render correctly 1`] = `
 ShallowWrapper {
+  "length": 1,
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <TopicBodyContent
     content="Some sample content"
@@ -1100,7 +1059,6 @@ ShallowWrapper {
     "batchedUpdates": [Function],
     "getNode": [Function],
     "render": [Function],
-    "simulateError": [Function],
     "simulateEvent": [Function],
     "unmount": [Function],
   },
@@ -1368,16 +1326,6 @@ ShallowWrapper {
     "adapter": ReactSixteenAdapter {
       "options": Object {
         "enableComponentDidUpdateOnSetState": true,
-        "lifecycles": Object {
-          "componentDidUpdate": Object {
-            "onSetState": true,
-          },
-          "getDerivedStateFromProps": true,
-          "getSnapshotBeforeUpdate": true,
-          "setState": Object {
-            "skipsComponentDidUpdateOnNullish": true,
-          },
-        },
       },
     },
   },
@@ -1386,13 +1334,13 @@ ShallowWrapper {
 
 exports[`TopicContent should render correctly 1`] = `
 ShallowWrapper {
+  "length": 1,
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <TopicContent />,
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],
     "getNode": [Function],
     "render": [Function],
-    "simulateError": [Function],
     "simulateEvent": [Function],
     "unmount": [Function],
   },
@@ -1890,16 +1838,6 @@ ShallowWrapper {
     "adapter": ReactSixteenAdapter {
       "options": Object {
         "enableComponentDidUpdateOnSetState": true,
-        "lifecycles": Object {
-          "componentDidUpdate": Object {
-            "onSetState": true,
-          },
-          "getDerivedStateFromProps": true,
-          "getSnapshotBeforeUpdate": true,
-          "setState": Object {
-            "skipsComponentDidUpdateOnNullish": true,
-          },
-        },
       },
     },
   },
@@ -1908,6 +1846,7 @@ ShallowWrapper {
 
 exports[`TopicHeading should render correctly 1`] = `
 ShallowWrapper {
+  "length": 1,
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <TopicHeading
     text="Foo"
@@ -1916,7 +1855,6 @@ ShallowWrapper {
     "batchedUpdates": [Function],
     "getNode": [Function],
     "render": [Function],
-    "simulateError": [Function],
     "simulateEvent": [Function],
     "unmount": [Function],
   },
@@ -2038,16 +1976,6 @@ ShallowWrapper {
     "adapter": ReactSixteenAdapter {
       "options": Object {
         "enableComponentDidUpdateOnSetState": true,
-        "lifecycles": Object {
-          "componentDidUpdate": Object {
-            "onSetState": true,
-          },
-          "getDerivedStateFromProps": true,
-          "getSnapshotBeforeUpdate": true,
-          "setState": Object {
-            "skipsComponentDidUpdateOnNullish": true,
-          },
-        },
       },
     },
   },
@@ -2056,6 +1984,7 @@ ShallowWrapper {
 
 exports[`TopicList should render correctly 1`] = `
 ShallowWrapper {
+  "length": 1,
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <TopicList
     guideID="37"
@@ -2133,7 +2062,6 @@ ShallowWrapper {
     "batchedUpdates": [Function],
     "getNode": [Function],
     "render": [Function],
-    "simulateError": [Function],
     "simulateEvent": [Function],
     "unmount": [Function],
   },
@@ -2823,16 +2751,6 @@ ShallowWrapper {
     "adapter": ReactSixteenAdapter {
       "options": Object {
         "enableComponentDidUpdateOnSetState": true,
-        "lifecycles": Object {
-          "componentDidUpdate": Object {
-            "onSetState": true,
-          },
-          "getDerivedStateFromProps": true,
-          "getSnapshotBeforeUpdate": true,
-          "setState": Object {
-            "skipsComponentDidUpdateOnNullish": true,
-          },
-        },
       },
     },
   },
