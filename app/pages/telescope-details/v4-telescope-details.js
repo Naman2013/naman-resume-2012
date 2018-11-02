@@ -16,7 +16,11 @@ import style from './v4-telescope-details.style';
 class TelescopeDetails extends Component {
   state = { selectedOption: 0 }
   handleOptionChange = (event) => {
-    this.setState({ selectedOption: event.target.value });
+    if (event.currentTarget.dataset.index) {
+      this.setState({ selectedOption: event.currentTarget.dataset.index });
+    } else {
+      this.setState({ selectedOption: event.target.value });
+    }
   }
 
   render() {

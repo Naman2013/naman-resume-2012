@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
-import { SmallScreenFormat, MediumScreenFormat } from './';
+import { SmallScreenFormat, MediumScreenFormat, LargeScreenFormat } from './';
 import { enhancedProps } from './common-prop-types';
 import style from './telescope-navigation.style';
 
@@ -13,7 +13,11 @@ const TelescopeNavigation = ({
 }) => (
   <div>
     <DisplayAtBreakpoint screenLarge screenXLarge>
-      <h1>Large screen...</h1>
+      <LargeScreenFormat
+        onSelect={onSelect}
+        selectedIndex={selectedIndex}
+        options={options}
+      />
     </DisplayAtBreakpoint>
 
     <DisplayAtBreakpoint screenMedium>
