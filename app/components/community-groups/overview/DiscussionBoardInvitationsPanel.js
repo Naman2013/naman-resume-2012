@@ -64,7 +64,7 @@ class DiscussionBoardInvitationsPanel extends Component {
     this.toggleInviteMode();
   }
 
-  addExistingMemberToDiscussionGroup = (emailAddress) => {
+  addExistingMemberToDiscussionGroup = (firstName, lastName, emailAddress) => {
     const {
       discussionGroupId,
       user,
@@ -76,6 +76,8 @@ class DiscussionBoardInvitationsPanel extends Component {
       token: user.token,
       groupId: discussionGroupId,
       inviteeDetails: {
+        firstName: firstName,
+        lastName: lastName,
         emailAddress: emailAddress,
       }
     })
@@ -156,7 +158,7 @@ class DiscussionBoardInvitationsPanel extends Component {
                                 <td key={`data_lastactivity_` + i}>{customerLink.lastactivity}</td>
 
                                 {/* only one of these conditions will apply */}
-                                {customerLink.alreadyAMemberOfThisGroup === false && customerLink.canBeInvitedToThisGroup === true && <td key={`data_clubstatus_` + i}><Button type="button" text={customerLink.invitationPrompt} onClickEvent={() => this.addExistingMemberToDiscussionGroup(customerLink.emailaddress)} /></td>}
+                                {customerLink.alreadyAMemberOfThisGroup === false && customerLink.canBeInvitedToThisGroup === true && <td key={`data_clubstatus_` + i}><Button type="button" text={customerLink.invitationPrompt} onClickEvent={() => this.addExistingMemberToDiscussionGroup(customerLink.firstname, customerLink.lastname, customerLink.emailaddress)} /></td>}
                                 {customerLink.alreadyAMemberOfThisGroup === true && customerLink.canBeInvitedToThisGroup === false && <td key={`data_clubstatus_` + i}>Active</td>}
                                 {customerLink.alreadyAMemberOfThisGroup === false && customerLink.canBeInvitedToThisGroup === false && <td key={`data_clubstatus_` + i}>Pending</td>}
                               </tr>
