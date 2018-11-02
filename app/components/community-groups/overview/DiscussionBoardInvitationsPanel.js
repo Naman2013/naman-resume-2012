@@ -59,6 +59,10 @@ class DiscussionBoardInvitationsPanel extends Component {
     this.toggleInviteMode();
   }
 
+  addToDiscussionGroup = (inviteeInvitationCode) => {
+    console.log(inviteeInvitationCode);
+  }
+
   render() {
     const {
       actions,
@@ -107,17 +111,16 @@ class DiscussionBoardInvitationsPanel extends Component {
 
                           {serviceResponse.customerLinksData.customerLinks.map((customerLink, i) =>
                               <tr key={`data_` + i}>
-                                <td key={`data_firstname_` + i}>{customerLink.firstname}</td>
-                                <td key={`data_lastname_` + i}>{customerLink.lastname}</td>
+                                <td key={`data_name_` + i}>{customerLink.name}</td>
                                 <td key={`data_emailaddress_` + i}>{customerLink.emailaddress}</td>
                                 <td key={`data_invitationcode_` + i}>{customerLink.invitationcode}</td>
                                 <td key={`data_accountstatus_` + i}>{customerLink.status}</td>
                                 <td key={`data_lastactivity_` + i}>{customerLink.lastactivity}</td>
 
                                 {/* only one of these conditions will apply */}
-                                {customerLink.alreadyAMemberOfThisGroup === false && customerLink.canBeInvitedToThisGroup === true & <td key={`data_clubstatus_` + i}>Invite to Club</td>}
-                                {customerLink.alreadyAMemberOfThisGroup === true && customerLink.canBeInvitedToThisGroup === false & <td key={`data_clubstatus_` + i}>Active</td>}
-                                {customerLink.alreadyAMemberOfThisGroup === false && customerLink.canBeInvitedToThisGroup === false & <td key={`data_clubstatus_` + i}>Pending</td>}
+                                {customerLink.alreadyAMemberOfThisGroup === false && customerLink.canBeInvitedToThisGroup === true && <td key={`data_clubstatus_` + i}><Button type="button" text={customerLink.invitationPrompt} onClickEvent={() => this.addToDiscussionGroup(customerLink.invitationcode)} /></td>}
+                                {customerLink.alreadyAMemberOfThisGroup === true && customerLink.canBeInvitedToThisGroup === false && <td key={`data_clubstatus_` + i}>Active</td>}
+                                {customerLink.alreadyAMemberOfThisGroup === false && customerLink.canBeInvitedToThisGroup === false && <td key={`data_clubstatus_` + i}>Pending</td>}
                               </tr>
                           )}
                         </tbody>
