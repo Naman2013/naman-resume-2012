@@ -12,6 +12,10 @@ const TelescopeNavigation = ({
   title,
 }) => (
   <div>
+    <DisplayAtBreakpoint screenLarge screenXLarge>
+      <h1>Large screen...</h1>
+    </DisplayAtBreakpoint>
+
     <DisplayAtBreakpoint screenMedium>
       <MediumScreenFormat
         title={title}
