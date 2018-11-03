@@ -408,38 +408,51 @@ class JoinByInviteAccountSignup extends Component {
             googleProfilePictureURL: res.googleProfileInfo.profilePictureURL,
           };
 
-          /* Capture the Google Profile Data and store it in state */
-          this.setState(() => ({ googleProfileData: googleProfileResult }));
+          /* Needed to capture the Google Profile information in our system as the refresh_token is only given one time.
+          * MUST validate that the Google Account Email Address matches the invitation */
 
-          /* Update the Account Form parameters to show/hide fields as a result of Google Login */
-          const accountFormDetailsData = cloneDeep(this.state.accountFormDetails);
-          /* Google Authentication does not require the customer to create a password/hide the form field */
-          accountFormDetailsData.password.visible = false;
-          accountFormDetailsData.passwordVerification.visible = false;
+          if (googleProfileResult.googleProfileEmail != this.state.accountFormDetails.loginEmailAddress.value) {
+            const accountFormDetailsData = cloneDeep(this.state.accountFormDetails);
+            accountFormDetailsData.loginEmailAddress.errorText = 'Your Google Account Email Address does not match your Invitation to Join Slooh.  If the email address needs to be updated, please contact the person who created the invitation.';
 
-          /* Set the customer's information that we got from google as a starting place for the user */
-          accountFormDetailsData.givenName.value = googleProfileResult.googleProfileGivenName;
-          this.props.change('givenName', googleProfileResult.googleProfileGivenName);
+            this.setState(() => ({
+              accountFormDetails: accountFormDetailsData,
+            }));
+          }
+          else {
+            /* Capture the Google Profile Data and store it in state */
+            this.setState(() => ({ googleProfileData: googleProfileResult }));
 
-          accountFormDetailsData.familyName.value = googleProfileResult.googleProfileFamilyName;
-          this.props.change('familyName', googleProfileResult.googleProfileFamilyName);
+            /* Update the Account Form parameters to show/hide fields as a result of Google Login */
+            const accountFormDetailsData = cloneDeep(this.state.accountFormDetails);
+            /* Google Authentication does not require the customer to create a password/hide the form field */
+            accountFormDetailsData.password.visible = false;
+            accountFormDetailsData.passwordVerification.visible = false;
 
-          /* The primary key for Google Single Sign-in is the user's email address which can't be changed if using Google, update the form on screen accordingly so certain fields are hidden and not editable */
-          accountFormDetailsData.loginEmailAddress.editable = false;
-          accountFormDetailsData.loginEmailAddress.value = googleProfileResult.googleProfileEmail;
-          this.props.change('loginEmailAddress', googleProfileResult.googleProfileEmail);
+            /* Set the customer's information that we got from google as a starting place for the user */
+            accountFormDetailsData.givenName.value = googleProfileResult.googleProfileGivenName;
+            this.props.change('givenName', googleProfileResult.googleProfileGivenName);
 
-          this.setState(() => ({
-            accountFormDetails: accountFormDetailsData,
-            /* Set the account creation type as Google */
-            accountCreationType: 'googleaccount',
-          }));
+            accountFormDetailsData.familyName.value = googleProfileResult.googleProfileFamilyName;
+            this.props.change('familyName', googleProfileResult.googleProfileFamilyName);
+
+            /* The primary key for Google Single Sign-in is the user's email address which can't be changed if using Google, update the form on screen accordingly so certain fields are hidden and not editable */
+            accountFormDetailsData.loginEmailAddress.editable = false;
+            accountFormDetailsData.loginEmailAddress.value = googleProfileResult.googleProfileEmail;
+            this.props.change('loginEmailAddress', googleProfileResult.googleProfileEmail);
+
+            this.setState(() => ({
+              accountFormDetails: accountFormDetailsData,
+              /* Set the account creation type as Google */
+              accountCreationType: 'googleaccount',
+            }));
 
 
-          /* Set the account creation type as Google and the Google Profile Id in browser storage */
-          window.localStorage.setItem('accountCreationType', 'googleaccount');
-          window.localStorage.setItem('googleProfileId', googleProfileResult.googleProfileId);
-          window.localStorage.setItem('googleProfileEmail', googleProfileResult.googleProfileEmail);
+            /* Set the account creation type as Google and the Google Profile Id in browser storage */
+            window.localStorage.setItem('accountCreationType', 'googleaccount');
+            window.localStorage.setItem('googleProfileId', googleProfileResult.googleProfileId);
+            window.localStorage.setItem('googleProfileEmail', googleProfileResult.googleProfileEmail);
+          }
         }
       })
       .catch((err) => {
