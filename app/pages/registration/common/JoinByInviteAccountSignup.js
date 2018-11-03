@@ -616,6 +616,7 @@ class JoinByInviteAccountSignup extends Component {
                           <div className="form-section">
                             <div className="form-field-container">
                               <span className="form-label" dangerouslySetInnerHTML={{ __html: accountFormDetails.loginEmailAddress.label }} />:
+                              <span className="form-error" dangerouslySetInnerHTML={{ __html: accountFormDetails.loginEmailAddress.errorText }} />
                             </div>
                             <span className="google-field">{accountFormDetails.loginEmailAddress.value}</span>
                           </div>
