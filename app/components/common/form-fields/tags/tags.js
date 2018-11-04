@@ -21,7 +21,10 @@ class Tags extends Component {
     onTagsChange: func.isRequired,
     scheduledMissionId: number,
     tagClass: string.isRequired,
-    tags: arrayOf(shape({})),
+    tags: arrayOf(shape({
+      tagIndex: number.isRequired,
+      tagText: string.isRequired,
+    })),
     tagType: string.isRequired,
     uuid: string,
     user: shape({
@@ -64,7 +67,7 @@ class Tags extends Component {
       validateResponseAccess,
     } = this.props;
     const { newTagText } = this.state;
-
+    if (!newTagText) return;
     this.setState(() => ({
       hasError: false,
     }));
@@ -80,7 +83,7 @@ class Tags extends Component {
       cid: user.cid,
       token: user.token,
     }).then((res) => {
-      onTagsChange(res.data.tagsList);
+      onTagsChange(res.data.tagList);
       if (!res.data.apiError) {
         this.setState(() => ({
           newTagText: '',
@@ -96,6 +99,7 @@ class Tags extends Component {
 
   deleteTag = (e) => {
     e.preventDefault();
+    const { text } = e.currentTarget.dataset;
     const { onTagsChange } = this.props;
     const {
       customerImageId,
@@ -106,14 +110,13 @@ class Tags extends Component {
       uuid,
       validateResponseAccess,
     } = this.props;
-    const { newTagText } = this.state;
 
     this.setState(() => ({
       hasError: false,
     }));
 
     deleteTag({
-      text: newTagText,
+      text,
       uniqueId: uuid,
       scheduledMissionId,
       customerImageId,
@@ -123,14 +126,14 @@ class Tags extends Component {
       cid: user.cid,
       token: user.token,
     }).then((res) => {
-      onTagsChange(res.data.tagsList);
+      onTagsChange(res.data.tagList);
       validateResponseAccess(res);
     });
   }
 
   render() {
     const {
-      tags
+      tags,
     } = this.props;
 
     const {
@@ -139,7 +142,7 @@ class Tags extends Component {
     } = this.state;
     return (
       <div className="root">
-        <TagDisplay tags={tags} onTagDelete={this.deleteTag} />
+        <TagDisplay tags={tags} onTagDelete={this.deleteTag} deleteTag={this.deleteTag} />
         <TagInput
           newTagText={newTagText}
           placeholder="Add a new tag"
@@ -148,6 +151,7 @@ class Tags extends Component {
         <GenericButton
           text="Add"
           onClickEvent={this.addTag}
+          theme={{ margin: '15px auto' }}
         />
         <div className="tag-error">
           <span>{hasError ? 'There was an error adding this tag' : ''}</span>

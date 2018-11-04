@@ -7,4 +7,8 @@ import { backgroundImageCover, dropShadowContainer } from 'styles/mixins/utiliti
 
 export default css`
 
+  .root {
+    margin: 0 auto;
+    text-align: center;
+  }
 `;

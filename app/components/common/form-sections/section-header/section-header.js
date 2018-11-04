@@ -12,7 +12,7 @@ const SectionHeader = (props) => {
       <div className="title-container">
         <span className="title-text" dangerouslySetInnerHTML={{ __html: title }} />
       </div>
-      <span className="desc-text" dangerouslySetInnerHTML={{ __html: desc }} />
+      {desc ? <span className="desc-text" dangerouslySetInnerHTML={{ __html: desc }} /> : null}
       <style jsx>{styles}</style>
     </div>
   );
