@@ -21,9 +21,8 @@ export default css`
     font-size: 10px;
     font-weight: bold;
     color: ${astronaut};
-    line-spacing: 2px;
     text-transform: uppercase;
-    padding-bottom: 15px;
+    padding: 15px 0;
     border-bottom: 1px solid ${shadows};
   }
 
