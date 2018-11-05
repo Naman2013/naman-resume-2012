@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import uniqueId from 'lodash/uniqueId';
 import SelectListOption from './select-list-option';
 import styles from './select-list.style';
 
@@ -25,7 +26,7 @@ const SelectList = (props) => {
         const elementId = `option-${index}-${opt.value}`;
         const isChecked = selectedValue === opt.value;
         return (
-          <div>
+          <div key={uniqueId()}>
             <SelectListOption
               handleSelectChange={handleSelectChange}
               id={elementId}

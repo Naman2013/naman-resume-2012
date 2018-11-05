@@ -67,7 +67,8 @@ class CreateStoryForm extends Component {
     tags: [],
   }
 
-  onSelectContentCategory = (value) => {
+  onSelectContentCategory = (event) => {
+    const { value } = event.currentTarget.dataset;
     this.setState(() => ({
       selectedContentCategory: value,
     }));

@@ -16,8 +16,11 @@ const ContentCategorySelector = (props) => {
       {contentCategories.map((cat, i) => (
         <MultipleChoiceItem
           isActive={selectedContentCategory === cat.value}
-          renderIcon={() => <CircleCharacter size={35} character={i} />}
+          renderIcon={() => <CircleCharacter size={35} character={i + 1} />}
           title={cat.title}
+          onClickItem={onSelectContentCategory}
+          value={cat.value}
+          status={contentCategoriesDescText[cat.contentKey]}
         />
       ))}
       <style jsx>{styles}</style>

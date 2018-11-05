@@ -15,6 +15,13 @@ export default css`
     border: 1px solid ${shadows};
     margin: 15px 0;
     cursor: pointer;
+    color: ${astronaut};
+    background-color: ${romance}
+  }
+
+  .root.is-active {
+    color: ${romance};
+    background-color: ${astronaut}
   }
 
   .left {
@@ -29,18 +36,38 @@ export default css`
   .right {
     flex: 0 100%;
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
   }
 
   .title-character {
     font-family: ${secondaryFont};
     font-size: 18px;
   }
+  .status {
+    font-size: 10px;
+    color: ${astronaut};
+    font-weight: bold;
+    font-family: ${primaryFont};
+    text-transform: uppercase;
+    padding: 0;
+  }
+
+  .root.is-active .status {
+    color: ${romance};
+  }
 
   @media ${screenMedium} {
+    .right {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
 
+    .status {
+      padding: 0 10px;
+    }
   }
 
 `;
