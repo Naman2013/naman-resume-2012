@@ -13,6 +13,14 @@ export default css`
     align-items: center;
   }
 
+  .title-text {
+    font-size: 10px;
+    color: ${astronaut};
+    font-weight: bold;
+    font-family: ${primaryFont};
+    text-transform: uppercase;
+  }
+
   @media ${screenMedium} {
     .root {
       min-height: 100px;

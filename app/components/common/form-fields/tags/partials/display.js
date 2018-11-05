@@ -15,7 +15,7 @@ const DisplayTags = (props) => {
   const { tags, deleteTag } = props;
   return (
     <div className="root">
-      {tags.length === 0 ? <span>There are no tags</span> : null}
+      {tags.length === 0 ? <span className="title-text">There are no tags</span> : null}
       {tags.map(tag => <Tag {...tag} deleteTag={deleteTag} />)}
       <style jsx>{styles}</style>
     </div>
