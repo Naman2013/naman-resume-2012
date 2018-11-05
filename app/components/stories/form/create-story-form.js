@@ -12,9 +12,18 @@ import ObjectCategoryAndTopicSelects from './partials/object-category-and-topic-
 
 class CreateStoryForm extends Component {
   static propTypes = {
+    cancelLabel: PropTypes.string.isRequired,
     contentCategories: PropTypes.arrayOf(PropTypes.shape({})),
     goBack: PropTypes.func.isRequired,
+    introText: PropTypes.string,
     objectCategoriesList: PropTypes.arrayOf(PropTypes.shape({})),
+    sectionLabels: PropTypes.shape({
+      [PropTypes.string]: PropTypes.shape({
+        title: PropTypes.string.isRequired,
+        desc: PropTypes.string,
+      })
+    }),
+    submitLabel: PropTypes.string.isRequired,
     submitStory: PropTypes.func.isRequired,
     uuid: PropTypes.string.isRequired,
     user: PropTypes.shape({
@@ -26,8 +35,26 @@ class CreateStoryForm extends Component {
   }
   static defaultProps = {
     actions: {},
-    objectCategoriesList: [],
     contentCategories: [],
+    introText: '',
+    objectCategoriesList: [],
+    sectionLabels: {
+      section1: {
+        title: '',
+      },
+      section2: {
+        title: '',
+      },
+      section3: {
+        title: '',
+      },
+      section4: {
+        title: '',
+      },
+      section5: {
+        title: '',
+      },
+    },
   }
   state = {
     bodyContent: '',
@@ -112,12 +139,16 @@ class CreateStoryForm extends Component {
   render() {
     const {
       actions,
+      cancelLabel,
       contentCategories,
       contentCategoriesDescText,
       goBack,
+      introText,
+      sectionLabels,
+      submitLabel,
       submitStory,
-      uuid,
       user,
+      uuid,
     } = this.props;
     const {
       bodyContent,
@@ -130,10 +161,10 @@ class CreateStoryForm extends Component {
     } = this.state;
     return (
       <form>
-        <IntroText desc="Illuminations publishes stories by authors who lend their perspective to enrich the Slooh experience. Submissions are associated with celestial objects or types of objects. They are categorized into one of four content categories designed to provide a diversity of views regarding what is 'out there', fueled by science, imagination, spirituality and personal experience. In order to become a contributing author, please read our Guidelines and submit a post below for editorial review." />
+        <IntroText desc={introText} />
 
         <FormSectionHeader
-          title="I. Select Content Category"
+          title={sectionLabels.section1.title}
         />
         <ContentCategorySelector
           contentCategories={contentCategories}
@@ -143,7 +174,7 @@ class CreateStoryForm extends Component {
         />
 
         <FormSectionHeader
-          title="II. Select Object Category and Object Topic"
+          title={sectionLabels.section2.title}
         />
         <ObjectCategoryAndTopicSelects
           formattedObjectCategories={this.formattedObjectCategories}
@@ -155,7 +186,7 @@ class CreateStoryForm extends Component {
         />
 
         <FormSectionHeader
-          title="III. Add Your Content"
+          title={sectionLabels.section3.title}
         />
         <HeadlineAndContentInputs
           bodyContent={bodyContent}
@@ -165,7 +196,7 @@ class CreateStoryForm extends Component {
         />
 
         <FormSectionHeader
-          title="IV. Add Tags"
+          title={sectionLabels.section4.title}
         />
         <Tags
           onTagsChange={this.onTagsChange}
@@ -178,8 +209,8 @@ class CreateStoryForm extends Component {
         />
 
         <FormSectionHeader
-          title="V. Upload Image (optional)"
-          desc="Upload JPEGS, GIFS, or PNGs here to add punch and meaning to your post"
+          title={sectionLabels.section5.title}
+          desc={sectionLabels.section5.desc}
         />
 
         <UploadImages
@@ -190,9 +221,14 @@ class CreateStoryForm extends Component {
           user={user}
           validateResponseAccess={actions.validateResponseAccess}
         />
-        <ActionItems submitStory={submitStory} goBack={goBack} />
+        <ActionItems
+          cancelLabel={cancelLabel}
+          goBack={goBack}
+          submitLabel={submitLabel}
+          submitStory={submitStory}
+        />
       </form>
-    )
+    );
   }
 }
 

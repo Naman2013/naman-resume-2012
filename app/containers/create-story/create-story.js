@@ -14,6 +14,7 @@ import BarHeader from 'components/common/form-sections/bar-header';
 import styles from './create-story.style';
 
 const {
+  arrayOf,
   func,
   number,
   shape,
@@ -24,12 +25,16 @@ const {
 export const CreateStory = (props) => {
   const {
     actions,
+    cancelLabel,
+    contentCategories,
+    contentCategoriesDescText,
+    introText,
+    objectCategoriesList,
+    sectionLabels,
+    submitLabel,
     submitStory,
     userActions,
     uuid,
-    contentCategoriesDescText,
-    objectCategoriesList,
-    contentCategories,
     user,
   } = props;
 
@@ -41,13 +46,17 @@ export const CreateStory = (props) => {
           <div className="inner-container">
             <CreateStoryForm
               actions={actions}
-              user={user}
-              goBack={userActions.goToHubs}
-              submitStory={submitStory}
-              uuid={uuid}
-              contentCategoriesDescText={contentCategoriesDescText}
-              objectCategoriesList={objectCategoriesList}
+              cancelLabel={cancelLabel}
               contentCategories={contentCategories}
+              contentCategoriesDescText={contentCategoriesDescText}
+              goBack={userActions.goToHubs}
+              introText={introText}
+              objectCategoriesList={objectCategoriesList}
+              sectionLabels={sectionLabels}
+              submitStory={submitStory}
+              submitLabel={submitLabel}
+              user={user}
+              uuid={uuid}
             />
           </div>
         </div>
@@ -62,11 +71,20 @@ CreateStory.propTypes = {
   actions: shape({
     submitStory: func,
   }),
+  cancelLabel: string,
+  submitLabel: string,
+  sectionLabels: shape({
+    [string]: shape({
+      title: string.isRequired,
+      desc: string,
+    })
+  }),
   user: shape({
     at: string.isRequired,
     token: string.isRequired,
     cid: string.isRequired,
   }).isRequired,
+  introText: string,
   userActions: shape({
     goToHubs: func.isRequired,
   }),
@@ -76,6 +94,26 @@ CreateStory.defaultProps = {
   actions: {
     submitStory: noop,
   },
+  submitLabel: 'Submit',
+  cancelLabel: 'Cancel',
+  sectionLabels: {
+    section1: {
+      title: '',
+    },
+    section2: {
+      title: '',
+    },
+    section3: {
+      title: '',
+    },
+    section4: {
+      title: '',
+    },
+    section5: {
+      title: '',
+    },
+  },
+  introText: '',
 }
 
 export default CreateStory;

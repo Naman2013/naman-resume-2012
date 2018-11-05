@@ -6,20 +6,24 @@ import styles from './action-items.style';
 
 const ActionItems = (props) => {
   const {
+    cancelLabel,
     goBack,
+    submitLabel,
     submitStory,
   } = props
   return (
     <div className="root">
-      <Button onClickEvent={goBack} text="Cancel" />
-      <Button onClickEvent={submitStory} text="Submit" />
+      <Button onClickEvent={goBack} text={cancelLabel} />
+      <Button onClickEvent={submitStory} text={submitLabel} />
       <style jsx>{styles}</style>
     </div>
   )
 }
 ActionItems.propTypes = {
-    submitStory: PropTypes.func.isRequired,
+    cancelLabel: PropTypes.string.isRequired,
     goBack: PropTypes.func.isRequired,
+    submitLabel: PropTypes.string.isRequired,
+    submitStory: PropTypes.func.isRequired,
 }
 
 

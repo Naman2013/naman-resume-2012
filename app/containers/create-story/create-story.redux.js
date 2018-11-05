@@ -60,13 +60,16 @@ class ConnectedCreateStory extends Component {
   handleCategoryTopicResponse = ({
     apiError,
     artCultureText,
+    cancelLabel,
+    categories,
     categoryList,
     diyText,
     humanSpiritText,
     introText,
     postUUID,
     scienceLogText,
-    categories,
+    sectionLabels,
+    submitLabel,
   }) => {
     if (!apiError) {
       this.setState(() => ({
@@ -75,11 +78,14 @@ class ConnectedCreateStory extends Component {
           artCultureText,
           diyText,
           humanSpiritText,
-          introText,
           scienceLogText,
         },
-        objectCategoriesList: categoryList,
+        cancelLabel,
         contentCategories: categories,
+        introText,
+        objectCategoriesList: categoryList,
+        sectionLabels,
+        submitLabel,
       }));
     }
   }
@@ -90,13 +96,14 @@ class ConnectedCreateStory extends Component {
 
   render() {
     const {
-      } = this.props;
-
-    const {
-      uuid,
+      cancelLabel,
+      contentCategories,
       contentCategoriesDescText,
+      introText,
       objectCategoriesList,
-      contentCategories
+      sectionLabels,
+      submitLabel,
+      uuid,
     } = this.state;
 
     const userActions = {
@@ -111,6 +118,10 @@ class ConnectedCreateStory extends Component {
             <CreateStory
               {...this.props}
               {...context}
+              cancelLabel={cancelLabel}
+              submitLabel={submitLabel}
+              sectionLabels={sectionLabels}
+              introText={introText}
               uuid={uuid}
               userActions={userActions}
               contentCategoriesDescText={contentCategoriesDescText}
