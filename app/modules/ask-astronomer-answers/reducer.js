@@ -1,9 +1,13 @@
 import cloneDeep from 'lodash/cloneDeep';
+import take from 'lodash/take';
 import createReducer from '../utils/createReducer';
 import {
+  FETCH_ASTRONOMER_ANSWERS_FAIL,
   FETCH_ASTRONOMER_ANSWERS_START,
   FETCH_ASTRONOMER_ANSWERS_SUCCESS,
-  FETCH_ASTRONOMER_ANSWERS_FAIL,
+  SUBMIT_ANSWER_FOR_ASTRONOMER_QUESTION_FAIL,
+  SUBMIT_ANSWER_FOR_ASTRONOMER_QUESTION_START,
+  SUBMIT_ANSWER_FOR_ASTRONOMER_QUESTION_SUCCESS,
   TOGGLE_ALL_ASK_ASTRONOMER_ANSWERS,
   UPDATE_TOGGLE_ASK_ASTRONOMER_ANSWER_DISPLAY_LIST,
 } from './actions';
@@ -22,6 +26,7 @@ const initialState = {
   paginationCount: 5,
   allAnswers: {},
   allDisplayedAnswers: {},
+  allAnswerSubmissions: {},
 };
 
 export default createReducer(initialState, {
@@ -71,7 +76,7 @@ export default createReducer(initialState, {
     };
   },
   [TOGGLE_ALL_ASK_ASTRONOMER_ANSWERS](state, { payload }) {
-    const { threadId, showAllReplies } = payload;
+    const { threadId } = payload;
     const newAllAnswers = cloneDeep(state.allAnswers);
 
     if (newAllAnswers[threadId]) {
@@ -111,9 +116,9 @@ export default createReducer(initialState, {
     const newAllState = cloneDeep(state.allAnswers);
 
     if (newAllState[threadId] && newAllState[threadId].replies) {
-      newAllState[threadId].replies = newAllState[threadId].replies.map(answer => {
+      newAllState[threadId].replies = newAllState[threadId].replies.map((answer) => {
         if (answer.replyId === replyTo) {
-          answer.replyCount++;
+          answer.replyToponlyCount += 1;
         }
         return answer;
       });
@@ -124,7 +129,7 @@ export default createReducer(initialState, {
       allAnswers: newAllState,
     };
   },
-  [TOGGLE_ALL_ASK_ASTRONOMER_ANSWER_REPLIES](state, { payload }) {
+  [TOGGLE_ASK_ASTRONOMER_ANSWER_REPLIES](state, { payload }) {
     const { threadId, replyTo } = payload;
     const newAllAnswers = cloneDeep(state.allAnswers);
 
@@ -142,22 +147,75 @@ export default createReducer(initialState, {
       allAnswers: newAllAnswers,
     };
   },
-  [TOGGLE_ASK_ASTRONOMER_ANSWER_REPLIES](state, { payload }) {
-    const { threadId, replyTo } = payload;
-    const newAllAnswers = cloneDeep(state.allAnswers);
+  [SUBMIT_ANSWER_FOR_ASTRONOMER_QUESTION_START](state, { payload }) {
+    const { threadId } = payload;
+    const newAnswerSubmissions = cloneDeep(state.allAnswerSubmissions);
+    newAnswerSubmissions[threadId] = {
+      submitting: true,
+      submitted: false,
+    };
+    return {
+      ...state,
+      allAnswerSubmissions: newAnswerSubmissions,
+    };
+  },
+  [SUBMIT_ANSWER_FOR_ASTRONOMER_QUESTION_SUCCESS](state, { payload }) {
+    const { threadId, reply } = payload;
+    const { paginationCount } = state;
+    // first change the submission model
+    const newAnswerSubmissions = cloneDeep(state.allAnswerSubmissions);
+    newAnswerSubmissions[threadId] = {
+      submitting: false,
+      submitted: true,
+    };
 
+    const newAllAnswers = cloneDeep(state.allAnswers);
+    const newAllDisplayedAnswers = cloneDeep(state.allDisplayedAnswers);
     if (newAllAnswers[threadId] && newAllAnswers[threadId].replies) {
-      newAllAnswers[threadId].replies = newAllAnswers[threadId].replies.map(answer => {
-        if (answer.replyId === replyTo) {
-          answer.showReplies = payload.showReplies;
+      // then add the new submission to the list of answers
+      newAllAnswers[threadId].replies = [].concat(newAllAnswers[threadId].replies, reply);
+      // add the new submission to the displayedAnswers array
+      // but only add it if the last page is the currently displayed page.
+      if (newAllAnswers[threadId].showAllAnswers) {
+        const lastPage = (Math.ceil(newAllAnswers[threadId].replies.length / paginationCount)) || 1;
+        if (newAllAnswers[threadId].page === lastPage) {
+          newAllDisplayedAnswers[threadId] = newAllDisplayedAnswers[threadId] || [];
+          newAllDisplayedAnswers[threadId] = [].concat(newAllDisplayedAnswers[threadId], reply.replyId);
         }
-        return answer;
-      });
+      } else {
+        // make sure we always open the answers when an answer is submitted
+        newAllAnswers[threadId].showAllAnswers = true;
+        // show first X answers
+        newAllDisplayedAnswers[threadId] = take(newAllAnswers[threadId].replies, paginationCount).map(rep => rep.replyId);
+      }
+
+
+    } else {
+      newAllAnswers[threadId] = {
+        replies: [reply],
+        showAllAnswers: true,
+      };
+
+      newAllDisplayedAnswers[threadId] = [reply.replyId]
     }
 
     return {
       ...state,
       allAnswers: newAllAnswers,
+      allAnswerSubmissions: newAnswerSubmissions,
+      allDisplayedAnswers: newAllDisplayedAnswers,
+    };
+  },
+  [SUBMIT_ANSWER_FOR_ASTRONOMER_QUESTION_FAIL](state, { payload }) {
+    const { threadId } = payload;
+    const newAnswerSubmissions = cloneDeep(state.allAnswerSubmissions);
+    newAnswerSubmissions[threadId] = {
+      submitting: false,
+      submitted: true,
+    };
+    return {
+      ...state,
+      allAnswerSubmissions: newAnswerSubmissions,
     };
   },
 });

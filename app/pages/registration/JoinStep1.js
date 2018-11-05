@@ -11,11 +11,14 @@ import JoinHeader from './partials/JoinHeader';
 import SubscriptionPlanCard from './partials/SubscriptionPlanCard';
 import Request from 'components/common/network/Request';
 import { JOIN_PAGE_ENDPOINT_URL, SUBSCRIPTION_PLANS_ENDPOINT_URL } from 'services/registration/registration.js';
+import { DEFAULT_JOIN_TABS } from './StaticNavTabs';
+
 import styles from './JoinStep1.style';
 
 const {
   string,
 } = PropTypes;
+
 
 class JoinStep1 extends Component {
   static propTypes = {
@@ -37,14 +40,19 @@ class JoinStep1 extends Component {
     window.localStorage.removeItem('googleProfileEmail');
     window.localStorage.removeItem('username');
     window.localStorage.removeItem('password');
+    window.localStorage.removeItem('isAstronomyClub');
+    window.localStorage.removeItem('isClassroom');
+    window.localStorage.removeItem('invitationCodeAlt');
+    window.localStorage.removeItem('inviteeEmailAddress');
   }
 
-  setSelectedPlan(subscriptionPlanId) {
+  setSelectedPlan(subscriptionPlanId, isAstronomyClub, isClassroom) {
     window.localStorage.setItem('selectedPlanId', subscriptionPlanId);
-    //console.log('setting selected plan of: ' + subscriptionPlanId);
+    window.localStorage.setItem('isAstronomyClub', isAstronomyClub);
+    window.localStorage.setItem('isClassroom', isClassroom);
 
     /* Teacher Subscription Plans should prompt for School Selection */
-    if (subscriptionPlanId == 11) {
+    if (isClassroom) {
       /* move to step 2 in the join flow */
       browserHistory.push('/join/step1SchoolSelection');
     }
@@ -76,6 +84,7 @@ class JoinStep1 extends Component {
                         mainHeading={serviceResponse.pageHeading1}
                         subHeading={serviceResponse.pageHeading2}
                         activeTab={pathname}
+                        tabs={DEFAULT_JOIN_TABS}
                       />
                       <div className="step-root">
                         <div className="section-heading">{serviceResponse.sectionHeading}</div>
@@ -95,7 +104,7 @@ class JoinStep1 extends Component {
                                         key={`subscriptionplan-tile-${subscriptionPlan.planID}`}
                                         className="subscription-plans-list-item"
                                       >
-                                        <SubscriptionPlanCard {...subscriptionPlan} setSelectedPlan={() => this.setSelectedPlan(subscriptionPlan.planID)}/>
+                                        <SubscriptionPlanCard {...subscriptionPlan} setSelectedPlan={() => this.setSelectedPlan(subscriptionPlan.planID, subscriptionPlan.isAstronomyClub, subscriptionPlan.isClassroom)}/>
                                       </li>))}
                                     </ul>
                                   }

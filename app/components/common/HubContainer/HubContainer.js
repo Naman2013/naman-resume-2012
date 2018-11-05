@@ -23,6 +23,7 @@ const {
   shape,
   string,
   func,
+  number,
 } = PropTypes;
 
 const getDefaultIndex = (set, item) => {
@@ -63,6 +64,7 @@ class HubContainer extends Component {
       totalCount: string,
     }),
     isMobile: bool,
+    isCreateMode: bool,
   };
 
   static defaultProps = {
@@ -78,6 +80,7 @@ class HubContainer extends Component {
     },
     user: {},
     isMobile: false,
+    isCreateMode: false,
     responseFieldNames: {},
     validateResponseAccess: noop,
   };
@@ -90,6 +93,7 @@ class HubContainer extends Component {
 
   componentWillReceiveProps(nextProps) {
     let { sort } = this.props.location.query;
+    let { isCreateMode } = this.props.isCreateMode;
     const { sort: nextSort } = nextProps.location.query;
     let changeState = false;
 
@@ -126,6 +130,7 @@ class HubContainer extends Component {
 
   handlePaginationResponse = (resp) => {
     if (!resp.apiError)
+
     this.props.updateList(resp);
   }
 
@@ -165,8 +170,9 @@ class HubContainer extends Component {
     const {
       defaultSortIndex,
       sort,
-      page
+      page,
     } = this.state;
+
     return (
       <div className="root">
         <HubHeader
@@ -180,46 +186,47 @@ class HubContainer extends Component {
                 navItems={filterOptions}
                 parentPath={hubName}
               />
+              {!this.props.isCreateMode ?
               <HubSort
                 defaultIndex={defaultSortIndex}
                 handleSort={this.handleSortChange}
                 sortItems={sortOptions}
-              />
+              />: null}
             </div>
           )}
         />
         <div>
           {render()}
-
-            <div className="pagination-container">
-              {!isMobile ?
-                <PaginateWithNetwork
-                  apiURL={paginateURL}
-                  activePageNumber={Number(page)}
-                  onServiceResponse={this.handlePaginationResponse}
-                  onPaginationChange={this.handlePaginationChange}
-                  filterOptions={{
-                    sortBy: sort,
-                    page,
-                    count: 9,
-                    [filterTypeFieldName]: filterType,
-                  }}
-                />
-              : <ShowMoreWithNetwork
-                  apiURL={paginateURL}
-                  activePageNumber={Number(page)}
-                  onServiceResponse={this.handleShowMoreResponse}
-                  onPaginationChange={this.handlePaginationChange}
-                  responseFieldNames={responseFieldNames}
-                  validateResponseAccess={this.validateResponseAccess}
-                  user={user}
-                  filterOptions={{
-                    sortBy: sort,
-                    type: filterType,
-                    count: 5,
-                  }}
-              />}
-            </div>
+            {!this.props.isCreateMode ?
+              <div className="pagination-container">
+                {!isMobile ?
+                  <PaginateWithNetwork
+                    apiURL={paginateURL}
+                    activePageNumber={Number(page)}
+                    onServiceResponse={this.handlePaginationResponse}
+                    onPaginationChange={this.handlePaginationChange}
+                    filterOptions={{
+                      sortBy: sort,
+                      page,
+                      count: 9,
+                      [filterTypeFieldName]: filterType,
+                    }}
+                  />
+                : <ShowMoreWithNetwork
+                    apiURL={paginateURL}
+                    activePageNumber={Number(page)}
+                    onServiceResponse={this.handleShowMoreResponse}
+                    onPaginationChange={this.handlePaginationChange}
+                    responseFieldNames={responseFieldNames}
+                    validateResponseAccess={this.validateResponseAccess}
+                    user={user}
+                    filterOptions={{
+                      sortBy: sort,
+                      type: filterType,
+                      count: 5,
+                    }}
+                />}
+              </div>: null}
         </div>
         <style jsx>{style}</style>
       </div>

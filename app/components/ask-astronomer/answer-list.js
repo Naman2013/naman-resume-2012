@@ -15,15 +15,17 @@ import {
   updateAnswersDisplayList,
 } from '../../modules/ask-astronomer-answers/actions';
 import {
-  toggleAndDisplayReplies,
+  replyToAnswer,
   toggleAllAnswerRepliesAndDisplay,
 } from '../../modules/ask-astronomer-answer-discuss/actions';
 import PaginateSet from '../common/paginate-full-set/PaginateSet';
+import styles from './answer-list.style';
 
 const {
   arrayOf,
   any,
   bool,
+  func,
   number,
   shape,
   string,
@@ -38,14 +40,15 @@ const mapStateToProps = ({
   displayedReplies: astronomerDiscuss.allDisplayedReplies,
   fetchingReplies: astronomerDiscuss.fetchingObj,
   paginationCount: astronomerAnswers.paginationCount,
+  user,
 });
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     toggleAllAnswerRepliesAndDisplay,
     toggleAllAnswersAndDisplay,
-    toggleAndDisplayReplies,
     updateAnswersDisplayList,
+    replyToAnswer,
   }, dispatch),
 });
 
@@ -58,6 +61,8 @@ class AnswerList extends Component {
       replies: [],
       topAnswer: null,
     },
+    allReplies: {},
+    displayedReplies: {},
     fetchingReplies: {},
     displayedAnswers: [],
     threadId: null,
@@ -76,14 +81,19 @@ class AnswerList extends Component {
       })),
       topAnswer: number,
     }), // answers only pertaining to a single question
+    canReplyToAnswers: bool.isRequired,
     fetchingReplies: shape({}),
     threadId: number,
+    actions: shape({}),
+    modalActions: shape({
+      closeModal: func,
+      setModal: func,
+      showModal: func,
+    }).isRequired,
+    allReplies: shape({}),
+    displayedReplies: shape({}),
     displayedAnswers: arrayOf(any),
     objectId: string.isRequired,
-  }
-
-  constructor(props) {
-    super(props)
   }
 
   handlePageChange = (paginatedSet, page) => {
@@ -99,60 +109,90 @@ class AnswerList extends Component {
     });
   }
 
+  submitReply = (params, callback) => {
+    const { actions } = this.props;
+    actions.replyToAnswer(params).then(res => callback(res.payload));
+  }
+
   render () {
     const {
       actions,
       allReplies,
       answers,
-      fetchingReplies,
-      paginationCount,
+      canReplyToAnswers,
       displayedAnswers,
       displayedReplies,
+      fetchingReplies,
+      modalActions,
+      isDesktop,
+      numberOfAnswersToThread,
       objectId,
+      paginationCount,
       threadId,
       topicId,
+      user,
     } = this.props;
-    const showAllAnswers = answers.showAllAnswers;
-    const count = showAllAnswers ? paginationCount: 1;
-    return <div key={threadId}>
-      {displayedAnswers.map(answer => {
-        const likeParams = {
-          callSource: 'qanda',
-          objectId,
-          replyId: answer.replyId,
-          topicId,
-          replyType: 'answer',
-        }
-        const answerReplies = allReplies[answer.replyId] || { replies: [] };
-        const allDisplayedRepliesObj = answerReplies
-          .replies
-          .filter(item => displayedReplies[answer.replyId] && displayedReplies[answer.replyId].indexOf(item.replyId) > -1);
-        return (<AnswerListItem
-          answer={answer}
-          answerReplies={allReplies[answer.replyId]}
-          displayedReplies={allDisplayedRepliesObj}
-          fetchingReplies={fetchingReplies[answer.replyId]}
-          isTopAnswer={answers.topAnswer && answer.replyId === answers.topAnswer}
-          key={answer.replyId}
-          likeParams={likeParams}
-          objectId={objectId}
-          showReplies={answer.showReplies}
-          showAllReplies={answer.showAllReplies}
-          showAllAnswers={showAllAnswers}
-          threadId={threadId}
-          toggleAllAnswerReplies={() => actions.toggleAllAnswerRepliesAndDisplay({ threadId: threadId, replyTo: answer.replyId, showAllReplies: true })}
-          toggleAnswerReplies={() => actions.toggleAndDisplayReplies({ threadId: threadId, replyTo: answer.replyId, showReplies: !answer.showReplies })}
-          toggleAnswers={() => actions.toggleAllAnswersAndDisplay({ threadId, showAllAnswers: true })}
-          topicId={topicId}
-        />)})}
-      {showAllAnswers && displayedAnswers.length > 0 && <PaginateSet
-        handlePageChange={this.handlePageChange}
-        fullDataSet={answers.replies}
-        count={count}
-        totalCount={answers.replies.length}
-        page={answers.page}
-      />}
-    </div>
+    const { showAllAnswers } = answers;
+    const count = showAllAnswers ? paginationCount : 1;
+    return (<div key={threadId}>
+      {numberOfAnswersToThread > 0 ? <div className="replies-list-contanier">
+        <div className="num-replies">
+          <span className="replies-number">Answers: {numberOfAnswersToThread}</span>
+        </div>
+        <div className="replies-list">
+          {displayedAnswers.map((answer) => {
+            const likeParams = {
+              callSource: 'qanda',
+              objectId,
+              replyId: answer.replyId,
+              topicId,
+              replyType: 'answer',
+            };
+            const answerReplies = allReplies[answer.replyId] || { replies: [] };
+            const allDisplayedRepliesObj = answerReplies
+              .replies
+              .filter(item => (
+                displayedReplies[answer.replyId] &&
+                  displayedReplies[answer.replyId].indexOf(item.replyId) > -1)
+              );
+            const toggleAllAnswerReplies = () => actions.toggleAllAnswerRepliesAndDisplay({
+              threadId,
+              replyId: answer.replyId,
+              showAllReplies: !answerReplies.showAllReplies,
+            });
+
+            return (<AnswerListItem
+              answer={answer}
+              answerReplies={allReplies[answer.replyId]}
+              canReplyToAnswers={canReplyToAnswers}
+              displayedReplies={allDisplayedRepliesObj}
+              fetchingReplies={fetchingReplies[answer.replyId]}
+              isDesktop={isDesktop}
+              isTopAnswer={answers.topAnswer && answer.replyId === answers.topAnswer}
+              key={answer.replyId}
+              likeParams={likeParams}
+              numberOfRepliesToAnswer={answer.replyToponlyCount}
+              objectId={objectId}
+              showAllReplies={answerReplies.showAllReplies}
+              submitReply={this.submitReply}
+              threadId={threadId}
+              toggleAllAnswerReplies={toggleAllAnswerReplies}
+              topicId={topicId}
+              user={user}
+              modalActions={modalActions}
+            />);
+          })}
+          {showAllAnswers && displayedAnswers.length > 0 && <PaginateSet
+            handlePageChange={this.handlePageChange}
+            fullDataSet={answers.replies}
+            count={count}
+            totalCount={answers.replies.length}
+            page={answers.page}
+          />}
+        </div>
+      </div> : null}
+      <style jsx>{styles}</style>
+    </div>)
   }
 }
 

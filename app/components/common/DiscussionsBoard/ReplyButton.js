@@ -87,7 +87,7 @@ class ReplyButton extends Component {
       isDesktop,
       user,
     } = this.props;
-
+    console.log('replybutt', this.props)
     return (
       <div className="reply-form-container">
         <RevealSubmitForm

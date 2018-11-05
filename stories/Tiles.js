@@ -147,8 +147,9 @@ storiesOf('Tiles', module)
       <BigShowTile
         header="Upcoming Show"
         title="Countdown to the Slooh Messier Marathon"
-        time="30 mins"
-        author="Helen Avery"
+        displayTime="30 mins"
+        displayDate="Oct 19"
+        eventHostName="Helen Avery"
         linkUrl="#"
       />
     </CenterColumn>

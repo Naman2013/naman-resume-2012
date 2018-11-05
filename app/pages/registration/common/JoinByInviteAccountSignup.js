@@ -6,6 +6,7 @@ import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import axios from 'axios';
+import has from 'lodash/has';
 import { GoogleLogin } from 'react-google-login';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
@@ -128,6 +129,13 @@ class JoinByInviteAccountSignup extends Component {
           hintText: '',
           errorText: '',
         },
+        student13YearsAndOlder: {
+          label: '',
+          visible: true,
+          value: false,
+          hintText: '',
+          errorText: '',
+        }
       },
     }
   }
@@ -149,6 +157,7 @@ class JoinByInviteAccountSignup extends Component {
     newAccountFormData.password.label = result.formFieldLabels.password.label;
     newAccountFormData.passwordVerification.label = result.formFieldLabels.passwordverification.label;
     newAccountFormData.astronomyClubName.label = result.formFieldLabels.astronomyClubName.label;
+    newAccountFormData.student13YearsAndOlder.label = result.formFieldLabels.student13YearsAndOlder.label;
 
     newAccountFormData.givenName.hintText = result.formFieldLabels.firstname.hintText;
     newAccountFormData.familyName.hintText = result.formFieldLabels.lastname.hintText;
@@ -157,6 +166,7 @@ class JoinByInviteAccountSignup extends Component {
     newAccountFormData.password.hintText = result.formFieldLabels.password.hintText;
     newAccountFormData.passwordVerification.hintText = result.formFieldLabels.passwordverification.hintText;
     newAccountFormData.astronomyClubName.hintText = result.formFieldLabels.astronomyClubName.hintText;
+    newAccountFormData.student13YearsAndOlder.hintText = result.formFieldLabels.student13YearsAndOlder.hintText;
 
     newAccountFormData.givenName.value = result.invitee.firstName;
     this.props.change('givenName', result.invitee.firstName);
@@ -171,28 +181,15 @@ class JoinByInviteAccountSignup extends Component {
     newInviteDetails.childCustomerRole = result.invitee.role;
 
     /* update the account form details state so the correct hinText will show on each form field */
-    if (result.selectedSubscriptionPlan.isClassroom === 'yes') {
-      this.setState(() => ({
-        accountFormDetails: newAccountFormData,
-        inviteDetails: newInviteDetails,
-        /* was the selected plan a classroom? */
-        isAstronomyClub: result.selectedSubscriptionPlan.isAstronomyClub,
-        isClassroom: result.selectedSubscriptionPlan.isClassroom,
-        selectedSchoolId: result.selectedSchool.schoolId,
-        selectedPlanId: result.selectedSubscriptionPlan.planId,
-      }));
-    }
-    else {
-      this.setState(() => ({
-        accountFormDetails: newAccountFormData,
-        inviteDetails: newInviteDetails,
-        /* was the selected plan an astronomy club? */
-        isAstronomyClub: result.selectedSubscriptionPlan.isAstronomyClub,
-        isClassroom: result.selectedSubscriptionPlan.isClassroom,
-        selectedSchoolId: '',
-        selectedPlanId: result.selectedSubscriptionPlan.planId,
-      }));
-    }
+    this.setState(() => ({
+      accountFormDetails: newAccountFormData,
+      inviteDetails: newInviteDetails,
+      /* was the selected plan a classroom? */
+      isAstronomyClub: has(result, 'selectedSubscriptionPlan') ? result.selectedSubscriptionPlan.isAstronomyClub : false,
+      isClassroom: has(result, 'selectedSubscriptionPlan') ? result.selectedSubscriptionPlan.isClassroom : false,
+      selectedSchoolId: has(result, 'selectedSchool') ? result.selectedSchool.schoolId : null,
+      selectedPlanId: has(result, 'selectedSubscriptionPlan') ? result.selectedSubscriptionPlan.planId : null,
+    }));
   }
 
   /* This function handles a field change in the form and sets the state accordingly */
@@ -227,6 +224,7 @@ class JoinByInviteAccountSignup extends Component {
     accountFormDetailsData.password.errorText = '';
     accountFormDetailsData.passwordVerification.errorText = '';
     accountFormDetailsData.astronomyClubName.errorText = '';
+    accountFormDetailsData.student13YearsAndOlder.errorText = '';
 
     if (accountCreationType === 'userpass') {
         /* Verify that the user has provided:
@@ -410,38 +408,51 @@ class JoinByInviteAccountSignup extends Component {
             googleProfilePictureURL: res.googleProfileInfo.profilePictureURL,
           };
 
-          /* Capture the Google Profile Data and store it in state */
-          this.setState(() => ({ googleProfileData: googleProfileResult }));
+          /* Needed to capture the Google Profile information in our system as the refresh_token is only given one time.
+          * MUST validate that the Google Account Email Address matches the invitation */
 
-          /* Update the Account Form parameters to show/hide fields as a result of Google Login */
-          const accountFormDetailsData = cloneDeep(this.state.accountFormDetails);
-          /* Google Authentication does not require the customer to create a password/hide the form field */
-          accountFormDetailsData.password.visible = false;
-          accountFormDetailsData.passwordVerification.visible = false;
+          if (googleProfileResult.googleProfileEmail != this.state.accountFormDetails.loginEmailAddress.value) {
+            const accountFormDetailsData = cloneDeep(this.state.accountFormDetails);
+            accountFormDetailsData.loginEmailAddress.errorText = 'Your Google Account Email Address does not match your Invitation to Join Slooh.  If the email address needs to be updated, please contact the person who created the invitation.';
 
-          /* Set the customer's information that we got from google as a starting place for the user */
-          accountFormDetailsData.givenName.value = googleProfileResult.googleProfileGivenName;
-          this.props.change('givenName', googleProfileResult.googleProfileGivenName);
+            this.setState(() => ({
+              accountFormDetails: accountFormDetailsData,
+            }));
+          }
+          else {
+            /* Capture the Google Profile Data and store it in state */
+            this.setState(() => ({ googleProfileData: googleProfileResult }));
 
-          accountFormDetailsData.familyName.value = googleProfileResult.googleProfileFamilyName;
-          this.props.change('familyName', googleProfileResult.googleProfileFamilyName);
+            /* Update the Account Form parameters to show/hide fields as a result of Google Login */
+            const accountFormDetailsData = cloneDeep(this.state.accountFormDetails);
+            /* Google Authentication does not require the customer to create a password/hide the form field */
+            accountFormDetailsData.password.visible = false;
+            accountFormDetailsData.passwordVerification.visible = false;
 
-          /* The primary key for Google Single Sign-in is the user's email address which can't be changed if using Google, update the form on screen accordingly so certain fields are hidden and not editable */
-          accountFormDetailsData.loginEmailAddress.editable = false;
-          accountFormDetailsData.loginEmailAddress.value = googleProfileResult.googleProfileEmail;
-          this.props.change('loginEmailAddress', googleProfileResult.googleProfileEmail);
+            /* Set the customer's information that we got from google as a starting place for the user */
+            accountFormDetailsData.givenName.value = googleProfileResult.googleProfileGivenName;
+            this.props.change('givenName', googleProfileResult.googleProfileGivenName);
 
-          this.setState(() => ({
-            accountFormDetails: accountFormDetailsData,
-            /* Set the account creation type as Google */
-            accountCreationType: 'googleaccount',
-          }));
+            accountFormDetailsData.familyName.value = googleProfileResult.googleProfileFamilyName;
+            this.props.change('familyName', googleProfileResult.googleProfileFamilyName);
+
+            /* The primary key for Google Single Sign-in is the user's email address which can't be changed if using Google, update the form on screen accordingly so certain fields are hidden and not editable */
+            accountFormDetailsData.loginEmailAddress.editable = false;
+            accountFormDetailsData.loginEmailAddress.value = googleProfileResult.googleProfileEmail;
+            this.props.change('loginEmailAddress', googleProfileResult.googleProfileEmail);
+
+            this.setState(() => ({
+              accountFormDetails: accountFormDetailsData,
+              /* Set the account creation type as Google */
+              accountCreationType: 'googleaccount',
+            }));
 
 
-          /* Set the account creation type as Google and the Google Profile Id in browser storage */
-          window.localStorage.setItem('accountCreationType', 'googleaccount');
-          window.localStorage.setItem('googleProfileId', googleProfileResult.googleProfileId);
-          window.localStorage.setItem('googleProfileEmail', googleProfileResult.googleProfileEmail);
+            /* Set the account creation type as Google and the Google Profile Id in browser storage */
+            window.localStorage.setItem('accountCreationType', 'googleaccount');
+            window.localStorage.setItem('googleProfileId', googleProfileResult.googleProfileId);
+            window.localStorage.setItem('googleProfileEmail', googleProfileResult.googleProfileEmail);
+          }
         }
       })
       .catch((err) => {
@@ -454,7 +465,7 @@ class JoinByInviteAccountSignup extends Component {
   }
 
   render() {
-    const { pathname } = this.props;
+    const { pathname, navTabs } = this.props;
     const {
       // googleProfileData,
       accountFormDetails,
@@ -462,9 +473,8 @@ class JoinByInviteAccountSignup extends Component {
       isAstronomyClub,
       isClassroom,
     } = this.state;
-
     const joinByInviteParams = this.props.joinByInviteParams;
-
+    //console.log ('joinByInviteParams : ' + joinByInviteParams.callSource);
     const selectedPlanId = this.state.selectedPlanId;
 
     //for classroom accounts
@@ -488,6 +498,8 @@ class JoinByInviteAccountSignup extends Component {
                       mainHeading={joinPageRes.pageHeading1}
                       subHeading={joinPageRes.pageHeading2}
                       activeTab={pathname}
+                      callSource={joinByInviteParams.callSource}
+                      tabs={navTabs}
                     />
                     <div className="step-root">
                       <DisplayAtBreakpoint
@@ -530,14 +542,12 @@ class JoinByInviteAccountSignup extends Component {
                         />
                         <form onSubmit={this.handleSubmit}>
                           <div className="form-section">
-                            <div className="form-field-container">
+                            <div className="form-field-container invited-by">
                               <span className="form-label" dangerouslySetInnerHTML={{ __html: joinPageRes.invitedBy.heading }} />
                               <br/>
-                              <span className="form-label" dangerouslySetInnerHTML={{ __html: joinPageRes.invitedBy.displayName }} />
+                              <span className="form-label inviter" dangerouslySetInnerHTML={{ __html: joinPageRes.invitedBy.displayName }} />
                               <br/>
-                              <span className="form-label" dangerouslySetInnerHTML={{ __html: joinPageRes.invitedBy.displayRole }} /> for&nbsp;
-                              <span className="form-label" dangerouslySetInnerHTML={{ __html: joinPageRes.invitedBy.organizationName }} />
-                              <br/>
+                              <span className="form-label" dangerouslySetInnerHTML={{ __html: joinPageRes.invitedBy.displayRole + ' for ' + joinPageRes.invitedBy.organizationName }} />
                               <br/>
                             </div>
                           </div>
@@ -572,6 +582,23 @@ class JoinByInviteAccountSignup extends Component {
                             </div>
                           </div>
 
+                          {isClassroom && <div className="form-section">
+                              <div className="form-field-container">
+                                <span className="form-label" dangerouslySetInnerHTML={{ __html: accountFormDetails.student13YearsAndOlder.label }} />:
+                              </div>
+                              <Field
+                                name="student13YearsAndOlder"
+                                type="checkbox"
+                                className="form-field"
+                                label={accountFormDetails.student13YearsAndOlder.hintText}
+                                component={InputField}
+                                value={accountFormDetails.student13YearsAndOlder.value}
+                                onChange={(event) => { this.handleFieldChange({ field: 'student13YearsAndOlder', value: !event.target.value }); }}
+                              />
+                            </div>
+                          }
+                          <br/>
+                          <br/>
                           <div className="form-section">
                             <div className="form-field-container">
                               <span className="form-label" dangerouslySetInnerHTML={{ __html: accountFormDetails.displayName.label }} />:
@@ -589,6 +616,7 @@ class JoinByInviteAccountSignup extends Component {
                           <div className="form-section">
                             <div className="form-field-container">
                               <span className="form-label" dangerouslySetInnerHTML={{ __html: accountFormDetails.loginEmailAddress.label }} />:
+                              <span className="form-error" dangerouslySetInnerHTML={{ __html: accountFormDetails.loginEmailAddress.errorText }} />
                             </div>
                             <span className="google-field">{accountFormDetails.loginEmailAddress.value}</span>
                           </div>

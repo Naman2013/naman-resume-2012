@@ -19,6 +19,7 @@ import Button from 'components/common/style/buttons/Button';
 import { validateResponseAccess } from 'modules/authorization/actions'
 import { customModalStylesBlackOverlay } from 'styles/mixins/utilities';
 import { requestGroup } from 'services/community-groups/request-group';
+import { browserHistory } from 'react-router';
 import style from './groups-hub.style';
 
 const COUNT = 9;
@@ -52,7 +53,16 @@ class Groups extends Component {
     groups: [],
     showPrompt: false,
     promptText: '',
+    createClubLinkUrl: '',
   };
+
+  /* Save the Create Club Link Url */
+  handlePageServiceResponse = (result) => {
+    this.setState(() => ({
+      createClubLinkUrl: result.createNewClubLinkUrl,
+    }));
+
+  }
 
   updateGroupsList = (resData) => {
     this.setState(() => ({
@@ -83,7 +93,9 @@ class Groups extends Component {
     });
   }
 
-
+  createClub = () => {
+    browserHistory.push( this.state.createClubLinkUrl );
+  }
 
   submitRequestForm = ({
     requestFormTitle,
@@ -164,7 +176,8 @@ class Groups extends Component {
       <Request
         serviceURL={GROUPS_PAGE_ENDPOINT_URL}
         model={groupsHubModel}
-        requestBody={{}}
+        requestBody={{ currentGroupSet: this.props.params.filterType }}
+        serviceResponseHandler={this.handlePageServiceResponse}
         render={({
           fetchingContent,
           modeledResponses: { GROUP_HUB_MODEL },
@@ -190,7 +203,13 @@ class Groups extends Component {
                         currentCount: 'groupsCount',
                         totalCount: 'totalGroupsCount',
                       }}
-                      renderRightMenu={serviceResponse.canRequestGroup ? () => (<Button text="Request Group" onClickEvent={this.requestGroup} />) : null}
+                      renderRightMenu={() => (
+                        <div className="flex">
+                          {serviceResponse.canCreateNewClubs ? <Button text={serviceResponse.createNewClubButtonText} onClickEvent={this.createClub} />
+                          : null}
+                          {serviceResponse.canRequestGroup ? <Button text="Request Group" onClickEvent={this.requestGroup} /> : null}
+                        </div>
+                      )}
                       updateList={this.updateGroupsList}
                       appendToList={this.appendToGroupsList}
                       iconURL={serviceResponse.pageIconURL}
@@ -199,6 +218,7 @@ class Groups extends Component {
                       render={() => (
                         <Fragment>
                           {fetchingContent ? <div>Loading</div> : null}
+
                           {!fetchingContent && groups && groups.length ?
                             <GroupTiles
                               closeModal={this.closeModal}
@@ -207,7 +227,9 @@ class Groups extends Component {
                               groups={groups}
                               isMobile={context.isMobile}
                             /> :
-                            <div>There are no groups.</div>}
+                            <div>
+                              There are no groups.
+                            </div>}
                         </Fragment>
                       )}
                     />

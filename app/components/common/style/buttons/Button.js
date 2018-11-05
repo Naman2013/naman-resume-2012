@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import omit from 'lodash/omit';
 import styles from './Button.style';
 
 const {
@@ -21,9 +22,10 @@ const Button = (props) => {
     onClickEvent,
     theme = {},
   } = props;
+  const buttonProps = omit(props, ['isActive', 'renderIcon', 'onClickEvent', 'icon', 'theme']);
   return (
     <button
-      {...props}
+      {...buttonProps}
       type={type}
       className={classnames('button-container', {
         circular: (icon && !text) || (renderIcon && !text),

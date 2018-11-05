@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import FormHeader from 'components/common/FormHeader';
 import SingleFieldSubmitForm from 'components/common/SingleFieldSubmitForm';
 import RevealSubmitForm from 'components/common/RevealSubmitForm';
+import { prepareReply } from 'services/discussions/prepare-reply';
 import { romance, astronaut, shadows } from 'styles/variables/colors_tiles_v4';
 import { dropShadowContainer } from 'styles/mixins/utilities';
 
@@ -50,6 +51,24 @@ class ReplyForm extends Component {
       token: oneOfType([number, string]),
       cid: oneOfType([number, string]),
     }),
+  }
+
+  constructor(props) {
+    super();
+    const { user } = props;
+    this.state = {
+      uuid: '',
+    }
+
+    prepareReply({
+      at: user.at,
+      token: user.token,
+      cid: user.cid
+    }).then((res) => {
+      this.setState(() => ({
+        uuid: res.data.postUUID,
+      }));
+    })
   }
 
 
@@ -97,6 +116,7 @@ class ReplyForm extends Component {
           {...this.props}
           submitForm={this.submitForm}
           placeholder={placeholder}
+          uuid={this.state.uuid}
         />
 
       <style jsx>{`

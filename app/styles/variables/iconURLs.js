@@ -23,7 +23,10 @@ export const shows = 'https://vega.slooh.com/assets/v4/dashboard/icon_shows.svg'
 export const stories = 'https://vega.slooh.com/assets/v4/dashboard/icon_stories.svg';
 export const groups = 'https://vega.slooh.com/assets/v4/dashboard/icon_groups.svg';
 
+export const resources = 'https://vega.slooh.com/assets/v4/icons/resources.svg';
 export const info = 'https://vega.slooh.com/assets/v4/common/info_icon.svg';
+export const complete = 'https://vega.slooh.com/assets/v4/icons/complete_icon.svg';
+export const incomplete = 'https://vega.slooh.com/assets/v4/icons/incomplete_icon.svg';
 
 export const plus = 'https://vega.slooh.com/assets/v4/common/plus_icon.svg';
 

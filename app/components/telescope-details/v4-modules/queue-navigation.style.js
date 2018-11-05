@@ -29,6 +29,7 @@ export default css`
     margin: 0;
     list-style-type: none;
     display: flex;
+    height: 100%;
   }
 
   .action-container {

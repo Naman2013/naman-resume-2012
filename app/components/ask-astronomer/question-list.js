@@ -18,32 +18,48 @@ const {
 } = PropTypes;
 
 const QuestionList = ({
+  actions,
   allAnswers,
   allDisplayedAnswers,
+  canAnswerQuestions,
+  canReplyToAnswers,
   count,
   fetchingAnswers,
-  page,
-  totalCount,
   handlePageChange,
+  isDesktop,
+  modalActions,
+  likeParams,
   objectId,
+  page,
   questions,
+  submitAnswer,
   toggleAllAnswersAndDisplay,
+  user,
+  totalCount,
 }) => (
   <div>
     {
-      questions.map(item => {
+      questions.map((item) => {
         const threadAnswers = allAnswers[item.threadId] || { replies: [] };
         const allDisplayedAnswersObjs = threadAnswers
           .replies
           .filter(answer => allDisplayedAnswers[item.threadId] && allDisplayedAnswers[item.threadId].indexOf(answer.replyId) > -1);
         return (<QuestionListItem
+          actions={actions}
           answers={allAnswers[item.threadId]}
+          canAnswerQuestions={canAnswerQuestions}
+          canReplyToAnswers={canReplyToAnswers}
           displayedAnswers={allDisplayedAnswersObjs}
           fetching={fetchingAnswers[item.threadId]}
-          key={item.threadId}
+          isDesktop={isDesktop}
           item={item}
-          toggleAllAnswersAndDisplay={toggleAllAnswersAndDisplay}
+          likeParams={likeParams}
+          user={user}
+          key={item.threadId}
           objectId={objectId}
+          submitAnswer={submitAnswer}
+          modalActions={modalActions}
+          toggleAllAnswersAndDisplay={toggleAllAnswersAndDisplay}
         />)
     },
       )
@@ -71,6 +87,11 @@ QuestionList.propTypes = {
   })),
   toggleAllAnswersAndDisplay: func.isRequired,
   objectId: string.isRequired,
+  modalActions: shape({
+    closeModal: func,
+    setModal: func,
+    showModal: func,
+  }).isRequired,
 };
 
 export default QuestionList;

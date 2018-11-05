@@ -24,16 +24,7 @@ import StaticAppContainer from './containers/static-app-container';
 import Reservations from './containers/Reservations';
 import SloohRecommends from './containers/SloohRecommends';
 import MyPictures from './containers/MyPictures';
-import PulseList from './containers/pulse/PulseList';
-import PulseWrapper from './containers/pulse/PulseWrapper';
-import PulsePost from './containers/pulse/PulsePost';
 import ObjectList from './containers/object-post/ObjectList';
-
-import Discussions from './containers/discussions/Discussions';
-import DiscussionsWrapper from './containers/discussions/DiscussionsWrapper';
-import DiscussionsListWrapper from './containers/discussions/DiscussionsListWrapper';
-import DiscussionsTopicsWrapper from './containers/discussions/DiscussionsTopicsWrapper';
-import DiscussionsSearch from './containers/discussions/DiscussionsSearch';
 
 // V4 containers
 import AskAstronomer from './containers/ask-astronomer/AskAstronomer';
@@ -53,7 +44,6 @@ import ExistingMissions from './pages/existing-missions';
 import ReserveByTelescope from './pages/reserve-by-telescope';
 import ReserveObjects from './pages/reserve/reserve-by-objects';
 import ReserveByCatalog from './pages/reserve/reserve-by-catalog';
-import BestOfSlooh from './pages/best-of-slooh/best-of-slooh';
 
 import SituationRoom from './pages/situation-room/SituationRoom';
 import EventDetails from './pages/situation-room/EventDetails';
@@ -92,6 +82,7 @@ import JoinInviteByEmailStep1 from './pages/registration/JoinInviteByEmailStep1'
 import JoinInviteByCodeStep1 from './pages/registration/JoinInviteByCodeStep1';
 import JoinInviteByCodeStep2 from './pages/registration/JoinInviteByCodeStep2';
 import Memberships from './pages/registration/Memberships';
+import MembershipPlanDetailsStep from './pages/registration/MembershipPlanDetailsStep';
 
 import Notifications from './pages/settings/Notifications';
 import PaymentInfo from './pages/settings/PaymentInfo';
@@ -104,15 +95,9 @@ import AuthorPostList from './pages/pulse/AuthorPostList';
 
 import PublishPost from './pages/publish-post/publish-post';
 import PulsePostList from './pages/pulse/pulse-post-list';
-import PulsePostContent from './pages/pulse/pulse-post';
 import PulseByObject from './pages/pulse/pulse-by-object';
 import PulseSearch from './pages/pulse/pulse-search';
 import ObjectPosts from './pages/object-posts/ObjectPosts';
-
-import NewDiscussionsThread from './pages/discussions/threads/NewDiscussionsThread';
-import DiscussionsReplyTo from './pages/discussions/replies/DiscussionsReplyTo';
-import DiscussionsThreadWrapper from './pages/discussions/threads/DiscussionsThreadWrapper';
-import DiscussionsTopicsList from './pages/discussions/topics/DiscussionsTopicsList';
 
 import ObjectCategoryGuide from './containers/guides/ObjectCategoryGuide';
 import SubjectGuides from './containers/guides/SubjectGuides';
@@ -134,16 +119,18 @@ import TermsAndConditions from './pages/help/TermsAndConditions';
 import Privacy from './pages/help/Privacy';
 import BookclubHandoff from './pages/bookclub-handoff/BookclubHandoff';
 
-//V4 pages
+// V4 pages
 import GuideDetails from './pages/guide-details/GuideDetails';
 import ObjectDetails from './pages/object-details/ObjectDetails';
-import QuestDetails from './pages/quest-details/QuestDetails';
 import UserPrivateProfile from './pages/profiles/private-profile';
 import UserPublicProfile from './pages/profiles/public-profile';
-import CommunityGroups from './pages/community-groups/Groups';
-import CommunityGroupsList from './pages/community-groups/GroupsListPage';
+import Quest from './pages/quest-details';
+
+
 import CommunityGroupOverview from './pages/community-groups/GroupOverview';
 import GroupOverviewInfo from './pages/community-groups/GroupOverviewInfo';
+import GroupCreate from './pages/community-groups/GroupCreate';
+
 import ImageDetails from './pages/image-details';
 import Show from './pages/show';
 import StoryDetails from './containers/story-details';
@@ -151,9 +138,11 @@ import QuestsHub from './containers/quests-hub';
 import GuidesHub from './containers/guides-hub';
 import StoriesHub from './containers/stories-hub';
 import GroupsHub from './containers/groups-hub';
+import ShowsHub from './containers/shows-hub';
 import PlaceholderPage from './pages/Placeholder';
 
 import DashboardPage from 'components/Dashboard';
+
 // router functions
 import validateUser from './route-functions/validateUser';
 import { fetchPlayer } from './modules/get-audio-player/actions';
@@ -182,7 +171,6 @@ history.listen((location) => {
     location: pathname,
   });
   store.dispatch(fetchPlayer({ pageURL: pathname }));
-  //console.log(location);
 });
 
 ReactDOM.render(
@@ -205,19 +193,11 @@ ReactDOM.render(
         <Route path="leadership" component={Leadership} title="Leadership" subTitle=" " />
       </Route>
 
-
       <Route path="registration" component={StaticAppContainer} onEnter={validateRegistrationPaths}>
         <Route path="sign-in" component={SignIn} />
         <Route path="upgrade-apprentice" component={UpgradeApprentice} />
         <Route path="upgrade-astronomer" component={UpgradeAstronomer} />
         <Route path="upgrade" component={Upgrade} />
-      </Route>
-
-      <Route path="settings" component={StaticAppContainer} onEnter={validateUser}>
-        <Route path="notifications" component={Notifications} />
-        <Route path="billing" component={PaymentInfo} />
-        <Route path="dashboard" component={Profile} />
-        <Route path="social-network" component={SocialNetwork} />
       </Route>
 
       <Route path="/" component={App}>
@@ -233,6 +213,7 @@ ReactDOM.render(
           <Route path="inviteByEmail/:invitationCodeHash/:invitationCreationEpoch" component={JoinInviteByEmailStep1} />
           <Route path="inviteByCodeStep1" component={JoinInviteByCodeStep1} />
           <Route path="inviteByCodeStep2" component={JoinInviteByCodeStep2} />
+          <Route path="membershipPlanDetailsStep" component={MembershipPlanDetailsStep} />
         </Route>
 
         <Route
@@ -269,64 +250,6 @@ ReactDOM.render(
           onEnter={validateUser}
         />
 
-        <Route path="best-of-slooh" component={BestOfSlooh} onEnter={validateUser} />
-        <Route path="publish-post" component={PublishPost} onEnter={validateUser} />
-
-        <Route path="authors/:authorId" component={AuthorList} onEnter={validateUser}>
-          <IndexRedirect to="latest" />
-
-          <Route path="latest" component={AuthorWrapper}>
-            <IndexRedirect to="all" />
-            <Route path="all" name="all" component={AuthorPostList} />
-            <Route path="scienceLog" name="scienceLog" component={AuthorPostList} />
-            <Route path="artCulture" name="artCulture" component={AuthorPostList} />
-            <Route path="humanSpirit" name="humanSpirit" component={AuthorPostList} />
-            <Route path="diy" name="diy" component={AuthorPostList} />
-          </Route>
-
-          {/*
-          <Route path="hottest" component={AuthorWrapper}>
-            <IndexRedirect to="all" />
-            <Route path="all" name="all" component={AuthorPostList} />
-            <Route path="scienceLog" name="scienceLog" component={AuthorPostList} />
-            <Route path="artCulture" name="artCulture" component={AuthorPostList} />
-            <Route path="humanSpirit" name="humanSpirit" component={AuthorPostList} />
-            <Route path="diy" name="diy" component={AuthorPostList} />
-          </Route> */}
-        </Route>
-
-        <Route path="slooh-pulse" component={PulseList} onEnter={validateUser}>
-          <IndexRedirect to="latest-posts" />
-
-          <Route path="latest-posts" component={PulseWrapper}>
-            <IndexRedirect to="all" />
-            <Route path="all" name="all" component={PulsePostList} />
-            <Route path="scienceLog" name="scienceLog" component={PulsePostList} />
-            <Route path="artCulture" name="artCulture" component={PulsePostList} />
-            <Route path="humanSpirit" name="humanSpirit" component={PulsePostList} />
-            <Route path="diy" name="diy" component={PulsePostList} />
-          </Route>
-
-          <Route path="hottest-posts" component={PulseWrapper}>
-            <IndexRedirect to="all" />
-            <Route path="all" name="all" component={PulsePostList} />
-            <Route path="scienceLog" name="scienceLog" component={PulsePostList} />
-            <Route path="artCulture" name="artCulture" component={PulsePostList} />
-            <Route path="humanSpirit" name="humanSpirit" component={PulsePostList} />
-            <Route path="diy" name="diy" component={PulsePostList} />
-          </Route>
-
-          <Route path="all-posts" component={PulseWrapper}>
-            <IndexRedirect to="by-object" />
-            <Route path="by-object" name="by-object" component={PulseByObject} />
-          </Route>
-
-          <Route path="search" component={PulseWrapper}>
-            <IndexRedirect to="all" />
-            <Route path="all" name="all" component={PulseSearch} />
-          </Route>
-        </Route>
-
         {/**
             example id: 6
             Entry types: latest-entries | all-time-best
@@ -337,71 +260,23 @@ ReactDOM.render(
         </Route>
 
         <Route
-          path="shows/situation-room(/:showId)"
-          component={SituationRoom}
-          onEnter={validateUser}
-        />
-        <Route
-          path="shows/event-details(/:showId)"
-          component={EventDetails}
-          onEnter={validateUser}
-        />
-
-        <Route path="shows/video-viewer/browse" component={BrowseShowsWrapper}>
-          <IndexRedirect to="recent-shows" />
-          <Route path="recent-shows" component={RecentShows}>
-            {/*
-            <IndexRedirect to="all-categories" />
-            <Route path="all-categories" />
-            <Route path="the-moon" />
-            <Route path="deep-space" />
-            <Route path="planets" />
-            <Route path="the-sun" />
-            <Route path="comets" />
-            <Route path="constellations" />
-          */}
-          </Route>
-          <Route path="highlighted" component={SloohMotion}>
-            {/*
-            <IndexRedirect to="all-categories" />
-            <Route path="all-categories" />
-            <Route path="the-moon" />
-            <Route path="deep-space" />
-            <Route path="planets" />
-            <Route path="the-sun" />
-            <Route path="comets" />
-            <Route path="constellations" />
-            */}
-          </Route>
-          <Route path="upcoming-shows" component={UpcomingShows}>
-            {/*
-            <IndexRedirect to="all-categories" />
-            <Route path="all-categories" />
-            <Route path="the-moon" />
-            <Route path="deep-space" />
-            <Route path="planets" />
-            <Route path="the-sun" />
-            <Route path="comets" />
-            <Route path="constellations" />
-          */}
-          </Route>
-        </Route>
-
-        <Route
           path="shows/video-viewer(/:showId)"
           component={Show}
           onEnter={validateUser}
         />
+
         <Route
           path="my-pictures/show-image/:customerImageId/:shareToken(/:scheduledMissionId)"
           component={ImageDetails}
           onEnter={validateUser}
         />
+
         <Route
           path="my-pictures/popular/show-image(/:customerImageId)(/:shareToken)"
           component={ImageDetails}
           onEnter={validateUser}
         />
+
         <Route path="my-pictures" component={MyPictures} onEnter={validateUser}>
           <IndexRedirect to="missions" />
           <Route path="photo-roll" title="Photo roll" component={PhotoRoll} />
@@ -421,75 +296,6 @@ ReactDOM.render(
           />
         </Route>
 
-        <Route path="discussions" component={Discussions} onEnter={validateUser}>
-          <IndexRedirect to="main" />
-          <Route path="main" component={DiscussionsWrapper}>
-            <IndexRedirect to="featured" />
-            <Route path="featured" component={DiscussionsListWrapper} />
-            <Route path="followed-topics" component={DiscussionsListWrapper} />
-            <Route path="most-recent" component={DiscussionsListWrapper} />
-            <Route path="most-active" component={DiscussionsListWrapper} />
-            <Route path="search" component={DiscussionsSearch} />
-          </Route>
-          <Route path="forums(/:forumId)/topics(/:topicId)/threads" component={DiscussionsWrapper}>
-            <IndexRedirect to="most-recent" />
-            <Route path="most-recent" component={DiscussionsListWrapper} />
-            <Route path="most-active" component={DiscussionsListWrapper} />
-          </Route>
-        </Route>
-        <Route
-          path="discussions/forums(/:forumId)/topics"
-          component={DiscussionsTopicsWrapper}
-          onEnter={validateUser}
-        >
-          <IndexRedirect to="default" />
-          <Route path="default" component={DiscussionsTopicsList} />
-          <Route path="alphabetic" component={DiscussionsTopicsList} />
-          <Route path="most-recent" component={DiscussionsTopicsList} />
-          <Route path="most-active" component={DiscussionsTopicsList} />
-        </Route>
-
-        <Route
-          path="discussions/forums(/:forumId)/topics/new-thread"
-          component={NewDiscussionsThread}
-          onEnter={validateUser}
-        />
-        <Route
-          path="discussions/forums(/:forumId)/topics(/:topicId)/threads/new-thread"
-          component={NewDiscussionsThread}
-          onEnter={validateUser}
-        />
-        <Route
-          path="discussions/forums(/:forumId)/topics(/:topicId)/threads(/:threadId)/new-thread"
-          component={NewDiscussionsThread}
-          onEnter={validateUser}
-        />
-
-        <Route
-          path="discussions/forums(/:forumId)/topics(/:topicId)/threads(/:threadId)"
-          component={DiscussionsThreadWrapper}
-          onEnter={validateUser}
-        />
-        <Route
-          path="discussions/forums(/:forumId)/topics(/:topicId)/threads(/:threadId)/new-reply"
-          component={DiscussionsReplyTo}
-          onEnter={validateUser}
-        />
-        <Route
-          path="discussions/forums(/:forumId)/topics(/:topicId)/threads(/:threadId)(/:replyId)/new-reply"
-          component={DiscussionsReplyTo}
-          onEnter={validateUser}
-        />
-        <Route
-          path="discussions/new-thread"
-          component={NewDiscussionsThread}
-          onEnter={validateUser}
-        />
-
-        <Route path="road-trip" component={Landing} />
-
-        <Route path="welcome" component={Welcome} onEnter={validateUser} />
-
         <Route path="help/posting-guidelines" component={PostingGuidelines} />
         <Route path="help/new-to-slooh" component={NewToSlooh} />
         <Route path="help/telescopes-and-reservations" component={TelescopesAndReservations} />
@@ -501,7 +307,6 @@ ReactDOM.render(
         <Route path="help/terms-and-conditions" component={TermsAndConditions} />
         <Route path="help/privacy" component={Privacy} />
 
-        <Route path="bookclub" component={BookclubHandoff} />
         <Route path="guides(/:filterType)" component={GuidesHub} onEnter={validateUser} />
         <Route path="guide-details/:guideId" component={GuideDetails} onEnter={validateUser} />
 
@@ -522,7 +327,7 @@ ReactDOM.render(
 
         <Route path="telescopes" component={PlaceholderPage} onEnter={validateUser} />
 
-        <Route path="shows" component={PlaceholderPage} onEnter={validateUser} />
+        <Route path="shows(:/filterType)" component={ShowsHub} onEnter={validateUser} />
 
         <Route path="stories(/:filterType)" component={StoriesHub} onEnter={validateUser} />
         <Route path="community/post/:postId" component={StoryDetails} onEnter={validateUser} />
@@ -539,11 +344,13 @@ ReactDOM.render(
 
         <Route path="quests(/:filterType)" component={QuestsHub} onEnter={validateUser} />
 
-        <Route path="quest-details/:questId" component={QuestDetails} onEnter={validateUser} />
+        <Route path="quest-details/:questId" component={Quest} onEnter={validateUser} />
+        <Route path="quest-details/:questId/:step" component={Quest} onEnter={validateUser} />
 
         <Route path="profile/private" component={UserPrivateProfile} onEnter={validateUser} />
         <Route path="profile/public/:cid" component={UserPublicProfile} onEnter={validateUser} />
 
+        <Route path="groups/create" component={GroupCreate} onEnter={validateUser} />
         <Route path="groups(/:filterType)" component={GroupsHub} onEnter={validateUser} />
 
         <Route path="community-groups/:groupId" onEnter={validateUser} component={CommunityGroupOverview} />

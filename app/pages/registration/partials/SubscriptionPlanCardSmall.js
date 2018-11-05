@@ -25,6 +25,7 @@ class SubscriptionPlanCardSmall extends Component {
     planName: string.isRequired,
     selectButtonText: string.isRequired,
     setSelectedPlan: func.isRequired,
+    viewPlanDetails: func.isRequired,
   };
 
   static defaultProps = {
@@ -52,6 +53,7 @@ class SubscriptionPlanCardSmall extends Component {
       planName,
       selectButtonText,
       setSelectedPlan,
+      viewPlanDetails,
     } = this.props;
 
     const {
@@ -75,8 +77,7 @@ class SubscriptionPlanCardSmall extends Component {
             <div>
               <Button
                 icon={info}
-                isActive={showDetails}
-                onClickEvent={this.toggleDetails}
+                onClickEvent={viewPlanDetails}
               />
 
             </div>
@@ -86,11 +87,6 @@ class SubscriptionPlanCardSmall extends Component {
             />
           </div>
         </div>
-        {showDetails ? <div
-          className="inner-container"
-          id={'subscriptionPlanDetails_' + planID}
-          dangerouslySetInnerHTML={{ __html: aboutThisPlan }}
-        /> : null}
         <style jsx>{styles}</style>
       </div>
     );

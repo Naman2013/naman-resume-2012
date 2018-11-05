@@ -2,17 +2,18 @@
 
 exports[`GuideSection should render correctly 1`] = `
 ShallowWrapper {
+  "length": 1,
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <GuideSection
     alignContent="left"
     column={[Function]}
     content={[Function]}
+    theme={Object {}}
   />,
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],
     "getNode": [Function],
     "render": [Function],
-    "simulateError": [Function],
     "simulateEvent": [Function],
     "unmount": [Function],
   },
@@ -60,6 +61,7 @@ posuere vulputate. Etiam elit elit, elementum sed varius at.
         />,
       ],
       "className": "jsx-4130263873 root",
+      "style": Object {},
     },
     "ref": null,
     "rendered": Array [
@@ -188,6 +190,7 @@ posuere vulputate. Etiam elit elit, elementum sed varius at.
           />,
         ],
         "className": "jsx-4130263873 root",
+        "style": Object {},
       },
       "ref": null,
       "rendered": Array [
@@ -276,16 +279,6 @@ posuere vulputate. Etiam elit elit, elementum sed varius at.",
     "adapter": ReactSixteenAdapter {
       "options": Object {
         "enableComponentDidUpdateOnSetState": true,
-        "lifecycles": Object {
-          "componentDidUpdate": Object {
-            "onSetState": true,
-          },
-          "getDerivedStateFromProps": true,
-          "getSnapshotBeforeUpdate": true,
-          "setState": Object {
-            "skipsComponentDidUpdateOnNullish": true,
-          },
-        },
       },
     },
   },

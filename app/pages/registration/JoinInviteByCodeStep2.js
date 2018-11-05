@@ -12,6 +12,7 @@ import { browserHistory } from 'react-router';
 import Button from 'components/common/style/buttons/Button';
 import JoinHeader from './partials/JoinHeader';
 import JoinByInviteAccountSignup from './common/JoinByInviteAccountSignup';
+import { JOIN_BY_INVITE_TABS } from './StaticNavTabs';
 
 const {
   string,
@@ -45,11 +46,8 @@ class JoinByInviteCodeStep2 extends Component {
       inviteeEmailAddress: this.state.inviteeEmailAddress
     };
 
-    const numSteps = 2;
-    const stepNumber = 2;
-
     return (
-      <JoinByInviteAccountSignup pathname="/join/inviteByCodeStep2" stepNumber={stepNumber} numberOfSteps={numSteps} joinByInviteParams={joinByInviteParams}/>
+      <JoinByInviteAccountSignup pathname={pathname} navTabs={JOIN_BY_INVITE_TABS} joinByInviteParams={joinByInviteParams} />
     )
   }
 }

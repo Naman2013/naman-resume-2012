@@ -30,4 +30,5 @@ SVGRoot.defaultProps = {
   viewBox: '0 0 10 10',
 };
 
+export { SVGRoot };
 export default SVGRoot;

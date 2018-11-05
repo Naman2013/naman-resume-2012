@@ -19,11 +19,11 @@ const HubHeader = ({ title, icon, renderNav, renderRightMenu }) => (
       </div>
       {renderNav ?
         <div className="hub-header-nav">{renderNav()}</div> : null}
-      <DisplayAtBreakpoint
+      {renderRightMenu ? <DisplayAtBreakpoint
         screenSmall
       >
-        {renderRightMenu ? <div className="right-menu-nav">{renderRightMenu()}</div> : null}
-      </DisplayAtBreakpoint>
+        <div className="right-menu-nav">{renderRightMenu()}</div>
+      </DisplayAtBreakpoint>  : null}
     </div>
     <style jsx>{style}</style>
   </Fragment>

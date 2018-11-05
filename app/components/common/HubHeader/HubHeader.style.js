@@ -29,7 +29,7 @@ export default css`
 
   .hub-header-title  {
     display: flex;
-    flex: 0 100%;
+    flex: 0 75%;
     align-items: center;
     font-size: 14px;
     color: ${astronaut};
@@ -45,6 +45,9 @@ export default css`
   .right-menu-nav {
     width: 150px;
     margin-left: 28px;
+    flex: 0 25%;
+    display: flex;
+    justify-content: flex-end;
   }
 
   @media ${screenMedium} {

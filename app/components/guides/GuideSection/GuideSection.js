@@ -7,8 +7,9 @@ const GuideSection = ({
   content,
   column,
   guideId,
+  theme,
 }) => (
-  <div className="root">
+  <div className="root" style={theme}>
     <div className="column-container">{column({ guideId })}</div>
     <div className="content-container">{content({ guideId })}</div>
 
@@ -20,10 +21,12 @@ GuideSection.propTypes = {
   content: PropTypes.func.isRequired,
   column: PropTypes.func,
   guideId: PropTypes.string.isRequired,
+  theme: PropTypes.shape({}),
 };
 
 GuideSection.defaultProps = {
   column: noop,
+  theme: {},
 };
 
 export default GuideSection;

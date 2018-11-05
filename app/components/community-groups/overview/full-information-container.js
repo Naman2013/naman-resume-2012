@@ -20,6 +20,7 @@ import TwoTabbedNav from 'components/TwoTabbedNav';
 
 import MembersList from './members-list';
 import DiscussionsBoard from 'components/common/DiscussionsBoard';
+import DiscussionBoardInvitationsPanel from 'components/community-groups/overview/DiscussionBoardInvitationsPanel';
 
 const {
   arrayOf,
@@ -113,8 +114,11 @@ class FullInformationOverview extends Component {
       topicId: pageMeta.topicId,
       user,
     };
+    
     return (
       <div className="root">
+        {pageMeta.canEditGroup && <DiscussionBoardInvitationsPanel {...this.props}/>}
+
         <ResponsiveTwoColumnContainer
           renderNavigationComponent={navProps =>
             (<TwoTabbedNav

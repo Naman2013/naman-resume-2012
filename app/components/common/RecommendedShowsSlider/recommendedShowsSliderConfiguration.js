@@ -30,8 +30,9 @@ const getRecommendedEventsItems = (imageList = []) =>
   imageList.map(object => ({
     render: () => (<BigShowTile
       header={object.header}
-      time={object.time}
-      author={object.author}
+      displayDate={object.displayDate}
+      displayTime={object.displayTime}
+      eventHostName={object.eventHostName}
       key={uniqueId()}
       linkUrl={object.linkUrl}
       title={object.eventTitle}

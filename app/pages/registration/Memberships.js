@@ -21,12 +21,16 @@ class Memberships extends Component {
     window.localStorage.removeItem('selectedPlanId');
   }
 
-  setSelectedPlan(subscriptionPlanId) {
+  setSelectedPlan(subscriptionPlanId, isAstronomyClubFlag, isClassroomFlag) {
     window.localStorage.setItem('selectedPlanId', subscriptionPlanId);
-    //console.log('setting selected plan of: ' + subscriptionPlanId);
+    window.localStorage.setItem('isAstronomyClub', isAstronomyClubFlag);
+    window.localStorage.setItem('isClassroom', isClassroomFlag);
 
+    const isAstronomyClub = window.localStorage.getItem('isAstronomyClub') === "true" ? true : false;
+    const isClassroom = window.localStorage.getItem('isClassroom') === "true" ? true : false;
+    
     /* Teacher Subscription Plans should prompt for School Selection */
-    if (subscriptionPlanId == 11) {
+    if (isClassroom) {
       /* move to step 2 in the join flow */
       browserHistory.push('/join/step1SchoolSelection');
     }
@@ -34,6 +38,15 @@ class Memberships extends Component {
       /* move to step 2 in the join flow */
       browserHistory.push('/join/step2');
     }
+  }
+
+  viewPlanDetails(subscriptionPlanId, isAstronomyClub, isClassroom) {
+    window.localStorage.setItem('selectedPlanId', subscriptionPlanId);
+    window.localStorage.setItem('isAstronomyClub', isAstronomyClub);
+    window.localStorage.setItem('isClassroom', isClassroom);
+
+    /* move to Plan Details in the Join Flow */
+    browserHistory.push('/join/membershipPlanDetailsStep');
   }
 
   render() {
@@ -57,7 +70,7 @@ class Memberships extends Component {
                           key={`subscriptionplan-tile-${subscriptionPlan.planID}`}
                           className="subscription-plans-list-item"
                         >
-                          <SubscriptionPlanCardSmall {...subscriptionPlan} setSelectedPlan={() => this.setSelectedPlan(subscriptionPlan.planID)} />
+                          <SubscriptionPlanCardSmall {...subscriptionPlan} viewPlanDetails={() => this.viewPlanDetails(subscriptionPlan.planID, subscriptionPlan.isAstronomyClub, subscriptionPlan.isClassroom)} setSelectedPlan={() => this.setSelectedPlan(subscriptionPlan.planID, subscriptionPlan.isAstronomyClub, subscriptionPlan.isClassroom)} />
                         </li>
                       ))}
                     </ul>

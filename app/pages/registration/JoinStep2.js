@@ -19,7 +19,7 @@ import Request from 'components/common/network/Request';
 import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
 import JoinHeader from './partials/JoinHeader';
 import PlanDetailsCard from './partials/PlanDetailsCard';
-
+import { DEFAULT_JOIN_TABS } from './StaticNavTabs';
 import {
   JOIN_PAGE_ENDPOINT_URL,
   SUBSCRIPTION_PLANS_ENDPOINT_URL,
@@ -60,7 +60,8 @@ class JoinStep2 extends Component {
     */
     this.state = {
       accountCreationType: 'userpass',
-      isAstronomyClub: false,
+      isAstronomyClub: window.localStorage.getItem('isAstronomyClub') === "true" ? true : false,
+      isClassroom: window.localStorage.getItem('isClassroom') === "true" ? true : false,
       googleProfileData: {
         googleProfileId: '',
         googleProfileEmail: '',
@@ -160,8 +161,6 @@ class JoinStep2 extends Component {
     /* update the account form details state so the correct hinText will show on each form field */
     this.setState(() => ({
       accountFormDetails: newAccountFormData,
-      /* was the selected plan an astronomy club? */
-      isAstronomyClub: result.selectedSubscriptionPlan.isAstronomyClub,
     }));
   }
 
@@ -355,7 +354,6 @@ class JoinStep2 extends Component {
             window.localStorage.setItem('pending_cid', pendingCustomerResult.customerId);
             window.localStorage.setItem('username', this.state.accountFormDetails.loginEmailAddress.value);
             window.localStorage.setItem('password', this.state.accountFormDetails.password.value);
-            window.localStorage.setItem('isAstronomyClub', this.state.isAstronomyClub);
             window.localStorage.setItem('astronomyClubName', this.state.accountFormDetails.astronomyClubName.value);
             window.localStorage.setItem('isAstronomyClubForMembers18AndOver', this.state.accountFormDetails.astronomyClub18AndOver.value);
             // console.log('Proceeding to create the customers pending account');
@@ -469,6 +467,7 @@ class JoinStep2 extends Component {
                       mainHeading={joinPageRes.pageHeading1}
                       subHeading={joinPageRes.pageHeading2}
                       activeTab={pathname}
+                      tabs={DEFAULT_JOIN_TABS}
                     />
                     <div className="step-root">
                       <DisplayAtBreakpoint

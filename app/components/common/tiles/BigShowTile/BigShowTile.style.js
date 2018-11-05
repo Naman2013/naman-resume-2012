@@ -6,7 +6,7 @@ import { screenMedium, screenLarge } from 'styles/variables/breakpoints';
 export default css`
 .card-shows {
   background-image: url("https://vega.slooh.com/assets/v4/dashboard/show-card-bg.jpg");
-  background-size: contain;
+  background-size: cover;
   background-repeat: no-repeat;
   background-position: 50%;
   font-weight: 600;

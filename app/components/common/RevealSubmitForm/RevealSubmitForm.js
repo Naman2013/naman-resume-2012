@@ -171,7 +171,6 @@ class RevealSubmitForm extends Component {
       uploadError,
       uploadLoading,
     } = this.state;
-
     return (
       <div className="root">
         {revealButtonRender ? revealButtonRender({
