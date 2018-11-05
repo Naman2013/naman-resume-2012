@@ -6,6 +6,7 @@ import FormSectionHeader from 'components/common/form-sections/section-header';
 import Tags from 'components/common/form-fields/tags';
 import GenericModal from 'components/common/v4-modals';
 import UploadImages from 'components/common/form-fields/upload-images';
+import Button from 'components/common/style/buttons/Button';
 import HeadlineAndContentInputs from './partials/headline-and-content-inputs';
 import ActionItems from './partials/action-items';
 import ContentCategorySelector from './partials/content-category-selector';
@@ -153,19 +154,52 @@ class CreateStoryForm extends Component {
       tags,
     } = this.state;
     const { actions, user } = this.props;
-    const { at, token, cid } = user;
-    const tagsText = tags.map(tag => tag.tagText);
-    actions.submitStory({
-      at,
-      token,
-      cid,
-      objectSlug: selectedObjectCategory || selectedObjectTopic,
-      type: selectedContentCategory,
-      title: headlineContent,
-      content: bodyContent,
-      postTags: tagsText,
-      S3URLs,
-    }).then(res => this.handleSubmitPost(res));
+    if (bodyContent && headlineContent && selectedContentCategory && selectedObjectCategory) {
+
+      const { at, token, cid } = user;
+      const tagsText = tags.map(tag => tag.tagText);
+      actions.submitStory({
+        at,
+        token,
+        cid,
+        objectSlug: selectedObjectCategory || selectedObjectTopic,
+        type: selectedContentCategory,
+        title: headlineContent,
+        content: bodyContent,
+        postTags: tagsText,
+        S3URLs,
+      }).then(res => this.handleSubmitPost(res));
+    } else {
+      const missingFields = [];
+
+      if (!bodyContent) {
+        missingFields.push('<li>Body Content is required.</li>');
+      }
+
+      if (!headlineContent) {
+        missingFields.push('<li>Headline is required.</li>');
+      }
+
+      if (!selectedContentCategory) {
+        missingFields.push('<li>Content Category is required.</li>');
+      }
+
+      if (!selectedObjectCategory) {
+        missingFields.push('<li>Object Category is required.</li>');
+      }
+
+      actions.setAndOpenModal({
+        modalStyles: customModalStylesBlackOverlay,
+        modalComponent: (
+          <GenericModal
+            title="Missing Fields"
+            promptText={missingFields.join('')}
+            renderActions={() => <Button onClickEvent={actions.closeModal} text="close" />}
+          />
+        )
+      });
+    }
+
   }
 
   handleSubmitPost = (res) => {
