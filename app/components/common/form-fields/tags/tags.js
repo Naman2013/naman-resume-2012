@@ -83,8 +83,8 @@ class Tags extends Component {
       cid: user.cid,
       token: user.token,
     }).then((res) => {
-      onTagsChange(res.data.tagList);
       if (!res.data.apiError) {
+        onTagsChange(res.data.tagList);
         this.setState(() => ({
           newTagText: '',
         }));
@@ -126,7 +126,10 @@ class Tags extends Component {
       cid: user.cid,
       token: user.token,
     }).then((res) => {
-      onTagsChange(res.data.tagList);
+      if (!res.data.apiError) {
+        onTagsChange(res.data.tagList);
+      }
+
       validateResponseAccess(res);
     });
   }

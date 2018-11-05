@@ -8,6 +8,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import noop from 'lodash/noop';
+import Modal from 'react-modal';
 import CenterColumn from 'components/common/CenterColumn';
 import CreateStoryForm from 'components/stories/form/create-story-form';
 import BarHeader from 'components/common/form-sections/bar-header';
@@ -34,12 +35,21 @@ export const CreateStory = (props) => {
     submitLabel,
     submitStory,
     userActions,
+    modal,
     uuid,
     user,
   } = props;
-
   return (
     <div className="root">
+      <Modal
+        ariaHideApp={false}
+        isOpen={modal.showModal}
+        style={modal.modalStyles}
+        contentLabel="askAstronomer"
+        onRequestClose={actions.closeModal}
+      >
+        {modal.modalComponent}
+      </Modal>
       <CenterColumn>
         <div className="create-form-container">
           <BarHeader title="Submit a Story" />
