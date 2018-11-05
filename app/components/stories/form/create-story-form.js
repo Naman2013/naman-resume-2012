@@ -24,14 +24,16 @@ class CreateStoryForm extends Component {
       })
     }),
     submitLabel: PropTypes.string.isRequired,
-    submitStory: PropTypes.func.isRequired,
+
     uuid: PropTypes.string.isRequired,
     user: PropTypes.shape({
       at: PropTypes.isRequired,
       token: PropTypes.isRequired,
       cid: PropTypes.isRequired,
     }).isRequired,
-    actions: PropTypes.shape({}),
+    actions: PropTypes.shape({
+      submitStory: PropTypes.func.isRequired,
+    }),
   }
   static defaultProps = {
     actions: {},
@@ -136,6 +138,39 @@ class CreateStoryForm extends Component {
     }));
   }
 
+  submitForm = (e) => {
+    e.preventDefault();
+    const {
+      bodyContent,
+      headlineContent,
+      S3URLs,
+      selectedContentCategory,
+      selectedObjectCategory,
+      selectedObjectTopic,
+      tags,
+    } = this.state;
+    const { actions, user } = this.props;
+    const { at, token, cid } = user;
+    const tagsText = tags.map(tag => tag.tagText);
+    actions.submitStory({
+      at,
+      token,
+      cid,
+      objectSlug: selectedObjectCategory || selectedObjectTopic,
+      type: selectedContentCategory,
+      title: headlineContent,
+      content: bodyContent,
+      postTags: tagsText,
+      S3URLs,
+    }).then(res => this.handleSubmitPost(res));
+  }
+
+  handleSubmitPost = (res) => {
+    const { actions } = this.props;
+    actions.validateResponseAccess(res);
+    const {  } = res.payload;
+  }
+
 
   render() {
     const {
@@ -226,7 +261,7 @@ class CreateStoryForm extends Component {
           cancelLabel={cancelLabel}
           goBack={goBack}
           submitLabel={submitLabel}
-          submitStory={submitStory}
+          submitStory={this.submitForm}
         />
       </form>
     );

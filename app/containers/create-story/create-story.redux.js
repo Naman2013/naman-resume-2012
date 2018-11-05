@@ -90,10 +90,6 @@ class ConnectedCreateStory extends Component {
     }
   }
 
-  handleSubmit = (fields) => {
-
-  }
-
   render() {
     const {
       cancelLabel,
