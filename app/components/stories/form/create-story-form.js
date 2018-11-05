@@ -4,6 +4,7 @@ import flatten from 'lodash/flatten';
 import IntroText from 'components/common/form-sections/intro-text';
 import FormSectionHeader from 'components/common/form-sections/section-header';
 import Tags from 'components/common/form-fields/tags';
+import UploadImages from 'components/common/form-fields/upload-images';
 import HeadlineAndContentInputs from './partials/headline-and-content-inputs';
 import ActionItems from './partials/action-items';
 import ContentCategorySelector from './partials/content-category-selector';
@@ -31,6 +32,7 @@ class CreateStoryForm extends Component {
   state = {
     bodyContent: '',
     headlineContent: '',
+    S3URLs: [],
     selectedContentCategory: null,
     selectedObjectCategory: null,
     selectedObjectCategoryIndex: null,
@@ -63,6 +65,12 @@ class CreateStoryForm extends Component {
   onTagsChange = (tags) => {
     this.setState(() => ({
       tags,
+    }));
+  }
+
+  onImagesChange = (S3URLs) => {
+    this.setState(() => ({
+      S3URLs,
     }));
   }
 
@@ -114,6 +122,7 @@ class CreateStoryForm extends Component {
     const {
       bodyContent,
       headlineContent,
+      S3URLs,
       selectedContentCategory,
       selectedObjectCategory,
       selectedObjectTopic,
@@ -171,6 +180,15 @@ class CreateStoryForm extends Component {
         <FormSectionHeader
           title="V. Upload Image (optional)"
           desc="Upload JPEGS, GIFS, or PNGs here to add punch and meaning to your post"
+        />
+
+        <UploadImages
+          imageClass="community"
+          onImagesChange={this.onImagesChange}
+          S3URLs={S3URLs}
+          uuid={uuid}
+          user={user}
+          validateResponseAccess={actions.validateResponseAccess}
         />
         <ActionItems submitStory={submitStory} goBack={goBack} />
       </form>
