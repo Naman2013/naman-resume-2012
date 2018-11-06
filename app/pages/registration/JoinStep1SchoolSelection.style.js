@@ -20,6 +20,11 @@ export default css`
     ${faintShadow}
   }
 
+  .form {
+    padding: 25px 0;
+    box-shadow: none;
+  }
+
   .section-heading {
     font-size: 14px;
     font-family: ${primaryFont};
