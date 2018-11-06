@@ -207,7 +207,7 @@ class CreateStoryForm extends Component {
     actions.validateResponseAccess(res);
     const {
       apiError,
-      promptText,
+      responseText,
     } = res.payload;
 
     if (!apiError) {
@@ -215,7 +215,7 @@ class CreateStoryForm extends Component {
         modalStyles: customModalStylesBlackOverlay,
         modalComponent: (
           <GenericModal
-            promptText={promptText || 'Form was submitted'}
+            promptText={responseText}
             renderActions={() => (
               <FormFeedbackActions
                 resetForm={this.closeModalAndResetForm}
