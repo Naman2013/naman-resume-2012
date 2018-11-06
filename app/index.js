@@ -139,6 +139,7 @@ import GuidesHub from './containers/guides-hub';
 import StoriesHub from './containers/stories-hub';
 import GroupsHub from './containers/groups-hub';
 import ShowsHub from './containers/shows-hub';
+import CreateStory from './containers/create-story';
 import PlaceholderPage from './pages/Placeholder';
 
 import DashboardPage from 'components/Dashboard';
@@ -325,12 +326,11 @@ ReactDOM.render(
           <Route path="ask" component={AskAstronomer} onEnter={validateUser} />
         </Route>
 
-        <Route path="telescopes" component={PlaceholderPage} onEnter={validateUser} />
-
         <Route path="shows(:/filterType)" component={ShowsHub} onEnter={validateUser} />
 
         <Route path="stories(/:filterType)" component={StoriesHub} onEnter={validateUser} />
         <Route path="community/post/:postId" component={StoryDetails} onEnter={validateUser} />
+        <Route path="stories/:filterType/create" component={CreateStory} onEnter={validateUser} />
 
         <Route path="lists" component={PlaceholderPage} onEnter={validateUser}>
           <IndexRedirect to="my-lists" />

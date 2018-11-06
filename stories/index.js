@@ -9,6 +9,7 @@ import './ContextMenu';
 import './DisplayAtBreakpoint';
 import './DiscussionsBoard';
 import './DiscussionsCard';
+import './forms';
 import './GlobalNavigation';
 import './guides/GuideSection';
 import './HubHeader';
