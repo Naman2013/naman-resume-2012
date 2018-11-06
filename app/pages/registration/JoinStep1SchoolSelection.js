@@ -16,7 +16,9 @@ import { JOIN_PAGE_ENDPOINT_URL } from 'services/registration/registration.js';
 import axios from 'axios';
 import Request from 'components/common/network/Request';
 import JoinHeader from './partials/JoinHeader';
+import { CLASSROOM_JOIN_TABS } from './StaticNavTabs';
 import styles from './JoinStep1SchoolSelection.style';
+
 
 
 const {
@@ -28,7 +30,8 @@ class JoinStep1SchoolSelection extends Component {
     pathname: string,
   };
   static defaultProps = {
-    pathname: '/join/step1',
+    // pathname: '/join/step1',
+    pathname: 'join/step1SchoolSelection',
   };
 
   constructor(props) {
@@ -196,8 +199,9 @@ handleJoinPageServiceResponse = (result) => {
     } = this.props;
 
     return (
-      <div className="step-root">
-        <div className="inner-container">
+      <div>
+      {/*<div className="step-root">*/}
+        {/* <div className="inner-container"> */}
         <Request
           serviceURL={JOIN_PAGE_ENDPOINT_URL}
           requestBody={{ 'callSource': 'selectSchoolDistrict' }}
@@ -213,76 +217,83 @@ handleJoinPageServiceResponse = (result) => {
                     <JoinHeader
                       mainHeading={serviceResponse.pageHeading1}
                       subHeading={serviceResponse.pageHeading2}
-                      activeTab={pathname}
+                      // activeTab={pathname}
+                      activeTab='join/step1SchoolSelection'
+                      tabs={CLASSROOM_JOIN_TABS}
                     />
-                    <div className="section-heading">{serviceResponse.sectionHeading}</div>
-                      <form className="form" onSubmit={this.handleSubmit}>
-                        <div className="form-section">
-                          <div className="form-field-container">
-                            <span className="form-label">{this.state.schoolDistrictFormDetails.zipcode.label}</span>
-                            <Field
-                              name="zipcode"
-                              type="name"
-                              label={this.state.schoolDistrictFormDetails.zipcode.hintText}
-                              component={InputField}
-                              onChange={(event) => { this.handleZipCodeChange({ value: event.target.value }); }}
-                            />
-                          </div>
 
-                          {this.state.schoolDistrictOptions.length > 0 &&
-                          <div className="form-field-container">
-                            <span className="form-label">{this.state.schoolDistrictFormDetails.district.label}</span>
-                            <Field
-                              name="district"
-                              className="input-row form-group form-control"
-                              component="select"
-                              onChange={(event) => { this.handleSchoolDistrictChange({ value: event.target.value }); }}
-                            >
-                              {this.state.schoolDistrictOptions.map(schoolDistrict =>
-                                <option value={schoolDistrict.NCESDistrictId} key={schoolDistrict.NCESDistrictId}>{schoolDistrict.DistrictName}</option>)
-                              }
-                            </Field>
-                          </div>
-                          }
+                    <div className="step-root">
+                      <div className="inner-container">
+                      <div className="section-heading">{serviceResponse.sectionHeading}</div>
+                        <form className="form" onSubmit={this.handleSubmit}>
+                          <div className="form-section">
+                            <div className="form-field-container">
+                              <span className="form-label">{this.state.schoolDistrictFormDetails.zipcode.label}</span>
+                              <Field
+                                name="zipcode"
+                                type="name"
+                                label={this.state.schoolDistrictFormDetails.zipcode.hintText}
+                                component={InputField}
+                                onChange={(event) => { this.handleZipCodeChange({ value: event.target.value }); }}
+                              />
+                            </div>
 
-                          {this.state.schoolOptions.length &&
-                          <div className="form-field-container">
-                            <span className="form-label">{this.state.schoolDistrictFormDetails.school.label}</span>
-                            <Field
-                              name="school"
-                              className="input-row form-group form-control"
-                              component="select"
-                              onChange={(event) => { this.handleSchoolChange({ value: event.target.value }); }}
-
+                            {this.state.schoolDistrictOptions.length > 0 &&
+                            <div className="form-field-container">
+                              <span className="form-label">{this.state.schoolDistrictFormDetails.district.label}</span>
+                              <Field
+                                name="district"
+                                className="input-row form-group form-control"
+                                component="select"
+                                onChange={(event) => { this.handleSchoolDistrictChange({ value: event.target.value }); }}
                               >
-                              {this.state.schoolOptions.map(school =>
-                                <option value={school.NCESSchoolId} key={school.NCESSchoolId}>{school.SchoolName}</option>)
-                              }
-                            </Field>
-                          </div>
-                          }
-                          <br/>
-                        </div>
-                        <div className="button-container">
-                          <Button
-                            type="button"
-                            text="Go Back"
-                            onClickEvent={() => { browserHistory.push('/join/step1'); }}
-                          />
-                          <button
-                            className="submit-button"
-                            type="submit"
-                          >Continue
-                          </button>
+                                {this.state.schoolDistrictOptions.map(schoolDistrict =>
+                                  <option value={schoolDistrict.NCESDistrictId} key={schoolDistrict.NCESDistrictId}>{schoolDistrict.DistrictName}</option>)
+                                }
+                              </Field>
+                            </div>
+                            }
 
-                        </div>
-                      </form>
+                            {this.state.schoolOptions.length &&
+                            <div className="form-field-container">
+                              <span className="form-label">{this.state.schoolDistrictFormDetails.school.label}</span>
+                              <Field
+                                name="school"
+                                className="input-row form-group form-control"
+                                component="select"
+                                onChange={(event) => { this.handleSchoolChange({ value: event.target.value }); }}
+
+                                >
+                                {this.state.schoolOptions.map(school =>
+                                  <option value={school.NCESSchoolId} key={school.NCESSchoolId}>{school.SchoolName}</option>)
+                                }
+                              </Field>
+                            </div>
+                            }
+                            <br/>
+                          </div>
+                          <div className="button-container">
+                            <Button
+                              type="button"
+                              text="Go Back"
+                              onClickEvent={() => { browserHistory.push('/join/step1'); }}
+                            />
+                            <button
+                              className="submit-button"
+                              type="submit"
+                            >Continue
+                            </button>
+
+                          </div>
+                        </form>
+                      </div>
+                    </div>
                     </Fragment>
                   }
                 </Fragment>
               )}
             />
-          </div>
+          {/*</div>*/}
         <style jsx>{styles}</style>
       </div>
     )
