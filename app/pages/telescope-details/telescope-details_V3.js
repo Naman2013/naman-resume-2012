@@ -246,7 +246,6 @@ class TelescopeDetails extends Component {
     const {
       params: { obsUniqueId, teleUniqueId },
       activeDetailsSSE: { astroObjectID },
-      currentTelescope,
     } = this.props;
 
     this.props.actions.bootstrapTelescopeDetails({

@@ -23,16 +23,31 @@ import {
   fetchAllTelescopeStatus,
 } from 'modules/telescope-details/actions';
 
+import {
+  fetchObjectDataAction,
+  resetObjectData,
+} from 'modules/object-details/actions';
+
 import style from './v4-telescope-details.style';
 
 class TelescopeDetails extends Component {
   static propTypes = {
+
+    // actions
     bootstrapTelescopeDetails: PropTypes.func.isRequired,
     setObservatory: PropTypes.func.isRequired,
     setTelescope: PropTypes.func.isRequired,
     updateTelescopeStatus: PropTypes.func.isRequired,
     fetchAllTelescopeStatus: PropTypes.func.isRequired,
+    fetchObjectDataAction: PropTypes.func.isRequired,
+    resetObjectData: PropTypes.func.isRequired,
+
+    // mapped state
     // TODO: map these..
+    params: PropTypes.shape({
+      obsUniqueId: PropTypes.string.isRequired,
+      teleUniqueId: PropTypes.string.isRequired,
+    }).isRequired,
     fetchingObservatoryList: PropTypes.bool.isRequired,
     fetchingObservatoryStatus: PropTypes.bool.isRequired,
     // allObservatoryTelescopeStatus // [countdownTeleList]
@@ -51,11 +66,37 @@ class TelescopeDetails extends Component {
     // observatoryListTimestamp
     // activeTelescopeMission
     // communityContent
-    // activeDetailsSSE
+    activeDetailsSSE: PropTypes.shape({
+      astroObjectID: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+    }).isRequired,
     // objectDetails
   };
 
+  constructor(props) {
+    super(props);
+    this.scaffoldPage();
+  }
+
   state = { selectedOption: 0 }
+
+  scaffoldPage() {
+    const {
+      params: { obsUniqueId, teleUniqueId },
+      activeDetailsSSE: { astroObjectID },
+    } = this.props;
+
+    this.props.bootstrapTelescopeDetails({
+      obsUniqueId,
+      teleUniqueId,
+    });
+
+    if (astroObjectID) {
+      this.props.fetchObjectDataAction(astroObjectID);
+    } else {
+      this.props.resetObjectData();
+    }
+  }
+
   handleOptionChange = (event) => {
     if (event.currentTarget.dataset.index) {
       this.setState({ selectedOption: event.currentTarget.dataset.index });
@@ -152,13 +193,15 @@ const mapStateToProps = ({
   };
 };
 
-const mapDispatchToProps = () => (bindActionCreators({
+const mapDispatchToProps = dispatch => (bindActionCreators({
   bootstrapTelescopeDetails,
   setObservatory,
   setTelescope,
   updateTelescopeStatus,
   fetchAllTelescopeStatus,
-}));
+  fetchObjectDataAction,
+  resetObjectData,
+}, dispatch));
 const ConnectedTelescopeDetails = connect(mapStateToProps, mapDispatchToProps)(TelescopeDetails);
 
 export { TelescopeDetails, ConnectedTelescopeDetails };
