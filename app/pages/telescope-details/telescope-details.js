@@ -32,6 +32,27 @@ class TelescopeDetails extends Component {
     setTelescope: PropTypes.func.isRequired,
     updateTelescopeStatus: PropTypes.func.isRequired,
     fetchAllTelescopeStatus: PropTypes.func.isRequired,
+    // TODO: map these..
+    fetchingObservatoryList: PropTypes.bool.isRequired,
+    fetchingObservatoryStatus: PropTypes.bool.isRequired,
+    // allObservatoryTelescopeStatus // [countdownTeleList]
+    currentObservatory: PropTypes.shape({}),
+    currentTelescope: PropTypes.shape({}),
+    currentTelescopeOnlineStatus: PropTypes.string,
+    // countdownList
+    // displayCommunityContent
+    isImageViewerClipped: PropTypes.bool.isRequired,
+    observatoryList: PropTypes.arrayOf(PropTypes.shape({
+      obsTelescopes: PropTypes.arrayOf(PropTypes.shape({
+        teleUniqueId: PropTypes.string.isRequired,
+        teleLogoURL: PropTypes.string.isRequired,
+      }))
+    })).isRequired,
+    // observatoryListTimestamp
+    // activeTelescopeMission
+    // communityContent
+    // activeDetailsSSE
+    // objectDetails
   };
 
   state = { selectedOption: 0 }
@@ -96,7 +117,41 @@ class TelescopeDetails extends Component {
   }
 }
 
-const mapStateToProps = () => ({});
+const mapStateToProps = ({
+  telescopeOverview,
+  communityObjectContent,
+  telescopeDetails,
+  activeTelescopeMissions,
+  objectDetails,
+}) => {
+  const { observatoryList } = telescopeOverview;
+
+  return {
+    fetchingObservatoryList: telescopeDetails.fetchingObservatoryList,
+    fetchingObservatoryStatus: telescopeDetails.fetchingObservatoryStatus,
+    allObservatoryTelescopeStatus: telescopeDetails.allObservatoryTelescopeStatus,
+
+    currentObservatory: telescopeDetails.currentObservatory,
+    currentTelescope: telescopeDetails.currentTelescope,
+    currentTelescopeOnlineStatus: telescopeDetails.currentTelescopeOnlineStatus,
+
+    countdownList: telescopeDetails.allObservatoryTelescopeStatus.countdownList.countdownTeleList,
+
+    displayCommunityContent: telescopeDetails.displayCommunityContent,
+
+    isImageViewerClipped: telescopeDetails.isImageViewerClipped,
+
+    observatoryList: observatoryList.observatoryList,
+    observatoryListTimestamp: observatoryList.observatoryListTimestamp,
+
+    activeTelescopeMission: activeTelescopeMissions.activeTelescopeMission,
+    communityContent: communityObjectContent.communityContent.posts,
+
+    activeDetailsSSE: telescopeDetails.activeSSE,
+    objectDetails: objectDetails.objectData,
+  };
+};
+
 const mapDispatchToProps = () => (bindActionCreators({
   bootstrapTelescopeDetails,
   setObservatory,
