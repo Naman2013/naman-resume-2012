@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
 import { ColumnTabs } from 'components/common/Tabs';
-import Telescope from 'components/Telescope';
 import telescopeConfig from 'components/Telescope/telescopeConfig';
 import FAUX_MISSIONS from 'content/fauxMissions';
 import {
@@ -10,6 +9,7 @@ import {
   TabQueue,
   TabTelescope,
   TelescopeNavigation,
+  TelescopeViewer,
 } from 'components/telescope-details/v4-modules';
 import style from './v4-telescope-details.style';
 
@@ -40,7 +40,7 @@ class TelescopeDetails extends Component {
         <div className="details-root">
           <DisplayAtBreakpoint screenLarge screenXLarge>
             <div className="viewer">
-              <Telescope
+              <TelescopeViewer
                 missionMetaData={FAUX_MISSIONS.nonMission}
                 activeInstrumentID={telescopeConfig.CANARY_ONE_HALF_METER.instrumentID}
                 previousInstrumentID={telescopeConfig.CANARY_TWO_WIDE_FIELD.instrumentID}
@@ -53,7 +53,16 @@ class TelescopeDetails extends Component {
           <div className="column">
             <ColumnTabs
               tabConfiguration={[
-                { tabTitle: 'Live', content: () => (<TabLive />) },
+                {
+                  tabTitle: 'Live',
+                  content: () => (
+                    <TabLive
+                      missionMetaData={FAUX_MISSIONS.nonMission}
+                      activeInstrumentID={telescopeConfig.CANARY_ONE_HALF_METER.instrumentID}
+                      previousInstrumentID={telescopeConfig.CANARY_TWO_WIDE_FIELD.instrumentID}
+                      increment={5}
+                    />),
+                  },
                 { tabTitle: 'Queue', content: () => (<TabQueue />) },
                 { tabTitle: 'Cond.', content: () => (<TabConditions />) },
                 { tabTitle: 'Scope', content: () => (<TabTelescope />) },
