@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
@@ -13,9 +14,26 @@ import {
   TelescopeNavigation,
   TelescopeViewer,
 } from 'components/telescope-details/v4-modules';
+
+import {
+  bootstrapTelescopeDetails,
+  setObservatory,
+  setTelescope,
+  updateTelescopeStatus,
+  fetchAllTelescopeStatus,
+} from 'modules/telescope-details/actions';
+
 import style from './v4-telescope-details.style';
 
 class TelescopeDetails extends Component {
+  static propTypes = {
+    bootstrapTelescopeDetails: PropTypes.func.isRequired,
+    setObservatory: PropTypes.func.isRequired,
+    setTelescope: PropTypes.func.isRequired,
+    updateTelescopeStatus: PropTypes.func.isRequired,
+    fetchAllTelescopeStatus: PropTypes.func.isRequired,
+  };
+
   state = { selectedOption: 0 }
   handleOptionChange = (event) => {
     if (event.currentTarget.dataset.index) {
@@ -39,6 +57,7 @@ class TelescopeDetails extends Component {
           onSelect={this.handleOptionChange}
           selectedIndex={this.state.selectedOption}
         />
+
         <div className="details-root">
           <DisplayAtBreakpoint screenLarge screenXLarge>
             <div className="viewer">
@@ -50,7 +69,6 @@ class TelescopeDetails extends Component {
               />
             </div>
           </DisplayAtBreakpoint>
-
 
           <div className="column">
             <ColumnTabs
@@ -79,7 +97,13 @@ class TelescopeDetails extends Component {
 }
 
 const mapStateToProps = () => ({});
-const mapDispatchToProps = () => (bindActionCreators({}));
+const mapDispatchToProps = () => (bindActionCreators({
+  bootstrapTelescopeDetails,
+  setObservatory,
+  setTelescope,
+  updateTelescopeStatus,
+  fetchAllTelescopeStatus,
+}));
 const ConnectedTelescopeDetails = connect(mapStateToProps, mapDispatchToProps)(TelescopeDetails);
 
 export { TelescopeDetails, ConnectedTelescopeDetails };
