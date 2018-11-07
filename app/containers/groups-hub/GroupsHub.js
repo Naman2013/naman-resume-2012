@@ -20,6 +20,7 @@ import { validateResponseAccess } from 'modules/authorization/actions'
 import { customModalStylesBlackOverlay } from 'styles/mixins/utilities';
 import { requestGroup } from 'services/community-groups/request-group';
 import { browserHistory } from 'react-router';
+import { GOOGLE_CLASSROOM_GET_CLASSROOM_LIST_ENDPOINT_URL } from 'services/classroom/classroom.js';
 import style from './groups-hub.style';
 
 const COUNT = 9;
@@ -31,6 +32,15 @@ const groupsHubModel = {
   model: resp => ({
     filterOptions: resp.navigationConfig,
     sortOptions: resp.filterOptions.options,
+  }),
+};
+
+const googleClassroomModel = {
+  name: 'GOOGLE_CLASSROOM_MODEL',
+  model: resp => ({
+    googleClassrooms: resp.googleClassrooms,
+    hasGoogleClassroomEnabled: resp.hasGoogleClassroomEnabled,
+    importGoogleClassroomsButtonText: resp.importGoogleClassroomsButtonText,
   }),
 };
 
@@ -95,6 +105,10 @@ class Groups extends Component {
 
   createClub = () => {
     browserHistory.push( this.state.createClubLinkUrl );
+  }
+
+  importGoogleClassrooms = () => {
+    console.log('fetch a list of google classrooms and their status in the system....');
   }
 
   submitRequestForm = ({
@@ -205,9 +219,27 @@ class Groups extends Component {
                       }}
                       renderRightMenu={() => (
                         <div className="flex">
-                          {serviceResponse.canCreateNewClubs ? <Button text={serviceResponse.createNewClubButtonText} onClickEvent={this.createClub} />
-                          : null}
-                          {serviceResponse.canRequestGroup ? <Button text="Request Group" onClickEvent={this.requestGroup} /> : null}
+                            {serviceResponse.canCreateNewClubs && user.googleProfileId !== "" && <Request
+                                serviceURL={ GOOGLE_CLASSROOM_GET_CLASSROOM_LIST_ENDPOINT_URL }
+                                model={ googleClassroomModel }
+                                requestBody={{ cid: user.cid, at: user.at, token: user.token }}
+                                render={({
+                                  fetchingContent,
+                                  modeledResponses: { GOOGLE_CLASSROOM_MODEL },
+                                  serviceResponse = {},
+                                }) => (
+                                  <Fragment>
+                                    {
+                                      !fetchingContent && <div>
+                                        {GOOGLE_CLASSROOM_MODEL.hasGoogleClassroomEnabled && <Button text={GOOGLE_CLASSROOM_MODEL.importGoogleClassroomsButtonText} onClickEvent={this.importGoogleClassrooms} />}
+                                      </div>
+                                    }
+                                  </Fragment>
+                                )}
+                              />
+                            }
+                            {serviceResponse.canCreateNewClubs ? <Button text={serviceResponse.createNewClubButtonText} onClickEvent={this.createClub} /> : null}
+                            {serviceResponse.canRequestGroup ? <Button text="Request Group" onClickEvent={this.requestGroup} /> : null}
                         </div>
                       )}
                       updateList={this.updateGroupsList}
