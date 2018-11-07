@@ -28,6 +28,8 @@ import {
   resetObjectData,
 } from 'modules/object-details/actions';
 
+import { buildNavigationOptions } from 'utils/telescope-details';
+
 import style from './v4-telescope-details.style';
 
 class TelescopeDetails extends Component {
@@ -55,22 +57,24 @@ class TelescopeDetails extends Component {
     currentTelescope: PropTypes.shape({}),
     currentTelescopeOnlineStatus: PropTypes.string,
     // countdownList
-    // displayCommunityContent
     isImageViewerClipped: PropTypes.bool.isRequired,
     observatoryList: PropTypes.arrayOf(PropTypes.shape({
       obsTelescopes: PropTypes.arrayOf(PropTypes.shape({
         teleUniqueId: PropTypes.string.isRequired,
         teleLogoURL: PropTypes.string.isRequired,
       }))
-    })).isRequired,
+    })),
     // observatoryListTimestamp
     // activeTelescopeMission
-    // communityContent
     activeDetailsSSE: PropTypes.shape({
       astroObjectID: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
     }).isRequired,
     // objectDetails
   };
+
+  static defaultProps = {
+    observatoryList: [],
+  }
 
   constructor(props) {
     super(props);
@@ -106,16 +110,15 @@ class TelescopeDetails extends Component {
   }
 
   render() {
+    const { observatoryList } = this.props;
+    const navigationOptions = buildNavigationOptions(observatoryList)
+    console.log(navigationOptions);
+
     return (
       <div>
         <TelescopeNavigation
           title="Great barred spiral galaxy"
-          options={[
-            { name: 'Canary one', thumbnailURL: 'https://polaris.slooh.com/teide/2/highmag/2018/10/24/0310_zetaaurigae/zetaaurigae_20181024_031235_0_wjwpsb_rgb.png' },
-            { name: 'Canary two', thumbnailURL: 'https://polaris.slooh.com/chile/1/widefield/2018/10/23/0825_ic2599/ic2599_20181023_082645_0_yac71p_lrgb.png' },
-            { name: 'Canary three', thumbnailURL: 'https://polaris.slooh.com/chile/1/highmag/2018/10/23/0805_ngc2362/ngc2362_20181023_080658_0_jdkoh8_lrgb.png' },
-            { name: 'Chile', thumbnailURL: 'https://polaris.slooh.com/chile/1/highmag/2018/10/23/0755_waxinggibbousmoon/waxinggibbousmoon_20181023_075558_0_9nxhzu_b.png' },
-          ]}
+          options={navigationOptions}
           onSelect={this.handleOptionChange}
           selectedIndex={this.state.selectedOption}
         />
@@ -160,7 +163,6 @@ class TelescopeDetails extends Component {
 
 const mapStateToProps = ({
   telescopeOverview,
-  communityObjectContent,
   telescopeDetails,
   activeTelescopeMissions,
   objectDetails,
@@ -178,15 +180,12 @@ const mapStateToProps = ({
 
     countdownList: telescopeDetails.allObservatoryTelescopeStatus.countdownList.countdownTeleList,
 
-    displayCommunityContent: telescopeDetails.displayCommunityContent,
-
     isImageViewerClipped: telescopeDetails.isImageViewerClipped,
 
     observatoryList: observatoryList.observatoryList,
     observatoryListTimestamp: observatoryList.observatoryListTimestamp,
 
     activeTelescopeMission: activeTelescopeMissions.activeTelescopeMission,
-    communityContent: communityObjectContent.communityContent.posts,
 
     activeDetailsSSE: telescopeDetails.activeSSE,
     objectDetails: objectDetails.objectData,

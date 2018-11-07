@@ -10,37 +10,42 @@ const TelescopeNavigation = ({
   selectedIndex,
   options,
   title,
-}) => (
-  <div>
-    <DisplayAtBreakpoint screenLarge screenXLarge>
-      <LargeScreenFormat
-        onSelect={onSelect}
-        selectedIndex={selectedIndex}
-        options={options}
-      />
-    </DisplayAtBreakpoint>
+}) => {
+  // painting fields requires an option to be available
+  if (options.length === 0) { return null; }
 
-    <DisplayAtBreakpoint screenMedium>
-      <MediumScreenFormat
-        title={title}
-        onSelect={onSelect}
-        selectedIndex={selectedIndex}
-        options={options}
-      />
-    </DisplayAtBreakpoint>
-
-    <DisplayAtBreakpoint screenSmall>
-      <div className="small-format-box">
-        <SmallScreenFormat
+  return (
+    <div>
+      <DisplayAtBreakpoint screenLarge screenXLarge>
+        <LargeScreenFormat
           onSelect={onSelect}
           selectedIndex={selectedIndex}
           options={options}
         />
-      </div>
-    </DisplayAtBreakpoint>
-    <style jsx>{style}</style>
-  </div>
-);
+      </DisplayAtBreakpoint>
+
+      <DisplayAtBreakpoint screenMedium>
+        <MediumScreenFormat
+          title={title}
+          onSelect={onSelect}
+          selectedIndex={selectedIndex}
+          options={options}
+        />
+      </DisplayAtBreakpoint>
+
+      <DisplayAtBreakpoint screenSmall>
+        <div className="small-format-box">
+          <SmallScreenFormat
+            onSelect={onSelect}
+            selectedIndex={selectedIndex}
+            options={options}
+          />
+        </div>
+      </DisplayAtBreakpoint>
+      <style jsx>{style}</style>
+    </div>
+  );
+};
 
 TelescopeNavigation.propTypes = enhancedProps;
 
