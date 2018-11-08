@@ -4,14 +4,12 @@
 
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { DeviceContext } from 'providers/DeviceProvider';
 import QuestStep from './quest-step';
 import { validateResponseAccess } from 'modules/authorization/actions';
 import questActions from 'modules/quest-details/actions';
-import fetchCategoryTopicList from 'services/content/object-category-topic-list';
 
 const {
   bool,

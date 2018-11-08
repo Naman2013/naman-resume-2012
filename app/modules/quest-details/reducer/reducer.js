@@ -11,6 +11,7 @@ import {
   SET_QUEST_DETAIL_PAGE_MODAL,
   OPEN_QUEST_DETAIL_PAGE_MODAL,
   CLOSE_QUEST_DETAIL_PAGE_MODAL,
+  SET_AND_OPEN_QUEST_DETAIL_PAGE_MODAL,
 } from '../actions/modal';
 
 import {
@@ -30,6 +31,7 @@ export default createReducer(initialState, {
   [SET_QUEST_DETAIL_PAGE_MODAL]: modalReducer.setModal,
   [OPEN_QUEST_DETAIL_PAGE_MODAL]: modalReducer.openModal,
   [CLOSE_QUEST_DETAIL_PAGE_MODAL]: modalReducer.closeModal,
+  [SET_AND_OPEN_QUEST_DETAIL_PAGE_MODAL]: modalReducer.setAndOpenModal,
   [FETCH_QUEST_STEP_START]: stepReducer.fetchStepStart,
   [FETCH_QUEST_STEP_SUCCESS]: stepReducer.fetchStepSuccess,
   [FETCH_QUEST_STEP_FAILURE]: stepReducer.fetchStepFailure,

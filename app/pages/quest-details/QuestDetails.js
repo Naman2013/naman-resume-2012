@@ -7,6 +7,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import Modal from 'react-modal';
 import CenterColumn from 'components/common/CenterColumn';
 import SterlingTitle from 'components/common/titles/SterlingTitle';
 import GuideSection from 'components/guides/GuideSection';
@@ -28,30 +29,33 @@ const {
 
 export const QuestDetails = (props) => {
   const {
-    userActions,
-    questId,
+    actions,
+    modal,
     pageMeta,
+    questId,
+    userActions,
   } = props;
-
+  const resourcesProps = {
+    resourcesIconUrl: resources,
+    resourcesButtonText: pageMeta.resourcesButtonCaption,
+    questId,
+    moduleId: pageMeta.resourcesModuleId,
+  };
   const guideSectionProps = {
     questId,
     content: () => (
       <BodyContent
         title={pageMeta.aboutTitle}
         content={pageMeta.aboutText}
-        resourcesProps={{
-          resourcesIconUrl: resources,
-          resourcesButtonText: pageMeta.resourcesButtonCaption,
-        }}
+        showResources={pageMeta.showResources}
+        resourcesProps={resourcesProps}
       />
     ),
     column: () => (
       <ContentList
         list={pageMeta.aboutBulletPoints}
-        resourcesProps={{
-          resourcesIconUrl: resources,
-          resourcesButtonText: pageMeta.resourcesButtonCaption,
-        }}
+        showResources={pageMeta.showResources}
+        resourcesProps={resourcesProps}
       />
     ),
     alignContent: 'right',
@@ -59,6 +63,15 @@ export const QuestDetails = (props) => {
 
   return (
     <div className="root">
+      <Modal
+        ariaHideApp={false}
+        isOpen={modal.showModal}
+        style={modal.modalStyles}
+        contentLabel="quests details"
+        onRequestClose={actions.closeModal}
+      >
+        {modal.modalComponent}
+      </Modal>
       <QuestTitleSection
         preTitle={pageMeta.questSubtitle}
         title={pageMeta.questTitle}
