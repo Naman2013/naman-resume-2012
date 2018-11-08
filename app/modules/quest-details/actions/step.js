@@ -1,20 +1,20 @@
 import axios from 'axios';
 
-export const FETCH_QUEST_STEP_PAGE_START = 'FETCH_QUEST_STEP_PAGE_START';
-export const FETCH_QUEST_STEP_PAGE_SUCCESS = 'FETCH_QUEST_STEP_PAGE_SUCCESS';
-export const FETCH_QUEST_STEP_PAGE_FAILURE = 'FETCH_QUEST_STEP_PAGE_FAILURE';
+export const FETCH_QUEST_STEP_START = 'FETCH_QUEST_STEP_START';
+export const FETCH_QUEST_STEP_SUCCESS = 'FETCH_QUEST_STEP_SUCCESS';
+export const FETCH_QUEST_STEP_FAILURE = 'FETCH_QUEST_STEP_FAILURE';
 
 const fetchQuestStepPageStart = () => ({
-  type: FETCH_QUEST_STEP_PAGE_START,
+  type: FETCH_QUEST_STEP_START,
 });
 
 const fetchQuestStepPageSuccess = payload => ({
-  type: FETCH_QUEST_STEP_PAGE_SUCCESS,
+  type: FETCH_QUEST_STEP_SUCCESS,
   payload,
 });
 
 const fetchQuestStepPageFailure = payload => ({
-  type: FETCH_QUEST_STEP_PAGE_FAILURE,
+  type: FETCH_QUEST_STEP_FAILURE,
   payload,
 });
 
