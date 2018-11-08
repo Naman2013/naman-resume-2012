@@ -415,6 +415,7 @@ class JoinStep2 extends Component {
           this.props.change('familyName', googleProfileResult.googleProfileFamilyName);
 
           /* The primary key for Google Single Sign-in is the user's email address which can't be changed if using Google, update the form on screen accordingly so certain fields are hidden and not editable */
+          accountFormDetailsData.loginEmailAddress.errorText = '';  /* reset the error text in case the user uses another account after finding out their previous account was already a Slooh customer */
           accountFormDetailsData.loginEmailAddress.editable = false;
           accountFormDetailsData.loginEmailAddress.value = googleProfileResult.googleProfileEmail;
           this.props.change('loginEmailAddress', googleProfileResult.googleProfileEmail);
