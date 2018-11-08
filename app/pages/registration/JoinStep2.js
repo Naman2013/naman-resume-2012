@@ -26,7 +26,7 @@ import {
   GOOGLE_CLIENT_ID_ENDPOINT_URL,
   GOOGLE_SSO_SIGNIN_ENDPOINT_URL,
   JOIN_CREATE_PENDING_CUSTOMER_ENDPOINT_URL,
-  VERIFY_PASSWORD_MEETS_REQUIREMENTS_ENDPOINT_URL
+  VALIDATE_NEW_PENDING_CUSTOMER_DETAILS_ENDPOINT_URL
 } from 'services/registration/registration.js';
 import styles from './JoinStep2.style';
 
@@ -229,18 +229,6 @@ class JoinStep2 extends Component {
         }
       }
 
-      if (accountFormDetailsData.password.value === '') {
-        accountFormDetailsData.password.errorText = 'Please enter in a password.';
-        formIsComplete = false;
-      } else {
-        /* verify the password and the verification password fields match */
-        accountFormDetailsData.password.errorText = '';
-        if (accountFormDetailsData.password.value !== accountFormDetailsData.passwordVerification.value) {
-          accountFormDetailsData.passwordVerification.errorText = 'Your password and the password you entered into the verification field must match.';
-          formIsComplete = false;
-        }
-      }
-
       /* need to verify that the password meets the Slooh requirements */
     } else if (accountCreationType === 'googleaccount') {
       /* Verify that the user has provided:
@@ -267,48 +255,69 @@ class JoinStep2 extends Component {
       }
     }
 
-    if (formIsComplete === true) {
-    /* The form is complete and valid, submit the pending customer request if the Password Enters meets the Slooh Requirements */
-
-      /* Last Validation....password validation, not required for Google Accounts as their is no password */
-      if (accountCreationType === 'userpass') {
-      /* reach out to the Slooh API and verify the user's password */
-
-        const passwordMeetsRequirementsResult = axios.post(VERIFY_PASSWORD_MEETS_REQUIREMENTS_ENDPOINT_URL, {
-          userEnteredPassword: this.state.accountFormDetails.password.value
-        })
-          .then((response) => {
-            const res = response.data;
-            if (res.apiError == false) {
-              const passwordResult = {
-                passwordAcceptable: res.passwordAcceptable,
-                passwordNotAcceptedMessage: res.passwordNotAcceptedMessage,
-              }
-
-              /* need to force evaulation of "true"/"false" vs. true/false. */
-              if (passwordResult.passwordAcceptable === "true") {
-                formIsComplete = true;
-
-                /* create the pending customer result */
-                this.createPendingCustomerRecordAndNextScreen();
-              } else {
-                /* Password did not meet Slooh requirements, provide the error messaging */
-                accountFormDetailsData.password.errorText = passwordResult.passwordNotAcceptedMessage;
-
-                /* make sure to persist any changes to the account signup form (error messages) */
-                this.setState({ accountFormDetails: accountFormDetailsData });
-
-                formIsComplete = false;
-              }
-            }
-          })
-          .catch((err) => {
-            throw ('Error: ', err);
-          });
-      } else if (accountCreationType === 'googleaccount') {
-        /* no additional verifications are needed, create the pending customer record and continue to the next screen */
-        this.createPendingCustomerRecordAndNextScreen();
+    /* a password is assigned to a Google account even though they can sign-in using google, this way they can login without google if needed */
+    if (accountFormDetailsData.password.value === '') {
+      accountFormDetailsData.password.errorText = 'Please enter in a password.';
+      formIsComplete = false;
+    } else {
+      /* verify the password and the verification password fields match */
+      accountFormDetailsData.password.errorText = '';
+      if (accountFormDetailsData.password.value !== accountFormDetailsData.passwordVerification.value) {
+        accountFormDetailsData.passwordVerification.errorText = 'Your password and the password you entered into the verification field must match.';
+        formIsComplete = false;
       }
+    }
+
+    if (formIsComplete === true) {
+    /* The form is complete and valid, submit the pending customer request if the Password Enters meets the Slooh Requirements and the Email Address is not already taken in the system */
+
+    /* Last Validation....password and email address validation */
+    /* reach out to the Slooh API and verify the user's password and email address is not already taken, etc */
+
+    const customerDetailsMeetsRequirementsResult = axios.post(VALIDATE_NEW_PENDING_CUSTOMER_DETAILS_ENDPOINT_URL, {
+      userEnteredPassword: this.state.accountFormDetails.password.value,
+      userEnteredLoginEmailAddress: this.state.accountFormDetails.loginEmailAddress.value,
+    })
+      .then((response) => {
+        const res = response.data;
+        if (res.apiError == false) {
+          const validationResults = {
+            passwordAcceptable: res.passwordAcceptable,
+            passwordNotAcceptedMessage: res.passwordNotAcceptedMessage,
+            emailAddressAcceptable: res.emailAddressAcceptable,
+            emailAddressNotAcceptedMessage: res.emailAddressNotAcceptedMessage,
+          }
+
+          if (validationResults.passwordAcceptable === false) {
+            /* Password did not meet Slooh requirements, provide the error messaging */
+            accountFormDetailsData.password.errorText = validationResults.passwordNotAcceptedMessage;
+
+            /* make sure to persist any changes to the account signup form (error messages) */
+            this.setState({ accountFormDetails: accountFormDetailsData });
+
+            formIsComplete = false;
+          }
+
+          if (validationResults.emailAddressAcceptable === false) {
+            /* Email address is already taken or some other validation error occurred. */
+            accountFormDetailsData.loginEmailAddress.errorText = validationResults.emailAddressNotAcceptedMessage;
+
+            /* make sure to persist any changes to the account signup form (error messages) */
+            this.setState({ accountFormDetails: accountFormDetailsData });
+
+            formIsComplete = false;
+          }
+
+          if (formIsComplete === true) {
+            /* create the pending customer result */
+            this.createPendingCustomerRecordAndNextScreen();
+          }
+        }
+      })
+      .catch((err) => {
+        throw ('Error: ', err);
+      });
+
     } else {
       /* make sure to persist any changes to the account signup form (error messages) */
       this.setState(() => ({ accountFormDetails: accountFormDetailsData }));
@@ -394,9 +403,9 @@ class JoinStep2 extends Component {
 
           /* Update the Account Form parameters to show/hide fields as a result of Google Login */
           const accountFormDetailsData = cloneDeep(this.state.accountFormDetails);
-          /* Google Authentication does not require the customer to create a password/hide the form field */
-          accountFormDetailsData.password.visible = false;
-          accountFormDetailsData.passwordVerification.visible = false;
+          /* Google Authentication technically does not require a password, but we want the user to use a backup password */
+          accountFormDetailsData.password.visible = true;
+          accountFormDetailsData.passwordVerification.visible = true;
 
           /* Set the customer's information that we got from google as a starting place for the user */
           accountFormDetailsData.givenName.value = googleProfileResult.googleProfileGivenName;
@@ -406,6 +415,7 @@ class JoinStep2 extends Component {
           this.props.change('familyName', googleProfileResult.googleProfileFamilyName);
 
           /* The primary key for Google Single Sign-in is the user's email address which can't be changed if using Google, update the form on screen accordingly so certain fields are hidden and not editable */
+          accountFormDetailsData.loginEmailAddress.errorText = '';  /* reset the error text in case the user uses another account after finding out their previous account was already a Slooh customer */
           accountFormDetailsData.loginEmailAddress.editable = false;
           accountFormDetailsData.loginEmailAddress.value = googleProfileResult.googleProfileEmail;
           this.props.change('loginEmailAddress', googleProfileResult.googleProfileEmail);
@@ -624,6 +634,7 @@ class JoinStep2 extends Component {
                             <div className="form-section">
                               <div className="form-field-container">
                                 <span className="form-label" dangerouslySetInnerHTML={{ __html: accountFormDetails.loginEmailAddress.label }} />:
+                                <span className="form-error" dangerouslySetInnerHTML={{ __html: accountFormDetails.loginEmailAddress.errorText }} />
                               </div>
                               <span className="google-field">{accountFormDetails.loginEmailAddress.value}</span>
                             </div>
