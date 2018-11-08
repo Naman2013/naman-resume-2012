@@ -219,24 +219,8 @@ class Groups extends Component {
                       }}
                       renderRightMenu={() => (
                         <div className="flex">
-                            {serviceResponse.canCreateNewClubs && user.googleProfileId !== "" && <Request
-                                serviceURL={ GOOGLE_CLASSROOM_GET_CLASSROOM_LIST_ENDPOINT_URL }
-                                model={ googleClassroomModel }
-                                requestBody={{ cid: user.cid, at: user.at, token: user.token }}
-                                render={({
-                                  fetchingContent,
-                                  modeledResponses: { GOOGLE_CLASSROOM_MODEL },
-                                  serviceResponse = {},
-                                }) => (
-                                  <Fragment>
-                                    {
-                                      !fetchingContent && <div>
-                                        {GOOGLE_CLASSROOM_MODEL.hasGoogleClassroomEnabled && <Button text={GOOGLE_CLASSROOM_MODEL.importGoogleClassroomsButtonText} onClickEvent={this.importGoogleClassrooms} />}
-                                      </div>
-                                    }
-                                  </Fragment>
-                                )}
-                              />
+                            {serviceResponse.canImportGoogleClassrooms &&
+                              <Button text={serviceResponse.importGoogleClassroomsPrompt} onClickEvent={this.importGoogleClassrooms} />
                             }
                             {serviceResponse.canCreateNewClubs ? <Button text={serviceResponse.createNewClubButtonText} onClickEvent={this.createClub} /> : null}
                             {serviceResponse.canRequestGroup ? <Button text="Request Group" onClickEvent={this.requestGroup} /> : null}
