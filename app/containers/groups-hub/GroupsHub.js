@@ -64,12 +64,14 @@ class Groups extends Component {
     showPrompt: false,
     promptText: '',
     createClubLinkUrl: '',
+    importGoogleClassroomsURL: '',
   };
 
   /* Save the Create Club Link Url */
   handlePageServiceResponse = (result) => {
     this.setState(() => ({
       createClubLinkUrl: result.createNewClubLinkUrl,
+      importGoogleClassroomsURL: result.importGoogleClassroomsURL,
     }));
 
   }
@@ -108,7 +110,7 @@ class Groups extends Component {
   }
 
   importGoogleClassrooms = () => {
-    console.log('fetch a list of google classrooms and their status in the system....');
+    browserHistory.push( this.state.importGoogleClassroomsURL );
   }
 
   submitRequestForm = ({
@@ -220,9 +222,9 @@ class Groups extends Component {
                       renderRightMenu={() => (
                         <div className="flex">
                             {serviceResponse.canImportGoogleClassrooms &&
-                              <Button text={serviceResponse.importGoogleClassroomsPrompt} onClickEvent={this.importGoogleClassrooms} />
+                              <Button text={serviceResponse.importGoogleClassroomsPrompt} onClickEvent={ this.importGoogleClassrooms } />
                             }
-                            {serviceResponse.canCreateNewClubs ? <Button text={serviceResponse.createNewClubButtonText} onClickEvent={this.createClub} /> : null}
+                            {serviceResponse.canCreateNewClubs ? <Button text={serviceResponse.createNewClubButtonText} onClickEvent={ this.createClub } /> : null}
                             {serviceResponse.canRequestGroup ? <Button text="Request Group" onClickEvent={this.requestGroup} /> : null}
                         </div>
                       )}
