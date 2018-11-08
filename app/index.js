@@ -129,6 +129,7 @@ import Quest from './pages/quest-details';
 import CommunityGroupOverview from './pages/community-groups/GroupOverview';
 import GroupOverviewInfo from './pages/community-groups/GroupOverviewInfo';
 import GroupCreate from './pages/community-groups/GroupCreate';
+import GroupImportGoogleClassrooms from './pages/community-groups/GroupImportGoogleClassrooms'
 
 import ImageDetails from './pages/image-details';
 import Show from './pages/show';
@@ -350,6 +351,7 @@ ReactDOM.render(
         <Route path="profile/public/:cid" component={UserPublicProfile} onEnter={validateUser} />
 
         <Route path="groups/create" component={GroupCreate} onEnter={validateUser} />
+        <Route path="groups/importGoogleClassrooms" component={GroupImportGoogleClassrooms} onEnter={validateUser} />
         <Route path="groups(/:filterType)" component={GroupsHub} onEnter={validateUser} />
 
         <Route path="community-groups/:groupId" onEnter={validateUser} component={CommunityGroupOverview} />
