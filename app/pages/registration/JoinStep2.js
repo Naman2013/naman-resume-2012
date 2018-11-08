@@ -277,6 +277,7 @@ class JoinStep2 extends Component {
     const customerDetailsMeetsRequirementsResult = axios.post(VALIDATE_NEW_PENDING_CUSTOMER_DETAILS_ENDPOINT_URL, {
       userEnteredPassword: this.state.accountFormDetails.password.value,
       userEnteredLoginEmailAddress: this.state.accountFormDetails.loginEmailAddress.value,
+      selectedPlanId: window.localStorage.selectedPlanId,
     })
       .then((response) => {
         const res = response.data;
