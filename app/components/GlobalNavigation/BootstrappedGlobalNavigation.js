@@ -16,7 +16,7 @@ import {
   toggleGlobalNavNotificationMenu,
 } from 'modules/global-navigation/actions';
 import { customModalStylesBlackOverlay } from 'styles/mixins/utilities';
-
+import { screenMedium, screenLarge } from 'styles/variables/breakpoints';
 const mapStateToProps = ({ globalNavigation, routing: { locationBeforeTransitions: { key } }, user }) => ({
   routeKey: key,
   user,
@@ -191,7 +191,7 @@ class GlobalNavigation extends Component {
             padding: 0;
             width: 100%;
             z-index: 9999;
-            position: relative;
+            position: static;
             overflow-x: hidden;
           }
 
@@ -199,6 +199,12 @@ class GlobalNavigation extends Component {
             z-index: 9999;
             min-height: 100vh;
             height: 100%;
+          }
+
+          @media ${screenLarge} {
+            .root {
+              position: relative;
+            }
           }
         `}
         </style>
