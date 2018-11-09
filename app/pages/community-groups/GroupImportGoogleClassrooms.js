@@ -66,6 +66,7 @@ class GroupImportGoogleClassrooms extends Component {
     groups: [],
     showPrompt: false,
     promptText: '',
+    selectedGoogleClassroomIds: { },
   }
 
   updateGroupsList = (resData) => {
@@ -164,8 +165,16 @@ class GroupImportGoogleClassrooms extends Component {
 
   /* This function handles a field change in the form and sets the state accordingly */
   handleFieldChange = ({ field, value }) => {
-    //do nothing for right now....
-    console.log(field + " : " + value);
+    this.setState(() => ({
+      [field]: !value,
+    }));
+  }
+
+  handleSubmit = (formValues) => {
+    formValues.preventDefault();
+
+    console.log(this.state);
+    //GOOGLE_CLASSROOM_IMPORT_CLASSROOMS_ENDPOINT_URL
   }
 
   render() {
@@ -275,7 +284,7 @@ class GroupImportGoogleClassrooms extends Component {
                                                                                 className="form-field"
                                                                                 component={InputField}
                                                                                 label=""
-                                                                                onChange={(event) => { this.handleFieldChange({ field: classroomListItem.googleClassroomId, value: !event.target.value }); }}
+                                                                                onChange={(event) => { this.handleFieldChange({ field: classroomListItem.googleClassroomId, value: event.target.value }); }}
                                                                               />: <p></p>}
 
                                                                             </td>
