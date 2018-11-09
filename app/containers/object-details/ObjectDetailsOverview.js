@@ -26,6 +26,8 @@ import ObjectVisibilityProfile from  'components/object-details/ObjectVisibility
 import CardObservations from 'components/common/CardObservations';
 import SterlingTitle from 'components/common/titles/SterlingTitle';
 import BurnhamsCorner from 'components/common/BurnhamsCorner';
+import GuidePanels from 'components/guides/GuidePanels';
+
 
 import style from './ObjectDetailsOverview.style';
 
@@ -194,6 +196,8 @@ class Overview extends Component {
                 )}
               />
           }
+
+          <GuidePanels guideId={objectId} />
 
           <SterlingTitle
             title="MVP Astronomers"
