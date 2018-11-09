@@ -140,7 +140,7 @@ class Overview extends Component {
               {...modeledResult.featuredObservation}
               theme={{ title: { color: 'white' }, subTitle: { color: 'white' } }}
             />
-            <CenterColumn>
+            <CenterColumn widths={['768px', '965px', '965px']}>
               <CardObservations {...modeledResult.featuredObservation.tileContent} />
             </CenterColumn>
           </DeviceProvider>
@@ -148,7 +148,7 @@ class Overview extends Component {
 
         <section className="off-white-bg">
           <SterlingTitle {...modeledResult.statisticsTitle} />
-          <CenterColumn>
+          <CenterColumn widths={['768px', '965px', '965px']}>
             <ObjectProfile
               scienceName={objectData.objectTitle}
               objectSpecs={modeledResult.objectDetails}
@@ -187,7 +187,7 @@ class Overview extends Component {
                       title={BURNHAMS_CORNER.title}
                       subTitle={BURNHAMS_CORNER.subTitle}
                     />
-                    <CenterColumn>
+                    <CenterColumn widths={['768px', '965px', '965px']}>
                       <BurnhamsCorner {...BURNHAMS_CORNER.burnhamTileContent} />
                     </CenterColumn>
                   </Fragment>
@@ -200,7 +200,7 @@ class Overview extends Component {
             subTitle={`Most Active on ${objectData.objectTitle}`}
           />
 
-          <CenterColumn>
+          <CenterColumn widths={['768px', '965px', '965px']}>
             {objectSpecialists && objectSpecialists.specialistsCount > 0 ? (
               <div className="card-container__specialists">
                 {Object.keys(objectSpecialists.specialistsList).map(key => (
