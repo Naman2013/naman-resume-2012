@@ -41,7 +41,7 @@ export const QuestDetails = (props) => {
     questId,
     moduleId: pageMeta.resourcesModuleId,
   };
-  const guideSectionProps = {
+  const questSectionProps = {
     questId,
     content: () => (
       <BodyContent
@@ -83,7 +83,7 @@ export const QuestDetails = (props) => {
       <CenterColumn>
         <GuideSection
           theme={{ backgroundColor: romance }}
-          {...guideSectionProps}
+          {...questSectionProps}
         />
         <SterlingTitle
           title={pageMeta.stepsHeader}

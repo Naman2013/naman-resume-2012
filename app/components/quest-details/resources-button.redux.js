@@ -52,16 +52,14 @@ class ConnectedResourcesButton extends Component {
       token: user.token,
     }).then((res) => {
       actions.validateResponseAccess(res);
-
       actions.setAndOpenModal({
-        modalComponent: <ResourcesModal {...res.data} />,
+        modalComponent: <ResourcesModal {...res.data} closeModal={actions.closeModal} />,
         modalStyles: customModalStylesBlackOverlay,
       });
     })
   }
 
   render() {
-    console.log('this.props', this.props)
     return (
       <Fragment>
         <ResourcesButton
@@ -84,6 +82,7 @@ const mapStateToProps = ({
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     setAndOpenModal: questActions.setAndOpenModal,
+    closeModal: questActions.closeModal,
     validateResponseAccess,
   }, dispatch),
 });
