@@ -21,9 +21,13 @@ import { browserHistory } from 'react-router';
 import axios from 'axios';
 import Request from 'components/common/network/Request';
 import { GROUPS_PAGE_ENDPOINT_URL, GET_GROUPS } from 'services/community-groups';
-import { GOOGLE_CLASSROOM_IMPORT_PAGE_ENDPOINT_URL , GOOGLE_CLASSROOM_GET_CLASSROOM_LIST_ENDPOINT_URL} from 'services/classroom/classroom';
+import {
+  GOOGLE_CLASSROOM_IMPORT_PAGE_ENDPOINT_URL,
+  GOOGLE_CLASSROOM_GET_CLASSROOM_LIST_ENDPOINT_URL,
+  GOOGLE_CLASSROOM_IMPORT_CLASSROOMS_ENDPOINT_URL
+} from 'services/classroom/classroom';
 
-import { Field, FieldArray, reduxForm } from 'redux-form';
+import { Field, reduxForm } from 'redux-form';
 import InputField from 'components/form/InputField';
 import Button from 'components/common/style/buttons/Button';
 import { Link } from 'react-router';
@@ -31,7 +35,6 @@ import { Link } from 'react-router';
 import style from '../../containers/groups-hub/groups-hub.style';
 import style2 from 'pages/registration/partials/JoinHeader.style';
 import style3 from './GroupCreate.style';
-
 
 const COUNT = 9;
 const DEFAULT_PAGE = 1;
@@ -183,9 +186,36 @@ class GroupImportGoogleClassrooms extends Component {
   handleSubmit = (formValues) => {
     formValues.preventDefault();
 
-    console.log(this.state.selectedGoogleClassroomIds);
-    
-    //GOOGLE_CLASSROOM_IMPORT_CLASSROOMS_ENDPOINT_URL
+    const { user } = this.props;
+
+    const importGoogleClassroomsResult = axios.post(GOOGLE_CLASSROOM_IMPORT_CLASSROOMS_ENDPOINT_URL, {
+      selectedGoogleClassroomIds: this.state.selectedGoogleClassroomIds,
+      cid: user.cid,
+      at: user.at,
+      token: user.token,
+    })
+      .then((response) => {
+        const res = response.data;
+        if (res.apiError == false) {
+          const importResult = {
+            importStatus: res.importStatus,
+            importMessage: res.importMessage,
+          }
+
+          if (importResult.importStatus === "success") {
+            //need to show an import complete page-level call...
+            //  maybe use the import classrooms page-level call
+            //  with a callSource of importGoogleClassroomsSuccess
+            //  show an updated list of Google Classrooms...
+          }
+          else {
+            //display an error message on the screen....
+          }
+        }
+      })
+      .catch((err) => {
+        throw ('Error: ', err);
+      });
   }
 
   render() {
