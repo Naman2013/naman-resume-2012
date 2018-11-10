@@ -10,14 +10,19 @@ import { WhereInTheSky, AllSkyCamera, HowBigModule } from './';
 
 import style from './tab-live.style';
 
-const TabLive = () => (
+const TabLive = ({
+  missionMetaData,
+  activeInstrumentID,
+  previousInstrumentID,
+  increment,
+}) => (
   <div>
     <DisplayAtBreakpoint screenSmall screenMedium>
       <TelescopeViewer
         missionMetaData={nonMission}
-        activeInstrumentID={telescopeConfig.CANARY_ONE_HALF_METER.instrumentID}
-        previousInstrumentID={telescopeConfig.CANARY_ONE_HALF_METER.instrumentID}
-        increment={5}
+        activeInstrumentID={activeInstrumentID}
+        previousInstrumentID={previousInstrumentID}
+        increment={increment}
       />
     </DisplayAtBreakpoint>
 

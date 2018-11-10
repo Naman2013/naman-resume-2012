@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { browserHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import Fade from 'components/common/Fade';
 import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
 import { ColumnTabs } from 'components/common/Tabs';
 import telescopeConfig from 'components/Telescope/telescopeConfig';
@@ -28,13 +30,17 @@ import {
   resetObjectData,
 } from 'modules/object-details/actions';
 
-import { buildNavigationOptions } from 'utils/telescope-details';
+import {
+  buildNavigationOptions,
+  telescopeDetailsURL,
+  findActiveTelescopeIndex,
+  getActiveTelescopeConfig
+} from 'utils/telescope-details';
 
 import style from './v4-telescope-details.style';
 
 class TelescopeDetails extends Component {
   static propTypes = {
-
     // actions
     bootstrapTelescopeDetails: PropTypes.func.isRequired,
     setObservatory: PropTypes.func.isRequired,
@@ -57,7 +63,7 @@ class TelescopeDetails extends Component {
     currentTelescope: PropTypes.shape({}),
     currentTelescopeOnlineStatus: PropTypes.string,
     // countdownList
-    isImageViewerClipped: PropTypes.bool.isRequired,
+    // isImageViewerClipped: PropTypes.bool.isRequired,
     observatoryList: PropTypes.arrayOf(PropTypes.shape({
       obsTelescopes: PropTypes.arrayOf(PropTypes.shape({
         teleUniqueId: PropTypes.string.isRequired,
@@ -81,7 +87,23 @@ class TelescopeDetails extends Component {
     this.scaffoldPage();
   }
 
-  state = { selectedOption: 0 }
+  state = {
+    telescopeIDHistory: [
+      this.props.params.teleUniqueId,
+      this.props.params.teleUniqueId],
+  };
+
+  static getDerivedStateFromProps(props, state) {
+    const { telescopeIDHistory } = state;
+    const [old, latest] = telescopeIDHistory;
+    const { params: { teleUniqueId } } = props;
+
+    // if the new prop is different then the current new becomes old
+    if (teleUniqueId !== latest) {
+      return { telescopeIDHistory: [latest, teleUniqueId] };
+    }
+    return null;
+  }
 
   scaffoldPage() {
     const {
@@ -102,17 +124,30 @@ class TelescopeDetails extends Component {
   }
 
   handleOptionChange = (event) => {
+    const { observatoryList } = this.props;
+    const options = buildNavigationOptions(observatoryList);
+
     if (event.currentTarget.dataset.index) {
-      this.setState({ selectedOption: event.currentTarget.dataset.index });
+      const { currentTarget: { dataset: { index } } } = event;
+      browserHistory.push(telescopeDetailsURL(options[index]));
     } else {
-      this.setState({ selectedOption: event.target.value });
+      const { target: { value } } = event;
+      browserHistory.push(telescopeDetailsURL(options[value]));
     }
   }
 
   render() {
-    const { observatoryList } = this.props;
-    const navigationOptions = buildNavigationOptions(observatoryList)
-    console.log(navigationOptions);
+    const { telescopeIDHistory } = this.state;
+    const { observatoryList, params } = this.props;
+    const navigationOptions = buildNavigationOptions(observatoryList);
+    const selectedNavigationIndex =
+      findActiveTelescopeIndex(navigationOptions, params.teleUniqueId);
+    const activeTelescope = navigationOptions[selectedNavigationIndex];
+    const activeTelescopeConfig = getActiveTelescopeConfig(telescopeConfig, activeTelescope);
+
+    // page level validation that we have the information we need
+    // before rendering details
+    if (!activeTelescopeConfig.isValidTelescope) { return null; }
 
     return (
       <div>
@@ -120,7 +155,7 @@ class TelescopeDetails extends Component {
           title="Great barred spiral galaxy"
           options={navigationOptions}
           onSelect={this.handleOptionChange}
-          selectedIndex={this.state.selectedOption}
+          selectedIndex={selectedNavigationIndex}
         />
 
         <div className="details-root">
@@ -128,8 +163,8 @@ class TelescopeDetails extends Component {
             <div className="viewer">
               <TelescopeViewer
                 missionMetaData={FAUX_MISSIONS.nonMission}
-                activeInstrumentID={telescopeConfig.CANARY_ONE_HALF_METER.instrumentID}
-                previousInstrumentID={telescopeConfig.CANARY_TWO_WIDE_FIELD.instrumentID}
+                activeInstrumentID={activeTelescopeConfig.instrumentID}
+                previousInstrumentID={telescopeConfig[telescopeIDHistory[0]].instrumentID}
                 increment={5}
               />
             </div>
@@ -143,8 +178,8 @@ class TelescopeDetails extends Component {
                   content: () => (
                     <TabLive
                       missionMetaData={FAUX_MISSIONS.nonMission}
-                      activeInstrumentID={telescopeConfig.CANARY_ONE_HALF_METER.instrumentID}
-                      previousInstrumentID={telescopeConfig.CANARY_TWO_WIDE_FIELD.instrumentID}
+                      activeInstrumentID={activeTelescopeConfig.instrumentID}
+                      previousInstrumentID={telescopeConfig[telescopeIDHistory[0]].instrumentID}
                       increment={5}
                     />),
                   },
