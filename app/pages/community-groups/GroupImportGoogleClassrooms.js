@@ -23,7 +23,7 @@ import Request from 'components/common/network/Request';
 import { GROUPS_PAGE_ENDPOINT_URL, GET_GROUPS } from 'services/community-groups';
 import { GOOGLE_CLASSROOM_IMPORT_PAGE_ENDPOINT_URL , GOOGLE_CLASSROOM_GET_CLASSROOM_LIST_ENDPOINT_URL} from 'services/classroom/classroom';
 
-import { Field, reduxForm } from 'redux-form';
+import { Field, FieldArray, reduxForm } from 'redux-form';
 import InputField from 'components/form/InputField';
 import Button from 'components/common/style/buttons/Button';
 import { Link } from 'react-router';
@@ -165,15 +165,26 @@ class GroupImportGoogleClassrooms extends Component {
 
   /* This function handles a field change in the form and sets the state accordingly */
   handleFieldChange = ({ field, value }) => {
+
+    const selectedGoogleClassroomIdsData = cloneDeep(this.state.selectedGoogleClassroomIds);
+
+    if (value === "true") {
+      selectedGoogleClassroomIdsData[field] = false;
+    }
+    else {
+      selectedGoogleClassroomIdsData[field] = true;
+    }
+
     this.setState(() => ({
-      [field]: !value,
+      selectedGoogleClassroomIds: selectedGoogleClassroomIdsData,
     }));
   }
 
   handleSubmit = (formValues) => {
     formValues.preventDefault();
 
-    console.log(this.state);
+    console.log(this.state.selectedGoogleClassroomIds);
+    
     //GOOGLE_CLASSROOM_IMPORT_CLASSROOMS_ENDPOINT_URL
   }
 
@@ -273,13 +284,13 @@ class GroupImportGoogleClassrooms extends Component {
                                                                       <th>Google Classroom</th>
                                                                       <th>Club Status</th>
                                                                     </tr>
-                                                                    {serviceResponse.classroomList.map( (classroomListItem) => {
+                                                                    {serviceResponse.classroomList.map( (classroomListItem, index) => {
                                                                         return (
                                                                           <tr key={`googleClassroomRow_` + classroomListItem.googleClassroomId}>
                                                                             <td>
                                                                               {!classroomListItem.hasDiscussionGroup ? <Field style={{'marginLeft': '0px'}}
-                                                                                key={`importAction_` + classroomListItem.googleClassroomId}
-                                                                                name={`importAction_` + classroomListItem.googleClassroomId}
+                                                                                key={`importAction_` + index}
+                                                                                name={`importAction_` + index}
                                                                                 type="checkbox"
                                                                                 className="form-field"
                                                                                 component={InputField}
