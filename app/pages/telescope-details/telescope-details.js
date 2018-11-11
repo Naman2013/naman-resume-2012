@@ -7,6 +7,7 @@ import Fade from 'components/common/Fade';
 import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
 import { ColumnTabs } from 'components/common/Tabs';
 import telescopeConfig from 'components/Telescope/telescopeConfig';
+import TelescopeImageViewerController from 'components/telescope-details/TelescopeImageViewerController';
 import FAUX_MISSIONS from 'content/fauxMissions';
 import {
   TabConditions,
@@ -161,11 +162,27 @@ class TelescopeDetails extends Component {
         <div className="details-root">
           <DisplayAtBreakpoint screenLarge screenXLarge>
             <div className="viewer">
-              <TelescopeViewer
-                missionMetaData={FAUX_MISSIONS.nonMission}
-                activeInstrumentID={activeTelescopeConfig.instrumentID}
-                previousInstrumentID={telescopeConfig[telescopeIDHistory[0]].instrumentID}
-                increment={5}
+              <TelescopeImageViewerController
+                activeInstrumentID={activeInstrumentID}
+                render={({ viewportHeight }) => (
+                  <LiveFeed
+                    viewportHeight={viewportHeight}
+                    fetchingOnlineStatus={fetchingObservatoryStatus}
+                    obsAlert={currentObservatory.obsAlert}
+                    onlineStatus={
+                      currentTelescopeOnlineStatus && currentTelescopeOnlineStatus.onlineStatus
+                    }
+                    instrument={activeInstrument}
+                    offlineImageSource={activeInstrument.instrOfflineImgURL}
+                    activeMission={activeTelescopeMission.maskDataArray}
+                    timestamp={activeTelescopeMission.timestamp}
+                    missionStart={activeTelescopeMission.missionStart}
+                    missionEnd={activeTelescopeMission.expires}
+                    activeNeoview={activeInstrument.instrHasNeoView}
+                    handleInfoClick={this.toggleNeoview}
+                    isImageViewerClipped={isImageViewerClipped}
+                  />
+                )}
               />
             </div>
           </DisplayAtBreakpoint>
