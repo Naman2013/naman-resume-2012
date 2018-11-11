@@ -13,11 +13,16 @@ export default css`
   }
 
   .inner-container {
-    padding: 25px;
+    padding: 40px;
     margin-top: 25px;
     width: 100%;
     background-color: ${romance};
     ${faintShadow}
+  }
+
+  .form {
+    padding: 25px 0;
+    box-shadow: none;
   }
 
   .section-heading {

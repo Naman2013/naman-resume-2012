@@ -20,6 +20,7 @@ import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
 import JoinHeader from './partials/JoinHeader';
 import PlanDetailsCard from './partials/PlanDetailsCard';
 import { DEFAULT_JOIN_TABS } from './StaticNavTabs';
+import { CLASSROOM_JOIN_TABS } from './StaticNavTabs';
 import {
   JOIN_PAGE_ENDPOINT_URL,
   SUBSCRIPTION_PLANS_ENDPOINT_URL,
@@ -457,6 +458,7 @@ class JoinStep2 extends Component {
 
     const selectedPlanId = window.localStorage.getItem('selectedPlanId');
 
+
     //for classroom accounts
     const selectedSchoolId = window.localStorage.getItem('selectedSchoolId');
 
@@ -474,12 +476,21 @@ class JoinStep2 extends Component {
               {
                 !fetchingContent && selectedPlanId &&
                   <Fragment>
-                    <JoinHeader
-                      mainHeading={joinPageRes.pageHeading1}
-                      subHeading={joinPageRes.pageHeading2}
-                      activeTab={pathname}
-                      tabs={DEFAULT_JOIN_TABS}
-                    />
+                    {joinPageRes.hasSelectedSchool === "yes" ? (                      
+                      <JoinHeader
+                        mainHeading={joinPageRes.pageHeading1}
+                        subHeading={joinPageRes.pageHeading2}
+                        activeTab={pathname}
+                        tabs={CLASSROOM_JOIN_TABS}
+                      />
+                    ) : (
+                      <JoinHeader
+                        mainHeading={joinPageRes.pageHeading1}
+                        subHeading={joinPageRes.pageHeading2}
+                        activeTab={pathname}
+                        tabs={DEFAULT_JOIN_TABS}
+                      />
+                    )}
                     <div className="step-root">
                       <DisplayAtBreakpoint
                         screenMedium
@@ -503,6 +514,7 @@ class JoinStep2 extends Component {
                           */}
 
                         {joinPageRes.hasSelectedSchool === "yes" && <div>
+                          <br/>
                           <p>Your School: {joinPageRes.selectedSchool.schoolName}</p>
                           <p style={{'fontSize': '1.0em'}}>Your School District: {joinPageRes.selectedSchool.districtName}</p>
                           <br/>

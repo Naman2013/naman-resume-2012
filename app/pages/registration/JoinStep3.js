@@ -201,12 +201,21 @@ class JoinStep3 extends Component  {
               {
                 !fetchingContent &&
                   <Fragment>
-                    <JoinHeader
-                      mainHeading={joinPageResponse.pageHeading1}
-                      subHeading={joinPageResponse.pageHeading2}
-                      activeTab={pathname}
-                      tabs={DEFAULT_JOIN_TABS}
-                    />
+                    {joinPageRes.hasSelectedSchool === "yes" ? (                      
+                      <JoinHeader
+                        mainHeading={joinPageRes.pageHeading1}
+                        subHeading={joinPageRes.pageHeading2}
+                        activeTab={pathname}
+                        tabs={CLASSROOM_JOIN_TABS}
+                      />
+                    ) : (
+                      <JoinHeader
+                        mainHeading={joinPageRes.pageHeading1}
+                        subHeading={joinPageRes.pageHeading2}
+                        activeTab={pathname}
+                        tabs={DEFAULT_JOIN_TABS}
+                      />
+                    )}
                     <div className="step-root">
                       <DisplayAtBreakpoint
                         screenMedium
