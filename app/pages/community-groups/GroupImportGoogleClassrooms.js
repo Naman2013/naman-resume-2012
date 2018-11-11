@@ -70,6 +70,7 @@ class GroupImportGoogleClassrooms extends Component {
     showPrompt: false,
     promptText: '',
     selectedGoogleClassroomIds: { },
+    forceReloadStr: '',
   }
 
   updateGroupsList = (resData) => {
@@ -203,10 +204,13 @@ class GroupImportGoogleClassrooms extends Component {
           }
 
           if (importResult.importStatus === "success") {
-            //need to show an import complete page-level call...
-            //  maybe use the import classrooms page-level call
-            //  with a callSource of importGoogleClassroomsSuccess
-            //  show an updated list of Google Classrooms...
+            const forceReloadStrData = cloneDeep(this.state.forceReloadStr);
+            forceReloadStrData = Math.floor(Math.random() * 100000);
+
+            //force reload the import google classes list....
+            this.setState(() => ({
+              forceReloadStr: forceReloadStrData,
+            }));
           }
           else {
             //display an error message on the screen....
@@ -228,6 +232,7 @@ class GroupImportGoogleClassrooms extends Component {
       showPrompt,
       promptText,
       newGroupFormDetails,
+      forceReloadStr,
     } = this.state;
 
     return (<div>
@@ -272,7 +277,12 @@ class GroupImportGoogleClassrooms extends Component {
 
                             <Request
                               serviceURL={GOOGLE_CLASSROOM_IMPORT_PAGE_ENDPOINT_URL}
-                              requestBody={{ }}
+                              requestBody={{
+                                    cid: user.cid,
+                                    at: user.at,
+                                    token: user.token,
+                                    forceReload: forceReloadStr,
+                              }}
                               render={({
                                 fetchingContent,
                                 serviceResponse,
