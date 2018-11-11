@@ -10,8 +10,6 @@ import style from './step-list-item.style';
 
 const StepListItem = ({
   stepModuleId,
-  stepModuleIdUser,
-  stepSequence,
   stepTitle,
   stepCompleted,
   stepStatusMsg,
@@ -33,7 +31,7 @@ const StepListItem = ({
         <img className="check" src={incomplete} alt="incompleted icon" />
         }
       </div>
-      <div className="action-right" onClick={() => goToStep(stepSequence)}>
+      <div className="action-right" onClick={() => goToStep(stepModuleId)}>
         <span className="action-message">{stepActionMsg}</span>
         <div className="arrow-container"><img alt="go to" src={horizontalArrow} /></div>
       </div>

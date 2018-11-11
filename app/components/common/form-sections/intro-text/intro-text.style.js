@@ -20,7 +20,7 @@ export default css`
   .desc-text {
     display: block;
     font-size: 19px;
-    padding: 15px;
+    padding: 15px 0;
     color: ${lynch};
   }
 

@@ -58,9 +58,9 @@ export class ConnectedQuestDetails extends Component {
       });
   }
 
-  goToStep = (num) => {
+  goToStep = (stepId) => {
     const { questId } = this.props;
-    browserHistory.push(`/quest-details/${questId}/${num}`);
+    browserHistory.push(`/quest-details/${questId}/${stepId}`);
   }
 
   render() {

@@ -15,6 +15,16 @@ export const openModal = state => ({
   },
 });
 
+export const setAndOpenModal = (state, { payload }) => ({
+  ...state,
+  modal: {
+    ...state.modal,
+    showModal: true,
+    modalComponent: payload.modalComponent,
+    modalStyles: payload.modalStyles,
+  },
+});
+
 export const closeModal = state => ({
   ...state,
   modal: {

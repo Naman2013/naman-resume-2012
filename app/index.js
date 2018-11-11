@@ -141,6 +141,7 @@ import GroupsHub from './containers/groups-hub';
 import ShowsHub from './containers/shows-hub';
 import CreateStory from './containers/create-story';
 import PlaceholderPage from './pages/Placeholder';
+import QuestStep from './containers/quest-step';
 
 import DashboardPage from 'components/Dashboard';
 
@@ -345,7 +346,7 @@ ReactDOM.render(
         <Route path="quests(/:filterType)" component={QuestsHub} onEnter={validateUser} />
 
         <Route path="quest-details/:questId" component={Quest} onEnter={validateUser} />
-        <Route path="quest-details/:questId/:step" component={Quest} onEnter={validateUser} />
+        <Route path="quest-details/:questId/:step" component={QuestStep} onEnter={validateUser} />
 
         <Route path="profile/private" component={UserPrivateProfile} onEnter={validateUser} />
         <Route path="profile/public/:cid" component={UserPublicProfile} onEnter={validateUser} />
