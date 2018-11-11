@@ -35,12 +35,16 @@ export const QuestDetails = (props) => {
     questId,
     userActions,
   } = props;
+<<<<<<< HEAD
   const resourcesProps = {
     resourcesIconUrl: resources,
     resourcesButtonText: pageMeta.resourcesButtonCaption,
     questId,
     moduleId: pageMeta.resourcesModuleId,
   };
+=======
+
+>>>>>>> refacotor( Tabbed Nav )
   const questSectionProps = {
     questId,
     content: () => (
