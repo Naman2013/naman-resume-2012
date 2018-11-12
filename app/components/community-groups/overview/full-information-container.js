@@ -114,10 +114,11 @@ class FullInformationOverview extends Component {
       topicId: pageMeta.topicId,
       user,
     };
-    
+
     return (
       <div className="root">
-        {pageMeta.canEditGroup && <DiscussionBoardInvitationsPanel {...this.props}/>}
+        {pageMeta.canEditGroup && pageMeta.isGoogleClassroom === false && <DiscussionBoardInvitationsPanel {...this.props}/>}
+        {pageMeta.canEditGroup && pageMeta.isGoogleClassroom === true && <div>Manage Google Classroom Students</div>}
 
         <ResponsiveTwoColumnContainer
           renderNavigationComponent={navProps =>

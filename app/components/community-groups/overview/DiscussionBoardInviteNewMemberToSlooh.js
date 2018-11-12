@@ -182,9 +182,9 @@ class DiscussionBoardInviteNewMemberToSlooh extends Component {
             this.setState(() => ({
               inviteFormDetails: inviteFormData,
             }));
-
+            
             //Tell the Parent Invitation Component to close this form and re-fire the Request object to retrieve the latest invitation status/details.
-            this.props.newInvitationComplete(invitationCode, firstName, lastName, emailAddress);
+            this.props.newInvitationComplete(invitationCode, firstName, lastName, emailAddress, serviceResponse.statusMessage);
           }
         })
         .catch((err) => {

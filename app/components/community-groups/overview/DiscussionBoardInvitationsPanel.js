@@ -47,6 +47,7 @@ class DiscussionBoardInvitationsPanel extends Component {
   state = {
       inInviteMode: false,
       refreshModeStr: "false",
+      inviteStatusMessage: '',
   }
 
   toggleInviteMode = () => {
@@ -60,7 +61,11 @@ class DiscussionBoardInvitationsPanel extends Component {
     */
   }
 
-  newInvitationComplete = (invitationCode, firstName, lastName, emailAddress) => {
+  newInvitationComplete = (invitationCode, firstName, lastName, emailAddress, inviteStatusMessage) => {
+    this.setState(() => ({
+      inviteStatusMessage: inviteStatusMessage,
+    }));
+
     this.toggleInviteMode();
   }
 
@@ -141,6 +146,7 @@ class DiscussionBoardInvitationsPanel extends Component {
                       <h3>{serviceResponse.customerLinksData.sectionHeading_LicenseInfo}</h3>
                       <br/>
                       <br/>
+                      <p style={{"color": "red", "fontSize": "1.3em"}}>{this.state.inviteStatusMessage}<br/><br/></p>
                       {serviceResponse.customerLinksData.customerLinks.length > 0 ? (<table style={{'border': '1px', 'width': '100%'}}>
                         <tbody>
                           <tr>
@@ -167,7 +173,7 @@ class DiscussionBoardInvitationsPanel extends Component {
                       </table>) : <p>There are no invitations</p>}
                       <br/>
                       {inInviteMode === true && <div>
-                        <DiscussionBoardInviteNewMemberToSlooh {...this.props} newInvitationComplete={() => this.newInvitationComplete()}/>
+                        <DiscussionBoardInviteNewMemberToSlooh {...this.props} newInvitationComplete={(invitationCode, firstName, lastName, emailAddress, statusMessage) => this.newInvitationComplete(invitationCode, firstName, lastName, emailAddress, statusMessage)}/>
                       </div>
                       }
                       <div className="button-actions">
