@@ -9,17 +9,20 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import DeviceProvider from '../../../app/providers/DeviceProvider';
-import ObjectDetailsSectionTitle from '../../components/object-details/ObjectDetailsSectionTitle';
-import CenterColumn from '../../../app/components/common/CenterColumn';
-import ShowTile from 'components/common/tiles/ShowTile';
-
 import noop from 'lodash/noop';
+import has from 'lodash/has';
+import Request from 'components/common/network/Request';
+
+import DeviceProvider from 'providers/DeviceProvider';
+import ObjectDetailsSectionTitle from 'components/object-details/ObjectDetailsSectionTitle';
+import CenterColumn from 'components/common/CenterColumn';
+import ShowTile from 'components/common/tiles/ShowTile';
+import { OBJECT_SHOWS } from 'services/objects';
+
 import {
   fetchObjectDetailsAction,
   fetchObjectDataAction,
-} from '../../modules/object-details/actions';
-import { fetchPreviousShows } from '../../modules/browse-video-viewer/previous-shows-actions';
+} from 'modules/object-details/actions';
 
 const {
   bool,
@@ -42,16 +45,14 @@ const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     fetchObjectDetailsAction,
     fetchObjectDataAction,
-    fetchPreviousShows,
   }, dispatch),
 });
 
 @connect(mapStateToProps, mapDispatchToProps)
 class Shows extends Component {
-  
+
   static defaultProps = {
     actions: {
-      fetchPreviousShows: noop,
     },
     eventList: [],
     resultsCount: 0,
@@ -63,10 +64,6 @@ class Shows extends Component {
   constructor(props) {
     super(props);
     const { actions } = props;
-
-    actions.fetchPreviousShows({
-      page: 1,
-    });
   }
 
   componentWillReceiveProps(nextProps) {
@@ -95,25 +92,47 @@ class Shows extends Component {
       objectDetails,
     } = this.props;
 
-    console.log (this.props);
-
     return (
       <Fragment>
         <DeviceProvider>
           <ObjectDetailsSectionTitle title={objectDetails.objectTitle + "'s"} subTitle="Related Shows" />
         </DeviceProvider>
-        <CenterColumn>
-          <ShowTile
-            header="Upcoming Show"
-            title="Countdown to the Slooh Messier Marathon"
-            time="30 mins"
-            author="Helen Avery"
-            linkUrl="#"
+        <CenterColumn widths={['645px', '965px', '965px']}>
+          <Request
+            authorizationRedirect
+            serviceURL={OBJECT_SHOWS}
+            method="POST"
+            serviceExpiresFieldName="expires"
+            requestBody={{
+              objectId,
+            }}
+            render={({
+              fetchingContent,
+              serviceResponse,
+            }) => (
+              <div className="root">
+                {has(serviceResponse, 'relatedShowsList') ? serviceResponse.relatedShowsList.map(show => (
+                  <ShowTile
+                    header="Upcoming Show"
+                    title={show.eventTitle}
+                    time={show.linkLabel}
+                    author={show.eventHostName}
+                    linkUrl={show.linkUrl}
+                  />
+                )) : null}
+              </div>
+            )}
           />
+
         </CenterColumn>
+        <style jsx>{`
+            .root {
+              display: flex;
+              flex-wrap: wrap;
+            }
+          `}</style>
       </Fragment>
     )
   }
 }
 export default Shows;
-

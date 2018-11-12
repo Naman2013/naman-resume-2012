@@ -28,6 +28,7 @@ export default css`
     width: 80%;
     margin: 0 auto;
     font-weight: 100;
+    color: ${romance};
   }
 
   .show-tile-header {
@@ -42,6 +43,7 @@ export default css`
     bottom: 40px;
     left: 0;
     right: 0;
+    color: ${romance};
   }
 
   .show-tile-author {
@@ -54,11 +56,12 @@ export default css`
     margin: 0 auto;
     left: 0;
     right: 0;
+    color: ${romance};
   }
 
   .show-tile-author span {
     padding: 0 15px;
-    color: #778DA8;
+    color: ${romance};
   }
 
 
