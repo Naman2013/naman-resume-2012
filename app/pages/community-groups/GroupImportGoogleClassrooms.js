@@ -70,6 +70,7 @@ class GroupImportGoogleClassrooms extends Component {
     showPrompt: false,
     promptText: '',
     selectedGoogleClassroomIds: { },
+    googleClassrooms: { },
     forceReloadStr: '',
   }
 
@@ -167,20 +168,39 @@ class GroupImportGoogleClassrooms extends Component {
     });
   }
 
+  handleImportGoogleClassroomServiceResponse = (result) => {
+    console.log(result);
+    const googleClassroomsData = cloneDeep(this.state.googleClassrooms);
+    //newAccountFormData.givenName.label = result.formFieldLabels.firstname.label;
+
+    /* update the account form details state so the correct hinText will show on each form field */
+    //this.setState(() => ({
+    //  accountFormDetails: newAccountFormData,
+    //}));
+  }
+
   /* This function handles a field change in the form and sets the state accordingly */
-  handleFieldChange = ({ field, value }) => {
+  handleFieldChange = ({ googleClassroomName, googleClassroomId, selectedFlag }) => {
+    const googleClassroomsData = cloneDeep(this.state.googleClassrooms);
+    let selectedFlagValue = false;
 
-    const selectedGoogleClassroomIdsData = cloneDeep(this.state.selectedGoogleClassroomIds);
-
-    if (value === "true") {
-      selectedGoogleClassroomIdsData[field] = false;
+    if (selectedFlag === "true") {
+      selectedFlagValue = false;
     }
     else {
-      selectedGoogleClassroomIdsData[field] = true;
+      selectedFlagValue = true;
     }
 
+    const myGoogleClassroom = {
+      googleClassroomId: googleClassroomId,
+      googleClassroomName: googleClassroomName,
+      googleClassroomSelected: selectedFlagValue,
+    }
+
+    googleClassroomsData[googleClassroomId] = myGoogleClassroom;
+
     this.setState(() => ({
-      selectedGoogleClassroomIds: selectedGoogleClassroomIdsData,
+      googleClassrooms: googleClassroomsData,
     }));
   }
 
@@ -189,8 +209,11 @@ class GroupImportGoogleClassrooms extends Component {
 
     const { user } = this.props;
 
+    let forceReloadStrData = cloneDeep(this.state.forceReloadStr);
+    forceReloadStrData = Math.floor(Math.random() * 100000);
+
     const importGoogleClassroomsResult = axios.post(GOOGLE_CLASSROOM_IMPORT_CLASSROOMS_ENDPOINT_URL, {
-      selectedGoogleClassroomIds: this.state.selectedGoogleClassroomIds,
+      selectedGoogleClassrooms: this.state.googleClassrooms,
       cid: user.cid,
       at: user.at,
       token: user.token,
@@ -204,9 +227,6 @@ class GroupImportGoogleClassrooms extends Component {
           }
 
           if (importResult.importStatus === "success") {
-            const forceReloadStrData = cloneDeep(this.state.forceReloadStr);
-            forceReloadStrData = Math.floor(Math.random() * 100000);
-
             //force reload the import google classes list....
             this.setState(() => ({
               forceReloadStr: forceReloadStrData,
@@ -274,9 +294,9 @@ class GroupImportGoogleClassrooms extends Component {
                       render={() => (
                         <Fragment>
                           {!fetchingContent && <div>
-
                             <Request
                               serviceURL={GOOGLE_CLASSROOM_IMPORT_PAGE_ENDPOINT_URL}
+                              serviceResponseHandler={this.handleImportGoogleClassroomServiceResponse}
                               requestBody={{
                                     cid: user.cid,
                                     at: user.at,
@@ -335,7 +355,7 @@ class GroupImportGoogleClassrooms extends Component {
                                                                                 className="form-field"
                                                                                 component={InputField}
                                                                                 label=""
-                                                                                onChange={(event) => { this.handleFieldChange({ field: classroomListItem.googleClassroomId, value: event.target.value }); }}
+                                                                                onChange={(event) => { this.handleFieldChange({ googleClassroomName: classroomListItem.name, googleClassroomId: classroomListItem.googleClassroomId, value: event.target.value }); }}
                                                                               />: <p></p>}
 
                                                                             </td>
