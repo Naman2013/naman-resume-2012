@@ -40,7 +40,7 @@ const initialState = {
   },
 
   fetchingObservatoryStatus: true,
-  currentTelescopeOnlineStatus: null,
+  currentTelescopeOnlineStatus: { onlineStatus: 'offline' },
   allObservatoryTelescopeStatus: {
     countdownList: {
       countdownTeleList: [],
@@ -122,7 +122,7 @@ export default createReducer(initialState, {
     return {
       ...state,
       fetchingObservatoryStatus: true,
-      currentTelescopeOnlineStatus: null,
+      currentTelescopeOnlineStatus: { onlineStatus: 'offline' },
       allObservatoryTelescopeStatus: { ...initialState.allObservatoryTelescopeStatus },
     };
   },

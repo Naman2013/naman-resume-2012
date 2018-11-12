@@ -1,8 +1,5 @@
 import React from 'react';
-import Telescope from 'components/Telescope';
-import { TelescopeViewer } from './';
-import telescopeConfig from 'components/Telescope/telescopeConfig';
-import { nonMission } from 'content/fauxMissions';
+import PropTypes from 'prop-types';
 import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
 
 import { ObjectSummaryTile, ScheduledByTile } from 'components/common/tiles';
@@ -11,19 +8,11 @@ import { WhereInTheSky, AllSkyCamera, HowBigModule } from './';
 import style from './tab-live.style';
 
 const TabLive = ({
-  missionMetaData,
-  activeInstrumentID,
-  previousInstrumentID,
-  increment,
+  renderTelescopeViewer,
 }) => (
   <div>
     <DisplayAtBreakpoint screenSmall screenMedium>
-      <TelescopeViewer
-        missionMetaData={nonMission}
-        activeInstrumentID={activeInstrumentID}
-        previousInstrumentID={previousInstrumentID}
-        increment={increment}
-      />
+      {renderTelescopeViewer()}
     </DisplayAtBreakpoint>
 
     <div className="tile-container">
@@ -49,5 +38,9 @@ const TabLive = ({
     <style jsx>{style}</style>
   </div>
 );
+
+TabLive.propTypes = {
+  renderTelescopeViewer: PropTypes.func.isRequired,
+};
 
 export { TabLive };
