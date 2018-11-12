@@ -62,6 +62,7 @@ class JoinStep2 extends Component {
     this.state = {
       accountCreationType: 'userpass',
       isAstronomyClub: window.localStorage.getItem('isAstronomyClub') === "true" ? true : false,
+      isAgeRestricted: true,
       isClassroom: window.localStorage.getItem('isClassroom') === "true" ? true : false,
       googleProfileData: {
         googleProfileId: '',
@@ -152,7 +153,7 @@ class JoinStep2 extends Component {
           value: '',
           hintText: '',
           errorText: '',
-        },
+        }
       },
     }
   }
@@ -190,6 +191,7 @@ class JoinStep2 extends Component {
     /* update the account form details state so the correct hinText will show on each form field */
     this.setState(() => ({
       accountFormDetails: newAccountFormData,
+      isAgeRestricted: result.selectedSubscriptionPlan.isAgeRestricted,
     }));
   }
 
@@ -226,6 +228,7 @@ class JoinStep2 extends Component {
     accountFormDetailsData.password.errorText = '';
     accountFormDetailsData.passwordVerification.errorText = '';
     accountFormDetailsData.astronomyClubName.errorText = '';
+    accountFormDetailsData.is13YearsAndOlder.errorText = '';
     accountFormDetailsData.parentEmailAddress.errorText = '';
 
     if (accountCreationType === 'userpass') {
@@ -282,6 +285,20 @@ class JoinStep2 extends Component {
       if (accountFormDetailsData.astronomyClubName.value === '') {
         accountFormDetailsData.astronomyClubName.errorText = 'Please enter in a name for your Astronomy Club.';
         formIsComplete = false;
+      }
+    }
+
+    if (this.state.isAgeRestricted === true) {
+      /* Make sure that the 13/Older indicator is selected with a value */
+      if (accountFormDetailsData.is13YearsAndOlder.value === null) {
+        accountFormDetailsData.is13YearsAndOlder.errorText = 'You must certify whether you are 13 years and older.';
+        formIsComplete = false;
+      }
+      else if (accountFormDetailsData.is13YearsAndOlder.value === false) {
+          //make sure the parent email address field is filled in.
+          if (accountFormDetailsData.parentEmailAddress.value === '') {
+            accountFormDetailsData.parentEmailAddress.errorText = 'You have indicated you are under 13 years old, please enter in your Legal Guardian\'s Email Address.';
+          }
       }
     }
 
@@ -608,9 +625,10 @@ class JoinStep2 extends Component {
                             </div>
                         ) : null}
 
-                        <div className="form-section">
+                        {this.state.isAgeRestricted && <div className="form-section">
                             <div>
                               <span className="form-label" dangerouslySetInnerHTML={{ __html: accountFormDetails.is13YearsAndOlder.label }} />:
+                              <span className="form-error" dangerouslySetInnerHTML={{ __html: accountFormDetails.is13YearsAndOlder.errorText }} />
                               <br/>
                               <br/>
                               <fieldset>
@@ -648,6 +666,7 @@ class JoinStep2 extends Component {
                             </div>
                             }
                           </div>
+                          }
                           <div className="form-section split">
                             <div className="form-field-container form-field-half">
                               <span className="form-label" dangerouslySetInnerHTML={{ __html: accountFormDetails.givenName.label }} />:
