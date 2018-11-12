@@ -179,6 +179,10 @@ class GroupImportGoogleClassrooms extends Component {
     //}));
   }
 
+  handleDescriptionFieldChange = ({ googleClassroomId, googleClassroomDescription }) => {
+
+  }
+
   /* This function handles a field change in the form and sets the state accordingly */
   handleFieldChange = ({ googleClassroomName, googleClassroomId, selectedFlag }) => {
     const googleClassroomsData = cloneDeep(this.state.googleClassrooms);
@@ -194,6 +198,7 @@ class GroupImportGoogleClassrooms extends Component {
     const myGoogleClassroom = {
       googleClassroomId: googleClassroomId,
       googleClassroomName: googleClassroomName,
+      googleClassroomDescription: '',
       googleClassroomSelected: selectedFlagValue,
     }
 
@@ -213,7 +218,7 @@ class GroupImportGoogleClassrooms extends Component {
     forceReloadStrData = Math.floor(Math.random() * 100000);
 
     const importGoogleClassroomsResult = axios.post(GOOGLE_CLASSROOM_IMPORT_CLASSROOMS_ENDPOINT_URL, {
-      selectedGoogleClassrooms: this.state.googleClassrooms,
+      googleClassrooms: this.state.googleClassrooms,
       cid: user.cid,
       at: user.at,
       token: user.token,
@@ -222,11 +227,11 @@ class GroupImportGoogleClassrooms extends Component {
         const res = response.data;
         if (res.apiError == false) {
           const importResult = {
-            importStatus: res.importStatus,
-            importMessage: res.importMessage,
+            status: res.status,
+            statusMessage: res.statusMessage,
           }
 
-          if (importResult.importStatus === "success") {
+          if (importResult.status === "success") {
             //force reload the import google classes list....
             this.setState(() => ({
               forceReloadStr: forceReloadStrData,
@@ -355,7 +360,7 @@ class GroupImportGoogleClassrooms extends Component {
                                                                                 className="form-field"
                                                                                 component={InputField}
                                                                                 label=""
-                                                                                onChange={(event) => { this.handleFieldChange({ googleClassroomName: classroomListItem.name, googleClassroomId: classroomListItem.googleClassroomId, value: event.target.value }); }}
+                                                                                onChange={(event) => { this.handleFieldChange({ googleClassroomName: classroomListItem.name, googleClassroomId: classroomListItem.googleClassroomId, selectedFlag: event.target.value }); }}
                                                                               />: <p></p>}
 
                                                                             </td>
