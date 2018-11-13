@@ -142,7 +142,7 @@ class JoinStep2 extends Component {
         not13YearsOldLegalGuardianOk: {
           label: '',
           visible: true,
-          value: '',
+          value: false,
           hintText: '',
           errorText: '',
         },
@@ -229,6 +229,7 @@ class JoinStep2 extends Component {
     accountFormDetailsData.passwordVerification.errorText = '';
     accountFormDetailsData.astronomyClubName.errorText = '';
     accountFormDetailsData.is13YearsAndOlder.errorText = '';
+    accountFormDetailsData.not13YearsOldLegalGuardianOk.errorText = '';
     accountFormDetailsData.parentEmailAddress.errorText = '';
 
     if (accountCreationType === 'userpass') {
@@ -295,10 +296,17 @@ class JoinStep2 extends Component {
         formIsComplete = false;
       }
       else if (accountFormDetailsData.is13YearsAndOlder.value === false) {
-          //make sure the parent email address field is filled in.
-          if (accountFormDetailsData.parentEmailAddress.value === '') {
-            accountFormDetailsData.parentEmailAddress.errorText = 'You have indicated you are under 13 years old, please enter in your Legal Guardian\'s Email Address.';
-          }
+        //make sure the user has certified that they have their Legal Guardian's permission to sign up.
+        if (accountFormDetailsData.not13YearsOldLegalGuardianOk.value === false) {
+          accountFormDetailsData.not13YearsOldLegalGuardianOk.errorText = 'You have indicated you are under 13 years old, please certify that your Legal Guardian has signed you up for this service.';
+          formIsComplete = false;
+        }
+
+        //make sure the parent email address field is filled in.
+        if (accountFormDetailsData.parentEmailAddress.value === '') {
+          accountFormDetailsData.parentEmailAddress.errorText = 'You have indicated you are under 13 years old, please enter in your Legal Guardian\'s Email Address.';
+          formIsComplete = false;
+        }
       }
     }
 
@@ -388,6 +396,7 @@ class JoinStep2 extends Component {
       googleProfileId: this.state.googleProfileData.googleProfileId,
       accountFormDetails: this.state.accountFormDetails,
       selectedSchoolId: selectedSchoolId,
+      isAgeRestricted: this.state.isAgeRestricted,
     };
     /* update tool/false values for Astronomy Club */
     if (createPendingCustomerData.accountFormDetails.astronomyClub18AndOver.value === false) {
@@ -640,16 +649,18 @@ class JoinStep2 extends Component {
                             {accountFormDetails.is13YearsAndOlder.value === false && <div>
                               <div className="form-field-container">
                                 <span className="form-label" dangerouslySetInnerHTML={{ __html: accountFormDetails.not13YearsOldLegalGuardianOk.label }} />:
+                                <span className="form-error" dangerouslySetInnerHTML={{ __html: accountFormDetails.not13YearsOldLegalGuardianOk.errorText }} />
                               </div>
                               <Field
-                                name="student13YearsAndOlder"
+                                name="not13YearsOldLegalGuardianOk"
                                 type="checkbox"
                                 className="form-field"
                                 label={accountFormDetails.not13YearsOldLegalGuardianOk.hintText}
-                                component={InputField}
+                                component="input"
                                 value={accountFormDetails.not13YearsOldLegalGuardianOk.value}
-                                onChange={(event) => { this.handleFieldChange({ field: 'not13YearsOldLegalGuardianOk', value: !event.target.value }); }}
+                                onClick={(event) => { this.handleFieldChange({ field: 'not13YearsOldLegalGuardianOk', value: !accountFormDetails.not13YearsOldLegalGuardianOk.value }); }}
                               />
+                              <br/>
                               <br/>
                               <span className="form-label" dangerouslySetInnerHTML={{ __html: accountFormDetails.parentEmailAddress.label }} />:
                               <span className="form-error" dangerouslySetInnerHTML={{ __html: accountFormDetails.parentEmailAddress.errorText }} />
