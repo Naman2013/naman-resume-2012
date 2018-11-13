@@ -86,7 +86,12 @@ class Quests extends Component {
             )}
             />
           </CenterColumn>
-
+          <style jsx>{`
+            .root {
+              display: flex;
+              flex-wrap: wrap;
+            }
+          `}</style>
         </DeviceProvider>
       </Fragment>
     )
