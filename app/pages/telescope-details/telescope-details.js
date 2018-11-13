@@ -146,7 +146,6 @@ class TelescopeDetails extends Component {
   }
 
   render() {
-    const { telescopeIDHistory } = this.state;
     const {
       activeTelescopeMission,
       currentTelescopeOnlineStatus,
@@ -169,7 +168,7 @@ class TelescopeDetails extends Component {
     // get instrument, we cannot know the instrument until after the API's have returned
     // TODO: this flow should be redesigned
     const activeInstrument = getActiveInstrument(observatoryList, activeTelescope);
-    console.log(currentTelescopeOnlineStatus);
+
     return (
       <div>
         <TelescopeNavigation
