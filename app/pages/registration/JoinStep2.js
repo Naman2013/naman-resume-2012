@@ -396,6 +396,7 @@ class JoinStep2 extends Component {
       googleProfileId: this.state.googleProfileData.googleProfileId,
       accountFormDetails: this.state.accountFormDetails,
       selectedSchoolId: selectedSchoolId,
+      isAgeRestricted: this.state.isAgeRestricted,
     };
     /* update tool/false values for Astronomy Club */
     if (createPendingCustomerData.accountFormDetails.astronomyClub18AndOver.value === false) {

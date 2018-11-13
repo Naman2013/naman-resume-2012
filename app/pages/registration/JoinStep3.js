@@ -195,13 +195,13 @@ class JoinStep3 extends Component  {
           serviceResponseHandler={this.handleJoinPageServiceResponse}
           render={({
             fetchingContent,
-            serviceResponse: joinPageResponse,
+            serviceResponse: joinPageRes,
           }) => (
             <Fragment>
               {
                 !fetchingContent &&
                   <Fragment>
-                    {joinPageRes.hasSelectedSchool === "yes" ? (                      
+                    {joinPageRes.hasSelectedSchool === "yes" ? (
                       <JoinHeader
                         mainHeading={joinPageRes.pageHeading1}
                         subHeading={joinPageRes.pageHeading2}
@@ -222,23 +222,23 @@ class JoinStep3 extends Component  {
                         screenLarge
                         screenXLarge
                       >
-                        <PlanDetailsCard {...joinPageResponse.selectedSubscriptionPlan} />
+                        <PlanDetailsCard {...joinPageRes.selectedSubscriptionPlan} />
                       </DisplayAtBreakpoint>
-                      <div className="section-heading">{joinPageResponse.sectionHeading}</div>
-                      <Countdown date={Date.now() + joinPageResponse.customerHasXSecondsToCompleteSignup} renderer={this.CountdownRenderer} onComplete={this.CountdownComplete}/>
+                      <div className="section-heading">{joinPageRes.sectionHeading}</div>
+                      <Countdown date={Date.now() + joinPageRes.customerHasXSecondsToCompleteSignup} renderer={this.CountdownRenderer} onComplete={this.CountdownComplete}/>
                       <div className="inner-container">
                         <DisplayAtBreakpoint
                           screenMedium
                           screenLarge
                           screenXLarge
                         >
-                          <iframe frameBorder="0" style={{width: '100%', minHeight: '750px'}} src={joinPageResponse.hostedPaymentFormURL}></iframe>
+                          <iframe frameBorder="0" style={{width: '100%', minHeight: '750px'}} src={joinPageRes.hostedPaymentFormURL}></iframe>
                         </DisplayAtBreakpoint>
 
                         <DisplayAtBreakpoint
                           screenSmall
                         >
-                          <iframe frameBorder="0" style={{width: '100%', minHeight: '850px'}} src={joinPageResponse.hostedPaymentFormURL}></iframe>
+                          <iframe frameBorder="0" style={{width: '100%', minHeight: '850px'}} src={joinPageRes.hostedPaymentFormURL}></iframe>
                         </DisplayAtBreakpoint>
 
 
