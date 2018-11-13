@@ -111,7 +111,7 @@ class Shows extends Component {
               serviceResponse,
             }) => (
               <div className="root">
-                {has(serviceResponse, 'relatedShowsList') ? serviceResponse.relatedShowsList.map(show => (
+                {serviceResponse.relatedShowsCount > 0 && has(serviceResponse, 'relatedShowsList') ? serviceResponse.relatedShowsList.map(show => (
                   <ShowTile
                     header="Upcoming Show"
                     title={show.eventTitle}
@@ -119,7 +119,7 @@ class Shows extends Component {
                     author={show.eventHostName}
                     linkUrl={show.linkUrl}
                   />
-                )) : null}
+                )) : <p>Sorry, there are no shows available for {objectDetails.objectTitle} at this time.</p>}
               </div>
             )}
           />

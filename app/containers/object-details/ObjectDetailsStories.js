@@ -79,14 +79,14 @@ class Stories extends Component {
               serviceResponse,
             }) => (
               <div className="root">
-                {has(serviceResponse, 'relatedStoriesList') ? serviceResponse.relatedStoriesList.map(story => (
+                {serviceResponse.relatedStoriesCount > 0 && has(serviceResponse, 'relatedStoriesList') ? serviceResponse.relatedStoriesList.map(story => (
                   <StoryTile
                     iconURL={story.iconUrl}
                     title={story.title}
                     author={story.author}
                     linkUrl={story.linkURL}
                   />
-                )) : null}
+                )) : <p>Sorry, there are no stories available for {objectDetails.objectTitle} at this time.</p>}
               </div>
             )}
           />
