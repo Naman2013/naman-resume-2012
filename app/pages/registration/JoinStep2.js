@@ -62,6 +62,7 @@ class JoinStep2 extends Component {
     this.state = {
       accountCreationType: 'userpass',
       isAstronomyClub: window.localStorage.getItem('isAstronomyClub') === "true" ? true : false,
+      isAgeRestricted: true,
       isClassroom: window.localStorage.getItem('isClassroom') === "true" ? true : false,
       googleProfileData: {
         googleProfileId: '',
@@ -131,6 +132,28 @@ class JoinStep2 extends Component {
           hintText: '',
           errorText: '',
         },
+        is13YearsAndOlder: {
+          label: '',
+          visible: true,
+          value: null,
+          hintText: '',
+          errorText: '',
+        },
+        not13YearsOldLegalGuardianOk: {
+          label: '',
+          visible: true,
+          value: false,
+          hintText: '',
+          errorText: '',
+        },
+
+        parentEmailAddress: {
+          label: '',
+          visible: true,
+          value: '',
+          hintText: '',
+          errorText: '',
+        }
       },
     }
   }
@@ -148,6 +171,9 @@ class JoinStep2 extends Component {
     newAccountFormData.passwordVerification.label = result.formFieldLabels.passwordverification.label;
     newAccountFormData.astronomyClubName.label = result.formFieldLabels.astronomyClubName.label;
     newAccountFormData.astronomyClub18AndOver.label = result.formFieldLabels.astronomyClub18AndOver.label;
+    newAccountFormData.is13YearsAndOlder.label = result.formFieldLabels.is13YearsAndOlder.label;
+    newAccountFormData.not13YearsOldLegalGuardianOk.label = result.formFieldLabels.not13YearsOldLegalGuardianOk.label;
+    newAccountFormData.parentEmailAddress.label = result.formFieldLabels.parentEmailAddress.label;
 
     newAccountFormData.givenName.hintText = result.formFieldLabels.firstname.hintText;
     newAccountFormData.familyName.hintText = result.formFieldLabels.lastname.hintText;
@@ -158,10 +184,14 @@ class JoinStep2 extends Component {
     newAccountFormData.passwordVerification.hintText = result.formFieldLabels.passwordverification.hintText;
     newAccountFormData.astronomyClubName.hintText = result.formFieldLabels.astronomyClubName.hintText;
     newAccountFormData.astronomyClub18AndOver.hintText = result.formFieldLabels.astronomyClub18AndOver.hintText;
+    newAccountFormData.is13YearsAndOlder.hintText = result.formFieldLabels.is13YearsAndOlder.hintText;
+    newAccountFormData.not13YearsOldLegalGuardianOk.hintText = result.formFieldLabels.not13YearsOldLegalGuardianOk.hintText;
+    newAccountFormData.parentEmailAddress.hintText = result.formFieldLabels.parentEmailAddress.hintText;
 
     /* update the account form details state so the correct hinText will show on each form field */
     this.setState(() => ({
       accountFormDetails: newAccountFormData,
+      isAgeRestricted: result.selectedSubscriptionPlan.isAgeRestricted,
     }));
   }
 
@@ -198,6 +228,9 @@ class JoinStep2 extends Component {
     accountFormDetailsData.password.errorText = '';
     accountFormDetailsData.passwordVerification.errorText = '';
     accountFormDetailsData.astronomyClubName.errorText = '';
+    accountFormDetailsData.is13YearsAndOlder.errorText = '';
+    accountFormDetailsData.not13YearsOldLegalGuardianOk.errorText = '';
+    accountFormDetailsData.parentEmailAddress.errorText = '';
 
     if (accountCreationType === 'userpass') {
         /* Verify that the user has provided:
@@ -253,6 +286,27 @@ class JoinStep2 extends Component {
       if (accountFormDetailsData.astronomyClubName.value === '') {
         accountFormDetailsData.astronomyClubName.errorText = 'Please enter in a name for your Astronomy Club.';
         formIsComplete = false;
+      }
+    }
+
+    if (this.state.isAgeRestricted === true) {
+      /* Make sure that the 13/Older indicator is selected with a value */
+      if (accountFormDetailsData.is13YearsAndOlder.value === null) {
+        accountFormDetailsData.is13YearsAndOlder.errorText = 'You must certify whether you are 13 years and older.';
+        formIsComplete = false;
+      }
+      else if (accountFormDetailsData.is13YearsAndOlder.value === false) {
+        //make sure the user has certified that they have their Legal Guardian's permission to sign up.
+        if (accountFormDetailsData.not13YearsOldLegalGuardianOk.value === false) {
+          accountFormDetailsData.not13YearsOldLegalGuardianOk.errorText = 'You have indicated you are under 13 years old, please certify that your Legal Guardian has signed you up for this service.';
+          formIsComplete = false;
+        }
+
+        //make sure the parent email address field is filled in.
+        if (accountFormDetailsData.parentEmailAddress.value === '') {
+          accountFormDetailsData.parentEmailAddress.errorText = 'You have indicated you are under 13 years old, please enter in your Legal Guardian\'s Email Address.';
+          formIsComplete = false;
+        }
       }
     }
 
@@ -342,6 +396,7 @@ class JoinStep2 extends Component {
       googleProfileId: this.state.googleProfileData.googleProfileId,
       accountFormDetails: this.state.accountFormDetails,
       selectedSchoolId: selectedSchoolId,
+      isAgeRestricted: this.state.isAgeRestricted,
     };
     /* update tool/false values for Astronomy Club */
     if (createPendingCustomerData.accountFormDetails.astronomyClub18AndOver.value === false) {
@@ -476,7 +531,7 @@ class JoinStep2 extends Component {
               {
                 !fetchingContent && selectedPlanId &&
                   <Fragment>
-                    {joinPageRes.hasSelectedSchool === "yes" ? (                      
+                    {joinPageRes.hasSelectedSchool === "yes" ? (
                       <JoinHeader
                         mainHeading={joinPageRes.pageHeading1}
                         subHeading={joinPageRes.pageHeading2}
@@ -578,6 +633,51 @@ class JoinStep2 extends Component {
                               </div>
                             </div>
                         ) : null}
+
+                        {this.state.isAgeRestricted && <div className="form-section">
+                            <div>
+                              <span className="form-label" dangerouslySetInnerHTML={{ __html: accountFormDetails.is13YearsAndOlder.label }} />:
+                              <span className="form-error" dangerouslySetInnerHTML={{ __html: accountFormDetails.is13YearsAndOlder.errorText }} />
+                              <br/>
+                              <br/>
+                              <fieldset>
+                                <label><Field name="13andOlder" label="Yes" component="input" type="radio" value="13andolder"  onClick={(event) => { this.handleFieldChange({ field: 'is13YearsAndOlder', value: true }); }}/> Yes</label>
+                                <span style={{"paddingLeft": "15px"}}><label><Field name="13andOlder" label="No" component="input" type="radio" value="under13" onClick={(event) => { this.handleFieldChange({ field: 'is13YearsAndOlder', value: false }); }}/> No</label></span>
+                              </fieldset>
+                            </div>
+                            <br/>
+                            {accountFormDetails.is13YearsAndOlder.value === false && <div>
+                              <div className="form-field-container">
+                                <span className="form-label" dangerouslySetInnerHTML={{ __html: accountFormDetails.not13YearsOldLegalGuardianOk.label }} />:
+                                <span className="form-error" dangerouslySetInnerHTML={{ __html: accountFormDetails.not13YearsOldLegalGuardianOk.errorText }} />
+                              </div>
+                              <Field
+                                name="not13YearsOldLegalGuardianOk"
+                                type="checkbox"
+                                className="form-field"
+                                label={accountFormDetails.not13YearsOldLegalGuardianOk.hintText}
+                                component="input"
+                                value={accountFormDetails.not13YearsOldLegalGuardianOk.value}
+                                onClick={(event) => { this.handleFieldChange({ field: 'not13YearsOldLegalGuardianOk', value: !accountFormDetails.not13YearsOldLegalGuardianOk.value }); }}
+                              />
+                              <br/>
+                              <br/>
+                              <span className="form-label" dangerouslySetInnerHTML={{ __html: accountFormDetails.parentEmailAddress.label }} />:
+                              <span className="form-error" dangerouslySetInnerHTML={{ __html: accountFormDetails.parentEmailAddress.errorText }} />
+                              <Field
+                                name="parentEmailAddress"
+                                type="name"
+                                className="form-field"
+                                label={accountFormDetails.parentEmailAddress.hintText}
+                                component={InputField}
+                                onChange={(event) => { this.handleFieldChange({ field: 'parentEmailAddress', value: event.target.value }); }}
+                                value={accountFormDetails.parentEmailAddress.value}
+                              />
+                              <br/>
+                            </div>
+                            }
+                          </div>
+                          }
                           <div className="form-section split">
                             <div className="form-field-container form-field-half">
                               <span className="form-label" dangerouslySetInnerHTML={{ __html: accountFormDetails.givenName.label }} />:

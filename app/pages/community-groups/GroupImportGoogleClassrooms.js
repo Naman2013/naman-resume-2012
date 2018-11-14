@@ -168,21 +168,6 @@ class GroupImportGoogleClassrooms extends Component {
     });
   }
 
-  handleImportGoogleClassroomServiceResponse = (result) => {
-    console.log(result);
-    const googleClassroomsData = cloneDeep(this.state.googleClassrooms);
-    //newAccountFormData.givenName.label = result.formFieldLabels.firstname.label;
-
-    /* update the account form details state so the correct hinText will show on each form field */
-    //this.setState(() => ({
-    //  accountFormDetails: newAccountFormData,
-    //}));
-  }
-
-  handleDescriptionFieldChange = ({ googleClassroomId, googleClassroomDescription }) => {
-
-  }
-
   /* This function handles a field change in the form and sets the state accordingly */
   handleFieldChange = ({ googleClassroomName, googleClassroomId, selectedFlag }) => {
     const googleClassroomsData = cloneDeep(this.state.googleClassrooms);
@@ -301,7 +286,6 @@ class GroupImportGoogleClassrooms extends Component {
                           {!fetchingContent && <div>
                             <Request
                               serviceURL={GOOGLE_CLASSROOM_IMPORT_PAGE_ENDPOINT_URL}
-                              serviceResponseHandler={this.handleImportGoogleClassroomServiceResponse}
                               requestBody={{
                                     cid: user.cid,
                                     at: user.at,
