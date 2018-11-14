@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import noop from 'lodash/noop';
 
 import Telescope from 'components/Telescope';
+import { StarShareCamera } from 'components/telescope-details/star-share-camera';
 
 class TelescopeImageViewerController extends Component {
   static propTypes = {
@@ -24,11 +25,14 @@ class TelescopeImageViewerController extends Component {
 
   render() {
     return (
-      <Telescope
-        activeInstrumentID={this.props.activeInstrumentID}
-        previousInstrumentID={this.previousInstrumentID}
-        render={this.props.render}
-      />
+      <div>
+        <Telescope
+          activeInstrumentID={this.props.activeInstrumentID}
+          previousInstrumentID={this.previousInstrumentID}
+          render={this.props.render}
+        />
+        <StarShareCamera />
+      </div>
     );
   }
 }
