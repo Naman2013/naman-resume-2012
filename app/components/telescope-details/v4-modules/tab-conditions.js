@@ -11,10 +11,17 @@ import {
   WeeklyForecast,
 } from './';
 import { ModuleContainer } from './module-container';
+import ObservatoryBot from 'components/telescope-details/ObservatoryBot/ObservatoryBot';
 import style from './tab-live.style';
 
 const TabConditions = () => (
   <div>
+    <div className="tile-container">
+      <ObservatoryBot
+        viewGroup={"conditions"}
+        teleSystem={"teide1highmag"}
+      />
+    </div>
     <div className="tile-container">
       <AllSkyCamera />
     </div>
