@@ -361,6 +361,7 @@ class GroupCreate extends Component {
                                           </div>
                                         </div>
                                         <CenterColumn widths={['620px']}>
+                                          <div className="wrapper">
                                           <div className="section-heading">{createNewGroupRes.sectionHeading}</div>
                                           <form className="form" onSubmit={this.handleSubmit}>
                                             <div className="form-section">
@@ -401,6 +402,7 @@ class GroupCreate extends Component {
                                               </button>
                                             </div>
                                           </form>
+                                          </div>
                                         </CenterColumn>
                                       </Fragment>
                                     }
