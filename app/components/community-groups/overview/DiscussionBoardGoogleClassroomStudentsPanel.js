@@ -53,7 +53,7 @@ class DiscussionBoardGoogleClassroomStudentsPanel extends Component {
   addStudentToDiscussionGroup = (firstName, lastName, emailAddress, googleProfileId) => {
     //console.log(firstName + " : " + lastName + " : " + emailAddress + " : " + googleProfileId);
 
-    const { user } = this.props;
+    const { user , discussionGroupId } = this.props;
 
     const studentAccountDetails = {
       googleProfileId: googleProfileId,
@@ -73,6 +73,7 @@ class DiscussionBoardGoogleClassroomStudentsPanel extends Component {
       at: user.at,
       token: user.token,
       studentAccountDetails: studentAccountDetails,
+      groupId: discussionGroupId,
     })
       .then((response) => {
         const res = response.data;
