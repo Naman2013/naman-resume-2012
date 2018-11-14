@@ -145,7 +145,6 @@ class DiscussionBoardInvitationsPanel extends Component {
                       <h2>{serviceResponse.customerLinksData.sectionHeading}</h2>
                       <h3>{serviceResponse.customerLinksData.sectionHeading_LicenseInfo}</h3>
                       <br/>
-                      <br/>
                       <p style={{"color": "red", "fontSize": "1.3em"}}>{this.state.inviteStatusMessage}<br/><br/></p>
                       {serviceResponse.customerLinksData.customerLinks.length > 0 ? (<table style={{'border': '1px', 'width': '100%'}}>
                         <tbody>
@@ -154,8 +153,11 @@ class DiscussionBoardInvitationsPanel extends Component {
                               <th key={`heading_` + i}>{columnHeading}</th>
                           )}
                           </tr>
-
                           {serviceResponse.customerLinksData.customerLinks.map((customerLink, i) =>
+                              [
+                              <tr>
+                                <td colspan={serviceResponse.customerLinksData.columnHeadings.length}>&nbsp;</td>
+                              </tr>,
                               <tr key={`data_` + i}>
                                 <td key={`data_name_` + i}>{customerLink.name}</td>
                                 <td key={`data_emailaddress_` + i}>{customerLink.emailaddress}</td>
@@ -168,6 +170,7 @@ class DiscussionBoardInvitationsPanel extends Component {
                                 {customerLink.alreadyAMemberOfThisGroup === true && customerLink.canBeInvitedToThisGroup === false && <td key={`data_clubstatus_` + i}>Active</td>}
                                 {customerLink.alreadyAMemberOfThisGroup === false && customerLink.canBeInvitedToThisGroup === false && <td key={`data_clubstatus_` + i}>Pending</td>}
                               </tr>
+                            ]
                           )}
                         </tbody>
                       </table>) : <p>There are no invitations</p>}

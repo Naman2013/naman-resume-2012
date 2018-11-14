@@ -11,8 +11,10 @@ export const CLASSROOM_GET_GROUP_INVITATION_PANEL_ENDPOINT_URL = '/api/classroom
 /* Google Classroom Integrations
   - Get Classroom List
   - List Students for a Google Classroom
+  - Assign/Create Google Classroom Students
 */
 export const GOOGLE_CLASSROOM_IMPORT_PAGE_ENDPOINT_URL = '/api/page/importGoogleClassrooms';
 export const GOOGLE_CLASSROOM_GET_CLASSROOM_LIST_ENDPOINT_URL = '/api/classroom/google/getClassroomList';
 export const GOOGLE_CLASSROOM_IMPORT_CLASSROOMS_ENDPOINT_URL = '/api/classroom/google/importGoogleClassrooms';
 export const GOOGLE_CLASSROOM_IMPORTSTUDENTS_PANEL_ENDPOINT_URL = '/api/classroom/google/importGoogleClassroomStudentsPanel';
+export const GOOGLE_CLASSROOM_IMPORTSTUDENT_ENDPOINT_URL = '/api/classroom/google/importGoogleClassroomStudent';
