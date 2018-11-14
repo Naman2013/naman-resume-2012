@@ -8,6 +8,7 @@ import { ColumnTabs } from 'components/common/Tabs';
 import telescopeConfig from 'components/Telescope/telescopeConfig';
 import TelescopeImageViewerController from 'components/telescope-details/TelescopeImageViewerController';
 import LiveFeed from 'components/telescope-details/live-feed-v3';
+import { DeviceContext } from 'providers/DeviceProvider';
 
 import {
   buildNavigationOptions,
@@ -41,6 +42,38 @@ import {
 } from 'modules/object-details/actions';
 
 import style from './v4-telescope-details.style';
+
+function provideLiveFeed({
+  viewportHeight,
+  fetchingOnlineStatus,
+  obsAlert,
+  onlineStatus,
+  instrument,
+  offlineImageSource,
+  activeMission,
+  timestamp,
+  missionStart,
+  missionEnd,
+  activeNeoview,
+  handleInfoClick
+}) {
+  return (
+    <LiveFeed
+      viewportHeight={viewportHeight}
+      fetchingOnlineStatus={fetchingOnlineStatus}
+      obsAlert={obsAlert}
+      onlineStatus={onlineStatus}
+      instrument={instrument}
+      offlineImageSource={offlineImageSource}
+      activeMission={activeMission}
+      timestamp={timestamp}
+      missionStart={missionStart}
+      missionEnd={missionEnd}
+      activeNeoview={activeNeoview}
+      handleInfoClick={handleInfoClick}
+    />
+  );
+}
 
 class TelescopeDetails extends Component {
   static propTypes = {
@@ -181,25 +214,30 @@ class TelescopeDetails extends Component {
         <div className="details-root">
           <DisplayAtBreakpoint screenLarge screenXLarge>
             <div className="viewer">
-              <TelescopeImageViewerController
-                activeInstrumentID={activeInstrument.instrUniqueId}
-                render={({ viewportHeight }) => (
-                  <LiveFeed
-                    viewportHeight={viewportHeight}
-                    fetchingOnlineStatus={fetchingObservatoryStatus}
-                    obsAlert={currentObservatory.obsAlert}
-                    onlineStatus={currentTelescopeOnlineStatus.onlineStatus}
-                    instrument={activeInstrument}
-                    offlineImageSource={activeInstrument.instrOfflineImgURL}
-                    activeMission={activeTelescopeMission.maskDataArray}
-                    timestamp={activeTelescopeMission.timestamp}
-                    missionStart={activeTelescopeMission.missionStart}
-                    missionEnd={activeTelescopeMission.expires}
-                    activeNeoview={activeInstrument.instrHasNeoView}
-                    handleInfoClick={this.toggleNeoview}
-                  />
-                )}
-              />
+              <DeviceContext.Consumer>
+                {context => ((context.isScreenLarge || context.isScreenXLarge)
+                  ?
+                    <TelescopeImageViewerController
+                      activeInstrumentID={activeInstrument.instrUniqueId}
+                      render={({ viewportHeight }) => provideLiveFeed({
+                        viewportHeight,
+                        fetchingOnlineStatus: fetchingObservatoryStatus,
+                        obsAlert: currentObservatory.obsAlert,
+                        onlineStatus: currentTelescopeOnlineStatus.onlineStatus,
+                        instrument: activeInstrument,
+                        offlineImageSource: activeInstrument.instrOfflineImgURL,
+                        activeMission: activeTelescopeMission.maskDataArray,
+                        timestamp: activeTelescopeMission.timestamp,
+                        missionStart: activeTelescopeMission.missionStart,
+                        missionEnd: activeTelescopeMission.expires,
+                        activeNeoview: activeInstrument.instrHasNeoView,
+                        handleInfoClick: this.toggleNeoview,
+                      })}
+                    />
+                  : null)
+                }
+
+              </DeviceContext.Consumer>
             </div>
           </DisplayAtBreakpoint>
 
@@ -213,22 +251,20 @@ class TelescopeDetails extends Component {
                       renderTelescopeViewer={() => (
                         <TelescopeImageViewerController
                           activeInstrumentID={activeInstrument.instrUniqueId}
-                          render={({ viewportHeight }) => (
-                            <LiveFeed
-                              viewportHeight={viewportHeight}
-                              fetchingOnlineStatus={fetchingObservatoryStatus}
-                              obsAlert={currentObservatory.obsAlert}
-                              onlineStatus={currentTelescopeOnlineStatus.onlineStatus}
-                              instrument={activeInstrument}
-                              offlineImageSource={activeInstrument.instrOfflineImgURL}
-                              activeMission={activeTelescopeMission.maskDataArray}
-                              timestamp={activeTelescopeMission.timestamp}
-                              missionStart={activeTelescopeMission.missionStart}
-                              missionEnd={activeTelescopeMission.expires}
-                              activeNeoview={activeInstrument.instrHasNeoView}
-                              handleInfoClick={this.toggleNeoview}
-                            />
-                          )}
+                          render={({ viewportHeight }) => provideLiveFeed({
+                            viewportHeight,
+                            fetchingOnlineStatus: fetchingObservatoryStatus,
+                            obsAlert: currentObservatory.obsAlert,
+                            onlineStatus: currentTelescopeOnlineStatus.onlineStatus,
+                            instrument: activeInstrument,
+                            offlineImageSource: activeInstrument.instrOfflineImgURL,
+                            activeMission: activeTelescopeMission.maskDataArray,
+                            timestamp: activeTelescopeMission.timestamp,
+                            missionStart: activeTelescopeMission.missionStart,
+                            missionEnd: activeTelescopeMission.expires,
+                            activeNeoview: activeInstrument.instrHasNeoView,
+                            handleInfoClick: this.toggleNeoview,
+                          })}
                         />
                       )}
                     />),
