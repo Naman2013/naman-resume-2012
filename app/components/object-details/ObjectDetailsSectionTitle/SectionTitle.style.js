@@ -12,7 +12,7 @@ export default css`
     font-family: ${secondaryFont};
     transition: height 0.4s ease-in-out, font-size 0.4s ease-in-out;
     width: 100%;
-    height: 130px;
+    min-height: 130px;
     padding-top: 60px;
     font-size: 16px;
     color: ${astronaut};
@@ -38,7 +38,7 @@ export default css`
       box-shadow: 0px 15px 30px 2px rgba(237,240,242,1);
       margin-bottom: 40px;
     }
-    
+
     h1 {
       font-size: 30px;
       margin: 15px;
