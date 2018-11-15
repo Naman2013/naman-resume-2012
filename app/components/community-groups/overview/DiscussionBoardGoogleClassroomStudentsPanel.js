@@ -6,17 +6,23 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import Request from 'components/common/network/Request';
 import axios from 'axios';
+import FormSectionHeader from 'components/common/form-sections/section-header';
+import Request from 'components/common/network/Request';
+import BarHeader from 'components/common/form-sections/bar-header';
 import Button from 'components/common/style/buttons/Button';
+import { faintShadow } from 'styles/variables/shadows';
+
 import {
   GOOGLE_CLASSROOM_IMPORTSTUDENTS_PANEL_ENDPOINT_URL,
   GOOGLE_CLASSROOM_IMPORTSTUDENT_ENDPOINT_URL
 } from 'services/classroom/classroom';
 
 import {
+  romance,
   astronaut,
 } from '../../../styles/variables/colors_tiles_v4';
+import { primaryFont, secondaryFont } from 'styles/variables/fonts';
 import { screenLarge } from 'styles/variables/breakpoints';
 
 const {
@@ -140,22 +146,20 @@ class DiscussionBoardGoogleClassroomStudentsPanel extends Component {
                 }
                 {
                   !fetchingContent &&
-                    <div>
-                      <br/>
-                      <h3>{serviceResponse.customerLinksData.sectionHeading1}</h3>
-                      <br/>
-                      <h3>{serviceResponse.customerLinksData.sectionHeading2}</h3>
-                      <br/>
-                      <h4>{serviceResponse.customerLinksData.sectionHeading_LicenseInfo}</h4>
-                      <br/>
+                    <div className="classroom-root">
+                      <FormSectionHeader
+                        title={serviceResponse.customerLinksData.sectionHeading1}
+                        desc={serviceResponse.customerLinksData.sectionHeading2}
+                      />
+                      <BarHeader title={serviceResponse.customerLinksData.sectionHeading_LicenseInfo} />
                       {this.state.importStudentErrorText !== "" && <p style={{"color": "red", "fontSize": "1.0em", "fontStyle": "italic"}}>{this.state.importStudentErrorText}<br/><br/></p>}
                       {serviceResponse.customerLinksData.customerLinks.length > 0 ? (<div>
                         <br/>
-                        <table style={{'cellPadding': '2', 'border': '1px', 'width': '100%', "borderCollapse": "collapse"}}>
+                        <table className="classroom-table" style={{'cellPadding': '2', 'border': '1px', 'width': '100%', "borderCollapse": "collapse"}}>
                           <tbody>
                             <tr>
                             {serviceResponse.customerLinksData.columnHeadings.map((columnHeading, i) =>
-                                <th key={`heading_` + i}>{columnHeading}</th>
+                                <th className="table-header" key={`heading_` + i}>{columnHeading}</th>
                             )}
                             </tr>
                             {serviceResponse.customerLinksData.customerLinks.map((customerLink, i) =>
@@ -207,6 +211,28 @@ class DiscussionBoardGoogleClassroomStudentsPanel extends Component {
         .submit-button {
 
         }
+
+        .classroom-root {
+          padding: 50px;
+          margin: 25px 0;
+          background-color:${romance};
+          ${faintShadow}
+        }
+
+        .classroom-table {
+          font-family: ${secondaryFont};
+          color: ${astronaut};
+        }
+
+        .table-header {
+          font-family: ${primaryFont};
+          font-weight: bold;
+          text-transform: uppercase;
+          color: ${astronaut};
+          font-size: 10px;
+        }
+
+
 
       `}</style>
     </div>
