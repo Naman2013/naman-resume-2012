@@ -7,8 +7,8 @@ const TabTelescope = () => (
   <div>
     <div className="module-container">
       <ObservatoryBot
-        viewGroup={"scope"}
-        teleSystem={"teide1highmag"}
+        viewGroup="scope"
+        teleSystem="teide1highmag"
       />
     </div>
     <div className="module-container">

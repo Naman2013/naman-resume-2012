@@ -18,8 +18,8 @@ const TabConditions = () => (
   <div>
     <div className="tile-container">
       <ObservatoryBot
-        viewGroup={"conditions"}
-        teleSystem={"teide1highmag"}
+        viewGroup="conditions"
+        teleSystem="teide1highmag"
       />
     </div>
     <div className="tile-container">
