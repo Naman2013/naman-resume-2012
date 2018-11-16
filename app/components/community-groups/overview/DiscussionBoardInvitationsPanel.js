@@ -144,7 +144,7 @@ class DiscussionBoardInvitationsPanel extends Component {
                     <div className="customer-links">
                       <br/>
                       <h2>{serviceResponse.customerLinksData.sectionHeading}</h2>
-                      <h3>{serviceResponse.customerLinksData.sectionHeading_LicenseInfo}</h3>
+                      <p>{serviceResponse.customerLinksData.sectionHeading_LicenseInfo}</p>
                       <br/>
                       <br/>
                       <p style={{"color": "red", "fontSize": "1.3em"}}>{this.state.inviteStatusMessage}</p>
@@ -175,26 +175,24 @@ class DiscussionBoardInvitationsPanel extends Component {
                         <DiscussionBoardInviteNewMemberToSlooh {...this.props} newInvitationComplete={(invitationCode, firstName, lastName, emailAddress, statusMessage) => this.newInvitationComplete(invitationCode, firstName, lastName, emailAddress, statusMessage)}/>
                       </div>
                       }
-                      <div className="button-actions">
-                        {inInviteMode === true && <div>
-                          <Button
-                            type="button"
-                            text="Cancel"
-                            onClickEvent={this.toggleInviteMode} />
-                            <br/>
-                          </div>
-                        }
-                        {inInviteMode === false && <div>
-                          <Button
-                            className="submit-button"
-                            type="button"
-                            onClickEvent={this.toggleInviteMode}
-                            text={serviceResponse.formsubmitbutton.buttonText}/>
-                            <br/>
-                          </div>
-                        }
-                      </div>
-                      <br/>
+                      
+                      {inInviteMode === true && <div className="button-cancel">
+                        <Button
+                          type="button"
+                          text="Cancel"
+                          onClickEvent={this.toggleInviteMode} />
+                          <br/>
+                        </div>
+                      }
+                      {inInviteMode === false && <div className="button-invite">
+                        <Button
+                          className="submit-button"
+                          type="button"
+                          onClickEvent={this.toggleInviteMode}
+                          text={serviceResponse.formsubmitbutton.buttonText}/>
+                          <br/>
+                        </div>
+                      }
                     </div>
                     }
                   </Fragment>

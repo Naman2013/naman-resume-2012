@@ -1,9 +1,9 @@
 import css from 'styled-jsx/css';
 import { screenLarge, screenMedium } from 'styles/variables/breakpoints';
+import { moodyBleu, shadows } from 'styles/variables/colors_tiles_v4';
+import { secondaryFont } from 'styles/variables/fonts';
 
 export default css`  
-  .root {
-  }
 
   .discuss-container {
     margin-top: 15px;
@@ -12,31 +12,40 @@ export default css`
   .button-actions {
     display: flex;
     flex-direction: row;
+    justify-content: flex-end;
+  }
+
+  .button-cancel {
+    margin-top: -59px;
+    justify-content: flex-start;
+  }
+
+  .button-invite {
+    display: flex;
+    flex-direction: row;
     justify-content: center;
   }
-
-  .submit-button {
-
-  }
-
   .customer-links {
-    padding: 0 40px;
+    padding: 40px;
+    padding-top: 0;
     background-color: #ffffff;
     box-shadow: 0 2px 4px 1px #ced2d8;
   }
 
   .customer-links h2 {
-    font-size: 24px;
+    font-size: 20px;
+    font-family: ${secondaryFont};
   }
 
-  .customer-links h3 {
-    font-size: 16px;
+  .customer-links p {
+    font-family: ${secondaryFont};
+    color: ${moodyBleu};
   }
   
   .Rtable {
     display: block;
     font-size: 13px;
-    border: 1px solid #ccc;
+    border: 1px solid ${shadows};
     margin-bottom: 15px;
     padding: 5px;
   }
@@ -50,6 +59,12 @@ export default css`
     list-style: none;
   }  
 
+  .Rtable .lastCell {
+    border-top: 1px solid ${shadows};
+    margin-top: 20px;
+    padding: 20px;
+  }
+  
   .Rtable-cell .but {
     float: right;
   }
@@ -69,6 +84,8 @@ export default css`
 
     .header {
       display: flex;
+      border-bottom: 1px solid ${shadows};
+      margin-bottom: 40px;
     }
 
     .Rtable-cell {
@@ -77,6 +94,12 @@ export default css`
 
     .Rtable-cell .but {
       float: right;
+    }
+
+    .Rtable .lastCell {
+      border-top: none;
+      margin-top: 0;
+      padding: 0;
     }
 
     .Rtable--2cols > .Rtable-cell  { width: 50%;    }

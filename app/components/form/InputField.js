@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { astronaut, lynch, seashell, shadows, gainsboro } from 'styles/variables/colors_tiles_v4';
-import { primaryFont } from 'styles/variables/fonts';
+import { secondaryFont } from 'styles/variables/fonts';
 const { shape, string } = PropTypes;
 
 const renderField = ({
@@ -32,7 +32,7 @@ const renderField = ({
         width: 100%;
         padding: 10px;
         font-size: 14px;
-        font-family: Arial, sans-serif;
+        font-family: ${secondaryFont};
         font-weight: normal;
         line-height: 1.5;
         color: ${astronaut};

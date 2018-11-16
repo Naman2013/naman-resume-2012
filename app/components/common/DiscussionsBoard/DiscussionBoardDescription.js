@@ -168,6 +168,10 @@ class DiscussionBoardDescription extends Component {
 
           @media ${screenLarge} {
             justify-content: flex-end;
+
+            .button-actions {
+              padding-top: 30px;
+            }
           }
 
 
