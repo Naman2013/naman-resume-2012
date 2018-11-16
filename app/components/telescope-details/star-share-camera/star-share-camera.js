@@ -125,7 +125,6 @@ class StarShareCamera extends Component {
       snapshotList,
       snapshotMsg,
       snapAPIError,
-      imagesLastSnapped,
       justSnapped,
     } = this.props;
 

@@ -33,6 +33,8 @@ class TelescopeImageViewerController extends Component {
   previousInstrumentID = null;
 
   render() {
+    const { snapImage } = this.props;
+
     return (
       <div>
         <Telescope
@@ -40,7 +42,9 @@ class TelescopeImageViewerController extends Component {
           previousInstrumentID={this.previousInstrumentID}
           render={this.props.render}
         />
-        <StarShareCamera />
+        <StarShareCamera
+          snapImage={snapImage}
+        />
       </div>
     );
   }
