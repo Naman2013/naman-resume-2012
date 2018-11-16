@@ -16,8 +16,10 @@ import { fetchObjectDetailsAction } from '../../modules/object-details/actions';
 import DeviceProvider from '../../../app/providers/DeviceProvider';
 import ObjectDetailsSectionTitle from '../../components/object-details/ObjectDetailsSectionTitle';
 import CenterColumn from '../../../app/components/common/CenterColumn';
+import PaginateWithNetwork from 'components/common/paginate-with-network';
 import CardObservations from '../../../app/components/common/CardObservations';
 import { SHARED_MEMBER_PHOTOS } from 'services/shared-photos';
+import { IMAGE_DETAILS } from 'services/image-details';
 
 import styles from './ObjectDetailsObservations.style';
 const mapStateToProps = ({ objectDetails, appConfig, user }) => ({
@@ -42,6 +44,7 @@ class Observations extends Component {
 
   state = {
     selectedIndex: 0,
+    page: 1,
   };
 
   get dropdownOptions() {
@@ -60,26 +63,28 @@ class Observations extends Component {
     }));
   }
 
-  render() {
-    const descriptionContent = 'Nam dapibus nisl vitae elit fringilla rutrum. Aenean lene lorem sollicitudin, erat a elementum toirutrum neeque sem pretium metuis, quis mollis nisl nunc it tristique de ullam ecorpere pretium…';
-    const tempProps = {
-      title: 'The Moon!',
-      author: 'JESSICA ANDERSON',
-      descContent: descriptionContent,
-      imageSrcUrl: 'https://vega.slooh.com/assets/v4/placeholder/moon_sample.jpg',
-      likesCount: '1000',
-      commentsCount: '007',
-      detailsLinkUrl: 'https://www.slooh.com/',
-      capturedDate: 'Jan 22, 2018',
-    };
+  handlePaginationResponse = (resp) => {
+  }
 
+  handlePaginationChange = ({ activePage }) => {
+    this.setState((state) => {
+      // TODO: preserve page in query params
+      // const query = Object.assign({}, state, { page: activePage });
+      // this.setQueryParams(pick(query, QUERY_TYPES));
+      return ({
+        page: activePage,
+      });
+    });
+  }
+
+  render() {
     const {
       params: {
         objectId,
       },
       objectDetails,
     } = this.props;
-    const { selectedIndex } = this.state;
+    const { selectedIndex, page } = this.state;
 
     return (
       <Fragment>
@@ -103,6 +108,9 @@ class Observations extends Component {
               serviceExpiresFieldName="expires"
               requestBody={{
                 objectId,
+                pagingMode: 'content',
+                count: 9,
+                page,
                 v4Filter: this.selectedFilter,
               }}
               render={({
@@ -111,16 +119,50 @@ class Observations extends Component {
               }) => (
                 <div className="root">
                   {serviceResponse.imageCount > 0 && has(serviceResponse, 'imageList') ? serviceResponse.imageList.map(image => (
-                    <CardObservations
-                      title={''}
-                      subTitle={''}
-                      description={''}
-                      imageUrl={''}
-                      hasLink={''}
-                      linkLabel={''}
-                      linkUrl={''}
+                    <Request
+                      authorizationRedirect
+                      serviceURL={IMAGE_DETAILS}
+                      method="POST"
+                      serviceExpiresFieldName="expires"
+                      requestBody={{
+                        customerImageId: image.customerImageId,
+                        useShareToken: 'n',
+                        callSource: 'sharedPictures',
+                      }}
+                      render={({
+                        fetchingContent,
+                        serviceResponse: imageDetails,
+                      }) => {
+                        const photoBy = imageDetails.linkableFileData ? `${imageDetails.linkableFileData['Photo by'].label} ${imageDetails.linkableFileData['Photo by'].text}` : 'Photo by'
+                        return (
+                          <CardObservations
+                            title={imageDetails.imageTitle}
+                            subTitle={photoBy}
+                            description={imageDetails.observationLog}
+                            imageUrl={imageDetails.imageURL}
+                            hasLink={''}
+                            linkLabel={''}
+                            linkUrl={imageDetails.linkUrl}
+                          />
+                        )
+                      }}
                     />
                   )) : <p>Sorry, there are no images available for {objectDetails.objectTitle} at this time.</p>}
+                  {serviceResponse.imageCount > 0 ? (
+                    <PaginateWithNetwork
+                      apiURL={SHARED_MEMBER_PHOTOS}
+                      activePageNumber={Number(page)}
+                      onServiceResponse={this.handlePaginationResponse}
+                      onPaginationChange={this.handlePaginationChange}
+                      filterOptions={{
+                        objectId,
+                        pagingMode: 'content',
+                        count: 9,
+                        page,
+                        v4Filter: this.selectedFilter,
+                      }}
+                    />
+                  ) : null}
                 </div>
               )}
             />
