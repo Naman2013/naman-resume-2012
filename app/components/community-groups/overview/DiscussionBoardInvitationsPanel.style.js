@@ -84,7 +84,7 @@ export default css`
     .Rtable--4cols > .Rtable-cell  { width: 25%;    }
     .Rtable--5cols > .Rtable-cell  { width: 20%;    }
     .Rtable--6cols > .Rtable-cell  { width: 15%;    }    
-    .Rtable--6cols:last-child .Rtable-cell { width: 25%; text-align: right; }
-
+    
+    .Rtable--6cols .Rtable-cell:last-child { width: 25%; text-align: right; }
   }
 `;
