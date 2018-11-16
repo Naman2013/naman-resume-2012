@@ -27,7 +27,7 @@ import {
   JOIN_CREATE_INVITED_CUSTOMER_ENDPOINT_URL,
   GOOGLE_CLIENT_ID_ENDPOINT_URL,
   GOOGLE_SSO_SIGNIN_ENDPOINT_URL,
-  VERIFY_PASSWORD_MEETS_REQUIREMENTS_ENDPOINT_URL
+  VALIDATE_NEW_PENDING_CUSTOMER_DETAILS_ENDPOINT_URL
 } from 'services/registration/registration.js';
 import styles from '../JoinStep2.style';
 
@@ -271,48 +271,57 @@ class JoinByInviteAccountSignup extends Component {
     }
 
     if (formIsComplete === true) {
-    /* The form is complete and valid, submit the customer request if the Password Enters meets the Slooh Requirements */
+      /* The form is complete and valid, submit the customer request if the Password Enters meets the Slooh Requirements */
 
-      /* Last Validation....password validation, not required for Google Accounts as their is no password */
-      if (accountCreationType === 'userpass') {
-      /* reach out to the Slooh API and verify the user's password */
+      /* Last Validation....password and email address validation */
+      /* reach out to the Slooh API and verify the user's password and email address is not already taken, etc */
 
-        const passwordMeetsRequirementsResult = axios.post(VERIFY_PASSWORD_MEETS_REQUIREMENTS_ENDPOINT_URL, {
-          userEnteredPassword: this.state.accountFormDetails.password.value
-        })
-          .then((response) => {
-            const res = response.data;
-            if (res.apiError == false) {
-              const passwordResult = {
-                passwordAcceptable: res.passwordAcceptable,
-                passwordNotAcceptedMessage: res.passwordNotAcceptedMessage,
-              }
-
-              /* need to force evaulation of "true"/"false" vs. true/false. */
-              if (passwordResult.passwordAcceptable === "true") {
-                formIsComplete = true;
-
-                /* create the customer record */
-                this.createCustomerRecordAndNextScreen();
-              } else {
-                /* Password did not meet Slooh requirements, provide the error messaging */
-                accountFormDetailsData.password.errorText = passwordResult.passwordNotAcceptedMessage;
-
-                /* make sure to persist any changes to the account signup form (error messages) */
-                this.setState({ accountFormDetails: accountFormDetailsData });
-
-                formIsComplete = false;
-              }
+      const customerDetailsMeetsRequirementsResult = axios.post(VALIDATE_NEW_PENDING_CUSTOMER_DETAILS_ENDPOINT_URL, {
+        userEnteredPassword: this.state.accountFormDetails.password.value,
+        userEnteredLoginEmailAddress: this.state.accountFormDetails.loginEmailAddress.value,
+        selectedPlanId: window.localStorage.selectedPlanId,
+      })
+        .then((response) => {
+          const res = response.data;
+          if (res.apiError == false) {
+            const validationResults = {
+              passwordAcceptable: res.passwordAcceptable,
+              passwordNotAcceptedMessage: res.passwordNotAcceptedMessage,
+              emailAddressAcceptable: res.emailAddressAcceptable,
+              emailAddressNotAcceptedMessage: res.emailAddressNotAcceptedMessage,
             }
-          })
-          .catch((err) => {
-            throw ('Error: ', err);
-          });
-      } else if (accountCreationType === 'googleaccount') {
-        /* no additional verifications are needed, create the customer record and login */
-        this.createCustomerRecordAndNextScreen();
-      }
-    } else {
+
+            if (validationResults.passwordAcceptable === false) {
+              /* Password did not meet Slooh requirements, provide the error messaging */
+              accountFormDetailsData.password.errorText = validationResults.passwordNotAcceptedMessage;
+
+              /* make sure to persist any changes to the account signup form (error messages) */
+              this.setState({ accountFormDetails: accountFormDetailsData });
+
+              formIsComplete = false;
+            }
+
+            if (validationResults.emailAddressAcceptable === false) {
+              /* Email address is already taken or some other validation error occurred. */
+              accountFormDetailsData.loginEmailAddress.errorText = validationResults.emailAddressNotAcceptedMessage;
+
+              /* make sure to persist any changes to the account signup form (error messages) */
+              this.setState({ accountFormDetails: accountFormDetailsData });
+
+              formIsComplete = false;
+            }
+
+            if (formIsComplete === true) {
+              /* create the customer result */
+              this.createCustomerRecordAndNextScreen();
+            }
+          }
+        })
+        .catch((err) => {
+          throw ('Error: ', err);
+        });
+    }
+    else {
       /* make sure to persist any changes to the account signup form (error messages) */
       this.setState(() => ({ accountFormDetails: accountFormDetailsData }));
     }
