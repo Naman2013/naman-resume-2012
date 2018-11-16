@@ -5,7 +5,7 @@
 *
 ***********************************/
 
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-modal';
 import CenterColumn from 'components/common/CenterColumn';
@@ -20,10 +20,12 @@ import { romance } from 'styles/variables/colors_tiles_v4';
 import styles from './QuestDetails.style';
 
 const {
+  bool,
   func,
   number,
   shape,
   string,
+  instanceOf,
 } = PropTypes;
 
 
@@ -41,6 +43,7 @@ export const QuestDetails = (props) => {
     questId,
     moduleId: pageMeta.resourcesModuleId,
   };
+
   const questSectionProps = {
     questId,
     content: () => (
@@ -110,9 +113,19 @@ QuestDetails.propTypes = {
     questTitle: string.isRequired,
   }),
   questId: string.isRequired,
-}
+  userActions: shape({
+    stepQuest: func.isRequired,
+    goToStep: func.isRequired,
+  }).isRequired,
+  modal: shape({
+    modalComponent: instanceOf(Component),
+    modalStyles: shape({}),
+    showModal: bool,
+  }),
+};
 QuestDetails.defaultProps = {
   pageMeta: {},
-}
+  modal: {},
+};
 
 export default QuestDetails;

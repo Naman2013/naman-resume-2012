@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import getDaysByMonth from 'utils/date-utils/get-days-by-month';
 import Request from 'components/common/network/Request';
+import ViewOurGuide from '../view-our-guide';
 import { RISE_SET_TIMES } from 'services/objects';
 import { downwardFacingChevron } from 'styles/variables/iconURLs';
 import GridContainer from '../grid/GridContainer';
@@ -25,6 +26,10 @@ const riseSetModel = {
     transit: resp.transitText,
     set: resp.setText,
     notes: resp.notesText,
+    guideHeader: resp.linkHeader,
+    guideUrl: resp.linkUrl,
+    guideLabel: resp.linkLabel,
+    guideSubTitle: resp.linkTitle,
   }),
 };
 
@@ -86,157 +91,166 @@ class ObjectVisibilityProfile extends Component {
     const { objectId } = this.props;
 
     return (
-      <GridContainer theme={{ margin: '20px 0 0 0' }}>
-        <form
-          method="POST"
-        >
-          <Request
-            serviceURL={RISE_SET_TIMES}
-            requestBody={{
-              day,
-              month,
-              year,
-              objectId,
-              obsId,
-            }}
-            model={riseSetModel}
-            render={({
-              fetchingContent,
-              modeledResponses: { RISE_SET_MODEL },
-            }) => (
-              <Fragment>
-                <Row wrap>
-                  <StaticCell
-                    flexScale={['100%', '50%']}
-                    hasBorderScale={[true]}
-                    title="Rise &#38; set times"
-                  >
-                    <div className="select-field">
-                      <label
-                        className="option-label"
-                        htmlFor="select-month"
-                      >
-                        <span className="field-value-name">
-                          {MONTHS.filter(filterMonth => filterMonth.value == this.state.month)[0].name}
-                        </span>
-                        <img alt="" width="8" src={downwardFacingChevron} />
-                      </label>
-                      <select
-                        className="select"
-                        id="select-month"
-                        value={this.state.month}
-                        onChange={this.handleMonthChange}
-                      >
-                        {MONTHS.map(currentMonth => (
-                          <option
-                            key={`month-select-${currentMonth.value}`}
-                            value={currentMonth.value}
-                          >
-                            {currentMonth.name}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
+      <Request
+        serviceURL={RISE_SET_TIMES}
+        requestBody={{
+          day,
+          month,
+          year,
+          objectId,
+          obsId,
+        }}
+        model={riseSetModel}
+        render={({
+          fetchingContent,
+          modeledResponses: { RISE_SET_MODEL },
+        }) => {
+          const riseSet = RISE_SET_MODEL || {};
+          return (
+            <div className="obs-visibility-root">
+              <GridContainer theme={{ margin: '20px 0 0 0' }}>
+                <form
+                  method="POST"
+                >
+                  <Row wrap>
+                    <StaticCell
+                      flexScale={['100%', '75%']}
+                      hasBorderScale={[true]}
+                      title="Rise &#38; set times"
+                    >
+                      <div className="select-field">
+                        <label
+                          className="option-label"
+                          htmlFor="select-month"
+                        >
+                          <span className="field-value-name">
+                            {MONTHS.filter(filterMonth => filterMonth.value == this.state.month)[0].name}
+                          </span>
+                          <img alt="" width="8" src={downwardFacingChevron} />
+                        </label>
+                        <select
+                          className="select"
+                          id="select-month"
+                          value={this.state.month}
+                          onChange={this.handleMonthChange}
+                        >
+                          {MONTHS.map(currentMonth => (
+                            <option
+                              key={`month-select-${currentMonth.value}`}
+                              value={currentMonth.value}
+                            >
+                              {currentMonth.name}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
 
-                    <div className="select-field">
-                      <label
-                        className="option-label"
-                        htmlFor="select-day"
-                      >
-                        <span className="field-value-name">
-                          {this.generateDays().filter(filterDay => filterDay.value == this.state.day)[0].name}
-                        </span>
-                        <img alt="" width="8" src={downwardFacingChevron} />
-                      </label>
-                      <select
-                        className="select"
-                        id="select-day"
-                        value={this.state.day}
-                        onChange={this.handleDayChange}
-                      >
-                        {this.generateDays().map(currentDay => (
-                          <option
-                            key={`day-select-${currentDay.value}`}
-                            value={currentDay.value}
-                          >
-                            {currentDay.name}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
+                      <div className="select-field">
+                        <label
+                          className="option-label"
+                          htmlFor="select-day"
+                        >
+                          <span className="field-value-name">
+                            {this.generateDays().filter(filterDay => filterDay.value == this.state.day)[0].name}
+                          </span>
+                          <img alt="" width="8" src={downwardFacingChevron} />
+                        </label>
+                        <select
+                          className="select"
+                          id="select-day"
+                          value={this.state.day}
+                          onChange={this.handleDayChange}
+                        >
+                          {this.generateDays().map(currentDay => (
+                            <option
+                              key={`day-select-${currentDay.value}`}
+                              value={currentDay.value}
+                            >
+                              {currentDay.name}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
 
-                    <div className="select-field">
-                      <label
-                        className="option-label"
-                        htmlFor="select-year"
-                      >
-                        <span className="field-value-name">
-                          {YEARS.filter(filterYear => filterYear.value == this.state.year)[0].name}
-                        </span>
-                        <img alt="" width="8" src={downwardFacingChevron} />
-                      </label>
-                      <select
-                        className="select"
-                        id="select-year"
-                        value={this.state.year}
-                        onChange={this.handleYearChange}
-                      >
-                        {YEARS.map(currentYear => (
-                          <option
-                            key={`year-select-${currentYear.value}`}
-                            value={currentYear.value}
-                          >
-                            {currentYear.name}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                  </StaticCell>
-                  <StaticCell title="Observatory" flexScale={['100%', '25%']}>
-                    <div className="select-field">
-                      <label
-                        className="option-label"
-                        htmlFor="select-obsId"
-                      >
-                        <span className="field-value-name">
-                          {this.state.obsId}
-                        </span>
-                        <img alt="" width="8" src={downwardFacingChevron} />
-                      </label>
-                      <select
-                        className="select"
-                        id="select-obsId"
-                        value={this.state.obsId}
-                        onChange={this.handleObservatoryChange}
-                      >
-                        <option value="chile">Chile</option>
-                        <option value="teide">Teide</option>
-                      </select>
-                    </div>
-                  </StaticCell>
-                </Row>
-                <Row>
-                  <StaticCell title="Rise" hasBorderScale={[true]}>
-                    <p>{ (fetchingContent) ? 'Loading...' : RISE_SET_MODEL.rise }</p>
-                  </StaticCell>
-                  <StaticCell title="Transit" hasBorderScale={[true]}>
-                    <p>{ (fetchingContent) ? 'Loading...' : RISE_SET_MODEL.transit }</p>
-                  </StaticCell>
-                  <StaticCell title="Set">
-                    <p>{ (fetchingContent) ? 'Loading...' : RISE_SET_MODEL.set }</p>
-                  </StaticCell>
-                </Row>
-                <Row>
-                  <StaticCell title="Notes">
-                    <p>{ (fetchingContent) ? 'Loading...' : RISE_SET_MODEL.notes }</p>
-                  </StaticCell>
-                </Row>
-              </Fragment>
-            )}
-          />
-        </form>
-        <style jsx>{style}</style>
-      </GridContainer>
+                      <div className="select-field">
+                        <label
+                          className="option-label"
+                          htmlFor="select-year"
+                        >
+                          <span className="field-value-name">
+                            {YEARS.filter(filterYear => filterYear.value == this.state.year)[0].name}
+                          </span>
+                          <img alt="" width="8" src={downwardFacingChevron} />
+                        </label>
+                        <select
+                          className="select"
+                          id="select-year"
+                          value={this.state.year}
+                          onChange={this.handleYearChange}
+                        >
+                          {YEARS.map(currentYear => (
+                            <option
+                              key={`year-select-${currentYear.value}`}
+                              value={currentYear.value}
+                            >
+                              {currentYear.name}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                    </StaticCell>
+                    <StaticCell title="Observatory" flexScale={['100%', '25%']}>
+                      <div className="select-field">
+                        <label
+                          className="option-label"
+                          htmlFor="select-obsId"
+                        >
+                          <span className="field-value-name">
+                            {this.state.obsId}
+                          </span>
+                          <img alt="" width="8" src={downwardFacingChevron} />
+                        </label>
+                        <select
+                          className="select"
+                          id="select-obsId"
+                          value={this.state.obsId}
+                          onChange={this.handleObservatoryChange}
+                        >
+                          <option value="chile">Chile</option>
+                          <option value="teide">Teide</option>
+                        </select>
+                      </div>
+                    </StaticCell>
+                  </Row>
+                  <Row>
+                    <StaticCell title="Rise" hasBorderScale={[true]}>
+                      <p>{ (fetchingContent) ? 'Loading...' : riseSet.rise }</p>
+                    </StaticCell>
+                    <StaticCell title="Transit" hasBorderScale={[true]}>
+                      <p>{ (fetchingContent) ? 'Loading...' : riseSet.transit }</p>
+                    </StaticCell>
+                    <StaticCell title="Set">
+                      <p>{ (fetchingContent) ? 'Loading...' : riseSet.set }</p>
+                    </StaticCell>
+                  </Row>
+                  <Row>
+                    <StaticCell title="Notes">
+                      <p>{ (fetchingContent) ? 'Loading...' : riseSet.notes }</p>
+                    </StaticCell>
+                  </Row>
+                </form>
+              </GridContainer>
+              <ViewOurGuide
+                guideHeader={riseSet.guideHeader}
+                guideTitle={riseSet.guideLabel}
+                guideUrl={riseSet.guideUrl}
+                guideSubTitle={riseSet.guideSubTitle}
+              />
+              <style jsx>{style}</style>
+            </div>
+        );
+      }}
+    />
     );
   }
 }
