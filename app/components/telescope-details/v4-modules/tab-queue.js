@@ -10,8 +10,8 @@ const TabQueue = () => (
   <div className="tab-queue-root">
     <div className="tile-container">
       <ObservatoryBot
-        viewGroup={"queue"}
-        teleSystem={"teide1highmag"}
+        viewGroup="queue"
+        teleSystem="teide1highmag"
       />
     </div>
     <br/>

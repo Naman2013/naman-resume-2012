@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import uniqueId from 'lodash/uniqueId';
 import noop from 'lodash/noop';
+import cloneDeep from 'lodash/cloneDeep';
 import ObservatoryBotDescription from './ObservatoryBotDescription';
 import ObservatoryBotMessage from './ObservatoryBotMessage';
 import s from './ObservatoryBot.scss';
@@ -17,6 +18,10 @@ export default class ObservatoryBot extends Component {
   static defaultProps = {
     viewGroup: '',
   };
+
+  constructor(props) {
+    super(props);
+  }
 
   state = {
     latestMessage: null,
@@ -44,12 +49,11 @@ export default class ObservatoryBot extends Component {
     this.sseSource = new EventSource(observatoryBotUrl);
     this.sseSource.addEventListener(
       'initial',
-      event => this.handleInitialObservatoryBotMessages(event.data), false);
+      event => this.handleInitialBotMessages(event.data), false);
 
     this.sseSource.addEventListener(
       'message',
-      event => this.handleObservatoryBotMessages(event.data), false);
-
+      event => this.handleBotMessage(event.data), false);
   }
 
   tearDownSSE() {
@@ -68,45 +72,52 @@ export default class ObservatoryBot extends Component {
   }
 
 
-  handleInitialObservatoryBotMessages(data) {
+  handleInitialBotMessages(data) {
     const { viewGroup } = this.props;
 
-    const messages = this.state.messages;
     const message = JSON.parse(data);
-
     const messagesToProcess = message[viewGroup];
+
+    let latestMessage = '';
+    let theMessages = [ ];
+
     messagesToProcess.map(theMessage => {
       const notHeartbeat = theMessage.MessageID !== 'HEARTBEAT';
 
       if (notHeartbeat) {
         const theBotMessage = theMessage.Message.replace("|", "<br/>");
-        this.setState({
-          latestMessage: theBotMessage,
-          messages: [theBotMessage, ...messages],
-        });
+        theMessages.push(theBotMessage);
       }
     });
 
+    this.setState({
+      latestMessage: latestMessage,
+      messages: [...theMessages],
+    });
   }
 
-  handleObservatoryBotMessages(data) {
-    const messages = this.state.messages;
+  handleBotMessage(data) {
+    const { viewGroup } = this.props;
+
+    const existingMessages = this.state.messages;
     const message = JSON.parse(data);
 
-    const messagesToProcess = message[viewGroup];
-    messagesToProcess.map(theMessage => {
-      const notHeartbeat = theMessage.MessageID !== 'HEARTBEAT';
+    let latestMessage = '';
+
+    if (message.ViewGroup == viewGroup) {
+      const notHeartbeat = message.MessageID !== 'HEARTBEAT';
 
       if (notHeartbeat) {
-        const theBotMessage = theMessage.Message.replace("|", "<br/>");
-        this.setState({
-          latestMessage: theBotMessage,
-          messages: [theBotMessage, ...messages],
-        });
+        const theBotMessage = message.Message.replace("|", "<br/>");
+        latestMessage = theBotMessage;
       }
-    });
-  }
 
+      this.setState({
+        latestMessage: latestMessage,
+        messages: [latestMessage, ...existingMessages],
+      });
+    }
+  }
 
   render() {
     const {
@@ -116,21 +127,14 @@ export default class ObservatoryBot extends Component {
 
     return (
       <div
+        style={{'border': '1px dashed', 'maxHeight': '300px', 'overflowY': 'scroll'}}
         className="observatorybot-container">
+        <div><ObservatoryBotDescription/></div>
         <div className={observatoryBotContainerClassnames}>
           {
-            this.state.messages.map(
-              message => <ObservatoryBotMessage key={uniqueId()} message={message} />)
+            this.state.messages.map(message => <ObservatoryBotMessage key={uniqueId()} message={message} />)
           }
-          <ObservatoryBotDescription />
-        </div>
-
-        <div className="top">
-          <div className={s.progressBarStatus}>
-            <p className="short">
-              {this.state.latestMessage}
-            </p>
-          </div>
+          <ObservatoryBotMessage key={uniqueId()} message={this.state.latestMessage} />
         </div>
       </div>
     );

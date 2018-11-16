@@ -5,7 +5,7 @@ import uniqueId from 'lodash/uniqueId';
 export default function ObservatoryBotMessage({ message }) {
   return (
     <div className="observatorybot-message" key={uniqueId()}>
-      <div className="observatorybot-message-text" dangerouslySetInnerHTML={{ __html: message }}/>
+      <p className="short" dangerouslySetInnerHTML={{ __html: message }}/>
       <br/>
     </div>
   );
