@@ -26,7 +26,7 @@ export const BOOTSTRAP_TELESCOPE_DETAILS = 'BOOTSTRAP_TELESCOPE_DETAILS';
 export const BOOTSTRAP_TELESCOPE_DETAILS_FAIL = 'BOOTSTRAP_TELESCOPE_DETAILS_FAIL';
 
 export const FETCH_TELESCOPE_STATUS_START = 'FETCH_TELESCOPE_STATUS_START';
-export const FETCH_TELESCOPE_STATUS_SUCCESS = 'FETCH_TELESCOPE_STATUS';
+export const FETCH_TELESCOPE_STATUS_SUCCESS = 'FETCH_TELESCOPE_STATUS_SUCCESS';
 export const FETCH_TELESCOPE_STATUS_FAIL = 'FETCH_TELESCOPE_STATUS_FAIL';
 
 export const RESET_CURRENT_OBSERVATORY_STATUS = 'RESET_CURRENT_OBSERVATORY_STATUS';
@@ -112,11 +112,8 @@ export const updateTelescopeStatus = ({ teleUniqueId }) => (dispatch, getState) 
     telescopeDetails: { allObservatoryTelescopeStatus: { statusList: { statusTeleList } } },
   } = getState();
 
-  dispatch(
-    setTelescopeOnlineStatus(
-      statusTeleList.find(telescopeStatus => telescopeStatus.teleUniqueId === teleUniqueId),
-    ),
-  );
+  dispatch(setTelescopeOnlineStatus(statusTeleList
+    .find(telescopeStatus => telescopeStatus.teleUniqueId === teleUniqueId)));
 };
 
 const startFetchTelescopeStatus = () => ({
