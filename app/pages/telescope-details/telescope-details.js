@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { browserHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import moment from 'moment';
 import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
 import { ColumnTabs } from 'components/common/Tabs';
 import telescopeConfig from 'components/Telescope/telescopeConfig';
@@ -148,6 +149,98 @@ class TelescopeDetails extends Component {
     return null;
   }
 
+  componentDidUpdate(prevProps) {
+    const {
+      allObservatoryTelescopeStatus,
+      observatoryList,
+      params: { obsUniqueId, teleUniqueId },
+      activeDetailsSSE: { astroObjectID },
+    } = this.props;
+
+    const isTelescopeUpdate = teleUniqueId !== prevProps.params.teleUniqueId;
+    const isObservatoryUpdate = obsUniqueId !== prevProps.params.obsUniqueId;
+    const isNewAstroObjectID =
+      astroObjectID
+      && this.props.activeDetailsSSE.astroObjectID !== astroObjectID;
+    const activeObservatory = observatoryList
+      .filter(observatory => observatory.obsUniqueId === obsUniqueId)[0];
+
+    if (allObservatoryTelescopeStatus && allObservatoryTelescopeStatus.statusExpires) {
+      this.scaffoldRefreshInterval(allObservatoryTelescopeStatus.statusExpires);
+    }
+
+    if (isObservatoryUpdate) {
+      // set the selected observatory
+      this.props.setObservatory({
+        obsUniqueId: this.props.params.obsUniqueId,
+        teleUniqueId: this.props.params.teleUniqueId,
+      });
+
+      // reset the timer to refetch the telescope status since we are calling it now anyhow
+      this.scaffoldRefreshInterval();
+    }
+
+    if (isTelescopeUpdate) {
+      this.props.updateTelescopeStatus({ teleUniqueId });
+
+      // set the selected telescope
+      this.props.setTelescope({
+        obsUniqueId,
+        teleUniqueId,
+      });
+
+      this.props.fetchAllTelescopeStatus({
+        teleUniqueId,
+        obsId: activeObservatory.obsId,
+        isRefresh: true,
+      });
+    }
+
+    if (isNewAstroObjectID) {
+      this.props.fetchObjectDataAction(astroObjectID);
+    }
+
+    if (this.props.activeDetailsSSE.astroObjectID > 0 && astroObjectID === 0) {
+      this.props.resetObjectData();
+    }
+  }
+
+  fetchAllTelescopeStatus(obsUniqueId = 0) {
+    const { observatoryList, params } = this.props;
+    this.props.fetchAllTelescopeStatus({
+      obsId: observatoryList.find(observatory => observatory.obsUniqueId === (obsUniqueId || params.obsUniqueId)).obsId,
+      teleUniqueId: params.teleUniqueId,
+    });
+  }
+
+  refreshTelescopeStatusTimeout = null; // dedicated timer for refreshing telescope status
+  workingRefreshTimestamp = 0;
+  scaffoldRefreshInterval(expirationTimestamp = 0) {
+    if (this.workingRefreshTimestamp !== expirationTimestamp) {
+      this.workingRefreshTimestamp = expirationTimestamp;
+      clearTimeout(this.refreshTelescopeStatusTimeout);
+
+      // diff in milliseconds from now and the expires time...
+      const convertedExpirestamp = expirationTimestamp * 1000;
+      const nowStamp = moment.utc().valueOf();
+      const refreshInterval = convertedExpirestamp - nowStamp;
+
+      // validation of the refreshInterval to prevent bad timeout values
+      if (refreshInterval <= 0) {
+        return;
+      }
+
+      this.refreshTelescopeStatusTimeout = setTimeout(() => {
+        const { observatoryList, params: { obsUniqueId, teleUniqueId } } = this.props;
+        this.props.fetchAllTelescopeStatus({
+          obsId: observatoryList.find(observatory => observatory.obsUniqueId === obsUniqueId).obsId,
+          teleUniqueId,
+          isRefresh: true,
+        });
+      }, refreshInterval);
+    }
+  }
+
   scaffoldPage() {
     const {
       params: { obsUniqueId, teleUniqueId },
@@ -202,7 +295,7 @@ class TelescopeDetails extends Component {
     // get instrument, we cannot know the instrument until after the API's have returned
     // TODO: this flow should be redesigned
     const activeInstrument = getActiveInstrument(observatoryList, activeTelescope);
-
+    console.log("ONLINE STATUS", currentTelescopeOnlineStatus);
     return (
       <div>
         <TelescopeNavigation

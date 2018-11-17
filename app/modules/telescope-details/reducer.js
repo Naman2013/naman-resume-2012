@@ -146,7 +146,7 @@ export default createReducer(initialState, {
     return {
       ...state,
       fetchingObservatoryStatus: false,
-      currentTelescopeOnlineStatus,
+      telescopeStatusAPIResult: currentTelescopeOnlineStatus,
     };
   },
   [BOOTSTRAP_TELESCOPE_DETAILS_START](state) {
