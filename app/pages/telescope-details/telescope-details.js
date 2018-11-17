@@ -34,7 +34,6 @@ import {
   bootstrapTelescopeDetails,
   setObservatory,
   setTelescope,
-  updateTelescopeStatus,
   fetchAllTelescopeStatus,
 } from 'modules/telescope-details/actions';
 
@@ -83,7 +82,6 @@ class TelescopeDetails extends Component {
     bootstrapTelescopeDetails: PropTypes.func.isRequired,
     setObservatory: PropTypes.func.isRequired,
     setTelescope: PropTypes.func.isRequired,
-    updateTelescopeStatus: PropTypes.func.isRequired,
     fetchAllTelescopeStatus: PropTypes.func.isRequired,
     fetchObjectDataAction: PropTypes.func.isRequired,
     resetObjectData: PropTypes.func.isRequired,
@@ -99,9 +97,6 @@ class TelescopeDetails extends Component {
     // allObservatoryTelescopeStatus // [countdownTeleList]
     currentObservatory: PropTypes.shape({}),
     currentTelescope: PropTypes.shape({}),
-    currentTelescopeOnlineStatus: PropTypes.shape({
-      onlineStatus: PropTypes.string,
-    }),
     // countdownList
     // isImageViewerClipped: PropTypes.bool.isRequired,
     observatoryList: PropTypes.arrayOf(PropTypes.shape({
@@ -117,10 +112,6 @@ class TelescopeDetails extends Component {
     }).isRequired,
     // objectDetails
   };
-
-  static defaultProps = {
-    currentTelescopeOnlineStatus: { onlineStatus: 'offline' },
-  }
 
   static defaultProps = {
     observatoryList: [],
@@ -181,8 +172,6 @@ class TelescopeDetails extends Component {
     }
 
     if (isTelescopeUpdate) {
-      this.props.updateTelescopeStatus({ teleUniqueId });
-
       // set the selected telescope
       this.props.setTelescope({
         obsUniqueId,
@@ -275,7 +264,6 @@ class TelescopeDetails extends Component {
   render() {
     const {
       activeTelescopeMission,
-      currentTelescopeOnlineStatus,
       observatoryList,
       fetchingObservatoryStatus,
       currentObservatory,
@@ -295,7 +283,7 @@ class TelescopeDetails extends Component {
     // get instrument, we cannot know the instrument until after the API's have returned
     // TODO: this flow should be redesigned
     const activeInstrument = getActiveInstrument(observatoryList, activeTelescope);
-    console.log("ONLINE STATUS", currentTelescopeOnlineStatus);
+    console.log("Active instrument", activeInstrument);
     return (
       <div>
         <TelescopeNavigation
@@ -317,7 +305,7 @@ class TelescopeDetails extends Component {
                         viewportHeight,
                         fetchingOnlineStatus: fetchingObservatoryStatus,
                         obsAlert: currentObservatory.obsAlert,
-                        onlineStatus: currentTelescopeOnlineStatus.onlineStatus,
+                        onlineStatus: false,
                         instrument: activeInstrument,
                         offlineImageSource: activeInstrument.instrOfflineImgURL,
                         activeMission: activeTelescopeMission.maskDataArray,
@@ -349,7 +337,7 @@ class TelescopeDetails extends Component {
                             viewportHeight,
                             fetchingOnlineStatus: fetchingObservatoryStatus,
                             obsAlert: currentObservatory.obsAlert,
-                            onlineStatus: currentTelescopeOnlineStatus.onlineStatus,
+                            onlineStatus: false,
                             instrument: activeInstrument,
                             offlineImageSource: activeInstrument.instrOfflineImgURL,
                             activeMission: activeTelescopeMission.maskDataArray,
@@ -391,7 +379,6 @@ const mapStateToProps = ({
 
     currentObservatory: telescopeDetails.currentObservatory,
     currentTelescope: telescopeDetails.currentTelescope,
-    currentTelescopeOnlineStatus: telescopeDetails.currentTelescopeOnlineStatus,
 
     countdownList: telescopeDetails.allObservatoryTelescopeStatus.countdownList.countdownTeleList,
 
@@ -411,7 +398,6 @@ const mapDispatchToProps = dispatch => (bindActionCreators({
   bootstrapTelescopeDetails,
   setObservatory,
   setTelescope,
-  updateTelescopeStatus,
   fetchAllTelescopeStatus,
   fetchObjectDataAction,
   resetObjectData,

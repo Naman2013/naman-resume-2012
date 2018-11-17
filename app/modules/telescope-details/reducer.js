@@ -7,8 +7,6 @@ import {
   FETCH_TELESCOPE_STATUS_START,
   FETCH_TELESCOPE_STATUS_SUCCESS,
   FETCH_TELESCOPE_STATUS_FAIL,
-  RESET_CURRENT_OBSERVATORY_STATUS,
-  SET_CURRENT_OBSERVATORY_STATUS,
   FETCH_CURRENT_WEATHER_CONDITIONS_START,
   FETCH_CURRENT_WEATHER_CONDITIONS_SUCCESS,
   FETCH_DAY_NIGHT_BAR_PANEL_START,
@@ -122,31 +120,19 @@ export default createReducer(initialState, {
     return {
       ...state,
       fetchingObservatoryStatus: true,
-      currentTelescopeOnlineStatus: { onlineStatus: 'offline' },
       allObservatoryTelescopeStatus: { ...initialState.allObservatoryTelescopeStatus },
     };
   },
   [FETCH_TELESCOPE_STATUS_SUCCESS](state, { payload }) {
     return {
       ...state,
+      fetchingObservatoryStatus: false,
       allObservatoryTelescopeStatus: payload,
     };
   },
   [FETCH_TELESCOPE_STATUS_FAIL](state) {
     return {
       ...state,
-    };
-  },
-  [RESET_CURRENT_OBSERVATORY_STATUS](state) {
-    return {
-      ...state,
-    };
-  },
-  [SET_CURRENT_OBSERVATORY_STATUS](state, { currentTelescopeOnlineStatus }) {
-    return {
-      ...state,
-      fetchingObservatoryStatus: false,
-      telescopeStatusAPIResult: currentTelescopeOnlineStatus,
     };
   },
   [BOOTSTRAP_TELESCOPE_DETAILS_START](state) {
