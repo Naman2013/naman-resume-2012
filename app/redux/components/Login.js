@@ -14,7 +14,7 @@ import { nightfall, astronaut, romance, shadows } from 'styles/variables/colors_
 import { faintShadow } from 'styles/variables/shadows';
 import { primaryFont } from 'styles/variables/fonts';
 import{ horizontalArrowRightWhite } from 'styles/variables/iconURLs';
-import {GOOGLE_CLIENT_ID_ENDPOINT_URL, googleClientIDModel, GOOGLE_SSO_SIGNIN_ENDPOINT_URL} from 'services/registration/registration.js';
+import {GOOGLE_CLIENT_ID_ENDPOINT_URL, googleClientIDModel, GOOGLE_SSO_SIGNIN_ENDPOINT_URL, FORGOT_PASSWORD_REQUEST_ENDPOINT_URL} from 'services/registration/registration.js';
 import Request from 'components/common/network/Request';
 import { GoogleLogin } from 'react-google-login';
 import cloneDeep from 'lodash/cloneDeep';
@@ -38,6 +38,7 @@ class Login extends Component {
 
   state = {
     inForgotPasswordMode: false,
+    forgotPasswordStatusMessage: '',
     googleProfileData: {
       googleProfileId: '',
       googleProfileEmail: '',
@@ -60,7 +61,6 @@ class Login extends Component {
   componentWillUnmount() {
     const { actions } = this.props;
     actions.resetLogIn();
-    window.localStorage.removeItem('forgotPassword_EmailAddress');
   }
 
   closeForgotPassword = () => {
@@ -81,10 +81,32 @@ class Login extends Component {
       }));
     }
     else {
-      window.localStorage.setItem('forgotPassword_EmailAddress', this.state.loginFormDetails.loginEmailAddress.value);
       this.setState(() => ({
         inForgotPasswordMode: true,
       }));
+
+      const forgotPasswordRequestResult = axios.post(FORGOT_PASSWORD_REQUEST_ENDPOINT_URL,
+        {
+          loginEmailAddress: this.state.loginFormDetails.loginEmailAddress.value,
+        })
+        .then(response => {
+          const { actions } = this.props;
+
+          const res = response.data;
+          if (res.apiError == false) {
+            const forgotResult = {
+              status: res.status,
+              statusMessage: res.statusMessage,
+            }
+
+            this.setState(() => ({
+              forgotPasswordStatusMessage: forgotResult.statusMessage,
+            }));
+          }
+        })
+        .catch(err => {
+          throw ('Error: ', err);
+        });
     }
   }
 
@@ -181,7 +203,7 @@ class Login extends Component {
       <div className="root">
           {this.state.inForgotPasswordMode === true && <div className="form">
               <div style={{'marginLeft': '20px', 'marginRight': '20px'}}>
-                <p>We just sent.....</p>
+                <p dangerouslySetInnerHTML={{ __html: this.state.forgotPasswordStatusMessage }}/>
                 <LargeButtonWithRightIcon
                   icon={horizontalArrowRightWhite}
                   theme={{
