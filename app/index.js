@@ -82,6 +82,8 @@ import JoinInviteByCodeStep1 from './pages/registration/JoinInviteByCodeStep1';
 import JoinInviteByCodeStep2 from './pages/registration/JoinInviteByCodeStep2';
 import Memberships from './pages/registration/Memberships';
 import MembershipPlanDetailsStep from './pages/registration/MembershipPlanDetailsStep';
+import ForgotPasswordStep1 from './pages/registration/ForgotPasswordStep1';
+import ForgotPasswordStep2 from './pages/registration/ForgotPasswordStep2';
 
 import Notifications from './pages/settings/Notifications';
 import PaymentInfo from './pages/settings/PaymentInfo';
@@ -216,6 +218,8 @@ ReactDOM.render(
           <Route path="inviteByCodeStep1" component={JoinInviteByCodeStep1} />
           <Route path="inviteByCodeStep2" component={JoinInviteByCodeStep2} />
           <Route path="membershipPlanDetailsStep" component={MembershipPlanDetailsStep} />
+          <Route path="forgotPasswordStep1" component={ForgotPasswordStep1} />
+          <Route path="forgotPasswordStep2" component={ForgotPasswordStep2} />
         </Route>
 
         <Route
