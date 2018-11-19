@@ -14,14 +14,13 @@ import { nightfall, astronaut, romance, shadows } from 'styles/variables/colors_
 import { faintShadow } from 'styles/variables/shadows';
 import { primaryFont } from 'styles/variables/fonts';
 import{ horizontalArrowRightWhite } from 'styles/variables/iconURLs';
-import {GOOGLE_CLIENT_ID_ENDPOINT_URL, googleClientIDModel, GOOGLE_SSO_SIGNIN_ENDPOINT_URL} from 'services/registration/registration.js';
+import {GOOGLE_CLIENT_ID_ENDPOINT_URL, googleClientIDModel, GOOGLE_SSO_SIGNIN_ENDPOINT_URL, FORGOT_PASSWORD_REQUEST_ENDPOINT_URL} from 'services/registration/registration.js';
 import Request from 'components/common/network/Request';
 import { GoogleLogin } from 'react-google-login';
+import cloneDeep from 'lodash/cloneDeep';
 import styles from './Login.style';
 
 const propTypes = {
-  forgotPasswordURL: PropTypes.string,
-  registerNewMemberURL: PropTypes.string,
   actions: PropTypes.shape({
     logUserIn: PropTypes.func.isRequired,
     resetLogIn: PropTypes.func.isRequired,
@@ -30,8 +29,7 @@ const propTypes = {
 };
 
 const defaultProps = {
-  forgotPasswordURL: '',
-  registerNewMemberURL: '',
+
 };
 
 class Login extends Component {
@@ -39,13 +37,25 @@ class Login extends Component {
   static defaultProps = defaultProps;
 
   state = {
-    'googleProfileData': {
+    inForgotPasswordMode: false,
+    forgotPasswordStatusMessage: '',
+    googleProfileData: {
       googleProfileId: '',
       googleProfileEmail: '',
       googleProfileGivenName: '',
       googleProfileFamilyName: '',
       googleProfilePictureURL: '',
     },
+    loginFormDetails: {
+      loginEmailAddress: {
+        value: '',
+        errorText: '',
+      },
+      password: {
+        value: '',
+        errorText: '',
+      },
+    }
   };
 
   componentWillUnmount() {
@@ -53,9 +63,80 @@ class Login extends Component {
     actions.resetLogIn();
   }
 
+  closeForgotPassword = () => {
+    this.setState(() => ({
+      inForgotPasswordMode: false,
+    }));
+  }
+
+  startForgotPassword = () => {
+    const newLoginFormData = cloneDeep(this.state.loginFormDetails);
+
+    if (this.state.loginFormDetails.loginEmailAddress.value === '') {
+      newLoginFormData.loginEmailAddress.errorText = 'Please enter in an email address and then click Forgot Your Password again.';
+
+      this.setState(() => ({
+        loginFormDetails: newLoginFormData,
+        inForgotPasswordMode: false,
+      }));
+    }
+    else {
+      this.setState(() => ({
+        inForgotPasswordMode: true,
+      }));
+
+      const forgotPasswordRequestResult = axios.post(FORGOT_PASSWORD_REQUEST_ENDPOINT_URL,
+        {
+          loginEmailAddress: this.state.loginFormDetails.loginEmailAddress.value,
+        })
+        .then(response => {
+          const { actions } = this.props;
+
+          const res = response.data;
+          if (res.apiError == false) {
+            const forgotResult = {
+              status: res.status,
+              statusMessage: res.statusMessage,
+            }
+
+            this.setState(() => ({
+              forgotPasswordStatusMessage: forgotResult.statusMessage,
+            }));
+          }
+        })
+        .catch(err => {
+          throw ('Error: ', err);
+        });
+    }
+  }
+
+  //capture the change to the email address field
+  handleFieldChange = ({ field, value }) => {
+    const newLoginFormData = cloneDeep(this.state.loginFormDetails);
+    newLoginFormData[field].value = value;
+
+    this.setState(() => ({
+      loginFormDetails: newLoginFormData,
+    }));
+  }
+
+  clearCurrentErrors = () => {
+    //clear out any login form errors
+    const newLoginFormData = cloneDeep(this.state.loginFormDetails);
+    newLoginFormData.loginEmailAddress.errorText = '';
+
+    this.setState(() => ({
+      loginFormDetails: newLoginFormData,
+    }));
+  }
+
   handleSubmit = (formValues) => {
     const { actions } = this.props;
     actions.logUserIn(formValues);
+
+    this.setState(() => ({
+      inForgotPasswordMode: false,
+    }));
   }
 
   processGoogleFailureResponse = (googleMessageData) => {
@@ -101,11 +182,8 @@ class Login extends Component {
   }
 
   render() {
-
     const {
       loginFailed,
-      registerNewMemberURL,
-      forgotPasswordURL,
     } = this.props;
 
     const googleClientIDModel = {
@@ -123,99 +201,123 @@ class Login extends Component {
 
     return (
       <div className="root">
-        <form
-          className="form"
-          onSubmit={this.props.handleSubmit(this.handleSubmit)}
-        >
-          {loginFailed ?
-            <div className="field-error">
-              Login Failed. Please check your credentials.
-            </div> : null
+          {this.state.inForgotPasswordMode === true && <div className="form">
+              <div style={{'marginLeft': '20px', 'marginRight': '20px'}}>
+                <p dangerouslySetInnerHTML={{ __html: this.state.forgotPasswordStatusMessage }}/>
+                <LargeButtonWithRightIcon
+                  icon={horizontalArrowRightWhite}
+                  theme={{
+                    backgroundColor: nightfall,
+                    color: romance,
+                    border: 0,
+                  }}
+                  text="Close"
+                  onClickEvent={this.closeForgotPassword}
+                />
+              </div>
+            </div>
           }
-          <Field
-            name="username"
-            type="email"
-            label="Email Address"
-            component={InputField}
-          />
-          <Field
-            name="pwd"
-            type="password"
-            label="Password"
-            component={InputField}
-          />
-          <Link to={forgotPasswordURL}>
-            <span className="forgot title-link">Forgot Your Password?</span>
-          </Link>
-          <Button theme={{ margin: '0 auto', color: astronaut }} type="submit" text="Sign in with email" onClickEvent={null} />
-          <div className="or-container">
-            <div className="or-text">or</div>
-            {/*<div className="or-line" />*/}
-          </div>
-          <Request
-            serviceURL={GOOGLE_CLIENT_ID_ENDPOINT_URL}
-            model={googleClientIDModel}
-            requestBody={{ 'callSource': 'login' }}
-            render={({
-              fetchingContent,
-              modeledResponses: { GOOGLE_CLIENT_ID_MODEL },
-            }) => (
-              <Fragment>
-                {
-                  !fetchingContent &&
-                    <Fragment>
-                      <div className="google-container">
-                        <GoogleLogin
-                            className="google-button"
-                            prompt="select_account"
-                            buttonText="Google"
-                            responseType={GOOGLE_CLIENT_ID_MODEL.googleClientResponseType}
-                            fetchBasicProfile={GOOGLE_CLIENT_ID_MODEL.googleClientFetchBasicProfile}
-                            accessType={GOOGLE_CLIENT_ID_MODEL.googleClientAccessType}
-                            scope={GOOGLE_CLIENT_ID_MODEL.googleClientScope}
-                            clientId={GOOGLE_CLIENT_ID_MODEL.googleClientID}
-                            buttonText={GOOGLE_CLIENT_ID_MODEL.loginButtonText}
-                            onSuccess={this.processGoogleSuccessResponse}
-                            onFailure={this.processGoogleFailureResponse}
-                          />
-                      </div>
-                    </Fragment>
-                  }
-                  </Fragment>
-                )}
-              />
+          {this.state.inForgotPasswordMode === false && <form
+            className="form"
+            onSubmit={this.props.handleSubmit(this.handleSubmit)}
+          >
+            {loginFailed ?
+              <div className="field-error">
+                Login Failed. Please check your credentials.
+              </div> : null
+            }
+            {this.state.loginFormDetails.loginEmailAddress.errorText.length > 0 && <div className="field-error" style={{'marginLeft': '10px', 'marginRight': '10px'}} >
+                {this.state.loginFormDetails.loginEmailAddress.errorText}
+              </div>
+            }
+            <Field
+              name="username"
+              type="email"
+              label="Email Address"
+              component={InputField}
+              onChange={(event) => { this.handleFieldChange({ field: 'loginEmailAddress', value: event.target.value }); }}
+              value={this.state.loginFormDetails.loginEmailAddress.value}
+            />
+            <Field
+              name="pwd"
+              type="password"
+              label="Password"
+              component={InputField}
+              onChange={(event) => { this.handleFieldChange({ field: 'password', value: event.target.value }); }}
+              value={this.state.loginFormDetails.password.value}
+            />
+            <Link className="forgot title-link" onClick={(event) => { this.startForgotPassword(); }}>Forgot Your Password?</Link>
 
-          <div className="register-container">
-            <span className="title-link">{`Don't have an account?`}</span>
-            <Link to="/join/step1">
-              <LargeButtonWithRightIcon
-                icon={horizontalArrowRightWhite}
-                theme={{
-                  backgroundColor: nightfall,
-                  color: romance,
-                  border: 0,
-                  width: '100%',
-                }}
-                text="Join Slooh Today"
-              />
-            </Link>
-          </div>
-          <div className="register-container">
-            <span className="title-link">{`Have an Invitation Code?`}</span>
-            <Link to="/join/inviteByCodeStep1">
-              <LargeButtonWithRightIcon
-                icon={horizontalArrowRightWhite}
-                theme={{
-                  backgroundColor: nightfall,
-                  color: romance,
-                  border: 0,
-                  width: '100%',
-                }}
-                text="Redeem Invitation Code"
-              />
-            </Link>
-          </div>
-        </form>
+            <Button theme={{ margin: '0 auto', color: astronaut }} type="submit" text="Sign in with email" onClickEvent={this.clearCurrentErrors} />
+            <div className="or-container">
+              <div className="or-text">or</div>
+              {/*<div className="or-line" />*/}
+            </div>
+            <Request
+              serviceURL={GOOGLE_CLIENT_ID_ENDPOINT_URL}
+              model={googleClientIDModel}
+              requestBody={{ 'callSource': 'login' }}
+              render={({
+                fetchingContent,
+                modeledResponses: { GOOGLE_CLIENT_ID_MODEL },
+              }) => (
+                <Fragment>
+                  {
+                    !fetchingContent &&
+                      <Fragment>
+                        <div className="google-container">
+                          <GoogleLogin
+                              className="google-button"
+                              prompt="select_account"
+                              buttonText="Google"
+                              responseType={GOOGLE_CLIENT_ID_MODEL.googleClientResponseType}
+                              fetchBasicProfile={GOOGLE_CLIENT_ID_MODEL.googleClientFetchBasicProfile}
+                              accessType={GOOGLE_CLIENT_ID_MODEL.googleClientAccessType}
+                              scope={GOOGLE_CLIENT_ID_MODEL.googleClientScope}
+                              clientId={GOOGLE_CLIENT_ID_MODEL.googleClientID}
+                              buttonText={GOOGLE_CLIENT_ID_MODEL.loginButtonText}
+                              onSuccess={this.processGoogleSuccessResponse}
+                              onFailure={this.processGoogleFailureResponse}
+                            />
+                        </div>
+                      </Fragment>
+                    }
+                    </Fragment>
+                  )}
+                />
+
+            <div className="register-container">
+              <span className="title-link">{`Don't have an account?`}</span>
+              <Link to="/join/step1">
+                <LargeButtonWithRightIcon
+                  icon={horizontalArrowRightWhite}
+                  theme={{
+                    backgroundColor: nightfall,
+                    color: romance,
+                    border: 0,
+                    width: '100%',
+                  }}
+                  text="Join Slooh Today"
+                />
+              </Link>
+            </div>
+            <div className="register-container">
+              <span className="title-link">{`Have an Invitation Code?`}</span>
+              <Link to="/join/inviteByCodeStep1">
+                <LargeButtonWithRightIcon
+                  icon={horizontalArrowRightWhite}
+                  theme={{
+                    backgroundColor: nightfall,
+                    color: romance,
+                    border: 0,
+                    width: '100%',
+                  }}
+                  text="Redeem Invitation Code"
+                />
+              </Link>
+            </div>
+          </form>
+        }
         <style>{styles}</style>
       </div>
     );
@@ -229,8 +331,6 @@ const mapStateToProps = ({
   logIn,
 }) => ({
   loginFailed: logIn.loginFailed,
-  forgotPasswordURL: appConfig.forgotPasswordURL,
-  registerNewMemberURL: appConfig.registerNewMemberURL,
   googleProfileData: googleProfileData,
 });
 

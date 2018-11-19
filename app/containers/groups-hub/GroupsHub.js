@@ -20,6 +20,7 @@ import { validateResponseAccess } from 'modules/authorization/actions'
 import { customModalStylesBlackOverlay } from 'styles/mixins/utilities';
 import { requestGroup } from 'services/community-groups/request-group';
 import { browserHistory } from 'react-router';
+import { GOOGLE_CLASSROOM_GET_CLASSROOM_LIST_ENDPOINT_URL } from 'services/classroom/classroom.js';
 import style from './groups-hub.style';
 
 const COUNT = 9;
@@ -31,6 +32,15 @@ const groupsHubModel = {
   model: resp => ({
     filterOptions: resp.navigationConfig,
     sortOptions: resp.filterOptions.options,
+  }),
+};
+
+const googleClassroomModel = {
+  name: 'GOOGLE_CLASSROOM_MODEL',
+  model: resp => ({
+    googleClassrooms: resp.googleClassrooms,
+    hasGoogleClassroomEnabled: resp.hasGoogleClassroomEnabled,
+    importGoogleClassroomsButtonText: resp.importGoogleClassroomsButtonText,
   }),
 };
 
@@ -54,12 +64,14 @@ class Groups extends Component {
     showPrompt: false,
     promptText: '',
     createClubLinkUrl: '',
+    importGoogleClassroomsURL: '',
   };
 
   /* Save the Create Club Link Url */
   handlePageServiceResponse = (result) => {
     this.setState(() => ({
       createClubLinkUrl: result.createNewClubLinkUrl,
+      importGoogleClassroomsURL: result.importGoogleClassroomsURL,
     }));
 
   }
@@ -95,6 +107,10 @@ class Groups extends Component {
 
   createClub = () => {
     browserHistory.push( this.state.createClubLinkUrl );
+  }
+
+  importGoogleClassrooms = () => {
+    browserHistory.push( this.state.importGoogleClassroomsURL );
   }
 
   submitRequestForm = ({
@@ -205,9 +221,11 @@ class Groups extends Component {
                       }}
                       renderRightMenu={() => (
                         <div className="flex">
-                          {serviceResponse.canCreateNewClubs ? <Button text={serviceResponse.createNewClubButtonText} onClickEvent={this.createClub} />
-                          : null}
-                          {serviceResponse.canRequestGroup ? <Button text="Request Group" onClickEvent={this.requestGroup} /> : null}
+                            {serviceResponse.canImportGoogleClassrooms &&
+                              <Button text={serviceResponse.importGoogleClassroomsPrompt} onClickEvent={ this.importGoogleClassrooms } />
+                            }
+                            {serviceResponse.canCreateNewClubs ? <Button text={serviceResponse.createNewClubButtonText} onClickEvent={ this.createClub } /> : null}
+                            {serviceResponse.canRequestGroup ? <Button text="Request Group" onClickEvent={this.requestGroup} /> : null}
                         </div>
                       )}
                       updateList={this.updateGroupsList}

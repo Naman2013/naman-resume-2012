@@ -20,7 +20,6 @@ import bestPosts from './best-of-slooh/get-best-reducer';
 import browseByPopularObjects from './browse-popular-objects/reducer';
 import browseTaggedData from './browse-tagged-data/reducer';
 import catalog from './catalog/get-catalog-reducer';
-import communityContent from './community-content/get-community-content-reducer';
 import communityGroups from './community-groups/reducer';
 import communityGroupActivity from './community-group-activity-list/reducer';
 import communityGroupOverview from './community-group-overview/reducer';
@@ -69,6 +68,7 @@ import questDetails from './quest-details/reducer';
 import starshareCamera from './starshare-camera/starshare-camera-reducer';
 import shareMemberPhoto from './share-member-photo/reducer';
 import sharedMemberPhotos from './get-shared-member-photos/reducer';
+import stories from './stories/reducer';
 import tags from './tag-management/Tags';
 import telescopeDetails from './telescope-details/reducer';
 import telescopeOverview from './Telescope-Overview';
@@ -106,7 +106,6 @@ export default combineReducers({
   browseByPopularObjects,
   browseTaggedData,
   catalog,
-  communityContent,
   communityGroups,
   communityGroupActivity,
   communityGroupOverview,
@@ -156,6 +155,7 @@ export default combineReducers({
   shareMemberPhoto,
   sharedMemberPhotos,
   starshareCamera,
+  stories,
   tags,
   telescopeDetails,
   telescopeOverview,

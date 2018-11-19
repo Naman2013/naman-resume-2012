@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ResourcesButton from './resources-button';
+import ResourcesButton from './resources-button.redux';
 import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
 import AboutContent from 'components/guides/AboutContent';
 import style from './body-content.style';
@@ -8,8 +8,8 @@ import style from './body-content.style';
 const BodyContent = ({
   title,
   content,
+  showResources,
   resourcesProps,
-  questId,
   theme,
 }) => (
   <div className="root" style={theme}>
@@ -18,7 +18,7 @@ const BodyContent = ({
     <DisplayAtBreakpoint
       screenMedium
     >
-      <ResourcesButton {...resourcesProps} questId={questId} />
+      {showResources ? <ResourcesButton {...resourcesProps} /> : null}
     </DisplayAtBreakpoint>
     <style jsx>{style}</style>
   </div>
@@ -28,15 +28,16 @@ BodyContent.propTypes = {
   footer: PropTypes.func,
   theme: PropTypes.shape({}),
   title: PropTypes.string,
+  showResources: PropTypes.bool,
   content: PropTypes.string,
   resourcesProps: PropTypes.shape({
     resourcesIconUrl: PropTypes.string.isRequired,
     resourcesButtonText: PropTypes.string.isRequired,
   }).isRequired,
-  questId: PropTypes.string.isRequired,
 };
 
 BodyContent.defaultProps = {
+  showResources: true,
   footer: null,
   theme: {},
   title: '',

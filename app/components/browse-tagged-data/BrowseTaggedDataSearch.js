@@ -406,7 +406,7 @@ class BrowseTaggedDataSearch extends Component {
 
       return (
         <div className="root">
-          <span className="search-text">Search:</span>
+          <span className="search-text">Browse:</span>
           <input
             id="BrowseTaggedDataSearchInputField"
             onClick={(event) => { this.handleClick({ value: event.target.value}); }}
@@ -417,7 +417,7 @@ class BrowseTaggedDataSearch extends Component {
           />
 
           {topNavSearchEnabled == true && <div className="search-results-container">
-              <span className="search-text">Search Results:</span>
+              <span className="search-text">Results:</span>
               {this.renderTaggedDataDisplay()}
             </div>
           }

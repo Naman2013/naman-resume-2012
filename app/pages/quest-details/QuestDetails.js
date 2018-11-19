@@ -5,8 +5,9 @@
 *
 ***********************************/
 
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Modal from 'react-modal';
 import CenterColumn from 'components/common/CenterColumn';
 import SterlingTitle from 'components/common/titles/SterlingTitle';
 import GuideSection from 'components/guides/GuideSection';
@@ -19,39 +20,45 @@ import { romance } from 'styles/variables/colors_tiles_v4';
 import styles from './QuestDetails.style';
 
 const {
+  bool,
   func,
   number,
   shape,
   string,
+  instanceOf,
 } = PropTypes;
 
 
 export const QuestDetails = (props) => {
   const {
-    userActions,
-    questId,
+    actions,
+    modal,
     pageMeta,
+    questId,
+    userActions,
   } = props;
+  const resourcesProps = {
+    resourcesIconUrl: resources,
+    resourcesButtonText: pageMeta.resourcesButtonCaption,
+    questId,
+    moduleId: pageMeta.resourcesModuleId,
+  };
 
-  const guideSectionProps = {
+  const questSectionProps = {
     questId,
     content: () => (
       <BodyContent
         title={pageMeta.aboutTitle}
         content={pageMeta.aboutText}
-        resourcesProps={{
-          resourcesIconUrl: resources,
-          resourcesButtonText: pageMeta.resourcesButtonCaption,
-        }}
+        showResources={pageMeta.showResources}
+        resourcesProps={resourcesProps}
       />
     ),
     column: () => (
       <ContentList
         list={pageMeta.aboutBulletPoints}
-        resourcesProps={{
-          resourcesIconUrl: resources,
-          resourcesButtonText: pageMeta.resourcesButtonCaption,
-        }}
+        showResources={pageMeta.showResources}
+        resourcesProps={resourcesProps}
       />
     ),
     alignContent: 'right',
@@ -59,6 +66,15 @@ export const QuestDetails = (props) => {
 
   return (
     <div className="root">
+      <Modal
+        ariaHideApp={false}
+        isOpen={modal.showModal}
+        style={modal.modalStyles}
+        contentLabel="quests details"
+        onRequestClose={actions.closeModal}
+      >
+        {modal.modalComponent}
+      </Modal>
       <QuestTitleSection
         preTitle={pageMeta.questSubtitle}
         title={pageMeta.questTitle}
@@ -70,7 +86,7 @@ export const QuestDetails = (props) => {
       <CenterColumn>
         <GuideSection
           theme={{ backgroundColor: romance }}
-          {...guideSectionProps}
+          {...questSectionProps}
         />
         <SterlingTitle
           title={pageMeta.stepsHeader}
@@ -97,9 +113,19 @@ QuestDetails.propTypes = {
     questTitle: string.isRequired,
   }),
   questId: string.isRequired,
-}
+  userActions: shape({
+    stepQuest: func.isRequired,
+    goToStep: func.isRequired,
+  }).isRequired,
+  modal: shape({
+    modalComponent: instanceOf(Component),
+    modalStyles: shape({}),
+    showModal: bool,
+  }),
+};
 QuestDetails.defaultProps = {
   pageMeta: {},
-}
+  modal: {},
+};
 
 export default QuestDetails;

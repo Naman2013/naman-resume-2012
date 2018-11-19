@@ -18,6 +18,7 @@ export * from './weekly-forecast';
 export * from './telescope-detail';
 export * from './observatory-information';
 export * from './telescope-navigation';
+export * from './telescope-viewer';
 
 export * from './common/simple-list';
 export * from './common/image-portal-viewer';

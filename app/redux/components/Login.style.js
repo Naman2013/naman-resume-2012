@@ -21,6 +21,7 @@ export default css`
     display: block;
     margin: 15px;
     margin-bottom: 15px;
+    cursor: pointer;
   }
 
   .field-error {

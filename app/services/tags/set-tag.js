@@ -24,3 +24,5 @@ export const setTag = ({
     text,
   })
 );
+
+export default setTag;

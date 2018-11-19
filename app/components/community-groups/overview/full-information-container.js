@@ -21,6 +21,7 @@ import TwoTabbedNav from 'components/TwoTabbedNav';
 import MembersList from './members-list';
 import DiscussionsBoard from 'components/common/DiscussionsBoard';
 import DiscussionBoardInvitationsPanel from 'components/community-groups/overview/DiscussionBoardInvitationsPanel';
+import DiscussionBoardGoogleClassroomStudentsPanel from 'components/community-groups/overview/DiscussionBoardGoogleClassroomStudentsPanel';
 
 const {
   arrayOf,
@@ -114,10 +115,11 @@ class FullInformationOverview extends Component {
       topicId: pageMeta.topicId,
       user,
     };
-    
+
     return (
       <div className="root">
-        {pageMeta.canEditGroup && <DiscussionBoardInvitationsPanel {...this.props}/>}
+        {pageMeta.canEditGroup && pageMeta.isGoogleClassroom === false && <DiscussionBoardInvitationsPanel {...this.props}/>}
+        {pageMeta.canEditGroup && pageMeta.isGoogleClassroom === true && <DiscussionBoardGoogleClassroomStudentsPanel {...this.props}/>}
 
         <ResponsiveTwoColumnContainer
           renderNavigationComponent={navProps =>

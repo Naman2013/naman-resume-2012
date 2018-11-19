@@ -38,6 +38,8 @@ export default css`
 
   .coin {
     background-color: ${astronaut};
+    background-repeat: no-repeat;
+    background-size: cover;
     width: 50px;
     height: 50px;
     border-radius: 50%;

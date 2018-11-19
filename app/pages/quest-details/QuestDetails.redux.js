@@ -18,9 +18,11 @@ import { START_QUEST } from 'services/quests'
 import Quest from './QuestDetails';
 
 const {
+  func,
+  number,
+  oneOfType,
   shape,
   string,
-  func,
 } = PropTypes;
 
 export class ConnectedQuestDetails extends Component {
@@ -29,10 +31,16 @@ export class ConnectedQuestDetails extends Component {
       fetchQuestPageMeta: func.isRequired,
     }),
     questId: string.isRequired,
+    user: shape({
+      at: oneOfType([number, string]),
+      token: oneOfType([number, string]),
+      cid: oneOfType([number, string]),
+    }),
   }
 
   static defaultProps = {
     actions: {},
+    user: {},
   }
 
   state = {
@@ -58,9 +66,9 @@ export class ConnectedQuestDetails extends Component {
       });
   }
 
-  goToStep = (num) => {
+  goToStep = (stepId) => {
     const { questId } = this.props;
-    browserHistory.push(`/quest-details/${questId}/${num}`);
+    browserHistory.push(`/quest-details/${questId}/${stepId}`);
   }
 
   render() {

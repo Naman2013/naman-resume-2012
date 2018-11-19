@@ -8,7 +8,10 @@ const SmallScreenFormat = ({ onSelect, selectedIndex, options }) => (
   <div className="small-screen-select">
     <form action="POST">
       <div className="active-selection-box">
-        <div className="image-container" style={{ backgroundImage: `url(${options[selectedIndex].thumbnailURL})` }} />
+        <div
+          className="image-container"
+          style={{ backgroundImage: `url(${options[selectedIndex].thumbnailURL})` }}
+        />
         <h4 className="active-selection-title">{options[selectedIndex].name}</h4>
         <aside className="chevron-box">
           <Chevron />

@@ -20,13 +20,14 @@ import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
 import JoinHeader from './partials/JoinHeader';
 import PlanDetailsCard from './partials/PlanDetailsCard';
 import { DEFAULT_JOIN_TABS } from './StaticNavTabs';
+import { CLASSROOM_JOIN_TABS } from './StaticNavTabs';
 import {
   JOIN_PAGE_ENDPOINT_URL,
   SUBSCRIPTION_PLANS_ENDPOINT_URL,
   GOOGLE_CLIENT_ID_ENDPOINT_URL,
   GOOGLE_SSO_SIGNIN_ENDPOINT_URL,
   JOIN_CREATE_PENDING_CUSTOMER_ENDPOINT_URL,
-  VERIFY_PASSWORD_MEETS_REQUIREMENTS_ENDPOINT_URL
+  VALIDATE_NEW_PENDING_CUSTOMER_DETAILS_ENDPOINT_URL
 } from 'services/registration/registration.js';
 import styles from './JoinStep2.style';
 
@@ -61,6 +62,7 @@ class JoinStep2 extends Component {
     this.state = {
       accountCreationType: 'userpass',
       isAstronomyClub: window.localStorage.getItem('isAstronomyClub') === "true" ? true : false,
+      isAgeRestricted: true,
       isClassroom: window.localStorage.getItem('isClassroom') === "true" ? true : false,
       googleProfileData: {
         googleProfileId: '',
@@ -130,6 +132,28 @@ class JoinStep2 extends Component {
           hintText: '',
           errorText: '',
         },
+        is13YearsAndOlder: {
+          label: '',
+          visible: true,
+          value: null,
+          hintText: '',
+          errorText: '',
+        },
+        not13YearsOldLegalGuardianOk: {
+          label: '',
+          visible: true,
+          value: false,
+          hintText: '',
+          errorText: '',
+        },
+
+        parentEmailAddress: {
+          label: '',
+          visible: true,
+          value: '',
+          hintText: '',
+          errorText: '',
+        }
       },
     }
   }
@@ -147,6 +171,9 @@ class JoinStep2 extends Component {
     newAccountFormData.passwordVerification.label = result.formFieldLabels.passwordverification.label;
     newAccountFormData.astronomyClubName.label = result.formFieldLabels.astronomyClubName.label;
     newAccountFormData.astronomyClub18AndOver.label = result.formFieldLabels.astronomyClub18AndOver.label;
+    newAccountFormData.is13YearsAndOlder.label = result.formFieldLabels.is13YearsAndOlder.label;
+    newAccountFormData.not13YearsOldLegalGuardianOk.label = result.formFieldLabels.not13YearsOldLegalGuardianOk.label;
+    newAccountFormData.parentEmailAddress.label = result.formFieldLabels.parentEmailAddress.label;
 
     newAccountFormData.givenName.hintText = result.formFieldLabels.firstname.hintText;
     newAccountFormData.familyName.hintText = result.formFieldLabels.lastname.hintText;
@@ -157,10 +184,14 @@ class JoinStep2 extends Component {
     newAccountFormData.passwordVerification.hintText = result.formFieldLabels.passwordverification.hintText;
     newAccountFormData.astronomyClubName.hintText = result.formFieldLabels.astronomyClubName.hintText;
     newAccountFormData.astronomyClub18AndOver.hintText = result.formFieldLabels.astronomyClub18AndOver.hintText;
+    newAccountFormData.is13YearsAndOlder.hintText = result.formFieldLabels.is13YearsAndOlder.hintText;
+    newAccountFormData.not13YearsOldLegalGuardianOk.hintText = result.formFieldLabels.not13YearsOldLegalGuardianOk.hintText;
+    newAccountFormData.parentEmailAddress.hintText = result.formFieldLabels.parentEmailAddress.hintText;
 
     /* update the account form details state so the correct hinText will show on each form field */
     this.setState(() => ({
       accountFormDetails: newAccountFormData,
+      isAgeRestricted: result.selectedSubscriptionPlan.isAgeRestricted,
     }));
   }
 
@@ -197,6 +228,9 @@ class JoinStep2 extends Component {
     accountFormDetailsData.password.errorText = '';
     accountFormDetailsData.passwordVerification.errorText = '';
     accountFormDetailsData.astronomyClubName.errorText = '';
+    accountFormDetailsData.is13YearsAndOlder.errorText = '';
+    accountFormDetailsData.not13YearsOldLegalGuardianOk.errorText = '';
+    accountFormDetailsData.parentEmailAddress.errorText = '';
 
     if (accountCreationType === 'userpass') {
         /* Verify that the user has provided:
@@ -229,18 +263,6 @@ class JoinStep2 extends Component {
         }
       }
 
-      if (accountFormDetailsData.password.value === '') {
-        accountFormDetailsData.password.errorText = 'Please enter in a password.';
-        formIsComplete = false;
-      } else {
-        /* verify the password and the verification password fields match */
-        accountFormDetailsData.password.errorText = '';
-        if (accountFormDetailsData.password.value !== accountFormDetailsData.passwordVerification.value) {
-          accountFormDetailsData.passwordVerification.errorText = 'Your password and the password you entered into the verification field must match.';
-          formIsComplete = false;
-        }
-      }
-
       /* need to verify that the password meets the Slooh requirements */
     } else if (accountCreationType === 'googleaccount') {
       /* Verify that the user has provided:
@@ -267,48 +289,91 @@ class JoinStep2 extends Component {
       }
     }
 
-    if (formIsComplete === true) {
-    /* The form is complete and valid, submit the pending customer request if the Password Enters meets the Slooh Requirements */
-
-      /* Last Validation....password validation, not required for Google Accounts as their is no password */
-      if (accountCreationType === 'userpass') {
-      /* reach out to the Slooh API and verify the user's password */
-
-        const passwordMeetsRequirementsResult = axios.post(VERIFY_PASSWORD_MEETS_REQUIREMENTS_ENDPOINT_URL, {
-          userEnteredPassword: this.state.accountFormDetails.password.value
-        })
-          .then((response) => {
-            const res = response.data;
-            if (res.apiError == false) {
-              const passwordResult = {
-                passwordAcceptable: res.passwordAcceptable,
-                passwordNotAcceptedMessage: res.passwordNotAcceptedMessage,
-              }
-
-              /* need to force evaulation of "true"/"false" vs. true/false. */
-              if (passwordResult.passwordAcceptable === "true") {
-                formIsComplete = true;
-
-                /* create the pending customer result */
-                this.createPendingCustomerRecordAndNextScreen();
-              } else {
-                /* Password did not meet Slooh requirements, provide the error messaging */
-                accountFormDetailsData.password.errorText = passwordResult.passwordNotAcceptedMessage;
-
-                /* make sure to persist any changes to the account signup form (error messages) */
-                this.setState({ accountFormDetails: accountFormDetailsData });
-
-                formIsComplete = false;
-              }
-            }
-          })
-          .catch((err) => {
-            throw ('Error: ', err);
-          });
-      } else if (accountCreationType === 'googleaccount') {
-        /* no additional verifications are needed, create the pending customer record and continue to the next screen */
-        this.createPendingCustomerRecordAndNextScreen();
+    if (this.state.isAgeRestricted === true) {
+      /* Make sure that the 13/Older indicator is selected with a value */
+      if (accountFormDetailsData.is13YearsAndOlder.value === null) {
+        accountFormDetailsData.is13YearsAndOlder.errorText = 'You must certify whether you are 13 years and older.';
+        formIsComplete = false;
       }
+      else if (accountFormDetailsData.is13YearsAndOlder.value === false) {
+        //make sure the user has certified that they have their Legal Guardian's permission to sign up.
+        if (accountFormDetailsData.not13YearsOldLegalGuardianOk.value === false) {
+          accountFormDetailsData.not13YearsOldLegalGuardianOk.errorText = 'You have indicated you are under 13 years old, please certify that your Legal Guardian has signed you up for this service.';
+          formIsComplete = false;
+        }
+
+        //make sure the parent email address field is filled in.
+        if (accountFormDetailsData.parentEmailAddress.value === '') {
+          accountFormDetailsData.parentEmailAddress.errorText = 'You have indicated you are under 13 years old, please enter in your Legal Guardian\'s Email Address.';
+          formIsComplete = false;
+        }
+      }
+    }
+
+    /* a password is assigned to a Google account even though they can sign-in using google, this way they can login without google if needed */
+    if (accountFormDetailsData.password.value === '') {
+      accountFormDetailsData.password.errorText = 'Please enter in a password.';
+      formIsComplete = false;
+    } else {
+      /* verify the password and the verification password fields match */
+      accountFormDetailsData.password.errorText = '';
+      if (accountFormDetailsData.password.value !== accountFormDetailsData.passwordVerification.value) {
+        accountFormDetailsData.passwordVerification.errorText = 'Your password and the password you entered into the verification field must match.';
+        formIsComplete = false;
+      }
+    }
+
+    if (formIsComplete === true) {
+    /* The form is complete and valid, submit the pending customer request if the Password Enters meets the Slooh Requirements and the Email Address is not already taken in the system */
+
+    /* Last Validation....password and email address validation */
+    /* reach out to the Slooh API and verify the user's password and email address is not already taken, etc */
+
+    const customerDetailsMeetsRequirementsResult = axios.post(VALIDATE_NEW_PENDING_CUSTOMER_DETAILS_ENDPOINT_URL, {
+      userEnteredPassword: this.state.accountFormDetails.password.value,
+      userEnteredLoginEmailAddress: this.state.accountFormDetails.loginEmailAddress.value,
+      selectedPlanId: window.localStorage.selectedPlanId,
+    })
+      .then((response) => {
+        const res = response.data;
+        if (res.apiError == false) {
+          const validationResults = {
+            passwordAcceptable: res.passwordAcceptable,
+            passwordNotAcceptedMessage: res.passwordNotAcceptedMessage,
+            emailAddressAcceptable: res.emailAddressAcceptable,
+            emailAddressNotAcceptedMessage: res.emailAddressNotAcceptedMessage,
+          }
+
+          if (validationResults.passwordAcceptable === false) {
+            /* Password did not meet Slooh requirements, provide the error messaging */
+            accountFormDetailsData.password.errorText = validationResults.passwordNotAcceptedMessage;
+
+            /* make sure to persist any changes to the account signup form (error messages) */
+            this.setState({ accountFormDetails: accountFormDetailsData });
+
+            formIsComplete = false;
+          }
+
+          if (validationResults.emailAddressAcceptable === false) {
+            /* Email address is already taken or some other validation error occurred. */
+            accountFormDetailsData.loginEmailAddress.errorText = validationResults.emailAddressNotAcceptedMessage;
+
+            /* make sure to persist any changes to the account signup form (error messages) */
+            this.setState({ accountFormDetails: accountFormDetailsData });
+
+            formIsComplete = false;
+          }
+
+          if (formIsComplete === true) {
+            /* create the pending customer result */
+            this.createPendingCustomerRecordAndNextScreen();
+          }
+        }
+      })
+      .catch((err) => {
+        throw ('Error: ', err);
+      });
+
     } else {
       /* make sure to persist any changes to the account signup form (error messages) */
       this.setState(() => ({ accountFormDetails: accountFormDetailsData }));
@@ -331,6 +396,7 @@ class JoinStep2 extends Component {
       googleProfileId: this.state.googleProfileData.googleProfileId,
       accountFormDetails: this.state.accountFormDetails,
       selectedSchoolId: selectedSchoolId,
+      isAgeRestricted: this.state.isAgeRestricted,
     };
     /* update tool/false values for Astronomy Club */
     if (createPendingCustomerData.accountFormDetails.astronomyClub18AndOver.value === false) {
@@ -394,9 +460,9 @@ class JoinStep2 extends Component {
 
           /* Update the Account Form parameters to show/hide fields as a result of Google Login */
           const accountFormDetailsData = cloneDeep(this.state.accountFormDetails);
-          /* Google Authentication does not require the customer to create a password/hide the form field */
-          accountFormDetailsData.password.visible = false;
-          accountFormDetailsData.passwordVerification.visible = false;
+          /* Google Authentication technically does not require a password, but we want the user to use a backup password */
+          accountFormDetailsData.password.visible = true;
+          accountFormDetailsData.passwordVerification.visible = true;
 
           /* Set the customer's information that we got from google as a starting place for the user */
           accountFormDetailsData.givenName.value = googleProfileResult.googleProfileGivenName;
@@ -406,6 +472,7 @@ class JoinStep2 extends Component {
           this.props.change('familyName', googleProfileResult.googleProfileFamilyName);
 
           /* The primary key for Google Single Sign-in is the user's email address which can't be changed if using Google, update the form on screen accordingly so certain fields are hidden and not editable */
+          accountFormDetailsData.loginEmailAddress.errorText = '';  /* reset the error text in case the user uses another account after finding out their previous account was already a Slooh customer */
           accountFormDetailsData.loginEmailAddress.editable = false;
           accountFormDetailsData.loginEmailAddress.value = googleProfileResult.googleProfileEmail;
           this.props.change('loginEmailAddress', googleProfileResult.googleProfileEmail);
@@ -446,6 +513,7 @@ class JoinStep2 extends Component {
 
     const selectedPlanId = window.localStorage.getItem('selectedPlanId');
 
+
     //for classroom accounts
     const selectedSchoolId = window.localStorage.getItem('selectedSchoolId');
 
@@ -463,12 +531,21 @@ class JoinStep2 extends Component {
               {
                 !fetchingContent && selectedPlanId &&
                   <Fragment>
-                    <JoinHeader
-                      mainHeading={joinPageRes.pageHeading1}
-                      subHeading={joinPageRes.pageHeading2}
-                      activeTab={pathname}
-                      tabs={DEFAULT_JOIN_TABS}
-                    />
+                    {joinPageRes.hasSelectedSchool === "yes" ? (
+                      <JoinHeader
+                        mainHeading={joinPageRes.pageHeading1}
+                        subHeading={joinPageRes.pageHeading2}
+                        activeTab={pathname}
+                        tabs={CLASSROOM_JOIN_TABS}
+                      />
+                    ) : (
+                      <JoinHeader
+                        mainHeading={joinPageRes.pageHeading1}
+                        subHeading={joinPageRes.pageHeading2}
+                        activeTab={pathname}
+                        tabs={DEFAULT_JOIN_TABS}
+                      />
+                    )}
                     <div className="step-root">
                       <DisplayAtBreakpoint
                         screenMedium
@@ -492,6 +569,7 @@ class JoinStep2 extends Component {
                           */}
 
                         {joinPageRes.hasSelectedSchool === "yes" && <div>
+                          <br/>
                           <p>Your School: {joinPageRes.selectedSchool.schoolName}</p>
                           <p style={{'fontSize': '1.0em'}}>Your School District: {joinPageRes.selectedSchool.districtName}</p>
                           <br/>
@@ -555,6 +633,51 @@ class JoinStep2 extends Component {
                               </div>
                             </div>
                         ) : null}
+
+                        {this.state.isAgeRestricted && <div className="form-section">
+                            <div>
+                              <span className="form-label" dangerouslySetInnerHTML={{ __html: accountFormDetails.is13YearsAndOlder.label }} />:
+                              <span className="form-error" dangerouslySetInnerHTML={{ __html: accountFormDetails.is13YearsAndOlder.errorText }} />
+                              <br/>
+                              <br/>
+                              <fieldset>
+                                <label><Field name="13andOlder" label="Yes" component="input" type="radio" value="13andolder"  onClick={(event) => { this.handleFieldChange({ field: 'is13YearsAndOlder', value: true }); }}/> Yes</label>
+                                <span style={{"paddingLeft": "15px"}}><label><Field name="13andOlder" label="No" component="input" type="radio" value="under13" onClick={(event) => { this.handleFieldChange({ field: 'is13YearsAndOlder', value: false }); }}/> No</label></span>
+                              </fieldset>
+                            </div>
+                            <br/>
+                            {accountFormDetails.is13YearsAndOlder.value === false && <div>
+                              <div className="form-field-container">
+                                <span className="form-label" dangerouslySetInnerHTML={{ __html: accountFormDetails.not13YearsOldLegalGuardianOk.label }} />:
+                                <span className="form-error" dangerouslySetInnerHTML={{ __html: accountFormDetails.not13YearsOldLegalGuardianOk.errorText }} />
+                              </div>
+                              <Field
+                                name="not13YearsOldLegalGuardianOk"
+                                type="checkbox"
+                                className="form-field"
+                                label={accountFormDetails.not13YearsOldLegalGuardianOk.hintText}
+                                component="input"
+                                value={accountFormDetails.not13YearsOldLegalGuardianOk.value}
+                                onClick={(event) => { this.handleFieldChange({ field: 'not13YearsOldLegalGuardianOk', value: !accountFormDetails.not13YearsOldLegalGuardianOk.value }); }}
+                              />
+                              <br/>
+                              <br/>
+                              <span className="form-label" dangerouslySetInnerHTML={{ __html: accountFormDetails.parentEmailAddress.label }} />:
+                              <span className="form-error" dangerouslySetInnerHTML={{ __html: accountFormDetails.parentEmailAddress.errorText }} />
+                              <Field
+                                name="parentEmailAddress"
+                                type="name"
+                                className="form-field"
+                                label={accountFormDetails.parentEmailAddress.hintText}
+                                component={InputField}
+                                onChange={(event) => { this.handleFieldChange({ field: 'parentEmailAddress', value: event.target.value }); }}
+                                value={accountFormDetails.parentEmailAddress.value}
+                              />
+                              <br/>
+                            </div>
+                            }
+                          </div>
+                          }
                           <div className="form-section split">
                             <div className="form-field-container form-field-half">
                               <span className="form-label" dangerouslySetInnerHTML={{ __html: accountFormDetails.givenName.label }} />:
@@ -624,6 +747,7 @@ class JoinStep2 extends Component {
                             <div className="form-section">
                               <div className="form-field-container">
                                 <span className="form-label" dangerouslySetInnerHTML={{ __html: accountFormDetails.loginEmailAddress.label }} />:
+                                <span className="form-error" dangerouslySetInnerHTML={{ __html: accountFormDetails.loginEmailAddress.errorText }} />
                               </div>
                               <span className="google-field">{accountFormDetails.loginEmailAddress.value}</span>
                             </div>

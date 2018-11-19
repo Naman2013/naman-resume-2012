@@ -14,13 +14,13 @@ const CardObsLarge = ({
 }) => (
   <Fragment>
     <div className="card-obs">
-      <div className="media-card-img-right">
-        <img src={imageUrl} alt="Observation" />
-      </div>
       <div className="obs-left">
         <div className="card-obs-title">{title}</div>
         <div className="card-obs-author">{subTitle}</div>
         <div className="card-obs-desc">{description}</div>
+      </div>
+      <div className="media-card-img-right">
+        <img src={imageUrl} alt="Observation" />
       </div>
       <div className="card-bottom">
         <ul>

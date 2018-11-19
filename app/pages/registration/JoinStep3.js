@@ -195,41 +195,50 @@ class JoinStep3 extends Component  {
           serviceResponseHandler={this.handleJoinPageServiceResponse}
           render={({
             fetchingContent,
-            serviceResponse: joinPageResponse,
+            serviceResponse: joinPageRes,
           }) => (
             <Fragment>
               {
                 !fetchingContent &&
                   <Fragment>
-                    <JoinHeader
-                      mainHeading={joinPageResponse.pageHeading1}
-                      subHeading={joinPageResponse.pageHeading2}
-                      activeTab={pathname}
-                      tabs={DEFAULT_JOIN_TABS}
-                    />
+                    {joinPageRes.hasSelectedSchool === "yes" ? (
+                      <JoinHeader
+                        mainHeading={joinPageRes.pageHeading1}
+                        subHeading={joinPageRes.pageHeading2}
+                        activeTab={pathname}
+                        tabs={CLASSROOM_JOIN_TABS}
+                      />
+                    ) : (
+                      <JoinHeader
+                        mainHeading={joinPageRes.pageHeading1}
+                        subHeading={joinPageRes.pageHeading2}
+                        activeTab={pathname}
+                        tabs={DEFAULT_JOIN_TABS}
+                      />
+                    )}
                     <div className="step-root">
                       <DisplayAtBreakpoint
                         screenMedium
                         screenLarge
                         screenXLarge
                       >
-                        <PlanDetailsCard {...joinPageResponse.selectedSubscriptionPlan} />
+                        <PlanDetailsCard {...joinPageRes.selectedSubscriptionPlan} />
                       </DisplayAtBreakpoint>
-                      <div className="section-heading">{joinPageResponse.sectionHeading}</div>
-                      <Countdown date={Date.now() + joinPageResponse.customerHasXSecondsToCompleteSignup} renderer={this.CountdownRenderer} onComplete={this.CountdownComplete}/>
+                      <div className="section-heading">{joinPageRes.sectionHeading}</div>
+                      <Countdown date={Date.now() + joinPageRes.customerHasXSecondsToCompleteSignup} renderer={this.CountdownRenderer} onComplete={this.CountdownComplete}/>
                       <div className="inner-container">
                         <DisplayAtBreakpoint
                           screenMedium
                           screenLarge
                           screenXLarge
                         >
-                          <iframe frameBorder="0" style={{width: '100%', minHeight: '750px'}} src={joinPageResponse.hostedPaymentFormURL}></iframe>
+                          <iframe frameBorder="0" style={{width: '100%', minHeight: '750px'}} src={joinPageRes.hostedPaymentFormURL}></iframe>
                         </DisplayAtBreakpoint>
 
                         <DisplayAtBreakpoint
                           screenSmall
                         >
-                          <iframe frameBorder="0" style={{width: '100%', minHeight: '850px'}} src={joinPageResponse.hostedPaymentFormURL}></iframe>
+                          <iframe frameBorder="0" style={{width: '100%', minHeight: '850px'}} src={joinPageRes.hostedPaymentFormURL}></iframe>
                         </DisplayAtBreakpoint>
 
 

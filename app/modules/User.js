@@ -22,14 +22,17 @@ const UNMUTE_PLAYER = 'UNMUTE_PLAYER';
 export const set = createAction(SET_USER, 'user');
 export const removeUser = createAction(REMOVE_USER);
 
-export function store({ cid, token, at, fname, avatarURL, subscriptionPlanName }) {
+export function store({ reload, cid, token, at, fname, avatarURL, subscriptionPlanName, googleProfileId }) {
   window.document.cookie = cookie.serialize('cid', cid, { domain: 'localhost', secure: false, expires: futureDate, path: COOKIE_PATH });
   window.document.cookie = cookie.serialize('token', token, { domain: 'localhost', secure: false, expires: futureDate, path: COOKIE_PATH });
   window.document.cookie = cookie.serialize('at', at, { domain: 'localhost', secure: false, expires: futureDate, path: COOKIE_PATH });
   window.document.cookie = cookie.serialize('fname', fname, { domain: 'localhost', secure: false, expires: futureDate, path: COOKIE_PATH });
   window.document.cookie = cookie.serialize('avatarURL', avatarURL, { domain: 'localhost', secure: false, expires: futureDate, path: COOKIE_PATH });
   window.document.cookie = cookie.serialize('subscriptionPlanName', subscriptionPlanName, { domain: 'localhost', secure: false, expires: futureDate, path: COOKIE_PATH });
-
+  window.document.cookie = cookie.serialize('googleProfileId', googleProfileId, { domain: 'localhost', secure: false, expires: futureDate, path: COOKIE_PATH });
+  if (reload) {
+    window.location.reload();
+  }
   return (dispatch) => {
     dispatch(
       set({
@@ -39,6 +42,7 @@ export function store({ cid, token, at, fname, avatarURL, subscriptionPlanName }
         fname,
         avatarURL,
         subscriptionPlanName,
+        googleProfileId,
       }),
     );
   };
@@ -58,6 +62,7 @@ export function destroySession() {
   window.document.cookie = cookie.serialize('fname', '', { domain: 'localhost', secure: false, expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT'), path: COOKIE_PATH });
   window.document.cookie = cookie.serialize('avatarURL', '', { domain: 'localhost', secure: false, expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT'), path: COOKIE_PATH });
   window.document.cookie = cookie.serialize('subscriptionPlanName', '', { domain: 'localhost', secure: false, expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT'), path: COOKIE_PATH });
+  window.document.cookie = cookie.serialize('googleProfileId', '', { domain: 'localhost', secure: false, expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT'), path: COOKIE_PATH });
 }
 
 function updatePlayerVolumeCookie(volume) {
@@ -114,7 +119,7 @@ export function destroy() {
   */
 export function checkUser(pathname, replace, callback) {
   return (dispatch) => {
-    const { cid, token, at, fname, avatarURL, playerMuted, playerVolume, subscriptionPlanName } = cookie.parse(
+    const { cid, token, at, fname, avatarURL, playerMuted, playerVolume, subscriptionPlanName, googleProfileId } = cookie.parse(
       window.document.cookie,
     );
 
@@ -139,6 +144,7 @@ export function checkUser(pathname, replace, callback) {
           fname,
           avatarURL,
           subscriptionPlanName,
+          googleProfileId,
         }),
       );
       callback();

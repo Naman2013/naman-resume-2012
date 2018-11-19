@@ -5,5 +5,6 @@ const initialState = {
     modalComponent: null,
     modalStyles: null,
   },
+  step: {},
 };
 export default initialState;

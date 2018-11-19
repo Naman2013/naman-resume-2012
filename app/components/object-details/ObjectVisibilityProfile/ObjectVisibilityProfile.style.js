@@ -3,8 +3,15 @@ import { primaryFont } from 'styles/variables/fonts';
 import { lightHeadedAstronaut } from 'styles/variables/colors_tiles_v4';
 import { faintShadow } from 'styles/variables/shadows';
 import { resetMarginPadding } from 'styles/variables/utils';
-
+import { screenLarge } from 'styles/variables/breakpoints';
 export default css`
+
+  .obs-visibility-root {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
   .select-field {
     ${faintShadow}
     ${resetMarginPadding}
@@ -33,5 +40,11 @@ export default css`
     left: 0;
     width: 100%;
     opacity: 0;
+  }
+
+  @media ${screenLarge} {
+    .obs-visibility-root {
+      flex-direction: row;
+    }
   }
 `;

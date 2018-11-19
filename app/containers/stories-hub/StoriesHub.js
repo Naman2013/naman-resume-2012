@@ -1,11 +1,13 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import noop from 'lodash/noop';
+import { browserHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import StoryTiles from 'components/stories-hub/stories-tiles';
 import Request from 'components/common/network/Request';
 import HubContainer from 'components/common/HubContainer';
+import Button from 'components/common/style/buttons/Button';
 import { STORIES_PAGE_ENDPOINT_URL, STORIES_ENDPOINT_URL } from 'services/stories';
 import { DeviceContext } from 'providers/DeviceProvider';
 import { validateResponseAccess } from 'modules/authorization/actions'
@@ -114,6 +116,11 @@ class Stories extends Component {
                         currentCount: 'storiesCount',
                         totalCount: 'totalStoriesCount',
                       }}
+                      renderRightMenu={() => (
+                        <div className="flex">
+                          <Button text="Submit Story" onClickEvent={() => browserHistory.push(`/stories/${this.props.params.filterType}/create`)} />
+                        </div>
+                      )}
                       render={() => (
                         <Fragment>
                           {fetchingContent ? <div>Loading</div> : null}
