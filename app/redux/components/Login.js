@@ -83,6 +83,7 @@ class Login extends Component {
     else {
       this.setState(() => ({
         inForgotPasswordMode: true,
+        forgotPasswordStatusMessage: 'Please Wait...Processing your Forgot Password Request.',
       }));
 
       const forgotPasswordRequestResult = axios.post(FORGOT_PASSWORD_REQUEST_ENDPOINT_URL,
