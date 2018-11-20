@@ -5,8 +5,8 @@ import telescopeConfig from './telescopeConfig';
 import FAUX_MISSIONS from '../../content/fauxMissions';
 
 describe('Telescope interface', () => {
-  const activeTelescope = telescopeConfig.CANARY_ONE_HALF_METER;
-  const previousTelescope = telescopeConfig.CANARY_TWO_WIDE_FIELD;
+  const activeTelescope = telescopeConfig['1ff72faa-7909-11e6-a635-0eb2b1774883'];
+  const previousTelescope = telescopeConfig['2590c3fd-7909-11e6-a635-0eb2b1774883'];
 
   const shallowTelescope = shallow(<Telescope
     activeInstrumentID={activeTelescope.instrumentID}

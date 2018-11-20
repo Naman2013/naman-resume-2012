@@ -26,7 +26,7 @@ export const BOOTSTRAP_TELESCOPE_DETAILS = 'BOOTSTRAP_TELESCOPE_DETAILS';
 export const BOOTSTRAP_TELESCOPE_DETAILS_FAIL = 'BOOTSTRAP_TELESCOPE_DETAILS_FAIL';
 
 export const FETCH_TELESCOPE_STATUS_START = 'FETCH_TELESCOPE_STATUS_START';
-export const FETCH_TELESCOPE_STATUS_SUCCESS = 'FETCH_TELESCOPE_STATUS';
+export const FETCH_TELESCOPE_STATUS_SUCCESS = 'FETCH_TELESCOPE_STATUS_SUCCESS';
 export const FETCH_TELESCOPE_STATUS_FAIL = 'FETCH_TELESCOPE_STATUS_FAIL';
 
 export const RESET_CURRENT_OBSERVATORY_STATUS = 'RESET_CURRENT_OBSERVATORY_STATUS';
@@ -92,11 +92,6 @@ export const resetActiveSSE = () => ({
   type: RESET_ACTIVE_SSE,
 });
 
-const setTelescopeOnlineStatus = currentTelescopeOnlineStatus => ({
-  type: SET_CURRENT_OBSERVATORY_STATUS,
-  currentTelescopeOnlineStatus,
-});
-
 const fetchTelescopeStatusSuccess = payload => ({
   type: FETCH_TELESCOPE_STATUS_SUCCESS,
   payload,
@@ -106,18 +101,6 @@ const fetchTelescopeStatusError = payload => ({
   type: FETCH_TELESCOPE_STATUS_FAIL,
   payload,
 });
-
-export const updateTelescopeStatus = ({ teleUniqueId }) => (dispatch, getState) => {
-  const {
-    telescopeDetails: { allObservatoryTelescopeStatus: { statusList: { statusTeleList } } },
-  } = getState();
-
-  dispatch(
-    setTelescopeOnlineStatus(
-      statusTeleList.find(telescopeStatus => telescopeStatus.teleUniqueId === teleUniqueId),
-    ),
-  );
-};
 
 const startFetchTelescopeStatus = () => ({
   type: FETCH_TELESCOPE_STATUS_START,
@@ -133,11 +116,6 @@ export const fetchAllTelescopeStatus = ({ obsId, teleUniqueId, isRefresh }) => (
   return fetchTelescopeStatus(obsId)
     .then((result) => {
       const { statusList: { statusTeleList } } = result.data;
-      const currentTelescopeStatus = statusTeleList.find(
-        teleStatus => teleStatus.teleUniqueId === teleUniqueId,
-      );
-
-      dispatch(setTelescopeOnlineStatus(currentTelescopeStatus));
       dispatch(fetchTelescopeStatusSuccess(result.data));
     })
     .catch(error => dispatch(fetchTelescopeStatusError(error)));

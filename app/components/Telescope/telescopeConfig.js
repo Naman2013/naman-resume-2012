@@ -1,7 +1,7 @@
 import first from 'lodash/first';
 
 const telescopeConfig = {
-  CANARY_ONE_HALF_METER: {
+  '1ff72faa-7909-11e6-a635-0eb2b1774883': {
     key: 'CANARY_ONE_HALF_METER',
     name: 'Canary One Half Meter',
     instrumentID: '76de934d-7909-11e6-a635-0eb2b1774883',
@@ -15,7 +15,7 @@ const telescopeConfig = {
       vertical: 37,
     },
   },
-  CANARY_TWO_WIDE_FIELD: {
+  '2590c3fd-7909-11e6-a635-0eb2b1774883': {
     key: 'CANARY_TWO_WIDE_FIELD',
     name: 'Canary Two Wide Field',
     instrumentID: '8032dfaf-7909-11e6-a635-0eb2b1774883',
@@ -43,7 +43,7 @@ const telescopeConfig = {
       vertical: 72,
     },
   },
-  CANARY_THREE_DEEP_SKY: {
+  '3686b322-7909-11e6-a635-0eb2b1774883': {
     key: 'CANARY_THREE_DEEP_SKY',
     name: 'Canary Three Deep Sky',
     instrumentID: '905f9d8d-7909-11e6-a635-0eb2b1774883',
@@ -57,7 +57,7 @@ const telescopeConfig = {
       vertical: 75,
     },
   },
-  CANARY_FOUR_SOLAR_SYSTEM: {
+  '3db71869-7909-11e6-a635-0eb2b1774883': {
     key: 'CANARY_FOUR_SOLAR_SYSTEM',
     name: 'Canary Four Solar System',
     instrumentID: '97f58d52-7909-11e6-a635-0eb2b1774883',
@@ -71,7 +71,7 @@ const telescopeConfig = {
       vertical: 12,
     },
   },
-  CANARY_FIVE_SOLAR: {
+  '54accc1d-7909-11e6-a635-0eb2b1774883': {
     key: 'CANARY_FIVE_SOLAR',
     name: 'Canary Five Solar',
     instrumentID: 'b0b33e71-7909-11e6-a635-0eb2b1774883',
@@ -85,7 +85,7 @@ const telescopeConfig = {
       vertical: 21,
     },
   },
-  CHILE_ONE_WIDE_FIELD: {
+  '4624887a-7909-11e6-a635-0eb2b1774883': {
     key: 'CHILE_ONE_WIDE_FIELD',
     name: 'Chile One Wide Field',
     instrumentID: 'cd31c5c9-7909-11e6-a635-0eb2b1774883',
@@ -99,7 +99,7 @@ const telescopeConfig = {
       vertical: 21,
     },
   },
-  CHILE_ONE_ULTRA_WIDE_FIELD: {
+  '6acfb8cd-7909-11e6-a635-0eb2b1774883': {
     key: 'CHILE_ONE_ULTRA_WIDE_FIELD',
     name: 'Chile One Ultra Wide Field',
     instrumentID: 'd3ca2e16-7909-11e6-a635-0eb2b1774883',

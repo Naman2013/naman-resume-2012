@@ -243,6 +243,9 @@ class Telescope extends Component {
             <div className="telescope">
               <div
                 ref={measureRef}
+                style={{
+                  backgroundColor: (isTransitioningTelescope) ? 'black' : 'transparent',
+                }}
                 className="portal"
               >
                 <Fade isHidden={isTransitioningTelescope}>
@@ -334,7 +337,6 @@ class Telescope extends Component {
                     overflow: hidden;
                     background: none;
                     position: relative;
-                    background-color: ${black};
                   }
 
                   .portal:before {
