@@ -8,6 +8,7 @@ import { WhereInTheSky, AllSkyCamera, HowBigModule } from './';
 import style from './tab-live.style';
 
 const TabLive = ({
+  mission,
   renderTelescopeViewer,
 }) => (
   <div>
@@ -19,9 +20,15 @@ const TabLive = ({
       <ObjectSummaryTile />
     </div>
 
-    <div className="tile-container">
-      <ScheduledByTile />
-    </div>
+    {
+      mission.missionAvailable &&
+        <div className="tile-container">
+          <ScheduledByTile
+            scheduledBy={mission.ownerDisplayName}
+            targetName={mission.objectTitle}
+          />
+        </div>
+    }
 
     <div className="tile-container">
       <WhereInTheSky />
@@ -40,7 +47,20 @@ const TabLive = ({
 );
 
 TabLive.propTypes = {
+  mission: PropTypes.shape({
+    missionAvailable: PropTypes.bool,
+    objectTitle: PropTypes.string,
+    ownerDisplayName: PropTypes.string,
+  }),
   renderTelescopeViewer: PropTypes.func.isRequired,
+};
+
+TabLive.defaultProps = {
+  mission: {
+    missionAvailable: false,
+    objectTitle: '',
+    ownerDisplayName: '',
+  },
 };
 
 export { TabLive };

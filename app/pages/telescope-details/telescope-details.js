@@ -283,11 +283,12 @@ class TelescopeDetails extends Component {
     // get instrument, we cannot know the instrument until after the API's have returned
     // TODO: this flow should be redesigned
     const activeInstrument = getActiveInstrument(observatoryList, activeTelescope);
-    console.log("Active instrument", activeInstrument);
+    console.log(activeTelescopeMission);
+
     return (
       <div>
         <TelescopeNavigation
-          title="Great barred spiral galaxy"
+          title={activeTelescopeMission.objectTitle}
           options={navigationOptions}
           onSelect={this.handleOptionChange}
           selectedIndex={selectedNavigationIndex}
@@ -330,6 +331,7 @@ class TelescopeDetails extends Component {
                   tabTitle: 'Live',
                   content: () => (
                     <TabLive
+                      mission={activeTelescopeMission}
                       renderTelescopeViewer={() => (
                         <TelescopeImageViewerController
                           activeInstrumentID={activeInstrument.instrUniqueId}

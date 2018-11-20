@@ -11,9 +11,12 @@ const MediumScreenFormat = ({
 }) => (
   <div>
     <ul className="list-navigation">
-      <li className="item">
-        <h2 className="page-title">{title}</h2>
-      </li>
+      {
+        title &&
+          <li className="item">
+            <h2 className="page-title">{title}</h2>
+          </li>
+      }
       <li className="item">
         <SmallScreenFormat onSelect={onSelect} selectedIndex={selectedIndex} options={options} />
       </li>
