@@ -283,7 +283,6 @@ class TelescopeDetails extends Component {
     // get instrument, we cannot know the instrument until after the API's have returned
     // TODO: this flow should be redesigned
     const activeInstrument = getActiveInstrument(observatoryList, activeTelescope);
-    console.log(activeTelescopeMission);
 
     return (
       <div>
@@ -331,6 +330,8 @@ class TelescopeDetails extends Component {
                   tabTitle: 'Live',
                   content: () => (
                     <TabLive
+                      obsId={currentObservatory.obsId}
+                      skyChartWidgetID={currentObservatory.SkychartWidgetId}
                       mission={activeTelescopeMission}
                       renderTelescopeViewer={() => (
                         <TelescopeImageViewerController
