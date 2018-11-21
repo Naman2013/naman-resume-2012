@@ -14,12 +14,12 @@ import { ModuleContainer } from './module-container';
 import ObservatoryBot from 'components/telescope-details/ObservatoryBot/ObservatoryBot';
 import style from './tab-live.style';
 
-const TabConditions = () => (
+const TabConditions = (props) => (
   <div>
     <div className="tile-container">
       <ObservatoryBot
         viewGroup="conditions"
-        teleSystem="teide1highmag"
+        teleSystem={props.currentTelescope.teleSystem}
       />
     </div>
     <div className="tile-container">
