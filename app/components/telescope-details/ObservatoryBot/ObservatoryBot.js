@@ -45,15 +45,15 @@ export default class ObservatoryBot extends Component {
   bootstrapSSE() {
     const { teleSystem, currentMissionServerTime } = this.props;
 
-    const observatoryBotUrl = `https://nova.slooh.com/bot/${teleSystem}`;
+    const observatoryBotUrl = `/bot/${teleSystem}`;
     this.sseSource = new EventSource(observatoryBotUrl);
     this.sseSource.addEventListener(
       'initial',
-      event => this.handleInitialBotMessages(event.data), false);
+      event => this.handleBotMessages(event.data), false);
 
     this.sseSource.addEventListener(
       'message',
-      event => this.handleBotMessage(event.data), false);
+      event => this.handleBotMessages(event.data), false);
   }
 
   tearDownSSE() {
@@ -72,51 +72,31 @@ export default class ObservatoryBot extends Component {
   }
 
 
-  handleInitialBotMessages(data) {
+  handleBotMessages(data) {
     const { viewGroup } = this.props;
 
-    const message = JSON.parse(data);
-    const messagesToProcess = message[viewGroup];
-
+    const messages = JSON.parse(data);
     let latestMessage = '';
     let theMessages = [ ];
 
-    messagesToProcess.map(theMessage => {
-      const notHeartbeat = theMessage.MessageID !== 'HEARTBEAT';
+    messages.map(theMessage => {
+      const dataViewGroup = theMessage.ViewGroup;
 
-      if (notHeartbeat) {
-        const theBotMessage = theMessage.Message.replace("|", "<br/>");
-        theMessages.push(theBotMessage);
+      //are these messages intended for our tab?
+      if (dataViewGroup === viewGroup) {
+        const notHeartbeat = theMessage.MessageID !== 'HEARTBEAT';
+
+        if (notHeartbeat) {
+          const theBotMessage = theMessage.Message.replace("|", "<br/>");
+          theMessages.push(theBotMessage);
+        }
       }
     });
 
     this.setState({
       latestMessage: latestMessage,
-      messages: [...theMessages],
+      messages: [...messages, ...theMessages],
     });
-  }
-
-  handleBotMessage(data) {
-    const { viewGroup } = this.props;
-
-    const existingMessages = this.state.messages;
-    const message = JSON.parse(data);
-
-    let latestMessage = '';
-
-    if (message.ViewGroup == viewGroup) {
-      const notHeartbeat = message.MessageID !== 'HEARTBEAT';
-
-      if (notHeartbeat) {
-        const theBotMessage = message.Message.replace("|", "<br/>");
-        latestMessage = theBotMessage;
-      }
-
-      this.setState({
-        latestMessage: latestMessage,
-        messages: [latestMessage, ...existingMessages],
-      });
-    }
   }
 
   render() {

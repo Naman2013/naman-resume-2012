@@ -6,12 +6,12 @@ import style from './tab-queue.style';
 
 const testStuff = [0, 0, 1, 1, 0, 1, 0, 1];
 
-const TabQueue = () => (
+const TabQueue = (props) => (
   <div className="tab-queue-root">
     <div className="tile-container">
       <ObservatoryBot
         viewGroup="queue"
-        teleSystem="teide1highmag"
+        teleSystem={props.currentTelescope.teleSystem}
       />
     </div>
     <br/>
