@@ -11,10 +11,18 @@
     width: 100%;
     height: 100%;
     top: 0;
-    background: rgba(0,0,0,0.6);
+    background: white;
     display: flex;
     flex-direction: column-reverse;
     overflow: hidden;
+
+    .messageCountHeading {
+      color: #415671;
+    }
+
+    .messageDivider {
+      background-color: #415671;
+    }
 
     .Description {
       margin-bottom: 30px;
@@ -28,10 +36,12 @@
     }
 
     .observatorybot-message {
-      color: $yellow;
       align-self: flex-end;
       width: 100%;
       padding: 5px 0;
+      font-size: 18px;
+      font-family: $secondary-font;
+      color: #415671;
     }
   }
 

@@ -9,18 +9,15 @@ import {
   DayNightMap,
   ImagePortalViewer,
   WeeklyForecast,
+  ObsBotWidget,
 } from './';
 import { ModuleContainer } from './module-container';
-import ObservatoryBot from 'components/telescope-details/ObservatoryBot/ObservatoryBot';
-import style from './tab-live.style';
+import style from './tab-conditions.style';
 
 const TabConditions = (props) => (
   <div>
     <div className="tile-container">
-      <ObservatoryBot
-        viewGroup="conditions"
-        teleSystem={props.currentTelescope.teleSystem}
-      />
+      <ObsBotWidget {...props} ViewGroup="conditions"/>
     </div>
     <div className="tile-container">
       <AllSkyCamera />

@@ -1,15 +1,11 @@
 import React from 'react';
-import { TelescopeDetail, ObservatoryInformation } from './';
-import ObservatoryBot from 'components/telescope-details/ObservatoryBot/ObservatoryBot';
+import { ObsBotWidget, TelescopeDetail, ObservatoryInformation } from './';
 import style from './tab-telescope.style';
 
 const TabTelescope = (props) => (
   <div>
     <div className="module-container">
-      <ObservatoryBot
-        viewGroup="scope"
-        teleSystem={props.currentTelescope.teleSystem}
-      />
+      <ObsBotWidget {...props} ViewGroup="scopes"/>
     </div>
     <div className="module-container">
       <TelescopeDetail />
