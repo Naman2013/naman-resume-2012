@@ -17,6 +17,10 @@ import Request from 'components/common/network/Request';
 import JoinHeader from './partials/JoinHeader';
 import { destroySession } from 'modules/User';
 import { CLASSROOM_JOIN_TABS } from './StaticNavTabs';
+import LargeButtonWithRightIcon from 'components/common/style/buttons/LargeButtonWithRightIcon';
+import { nightfall, astronaut, romance, shadows } from 'styles/variables/colors_tiles_v4';
+import{ horizontalArrowRightWhite } from 'styles/variables/iconURLs';
+
 import styles from './JoinStep1SchoolSelection.style';
 
 
@@ -31,7 +35,7 @@ class ResetPassword extends Component {
   };
   static defaultProps = {
     // pathname: '/join/step1',
-    pathname: 'join/forgotPasswordStep1',
+    pathname: 'join/resetPassword',
   };
 
   constructor(props) {
@@ -63,6 +67,16 @@ class ResetPassword extends Component {
     },
   };
 
+  //complete the reset password flow and launch the login popup.
+  launchLogin = () => {
+    //force to homepage with login popup open....
+    browserHistory.push("/");
+  }
+
+  //cancel this request and go back to the main homepage
+  cancelAndGoHome = () => {
+    browserHistory.push("/");
+  }
 
   // Obtain access to the api service response and update the form accordingly.
   handleServiceResponse = (result) => {
@@ -201,11 +215,36 @@ class ResetPassword extends Component {
                       <div className="inner-container">
                       <div className="section-heading">{serviceResponse.sectionHeading}</div>
                         {this.state.passwordHasBeenChanged === true && <div>
-                          <p dangerouslySetInnerHTML={{ __html: this.state.passwordChangeStatusMessage }} />:
+                          <p dangerouslySetInnerHTML={{ __html: this.state.passwordChangeStatusMessage }} />
+                          <br/>
+                          <br/>
+                          <LargeButtonWithRightIcon
+                            icon={horizontalArrowRightWhite}
+                            theme={{
+                              backgroundColor: nightfall,
+                              color: romance,
+                              border: 0,
+                            }}
+                            text="Login"
+                            onClickEvent={this.launchLogin}
+                          />
                         </div>
                         }
                         {this.state.passwordHasBeenChanged === false && serviceResponse.accountStatus === 'failed' && <div>
                           <p dangerouslySetInnerHTML={{ __html: serviceResponse.accountStatusMessage }}/>
+                          <br/>
+                          <br/>
+                          <LargeButtonWithRightIcon
+                            icon={horizontalArrowRightWhite}
+                            theme={{
+                              backgroundColor: nightfall,
+                              color: romance,
+                              border: 0,
+                            }}
+                            text="Home"
+                            onClickEvent={this.cancelAndGoHome}
+                          />
+
                         </div>
                         }
                         {this.state.passwordHasBeenChanged === false && serviceResponse.accountStatus === 'success' && <form className="form" onSubmit={this.handleSubmit}>
