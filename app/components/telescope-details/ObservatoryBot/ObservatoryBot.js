@@ -24,7 +24,6 @@ export default class ObservatoryBot extends Component {
   }
 
   state = {
-    latestMessage: null,
     messages: [],
   }
 
@@ -49,7 +48,7 @@ export default class ObservatoryBot extends Component {
     this.sseSource = new EventSource(observatoryBotUrl);
     this.sseSource.addEventListener(
       'initial',
-      event => this.handleBotMessages(event.data), false);
+      event => this.handleInitialBotMessages(event.data), false);
 
     this.sseSource.addEventListener(
       'message',
@@ -58,8 +57,8 @@ export default class ObservatoryBot extends Component {
 
   tearDownSSE() {
     this.sseSource.close();
-    this.sseSource.removeEventListener('initial', this.handleInitialObservatoryBotMessages, false);
-    this.sseSource.removeEventListener('message', this.handleObservatoryBotMessages, false);
+    this.sseSource.removeEventListener('initial', this.handleInitialBotMessages, false);
+    this.sseSource.removeEventListener('message', this.handleBotMessages, false);
   }
 
   resetSSE() {
@@ -71,15 +70,17 @@ export default class ObservatoryBot extends Component {
     this.bootstrapSSE();
   }
 
-
-  handleBotMessages(data) {
+  handleInitialBotMessages(data) {
     const { viewGroup } = this.props;
 
-    const messages = JSON.parse(data);
+    const incomingMessages = JSON.parse(data);
+
     let latestMessage = '';
     let theMessages = [ ];
 
-    messages.map(theMessage => {
+    //check to see if there are any valid messages (not heartbeat)
+    let hasValidMessages = false;
+    incomingMessages.map(theMessage => {
       const dataViewGroup = theMessage.ViewGroup;
 
       //are these messages intended for our tab?
@@ -87,15 +88,79 @@ export default class ObservatoryBot extends Component {
         const notHeartbeat = theMessage.MessageID !== 'HEARTBEAT';
 
         if (notHeartbeat) {
-          const theBotMessage = theMessage.Message.replace("|", "<br/>");
-          theMessages.push(theBotMessage);
+          hasValidMessages = true;
+        }
+      }
+    });
+
+    if (hasValidMessages === true) {
+      theMessages.unshift('<hr size="1" width="100%"/>');
+    }
+
+    incomingMessages.map(theMessage => {
+      const dataViewGroup = theMessage.ViewGroup;
+
+      //are these messages intended for our tab?
+      if (dataViewGroup === viewGroup) {
+        const notHeartbeat = theMessage.MessageID !== 'HEARTBEAT';
+
+        if (notHeartbeat) {
+          const theBotMessage = theMessage.DTG + "<br/>" + theMessage.Message;
+          //const theBotMessage = theMessage.Message;
+          theMessages.unshift(theBotMessage);
         }
       }
     });
 
     this.setState({
-      latestMessage: latestMessage,
-      messages: [...messages, ...theMessages],
+      messages: [...theMessages],
+    });
+  }
+
+  handleBotMessages(data) {
+    const { viewGroup } = this.props;
+
+    const incomingMessages = JSON.parse(data);
+
+    let latestMessage = '';
+    let theMessages = [ ];
+
+    //check to see if there are any valid messages (not heartbeat)
+    let hasValidMessages = false;
+    incomingMessages.map(theMessage => {
+      const dataViewGroup = theMessage.ViewGroup;
+
+      //are these messages intended for our tab?
+      if (dataViewGroup === viewGroup) {
+        const notHeartbeat = theMessage.MessageID !== 'HEARTBEAT';
+
+        if (notHeartbeat) {
+          hasValidMessages = true;
+        }
+      }
+    });
+
+    incomingMessages.map(theMessage => {
+      const dataViewGroup = theMessage.ViewGroup;
+
+      //are these messages intended for our tab?
+      if (dataViewGroup === viewGroup) {
+        const notHeartbeat = theMessage.MessageID !== 'HEARTBEAT';
+
+        if (notHeartbeat) {
+          const theBotMessage = theMessage.DTG + "<br/>" + theMessage.Message;
+          //const theBotMessage = theMessage.Message;
+          theMessages.push(theBotMessage);
+        }
+      }
+    });
+
+    if (hasValidMessages === true) {
+      theMessages.push('<hr className="messageDivider" size="2" width="100%"/>');
+    }
+
+    this.setState({
+      messages: [...this.state.messages, ...theMessages],
     });
   }
 
@@ -107,14 +172,16 @@ export default class ObservatoryBot extends Component {
 
     return (
       <div
-        style={{'border': '1px dashed', 'maxHeight': '300px', 'overflowY': 'scroll'}}
+        style={{'maxHeight': '500px', 'overflowY': 'scroll'}}
         className="observatorybot-container">
-        <div><ObservatoryBotDescription/></div>
+        <div style={{'padding': '10px'}}><ObservatoryBotDescription/></div>
         <div className={observatoryBotContainerClassnames}>
           {
-            this.state.messages.map(message => <ObservatoryBotMessage key={uniqueId()} message={message} />)
+            this.state.messages.map(message => <ObservatoryBotMessage key={message} message={message} />)
           }
-          <ObservatoryBotMessage key={uniqueId()} message={this.state.latestMessage} />
+          <p className="messageCountHeading">{this.state.messages.length} Messages:</p>
+          <hr className="messageDivider" size="1" width="100%"/>
+
         </div>
       </div>
     );

@@ -1,7 +1,6 @@
 import React from 'react';
 import { AvailableSlotTile, MissionSlotTile } from 'components/common/tiles';
-import { QueueNavigation } from './';
-import ObservatoryBot from 'components/telescope-details/ObservatoryBot/ObservatoryBot';
+import { ObsBotWidget, QueueNavigation } from './';
 import style from './tab-queue.style';
 
 const testStuff = [0, 0, 1, 1, 0, 1, 0, 1];
@@ -9,10 +8,7 @@ const testStuff = [0, 0, 1, 1, 0, 1, 0, 1];
 const TabQueue = (props) => (
   <div className="tab-queue-root">
     <div className="tile-container">
-      <ObservatoryBot
-        viewGroup="queue"
-        teleSystem={props.currentTelescope.teleSystem}
-      />
+      <ObsBotWidget {...props} ViewGroup="queue"/>
     </div>
     <br/>
     <QueueNavigation
