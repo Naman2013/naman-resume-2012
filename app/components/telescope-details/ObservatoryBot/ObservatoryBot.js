@@ -111,7 +111,7 @@ export default class ObservatoryBot extends Component {
   handleBotMessages(data) {
     const { viewGroup } = this.props;
 
-    const incomingMessages = JSON.parse(data[viewGroup];
+    const incomingMessages = JSON.parse(data)[viewGroup];
 
     let latestMessage = '';
     let theMessages = [ ];
