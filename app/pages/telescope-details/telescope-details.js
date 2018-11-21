@@ -354,9 +354,9 @@ class TelescopeDetails extends Component {
                       )}
                     />),
                   },
-                { tabTitle: 'Queue', content: () => (<TabQueue />) },
-                { tabTitle: 'Cond.', content: () => (<TabConditions />) },
-                { tabTitle: 'Scope', content: () => (<TabTelescope />) },
+                { tabTitle: 'Queue', content: () => (<TabQueue {...this.props}/>) },
+                { tabTitle: 'Cond.', content: () => (<TabConditions {...this.props} />) },
+                { tabTitle: 'Scope', content: () => (<TabTelescope {...this.props}/>) },
               ]}
             />
           </div>
