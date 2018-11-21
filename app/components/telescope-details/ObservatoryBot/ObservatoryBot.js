@@ -73,7 +73,7 @@ export default class ObservatoryBot extends Component {
   handleInitialBotMessages(data) {
     const { viewGroup } = this.props;
 
-    const incomingMessages = JSON.parse(data);
+    const incomingMessages = JSON.parse(data)[viewGroup];
 
     let latestMessage = '';
     let theMessages = [ ];
@@ -81,15 +81,11 @@ export default class ObservatoryBot extends Component {
     //check to see if there are any valid messages (not heartbeat)
     let hasValidMessages = false;
     incomingMessages.map(theMessage => {
-      const dataViewGroup = theMessage.ViewGroup;
 
-      //are these messages intended for our tab?
-      if (dataViewGroup === viewGroup) {
-        const notHeartbeat = theMessage.MessageID !== 'HEARTBEAT';
+      const notHeartbeat = theMessage.MessageID !== 'HEARTBEAT';
 
-        if (notHeartbeat) {
-          hasValidMessages = true;
-        }
+      if (notHeartbeat) {
+        hasValidMessages = true;
       }
     });
 
@@ -98,17 +94,12 @@ export default class ObservatoryBot extends Component {
     }
 
     incomingMessages.map(theMessage => {
-      const dataViewGroup = theMessage.ViewGroup;
+      const notHeartbeat = theMessage.MessageID !== 'HEARTBEAT';
 
-      //are these messages intended for our tab?
-      if (dataViewGroup === viewGroup) {
-        const notHeartbeat = theMessage.MessageID !== 'HEARTBEAT';
-
-        if (notHeartbeat) {
-          const theBotMessage = theMessage.DTG + "<br/>" + theMessage.Message;
-          //const theBotMessage = theMessage.Message;
-          theMessages.unshift(theBotMessage);
-        }
+      if (notHeartbeat) {
+        const theBotMessage = theMessage.DTG + "<br/>" + theMessage.Message;
+        //const theBotMessage = theMessage.Message;
+        theMessages.unshift(theBotMessage);
       }
     });
 
@@ -120,7 +111,7 @@ export default class ObservatoryBot extends Component {
   handleBotMessages(data) {
     const { viewGroup } = this.props;
 
-    const incomingMessages = JSON.parse(data);
+    const incomingMessages = JSON.parse(data[viewGroup];
 
     let latestMessage = '';
     let theMessages = [ ];
@@ -128,35 +119,25 @@ export default class ObservatoryBot extends Component {
     //check to see if there are any valid messages (not heartbeat)
     let hasValidMessages = false;
     incomingMessages.map(theMessage => {
-      const dataViewGroup = theMessage.ViewGroup;
+      const notHeartbeat = theMessage.MessageID !== 'HEARTBEAT';
 
-      //are these messages intended for our tab?
-      if (dataViewGroup === viewGroup) {
-        const notHeartbeat = theMessage.MessageID !== 'HEARTBEAT';
-
-        if (notHeartbeat) {
-          hasValidMessages = true;
-        }
+      if (notHeartbeat) {
+        hasValidMessages = true;
       }
     });
 
     incomingMessages.map(theMessage => {
-      const dataViewGroup = theMessage.ViewGroup;
+      const notHeartbeat = theMessage.MessageID !== 'HEARTBEAT';
 
-      //are these messages intended for our tab?
-      if (dataViewGroup === viewGroup) {
-        const notHeartbeat = theMessage.MessageID !== 'HEARTBEAT';
-
-        if (notHeartbeat) {
-          const theBotMessage = theMessage.DTG + "<br/>" + theMessage.Message;
-          //const theBotMessage = theMessage.Message;
-          theMessages.push(theBotMessage);
-        }
+      if (notHeartbeat) {
+        const theBotMessage = theMessage.DTG + "<br/>" + theMessage.Message;
+        //const theBotMessage = theMessage.Message;
+        theMessages.push(theBotMessage);
       }
     });
 
     if (hasValidMessages === true) {
-      theMessages.push('<hr className="messageDivider" size="2" width="100%"/>');
+      theMessages.push('<hr className="messageDivider" width="100%"/>');
     }
 
     this.setState({
@@ -179,9 +160,8 @@ export default class ObservatoryBot extends Component {
           {
             this.state.messages.map(message => <ObservatoryBotMessage key={message} message={message} />)
           }
-          <p className="messageCountHeading">{this.state.messages.length} Messages:</p>
-          <hr className="messageDivider" size="1" width="100%"/>
-
+          {this.state.messages.length > 0 && <p className="messageCountHeading">{this.state.messages.length} Messages:</p>}
+          {this.state.messages.length > 0 && <hr className="messageDivider" width="100%"/>}
         </div>
       </div>
     );
