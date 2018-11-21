@@ -149,6 +149,8 @@ class ResetPassword extends Component {
             const validationResults = {
               passwordAcceptable: res.passwordAcceptable,
               passwordNotAcceptedMessage: res.passwordNotAcceptedMessage,
+              accountStatus: res.accountStatus,
+              accountStatusMessage: res.accountStatusMessage,
             }
 
             if (validationResults.passwordAcceptable === false) {
@@ -159,7 +161,7 @@ class ResetPassword extends Component {
             if (validationResults.accountStatus === 'success') {
               //destroy the user's current session....
               destroySession();
-
+              
               //get a message back to the user that their password was changed successfully.....
               this.setState({
                 passwordChangeStatusMessage: validationResults.accountStatusMessage,
