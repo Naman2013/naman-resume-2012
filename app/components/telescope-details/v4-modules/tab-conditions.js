@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   Satellite,
-  AllSkyCamera,
+  ConnectedAllSkyCamera,
   SkyConditions,
   WeatherConditions,
   MoonlightConditions,
@@ -13,10 +13,16 @@ import {
 import { ModuleContainer } from './module-container';
 import style from './tab-live.style';
 
-const TabConditions = () => (
+const TabConditions = ({
+  obsId,
+  allSkyWidgetID,
+}) => (
   <div>
     <div className="tile-container">
-      <AllSkyCamera />
+      <ConnectedAllSkyCamera
+        obsId={obsId}
+        allSkyWidgetID={allSkyWidgetID}
+      />
     </div>
 
     <div className="tile-container">

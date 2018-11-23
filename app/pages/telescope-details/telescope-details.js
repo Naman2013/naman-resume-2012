@@ -332,6 +332,7 @@ class TelescopeDetails extends Component {
                     <TabLive
                       obsId={currentObservatory.obsId}
                       skyChartWidgetID={currentObservatory.SkychartWidgetId}
+                      allSkyWidgetID={currentObservatory.AllskyWidgetId}
                       mission={activeTelescopeMission}
                       renderTelescopeViewer={() => (
                         <TelescopeImageViewerController
@@ -355,7 +356,14 @@ class TelescopeDetails extends Component {
                     />),
                   },
                 { tabTitle: 'Queue', content: () => (<TabQueue />) },
-                { tabTitle: 'Cond.', content: () => (<TabConditions />) },
+                {
+                  tabTitle: 'Cond.',
+                  content: () => (
+                    <TabConditions
+                      obsId={currentObservatory.obsId}
+                      allSkyWidgetID={currentObservatory.AllskyWidgetId}
+                    />)
+                },
                 { tabTitle: 'Scope', content: () => (<TabTelescope />) },
               ]}
             />
