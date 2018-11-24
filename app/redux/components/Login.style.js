@@ -87,4 +87,26 @@ export default css`
     font-weight: bold;
   }
 
+  .forgot-password-req h1 {
+    font-size: 10px;
+    font-family: ${primaryFont};
+    text-transform: uppercase;
+    font-weight: bold;
+    text-align: center;
+    padding: 25px;
+    letter-spacing: 2px;
+    color: ${astronaut};
+  }
+
+  .forgot-password-req p {
+    color: ${astronaut};
+    font-size: 12px;
+    font-family: ${secondaryFont};
+    padding: 25px;
+  }
+
+  .close-button-container {
+    display: flex;
+    justify-content: flex-end;
+  }
 `;
