@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   Satellite,
-  AllSkyCamera,
+  ConnectedAllSkyCamera,
   SkyConditions,
   WeatherConditions,
   MoonlightConditions,
@@ -14,13 +14,13 @@ import {
 import { ModuleContainer } from './module-container';
 import style from './tab-conditions.style';
 
-const TabConditions = (props) => (
+const TabConditions = props => (
   <div>
     <div className="tile-container">
       <ObsBotWidget {...props} ViewGroup="conditions"/>
     </div>
     <div className="tile-container">
-      <AllSkyCamera />
+      <ConnectedAllSkyCamera obsId={props.obsId} allSkyWidgetID={props.AllskyWidgetId} />
     </div>
 
     <div className="tile-container">
