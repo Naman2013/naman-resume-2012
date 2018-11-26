@@ -12,7 +12,7 @@ import classnames from 'classnames';
 import uniqueId from 'lodash/uniqueId';
 import IntroText from 'components/common/form-sections/intro-text';
 import SectionHeader from 'components/common/form-sections/section-header';
-import QAMulti from './partials/output-panel';
+import QuestionList from './partials/question-list';
 
 import styles from './qa-multi.style';
 
@@ -24,7 +24,7 @@ const {
   string,
 } = PropTypes;
 
-class TextOutput extends Component {
+class QAMulti extends Component {
   static propTypes = {
     panel: shape({
       panelId: number.isRequired,
@@ -37,7 +37,6 @@ class TextOutput extends Component {
   }
 
   static defaultProps = {
-    panel: {},
 
   };
 
@@ -48,15 +47,18 @@ class TextOutput extends Component {
 
   render() {
     const {
-      panel,
+      activityTitle,
+      activityInstructions,
+      activityPrompt,
+      questionList,
     } = this.props;
+    console.log("PROPS", this.props)
     return (<div className="root">
-      <SectionHeader title={panel.activityTitle} />
-      <IntroText desc={panel.activityInstructions} />
-      <QAMulti {...panel} />
+      <IntroText title={activityTitle} desc={activityInstructions} />
+      <QuestionList questionList={questionList} activityPrompt={activityPrompt} />
       <style jsx>{styles}</style>
     </div>);
   }
 }
 
-export default TextOutput;
+export default QAMulti;
