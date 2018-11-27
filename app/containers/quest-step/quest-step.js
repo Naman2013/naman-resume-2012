@@ -42,7 +42,15 @@ export const QuestStep = (props) => {
         {modal.modalComponent}
       </Modal>
       <CenterColumn>
-        <ModuleList moduleList={pageMeta.stepModuleList} questId={questId} />
+        <div className="inner-container">
+          <div className="shield-container">
+            <div className="blue-shield" />
+            <div className="icon-container">
+              <img className="icon-content" alt="" width="40" height="40" src={pageMeta.stepIconURL} />
+            </div>
+          </div>
+          <ModuleList moduleList={pageMeta.stepModuleList} questId={questId} />
+        </div>
       </CenterColumn>
       <style jsx>{styles}</style>
     </div>
