@@ -42,3 +42,18 @@ export const CLASSROOM_JOIN_TABS = [
     value: '/join/step3',
   },
 ];
+
+export const PLAN_DETAILS_JOIN_TABS = [
+  {
+    label: 'Plan Details',
+    value: '/join/membershipPlanDetailsStep',
+  },
+  {
+    label: 'Step 2',
+    value: '/join/step2',
+  },
+  {
+    label: 'Step 3',
+    value: '/join/step3',
+  },
+];
