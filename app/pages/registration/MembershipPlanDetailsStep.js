@@ -17,18 +17,29 @@ import axios from 'axios';
 import Request from 'components/common/network/Request';
 import JoinHeader from './partials/JoinHeader';
 import PlanDetailsCard from './partials/PlanDetailsCard';
+import TabbedNav from 'components/TabbedNav';
+import { PLAN_DETAILS_JOIN_TABS } from './StaticNavTabs';
 import styles from './JoinStep1SchoolSelection.style';
 
 const {
   string,
+  arrayOf,
+  shape,
 } = PropTypes;
 
 class MembershipPlanDetailsStep extends Component {
   static propTypes = {
     pathname: string,
+    activeTab: string,
+    tabs: arrayOf(shape({
+      label: string,
+      value: string,
+    })),
   };
   static defaultProps = {
     pathname: '/join/membershipPlanDetailsStep',
+    tabs: [],
+    activeTab: '/join/membershipPlanDetailsStep',
   };
 
   constructor(props) {
@@ -54,53 +65,67 @@ class MembershipPlanDetailsStep extends Component {
     }
   }
 
+  changeActiveTab = (activeTab) => {
+    // do nothing for now
+    // browserHistory.push(activeTab);
+  }
+
   render() {
     const {
       pathname,
+      tabs,
+      activeTab,
     } = this.props;
 
     return (
-      <div className="step-root">
-        <div className="inner-container">
-        <Request
-          serviceURL={JOIN_PAGE_ENDPOINT_URL}
-          requestBody={{ 'callSource': 'membershipspagePlanDetails', selectedPlanId: this.state.selectedPlanId }}
-          render={({
-            fetchingContent,
-            serviceResponse,
-          }) => (
-            <Fragment>
-              {
-                !fetchingContent &&
-                  <Fragment>
-                    <JoinHeader
-                      mainHeading={serviceResponse.pageHeading1}
-                      subHeading={serviceResponse.pageHeading2}
-                      activeTab={pathname}
-                    />
-                    <PlanDetailsCard {...serviceResponse.selectedSubscriptionPlan} />
-
-                    <form className="form" onSubmit={this.continueToJoinFlow}>
-                      <div className="form-section" dangerouslySetInnerHTML={{ __html: serviceResponse.selectedSubscriptionPlan.aboutThisPlan }}/>
-                      <div className="button-container">
-                        <Button
-                          type="button"
-                          text="Go Back"
-                          onClickEvent={() => { browserHistory.push('/about/memberships') }}
-                        />
-                        <button
-                          className="submit-button"
-                          type="submit"
-                        >Join Now
-                        </button>
+      <div className="join-root-alt">
+        <div className="step-root">
+        
+          <Request
+            serviceURL={JOIN_PAGE_ENDPOINT_URL}
+            requestBody={{ 'callSource': 'membershipspagePlanDetails', selectedPlanId: this.state.selectedPlanId }}
+            render={({
+              fetchingContent,
+              serviceResponse,
+            }) => (
+              <Fragment>
+                {
+                  !fetchingContent &&
+                    <Fragment>              
+                      <div className="join-root-alt-header">
+                        <h1>Join Slooh!</h1>
+                        <h2>Join today and get a 14 day free trial</h2>
                       </div>
-                    </form>
-                  </Fragment>
-                }
-              </Fragment>
-            )}
-          />
-        </div>
+                      <PlanDetailsCard {...serviceResponse.selectedSubscriptionPlan} />
+                      <TabbedNav
+                        tabs={PLAN_DETAILS_JOIN_TABS}
+                        activeTabValue={activeTab}
+                        onTabClick={this.changeActiveTab}
+                      />
+                      <div className="inner-container">
+                      <form className="form" onSubmit={this.continueToJoinFlow}>
+                        <div className="form-section" dangerouslySetInnerHTML={{ __html: serviceResponse.selectedSubscriptionPlan.aboutThisPlan }}/>
+                        <div className="button-container">
+                          <Button
+                            type="button"
+                            text="Go Back"
+                            onClickEvent={() => { browserHistory.push('/about/memberships') }}
+                          />
+                          <button
+                            className="submit-button"
+                            type="submit"
+                          >Join Now
+                          </button>
+                        </div>
+                      </form>
+                      </div>
+                    </Fragment>
+                  }
+                </Fragment>
+              )}
+            />
+          
+      </div>
       <style jsx>{styles}</style>
     </div>
     )

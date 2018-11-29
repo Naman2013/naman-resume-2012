@@ -6,6 +6,31 @@ import { screenLarge, screenMedium } from 'styles/variables/breakpoints';
 import { backgroundImageCover, dropShadowContainer } from 'styles/mixins/utilities';
 
 export default css`
+
+  .join-root-alt {
+    background-image: url(https://vega.slooh.com/assets/v4/common/night_cliffs.png);
+    background-size: cover;
+    background-position: center;
+    width: auto;
+    background-repeat: no-repeat;
+    margin-bottom: -50px;
+  }
+
+  .join-root-alt-header {
+    font-family: ${secondaryFont};
+    color: ${romance};
+    font-weight: normal;
+    padding: 40px 0 20px 40px;
+  }
+
+  .join-root-alt-header h1 {
+    font-size: 28px;
+  }
+
+  .join-root-alt-header h2 {
+    font-size: 18px;
+  }
+
   .step-root {
     margin: 0 auto;
     width: 100%;
@@ -14,7 +39,6 @@ export default css`
 
   .inner-container {
     padding: 40px;
-    margin-top: 25px;
     width: 100%;
     background-color: ${romance};
     ${faintShadow}
@@ -52,7 +76,6 @@ export default css`
     font-family: Arial, sans-serif;
     font-size: 13px;
     font-weight: bold;
-
   }
 
   button.submit-button {
@@ -85,6 +108,10 @@ export default css`
   @media ${screenMedium} {
     .step-root {
       width: 600px;
+    }
+
+    .join-root-alt-header {
+      padding: 40px 0 20px 0;
     }
   }
 
