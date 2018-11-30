@@ -104,6 +104,7 @@ class FullInformationOverview extends Component {
       membersList,
       membersSort,
       showJoinPrompt,
+      refreshHeader,
       user,
     } = this.props;
 
@@ -118,8 +119,8 @@ class FullInformationOverview extends Component {
 
     return (
       <div className="root">
-        {pageMeta.canEditGroup && pageMeta.isGoogleClassroom === false && <DiscussionBoardInvitationsPanel {...this.props}/>}
-        {pageMeta.canEditGroup && pageMeta.isGoogleClassroom === true && <DiscussionBoardGoogleClassroomStudentsPanel {...this.props}/>}
+        {pageMeta.canEditGroup && pageMeta.isGoogleClassroom === false && <DiscussionBoardInvitationsPanel {...this.props} refreshHeader={refreshHeader} />}
+        {pageMeta.canEditGroup && pageMeta.isGoogleClassroom === true && <DiscussionBoardGoogleClassroomStudentsPanel {...this.props} refreshHeader={refreshHeader} />}
 
         <ResponsiveTwoColumnContainer
           renderNavigationComponent={navProps =>
