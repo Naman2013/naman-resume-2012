@@ -14,7 +14,7 @@ import IntroText from 'components/common/form-sections/intro-text';
 import SectionHeader from 'components/common/form-sections/section-header';
 import QuestionList from './partials/question-list';
 
-import styles from './qa-multi.style';
+import styles from './qa-fill-blanks.style';
 
 const {
   arrayOf,
@@ -24,12 +24,15 @@ const {
   string,
 } = PropTypes;
 
-class QAMulti extends Component {
+class QAFillBlanks extends Component {
   static propTypes = {
-    isActivity: bool,
-    activityTitle: string,
-    activityInstructions: string,
-    activityPrompt: string,
+    panel: shape({
+      panelId: number.isRequired,
+      content: string.isRequired, // HTML
+      isActivity: bool,
+      activityTitle: string,
+      activityInstructions: string,
+    }),
   }
 
   static defaultProps = {
@@ -45,7 +48,6 @@ class QAMulti extends Component {
     const {
       activityTitle,
       activityInstructions,
-      activityPrompt,
       questionList,
       correctText,
       incorrectText,
@@ -54,14 +56,13 @@ class QAMulti extends Component {
     return (<div className="root">
       <IntroText title={activityTitle} desc={activityInstructions} />
       <QuestionList
-        questionList={questionList}
-        activityPrompt={activityPrompt}
         correctText={correctText}
         incorrectText={incorrectText}
+        questionList={questionList}
       />
       <style jsx>{styles}</style>
     </div>);
   }
 }
 
-export default QAMulti;
+export default QAFillBlanks;
