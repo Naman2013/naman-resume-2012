@@ -16,6 +16,7 @@ export default css`
     font-weight: bold;
     font-family: ${primaryFont};
     text-transform: uppercase;
+    margin-bottom: 15px;
   }
 
   .answer {

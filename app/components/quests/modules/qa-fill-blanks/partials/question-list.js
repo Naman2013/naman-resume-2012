@@ -51,9 +51,13 @@ class QuestionList extends Component {
             <SectionHeader title={question.questionTitle} />
             <IntroText desc={question.questionInstructions} />
             <PromptBox>
-              {question.options.map(choice => (
-                <SingleQuestion question={choice.question} value="" placeholder={choice.placeholder} />
-              ))}
+              <div className="inner-prompt">
+                {question.options.map(choice => (
+                  <div className="single-question">
+                    <SingleQuestion question={choice.question} value="" placeholder={choice.placeholder} />
+                  </div>
+                ))}
+              </div>
             </PromptBox>
           </div>
         ))}
@@ -65,6 +69,14 @@ class QuestionList extends Component {
               font-size: 11px;
               padding: 10px;
               color: ${astronaut};
+            }
+
+            .inner-prompt {
+              padding: 25px;
+            }
+
+            .single-question {
+              margin: 25px 0;
             }
           `}
         </style>
