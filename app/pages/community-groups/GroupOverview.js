@@ -84,6 +84,17 @@ class CommunityGroupOverview extends Component {
     }
   }
 
+  refreshHeader = () => {
+    const {
+      actions,
+      routeParams: { groupId },
+    } = this.props;
+
+    actions.fetchGroupOverviewPageMeta({
+      discussionGroupId: groupId,
+    });
+  }
+
   joinLeaveGroup = () => {
     const {
       routeParams: { groupId },
@@ -120,7 +131,7 @@ class CommunityGroupOverview extends Component {
     const modalStyles = modalStyleFullPage;
 
      modalStyles.content = Object.assign(modalStyleFullPage.content, { backgroundColor: seashell });
-     
+
     return (
       <div className="root">
       <DeviceContext.Consumer>
@@ -137,6 +148,7 @@ class CommunityGroupOverview extends Component {
               />
 
               <FullInformationOverview
+                refreshHeader={this.refreshHeader}
                 joinOrLeaveGroup={this.joinLeaveGroup}
                 context={context}
                 discussionGroupId={groupId}

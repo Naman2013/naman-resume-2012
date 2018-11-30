@@ -73,6 +73,7 @@ class DiscussionBoardInvitationsPanel extends Component {
     const {
       discussionGroupId,
       user,
+      refreshHeader,
     } = this.props;
 
     const setInviteCompleteResult = axios.post(CREATE_CUSTOMER_LINK_INVITATION_ENDPOINT_URL, {
@@ -88,6 +89,7 @@ class DiscussionBoardInvitationsPanel extends Component {
     })
       .then((response) => {
         const serviceResponse = response.data;
+        refreshHeader();
         if (serviceResponse.apiError == false) {
           //the invitation was successful, reset/reload the form....(need to make this unique to the action)
           this.setState(() => ({

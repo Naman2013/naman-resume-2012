@@ -59,7 +59,7 @@ class DiscussionBoardGoogleClassroomStudentsPanel extends Component {
   addStudentToDiscussionGroup = (firstName, lastName, emailAddress, googleProfileId) => {
     //console.log(firstName + " : " + lastName + " : " + emailAddress + " : " + googleProfileId);
 
-    const { user , discussionGroupId } = this.props;
+    const { user , discussionGroupId, refreshHeader } = this.props;
 
     const studentAccountDetails = {
       googleProfileId: googleProfileId,
@@ -96,6 +96,7 @@ class DiscussionBoardGoogleClassroomStudentsPanel extends Component {
           }
 
           //force reload the Student List Panel.
+          refreshHeader();
           this.setState(() => ({
             panelLoadingMessage: 'Refreshing Google Classroom Students List....',
             refreshModeStr: "googleClassroomStudentListPanel_" + Math.floor((Math.random() * 500000) + 1),
