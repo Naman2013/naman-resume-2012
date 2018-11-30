@@ -15,10 +15,18 @@ const {
   shape,
   string,
 } = PropTypes;
+/**
+
+This will need to change to a React class
+We will then need to store the users selections and grade them on form submit.
+then display the status (correct or incorrect) in MultipleChoiceItem
+*/
 
 const QuestionList = ({
   questionList,
   activityPrompt,
+  incorrectText,
+  correctText,
 }) => (
   <Fragment>
     {questionList.map(question => (
@@ -35,7 +43,7 @@ const QuestionList = ({
               title={choice.label}
               onClickItem={null}
               value={choice.value}
-              status={choice.isCorrect}
+              status={choice.isCorrect ? correctText : incorrectText}
             />
           ))}
         </PromptBox>
