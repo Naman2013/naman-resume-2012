@@ -91,6 +91,11 @@ class Groups extends Component {
       return group;
     });
 
+
+    if (resData.removeGroupFlag) {
+      newGroupsList = newGroupsList.filter(group => group.discussionGroupId !== id);
+    }
+
     this.setState(() => ({
       groups: newGroupsList,
     }));
@@ -239,6 +244,7 @@ class Groups extends Component {
 
                           {!fetchingContent && groups && groups.length ?
                             <GroupTiles
+                              filterType={this.props.params.filterType}
                               closeModal={this.closeModal}
                               updateGroupItemInfo={this.updateGroupItemInfo}
                               updatePrompt={this.updatePrompt}

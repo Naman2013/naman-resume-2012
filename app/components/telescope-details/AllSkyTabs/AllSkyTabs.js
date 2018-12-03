@@ -7,24 +7,17 @@ import generateAllSkyTabConfiguration from './generate-tab-configuration';
 import { DefaultTabs } from '../../common/Tabs';
 import './allsky-tabs.scss';
 
-const mapStateToProps = ({ telescopeDetails }) => ({
-});
-
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     fetchAllSkyAction,
   }, dispatch),
 });
 
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(null, mapDispatchToProps)
 class AllSkyTabs extends Component {
   state = {
     selectedTabIndex: 0,
   };
-
-  constructor(props) {
-    super(props);
-  }
 
   handleTabClick = (selectedTabIndex) => {
     /* always refesh the first tab, as the first tab object doesn't know how to load itself due to multi-api call issue */

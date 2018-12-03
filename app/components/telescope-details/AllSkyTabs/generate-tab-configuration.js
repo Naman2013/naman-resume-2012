@@ -3,15 +3,6 @@ import CenterContent from '../../../design-system/CenterContent';
 import AllSkyCamWidget from '../allsky-widget';
 import AllSkyTimelapseWidget from '../allsky-timelapse-widget';
 
-const inlineTitleStyle = {
-  color: 'white',
-}
-
-const inlineTimelapseStyle = {
-  minWidth: '100%',
-  width: '100%',
-}
-
 export default function generateAllSkyTabConfiguration({
   obsId,
   AllskyWidgetId,
@@ -23,7 +14,7 @@ export default function generateAllSkyTabConfiguration({
       tabText: 'All Sky Camera',
       tabContent: (
         <CenterContent>
-          <AllSkyCamWidget obsId={obsId} AllskyWidgetId={AllskyWidgetId}/>
+          <AllSkyCamWidget obsId={obsId} AllskyWidgetId={AllskyWidgetId} />
         </CenterContent>
       ),
     },

@@ -57,7 +57,12 @@ export class ConnectedQuestDetails extends Component {
   setupQuest = () => {
     const { actions, questId } = this.props;
     const { at, token, cid } = this.props.user;
-    axios.get(`${START_QUEST}?at=${at}&cid=${cid}&token=${token}&questId=${questId}`)
+    axios.post(START_QUEST, {
+      at,
+      cid,
+      token,
+      questId,
+    })
       .then((res) => {
         if (res.data.startedQuest) {
           this.goToStep(1);

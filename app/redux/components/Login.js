@@ -83,9 +83,10 @@ class Login extends Component {
     else {
       this.setState(() => ({
         inForgotPasswordMode: true,
+        forgotPasswordStatusMessage: 'Please Wait...Processing your Forgot Password Request.',
       }));
 
-      const forgotPasswordRequestResult = axios.post(FORGOT_PASSWORD_REQUEST_ENDPOINT_URL,
+      axios.post(FORGOT_PASSWORD_REQUEST_ENDPOINT_URL,
         {
           loginEmailAddress: this.state.loginFormDetails.loginEmailAddress.value,
         })
@@ -202,18 +203,20 @@ class Login extends Component {
     return (
       <div className="root">
           {this.state.inForgotPasswordMode === true && <div className="form">
-              <div style={{'marginLeft': '20px', 'marginRight': '20px'}}>
+              <div className="forgot-password-req">
                 <p dangerouslySetInnerHTML={{ __html: this.state.forgotPasswordStatusMessage }}/>
-                <LargeButtonWithRightIcon
-                  icon={horizontalArrowRightWhite}
-                  theme={{
-                    backgroundColor: nightfall,
-                    color: romance,
-                    border: 0,
-                  }}
-                  text="Close"
-                  onClickEvent={this.closeForgotPassword}
-                />
+                <div className="close-button-container">
+                  <LargeButtonWithRightIcon
+                    icon={horizontalArrowRightWhite}
+                    theme={{
+                      backgroundColor: nightfall,
+                      color: romance,
+                      border: 0,
+                    }}
+                    text="Close"
+                    onClickEvent={this.closeForgotPassword}
+                  />
+                </div>
               </div>
             </div>
           }

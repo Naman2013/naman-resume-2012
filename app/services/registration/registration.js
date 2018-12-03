@@ -13,3 +13,5 @@ export const JOIN_CREATE_INVITED_CUSTOMER_ENDPOINT_URL='/api/registration/activa
 export const CREATE_CUSTOMER_LINK_INVITATION_ENDPOINT_URL = '/api/registration/createCustomerLinkInvitation';
 
 export const FORGOT_PASSWORD_REQUEST_ENDPOINT_URL = '/api/registration/forgotPasswordRequest';
+export const FORGOT_PASSWORD_CONFIRMRESETTOKEN_ENDPOINT_URL = '/api/registration/forgotPasswordConfirmResetToken';
+export const FORGOT_PASSWORD_CHANGEPASSWORD_ENDPOINT_URL = '/api/registration/forgotPasswordChangePassword';

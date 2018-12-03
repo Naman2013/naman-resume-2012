@@ -113,7 +113,7 @@ class Shows extends Component {
               <div className="root">
                 {serviceResponse.relatedShowsCount > 0 && has(serviceResponse, 'relatedShowsList') ? serviceResponse.relatedShowsList.map(show => (
                   <ShowTile
-                    header="Upcoming Show"
+                    header={show.eventLabel}
                     title={show.eventTitle}
                     time={show.linkLabel}
                     author={show.eventHostName}
