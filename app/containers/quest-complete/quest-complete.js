@@ -10,7 +10,6 @@ import PropTypes from 'prop-types';
 import noop from 'lodash/noop';
 import Modal from 'react-modal';
 import CenterColumn from 'components/common/CenterColumn';
-import ModuleList from 'components/quests/module-list';
 import styles from './quest-complete.style';
 
 const {
@@ -41,17 +40,24 @@ export const QuestComplete = (props) => {
       >
         {modal.modalComponent}
       </Modal>
-      <CenterColumn>
-        <div className="inner-container">
-          <div className="shield-container">
-            <div className="blue-shield" />
-            <div className="icon-container">
-              <img className="icon-content" alt="" width="40" height="40" src={pageMeta.stepIconURL} />
+        <div className="inner-root-header" />
+
+        <div className="inner-center">
+          <CenterColumn>
+            <div className="inner-center-intro">
+              <span className="congrats" dangerouslySetInnerHTML={{ __html: pageMeta.congratulationsCaption }} />
+              <span className="quest-completed" dangerouslySetInnerHTML={{ __html: pageMeta.questCompletedTitle }} />
             </div>
-          </div>
-          <ModuleList moduleList={pageMeta.stepModuleList} questId={questId} />
+            <div className="inner-container">
+              <div className="shield-container">
+                <div className="blue-shield" />
+                <div className="icon-container">
+                  <img className="icon-content" alt="" width="40" height="40" src={pageMeta.stepIconURL} />
+                </div>
+              </div>
+            </div>
+          </CenterColumn>
         </div>
-      </CenterColumn>
       <style jsx>{styles}</style>
     </div>
   );
