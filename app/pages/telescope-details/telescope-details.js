@@ -4,12 +4,14 @@ import { browserHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import moment from 'moment';
+import first from 'lodash/first';
 import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
 import { ColumnTabs } from 'components/common/Tabs';
 import telescopeConfig from 'components/Telescope/telescopeConfig';
 import TelescopeImageViewerController from 'components/telescope-details/TelescopeImageViewerController';
 import LiveFeed from 'components/telescope-details/live-feed-v3';
 import { DeviceContext } from 'providers/DeviceProvider';
+import InstrumentNavigation from 'components/telescope-details/InstrumentNavigation';
 
 import {
   buildNavigationOptions,
@@ -126,6 +128,7 @@ class TelescopeDetails extends Component {
     telescopeIDHistory: [
       this.props.params.teleUniqueId,
       this.props.params.teleUniqueId],
+    activeInstrumentID: "",
   };
 
   static getDerivedStateFromProps(props, state) {
@@ -261,6 +264,10 @@ class TelescopeDetails extends Component {
     }
   }
 
+  handleInstrumentNavigationClick = (instrumentID) => {
+    this.setState(() => ({ activeInstrumentID: instrumentID }));
+  };
+
   render() {
     const {
       activeTelescopeMission,
@@ -270,6 +277,11 @@ class TelescopeDetails extends Component {
       currentTelescope,
       params,
     } = this.props;
+
+    const {
+      activeInstrumentID
+    } = this.state;
+
     const navigationOptions = buildNavigationOptions(observatoryList);
 
     const selectedNavigationIndex =
@@ -283,7 +295,17 @@ class TelescopeDetails extends Component {
 
     // get instrument, we cannot know the instrument until after the API's have returned
     // TODO: this flow should be redesigned
-    const activeInstrument = getActiveInstrument(observatoryList, activeTelescope);
+    //const activeInstrument = getActiveInstrument(observatoryList, activeTelescope);
+
+    const teleInstrumentList = currentTelescope.teleInstrumentList;
+
+    let useActiveInstrumentID = activeInstrumentID;
+    if (activeInstrumentID === "") {
+      useActiveInstrumentID = teleInstrumentList[0].instrUniqueId;
+    }
+
+    const activeInstrument = first(teleInstrumentList
+      .filter(instrument => instrument.instrUniqueId === useActiveInstrumentID));
 
     return (
       <div>
@@ -300,23 +322,30 @@ class TelescopeDetails extends Component {
               <DeviceContext.Consumer>
                 {context => ((context.isScreenLarge || context.isScreenXLarge)
                   ?
-                    <TelescopeImageViewerController
-                      activeInstrumentID={activeInstrument.instrUniqueId}
-                      render={({ viewportHeight }) => provideLiveFeed({
-                        viewportHeight,
-                        fetchingOnlineStatus: fetchingObservatoryStatus,
-                        obsAlert: currentObservatory.obsAlert,
-                        onlineStatus: false,
-                        instrument: activeInstrument,
-                        offlineImageSource: activeInstrument.instrOfflineImgURL,
-                        activeMission: activeTelescopeMission.maskDataArray,
-                        timestamp: activeTelescopeMission.timestamp,
-                        missionStart: activeTelescopeMission.missionStart,
-                        missionEnd: activeTelescopeMission.expires,
-                        activeNeoview: activeInstrument.instrHasNeoView,
-                        handleInfoClick: this.toggleNeoview,
-                      })}
-                    />
+                    <div>
+                      <InstrumentNavigation
+                        instruments={teleInstrumentList}
+                        activeInstrumentID={useActiveInstrumentID}
+                        handleInstrumentClick={this.handleInstrumentNavigationClick}
+                      />
+                      <TelescopeImageViewerController
+                        activeInstrumentID={activeInstrument.instrUniqueId}
+                        render={({ viewportHeight }) => provideLiveFeed({
+                          viewportHeight,
+                          fetchingOnlineStatus: fetchingObservatoryStatus,
+                          obsAlert: currentObservatory.obsAlert,
+                          onlineStatus: false,
+                          instrument: activeInstrument,
+                          offlineImageSource: activeInstrument.instrOfflineImgURL,
+                          activeMission: activeTelescopeMission.maskDataArray,
+                          timestamp: activeTelescopeMission.timestamp,
+                          missionStart: activeTelescopeMission.missionStart,
+                          missionEnd: activeTelescopeMission.expires,
+                          activeNeoview: activeInstrument.instrHasNeoView,
+                          handleInfoClick: this.toggleNeoview,
+                        })}
+                      />
+                    </div>
                   : null)
                 }
 
