@@ -31,10 +31,12 @@ class ColumnTabs extends Component {
   }
 
   render() {
+    const { currentTelescope } = this.props;
+
     return (
       <div className="tabs-root">
         <div>
-          <h3 className="menu-title">Canary Three</h3>
+          <h3 className="menu-title">{currentTelescope.teleName}</h3>
           <ul className="column-tab-set">
             {this.props.tabConfiguration.map((tab, index) => (
               <li key={`column-tab-${tab.tabTitle}`} className="column-tab">

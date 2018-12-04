@@ -16,11 +16,13 @@ const LargeScreenFormat = ({ onSelect, selectedIndex, options }) => (
               onClick={onSelect}
               data-index={index}
               className={classnames('option', { active: (selectedIndex == index) })}
+              style={{marginLeft: '0px', marginRight: '0px'}}
             >
-              <div
-                className="coin"
-                style={{ backgroundImage: `url(${observatory.thumbnailURL})` }}
-              />
+                <p>{observatory.name}</p>
+                <div
+                  className="coin"
+                  style={{ backgroundImage: `url(${observatory.thumbnailURL})` }}
+                />
             </button>
           </li>
         ))
