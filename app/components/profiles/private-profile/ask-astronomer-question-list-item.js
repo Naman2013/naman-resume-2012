@@ -55,7 +55,7 @@ const AskAstronomerQuestionListItem = ({
       <div className="body">
         <div>
           <div className="description" dangerouslySetInnerHTML={{ __html: content }} />
-          <span className="date">{`${moment(creationDate).fromNow()}  |  `}</span>
+          <span className="date">{`${moment.utc(creationDate).fromNow()}  |  `}</span>
           <span className="">Asked By <span dangerouslySetInnerHTML={{ __html: displayName }} /></span>
         </div>
         <ReplyToAstronomerQuestion
