@@ -28,7 +28,9 @@ export const QuestComplete = (props) => {
     user,
     pageMeta,
     questId,
+    complete,
   } = props;
+  console.log(props)
   return (
     <div className="root">
       <Modal
@@ -45,14 +47,18 @@ export const QuestComplete = (props) => {
         <div className="inner-center">
           <CenterColumn>
             <div className="inner-center-intro">
-              <span className="congrats" dangerouslySetInnerHTML={{ __html: pageMeta.congratulationsCaption }} />
-              <span className="quest-completed" dangerouslySetInnerHTML={{ __html: pageMeta.questCompletedTitle }} />
+              <span className="congrats" dangerouslySetInnerHTML={{ __html: complete.congratulationsCaption }} />
+              <span className="quest-completed" dangerouslySetInnerHTML={{ __html: complete.questCompletedTitle }} />
             </div>
             <div className="inner-container">
               <div className="shield-container">
                 <div className="blue-shield" />
                 <div className="icon-container">
-                  <img className="icon-content" alt="" width="40" height="40" src={pageMeta.stepIconURL} />
+                  <img className="icon-content" alt="" width="40" height="40" src={complete.stepIconURL} />
+                </div>
+                <div className="content-container">
+                  <div>{complete.youAreAwardedCaption}</div>
+                  <div>{complete.earnedInCaption}</div>
                 </div>
               </div>
             </div>

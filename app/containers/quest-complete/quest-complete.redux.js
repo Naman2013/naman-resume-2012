@@ -81,7 +81,8 @@ const mapStateToProps = ({
 }) => ({
   user,
   modal: questDetails.modal,
-  pageMeta: questDetails.complete,
+  pageMeta: questDetails.pageMeta,
+  complete: questDetails.complete,
   questId: routeParams.questId,
   moduleId: questDetails.pageMeta.moduleId,
 });

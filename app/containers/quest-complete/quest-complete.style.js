@@ -60,8 +60,11 @@ export default css`
   .inner-container {
     background-color: ${romance};
     position: relative;
-    padding: 25px;
+    padding: 50px;
     margin: 50px;
+  }
+  .content-container {
+    text-align: left;
   }
   .shield-container {
     position: absolute;
