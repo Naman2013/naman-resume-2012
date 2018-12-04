@@ -267,6 +267,7 @@ class TelescopeDetails extends Component {
       observatoryList,
       fetchingObservatoryStatus,
       currentObservatory,
+      currentTelescope,
       params,
     } = this.props;
     const navigationOptions = buildNavigationOptions(observatoryList);
@@ -325,6 +326,7 @@ class TelescopeDetails extends Component {
 
           <div className="column">
             <ColumnTabs
+              {...this.props}
               tabConfiguration={[
                 {
                   tabTitle: 'Live',
