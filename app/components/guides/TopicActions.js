@@ -1,22 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { toggleReadingListState, GUIDE } from 'services/reading-lists';
-import GenericButton from 'components/common/style/buttons/Button';
+import ToggleReadingList from 'components/common/ToggleReadingList';
 import style from './TopicAction.style';
 
-const TopicActions = ({ followButtonIconURL, followButtonText, guideId }) => (
+const TopicActions = ({ followButtonIconURL, readingListType, followButtonText, guideId, toggleReadingListFlag }) => (
   <ul className="button-container">
     <li>
-      <GenericButton
-        onClickEvent={() => {
-          toggleReadingListState({
-            listItemId: guideId,
-            readingListType: GUIDE,
-          });
-        }}
-        text={followButtonText}
-        icon={followButtonIconURL}
-      />
+      {toggleReadingListFlag ? <ToggleReadingList
+        itemId={guideId}
+        readingListType={readingListType}
+        readingListPrompt={followButtonText}
+        promptIconUrl={followButtonIconURL}
+      /> : null}
     </li>
 
     <style jsx>{style}</style>
