@@ -105,8 +105,10 @@ class SubmitReplyForm extends Component {
       answerText,
       S3URLs,
     } = this.state;
+    if (answerText.replace(/\s/g, '').length) {
+      this.props.submitForm(answerText, S3URLs);
+    }
 
-    this.props.submitForm(answerText, S3URLs);
   }
 
   handleDeleteImage = (imageURL) => {

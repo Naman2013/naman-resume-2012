@@ -84,7 +84,7 @@ class Stories extends Component {
                     iconURL={story.iconUrl}
                     title={story.title}
                     author={story.author}
-                    linkUrl={story.linkURL}
+                    linkUrl={story.linkUrl}
                   />
                 )) : <p>Sorry, there are no stories available for {objectDetails.objectTitle} at this time.</p>}
               </div>
