@@ -56,9 +56,15 @@ export const QuestComplete = (props) => {
                 <div className="icon-container">
                   <img className="icon-content" alt="" width="40" height="40" src={complete.stepIconURL} />
                 </div>
-                <div className="content-container">
-                  <div>{complete.youAreAwardedCaption}</div>
-                  <div>{complete.earnedInCaption}</div>
+              </div>
+              <div className="content-container">
+                <div className="awarded">{complete.youAreAwardedCaption}</div>
+                <div className="earned-in">{complete.earnedInCaption}</div>
+                <div className="step-list">
+                    {complete.stepList.map(step => (<div className="step">
+                    <div>{step.stepFullTitle}</div>
+                    <img className="check-icon" src={step.stepIconURL} alt="incompleted icon" />
+                  </div>))}
                 </div>
               </div>
             </div>
@@ -84,6 +90,9 @@ QuestComplete.propTypes = {
 QuestComplete.defaultProps = {
   actions: {
   },
+  complete: {
+    stepList: [],
+  }
 }
 
 export default QuestComplete;

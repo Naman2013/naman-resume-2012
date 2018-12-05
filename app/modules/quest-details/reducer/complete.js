@@ -36,6 +36,27 @@ export const fetchCompleteFailure = state => ({
 
       },
     ],
-
+    stepList: [
+      {
+        stepFullTitle: 'You\'ve Collected Data',
+        stepIconURL: 'https://vega.slooh.com/assets/v4/icons/complete_icon.svg',
+      },
+      {
+        stepFullTitle: 'You\'ve Collected Data',
+        stepIconURL: 'https://vega.slooh.com/assets/v4/icons/complete_icon.svg',
+      },
+      {
+        stepFullTitle: 'You\'ve Collected Data',
+        stepIconURL: 'https://vega.slooh.com/assets/v4/icons/complete_icon.svg',
+      },
+      {
+        stepFullTitle: 'You\'ve Collected Data',
+        stepIconURL: 'https://vega.slooh.com/assets/v4/icons/complete_icon.svg',
+      },
+      {
+        stepFullTitle: 'You\'ve Collected Data',
+        stepIconURL: 'https://vega.slooh.com/assets/v4/icons/complete_icon.svg',
+      },
+    ]
   },
 });

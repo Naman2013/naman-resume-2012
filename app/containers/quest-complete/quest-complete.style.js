@@ -3,6 +3,7 @@ import { primaryFont, secondaryFont } from '../../styles/variables/fonts';
 import {
   hawkesBlue,
   seashell,
+  shadows,
   astronaut,
   romance,
   midnight_express,
@@ -65,6 +66,22 @@ export default css`
   }
   .content-container {
     text-align: left;
+    height: auto;
+
+  }
+
+  .awarded {
+    font-family: ${primaryFont};
+    font-weight: bold;
+    font-size: 11px;
+    text-transform: capitalize;
+    color: ${astronaut};
+  }
+  .earned-in {
+    font-family: ${secondaryFont};
+    font-weight: normal;
+    font-size: 18px;
+    color: ${astronaut};
   }
   .shield-container {
     position: absolute;
@@ -94,5 +111,27 @@ export default css`
     align-items: center;
     justify-content: center;
     height: 75px;
+  }
+  .step-list {
+    background-color: ${romance};
+  }
+  .step {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0;
+    padding: 25px;
+    font-family: ${secondaryFont};
+    font-weight: normal;
+    font-size: 18px;
+    text-transform: capitalize;
+    color: ${astronaut};
+    border-bottom: 1px solid ${shadows};
+
+  }
+
+  .check-icon {
+    height: 40px;
+    width: 40px;
   }
 `;
