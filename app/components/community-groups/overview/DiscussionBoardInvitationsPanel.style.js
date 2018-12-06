@@ -1,9 +1,13 @@
 import css from 'styled-jsx/css';
 import { screenLarge, screenMedium } from 'styles/variables/breakpoints';
 import { moodyBleu, shadows } from 'styles/variables/colors_tiles_v4';
-import { secondaryFont } from 'styles/variables/fonts';
+import { primaryFont, secondaryFont } from 'styles/variables/fonts';
 
 export default css`  
+
+  .invite-container {
+    margin-top: 25px;
+  }
 
   .discuss-container {
     margin-top: 15px;
@@ -26,7 +30,7 @@ export default css`
     justify-content: center;
   }
   .customer-links {
-    padding: 40px;
+    padding: 50px;
     padding-top: 0;
     background-color: #ffffff;
     box-shadow: 0 2px 4px 1px #ced2d8;
@@ -35,11 +39,19 @@ export default css`
   .customer-links h2 {
     font-size: 20px;
     font-family: ${secondaryFont};
+    border-top: 1px solid ${shadows};
+    border-bottom: 1px solid ${shadows};
+    padding: 25px 0;
   }
 
   .customer-links p {
-    font-family: ${secondaryFont};
-    color: ${moodyBleu};
+    font-family: ${primaryFont};
+    font-size: 10px;
+    color: #415671;
+    font-weight: bold;
+    font-family: brandon-grotesque, sans-serif;
+    text-transform: uppercase;
+    padding: 25px 0 0 25px;
   }
   
   .Rtable {
@@ -86,6 +98,9 @@ export default css`
       display: flex;
       border-bottom: 1px solid ${shadows};
       margin-bottom: 40px;
+      font-size: 10px;
+      font-weight: bold;
+      text-transform: uppercase;
     }
 
     .Rtable-cell {

@@ -156,14 +156,14 @@ class DiscussionBoardInvitationsPanel extends Component {
                           )}
                           </div>
                           {serviceResponse.customerLinksData.customerLinks.map((customerLink, i) =>
-                            <div className="Rtable Rtable--6cols Rtable--collapse">
+                            <div className="Rtable Rtable--6cols Rtable--collapse" key={`row_` + i}>
                               <div className="Rtable-cell" key={`data_name_` + i}>{customerLink.name}</div>
                               <div className="Rtable-cell" key={`data_emailaddress_` + i}>{customerLink.emailaddress}</div>
                               <div className="Rtable-cell" key={`data_invitationcode_` + i}>{customerLink.invitationcode}</div>
                               <div className="Rtable-cell" key={`data_accountstatus_` + i}>{customerLink.status}</div>
                               <div className="Rtable-cell" key={`data_lastactivity_` + i}>{customerLink.lastactivity}</div>
 
-                              {customerLink.alreadyAMemberOfThisGroup === false && customerLink.canBeInvitedToThisGroup === true && <div className="Rtable-cell lastCell" key={`data_clubstatus_` + i}><div class="but"><Button type="button" text={customerLink.invitationPrompt} onClickEvent={() => this.addExistingMemberToDiscussionGroup(customerLink.firstname, customerLink.lastname, customerLink.emailaddress)} /></div></div>}
+                              {customerLink.alreadyAMemberOfThisGroup === false && customerLink.canBeInvitedToThisGroup === true && <div className="Rtable-cell lastCell" key={`data_clubstatus_` + i}><div className="but"><Button type="button" text={customerLink.invitationPrompt} onClickEvent={() => this.addExistingMemberToDiscussionGroup(customerLink.firstname, customerLink.lastname, customerLink.emailaddress)} /></div></div>}
                               {customerLink.alreadyAMemberOfThisGroup === true && customerLink.canBeInvitedToThisGroup === false && <div className="Rtable-cell lastCell" key={`data_clubstatus_` + i}>Active</div>}
                               {customerLink.alreadyAMemberOfThisGroup === false && customerLink.canBeInvitedToThisGroup === false && <div className="Rtable-cell lastCell" key={`data_clubstatus_` + i}>Pending</div>}
                             </div>
