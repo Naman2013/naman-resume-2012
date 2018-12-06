@@ -7,7 +7,8 @@ const initialState = {
   },
   step: {},
   complete: {
-    stepList: []
+    stepList: [],
+    relatedQuestsList: [],
   },
 };
 export default initialState;

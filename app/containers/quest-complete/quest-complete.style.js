@@ -13,6 +13,7 @@ import {
   faintGray,
   questDetailsTexture,
 } from '../../styles/variables/colors_tiles_v4';
+import { faintShadow } from 'styles/variables/shadows';
 import { screenMedium, screenLarge, screenXLarge } from '../../styles/variables/breakpoints';
 import {
   questShield,
@@ -21,7 +22,7 @@ export default css`
   .root {
     margin-top: -45px;
     background-color: ${seashell};
-    height: 100vw;
+    height: 125vw;;
   }
   .inner-root-header {
     background-image: url(${questDetailsTexture});
@@ -64,6 +65,7 @@ export default css`
     position: relative;
     padding: 50px;
     margin: 50px;
+    margin-bottom: 0;
   }
   .content-container {
     text-align: left;
@@ -84,7 +86,7 @@ export default css`
     font-size: 18px;
     color: ${astronaut};
   }
-  .shield-container {
+  .top-shield-container {
     position: absolute;
     width: 90%;
     text-align: center;
@@ -92,7 +94,7 @@ export default css`
     top: -30px;
   }
 
-  .blue-shield {
+  .top-blue-shield {
     position: absolute;
     background: url(${questShield});
     background-size: cover;
@@ -103,11 +105,11 @@ export default css`
     transform: translateX(-50%);
   }
 
-  .icon-content {
+  .top-icon-content {
     z-index: 999;
   }
 
-  .icon-container {
+  .top-icon-container {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -155,5 +157,32 @@ export default css`
     font-size: 16px;
     color: ${astronaut};
 
+  }
+
+  .more-quests-container {
+    position: relative;
+    margin: 50px;
+    margin-top: 0;
+    padding: 25px;
+    ${faintShadow}
+  }
+
+  .more-quests-caption {
+    padding: 25px;
+    font-family: ${secondaryFont};
+    font-size: 18px;
+    color: ${astronaut};
+  }
+
+  .more-quests-tile {
+    position: relative;
+  }
+
+  .inner-center :global(.more-quests-tile > .root) {
+    position: relative;
+  }
+
+  .inner-center :global(.more-quests-tile > .root .quest-info) {
+    left: 0;
   }
 `;

@@ -11,6 +11,7 @@ import noop from 'lodash/noop';
 import Modal from 'react-modal';
 import CenterColumn from 'components/common/CenterColumn';
 import GenericButton from 'components/common/style/buttons/Button';
+import QuestTile from 'components/common/tiles/QuestHubTileBig';
 import styles from './quest-complete.style';
 
 const {
@@ -52,10 +53,10 @@ export const QuestComplete = (props) => {
               <span className="quest-completed" dangerouslySetInnerHTML={{ __html: complete.questCompletedTitle }} />
             </div>
             <div className="inner-container">
-              <div className="shield-container">
-                <div className="blue-shield" />
-                <div className="icon-container">
-                  <img className="icon-content" alt="" width="40" height="40" src={complete.stepIconURL} />
+              <div className="top-shield-container">
+                <div className="top-blue-shield" />
+                <div className="top-icon-container">
+                  <img className="top-icon-content" alt="" width="40" height="40" src={complete.stepIconURL} />
                 </div>
               </div>
               <div className="content-container">
@@ -75,6 +76,18 @@ export const QuestComplete = (props) => {
                   </div>
                 </div>
               </div>
+            </div>
+            <div className="more-quests-container">
+              <div className="more-quests-caption">{complete.relatedQuestsCaption}</div>
+              {complete.relatedQuestsList.map(tile => <div className="more-quests-tile">
+                  <QuestTile
+                  title={tile.questTitle}
+                  questDifficulty={tile.questDifficulty}
+                  questType={tile.questType}
+                  linkUrl={tile.questURL}
+                  iconURL={tile.questIconURL}
+                />
+              </div>)}
             </div>
           </CenterColumn>
         </div>
