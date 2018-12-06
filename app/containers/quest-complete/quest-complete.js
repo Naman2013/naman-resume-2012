@@ -10,6 +10,7 @@ import PropTypes from 'prop-types';
 import noop from 'lodash/noop';
 import Modal from 'react-modal';
 import CenterColumn from 'components/common/CenterColumn';
+import GenericButton from 'components/common/style/buttons/Button';
 import styles from './quest-complete.style';
 
 const {
@@ -65,6 +66,13 @@ export const QuestComplete = (props) => {
                     <div>{step.stepFullTitle}</div>
                     <img className="check-icon" src={step.stepIconURL} alt="incompleted icon" />
                   </div>))}
+                </div>
+                <div className="did-you-know">
+                  <div className="did-you-know-caption">{complete.didYouKnowCaption}</div>
+                  <div className="did-you-know-text">{complete.didYouKnowCaption}</div>
+                  <div className="did-you-know-button">
+                    <GenericButton text={complete.learnMoreButtonCaption} />
+                  </div>
                 </div>
               </div>
             </div>

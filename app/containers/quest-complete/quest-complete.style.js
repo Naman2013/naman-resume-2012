@@ -21,6 +21,7 @@ export default css`
   .root {
     margin-top: -45px;
     background-color: ${seashell};
+    height: 100vw;
   }
   .inner-root-header {
     background-image: url(${questDetailsTexture});
@@ -133,5 +134,26 @@ export default css`
   .check-icon {
     height: 40px;
     width: 40px;
+  }
+
+  .did-you-know {
+    padding: 25px;
+
+  }
+
+  .did-you-know-caption {
+    padding-bottom: 15px;
+    text-transform: uppercase;
+    font-size: 11px;
+    font-weight: bold;
+    color: ${astronaut};
+
+  }
+  .did-you-know-text {
+    padding-bottom: 15px;
+    font-family: ${secondaryFont};
+    font-size: 16px;
+    color: ${astronaut};
+
   }
 `;
