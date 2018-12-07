@@ -125,6 +125,7 @@ import ObjectDetails from './pages/object-details/ObjectDetails';
 import UserPrivateProfile from './pages/profiles/private-profile';
 import UserPublicProfile from './pages/profiles/public-profile';
 import Quest from './pages/quest-details';
+import QuestComplete from './containers/quest-complete';
 
 
 import CommunityGroupOverview from './pages/community-groups/GroupOverview';
@@ -348,8 +349,8 @@ ReactDOM.render(
         <Route path="quests(/:filterType)" component={QuestsHub} onEnter={validateUser} />
 
         <Route path="quest-details/:questId" component={Quest} onEnter={validateUser} />
+        <Route path="quest-details/:questId/completed-overview" component={QuestComplete} onEnter={validateUser} />
         <Route path="quest-details/:questId/:step" component={QuestStep} onEnter={validateUser} />
-
         <Route path="profile/private" component={UserPrivateProfile} onEnter={validateUser} />
         <Route path="profile/public/:cid" component={UserPublicProfile} onEnter={validateUser} />
 

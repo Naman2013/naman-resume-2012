@@ -54,6 +54,7 @@ export const ModuleList = (props) => {
           //     </Fragment>
           //   )}
           // />
+          // remove the code on line 58 and uncomment above once APIs are working
           <div>{module.render({ fetching: false, ...module.model.model() })}</div>
         )
       })}
