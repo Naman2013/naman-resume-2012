@@ -77,6 +77,7 @@ import JoinStep1 from './pages/registration/JoinStep1';
 import JoinStep1SchoolSelection from './pages/registration/JoinStep1SchoolSelection';
 import JoinStep2 from './pages/registration/JoinStep2';
 import JoinStep3 from './pages/registration/JoinStep3';
+import JoinByLandingPage from './pages/registration/JoinByLandingPage';
 import JoinInviteByEmailStep1 from './pages/registration/JoinInviteByEmailStep1';
 import JoinInviteByCodeStep1 from './pages/registration/JoinInviteByCodeStep1';
 import JoinInviteByCodeStep2 from './pages/registration/JoinInviteByCodeStep2';
@@ -214,6 +215,7 @@ ReactDOM.render(
           <Route path="step1SchoolSelection" component={JoinStep1SchoolSelection} />
           <Route path="step2" component={JoinStep2} />
           <Route path="step3" component={JoinStep3} />
+          <Route path="byLandingPage/:subscriptionPlanHashCode" component={JoinByLandingPage} />
           <Route path="inviteByEmail/:invitationCodeHash/:invitationCreationEpoch" component={JoinInviteByEmailStep1} />
           <Route path="inviteByCodeStep1" component={JoinInviteByCodeStep1} />
           <Route path="inviteByCodeStep2" component={JoinInviteByCodeStep2} />
