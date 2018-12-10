@@ -96,6 +96,7 @@ const modelData = resp => ({
     magnitude: resp.objectMagnitude,
   },
   visibilitySeason: {
+    show: resp.showVisibilitySeason,
     title: resp.visibilitySeason.label,
     observatories: resp
       .visibilitySeason
@@ -103,6 +104,7 @@ const modelData = resp => ({
       .map(obs => <p key={`visibility-season-${obs.label}-${obs.text}`}>{obs.label} {obs.text}</p>),
   },
   midnightCulmination: {
+    show: resp.showMidnightCulmination,
     label: resp.midnightCulmination.label,
     text: resp.midnightCulmination.text,
     description: resp.midnightCulmination.description,
@@ -155,10 +157,12 @@ class Overview extends Component {
               scienceName={objectData.objectTitle}
               objectSpecs={modeledResult.objectDetails}
               visibilitySeason={{
+                show: modeledResult.visibilitySeason.show,
                 title: modeledResult.visibilitySeason.title,
                 observatories: modeledResult.visibilitySeason.observatories,
               }}
               midnightCulmination={{
+                show: modeledResult.midnightCulmination.show,
                 label: modeledResult.midnightCulmination.label,
                 text: modeledResult.midnightCulmination.text,
                 description: modeledResult.midnightCulmination.description,
