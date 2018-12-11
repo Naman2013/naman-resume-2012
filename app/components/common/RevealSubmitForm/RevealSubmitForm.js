@@ -72,8 +72,10 @@ class RevealSubmitForm extends Component {
       formText,
       S3URLs,
     } = this.state;
+    if (formText.replace(/\s/g, '').length) {
+      this.props.submitForm(formText, S3URLs, this.handleSubmit);
+    }
 
-    this.props.submitForm(formText, S3URLs, this.handleSubmit);
   }
 
   handleSubmit = (error, message) => {

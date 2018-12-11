@@ -6,13 +6,18 @@ import { screenLarge, screenXLarge } from '../../../styles/variables/breakpoints
 export default css`
 
   .card-obs {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
     position: relative;
     letter-spacing: 1px;
+    padding: 50px;
     background-color: white;
     background: url(${white_tile});
     background-size: 22px;
     box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.2);
-    margin: 3px auto;
+    margin: 25px auto;
     color: ${astronaut};
     font-family: ${secondaryFont};
     transition: width 0.4s ease-in-out, height 0.4s ease-in-out;
@@ -22,8 +27,8 @@ export default css`
 
   .obs-left {
     text-align: left;
-    width: 55%;
-    padding-left: 50px;
+    width: 75%;
+    padding-right: 50px;
     transition: width 0.4s ease-in-out, height 0.4s ease-in-out;
   }
 
@@ -37,17 +42,18 @@ export default css`
   }
 
   .media-card-img-right {
-    position: absolute;
-    border: solid 1px ${iron};
-    right: 50px;
-    top: 50px;
+    display: flex;
+    justify-content: flex-end;
+    height: 100%;
     width: calc(40% - 50px);
     transition: width 0.4s ease-in-out, height 0.4s ease-in-out;
   }
 
   .media-card-img-right img {
-    border: 2px solid white;
-    width: 100%;
+
+    border: solid 1px ${iron};
+    padding: 2px;
+    height: 100%;
   }
 
   .card-obs-author {

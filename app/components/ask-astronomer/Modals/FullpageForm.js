@@ -107,7 +107,9 @@ class FullpageForm extends Component {
       S3URLs,
     } = this.state;
 
-    this.props.submitForm(fieldText, S3URLs);
+    if (fieldText.replace(/\s/g, '').length) {
+      this.props.submitForm(fieldText, S3URLs);
+    }
   }
 
   handleDeleteImage = (imageURL) => {

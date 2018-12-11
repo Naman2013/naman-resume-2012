@@ -18,9 +18,11 @@ import { START_QUEST } from 'services/quests'
 import Quest from './QuestDetails';
 
 const {
+  func,
+  number,
+  oneOfType,
   shape,
   string,
-  func,
 } = PropTypes;
 
 export class ConnectedQuestDetails extends Component {
@@ -29,10 +31,16 @@ export class ConnectedQuestDetails extends Component {
       fetchQuestPageMeta: func.isRequired,
     }),
     questId: string.isRequired,
+    user: shape({
+      at: oneOfType([number, string]),
+      token: oneOfType([number, string]),
+      cid: oneOfType([number, string]),
+    }),
   }
 
   static defaultProps = {
     actions: {},
+    user: {},
   }
 
   state = {
@@ -49,7 +57,12 @@ export class ConnectedQuestDetails extends Component {
   setupQuest = () => {
     const { actions, questId } = this.props;
     const { at, token, cid } = this.props.user;
-    axios.get(`${START_QUEST}?at=${at}&cid=${cid}&token=${token}&questId=${questId}`)
+    axios.post(START_QUEST, {
+      at,
+      cid,
+      token,
+      questId,
+    })
       .then((res) => {
         if (res.data.startedQuest) {
           this.goToStep(1);

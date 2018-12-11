@@ -61,12 +61,12 @@ const DiscussionsCard = (props) => {
             <div style={profPic(avatarURL)} />
             <div className="display-name" dangerouslySetInnerHTML={{ __html: displayName }} />
           </div>
-          <span className="date">{moment(creationDate).fromNow()}</span>
+          <span className="date">{moment.utc(creationDate).fromNow()}</span>
         </div>
 
         <div className="content" dangerouslySetInnerHTML={{ __html: title || content }} />
         <div className="explainantion-container">
-          <div className="explainantion-item">{moment(creationDate).fromNow()}</div>
+          <div className="explainantion-item">{moment.utc(creationDate).fromNow()}</div>
           <div className="explainantion-item">Likes: {likesCount}     Comments: {replyToponlyCount}</div>
         </div>
         <div className="activity-actions">

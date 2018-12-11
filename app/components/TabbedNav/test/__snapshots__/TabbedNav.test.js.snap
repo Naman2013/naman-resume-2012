@@ -1,0 +1,57 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it should render a tab menu 1`] = `
+<div
+  className="jsx-1792741512 root component-container"
+  style={Object {}}
+>
+  <button
+    className="jsx-1792741512 split-nav-item-container"
+    data-tab="/join/step1"
+    onClick={[Function]}
+  >
+    <div
+      className="jsx-1792741512 split-nav-item"
+    >
+      Step 1
+    </div>
+    <img
+      alt="selected icon"
+      className="jsx-1792741512 arrow"
+      src="https://vega.slooh.com/assets/v4/common/status_triangle_up.svg"
+    />
+  </button>
+  <button
+    className="jsx-1792741512 split-nav-item-container"
+    data-tab="/join/step2"
+    onClick={[Function]}
+  >
+    <div
+      className="jsx-1792741512 split-nav-item"
+    >
+      Step 2
+    </div>
+    <img
+      alt="selected icon"
+      className="jsx-1792741512 arrow is-hidden"
+      src="https://vega.slooh.com/assets/v4/common/status_triangle_up.svg"
+    />
+  </button>
+  <button
+    className="jsx-1792741512 split-nav-item-container"
+    data-tab="/join/step3"
+    onClick={[Function]}
+  >
+    <div
+      className="jsx-1792741512 split-nav-item"
+    >
+      Step 3
+    </div>
+    <img
+      alt="selected icon"
+      className="jsx-1792741512 arrow is-hidden"
+      src="https://vega.slooh.com/assets/v4/common/status_triangle_up.svg"
+    />
+  </button>
+</div>
+`;

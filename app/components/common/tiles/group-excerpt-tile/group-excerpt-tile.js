@@ -13,6 +13,7 @@ const GroupExcerptTile = ({
   title,
   viewMessage,
   linkUrl,
+  filterType,
   joinPromptIconUrl,
   canView,
   joinPrompt,
@@ -35,6 +36,7 @@ const GroupExcerptTile = ({
         onClickEvent={() => browserHistory.push(linkUrl)}
       /> : null}
       {showJoinPrompt ? <ToggleJoinGroup
+        filterType={filterType}
         updateGroupItemInfo={updateGroupItemInfo}
         discussionGroupId={discussionGroupId}
         joinPrompt={joinPrompt}

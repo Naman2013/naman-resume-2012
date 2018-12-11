@@ -8,6 +8,7 @@ import GuideBodyContent from 'components/guides/GuideBodyContent';
 import GuideContentList from 'components/guides/GuideContentList';
 import SubjectGuideList from 'components/guides/SubjectGuideList';
 import SterlingTitle from 'components/common/titles/SterlingTitle';
+import GuidePanels from 'components/guides/GuidePanels';
 import { GUIDE_ENDPOINT_URL } from 'services/guides/guide-data';
 
 const subjectGuideModel = {
@@ -78,7 +79,7 @@ const SubjectGuides = ({ params: { guideId } }) => (
                 <CenterColumn theme={{ boxShadow: 'rgba(65, 86, 113, 0.2) 0px 3px 8px 1px', marginBottom: '60px' }}>
                   <GuideSection {...SUBJECT_GUIDE_MODEL.guideSectionProps} guideId={guideId} />
                 </CenterColumn>
-
+                <GuidePanels guideId={guideId} />
                 <SterlingTitle {...SUBJECT_GUIDE_MODEL.sterlingTitleProps} />
 
                 <CenterColumn>

@@ -65,7 +65,7 @@ class GroupTiles extends Component {
 
 
   render() {
-    const { groups, isMobile, updateGroupItemInfo, updatePrompt } = this.props;
+    const { groups, isMobile, filterType, updateGroupItemInfo, updatePrompt } = this.props;
     const { activeId } = this.state;
     return (
       <CenterColumn widths={['645px', '965px', '965px']}>
@@ -86,6 +86,7 @@ class GroupTiles extends Component {
               })}>
                 <GroupExcerptTile
                   {...group}
+                  filterType={filterType}
                   updateGroupItemInfo={updateGroupItemInfo}
                   updatePrompt={updatePrompt}
                 />

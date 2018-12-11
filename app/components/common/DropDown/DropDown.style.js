@@ -19,9 +19,9 @@ export default css`
     border-radius: 26px !important;
     border: 0 !important;
     box-shadow: none !important;
+    font-family: ${primaryFont};
     ${faintShadow}
   }
-
   :global(.slooh-select__value-container--has-value) {
     height: 40px;
     border-radius: 26px !important;
@@ -48,15 +48,18 @@ export default css`
     border-top: 0 !important;
     border-radius: 26px !important;
     box-shadow: none !important;
+    font-family: ${primaryFont};
   }
 
   :global(.slooh-select__menu-list) {
     border-top: 0 !important;
     border-radius: 26px !important;
+    font-family: ${primaryFont};
   }
 
   :global(.slooh-select__option) {
     border-top: 1px solid ${shadows};
+    font-family: ${primaryFont};
   }
 
   :global(.slooh-select__option):first-child {

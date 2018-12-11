@@ -35,25 +35,27 @@ export const ModuleList = (props) => {
         const module = modules.enumValueOf(moduleType);
         if (!module) return null;
         return (
-          <Request
-            authorizationRedirect
-            serviceURL={module.apiEndpoint}
-            model={module.model}
-            method="POST"
-            serviceExpiresFieldName="expires"
-            requestBody={{
-              moduleId,
-              questId,
-            }}
-            render={({
-              fetchingContent,
-              modeledResponses: { OUTPUT_PANEL },
-            }) => (
-              <Fragment>
-                {module.render({ fetching: fetchingContent, ...OUTPUT_PANEL })}
-              </Fragment>
-            )}
-          />
+          // <Request
+          //   authorizationRedirect
+          //   serviceURL={module.apiEndpoint}
+          //   model={module.model}
+          //   method="POST"
+          //   serviceExpiresFieldName="expires"
+          //   requestBody={{
+          //     moduleId,
+          //     questId,
+          //   }}
+          //   render={({
+          //     fetchingContent,
+          //     modeledResponses,
+          //   }) => (
+          //     <Fragment>
+          //       {module.render({ fetching: fetchingContent, ...modeledResponses[module.model.name] })}
+          //     </Fragment>
+          //   )}
+          // />
+          // remove the code on line 58 and uncomment above once APIs are working
+          <div>{module.render({ fetching: false, ...module.model.model() })}</div>
         )
       })}
       <style jsx>{styles}</style>

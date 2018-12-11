@@ -111,33 +111,35 @@ class AskAstronomerQuestionForm extends Component {
       questionText,
       S3URLs,
     } = this.state;
+    if (questionText.replace(/\s/g, '').length) {
+      createThread({
+        at: user.at,
+        token: user.token,
+        cid: user.cid,
+        objectId,
+        S3URLs,
+        callSource: 'qanda',
+        content: questionText,
+        topicId,
+        forumId,
+      }).then((res) => {
 
-    createThread({
-      at: user.at,
-      token: user.token,
-      cid: user.cid,
-      objectId,
-      S3URLs,
-      callSource: 'qanda',
-      content: questionText,
-      topicId,
-      forumId,
-    }).then((res) => {
+        if (!res.data.apiError) {
+          this.setState({
+            showPopup: true,
+            modalDescription: successMessage,
+            questionText: '',
+            S3URLs: [],
+          });
+        } else {
+          this.setState({
+            showPopup: true,
+            modalDescription: 'There was an error submitting your question.',
+          });
+        }
+      });
+    }
 
-      if (!res.data.apiError) {
-        this.setState({
-          showPopup: true,
-          modalDescription: successMessage,
-          questionText: '',
-          S3URLs: [],
-        });
-      } else {
-        this.setState({
-          showPopup: true,
-          modalDescription: 'There was an error submitting your question.',
-        });
-      }
-    });
   }
 
   closeModal = (e) => {

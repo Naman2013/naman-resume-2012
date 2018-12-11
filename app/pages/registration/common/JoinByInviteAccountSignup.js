@@ -27,7 +27,7 @@ import {
   JOIN_CREATE_INVITED_CUSTOMER_ENDPOINT_URL,
   GOOGLE_CLIENT_ID_ENDPOINT_URL,
   GOOGLE_SSO_SIGNIN_ENDPOINT_URL,
-  VERIFY_PASSWORD_MEETS_REQUIREMENTS_ENDPOINT_URL
+  VALIDATE_NEW_PENDING_CUSTOMER_DETAILS_ENDPOINT_URL
 } from 'services/registration/registration.js';
 import styles from '../JoinStep2.style';
 
@@ -129,13 +129,6 @@ class JoinByInviteAccountSignup extends Component {
           hintText: '',
           errorText: '',
         },
-        student13YearsAndOlder: {
-          label: '',
-          visible: true,
-          value: false,
-          hintText: '',
-          errorText: '',
-        }
       },
     }
   }
@@ -157,7 +150,6 @@ class JoinByInviteAccountSignup extends Component {
     newAccountFormData.password.label = result.formFieldLabels.password.label;
     newAccountFormData.passwordVerification.label = result.formFieldLabels.passwordverification.label;
     newAccountFormData.astronomyClubName.label = result.formFieldLabels.astronomyClubName.label;
-    newAccountFormData.student13YearsAndOlder.label = result.formFieldLabels.student13YearsAndOlder.label;
 
     newAccountFormData.givenName.hintText = result.formFieldLabels.firstname.hintText;
     newAccountFormData.familyName.hintText = result.formFieldLabels.lastname.hintText;
@@ -166,7 +158,6 @@ class JoinByInviteAccountSignup extends Component {
     newAccountFormData.password.hintText = result.formFieldLabels.password.hintText;
     newAccountFormData.passwordVerification.hintText = result.formFieldLabels.passwordverification.hintText;
     newAccountFormData.astronomyClubName.hintText = result.formFieldLabels.astronomyClubName.hintText;
-    newAccountFormData.student13YearsAndOlder.hintText = result.formFieldLabels.student13YearsAndOlder.hintText;
 
     newAccountFormData.givenName.value = result.invitee.firstName;
     this.props.change('givenName', result.invitee.firstName);
@@ -224,7 +215,6 @@ class JoinByInviteAccountSignup extends Component {
     accountFormDetailsData.password.errorText = '';
     accountFormDetailsData.passwordVerification.errorText = '';
     accountFormDetailsData.astronomyClubName.errorText = '';
-    accountFormDetailsData.student13YearsAndOlder.errorText = '';
 
     if (accountCreationType === 'userpass') {
         /* Verify that the user has provided:
@@ -281,48 +271,57 @@ class JoinByInviteAccountSignup extends Component {
     }
 
     if (formIsComplete === true) {
-    /* The form is complete and valid, submit the customer request if the Password Enters meets the Slooh Requirements */
+      /* The form is complete and valid, submit the customer request if the Password Enters meets the Slooh Requirements */
 
-      /* Last Validation....password validation, not required for Google Accounts as their is no password */
-      if (accountCreationType === 'userpass') {
-      /* reach out to the Slooh API and verify the user's password */
+      /* Last Validation....password and email address validation */
+      /* reach out to the Slooh API and verify the user's password and email address is not already taken, etc */
 
-        const passwordMeetsRequirementsResult = axios.post(VERIFY_PASSWORD_MEETS_REQUIREMENTS_ENDPOINT_URL, {
-          userEnteredPassword: this.state.accountFormDetails.password.value
-        })
-          .then((response) => {
-            const res = response.data;
-            if (res.apiError == false) {
-              const passwordResult = {
-                passwordAcceptable: res.passwordAcceptable,
-                passwordNotAcceptedMessage: res.passwordNotAcceptedMessage,
-              }
-
-              /* need to force evaulation of "true"/"false" vs. true/false. */
-              if (passwordResult.passwordAcceptable === "true") {
-                formIsComplete = true;
-
-                /* create the customer record */
-                this.createCustomerRecordAndNextScreen();
-              } else {
-                /* Password did not meet Slooh requirements, provide the error messaging */
-                accountFormDetailsData.password.errorText = passwordResult.passwordNotAcceptedMessage;
-
-                /* make sure to persist any changes to the account signup form (error messages) */
-                this.setState({ accountFormDetails: accountFormDetailsData });
-
-                formIsComplete = false;
-              }
+      const customerDetailsMeetsRequirementsResult = axios.post(VALIDATE_NEW_PENDING_CUSTOMER_DETAILS_ENDPOINT_URL, {
+        userEnteredPassword: this.state.accountFormDetails.password.value,
+        userEnteredLoginEmailAddress: this.state.accountFormDetails.loginEmailAddress.value,
+        selectedPlanId: window.localStorage.selectedPlanId,
+      })
+        .then((response) => {
+          const res = response.data;
+          if (res.apiError == false) {
+            const validationResults = {
+              passwordAcceptable: res.passwordAcceptable,
+              passwordNotAcceptedMessage: res.passwordNotAcceptedMessage,
+              emailAddressAcceptable: res.emailAddressAcceptable,
+              emailAddressNotAcceptedMessage: res.emailAddressNotAcceptedMessage,
             }
-          })
-          .catch((err) => {
-            throw ('Error: ', err);
-          });
-      } else if (accountCreationType === 'googleaccount') {
-        /* no additional verifications are needed, create the customer record and login */
-        this.createCustomerRecordAndNextScreen();
-      }
-    } else {
+
+            if (validationResults.passwordAcceptable === false) {
+              /* Password did not meet Slooh requirements, provide the error messaging */
+              accountFormDetailsData.password.errorText = validationResults.passwordNotAcceptedMessage;
+
+              /* make sure to persist any changes to the account signup form (error messages) */
+              this.setState({ accountFormDetails: accountFormDetailsData });
+
+              formIsComplete = false;
+            }
+
+            if (validationResults.emailAddressAcceptable === false) {
+              /* Email address is already taken or some other validation error occurred. */
+              accountFormDetailsData.loginEmailAddress.errorText = validationResults.emailAddressNotAcceptedMessage;
+
+              /* make sure to persist any changes to the account signup form (error messages) */
+              this.setState({ accountFormDetails: accountFormDetailsData });
+
+              formIsComplete = false;
+            }
+
+            if (formIsComplete === true) {
+              /* create the customer result */
+              this.createCustomerRecordAndNextScreen();
+            }
+          }
+        })
+        .catch((err) => {
+          throw ('Error: ', err);
+        });
+    }
+    else {
       /* make sure to persist any changes to the account signup form (error messages) */
       this.setState(() => ({ accountFormDetails: accountFormDetailsData }));
     }
@@ -581,23 +580,6 @@ class JoinByInviteAccountSignup extends Component {
                               />
                             </div>
                           </div>
-
-                          {isClassroom && <div className="form-section">
-                              <div className="form-field-container">
-                                <span className="form-label" dangerouslySetInnerHTML={{ __html: accountFormDetails.student13YearsAndOlder.label }} />:
-                              </div>
-                              <Field
-                                name="student13YearsAndOlder"
-                                type="checkbox"
-                                className="form-field"
-                                label={accountFormDetails.student13YearsAndOlder.hintText}
-                                component={InputField}
-                                value={accountFormDetails.student13YearsAndOlder.value}
-                                onChange={(event) => { this.handleFieldChange({ field: 'student13YearsAndOlder', value: !event.target.value }); }}
-                              />
-                            </div>
-                          }
-                          <br/>
                           <br/>
                           <div className="form-section">
                             <div className="form-field-container">

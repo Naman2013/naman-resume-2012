@@ -21,6 +21,7 @@ import TwoTabbedNav from 'components/TwoTabbedNav';
 import MembersList from './members-list';
 import DiscussionsBoard from 'components/common/DiscussionsBoard';
 import DiscussionBoardInvitationsPanel from 'components/community-groups/overview/DiscussionBoardInvitationsPanel';
+import DiscussionBoardGoogleClassroomStudentsPanel from 'components/community-groups/overview/DiscussionBoardGoogleClassroomStudentsPanel';
 
 const {
   arrayOf,
@@ -103,6 +104,7 @@ class FullInformationOverview extends Component {
       membersList,
       membersSort,
       showJoinPrompt,
+      refreshHeader,
       user,
     } = this.props;
 
@@ -117,8 +119,8 @@ class FullInformationOverview extends Component {
 
     return (
       <div className="root">
-        {pageMeta.canEditGroup && pageMeta.isGoogleClassroom === false && <DiscussionBoardInvitationsPanel {...this.props}/>}
-        {pageMeta.canEditGroup && pageMeta.isGoogleClassroom === true && <div>Manage Google Classroom Students</div>}
+        {pageMeta.canEditGroup && pageMeta.isGoogleClassroom === false && <DiscussionBoardInvitationsPanel {...this.props} refreshHeader={refreshHeader} />}
+        {pageMeta.canEditGroup && pageMeta.isGoogleClassroom === true && <DiscussionBoardGoogleClassroomStudentsPanel {...this.props} refreshHeader={refreshHeader} />}
 
         <ResponsiveTwoColumnContainer
           renderNavigationComponent={navProps =>

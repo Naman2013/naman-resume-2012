@@ -85,10 +85,10 @@ class DashboardNav extends Component {
           </Link>
         </div>
         <div className="dash-nav-item">
-          <Link to="/community-groups/public">
+          <Link to="/groups">
             <div className="link-container">
-              <img alt="groups" src={groups} />
-              <div className="title-item">groups</div>
+              <img alt="clubs" src={groups} />
+              <div className="title-item">clubs</div>
             </div>
           </Link>
         </div>

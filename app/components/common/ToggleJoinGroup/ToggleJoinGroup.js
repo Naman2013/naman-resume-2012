@@ -19,6 +19,7 @@ const RESPONSE_FIELDS = [
   'joinPromptIconUrl',
   'joinPrompt',
   'memberCountDisplay',
+  'removeGroupFlag',
 ];
 
 class ToggleJoinGroup extends Component {
@@ -27,6 +28,7 @@ class ToggleJoinGroup extends Component {
     joinPromptIconUrl: string,
     joinPrompt: string,
     updateGroupItemInfo: func,
+    filterType: string,
     user: shape({
       at: oneOfType([string, number]),
       token: oneOfType([string, number]),
@@ -38,6 +40,7 @@ class ToggleJoinGroup extends Component {
     joinPrompt: '',
     updateGroupItemInfo: noop,
     user: {},
+    filterType: 'all',
   };
 
   state = {
@@ -47,12 +50,14 @@ class ToggleJoinGroup extends Component {
 
   toggleGroup = () => {
     const {
+      filterType,
       user,
       discussionGroupId,
       joinPrompt,
       updateGroupItemInfo,
     } = this.props;
     toggleJoinGroup({
+      groupSet: filterType,
       at: user.at,
       token: user.token,
       cid: user.cid,

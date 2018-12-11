@@ -8,41 +8,26 @@
 import React, { Component, Fragment} from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import ObjectStoryList from '../../components/object-post/object-story-list';
-import GenericLoadingBox from '../../components/common/loading-screens/generic-loading-box';
-import DeviceProvider from '../../../app/providers/DeviceProvider';
-import ObjectDetailsSectionTitle from '../../components/object-details/ObjectDetailsSectionTitle';
-import CenterColumn from '../../../app/components/common/CenterColumn';
+import GenericLoadingBox from 'components/common/loading-screens/generic-loading-box';
+import DeviceProvider from 'providers/DeviceProvider';
+import has from 'lodash/has';
+import ObjectDetailsSectionTitle from 'components/object-details/ObjectDetailsSectionTitle';
+import CenterColumn from 'components/common/CenterColumn';
+import Request from 'components/common/network/Request';
+import StoryTile from 'components/common/tiles/StoryTile';
+
+import { OBJECT_STORIES } from 'services/objects';
 
 import {
   fetchObjectDetailsAction,
   fetchObjectDataAction,
-} from '../../modules/object-details/actions';
-import {
-  fetchObjectLatestContent,
-  fetchObjectPosts,
-} from '../../modules/object-post-list/actions';
+} from 'modules/object-details/actions';
 
-
-/* Declare these locally since previous versions relied on url routing */
-const objectProps = {
-  entryType: 'latest-entries',
-  filterType: 'all',
-}
 
 const mapStateToProps = ({ objectDetails, objectPostList, appConfig, user }) => ({
   objectDetails: objectDetails.objectDetails,
   objectData: objectDetails.objectData,
-  entryType: objectProps.entryType,
-  filterType: objectProps.filterType,
   slugLookupId: objectDetails.objectData.slugLookupId,
-  fetchingPosts: objectPostList.fetching,
-  objectPosts: objectPostList.objectPosts,
-  pages: objectPostList.pages,
-  count: objectPostList.count,
-  page: objectPostList.page,
-  postsCount: objectPostList.postsCount,
-  firstPostIndex: objectPostList.firstPostIndex,
   appConfig,
   user,
 });
@@ -51,38 +36,13 @@ const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     fetchObjectDetailsAction,
     fetchObjectDataAction,
-    fetchObjectLatestContent,
-    fetchObjectPosts,
   }, dispatch),
 });
 
 @connect(mapStateToProps, mapDispatchToProps)
 
 class Stories extends Component {
-  constructor(props) {
-    super(props);
-    this.updateList(props);
-  }
 
-  updateList(requestProps) {
-    const { actions } = this.props;
-    const {
-      entryType,
-      slugLookupId,
-      filterType,
-    } = requestProps;
-
-    actions.fetchObjectPosts({
-      type: [filterType],
-      entryType,
-      slugLookupId,
-    });
-  }
-
-
-  static defaultProps = {
-    fetchingPosts: true,
-  }
 
   render() {
     const {
@@ -91,16 +51,7 @@ class Stories extends Component {
       },
       objectDetails,
       slugLookupId,
-      fetchingPosts,
-      // fetchObjectLatestContent,
-      firstPostIndex,
-      objectPosts,
-      pages,
-      count,
-      page,
-      postsCount,
       actions: {
-        fetchObjectLatestContent
       }
     } = this.props;
 
@@ -114,28 +65,40 @@ class Stories extends Component {
         <DeviceProvider>
           <ObjectDetailsSectionTitle title={objectDetails.objectTitle + "'s"} subTitle="Related Stories" />
         </DeviceProvider>
-        <CenterColumn>
-          {
-            fetchingPosts ?
-              <GenericLoadingBox />
-            :
-              <ObjectStoryList
-                objectPosts={objectPosts}
-                pages={pages}
-                page={page}
-                count={count}
-                /*path={path}*/
-                postsCount={postsCount}
-                fetchObjectLatestContent={fetchObjectLatestContent}
-                SlugLookupId={slugId}
-                firstPostIndex={firstPostIndex}
-                className={'card-container__stories'}
-              />
-          }
+        <CenterColumn widths={['645px', '965px', '965px']}>
+          <Request
+            authorizationRedirect
+            serviceURL={OBJECT_STORIES}
+            method="POST"
+            serviceExpiresFieldName="expires"
+            requestBody={{
+              objectId,
+            }}
+            render={({
+              fetchingContent,
+              serviceResponse,
+            }) => (
+              <div className="root">
+                {serviceResponse.relatedStoriesCount > 0 && has(serviceResponse, 'relatedStoriesList') ? serviceResponse.relatedStoriesList.map(story => (
+                  <StoryTile
+                    iconURL={story.iconUrl}
+                    title={story.title}
+                    author={story.author}
+                    linkUrl={story.linkUrl}
+                  />
+                )) : <p>Sorry, there are no stories available for {objectDetails.objectTitle} at this time.</p>}
+              </div>
+            )}
+          />
         </CenterColumn>
+        <style jsx>{`
+          .root {
+            display: flex;
+            flex-wrap: wrap;
+          }
+        `}</style>
       </Fragment>
     )
   }
 }
 export default Stories;
-
