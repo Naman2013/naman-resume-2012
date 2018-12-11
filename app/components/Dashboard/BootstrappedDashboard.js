@@ -11,6 +11,7 @@ import TourPopup from './tour-popup/TourPopup';
 import PromoPanel from 'components/home/promo-panel';
 import { getSectionComponent } from './dashboardPanelItemsConfiguration';
 import DashNav from './nav/DashboardNav';
+import styles from './BootstrappedDashboard.style';
 // import { connect } from 'react-redux';
 
 const {
@@ -148,8 +149,7 @@ class BootstrappedDashboard extends Component {
       <div className="root">
         <TourPopup user={user}/>
         <div className="dash-hero">
-          <span className="vertical-helper" />
-          <img alt="Welcome" className="hero-img" src="https://vega.slooh.com/assets/v4/placeholder/FPO_GRAPHIC.png" />
+          <div alt="Welcome" className="hero-img" />
         </div>
         {promoPanelShow ?
           promoArray.map(promoObject => <PromoPanel {...promoObject} key={uniqueId()} />) : null
@@ -162,55 +162,7 @@ class BootstrappedDashboard extends Component {
           this.props[section] && getSectionComponent(section, Object.assign({ orderNumber: i + 1 }, this.props[section]))
         ))}
 
-        <style jsx>{`
-          .root {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-          }
-          .vertical-helper {
-            display: inline-block;
-            height: 100%;
-            vertical-align: middle;
-          }
-          .dash-hero {
-            height: 625px;
-            width: 100%;
-            background-color: white;
-            vertical-align: middle;
-            text-align: center;
-            transition: height ease-in-out 0.3s;
-          }
-          .dash-nav {
-            position: absolute;
-            top: 687px;
-            height: 160px;
-            width: 100%;
-          }
-
-
-          @media all and (min-width: 641px) and (max-width: 768px) {
-            .dash-hero {
-              height: 445px;
-            }
-            .dash-nav {
-              top: 507px;
-              display: flex;
-              height: 115px;
-              font-size: 9px;
-            }
-            .dash-nav-item img {
-              height: 22px;
-              margin: 30px 0 20px 0;
-            }
-          }
-          @media all and (max-width: 640px){
-            .dash-nav {
-              display: none;
-            }
-          }
-        `}
-        </style>
+        <style>{styles}</style>
       </div>
     );
   }
