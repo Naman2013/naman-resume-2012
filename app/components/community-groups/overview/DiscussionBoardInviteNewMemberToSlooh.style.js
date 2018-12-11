@@ -1,6 +1,6 @@
 import css from 'styled-jsx/css';
 import { faintShadow } from 'styles/variables/shadows';
-import { astronaut, romance, golden_yellow, shadows } from 'styles/variables/colors_tiles_v4';
+import { astronaut, romance, moodyBleu, shadows } from 'styles/variables/colors_tiles_v4';
 import { primaryFont, secondaryFont } from 'styles/variables/fonts';
 import { screenLarge, screenMedium } from 'styles/variables/breakpoints';
 import { backgroundImageCover, dropShadowContainer } from 'styles/mixins/utilities';
@@ -12,12 +12,18 @@ export default css`
     color: ${astronaut};
   }
 
+  .groups-header-information {
+    border-top: 1px solid ${shadows};
+    padding-top: 30px;
+  }
+
   .inner-container {
     padding: 25px;
     width: 100%;
     background-color: ${romance};
     ${faintShadow}
   }
+
   .section-heading {
     font-size: 14px;
     font-family: ${primaryFont};
@@ -54,27 +60,24 @@ export default css`
 
   .form-label {
     display: inline-block;
-    font-family: Arial, sans-serif;
-    font-size: 13px;
-    font-weight: bold;
-
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
   }
 
   .form-error {
     display: inline-block;
     color: red;
     font-weight: bold;
+    text-transform: uppercase;
+    font-size: 11px;
+    padding-left: 10px;
   }
 
-
-  .form-field {
-
+  .form-field-container label {
+    margin: 5px 0 15px 0 !important;
   }
-
-  .google-field {}
-
-  .form-field-container {}
-
 
   .form-field-half {
     width: 100%;
@@ -114,18 +117,30 @@ export default css`
     outline: none;
   }
 
+  .button-actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    margin-top: 20px;
+  }
+
 
   @media ${screenMedium} {
-      .step-root {
-        width: 600px;
-      }
-
-      .form-section.split {
-        flex-direction: row;
-      }
-
-      .form-field-half {
-        width: 50%;
-      }
+    .step-root {
+      width: 600px;
     }
+
+    .form-section.split {
+      flex-direction: row;
+    }
+
+    .form-field-half {
+      width: 50%;
+      padding-right: 40px;
+    }
+  }
+
+  @media ${screenLarge} {
+    justify-content: flex-end;
+  }
 `;

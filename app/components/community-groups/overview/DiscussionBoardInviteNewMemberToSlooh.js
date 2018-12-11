@@ -224,10 +224,10 @@ class DiscussionBoardInviteNewMemberToSlooh extends Component {
               {
                 !fetchingContent && <Fragment>
                   <form onSubmit={this.handleSubmit}>
-                    <div className="form-section">
+                    <div>
                       <div className="form-field-container">
                         <h2>{serviceResponse.formHeading1}</h2>
-                        <h3>{serviceResponse.formHeading2}</h3>
+                        <p>{serviceResponse.formHeading2}</p>
                         <div className="form-section split">
                           <div className="form-field-container form-field-half">
                               <span className="form-label" dangerouslySetInnerHTML={{ __html: inviteFormDetails.firstName.label }} />:
@@ -293,24 +293,6 @@ class DiscussionBoardInviteNewMemberToSlooh extends Component {
             </Fragment>
           )}
           />
-
-        <style jsx>{`
-          .button-actions {
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-          }
-
-          .submit-button {
-
-          }
-
-          @media ${screenLarge} {
-            justify-content: flex-end;
-          }
-
-
-        `}</style>
         <style>{styles}</style>
       </div>
     );
