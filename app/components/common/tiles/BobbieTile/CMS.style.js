@@ -34,7 +34,8 @@ export default css`
    }
 
    ${stylePrefix} :global(.contentImageEmbedCaption, .videoEmbedCaption) {
-     font-size: 10px;
+     font-size: 14px;
+     margin-bottom: 30px;
    }
 
    ${stylePrefix} :global(.videoEmbedDIV) {
