@@ -81,7 +81,7 @@ class BrowseTaggedDataSearch extends Component {
       /* render the entire browse tagged data set as their is no search term limiting the results */
       //console.log(browseTaggedData);
       this.setState({
-        renderTaggedData: browseTaggedData,
+        renderTaggedData: _.cloneDeep(browseTaggedData),
         grandParentNodeID: null,
         parentNodeID: null,
       });
@@ -234,12 +234,12 @@ class BrowseTaggedDataSearch extends Component {
             {Object.keys(browseTaggedData.taggedData).length > 0 && Object.keys(renderTaggedData.taggedData).length === 0 && <div className="search-results-noresultsfoundtext">No results found for: {topNavSearchTerm}.</div>}
 
             {Object.keys(renderTaggedData.taggedData).length > 0 && topNavSearchTerm === '' &&
-              <div>
+              <div key="search-results-no-searchterm">
                 {this.renderTaggedDataDisplay_NoSearchTerm()}
               </div>
             }
             {Object.keys(renderTaggedData.taggedData).length > 0 && topNavSearchTerm !== '' &&
-              <div>
+              <div key="search-results-no-withsearchterm">
                 {this.renderTaggedDataDisplay_SearchTerm()}
               </div>
             }
@@ -297,16 +297,16 @@ class BrowseTaggedDataSearch extends Component {
         <div>
           {Object.keys(renderTaggedData.taggedData).map(function (grandParentKey) {
               return (
-                <div>
-                  <div className="search-results-grandparent">{renderTaggedData.taggedData[grandParentKey].title}</div>
+                <div key={`outer-node-grandparent-` + grandParentKey}>
+                  <div key={`inner-node-grandparent-` + grandParentKey} className="search-results-grandparent">{renderTaggedData.taggedData[grandParentKey].title}</div>
                   {Object.keys(renderTaggedData.taggedData[grandParentKey].subnodes).map(function (parentKey) {
                       return (
                         <div>
-                          <div className="search-results-parent">{renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].title}</div>
+                          <div key={`node-parent-` + parentKey} className="search-results-parent">{renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].title}</div>
                           {Object.keys(renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].subnodes).map(function (itemKey) {
                               return (
-                                <div className="search-results-item">
-                                  <Link onClick={(event) => { this.endSearch(); }} to={renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].subnodes[itemKey].linkURL}>{renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].subnodes[itemKey].title}</Link>
+                                <div key={`node-` + itemKey} className="search-results-item">
+                                  <Link key={`node-link-` + itemKey} onClick={(event) => { this.endSearch(); }} to={renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].subnodes[itemKey].linkURL}>{renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].subnodes[itemKey].title}</Link>
                                 </div>
                               )
                             }, this)
