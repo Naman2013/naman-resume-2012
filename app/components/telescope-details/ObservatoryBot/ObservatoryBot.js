@@ -161,7 +161,7 @@ export default class ObservatoryBot extends Component {
       <div
         style={{'minHeight': '350px', 'maxHeight': '350px', 'overflowY': 'scroll'}}
         className="observatorybot-container">
-        <div style={{'padding': '20px'}}><ObservatoryBotDescription displayFlag={this.state.showDescription}/></div>
+        {this.state.showDescription === true && <div style={{'padding': '20px'}}><ObservatoryBotDescription displayFlag={this.state.showDescription}/></div>}
         <div className={observatoryBotContainerClassnames}>
           {
             this.state.messages.map(message => <ObservatoryBotMessage key={message} message={message} />)
