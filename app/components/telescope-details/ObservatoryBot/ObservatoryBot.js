@@ -25,10 +25,16 @@ export default class ObservatoryBot extends Component {
 
   state = {
     messages: [],
+    showDescription: true,
   }
 
   componentDidMount() {
     this.bootstrapSSE();
+    setTimeout(() => {
+      this.setState({
+        showDescription: false,
+      });
+    }, 10000);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -153,9 +159,9 @@ export default class ObservatoryBot extends Component {
 
     return (
       <div
-        style={{'maxHeight': '500px', 'overflowY': 'scroll'}}
+        style={{'minHeight': '350px', 'maxHeight': '350px', 'overflowY': 'scroll'}}
         className="observatorybot-container">
-        <div style={{'padding': '10px'}}><ObservatoryBotDescription/></div>
+        {this.state.showDescription === true && <div style={{'padding': '20px'}}><ObservatoryBotDescription displayFlag={this.state.showDescription}/></div>}
         <div className={observatoryBotContainerClassnames}>
           {
             this.state.messages.map(message => <ObservatoryBotMessage key={message} message={message} />)
