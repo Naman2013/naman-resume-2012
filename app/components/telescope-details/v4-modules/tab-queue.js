@@ -7,10 +7,11 @@ const testStuff = [0, 0, 1, 1, 0, 1, 0, 1];
 
 const TabQueue = (props) => (
   <div className="tab-queue-root">
-    <div className="tile-container">
+    {props.currentTelescope.teleHasNeoView && <div className="tile-container">
       <ObsBotWidget {...props} ViewGroup="queue"/>
+      <br/>
     </div>
-    <br/>
+    }
     <QueueNavigation
       handlePrevClick={() => { console.log('click-prev'); }}
       handleNextClick={() => { console.log('click-next'); }}
