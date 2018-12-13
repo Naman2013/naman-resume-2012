@@ -12,6 +12,7 @@ import TelescopeImageViewerController from 'components/telescope-details/Telesco
 import LiveFeed from 'components/telescope-details/live-feed-v3';
 import { DeviceContext } from 'providers/DeviceProvider';
 import InstrumentNavigation from 'components/telescope-details/InstrumentNavigation';
+import VideoImageLoader from 'components/common/telescope-image-loader/video-image-loader';
 
 import {
   buildNavigationOptions,
@@ -307,6 +308,15 @@ class TelescopeDetails extends Component {
     const activeInstrument = first(teleInstrumentList
       .filter(instrument => instrument.instrUniqueId === useActiveInstrumentID));
 
+    const {
+      instrStreamCode,
+      instrStreamURL,
+      instrStreamThumbnailQuality,
+      instrSystem,
+      instrPort,
+      instrCameraSourceType,
+    } = activeInstrument;
+
     return (
       <div>
         <TelescopeNavigation
@@ -328,7 +338,21 @@ class TelescopeDetails extends Component {
                         activeInstrumentID={useActiveInstrumentID}
                         handleInstrumentClick={this.handleInstrumentNavigationClick}
                       />
-                      <TelescopeImageViewerController
+                      {/* The Solar Telescope uses a Live Video Stream from YT as opposed to an SSE feed for other telescopes */}
+                      {activeInstrument.instrImageSourceType === 'video' && <div>
+                        <VideoImageLoader
+                          teleStreamCode={instrStreamCode}
+                          teleStreamURL={instrStreamURL}
+                          teleStreamThumbnailVideoWidth="810"
+                          teleStreamThumbnailVideoHeight="600"
+                          teleStreamThumbnailQuality={instrStreamThumbnailQuality}
+                          teleSystem={instrSystem}
+                          telePort={instrPort}
+                          cameraSourceType={instrCameraSourceType}
+                        />
+                      </div>
+                      }
+                      {activeInstrument.instrImageSourceType !== 'video' && <TelescopeImageViewerController
                         activeInstrumentID={activeInstrument.instrUniqueId}
                         render={({ viewportHeight }) => provideLiveFeed({
                           viewportHeight,
@@ -345,6 +369,7 @@ class TelescopeDetails extends Component {
                           handleInfoClick: this.toggleNeoview,
                         })}
                       />
+                      }
                     </div>
                   : null)
                 }
