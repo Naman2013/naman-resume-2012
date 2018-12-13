@@ -317,13 +317,20 @@ class TelescopeDetails extends Component {
       instrCameraSourceType,
     } = activeInstrument;
 
-    console.log(this.props);
-    
+    //Telescopes must have a show=true attribute
+    let updatedNavigationOptions = [];
+
+    navigationOptions.map((telescope, index) => {
+      if (telescope.show) {
+        updatedNavigationOptions.push(telescope);
+      }
+    });
+
     return (
       <div>
         <TelescopeNavigation
           title={activeTelescopeMission.objectTitle}
-          options={navigationOptions}
+          options={updatedNavigationOptions}
           onSelect={this.handleOptionChange}
           selectedIndex={selectedNavigationIndex}
         />
