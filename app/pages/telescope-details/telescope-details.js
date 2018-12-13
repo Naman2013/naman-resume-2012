@@ -317,6 +317,8 @@ class TelescopeDetails extends Component {
       instrCameraSourceType,
     } = activeInstrument;
 
+    console.log(this.props);
+    
     return (
       <div>
         <TelescopeNavigation

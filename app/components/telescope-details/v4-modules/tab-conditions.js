@@ -16,9 +16,10 @@ import style from './tab-conditions.style';
 
 const TabConditions = props => (
   <div>
-    <div className="tile-container">
+    {props.currentTelescope.teleHasNeoView && <div className="tile-container">
       <ObsBotWidget {...props} ViewGroup="conditions"/>
     </div>
+    }
     <div className="tile-container">
       <ConnectedAllSkyCamera obsId={props.obsId} allSkyWidgetID={props.AllskyWidgetId} />
     </div>
