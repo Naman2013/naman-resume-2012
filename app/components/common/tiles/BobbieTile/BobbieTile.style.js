@@ -46,7 +46,7 @@ export default css`
   
   .__html-blob-content-container__,
   .read-duration {
-    display: none;
+    /* display: none; */
   }
 
   .__html-blob-content-container__ :global(ul) {
