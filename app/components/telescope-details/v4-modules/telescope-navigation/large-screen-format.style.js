@@ -29,7 +29,7 @@ export default css`
     -webkit-box-shadow: 0px -4px 15px 0px rgba(0,0,0,0.14);
     -moz-box-shadow: 0px -4px 15px 0px rgba(0,0,0,0.14);
     box-shadow: 0px -4px 15px 0px rgba(0,0,0,0.14);
-    border-bottom: 5px solid ${astronaut};
+    box-shadow: inset 0 -5px 0 ${astronaut};
   }
 
   .option-container:last-child {
@@ -46,6 +46,7 @@ export default css`
     display: flex;
     align-items: center;
     justify-content: center;
+    margin: 10px auto 0 auto;
   }
 
   .option {
