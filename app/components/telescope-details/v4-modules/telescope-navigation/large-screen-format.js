@@ -7,9 +7,9 @@ const LargeScreenFormat = ({ onSelect, selectedIndex, options }) => (
   <div className="large-format-nav-root">
     <ul className="option-list">
       {
-        options.map((observatory, index) => (
+        options.map((telescope, index) => (
           <li
-            key={`dt-obs-nav-${observatory.thumbnailURL}`}
+            key={`dt-obs-nav-${telescope.thumbnailURL}`}
             className={classnames('option-container', { active: (selectedIndex == index) })}
           >
             <button
@@ -18,10 +18,10 @@ const LargeScreenFormat = ({ onSelect, selectedIndex, options }) => (
               className={classnames('option', { active: (selectedIndex == index) })}
               style={{marginLeft: '0px', marginRight: '0px'}}
             >
-                <p>{observatory.name}</p>
+                <p>{telescope.name}</p>
                 <div
                   className="coin"
-                  style={{ backgroundImage: `url(${observatory.thumbnailURL})` }}
+                  style={{ backgroundImage: `url(${telescope.thumbnailURL})` }}
                 />
             </button>
           </li>

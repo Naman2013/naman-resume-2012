@@ -2,11 +2,12 @@
 function buildNavigationOptions(observatoryList = []) {
   return observatoryList.reduce((navigationList, observatory) => ([
     ...navigationList,
-    ...observatory.obsTelescopes.map(({ teleName, teleLogoURL, teleUniqueId }) => ({
+    ...observatory.obsTelescopes.map(({ teleHasTelescopePage, teleName, teleLogoURL, teleUniqueId }) => ({
       name: teleName,
       thumbnailURL: teleLogoURL,
       observatoryUniqueID: observatory.obsUniqueId,
       telescopeUniqueID: teleUniqueId,
+      show: teleHasTelescopePage 
     })),
   ]), []);
 }
