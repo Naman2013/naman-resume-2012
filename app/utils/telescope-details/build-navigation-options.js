@@ -7,7 +7,7 @@ function buildNavigationOptions(observatoryList = []) {
       thumbnailURL: teleLogoURL,
       observatoryUniqueID: observatory.obsUniqueId,
       telescopeUniqueID: teleUniqueId,
-      show: teleHasTelescopePage 
+      show: teleHasTelescopePage
     })),
   ]), []);
 }
