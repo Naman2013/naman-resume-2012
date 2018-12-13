@@ -117,6 +117,7 @@ BootstrappedStoryDetails.propTypes = {
 BootstrappedStoryDetails.defaultProps = {
   S3Files: [''],
   user: {},
+  authorInfo: {},
 };
 
 export default BootstrappedStoryDetails;

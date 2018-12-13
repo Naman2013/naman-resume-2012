@@ -43,13 +43,48 @@ export default css`
     justify-content: space-between;
     align-items: center;
   }
-
+  
   .__html-blob-content-container__,
   .read-duration {
-    display: none;
+    /* display: none; */
+  }
+
+  .__html-blob-content-container__ :global(ul) {
+    margin-left: 40px;
+    margin-bottom: 20px;
+  }
+
+  .__html-blob-content-container__ :global(li) {
+    margin-bottom: 10px;
   }
 
   .__html-blob-content-container__ :global(p) {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  .__html-blob-content-container__ :global(h1) {
+    margin-top: 40px;
+    margin-bottom: 10px;
+  }
+
+  .__html-blob-content-container__ :global(h2) {
+    margin-top: 40px;
+    margin-bottom: 10px;
+  }
+
+  .__html-blob-content-container__ :global(h3) {
+    margin-top: 40px;
+    margin-bottom: 10px;
+  }
+
+  .__html-blob-content-container__ :global(h4) {
+    margin-top: 40px;
+    margin-bottom: 10px;
+  }
+
+  .__html-blob-content-container__ :global(h5) {
+    margin-top: 40px;
     margin-bottom: 10px;
   }
 

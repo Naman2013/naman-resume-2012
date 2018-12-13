@@ -18,6 +18,7 @@ import {
   astronaut,
 } from '../../../styles/variables/colors_tiles_v4';
 import { screenLarge } from 'styles/variables/breakpoints';
+import style from './DiscussionBoardInvitationsPanel.style';
 
 const {
   arrayOf,
@@ -142,65 +143,58 @@ class DiscussionBoardInvitationsPanel extends Component {
                 }
                 {
                   !fetchingContent &&
-                    <div>
+                    <div className="customer-links">
                       <br/>
                       <h2>{serviceResponse.customerLinksData.sectionHeading}</h2>
-                      <h3>{serviceResponse.customerLinksData.sectionHeading_LicenseInfo}</h3>
+                      <p>{serviceResponse.customerLinksData.sectionHeading_LicenseInfo}</p>
                       <br/>
-                      <p style={{"color": "red", "fontSize": "1.3em"}}>{this.state.inviteStatusMessage}<br/><br/></p>
-                      {serviceResponse.customerLinksData.customerLinks.length > 0 ? (<table style={{'border': '1px', 'width': '100%'}}>
-                        <tbody>
-                          <tr>
+                      <br/>
+                      <p style={{"color": "red", "fontSize": "1.3em"}}>{this.state.inviteStatusMessage}</p>
+                      {serviceResponse.customerLinksData.customerLinks.length > 0 ? (
+                        <div>
+                          <div className="Rtable Rtable--6cols Rtable--collapse header">
                           {serviceResponse.customerLinksData.columnHeadings.map((columnHeading, i) =>
-                              <th key={`heading_` + i}>{columnHeading}</th>
+                            <div className="Rtable-cell" key={`heading_` + i}>{columnHeading}</div>
                           )}
-                          </tr>
+                          </div>
                           {serviceResponse.customerLinksData.customerLinks.map((customerLink, i) =>
-                              [
-                              <tr>
-                                <td colspan={serviceResponse.customerLinksData.columnHeadings.length}>&nbsp;</td>
-                              </tr>,
-                              <tr key={`data_` + i}>
-                                <td key={`data_name_` + i}>{customerLink.name}</td>
-                                <td key={`data_emailaddress_` + i}>{customerLink.emailaddress}</td>
-                                <td key={`data_invitationcode_` + i}>{customerLink.invitationcode}</td>
-                                <td key={`data_accountstatus_` + i}>{customerLink.status}</td>
-                                <td key={`data_lastactivity_` + i}>{customerLink.lastactivity}</td>
+                            <div className="Rtable Rtable--6cols Rtable--collapse" key={`row_` + i}>
+                              <div className="Rtable-cell" key={`data_name_` + i}>{customerLink.name}</div>
+                              <div className="Rtable-cell" key={`data_emailaddress_` + i}>{customerLink.emailaddress}</div>
+                              <div className="Rtable-cell" key={`data_invitationcode_` + i}>{customerLink.invitationcode}</div>
+                              <div className="Rtable-cell" key={`data_accountstatus_` + i}>{customerLink.status}</div>
+                              <div className="Rtable-cell" key={`data_lastactivity_` + i}>{customerLink.lastactivity}</div>
 
-                                {/* only one of these conditions will apply */}
-                                {customerLink.alreadyAMemberOfThisGroup === false && customerLink.canBeInvitedToThisGroup === true && <td key={`data_clubstatus_` + i}><Button type="button" text={customerLink.invitationPrompt} onClickEvent={() => this.addExistingMemberToDiscussionGroup(customerLink.firstname, customerLink.lastname, customerLink.emailaddress)} /></td>}
-                                {customerLink.alreadyAMemberOfThisGroup === true && customerLink.canBeInvitedToThisGroup === false && <td key={`data_clubstatus_` + i}>Active</td>}
-                                {customerLink.alreadyAMemberOfThisGroup === false && customerLink.canBeInvitedToThisGroup === false && <td key={`data_clubstatus_` + i}>Pending</td>}
-                              </tr>
-                            ]
+                              {customerLink.alreadyAMemberOfThisGroup === false && customerLink.canBeInvitedToThisGroup === true && <div className="Rtable-cell lastCell" key={`data_clubstatus_` + i}><div className="but"><Button type="button" text={customerLink.invitationPrompt} onClickEvent={() => this.addExistingMemberToDiscussionGroup(customerLink.firstname, customerLink.lastname, customerLink.emailaddress)} /></div></div>}
+                              {customerLink.alreadyAMemberOfThisGroup === true && customerLink.canBeInvitedToThisGroup === false && <div className="Rtable-cell lastCell" key={`data_clubstatus_` + i}>Active</div>}
+                              {customerLink.alreadyAMemberOfThisGroup === false && customerLink.canBeInvitedToThisGroup === false && <div className="Rtable-cell lastCell" key={`data_clubstatus_` + i}>Pending</div>}
+                            </div>
                           )}
-                        </tbody>
-                      </table>) : <p>There are no invitations</p>}
+                          </div>
+                          ) : <p>There are no invitations</p>}
                       <br/>
                       {inInviteMode === true && <div>
                         <DiscussionBoardInviteNewMemberToSlooh {...this.props} newInvitationComplete={(invitationCode, firstName, lastName, emailAddress, statusMessage) => this.newInvitationComplete(invitationCode, firstName, lastName, emailAddress, statusMessage)}/>
                       </div>
                       }
-                      <div className="button-actions">
-                        {inInviteMode === true && <div>
-                          <Button
-                            type="button"
-                            text="Cancel"
-                            onClickEvent={this.toggleInviteMode} />
-                            <br/>
-                          </div>
-                        }
-                        {inInviteMode === false && <div>
-                          <Button
-                            className="submit-button"
-                            type="button"
-                            onClickEvent={this.toggleInviteMode}
-                            text={serviceResponse.formsubmitbutton.buttonText}/>
-                            <br/>
-                          </div>
-                        }
-                      </div>
-                      <br/>
+                      
+                      {inInviteMode === true && <div className="button-cancel">
+                        <Button
+                          type="button"
+                          text="Cancel"
+                          onClickEvent={this.toggleInviteMode} />
+                          <br/>
+                        </div>
+                      }
+                      {inInviteMode === false && <div className="button-invite">
+                        <Button
+                          className="submit-button"
+                          type="button"
+                          onClickEvent={this.toggleInviteMode}
+                          text={serviceResponse.formsubmitbutton.buttonText}/>
+                          <br/>
+                        </div>
+                      }
                     </div>
                     }
                   </Fragment>
@@ -208,25 +202,7 @@ class DiscussionBoardInvitationsPanel extends Component {
               />
         </div>
 
-      <style jsx>{`
-        .root {
-        }
-
-        .discuss-container {
-          margin-top: 15px;
-        }
-
-        .button-actions {
-          display: flex;
-          flex-direction: row;
-          justify-content: center;
-        }
-
-        .submit-button {
-
-        }
-
-      `}</style>
+        <style>{style}</style>
     </div>
     )
   }

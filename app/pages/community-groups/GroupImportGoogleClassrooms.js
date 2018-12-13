@@ -353,8 +353,7 @@ class GroupImportGoogleClassrooms extends Component {
                                                                                   component={InputField}
                                                                                   label=""
                                                                                   onChange={(event) => { this.handleFieldChange({ googleClassroomName: classroomListItem.name, googleClassroomId: classroomListItem.googleClassroomId, selectedFlag: event.target.value }); }}
-                                                                                />: <p></p>}
-
+                                                                                />: <input type="checkbox" disabled checked class="form-field" style={{marginLeft: '20px'}}/>}
                                                                               </td>
                                                                               <td key={`importName_` + classroomListItem.googleClassroomId}>{classroomListItem.hasDiscussionGroup ? <Link to={classroomListItem.discussionGroupLinkUrl}>{classroomListItem.name}</Link>: <p>{classroomListItem.name}</p>}</td>
                                                                               <td key={`importStatus_` + classroomListItem.googleClassroomId}>{classroomListItem.hasDiscussionGroup ? <p>Active</p>: <p>Please Import</p>}</td>

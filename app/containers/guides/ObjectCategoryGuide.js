@@ -28,6 +28,8 @@ const guidePageModel = {
           topicActionProps={{
             followButtonIconURL: resp.promptIconUrl,
             followButtonText: resp.readingListPrompt,
+            readingListType: resp.readingListType,
+            toggleReadingListFlag: resp.toggleReadingListFlag,
           }}
           guideId={guideId}
         />
@@ -42,6 +44,8 @@ const guidePageModel = {
           topicActionProps={{
             followButtonIconURL: resp.promptIconUrl,
             followButtonText: resp.readingListPrompt,
+            readingListType: resp.readingListType,
+            toggleReadingListFlag: resp.toggleReadingListFlag,
           }}
           guideId={guideId}
         />

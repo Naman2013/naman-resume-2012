@@ -7,20 +7,22 @@ const LargeScreenFormat = ({ onSelect, selectedIndex, options }) => (
   <div className="large-format-nav-root">
     <ul className="option-list">
       {
-        options.map((observatory, index) => (
+        options.map((telescope, index) => (
           <li
-            key={`dt-obs-nav-${observatory.thumbnailURL}`}
+            key={`dt-obs-nav-${telescope.thumbnailURL}`}
             className={classnames('option-container', { active: (selectedIndex == index) })}
           >
             <button
               onClick={onSelect}
               data-index={index}
               className={classnames('option', { active: (selectedIndex == index) })}
+              style={{marginLeft: '0px', marginRight: '0px'}}
             >
-              <div
-                className="coin"
-                style={{ backgroundImage: `url(${observatory.thumbnailURL})` }}
-              />
+                <p>{telescope.name}</p>
+                <div
+                  className="coin"
+                  style={{ backgroundImage: `url(${telescope.thumbnailURL})` }}
+                />
             </button>
           </li>
         ))

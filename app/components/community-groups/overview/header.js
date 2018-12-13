@@ -157,6 +157,10 @@ const GroupsHeader = ({
         .main-container {
           width: 342px;
         }
+
+        .header-img {
+          transform: translateY(-50%);
+        }
       }
 
       @media ${screenLarge} {
@@ -169,6 +173,11 @@ const GroupsHeader = ({
           padding: 0;
           ${dropShadowContainer}
         }
+
+        .header-img {
+          transform: translateY(-90%);
+        }
+
         .image-and-main-container {
           align-items: center;
           background-image: url(${white_tile_paper});

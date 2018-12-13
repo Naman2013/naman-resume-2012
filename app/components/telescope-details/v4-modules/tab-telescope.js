@@ -4,9 +4,10 @@ import style from './tab-telescope.style';
 
 const TabTelescope = (props) => (
   <div>
-    <div className="module-container">
+    {props.currentTelescope.teleHasNeoView && <div className="module-container">
       <ObsBotWidget {...props} ViewGroup="scopes"/>
     </div>
+    }
     <div className="module-container">
       <TelescopeDetail />
     </div>

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
+import clone from 'lodash/clone';
 import { SmallScreenFormat, MediumScreenFormat, LargeScreenFormat } from './';
 import { enhancedProps } from './common-prop-types';
 import style from './telescope-navigation.style';
@@ -12,6 +13,7 @@ const TelescopeNavigation = ({
   title,
 }) => {
   // painting fields requires an option to be available
+
   if (options.length === 0) { return null; }
 
   return (

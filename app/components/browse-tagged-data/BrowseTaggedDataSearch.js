@@ -81,7 +81,7 @@ class BrowseTaggedDataSearch extends Component {
       /* render the entire browse tagged data set as their is no search term limiting the results */
       //console.log(browseTaggedData);
       this.setState({
-        renderTaggedData: browseTaggedData,
+        renderTaggedData: _.cloneDeep(browseTaggedData),
         grandParentNodeID: null,
         parentNodeID: null,
       });
@@ -103,7 +103,7 @@ class BrowseTaggedDataSearch extends Component {
         ****************************
         DEEP COPY....We must have a deep copy of the browseTaggedData to work with as this process is going to remove data and without a deep copy it would affect the browseTaggedData object
       */
-      var tmpRenderedDataObj = _.cloneDeep(browseTaggedData);
+      let tmpRenderedDataObj = _.cloneDeep(browseTaggedData);
 
       //step 1: delete an items that don't match
       var itemsFound = false;
@@ -138,7 +138,7 @@ class BrowseTaggedDataSearch extends Component {
 
       //update the render tagged data set to represent the newly trimmed down node tree based on the user's latest search terms.
       this.setState({
-        renderTaggedData: tmpRenderedDataObj,
+        renderTaggedData: _.cloneDeep(tmpRenderedDataObj),
       });
     }
   }
@@ -154,7 +154,7 @@ class BrowseTaggedDataSearch extends Component {
 
       if (topNavSearchEnabled != true) {
         this.setState({
-          renderTaggedData: this.props.browseTaggedData,
+          renderTaggedData: _.cloneDeep(this.props.browseTaggedData),
           topNavSearchTerm: searchData.value,
           topNavSearchEnabled: true,
           grandParentNodeID: null,
@@ -201,11 +201,15 @@ class BrowseTaggedDataSearch extends Component {
 
       if ( (parentNodeID === null) || (parentNodeID != parentKey) ) {
         /* select the parent node */
-        this.setState({ parentNodeID: parentKey });
+        this.setState({
+          parentNodeID: parentKey
+        });
       }
       else {
         /* un-select the parent node */
-        this.setState({ parentNodeID: null });
+        this.setState({
+          parentNodeID: null
+        });
       }
     }
 
@@ -234,12 +238,12 @@ class BrowseTaggedDataSearch extends Component {
             {Object.keys(browseTaggedData.taggedData).length > 0 && Object.keys(renderTaggedData.taggedData).length === 0 && <div className="search-results-noresultsfoundtext">No results found for: {topNavSearchTerm}.</div>}
 
             {Object.keys(renderTaggedData.taggedData).length > 0 && topNavSearchTerm === '' &&
-              <div>
+              <div key="search-results-no-searchterm">
                 {this.renderTaggedDataDisplay_NoSearchTerm()}
               </div>
             }
             {Object.keys(renderTaggedData.taggedData).length > 0 && topNavSearchTerm !== '' &&
-              <div>
+              <div key="search-results-no-withsearchterm">
                 {this.renderTaggedDataDisplay_SearchTerm()}
               </div>
             }
@@ -297,16 +301,16 @@ class BrowseTaggedDataSearch extends Component {
         <div>
           {Object.keys(renderTaggedData.taggedData).map(function (grandParentKey) {
               return (
-                <div>
-                  <div className="search-results-grandparent">{renderTaggedData.taggedData[grandParentKey].title}</div>
+                <div key={`outer-node-grandparent-` + grandParentKey}>
+                  <div key={`inner-node-grandparent-` + grandParentKey} className="search-results-grandparent">{renderTaggedData.taggedData[grandParentKey].title}</div>
                   {Object.keys(renderTaggedData.taggedData[grandParentKey].subnodes).map(function (parentKey) {
                       return (
                         <div>
-                          <div className="search-results-parent">{renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].title}</div>
+                          <div key={`node-parent-` + parentKey} className="search-results-parent">{renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].title}</div>
                           {Object.keys(renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].subnodes).map(function (itemKey) {
                               return (
-                                <div className="search-results-item">
-                                  <Link onClick={(event) => { this.endSearch(); }} to={renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].subnodes[itemKey].linkURL}>{renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].subnodes[itemKey].title}</Link>
+                                <div key={`node-` + itemKey} className="search-results-item">
+                                  <Link key={`node-link-` + itemKey} onClick={(event) => { this.endSearch(); }} to={renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].subnodes[itemKey].linkURL}>{renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].subnodes[itemKey].title}</Link>
                                 </div>
                               )
                             }, this)
@@ -325,6 +329,9 @@ class BrowseTaggedDataSearch extends Component {
 
     renderTaggedDataDisplay_NoSearchTerm() {
       const { grandParentNodeID, parentNodeID, renderTaggedData } = this.state;
+
+      //console.log(grandParentNodeID);
+      //console.log(parentNodeID);
 
       /***************************************************************************************
       noSearchTerm Use Cases:
@@ -375,10 +382,10 @@ class BrowseTaggedDataSearch extends Component {
                         return (
                           <div>
                             {grandParentKey === grandParentNodeID && <div onClick={(event) => { this.changeParentNodeID(parentKey) }} className="search-results-parent">{renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].title}</div>}
-                            {Object.keys(renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].subnodes).map(function (itemKey) {
+                            {grandParentKey === grandParentNodeID && parentKey === parentNodeID && Object.keys(renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].subnodes).map(function (itemKey) {
                                 return (
                                   <div className="search-results-item">
-                                    {grandParentKey === grandParentNodeID && parentKey === parentNodeID && <Link onClick={(event) => { this.endSearch(); }} to={renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].subnodes[itemKey].linkURL}>{renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].subnodes[itemKey].title}</Link>}
+                                    <Link onClick={(event) => { this.endSearch(); }} to={renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].subnodes[itemKey].linkURL}>{renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].subnodes[itemKey].title}</Link>
                                   </div>
                                 )
                               }, this)

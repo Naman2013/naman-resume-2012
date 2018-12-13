@@ -12,6 +12,12 @@ export default css`
     color: ${astronaut};
   }
 
+  .wrapper {
+    margin-bottom: 40px;
+    box-shadow: 0px 3px 5px 0px rgba(88, 88, 88, 0.5);
+    border-top: none;
+  }
+
   .section-heading {
     font-size: 14px;
     font-family: ${primaryFont};
@@ -57,7 +63,7 @@ export default css`
     font-size: 13px;
     font-weight: bold;
     color: ${astronaut};
-
+    margin-left: 15px;
   }
 
   .form-error {
@@ -123,6 +129,10 @@ export default css`
 
       .form-field-half {
         width: 50%;
+      }
+
+      .wrapper {
+        padding: 0 40px;
       }
     }
 `;

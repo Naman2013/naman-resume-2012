@@ -65,20 +65,21 @@ const ObjectProfile = ({
         }}
       >
         <Row wrap>
-          <StaticCell
+          {visibilitySeason.show === true && <StaticCell
             title={visibilitySeason.title}
             theme={{ padding: 0, marginBottom: '20px' }}
           >
             {visibilitySeason.observatories}
-          </StaticCell>
-          <StaticCell
+          </StaticCell>}
+
+          {midnightCulmination.show === true && <StaticCell
             flexScale={['100%']}
             title={midnightCulmination.label}
             theme={{ padding: 0, borderBottom: 'none' }}
           >
             <p>{midnightCulmination.text}</p>
             {midnightCulmination.description}
-          </StaticCell>
+          </StaticCell>}
         </Row>
       </StaticCell>
 

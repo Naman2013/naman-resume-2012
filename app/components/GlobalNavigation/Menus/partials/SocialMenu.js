@@ -5,20 +5,20 @@ const SocialMenu = () => (
   <div className="root">
     <ul className="buttons">
       <li>
-        <a className="action" href="#">
+        <a className="action" rel="noopener noreferrer" target="_blank" href="https://twitter.com/slooh">
           <span className="fa fa-twitter" />
         </a>
       </li>
       <li>
-        <a className="action" href="#">
+        <a className="action" rel="noopener noreferrer" target="_blank" href="https://www.facebook.com/SloohLive/">
           <span className="fa fa-facebook" />
         </a>
       </li>
-      <li>
+      {/*<li>
         <a className="action" href="#">
           <span className="fa fa-instagram" />
         </a>
-      </li>
+      </li>*/}
     </ul>
 
     <style jsx>{`
