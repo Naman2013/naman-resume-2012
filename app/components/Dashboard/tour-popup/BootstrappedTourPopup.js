@@ -38,7 +38,7 @@ class BootstrappedTourPopup extends Component {
 
   static defaultProps = {
     canDismiss: false,
-    dismissText: '',
+    dismissText: 'Save For Later',
     hasLink: false,
     linkLabel: '',
     linkURL: '',
@@ -121,6 +121,10 @@ class BootstrappedTourPopup extends Component {
             margin: 0;
             padding: 0;
             width: 100%;
+          }
+          .fa-close {
+            float: right;
+            margin: -10px -10px 0 0;
           }
         `}
         </style>

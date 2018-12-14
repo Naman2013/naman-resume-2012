@@ -22,18 +22,29 @@ const BobbieTileWelcomeToPlan = ({
 }) => (
   <div className="root">
     <div className="tile-content-container">
-      <h3 style={{ marginBottom: '20px' }} className="title">{title}</h3>
-      <div className="post-meta-data">
-        <ul>
-          <li className="author-name">
-            <div>{planName}</div>
-            <img alt="" src={horizontalArrow} /></li>
-        </ul>
+      <h1 style={{ marginBottom: '20px' }}>{title}</h1>
+      <div className="middle-content">
+        <div className="text-content">
+          <h2>Ready for Orientation?</h2>
+          <div className="plan-name">{planName}</div>
+          <div
+            className="__html-blob-content-container__"
+            dangerouslySetInnerHTML={{ __html: HTMLBlob }}
+          />
+        </div>
+        <div className="guide-tile">
+          <div className="guide-tile-frame">
+            <img alt="" src="https://vega.slooh.com/assets/v4/common/guide_corner.svg" className="top-left" />
+            <img alt="" src="https://vega.slooh.com/assets/v4/common/guide_corner.svg" className="top-right" />
+          </div>
+          <div className="guide-tile-frame bottom">
+            <img alt="" src="https://vega.slooh.com/assets/v4/common/guide_corner.svg" className="top-left" />
+            <img alt="" src="https://vega.slooh.com/assets/v4/common/guide_corner.svg" className="top-right" />
+          </div>
+          <h4 className="title">A Guide to</h4>
+          <h5 className="subTitle">Your Membership</h5>
+        </div>
       </div>
-      <div
-        className="__html-blob-content-container__"
-        dangerouslySetInnerHTML={{ __html: HTMLBlob }}
-      />
     </div>
     <style jsx>{style}</style>
     <style jsx>{CMSStyle}</style>
