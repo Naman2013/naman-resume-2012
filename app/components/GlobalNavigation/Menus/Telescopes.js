@@ -1,6 +1,6 @@
 import React from 'react';
 import { browserHistory } from 'react-router';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, intlShape, injectIntl } from 'react-intl';
 import { primaryFont } from 'styles/variables/fonts';
 import { romance, astronaut, golda } from 'styles/variables/colors_tiles_v4';
 import Request from 'components/common/network/Request';
@@ -13,7 +13,7 @@ import TELESCOPE_CONFIGURATION, { modelTelescopesFromObsList } from './telescope
 import { telescopeAstronaut } from 'styles/variables/iconURLs';
 import messages from './Telescopes.messages';
 
-const Telescopes = () => (
+const Telescopes = ({ intl }) => (
   <Request
     serviceURL={OBSERVATORIES_COMPACT}
     method="GET"
@@ -27,12 +27,12 @@ const Telescopes = () => (
         <MenuTitleBar title={<FormattedMessage {...messages.title} />}>
           <div className="center-buttons">
             <Button
-              text={<FormattedMessage {...messages.setUp} />}
+              text={intl.formatMessage(messages.setUp)}
               theme={{ display: 'inline-block', marginRight: '15px' }}
               onClickEvent={() => browserHistory.push('/')}
             />
             <Button
-              text={<FormattedMessage {...messages.myPhotos} />}
+              text={intl.formatMessage(messages.myPhotos)}
               theme={{ display: 'inline-block' }}
               onClickEvent={() => browserHistory.push('/my-pictures')}
             />
@@ -76,4 +76,8 @@ const Telescopes = () => (
   />
 );
 
-export default Telescopes;
+Telescopes.propTypes = {
+  intl: intlShape.isRequired,
+};
+
+export default injectIntl(Telescopes);
