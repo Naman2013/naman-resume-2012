@@ -1,25 +1,23 @@
-/***********************************
-* V4 Dashboard with request information
-*
-*
-*
-***********************************/
+/** *********************************
+ * V4 Dashboard with request information
+ *
+ *
+ *
+ ********************************** */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import uniqueId from 'lodash/uniqueId';
+import { FormattedMessage, intlShape, injectIntl } from 'react-intl';
 import TourPopup from './tour-popup/TourPopup';
 import PromoPanel from 'components/home/promo-panel';
 import { getSectionComponent } from './dashboardPanelItemsConfiguration';
 import DashNav from './nav/DashboardNav';
 import styles from './BootstrappedDashboard.style';
+import messages from './BootstrappedDashboard.messages';
 // import { connect } from 'react-redux';
 
 const {
-  arrayOf,
-  bool,
-  number,
-  shape,
-  string,
+  arrayOf, bool, number, shape, string,
 } = PropTypes;
 
 const sectionOrder = [
@@ -82,6 +80,7 @@ class BootstrappedDashboard extends Component {
     }),
     subheading: string,
     userIsLoggedIn: bool,
+    intl: intlShape.isRequired,
   };
 
   static defaultProps = {
@@ -135,32 +134,34 @@ class BootstrappedDashboard extends Component {
     userIsLoggedIn: false,
   };
 
-
-  state = {
-  };
+  state = {};
 
   render() {
     const {
       promoPanel: { promoArray, promoPanelShow },
       user,
+      intl,
     } = this.props;
 
     return (
       <div className="root">
-        <TourPopup user={user}/>
+        <TourPopup user={user} />
         <div className="dash-hero">
-          <div alt="Welcome" className="hero-img" />
+          <div alt={intl.formatMessage(messages.welcome)} className="hero-img" />
         </div>
-        {promoPanelShow ?
-          promoArray.map(promoObject => <PromoPanel {...promoObject} key={uniqueId()} />) : null
-        }
+        {promoPanelShow
+          ? promoArray.map(promoObject => <PromoPanel {...promoObject} key={uniqueId()} />)
+          : null}
         <div className="dash-nav">
           <DashNav />
         </div>
 
-        {sectionOrder.map((section, i) => (
-          this.props[section] && getSectionComponent(section, Object.assign({ orderNumber: i + 1 }, this.props[section]))
-        ))}
+        {sectionOrder.map((section, i) =>
+            this.props[section] &&
+            getSectionComponent(
+              section,
+              Object.assign({ orderNumber: i + 1 }, this.props[section]),
+            ))}
 
         <style>{styles}</style>
       </div>
@@ -168,4 +169,4 @@ class BootstrappedDashboard extends Component {
   }
 }
 
-export default BootstrappedDashboard;
+export default injectIntl(BootstrappedDashboard);

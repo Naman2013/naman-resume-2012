@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import { browserHistory } from 'react-router';
+import { FormattedMessage } from 'react-intl';
 import Button from './Button';
 import CenterBar from './CenterBar';
 import MENU_INTERFACE from './Menus/MenuInterface';
@@ -16,12 +17,13 @@ import {
 } from 'styles/variables/iconURLs';
 import { shadows, seashell } from 'styles/variables/colors_tiles_v4';
 import { primaryFont } from 'styles/variables/fonts';
+import messages from './TopBar.messages';
 
 function isActive(menuName, activeMenu) {
   return menuName === activeMenu;
 }
 
-const getIconStyle = (url) => ({
+const getIconStyle = url => ({
   backgroundImage: `url(${url})`,
 });
 
@@ -36,12 +38,13 @@ const TopBar = ({ handleMenuClick, activeMenu, handleNotificationClick }) => {
       <ConnectUser
         render={user => (
           <div className="root">
-
             <div className="left-menu">
               <ul className="button-list">
                 <li>
                   <Button
-                    handleClick={() => { browserHistory.push('/'); }}
+                    handleClick={() => {
+                      browserHistory.push('/');
+                    }}
                   >
                     <div className="nav-icon" style={getIconStyle(sloohLogoAstronaut)} />
                   </Button>
@@ -49,143 +52,158 @@ const TopBar = ({ handleMenuClick, activeMenu, handleNotificationClick }) => {
                 <li>
                   <Button
                     isActive={mainIsActive}
-                    handleClick={() => { handleMenuClick(MENU_INTERFACE.MAIN.name); }}
+                    handleClick={() => {
+                      handleMenuClick(MENU_INTERFACE.MAIN.name);
+                    }}
                   >
-                    {mainIsActive ?
-                      <div className="nav-icon fa fa-close" /> :
+                    {mainIsActive ? (
+                      <div className="nav-icon fa fa-close" />
+                    ) : (
                       <div className="nav-icon" style={getIconStyle(threeLinesAstronaut)} />
-                    }
+                    )}
                   </Button>
                 </li>
                 <li>
                   <Button
                     isActive={telescopesIsActive}
-                    handleClick={() => { handleMenuClick(MENU_INTERFACE.TELESCOPES.name); }}
+                    handleClick={() => {
+                      handleMenuClick(MENU_INTERFACE.TELESCOPES.name);
+                    }}
                   >
-                    {telescopesIsActive ?
-                      <div className="nav-icon fa fa-close" /> :
+                    {telescopesIsActive ? (
+                      <div className="nav-icon fa fa-close" />
+                    ) : (
                       <div className="nav-icon" style={getIconStyle(telescopeAstronaut)} />
-                    }
+                    )}
                   </Button>
                 </li>
                 <li>
                   <Button
                     isActive={searchIsActive}
-                    handleClick={() => { handleMenuClick(MENU_INTERFACE.SEARCH.name); }}
+                    handleClick={() => {
+                      handleMenuClick(MENU_INTERFACE.SEARCH.name);
+                    }}
                   >
-                  {searchIsActive ?
-                    <div className="nav-icon fa fa-close" /> :
-                    <div className="nav-icon" style={getIconStyle(searchAstronaut)} />
-                  }
+                    {searchIsActive ? (
+                      <div className="nav-icon fa fa-close" />
+                    ) : (
+                      <div className="nav-icon" style={getIconStyle(searchAstronaut)} />
+                    )}
                   </Button>
                 </li>
               </ul>
             </div>
 
-
-
             <div className="center-menu">
               <CenterBar />
             </div>
 
-
-
             <div className="right-menu">
               <ul className="button-list">
-                {/*<li>
+                {/* <li>
                   <Button
                     isActive={isActive(activeMenu, MENU_INTERFACE.HELP.name)}
                     handleClick={() => { handleMenuClick(MENU_INTERFACE.HELP.name); }}
                   >
                     <span className="fa fa-question-circle" />
                   </Button>
-                </li>*/}
-                {user.isAuthorized ?
+                </li> */}
+                {user.isAuthorized ? (
                   <li>
                     <Button
                       isActive={alertsIsActive}
-                      handleClick={() => { handleNotificationClick(MENU_INTERFACE.ALERTS.name); }}
+                      handleClick={() => {
+                        handleNotificationClick(MENU_INTERFACE.ALERTS.name);
+                      }}
                     >
                       <AlertsIcon isActive={alertsIsActive} />
                     </Button>
-                  </li> : null
-                }
+                  </li>
+                ) : null}
                 <li>
                   <Button
                     isActive={userIsActive}
-                    handleClick={() => { handleMenuClick(MENU_INTERFACE.PROFILE.name); }}
-                    theme={(user.isAuthorized) ? {} : { width: 'auto', padding: '0 20px' }}
+                    handleClick={() => {
+                      handleMenuClick(MENU_INTERFACE.PROFILE.name);
+                    }}
+                    theme={user.isAuthorized ? {} : { width: 'auto', padding: '0 20px' }}
                   >
-                    { user.isAuthorized &&
+                    {user.isAuthorized && (
                       <div>
-                        {userIsActive ?
-                          <div className="nav-icon fa fa-close" /> :
+                        {userIsActive ? (
+                          <div className="nav-icon fa fa-close" />
+                        ) : (
                           <div className="nav-icon" style={getIconStyle(userAstronaut)} />
-                        }
+                        )}
                       </div>
-                    }
-                    { !user.isAuthorized &&
+                    )}
+                    {!user.isAuthorized && (
                       <div>
-                        {userIsActive ?
-                          <div className="nav-icon fa fa-close" /> :
+                        {userIsActive ? (
+                          <div className="nav-icon fa fa-close" />
+                        ) : (
                           <div>
-                            <span className="text">Sign In</span>
-                            <div className="nav-icon text-icon" style={getIconStyle(userAstronaut)} />
+                            <span className="text">
+                              <FormattedMessage {...messages.SignIn} />
+                            </span>
+                            <div
+                              className="nav-icon text-icon"
+                              style={getIconStyle(userAstronaut)}
+                            />
                           </div>
-                        }
+                        )}
                       </div>
-                    }
+                    )}
                   </Button>
-
                 </li>
               </ul>
             </div>
 
-            <style jsx>{`
-              .root {
-                position: fixed;
-                display: flex;
-                justify-content: space-between;
-                width: 100%;
-                background: ${seashell};
-                border-bottom: 2px solid ${shadows};
-              }
+            <style jsx>
+              {`
+                .root {
+                  position: fixed;
+                  display: flex;
+                  justify-content: space-between;
+                  width: 100%;
+                  background: ${seashell};
+                  border-bottom: 2px solid ${shadows};
+                }
 
-              .center-menu {
-                flex-grow: 1;
-              }
+                .center-menu {
+                  flex-grow: 1;
+                }
 
-              .button-list {
-                display: flex;
-                list-style-type: none;
-                margin: 0;
-                padding: 0;
-              }
-              .nav-icon {
-                height: 15px;
-                width: 15px;
-                background-size: cover;
-                background-position: center;
-                background-repeat: no-repeat;
-                margin: 0 auto;
-              }
+                .button-list {
+                  display: flex;
+                  list-style-type: none;
+                  margin: 0;
+                  padding: 0;
+                }
+                .nav-icon {
+                  height: 15px;
+                  width: 15px;
+                  background-size: cover;
+                  background-position: center;
+                  background-repeat: no-repeat;
+                  margin: 0 auto;
+                }
 
-              .text {
-                display: inline-block;
-                font-weight: bold;
-                font-size: 11px;
-                font-family: ${primaryFont};
-                text-transform: uppercase;
-                vertical-align: middle;
-                margin-right: 10px;
-              }
+                .text {
+                  display: inline-block;
+                  font-weight: bold;
+                  font-size: 11px;
+                  font-family: ${primaryFont};
+                  text-transform: uppercase;
+                  vertical-align: middle;
+                  margin-right: 10px;
+                }
 
-              .text-icon {
-                vertical-align: middle;
-                display: inline-block;
-              }
-
-            `}
+                .text-icon {
+                  vertical-align: middle;
+                  display: inline-block;
+                }
+              `}
             </style>
           </div>
         )}
