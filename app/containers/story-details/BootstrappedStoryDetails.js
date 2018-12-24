@@ -7,6 +7,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { injectIntl, intlShape } from 'react-intl';
 import CenterColumn from 'components/common/CenterColumn';
 import TwoTabbedNav from 'components/TwoTabbedNav';
 import ResponsiveTwoColumnContainer from 'components/ResponsiveTwoColumnContainer';
@@ -16,6 +17,7 @@ import MainContainer from './partials/MainContainer';
 import AsideContainer from './partials/AsideContainer';
 import HeaderContainer from './partials/HeaderContainer';
 import styles from './StoryDetails.style';
+import messages from './StoryDetails.messages';
 
 const {
   arrayOf,
@@ -40,6 +42,7 @@ const BootstrappedStoryDetails = (props) => {
     storyDetails,
     type,
     user,
+    intl,
   } = props;
 
   const likeParams = {
@@ -82,8 +85,8 @@ const BootstrappedStoryDetails = (props) => {
           <ResponsiveTwoColumnContainer
             renderNavigationComponent={navProps =>
               (<TwoTabbedNav
-                firstTitle="Story"
-                secondTitle="Related"
+                firstTitle={intl.formatMessage(messages.story)}
+                secondTitle={intl.formatMessage(messages.related)}
                 firstTabIsActive={navProps.showMainContainer}
                 firstTabOnClick={navProps.onShowMainContainer}
                 secondTabIsActive={navProps.showAsideContainer}
@@ -112,6 +115,7 @@ BootstrappedStoryDetails.propTypes = {
     token: oneOfType([number, string]),
     cid: oneOfType([number, string]),
   }).isRequired,
+  intl: intlShape.isRequired,
 };
 
 BootstrappedStoryDetails.defaultProps = {
@@ -120,4 +124,4 @@ BootstrappedStoryDetails.defaultProps = {
   authorInfo: {},
 };
 
-export default BootstrappedStoryDetails;
+export default injectIntl(BootstrappedStoryDetails);
