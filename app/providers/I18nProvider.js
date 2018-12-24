@@ -31,7 +31,7 @@ class I18nProvider extends Component {
 
   render() {
     const { children } = this.props;
-    const locale = 'en';
+    const locale = localeTypes.en;
 
     return (
       <IntlProvider locale={locale} messages={this.getMessagesByLocale(locale)}>

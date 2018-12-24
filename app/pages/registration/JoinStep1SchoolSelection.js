@@ -10,6 +10,7 @@ import cloneDeep from 'lodash/cloneDeep';
 import Button from 'components/common/style/buttons/Button';
 import { browserHistory } from 'react-router';
 import { Field, reduxForm } from 'redux-form';
+import { intlShape, injectIntl } from 'react-intl';
 import InputField from 'components/form/InputField';
 import { CLASSROOM_GET_US_DISTRICTLIST_ENDPOINT_URL, CLASSROOM_GET_US_SCHOOLLIST_ENDPOINT_URL } from 'services/classroom/classroom';
 import { JOIN_PAGE_ENDPOINT_URL } from 'services/registration/registration.js';
@@ -18,6 +19,7 @@ import Request from 'components/common/network/Request';
 import JoinHeader from './partials/JoinHeader';
 import { CLASSROOM_JOIN_TABS } from './StaticNavTabs';
 import styles from './JoinStep1SchoolSelection.style';
+import messages from './JoinInviteByCodeStep1.messages';
 
 
 
@@ -28,6 +30,7 @@ const {
 class JoinStep1SchoolSelection extends Component {
   static propTypes = {
     pathname: string,
+    intl: intlShape.isRequired,
   };
   static defaultProps = {
     // pathname: '/join/step1',
@@ -196,6 +199,7 @@ handleJoinPageServiceResponse = (result) => {
   render() {
     const {
       pathname,
+      intl
     } = this.props;
 
     return (
@@ -275,13 +279,14 @@ handleJoinPageServiceResponse = (result) => {
                           <div className="button-container">
                             <Button
                               type="button"
-                              text="Go Back"
+                              text={intl.formatMessage(messages.GoBack)}
                               onClickEvent={() => { browserHistory.push('/join/step1'); }}
                             />
                             <button
                               className="submit-button"
                               type="submit"
-                            >Continue
+                            >
+                              {intl.formatMessage(messages.Continue)}
                             </button>
 
                           </div>
@@ -304,4 +309,4 @@ const mapStateToProps = ({ schoolDistrictForm }) => ({
   schoolDistrictForm: schoolDistrictForm,
 });
 
-export default connect(mapStateToProps, null)(reduxForm({ form: 'schoolDistrictForm', enableReinitialize: true, })(JoinStep1SchoolSelection));
+export default connect(mapStateToProps, null)(reduxForm({ form: 'schoolDistrictForm', enableReinitialize: true, })(injectIntl(JoinStep1SchoolSelection)));

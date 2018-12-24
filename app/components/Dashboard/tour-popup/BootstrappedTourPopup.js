@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import Modal from 'react-modal';
-import { Link } from 'react-router'
+import { Link } from 'react-router';
+import { intlShape, injectIntl } from 'react-intl';
 import { customModalStyles } from 'styles/mixins/utilities';
 import Request from 'components/common/network/Request';
 import { DASHBOARD_DISMISS_TOUR_POPUP } from 'services/dashboard';
 // import { connect } from 'react-redux';
 import BobbieTileWelcomeToPlan from 'components/common/tiles/BobbieTile/BobbieTileWelcomeToPlan';
+import messages from './BootstrappedTourPopup.messages';
 
 const {
   bool,
@@ -34,6 +36,7 @@ class BootstrappedTourPopup extends Component {
       cid: string,
       subscriptionPlanName: string,
     }).isRequired,
+    intl: intlShape.isRequired,
   };
 
   static defaultProps = {
@@ -88,7 +91,8 @@ class BootstrappedTourPopup extends Component {
       text,
       content,
       title,
-      user
+      user,
+      intl,
     } = this.props;
 
     const {
@@ -99,23 +103,23 @@ class BootstrappedTourPopup extends Component {
 
     return (
       <div className="root">
-      <Modal
-        isOpen={showModal}
-        style={customModalStyles}
-        contentLabel="Tour"
-        onRequestClose={this.closeModal}
-        ariaHideApp={false}
-      >
-        <i className="fa fa-close" onClick={this.closeModal} />
-        <BobbieTileWelcomeToPlan title={title} planName={subscriptionPlanName} HTMLBlob={content} />
+        <Modal
+          isOpen={showModal}
+          style={customModalStyles}
+          contentLabel={intl.formatMessage(messages.Tour)}
+          onRequestClose={this.closeModal}
+          ariaHideApp={false}
+        >
+          <i className="fa fa-close" onClick={this.closeModal} />
+          <BobbieTileWelcomeToPlan title={title} planName={subscriptionPlanName} HTMLBlob={content} />
 
-        {hasLink ? <button className="user-btn">
-          <Link to={linkURL}>
-            <span dangerouslySetInnerHTML={{ __html: linkLabel }} />
-          </Link>
-        </button> : null}
-        {canDismiss ? <span onClick={this.dismissTour} dangerouslySetInnerHTML={{ __html: dismissText }} /> : null}
-      </Modal>
+          {hasLink ? <button className="user-btn">
+            <Link to={linkURL}>
+              <span dangerouslySetInnerHTML={{ __html: linkLabel }} />
+            </Link>
+          </button> : null}
+          {canDismiss ? <span onClick={this.dismissTour} dangerouslySetInnerHTML={{ __html: dismissText }} /> : null}
+        </Modal>
         <style jsx>{`
           .root {
             margin: 0;
@@ -129,4 +133,4 @@ class BootstrappedTourPopup extends Component {
   }
 }
 
-export default BootstrappedTourPopup;
+export default injectIntl(BootstrappedTourPopup);

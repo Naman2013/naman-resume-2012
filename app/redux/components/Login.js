@@ -5,6 +5,7 @@ import axios from 'axios';
 import { Link } from 'react-router';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
+import { FormattedMessage, intlShape, injectIntl } from 'react-intl';
 import Button from 'components/common/style/buttons/Button';
 import LargeButtonWithRightIcon from 'components/common/style/buttons/LargeButtonWithRightIcon';
 import InputField from 'components/form/InputField';
@@ -19,6 +20,8 @@ import Request from 'components/common/network/Request';
 import { GoogleLogin } from 'react-google-login';
 import cloneDeep from 'lodash/cloneDeep';
 import styles from './Login.style';
+import messages from './Login.messages';
+
 
 const propTypes = {
   actions: PropTypes.shape({
@@ -26,6 +29,7 @@ const propTypes = {
     resetLogIn: PropTypes.func.isRequired,
     logGoogleUserIn: PropTypes.func.isRequired,
   }).isRequired,
+  intl: intlShape.isRequired,
 };
 
 const defaultProps = {
@@ -73,7 +77,7 @@ class Login extends Component {
     const newLoginFormData = cloneDeep(this.state.loginFormDetails);
 
     if (this.state.loginFormDetails.loginEmailAddress.value === '') {
-      newLoginFormData.loginEmailAddress.errorText = 'Please enter in an email address and then click Forgot Your Password again.';
+      newLoginFormData.loginEmailAddress.errorText = this.props.intl.formatMessage(messages.ForgotPasswordError);
 
       this.setState(() => ({
         loginFormDetails: newLoginFormData,
@@ -83,7 +87,7 @@ class Login extends Component {
     else {
       this.setState(() => ({
         inForgotPasswordMode: true,
-        forgotPasswordStatusMessage: 'Please Wait...Processing your Forgot Password Request.',
+        forgotPasswordStatusMessage: this.props.intl.formatMessage(messages.ForgotPasswordRequest),
       }));
 
       axios.post(FORGOT_PASSWORD_REQUEST_ENDPOINT_URL,
@@ -185,6 +189,7 @@ class Login extends Component {
   render() {
     const {
       loginFailed,
+      intl,
     } = this.props;
 
     const googleClientIDModel = {
@@ -213,7 +218,7 @@ class Login extends Component {
                       color: romance,
                       border: 0,
                     }}
-                    text="Close"
+                    text={intl.formatMessage(messages.Close)}
                     onClickEvent={this.closeForgotPassword}
                   />
                 </div>
@@ -226,7 +231,7 @@ class Login extends Component {
           >
             {loginFailed ?
               <div className="field-error">
-                Login Failed. Please check your credentials.
+                <FormattedMessage {...messages.LoginFailed} />
               </div> : null
             }
             {this.state.loginFormDetails.loginEmailAddress.errorText.length > 0 && <div className="field-error" style={{'marginLeft': '10px', 'marginRight': '10px'}} >
@@ -236,7 +241,7 @@ class Login extends Component {
             <Field
               name="username"
               type="email"
-              label="Email Address"
+              label={intl.formatMessage(messages.Email)}
               component={InputField}
               onChange={(event) => { this.handleFieldChange({ field: 'loginEmailAddress', value: event.target.value }); }}
               value={this.state.loginFormDetails.loginEmailAddress.value}
@@ -244,16 +249,16 @@ class Login extends Component {
             <Field
               name="pwd"
               type="password"
-              label="Password"
+              label={intl.formatMessage(messages.Password)}
               component={InputField}
               onChange={(event) => { this.handleFieldChange({ field: 'password', value: event.target.value }); }}
               value={this.state.loginFormDetails.password.value}
             />
             <Link className="forgot title-link" onClick={(event) => { this.startForgotPassword(); }}>Forgot Your Password?</Link>
 
-            <Button theme={{ margin: '0 auto', color: astronaut }} type="submit" text="Sign in with email" onClickEvent={this.clearCurrentErrors} />
+            <Button theme={{ margin: '0 auto', color: astronaut }} type="submit" text={intl.formatMessage(messages.SignWithEmail)} onClickEvent={this.clearCurrentErrors} />
             <div className="or-container">
-              <div className="or-text">or</div>
+              <div className="or-text">{intl.formatMessage(messages.Or)}</div>
               {/*<div className="or-line" />*/}
             </div>
             <Request
@@ -284,13 +289,13 @@ class Login extends Component {
                             />
                         </div>
                       </Fragment>
-                    }
-                    </Fragment>
-                  )}
-                />
+                  }
+                </Fragment>
+              )}
+            />
 
             <div className="register-container">
-              <span className="title-link">{`Don't have an account?`}</span>
+              <span className="title-link">{intl.formatMessage(messages.DontHaveAccount)}</span>
               <Link to="/join/step1">
                 <LargeButtonWithRightIcon
                   icon={horizontalArrowRightWhite}
@@ -300,12 +305,12 @@ class Login extends Component {
                     border: 0,
                     width: '100%',
                   }}
-                  text="Join Slooh Today"
+                  text={intl.formatMessage(messages.JoinSloohToday)}
                 />
               </Link>
             </div>
             <div className="register-container">
-              <span className="title-link">{`Have an Invitation Code?`}</span>
+              <span className="title-link">{intl.formatMessage(messages.HaveAnInvintationCode)}</span>
               <Link to="/join/inviteByCodeStep1">
                 <LargeButtonWithRightIcon
                   icon={horizontalArrowRightWhite}
@@ -315,7 +320,7 @@ class Login extends Component {
                     border: 0,
                     width: '100%',
                   }}
-                  text="Redeem Invitation Code"
+                  text={intl.formatMessage(messages.RedeemInvitationCode)}
                 />
               </Link>
             </div>
@@ -350,4 +355,4 @@ const loginValidation = createValidator({
   pwd: [required],
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({ form: 'loginForm', validate: loginValidation })(Login));
+export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({ form: 'loginForm', validate: loginValidation })(injectIntl(Login)));
