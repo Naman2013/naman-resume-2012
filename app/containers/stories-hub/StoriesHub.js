@@ -4,6 +4,7 @@ import noop from 'lodash/noop';
 import { browserHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { intlShape, injectIntl } from 'react-intl';
 import StoryTiles from 'components/stories-hub/stories-tiles';
 import Request from 'components/common/network/Request';
 import HubContainer from 'components/common/HubContainer';
@@ -12,6 +13,7 @@ import { STORIES_PAGE_ENDPOINT_URL, STORIES_ENDPOINT_URL } from 'services/storie
 import { DeviceContext } from 'providers/DeviceProvider';
 import { validateResponseAccess } from 'modules/authorization/actions'
 import style from './stories-hub.style';
+import messages from './StoriesHub.messages';
 
 const COUNT = 9;
 const DEFAULT_PAGE = 1;
@@ -31,6 +33,7 @@ class Stories extends Component {
     params: PropTypes.shape({
       filterType: PropTypes.string,
     }),
+    intl: intlShape.isRequired,
   };
 
   static defaultProps = {
@@ -78,6 +81,7 @@ class Stories extends Component {
     const {
       user,
       actions,
+      intl,
     } = this.props;
     const {
       stories
@@ -118,17 +122,17 @@ class Stories extends Component {
                       }}
                       renderRightMenu={() => (
                         <div className="flex">
-                          <Button text="Submit Story" onClickEvent={() => browserHistory.push(`/stories/${this.props.params.filterType}/create`)} />
+                          <Button text={intl.formatMessage(messages.submitStory)} onClickEvent={() => browserHistory.push(`/stories/${this.props.params.filterType}/create`)} />
                         </div>
                       )}
                       render={() => (
                         <Fragment>
-                          {fetchingContent ? <div>Loading</div> : null}
+                          {fetchingContent ? <div>{intl.formatMessage(messages.loading)}</div> : null}
                           {!fetchingContent && stories.length ?
                             <StoryTiles
                               stories={stories}
                               updateReadingListInfo={this.updateReadingListInStories}
-                              isMobile={context.isMobile} /> : <div>There are no stories.</div>}
+                              isMobile={context.isMobile} /> : <div>{intl.formatMessage(messages.noStories)}</div>}
                         </Fragment>
                       )}
                     />
@@ -157,4 +161,4 @@ const mapDispatchToProps = dispatch => ({
   }, dispatch),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Stories);
+export default connect(mapStateToProps, mapDispatchToProps)(injectIntl(Stories));
