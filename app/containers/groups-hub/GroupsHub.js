@@ -5,6 +5,7 @@ import noop from 'lodash/noop';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Modal from 'react-modal';
+import { intlShape, injectIntl } from 'react-intl';
 import GroupTiles from 'components/groups-hub/group-tiles';
 import Request from 'components/common/network/Request';
 import RequestGroupForm from 'components/community-groups/request-group-form';
@@ -22,6 +23,7 @@ import { requestGroup } from 'services/community-groups/request-group';
 import { browserHistory } from 'react-router';
 import { GOOGLE_CLASSROOM_GET_CLASSROOM_LIST_ENDPOINT_URL } from 'services/classroom/classroom.js';
 import style from './groups-hub.style';
+import messages from './GroupsHub.messages';
 
 const COUNT = 9;
 const DEFAULT_PAGE = 1;
@@ -50,6 +52,7 @@ class Groups extends Component {
     params: PropTypes.shape({
       filterType: PropTypes.string,
     }),
+    intl: intlShape.isRequired,
   };
 
   static defaultProps = {
@@ -187,12 +190,15 @@ class Groups extends Component {
     const {
       user,
       actions,
+      intl,
     } = this.props;
+
     const {
       groups,
       showPrompt,
       promptText,
     } = this.state;
+
     return (<div>
       <Request
         serviceURL={GROUPS_PAGE_ENDPOINT_URL}
@@ -226,11 +232,11 @@ class Groups extends Component {
                       }}
                       renderRightMenu={() => (
                         <div className="flex">
-                            {serviceResponse.canImportGoogleClassrooms &&
-                              <Button text={serviceResponse.importGoogleClassroomsPrompt} onClickEvent={ this.importGoogleClassrooms } />
-                            }
-                            {serviceResponse.canCreateNewClubs ? <Button text={serviceResponse.createNewClubButtonText} onClickEvent={ this.createClub } /> : null}
-                            {serviceResponse.canRequestGroup ? <Button text="Request Group" onClickEvent={this.requestGroup} /> : null}
+                          {serviceResponse.canImportGoogleClassrooms &&
+                            <Button text={serviceResponse.importGoogleClassroomsPrompt} onClickEvent={ this.importGoogleClassrooms } />
+                          }
+                          {serviceResponse.canCreateNewClubs ? <Button text={serviceResponse.createNewClubButtonText} onClickEvent={ this.createClub } /> : null}
+                          {serviceResponse.canRequestGroup ? <Button text={intl.formatMessage(messages.requestGroup)} onClickEvent={this.requestGroup} /> : null}
                         </div>
                       )}
                       updateList={this.updateGroupsList}
@@ -240,7 +246,7 @@ class Groups extends Component {
                       filterType={this.props.params.filterType}
                       render={() => (
                         <Fragment>
-                          {fetchingContent ? <div>Loading</div> : null}
+                          {fetchingContent ? <div>{intl.formatMessage(messages.loading)}</div> : null}
 
                           {!fetchingContent && groups && groups.length ?
                             <GroupTiles
@@ -252,7 +258,7 @@ class Groups extends Component {
                               isMobile={context.isMobile}
                             /> :
                             <div>
-                              There are no groups.
+                              {intl.formatMessage(messages.noGroups)}
                             </div>}
                         </Fragment>
                       )}
@@ -292,4 +298,4 @@ const mapDispatchToProps = dispatch => ({
   }, dispatch),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Groups);
+export default connect(mapStateToProps, mapDispatchToProps)(injectIntl(Groups));

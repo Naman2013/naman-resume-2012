@@ -4,6 +4,7 @@ import axios from 'axios';
 import noop from 'lodash/noop';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { intlShape, injectIntl } from 'react-intl';
 import QuestTiles from 'components/quests-hub/quest-tiles';
 import Request from 'components/common/network/Request';
 import HubContainer from 'components/common/HubContainer';
@@ -13,6 +14,7 @@ import { QUESTS_PAGE_ENDPOINT_URL, QUESTS_ENDPOINT_URL } from 'services/quests/q
 import { DeviceContext } from 'providers/DeviceProvider';
 import { validateResponseAccess } from 'modules/authorization/actions'
 import style from './quests-hub.style';
+import messages from './QuestsHub.messages';
 
 const COUNT = 9;
 const DEFAULT_PAGE = 1;
@@ -32,6 +34,7 @@ class Quests extends Component {
     params: PropTypes.shape({
       filterType: PropTypes.string,
     }),
+    intl: intlShape.isRequired,
   };
 
   static defaultProps = {
@@ -79,6 +82,7 @@ class Quests extends Component {
     const {
       user,
       actions,
+      intl,
     } = this.props;
     const {
       quests
@@ -119,14 +123,14 @@ class Quests extends Component {
                       filterType={this.props.params.filterType}
                       render={() => (
                         <Fragment>
-                          {fetchingContent ? <div>Loading</div> : null}
+                          {fetchingContent ? <div>{intl.formatMessage(messages.loading)}</div> : null}
                           {!fetchingContent && quests.length ?
                             <QuestTiles
                               updateReadingListInfo={this.updateReadingListInQuest}
                               quests={quests}
                               isMobile={context.isMobile}
                             /> :
-                            <div>There are no quests.</div>}
+                            <div>{intl.formatMessage(messages.noQuests)}</div>}
                         </Fragment>
                       )}
                     />
@@ -155,4 +159,4 @@ const mapDispatchToProps = dispatch => ({
   }, dispatch),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Quests);
+export default connect(mapStateToProps, mapDispatchToProps)(injectIntl(Quests));
