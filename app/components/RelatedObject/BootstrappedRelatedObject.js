@@ -11,11 +11,13 @@ import { Link } from 'react-router';
 import classnames from 'classnames';
 import Modal from 'react-modal';
 import uniqueId from 'lodash/uniqueId';
+import { intlShape, injectIntl } from 'react-intl';
 import { profilePhotoStyle } from 'styles/mixins/utilities';
 import fetchObjectFollowService from 'services/objects/object-follow';
 import Button from 'components/common/style/buttons/Button';
 import { customModalStylesV4 } from 'styles/mixins/utilities';
 import styles from './RelatedObject.style';
+import messages from './RelatedObject.messages';
 
 const {
   arrayOf,
@@ -62,6 +64,7 @@ class RelatedObject extends Component {
       cid: string,
       token: string,
     }).isRequired,
+    intl: intlShape.isRequired,
   }
 
   static defaultProps = {
@@ -148,6 +151,7 @@ class RelatedObject extends Component {
       objectDescription,
       dataBlocks,
       showFollowPromptFlag,
+      intl,
     } = this.props;
 
     const { promptText, modalIsOpen } = this.state;
@@ -185,7 +189,7 @@ class RelatedObject extends Component {
         ariaHideApp={false}
         isOpen={modalIsOpen}
         style={customModalStylesV4}
-        contentLabel="Related Objects"
+        contentLabel={intl.formatMessage(messages.RelatedObjects)}
         onRequestClose={this.closeModal}
       >
         <i className="fa fa-close" onClick={this.closeModal} />
@@ -196,4 +200,4 @@ class RelatedObject extends Component {
   }
 }
 
-export default RelatedObject;
+export default injectIntl(RelatedObject);

@@ -11,6 +11,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import noop from 'lodash/noop';
 import has from 'lodash/has';
+import { intlShape, injectIntl, FormattedMessage } from 'react-intl';
 import Request from 'components/common/network/Request';
 
 import DeviceProvider from 'providers/DeviceProvider';
@@ -23,6 +24,7 @@ import {
   fetchObjectDetailsAction,
   fetchObjectDataAction,
 } from 'modules/object-details/actions';
+import messages from './ObjectDetails.messages';
 
 const {
   bool,
@@ -90,12 +92,13 @@ class Shows extends Component {
       pages,
       count,
       objectDetails,
+      intl,
     } = this.props;
 
     return (
       <Fragment>
         <DeviceProvider>
-          <ObjectDetailsSectionTitle title={objectDetails.objectTitle + "'s"} subTitle="Related Shows" />
+          <ObjectDetailsSectionTitle title={objectDetails.objectTitle + "'s"} subTitle={intl.formatMessage(messages.RelatedShows)} />
         </DeviceProvider>
         <CenterColumn widths={['645px', '965px', '965px']}>
           <Request
@@ -119,20 +122,33 @@ class Shows extends Component {
                     author={show.eventHostName}
                     linkUrl={show.linkUrl}
                   />
-                )) : <p>Sorry, there are no shows available for {objectDetails.objectTitle} at this time.</p>}
+                )) : (
+                  <p>
+                    <FormattedMessage
+                      {...messages.NoShows}
+                      values={{ objectTitle: objectDetails.objectTitle }}
+                    />
+                  </p>)
+                }
               </div>
             )}
           />
 
         </CenterColumn>
         <style jsx>{`
-            .root {
-              display: flex;
-              flex-wrap: wrap;
-            }
-          `}</style>
+          .root {
+            display: flex;
+            flex-wrap: wrap;
+          }
+        `}
+        </style>
       </Fragment>
     )
   }
 }
-export default Shows;
+
+Shows.propTypes = {
+  intl: intlShape.isRequired,
+};
+
+export default injectIntl(Shows);

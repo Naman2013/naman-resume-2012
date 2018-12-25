@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import has from 'lodash/has';
 import uniqueId from 'lodash/uniqueId';
+import { intlShape, injectIntl, FormattedMessage } from 'react-intl';
 import Request from 'components/common/network/Request';
 import CenterColumn from 'components/common/CenterColumn';
 import DeviceProvider from 'providers/DeviceProvider';
@@ -21,6 +22,8 @@ import {
   fetchObjectDetailsAction,
   fetchObjectQuestsAction,
 } from '../../modules/object-details/actions';
+import { fromPromise } from 'rxjs/observable/fromPromise';
+import messages from './ObjectDetails.messages';
 
 const mapStateToProps = ({ objectDetails, appConfig, user }) => ({
   objectDetails: objectDetails.objectDetails,
@@ -37,19 +40,19 @@ const mapDispatchToProps = dispatch => ({
 
 @connect(mapStateToProps, mapDispatchToProps)
 class Quests extends Component {
-
   render() {
     const {
       params: {
         objectId,
       },
       objectDetails,
+      intl,
     } = this.props;
 
     return (
       <Fragment>
         <DeviceProvider>
-          <ObjectDetailsSectionTitle title={objectDetails.objectTitle + "'s"} subTitle="Related Quests" />
+          <ObjectDetailsSectionTitle title={objectDetails.objectTitle + "'s"} subTitle={intl.formatMessage(messages.RelatedQuests)} />
 
           <CenterColumn widths={['645px', '965px', '965px']}>
             <Request
@@ -79,7 +82,12 @@ class Quests extends Component {
                   ) :
                     (
                       <div>
-                        <p>Sorry, there are no quests available for {objectDetails.objectTitle} at this time.</p>
+                        <p>
+                          <FormattedMessage
+                            {...messages.NoQuests}
+                            values={{ objectTitle: objectDetails.objectTitle }}
+                          />
+                        </p>
                       </div>
                   )}
                 </div>
@@ -91,10 +99,16 @@ class Quests extends Component {
               display: flex;
               flex-wrap: wrap;
             }
-          `}</style>
+          `}
+          </style>
         </DeviceProvider>
       </Fragment>
-    )
+    );
   }
 }
-export default Quests;
+
+Quests.propTypes = {
+  intl: intlShape.isRequired,
+};
+
+export default injectIntl(Quests);

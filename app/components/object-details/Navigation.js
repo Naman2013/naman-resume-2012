@@ -1,42 +1,43 @@
-/***********************************
-* V4 [Ask Astronomer] ]Navigation
-*  Wrapper for SubPageNavigation component
-***********************************/
+/** *********************************
+ * V4 [Ask Astronomer] ]Navigation
+ *  Wrapper for SubPageNavigation component
+ ********************************** */
 
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import SubPageNavigation from '../common/sub-page-navigation';
+import messages from './Navigation.messages';
 
-
-const generateNavItems = (objectId) => ([
+const generateNavItems = objectId => [
   {
-    title: 'Overview',
-    link:`/object-details/${objectId}/overview`
+    title: <FormattedMessage {...messages.Overview} />,
+    link: `/object-details/${objectId}/overview`,
   },
   {
-    title: 'Missions',
-    link:`/object-details/${objectId}/missions`
+    title: <FormattedMessage {...messages.Missions} />,
+    link: `/object-details/${objectId}/missions`,
   },
   {
-    title: 'Quests',
-    link:`/object-details/${objectId}/quests`
+    title: <FormattedMessage {...messages.Quests} />,
+    link: `/object-details/${objectId}/quests`,
   },
   {
-    title: 'Ask',
-    link:`/object-details/${objectId}/ask`
+    title: <FormattedMessage {...messages.Ask} />,
+    link: `/object-details/${objectId}/ask`,
   },
   {
-    title: 'Observations',
-    link:`/object-details/${objectId}/observations`
+    title: <FormattedMessage {...messages.Observations} />,
+    link: `/object-details/${objectId}/observations`,
   },
   {
-    title: 'Shows',
-    link:`/object-details/${objectId}/shows`
+    title: <FormattedMessage {...messages.Shows} />,
+    link: `/object-details/${objectId}/shows`,
   },
   {
-    title: 'Stories',
-    link:`/object-details/${objectId}/stories`
+    title: <FormattedMessage {...messages.Stories} />,
+    link: `/object-details/${objectId}/stories`,
   },
-]);
+];
 
 const Navigation = ({ items, objectId }) => (
   <div className="navigation-root">
@@ -44,11 +45,8 @@ const Navigation = ({ items, objectId }) => (
   </div>
 );
 
-Navigation.defaultProps = {
-};
+Navigation.defaultProps = {};
 
-Navigation.propTypes = {
-
-};
+Navigation.propTypes = {};
 
 export default Navigation;

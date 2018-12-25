@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { intlShape, injectIntl } from 'react-intl';
 import GridContainer from '../grid/GridContainer';
 import BestTelescope from './BestTelescope';
 import Row from '../grid/Row';
 import StaticCell from '../grid/StaticCell';
 import style from './ObjectProfile.style';
+import messages from './ObjectProfile.messages';
 
 const ObjectProfile = ({
   scienceName,
@@ -12,20 +14,18 @@ const ObjectProfile = ({
   visibilitySeason,
   bestTelescope,
   midnightCulmination,
+  intl,
 }) => (
   <GridContainer>
     <Row>
-      <StaticCell
-        title="Scientific Name"
-        flexScale={['100%']}
-      >
+      <StaticCell title={intl.formatMessage(messages.ScientificName)} flexScale={['100%']}>
         <p>{scienceName}</p>
       </StaticCell>
     </Row>
 
     <Row wrap>
       <StaticCell
-        title="Celestial Coordinates"
+        title={intl.formatMessage(messages.CelestialCoordinates)}
         flexScale={['100%', '100%', '40%']}
         hasBorderScale={[false, false, true]}
         theme={{ minHeight: '165px' }}
@@ -35,7 +35,7 @@ const ObjectProfile = ({
       </StaticCell>
 
       <StaticCell
-        title="Magnitude"
+        title={intl.formatMessage(messages.Magnitude)}
         flexScale={['100%', '40%', '10%']}
         hasBorderScale={[false, true]}
         theme={{ minHeight: '165px' }}
@@ -44,7 +44,7 @@ const ObjectProfile = ({
       </StaticCell>
 
       <StaticCell
-        title="Apparent Angular Size"
+        title={intl.formatMessage(messages.ApparentAngularSize)}
         flexScale={['100%', '40%', '20%']}
         theme={{ minHeight: '165px' }}
       >
@@ -65,26 +65,26 @@ const ObjectProfile = ({
         }}
       >
         <Row wrap>
-          {visibilitySeason.show === true && <StaticCell
-            title={visibilitySeason.title}
-            theme={{ padding: 0, marginBottom: '20px' }}
-          >
-            {visibilitySeason.observatories}
-          </StaticCell>}
+          {visibilitySeason.show === true && (
+            <StaticCell title={visibilitySeason.title} theme={{ padding: 0, marginBottom: '20px' }}>
+              {visibilitySeason.observatories}
+            </StaticCell>
+          )}
 
-          {midnightCulmination.show === true && <StaticCell
-            flexScale={['100%']}
-            title={midnightCulmination.label}
-            theme={{ padding: 0, borderBottom: 'none' }}
-          >
-            <p>{midnightCulmination.text}</p>
-            {midnightCulmination.description}
-          </StaticCell>}
+          {midnightCulmination.show === true && (
+            <StaticCell
+              flexScale={['100%']}
+              title={midnightCulmination.label}
+              theme={{ padding: 0, borderBottom: 'none' }}
+            >
+              <p>{midnightCulmination.text}</p>
+              {midnightCulmination.description}
+            </StaticCell>
+          )}
         </Row>
       </StaticCell>
 
-      {
-        bestTelescope.list.length > 0 &&
+      {bestTelescope.list.length > 0 && (
         <StaticCell
           flexScale={['100%', '100%', '40%']}
           title={bestTelescope.label}
@@ -92,7 +92,7 @@ const ObjectProfile = ({
         >
           <BestTelescope telescopes={bestTelescope.list} />
         </StaticCell>
-      }
+      )}
     </Row>
 
     <style jsx>{style}</style>
@@ -123,6 +123,7 @@ ObjectProfile.propTypes = {
       linkUrl: PropTypes.string.isRequired,
     })),
   }).isRequired,
+  intl: intlShape.isRequired,
 };
 
-export default ObjectProfile;
+export default injectIntl(ObjectProfile);

@@ -1,14 +1,15 @@
 /** *********************************
-  * V4 Object Details Overview
-  *   Markdown support on elements????
-  *   UTF-8 support....
-  *   Multi-National Languages.....
-********************************** */
+ * V4 Object Details Overview
+ *   Markdown support on elements????
+ *   UTF-8 support....
+ *   Multi-National Languages.....
+ ********************************** */
 
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 import { BURNHAMS_CORNER_CONTENT } from 'services/content';
 
 import {
@@ -22,13 +23,13 @@ import Request from 'components/common/network/Request';
 
 import DeviceProvider from 'providers/DeviceProvider';
 import ObjectProfile from 'components/object-details/ObjectProfile';
-import ObjectVisibilityProfile from  'components/object-details/ObjectVisibilityProfile';
+import ObjectVisibilityProfile from 'components/object-details/ObjectVisibilityProfile';
 import CardObservations from 'components/common/CardObservations';
 import SterlingTitle from 'components/common/titles/SterlingTitle';
 import BurnhamsCorner from 'components/common/BurnhamsCorner';
 import GuidePanels from 'components/guides/GuidePanels';
 
-
+import messages from './ObjectDetails.messages';
 import style from './ObjectDetailsOverview.style';
 
 const mapStateToProps = ({ objectDetails, appConfig, user }) => ({
@@ -39,10 +40,13 @@ const mapStateToProps = ({ objectDetails, appConfig, user }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({
-    fetchObjectDataAction,
-    fetchObjectSpecialistsAction,
-  }, dispatch),
+  actions: bindActionCreators(
+    {
+      fetchObjectDataAction,
+      fetchObjectSpecialistsAction,
+    },
+    dispatch,
+  ),
 });
 
 const burnhamsModel = {
@@ -78,8 +82,8 @@ const modelData = resp => ({
     subTitle: resp.objectTagline,
   },
   featuredObservation: {
-    title: 'Featured observation',
-    subTitle: 'Community Observation',
+    title: <FormattedMessage {...messages.FeaturedObservation} />,
+    subTitle: <FormattedMessage {...messages.CommunityObservation} />,
     tileContent: {
       title: resp.featuredObservation.title,
       subTitle: resp.featuredObservation.subTitle,
@@ -98,10 +102,11 @@ const modelData = resp => ({
   visibilitySeason: {
     show: resp.showVisibilitySeason,
     title: resp.visibilitySeason.label,
-    observatories: resp
-      .visibilitySeason
-      .observatories
-      .map(obs => <p key={`visibility-season-${obs.label}-${obs.text}`}>{obs.label} {obs.text}</p>),
+    observatories: resp.visibilitySeason.observatories.map(obs => (
+      <p key={`visibility-season-${obs.label}-${obs.text}`}>
+        {obs.label} {obs.text}
+      </p>
+    )),
   },
   midnightCulmination: {
     show: resp.showMidnightCulmination,
@@ -115,28 +120,29 @@ const modelData = resp => ({
   },
 });
 
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)
 class Overview extends Component {
   render() {
     const {
-      params: {
-        objectId,
-      },
+      params: { objectId },
       objectData,
       objectSpecialists,
+      intl,
     } = this.props;
 
     const modeledResult = modelData(objectData);
 
     // TODO: need something more substantial than this to prevent bad renders
-    if (!modeledResult.topicContentProps.title) { return null; }
+    if (!modeledResult.topicContentProps.title) {
+      return null;
+    }
 
     return (
       <Fragment>
-        <TopicContent
-          {...modeledResult.topicContentProps}
-          guideId={objectId}
-        />
+        <TopicContent {...modeledResult.topicContentProps} guideId={objectId} />
 
         <section className="blue-tile-bg">
           <DeviceProvider>
@@ -178,16 +184,13 @@ class Overview extends Component {
         </section>
 
         <section className="off-white-bg-top-shadow">
-          {
-            objectData.hasBurnhamsData &&
-              <Request
-                model={burnhamsModel}
-                serviceURL={BURNHAMS_CORNER_CONTENT}
-                requestBody={{ objectId }}
-                render={({
-                  fetchingContent,
-                  modeledResponses: { BURNHAMS_CORNER },
-                }) => !fetchingContent && (
+          {objectData.hasBurnhamsData && (
+            <Request
+              model={burnhamsModel}
+              serviceURL={BURNHAMS_CORNER_CONTENT}
+              requestBody={{ objectId }}
+              render={({ fetchingContent, modeledResponses: { BURNHAMS_CORNER } }) =>
+                !fetchingContent && (
                   <Fragment>
                     <SterlingTitle
                       title={BURNHAMS_CORNER.title}
@@ -197,15 +200,18 @@ class Overview extends Component {
                       <BurnhamsCorner {...BURNHAMS_CORNER.burnhamTileContent} />
                     </CenterColumn>
                   </Fragment>
-                )}
-              />
-          }
+                )
+              }
+            />
+          )}
 
           <GuidePanels guideId={objectId} />
 
           <SterlingTitle
-            title="MVP Astronomers"
-            subTitle={`Most Active on ${objectData.objectTitle}`}
+            title={intl.formatMessage(messages.MVPAstronomers)}
+            subTitle={intl.formatMessage(messages.MostActive, {
+              objectTitle: objectData.objectTitle,
+            })}
           />
 
           <CenterColumn widths={['768px', '965px', '965px']}>
@@ -217,15 +223,23 @@ class Overview extends Component {
                       <img alt="" src={objectSpecialists.specialistsList[key].iconURL} />
                     </div>
                     <h5>{objectSpecialists.specialistsList[key].displayName}</h5>
-                    {objectSpecialists.specialistsList[key].hasLinkFlag &&
-                      <a className="specialists-btn" href={objectSpecialists.specialistsList[key].linkURL}>View Specialist</a>
-                    }
+                    {objectSpecialists.specialistsList[key].hasLinkFlag && (
+                      <a
+                        className="specialists-btn"
+                        href={objectSpecialists.specialistsList[key].linkURL}
+                      >
+                        <FormattedMessage {...messages.ViewSpecialist} />
+                      </a>
+                    )}
                   </div>
                 ))}
               </div>
             ) : (
               <p className="error-message">
-                Sorry, there are no specialists for {objectData.objectTitle} available at this time.
+                <FormattedMessage
+                  {...messages.NoSpecialists}
+                  values={{ objectTitle: objectData.objectTitle }}
+                />
               </p>
             )}
           </CenterColumn>
@@ -241,7 +255,7 @@ Overview.propTypes = {
   params: PropTypes.shape({
     objectId: PropTypes.string.isRequired,
   }).isRequired,
-  actions: PropTypes.shape({ }).isRequired,
+  actions: PropTypes.shape({}).isRequired,
   objectData: PropTypes.shape({
     objectTitle: PropTypes.string.isRequired,
     objectSubtitle: PropTypes.string.isRequired,
@@ -250,6 +264,7 @@ Overview.propTypes = {
     objectMagnitude: PropTypes.number.isRequired,
     hasBurnhamsData: PropTypes.bool.isRequired,
   }).isRequired,
+  intl: intlShape.isRequired,
 };
 
-export default Overview;
+export default injectIntl(Overview);
