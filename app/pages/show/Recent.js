@@ -7,6 +7,7 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { injectIntl, intlShape } from 'react-intl';
 import ThreeTabbedNav from 'components/ThreeTabbedNav';
 import TwoTabbedNav from 'components/TwoTabbedNav';
 import LabeledTitleTiles from 'components/common/style/LabeledTitleTiles';
@@ -17,6 +18,7 @@ import MainContainerWithDiscussions from './partials/MainContainerWithDiscussion
 import AsideContainerDetailsOnly from './partials/AsideContainerDetailsOnly';
 import { romance } from 'styles/variables/colors_tiles_v4';
 import styles from './Show.style';
+import messages from './Show.messages';
 
 const {
   any,
@@ -40,6 +42,7 @@ class RecentShow extends Component {
       token: oneOfType([number, string]),
       cid: oneOfType([number, string]),
     }).isRequired,
+    intl: intlShape.isRequired,
   };
 
   static defaultProps = {
@@ -95,6 +98,7 @@ class RecentShow extends Component {
       showStreamCode,
       showStreamURL,
       title,
+      intl,
     } = this.props;
 
     const {
@@ -126,47 +130,51 @@ class RecentShow extends Component {
             />
           </div>
         </div>
-          <div className="recent-main-container">
-            <ResponsiveTwoColumnContainer
-              renderNavigationComponent={() =>
-                (<div className="full-width">{hasDiscussionThread ? <ThreeTabbedNav
-                  firstTitle="About"
-                  secondTitle="Comments"
-                  thirdTitle="Details"
+        <div className="recent-main-container">
+          <ResponsiveTwoColumnContainer
+            renderNavigationComponent={() => (
+              <div className="full-width">{hasDiscussionThread ? (
+                <ThreeTabbedNav
+                  firstTitle={intl.formatMessage(messages.About)}
+                  secondTitle={intl.formatMessage(messages.Comments)}
+                  thirdTitle={intl.formatMessage(messages.Details)}
                   firstTabIsActive={aboutIsActive}
                   firstTabOnClick={this.showAbout}
                   secondTabIsActive={commentsIsActive}
                   secondTabOnClick={this.showComments}
                   thirdTabIsActive={detailsIsActive}
                   thirdTabOnClick={this.showDetails}
-                /> : <TwoTabbedNav
-                  firstTitle="About"
-                  secondTitle="Details"
+                />
+              ) : (
+                <TwoTabbedNav
+                  firstTitle={intl.formatMessage(messages.About)}
+                  secondTitle={intl.formatMessage(messages.Details)}
                   firstTabIsActive={aboutIsActive}
                   firstTabOnClick={this.showAbout}
                   secondTabIsActive={detailsIsActive}
                   secondTabOnClick={this.showDetails}
-                /> }
-                </div>)
-              }
-              renderAsideContent={() => (<AsideContainerDetailsOnly
-                {...this.props}
-              />)}
-              isScreenLarge={isScreenLarge}
-              renderMainContent={() => (<MainContainerWithDiscussions
-                {...this.props}
-                selectedTab={selectedTab}
-                handleSelect={this.handleSelect}
-                aboutIsActive={aboutIsActive}
-                commentsIsActive={commentsIsActive}
-                detailsIsActive={detailsIsActive}
-              />)}
-            />
-          </div>
+                />
+              )}
+              </div>)
+            }
+            renderAsideContent={() => (<AsideContainerDetailsOnly
+              {...this.props}
+            />)}
+            isScreenLarge={isScreenLarge}
+            renderMainContent={() => (<MainContainerWithDiscussions
+              {...this.props}
+              selectedTab={selectedTab}
+              handleSelect={this.handleSelect}
+              aboutIsActive={aboutIsActive}
+              commentsIsActive={commentsIsActive}
+              detailsIsActive={detailsIsActive}
+            />)}
+          />
+        </div>
         <style jsx>{styles}</style>
       </div>
     );
   }
 }
 
-export default RecentShow;
+export default injectIntl(RecentShow);

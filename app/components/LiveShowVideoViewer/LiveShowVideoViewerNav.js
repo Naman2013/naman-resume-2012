@@ -1,26 +1,21 @@
-/***********************************
-* V4 Live Shows Video Viewer
-*
-*
-*
-***********************************/
+/** *********************************
+ * V4 Live Shows Video Viewer
+ *
+ *
+ *
+ ********************************** */
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import uniqueId from 'lodash/uniqueId';
 import { Tab, Tabs, TabList } from 'react-tabs';
 import Select from 'react-select';
+import { FormattedMessage } from 'react-intl';
 import styles from './LiveShowVideoViewerNav.style';
+import messages from './LiveShowVideoViewer.messages';
 
 const {
-  any,
-  arrayOf,
-  bool,
-  func,
-  number,
-  oneOfType,
-  shape,
-  string,
+  any, arrayOf, bool, func, number, oneOfType, shape, string,
 } = PropTypes;
 
 const CustomOption = ({ innerRef, innerProps, children }) => (
@@ -78,32 +73,34 @@ class LiveShowVideoViewerNav extends Component {
         label: (
           <div>
             <div className="opt-icon" style={getInlineBgStyle(props.EventIconUrl)} />
-            <span className="opt-desc">Live Show</span>
+            <span className="opt-desc">
+              <FormattedMessage {...messages.LiveShow} />
+            </span>
           </div>
-        )
+        ),
       },
     ];
 
     props.additionalFeeds.forEach((feed, i) => {
-        options.push({
-          value: i + 1,
-          label: (
-            <div>
-              <div className="opt-icon" style={getInlineBgStyle(feed.tabIconURL)} />
-              <span className="opt-desc" dangerouslySetInnerHTML={{ __html: feed.tabDesc }} />
-            </div>
-          )
-        });
+      options.push({
+        value: i + 1,
+        label: (
+          <div>
+            <div className="opt-icon" style={getInlineBgStyle(feed.tabIconURL)} />
+            <span className="opt-desc" dangerouslySetInnerHTML={{ __html: feed.tabDesc }} />
+          </div>
+        ),
       });
+    });
 
     this.state = {
       options,
-    }
+    };
   }
 
   handleChange = (selectedOption) => {
     this.props.handleSelect(Number(selectedOption.value));
-  }
+  };
 
   render() {
     const {
@@ -117,9 +114,7 @@ class LiveShowVideoViewerNav extends Component {
       isScreenXLarge,
     } = this.props;
 
-    const {
-      options,
-    } = this.state;
+    const { options } = this.state;
     return (
       <div className="root">
         <Tabs onSelect={this.props.handleSelect} selectedIndex={selectedTab}>
@@ -142,18 +137,16 @@ class LiveShowVideoViewerNav extends Component {
                   <div className="tab-icon" style={getInlineBgStyle(EventIconUrl)} />
                 </div>
               </Tab>
-              {
-                additionalFeeds.map(feed => (
-                  <Tab key={uniqueId()}>
-                    <div className="show-tab">
-                      <div className="tab-icon" style={getInlineBgStyle(feed.tabIconURL)} />
-                    </div>
-                  </Tab>
-                ))
-              }
+              {additionalFeeds.map(feed => (
+                <Tab key={uniqueId()}>
+                  <div className="show-tab">
+                    <div className="tab-icon" style={getInlineBgStyle(feed.tabIconURL)} />
+                  </div>
+                </Tab>
+              ))}
             </TabList>
           )}
-          </Tabs>
+        </Tabs>
         <style jsx>{styles}</style>
       </div>
     );

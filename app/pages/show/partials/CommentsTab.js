@@ -1,26 +1,21 @@
-/***********************************
-* V4 Shows CommentsTab
-*
-*
-*
-***********************************/
+/** *********************************
+ * V4 Shows CommentsTab
+ *
+ *
+ *
+ ********************************** */
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { injectIntl, intlShape } from 'react-intl';
 import LikeSomethingButton from 'components/common/LikeSomethingButton';
 import { romance } from 'styles/variables/colors_tiles_v4';
 import DiscussionComments from 'components/common/DiscussionsBoard';
 import styles from './CommentsTab.style';
+import messages from '../Show.messages';
 
 const {
-  any,
-  arrayOf,
-  bool,
-  func,
-  number,
-  oneOfType,
-  shape,
-  string,
+  any, arrayOf, bool, func, number, oneOfType, shape, string,
 } = PropTypes;
 
 class CommentsTab extends Component {
@@ -34,17 +29,14 @@ class CommentsTab extends Component {
       token: oneOfType([number, string]),
       cid: oneOfType([number, string]),
     }).isRequired,
+    intl: intlShape.isRequired,
   };
 
   static defaultProps = {
     canSubmitReplies: true,
   };
 
-  state = {
-
-  }
-
-
+  state = {};
 
   render() {
     const {
@@ -56,6 +48,7 @@ class CommentsTab extends Component {
       isDesktop,
       isScreenMedium,
       user,
+      intl,
     } = this.props;
 
     return (
@@ -68,7 +61,7 @@ class CommentsTab extends Component {
           topicId={discussionTopicId}
           user={user}
           isDesktop={isDesktop}
-          header="Comments"
+          header={intl.formatMessage(messages.Comments)}
           canSubmitReplies={canSubmitReplies}
           callSource="shows"
         />
@@ -78,4 +71,4 @@ class CommentsTab extends Component {
   }
 }
 
-export default CommentsTab;
+export default injectIntl(CommentsTab);
