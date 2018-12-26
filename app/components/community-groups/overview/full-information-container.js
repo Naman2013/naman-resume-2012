@@ -9,6 +9,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { intlShape, injectIntl } from 'react-intl';
 import {
   astronaut,
 } from '../../../styles/variables/colors_tiles_v4';
@@ -22,6 +23,7 @@ import MembersList from './members-list';
 import DiscussionsBoard from 'components/common/DiscussionsBoard';
 import DiscussionBoardInvitationsPanel from 'components/community-groups/overview/DiscussionBoardInvitationsPanel';
 import DiscussionBoardGoogleClassroomStudentsPanel from 'components/community-groups/overview/DiscussionBoardGoogleClassroomStudentsPanel';
+import messages from './activity-form.messages';
 
 const {
   arrayOf,
@@ -48,7 +50,6 @@ const mapDispatchToProps = dispatch => ({
 
 @connect(mapStateToProps, mapDispatchToProps)
 class FullInformationOverview extends Component {
-
   static propTypes = {
     description: string,
     descriptionHeading: string,
@@ -69,6 +70,7 @@ class FullInformationOverview extends Component {
     membersSort: string.isRequired,
     membersList: arrayOf(shape({})),
     showJoinPrompt: bool,
+    intl: intlShape.isRequired,
   };
 
   static defaultProps = {
@@ -106,6 +108,7 @@ class FullInformationOverview extends Component {
       showJoinPrompt,
       refreshHeader,
       user,
+      intl,
     } = this.props;
 
     const createThreadFormParams = {
@@ -125,15 +128,16 @@ class FullInformationOverview extends Component {
         <ResponsiveTwoColumnContainer
           renderNavigationComponent={navProps =>
             (<TwoTabbedNav
-              firstTitle="Activity"
-              secondTitle="Members"
+              firstTitle={intl.formatMessage(messages.NavTitle)}
+              secondTitle={intl.formatMessage(messages.NavSecondTitle)}
               firstTabIsActive={navProps.showMainContainer}
               firstTabOnClick={navProps.onShowMainContainer}
               secondTabIsActive={navProps.showAsideContainer}
               secondTabOnClick={navProps.onShowAsideContainer}
             />)
           }
-          renderAsideContent={() => (<div>
+          renderAsideContent={() => (
+            <div>
               <MembersList
                 membersSort={membersSort}
                 membersList={membersList}
@@ -145,33 +149,32 @@ class FullInformationOverview extends Component {
             </div>)
           }
           isScreenLarge={context.isScreenLarge}
-          renderMainContent={() => (<div className="discuss-container">
-            <DiscussionsBoard
-              errorMessage="There was an error fetching list"
-              topicId={pageMeta.topicId}
-              forumId={pageMeta.forumId}
-              callSource="groups"
-              createThread={actions.createActivity}
-              createThreadFormParams={createThreadFormParams}
-            />
-          </div>)}
+          renderMainContent={() => (
+            <div className="discuss-container">
+              <DiscussionsBoard
+                errorMessage={intl.formatMessage(messages.FetchingListError)}
+                topicId={pageMeta.topicId}
+                forumId={pageMeta.forumId}
+                callSource="groups"
+                createThread={actions.createActivity}
+                createThreadFormParams={createThreadFormParams}
+              />
+            </div>
+          )}
         />
 
-      <style jsx>{`
-        .root {
-        }
+        <style jsx>{`
+          .root {
+          }
 
-        .discuss-container {
-          margin-top: 15px;
-        }
-
-
-
-
-      `}</style>
-    </div>
-    )
+          .discuss-container {
+            margin-top: 15px;
+          }
+        `}
+        </style>
+      </div>
+    );
   }
 }
 
-export default FullInformationOverview;
+export default injectIntl(FullInformationOverview);

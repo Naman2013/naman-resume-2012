@@ -7,6 +7,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import PropTypes from 'prop-types';
+import { intlShape, injectIntl } from 'react-intl';
 import FullActivityForm from './full-activity-form';
 import SmallActivityForm from './small-activity-form';
 import { prepareThread } from 'services/discussions/prepare-thread';
@@ -18,7 +19,7 @@ import {
 import { secondaryFont } from 'styles/variables/fonts';
 import { dropShadowContainer } from 'styles/mixins/utilities';
 import { screenLarge, screenMedium } from 'styles/variables/breakpoints';
-
+import messages from './activity-form.messages';
 
 const {
   bool,
@@ -38,12 +39,14 @@ class ActivityForm extends Component {
       token: string,
       cid: string,
     }).isRequired,
+    intl: intlShape.isRequired,
   }
+
   static defaultProps = {
     topicId: 0,
     forumId: 0,
     canPost: false,
-    placeholder: 'Write something...',
+    placeholder: '',
     user: {
       at: '',
       token: '',
@@ -74,24 +77,27 @@ class ActivityForm extends Component {
     });
   }
 
-  render () {
-    const { props, state } = this
+  render() {
     const {
-      placeholder,
       isDesktop,
       topicId,
       forumId,
-    } = props;
+      intl,
+      placeholder,
+    } = this.props;
 
     const {
       uuid,
-    } = state;
+    } = this.state;
+
+    const formPlaceholder = placeholder || `${intl.formatMessage(messages.WriteSomething)}...`;
 
     return (
       <div className="root">
-        {isDesktop ? <FullActivityForm {...props} uuid={uuid} /> :
+        {isDesktop ? <FullActivityForm {...this.props} uuid={uuid} placeholder={formPlaceholder} /> :
         <SmallActivityForm
-          {...props}
+          {...this.props}
+          placeholder={formPlaceholder}
           uuid={uuid}
         />}
         <style jsx>{`
@@ -114,11 +120,11 @@ class ActivityForm extends Component {
             width: 100%;
           }
         }
-
-        `}</style>
+        `}
+        </style>
       </div>
-    )
+    );
   }
 }
 
-export default ActivityForm;
+export default injectIntl(ActivityForm);
