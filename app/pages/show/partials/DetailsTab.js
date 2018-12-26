@@ -7,6 +7,7 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { injectIntl, intlShape } from 'react-intl';
 import LikeSomethingButton from 'components/common/LikeSomethingButton';
 import { romance } from 'styles/variables/colors_tiles_v4';
 import BlueLineDrop from 'components/common/BlueLineDrop';
@@ -15,6 +16,7 @@ import RelatedStories from 'components/RelatedStories';
 import RelatedGuides from 'components/RelatedGuides';
 import RelatedObject from 'components/RelatedObject/BootstrappedRelatedObject';
 import styles from './MainContent.style';
+import messages from '../Show.messages';
 
 const {
   any,
@@ -37,17 +39,12 @@ class DetailsTab extends Component {
       token: oneOfType([number, string]),
       cid: oneOfType([number, string]),
     }).isRequired,
+    intl: intlShape.isRequired,
   };
 
-  static defaultProps = {
+  static defaultProps = {};
 
-  };
-
-  state = {
-
-  }
-
-
+  state = {};
 
   render() {
     const {
@@ -62,13 +59,14 @@ class DetailsTab extends Component {
       relatedObject,
       showId,
       user,
+      intl,
     } = this.props;
 
     return (
       <div>
         <RelatedObject {...relatedObject} user={user} />
         <BlueLineDrop
-          title="Related Shows"
+          title={intl.formatMessage(messages.RelatedShows)}
           isDesktop={isDesktop}
           theme={{ margin: isScreenLarge ? '25px 0' : '25px' }}
           render={() => (
@@ -76,7 +74,7 @@ class DetailsTab extends Component {
           )}
         />
         <BlueLineDrop
-          title="Related Stories"
+          title={intl.formatMessage(messages.RelatedStories)}
           isDesktop={isDesktop}
           theme={{ margin: isScreenLarge ? '25px 0' : '25px' }}
           render={() => (
@@ -84,7 +82,7 @@ class DetailsTab extends Component {
           )}
         />
         <BlueLineDrop
-          title="Related Guides"
+          title={intl.formatMessage(messages.RelatedGuides)}
           isDesktop={isDesktop}
           theme={{ margin: isScreenLarge ? '25px 0' : '25px' }}
           render={() => (
@@ -98,4 +96,4 @@ class DetailsTab extends Component {
   }
 }
 
-export default DetailsTab;
+export default injectIntl(DetailsTab);

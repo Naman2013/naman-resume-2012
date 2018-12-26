@@ -7,7 +7,8 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import noop from 'lodash/noop'
+import noop from 'lodash/noop';
+import { injectIntl, intlShape } from 'react-intl';
 import BigBoxInfoContainer from './BigBoxInfoContainer';
 import ThreeTabbedNav from 'components/ThreeTabbedNav';
 import TwoTabbedNav from 'components/TwoTabbedNav';
@@ -16,6 +17,7 @@ import AboutTab from './AboutTab';
 import CommentsTab from './CommentsTab';
 import DetailsTab from './DetailsTab';
 import styles from './AsideContainerWithTabs.style';
+import messages from '../Show.messages';
 
 const {
   any,
@@ -42,6 +44,7 @@ class AsideContainerWithTabs extends Component {
       token: oneOfType([number, string]),
       cid: oneOfType([number, string]),
     }).isRequired,
+    intl: intlShape.isRequired,
   };
 
   static defaultProps = {
@@ -51,11 +54,7 @@ class AsideContainerWithTabs extends Component {
     showDetails: noop,
   };
 
-  state = {
-
-  }
-
-
+  state = {};
 
   render() {
     const {
@@ -69,34 +68,36 @@ class AsideContainerWithTabs extends Component {
       showComments,
       showDetails,
       headerTitle,
+      intl,
     } = this.props;
-
-    const {
-
-    } = this.state;
 
     return (
       <div className="root">
         <div className="header-title" dangerouslySetInnerHTML={{ __html: headerTitle }} />
-        <div className="full-width">{hasDiscussionThread ? (<ThreeTabbedNav
-          firstTitle="About"
-          secondTitle="Comments"
-          thirdTitle="Details"
-          firstTabIsActive={aboutIsActive}
-          firstTabOnClick={showAbout}
-          secondTabIsActive={commentsIsActive}
-          secondTabOnClick={showComments}
-          thirdTabIsActive={detailsIsActive}
-          thirdTabOnClick={showDetails}
-        />) : (<TwoTabbedNav
-          firstTitle="About"
-          secondTitle="Details"
-          firstTabIsActive={aboutIsActive}
-          firstTabOnClick={showAbout}
-          secondTabIsActive={detailsIsActive}
-          secondTabOnClick={showDetails}
-        />)
-        }</div>
+        <div className="full-width">{hasDiscussionThread ? (
+          <ThreeTabbedNav
+            firstTitle={intl.formatMessage(messages.About)}
+            secondTitle={intl.formatMessage(messages.Comments)}
+            thirdTitle={intl.formatMessage(messages.Details)}
+            firstTabIsActive={aboutIsActive}
+            firstTabOnClick={showAbout}
+            secondTabIsActive={commentsIsActive}
+            secondTabOnClick={showComments}
+            thirdTabIsActive={detailsIsActive}
+            thirdTabOnClick={showDetails}
+          />
+        ) : (
+          <TwoTabbedNav
+            firstTitle={intl.formatMessage(messages.About)}
+            secondTitle={intl.formatMessage(messages.Details)}
+            firstTabIsActive={aboutIsActive}
+            firstTabOnClick={showAbout}
+            secondTabIsActive={detailsIsActive}
+            secondTabOnClick={showDetails}
+          />
+          )
+        }
+        </div>
         {aboutIsActive ? <AboutTab {...this.props} /> : null}
         {commentsIsActive ? <CommentsTab {...this.props} /> : null}
         {detailsIsActive ? <DetailsTab {...this.props} /> : null}
@@ -107,4 +108,4 @@ class AsideContainerWithTabs extends Component {
   }
 }
 
-export default AsideContainerWithTabs;
+export default injectIntl(AsideContainerWithTabs);

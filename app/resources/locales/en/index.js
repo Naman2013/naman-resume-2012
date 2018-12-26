@@ -5,3 +5,4 @@ export * from './Guides';
 export * from './Hubs';
 export * from './Stories';
 export * from './Quests';
+export * from './Shows';

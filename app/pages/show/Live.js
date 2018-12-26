@@ -7,6 +7,7 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { injectIntl, intlShape } from 'react-intl';
 import ThreeTabbedNav from 'components/ThreeTabbedNav';
 import TwoTabbedNav from 'components/TwoTabbedNav';
 import ResponsiveTwoColumnContainer from 'components/ResponsiveTwoColumnContainer';
@@ -14,6 +15,7 @@ import HeaderContainer from './partials/HeaderContainer'
 import MainContainer from './partials/MainContainer';
 import AsideContainerWithTabs from './partials/AsideContainerWithTabs';
 import styles from './Show.style';
+import messages from './Show.messages';
 
 const {
   any,
@@ -35,6 +37,7 @@ class LiveShow extends Component {
       token: oneOfType([number, string]),
       cid: oneOfType([number, string]),
     }).isRequired,
+    intl: intlShape.isRequired,
   };
 
   static defaultProps = {
@@ -85,6 +88,7 @@ class LiveShow extends Component {
       isScreenMedium,
       isScreenLarge,
       hasDiscussionThread,
+      intl,
     } = this.props;
 
     const {
@@ -94,65 +98,69 @@ class LiveShow extends Component {
       selectedTab,
     } = this.state;
 
-    const headerLabel = 'Airing Now';
+    const headerLabel = intl.formatMessage(messages.AiringNow);
 
     return (
       <div className="root live-show">
-          <HeaderContainer
-            {...this.props}
-            headerLabel={headerLabel}
-            handleSelect={this.handleSelect}
-            selectedTab={selectedTab}
-          />
-          <div className="main-container">
-            <ResponsiveTwoColumnContainer
-              renderNavigationComponent={() =>
-                (<div className="full-width">{hasDiscussionThread ? <ThreeTabbedNav
-                  firstTitle="About"
-                  secondTitle="Comments"
-                  thirdTitle="Details"
+        <HeaderContainer
+          {...this.props}
+          headerLabel={headerLabel}
+          handleSelect={this.handleSelect}
+          selectedTab={selectedTab}
+        />
+        <div className="main-container">
+          <ResponsiveTwoColumnContainer
+            renderNavigationComponent={() => (
+              <div className="full-width">{hasDiscussionThread ? (
+                <ThreeTabbedNav
+                  firstTitle={intl.formatMessage(messages.About)}
+                  secondTitle={intl.formatMessage(messages.Comments)}
+                  thirdTitle={intl.formatMessage(messages.Details)}
                   firstTabIsActive={aboutIsActive}
                   firstTabOnClick={this.showAbout}
                   secondTabIsActive={commentsIsActive}
                   secondTabOnClick={this.showComments}
                   thirdTabIsActive={detailsIsActive}
                   thirdTabOnClick={this.showDetails}
-                /> : <TwoTabbedNav
-                  firstTitle="About"
-                  secondTitle="Details"
+                />
+              ) : (
+                <TwoTabbedNav
+                  firstTitle={intl.formatMessage(messages.About)}
+                  secondTitle={intl.formatMessage(messages.Details)}
                   firstTabIsActive={aboutIsActive}
                   firstTabOnClick={this.showAbout}
                   secondTabIsActive={detailsIsActive}
                   secondTabOnClick={this.showDetails}
-                /> }
-                </div>)
-              }
-              renderAsideContent={() => (<AsideContainerWithTabs
-                {...this.props}
-                headerTitle="Slooh Live Show"
-                aboutIsActive={aboutIsActive}
-                commentsIsActive={commentsIsActive}
-                detailsIsActive={detailsIsActive}
-                showDetails={this.showDetails}
-                showAbout={this.showAbout}
-                showComments={this.showComments}
-              />)}
-              isScreenLarge={isScreenLarge}
-              renderMainContent={() => (<MainContainer
-                {...this.props}
-                headerLabel={headerLabel}
-                selectedTab={selectedTab}
-                handleSelect={this.handleSelect}
-                aboutIsActive={aboutIsActive}
-                commentsIsActive={commentsIsActive}
-                detailsIsActive={detailsIsActive}
-              />)}
-            />
-          </div>
+                />
+              )}
+              </div>)
+            }
+            renderAsideContent={() => (<AsideContainerWithTabs
+              {...this.props}
+              headerTitle={`Slooh ${intl.formatMessage(messages.LiveShow)}`}
+              aboutIsActive={aboutIsActive}
+              commentsIsActive={commentsIsActive}
+              detailsIsActive={detailsIsActive}
+              showDetails={this.showDetails}
+              showAbout={this.showAbout}
+              showComments={this.showComments}
+            />)}
+            isScreenLarge={isScreenLarge}
+            renderMainContent={() => (<MainContainer
+              {...this.props}
+              headerLabel={headerLabel}
+              selectedTab={selectedTab}
+              handleSelect={this.handleSelect}
+              aboutIsActive={aboutIsActive}
+              commentsIsActive={commentsIsActive}
+              detailsIsActive={detailsIsActive}
+            />)}
+          />
+        </div>
         <style jsx>{styles}</style>
       </div>
     );
   }
 }
 
-export default LiveShow;
+export default injectIntl(LiveShow);
