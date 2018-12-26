@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { browserHistory } from 'react-router';
+import { intlShape, injectIntl } from 'react-intl';
 import GenericButton from 'components/common/style/buttons/Button';
 import { horizontalArrow } from 'styles/variables/iconURLs';
 import style from './BestTelescope.style';
+import messages from './BestTelescope.messages';
 
 const TELESCOPE_INDEX = 'data-telescope-index';
 
@@ -15,6 +17,7 @@ class BestTelescope extends Component {
       description: PropTypes.string.isRequired,
       linkUrl: PropTypes.string.isRequired,
     })),
+    intl: intlShape.isRequired,
   };
 
   static defaultProps = { telescopes: [] };
@@ -27,32 +30,36 @@ class BestTelescope extends Component {
     this.setState({
       activeTelescope: parseInt(event.target.getAttribute(TELESCOPE_INDEX), 10),
     });
-  }
+  };
 
   render() {
     const { activeTelescope } = this.state;
+    const { intl } = this.props;
     const telescope = this.props.telescopes[activeTelescope];
     return (
       <div>
         <ul className="navigation">
-          {this.props.telescopes
-            .map((telescopeNav, index) => (
-              <li key={`best-telescopes-${telescopeNav.label}`}>
-                <button
-                  className={classnames('action-tab', { active: this.state.activeTelescope === index })}
-                  onClick={this.updateActiveTelescope}
-                  data-telescope-index={index}
-                >
-                  {telescopeNav.label}
-                </button>
-              </li>
-            ))}
+          {this.props.telescopes.map((telescopeNav, index) => (
+            <li key={`best-telescopes-${telescopeNav.label}`}>
+              <button
+                className={classnames('action-tab', {
+                  active: this.state.activeTelescope === index,
+                })}
+                onClick={this.updateActiveTelescope}
+                data-telescope-index={index}
+              >
+                {telescopeNav.label}
+              </button>
+            </li>
+          ))}
         </ul>
         <p className="description">{telescope.description}</p>
         <div className="action-link-container">
           <GenericButton
-            onClickEvent={() => { browserHistory.push(telescope.linkUrl); }}
-            text="Visit telescope"
+            onClickEvent={() => {
+              browserHistory.push(telescope.linkUrl);
+            }}
+            text={intl.formatMessage(messages.VisitTelescope)}
             icon={horizontalArrow}
           />
         </div>
@@ -62,4 +69,4 @@ class BestTelescope extends Component {
   }
 }
 
-export default BestTelescope;
+export default injectIntl(BestTelescope);

@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import findIndex from 'lodash/findIndex';
 import has from 'lodash/has';
+import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 import Request from 'components/common/network/Request';
 import DropDown from 'components/common/DropDown';
 import { fetchObjectDetailsAction } from '../../modules/object-details/actions';
@@ -21,7 +22,9 @@ import CardObservations from '../../../app/components/common/CardObservations';
 import { SHARED_MEMBER_PHOTOS } from 'services/shared-photos';
 import { IMAGE_DETAILS } from 'services/image-details';
 
-import styles from './ObjectDetailsObservations.style';
+import messages from './ObjectDetails.messages';
+import styles from './ObjectDetailsObservations.style';                                                                                                                    
+
 const mapStateToProps = ({ objectDetails, appConfig, user }) => ({
   objectData: objectDetails.objectData,
   objectDetails: objectDetails.objectDetails,
@@ -38,10 +41,6 @@ const mapDispatchToProps = dispatch => ({
 @connect(mapStateToProps, mapDispatchToProps)
 
 class Observations extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   state = {
     selectedIndex: 0,
     page: 1,
@@ -83,6 +82,7 @@ class Observations extends Component {
         objectId,
       },
       objectDetails,
+      intl,
     } = this.props;
     const { selectedIndex, page } = this.state;
 
@@ -91,14 +91,16 @@ class Observations extends Component {
         <DeviceProvider>
           <ObjectDetailsSectionTitle
             title={objectDetails.objectTitle + "'s"}
-            subTitle="Observations"
-            renderNav={() => (<div className="nav-actions">
-              <DropDown
-                options={this.dropdownOptions}
-                selectedIndex={selectedIndex}
-                handleSelect={this.handleSelect}
-              />
-            </div>)}
+            subTitle={intl.formatMessage(messages.Observations)}
+            renderNav={() => (
+              <div className="nav-actions">
+                <DropDown
+                  options={this.dropdownOptions}
+                  selectedIndex={selectedIndex}
+                  handleSelect={this.handleSelect}
+                />
+              </div>
+            )}
           />
           <CenterColumn widths={['645px', '965px', '965px']}>
             <Request
@@ -144,10 +146,17 @@ class Observations extends Component {
                             linkLabel={''}
                             linkUrl={imageDetails.linkUrl}
                           />
-                        )
+                        );
                       }}
                     />
-                  )) : <p>Sorry, there are no images available for {objectDetails.objectTitle} at this time.</p>}
+                  )) : (
+                    <p>
+                      <FormattedMessage
+                        {...messages.NoObservations}
+                        values={{ objectTitle: objectDetails.objectTitle }}
+                      />
+                    </p>
+                  )}
                   {serviceResponse.imageCount > 0 ? (
                     <PaginateWithNetwork
                       apiURL={SHARED_MEMBER_PHOTOS}
@@ -170,7 +179,12 @@ class Observations extends Component {
         </DeviceProvider>
         <style jsx>{styles}</style>
       </Fragment>
-    )
+    );
   }
 }
-export default Observations;
+
+Observations.propTypes = {
+  intl: intlShape.isRequired,
+};
+
+export default injectIntl(Observations);

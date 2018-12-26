@@ -8,6 +8,7 @@
 import React, { Component, Fragment} from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { intlShape, injectIntl, FormattedMessage } from 'react-intl';
 import GenericLoadingBox from 'components/common/loading-screens/generic-loading-box';
 import DeviceProvider from 'providers/DeviceProvider';
 import has from 'lodash/has';
@@ -22,6 +23,7 @@ import {
   fetchObjectDetailsAction,
   fetchObjectDataAction,
 } from 'modules/object-details/actions';
+import messages from './ObjectDetails.messages';
 
 
 const mapStateToProps = ({ objectDetails, objectPostList, appConfig, user }) => ({
@@ -52,7 +54,8 @@ class Stories extends Component {
       objectDetails,
       slugLookupId,
       actions: {
-      }
+      },
+      intl,
     } = this.props;
 
     const sId = slugLookupId;
@@ -63,7 +66,7 @@ class Stories extends Component {
     return (
       <Fragment>
         <DeviceProvider>
-          <ObjectDetailsSectionTitle title={objectDetails.objectTitle + "'s"} subTitle="Related Stories" />
+          <ObjectDetailsSectionTitle title={objectDetails.objectTitle + "'s"} subTitle={intl.formatMessage(messages.RelatedStories)} />
         </DeviceProvider>
         <CenterColumn widths={['645px', '965px', '965px']}>
           <Request
@@ -86,7 +89,14 @@ class Stories extends Component {
                     author={story.author}
                     linkUrl={story.linkUrl}
                   />
-                )) : <p>Sorry, there are no stories available for {objectDetails.objectTitle} at this time.</p>}
+                )) : (
+                  <p>
+                    <FormattedMessage
+                      {...messages.NoStories}
+                      values={{ objectTitle: objectDetails.objectTitle }}
+                    />
+                  </p>
+                )}
               </div>
             )}
           />
@@ -101,4 +111,9 @@ class Stories extends Component {
     )
   }
 }
-export default Stories;
+
+Stories.propTypes = {
+  intl: intlShape.isRequired,
+};
+
+export default injectIntl(Stories);

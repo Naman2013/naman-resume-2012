@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import { intlShape, injectIntl } from 'react-intl';
 import getDaysByMonth from 'utils/date-utils/get-days-by-month';
 import Request from 'components/common/network/Request';
 import ViewOurGuide from '../view-our-guide';
@@ -9,6 +10,7 @@ import GridContainer from '../grid/GridContainer';
 import Row from '../grid/Row';
 import StaticCell from '../grid/StaticCell';
 import style from './ObjectVisibilityProfile.style';
+import messages from './ObjectVisibilityProfile.messages';
 
 import {
   DEFAULT_MONTH,
@@ -89,7 +91,7 @@ class ObjectVisibilityProfile extends Component {
       obsId,
     } = this.state;
 
-    const { objectId } = this.props;
+    const { objectId, intl } = this.props;
 
     return (
       <Request
@@ -109,7 +111,8 @@ class ObjectVisibilityProfile extends Component {
           const riseSet = RISE_SET_MODEL || {};
           return (
             <div>
-              {riseSet.hasRiseAndSetTimes === true && <div className="obs-visibility-root">
+              {riseSet.hasRiseAndSetTimes === true && (
+              <div className="obs-visibility-root">
                 <GridContainer theme={{ margin: '20px 0 0 0' }}>
                   <form
                     method="POST"
@@ -118,7 +121,7 @@ class ObjectVisibilityProfile extends Component {
                       <StaticCell
                         flexScale={['100%', '75%']}
                         hasBorderScale={[true]}
-                        title="Rise &#38; set times"
+                        title={intl.formatMessage(messages.RiseSetTimes)}
                       >
                         <div className="select-field">
                           <label
@@ -225,19 +228,19 @@ class ObjectVisibilityProfile extends Component {
                       </StaticCell>
                     </Row>
                     <Row>
-                      <StaticCell title="Rise" hasBorderScale={[true]}>
-                        <p>{ (fetchingContent) ? 'Loading...' : riseSet.rise }</p>
+                      <StaticCell title={intl.formatMessage(messages.Rise)} hasBorderScale={[true]}>
+                        <p>{ (fetchingContent) ? `${intl.formatMessage(messages.Loading)}...` : riseSet.rise }</p>
                       </StaticCell>
-                      <StaticCell title="Transit" hasBorderScale={[true]}>
-                        <p>{ (fetchingContent) ? 'Loading...' : riseSet.transit }</p>
+                      <StaticCell title={intl.formatMessage(messages.Transit)} hasBorderScale={[true]}>
+                        <p>{ (fetchingContent) ? `${intl.formatMessage(messages.Loading)}...` : riseSet.transit }</p>
                       </StaticCell>
-                      <StaticCell title="Set">
-                        <p>{ (fetchingContent) ? 'Loading...' : riseSet.set }</p>
+                      <StaticCell title={intl.formatMessage(messages.Set)}>
+                        <p>{ (fetchingContent) ? `${intl.formatMessage(messages.Loading)}...` : riseSet.set }</p>
                       </StaticCell>
                     </Row>
                     <Row>
-                      <StaticCell title="Notes">
-                        <p>{ (fetchingContent) ? 'Loading...' : riseSet.notes }</p>
+                      <StaticCell title={intl.formatMessage(messages.Notes)}>
+                        <p>{ (fetchingContent) ? `${intl.formatMessage(messages.Loading)}...` : riseSet.notes }</p>
                       </StaticCell>
                     </Row>
                   </form>
@@ -249,16 +252,18 @@ class ObjectVisibilityProfile extends Component {
                   guideSubTitle={riseSet.guideSubTitle}
                 />
               </div>
-              }
+              )}
               <style jsx>{style}</style>
             </div>
-        );
-      }}
+          );
+        }}
     />
     );
   }
 }
 
-ObjectVisibilityProfile.propTypes = {};
+ObjectVisibilityProfile.propTypes = {
+  intl: intlShape.isRequired,
+};
 
-export default ObjectVisibilityProfile;
+export default injectIntl(ObjectVisibilityProfile);
