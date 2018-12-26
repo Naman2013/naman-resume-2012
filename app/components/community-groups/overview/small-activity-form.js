@@ -1,19 +1,17 @@
-/***********************************
-* V4 Community Group Activity Form
-*
-*
-*
-***********************************/
+/** *********************************
+ * V4 Community Group Activity Form
+ *
+ *
+ *
+ ********************************** */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { intlShape, injectIntl } from 'react-intl';
 
 import RevealSubmitForm from 'components/common/RevealSubmitForm';
+import messages from './activity-form.messages';
 
-const {
-  bool,
-  number,
-  string,
-} = PropTypes;
+const { bool, number, string } = PropTypes;
 
 class SmallActivityForm extends Component {
   static propTypes = {
@@ -22,42 +20,51 @@ class SmallActivityForm extends Component {
     canPost: bool,
     placeholder: string,
     uuid: string,
-  }
+    intl: intlShape.isRequired,
+  };
+
   static defaultProps = {
     topicId: 0,
     forumId: 0,
+    placeholder: '',
     canPost: false,
-    placeholder: 'Write something...',
     uuid: null,
-  }
+  };
 
-  state = {
-  }
+  state = {};
 
   submitForm = (content, S3URLs, callback) => {
-    const {
-      topicId,
-      forumId,
-    } = this.props;
+    const { topicId, forumId, intl } = this.props;
 
-    this.props.createThread({
-      S3URLs,
-      content,
-      topicId,
-      forumId,
-    }).then((data) => {
-      const message = data.apiError ? 'There was an error submitting your post.' : 'Your post has been submitted';
-      callback(data.apiError, message)
-    });
-  }
+    this.props
+      .createThread({
+        S3URLs,
+        content,
+        topicId,
+        forumId,
+      })
+      .then((data) => {
+        const message = data.apiError
+          ? intl.formatMessage(messages.SubmitPostError)
+          : intl.formatMessage(messages.PostSubmitted);
+        callback(data.apiError, message);
+      });
+  };
 
   render() {
+    const { placeholder, intl } = this.props;
+    const formPlaceholder = placeholder || `${intl.formatMessage(messages.WriteSomething)}...`;
+
     return (
       <div className="root">
-        <RevealSubmitForm {...this.props} submitForm={this.submitForm} />
+        <RevealSubmitForm
+          {...this.props}
+          submitForm={this.submitForm}
+          placeholder={formPlaceholder}
+        />
       </div>
-    )
+    );
   }
 }
 
-export default SmallActivityForm;
+export default injectIntl(SmallActivityForm);

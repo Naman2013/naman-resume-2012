@@ -8,6 +8,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import pick from 'lodash/pick';
+import { FormattedMessage } from 'react-intl';
 import LabeledTitleTiles from 'components/common/style/LabeledTitleTiles';
 import LargeButtonWithRightIcon from 'components/common/style/buttons/LargeButtonWithRightIcon';
 import Button from 'components/common/style/buttons/Button';
@@ -20,6 +21,7 @@ import {
 } from 'styles/variables/breakpoints';
 import { dropShadowContainer } from 'styles/mixins/utilities';
 import DiscussionBoardDescription from 'components/common/DiscussionsBoard/DiscussionBoardDescription';
+import messages from './activity-form.messages';
 
 const {
   string,
@@ -63,13 +65,15 @@ const GroupsHeader = ({
       </div>
     </div>
 
-    {!condensed ? (<div className="info-container">
-      <div className="info-inner-container">
-        <div className="groups-header-subtitle">Community Group</div>
-        <div className="groups-header-title" dangerouslySetInnerHTML={{ __html: title }} />
-        <DiscussionBoardDescription groupId={discussionGroupId} description={description} canEdit={canEditGroup} />
+    {!condensed ? (
+      <div className="info-container">
+        <div className="info-inner-container">
+          <div className="groups-header-subtitle"><FormattedMessage {...messages.CommunityGroup} /></div>
+          <div className="groups-header-title" dangerouslySetInnerHTML={{ __html: title }} />
+          <DiscussionBoardDescription groupId={discussionGroupId} description={description} canEdit={canEditGroup} />
+        </div>
       </div>
-    </div>) : null}
+    ) : null}
 
     <style jsx>{`
       .root {
