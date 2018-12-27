@@ -43,8 +43,10 @@ export const customModalStyles = {
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)',
     maxWidth: '650px',
-    padding: '50px 25px',
+    padding: '25px',
+    width: '90vw',
     fontFamily: primaryFont,
+    borderRadius: '0px',
   },
   overlay: {
     backgroundColor: 'rgba(255, 255, 255, 0)',
