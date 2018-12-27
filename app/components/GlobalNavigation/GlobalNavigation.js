@@ -2,17 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import has from 'lodash/has';
 import Request from 'components/common/network/Request';
+import { DeviceContext } from 'providers/DeviceProvider';
 import BootstrappedGlobalNavigation from './BootstrappedGlobalNavigation';
 import { GET_MAIN_NAVIGATION } from 'services/navigation';
 
 const {
-  bool,
-  number,
-  oneOfType,
-  shape,
-  string,
+  bool, number, oneOfType, shape, string,
 } = PropTypes;
-
 
 const userMenuModel = {
   name: 'USER_MENU',
@@ -30,30 +26,30 @@ const mainMenuModel = {
   }),
 };
 
-
 const GlobalNavigation = () => (
   <Request
     serviceURL={GET_MAIN_NAVIGATION}
     method="POST"
     serviceExpiresFieldName="expires"
-    models={[
-      userMenuModel,
-      mainMenuModel,
-    ]}
+    models={[userMenuModel, mainMenuModel]}
     render={({
       fetchingContent,
       // serviceResponse,
       modeledResponses: { USER_MENU, MAIN_MENU },
     }) => (
       <div>
-        {<BootstrappedGlobalNavigation
-          userMenu={USER_MENU}
-          mainMenu={MAIN_MENU}
-        />}
+        <DeviceContext.Consumer>
+          {context => (
+            <BootstrappedGlobalNavigation
+              userMenu={USER_MENU}
+              mainMenu={MAIN_MENU}
+              isMobile={context.isMobile}
+            />
+          )}
+        </DeviceContext.Consumer>
       </div>
     )}
   />
 );
-
 
 export default GlobalNavigation;
