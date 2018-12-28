@@ -1,0 +1,52 @@
+export const Ecommerce = {
+  'Ecommerce.ForgotPasswordError':
+    'Please enter in an email address and then click Forgot Your Password again.',
+  'Ecommerce.ForgotPasswordRequest': 'Please Wait...Processing your Forgot Password Request.',
+  'Ecommerce.LoginFailed': 'Login Failed. Please check your credentials.',
+  'Ecommerce.Close': 'Close',
+  'Ecommerce.Email': 'Email Address',
+  'Ecommerce.Password': 'Password',
+  'Ecommerce.SignWithEmail': 'Sign in with email',
+  'Ecommerce.DontHaveAccount': "Don't have an account?",
+  'Ecommerce.JoinSloohToday': 'Join Slooh Today',
+  'Ecommerce.HaveAnInvintationCode': 'Have an Invitation Code?',
+  'Ecommerce.Step1': 'Step 1',
+  'Ecommerce.Step2': 'Step 2',
+  'Ecommerce.Step3': 'Step 3',
+  'Ecommerce.Step4': 'Step 4',
+  'Ecommerce.PlanDetails': 'Plan Details',
+  'Ecommerce.PleaseEnterEmail': 'Please enter in your email address.',
+  'Ecommerce.PleaseEnterInvitationCode': 'Please enter in your invitation code.',
+  'Ecommerce.GoBack': 'Go Back',
+  'Ecommerce.Continue': 'Continue',
+  'Ecommerce.JoinMainHeader': 'Joining Slooh is easy!',
+  'Ecommerce.JoinSubHeader':
+    "Join Slooh in three easy steps! Simply select a plan, enter your details, make your payment and you're in!",
+  'Ecommerce.EmailRequierMessage': 'Please enter in your email address.',
+  'Ecommerce.EmailsDontMatchMessage':
+    'The Login Email Address and the Login Email Verification fields must match.',
+  'Ecommerce.FirstNameRequierMessage': 'Please enter in your first name.',
+  'Ecommerce.LastNameRequierMessage': 'Please enter in your last name.',
+  'Ecommerce.AstronomyClubRequierMessage': 'Please enter in a name for your Astronomy Club.',
+  'Ecommerce.AgeRequierMessage': 'You must certify whether you are 13 years and older.',
+  'Ecommerce.MinAgeErrorMessage':
+    'You have indicated you are under 13 years old, please certify that your Legal Guardian has signed you up for this service.',
+  'Ecommerce.ParentEmailRequierMessage':
+    "You have indicated you are under 13 years old, please enter in your Legal Guardian's Email Address.",
+  'Ecommerce.PasswordRequierMessage': 'Please enter in a password.',
+  'Ecommerce.PasswordsDontMatchMessage':
+    'Your password and the password you entered into the verification field must match.',
+  'Ecommerce.YourSchool': 'Your School',
+  'Ecommerce.YourSchoolDistrict': 'Your School District',
+  'Ecommerce.Yes': 'Yes',
+  'Ecommerce.No': 'No',
+  'Ecommerce.GoToPayment': 'Go to payment',
+  'Ecommerce.SignupRequestExpireTime': 'This signup request will expire in {minutes}:{seconds}.',
+  'Ecommerce.SignupRequestExpiered':
+    'Signup request expired...redirecting to the homepage in 00:{seconds}.',
+  'Ecommerce.JoinSlooh': 'Join Slooh!',
+  'Ecommerce.JoinSloohTrial': 'Join today and get a 14 day free trial',
+  'Ecommerce.JoinNow': 'Join Now',
+  'Ecommerce.Login': 'Login',
+  'Ecommerce.Home': 'Home',
+};

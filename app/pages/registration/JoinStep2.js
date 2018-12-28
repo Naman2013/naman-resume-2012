@@ -9,6 +9,7 @@ import axios from 'axios';
 import { GoogleLogin } from 'react-google-login';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
+import { intlShape, injectIntl, FormattedMessage } from 'react-intl';
 import cloneDeep from 'lodash/cloneDeep';
 import noop from 'lodash/noop';
 import InputField from 'components/form/InputField';
@@ -30,6 +31,7 @@ import {
   VALIDATE_NEW_PENDING_CUSTOMER_DETAILS_ENDPOINT_URL
 } from 'services/registration/registration.js';
 import styles from './JoinStep2.style';
+import messages from './JoinStep2.messages';
 
 const {
   string,
@@ -40,7 +42,9 @@ class JoinStep2 extends Component {
   static propTypes = {
     pathname: string.isRequired,
     change: func,
+    intl: intlShape.isRequired,
   };
+
   static defaultProps = {
     change: noop,
   };
@@ -218,6 +222,8 @@ class JoinStep2 extends Component {
       accountCreationType,
     } = this.state;
 
+    const { intl } = this.props;
+
     const accountFormDetailsData = cloneDeep(accountFormDetails);
 
     /* reset the error conditions */
@@ -242,23 +248,23 @@ class JoinStep2 extends Component {
         */
 
       if (accountFormDetailsData.givenName.value === '') {
-        accountFormDetailsData.givenName.errorText = 'Please enter in your first name.';
+        accountFormDetailsData.givenName.errorText = intl.formatMessage(messages.FirstNameRequierMessage);
         formIsComplete = false;
       }
 
       if (accountFormDetailsData.familyName.value === '') {
-        accountFormDetailsData.familyName.errorText = 'Please enter in your last name.';
+        accountFormDetailsData.familyName.errorText = intl.formatMessage(messages.LastNameRequierMessage);
         formIsComplete = false;
       }
 
       if (accountFormDetailsData.loginEmailAddress.value === '') {
-        accountFormDetailsData.loginEmailAddress.errorText = 'Please enter in your email address.';
+        accountFormDetailsData.loginEmailAddress.errorText = intl.formatMessage(messages.EmailRequierMessage);
         formIsComplete = false;
       } else {
         /* verify the email address and the verification email address fields match */
         accountFormDetailsData.loginEmailAddress.errorText = '';
         if (accountFormDetailsData.loginEmailAddress.value !== accountFormDetailsData.loginEmailAddressVerification.value) {
-          accountFormDetailsData.loginEmailAddressVerification.errorText = 'The Login Email Address and the Login Email Verification fields must match.';
+          accountFormDetailsData.loginEmailAddressVerification.errorText = intl.formatMessage(messages.EmailsDontMatchMessage);
           formIsComplete = false;
         }
       }
@@ -271,12 +277,12 @@ class JoinStep2 extends Component {
       */
 
       if (accountFormDetailsData.givenName.value === '') {
-        accountFormDetailsData.givenName.errorText = 'Please enter in your first name.';
+        accountFormDetailsData.givenName.errorText = intl.formatMessage(messages.FirstNameRequierMessage);
         formIsComplete = false;
       }
 
       if (accountFormDetailsData.familyName.value === '') {
-        accountFormDetailsData.familyName.errorText = 'Please enter in your last name.';
+        accountFormDetailsData.familyName.errorText = intl.formatMessage(messages.LastNameRequierMessage);
         formIsComplete = false;
       }
     }
@@ -284,7 +290,7 @@ class JoinStep2 extends Component {
     /* Special Verifications if this is an Astronomy Club */
     if (this.state.isAstronomyClub) {
       if (accountFormDetailsData.astronomyClubName.value === '') {
-        accountFormDetailsData.astronomyClubName.errorText = 'Please enter in a name for your Astronomy Club.';
+        accountFormDetailsData.astronomyClubName.errorText = intl.formatMessage(messages.AstronomyClubRequierMessage);
         formIsComplete = false;
       }
     }
@@ -292,19 +298,19 @@ class JoinStep2 extends Component {
     if (this.state.isAgeRestricted === true) {
       /* Make sure that the 13/Older indicator is selected with a value */
       if (accountFormDetailsData.is13YearsAndOlder.value === null) {
-        accountFormDetailsData.is13YearsAndOlder.errorText = 'You must certify whether you are 13 years and older.';
+        accountFormDetailsData.is13YearsAndOlder.errorText = intl.formatMessage(messages.AgeRequierMessage);
         formIsComplete = false;
       }
       else if (accountFormDetailsData.is13YearsAndOlder.value === false) {
         //make sure the user has certified that they have their Legal Guardian's permission to sign up.
         if (accountFormDetailsData.not13YearsOldLegalGuardianOk.value === false) {
-          accountFormDetailsData.not13YearsOldLegalGuardianOk.errorText = 'You have indicated you are under 13 years old, please certify that your Legal Guardian has signed you up for this service.';
+          accountFormDetailsData.not13YearsOldLegalGuardianOk.errorText = intl.formatMessage(messages.MinAgeErrorMessage);
           formIsComplete = false;
         }
 
         //make sure the parent email address field is filled in.
         if (accountFormDetailsData.parentEmailAddress.value === '') {
-          accountFormDetailsData.parentEmailAddress.errorText = 'You have indicated you are under 13 years old, please enter in your Legal Guardian\'s Email Address.';
+          accountFormDetailsData.parentEmailAddress.errorText = intl.formatMessage(messages.ParentEmailRequierMessage);
           formIsComplete = false;
         }
       }
@@ -312,13 +318,13 @@ class JoinStep2 extends Component {
 
     /* a password is assigned to a Google account even though they can sign-in using google, this way they can login without google if needed */
     if (accountFormDetailsData.password.value === '') {
-      accountFormDetailsData.password.errorText = 'Please enter in a password.';
+      accountFormDetailsData.password.errorText = intl.formatMessage(messages.PasswordRequierMessage);
       formIsComplete = false;
     } else {
       /* verify the password and the verification password fields match */
       accountFormDetailsData.password.errorText = '';
       if (accountFormDetailsData.password.value !== accountFormDetailsData.passwordVerification.value) {
-        accountFormDetailsData.passwordVerification.errorText = 'Your password and the password you entered into the verification field must match.';
+        accountFormDetailsData.passwordVerification.errorText = intl.formatMessage(messages.PasswordsDontMatchMessage);
         formIsComplete = false;
       }
     }
@@ -570,8 +576,10 @@ class JoinStep2 extends Component {
 
                         {joinPageRes.hasSelectedSchool === "yes" && <div>
                           <br/>
-                          <p>Your School: {joinPageRes.selectedSchool.schoolName}</p>
-                          <p style={{'fontSize': '1.0em'}}>Your School District: {joinPageRes.selectedSchool.districtName}</p>
+                          <p><FormattedMessage {...messages.YourSchool} />: {joinPageRes.selectedSchool.schoolName}</p>
+                          <p style={{'fontSize': '1.0em'}}>
+                            <FormattedMessage {...messages.YourSchoolDistrict} />: {joinPageRes.selectedSchool.districtName}
+                          </p>
                           <br/>
                           <br/>
                         </div>
@@ -641,8 +649,14 @@ class JoinStep2 extends Component {
                               <br/>
                               <br/>
                               <fieldset>
-                                <label><Field name="13andOlder" label="Yes" component="input" type="radio" value="13andolder"  onClick={(event) => { this.handleFieldChange({ field: 'is13YearsAndOlder', value: true }); }}/> Yes</label>
-                                <span style={{"paddingLeft": "15px"}}><label><Field name="13andOlder" label="No" component="input" type="radio" value="under13" onClick={(event) => { this.handleFieldChange({ field: 'is13YearsAndOlder', value: false }); }}/> No</label></span>
+                                <label><Field name="13andOlder" label="Yes" component="input" type="radio" value="13andolder"  onClick={(event) => { this.handleFieldChange({ field: 'is13YearsAndOlder', value: true }); }}/>
+                                  {' '}<FormattedMessage {...messages.Yes} />
+                                </label>
+                                <span style={{"paddingLeft": "15px"}}>
+                                  <label><Field name="13andOlder" label="No" component="input" type="radio" value="under13" onClick={(event) => { this.handleFieldChange({ field: 'is13YearsAndOlder', value: false }); }}/> 
+                                    <FormattedMessage {...messages.No} />
+                                  </label>
+                                </span>
                               </fieldset>
                             </div>
                             <br/>
@@ -812,7 +826,8 @@ class JoinStep2 extends Component {
                             <button
                               className="submit-button"
                               type="submit"
-                            >Go to payment
+                            >
+                              <FormattedMessage {...messages.GoToPayment} />
                             </button>
 
                           </div>
@@ -839,4 +854,4 @@ const joinStep2Validation = createValidator({
   username: [required],
 });
 
-export default connect(mapStateToProps, null)(reduxForm({ form: 'joinAccountForm', validate: joinStep2Validation, enableReinitialize: true, })(JoinStep2));
+export default connect(mapStateToProps, null)(reduxForm({ form: 'joinAccountForm', validate: joinStep2Validation, enableReinitialize: true, })(injectIntl(JoinStep2)));

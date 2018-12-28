@@ -21,13 +21,4 @@ export const Dashboard = {
   'Dashboard.DontHaveAccount': "Don't have an account?",
   'Dashboard.JoinSloohToday': 'Join Slooh Today',
   'Dashboard.HaveAnInvintationCode': 'Have an Invitation Code?',
-  'Dashboard.Step1': 'Step 1',
-  'Dashboard.Step2': 'Step 2',
-  'Dashboard.Step3': 'Step 3',
-  'Dashboard.Step4': 'Step 4',
-  'Dashboard.PlanDetails': 'Plan Details',
-  'Dashboard.PleaseEnterEmail': 'Please enter in your email address.',
-  'Dashboard.PleaseEnterInvitationCode': 'Please enter in your invitation code.',
-  'Dashboard.GoBack': 'Go Back',
-  'Dashboard.Continue': 'Continue',
 };

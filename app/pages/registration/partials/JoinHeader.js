@@ -1,9 +1,11 @@
 import React, { Component, cloneElement } from 'react';
 import { browserHistory } from 'react-router';
 import PropTypes from 'prop-types';
+import { FormattedMessage } from 'react-intl';
 import TabbedNav from 'components/TabbedNav';
 import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
 import styles from './JoinHeader.style';
+import messages from './JoinHeader.messages';
 
 const {
   string,
@@ -27,8 +29,8 @@ class JoinHeader extends Component {
   static defaultProps = {
     tabs: [],
     activeTab: '/join/step1',
-    mainHeading: 'Joining Slooh is easy!',
-    subHeading: 'Join Slooh in three easy steps! Simply select a plan, enter your details, make your payment and you\'re in!',
+    mainHeading: <FormattedMessage {...messages.JoinMainHeader} />,
+    subHeading: <FormattedMessage {...messages.JoinSubHeader} />,
   }
 
 

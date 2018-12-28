@@ -10,6 +10,7 @@ import cloneDeep from 'lodash/cloneDeep';
 import Button from 'components/common/style/buttons/Button';
 import { browserHistory } from 'react-router';
 import { Field, reduxForm } from 'redux-form';
+import { intlShape, injectIntl, FormattedMessage } from 'react-intl';
 import InputField from 'components/form/InputField';
 import { FORGOT_PASSWORD_CONFIRMRESETTOKEN_ENDPOINT_URL, FORGOT_PASSWORD_CHANGEPASSWORD_ENDPOINT_URL } from 'services/registration/registration.js';
 import axios from 'axios';
@@ -21,9 +22,8 @@ import LargeButtonWithRightIcon from 'components/common/style/buttons/LargeButto
 import { nightfall, astronaut, romance, shadows } from 'styles/variables/colors_tiles_v4';
 import{ horizontalArrowRightWhite } from 'styles/variables/iconURLs';
 
+import messages from './ResetPassword.messages';
 import styles from './JoinStep1SchoolSelection.style';
-
-
 
 const {
   string,
@@ -32,7 +32,9 @@ const {
 class ResetPassword extends Component {
   static propTypes = {
     pathname: string,
+    intl: intlShape.isRequired,
   };
+
   static defaultProps = {
     // pathname: '/join/step1',
     pathname: 'join/resetPassword',
@@ -120,13 +122,13 @@ class ResetPassword extends Component {
 
     /* a password is assigned to a Google account even though they can sign-in using google, this way they can login without google if needed */
     if (passwordFormData.password.value === '') {
-      passwordFormData.password.errorText = 'Please enter in a password.';
+      passwordFormData.password.errorText = this.props.intl.formatMessage(messages.PasswordRequierMessage);
       formIsComplete = false;
     } else {
       /* verify the password and the verification password fields match */
       passwordFormData.password.errorText = '';
       if (passwordFormData.password.value !== passwordFormData.passwordverification.value) {
-        passwordFormData.passwordverification.errorText = 'Your password and the password you entered into the verification field must match.';
+        passwordFormData.passwordverification.errorText = this.props.intl.formatMessage(messages.PasswordsDontMatchMessage);
         formIsComplete = false;
       }
     }
@@ -182,6 +184,7 @@ class ResetPassword extends Component {
   render() {
     const {
       pathname,
+      intl,
     } = this.props;
 
     const {
@@ -227,7 +230,7 @@ class ResetPassword extends Component {
                               color: romance,
                               border: 0,
                             }}
-                            text="Login"
+                            text={intl.formatMessage(messages.Login)}
                             onClickEvent={this.launchLogin}
                           />
                         </div>
@@ -243,7 +246,7 @@ class ResetPassword extends Component {
                               color: romance,
                               border: 0,
                             }}
-                            text="Home"
+                            text={intl.formatMessage(messages.Home)}
                             onClickEvent={this.cancelAndGoHome}
                           />
 
@@ -285,7 +288,8 @@ class ResetPassword extends Component {
                             <button
                               className="submit-button"
                               type="submit"
-                            >Continue
+                            >
+                              <FormattedMessage {...messages.Continue} />
                             </button>
 
                           </div>
@@ -309,4 +313,4 @@ const mapStateToProps = ({ resetPasswordForm }) => ({
   resetPasswordForm: resetPasswordForm,
 });
 
-export default connect(mapStateToProps, null)(reduxForm({ form: 'resetPasswordForm', enableReinitialize: true, })(ResetPassword));
+export default connect(mapStateToProps, null)(reduxForm({ form: 'resetPasswordForm', enableReinitialize: true, })(injectIntl(ResetPassword)));
