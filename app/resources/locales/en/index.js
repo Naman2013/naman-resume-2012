@@ -6,3 +6,6 @@ export * from './Hubs';
 export * from './Stories';
 export * from './Quests';
 export * from './Shows';
+export * from './Clubs';
+export * from './Objects';
+export * from './Ecommerce';

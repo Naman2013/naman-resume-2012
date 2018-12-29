@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import Countdown from 'react-countdown-now';
 import { browserHistory } from 'react-router';
 import axios from 'axios';
+import { FormattedMessage } from 'react-intl';
 import { resetLogIn, logUserIn, logGoogleUserIn } from 'modules/login/actions';
 import Request from 'components/common/network/Request';
 import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
@@ -19,6 +20,7 @@ import PlanDetailsCard from './partials/PlanDetailsCard';
 import { DEFAULT_JOIN_TABS } from './StaticNavTabs';
 
 import styles from './JoinStep3.style';
+import messages from './JoinStep3.messages';
 
 
 const propTypes = {
@@ -156,7 +158,11 @@ class JoinStep3 extends Component  {
       return <Countdown date={Date.now() + this.state.redirectInXSecondsOnExpiredSignupRequest} renderer={this.CountdownExpiredRenderer} onComplete={this.CountdownExpiredComplete}/>;
     }
     // Render a countdown
-    return <p style={{'fontSize': '1.3em', 'color': 'green'}}>This signup request will expire in {minutes}:{seconds}.</p>;
+    return (
+      <p style={{'fontSize': '1.3em', 'color': 'green'}}>
+        <FormattedMessage {...messages.SignupRequestExpireTime} values={{ minutes: minutes, seconds: seconds }} />
+      </p>
+    );
   };
 
   CountdownExpiredRenderer = ({
@@ -165,7 +171,11 @@ class JoinStep3 extends Component  {
   }) => {
     if (!completed) {
       // Render a countdown to redirect to the homepage
-      return <p style={{'fontSize': '1.3em', 'fontWeight': 'bold', 'color': 'red'}}>Signup request expired...redirecting to the homepage in 00:{seconds}.</p>;
+      return (
+        <p style={{'fontSize': '1.3em', 'fontWeight': 'bold', 'color': 'red'}}>
+          <FormattedMessage {...messages.SignupRequestExpireTime} values={{ seconds }} />
+        </p>
+      );
     }
   };
 
