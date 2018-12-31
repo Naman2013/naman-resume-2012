@@ -11,9 +11,12 @@ import Footer from '../components/Footer';
 import { fetchEvents } from '../modules/upcoming-events/upcoming-events-actions';
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({
-    fetchEvents,
-  }, dispatch);
+  return bindActionCreators(
+    {
+      fetchEvents,
+    },
+    dispatch,
+  );
 }
 
 function mapStateToProps({ isLanding }) {
@@ -22,7 +25,10 @@ function mapStateToProps({ isLanding }) {
   };
 }
 
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)
 class App extends Component {
   static propTypes = {
     isLanding: PropTypes.bool,
@@ -42,10 +48,7 @@ class App extends Component {
   render() {
     const { isLanding } = this.props;
     return (
-      <div
-        style={{ overflow: 'hidden' }}
-        className={`wrapper ${isLanding ? 'is-landing' : null}`}
-      >
+      <div style={{ overflow: 'hidden' }} className={`wrapper ${isLanding ? 'is-landing' : null}`}>
         <DeviceProvider>
           <PageMetaManagement />
 
@@ -54,17 +57,21 @@ class App extends Component {
           </nav>
 
           <section className="app-content-container clearfix v4">
-            <div className="clearfix">
-              { this.props.children }
-            </div>
+            <div className="clearfix">{this.props.children}</div>
           </section>
           <Footer />
         </DeviceProvider>
-        <style jsx>{`
-          .v4 {
-            margin-top: 60px !important;
-          }
-          `}</style>
+        <style jsx>
+          {`
+            .v4 {
+              margin-top: 60px !important;
+            }
+            .navigation {
+              position: relative;
+              z-index: 10;
+            }
+          `}
+        </style>
       </div>
     );
   }
