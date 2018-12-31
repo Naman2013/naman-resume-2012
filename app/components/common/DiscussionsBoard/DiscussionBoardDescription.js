@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+import { intlShape, injectIntl } from 'react-intl'
 import { DeviceContext } from 'providers/DeviceProvider';
 import cloneDeep from 'lodash/cloneDeep';
 import TextareaField from 'components/form/TextareaField';
@@ -16,6 +17,7 @@ import {
   screenLarge,
 } from 'styles/variables/breakpoints';
 import { CLASSROOM_SET_GROUP_DESCRIPTION_ENDPOINT_URL } from 'services/classroom/classroom';
+import messages from './DiscussionBoard.messages';
 
 const {
   any,
@@ -40,6 +42,7 @@ class DiscussionBoardDescription extends Component {
     groupId: string,
     description: string,
     canEdit: bool,
+    intl: intlShape.isRequired,
   };
 
   static defaultProps = {
@@ -112,6 +115,7 @@ class DiscussionBoardDescription extends Component {
   render() {
     const {
       canEdit,
+      intl,
     } = this.props;
 
     const {
@@ -134,14 +138,14 @@ class DiscussionBoardDescription extends Component {
             {inEditMode && canEdit && <div className="button-actions">
               <Button
                 type="button"
-                text="Cancel"
+                text={intl.formatMessage(messages.Cancel)}
                 onClickEvent={this.cancelEditMode} />
 
               <Button
                 className="submit-button"
                 type="submit"
                 onClickEvent={this.handleSubmit}
-                text="Save Changes"
+                text={intl.formatMessage(messages.SaveChanges)}
               />
             </div>}
 
@@ -151,7 +155,7 @@ class DiscussionBoardDescription extends Component {
         {!inEditMode && canEdit && <div className="button-actions">
           <Button
             type="button"
-            text="Edit Description"
+            text={intl.formatMessage(messages.EditDescription)}
             onClickEvent={this.enableEditMode}
             />
         </div>}
@@ -187,4 +191,4 @@ const mapStateToProps = ({ user, editGroupDescriptionForm }) => ({
   editGroupDescriptionForm,
 });
 
-export default connect(mapStateToProps, null)(reduxForm({ form: 'editGroupDescriptionForm', enableReinitialize: true, })(DiscussionBoardDescription));
+export default connect(mapStateToProps, null)(reduxForm({ form: 'editGroupDescriptionForm', enableReinitialize: true, })(injectIntl(DiscussionBoardDescription)));

@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import classnames from 'classnames';
 import uniqueId from 'lodash/uniqueId';
-import { FormatedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import WinstonTile from 'components/common/tiles/WinstonTile';
 
 import styles from './RelatedShows.style';
@@ -43,7 +43,7 @@ class BootstrappedRelatedShows extends Component {
     return (
       <div className="root">
         <div className="related-shows-title">
-          <FormatedMessage {...messages.RelatedShows} />{' '}
+          <FormattedMessage {...messages.RelatedShows} />{' '}
           <span className="related-shows-count">({showCount})</span>
         </div>
         {showList.length > 0 ? (

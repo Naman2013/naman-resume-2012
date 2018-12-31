@@ -6,12 +6,14 @@
 ***********************************/
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { intlShape, injectIntl } from 'react-intl';
 import FormHeader from 'components/common/FormHeader';
 import SingleFieldSubmitForm from 'components/common/SingleFieldSubmitForm';
 import RevealSubmitForm from 'components/common/RevealSubmitForm';
 import { prepareReply } from 'services/discussions/prepare-reply';
 import { romance, astronaut, shadows } from 'styles/variables/colors_tiles_v4';
 import { dropShadowContainer } from 'styles/mixins/utilities';
+import messages from './ReplyForm.messages';
 
 const {
   arrayOf,
@@ -51,6 +53,7 @@ class ReplyForm extends Component {
       token: oneOfType([number, string]),
       cid: oneOfType([number, string]),
     }),
+    intl: intlShape.isRequired,
   }
 
   constructor(props) {
@@ -98,7 +101,8 @@ class ReplyForm extends Component {
   }
 
   handleSubmitReply = (data, callback) => {
-    const message = data.apiError ? 'There was an error submitting your comment.' : 'Your comment has been submitted';
+    const { intl } = this.props;
+    const message = data.apiError ? intl.formatMessage(messages.CommentErrorText) : intl.formatMessage(messages.CommentSuccessText);
     callback(data.apiError, message);
   }
 
@@ -129,4 +133,4 @@ class ReplyForm extends Component {
   }
 }
 
-export default ReplyForm;
+export default injectIntl(ReplyForm);

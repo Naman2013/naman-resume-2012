@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import noop from 'lodash/noop';
+import { FormattedMessage } from 'react-intl';
 import AskQuestionTile from 'components/ask-astronomer/AskQuestionTile';
 import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
 import MVPAstronomerList from 'components/common/MVPAstronomer/MVPAstronomerList';
 import styles from '../AskAstronomer.style';
+import messages from './AsideContainer.messages';
 
 const {
   arrayOf,
@@ -40,14 +42,18 @@ const AsideContainer = ({
     </DisplayAtBreakpoint>
     <div className="mvp">
       <div className="mvp-header">
-        <h1>THIS OBJECT’S</h1>
-        <h2>MVP ASTRONOMERS</h2>
+        <h1>
+          <FormattedMessage {...messages.MVPHeader1} />
+        </h1>
+        <h2>
+          <FormattedMessage {...messages.MVPHeader2} />
+        </h2>
       </div>
       {objectSpecialists && objectSpecialists.specialistsCount > 0 ? (
         <MVPAstronomerList {...objectSpecialists} />
       ) : (
         <div className="card-container__specialists">
-          Sorry, there are no MVP Astronomers available.
+          <FormattedMessage {...messages.NoMVP} />
         </div>
       )}
     </div>

@@ -10,6 +10,7 @@ import moment from 'moment';
 import { likeReply } from '../../services/discussions/like';
 import Heart from '../common/heart/heart';
 import noop from 'lodash/noop';
+import { intlShape, injectIntl } from 'react-intl';
 import Card from 'components/ask-astronomer/Card';
 import GenericButton from '../common/style/buttons/Button';
 import LikeButton from '../common/style/buttons/LikeButton';
@@ -21,7 +22,8 @@ import { avatarImgStyle } from './styles';
 import { black, darkBlueGray, white, turqoise } from '../../styles/variables/colors';
 import { secondaryFont } from '../../styles/variables/fonts';
 
-import style from './AnswerListItem.style.js';
+import style from './AnswerListItem.style';
+import messages from './answer-list-item.messages';
 
 
 const {
@@ -52,10 +54,11 @@ const AnswerListItem = (props) => {
     toggleAllAnswerReplies,
     topicId,
     user,
+    intl,
   } = props;
   return (
     <div className="answer-list-item">
-      {isTopAnswer && <div className="top-answer">Top Answer</div>}
+      {isTopAnswer && <div className="top-answer">{intl.formatMessage(messages.TopAnswer)}</div>}
       <Card
         {...props.answer}
         topicId={topicId}
@@ -66,7 +69,7 @@ const AnswerListItem = (props) => {
         likeHandler={likeReply}
         likeParams={likeParams}
         modalActions={modalActions}
-        commentText="Replies"
+        commentText={intl.formatMessage(messages.Replies)}
         showComments={showAllReplies}
         submitReply={submitReply}
         user={user}
@@ -76,7 +79,7 @@ const AnswerListItem = (props) => {
           replyTo={answer.replyId}
           submitForm={submitReply}
           modalActions={modalActions}
-          replyButtonText="Reply"
+          replyButtonText={intl.formatMessage(messages.Reply)}
           user={user}
           topicId={topicId}
           objectId={objectId}
@@ -159,6 +162,7 @@ AnswerListItem.propTypes = {
   toggleAllAnswerReplies: func.isRequired,
   toggleAnswers: func.isRequired,
   topicId: number.isRequired,
+  intl: intlShape.isRequired,
 };
 
-export default AnswerListItem;
+export default injectIntl(AnswerListItem);

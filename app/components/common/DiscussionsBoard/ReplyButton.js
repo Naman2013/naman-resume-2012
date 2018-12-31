@@ -6,10 +6,12 @@
 ***********************************/
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { intlShape, injectIntl } from 'react-intl';
 import Button from 'components/common/style/buttons/Button';
 import RevealSubmitForm from 'components/common/RevealSubmitForm';
 import { romance, astronaut, shadows } from 'styles/variables/colors_tiles_v4';
 import { dropShadowContainer } from 'styles/mixins/utilities';
+import messages from './ReplyForm.messages';
 
 const {
   arrayOf,
@@ -48,6 +50,7 @@ class ReplyButton extends Component {
       token: oneOfType([number, string]),
       cid: oneOfType([number, string]),
     }),
+    intl: intlShape.isRequired,
   }
 
 
@@ -77,7 +80,8 @@ class ReplyButton extends Component {
   }
 
   handleSubmitReply = (data, callback) => {
-    const message = data.apiError ? 'There was an error submitting your comment.' : 'Your comment has been submitted';
+    const { intl } = this.props;
+    const message = data.apiError ? intl.formatMessage(messages.CommentErrorText) : intl.formatMessage(messages.CommentSuccessText);
     callback(data.apiError, message);
   }
 
@@ -86,18 +90,19 @@ class ReplyButton extends Component {
       avatarURL,
       isDesktop,
       user,
+      intl,
     } = this.props;
     return (
       <div className="reply-form-container">
         <RevealSubmitForm
           {...this.props}
           submitForm={this.submitForm}
-          placeholder="Write a public comment"
-          revealButtonRender={btnProps => <Button text="Reply" onClickEvent={btnProps.displayForm} />}
+          placeholder={intl.formatMessage(messages.PublicCommentPlaceholder)}
+          revealButtonRender={btnProps => <Button text={intl.formatMessage(messages.Reply)} onClickEvent={btnProps.displayForm} />}
         />
       </div>
     );
   }
 }
 
-export default ReplyButton;
+export default injectIntl(ReplyButton);

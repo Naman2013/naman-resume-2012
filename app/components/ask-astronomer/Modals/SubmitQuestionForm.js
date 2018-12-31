@@ -8,12 +8,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { browserHistory } from 'react-router';
+import { intlShape, injectIntl } from 'react-intl';
 import Button from 'components/common/style/buttons/Button';
 import PhotoUploadButton from 'components/common/style/buttons/PhotoUploadButton';
 import deletePostImage from 'services/post-creation/delete-post-image';
 import setPostImages from 'modules/set-post-images';
 import { prepareThread } from 'services/discussions/prepare-thread';
 import styles from './Modals.style'
+import messages from './SubmitQuestionForm.messages'
 
 const {
   any,
@@ -40,13 +42,12 @@ class SubmitQuestionForm extends Component {
     freshness: string.isRequired,
     content: string.isRequired,
     submitReply: func.isRequired,
+    intl: intlShape.isRequired,
   };
 
   static defaultProps = {
 
   };
-
-
 
   constructor(props) {
     super(props);
@@ -109,7 +110,6 @@ class SubmitQuestionForm extends Component {
     if (questionText.replace(/\s/g, '').length) {
       this.props.submitForm(questionText, S3URLs);
     }
-
   }
 
   handleDeleteImage = (imageURL) => {
@@ -141,6 +141,7 @@ class SubmitQuestionForm extends Component {
       modalActions,
       submitReply,
       askPrompt,
+      intl,
     } = this.props;
 
     const {
@@ -160,11 +161,11 @@ class SubmitQuestionForm extends Component {
         <div className="button-container">
           <div className="left-buttons">
             <PhotoUploadButton handleUploadImage={this.handleUploadImage} />
-            <Button onClickEvent={() => browserHistory('/help/posting-guidelines')} text="Guidelines" theme={{ height: '40px' }} />
+            <Button onClickEvent={() => browserHistory('/help/posting-guidelines')} text={intl.formatMessage(messages.Guidelines)} theme={{ height: '40px' }} />
           </div>
           <div className="actions">
-            <Button onClickEvent={modalActions.closeModal} text="Cancel" theme={{ height: '40px' }} />
-            <Button onClickEvent={this.submitForm} text="Submit" theme={{ height: '40px' }} />
+            <Button onClickEvent={modalActions.closeModal} text={intl.formatMessage(messages.Cancel)} theme={{ height: '40px' }} />
+            <Button onClickEvent={this.submitForm} text={intl.formatMessage(messages.Submit)} theme={{ height: '40px' }} />
           </div>
         </div>
         <style jsx>{styles}</style>
@@ -174,4 +175,4 @@ class SubmitQuestionForm extends Component {
 }
 
 
-export default SubmitQuestionForm;
+export default injectIntl(SubmitQuestionForm);
