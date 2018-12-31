@@ -8,11 +8,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+import { FormattedMessage } from 'react-intl';
 import DiscussionsItem from './DiscussionsItem';
 import CREATE_THREAD_FORM from './DiscussionsThreadFormInterface';
 import { submitReply } from 'services/discussions/submit-reply';
 import { THREAD_LIST } from 'services/discussions';
 import styles from './DiscussionsBoard.style';
+import messages from './DiscussionsThreads.messages';
 
 const {
   any,
@@ -197,10 +199,10 @@ class DiscussionsThreads extends Component {
         isDesktop,
       })}
       <div className="comments-bar">
-        Comments ({discussions.threadsCount})
+        <FormattedMessage {...messages.Comments} /> ({discussions.threadsCount})
       </div>
-      {fetching && <div>Loading</div>}
-      {!fetching && discussions.threadsCount === 0 ? <div>There is nothing to show here</div> : null}
+      {fetching && <div><FormattedMessage {...messages.Loading} /></div>}
+      {!fetching && discussions.threadsCount === 0 ? <div><FormattedMessage {...messages.NoThreads} /></div> : null}
       {!fetching && discussions.threadsCount > 0 && <div>
         {discussions.threadsList.map((thread) => {
           const likeParams = {

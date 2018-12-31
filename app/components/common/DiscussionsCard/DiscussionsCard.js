@@ -9,12 +9,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import uniqueId from 'lodash/uniqueId';
 import moment from 'moment';
+import { FormattedMessage } from 'react-intl';
 import CommentButton from 'components/common/style/buttons/CommentButton';
 import LikeSomethingButton from 'components/common/LikeSomethingButton';
 import ReplyButton from 'components/common/DiscussionsBoard/ReplyButton';
 import Button from 'components/common/style/buttons/Button';
 import ViewImagesButton from 'components/common/style/buttons/ViewImagesButton';
-import styles, { profPic } from './DiscussionsCard.style'
+import styles, { profPic } from './DiscussionsCard.style';
+import messages from './DiscussionsCard.messages';
 
 const {
   any,
@@ -67,7 +69,7 @@ const DiscussionsCard = (props) => {
         <div className="content" dangerouslySetInnerHTML={{ __html: title || content }} />
         <div className="explainantion-container">
           <div className="explainantion-item">{moment.utc(creationDate).fromNow()}</div>
-          <div className="explainantion-item">Likes: {likesCount}     Comments: {replyToponlyCount}</div>
+          <div className="explainantion-item"><FormattedMessage {...messages.Likes} />: {likesCount}     <FormattedMessage {...messages.Comments} />: {replyToponlyCount}</div>
         </div>
         <div className="activity-actions">
           <div className="action-left">
