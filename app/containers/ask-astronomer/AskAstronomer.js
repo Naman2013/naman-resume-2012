@@ -8,6 +8,7 @@ import classNames from 'classnames';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Modal from 'react-modal';
+import { intlShape, injectIntl } from 'react-intl';
 import ResponsiveTwoColumnContainer from 'components/ResponsiveTwoColumnContainer';
 import TwoTabbedNav from 'components/TwoTabbedNav';
 import { fetchObjectSpecialistsAction } from 'modules/object-details/actions';
@@ -30,6 +31,7 @@ import { getAskAnAstronomer } from 'services/objects/ask-astronomer';
 import AsideContainer from './partials/AsideContainer';
 import { customModalStylesV4 } from 'styles/mixins/utilities';
 import style from './AskAstronomer.style';
+import messages from './AskAstronomer.messages';
 
 const {
   bool,
@@ -93,6 +95,7 @@ class AskAstronomer extends Component {
     }).isRequired,
     serviceUrl: string,
     questionFilter: string,
+    intl: intlShape.isRequired,
   }
 
   static defaultProps = {
@@ -222,6 +225,7 @@ class AskAstronomer extends Component {
       page,
       user,
       objectSpecialists,
+      intl,
     } = this.props;
 
     const { showPrompt, promptComponent, promptStyles, aaaQuestionPrompt } = this.state;
@@ -286,8 +290,8 @@ class AskAstronomer extends Component {
                   <ResponsiveTwoColumnContainer
                     renderNavigationComponent={navProps =>
                       (<TwoTabbedNav
-                        firstTitle="Questions"
-                        secondTitle={context.isMobile ? 'Ask Now' : 'MVP Astronomers'}
+                        firstTitle={intl.formatMessage(messages.Questions)}
+                        secondTitle={context.isMobile ? intl.formatMessage(messages.AskNow) : intl.formatMessage(messages.MVPAstronomers)}
                         firstTabIsActive={navProps.showMainContainer}
                         firstTabOnClick={navProps.onShowMainContainer}
                         secondTabIsActive={navProps.showAsideContainer}
@@ -331,4 +335,4 @@ class AskAstronomer extends Component {
   }
 }
 
-export default AskAstronomer;
+export default injectIntl(AskAstronomer);

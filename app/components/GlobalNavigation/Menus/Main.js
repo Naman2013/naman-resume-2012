@@ -1,20 +1,17 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import uniqueId from 'lodash/uniqueId';
+import { FormattedMessage } from 'react-intl';
+import messages from './Main.messages';
 import MenuList from './partials/MenuList';
 import MenuTitleBar from './partials/MenuTitleBar';
 import SocialMenu from './partials/SocialMenu';
 import { PRIMARY_CONFIGURATION, SECONDARY_CONFIGURATION } from './mainConfiguration';
-import {
-  sloohLogoAstronaut,
-} from 'styles/variables/iconURLs';
+import { sloohLogoAstronaut } from 'styles/variables/iconURLs';
 
 const Main = ({ mainMenu }) => (
   <Fragment>
-    <MenuTitleBar
-      title="Slooh Menu"
-      iconURL={sloohLogoAstronaut}
-    />
+    <MenuTitleBar title={<FormattedMessage {...messages.title} />} iconURL={sloohLogoAstronaut} />
     <MenuList items={PRIMARY_CONFIGURATION(mainMenu.primaryLinks)} />
     <SocialMenu />
     <MenuList items={SECONDARY_CONFIGURATION(mainMenu.secondaryLinks)} />

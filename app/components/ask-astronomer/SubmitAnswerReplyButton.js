@@ -6,6 +6,7 @@
 ***********************************/
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { intlShape, injectIntl } from 'react-intl';
 import Button from 'components/common/style/buttons/Button';
 import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
 import FullpageForm from './Modals/FullpageForm';
@@ -13,6 +14,7 @@ import SubmitReplyFeedbackModal from './Modals/SubmitReplyFeedbackModal';
 import SubmitReplyForm from './Modals/SubmitReplyForm';
 import { prepareReply } from 'services/discussions/prepare-reply';
 import { customModalStylesBlackOverlay, modalStyleFullPage } from 'styles/mixins/utilities';
+import messages from './SubmitAnswerButton.messages';
 
 const {
   arrayOf,
@@ -53,6 +55,7 @@ class SubmitReplyReplyButton extends Component {
       token: oneOfType([number, string]),
       cid: oneOfType([number, string]),
     }),
+    intl: intlShape.isRequired,
   }
 
   setCommentModal = () => {
@@ -72,15 +75,15 @@ class SubmitReplyReplyButton extends Component {
   }
 
   setFullpageCommentModal = () => {
-    const { modalActions, user } = this.props;
+    const { modalActions, user, intl } = this.props;
     modalActions.setModal({
       promptComponent: (<FullpageForm
         modalActions={modalActions}
         submitForm={this.submitForm}
         user={user}
         prepareCall={prepareReply}
-        submitButtonText="Discuss"
-        fieldPlaceholder="Write your public reply"
+        submitButtonText={intl.formatMessage(messages.Discuss)}
+        fieldPlaceholder={intl.formatMessage(messages.ReplyPlaceholder)}
       />),
       promptStyles: modalStyleFullPage,
     })
@@ -115,10 +118,10 @@ class SubmitReplyReplyButton extends Component {
 
   handleSubmitReply = (data) => {
     // set the AskAstronomer.js [parent] modal to say a success or error message
-    const { modalActions } = this.props;
-    const message = data.apiError ? `Error!
-    <p>There was an issue submitting your reply.</p>` : `Success!
-    <p>You reply has been submitted!</p>`;
+    const { modalActions, intl } = this.props;
+    const message = data.apiError ? `${intl.formatMessage(messages.Error)}!
+    <p>${intl.formatMessage(messages.AnswerErrorText)}</p>` : `${intl.formatMessage(messages.Success)}!
+    <p>${intl.formatMessage(messages.AnswerSuccessText)}</p>`;
     modalActions.setModal({
       promptComponent: <SubmitReplyFeedbackModal modalActions={modalActions} message={message} />,
       promptStyles: customModalStylesBlackOverlay,
@@ -132,6 +135,7 @@ class SubmitReplyReplyButton extends Component {
       user,
       replyButtonText,
       modalActions,
+      intl,
     } = this.props;
 
     return (
@@ -141,16 +145,16 @@ class SubmitReplyReplyButton extends Component {
           screenLarge
           screenXLarge
         >
-          <Button text="Reply" onClickEvent={this.setCommentModal} />
+          <Button text={intl.formatMessage(messages.Reply)} onClickEvent={this.setCommentModal} />
         </DisplayAtBreakpoint>
         <DisplayAtBreakpoint
           screenSmall
         >
-          <Button text="Reply" onClickEvent={this.setFullpageCommentModal} />
+          <Button text={intl.formatMessage(messages.Reply)} onClickEvent={this.setFullpageCommentModal} />
         </DisplayAtBreakpoint>
       </div>
     );
   }
 }
 
-export default SubmitReplyReplyButton;
+export default injectIntl(SubmitReplyReplyButton);

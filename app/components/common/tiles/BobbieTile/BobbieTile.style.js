@@ -43,10 +43,15 @@ export default css`
     justify-content: space-between;
     align-items: center;
   }
-  
+
   .__html-blob-content-container__,
   .read-duration {
     /* display: none; */
+  }
+
+  .__html-blob-content-container__ :global(ol) {
+    margin-left: 40px;
+    margin-bottom: 20px;
   }
 
   .__html-blob-content-container__ :global(ul) {

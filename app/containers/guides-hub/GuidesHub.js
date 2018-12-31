@@ -4,6 +4,7 @@ import axios from 'axios';
 import noop from 'lodash/noop';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { intlShape, injectIntl } from 'react-intl';
 import GuideTiles from 'components/guides-hub/guide-tiles';
 import Request from 'components/common/network/Request';
 import HubContainer from 'components/common/HubContainer';
@@ -13,6 +14,7 @@ import { GUIDES_PAGE_ENDPOINT_URL, GUIDES_ENDPOINT_URL } from 'services/guides/g
 import { DeviceContext } from 'providers/DeviceProvider';
 import { validateResponseAccess } from 'modules/authorization/actions'
 import style from './guides-hub.style';
+import messages from './GuidesHub.messages';
 
 const COUNT = 9;
 const DEFAULT_PAGE = 1;
@@ -32,6 +34,7 @@ class Guides extends Component {
     params: PropTypes.shape({
       filterType: PropTypes.string,
     }),
+    intl: intlShape.isRequired,
   };
 
   static defaultProps = {
@@ -79,6 +82,7 @@ class Guides extends Component {
     const {
       user,
       actions,
+      intl,
     } = this.props;
     const {
       guides
@@ -119,14 +123,14 @@ class Guides extends Component {
                       filterType={this.props.params.filterType}
                       render={() => (
                         <Fragment>
-                          {fetchingContent ? <div>Loading</div> : null}
+                          {fetchingContent ? <div>{intl.formatMessage(messages.loading)}</div> : null}
                           {!fetchingContent && guides.length ?
                             <GuideTiles
                               updateReadingListInfo={this.updateReadingListInGuide}
                               guides={guides}
                               isMobile={context.isMobile}
                             /> :
-                            <div>There are no guides.</div>}
+                            <div>{intl.formatMessage(messages.noGuides)}</div>}
                         </Fragment>
                       )}
                     />
@@ -155,4 +159,4 @@ const mapDispatchToProps = dispatch => ({
   }, dispatch),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Guides);
+export default connect(mapStateToProps, mapDispatchToProps)(injectIntl(Guides));

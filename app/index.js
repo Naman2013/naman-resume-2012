@@ -128,11 +128,10 @@ import UserPublicProfile from './pages/profiles/public-profile';
 import Quest from './pages/quest-details';
 import QuestComplete from './containers/quest-complete';
 
-
 import CommunityGroupOverview from './pages/community-groups/GroupOverview';
 import GroupOverviewInfo from './pages/community-groups/GroupOverviewInfo';
 import GroupCreate from './pages/community-groups/GroupCreate';
-import GroupImportGoogleClassrooms from './pages/community-groups/GroupImportGoogleClassrooms'
+import GroupImportGoogleClassrooms from './pages/community-groups/GroupImportGoogleClassrooms';
 
 import ImageDetails from './pages/image-details';
 import Show from './pages/show';
@@ -147,6 +146,9 @@ import PlaceholderPage from './pages/Placeholder';
 import QuestStep from './containers/quest-step';
 
 import DashboardPage from 'components/Dashboard';
+
+// providers
+import I18nProvider from './providers/I18nProvider';
 
 // router functions
 import validateUser from './route-functions/validateUser';
@@ -179,196 +181,225 @@ history.listen((location) => {
 });
 
 ReactDOM.render(
-  <Provider store={store}>
-    <Router history={browserHistory} onUpdate={globalOnRouteUpdate}>
-      <Route path="redirect-confirmation" component={RedirectConfirmation} />
+  <I18nProvider>
+    <Provider store={store}>
+      <Router history={browserHistory} onUpdate={globalOnRouteUpdate}>
+        <Route path="redirect-confirmation" component={RedirectConfirmation} />
 
-      <Route path="about" component={StaticAppContainer} onEnter={validateUser}>
-        <IndexRedirect to="mission" />
-        <Route path="memberships" component={Memberships} />
-        <Route path="mission" component={Mission} />
-        <Route path="news" component={News} title="In The News" subTitle=" " />
-        <Route
-          path="job"
-          component={Job}
-          title="Work With Us"
-          subTitle="Share your passion for astronomy with the world"
-        />
-        <Route path="contact" component={Contact} title="Contact US" subTitle=" " />
-        <Route path="leadership" component={Leadership} title="Leadership" subTitle=" " />
-      </Route>
-
-      <Route path="registration" component={StaticAppContainer} onEnter={validateRegistrationPaths}>
-        <Route path="sign-in" component={SignIn} />
-        <Route path="upgrade-apprentice" component={UpgradeApprentice} />
-        <Route path="upgrade-astronomer" component={UpgradeAstronomer} />
-        <Route path="upgrade" component={Upgrade} />
-      </Route>
-
-      <Route path="/" component={App}>
-        <IndexRoute component={DashboardPage} onEnter={validateUser} />
-
-        <Route path="memberships" component={Memberships} />
-
-        <Route path="join" component={Join}>
-          <Route path="step1" component={JoinStep1} />
-          <Route path="step1SchoolSelection" component={JoinStep1SchoolSelection} />
-          <Route path="step2" component={JoinStep2} />
-          <Route path="step3" component={JoinStep3} />
-          <Route path="byLandingPage/:subscriptionPlanHashCode" component={JoinByLandingPage} />
-          <Route path="inviteByEmail/:invitationCodeHash/:invitationCreationEpoch" component={JoinInviteByEmailStep1} />
-          <Route path="inviteByCodeStep1" component={JoinInviteByCodeStep1} />
-          <Route path="inviteByCodeStep2" component={JoinInviteByCodeStep2} />
-          <Route path="membershipPlanDetailsStep" component={MembershipPlanDetailsStep} />
-          <Route path="resetPassword/:cid/:passwordResetToken" component={ResetPassword} />
+        <Route path="about" component={StaticAppContainer} onEnter={validateUser}>
+          <IndexRedirect to="mission" />
+          <Route path="memberships" component={Memberships} />
+          <Route path="mission" component={Mission} />
+          <Route path="news" component={News} title="In The News" subTitle=" " />
+          <Route
+            path="job"
+            component={Job}
+            title="Work With Us"
+            subTitle="Share your passion for astronomy with the world"
+          />
+          <Route path="contact" component={Contact} title="Contact US" subTitle=" " />
+          <Route path="leadership" component={Leadership} title="Leadership" subTitle=" " />
         </Route>
 
         <Route
-          path="telescope-overview/:observatoryId"
-          component={TelescopeOverview}
-          onEnter={validateUser}
-        />
+          path="registration"
+          component={StaticAppContainer}
+          onEnter={validateRegistrationPaths}
+        >
+          <Route path="sign-in" component={SignIn} />
+          <Route path="upgrade-apprentice" component={UpgradeApprentice} />
+          <Route path="upgrade-astronomer" component={UpgradeAstronomer} />
+          <Route path="upgrade" component={Upgrade} />
+        </Route>
 
-        <Route path="reservations" component={Reservations} onEnter={validateUser}>
-          <IndexRedirect to="reserve-by-objects" />
+        <Route path="/" component={App}>
+          <IndexRoute component={DashboardPage} onEnter={validateUser} />
 
-          <Route path="slooh-recommends" component={SloohRecommends}>
-            <IndexRedirect to="new" />
-            <Route path="existing" name="existing-missions" component={ExistingMissions} />
-            <Route path="new" name="new-missions" component={NewMissions} />
+          <Route path="memberships" component={Memberships} />
+
+          <Route path="join" component={Join}>
+            <Route path="step1" component={JoinStep1} />
+            <Route path="step1SchoolSelection" component={JoinStep1SchoolSelection} />
+            <Route path="step2" component={JoinStep2} />
+            <Route path="step3" component={JoinStep3} />
+            <Route path="byLandingPage/:subscriptionPlanHashCode" component={JoinByLandingPage} />
+            <Route
+              path="inviteByEmail/:invitationCodeHash/:invitationCreationEpoch"
+              component={JoinInviteByEmailStep1}
+            />
+            <Route path="inviteByCodeStep1" component={JoinInviteByCodeStep1} />
+            <Route path="inviteByCodeStep2" component={JoinInviteByCodeStep2} />
+            <Route path="membershipPlanDetailsStep" component={MembershipPlanDetailsStep} />
+            <Route path="resetPassword/:cid/:passwordResetToken" component={ResetPassword} />
           </Route>
 
-          <Route path="reserve-by-objects" component={ReserveObjects} />
-          <Route path="reserve-by-catalog" component={ReserveByCatalog} />
-        </Route>
+          <Route
+            path="telescope-overview/:observatoryId"
+            component={TelescopeOverview}
+            onEnter={validateUser}
+          />
 
-        <Route
-          path="reservations/reserve-by-telescope"
-          component={Reservations}
-          onEnter={validateUser}
-        >
-          <IndexRedirect to="telescope/d7f673a5-7908-11e6-a635-0eb2b1774883/1ff72faa-7909-11e6-a635-0eb2b1774883" />
-          <Route path="telescope/:obsUniqueId/:teleUniqueId" component={ReserveByTelescope} />
-        </Route>
+          <Route path="reservations" component={Reservations} onEnter={validateUser}>
+            <IndexRedirect to="reserve-by-objects" />
 
-        <Route
-          path="telescope-details/:obsUniqueId/:teleUniqueId"
-          component={ConnectedTelescopeDetails}
-          onEnter={validateUser}
-        />
+            <Route path="slooh-recommends" component={SloohRecommends}>
+              <IndexRedirect to="new" />
+              <Route path="existing" name="existing-missions" component={ExistingMissions} />
+              <Route path="new" name="new-missions" component={NewMissions} />
+            </Route>
 
-        {/**
+            <Route path="reserve-by-objects" component={ReserveObjects} />
+            <Route path="reserve-by-catalog" component={ReserveByCatalog} />
+          </Route>
+
+          <Route
+            path="reservations/reserve-by-telescope"
+            component={Reservations}
+            onEnter={validateUser}
+          >
+            <IndexRedirect to="telescope/d7f673a5-7908-11e6-a635-0eb2b1774883/1ff72faa-7909-11e6-a635-0eb2b1774883" />
+            <Route path="telescope/:obsUniqueId/:teleUniqueId" component={ReserveByTelescope} />
+          </Route>
+
+          <Route
+            path="telescope-details/:obsUniqueId/:teleUniqueId"
+            component={ConnectedTelescopeDetails}
+            onEnter={validateUser}
+          />
+
+          {/**
             example id: 6
             Entry types: latest-entries | all-time-best
             /objects/all-time-best/6/all
           */}
-        <Route path="objects" component={ObjectList} onEnter={validateUser}>
-          <Route path=":entryType/:SlugLookupId/:filterType" component={ObjectPosts} />
-        </Route>
+          <Route path="objects" component={ObjectList} onEnter={validateUser}>
+            <Route path=":entryType/:SlugLookupId/:filterType" component={ObjectPosts} />
+          </Route>
 
-        <Route
-          path="shows/video-viewer(/:showId)"
-          component={Show}
-          onEnter={validateUser}
-        />
+          <Route path="shows/video-viewer(/:showId)" component={Show} onEnter={validateUser} />
 
-        <Route
-          path="my-pictures/show-image/:customerImageId/:shareToken(/:scheduledMissionId)"
-          component={ImageDetails}
-          onEnter={validateUser}
-        />
-
-        <Route
-          path="my-pictures/popular/show-image(/:customerImageId)(/:shareToken)"
-          component={ImageDetails}
-          onEnter={validateUser}
-        />
-
-        <Route path="my-pictures" component={MyPictures} onEnter={validateUser}>
-          <IndexRedirect to="missions" />
-          <Route path="photo-roll" title="Photo roll" component={PhotoRoll} />
-          <Route path="galleries" tite="Galleries" component={Galleries} />
-          <Route path="galleries/:galleryId" tite="Galleries" component={GalleryImages} />
           <Route
-            path="missions/:scheduledMissionId"
-            title="Mission Images"
-            component={MissionImages}
+            path="my-pictures/show-image/:customerImageId/:shareToken(/:scheduledMissionId)"
+            component={ImageDetails}
+            onEnter={validateUser}
           />
-          <Route path="missions" title="Missions" component={Missions} />
 
-          <Route path="public-galleries/:cid" component={PublicGalleries} />
           <Route
-            path="gallery/:galleryId/show-image(/:customerImageId)(/:shareToken)"
-            component={GalleryImageDetails}
+            path="my-pictures/popular/show-image(/:customerImageId)(/:shareToken)"
+            component={ImageDetails}
+            onEnter={validateUser}
+          />
+
+          <Route path="my-pictures" component={MyPictures} onEnter={validateUser}>
+            <IndexRedirect to="missions" />
+            <Route path="photo-roll" title="Photo roll" component={PhotoRoll} />
+            <Route path="galleries" tite="Galleries" component={Galleries} />
+            <Route path="galleries/:galleryId" tite="Galleries" component={GalleryImages} />
+            <Route
+              path="missions/:scheduledMissionId"
+              title="Mission Images"
+              component={MissionImages}
+            />
+            <Route path="missions" title="Missions" component={Missions} />
+
+            <Route path="public-galleries/:cid" component={PublicGalleries} />
+            <Route
+              path="gallery/:galleryId/show-image(/:customerImageId)(/:shareToken)"
+              component={GalleryImageDetails}
+            />
+          </Route>
+
+          <Route path="help/posting-guidelines" component={PostingGuidelines} />
+          <Route path="help/new-to-slooh" component={NewToSlooh} />
+          <Route path="help/telescopes-and-reservations" component={TelescopesAndReservations} />
+          <Route path="help/community" component={Community} />
+          <Route path="help/space-situation-room" component={SpaceSituationRoom} />
+          <Route path="help/membership-levels" component={MembershipLevels} />
+          <Route path="help/customer-service" component={CustomerService} />
+          <Route path="help/site-feedback" component={SiteFeedback} />
+          <Route path="help/terms-and-conditions" component={TermsAndConditions} />
+          <Route path="help/privacy" component={Privacy} />
+
+          <Route path="guides(/:filterType)" component={GuidesHub} onEnter={validateUser} />
+          <Route path="guide-details/:guideId" component={GuideDetails} onEnter={validateUser} />
+
+          <Route path="guides/subject/:guideId" component={SubjectGuides} onEnter={validateUser} />
+          <Route path="guides/topic/:guideId" component={TopicGuides} onEnter={validateUser} />
+          <Route
+            path="guides/object-category/:guideId"
+            component={ObjectCategoryGuide}
+            onEnter={validateUser}
+          />
+
+          <Route path="object-details/:objectId" component={ObjectDetails} onEnter={validateUser}>
+            <IndexRedirect to="overview" />
+            <Route path="overview" component={ObjectDetailsOverview} onEnter={validateUser} />
+            <Route path="missions" component={ObjectDetailsMissions} onEnter={validateUser} />
+            <Route path="quests" component={ObjectDetailsQuests} onEnter={validateUser} />
+            <Route path="stories" component={ObjectDetailsStories} onEnter={validateUser} />
+            <Route path="shows" component={ObjectDetailsShows} onEnter={validateUser} />
+            <Route
+              path="observations"
+              component={ObjectDetailsObservations}
+              onEnter={validateUser}
+            />
+            <Route path="ask" component={AskAstronomer} onEnter={validateUser} />
+          </Route>
+
+          <Route path="shows(:/filterType)" component={ShowsHub} onEnter={validateUser} />
+
+          <Route path="stories(/:filterType)" component={StoriesHub} onEnter={validateUser} />
+          <Route path="community/post/:postId" component={StoryDetails} onEnter={validateUser} />
+          <Route path="stories/:filterType/create" component={CreateStory} onEnter={validateUser} />
+
+          <Route path="lists" component={PlaceholderPage} onEnter={validateUser}>
+            <IndexRedirect to="my-lists" />
+            <Route path="my-lists" component={PlaceholderPage} />
+          </Route>
+
+          <Route path="qa" component={PlaceholderPage} onEnter={validateUser}>
+            <IndexRedirect to="my-qa" />
+            <Route path="my-qa" component={PlaceholderPage} />
+          </Route>
+
+          <Route path="quests(/:filterType)" component={QuestsHub} onEnter={validateUser} />
+
+          <Route path="quest-details/:questId" component={Quest} onEnter={validateUser} />
+          <Route
+            path="quest-details/:questId/completed-overview"
+            component={QuestComplete}
+            onEnter={validateUser}
+          />
+          <Route path="quest-details/:questId/:step" component={QuestStep} onEnter={validateUser} />
+          <Route path="profile/private" component={UserPrivateProfile} onEnter={validateUser} />
+          <Route path="profile/public/:cid" component={UserPublicProfile} onEnter={validateUser} />
+
+          <Route path="groups/create" component={GroupCreate} onEnter={validateUser} />
+          <Route
+            path="groups/importGoogleClassrooms"
+            component={GroupImportGoogleClassrooms}
+            onEnter={validateUser}
+          />
+          <Route path="groups(/:filterType)" component={GroupsHub} onEnter={validateUser} />
+
+          <Route
+            path="community-groups/:groupId"
+            onEnter={validateUser}
+            component={CommunityGroupOverview}
+          />
+          <Route
+            path="community-groups/:groupId/info"
+            onEnter={validateUser}
+            component={GroupOverviewInfo}
           />
         </Route>
 
-        <Route path="help/posting-guidelines" component={PostingGuidelines} />
-        <Route path="help/new-to-slooh" component={NewToSlooh} />
-        <Route path="help/telescopes-and-reservations" component={TelescopesAndReservations} />
-        <Route path="help/community" component={Community} />
-        <Route path="help/space-situation-room" component={SpaceSituationRoom} />
-        <Route path="help/membership-levels" component={MembershipLevels} />
-        <Route path="help/customer-service" component={CustomerService} />
-        <Route path="help/site-feedback" component={SiteFeedback} />
-        <Route path="help/terms-and-conditions" component={TermsAndConditions} />
-        <Route path="help/privacy" component={Privacy} />
+        <Route path="sitemap" component={PlaceholderPage} onEnter={validateUser} />
 
-        <Route path="guides(/:filterType)" component={GuidesHub} onEnter={validateUser} />
-        <Route path="guide-details/:guideId" component={GuideDetails} onEnter={validateUser} />
-
-        <Route path="guides/subject/:guideId" component={SubjectGuides} onEnter={validateUser} />
-        <Route path="guides/topic/:guideId" component={TopicGuides} onEnter={validateUser} />
-        <Route path="guides/object-category/:guideId" component={ObjectCategoryGuide} onEnter={validateUser} />
-
-        <Route path="object-details/:objectId" component={ObjectDetails} onEnter={validateUser}>
-          <IndexRedirect to="overview" />
-          <Route path="overview" component={ObjectDetailsOverview} onEnter={validateUser} />
-          <Route path="missions" component={ObjectDetailsMissions} onEnter={validateUser} />
-          <Route path="quests" component={ObjectDetailsQuests} onEnter={validateUser} />
-          <Route path="stories" component={ObjectDetailsStories} onEnter={validateUser} />
-          <Route path="shows" component={ObjectDetailsShows} onEnter={validateUser} />
-          <Route path="observations" component={ObjectDetailsObservations} onEnter={validateUser} />
-          <Route path="ask" component={AskAstronomer} onEnter={validateUser} />
-        </Route>
-
-        <Route path="shows(:/filterType)" component={ShowsHub} onEnter={validateUser} />
-
-        <Route path="stories(/:filterType)" component={StoriesHub} onEnter={validateUser} />
-        <Route path="community/post/:postId" component={StoryDetails} onEnter={validateUser} />
-        <Route path="stories/:filterType/create" component={CreateStory} onEnter={validateUser} />
-
-        <Route path="lists" component={PlaceholderPage} onEnter={validateUser}>
-          <IndexRedirect to="my-lists" />
-          <Route path="my-lists" component={PlaceholderPage} />
-        </Route>
-
-        <Route path="qa" component={PlaceholderPage} onEnter={validateUser}>
-          <IndexRedirect to="my-qa" />
-          <Route path="my-qa" component={PlaceholderPage} />
-        </Route>
-
-        <Route path="quests(/:filterType)" component={QuestsHub} onEnter={validateUser} />
-
-        <Route path="quest-details/:questId" component={Quest} onEnter={validateUser} />
-        <Route path="quest-details/:questId/completed-overview" component={QuestComplete} onEnter={validateUser} />
-        <Route path="quest-details/:questId/:step" component={QuestStep} onEnter={validateUser} />
-        <Route path="profile/private" component={UserPrivateProfile} onEnter={validateUser} />
-        <Route path="profile/public/:cid" component={UserPublicProfile} onEnter={validateUser} />
-
-        <Route path="groups/create" component={GroupCreate} onEnter={validateUser} />
-        <Route path="groups/importGoogleClassrooms" component={GroupImportGoogleClassrooms} onEnter={validateUser} />
-        <Route path="groups(/:filterType)" component={GroupsHub} onEnter={validateUser} />
-
-        <Route path="community-groups/:groupId" onEnter={validateUser} component={CommunityGroupOverview} />
-        <Route path="community-groups/:groupId/info" onEnter={validateUser} component={GroupOverviewInfo} />
-      </Route>
-
-      <Route path="sitemap" component={PlaceholderPage} onEnter={validateUser} />
-
-      <Route path="patent" component={PlaceholderPage} onEnter={validateUser} />
-      <Redirect from="*" to="/" />
-    </Router>
-  </Provider>,
+        <Route path="patent" component={PlaceholderPage} onEnter={validateUser} />
+        <Redirect from="*" to="/" />
+      </Router>
+    </Provider>
+  </I18nProvider>,
   window.document.getElementById('app'),
 );

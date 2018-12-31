@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import noop from 'lodash/noop';
+import { FormattedMessage } from 'react-intl';
 import GoogleAd from '../../components/common/google-ads/GoogleAd';
 import VideoImageLoader from '../../components/common/telescope-image-loader/video-image-loader';
 import CommunityMashup from '../../components/situation-room/CommunityMashup';
@@ -11,6 +12,7 @@ import { fetchRecordedShow } from '../../modules/show-video-viewer/recorded-show
 import { backgroundImageCover } from '../../styles/mixins/utilities';
 import { previousShows } from '../../services/shows/previous-shows';
 import { upcomingShows } from '../../services/shows/upcoming-shows';
+import messages from './ShowVideoViewer.messages';
 
 
 import { white } from '../../styles/variables/colors';
@@ -147,7 +149,9 @@ class ShowVideoViewer extends Component {
     return (
       <div>
         <header className="header">
-          <h1 className="header-title">Video Viewer</h1>
+          <h1 className="header-title">
+            <FormattedMessage {...messages.VideoViewer} />
+          </h1>
         </header>
         <main className="main-container row">
 

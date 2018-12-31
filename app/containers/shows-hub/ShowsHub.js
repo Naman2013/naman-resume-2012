@@ -4,6 +4,7 @@ import axios from 'axios';
 import noop from 'lodash/noop';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { intlShape, injectIntl } from 'react-intl';
 import ShowTiles from 'components/shows-hub/show-tiles';
 import Request from 'components/common/network/Request';
 import HubContainer from 'components/common/HubContainer';
@@ -17,6 +18,7 @@ import {
 import { DeviceContext } from 'providers/DeviceProvider';
 import { validateResponseAccess } from 'modules/authorization/actions'
 import style from './shows-hub.style';
+import messages from './ShowsHub.messages';
 
 const COUNT = 9;
 const DEFAULT_PAGE = 1;
@@ -36,6 +38,7 @@ class Shows extends Component {
     params: PropTypes.shape({
       filterType: PropTypes.string,
     }),
+    intl: intlShape.isRequired,
   };
 
   static defaultProps = {
@@ -83,6 +86,7 @@ class Shows extends Component {
     const {
       user,
       actions,
+      intl,
     } = this.props;
     const {
       shows
@@ -134,14 +138,14 @@ class Shows extends Component {
                               validateResponseAccess={actions.validateResponseAccess}
                             />
                           </DisplayAtBreakpoint>
-                          {fetchingContent ? <div>Loading</div> : null}
+                          {fetchingContent ? <div>{intl.formatMessage(messages.loading)}</div> : null}
                           {!fetchingContent && shows.length ?
                             <ShowTiles
                               updateReadingListInfo={this.updateReadingListInShow}
                               shows={shows}
                               isMobile={context.isMobile}
                             /> :
-                            <div>There are no shows.</div>}
+                            <div>{intl.formatMessage(messages.noShowsHub)}</div>}
                         </Fragment>
                       )}
                     />
@@ -170,4 +174,4 @@ const mapDispatchToProps = dispatch => ({
   }, dispatch),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Shows);
+export default connect(mapStateToProps, mapDispatchToProps)(injectIntl(Shows));

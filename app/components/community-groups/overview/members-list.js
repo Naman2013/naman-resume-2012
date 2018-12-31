@@ -10,6 +10,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import take from 'lodash/take';
 import uniqueId from 'lodash/uniqueId';
+import { intlShape, injectIntl } from 'react-intl';
 import BlueLineDrop from 'components/common/BlueLineDrop';
 import ShowMoreFullSet from 'components/common/ShowMoreFullSet';
 import MembersListSort from './members-list-sort';
@@ -18,6 +19,7 @@ import {
   profPic,
 } from '../styles';
 import styles from './members-list.style';
+import messages from './members-list.messages';
 
 const {
   arrayOf,
@@ -34,6 +36,7 @@ class GroupMemberList extends Component {
     membersCount: number.isRequired,
     membersList: arrayOf(shape({})).isRequired,
     count: number,
+    intl: intlShape.isRequired,
   }
 
   static defaultProps = {
@@ -91,6 +94,7 @@ class GroupMemberList extends Component {
       fetchGroupMembers,
       renderToggle,
       theme,
+      intl,
     } = this.props;
 
     const {
@@ -102,7 +106,7 @@ class GroupMemberList extends Component {
     return (
       <div className="members-list" style={theme}>
         <BlueLineDrop
-          title={`Group Members (${membersCount})`}
+          title={intl.formatMessage(messages.GroupMembers, { membersCount })}
           isDesktop={isDesktop}
           render={() => (
             <div className="members-container">
@@ -120,7 +124,7 @@ class GroupMemberList extends Component {
                   totalCount={members.length}
                   page={page}
                   idField="customerId"
-                  buttonText={['MORE MEMBER', 'MORE MEMBERS']}
+                  buttonText={[intl.formatMessage(messages.MoreMember), intl.formatMessage(messages.MoreMembers)]}
                 />}
                 {renderToggle ? renderToggle() : null}
               </div>
@@ -133,4 +137,4 @@ class GroupMemberList extends Component {
   }
 }
 
-export default GroupMemberList;
+export default injectIntl(GroupMemberList);

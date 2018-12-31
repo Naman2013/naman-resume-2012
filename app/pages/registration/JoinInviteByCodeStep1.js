@@ -8,6 +8,7 @@ import axios from 'axios';
 import { GoogleLogin } from 'react-google-login';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
+import { intlShape, injectIntl } from 'react-intl';
 import cloneDeep from 'lodash/cloneDeep';
 import noop from 'lodash/noop';
 import InputField from 'components/form/InputField';
@@ -17,6 +18,7 @@ import Button from 'components/common/style/buttons/Button';
 import Request from 'components/common/network/Request';
 import JoinHeader from './partials/JoinHeader';
 import { JOIN_BY_INVITE_TABS } from './StaticNavTabs';
+import messages from './JoinInviteByCodeStep1.messages';
 
 import {
   JOIN_PAGE_ENDPOINT_URL,
@@ -33,6 +35,7 @@ class JoinByInviteCodeStep1 extends Component {
   static propTypes = {
     pathname: string.isRequired,
     change: func,
+    intl: intlShape.isRequired,
   };
   static defaultProps = {
     change: noop,
@@ -107,12 +110,12 @@ class JoinByInviteCodeStep1 extends Component {
     accountFormDetailsData.invitationCode.errorText = '';
 
     if (accountFormDetailsData.loginEmailAddress.value === '') {
-      accountFormDetailsData.loginEmailAddress.errorText = 'Please enter in your email address.';
+      accountFormDetailsData.loginEmailAddress.errorText = this.props.intl.formatMessage(messages.PleaseEnterEmail);
       formIsComplete = false;
     }
 
     if (accountFormDetailsData.invitationCode.value === '') {
-      accountFormDetailsData.invitationCode.errorText = 'Please enter in your invitation code.';
+      accountFormDetailsData.invitationCode.errorText = this.props.intl.formatMessage(messages.PleaseEnterInvitationCode);
       formIsComplete = false;
     }
 
@@ -161,7 +164,7 @@ class JoinByInviteCodeStep1 extends Component {
   }
 
   render() {
-    const { pathname } = this.props;
+    const { pathname, intl } = this.props;
     const {
       accountFormDetails,
     } = this.state;
@@ -221,13 +224,14 @@ class JoinByInviteCodeStep1 extends Component {
                             <div className="button-container">
                               <Button
                                 type="button"
-                                text="Go Back"
+                                text={intl.formatMessage(messages.GoBack)}
                                 onClickEvent={() => { browserHistory.push('/'); }}
                               />
                               <button
                                 className="submit-button"
                                 type="submit"
-                              >Continue
+                              >
+                                {intl.formatMessage(messages.Continue)}
                               </button>
                             </div>
                           </form>
@@ -249,4 +253,4 @@ const mapStateToProps = ({ joinAccountForm }) => ({
   joinAccountForm,
 });
 
-export default connect(mapStateToProps, null)(reduxForm({ form: 'joinAccountForm', enableReinitialize: true, })(JoinByInviteCodeStep1));
+export default connect(mapStateToProps, null)(reduxForm({ form: 'joinAccountForm', enableReinitialize: true, })(injectIntl(JoinByInviteCodeStep1)));

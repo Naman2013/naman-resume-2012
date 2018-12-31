@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { injectIntl, intlShape } from 'react-intl';
 import Host from 'components/Host';
 import BlueLineDrop from 'components/common/BlueLineDrop';
 import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
@@ -8,6 +9,7 @@ import RelatedStories from 'components/RelatedStories';
 import RelatedGuides from 'components/RelatedGuides';
 import RelatedObject from 'components/RelatedObject';
 import { CONTENT_RELATED_GUIDES,  CONTENT_RELATED_STORIES, CONTENT_RELATED_SHOWS} from 'services/content';
+import messages from './AsideContainer.messages';
 
 
 const {
@@ -27,6 +29,7 @@ const AsideContainer = ({
   slugLookupId,
   postId,
   user,
+  intl,
 }) => (
   <div>
     <DisplayAtBreakpoint
@@ -45,7 +48,7 @@ const AsideContainer = ({
     </DisplayAtBreakpoint>
     <RelatedObject slugLookupId={slugLookupId} user={user} isDesktop={isDesktop} />
     <BlueLineDrop
-      title="Related Shows"
+      title={intl.formatMessage(messages.relatedShows)}
       isDesktop={isDesktop}
       theme={{ margin: isScreenLarge ? '25px 0' : '25px' }}
       render={() => (
@@ -53,7 +56,7 @@ const AsideContainer = ({
       )}
     />
     <BlueLineDrop
-      title="Related Stories"
+      title={intl.formatMessage(messages.relatedStories)}
       isDesktop={isDesktop}
       theme={{ margin: isScreenLarge ? '25px 0' : '25px' }}
       render={() => (
@@ -61,7 +64,7 @@ const AsideContainer = ({
       )}
     />
     <BlueLineDrop
-      title="Related Guides"
+      title={intl.formatMessage(messages.relatedGuides)}
       isDesktop={isDesktop}
       theme={{ margin: isScreenLarge ? '25px 0' : '25px' }}
       render={() => (
@@ -73,9 +76,10 @@ const AsideContainer = ({
 
 AsideContainer.propTypes = {
   isDesktop: bool,
+  intl: intlShape.isRequired,
 };
 
 AsideContainer.defaultProps = {
   isDesktop: true,
 };
-export default AsideContainer;
+export default injectIntl(AsideContainer);

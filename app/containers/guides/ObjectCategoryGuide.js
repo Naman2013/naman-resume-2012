@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
+import { FormattedMessage } from 'react-intl';
 import Request from 'components/common/network/Request';
 import CenterColumn from 'components/common/CenterColumn';
 import TiaraTitleSection from 'components/common/TiaraTitleSection';
@@ -11,6 +12,7 @@ import FeaturedGallery from 'components/guides/FeaturedGallery';
 import GuideTopics from 'components/guides/GuideTopics';
 import GuidePanels from 'components/guides/GuidePanels';
 import { GUIDE_ENDPOINT_URL, GUIDE_OBJECTS_ENDPOINT_URL } from 'services/guides/guide-data';
+import messages from './ObjectCategoryGuide.messages';
 
 const guidePageModel = {
   name: 'GUIDE_PAGE_MODEL',
@@ -36,11 +38,7 @@ const guidePageModel = {
       ),
       column: ({ guideId }) => (
         <GuideContentList
-          list={[
-            resp.guideBulletPoint1,
-            resp.guideBulletPoint2,
-            resp.guideBulletPoint3,
-          ]}
+          list={[resp.guideBulletPoint1, resp.guideBulletPoint2, resp.guideBulletPoint3]}
           topicActionProps={{
             followButtonIconURL: resp.promptIconUrl,
             followButtonText: resp.readingListPrompt,
@@ -53,8 +51,8 @@ const guidePageModel = {
       alignContent: 'right',
     },
     sterlingTitleProps: {
-      title: 'Objects within this guide',
-      subTitle: 'Select an Object for more information',
+      title: <FormattedMessage {...messages.SterlingTitle} />,
+      subTitle: <FormattedMessage {...messages.SterlingSubtitle} />,
     },
     guideTopicsProps: {
       list: resp.chapterNavigationInfo.chapterList.map(chapter => ({
@@ -84,41 +82,37 @@ const Guides = ({ params: { guideId } }) => (
     serviceURL={GUIDE_ENDPOINT_URL}
     model={guidePageModel}
     requestBody={{ guideId }}
-    render={({
-      fetchingContent,
-      modeledResponses: { GUIDE_PAGE_MODEL },
-    }) => (
+    render={({ fetchingContent, modeledResponses: { GUIDE_PAGE_MODEL } }) => (
       <div>
-        {
-          !fetchingContent &&
-            <Fragment>
-              <TiaraTitleSection {...GUIDE_PAGE_MODEL.tiaraTitleProps} />
+        {!fetchingContent && (
+          <Fragment>
+            <TiaraTitleSection {...GUIDE_PAGE_MODEL.tiaraTitleProps} />
 
-              <CenterColumn theme={{ boxShadow: 'rgba(65, 86, 113, 0.2) 0px 3px 8px 1px', marginBottom: '60px' }}>
-                <GuideSection {...GUIDE_PAGE_MODEL.guideSectionProps} guideId={guideId} />
-              </CenterColumn>
+            <CenterColumn
+              theme={{ boxShadow: 'rgba(65, 86, 113, 0.2) 0px 3px 8px 1px', marginBottom: '60px' }}
+            >
+              <GuideSection {...GUIDE_PAGE_MODEL.guideSectionProps} guideId={guideId} />
+            </CenterColumn>
 
-              <FeaturedGallery />
+            <FeaturedGallery />
 
-              <GuidePanels guideId={guideId} />
+            <GuidePanels guideId={guideId} />
 
-              <SterlingTitle {...GUIDE_PAGE_MODEL.sterlingTitleProps} />
-              <Request
-                serviceURL={GUIDE_OBJECTS_ENDPOINT_URL}
-                model={guideObjectsModel}
-                requestBody={{ guideId }}
-                render={results => (
-                  <Fragment>
-                    {
-                      !results.fetchingContent &&
-                        <GuideTopics {...results.modeledResponses.GUIDE_OBJECTS.guideTopicsProps} />
-                    }
-                  </Fragment>
-
-                )}
-              />
-            </Fragment>
-        }
+            <SterlingTitle {...GUIDE_PAGE_MODEL.sterlingTitleProps} />
+            <Request
+              serviceURL={GUIDE_OBJECTS_ENDPOINT_URL}
+              model={guideObjectsModel}
+              requestBody={{ guideId }}
+              render={results => (
+                <Fragment>
+                  {!results.fetchingContent && (
+                    <GuideTopics {...results.modeledResponses.GUIDE_OBJECTS.guideTopicsProps} />
+                  )}
+                </Fragment>
+              )}
+            />
+          </Fragment>
+        )}
       </div>
     )}
   />

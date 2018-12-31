@@ -10,11 +10,13 @@ import moment from 'moment';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import uniqueId from 'lodash/uniqueId'
+import { FormattedMessage } from 'react-intl';
 import AnswerReplyListItem from './answer-reply-list-item';
 import { updateAnswerRepliesDisplayList, replyToAnswer } from '../../modules/ask-astronomer-answer-discuss/actions';
 import ReplyForm from './reply-form';
 import PaginateSet from '../common/paginate-full-set/PaginateSet';
 import styles from './answer-list.style';
+import messages from './answer-reply-list.messages';
 
 const {
   any,
@@ -84,7 +86,7 @@ class AnswerReplyList extends Component {
     replyId: number.isRequired,
     threadId: number.isRequired,
     topicId: number.isRequired,
-    repliesSubmitted: shape({})
+    repliesSubmitted: shape({}),
   }
 
   handlePageChange = (paginatedSet, page) => {
@@ -124,7 +126,7 @@ class AnswerReplyList extends Component {
     return (<div key={uniqueId()}>
       {numberOfRepliesToAnswer > 0 ? <div className="replies-list-contanier">
         <div className="num-replies">
-          <span className="replies-number">Replies: {numberOfRepliesToAnswer}</span>
+          <span className="replies-number"><FormattedMessage {...messages.Replies} />: {numberOfRepliesToAnswer}</span>
         </div>
         <div className="replies-list">
           {displayedReplies.map((reply) => {

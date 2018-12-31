@@ -8,6 +8,7 @@ import { Field, reduxForm } from 'redux-form';
 import InputField from 'components/form/InputField';
 import PropTypes from 'prop-types';
 import cloneDeep from 'lodash/cloneDeep';
+import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 import { DeviceContext } from 'providers/DeviceProvider';
 import TextareaField from 'components/form/TextareaField';
 import Button from 'components/common/style/buttons/Button';
@@ -20,6 +21,7 @@ import {
   screenLarge,
 } from 'styles/variables/breakpoints';
 import styles from './DiscussionBoardInviteNewMemberToSlooh.style';
+import messages from './DiscussionBoard.messages';
 
 const {
   any,
@@ -31,46 +33,44 @@ const {
 } = PropTypes;
 
 class DiscussionBoardInviteNewMemberToSlooh extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      inEditMode: false,
-      inviteFormDetails: {
-        firstName: {
-          label: '',
-          value: '',
-          hintText: '',
-          errorText: '',
-        },
-        lastName: {
-          label: '',
-          value: '',
-          hintText: '',
-          errorText: '',
-        },
-        emailAddress: {
-          label: '',
-          value: '',
-          hintText: '',
-          errorText: '',
-        },
-        emailAddressVerification: {
-          label: '',
-          value: '',
-          hintText: '',
-          errorText: '',
-        },      }
-    }
-  }
-
   static propTypes = {
     discussionGroupId: string,
     newInvitationComplete: func.isRequired,
+    intl: intlShape.isRequired,
   };
 
   static defaultProps = {
     discussionGroupId: null,
+  };
+
+  state = {
+    inEditMode: false,
+    inviteFormDetails: {
+      firstName: {
+        label: '',
+        value: '',
+        hintText: '',
+        errorText: '',
+      },
+      lastName: {
+        label: '',
+        value: '',
+        hintText: '',
+        errorText: '',
+      },
+      emailAddress: {
+        label: '',
+        value: '',
+        hintText: '',
+        errorText: '',
+      },
+      emailAddressVerification: {
+        label: '',
+        value: '',
+        hintText: '',
+        errorText: '',
+      },
+    },
   };
 
   // Obtain access to the join api service response and update the accountFormDetails state to reflect the Join Page response (set form labels)
@@ -106,7 +106,7 @@ class DiscussionBoardInviteNewMemberToSlooh extends Component {
 
   /* Submit the Form and perform any validations as needed */
   handleSubmit = (formValues) => {
-    const { discussionGroupId, user } = this.props;
+    const { discussionGroupId, user, intl } = this.props;
     formValues.preventDefault();
 
     const inviteFormData = cloneDeep(this.state.inviteFormDetails);
@@ -115,30 +115,28 @@ class DiscussionBoardInviteNewMemberToSlooh extends Component {
 
     if (this.state.inviteFormDetails.firstName.value === '') {
       isFormComplete = false;
-      inviteFormData.firstName.errorText = 'Please provide a First Name';
-
+      inviteFormData.firstName.errorText = intl.formatMessage(messages.FirstName);
     }
 
     if (this.state.inviteFormDetails.lastName.value === '') {
       isFormComplete = false;
-      inviteFormData.lastName.errorText = 'Please provide a Last Name';
-
+      inviteFormData.lastName.errorText = intl.formatMessage(messages.LastName);
     }
 
     if (this.state.inviteFormDetails.emailAddress.value === '') {
       isFormComplete = false;
-      inviteFormData.emailAddress.errorText = 'Please provide an Email Address';
+      inviteFormData.emailAddress.errorText = intl.formatMessage(messages.EmailAddress);
     }
     else {
       if (this.state.inviteFormDetails.emailAddressVerification.value === '') {
         isFormComplete = false;
-        inviteFormData.emailAddressVerification.errorText = 'Please confirm the Email Address';
+        inviteFormData.emailAddressVerification.errorText = intl.formatMessage(messages.ConfirmEmailAddress);
       }
       else {
         //check to make sure the email address and email address verification fields matches
         if (this.state.inviteFormDetails.emailAddress.value != this.state.inviteFormDetails.emailAddressVerification.value) {
           isFormComplete = false;
-          inviteFormData.emailAddressVerification.errorText = 'The Email Address and the Email Verification fields must match.';
+          inviteFormData.emailAddressVerification.errorText = intl.formatMessage(messages.EmailsDontMatch);
         }
       }
 
@@ -204,6 +202,7 @@ class DiscussionBoardInviteNewMemberToSlooh extends Component {
     const {
       discussionGroupId,
       user,
+      intl,
     } = this.props;
 
     const {
@@ -281,7 +280,7 @@ class DiscussionBoardInviteNewMemberToSlooh extends Component {
                             className="submit-button"
                             type="submit"
                             onClickEvent={this.handleSubmit}
-                            text="Send Invitation"
+                            text={intl.formatMessage(messages.SendInvitation)}
                           />
                         </div>
                       </div>
@@ -305,4 +304,4 @@ const mapStateToProps = ({ user, editGroupDescriptionForm }) => ({
   editGroupDescriptionForm,
 });
 
-export default connect(mapStateToProps, null)(reduxForm({ form: 'editGroupDescriptionForm', enableReinitialize: true, })(DiscussionBoardInviteNewMemberToSlooh));
+export default connect(mapStateToProps, null)(reduxForm({ form: 'editGroupDescriptionForm', enableReinitialize: true, })(injectIntl(DiscussionBoardInviteNewMemberToSlooh)));

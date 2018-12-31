@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import flatten from 'lodash/flatten';
+import { injectIntl, intlShape } from 'react-intl';
 import IntroText from 'components/common/form-sections/intro-text';
 import FormSectionHeader from 'components/common/form-sections/section-header';
 import Tags from 'components/common/form-fields/tags';
@@ -13,6 +14,7 @@ import ContentCategorySelector from './partials/content-category-selector';
 import ObjectCategoryAndTopicSelects from './partials/object-category-and-topic-selects';
 import FormFeedbackActions from './partials/form-feedback-actions';
 import { customModalStylesBlackOverlay } from 'styles/mixins/utilities';
+import messages from './create-story-form.messages';
 
 class CreateStoryForm extends Component {
   static propTypes = {
@@ -28,6 +30,7 @@ class CreateStoryForm extends Component {
       })
     }),
     submitLabel: PropTypes.string.isRequired,
+    intl: intlShape.isRequired,
 
     uuid: PropTypes.string.isRequired,
     user: PropTypes.shape({
@@ -153,9 +156,10 @@ class CreateStoryForm extends Component {
       selectedObjectTopic,
       tags,
     } = this.state;
-    const { actions, user } = this.props;
-    if (bodyContent && headlineContent && selectedContentCategory && selectedObjectCategory) {
 
+    const { actions, user, intl, } = this.props;
+
+    if (bodyContent && headlineContent && selectedContentCategory && selectedObjectCategory) {
       const { at, token, cid } = user;
       const tagsText = tags.map(tag => tag.tagText);
       actions.submitStory({
@@ -173,33 +177,32 @@ class CreateStoryForm extends Component {
       const missingFields = [];
 
       if (!bodyContent) {
-        missingFields.push('<li>Body Content is required.</li>');
+        missingFields.push(`<li>${intl.formatMessage(messages.bodyContentErrorMessage)}</li>`);
       }
 
       if (!headlineContent) {
-        missingFields.push('<li>Headline is required.</li>');
+        missingFields.push(`<li>${intl.formatMessage(messages.headlineErrorMessage)}</li>`);
       }
 
       if (!selectedContentCategory) {
-        missingFields.push('<li>Content Category is required.</li>');
+        missingFields.push(`<li>${intl.formatMessage(messages.contentCategoryErrorMessage)}</li>`);
       }
 
       if (!selectedObjectCategory) {
-        missingFields.push('<li>Object Category is required.</li>');
+        missingFields.push(`<li>${intl.formatMessage(messages.objectCategoryErrorMessage)}</li>`);
       }
 
       actions.setAndOpenModal({
         modalStyles: customModalStylesBlackOverlay,
         modalComponent: (
           <GenericModal
-            title="Missing Fields"
+            title={intl.formatMessage(messages.errorMessagePopupTitle)}
             promptText={missingFields.join('')}
             renderActions={() => <Button onClickEvent={actions.closeModal} text="close" />}
           />
-        )
+        ),
       });
     }
-
   }
 
   handleSubmitPost = (res) => {
@@ -341,4 +344,4 @@ class CreateStoryForm extends Component {
   }
 }
 
-export default CreateStoryForm;
+export default injectIntl(CreateStoryForm);

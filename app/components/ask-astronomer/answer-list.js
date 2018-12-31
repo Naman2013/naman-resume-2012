@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { FormattedMessage } from 'react-intl';
 import AnswerListItem from './answer-list-item';
 import {
   toggleAllAnswersAndDisplay,
@@ -20,6 +21,7 @@ import {
 } from '../../modules/ask-astronomer-answer-discuss/actions';
 import PaginateSet from '../common/paginate-full-set/PaginateSet';
 import styles from './answer-list.style';
+import messages from './answer-list.messages';
 
 const {
   arrayOf,
@@ -137,7 +139,7 @@ class AnswerList extends Component {
     return (<div key={threadId}>
       {numberOfAnswersToThread > 0 ? <div className="replies-list-contanier">
         <div className="num-replies">
-          <span className="replies-number">Answers: {numberOfAnswersToThread}</span>
+          <span className="replies-number"><FormattedMessage {...messages.Answers} />: {numberOfAnswersToThread}</span>
         </div>
         <div className="replies-list">
           {displayedAnswers.map((answer) => {

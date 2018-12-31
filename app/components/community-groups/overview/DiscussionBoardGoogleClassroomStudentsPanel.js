@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import axios from 'axios';
+import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 import FormSectionHeader from 'components/common/form-sections/section-header';
 import Request from 'components/common/network/Request';
 import BarHeader from 'components/common/form-sections/bar-header';
@@ -24,6 +25,8 @@ import {
 } from '../../../styles/variables/colors_tiles_v4';
 import { primaryFont, secondaryFont } from 'styles/variables/fonts';
 import { screenLarge } from 'styles/variables/breakpoints';
+
+import messages from './DiscussionBoard.messages';
 
 const {
   arrayOf,
@@ -44,6 +47,7 @@ class DiscussionBoardGoogleClassroomStudentsPanel extends Component {
 
   static propTypes = {
     pageMeta: shape({ }),
+    intl: intlShape.isRequired,
   };
 
   static defaultProps = {
@@ -51,9 +55,9 @@ class DiscussionBoardGoogleClassroomStudentsPanel extends Component {
   };
 
   state = {
-      refreshModeStr: "false",
-      importStudentErrorText: '',
-      panelLoadingMessage: 'Loading Google Classroom Students',
+    refreshModeStr: "false",
+    importStudentErrorText: '',
+    panelLoadingMessage: this.props.intl.formatMessage(messages.LoadingStudentsList),
   }
 
   addStudentToDiscussionGroup = (firstName, lastName, emailAddress, googleProfileId) => {
@@ -98,7 +102,7 @@ class DiscussionBoardGoogleClassroomStudentsPanel extends Component {
           //force reload the Student List Panel.
           refreshHeader();
           this.setState(() => ({
-            panelLoadingMessage: 'Refreshing Google Classroom Students List....',
+            panelLoadingMessage: `${this.props.intl.formatMessage(messages.RefreshingStudentsList)}....`,
             refreshModeStr: "googleClassroomStudentListPanel_" + Math.floor((Math.random() * 500000) + 1),
           }));
         }
@@ -114,6 +118,7 @@ class DiscussionBoardGoogleClassroomStudentsPanel extends Component {
       pageMeta,
       user,
       discussionGroupId,
+      intl,
     } = this.props;
 
     const {
@@ -176,16 +181,16 @@ class DiscussionBoardGoogleClassroomStudentsPanel extends Component {
 
                                   {/* only one of these conditions will apply */}
                                   {customerLink.alreadyAMemberOfThisGroup === false && customerLink.canBeInvitedToThisGroup === true && <td key={`data_clubstatus_` + i}><Button type="button" text={customerLink.invitationPrompt} onClickEvent={() => this.addStudentToDiscussionGroup(customerLink.firstname, customerLink.lastname, customerLink.emailaddress, customerLink.googleprofileid)} /></td>}
-                                  {customerLink.alreadyAMemberOfThisGroup === true && customerLink.canBeInvitedToThisGroup === false && <td key={`data_clubstatus_` + i}>Active</td>}
-                                  {customerLink.alreadyAMemberOfThisGroup === false && customerLink.canBeInvitedToThisGroup === false && <td key={`data_clubstatus_` + i}>Pending</td>}
+                                  {customerLink.alreadyAMemberOfThisGroup === true && customerLink.canBeInvitedToThisGroup === false && <td key={`data_clubstatus_` + i}><FormattedMessage {...messages.Active} /></td>}
+                                  {customerLink.alreadyAMemberOfThisGroup === false && customerLink.canBeInvitedToThisGroup === false && <td key={`data_clubstatus_` + i}><FormattedMessage {...messages.Pending} /></td>}
                                 </tr>
                               ]
                             )}
                           </tbody>
                         </table>
-                        {serviceResponse.customerLinksData.hasStudentsToInvite && <p style={{"textAlign": "center", "color": "blue", "fontSize": "1.0em", "fontStyle": "italic"}}><br/>* Please note, clicking "Add Student" will add this student to your club and consume one of your available licenses. *<br/><br/></p>}
+                        {serviceResponse.customerLinksData.hasStudentsToInvite && <p style={{"textAlign": "center", "color": "blue", "fontSize": "1.0em", "fontStyle": "italic"}}><br/>* <FormattedMessage {...messages.AddStudentNote} /> *<br/><br/></p>}
                       </div>
-                      ) : <p>There are no students in this Google Classroom, please update your Google Classroom first.</p>}
+                      ) : <p><FormattedMessage {...messages.NoStudents} /></p>}
                       <br/>
                       <br/>
                     </div>
@@ -241,4 +246,4 @@ class DiscussionBoardGoogleClassroomStudentsPanel extends Component {
   }
 }
 
-export default DiscussionBoardGoogleClassroomStudentsPanel;
+export default injectIntl(DiscussionBoardGoogleClassroomStudentsPanel);

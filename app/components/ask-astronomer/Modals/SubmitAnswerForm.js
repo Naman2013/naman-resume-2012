@@ -7,20 +7,17 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { intlShape, injectIntl } from 'react-intl';
 import Button from 'components/common/style/buttons/Button';
 import PhotoUploadButton from 'components/common/style/buttons/PhotoUploadButton';
 import deletePostImage from 'services/post-creation/delete-post-image';
 import setPostImages from 'modules/set-post-images';
 import { prepareReply } from 'services/discussions/prepare-reply';
-import styles from './Modals.style'
+import styles from './Modals.style';
+import messages from './SubmitQuestionForm.messages';
 
 const {
-  any,
-  arrayOf,
-  bool,
   func,
-  number,
-  oneOfType,
   shape,
   string,
 } = PropTypes;
@@ -39,13 +36,12 @@ class SubmitAnswerForm extends Component {
     freshness: string.isRequired,
     content: string.isRequired,
     submitReply: func.isRequired,
+    intl: intlShape.isRequired,
   };
 
   static defaultProps = {
 
   };
-
-
 
   constructor(props) {
     super(props);
@@ -141,6 +137,7 @@ class SubmitAnswerForm extends Component {
       content,
       modalActions,
       submitReply,
+      intl,
     } = this.props;
 
     const {
@@ -166,7 +163,7 @@ class SubmitAnswerForm extends Component {
             className="field-input"
             value={answerText}
             onChange={this.onChangeAnswerText}
-            placeholder="Write your answer"
+            placeholder={intl.formatMessage(messages.AnswerPlaceholder)}
           />
         </div>
         <div className="button-container">
@@ -174,8 +171,8 @@ class SubmitAnswerForm extends Component {
             <PhotoUploadButton handleUploadImage={this.handleUploadImage} />
           </div>
           <div className="actions">
-            <Button onClickEvent={modalActions.closeModal} text="Cancel" theme={{ height: '40px' }} />
-            <Button onClickEvent={this.submitForm} text="Submit" theme={{ height: '40px' }} />
+            <Button onClickEvent={modalActions.closeModal} text={intl.formatMessage(messages.Cancel)} theme={{ height: '40px' }} />
+            <Button onClickEvent={this.submitForm} text={intl.formatMessage(messages.Submit)} theme={{ height: '40px' }} />
           </div>
         </div>
         <style jsx>{styles}</style>
@@ -185,4 +182,4 @@ class SubmitAnswerForm extends Component {
 }
 
 
-export default SubmitAnswerForm;
+export default injectIntl(SubmitAnswerForm);

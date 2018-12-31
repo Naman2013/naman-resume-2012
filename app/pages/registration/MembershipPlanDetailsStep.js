@@ -10,6 +10,7 @@ import cloneDeep from 'lodash/cloneDeep';
 import Button from 'components/common/style/buttons/Button';
 import { browserHistory } from 'react-router';
 import { Field, reduxForm } from 'redux-form';
+import { intlShape, injectIntl, FormattedMessage } from 'react-intl';
 import InputField from 'components/form/InputField';
 import { CLASSROOM_GET_US_DISTRICTLIST_ENDPOINT_URL, CLASSROOM_GET_US_SCHOOLLIST_ENDPOINT_URL } from 'services/classroom/classroom';
 import { JOIN_PAGE_ENDPOINT_URL } from 'services/registration/registration.js';
@@ -20,6 +21,7 @@ import PlanDetailsCard from './partials/PlanDetailsCard';
 import TabbedNav from 'components/TabbedNav';
 import { PLAN_DETAILS_JOIN_TABS } from './StaticNavTabs';
 import styles from './JoinStep1SchoolSelection.style';
+import messages from './MembershipPlanDetailsStep.messages';
 
 const {
   string,
@@ -35,7 +37,9 @@ class MembershipPlanDetailsStep extends Component {
       label: string,
       value: string,
     })),
+    intl: intlShape.isRequired,
   };
+
   static defaultProps = {
     pathname: '/join/membershipPlanDetailsStep',
     tabs: [],
@@ -75,6 +79,7 @@ class MembershipPlanDetailsStep extends Component {
       pathname,
       tabs,
       activeTab,
+      intl,
     } = this.props;
 
     return (
@@ -93,8 +98,8 @@ class MembershipPlanDetailsStep extends Component {
                   !fetchingContent &&
                     <Fragment>              
                       <div className="join-root-alt-header">
-                        <h1>Join Slooh!</h1>
-                        <h2>Join today and get a 14 day free trial</h2>
+                        <h1><FormattedMessage {...messages.JoinSlooh} /></h1>
+                        <h2><FormattedMessage {...messages.JoinSloohTrial} /></h2>
                       </div>
                       <PlanDetailsCard {...serviceResponse.selectedSubscriptionPlan} />
                       <TabbedNav
@@ -108,13 +113,14 @@ class MembershipPlanDetailsStep extends Component {
                         <div className="button-container">
                           <Button
                             type="button"
-                            text="Go Back"
+                            text={intl.formatMessage(messages.GoBack)}
                             onClickEvent={() => { browserHistory.push('/about/memberships') }}
                           />
                           <button
                             className="submit-button"
                             type="submit"
-                          >Join Now
+                          >
+                            <FormattedMessage {...messages.JoinNow} />
                           </button>
                         </div>
                       </form>
@@ -136,4 +142,4 @@ const mapStateToProps = ({ user }) => ({
   user,
 });
 
-export default connect(mapStateToProps, null)(MembershipPlanDetailsStep);
+export default connect(mapStateToProps, null)(injectIntl(MembershipPlanDetailsStep));
