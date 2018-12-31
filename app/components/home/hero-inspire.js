@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import style from './hero-inspire.scss';
+import { Link } from 'react-router';
 
 import ScrollForMore from '../common/scroll-for-more';
 import isMobileScreenSize from '../../utils/content-loading-conditions';
@@ -64,6 +65,14 @@ class HeroInspire extends Component {
       ...modalContent,
       modalOpen: true,
     });
+  }
+
+  renderCallToActionLearnMore() {
+    const { userLoggedInFlag } = this.props;
+
+    if (!userLoggedInFlag) {
+      return <Link className="action" to="/welcome">Learn More</Link>
+    }
   }
 
   renderCallToActionJoinOrEvent() {
@@ -169,11 +178,7 @@ class HeroInspire extends Component {
             }
           </div>
           <div className="call-to-action">
-            {
-              buttonUrl && showVideoTourButton ?
-                this.renderCallToActionWatchTour(buttonUrl) :
-                <div />
-            }
+            { this.renderCallToActionLearnMore() }
           </div>
         </div>
 
