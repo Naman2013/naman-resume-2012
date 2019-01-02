@@ -165,7 +165,7 @@ export const fetchObjectFollowAction = (objectId) => (dispatch, getState) => {
 //////////////////////////////
 /* FETCH OBJECT SPECIALISTS */
 
-export const fetchObjectSpecialistsAction = (objectId) => (dispatch, getState) => {
+export const fetchObjectSpecialistsAction = (objectId, maxCount) => (dispatch, getState) => {
   dispatch(fetchObjectSpecialistsActionStart());
 
   const { token, at, cid } = getState().user;
@@ -175,6 +175,7 @@ export const fetchObjectSpecialistsAction = (objectId) => (dispatch, getState) =
     at,
     cid,
     objectId,
+    maxCount,
   }).then(
     result => {
       dispatch(fetchObjectSpecialistsActionSuccess(result.data));

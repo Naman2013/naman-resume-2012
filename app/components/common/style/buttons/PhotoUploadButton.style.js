@@ -3,55 +3,64 @@ import { astronaut } from 'styles/variables/colors_tiles_v4';
 import { primaryFont } from 'styles/variables/fonts';
 
 export default css`
-button {
-  background: none;
-  border: none;
-  margin: 0;
-  padding: 0;
-  cursor: pointer;
-  transition: background-color 0.25s ease-in-out;
-}
+  button {
+    background: none;
+    border: none;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+    transition: background-color 0.25s ease-in-out;
+  }
 
-button:focus {
-  outline: none;
-}
-input[type="file"] {
-  display: none;
-}
-.button-text {
-  margin: 0 5px;
-}
-.button-input-container {
-  position: relative;
-}
+  button:focus {
+    outline: none;
+  }
 
-.button-inner-container {
-  display: flex;
-  margin: auto;
-  justify-content: space-between;
-}
-.text {
-  vertical-align: middle;
+  input[type='file'] {
+    display: none;
+  }
 
-}
+  .button-text {
+    margin: 0 5px;
+    display: flex;
+    align-items: center;
+  }
 
-.fa-image {
-  font-size: 13px;
-}
-.button-container {
-  font-family: ${primaryFont};
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  border: 1px dashed ${astronaut};
-  background-color: transparent;
-  border-radius: 100px;
-  width: 110px;
-  margin: 15px 0;
-  font-size: 11px;
-  font-weight: bold;
-  text-transform: uppercase;
-  width: 120px;
-  height: 40px;
-}
+  .button-input-container {
+    position: relative;
+  }
+
+  .button-inner-container {
+    display: flex;
+    margin: auto;
+    justify-content: space-between;
+  }
+
+  label {
+    margin: 0;
+  }
+
+  .text {
+    vertical-align: middle;
+  }
+
+  .fa-image {
+    font-size: 13px;
+  }
+  .button-container {
+    font-family: ${primaryFont};
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    border: 1px dashed ${astronaut};
+    background-color: transparent;
+    border-radius: 100px;
+    width: 110px;
+    margin: 15px 0;
+    font-size: 11px;
+    font-weight: bold;
+    text-transform: uppercase;
+    width: 120px;
+    height: 40px;
+  }
 `;

@@ -172,7 +172,7 @@ class SubmitAnswerForm extends Component {
             <PhotoUploadButton handleUploadImage={this.handleUploadImage} />
           </div>
           <div className="actions">
-            <Button onClickEvent={modalActions.closeModal} text={intl.formatMessage(messages.Cancel)} theme={{ height: '40px' }} />
+            <Button onClickEvent={modalActions.closeModal} text={intl.formatMessage(messages.Cancel)} theme={{ height: '40px', marginRight: '10px' }} />
             <Button onClickEvent={this.submitForm} text={intl.formatMessage(messages.Submit)} theme={{ height: '40px' }} />
           </div>
         </div>

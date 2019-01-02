@@ -33,7 +33,9 @@ export default css`
   }
 
   .button-container:active,
-  .button-container:focus { outline: none; }
+  .button-container:focus {
+    outline: none;
+  }
 
   .circular {
     width: 40px;
@@ -50,7 +52,7 @@ export default css`
   }
 
   .pad-right {
-    padding-right: 40px;
+    padding-right: 20px;
   }
 
   .active.button-container {

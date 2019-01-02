@@ -138,7 +138,7 @@ class AskQuestionTile extends Component {
             </div>
             <span className="icon-line-horz" />
             <div className="button-contain">
-              <GenericButton onClickEvent={this.setAskQuestionModal} text={askPrompt} icon={promptIconUrl} theme={{ width: '175px' }} />
+              <GenericButton onClickEvent={this.setAskQuestionModal} text={askPrompt} icon={promptIconUrl} theme={{ width: '170px', marginRight: '10px' }} />
               <GenericButton onClickEvent={this.setInfoModal} icon={info} theme={{ height: '40px', width: '40px' }} />
             </div>
           </div>
@@ -150,7 +150,7 @@ class AskQuestionTile extends Component {
             <h2 dangerouslySetInnerHTML={{ __html: subTitle }} />
             <p dangerouslySetInnerHTML={{ __html: infoText }} />
             <div className="button-contain">
-              <GenericButton onClickEvent={this.setAskQuestionModal} text={askPrompt} icon={promptIconUrl} theme={{ width: '175px' }} />
+              <GenericButton onClickEvent={this.setAskQuestionModal} text={askPrompt} icon={promptIconUrl} theme={{ width: '170px', marginRight: '10px' }} />
               <DisplayAtBreakpoint screenMedium>
                 <GenericButton onClickEvent={this.setInfoModal} icon={info} theme={{ height: '40px', width: '40px' }} />
               </DisplayAtBreakpoint>
