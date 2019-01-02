@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { FormattedMessage } from 'react-intl';
+import messages from './tags.messages';
 import deleteTag from 'services/tags/delete-tag';
 import setTag from 'services/tags/set-tag';
 import GenericButton from 'components/common/style/buttons/Button';
@@ -157,7 +159,7 @@ class Tags extends Component {
           theme={{ margin: '15px auto' }}
         />
         <div className="tag-error">
-          <span>{hasError ? 'There was an error adding this tag' : ''}</span>
+          <span>{hasError ? <FormattedMessage {...messages.AddTagErrorText} /> : ''}</span>
         </div>
         <style jsx>{styles}</style>
       </div>

@@ -126,7 +126,7 @@ class Groups extends Component {
     requestFormText,
     requestFormPrivacy,
   }) => {
-    const { actions, user } = this.props;
+    const { actions, user, intl } = this.props;
     requestGroup({
       at: user.at,
       token: user.token,
@@ -149,7 +149,7 @@ class Groups extends Component {
           this.setState({
             showPrompt: true,
             promptText: (<RequestGroupFormFeedback
-              promptText="There was an error submitting your form."
+              promptText={intl.formatMessage(messages.errorSubmitting)}
               closeForm={this.closeModal}
               requestNew={this.requestGroup}
             />),

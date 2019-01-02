@@ -11,6 +11,7 @@ if you do not want to use this components modal, set useModal to false and do no
 import React, { Component } from 'react';
 import noop from 'lodash/noop';
 import PropTypes from 'prop-types';
+import { intlShape, injectIntl } from 'react-intl';
 import PhotoUploadButton from 'components/common/style/buttons/PhotoUploadButton';
 import Modal from 'react-modal';
 import deletePostImage from 'services/post-creation/delete-post-image';
@@ -19,6 +20,7 @@ import Button from 'components/common/style/buttons/Button';
 import ViewImagesButton from 'components/common/style/buttons/ViewImagesButton';
 import { customModalStylesV4 } from 'styles/mixins/utilities';
 import styles from './SingleFieldSubmitForm.style';
+import messages from './SingleFieldSubmitForm.messages';
 
 
 const {
@@ -44,6 +46,7 @@ class SingleFieldSubmitForm extends Component {
       cid: string,
       token: string,
     }).isRequired,
+    intl: intlShape.isRequired,
   }
   static defaultProps = {
     imageClass: 'discussion',
@@ -81,17 +84,18 @@ class SingleFieldSubmitForm extends Component {
   }
 
   handleSubmit = (error, message) => {
+    const { intl } = this.props;
     if (!error) {
       this.setState({
         showPopup: true,
-        responseMessage: message || 'Your response has been submitted.',
+        responseMessage: message || intl.formatMessage(messages.ResponceSubmittedText),
         formText: '',
         S3URLs: [],
       });
     } else {
       this.setState({
         showPopup: true,
-        responseMessage: message || 'There was an issue submitting the form.',
+        responseMessage: message || intl.formatMessage(messages.FormIssueText),
       });
     }
   }
@@ -211,4 +215,4 @@ class SingleFieldSubmitForm extends Component {
   }
 }
 
-export default SingleFieldSubmitForm;
+export default injectIntl(SingleFieldSubmitForm);

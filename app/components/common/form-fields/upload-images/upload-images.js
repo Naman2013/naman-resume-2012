@@ -6,6 +6,8 @@ import deletePostImage from 'services/post-creation/delete-post-image';
 import ImagesInput from './partials/input';
 import ImagesDisplay from './partials/display';
 import styles from './upload-images.style';
+import messages from './upload-images.messages';
+import { FormattedMessage } from 'react-intl';
 
 const {
   arrayOf,
@@ -108,7 +110,7 @@ class UploadImages extends Component {
         {uploadLoading ? <div>Loading...</div> : null}
         <ImagesDisplay S3URLs={S3URLs} handleDeleteImage={this.handleDeleteImage} />
         <ImagesInput handleUploadImage={this.handleUploadImage} imageInputValue={imageInputValue} />
-        {uploadError && !uploadLoading ? <div>There was an error uploading your image.</div> : null}
+        {uploadError && !uploadLoading ? <div><FormattedMessage {...messages.UploadImageErrorText} /></div> : null}
         <style jsx>{styles}</style>
       </div>
     );

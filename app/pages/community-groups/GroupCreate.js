@@ -31,6 +31,9 @@ import style from '../../containers/groups-hub/groups-hub.style';
 import style2 from 'pages/registration/partials/JoinHeader.style';
 import style3 from './GroupCreate.style';
 
+import messages from './Groups.messages'
+import { intlShape, injectIntl } from 'react-intl';
+
 
 const COUNT = 9;
 const DEFAULT_PAGE = 1;
@@ -51,6 +54,7 @@ class GroupCreate extends Component {
       filterType: PropTypes.string,
     }),
     isCreateMode: PropTypes.bool,
+    intl: intlShape.isRequired
   };
 
   static defaultProps = {
@@ -128,7 +132,7 @@ class GroupCreate extends Component {
     requestFormText,
     requestFormPrivacy,
   }) => {
-    const { actions, user } = this.props;
+    const { actions, user, intl } = this.props;
     requestGroup({
       at: user.at,
       token: user.token,
@@ -151,7 +155,7 @@ class GroupCreate extends Component {
           this.setState({
             showPrompt: true,
             promptText: (<RequestGroupFormFeedback
-              promptText="There was an error submitting your form."
+              promptText={intl.formatMessage(messages.errorSubmitting)}
               closeForm={this.closeModal}
               requestNew={this.requestGroup}
             />),
@@ -452,4 +456,4 @@ const mapDispatchToProps = dispatch => ({
   }, dispatch),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({ form: 'newGroupAccountForm', enableReinitialize: true })(GroupCreate));
+export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({ form: 'newGroupAccountForm', enableReinitialize: true })(injectIntl(GroupCreate)));
