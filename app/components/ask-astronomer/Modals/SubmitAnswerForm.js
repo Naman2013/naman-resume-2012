@@ -104,6 +104,7 @@ class SubmitAnswerForm extends Component {
 
     if (answerText.replace(/\s/g, '').length) {
       this.props.submitForm(answerText, S3URLs);
+      this.props.modalActions.closeModal();
     }
   }
 
@@ -130,7 +131,7 @@ class SubmitAnswerForm extends Component {
     });
   }
 
-  render () {
+  render() {
     const {
       authorInfo,
       freshness,
