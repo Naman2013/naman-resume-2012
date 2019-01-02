@@ -19,10 +19,14 @@ export default css`
     border: none;
     margin: 0 0 32px;
     padding: 0;
+    font-weight: 700;
+    font-style: italic;
   }
 
   .action-read-more:focus,
-  .action-read-more:active { outline: none; }
+  .action-read-more:active {
+    outline: none;
+  }
 
   @media ${screenLarge} {
     .__html-content__ {
