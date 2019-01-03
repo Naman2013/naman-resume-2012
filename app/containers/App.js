@@ -65,6 +65,8 @@ class App extends Component {
           {`
             .v4 {
               margin-top: 60px !important;
+              position: relative;
+              z-index: 1;
             }
             .navigation {
               position: relative;
