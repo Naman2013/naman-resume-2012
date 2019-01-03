@@ -33,4 +33,5 @@ export const Objects = {
   'Objects.NoShows': 'Sorry, there are no shows available for {objectTitle} at this time.',
   'Objects.RelatedStories': 'Related Stories',
   'Objects.NoStories': 'Sorry, there are no stories available for {objectTitle} at this time.',
+  'Objects.ObservationsDetails': 'Details',
 };
