@@ -38,7 +38,7 @@ export default css`
 
   .off-white-bg-top-shadow {
     background-color: ${faintGray};
-    box-shadow: inset 0 10px 30px 10px rgba(237,240,242,.7);
+    box-shadow: inset 0 10px 30px 10px rgba(237, 240, 242, 0.7);
   }
 
   h1 {
@@ -69,7 +69,7 @@ export default css`
     padding: 25px;
     margin: 25px auto;
     min-width: 28%;
-    box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.1);
+    box-shadow: 0px 0px 3px 1px rgba(0, 0, 0, 0.1);
     transition: width 0.4s ease-in-out, height 0.4s ease-in-out;
   }
 
@@ -95,7 +95,7 @@ export default css`
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    padding: 10px;
+    object-fit: cover;
   }
 
   @media ${screenMedium} {

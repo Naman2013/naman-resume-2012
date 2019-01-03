@@ -139,7 +139,7 @@ class Overview extends Component {
     if (!modeledResult.topicContentProps.title) {
       return null;
     }
-
+    
     return (
       <Fragment>
         <TopicContent {...modeledResult.topicContentProps} guideId={objectId} />
@@ -217,18 +217,13 @@ class Overview extends Component {
           <CenterColumn widths={['768px', '965px', '965px']}>
             {objectSpecialists && objectSpecialists.specialistsCount > 0 ? (
               <div className="card-container__specialists">
-                {Object.keys(objectSpecialists.specialistsList).map(key => (
-                  <div className="specialists-card" key={`card_${key}`}>
-                    <div className="specialists-icon">
-                      <img alt="" src={objectSpecialists.specialistsList[key].iconURL} />
-                    </div>
-                    <h5>{objectSpecialists.specialistsList[key].displayName}</h5>
-                    {objectSpecialists.specialistsList[key].hasLinkFlag && (
-                      <a
-                        className="specialists-btn"
-                        href={objectSpecialists.specialistsList[key].linkURL}
-                      >
-                        <FormattedMessage {...messages.ViewSpecialist} />
+                {objectSpecialists.specialistsList.map(item => (
+                  <div className="specialists-card" key={`card_${item.customerId}`}>
+                    <img className="specialists-icon" alt="" src={item.iconUrl} />
+                    <h5>{item.displayName}</h5>
+                    {item.hasLinkFlag && (
+                      <a className="mvp-btn" href={item.linkUrl}>
+                        {item.gravityRankLabel}
                       </a>
                     )}
                   </div>
