@@ -14,11 +14,11 @@ const TopicList = ({ list }) => (
         </DisplayAtBreakpoint>
 
         <DisplayAtBreakpoint screenMedium>
-          <BobbieTile title={tile.title} readDuration={tile.readDuration} authorName={tile.authorName} HTMLBlob={tile.content_device_medium} />
+          <BobbieTile showMetaData="true" title={tile.title} readDuration={tile.readDuration} authorName={tile.authorName} HTMLBlob={tile.content_device_medium} />
         </DisplayAtBreakpoint>
 
         <DisplayAtBreakpoint screenLarge screenXLarge>
-          <BobbieTile title={tile.title} readDuration={tile.readDuration} authorName={tile.authorName} HTMLBlob={tile.content_device_large} />
+          <BobbieTile showMetaData="true" title={tile.title} readDuration={tile.readDuration} authorName={tile.authorName} HTMLBlob={tile.content_device_large} />
         </DisplayAtBreakpoint>
       </li>)}
     </ul>
