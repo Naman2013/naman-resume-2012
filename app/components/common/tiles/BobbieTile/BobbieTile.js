@@ -16,6 +16,7 @@ import CMSStyle from './CMS.style';
 */
 
 const BobbieTile = ({
+  showMetaData,
   title,
   readDuration,
   authorName,
@@ -23,7 +24,7 @@ const BobbieTile = ({
 }) => (
   <div className="root">
     <div className="tile-content-container">
-      <h3 style={{ marginBottom: '20px' }} className="title">{title}</h3>
+      {showMetaData == true && <h3 style={{ marginBottom: '20px' }} className="title">{title}</h3>}
       {/*
       <div className="post-meta-data">
         <ul>

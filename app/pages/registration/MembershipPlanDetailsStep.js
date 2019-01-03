@@ -18,6 +18,7 @@ import axios from 'axios';
 import Request from 'components/common/network/Request';
 import JoinHeader from './partials/JoinHeader';
 import PlanDetailsCard from './partials/PlanDetailsCard';
+import BobbieTile from 'components/common/tiles/BobbieTile';
 import TabbedNav from 'components/TabbedNav';
 import { PLAN_DETAILS_JOIN_TABS } from './StaticNavTabs';
 import styles from './JoinStep1SchoolSelection.style';
@@ -108,9 +109,9 @@ class MembershipPlanDetailsStep extends Component {
                         onTabClick={this.changeActiveTab}
                       />
                       <div className="inner-container">
-                      <form className="form" onSubmit={this.continueToJoinFlow}>
-                        <div className="form-section" dangerouslySetInnerHTML={{ __html: serviceResponse.selectedSubscriptionPlan.aboutThisPlan }}/>
-                        <div className="button-container">
+                      <form style={{paddingTop: '0px'}} className="form" onSubmit={this.continueToJoinFlow}>
+			<BobbieTile className="form-section" showTileMetaData="false" HTMLBlob={serviceResponse.selectedSubscriptionPlan.aboutThisPlan} />
+                        <div style={{paddingTop: '40px'}} className="button-container">
                           <Button
                             type="button"
                             text={intl.formatMessage(messages.GoBack)}
