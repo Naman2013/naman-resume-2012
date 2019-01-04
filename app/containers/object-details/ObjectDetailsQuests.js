@@ -13,9 +13,10 @@ import uniqueId from 'lodash/uniqueId';
 import { intlShape, injectIntl, FormattedMessage } from 'react-intl';
 import Request from 'components/common/network/Request';
 import CenterColumn from 'components/common/CenterColumn';
-import DeviceProvider from 'providers/DeviceProvider';
+import DeviceProvider, { DeviceContext } from 'providers/DeviceProvider';
 import ObjectDetailsSectionTitle from '../../components/object-details/ObjectDetailsSectionTitle';
-import QuestTile from '../../components/common/tiles/QuestTile';
+import QuestHubTileBig from 'components/common/tiles/QuestHubTileBig';
+import QuestHubTileSmall from 'components/common/tiles/QuestHubTileSmall';
 import { OBJECT_QUESTS } from 'services/objects';
 
 import {
@@ -24,6 +25,7 @@ import {
 } from '../../modules/object-details/actions';
 import { fromPromise } from 'rxjs/observable/fromPromise';
 import messages from './ObjectDetails.messages';
+import styles from './ObjectDetailsQuests.style';
 
 const mapStateToProps = ({ objectDetails, appConfig, user }) => ({
   objectDetails: objectDetails.objectDetails,
@@ -47,6 +49,7 @@ class Quests extends Component {
       },
       objectDetails,
       intl,
+      
     } = this.props;
 
     return (
@@ -67,40 +70,42 @@ class Quests extends Component {
                 fetchingContent,
                 serviceResponse,
               }) => (
-                <div className="root">
-                  {serviceResponse && serviceResponse.questsCount > 0 ? (
-                    <div className="card-container__quests">
-                      {Object.keys(serviceResponse.questsList).map(quest => (
-                        <QuestTile
-                          key={uniqueId()}
-                          title={quest.title}
-                          iconURL={quest.iconURL}
-                          anchorText={quest.linkLabel}
-                        />
-                      ))}
+                <DeviceContext.Consumer>
+                  {context => (
+                    <div className="root">
+                      {serviceResponse && serviceResponse.relatedQuestsCount > 0 ? (
+                        <div className="card-container__quests">
+                          {!context.isMobile && serviceResponse.relatedQuestsList.map(quest => (
+                            <div className="tile">
+                              <QuestHubTileBig
+                                {...quest}
+                              />
+                            </div>
+                          ))}
+                          {context.isMobile && serviceResponse.relatedQuestsList.map(quest => (
+                            <div className="tile">
+                              <QuestHubTileSmall {...quest} />
+                            </div>
+                          ))}
+                        </div>
+                      ) :
+                        (
+                          <div>
+                            <p>
+                              <FormattedMessage
+                                {...messages.NoQuests}
+                                values={{ objectTitle: objectDetails.objectTitle }}
+                              />
+                            </p>
+                          </div>
+                      )}
                     </div>
-                  ) :
-                    (
-                      <div>
-                        <p>
-                          <FormattedMessage
-                            {...messages.NoQuests}
-                            values={{ objectTitle: objectDetails.objectTitle }}
-                          />
-                        </p>
-                      </div>
                   )}
-                </div>
-            )}
+                </DeviceContext.Consumer>
+              )}
             />
           </CenterColumn>
-          <style jsx>{`
-            .root {
-              display: flex;
-              flex-wrap: wrap;
-            }
-          `}
-          </style>
+          <style jsx>{styles}</style>
         </DeviceProvider>
       </Fragment>
     );

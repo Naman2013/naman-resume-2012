@@ -133,9 +133,9 @@ class Overview extends Component {
       intl,
       user,
     } = this.props;
-    console.log(this.props);
+    
     const modeledResult = modelData(objectData);
-    console.log(modeledResult, objectData);
+
     // TODO: need something more substantial than this to prevent bad renders
     if (!modeledResult.topicContentProps.title) {
       return null;
