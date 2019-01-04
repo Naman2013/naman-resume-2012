@@ -187,18 +187,9 @@ ReactDOM.render(
         <Route path="redirect-confirmation" component={RedirectConfirmation} />
 
         <Route path="about" component={StaticAppContainer} onEnter={validateUser}>
-          <IndexRedirect to="mission" />
-          <Route path="memberships" component={Memberships} />
-          <Route path="mission" component={Mission} />
-          <Route path="news" component={News} title="In The News" subTitle=" " />
-          <Route
-            path="job"
-            component={Job}
-            title="Work With Us"
-            subTitle="Share your passion for astronomy with the world"
-          />
-          <Route path="contact" component={Contact} title="Contact US" subTitle=" " />
-          <Route path="leadership" component={Leadership} title="Leadership" subTitle=" " />
+          <IndexRedirect to="about/about-slooh" />
+	  <Route path="memberships" component={Memberships} />
+	  {/* <Route path=":aboutSloohSectionId" component={AboutSloohSection} onEnter={validateUser} /> */}
         </Route>
 
         <Route

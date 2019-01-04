@@ -9,9 +9,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import Modal from 'react-modal';
+import { intlShape, injectIntl } from 'react-intl';
 import { customModalStyles } from 'styles/mixins/utilities';
 import Button from 'components/common/style/buttons/Button';
 import styles from './ObservationsForm.style';
+import messages from './ObservationsForm.messages';
 
 const {
   arrayOf,
@@ -35,7 +37,7 @@ class ObservationsForm extends Component {
       token: oneOfType([number, string]).isRequired,
       cid: oneOfType([number, string]).isRequired,
     }).isRequired,
-
+    intl: intlShape.isRequired,
   }
 
   static defaultProps = {
@@ -106,10 +108,11 @@ class ObservationsForm extends Component {
       customerImageId,
       scheduledMissionId,
       user,
+      intl,
     } = this.props;
     const { title, observation } = this.state;
     if (!title || !observation) {
-      window.alert('You are missing a required field.')
+      window.alert(intl.formatMessage(messages.MissingRequired));
     } else {
       axios.post('/api/images/setObservationTags', {
         title,
@@ -203,4 +206,4 @@ class ObservationsForm extends Component {
   }
 }
 
-export default ObservationsForm;
+export default injectIntl(ObservationsForm);
