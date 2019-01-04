@@ -1,14 +1,19 @@
 import css from 'styled-jsx/css';
 import { primaryFont, secondaryFont } from '../../../styles/variables/fonts';
-import { astronaut, lynch, geyser, iron, white_tile } from '../../../styles/variables/colors_tiles_v4';
-import { screenLarge, screenXLarge } from '../../../styles/variables/breakpoints';
+import {
+  astronaut,
+  lynch,
+  geyser,
+  white_tile,
+  black,
+} from '../../../styles/variables/colors_tiles_v4';
+import { screenXLarge } from '../../../styles/variables/breakpoints';
 
 export default css`
-
   .card-obs {
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
     position: relative;
     letter-spacing: 1px;
@@ -16,13 +21,12 @@ export default css`
     background-color: white;
     background: url(${white_tile});
     background-size: 22px;
-    box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.2);
+    box-shadow: 0px 0px 3px 1px rgba(0, 0, 0, 0.2);
     margin: 25px auto;
     color: ${astronaut};
     font-family: ${secondaryFont};
     transition: width 0.4s ease-in-out, height 0.4s ease-in-out;
     width: 100%;
-    height: 396px;
   }
 
   .obs-left {
@@ -43,17 +47,29 @@ export default css`
 
   .media-card-img-right {
     display: flex;
-    justify-content: flex-end;
-    height: 100%;
+    justify-content: space-around;
+    max-height: 100%;
     width: calc(40% - 50px);
     transition: width 0.4s ease-in-out, height 0.4s ease-in-out;
+    margin-top: 50px;
+  }
+
+  .media-card-img-container {
+    width: 100%;
+    height: 0;
+    padding-bottom: 100%;
+    position: relative;
+    background: ${black};
   }
 
   .media-card-img-right img {
-
-    border: solid 1px ${iron};
-    padding: 2px;
-    height: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    object-fit: contain;
+    max-width: 100%;
+    max-height: 100%;
   }
 
   .card-obs-author {
@@ -124,7 +140,6 @@ export default css`
   @media ${screenXLarge} {
     .card-obs {
       width: 100%;
-      height: 480px;
     }
 
     .obs-left {

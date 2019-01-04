@@ -20,7 +20,7 @@ import Navigation from '../../components/object-details/Navigation';
 import FollowObject from '../../components/object-details/FollowObject';
 import style from './ObjectDetails.style';
 
-
+const MAX_MVP_ASTRONOMERS = 3;
 
 const mapStateToProps = ({ objectDetails, appConfig, user }) => ({
   objectMissions: objectDetails.objectMissions,
@@ -44,11 +44,7 @@ const mapDispatchToProps = dispatch => ({
 
 @connect(mapStateToProps, mapDispatchToProps)
 
-
-
-
 class ObjectDetails extends Component {
-
   static propTypes = {
     params: PropTypes.shape({
       objectId: PropTypes.string,
@@ -74,7 +70,7 @@ class ObjectDetails extends Component {
     if (this.props.objectDetails.objectId != nextProps.objectDetails.objectId) {
       this.props.actions.fetchObjectMissionsAction(nextProps.objectDetails.objectId);
       this.props.actions.fetchObjectQuestsAction(nextProps.objectDetails.objectId);
-      this.props.actions.fetchObjectSpecialistsAction(nextProps.objectDetails.objectId);
+      this.props.actions.fetchObjectSpecialistsAction(nextProps.objectDetails.objectId, MAX_MVP_ASTRONOMERS);
     }
 
     // fetch the object details, the object page has been changed.

@@ -17,12 +17,12 @@ function prepareContent(bodyContent = '', length) {
 class AboutContent extends Component {
   static propTypes = {
     content: PropTypes.string.isRequired,
-  }
+  };
 
   state = {
     buttonText: TRUNCATED_BUTTON_TEXT,
     contentLength: TRUNCATED_CONTENT_LENGTH,
-  }
+  };
 
   handleReadMoreClick = () => {
     if (this.state.contentLength === TRUNCATED_CONTENT_LENGTH) {
@@ -36,7 +36,7 @@ class AboutContent extends Component {
         buttonText: TRUNCATED_BUTTON_TEXT,
       });
     }
-  }
+  };
 
   render() {
     const { content } = this.props;
@@ -44,21 +44,19 @@ class AboutContent extends Component {
 
     return (
       <Fragment>
-        <span
-          className="__html-content__"
-          dangerouslySetInnerHTML={{
-          __html: prepareContent(content, contentLength)
-          }}
-        />
-        {
-          content.length > TRUNCATED_CONTENT_LENGTH &&
-            <button
-              onClick={this.handleReadMoreClick}
-              className="action-read-more"
-            >
+        <span>
+          <span
+            className="__html-content__"
+            dangerouslySetInnerHTML={{
+              __html: prepareContent(content, contentLength),
+            }}
+          />
+          {content.length > TRUNCATED_CONTENT_LENGTH && (
+            <button onClick={this.handleReadMoreClick} className="action-read-more">
               {buttonText}
             </button>
-        }
+          )}
+        </span>
         <style jsx>{style}</style>
       </Fragment>
     );

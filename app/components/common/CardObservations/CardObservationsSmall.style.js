@@ -1,12 +1,18 @@
 import css from 'styled-jsx/css';
 import { primaryFont, secondaryFont } from '../../../styles/variables/fonts';
-import { astronaut, lynch, geyser, iron, romance } from '../../../styles/variables/colors_tiles_v4';
+import {
+  astronaut,
+  lynch,
+  geyser,
+  romance,
+  black,
+} from '../../../styles/variables/colors_tiles_v4';
 
 export default css`
   .card-obs {
     letter-spacing: 1px;
     background-color: ${romance};
-    box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.2);
+    box-shadow: 0px 0px 3px 1px rgba(0, 0, 0, 0.2);
     margin: 3px;
     color: ${astronaut};
     font-family: ${secondaryFont};
@@ -31,9 +37,13 @@ export default css`
   }
 
   .obs-left img {
-    border: solid 1px ${iron};
-    padding: 2px;
-    width: 98%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    object-fit: contain;
+    max-width: 100%;
+    max-height: 100%;
   }
 
   .card-obs-author {
@@ -64,7 +74,7 @@ export default css`
     text-decoration: none;
     color: ${astronaut};
   }
-  
+
   ul {
     margin: 0;
     padding: 0;
@@ -93,4 +103,11 @@ export default css`
     padding-right: 15px;
   }
 
+  .media-card-img-container {
+    width: 100%;
+    height: 0;
+    padding-bottom: 100%;
+    position: relative;
+    background: ${black};
+  }
 `;

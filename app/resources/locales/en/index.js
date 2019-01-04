@@ -9,4 +9,5 @@ export * from './Shows';
 export * from './Clubs';
 export * from './Objects';
 export * from './Ecommerce';
+export * from './AskAnAstronomer';
 export * from './Alerts';

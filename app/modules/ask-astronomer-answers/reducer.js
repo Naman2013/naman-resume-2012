@@ -98,8 +98,9 @@ export default createReducer(initialState, {
     const newAllState = cloneDeep(state.allAnswers);
     newState[threadId] = displayedAnswers;
     if (newAllState[threadId]) {
-      newAllState[threadId].page = page
+      newAllState[threadId].page = page || 1;
     }
+
     return {
       ...state,
       page,
@@ -178,6 +179,7 @@ export default createReducer(initialState, {
       // but only add it if the last page is the currently displayed page.
       if (newAllAnswers[threadId].showAllAnswers) {
         const lastPage = (Math.ceil(newAllAnswers[threadId].replies.length / paginationCount)) || 1;
+
         if (newAllAnswers[threadId].page === lastPage) {
           newAllDisplayedAnswers[threadId] = newAllDisplayedAnswers[threadId] || [];
           newAllDisplayedAnswers[threadId] = [].concat(newAllDisplayedAnswers[threadId], reply.replyId);
@@ -188,17 +190,15 @@ export default createReducer(initialState, {
         // show first X answers
         newAllDisplayedAnswers[threadId] = take(newAllAnswers[threadId].replies, paginationCount).map(rep => rep.replyId);
       }
-
-
     } else {
       newAllAnswers[threadId] = {
         replies: [reply],
         showAllAnswers: true,
       };
 
-      newAllDisplayedAnswers[threadId] = [reply.replyId]
+      newAllDisplayedAnswers[threadId] = [reply.replyId];
     }
-
+    
     return {
       ...state,
       allAnswers: newAllAnswers,

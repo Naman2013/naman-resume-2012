@@ -31,7 +31,7 @@ const guidePageModel = {
             followButtonIconURL: resp.promptIconUrl,
             followButtonText: resp.readingListPrompt,
             readingListType: resp.readingListType,
-            toggleReadingListFlag: resp.toggleReadingListFlag,
+            showActions: resp.toggleReadingListFlag,
           }}
           guideId={guideId}
         />
@@ -43,7 +43,7 @@ const guidePageModel = {
             followButtonIconURL: resp.promptIconUrl,
             followButtonText: resp.readingListPrompt,
             readingListType: resp.readingListType,
-            toggleReadingListFlag: resp.toggleReadingListFlag,
+            showActions: resp.toggleReadingListFlag,
           }}
           guideId={guideId}
         />
