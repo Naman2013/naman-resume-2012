@@ -7,13 +7,12 @@ import style from './GuideContentList.style';
 
 const GuideContentList = ({ list, topicActionProps, guideId }) => (
   <div className="root">
-    <AbelList theme={{ horizontalList: { boxShadow: 'inset 0px 5px 20px -5px #e0e0e0' } }} list={list} />
-    <DisplayAtBreakpoint
-      screenSmall
-      screenLarge
-      screenXLarge
-    >
-      <TopicActions {...topicActionProps} guideId={guideId} />
+    <AbelList
+      theme={{ horizontalList: { boxShadow: 'inset 0px 5px 20px -5px #e0e0e0' } }}
+      list={list}
+    />
+    <DisplayAtBreakpoint screenSmall screenLarge screenXLarge>
+      {topicActionProps.showActions && <TopicActions {...topicActionProps} guideId={guideId} />}
     </DisplayAtBreakpoint>
     <style jsx>{style}</style>
   </div>
@@ -24,6 +23,7 @@ GuideContentList.propTypes = {
   topicActionProps: PropTypes.shape({
     followButtonIconURL: PropTypes.string.isRequired,
     followButtonText: PropTypes.string.isRequired,
+    showActions: PropTypes.bool.isRequired,
   }).isRequired,
   guideId: PropTypes.string.isRequired,
 };

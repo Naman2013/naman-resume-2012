@@ -18,8 +18,8 @@ const GuideBodyContent = ({
     <AboutContent content={content} />
     <DisplayAtBreakpoint
       screenMedium
-    >
-      <TopicActions {...topicActionProps} guideId={guideId} />
+    >{topicActionProps.showActions && 
+      <TopicActions {...topicActionProps} guideId={guideId} />}
     </DisplayAtBreakpoint>
     {footer ? footer() : null}
     <style jsx>{style}</style>

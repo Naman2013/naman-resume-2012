@@ -44,8 +44,13 @@ class AboutContent extends Component {
 
     return (
       <Fragment>
-        <span >
-          {prepareContent(content, contentLength)}
+        <span>
+          <span
+            className="__html-content__"
+            dangerouslySetInnerHTML={{
+              __html: prepareContent(content, contentLength),
+            }}
+          />
           {content.length > TRUNCATED_CONTENT_LENGTH && (
             <button onClick={this.handleReadMoreClick} className="action-read-more">
               {buttonText}

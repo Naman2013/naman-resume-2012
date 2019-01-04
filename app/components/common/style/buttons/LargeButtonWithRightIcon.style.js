@@ -24,6 +24,7 @@ button:focus {
   .button-container {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     font-family: ${primaryFont};
     position: relative;
     border: 1px dashed ${astronaut};
