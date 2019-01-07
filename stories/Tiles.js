@@ -31,6 +31,9 @@ storiesOf('Tiles', module)
   .add('BobbieTile - 40_60_SPLIT with image', () => (
     <BobbieTile
       title="Check out this tutorial"
+      showTitle={true}
+      subtitle=""
+      showSubtitle={false}
       readDuration="30"
       authorName="Paul Cox"
       HTMLBlob={SAMPLE_IMAGE_HTML_BLOB}
@@ -39,6 +42,9 @@ storiesOf('Tiles', module)
   .add('BobbieTile - 60_40_SPLIT with video', () => (
     <BobbieTile
       title="This video has magic"
+      showTitle={true}
+      subtitle=""
+      showSubtitle={false}
       readDuration="10"
       authorName="John Masse"
       HTMLBlob={SAMPLE_VIDEO_HTML_BLOB}
