@@ -86,7 +86,7 @@ class MembershipPlanDetailsStep extends Component {
     return (
       <div className="join-root-alt">
         <div className="step-root">
-        
+
           <Request
             serviceURL={JOIN_PAGE_ENDPOINT_URL}
             requestBody={{ 'callSource': 'membershipspagePlanDetails', selectedPlanId: this.state.selectedPlanId }}
@@ -97,7 +97,7 @@ class MembershipPlanDetailsStep extends Component {
               <Fragment>
                 {
                   !fetchingContent &&
-                    <Fragment>              
+                    <Fragment>
                       <div className="join-root-alt-header">
                         <h1><FormattedMessage {...messages.JoinSlooh} /></h1>
                         <h2><FormattedMessage {...messages.JoinSloohTrial} /></h2>
@@ -110,7 +110,7 @@ class MembershipPlanDetailsStep extends Component {
                       />
                       <div className="inner-container">
                       <form style={{paddingTop: '0px'}} className="form" onSubmit={this.continueToJoinFlow}>
-			<BobbieTile className="form-section" showTileMetaData="false" HTMLBlob={serviceResponse.selectedSubscriptionPlan.aboutThisPlan} />
+			                  <BobbieTile className="form-section" showTitle={false} showSubtitle={false} title="" subtitle="" HTMLBlob={serviceResponse.selectedSubscriptionPlan.aboutThisPlan} />
                         <div style={{paddingTop: '40px'}} className="button-container">
                           <Button
                             type="button"
@@ -131,7 +131,7 @@ class MembershipPlanDetailsStep extends Component {
                 </Fragment>
               )}
             />
-          
+
       </div>
       <style jsx>{styles}</style>
     </div>

@@ -16,15 +16,18 @@ import CMSStyle from './CMS.style';
 */
 
 const BobbieTile = ({
-  showMetaData,
+  showTitle,
   title,
+  showSubtitle,
+  subtitle,
   readDuration,
   authorName,
   HTMLBlob,
 }) => (
   <div className="root">
     <div className="tile-content-container">
-      {showMetaData == true && <h3 style={{ marginBottom: '20px' }} className="title">{title}</h3>}
+      {showTitle === true ? <h3>{title}</h3>: null}
+      {showSubtitle === true ? <h3>{subtitle}</h3>: null}
       {/*
       <div className="post-meta-data">
         <ul>
