@@ -10,33 +10,29 @@ class PaginateWithNetwork extends Component {
     filterOptions: PropTypes.shape({}),
     apiURL: PropTypes.string.isRequired,
     onPaginationChange: PropTypes.func.isRequired,
-  }
+  };
 
   static defaultProps = {
-    onServiceResponse: (resp) => { console.log(resp); },
+    onServiceResponse: (resp) => {
+      console.log(resp);
+    },
     activePageNumber: 1,
     filterOptions: {},
-  }
+  };
 
   handleServiceResponse = (resp) => {
     this.props.onServiceResponse(resp);
-  }
+  };
 
   render() {
-    const {
-      apiURL,
-      activePageNumber,
-      filterOptions,
-    } = this.props;
+    const { apiURL, activePageNumber, filterOptions } = this.props;
 
     return (
       <Request
         serviceURL={apiURL}
         requestBody={Object.assign({ page: activePageNumber }, filterOptions)}
         serviceResponseHandler={this.handleServiceResponse}
-        render={({
-          serviceResponse,
-        }) => (
+        render={({ serviceResponse }) => (
           <Pagination
             totalPageCount={serviceResponse.pages}
             activePage={activePageNumber}

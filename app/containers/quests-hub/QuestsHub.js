@@ -78,6 +78,12 @@ class Quests extends Component {
     });
   }
 
+  clearQuests = () => {
+    this.setState({
+      quests: [],
+    });
+  }
+
   render() {
     const {
       user,
@@ -121,6 +127,7 @@ class Quests extends Component {
                       iconURL={serviceResponse.pageIconURL}
                       pageTitle={serviceResponse.pageTitle}
                       filterType={this.props.params.filterType}
+                      clearTiles={this.clearQuests}
                       render={() => (
                         <Fragment>
                           {fetchingContent ? <div>{intl.formatMessage(messages.loading)}</div> : null}

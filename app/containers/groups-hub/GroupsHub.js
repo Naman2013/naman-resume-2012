@@ -186,6 +186,12 @@ class Groups extends Component {
     });
   }
 
+  clearGroups = () => {
+    this.setState({
+      groups: [],
+    });
+  }
+
   render() {
     const {
       user,
@@ -244,6 +250,7 @@ class Groups extends Component {
                       iconURL={serviceResponse.pageIconURL}
                       pageTitle={serviceResponse.pageTitle}
                       filterType={this.props.params.filterType}
+                      clearTiles = {this.clearGroups}
                       render={() => (
                         <Fragment>
                           {fetchingContent ? <div>{intl.formatMessage(messages.loading)}</div> : null}

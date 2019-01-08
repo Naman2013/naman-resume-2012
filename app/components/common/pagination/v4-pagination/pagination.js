@@ -142,8 +142,10 @@ class Pagination extends Component {
 
   render() {
     const { pages, activePage } = this.state;
+    const { totalPageCount } = this.props;
 
     return (
+      totalPageCount > 1 && (
       <div className="pagination-root">
         <ul className="buttons">
           <li className="button">
@@ -182,6 +184,7 @@ class Pagination extends Component {
         </ul>
         <style jsx>{style}</style>
       </div>
+      )
     );
   }
 }

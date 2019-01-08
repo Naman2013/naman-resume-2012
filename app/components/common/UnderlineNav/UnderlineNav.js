@@ -20,6 +20,7 @@ const {
 class UnderlineNav extends Component {
   static propTypes = {
     activeFilter: string,
+    activeSort: string,
     navItems: arrayOf(shape({
       label: string,
       linkURL: string,
@@ -29,6 +30,7 @@ class UnderlineNav extends Component {
 
   static defaultProps = {
     activeFilter: null,
+    activeSort: null,
     navItems: [],
     onItemClick: noop,
 
@@ -43,18 +45,21 @@ class UnderlineNav extends Component {
 
     const {
       navItems,
+      activeSort,
     } = this.props;
 
     this.setState(() => ({
       activeIndex: findIndex(navItems, navItem => navItem.linkURL === selected.value),
     }));
-    browserHistory.push(selected.value);
+    const path = `${selected.value}${activeSort ? `?sort=${activeSort}` : ''}`;
+    browserHistory.push(path);
   }
 
   render() {
     const {
       activeFilter,
       navItems,
+      activeSort,
     } = this.props;
     const { activeIndex } = this.state;
     const dropdownOptions = navItems.map(item => ({ label: item.title, value: item.linkURL }))
@@ -65,19 +70,21 @@ class UnderlineNav extends Component {
           screenLarge
           screenXLarge
         >
-          {navItems.map((item) => (
+          {navItems.map((item) => {
+            const path = `${item.linkURL}${activeSort ? `?sort=${activeSort}` : ''}`;
+            return (
             <div className={classnames('item-container', {
               'is-active': activeFilter === item.linkURL.split('/')[2] || (!activeFilter && !item.linkURL.split('/')[2]),
               })}
               key={`${item.linkURL}`}
             >
               <Link
-                to={item.linkURL}
+                to={path}
               >
               <span className="nav-item" dangerouslySetInnerHTML={{ __html: item.title }} />
               </Link>
             </div>
-          ))}
+          )})}
         </DisplayAtBreakpoint>
 
         <DisplayAtBreakpoint

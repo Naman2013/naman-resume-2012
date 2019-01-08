@@ -18,13 +18,16 @@ class ShowMoreWithNetwork extends Component {
       totalCount: PropTypes.string,
     }),
     validateResponseAccess: PropTypes.func,
-    user: PropTypes.shape({
-    })
-  }
+    user: PropTypes.shape({}),
+  };
 
   static defaultProps = {
-    onServiceResponse: (resp) => { console.log(resp); },
-    onPaginationChange: (q) => { console.log (q); },
+    onServiceResponse: (resp) => {
+      console.log(resp);
+    },
+    onPaginationChange: (q) => {
+      console.log(q);
+    },
     activePageNumber: 1,
     filterOptions: {},
     count: 10,
@@ -34,7 +37,7 @@ class ShowMoreWithNetwork extends Component {
     },
     user: {},
     validateResponseAccess: noop,
-  }
+  };
 
   constructor(props) {
     super();
@@ -42,22 +45,25 @@ class ShowMoreWithNetwork extends Component {
       numberOfItems: 0,
       totalNumberOfItems: 0,
     };
-    axios.post(props.apiURL, Object.assign({ page: props.activePageNumber }, props.filterOptions)).then(res => this.handleServiceResponse(res.data));
+    axios
+      .post(props.apiURL, Object.assign({ page: props.activePageNumber }, props.filterOptions))
+      .then(res => this.handleServiceResponse(res.data));
   }
 
   componentWillReceiveProps(nextProps) {
     if (!isMatch(this.props.filterOptions, nextProps.filterOptions)) {
-      axios.post(nextProps.apiURL, Object.assign({ page: nextProps.activePageNumber }, nextProps.filterOptions)).then(res => this.handleServiceResponse(res.data));
+      axios
+        .post(
+          nextProps.apiURL,
+          Object.assign({ page: nextProps.activePageNumber }, nextProps.filterOptions),
+        )
+        .then(res => this.handleServiceResponse(res.data));
     }
   }
 
   getPage = (page) => {
     const {
-      apiURL,
-      filterOptions,
-      onPaginationChange,
-      user,
-      validateResponseAccess,
+      apiURL, filterOptions, onPaginationChange, user, validateResponseAccess,
     } = this.props;
     onPaginationChange({ activePage: page });
     const params = Object.assign({ ...user }, filterOptions, { page });
@@ -65,25 +71,20 @@ class ShowMoreWithNetwork extends Component {
       validateResponseAccess(res);
       return this.handleServiceResponse(res.data);
     });
-  }
+  };
 
   handleServiceResponse = (resp) => {
-    const {
-      responseFieldNames,
-    } = this.props;
+    const { responseFieldNames } = this.props;
     this.props.onServiceResponse(resp);
     this.setState(state => ({
       numberOfItems: state.numberOfItems + resp[responseFieldNames.currentCount],
       totalNumberOfItems: resp[responseFieldNames.totalCount],
     }));
-  }
+  };
 
   render() {
     const {
-      apiURL,
-      activePageNumber,
-      filterOptions,
-      responseFieldNames,
+      apiURL, activePageNumber, filterOptions, responseFieldNames,
     } = this.props;
 
     const { numberOfItems, totalNumberOfItems } = this.state;
