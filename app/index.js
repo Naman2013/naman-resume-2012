@@ -337,7 +337,7 @@ ReactDOM.render(
             <Route path="ask" component={AskAstronomer} onEnter={validateUser} />
           </Route>
 
-          <Route path="shows(:/filterType)" component={ShowsHub} onEnter={validateUser} />
+          <Route path="shows(/:filterType)" component={ShowsHub} onEnter={validateUser} />
 
           <Route path="stories(/:filterType)" component={StoriesHub} onEnter={validateUser} />
           <Route path="community/post/:postId" component={StoryDetails} onEnter={validateUser} />

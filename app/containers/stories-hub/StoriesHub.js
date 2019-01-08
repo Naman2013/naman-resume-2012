@@ -77,6 +77,12 @@ class Stories extends Component {
     });
   }
 
+  clearStories = () => {
+    this.setState({
+      stories: [],
+    });
+  }
+
   render() {
     const {
       user,
@@ -120,6 +126,7 @@ class Stories extends Component {
                         currentCount: 'storiesCount',
                         totalCount: 'totalStoriesCount',
                       }}
+                      clearTiles={this.clearStories}
                       renderRightMenu={() => (
                         <div className="flex">
                           <Button text={intl.formatMessage(messages.submitStory)} onClickEvent={() => browserHistory.push(`/stories/${this.props.params.filterType}/create`)} />

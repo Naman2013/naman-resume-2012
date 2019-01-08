@@ -13,7 +13,6 @@ import { backgroundImageCover, dropShadowContainer } from 'styles/mixins/utiliti
 
 export default css`
   .root {
-
   }
 
   .dots-container {
@@ -29,6 +28,10 @@ export default css`
     border: 1px dashed ${astronaut};
   }
 
+  :global(.slooh-select__menu-list) {
+    cursor: pointer;
+  }
+
   .context-container {
     width: 75%;
     position: absolute;
@@ -40,5 +43,4 @@ export default css`
     width: 100%;
     background-color: ${seashell};
   }
-
 `;

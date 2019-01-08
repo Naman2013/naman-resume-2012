@@ -65,6 +65,7 @@ class HubContainer extends Component {
     }),
     isMobile: bool,
     isCreateMode: bool,
+    clearTiles: func,
   };
 
   static defaultProps = {
@@ -83,6 +84,7 @@ class HubContainer extends Component {
     isCreateMode: false,
     responseFieldNames: {},
     validateResponseAccess: noop,
+    clearTiles: noop,
   };
 
   state = {
@@ -97,8 +99,15 @@ class HubContainer extends Component {
     const { sort: nextSort } = nextProps.location.query;
     let changeState = false;
 
+    if( this.props.filterType !== nextProps.filterType) {
+      this.props.clearTiles();
+      this.setState({
+        page: 1,
+      });
+    }
 
     if (sort !== nextSort) {
+      this.props.clearTiles();
       sort = nextSort;
       changeState = true;
     }
@@ -183,15 +192,16 @@ class HubContainer extends Component {
             <div className="navigation-bar">
               <UnderlineNav
                 activeFilter={filterType}
+                activeSort={sort}
                 navItems={filterOptions}
                 parentPath={hubName}
               />
               {!this.props.isCreateMode ?
-              <HubSort
-                defaultIndex={defaultSortIndex}
-                handleSort={this.handleSortChange}
-                sortItems={sortOptions}
-              />: null}
+                <HubSort
+                  defaultIndex={defaultSortIndex}
+                  handleSort={this.handleSortChange}
+                  sortItems={sortOptions}
+                /> : null}
             </div>
           )}
         />
@@ -224,6 +234,7 @@ class HubContainer extends Component {
                       sortBy: sort,
                       type: filterType,
                       count: 5,
+                      [filterTypeFieldName]: filterType,
                     }}
                 />}
               </div>: null}
