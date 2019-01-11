@@ -144,6 +144,7 @@ import ShowsHub from './containers/shows-hub';
 import CreateStory from './containers/create-story';
 import PlaceholderPage from './pages/Placeholder';
 import QuestStep from './containers/quest-step';
+import { About, AboutSloohSection } from './containers/about';
 
 import DashboardPage from 'components/Dashboard';
 
@@ -186,12 +187,6 @@ ReactDOM.render(
       <Router history={browserHistory} onUpdate={globalOnRouteUpdate}>
         <Route path="redirect-confirmation" component={RedirectConfirmation} />
 
-        <Route path="about" component={StaticAppContainer} onEnter={validateUser}>
-          <IndexRedirect to="about/about-slooh" />
-	  <Route path="memberships" component={Memberships} />
-	  {/* <Route path=":aboutSloohSectionId" component={AboutSloohSection} onEnter={validateUser} /> */}
-        </Route>
-
         <Route
           path="registration"
           component={StaticAppContainer}
@@ -206,7 +201,11 @@ ReactDOM.render(
         <Route path="/" component={App}>
           <IndexRoute component={DashboardPage} onEnter={validateUser} />
 
-          <Route path="memberships" component={Memberships} />
+          <Route path="about" component={About} onEnter={validateUser}>
+            <IndexRedirect to="about-slooh" />
+            <Route path="memberships" component={Memberships} />
+            <Route path=":aboutSloohSectionId" component={AboutSloohSection} onEnter={validateUser} />
+          </Route>
 
           <Route path="join" component={Join}>
             <Route path="step1" component={JoinStep1} />
