@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Request from 'components/common/network/Request';
+import InAppNavigation from 'components/common/InAppNavigation';
 import CenterColumn from 'components/common/CenterColumn';
 import TiaraTitleSection from 'components/common/TiaraTitleSection';
 import SterlingTitle from 'components/common/titles/SterlingTitle';
@@ -61,12 +62,23 @@ const guidePageModel = {
         linkURL: chapter.link,
       })),
     },
+    navigationProps:{
+      title: resp.chapterNavigationInfo.parentInfo.guideTitle,
+      contextMenuTitle: resp.topicHeading1,
+      contextMenuCount: resp.chapterNavigationInfo.chapterCount,
+      list: resp
+        .chapterNavigationInfo
+        .chapterList
+        .map(chapter => ({ title: chapter.guideTitle, linkURL: chapter.link, iconUrl: chapter.guideIconURL })),
+      backLinkURL: resp.chapterNavigationInfo.parentInfo.link,
+    },
   }),
 };
 
 const guideObjectsModel = {
   name: 'GUIDE_OBJECTS',
   model: resp => ({
+    
     guideTopicsProps: {
       list: resp.objectList.map(spaceObject => ({
         title: spaceObject.popularName,
@@ -86,6 +98,10 @@ const Guides = ({ params: { guideId } }) => (
       <div>
         {!fetchingContent && (
           <Fragment>
+             <InAppNavigation
+                  menuTopAdjustment={0}
+                  {...GUIDE_PAGE_MODEL.navigationProps}
+                />
             <TiaraTitleSection {...GUIDE_PAGE_MODEL.tiaraTitleProps} />
 
             <CenterColumn

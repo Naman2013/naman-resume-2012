@@ -10,6 +10,7 @@ export default css`
 
   .guide-container {
     background: white;
+    display: flex;
   }
 
   .title-container {
