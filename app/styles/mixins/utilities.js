@@ -1,5 +1,5 @@
 import { primaryFont } from 'styles/variables/fonts';
-import { shadows, romance } from 'styles/variables/colors_tiles_v4';
+import { shadows, romance, darkGrey } from 'styles/variables/colors_tiles_v4';
 
 export const profilePhotoStyle = photoUrl => ({
   backgroundImage: `url(${photoUrl})`,
@@ -83,6 +83,7 @@ export const customModalStylesFitContent = {
     width: 'fit-content',
     padding: '3px',
     fontFamily: primaryFont,
+    backgroundColor: darkGrey,
   },
   overlay: {
     backgroundColor: 'rgba(0, 0, 0, .7)',
