@@ -85,7 +85,7 @@ export const customModalStylesFitContent = {
     fontFamily: primaryFont,
   },
   overlay: {
-    backgroundColor: 'rgba(255, 255, 255, 0)',
+    backgroundColor: 'rgba(0, 0, 0, .7)',
   },
 };
 

@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 import Request from '../network/Request';
+import style from './ImagePreview.style';
 
 const { string, number } = PropTypes;
 
@@ -14,16 +15,23 @@ export default class ImagePreview extends React.PureComponent {
   render() {
     const { url, id } = this.props;
     return (
-      <Request
-        serviceURL={url}
-        method="POST"
-        requestBody={{
-          imageRelatedRecordId: id,
-        }}
-        render={({ fetchingContent, serviceResponse }) => (
-          <img src={serviceResponse.imageFullsizeURL} alt={serviceResponse.imageAltText} />
-        )}
-      />
+      <Fragment>
+        <Request
+          serviceURL={url}
+          method="POST"
+          requestBody={{
+            imageRelatedRecordId: id,
+          }}
+          render={({ fetchingContent, serviceResponse }) => (
+            <img
+              className="image"
+              src={serviceResponse.imageFullsizeURL}
+              alt={serviceResponse.imageAltText}
+            />
+          )}
+        />
+        <style jsx>{style}</style>
+      </Fragment>
     );
   }
 }
