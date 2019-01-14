@@ -161,10 +161,10 @@ class SubmitQuestionForm extends Component {
         <div className="button-container">
           <div className="left-buttons">
             <PhotoUploadButton handleUploadImage={this.handleUploadImage} />
-            <Button onClickEvent={() => browserHistory('/help/posting-guidelines')} text={intl.formatMessage(messages.Guidelines)} theme={{ height: '40px' }} />
+            <Button onClickEvent={() => browserHistory('/help/posting-guidelines')} text={intl.formatMessage(messages.Guidelines)} theme={{ height: '40px', marginLeft: '10px' }} />
           </div>
           <div className="actions">
-            <Button onClickEvent={modalActions.closeModal} text={intl.formatMessage(messages.Cancel)} theme={{ height: '40px' }} />
+            <Button onClickEvent={modalActions.closeModal} text={intl.formatMessage(messages.Cancel)} theme={{ height: '40px', marginRight: '10px' }} />
             <Button onClickEvent={this.submitForm} text={intl.formatMessage(messages.Submit)} theme={{ height: '40px' }} />
           </div>
         </div>

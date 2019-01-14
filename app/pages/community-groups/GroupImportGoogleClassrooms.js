@@ -5,6 +5,7 @@ import noop from 'lodash/noop';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Modal from 'react-modal';
+import { intlShape, injectIntl } from 'react-intl';
 import GroupTiles from 'components/groups-hub/group-tiles';
 import RequestGroupForm from 'components/community-groups/request-group-form';
 import PromptWithClose from 'components/community-groups/prompt-with-close';
@@ -42,6 +43,7 @@ import { primaryFont, secondaryFont } from 'styles/variables/fonts';
 import style from '../../containers/groups-hub/groups-hub.style';
 import style2 from 'pages/registration/partials/JoinHeader.style';
 import style3 from './GroupCreate.style';
+import messages from './Groups.messages'
 
 const COUNT = 9;
 const DEFAULT_PAGE = 1;
@@ -62,6 +64,7 @@ class GroupImportGoogleClassrooms extends Component {
       filterType: PropTypes.string,
     }),
     isCreateMode: PropTypes.bool,
+    intl: intlShape.isRequired,
   };
 
   static defaultProps = {
@@ -115,7 +118,7 @@ class GroupImportGoogleClassrooms extends Component {
     requestFormText,
     requestFormPrivacy,
   }) => {
-    const { actions, user } = this.props;
+    const { actions, user, intl } = this.props;
     requestGroup({
       at: user.at,
       token: user.token,
@@ -138,7 +141,7 @@ class GroupImportGoogleClassrooms extends Component {
           this.setState({
             showPrompt: true,
             promptText: (<RequestGroupFormFeedback
-              promptText="There was an error submitting your form."
+              promptText={intl.formatMessage(messages.errorSubmitting)}
               closeForm={this.closeModal}
               requestNew={this.requestGroup}
             />),
@@ -454,4 +457,4 @@ const mapDispatchToProps = dispatch => ({
   }, dispatch),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({ form: 'importGoogleClassroomsForm', enableReinitialize: true })(GroupImportGoogleClassrooms));
+export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({ form: 'importGoogleClassroomsForm', enableReinitialize: true })(injectIntl(GroupImportGoogleClassrooms)));

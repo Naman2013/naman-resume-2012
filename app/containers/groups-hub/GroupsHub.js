@@ -126,7 +126,7 @@ class Groups extends Component {
     requestFormText,
     requestFormPrivacy,
   }) => {
-    const { actions, user } = this.props;
+    const { actions, user, intl } = this.props;
     requestGroup({
       at: user.at,
       token: user.token,
@@ -149,7 +149,7 @@ class Groups extends Component {
           this.setState({
             showPrompt: true,
             promptText: (<RequestGroupFormFeedback
-              promptText="There was an error submitting your form."
+              promptText={intl.formatMessage(messages.errorSubmitting)}
               closeForm={this.closeModal}
               requestNew={this.requestGroup}
             />),
@@ -183,6 +183,12 @@ class Groups extends Component {
     this.setState({
       showPrompt: false,
       promptText: '',
+    });
+  }
+
+  clearGroups = () => {
+    this.setState({
+      groups: [],
     });
   }
 
@@ -244,6 +250,7 @@ class Groups extends Component {
                       iconURL={serviceResponse.pageIconURL}
                       pageTitle={serviceResponse.pageTitle}
                       filterType={this.props.params.filterType}
+                      clearTiles = {this.clearGroups}
                       render={() => (
                         <Fragment>
                           {fetchingContent ? <div>{intl.formatMessage(messages.loading)}</div> : null}

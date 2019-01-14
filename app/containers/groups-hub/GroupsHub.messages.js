@@ -17,6 +17,11 @@ const messages: Messages = {
     defaultMessage: 'There are no groups.',
     description: 'Hubs no groups messages',
   },
+  errorSubmitting: {
+    id: 'Alerts.FormError',
+    defaultMessage: 'There was an error submitting your form',
+    description: 'Error submitting form',
+  },
 };
 
 const definedMessages: typeof messages = defineMessages(messages);

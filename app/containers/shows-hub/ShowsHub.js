@@ -82,6 +82,12 @@ class Shows extends Component {
     });
   }
 
+  clearShows = () => {
+    this.setState({
+      shows: [],
+    });
+  }
+
   render() {
     const {
       user,
@@ -119,7 +125,7 @@ class Shows extends Component {
                       validateResponseAccess={actions.validateResponseAccess}
                       responseFieldNames={{
                         currentCount: 'showsCount',
-                        totalCount: 'totalShowsCount',
+                        totalCount: 'resultsCount',
                       }}
                       updateList={this.updateShowsList}
                       appendToList={this.appendToShowsList}
@@ -127,6 +133,7 @@ class Shows extends Component {
                       pageTitle={serviceResponse.pageTitle}
                       filterTypeFieldName="theme"
                       filterType={this.props.params.filterType}
+                      clearTiles = {this.clearShows}
                       render={() => (
                         <Fragment>
                           <DisplayAtBreakpoint

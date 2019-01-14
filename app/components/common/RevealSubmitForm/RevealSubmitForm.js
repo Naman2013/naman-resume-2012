@@ -10,6 +10,7 @@ callback (error (string), message (string)); If error is null, the component wil
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-modal';
+import { intlShape, injectIntl } from 'react-intl';
 import PhotoUploadButton from 'components/common/style/buttons/PhotoUploadButton';
 import deletePostImage from 'services/post-creation/delete-post-image';
 import setPostImages from 'modules/set-post-images';
@@ -18,6 +19,7 @@ import BackBar from 'components/common/style/buttons/BackBar';
 import { modalStyleFullPage } from 'styles/mixins/utilities';
 import ViewImagesButton from 'components/common/style/buttons/ViewImagesButton';
 import styles from './RevealSubmitForm.style';
+import messages from './RevealSubmitForm.messages';
 const {
   bool,
   func,
@@ -41,6 +43,7 @@ class RevealSubmitForm extends Component {
       cid: string,
       token: string,
     }).isRequired,
+    intl: intlShape.isRequired,
   }
   static defaultProps = {
     imageClass: 'discussion',
@@ -79,17 +82,18 @@ class RevealSubmitForm extends Component {
   }
 
   handleSubmit = (error, message) => {
+    const { intl } = this.props;
     if (!error) {
       this.setState({
         showPopup: true,
-        modalDescription: message || 'Your response has been submitted.',
+        modalDescription: message || intl.formatMessage(messages.ResponceSubmittedText),
         formText: '',
         S3URLs: [],
       });
     } else {
       this.setState({
         showPopup: true,
-        modalDescription: message || 'There was an issue submitting the form.',
+        modalDescription: message || intl.formatMessage(messages.FormIssueText),
       });
     }
   }
@@ -215,4 +219,4 @@ class RevealSubmitForm extends Component {
   }
 }
 
-export default RevealSubmitForm;
+export default injectIntl(RevealSubmitForm);

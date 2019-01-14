@@ -45,7 +45,6 @@ class SubmitReplyForm extends Component {
   };
 
   static defaultProps = {
-
   };
 
   constructor(props) {
@@ -135,7 +134,7 @@ class SubmitReplyForm extends Component {
     });
   }
 
-  render () {
+  render() {
     const {
       authorInfo,
       freshness,
@@ -147,14 +146,14 @@ class SubmitReplyForm extends Component {
     const {
       answerText,
     } = this.state;
-
+    
     return (
       <form className="root">
         <div className="top">
           <div className="title flex info-container">
             <div>
-              <img src={authorInfo.iconUrl} className="avatar" alt="user" />
-              <span dangerouslySetInnerHTML={{ __html: authorInfo.byline }} />
+              <img src={authorInfo && authorInfo.iconUrl} className="avatar" alt="user" />
+              <span dangerouslySetInnerHTML={{ __html: authorInfo && authorInfo.byline }} />
             </div>
             <div>
               <span dangerouslySetInnerHTML={{ __html: freshness }} />
@@ -175,7 +174,7 @@ class SubmitReplyForm extends Component {
             <PhotoUploadButton handleUploadImage={this.handleUploadImage} />
           </div>
           <div className="actions">
-            <Button onClickEvent={modalActions.closeModal} text={intl.formatMessage(messages.Cancel)} theme={{ height: '40px' }} />
+            <Button onClickEvent={modalActions.closeModal} text={intl.formatMessage(messages.Cancel)} theme={{ height: '40px', marginRight: '10px' }} />
             <Button onClickEvent={this.submitForm} text={intl.formatMessage(messages.Submit)} theme={{ height: '40px' }} />
           </div>
         </div>

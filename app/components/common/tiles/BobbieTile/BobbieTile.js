@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import ImageClickHandler from '../../ImageClickHandler';
 import { horizontalArrow } from 'styles/variables/iconURLs';
 import style from './BobbieTile.style';
 import CMSStyle from './CMS.style';
@@ -16,14 +17,18 @@ import CMSStyle from './CMS.style';
 */
 
 const BobbieTile = ({
+  showTitle,
   title,
+  showSubtitle,
+  subtitle,
   readDuration,
   authorName,
   HTMLBlob,
 }) => (
   <div className="root">
     <div className="tile-content-container">
-      <h3 style={{ marginBottom: '20px' }} className="title">{title}</h3>
+      {showTitle === true ? <h3>{title}</h3> : null}
+      {showSubtitle === true ? <div className="subtitle">{subtitle}</div> : null}
       {/*
       <div className="post-meta-data">
         <ul>
@@ -36,10 +41,12 @@ const BobbieTile = ({
         </ul>
       </div>
       */}
-      <div
-        className="__html-blob-content-container__"
-        dangerouslySetInnerHTML={{ __html: HTMLBlob }}
-      />
+      <ImageClickHandler>
+        <div
+          className="__html-blob-content-container__"
+          dangerouslySetInnerHTML={{ __html: HTMLBlob }}
+        />
+      </ImageClickHandler>
     </div>
     <style jsx>{style}</style>
     <style jsx>{CMSStyle}</style>

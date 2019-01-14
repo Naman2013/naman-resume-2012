@@ -12,6 +12,7 @@
     "EventSource": true,
     "describe": true,
     "body": true,
+    "browser": true,
     "jest": true
   }
 }

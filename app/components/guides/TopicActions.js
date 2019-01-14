@@ -2,17 +2,35 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { toggleReadingListState, GUIDE } from 'services/reading-lists';
 import ToggleReadingList from 'components/common/ToggleReadingList';
+import FollowObjectButton from '../object-details/FollowObjectButton';
 import style from './TopicAction.style';
 
-const TopicActions = ({ followButtonIconURL, readingListType, followButtonText, guideId, toggleReadingListFlag }) => (
+const TopicActions = ({
+  followButtonIconURL,
+  readingListType,
+  followButtonText,
+  guideId,
+  objectId,
+  user,
+}) => (
   <ul className="button-container">
     <li>
-      {toggleReadingListFlag ? <ToggleReadingList
-        itemId={guideId}
-        readingListType={readingListType}
-        readingListPrompt={followButtonText}
-        promptIconUrl={followButtonIconURL}
-      /> : null}
+      {guideId && (
+        <ToggleReadingList
+          itemId={guideId}
+          readingListType={readingListType}
+          readingListPrompt={followButtonText}
+          promptIconUrl={followButtonIconURL}
+        />
+      )}
+      {objectId && (
+        <FollowObjectButton
+          objectId={objectId}
+          user={user}
+          followButtonText={followButtonText}
+          followButtonIconURL={followButtonIconURL}
+        />
+      )}
     </li>
 
     <style jsx>{style}</style>
@@ -22,7 +40,13 @@ const TopicActions = ({ followButtonIconURL, readingListType, followButtonText, 
 TopicActions.propTypes = {
   followButtonIconURL: PropTypes.string.isRequired,
   followButtonText: PropTypes.string.isRequired,
-  guideId: PropTypes.string.isRequired,
+  guideId: PropTypes.string,
+  objectId: PropTypes.string,
+};
+
+TopicActions.defaultProps = {
+  guideId: null,
+  objectId: null,
 };
 
 export default TopicActions;

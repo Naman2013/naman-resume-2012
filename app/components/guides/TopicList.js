@@ -10,15 +10,15 @@ const TopicList = ({ list }) => (
     <ul>
       {list.map(tile => <li key={`guide-panel-${tile.guidePanelId}`}>
         <DisplayAtBreakpoint screenSmall>
-          <BobbieTile title={tile.title} readDuration={tile.readDuration} authorName={tile.authorName} HTMLBlob={tile.content_device_small} />
+          <BobbieTile showTitle={true} title={tile.title} showSubtitle={false} subtitle="" readDuration={tile.readDuration} authorName={tile.authorName} HTMLBlob={tile.content_device_small} />
         </DisplayAtBreakpoint>
 
         <DisplayAtBreakpoint screenMedium>
-          <BobbieTile title={tile.title} readDuration={tile.readDuration} authorName={tile.authorName} HTMLBlob={tile.content_device_medium} />
+          <BobbieTile showTitle={true} title={tile.title} showSubtitle={false} subtitle="" readDuration={tile.readDuration} authorName={tile.authorName} HTMLBlob={tile.content_device_medium} />
         </DisplayAtBreakpoint>
 
         <DisplayAtBreakpoint screenLarge screenXLarge>
-          <BobbieTile title={tile.title} readDuration={tile.readDuration} authorName={tile.authorName} HTMLBlob={tile.content_device_large} />
+          <BobbieTile showTitle={true} title={tile.title} showSubtitle={false} subtitle="" readDuration={tile.readDuration} authorName={tile.authorName} HTMLBlob={tile.content_device_large} />
         </DisplayAtBreakpoint>
       </li>)}
     </ul>

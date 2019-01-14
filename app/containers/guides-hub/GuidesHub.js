@@ -54,6 +54,12 @@ class Guides extends Component {
     }));
   }
 
+  clearGuides = () => {
+    this.setState({
+      guides:[],
+    });
+  }
+
   updateReadingListInGuide = (id, resData) => {
     let newGuidesList = [].concat(this.state.guides);
 
@@ -121,6 +127,7 @@ class Guides extends Component {
                       iconURL={serviceResponse.pageIconURL}
                       pageTitle={serviceResponse.pageTitle}
                       filterType={this.props.params.filterType}
+                      clearTiles={this.clearGuides}
                       render={() => (
                         <Fragment>
                           {fetchingContent ? <div>{intl.formatMessage(messages.loading)}</div> : null}

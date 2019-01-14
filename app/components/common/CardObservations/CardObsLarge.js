@@ -1,6 +1,8 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
+import { FormattedMessage } from 'react-intl';
 import style from './CardObservationsLarge.style';
+import messages from './CardObsLarge.messages';
 
 const CardObsLarge = ({
   title,
@@ -20,13 +22,16 @@ const CardObsLarge = ({
         <div className="card-obs-desc">{description}</div>
       </div>
       <div className="media-card-img-right">
-        <img src={imageUrl} alt="Observation" />
+        <div className="media-card-img-container">
+          <img src={imageUrl} alt="Observation" />
+        </div>
       </div>
       <div className="card-bottom">
         <ul>
           <li>
             <a href={linkUrl}>
-              Details <img src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg" alt="" />
+              <FormattedMessage {...messages.ObservationsDetails} />{' '}
+              <img src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg" alt="" />
             </a>
           </li>
         </ul>

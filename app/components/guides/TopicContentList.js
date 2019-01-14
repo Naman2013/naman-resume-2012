@@ -5,21 +5,12 @@ import AbelList from '../common/AbelList';
 import style from './TopicContentList.style';
 
 const TopicContentList = ({
-  list,
-  theme,
-  topicActionProps,
-  guideId,
+  list, theme, topicActionProps, ...restProps
 }) => (
   <div style={theme} className="root">
-    <AbelList list={list} />
+    {restProps.showContentList && <AbelList list={list} />}
     <div className="action-container">
-      {
-        topicActionProps.showActions &&
-          <TopicActions
-            {...topicActionProps}
-            guideId={guideId}
-          />
-      }
+      {topicActionProps.showActions && <TopicActions {...topicActionProps} {...restProps} />}
     </div>
     <style jsx>{style}</style>
   </div>
@@ -33,7 +24,6 @@ TopicContentList.propTypes = {
     followButtonIconURL: PropTypes.string.isRequired,
     showActions: PropTypes.bool.isRequired,
   }).isRequired,
-  guideId: PropTypes.string.isRequired,
 };
 
 TopicContentList.defaultProps = {

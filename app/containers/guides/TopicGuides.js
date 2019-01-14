@@ -22,7 +22,9 @@ const subjectGuideModel = {
     topicContentProps: {
       title: resp.guideTitle,
       topicContentList: [resp.guideBulletPoint1, resp.guideBulletPoint2, resp.guideBulletPoint3],
+      showContentList: resp.showBulletPoints,
       aboutTitle: resp.AboutThisTitle,
+      readingListType: resp.readingListType,
       aboutContent: resp.AboutThisContent || '',
       topicActionProps: {
         followButtonText: resp.readingListPrompt,
@@ -48,7 +50,7 @@ const TopicGuides = ({ params: { guideId } }) => (
             !fetchingContent &&
               <Fragment>
                 <InAppNavigation
-                  menuTopAdjustment={162}
+                  menuTopAdjustment={0}
                   {...SUBJECT_GUIDE_MODEL.inAppNavigationProps}
                 />
 

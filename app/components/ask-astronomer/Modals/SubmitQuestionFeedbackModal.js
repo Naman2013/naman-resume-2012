@@ -37,7 +37,7 @@ const SubmitQuestionFeedback = (props) => {
       <div className="title" dangerouslySetInnerHTML={{ __html: title}} />
       <div className="prompt-text" dangerouslySetInnerHTML={{ __html: promptText}} />
       <div className="actions">
-        <Button onClickEvent={modalActions.closeModal} text={doneButtonLabel} />
+        <Button onClickEvent={modalActions.closeModal} text={doneButtonLabel} theme={{ marginRight: '10px' }} />
         <Button onClickEvent={requestQuestion} text={continueButtonLabel} />
       </div>
       <style jsx>{styles}</style>

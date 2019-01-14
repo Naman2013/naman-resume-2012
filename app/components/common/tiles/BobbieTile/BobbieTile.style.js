@@ -6,7 +6,10 @@ import { resetMarginPadding } from 'styles/variables/utils';
 import { screenMedium, screenLarge } from 'styles/variables/breakpoints';
 
 export default css`
-  div, h3, ul, li {
+  div,
+  h3,
+  ul,
+  li {
     ${resetMarginPadding}
   }
 
@@ -26,6 +29,20 @@ export default css`
     border-bottom: 1px solid ${geyser};
     font-weight: 300;
     padding-bottom: 20px;
+  }
+
+  .subtitle {
+    list-style-type: none;
+    font-family: ${primaryFont};
+    color: ${astronaut};
+    text-transform: uppercase;
+    font-size: 10px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin: 20px 0;
+    padding: 10px 0;
+    border-bottom: 1px solid ${geyser};
+    border-top: 1px solid ${geyser};
   }
 
   ul {
@@ -49,18 +66,18 @@ export default css`
     /* display: none; */
   }
 
+  .__html-blob-content-container__ :global(a) {
+    text-decoration: underline;
+  }
+
   .__html-blob-content-container__ :global(ol) {
-    margin-left: 40px;
-    margin-bottom: 20px;
+    margin-left: 20px;
+    margin-bottom: 0px;
   }
 
   .__html-blob-content-container__ :global(ul) {
-    margin-left: 40px;
-    margin-bottom: 20px;
-  }
-
-  .__html-blob-content-container__ :global(li) {
-    margin-bottom: 10px;
+    margin-left: 20px;
+    margin-bottom: 0px;
   }
 
   .__html-blob-content-container__ :global(p) {
@@ -100,7 +117,9 @@ export default css`
     }
 
     .author-name img,
-    .author-name span { display: none; }
+    .author-name span {
+      display: none;
+    }
 
     .tile-content-container {
       padding: 40px 50px;

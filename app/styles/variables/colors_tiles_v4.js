@@ -23,6 +23,8 @@ export const thatBlue             = '#253446';
 export const faintGray            = '#f8f8f8';
 export const online               = '#4AB375';
 export const thatGrayWeForgot     = '#a2a8b0';
+export const black                = '#000000';
+export const yellow               = '#fad59a';
 
 export const white_tile         = 'https://vega.slooh.com/assets/v4/common/LightBlueDiamondPattern_NO_TEXTURE.png';
 export const white_tile_texture = 'https://vega.slooh.com/assets/v4/common/LightBlueDiamondPattern_WithTexture.png';

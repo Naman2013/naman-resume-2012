@@ -6,22 +6,22 @@ import AboutContent from './AboutContent';
 import style from './TopicBodyContent.style';
 
 const TopicBodyContent = ({
-  title,
-  content,
+  aboutTitle,
+  aboutContent,
   topicActionProps,
-  guideId,
+  ...restProps
 }) => (
   <div className="root">
     <div className="title-wrapper">
-      <RubyTitle text={title} />
+      <RubyTitle text={aboutTitle} />
     </div>
-    <AboutContent content={content} />
+    <AboutContent content={aboutContent} />
     <div className="action-container">
       {
         topicActionProps.showActions &&
           <TopicActions
             {...topicActionProps}
-            guideId={guideId}
+            {...restProps}
           />
       }
     </div>
@@ -30,14 +30,13 @@ const TopicBodyContent = ({
 );
 
 TopicBodyContent.propTypes = {
-  title: PropTypes.string.isRequired,
-  content: PropTypes.string.isRequired,
+  aboutTitle: PropTypes.string.isRequired,
+  aboutContent: PropTypes.string.isRequired,
   topicActionProps: PropTypes.shape({
     followButtonText: PropTypes.string.isRequired,
     followButtonIconURL: PropTypes.string.isRequired,
     showActions: PropTypes.bool.isRequired,
   }).isRequired,
-  guideId: PropTypes.string.isRequired,
 };
 
 export default TopicBodyContent;

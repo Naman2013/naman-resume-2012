@@ -144,6 +144,7 @@ import ShowsHub from './containers/shows-hub';
 import CreateStory from './containers/create-story';
 import PlaceholderPage from './pages/Placeholder';
 import QuestStep from './containers/quest-step';
+import { About, AboutSloohSection } from './containers/about';
 
 import DashboardPage from 'components/Dashboard';
 
@@ -186,21 +187,6 @@ ReactDOM.render(
       <Router history={browserHistory} onUpdate={globalOnRouteUpdate}>
         <Route path="redirect-confirmation" component={RedirectConfirmation} />
 
-        <Route path="about" component={StaticAppContainer} onEnter={validateUser}>
-          <IndexRedirect to="mission" />
-          <Route path="memberships" component={Memberships} />
-          <Route path="mission" component={Mission} />
-          <Route path="news" component={News} title="In The News" subTitle=" " />
-          <Route
-            path="job"
-            component={Job}
-            title="Work With Us"
-            subTitle="Share your passion for astronomy with the world"
-          />
-          <Route path="contact" component={Contact} title="Contact US" subTitle=" " />
-          <Route path="leadership" component={Leadership} title="Leadership" subTitle=" " />
-        </Route>
-
         <Route
           path="registration"
           component={StaticAppContainer}
@@ -215,7 +201,11 @@ ReactDOM.render(
         <Route path="/" component={App}>
           <IndexRoute component={DashboardPage} onEnter={validateUser} />
 
-          <Route path="memberships" component={Memberships} />
+          <Route path="about" component={About} onEnter={validateUser}>
+            <IndexRedirect to="about-slooh" />
+            <Route path="memberships" component={Memberships} />
+            <Route path=":aboutSloohSectionId" component={AboutSloohSection} onEnter={validateUser} />
+          </Route>
 
           <Route path="join" component={Join}>
             <Route path="step1" component={JoinStep1} />
@@ -346,7 +336,7 @@ ReactDOM.render(
             <Route path="ask" component={AskAstronomer} onEnter={validateUser} />
           </Route>
 
-          <Route path="shows(:/filterType)" component={ShowsHub} onEnter={validateUser} />
+          <Route path="shows(/:filterType)" component={ShowsHub} onEnter={validateUser} />
 
           <Route path="stories(/:filterType)" component={StoriesHub} onEnter={validateUser} />
           <Route path="community/post/:postId" component={StoryDetails} onEnter={validateUser} />

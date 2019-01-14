@@ -23,7 +23,9 @@ const propTypes = {
 };
 
 const getIconStyle = (iconURL) => ({
-  backgroundImage: iconURL,
+  backgroundImage: "url(" + iconURL + ")",
+  backgroundRepeat: "no-repeat",
+  backgroundPosition: "center",
 });
 
 const RecommendedObjectsItem = ({
@@ -34,7 +36,7 @@ const RecommendedObjectsItem = ({
   subTitle,
   title,
 }) => (<div  key={uniqueId()} className="card-object">
-      <div className="object-icon">{hasIcon ? <div style={getIconStyle()} />: null}</div>
+      <div className="object-icon">{hasIcon ? <div style={getIconStyle(iconURL)} />: null}</div>
       <div className="object-name" dangerouslySetInnerHTML={{ __html: title }} />
       <div className="list-item" dangerouslySetInnerHTML={{ __html: description }} />
       <style jsx>{styles}</style>

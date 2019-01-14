@@ -25,15 +25,19 @@ export default css`
       padding-bottom: 40px;
     }
 
-    .action-container { display: block; }
+    .action-container {
+      display: block;
+    }
   }
 
   @media ${screenLarge} {
     .root {
       padding: 70px;
-      width: 90%;
+      width: 100%;
     }
 
-    .action-container { display: none; }
+    .action-container {
+      display: none;
+    }
   }
 `;

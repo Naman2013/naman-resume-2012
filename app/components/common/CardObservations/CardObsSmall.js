@@ -3,13 +3,7 @@ import PropTypes from 'prop-types';
 import style from './CardObservationsSmall.style';
 
 const CardObsSmall = ({
-  title,
-  subTitle,
-  description,
-  imageUrl,
-  hasLink,
-  linkLabel,
-  linkUrl,
+  title, subTitle, description, imageUrl, hasLink, linkLabel, linkUrl,
 }) => (
   <Fragment>
     <div className="card-obs">
@@ -17,19 +11,21 @@ const CardObsSmall = ({
         <div className="card-obs-title">{title}</div>
         <div className="card-obs-author">{subTitle}</div>
         <div className="card-obs-desc">{description}</div>
-        <img src={imageUrl} alt="" />
+        <div className="media-card-img-container">
+          <img src={imageUrl} alt="" />
+        </div>
       </div>
       <div className="card-bottom">
-        {
-          hasLink &&
-            <ul>
-              <li>
-                <a href={linkUrl}>
-                  {linkLabel} <img src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg" alt="" />
-                </a>
-              </li>
-            </ul>
-        }
+        {hasLink && (
+          <ul>
+            <li>
+              <a href={linkUrl}>
+                {linkLabel}{' '}
+                <img src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg" alt="" />
+              </a>
+            </li>
+          </ul>
+        )}
       </div>
     </div>
     <style jsx>{style}</style>

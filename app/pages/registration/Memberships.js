@@ -63,7 +63,7 @@ class Memberships extends Component {
             <Fragment>
               {
                 !fetchingContent && (
-                  <CenterColumn widths={['645px', '965px', '965px']}>
+                  <CenterColumn widths={['645px', '960px', '960px']}>
                     <ul className="subscription-plans-list">
                       {subscriptionResponse.subscriptionPlans.map(subscriptionPlan => (
                         <li

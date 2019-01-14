@@ -3,7 +3,9 @@ import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import style from './QuestHubTileBig.style';
 
-const QuestHubTileBig = ({ linkUrl, questType, questDifficulty, iconURL, title, anchorText }) => (
+const QuestHubTileBig = ({
+  linkUrl, questType, questDifficulty, iconURL, title, anchorText,
+}) => (
   <div className="root">
     <Link to={linkUrl}>
       <div className="container">
@@ -27,8 +29,8 @@ const QuestHubTileBig = ({ linkUrl, questType, questDifficulty, iconURL, title, 
 );
 
 QuestHubTileBig.propTypes = {
-   questType: PropTypes.string.isRequired,
-   questDifficulty: PropTypes.string.isRequired,
+  questType: PropTypes.string.isRequired,
+  questDifficulty: PropTypes.string.isRequired,
   linkUrl: PropTypes.string.isRequired,
   iconURL: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
