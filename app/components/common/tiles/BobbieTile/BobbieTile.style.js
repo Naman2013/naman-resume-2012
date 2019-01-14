@@ -28,6 +28,20 @@ export default css`
     padding-bottom: 20px;
   }
 
+  .subtitle {
+    list-style-type: none;
+    font-family: ${primaryFont};
+    color: ${astronaut};
+    text-transform: uppercase;
+    font-size: 10px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin: 20px 0;
+    padding: 10px 0;
+    border-bottom: 1px solid ${geyser};
+    border-top: 1px solid ${geyser};
+  }
+
   ul {
     list-style-type: none;
     font-family: ${primaryFont};
