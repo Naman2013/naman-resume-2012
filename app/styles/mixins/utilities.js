@@ -78,7 +78,7 @@ export const customModalStylesFitContent = {
     bottom: 'auto',
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)',
-    maxWidth: '650px',
+    maxWidth: '98vw',
     height: 'fit-content',
     width: 'fit-content',
     padding: '3px',
