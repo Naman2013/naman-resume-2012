@@ -15,22 +15,22 @@ const TopicActions = ({
 }) => (
   <ul className="button-container">
     <li>
-      {guideId &&
+      {guideId && (
         <ToggleReadingList
           itemId={guideId}
           readingListType={readingListType}
           readingListPrompt={followButtonText}
           promptIconUrl={followButtonIconURL}
         />
-      }
-      {objectId &&
+      )}
+      {objectId && (
         <FollowObjectButton
           objectId={objectId}
           user={user}
           followButtonText={followButtonText}
           followButtonIconURL={followButtonIconURL}
         />
-      }
+      )}
     </li>
 
     <style jsx>{style}</style>

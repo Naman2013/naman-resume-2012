@@ -29,6 +29,8 @@ const subjectGuideModel = {
           topicActionProps={{
             followButtonIconURL: resp.promptIconUrl,
             followButtonText: resp.readingListPrompt,
+            showActions: resp.toggleReadingListFlag,
+            readingListType: resp.readingListType,
           }}
           guideId={guideId}
         />
@@ -39,7 +41,9 @@ const subjectGuideModel = {
           topicActionProps={{
             followButtonIconURL: resp.promptIconUrl,
             followButtonText: resp.readingListPrompt,
-          }}
+            showActions: resp.toggleReadingListFlag,
+            readingListType: resp.readingListType,
+           }}
           guideId={guideId}
         />
       ),
@@ -52,8 +56,8 @@ const subjectGuideModel = {
     subjectGuideListProps: {
       list: resp.myTopicsNavigationInfo.topicsList.map(({ topicHeading, topicTitle, link }) => ({
         link,
-        title: topicHeading,
-        anchorText: topicTitle,
+        title: topicTitle,
+        anchorText: topicHeading,
       })),
     },
   }),

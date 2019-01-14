@@ -8,7 +8,7 @@ const TopicContentList = ({
   list, theme, topicActionProps, ...restProps
 }) => (
   <div style={theme} className="root">
-    <AbelList list={list} />
+    {restProps.showContentList && <AbelList list={list} />}
     <div className="action-container">
       {topicActionProps.showActions && <TopicActions {...topicActionProps} {...restProps} />}
     </div>

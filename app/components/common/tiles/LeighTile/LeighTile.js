@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router'
+import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import style from './LeighTile.style';
 import { horizontalArrow } from 'styles/variables/iconURLs';

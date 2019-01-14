@@ -48,10 +48,10 @@ class ContextMenu extends Component {
           handleClick={this.toggle}
           theme={{
             width: '100px',
-            height: '100px',
+            height: '94px',
             backgroundColor: (isOpen) ? 'white' : thatBlue,
             position: 'relative',
-            zIndex: '10',
+            zIndex: '3002',
           }}
         >
           {(isOpen)
@@ -77,10 +77,12 @@ class ContextMenu extends Component {
         <style jsx>
           {`
             .menu-container {
+              z-index:3001;
               top: ${this.props.menuTopAdjustment}px;
             }
 
             .application-veil {
+              z-index:3001;
               width: 100vw;
               height: 100%;
               position: absolute;
