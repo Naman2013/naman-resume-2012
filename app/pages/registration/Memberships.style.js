@@ -8,25 +8,37 @@ import { backgroundImageCover, dropShadowContainer } from 'styles/mixins/utiliti
 
 export default css`
   .subscription-plans-list {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
     ${resetMarginPadding}
     list-style-type: none;
-    margin-top: 50px;
   }
 
   .subscription-plans-list-item {
     width: 300px;
-    height: 500px;
+    height: auto;
     position: relative;
     ${resetMarginPadding}
-    margin: 25px 0;
-    padding: 0 10px;
+    margin-top: 10px;
+  }
+
+  .subscription-plans-list-item :global(div) {
+    margin: 0;
   }
 
   @media ${screenMedium} {
     .subscription-plans-list {
-      display: flex;
-      flex-wrap: wrap;
-      margin-top: 65px;
+      margin-top: 20px;
+    }
+
+    .subscription-plans-list:after {
+      content: '';
+      flex: auto;
+    }
+
+    .subscription-plans-list-item {
+      margin: 20px 10px 0;
     }
   }
 

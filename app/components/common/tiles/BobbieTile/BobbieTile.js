@@ -28,7 +28,7 @@ const BobbieTile = ({
   <div className="root">
     <div className="tile-content-container">
       {showTitle === true ? <h3>{title}</h3> : null}
-      {showSubtitle === true ? <h3>{subtitle}</h3> : null}
+      {showSubtitle === true ? <div className="subtitle">{subtitle}</div> : null}
       {/*
       <div className="post-meta-data">
         <ul>

@@ -168,6 +168,7 @@ const TopBar = ({ handleMenuClick, activeMenu, handleNotificationClick }) => {
                   width: 100%;
                   background: ${seashell};
                   border-bottom: 2px solid ${shadows};
+                  height: 60px;
                 }
 
                 .center-menu {
