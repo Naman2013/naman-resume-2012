@@ -119,7 +119,7 @@ class HubContainer extends Component {
   }
 
   componentWillUnmount = () => {
-     this.props.clearTiles();
+    this.props.clearTiles();
   }
 
   setQueryParams = (query) => {

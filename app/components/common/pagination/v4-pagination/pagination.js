@@ -8,15 +8,7 @@ import style from './pagination.style';
 const DEFAULT_ACTIVE_PAGE = 1;
 const DEFAULT_PAGES_PER_PAGE = 4;
 
-function createPages(pageStart = 0, numberOfPages) {
-  const pages = [];
-  for (let i = 0; i < numberOfPages; i += 1) {
-    pages.push(pageStart + i);
-  }
-  return pages;
-}
-
-const myCreatePages = (activePage, pagesPerPage, totalPageCount) => {
+const createPages = (activePage, pagesPerPage, totalPageCount) => {
   const pages = [];
   const min = activePage - ((activePage - 1) % pagesPerPage);
   const max = min + pagesPerPage >= totalPageCount ? totalPageCount + 1 : min + pagesPerPage;
@@ -39,14 +31,14 @@ class Pagination extends Component {
     activePage: DEFAULT_ACTIVE_PAGE,
     pagesPerPage: DEFAULT_PAGES_PER_PAGE,
     totalPageCount: 10,
-    pages: createPages(DEFAULT_ACTIVE_PAGE, DEFAULT_PAGES_PER_PAGE),
+    pages: createPages(DEFAULT_ACTIVE_PAGE, DEFAULT_PAGES_PER_PAGE, 10),
     onPageChange: () => {
       console.log('page changed');
     },
   };
 
   state = {
-    pages: myCreatePages(this.props.activePage, this.props.pagesPerPage, this.props.totalPageCount),
+    pages: createPages(this.props.activePage, this.props.pagesPerPage, this.props.totalPageCount),
     activePage: this.props.activePage,
   };
 
@@ -102,7 +94,7 @@ class Pagination extends Component {
         const newPageNumber = lastPageInSet + 1;
         this.props.onPageChange({ activePage: newPageNumber });
         return {
-          pages: myCreatePages(newPageNumber, pagesPerPage, totalPageCount),
+          pages: createPages(newPageNumber, pagesPerPage, totalPageCount),
           activePage: newPageNumber,
         };
       });
@@ -126,7 +118,7 @@ class Pagination extends Component {
         const newPage = firstPageInSet - 1;
         this.props.onPageChange({ activePage: newPage });
         return {
-          pages: myCreatePages(newPage, pagesPerPage, totalPageCount),
+          pages: createPages(newPage, pagesPerPage, totalPageCount),
           activePage: newPage,
         };
       });
@@ -137,7 +129,7 @@ class Pagination extends Component {
     const { pagesPerPage, totalPageCount } = this.props;
     const FIRST_PAGE = 1;
     this.setState({
-      pages: myCreatePages(FIRST_PAGE, pagesPerPage, totalPageCount),
+      pages: createPages(FIRST_PAGE, pagesPerPage, totalPageCount),
       activePage: FIRST_PAGE,
     });
     this.props.onPageChange({ activePage: FIRST_PAGE });
