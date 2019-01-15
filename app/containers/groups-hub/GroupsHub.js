@@ -250,12 +250,12 @@ class Groups extends Component {
                       iconURL={serviceResponse.pageIconURL}
                       pageTitle={serviceResponse.pageTitle}
                       filterType={this.props.params.filterType}
-                      clearTiles = {this.clearGroups}
+                      clearTiles={this.clearGroups}
                       render={() => (
                         <Fragment>
                           {fetchingContent ? <div>{intl.formatMessage(messages.loading)}</div> : null}
 
-                          {!fetchingContent && groups && groups.length ?
+                          {!fetchingContent && groups.length ?
                             <GroupTiles
                               filterType={this.props.params.filterType}
                               closeModal={this.closeModal}

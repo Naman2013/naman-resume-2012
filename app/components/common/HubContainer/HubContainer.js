@@ -118,6 +118,10 @@ class HubContainer extends Component {
     }
   }
 
+  componentWillUnmount = () => {
+     this.props.clearTiles();
+  }
+
   setQueryParams = (query) => {
     const params = queryString.stringify(query);
     const { filterType, hubName } = this.props;
