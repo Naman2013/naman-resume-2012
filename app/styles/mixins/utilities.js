@@ -1,5 +1,5 @@
 import { primaryFont } from 'styles/variables/fonts';
-import { shadows, romance } from 'styles/variables/colors_tiles_v4';
+import { shadows, romance, darkGrey } from 'styles/variables/colors_tiles_v4';
 
 export const profilePhotoStyle = photoUrl => ({
   backgroundImage: `url(${photoUrl})`,
@@ -27,12 +27,12 @@ export const backgroundImageCoverMap = {
   backgroundPosition: 'center center',
 };
 
-export const borderRadius = radius => (`
+export const borderRadius = radius => `
   -moz-border-radius: ${radius};
   -webkit-border-radius: ${radius};
   -ms-border-radius: ${radius};
   border-radius: ${radius};
-`);
+`;
 
 export const customModalStyles = {
   content: {
@@ -67,6 +67,26 @@ export const customModalStylesV4 = {
   },
   overlay: {
     backgroundColor: 'rgba(255, 255, 255, 0)',
+  },
+};
+
+export const customModalStylesFitContent = {
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+    maxWidth: '91vw',
+    height: 'fit-content',
+    width: 'fit-content',
+    padding: '3px',
+    fontFamily: primaryFont,
+    backgroundColor: darkGrey,
+  },
+  overlay: {
+    backgroundColor: 'rgba(0, 0, 0, .7)',
   },
 };
 
@@ -113,8 +133,9 @@ export const dropShadowContainer = `
   box-shadow: 0 2px 4px 1px ${shadows};
 `;
 
-export const smallProfPic = photoUrl => Object.assign(profilePhotoStyle(photoUrl), {
-  height: '50px',
-  width: '50px',
-  backgroundSize: 'cover',
-});
+export const smallProfPic = photoUrl =>
+  Object.assign(profilePhotoStyle(photoUrl), {
+    height: '50px',
+    width: '50px',
+    backgroundSize: 'cover',
+  });

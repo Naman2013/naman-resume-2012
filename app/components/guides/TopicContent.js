@@ -20,6 +20,13 @@ const TopicContent = ({ title, topicContentList, ...restProps }) => (
       </div>
     </CenterColumn>
     <style jsx>{style}</style>
+    <style jsx>
+      {`
+        .guide-container {
+          flex-direction: ${restProps.showContentList ? 'row' : 'column'};
+        }
+      `}
+    </style>
   </div>
 );
 
