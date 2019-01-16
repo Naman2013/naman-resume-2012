@@ -141,7 +141,7 @@ class Overview extends Component {
     if (!modeledResult.topicContentProps.title) {
       return null;
     }
-    console.log(objectSpecialists.specialistsList);
+    
     return (
       <Fragment>
         <TopicContent {...modeledResult.topicContentProps} objectId={objectId} user={user} />

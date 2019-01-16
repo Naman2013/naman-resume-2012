@@ -147,7 +147,7 @@ class SubmitReplyForm extends Component {
     const {
       answerText,
     } = this.state;
-    console.log(authorInfo);
+    
     return (
       <form className="root">
         <div className="top">
