@@ -32,14 +32,16 @@ class PaginateWithNetwork extends Component {
         serviceURL={apiURL}
         requestBody={Object.assign({ page: activePageNumber }, filterOptions)}
         serviceResponseHandler={this.handleServiceResponse}
-        render={({ serviceResponse }) => (
-          <Pagination
-            totalPageCount={serviceResponse.pages}
-            activePage={activePageNumber}
-            pagesPerPage={4}
-            onPageChange={this.props.onPaginationChange}
-          />
-        )}
+        render={({ fetchingContent, serviceResponse }) =>
+          !fetchingContent && (
+            <Pagination
+              totalPageCount={serviceResponse.pages}
+              activePage={activePageNumber}
+              pagesPerPage={4}
+              onPageChange={this.props.onPaginationChange}
+            />
+          )
+        }
       />
     );
   }
