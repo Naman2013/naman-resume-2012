@@ -131,7 +131,7 @@ class AskAstronomer extends Component {
       this.setState(() => ({
         aaaQuestionPrompt: res.data,
       }));
-
+      console.log(res.data);
       props.actions.fetchAstronomerQuestions({ objectId });
     })
   }

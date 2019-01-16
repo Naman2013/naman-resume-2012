@@ -62,7 +62,7 @@ const Card = (props) => {
     })
     modalActions.showModal();
   }
-
+  
   return (
     <div className="root" key={uniqueId()}>
       <div className="comment-item">

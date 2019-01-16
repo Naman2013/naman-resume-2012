@@ -107,6 +107,7 @@ class SubmitReplyForm extends Component {
     } = this.state;
     if (answerText.replace(/\s/g, '').length) {
       this.props.submitForm(answerText, S3URLs);
+      this.props.modalActions.closeModal();
     }
 
   }
@@ -146,7 +147,7 @@ class SubmitReplyForm extends Component {
     const {
       answerText,
     } = this.state;
-    
+    console.log(authorInfo);
     return (
       <form className="root">
         <div className="top">

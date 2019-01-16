@@ -73,6 +73,7 @@ export default css`
 
   .actions {
     display: flex;
+    min-height: 40px;
   }
 
   .button-container {
