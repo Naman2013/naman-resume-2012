@@ -144,6 +144,7 @@ class ObjectVisibilityProfile extends Component {
                       >
                         {next7Days.map((date, index) => (
                           <div
+                            key={date.date()}
                             role="button"
                             tabIndex={index + 1}
                             className={cn('day-sell', { 'is-active': activeDateIndex === index })}
