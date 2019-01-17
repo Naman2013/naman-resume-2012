@@ -1,5 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
+import cn from 'classnames';
 import { intlShape, injectIntl } from 'react-intl';
 import getDaysByMonth from 'utils/date-utils/get-days-by-month';
 import Request from 'components/common/network/Request';
@@ -36,6 +38,12 @@ const riseSetModel = {
   }),
 };
 
+const next7Days = [];
+for (let i = 0; i < 7; i++) {
+  const date = moment(new Date()).add(i, 'days');
+  next7Days.push(date);
+}
+
 class ObjectVisibilityProfile extends Component {
   static propTypes = {
     objectId: PropTypes.string.isRequired,
@@ -46,6 +54,7 @@ class ObjectVisibilityProfile extends Component {
     day: DEFAULT_DAY,
     year: DEFAULT_YEAR,
     obsId: DEFAULT_OBSID,
+    activeDateIndex: 0,
   }
 
   fetchRiseSetData = () => {
@@ -83,12 +92,22 @@ class ObjectVisibilityProfile extends Component {
     this.setState({ obsId: event.target.value });
   }
 
+  handleDateSelect = (date, index) => {
+    this.setState({
+      activeDateIndex: index,
+      day: date.date(),
+      month: (date.month() + 1).toString(),
+      year: date.year().toString(),
+    });
+  }
+
   render() {
     const {
       day,
       month,
       year,
       obsId,
+      activeDateIndex,
     } = this.state;
 
     const { objectId, intl } = this.props;
@@ -123,86 +142,17 @@ class ObjectVisibilityProfile extends Component {
                         hasBorderScale={[true]}
                         title={intl.formatMessage(messages.RiseSetTimes)}
                       >
-                        <div className="select-field">
-                          <label
-                            className="option-label"
-                            htmlFor="select-month"
+                        {next7Days.map((date, index) => (
+                          <div
+                            role="button"
+                            tabIndex={index + 1}
+                            className={cn('day-sell', { 'is-active': activeDateIndex === index })}
+                            onClick={() => this.handleDateSelect(date, index)}
                           >
-                            <span className="field-value-name">
-                              {MONTHS.filter(filterMonth => filterMonth.value == this.state.month)[0].name}
-                            </span>
-                            <img alt="" width="8" src={downwardFacingChevron} />
-                          </label>
-                          <select
-                            className="select"
-                            id="select-month"
-                            value={this.state.month}
-                            onChange={this.handleMonthChange}
-                          >
-                            {MONTHS.map(currentMonth => (
-                              <option
-                                key={`month-select-${currentMonth.value}`}
-                                value={currentMonth.value}
-                              >
-                                {currentMonth.name}
-                              </option>
-                            ))}
-                          </select>
-                        </div>
-
-                        <div className="select-field">
-                          <label
-                            className="option-label"
-                            htmlFor="select-day"
-                          >
-                            <span className="field-value-name">
-                              {this.generateDays().filter(filterDay => filterDay.value == this.state.day)[0].name}
-                            </span>
-                            <img alt="" width="8" src={downwardFacingChevron} />
-                          </label>
-                          <select
-                            className="select"
-                            id="select-day"
-                            value={this.state.day}
-                            onChange={this.handleDayChange}
-                          >
-                            {this.generateDays().map(currentDay => (
-                              <option
-                                key={`day-select-${currentDay.value}`}
-                                value={currentDay.value}
-                              >
-                                {currentDay.name}
-                              </option>
-                            ))}
-                          </select>
-                        </div>
-
-                        <div className="select-field">
-                          <label
-                            className="option-label"
-                            htmlFor="select-year"
-                          >
-                            <span className="field-value-name">
-                              {YEARS.filter(filterYear => filterYear.value == this.state.year)[0].name}
-                            </span>
-                            <img alt="" width="8" src={downwardFacingChevron} />
-                          </label>
-                          <select
-                            className="select"
-                            id="select-year"
-                            value={this.state.year}
-                            onChange={this.handleYearChange}
-                          >
-                            {YEARS.map(currentYear => (
-                              <option
-                                key={`year-select-${currentYear.value}`}
-                                value={currentYear.value}
-                              >
-                                {currentYear.name}
-                              </option>
-                            ))}
-                          </select>
-                        </div>
+                            <div className="day-month">{MONTHS[date.month()].name}</div>
+                            <div className="day-month">{date.date()}</div>
+                          </div>
+                        ))}
                       </StaticCell>
                       <StaticCell title="Observatory" flexScale={['100%', '25%']}>
                         <div className="select-field">
