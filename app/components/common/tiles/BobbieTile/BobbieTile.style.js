@@ -61,11 +61,6 @@ export default css`
     align-items: center;
   }
 
-  .__html-blob-content-container__,
-  .read-duration {
-    /* display: none; */
-  }
-
   @media ${screenLarge} {
     .tile-content-container {
       padding: 80px;
