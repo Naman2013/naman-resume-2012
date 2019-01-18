@@ -52,95 +52,10 @@ export default css`
     padding-top: 20px;
   }
 
-
   .author-name {
     display: flex;
     justify-content: space-between;
     align-items: center;
-  }
-
-  .__html-blob-content-container__,
-  .read-duration {
-    /* display: none; */
-  }
-
-  .__html-blob-content-container__ :global(hr) {
-    width: 100%;
-    border-color: black;
-    border-width: 1px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-  }
-
-  .__html-blob-content-container__ :global(ol) {
-    margin-left: 40px;
-    margin-bottom: 20px;
-  }
-
-  .__html-blob-content-container__ :global(ul) {
-    margin-left: 40px;
-    margin-bottom: 20px;
-  }
-
-  .__html-blob-content-container__ :global(li) {
-    margin-bottom: 10px;
-  }
-
-  .__html-blob-content-container__ :global(p) {
-    margin-top: 20px;
-    margin-bottom: 20px;
-  }
-
-  .__html-blob-content-container__ :global(h1) {
-    margin-top: 10px;
-    margin-bottom: 10px;
-  }
-
-  .__html-blob-content-container__ :global(h2) {
-    margin-top: 10px;
-    margin-bottom: 10px;
-  }
-
-  .__html-blob-content-container__ :global(h3) {
-    margin-top: 10px;
-    margin-bottom: 10px;
-  }
-
-  .__html-blob-content-container__ :global(h4) {
-    margin-top: 10px;
-    margin-bottom: 10px;
-  }
-
-  .__html-blob-content-container__ :global(h5) {
-    margin-top: 10px;
-    margin-bottom: 10px;
-  }
-
-  @media ${screenMedium} {
-    .__html-blob-content-container__,
-    .read-duration {
-      display: block;
-    }
-
-    .author-name img,
-    .author-name span { display: none; }
-
-    .tile-content-container {
-      padding: 40px 50px;
-    }
-
-    ul {
-      display: flex;
-      padding: 10px 0;
-      margin-bottom: 20px;
-      border-bottom: 1px solid ${geyser};
-    }
-
-    .read-duration {
-      border-right: 1px solid ${geyser};
-      padding-right: 10px;
-      margin-right: 10px;
-    }
   }
 
   @media ${screenLarge} {

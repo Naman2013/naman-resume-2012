@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import truncate from 'lodash/truncate';
 import style from './AboutContent.style';
 import cmsstyle from 'components/common/tiles/BobbieTile/CMS.style.js';
+import bobbietilestyle from 'components/common/tiles/BobbieTile/BobbieTile.style.js';
 
 const TRUNCATED_CONTENT_LENGTH = 210;
 const TRUNCATED_BUTTON_TEXT = 'read more';
@@ -47,7 +48,7 @@ class AboutContent extends Component {
       <Fragment>
         <span>
           <span
-            className="__html-content__"
+            className="__html-blob-content-container__"
             dangerouslySetInnerHTML={{
               __html: prepareContent(content, contentLength),
             }}
@@ -58,8 +59,9 @@ class AboutContent extends Component {
             </button>
           )}
         </span>
-        <style jsx>{cmsstyle}</style>
         <style jsx>{style}</style>
+        <style jsx>{bobbietilestyle}</style>
+        <style jsx>{cmsstyle}</style>
       </Fragment>
     );
   }
