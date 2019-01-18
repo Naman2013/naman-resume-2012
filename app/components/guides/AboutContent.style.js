@@ -31,6 +31,7 @@ export default css`
   @media ${screenLarge} {
     .__html-content__ {
       display: inline-block;
+      max-width: 600px;
     }
   }
 `;
