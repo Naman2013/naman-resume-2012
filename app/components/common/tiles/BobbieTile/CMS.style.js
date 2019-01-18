@@ -12,7 +12,7 @@ export default css`
      font-family: ${secondaryFont};
      color: ${lightHeadedAstronaut};
      vertical-align: top;
-     font-size: 1.1em;
+     font-size: 18px;
    }
 
    ${stylePrefix} :global(p) {
@@ -108,8 +108,8 @@ export default css`
    }
 
    .__html-blob-content-container__ :global(table) {
-     margin-top: 30px;
-     margin-bottom: 30px;
+     margin-top: 0px;
+     margin-bottom: 0px;
    }
 
    .__html-blob-content-container__ :global(a) {
