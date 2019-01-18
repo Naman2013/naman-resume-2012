@@ -55,7 +55,6 @@ export default css`
     padding-top: 20px;
   }
 
-
   .author-name {
     display: flex;
     justify-content: space-between;
@@ -70,19 +69,6 @@ export default css`
 <<<<<<< HEAD
   .__html-blob-content-container__ :global(a) {
     text-decoration: underline;
-=======
-  .__html-blob-content-container__ :global(hr) {
-    width: 100%;
-    border-color: black;
-    border-width: 1px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-  }
-
-  .__html-blob-content-container__ :global(ol) {
-    margin-left: 40px;
-    margin-bottom: 20px;
->>>>>>> about this quest/guide style updates.
   }
 
   .__html-blob-content-container__ :global(ol) {
@@ -154,6 +140,8 @@ export default css`
     }
   }
 
+=======
+>>>>>>> updated quests/guides/bobbie tile to use common CMS.stykle.js and migrated specific styles from BobbieTile.style.js to the CMS style so it can be re-used.  re-factor part 1 complete.
   @media ${screenLarge} {
     .tile-content-container {
       padding: 80px;
