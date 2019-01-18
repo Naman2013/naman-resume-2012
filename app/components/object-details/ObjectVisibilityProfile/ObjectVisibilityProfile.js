@@ -27,6 +27,8 @@ const riseSetModel = {
     rise: resp.riseText,
     transit: resp.transitText,
     set: resp.setText,
+    subtitle: resp.subtitle,
+    title: resp.title,
     notes: resp.notesText,
     guideHeader: resp.linkHeader,
     guideUrl: resp.linkUrl,
@@ -121,7 +123,7 @@ class ObjectVisibilityProfile extends Component {
                       <StaticCell
                         flexScale={['100%', '75%']}
                         hasBorderScale={[true]}
-                        title={intl.formatMessage(messages.RiseSetTimes)}
+                        titleHtml={riseSet.title}
                       >
                         <div className="select-field">
                           <label
@@ -203,6 +205,10 @@ class ObjectVisibilityProfile extends Component {
                             ))}
                           </select>
                         </div>
+                        <div dangerouslySetInnerHTML={{
+                          __html: riseSet.subtitle,
+                        }}
+                        />
                       </StaticCell>
                       <StaticCell title="Observatory" flexScale={['100%', '25%']}>
                         <div className="select-field">
