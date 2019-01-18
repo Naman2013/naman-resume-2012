@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import truncate from 'lodash/truncate';
 import style from './AboutContent.style';
+import cmsstyle from 'components/common/tiles/BobbieTile/CMS.style.js';
 
 const TRUNCATED_CONTENT_LENGTH = 210;
 const TRUNCATED_BUTTON_TEXT = 'read more';
@@ -57,6 +58,7 @@ class AboutContent extends Component {
             </button>
           )}
         </span>
+        <style jsx>{cmsstyle}</style>
         <style jsx>{style}</style>
       </Fragment>
     );

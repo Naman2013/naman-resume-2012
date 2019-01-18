@@ -52,6 +52,7 @@ export default css`
     padding-top: 20px;
   }
 
+
   .author-name {
     display: flex;
     justify-content: space-between;
@@ -61,6 +62,14 @@ export default css`
   .__html-blob-content-container__,
   .read-duration {
     /* display: none; */
+  }
+
+  .__html-blob-content-container__ :global(hr) {
+    width: 100%;
+    border-color: black;
+    border-width: 1px;
+    margin-top: 10px;
+    margin-bottom: 10px;
   }
 
   .__html-blob-content-container__ :global(ol) {
@@ -83,27 +92,27 @@ export default css`
   }
 
   .__html-blob-content-container__ :global(h1) {
-    margin-top: 40px;
+    margin-top: 10px;
     margin-bottom: 10px;
   }
 
   .__html-blob-content-container__ :global(h2) {
-    margin-top: 40px;
+    margin-top: 10px;
     margin-bottom: 10px;
   }
 
   .__html-blob-content-container__ :global(h3) {
-    margin-top: 40px;
+    margin-top: 10px;
     margin-bottom: 10px;
   }
 
   .__html-blob-content-container__ :global(h4) {
-    margin-top: 40px;
+    margin-top: 10px;
     margin-bottom: 10px;
   }
 
   .__html-blob-content-container__ :global(h5) {
-    margin-top: 40px;
+    margin-top: 10px;
     margin-bottom: 10px;
   }
 
