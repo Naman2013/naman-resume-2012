@@ -54,9 +54,9 @@ class AboutContent extends Component {
             }}
           />
           {content.length > TRUNCATED_CONTENT_LENGTH && (
-            <button onClick={this.handleReadMoreClick} className="action-read-more">
+            <p><button onClick={this.handleReadMoreClick} className="action-read-more">
               {buttonText}
-            </button>
+            </button></p>
           )}
         </span>
         <style jsx>{style}</style>
