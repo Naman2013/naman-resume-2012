@@ -361,7 +361,13 @@ ReactDOM.render(
             onEnter={validateUser}
           />
           <Route path="quest-details/:questId/:step" component={QuestStep} onEnter={validateUser} />
-          <Route path="profile/private" component={UserPrivateProfile} onEnter={validateUser} />
+
+          
+          <Route path="profile/private" component={UserPrivateProfile} onEnter={validateUser}>
+            <IndexRedirect to="activity" />
+            {/* <Route path=":profileSectionId" component={PrivateProfileSection} onEnter={validateUser} /> */}
+          </Route>
+          {/* <Route path="profile/private" component={UserPrivateProfile} onEnter={validateUser} /> */}
           <Route path="profile/public/:cid" component={UserPublicProfile} onEnter={validateUser} />
 
           <Route path="groups/create" component={GroupCreate} onEnter={validateUser} />
