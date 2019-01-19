@@ -6,7 +6,6 @@ import { intlShape, injectIntl } from 'react-intl';
 import GenericButton from 'components/common/style/buttons/Button';
 import { horizontalArrow } from 'styles/variables/iconURLs';
 import style from './BestTelescope.style';
-import messages from './BestTelescope.messages';
 
 const TELESCOPE_INDEX = 'data-telescope-index';
 
@@ -17,7 +16,7 @@ class BestTelescope extends Component {
       description: PropTypes.string.isRequired,
       linkUrl: PropTypes.string.isRequired,
     })),
-    intl: intlShape.isRequired,
+    visitLabel: PropTypes.string.isRequired,
   };
 
   static defaultProps = { telescopes: [] };
@@ -34,7 +33,7 @@ class BestTelescope extends Component {
 
   render() {
     const { activeTelescope } = this.state;
-    const { intl } = this.props;
+    const { visitLabel } = this.props;
     const telescope = this.props.telescopes[activeTelescope];
     return (
       <div>
@@ -59,7 +58,7 @@ class BestTelescope extends Component {
             onClickEvent={() => {
               browserHistory.push(telescope.linkUrl);
             }}
-            text={intl.formatMessage(messages.VisitTelescope)}
+            text={visitLabel}
             icon={horizontalArrow}
           />
         </div>
