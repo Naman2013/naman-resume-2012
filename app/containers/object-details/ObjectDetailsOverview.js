@@ -28,6 +28,7 @@ import CardObservations from 'components/common/CardObservations';
 import SterlingTitle from 'components/common/titles/SterlingTitle';
 import BurnhamsCorner from 'components/common/BurnhamsCorner';
 import GuidePanels from 'components/guides/GuidePanels';
+import MVPAstronomer from '../../components/common/MVPAstronomer/MVPAstronomer';
 
 import messages from './ObjectDetails.messages';
 import style from './ObjectDetailsOverview.style';
@@ -225,15 +226,7 @@ class Overview extends Component {
             {objectSpecialists && objectSpecialists.specialistsCount > 0 ? (
               <div className="card-container__specialists">
                 {objectSpecialists.specialistsList.map(item => (
-                  <div className="specialists-card" key={`card_${item.customerId}`}>
-                    <img className="specialists-icon" alt="" src={item.iconUrl} />
-                    <h5>{item.displayName}</h5>
-                    {item.hasLinkFlag && (
-                      <a className="mvp-btn" href={item.linkUrl}>
-                        {item.gravityRankLabel}
-                      </a>
-                    )}
-                  </div>
+                  <MVPAstronomer {...item} cardClass="contents-mvp-card" />
                 ))}
               </div>
             ) : (

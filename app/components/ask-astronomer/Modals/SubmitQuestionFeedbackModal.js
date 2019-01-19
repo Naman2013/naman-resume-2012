@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 import uniqueId from 'lodash/uniqueId';
 import noop from 'lodash/noop';
 import Button from 'components/common/style/buttons/Button';
-import styles from './Modals.style'
+import styles from './Modals.style';
 
 const {
   any,

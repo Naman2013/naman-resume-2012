@@ -7,11 +7,12 @@ import { faintShadow } from 'styles/variables/shadows';
 import { dropShadowContainer } from 'styles/mixins/utilities';
 import { screenMedium, screenLarge } from 'styles/variables/breakpoints';
 
-export const profPic = photoUrl => Object.assign(profilePhotoStyle(photoUrl), {
-  height: '14px',
-  width: '14px',
-  backgroundSize: 'cover',
-});
+export const profPic = photoUrl =>
+  Object.assign(profilePhotoStyle(photoUrl), {
+    height: '14px',
+    width: '14px',
+    backgroundSize: 'cover',
+  });
 
 export default css`
   .root {
@@ -33,10 +34,10 @@ export default css`
     font-family: ${primaryFont};
     color: ${astronaut};
     text-transform: uppercase;
-
   }
 
-  .user-info, .user-info-container {
+  .user-info,
+  .user-info-container {
     display: flex;
     flex-direction: row;
     font-size: 10px;
@@ -61,7 +62,7 @@ export default css`
     font-size: 19px;
     color: ${astronaut};
     padding: 25px 0;
-    text-transform:none;
+    text-transform: none;
   }
 
   .date {
@@ -76,6 +77,10 @@ export default css`
     align-items: center;
   }
 
+  .activity-actions :global(.button-container) {
+    margin-right: 10px;
+  }
+
   .action-left {
     display: flex;
     flex-direction: row;
@@ -83,7 +88,6 @@ export default css`
     min-width: 100px;
     align-items: center;
   }
-
 
   .action-right {
     display: flex;
@@ -115,7 +119,6 @@ export default css`
     border-bottom: 0;
   }
 
-
   @media ${screenMedium} {
     .date {
       visibility: visible;
@@ -132,6 +135,5 @@ export default css`
   }
 
   @media ${screenLarge} {
-
   }
 `;
