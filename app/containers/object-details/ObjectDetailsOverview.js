@@ -95,9 +95,13 @@ const modelData = resp => ({
     },
   },
   objectDetails: {
-    ra: resp.objectRA,
-    dec: resp.objectDeclination,
+    nameLabel: resp.displayNameLabel,
+    coordinatesLabel: resp.objectCoordinatesLabel,
+    сoordinates: resp.objectCoordinatesDisplay,
+    magnitudeLabel: resp.objectMagnitudeLabel,
     magnitude: resp.objectMagnitude,
+    apparentAngularSizeLabel: resp.objectSizeArcSecondsLabel,
+    apparentAngularSizeText: resp.objectSizeArcSecondsDisplay,
   },
   visibilitySeason: {
     show: resp.showVisibilitySeason,
@@ -116,6 +120,7 @@ const modelData = resp => ({
   },
   bestTelescope: {
     label: resp.bestTelescopes.listTitle,
+    visitTelescopeLabel: resp.visitTelescopeCaption,
     list: resp.bestTelescopes.list,
   },
 });
@@ -177,6 +182,7 @@ class Overview extends Component {
               bestTelescope={{
                 label: modeledResult.bestTelescope.label,
                 list: modeledResult.bestTelescope.list,
+                buttonCaption: modeledResult.bestTelescope.visitTelescopeLabel,
               }}
             />
 

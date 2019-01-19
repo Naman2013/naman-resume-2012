@@ -23,13 +23,15 @@ export default css`
     font-weight: 400;
   }
 
-  .bc-img-right {
+  .bc-img {
     width: 45%;
+    float: right;
+    margin-left: 20px;
+    margin-bottom: 20px;
   }
 
   .bc-left {
-    width: 55%;
-    padding-right: 40px;
+    width: 100%;
   }
 
   .bc-img-right img {
