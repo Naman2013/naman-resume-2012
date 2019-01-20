@@ -21,30 +21,37 @@ const BobbieTileWelcomeToPlan = ({
   HTMLBlob,
 }) => (
   <div className="root">
-    <div className="tile-content-container">
+    <div style={{marginTop: '0px', marginBottom: '0px', padding: '0px'}} className="tile-content-container">
       <h1 style={{ marginBottom: '20px' }}>{title}</h1>
-      <div className="middle-content">
-        <div className="text-content">
-          <h2>Ready for Orientation?</h2>
-          <div className="plan-name">{planName}</div>
-          <div
-            className="__html-blob-content-container__"
-            dangerouslySetInnerHTML={{ __html: HTMLBlob }}
-          />
-        </div>
-        <div className="guide-tile">
-          <div className="guide-tile-frame">
-            <img alt="" src="https://vega.slooh.com/assets/v4/common/guide_corner.svg" className="top-left" />
-            <img alt="" src="https://vega.slooh.com/assets/v4/common/guide_corner.svg" className="top-right" />
-          </div>
-          <div className="guide-tile-frame bottom">
-            <img alt="" src="https://vega.slooh.com/assets/v4/common/guide_corner.svg" className="top-left" />
-            <img alt="" src="https://vega.slooh.com/assets/v4/common/guide_corner.svg" className="top-right" />
-          </div>
-          <h4 className="title">A Guide to</h4>
-          <h5 className="subTitle">Your Membership</h5>
-        </div>
-      </div>
+      <table className="middle-content" style={{width: '100%'}}>
+        <tr>
+          <td style={{width: '60%'}}>
+            <div className="text-content">
+              <h2>Ready for Orientation?</h2>
+              <div className="plan-name">{planName}</div>
+              <div
+                className="__html-blob-content-container__"
+                dangerouslySetInnerHTML={{ __html: HTMLBlob }}
+              />
+            </div>
+          </td>
+
+          <td style={{width: '40%'}}>
+            <div className="guide-tile">
+              <div className="guide-tile-frame">
+                <img alt="" src="https://vega.slooh.com/assets/v4/common/guide_corner.svg" className="top-left" />
+                <img alt="" src="https://vega.slooh.com/assets/v4/common/guide_corner.svg" className="top-right" />
+              </div>
+              <div className="guide-tile-frame bottom">
+                <img alt="" src="https://vega.slooh.com/assets/v4/common/guide_corner.svg" className="top-left" />
+                <img alt="" src="https://vega.slooh.com/assets/v4/common/guide_corner.svg" className="top-right" />
+              </div>
+              <h4 className="title">A Guide to</h4>
+              <h5 className="subTitle">Your Membership</h5>
+            </div>
+          </td>
+        </tr>
+      </table>
     </div>
     <style jsx>{style}</style>
     <style jsx>{CMSStyle}</style>

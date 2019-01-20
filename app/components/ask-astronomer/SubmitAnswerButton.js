@@ -114,7 +114,7 @@ class SubmitAnswerButton extends Component {
       topicId,
       user,
     } = this.props;
-
+    
     submitForm({
       content,
       S3URLs,
@@ -135,10 +135,12 @@ class SubmitAnswerButton extends Component {
     const message = data.apiError ? `${intl.formatMessage(messages.Error)}!
     <p>${intl.formatMessage(messages.AnswerErrorText)}</p>` : `${intl.formatMessage(messages.Success)}!
     <p>${intl.formatMessage(messages.AnswerSuccessText)}</p>`;
+
     modalActions.setModal({
       promptComponent: <SubmitAnswerFeedbackModal modalActions={modalActions} message={message} />,
       promptStyles: customModalStylesBlackOverlay,
-    })
+    });
+    modalActions.showModal();
   }
 
   render() {
