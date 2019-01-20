@@ -43,6 +43,9 @@ export default css`
     outline: none;
   }
 
+  .rise-set-subtitle {
+    margin-top: 15px;
+  }
 
   .is-active {
     border-bottom: 3px solid ${lightHeadedAstronaut};

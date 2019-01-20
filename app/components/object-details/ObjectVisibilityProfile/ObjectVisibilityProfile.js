@@ -29,6 +29,8 @@ const riseSetModel = {
     rise: resp.riseText,
     transit: resp.transitText,
     set: resp.setText,
+    subtitle: resp.subtitle,
+    title: resp.title,
     notes: resp.notesText,
     guideHeader: resp.linkHeader,
     guideUrl: resp.linkUrl,
@@ -140,7 +142,7 @@ class ObjectVisibilityProfile extends Component {
                       <StaticCell
                         flexScale={['100%', '75%']}
                         hasBorderScale={[true]}
-                        title={intl.formatMessage(messages.RiseSetTimes)}
+                        titleHtml={riseSet.title}
                       >
                         {next7Days.map((date, index) => (
                           <div
@@ -154,6 +156,10 @@ class ObjectVisibilityProfile extends Component {
                             <div className="day-month">{date.date()}</div>
                           </div>
                         ))}
+                        <div className="rise-set-subtitle" dangerouslySetInnerHTML={{
+                          __html: riseSet.subtitle,
+                        }}
+                        />
                       </StaticCell>
                       <StaticCell title="Observatory" flexScale={['100%', '25%']}>
                         <div className="select-field">
