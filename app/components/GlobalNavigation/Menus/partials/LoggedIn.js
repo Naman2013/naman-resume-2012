@@ -22,7 +22,9 @@ const LoggedIn = ({
       <div className="nav-icon avatar" style={getIconStyle(avatarURL || userAstronaut)} />
       <div className="username-container">
         <div className="username" dangerouslySetInnerHTML={{ __html: displayName }} />
-        <div className="nav-icon" style={getIconStyle(horizontalArrowRightAstronaut)} />
+        <Link to='/profile/private'>
+          <div className="nav-icon" style={getIconStyle(horizontalArrowRightAstronaut)} />
+        </Link>
       </div>
     </MenuTitleBar>
     <MenuList items={menuItems} />

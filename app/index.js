@@ -145,6 +145,7 @@ import CreateStory from './containers/create-story';
 import PlaceholderPage from './pages/Placeholder';
 import QuestStep from './containers/quest-step';
 import { About, AboutSloohSection } from './containers/about';
+import { PrivateProfile } from './containers/profile';
 
 import DashboardPage from 'components/Dashboard';
 
@@ -362,9 +363,8 @@ ReactDOM.render(
           />
           <Route path="quest-details/:questId/:step" component={QuestStep} onEnter={validateUser} />
 
-          
-          <Route path="profile/private" component={UserPrivateProfile} onEnter={validateUser}>
-            <IndexRedirect to="activity" />
+          <Route path="profile/private" component={PrivateProfile} onEnter={validateUser}>
+            {/* <IndexRedirect to="activity" /> */}
             {/* <Route path=":profileSectionId" component={PrivateProfileSection} onEnter={validateUser} /> */}
           </Route>
           {/* <Route path="profile/private" component={UserPrivateProfile} onEnter={validateUser} /> */}
