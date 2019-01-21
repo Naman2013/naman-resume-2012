@@ -36,9 +36,12 @@ const Button = (props) => {
     >
       {
         text &&
-          <span className={classnames('text', {
-            'pad-right': text && icon,
-          })} dangerouslySetInnerHTML={{ __html: text }} />
+          <span
+            style={{ color: theme.color }}
+            className={classnames('text', {
+              'pad-right': text && icon,
+            })} dangerouslySetInnerHTML={{ __html: text }}
+          />
       }
 
       {icon && <img alt="" className="button-icon" src={icon} />}

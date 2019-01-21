@@ -34,6 +34,9 @@ import ObjectDetailsQuests from './containers/object-details/ObjectDetailsQuests
 import ObjectDetailsStories from './containers/object-details/ObjectDetailsStories';
 import ObjectDetailsShows from './containers/object-details/ObjectDetailsShows';
 import ObjectDetailsObservations from './containers/object-details/ObjectDetailsObservations';
+import PrivatProfileMissions from './components/missions-v4/MissionList';
+import PrivatProfilePhotos from './components/missions-v4/PrivatProfilePhotos';
+import Observations from './components/missions-v4/Observations';
 
 // pages
 import TelescopeOverview from './pages/telescope-overview';
@@ -229,6 +232,12 @@ ReactDOM.render(
             onEnter={validateUser}
           />
 
+          <Route
+            path="missions"
+            component={PrivatProfileMissions}
+            onEnter={validateUser}
+          />
+
           <Route path="reservations" component={Reservations} onEnter={validateUser}>
             <IndexRedirect to="reserve-by-objects" />
 
@@ -362,10 +371,18 @@ ReactDOM.render(
           />
           <Route path="quest-details/:questId/:step" component={QuestStep} onEnter={validateUser} />
 
+          <Route path="test-profile/privat/photos" component={PrivatProfilePhotos}>
+            <IndexRedirect to="missions" />
+            <Route path="photoroll" component={Observations} />
+            <Route path="observations" component={Observations} />
+            <Route path="missions" component={PrivatProfileMissions} onEnter={validateUser} />
+            <Route path="galleries" component={Observations} />
+          </Route>
           
           <Route path="profile/private" component={UserPrivateProfile} onEnter={validateUser}>
             <IndexRedirect to="activity" />
             {/* <Route path=":profileSectionId" component={PrivateProfileSection} onEnter={validateUser} /> */}
+
           </Route>
           {/* <Route path="profile/private" component={UserPrivateProfile} onEnter={validateUser} /> */}
           <Route path="profile/public/:cid" component={UserPublicProfile} onEnter={validateUser} />
