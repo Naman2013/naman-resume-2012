@@ -121,11 +121,12 @@ class SubmitReplyReplyButton extends Component {
     const { modalActions, intl } = this.props;
     const message = data.apiError ? `${intl.formatMessage(messages.Error)}!
     <p>${intl.formatMessage(messages.AnswerErrorText)}</p>` : `${intl.formatMessage(messages.Success)}!
-    <p>${intl.formatMessage(messages.AnswerSuccessText)}</p>`;
+    <p>${intl.formatMessage(messages.ReplySuccessText)}</p>`;
     modalActions.setModal({
       promptComponent: <SubmitReplyFeedbackModal modalActions={modalActions} message={message} />,
       promptStyles: customModalStylesBlackOverlay,
-    })
+    });
+    modalActions.showModal();
   }
 
   render() {

@@ -136,6 +136,8 @@ class AnswerList extends Component {
     } = this.props;
     const { showAllAnswers } = answers;
     const count = showAllAnswers ? paginationCount : 1;
+    const showPagination = showAllAnswers && displayedAnswers.length > 0 && count < answers.replies.length;
+
     return (<div key={threadId}>
       {numberOfAnswersToThread > 0 ? <div className="replies-list-contanier">
         <div className="num-replies">
@@ -184,7 +186,7 @@ class AnswerList extends Component {
               modalActions={modalActions}
             />);
           })}
-          {showAllAnswers && displayedAnswers.length > 0 && <PaginateSet
+          {showPagination && <PaginateSet
             handlePageChange={this.handlePageChange}
             fullDataSet={answers.replies}
             count={count}

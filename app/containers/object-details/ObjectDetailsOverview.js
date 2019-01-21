@@ -9,6 +9,7 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { browserHistory } from 'react-router';
 import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 import { BURNHAMS_CORNER_CONTENT } from 'services/content';
 
@@ -27,10 +28,14 @@ import ObjectVisibilityProfile from 'components/object-details/ObjectVisibilityP
 import CardObservations from 'components/common/CardObservations';
 import SterlingTitle from 'components/common/titles/SterlingTitle';
 import BurnhamsCorner from 'components/common/BurnhamsCorner';
-import GuidePanels from 'components/guides/GuidePanels';
+import LailaTile from '../../components/common/tiles/LailaTile';
+import GuideTile from '../../components/common/tiles/guide-tile';
+import GenericButton from '../../components/common/style/buttons/Button';
+import MVPAstronomer from '../../components/common/MVPAstronomer/MVPAstronomer';
 
 import messages from './ObjectDetails.messages';
 import style from './ObjectDetailsOverview.style';
+import ObjectRelatedTile from './ObjectRelatedTile';
 
 const mapStateToProps = ({ objectDetails, appConfig, user }) => ({
   objectData: objectDetails.objectData,
@@ -65,12 +70,15 @@ const burnhamsModel = {
   }),
 };
 
+
+
 const modelData = resp => ({
   topicContentProps: {
     title: resp.objectTitle,
     topicContentList: Object.values(resp.pointsList.list),
     aboutTitle: resp.objectSubtitle,
     aboutContent: resp.objectDescription,
+    showContentList: resp.showBulletPoints,
     topicActionProps: {
       followButtonText: resp.followPrompt,
       followButtonIconURL: resp.followPromptIconUrl,
@@ -84,6 +92,7 @@ const modelData = resp => ({
   featuredObservation: {
     title: <FormattedMessage {...messages.FeaturedObservation} />,
     subTitle: <FormattedMessage {...messages.CommunityObservation} />,
+    show: resp.hasFeaturedObservation,
     tileContent: {
       title: resp.featuredObservation.title,
       subTitle: resp.featuredObservation.subTitle,
@@ -123,6 +132,22 @@ const modelData = resp => ({
     visitTelescopeLabel: resp.visitTelescopeCaption,
     list: resp.bestTelescopes.list,
   },
+  relatedObject: {
+    show: resp.hasRelatedObject,
+    ...resp.relatedObject,
+  },
+  relatedStory: {
+    show: resp.hasRelatedStory,
+    ...resp.relatedStory,
+  },
+  relatedShow: {
+    show: resp.hasRelatedShow,
+    ...resp.relatedShow,
+  },
+  relatedGuide: {
+    show: resp.hasRelatedGuide,
+    ...resp.relatedGuide,
+  },
 });
 
 @connect(
@@ -130,6 +155,11 @@ const modelData = resp => ({
   mapDispatchToProps,
 )
 class Overview extends Component {
+
+ navigateByURl = (url) => {
+   browserHistory.push(url);
+ }
+
   render() {
     const {
       params: { objectId },
@@ -138,29 +168,31 @@ class Overview extends Component {
       intl,
       user,
     } = this.props;
-    
+
     const modeledResult = modelData(objectData);
 
     // TODO: need something more substantial than this to prevent bad renders
     if (!modeledResult.topicContentProps.title) {
       return null;
     }
-    
+
     return (
       <Fragment>
         <TopicContent {...modeledResult.topicContentProps} objectId={objectId} user={user} />
 
-        <section className="blue-tile-bg">
-          <DeviceProvider>
-            <SterlingTitle
-              {...modeledResult.featuredObservation}
-              theme={{ title: { color: 'white' }, subTitle: { color: 'white' } }}
-            />
-            <CenterColumn widths={['768px', '965px', '965px']}>
-              <CardObservations {...modeledResult.featuredObservation.tileContent} />
-            </CenterColumn>
-          </DeviceProvider>
-        </section>
+        {modeledResult.hasFeaturedObservation && (
+          <section className="blue-tile-bg">
+            <DeviceProvider>
+              <SterlingTitle
+                {...modeledResult.featuredObservation}
+                theme={{ title: { color: 'white' }, subTitle: { color: 'white' } }}
+              />
+              <CenterColumn widths={['768px', '965px', '965px']}>
+                <CardObservations {...modeledResult.featuredObservation.tileContent} />
+              </CenterColumn>
+            </DeviceProvider>
+          </section>
+        )}
 
         <section className="off-white-bg">
           <SterlingTitle {...modeledResult.statisticsTitle} />
@@ -212,7 +244,61 @@ class Overview extends Component {
             />
           )}
 
-          <GuidePanels guideId={objectId} />
+          {modeledResult.relatedObject.show && (
+            <section className="off-white-bg">
+              <CenterColumn widths={['768px', '965px', '965px']}>
+                <ObjectRelatedTile
+                  {...modeledResult.relatedObject}
+                  additionalContent={
+                    <LailaTile
+                      iconURL={modeledResult.relatedObject.iconUrl}
+                      title={modeledResult.relatedObject.imageTitle}
+                      linkURL={modeledResult.relatedObject.linkUrl}
+                    />
+                  }
+                />
+              </CenterColumn>
+            </section>
+          )}
+
+          {modeledResult.relatedStory.show && (
+            <section className="off-white-bg">
+              <CenterColumn widths={['768px', '965px', '965px']}>
+                <ObjectRelatedTile {...modeledResult.relatedStory} showDescription={false} />
+              </CenterColumn>
+            </section>
+          )}
+
+          {modeledResult.relatedShow.show && (
+            <section className="off-white-bg">
+              <CenterColumn widths={['768px', '965px', '965px']}>
+                <ObjectRelatedTile
+                  {...modeledResult.relatedShow}
+                  additionalContent={
+                    <div className="related-show" onClick = {()=>this.navigateByURl(modeledResult.relatedShow.linkUrl)}>
+                      <p className="related-show-title">{modeledResult.relatedShow.imageTitle} </p>
+                      <GenericButton theme={{ margin: '0 auto' }} renderIcon={() => <img src="https://vega.slooh.com/assets/v4/icons/play_icon.svg" />} />
+                    </div>
+                  }
+                />
+              </CenterColumn>
+            </section>
+          )}
+
+          {modeledResult.relatedGuide.show && (
+            <section className="off-white-bg">
+              <CenterColumn widths={['768px', '965px', '965px']}>
+                <ObjectRelatedTile {...modeledResult.relatedGuide} 
+                showMobileAdditionalContent
+                additionalContent = {
+                  <GuideTile 
+                  title={modeledResult.relatedGuide.imageLabel}
+                   subTitle = {modeledResult.relatedGuide.imageTitle}
+                    linkUrl = {modeledResult.relatedGuide.linkUrl} />
+                }/>
+              </CenterColumn>
+            </section>
+          )}
 
           <SterlingTitle
             title={intl.formatMessage(messages.MVPAstronomers)}
@@ -225,15 +311,7 @@ class Overview extends Component {
             {objectSpecialists && objectSpecialists.specialistsCount > 0 ? (
               <div className="card-container__specialists">
                 {objectSpecialists.specialistsList.map(item => (
-                  <div className="specialists-card" key={`card_${item.customerId}`}>
-                    <img className="specialists-icon" alt="" src={item.iconUrl} />
-                    <h5>{item.displayName}</h5>
-                    {item.hasLinkFlag && (
-                      <a className="mvp-btn" href={item.linkUrl}>
-                        {item.gravityRankLabel}
-                      </a>
-                    )}
-                  </div>
+                  <MVPAstronomer {...item} cardClass="contents-mvp-card" />
                 ))}
               </div>
             ) : (

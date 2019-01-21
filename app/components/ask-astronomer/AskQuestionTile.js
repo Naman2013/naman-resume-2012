@@ -2,7 +2,7 @@ import React, { Fragment, Component } from 'react';
 import PropTypes from 'prop-types';
 import noop from 'lodash/noop';
 import GenericButton from 'components/common/style/buttons/Button';
-import { customModalStylesBlackOverlay, profilePhotoStyle } from 'styles/mixins/utilities';
+import { customModalStylesBlackOverlay, customModalStylesFitDevice, profilePhotoStyle } from 'styles/mixins/utilities';
 import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
 import SubmitQuestionForm from './Modals/SubmitQuestionForm';
 import SubmitQuestionFeedbackModal from './Modals/SubmitQuestionFeedbackModal';
@@ -58,7 +58,7 @@ class AskQuestionTile extends Component {
     } = this.props;
     modalActions.setModal({
       promptComponent: this.questionForm,
-      promptStyles: customModalStylesBlackOverlay,
+      promptStyles: customModalStylesFitDevice,
     });
     modalActions.showModal();
   }

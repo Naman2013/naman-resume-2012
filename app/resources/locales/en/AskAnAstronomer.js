@@ -35,4 +35,5 @@ export const AskAnAstronomer = {
   'AskAnAstronomer.Questions': 'Questions',
   'AskAnAstronomer.AskNow': 'Ask Now',
   'AskAnAstronomer.MVPAstronomers': 'MVP Astronomers',
+  'AskAnAstronomer.ReplySuccessText': 'You reply has been submitted!',
 };
