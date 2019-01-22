@@ -1,13 +1,13 @@
 import React, { Component, Fragment } from 'react';
 import { DeviceContext } from 'providers/DeviceProvider';
 
-import MissionCard from './MissionCard';
+import MissionCard from 'components/profile-photos/MissionCard';
 
 const arr = [1, 2, 3, 4, 5];
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { fetchMissionsAndCounts } from '../../modules/my-pictures/actions';
+import { fetchMissionsAndCounts } from 'modules/my-pictures/actions';
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({

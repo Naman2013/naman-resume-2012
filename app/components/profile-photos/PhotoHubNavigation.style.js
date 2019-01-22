@@ -1,7 +1,7 @@
 import css from 'styled-jsx/css';
 import { primaryFont, secondaryFont } from 'styles/variables/fonts';
 import { screenMedium, screenLarge, screenXLarge } from 'styles/variables/breakpoints';
-import { shadows, seashell } from '../../styles/variables/colors_tiles_v4';
+import { shadows, seashell } from 'styles/variables/colors_tiles_v4';
 
 
 export default css`

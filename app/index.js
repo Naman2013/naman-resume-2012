@@ -34,9 +34,9 @@ import ObjectDetailsQuests from './containers/object-details/ObjectDetailsQuests
 import ObjectDetailsStories from './containers/object-details/ObjectDetailsStories';
 import ObjectDetailsShows from './containers/object-details/ObjectDetailsShows';
 import ObjectDetailsObservations from './containers/object-details/ObjectDetailsObservations';
-import PrivatProfileMissions from './components/missions-v4/MissionList';
-import PrivatProfilePhotos from './components/missions-v4/PrivatProfilePhotos';
-import Observations from './components/missions-v4/Observations';
+import PrivatProfileMissions from './containers/profile-photos/MissionList';
+import PrivatProfilePhotos from './components/profile-photos/PrivatProfilePhotos';
+import Observations from './components/profile-photos/Observations';
 
 // pages
 import TelescopeOverview from './pages/telescope-overview';
