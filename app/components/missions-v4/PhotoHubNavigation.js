@@ -1,56 +1,128 @@
-import React from 'react';
-import { Link } from 'react-router';
+import React, { Component } from 'react';
+import { Link, browserHistory, withRouter } from 'react-router';
 import { FormattedMessage } from 'react-intl';
+import findIndex from 'lodash/findIndex';
+import DropDown from 'components/common/DropDown';
+import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
 import messages from './PhotoHubNavigation.messages';
+import style from './PhotoHubNavigation.style';
+import Button from 'components/common/style/buttons/Button';
+import { searchAstronaut } from 'styles/variables/iconURLs.js'
 
-const generateNavItems = [
+const generatedNavItems = [
   {
     // title: 'PhotoRoll',
     title: <FormattedMessage {...messages.PhotoRoll} />,
-    link: '/test-profile/privat/photos/photoroll',
+    link: '/profile/private/photos/photoroll',
   },
   {
     // title: 'Observations',
     title: <FormattedMessage {...messages.Observations} />,
-    link: '/test-profile/privat/photos/observations',
+    link: '/profile/private/photos/observations',
   },
   {
     // title: 'Missions',
     title: <FormattedMessage {...messages.Missions} />,
-    link: '/test-profile/privat/photos/missions',
+    link: '/profile/private/photos/missions',
   },
   {
     // title: 'Galleries',
     title: <FormattedMessage {...messages.Galleries} />,
-    link: '/test-profile/privat/photos/galleries',
+    link: '/profile/private/photos/galleries',
   },
 ];
 
-export default () => {
-  return (
-    <div>
-      <div className="title">My Photos</div>
-      <div className="nav-bar">
-        <div className="links">
-          <ul>
-            {generateNavItems.map(item => (
-              <li key={item.link}>
-                <Link
-                  to={item.link}
-                  activeClassName="nav-active"
-                  className="nav-link"
-                >
-                  {item.title}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className="tools">
-          <button>options</button>
-          <button>search</button>
-        </div>
+class PhotoHubNavigation extends Component {
+  state = {
+    searchValue: '',
+    searchActive: false,
+    activeIndex: findIndex(generatedNavItems, navItem => navItem.link === this.props.location.pathname),
+  }
+
+  handleSearchChange = e => this.setState({ searchValue: e.target.value });
+  handleSearchClick = () => this.setState({ searchActive: true }, () => this.input.focus());
+  handleSearchSubmitByEnter = (e) => {
+    if (e.key === 'Enter') console.log('filter images');
+    // this.setState({ searchActive: false });
+    //  new request
+  }
+
+  handleSearchBlur = () => {
+    this.setState({ searchActive: false });
+    //  new request
+  }
+
+  handleDropDownItemClick = (e, selectedOption) => {
+    if (e) e.preventDefault();
+
+    this.setState(() => ({
+      activeIndex: findIndex(generatedNavItems, navItem => navItem.link === selectedOption.value),
+    }));
+    browserHistory.push(selectedOption.value);
+  }
+
+  render() {
+    const dropdownOptions = generatedNavItems.map(item => ({ label: item.title, value: item.link }));
+    return (
+      <div className="photohub-root">
+        <div className="photohub-title">My Photo Hub</div>
+        <DisplayAtBreakpoint
+          screenMedium
+          screenLarge
+          screenXLarge
+        >
+          <div className="photohub-nav-bar">
+            <div className="photohub-links">
+              {generatedNavItems.map(item => (
+                <div key={item.link} className="photohub-nav-block">
+                  <Link
+                    to={item.link}
+                    activeClassName="photohub-nav-active"
+                    className="photohub-nav-link"
+                  >
+                    {item.title}
+                  </Link>
+                </div>
+              ))}
+            </div>
+            <div className="photohub-tools">
+              <Button theme={{ marginLeft: '10px' }} text="Options" />
+              <Button onClickEvent={this.handleSearchClick} theme={{ marginLeft: '10px', display: this.state.searchActive ? 'none' : 'flex' }} icon={searchAstronaut} />
+              <input
+                style={{ display: this.state.searchActive ? 'block' : 'none' }}
+                type="text"
+                className="photo-hub-search-input-field"
+                onChange={this.handleSearchChange}
+                onBlur={this.handleSearchBlur}
+                onKeyPress={this.handleSearchSubmitByEnter}
+                value={this.state.searchValue}
+                ref={(node) => { this.input = node; }}
+              />
+            </div>
+          </div>
+        </DisplayAtBreakpoint>
+        <DisplayAtBreakpoint
+          screenSmall
+        >
+          <div className="photohub-nav-bar">
+            <div className="photohub-dropdown">
+              <DropDown
+                handleSelect={this.handleDropDownItemClick}
+                selectedIndex={this.state.activeIndex}
+                options={dropdownOptions}
+              />
+            </div>
+            <div className="photohub-tools">
+              <Button icon={searchAstronaut} />
+            </div>
+          </div>
+        </DisplayAtBreakpoint>
+        <style jsx global>
+          {style}
+        </style>
       </div>
-    </div>
-  );
-};
+    );
+  }
+}
+
+export default withRouter(PhotoHubNavigation);

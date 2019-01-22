@@ -22,7 +22,7 @@ export default createReducer(initialState, {
     return {
       ...state,
       error: apiError,
-      ...payload,
+      privateProfileData: payload,
     };
   },
   [FETCH_PRIVATE_PROFILE_FAIL](state, { payload }) {

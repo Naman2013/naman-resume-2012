@@ -83,6 +83,7 @@ import videoViewerShow from './show-video-viewer/reducer';
 
 // v4
 import logIn from 'modules/login/reducer';
+import privateProfile from './private-profile/reducer';
 
 export default combineReducers({
   routing: routerReducer,
@@ -152,6 +153,7 @@ export default combineReducers({
   post,
   /* EK 8/9/17 registration is closed      roadtripRegistration, */
   publicProfile,
+  privateProfile,
   shareMemberPhoto,
   sharedMemberPhotos,
   starshareCamera,

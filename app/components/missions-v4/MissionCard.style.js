@@ -34,6 +34,9 @@ export default css`
     padding-bottom: 15px;
     border-bottom: 1px solid #d9dee4;
     font-size: 20px;
+    white-space: nowrap; /* Запрещаем перенос строк */
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .mission-details {
@@ -97,10 +100,11 @@ export default css`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    background-color: #fff;    
     width: 100%;
     height: 100%;
     min-height: 136px;
-    box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.1);
+    box-shadow: 0 0 6px 0 #ced2d8;
     font-size: 10px;
     font-family: ${primaryFont};
     text-transform: uppercase;
@@ -149,6 +153,7 @@ export default css`
   @media ${screenLarge} {
     .root {
       flex-basis: 32%;
+      max-width: 32%;
     }
   }
 `;

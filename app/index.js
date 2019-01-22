@@ -148,6 +148,7 @@ import CreateStory from './containers/create-story';
 import PlaceholderPage from './pages/Placeholder';
 import QuestStep from './containers/quest-step';
 import { About, AboutSloohSection } from './containers/about';
+import { PrivateProfile } from './containers/profile';
 
 import DashboardPage from 'components/Dashboard';
 
@@ -371,19 +372,22 @@ ReactDOM.render(
           />
           <Route path="quest-details/:questId/:step" component={QuestStep} onEnter={validateUser} />
 
-          <Route path="test-profile/privat/photos" component={PrivatProfilePhotos}>
-            <IndexRedirect to="missions" />
-            <Route path="photoroll" component={Observations} />
-            <Route path="observations" component={Observations} />
-            <Route path="missions" component={PrivatProfileMissions} onEnter={validateUser} />
-            <Route path="galleries" component={Observations} />
+          {/* <Route path="test-profile/privat/photos" component={PrivatProfilePhotos}>
+            
+          </Route> */}
+
+          <Route path="profile/private" component={PrivateProfile} onEnter={validateUser}>
+            <IndexRedirect to="photos" />
+            {/* <Route path=":profileSectionId" component={PrivateProfileSection} onEnter={validateUser} /> */}
+            <Route path="photos" component={PrivatProfilePhotos}>
+              <IndexRedirect to="missions" />
+              <Route path="photoroll" component={Observations} />
+              <Route path="observations" component={Observations} />
+              <Route path="missions" component={PrivatProfileMissions} onEnter={validateUser} />
+              <Route path="galleries" component={Observations} />
+            </Route>
           </Route>
           
-          <Route path="profile/private" component={UserPrivateProfile} onEnter={validateUser}>
-            <IndexRedirect to="activity" />
-            {/* <Route path=":profileSectionId" component={PrivateProfileSection} onEnter={validateUser} /> */}
-
-          </Route>
           {/* <Route path="profile/private" component={UserPrivateProfile} onEnter={validateUser} /> */}
           <Route path="profile/public/:cid" component={UserPublicProfile} onEnter={validateUser} />
 

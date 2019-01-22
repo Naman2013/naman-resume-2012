@@ -21,6 +21,7 @@ const fetchPrivateProfileFailure = payload => ({
 export const fetchPrivateProfile = ({ lang, ver }) => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
   dispatch(fetchPrivateProfileStart());
+
   return fetchPrivateProfileDataService({
     lang,
     ver,

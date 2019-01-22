@@ -3,28 +3,34 @@ import cn from 'classnames';
 import style from './MissionCard.style';
 import Button from 'components/common/style/buttons/Button.js';
 
-export default ({ index, isDesktop, isMobile }) => {
+export default ({ index, isDesktop, isMobile, mission }) => {
   const inCenter = (index + 2) % 3 === 0;
-  console.log(isMobile);
+  const {
+    imageTitle,
+    displayDate,
+    missionImageCount,
+    telescopeName,
+    imageURL,
+  } = mission;
   return (
     <div className={cn(['root', { 'inCenter': inCenter && isDesktop }])}>
       <div className="missionCard">
         <div className="circle show-onhover" />
         <div className="card-top">
-          <div className="mission-title">Title</div>
+          <div className="mission-title" title={imageTitle}>{imageTitle}</div>
           <div className="mission-details">
-            <div className="mission-details-tile mission-details-date">Date</div>
-            <div className="mission-details-tile mission-details-images">Images number</div>
+            <div className="mission-details-tile mission-details-date">{displayDate}</div>
+            <div className="mission-details-tile mission-details-images">{missionImageCount} Images</div>
           </div>
-          <div className={cn('mission-telescope', { 'display-none': isMobile })}>Telescope name</div>
+          <div className={cn('mission-telescope', { 'display-none': isMobile })}>{telescopeName}</div>
           <div className="onhover-field show-onhover">ULTRA-WIDE-FIELD</div>
           <div className="onhover-field show-onhover">CONTAINS FITS DATA</div>
           <div className="mission-image-wrapper">
             <div className="mission-image-border">
               <img
                 className="mission-image"
-                src="https://vignette.wikia.nocookie.net/muc/images/d/d0/Outworld.jpg/revision/latest?cb=20140811194004"
-                alt="mission"
+                src={imageURL}
+                alt="Mission"
               />
             </div>
           </div>
