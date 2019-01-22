@@ -158,7 +158,7 @@ class SubmitQuestionForm extends Component {
             placeholder={askPrompt}
           />
         </div>
-        <div className="button-container">
+        <div className="button-container question-form">
           <div className="left-buttons">
             <PhotoUploadButton handleUploadImage={this.handleUploadImage} />
             <Button onClickEvent={() => browserHistory('/help/posting-guidelines')} text={intl.formatMessage(messages.Guidelines)} theme={{ height: '40px', marginLeft: '10px' }} />
