@@ -1,12 +1,9 @@
 import React, { Component, Fragment } from 'react';
-import { DeviceContext } from 'providers/DeviceProvider';
-
-import MissionCard from 'components/profile-photos/MissionCard';
-
-const arr = [1, 2, 3, 4, 5];
-
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { DeviceContext } from 'providers/DeviceProvider';
+import MissionCard from 'components/profile-photos/MissionCard';
 import { fetchMissionsAndCounts } from 'modules/my-pictures/actions';
 
 const mapDispatchToProps = dispatch => ({
@@ -15,7 +12,7 @@ const mapDispatchToProps = dispatch => ({
   }, dispatch),
 });
 
-const mapStateToProps = ({ user, myPictures }) => ({
+const mapStateToProps = ({ myPictures }) => ({
   imageList: myPictures.missions.response.imageList,
 });
 
@@ -24,10 +21,10 @@ class MissionList extends Component {
   componentDidMount() {
     this.props.actions.fetchMissionsAndCounts({});
   }
+
   render() {
-    console.log(this.props.imageList);
     const { imageList } = this.props;
-    return (
+    return imageList.length !== 0 ? (
       <DeviceContext.Consumer>
         {
           context => (
@@ -55,10 +52,17 @@ class MissionList extends Component {
           )
         }
       </DeviceContext.Consumer>
+    ) : (
+      <div>Loading</div>
     );
   }
 }
 
-
+MissionList.propTypes = {
+  imageList: PropTypes.arrayOf(PropTypes.object).isRequired,
+  actions: PropTypes.shape({
+    fetchMissionsAndCounts: PropTypes.func,
+  }).isRequired,
+};
 
 export default MissionList;

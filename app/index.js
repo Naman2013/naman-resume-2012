@@ -34,8 +34,8 @@ import ObjectDetailsQuests from './containers/object-details/ObjectDetailsQuests
 import ObjectDetailsStories from './containers/object-details/ObjectDetailsStories';
 import ObjectDetailsShows from './containers/object-details/ObjectDetailsShows';
 import ObjectDetailsObservations from './containers/object-details/ObjectDetailsObservations';
-import PrivatProfileMissions from './containers/profile-photos/MissionList';
-import PrivatProfilePhotos from './components/profile-photos/PrivatProfilePhotos';
+import PrivateProfileMissions from './containers/profile-photos/MissionList';
+import PrivateProfilePhotos from './components/profile-photos/PrivateProfilePhotos';
 import Observations from './components/profile-photos/Observations';
 
 // pages
@@ -233,12 +233,6 @@ ReactDOM.render(
             onEnter={validateUser}
           />
 
-          <Route
-            path="missions"
-            component={PrivatProfileMissions}
-            onEnter={validateUser}
-          />
-
           <Route path="reservations" component={Reservations} onEnter={validateUser}>
             <IndexRedirect to="reserve-by-objects" />
 
@@ -372,18 +366,14 @@ ReactDOM.render(
           />
           <Route path="quest-details/:questId/:step" component={QuestStep} onEnter={validateUser} />
 
-          {/* <Route path="test-profile/privat/photos" component={PrivatProfilePhotos}>
-            
-          </Route> */}
-
           <Route path="profile/private" component={PrivateProfile} onEnter={validateUser}>
             <IndexRedirect to="photos" />
             {/* <Route path=":profileSectionId" component={PrivateProfileSection} onEnter={validateUser} /> */}
-            <Route path="photos" component={PrivatProfilePhotos}>
+            <Route path="photos" component={PrivateProfilePhotos}>
               <IndexRedirect to="missions" />
               <Route path="photoroll" component={Observations} />
               <Route path="observations" component={Observations} />
-              <Route path="missions" component={PrivatProfileMissions} onEnter={validateUser} />
+              <Route path="missions" component={PrivateProfileMissions} onEnter={validateUser} />
               <Route path="galleries" component={Observations} />
             </Route>
           </Route>

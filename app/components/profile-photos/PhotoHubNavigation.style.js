@@ -32,7 +32,7 @@ export default css`
     align-items: center;
   }
 
-  .photohub-nav-active {
+  :global(.photohub-nav-active) {
     box-sizing: border-box;
     border-bottom: 2px solid #41566f;
   }
@@ -46,7 +46,7 @@ export default css`
     align-items: center;
   }
 
-  .photohub-nav-link {
+  :global(.photohub-nav-link) {
     text-transform: uppercase;
     font-size: 11px;
     height: 100%;
@@ -54,10 +54,10 @@ export default css`
     align-items: center;
   }
 
-  .photohub-nav-link,
+  :global(.photohub-nav-link,
   .photohub-nav-link:link,
   .photohub-nav-link:visited,
-  .photohub-nav-link:active {
+  .photohub-nav-link:active) {
     text-decoration: none;
   }
 

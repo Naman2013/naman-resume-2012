@@ -22,6 +22,11 @@ const messages: Messages = {
     defaultMessage: 'Galleries',
     description: 'Privat profile PhotoHub Galleries',
   },
+  MyPhotoHub: {
+    id: 'Profile.Photos.MyPhotoHub',
+    defaultMessage: 'My Photo Hub',
+    description: 'Privat profile PhotoHub title',
+  },
 };
 
 const definedMessages: typeof messages = defineMessages(messages);

@@ -34,7 +34,7 @@ export default css`
     padding-bottom: 15px;
     border-bottom: 1px solid #d9dee4;
     font-size: 20px;
-    white-space: nowrap; /* Запрещаем перенос строк */
+    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }

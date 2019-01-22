@@ -11,22 +11,18 @@ import { searchAstronaut } from 'styles/variables/iconURLs.js'
 
 const generatedNavItems = [
   {
-    // title: 'PhotoRoll',
     title: <FormattedMessage {...messages.PhotoRoll} />,
     link: '/profile/private/photos/photoroll',
   },
   {
-    // title: 'Observations',
     title: <FormattedMessage {...messages.Observations} />,
     link: '/profile/private/photos/observations',
   },
   {
-    // title: 'Missions',
     title: <FormattedMessage {...messages.Missions} />,
     link: '/profile/private/photos/missions',
   },
   {
-    // title: 'Galleries',
     title: <FormattedMessage {...messages.Galleries} />,
     link: '/profile/private/photos/galleries',
   },
@@ -65,7 +61,7 @@ class PhotoHubNavigation extends Component {
     const dropdownOptions = generatedNavItems.map(item => ({ label: item.title, value: item.link }));
     return (
       <div className="photohub-root">
-        <div className="photohub-title">My Photo Hub</div>
+        <div className="photohub-title">{<FormattedMessage {...messages.MyPhotoHub} />}</div>
         <DisplayAtBreakpoint
           screenMedium
           screenLarge
@@ -117,7 +113,7 @@ class PhotoHubNavigation extends Component {
             </div>
           </div>
         </DisplayAtBreakpoint>
-        <style jsx global>
+        <style jsx>
           {style}
         </style>
       </div>
