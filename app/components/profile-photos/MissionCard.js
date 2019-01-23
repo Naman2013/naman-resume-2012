@@ -1,5 +1,11 @@
+/***********************************
+* V4 MissionCard
+*  Mission tile on the /profile/private/photos/missions
+***********************************/
+
 import React, { Component } from 'react'
 import cn from 'classnames';
+import { browserHistory } from 'react-router';
 import style from './MissionCard.style';
 import Button from 'components/common/style/buttons/Button.js';
 
@@ -9,8 +15,10 @@ export default ({ index, isDesktop, isMobile, mission }) => {
     imageTitle,
     displayDate,
     missionImageCount,
+    missionIconURL,
     telescopeName,
     imageURL,
+    scheduledMissionId,
   } = mission;
   return (
     <div className={cn(['root', { 'inCenter': inCenter && isDesktop }])}>
@@ -23,8 +31,12 @@ export default ({ index, isDesktop, isMobile, mission }) => {
             <div className="mission-details-tile mission-details-images">{missionImageCount} Images</div>
           </div>
           <div className={cn('mission-telescope', { 'display-none': isMobile })}>{telescopeName}</div>
-          <div className="onhover-field show-onhover">ULTRA-WIDE-FIELD</div>
-          <div className="onhover-field show-onhover">CONTAINS FITS DATA</div>
+
+          {/* Un comment this lines and css selectors for hover effect */}
+
+          {/* <div className="onhover-field show-onhover">ULTRA-WIDE-FIELD</div>
+          <div className="onhover-field show-onhover">CONTAINS FITS DATA</div> */}
+
           <div className="mission-image-wrapper">
             <div className="mission-image-border">
               <img
@@ -36,7 +48,7 @@ export default ({ index, isDesktop, isMobile, mission }) => {
           </div>
         </div>
         <div className="show-onhover card-bottom">
-          <Button theme={{ borderColor: '#fff', color: '#fff' }} text="OPEN MISSION" />
+          <Button onClickEvent={() => browserHistory.push(`/missions-details/${scheduledMissionId}`)} theme={{ borderColor: '#fff', color: '#fff' }} text="OPEN MISSION" />
           <Button theme={{ borderColor: '#fff', color: '#fff', marginLeft: '10px' }} text=". . ." />
         </div>
       </div>

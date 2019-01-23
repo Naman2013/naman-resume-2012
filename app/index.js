@@ -34,9 +34,6 @@ import ObjectDetailsQuests from './containers/object-details/ObjectDetailsQuests
 import ObjectDetailsStories from './containers/object-details/ObjectDetailsStories';
 import ObjectDetailsShows from './containers/object-details/ObjectDetailsShows';
 import ObjectDetailsObservations from './containers/object-details/ObjectDetailsObservations';
-import PrivateProfileMissions from './containers/profile-photos/MissionList';
-import PrivateProfilePhotos from './components/profile-photos/PrivateProfilePhotos';
-import Observations from './components/profile-photos/Observations';
 
 // pages
 import TelescopeOverview from './pages/telescope-overview';
@@ -149,6 +146,10 @@ import PlaceholderPage from './pages/Placeholder';
 import QuestStep from './containers/quest-step';
 import { About, AboutSloohSection } from './containers/about';
 import { PrivateProfile } from './containers/profile';
+import PrivateProfilePhotos from './components/profile-photos/PrivateProfilePhotos';
+import PrivatProfileObservations from './components/profile-photos/Observations';
+import PrivateProfileMissions from './containers/profile-photos/MissionList';
+import MissionDetails from './containers/mission-details/MissionDetails';
 
 import DashboardPage from 'components/Dashboard';
 
@@ -366,15 +367,17 @@ ReactDOM.render(
           />
           <Route path="quest-details/:questId/:step" component={QuestStep} onEnter={validateUser} />
 
+          <Route path="missions-details/:missionId" component={MissionDetails} />
+
           <Route path="profile/private" component={PrivateProfile} onEnter={validateUser}>
             <IndexRedirect to="photos" />
             {/* <Route path=":profileSectionId" component={PrivateProfileSection} onEnter={validateUser} /> */}
             <Route path="photos" component={PrivateProfilePhotos}>
               <IndexRedirect to="missions" />
-              <Route path="photoroll" component={Observations} />
-              <Route path="observations" component={Observations} />
+              <Route path="photoroll" component={PrivatProfileObservations} />
+              <Route path="observations" component={PrivatProfileObservations} />
               <Route path="missions" component={PrivateProfileMissions} onEnter={validateUser} />
-              <Route path="galleries" component={Observations} />
+              <Route path="galleries" component={PrivatProfileObservations} />
             </Route>
           </Route>
           

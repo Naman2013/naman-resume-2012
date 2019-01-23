@@ -21,7 +21,8 @@ export default css`
   .photohub-nav-bar {
     display: flex;
     align-item: center;
-    min-height: 70px;
+    min-height: 65px;
+    max-height: 65px; 
     justify-content: space-between;
     border-bottom: 1px solid #d9dee4;
   }

@@ -1,5 +1,11 @@
+/***********************************
+* V4 PrivatProfilePhotos
+*  The root view of privat profile -> photos
+***********************************/
+
 import React, { cloneElement, Component } from 'react';
 import PhotoHubNavigation from './PhotoHubNavigation';
+import style from './PrivateProfilePhotos.style';
 
 class PrivateProfilePhotos extends Component {
   state = {
@@ -16,16 +22,7 @@ class PrivateProfilePhotos extends Component {
             currentTab={currentTab}
           />
           {cloneElement(children, { currentTab })}
-          <style jsx>
-            {`
-              .root-wrapper {
-                margin: 0 42px 20px 42px;
-              }
-              .root {
-                background-color: #f6f6f6;
-              }
-            `}
-          </style>
+          <style jsx>{style}</style>
         </div>
       </div>
     );

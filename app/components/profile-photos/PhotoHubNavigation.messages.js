@@ -5,27 +5,52 @@ const messages: Messages = {
   PhotoRoll: {
     id: 'Profile.Photos.PhotoRoll',
     defaultMessage: 'Photo roll',
-    description: 'Privat profile PhotoHub PhotoRoll',
+    description: 'Private profile PhotoHub PhotoRoll',
   },
   Observations: {
     id: 'Profile.Photos.Observations',
     defaultMessage: 'Observations',
-    description: 'Privat profile PhotoHub Observations',
+    description: 'Private profile PhotoHub Observations',
   },
   Missions: {
     id: 'Profile.Photos.Missions',
     defaultMessage: 'Missions',
-    description: 'Privat profile PhotoHub Missions',
+    description: 'Private profile PhotoHub Missions',
   },
   Galleries: {
     id: 'Profile.Photos.Galleries',
     defaultMessage: 'Galleries',
-    description: 'Privat profile PhotoHub Galleries',
+    description: 'Private profile PhotoHub Galleries',
   },
   MyPhotoHub: {
     id: 'Profile.Photos.MyPhotoHub',
     defaultMessage: 'My Photo Hub',
-    description: 'Privat profile PhotoHub title',
+    description: 'Private profile PhotoHub title',
+  },
+  AllObservations: {
+    id: 'Profile.Photos.Filters.AllObservations',
+    defaultMessage: 'All observations',
+    description: 'Label for images filter',
+  },
+  MostRecent: {
+    id: 'Profile.Photos.Filters.MostRecent',
+    defaultMessage: 'Most recent',
+    description: 'Label for images filter',
+  },
+  MostPopular: {
+    id: 'Profile.Photos.Filters.MostPopular',
+    defaultMessage: 'Most popular',
+    description: 'Label for images filter',
+  },
+  SavedForLater: {
+    id: 'Profile.Photos.Filters.SavedForLater',
+    defaultMessage: 'Saved for later',
+    description: 'Label for images filter',
+  },
+  Options: {
+    id: 'Profile.Photos.Options',
+    defaultMessage: 'Option',
+    description: 'Select default label',
   },
 };
 
