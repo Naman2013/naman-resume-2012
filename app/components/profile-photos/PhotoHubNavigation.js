@@ -7,12 +7,12 @@ import React, { Component } from 'react';
 import { Link, browserHistory, withRouter } from 'react-router';
 import { FormattedMessage } from 'react-intl';
 import findIndex from 'lodash/findIndex';
-import DropDown from 'components/common/DropDown';
-import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
-import Button from 'components/common/style/buttons/Button';
-import { searchAstronaut } from 'styles/variables/iconURLs.js';
-import { astronaut } from 'styles/variables/colors_tiles_v4';
-import Dots from 'atoms/icons/Dots';
+import { searchAstronaut } from '../../styles/variables/iconURLs';
+import { astronaut } from '../../styles/variables/colors_tiles_v4';
+import Dots from '../../atoms/icons/Dots';
+import DropDown from '../../components/common/DropDown';
+import DisplayAtBreakpoint from '../../components/common/DisplayAtBreakpoint';
+import Button from '../../components/common/style/buttons/Button';
 
 import messages from './PhotoHubNavigation.messages';
 import style from './PhotoHubNavigation.style';
@@ -103,6 +103,9 @@ class PhotoHubNavigation extends Component {
       mobileFilterActive: true,
     });
   }
+  handleNavItemClick = (i) => {
+    this.setState({ activeIndex: i });
+  }
 
   render() {
     const {
@@ -127,12 +130,13 @@ class PhotoHubNavigation extends Component {
         >
           <div className="photohub-nav-bar">
             <div className="photohub-links">
-              {generatedNavItems.map(item => (
+              {generatedNavItems.map((item, i) => (
                 <div key={item.link} className="photohub-nav-block">
                   <Link
                     to={item.link}
                     activeClassName="photohub-nav-active"
                     className="photohub-nav-link"
+                    onClick={() => this.handleNavItemClick(i)}
                   >
                     {item.title}
                   </Link>
@@ -168,7 +172,7 @@ class PhotoHubNavigation extends Component {
         <DisplayAtBreakpoint
           screenSmall
         >
-          <div className="photohub-nav-bar" style={{ justifyContent: 'center' }}>
+          <div className="photohub-nav-bar">
             <div className="photohub-dropdown">
               {!mobileFilterActive && <DropDown
                 handleSelect={this.handleDropDownItemClick}

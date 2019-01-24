@@ -1,16 +1,16 @@
 /***********************************
-* V4 Observations 
+* V4 Missions 
 ***********************************/
 
 
 import React from 'react';
-import ImageList from '../../containers/profile-photos/ImageList';
-import MissionCard from './MissionCard';
+import ImageList from './ImageList';
+import MissionCard from 'components/profile-photos/MissionCard';
 
 export default function Missions() {
   return (
     <ImageList
-      type="observation"
+      type="missions"
       request="fetchMissionsAndCounts"
     >
       <MissionCard />

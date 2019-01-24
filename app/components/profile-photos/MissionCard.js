@@ -7,11 +7,11 @@ import React from 'react';
 import cn from 'classnames';
 import { browserHistory } from 'react-router';
 import { FormattedMessage } from 'react-intl';
-import Button from 'components/common/style/buttons/Button.js';
+import Button from '../../components/common/style/buttons/Button';
 import messages from './MissionCard.messages';
 import style from './MissionCard.style';
 
-export default ({ index, isDesktop, isMobile, mission }) => {
+export default ({ index, isDesktop, isMobile, currentItem: mission }) => {
   const inCenter = (index + 2) % 3 === 0;
   const {
     imageTitle,

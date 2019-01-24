@@ -1,5 +1,5 @@
 /***********************************
-* V4 Observations 
+* V4 Missions 
 ***********************************/
 
 
@@ -10,7 +10,7 @@ import MissionCard from './MissionCard';
 export default function Missions() {
   return (
     <ImageList
-      type="observation"
+      type="missions"
       request="fetchMissionsAndCounts"
     >
       <MissionCard />

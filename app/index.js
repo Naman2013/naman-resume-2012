@@ -148,7 +148,8 @@ import { About, AboutSloohSection } from './containers/about';
 import { PrivateProfile } from './containers/profile';
 import PrivateProfilePhotos from './components/profile-photos/PrivateProfilePhotos';
 import PrivatProfileObservations from './components/profile-photos/Observations';
-import PrivateProfileMissions from './containers/profile-photos/MissionList';
+import PrivateProfileMissions from './components/profile-photos/Missions';
+import PrivateProfileGalleries from './components/profile-photos/Galleries';
 import MissionDetails from './containers/mission-details/MissionDetails';
 
 import DashboardPage from 'components/Dashboard';
@@ -377,7 +378,7 @@ ReactDOM.render(
               <Route path="photoroll" component={PrivatProfileObservations} />
               <Route path="observations" component={PrivatProfileObservations} />
               <Route path="missions" component={PrivateProfileMissions} onEnter={validateUser} />
-              <Route path="galleries" component={PrivatProfileObservations} />
+              <Route path="galleries" component={PrivateProfileGalleries} onEnter={validateUser}/>
             </Route>
           </Route>
           
