@@ -1,6 +1,6 @@
 /***********************************
 * V4 PhotoHubNavigation
-*  Navigation bar for privar profile photos
+*  Navigation bar for private profile photos
 ***********************************/
 
 import React, { Component } from 'react';
@@ -77,10 +77,7 @@ class PhotoHubNavigation extends Component {
     this.setState({ searchActive: false });
   }
 
-  handleOptionsClick = () => {
-    this.setState({ filterSelectActive: true });
-    this.filterSelect.focus();
-  }
+  handleOptionsClick = () => this.setState({ filterSelectActive: true });
 
   handleFilterDropDownBlur = () => this.setState({ filterSelectActive: false });
   
@@ -115,7 +112,7 @@ class PhotoHubNavigation extends Component {
       searchValue,
       filterSelectActive,
       optionLabel,
-      mobileFilterActive
+      mobileFilterActive,
     } = this.state;
 
     const dropdownOptions = generatedNavItems.map(item => ({ label: item.title, value: item.link }));
@@ -144,7 +141,7 @@ class PhotoHubNavigation extends Component {
             </div>
             <div className="photohub-tools">
               {!filterSelectActive
-                ? <Button onClickEvent={this.handleOptionsClick} theme={{ marginLeft: '10px' }} text={optionLabel} />
+                ? <Button withIntl onClickEvent={this.handleOptionsClick} theme={{ marginLeft: '10px' }} text={optionLabel} />
                 : <DropDown
                   handleMenuClose={this.handleFilterMenuClose}
                   handleBlur={this.handleFilterDropDownBlur}

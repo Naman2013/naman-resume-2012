@@ -9,4 +9,6 @@ export const PrivateProfile = {
   'Profile.Photos.Filters.MostPopular': 'Most popular',
   'Profile.Photos.Filters.SavedForLater': 'Saved for later',
   'Profile.Photos.Options': 'Options',
+  'Profile.Photos.MissionCard.Images': 'Images',
+  'Profile.Photos.MissionCard.OpenMission': 'Open mission',
 };

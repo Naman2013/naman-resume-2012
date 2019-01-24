@@ -49,7 +49,7 @@ const messages: Messages = {
   },
   Options: {
     id: 'Profile.Photos.Options',
-    defaultMessage: 'Option',
+    defaultMessage: 'Options',
     description: 'Select default label',
   },
 };

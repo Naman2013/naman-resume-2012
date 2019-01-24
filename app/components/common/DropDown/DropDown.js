@@ -22,6 +22,7 @@ const {
   oneOfType,
   shape,
   string,
+  object,
 } = PropTypes;
 
 const CustomOption = (props) => (
@@ -37,7 +38,7 @@ class DropDown extends Component {
     placeholder: string,
     options: arrayOf(shape({
       value: oneOfType([number, string]),
-      label: string,
+      label: oneOfType([string, object]),
     })),
     handleSelect: func.isRequired,
     handleBlur: func,

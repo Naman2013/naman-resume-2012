@@ -10,6 +10,7 @@ const {
   number,
   oneOfType,
   string,
+  object,
 } = PropTypes;
 
 const Button = (props) => {
@@ -21,6 +22,7 @@ const Button = (props) => {
     icon, // remove prop when refactoring for icon library
     onClickEvent,
     theme = {},
+    withIntl,
   } = props;
   const buttonProps = omit(props, ['isActive', 'renderIcon', 'onClickEvent', 'icon', 'theme']);
   return (
@@ -35,13 +37,22 @@ const Button = (props) => {
       onClick={onClickEvent}
     >
       {
-        text &&
-          <span
+        text && (withIntl
+          ? <span
+            style={{ color: theme.color }}
+            className={classnames('text', {
+              'pad-right': text && icon,
+            })}
+          >
+            {text}
+          </span>
+          : <span
             style={{ color: theme.color }}
             className={classnames('text', {
               'pad-right': text && icon,
             })} dangerouslySetInnerHTML={{ __html: text }}
           />
+        )
       }
 
       {icon && <img alt="" className="button-icon" src={icon} />}
@@ -50,16 +61,17 @@ const Button = (props) => {
 
       <style jsx>{styles}</style>
     </button>
-  )
+  );
 };
 
 Button.propTypes = {
   isActive: bool,
-  text: oneOfType([string, number]),
+  text: oneOfType([string, number, object]),
   icon: string,
   onClickEvent: func.isRequired,
   renderIcon: func,
   type: string,
+  withIntl: bool,
 };
 Button.defaultProps = {
   type: 'text',
@@ -67,6 +79,7 @@ Button.defaultProps = {
   icon: null,
   text: null,
   renderIcon: null,
+  withIntl: false,
 };
 
 export default Button;

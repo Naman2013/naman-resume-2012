@@ -34,7 +34,12 @@ class MissionList extends Component {
   }
 
   handlePageChange = ({ activePage }) => {
-    const startFrom = activePage === 1 ? 1 : ((activePage - 1) * 9) + 1;
+    // used for determine first photo sequence number and fetch next 9 photos
+    const PHOTOS_ON_ONE_PAGE = 9;
+    const PREVIOUS_PAGE = activePage - 1;
+    const startFrom = activePage === 1
+      ? 1
+      : (PREVIOUS_PAGE * PHOTOS_ON_ONE_PAGE) + 1;
     this.props.actions.fetchMissionsAndCounts({ firstMissionNumber: startFrom });
     this.setState({ activePage });
   }
@@ -57,12 +62,12 @@ class MissionList extends Component {
                   />
                 ))}
                 <div className="pagination-wrapper">
-                  <Pagination
+                  {imageCount && <Pagination
                     activePage={this.state.activePage}
                     pagesPerPage={4}
                     onPageChange={this.handlePageChange}
                     totalPageCount={Math.ceil(imageCount / 9)}
-                  />
+                  />}
                 </div>
               </div>
               <style jsx>{style}</style>
@@ -77,11 +82,16 @@ class MissionList extends Component {
 }
 
 MissionList.propTypes = {
-  imageList: PropTypes.arrayOf(PropTypes.object).isRequired,
+  imageList: PropTypes.arrayOf(PropTypes.object),
   actions: PropTypes.shape({
     fetchMissionsAndCounts: PropTypes.func,
   }).isRequired,
-  imageCount: PropTypes.number.isRequired,
+  imageCount: PropTypes.number,
+};
+
+MissionList.defaultProps = {
+  imageList: [],
+  imageCount: 0,
 };
 
 export default MissionList;
