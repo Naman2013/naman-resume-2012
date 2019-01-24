@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import SubPageNavigation from '../../../components/common/sub-page-navigation';
 import { fetchPrivateProfile } from '../../../modules/private-profile/actions';
+import ProfileInformation from '../../../components/profiles/private-profile/ProfileInformation';
 
 class PrivateProfile extends Component {
   static propTypes = {
@@ -20,14 +21,45 @@ class PrivateProfile extends Component {
 
   generateNavItems = list => list.map(item => ({ title: item.name, link: item.linkUrl }));
 
+  modelData = resp => ({
+    myInformationData: {
+      generalInfo: {
+        avatarType: resp.avatarType,
+        avatarURL: resp.avatarURL,
+        displayName: resp.displayName,
+        memberName: resp.memberName,
+        memberSinceMDY: resp.memberSinceMDY,
+        memberSinceText: resp.memberSinceText,
+        membershipType: resp.membershipType,
+        gravityRankLabel: resp.gravityRankLabel,
+      },
+      gravityDetails: resp.gravityDetails,
+      badgesDetails: {
+        badgesCount: resp.badgesCount,
+        badgesHeading: resp.badgesHeading,
+        badgesList: resp.badgesList,
+      },
+      mvpData: {
+        specialistObjectHeading: resp.specialistObjectHeading,
+        specialistObjects: resp.specialistObjects,
+        specialistObjectsCount: resp.specialistObjectsCount,
+      },
+    },
+    profileMenuList: resp.profileMenuList,
+  });
+
   render() {
     const { children, privateProfileData } = this.props;
-    
+    console.log(privateProfileData);
+    const modelResult = this.modelData(privateProfileData);
+    console.log(modelResult);
     return (
       <div>
-        {privateProfileData.profileMenuList && (
+        {modelResult.profileMenuList && (
           <Fragment>
-            <SubPageNavigation items={this.generateNavItems(privateProfileData.profileMenuList)} />
+            <ProfileInformation myInformationData={modelResult.myInformationData} />
+
+            <SubPageNavigation items={this.generateNavItems(modelResult.profileMenuList)} />
 
             {/* {cloneElement(children)} */}
           </Fragment>
