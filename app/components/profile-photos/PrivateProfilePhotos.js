@@ -1,5 +1,5 @@
 /***********************************
-* V4 PrivatProfilePhotos
+* V4 PrivateProfilePhotos
 *  The root view of privat profile -> photos
 ***********************************/
 
@@ -9,7 +9,7 @@ import style from './PrivateProfilePhotos.style';
 
 class PrivateProfilePhotos extends Component {
   state = {
-    
+
   }
 
   render() {
@@ -18,10 +18,12 @@ class PrivateProfilePhotos extends Component {
     return (
       <div style={{ background: '#f8f8f8' }}>
         <div className="root-wrapper">
-          <PhotoHubNavigation
-            currentTab={currentTab}
-          />
-          {cloneElement(children, { currentTab })}
+          <div className="header-wrapper">
+            <PhotoHubNavigation />
+          </div>
+          <div className="body-wrapper">
+            {cloneElement(children)}
+          </div>
           <style jsx>{style}</style>
         </div>
       </div>

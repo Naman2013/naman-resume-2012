@@ -30,6 +30,9 @@ import {
   FETCH_MISSION_COUNT_SUCCESS,
   FETCH_MISSION_COUNT_FAIL,
 
+  FETCH_OBSERVATIONS_COUNT_SUCCESS,
+  FETCH_OBSERVATIONS_COUNT_FAIL,
+
 } from './actions';
 
 import {
@@ -47,6 +50,9 @@ const initialState = {
     fetching: false,
     error: false,
     errorBody: {},
+  },
+  observations: {
+    imageCount: 0,
   },
   missionPhotos: {
     response: {
@@ -335,6 +341,22 @@ export default createReducer(initialState, {
       ...state,
       missionPhotos: {
         ...state.missionPhotos,
+        imageCount: 0,
+      },
+    };
+  },
+  [FETCH_OBSERVATIONS_COUNT_SUCCESS](state, { payload }) {
+    return {
+      ...state,
+      observations: {
+        imageCount: payload.imageCount,
+      },
+    };
+  },
+  [FETCH_OBSERVATIONS_COUNT_FAIL](state) {
+    return {
+      ...state,
+      observations: {
         imageCount: 0,
       },
     };

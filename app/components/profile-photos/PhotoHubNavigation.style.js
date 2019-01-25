@@ -1,7 +1,7 @@
 import css from 'styled-jsx/css';
 import { primaryFont, secondaryFont } from '../../styles/variables/fonts';
-import { shadows, seashell } from '../../styles/variables/colors_tiles_v4';
-
+import { screenMedium } from '../../styles/variables/breakpoints';
+import { hawkesBlue, shadows, lightHeadedAstronaut, seashell } from '../../styles/variables/colors_tiles_v4';
 
 export default css`
   .photohub-root {
@@ -14,16 +14,15 @@ export default css`
     display: flex;
     align-items: center;
     text-transform: uppercase;
-    border-bottom: 1px solid #d9dee4;
+    border-bottom: 1px solid ${hawkesBlue};
   }
 
   .photohub-nav-bar {
     display: flex;
     align-item: center;
-    min-height: 65px;
-    max-height: 65px; 
     justify-content: space-between;
-    border-bottom: 1px solid #d9dee4;
+    margin-top: 10px;
+    padding-bottom: 20px;
   }
 
   .photohub-nav-block {
@@ -34,7 +33,7 @@ export default css`
 
   :global(.photohub-nav-active) {
     box-sizing: border-box;
-    border-bottom: 2px solid #41566f;
+    border-bottom: 2px solid ${lightHeadedAstronaut};
   }
 
   .photohub-links {
@@ -82,5 +81,23 @@ export default css`
     background-clip: padding-box;
     border: 1px solid ${shadows};
     border-radius: .25rem;
+  }
+
+  .header {
+    margin: 0 42px;
+  }
+
+  @media ${screenMedium} {
+    .header {
+      margin: 0;
+    }
+
+    .photohub-nav-bar {
+      min-height: 65px;
+      max-height: 65px;
+      margin-top: 0px;
+      padding-bottom: 0;
+      border-bottom: 1px solid ${hawkesBlue};'
+    }
   }
 `;

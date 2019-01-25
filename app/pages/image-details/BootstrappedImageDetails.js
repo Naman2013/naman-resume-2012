@@ -33,19 +33,20 @@ const BootstrappedImageDetails = (props) => {
     actions,
     imageTitle,
     imageURL,
-    isDesktop,
+    isMobile,
     isScreenLarge,
     objectId,
     scheduledMissionId,
+    iconFileData,
   } = props;
   const showMissionRelatedInfo = Number(scheduledMissionId) > 0;
   const rightPanelDisplayFlags = [showMissionRelatedInfo];
   const showRightContainer = rightPanelDisplayFlags.filter(flag => !!flag).length > 0;
+  console.log(iconFileData);
   return (<div className="root">
       <CenterColumn widths={['768px', '940px', '940px']} theme={{ paddingTop: '25px' }}>
         <div className="obs-img-container">
           <div className="obs-header">
-            <div className="obs-img-header">AN OBSERVATION OF</div>
             <div className="obs-img-subheader" dangerouslySetInnerHTML={{ __html: imageTitle }}/>
           </div>
           <div className="obs-image-container">
@@ -53,8 +54,9 @@ const BootstrappedImageDetails = (props) => {
           </div>
           <div className="object-details">
             {objectId !== '0' ? <ObjectDetailList
-              isDesktop={isDesktop}
+              isMobile={isMobile}
               objectId={objectId}
+              iconFileData={iconFileData}
               scheduledMissionId={scheduledMissionId}
             /> : null}
           </div>

@@ -1,16 +1,15 @@
 /***********************************
-* V4 Gallries 
+* V4 Galleries 
 ***********************************/
 
 
 import React from 'react';
-import ImageList from './ImageList';
-import GalleryCard from '../../components/profile-photos/GalleryCard';
+import ImageList from '../../../containers/profile-photos/ImageList';
+import GalleryCard from './GalleryCard';
 
 export default () => (
   <ImageList
     type="galleries"
-    request="fetchGalleriesAndCounts"
   >
     <GalleryCard />
   </ImageList>

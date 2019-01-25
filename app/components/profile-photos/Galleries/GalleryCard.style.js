@@ -1,6 +1,7 @@
 import css from 'styled-jsx/css';
-import { screenMedium, screenLarge } from '../../styles/variables/breakpoints';
-import { primaryFont, secondaryFont } from '../../styles/variables/fonts';
+import { screenMedium, screenLarge } from '../../../styles/variables/breakpoints';
+import { primaryFont } from '../../../styles/variables/fonts';
+import { romance, shadows } from '../../../styles/variables/colors_tiles_v4';
 
 const borderColor = 'rgb(217, 222, 228, 0.35)';
 
@@ -15,12 +16,12 @@ export default css`
     flex-direction: column;    
     width: 100%;
     height: 100%;
-    box-shadow: 0 0 6px 0 #ced2d8;
+    box-shadow: 0 0 6px 0 ${shadows};
     font-size: 10px;
     font-family: ${primaryFont};
     text-transform: uppercase;
     padding: 30px 40px;
-    color: #fff;
+    color: ${romance};
     background-position: center;
     position: relative;
   }

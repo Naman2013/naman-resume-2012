@@ -5,10 +5,9 @@
 
 import React from 'react';
 import cn from 'classnames';
-import { browserHistory } from 'react-router';
 import { FormattedMessage } from 'react-intl';
-import Dots from '../../atoms/icons/Dots';
-import messages from './MissionCard.messages';
+import Dots from '../../../atoms/icons/Dots';
+import messages from '../Missions/MissionCard.messages';
 import style from './GalleryCard.style';
 
 export default ({ index, isDesktop, isMobile, currentItem: gallery }) => {

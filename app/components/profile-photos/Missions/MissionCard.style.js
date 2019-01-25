@@ -1,8 +1,7 @@
 import css from 'styled-jsx/css';
-import { primaryFont, secondaryFont } from '../../styles/variables/fonts';
-import { lightHeadedAstronaut } from '../../styles/variables/colors_tiles_v4';
-import { resetMarginPadding } from '../../styles/variables/utils';
-import { screenMedium, screenLarge, screenXLarge } from '../../styles/variables/breakpoints';
+import { primaryFont, secondaryFont } from '../../../styles/variables/fonts';
+import { screenMedium, screenLarge } from '../../../styles/variables/breakpoints';
+import { romance, hawkesBlue, shadows, lightHeadedAstronaut } from '../../../styles/variables/colors_tiles_v4';
 
 export default css`
   .circle {
@@ -14,7 +13,7 @@ export default css`
     top: 12px;
     left: 12px;
     border-radius: 50%;
-    border: 2px solid #fff;
+    border: 2px solid ${romance};
   }
 
   .card-bottom {
@@ -32,7 +31,7 @@ export default css`
     font-family: ${secondaryFont};
     text-transform: none;
     padding-bottom: 15px;
-    border-bottom: 1px solid #d9dee4;
+    border-bottom: 1px solid ${hawkesBlue};
     font-size: 20px;
     white-space: nowrap;
     overflow: hidden;
@@ -55,17 +54,17 @@ export default css`
 
   .mission-details-images {
     padding-left: 15px;
-    border-left: 1px solid #d9dee4;
+    border-left: 1px solid ${hawkesBlue};
   }
 
   .mission-telescope {
-    border-top: 1px solid #d9dee4;
-    border-bottom: 1px solid #d9dee4;
+    border-top: 1px solid ${hawkesBlue};
+    border-bottom: 1px solid ${hawkesBlue};
     padding: 7px 0;
   }
 
   .onhover-field {
-    border-bottom: 1px solid #d9dee4;
+    border-bottom: 1px solid ${hawkesBlue};
     padding: 7px 0;
   }
 
@@ -82,7 +81,7 @@ export default css`
     justify-content: center;
     align-items: center;
     border-radius: 50%;
-    border: 1px solid #d9dee4; 
+    border: 1px solid ${hawkesBlue}; 
   }
 
   .mission-image {
@@ -100,16 +99,16 @@ export default css`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    background-color: #fff;    
+    background-color: ${romance};    
     width: 100%;
     height: 100%;
     min-height: 136px;
-    box-shadow: 0 0 6px 0 #ced2d8;
+    box-shadow: 0 0 6px 0 ${shadows};
     font-size: 10px;
     font-family: ${primaryFont};
     text-transform: uppercase;
     padding: 30px 40px;
-    color: #41566f;
+    color: ${lightHeadedAstronaut};
   }
 
   .show-onhover {
@@ -125,6 +124,7 @@ export default css`
   @media ${screenMedium} {
     .root {
       flex-basis: 48%;
+      max-width: 48%;
     }
     .mission-image-wrapper {
       display: flex;
@@ -134,7 +134,7 @@ export default css`
     }
   //   .missionCard:hover {
   //     background-color: rgba(0, 0, 0, 0.8);
-  //     color: #fff;
+  //     color: ${romance};
   //   }
 
   //   .missionCard:hover .mission-image-wrapper {
@@ -148,7 +148,7 @@ export default css`
   //   .missionCard:hover .show-onhover {
   //     display: flex;
   //   }
-  // }
+  }
 
   @media ${screenLarge} {
     .root {

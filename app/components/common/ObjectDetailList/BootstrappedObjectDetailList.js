@@ -8,7 +8,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
-import uniqueId from 'lodash/uniqueId';
 import { profilePhotoStyle } from 'styles/mixins/utilities';
 import { astronaut, geyser, shadows, romance } from 'styles/variables/colors_tiles_v4';
 import { secondaryFont } from 'styles/variables/fonts';
@@ -75,14 +74,15 @@ class ObjectDetailList extends Component {
   state = {
   };
 
-
-
-
   render() {
     const {
       isDesktop,
+      isMobile,
       listTitle,
       objectDetailList,
+      Domain,
+      ObjectType,
+      Constellation,
     } = this.props;
     const profPic = photoUrl => Object.assign(profilePhotoStyle(photoUrl), {
       height: '50px',
@@ -92,183 +92,51 @@ class ObjectDetailList extends Component {
 
     return (
   <div className="root">
-    {isDesktop ? (
+    {!isMobile ? (
       <div className="wide-info-block">
-        {objectDetailList.name ? (
+        {ObjectType ? (
           <div className="wide-info-item">
             <div
               className="wide-info-block-header"
-              dangerouslySetInnerHTML={{ __html: objectDetailList.name.label }}
+              dangerouslySetInnerHTML={{ __html: ObjectType.label }}
             />
             <div
               className="wide-info-block-name"
-              dangerouslySetInnerHTML={{ __html: objectDetailList.name.text }}
+              dangerouslySetInnerHTML={{ __html: ObjectType.text }}
             />
           </div>
         ) : null}
-        {objectDetailList.domain ? (
+        {Domain ? (
           <div className="wide-info-item">
             <div
               className="wide-info-block-header"
-              dangerouslySetInnerHTML={{
-                __html: objectDetailList.domain.label
-              }}
+              dangerouslySetInnerHTML={{ __html: Domain.label }}
             />
             <div
               className="wide-info-block-name"
-              dangerouslySetInnerHTML={{ __html: objectDetailList.domain.text }}
+              dangerouslySetInnerHTML={{ __html: Domain.text }}
             />
           </div>
         ) : null}
-        {objectDetailList.constellation ? (
+        {Constellation ? (
           <div className="wide-info-item">
             <div
               className="wide-info-block-header"
-              dangerouslySetInnerHTML={{
-                __html: objectDetailList.constellation.label
-              }}
+              dangerouslySetInnerHTML={{ __html: Constellation.label }}
             />
-            <div
-              className="wide-info-block-name"
-              dangerouslySetInnerHTML={{
-                __html: objectDetailList.constellation.text
-              }}
-            />
+            {Constellation.hasLink
+              ? <Link
+                className="wide-info-block-name"
+                to={Constellation.linkUrl}
+                dangerouslySetInnerHTML={{ __html: Constellation.text }}
+              /> 
+              : <div
+                className="wide-info-block-name"
+                dangerouslySetInnerHTML={{ __html: Constellation.text }}
+              />
+            }
           </div>
         ) : null}
-      </div>
-    ) : null}
-    {!isDesktop ? (
-      <div>
-        <div className="title-container">
-          <span
-            className="title"
-            dangerouslySetInnerHTML={{ __html: listTitle }}
-          />
-        </div>
-        <div className="detail-items">
-          {objectDetailList.name ? (
-            <div className="info object-name" key={uniqueId()}>
-              {objectDetailList.name.hasIconFlag ? (
-                <div style={profPic(objectDetailList.name.iconUrl)} />
-              ) : null}
-              <div
-                className="detail-label"
-                dangerouslySetInnerHTML={{
-                  __html: objectDetailList.name.label
-                }}
-              />
-              <div
-                className="detail-text"
-                dangerouslySetInnerHTML={{ __html: objectDetailList.name.text }}
-              />
-              <div
-                className="detail-text-detail"
-                dangerouslySetInnerHTML={{
-                  __html: objectDetailList.name.textDetail
-                }}
-              />
-              <div
-                className="detail-note"
-                dangerouslySetInnerHTML={{
-                  __html: objectDetailList.name.textNote
-                }}
-              />
-              {objectDetailList.name.hasLinkFlag ? (
-                <Link to={objectDetailList.name.linkUrl}>
-                  <span
-                    className="link"
-                    dangerouslySetInnerHTML={{
-                      __html: objectDetailList.name.linkLabel
-                    }}
-                  />
-                </Link>
-              ) : null}
-            </div>
-          ) : null}
-          {objectDetailList.domain ? (
-            <div className="info half-info" key={uniqueId()}>
-              {objectDetailList.name.hasIconFlag ? (
-                <div style={profPic(objectDetailList.domain.iconUrl)} />
-              ) : null}
-              <div
-                className="detail-label"
-                dangerouslySetInnerHTML={{
-                  __html: objectDetailList.domain.label
-                }}
-              />
-              <div
-                className="detail-text"
-                dangerouslySetInnerHTML={{
-                  __html: objectDetailList.domain.text
-                }}
-              />
-              <div
-                className="detail-text-detail"
-                dangerouslySetInnerHTML={{
-                  __html: objectDetailList.domain.textDetail
-                }}
-              />
-              <div
-                className="detail-note"
-                dangerouslySetInnerHTML={{
-                  __html: objectDetailList.domain.textNote
-                }}
-              />
-              {objectDetailList.domain.hasLinkFlag ? (
-                <Link to={objectDetailList.domain.linkUrl}>
-                  <span
-                    className="link"
-                    dangerouslySetInnerHTML={{
-                      __html: objectDetailList.domain.linkLabel
-                    }}
-                  />
-                </Link>
-              ) : null}
-            </div>
-          ) : null}
-          {objectDetailList.constellation ? (
-            <div className="info half-info" key={uniqueId()}>
-              {objectDetailList.constellation.hasIconFlag ? (
-                <div style={profPic(objectDetailList.constellation.iconUrl)} />
-              ) : null}
-              <div
-                className="detail-label"
-                dangerouslySetInnerHTML={{
-                  __html: objectDetailList.constellation.label
-                }}
-              />
-              <div
-                className="detail-text"
-                dangerouslySetInnerHTML={{
-                  __html: objectDetailList.constellation.text
-                }}
-              />
-              <div
-                className="detail-text-detail"
-                dangerouslySetInnerHTML={{
-                  __html: objectDetailList.constellation.textDetail
-                }}
-              />
-              <div
-                className="detail-note"
-                dangerouslySetInnerHTML={{
-                  __html: objectDetailList.constellation.textNote
-                }}
-              />
-              {objectDetailList.constellation.hasLinkFlag ? (
-                <Link to={objectDetailList.constellation.linkUrl}>
-                  <span
-                    className="link"
-                    dangerouslySetInnerHTML={{
-                      __html: objectDetailList.constellation.linkLabel
-                    }}
-                  />
-                </Link>
-              ) : null}
-            </div>
-          ) : null}
-        </div>
       </div>
     ) : null}
 
@@ -288,8 +156,6 @@ class ObjectDetailList extends Component {
         flex-direction: row;
         justify-content: space-evenly;
         align-items: center;
-        margin-top: 25px;
-
       }
 
       .wide-info-item {
@@ -318,7 +184,8 @@ class ObjectDetailList extends Component {
         text-transform: uppercase;
       }
 
-      .wide-info-block-name {
+      :global(.wide-info-block-name) {
+        display: block;
         font-size: 20px;
         padding: 10px;
         font-family: ${secondaryFont};

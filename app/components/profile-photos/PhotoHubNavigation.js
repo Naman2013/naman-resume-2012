@@ -122,80 +122,82 @@ class PhotoHubNavigation extends Component {
 
     return (
       <div className="photohub-root">
-        <div className="photohub-title">{<FormattedMessage {...messages.MyPhotoHub} />}</div>
-        <DisplayAtBreakpoint
-          screenMedium
-          screenLarge
-          screenXLarge
-        >
-          <div className="photohub-nav-bar">
-            <div className="photohub-links">
-              {generatedNavItems.map((item, i) => (
-                <div key={item.link} className="photohub-nav-block">
-                  <Link
-                    to={item.link}
-                    activeClassName="photohub-nav-active"
-                    className="photohub-nav-link"
-                    onClick={() => this.handleNavItemClick(i)}
-                  >
-                    {item.title}
-                  </Link>
-                </div>
-              ))}
+        <div className="header">
+          <div className="photohub-title">{<FormattedMessage {...messages.MyPhotoHub} />}</div>
+          <DisplayAtBreakpoint
+            screenMedium
+            screenLarge
+            screenXLarge
+          >
+            <div className="photohub-nav-bar">
+              <div className="photohub-links">
+                {generatedNavItems.map((item, i) => (
+                  <div key={item.link} className="photohub-nav-block">
+                    <Link
+                      to={item.link}
+                      activeClassName="photohub-nav-active"
+                      className="photohub-nav-link"
+                      onClick={() => this.handleNavItemClick(i)}
+                    >
+                      {item.title}
+                    </Link>
+                  </div>
+                ))}
+              </div>
+              <div className="photohub-tools">
+                {!filterSelectActive
+                  ? <Button withIntl onClickEvent={this.handleOptionsClick} theme={{ marginLeft: '10px' }} text={optionLabel} />
+                  : <DropDown
+                    handleMenuClose={this.handleFilterMenuClose}
+                    handleBlur={this.handleFilterDropDownBlur}
+                    handleSelect={this.handleFilterDropDownItemClick}
+                    selectedIndex={filtersActiveIndex}
+                    options={filterDropdownOptions}
+                    autoFocus
+                    defaultMenuIsOpen
+                  />}
+                {!searchActive
+                  ? <Button onClickEvent={this.handleSearchClick} theme={{ marginLeft: '10px' }} icon={searchAstronaut} />
+                  : <input
+                    type="text"
+                    className="photo-hub-search-input-field"
+                    onChange={this.handleSearchChange}
+                    onBlur={this.handleSearchBlur}
+                    onKeyPress={this.handleSearchSubmitByEnter}
+                    value={searchValue}
+                    ref={(node) => { this.input = node; }}
+                  />}
+              </div>
             </div>
-            <div className="photohub-tools">
-              {!filterSelectActive
-                ? <Button withIntl onClickEvent={this.handleOptionsClick} theme={{ marginLeft: '10px' }} text={optionLabel} />
-                : <DropDown
-                  handleMenuClose={this.handleFilterMenuClose}
-                  handleBlur={this.handleFilterDropDownBlur}
-                  handleSelect={this.handleFilterDropDownItemClick}
-                  selectedIndex={filtersActiveIndex}
-                  options={filterDropdownOptions}
-                  autoFocus
-                  defaultMenuIsOpen
-                />}
-              {!searchActive
-                ? <Button onClickEvent={this.handleSearchClick} theme={{ marginLeft: '10px' }} icon={searchAstronaut} />
-                : <input
-                  type="text"
-                  className="photo-hub-search-input-field"
-                  onChange={this.handleSearchChange}
-                  onBlur={this.handleSearchBlur}
-                  onKeyPress={this.handleSearchSubmitByEnter}
-                  value={searchValue}
-                  ref={(node) => { this.input = node; }}
-                />}
-            </div>
-          </div>
-        </DisplayAtBreakpoint>
-        <DisplayAtBreakpoint
-          screenSmall
-        >
-          <div className="photohub-nav-bar">
-            <div className="photohub-dropdown">
-              {!mobileFilterActive && <DropDown
-                handleSelect={this.handleDropDownItemClick}
-                selectedIndex={activeIndex}
-                options={dropdownOptions}
-              />
-              }
-            </div>
-            <div className="photohub-tools">
-              {!mobileFilterActive
-                ? <Button
-                  onClickEvent={this.handle3DotsClick}
-                  renderIcon={() => <Dots theme={{ circleColor: astronaut }} />}
+          </DisplayAtBreakpoint>
+          <DisplayAtBreakpoint
+            screenSmall
+          >
+            <div className="photohub-nav-bar">
+              <div className="photohub-dropdown">
+                {!mobileFilterActive && <DropDown
+                  handleSelect={this.handleDropDownItemClick}
+                  selectedIndex={activeIndex}
+                  options={dropdownOptions}
                 />
-                : <DropDown
-                  handleSelect={this.handleFilterDropDownItemClick}
-                  selectedIndex={filtersActiveIndex}
-                  options={filterDropdownOptions}
-                />
-              }
+                }
+              </div>
+              <div className="photohub-tools">
+                {!mobileFilterActive
+                  ? <Button
+                    onClickEvent={this.handle3DotsClick}
+                    renderIcon={() => <Dots theme={{ circleColor: astronaut }} />}
+                  />
+                  : <DropDown
+                    handleSelect={this.handleFilterDropDownItemClick}
+                    selectedIndex={filtersActiveIndex}
+                    options={filterDropdownOptions}
+                  />
+                }
+              </div>
             </div>
-          </div>
-        </DisplayAtBreakpoint>
+          </DisplayAtBreakpoint>
+        </div>
         <style jsx>
           {style}
         </style>
