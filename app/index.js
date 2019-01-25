@@ -168,6 +168,7 @@ import './styles/static.scss';
 
 // load monitoring and global error handling
 import './monitoring';
+import MyListsHub from './components/profiles/private-profile/my-lists';
 
 // Create an enhanced history that syncs navigation events with the store
 const history = syncHistoryWithStore(browserHistory, store);
@@ -205,7 +206,11 @@ ReactDOM.render(
           <Route path="about" component={About} onEnter={validateUser}>
             <IndexRedirect to="about-slooh" />
             <Route path="memberships" component={Memberships} />
-            <Route path=":aboutSloohSectionId" component={AboutSloohSection} onEnter={validateUser} />
+            <Route
+              path=":aboutSloohSectionId"
+              component={AboutSloohSection}
+              onEnter={validateUser}
+            />
           </Route>
 
           <Route path="join" component={Join}>
@@ -343,10 +348,7 @@ ReactDOM.render(
           <Route path="community/post/:postId" component={StoryDetails} onEnter={validateUser} />
           <Route path="stories/:filterType/create" component={CreateStory} onEnter={validateUser} />
 
-          <Route path="lists" component={PlaceholderPage} onEnter={validateUser}>
-            <IndexRedirect to="my-lists" />
-            <Route path="my-lists" component={PlaceholderPage} />
-          </Route>
+          <Route path="lists/my-lists/:filterType" component={MyListsHub} onEnter={validateUser} />
 
           <Route path="qa" component={PlaceholderPage} onEnter={validateUser}>
             <IndexRedirect to="my-qa" />
