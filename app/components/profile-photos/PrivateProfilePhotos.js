@@ -13,8 +13,8 @@ class PrivateProfilePhotos extends Component {
   }
 
   render() {
-    const { children } = this.props;
-    const currentTab = this.props.location.pathname.split('/').pop();
+    const { children, location } = this.props;
+    const currentTab = location.pathname.split('/').pop();
     return (
       <div style={{ background: '#f8f8f8' }}>
         <div className="root-wrapper">
@@ -22,7 +22,9 @@ class PrivateProfilePhotos extends Component {
             <PhotoHubNavigation />
           </div>
           <div className="body-wrapper">
-            {cloneElement(children)}
+            {cloneElement(children, {
+              currentTab,
+            })}
           </div>
           <style jsx>{style}</style>
         </div>

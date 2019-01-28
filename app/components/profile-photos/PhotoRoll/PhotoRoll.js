@@ -9,7 +9,7 @@ import PhotoRollCard from './PhotoRollCard';
 
 export default () => (
   <ImageList
-    type="photoRoll"
+    type="photoroll"
   >
     <PhotoRollCard />
   </ImageList>

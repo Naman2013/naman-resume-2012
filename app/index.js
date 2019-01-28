@@ -147,11 +147,7 @@ import QuestStep from './containers/quest-step';
 import { About, AboutSloohSection } from './containers/about';
 import { PrivateProfile } from './containers/profile';
 import PrivateProfilePhotos from './components/profile-photos/PrivateProfilePhotos';
-import PrivatProfileObservations from './components/profile-photos/Observations';
-import PrivatProfilePhotoRoll from './components/profile-photos/PhotoRoll';
-import PrivateProfileMissions from './components/profile-photos/Missions';
-import PrivateProfileGalleries from './components/profile-photos/Galleries';
-// import ImagesLayout from './components/profile-photos/ImagesLayout';
+import ImagesLayout from './components/profile-photos/ImagesLayout';
 import MissionDetails from './containers/mission-details/MissionDetails';
 
 import DashboardPage from 'components/Dashboard';
@@ -377,11 +373,7 @@ ReactDOM.render(
             {/* <Route path=":profileSectionId" component={PrivateProfileSection} onEnter={validateUser} /> */}
             <Route path="photos" component={PrivateProfilePhotos}>
               <IndexRedirect to="photoroll" />
-              {/* <Route path=":type" component={ImagesLayout} /> */}
-              <Route path="photoroll" component={PrivatProfilePhotoRoll} onEnter={validateUser} />
-              <Route path="observations" component={PrivatProfileObservations} onEnter={validateUser} />
-              <Route path="missions" component={PrivateProfileMissions} onEnter={validateUser} />
-              <Route path="galleries" component={PrivateProfileGalleries} onEnter={validateUser} />
+              <Route path=":type" component={ImagesLayout} />
             </Route>
           </Route>
           

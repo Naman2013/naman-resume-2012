@@ -33,6 +33,9 @@ import {
   FETCH_OBSERVATIONS_COUNT_SUCCESS,
   FETCH_OBSERVATIONS_COUNT_FAIL,
 
+  FETCH_MORE_MISSION_SUCCESS,
+  FETCH_MORE_PHOTOROLL_SUCCESS,
+
 } from './actions';
 
 import {
@@ -385,14 +388,38 @@ export default createReducer(initialState, {
         response: {
           ...state.missionPhotos.response,
           imageList: missionPhotosList,
-        }
+        },
       },
       photoRoll: {
         ...state.photoRoll,
         response: {
           ...state.photoRoll.response,
           imageList: photoRollList,
-        }
+        },
+      },
+    };
+  },
+  [FETCH_MORE_PHOTOROLL_SUCCESS](state, { payload }) {
+    return {
+      ...state,
+      photoRoll: {
+        ...state.photoRoll,
+        response: {
+          ...state.photoRoll.response,
+          imageList: [...state.photoRoll.response.imageList, ...payload.imageList],
+        },
+      },
+    };
+  },
+  [FETCH_MORE_MISSION_SUCCESS](state, { payload }) {
+    return {
+      ...state,
+      missions: {
+        ...state.missions,
+        response: {
+          ...state.photoRoll.response,
+          imageList: [...state.missions.response.imageList, ...payload.imageList],
+        },
       },
     };
   },

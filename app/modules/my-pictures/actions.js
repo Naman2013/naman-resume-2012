@@ -40,6 +40,60 @@ export const FETCH_MISSION_COUNT_START = 'FETCH_MISSION_COUNT_START';
 export const FETCH_MISSION_COUNT_SUCCESS = 'FETCH_MISSION_COUNT_SUCCESS';
 export const FETCH_MISSION_COUNT_FAIL = 'FETCH_MISSION_COUNT_FAIL';
 
+export const FETCH_MORE_MISSION_SUCCESS = 'FETCH_MORE_MISSIONS';
+export const FETCH_MORE_PHOTOROLL_SUCCESS = 'FETCH_MORE_PHOTOROLL';
+export const FETCH_MORE_GALLERIES_SUCCESS = 'FETCH_MORE_GALLERIES';
+
+const fetchMorePhotoRollSuccess = payload => ({
+  type: FETCH_MORE_PHOTOROLL_SUCCESS,
+  payload,
+});
+const fetchMoreMissionsSuccess = payload => ({
+  type: FETCH_MORE_MISSION_SUCCESS,
+  payload,
+});
+
+export const fetchMorePhotoroll = ({
+  maxImageCount = 10,
+  firstImageNumber = 11,
+  sharedOnly = false,
+}) => (dispatch, getState) => {
+  const { at, token, cid } = getState().user;
+  const { selectedFilters } = getState().myPicturesFilters;
+  return axios.post('/api/images/getMyPictures', {
+    at,
+    cid,
+    token,
+    sharedOnly,
+    pagingMode: 'api',
+    maxImageCount,
+    firstImageNumber,
+    ...selectedFilters,
+    viewType: 'photoRoll',
+  })
+    .then(result => dispatch(fetchMorePhotoRollSuccess(result.data)))
+    .catch(err => dispatch(fetchPhotoRollFail(err)));
+};
+
+export const fetchMoreMissions = ({
+  maxImageCount = 10,
+  firstImageNumber = 11,
+}) => (dispatch, getState) => {
+  const { at, token, cid } = getState().user;
+  const { selectedFilters } = getState().myPicturesFilters;
+  return axios.post('/api/images/getMissionImages', {
+    token,
+    at,
+    cid,
+    pagingMode: 'api',
+    firstMissionNumber: firstImageNumber,
+    maxMissionCount: maxImageCount,
+    ...selectedFilters,
+  })
+    .then(result => dispatch(fetchMoreMissionsSuccess(result.data)))
+    .catch(err => dispatch(fetchMissionPhotosFail(err)));
+};
+
 const fetchFITImagesStart = () => ({
   type: FETCH_FIT_IMAGES_START,
 });
@@ -166,7 +220,7 @@ export const fetchPhotoRoll = ({
   sharedOnly = false,
 }) => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
-  const { selectedFilters } = getState().myPicturesFilters
+  const { selectedFilters } = getState().myPicturesFilters;
   dispatch(fetchPhotoRollStart());
 
   return axios.post('/api/images/getMyPictures', {

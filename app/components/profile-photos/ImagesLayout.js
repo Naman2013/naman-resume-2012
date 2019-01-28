@@ -4,12 +4,14 @@
 
 
 import React from 'react';
-import { withRouter } from 'react-router';
+
+import { DeviceContext } from '../../providers/DeviceProvider';
+
 import ImageList from '../../containers/profile-photos/ImageList';
-import GalleryCard from './GalleryCard';
-import MissionCard from './MissionCard';
-import ObservationCard from './ObservationCard';
-import PhotoRollCard from './PhotoRollCard';
+import GalleryCard from './Galleries/GalleryCard';
+import MissionCard from './Missions/MissionCard';
+import ObservationCard from './Observations/ObservationCard';
+import PhotoRollCard from './PhotoRoll/PhotoRollCard';
 
 const chooseCard = (type) => {
   switch (type) {
@@ -20,12 +22,15 @@ const chooseCard = (type) => {
   }
 }
 
-export default withRouter(({ location }) => {
-  const type = location.pathname.split('/')[4];
+export default ({ currentTab: type }) => {
   return (
-    <ImageList type={type}>
-      {chooseCard(type)}
-    </ImageList>
+    <DeviceContext.Consumer>
+      {context => (
+        <ImageList type={type} deviceInfo={context}>
+          {chooseCard(type)}
+        </ImageList>
+      )}
+    </DeviceContext.Consumer>
   );
-});
+};
 
