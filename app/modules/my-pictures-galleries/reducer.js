@@ -9,6 +9,7 @@ import {
   CREATE_GALLERY_START,
   CREATE_GALLERY_SUCCESS,
   CREATE_GALLERY_FAIL,
+  FETCH_MORE_GALLERIES_SUCCESS,
 } from './actions';
 
 import {
@@ -132,6 +133,12 @@ export default createReducer(initialState, {
           publicFlag: payload.publicFlag,
         });
       }),
+    };
+  },
+  [FETCH_MORE_GALLERIES_SUCCESS](state, { payload }) {
+    return {
+      ...state,
+      galleryList: [...state.galleryList, ...payload.galleryList],
     };
   },
 });

@@ -21,14 +21,13 @@ export default css`
 }
 
 .obs-img-container {
-  text-align: center;
   padding: 0;
   background-color: ${romance};
   ${dropShadowContainer}
 }
 
 .obs-header {
-  padding: 50px;
+  padding: 25px;
 }
 
 .obs-img-header {
@@ -41,8 +40,7 @@ export default css`
 
 .obs-img-subheader {
   font-family: ${secondaryFont};
-  font-size: 40px;
-
+  font-size: 20px;
 }
 
 .obs-image-container {
@@ -53,10 +51,8 @@ export default css`
   ${backgroundImageCover}
   background-position: center;
   margin: 0 auto;
-  margin-bottom: 20px;
   display: block;
   width: 100%;
-  max-width: 800px;
 }
 
 .obs-image:before {
