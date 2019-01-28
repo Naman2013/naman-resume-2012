@@ -36,6 +36,7 @@ const QuestionList = ({
   toggleAllAnswersAndDisplay,
   user,
   totalCount,
+  updateQuestionsList,
 }) => (
   <div>
     {
@@ -60,6 +61,7 @@ const QuestionList = ({
           submitAnswer={submitAnswer}
           modalActions={modalActions}
           toggleAllAnswersAndDisplay={toggleAllAnswersAndDisplay}
+          updateQuestionsList={updateQuestionsList}
         />)
     },
       )
@@ -92,6 +94,7 @@ QuestionList.propTypes = {
     setModal: func,
     showModal: func,
   }).isRequired,
+  updateQuestionsList: func.isRequired,
 };
 
 export default QuestionList;

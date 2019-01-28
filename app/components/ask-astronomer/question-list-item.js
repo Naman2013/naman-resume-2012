@@ -43,6 +43,7 @@ const QuestionListItem = (props) => {
     submitAnswer,
     toggleAllAnswersAndDisplay,
     user,
+    updateQuestionsList,
   } = props;
 
   const toggleAllAnswers = () => toggleAllAnswersAndDisplay({
@@ -70,6 +71,7 @@ const QuestionListItem = (props) => {
         replyTo={item.threadId}
         submitForm={submitAnswer}
         modalActions={modalActions}
+        updateQuestionsList={updateQuestionsList}
         user={user}
       />)}
       commentText="Answers"
@@ -85,6 +87,7 @@ const QuestionListItem = (props) => {
         threadId={item.threadId}
         topicId={item.topicId}
         modalActions={modalActions}
+        updateQuestionsList={updateQuestionsList}
       />)}
     />
     {fetching && <div className="fa fa-spinner loader" />}
@@ -129,6 +132,7 @@ QuestionListItem.propTypes = {
     setModal: func,
     showModal: func,
   }).isRequired,
+  updateQuestionsList: func.isRequired,
 };
 
 export default QuestionListItem;
