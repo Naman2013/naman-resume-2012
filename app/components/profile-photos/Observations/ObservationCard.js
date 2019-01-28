@@ -12,7 +12,7 @@ import messages from './ObservationCard.messages';
 import style from './ObservationCard.style';
 
 export default ({ index, isDesktop, isMobile, currentItem: observation }) => {
-  const inCenter = (index + 2) % 3 === 0;
+  const inCenter = index % 3 === 1;
   const {
     imageTitle,
     imageURL,

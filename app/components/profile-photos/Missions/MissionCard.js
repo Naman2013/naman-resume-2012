@@ -12,7 +12,7 @@ import messages from './MissionCard.messages';
 import style from './MissionCard.style';
 
 export default ({ index, isDesktop, isMobile, currentItem: mission }) => {
-  const inCenter = (index + 2) % 3 === 0;
+  const inCenter = index % 3 === 1;
   const {
     imageTitle,
     displayDate,

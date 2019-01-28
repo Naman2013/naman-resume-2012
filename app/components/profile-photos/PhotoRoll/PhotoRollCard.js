@@ -15,7 +15,7 @@ import messages from './PhotoRollCard.messages';
 import style from './PhotoRollCard.style';
 
 export default ({ index, isDesktop, isMobile, currentItem: observation, user }) => {
-  const inCenter = (index + 2) % 3 === 0;
+  const inCenter = index % 3 === 1;
   const {
     imageTitle,
     imageURL,

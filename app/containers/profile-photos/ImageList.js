@@ -34,7 +34,7 @@ const mapTypeToCount = {
   galleries: 'galleryCount',
 };
 
-const manTypeToId = {
+const mapTypeToId = {
   observations: 'imageId',
   photoroll: 'imageId',
   missions: 'imageId',
@@ -54,6 +54,8 @@ const mapTypeToRequestMore = {
   missions: 'fetchMoreMissions',
   galleries: 'fetchMoreGalleries',
 };
+
+const getImagesCountToFetch = ({ isMobile, isTablet }) => (isMobile || isTablet) ? 10 : 9; 
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
@@ -86,10 +88,11 @@ class ImageList extends Component {
   componentDidMount() {
     const { actions, type, deviceInfo } = this.props;
     const fetchImages = actions[mapTypeToRequest[type]];
+    const imagesToFetch = getImagesCountToFetch(deviceInfo);
     fetchImages({
       sharedOnly: type === 'observations',
-      maxImageCount: 10,
-      maxMissionCount: 10,
+      maxImageCount: imagesToFetch,
+      maxMissionCount: imagesToFetch,
     });
     //  fetchMissionsAndCounts | fetchGalleriesAndCounts | fetchPhotoRollAndCounts
   }
@@ -100,6 +103,8 @@ class ImageList extends Component {
 
     const fetchImages = actions[mapTypeToRequest[type]];
     const arrOfImages = this.props[mapTypeToList[type]];
+
+    const imagesToFetch = getImagesCountToFetch(deviceInfo);
 
     if (prevProps.deviceInfo.isMobile && !deviceInfo.isMobile) {
       const currentPage = Math.floor(arrOfImages.length / 10);
@@ -112,8 +117,8 @@ class ImageList extends Component {
         sharedOnly: type === 'observations',
         firstImageNumber,
         firstMissionNumber: firstImageNumber,
-        maxImageCount: 10,
-        maxMissionCount: 10,
+        maxImageCount: imagesToFetch,
+        maxMissionCount: imagesToFetch,
     });
 
       this.setState({ activePage: currentPage <= 0 ? 1 : currentPage });
@@ -123,22 +128,22 @@ class ImageList extends Component {
       const imagesToFetchCount = arrOfImages.length * activePage;
       fetchImages({
         sharedOnly: type === 'observations',
-        maxMissionCount: imagesToFetchCount,
-        maxImageCount: imagesToFetchCount,
+        maxMissionCount: Math.max(imagesToFetchCount, 10),
+        maxImageCount: Math.max(imagesToFetchCount, 10),
       });
     }
 
     if (prevProps.type !== type) {
       fetchImages({
         sharedOnly: type === 'observations',
-        maxImageCount: 10,
-        maxMissionCount: 10,
+        maxImageCount: imagesToFetch,
+        maxMissionCount: imagesToFetch,
       });
     }
   }
 
   handlePageChange = ({ activePage }) => {
-    const { actions, type } = this.props;
+    const { actions, type, deviceInfo } = this.props;
 
     // used for determine first photo sequence number and fetch next 9 photos
     const PHOTOS_ON_ONE_PAGE = 9;
@@ -149,10 +154,12 @@ class ImageList extends Component {
     //  ***
 
     const fetchImages = actions[mapTypeToRequest[type]];
+    const imagesToFetch = getImagesCountToFetch(deviceInfo);
+
     fetchImages({
       firstMissionNumber: startFrom,
-      maxImageCount: 10,
-      maxMissionCount: 10,
+      maxImageCount: imagesToFetch,
+      maxMissionCount: imagesToFetch,
     });
     this.setState({ activePage });
   }
@@ -177,11 +184,7 @@ class ImageList extends Component {
   render() {
     const { children, type, deviceInfo } = this.props;
     const { activePage } = this.state;
-    let arrOfImages = this.props[mapTypeToList[type]];
-
-    if (!deviceInfo.isMobile && !deviceInfo.isTablet && arrOfImages.length > 9) {
-      arrOfImages = arrOfImages.slice(0, -1); //  9 image on large screnn, 10 on small and tablet
-    }
+    const arrOfImages = this.props[mapTypeToList[type]];
 
     const count = this.props[mapTypeToCount[type]];
     const currentImagesNumber = arrOfImages.length * activePage;
@@ -194,7 +197,7 @@ class ImageList extends Component {
               <div className="root" style={{ justifyContent: deviceInfo.isDesktop ? 'normal' : 'space-between' }}>
                 {count > 0
                   ? arrOfImages.map((image, i) => cloneElement(children, {
-                      key: image[manTypeToId[type]],
+                      key: image[mapTypeToId[type]],
                       isDesktop: deviceInfo.isDesktop,
                       isMobile: deviceInfo.isMobile,
                       index: i,

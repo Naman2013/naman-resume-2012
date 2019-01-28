@@ -11,7 +11,7 @@ import messages from '../Missions/MissionCard.messages';
 import style from './GalleryCard.style';
 
 export default ({ index, isDesktop, isMobile, currentItem: gallery }) => {
-  const inCenter = (index + 2) % 3 === 0;
+  const inCenter = index % 3 === 1;
   const {
     displayDate,
     title,

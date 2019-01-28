@@ -42,7 +42,6 @@ const BootstrappedImageDetails = (props) => {
   const showMissionRelatedInfo = Number(scheduledMissionId) > 0;
   const rightPanelDisplayFlags = [showMissionRelatedInfo];
   const showRightContainer = rightPanelDisplayFlags.filter(flag => !!flag).length > 0;
-  console.log(iconFileData);
   return (<div className="root">
       <CenterColumn widths={['768px', '940px', '940px']} theme={{ paddingTop: '25px' }}>
         <div className="obs-img-container">
