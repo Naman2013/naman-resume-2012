@@ -218,7 +218,7 @@ class Overview extends Component {
               }}
             />
 
-            <ObjectVisibilityProfile objectId={objectId} />
+            <ObjectVisibilityProfile defaultObsId={objectData.obsIdDefault} objectId={objectId} />
           </CenterColumn>
         </section>
 

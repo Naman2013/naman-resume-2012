@@ -29,8 +29,11 @@ const riseSetModel = {
     guideSubTitle: resp.linkTitle,
     hasRiseAndSetTimes: resp.hasRiseAndSetTimes,
     riseAndSetSelectors: resp.riseAndSetSelectors,
+    observatories: resp.observatories,
   }),
 };
+
+const today = new Date();
 
 class ObjectVisibilityProfile extends Component {
   static propTypes = {
@@ -38,14 +41,10 @@ class ObjectVisibilityProfile extends Component {
   }
 
   state = {
-    obsId: DEFAULT_OBSID,
+    obsId: this.props.defaultObsId ? this.props.defaultObsId : DEFAULT_OBSID,
     activeDateIndex: 0,
+    dateString: `${today.getFullYear()}-${today.getMonth()}-${today.getDate()}`,
   }
-
-  fetchRiseSetData = () => {
-    console.log('TODO: implement rise/set data');
-  }
-
 
   handleObservatoryChange = (event) => {
     this.setState({ obsId: event.target.value });
@@ -131,6 +130,11 @@ class ObjectVisibilityProfile extends Component {
                             value={this.state.obsId}
                             onChange={this.handleObservatoryChange}
                           >
+                            {Array.isArray(riseSet.observatories)
+                              && riseSet.observatories.lenth > 0
+                              && Object.entries(riseSet.observatories).map(obs => (
+                                <option value={obs[0]}>{obs[1]}</option>
+                            ))}
                             <option value="chile">Chile</option>
                             <option value="teide">Teide</option>
                           </select>
@@ -174,6 +178,7 @@ class ObjectVisibilityProfile extends Component {
 
 ObjectVisibilityProfile.propTypes = {
   intl: intlShape.isRequired,
+  defaultObsId: PropTypes.string.isRequired,
 };
 
 export default injectIntl(ObjectVisibilityProfile);
