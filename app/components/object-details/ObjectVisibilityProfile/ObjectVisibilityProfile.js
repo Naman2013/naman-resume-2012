@@ -131,7 +131,7 @@ class ObjectVisibilityProfile extends Component {
                             onChange={this.handleObservatoryChange}
                           >
                             {Array.isArray(riseSet.observatories)
-                              && riseSet.observatories.lenth > 0
+                              && riseSet.observatories.length > 0
                               && Object.entries(riseSet.observatories).map(obs => (
                                 <option value={obs[0]}>{obs[1]}</option>
                             ))}
