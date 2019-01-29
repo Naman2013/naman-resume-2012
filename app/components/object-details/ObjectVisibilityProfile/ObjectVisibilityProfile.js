@@ -29,7 +29,6 @@ const riseSetModel = {
     guideSubTitle: resp.linkTitle,
     hasRiseAndSetTimes: resp.hasRiseAndSetTimes,
     riseAndSetSelectors: resp.riseAndSetSelectors,
-    observatories: resp.observatories,
   }),
 };
 
@@ -120,7 +119,7 @@ class ObjectVisibilityProfile extends Component {
                             htmlFor="select-obsId"
                           >
                             <span className="field-value-name">
-                              {this.state.obsId}
+                              {riseSet.riseAndSetSelectors.observatories[this.state.obsId]}
                             </span>
                             <img alt="" width="8" src={downwardFacingChevron} />
                           </label>
@@ -130,13 +129,9 @@ class ObjectVisibilityProfile extends Component {
                             value={this.state.obsId}
                             onChange={this.handleObservatoryChange}
                           >
-                            {Array.isArray(riseSet.observatories)
-                              && riseSet.observatories.length > 0
-                              && Object.entries(riseSet.observatories).map(obs => (
-                                <option value={obs[0]}>{obs[1]}</option>
+                            {Object.entries(riseSet.riseAndSetSelectors.observatories).map(obs => (
+                              <option value={obs[0]}>{obs[1]}</option>
                             ))}
-                            <option value="chile">Chile</option>
-                            <option value="teide">Teide</option>
                           </select>
                         </div>
                       </StaticCell>
