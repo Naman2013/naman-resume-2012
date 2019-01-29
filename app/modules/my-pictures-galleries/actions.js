@@ -13,6 +13,7 @@ export const FETCH_GALLERIES_COUNT_START = 'FETCH_GALLERIES_COUNT_START';
 export const FETCH_GALLERIES_COUNT_SUCCESS = 'FETCH_GALLERIES_COUNT_SUCCESS';
 export const FETCH_GALLERIES_COUNT_FAIL = 'FETCH_GALLERIES_COUNT_FAIL';
 
+export const FETCH_MORE_GALLERIES_SUCCESS = 'FETCH_MORE_GALLERIES';
 
 const createGalleryStart = payload => ({
   type: CREATE_GALLERY_START,
@@ -134,4 +135,31 @@ export const fetchGalleriesAndCounts = (params) => (dispatch) => {
   dispatch(fetchMyPicturesCount());
   dispatch(fetchGalleriesCount());
   dispatch(fetchGalleries(params));
+};
+
+const fetchMoreGalleriesSuccess = payload => ({
+  type: FETCH_MORE_GALLERIES_SUCCESS,
+  payload,
+});
+
+export const fetchMoreGalleries = ({
+  maxImageCount = 10,
+  firstImageNumber = 11,
+  pagingMode = 'app',
+  noFilters = false,
+}) => (dispatch, getState) => {
+  const { at, token, cid } = getState().user;
+  const { selectedFilters } = getState().myPicturesFilters;
+  const filters = noFilters ? {} : selectedFilters;
+  return axios.post('/api/images/getGalleryList', {
+    at,
+    cid,
+    token,
+    pagingMode,
+    maxGalleryCount: maxImageCount,
+    firstGalleryNumber: firstImageNumber,
+    ...filters,
+  })
+  .then(result => dispatch(fetchMoreGalleriesSuccess(result.data)))
+  .catch(error => dispatch(fetchGalleriesFail(error)));
 };

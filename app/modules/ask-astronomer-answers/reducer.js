@@ -20,13 +20,14 @@ import {
 
 const initialState = {
   fetchingObj: {},
-  page: 0,
+  page: 1,
   error: false,
   resultsCount: 0,
   paginationCount: 5,
   allAnswers: {},
   allDisplayedAnswers: {},
   allAnswerSubmissions: {},
+  submitToThreadId: null,
 };
 
 export default createReducer(initialState, {
@@ -45,13 +46,24 @@ export default createReducer(initialState, {
     const newAllAnswers = cloneDeep(state.allAnswers);
     const newAllDisplayedAnswers = cloneDeep(state.allDisplayedAnswers);
     const newFetching = cloneDeep(state.fetchingObj);
+    const isAnswerContainsReply = threadId === state.submitToThreadId;
+    const answerPage = newAllAnswers[threadId] ? newAllAnswers[threadId].page : 1;
+    const newPage = isAnswerContainsReply ? Math.ceil(replies.length / state.paginationCount) : answerPage;
+
     newAllAnswers[threadId] = {
       replies,
-      page: 1,
-      showAllAnswers: false,
+      page: newPage || 1,
+      showAllAnswers: newAllAnswers[threadId] ? newAllAnswers[threadId].showAllAnswers : false,
       topAnswer: replies.length > 0 ? replies[0].replyId : null,
     };
-    newAllDisplayedAnswers[threadId] = replies.length > 0 ? [replies[0].replyId] : [];
+
+    const toAnswer = newPage * state.paginationCount;
+    newAllDisplayedAnswers[threadId] = replies.map((item, index) => {
+      if (toAnswer - state.paginationCount <= index && index < toAnswer) {
+        return item.replyId;
+      }
+    });
+
     newFetching[threadId] = false;
     return {
       ...state,
@@ -59,6 +71,7 @@ export default createReducer(initialState, {
       allAnswers: newAllAnswers,
       allDisplayedAnswers: newAllDisplayedAnswers,
       resultsCount,
+      submitToThreadId: isAnswerContainsReply ? null : state.submitToThreadId,
     };
   },
   [FETCH_ASTRONOMER_ANSWERS_FAIL](state, { payload }) {
@@ -94,18 +107,24 @@ export default createReducer(initialState, {
       displayedAnswers,
     } = payload;
 
-    const newState = cloneDeep(state.allDisplayedAnswers);
+    const newAllDisplayedAnswers = cloneDeep(state.allDisplayedAnswers);
     const newAllState = cloneDeep(state.allAnswers);
-    newState[threadId] = displayedAnswers;
     if (newAllState[threadId]) {
       newAllState[threadId].page = page || 1;
     }
+
+    const toAnswer = newAllState[threadId].page * state.paginationCount;
+    newAllDisplayedAnswers[threadId] = newAllState[threadId].replies.map((item, index) => {
+      if (toAnswer - state.paginationCount <= index && index < toAnswer) {
+        return item.replyId;
+      }
+    });
 
     return {
       ...state,
       page,
       allAnswers: newAllState,
-      allDisplayedAnswers: newState,
+      allDisplayedAnswers: newAllDisplayedAnswers,
     };
   },
   [REPLY_TO_ASTRONOMER_ANSWER_SUCCESS](state, { payload }) {
@@ -198,12 +217,13 @@ export default createReducer(initialState, {
 
       newAllDisplayedAnswers[threadId] = [reply.replyId];
     }
-    
+
     return {
       ...state,
       allAnswers: newAllAnswers,
       allAnswerSubmissions: newAnswerSubmissions,
       allDisplayedAnswers: newAllDisplayedAnswers,
+      submitToThreadId: threadId,
     };
   },
   [SUBMIT_ANSWER_FOR_ASTRONOMER_QUESTION_FAIL](state, { payload }) {

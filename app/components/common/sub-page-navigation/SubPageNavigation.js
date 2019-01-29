@@ -17,7 +17,7 @@ const SubPageNavigation = ({ items }) => (
           <li className="item" key={item.link}>
             <Link
               activeClassName="subnav-active"
-              className="subnav-link"              
+              className="subnav-link"
               to={item.link}
             >
               {item.title}

@@ -203,6 +203,17 @@ class AskAstronomer extends Component {
     }));
   }
 
+  updateQuestionsList = () => {
+    const {
+      params: {
+        objectId,
+      },
+      actions,
+    } = this.props;
+
+    actions.fetchAstronomerQuestions({ objectId });
+  }
+
   render() {
     const {
       actions,
@@ -282,6 +293,7 @@ class AskAstronomer extends Component {
                         objectId={objectId}
                         user={user}
                         submitQuestion={this.submitQuestion}
+                        updateQuestionsList={this.updateQuestionsList}
                         {...aaaQuestionPrompt}
                       />
                     </div>
@@ -307,6 +319,7 @@ class AskAstronomer extends Component {
                           user={user}
                           submitQuestion={this.submitQuestion}
                           aaaQuestionPrompt={aaaQuestionPrompt}
+                          updateQuestionsList={this.updateQuestionsList}
                         />
                       </div>
                     )}
@@ -321,6 +334,7 @@ class AskAstronomer extends Component {
                       submitAnswer={this.submitAnswer}
                       likeParams={likeParams}
                       modalActions={modalActions}
+                      updateQuestionsList={this.updateQuestionsList}
                     />}
                   />
                 </div>

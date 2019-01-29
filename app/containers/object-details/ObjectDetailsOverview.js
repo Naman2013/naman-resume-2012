@@ -70,12 +70,11 @@ const burnhamsModel = {
   }),
 };
 
-
-
 const modelData = resp => ({
   topicContentProps: {
     title: resp.objectTitle,
     topicContentList: Object.values(resp.pointsList.list),
+    topicIconList: Object.values(resp.pointsList.iconList),
     aboutTitle: resp.objectSubtitle,
     aboutContent: resp.objectDescription,
     showContentList: resp.showBulletPoints,
@@ -111,6 +110,8 @@ const modelData = resp => ({
     magnitude: resp.objectMagnitude,
     apparentAngularSizeLabel: resp.objectSizeArcSecondsLabel,
     apparentAngularSizeText: resp.objectSizeArcSecondsDisplay,
+    panelHeading1: resp.panelHeading1,
+    panelHeading2: resp.panelHeading2,
   },
   visibilitySeason: {
     show: resp.showVisibilitySeason,
@@ -155,10 +156,9 @@ const modelData = resp => ({
   mapDispatchToProps,
 )
 class Overview extends Component {
-
- navigateByURl = (url) => {
-   browserHistory.push(url);
- }
+  navigateByURl = (url) => {
+    browserHistory.push(url);
+  };
 
   render() {
     const {
@@ -180,7 +180,7 @@ class Overview extends Component {
       <Fragment>
         <TopicContent {...modeledResult.topicContentProps} objectId={objectId} user={user} />
 
-        {modeledResult.hasFeaturedObservation && (
+        {modeledResult.featuredObservation.show && (
           <section className="blue-tile-bg">
             <DeviceProvider>
               <SterlingTitle
@@ -244,6 +244,11 @@ class Overview extends Component {
             />
           )}
 
+          <SterlingTitle
+            title={modeledResult.objectDetails.panelHeading1}
+            subTitle={modeledResult.objectDetails.panelHeading2}
+          />
+
           {modeledResult.relatedObject.show && (
             <section className="off-white-bg">
               <CenterColumn widths={['768px', '965px', '965px']}>
@@ -275,9 +280,17 @@ class Overview extends Component {
                 <ObjectRelatedTile
                   {...modeledResult.relatedShow}
                   additionalContent={
-                    <div className="related-show" onClick = {()=>this.navigateByURl(modeledResult.relatedShow.linkUrl)}>
+                    <div
+                      className="related-show"
+                      onClick={() => this.navigateByURl(modeledResult.relatedShow.linkUrl)}
+                    >
                       <p className="related-show-title">{modeledResult.relatedShow.imageTitle} </p>
-                      <GenericButton theme={{ margin: '0 auto' }} renderIcon={() => <img src="https://vega.slooh.com/assets/v4/icons/play_icon.svg" />} />
+                      <GenericButton
+                        theme={{ margin: '0 auto' }}
+                        renderIcon={() => (
+                          <img src="https://vega.slooh.com/assets/v4/icons/play_icon.svg" />
+                        )}
+                      />
                     </div>
                   }
                 />
@@ -288,14 +301,17 @@ class Overview extends Component {
           {modeledResult.relatedGuide.show && (
             <section className="off-white-bg">
               <CenterColumn widths={['768px', '965px', '965px']}>
-                <ObjectRelatedTile {...modeledResult.relatedGuide} 
-                showMobileAdditionalContent
-                additionalContent = {
-                  <GuideTile 
-                  title={modeledResult.relatedGuide.imageLabel}
-                   subTitle = {modeledResult.relatedGuide.imageTitle}
-                    linkUrl = {modeledResult.relatedGuide.linkUrl} />
-                }/>
+                <ObjectRelatedTile
+                  {...modeledResult.relatedGuide}
+                  showMobileAdditionalContent
+                  additionalContent={
+                    <GuideTile
+                      title={modeledResult.relatedGuide.imageLabel}
+                      subTitle={modeledResult.relatedGuide.imageTitle}
+                      linkUrl={modeledResult.relatedGuide.linkUrl}
+                    />
+                  }
+                />
               </CenterColumn>
             </section>
           )}

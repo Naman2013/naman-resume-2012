@@ -25,6 +25,7 @@ const AsideContainer = ({
   aaaQuestionPrompt,
   user,
   submitQuestion,
+  updateQuestionsList,
 }) => (
   <div>
     <DisplayAtBreakpoint
@@ -37,6 +38,7 @@ const AsideContainer = ({
         objectId={objectId}
         user={user}
         submitQuestion={submitQuestion}
+        updateQuestionsList={updateQuestionsList}
         {...aaaQuestionPrompt}
       />
     </DisplayAtBreakpoint>
@@ -66,7 +68,7 @@ AsideContainer.propTypes = {
     showModal: func,
   }).isRequired,
   objectSpecialists: shape({}),
-
+  updateQuestionsList: func.isRequired,
 };
 
 AsideContainer.defaultProps = {
