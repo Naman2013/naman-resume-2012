@@ -19,9 +19,10 @@ const {
 } = PropTypes;
 
 const ObjectDetailList = ({
-  isDesktop,
+  isMobile,
   objectId,
   scheduledMissionId,
+  iconFileData,
 }) => (
   <Request
     authorizationRedirect={true}
@@ -38,11 +39,12 @@ const ObjectDetailList = ({
     }) => (
       <div>
         {<BootstrappedObjectDetailList
-          isDesktop={isDesktop}
+          isMobile={isMobile}
           fetching={fetchingContent}
           objectId={objectId}
           scheduledMissionId={scheduledMissionId}
           {...serviceResponse}
+          {...iconFileData}
         />}
       </div>
     )}

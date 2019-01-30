@@ -146,6 +146,9 @@ import PlaceholderPage from './pages/Placeholder';
 import QuestStep from './containers/quest-step';
 import { About, AboutSloohSection } from './containers/about';
 import { PrivateProfile } from './containers/profile';
+import PrivateProfilePhotos from './components/profile-photos/PrivateProfilePhotos';
+import ImagesLayout from './components/profile-photos/ImagesLayout';
+import MissionDetails from './containers/mission-details/MissionDetails';
 
 import DashboardPage from 'components/Dashboard';
 
@@ -363,10 +366,17 @@ ReactDOM.render(
           />
           <Route path="quest-details/:questId/:step" component={QuestStep} onEnter={validateUser} />
 
+          <Route path="missions-details/:missionId" component={MissionDetails} />
+
           <Route path="profile/private" component={PrivateProfile} onEnter={validateUser}>
-            {/* <IndexRedirect to="activity" /> */}
+            <IndexRedirect to="photos" />
             {/* <Route path=":profileSectionId" component={PrivateProfileSection} onEnter={validateUser} /> */}
+            <Route path="photos" component={PrivateProfilePhotos}>
+              <IndexRedirect to="photoroll" />
+              <Route path=":type" component={ImagesLayout} />
+            </Route>
           </Route>
+          
           {/* <Route path="profile/private" component={UserPrivateProfile} onEnter={validateUser} /> */}
           <Route path="profile/public/:cid" component={UserPublicProfile} onEnter={validateUser} />
 

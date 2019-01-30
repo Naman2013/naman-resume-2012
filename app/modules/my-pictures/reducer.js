@@ -30,6 +30,12 @@ import {
   FETCH_MISSION_COUNT_SUCCESS,
   FETCH_MISSION_COUNT_FAIL,
 
+  FETCH_OBSERVATIONS_COUNT_SUCCESS,
+  FETCH_OBSERVATIONS_COUNT_FAIL,
+
+  FETCH_MORE_MISSION_SUCCESS,
+  FETCH_MORE_PHOTOROLL_SUCCESS,
+
 } from './actions';
 
 import {
@@ -47,6 +53,9 @@ const initialState = {
     fetching: false,
     error: false,
     errorBody: {},
+  },
+  observations: {
+    imageCount: 0,
   },
   missionPhotos: {
     response: {
@@ -339,6 +348,22 @@ export default createReducer(initialState, {
       },
     };
   },
+  [FETCH_OBSERVATIONS_COUNT_SUCCESS](state, { payload }) {
+    return {
+      ...state,
+      observations: {
+        imageCount: payload.imageCount,
+      },
+    };
+  },
+  [FETCH_OBSERVATIONS_COUNT_FAIL](state) {
+    return {
+      ...state,
+      observations: {
+        imageCount: 0,
+      },
+    };
+  },
   [SHARE_MEMBER_PHOTO_SUCCESS](state, { payload }) {
     const photoRollList = clone(state.photoRoll.response.imageList);
     const missionPhotosList = clone(state.missionPhotos.response.imageList);
@@ -363,14 +388,38 @@ export default createReducer(initialState, {
         response: {
           ...state.missionPhotos.response,
           imageList: missionPhotosList,
-        }
+        },
       },
       photoRoll: {
         ...state.photoRoll,
         response: {
           ...state.photoRoll.response,
           imageList: photoRollList,
-        }
+        },
+      },
+    };
+  },
+  [FETCH_MORE_PHOTOROLL_SUCCESS](state, { payload }) {
+    return {
+      ...state,
+      photoRoll: {
+        ...state.photoRoll,
+        response: {
+          ...state.photoRoll.response,
+          imageList: [...state.photoRoll.response.imageList, ...payload.imageList],
+        },
+      },
+    };
+  },
+  [FETCH_MORE_MISSION_SUCCESS](state, { payload }) {
+    return {
+      ...state,
+      missions: {
+        ...state.missions,
+        response: {
+          ...state.photoRoll.response,
+          imageList: [...state.missions.response.imageList, ...payload.imageList],
+        },
       },
     };
   },

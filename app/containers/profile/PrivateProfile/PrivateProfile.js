@@ -65,7 +65,7 @@ class PrivateProfile extends Component {
 
             <SubPageNavigation items={this.generateNavItems(modelResult.profileMenuList)} />
 
-            {/* {cloneElement(children)} */}
+            {cloneElement(children)}
           </Fragment>
         )}
       </div>

@@ -13,3 +13,4 @@ export * from './AskAnAstronomer';
 export * from './Alerts';
 export * from './About';
 export * from './Profile';
+export * from './PrivateProfile';
