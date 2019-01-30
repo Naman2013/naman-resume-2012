@@ -17,6 +17,26 @@ const messages: Messages = {
     defaultMessage: 'MVP',
     description: 'Profile statistic label',
   },
+  Breakdown: {
+    id: 'Profile.Breakdown',
+    defaultMessage: 'Breakdown',
+    description: 'Profile statistic label',
+  },
+  Details: {
+    id: 'Profile.Details',
+    defaultMessage: 'Details',
+    description: 'Profile statistic label',
+  },
+  MyBudges: {
+    id: 'Profile.MyBudges',
+    defaultMessage: 'My Budges',
+    description: 'Profile statistic label',
+  },
+  Specialties: {
+    id: 'Profile.Specialties',
+    defaultMessage: 'Specialties',
+    description: 'Profile statistic label',
+  },
 };
 
 const definedMessages: typeof messages = defineMessages(messages);

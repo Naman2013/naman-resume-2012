@@ -44,8 +44,9 @@ class ProfileInformation extends Component {
 
   getGravityTabs = () => {
     const { gravityData } = this.props.myInformationData;
+    const { intl } = this.props;
     return {
-      tabsList: ['Breakdown', 'Details'],
+      tabsList: [intl.formatMessage(messages.Breakdown), intl.formatMessage(messages.Details)],
       panels: [
         <GravityBreakdown gravityList={gravityData.gravityList} />,
         <StatsDetails
@@ -59,8 +60,9 @@ class ProfileInformation extends Component {
 
   getBadgesTabs = () => {
     const { badgesData } = this.props.myInformationData;
+    const { intl } = this.props;
     return {
-      tabsList: ['My Budges', 'Details'],
+      tabsList: [intl.formatMessage(messages.MyBudges), intl.formatMessage(messages.Details)],
       panels: [
         <Badges badgesList={badgesData.badgesList} />,
         null,
@@ -70,8 +72,9 @@ class ProfileInformation extends Component {
 
   getMvpTabs = () => {
     const { mvpData } = this.props.myInformationData;
+    const { intl } = this.props;
     return {
-      tabsList: ['Specialties', 'Details'],
+      tabsList: [intl.formatMessage(messages.Specialties), intl.formatMessage(messages.Details)],
       panels: [
         <SpecialistList specialistList={mvpData.specialistObjects} />,
         null,
