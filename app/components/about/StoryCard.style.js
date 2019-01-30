@@ -2,6 +2,7 @@ import css from 'styled-jsx/css';
 import { screenMedium, screenLarge } from '../../styles/variables/breakpoints';
 import { shadows } from '../../styles/variables/colors_tiles_v4';
 import { faintShadow } from '../../styles/variables/shadows';
+import { secondaryFont } from '../../styles/variables/fonts';
 
 export default css`
   .card-wrapper {
@@ -70,6 +71,7 @@ export default css`
   }
 
   .title {
+    font-family: ${secondaryFont};
     display: flex;
     align-items: center;
     text-align: center;
