@@ -20,6 +20,10 @@ export default css`
     object-fit: contain;
   }
 
+  .partner-logo {
+    max-height: 200px;
+  }
+
   @media ${screenMedium} {
     .img-wrapper {
       width: 48%;

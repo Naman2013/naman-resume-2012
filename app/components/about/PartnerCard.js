@@ -11,9 +11,11 @@ const PartnerCard = ({ image }) => {
     <div className="img-wrapper">
       {image.hasLink
         ? <a href={image.linkUrl} target="_blank" rel="noopener noreferrer">
-          <img src={image.imageUrl} alt="Partner logo" />
+          <img className="partner-logo" src={image.imageUrl} alt="Partner logo" />
         </a>
-        : <img src={image.imageUrl} alt="Partner logo" />
+        : <div>
+          <img className="partner-logo" src={image.imageUrl} alt="Partner logo" />
+        </div>
       }
       <style jsx>{style}</style>
     </div>
