@@ -73,6 +73,13 @@ export default css`
     opacity: 0;
   }
 
+  .select option {
+    font-family: ${primaryFont};
+    font-weight: 600;
+    font-size: 12px;
+    text-transform: uppercase;
+  }
+
   @media ${screenLarge} {
     .obs-visibility-root {
       flex-direction: row;

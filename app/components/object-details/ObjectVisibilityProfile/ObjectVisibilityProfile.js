@@ -17,11 +17,16 @@ import { DEFAULT_OBSID } from './constants';
 const riseSetModel = {
   name: 'RISE_SET_MODEL',
   model: resp => ({
+    obsLabel: resp.obsLabel,
+    riseLabel: resp.riseLabel,
     rise: resp.riseText,
+    transitLabel: resp.transitLabel,
     transit: resp.transitText,
+    setLabel: resp.setLabel,
     set: resp.setText,
     subtitle: resp.subtitle,
     title: resp.title,
+    notesLabel: resp.notesLabel,
     notes: resp.notesText,
     guideHeader: resp.linkHeader,
     guideUrl: resp.linkUrl,
@@ -38,14 +43,9 @@ class ObjectVisibilityProfile extends Component {
   }
 
   state = {
-    obsId: DEFAULT_OBSID,
+    obsId: this.props.defaultObsId ? this.props.defaultObsId : DEFAULT_OBSID,
     activeDateIndex: 0,
   }
-
-  fetchRiseSetData = () => {
-    console.log('TODO: implement rise/set data');
-  }
-
 
   handleObservatoryChange = (event) => {
     this.setState({ obsId: event.target.value });
@@ -75,6 +75,7 @@ class ObjectVisibilityProfile extends Component {
           objectId,
           obsId,
         }}
+        withoutUser
         model={riseSetModel}
         render={({
           fetchingContent,
@@ -114,14 +115,14 @@ class ObjectVisibilityProfile extends Component {
                         }}
                         />
                       </StaticCell>
-                      <StaticCell title="Observatory" flexScale={['100%', '25%']}>
+                      <StaticCell title={riseSet.obsLabel} flexScale={['100%', '25%']}>
                         <div className="select-field">
                           <label
                             className="option-label"
                             htmlFor="select-obsId"
                           >
                             <span className="field-value-name">
-                              {this.state.obsId}
+                              {riseSet.riseAndSetSelectors.observatories[this.state.obsId]}
                             </span>
                             <img alt="" width="8" src={downwardFacingChevron} />
                           </label>
@@ -131,25 +132,26 @@ class ObjectVisibilityProfile extends Component {
                             value={this.state.obsId}
                             onChange={this.handleObservatoryChange}
                           >
-                            <option value="chile">Chile</option>
-                            <option value="teide">Teide</option>
+                            {Object.entries(riseSet.riseAndSetSelectors.observatories).map(obs => (
+                              <option value={obs[0]}>{obs[1]}</option>
+                            ))}
                           </select>
                         </div>
                       </StaticCell>
                     </Row>
                     <Row>
-                      <StaticCell title={intl.formatMessage(messages.Rise)} hasBorderScale={[true]}>
+                      <StaticCell title={riseSet.riseLabel} hasBorderScale={[true]}>
                         <p>{ (fetchingContent) ? `${intl.formatMessage(messages.Loading)}...` : riseSet.rise }</p>
                       </StaticCell>
-                      <StaticCell title={intl.formatMessage(messages.Transit)} hasBorderScale={[true]}>
+                      <StaticCell title={riseSet.setLabel} hasBorderScale={[true]}>
                         <p>{ (fetchingContent) ? `${intl.formatMessage(messages.Loading)}...` : riseSet.transit }</p>
                       </StaticCell>
-                      <StaticCell title={intl.formatMessage(messages.Set)}>
+                      <StaticCell title={riseSet.transitLabel}>
                         <p>{ (fetchingContent) ? `${intl.formatMessage(messages.Loading)}...` : riseSet.set }</p>
                       </StaticCell>
                     </Row>
                     <Row>
-                      <StaticCell title={intl.formatMessage(messages.Notes)}>
+                      <StaticCell title={riseSet.notesLabel}>
                         <p>{ (fetchingContent) ? `${intl.formatMessage(messages.Loading)}...` : riseSet.notes }</p>
                       </StaticCell>
                     </Row>
@@ -174,6 +176,7 @@ class ObjectVisibilityProfile extends Component {
 
 ObjectVisibilityProfile.propTypes = {
   intl: intlShape.isRequired,
+  defaultObsId: PropTypes.string.isRequired,
 };
 
 export default injectIntl(ObjectVisibilityProfile);
