@@ -17,11 +17,16 @@ import { DEFAULT_OBSID } from './constants';
 const riseSetModel = {
   name: 'RISE_SET_MODEL',
   model: resp => ({
+    obsLabel: resp.obsLabel,
+    riseLabel: resp.riseLabel,
     rise: resp.riseText,
+    transitLabel: resp.transitLabel,
     transit: resp.transitText,
+    setLabel: resp.setLabel,
     set: resp.setText,
     subtitle: resp.subtitle,
     title: resp.title,
+    notesLabel: resp.notesLabel,
     notes: resp.notesText,
     guideHeader: resp.linkHeader,
     guideUrl: resp.linkUrl,
@@ -32,8 +37,6 @@ const riseSetModel = {
   }),
 };
 
-const today = new Date();
-
 class ObjectVisibilityProfile extends Component {
   static propTypes = {
     objectId: PropTypes.string.isRequired,
@@ -42,7 +45,6 @@ class ObjectVisibilityProfile extends Component {
   state = {
     obsId: this.props.defaultObsId ? this.props.defaultObsId : DEFAULT_OBSID,
     activeDateIndex: 0,
-    dateString: `${today.getFullYear()}-${today.getMonth()}-${today.getDate()}`,
   }
 
   handleObservatoryChange = (event) => {
@@ -73,6 +75,7 @@ class ObjectVisibilityProfile extends Component {
           objectId,
           obsId,
         }}
+        withoutUser
         model={riseSetModel}
         render={({
           fetchingContent,
@@ -112,7 +115,7 @@ class ObjectVisibilityProfile extends Component {
                         }}
                         />
                       </StaticCell>
-                      <StaticCell title="Observatory" flexScale={['100%', '25%']}>
+                      <StaticCell title={riseSet.obsLabel} flexScale={['100%', '25%']}>
                         <div className="select-field">
                           <label
                             className="option-label"
@@ -137,18 +140,18 @@ class ObjectVisibilityProfile extends Component {
                       </StaticCell>
                     </Row>
                     <Row>
-                      <StaticCell title={intl.formatMessage(messages.Rise)} hasBorderScale={[true]}>
+                      <StaticCell title={riseSet.riseLabel} hasBorderScale={[true]}>
                         <p>{ (fetchingContent) ? `${intl.formatMessage(messages.Loading)}...` : riseSet.rise }</p>
                       </StaticCell>
-                      <StaticCell title={intl.formatMessage(messages.Transit)} hasBorderScale={[true]}>
+                      <StaticCell title={riseSet.setLabel} hasBorderScale={[true]}>
                         <p>{ (fetchingContent) ? `${intl.formatMessage(messages.Loading)}...` : riseSet.transit }</p>
                       </StaticCell>
-                      <StaticCell title={intl.formatMessage(messages.Set)}>
+                      <StaticCell title={riseSet.transitLabel}>
                         <p>{ (fetchingContent) ? `${intl.formatMessage(messages.Loading)}...` : riseSet.set }</p>
                       </StaticCell>
                     </Row>
                     <Row>
-                      <StaticCell title={intl.formatMessage(messages.Notes)}>
+                      <StaticCell title={riseSet.notesLabel}>
                         <p>{ (fetchingContent) ? `${intl.formatMessage(messages.Loading)}...` : riseSet.notes }</p>
                       </StaticCell>
                     </Row>
