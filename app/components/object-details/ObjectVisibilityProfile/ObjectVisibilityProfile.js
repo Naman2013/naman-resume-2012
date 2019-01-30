@@ -6,9 +6,7 @@ import Request from 'components/common/network/Request';
 import ViewOurGuide from '../view-our-guide';
 import { RISE_SET_TIMES } from 'services/objects';
 import { downwardFacingChevron } from 'styles/variables/iconURLs';
-import GridContainer from '../grid/GridContainer';
-import Row from '../grid/Row';
-import StaticCell from '../grid/StaticCell';
+import { GridContainer, Row, StaticCell } from '../../common/grid';
 import style from './ObjectVisibilityProfile.style';
 import messages from './ObjectVisibilityProfile.messages';
 
