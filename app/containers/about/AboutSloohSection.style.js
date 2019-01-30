@@ -72,6 +72,12 @@ export default css`
     margin-top: 17px;
   }
 
+  .store-banner {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+  }
+
   @media ${screenMedium} {
     .about-section-container {
       margin-top: 40px;

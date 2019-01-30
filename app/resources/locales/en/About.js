@@ -3,4 +3,6 @@ export const About = {
   'About.Explore': 'Explore',
   'About.Space': 'Space',
   'About.TogetherWithSlooh': 'Together with slooh',
+  'About.Slooh': 'Slooh',
+  'About.News': 'News',
 };
