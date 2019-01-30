@@ -33,8 +33,13 @@ class PrivateProfile extends Component {
         membershipType: resp.membershipType,
         gravityRankLabel: resp.gravityRankLabel,
       },
-      gravityDetails: resp.gravityDetails,
-      badgesDetails: {
+      gravityData: {
+        ...resp.gravityDetails,
+        gravityHeading: resp.gravityHeading,
+        gravityDetailsText: resp.gravityDetailsText,
+        gravityGuideDetails: resp.gravityGuideDetails,
+      },
+      badgesData: {
         badgesCount: resp.badgesCount,
         badgesHeading: resp.badgesHeading,
         badgesList: resp.badgesList,
@@ -50,9 +55,8 @@ class PrivateProfile extends Component {
 
   render() {
     const { children, privateProfileData } = this.props;
-    console.log(privateProfileData);
     const modelResult = this.modelData(privateProfileData);
-    console.log(modelResult);
+
     return (
       <div>
         {modelResult.profileMenuList && (

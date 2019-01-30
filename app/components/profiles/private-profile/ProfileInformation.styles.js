@@ -24,7 +24,19 @@ export default css`
     max-width: 940px;
     margin: 40px;
     background-color: ${romance};
+    display: none;
+  }
+
+  .profile-information-mobile {
+    background-color: ${romance};
+    width: 100%;
+    heigth: 460px;
+    padding: 30px 50px;
+    font-family: ${primaryFont};
     display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
   }
 
   .profile-avatar img {
@@ -45,7 +57,6 @@ export default css`
     flex-flow: column;
     color: ${lightHeadedAstronaut};
     width: 100%;
-    max-width: 459px;
     border-right: 1px solid ${hawkesBlue};
   }
 
@@ -71,12 +82,100 @@ export default css`
     justify-content: space-between;
     align-items: center;
     font-family: ${helvetica};
+    position: relative;
+  }
+
+  .avatar-border {
+    width: 94px;
+    height: 94px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    border: 1px solid ${hawkesBlue};
+    background-color: ${romance};
+  }
+
+  .avatar-inner-ring {
+    width: 85px;
+    height: 85px;
+    margin: 0;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .vertical-line {
+    width: 1px;
+    background-color: ${hawkesBlue};
+    margin: 0 auto;
+  }
+
+  .horizontal-line {
+    background-color: ${hawkesBlue};
+    height: 1px;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .user-info-list {
+    list-style-type: none;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .user-info-list-item {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid ${hawkesBlue};
+    padding: 15px 0;
+    font-family: ${helvetica};
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: ${lightHeadedAstronaut};
+  }
+
+  .user-info-list-item.profile-user-name {
+    font-family: ${secondaryFont};
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    text-transform: none;
+  }
+
+  .profile-information-mobile .profile-user-statistics {
+    width: 100%;
+    margin-top: 25px;
+  }
+
+  .profile-information-mobile :global(.button-container) {
+    margin-top: 12px;
+    font-family: ${helvetica};
+  }
+
+  :global(.profile-information-modal.stats-modal .stats-popover) {
+    border: none;
+    height: auto;
+    position: static;
+  }
+
+  :global(.profile-information-modal.stats-modal .react-tabs__tab-panel) {
+    max-height: calc(100vh - 214px);
   }
 
   @media ${screenMedium} {
     .profile-information {
       width: 100%;
+      display: flex;
       flex-flow: row wrap;
+    }
+
+    .profile-information-mobile {
+      display: none;
     }
 
     .profile-avatar {
@@ -102,6 +201,7 @@ export default css`
 
     .profile-user-info-block {
       width: 54%;
+      max-width: none;
     }
 
     .profile-user-info-block .profile-user-name {
@@ -159,6 +259,7 @@ export default css`
 
     .profile-user-info-block {
       width: 100%;
+      max-width: 460px;
     }
 
     .profile-user-info-block .profile-user-name {
@@ -177,7 +278,7 @@ export default css`
     .profile-user-statistics {
       width: 100%;
       height: auto;
-      max-width: 299px;
+      max-width: 300px;
       padding: 0 40px;
     }
 
