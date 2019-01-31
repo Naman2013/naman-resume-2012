@@ -5,4 +5,13 @@ export const About = {
   'About.TogetherWithSlooh': 'Together with slooh',
   'About.Slooh': 'Slooh',
   'About.News': 'News',
+  'About.Submit': 'Submit',
+  'About.Cancel': 'Cancel',
+  'About.NamePlaceholder': 'Enter your fullname',
+  'About.EmailPlaceholder': 'Enter your email',
+  'About.MessagePlaceholder': 'Write us',
+  'About.NameLabel': 'Your Name',
+  'About.EmailLabel': 'Your Email Adress',
+  'About.Error': 'Error',
+  'About.Succuss': 'Success',
 };

@@ -11,11 +11,13 @@ import SectionPanels from '../../components/about/SectionPanels';
 import CardsLayout from '../../components/about/CardsLayout';
 import PartnerCard from '../../components/about/PartnerCard';
 import StoryCard from '../../components/about/StoryCard';
+import PartnershipOpportunitiesSection from '../../components/about/PartnershipOpportunitiesSection';
 import CenterColumn from '../../components/common/CenterColumn';
 import styles from './AboutSloohSection.style';
 import messages from './AboutSloohSection.messages';
 
 const ABOUT_SLOOH_SECTION = 'about-slooh';
+const SPONSOR_OPPORTUNITIES_SECTION = 'about-slooh-sponsor';
 
 const AboutSloohSection = ({ params }) => (
   <Fragment>
@@ -60,65 +62,70 @@ const AboutSloohSection = ({ params }) => (
                   </div>
                 )}
 
+                {
+                  params.aboutSloohSectionId === SPONSOR_OPPORTUNITIES_SECTION && (
+                    <PartnershipOpportunitiesSection />
+                  )
+                }
+
                 <div className="about-section-container">
                   <SectionPanels list={sectionPanels} />
                   <CenterColumn>
                     {
                       hasAboutSloohPartners
-                        && Array.isArray(aboutSloohPartners.partnerLogoList)
-                        && aboutSloohPartners.partnerLogoList.length > 0
-                        && (
-                          <CardsLayout
-                            sectionHeading={aboutSloohPartners.sectionHeading}
-                            sectionHeading2={aboutSloohPartners.sectionHeading2}
-                          >
-                            {aboutSloohPartners.partnerLogoList.map(image => (
-                              <PartnerCard image={image} />
-                            ))}
-                          </CardsLayout>
-                        )
+                      && Array.isArray(aboutSloohPartners.partnerLogoList)
+                      && aboutSloohPartners.partnerLogoList.length > 0
+                      && (
+                        <CardsLayout
+                          sectionHeading={aboutSloohPartners.sectionHeading}
+                          sectionHeading2={aboutSloohPartners.sectionHeading2}
+                        >
+                          {aboutSloohPartners.partnerLogoList.map(image => (
+                            <PartnerCard image={image} />
+                          ))}
+                        </CardsLayout>
+                      )
                     }
                     {
                       hasAboutSloohNewsStories
-                        && Array.isArray(aboutSloohNewsStories.newsStoriesList)
-                        && aboutSloohNewsStories.newsStoriesList.length > 0
-                        && (
-                          <CardsLayout
-                            sectionHeading={aboutSloohNewsStories.sectionHeading}
-                            sectionHeading2={aboutSloohNewsStories.sectionHeading2}
-                          >
-                            {aboutSloohNewsStories.newsStoriesList.map(story => (
-                              <StoryCard story={story} />
-                            ))}
-                          </CardsLayout>
-                        )
+                      && Array.isArray(aboutSloohNewsStories.newsStoriesList)
+                      && aboutSloohNewsStories.newsStoriesList.length > 0
+                      && (
+                        <CardsLayout
+                          sectionHeading={aboutSloohNewsStories.sectionHeading}
+                          sectionHeading2={aboutSloohNewsStories.sectionHeading2}
+                        >
+                          {aboutSloohNewsStories.newsStoriesList.map(story => (
+                            <StoryCard story={story} />
+                          ))}
+                        </CardsLayout>
+                      )
                     }
                     {
                       hasAboutSloohStore
-                        && (
-                          <CardsLayout
-                            sectionHeading={aboutSloohStore.sectionHeading}
-                            sectionHeading2={aboutSloohStore.sectionHeading2}
-                          >
-                            <a href={aboutSloohStore.linkUrl} target="_blank" rel="noopener noreferrer">
-                              <img
-                                src={aboutSloohStore.imageUrl}
-                                alt="Store"
-                                className="store-banner"
-                              />
-                            </a>
-                          </CardsLayout>
-                        )
+                      && (
+                        <CardsLayout
+                          sectionHeading={aboutSloohStore.sectionHeading}
+                          sectionHeading2={aboutSloohStore.sectionHeading2}
+                        >
+                          <a href={aboutSloohStore.linkUrl} target="_blank" rel="noopener noreferrer">
+                            <img
+                              src={aboutSloohStore.imageUrl}
+                              alt="Store"
+                              className="store-banner"
+                            />
+                          </a>
+                        </CardsLayout>
+                      )
                     }
                   </CenterColumn>
                 </div>
-
               </Fragment>
             )}
           </Fragment>
         );
       }
-    }
+      }
     />
     <style jsx>{styles}</style>
   </Fragment>
