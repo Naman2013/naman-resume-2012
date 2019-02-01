@@ -24,7 +24,7 @@ const GuideTile = ({
     <div className="sub-title" dangerouslySetInnerHTML={{ __html: guideAuthor }} />
     <div className="description" dangerouslySetInnerHTML={{ __html: shortDescription }} />
     <div className="actions">
-      <Button text={linkLabel} onClickEvent={() => browserHistory.push(linkUrl)} />
+      <Button theme={{ height: 'fit-content' }} text={linkLabel} onClickEvent={() => browserHistory.push(linkUrl)} />
       {toggleReadingListFlag ? <ToggleReadingList
         updateReadingInfoInList={updateReadingInfoInList}
         itemId={guideId}
