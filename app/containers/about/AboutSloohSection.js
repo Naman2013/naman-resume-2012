@@ -6,13 +6,13 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Request from '../../components/common/network/Request';
-import { GET_SECTION } from '../../services/about';
+import CenterColumn from '../../components/common/CenterColumn';
+import CardsLayout from '../../components/common/CardsLayout';
+import PartnershipOpportunitiesSection from '../../components/about/PartnershipOpportunitiesSection';
 import SectionPanels from '../../components/about/SectionPanels';
-import CardsLayout from '../../components/about/CardsLayout';
 import PartnerCard from '../../components/about/PartnerCard';
 import StoryCard from '../../components/about/StoryCard';
-import PartnershipOpportunitiesSection from '../../components/about/PartnershipOpportunitiesSection';
-import CenterColumn from '../../components/common/CenterColumn';
+import { GET_SECTION } from '../../services/about';
 import styles from './AboutSloohSection.style';
 import messages from './AboutSloohSection.messages';
 

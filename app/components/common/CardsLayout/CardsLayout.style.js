@@ -1,6 +1,6 @@
 import css from 'styled-jsx/css';
-import { screenMedium } from '../../styles/variables/breakpoints';
-import { secondaryFont } from '../../styles/variables/fonts';
+import { screenMedium } from '../../../styles/variables/breakpoints';
+import { secondaryFont } from '../../../styles/variables/fonts';
 
 export default css`
   .heading {
