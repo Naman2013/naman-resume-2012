@@ -7,6 +7,15 @@ import {
 } from 'styles/variables/colors_tiles_v4';
 import { secondaryFont } from 'styles/variables/fonts';
 import { screenMedium, screenLarge } from 'styles/variables/breakpoints';
+import { profilePhotoStyle } from 'styles/mixins/utilities';
+
+export const profPic = photoUrl =>
+  Object.assign(profilePhotoStyle(photoUrl), {
+    height: '14px',
+    width: '14px',
+    backgroundSize: 'cover',
+    marginRight: '10px',
+  });
 
 export default css`
   .root {
@@ -65,6 +74,7 @@ export default css`
   }
 
   .form-author {
+    display: flex;
     font-size: 11px;
     text-transform: uppercase;
     padding-bottom: 4px;

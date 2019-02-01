@@ -18,7 +18,7 @@ import Button from 'components/common/style/buttons/Button';
 import BackBar from 'components/common/style/buttons/BackBar';
 import { customModalStylesFitContent } from 'styles/mixins/utilities';
 import ViewImagesButton from 'components/common/style/buttons/ViewImagesButton';
-import styles from './RevealSubmitForm.style';
+import styles, { profPic } from './RevealSubmitForm.style';
 import messages from './RevealSubmitForm.messages';
 const {
   bool,
@@ -171,6 +171,7 @@ class RevealSubmitForm extends Component {
       title,
       content,
       intl,
+      avatarURL
     } = this.props;
 
     const {
@@ -195,7 +196,7 @@ class RevealSubmitForm extends Component {
         >
           {modalDescription ? <p className="" dangerouslySetInnerHTML={{ __html: modalDescription }} /> : null}
           <form className="form">
-            <div className="form-author">{`${intl.formatMessage(messages.WritterBy)} ${displayName}`}</div>
+            <div className="form-author"><div style={profPic(avatarURL)} />{`${intl.formatMessage(messages.WrittenBy)} ${displayName}`}</div>
             <div className="form-quote">{title || content}</div>
             <textarea
               className="reveal-form-input"

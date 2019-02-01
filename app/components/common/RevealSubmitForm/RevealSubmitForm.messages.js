@@ -12,9 +12,9 @@ const messages: Messages = {
     defaultMessage: 'There was an issue submitting the form.',
     description: 'From submitting issue message',
   },
-  WritterBy: {
-    id: 'Alerts.WritterBy',
-    defaultMessage: 'Writter by',
+  WrittenBy: {
+    id: 'Alerts.WrittenBy',
+    defaultMessage: 'Written by',
     description: 'Label title',
   },
   Cancel: {
