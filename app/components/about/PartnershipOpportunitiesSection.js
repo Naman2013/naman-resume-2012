@@ -35,11 +35,15 @@ const customModalStyles = {
   },
 };
 
+const initialState = {
+  fullName: '',
+  emailAddress: '',
+  message: '',
+};
+
 class PartnershipOpportunitiesSection extends Component {
   state = {
-    fullName: '',
-    emailAddress: '',
-    message: '',
+    ...initialState,
     modalIsVissible: false,
     response: {},
   }
@@ -50,22 +54,21 @@ class PartnershipOpportunitiesSection extends Component {
 
   handleWriteUsInput = e => this.setState({ message: e.target.value });
 
-  handleCancel = () => this.setState({
-    fullName: '',
-    emailAddress: '',
-    message: '',
-  });
+  handleCancel = () => this.setState({ ...initialState });
 
   handleCloseModal = () => this.setState({ modalIsVissible: false });
 
   handleSubmit = () => {
     const { fullName, message, emailAddress } = this.state;
-    this.handleCancel();
     submitPartnershipForm({
       fullName,
       message,
       emailAddress,
-    }).then(response => this.setState({ response: response.data, modalIsVissible: true }));
+    }).then(response => this.setState({
+      ...initialState,
+      response: response.data,
+      modalIsVissible: true,
+    }));
   };
 
   render() {
@@ -90,7 +93,7 @@ class PartnershipOpportunitiesSection extends Component {
                 onRequestClose={this.handleCloseModal}
                 style={customModalStyles}
               >
-                <i className="fa fa-close" onClick={this.handleCloseModal} />
+                <i className="fa fa-close" onClick={this.handleCloseModal} role="button" />
                 <div className="modal-header">
                   {response.success
                     ? <FormattedMessage {...messages.Success} />
