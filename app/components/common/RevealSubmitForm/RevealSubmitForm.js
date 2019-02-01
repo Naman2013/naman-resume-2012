@@ -16,7 +16,7 @@ import deletePostImage from 'services/post-creation/delete-post-image';
 import setPostImages from 'modules/set-post-images';
 import Button from 'components/common/style/buttons/Button';
 import BackBar from 'components/common/style/buttons/BackBar';
-import { modalStyleFullPage } from 'styles/mixins/utilities';
+import { customModalStylesFitContent } from 'styles/mixins/utilities';
 import ViewImagesButton from 'components/common/style/buttons/ViewImagesButton';
 import styles from './RevealSubmitForm.style';
 import messages from './RevealSubmitForm.messages';
@@ -167,6 +167,10 @@ class RevealSubmitForm extends Component {
       placeholder,
       submitLabel,
       revealButtonRender,
+      displayName,
+      title,
+      content,
+      intl,
     } = this.props;
 
     const {
@@ -185,16 +189,18 @@ class RevealSubmitForm extends Component {
         <Modal
           ariaHideApp={false}
           isOpen={showPopup}
-          style={modalStyleFullPage}
+          style={{ content: { ...customModalStylesFitContent.content, border: 'none' }, overlay: customModalStylesFitContent.overlay }}
           contentLabel="Comment"
           onRequestClose={this.closeModal}
         >
-          <BackBar onClickEvent={this.closeModal} />
           {modalDescription ? <p className="" dangerouslySetInnerHTML={{ __html: modalDescription }} /> : null}
           <form className="form">
+            <div className="form-author">{`${intl.formatMessage(messages.WritterBy)} ${displayName}`}</div>
+            <div className="form-quote">{title || content}</div>
             <textarea
               className="reveal-form-input"
               onChange={this.onTextChange}
+              rows={2}
               maxLength={maxLength}
               value={formText}
               placeholder={placeholder}
@@ -207,8 +213,9 @@ class RevealSubmitForm extends Component {
                 {(!uploadError && uploadLoading) && <div className="fa fa-spinner" />}
                 {S3URLs.length > 0 ? <ViewImagesButton images={S3URLs} /> : null}
               </div>
-              <div>
-                <Button text={submitLabel} onClickEvent={this.submitForm} />
+              <div className="buttons-wrapper">
+                <Button text={intl.formatMessage(messages.Cancel)} onClickEvent={this.closeModal} />
+                <Button theme={{ marginLeft: '10px' }} text={submitLabel} onClickEvent={this.submitForm} />
               </div>
             </div>
           </form>

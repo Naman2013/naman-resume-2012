@@ -12,6 +12,16 @@ const messages: Messages = {
     defaultMessage: 'There was an issue submitting the form.',
     description: 'From submitting issue message',
   },
+  WritterBy: {
+    id: 'Alerts.WritterBy',
+    defaultMessage: 'Writter by',
+    description: 'Label title',
+  },
+  Cancel: {
+    id: 'Alerts.Cancel',
+    defaultMessage: 'Cancel',
+    description: 'Cancel button text',
+  },
 };
 
 const definedMessages: typeof messages = defineMessages(messages);
