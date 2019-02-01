@@ -34,6 +34,7 @@ const Button = ({
       }
 
       .action {
+        display: block;
         border: none;
         cursor: pointer;
         color: ${astronaut};

@@ -4,4 +4,6 @@ export const Alerts = {
   'Alerts.ResponceSubmitted': 'Your response has been submitted.',
   'Alerts.FormIssue': 'There was an issue submitting the form.',
   'Alerts.FormError': 'There was an error submitting your form.',
+  'Alerts.WrittenBy': 'Written by',
+  'Alerts.Cancel': 'Cancel',
 };
