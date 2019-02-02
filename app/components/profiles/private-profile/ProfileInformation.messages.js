@@ -27,9 +27,9 @@ const messages: Messages = {
     defaultMessage: 'Details',
     description: 'Profile statistic label',
   },
-  MyBudges: {
-    id: 'Profile.MyBudges',
-    defaultMessage: 'My Budges',
+  MyBadges: {
+    id: 'Profile.MyBadges',
+    defaultMessage: 'My Badges',
     description: 'Profile statistic label',
   },
   Specialties: {

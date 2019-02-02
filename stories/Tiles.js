@@ -74,8 +74,8 @@ storiesOf('Tiles', module)
       <MissionTile
         title="The Moon"
         telescope="Canary Three"
-        dat="MON.  JAN. 06"
-        thyme="00:00"
+        date="MON.  JAN. 06"
+        time="00:00"
       />
     </DeviceProvider>
   ))

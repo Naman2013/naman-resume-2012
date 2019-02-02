@@ -70,8 +70,8 @@ class Missions extends Component {
                   key={`mission_${key}`}
                   title={objectMissions.missionsList[key].title}
                   telescope={objectMissions.missionsList[key].missionDetails.telescope.itemText}
-                  dat={objectMissions.missionsList[key].missionDetails.date.itemText}
-                  thyme={objectMissions.missionsList[key].missionDetails.time.itemText.slice(0, -4)}
+                  date={objectMissions.missionsList[key].missionDetails.date.itemText}
+                  time={objectMissions.missionsList[key].missionDetails.time.itemText.slice(0, -4)}
                 />
               ))}
             </div>

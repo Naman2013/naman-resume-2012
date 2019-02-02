@@ -9,6 +9,8 @@ import SubPageNavigation from '../../../components/common/sub-page-navigation';
 import { fetchPrivateProfile } from '../../../modules/private-profile/actions';
 import ProfileInformation from '../../../components/profiles/private-profile/ProfileInformation';
 
+import styles from './PrivateProfile.styles';
+
 class PrivateProfile extends Component {
   static propTypes = {
     privateProfileData: PropTypes.shape({}).isRequired,
@@ -51,23 +53,36 @@ class PrivateProfile extends Component {
       },
     },
     profileMenuList: resp.profileMenuList,
+    activityData: {
+      missionsData: {
+        missionCount: resp.missionCount,
+        missionList: resp.missionList,
+        missionListHeading: resp.missionListHeading,
+      },
+      recentMissionsData: {
+        recentMissionCount: resp.recentMissionCount,
+        recentMissionList: resp.recentMissionList,
+      },
+      askAnAstronomerData: resp.askAnAstronomerData,
+    },
   });
 
   render() {
     const { children, privateProfileData } = this.props;
     const modelResult = this.modelData(privateProfileData);
-
+    
     return (
-      <div>
+      <div className="root">
         {modelResult.profileMenuList && (
           <Fragment>
             <ProfileInformation myInformationData={modelResult.myInformationData} />
 
             <SubPageNavigation items={this.generateNavItems(modelResult.profileMenuList)} />
 
-            {cloneElement(children)}
+            {cloneElement(children, { activityData: modelResult.activityData })}
           </Fragment>
         )}
+        <style jsx>{styles}</style>
       </div>
     );
   }
