@@ -1,15 +1,19 @@
 import css from 'styled-jsx/css';
-import { primaryFont, secondaryFont } from 'styles/variables/fonts';
-import { geyser, lightHeadedAstronaut } from 'styles/variables/colors_tiles_v4';
-import { screenMedium } from 'styles/variables/breakpoints';
-
+import { primaryFont, secondaryFont } from '../../../../styles/variables/fonts';
+import {
+  geyser,
+  lightHeadedAstronaut,
+  romance,
+} from '../../../../styles/variables/colors_tiles_v4';
+import { screenMedium } from '../../../../styles/variables/breakpoints';
 
 export default css`
   .root {
     position: relative;
     margin: 40px auto;
     padding: 0;
-    box-shadow: 0px 0px 8px 1px rgba(65,86,113,.2);
+    background-color: ${romance};
+    box-shadow: 0px 0px 8px 1px rgba(65, 86, 113, 0.2);
     width: 100%;
     color: ${lightHeadedAstronaut};
     display: flex;
@@ -55,7 +59,7 @@ export default css`
     display: flex;
   }
 
-  .dat {
+  .date {
     align-self: flex-end;
     font-weight: 400;
     text-transform: uppercase;
@@ -64,7 +68,7 @@ export default css`
     letter-spacing: 1px;
   }
 
-  .thyme {
+  .time {
     align-self: flex-end;
     font-size: 46px;
     line-height: 46px;
@@ -89,11 +93,10 @@ export default css`
     .right {
       flex: 60%;
     }
-    .thyme {
+    .time {
       font-size: 56px;
       line-height: 56px;
       font-weight: 100;
     }
   }
-
 `;

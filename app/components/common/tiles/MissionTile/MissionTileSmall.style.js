@@ -1,12 +1,12 @@
 import css from 'styled-jsx/css';
-import { primaryFont, secondaryFont } from 'styles/variables/fonts';
-import { golda, geyser, lightHeadedAstronaut } from 'styles/variables/colors_tiles_v4';
-
+import { primaryFont, secondaryFont } from '../../../../styles/variables/fonts';
+import { golda, geyser, lightHeadedAstronaut, romance } from '../../../../styles/variables/colors_tiles_v4';
 
 export default css`
   .root {
     margin: 40px auto;
     padding: 40px;
+    background-color: ${romance};
     box-shadow: 0px 0px 8px 1px rgba(65,86,113,.2);
     width: 300px;
     color: ${lightHeadedAstronaut};
@@ -24,7 +24,7 @@ export default css`
     padding-bottom: 10px;
   }
 
-  .thyme {
+  .time {
     font-family: ${primaryFont};
     font-size: 48px;
     font-weight: 100;
@@ -33,7 +33,7 @@ export default css`
     border-bottom: 1px solid ${geyser};
   }
 
-  .thyme:after {
+  .time:after {
     content: "UTC ";
     display: inline-block;
     font-size: 10px;
@@ -48,7 +48,7 @@ export default css`
     padding-top: 10px;
   }
   
-  .dat {
+  .date {
     font-family: ${primaryFont};
     font-weight: 600;
     text-transform: uppercase;

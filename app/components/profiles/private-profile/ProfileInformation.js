@@ -16,7 +16,7 @@ import styles from './ProfileInformation.styles';
 import messages from './ProfileInformation.messages';
 
 const {
-  arrayOf, bool, func, number, shape, string,
+  shape,
 } = PropTypes;
 
 const PROFILE_STATS = {
@@ -26,8 +26,6 @@ const PROFILE_STATS = {
 };
 
 class ProfileInformation extends Component {
-  static defaultProps = {};
-
   static propTypes = {
     myInformationData: shape({
       generalInfo: shape({}).isRequired,
@@ -62,7 +60,7 @@ class ProfileInformation extends Component {
     const { badgesData } = this.props.myInformationData;
     const { intl } = this.props;
     return {
-      tabsList: [intl.formatMessage(messages.MyBudges), intl.formatMessage(messages.Details)],
+      tabsList: [intl.formatMessage(messages.MyBadges), intl.formatMessage(messages.Details)],
       panels: [
         <Badges badgesList={badgesData.badgesList} />,
         null,

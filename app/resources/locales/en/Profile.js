@@ -4,6 +4,6 @@ export const Profile = {
   'Profile.MVP': 'MVP',
   'Profile.Breakdown': 'Breakdown',
   'Profile.Details': 'Details',
-  'Profile.MyBudges': 'My Budges',
+  'Profile.MyBadges': 'My Badges',
   'Profile.Specialties': 'Specialties',
 };
