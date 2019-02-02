@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import PropTypes, { array, string, bool } from 'prop-types';
 import findIndex from 'lodash/findIndex';
 import { FormattedMessage } from 'react-intl';
 import DropDown from 'components/common/DropDown';
@@ -9,9 +9,17 @@ import messages from './question-filter.messages';
 const { func, shape } = PropTypes;
 
 class QuestionFilter extends Component {
-  static propTypes = {};
+  static propTypes = {
+    dropdownOptions: array,
+    countText: string,
+    showDropdown: bool,
+  };
 
-  static defaultProps = {};
+  static defaultProps = {
+    dropdownOptions: null,
+    countText: null,
+    showDropdown: true,
+  };
 
   state = {
     selectedIndex: findIndex(
@@ -52,16 +60,20 @@ class QuestionFilter extends Component {
   };
 
   render() {
-    const { totalCount } = this.props;
+    const {
+      totalCount, dropdownOptions, countText, showDropdown,
+    } = this.props;
     const { selectedIndex } = this.state;
     return (
       <div className="root">
-        <span className="title" dangerouslySetInnerHTML={{ __html: this.countText }} />
-        <DropDown
-          options={this.dropdownOptions}
-          selectedIndex={selectedIndex}
-          handleSelect={this.handleSelect}
-        />
+        <span className="title" dangerouslySetInnerHTML={{ __html: countText || this.countText }} />
+        {showDropdown && (
+          <DropDown
+            options={dropdownOptions || this.dropdownOptions}
+            selectedIndex={selectedIndex}
+            handleSelect={this.handleSelect}
+          />
+        )}
         <style jsx>{styles}</style>
       </div>
     );
