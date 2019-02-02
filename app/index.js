@@ -171,6 +171,7 @@ import './styles/static.scss';
 
 // load monitoring and global error handling
 import './monitoring';
+import MyQa from './components/profiles/private-profile/my-qa/my-qa';
 
 // Create an enhanced history that syncs navigation events with the store
 const history = syncHistoryWithStore(browserHistory, store);
@@ -208,7 +209,11 @@ ReactDOM.render(
           <Route path="about" component={About} onEnter={validateUser}>
             <IndexRedirect to="about-slooh" />
             <Route path="memberships" component={Memberships} />
-            <Route path=":aboutSloohSectionId" component={AboutSloohSection} onEnter={validateUser} />
+            <Route
+              path=":aboutSloohSectionId"
+              component={AboutSloohSection}
+              onEnter={validateUser}
+            />
           </Route>
 
           <Route path="join" component={Join}>
@@ -351,10 +356,7 @@ ReactDOM.render(
             <Route path="my-lists" component={PlaceholderPage} />
           </Route>
 
-          <Route path="qa" component={PlaceholderPage} onEnter={validateUser}>
-            <IndexRedirect to="my-qa" />
-            <Route path="my-qa" component={PlaceholderPage} />
-          </Route>
+          <Route path="qa/:filter" component={MyQa} onEnter={validateUser} />
 
           <Route path="quests(/:filterType)" component={QuestsHub} onEnter={validateUser} />
 
@@ -376,7 +378,7 @@ ReactDOM.render(
               <Route path=":type" component={ImagesLayout} />
             </Route>
           </Route>
-          
+
           {/* <Route path="profile/private" component={UserPrivateProfile} onEnter={validateUser} /> */}
           <Route path="profile/public/:cid" component={UserPublicProfile} onEnter={validateUser} />
 

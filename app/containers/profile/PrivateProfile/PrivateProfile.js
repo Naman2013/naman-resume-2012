@@ -22,7 +22,7 @@ class PrivateProfile extends Component {
 
   render() {
     const { children, privateProfileData } = this.props;
-    
+
     return (
       <div>
         {privateProfileData.profileMenuList && (
