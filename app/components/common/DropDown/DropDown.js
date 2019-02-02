@@ -9,6 +9,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import uniqueId from 'lodash/uniqueId';
+import noop from 'lodash/noop';
 import Select from 'react-select';
 import styles from './DropDown.style';
 
@@ -21,6 +22,7 @@ const {
   oneOfType,
   shape,
   string,
+  object,
 } = PropTypes;
 
 const CustomOption = (props) => (
@@ -36,13 +38,21 @@ class DropDown extends Component {
     placeholder: string,
     options: arrayOf(shape({
       value: oneOfType([number, string]),
-      label: string,
+      label: oneOfType([string, object]),
     })),
     handleSelect: func.isRequired,
+    handleBlur: func,
+    handleMenuClose: func,
+    autoFocus: bool,
+    defaultMenuIsOpen: bool,
   };
 
   static defaultProps = {
     selectedIndex: 0,
+    autoFocus: false,
+    defaultMenuIsOpen: false,
+    handleBlur: noop,
+    handleMenuClose: noop,
   };
 
   handleChange = (selectedOption) => {
@@ -54,19 +64,27 @@ class DropDown extends Component {
       placeholder,
       options,
       selectedIndex,
+      defaultMenuIsOpen,
+      autoFocus,
+      handleMenuClose,
+      handleBlur,
     } = this.props;
 
     return (
       <div className="root">
         <Select
+          defaultMenuIsOpen={defaultMenuIsOpen}
           components={{ Option: CustomOption }}
           defaultValue={options[0]}
           onChange={this.handleChange}
+          onBlur={handleBlur}
+          onMenuClose={handleMenuClose}
           options={options}
           value={options[selectedIndex]}
           isSearchable={false}
           placeholder={placeholder}
           classNamePrefix="slooh-select"
+          autoFocus={autoFocus}
         />
         <style jsx>{styles}</style>
       </div>

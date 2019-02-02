@@ -48,10 +48,10 @@ const Card = (props) => {
     renderReplyButton,
     replyToponlyCount,
     S3Files,
+    title,
     toggleComments,
     showComments,
     showLikePrompt,
-    title,
     user,
   } = props;
 
@@ -74,7 +74,7 @@ const Card = (props) => {
           <span className="date">{moment.utc(creationDate).fromNow()}</span>
         </div>
 
-        <div className="content" dangerouslySetInnerHTML={{ __html: content }} />
+        <div className="content" dangerouslySetInnerHTML={{ __html: content || title }} />
         <div className="explainantion-container">
           <div className="explainantion-item">{moment.utc(creationDate).fromNow()}</div>
           <div className="explainantion-item">{`Likes: ${likesCount} `}  {allowReplies ? <span>&nbsp;{`${commentText}: ${replyToponlyCount}`}</span> : null}</div>

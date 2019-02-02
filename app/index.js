@@ -146,6 +146,9 @@ import PlaceholderPage from './pages/Placeholder';
 import QuestStep from './containers/quest-step';
 import { About, AboutSloohSection } from './containers/about';
 import { PrivateProfile } from './containers/profile';
+import PrivateProfilePhotos from './components/profile-photos/PrivateProfilePhotos';
+import ImagesLayout from './components/profile-photos/ImagesLayout';
+import MissionDetails from './containers/mission-details/MissionDetails';
 
 import DashboardPage from 'components/Dashboard';
 
@@ -169,6 +172,7 @@ import './styles/static.scss';
 // load monitoring and global error handling
 import './monitoring';
 import MyListsHub from './components/profiles/private-profile/my-lists';
+import MyQa from './components/profiles/private-profile/my-qa/my-qa';
 
 // Create an enhanced history that syncs navigation events with the store
 const history = syncHistoryWithStore(browserHistory, store);
@@ -350,10 +354,7 @@ ReactDOM.render(
 
           <Route path="lists/my-lists/:filterType" component={MyListsHub} onEnter={validateUser} />
 
-          <Route path="qa" component={PlaceholderPage} onEnter={validateUser}>
-            <IndexRedirect to="my-qa" />
-            <Route path="my-qa" component={PlaceholderPage} />
-          </Route>
+          <Route path="qa/:filter" component={MyQa} onEnter={validateUser} />
 
           <Route path="quests(/:filterType)" component={QuestsHub} onEnter={validateUser} />
 
@@ -365,10 +366,17 @@ ReactDOM.render(
           />
           <Route path="quest-details/:questId/:step" component={QuestStep} onEnter={validateUser} />
 
+          <Route path="missions-details/:missionId" component={MissionDetails} />
+
           <Route path="profile/private" component={PrivateProfile} onEnter={validateUser}>
-            {/* <IndexRedirect to="activity" /> */}
+            <IndexRedirect to="photos" />
             {/* <Route path=":profileSectionId" component={PrivateProfileSection} onEnter={validateUser} /> */}
+            <Route path="photos" component={PrivateProfilePhotos}>
+              <IndexRedirect to="photoroll" />
+              <Route path=":type" component={ImagesLayout} />
+            </Route>
           </Route>
+
           {/* <Route path="profile/private" component={UserPrivateProfile} onEnter={validateUser} /> */}
           <Route path="profile/public/:cid" component={UserPublicProfile} onEnter={validateUser} />
 

@@ -89,14 +89,6 @@ export default injectIntl(class MyListsHub extends React.Component {
       });
     };
 
-    // createClub = () => {
-    //   browserHistory.push( this.state.createClubLinkUrl );
-    // }
-
-    // importGoogleClassrooms = () => {
-    //   browserHistory.push( this.state.importGoogleClassroomsURL );
-    // }
-
     // submitRequestForm = ({
     //   requestFormTitle,
     //   requestFormText,
@@ -172,11 +164,15 @@ export default injectIntl(class MyListsHub extends React.Component {
       const tiles = this.state.tiles.map(x => ({
         title: x.itemTitle,
         eventTitle: x.itemTitle,
+        eventId:x.itemId,
         postId: x.itemId,
         itemId: x.itemId,
-        author: x.subTitle,
+        author: x.author,
+        guideAuthor: x.author,
         shortDescription: x.description,
         linkUrl: x.linkURL,
+        linkLabel:x.linkLabel,
+        guideReferenceTitle: x.itemTitle,
         imageUrl: x.imageURL,
         promptIconUrl: x.promptIconUrl,
         readingListType: x.readingListType,

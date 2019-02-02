@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import DefaultButton from 'components/common/style/buttons/Button';
-import StaticCell from 'components/object-details/grid/StaticCell';
+import StaticCell from 'components/common/grid/StaticCell';
 import style from './telescope-detail.style';
 
 const tileStyle = { minHeight: 'auto' };
