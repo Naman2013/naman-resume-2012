@@ -2,7 +2,6 @@
  * V4 Private Profile Activity
  *
  ********************************** */
-
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import uniqueId from 'lodash/uniqueId';
@@ -31,7 +30,7 @@ class ProfileActivity extends Component {
 
   render() {
     const { missionsData, recentMissionsData } = this.props.activityData;
-
+    
     return (
       <div className="profile-activity">
         {missionsData.missionCount > 0 && (
@@ -59,14 +58,13 @@ class ProfileActivity extends Component {
               <ContainerWithTitle
                 title={recentMissionsData.recentMissionListHeading || 'Recent Missions'}
               >
-                {recentMissionsData.missionsList.map(item => (
+                {recentMissionsData.recentMissionList.map(item => (
                   <MissionTile
                     key={`recent_mission_${uniqueId()}`}
                     title={item.missionTitle}
                     telescope={item.telescopePierName}
                     date={this.getMissionDate(item.missionStart)}
                     time={this.getMissionTime(item.missionStart)}
-                    timezone={item.missionStartTZ}
                   />
                 ))}
               </ContainerWithTitle>
