@@ -61,7 +61,7 @@ class StoriesTiles extends Component {
                 <StoryTile {...story} isMobile={isMobile} photoSize={100} />
               </div>
               <div className={classnames('excerpt', {
-                'show-excerpt': activeId === story.postId,
+                'show-excerpt': activeId == story.postId,
               })}>
                 <StoryExcerptTile {...story} updateReadingInfoInList={updateReadingListInfo} />
               </div>

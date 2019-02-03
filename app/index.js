@@ -172,6 +172,7 @@ import './styles/static.scss';
 
 // load monitoring and global error handling
 import './monitoring';
+import MyListsHub from './components/profiles/private-profile/my-lists';
 import MyQa from './components/profiles/private-profile/my-qa/my-qa';
 
 // Create an enhanced history that syncs navigation events with the store
@@ -352,11 +353,6 @@ ReactDOM.render(
           <Route path="community/post/:postId" component={StoryDetails} onEnter={validateUser} />
           <Route path="stories/:filterType/create" component={CreateStory} onEnter={validateUser} />
 
-          <Route path="lists" component={PlaceholderPage} onEnter={validateUser}>
-            <IndexRedirect to="my-lists" />
-            <Route path="my-lists" component={PlaceholderPage} />
-          </Route>
-
           <Route path="qa/:filter" component={MyQa} onEnter={validateUser} />
 
           <Route path="quests(/:filterType)" component={QuestsHub} onEnter={validateUser} />
@@ -378,6 +374,7 @@ ReactDOM.render(
               <IndexRedirect to="photoroll" />
               <Route path=":type" component={ImagesLayout} />
             </Route>
+            <Route path="lists/:filterType" component={MyListsHub} />
           </Route>
 
           {/* <Route path="profile/private" component={UserPrivateProfile} onEnter={validateUser} /> */}

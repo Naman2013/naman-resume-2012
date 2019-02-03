@@ -76,7 +76,6 @@ class Groups extends Component {
       createClubLinkUrl: result.createNewClubLinkUrl,
       importGoogleClassroomsURL: result.importGoogleClassroomsURL,
     }));
-
   }
 
   updateGroupsList = (resData) => {
