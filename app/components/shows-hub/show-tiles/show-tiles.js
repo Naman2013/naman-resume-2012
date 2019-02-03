@@ -58,7 +58,7 @@ class ShowTiles extends Component {
                 <ShowTile {...show} />
               </div>
               <div className={classnames('excerpt', {
-                'show-excerpt': activeId === show.eventId,
+                'show-excerpt': activeId == show.eventId,
               })}>
                 <ShowExcerptTile {...show} updateReadingInfoInList={updateReadingListInfo} />
               </div>

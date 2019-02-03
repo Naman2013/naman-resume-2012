@@ -6,4 +6,10 @@ export const Profile = {
   'Profile.Details': 'Details',
   'Profile.MyBudges': 'My Budges',
   'Profile.Specialties': 'Specialties',
+  'Profile.Objects': 'Objects',
+  'Profile.Shows': 'Shows',
+  'Profile.Stories': 'Stories',
+  'Profile.Guides': 'Guides',
+  'Profile.Loading': 'Loading...',
+  'Profile.NoTiles': 'You have no items'
 };

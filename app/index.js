@@ -352,8 +352,6 @@ ReactDOM.render(
           <Route path="community/post/:postId" component={StoryDetails} onEnter={validateUser} />
           <Route path="stories/:filterType/create" component={CreateStory} onEnter={validateUser} />
 
-          <Route path="lists/my-lists/:filterType" component={MyListsHub} onEnter={validateUser} />
-
           <Route path="qa/:filter" component={MyQa} onEnter={validateUser} />
 
           <Route path="quests(/:filterType)" component={QuestsHub} onEnter={validateUser} />
@@ -375,6 +373,7 @@ ReactDOM.render(
               <IndexRedirect to="photoroll" />
               <Route path=":type" component={ImagesLayout} />
             </Route>
+            <Route path="lists/:filterType" component={MyListsHub} />
           </Route>
 
           {/* <Route path="profile/private" component={UserPrivateProfile} onEnter={validateUser} /> */}

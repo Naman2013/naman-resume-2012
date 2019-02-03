@@ -1,199 +1,185 @@
 import React, { Fragment } from 'react';
+import { injectIntl } from 'react-intl';
+import HubContainer from '../../common/HubContainer';
 import Request from '../../common/network/Request';
-import HubContainer from 'components/common/HubContainer';
-import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
-import ShowMoreWithNetwork from 'components/common/show-more-with-network';
-import { GROUPS_PAGE_ENDPOINT_URL, GET_GROUPS } from 'services/community-groups';
-import Button from 'components/common/style/buttons/Button';
-import { DeviceContext } from 'providers/DeviceProvider';
-import { intlShape, injectIntl } from 'react-intl';
+import { DeviceContext } from '../../../providers/DeviceProvider';
 import { GET_READING_LIST } from '../../../services/profile';
-import LailaTile from '../../common/tiles/LailaTile';
+import GuideTopics from '../../guides/GuideTopics';
 import StoryTiles from '../../stories-hub/stories-tiles';
 import GuideTiles from '../../guides-hub/guide-tiles';
 import ShowTiles from '../../shows-hub/show-tiles';
+import messages from './my-lists.messages';
 
 const readingListModel = {
   name: 'READING_LIST_MODEL',
   model: resp => ({
     filterOptions: resp.navigationConfig,
-    // sortOptions: resp.filterOptions.options,
   }),
 };
 
-const filterOptions = [
-  {
-    title: 'Objects',
-    linkURL: '/lists/my-lists/object',
-  },
-  {
-    title: 'Stories',
-    linkURL: '/lists/my-lists/story',
-  },
-  {
-    title: 'Shows',
-    linkURL: '/lists/my-lists/show',
-  },
-  {
-    title: 'Guides',
-    linkURL: '/lists/my-lists/guide',
-  },
-];
-
-const GetTiles = (filterType, props) => {
-  switch (filterType) {
-    case 'object':
-      return <LailaTile {...props} />;
-    case 'story':
-      return <StoryTiles {...props} />;
-    case 'guide':
-      return <GuideTiles {...props} />;
-    case 'show':
-      return <ShowTiles {...props} />;
-    default:
-      return null;
-  }
-};
-
 export default injectIntl(class MyListsHub extends React.Component {
-    state = {
-      tiles: [],
-    };
+  state = {
+    tiles: [],
+  };
 
-    updateGroupsList = (resData) => {
-      this.setState(() => ({
-        tiles: resData.itemList,
-      }));
-    };
+  getModeledTiles = (filterType) => {
+    const { tiles } = this.state;
+    switch (filterType) {
+      case 'story':
+        return tiles.map(x => ({
+          iconURL: x.imageURL,
+          imageUrl: x.imageURL,
+          title: x.itemTitle,
+          postId: x.itemId,
+          author: x.author || 'PLACEHOLDER AUTHOR',
+          linkLabel: x.linkLabel || 'BUTTON',
+          linkUrl: x.linkURL,
+          promptIconUrl: x.promptIconUrl,
+          readingListPrompt: x.readingListPrompt,
+          readingListType: x.readingListType,
+          shortDescription: x.shortDescroption || 'PLACEHOLDER DESCRIPTION',
+          toggleReadingListFlag: x.toggleReadingListFlag,
+          toggleFollowConfirmationFlag: x.toggleFollowConfirmationFlag,
+          toggleFollowConfirmationPrompt: x.toggleFollowConfirmationPrompt,
+        }));
+      case 'show':
+        return tiles.map(x => ({
+          eventTitle: x.itemTitle,
+          linkUrl: x.linkURL,
+          eventId: x.itemId,
+          airdateDisplay: x.displayDate || 'PLACEHOLDER DATE',
+          linkLabel: x.linkLabel || 'BUTTON',
+          promptIconUrl: x.promptIconUrl,
+          readingListPrompt: x.readingListPrompt,
+          readingListType: x.readingListType,
+          shortDescription: x.shortDescroption || 'PLACEHOLDER DESCRIPTION',
+          toggleReadingListFlag: x.toggleReadingListFlag,
+          toggleFollowConfirmationFlag: x.toggleFollowConfirmationFlag,
+          toggleFollowConfirmationPrompt: x.toggleFollowConfirmationPrompt,
+        }));
+      case 'guide':
+        return tiles.map(x => ({
+          title: x.itemTitle,
+          linkUrl: x.linkURL,
+          guideAuthor: x.author || 'PLACEHOLDER AUTHOR',
+          guideId: x.itemId,
+          guideReferenceTitle: x.itemTitle,
+          linkLabel: x.linkLabel || 'BUTTON',
+          promptIconUrl: x.promptIconUrl,
+          readingListPrompt: x.readingListPrompt,
+          readingListType: x.readingListType,
+          shortDescription: x.shortDescroption || 'PLACEHOLDER DESCRIPTION',
+          toggleReadingListFlag: x.toggleReadingListFlag,
+          toggleFollowConfirmationFlag: x.toggleFollowConfirmationFlag,
+          toggleFollowConfirmationPrompt: x.toggleFollowConfirmationPrompt,
+        }));
+      case 'object':
+        return tiles.map(x => ({
+          title: x.title,
+          linkURL: x.linkUrl,
+          iconURL: x.objectIconUrl,
+        }));
+      default:
+        return tiles;
+    }
+  };
 
-    updateGroupItemInfo = (id, resData) => {
-      let newItemsList = [].concat(this.state.tiles);
-      newItemsList = newItemsList.map((item) => {
-        if (item.itemId === id) {
-          return Object.assign(item, resData);
-        }
-        return item;
-      });
+  updateTilesList = (resData) => {
+    this.setState(() => ({
+      tiles:
+        this.props.params.filterType === 'object'
+          ? resData.interestsList
+          : resData.itemList,
+    }));
+  };
 
-      this.setState(() => ({
-        items: newItemsList,
-      }));
-    };
+  GetTiles = (filterType, props) => {
+    const tiles = this.getModeledTiles(filterType);
+    switch (filterType) {
+      case 'object':
+        return <GuideTopics {...props} list={tiles} />;
+      case 'story':
+        return <StoryTiles {...props} stories={tiles} />;
+      case 'guide':
+        return <GuideTiles {...props} guides={tiles} />;
+      case 'show':
+        return <ShowTiles {...props} shows={tiles} />;
+      default:
+        return null;
+    }
+  };
 
-    appendToGroupsList = (resData) => {
-      this.setState((state) => {
-        const tiles = [].concat(state.groups, resData.itemList);
-        return {
-          tiles,
-        };
-      });
-    };
+  updateItemInfo = (id, resData) => {
+    let newItemsList = [].concat(this.state.tiles);
+    newItemsList = newItemsList.map((item) => {
+      if (item.itemId == id) {
+        return Object.assign(item, resData);
+      }
+      return item;
+    });
 
-    // submitRequestForm = ({
-    //   requestFormTitle,
-    //   requestFormText,
-    //   requestFormPrivacy,
-    // }) => {
-    //   const { actions, user, intl } = this.props;
-    //   requestGroup({
-    //     at: user.at,
-    //     token: user.token,
-    //     cid: user.cid,
-    //     title: requestFormTitle,
-    //     access: requestFormPrivacy,
-    //     definition: requestFormText,
-    //   })
-    //     .then((res) => {
-    //       if (!res.data.apiError) {
-    //         this.setState({
-    //           showPrompt: res.data.showResponse,
-    //           promptText: (<RequestGroupFormFeedback
-    //             promptText={res.data.response}
-    //             closeForm={this.closeModal}
-    //             requestNew={this.requestGroup}
-    //           />),
-    //         });
-    //       } else {
-    //         this.setState({
-    //           showPrompt: true,
-    //           promptText: (<RequestGroupFormFeedback
-    //             promptText={intl.formatMessage(messages.errorSubmitting)}
-    //             closeForm={this.closeModal}
-    //             requestNew={this.requestGroup}
-    //           />),
-    //         });
-    //       }
-    //       actions.validateResponseAccess(res);
-    //     });
-    // }
+    this.setState(() => ({
+      items: newItemsList,
+    }));
+  };
 
-    // requestGroup = () => {
-    //   this.setState({
-    //     showPrompt: true,
-    //     promptText: <RequestGroupForm
-    //       submitForm={this.submitRequestForm}
-    //       closeForm={this.closeModal}
-    //     />
-    //   });
-    // }
+  appendToTilesList = (resData) => {
+    this.setState((state) => {
+      const tiles = [].concat(
+        state.tiles,
+        this.props.params.filterType === 'object'
+          ? resData.interestsList
+          : resData.itemList,
+      );
+      return {
+        tiles,
+      };
+    });
+  };
 
-    // updatePrompt = (data) => {
-    //   this.setState({
-    //     showPrompt: data.showPrompt,
-    //     promptText: <PromptWithClose
-    //       promptText={data.promptText}
-    //       closeForm={this.closeModal}
-    //     />,
-    //   })
-    // }
+  clearTiles = () => {
+    this.setState({ tiles: [] });
+  };
 
-    // closeModal = () => {
-    //   this.setState({
-    //     showPrompt: false,
-    //     promptText: '',
-    //   });
-    // }
+  render() {
+    const { intl } = this.props;
 
-    clearGroups = () => {
-      this.setState({
-        tiles: [],
-      });
-    };
+    const api =
+      this.props.params.filterType === 'object'
+        ? '/api/page/getPrivateProfile'
+        : GET_READING_LIST;
+    const count = this.props.params.filterType === 'object' ? 0 : 9;
 
-    render() {
-      const tiles = this.state.tiles.map(x => ({
-        title: x.itemTitle,
-        eventTitle: x.itemTitle,
-        eventId:x.itemId,
-        postId: x.itemId,
-        itemId: x.itemId,
-        author: x.author,
-        guideAuthor: x.author,
-        shortDescription: x.description,
-        linkUrl: x.linkURL,
-        linkLabel:x.linkLabel,
-        guideReferenceTitle: x.itemTitle,
-        imageUrl: x.imageURL,
-        promptIconUrl: x.promptIconUrl,
-        readingListType: x.readingListType,
-        toggleReadingListFlag: true,
-        readingListPrompt: x.readingListPrompt,
-        actionIconUrl: x.actionIconUrl,
-        toggleFollowConfirmationFlag: true,
+    const filterOptions = [
+      {
+        title: intl.formatMessage(messages.Objects),
+        linkURL: '/profile/private/lists/object',
+      },
+      {
+        title: intl.formatMessage(messages.Stories),
+        linkURL: '/profile/private/lists/story',
+      },
+      {
+        title: intl.formatMessage(messages.Shows),
+        linkURL: '/profile/private/lists/show',
+      },
+      {
+        title: intl.formatMessage(messages.Guides),
+        linkURL: '/profile/private/lists/guide',
+      }
+    ];
 
-      }));
-      const { intl } = this.props;
-      return (
-        <div>
-          <Request
-            serviceURL={GET_READING_LIST}
-            model={readingListModel}
-            requestBody={{ readingListType: this.props.params.filterType }}
-            render={({
-              fetchingContent,
-              modeledResponses: { GROUP_HUB_MODEL },
-              serviceResponse = {},
-            }) => (
+    return (
+      <div>
+        <Request
+          serviceURL={api}
+          model={readingListModel}
+          requestBody={{ readingListType: this.props.params.filterType }}
+          render={({
+            fetchingContent,
+            modeledResponses: { GROUP_HUB_MODEL },
+            serviceResponse = {}
+          }) => (
               <Fragment>
                 {!fetchingContent && (
                   <DeviceContext.Consumer>
@@ -202,42 +188,42 @@ export default injectIntl(class MyListsHub extends React.Component {
                         {...this.props}
                         filterOptions={filterOptions}
                         {...context}
-                        hubName="reading_list"
-                        paginateURL={GET_READING_LIST}
+                        hubName='reading_list'
+                        paginateURL={api}
                         page={1}
-                        count={9}
+                        count={count}
                         // user={user}
-                        filterTypeFieldName="readingListType"
+                        filterTypeFieldName='readingListType'
                         // validateResponseAccess={actions.validateResponseAccess}
                         responseFieldNames={{
                           currentCount: 'groupsCount',
                           totalCount: 'resultsCount',
                         }}
-                        updateList={this.updateGroupsList}
-                        appendToList={this.appendToGroupsList}
-                        iconURL={serviceResponse.pageIconURL}
-                        pageTitle={serviceResponse.pageTitle}
+                        updateList={this.updateTilesList}
+                        appendToList={this.appendToTilesList}
+                        pageTitle={serviceResponse.listTitle}
                         filterType={this.props.params.filterType}
-                        clearTiles={this.clearGroups}
+                        clearTiles={this.clearTiles}
+                        useSort={false}
+                        showHeaderIcon={false}
                         render={() => (
                           <Fragment>
-                            {/* {fetchingContent ? (
-                            <div>{intl.formatMessage(messages.loading)}</div>
-                          ) : null} */}
+                            {fetchingContent ? (
+                              <div>{intl.formatMessage(messages.Loading)}</div>
+                            ) : null}
 
-                            {!fetchingContent && tiles.length
-                              ? GetTiles(this.props.params.filterType, {
+                            {!fetchingContent &&
+                              this.state.tiles &&
+                              this.state.tiles.length ? (
+                                this.GetTiles(this.props.params.filterType, {
                                   closeModal: this.closeModal,
-                                  updateReadingListInfo: this.updateGroupItemInfo,
+                                  updateReadingListInfo: this.updateItemInfo,
                                   updatePrompt: this.updatePrompt,
-                                  stories: tiles,
-                                  guides: tiles,
-                                  shows: tiles,
                                   isMobile: context.isMobile,
                                 })
-                              : ''
-                                // <div>{intl.formatMessage(messages.noGroups)}</div>
-                            }
+                              ) : (
+                                <div>{intl.formatMessage(messages.NoTiles)}</div>
+                              )}
                           </Fragment>
                         )}
                       />
@@ -246,8 +232,9 @@ export default injectIntl(class MyListsHub extends React.Component {
                 )}
               </Fragment>
             )}
-          />
-        </div>
-      );
-    }
-});
+        />
+      </div>
+    );
+  }
+}
+);
