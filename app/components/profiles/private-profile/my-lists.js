@@ -3,7 +3,7 @@ import { injectIntl } from 'react-intl';
 import HubContainer from '../../common/HubContainer';
 import Request from '../../common/network/Request';
 import { DeviceContext } from '../../../providers/DeviceProvider';
-import { GET_READING_LIST } from '../../../services/profile';
+import { GET_READING_LIST, GET_PAGE_PRIVATE_PROFILE } from '../../../services/profile';
 import GuideTopics from '../../guides/GuideTopics';
 import StoryTiles from '../../stories-hub/stories-tiles';
 import GuideTiles from '../../guides-hub/guide-tiles';
@@ -146,7 +146,7 @@ export default injectIntl(class MyListsHub extends React.Component {
 
     const api =
       this.props.params.filterType === 'object'
-        ? '/api/page/getPrivateProfile'
+        ? GET_PAGE_PRIVATE_PROFILE
         : GET_READING_LIST;
     const count = this.props.params.filterType === 'object' ? 0 : 9;
 
