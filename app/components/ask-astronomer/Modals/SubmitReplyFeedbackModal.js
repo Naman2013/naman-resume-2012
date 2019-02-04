@@ -15,14 +15,20 @@ import messages from './SubmitAnswerFeedbackModal.messages';
 const { func, shape, string } = PropTypes;
 
 const SubmitReplyFeedbackModal = (props) => {
-  const { modalActions, message, intl } = props;
+  const { modalActions, message, intl, updateQuestionsList, } = props;
 
   return (
     <form className="root">
       <div className="title">{intl.formatMessage(messages.AskAnAstronomer)}</div>
       <div className="prompt-text" dangerouslySetInnerHTML={{ __html: message }} />
       <div className="actions">
-        <Button onClickEvent={modalActions.closeModal} text={intl.formatMessage(messages.Done)} />
+        <Button
+          onClickEvent={() => {
+            updateQuestionsList();
+            modalActions.closeModal();
+          }}
+          text={intl.formatMessage(messages.Done)}
+        />
       </div>
       <style jsx>{styles}</style>
     </form>
@@ -37,6 +43,7 @@ SubmitReplyFeedbackModal.propTypes = {
   }).isRequired,
   message: string,
   intl: intlShape.isRequired,
+  updateQuestionsList: func.isRequired,
 };
 
 SubmitReplyFeedbackModal.defaultProps = {

@@ -37,3 +37,6 @@ export const guideCorner = 'https://vega.slooh.com/assets/v4/common/guide_corner
 
 export const googleButton = 'https://vega.slooh.com/assets/v4/icons/google_button.svg';
 export const questShield = 'https://vega.slooh.com/assets/v4/common/quest_shield.png';
+
+export const envelope = 'https://vega.slooh.com/assets/v4/icons/envelope.svg';
+export const phone = 'https://vega.slooh.com/assets/v4/icons/old-phone.svg';

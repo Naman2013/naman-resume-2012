@@ -1,11 +1,12 @@
 import css from 'styled-jsx/css';
 import { screenMedium } from '../../styles/variables/breakpoints';
-import { romance, yellow } from '../../styles/variables/colors_tiles_v4';
+import { romance, yellow, faintGray } from '../../styles/variables/colors_tiles_v4';
 import { primaryFont } from '../../styles/variables/fonts';
 
 export default css`
   .about-section-container {
-    margin-top: 10px;
+    padding-top: 10px;
+    background-color: ${faintGray};
   }
 
   .about-hero {
@@ -72,9 +73,15 @@ export default css`
     margin-top: 17px;
   }
 
+  .store-banner {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+  }
+
   @media ${screenMedium} {
     .about-section-container {
-      margin-top: 40px;
+      padding-top: 40px;
     }
 
     .about-hero {

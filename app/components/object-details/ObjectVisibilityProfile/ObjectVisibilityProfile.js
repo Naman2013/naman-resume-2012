@@ -1,7 +1,7 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import cn from 'classnames';
 import { intlShape, injectIntl } from 'react-intl';
-import getDaysByMonth from 'utils/date-utils/get-days-by-month';
 import Request from 'components/common/network/Request';
 import ViewOurGuide from '../view-our-guide';
 import { RISE_SET_TIMES } from 'services/objects';
@@ -10,27 +10,28 @@ import { GridContainer, Row, StaticCell } from '../../common/grid';
 import style from './ObjectVisibilityProfile.style';
 import messages from './ObjectVisibilityProfile.messages';
 
-import {
-  DEFAULT_MONTH,
-  DEFAULT_DAY,
-  DEFAULT_YEAR,
-  DEFAULT_OBSID,
-  MONTHS,
-  YEARS,
-} from './constants';
+import { DEFAULT_OBSID } from './constants';
 
 const riseSetModel = {
   name: 'RISE_SET_MODEL',
   model: resp => ({
+    obsLabel: resp.obsLabel,
+    riseLabel: resp.riseLabel,
     rise: resp.riseText,
+    transitLabel: resp.transitLabel,
     transit: resp.transitText,
+    setLabel: resp.setLabel,
     set: resp.setText,
+    subtitle: resp.subtitle,
+    title: resp.title,
+    notesLabel: resp.notesLabel,
     notes: resp.notesText,
     guideHeader: resp.linkHeader,
     guideUrl: resp.linkUrl,
     guideLabel: resp.linkLabel,
     guideSubTitle: resp.linkTitle,
     hasRiseAndSetTimes: resp.hasRiseAndSetTimes,
+    riseAndSetSelectors: resp.riseAndSetSelectors,
   }),
 };
 
@@ -40,53 +41,26 @@ class ObjectVisibilityProfile extends Component {
   }
 
   state = {
-    month: DEFAULT_MONTH,
-    day: DEFAULT_DAY,
-    year: DEFAULT_YEAR,
-    obsId: DEFAULT_OBSID,
-  }
-
-  fetchRiseSetData = () => {
-    console.log('TODO: implement rise/set data');
-  }
-
-  handleMonthChange = (event) => {
-    this.setState({ month: event.target.value });
-  }
-
-  handleDayChange = (event) => {
-    this.setState({ day: event.target.value });
-  }
-
-  handleYearChange = (event) => {
-    this.setState({ year: event.target.value });
-  }
-
-  generateDays() {
-    const { day, month, year } = this.state;
-    const days = [];
-    const totalDays = getDaysByMonth(month, year);
-    for (let i = 0; i < totalDays; i += 1) {
-      const value = i + 1;
-      days.push({ value, name: value });
-    }
-
-    // validation for when the selected day exceeds the total days
-    if (day > totalDays) { this.setState({ day: totalDays }); }
-
-    return days;
+    obsId: this.props.defaultObsId ? this.props.defaultObsId : DEFAULT_OBSID,
+    activeDateIndex: 0,
   }
 
   handleObservatoryChange = (event) => {
     this.setState({ obsId: event.target.value });
   }
 
+  handleDateSelect = (dateString, index) => {
+    this.setState({
+      activeDateIndex: index,
+      dateString,
+    });
+  }
+
   render() {
     const {
-      day,
-      month,
-      year,
+      dateString,
       obsId,
+      activeDateIndex,
     } = this.state;
 
     const { objectId, intl } = this.props;
@@ -95,12 +69,11 @@ class ObjectVisibilityProfile extends Component {
       <Request
         serviceURL={RISE_SET_TIMES}
         requestBody={{
-          day,
-          month,
-          year,
+          dateString,
           objectId,
           obsId,
         }}
+        withoutUser
         model={riseSetModel}
         render={({
           fetchingContent,
@@ -119,97 +92,35 @@ class ObjectVisibilityProfile extends Component {
                       <StaticCell
                         flexScale={['100%', '75%']}
                         hasBorderScale={[true]}
-                        title={intl.formatMessage(messages.RiseSetTimes)}
+                        titleHtml={riseSet.title}
                       >
-                        <div className="select-field">
-                          <label
-                            className="option-label"
-                            htmlFor="select-month"
+                        {riseSet.riseAndSetSelectors
+                          // && Array.isArray(riseSet.riseAndSetSelectors.dates)
+                          // && riseSet.riseAndSetSelectors.dates > 0
+                          && riseSet.riseAndSetSelectors.dates.map((date, index) => (
+                          <div
+                            key={date.dateString}
+                            role="button"
+                            tabIndex={index + 1}
+                            className={cn('day-sell', { 'is-active': activeDateIndex === index })}
+                            onClick={() => this.handleDateSelect(date.dateString, index)}
                           >
-                            <span className="field-value-name">
-                              {MONTHS.filter(filterMonth => filterMonth.value == this.state.month)[0].name}
-                            </span>
-                            <img alt="" width="8" src={downwardFacingChevron} />
-                          </label>
-                          <select
-                            className="select"
-                            id="select-month"
-                            value={this.state.month}
-                            onChange={this.handleMonthChange}
-                          >
-                            {MONTHS.map(currentMonth => (
-                              <option
-                                key={`month-select-${currentMonth.value}`}
-                                value={currentMonth.value}
-                              >
-                                {currentMonth.name}
-                              </option>
-                            ))}
-                          </select>
-                        </div>
-
-                        <div className="select-field">
-                          <label
-                            className="option-label"
-                            htmlFor="select-day"
-                          >
-                            <span className="field-value-name">
-                              {this.generateDays().filter(filterDay => filterDay.value == this.state.day)[0].name}
-                            </span>
-                            <img alt="" width="8" src={downwardFacingChevron} />
-                          </label>
-                          <select
-                            className="select"
-                            id="select-day"
-                            value={this.state.day}
-                            onChange={this.handleDayChange}
-                          >
-                            {this.generateDays().map(currentDay => (
-                              <option
-                                key={`day-select-${currentDay.value}`}
-                                value={currentDay.value}
-                              >
-                                {currentDay.name}
-                              </option>
-                            ))}
-                          </select>
-                        </div>
-
-                        <div className="select-field">
-                          <label
-                            className="option-label"
-                            htmlFor="select-year"
-                          >
-                            <span className="field-value-name">
-                              {YEARS.filter(filterYear => filterYear.value == this.state.year)[0].name}
-                            </span>
-                            <img alt="" width="8" src={downwardFacingChevron} />
-                          </label>
-                          <select
-                            className="select"
-                            id="select-year"
-                            value={this.state.year}
-                            onChange={this.handleYearChange}
-                          >
-                            {YEARS.map(currentYear => (
-                              <option
-                                key={`year-select-${currentYear.value}`}
-                                value={currentYear.value}
-                              >
-                                {currentYear.name}
-                              </option>
-                            ))}
-                          </select>
-                        </div>
+                            <div className="day-month" dangerouslySetInnerHTML={{ __html: date.dateLabel }} />
+                          </div>
+                        ))}
+                        <div className="rise-set-subtitle" dangerouslySetInnerHTML={{
+                          __html: riseSet.subtitle,
+                        }}
+                        />
                       </StaticCell>
-                      <StaticCell title="Observatory" flexScale={['100%', '25%']}>
+                      <StaticCell title={riseSet.obsLabel} flexScale={['100%', '25%']}>
                         <div className="select-field">
                           <label
                             className="option-label"
                             htmlFor="select-obsId"
                           >
                             <span className="field-value-name">
-                              {this.state.obsId}
+                              {riseSet.riseAndSetSelectors.observatories[this.state.obsId]}
                             </span>
                             <img alt="" width="8" src={downwardFacingChevron} />
                           </label>
@@ -219,25 +130,26 @@ class ObjectVisibilityProfile extends Component {
                             value={this.state.obsId}
                             onChange={this.handleObservatoryChange}
                           >
-                            <option value="chile">Chile</option>
-                            <option value="teide">Teide</option>
+                            {Object.entries(riseSet.riseAndSetSelectors.observatories).map(obs => (
+                              <option value={obs[0]}>{obs[1]}</option>
+                            ))}
                           </select>
                         </div>
                       </StaticCell>
                     </Row>
                     <Row>
-                      <StaticCell title={intl.formatMessage(messages.Rise)} hasBorderScale={[true]}>
+                      <StaticCell title={riseSet.riseLabel} hasBorderScale={[true]}>
                         <p>{ (fetchingContent) ? `${intl.formatMessage(messages.Loading)}...` : riseSet.rise }</p>
                       </StaticCell>
-                      <StaticCell title={intl.formatMessage(messages.Transit)} hasBorderScale={[true]}>
+                      <StaticCell title={riseSet.setLabel} hasBorderScale={[true]}>
                         <p>{ (fetchingContent) ? `${intl.formatMessage(messages.Loading)}...` : riseSet.transit }</p>
                       </StaticCell>
-                      <StaticCell title={intl.formatMessage(messages.Set)}>
+                      <StaticCell title={riseSet.transitLabel}>
                         <p>{ (fetchingContent) ? `${intl.formatMessage(messages.Loading)}...` : riseSet.set }</p>
                       </StaticCell>
                     </Row>
                     <Row>
-                      <StaticCell title={intl.formatMessage(messages.Notes)}>
+                      <StaticCell title={riseSet.notesLabel}>
                         <p>{ (fetchingContent) ? `${intl.formatMessage(messages.Loading)}...` : riseSet.notes }</p>
                       </StaticCell>
                     </Row>
@@ -262,6 +174,7 @@ class ObjectVisibilityProfile extends Component {
 
 ObjectVisibilityProfile.propTypes = {
   intl: intlShape.isRequired,
+  defaultObsId: PropTypes.string.isRequired,
 };
 
 export default injectIntl(ObjectVisibilityProfile);

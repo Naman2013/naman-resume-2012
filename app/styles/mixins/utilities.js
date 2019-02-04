@@ -1,6 +1,15 @@
 import { primaryFont } from 'styles/variables/fonts';
 import { shadows, romance, darkGrey } from 'styles/variables/colors_tiles_v4';
 
+export const defaultModalContent = {
+  top: '50%',
+  left: '50%',
+  right: 'auto',
+  bottom: 'auto',
+  marginRight: '-50%',
+  transform: 'translate(-50%, -50%)',
+};
+
 export const profilePhotoStyle = photoUrl => ({
   backgroundImage: `url(${photoUrl})`,
   height: '100px',
@@ -8,6 +17,7 @@ export const profilePhotoStyle = photoUrl => ({
   borderRadius: '50%',
   backgroundSize: '100%',
   backgroundPosition: 'center',
+  fontFamily: primaryFont,
 });
 
 export const backgroundImageCover = `
@@ -36,16 +46,10 @@ export const borderRadius = radius => `
 
 export const customModalStyles = {
   content: {
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
+    ...defaultModalContent,
     maxWidth: '650px',
     padding: '25px',
     width: '90vw',
-    fontFamily: primaryFont,
     borderRadius: '0px',
   },
   overlay: {
@@ -55,15 +59,9 @@ export const customModalStyles = {
 
 export const customModalStylesV4 = {
   content: {
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
+    ...defaultModalContent,
     maxWidth: '650px',
     padding: '50px 25px',
-    fontFamily: primaryFont,
   },
   overlay: {
     backgroundColor: 'rgba(255, 255, 255, 0)',
@@ -72,17 +70,11 @@ export const customModalStylesV4 = {
 
 export const customModalStylesFitContent = {
   content: {
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
+    ...defaultModalContent,
     maxWidth: '91vw',
     height: 'fit-content',
     width: 'fit-content',
     padding: '3px',
-    fontFamily: primaryFont,
     backgroundColor: darkGrey,
   },
   overlay: {
@@ -92,17 +84,24 @@ export const customModalStylesFitContent = {
 
 export const customModalStylesBlackOverlay = {
   content: {
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
+    ...defaultModalContent,
     maxWidth: '650px',
     minWidth: '300px',
     border: 0,
     padding: '50px 25px',
-    fontFamily: primaryFont,
+  },
+  overlay: {
+    backgroundColor: 'rgba(0, 0, 0, .7)',
+  },
+};
+
+export const customModalStylesFitDevice = {
+  content: {
+    ...defaultModalContent,
+    maxWidth: '90vw',
+    minWidth: '300px',
+    border: 0,
+    padding: '50px 25px',
   },
   overlay: {
     backgroundColor: 'rgba(0, 0, 0, .7)',

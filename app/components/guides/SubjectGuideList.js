@@ -5,7 +5,7 @@ import style from './SubjectGuideList.style';
 
 const SubjectGuideList = ({ list }) => (
   <ul>
-    {list.map(guide => <li key={`leigh-tile-${guide.title}`}><LeighTile {...guide} /></li>)}
+    {Array.isArray(list) && list.map(guide => <li key={`leigh-tile-${guide.title}`}><LeighTile {...guide} /></li>)}
     <style jsx>{style}</style>
   </ul>
 );

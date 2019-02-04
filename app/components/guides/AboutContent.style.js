@@ -15,6 +15,7 @@ export default css`
   }
 
   .action-read-more {
+    display: block;
     background: none;
     border: none;
     margin: 0 0 32px;
@@ -31,6 +32,7 @@ export default css`
   @media ${screenLarge} {
     .__html-content__ {
       display: inline-block;
+      max-width: 600px;
     }
   }
 `;

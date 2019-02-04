@@ -84,9 +84,43 @@
 				font-size: 12px;
 				padding: 20px;
 			}
+
+			.nojs {
+				position: fixed;
+				top: 0;
+				left: 0;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				background-color: black;
+				width: 100%;
+				height: 100%;
+				z-index: 100;
+			}
+
+			.nojs p {
+				margin: 0 20px;
+				line-height: 20px;
+				font-family: arial, sans-serif;
+				font-size: 15px;
+				text-align: center;
+				color: white;
+			}
+
+			@media screen and (min-width: 480px) {
+				.nojs p {
+					line-height: 30px;
+					font-size: 20px;
+				}
+			}
 		</style>
 	</head>
 	<body>
+		<noscript class="nojs">
+			<p>
+				The Slooh web application requires your web browser to have JavaScript enabled...<br />Please enable JavaScript and try again.
+			</p>
+		</noscript>
 		<div id="app">
 			<div class="slooh-application-loading">
 				<div class="loading-message">

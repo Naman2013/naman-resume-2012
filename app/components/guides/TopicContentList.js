@@ -5,10 +5,10 @@ import AbelList from '../common/AbelList';
 import style from './TopicContentList.style';
 
 const TopicContentList = ({
-  list, theme, topicActionProps, ...restProps
+  list, theme, topicActionProps, topicIconList, ...restProps
 }) => (
   <div style={theme} className="root">
-    {restProps.showContentList && <AbelList list={list} />}
+    {restProps.showContentList && <AbelList list={list} iconList={topicIconList} />}
     <div className="action-container">
       {topicActionProps.showActions && <TopicActions {...topicActionProps} {...restProps} />}
     </div>
@@ -18,6 +18,7 @@ const TopicContentList = ({
 
 TopicContentList.propTypes = {
   list: PropTypes.arrayOf(PropTypes.string),
+  topicIconList: PropTypes.arrayOf(PropTypes.string),
   theme: PropTypes.shape({}),
   topicActionProps: PropTypes.shape({
     followButtonText: PropTypes.string.isRequired,
@@ -28,6 +29,7 @@ TopicContentList.propTypes = {
 
 TopicContentList.defaultProps = {
   list: [],
+  topicIconList: [],
   theme: {},
 };
 

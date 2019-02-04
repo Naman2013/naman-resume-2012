@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 import uniqueId from 'lodash/uniqueId';
 import noop from 'lodash/noop';
 import Button from 'components/common/style/buttons/Button';
-import styles from './Modals.style'
+import styles from './Modals.style';
 
 const {
   any,
@@ -31,13 +31,21 @@ const SubmitQuestionFeedback = (props) => {
     title,
     doneButtonLabel,
     continueButtonLabel,
+    updateQuestionsList
   } = props;
   return (
     <form className="root">
       <div className="title" dangerouslySetInnerHTML={{ __html: title}} />
       <div className="prompt-text" dangerouslySetInnerHTML={{ __html: promptText}} />
       <div className="actions">
-        <Button onClickEvent={modalActions.closeModal} text={doneButtonLabel} theme={{ marginRight: '10px' }} />
+        <Button
+          onClickEvent={() => {
+            updateQuestionsList();
+            modalActions.closeModal();
+          }}
+          text={doneButtonLabel}
+          theme={{ marginRight: '10px' }}
+        />
         <Button onClickEvent={requestQuestion} text={continueButtonLabel} />
       </div>
       <style jsx>{styles}</style>
@@ -54,7 +62,7 @@ SubmitQuestionFeedback.propTypes = {
   }).isRequired,
   promptText: string,
   requestQuestion: func,
-
+  updateQuestionsList: func.isRequired,
 };
 
 SubmitQuestionFeedback.defaultProps = {

@@ -29,7 +29,7 @@ export default css`
   }
 
   .middle-content {
-    width: 100%;
+    width: 50%;
     display: flex;
     flex-flow: row wrap;
     align-content: space-between;
@@ -53,7 +53,7 @@ export default css`
     width: 100%;
     max-width: 400px;
     height: 250px;
-    margin: 0 auto;      
+    margin: 0 auto;
     background: url(${blue_tile_feat});
     text-align: center;
   }
@@ -116,25 +116,7 @@ export default css`
     align-items: center;
   }
 
-  .__html-blob-content-container__ {
-    font-size: 18px;
-  }
-
-  .__html-blob-content-container__,
-  .read-duration {
-    display: none;
-  }
-
-  .__html-blob-content-container__ :global(p) {
-    margin-bottom: 10px;
-  }
-
   @media ${screenMedium} {
-    .__html-blob-content-container__,
-    .read-duration {
-      display: block;
-    }
-
     .middle-content .guide-tile {
       width: 250px;
       margin: 0;
@@ -143,7 +125,7 @@ export default css`
     .text-content {
       padding-right: 40px;
     }
-    
+
     .author-name img,
     .author-name span { display: none; }
 

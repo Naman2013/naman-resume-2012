@@ -122,6 +122,7 @@ class AnswerReplyList extends Component {
       user,
     } = this.props;
     const count = showAllReplies ? paginationCount : 1;
+    const showPagination = showAllReplies && displayedReplies.length > 0 && count < answerReplies.replies.length;
 
     return (<div key={uniqueId()}>
       {numberOfRepliesToAnswer > 0 ? <div className="replies-list-contanier">
@@ -148,7 +149,7 @@ class AnswerReplyList extends Component {
           })}
         </div>
       </div> : null}
-      {showAllReplies && displayedReplies.length > 0 && <PaginateSet
+      {showPagination && <PaginateSet
         handlePageChange={this.handlePageChange}
         fullDataSet={answerReplies.replies}
         count={count}

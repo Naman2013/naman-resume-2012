@@ -7,28 +7,23 @@ import {
   FETCH_OBJECT_DETAILS_SUCCESS,
   FETCH_OBJECT_DETAILS_FAIL,
   RESET_OBJECT_DETAILS,
-
   FETCH_OBJECT_DATA,
   FETCH_OBJECT_DATA_START,
   FETCH_OBJECT_DATA_SUCCESS,
   FETCH_OBJECT_DATA_FAIL,
   RESET_OBJECT_DATA,
-
   FETCH_OBJECT_MISSIONS,
   FETCH_OBJECT_MISSIONS_START,
   FETCH_OBJECT_MISSIONS_SUCCESS,
   FETCH_OBJECT_MISSIONS_FAIL,
-
   FETCH_OBJECT_QUESTS,
   FETCH_OBJECT_QUESTS_START,
   FETCH_OBJECT_QUESTS_SUCCESS,
   FETCH_OBJECT_QUESTS_FAIL,
-
   FETCH_OBJECT_FOLLOW,
   FETCH_OBJECT_FOLLOW_START,
   FETCH_OBJECT_FOLLOW_SUCCESS,
   FETCH_OBJECT_FOLLOW_FAIL,
-
   FETCH_OBJECT_SPECIALISTS,
   FETCH_OBJECT_SPECIALISTS_START,
   FETCH_OBJECT_SPECIALISTS_SUCCESS,
@@ -68,6 +63,12 @@ const initialState = {
         objectType: null,
         domain: null,
         constellation: null,
+      },
+      iconListCount: null,
+      iconList: {
+        constellationIconURL: null,
+        domainIconURL: null,
+        objectTypeIconURL: null,
       },
     },
     hasBestTelescopesFlag: null,
@@ -163,7 +164,6 @@ const initialState = {
 };
 
 export default createReducer(initialState, {
-
   /* DETAILS */
 
   [FETCH_OBJECT_DETAILS_SUCCESS](state, { payload }) {
@@ -241,7 +241,6 @@ export default createReducer(initialState, {
       errorBody: payload,
     };
   },
-
 
   /* QUESTS */
 

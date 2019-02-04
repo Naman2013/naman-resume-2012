@@ -54,11 +54,12 @@ const subjectGuideModel = {
       subTitle: <FormattedMessage {...messages.SubjectsSterlingSubtitle} />,
     },
     subjectGuideListProps: {
-      list: resp.myTopicsNavigationInfo.topicsList.map(({ topicHeading, topicTitle, link }) => ({
-        link,
-        title: topicTitle,
-        anchorText: topicHeading,
-      })),
+      list: resp.myTopicsNavigationInfo
+        && resp.myTopicsNavigationInfo.topicsList.map(({ topicHeading, topicTitle, link }) => ({
+          link,
+          title: topicTitle,
+          anchorText: topicHeading,
+        })),
     },
   }),
 };
@@ -84,7 +85,10 @@ const SubjectGuides = ({ params: { guideId } }) => (
                 <GuideSection {...SUBJECT_GUIDE_MODEL.guideSectionProps} guideId={guideId} />
               </CenterColumn>
               <GuidePanels guideId={guideId} />
-              <SterlingTitle {...SUBJECT_GUIDE_MODEL.sterlingTitleProps} />
+
+              {Array.isArray(SUBJECT_GUIDE_MODEL.subjectGuideListProps.list)
+                && SUBJECT_GUIDE_MODEL.subjectGuideListProps.list.length > 0
+                && <SterlingTitle {...SUBJECT_GUIDE_MODEL.sterlingTitleProps} />}
 
               <CenterColumn>
                 <SubjectGuideList {...SUBJECT_GUIDE_MODEL.subjectGuideListProps} />

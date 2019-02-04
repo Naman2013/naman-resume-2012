@@ -96,6 +96,7 @@ class AnswerList extends Component {
     displayedReplies: shape({}),
     displayedAnswers: arrayOf(any),
     objectId: string.isRequired,
+    updateQuestionsList: func.isRequired,
   }
 
   handlePageChange = (paginatedSet, page) => {
@@ -104,6 +105,7 @@ class AnswerList extends Component {
       threadId,
     } = this.props;
     // make call to update page and displayed answers here
+    
     actions.updateAnswersDisplayList({
       page,
       threadId,
@@ -133,9 +135,12 @@ class AnswerList extends Component {
       threadId,
       topicId,
       user,
+      updateQuestionsList,
     } = this.props;
     const { showAllAnswers } = answers;
     const count = showAllAnswers ? paginationCount : 1;
+    const showPagination = showAllAnswers && displayedAnswers.length > 0 && count < answers.replies.length;
+
     return (<div key={threadId}>
       {numberOfAnswersToThread > 0 ? <div className="replies-list-contanier">
         <div className="num-replies">
@@ -182,9 +187,10 @@ class AnswerList extends Component {
               topicId={topicId}
               user={user}
               modalActions={modalActions}
+              updateQuestionsList={updateQuestionsList}
             />);
           })}
-          {showAllAnswers && displayedAnswers.length > 0 && <PaginateSet
+          {showPagination && <PaginateSet
             handlePageChange={this.handlePageChange}
             fullDataSet={answers.replies}
             count={count}

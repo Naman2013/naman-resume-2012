@@ -11,7 +11,6 @@ export default css`
     color: ${lightHeadedAstronaut};
     padding: 30px;
     border-bottom: 1px solid;
-    min-height: 130px;
   }
 
   .positioning-container {
