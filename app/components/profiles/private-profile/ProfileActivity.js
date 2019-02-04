@@ -2,6 +2,7 @@
  * V4 Private Profile Activity
  *
  ********************************** */
+
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import uniqueId from 'lodash/uniqueId';
@@ -10,6 +11,7 @@ import moment from 'moment';
 import { ContainerWithTitle } from '../../common/ContainerWithTitle';
 import CenterColumn from '../../common/CenterColumn';
 import MissionTile from '../../common/tiles/MissionTile';
+import { ProfileActivityQa } from '../../../containers/profile/PrivateProfile';
 import styles from './ProfileActivity.styles';
 
 const { shape } = PropTypes;
@@ -21,6 +23,7 @@ class ProfileActivity extends Component {
     activityData: shape({
       missionsData: shape({}).isRequired,
       recentMissionsData: shape({}).isRequired,
+      askAnAstronomerData: shape({}).isRequired,
     }).isRequired,
   };
 
@@ -29,8 +32,8 @@ class ProfileActivity extends Component {
   getMissionTime = timestamp => moment.unix(timestamp).format('HH:mm');
 
   render() {
-    const { missionsData, recentMissionsData } = this.props.activityData;
-    
+    const { missionsData, recentMissionsData, askAnAstronomerData } = this.props.activityData;
+
     return (
       <div className="profile-activity">
         {missionsData.missionCount > 0 && (
@@ -68,6 +71,14 @@ class ProfileActivity extends Component {
                   />
                 ))}
               </ContainerWithTitle>
+            </CenterColumn>
+          </div>
+        )}
+
+        {askAnAstronomerData.showAskAnAstronomer && (
+          <div className="profile-section">
+            <CenterColumn>
+              <ProfileActivityQa askAnAstronomerData={askAnAstronomerData} />
             </CenterColumn>
           </div>
         )}

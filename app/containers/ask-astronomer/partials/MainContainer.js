@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import noop from 'lodash/noop';
-import QuestionList from 'components/ask-astronomer/question-list';
-import Filter from 'components/ask-astronomer/question-filter';
+import QuestionList from '../../../components/ask-astronomer/question-list';
+import Filter from '../../../components/ask-astronomer/question-filter';
 import styles from '../AskAstronomer.style';
 
 const {
