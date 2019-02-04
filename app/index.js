@@ -374,7 +374,10 @@ ReactDOM.render(
               <IndexRedirect to="photoroll" />
               <Route path=":type" component={ImagesLayout} />
             </Route>
-            <Route path="lists/:filterType" component={MyListsHub} />
+            <Route path="lists">
+              <IndexRedirect to="object" />
+              <Route path=":filterType" component={MyListsHub} />
+            </Route>
           </Route>
 
           {/* <Route path="profile/private" component={UserPrivateProfile} onEnter={validateUser} /> */}
