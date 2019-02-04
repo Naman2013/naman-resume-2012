@@ -47,6 +47,11 @@ const messages: Messages = {
     defaultMessage: 'Write your public reply',
     description: 'AskAnAstronomer Reply Placeholder',
   },
+  ReplySuccessText: {
+    id: 'AskAnAstronomer.ReplySuccessText',
+    defaultMessage: 'You reply has been submitted!',
+    description: 'AskAnAstronomer Answer Success Text',
+  },
 };
 
 const definedMessages: typeof messages = defineMessages(messages);

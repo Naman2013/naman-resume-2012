@@ -1,6 +1,6 @@
 import css from 'styled-jsx/css';
 import { primaryFont, secondaryFont } from '../../styles/variables/fonts';
-import { screenMedium } from '../../styles/variables/breakpoints';
+import { screenMedium, screenLarge } from '../../styles/variables/breakpoints';
 import {
   hawkesBlue,
   romance,
@@ -55,6 +55,14 @@ export default css`
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    margin-left: -10px;
+    margin-right: -10px;
+  }
+
+  .card-container__specialists > :global(*) {
+    width: 100%;
+    padding: 0 10px;
+    margin: 0 10px;
   }
 
   .error-message {
@@ -62,45 +70,36 @@ export default css`
     padding-bottom: 50px;
   }
 
-  .specialists-card {
-    background-color: ${romance};
-    width: 90%;
-    height: 200px;
-    padding: 25px;
-    margin: 25px auto;
-    min-width: 28%;
-    box-shadow: 0px 0px 3px 1px rgba(0, 0, 0, 0.1);
-    transition: width 0.4s ease-in-out, height 0.4s ease-in-out;
+  .related-show {
+    width: 330px;
+    height: 330px;
+    background: url('https://vega.slooh.com/assets/v4/common/show_card_bg.jpg');
+    background-size: cover;
+    cursor: pointer;
   }
 
-  .specialists-card h5 {
+  .related-show-title {
     font-family: ${secondaryFont};
-    color: ${lightHeadedAstronaut};
+    font-weight: 100;
     font-size: 20px;
-    border-bottom: 1px solid ${hawkesBlue};
-    padding: 15px 0;
-  }
-
-  .specialists-card a {
-    font-size: 10px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-weight: 600;
-    color: ${lightHeadedAstronaut};
-    font-family: ${primaryFont};
-  }
-
-  .specialists-icon {
-    background-color: ${midnight_express};
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    object-fit: cover;
+    padding-top: 80px;
+    width: 80%;
+    margin: 0 auto;
+    font-weight: 100;
+    color: ${romance};
+    text-align: center;
   }
 
   @media ${screenMedium} {
-    .specialists-card {
-      width: 100%;
+    .card-container__specialists > :global(*) {
+      margin: 0;
+    }
+  }
+
+  @media ${screenLarge} {
+    .card-container__specialists > :global(*) {
+      width: 33%;
+      margin: 0;
     }
   }
 `;

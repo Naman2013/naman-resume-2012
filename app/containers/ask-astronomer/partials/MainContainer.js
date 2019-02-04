@@ -34,7 +34,8 @@ const MainContainer = ({
   questionFilter,
   submitAnswer,
   totalCount,
-  user={user}
+  user={user},
+  updateQuestionsList,
 }) => (
   <div>
 
@@ -59,6 +60,7 @@ const MainContainer = ({
       totalCount={totalCount}
       modalActions={modalActions}
       user={user}
+      updateQuestionsList={updateQuestionsList}
     />}
     <style jsx>{styles}</style>
   </div>
@@ -81,6 +83,7 @@ MainContainer.propTypes = {
     setModal: func,
     showModal: func,
   }).isRequired,
+  updateQuestionsList: func,
 };
 
 MainContainer.defaultProps = {
@@ -95,6 +98,6 @@ MainContainer.defaultProps = {
   page: 1,
   questions: [],
   totalCount: 0,
-
+  updateQuestionsList: {},
 };
 export default MainContainer;

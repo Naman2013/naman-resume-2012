@@ -12,28 +12,26 @@ const ObjectProfile = ({
   visibilitySeason,
   bestTelescope,
   midnightCulmination,
-  intl,
 }) => (
   <GridContainer>
     <Row>
-      <StaticCell title={intl.formatMessage(messages.ScientificName)} flexScale={['100%']}>
+      <StaticCell title={objectSpecs.nameLabel} flexScale={['100%']}>
         <p>{scienceName}</p>
       </StaticCell>
     </Row>
 
     <Row wrap>
       <StaticCell
-        title={intl.formatMessage(messages.CelestialCoordinates)}
+        title={objectSpecs.coordinatesLabel}
         flexScale={['100%', '100%', '40%']}
         hasBorderScale={[false, false, true]}
         theme={{ minHeight: '165px' }}
       >
-        <p>RA: {objectSpecs.ra}</p>
-        <p>Dec: {objectSpecs.dec}</p>
+        <p dangerouslySetInnerHTML={{ __html: objectSpecs.сoordinates }} />
       </StaticCell>
 
       <StaticCell
-        title={intl.formatMessage(messages.Magnitude)}
+        title={objectSpecs.magnitudeLabel}
         flexScale={['100%', '40%', '10%']}
         hasBorderScale={[false, true]}
         theme={{ minHeight: '165px' }}
@@ -42,11 +40,11 @@ const ObjectProfile = ({
       </StaticCell>
 
       <StaticCell
-        title={intl.formatMessage(messages.ApparentAngularSize)}
+        title={objectSpecs.apparentAngularSizeLabel}
         flexScale={['100%', '40%', '20%']}
         theme={{ minHeight: '165px' }}
       >
-        <p dangerouslySetInnerHTML={{ __html: 'PLACEHOLDER' }} />
+        <p dangerouslySetInnerHTML={{ __html: objectSpecs.apparentAngularSizeText }} />
       </StaticCell>
     </Row>
 
@@ -54,7 +52,6 @@ const ObjectProfile = ({
       <StaticCell
         flexScale={['100%', '100%', '20%']}
         hasBorderScale={[true]}
-        theme={{ minHeight: '360px' }}
         displayAtBreakpoints={{
           screenSmall: false,
           screenMedium: false,
@@ -64,7 +61,11 @@ const ObjectProfile = ({
       >
         <Row wrap>
           {visibilitySeason.show === true && (
-            <StaticCell title={visibilitySeason.title} theme={{ padding: 0, marginBottom: '20px' }}>
+            <StaticCell
+              title={visibilitySeason.title}
+              theme={{ padding: '7px', marginBottom: '20px' }}
+              hasBottomBorder={midnightCulmination.show}
+            >
               {visibilitySeason.observatories}
             </StaticCell>
           )}
@@ -73,7 +74,7 @@ const ObjectProfile = ({
             <StaticCell
               flexScale={['100%']}
               title={midnightCulmination.label}
-              theme={{ padding: 0, borderBottom: 'none' }}
+              theme={{ padding: 0, borderBottom: 'none', minHeight: 0 }}
             >
               <p>{midnightCulmination.text}</p>
               {midnightCulmination.description}
@@ -86,9 +87,10 @@ const ObjectProfile = ({
         <StaticCell
           flexScale={['100%', '100%', '40%']}
           title={bestTelescope.label}
-          theme={{ minHeight: '360px', alignSelf: 'flex-start' }}
+          theme={{ alignSelf: 'flex-start' }}
+          hasBottomBorder={false}
         >
-          <BestTelescope telescopes={bestTelescope.list} />
+          <BestTelescope visitLabel={bestTelescope.buttonCaption} telescopes={bestTelescope.list} />
         </StaticCell>
       )}
     </Row>
@@ -100,9 +102,12 @@ const ObjectProfile = ({
 ObjectProfile.propTypes = {
   scienceName: PropTypes.string.isRequired,
   objectSpecs: PropTypes.shape({
-    ra: PropTypes.number.isRequired,
-    dec: PropTypes.number.isRequired,
+    nameLabel: PropTypes.string.isRequired,
     magnitude: PropTypes.number.isRequired,
+    coordinatesLabel: PropTypes.string.isRequired,
+    сoordinates: PropTypes.string.isRequired,
+    apparentAngularSizeLabel: PropTypes.string.isRequired,
+    apparentAngularSizeText: PropTypes.string.isRequired,
   }).isRequired,
   visibilitySeason: PropTypes.shape({
     title: PropTypes.string.isRequired,
@@ -116,12 +121,12 @@ ObjectProfile.propTypes = {
   bestTelescope: PropTypes.shape({
     label: PropTypes.string.isRequired,
     list: PropTypes.arrayOf(PropTypes.shape({
-      title: PropTypes.string.isRequired,
+      label: PropTypes.string.isRequired,
       description: PropTypes.string.isRequired,
       linkUrl: PropTypes.string.isRequired,
     })),
+    buttonCaption: PropTypes.string.isRequired,
   }).isRequired,
-  intl: intlShape.isRequired,
 };
 
 export default injectIntl(ObjectProfile);

@@ -45,6 +45,7 @@ export default createReducer(initialState, {
       ...state,
       activeMenu: payload.activeMenu,
       isNotificationMenuOpen: payload.isNotificationMenuOpen,
+      isRightOpen: false,
     };
   },
   [OPEN_UPSELL_MODAL](state) {

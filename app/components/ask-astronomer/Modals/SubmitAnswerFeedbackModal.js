@@ -23,6 +23,7 @@ const SubmitAnswerFeedbackModal = (props) => {
     modalActions,
     message,
     intl,
+    updateQuestionsList,
   } = props;
 
   return (
@@ -30,7 +31,13 @@ const SubmitAnswerFeedbackModal = (props) => {
       <div className="title">{intl.formatMessage(messages.AskAnAstronomer)}</div>
       <div className="prompt-text" dangerouslySetInnerHTML={{ __html: message }}/>
       <div className="actions">
-        <Button onClickEvent={modalActions.closeModal} text={intl.formatMessage(messages.Done)} />
+        <Button
+          onClickEvent={() => {
+            updateQuestionsList();
+            modalActions.closeModal();
+          }}
+          text={intl.formatMessage(messages.Done)}
+        />
       </div>
       <style jsx>{styles}</style>
     </form>
@@ -45,6 +52,7 @@ SubmitAnswerFeedbackModal.propTypes = {
   }).isRequired,
   message: string,
   intl: intlShape.isRequired,
+  updateQuestionsList: func.isRequired,
 };
 
 SubmitAnswerFeedbackModal.defaultProps = {

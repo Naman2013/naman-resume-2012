@@ -17,20 +17,20 @@ const BurnhamsCornerLarge = ({
         <div className="bc-title">{objectTitle}</div>
         <div className="bc-author">Burnham&#39;s Corner</div>
         <div className="bc-desc">
+          <div className="bc-img">
+            <img src={imageURL} alt="Burnhams Corner" />
+          </div>
           {content}
         </div>
         {
           hasLink &&
-            <div className="bc-action">
-              <TileButton
-                text={linkLabel}
-                linkURL={linkURL}
-              />
-            </div>
+          <div className="bc-action">
+            <TileButton
+              text={linkLabel}
+              linkURL={linkURL}
+            />
+          </div>
         }
-      </div>
-      <div className="bc-img-right">
-        <img src={imageURL} alt="Burnhams Corner" />
       </div>
     </div>
     <style jsx>{style}</style>
