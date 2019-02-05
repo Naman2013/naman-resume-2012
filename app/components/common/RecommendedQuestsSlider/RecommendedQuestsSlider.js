@@ -8,11 +8,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import uniqueId from 'lodash/uniqueId';
 import take from 'lodash/take';
-import has from 'lodash/has';
 import SloohSlider from 'components/common/Slider';
 import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
-import { getSliderProps } from './recommendedObjectsSliderConfiguration';
-import RecommendedObjectsSliderItem from './partials/RecommendedObjectsSliderItem';
+import { getSliderProps } from './recommendedQuestsSliderConfiguration';
+import RecommendedQuestSliderItem from './partials/RecommendedQuestItem';
 
 // import { secondaryFont } from 'styles/variables/fonts';
 const {
@@ -25,10 +24,10 @@ const {
 } = PropTypes;
 
 const RecommendedObjects = ({
-  recommendedObjectsList = [],
+  recommendedQuestsList = [],
 }) => {
-  const sliderProps = getSliderProps(recommendedObjectsList);
-  const shortList = take(recommendedObjectsList, 2) || [];
+  const sliderProps = getSliderProps(recommendedQuestsList);
+  const shortList = take(recommendedQuestsList, 2) || [];
   return (
     <div className="root" key={uniqueId()}>
       <DisplayAtBreakpoint
@@ -41,10 +40,10 @@ const RecommendedObjects = ({
       <DisplayAtBreakpoint
         screenSmall
       >
-        {shortList.map(object => (
-          <RecommendedObjectsSliderItem
+        {shortList.map(quest => (
+          <RecommendedQuestSliderItem
             key={uniqueId()}
-            {...object}
+            {...quest}
           />
         ))}
       </DisplayAtBreakpoint>
@@ -64,7 +63,9 @@ const RecommendedObjects = ({
 };
 
 RecommendedObjects.propTypes = {
+  recommendedQuestsList: arrayOf(shape({
 
+  })).isRequired,
 };
 
 RecommendedObjects.defaultProps = {

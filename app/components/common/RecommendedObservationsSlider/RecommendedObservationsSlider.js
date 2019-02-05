@@ -54,7 +54,7 @@ const Observations = () => (
                 currentIndex={1}
                 imageIndex={1}
                 {...object}
-               />
+              />
             ))}
           </DisplayAtBreakpoint>
         </div>)

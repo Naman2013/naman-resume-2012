@@ -1,51 +1,87 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import uniqueId from 'lodash/uniqueId';
-import CardObservations from '../../../../../app/components/common/CardObservations';
+import style from './style';
 
 const {
   string,
-  arrayOf,
   number,
-  bool,
-  shape,
 } = PropTypes;
 
-const propTypes = {
-  description: string,
-  detailList: arrayOf(shape({
-    label: string,
-    text: string,
-  })),
-  hasIcon: bool,
-  iconURL: string,
-  subTitle: string,
-  title: string,
+const BootstrappedObservationSliderItem = ({
+  imageTitle,
+  imageURL,
+  displayName,
+  observationTimeDisplay,
+  observationLog,
+  likesCount,
+  commentsCount,
+}) => (
+  <div className="card-obs-wrapper">
+    <div className="card-obs">
+      {(imageTitle.length > 0) ? (
+        <Fragment>
+          <div className="top">
+            <div className="info">
+              <div className="main-info">
+                <div className="title">{imageTitle}</div>
+                <div className="author">By {displayName}</div>
+                <div className="text" dangerouslySetInnerHTML={{ __html: observationLog }} />
+              </div>
+              <div className="links">
+                <div className="link" style={{ wdith: }}>
+                  <img src="https://vega.slooh.com/assets/v4/icons/user_astronaut.svg" alt="observatory"/>
+                </div>
+                <div className="link" />
+                <div className="link">
+                  <img src="https://vega.slooh.com/assets/v4/icons/telescope_astronaut.svg" alt="observatory" />
+                </div>
+                <div className="link" />
+              </div>
+            </div>
+            <div className="picture">
+              <div className="image-wrapper">
+                <img src={imageURL} alt="observation" />
+              </div>
+            </div>
+          </div>
+          <div className="bottom">
+            <div className="buttons">
+              <div className="button"><img className="icon" src="https://vega.slooh.com/assets/v4/common/heart.svg" alt="heart" />{likesCount}</div>
+              <div className="button"><img className="icon" src="https://vega.slooh.com/assets/v4/common/comment.svg" alt="comment" />{commentsCount}</div>
+              <div className="button details">
+                Details
+                <img src="https://vega.slooh.com/assets/v4/icons/horz_arrow_right_astronaut.svg" alt="arrow-right" />
+              </div>
+            </div>
+            <div className="capture-date">{observationTimeDisplay ? observationTimeDisplay[0] : 'Loading...'}</div>
+          </div>
+        </Fragment>
+      ) : (
+        <div className="loading">Loading...</div>
+      )}
+    </div>
+    <style jsx>{style}</style>
+  </div>
+);
+
+BootstrappedObservationSliderItem.propTypes = {
+  imageTitle: string,
+  imageURL: string,
+  displayName: string,
+  observationTimeDisplay: string,
+  observationLog: string,
+  likesCount: number,
+  commentsCount: number,
 };
 
-const getIconStyle = (iconURL) => ({
-  backgroundImage: iconURL,
-});
-
-
-const BootstrappedObservationSliderItem = (props) => (
-  <div className="card-obs" key={uniqueId()}>
-    <CardObservations
-      title={props.observationTitle || props.imageTitle}
-      description={props.observationLog}
-      imageUrl={props.imageURL}
-      hasLink={props.hasLink}
-      linkLabel={props.linkLabel}
-      linkUrl={props.linkUrl}
-    />
-    <style jsx>{`
-      .card-obs {
-        padding: 0 40px;
-        margin: 0 auto;
-        max-width: 940px;
-      }
-    `}</style>
-  </div>
-  );
+BootstrappedObservationSliderItem.defaultProps = {
+  imageTitle: '',
+  imageURL: '',
+  displayName: '',
+  observationTimeDisplay: '',
+  observationLog: '',
+  likesCount: 0,
+  commentsCount: 0,
+};
 
 export default BootstrappedObservationSliderItem;

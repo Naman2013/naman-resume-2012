@@ -9,7 +9,7 @@ const getSliderConfiguration = () => Object.assign(
   {
     slidesToShow: 1,
     slidesToScroll: 1,
-    initialSlide: 1,
+    initialSlide: 1, 
     centerMode: false,
     centerPadding: '50px',
     responsive: [
@@ -18,7 +18,7 @@ const getSliderConfiguration = () => Object.assign(
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
-          centerMode: true,
+          centerMode: false,
           centerPadding: '50px',
         }
       },
@@ -29,7 +29,7 @@ const getSliderConfiguration = () => Object.assign(
 const getRecommendedObservationsItems = (imageList = []) => {
   return imageList.map(object => ({
     customerImageId: object.customerImageId,
-    render: (sliderProps) =>  <RecommendedObservationSliderItem key={uniqueId()} {...sliderProps} {...object}  />,
+    render: (sliderProps) =>  <RecommendedObservationSliderItem {...sliderProps} {...object}  />,
   }))
 }
 

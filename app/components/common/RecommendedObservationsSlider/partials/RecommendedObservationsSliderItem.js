@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
-import Request from 'components/common/network/Request';
 import SliderItem from './BootstrappedSliderItem';
 import { IMAGE_DETAILS } from 'services/image-details';
 
@@ -19,16 +18,16 @@ class RecommendedObservationsItem extends Component {
   componentDidMount() {
     const { customerImageId, currentIndex, imageIndex } = this.props;
     if (currentIndex === imageIndex) {
-    axios.post(IMAGE_DETAILS, {
-      customerImageId,
-      useShareToken: 'n',
-      callSource: 'sharedpictures',
-    }).then((res) => {
-      this.setState({
-        ...res.data,
-      })
-    });
-  }
+      axios.post(IMAGE_DETAILS, {
+        customerImageId,
+        useShareToken: 'n',
+        callSource: 'sharedpictures',
+      }).then((res) => {
+        this.setState({
+          ...res.data,
+        });
+      });
+    }
   }
 
   componentWillReceiveProps(nextProps) {

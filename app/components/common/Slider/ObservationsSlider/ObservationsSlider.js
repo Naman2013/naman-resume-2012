@@ -40,14 +40,14 @@ class ObservationsSlider extends Component {
   }
 
   state = {
-    currentIndex: '',
+    currentIndex: 1,
   }
 
-  beforeSlideChange = (prev, nextIndex) => {
+  beforeSlideChange = (old, nextIndex) => {
+    console.log(nextIndex);
     this.setState({
       currentIndex: nextIndex,
-    })
-
+    });
   }
 
   render() {
@@ -58,25 +58,18 @@ class ObservationsSlider extends Component {
     } = this.props;
     const { currentIndex } = this.state;
     return (
-      <div className="root slooh-slider" key={uniqueId()}>
+      <div className="root slooh-slider">
         {slideList.length === 0 && <div className="empty" dangerouslySetInnerHTML={{ __html: sliderConfig.emptyMessage }} />}
         {
-          slideList.length > 0 &&
           <div className="slider-container">
             <Slider
               {...sliderConfig}
               beforeChange={this.beforeSlideChange}
-              ref={(c) => { this.slider = c; }}
             >
-              {slideList.map((slideElement) => <div key={uniqueId()}>{slideElement.render({ currentIndex })}</div>)}
+              {slideList.map(slideElement => <div>{slideElement.render({ currentIndex })}</div>)}
             </Slider>
           </div>
         }
-
-        <style jsx>{`
-
-        `}
-        </style>
 
         <style jsx global>
           {`
