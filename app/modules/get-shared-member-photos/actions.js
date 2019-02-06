@@ -54,11 +54,13 @@ export const getSharedMemberPhotos = ({
   objectId,
   orderByLikes = false,
   customerId = null,
+  customerUUID = null,
   makeDetailsCall = false,
 }) => (dispatch, getState) => {
   dispatch(getSharedMemberPhotosStart());
   return axios.post('/api/images/getSharedMemberPictures', {
     customerId,
+    customerUUID,
     listOrdering: 'asc',
     objectId,
     orderByLikes,
