@@ -40,7 +40,24 @@ class ProfileActivityQa extends Component {
   };
 
   componentDidMount() {
-    this.props.actions.fetchAstronomerQuestions({});
+    const { actions, askAnAstronomerData } = this.props;
+    actions.fetchAstronomerQuestions({ answerState: askAnAstronomerData.defaultAnswerState });
+  }
+
+  getTextCount = (count) => {
+    return this.props.askAnAstronomerData.askAnAstronomerDataHeading.replace(' x ', ` ${count} `);
+  };
+
+  getFilterOptions = () => {
+    const { askAnAstronomerData } = this.props;
+    const options = Object.keys(askAnAstronomerData.answerStateOptions).map((key) => {
+      return {
+        label: askAnAstronomerData.answerStateOptions[key],
+        value: key,
+      };
+    });
+
+    return options;
   }
 
   setModal = ({ promptComponent, promptStyles }) => {
@@ -77,6 +94,14 @@ class ProfileActivityQa extends Component {
     });
   };
 
+  updateQuestionsList = () => {
+    const {
+      actions,
+    } = this.props;
+
+    actions.fetchAstronomerQuestions({});
+  }
+
   render() {
     const {
       actions,
@@ -93,12 +118,11 @@ class ProfileActivityQa extends Component {
       objectSpecialists,
       askAnAstronomerData,
     } = this.props;
-    console.log(this);
+    
     const { setModal, showModal, closeModal } = this;
     const modalActions = { setModal, showModal, closeModal };
     const { showPrompt, promptComponent, promptStyles } = this.state;
 
-    console.log(this.props);
     return (
       <div className="root">
         <DeviceContext.Consumer>
@@ -121,8 +145,16 @@ class ProfileActivityQa extends Component {
                 actions={actions}
                 user={user}
                 submitAnswer={this.submitAnswer}
-                // likeParams={likeParams}
+                countText={this.getTextCount(totalCount)}
+                likeParams={{
+                  callSource: 'qanda',
+                }}
                 modalActions={modalActions}
+                showDropdown={askAnAstronomerData.hasAnswerStateDropdown}
+                dropdownOptions={this.getFilterOptions()}
+                changeAnswerState={actions.fetchAstronomerQuestions}
+                updateQuestionsList={this.updateQuestionsList}
+                canAnswerQuestions={askAnAstronomerData.canAnswerQuestions}
               />
             </Fragment>
           )}
@@ -136,7 +168,7 @@ class ProfileActivityQa extends Component {
 const mapStateToProps = ({ astronomerAnswers, astronomerQuestions, user }) => ({
   allAnswers: astronomerAnswers.allAnswers,
   allDisplayedAnswers: astronomerAnswers.allDisplayedAnswers,
-  questionFilter: astronomerQuestions.filter,
+  questionFilter: astronomerQuestions.questionFilter,
   questions: astronomerQuestions.threadList,
   page: astronomerQuestions.page,
   totalCount: astronomerQuestions.threadCount,

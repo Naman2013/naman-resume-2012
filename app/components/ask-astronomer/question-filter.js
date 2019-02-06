@@ -55,7 +55,7 @@ class QuestionFilter extends Component {
     this.setState(() => ({
       selectedIndex: findIndex(this.dropdownOptions, filter => filter.value === selectedItem.value),
     }));
-
+    
     this.props.changeAnswerState({ answerState: selectedItem.value });
   };
 

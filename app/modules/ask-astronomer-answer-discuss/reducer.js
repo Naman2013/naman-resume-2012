@@ -48,7 +48,7 @@ export default createReducer(initialState, {
       take(replies, state.paginationCount)
         .map(reply => reply.replyId) :
       [];
-
+      
     newFetching[replyTo] = false;
 
     return {

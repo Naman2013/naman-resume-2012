@@ -76,7 +76,7 @@ class ProfileActivity extends Component {
         )}
 
         {askAnAstronomerData.showAskAnAstronomer && (
-          <div className="profile-section">
+          <div className="profile-section ask-section">
             <CenterColumn>
               <ProfileActivityQa askAnAstronomerData={askAnAstronomerData} />
             </CenterColumn>
