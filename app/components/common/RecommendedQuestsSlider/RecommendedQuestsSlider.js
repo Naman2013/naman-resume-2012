@@ -4,23 +4,20 @@
 *
 *
 ***********************************/
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import uniqueId from 'lodash/uniqueId';
 import take from 'lodash/take';
-import SloohSlider from 'components/common/Slider';
-import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
+import SloohSlider from '../../../components/common/Slider';
+import DisplayAtBreakpoint from '../../../components/common/DisplayAtBreakpoint';
 import { getSliderProps } from './recommendedQuestsSliderConfiguration';
 import RecommendedQuestSliderItem from './partials/RecommendedQuestItem';
 
-// import { secondaryFont } from 'styles/variables/fonts';
+import style from './RecommendedQuestsSlider.style';
+
 const {
   arrayOf,
-  bool,
-  func,
-  number,
   shape,
-  string,
 } = PropTypes;
 
 const RecommendedObjects = ({
@@ -52,13 +49,7 @@ const RecommendedObjects = ({
       `}
       </style>
 
-      <style jsx global>
-        {`
-          .dash-item-first .slick-track {
-            transfrom: none !important;
-          }
-        `}
-      </style>
+      <style jsx global>{style}</style>
     </div>);
 };
 

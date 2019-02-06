@@ -4,15 +4,14 @@
 *
 *
 ***********************************/
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 import take from 'lodash/take';
-import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
-import { screenMedium, screenLarge } from 'styles/variables/breakpoints';
-import SloohSlider from 'components/common/Slider/ObservationsSlider';
-import Request from 'components/common/network/Request';
+import DisplayAtBreakpoint from '../../../components/common/DisplayAtBreakpoint';
+import SloohSlider from '../../../components/common/Slider/ObservationsSlider';
+import Request from '../../../components/common/network/Request';
+import { screenMedium, screenLarge } from '../../../styles/variables/breakpoints';
+import { SHARED_MEMBER_PHOTOS } from '../../../services/shared-photos';
 import MobileSwiper from './partials/MobileSwiper';
-import { SHARED_MEMBER_PHOTOS } from 'services/shared-photos';
 import { getSliderProps } from './recommendedObservationsSliderConfiguration';
 
 const Observations = () => (
