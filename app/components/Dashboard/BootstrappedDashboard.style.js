@@ -43,6 +43,10 @@ export default css`
     width: 100%;
   }
 
+  .sections-wrapper {
+    background-color: #f8f8f8;
+  }
+
   @media all and (min-width: 641px) and (max-width: 768px) {
 
     .dash-nav {

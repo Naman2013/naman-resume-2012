@@ -165,13 +165,14 @@ class BootstrappedDashboard extends Component {
         <div className="dash-nav">
           <DashNav />
         </div>
-
-        {sectionOrder.map((section, i) =>
-            this.props[section] &&
-            getSectionComponent(
-              section,
-              Object.assign({ orderNumber: i + 1 }, this.props[section]),
-            ))}
+        <div className="sections-wrapper">
+          {sectionOrder.map((section, i) =>
+              this.props[section] &&
+              getSectionComponent(
+                section,
+                Object.assign({ orderNumber: i + 1 }, this.props[section]),
+              ))}
+        </div>
 
         <style>{styles}</style>
       </div>

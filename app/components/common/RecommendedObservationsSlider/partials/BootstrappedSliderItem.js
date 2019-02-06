@@ -1,10 +1,11 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import style from './style';
+import style from './BootstrappedSliderItem.style';
 
 const {
   string,
   number,
+  arrayOf,
 } = PropTypes;
 
 const BootstrappedObservationSliderItem = ({
@@ -28,14 +29,18 @@ const BootstrappedObservationSliderItem = ({
                 <div className="text" dangerouslySetInnerHTML={{ __html: observationLog }} />
               </div>
               <div className="links">
-                <div className="link" style={{ wdith: }}>
-                  <img src="https://vega.slooh.com/assets/v4/icons/user_astronaut.svg" alt="observatory"/>
-                </div>
-                <div className="link" />
                 <div className="link">
-                  <img src="https://vega.slooh.com/assets/v4/icons/telescope_astronaut.svg" alt="observatory" />
+                  <img src="https://vega.slooh.com/assets/v4/icons/user_astronaut.svg" alt="user" />
                 </div>
-                <div className="link" />
+                <div className="link">
+                  <img className="linkIcon" src="https://vega.slooh.com/assets/v4/icons/solar_system/Jupiter.png" alt="system" />
+                </div>
+                <div className="link">
+                  <img src="https://vega.slooh.com/assets/v4/common/icon_observatory.svg" alt="observatory" />
+                </div>
+                <div className="link">
+                  <img src="https://vega.slooh.com/assets/v4/icons/location_marker.png" alt="location" />
+                </div>
               </div>
             </div>
             <div className="picture">
@@ -68,7 +73,7 @@ BootstrappedObservationSliderItem.propTypes = {
   imageTitle: string,
   imageURL: string,
   displayName: string,
-  observationTimeDisplay: string,
+  observationTimeDisplay: arrayOf(string),
   observationLog: string,
   likesCount: number,
   commentsCount: number,
@@ -78,7 +83,7 @@ BootstrappedObservationSliderItem.defaultProps = {
   imageTitle: '',
   imageURL: '',
   displayName: '',
-  observationTimeDisplay: '',
+  observationTimeDisplay: ['No data from server', 'No data from server'],
   observationLog: '',
   likesCount: 0,
   commentsCount: 0,

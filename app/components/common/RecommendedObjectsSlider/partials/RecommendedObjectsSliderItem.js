@@ -33,7 +33,7 @@ const RecommendedObjectsItem = ({
       <img src={detailList[2].iconUrl} alt="icon" />
       <div className="object-field details">{detailList[2].text}</div>
     </div>
-    <Button text="options" theme={{ margin: '30px auto 0' }} />
+    <Button text="options" theme={{ margin: '30px auto 0', width: '140px' }} />
     <style jsx>{styles}</style>
   </div>
 );

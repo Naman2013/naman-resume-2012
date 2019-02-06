@@ -4,31 +4,27 @@
 *
 *
 ***********************************/
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import uniqueId from 'lodash/uniqueId';
 import take from 'lodash/take';
-import has from 'lodash/has';
-import SloohSlider from 'components/common/Slider';
-import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
+import SloohSlider from '../../../components/common/Slider';
+import DisplayAtBreakpoint from '../../../components/common/DisplayAtBreakpoint';
 import { getSliderProps } from './recommendedObjectsSliderConfiguration';
-import RecommendedObjectsSliderItem from './partials/RecommendedObjectsSliderItem';
+import MissionTileSmall from '../../../components/common/tiles/MissionTile/MissionTileSmall';
 
-// import { secondaryFont } from 'styles/variables/fonts';
+import style from './RecommendedObjectsSlider.style';
+
 const {
   arrayOf,
-  bool,
-  func,
-  number,
   shape,
-  string,
 } = PropTypes;
 
 const RecommendedObjects = ({
   recommendedObjectsList = [],
 }) => {
   const sliderProps = getSliderProps(recommendedObjectsList);
-  const shortList = take(recommendedObjectsList, 2) || [];
+  const shortList = take(recommendedObjectsList, 3) || [];
   return (
     <div className="root" key={uniqueId()}>
       <DisplayAtBreakpoint
@@ -41,34 +37,32 @@ const RecommendedObjects = ({
       <DisplayAtBreakpoint
         screenSmall
       >
-        {shortList.map(object => (
-          <RecommendedObjectsSliderItem
-            key={uniqueId()}
-            {...object}
-          />
-        ))}
+        <div className="mobile-tiles-wrapper">
+          {shortList.map(object => (
+            <MissionTileSmall
+              title={object.title}
+              dat={object.detailList[0].text}
+              thyme={object.detailList[1].text.split(' ')[0]}
+              telescope={object.detailList[2].text}
+            />
+          ))}
+        </div>
       </DisplayAtBreakpoint>
       <style jsx>{`
 
       `}
       </style>
 
-      <style jsx global>
-        {`
-          .dash-item-first .slick-track {
-            transfrom: none !important;
-          }
-        `}
-      </style>
+      <style jsx global>{style}</style>
     </div>);
 };
 
 RecommendedObjects.propTypes = {
-
+  recommendedObjectsList: arrayOf(shape({})),
 };
 
 RecommendedObjects.defaultProps = {
-
+  recommendedObjectsList: [],
 };
 
 export default RecommendedObjects;

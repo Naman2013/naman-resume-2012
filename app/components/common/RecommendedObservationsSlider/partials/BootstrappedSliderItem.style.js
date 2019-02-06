@@ -1,5 +1,6 @@
 import css from 'styled-jsx/css';
-import { white_tile_paper, hawkesBlue, lightHeadedAstronaut, moodyBleu, shadows } from 'styles/variables/colors_tiles_v4';
+import { screenMedium, screenLarge } from '../../../../styles/variables/breakpoints';
+import { hawkesBlue, white_texture_bg, moodyBleu, shadows, lightHeadedAstronaut } from '../../../../styles/variables/colors_tiles_v4';
 
 const borderBottom = `border-bottom: 1px solid ${hawkesBlue};`;
 const centerChildren = `
@@ -21,11 +22,12 @@ export default css`
   }
 
   .card-obs {
-    width: 80%;
-    background-image: url(${white_tile_paper});
+    background: url(${white_texture_bg});
     box-shadow: 0 0 6px 0 ${shadows};
     min-height: 500px;
-    ${centerChildren}
+    max-height: 500px;
+    display: flex;
+    justify-content: space-between;
     flex-direction: column;
   }
 
@@ -42,7 +44,7 @@ export default css`
     height: 50px;
     display: flex;
     justify-content: space-between;
-    background-image: linear-gradient(to bottom, #edf0f2, rgba(241, 243, 244, 0.89) 8%, rgba(255, 255, 255, 0));
+    box-shadow: inset 0 7px 9px -7px ${shadows};
   }
 
   .buttons {
@@ -74,12 +76,12 @@ export default css`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    // height: 100%;
   }
 
   .picture { 
     width: 35%;
-    flex-grow: .3;
+    ${centerChildren}
+    justify-content: flex-end;
   }
 
   .title {
@@ -103,10 +105,9 @@ export default css`
   }
 
   .image-wrapper {
-    width: 300px;
-    height: 300px;
     box-shadow: 0 0 6px 0 #ced2d8;
     padding: 3px;
+    margin: 0;
   }
 
   .image-wrapper img{
@@ -139,5 +140,53 @@ export default css`
 
   .icon {
     margin-right: 8px
+  }
+
+  .linkIcon {
+    width: 20px;
+    height: 20px;
+    transform: rotate(-45deg);
+  }
+
+  @media ${screenMedium} {
+    .card-obs {
+      width: 95%;
+    }
+
+    .image-wrapper {
+      width: 240px;
+      height: 240px;
+    }
+
+    .info {
+      width: 48%
+    }
+
+    .picture {
+      width: 48%
+    }
+
+    .top {
+      padding: 45px 50px 50px;
+    }
+  }
+
+  @media ${screenLarge} {
+    .card-obs {
+      width: 80%;
+    }
+    .image-wrapper {
+      width: 300px;
+      height: 300px;
+    }
+    .info {
+      width: 55%
+    }
+    .picture {
+      width: 40%
+    }
+    .top {
+      padding: 80px 80px 50px;
+    }
   }
 `;

@@ -1,5 +1,4 @@
 import React from 'react';
-import uniqueId from 'lodash/uniqueId';
 import defaultSliderConfiguration from 'components/common/Slider/sliderConfig';
 import BigShowTile from 'components/common/tiles/BigShowTile';
 
@@ -28,15 +27,8 @@ const getSliderConfiguration = () => Object.assign(
 
 const getRecommendedEventsItems = (imageList = []) =>
   imageList.map(object => ({
-    render: () => (<BigShowTile
-      header={object.header}
-      dateDisplay={object.dateDisplay}
-      eventHostName={object.eventHost}
-      key={uniqueId()}
-      linkUrl={object.linkUrl}
-      title={object.eventTitle}
-    />)
-}));
+    render: () => (<BigShowTile key={object.eventId} {...object} />),
+  }));
 
 export const getSliderProps = (slideList = []) => (
   Object.assign({

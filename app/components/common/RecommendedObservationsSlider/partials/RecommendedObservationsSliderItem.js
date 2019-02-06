@@ -5,11 +5,7 @@ import SliderItem from './BootstrappedSliderItem';
 import { IMAGE_DETAILS } from 'services/image-details';
 
 const {
-  string,
-  arrayOf,
   number,
-  bool,
-  shape,
 } = PropTypes;
 
 class RecommendedObservationsItem extends Component {
@@ -33,31 +29,29 @@ class RecommendedObservationsItem extends Component {
   componentWillReceiveProps(nextProps) {
     const { currentIndex } = this.props;
     if (currentIndex !== nextProps.currentIndex && nextProps.imageIndex === nextProps.currentIndex) {
-    axios.post(IMAGE_DETAILS, {
-      customerImageId: nextProps.customerImageId,
-      useShareToken: 'n',
-      callSource: 'sharedpictures',
-    }).then((res) => {
-      this.setState({
-        ...res.data,
-      })
-    });
-  }
+      axios.post(IMAGE_DETAILS, {
+        customerImageId: nextProps.customerImageId,
+        useShareToken: 'n',
+        callSource: 'sharedpictures',
+      }).then((res) => {
+        this.setState({
+          ...res.data,
+        })
+      });
+    }
   }
 
   render() {
     return (
-      <Fragment>
-        <SliderItem {...this.state} />
-      </Fragment>
+      <SliderItem {...this.state} />
     );
   }
 }
 
 RecommendedObservationsItem.propTypes = {
-  customerImageId: number,
+  customerImageId: number.isRequired,
+  currentIndex: number.isRequired,
+  imageIndex: number.isRequired,
 };
-RecommendedObservationsItem.defaultProps = {
-  customerImageId: '',
-};
+
 export default RecommendedObservationsItem;

@@ -1,33 +1,50 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import uniqueId from 'lodash/uniqueId';
+import { Link } from 'react-router';
+import cn from 'classnames';
 import styles from './slider-item.style';
 
 const {
   string,
-  arrayOf,
   bool,
-  shape,
 } = PropTypes;
 
 const RecommendedQuestsItem = ({
-  description,
-  detailList,
-  hasIcon,
-  iconURL,
-  subTitle,
+  questDifficulty,
   title,
+  iconUrl,
+  hasLink,
+  linkUrl,
 }) => (
-  <article className="card-quest">
+  <div className="root">
+    <Link to={linkUrl} className={cn({ ['disable-link']: hasLink })}>
       <div className="container">
         <div className="blue-shield" />
         <div className="icon-container">
-          <img className="icon-content" alt="" width="40" height="40" src={'https://vega.slooh.com/assets/v4/icons/object_types/Nebula.png'} />
+          <img className="icon-content" alt="" width="40" height="40" src={iconUrl} />
         </div>
-        <h5 className="title">Custom TITLE</h5>
+        <h5 className="title">{title}</h5>
+        <h6 className="level">{questDifficulty}</h6>
       </div>
+      <div className="quest-info">
+        <div className="quest-info-item left">
+          <span>SLOOH</span>
+        </div>
+        <div className="quest-info-item right">
+          <span>QUEST</span>
+        </div>
+      </div>
+    </Link>
     <style jsx>{styles}</style>
-  </article>
+  </div>
 );
+
+RecommendedQuestsItem.propTypes = {
+  questDifficulty: string.isRequired,
+  title: string.isRequired,
+  iconUrl: string.isRequired,
+  hasLink: bool.isRequired,
+  linkUrl: string.isRequired,
+};
 
 export default RecommendedQuestsItem;
