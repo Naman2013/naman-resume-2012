@@ -9,9 +9,7 @@ import {
   ASK_QUESTION_FAIL,
   CHANGE_ANSWER_STATE,
 } from './actions';
-import {
-  SUBMIT_ANSWER_FOR_ASTRONOMER_QUESTION_SUCCESS,
-} from '../ask-astronomer-answers/actions';
+import { SUBMIT_ANSWER_FOR_ASTRONOMER_QUESTION_SUCCESS } from '../ask-astronomer-answers/actions';
 
 const initialState = {
   error: false,
@@ -22,7 +20,7 @@ const initialState = {
   threadCount: 0,
   count: 5,
   threadList: [],
-  filter: 'all',
+  questionFilter: 'all',
 };
 
 export default createReducer(initialState, {
@@ -42,6 +40,7 @@ export default createReducer(initialState, {
       appendToList,
       canReplyToAnswers,
       canAnswerQuestions,
+      answerState,
     } = payload;
     const threadList = appendToList ? [].concat(state.threadList, threads) : threads;
 
@@ -53,6 +52,7 @@ export default createReducer(initialState, {
       threadList,
       canAnswerQuestions,
       canReplyToAnswers,
+      questionFilter: answerState,
     };
   },
   [FETCH_ASTRONOMER_QUESTIONS_FAIL](state) {
@@ -73,9 +73,7 @@ export default createReducer(initialState, {
     };
   },
   [ASK_QUESTION_SUCCESS](state, { payload }) {
-    const {
-      thread,
-    } = payload;
+    const { thread } = payload;
     const threadList = [].concat(state.threadList);
     threadList.unshift(thread);
     return {
@@ -100,7 +98,7 @@ export default createReducer(initialState, {
         thread.replyToponlyCount += 1;
       }
       return thread;
-    })
+    });
     return {
       ...state,
       threadList: newThreadList,
@@ -109,7 +107,7 @@ export default createReducer(initialState, {
   [CHANGE_ANSWER_STATE](state, { payload }) {
     return {
       ...state,
-      filter: payload.answerState,
+      questionFilter: payload.answerState,
     };
   },
 });
