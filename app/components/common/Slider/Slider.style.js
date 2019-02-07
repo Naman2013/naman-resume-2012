@@ -47,9 +47,9 @@ export default css`
     background: url('https://vega.slooh.com/assets/v4/common/slider_arrow_white.svg') 0 0 no-repeat;
   }
 
-  .slick-slide {
-    /* box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.2);
-  margin: 3px 10px; */
+  .slick-slide > div, .slick-slide > div > div {
+    outline: 0;
+    outline: none;
   }
 
   @media screen and (min-width: 1200px) {

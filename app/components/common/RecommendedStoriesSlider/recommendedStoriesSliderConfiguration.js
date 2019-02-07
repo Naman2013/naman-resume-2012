@@ -1,8 +1,10 @@
 import React from 'react';
-import uniqueId from 'lodash/uniqueId';
+import { FormattedMessage } from 'react-intl';
 import has from 'lodash/has';
 import defaultSliderConfiguration from 'components/common/Slider/sliderConfig';
 import StoryTile from 'components/common/tiles/StoryTile';
+
+import messages from './RecommendedStoriesSlider.messages';
 
 const getSliderConfiguration = () => Object.assign(
   {},
@@ -29,6 +31,6 @@ export const getSliderProps = (slideList = []) => (
     slideList: getRecommendedStoriesItems(slideList),
   }, {
     sliderConfig: getSliderConfiguration(),
-    emptyMessage: 'There are no recommended stories.',
+    emptyMessage: <FormattedMessage {...messages.NothingToShow} />,
   })
 );

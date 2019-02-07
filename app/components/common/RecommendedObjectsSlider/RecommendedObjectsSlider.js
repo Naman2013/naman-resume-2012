@@ -40,6 +40,7 @@ const RecommendedObjects = ({
         <div className="mobile-tiles-wrapper">
           {shortList.map(object => (
             <MissionTileSmall
+              key={`${object.title} ${object.subtitle}`}
               title={object.title}
               dat={object.detailList[0].text}
               thyme={object.detailList[1].text.split(' ')[0]}

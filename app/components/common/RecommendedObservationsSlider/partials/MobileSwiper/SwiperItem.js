@@ -1,9 +1,11 @@
-import React, { Component, Fragment, PureComponent } from 'react';
+import React, { Component } from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
-import { IMAGE_DETAILS } from 'services/image-details';
+import { FormattedMessage } from 'react-intl';
+import { IMAGE_DETAILS } from '../../../../../services/image-details';
 
 import styles from './SwiperItem.style';
+import messages from './SwiperItem.messages';
 
 const {
   number,
@@ -61,7 +63,7 @@ class SwiperItem extends Component {
     const { imageURL } = this.state;
     return (
       <div className="mobile-swiper-root">
-        {imageURL ? <img className="obs-image" src={imageURL} alt="Observation" /> : <div className="obs-image center-content">Loading image...</div>}
+        {imageURL ? <img className="obs-image" src={imageURL} alt="Observation" /> : <div className="obs-image center-content"><FormattedMessage {...messages.LoadingImage} />...</div>}
         <style jsx>{styles}</style>
       </div>
     );

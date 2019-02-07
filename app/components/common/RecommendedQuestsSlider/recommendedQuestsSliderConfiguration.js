@@ -1,7 +1,9 @@
 import React from 'react';
-import uniqueId from 'lodash/uniqueId';
 import defaultSliderConfiguration from 'components/common/Slider/sliderConfig';
 import RecommendedQuestItem from './partials/RecommendedQuestItem';
+import { FormattedMessage } from 'react-intl';
+
+import messages from './RecommendedQuestsSlider.messages';
 
 
 const getSliderConfiguration = () => Object.assign(
@@ -17,7 +19,7 @@ const getSliderConfiguration = () => Object.assign(
 
 const getRecommendedQuestsItems = (recommendedQuestList = []) =>
   recommendedQuestList.map(quest => ({
-    render: () => <RecommendedQuestItem key={quest.linUrl} {...quest} />,
+    render: () => <RecommendedQuestItem key={quest.linkUrl} {...quest} />,
   }));
 
 export const getSliderProps = (slideList = []) => (
@@ -25,6 +27,6 @@ export const getSliderProps = (slideList = []) => (
     slideList: getRecommendedQuestsItems(slideList),
   }, {
     sliderConfig: getSliderConfiguration(),
-    emptyMessage: 'There are no recommended objects.',
+    emptyMessage: <FormattedMessage {...messages.NothingToShow} />,
   })
 );

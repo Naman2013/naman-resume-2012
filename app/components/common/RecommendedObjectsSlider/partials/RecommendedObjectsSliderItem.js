@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { injectIntl } from 'react-intl';
+import noop from 'lodash/noop';
 import Button from '../../style/buttons/Button';
 
 import styles from './RecommendedObjectsSliderItem.style';
@@ -24,6 +25,7 @@ const RecommendedObjectsItem = ({
   hasIcon,
   iconURL,
   title,
+  intl,
 }) => (
   <div className="card-object">
     <div className="object-icon">{hasIcon ? <div style={getIconStyle(iconURL)} /> : null}</div>
@@ -40,7 +42,11 @@ const RecommendedObjectsItem = ({
       <img src={detailList[2].iconUrl} alt="icon" />
       <div className="object-field details">{detailList[2].text}</div>
     </div>
-    <Button withIntl text={<FormattedMessage {...messages.Options} />} theme={{ margin: '30px auto 0', width: '140px' }} />
+    <Button
+      onClickEvent={noop}
+      text={intl.formatMessage(messages.Options)}
+      theme={{ margin: '30px auto 0', width: '140px' }}
+    />
     <style jsx>{styles}</style>
   </div>
 );
@@ -50,6 +56,7 @@ RecommendedObjectsItem.propTypes = {
   hasIcon: bool.isRequired,
   iconURL: string.isRequired,
   title: string.isRequired,
+  intl: shape({}).isRequired,
 };
 
-export default RecommendedObjectsItem;
+export default injectIntl(RecommendedObjectsItem);

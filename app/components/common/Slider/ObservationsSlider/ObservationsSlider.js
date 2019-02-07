@@ -26,14 +26,13 @@ const {
 class ObservationsSlider extends Component {
   static propTypes = {
     slideList: arrayOf(any),
-    emptyMessage: string,
+    emptyMessage: shape({}).isRequired,
     sliderConfig: shape({}),
   }
 
   static defaultProps = {
     slideList: [],
     sliderConfig: defaultSliderConfiguration(),
-    emptyMessage: 'There is nothing to show',
   }
 
   state = {
@@ -50,18 +49,20 @@ class ObservationsSlider extends Component {
     const {
       sliderConfig,
       slideList,
+      emptyMessage,
     } = this.props;
+    console.log(emptyMessage);
     const { currentIndex } = this.state;
     return (
       <div className="root slooh-slider">
-        {slideList.length === 0 && <div className="empty" dangerouslySetInnerHTML={{ __html: sliderConfig.emptyMessage }} />}
+        {slideList.length === 0 && <div className="empty">{emptyMessage}</div>}
         {
           <div className="slider-container">
             <Slider
               {...sliderConfig}
               beforeChange={this.beforeSlideChange}
             >
-              {slideList.map(slideElement => <div>{slideElement.render({ currentIndex })}</div>)}
+              {slideList.map(slideElement => <div key={slideElement.customerImageId}>{slideElement.render({ currentIndex })}</div>)}
             </Slider>
           </div>
         }

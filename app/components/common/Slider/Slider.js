@@ -27,24 +27,24 @@ const {
 class SloohSlider extends Component {
   static propTypes = {
     slideList: arrayOf(any),
-    emptyMessage: string,
+    emptyMessage: shape({}).isRequired,
     sliderConfig: shape({}),
   }
 
   static defaultProps = {
     slideList: [],
     sliderConfig: defaultSliderConfiguration(),
-    emptyMessage: 'There is nothing to show',
   }
 
   render() {
     const {
       sliderConfig,
       slideList,
+      emptyMessage,
     } = this.props;
     return (
       <div className="root" key={uniqueId()}>
-        {slideList.length === 0 && <div className="empty" dangerouslySetInnerHTML={{ __html: sliderConfig.emptyMessage }} />}
+        {slideList.length === 0 && <div className="empty">{emptyMessage}</div>}
         {
           slideList.length > 0 &&
           <div className="slider-container">
@@ -56,12 +56,6 @@ class SloohSlider extends Component {
             </Slider>
           </div>
         }
-
-        <style jsx>{`
-
-        `}
-        </style>
-
         <style jsx global>{style}</style>
       </div>);
   }

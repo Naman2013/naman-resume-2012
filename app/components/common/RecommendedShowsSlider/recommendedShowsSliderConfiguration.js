@@ -1,6 +1,9 @@
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import defaultSliderConfiguration from '../../../components/common/Slider/sliderConfig';
 import BigShowTile from '../../../components/common/tiles/BigShowTile';
+
+import messages from './RecommendedShowsSlider.messages';
 
 const getSliderConfiguration = () => Object.assign(
   {},
@@ -36,6 +39,6 @@ export const getSliderProps = (slideList = []) => (
     slideList: getRecommendedEventsItems(slideList),
   }, {
     sliderConfig: getSliderConfiguration(),
-    emptyMessage: 'There are no recommended shows.',
+    emptyMessage: <FormattedMessage {...messages.NothingToShow} />,
   })
 );

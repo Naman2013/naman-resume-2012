@@ -6,9 +6,7 @@
 ***********************************/
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import uniqueId from 'lodash/uniqueId';
 import take from 'lodash/take';
-import has from 'lodash/has';
 import SloohSlider from 'components/common/Slider';
 import Request from 'components/common/network/Request';
 import ShowTile from 'components/common/tiles/ShowTile';
@@ -49,10 +47,8 @@ const Shows = ({
         >
           {shortList.map(show => (
             <ShowTile
-              header={show.header}
-              time={show.time}
-              author={show.author}
-              key={uniqueId()}
+              key={show.eventId}
+              header={show.heading}
               linkUrl={show.linkUrl}
               title={show.eventTitle}
             />

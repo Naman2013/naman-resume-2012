@@ -1,6 +1,10 @@
 import React from 'react';
-import defaultSliderConfiguration from 'components/common/Slider/sliderConfig';
+import { FormattedMessage } from 'react-intl';
+
+import defaultSliderConfiguration from '../../../components/common/Slider/sliderConfig';
 import RecommendedObservationSliderItem from './partials/RecommendedObservationsSliderItem';
+
+import messages from './RecommendedObservationsSlider.messages';
 
 const getSliderConfiguration = () => Object.assign(
   {},
@@ -50,6 +54,6 @@ export const getSliderProps = (slideList = []) => (
     slideList: getRecommendedObservationsItems(slideList),
   }, {
       sliderConfig: getSliderConfiguration(),
-      emptyMessage: 'There are no recommended observations.',
-    })
+      emptyMessage: <FormattedMessage {...messages.NothingToShow} />,
+  })
 );

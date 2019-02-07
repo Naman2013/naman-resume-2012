@@ -1,7 +1,10 @@
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
+
 import defaultSliderConfiguration from 'components/common/Slider/sliderConfig';
 import RecommendedObjectsItem from './partials/RecommendedObjectsSliderItem';
 
+import messages from './RecommendedObjectsSlider.message';
 
 const getSliderConfiguration = () => Object.assign(
   {},
@@ -24,6 +27,6 @@ export const getSliderProps = (slideList = []) => (
     slideList: getRecommendedObjectsItems(slideList),
   }, {
     sliderConfig: getSliderConfiguration(),
-    emptyMessage: 'There are no recommended objects.',
+    emptyMessage: <FormattedMessage {...messages.NothingToShow} />,
   })
 );

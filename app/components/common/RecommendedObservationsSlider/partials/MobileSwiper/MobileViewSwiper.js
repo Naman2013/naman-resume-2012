@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Swiper from 'react-slick';
+import { FormattedMessage } from 'react-intl';
 
 import SwiperItem from './SwiperItem';
 
 import styles from './MobileViewSwiper.style';
+import messages from './MobileViewSwiper.messages';
 
 const {
   arrayOf,
@@ -51,7 +53,7 @@ class MobileViewSwiper extends Component {
   }
 
   render() {
-    const { imagesList = [] } = this.props;
+    const { imagesList } = this.props;
     const {
       title,
       author,
@@ -72,7 +74,10 @@ class MobileViewSwiper extends Component {
             <div className="description" dangerouslySetInnerHTML={{ __html: description }} />
           </div>
         ) : (
-          <div className="top">{!error ? 'Loading...' : 'Error occured while loading data.'}</div>
+          <div className="top">{!error
+            ? `${<FormattedMessage {...messages.Loading} />}...`
+            : <FormattedMessage {...messages.ErrorWhileLoading} />}
+          </div>
         )}
         <div className="swiper-container">
           <Swiper
@@ -95,7 +100,7 @@ class MobileViewSwiper extends Component {
             <div className="button"><img className="icon" src="https://vega.slooh.com/assets/v4/common/heart.svg" alt="heart" />{likesCount}</div>
             <div className="button"><img className="icon" src="https://vega.slooh.com/assets/v4/common/comment.svg" alt="comment" />{commentsCount}</div>
             <div className="button details">
-              Details
+              <FormattedMessage {...messages.Details} />
               <img src="https://vega.slooh.com/assets/v4/icons/horz_arrow_right_astronaut.svg" alt="arrow-right" />
             </div>
           </div>
@@ -108,7 +113,6 @@ class MobileViewSwiper extends Component {
 
 MobileViewSwiper.propTypes = {
   imagesList: arrayOf(shape({})),
-  sliderConfig: shape({}).isRequired,
 };
 MobileViewSwiper.defaultProps = {
   imagesList: [],

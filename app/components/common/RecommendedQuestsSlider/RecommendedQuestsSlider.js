@@ -13,8 +13,6 @@ import DisplayAtBreakpoint from '../../../components/common/DisplayAtBreakpoint'
 import { getSliderProps } from './recommendedQuestsSliderConfiguration';
 import RecommendedQuestSliderItem from './partials/RecommendedQuestItem';
 
-import style from './RecommendedQuestsSlider.style';
-
 const {
   arrayOf,
   shape,
@@ -44,23 +42,14 @@ const RecommendedObjects = ({
           />
         ))}
       </DisplayAtBreakpoint>
-      <style jsx>{`
-
-      `}
-      </style>
-
-      <style jsx global>{style}</style>
-    </div>);
+    </div>
+  );
 };
 
 RecommendedObjects.propTypes = {
   recommendedQuestsList: arrayOf(shape({
 
   })).isRequired,
-};
-
-RecommendedObjects.defaultProps = {
-
 };
 
 export default RecommendedObjects;

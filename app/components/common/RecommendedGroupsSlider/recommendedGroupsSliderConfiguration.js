@@ -1,7 +1,11 @@
 import React from 'react';
 import uniqueId from 'lodash/uniqueId';
+import { FormattedMessage } from 'react-intl';
 import defaultSliderConfiguration from 'components/common/Slider/sliderConfig';
 import GroupTile from 'components/common/tiles/GroupTile';
+
+import messages from './RecommendedGroupsSlider.messages';
+
 
 const getSliderConfiguration = () => Object.assign(
   {},
@@ -31,6 +35,6 @@ export const getSliderProps = (slideList = []) => (
     slideList: getRecommendedGroupsItems(slideList),
   }, {
     sliderConfig: getSliderConfiguration(),
-    emptyMessage: 'There are no recommended groups.',
+    emptyMessage: <FormattedMessage {...messages.NothingToShow} />,
   })
 );
