@@ -22,6 +22,7 @@ export default css`
   }
 
   .card-obs {
+    pointer-events: auto;
     background: url(${white_texture_bg});
     box-shadow: 0 0 6px 0 ${shadows};
     min-height: 500px;

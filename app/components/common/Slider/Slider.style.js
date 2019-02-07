@@ -1,5 +1,6 @@
 import css from 'styled-jsx/css';
 import { romance, golda } from '../../../styles/variables/colors_tiles_v4';
+import { screenMedium, screenLarge } from '../../../styles/variables/breakpoints';
 
 export default css`
   .slick-prev, .slick-next {
@@ -50,6 +51,19 @@ export default css`
   .slick-slide > div, .slick-slide > div > div {
     outline: 0;
     outline: none;
+  }
+
+  @media ${screenMedium} {
+    .slick-list {
+      z-index: 100;
+      pointer-events: none;
+    }
+  }
+
+  @media ${screenLarge} {
+    .slick-list {
+      z-index: auto;
+    }
   }
 
   @media screen and (min-width: 1200px) {

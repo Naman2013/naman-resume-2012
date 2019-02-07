@@ -5,6 +5,7 @@ import { screenMedium } from 'styles/variables/breakpoints';
 
 export default css`
   .root {
+    pointer-events: auto;
     width: 300px;
     height: 370px;
     background-image: url("https://vega.slooh.com/assets/v4/dashboard/group-card-bg.svg");

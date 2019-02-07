@@ -51,7 +51,6 @@ class ObservationsSlider extends Component {
       slideList,
       emptyMessage,
     } = this.props;
-    console.log(emptyMessage);
     const { currentIndex } = this.state;
     return (
       <div className="root slooh-slider">

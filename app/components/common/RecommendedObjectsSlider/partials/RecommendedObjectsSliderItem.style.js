@@ -4,6 +4,7 @@ import { secondaryFont } from '../../../../styles/variables/fonts';
 
 export default css`
   .card-object {
+    pointer-events: auto;
     text-align: initial;
     width: 300px;
     height: 464px;

@@ -14,8 +14,6 @@ import { SHARED_MEMBER_PHOTOS } from '../../../services/shared-photos';
 import MobileSwiper from './partials/MobileSwiper';
 import { getSliderProps } from './recommendedObservationsSliderConfiguration';
 
-import style from './RecommendedObservationsSlider.style';
-
 const Observations = () => (
   <Request
     serviceURL={SHARED_MEMBER_PHOTOS}
@@ -34,9 +32,7 @@ const Observations = () => (
             screenLarge
             screenXLarge
           >
-            <div className="obs-slider-wrapper">
-              <SloohSlider {...sliderProps} />
-            </div>
+            <SloohSlider {...sliderProps} />
           </DisplayAtBreakpoint>
           <DisplayAtBreakpoint
             screenSmall
@@ -45,7 +41,6 @@ const Observations = () => (
               imagesList={shortList}
             />
           </DisplayAtBreakpoint>
-          <style jsx>{style}</style>
         </div>
       );
     }}

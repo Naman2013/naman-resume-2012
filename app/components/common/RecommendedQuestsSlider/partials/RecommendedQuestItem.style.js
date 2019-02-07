@@ -11,7 +11,8 @@ import { questShield } from '../../../../styles/variables/iconURLs';
 
 
 export default css`
-  .root { 
+  .root {
+    pointer-events: auto;
     width: 300px;
     height: 300px;
     text-align: center;

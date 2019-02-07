@@ -21,7 +21,7 @@ const getSliderConfiguration = () => Object.assign(
           slidesToShow: 1,
           slidesToScroll: 1,
           centerMode: true,
-          centerPadding: '50px',
+          centerPadding: '10px',
         }
       },
     ],
