@@ -5,6 +5,7 @@ import { screenMedium } from 'styles/variables/breakpoints';
 
 export default css`
 .card-guides {
+  pointer-events: auto;
   background-image: url("https://vega.slooh.com/assets/v4/dashboard/guide-card-bg.png");
   background-color: ${midnight_express};
   background-size: contain;

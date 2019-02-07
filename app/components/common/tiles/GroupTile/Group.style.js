@@ -5,6 +5,7 @@ import { screenMedium } from 'styles/variables/breakpoints';
 
 export default css`
   .root {
+    pointer-events: auto;
     width: 300px;
     height: 370px;
     background-image: url("https://vega.slooh.com/assets/v4/dashboard/group-card-bg.svg");
@@ -22,7 +23,7 @@ export default css`
     text-align: center;
   }
   .card-groups-img {
-    background-image: url(https://vega.slooh.com/assets/v4/dashboard/group-graphic-1.png);
+    background-image: url("https://vega.slooh.com/assets/v4/dashboard/group-graphic-1.png");
     background-size: 112px;
     background-repeat: no-repeat;
     background-position: 50%;
