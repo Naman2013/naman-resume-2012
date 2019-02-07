@@ -1,13 +1,13 @@
 import css from 'styled-jsx/css';
-import { secondaryFont } from 'styles/variables/fonts';
+import { secondaryFont } from '../../../../styles/variables/fonts';
 import {
   astronaut,
   shadows,
   questTexture,
   blue_tile_canvas,
   lightHeadedAstronaut,
-} from 'styles/variables/colors_tiles_v4';
-import { questShield } from 'styles/variables/iconURLs';
+} from '../../../../styles/variables/colors_tiles_v4';
+import { questShield } from '../../../../styles/variables/iconURLs';
 
 
 export default css`

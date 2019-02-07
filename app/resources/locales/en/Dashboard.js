@@ -21,4 +21,11 @@ export const Dashboard = {
   'Dashboard.DontHaveAccount': "Don't have an account?",
   'Dashboard.JoinSloohToday': 'Join Slooh Today',
   'Dashboard.HaveAnInvintationCode': 'Have an Invitation Code?',
+  'Dashboard.Options': 'Options',
+  'Dashboard.Loading': 'Loading',
+  'Dashboard.Details': 'Details',
+  'Dashboard.By': 'By',
+  'Dashboard.Slooh': 'Slooh',
+  'Dashboard.Quest': 'Quest',
+  'Dashboard.NothingToShow': 'There is nothing to show',
 };

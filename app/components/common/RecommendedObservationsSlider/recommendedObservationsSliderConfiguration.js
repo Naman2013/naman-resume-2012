@@ -41,7 +41,7 @@ const getSliderConfiguration = () => Object.assign(
 const getRecommendedObservationsItems = (imageList = []) => {
   return imageList.map(object => ({
     customerImageId: object.customerImageId,
-    render: sliderProps => <RecommendedObservationSliderItem {...sliderProps} {...object} />,
+    render: sliderProps => <RecommendedObservationSliderItem key={imageList.customerImageId} {...sliderProps} {...object} />,
   }));
 };
 

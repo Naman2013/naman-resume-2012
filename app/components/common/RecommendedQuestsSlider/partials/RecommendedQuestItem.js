@@ -2,7 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import cn from 'classnames';
-import styles from './slider-item.style';
+import { FormattedMessage } from 'react-intl';
+
+import styles from './RecommendedQuestItem.style';
+import messages from './RecommendedQuestItem.messages';
 
 const {
   string,
@@ -28,10 +31,10 @@ const RecommendedQuestsItem = ({
       </div>
       <div className="quest-info">
         <div className="quest-info-item left">
-          <span>SLOOH</span>
+          <span><FormattedMessage {...messages.Slooh} /></span>
         </div>
         <div className="quest-info-item right">
-          <span>QUEST</span>
+          <span><FormattedMessage {...messages.Quest} /></span>
         </div>
       </div>
     </Link>

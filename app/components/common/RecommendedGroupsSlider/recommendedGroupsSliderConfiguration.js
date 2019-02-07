@@ -14,14 +14,13 @@ const getSliderConfiguration = () => Object.assign(
   },
 );
 
-const getRecommendedGroupsItems = (groupList = []) =>
-groupList.map(object => ({
+const getRecommendedGroupsItems = (groupList = []) => groupList.map(object => ({
   render: () => (
     <GroupTile
       key={uniqueId()}
       title={object.title}
       accessDescription={object.accessDescription}
-      iconURL={object.iconURL}
+      iconURL={object.iconUrl}
       linkUrl={object.linkUrl}
     />
   ),

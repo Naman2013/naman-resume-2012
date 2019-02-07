@@ -1,15 +1,16 @@
 import React from 'react';
-import defaultSliderConfiguration from 'components/common/Slider/sliderConfig';
-import BigShowTile from 'components/common/tiles/BigShowTile';
+import defaultSliderConfiguration from '../../../components/common/Slider/sliderConfig';
+import BigShowTile from '../../../components/common/tiles/BigShowTile';
 
 const getSliderConfiguration = () => Object.assign(
   {},
   defaultSliderConfiguration(),
   {
-    slidesToShow: 1,
+    slidesToShow: 2,
     slidesToScroll: 1,
     initialSlide: 0,
     centerPadding: '50px',
+    centerMode: false,
     responsive: [
       {
         breakpoint: 1200,

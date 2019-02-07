@@ -1,6 +1,9 @@
 import React, { Fragment } from 'react';
-import PropTypes from 'prop-types';
+import PropTypes, { shape } from 'prop-types';
+import { injectIntl } from 'react-intl';
+
 import style from './BootstrappedSliderItem.style';
+import messages from './BootstrappedSliderItem.messages';
 
 const {
   string,
@@ -16,6 +19,7 @@ const BootstrappedObservationSliderItem = ({
   observationLog,
   likesCount,
   commentsCount,
+  intl,
 }) => (
   <div className="card-obs-wrapper">
     <div className="card-obs">
@@ -25,7 +29,7 @@ const BootstrappedObservationSliderItem = ({
             <div className="info">
               <div className="main-info">
                 <div className="title">{imageTitle}</div>
-                <div className="author">By {displayName}</div>
+                <div className="author">{intl.formatMessage(messages.By)} {displayName}</div>
                 <div className="text" dangerouslySetInnerHTML={{ __html: observationLog }} />
               </div>
               <div className="links">
@@ -54,15 +58,15 @@ const BootstrappedObservationSliderItem = ({
               <div className="button"><img className="icon" src="https://vega.slooh.com/assets/v4/common/heart.svg" alt="heart" />{likesCount}</div>
               <div className="button"><img className="icon" src="https://vega.slooh.com/assets/v4/common/comment.svg" alt="comment" />{commentsCount}</div>
               <div className="button details">
-                Details
+                {intl.formatMessage(messages.Details)}
                 <img src="https://vega.slooh.com/assets/v4/icons/horz_arrow_right_astronaut.svg" alt="arrow-right" />
               </div>
             </div>
-            <div className="capture-date">{observationTimeDisplay ? observationTimeDisplay[0] : 'Loading...'}</div>
+            <div className="capture-date">{observationTimeDisplay ? observationTimeDisplay[0] : `${intl.formatMessage(messages.Loading)}...`}</div>
           </div>
         </Fragment>
       ) : (
-        <div className="loading">Loading...</div>
+        <div className="loading">{intl.formatMessage(messages.Loading)}...</div>
       )}
     </div>
     <style jsx>{style}</style>
@@ -77,6 +81,7 @@ BootstrappedObservationSliderItem.propTypes = {
   observationLog: string,
   likesCount: number,
   commentsCount: number,
+  intl: shape({}).isRequired,
 };
 
 BootstrappedObservationSliderItem.defaultProps = {
@@ -89,4 +94,4 @@ BootstrappedObservationSliderItem.defaultProps = {
   commentsCount: 0,
 };
 
-export default BootstrappedObservationSliderItem;
+export default injectIntl(BootstrappedObservationSliderItem);

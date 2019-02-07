@@ -1,5 +1,5 @@
 /***********************************
-* V4 Recommended Objects Slider
+* V4 Recommended Quests Slider
 *
 *
 *
@@ -39,7 +39,7 @@ const RecommendedObjects = ({
       >
         {shortList.map(quest => (
           <RecommendedQuestSliderItem
-            key={uniqueId()}
+            key={quest.linkUrl}
             {...quest}
           />
         ))}

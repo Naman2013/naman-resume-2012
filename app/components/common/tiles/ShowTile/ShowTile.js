@@ -19,7 +19,11 @@ ShowTile.propTypes = {
   title: PropTypes.string.isRequired,
   time: PropTypes.string.isRequired,
   author: PropTypes.string.isRequired,
-  link: PropTypes.string.isRequired,
+  linkUrl: PropTypes.string,
+};
+
+ShowTile.defaultProps = {
+  linkUrl: '',
 };
 
 export default ShowTile;

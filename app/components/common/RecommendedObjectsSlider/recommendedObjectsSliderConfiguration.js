@@ -1,5 +1,4 @@
 import React from 'react';
-import uniqueId from 'lodash/uniqueId';
 import defaultSliderConfiguration from 'components/common/Slider/sliderConfig';
 import RecommendedObjectsItem from './partials/RecommendedObjectsSliderItem';
 
@@ -17,7 +16,7 @@ const getSliderConfiguration = () => Object.assign(
 
 const getRecommendedObjectsItems = (recommendedObjectsList = []) =>
   recommendedObjectsList.map(object => ({
-    render: () => <RecommendedObjectsItem key={uniqueId()} {...object} />,
+    render: () => <RecommendedObjectsItem key={`${object.title} ${object.subtitle}`} {...object} />,
   }));
 
 export const getSliderProps = (slideList = []) => (

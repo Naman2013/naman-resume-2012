@@ -14,14 +14,13 @@ const getSliderConfiguration = () => Object.assign(
     centerPadding: '25px',
   },
 );
-const getRecommendedStoriesItems = (storiesList = []) =>
-storiesList.map(object => ({
+const getRecommendedStoriesItems = (storiesList = []) => storiesList.map(post => ({
   render: () => (<StoryTile
-    key={uniqueId()}
-    iconURL={object.iconURL}
-    title={object.title}
-    linkUrl={object.linkUrl}
-    author={has(object, 'authorInfo.byline') ? object.authorInfo.byline : ''}
+    key={post.postId}
+    storyId={post.postId}
+    iconURL={post.slugIconURL}
+    title={post.title}
+    author={has(post, 'authorInfo.displayName') ? post.authorInfo.displayName : ''}
   />),
 }));
 

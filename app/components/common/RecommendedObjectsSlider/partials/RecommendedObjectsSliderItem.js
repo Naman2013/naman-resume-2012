@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import uniqueId from 'lodash/uniqueId';
+import { FormattedMessage } from 'react-intl';
 import Button from '../../style/buttons/Button';
-import styles from './slider-item.style';
+
+import styles from './RecommendedObjectsSliderItem.style';
+import messages from './RecommendedObjectsSliderItem.messages';
 
 const getIconStyle = iconURL => ({
   backgroundImage: `url(${iconURL})`,
@@ -10,15 +12,20 @@ const getIconStyle = iconURL => ({
   backgroundPosition: 'center',
 });
 
+const {
+  string,
+  arrayOf,
+  shape,
+  bool,
+} = PropTypes;
+
 const RecommendedObjectsItem = ({
-  description,
   detailList,
   hasIcon,
   iconURL,
-  subTitle,
   title,
 }) => (
-  <div key={uniqueId()} className="card-object">
+  <div className="card-object">
     <div className="object-icon">{hasIcon ? <div style={getIconStyle(iconURL)} /> : null}</div>
     <div className="object-field title" dangerouslySetInnerHTML={{ __html: title }} />
     <div className="field-wrapper">
@@ -33,9 +40,16 @@ const RecommendedObjectsItem = ({
       <img src={detailList[2].iconUrl} alt="icon" />
       <div className="object-field details">{detailList[2].text}</div>
     </div>
-    <Button text="options" theme={{ margin: '30px auto 0', width: '140px' }} />
+    <Button withIntl text={<FormattedMessage {...messages.Options} />} theme={{ margin: '30px auto 0', width: '140px' }} />
     <style jsx>{styles}</style>
   </div>
 );
+
+RecommendedObjectsItem.propTypes = {
+  detailList: arrayOf(shape({ text: string.isRequired })).isRequired,
+  hasIcon: bool.isRequired,
+  iconURL: string.isRequired,
+  title: string.isRequired,
+};
 
 export default RecommendedObjectsItem;

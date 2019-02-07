@@ -17,7 +17,7 @@ const getSliderConfiguration = () => Object.assign(
 
 const getRecommendedQuestsItems = (recommendedQuestList = []) =>
   recommendedQuestList.map(quest => ({
-    render: () => <RecommendedQuestItem key={uniqueId()} {...quest} />,
+    render: () => <RecommendedQuestItem key={quest.linUrl} {...quest} />,
   }));
 
 export const getSliderProps = (slideList = []) => (
