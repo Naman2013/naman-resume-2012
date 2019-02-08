@@ -50,7 +50,8 @@ class ProfileActivityQa extends Component {
     }));
   };
 
-     this.setState(() => ({
+  closeModal = () => {
+    this.setState(() => ({
       showPrompt: false,
     }));
   };
@@ -65,7 +66,7 @@ class ProfileActivityQa extends Component {
     actions.fetchAstronomerQuestions({
       appendToList: false,
       page,
-    }); 
+    });
   };
 
   updateQuestionsList = () => {
