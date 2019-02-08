@@ -97,8 +97,6 @@ class ObjectVisibilityProfile extends Component {
                         titleHtml={riseSet.title}
                       >
                         {riseSet.riseAndSetSelectors
-                          // && Array.isArray(riseSet.riseAndSetSelectors.dates)
-                          // && riseSet.riseAndSetSelectors.dates > 0
                           && riseSet.riseAndSetSelectors.dates.map((date, index) => (
                           <div
                             key={date.dateString}

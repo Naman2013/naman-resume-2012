@@ -204,12 +204,14 @@ class Overview extends Component {
                 show: modeledResult.visibilitySeason.show,
                 title: modeledResult.visibilitySeason.title,
                 observatories: modeledResult.visibilitySeason.observatories,
+                showVisibilitySeason: modeledResult.showVisibilitySeason,
               }}
               midnightCulmination={{
                 show: modeledResult.midnightCulmination.show,
                 label: modeledResult.midnightCulmination.label,
                 text: modeledResult.midnightCulmination.text,
                 description: modeledResult.midnightCulmination.description,
+                showMidnightCulmination: modeledResult.showMidnightCulmination,
               }}
               bestTelescope={{
                 label: modeledResult.bestTelescope.label,

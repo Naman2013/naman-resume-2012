@@ -51,39 +51,41 @@ const ObjectProfile = ({
     </Row>
 
     <Row wrap>
-      <StaticCell
-        flexScale={['100%', '100%', '20%']}
-        hasBorderScale={[true]}
-        displayAtBreakpoints={{
-          screenSmall: false,
-          screenMedium: false,
-          screenLarge: true,
-          screenXLarge: true,
-        }}
-      >
-        <Row wrap>
-          {visibilitySeason.show === true && (
-            <StaticCell
-              title={visibilitySeason.title}
-              theme={{ padding: '7px', marginBottom: '20px' }}
-              hasBottomBorder={midnightCulmination.show}
-            >
-              {visibilitySeason.observatories}
-            </StaticCell>
-          )}
+      {(visibilitySeason.showVisibilitySeason || midnightCulmination.showMidnightCulmination) && (
+        <StaticCell
+          flexScale={['100%', '100%', '20%']}
+          hasBorderScale={[true]}
+          displayAtBreakpoints={{
+            screenSmall: false,
+            screenMedium: false,
+            screenLarge: true,
+            screenXLarge: true,
+          }}
+        >
+          <Row wrap>
+            {visibilitySeason.showVisibilitySeason === true && (
+              <StaticCell
+                title={visibilitySeason.title}
+                theme={{ padding: '7px', marginBottom: '20px' }}
+                hasBottomBorder={midnightCulmination.show}
+              >
+                {visibilitySeason.observatories}
+              </StaticCell>
+            )}
 
-          {midnightCulmination.show === true && (
-            <StaticCell
-              flexScale={['100%']}
-              title={midnightCulmination.label}
-              theme={{ padding: 0, borderBottom: 'none', minHeight: 0 }}
-            >
-              <p>{midnightCulmination.text}</p>
-              {midnightCulmination.description}
-            </StaticCell>
-          )}
-        </Row>
-      </StaticCell>
+            {midnightCulmination.showMidnightCulmination === true && (
+              <StaticCell
+                flexScale={['100%']}
+                title={midnightCulmination.label}
+                theme={{ padding: 0, borderBottom: 'none', minHeight: 0 }}
+              >
+                <p>{midnightCulmination.text}</p>
+                {midnightCulmination.description}
+              </StaticCell>
+            )}
+          </Row>
+        </StaticCell>
+      )}
 
       {bestTelescope.list.length > 0 && (
         <StaticCell
