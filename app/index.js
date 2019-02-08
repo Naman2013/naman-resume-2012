@@ -173,7 +173,7 @@ import './styles/static.scss';
 // load monitoring and global error handling
 import './monitoring';
 import MyListsHub from './components/profiles/private-profile/my-lists';
-import MyQa from './components/profiles/private-profile/my-qa/my-qa';
+import ProfileQaContainer from './components/profiles/private-profile/my-qa/ProfileQaContainer';
 
 // Create an enhanced history that syncs navigation events with the store
 const history = syncHistoryWithStore(browserHistory, store);
@@ -353,8 +353,6 @@ ReactDOM.render(
           <Route path="community/post/:postId" component={StoryDetails} onEnter={validateUser} />
           <Route path="stories/:filterType/create" component={CreateStory} onEnter={validateUser} />
 
-          <Route path="qa/:filter" component={MyQa} onEnter={validateUser} />
-
           <Route path="quests(/:filterType)" component={QuestsHub} onEnter={validateUser} />
 
           <Route path="quest-details/:questId" component={Quest} onEnter={validateUser} />
@@ -377,6 +375,10 @@ ReactDOM.render(
             <Route path="lists">
               <IndexRedirect to="object" />
               <Route path=":filterType" component={MyListsHub} />
+            </Route>
+            <Route path="qa">
+              <IndexRedirect to="asked" />
+              <Route path=":filter" component={ProfileQaContainer} />
             </Route>
           </Route>
 
