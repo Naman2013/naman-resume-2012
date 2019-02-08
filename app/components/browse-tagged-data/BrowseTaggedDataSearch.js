@@ -397,7 +397,7 @@ class BrowseTaggedDataSearch extends Component {
                             {grandParentKey === grandParentNodeID && parentKey === parentNodeID && Object.keys(renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].subnodes).map(function (itemKey) {
                                 return (
                                   <div className="search-results-item">
-                                    <div>{renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].subnodes[itemKey].title}<Link to={renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].subnodes[itemKey].title}><img style={{paddingLeft: '15px'}} src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"/></Link></div>
+                                    <div>{renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].subnodes[itemKey].title}<Link to={renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].subnodes[itemKey].linkUrl}><img style={{paddingLeft: '15px'}} src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"/></Link></div>
                                   </div>
                                 )
                               }, this)
