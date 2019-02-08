@@ -1,9 +1,6 @@
 import css from 'styled-jsx/css';
-import { faintShadow } from 'styles/variables/shadows';
-import { astronaut, romance, golden_yellow, shadows } from 'styles/variables/colors_tiles_v4';
-import { primaryFont, secondaryFont } from 'styles/variables/fonts';
-import { screenLarge, screenMedium } from 'styles/variables/breakpoints';
-import { backgroundImageCover, dropShadowContainer } from 'styles/mixins/utilities';
+import { faintGray } from '../../styles/variables/colors_tiles_v4';
+import { screenMedium } from '../../styles/variables/breakpoints';
 
 export default css`
   .root {
@@ -41,6 +38,10 @@ export default css`
     top: 687px;
     height: 160px;
     width: 100%;
+  }
+
+  .sections-wrapper {
+    background-color: ${faintGray};
   }
 
   @media all and (min-width: 641px) and (max-width: 768px) {

@@ -1,8 +1,10 @@
 import React from 'react';
-import uniqueId from 'lodash/uniqueId';
+import { FormattedMessage } from 'react-intl';
+
 import defaultSliderConfiguration from 'components/common/Slider/sliderConfig';
 import RecommendedObjectsItem from './partials/RecommendedObjectsSliderItem';
 
+import messages from './RecommendedObjectsSlider.message';
 
 const getSliderConfiguration = () => Object.assign(
   {},
@@ -16,15 +18,15 @@ const getSliderConfiguration = () => Object.assign(
 );
 
 const getRecommendedObjectsItems = (recommendedObjectsList = []) =>
-recommendedObjectsList.map(object => ({
-  render: () => <RecommendedObjectsItem key={uniqueId()} {...object} />,
-}))
+  recommendedObjectsList.map(object => ({
+    render: () => <RecommendedObjectsItem key={`${object.title} ${object.subtitle}`} {...object} />,
+  }));
 
 export const getSliderProps = (slideList = []) => (
   Object.assign({
     slideList: getRecommendedObjectsItems(slideList),
   }, {
     sliderConfig: getSliderConfiguration(),
-    emptyMessage: 'There are no recommended objects.',
+    emptyMessage: <FormattedMessage {...messages.NothingToShow} />,
   })
 );

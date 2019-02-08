@@ -22,9 +22,9 @@ const {
 
 const sectionOrder = [
   'recommendedObjects',
-  // 'featuredObservations',
+  'featuredObservations',
   'recommendedGuides',
-  // 'recommendedQuests',
+  'recommendedQuests',
   'recommendedShows',
   'recommendedStories',
   'popularGroups',
@@ -73,6 +73,11 @@ class BootstrappedDashboard extends Component {
       recommendedStoriesHeading: string,
       recommendedStoriesSubHeading: string,
     }),
+    recommendedQuests: shape({
+      recommendedQuestsShow: bool,
+      recommendedQuestsHeading: string,
+      recommendedQuestsSubHeading: string,
+    }),
     setupMission: shape({
       setupMissionShow: bool,
       setupMissionHeading: string,
@@ -105,15 +110,20 @@ class BootstrappedDashboard extends Component {
       promoPanelShow: false,
       promoPanelCount: 0,
     },
+    recommendedObjects: {
+      recommendedObjectsShow: false,
+      recommendedObjectsHeading: '',
+      recommendedObjectsSubHeading: '',
+    },
     recommendedGuides: {
       recommendedGuidesShow: false,
       recommendedGuidesHeading: '',
       recommendedGuidesSubHeading: '',
     },
-    recommendedObjects: {
-      recommendedObjectsShow: false,
-      recommendedObjectsHeading: '',
-      recommendedObjectsSubHeading: '',
+    recommendedQuests: {
+      recommendedQuestsShow: false,
+      recommendedQuestsHeading: '',
+      recommendedQuestsSubHeading: '',
     },
     recommendedShows: {
       recommendedShowsShow: false,
@@ -155,13 +165,14 @@ class BootstrappedDashboard extends Component {
         <div className="dash-nav">
           <DashNav />
         </div>
-
-        {sectionOrder.map((section, i) =>
-            this.props[section] &&
-            getSectionComponent(
-              section,
-              Object.assign({ orderNumber: i + 1 }, this.props[section]),
-            ))}
+        <div className="sections-wrapper">
+          {sectionOrder.map((section, i) =>
+              this.props[section] &&
+              getSectionComponent(
+                section,
+                Object.assign({ orderNumber: i + 1 }, this.props[section]),
+              ))}
+        </div>
 
         <style>{styles}</style>
       </div>

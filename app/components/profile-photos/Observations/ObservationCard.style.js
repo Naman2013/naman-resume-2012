@@ -51,7 +51,7 @@ export default css`
 
   .details span {
     text-transform: uppercase;
-  } 
+  }
 
   .icon {
     margin-right: 8px
