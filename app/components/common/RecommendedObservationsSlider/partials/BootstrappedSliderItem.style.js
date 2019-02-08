@@ -184,7 +184,7 @@ export default css`
       width: 55%
     }
     .picture {
-      width: 40%
+      min-width: 40%
     }
     .top {
       padding: 80px 80px 50px;
