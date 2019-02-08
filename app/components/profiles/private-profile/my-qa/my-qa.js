@@ -1,100 +1,94 @@
-import React, { Component, Fragment } from 'react';
-import Request from '../../../common/network/Request';
-import HubContainer from '../../../common/HubContainer';
-import QuestionsList from '../../../ask-astronomer/question-list';
-import QuestionFilter from '../../../ask-astronomer/question-filter';
-import AskQuestionTile from '../../../ask-astronomer/AskQuestionTile';
-import { DeviceContext } from '../../../../providers/DeviceProvider';
-import CenterColumn from '../../../common/CenterColumn/CenterColumn';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
+
+import MainContainer from '../../../../containers/ask-astronomer/partials/MainContainer';
+import DisplayAtBreakpoint from '../../../common/DisplayAtBreakpoint';
+import { GuidePromoTile } from '../../../common/tiles/GuidePromoTile';
+import { InfoTile } from '../../../common/tiles/InfoTile';
 
 import style from './my-qa.style';
+import messages from './my-qa.messages';
 
-const api = '/api/forum/getQuestionsList';
+const { shape, func, number } = PropTypes;
 
-const filters = [
-  {
-    title: 'My questions',
-    linkURL: '/qa/asked',
+const QA_TABS_DATA = {
+  asked: {
+    countText: (count, intl) => intl.formatMessage(messages.YourAskedQuestions, { count }),
+    dropdownOptions: [
+      { label: <FormattedMessage {...messages.AllQuestions} />, value: 'asked' },
+      { label: <FormattedMessage {...messages.Answered} />, value: 'answered' },
+      { label: <FormattedMessage {...messages.Unanswered} />, value: 'unanswered' },
+    ],
   },
-  {
-    title: 'My answers',
-    linkURL: '/qa/answeredbyme',
+  answeredbyme: {
+    countText: (count, intl) => intl.formatMessage(messages.YourAnsweredQuestions, { count }),
+    dropdownOptions: [],
   },
-  {
-    title: 'Questions to answer',
-    linkURL: '/qa/allunanswered',
+  allunanswered: {
+    countText: (count, intl) => intl.formatMessage(messages.QuestionsToAnswers),
+    dropdownOptions: [
+      { label: <FormattedMessage {...messages.AllUnanswered} />, value: 'allunanswered' },
+      { label: <FormattedMessage {...messages.ByMySpecialities} />, value: 'specialist' },
+    ],
   },
-];
+};
 
-export default class MyQa extends Component {
-  state = {
-    questions: [],
+class MyQa extends Component {
+  static propTypes = {
+    actions: shape({
+      fetchAstronomerQuestions: func.isRequired,
+    }).isRequired,
+    params: shape({}).isRequired,
+    totalCount: number.isRequired,
+    context: shape({}).isRequired,
+    intl: intlShape.isRequired,
   };
 
-  updateList = (resp) => {
-    this.setState({
-      questions: resp.threads,
-      ...resp,
-    });
-  };
-
-  appendToList = (resp) => {
-    this.setState({
-      questions: this.state.questions.concat(resp.threads),
-    });
-  };
-
-  getTextCount = (count) => {
-    switch (this.props.params.filter) {
-      case 'asked':
-        return `You asked ${count} questions`;
-      case 'allunanswered':
-        return 'ANSWER QUESTIONS, EARN GRAVITY';
-      default:
-        return null;
-    }
-  };
+  componentDidMount() {
+    const { actions, params } = this.props;
+    actions.fetchAstronomerQuestions({ answerState: params.filter });
+  }
 
   render() {
+    const {
+      context, actions, totalCount, params, intl,
+    } = this.props;
+
     return (
-      <HubContainer
-        updateList={this.updateList}
-        appendToList={this.appendToList}
-        callSource="qanda"
-        paginateURL={api}
-        filterTypeFieldName="answerState"
-        filterType={this.props.params.filter}
-        useSort={false}
-        showHeaderIcon={false}
-        filterOptions={filters}
-        pageTitle="MY Q&A HUB"
-        pageTitleTheme={{
-          fontFamily: 'BrandonGrotesque',
-          fontSize: '14px',
-          fontWeight: '500',
-          letterSpacing: '1.8px',
-          height: '62px',
-        }}
-        render={() => (
-          <DeviceContext.Consumer>
-            {context => (
-              <CenterColumn theme={{ display: 'flex', flexDirection: 'row', paddingTop: '19px' }}>
-                <div className="main-block">
-                  {' '}
-                  <QuestionFilter countText={this.getTextCount(this.state.threadCount)} />
-                  <QuestionsList
-                    {...context}
-                    questions={this.state.questions}
-                    toggleAllAnswersAndDisplay={() => {}}
-                  />{' '}
-                </div>
-                <AskQuestionTile title="Ask an Astronomer" />
-                <style jsx>{style}</style>
-              </CenterColumn>
-            )}
-          </DeviceContext.Consumer>
-        )}
-      />
+      <div className="root">
+        <div className="main-block">
+          {totalCount === 0 && params.filter === 'asked' ? (
+            <InfoTile
+              subject={intl.formatMessage(messages.InfoTileSubject)}
+              title={intl.formatMessage(messages.InfoTileTitle)}
+              text="Text placeholder"
+            />
+          ) : (
+            <MainContainer
+              {...this.props}
+              {...context}
+              countText={QA_TABS_DATA[params.filter].countText(totalCount, intl)}
+              likeParams={{
+                callSource: 'qanda',
+              }}
+              showDropdown={QA_TABS_DATA[params.filter].dropdownOptions.length > 0}
+              dropdownOptions={QA_TABS_DATA[params.filter].dropdownOptions}
+              changeAnswerState={actions.fetchAstronomerQuestions}
+            />
+          )}
+        </div>
+        <DisplayAtBreakpoint screenLarge screenXLarge>
+          <GuidePromoTile
+            title={intl.formatMessage(messages.AskAnAstronomer)}
+            icon="https://vega.slooh.com/assets/v4/common/membership/astronomer_member.png"
+            buttonText={intl.formatMessage(messages.ViewGuide)}
+          />
+        </DisplayAtBreakpoint>
+        <style jsx>{style}</style>
+      </div>
     );
   }
 }
+
+export default injectIntl(MyQa);

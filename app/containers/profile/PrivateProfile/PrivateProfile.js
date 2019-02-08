@@ -15,6 +15,7 @@ class PrivateProfile extends Component {
   static propTypes = {
     privateProfileData: PropTypes.shape({}).isRequired,
     fetchPrivateProfile: PropTypes.func.isRequired,
+    params: PropTypes.shape({}).isRequired,
   };
 
   componentDidMount() {
@@ -68,9 +69,9 @@ class PrivateProfile extends Component {
   });
 
   render() {
-    const { children, privateProfileData } = this.props;
+    const { children, privateProfileData, params } = this.props;
     const modelResult = this.modelData(privateProfileData);
-    
+
     return (
       <div className="root">
         {modelResult.profileMenuList && (
@@ -79,7 +80,7 @@ class PrivateProfile extends Component {
 
             <SubPageNavigation items={this.generateNavItems(modelResult.profileMenuList)} />
 
-            {cloneElement(children, { activityData: modelResult.activityData })}
+            {cloneElement(children, { activityData: modelResult.activityData, params })}
           </Fragment>
         )}
         <style jsx>{styles}</style>
