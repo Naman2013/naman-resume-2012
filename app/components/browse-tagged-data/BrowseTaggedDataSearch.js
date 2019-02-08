@@ -35,13 +35,18 @@ class BrowseTaggedDataSearch extends Component {
     parentNodeID: null,
   };
 
-  componentDidMount() {}
+  componentDidMount() {
+    this.handleClick({ value: ''});
+  }
 
   componentWillReceiveProps(nextProps) {
     const { isOpen } = nextProps;
 
     if (!isOpen) {
       this.doTearDown();
+    }
+    else {
+       this.handleClick({ value: ''});
     }
 
     /* do a deep comparision on the next data coming in to see if it's different. */
@@ -270,9 +275,12 @@ class BrowseTaggedDataSearch extends Component {
               }
 
               .search-results-parent {
-                font-size: 15px;
+                font-size: 18px;
                 padding: 15px 0;
                 margin-left: 75px;
+                font-family: ${primaryFont};
+                color: ${astronaut};
+
               }
 
               .search-results-item {
@@ -290,6 +298,7 @@ class BrowseTaggedDataSearch extends Component {
     }
 
     renderTaggedDataDisplay_SearchTerm() {
+
       /************************************************************************************
       Always return all available data and the grandparent / parent nodes always expanded.
       The data to display has already been trimmed to only include the grandparent/parent
@@ -328,6 +337,7 @@ class BrowseTaggedDataSearch extends Component {
     }
 
     renderTaggedDataDisplay_NoSearchTerm() {
+
       const { grandParentNodeID, parentNodeID, renderTaggedData } = this.state;
 
       //console.log(grandParentNodeID);
@@ -345,7 +355,7 @@ class BrowseTaggedDataSearch extends Component {
             {Object.keys(renderTaggedData.taggedData).map(function (grandParentKey) {
                 return (
                   <div>
-                    <div onClick={(event) => { this.changeGrandParentNodeID(grandParentKey) }} className="search-results-grandparent">{renderTaggedData.taggedData[grandParentKey].title}</div>
+                    <div onClick={(event) => { this.changeGrandParentNodeID(grandParentKey) }} className="search-results-grandparent">{renderTaggedData.taggedData[grandParentKey].title} ({Object.keys(renderTaggedData.taggedData[grandParentKey].subnodes).length})<Link to={renderTaggedData.taggedData[grandParentKey].linkUrl}><img style={{paddingLeft: '15px'}} src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"/></Link></div>
                   </div>
                 )
               }, this)
@@ -357,11 +367,12 @@ class BrowseTaggedDataSearch extends Component {
             {Object.keys(renderTaggedData.taggedData).map(function (grandParentKey) {
                 return (
                   <div>
-                    <div onClick={(event) => { this.changeGrandParentNodeID(grandParentKey) }} className="search-results-grandparent">{renderTaggedData.taggedData[grandParentKey].title}</div>
+                    <div onClick={(event) => { this.changeGrandParentNodeID(grandParentKey) }} className="search-results-grandparent">{renderTaggedData.taggedData[grandParentKey].title} ({Object.keys(renderTaggedData.taggedData[grandParentKey].subnodes).length})<Link to={renderTaggedData.taggedData[grandParentKey].linkUrl}><img style={{paddingLeft: '15px'}} src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"/></Link></div>
                     {Object.keys(renderTaggedData.taggedData[grandParentKey].subnodes).map(function (parentKey) {
                         return (
                           <div>
-                            {grandParentKey === grandParentNodeID && <div onClick={(event) => { this.changeParentNodeID(parentKey) }} className="search-results-parent">{renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].title}</div>}
+                            {grandParentKey === grandParentNodeID && Object.keys(renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].subnodes).length === 0 && <div className="search-results-parent">{renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].title} ({Object.keys(renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].subnodes).length})<Link to={renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].linkUrl}><img style={{paddingLeft: '15px'}} src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"/></Link></div>}
+                            {grandParentKey === grandParentNodeID && Object.keys(renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].subnodes).length > 0 && <div onClick={(event) => { this.changeParentNodeID(parentKey) }} className="search-results-parent">{renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].title} ({Object.keys(renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].subnodes).length}) <Link to={renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].linkUrl}><img style={{paddingLeft: '15px'}} src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"/></Link></div>}
                           </div>
                         )
                       }, this)
@@ -377,15 +388,16 @@ class BrowseTaggedDataSearch extends Component {
             {Object.keys(renderTaggedData.taggedData).map(function (grandParentKey) {
                 return (
                   <div>
-                    <div onClick={(event) => { this.changeGrandParentNodeID(grandParentKey) }} className="search-results-grandparent">{renderTaggedData.taggedData[grandParentKey].title}</div>
+                    <div onClick={(event) => { this.changeGrandParentNodeID(grandParentKey) }} className="search-results-grandparent">{renderTaggedData.taggedData[grandParentKey].title} ({Object.keys(renderTaggedData.taggedData[grandParentKey].subnodes).length})<Link to={renderTaggedData.taggedData[grandParentKey].linkUrl}><img style={{paddingLeft: '15px'}} src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"/></Link></div>
                     {Object.keys(renderTaggedData.taggedData[grandParentKey].subnodes).map(function (parentKey) {
                         return (
                           <div>
-                            {grandParentKey === grandParentNodeID && <div onClick={(event) => { this.changeParentNodeID(parentKey) }} className="search-results-parent">{renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].title}</div>}
+                            {grandParentKey === grandParentNodeID && Object.keys(renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].subnodes).length == 0 && <div className="search-results-parent">{renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].title} ({Object.keys(renderTaggedData.taggedData[grandParentKey].subnodes).length}) <Link to={renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].linkUrl}><img style={{paddingLeft: '15px'}} src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"/></Link></div>}
+                            {grandParentKey === grandParentNodeID && Object.keys(renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].subnodes).length > 0 && <div onClick={(event) => { this.changeParentNodeID(parentKey) }} className="search-results-parent">{renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].title} ({Object.keys(renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].subnodes).length}) <Link to={renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].linkUrl}><img style={{paddingLeft: '15px'}} src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"/></Link></div>}
                             {grandParentKey === grandParentNodeID && parentKey === parentNodeID && Object.keys(renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].subnodes).map(function (itemKey) {
                                 return (
                                   <div className="search-results-item">
-                                    <Link onClick={(event) => { this.endSearch(); }} to={renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].subnodes[itemKey].linkURL}>{renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].subnodes[itemKey].title}</Link>
+                                    <div>{renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].subnodes[itemKey].title}<Link to={renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].subnodes[itemKey].linkUrl}><img style={{paddingLeft: '15px'}} src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"/></Link></div>
                                   </div>
                                 )
                               }, this)
@@ -413,7 +425,7 @@ class BrowseTaggedDataSearch extends Component {
 
       return (
         <div className="root">
-          <span className="search-text">Browse:</span>
+          <span style={{display: 'none'}} onClick={(event) => { this.handleClick({ value: ''}); }} className="search-text">Browse:</span>
           <input
             id="BrowseTaggedDataSearchInputField"
             onClick={(event) => { this.handleClick({ value: event.target.value}); }}
@@ -421,12 +433,13 @@ class BrowseTaggedDataSearch extends Component {
             type="text"
             className="search-input-field"
             value={topNavSearchTerm}
+            style={{display: 'none'}}
           />
 
+
           {topNavSearchEnabled == true && <div className="search-results-container">
-              <span className="search-text">Results:</span>
-              {this.renderTaggedDataDisplay()}
-            </div>
+            {this.renderTaggedDataDisplay()}
+          </div>
           }
           <style jsx>{`
             .root {
