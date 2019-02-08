@@ -227,6 +227,7 @@ class Overview extends Component {
             <Request
               model={burnhamsModel}
               serviceURL={BURNHAMS_CORNER_CONTENT}
+              withoutUser
               requestBody={{ objectId }}
               render={({ fetchingContent, modeledResponses: { BURNHAMS_CORNER } }) =>
                 !fetchingContent && (

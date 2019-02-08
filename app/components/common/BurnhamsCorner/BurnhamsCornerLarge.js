@@ -10,6 +10,9 @@ const BurnhamsCornerLarge = ({
   hasLink,
   linkLabel,
   linkURL,
+  showMore,
+  toggleReadMore,
+  needToShowMore,
 }) => (
   <Fragment>
     <div className="bc">
@@ -20,7 +23,14 @@ const BurnhamsCornerLarge = ({
           <div className="bc-img">
             <img src={imageURL} alt="Burnhams Corner" />
           </div>
-          {content}
+          <div className="bc-desc" dangerouslySetInnerHTML={{ __html: content }} />
+          {needToShowMore && (
+            <p>
+              <button onClick={toggleReadMore} className="action-read-more">
+                {showMore ? 'read less' : 'read more'}
+              </button>
+            </p>
+          )}
         </div>
         {
           hasLink &&
@@ -44,6 +54,9 @@ BurnhamsCornerLarge.propTypes = {
   hasLink: PropTypes.bool.isRequired,
   linkLabel: PropTypes.string.isRequired,
   linkURL: PropTypes.string.isRequired,
+  showMore: PropTypes.bool.isRequired,
+  needToShowMore: PropTypes.bool.isRequired,
+  toggleReadMore: PropTypes.func.isRequired,
 };
 
 export default BurnhamsCornerLarge;
