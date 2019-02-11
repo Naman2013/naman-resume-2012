@@ -6,7 +6,7 @@ import BurnhamsCornerSmall from './BurnhamsCornerSmall';
 
 const MAX_LENGTH = 210;
 
-function trimmeString(string, maxLength) {
+function cutString(string, maxLength) {
   if (string.length <= maxLength) {
     return {
       trimmedString: string,
@@ -34,7 +34,7 @@ class BurnhamsCorner extends Component {
     const { content } = this.props;
     const { showMore } = this.state;
 
-    const { trimmedString, needToShowMore } = trimmeString(content, MAX_LENGTH);
+    const { trimmedString, needToShowMore } = cutString(content, MAX_LENGTH);
 
     const contentToShow = showMore ? content : trimmedString;
 
