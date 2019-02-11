@@ -34,3 +34,5 @@ export const blue_tile_guides   = 'https://vega.slooh.com/assets/v4/common/Dark_
 export const blue_tile_canvas   = 'https://vega.slooh.com/assets/v4/common/Darkest_Pattern_Canvas.png';
 export const questTexture      = 'https://vega.slooh.com/assets/v4/common/quest_card_bg.png';
 export const questDetailsTexture  = 'https://vega.slooh.com/assets/v4/common/quest_details_texture.png';
+export const white_texture_bg  = 'https://vega.slooh.com/assets/v4/dashboard/white-texture.png';
+

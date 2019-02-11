@@ -11,6 +11,8 @@ export default css`
     width: 300px;
     color: ${lightHeadedAstronaut};
     border-bottom: solid 2px ${golda};
+    text-align: initial;
+    background-color: #fff;
   }
 
   .title {
@@ -34,6 +36,8 @@ export default css`
   }
 
   .thyme:after {
+    bottom: 10px;
+    position: relative;
     content: "UTC ";
     display: inline-block;
     font-size: 10px;

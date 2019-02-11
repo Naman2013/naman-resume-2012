@@ -1,16 +1,19 @@
 import React from 'react';
-import uniqueId from 'lodash/uniqueId';
-import defaultSliderConfiguration from 'components/common/Slider/sliderConfig';
-import BigShowTile from 'components/common/tiles/BigShowTile';
+import { FormattedMessage } from 'react-intl';
+import defaultSliderConfiguration from '../../../components/common/Slider/sliderConfig';
+import BigShowTile from '../../../components/common/tiles/BigShowTile';
+
+import messages from './RecommendedShowsSlider.messages';
 
 const getSliderConfiguration = () => Object.assign(
   {},
   defaultSliderConfiguration(),
   {
-    slidesToShow: 1,
+    slidesToShow: 2,
     slidesToScroll: 1,
     initialSlide: 0,
     centerPadding: '50px',
+    centerMode: false,
     responsive: [
       {
         breakpoint: 1200,
@@ -18,7 +21,7 @@ const getSliderConfiguration = () => Object.assign(
           slidesToShow: 1,
           slidesToScroll: 1,
           centerMode: true,
-          centerPadding: '50px',
+          centerPadding: '10px',
         }
       },
     ],
@@ -28,21 +31,14 @@ const getSliderConfiguration = () => Object.assign(
 
 const getRecommendedEventsItems = (imageList = []) =>
   imageList.map(object => ({
-    render: () => (<BigShowTile
-      header={object.header}
-      dateDisplay={object.dateDisplay}
-      eventHostName={object.eventHost}
-      key={uniqueId()}
-      linkUrl={object.linkUrl}
-      title={object.eventTitle}
-    />)
-}));
+    render: () => (<BigShowTile key={object.eventId} {...object} />),
+  }));
 
 export const getSliderProps = (slideList = []) => (
   Object.assign({
     slideList: getRecommendedEventsItems(slideList),
   }, {
     sliderConfig: getSliderConfiguration(),
-    emptyMessage: 'There are no recommended shows.',
+    emptyMessage: <FormattedMessage {...messages.NothingToShow} />,
   })
 );

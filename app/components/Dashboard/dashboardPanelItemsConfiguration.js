@@ -7,6 +7,7 @@ import RecommendedObservations from 'components/common/RecommendedObservationsSl
 import RecommendedShows from 'components/common/RecommendedShowsSlider';
 import RecommendedStories from 'components/common/RecommendedStoriesSlider';
 import RecommendedGroups from 'components/common/RecommendedGroupsSlider';
+import RecommendedQuests from 'components/common/RecommendedQuestsSlider';
 
 
 const RecommendedObjectsPanel = props => (
@@ -49,7 +50,7 @@ const RecommendedQuestsPanel = props => (
       orderNumber={props.orderNumber}
       title={props.recommendedQuestsHeading}
       subtitle={props.recommendedQuestsSubHeading}
-      render={() => <div {...props} key={uniqueId()} />}
+      render={() => <RecommendedQuests {...props} key={uniqueId()} />}
     /> : null
 );
 
@@ -92,7 +93,7 @@ export const getSectionComponent = (section, props) => {
     recommendedObjects: <RecommendedObjectsPanel {...props} key={uniqueId()} />,
     featuredObservations: <FeaturedObservationsPanel {...props} key={uniqueId()} />,
     recommendedGuides: <RecommendedGuidesPanel {...props} key={uniqueId()} />,
-    // recommendedQuests: <RecommendedQuestsPanel {...props} key={uniqueId()} />,
+    recommendedQuests: <RecommendedQuestsPanel {...props} key={uniqueId()} />,
     recommendedShows: <RecommendedShowsPanel {...props} key={uniqueId()} />,
     recommendedStories: <RecommendedStoriesPanel {...props} key={uniqueId()} />,
     popularGroups: <PopularGroupsPanel {...props} key={uniqueId()} />,

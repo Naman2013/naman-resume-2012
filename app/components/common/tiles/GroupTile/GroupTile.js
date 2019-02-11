@@ -31,6 +31,6 @@ GroupTile.defaultProps = {
   iconURL: '',
   theme: {},
   linkUrl: '',
-}
+};
 
 export default GroupTile;
