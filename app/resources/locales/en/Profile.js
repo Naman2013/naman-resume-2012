@@ -8,7 +8,7 @@ export const Profile = {
   'Profile.Specialties': 'Specialties',
   'Profile.Objects': 'Objects',
   'Profile.Shows': 'Shows',
-  'Profile.Stories': 'Stories',
+  'Profile.Stories': 'Illuminations',
   'Profile.Guides': 'Guides',
   'Profile.Loading': 'Loading...',
   'Profile.NoTiles': 'You have no items',
