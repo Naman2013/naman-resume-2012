@@ -112,6 +112,7 @@ QuestionListItem.propTypes = {
     displayName: string.isRequired,
     replyCount: number.isRequired,
     topicId: number.isRequired,
+    title:string,
   }).isRequired,
   answers: shape({
     replies: arrayOf(shape({

@@ -30,6 +30,7 @@ const fetchAstronomerQuestionsFail = payload => ({
 });
 
 export const fetchAstronomerQuestions = ({
+  answerState = null,
   appendToList = false,
   lang,
   page,
@@ -37,7 +38,7 @@ export const fetchAstronomerQuestions = ({
   ver,
 }) => (dispatch, getState) => {
   const { cid, at, token } = getState().user;
-  const { count, filter } = getState().astronomerQuestions;
+  const { count, questionFilter } = getState().astronomerQuestions;
   dispatch(fetchAstronomerQuestionsStart({ appendToList }));
   return axios.post('/api/forum/getQuestionsList', {
     appendToList,
@@ -50,18 +51,19 @@ export const fetchAstronomerQuestions = ({
     token,
     ver,
     objectId,
-    answerState: filter,
+    answerState: answerState || questionFilter,
   })
-  .then(result => {
-    if (result.data.threads.length > 0) {
-      result.data.threads.forEach(thread => dispatch(fetchAstronomerAnswers({ threadId: thread.threadId })))
-    }
-    return dispatch(fetchAstronomerQuestionsSuccess(Object.assign({
-      page,
-      appendToList,
-    }, result.data)))
-  })
-  .catch(error => dispatch(fetchAstronomerQuestionsFail(error)));
+    .then((result) => {
+      if (result.data.threads.length > 0) {
+        result.data.threads.forEach(thread => dispatch(fetchAstronomerAnswers({ threadId: thread.threadId })));
+      }
+      return dispatch(fetchAstronomerQuestionsSuccess(Object.assign({
+        page,
+        appendToList,
+        answerState: answerState || questionFilter,
+      }, result.data)));
+    })
+    .catch(error => dispatch(fetchAstronomerQuestionsFail(error)));
 };
 
 const askQuestionStart = () => ({

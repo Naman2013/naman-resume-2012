@@ -66,6 +66,10 @@ class HubContainer extends Component {
     isMobile: bool,
     isCreateMode: bool,
     clearTiles: func,
+    useSort: bool,
+    showHeaderIcon:bool,
+    pageTitleTheme:shape({}),
+    callSource: string,
   };
 
   static defaultProps = {
@@ -85,6 +89,10 @@ class HubContainer extends Component {
     responseFieldNames: {},
     validateResponseAccess: noop,
     clearTiles: noop,
+    useSort:true,
+    showHeaderIcon:true,
+    pageTitleTheme:{},
+    callSource: ''
   };
 
   state = {
@@ -165,6 +173,7 @@ class HubContainer extends Component {
 
   render() {
     const {
+      callSource,
       filterOptions,
       filterType,
       filterTypeFieldName,
@@ -172,12 +181,15 @@ class HubContainer extends Component {
       iconURL,
       isMobile,
       pageTitle,
+      pageTitleTheme,
       paginateURL,
       render,
       renderRightMenu,
       responseFieldNames,
       sortOptions,
       user,
+      useSort,
+      showHeaderIcon,
     } = this.props;
 
     const {
@@ -192,6 +204,8 @@ class HubContainer extends Component {
           icon={iconURL}
           title={pageTitle}
           renderRightMenu={renderRightMenu}
+          showIcon = {showHeaderIcon}
+          titleTheme = {pageTitleTheme}
           renderNav={() => (
             <div className="navigation-bar">
               <UnderlineNav
@@ -200,7 +214,7 @@ class HubContainer extends Component {
                 navItems={filterOptions}
                 parentPath={hubName}
               />
-              {!this.props.isCreateMode ?
+              {(!this.props.isCreateMode && useSort) ?
                 <HubSort
                   defaultIndex={defaultSortIndex}
                   handleSort={this.handleSortChange}
@@ -220,10 +234,11 @@ class HubContainer extends Component {
                     onServiceResponse={this.handlePaginationResponse}
                     onPaginationChange={this.handlePaginationChange}
                     filterOptions={{
-                      sortBy: sort,
+                      ...(useSort? {sortBy:sort} : {}),
                       page,
                       count: 9,
                       [filterTypeFieldName]: filterType,
+                      callSource
                     }}
                   />
                 : <ShowMoreWithNetwork
@@ -235,10 +250,11 @@ class HubContainer extends Component {
                     validateResponseAccess={this.validateResponseAccess}
                     user={user}
                     filterOptions={{
-                      sortBy: sort,
+                      ...(useSort? {sortBy:sort} : {}),
                       type: filterType,
                       count: 5,
                       [filterTypeFieldName]: filterType,
+                      callSource
                     }}
                 />}
               </div>: null}

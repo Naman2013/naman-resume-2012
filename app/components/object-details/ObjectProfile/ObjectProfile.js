@@ -1,10 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { intlShape, injectIntl } from 'react-intl';
-import GridContainer from '../grid/GridContainer';
+import { GridContainer, Row, StaticCell } from '../../common/grid';
 import BestTelescope from './BestTelescope';
-import Row from '../grid/Row';
-import StaticCell from '../grid/StaticCell';
 import style from './ObjectProfile.style';
 import messages from './ObjectProfile.messages';
 

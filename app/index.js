@@ -147,6 +147,7 @@ import QuestStep from './containers/quest-step';
 import { About, AboutSloohSection } from './containers/about';
 import { PrivateProfile } from './containers/profile';
 import PrivateProfilePhotos from './components/profile-photos/PrivateProfilePhotos';
+import { ProfileActivity, ProfileGroups } from './components/profiles/private-profile';
 import ImagesLayout from './components/profile-photos/ImagesLayout';
 import MissionDetails from './containers/mission-details/MissionDetails';
 
@@ -171,6 +172,8 @@ import './styles/static.scss';
 
 // load monitoring and global error handling
 import './monitoring';
+import MyListsHub from './components/profiles/private-profile/my-lists';
+import ProfileQaContainer from './components/profiles/private-profile/my-qa/ProfileQaContainer';
 
 // Create an enhanced history that syncs navigation events with the store
 const history = syncHistoryWithStore(browserHistory, store);
@@ -208,7 +211,11 @@ ReactDOM.render(
           <Route path="about" component={About} onEnter={validateUser}>
             <IndexRedirect to="about-slooh" />
             <Route path="memberships" component={Memberships} />
-            <Route path=":aboutSloohSectionId" component={AboutSloohSection} onEnter={validateUser} />
+            <Route
+              path=":aboutSloohSectionId"
+              component={AboutSloohSection}
+              onEnter={validateUser}
+            />
           </Route>
 
           <Route path="join" component={Join}>
@@ -351,16 +358,6 @@ ReactDOM.render(
           <Route path="community/post/:postId" component={StoryDetails} onEnter={validateUser} />
           <Route path="stories/:filterType/create" component={CreateStory} onEnter={validateUser} />
 
-          <Route path="lists" component={PlaceholderPage} onEnter={validateUser}>
-            <IndexRedirect to="my-lists" />
-            <Route path="my-lists" component={PlaceholderPage} />
-          </Route>
-
-          <Route path="qa" component={PlaceholderPage} onEnter={validateUser}>
-            <IndexRedirect to="my-qa" />
-            <Route path="my-qa" component={PlaceholderPage} />
-          </Route>
-
           <Route path="quests(/:filterType)" component={QuestsHub} onEnter={validateUser} />
 
           <Route path="quest-details/:questId" component={Quest} onEnter={validateUser} />
@@ -374,14 +371,23 @@ ReactDOM.render(
           <Route path="missions-details/:missionId" component={MissionDetails} />
 
           <Route path="profile/private" component={PrivateProfile} onEnter={validateUser}>
-            <IndexRedirect to="photos" />
-            {/* <Route path=":profileSectionId" component={PrivateProfileSection} onEnter={validateUser} /> */}
+            <IndexRedirect to="activity" />
+            <Route path="activity" component={ProfileActivity} />
             <Route path="photos" component={PrivateProfilePhotos}>
               <IndexRedirect to="photoroll" />
               <Route path=":type" component={ImagesLayout} />
             </Route>
+            <Route path="lists">
+              <IndexRedirect to="object" />
+              <Route path=":filterType" component={MyListsHub} />
+            </Route>
+            <Route path="qa">
+              <IndexRedirect to="asked" />
+              <Route path=":filter" component={ProfileQaContainer} />
+            </Route>
+            <Route path="groups" component={ProfileGroups} />
           </Route>
-          
+
           {/* <Route path="profile/private" component={UserPrivateProfile} onEnter={validateUser} /> */}
           <Route path="profile/public/:cid" component={UserPublicProfile} onEnter={validateUser} />
 
