@@ -1,7 +1,10 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
+import { FormattedMessage } from 'react-intl';
 import TileButton from './TileButton';
+
 import style from './BurnhamsCornerSmall.style';
+import messages from './BurnhamsCorner.messages';
 
 const BurnhamsCornerSmall = ({
   objectTitle,
@@ -23,7 +26,10 @@ const BurnhamsCornerSmall = ({
         {needToShowMore && (
           <p>
             <button onClick={toggleReadMore} className="action-read-more">
-              {showMore ? 'read less' : 'read more'}
+              {showMore
+                ? <FormattedMessage {...messages.ReadLess} /> 
+                : <FormattedMessage {...messages.ReadMore} /> 
+              }
             </button>
           </p>
         )}
