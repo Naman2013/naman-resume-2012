@@ -1,8 +1,10 @@
 import React from 'react';
-import uniqueId from 'lodash/uniqueId';
+import { FormattedMessage } from 'react-intl';
 import has from 'lodash/has';
 import defaultSliderConfiguration from 'components/common/Slider/sliderConfig';
 import StoryTile from 'components/common/tiles/StoryTile';
+
+import messages from './RecommendedStoriesSlider.messages';
 
 const getSliderConfiguration = () => Object.assign(
   {},
@@ -14,14 +16,13 @@ const getSliderConfiguration = () => Object.assign(
     centerPadding: '25px',
   },
 );
-const getRecommendedStoriesItems = (storiesList = []) =>
-storiesList.map(object => ({
+const getRecommendedStoriesItems = (storiesList = []) => storiesList.map(post => ({
   render: () => (<StoryTile
-    key={uniqueId()}
-    iconURL={object.iconURL}
-    title={object.title}
-    linkUrl={object.linkUrl}
-    author={has(object, 'authorInfo.byline') ? object.authorInfo.byline : ''}
+    key={post.postId}
+    storyId={post.postId}
+    iconURL={post.slugIconURL}
+    title={post.title}
+    author={has(post, 'authorInfo.displayName') ? post.authorInfo.displayName : ''}
   />),
 }));
 
@@ -30,6 +31,6 @@ export const getSliderProps = (slideList = []) => (
     slideList: getRecommendedStoriesItems(slideList),
   }, {
     sliderConfig: getSliderConfiguration(),
-    emptyMessage: 'There are no recommended stories.',
+    emptyMessage: <FormattedMessage {...messages.NothingToShow} />,
   })
 );

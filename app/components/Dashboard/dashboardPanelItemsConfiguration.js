@@ -1,12 +1,13 @@
 import React from 'react';
 import uniqueId from 'lodash/uniqueId';
 import DashboardPanelItem from './DashboardPanelItem';
-import RecommendedObjects from 'components/common/RecommendedObjectsSlider';
-import RecommendedGuides from 'components/common/RecommendedGuidesSlider';
-import RecommendedObservations from 'components/common/RecommendedObservationsSlider';
-import RecommendedShows from 'components/common/RecommendedShowsSlider';
-import RecommendedStories from 'components/common/RecommendedStoriesSlider';
-import RecommendedGroups from 'components/common/RecommendedGroupsSlider';
+import RecommendedObjects from '../common/RecommendedObjectsSlider';
+import RecommendedGuides from '../common/RecommendedGuidesSlider';
+import RecommendedObservations from '../common/RecommendedObservationsSlider';
+import RecommendedShows from '../common/RecommendedShowsSlider';
+import RecommendedStories from '../common/RecommendedStoriesSlider';
+import RecommendedGroups from '../common/RecommendedGroupsSlider';
+import RecommendedQuests from '../common/RecommendedQuestsSlider';
 
 
 const RecommendedObjectsPanel = props => (
@@ -49,7 +50,7 @@ const RecommendedQuestsPanel = props => (
       orderNumber={props.orderNumber}
       title={props.recommendedQuestsHeading}
       subtitle={props.recommendedQuestsSubHeading}
-      render={() => <div {...props} key={uniqueId()} />}
+      render={() => <RecommendedQuests {...props} key={uniqueId()} />}
     /> : null
 );
 
@@ -92,7 +93,7 @@ export const getSectionComponent = (section, props) => {
     recommendedObjects: <RecommendedObjectsPanel {...props} key={uniqueId()} />,
     featuredObservations: <FeaturedObservationsPanel {...props} key={uniqueId()} />,
     recommendedGuides: <RecommendedGuidesPanel {...props} key={uniqueId()} />,
-    // recommendedQuests: <RecommendedQuestsPanel {...props} key={uniqueId()} />,
+    recommendedQuests: <RecommendedQuestsPanel {...props} key={uniqueId()} />,
     recommendedShows: <RecommendedShowsPanel {...props} key={uniqueId()} />,
     recommendedStories: <RecommendedStoriesPanel {...props} key={uniqueId()} />,
     popularGroups: <PopularGroupsPanel {...props} key={uniqueId()} />,

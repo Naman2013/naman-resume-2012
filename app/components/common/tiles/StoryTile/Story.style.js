@@ -5,6 +5,7 @@ import { screenMedium } from 'styles/variables/breakpoints';
 
 export default css`
   .root {
+    pointer-events: auto;
     width: 300px;
     height: 370px;
     text-align: center;

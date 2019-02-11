@@ -43,7 +43,6 @@ export default css`
     bottom: 40px;
     left: 0;
     right: 0;
-    color: ${romance};
   }
 
   .show-tile-author {

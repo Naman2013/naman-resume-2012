@@ -11,24 +11,27 @@ const DEFAULT_CONFIG = {
   lazyLoading: true,
   initialSlide: 0,
   adaptiveHeight: false,
-  // nextArrow: <div>Next<i className="fa fa-arrow-right" /></div>,
-  // prevArrow: <div><i className="fa fa-arrow-left" /><div>Previous</div></div>,
   responsive: [
     {
       breakpoint: 1200,
       settings: {
+        initialSlide: 0,
         slidesToShow: 2,
         slidesToScroll: 1,
-        centerMode: true,
-      }
+        centerMode: false,
+        centerPadding: '50px',
+      },
     },
     {
       breakpoint: 600,
       settings: {
+        initialSlide: 0,
         slidesToShow: 1,
         slidesToScroll: 1,
-      }
-    }
+        centerMode: false,
+        centerPadding: '50px',
+      },
+    },
   ],
 };
 

@@ -8,7 +8,7 @@ const ShowTile = ({ header, title, time, author, linkUrl }) => (
     <Link to={linkUrl} href={linkUrl}>
       <div className="show-tile-header">{header}</div>
       <div className="show-tile-title">{title}</div>
-      <div className="show-tile-author">{time}<span>{` | `}</span>{author}</div>
+      <div className="show-tile-author">{time}<span> | </span>{author}</div>
     </Link>
     <style jsx>{style}</style>
   </div>
@@ -17,9 +17,15 @@ const ShowTile = ({ header, title, time, author, linkUrl }) => (
 ShowTile.propTypes = {
   header: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  time: PropTypes.string.isRequired,
-  author: PropTypes.string.isRequired,
-  link: PropTypes.string.isRequired,
+  time: PropTypes.string,
+  author: PropTypes.string,
+  linkUrl: PropTypes.string,
+};
+
+ShowTile.defaultProps = {
+  linkUrl: '',
+  author: '',
+  time: '',
 };
 
 export default ShowTile;

@@ -326,6 +326,11 @@ ReactDOM.render(
 
           <Route path="guides/subject/:guideId" component={SubjectGuides} onEnter={validateUser} />
           <Route path="guides/topic/:guideId" component={TopicGuides} onEnter={validateUser} />
+	  <Route
+            path="guides/history/:guideId"
+            component={ObjectCategoryGuide}
+            onEnter={validateUser}
+          />
           <Route
             path="guides/object-category/:guideId"
             component={ObjectCategoryGuide}

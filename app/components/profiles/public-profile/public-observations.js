@@ -61,7 +61,7 @@ class PublicObservations extends Component {
     super(props)
 
     props.actions.getSharedMemberPhotos({
-      customerId: props.cid,
+      customerUUID: props.cid,
       orderByLikes: true,
     });
   }

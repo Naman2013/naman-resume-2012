@@ -28,16 +28,13 @@ export const yellow = '#fad59a';
 export const darkGray = '#979797';
 export const raven = '#616e7d';
 
-export const white_tile =
-  'https://vega.slooh.com/assets/v4/common/LightBlueDiamondPattern_NO_TEXTURE.png';
-export const white_tile_texture =
-  'https://vega.slooh.com/assets/v4/common/LightBlueDiamondPattern_WithTexture.png';
-export const white_tile_paper = 'https://vega.slooh.com/assets/v4/common/White_Paper_Subtle.png';
-export const blue_tile_feat =
-  'https://vega.slooh.com/assets/v4/common/Dark_Pattern_Featured_LargeCanvas.png';
-export const blue_tile_guides = 'https://vega.slooh.com/assets/v4/common/Dark_Pattern_GUIDES.png';
-export const blue_tile_canvas =
-  'https://vega.slooh.com/assets/v4/common/Darkest_Pattern_Canvas.png';
-export const questTexture = 'https://vega.slooh.com/assets/v4/common/quest_card_bg.png';
-export const questDetailsTexture =
-  'https://vega.slooh.com/assets/v4/common/quest_details_texture.png';
+export const white_tile         = 'https://vega.slooh.com/assets/v4/common/LightBlueDiamondPattern_NO_TEXTURE.png';
+export const white_tile_texture = 'https://vega.slooh.com/assets/v4/common/LightBlueDiamondPattern_WithTexture.png';
+export const white_tile_paper   = 'https://vega.slooh.com/assets/v4/common/White_Paper_Subtle.png';
+export const blue_tile_feat     = 'https://vega.slooh.com/assets/v4/common/Dark_Pattern_Featured_LargeCanvas.png';
+export const blue_tile_guides   = 'https://vega.slooh.com/assets/v4/common/Dark_Pattern_GUIDES.png';
+export const blue_tile_canvas   = 'https://vega.slooh.com/assets/v4/common/Darkest_Pattern_Canvas.png';
+export const questTexture      = 'https://vega.slooh.com/assets/v4/common/quest_card_bg.png';
+export const questDetailsTexture  = 'https://vega.slooh.com/assets/v4/common/quest_details_texture.png';
+export const white_texture_bg  = 'https://vega.slooh.com/assets/v4/dashboard/white-texture.png';
+

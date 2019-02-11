@@ -4,26 +4,15 @@
 *
 *
 ***********************************/
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import uniqueId from 'lodash/uniqueId';
+import React from 'react';
 import take from 'lodash/take';
-import has from 'lodash/has';
-import RecommendedObservationSliderItem from './partials/RecommendedObservationsSliderItem';
-import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
-import SloohSlider from 'components/common/Slider/ObservationsSlider';
-import Request from 'components/common/network/Request';
-import { SHARED_MEMBER_PHOTOS } from 'services/shared-photos';
-// import { secondaryFont } from 'styles/variables/fonts';
+
+import DisplayAtBreakpoint from '../../../components/common/DisplayAtBreakpoint';
+import SloohSlider from '../../../components/common/Slider/ObservationsSlider';
+import Request from '../../../components/common/network/Request';
+import { SHARED_MEMBER_PHOTOS } from '../../../services/shared-photos';
+import MobileSwiper from './partials/MobileSwiper';
 import { getSliderProps } from './recommendedObservationsSliderConfiguration';
-const {
-  arrayOf,
-  bool,
-  func,
-  number,
-  shape,
-  string,
-} = PropTypes;
 
 const Observations = () => (
   <Request
@@ -34,7 +23,7 @@ const Observations = () => (
       serviceResponse,
     }) => {
       const sliderProps = serviceResponse.imageList ? getSliderProps(serviceResponse.imageList) : {};
-      const shortList = take(serviceResponse.imageList, 1) || [];
+      const shortList = take(serviceResponse.imageList, 4) || [];
 
       return (
         <div className="root">
@@ -48,16 +37,12 @@ const Observations = () => (
           <DisplayAtBreakpoint
             screenSmall
           >
-            {shortList.map(object => (
-              <RecommendedObservationSliderItem
-                key={uniqueId()}
-                currentIndex={1}
-                imageIndex={1}
-                {...object}
-               />
-            ))}
+            <MobileSwiper
+              imagesList={shortList}
+            />
           </DisplayAtBreakpoint>
-        </div>)
+        </div>
+      );
     }}
   />);
 

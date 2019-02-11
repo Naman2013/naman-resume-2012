@@ -4,7 +4,7 @@ import uniqueId from 'lodash/uniqueId';
 import PropTypes from 'prop-types';
 import style from './Story.style';
 
-const StoryTile = ({ iconURL, title, author, theme, linkUrl }) => (
+const StoryTile = ({ iconURL, title, author, theme, linkUrl, storyId }) => (
   <div className="root" style={theme} key={uniqueId()}>
     <div className="container">
       <span className="story-top">Slooh</span>
@@ -18,7 +18,7 @@ const StoryTile = ({ iconURL, title, author, theme, linkUrl }) => (
           </div>
         </div>
       </div>
-      <Link to={linkUrl} href={linkUrl}>
+      <Link to={linkUrl || `community/post/${storyId}`} href={linkUrl}>
         <h5 className="title">{title}</h5>
       </Link>
       <div className="author">{author}</div>
@@ -33,12 +33,14 @@ StoryTile.propTypes = {
   author: PropTypes.string.isRequired,
   theme: PropTypes.shape({}),
   linkUrl: PropTypes.string,
+  storyId: PropTypes.number,
 };
 
 StoryTile.defaultProps = {
   iconURL: '',
   theme: {},
   linkUrl: '',
+  storyId: 0,
 }
 
 export default StoryTile;
