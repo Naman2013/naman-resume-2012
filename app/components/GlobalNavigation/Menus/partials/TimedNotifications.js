@@ -151,10 +151,9 @@ class TimedNotifications extends Component {
         padding: '50px 25px',
         fontFamily: primaryFont,
       },
- 
-  overlay: {
-    backgroundColor: 'rgba(0, 0, 0, .7)',
-  },
+      overlay: {
+        backgroundColor: 'rgba(0, 0, 0, .7)',
+      },
     };
 
     return (
