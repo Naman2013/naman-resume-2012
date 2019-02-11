@@ -18,15 +18,15 @@ const LoggedIn = ({
   displayName, avatarURL, menuItems, intl,
 }) => (
   <div className="root">
-    <MenuTitleBar title="">
-      <div className="nav-icon avatar" style={getIconStyle(avatarURL || userAstronaut)} />
-      <div className="username-container">
-        <div className="username" dangerouslySetInnerHTML={{ __html: displayName }} />
-        <Link to='/profile/private'>
-          <div className="nav-icon" style={getIconStyle(horizontalArrowRightAstronaut)} />
-        </Link>
-      </div>
-    </MenuTitleBar>
+    <Link to='/profile/private'>
+      <MenuTitleBar title="">
+        <div className="nav-icon avatar" style={getIconStyle(avatarURL || userAstronaut)} />
+        <div className="username-container">
+          <div className="username" dangerouslySetInnerHTML={{ __html: displayName }} />
+            <div className="nav-icon" style={getIconStyle(horizontalArrowRightAstronaut)} />
+        </div>
+      </MenuTitleBar>
+    </Link>
     <MenuList items={menuItems} />
     <Logout
       render={() => <PrimaryButton text={intl.formatMessage(messages.LogOut)} anchor="#" />}
