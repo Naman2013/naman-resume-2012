@@ -1,3 +1,4 @@
 import ProfileActivity from './ProfileActivity';
+import ProfileGroups from './ProfileGroups';
 
-export { ProfileActivity };
+export { ProfileActivity, ProfileGroups };

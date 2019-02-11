@@ -147,7 +147,7 @@ import QuestStep from './containers/quest-step';
 import { About, AboutSloohSection } from './containers/about';
 import { PrivateProfile } from './containers/profile';
 import PrivateProfilePhotos from './components/profile-photos/PrivateProfilePhotos';
-import { ProfileActivity } from './components/profiles/private-profile';
+import { ProfileActivity, ProfileGroups } from './components/profiles/private-profile';
 import ImagesLayout from './components/profile-photos/ImagesLayout';
 import MissionDetails from './containers/mission-details/MissionDetails';
 
@@ -380,6 +380,7 @@ ReactDOM.render(
               <IndexRedirect to="asked" />
               <Route path=":filter" component={ProfileQaContainer} />
             </Route>
+            <Route path="groups" component={ProfileGroups} />
           </Route>
 
           {/* <Route path="profile/private" component={UserPrivateProfile} onEnter={validateUser} /> */}
