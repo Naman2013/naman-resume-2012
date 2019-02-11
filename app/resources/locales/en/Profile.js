@@ -28,4 +28,5 @@ export const Profile = {
   'Profile.InfoTileTitle': 'Ask Some Questions to Earn Slooh Gravity!',
   'Profile.AskAnAstronomer': 'Ask an Astronomer',
   'Profile.ViewGuide': 'View Guide',
+  'Profile.MyClubs': 'My Clubs',
 };

@@ -66,6 +66,10 @@ class PrivateProfile extends Component {
       },
       askAnAstronomerData: resp.askAnAstronomerData,
     },
+    groupsData: {
+      groupsCount: resp.groupsCount,
+      groupsList: resp.groupsList,
+    },
   });
 
   render() {
@@ -80,7 +84,11 @@ class PrivateProfile extends Component {
 
             <SubPageNavigation items={this.generateNavItems(modelResult.profileMenuList)} />
 
-            {cloneElement(children, { activityData: modelResult.activityData, params })}
+            {cloneElement(children, {
+              activityData: modelResult.activityData,
+              groupsData: modelResult.groupsData,
+              params,
+            })}
           </Fragment>
         )}
         <style jsx>{styles}</style>
