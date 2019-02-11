@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Measure from 'react-measure';
+import noop from 'lodash/noop';
 import DefaultButton from 'components/common/style/buttons/Button';
 import { ModuleContainer } from './';
 import HowBig from '../../Telescope/HowBig';
@@ -32,6 +33,14 @@ class HowBigModule extends Component {
 
   render() {
     const { dimensions: { width } } = this.state;
+    const {
+      referenceObjectScale,
+      domain,
+      targetObjectScale,
+      targetObjectURL,
+      targetObjectName,
+      onComplete,
+    } = this.props;
     return (
       <Measure
         bounds
@@ -50,12 +59,12 @@ class HowBigModule extends Component {
                 >
                   <HowBig
                     dimension={width}
-                    referenceObjectScale={fauxMission.scaleDown.referenceObjectScale}
-                    domain={fauxMission.scaleDown.domain}
-                    targetObjectScale={fauxMission.scaleDown.targetObjectScale}
-                    targetObjectURL={fauxMission.scaleDown.targetObjectURL}
-                    targetObjectName={fauxMission.scaleDown.targetObjectName}
-                    onComplete={this.handleAnimationComplete}
+                    referenceObjectScale={referenceObjectScale}
+                    domain={domain}
+                    targetObjectScale={targetObjectScale}
+                    targetObjectURL={targetObjectURL}
+                    targetObjectName={targetObjectName}
+                    onComplete={onComplete}
                   />
                 </svg>
               </div>
@@ -74,5 +83,29 @@ class HowBigModule extends Component {
     );
   }
 }
+
+const {
+  string,
+  func,
+  number,
+} = PropTypes;
+
+HowBigModule.propTypes = {
+  referenceObjectScale: number,
+  targetObjectScale: number,
+  targetObjectURL: string,
+  targetObjectName: string,
+  domain: string,
+  onComplete: func,
+};
+
+HowBigModule.defaultProps = {
+  referenceObjectScale: fauxMission.scaleDown.referenceObjectScale,
+  domain: fauxMission.scaleDown.domain,
+  targetObjectScale: fauxMission.scaleDown.targetObjectScale,
+  targetObjectURL: fauxMission.scaleDown.targetObjectURL,
+  targetObjectName: fauxMission.scaleDown.targetObjectName,
+  onComplete: noop,
+};
 
 export { HowBigModule };

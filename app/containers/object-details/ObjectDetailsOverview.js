@@ -23,8 +23,9 @@ import TopicContent from 'components/guides/TopicContent';
 import Request from 'components/common/network/Request';
 
 import DeviceProvider from 'providers/DeviceProvider';
-import ObjectProfile from 'components/object-details/ObjectProfile';
-import ObjectVisibilityProfile from 'components/object-details/ObjectVisibilityProfile';
+import ObjectProfile from '../../components/object-details/ObjectProfile';
+import ObjectVisibilityProfile from '../../components/object-details/ObjectVisibilityProfile';
+import ObjectHowBig from '../../components/object-details/ObjectHowBig';
 import CardObservations from 'components/common/CardObservations';
 import SterlingTitle from 'components/common/titles/SterlingTitle';
 import BurnhamsCorner from 'components/common/BurnhamsCorner';
@@ -149,6 +150,7 @@ const modelData = resp => ({
     show: resp.hasRelatedGuide,
     ...resp.relatedGuide,
   },
+  hasHowBigData: resp.hasHowBigData,
 });
 
 @connect(
@@ -221,6 +223,8 @@ class Overview extends Component {
             />
 
             <ObjectVisibilityProfile defaultObsId={objectData.obsIdDefault} objectId={objectId} />
+            
+            {modeledResult.hasHowBigData && <ObjectHowBig objectId={objectId} />}
           </CenterColumn>
         </section>
 
