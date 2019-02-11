@@ -80,9 +80,12 @@ const modelData = resp => ({
     aboutContent: resp.objectDescription,
     showContentList: resp.showBulletPoints,
     topicActionProps: {
+      showActions: resp.showFollowPromptFlag,
       followButtonText: resp.followPrompt,
       followButtonIconURL: resp.followPromptIconUrl,
-      showActions: resp.showFollowPromptFlag,
+      followActionIconUrl: resp.followActionIconUrl,
+      toggleFollowConfirmationFlag: resp.toggleFollowConfirmationFlag,
+      toggleFollowConfirmationPrompt: resp.toggleFollowConfirmationPrompt,
     },
   },
   statisticsTitle: {
