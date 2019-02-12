@@ -1,10 +1,12 @@
 import css from 'styled-jsx/css';
 import { screenMedium, screenLarge } from 'styles/variables/breakpoints';
+import { faintShadow } from '../../styles/variables/shadows';
 
 export default css`
   .root {
     background: white;
     padding: 20px 35px;
+    ${faintShadow}
   }
 
   .action-container {
@@ -19,10 +21,6 @@ export default css`
   @media ${screenMedium} {
     .root {
       padding: 60px 40px;
-    }
-
-    .title-wrapper {
-      padding-bottom: 40px;
     }
 
     .action-container {
