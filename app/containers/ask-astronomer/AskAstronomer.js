@@ -52,7 +52,7 @@ const mapStateToProps = ({
   allDisplayedAnswers: astronomerAnswers.allDisplayedAnswers,
   appConfig,
   objectData: objectDetails.objectData,
-  questionFilter: astronomerQuestions.filter,
+  questionFilter: astronomerQuestions.questionFilter,
   questions: astronomerQuestions.threadList,
   page: astronomerQuestions.page,
   totalCount: astronomerQuestions.threadCount,
@@ -143,7 +143,7 @@ class AskAstronomer extends Component {
       },
     } = nextProps;
     //fetch the question data, the object page has been changed.
-    if (this.props.params.objectId != nextProps.params.objectId || this.props.questionFilter !== nextProps.questionFilter) {
+    if (this.props.params.objectId != nextProps.params.objectId) {
       this.props.actions.fetchAstronomerQuestions({ objectId });
     }
   }
@@ -201,6 +201,17 @@ class AskAstronomer extends Component {
       promptComponent: promptComponent || state.promptComponent,
       promptStyles: promptStyles || state.promptComponent,
     }));
+  }
+
+  updateQuestionsList = (filter) => {
+    const {
+      params: {
+        objectId,
+      },
+      actions,
+    } = this.props;
+
+    actions.fetchAstronomerQuestions({ objectId, answerState: filter && filter.answerState });
   }
 
   render() {
@@ -282,6 +293,7 @@ class AskAstronomer extends Component {
                         objectId={objectId}
                         user={user}
                         submitQuestion={this.submitQuestion}
+                        updateQuestionsList={this.updateQuestionsList}
                         {...aaaQuestionPrompt}
                       />
                     </div>
@@ -307,6 +319,7 @@ class AskAstronomer extends Component {
                           user={user}
                           submitQuestion={this.submitQuestion}
                           aaaQuestionPrompt={aaaQuestionPrompt}
+                          updateQuestionsList={this.updateQuestionsList}
                         />
                       </div>
                     )}
@@ -321,6 +334,8 @@ class AskAstronomer extends Component {
                       submitAnswer={this.submitAnswer}
                       likeParams={likeParams}
                       modalActions={modalActions}
+                      updateQuestionsList={this.updateQuestionsList}
+                      changeAnswerState={this.updateQuestionsList}
                     />}
                   />
                 </div>

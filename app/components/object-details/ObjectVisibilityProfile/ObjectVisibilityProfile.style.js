@@ -43,6 +43,9 @@ export default css`
     outline: none;
   }
 
+  .rise-set-subtitle {
+    margin-top: 15px;
+  }
 
   .is-active {
     border-bottom: 3px solid ${lightHeadedAstronaut};
@@ -68,6 +71,13 @@ export default css`
     left: 0;
     width: 100%;
     opacity: 0;
+  }
+
+  .select option {
+    font-family: ${primaryFont};
+    font-weight: 600;
+    font-size: 12px;
+    text-transform: uppercase;
   }
 
   @media ${screenLarge} {

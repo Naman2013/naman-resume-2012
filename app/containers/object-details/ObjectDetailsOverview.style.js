@@ -70,6 +70,26 @@ export default css`
     padding-bottom: 50px;
   }
 
+  .related-show {
+    width: 330px;
+    height: 330px;
+    background: url('https://vega.slooh.com/assets/v4/common/show_card_bg.jpg');
+    background-size: cover;
+    cursor: pointer;
+  }
+
+  .related-show-title {
+    font-family: ${secondaryFont};
+    font-weight: 100;
+    font-size: 20px;
+    padding-top: 80px;
+    width: 80%;
+    margin: 0 auto;
+    font-weight: 100;
+    color: ${romance};
+    text-align: center;
+  }
+
   @media ${screenMedium} {
     .card-container__specialists > :global(*) {
       margin: 0;

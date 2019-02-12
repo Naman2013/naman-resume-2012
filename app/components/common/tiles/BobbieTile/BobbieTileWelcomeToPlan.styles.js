@@ -1,9 +1,8 @@
 import css from 'styled-jsx/css';
-import { primaryFont, secondaryFont } from 'styles/variables/fonts';
-import { faintShadow } from 'styles/variables/shadows';
-import { astronaut, geyser, blue_tile_feat, golden } from 'styles/variables/colors_tiles_v4';
-import { resetMarginPadding } from 'styles/variables/utils';
-import { screenMedium, screenLarge } from 'styles/variables/breakpoints';
+import { primaryFont, secondaryFont } from '../../../../styles/variables/fonts';
+import { astronaut, geyser, blue_tile_feat, golden } from '../../../../styles/variables/colors_tiles_v4';
+import { resetMarginPadding } from '../../../../styles/variables/utils';
+import { screenMedium, screenLarge } from '../../../../styles/variables/breakpoints';
 
 
 export default css`
@@ -93,7 +92,7 @@ export default css`
     bottom: 0;
     left:0;
   }
-
+  
   .top-right { transform: rotate(90deg) }
 
   .plan-name {
@@ -114,6 +113,20 @@ export default css`
     display: flex;
     justify-content: space-between;
     align-items: center;
+  }
+
+  .excerpt-tile {
+    display: none;
+  }
+
+  .excerpt-tile :global(.guide-tile-root) {
+    width: 250px;
+    height: 250px;
+  }
+
+  .excerpt-tile :global(.guide-tile-root .actions) {
+    width: auto;
+    margin: unset;
   }
 
   @media ${screenMedium} {
@@ -138,6 +151,28 @@ export default css`
       padding: 10px 0;
       margin-bottom: 20px;
       border-bottom: 1px solid ${geyser};
+    }
+
+    .handle-hover:hover .excerpt-tile {
+      display: block;
+    }
+
+    .handle-hover .excerpt-tile :global(.description) {
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+
+    .handle-hover .excerpt-tile :global(.title) {
+      font-size: 18px;
+    }
+
+    .handle-hover .excerpt-tile :global(.sub-title) {
+      padding: 12px 0;
+    }
+    
+    .handle-hover:hover .guide-tile {
+      display: none;
     }
   }
 

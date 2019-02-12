@@ -62,9 +62,10 @@ class UnderlineNav extends Component {
       activeSort,
     } = this.props;
     const { activeIndex } = this.state;
-    const dropdownOptions = navItems.map(item => ({ label: item.title, value: item.linkURL }))
+    const dropdownOptions = navItems.map(item => ({ label: item.title, value: item.linkURL }));
+
     return (
-      <div className="root">
+      <div className="root underlined-nav">
         <DisplayAtBreakpoint
           screenMedium
           screenLarge
@@ -72,9 +73,10 @@ class UnderlineNav extends Component {
         >
           {navItems.map((item) => {
             const path = `${item.linkURL}${activeSort ? `?sort=${activeSort}` : ''}`;
+            const itemSplitPath = item.linkURL.split('/');
             return (
             <div className={classnames('item-container', {
-              'is-active': activeFilter === item.linkURL.split('/')[2] || (!activeFilter && !item.linkURL.split('/')[2]),
+              'is-active': activeFilter === itemSplitPath[itemSplitPath.length - 1] || (!activeFilter && !itemSplitPath[itemSplitPath.length - 1]),
               })}
               key={`${item.linkURL}`}
             >

@@ -75,6 +75,9 @@ class Request extends Component {
       token: PropTypes.string,
       at: PropTypes.string,
     }),
+
+    // possibility to paste or not info about user to request body
+    withoutUser: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -90,6 +93,7 @@ class Request extends Component {
     serviceExpiresFieldName: 'expires',
     serviceResponseHandler: null,
     requestBody: {},
+    withoutUser: false,
   };
 
   state = {
@@ -193,6 +197,7 @@ class Request extends Component {
       method,
       requestBody,
       user,
+      withoutUser,
     } = this.props;
     this.tearDown();
     this.setState({ fetchingContent: true, serviceResponse: {} });
@@ -203,7 +208,7 @@ class Request extends Component {
     if (method === POST) {
       axios.post(serviceURL, Object.assign({
         cancelToken: this.source.token,
-      }, validatedRequestBody, { ...user }))
+      }, validatedRequestBody, withoutUser ? { } : { ...user }))
         .then(result => this.handleServiceResponse(result.data));
     }
 

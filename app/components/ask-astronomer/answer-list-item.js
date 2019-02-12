@@ -55,6 +55,7 @@ const AnswerListItem = (props) => {
     topicId,
     user,
     intl,
+    updateQuestionsList,
   } = props;
   return (
     <div className="answer-list-item">
@@ -84,6 +85,7 @@ const AnswerListItem = (props) => {
           topicId={topicId}
           objectId={objectId}
           threadId={threadId}
+          updateQuestionsList={updateQuestionsList}
         />)}
         renderChildReplies={() => (<AnswerReplyList
           answerReplies={answerReplies}
@@ -163,6 +165,7 @@ AnswerListItem.propTypes = {
   toggleAnswers: func.isRequired,
   topicId: number.isRequired,
   intl: intlShape.isRequired,
+  updateQuestionsList: func.isRequired,
 };
 
 export default injectIntl(AnswerListItem);

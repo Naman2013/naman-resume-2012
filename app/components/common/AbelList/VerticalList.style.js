@@ -19,4 +19,8 @@ export default css`
     font-family: ${primaryFont};
     color: ${astronaut};
   }
+
+  .bullet-image {
+    margin-right: 10px;
+  }
 `;

@@ -1,7 +1,10 @@
 import React from 'react';
-import uniqueId from 'lodash/uniqueId';
-import defaultSliderConfiguration from 'components/common/Slider/sliderConfig';
+import { FormattedMessage } from 'react-intl';
+
+import defaultSliderConfiguration from '../../../components/common/Slider/sliderConfig';
 import RecommendedObservationSliderItem from './partials/RecommendedObservationsSliderItem';
+
+import messages from './RecommendedObservationsSlider.messages';
 
 const getSliderConfiguration = () => Object.assign(
   {},
@@ -18,26 +21,39 @@ const getSliderConfiguration = () => Object.assign(
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
-          centerMode: true,
+          centerMode: false,
           centerPadding: '50px',
-        }
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          initialSlide: 0,
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          centerMode: false,
+          centerPadding: '50px',
+          swipe: true,
+          dots: true,
+          infinite: false,
+        },
       },
     ],
   },
-)
+);
 
 const getRecommendedObservationsItems = (imageList = []) => {
   return imageList.map(object => ({
     customerImageId: object.customerImageId,
-    render: (sliderProps) =>  <RecommendedObservationSliderItem key={uniqueId()} {...sliderProps} {...object}  />,
-  }))
-}
+    render: sliderProps => <RecommendedObservationSliderItem key={imageList.customerImageId} {...sliderProps} {...object} />,
+  }));
+};
 
 export const getSliderProps = (slideList = []) => (
   Object.assign({
     slideList: getRecommendedObservationsItems(slideList),
   }, {
-    sliderConfig: getSliderConfiguration(),
-    emptyMessage: 'There are no recommended observations.',
+      sliderConfig: getSliderConfiguration(),
+      emptyMessage: <FormattedMessage {...messages.NothingToShow} />,
   })
 );

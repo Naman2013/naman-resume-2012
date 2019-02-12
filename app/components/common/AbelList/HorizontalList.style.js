@@ -32,4 +32,8 @@ export default css`
   li:last-child {
     border-right: none;
   }
+
+  .bullet-image {
+    margin-right: 10px;
+  }
 `;

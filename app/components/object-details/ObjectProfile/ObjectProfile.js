@@ -1,10 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { intlShape, injectIntl } from 'react-intl';
-import GridContainer from '../grid/GridContainer';
+import { GridContainer, Row, StaticCell } from '../../common/grid';
 import BestTelescope from './BestTelescope';
-import Row from '../grid/Row';
-import StaticCell from '../grid/StaticCell';
 import style from './ObjectProfile.style';
 import messages from './ObjectProfile.messages';
 
@@ -54,7 +52,6 @@ const ObjectProfile = ({
       <StaticCell
         flexScale={['100%', '100%', '20%']}
         hasBorderScale={[true]}
-        theme={{ minHeight: '360px' }}
         displayAtBreakpoints={{
           screenSmall: false,
           screenMedium: false,
@@ -64,7 +61,11 @@ const ObjectProfile = ({
       >
         <Row wrap>
           {visibilitySeason.show === true && (
-            <StaticCell title={visibilitySeason.title} theme={{ padding: 0, marginBottom: '20px' }}>
+            <StaticCell
+              title={visibilitySeason.title}
+              theme={{ padding: '7px', marginBottom: '20px' }}
+              hasBottomBorder={midnightCulmination.show}
+            >
               {visibilitySeason.observatories}
             </StaticCell>
           )}
@@ -73,7 +74,7 @@ const ObjectProfile = ({
             <StaticCell
               flexScale={['100%']}
               title={midnightCulmination.label}
-              theme={{ padding: 0, borderBottom: 'none' }}
+              theme={{ padding: 0, borderBottom: 'none', minHeight: 0 }}
             >
               <p>{midnightCulmination.text}</p>
               {midnightCulmination.description}
@@ -86,7 +87,8 @@ const ObjectProfile = ({
         <StaticCell
           flexScale={['100%', '100%', '40%']}
           title={bestTelescope.label}
-          theme={{ minHeight: '360px', alignSelf: 'flex-start' }}
+          theme={{ alignSelf: 'flex-start' }}
+          hasBottomBorder={false}
         >
           <BestTelescope visitLabel={bestTelescope.buttonCaption} telescopes={bestTelescope.list} />
         </StaticCell>

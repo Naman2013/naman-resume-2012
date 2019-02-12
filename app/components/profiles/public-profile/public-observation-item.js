@@ -252,7 +252,7 @@ componentWillReceiveProps(nextProps) {
                 <div style={infoIcon(member.iconUrl)} />
                 }
               </div>
-              <div className="title">
+              {category && <div className="title">
               <span
                 className="block"
                 dangerouslySetInnerHTML={{ __html: `${category.label} ` }}
@@ -261,6 +261,7 @@ componentWillReceiveProps(nextProps) {
                 <div style={infoIcon(category.iconUrl)} />
                 }
               </div>
+              }
 
               <div className="title">
               <span
@@ -271,7 +272,7 @@ componentWillReceiveProps(nextProps) {
                 <div style={infoIcon(telescope.iconUrl)} />
                 }
               </div>
-              <div className="title">
+              {domain && <div className="title">
               <span
                 className="block"
                 dangerouslySetInnerHTML={{ __html: `${domain.label} ` }}
@@ -279,6 +280,7 @@ componentWillReceiveProps(nextProps) {
                 {domain.hasLink ? <Link to={domain.linkUrl}><div style={infoIcon(domain.iconUrl)} /></Link> :
                 <div style={infoIcon(domain.iconUrl)} /> }
               </div>
+              }
             </div>
           </div>
           <Link to={`/my-pictures/show-image/${customerImageId}/${shareToken}`}>

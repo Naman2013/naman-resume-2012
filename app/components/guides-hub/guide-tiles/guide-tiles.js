@@ -59,7 +59,7 @@ class GuideTiles extends Component {
                 <GuideTile {...guide} />
               </div>
               <div className={classnames('excerpt', {
-                'show-excerpt': activeId === guide.guideId,
+                'show-excerpt': activeId == guide.guideId,
               })}>
                 <GuideExcerptTile {...guide} updateReadingInfoInList={updateReadingListInfo} />
               </div>

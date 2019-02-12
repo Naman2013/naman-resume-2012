@@ -11,28 +11,48 @@ function getScaleTarget(scale = [], targetIndex = 0) {
 }
 
 function getBorderStyle(hasBorder = false) {
-  return (hasBorder) ? 'border-right: 1px solid;' : '';
+  return hasBorder ? 'border-right: 1px solid;' : '';
 }
 
 const StaticCell = ({
   children,
   flexScale,
+  hasBottomBorder,
   hasBorderScale,
   title,
+  titleHtml,
   theme,
 }) => (
   <div
     className="root"
-    style={Object.assign({
-      borderColor: geyser,
-    }, theme)}
+    style={Object.assign(
+      {
+        borderColor: geyser,
+      },
+      theme,
+    )}
   >
     <div className="positioning-container">
-      { title && <h2 className="title">{title}:</h2> }
+      {titleHtml && (
+        <h2
+          className="title"
+          dangerouslySetInnerHTML={{
+            __html: titleHtml,
+          }}
+        />
+      )}
+      {title && <h2 className="title">{title}</h2>}
       {children}
     </div>
 
     <style jsx>{style}</style>
+    <style jsx>
+      {`
+        .root {
+          border-bottom: ${hasBottomBorder ? '' : 'none'};
+        }
+      `}
+    </style>
     <style jsx>
       {`
         .root {
@@ -68,6 +88,7 @@ const StaticCell = ({
 
 StaticCell.propTypes = {
   title: PropTypes.string,
+  titleHtml: PropTypes.string,
   displayAtBreakpoints: PropTypes.shape({
     screenSmall: PropTypes.bool,
     screenMedium: PropTypes.bool,
@@ -76,12 +97,14 @@ StaticCell.propTypes = {
   }),
   flexScale: PropTypes.arrayOf(PropTypes.string),
   hasBorderScale: PropTypes.arrayOf(PropTypes.bool),
+  hasBottomBorder: PropTypes.bool,
   children: PropTypes.node.isRequired,
-  theme: PropTypes.shape({ }),
+  theme: PropTypes.shape({}),
 };
 
 StaticCell.defaultProps = {
   title: '',
+  titleHtml: '',
   displayAtBreakpoints: {
     screenSmall: true,
     screenMedium: true,
@@ -89,6 +112,7 @@ StaticCell.defaultProps = {
     screenXLarge: true,
   },
   flexScale: ['auto'],
+  hasBottomBorder: true,
   hasBorderScale: [false],
   theme: {},
 };

@@ -1,0 +1,16 @@
+export const PrivateProfile = {
+  'Photos.PhotoRoll': 'Photo roll',
+  'Photos.Observations': 'Observations',
+  'Photos.Missions': 'Missions',
+  'Photos.Galleries': 'Galleries',
+  'Photos.MyPhotoHub': 'My Photo Hub',
+  'Photos.Filters.AllObservations': 'All observation',
+  'Photos.Filters.MostRecent': 'Most recent',
+  'Photos.Filters.MostPopular': 'Most popular',
+  'Photos.Filters.SavedForLater': 'Saved for later',
+  'Photos.Options': 'Options',
+  'Photos.Images': 'Images',
+  'Photos.OpenMission': 'Open mission',
+  'Photos.Details': 'Details',
+  'Photos.ViewDetails': 'View details',
+};

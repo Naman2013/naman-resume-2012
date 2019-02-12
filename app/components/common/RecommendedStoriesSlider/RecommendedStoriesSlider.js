@@ -6,30 +6,18 @@
 ***********************************/
 
 import React from 'react';
-import PropTypes from 'prop-types';
-import SloohSlider from 'components/common/Slider';
-import take from 'lodash/take';
 import has from 'lodash/has';
-import uniqueId from 'lodash/uniqueId';
-import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
-import Request from 'components/common/network/Request';
-import { HOMEPAGE_CONTENT } from 'services/dashboard';
-import StoryTile from 'components/common/tiles/StoryTile';
+import take from 'lodash/take';
+import SloohSlider from '../../../components/common/Slider';
+import DisplayAtBreakpoint from '../../../components/common/DisplayAtBreakpoint';
+import Request from '../../../components/common/network/Request';
+import { GET_BEST_OF } from '../../../services/dashboard';
+import StoryTile from '../../../components/common/tiles/StoryTile';
 import { getSliderProps } from './recommendedStoriesSliderConfiguration';
 
-const {
-  arrayOf,
-  bool,
-  func,
-  number,
-  shape,
-  string,
-} = PropTypes;
-
-const Stories = ({
-}) => (
+const Stories = () => (
   <Request
-    serviceURL={HOMEPAGE_CONTENT}
+    serviceURL={GET_BEST_OF}
     method="POST"
     render={({ serviceResponse }) => {
       const sliderProps = getSliderProps(serviceResponse.posts);
@@ -48,16 +36,18 @@ const Stories = ({
           >
             {shortList.map(post => (
               <StoryTile
-                key={uniqueId()}
-                iconURL={post.S3Files[0]}
+                key={post.postId}
+                storyId={post.postId}
+                iconURL={post.slugIconURL}
                 title={post.title}
-                author={has(post, 'authoInfo.byline') ? post.authoInfo.byline : ''}
-                linkUrl={post.linkUrl}
+                author={has(post, 'authorInfo.displayName') ? post.authorInfo.displayName : ''}
+                // linkUrl={post.linkUrl}
               />))}
           </DisplayAtBreakpoint>
         </div>
-      )
+      );
     }}
-  />);
+  />
+);
 
 export default Stories;
