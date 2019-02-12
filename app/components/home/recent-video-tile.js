@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import './recent-video-tile.scss';
 
 class RecentVideoTile extends Component {
-
   constructor(props) {
     super(props);
 
@@ -22,34 +21,43 @@ class RecentVideoTile extends Component {
     if (this.props.contentLink != '') {
       if (this.props.openInNewTab == false) {
         return (
-          <a style={this.inlineStyle_VideoDescription} className="content contentlink" href={this.props.contentLink} dangerouslySetInnerHTML={{ __html: this.props.content }} />
-        )
+          <a
+            style={this.inlineStyle_VideoDescription}
+            className="content contentlink"
+            href={this.props.contentLink}
+            dangerouslySetInnerHTML={{ __html: this.props.content }}
+          />
+        );
       }
-      else {
-        return (
-          <a target="_blank" style={this.inlineStyle_VideoDescription} className="content contentlink" href={this.props.contentLink} dangerouslySetInnerHTML={{ __html: this.props.content }} />
-        )
-      }
-    }
-    else {
       return (
-        <p style={this.inlineStyle_VideoDescription} className="content" dangerouslySetInnerHTML={{ __html: this.props.content }} />
-      )
+        <a
+          target="_blank"
+          style={this.inlineStyle_VideoDescription}
+          className="content contentlink"
+          href={this.props.contentLink}
+          dangerouslySetInnerHTML={{ __html: this.props.content }}
+        />
+      );
     }
+    return (
+      <p
+        style={this.inlineStyle_VideoDescription}
+        className="content"
+        dangerouslySetInnerHTML={{ __html: this.props.content }}
+      />
+    );
   }
 
   render() {
     /* calulate the width of each video */
-    var videoWidth = '';
+    let videoWidth = '';
 
     if (this.props.numVideos == 1) {
       /* only set the width a maximum of 50% if there is one video */
       videoWidth = '50%';
+    } else {
+      videoWidth = `${100 / this.props.numVideos}%`;
     }
-    else {
-      videoWidth = 100 / this.props.numVideos + '%';
-    }
-
 
     const inlineStyle = {
       background: `url(${this.props.imageUrl}) no-repeat center center`,
@@ -68,7 +76,7 @@ class RecentVideoTile extends Component {
 
     const inlineStyle_VideoDescription = {
       textAlign: 'left',
-    }
+    };
 
     return (
       <div style={inlineStyle} className="col-sm-4 recent-video-tile-container">
@@ -78,14 +86,16 @@ class RecentVideoTile extends Component {
             width="100%"
             src={this.props.videoURL}
             seamless
+            controls="1"
             allowFullScreen
-            autoPlay="1"
+            autoPlay={0}
             frameBorder="0"
           />
         </div>
         {this.generateVideoDescription()}
 
-        <style>{`
+        <style>
+          {`
             .contentlink:hover {
               text-decoration: none;
             }

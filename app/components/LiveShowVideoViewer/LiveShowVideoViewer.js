@@ -100,6 +100,7 @@ class LiveShowVideoViewer extends Component {
                   teleStreamURL={showStreamURL}
                   showVideoControls={1}
                   showInfo={1}
+                  autoplay={0}
                 />
               ) : null}
             </div>
