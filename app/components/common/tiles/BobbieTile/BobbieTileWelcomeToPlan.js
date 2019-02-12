@@ -1,7 +1,7 @@
 import React from 'react';
-import PropTypes, { shape } from 'prop-types';
+import PropTypes from 'prop-types';
 import GuideExcerptTile from '../../../common/tiles/guide-excerpt-tile';
-import style from './BobbieTileWelcomeToPlan.style';
+import styles from './BobbieTileWelcomeToPlan.styles';
 import CMSStyle from './CMS.style';
 
 /**
@@ -63,7 +63,7 @@ const BobbieTileWelcomeToPlan = ({
         </tr>
       </table>
     </div>
-    <style jsx>{style}</style>
+    <style jsx>{styles}</style>
     <style jsx>{CMSStyle}</style>
   </div>
 );
@@ -71,6 +71,7 @@ const BobbieTileWelcomeToPlan = ({
 const {
   string,
   bool,
+  shape,
 } = PropTypes;
 
 BobbieTileWelcomeToPlan.propTypes = {

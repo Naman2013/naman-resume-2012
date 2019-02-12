@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes, { func } from 'prop-types';
+import PropTypes from 'prop-types';
 import axios from 'axios';
 import Modal from 'react-modal';
 import { Link } from 'react-router';
@@ -8,13 +8,14 @@ import { customModalStyles } from '../../../styles/mixins/utilities';
 import { DASHBOARD_DISMISS_TOUR_POPUP } from '../../../services/dashboard';
 import BobbieTileWelcomeToPlan from '../../../components/common/tiles/BobbieTile/BobbieTileWelcomeToPlan';
 
-import style from './BootstrappedTourPopup.style';
+import styles from './BootstrappedTourPopup.styles';
 import messages from './BootstrappedTourPopup.messages';
 
 const {
   bool,
   string,
   shape,
+  func,
 } = PropTypes;
 
 class BootstrappedTourPopup extends Component {
@@ -129,7 +130,7 @@ class BootstrappedTourPopup extends Component {
           </button> : null}
           {canDismiss ? <span onClick={this.dismissTour} dangerouslySetInnerHTML={{ __html: dismissText }} /> : null}
         </Modal>
-        <style jsx>{style}</style>
+        <style jsx>{styles}</style>
       </div>
     );
   }
