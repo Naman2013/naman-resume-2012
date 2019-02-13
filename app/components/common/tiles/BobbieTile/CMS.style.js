@@ -17,14 +17,20 @@ export default css`
 
   ${stylePrefix} :global(p) {
     line-height: 1.5;
+    white-space: pre-line;
   }
 
+  
   ${stylePrefix} :global(p + table td .contentImageEmbedDIV:nth-child(1)) {
     margin-top: 0px;
   }
-
-  ${stylePrefix} :global(p + table td p:nth-child(1)) {
+  
+  ${stylePrefix} :global(p + table td > p:nth-child(1)) {
     margin-top: 0px;
+  }
+  
+  ${stylePrefix} :global(p + table[border="1"] td .contentImageEmbedDIV:nth-child(1)) {
+    margin-top: 20px;
   }
 
   ${stylePrefix} :global(.contentImageEmbedDIV) {
