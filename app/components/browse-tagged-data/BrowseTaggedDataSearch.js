@@ -5,17 +5,26 @@ import { bindActionCreators } from 'redux';
 import { Button } from 'react-bootstrap';
 import { Link } from 'react-router';
 import clone from 'lodash/clone';
+import noop from 'lodash/noop';
 import { fetchBrowseTaggedDataAction } from '../../modules/browse-tagged-data/actions';
 import { shadows, astronaut, romance, gainsboro, seashell } from '../../styles/variables/colors_tiles_v4';
 import { primaryFont, secondaryFont } from 'styles/variables/fonts';
 import DisplayAtBreakpoint from '../common/DisplayAtBreakpoint';
+import { Field, reduxForm } from 'redux-form';
+import InputField from 'components/form/InputField';
+
+const {
+  func,
+} = PropTypes;
 
 const mapStateToProps = ({
   browseTaggedData,
   renderTaggedData,
+  findTermForm,
 }) => ({
   browseTaggedData,
   renderTaggedData,
+  findTermForm,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -24,7 +33,6 @@ const mapDispatchToProps = dispatch => ({
   }, dispatch),
 });
 
-@connect(mapStateToProps, mapDispatchToProps)
 class BrowseTaggedDataSearch extends Component {
   state = {
     topNavSearchTerm: '',
@@ -34,6 +42,14 @@ class BrowseTaggedDataSearch extends Component {
     },
     grandParentNodeID: null,
     parentNodeID: null,
+  };
+
+  static propTypes = {
+    change: func,
+  };
+
+  static defaultProps = {
+    change: noop,
   };
 
   componentDidMount() {
@@ -104,8 +120,6 @@ class BrowseTaggedDataSearch extends Component {
   endSearch() {
     const { browseTaggedData } = this.props;
 
-    //console.log(browseTaggedData);
-
     this.setState({
       renderTaggedData: _.cloneDeep(browseTaggedData),
       topNavSearchTerm: '',
@@ -113,6 +127,17 @@ class BrowseTaggedDataSearch extends Component {
       grandParentNodeID: null,
       parentNodeID: null,
     });
+
+    //reset the redux form field back to empty
+    this.props.change('findTerm', '');
+  }
+
+  performSearch(event) {
+    event.preventDefault();
+
+    const { topNavSearchTerm } = this.state;
+
+    console.log('Execute search.....' + topNavSearchTerm);
   }
 
     /* act on changes to the grandparent node */
@@ -193,7 +218,7 @@ class BrowseTaggedDataSearch extends Component {
               .search-results-parent {
                 font-size: 18px;
                 padding: 15px 0;
-                margin-left: 75px;
+                margin-left: 35px;
                 font-family: ${primaryFont};
                 color: ${astronaut};
 
@@ -205,7 +230,7 @@ class BrowseTaggedDataSearch extends Component {
                 font-family: ${primaryFont};
                 text-transform: uppercase;
                 padding: 15px 0;
-                margin-left: 150px;
+                margin-left: 100px;
                 color: ${astronaut};
               }
               `}</style>
@@ -295,33 +320,37 @@ class BrowseTaggedDataSearch extends Component {
 
     render() {
       const { browseTaggedData, isOpen } = this.props;
-      const { topNavSearchTerm, topNavSearchEnabled, renderTaggedData } = this.state;
+      const { topNavSearchEnabled, renderTaggedData } = this.state;
 
       //console.log('Rendering...');
       //console.log(renderTaggedData.taggedData);
 
       return (
         <div className="root">
+          <div style={{display: 'inline-block'}}>
+            <div style={{display: 'block', paddingBottom: '25px'}}>
+                 <form onSubmit={(event) => { this.performSearch(event); }}>
+                   <Field
+                    id="BrowseTaggedDataSearchInputField"
+                    className="search-input-field"
+                    name="findTerm"
+                    type="name"
+                    label="Find a Slooh 1000 Object"
+                    component={InputField}
+                    onChange={(event) => { this.handleFieldChange({ value: event.target.value }); }}
+                    value={this.state.topNavSearchTerm}
+                  />
+                  <div className="browse-outer-container"><Button onClick={(event) => { this.performSearch(event); }} className="browse-find-button">Find</Button></div>
+                </form>
+            </div>
+          </div>
+          <hr/>
           {topNavSearchEnabled == true && <div className="search-results-container">
             <div style={{display: 'block'}}>
               {this.renderTaggedDataDisplay()}
             </div>
           </div>
           }
-          <hr/>
-          <div style={{paddingTop: '25px', display: 'block'}}>
-            <div className="search-text">Didn't find what your were looking for?</div>
-            <div>
-              <input
-                id="BrowseTaggedDataSearchInputField"
-                onChange={(event) => { this.handleFieldChange({ value: event.target.value }); }}
-                type="text"
-                className="search-input-field"
-                value={topNavSearchTerm}
-              />
-              <div className="browse-outer-container"><Button className="browse-find-button">Find</Button></div>
-            </div>
-          </div>
 
           <style jsx>{`
             .browse-outer-container {
@@ -339,7 +368,7 @@ class BrowseTaggedDataSearch extends Component {
               position: relative;
               display: inline-block;
               margin: 50px 25px;
-              padding-left: 25px;
+              padding-left: 0px;
               background-color: ${romance};
               height: 100%;
               width: 100%;
@@ -386,4 +415,4 @@ class BrowseTaggedDataSearch extends Component {
     }
 }
 
-export default BrowseTaggedDataSearch;
+export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({ form: 'findTermForm', enableReinitialize: true, })(BrowseTaggedDataSearch));
