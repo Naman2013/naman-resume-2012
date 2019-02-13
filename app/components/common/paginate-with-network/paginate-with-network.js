@@ -22,6 +22,7 @@ class PaginateWithNetwork extends Component {
 
   handleServiceResponse = (resp) => {
     this.props.onServiceResponse(resp);
+    window.scrollTo(0, 0);
   };
 
   render() {

@@ -1,5 +1,4 @@
 import css from 'styled-jsx/css';
-import { faintShadow } from 'styles/variables/shadows';
 import { astronaut, moodyBleu } from 'styles/variables/colors_tiles_v4';
 import { primaryFont, secondaryFont } from 'styles/variables/fonts';
 
