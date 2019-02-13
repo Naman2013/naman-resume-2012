@@ -3,6 +3,8 @@ import { primaryFont, secondaryFont } from 'styles/variables/fonts';
 import { screenMedium, screenLarge, screenXLarge } from 'styles/variables/breakpoints';
 import { astronaut, lynch } from 'styles/variables/colors_tiles_v4';
 
+const prefix = '.description-container';
+
 export default css`
   .root {
     color: ${astronaut};
@@ -19,16 +21,16 @@ export default css`
     font-weight: normal;
   }
 
-  p {
+  ${prefix} :global(p) {
     color: ${lynch};
     margin: 0;
-    padding: 0;
-    margin-bottom: 32px;
+    margin-bottom: 15px;
     font-size: 18px;
-    line-height: 1.75;
+    line-height: 1.5;
+    white-space: pre-line;
   }
 
-  .description-container :global(.iframe-container) {
+  ${prefix} :global(.iframe-container) {
     height: 0;
     width: 100%;
     padding-top: 56.25%;
@@ -36,7 +38,7 @@ export default css`
     overflow: hidden; 
    }
 
-   .description-container :global(.iframe-container iframe) {
+   ${prefix} :global(.iframe-container iframe) {
     width: 100%;
     height: 100%;
     position: absolute;
@@ -44,13 +46,19 @@ export default css`
     left: 0;
    }
 
-  .description-container :global(iframe) {
+  ${prefix} :global(iframe) {
     width: 100%;
-    height: 240px; 
+    height: 240px;
+  }
+
+  ${prefix} :global(a) {
+    color: #337ab7;
+    font-weight: bold;
+    text-decoration: none;
   }
 
   @media ${screenMedium} {
-    .description-container :global(iframe) {
+    ${prefix} :global(iframe) {
      height: 340px;
    }
 `;
