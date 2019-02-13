@@ -8,10 +8,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-modal';
-import noop from 'lodash/noop';
 import { likeReply } from 'services/discussions/like';
 import LikeButton from 'components/common/style/buttons/LikeButton';
 import { customModalStylesBlackOverlay } from 'styles/mixins/utilities';
+
+import styles from './LikeSomethingButton.style';
 
 const {
   func,
@@ -169,13 +170,7 @@ class LikeHeartButton extends Component {
         <i className="fa fa-close" onClick={this.closeModal} />
         <p className="" dangerouslySetInnerHTML={{ __html: likePrompt }} />
       </Modal>
-      <style jsx>{`
-        .fa-close {
-          position: absolute;
-          top: 5px;
-          right: 10px;
-        }
-      `}</style>
+      <style jsx>{styles}</style>
     </div>);
   }
 }
