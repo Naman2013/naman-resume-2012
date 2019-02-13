@@ -34,4 +34,30 @@ export default css`
     font-size: 18px;
     line-height: 1.75;
   }
+
+  .description-container :global(.iframe-container) {
+    height: 0;
+    width: 100%;
+    padding-top: 56.25%;
+    position: relative;
+    overflow: hidden; 
+   }
+
+   .description-container :global(.iframe-container iframe) {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+   }
+
+  .description-container :global(iframe) {
+    width: 100%;
+    height: 240px; 
+  }
+
+  @media ${screenMedium} {
+    .description-container :global(iframe) {
+     height: 340px;
+   }
 `;
