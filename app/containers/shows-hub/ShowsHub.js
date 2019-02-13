@@ -95,11 +95,13 @@ class Shows extends Component {
       intl,
     } = this.props;
     const {
-      shows
+      shows,
     } = this.state;
 
-    return (<div>
+    return (
+    <div>
       <Request
+        withoutUser
         serviceURL={SHOWS_PAGE_ENDPOINT}
         model={showsHubModel}
         requestBody={{}}
@@ -133,7 +135,7 @@ class Shows extends Component {
                       pageTitle={serviceResponse.pageTitle}
                       filterTypeFieldName="theme"
                       filterType={this.props.params.filterType}
-                      clearTiles = {this.clearShows}
+                      clearTiles={this.clearShows}
                       render={() => (
                         <Fragment>
                           <DisplayAtBreakpoint
@@ -163,11 +165,10 @@ class Shows extends Component {
         )}
       />
       <style jsx>{style}</style>
-    </div>)
+    </div>
+    );
   }
 }
-
-
 
 const mapStateToProps = ({
   user,

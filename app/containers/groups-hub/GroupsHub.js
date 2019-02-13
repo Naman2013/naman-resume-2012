@@ -206,6 +206,7 @@ class Groups extends Component {
 
     return (<div>
       <Request
+        withoutUser
         serviceURL={GROUPS_PAGE_ENDPOINT_URL}
         model={groupsHubModel}
         requestBody={{ currentGroupSet: this.props.params.filterType }}

@@ -30,6 +30,7 @@ class PaginateWithNetwork extends Component {
 
     return (
       <Request
+        withoutUser
         serviceURL={apiURL}
         requestBody={Object.assign({ page: activePageNumber }, filterOptions)}
         serviceResponseHandler={this.handleServiceResponse}

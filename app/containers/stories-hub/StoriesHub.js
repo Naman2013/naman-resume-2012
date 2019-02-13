@@ -94,6 +94,7 @@ class Stories extends Component {
     } = this.state;
     return (<div>
       <Request
+        withoutUser
         serviceURL={STORIES_PAGE_ENDPOINT_URL}
         model={storiesHubModel}
         requestBody={{}}
