@@ -8,6 +8,7 @@ import clone from 'lodash/clone';
 import { fetchBrowseTaggedDataAction } from '../../modules/browse-tagged-data/actions';
 import { shadows, astronaut, romance, gainsboro, seashell } from '../../styles/variables/colors_tiles_v4';
 import { primaryFont, secondaryFont } from 'styles/variables/fonts';
+import DisplayAtBreakpoint from '../common/DisplayAtBreakpoint';
 
 const mapStateToProps = ({
   browseTaggedData,
@@ -72,80 +73,9 @@ class BrowseTaggedDataSearch extends Component {
   }
 
   handleFieldChange(searchData) {
-    //console.log("Search Text Changed: " + searchData.value);
-
-    const { browseTaggedData } = this.props;
-
     this.setState({
       topNavSearchTerm: searchData.value,
-      topNavSearchEnabled: true,
     });
-
-    /* build an internal object structure based on the search term entered so the rendering can be done against that object instead of the complete data stream (ex: filter on Jupiter) */
-    if (searchData.value.length === 0) {
-      /* render the entire browse tagged data set as their is no search term limiting the results */
-      //console.log(browseTaggedData);
-      this.setState({
-        renderTaggedData: _.cloneDeep(browseTaggedData),
-        grandParentNodeID: null,
-        parentNodeID: null,
-      });
-    }
-    else {
-      //reset the grandparent and parent node selections a user has previous made as a new search was executed.
-      this.setState({
-        grandParentNodeID: null,
-        parentNodeID: null,
-      });
-
-      /* build the render data set based on the search term so the search results list gets refined based on the new data feed results
-        > Only show grandparents where there is an item to be found.
-        > Only show parents where their is an item to be found.
-        > Only show items that match the begginng of the search term.
-
-        ****************************
-        ***** IMPORTANT NOTE *******
-        ****************************
-        DEEP COPY....We must have a deep copy of the browseTaggedData to work with as this process is going to remove data and without a deep copy it would affect the browseTaggedData object
-      */
-      let tmpRenderedDataObj = _.cloneDeep(browseTaggedData);
-
-      //step 1: delete an items that don't match
-      var itemsFound = false;
-      Object.keys(browseTaggedData.taggedData).map(function (grandParentKey) {
-        Object.keys(browseTaggedData.taggedData[grandParentKey].subnodes).map(function (parentKey) {
-            /* reset this back to false, otherwise parent nodes in the same grandparent will appear with no item (child) nodes beneath it if there are no matching items... */
-            itemsFound = false;
-
-            Object.keys(browseTaggedData.taggedData[grandParentKey].subnodes[parentKey].subnodes).map(function (itemKey) {
-              if (browseTaggedData.taggedData[grandParentKey].subnodes[parentKey].subnodes[itemKey].title.toLowerCase().startsWith( searchData.value.toLowerCase() ) === false) {
-                delete tmpRenderedDataObj.taggedData[grandParentKey].subnodes[parentKey].subnodes[itemKey];
-              }
-              else {
-                /* a matching item has been found that begins with the search term */
-                itemsFound = true;
-              }
-            }, this);
-
-            if (itemsFound === false) {
-              /* remove the parent node, there are no matching items in it. */
-              delete tmpRenderedDataObj.taggedData[grandParentKey].subnodes[parentKey];
-            }
-        }, this);
-
-        if (Object.keys(tmpRenderedDataObj.taggedData[grandParentKey].subnodes).length === 0) {
-          /* remove the grand parent node, there are no parent nodes under it */
-          delete tmpRenderedDataObj.taggedData[grandParentKey];
-        }
-      }, this);
-
-      //console.log(tmpRenderedDataObj);
-
-      //update the render tagged data set to represent the newly trimmed down node tree based on the user's latest search terms.
-      this.setState({
-        renderTaggedData: _.cloneDeep(tmpRenderedDataObj),
-      });
-    }
   }
 
   handleClick(searchData) {
@@ -224,32 +154,18 @@ class BrowseTaggedDataSearch extends Component {
 
         /**************************************************************************************
         Use cases:
-          noSearchTerm Use Cases:
+          Use Cases:
               (X) grandParent=null and parent=null: show top level nodes only
               (X) grandParent=x and parent=null: show grandParent expanded one level (show parents)
               (X) grandParent=x and parent=y: show child nodes and links
-
-          searchTerm Use Cases:
-            Scan through all child nodes at the grandparent/parent level to see if there are any child objects that
-              .... begin with noSearchTerm (use browseTaggedData to build renderTaggedData with just the necessary grandparents/parents)
-
-                Display all grandparents/parents/child nodes (renderTaggedData), no ability to expand / collapse grandparent/parent nodes.
-
         **************************************************************************************/
 
         return (
           <div className="search-results-set">
             {Object.keys(browseTaggedData.taggedData).length === 0 && Object.keys(renderTaggedData.taggedData).length === 0 && <p>Loading....</p>}
-            {Object.keys(browseTaggedData.taggedData).length > 0 && Object.keys(renderTaggedData.taggedData).length === 0 && <div className="search-results-noresultsfoundtext">No results found for: {topNavSearchTerm}.</div>}
-
-            {Object.keys(renderTaggedData.taggedData).length > 0 && topNavSearchTerm === '' &&
+            {Object.keys(renderTaggedData.taggedData).length > 0 &&
               <div key="search-results-no-searchterm">
-                {this.renderTaggedDataDisplay_NoSearchTerm()}
-              </div>
-            }
-            {Object.keys(renderTaggedData.taggedData).length > 0 && topNavSearchTerm !== '' &&
-              <div key="search-results-no-withsearchterm">
-                {this.renderTaggedDataDisplay_SearchTerm()}
+                {this.renderTaggedDataDisplay_BrowseList()}
               </div>
             }
 
@@ -297,46 +213,7 @@ class BrowseTaggedDataSearch extends Component {
         )
     }
 
-    renderTaggedDataDisplay_SearchTerm() {
-
-      /************************************************************************************
-      Always return all available data and the grandparent / parent nodes always expanded.
-      The data to display has already been trimmed to only include the grandparent/parent
-          nodes that have matching items.
-      ************************************************************************************/
-      const { renderTaggedData } = this.state;
-
-      return(
-        <div>
-          {Object.keys(renderTaggedData.taggedData).map(function (grandParentKey) {
-              return (
-                <div key={`outer-node-grandparent-` + grandParentKey}>
-                  <div key={`inner-node-grandparent-` + grandParentKey} className="search-results-grandparent">{renderTaggedData.taggedData[grandParentKey].title}</div>
-                  {Object.keys(renderTaggedData.taggedData[grandParentKey].subnodes).map(function (parentKey) {
-                      return (
-                        <div>
-                          <div key={`node-parent-` + parentKey} className="search-results-parent">{renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].title}</div>
-                          {Object.keys(renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].subnodes).map(function (itemKey) {
-                              return (
-                                <div key={`node-` + itemKey} className="search-results-item">
-                                  <Link key={`node-link-` + itemKey} onClick={(event) => { this.endSearch(); }} to={renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].subnodes[itemKey].linkURL}>{renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].subnodes[itemKey].title}</Link>
-                                </div>
-                              )
-                            }, this)
-                          }
-                        </div>
-                      )
-                    }, this)
-                  }
-                </div>
-              )
-            }, this)
-          }
-        </div>
-      )
-    }
-
-    renderTaggedDataDisplay_NoSearchTerm() {
+    renderTaggedDataDisplay_BrowseList() {
 
       const { grandParentNodeID, parentNodeID, renderTaggedData } = this.state;
 
@@ -425,23 +302,39 @@ class BrowseTaggedDataSearch extends Component {
 
       return (
         <div className="root">
-          <span style={{display: 'none'}} onClick={(event) => { this.handleClick({ value: ''}); }} className="search-text">Browse:</span>
-          <input
-            id="BrowseTaggedDataSearchInputField"
-            onClick={(event) => { this.handleClick({ value: event.target.value}); }}
-            onChange={(event) => { this.handleFieldChange({ value: event.target.value }); }}
-            type="text"
-            className="search-input-field"
-            value={topNavSearchTerm}
-            style={{display: 'none'}}
-          />
-
-
           {topNavSearchEnabled == true && <div className="search-results-container">
-            {this.renderTaggedDataDisplay()}
+            <div style={{display: 'block'}}>
+              {this.renderTaggedDataDisplay()}
+            </div>
           </div>
           }
+          <hr/>
+          <div style={{paddingTop: '25px', display: 'block'}}>
+            <div className="search-text">Didn't find what your were looking for?</div>
+            <div>
+              <input
+                id="BrowseTaggedDataSearchInputField"
+                onChange={(event) => { this.handleFieldChange({ value: event.target.value }); }}
+                type="text"
+                className="search-input-field"
+                value={topNavSearchTerm}
+              />
+              <div className="browse-outer-container"><Button className="browse-find-button">Find</Button></div>
+            </div>
+          </div>
+
           <style jsx>{`
+            .browse-outer-container {
+              display: inline-block;
+              padding-left: 20px;
+              position: absolute;
+              padding-top: 5px;
+            }
+
+            .browse-find-button {
+              font-weight: bold;
+            }
+
             .root {
               position: relative;
               display: inline-block;
@@ -454,7 +347,7 @@ class BrowseTaggedDataSearch extends Component {
             }
 
             .search-results-container {
-              display: block;
+              display: inline-block;
               color: ${astronaut};
             }
 
@@ -468,15 +361,16 @@ class BrowseTaggedDataSearch extends Component {
                 color: ${astronaut};
                 font-weight: bold;
                 font-family: ${primaryFont};
-                font-size: 12px;
+                font-size: 18px;
                 text-transform: uppercase;
             }
 
             .search-input-field {
-              display: block;
-              width: 95%;
-              padding: 10px;
-              margin: 25px 0;
+              display: inline-block;
+              width: 60%;
+              max-width: 300px;
+              margin-left: 25px
+              margin-right: 25px;
               font-size: 30px;
               font-family: ${secondaryFont};
               font-weight: normal;
