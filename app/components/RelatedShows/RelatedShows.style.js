@@ -6,9 +6,6 @@ import { screenMedium, screenLarge } from 'styles/variables/breakpoints';
 import { backgroundImageCover, dropShadowContainer } from 'styles/mixins/utilities';
 
 export default css`
-  .root {
-    margin: 25px;
-  }
   .related-shows-title {
     margin-bottom: 10px;
     font-family: ${primaryFont};
@@ -21,7 +18,4 @@ export default css`
   .related-shows-count {
     font-weight: normal;
   }
-
-  
-
 `;

@@ -39,39 +39,24 @@ class RelatedShows extends Component {
 
   render() {
     const {
-      isDesktop, user, showId, slugLookupId, serviceUrl,
+      isDesktop, user, showId, shows, fetchingContent,
     } = this.props;
 
     return (
-      <Request
-        authorizationRedirect
-        serviceURL={serviceUrl}
-        method="POST"
-        serviceExpiresFieldName="expires"
-        requestBody={{
-          cid: user.cid,
-          token: user.token,
-          at: user.at,
-          slugLookupId,
-          showId,
-        }}
-        render={({ fetchingContent, serviceResponse }) => (
-          <div>
-            <DeviceContext.Consumer>
-              {context => (
-                <BootstrappedRelatedShows
-                  isDesktop={isDesktop}
-                  fetching={fetchingContent}
-                  user={user}
-                  showId={showId}
-                  {...context}
-                  {...serviceResponse}
-                />
-              )}
-            </DeviceContext.Consumer>
-          </div>
-        )}
-      />
+      <div>
+        <DeviceContext.Consumer>
+          {context => (
+            <BootstrappedRelatedShows
+              isDesktop={isDesktop}
+              fetching={fetchingContent}
+              user={user}
+              showId={showId}
+              {...context}
+              {...shows}
+            />
+          )}
+        </DeviceContext.Consumer>
+      </div>
     );
   }
 }
