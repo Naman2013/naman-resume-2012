@@ -117,26 +117,37 @@ export default css`
   }
 
   .__html-blob-content-container__ :global(h1) {
+    font-size: 2.1rem;
     margin-top: 10px;
     margin-bottom: 10px;
   }
 
   .__html-blob-content-container__ :global(h2) {
+    font-size: 1.95rem;
     margin-top: 10px;
     margin-bottom: 10px;
   }
 
   .__html-blob-content-container__ :global(h3) {
+    font-size: 1.85rem;
     margin-top: 10px;
     margin-bottom: 10px;
   }
 
   .__html-blob-content-container__ :global(h4) {
+    font-size: 1.75rem;    
     margin-top: 10px;
     margin-bottom: 10px;
   }
 
   .__html-blob-content-container__ :global(h5) {
+    font-size: 1.65rem;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  .__html-blob-content-container__ :global(h6) {
+    font-size: 1.55rem;
     margin-top: 10px;
     margin-bottom: 10px;
   }
