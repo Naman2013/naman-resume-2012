@@ -7,10 +7,15 @@ import {
   FETCH_BROWSE_TAGGED_DATA_SUCCESS,
   FETCH_BROWSE_TAGGED_DATA_FAIL,
 
+  FETCH_BROWSE_FIND_DATA,
+  FETCH_BROWSE_FIND_DATA_START,
+  FETCH_BROWSE_FIND_DATA_SUCCESS,
+  FETCH_BROWSE_FIND_DATA_FAIL,
+
   } from './actions';
 
 const initialState = {
-  taggedData: { }
+  taggedData: { },
 };
 
 export default createReducer(initialState, {

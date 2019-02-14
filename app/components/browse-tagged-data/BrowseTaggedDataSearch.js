@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -7,11 +7,13 @@ import { Link } from 'react-router';
 import clone from 'lodash/clone';
 import noop from 'lodash/noop';
 import { fetchBrowseTaggedDataAction } from '../../modules/browse-tagged-data/actions';
+import { fetchBrowseFindDataAction, resetBrowseFindDataAction } from '../../modules/browse-find-data/actions';
 import { shadows, astronaut, romance, gainsboro, seashell } from '../../styles/variables/colors_tiles_v4';
 import { primaryFont, secondaryFont } from 'styles/variables/fonts';
 import DisplayAtBreakpoint from '../common/DisplayAtBreakpoint';
 import { Field, reduxForm } from 'redux-form';
 import InputField from 'components/form/InputField';
+import Request from 'components/common/network/Request';
 
 const {
   func,
@@ -19,10 +21,12 @@ const {
 
 const mapStateToProps = ({
   browseTaggedData,
+  browseFindData,
   renderTaggedData,
   findTermForm,
 }) => ({
   browseTaggedData,
+  browseFindData,
   renderTaggedData,
   findTermForm,
 });
@@ -30,13 +34,15 @@ const mapStateToProps = ({
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     fetchBrowseTaggedDataAction,
+    fetchBrowseFindDataAction,
+    resetBrowseFindDataAction,
   }, dispatch),
 });
 
 class BrowseTaggedDataSearch extends Component {
   state = {
-    topNavSearchTerm: '',
-    topNavSearchEnabled: false,
+    topNavFindTerm: '',
+    browseTaggedDataEnabled: false,
     renderTaggedData: {
       taggedData: { },
     },
@@ -85,29 +91,30 @@ class BrowseTaggedDataSearch extends Component {
   }
 
   doTearDown() {
-    this.endSearch();
+    this.endBrowse();
+    this.endFind();
   }
 
   handleFieldChange(searchData) {
     this.setState({
-      topNavSearchTerm: searchData.value,
+      topNavFindTerm: searchData.value,
     });
   }
 
   handleClick(searchData) {
       //console.log("Click: " + searchData.value)
 
-      const { topNavSearchEnabled } = this.state;
+      const { browseTaggedDataEnabled } = this.state;
       /* only fetch the browse tagged data if the search has not already been iniated,
         this will prevent multiple data calls when a user clicks in the text box when the results are already active. */
       //console.log(topNavSearchEnabled);
       //console.log(this.props.browseTaggedData);
 
-      if (topNavSearchEnabled != true) {
+      if (browseTaggedDataEnabled != true) {
         this.setState({
           renderTaggedData: _.cloneDeep(this.props.browseTaggedData),
-          topNavSearchTerm: searchData.value,
-          topNavSearchEnabled: true,
+          topNavFindTerm: searchData.value,
+          browseTaggedDataEnabled: true,
           grandParentNodeID: null,
           parentNodeID: null,
         });
@@ -117,27 +124,35 @@ class BrowseTaggedDataSearch extends Component {
       }
   }
 
-  endSearch() {
-    const { browseTaggedData } = this.props;
-
+  endFind() {
     this.setState({
-      renderTaggedData: _.cloneDeep(browseTaggedData),
-      topNavSearchTerm: '',
-      topNavSearchEnabled: false,
-      grandParentNodeID: null,
-      parentNodeID: null,
+      topNavFindTerm: '',
     });
 
     //reset the redux form field back to empty
     this.props.change('findTerm', '');
+
+    this.props.actions.resetBrowseFindDataAction();
   }
 
-  performSearch(event) {
+  endBrowse() {
+    const { browseTaggedData } = this.props;
+
+    this.setState({
+      renderTaggedData: _.cloneDeep(browseTaggedData),
+      browseTaggedDataEnabled: false,
+      grandParentNodeID: null,
+      parentNodeID: null,
+    });
+  }
+
+  performFind(event) {
     event.preventDefault();
 
-    const { topNavSearchTerm } = this.state;
+    const { topNavFindTerm } = this.state;
 
-    console.log('Execute search.....' + topNavSearchTerm);
+    //fetch find data
+    this.props.actions.fetchBrowseFindDataAction(topNavFindTerm);
   }
 
     /* act on changes to the grandparent node */
@@ -174,7 +189,7 @@ class BrowseTaggedDataSearch extends Component {
     }
 
     renderTaggedDataDisplay() {
-        const { topNavSearchTerm, topNavSearchEnabled, renderTaggedData } = this.state;
+        const { topNavFindTerm, browseTaggedDataEnabled, renderTaggedData } = this.state;
         const { browseTaggedData } = this.props;
 
         /**************************************************************************************
@@ -319,8 +334,8 @@ class BrowseTaggedDataSearch extends Component {
     }
 
     render() {
-      const { browseTaggedData, isOpen } = this.props;
-      const { topNavSearchEnabled, renderTaggedData } = this.state;
+      const { browseTaggedData, browseFindData, isOpen } = this.props;
+      const { browseTaggedDataEnabled, renderTaggedData } = this.state;
 
       //console.log('Rendering...');
       //console.log(renderTaggedData.taggedData);
@@ -329,7 +344,7 @@ class BrowseTaggedDataSearch extends Component {
         <div className="root">
           <div style={{display: 'inline-block'}}>
             <div style={{display: 'block', paddingBottom: '25px'}}>
-                 <form onSubmit={(event) => { this.performSearch(event); }}>
+                 <form onSubmit={(event) => { this.performFind(event); }}>
                    <Field
                     id="BrowseTaggedDataSearchInputField"
                     className="search-input-field"
@@ -338,14 +353,27 @@ class BrowseTaggedDataSearch extends Component {
                     label="Find a Slooh 1000 Object"
                     component={InputField}
                     onChange={(event) => { this.handleFieldChange({ value: event.target.value }); }}
-                    value={this.state.topNavSearchTerm}
+                    value={this.state.topNavFindTerm}
                   />
-                  <div className="browse-outer-container"><Button onClick={(event) => { this.performSearch(event); }} className="browse-find-button">Find</Button></div>
+                  <div className="browse-outer-container">
+                    <Button onClick={(event) => { this.performFind(event); }} className="browse-find-button">Find</Button>
+                    <Button style={{marginLeft: "25px"}} onClick={(event) => { this.endFind(event); }} className="browse-find-button">Clear</Button>
+                  </div>
                 </form>
             </div>
           </div>
           <hr/>
-          {topNavSearchEnabled == true && <div className="search-results-container">
+
+          {browseFindData.findMessage != '' && <div>
+            <div style={{fontSize: '1.5rem', paddingBottom: '10px'}} dangerouslySetInnerHTML={{__html: browseFindData.findMessage}}/>
+            {browseFindData.findData.map((foundItem, index) => (
+              <p style={{paddingLeft: '35px', lineHeight: '2.5em'}}>{foundItem.title}<Link to={foundItem.linkUrl}><img style={{paddingLeft: '15px'}} src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"/></Link></p>
+            ))}
+            <hr/>
+          </div>
+          }
+
+          {browseTaggedDataEnabled == true && <div className="search-results-container">
             <div style={{display: 'block'}}>
               {this.renderTaggedDataDisplay()}
             </div>

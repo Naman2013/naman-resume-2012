@@ -19,6 +19,7 @@ import avatar from './avatar/reducer';
 import bestPosts from './best-of-slooh/get-best-reducer';
 import browseByPopularObjects from './browse-popular-objects/reducer';
 import browseTaggedData from './browse-tagged-data/reducer';
+import browseFindData from './browse-find-data/reducer';
 import catalog from './catalog/get-catalog-reducer';
 import communityGroups from './community-groups/reducer';
 import communityGroupActivity from './community-group-activity-list/reducer';
@@ -106,6 +107,7 @@ export default combineReducers({
   bestPosts,
   browseByPopularObjects,
   browseTaggedData,
+  browseFindData,
   catalog,
   communityGroups,
   communityGroupActivity,
