@@ -119,6 +119,8 @@ class RecentShow extends Component {
               teleStreamURL={showStreamURL}
               teleStreamThumbnailVideoWidth="800"
               teleStreamThumbnailVideoHeight="550"
+              showVideoControls={1}
+              autoPlay={0}
             />
           </div>
           <MonotonousTile label={headerLabel} text={title} />

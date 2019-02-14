@@ -5,23 +5,31 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import generateSseImageLoader from '../../../utils/generate-sse-image-source';
 import { updateActiveSSE, resetActiveSSE } from '../../../modules/telescope-details/actions';
-import { setImageDataToSnapshot, resetImageToSnap } from '../../../modules/starshare-camera/starshare-camera-actions';
+import {
+  setImageDataToSnapshot,
+  resetImageToSnap,
+} from '../../../modules/starshare-camera/starshare-camera-actions';
 import styles from './ShowVideoImageLoader.style';
 
 const SSE = 'SSE';
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({
-    setImageDataToSnapshot,
-    resetImageToSnap,
-    updateActiveSSE,
-    resetActiveSSE,
-  }, dispatch),
+  actions: bindActionCreators(
+    {
+      setImageDataToSnapshot,
+      resetImageToSnap,
+      updateActiveSSE,
+      resetActiveSSE,
+    },
+    dispatch,
+  ),
 });
 
-@connect(null, mapDispatchToProps)
+@connect(
+  null,
+  mapDispatchToProps,
+)
 class ShowVideoImageLoader extends Component {
-
   static propTypes = {
     teleStreamCode: PropTypes.string.isRequired,
     teleStreamURL: PropTypes.string.isRequired,
@@ -39,6 +47,7 @@ class ShowVideoImageLoader extends Component {
     showVideoControls: PropTypes.number,
     showInfo: PropTypes.number,
     callSource: PropTypes.string,
+    autoplay: PropTypes.number,
   };
 
   static defaultProps = {
@@ -46,6 +55,7 @@ class ShowVideoImageLoader extends Component {
     showVideoControls: 0,
     showInfo: 0,
     callSource: 'details',
+    autoplay: 1,
   };
 
   componentDidMount() {
@@ -55,7 +65,11 @@ class ShowVideoImageLoader extends Component {
     if (cameraSourceType === SSE && teleSystem && telePort) {
       const eventSourceURL = generateSseImageLoader(teleSystem, telePort);
       this.sseSource = new EventSource(eventSourceURL);
-      this.sseSource.addEventListener('message', event => this.handleEventSource(event.data), false);
+      this.sseSource.addEventListener(
+        'message',
+        event => this.handleEventSource(event.data),
+        false,
+      );
     }
   }
 
@@ -68,11 +82,7 @@ class ShowVideoImageLoader extends Component {
 
   handleEventSource(imageData) {
     const {
-      astroObjectID,
-      currentImgURL,
-      imageID,
-      messageType,
-      scheduledMissionID,
+      astroObjectID, currentImgURL, imageID, messageType, scheduledMissionID,
     } = JSON.parse(imageData);
 
     const { callSource } = this.props;
@@ -93,8 +103,10 @@ class ShowVideoImageLoader extends Component {
   }
 
   generateIFrameUrl() {
-    const { teleStreamCode, showVideoControls, showInfo } = this.props;
-    return `https://www.youtube.com/embed/${teleStreamCode}?rel=0&amp;autoplay=1&modestbranding=1&controls=${showVideoControls}&showinfo=${showInfo}&vq=hd720&origin=http://live.slooh.com/`;
+    const {
+      teleStreamCode, showVideoControls, showInfo, autoplay,
+    } = this.props;
+    return `https://www.youtube.com/embed/${teleStreamCode}?rel=0&amp;autoplay=${autoplay}&modestbranding=1&controls=${showVideoControls}&showinfo=${showInfo}&vq=hd720&origin=http://live.slooh.com/`;
   }
 
   render() {
@@ -111,7 +123,6 @@ class ShowVideoImageLoader extends Component {
 
     return (
       <div className={videoImageLoaderClassnames}>
-
         <iframe
           id={teleStreamCode}
           className="video-iframe"
