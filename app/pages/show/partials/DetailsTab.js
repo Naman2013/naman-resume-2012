@@ -55,6 +55,7 @@ class DetailsTab extends Component {
       isDesktop,
       isScreenMedium,
       isScreenLarge,
+      hasRelatedObject,
       slugLookupId,
       relatedObject,
       showId,
@@ -64,7 +65,7 @@ class DetailsTab extends Component {
 
     return (
       <div>
-        <RelatedObject {...relatedObject} user={user} />
+        {hasRelatedObject && <RelatedObject {...relatedObject} user={user} /> }
         <BlueLineDrop
           title={intl.formatMessage(messages.RelatedShows)}
           isDesktop={isDesktop}

@@ -37,7 +37,7 @@ class RelatedObject extends Component {
   static propTypes = {
     isDesktop: bool,
     label: string,
-    objectIconURL: string,
+    objectIconUrl: string,
     objectTitle: string,
     objectId: number,
     followPrompt: string,
@@ -50,12 +50,15 @@ class RelatedObject extends Component {
       list: shape({
         constellation: shape({
           text: string,
+          iconURL: string,
         }),
         domain: shape({
           text: string,
+          iconURL: string,
         }),
         type: shape({
           text: string,
+          iconURL: string,
         }),
       }),
     }),
@@ -70,7 +73,7 @@ class RelatedObject extends Component {
   static defaultProps = {
     isDesktop: false,
     label: '',
-    objectIconURL: '',
+    objectIconUrl: '',
     objectTitle: '',
     hasLink: false,
     linkURL: '',
@@ -84,12 +87,15 @@ class RelatedObject extends Component {
       list: {
         constellation: {
           text: '',
+          iconURL: '',
         },
         domain: {
           text: '',
+          iconURL: '',
         },
         type: {
           text: '',
+          iconURL: '',
         },
       },
     },
@@ -145,7 +151,7 @@ class RelatedObject extends Component {
       fetching,
       relatedObjectsCount,
       label,
-      objectIconURL,
+      objectIconUrl,
       linkURL,
       objectTitle,
       objectDescription,
@@ -165,17 +171,20 @@ class RelatedObject extends Component {
           <span className="object-name" dangerouslySetInnerHTML={{ __html: objectTitle }} />
           <span className="icon-line-horz" />
           <div className="icon-container flex-item">
-            <div className="icon" style={profPic(objectIconURL)} />
+            <div className="icon" style={profPic(objectIconUrl)} />
           </div>
           <span className="icon-line-horz" />
           <div className="info-list">
             <div className="info-list-item">
+              <img className="info-list-icon" src= {list.type.iconURL} />
               <span dangerouslySetInnerHTML={{ __html: list.type.text }} />
             </div>
             <div className="info-list-item">
+              <img className="info-list-icon" src= {list.domain.iconURL} />
               <span dangerouslySetInnerHTML={{ __html: list.domain.text }} />
             </div>
             <div className="info-list-item">
+              <img className="info-list-icon" src= {list.constellation.iconURL} />
               <span dangerouslySetInnerHTML={{ __html: list.constellation.text }} />
             </div>
           </div>

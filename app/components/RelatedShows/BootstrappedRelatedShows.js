@@ -12,6 +12,7 @@ import classnames from 'classnames';
 import uniqueId from 'lodash/uniqueId';
 import { FormattedMessage } from 'react-intl';
 import WinstonTile from 'components/common/tiles/WinstonTile';
+import Shows from '.'
 
 import styles from './RelatedShows.style';
 import messages from './RelatedShows.messages';

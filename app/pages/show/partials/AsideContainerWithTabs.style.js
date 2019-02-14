@@ -7,7 +7,6 @@ import { backgroundImageCover, dropShadowContainer } from 'styles/mixins/utiliti
 
 export default css`
   .root {
-    margin: 25px;
     margin-top: 0;
   }
   .header-title {

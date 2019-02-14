@@ -1,9 +1,9 @@
-/***********************************
-* V4 Related Shows
-*
-*
-*
-***********************************/
+/** *********************************
+ * V4 Related Shows
+ *
+ *
+ *
+ ********************************** */
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
@@ -14,18 +14,16 @@ import BootstrappedRelatedShows from './BootstrappedRelatedShows';
 import { RELATED_SHOWS } from 'services/events';
 
 const {
-  bool,
-  number,
-  oneOfType,
-  string,
+  bool, number, oneOfType, string,
 } = PropTypes;
-const mapStateToProps = ({
-  user,
-}) => ({
+const mapStateToProps = ({ user }) => ({
   user,
 });
 
-@connect(mapStateToProps, null)
+@connect(
+  mapStateToProps,
+  null,
+)
 class RelatedShows extends Component {
   static propTypes = {
     isDesktop: bool,
@@ -41,16 +39,12 @@ class RelatedShows extends Component {
 
   render() {
     const {
-      isDesktop,
-      user,
-      showId,
-      slugLookupId,
-      serviceUrl,
+      isDesktop, user, showId, slugLookupId, serviceUrl,
     } = this.props;
 
     return (
       <Request
-        authorizationRedirect={true}
+        authorizationRedirect
         serviceURL={serviceUrl}
         method="POST"
         serviceExpiresFieldName="expires"
@@ -61,20 +55,19 @@ class RelatedShows extends Component {
           slugLookupId,
           showId,
         }}
-        render={({
-          fetchingContent,
-          serviceResponse,
-        }) => (
+        render={({ fetchingContent, serviceResponse }) => (
           <div>
             <DeviceContext.Consumer>
-              {context => (<BootstrappedRelatedShows
-                isDesktop={isDesktop}
-                fetching={fetchingContent}
-                user={user}
-                showId={showId}
-                {...context}
-                {...serviceResponse}
-              />)}
+              {context => (
+                <BootstrappedRelatedShows
+                  isDesktop={isDesktop}
+                  fetching={fetchingContent}
+                  user={user}
+                  showId={showId}
+                  {...context}
+                  {...serviceResponse}
+                />
+              )}
             </DeviceContext.Consumer>
           </div>
         )}
@@ -82,6 +75,5 @@ class RelatedShows extends Component {
     );
   }
 }
-
 
 export default RelatedShows;
