@@ -347,7 +347,6 @@ class BrowseTaggedDataSearch extends Component {
                  <form onSubmit={(event) => { this.performFind(event); }}>
                    <Field
                     id="BrowseTaggedDataSearchInputField"
-                    className="search-input-field"
                     name="findTerm"
                     type="name"
                     label="Find a Slooh 1000 Object"
