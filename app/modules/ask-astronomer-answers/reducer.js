@@ -42,14 +42,16 @@ export default createReducer(initialState, {
     };
   },
   [FETCH_ASTRONOMER_ANSWERS_SUCCESS](state, { payload }) {
-    const { replies, threadId, resultsCount } = payload;
+    const { replies = [], threadId, resultsCount } = payload;
     const newAllAnswers = cloneDeep(state.allAnswers);
     const newAllDisplayedAnswers = cloneDeep(state.allDisplayedAnswers);
     const newFetching = cloneDeep(state.fetchingObj);
     const isAnswerContainsReply = threadId === state.submitToThreadId;
     const answerPage = newAllAnswers[threadId] ? newAllAnswers[threadId].page : 1;
-    const newPage = isAnswerContainsReply ? Math.ceil(replies.length / state.paginationCount) : answerPage;
-
+    const newPage = isAnswerContainsReply
+      ? Math.ceil(replies.length / state.paginationCount)
+      : answerPage;
+      
     newAllAnswers[threadId] = {
       replies,
       page: newPage || 1,
@@ -63,7 +65,7 @@ export default createReducer(initialState, {
         return item.replyId;
       }
     });
-
+    
     newFetching[threadId] = false;
     return {
       ...state,
@@ -101,11 +103,7 @@ export default createReducer(initialState, {
     };
   },
   [UPDATE_TOGGLE_ASK_ASTRONOMER_ANSWER_DISPLAY_LIST](state, { payload }) {
-    const {
-      page,
-      threadId,
-      displayedAnswers,
-    } = payload;
+    const { page, threadId, displayedAnswers } = payload;
 
     const newAllDisplayedAnswers = cloneDeep(state.allDisplayedAnswers);
     const newAllState = cloneDeep(state.allAnswers);
@@ -128,10 +126,7 @@ export default createReducer(initialState, {
     };
   },
   [REPLY_TO_ASTRONOMER_ANSWER_SUCCESS](state, { payload }) {
-    const {
-      threadId,
-      replyTo,
-    } = payload;
+    const { threadId, replyTo } = payload;
 
     const newAllState = cloneDeep(state.allAnswers);
 
@@ -154,7 +149,7 @@ export default createReducer(initialState, {
     const newAllAnswers = cloneDeep(state.allAnswers);
 
     if (newAllAnswers[threadId] && newAllAnswers[threadId].replies) {
-      newAllAnswers[threadId].replies = newAllAnswers[threadId].replies.map(answer => {
+      newAllAnswers[threadId].replies = newAllAnswers[threadId].replies.map((answer) => {
         if (answer.replyId === replyTo) {
           answer.showAllReplies = payload.showAllReplies;
         }
@@ -197,17 +192,23 @@ export default createReducer(initialState, {
       // add the new submission to the displayedAnswers array
       // but only add it if the last page is the currently displayed page.
       if (newAllAnswers[threadId].showAllAnswers) {
-        const lastPage = (Math.ceil(newAllAnswers[threadId].replies.length / paginationCount)) || 1;
+        const lastPage = Math.ceil(newAllAnswers[threadId].replies.length / paginationCount) || 1;
 
         if (newAllAnswers[threadId].page === lastPage) {
           newAllDisplayedAnswers[threadId] = newAllDisplayedAnswers[threadId] || [];
-          newAllDisplayedAnswers[threadId] = [].concat(newAllDisplayedAnswers[threadId], reply.replyId);
+          newAllDisplayedAnswers[threadId] = [].concat(
+            newAllDisplayedAnswers[threadId],
+            reply.replyId,
+          );
         }
       } else {
         // make sure we always open the answers when an answer is submitted
         newAllAnswers[threadId].showAllAnswers = true;
         // show first X answers
-        newAllDisplayedAnswers[threadId] = take(newAllAnswers[threadId].replies, paginationCount).map(rep => rep.replyId);
+        newAllDisplayedAnswers[threadId] = take(
+          newAllAnswers[threadId].replies,
+          paginationCount,
+        ).map(rep => rep.replyId);
       }
     } else {
       newAllAnswers[threadId] = {

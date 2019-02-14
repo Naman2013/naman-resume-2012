@@ -16,7 +16,7 @@ const initialState = {
   canAnswerQuestions: false,
   canReplyToAnswers: false,
   fetching: false,
-  page: 0,
+  page: 1,
   threadCount: 0,
   count: 5,
   threadList: [],
@@ -75,6 +75,7 @@ export default createReducer(initialState, {
   },
   [ASK_QUESTION_SUCCESS](state, { payload }) {
     const { thread } = payload;
+    thread.creationDate = thread.modified;
     const threadList = [].concat(state.threadList);
     threadList.unshift(thread);
     return {
