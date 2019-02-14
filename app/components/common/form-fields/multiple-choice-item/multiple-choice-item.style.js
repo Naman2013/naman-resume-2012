@@ -24,6 +24,10 @@ export default css`
     background-color: ${astronaut}
   }
 
+  .half-width {
+    width: 100%;
+  }
+
   .left {
     display: flex;
     flex-direction: row;
@@ -67,6 +71,10 @@ export default css`
 
     .status {
       padding: 0 10px;
+    }
+
+    .half-width {
+      width: 48%;
     }
   }
 

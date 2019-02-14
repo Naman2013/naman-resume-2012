@@ -22,6 +22,7 @@ export const setAndOpenModal = (state, { payload }) => ({
     showModal: true,
     modalComponent: payload.modalComponent,
     modalStyles: payload.modalStyles,
+    modalOnDismiss: payload.onDismissAction,
   },
 });
 

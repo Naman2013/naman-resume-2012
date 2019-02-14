@@ -5,10 +5,6 @@ import uniqueId from 'lodash/uniqueId';
 import styles from './input.style';
 
 const {
-  arrayOf,
-  func,
-  number,
-  shape,
   string,
 } = PropTypes;
 
@@ -16,11 +12,12 @@ const ImagesInput = (props) => {
   const {
     imageInputValue,
     handleUploadImage,
+    title,
   } = props;
   return (
     <div className="root">
     <label htmlFor="image-upload" className="image-upload-label">
-      <span className="browse">Browse for Image</span>
+      <span className="browse">{title}</span>
       <input
         key={uniqueId()}
         id="image-upload"
@@ -36,10 +33,11 @@ const ImagesInput = (props) => {
 };
 
 ImagesInput.propTypes = {
-
+  title: string,
 };
 
 ImagesInput.defaultProps = {
+  title: 'Browse for Image',
 };
 
 export default ImagesInput;
