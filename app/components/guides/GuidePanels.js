@@ -25,7 +25,7 @@ const GuidePanels = ({ guideId }) => (
       fetchingContent,
       modeledResponses: { GUIDE_PANELS },
     }) => (
-      <Fragment>
+      <div className="lightgray-background">
         {
           !fetchingContent &&
           (GUIDE_PANELS.topicListProps.list.length > 0) &&
@@ -38,7 +38,7 @@ const GuidePanels = ({ guideId }) => (
               />
             </Fragment>
         }
-      </Fragment>
+      </div>
     )}
   />
 );

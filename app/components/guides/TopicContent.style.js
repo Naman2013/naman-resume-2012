@@ -1,6 +1,6 @@
 import css from 'styled-jsx/css';
 import { white_tile_paper } from 'styles/variables/colors_tiles_v4';
-import { shadyBottomShadow } from 'styles/variables/shadows';
+import { shadyBottomShadow } from '../../styles/variables/shadows';
 import { screenMedium, screenLarge } from 'styles/variables/breakpoints';
 
 export default css`
@@ -21,6 +21,8 @@ export default css`
   @media ${screenMedium} {
     .root {
       ${shadyBottomShadow}
+      position: relative;
+      z-index: 1;
       padding-bottom: 60px;
     }
 
