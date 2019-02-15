@@ -4,7 +4,7 @@ import style from './description-container.style';
 
 const DescriptionContainer = ({ title, content, footer, theme }) => (
   <div className="root description-container" style={theme}>
-    <h4 className="title">{title}</h4>
+    <h4 className="title" dangerouslySetInnerHTML={{ __html: title }} />
     <p dangerouslySetInnerHTML={{ __html: content }} />
     {footer ? footer() : null}
     <style jsx>{style}</style>

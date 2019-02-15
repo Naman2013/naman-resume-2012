@@ -19,7 +19,6 @@ const storyModel = {
 const StoryDetail = props => (
   <div>
     <Request
-      withoutUser
       serviceURL={STORY_DETAILS}
       model={storyModel}
       requestBody={{
