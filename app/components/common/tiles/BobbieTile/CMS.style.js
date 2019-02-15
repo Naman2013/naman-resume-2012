@@ -157,6 +157,19 @@ export default css`
     margin-bottom: 0px;
   }
 
+  .__html-blob-content-container__ :global(table:not([border="1"]) td) {
+    border-left: 1.5em solid transparent;
+    border-top: 1.5em solid transparent;
+  }
+
+  .__html-blob-content-container__ :global(table:not([border="1"]) td:first-child) {
+    border-left: 0;
+  }
+
+  .__html-blob-content-container__ :global(table:not([border="1"]) tr:first-child td) {
+    border-top: 0;
+  }
+
   .__html-blob-content-container__ :global(a) {
     text-decoration: none;
     color: #337ab7;
