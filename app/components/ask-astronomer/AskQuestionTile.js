@@ -42,8 +42,10 @@ class AskQuestionTile extends Component {
       modalActions,
       user,
       askQuestionInfo,
+      updateQuestionsList,
     } = this.props;
     return (<SubmitQuestionForm
+      updateQuestionsList={updateQuestionsList}
       modalActions={modalActions}
       submitForm={this.submitForm}
       user={user}

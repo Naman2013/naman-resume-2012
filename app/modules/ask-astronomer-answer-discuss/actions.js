@@ -26,16 +26,15 @@ const fetchAstronomerAnswerRepliesFail = payload => ({
 });
 
 export const fetchAstronomerAnswerReplies = ({
-  at,
-  cid,
   lang,
-  token,
   threadId,
   ver,
   replyTo,
   showAllReplies,
 }) => (dispatch, getState) => {
   const { cid, at, token } = getState().user;
+  const { page } = getState().astronomerDiscuss;
+  
   dispatch(fetchAstronomerAnswerRepliesStart({ replyTo }));
   return getReplies({
     at,
@@ -47,6 +46,7 @@ export const fetchAstronomerAnswerReplies = ({
     threadId,
     replyTo,
     ver,
+    page,
   })
   .then(result => dispatch(fetchAstronomerAnswerRepliesSuccess(Object.assign({ replyTo, showAllReplies }, result.data))))
   .catch(error => dispatch(fetchAstronomerAnswerRepliesFail(Object.assign({ replyTo }, error))));
