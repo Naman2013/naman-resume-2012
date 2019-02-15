@@ -15,9 +15,7 @@ import BarHeader from 'components/common/form-sections/bar-header';
 import styles from './create-story.style';
 
 const {
-  arrayOf,
   func,
-  number,
   shape,
   string,
 } = PropTypes;
@@ -38,6 +36,13 @@ export const CreateStory = (props) => {
     modal,
     uuid,
     user,
+    device,
+    headingPrompt,
+    imagePrompt,
+    noTagsMsg,
+    tagLabel,
+    tagPrompt,
+    titlePrompt,
   } = props;
   return (
     <div className="root">
@@ -46,15 +51,19 @@ export const CreateStory = (props) => {
         isOpen={modal.showModal}
         style={modal.modalStyles}
         contentLabel="askAstronomer"
-        onRequestClose={actions.closeModal}
+        onRequestClose={() => {
+          actions.closeModal();
+          if (modal.modalOnDismiss) modal.modalOnDismiss();
+        }}
       >
         {modal.modalComponent}
       </Modal>
       <CenterColumn>
         <div className="create-form-container">
-          <BarHeader title="Submit a Story" />
+          <BarHeader title={headingPrompt} />
           <div className="inner-container">
             <CreateStoryForm
+              device={device}
               actions={actions}
               cancelLabel={cancelLabel}
               contentCategories={contentCategories}
@@ -67,6 +76,11 @@ export const CreateStory = (props) => {
               submitLabel={submitLabel}
               user={user}
               uuid={uuid}
+              imagePrompt={imagePrompt}
+              noTagsMsg={noTagsMsg}
+              tagLabel={tagLabel}
+              tagPrompt={tagPrompt}
+              titlePrompt={titlePrompt}
             />
           </div>
         </div>
@@ -104,8 +118,8 @@ CreateStory.defaultProps = {
   actions: {
     submitStory: noop,
   },
-  submitLabel: 'Submit',
-  cancelLabel: 'Cancel',
+  submitLabel: '',
+  cancelLabel: '',
   sectionLabels: {
     section1: {
       title: '',

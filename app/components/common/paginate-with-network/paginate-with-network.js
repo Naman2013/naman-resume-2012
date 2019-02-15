@@ -22,6 +22,7 @@ class PaginateWithNetwork extends Component {
 
   handleServiceResponse = (resp) => {
     this.props.onServiceResponse(resp);
+    window.scrollTo(0, 0);
   };
 
   render() {
@@ -29,6 +30,7 @@ class PaginateWithNetwork extends Component {
 
     return (
       <Request
+        withoutUser
         serviceURL={apiURL}
         requestBody={Object.assign({ page: activePageNumber }, filterOptions)}
         serviceResponseHandler={this.handleServiceResponse}

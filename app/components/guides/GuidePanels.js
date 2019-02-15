@@ -18,6 +18,7 @@ const guidePanelsModel = {
 
 const GuidePanels = ({ guideId }) => (
   <Request
+    withoutUser
     serviceURL={GUIDE_PANEL_ENDPOINT_URL}
     model={guidePanelsModel}
     requestBody={{ guideId }}

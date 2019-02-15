@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import style from './description-container.style';
 
 const DescriptionContainer = ({ title, content, footer, theme }) => (
-  <div className="root" style={theme}>
+  <div className="root description-container" style={theme}>
     <h4 className="title">{title}</h4>
-    <p dangerouslySetInnerHTML={{ __html: content }}></p>
+    <p dangerouslySetInnerHTML={{ __html: content }} />
     {footer ? footer() : null}
     <style jsx>{style}</style>
   </div>

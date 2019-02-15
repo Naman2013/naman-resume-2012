@@ -17,7 +17,6 @@ const {
   string,
 } = PropTypes;
 
-
 export const MultipleChoiceItem = (props) => {
   const {
     iconUrl,
@@ -27,12 +26,13 @@ export const MultipleChoiceItem = (props) => {
     status,
     title,
     value,
+    halfWidth,
   } = props;
-
   return (
     <div
       className={classnames('root', {
         'is-active': isActive,
+        'half-width': halfWidth,
       })}
       data-value={value}
       onClick={onClickItem}

@@ -67,6 +67,7 @@ const subjectGuideModel = {
 const SubjectGuides = ({ params: { guideId } }) => (
   <div>
     <Request
+      withoutUser
       serviceURL={GUIDE_ENDPOINT_URL}
       model={subjectGuideModel}
       requestBody={{ guideId }}

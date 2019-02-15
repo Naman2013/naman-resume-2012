@@ -7,7 +7,7 @@ export default function fetchCategoryTopicList({
   status, // optional: published, draft all
   callSource,
 }) {
-  return axios.post('/api/content/getObjectCategoryTopicList', {
+  return axios.post('/api/content/getStoryObjectCategoryTopicList', {
     cid,
     at,
     token,

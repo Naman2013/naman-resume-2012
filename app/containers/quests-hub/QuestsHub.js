@@ -95,6 +95,7 @@ class Quests extends Component {
     } = this.state;
     return (<div>
       <Request
+        withoutUser
         serviceURL={QUESTS_PAGE_ENDPOINT_URL}
         model={questsHubModel}
         requestBody={{}}

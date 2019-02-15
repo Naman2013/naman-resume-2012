@@ -75,7 +75,7 @@ class HubContainer extends Component {
   static defaultProps = {
     filterType: 'all',
     pageTitle: '',
-    filterTypeFieldName: 'type',
+    filterTypeFieldName: 'storyType',
     paginateURL: null,
     iconURL: goldCompass,
     filterOptions: [],

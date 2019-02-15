@@ -95,6 +95,7 @@ class Guides extends Component {
     } = this.state;
     return (<div>
       <Request
+        withoutUser
         serviceURL={GUIDES_PAGE_ENDPOINT_URL}
         model={guidesHubModel}
         requestBody={{}}
