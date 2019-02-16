@@ -227,9 +227,6 @@ class Request extends Component {
     const validatedRequestBody = nextRequestBody || requestBody;
 
     let resultedUserParams = user;
-
-    console.log(user);
-
     if (userParams.length > 0) resultedUserParams = getFieldsFromObj(user, userParams);
 
     if (method === POST) {
