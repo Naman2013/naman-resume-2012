@@ -15,6 +15,22 @@ import isMatch from 'lodash/isMatch';
 import axios from 'axios';
 import { validateResponseAccess } from 'modules/authorization/actions';
 
+function getFieldsFromObj(obj, fields) {
+  let result;
+  try {
+    result = Object.keys(obj)
+      .filter(key => fields.includes(key))
+      .reduce((resultedObj, key) => {
+        resultedObj[key] = obj[key];
+        return resultedObj;
+      }, {});
+  } catch (err) {
+    console.error('Error occured while computing list of user params, message: ', err.message);
+    result = {};
+  }
+  return result;
+}
+
 const { CancelToken } = axios;
 
 const POST = 'POST';
@@ -78,6 +94,9 @@ class Request extends Component {
 
     // possibility to paste or not info about user to request body
     withoutUser: PropTypes.bool,
+
+    // list of fields that should be added as params to the request
+    userParams: PropTypes.arrayOf(PropTypes.string),
   };
 
   static defaultProps = {
@@ -94,6 +113,7 @@ class Request extends Component {
     serviceResponseHandler: null,
     requestBody: {},
     withoutUser: false,
+    userParams: [],
   };
 
   state = {
@@ -198,6 +218,7 @@ class Request extends Component {
       requestBody,
       user,
       withoutUser,
+      userParams,
     } = this.props;
     this.tearDown();
     this.setState({ fetchingContent: true, serviceResponse: {} });
@@ -205,10 +226,16 @@ class Request extends Component {
 
     const validatedRequestBody = nextRequestBody || requestBody;
 
+    let resultedUserParams = user;
+
+    console.log(user);
+
+    if (userParams.length > 0) resultedUserParams = getFieldsFromObj(user, userParams);
+
     if (method === POST) {
       axios.post(serviceURL, Object.assign({
         cancelToken: this.source.token,
-      }, validatedRequestBody, withoutUser ? { } : { ...user }))
+      }, validatedRequestBody, withoutUser ? { } : resultedUserParams))
         .then(result => this.handleServiceResponse(result.data));
     }
 
