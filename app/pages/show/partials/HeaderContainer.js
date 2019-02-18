@@ -13,7 +13,7 @@ const {
   string,
 } = PropTypes;
 
-const HeaderContainer = (props) => (
+const HeaderContainer = props => (
   <div className="root">
     <LiveShowVideoViewerNav {...props} />
     {!props.isScreenLarge ?
