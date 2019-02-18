@@ -9,7 +9,6 @@ export default css`
   .root {
     font-family: ${primaryFont};
     position: relative;
-    width: 100vw;
   }
 
   :global(.live-show .tablist) {

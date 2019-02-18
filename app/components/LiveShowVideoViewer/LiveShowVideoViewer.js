@@ -81,8 +81,6 @@ class LiveShowVideoViewer extends Component {
     const width = '100';
     const videoContainerStyle = { width: `${width}%` };
 
-    console.log(additionalFeeds);
-
     return (
       <div className="root">
         <TabPanel
@@ -106,7 +104,6 @@ class LiveShowVideoViewer extends Component {
               />
             ) : null}
           </div>
-          {/* <div>qwe</div> */}
         </TabPanel>
         {additionalFeeds.map((feed, i) => (
           <TabPanel
@@ -142,7 +139,6 @@ class LiveShowVideoViewer extends Component {
                 />
               }
             </div>
-            {/* <div>Some text here {i}</div> */}
           </TabPanel>
         ))}
         <style jsx>{styles}</style>
