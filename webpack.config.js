@@ -43,6 +43,11 @@ module.exports = {
     filename: '[name].js',
     sourceMapFilename: '[name].js.map',
   },
+  resolve: {
+    alias: {
+      app: path.resolve(__dirname, 'app/'),
+    },
+  },
   module: {
     rules: [
       {
@@ -85,9 +90,27 @@ module.exports = {
       },
       {
         test: /\.scss$/,
+        exclude: /\.module\.scss$/,
         loaders: [
           'style-loader',
           'css-loader?modules&importLoaders=1&localIdentName=[local]',
+          'sass-loader',
+        ],
+      },
+      // CSS Modules Configuration
+      {
+        test: /\.module\.scss$/,
+        loaders: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+              sourceMap: true,
+              localIdentName: '[local]__[hash:base64:5]',
+              minimize: true,
+            },
+          },
           'sass-loader',
         ],
       },
