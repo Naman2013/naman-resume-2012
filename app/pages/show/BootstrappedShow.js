@@ -23,7 +23,7 @@ const {
   oneOfType,
   shape,
   string,
-} = PropTypes;
+} = PropTypes;  
 
 class BootstrappedShow extends Component {
   static propTypes = {
@@ -143,11 +143,9 @@ class BootstrappedShow extends Component {
 
     return (
       <div className="root">
-        <CenterColumn theme={{ backgroundColor: seashell }} theme={{ paddingTop: '25px' }}>
-          {isLiveShow ? <Live {...this.props} /> : null}
-          {isRecentShow ? <Recent {...this.props} /> : null}
-          {isUpcomingShow ? <Upcoming {...this.props} /> : null}
-        </CenterColumn>
+        {isLiveShow ? <Live {...this.props} /> : null}
+        {isRecentShow ? <Recent {...this.props} /> : null}
+        {isUpcomingShow ? <Upcoming {...this.props} /> : null}
         <style jsx>{styles}</style>
       </div>
     )
