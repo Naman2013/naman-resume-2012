@@ -10,6 +10,7 @@ import {
   resetImageToSnap,
 } from '../../../modules/starshare-camera/starshare-camera-actions';
 import './video-image-loader.scss';
+import YoutubePlayer from '../YoutubePlayer/YoutubePlayer';
 
 const SSE = 'SSE';
 
@@ -110,30 +111,7 @@ class VideoImageLoader extends Component {
   }
 
   render() {
-    const {
-      teleStreamCode,
-      teleStreamThumbnailVideoWidth,
-      teleStreamThumbnailVideoHeight,
-      clipped,
-    } = this.props;
-
-    const videoImageLoaderClassnames = classnames('video-image-loader video-container', {
-      clipped,
-    });
-
-    return (
-      <div className={videoImageLoaderClassnames}>
-        <iframe
-          id={teleStreamCode}
-          className="video-iframe"
-          type="text/html"
-          width={teleStreamThumbnailVideoWidth}
-          height={teleStreamThumbnailVideoHeight}
-          src={this.generateIFrameUrl()}
-          frameBorder="0"
-        />
-      </div>
-    );
+    return <YoutubePlayer {...this.props} />
   }
 }
 

@@ -6,9 +6,6 @@ import { screenMedium, screenLarge } from 'styles/variables/breakpoints';
 import { backgroundImageCover, dropShadowContainer } from 'styles/mixins/utilities';
 
 export default css`
-  .root {
-    margin: 25px;
-  }
   .related-stories-title {
     margin-bottom: 10px;
     font-family: ${primaryFont};
@@ -23,6 +20,8 @@ export default css`
   }
 
   @media ${screenLarge} {
-    .root { margin: 25px 0 }
+    .root {
+      margin: 25px 0;
+    }
   }
 `;

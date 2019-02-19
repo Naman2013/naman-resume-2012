@@ -1,9 +1,9 @@
-/***********************************
-* V4 Hosts
-*
-*
-*
-***********************************/
+/** *********************************
+ * V4 Hosts
+ *
+ *
+ *
+ ********************************** */
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
@@ -15,18 +15,15 @@ import { customModalStylesV4 } from 'styles/mixins/utilities';
 import styles from './Host.style';
 
 const {
-  arrayOf,
-  bool,
-  number,
-  shape,
-  string,
+  arrayOf, bool, number, shape, string,
 } = PropTypes;
 
-const profPic = photoUrl => Object.assign(profilePhotoStyle(photoUrl), {
-  height: '105px',
-  width: '105px',
-  backgroundSize: 'cover',
-});
+const profPic = photoUrl =>
+  Object.assign(profilePhotoStyle(photoUrl), {
+    height: '105px',
+    width: '105px',
+    backgroundSize: 'cover',
+  });
 
 class Hosts extends Component {
   static propTypes = {
@@ -44,7 +41,7 @@ class Hosts extends Component {
       cid: string,
       token: string,
     }).isRequired,
-  }
+  };
 
   static defaultProps = {
     title: 'Host',
@@ -53,8 +50,7 @@ class Hosts extends Component {
     orgURL: '',
   };
 
-  state = {
-  };
+  state = {};
 
   render() {
     const {
@@ -66,35 +62,40 @@ class Hosts extends Component {
       hostPhotoURL,
       hostTitle,
       hostGravity,
+      hostGravityRankLabel,
     } = this.props;
 
-
-    return (<div className="root">
-      <div className="title-container">{title}</div>
-      <Link to={hostURL}>
-        <div className="info-container">
-          <span className="host-name" dangerouslySetInnerHTML={{ __html: hostName }} />
-          <span className="icon-line-horz" />
-          <div className="icon-container flex-item">
-            <div className="vert-line" />
-            <div className="icon-container-circle">
-              <div className="circle-icon-line">
-                <div className="icon" style={profPic(hostPhotoURL)} />
+    return (
+      <div className="root">
+        <div className="title-container">{title}</div>
+        <Link to={hostURL}>
+          <div className="info-container">
+            <span className="host-name" dangerouslySetInnerHTML={{ __html: hostName }} />
+            <span className="icon-line-horz" />
+            <div className="icon-container flex-item">
+              <div className="vert-line" />
+              <div className="icon-container-circle">
+                <div className="circle-icon-line">
+                  <div className="icon" style={profPic(hostPhotoURL)} />
+                </div>
+              </div>
+            </div>
+            <span className="icon-line-horz" />
+            <div className="member-info">
+              <span
+                className="gravity-label"
+                dangerouslySetInnerHTML={{ __html: hostTitle || hostGravityRankLabel }}
+              />
+              <div className="gravity-container">
+                <img className="star" src="https://vega.slooh.com/assets/v4/common/star_icon.svg" />
+                <span className="gravity-text" dangerouslySetInnerHTML={{ __html: hostGravity }} />
               </div>
             </div>
           </div>
-          <span className="icon-line-horz" />
-          <div className="member-info">
-            <span className="gravity-label" dangerouslySetInnerHTML={{ __html: hostTitle }} />
-            <div className="gravity-container">
-              <img className= "star" src="https://vega.slooh.com/assets/v4/common/star_icon.svg" />
-              <span className="gravity-text" dangerouslySetInnerHTML={{ __html: hostGravity }} />
-            </div>
-          </div>
-        </div>
-      </Link>
-      <style jsx>{styles}</style>
-    </div>);
+        </Link>
+        <style jsx>{styles}</style>
+      </div>
+    );
   }
 }
 

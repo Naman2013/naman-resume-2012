@@ -1,9 +1,9 @@
-/***********************************
-* V4 Related Stories
-*
-*
-*
-***********************************/
+/** *********************************
+ * V4 Related Stories
+ *
+ *
+ *
+ ********************************** */
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
@@ -14,18 +14,16 @@ import BootstrappedRelatedStories from './BootstrappedRelatedStories';
 import { CONTENT_RELATED_STORIES } from 'services/content';
 
 const {
-  bool,
-  number,
-  oneOfType,
-  string,
+  bool, number, oneOfType, string,
 } = PropTypes;
-const mapStateToProps = ({
-  user,
-}) => ({
+const mapStateToProps = ({ user }) => ({
   user,
 });
 
-@connect(mapStateToProps, null)
+@connect(
+  mapStateToProps,
+  null,
+)
 class RelatedStories extends Component {
   static propTypes = {
     isDesktop: bool,
@@ -44,51 +42,25 @@ class RelatedStories extends Component {
 
   render() {
     const {
-      isDesktop,
-      user,
-      postId,
-      slugLookupId,
-      showId,
-      serviceUrl,
+      isDesktop, user, showId, serviceUrl, stories, fetchingContent,
     } = this.props;
 
     return (
-      <Request
-        authorizationRedirect={true}
-        serviceURL={serviceUrl}
-        method="POST"
-        serviceExpiresFieldName="expires"
-        requestBody={{
-          cid: user.cid,
-          token: user.token,
-          at: user.at,
-          postId,
-          slugLookupId,
-          showId,
-          listType: 'sluglookupids',
-        }}
-        render={({
-          fetchingContent,
-          serviceResponse,
-        }) => (
-          <div>
-            <DeviceContext.Consumer>
-              {context => (<BootstrappedRelatedStories
-                isDesktop={isDesktop}
-                fetching={fetchingContent}
-                user={user}
-                postId={postId}
-                slugLookupId={slugLookupId}
-                {...context}
-                {...serviceResponse}
-              />)}
-            </DeviceContext.Consumer>
-          </div>
-        )}
-      />
+      <div>
+        <DeviceContext.Consumer>
+          {context => (
+            <BootstrappedRelatedStories
+              isDesktop={isDesktop}
+              fetching={fetchingContent}
+              user={user}
+              {...context}
+              {...stories}
+            />
+          )}
+        </DeviceContext.Consumer>
+      </div>
     );
   }
 }
-
 
 export default RelatedStories;
