@@ -100,6 +100,7 @@ class RecentShow extends Component {
       showStreamCode,
       showStreamURL,
       title,
+      tagLine,
       intl,
     } = this.props;
 
@@ -124,6 +125,8 @@ class RecentShow extends Component {
                 teleStreamThumbnailVideoHeight="550"
                 showVideoControls={1}
                 autoPlay={0}
+                title={title}
+                subtitle={tagLine}
               />
             </div>
             <MonotonousTile label={headerLabel} text={title} />

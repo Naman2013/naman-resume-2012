@@ -109,7 +109,7 @@
     "react-tag-input": "^4.3.2",
     "react-test-render": "^1.1.1",
     "react-tooltip": "^3.3.0",
-    "react-youtube": "^7.5.0",
+    "react-youtube": "^7.9.0",
     "redux": "^3.5.2",
     "redux-devtools-extension": "^2.13.2",
     "redux-form": "^7.2.3",
