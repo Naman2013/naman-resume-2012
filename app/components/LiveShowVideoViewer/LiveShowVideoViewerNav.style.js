@@ -10,27 +10,18 @@ export default css`
     font-family: ${primaryFont};
     position: relative;
   }
-  .live-video-container {
-    display:block;
-    width: 100%;
-    margin-top: 10px;
-    position: relative;
-    justify-content: center;
-    align-items: center;
+
+  :global(.live-show .tablist) {
+    padding: 0;
     ${faintShadow}
-  }
-  .tablist {
-    z-index: 99;
-    display: inline-flex;
-    position: absolute;
   }
 
   .show-tab {
-    margin: auto;
+    margin: 0 auto;
+    margin-top: 10px;
     background-color: ${astronaut};
     height: 50px;
     width: 50px;
-    margin-top: 25%;
     border-radius: 50%;
   }
 
@@ -38,10 +29,6 @@ export default css`
     width: 100%;
     height: 100%;
     border-radius: 100%;
-  }
-
-  :global(.dropdown-opt) {
-
   }
 
   :global(.opt-icon) {
@@ -52,28 +39,28 @@ export default css`
     background-color: ${astronaut};
     margin: 8px;
     vertical-align: middle;
-
   }
 
   :global(.opt-desc) {
     display: inline-block;
     margin: 8px;
     vertical-align: middle;
-
-
   }
 
   :global(.react-tabs__tab) {
-    width: 110px;
-    height: 110px;
+    width: 120px;
+    vertical-align: top;
+    height: 140px;
     border-left: 1px solid ${geyser};
+    
+  }
+
+  :global(.react-tabs__tab:last-child, .react-tabs__tab:first-child) {
     border-right: 1px solid ${geyser};
   }
 
    :global(.react-tabs__tab):first-child {
-    width: 138px;
-    height: 110px;
-    // margin-right: 100px;
+    margin-right: 100px; 
   }
 
   :global(.react-select__control),
@@ -96,11 +83,30 @@ export default css`
   :global(.react-tabs__tab--selected) {
     border-color: transparent;
     border-bottom: 4px solid ${astronaut};
+    border-radius: 0;
+    position: relative;
+    bottom: 0;
     ${faintShadow}
   }
 
-  :global(.react-tabs__option) {
+  :global(.react-tabs__tab--selected::after) {
+    content: '';
+    display: block;
+    position: absolute;
+    height: 8px;
+    width: 10px;
+    left: 50%;
+    margin-left: -5px;
+    bottom: 0px;
+    background: url('https://vega.slooh.com/assets/v4/common/icon_navarrow_blue.svg') no-repeat
+      center center;
+  }
 
-
+  .tab-wrapper {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
   }
 `;
