@@ -8,7 +8,6 @@ import { backgroundImageCover, dropShadowContainer } from 'styles/mixins/utiliti
 export default css`
 
   .root {
-    margin: 25px;
     ${faintShadow}
     background-color: ${romance};
     font-family: ${primaryFont};

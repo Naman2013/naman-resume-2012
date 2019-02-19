@@ -40,7 +40,7 @@ class BootstrappedShow extends Component {
 
 
   constructor(props) {
-    super();
+    super(props);
     this.state = {
       isLiveShow: props.inProgressFlag,
       isUpcomingShow: props.upcomingFlag,

@@ -9,7 +9,6 @@ export default css`
   .root {
     background-repeat: no-repeat;
     background-size: cover;
-    margin: 25px;
   }
   .related-shows-title {
     margin-bottom: 10px;
@@ -23,5 +22,4 @@ export default css`
   .related-shows-count {
     font-weight: normal;
   }
-
 `;
