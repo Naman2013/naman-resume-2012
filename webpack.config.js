@@ -2,7 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const apiUrl = process.env.apiUrl || '';
 
@@ -137,18 +137,21 @@ module.exports = {
       inject: 'body',
     }),
     new CopyWebpackPlugin([{ from: './assets/**/*' }]),
-    new BundleAnalyzerPlugin({
-      analyzerMode: 'server',
-      analyzerHost: 'localhost',
-      analyzerPort: 8888,
-      openAnalyzer: false,
-    }),
+    // todo use it only when you need
+    // new BundleAnalyzerPlugin({
+    //   analyzerMode: 'server',
+    //   analyzerHost: 'localhost',
+    //   analyzerPort: 8888,
+    //   openAnalyzer: false,
+    // }),
   ],
   devtool: 'cheap-module-eval-source-map',
   devServer: {
     contentBase: path.join(__dirname, '/dist'),
     compress: false,
     historyApiFallback: true,
+    // Shows a full-screen overlay in the browser when there are compiler errors or warnings
+    overlay: true,
     proxy: {
       '/api/**': {
         target: 'https://eris.slooh.com',
