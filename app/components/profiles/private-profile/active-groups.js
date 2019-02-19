@@ -1,14 +1,14 @@
+import { HeaderWithCounter } from 'app/components/header-with-counter';
 import React, { Fragment } from 'react';
 import { FormattedMessage } from 'react-intl';
 import GroupTiles from '../../groups-hub/group-tiles';
-import { HeaderWithCounter } from '../../header-with-counter';
 
 export const ActiveGroups = (props) => {
   const { count, list } = props; //eslint-disable-line
   return (
     <Fragment>
       <HeaderWithCounter
-        txt={<FormattedMessage id="Profile.Groups" className="heading" />}
+        txt={<FormattedMessage id="Profile.Groups" />}
         count={count}
       />
       <div className="groups">
