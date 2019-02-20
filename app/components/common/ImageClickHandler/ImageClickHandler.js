@@ -12,7 +12,7 @@ export default class ImageClickHandler extends React.Component {
   };
 
   handleClick = (e) => {
-    if (e.target.tagName === 'IMG') {
+    if (this.state.imageId === null && e.target.tagName === 'IMG') {
       this.setState({
         imageId: e.target.getAttribute('sloohrelatedimagerecordid'),
       });
@@ -35,7 +35,11 @@ export default class ImageClickHandler extends React.Component {
           onRequestClose={this.closePopup}
         >
           <i className="fa fa-close" onClick={this.closePopup} />
-          <ImagePreview url={GUIDE_PANEL_IMAGE_ENDPOINT_URL} id={this.state.imageId} />
+          <ImagePreview
+            withMagnifier
+            url={GUIDE_PANEL_IMAGE_ENDPOINT_URL}
+            id={this.state.imageId}
+          />
         </Modal>
         {this.props.children}
         <style jsx>{style}</style>

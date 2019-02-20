@@ -65,7 +65,7 @@ const subjectGuideModel = {
 };
 
 const SubjectGuides = ({ params: { guideId } }) => (
-  <div>
+  <div className="lightgray-background">
     <Request
       withoutUser
       serviceURL={GUIDE_ENDPOINT_URL}

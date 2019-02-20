@@ -11,9 +11,9 @@ export default css`
 
   li {
     text-transform: uppercase;
-    font-size: 10px;
+    font-size: 11px;
     font-weight: bold;
-    letter-spacing: 0.4px;
+    letter-spacing: 0.6px;
     padding: 20px 0;
     border-bottom: 1px solid ${glitter};
     font-family: ${primaryFont};
