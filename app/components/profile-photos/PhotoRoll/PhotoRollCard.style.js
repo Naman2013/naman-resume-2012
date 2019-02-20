@@ -71,6 +71,7 @@ export default css`
   }
 
   .onhover-overlay {
+    position: relative;
     display: none;
     color: white;
     width: 100%;

@@ -134,6 +134,7 @@ class ImageList extends Component {
     }
 
     if (prevProps.type !== type) {
+      this.setState({ activePage: 1 });
       fetchImages({
         sharedOnly: type === 'observations',
         maxImageCount: imagesToFetch,
@@ -158,6 +159,7 @@ class ImageList extends Component {
 
     fetchImages({
       firstMissionNumber: startFrom,
+      firstImageNumber: startFrom,
       maxImageCount: imagesToFetch,
       maxMissionCount: imagesToFetch,
     });
@@ -207,8 +209,7 @@ class ImageList extends Component {
                   : 'The list is empty.'
                 }
                 <div className="pagination-wrapper">
-                  {count
-                    && !deviceInfo.isMobile
+                  {count && !deviceInfo.isMobile
                       ? count > 9 && <Pagination
                         activePage={this.state.activePage}
                         pagesPerPage={4}

@@ -4,6 +4,7 @@ export const PrivateProfile = {
   'Photos.Missions': 'Missions',
   'Photos.Galleries': 'Galleries',
   'Photos.MyPhotoHub': 'My Photo Hub',
+  'Photos.CardMenu.MenuTitle': 'More options',
   'Photos.Filters.AllObservations': 'All observation',
   'Photos.Filters.MostRecent': 'Most recent',
   'Photos.Filters.MostPopular': 'Most popular',
