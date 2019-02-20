@@ -64,7 +64,7 @@ import otherFeaturedObjects from './other-featured-objects/reducer';
 import pageLevelMetaContent from './pageLevelMetaContent/seo-reducer';
 import piggyback from './Piggyback';
 import post from './pulse/get-post-reducer';
-import publicProfile from './public-profile/reducer';
+import publicProfile from './public-profile2/reducer';
 import questDetails from './quest-details/reducer';
 import starshareCamera from './starshare-camera/starshare-camera-reducer';
 import shareMemberPhoto from './share-member-photo/reducer';
@@ -83,7 +83,7 @@ import videoViewerBrowser from './browse-video-viewer/reducer';
 import videoViewerShow from './show-video-viewer/reducer';
 
 // v4
-import logIn from 'modules/login/reducer';
+import logIn from '../modules/login/reducer';
 import privateProfile from './private-profile/reducer';
 
 export default combineReducers({

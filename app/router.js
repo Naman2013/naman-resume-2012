@@ -33,6 +33,7 @@ import StaticAppContainer from 'app/containers/static-app-container';
 import StoriesHub from 'app/containers/stories-hub';
 import StoryDetails from 'app/containers/story-details';
 import { fetchPlayer } from 'app/modules/get-audio-player/actions';
+import { PublicProfileMain } from 'app/modules/public-profile';
 import GroupCreate from 'app/pages/community-groups/GroupCreate';
 import GroupImportGoogleClassrooms from 'app/pages/community-groups/GroupImportGoogleClassrooms';
 import CommunityGroupOverview from 'app/pages/community-groups/GroupOverview';
@@ -91,7 +92,7 @@ import validateRegistrationPaths from 'app/route-functions/validateRegistrationP
 import validateUser from 'app/route-functions/validateUser';
 import store from 'app/store';
 import firePageview from 'app/utils/ga-wrapper';
-import React from 'react';
+import React, { Fragment } from 'react';
 import { browserHistory, IndexRedirect, IndexRoute, Redirect, Route, Router } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 
@@ -110,6 +111,26 @@ history.listen((location) => {
   store.dispatch(fetchPlayer({ pageURL: pathname }));
 });
 
+
+const getProfileRoutes = () => (
+  <Fragment>
+    <IndexRedirect to="activity" />
+    <Route path="activity" component={ProfileActivity} />
+    <Route path="photos" component={PrivateProfilePhotos}>
+      <IndexRedirect to="photoroll" />
+      <Route path=":type" component={ImagesLayout} />
+    </Route>
+    <Route path="lists">
+      <IndexRedirect to="object" />
+      <Route path=":filterType" component={MyListsHub} />
+    </Route>
+    <Route path="qa">
+      <IndexRedirect to="asked" />
+      <Route path=":filter" component={ProfileQaContainer} />
+    </Route>
+    <Route path="groups" component={ProfileGroups} />
+  </Fragment>
+);
 
 export const AppRouter = () => (
   <Router history={browserHistory} onUpdate={globalOnRouteUpdate}>
@@ -292,21 +313,11 @@ export const AppRouter = () => (
       <Route path="missions-details/:missionId" component={MissionDetails} />
 
       <Route path="profile/private" component={PrivateProfile} onEnter={validateUser}>
-        <IndexRedirect to="activity" />
-        <Route path="activity" component={ProfileActivity} />
-        <Route path="photos" component={PrivateProfilePhotos}>
-          <IndexRedirect to="photoroll" />
-          <Route path=":type" component={ImagesLayout} />
-        </Route>
-        <Route path="lists">
-          <IndexRedirect to="object" />
-          <Route path=":filterType" component={MyListsHub} />
-        </Route>
-        <Route path="qa">
-          <IndexRedirect to="asked" />
-          <Route path=":filter" component={ProfileQaContainer} />
-        </Route>
-        <Route path="groups" component={ProfileGroups} />
+        {getProfileRoutes()}
+      </Route>
+
+      <Route path="profile/public/:customerId" component={PublicProfileMain} onEnter={validateUser}>
+        {/* {getProfileRoutes()} */}
       </Route>
 
       {/* <Route path="profile/private" component={UserPrivateProfile} onEnter={validateUser} /> */}

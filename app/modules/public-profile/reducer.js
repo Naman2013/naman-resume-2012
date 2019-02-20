@@ -1,43 +1,44 @@
-import createReducer from '../utils/createReducer';
-import {
-  FETCH_PUBLIC_PROFILE_START,
-  FETCH_PUBLIC_PROFILE_SUCCESS,
-  FETCH_PUBLIC_PROFILE_FAIL,
-} from './actions';
+import { actions, constants } from 'ducks-helpers';
+import { handleActions } from 'redux-actions';
 
-const initialState = {
-  refreshIntervalSec: 0,
-  memberName: '',
-  displayName: '',
-  memberSinceMDY: '',
-  avatarType: '',
-  avatarURL: '',
-  membershipType: '',
-  missionCount: 0,
-  missionList: [],
-  error: false,
+export const TYPE = constants('public-profile', [
+  '~GET_PUBLIC_PROFILE',
+]);
+export const ACTION = actions(TYPE);
+
+export const initialState = {
+
+  isFetching: false,
+  isLoaded: false,
+  serverError: null,
+
 };
 
-export default createReducer(initialState, {
-  [FETCH_PUBLIC_PROFILE_START]() {
-    return {
-      ...initialState,
-      error: false,
-    };
+export default handleActions(
+  {
+    [TYPE.GET_PUBLIC_PROFILE]: setFetching,
+    [TYPE.GET_PUBLIC_PROFILE_SUCCESS]: getFlowChartSuccess,
+    [TYPE.GET_PUBLIC_PROFILE_ERROR]: setServerError,
+
   },
-  [FETCH_PUBLIC_PROFILE_SUCCESS](state, { payload }) {
-    const { apiError } = payload;
-    return {
-      ...state,
-      error: apiError,
-      ...payload,
-    };
-  },
-  [FETCH_PUBLIC_PROFILE_FAIL](state, { payload }) {
-    return {
-      ...state,
-      error: true,
-      ...payload,
-    };
-  },
-});
+  initialState,
+);
+
+function setFetching(state) {
+  return { ...state, isFetching: true, isLoaded: false };
+}
+
+function setServerError(state, action) {
+  return {
+    ...state,
+    isFetching: false,
+    serverError: action.payload,
+    isLoaded: false,
+  };
+}
+
+function getFlowChartSuccess(state/* , action */) {
+  return {
+    ...state,
+  };
+}
