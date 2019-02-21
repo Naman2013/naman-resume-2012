@@ -19,6 +19,7 @@ class ShowMoreWithNetwork extends Component {
     }),
     validateResponseAccess: PropTypes.func,
     user: PropTypes.shape({}),
+    hubActions: PropTypes.shape({}),
   };
 
   static defaultProps = {
@@ -37,6 +38,7 @@ class ShowMoreWithNetwork extends Component {
     },
     user: {},
     validateResponseAccess: noop,
+    hubActions: null,
   };
 
   constructor(props) {
@@ -50,8 +52,15 @@ class ShowMoreWithNetwork extends Component {
       .then(res => this.handleServiceResponse(res.data));
   }
 
+  componentDidMount() {
+    const { hubActions } = this.props;
+    hubActions.hubGetRequestStart();
+  }
+
   componentWillReceiveProps(nextProps) {
-    if (!isMatch(this.props.filterOptions, nextProps.filterOptions)) {
+    const { hubActions, filterOptions } = this.props;
+    if (!isMatch(filterOptions, nextProps.filterOptions)) {
+      hubActions.hubGetRequestStart();
       axios
         .post(
           nextProps.apiURL,
@@ -63,10 +72,11 @@ class ShowMoreWithNetwork extends Component {
 
   getPage = (page) => {
     const {
-      apiURL, filterOptions, onPaginationChange, user, validateResponseAccess,
+      apiURL, filterOptions, onPaginationChange, user, validateResponseAccess, hubActions,
     } = this.props;
     onPaginationChange({ activePage: page });
     const params = Object.assign({ ...user }, filterOptions, { page });
+    hubActions.hubGetRequestStart();
     axios.post(apiURL, params).then((res) => {
       validateResponseAccess(res);
       return this.handleServiceResponse(res.data);
