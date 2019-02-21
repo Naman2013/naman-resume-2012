@@ -1,9 +1,9 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import Request from 'components/common/network/Request';
-import { DeviceContext } from 'providers/DeviceProvider';
-import ConnectUserAndResponseAccess from 'redux/components/ConnectUserAndResponseAccess';
-import { STORY_DETAILS } from 'services/stories';
+import Request from 'app/components/common/network/Request';
+import { DeviceContext } from 'app/providers/DeviceProvider';
+import ConnectUserAndResponseAccess from 'app/redux/components/ConnectUserAndResponseAccess';
+import { STORY_DETAILS } from 'app/services/stories';
 import BootstrappedStoryDetails from './BootstrappedStoryDetails';
 
 const storyModel = {
