@@ -15,6 +15,7 @@ module.exports = {
     ],
     "import/prefer-default-export": 0,
     'no-use-before-define': ['error', { 'functions': false, 'classes': true }],
+    'react/prefer-stateless-function': ['off'],
   },
   "globals": {
     "test": true,

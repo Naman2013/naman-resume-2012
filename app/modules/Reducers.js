@@ -1,4 +1,4 @@
-import publicProfile from 'app/modules/profile/reducer';
+import profile from 'app/modules/profile/reducer';
 import { routerReducer } from 'react-router-redux';
 import { combineReducers } from 'redux';
 import { reducer } from 'redux-form';
@@ -153,7 +153,7 @@ export default combineReducers({
   piggyback,
   post,
   /* EK 8/9/17 registration is closed      roadtripRegistration, */
-  publicProfile,
+  profile,
   privateProfile,
   shareMemberPhoto,
   sharedMemberPhotos,
