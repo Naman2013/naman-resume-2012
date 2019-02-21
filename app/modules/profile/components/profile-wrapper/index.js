@@ -1,15 +1,8 @@
-/* ********************************
- * V4 Private profile container
- ********************************* */
-
-
 // todo refactor me
 import SubPageNavigation from 'app/components/common/sub-page-navigation';
 import ProfileInformation from 'app/components/profiles/private-profile/ProfileInformation';
 import PropTypes from 'prop-types';
 import React, { cloneElement, Component, Fragment } from 'react';
-
-// import styles from './PrivateProfile.styles';
 
 export class ProfileWrapper extends Component {
   static propTypes = {
@@ -17,9 +10,10 @@ export class ProfileWrapper extends Component {
     params: PropTypes.shape({}).isRequired,
   };
 
-  generateNavItems = list => list.map(item => ({ title: item.name, link: item.linkUrl }));
+  generateNavItems = list =>
+    list.map(item => ({ title: item.name, link: item.linkUrl }));
 
-  modelData = (resp) => {
+  modelData = resp => {
     console.log(resp);
     return {
       myInformationData: {
@@ -78,10 +72,15 @@ export class ProfileWrapper extends Component {
     return (
       <div className="root">
         <Fragment>
-          <ProfileInformation myInformationData={modelResult.myInformationData} />
+          <ProfileInformation
+            myInformationData={modelResult.myInformationData}
+          />
 
-          {modelResult.profileMenuList &&
-          <SubPageNavigation items={this.generateNavItems(modelResult.profileMenuList)} />}
+          {modelResult.profileMenuList && (
+            <SubPageNavigation
+              items={this.generateNavItems(modelResult.profileMenuList)}
+            />
+          )}
 
           {/* {cloneElement(children, {
             activityData: modelResult.activityData,
@@ -90,20 +89,7 @@ export class ProfileWrapper extends Component {
             params,
           })} */}
         </Fragment>
-        {/* <style jsx>{styles}</style> */}
       </div>
     );
   }
 }
-
-// const mapStateToProps = ({ privateProfile, user }) => ({
-//   privateProfileData: privateProfile.privateProfileData,
-//   user,
-// });
-//
-// const mapDispatchToProps = { fetchPrivateProfile };
-
-// export default connect(
-//   mapStateToProps,
-//   mapDispatchToProps,
-// )(PrivateProfile);

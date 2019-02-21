@@ -17,7 +17,9 @@ const mapDispatchToProps = {
   getPublicProfile,
 };
 
-export default compose(connect(
-  mapStateToProps,
-  mapDispatchToProps,
-))(PublicProfile);
+export default compose(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )
+)(PublicProfile);
