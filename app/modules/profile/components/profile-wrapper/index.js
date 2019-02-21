@@ -13,61 +13,57 @@ export class ProfileWrapper extends Component {
   generateNavItems = list =>
     list.map(item => ({ title: item.name, link: item.linkUrl }));
 
-  modelData = resp => {
-    console.log(resp);
-    return {
-      myInformationData: {
-        generalInfo: {
-          avatarType: resp.avatarType,
-          avatarURL: resp.avatarURL,
-          displayName: resp.displayName,
-          memberName: resp.memberName,
-          memberSinceMDY: resp.memberSinceMDY,
-          memberSinceText: resp.memberSinceText,
-          membershipType: resp.membershipType,
-          gravityRankLabel: resp.gravityRankLabel,
-        },
-        gravityData: {
-          ...resp.gravityDetails,
-          gravityHeading: resp.gravityHeading,
-          gravityDetailsText: resp.gravityDetailsText,
-          gravityGuideDetails: resp.gravityGuideDetails,
-        },
-        badgesData: {
-          badgesCount: resp.badgesCount,
-          badgesHeading: resp.badgesHeading,
-          badgesList: resp.badgesList,
-        },
-        mvpData: {
-          specialistObjectHeading: resp.specialistObjectHeading,
-          specialistObjects: resp.specialistObjects,
-          specialistObjectsCount: resp.specialistObjectsCount,
-        },
+  modelData = resp => ({
+    myInformationData: {
+      generalInfo: {
+        avatarType: resp.avatarType,
+        avatarURL: resp.avatarURL,
+        displayName: resp.displayName,
+        memberName: resp.memberName,
+        memberSinceMDY: resp.memberSinceMDY,
+        memberSinceText: resp.memberSinceText,
+        membershipType: resp.membershipType,
+        gravityRankLabel: resp.gravityRankLabel,
       },
-      profileMenuList: resp.profileMenuList,
-      activityData: {
-        missionsData: {
-          missionCount: resp.missionCount,
-          missionList: resp.missionList,
-          missionListHeading: resp.missionListHeading,
-        },
-        recentMissionsData: {
-          recentMissionCount: resp.recentMissionCount,
-          recentMissionList: resp.recentMissionList,
-        },
-        askAnAstronomerData: resp.askAnAstronomerData,
+      gravityData: {
+        ...resp.gravityDetails,
+        gravityHeading: resp.gravityHeading,
+        gravityDetailsText: resp.gravityDetailsText,
+        gravityGuideDetails: resp.gravityGuideDetails,
       },
-      groupsData: {
-        groupsCount: resp.groupsCount,
-        groupsList: resp.groupsList,
+      badgesData: {
+        badgesCount: resp.badgesCount,
+        badgesHeading: resp.badgesHeading,
+        badgesList: resp.badgesList,
       },
-    };
-  };
+      mvpData: {
+        specialistObjectHeading: resp.specialistObjectHeading,
+        specialistObjects: resp.specialistObjects,
+        specialistObjectsCount: resp.specialistObjectsCount,
+      },
+    },
+    profileMenuList: resp.profileMenuList,
+    activityData: {
+      missionsData: {
+        missionCount: resp.missionCount,
+        missionList: resp.missionList,
+        missionListHeading: resp.missionListHeading,
+      },
+      recentMissionsData: {
+        recentMissionCount: resp.recentMissionCount,
+        recentMissionList: resp.recentMissionList,
+      },
+      askAnAstronomerData: resp.askAnAstronomerData,
+    },
+    groupsData: {
+      groupsCount: resp.groupsCount,
+      groupsList: resp.groupsList,
+    },
+  });
 
   render() {
     const { children, privateProfileData, params } = this.props;
     const modelResult = this.modelData(privateProfileData);
-    console.log(modelResult);
 
     return (
       <div className="root">
@@ -82,12 +78,12 @@ export class ProfileWrapper extends Component {
             />
           )}
 
-          {/*{cloneElement(children, {
+          {cloneElement(children, {
             activityData: modelResult.activityData,
             groupsData: modelResult.groupsData,
             privateProfileData,
             params,
-          })}*/}
+          })}
         </Fragment>
       </div>
     );

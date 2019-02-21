@@ -1,5 +1,5 @@
 import { ProfileWrapper } from 'app/modules/profile/components/profile-wrapper';
-import React, { Component } from 'react';
+import React, { cloneElement, Component } from 'react';
 
 export class PublicProfile extends Component {
   componentWillMount = () => {
@@ -13,14 +13,16 @@ export class PublicProfile extends Component {
   };
 
   render() {
-    const { publicProfileData, params } = this.props;
+    const { publicProfileData, params, children } = this.props;
     return (
       <div>
         {publicProfileData && (
           <ProfileWrapper
             privateProfileData={publicProfileData}
             params={params}
-          />
+          >
+            {cloneElement(children, this.props)}
+          </ProfileWrapper>
         )}
       </div>
     );
