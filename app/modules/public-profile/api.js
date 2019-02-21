@@ -1,3 +1,3 @@
 import axios from 'axios';
 
-export const getPublicProfileApi = () => axios.post('/api/page/getPublicProfile');
+export const getPublicProfileApi = data => axios.post('/api/page/getPublicProfile', data);

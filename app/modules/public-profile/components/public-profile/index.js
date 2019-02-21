@@ -5,7 +5,8 @@ export class PublicProfile extends Component {
 
   fetchData = () => {
     const { getPublicProfile } = this.props;
-    getPublicProfile();
+    const { customerUUID } = this.props.params;
+    getPublicProfile(customerUUID);
   };
 
   componentWillMount = () => {

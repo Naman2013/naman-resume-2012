@@ -316,7 +316,7 @@ export const AppRouter = () => (
         {getProfileRoutes()}
       </Route>
 
-      <Route path="profile/public/:customerId" component={PublicProfileMain} onEnter={validateUser}>
+      <Route path="profile/public/:customerUUID" component={PublicProfileMain} onEnter={validateUser}>
         {/* {getProfileRoutes()} */}
       </Route>
 
