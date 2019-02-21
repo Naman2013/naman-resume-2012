@@ -1,7 +1,19 @@
 /* eslint-disable */
-import React from 'react';
+import React, {Component} from 'react';
 
-export const PublicProfile = (props) => {
-  // const {  } = props;
-  return <div>Loadable</div>;
+export class PublicProfile extends Component {
+
+  fetchData = () => {
+    const { getPublicProfile } = this.props;
+    getPublicProfile();
+  };
+
+  componentWillMount = () => {
+    this.fetchData();
+  };
+
+  render() {
+    // const {  } = props;
+    return <div>Loadable</div>;
+  }
 };
