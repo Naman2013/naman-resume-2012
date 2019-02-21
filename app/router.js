@@ -441,13 +441,6 @@ export const AppRouter = () => (
         {getProfileRoutes()}
       </Route>
 
-      {/* <Route path="profile/private" component={UserPrivateProfile} onEnter={validateUser} /> */}
-      <Route
-        path="profile/public/:cid"
-        component={UserPublicProfile}
-        onEnter={validateUser}
-      />
-
       <Route
         path="groups/create"
         component={GroupCreate}
