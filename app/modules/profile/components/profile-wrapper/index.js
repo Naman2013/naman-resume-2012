@@ -69,6 +69,7 @@ export class ProfileWrapper extends Component {
       <div className="root">
         <Fragment>
           <ProfileInformation
+
             myInformationData={modelResult.myInformationData}
           />
 
