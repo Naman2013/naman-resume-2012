@@ -11,7 +11,7 @@ import { createStructuredSelector } from 'reselect';
 
 const mapStateToProps = createStructuredSelector({
   isLoading: makeProfileLoadingSelector(),
-  data: makePublicProfileUserDataSelector(),
+  publicProfileData: makePublicProfileUserDataSelector(),
 });
 const mapDispatchToProps = {
   getPublicProfile,

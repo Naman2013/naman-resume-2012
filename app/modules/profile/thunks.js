@@ -3,7 +3,6 @@ import { getPublicProfileApi } from 'app/modules/profile/api';
 import { ACTION } from './reducer';
 
 export const getPublicProfile = (customerUUID) => (dispatch, getState) => {
-  console.log('getPublicProfile thunk');
   const { at, token, cid } = getState().user;
   // const { at, token, cid } = getState().user;
   dispatch(ACTION.getPublicProfile());
