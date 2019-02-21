@@ -70,6 +70,7 @@ class HubContainer extends Component {
     showHeaderIcon:bool,
     pageTitleTheme:shape({}),
     callSource: string,
+    hubActions: shape({}),
   };
 
   static defaultProps = {
@@ -92,7 +93,8 @@ class HubContainer extends Component {
     useSort:true,
     showHeaderIcon:true,
     pageTitleTheme:{},
-    callSource: ''
+    callSource: '',
+    hubActions: null,
   };
 
   state = {
@@ -102,12 +104,10 @@ class HubContainer extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    let { sort } = this.props.location.query;
-    let { isCreateMode } = this.props.isCreateMode;
+    const { sort } = this.props.location.query;
     const { sort: nextSort } = nextProps.location.query;
-    let changeState = false;
 
-    if( this.props.filterType !== nextProps.filterType) {
+    if (this.props.filterType !== nextProps.filterType) {
       this.props.clearTiles();
       this.setState({
         page: 1,
@@ -116,13 +116,7 @@ class HubContainer extends Component {
 
     if (sort !== nextSort) {
       this.props.clearTiles();
-      sort = nextSort;
-      changeState = true;
-    }
-
-    if (changeState) {
-      this.setState(() => ({ sort }));
-      this.setQueryParams({ sort });
+      this.setState({ sort: nextSort });
     }
   }
 
@@ -150,9 +144,13 @@ class HubContainer extends Component {
   }
 
   handlePaginationResponse = (resp) => {
-    if (!resp.apiError)
-
-    this.props.updateList(resp);
+    const { hubActions, updateList } = this.props;
+    if (!resp.apiError) {
+      hubActions.hubGetRequestSuccess();
+      updateList(resp);
+    } else {
+      hubActions.hubGetRequestError();
+    }
   }
 
   handlePaginationChange = ({ activePage }) => {
@@ -167,8 +165,13 @@ class HubContainer extends Component {
   }
 
   handleShowMoreResponse = (resp) => {
-    if (!resp.apiError)
-    this.props.appendToList(resp);
+    const { hubActions, appendToList } = this.props;
+    if (!resp.apiError) {
+      hubActions.hubGetRequestSuccess();
+      appendToList(resp);
+    } else {
+      hubActions.hubGetRequestError();
+    }
   }
 
   render() {
@@ -190,6 +193,7 @@ class HubContainer extends Component {
       user,
       useSort,
       showHeaderIcon,
+      hubActions,
     } = this.props;
 
     const {
@@ -233,6 +237,7 @@ class HubContainer extends Component {
                     activePageNumber={Number(page)}
                     onServiceResponse={this.handlePaginationResponse}
                     onPaginationChange={this.handlePaginationChange}
+                    hubActions={hubActions}
                     filterOptions={{
                       ...(useSort? {sortBy:sort} : {}),
                       page,
@@ -246,6 +251,7 @@ class HubContainer extends Component {
                     activePageNumber={Number(page)}
                     onServiceResponse={this.handleShowMoreResponse}
                     onPaginationChange={this.handlePaginationChange}
+                    hubActions={hubActions}
                     responseFieldNames={responseFieldNames}
                     validateResponseAccess={this.validateResponseAccess}
                     user={user}

@@ -12,7 +12,8 @@ import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
 import ShowMoreWithNetwork from 'components/common/show-more-with-network';
 import { GUIDES_PAGE_ENDPOINT_URL, GUIDES_ENDPOINT_URL } from 'services/guides/guide-data';
 import { DeviceContext } from 'providers/DeviceProvider';
-import { validateResponseAccess } from 'modules/authorization/actions'
+import { validateResponseAccess } from 'modules/authorization/actions';
+import { ACTION as guidesActions } from '../../modules/guides/reducer';
 import style from './guides-hub.style';
 import messages from './GuidesHub.messages';
 
@@ -35,6 +36,7 @@ class Guides extends Component {
       filterType: PropTypes.string,
     }),
     intl: intlShape.isRequired,
+    isFetching: PropTypes.bool.isRequired,
   };
 
   static defaultProps = {
@@ -89,10 +91,12 @@ class Guides extends Component {
       user,
       actions,
       intl,
+      isFetching,
     } = this.props;
     const {
       guides
     } = this.state;
+    
     return (<div>
       <Request
         withoutUser
@@ -129,16 +133,20 @@ class Guides extends Component {
                       pageTitle={serviceResponse.pageTitle}
                       filterType={this.props.params.filterType}
                       clearTiles={this.clearGuides}
+                      hubActions={{
+                        hubGetRequestStart: actions.getGuides,
+                        hubGetRequestSuccess: actions.getGuidesSuccess,
+                        hubGetRequestError: actions.getGuidesError,
+                      }}
                       render={() => (
                         <Fragment>
-                          {fetchingContent ? <div>{intl.formatMessage(messages.loading)}</div> : null}
-                          {!fetchingContent && guides.length ?
+                          {isFetching ? <div>{intl.formatMessage(messages.loading)}</div> : null}
+                          {!isFetching &&
                             <GuideTiles
                               updateReadingListInfo={this.updateReadingListInGuide}
                               guides={guides}
                               isMobile={context.isMobile}
-                            /> :
-                            <div>{intl.formatMessage(messages.noGuides)}</div>}
+                            />}
                         </Fragment>
                       )}
                     />
@@ -153,17 +161,18 @@ class Guides extends Component {
   }
 }
 
-
-
 const mapStateToProps = ({
   user,
+  guides,
 }) => ({
   user,
+  isFetching: guides.isFetching,
 });
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     validateResponseAccess,
+    ...guidesActions,
   }, dispatch),
 });
 

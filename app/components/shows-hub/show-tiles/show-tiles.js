@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import uniqueId from 'lodash/uniqueId';
+import { FormattedMessage } from 'react-intl';
 import CenterColumn from 'components/common/CenterColumn';
 import ShowTile from 'components/common/tiles/show-tile-hub';
 import ShowExcerptTile from 'components/common/tiles/show-excerpt-tile-hub';
@@ -43,7 +44,7 @@ class ShowTiles extends Component {
   render() {
     const { shows, isMobile, updateReadingListInfo } = this.props;
     const { activeId } = this.state;
-    return (
+    return shows.length ? (
       <CenterColumn widths={['645px', '965px', '965px']}>
         <ul className="show-tiles-root">
           {!isMobile && shows.map(show => (
@@ -77,7 +78,7 @@ class ShowTiles extends Component {
         </ul>
         <style jsx>{style}</style>
       </CenterColumn>
-    );
+    ) : <FormattedMessage id="Hubs.noShowsHub" />;
   }
 }
 
