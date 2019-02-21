@@ -37,8 +37,11 @@ function setServerError(state, action) {
   };
 }
 
-function getFlowChartSuccess(state/* , action */) {
+function getFlowChartSuccess(state, action) {
   return {
     ...state,
+    isFetching: false,
+    isLoaded: true,
+    data: action.payload,
   };
 }

@@ -8,3 +8,9 @@ export const makePublicProfileLoadingSelector = () =>
     selectPublicProfile,
     state => state.isFetching,
   );
+
+export const makePublicProfileUserDataSelector = () =>
+  createSelector(
+    selectPublicProfile,
+    state => state.data,
+  );
