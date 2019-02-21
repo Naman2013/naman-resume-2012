@@ -21,7 +21,7 @@ export class PublicProfile extends Component {
             privateProfileData={publicProfileData}
             params={params}
           >
-            {cloneElement(children, this.props)}
+            {cloneElement(children, { publicProfileData, params })}
           </ProfileWrapper>
         )}
       </div>
