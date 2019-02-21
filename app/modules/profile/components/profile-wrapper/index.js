@@ -82,12 +82,12 @@ export class ProfileWrapper extends Component {
             />
           )}
 
-          {/* {cloneElement(children, {
+          {/*{cloneElement(children, {
             activityData: modelResult.activityData,
             groupsData: modelResult.groupsData,
             privateProfileData,
             params,
-          })} */}
+          })}*/}
         </Fragment>
       </div>
     );

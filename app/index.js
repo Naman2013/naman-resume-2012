@@ -26,5 +26,5 @@ ReactDOM.render(
       <AppRouter />
     </Provider>
   </I18nProvider>,
-  window.document.getElementById('app'),
+  window.document.getElementById('app')
 );

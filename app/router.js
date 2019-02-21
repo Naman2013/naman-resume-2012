@@ -1,7 +1,10 @@
 import DashboardPage from 'app/components/Dashboard';
 import ImagesLayout from 'app/components/profile-photos/ImagesLayout';
 import PrivateProfilePhotos from 'app/components/profile-photos/PrivateProfilePhotos';
-import { ProfileActivity, ProfileGroups } from 'app/components/profiles/private-profile';
+import {
+  ProfileActivity,
+  ProfileGroups,
+} from 'app/components/profiles/private-profile';
 import MyListsHub from 'app/components/profiles/private-profile/my-lists';
 import ProfileQaContainer from 'app/components/profiles/private-profile/my-qa/ProfileQaContainer';
 import { About, AboutSloohSection } from 'app/containers/about';
@@ -93,15 +96,21 @@ import validateUser from 'app/route-functions/validateUser';
 import store from 'app/store';
 import firePageview from 'app/utils/ga-wrapper';
 import React, { Fragment } from 'react';
-import { browserHistory, IndexRedirect, IndexRoute, Redirect, Route, Router } from 'react-router';
+import {
+  browserHistory,
+  IndexRedirect,
+  IndexRoute,
+  Redirect,
+  Route,
+  Router,
+} from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
-
 
 // Create an enhanced history that syncs navigation events with the store
 const history = syncHistoryWithStore(browserHistory, store);
 
 // handle to the listen callback on changes to the history
-history.listen((location) => {
+history.listen(location => {
   const { pathname } = location;
 
   firePageview({
@@ -110,7 +119,6 @@ history.listen((location) => {
   // todo do we need this on every page refresh?
   store.dispatch(fetchPlayer({ pageURL: pathname }));
 });
-
 
 const getProfileRoutes = () => (
   <Fragment>
@@ -162,18 +170,30 @@ export const AppRouter = () => (
 
       <Route path="join" component={Join}>
         <Route path="step1" component={JoinStep1} />
-        <Route path="step1SchoolSelection" component={JoinStep1SchoolSelection} />
+        <Route
+          path="step1SchoolSelection"
+          component={JoinStep1SchoolSelection}
+        />
         <Route path="step2" component={JoinStep2} />
         <Route path="step3" component={JoinStep3} />
-        <Route path="byLandingPage/:subscriptionPlanHashCode" component={JoinByLandingPage} />
+        <Route
+          path="byLandingPage/:subscriptionPlanHashCode"
+          component={JoinByLandingPage}
+        />
         <Route
           path="inviteByEmail/:invitationCodeHash/:invitationCreationEpoch"
           component={JoinInviteByEmailStep1}
         />
         <Route path="inviteByCodeStep1" component={JoinInviteByCodeStep1} />
         <Route path="inviteByCodeStep2" component={JoinInviteByCodeStep2} />
-        <Route path="membershipPlanDetailsStep" component={MembershipPlanDetailsStep} />
-        <Route path="resetPassword/:cid/:passwordResetToken" component={ResetPassword} />
+        <Route
+          path="membershipPlanDetailsStep"
+          component={MembershipPlanDetailsStep}
+        />
+        <Route
+          path="resetPassword/:cid/:passwordResetToken"
+          component={ResetPassword}
+        />
       </Route>
 
       <Route
@@ -182,12 +202,20 @@ export const AppRouter = () => (
         onEnter={validateUser}
       />
 
-      <Route path="reservations" component={Reservations} onEnter={validateUser}>
+      <Route
+        path="reservations"
+        component={Reservations}
+        onEnter={validateUser}
+      >
         <IndexRedirect to="reserve-by-objects" />
 
         <Route path="slooh-recommends" component={SloohRecommends}>
           <IndexRedirect to="new" />
-          <Route path="existing" name="existing-missions" component={ExistingMissions} />
+          <Route
+            path="existing"
+            name="existing-missions"
+            component={ExistingMissions}
+          />
           <Route path="new" name="new-missions" component={NewMissions} />
         </Route>
 
@@ -201,7 +229,10 @@ export const AppRouter = () => (
         onEnter={validateUser}
       >
         <IndexRedirect to="telescope/d7f673a5-7908-11e6-a635-0eb2b1774883/1ff72faa-7909-11e6-a635-0eb2b1774883" />
-        <Route path="telescope/:obsUniqueId/:teleUniqueId" component={ReserveByTelescope} />
+        <Route
+          path="telescope/:obsUniqueId/:teleUniqueId"
+          component={ReserveByTelescope}
+        />
       </Route>
 
       <Route
@@ -216,10 +247,17 @@ export const AppRouter = () => (
        /objects/all-time-best/6/all
        */}
       <Route path="objects" component={ObjectList} onEnter={validateUser}>
-        <Route path=":entryType/:SlugLookupId/:filterType" component={ObjectPosts} />
+        <Route
+          path=":entryType/:SlugLookupId/:filterType"
+          component={ObjectPosts}
+        />
       </Route>
 
-      <Route path="shows/video-viewer(/:showId)" component={Show} onEnter={validateUser} />
+      <Route
+        path="shows/video-viewer(/:showId)"
+        component={Show}
+        onEnter={validateUser}
+      />
 
       <Route
         path="my-pictures/show-image/:customerImageId/:shareToken(/:scheduledMissionId)"
@@ -237,7 +275,11 @@ export const AppRouter = () => (
         <IndexRedirect to="missions" />
         <Route path="photo-roll" title="Photo roll" component={PhotoRoll} />
         <Route path="galleries" tite="Galleries" component={Galleries} />
-        <Route path="galleries/:galleryId" tite="Galleries" component={GalleryImages} />
+        <Route
+          path="galleries/:galleryId"
+          tite="Galleries"
+          component={GalleryImages}
+        />
         <Route
           path="missions/:scheduledMissionId"
           title="Mission Images"
@@ -254,7 +296,10 @@ export const AppRouter = () => (
 
       <Route path="help/posting-guidelines" component={PostingGuidelines} />
       <Route path="help/new-to-slooh" component={NewToSlooh} />
-      <Route path="help/telescopes-and-reservations" component={TelescopesAndReservations} />
+      <Route
+        path="help/telescopes-and-reservations"
+        component={TelescopesAndReservations}
+      />
       <Route path="help/community" component={Community} />
       <Route path="help/space-situation-room" component={SpaceSituationRoom} />
       <Route path="help/membership-levels" component={MembershipLevels} />
@@ -263,11 +308,27 @@ export const AppRouter = () => (
       <Route path="help/terms-and-conditions" component={TermsAndConditions} />
       <Route path="help/privacy" component={Privacy} />
 
-      <Route path="guides(/:filterType)" component={GuidesHub} onEnter={validateUser} />
-      <Route path="guide-details/:guideId" component={GuideDetails} onEnter={validateUser} />
+      <Route
+        path="guides(/:filterType)"
+        component={GuidesHub}
+        onEnter={validateUser}
+      />
+      <Route
+        path="guide-details/:guideId"
+        component={GuideDetails}
+        onEnter={validateUser}
+      />
 
-      <Route path="guides/subject/:guideId" component={SubjectGuides} onEnter={validateUser} />
-      <Route path="guides/topic/:guideId" component={TopicGuides} onEnter={validateUser} />
+      <Route
+        path="guides/subject/:guideId"
+        component={SubjectGuides}
+        onEnter={validateUser}
+      />
+      <Route
+        path="guides/topic/:guideId"
+        component={TopicGuides}
+        onEnter={validateUser}
+      />
       <Route
         path="guides/history/:guideId"
         component={ObjectCategoryGuide}
@@ -279,13 +340,37 @@ export const AppRouter = () => (
         onEnter={validateUser}
       />
 
-      <Route path="object-details/:objectId" component={ObjectDetails} onEnter={validateUser}>
+      <Route
+        path="object-details/:objectId"
+        component={ObjectDetails}
+        onEnter={validateUser}
+      >
         <IndexRedirect to="overview" />
-        <Route path="overview" component={ObjectDetailsOverview} onEnter={validateUser} />
-        <Route path="missions" component={ObjectDetailsMissions} onEnter={validateUser} />
-        <Route path="quests" component={ObjectDetailsQuests} onEnter={validateUser} />
-        <Route path="stories" component={ObjectDetailsStories} onEnter={validateUser} />
-        <Route path="shows" component={ObjectDetailsShows} onEnter={validateUser} />
+        <Route
+          path="overview"
+          component={ObjectDetailsOverview}
+          onEnter={validateUser}
+        />
+        <Route
+          path="missions"
+          component={ObjectDetailsMissions}
+          onEnter={validateUser}
+        />
+        <Route
+          path="quests"
+          component={ObjectDetailsQuests}
+          onEnter={validateUser}
+        />
+        <Route
+          path="stories"
+          component={ObjectDetailsStories}
+          onEnter={validateUser}
+        />
+        <Route
+          path="shows"
+          component={ObjectDetailsShows}
+          onEnter={validateUser}
+        />
         <Route
           path="observations"
           component={ObjectDetailsObservations}
@@ -294,42 +379,90 @@ export const AppRouter = () => (
         <Route path="ask" component={AskAstronomer} onEnter={validateUser} />
       </Route>
 
-      <Route path="shows(/:filterType)" component={ShowsHub} onEnter={validateUser} />
+      <Route
+        path="shows(/:filterType)"
+        component={ShowsHub}
+        onEnter={validateUser}
+      />
 
-      <Route path="stories(/:filterType)" component={StoriesHub} onEnter={validateUser} />
-      <Route path="community/post/:postId" component={StoryDetails} onEnter={validateUser} />
-      <Route path="stories/:filterType/create" component={CreateStory} onEnter={validateUser} />
+      <Route
+        path="stories(/:filterType)"
+        component={StoriesHub}
+        onEnter={validateUser}
+      />
+      <Route
+        path="community/post/:postId"
+        component={StoryDetails}
+        onEnter={validateUser}
+      />
+      <Route
+        path="stories/:filterType/create"
+        component={CreateStory}
+        onEnter={validateUser}
+      />
 
-      <Route path="quests(/:filterType)" component={QuestsHub} onEnter={validateUser} />
+      <Route
+        path="quests(/:filterType)"
+        component={QuestsHub}
+        onEnter={validateUser}
+      />
 
-      <Route path="quest-details/:questId" component={Quest} onEnter={validateUser} />
+      <Route
+        path="quest-details/:questId"
+        component={Quest}
+        onEnter={validateUser}
+      />
       <Route
         path="quest-details/:questId/completed-overview"
         component={QuestComplete}
         onEnter={validateUser}
       />
-      <Route path="quest-details/:questId/:step" component={QuestStep} onEnter={validateUser} />
+      <Route
+        path="quest-details/:questId/:step"
+        component={QuestStep}
+        onEnter={validateUser}
+      />
 
       <Route path="missions-details/:missionId" component={MissionDetails} />
 
-      <Route path="profile/private" component={PrivateProfile} onEnter={validateUser}>
+      <Route
+        path="profile/private"
+        component={PrivateProfile}
+        onEnter={validateUser}
+      >
         {getProfileRoutes()}
       </Route>
 
-      <Route path="profile/public/:customerUUID" component={PublicProfileMain} onEnter={validateUser}>
+      <Route
+        path="profile/public/:customerUUID"
+        component={PublicProfileMain}
+        onEnter={validateUser}
+      >
         {getProfileRoutes()}
       </Route>
 
       {/* <Route path="profile/private" component={UserPrivateProfile} onEnter={validateUser} /> */}
-      <Route path="profile/public/:cid" component={UserPublicProfile} onEnter={validateUser} />
+      <Route
+        path="profile/public/:cid"
+        component={UserPublicProfile}
+        onEnter={validateUser}
+      />
 
-      <Route path="groups/create" component={GroupCreate} onEnter={validateUser} />
+      <Route
+        path="groups/create"
+        component={GroupCreate}
+        onEnter={validateUser}
+      />
       <Route
         path="groups/importGoogleClassrooms"
         component={GroupImportGoogleClassrooms}
         onEnter={validateUser}
       />
-      <Route path="groups(/:filterType)" component={GroupsHub} onEnter={validateUser} />
+      <Route
+        path="groups(/:filterType)"
+        component={GroupsHub}
+        onEnter={validateUser}
+      />
 
       <Route
         path="community-groups/:groupId"

@@ -7,8 +7,8 @@ export class PublicProfile extends Component {
   };
 
   fetchData = () => {
-    const { getPublicProfile } = this.props;
-    const { customerUUID } = this.props.params;
+    const { getPublicProfile, params } = this.props;
+    const { customerUUID } = params;
     getPublicProfile(customerUUID);
   };
 

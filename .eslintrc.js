@@ -108,7 +108,7 @@ module.exports = {
       // and with this approach build works but I still see red highlights in webstorm
       // eslint-import-resolver-webpack
       'webpack': {
-        'config': path.join(__dirname, 'webpack.config.js')
+        'config': path.join(__dirname, './webpack.config.js')
       }
     }
   },
