@@ -7,12 +7,12 @@ import { getPublicProfile } from 'app/modules/profile/thunks';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
-// import { ACTION } from '../reducer';
 
 const mapStateToProps = createStructuredSelector({
   isLoading: makeProfileLoadingSelector(),
   publicProfileData: makePublicProfileUserDataSelector(),
 });
+
 const mapDispatchToProps = {
   getPublicProfile,
 };
