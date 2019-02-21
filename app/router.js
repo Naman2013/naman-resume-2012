@@ -33,7 +33,7 @@ import StaticAppContainer from 'app/containers/static-app-container';
 import StoriesHub from 'app/containers/stories-hub';
 import StoryDetails from 'app/containers/story-details';
 import { fetchPlayer } from 'app/modules/get-audio-player/actions';
-import { PublicProfileMain } from 'app/modules/public-profile';
+import { PublicProfileMain } from 'app/modules/profile';
 import GroupCreate from 'app/pages/community-groups/GroupCreate';
 import GroupImportGoogleClassrooms from 'app/pages/community-groups/GroupImportGoogleClassrooms';
 import CommunityGroupOverview from 'app/pages/community-groups/GroupOverview';

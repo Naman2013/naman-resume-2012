@@ -1,16 +1,16 @@
 import { createSelector } from 'reselect';
 // import _ from 'lodash/fp';
 
-export const selectPublicProfile = state => state.publicProfile;
+export const selectProfile = state => state.publicProfile;
 
-export const makePublicProfileLoadingSelector = () =>
+export const makeProfileLoadingSelector = () =>
   createSelector(
-    selectPublicProfile,
+    selectProfile,
     state => state.isFetching,
   );
 
 export const makePublicProfileUserDataSelector = () =>
   createSelector(
-    selectPublicProfile,
-    state => state.data,
+    selectProfile,
+    state => state.publicProfileData,
   );

@@ -1,7 +1,7 @@
 import { actions, constants } from 'ducks-helpers';
 import { handleActions } from 'redux-actions';
 
-export const TYPE = constants('public-profile', [
+export const TYPE = constants('profile', [
   '~GET_PUBLIC_PROFILE',
 ]);
 export const ACTION = actions(TYPE);
@@ -12,12 +12,15 @@ export const initialState = {
   isLoaded: false,
   serverError: null,
 
+  publicProfileData: null,
+  privateProfileData: null,
+
 };
 
 export default handleActions(
   {
     [TYPE.GET_PUBLIC_PROFILE]: setFetching,
-    [TYPE.GET_PUBLIC_PROFILE_SUCCESS]: getFlowChartSuccess,
+    [TYPE.GET_PUBLIC_PROFILE_SUCCESS]: getPublicProfileSuccess,
     [TYPE.GET_PUBLIC_PROFILE_ERROR]: setServerError,
 
   },
@@ -37,11 +40,11 @@ function setServerError(state, action) {
   };
 }
 
-function getFlowChartSuccess(state, action) {
+function getPublicProfileSuccess(state, action) {
   return {
     ...state,
     isFetching: false,
     isLoaded: true,
-    data: action.payload,
+    publicProfileData: action.payload,
   };
 }

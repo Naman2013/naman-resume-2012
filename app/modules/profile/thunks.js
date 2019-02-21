@@ -1,5 +1,5 @@
 /* eslint-disable */
-import { getPublicProfileApi } from 'app/modules/public-profile/api';
+import { getPublicProfileApi } from 'app/modules/profile/api';
 import { ACTION } from './reducer';
 
 export const getPublicProfile = (customerUUID) => (dispatch, getState) => {

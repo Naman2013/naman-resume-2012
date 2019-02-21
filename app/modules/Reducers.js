@@ -1,4 +1,4 @@
-import publicProfile from 'app/modules/public-profile/reducer';
+import publicProfile from 'app/modules/profile/reducer';
 import { routerReducer } from 'react-router-redux';
 import { combineReducers } from 'redux';
 import { reducer } from 'redux-form';
