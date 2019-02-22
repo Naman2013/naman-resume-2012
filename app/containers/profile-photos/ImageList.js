@@ -134,6 +134,7 @@ class ImageList extends Component {
     }
 
     if (prevProps.type !== type) {
+      this.setState({ activePage: 1 });
       fetchImages({
         sharedOnly: type === 'observations',
         maxImageCount: imagesToFetch,
@@ -148,7 +149,7 @@ class ImageList extends Component {
     // used for determine first photo sequence number and fetch next 9 photos
     const PHOTOS_ON_ONE_PAGE = 9;
     const PREVIOUS_PAGE = activePage - 1;
-    const startFrom = activePage === 1
+    this.startFrom = activePage === 1
       ? 1
       : (PREVIOUS_PAGE * PHOTOS_ON_ONE_PAGE) + 1;
     //  ***
@@ -157,7 +158,8 @@ class ImageList extends Component {
     const imagesToFetch = getImagesCountToFetch(deviceInfo);
 
     fetchImages({
-      firstMissionNumber: startFrom,
+      firstMissionNumber: this.startFrom,
+      firstImageNumber: this.startFrom,
       maxImageCount: imagesToFetch,
       maxMissionCount: imagesToFetch,
     });
@@ -194,21 +196,22 @@ class ImageList extends Component {
         <ConnectUser
           render={user => (
             <Fragment>
-              <div className="root" style={{ justifyContent: deviceInfo.isDesktop ? 'normal' : 'space-between' }}>
+              <div className="root uniqclass-for-overflow" style={{ justifyContent: deviceInfo.isDesktop ? 'normal' : 'space-between' }}>
                 {count > 0
                   ? arrOfImages.map((image, i) => cloneElement(children, {
                       key: image[mapTypeToId[type]],
                       isDesktop: deviceInfo.isDesktop,
                       isMobile: deviceInfo.isMobile,
+                      firstImageNumber: this.startFrom,
                       index: i,
                       currentItem: image,
+                      count,
                       user,
                     }))
                   : 'The list is empty.'
                 }
                 <div className="pagination-wrapper">
-                  {count
-                    && !deviceInfo.isMobile
+                  {count && !deviceInfo.isMobile
                       ? count > 9 && <Pagination
                         activePage={this.state.activePage}
                         pagesPerPage={4}
