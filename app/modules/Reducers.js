@@ -1,4 +1,5 @@
 import profile from 'app/modules/profile/reducer';
+import storyDetails from 'app/modules/story-details/reducer';
 import { routerReducer } from 'react-router-redux';
 import { combineReducers } from 'redux';
 import { reducer } from 'redux-form';
@@ -171,4 +172,5 @@ export default combineReducers({
   videoViewerBrowser,
   videoViewerShow,
   logIn,
+  storyDetails,
 });

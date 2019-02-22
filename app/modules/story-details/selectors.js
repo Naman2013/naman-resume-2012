@@ -14,3 +14,9 @@ export const makeStoryDetailsDataSelector = () =>
     selectStoryDetails,
     state => state.data
   );
+
+export const makePostSelector = () =>
+  createSelector(
+    makeStoryDetailsDataSelector(),
+    state => state.posts[0]
+  );

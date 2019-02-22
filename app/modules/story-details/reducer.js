@@ -9,7 +9,9 @@ export const initialState = {
   isLoaded: false,
   serverError: null,
 
-  data: null,
+  data: {
+    posts: [],
+  },
 };
 
 export default handleActions(
