@@ -21,6 +21,7 @@ import { validateResponseAccess } from 'modules/authorization/actions'
 import { customModalStylesBlackOverlay } from 'styles/mixins/utilities';
 import { requestGroup } from 'services/community-groups/request-group';
 import { browserHistory } from 'react-router';
+import { ACTION as clubsActions } from '../../modules/clubs/reducer';
 import { GOOGLE_CLASSROOM_GET_CLASSROOM_LIST_ENDPOINT_URL } from 'services/classroom/classroom.js';
 import style from './groups-hub.style';
 import messages from './GroupsHub.messages';
@@ -53,6 +54,7 @@ class Groups extends Component {
       filterType: PropTypes.string,
     }),
     intl: intlShape.isRequired,
+    isFetching: PropTypes.bool.isRequired,
   };
 
   static defaultProps = {
@@ -196,6 +198,7 @@ class Groups extends Component {
       user,
       actions,
       intl,
+      isFetching,
     } = this.props;
 
     const {
@@ -251,11 +254,15 @@ class Groups extends Component {
                       pageTitle={serviceResponse.pageTitle}
                       filterType={this.props.params.filterType}
                       clearTiles={this.clearGroups}
+                      hubActions={{
+                        hubGetRequestStart: actions.getClubs,
+                        hubGetRequestSuccess: actions.getClubsSuccess,
+                        hubGetRequestError: actions.getClubsError,
+                      }}
                       render={() => (
                         <Fragment>
-                          {fetchingContent ? <div>{intl.formatMessage(messages.loading)}</div> : null}
-
-                          {!fetchingContent && groups.length ?
+                          {isFetching ? <div>{intl.formatMessage(messages.loading)}</div> : null}
+                          {!isFetching &&
                             <GroupTiles
                               filterType={this.props.params.filterType}
                               closeModal={this.closeModal}
@@ -263,10 +270,7 @@ class Groups extends Component {
                               updatePrompt={this.updatePrompt}
                               groups={groups}
                               isMobile={context.isMobile}
-                            /> :
-                            <div>
-                              {intl.formatMessage(messages.noGroups)}
-                            </div>}
+                            />}
                         </Fragment>
                       )}
                     />
@@ -291,17 +295,18 @@ class Groups extends Component {
   }
 }
 
-
-
 const mapStateToProps = ({
   user,
+  clubs,
 }) => ({
   user,
+  isFetching: clubs.isFetching,
 });
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     validateResponseAccess,
+    ...clubsActions,
   }, dispatch),
 });
 

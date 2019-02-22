@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import uniqueId from 'lodash/uniqueId';
+import { FormattedMessage } from 'react-intl';
 import CenterColumn from 'components/common/CenterColumn';
 import QuestHubTileBig from 'components/common/tiles/QuestHubTileBig';
 import QuestHubTileSmall from 'components/common/tiles/QuestHubTileSmall';
@@ -45,7 +46,7 @@ class QuestTiles extends Component {
   render() {
     const { quests, isMobile, updateReadingListInfo } = this.props;
     const { activeId } = this.state;
-    return (
+    return quests.length ? (
       <CenterColumn widths={['645px', '965px', '965px']}>
         <ul className="quest-tiles-root">
           {!isMobile && quests.map(quest => (
@@ -79,7 +80,7 @@ class QuestTiles extends Component {
         </ul>
         <style jsx>{style}</style>
       </CenterColumn>
-    );
+    ) : <FormattedMessage id="Hubs.noQuests" />;
   }
 }
 

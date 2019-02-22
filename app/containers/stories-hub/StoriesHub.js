@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import PropTypes from 'prop-types';
+import PropTypes, { bool } from 'prop-types';
 import noop from 'lodash/noop';
 import { browserHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
@@ -12,6 +12,7 @@ import Button from 'components/common/style/buttons/Button';
 import { STORIES_PAGE_ENDPOINT_URL, STORIES_ENDPOINT_URL } from 'services/stories';
 import { DeviceContext } from 'providers/DeviceProvider';
 import { validateResponseAccess } from 'modules/authorization/actions'
+import { getStoriesStart, getStoriesSuccess, getStoriesError } from '../../modules/stories/actions';
 import style from './stories-hub.style';
 import messages from './StoriesHub.messages';
 
@@ -34,6 +35,7 @@ class Stories extends Component {
       filterType: PropTypes.string,
     }),
     intl: intlShape.isRequired,
+    isFetching: bool.isRequired,
   };
 
   static defaultProps = {
@@ -88,10 +90,12 @@ class Stories extends Component {
       user,
       actions,
       intl,
+      isFetching,
     } = this.props;
     const {
       stories
     } = this.state;
+
     return (<div>
       <Request
         withoutUser
@@ -128,6 +132,11 @@ class Stories extends Component {
                         totalCount: 'totalStoriesCount',
                       }}
                       clearTiles={this.clearStories}
+                      hubActions={{
+                        hubGetRequestStart: actions.getStoriesStart,
+                        hubGetRequestSuccess: actions.getStoriesSuccess,
+                        hubGetRequestError: actions.getStoriesError,
+                      }}
                       renderRightMenu={() => (
                         <div className="flex">
                           <Button text={intl.formatMessage(messages.submitStory)} onClickEvent={() => browserHistory.push(`/stories/${this.props.params.filterType}/create`)} />
@@ -135,12 +144,13 @@ class Stories extends Component {
                       )}
                       render={() => (
                         <Fragment>
-                          {fetchingContent ? <div>{intl.formatMessage(messages.loading)}</div> : null}
-                          {!fetchingContent && stories.length ?
+                          {isFetching ? <div>{intl.formatMessage(messages.loading)}</div> : null}
+                          {!isFetching &&
                             <StoryTiles
                               stories={stories}
                               updateReadingListInfo={this.updateReadingListInStories}
-                              isMobile={context.isMobile} /> : <div>{intl.formatMessage(messages.noStories)}</div>}
+                              isMobile={context.isMobile}
+                            />}
                         </Fragment>
                       )}
                     />
@@ -155,17 +165,20 @@ class Stories extends Component {
   }
 }
 
-
-
 const mapStateToProps = ({
   user,
+  stories,
 }) => ({
   user,
+  isFetching: stories.isFetching,
 });
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     validateResponseAccess,
+    getStoriesStart,
+    getStoriesSuccess,
+    getStoriesError,
   }, dispatch),
 });
 
