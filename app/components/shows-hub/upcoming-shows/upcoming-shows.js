@@ -48,19 +48,17 @@ class UpcomingShowsInHub extends Component {
 
   render() {
     const {
-    } = this.props;
-    const {
       upcomingShows,
     } = this.state;
+
     const sliderProps = upcomingShows ? getSliderProps(upcomingShows) : {};
-    return (<div>
-      <SloohSlider {...sliderProps} />
-      <style jsx>{style}</style>
-    </div>)
+    return upcomingShows.length ? (
+      <div>
+        <SloohSlider {...sliderProps} />
+        <style jsx>{style}</style>
+      </div>
+    ) : null;
   }
 }
-
-
-
 
 export default UpcomingShowsInHub;

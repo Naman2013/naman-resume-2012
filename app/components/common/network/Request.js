@@ -81,6 +81,7 @@ class Request extends Component {
     // will be called with the RAW API DATA as an argument
     // TODO: should we also provide error?
     serviceResponseHandler: PropTypes.func,
+    serviceFetchStartHandler: PropTypes.func,
 
     // object with the request body to be sent to the target API
     requestBody: PropTypes.shape({}),
@@ -111,6 +112,7 @@ class Request extends Component {
     method: POST,
     serviceExpiresFieldName: 'expires',
     serviceResponseHandler: null,
+    serviceFetchStartHandler: null,
     requestBody: {},
     withoutUser: false,
     userParams: [],
@@ -219,7 +221,14 @@ class Request extends Component {
       user,
       withoutUser,
       userParams,
+      serviceFetchStartHandler,
     } = this.props;
+
+    // handle fetch start
+    if (serviceFetchStartHandler) {
+      serviceFetchStartHandler();
+    }
+    
     this.tearDown();
     this.setState({ fetchingContent: true, serviceResponse: {} });
     this.source = CancelToken.source();
