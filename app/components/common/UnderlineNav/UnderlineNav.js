@@ -63,7 +63,7 @@ class UnderlineNav extends Component {
     } = this.props;
     const { activeIndex } = this.state;
     const dropdownOptions = navItems.map(item => ({ label: item.title, value: item.linkURL }));
-
+    
     return (
       <div className="root underlined-nav">
         <DisplayAtBreakpoint
