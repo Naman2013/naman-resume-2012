@@ -123,6 +123,7 @@ class Stories extends Component {
                       iconURL={serviceResponse.pageIconURL}
                       pageTitle={serviceResponse.pageTitle}
                       filterType={this.props.params.filterType}
+                      filterTypeFieldName="storyType"
                       responseFieldNames={{
                         currentCount: 'storiesCount',
                         totalCount: 'totalStoriesCount',
