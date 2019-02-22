@@ -1,23 +1,19 @@
-import React, { Fragment } from 'react';
-import PropTypes from 'prop-types';
 import DescriptionContainer from 'app/components/common/description-container';
+import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
 import LikeSomethingButton from 'app/components/common/LikeSomethingButton';
 import LabeledTitleTiles from 'app/components/common/style/LabeledTitleTiles';
-import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
-import { GridContainer, Row, StaticCell } from '../../../../../components/common/grid';
 import HostLongTile from 'app/components/HostLongTile';
-import like from 'app/services/community-content/like';
 import { romance } from 'app/styles/variables/colors_tiles_v4';
+import PropTypes from 'prop-types';
+import React from 'react';
+import {
+  GridContainer,
+  Row,
+  StaticCell,
+} from '../../../../../components/common/grid';
 import styles from '../StoryDetails.style';
 
-const {
-  arrayOf,
-  bool,
-  number,
-  oneOfType,
-  shape,
-  string,
-} = PropTypes;
+const { arrayOf, bool, number, oneOfType, shape, string } = PropTypes;
 
 const MainContainer = ({
   authorInfo,
@@ -33,11 +29,12 @@ const MainContainer = ({
   storyDetails,
   title,
   user,
+  likeStory,
 }) => {
   const contentFooter = () => (
     <div>
       <LikeSomethingButton
-        likeHandler={like}
+        likeHandler={likeStory}
         likesCount={likesCount}
         likePrompt={likePrompt}
         likeParams={likeParams}
@@ -49,41 +46,32 @@ const MainContainer = ({
   );
   return (
     <div className="main-root">
-      <DisplayAtBreakpoint
-          screenSmall
-        >
-          <LabeledTitleTiles
-            theme={{ backgroundColor: romance }}
-            tiles={storyDetails}
-            direction="column"
-          />
+      <DisplayAtBreakpoint screenSmall>
+        <LabeledTitleTiles
+          theme={{ backgroundColor: romance }}
+          tiles={storyDetails}
+          direction="column"
+        />
       </DisplayAtBreakpoint>
-      {storyDetails.length > 0 ? <DisplayAtBreakpoint
-        screenMedium
-        >
+      {storyDetails.length > 0 ? (
+        <DisplayAtBreakpoint screenMedium>
           <GridContainer theme={{ marginTop: '25px' }}>
             <Row>
-              <StaticCell
-                title={storyDetails[0].label}
-                flexScale={['100%']}
-              >
+              <StaticCell title={storyDetails[0].label} flexScale={['100%']}>
                 <p>{storyDetails[0].text}</p>
               </StaticCell>
             </Row>
             <Row>
-            <StaticCell
-              title={storyDetails[1].label}
-              flexScale={['50%']}
-              hasBorderScale={[false, true, false]}
-            >
-              <p>{storyDetails[1].text}</p>
-            </StaticCell>
-            <StaticCell
-              title={storyDetails[2].label}
-              flexScale={['50%']}
-            >
-              <p>{storyDetails[2].text}</p>
-            </StaticCell>
+              <StaticCell
+                title={storyDetails[1].label}
+                flexScale={['50%']}
+                hasBorderScale={[false, true, false]}
+              >
+                <p>{storyDetails[1].text}</p>
+              </StaticCell>
+              <StaticCell title={storyDetails[2].label} flexScale={['50%']}>
+                <p>{storyDetails[2].text}</p>
+              </StaticCell>
             </Row>
             <Row>
               <StaticCell flexScale={['100%']}>
@@ -99,7 +87,8 @@ const MainContainer = ({
               </StaticCell>
             </Row>
           </GridContainer>
-      </DisplayAtBreakpoint> : null}
+        </DisplayAtBreakpoint>
+      ) : null}
       <div className="shadowed">
         <DescriptionContainer
           content={content}

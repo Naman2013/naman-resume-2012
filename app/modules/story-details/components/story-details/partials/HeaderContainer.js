@@ -1,21 +1,13 @@
-import React from 'react';
+import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
+import LikeSomethingButton from 'app/components/common/LikeSomethingButton';
+import ToggleReadingList from 'app/components/common/ToggleReadingList';
+import { STORY } from 'app/services/reading-lists';
 import PropTypes from 'prop-types';
-import LikeSomethingButton from 'components/common/LikeSomethingButton';
-import ToggleReadingList from 'components/common/ToggleReadingList';
-import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
-import { STORY } from 'services/reading-lists';
-import like from 'services/community-content/like';
+import React from 'react';
 
 import styles from '../StoryDetails.style';
 
-const {
-  arrayOf,
-  bool,
-  number,
-  oneOfType,
-  shape,
-  string,
-} = PropTypes;
+const { arrayOf, bool, number, oneOfType, shape, string } = PropTypes;
 
 const HeaderContainer = ({
   authorInfo,
@@ -31,29 +23,41 @@ const HeaderContainer = ({
   readingListPrompt,
   showLikePrompt,
   title,
-  theme={},
+  theme = {},
   toggleReadingListFlag,
   user,
-}) =>
-  (<div className="header-container shadowed" style={theme}>
+  likeStory,
+}) => (
+  <div className="header-container shadowed" style={theme}>
     <div className="">
-      <div dangerouslySetInnerHTML={{ __html: title }} className="story-title" />
+      <div
+        dangerouslySetInnerHTML={{ __html: title }}
+        className="story-title"
+      />
       <div className="flex by-line">
         <DisplayAtBreakpoint screenMedium screenLarge screenXLarge>
-          <span className="author" dangerouslySetInnerHTML={{ __html: authorInfo.byline}} />
+          <span
+            className="author"
+            dangerouslySetInnerHTML={{ __html: authorInfo.byline }}
+          />
         </DisplayAtBreakpoint>
         <DisplayAtBreakpoint screenSmall>
-          <span className="author short" dangerouslySetInnerHTML={{ __html: authorInfo.shortByline}} />
+          <span
+            className="author short"
+            dangerouslySetInnerHTML={{ __html: authorInfo.shortByline }}
+          />
         </DisplayAtBreakpoint>
         <div className="flex actions">
-          {toggleReadingListFlag ? <ToggleReadingList
-            itemId={postId}
-            readingListType={STORY}
-            readingListPrompt={null}
-            promptIconUrl={promptIconUrl}
-          /> : null}
+          {toggleReadingListFlag ? (
+            <ToggleReadingList
+              itemId={postId}
+              readingListType={STORY}
+              readingListPrompt={null}
+              promptIconUrl={promptIconUrl}
+            />
+          ) : null}
           <LikeSomethingButton
-            likeHandler={like}
+            likeHandler={likeStory}
             likesCount={likesCount}
             likePrompt={likePrompt}
             likeParams={likeParams}
@@ -63,18 +67,23 @@ const HeaderContainer = ({
           />
         </div>
       </div>
-      {mainImage ? <div className="vert-line-container">
-        <div className="vert-line" />
+      {mainImage ? (
+        <div className="vert-line-container">
+          <div className="vert-line" />
           <div className="story-main-image-container">
             <div className="story-circle-container">
-              <img style={{ backgroundImage: `url(${mainImage})`}} className="story-main-image" />
+              <img
+                style={{ backgroundImage: `url(${mainImage})` }}
+                className="story-main-image"
+              />
             </div>
           </div>
-        </div> :
-        null}
+        </div>
+      ) : null}
     </div>
     <style jsx>{styles}</style>
-  </div>);
+  </div>
+);
 
 HeaderContainer.propTypes = {
   isDesktop: bool,

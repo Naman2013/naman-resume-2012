@@ -6,7 +6,7 @@ import {
   makePostSelector,
   makeStoryDetailsLoadingSelector,
 } from '../selectors';
-import { getStoryDetails } from '../thunks';
+import { getStoryDetails, likeStory } from '../thunks';
 
 const mapStateToProps = createStructuredSelector({
   isFetching: makeStoryDetailsLoadingSelector(),
@@ -15,6 +15,7 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = {
   getStoryDetails,
+  likeStory,
 };
 
 export default compose(

@@ -3,6 +3,7 @@ import { DeviceContext } from 'app/providers/DeviceProvider';
 import ConnectUserAndResponseAccess from 'app/redux/components/ConnectUserAndResponseAccess';
 import { STORY_DETAILS } from 'app/services/stories';
 import React, { Component, Fragment } from 'react';
+import {likeStory} from '../../thunks';
 import BootstrappedStoryDetails from './BootstrappedStoryDetails';
 
 export class StoryDetails extends Component {
@@ -17,7 +18,7 @@ export class StoryDetails extends Component {
   };
 
   render() {
-    const { params, post, isFetching } = this.props;
+    const { params, post, isFetching, likeStory } = this.props;
     return (
       <Fragment>
         {!isFetching && post && (
@@ -31,6 +32,7 @@ export class StoryDetails extends Component {
                       {...context}
                       {...post}
                       user={user}
+                      likeStory={likeStory}
                     />
                   )}
                 </DeviceContext.Consumer>

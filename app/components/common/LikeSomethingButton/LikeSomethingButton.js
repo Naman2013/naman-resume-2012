@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 import Modal from 'react-modal';
 import noop from 'lodash/noop';
 import { likeReply } from 'services/discussions/like';
-import LikeButton from 'components/common/style/buttons/LikeButton';
+import LikeButton from 'app/components/common/style/buttons/LikeButton';
 import { customModalStylesBlackOverlay } from 'styles/mixins/utilities';
 
 const {
