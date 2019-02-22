@@ -27,6 +27,7 @@ class ProfileActivity extends Component {
     }).isRequired,
     privateProfileData: shape({}).isRequired,
   };
+
   static defaultProps = {};
 
   getMissionDate = timestamp => moment.unix(timestamp).format('ddd. MMM. DD');
@@ -36,11 +37,19 @@ class ProfileActivity extends Component {
   render() {
     const { privateProfileData, activityData } = this.props;
     const {
-      missionsData, recentMissionsData, askAnAstronomerData,
+      missionsData,
+      recentMissionsData,
+      askAnAstronomerData,
     } = activityData;
     const {
-      showTopPicksForYou, topPicksForYouHeading, activeGroupsCount, activeGroupsList,
-      activeObjectsCount, activeObjectsList,
+      showTopPicksForYou,
+      topPicksForYouHeading,
+      activeGroupsCount,
+      activeGroupsList,
+      activeObjectsCount,
+      activeObjectsList,
+      topPicksForYouGroupsHeading,
+      topPicksForYouObjectsHeading,
     } = privateProfileData;
 
     return (
@@ -68,7 +77,10 @@ class ProfileActivity extends Component {
           <div className="profile-section">
             <CenterColumn>
               <ContainerWithTitle
-                title={recentMissionsData.recentMissionListHeading || 'Recent Missions'}
+                title={
+                  recentMissionsData.recentMissionListHeading ||
+                  'Recent Missions'
+                }
               >
                 {recentMissionsData.recentMissionList.map(item => (
                   <MissionTile
@@ -92,20 +104,26 @@ class ProfileActivity extends Component {
           </div>
         )}
 
-        {showTopPicksForYou &&
+        {showTopPicksForYou && (
           <div className="profile-section">
             <CenterColumn>
-              <ContainerWithTitle
-                title={topPicksForYouHeading}
-              >
+              <ContainerWithTitle title={topPicksForYouHeading}>
                 <Fragment>
-                  <ActiveGroups count={activeGroupsCount} list={activeGroupsList} />
-                  <ActiveObjects count={activeObjectsCount} list={activeObjectsList} />
+                  <ActiveGroups
+                    count={activeGroupsCount}
+                    list={activeGroupsList}
+                    header={topPicksForYouGroupsHeading}
+                  />
+                  <ActiveObjects
+                    count={activeObjectsCount}
+                    list={activeObjectsList}
+                    header={topPicksForYouObjectsHeading}
+                  />
                 </Fragment>
               </ContainerWithTitle>
             </CenterColumn>
           </div>
-        }
+        )}
         <style jsx>{styles}</style>
       </div>
     );
