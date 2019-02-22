@@ -9,7 +9,7 @@ import {
 import { getStoryDetails } from '../thunks';
 
 const mapStateToProps = createStructuredSelector({
-  loading: makeStoryDetailsLoadingSelector(),
+  isFetching: makeStoryDetailsLoadingSelector(),
   post: makePostSelector(),
 });
 
