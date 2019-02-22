@@ -1,13 +1,13 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import DescriptionContainer from 'components/common/description-container';
-import LikeSomethingButton from 'components/common/LikeSomethingButton';
-import LabeledTitleTiles from 'components/common/style/LabeledTitleTiles';
-import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
-import { GridContainer, Row, StaticCell } from '../../../components/common/grid';
-import HostLongTile from 'components/HostLongTile';
-import like from 'services/community-content/like';
-import { romance } from 'styles/variables/colors_tiles_v4';
+import DescriptionContainer from 'app/components/common/description-container';
+import LikeSomethingButton from 'app/components/common/LikeSomethingButton';
+import LabeledTitleTiles from 'app/components/common/style/LabeledTitleTiles';
+import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
+import { GridContainer, Row, StaticCell } from '../../../../../components/common/grid';
+import HostLongTile from 'app/components/HostLongTile';
+import like from 'app/services/community-content/like';
+import { romance } from 'app/styles/variables/colors_tiles_v4';
 import styles from '../StoryDetails.style';
 
 const {
