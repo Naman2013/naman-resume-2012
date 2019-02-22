@@ -22,9 +22,7 @@ export default handleActions(
     [TYPE.GET_STORY_DETAILS]: setFetching,
     [TYPE.GET_STORY_DETAILS_SUCCESS]: getStoryDetailsSuccess,
     [TYPE.GET_STORY_DETAILS_ERROR]: setServerError,
-    // [TYPE.LIKE_STORY]: setFetching,
     [TYPE.LIKE_STORY_SUCCESS]: getLikeStorySuccess,
-    // [TYPE.LIKE_STORY_ERROR]: setServerError,
   },
   initialState
 );
@@ -51,9 +49,8 @@ function getStoryDetailsSuccess(state, action) {
   };
 }
 
-function getLikeStorySuccess(state, action) {
+function getLikeStorySuccess(state) {
   const [post] = state.data.posts;
-  console.log(post);
   const prevLikeCount = post.likesCount;
   const newLikeCount = prevLikeCount + 1;
   return {
@@ -61,8 +58,5 @@ function getLikeStorySuccess(state, action) {
     data: {
       posts: [{ ...post, likesCount: newLikeCount }],
     },
-    // isFetching: false,
-    // isLoaded: true,
-    // data: action.payload,
   };
 }

@@ -104,7 +104,11 @@ class LikeHeartButton extends Component {
         token: user.token,
         at: user.at,
         cid: user.cid,
-      }).then(this.handleLikeResult);
+      }).then(res => {
+        if (res && res.data) {
+          return this.handleLikeResult(res);
+        }
+      });
     }
   }
 

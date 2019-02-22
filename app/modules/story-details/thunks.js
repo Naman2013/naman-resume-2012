@@ -14,6 +14,9 @@ export const likeStory = data => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
   dispatch(ACTION.likeStory());
   return like({ at, token, cid, ...data })
-    .then(result => dispatch(ACTION.likeStorySuccess(result.data)))
+    .then(result => {
+      dispatch(ACTION.likeStorySuccess(result.data));
+      return result.data;
+    })
     .catch(error => dispatch(ACTION.likeStoryError(error)));
 };
