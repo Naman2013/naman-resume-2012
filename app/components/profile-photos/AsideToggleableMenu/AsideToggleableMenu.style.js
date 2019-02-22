@@ -16,8 +16,8 @@ export default css`
     font-family: ${primaryFont};
     font-size: 11px;
     text-transform: uppercase;
-    overflow: hidden;
-    transition: width 0.3s;
+    overflow: visible;
+    transition: width .2s;
     transition-timing-function: ease-out;
   }
 
@@ -29,20 +29,18 @@ export default css`
     align-items: center;
     font-weight: bold;
     border-bottom: 1px solid ${shadows};
+    white-space: nowrap;
   }
 
   .options-list {
     display: flex;
+    width: 100%;
     flex: 1;
     flex-flow: column;
     align-items: center;
   }
 
-  .option-wrapper:hover {
-    background-color: lightgrey;
-  }
-
-  .option {
+  :global(.options-list .option) {
     height: 20%;
     width: 90%;
     display: flex;
@@ -51,6 +49,19 @@ export default css`
     background: transparent;
     border: none;
     border-bottom: 1px solid #d5d8dd;
+    text-transform: uppercase;
+    white-space: nowrap;
+    transition: opacity .1s ease-in-out;
+  }
+
+  :global(.options-list .option > button) {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    
+    background: transparent;
+    border: none;
     text-transform: uppercase;
     white-space: nowrap;
   }

@@ -16,29 +16,55 @@ import AsideToggleableMenu from '../AsideToggleableMenu';
 import messages from './PhotoRollCard.messages';
 import style from './PhotoRollCard.style';
 
-const optionsList = [
-  { label: 'Add to gallery',  },
-  { label: 'Delete image',  },
-  { label: 'Test',  },
-  { label: 'Test',  },
-  { label: 'Test',  },
-];
+function forceDownload(url, fileName) {
+  const xhr = new XMLHttpRequest();
+  xhr.open('GET', url, true);
+  xhr.responseType = 'blob';
+  xhr.onload = () => {
+    const urlCreator = window.URL || window.webkitURL;
+    const imageUrl = urlCreator.createObjectURL(this.response);
+    const tag = document.createElement('a');
+    tag.href = imageUrl;
+    tag.download = fileName;
+    document.body.appendChild(tag);
+    tag.click();
+    document.body.removeChild(tag);
+  };
+  xhr.send();
+}
 
 class PhotoRollCard extends Component {
   state = {
     menuIsVisible: false,
   }
 
-  downloadFile = () => {
-    const { currentItem: { imageURL } } = this.props;
+  get optionsList() {
+    return [
+      { label: 'Add to gallery', action: 'addToGallery' },
+      { label: 'Delete image', action: 'remove' },
+      { label: 'Test', },
+      { label: 'Test', },
+      { label: 'Test', },
+    ];
   }
 
-  toggleMenuVisibility = () =>
-    this.setState(prevState => ({ menuIsVisible: !prevState.menuIsVisible }));
+  downloadFile = () => {
+    const { currentItem: { imageURL } } = this.props;
+    forceDownload(imageURL, 'test.png');
+  }
+
+  toggleMenuVisibility = () => {
+    if (this.state.menuIsVisible) this.setState({ menuIsVisible: false });
+    else this.setState({ menuIsVisible: true });
+  }
+
+  componentDidMount() {
+    this.setState({ width: this.blockWidth.clientWidth }, () => console.log(this.state.width));
+  }
 
   render() {
     const { index, isDesktop, isMobile, currentItem: observation, user } = this.props;
-    const { menuIsVisible } = this.state;
+    const { menuIsVisible, width } = this.state;
 
     const inCenter = index % 3 === 1;
 
@@ -58,6 +84,7 @@ class PhotoRollCard extends Component {
         <div 
           className="photoRollCard"
           role={isMobile ? 'button' : 'article'}
+          ref={(node) => { this.blockWidth = node; }}
           onClick={isMobile
             ? () => browserHistory.push(`/my-pictures/show-image/${customerImageId}/${token}`)
             : noop
@@ -65,11 +92,13 @@ class PhotoRollCard extends Component {
         >
           <div className="square-container">
             <div className="image" style={{ backgroundImage: `url(${imageURL})` }}>
-              <div className="onhover-overlay">
+              <div className="onhover-overlay" onClick={this.toggleMenuVisibility}>
                 <AsideToggleableMenu
+                  blockWidth={width}
                   visible={menuIsVisible}
-                  optionsList={optionsList}
+                  optionsList={this.optionsList}
                   toggleMenuVisibility={this.toggleMenuVisibility}
+                  {...this.props}
                 />
                 <div className="circle" />
                 <div className="overlay-top">
@@ -90,7 +119,7 @@ class PhotoRollCard extends Component {
                   />
                   <div style={{ display: 'flex' }}>
                     <Button
-                      onClickEvent={this.downloadFile}
+                      onClickEvent={forceDownload}
                       theme={{ borderColor: '#fff', marginRight: 10 }}
                       icon="https://vega.slooh.com/assets/v4/icons/download.svg"
                     />
@@ -123,6 +152,7 @@ PhotoRollCard.propTypes = {
   isMobile: bool.isRequired,
   currentItem: shape({}).isRequired,
   user: shape({}).isRequired,
+  count: number.isRequired,
 };
 
 export default PhotoRollCard;
