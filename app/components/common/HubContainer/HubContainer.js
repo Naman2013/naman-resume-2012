@@ -31,7 +31,7 @@ const getDefaultIndex = (set, item) => {
   return idx < 0 ? 0 : idx;
 };
 
-const QUERY_TYPES = ['sort'];
+const QUERY_TYPES = ['sort', 'page'];
 
 class HubContainer extends Component {
   static propTypes = {
@@ -90,15 +90,15 @@ class HubContainer extends Component {
     responseFieldNames: {},
     validateResponseAccess: noop,
     clearTiles: noop,
-    useSort:true,
-    showHeaderIcon:true,
-    pageTitleTheme:{},
+    useSort: true,
+    showHeaderIcon: true,
+    pageTitleTheme: {},
     callSource: '',
     hubActions: null,
   };
 
   state = {
-    page: 1,
+    page: this.props.location.query.page || 1,
     sort: this.props.location.query.sort || 'atoz',
     defaultSortIndex: getDefaultIndex(this.props.sortOptions, this.props.location.query.sort || 'atoz'),
   }
@@ -155,9 +155,8 @@ class HubContainer extends Component {
 
   handlePaginationChange = ({ activePage }) => {
     this.setState((state) => {
-      // TODO: preserve page in query params
-      // const query = Object.assign({}, state, { page: activePage });
-      // this.setQueryParams(pick(query, QUERY_TYPES));
+      const query = Object.assign({}, state, { page: activePage });
+      this.setQueryParams(pick(query, QUERY_TYPES));
       return ({
         page: activePage,
       });
@@ -208,8 +207,8 @@ class HubContainer extends Component {
           icon={iconURL}
           title={pageTitle}
           renderRightMenu={renderRightMenu}
-          showIcon = {showHeaderIcon}
-          titleTheme = {pageTitleTheme}
+          showIcon={showHeaderIcon}
+          titleTheme={pageTitleTheme}
           renderNav={() => (
             <div className="navigation-bar">
               <UnderlineNav
@@ -229,41 +228,41 @@ class HubContainer extends Component {
         />
         <div>
           {render()}
-            {!this.props.isCreateMode ?
-              <div className="pagination-container">
-                {!isMobile ?
-                  <PaginateWithNetwork
-                    apiURL={paginateURL}
-                    activePageNumber={Number(page)}
-                    onServiceResponse={this.handlePaginationResponse}
-                    onPaginationChange={this.handlePaginationChange}
-                    hubActions={hubActions}
-                    filterOptions={{
-                      ...(useSort? {sortBy:sort} : {}),
-                      page,
-                      count: 9,
-                      [filterTypeFieldName]: filterType,
-                      callSource
-                    }}
-                  />
-                : <ShowMoreWithNetwork
-                    apiURL={paginateURL}
-                    activePageNumber={Number(page)}
-                    onServiceResponse={this.handleShowMoreResponse}
-                    onPaginationChange={this.handlePaginationChange}
-                    hubActions={hubActions}
-                    responseFieldNames={responseFieldNames}
-                    validateResponseAccess={this.validateResponseAccess}
-                    user={user}
-                    filterOptions={{
-                      ...(useSort? {sortBy:sort} : {}),
-                      type: filterType,
-                      count: 5,
-                      [filterTypeFieldName]: filterType,
-                      callSource
-                    }}
-                />}
-              </div>: null}
+          {!this.props.isCreateMode ?
+            <div className="pagination-container">
+              {!isMobile ?
+                <PaginateWithNetwork
+                  apiURL={paginateURL}
+                  activePageNumber={Number(page)}
+                  onServiceResponse={this.handlePaginationResponse}
+                  onPaginationChange={this.handlePaginationChange}
+                  hubActions={hubActions}
+                  filterOptions={{
+                    ...(useSort ? { sortBy: sort } : {}),
+                    page,
+                    count: 9,
+                    [filterTypeFieldName]: filterType,
+                    callSource
+                  }}
+                />
+              : <ShowMoreWithNetwork
+                apiURL={paginateURL}
+                activePageNumber={Number(page)}
+                onServiceResponse={this.handleShowMoreResponse}
+                onPaginationChange={this.handlePaginationChange}
+                hubActions={hubActions}
+                responseFieldNames={responseFieldNames}
+                validateResponseAccess={this.validateResponseAccess}
+                user={user}
+                filterOptions={{
+                  ...(useSort ? { sortBy: sort } : {}),
+                  type: filterType,
+                  count: 5,
+                  [filterTypeFieldName]: filterType,
+                  callSource
+                }}
+              />}
+            </div> : null}
         </div>
         <style jsx>{style}</style>
       </div>
