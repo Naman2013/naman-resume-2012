@@ -50,27 +50,27 @@ const MainContainer = ({
   return (
     <div className="main-root">
       <DisplayAtBreakpoint
-          screenSmall
-        >
-          <LabeledTitleTiles
-            theme={{ backgroundColor: romance }}
-            tiles={storyDetails}
-            direction="column"
-          />
+        screenSmall
+      >
+        <LabeledTitleTiles
+          theme={{ backgroundColor: romance }}
+          tiles={storyDetails}
+          direction="column"
+        />
       </DisplayAtBreakpoint>
       {storyDetails.length > 0 ? <DisplayAtBreakpoint
         screenMedium
-        >
-          <GridContainer theme={{ marginTop: '25px' }}>
-            <Row>
-              <StaticCell
-                title={storyDetails[0].label}
-                flexScale={['100%']}
-              >
-                <p>{storyDetails[0].text}</p>
-              </StaticCell>
-            </Row>
-            <Row>
+      >
+        <GridContainer theme={{ marginTop: '25px' }}>
+          <Row>
+            <StaticCell
+              title={storyDetails[0].label}
+              flexScale={['100%']}
+            >
+              <p>{storyDetails[0].text}</p>
+            </StaticCell>
+          </Row>
+          <Row>
             <StaticCell
               title={storyDetails[1].label}
               flexScale={['50%']}
@@ -84,24 +84,25 @@ const MainContainer = ({
             >
               <p>{storyDetails[2].text}</p>
             </StaticCell>
-            </Row>
-            <Row>
-              <StaticCell flexScale={['100%']}>
-                <HostLongTile
-                  hostGravity={authorInfo.gravity}
-                  hostName={authorInfo.displayName}
-                  hostPhotoURL={authorInfo.iconUrl}
-                  hostTitle={authorInfo.gravityLabel}
-                  hostURL={authorInfo.linkUrl}
-                  isDesktop={isDesktop}
-                  title={authorInfo.label}
-                />
-              </StaticCell>
-            </Row>
-          </GridContainer>
+          </Row>
+          <Row>
+            <StaticCell flexScale={['100%']}>
+              <HostLongTile
+                hostGravity={authorInfo.gravity}
+                hostName={authorInfo.displayName}
+                hostPhotoURL={authorInfo.iconUrl}
+                hostTitle={authorInfo.gravityLabel}
+                hostURL={authorInfo.linkUrl}
+                isDesktop={isDesktop}
+                title={authorInfo.label}
+              />
+            </StaticCell>
+          </Row>
+        </GridContainer>
       </DisplayAtBreakpoint> : null}
       <div className="shadowed">
         <DescriptionContainer
+          title={title}
           content={content}
           theme={{ backgroundColor: romance, 'margin-top': '25px' }}
           footer={contentFooter}

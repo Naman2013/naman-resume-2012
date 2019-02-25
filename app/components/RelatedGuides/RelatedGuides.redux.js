@@ -31,13 +31,15 @@ class RelatedGuides extends Component {
     serviceUrl: string,
     isDesktop: bool,
     slugLookupId: oneOfType([string, number]),
-    showId: oneOfType([string, number])
+    showId: oneOfType([string, number]),
+    maxCount: number,
   };
   static defaultProps = {
     serviceUrl: RELATED_GUIDES,
     isDesktop: false,
     showId: null,
     slugLookupId: null,
+    maxCount: 3,
   };
 
   render() {
@@ -47,6 +49,7 @@ class RelatedGuides extends Component {
       user,
       slugLookupId,
       showId,
+      maxCount,
     } = this.props;
 
     return (
@@ -61,6 +64,7 @@ class RelatedGuides extends Component {
           at: user.at,
           slugLookupId,
           showId,
+          maxCount,
         }}
         render={({
           fetchingContent,
