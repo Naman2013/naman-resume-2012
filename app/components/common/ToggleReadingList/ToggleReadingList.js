@@ -55,7 +55,7 @@ class ToggleReadingList extends Component {
       if (!res.data.apiError) {
         updateReadingInfoInList(
           res.data.listItemId,
-          pick(res.data, RESPONSE_FIELDS)
+          pick(res.data, RESPONSE_FIELDS),
         );
         this.setState(() => ({
           icon: res.data.promptIconUrl,

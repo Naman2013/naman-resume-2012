@@ -266,7 +266,7 @@ class TelescopeImageLoader extends Component {
         <div className="bottom-image">
           <img
             alt=""
-            height={viewportHeight}
+            width="100%"
             src={previousImageUrl}
             draggable="false"
           />

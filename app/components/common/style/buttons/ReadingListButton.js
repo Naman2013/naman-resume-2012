@@ -5,21 +5,12 @@ import GenericButton from './Button';
 import { DeviceContext } from 'providers/DeviceProvider';
 
 const {
-  bool,
-  func,
-  number,
-  oneOfType,
-  string,
+  bool, func, number, oneOfType, string,
 } = PropTypes;
 
 const ReadingListButton = ({ icon, text, onClickEvent }) => (
   <Fragment>
-    <GenericButton
-      theme={{ height: '40px' }}
-      onClickEvent={onClickEvent}
-      text={text}
-      icon={icon}
-    />
+    <GenericButton theme={{ height: '40px' }} onClickEvent={onClickEvent} text={text} icon={icon} />
   </Fragment>
 );
 

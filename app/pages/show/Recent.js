@@ -10,13 +10,15 @@ import PropTypes from 'prop-types';
 import { injectIntl, intlShape } from 'react-intl';
 import ThreeTabbedNav from 'components/ThreeTabbedNav';
 import TwoTabbedNav from 'components/TwoTabbedNav';
+import CenterColumn from 'components/common/CenterColumn';
 import LabeledTitleTiles from 'components/common/style/LabeledTitleTiles';
 import MonotonousTile from 'components/common/tiles/MonotonousTile'
 import VideoImageLoader from 'components/common/telescope-image-loader/video-image-loader';
 import ResponsiveTwoColumnContainer from 'components/ResponsiveTwoColumnContainer';
 import MainContainerWithDiscussions from './partials/MainContainerWithDiscussions';
 import AsideContainerDetailsOnly from './partials/AsideContainerDetailsOnly';
-import { romance } from 'styles/variables/colors_tiles_v4';
+import { romance, seashell } from 'styles/variables/colors_tiles_v4';
+
 import styles from './Show.style';
 import messages from './Show.messages';
 
@@ -98,6 +100,7 @@ class RecentShow extends Component {
       showStreamCode,
       showStreamURL,
       title,
+      tagLine,
       intl,
     } = this.props;
 
@@ -111,68 +114,74 @@ class RecentShow extends Component {
 
 
     return (
-      <div className="root">
-        <div className="big-box">
-          <div className="show-video-container">
-            <VideoImageLoader
-              teleStreamCode={showStreamCode}
-              teleStreamURL={showStreamURL}
-              teleStreamThumbnailVideoWidth="800"
-              teleStreamThumbnailVideoHeight="550"
+      <CenterColumn theme={{ backgroundColor: seashell }} theme={{ paddingTop: '25px' }}>
+        <div className="root">
+          <div className="big-box">
+            <div className="show-video-container">
+              <VideoImageLoader
+                teleStreamCode={showStreamCode}
+                teleStreamURL={showStreamURL}
+                teleStreamThumbnailVideoWidth="800"
+                teleStreamThumbnailVideoHeight="550"
+                showVideoControls={1}
+                autoPlay={0}
+                title={title}
+                subtitle={tagLine}
+              />
+            </div>
+            <MonotonousTile label={headerLabel} text={title} />
+            <div className="hide-on-mobile">
+              <LabeledTitleTiles
+                theme={{ margin: isDesktop ? 0 : '15px', backgroundColor: romance }}
+                tiles={showInfoTiles.list}
+                direction="row"
+              />
+            </div>
+          </div>
+          <div className="recent-main-container">
+            <ResponsiveTwoColumnContainer
+              renderNavigationComponent={() => (
+                <div className="full-width">{hasDiscussionThread ? (
+                  <ThreeTabbedNav
+                    firstTitle={intl.formatMessage(messages.About)}
+                    secondTitle={intl.formatMessage(messages.Comments)}
+                    thirdTitle={intl.formatMessage(messages.Details)}
+                    firstTabIsActive={aboutIsActive}
+                    firstTabOnClick={this.showAbout}
+                    secondTabIsActive={commentsIsActive}
+                    secondTabOnClick={this.showComments}
+                    thirdTabIsActive={detailsIsActive}
+                    thirdTabOnClick={this.showDetails}
+                  />
+                ) : (
+                  <TwoTabbedNav
+                    firstTitle={intl.formatMessage(messages.About)}
+                    secondTitle={intl.formatMessage(messages.Details)}
+                    firstTabIsActive={aboutIsActive}
+                    firstTabOnClick={this.showAbout}
+                    secondTabIsActive={detailsIsActive}
+                    secondTabOnClick={this.showDetails}
+                  />
+                )}
+                </div>)
+              }
+              renderAsideContent={() => (<AsideContainerDetailsOnly
+                {...this.props}
+              />)}
+              isScreenLarge={isScreenLarge}
+              renderMainContent={() => (<MainContainerWithDiscussions
+                {...this.props}
+                selectedTab={selectedTab}
+                handleSelect={this.handleSelect}
+                aboutIsActive={aboutIsActive}
+                commentsIsActive={commentsIsActive}
+                detailsIsActive={detailsIsActive}
+              />)}
             />
           </div>
-          <MonotonousTile label={headerLabel} text={title} />
-          <div className="hide-on-mobile">
-            <LabeledTitleTiles
-              theme={{ margin: isDesktop ? 0 : '15px', backgroundColor: romance }}
-              tiles={showInfoTiles.list}
-              direction="row"
-            />
-          </div>
+          <style jsx>{styles}</style>
         </div>
-        <div className="recent-main-container">
-          <ResponsiveTwoColumnContainer
-            renderNavigationComponent={() => (
-              <div className="full-width">{hasDiscussionThread ? (
-                <ThreeTabbedNav
-                  firstTitle={intl.formatMessage(messages.About)}
-                  secondTitle={intl.formatMessage(messages.Comments)}
-                  thirdTitle={intl.formatMessage(messages.Details)}
-                  firstTabIsActive={aboutIsActive}
-                  firstTabOnClick={this.showAbout}
-                  secondTabIsActive={commentsIsActive}
-                  secondTabOnClick={this.showComments}
-                  thirdTabIsActive={detailsIsActive}
-                  thirdTabOnClick={this.showDetails}
-                />
-              ) : (
-                <TwoTabbedNav
-                  firstTitle={intl.formatMessage(messages.About)}
-                  secondTitle={intl.formatMessage(messages.Details)}
-                  firstTabIsActive={aboutIsActive}
-                  firstTabOnClick={this.showAbout}
-                  secondTabIsActive={detailsIsActive}
-                  secondTabOnClick={this.showDetails}
-                />
-              )}
-              </div>)
-            }
-            renderAsideContent={() => (<AsideContainerDetailsOnly
-              {...this.props}
-            />)}
-            isScreenLarge={isScreenLarge}
-            renderMainContent={() => (<MainContainerWithDiscussions
-              {...this.props}
-              selectedTab={selectedTab}
-              handleSelect={this.handleSelect}
-              aboutIsActive={aboutIsActive}
-              commentsIsActive={commentsIsActive}
-              detailsIsActive={detailsIsActive}
-            />)}
-          />
-        </div>
-        <style jsx>{styles}</style>
-      </div>
+      </CenterColumn>
     );
   }
 }

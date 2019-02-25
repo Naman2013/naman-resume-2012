@@ -83,32 +83,38 @@ class LiveShowVideoViewer extends Component {
 
     return (
       <div className="root">
+        <TabPanel
+          forceRender
+          className={classnames({
+            'active-tele-tab': selectedTab === 0,
+            'inactive-tele-tab': selectedTab !== 0,
+          })}
+        >
+          <div
+            style={videoContainerStyle}
+            className="live-video-container"
+          >
+            {showStreamCode && showStreamURL ? (
+              <ShowVideoImageLoader
+                teleStreamCode={showStreamCode}
+                teleStreamURL={showStreamURL}
+                showVideoControls={1}
+                showInfo={1}
+                autoplay={0}
+              />
+            ) : null}
+          </div>
+        </TabPanel>
+        {additionalFeeds.map((feed, i) => (
           <TabPanel
-            forceRender={true}
+            key={uniqueId()}
+            forceRender
             className={classnames({
-              'active-tele-tab': selectedTab === 0,
-              'inactive-tele-tab': selectedTab !== 0,
+              'active-tele-tab': selectedTab === i + 1,
+              'inactive-tele-tab': selectedTab !== i + 1,
             })}
           >
-            <div
-              style={videoContainerStyle}
-              className="live-video-container"
-            >
-              {showStreamCode && showStreamURL ? (
-                <ShowVideoImageLoader
-                  teleStreamCode={showStreamCode}
-                  teleStreamURL={showStreamURL}
-                  showVideoControls={1}
-                  showInfo={1}
-                />
-              ) : null}
-            </div>
-          </TabPanel>
-          {additionalFeeds.map(feed => (
-            <TabPanel
-              key={uniqueId()}
-            >
-              <div style={videoContainerStyle} className="live-video-container">
+            <div style={videoContainerStyle} className="live-video-container">
               {feed.imageSourceType === 'video' ?
                 <ShowVideoImageLoader
                   teleStreamCode={feed.videoStreamCode}
@@ -117,9 +123,8 @@ class LiveShowVideoViewer extends Component {
                   teleSystem={feed.systemId}
                   telePort={feed.SSEport}
                   callSource="situationRoom"
-
                 />
-              : // else feed.imageSourceType === 'SSE'
+                : // else feed.imageSourceType === 'SSE'
                 <TelescopeImageViewer
                   teleSystem={feed.systemId}
                   telePort={feed.SSEport}
@@ -133,9 +138,9 @@ class LiveShowVideoViewer extends Component {
                   callSource="situationRoom"
                 />
               }
-              </div>
-            </TabPanel>
-          ))}
+            </div>
+          </TabPanel>
+        ))}
         <style jsx>{styles}</style>
       </div>
     );

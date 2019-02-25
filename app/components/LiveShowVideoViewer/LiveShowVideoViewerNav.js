@@ -101,7 +101,7 @@ class LiveShowVideoViewerNav extends Component {
   handleChange = (selectedOption) => {
     this.props.handleSelect(Number(selectedOption.value));
   };
-
+  
   render() {
     const {
       additionalFeeds,
@@ -133,14 +133,19 @@ class LiveShowVideoViewerNav extends Component {
           ) : (
             <TabList className="tablist">
               <Tab>
-                <div className="show-tab live-show">
-                  <div className="tab-icon" style={getInlineBgStyle(EventIconUrl)} />
+                <div className="tab-wrapper">
+                  <div className="show-tab live-show">
+                    <div className="tab-icon" style={getInlineBgStyle(EventIconUrl)} />
+                  </div>
                 </div>
               </Tab>
-              {additionalFeeds.map(feed => (
-                <Tab key={uniqueId()}>
-                  <div className="show-tab">
-                    <div className="tab-icon" style={getInlineBgStyle(feed.tabIconURL)} />
+              {additionalFeeds.map((feed, index) => (
+                <Tab key={index}>
+                  <div className="tab-wrapper">
+                    <div className="tab-description">{feed.tabDesc}</div>
+                    <div className="show-tab">
+                      <div className="tab-icon" style={getInlineBgStyle(feed.tabIconURL)} />
+                    </div>
                   </div>
                 </Tab>
               ))}

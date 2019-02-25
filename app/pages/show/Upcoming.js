@@ -12,11 +12,12 @@ import ThreeTabbedNav from 'components/ThreeTabbedNav';
 import TwoTabbedNav from 'components/TwoTabbedNav';
 import LabeledTitleTiles from 'components/common/style/LabeledTitleTiles';
 import MonotonousTile from 'components/common/tiles/MonotonousTile'
+import CenterColumn from 'components/common/CenterColumn';
 import VideoImageLoader from 'components/common/telescope-image-loader/video-image-loader';
 import ResponsiveTwoColumnContainer from 'components/ResponsiveTwoColumnContainer';
 import MainContainerWithDiscussions from './partials/MainContainerWithDiscussions';
 import AsideContainerDetailsOnly from './partials/AsideContainerDetailsOnly';
-import { romance } from 'styles/variables/colors_tiles_v4';
+import { romance, seashell } from 'styles/variables/colors_tiles_v4';
 import styles from './Show.style';
 import messages from './Show.messages';
 
@@ -112,63 +113,65 @@ class UpcomingShow extends Component {
 
 
     return (
-      <div className="root">
-        <div className="big-box">
-          <div className="big-box-background">
-            <span className="big-box-header" dangerouslySetInnerHTML={{ __html: tagLine }} />
-            <span className="big-box-title" dangerouslySetInnerHTML={{ __html: title }} />
+      <CenterColumn theme={{ backgroundColor: seashell }} theme={{ paddingTop: '25px' }}>
+        <div className="root">
+          <div className="big-box">
+            <div className="big-box-background">
+              <span className="big-box-header" dangerouslySetInnerHTML={{ __html: tagLine }} />
+              <span className="big-box-title" dangerouslySetInnerHTML={{ __html: title }} />
+            </div>
+            <div className="hide-on-mobile">
+              <LabeledTitleTiles
+                theme={{ margin: isDesktop ? 0 : '15px', backgroundColor: romance }}
+                tiles={showInfoTiles.list}
+                direction="row"
+              />
+            </div>
           </div>
-          <div className="hide-on-mobile">
-            <LabeledTitleTiles
-              theme={{ margin: isDesktop ? 0 : '15px', backgroundColor: romance }}
-              tiles={showInfoTiles.list}
-              direction="row"
+          <div className="recent-main-container">
+            <ResponsiveTwoColumnContainer
+              renderNavigationComponent={() => (
+                <div className="full-width">{hasDiscussionThread ? (
+                  <ThreeTabbedNav
+                    firstTitle={intl.formatMessage(messages.About)}
+                    secondTitle={intl.formatMessage(messages.Comments)}
+                    thirdTitle={intl.formatMessage(messages.Details)}
+                    firstTabIsActive={aboutIsActive}
+                    firstTabOnClick={this.showAbout}
+                    secondTabIsActive={commentsIsActive}
+                    secondTabOnClick={this.showComments}
+                    thirdTabIsActive={detailsIsActive}
+                    thirdTabOnClick={this.showDetails}
+                  />
+                ) : (
+                  <TwoTabbedNav
+                    firstTitle={intl.formatMessage(messages.About)}
+                    secondTitle={intl.formatMessage(messages.Details)}
+                    firstTabIsActive={aboutIsActive}
+                    firstTabOnClick={this.showAbout}
+                    secondTabIsActive={detailsIsActive}
+                    secondTabOnClick={this.showDetails}
+                  />
+                )}
+                </div>
+              )}
+              renderAsideContent={() => (<AsideContainerDetailsOnly
+                {...this.props}
+              />)}
+              isScreenLarge={isScreenLarge}
+              renderMainContent={() => (<MainContainerWithDiscussions
+                {...this.props}
+                selectedTab={selectedTab}
+                handleSelect={this.handleSelect}
+                aboutIsActive={aboutIsActive}
+                commentsIsActive={commentsIsActive}
+                detailsIsActive={detailsIsActive}
+              />)}
             />
           </div>
+          <style jsx>{styles}</style>
         </div>
-        <div className="recent-main-container">
-          <ResponsiveTwoColumnContainer
-            renderNavigationComponent={() => (
-              <div className="full-width">{hasDiscussionThread ? (
-                <ThreeTabbedNav
-                  firstTitle={intl.formatMessage(messages.About)}
-                  secondTitle={intl.formatMessage(messages.Comments)}
-                  thirdTitle={intl.formatMessage(messages.Details)}
-                  firstTabIsActive={aboutIsActive}
-                  firstTabOnClick={this.showAbout}
-                  secondTabIsActive={commentsIsActive}
-                  secondTabOnClick={this.showComments}
-                  thirdTabIsActive={detailsIsActive}
-                  thirdTabOnClick={this.showDetails}
-                />
-              ) : (
-                <TwoTabbedNav
-                  firstTitle={intl.formatMessage(messages.About)}
-                  secondTitle={intl.formatMessage(messages.Details)}
-                  firstTabIsActive={aboutIsActive}
-                  firstTabOnClick={this.showAbout}
-                  secondTabIsActive={detailsIsActive}
-                  secondTabOnClick={this.showDetails}
-                />
-              )}
-              </div>
-            )}
-            renderAsideContent={() => (<AsideContainerDetailsOnly
-              {...this.props}
-            />)}
-            isScreenLarge={isScreenLarge}
-            renderMainContent={() => (<MainContainerWithDiscussions
-              {...this.props}
-              selectedTab={selectedTab}
-              handleSelect={this.handleSelect}
-              aboutIsActive={aboutIsActive}
-              commentsIsActive={commentsIsActive}
-              detailsIsActive={detailsIsActive}
-            />)}
-          />
-        </div>
-        <style jsx>{styles}</style>
-      </div>
+      </CenterColumn>
     );
   }
 }
