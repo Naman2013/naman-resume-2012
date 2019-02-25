@@ -2,15 +2,15 @@ import { defineMessages } from 'react-intl';
 import { type Messages } from '../../../utils/i18n/MessageDescriptor';
 
 const messages: Messages = {
-  AskAnAstronomer: {
-    id: 'AskAnAstronomer.AskAnAstronomer',
-    defaultMessage: 'Ask an Astronomer',
-    description: 'Title',
+  ReadMore: {
+    id: 'Objects.ReadMore',
+    defaultMessage: 'Loading',
+    description: 'Label to extand text',
   },
-  Done: {
-    id: 'AskAnAstronomer.Done',
-    defaultMessage: 'Done',
-    description: 'Done button',
+  ReadLess: {
+    id: 'Objects.ReadLess',
+    defaultMessage: 'read less',
+    description: 'Label to shrink text',
   },
 };
 

@@ -119,11 +119,17 @@ class SubmitReplyReplyButton extends Component {
   handleSubmitReply = (data) => {
     // set the AskAstronomer.js [parent] modal to say a success or error message
     const { modalActions, intl, updateQuestionsList } = this.props;
-    const message = data.apiError ? `${intl.formatMessage(messages.Error)}!
-    <p>${intl.formatMessage(messages.AnswerErrorText)}</p>` : `${intl.formatMessage(messages.Success)}!
-    <p>${intl.formatMessage(messages.ReplySuccessText)}</p>`;
+    const message = `${data.responseLabel}
+    <p>${data.responseText}</p>`;
+
     modalActions.setModal({
-      promptComponent: <SubmitReplyFeedbackModal modalActions={modalActions} message={message} updateQuestionsList={updateQuestionsList} />,
+      promptComponent: <SubmitReplyFeedbackModal
+        title={data.responseTitle}
+        doneButtonLabel={data.doneButtonLabel}
+        modalActions={modalActions}
+        message={message}
+        updateQuestionsList={updateQuestionsList}
+      />,
       promptStyles: customModalStylesBlackOverlay,
     });
     modalActions.showModal();
