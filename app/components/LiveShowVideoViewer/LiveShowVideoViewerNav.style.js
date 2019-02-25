@@ -13,12 +13,14 @@ export default css`
 
   :global(.live-show .tablist) {
     padding: 0;
+    display: flex;
     ${faintShadow}
   }
 
   .show-tab {
     margin: 0 auto;
-    margin-top: 10px;
+    margin-bottom: 5px;
+    margin-top: 20px;
     background-color: ${astronaut};
     height: 50px;
     width: 50px;
@@ -50,7 +52,6 @@ export default css`
   :global(.react-tabs__tab) {
     width: 120px;
     vertical-align: top;
-    height: 140px;
     border-left: 1px solid ${geyser};
     
   }
@@ -105,8 +106,12 @@ export default css`
   .tab-wrapper {
     height: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     flex-direction: column;
+  }
+
+  :global(.live-show .tablist > li:first-child > div) {
+    justify-content: center;
   }
 `;

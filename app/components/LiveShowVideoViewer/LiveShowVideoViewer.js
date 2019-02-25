@@ -97,7 +97,6 @@ class LiveShowVideoViewer extends Component {
         </TabPanel>
         {currentFeed && (
           <TabPanel
-            key={uniqueId()}
             forceRender
             className={classnames('active-tele-tab')}
           >

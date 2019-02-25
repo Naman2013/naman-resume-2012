@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { astronaut } from '../../../styles/variables/colors_tiles_v4'
 import TelescopeThumbnailView from '../../TelescopeThumbnailView';
 import { updateTelescopeActiveMission, setActiveTelescopeMissionID } from '../../../modules/active-telescope-missions/active-telescope-missions-actions';
 import { setImageDataToSnapshot } from '../../../modules/starshare-camera/starshare-camera-actions';
@@ -54,6 +55,7 @@ class TelescopeImageLoader extends Component {
     firstLoad: true,
     adjustedFade: 0, // duration of fade in of new image
     startingOpacity: null, // starting opacity of the new image
+    loading: true,
   };
 
   componentWillMount() {
@@ -67,6 +69,7 @@ class TelescopeImageLoader extends Component {
   componentDidUpdate() {
     if (this.props.imageSource !== this.previouslyRenderedImageSource) {
       this.props.actions.resetActiveSSE();
+      this.setState({ loading: true });
       this.rebuildSSE(this.props.imageSource);
       return;
     }
@@ -219,6 +222,7 @@ class TelescopeImageLoader extends Component {
         messageText,
         statusCode,
         firstLoad: false,
+        loading: false,
       });
     }
   }
@@ -251,13 +255,14 @@ class TelescopeImageLoader extends Component {
       previousImageUrl,
       startingOpacity,
       adjustedFade,
+      loading,
     } = this.state;
 
     const { loadThumbnails, viewportHeight } = this.props;
 
-    if (!currentImageUrl || !previousImageUrl) {
-      return null;
-    }
+    // if (!currentImageUrl || !previousImageUrl) {
+    //   return null;
+    // }
 
     if (loadThumbnails) {
       return (
@@ -272,37 +277,61 @@ class TelescopeImageLoader extends Component {
 
     return (
       <div className="sse-thumbnails">
-        <div className="bottom-image">
-          <img
-            alt=""
-            width="100%"
-            src={previousImageUrl}
-            draggable="false"
-          />
+          <div className="wrapper">
+            {loading ? (
+              <p>Loading...</p>
+            ) : (
+              <div className="bottom-image">
+                <img
+                  alt=""
+                  width="100%"
+                  src={previousImageUrl}
+                  draggable="false"
+                />
 
-          <div className="top-image">
-            <img
-              alt=""
-              height={viewportHeight}
-              id={this.generateImageId()}
-              draggable="false"
-            />
+                <div className="top-image">
+                  <img
+                    alt=""
+                    height={viewportHeight}
+                    id={this.generateImageId()}
+                    draggable="false"
+                  />
+                </div>
+              </div>
+            )}
           </div>
-        </div>
-
         <style jsx>{`
           .sse-thumbnails {
             position: relative;
           }
 
           .bottom-image {
-            position: relative;
+            position: absolute;
+            width: 95%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
           }
 
           .top-image {
             position: absolute;
             top: 0;
             transition: opacity ease-in-out;
+          }
+
+          .wrapper {
+            padding: 10px;
+            position: relative;
+            padding-bottom: 75%;
+          }
+
+          .wrapper p {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: ${astronaut};
+            z-index: 100;
           }
         `}
         </style>
