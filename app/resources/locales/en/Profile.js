@@ -29,4 +29,5 @@ export const Profile = {
   'Profile.AskAnAstronomer': 'Ask an Astronomer',
   'Profile.ViewGuide': 'View Guide',
   'Profile.MyClubs': 'My Clubs',
+  'Profile.Groups': 'Groups',
 };

@@ -1,0 +1,17 @@
+@import "~app/styles/variables/index";
+
+.activeGroups {
+
+  // mobile
+  width: 95%;
+  margin: auto;
+
+  .groupsWrapper {
+    margin: -10px;
+  }
+
+  // >= tablet
+  @include md {
+    width: 100%;
+  }
+}

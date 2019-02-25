@@ -1,3 +1,4 @@
+const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
@@ -38,10 +39,15 @@ module.exports = {
     bundle: './app/index.js',
   },
   output: {
-    path: __dirname + '/dist',
+    path: `${__dirname}/dist`,
     publicPath: '/',
     filename: '[chunkhash].[id].[name].js',
     sourceMapFilename: '[name].js.map',
+  },
+  resolve: {
+    alias: {
+      app: path.resolve(__dirname, 'app/'),
+    },
   },
   module: {
     rules: [
@@ -76,7 +82,7 @@ module.exports = {
         query: {
           cacheDirectory: true,
           plugins: [
-            ['styled-jsx/babel', { 'optimizeForSpeed': false }],
+            ['styled-jsx/babel', { optimizeForSpeed: false }],
             'transform-object-rest-spread',
             'transform-decorators-legacy',
             'transform-class-properties',
@@ -94,9 +100,27 @@ module.exports = {
       },
       {
         test: /\.scss$/,
+        exclude: /\.module\.scss$/,
         loaders: [
           'style-loader',
           'css-loader?modules&importLoaders=1&localIdentName=[local]',
+          'sass-loader',
+        ],
+      },
+      // CSS Modules Configuration
+      {
+        test: /\.module\.scss$/,
+        loaders: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+              sourceMap: true,
+              localIdentName: '[local]__[hash:base64:5]',
+              minimize: true,
+            },
+          },
           'sass-loader',
         ],
       },
@@ -144,7 +168,7 @@ module.exports = {
       filename: 'common.js',
     }),
     new HtmlWebpackPlugin({
-      template: __dirname + '/app/index.html',
+      template: `${__dirname}/app/index.html`,
       filename: 'index.html',
       inject: 'body',
     }),

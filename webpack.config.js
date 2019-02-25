@@ -2,7 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const apiUrl = process.env.apiUrl || '';
 
@@ -42,6 +42,11 @@ module.exports = {
     publicPath: '/',
     filename: '[name].js',
     sourceMapFilename: '[name].js.map',
+  },
+  resolve: {
+    alias: {
+      app: path.resolve(__dirname, 'app/'),
+    },
   },
   module: {
     rules: [
@@ -85,9 +90,27 @@ module.exports = {
       },
       {
         test: /\.scss$/,
+        exclude: /\.module\.scss$/,
         loaders: [
           'style-loader',
           'css-loader?modules&importLoaders=1&localIdentName=[local]',
+          'sass-loader',
+        ],
+      },
+      // CSS Modules Configuration
+      {
+        test: /\.module\.scss$/,
+        loaders: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+              sourceMap: true,
+              localIdentName: '[local]__[hash:base64:5]',
+              minimize: true,
+            },
+          },
           'sass-loader',
         ],
       },
@@ -137,18 +160,21 @@ module.exports = {
       inject: 'body',
     }),
     new CopyWebpackPlugin([{ from: './assets/**/*' }]),
-    new BundleAnalyzerPlugin({
-      analyzerMode: 'server',
-      analyzerHost: 'localhost',
-      analyzerPort: 8888,
-      openAnalyzer: false,
-    }),
+    // todo use it only when you need
+    // new BundleAnalyzerPlugin({
+    //   analyzerMode: 'server',
+    //   analyzerHost: 'localhost',
+    //   analyzerPort: 8888,
+    //   openAnalyzer: false,
+    // }),
   ],
   devtool: 'cheap-module-eval-source-map',
   devServer: {
     contentBase: path.join(__dirname, '/dist'),
     compress: false,
     historyApiFallback: true,
+    // Shows a full-screen overlay in the browser when there are compiler errors or warnings
+    overlay: true,
     proxy: {
       '/api/**': {
         target: 'https://eris.slooh.com',
