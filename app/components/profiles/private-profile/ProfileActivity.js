@@ -3,7 +3,7 @@
  *
  ********************************** */
 
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import uniqueId from 'lodash/uniqueId';
 import moment from 'moment';
@@ -12,27 +12,45 @@ import { ContainerWithTitle } from '../../common/ContainerWithTitle';
 import CenterColumn from '../../common/CenterColumn';
 import MissionTile from '../../common/tiles/MissionTile';
 import { ProfileActivityQa } from '../../../containers/profile/PrivateProfile';
+import { ActiveGroups } from './active-groups';
+import { ActiveObjects } from './active-objects';
 import styles from './ProfileActivity.styles';
 
 const { shape } = PropTypes;
 
 class ProfileActivity extends Component {
-  static defaultProps = {};
-
   static propTypes = {
     activityData: shape({
       missionsData: shape({}).isRequired,
       recentMissionsData: shape({}).isRequired,
       askAnAstronomerData: shape({}).isRequired,
     }).isRequired,
+    privateProfileData: shape({}).isRequired,
   };
+
+  static defaultProps = {};
 
   getMissionDate = timestamp => moment.unix(timestamp).format('ddd. MMM. DD');
 
   getMissionTime = timestamp => moment.unix(timestamp).format('HH:mm');
 
   render() {
-    const { missionsData, recentMissionsData, askAnAstronomerData } = this.props.activityData;
+    const { privateProfileData, activityData } = this.props;
+    const {
+      missionsData,
+      recentMissionsData,
+      askAnAstronomerData,
+    } = activityData;
+    const {
+      showTopPicksForYou,
+      topPicksForYouHeading,
+      activeGroupsCount,
+      activeGroupsList,
+      activeObjectsCount,
+      activeObjectsList,
+      topPicksForYouGroupsHeading,
+      topPicksForYouObjectsHeading,
+    } = privateProfileData;
 
     return (
       <div className="profile-activity">
@@ -59,7 +77,10 @@ class ProfileActivity extends Component {
           <div className="profile-section">
             <CenterColumn>
               <ContainerWithTitle
-                title={recentMissionsData.recentMissionListHeading || 'Recent Missions'}
+                title={
+                  recentMissionsData.recentMissionListHeading ||
+                  'Recent Missions'
+                }
               >
                 {recentMissionsData.recentMissionList.map(item => (
                   <MissionTile
@@ -79,6 +100,27 @@ class ProfileActivity extends Component {
           <div className="profile-section ask-section">
             <CenterColumn>
               <ProfileActivityQa askAnAstronomerData={askAnAstronomerData} />
+            </CenterColumn>
+          </div>
+        )}
+
+        {showTopPicksForYou && (
+          <div className="profile-section">
+            <CenterColumn>
+              <ContainerWithTitle title={topPicksForYouHeading}>
+                <Fragment>
+                  <ActiveGroups
+                    count={activeGroupsCount}
+                    list={activeGroupsList}
+                    header={topPicksForYouGroupsHeading}
+                  />
+                  <ActiveObjects
+                    count={activeObjectsCount}
+                    list={activeObjectsList}
+                    header={topPicksForYouObjectsHeading}
+                  />
+                </Fragment>
+              </ContainerWithTitle>
             </CenterColumn>
           </div>
         )}

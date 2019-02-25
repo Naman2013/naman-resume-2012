@@ -1,28 +1,17 @@
-/* ********************************
- * V4 Private profile container
- ********************************* */
-
-import React, { Component, Fragment, cloneElement } from 'react';
+// todo refactor me
+import SubPageNavigation from 'app/components/common/sub-page-navigation';
+import ProfileInformation from 'app/components/profiles/private-profile/ProfileInformation';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import SubPageNavigation from '../../../components/common/sub-page-navigation';
-import { fetchPrivateProfile } from '../../../modules/private-profile/actions';
-import ProfileInformation from '../../../components/profiles/private-profile/ProfileInformation';
+import React, { cloneElement, Component, Fragment } from 'react';
 
-import styles from './PrivateProfile.styles';
-
-class PrivateProfile extends Component {
+export class ProfileWrapper extends Component {
   static propTypes = {
     privateProfileData: PropTypes.shape({}).isRequired,
-    fetchPrivateProfile: PropTypes.func.isRequired,
     params: PropTypes.shape({}).isRequired,
   };
 
-  componentDidMount() {
-    this.props.fetchPrivateProfile({});
-  }
-
-  generateNavItems = list => list.map(item => ({ title: item.name, link: item.linkUrl }));
+  generateNavItems = list =>
+    list.map(item => ({ title: item.name, link: item.linkUrl }));
 
   modelData = resp => ({
     myInformationData: {
@@ -78,35 +67,25 @@ class PrivateProfile extends Component {
 
     return (
       <div className="root">
-        {modelResult.profileMenuList && (
-          <Fragment>
-            <ProfileInformation myInformationData={modelResult.myInformationData} />
+        <Fragment>
+          <ProfileInformation
+            myInformationData={modelResult.myInformationData}
+          />
 
-            <SubPageNavigation items={this.generateNavItems(modelResult.profileMenuList)} />
+          {modelResult.profileMenuList && (
+            <SubPageNavigation
+              items={this.generateNavItems(modelResult.profileMenuList)}
+            />
+          )}
 
-            {cloneElement(children, {
-              activityData: modelResult.activityData,
-              groupsData: modelResult.groupsData,
-              privateProfileData,
-              params,
-              profileMenuList: modelResult.profileMenuList,
-            })}
-          </Fragment>
-        )}
-        <style jsx>{styles}</style>
+          {cloneElement(children, {
+            activityData: modelResult.activityData,
+            groupsData: modelResult.groupsData,
+            privateProfileData,
+            params,
+          })}
+        </Fragment>
       </div>
     );
   }
 }
-
-const mapStateToProps = ({ privateProfile, user }) => ({
-  privateProfileData: privateProfile.privateProfileData,
-  user,
-});
-
-const mapDispatchToProps = { fetchPrivateProfile };
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(PrivateProfile);
