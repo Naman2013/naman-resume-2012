@@ -89,6 +89,7 @@ class PrivateProfile extends Component {
               groupsData: modelResult.groupsData,
               privateProfileData,
               params,
+              profileMenuList: modelResult.profileMenuList,
             })}
           </Fragment>
         )}

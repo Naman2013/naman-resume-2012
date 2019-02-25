@@ -23,8 +23,9 @@ import TopicContent from 'components/guides/TopicContent';
 import Request from 'components/common/network/Request';
 
 import DeviceProvider from 'providers/DeviceProvider';
-import ObjectProfile from 'components/object-details/ObjectProfile';
-import ObjectVisibilityProfile from 'components/object-details/ObjectVisibilityProfile';
+import ObjectProfile from '../../components/object-details/ObjectProfile';
+import ObjectVisibilityProfile from '../../components/object-details/ObjectVisibilityProfile';
+import ObjectHowBig from '../../components/object-details/ObjectHowBig';
 import CardObservations from 'components/common/CardObservations';
 import SterlingTitle from 'components/common/titles/SterlingTitle';
 import BurnhamsCorner from 'components/common/BurnhamsCorner';
@@ -79,9 +80,12 @@ const modelData = resp => ({
     aboutContent: resp.objectDescription,
     showContentList: resp.showBulletPoints,
     topicActionProps: {
+      showActions: resp.showFollowPromptFlag,
       followButtonText: resp.followPrompt,
       followButtonIconURL: resp.followPromptIconUrl,
-      showActions: resp.showFollowPromptFlag,
+      followActionIconUrl: resp.followActionIconUrl,
+      toggleFollowConfirmationFlag: resp.toggleFollowConfirmationFlag,
+      toggleFollowConfirmationPrompt: resp.toggleFollowConfirmationPrompt,
     },
   },
   statisticsTitle: {
@@ -149,6 +153,7 @@ const modelData = resp => ({
     show: resp.hasRelatedGuide,
     ...resp.relatedGuide,
   },
+  hasHowBigData: resp.hasHowBigData,
 });
 
 @connect(
@@ -204,12 +209,14 @@ class Overview extends Component {
                 show: modeledResult.visibilitySeason.show,
                 title: modeledResult.visibilitySeason.title,
                 observatories: modeledResult.visibilitySeason.observatories,
+                showVisibilitySeason: modeledResult.showVisibilitySeason,
               }}
               midnightCulmination={{
                 show: modeledResult.midnightCulmination.show,
                 label: modeledResult.midnightCulmination.label,
                 text: modeledResult.midnightCulmination.text,
                 description: modeledResult.midnightCulmination.description,
+                showMidnightCulmination: modeledResult.showMidnightCulmination,
               }}
               bestTelescope={{
                 label: modeledResult.bestTelescope.label,
@@ -219,6 +226,8 @@ class Overview extends Component {
             />
 
             <ObjectVisibilityProfile defaultObsId={objectData.obsIdDefault} objectId={objectId} />
+            
+            {modeledResult.hasHowBigData && <ObjectHowBig objectId={objectId} />}
           </CenterColumn>
         </section>
 
@@ -227,6 +236,7 @@ class Overview extends Component {
             <Request
               model={burnhamsModel}
               serviceURL={BURNHAMS_CORNER_CONTENT}
+              withoutUser
               requestBody={{ objectId }}
               render={({ fetchingContent, modeledResponses: { BURNHAMS_CORNER } }) =>
                 !fetchingContent && (

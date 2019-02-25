@@ -34,7 +34,6 @@ import ShowsHub from 'app/containers/shows-hub';
 import SloohRecommends from 'app/containers/SloohRecommends';
 import StaticAppContainer from 'app/containers/static-app-container';
 import StoriesHub from 'app/containers/stories-hub';
-import StoryDetails from 'app/containers/story-details';
 import { fetchPlayer } from 'app/modules/get-audio-player/actions';
 import { PublicProfileMain } from 'app/modules/profile';
 import GroupCreate from 'app/pages/community-groups/GroupCreate';
@@ -65,7 +64,6 @@ import NewMissions from 'app/pages/new-missions';
 import ObjectDetails from 'app/pages/object-details/ObjectDetails';
 import ObjectPosts from 'app/pages/object-posts/ObjectPosts';
 import PlaceholderPage from 'app/pages/Placeholder';
-import UserPublicProfile from 'app/pages/profiles/public-profile';
 import Quest from 'app/pages/quest-details';
 import RedirectConfirmation from 'app/pages/redirect-confirmation/RedirectConfirmation';
 import Join from 'app/pages/registration/Join';
@@ -105,6 +103,7 @@ import {
   Router,
 } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
+import { StoryDetailsMain } from './modules/story-details';
 
 // Create an enhanced history that syncs navigation events with the store
 const history = syncHistoryWithStore(browserHistory, store);
@@ -392,7 +391,7 @@ export const AppRouter = () => (
       />
       <Route
         path="community/post/:postId"
-        component={StoryDetails}
+        component={StoryDetailsMain}
         onEnter={validateUser}
       />
       <Route

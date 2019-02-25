@@ -1,6 +1,7 @@
 import { defineMessages } from 'react-intl';
-import { type Messages } from '../../utils/i18n/MessageDescriptor';
+import { type Messages } from '../../../../utils/i18n/MessageDescriptor';
 
+// todo REMOVE ME
 const messages: Messages = {
   related: {
     id: 'Stories.related',

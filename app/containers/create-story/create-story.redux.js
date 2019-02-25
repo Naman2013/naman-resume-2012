@@ -13,25 +13,8 @@ import { validateResponseAccess } from '../../modules/authorization/actions';
 import storiesActions from 'modules/stories/actions';
 import fetchCategoryTopicList from 'services/content/object-category-topic-list';
 
-const {
-  bool,
-  func,
-  number,
-  shape,
-  string,
-} = PropTypes;
-
 
 class ConnectedCreateStory extends Component {
-
-  static propTypes = {
-
-  }
-
-  static defaultProps = {
-
-  }
-
   state = {
     uuid: null,
     contentCategoriesDescText: {},
@@ -61,15 +44,24 @@ class ConnectedCreateStory extends Component {
     apiError,
     artCultureText,
     cancelLabel,
-    categories,
     categoryList,
     diyText,
+    fictionId,
+    fictionPrompt,
+    nonfictionId,
+    nonfictionPrompt,
     humanSpiritText,
     introText,
     postUUID,
     scienceLogText,
     sectionLabels,
     submitLabel,
+    headingPrompt,
+    imagePrompt,
+    noTagsMsg,
+    tagLabel,
+    tagPrompt,
+    titlePrompt,
   }) => {
     if (!apiError) {
       this.setState(() => ({
@@ -81,11 +73,23 @@ class ConnectedCreateStory extends Component {
           scienceLogText,
         },
         cancelLabel,
-        contentCategories: categories,
         introText,
         objectCategoriesList: categoryList,
         sectionLabels,
         submitLabel,
+        contentCategories: [{ 
+          title: fictionPrompt,
+          value: fictionId,
+        }, {
+          title: nonfictionPrompt,
+          value: nonfictionId,
+        }],
+        headingPrompt,
+        imagePrompt,
+        noTagsMsg,
+        tagLabel,
+        tagPrompt,
+        titlePrompt,
       }));
     }
   }
@@ -100,6 +104,12 @@ class ConnectedCreateStory extends Component {
       sectionLabels,
       submitLabel,
       uuid,
+      headingPrompt,
+      imagePrompt,
+      noTagsMsg,
+      tagLabel,
+      tagPrompt,
+      titlePrompt,
     } = this.state;
 
     const userActions = {
@@ -113,7 +123,7 @@ class ConnectedCreateStory extends Component {
           {context => (
             <CreateStory
               {...this.props}
-              {...context}
+              device={context}
               cancelLabel={cancelLabel}
               submitLabel={submitLabel}
               sectionLabels={sectionLabels}
@@ -124,6 +134,12 @@ class ConnectedCreateStory extends Component {
               objectCategoriesList={objectCategoriesList}
               contentCategories={contentCategories}
               submitStory={this.handleSubmit}
+              headingPrompt={headingPrompt}
+              imagePrompt={imagePrompt}
+              noTagsMsg={noTagsMsg}
+              tagLabel={tagLabel}
+              tagPrompt={tagPrompt}
+              titlePrompt={titlePrompt}
             />
           )}
         </DeviceContext.Consumer>

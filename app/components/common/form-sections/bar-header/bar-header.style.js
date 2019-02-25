@@ -1,5 +1,6 @@
 import css from 'styled-jsx/css';
-import { primaryFont } from 'styles/variables/fonts';
+import { secondaryFont } from 'styles/variables/fonts';
+import { screenMedium } from 'styles/variables/breakpoints';
 import {
   astronaut,
   shadows,
@@ -11,16 +12,22 @@ export default css`
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    height: 75px;
+    height: fit-content;
     border-bottom: 1px solid ${shadows};
   }
   .title-text {
-    font-size: 10px;
+    font-size: 30px;
     color: ${astronaut};
     font-weight: bold;
-    font-family: ${primaryFont};
+    font-family: ${secondaryFont};
     text-transform: uppercase;
-    padding-left: 25px;
+    padding: 15px;
+  }
+
+  @media ${screenMedium} {
+    .title-text {
+      font-size: 40px;
+    }
   }
 
 `;

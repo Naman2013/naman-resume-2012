@@ -142,7 +142,13 @@ export default injectIntl(class MyListsHub extends React.Component {
   };
 
   render() {
-    const { intl } = this.props;
+    const { intl, profileMenuList } = this.props;
+
+    const hubFilters = profileMenuList.find(mItem => mItem.name === 'Lists').subMenus;
+    const formatedHubFilter = hubFilters.map(filter => ({
+      title: filter.name,
+      linkURL: filter.linkUrl,
+    }));
 
     const api =
       this.props.params.filterType === 'object'

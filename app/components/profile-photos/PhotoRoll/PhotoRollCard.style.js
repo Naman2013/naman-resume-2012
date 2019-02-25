@@ -29,7 +29,6 @@ export default css`
     left: 0;
     width: 100%;
     height: 100%;
-    overflow: hidden;
     background-size: cover;
     background-position: center;
   }
@@ -71,6 +70,7 @@ export default css`
   }
 
   .onhover-overlay {
+    position: relative;
     display: none;
     color: white;
     width: 100%;
