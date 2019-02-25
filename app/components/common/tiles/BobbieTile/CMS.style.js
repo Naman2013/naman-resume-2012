@@ -66,16 +66,19 @@ export default css`
 
   ${stylePrefix} :global(.videoEmbedDIV) {
     text-align: center;
+    height: 0;
+    width: 100%;
+    padding-top: 56.25%;
+    position: relative;
+    overflow: hidden; 
   }
 
-  ${stylePrefix} :global() {}
-
-  ${stylePrefix} :global() {}
-
-  ${stylePrefix} :global() {}
-
-  ${stylePrefix} :global() {
-
+  ${stylePrefix} :global(.videoEmbedDIV iframe) {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
   }
 
   .__html-blob-content-container__,

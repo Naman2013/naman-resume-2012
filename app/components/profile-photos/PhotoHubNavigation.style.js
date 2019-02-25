@@ -1,7 +1,7 @@
 import css from 'styled-jsx/css';
 import { primaryFont, secondaryFont } from '../../styles/variables/fonts';
 import { screenMedium } from '../../styles/variables/breakpoints';
-import { hawkesBlue, shadows, lightHeadedAstronaut, seashell } from '../../styles/variables/colors_tiles_v4';
+import { hawkesBlue, shadows, lightHeadedAstronaut, seashell, astronaut } from '../../styles/variables/colors_tiles_v4';
 
 export default css`
   .photohub-root {
@@ -9,7 +9,6 @@ export default css`
   }
   .photohub-title {
     font-size: 14px;
-    font-weight: 900;
     height: 62px;
     display: flex;
     align-items: center;
@@ -29,11 +28,18 @@ export default css`
     margin-right: 20px;
     display: flex;
     align-items: center;
+    letter-spacing: 1px;
   }
 
-  :global(.photohub-nav-active) {
+  :global(.photohub-nav-block a) {
+    color: ${shadows};
+    font-weight: bold;
+  }
+
+  :global(a.photohub-nav-active.photohub-nav-link) {
+    color: ${astronaut};
     box-sizing: border-box;
-    border-bottom: 2px solid ${lightHeadedAstronaut};
+    border-bottom: 2px solid ${astronaut};
   }
 
   .photohub-links {

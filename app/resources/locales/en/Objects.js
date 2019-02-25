@@ -34,4 +34,6 @@ export const Objects = {
   'Objects.RelatedStories': 'Related Stories',
   'Objects.NoStories': 'Sorry, there are no stories available for {objectTitle} at this time.',
   'Objects.ObservationsDetails': 'Details',
+  'Objects.ReadMore': 'read more',
+  'Objects.ReadLess': 'read less',
 };

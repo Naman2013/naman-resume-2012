@@ -53,4 +53,21 @@ export default css`
     padding: 20px 0;
   }
 
+  .action-read-more {
+    font-family: ${primaryFont};
+    display: block;
+    background: none;
+    border: none;
+    margin: 0 0 32px;
+    padding: 0;
+    font-weight: 700;
+    font-style: italic;
+  }
+
+  .action-read-more:focus,
+  .action-read-more:active {
+    outline: none;
+  }
+
+
 `;

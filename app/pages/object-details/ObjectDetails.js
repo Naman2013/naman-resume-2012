@@ -12,8 +12,6 @@ import { bindActionCreators } from 'redux';
 import {
   fetchObjectDetailsAction,
   fetchObjectDataAction,
-  fetchObjectMissionsAction,
-  fetchObjectQuestsAction,
   fetchObjectSpecialistsAction
 } from '../../modules/object-details/actions';
 import Navigation from '../../components/object-details/Navigation';
@@ -36,8 +34,6 @@ const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     fetchObjectDetailsAction,
     fetchObjectDataAction,
-    fetchObjectMissionsAction,
-    fetchObjectQuestsAction,
     fetchObjectSpecialistsAction,
   }, dispatch),
 });
@@ -68,8 +64,6 @@ class ObjectDetails extends Component {
     const { params: { objectId } } = nextProps;
 
     if (this.props.objectDetails.objectId != nextProps.objectDetails.objectId) {
-      this.props.actions.fetchObjectMissionsAction(nextProps.objectDetails.objectId);
-      this.props.actions.fetchObjectQuestsAction(nextProps.objectDetails.objectId);
       this.props.actions.fetchObjectSpecialistsAction(nextProps.objectDetails.objectId, MAX_MVP_ASTRONOMERS);
     }
 

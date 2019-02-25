@@ -94,10 +94,10 @@ class UploadImages extends Component {
     this.props.onImagesChange(images);
   }
 
-
   render() {
     const {
       S3URLs,
+      title,
     } = this.props;
 
     const {
@@ -109,8 +109,8 @@ class UploadImages extends Component {
       <div className="root">
         {uploadLoading ? <div>Loading...</div> : null}
         <ImagesDisplay S3URLs={S3URLs} handleDeleteImage={this.handleDeleteImage} />
-        <ImagesInput handleUploadImage={this.handleUploadImage} imageInputValue={imageInputValue} />
-        {uploadError && !uploadLoading ? <div><FormattedMessage {...messages.UploadImageErrorText} /></div> : null}
+        {title && <ImagesInput handleUploadImage={this.handleUploadImage} imageInputValue={imageInputValue} title={title}/>}
+        {uploadError && !uploadLoading && <div><FormattedMessage {...messages.UploadImageErrorText} /></div>}
         <style jsx>{styles}</style>
       </div>
     );
