@@ -108,8 +108,6 @@ class TelescopeImageLoader extends Component {
   unmountHandler = () => {
     this.props.actions.resetActiveSSE();
     this.detachSSE();
-    alert('test');
-    console.log('some text before unload');
   }
 
   handleSourceImage(imageData) {
