@@ -30,11 +30,13 @@ class RelatedShows extends Component {
     slugLookupId: oneOfType([string, number]),
     showId: oneOfType([string, number]),
     serviceUrl: string,
+    maxCount: number,
   };
   static defaultProps = {
     isDesktop: false,
     showId: null,
     serviceUrl: RELATED_SHOWS,
+    maxCount: 3,
   };
 
   render() {

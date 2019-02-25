@@ -33,12 +33,12 @@ export const fetchAstronomerQuestions = ({
   answerState = null,
   appendToList = false,
   lang,
-  page,
+  currentPage,
   objectId,
   ver,
 }) => (dispatch, getState) => {
   const { cid, at, token } = getState().user;
-  const { count, questionFilter } = getState().astronomerQuestions;
+  const { count, questionFilter, page } = getState().astronomerQuestions;
   dispatch(fetchAstronomerQuestionsStart({ appendToList }));
   return axios.post('/api/forum/getQuestionsList', {
     appendToList,
@@ -47,7 +47,7 @@ export const fetchAstronomerQuestions = ({
     cid,
     count,
     lang,
-    page,
+    page: currentPage || page,
     token,
     ver,
     objectId,
@@ -58,7 +58,7 @@ export const fetchAstronomerQuestions = ({
         result.data.threads.forEach(thread => dispatch(fetchAstronomerAnswers({ threadId: thread.threadId })));
       }
       return dispatch(fetchAstronomerQuestionsSuccess(Object.assign({
-        page,
+        page: currentPage || page,
         appendToList,
         answerState: answerState || questionFilter,
       }, result.data)));

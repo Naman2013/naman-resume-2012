@@ -14,7 +14,7 @@ export default css`
     padding: 0;
     font-size: 16px;
     font-family: ${primaryFont};
-    letter-spacing: 1.5px;
+    letter-spacing: 3px;
     text-transform: uppercase;
     margin-bottom: 10px;
     font-weight: 800;
@@ -24,7 +24,7 @@ export default css`
     margin: 0;
     padding: 0;
     opacity: 0;
-    font-size: 16px;
+    font-size: 18px;
     font-family: ${secondaryFont};
     transition: opacity 0.25s ease-in;
     text-transform: capitalize;

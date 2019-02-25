@@ -21,6 +21,8 @@ const {
   string,
 } = PropTypes;
 
+const MAX_COUNT = 3;
+
 const AsideContainer = ({
   authorInfo,
   isDesktop,
@@ -52,7 +54,7 @@ const AsideContainer = ({
       isDesktop={isDesktop}
       theme={{ margin: isScreenLarge ? '25px 0' : '25px' }}
       render={() => (
-        <RelatedShows slugLookupId={slugLookupId} serviceUrl={CONTENT_RELATED_SHOWS} />
+        <RelatedShows slugLookupId={slugLookupId} serviceUrl={CONTENT_RELATED_SHOWS} maxCount={MAX_COUNT} />
       )}
     />
     <BlueLineDrop
@@ -60,7 +62,7 @@ const AsideContainer = ({
       isDesktop={isDesktop}
       theme={{ margin: isScreenLarge ? '25px 0' : '25px' }}
       render={() => (
-        <RelatedStories postId={postId} slugLookupId={slugLookupId} serviceUrl={CONTENT_RELATED_STORIES} />
+        <RelatedStories postId={postId} slugLookupId={slugLookupId} serviceUrl={CONTENT_RELATED_STORIES} maxCount={MAX_COUNT} />
       )}
     />
     <BlueLineDrop
@@ -68,7 +70,7 @@ const AsideContainer = ({
       isDesktop={isDesktop}
       theme={{ margin: isScreenLarge ? '25px 0' : '25px' }}
       render={() => (
-        <RelatedGuides slugLookupId={slugLookupId} serviceUrl={CONTENT_RELATED_GUIDES} />
+        <RelatedGuides slugLookupId={slugLookupId} serviceUrl={CONTENT_RELATED_GUIDES} maxCount={MAX_COUNT} />
       )}
     />
   </div>

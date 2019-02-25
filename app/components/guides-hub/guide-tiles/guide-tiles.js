@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import uniqueId from 'lodash/uniqueId';
+import { FormattedMessage } from 'react-intl';
 import CenterColumn from 'components/common/CenterColumn';
 import GuideTile from 'components/common/tiles/guide-tile';
 import GuideExcerptTile from 'components/common/tiles/guide-excerpt-tile';
@@ -44,7 +45,7 @@ class GuideTiles extends Component {
   render() {
     const { guides, isMobile, updateReadingListInfo } = this.props;
     const { activeId } = this.state;
-    return (
+    return guides.length ? (
       <CenterColumn widths={['645px', '965px', '965px']}>
         <ul className="guide-tiles-root">
           {!isMobile && guides.map(guide => (
@@ -78,7 +79,7 @@ class GuideTiles extends Component {
         </ul>
         <style jsx>{style}</style>
       </CenterColumn>
-    );
+    ) : <FormattedMessage id="Hubs.noGuides" />;
   }
 }
 

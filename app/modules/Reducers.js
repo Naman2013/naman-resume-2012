@@ -19,7 +19,9 @@ import avatar from './avatar/reducer';
 import bestPosts from './best-of-slooh/get-best-reducer';
 import browseByPopularObjects from './browse-popular-objects/reducer';
 import browseTaggedData from './browse-tagged-data/reducer';
+import browseFindData from './browse-find-data/reducer';
 import catalog from './catalog/get-catalog-reducer';
+import clubs from './clubs/reducer';
 import communityGroups from './community-groups/reducer';
 import communityGroupActivity from './community-group-activity-list/reducer';
 import communityGroupOverview from './community-group-overview/reducer';
@@ -41,6 +43,7 @@ import galleryPictures from './my-pictures-gallery-pictures/reducer';
 import galleryActions from './my-pictures-gallery-actions/reducer';
 import globalNavigation from './global-navigation/reducer';
 import guardian from './guardian/reducer';
+import guides from './guides/reducer';
 import guideDetails from './guide-details/reducer';
 import homeContent from './home-content/reducer';
 import illuminationsPosts from './pulse/get-latest-posts-reducer';
@@ -65,9 +68,11 @@ import piggyback from './Piggyback';
 import post from './pulse/get-post-reducer';
 import publicProfile from './public-profile/reducer';
 import questDetails from './quest-details/reducer';
+import quests from './quests/reducer';
 import starshareCamera from './starshare-camera/starshare-camera-reducer';
 import shareMemberPhoto from './share-member-photo/reducer';
 import sharedMemberPhotos from './get-shared-member-photos/reducer';
+import shows from './shows/reducer';
 import stories from './stories/reducer';
 import tags from './tag-management/Tags';
 import telescopeDetails from './telescope-details/reducer';
@@ -106,7 +111,9 @@ export default combineReducers({
   bestPosts,
   browseByPopularObjects,
   browseTaggedData,
+  browseFindData,
   catalog,
+  clubs,
   communityGroups,
   communityGroupActivity,
   communityGroupOverview,
@@ -128,6 +135,7 @@ export default combineReducers({
   galleryPictures,
   globalNavigation,
   guardian,
+  guides,
   guideDetails,
   homeContent,
   isLanding,
@@ -144,6 +152,7 @@ export default combineReducers({
   myPicturesFilters,
   myPicturesVerifyOwner,
   questDetails,
+  quests,
   objectDetails,
   objectPostList,
   objectTypeList,
@@ -157,6 +166,7 @@ export default combineReducers({
   shareMemberPhoto,
   sharedMemberPhotos,
   starshareCamera,
+  shows,
   stories,
   tags,
   telescopeDetails,

@@ -169,13 +169,13 @@ class AskAstronomer extends Component {
     } = this.props;
     actions.fetchAstronomerQuestions({
       appendToList: false,
-      page,
+      currentPage: page,
       objectId,
     });
   };
 
   submitAnswer = (params, callback) => {
-    const { actions } = this.props;
+    const { actions, page } = this.props;
     actions.submitAnswerToQuestion(params).then(res => callback(res.payload));
   }
 

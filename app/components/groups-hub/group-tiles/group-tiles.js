@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import uniqueId from 'lodash/uniqueId';
+import { FormattedMessage } from 'react-intl';
 import CenterColumn from 'components/common/CenterColumn';
 import GroupTile from 'components/common/tiles/GroupTile';
 import GroupExcerptTile from 'components/common/tiles/group-excerpt-tile';
@@ -67,7 +68,7 @@ class GroupTiles extends Component {
   render() {
     const { groups, isMobile, filterType, updateGroupItemInfo, updatePrompt } = this.props;
     const { activeId } = this.state;
-    return (
+    return groups.length ? (
       <CenterColumn widths={['645px', '965px', '965px']}>
         <ul className="group-tiles-root">
           {!isMobile && groups.map(group => (
@@ -106,7 +107,7 @@ class GroupTiles extends Component {
         </ul>
         <style jsx>{style}</style>
       </CenterColumn>
-    );
+    ) : <FormattedMessage id="Hubs.noGroups" />;
   }
 }
 

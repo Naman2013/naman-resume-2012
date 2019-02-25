@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import messages from './tags.messages';
@@ -35,6 +35,9 @@ class Tags extends Component {
       cid: string.isRequired,
     }).isRequired,
     validateResponseAccess: func.isRequired,
+    noTagsMsg: string.isRequired,
+    tagLabel: string.isRequired,
+    tagPrompt: string.isRequired,
   };
 
   static defaultProps = {
@@ -139,6 +142,9 @@ class Tags extends Component {
   render() {
     const {
       tags,
+      noTagsMsg,
+      tagLabel,
+      tagPrompt,
     } = this.props;
 
     const {
@@ -147,20 +153,24 @@ class Tags extends Component {
     } = this.state;
     return (
       <div className="root">
-        <TagDisplay tags={tags} onTagDelete={this.deleteTag} deleteTag={this.deleteTag} />
-        <TagInput
-          newTagText={newTagText}
-          placeholder="Add a new tag"
-          handleTagTextChange={this.onChangeText}
-        />
-        <GenericButton
-          text="Add"
-          onClickEvent={this.addTag}
-          theme={{ margin: '15px auto' }}
-        />
-        <div className="tag-error">
-          <span>{hasError ? <FormattedMessage {...messages.AddTagErrorText} /> : ''}</span>
-        </div>
+        {noTagsMsg && (
+          <Fragment>
+            <TagDisplay noTagsMsg={noTagsMsg} tags={tags} onTagDelete={this.deleteTag} deleteTag={this.deleteTag} />
+            <TagInput
+              newTagText={newTagText}
+              placeholder={tagPrompt}
+              handleTagTextChange={this.onChangeText}
+            />
+            <GenericButton
+              text={tagLabel}
+              onClickEvent={this.addTag}
+              theme={{ margin: '15px auto' }}
+            />
+            <div className="tag-error">
+              <span>{hasError ? <FormattedMessage {...messages.AddTagErrorText} /> : ''}</span>
+            </div>
+          </Fragment>
+        )}
         <style jsx>{styles}</style>
       </div>
     );

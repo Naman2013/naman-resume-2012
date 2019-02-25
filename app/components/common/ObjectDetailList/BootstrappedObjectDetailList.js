@@ -13,7 +13,6 @@ import style from './BootstrappedObjectDetailList.style';
 
 
 const {
-  arrayOf,
   bool,
   shape,
   string,
@@ -90,59 +89,58 @@ class ObjectDetailList extends Component {
     });
 
     return (
-  <div className="root">
-    {!isMobile ? (
-      <div className="wide-info-block">
-        {ObjectType ? (
-          <div className="wide-info-item">
-            <div
-              className="wide-info-block-header"
-              dangerouslySetInnerHTML={{ __html: ObjectType.label }}
-            />
-            <div
-              className="wide-info-block-name"
-              dangerouslySetInnerHTML={{ __html: ObjectType.text }}
-            />
+      <div className="root">
+        {!isMobile ? (
+          <div className="wide-info-block">
+            {ObjectType ? (
+              <div className="wide-info-item">
+                <div
+                  className="wide-info-block-header"
+                  dangerouslySetInnerHTML={{ __html: ObjectType.label }}
+                />
+                <div
+                  className="wide-info-block-name"
+                  dangerouslySetInnerHTML={{ __html: ObjectType.text }}
+                />
+              </div>
+            ) : null}
+            {Domain ? (
+              <div className="wide-info-item">
+                <div
+                  className="wide-info-block-header"
+                  dangerouslySetInnerHTML={{ __html: Domain.label }}
+                />
+                <div
+                  className="wide-info-block-name"
+                  dangerouslySetInnerHTML={{ __html: Domain.text }}
+                />
+              </div>
+            ) : null}
+            {Constellation ? (
+              <div className="wide-info-item">
+                <div
+                  className="wide-info-block-header"
+                  dangerouslySetInnerHTML={{ __html: Constellation.label }}
+                />
+                {Constellation.hasLink
+                  ? <Link
+                    className="wide-info-block-name"
+                    to={Constellation.linkUrl}
+                    dangerouslySetInnerHTML={{ __html: Constellation.text }}
+                  /> 
+                  : <div
+                    className="wide-info-block-name"
+                    dangerouslySetInnerHTML={{ __html: Constellation.text }}
+                  />
+                }
+              </div>
+            ) : null}
           </div>
         ) : null}
-        {Domain ? (
-          <div className="wide-info-item">
-            <div
-              className="wide-info-block-header"
-              dangerouslySetInnerHTML={{ __html: Domain.label }}
-            />
-            <div
-              className="wide-info-block-name"
-              dangerouslySetInnerHTML={{ __html: Domain.text }}
-            />
-          </div>
-        ) : null}
-        {Constellation ? (
-          <div className="wide-info-item">
-            <div
-              className="wide-info-block-header"
-              dangerouslySetInnerHTML={{ __html: Constellation.label }}
-            />
-            {Constellation.hasLink
-              ? <Link
-                className="wide-info-block-name"
-                to={Constellation.linkUrl}
-                dangerouslySetInnerHTML={{ __html: Constellation.text }}
-              /> 
-              : <div
-                className="wide-info-block-name"
-                dangerouslySetInnerHTML={{ __html: Constellation.text }}
-              />
-            }
-          </div>
-        ) : null}
+
+        <style jsx>{style}</style>
       </div>
-    ) : null}
-
-    <style jsx>{style}</style>
-  </div>
-);
-
+    );
   }
 }
 

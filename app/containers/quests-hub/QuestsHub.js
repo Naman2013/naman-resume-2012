@@ -13,6 +13,7 @@ import ShowMoreWithNetwork from 'components/common/show-more-with-network';
 import { QUESTS_PAGE_ENDPOINT_URL, QUESTS_ENDPOINT_URL } from 'services/quests/quest-data';
 import { DeviceContext } from 'providers/DeviceProvider';
 import { validateResponseAccess } from 'modules/authorization/actions'
+import { ACTION as questsActions } from '../../modules/quests/reducer';
 import style from './quests-hub.style';
 import messages from './QuestsHub.messages';
 
@@ -35,6 +36,7 @@ class Quests extends Component {
       filterType: PropTypes.string,
     }),
     intl: intlShape.isRequired,
+    isFetching: PropTypes.bool.isRequired,
   };
 
   static defaultProps = {
@@ -89,12 +91,14 @@ class Quests extends Component {
       user,
       actions,
       intl,
+      isFetching,
     } = this.props;
     const {
       quests
     } = this.state;
     return (<div>
       <Request
+        withoutUser
         serviceURL={QUESTS_PAGE_ENDPOINT_URL}
         model={questsHubModel}
         requestBody={{}}
@@ -128,16 +132,20 @@ class Quests extends Component {
                       pageTitle={serviceResponse.pageTitle}
                       filterType={this.props.params.filterType}
                       clearTiles={this.clearQuests}
+                      hubActions={{
+                        hubGetRequestStart: actions.getQuests,
+                        hubGetRequestSuccess: actions.getQuestsSuccess,
+                        hubGetRequestError: actions.getQuestsError,
+                      }}
                       render={() => (
                         <Fragment>
-                          {fetchingContent ? <div>{intl.formatMessage(messages.loading)}</div> : null}
-                          {!fetchingContent && quests.length ?
+                          {isFetching ? <div>{intl.formatMessage(messages.loading)}</div> : null}
+                          {!isFetching &&
                             <QuestTiles
                               updateReadingListInfo={this.updateReadingListInQuest}
                               quests={quests}
                               isMobile={context.isMobile}
-                            /> :
-                            <div>{intl.formatMessage(messages.noQuests)}</div>}
+                            />}
                         </Fragment>
                       )}
                     />
@@ -152,17 +160,18 @@ class Quests extends Component {
   }
 }
 
-
-
 const mapStateToProps = ({
   user,
+  quests,
 }) => ({
   user,
+  isFetching: quests.isFetching,
 });
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     validateResponseAccess,
+    ...questsActions,
   }, dispatch),
 });
 

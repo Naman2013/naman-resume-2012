@@ -60,6 +60,22 @@ export default css`
     transition: font-size 0.4s ease-in-out;
   }
 
+  .action-read-more {
+    font-family: ${primaryFont};
+    display: block;
+    background: none;
+    border: none;
+    margin: 0 0 32px;
+    padding: 0;
+    font-weight: 700;
+    font-style: italic;
+  }
+
+  .action-read-more:focus,
+  .action-read-more:active {
+    outline: none;
+  }
+
   .card-bottom {
     position: absolute;
     bottom: 0;

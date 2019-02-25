@@ -19,6 +19,7 @@ const storyModel = {
 const StoryDetail = props => (
   <div>
     <Request
+      userParams={['cid', 'at', 'token']}
       serviceURL={STORY_DETAILS}
       model={storyModel}
       requestBody={{

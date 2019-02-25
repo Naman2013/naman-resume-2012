@@ -92,7 +92,7 @@ class ProfileActivityQa extends Component {
     } = this.props;
     actions.fetchAstronomerQuestions({
       appendToList: false,
-      page,
+      currentPage: page,
     });
   };
 
