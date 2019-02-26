@@ -7,40 +7,38 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+
 import WinstonTile from '../common/tiles/WinstonTile';
-import FlipedCard from '../common/tiles/show-excerpt-tile-hub';
+import FlipedShowCard from '../common/tiles/show-excerpt-tile-hub';
 
 import styles from './RelatedShows.style';
 
-const { arrayOf, bool, number, shape } = PropTypes;
+const { arrayOf, bool, number, shape, string } = PropTypes;
 
 class BootstrappedRelatedShows extends Component {
   static propTypes = {
-    isDesktop: bool,
-    showList: arrayOf(shape()),
-    showCount: number,
+    relatedShowsList: arrayOf(shape()),
   };
 
   static defaultProps = {
-    isDesktop: false,
-    showList: [],
-    showCount: 0,
+    relatedShowsList: [],
   };
 
   render() {
-    const { showList } = this.props;
+    const { relatedShowsList } = this.props;
 
     return (
       <div className="root">
-        {showList.length > 0 &&
-          showList.map(show => {
+        {relatedShowsList.length > 0 &&
+          relatedShowsList.map(show => {
             return (
-              <article>
+              <article key={`show-${show.showId || show.eventId}`}>
                 <div className="card">
                   <WinstonTile
-                    title={show.showTitle}
+                    key={`show-${show.showId || show.eventId}`}
+                    title={show.showTitle || show.eventTitle}
                     linkUrl={show.linkUrl}
-                    linkText={show.linkText}
+                    linkText={show.linkText || show.linkLabel}
                     theme={{
                       backgroundSize: 'cover',
                       backgroundImage:
@@ -49,9 +47,10 @@ class BootstrappedRelatedShows extends Component {
                   />
                 </div>
                 <div className="flipped">
-                  <FlipedCard
-                    {...show}
+                  <FlipedShowCard
                     eventTitle={show.showTitle}
+                    linkLabel={show.linkText}
+                    linkUrl={show.linkURL}
                     withinReletedSection
                   />
                 </div>

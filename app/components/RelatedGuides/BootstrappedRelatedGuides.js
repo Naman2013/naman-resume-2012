@@ -7,9 +7,7 @@
 
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router';
-import classnames from 'classnames';
-import uniqueId from 'lodash/uniqueId';
+
 import WinstonTile from '../common/tiles/WinstonTile';
 import FlipedGuideCard from '../common/tiles/guide-excerpt-tile';
 
@@ -19,31 +17,27 @@ const { arrayOf, bool, number, shape, string } = PropTypes;
 
 class BootstrappedRelatedShows extends Component {
   static propTypes = {
-    isDesktop: bool,
-    guideList: arrayOf(shape()),
-    guideCount: number,
+    relatedGuidesList: arrayOf(shape()),
   };
 
   static defaultProps = {
-    isDesktop: false,
-    guideList: [],
-    guideCount: 0,
+    relatedGuidesList: [],
   };
 
   render() {
-    const { guideList } = this.props;
+    const { relatedGuidesList } = this.props;
 
     return (
       <div className="root">
-        {guideList.length > 0 &&
-          guideList.map(guide => {
+        {relatedGuidesList.length > 0 &&
+          relatedGuidesList.map(guide => {
             return (
-              <article>
+              <article key={`guide-${guide.guideId}`}>
                 <div className="card">
                   <WinstonTile
                     title={guide.guideTitle}
-                    linkUrl={guide.linkUrl}
-                    linkText={guide.linkText}
+                    linkUrl={guide.linkURL || guide.linkUrl}
+                    linkText={guide.linkLabel || guide.linkText}
                     theme={{
                       backgroundSize: '100%',
                       backgroundImage:
@@ -53,8 +47,9 @@ class BootstrappedRelatedShows extends Component {
                 </div>
                 <div className="flipped">
                   <FlipedGuideCard
-                    {...guide}
                     guideReferenceTitle={guide.guideTitle}
+                    linkLabel={guide.linkText}
+                    linkUrl={guide.linkURL}
                     withinReletedSection
                   />
                 </div>
