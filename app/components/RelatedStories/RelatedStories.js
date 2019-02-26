@@ -51,6 +51,7 @@ class RelatedStories extends Component {
 
     return (
       <Request
+        userParams={['at', 'cid', 'token']}
         authorizationRedirect
         serviceURL={serviceURL}
         method="POST"

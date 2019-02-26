@@ -52,13 +52,11 @@ class RelatedShows extends Component {
     return (
       <Request
         authorizationRedirect
+        userParams={['at', 'cid', 'token']}
         serviceURL={serviceURL}
         method="POST"
         serviceExpiresFieldName="expires"
         requestBody={{
-          cid: user.cid,
-          token: user.token,
-          at: user.at,
           slugLookupId,
           showId,
           maxCount,

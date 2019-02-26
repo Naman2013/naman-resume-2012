@@ -49,14 +49,12 @@ class RelatedGuides extends Component {
 
     return (
       <Request
+        userParams={['at', 'cid', 'token']}
         authorizationRedirect
         serviceURL={serviceURL}
         method="POST"
         serviceExpiresFieldName="expires"
         requestBody={{
-          cid: user.cid,
-          token: user.token,
-          at: user.at,
           slugLookupId,
           maxCount,
           showId,

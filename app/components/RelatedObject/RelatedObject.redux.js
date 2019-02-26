@@ -29,13 +29,11 @@ const RelatedObject = ({
 }) => (
   <Request
     authorizationRedirect={true}
+    userParams={['at', 'cid', 'token']}
     serviceURL={serviceUrl}
     method="POST"
     serviceExpiresFieldName="expires"
     requestBody={{
-      cid: user.cid,
-      token: user.token,
-      at: user.at,
       slugLookupId,
       maxCount: 1,
     }}
