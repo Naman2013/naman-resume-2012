@@ -1,3 +1,3 @@
-import RelatedShows from './RelatedShows.redux';
+import RelatedShows from './RelatedShows';
 
 export default RelatedShows;

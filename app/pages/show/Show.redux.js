@@ -41,7 +41,6 @@ class Show extends Component {
     return (
       <div>
         <Request
-          withoutUser
           authorizationRedirect={true}
           serviceURL={LIVE_SHOW_INFO}
           method="POST"

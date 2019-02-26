@@ -1,3 +1,3 @@
-import RelatedStories from './RelatedStories.redux';
+import RelatedStories from './RelatedStories';
 
 export default RelatedStories;
