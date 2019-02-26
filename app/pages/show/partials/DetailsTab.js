@@ -19,11 +19,22 @@ import RelatedObject from 'components/RelatedObject/BootstrappedRelatedObject';
 import styles from './MainContent.style';
 import messages from '../Show.messages';
 
-import { RELATED_SHOWS, RELATED_STORIES, RELATED_GUIDES } from 'services/events';
+import {
+  RELATED_SHOWS,
+  RELATED_STORIES,
+  RELATED_GUIDES,
+} from 'services/events';
 import { CONTENT_RELATED_STORIES } from 'services/content';
 
 const {
-  any, arrayOf, bool, func, number, oneOfType, shape, string,
+  any,
+  arrayOf,
+  bool,
+  func,
+  number,
+  oneOfType,
+  shape,
+  string,
 } = PropTypes;
 
 class DetailsTab extends Component {
@@ -74,22 +85,26 @@ class DetailsTab extends Component {
             at: user.at,
             slugLookupId,
             showId,
-            maxCount:3,
+            maxCount: 3,
           }}
-          render={({ fetchingContent, serviceResponse }) => (
-            <BlueLineDrop
-              title={`${intl.formatMessage(messages.RelatedShows)} (${serviceResponse.showCount || 0}) `}
-              isDesktop={isDesktop}
-              theme={{ margin: isScreenLarge ? '25px 0' : '25px' }}
-              render={() => (
-                <RelatedShows
-                  showId={showId}
-                  fetchingContent={fetchingContent}
-                  shows={serviceResponse}
-                />
-              )}
-            />
-          )}
+          render={({ fetchingContent, serviceResponse }) =>
+            serviceResponse.showCount > 0 && (
+              <BlueLineDrop
+                title={`${intl.formatMessage(
+                  messages.RelatedShows
+                )} (${serviceResponse.showCount || 0}) `}
+                isDesktop={isDesktop}
+                theme={{ margin: isScreenLarge ? '25px 0' : '25px' }}
+                render={() => (
+                  <RelatedShows
+                    showId={showId}
+                    fetchingContent={fetchingContent}
+                    shows={serviceResponse}
+                  />
+                )}
+              />
+            )
+          }
         />
         <Request
           authorizationRedirect
@@ -103,22 +118,26 @@ class DetailsTab extends Component {
             showId,
             slugLookupId,
             listType: 'sluglookupids',
-            maxCount:3,
+            maxCount: 3,
           }}
-          render={({ fetchingContent, serviceResponse }) => (
-            <BlueLineDrop
-              title={`${intl.formatMessage(messages.RelatedStories)} (${serviceResponse.storyCount || 0}) `}
-              isDesktop={isDesktop}
-              theme={{ margin: isScreenLarge ? '25px 0' : '25px' }}
-              render={() => (
-                <RelatedStories
-                  showId={showId}
-                  stories={serviceResponse}
-                  fetchingContent={fetchingContent}
-                />
-              )}
-            />
-          )}
+          render={({ fetchingContent, serviceResponse }) =>
+            serviceResponse.storyCount > 0 && (
+              <BlueLineDrop
+                title={`${intl.formatMessage(
+                  messages.RelatedStories
+                )} (${serviceResponse.storyCount || 0}) `}
+                isDesktop={isDesktop}
+                theme={{ margin: isScreenLarge ? '25px 0' : '25px' }}
+                render={() => (
+                  <RelatedStories
+                    showId={showId}
+                    stories={serviceResponse}
+                    fetchingContent={fetchingContent}
+                  />
+                )}
+              />
+            )
+          }
         />
 
         <Request
@@ -132,22 +151,26 @@ class DetailsTab extends Component {
             at: user.at,
             slugLookupId,
             showId,
-            maxCount:3,
+            maxCount: 3,
           }}
-          render={({ fetchingContent, serviceResponse }) => (
-            <BlueLineDrop
-              title={`${intl.formatMessage(messages.RelatedGuides)} (${serviceResponse.guideCount || 0}) `}
-              isDesktop={isDesktop}
-              theme={{ margin: isScreenLarge ? '25px 0' : '25px' }}
-              render={() => (
-                <RelatedGuides
-                  showId={showId}
-                  fetchingContent={fetchingContent}
-                  guides={serviceResponse}
-                />
-              )}
-            />
-          )}
+          render={({ fetchingContent, serviceResponse }) =>
+            serviceResponse.guideCount > 0 && (
+              <BlueLineDrop
+                title={`${intl.formatMessage(
+                  messages.RelatedGuides
+                )} (${serviceResponse.guideCount || 0}) `}
+                isDesktop={isDesktop}
+                theme={{ margin: isScreenLarge ? '25px 0' : '25px' }}
+                render={() => (
+                  <RelatedGuides
+                    showId={showId}
+                    fetchingContent={fetchingContent}
+                    guides={serviceResponse}
+                  />
+                )}
+              />
+            )
+          }
         />
 
         <style jsx>{styles}</style>
