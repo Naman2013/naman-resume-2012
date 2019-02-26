@@ -27,7 +27,7 @@ export class Nav extends Component {
     const selectedInd = this.getSelectedIndex(opts);
 
     return (
-      <div className="nav-container">
+      <div className="nav-container container-fluid">
         {/* Navigation Items */}
         <ul className="list-inline nav-items">
           {items.map(el => (
