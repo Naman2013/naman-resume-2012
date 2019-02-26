@@ -1,3 +1,4 @@
+// todo remove me
 import React, { Component } from 'react';
 import { Modal } from 'react-bootstrap';
 import { bindActionCreators } from 'redux';
@@ -10,7 +11,7 @@ import {
   reserveMissionSlot,
   updateReservation,
   missionGetCards,
-} from '../../../modules/Missions';
+} from '../../../modules/missions-old';
 import { setTags, resetClientTagData } from '../../../modules/tag-management/Tags';
 import MissionTags from '../../common/tags/mission-tags';
 import NewMissionReservationSuccess from './new-mission-reservation-success';

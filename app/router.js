@@ -35,6 +35,7 @@ import SloohRecommends from 'app/containers/SloohRecommends';
 import StaticAppContainer from 'app/containers/static-app-container';
 import StoriesHub from 'app/containers/stories-hub';
 import { fetchPlayer } from 'app/modules/get-audio-player/actions';
+import { MissionsMain } from 'app/modules/missions/index';
 import { PublicProfileMain } from 'app/modules/profile';
 import GroupCreate from 'app/pages/community-groups/GroupCreate';
 import GroupImportGoogleClassrooms from 'app/pages/community-groups/GroupImportGoogleClassrooms';
@@ -467,6 +468,8 @@ export const AppRouter = () => (
         component={GroupOverviewInfo}
       />
     </Route>
+
+    <Route path="missions" title="Missions" component={MissionsMain} />
 
     <Route path="sitemap" component={PlaceholderPage} onEnter={validateUser} />
 

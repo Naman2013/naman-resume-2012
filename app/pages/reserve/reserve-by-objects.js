@@ -1,3 +1,4 @@
+// todo remove me
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
@@ -12,7 +13,7 @@ import styles from '../../components/reserve/reserve-by-object.scss';
 import fetchCatagoryList, {
   fetchPopularObjectList,
 } from '../../modules/browse-popular-objects/api';
-import { grabMissionSlot, missionConfirmOpen } from '../../modules/Missions';
+import { grabMissionSlot, missionConfirmOpen } from '../../modules/missions-old';
 
 import { resetBrowseByPopularObjects } from '../../modules/browse-popular-objects/actions';
 import { placeOneHourHold } from '../../modules/grab-telescope-slot/actions';
