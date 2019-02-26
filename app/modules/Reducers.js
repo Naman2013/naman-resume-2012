@@ -144,7 +144,6 @@ export default combineReducers({
   login,
   mashupSettings,
   menu,
-  missions,
   missionSlotDates,
   missionSlotsByTelescope,
   myPictures,
@@ -181,4 +180,5 @@ export default combineReducers({
   videoViewerShow,
   logIn,
   storyDetails,
+  missions,
 });

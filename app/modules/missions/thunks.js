@@ -1,12 +1,12 @@
 /* eslint-disable */
-import { getPublicProfileApi } from 'app/modules/profile/api';
+import { getMissionsApi } from 'app/modules/missions/api';
 import { ACTION } from './reducer';
 
-export const getPublicProfile = (customerUUID) => (dispatch, getState) => {
+export const getMissions = () => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
   // const { at, token, cid } = getState().user;
-  dispatch(ACTION.getPublicProfile());
-  return getPublicProfileApi({at, token, cid, customerUUID})
-    .then(result => dispatch(ACTION.getPublicProfileSuccess(result.data)))
-    .catch(error => dispatch(ACTION.getPublicProfileError(error)));
+  dispatch(ACTION.getMissions());
+  return getMissionsApi({at, token, cid})
+    .then(result => dispatch(ACTION.getMissionsSuccess(result.data)))
+    .catch(error => dispatch(ACTION.getMissionsError(error)));
 };

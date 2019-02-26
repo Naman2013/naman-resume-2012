@@ -470,9 +470,9 @@ export const AppRouter = () => (
         component={GroupOverviewInfo}
       />
       <Route path="missions" component={MissionsMain} onEnter={validateUser}>
-        <IndexRedirect to="slooh-1000" />
-        <Route path="slooh-1000" title="Slooh 1000" component={Slooh1000} />
-        <Route path="telescope" title="Telescope" component={Telescope} />
+        <IndexRedirect to="bySlooh1000" />
+        <Route path="bySlooh1000" component={Slooh1000} />
+        <Route path="byTelescope" component={Telescope} />
       </Route>
     </Route>
 

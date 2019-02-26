@@ -1,37 +1,30 @@
 import HubHeader from 'app/components/common/HubHeader';
-import UnderlineNav from 'app/components/common/UnderlineNav';
 import { Nav } from 'app/modules/missions/components/nav';
-
-import React, { cloneElement, Component } from 'react';
-
-const navItems = [
-  { title: 'By Slooh 1000', linkURL: '/missions/slooh-1000' },
-  { title: 'By Catalog', linkURL: '/missions/catalog' },
-  { title: 'By Telescope', linkURL: '/missions/telescope' },
-];
+import React, { Component } from 'react';
 
 export class Missions extends Component {
-  componentWillMount = () => {};
+  componentWillMount = () => {
+    this.fetchData();
+  };
 
   fetchData = () => {
-    // const { getMissions, params } = this.props;
-    // const { customerUUID } = params;
-    // getMissions(customerUUID);
+    const { getMissions } = this.props;
+    getMissions();
   };
 
   render() {
-    const { params, children } = this.props;
+    const { children, pageSetup, location } = this.props;
+    const { pageIconURL, pageTitle, navigationConfig } = pageSetup;
     return (
       <div>
         <HubHeader
-          icon="iconURL"
-          title="pageTitle"
+          icon={pageIconURL}
+          title={pageTitle}
           // renderRightMenu
           showIcon
           renderNav={() => (
             <div className="navigation-bar">
-              <UnderlineNav navItems={navItems} parentPath="missions" />
-              <Nav />
+              <Nav items={navigationConfig} location={location} />
             </div>
           )}
         />

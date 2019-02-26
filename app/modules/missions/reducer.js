@@ -1,7 +1,7 @@
 import { actions, constants } from 'ducks-helpers';
 import { handleActions } from 'redux-actions';
 
-export const TYPE = constants('profile', ['~GET_PUBLIC_PROFILE']);
+export const TYPE = constants('profile', ['~GET_MISSIONS']);
 export const ACTION = actions(TYPE);
 
 export const initialState = {
@@ -9,15 +9,16 @@ export const initialState = {
   isLoaded: false,
   serverError: null,
 
-  publicProfileData: null,
-  privateProfileData: null,
+  pageSetup: {
+    navigationConfig: [],
+  },
 };
 
 export default handleActions(
   {
-    [TYPE.GET_PUBLIC_PROFILE]: setFetching,
-    [TYPE.GET_PUBLIC_PROFILE_SUCCESS]: getPublicProfileSuccess,
-    [TYPE.GET_PUBLIC_PROFILE_ERROR]: setServerError,
+    [TYPE.GET_MISSIONS]: setFetching,
+    [TYPE.GET_MISSIONS_SUCCESS]: getMissionsSuccess,
+    [TYPE.GET_MISSIONS_ERROR]: setServerError,
   },
   initialState
 );
@@ -35,11 +36,11 @@ function setServerError(state, action) {
   };
 }
 
-function getPublicProfileSuccess(state, action) {
+function getMissionsSuccess(state, action) {
   return {
     ...state,
     isFetching: false,
     isLoaded: true,
-    publicProfileData: action.payload,
+    pageSetup: action.payload,
   };
 }

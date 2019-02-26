@@ -1,0 +1,54 @@
+@import "~app/styles/variables/index";
+
+.nav-container {
+  padding: 0 35px;
+
+
+  ul.list-inline {
+    margin: 0;
+
+    li {
+      margin-right: 25px;
+
+      a {
+        display: inline-block;
+        height: 100%;
+        padding: 30px 0;
+        font-size: 11px;
+        color: $moodyBleu;
+        text-decoration: none;
+
+        &:hover {
+          color: $astronaut;
+        }
+
+        &.active-menu-item {
+          border-bottom: 2px solid $astronaut;
+        }
+      }
+    }
+  }
+
+
+  // mobile
+  .nav-dropdown {
+    display: block;
+  }
+
+  .nav-items {
+    display: none;
+  }
+;
+
+  // >= tablet
+  @include md {
+    .nav-dropdown {
+      display: none;
+    }
+    .nav-items {
+      display: block;
+    }
+  ;
+  }
+
+}

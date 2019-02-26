@@ -1,23 +1,53 @@
-import React from 'react';
-import { Link } from 'react-router';
-import styles from './styles.module.scss';
+import DropDown from 'app/components/common/DropDown';
+import React, { Component } from 'react';
+import { browserHistory, Link } from 'react-router';
+import _findIndex from 'lodash/findIndex';
+import './styles.scss';
 
-const els = [
-  { title: 'By Slooh 1000', linkURL: 'missions/slooh-1000' },
-  { title: 'By Catalog', linkURL: 'missions/catalog' },
-  { title: 'By Telescope', linkURL: 'missions/telescope' },
-];
+export class Nav extends Component {
+  handleSelect = (e, { value }) => {
+    browserHistory.push(value);
+  };
 
-export const Nav = () => {
-  return (
-    <ul className="list-inline">
-      {els.map(el => (
-        <li key={el.linkURL}>
-          <Link activeClassName="active-menu-item" to={el.linkURL}>
-            {el.title}
-          </Link>
-        </li>
-      ))}
-    </ul>
-  );
-};
+  getDropDownOpts = opts =>
+    opts.map(item => ({
+      label: item.title,
+      value: item.linkURL,
+    }));
+
+  getSelectedIndex = opts => {
+    const { location } = this.props;
+    const { pathname } = location;
+    return _findIndex(opts, { value: pathname });
+  };
+
+  render() {
+    const { items } = this.props;
+    const opts = this.getDropDownOpts(items);
+    const selectedInd = this.getSelectedIndex(opts);
+
+    return (
+      <div className="nav-container">
+        {/* Navigation Items */}
+        <ul className="list-inline nav-items">
+          {items.map(el => (
+            <li key={el.linkURL}>
+              <Link activeClassName="active-menu-item" to={el.linkURL}>
+                {el.title}
+              </Link>
+            </li>
+          ))}
+        </ul>
+
+        {/* Navigation Dropdown */}
+        <div className="nav-dropdown">
+          <DropDown
+            handleSelect={this.handleSelect}
+            selectedIndex={selectedInd}
+            options={opts}
+          />
+        </div>
+      </div>
+    );
+  }
+}
