@@ -29,26 +29,4 @@
     }
   }
 
-
-  // mobile
-  .nav-dropdown {
-    display: block;
-  }
-
-  .nav-items {
-    display: none;
-  }
-;
-
-  // >= tablet
-  @include md {
-    .nav-dropdown {
-      display: none;
-    }
-    .nav-items {
-      display: block;
-    }
-  ;
-  }
-
 }

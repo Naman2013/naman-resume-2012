@@ -29,7 +29,7 @@ export class Nav extends Component {
     return (
       <div className="nav-container container-fluid">
         {/* Navigation Items */}
-        <ul className="list-inline nav-items">
+        <ul className="list-inline nav-items hidden-xs">
           {items.map(el => (
             <li key={el.linkURL}>
               <Link activeClassName="active-menu-item" to={el.linkURL}>
@@ -40,7 +40,7 @@ export class Nav extends Component {
         </ul>
 
         {/* Navigation Dropdown */}
-        <div className="nav-dropdown">
+        <div className="nav-dropdown visible-xs">
           <DropDown
             handleSelect={this.handleSelect}
             selectedIndex={selectedInd}

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './styles.scss';
 
 export class Slooh1000 extends Component {
   componentWillMount = () => {};
@@ -7,6 +8,13 @@ export class Slooh1000 extends Component {
 
   render() {
     const { params, children } = this.props;
-    return <div>slooh 1000 </div>;
+    return (
+      <div className="slooh-1000">
+        <div className="container-fluid">
+          <div className="col-sm-8">1</div>
+          <div className="col-sm-4">2</div>
+        </div>
+      </div>
+    );
   }
 }
