@@ -16,6 +16,8 @@ import style from './tab-conditions.style';
 
 const TabConditions = props => (
   <div>
+    {console.log(props)}
+
     {props.currentTelescope.teleHasNeoView && <div className="tile-container">
       <ObsBotWidget {...props} ViewGroup="conditions"/>
     </div>
