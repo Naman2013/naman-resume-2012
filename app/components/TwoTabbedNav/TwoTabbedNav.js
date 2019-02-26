@@ -96,6 +96,11 @@ class TwoTabbedNav extends Component {
           margin: 0 5px;
           margin-top: 15px;
           cursor: pointer;
+          color: #8d969f;
+        }
+
+        .active-item > .split-nav-item{
+          color: ${astronaut};
         }
 
         .component-container {

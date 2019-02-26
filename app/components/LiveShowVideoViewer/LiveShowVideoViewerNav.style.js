@@ -17,6 +17,24 @@ export default css`
     ${faintShadow}
   }
 
+  .tab-description {
+    color: 
+  }
+
+  .live-show.show-tab {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .live-show-icon.tab-icon {
+    width: 80%;
+    height: 80%;
+    border-radius: 100%;
+    background-repeat: no-repeat;
+  }
+
   .show-tab {
     margin: 0 auto;
     margin-bottom: 5px;

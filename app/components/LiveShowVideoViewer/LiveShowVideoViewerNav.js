@@ -7,10 +7,11 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import uniqueId from 'lodash/uniqueId';
 import { Tab, Tabs, TabList } from 'react-tabs';
 import Select from 'react-select';
 import { FormattedMessage } from 'react-intl';
+import { liveShow } from '../../styles/variables/iconURLs';
+
 import styles from './LiveShowVideoViewerNav.style';
 import messages from './LiveShowVideoViewer.messages';
 
@@ -135,7 +136,7 @@ class LiveShowVideoViewerNav extends Component {
               <Tab>
                 <div className="tab-wrapper">
                   <div className="show-tab live-show">
-                    <div className="tab-icon" style={getInlineBgStyle(EventIconUrl)} />
+                    <div className="tab-icon live-show-icon" style={getInlineBgStyle(liveShow)} />
                   </div>
                 </div>
               </Tab>

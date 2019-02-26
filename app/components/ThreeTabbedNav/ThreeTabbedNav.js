@@ -107,6 +107,7 @@ class ThreeTabbedNav extends Component {
           cursor: pointer;
           margin: 0 5px;
           margin-top: 15px;
+          color: #8d969f;
         }
 
         .component-container {
