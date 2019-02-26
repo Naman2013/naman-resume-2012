@@ -15,7 +15,7 @@ import { intlShape, injectIntl } from 'react-intl';
 import { profilePhotoStyle } from 'styles/mixins/utilities';
 import fetchObjectFollowService from 'services/objects/object-follow';
 import Button from 'components/common/style/buttons/Button';
-import { customModalStylesV4 } from 'styles/mixins/utilities';
+import { customModalStylesBlackOverlay } from 'styles/mixins/utilities';
 import styles from './RelatedObject.style';
 import messages from './RelatedObject.messages';
 
@@ -197,7 +197,7 @@ class RelatedObject extends Component {
       <Modal
         ariaHideApp={false}
         isOpen={modalIsOpen}
-        style={customModalStylesV4}
+        style={customModalStylesBlackOverlay}
         contentLabel={intl.formatMessage(messages.RelatedObjects)}
         onRequestClose={this.closeModal}
       >

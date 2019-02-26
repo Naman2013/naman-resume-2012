@@ -111,7 +111,7 @@ class RecentShow extends Component {
       selectedTab,
     } = this.state;
 
-
+    console.log(showInfoTiles);
 
     return (
       <CenterColumn theme={{ backgroundColor: seashell }} theme={{ paddingTop: '25px' }}>
