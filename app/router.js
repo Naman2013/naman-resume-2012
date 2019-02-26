@@ -35,6 +35,7 @@ import SloohRecommends from 'app/containers/SloohRecommends';
 import StaticAppContainer from 'app/containers/static-app-container';
 import StoriesHub from 'app/containers/stories-hub';
 import { fetchPlayer } from 'app/modules/get-audio-player/actions';
+import Slooh1000 from 'app/modules/missions/containers/slooh-1000';
 import { MissionsMain } from 'app/modules/missions/index';
 import { PublicProfileMain } from 'app/modules/profile';
 import GroupCreate from 'app/pages/community-groups/GroupCreate';
@@ -467,7 +468,10 @@ export const AppRouter = () => (
         onEnter={validateUser}
         component={GroupOverviewInfo}
       />
-      <Route path="missions" title="Missions" component={MissionsMain} />
+      <Route path="missions" title="Missions" component={MissionsMain}>
+        <IndexRedirect to="slooh-1000" />
+        <Route path="slooh-1000" title="Slooh 1000" component={Slooh1000} />
+      </Route>
     </Route>
 
     <Route path="sitemap" component={PlaceholderPage} onEnter={validateUser} />

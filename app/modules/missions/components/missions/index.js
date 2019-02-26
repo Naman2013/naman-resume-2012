@@ -38,6 +38,7 @@ export class Missions extends Component {
             </div>
           )}
         />
+        {children}
       </div>
     );
   }
