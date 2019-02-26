@@ -467,9 +467,8 @@ export const AppRouter = () => (
         onEnter={validateUser}
         component={GroupOverviewInfo}
       />
+      <Route path="missions" title="Missions" component={MissionsMain} />
     </Route>
-
-    <Route path="missions" title="Missions" component={MissionsMain} />
 
     <Route path="sitemap" component={PlaceholderPage} onEnter={validateUser} />
 

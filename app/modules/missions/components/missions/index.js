@@ -1,3 +1,5 @@
+import HubHeader from 'app/components/common/HubHeader';
+
 import React, { cloneElement, Component } from 'react';
 
 export class Missions extends Component {
@@ -11,6 +13,32 @@ export class Missions extends Component {
 
   render() {
     const { params, children } = this.props;
-    return <div>test</div>;
+    return (
+      <div>
+        <HubHeader
+          icon="iconURL"
+          title="pageTitle"
+          // renderRightMenu
+          showIcon
+          renderNav={() => (
+            <div className="navigation-bar">
+              {/*<UnderlineNav
+              activeFilter={filterType}
+              activeSort={sort}
+              navItems={filterOptions}
+              parentPath={hubName}
+            />
+            {(!this.props.isCreateMode && useSort) ?
+              <HubSort
+                defaultIndex={defaultSortIndex}
+                handleSort={this.handleSortChange}
+                sortItems={sortOptions}
+              /> : null}*/}
+              menu
+            </div>
+          )}
+        />
+      </div>
+    );
   }
 }
