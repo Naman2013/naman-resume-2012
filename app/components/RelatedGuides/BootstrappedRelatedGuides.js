@@ -7,50 +7,41 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router';
-import classnames from 'classnames';
-import uniqueId from 'lodash/uniqueId';
-import WinstonTile from 'components/common/tiles/WinstonTile';
 
+import WinstonTile from '../common/tiles/WinstonTile';
 import styles from './RelatedGuides.style';
 
-const {
-  arrayOf, bool, number, shape, string,
-} = PropTypes;
+const { arrayOf, bool, number, shape, string } = PropTypes;
 
 class BootstrappedRelatedShows extends Component {
   static propTypes = {
-    isDesktop: bool,
-    guideList: arrayOf(shape()),
-    guideCount: number,
+    relatedGuidesList: arrayOf(shape()),
   };
 
   static defaultProps = {
-    isDesktop: false,
-    guideList: [],
-    guideCount: 0,
-  };
-
-  state = {
-    showInfo: !this.props.isDesktop,
+    relatedGuidesList: [],
   };
 
   render() {
-    const { isDesktop, guideList, guideCount } = this.props;
-
+    const { relatedGuidesList } = this.props;
+    
     return (
       <div className="root">
-        {guideList.length > 0 ? (
+        {relatedGuidesList.map(item => (
           <WinstonTile
-            title={guideList[0].guideTitle}
-            linkUrl={guideList[0].linkUrl}
-            linkText={guideList[0].linkText}
+            key={`guide-${item.guideId}`}
+            title={item.guideTitle}
+            linkUrl={item.linkURL || item.linkUrl}
+            linkText={item.linkLabel || item.linkText}
             theme={{
               backgroundSize: '100%',
-              backgroundImage: 'url(\'https://vega.slooh.com/assets/v4/common/guide_tile_bg_rect.jpg\')',
+              backgroundImage:
+                "url('https://vega.slooh.com/assets/v4/common/guide_tile_bg_rect.jpg')",
+              marginBottom: '10px',
             }}
           />
-        ) : null}
+        ))}
+
         <style jsx>{styles}</style>
       </div>
     );

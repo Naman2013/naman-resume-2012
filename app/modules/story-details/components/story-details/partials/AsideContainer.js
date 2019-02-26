@@ -4,9 +4,9 @@ import { injectIntl, intlShape } from 'react-intl';
 import Host from 'components/Host';
 import BlueLineDrop from 'components/common/BlueLineDrop';
 import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
-import RelatedShows from 'components/RelatedShows';
-import RelatedStories from 'components/RelatedStories';
-import RelatedGuides from 'components/RelatedGuides';
+import RelatedShows from 'app/components/RelatedShows';
+import RelatedStories from 'app/components/RelatedStories';
+import RelatedGuides from 'app/components/RelatedGuides';
 import RelatedObject from 'components/RelatedObject';
 import { CONTENT_RELATED_GUIDES,  CONTENT_RELATED_STORIES, CONTENT_RELATED_SHOWS} from 'services/content';
 import messages from './AsideContainer.messages';
@@ -48,30 +48,39 @@ const AsideContainer = ({
         title={authorInfo.label}
       />
     </DisplayAtBreakpoint>
+    
     <RelatedObject slugLookupId={slugLookupId} user={user} isDesktop={isDesktop} />
-    <BlueLineDrop
+
+    <RelatedShows
+      serviceURL={CONTENT_RELATED_SHOWS}
+      user={user}
+      slugLookupId={slugLookupId}
+      maxCount={MAX_COUNT}
+      isDesktop={isDesktop}
+      isScreenLarge={isScreenLarge}
       title={intl.formatMessage(messages.relatedShows)}
-      isDesktop={isDesktop}
-      theme={{ margin: isScreenLarge ? '25px 0' : '25px' }}
-      render={() => (
-        <RelatedShows slugLookupId={slugLookupId} serviceUrl={CONTENT_RELATED_SHOWS} maxCount={MAX_COUNT} />
-      )}
     />
-    <BlueLineDrop
+
+    <RelatedStories
+      serviceURL={CONTENT_RELATED_STORIES}
+      user={user}
+      postId={postId}
+      slugLookupId={slugLookupId}
+      maxCount={MAX_COUNT}
+      isDesktop={isDesktop}
+      isScreenLarge={isScreenLarge}
       title={intl.formatMessage(messages.relatedStories)}
-      isDesktop={isDesktop}
-      theme={{ margin: isScreenLarge ? '25px 0' : '25px' }}
-      render={() => (
-        <RelatedStories postId={postId} slugLookupId={slugLookupId} serviceUrl={CONTENT_RELATED_STORIES} maxCount={MAX_COUNT} />
-      )}
     />
-    <BlueLineDrop
-      title={intl.formatMessage(messages.relatedGuides)}
+
+    <RelatedGuides
+      serviceURL={CONTENT_RELATED_GUIDES}
+      user={user}
+      postId={postId}
+      slugLookupId={slugLookupId}
+      maxCount={MAX_COUNT}
       isDesktop={isDesktop}
-      theme={{ margin: isScreenLarge ? '25px 0' : '25px' }}
-      render={() => (
-        <RelatedGuides slugLookupId={slugLookupId} serviceUrl={CONTENT_RELATED_GUIDES} maxCount={MAX_COUNT} />
-      )}
+      isScreenLarge={isScreenLarge}
+      title={intl.formatMessage(messages.relatedGuides)}
     />
   </div>
 );
