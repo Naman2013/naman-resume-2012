@@ -167,7 +167,7 @@ class CreateStoryForm extends Component {
         token,
         cid,
         objectSlug: selectedObjectCategory || selectedObjectTopic,
-        type: selectedContentCategory,
+        storyType: selectedContentCategory,
         title: headlineContent,
         content: bodyContent,
         postTags: tagsText,
@@ -211,24 +211,26 @@ class CreateStoryForm extends Component {
     const {
       apiError,
       responseText,
+      errorMsg,
+      buttonCaption,
     } = res.payload;
 
-    if (!apiError) {
-      actions.setAndOpenModal({
-        modalStyles: customModalStylesBlackOverlay,
-        modalComponent: (
-          <GenericModal
-            promptText={responseText}
-            renderActions={() => (
-              <FormFeedbackActions
-                resetForm={this.closeModalAndResetForm}
-                closeResponseFeedback={goBack}
-              />
-            )}
-          />
-        )
-      });
-    }
+    actions.setAndOpenModal({
+      modalStyles: customModalStylesBlackOverlay,
+      modalComponent: (
+        <GenericModal
+          promptText={!apiError ? responseText : (responseText || errorMsg)}
+          renderActions={() => (
+            <FormFeedbackActions
+              submitButtonCaption={buttonCaption}
+              resetForm={this.closeModalAndResetForm}
+              closeResponseFeedback={goBack}
+            />
+          )}
+        />
+      ),
+      onDismissAction: !apiError ? goBack : null,
+    });
   }
 
   closeModalAndResetForm = (e) => {
@@ -261,6 +263,11 @@ class CreateStoryForm extends Component {
       submitStory,
       user,
       uuid,
+      imagePrompt,
+      noTagsMsg,
+      tagLabel,
+      tagPrompt,
+      titlePrompt,
     } = this.props;
     const {
       bodyContent,
@@ -301,6 +308,7 @@ class CreateStoryForm extends Component {
           title={sectionLabels.section3.title}
         />
         <HeadlineAndContentInputs
+          titlePrompt={titlePrompt}
           bodyContent={bodyContent}
           handleBodyContentChange={this.handleBodyContentChange}
           handleHeadlineChange={this.handleHeadlineChange}
@@ -311,6 +319,9 @@ class CreateStoryForm extends Component {
           title={sectionLabels.section4.title}
         />
         <Tags
+          noTagsMsg={noTagsMsg}
+          tagLabel={tagLabel}
+          tagPrompt={tagPrompt}
           onTagsChange={this.onTagsChange}
           tagClass="content"
           tags={tags}
@@ -328,17 +339,20 @@ class CreateStoryForm extends Component {
         <UploadImages
           imageClass="community"
           onImagesChange={this.onImagesChange}
+          title={imagePrompt}
           S3URLs={S3URLs}
           uuid={uuid}
           user={user}
           validateResponseAccess={actions.validateResponseAccess}
         />
-        <ActionItems
-          cancelLabel={cancelLabel}
-          goBack={goBack}
-          submitLabel={submitLabel}
-          submitStory={this.submitForm}
-        />
+        {(cancelLabel || submitLabel) && (
+          <ActionItems
+            cancelLabel={cancelLabel}
+            goBack={goBack}
+            submitLabel={submitLabel}
+            submitStory={this.submitForm}
+          />
+        )}
       </form>
     );
   }

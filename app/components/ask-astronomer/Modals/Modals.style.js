@@ -51,6 +51,7 @@ export default css`
     display: flex;
     flex-direction: row;
     align-items: center;
+    margin-top: 30px;
   }
 
   .info-container {
@@ -79,13 +80,18 @@ export default css`
   .actions {
     display: flex;
     min-height: 40px;
+    margin-top: 30px;
+  }
+
+  .privacy-buttons {
+    margin-top: 30px;
+    min-height: 41px;
   }
 
   .button-container {
     display: flex;
     flex-flow: row wrap;
     justify-content: space-between;
-    margin-top: 30px;
     align-items: center;
     min-height: 40px;
     line-height: 39px;
@@ -120,6 +126,7 @@ export default css`
     font-weight: normal;
     font-family: ${secondaryFont};
     padding: 15px;
+    word-break: break-word;
   }
 
   @media ${screenMedium} {

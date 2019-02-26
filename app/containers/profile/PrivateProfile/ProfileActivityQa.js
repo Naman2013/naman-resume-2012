@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Modal from 'react-modal';
+import _get from 'lodash/get';
 
 import MainContainer from '../../ask-astronomer/partials/MainContainer';
 import {
@@ -43,24 +44,33 @@ class ProfileActivityQa extends Component {
 
   componentDidMount() {
     const { actions, askAnAstronomerData } = this.props;
-    actions.fetchAstronomerQuestions({ answerState: askAnAstronomerData.defaultAnswerState });
+    actions.fetchAstronomerQuestions({
+      answerState: askAnAstronomerData.defaultAnswerState,
+    });
   }
 
-  getTextCount = (count) => {
-    return this.props.askAnAstronomerData.askAnAstronomerDataHeading.replace(' x ', ` ${count} `);
+  getTextCount = count => {
+    const txt = _get(
+      this.props,
+      'askAnAstronomerData.askAnAstronomerDataHeading',
+      ''
+    );
+    return txt.replace(' x ', ` ${count} `);
   };
 
   getFilterOptions = () => {
     const { askAnAstronomerData } = this.props;
-    const options = Object.keys(askAnAstronomerData.answerStateOptions).map((key) => {
-      return {
-        label: askAnAstronomerData.answerStateOptions[key],
-        value: key,
-      };
-    });
-    
+    const options = Object.keys(askAnAstronomerData.answerStateOptions).map(
+      key => {
+        return {
+          label: askAnAstronomerData.answerStateOptions[key],
+          value: key,
+        };
+      }
+    );
+
     return options;
-  }
+  };
 
   setModal = ({ promptComponent, promptStyles }) => {
     this.setState(state => ({
@@ -85,24 +95,20 @@ class ProfileActivityQa extends Component {
     const { actions } = this.props;
     actions.submitAnswerToQuestion(params).then(res => callback(res.payload));
   };
-  
-  handlePageChange = (page) => {
-    const {
-      actions,
-    } = this.props;
+
+  handlePageChange = page => {
+    const { actions } = this.props;
     actions.fetchAstronomerQuestions({
       appendToList: false,
-      page,
+      currentPage: page,
     });
   };
 
   updateQuestionsList = () => {
-    const {
-      actions,
-    } = this.props;
+    const { actions } = this.props;
 
     actions.fetchAstronomerQuestions({});
-  }
+  };
 
   render() {
     const {
@@ -112,11 +118,11 @@ class ProfileActivityQa extends Component {
       user,
       askAnAstronomerData,
     } = this.props;
-    
+
     const { setModal, showModal, closeModal } = this;
     const modalActions = { setModal, showModal, closeModal };
     const { showPrompt, promptComponent, promptStyles } = this.state;
-    
+
     return (
       <div className="root">
         <DeviceContext.Consumer>
@@ -183,11 +189,11 @@ const mapDispatchToProps = dispatch => ({
       toggleAllAnswersAndDisplay,
       submitAnswerToQuestion,
     },
-    dispatch,
+    dispatch
   ),
 });
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
+  mapDispatchToProps
 )(ProfileActivityQa);

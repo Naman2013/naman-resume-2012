@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import uniqueId from 'lodash/uniqueId';
+import { FormattedMessage } from 'react-intl';
 import CenterColumn from 'components/common/CenterColumn';
 import StoryTile from 'components/common/tiles/story-tile';
 import StoryExcerptTile from 'components/common/tiles/story-excerpt-tile';
@@ -46,7 +47,7 @@ class StoriesTiles extends Component {
   render() {
     const { stories, isMobile, updateReadingListInfo } = this.props;
     const { activeId } = this.state;
-    return (
+    return stories.length ? (
       <CenterColumn widths={['645px', '965px', '965px']}>
         <ul className="story-tiles-root">
           {!isMobile && stories.map(story => (
@@ -78,7 +79,7 @@ class StoriesTiles extends Component {
         </ul>
         <style jsx>{style}</style>
       </CenterColumn>
-    );
+    ) : <FormattedMessage id="Hubs.noStories" />;
   }
 }
 

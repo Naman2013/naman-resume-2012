@@ -74,6 +74,7 @@ class DetailsTab extends Component {
             at: user.at,
             slugLookupId,
             showId,
+            maxCount:3,
           }}
           render={({ fetchingContent, serviceResponse }) => (
             <BlueLineDrop
@@ -102,6 +103,7 @@ class DetailsTab extends Component {
             showId,
             slugLookupId,
             listType: 'sluglookupids',
+            maxCount:3,
           }}
           render={({ fetchingContent, serviceResponse }) => (
             <BlueLineDrop
@@ -130,6 +132,7 @@ class DetailsTab extends Component {
             at: user.at,
             slugLookupId,
             showId,
+            maxCount:3,
           }}
           render={({ fetchingContent, serviceResponse }) => (
             <BlueLineDrop

@@ -7,6 +7,7 @@ import {
   midnight_express,
   golda,
   golden,
+  guide_header_bg_image,
 } from '../../../styles/variables/colors_tiles_v4';
 import {
   screenMedium,
@@ -20,7 +21,7 @@ export default css`
     text-align: center;
     font-family: ${primaryFont};
     color: ${astronaut};
-    background: url(${blue_tile_feat});
+    background: url(${guide_header_bg_image});
     padding-top: 70px;
   }
 
@@ -40,6 +41,7 @@ export default css`
     font-weight: 300;
     text-transform: capitalize;
     font-size: 22px;
+    margin-bottom: 0;
     font-family: ${secondaryFont};
   }
 

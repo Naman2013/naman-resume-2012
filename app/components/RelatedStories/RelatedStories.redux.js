@@ -31,6 +31,7 @@ class RelatedStories extends Component {
     slugLookupId: oneOfType([string, number]),
     showId: oneOfType([string, number]),
     serviceUrl: string,
+    maxCount: number,
   };
   static defaultProps = {
     isDesktop: false,
@@ -38,6 +39,7 @@ class RelatedStories extends Component {
     slugLookupId: null,
     showId: null,
     serviceUrl: CONTENT_RELATED_STORIES,
+    maxCount: 3,
   };
 
   render() {

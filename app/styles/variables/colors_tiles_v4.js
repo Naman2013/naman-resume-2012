@@ -33,8 +33,8 @@ export const white_tile_texture = 'https://vega.slooh.com/assets/v4/common/Light
 export const white_tile_paper   = 'https://vega.slooh.com/assets/v4/common/White_Paper_Subtle.png';
 export const blue_tile_feat     = 'https://vega.slooh.com/assets/v4/common/Dark_Pattern_Featured_LargeCanvas.png';
 export const blue_tile_guides   = 'https://vega.slooh.com/assets/v4/common/Dark_Pattern_GUIDES.png';
+export const guide_header_bg_image = 'https://vega.slooh.com/assets/v4/common/guide_header_bg_image.jpg'
 export const blue_tile_canvas   = 'https://vega.slooh.com/assets/v4/common/Darkest_Pattern_Canvas.png';
 export const questTexture      = 'https://vega.slooh.com/assets/v4/common/quest_card_bg.png';
 export const questDetailsTexture  = 'https://vega.slooh.com/assets/v4/common/quest_details_texture.png';
 export const white_texture_bg  = 'https://vega.slooh.com/assets/v4/dashboard/white-texture.png';
-

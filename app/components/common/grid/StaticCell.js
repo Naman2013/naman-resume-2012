@@ -57,7 +57,6 @@ const StaticCell = ({
       {`
         .root {
           ${getBorderStyle(getScaleTarget(hasBorderScale, 0))}
-          align-self: center;
           flex: ${getScaleTarget(flexScale, 0)};
         }
 

@@ -30,12 +30,14 @@ class RelatedGuides extends Component {
     isDesktop: bool,
     slugLookupId: oneOfType([string, number]),
     showId: oneOfType([string, number]),
+    maxCount: number,
   };
   static defaultProps = {
     serviceUrl: RELATED_GUIDES,
     isDesktop: false,
     showId: null,
     slugLookupId: null,
+    maxCount: 3,
   };
 
   render() {

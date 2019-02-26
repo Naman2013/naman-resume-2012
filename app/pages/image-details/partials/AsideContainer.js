@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import MissionDetailList from 'components/common/MissionDetailList';
 import MissionImageDetailList from 'components/common/MissionImageDetailList';
-import UpcomingMissionAside from 'components/common/UpcomingMissionAside';
 import ObserverInfo from 'components/ObserverInfo';
 import ObjectDetailList from 'components/common/ObjectDetailList';
 
@@ -19,12 +18,9 @@ const AsideContainer = ({
   avatarURL,
   customerImageId,
   displayName,
-  domeId,
-  fileData,
   gravityRankLabel,
   isDesktop,
   objectId,
-  obsId,
   scheduledMissionId,
   showMissionRelatedInfo,
 }) => (
@@ -57,15 +53,6 @@ const AsideContainer = ({
         scheduledMissionId={scheduledMissionId}
       />
     </div> : null}
-    <div>
-      <UpcomingMissionAside
-        telescope={fileData.Telescope}
-        title="Upcoming Mission"
-        isDesktop={isDesktop}
-        obsId={obsId}
-        domeId={domeId}
-      />
-    </div>
   </div>
 );
 
