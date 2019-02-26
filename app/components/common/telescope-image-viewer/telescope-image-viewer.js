@@ -6,6 +6,7 @@ import generateSseImageLoader from '../../../utils/generate-sse-image-source';
 import obsIdTeleIdDomeIdFromTeleId from '../../../utils/obsid-teleid-domeid-from-teleid';
 
 import './telescope-image-viewer.scss';
+import StarShareCamera from '../../telescope-details/star-share-camera/star-share-camera';
 
 function TelescopeImageViewer({
   telePort,
@@ -22,15 +23,8 @@ function TelescopeImageViewer({
   const imageSource = generateSseImageLoader(teleSystem, telePort);
 
   return (
-    <div
-      className="telescope-image-viewer"
-    >
-
-      <InteractiveViewer
-        isInteractive={isInteractive}
-        callSource={callSource}
-      >
-
+    <div className="telescope-image-viewer">
+      <InteractiveViewer isInteractive={isInteractive} callSource={callSource}>
         <TelescopeImageLoader
           imageSource={imageSource}
           teleId={setIds.teleId}
@@ -42,8 +36,8 @@ function TelescopeImageViewer({
           missionFormat={missionFormat}
         />
 
+        <StarShareCamera />
       </InteractiveViewer>
-
     </div>
   );
 }
