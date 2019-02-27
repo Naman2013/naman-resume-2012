@@ -3,7 +3,7 @@ import { Nav } from 'app/modules/missions/components/nav';
 import React, { Component } from 'react';
 
 export class Missions extends Component {
-  componentWillMount = () => {
+  componentDidMount = () => {
     this.fetchData();
   };
 

@@ -4,19 +4,19 @@ import React, { Component } from 'react';
 import './styles.scss';
 
 export class Slooh1000 extends Component {
-  componentWillMount = () => {
+  componentDidMount = () => {
     const { getCategoryList } = this.props;
     getCategoryList();
   };
 
   render() {
-    const { params, children } = this.props;
+    const { categoryListOpts } = this.props;
     return (
       <div className="slooh-1000">
         <div className="container-fluid">
           <div className="col-sm-8">
             <Box>
-              <Slooh1000Setup />
+              <Slooh1000Setup categoryListOpts={categoryListOpts} />
             </Box>
           </div>
           <div className="col-sm-4">

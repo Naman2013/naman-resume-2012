@@ -1,0 +1,19 @@
+@import "~app/styles/variables/index";
+
+$parentPadding: 40px;
+
+.slooh-1000-setup {
+  .steps {
+    //margin: $parentPadding -($parentPadding) -($parentPadding);
+    margin: 40px -40px -40px;
+    border-top: 1px solid $hawkesBlue;
+
+    .step-1{
+      border-right: 1px solid $hawkesBlue;
+    }
+
+    .step-1, .step-2 {
+      padding: $parentPadding;
+    }
+  }
+}
