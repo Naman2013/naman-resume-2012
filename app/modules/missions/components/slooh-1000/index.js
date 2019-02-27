@@ -17,7 +17,11 @@ export class Slooh1000 extends Component {
               <div>test</div>
             </Box>
           </div>
-          <div className="col-sm-4">2</div>
+          <div className="col-sm-4">
+            <Box inside>
+              <div>2</div>
+            </Box>
+          </div>
         </div>
       </div>
     );
