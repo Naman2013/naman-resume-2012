@@ -134,7 +134,6 @@ class RecentShow extends Component {
             <div className="hide-on-mobile">
               <LabeledTitleTiles
                 theme={{
-                  margin: isDesktop ? 0 : '15px',
                   backgroundColor: romance,
                 }}
                 tiles={showInfoTiles.list}

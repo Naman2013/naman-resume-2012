@@ -104,8 +104,7 @@ class MainContainerWithDiscussions extends Component {
 
     return (
       <div className="root">
-        {isDesktop ? (
-          <div className="main-content-container">
+          <div className="main-content-container desktop-view">
             <div>
               {Number(serverTime) < Number(startDate) ? <UpcomingShowCountdown
                 eventStartTime={Number(startDate)}
@@ -120,8 +119,7 @@ class MainContainerWithDiscussions extends Component {
               {hasDiscussionThread ? <CommentsTab {...this.props} /> : null}
             </div>
           </div>
-        ) : (
-          <div>
+          <div className="mobile-view">
             {aboutIsActive ?
               <AboutTab {...this.props} /> :
             null}
@@ -132,7 +130,6 @@ class MainContainerWithDiscussions extends Component {
               <DetailsTab {...this.props} /> :
             null}
           </div>
-        )}
         <style jsx>{styles}</style>
       </div>
     );

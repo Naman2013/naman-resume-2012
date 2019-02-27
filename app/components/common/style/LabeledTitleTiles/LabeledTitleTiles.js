@@ -1,12 +1,12 @@
 /***********************************
-* V4 Object Detail List populated with info
-*
-*
-*
-***********************************/
+ * V4 Object Detail List populated with info
+ *
+ *
+ *
+ ***********************************/
 
 import React from 'react';
-import PropTypes from 'prop-types';
+import PropTypes, { number } from 'prop-types';
 import uniqueId from 'lodash/uniqueId';
 import classnames from 'classnames';
 import { profilePhotoStyle } from 'styles/mixins/utilities';
@@ -15,21 +15,13 @@ import { secondaryFont } from 'styles/variables/fonts';
 import { screenLarge } from 'styles/variables/breakpoints';
 import { faintShadow } from 'styles/variables/shadows';
 
-const {
-  arrayOf,
-  oneOf,
-  bool,
-  shape,
-  string,
-} = PropTypes;
+const { arrayOf, oneOf, bool, shape, string } = PropTypes;
 
-const LabeledTitleTiles = ({
-  direction,
-  theme,
-  tiles,
-}) => (
+const LabeledTitleTiles = ({ direction, theme, tiles }) => (
   <div
-    className={classnames('wide-info-block', { column: direction === 'column' })}
+    className={classnames('wide-info-block', {
+      column: direction === 'column',
+    })}
     style={theme}
   >
     {Object.keys(tiles)
@@ -57,7 +49,6 @@ const LabeledTitleTiles = ({
         color: ${astronaut};
         ${faintShadow}
       }
-
 
       :not(.column) .wide-info-item {
         flex: 1 1 0;
@@ -118,6 +109,7 @@ const LabeledTitleTiles = ({
       @media ${screenLarge} {
         .wide-info-item {
           height: 100%;
+          // margin: 0;
         }
       }
     `}</style>
