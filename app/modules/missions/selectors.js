@@ -28,6 +28,17 @@ export const makeBySlooh1000CategoryListSelector = () =>
     state => state.categoryList
   );
 
+export const makeByTelescopeSelector = () =>
+  createSelector(
+    selectMissions,
+    state => state.byTelescope
+  );
+
+export const makeTelescopeListSelector = () =>
+  createSelector(
+    makeByTelescopeSelector(),
+    state => state.telescopeList
+  );
 /**
  * Gets the categoryList from reducer
  * Returns categoryList options ready for Select
