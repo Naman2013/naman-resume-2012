@@ -10,7 +10,7 @@ export const TYPE = constants('profile', [
   '~GET_OBJECT_LIST',
 
   // byTelescope page
-  // ...
+  '~GET_OBSERVATORY_LIST',
 ]);
 export const ACTION = actions(TYPE);
 
@@ -27,6 +27,10 @@ export const initialState = {
     categoryList: {},
     selectedCategoryId: null,
     objectList: {},
+  },
+
+  byTelescope: {
+    telescopeList: {},
   },
 };
 
@@ -46,7 +50,9 @@ export default handleActions(
     [TYPE.GET_OBJECT_LIST_ERROR]: setServerError,
 
     // byTelescope page
-    // ...
+    [TYPE.GET_OBSERVATORY_LIST]: setFetching,
+    [TYPE.GET_OBSERVATORY_LIST_SUCCESS]: getObservatoryListSuccess,
+    [TYPE.GET_OBSERVATORY_LIST_ERROR]: setServerError,
   },
   initialState
 );
@@ -95,5 +101,30 @@ function getObjectListSuccess(state, action) {
     isFetching: false,
     isLoaded: true,
     bySlooh1000: { ...state.bySlooh1000, objectList: action.payload },
+  };
+}
+
+function getTelescopeListByObservatory(observatoryList) {
+  return observatoryList.reduce((telescopeList, observatory) => {
+    return [
+      ...telescopeList,
+      ...observatory.obsTelescopes.map(telescope => {
+        return { ...telescope, obsId: observatory.obsId };
+      }),
+    ];
+  }, []);
+}
+
+function getObservatoryListSuccess(state, action) {
+  return {
+    ...state,
+    isFetching: false,
+    isLoaded: true,
+    byTelescope: {
+      ...state.byTelescope,
+      telescopeList: getTelescopeListByObservatory(
+        action.payload.observatoryList
+      ),
+    },
   };
 }

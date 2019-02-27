@@ -1,10 +1,15 @@
 import axios from 'axios';
 
 export const getMissionsApi = data => axios.post('/api/page/missions', data);
+
+// bySlooh1000 page
 export const getCategoryListApi = data =>
   axios.post('/api/reservation/getPopularCategoryList', data);
 export const getObjectListApi = data =>
   axios.post('/api/reservation/getPopularObjectList', data);
+
+// byTelescope page
+export const getObservatoryListApi = data => axios.post('/api/obs/list', data);
 /*
 
 const response = {
