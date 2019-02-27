@@ -132,4 +132,8 @@ export default css`
   :global(.live-show .tablist > li:first-child > div) {
     justify-content: center;
   }
+
+  :global(.live-show .react-select__value-container) {
+    overflow: visible;
+  }
 `;
