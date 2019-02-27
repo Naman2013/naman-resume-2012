@@ -9,6 +9,8 @@ export class Slooh1000 extends Component {
     getCategoryList();
   };
 
+  getObjectList = () => {};
+
   render() {
     const { categoryListOpts, setCategory } = this.props;
     return (
@@ -20,6 +22,7 @@ export class Slooh1000 extends Component {
                 <Slooh1000Setup
                   categoryListOpts={categoryListOpts}
                   setCategory={setCategory}
+                  onSelected={this.getObjectList}
                 />
               </Box>
             </div>

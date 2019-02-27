@@ -17,6 +17,7 @@ const mapStateToProps = createStructuredSelector({
 const mapDispatchToProps = {
   getCategoryList,
   setCategory: ACTION.setCategory(),
+  // selectedCategoryId: SELECTOR
 };
 
 export default compose(

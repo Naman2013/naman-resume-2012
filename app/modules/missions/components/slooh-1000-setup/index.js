@@ -18,7 +18,7 @@ export class Slooh1000Setup extends Component {
             <span>Step 1: Choose Category</span>
             <DropDown
               handleSelect={() => {}}
-              selectedIndex={1}
+              // value={selectedCategoryId}
               options={categoryListOpts}
             />
           </div>
