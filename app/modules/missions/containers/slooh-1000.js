@@ -1,20 +1,16 @@
 import { Slooh1000 } from 'app/modules/missions/components/slooh-1000';
-// import {
-//   makeProfileLoadingSelector,
-//   makeMissionsUserDataSelector,
-// } from 'app/modules/missions/selectors';
-// import { getMissions } from 'app/modules/missions/thunks';
+import { makeBySlooh1000CategoryListSelector } from 'app/modules/missions/selectors';
+import { getCategoryList } from 'app/modules/missions/thunks';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 
 const mapStateToProps = createStructuredSelector({
-  // isLoading: makeProfileLoadingSelector(),
-  // publicProfileData: makeMissionsUserDataSelector(),
+  categoryList: makeBySlooh1000CategoryListSelector(),
 });
 
 const mapDispatchToProps = {
-  // getMissions,
+  getCategoryList,
 };
 
 export default compose(
