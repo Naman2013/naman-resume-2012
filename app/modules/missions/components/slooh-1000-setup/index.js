@@ -7,7 +7,7 @@ export class Slooh1000Setup extends Component {
     const { categoryListOpts, setCategory } = this.props;
     return (
       <div className="slooh-1000-setup">
-        <h2>Set up with Slooh Recommender!</h2>
+        <h2>Set up with Slooh Recommender2!</h2>
         <p>
           Welcome to the Slooh Recommender! Tell us what you want to see, we’ll
           tell you which scope to use, and the best time to see it!
