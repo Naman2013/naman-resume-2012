@@ -7,6 +7,7 @@ import { getCategoryList } from 'app/modules/missions/thunks';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
+import { ACTION } from '../reducer';
 
 const mapStateToProps = createStructuredSelector({
   categoryList: makeBySlooh1000CategoryListSelector(),
@@ -15,6 +16,7 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = {
   getCategoryList,
+  setCategory: ACTION.setCategory(),
 };
 
 export default compose(

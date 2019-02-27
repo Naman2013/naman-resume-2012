@@ -4,7 +4,7 @@ import './styles.scss';
 
 export class Slooh1000Setup extends Component {
   render() {
-    const { categoryListOpts } = this.props;
+    const { categoryListOpts, setCategory } = this.props;
     return (
       <div className="slooh-1000-setup">
         <h2>Set up with Slooh Recommender!</h2>
@@ -25,6 +25,7 @@ export class Slooh1000Setup extends Component {
 
           <div className="col-sm-6 step-2">
             <span>Step 2: Choose Object</span>
+            <DropDown handleSelect={() => {}} selectedIndex={1} options={[]} />
           </div>
         </div>
       </div>

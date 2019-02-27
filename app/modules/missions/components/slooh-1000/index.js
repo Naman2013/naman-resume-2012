@@ -10,19 +10,24 @@ export class Slooh1000 extends Component {
   };
 
   render() {
-    const { categoryListOpts } = this.props;
+    const { categoryListOpts, setCategory } = this.props;
     return (
       <div className="slooh-1000">
         <div className="container-fluid">
-          <div className="col-sm-8">
-            <Box>
-              <Slooh1000Setup categoryListOpts={categoryListOpts} />
-            </Box>
-          </div>
-          <div className="col-sm-4">
-            <Box inside>
-              <div>2</div>
-            </Box>
+          <div className="row">
+            <div className="col-sm-8">
+              <Box>
+                <Slooh1000Setup
+                  categoryListOpts={categoryListOpts}
+                  setCategory={setCategory}
+                />
+              </Box>
+            </div>
+            <div className="col-sm-4">
+              <Box inside>
+                <div>YOUR MISSION WILL APPEAR HERE</div>
+              </Box>
+            </div>
           </div>
         </div>
       </div>

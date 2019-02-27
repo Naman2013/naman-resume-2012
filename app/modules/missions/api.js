@@ -3,6 +3,8 @@ import axios from 'axios';
 export const getMissionsApi = data => axios.post('/api/page/missions', data);
 export const getCategoryListApi = data =>
   axios.post('/api/reservation/getPopularCategoryList', data);
+export const getObjectListApi = data =>
+  axios.post('/api/reservation/getPopularObjectList', data);
 /*
 
 const response = {
