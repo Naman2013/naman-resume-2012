@@ -11,6 +11,13 @@ export default css`
     position: relative;
   }
 
+  .select-wrapper {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin: 10px;
+  }
+
   :global(.live-show .tablist) {
     padding: 0;
     display: flex;
@@ -31,8 +38,14 @@ export default css`
   .live-show-icon.tab-icon {
     width: 80%;
     height: 80%;
-    border-radius: 100%;
+    border-radius: 50%;
     background-repeat: no-repeat;
+  }
+
+  :global(.live-show-icon.opt-icon) {
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    background-position: center center;
   }
 
   .show-tab {

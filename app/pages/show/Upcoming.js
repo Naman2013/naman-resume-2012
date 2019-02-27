@@ -159,6 +159,7 @@ class UpcomingShow extends Component {
                 {...this.props}
               />)}
               isScreenLarge={isScreenLarge}
+              isDesktop={isDesktop}
               renderMainContent={() => (<MainContainerWithDiscussions
                 {...this.props}
                 selectedTab={selectedTab}

@@ -87,6 +87,7 @@ class LiveShow extends Component {
       additionalFeeds,
       isScreenMedium,
       isScreenLarge,
+      isDesktop,
       hasDiscussionThread,
       intl,
     } = this.props;
@@ -146,6 +147,7 @@ class LiveShow extends Component {
               showComments={this.showComments}
             />)}
             isScreenLarge={isScreenLarge}
+            isDesktop={isDesktop}
             renderMainContent={() => (<MainContainer
               {...this.props}
               headerLabel={headerLabel}
