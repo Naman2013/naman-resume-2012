@@ -4,6 +4,7 @@ import { handleActions } from 'redux-actions';
 export const TYPE = constants('profile', [
   '~GET_MISSIONS',
   '~GET_CATEGORY_LIST',
+  '~GET_OBSERVATORY_LIST',
 ]);
 export const ACTION = actions(TYPE);
 
@@ -19,6 +20,10 @@ export const initialState = {
   bySlooh1000: {
     categoryList: {},
   },
+
+  byTelescope: {
+    telescopeList: {},
+  },
 };
 
 export default handleActions(
@@ -29,6 +34,9 @@ export default handleActions(
     [TYPE.GET_CATEGORY_LIST]: setFetching,
     [TYPE.GET_CATEGORY_LIST_SUCCESS]: getCategoryListSuccess,
     [TYPE.GET_CATEGORY_LIST_ERROR]: setServerError,
+    [TYPE.GET_OBSERVATORY_LIST]: setFetching,
+    [TYPE.GET_OBSERVATORY_LIST_SUCCESS]: getObservatoryListSuccess,
+    [TYPE.GET_OBSERVATORY_LIST_ERROR]: setServerError,
   },
   initialState
 );
@@ -61,5 +69,30 @@ function getCategoryListSuccess(state, action) {
     isFetching: false,
     isLoaded: true,
     bySlooh1000: { ...state.bySlooh1000, categoryList: action.payload },
+  };
+}
+
+function getTelescopeListByObservatory(observatoryList) {
+  return observatoryList.reduce((telescopeList, observatory) => {
+    return [
+      ...telescopeList,
+      ...observatory.obsTelescopes.map(telescope => {
+        return { ...telescope, obsId: observatory.obsId };
+      }),
+    ];
+  }, []);
+}
+
+function getObservatoryListSuccess(state, action) {
+  return {
+    ...state,
+    isFetching: false,
+    isLoaded: true,
+    byTelescope: {
+      ...state.byTelescope,
+      telescopeList: getTelescopeListByObservatory(
+        action.payload.observatoryList
+      ),
+    },
   };
 }

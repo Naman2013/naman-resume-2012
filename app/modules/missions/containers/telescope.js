@@ -1,20 +1,17 @@
-// import {
-import { Telescope } from 'app/modules/missions/components/telescope';
-//   makeProfileLoadingSelector,
-//   makeMissionsUserDataSelector,
-// } from 'app/modules/missions/selectors';
-// import { getMissions } from 'app/modules/missions/thunks';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 
+import { Telescope } from '../components/telescope';
+import { getObservatoryList } from '../thunks';
+import { makeTelescopeListSelector } from '../selectors';
+
 const mapStateToProps = createStructuredSelector({
-  // isLoading: makeProfileLoadingSelector(),
-  // publicProfileData: makeMissionsUserDataSelector(),
+  telescopeList: makeTelescopeListSelector(),
 });
 
 const mapDispatchToProps = {
-  // getMissions,
+  getObservatoryList,
 };
 
 export default compose(

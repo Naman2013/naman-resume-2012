@@ -25,3 +25,15 @@ export const makeBySlooh1000CategoryListSelector = () =>
     makeBySlooh1000Selector(),
     state => state.categoryList
   );
+
+export const makeByTelescopeSelector = () =>
+  createSelector(
+    selectMissions,
+    state => state.byTelescope
+  );
+
+export const makeTelescopeListSelector = () =>
+  createSelector(
+    makeByTelescopeSelector(),
+    state => state.telescopeList
+  );
