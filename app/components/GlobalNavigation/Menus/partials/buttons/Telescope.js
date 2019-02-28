@@ -60,6 +60,10 @@ const Telescope = ({
         border-bottom: none;
       }
 
+      :global(.menu-list a:hover) {
+        text-decoration: none;
+      }
+
       .online-status {
         font-size: 10px;
         visibility: hidden;
