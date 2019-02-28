@@ -13,6 +13,7 @@ import {
   TelescopeNavigation,
 } from 'app/modules/telescope/components/old';
 import telescopeConfig from 'app/components/Telescope/telescopeConfig';
+import TelescopeOffline from 'app/modules/telescope/containers/telescope-offline';
 
 import {
   buildNavigationOptions,
@@ -352,18 +353,19 @@ export class TelescopeDetails extends Component {
           onSelect={this.handleOptionChange}
           selectedIndex={selectedNavigationIndex}
         />
-
         {/* Telescope: Offline State */}
         {activeTelescopeStatus &&
-          activeTelescopeStatus.onlineStatus == 'offline' && (
-            <div className="details-root">
-              <p>{currentTelescope.teleName} is Offline.....</p>
-            </div>
+          activeTelescopeStatus.onlineStatus === 'offline' && (
+            <TelescopeOffline />
           )}
-
+        {/*(
+        <div className="details-root">
+          <p>{currentTelescope.teleName} is Offline.....</p>
+        </div>
+        )}*/}
         {/* Telescope: Online State */}
         {activeTelescopeStatus &&
-          activeTelescopeStatus.onlineStatus == 'online' && (
+          activeTelescopeStatus.onlineStatus === 'online' && (
             <div className="details-root">
               <DisplayAtBreakpoint screenLarge screenXLarge>
                 <div className="viewer">
