@@ -87,7 +87,7 @@ import ReserveByTelescope from 'app/pages/reserve-by-telescope';
 import ReserveByCatalog from 'app/pages/reserve/reserve-by-catalog';
 import ReserveObjects from 'app/pages/reserve/reserve-by-objects';
 import Show from 'app/pages/show';
-import { ConnectedTelescopeDetails } from 'app/pages/telescope-details';
+// import { ConnectedTelescopeDetails } from 'app/modules/telescope/components/telescope-details';
 import TelescopeOverview from 'app/pages/telescope-overview';
 import globalOnRouteUpdate from 'app/route-functions/globalOnRouteUpdate';
 import validateRegistrationPaths from 'app/route-functions/validateRegistrationPaths';

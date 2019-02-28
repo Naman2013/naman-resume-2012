@@ -1,5 +1,5 @@
 import css from 'styled-jsx/css';
-import { screenLarge } from 'styles/variables/breakpoints';
+import { screenLarge } from 'app/styles/variables/breakpoints';
 
 export default css`
   .details-root {
