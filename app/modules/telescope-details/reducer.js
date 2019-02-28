@@ -43,6 +43,9 @@ const initialState = {
     countdownList: {
       countdownTeleList: [],
     },
+    statusList: {
+      statusTeleList: [],
+    }
   },
 
   fetchingWeatherWidget: false,

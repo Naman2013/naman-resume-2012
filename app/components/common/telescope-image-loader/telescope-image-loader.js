@@ -60,6 +60,10 @@ class TelescopeImageLoader extends Component {
     this.attachSSE(this.props.imageSource);
   }
 
+  componentDidMount() {
+    window.addEventListener('beforeunload', this.unmountHandler);
+  }
+
   componentDidUpdate() {
     if (this.props.imageSource !== this.previouslyRenderedImageSource) {
       this.props.actions.resetActiveSSE();
@@ -98,6 +102,11 @@ class TelescopeImageLoader extends Component {
   }
 
   componentWillUnmount() {
+    window.removeEventListener('beforeunload', this.unmountHandler);
+    this.unmountHandler();
+  }
+
+  unmountHandler = () => {
     this.props.actions.resetActiveSSE();
     this.detachSSE();
   }
