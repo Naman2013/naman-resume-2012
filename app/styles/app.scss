@@ -64,7 +64,8 @@ img {
 .app-content-container,
 .static-app-content-container {
   font-family: $primary-font;
-  background: #fff;
+  //background: #fff;
+  background: $faintGray;
   overflow: hidden;
   min-height: 960px;
 
