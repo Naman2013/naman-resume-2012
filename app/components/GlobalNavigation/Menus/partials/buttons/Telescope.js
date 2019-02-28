@@ -15,42 +15,49 @@ const propTypes = {
 const Telescope = ({
   text, anchor, isOnline, logoURL,
 }) => (
-  <div className="root">
-    <div className="telescope-link">
-      <Link className="action" to={anchor}>{text}</Link>
-      <div className={classnames('online-status text', {
-        'is-online': isOnline,
-      })}
-      >{isOnline ? 'online' : 'offline' }
+  <Link to={anchor}>
+    <div className="telescope root">
+      <div className="telescope-link">
+        <div className="action" to={anchor}>{text}</div>
+        <div className={classnames('online-status text', {
+          'is-online': isOnline,
+        })}
+        >{isOnline ? 'online' : 'offline' }
+        </div>
+      </div>
+      <div className="image-container">
+        <div className={classnames('online-status', {
+          'is-online': isOnline,
+        })}
+        >
+          <span className="fa fa-circle" />
+        </div>
+
+        <div
+          style={{
+            background: `url(${logoURL}) no-repeat`,
+            backgroundSize: 'cover',
+          }}
+          className="telescope-image"
+        />
       </div>
     </div>
-    <div className="image-container">
-      <div className={classnames('online-status', {
-        'is-online': isOnline,
-      })}
-      >
-        <span className="fa fa-circle" />
-      </div>
-
-      <div
-        style={{
-          background: `url(${logoURL}) no-repeat`,
-          backgroundSize: 'cover',
-        }}
-        className="telescope-image"
-      />
-    </div>
-
-
 
     <style jsx>{`
-      .root {
+      .root.telescope {
         font-family: ${primaryFont};
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 15px 20px;
+        width: 80%;
+        padding: 22px 0;
+        margin: 0 auto;
         text-transform: uppercase;
+        border-bottom: 1px solid rgba(10, 12, 14, .1);
+      }
+
+      :global(.menu-list li:last-child .root.telescope) {
+        border-bottom: none;
       }
 
       .online-status {
@@ -101,7 +108,7 @@ const Telescope = ({
       }
     `}
     </style>
-  </div>
+  </Link>
 );
 
 Telescope.propTypes = propTypes;
