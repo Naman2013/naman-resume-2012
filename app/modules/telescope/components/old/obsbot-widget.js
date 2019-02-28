@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ImagePortalViewer } from './';
+import { ImagePortalViewer } from './index';
 import { ModuleContainer } from './module-container';
 import ObservatoryBot from 'components/telescope-details/ObservatoryBot/ObservatoryBot';
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ObsBotWidget, TelescopeDetail, ObservatoryInformation } from './';
+import { ObsBotWidget, TelescopeDetail, ObservatoryInformation } from './index';
 import style from './tab-telescope.style';
 
 const TabTelescope = (props) => (

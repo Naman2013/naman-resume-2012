@@ -1,5 +1,5 @@
 import React from 'react';
-import { ModuleContainer, SimpleList } from './';
+import { ModuleContainer, SimpleList } from './index';
 
 const data = [
   { title: 'Temperature', field: '67F' },

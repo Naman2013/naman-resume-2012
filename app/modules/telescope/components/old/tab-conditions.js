@@ -10,7 +10,7 @@ import {
   ImagePortalViewer,
   WeeklyForecast,
   ObsBotWidget,
-} from './';
+} from './index';
 import { ModuleContainer } from './module-container';
 import style from './tab-conditions.style';
 

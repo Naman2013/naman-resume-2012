@@ -1,6 +1,6 @@
 import React from 'react';
-import { Chevron } from 'atoms/icons';
-import { TelescopeNavigation } from './';
+import { Chevron } from 'app/atoms/icons';
+import { TelescopeNavigation } from './index';
 import { minProps } from './common-prop-types';
 import style from './small-screen-format.style';
 

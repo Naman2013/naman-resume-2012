@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ImagePortal } from '../';
+import { ImagePortal } from '..';
 import style from './image-portal-viewer.style';
 
 const ImagePortalViewer = ({ imageURL, description }) => (

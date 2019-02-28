@@ -1,6 +1,6 @@
 import React from 'react';
 import Telescope from 'components/Telescope';
-import { StarShareCamera } from '../star-share-camera';
+import { StarShareCamera } from 'app/components/telescope-details/star-share-camera';
 
 const TelescopeViewer = ({
   missionMetaData,

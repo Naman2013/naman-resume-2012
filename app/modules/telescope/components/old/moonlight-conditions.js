@@ -1,5 +1,5 @@
 import React from 'react';
-import { ModuleContainer } from './';
+import { ModuleContainer } from './index';
 import style from './moonlight-conditions.style';
 import GenericButton from 'components/common/style/buttons/Button';
 

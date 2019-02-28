@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchAllSkyAction } from 'modules/Telescope-Overview';
-import { ImagePortalViewer } from './';
+import { ImagePortalViewer } from './index';
 import { ModuleContainer } from './module-container';
 
 class AllSkyCamera extends Component {

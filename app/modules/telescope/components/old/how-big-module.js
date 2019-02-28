@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import Measure from 'react-measure';
 import noop from 'lodash/noop';
 import DefaultButton from 'components/common/style/buttons/Button';
-import { ModuleContainer } from './';
-import HowBig from '../../Telescope/HowBig';
+import { ModuleContainer } from './index';
+import HowBig from 'app/components/Telescope/HowBig';
 import style from './how-big-module.style';
 
 import fauxMission from 'content/fauxMissions';

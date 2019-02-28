@@ -11,7 +11,7 @@ import {
   TabQueue,
   TabTelescope,
   TelescopeNavigation,
-} from 'app/components/telescope-details/v4-modules';
+} from 'app/modules/telescope/components/old';
 import telescopeConfig from 'app/components/Telescope/telescopeConfig';
 
 import {

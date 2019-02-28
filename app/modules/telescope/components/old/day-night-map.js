@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ModuleContainer } from './';
+import { ModuleContainer } from './index';
 
 const DayNightMap = () => (
   <ModuleContainer title="Day/night map">

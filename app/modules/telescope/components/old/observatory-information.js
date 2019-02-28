@@ -1,5 +1,5 @@
 import React from 'react';
-import { ModuleContainer } from './';
+import { ModuleContainer } from './index';
 import style from './observatory-information.style';
 
 const ObservatoryInformation = () => (
