@@ -36,6 +36,7 @@ import StaticAppContainer from 'app/containers/static-app-container';
 import StoriesHub from 'app/containers/stories-hub';
 import { fetchPlayer } from 'app/modules/get-audio-player/actions';
 import { PublicProfileMain } from 'app/modules/profile';
+import { TelescopeDetailsMain } from 'app/modules/telescope';
 import GroupCreate from 'app/pages/community-groups/GroupCreate';
 import GroupImportGoogleClassrooms from 'app/pages/community-groups/GroupImportGoogleClassrooms';
 import CommunityGroupOverview from 'app/pages/community-groups/GroupOverview';
@@ -236,7 +237,8 @@ export const AppRouter = () => (
 
       <Route
         path="telescope-details/:obsUniqueId/:teleUniqueId"
-        component={ConnectedTelescopeDetails}
+        // component={ConnectedTelescopeDetails}
+        component={TelescopeDetailsMain}
         onEnter={validateUser}
       />
 
