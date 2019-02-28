@@ -1,3 +1,4 @@
+import { AboutScope } from 'app/modules/telescope/components/about-scope';
 import React, { Component } from 'react';
 import { Col, Container, Row, Tab, Tabs } from 'react-bootstrap';
 import './styles.scss';
@@ -24,7 +25,7 @@ export class TelescopeOffline extends Component {
                 QUEUE
               </Tab>
               <Tab eventKey="ABOUT_THIS_SCOPE" title="ABOUT THIS SCOPE">
-                ABOUT THIS SCOPE
+                <AboutScope />
               </Tab>
             </Tabs>
           </Col>
