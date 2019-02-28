@@ -40,3 +40,4 @@ export const questShield = 'https://vega.slooh.com/assets/v4/common/quest_shield
 
 export const envelope = 'https://vega.slooh.com/assets/v4/icons/envelope.svg';
 export const phone = 'https://vega.slooh.com/assets/v4/icons/old-phone.svg';
+export const liveShow = 'https://vega.slooh.com/assets/v4/icons/live_show_icon.svg';

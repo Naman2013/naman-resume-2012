@@ -17,8 +17,9 @@ const ShowTile = ({
   shortDescription,
   toggleReadingListFlag,
   updateReadingInfoInList,
+  withinReletedSection,
 }) => (
-  <div className="show-tile-root">
+  <div className="show-tile-root" style={withinReletedSection && { height: '200px', padding: '20px' }}>
     <div className="title" dangerouslySetInnerHTML={{ __html: eventTitle }} />
     <div className="sub-title" dangerouslySetInnerHTML={{ __html: airdateDisplay }} />
     <div className="description" dangerouslySetInnerHTML={{ __html: shortDescription }} />
