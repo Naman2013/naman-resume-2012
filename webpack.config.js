@@ -191,6 +191,11 @@ module.exports = {
         changeOrigin: true,
         secure: true,
       },
+      '/bot/**': {
+        target: 'https://supernova.slooh.com',
+        changeOrigin: true,
+        secure: true,
+      },
       '/sselog/**': {
         target: 'https://slooh.com',
         changeOrigin: true,
