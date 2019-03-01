@@ -29,9 +29,9 @@ export class Nav extends Component {
     return (
       <div className="nav-container container-fluid">
         {/* Navigation Items */}
-        <ul className="list-inline nav-items hidden-xs">
+        <ul className="list-inline nav-items d-none d-sm-block">
           {items.map(el => (
-            <li key={el.linkURL}>
+            <li key={el.linkURL} className="list-inline-item">
               <Link activeClassName="active-menu-item" to={el.linkURL}>
                 {el.title}
               </Link>
@@ -40,7 +40,7 @@ export class Nav extends Component {
         </ul>
 
         {/* Navigation Dropdown */}
-        <div className="nav-dropdown visible-xs">
+        <div className="nav-dropdown d-block d-sm-none">
           <DropDown
             handleSelect={this.handleSelect}
             selectedIndex={selectedInd}

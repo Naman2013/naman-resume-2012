@@ -5,24 +5,30 @@ import './styles.scss';
 
 export class Slooh1000 extends Component {
   componentDidMount = () => {
-    const { getCategoryList } = this.props;
+    const { getCategoryList, getBySlooh1000 } = this.props;
+    //getBySlooh1000(); will be soon
     getCategoryList();
   };
 
-  getObjectList = () => {};
-
   render() {
-    const { categoryListOpts, setCategory } = this.props;
+    const {
+      categoryListOpts,
+      setCategory,
+      objectListOpts,
+      setObject,
+    } = this.props;
+    console.log(this.props);
     return (
       <div className="slooh-1000">
-        <div className="container-fluid">
+        <div className="container">
           <div className="row">
             <div className="col-sm-8">
               <Box>
                 <Slooh1000Setup
                   categoryListOpts={categoryListOpts}
+                  objectListOpts={objectListOpts}
                   setCategory={setCategory}
-                  onSelected={this.getObjectList}
+                  setObject={setObject}
                 />
               </Box>
             </div>

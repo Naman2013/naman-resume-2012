@@ -3,11 +3,14 @@ import { handleActions } from 'redux-actions';
 
 export const TYPE = constants('profile', [
   '~GET_MISSIONS',
+  '~GET_MISSION_SLOT',
 
   // bySlooh1000 page
+  '~GET_BY_SLOOH_1000',
   '~GET_CATEGORY_LIST',
   'SET_CATEGORY',
   '~GET_OBJECT_LIST',
+  'SET_OBJECT',
 
   // byTelescope page
   '~GET_OBSERVATORY_LIST',
@@ -24,9 +27,11 @@ export const initialState = {
   },
 
   bySlooh1000: {
+    bySlooh1000Data: {},
     categoryList: {},
-    selectedCategoryId: null,
-    objectList: {},
+    selectedCategorySlug: null,
+    objectList: [],
+    selectedObjectSlug: null,
   },
 
   byTelescope: {
@@ -39,8 +44,14 @@ export default handleActions(
     [TYPE.GET_MISSIONS]: setFetching,
     [TYPE.GET_MISSIONS_SUCCESS]: getMissionsSuccess,
     [TYPE.GET_MISSIONS_ERROR]: setServerError,
+    [TYPE.GET_MISSION_SLOT]: setFetching,
+    [TYPE.GET_MISSION_SLOT_SUCCESS]: getMissionSlotSuccess,
+    [TYPE.GET_MISSION_SLOT_ERROR]: setServerError,
 
     // bySlooh1000 page
+    [TYPE.GET_BY_SLOOH_1000]: setFetching,
+    [TYPE.GET_BY_SLOOH_1000_SUCCESS]: getBySlooh1000Success,
+    [TYPE.GET_BY_SLOOH_1000_ERROR]: setServerError,
     [TYPE.GET_CATEGORY_LIST]: setFetching,
     [TYPE.GET_CATEGORY_LIST_SUCCESS]: getCategoryListSuccess,
     [TYPE.GET_CATEGORY_LIST_ERROR]: setServerError,
@@ -48,6 +59,7 @@ export default handleActions(
     [TYPE.GET_OBJECT_LIST]: setFetching,
     [TYPE.GET_OBJECT_LIST_SUCCESS]: getObjectListSuccess,
     [TYPE.GET_OBJECT_LIST_ERROR]: setServerError,
+    [TYPE.SET_OBJECT]: setObject,
 
     // byTelescope page
     [TYPE.GET_OBSERVATORY_LIST]: setFetching,
@@ -79,6 +91,25 @@ function getMissionsSuccess(state, action) {
   };
 }
 
+function getMissionSlotSuccess(state, action) {
+  console.log(action.payload);
+  return {
+    ...state,
+    isFetching: false,
+    isLoaded: true,
+    //pageSetup: action.payload,
+  };
+}
+
+function getBySlooh1000Success(state, action) {
+  return {
+    ...state,
+    isFetching: false,
+    isLoaded: true,
+    bySlooh1000: { ...state.bySlooh1000, bySlooh1000Data: action.payload },
+  };
+}
+
 function getCategoryListSuccess(state, action) {
   return {
     ...state,
@@ -91,7 +122,11 @@ function getCategoryListSuccess(state, action) {
 function setCategory(state, action) {
   return {
     ...state,
-    // bySlooh1000: { ...state.bySlooh1000, selectedCategoryId: action.payload },
+    bySlooh1000: {
+      ...state.bySlooh1000,
+      selectedCategorySlug: action.payload,
+      objectList: [],
+    },
   };
 }
 
@@ -100,7 +135,17 @@ function getObjectListSuccess(state, action) {
     ...state,
     isFetching: false,
     isLoaded: true,
-    bySlooh1000: { ...state.bySlooh1000, objectList: action.payload },
+    bySlooh1000: {
+      ...state.bySlooh1000,
+      objectList: action.payload.categoryList[0].categoryTopicList,
+    },
+  };
+}
+
+function setObject(state, action) {
+  return {
+    ...state,
+    bySlooh1000: { ...state.bySlooh1000, selectedObjectSlug: action.payload },
   };
 }
 

@@ -22,12 +22,56 @@ export const makeBySlooh1000Selector = () =>
     state => state.bySlooh1000
   );
 
+export const makeBySlooh1000DataSelector = () =>
+  createSelector(
+    makeBySlooh1000Selector(),
+    state => state.bySlooh1000Data
+  );
+
 export const makeBySlooh1000CategoryListSelector = () =>
   createSelector(
     makeBySlooh1000Selector(),
     state => state.categoryList
   );
 
+/**
+ * Gets the categoryList from reducer
+ * Returns categoryList options ready for Select
+ */
+export const makeBySlooh1000CategoryListSelectOptsSelector = () =>
+  createSelector(
+    makeBySlooh1000CategoryListSelector(),
+    state => {
+      const catList = _get(state, 'categoryList', []);
+      return getSelectOptions(catList, 'categorySlug', 'categoryName');
+    }
+  );
+
+export const makeBySlooh1000SelectedCategorySlugSelector = () =>
+  createSelector(
+    makeBySlooh1000Selector(),
+    state => state.selectedCategorySlug
+  );
+
+export const makeBySlooh1000ObjectListSelector = () =>
+  createSelector(
+    makeBySlooh1000Selector(),
+    state => state.objectList
+  );
+
+/**
+ * Gets the objectList from reducer
+ * Returns objectList options ready for Select
+ */
+export const makeBySlooh1000ObjectListSelectOptsSelector = () =>
+  createSelector(
+    makeBySlooh1000ObjectListSelector(),
+    state => {
+      return getSelectOptions(state, 'topicSlug', 'topicName');
+    }
+  );
+
+// by telescope
 export const makeByTelescopeSelector = () =>
   createSelector(
     selectMissions,
@@ -38,16 +82,4 @@ export const makeTelescopeListSelector = () =>
   createSelector(
     makeByTelescopeSelector(),
     state => state.telescopeList
-  );
-/**
- * Gets the categoryList from reducer
- * Returns categoryList options ready for Select
- */
-export const makeBySlooh1000CategoryListSelectOptsSelector = () =>
-  createSelector(
-    makeBySlooh1000CategoryListSelector(),
-    state => {
-      const catList = _get(state, 'categoryList', []);
-      return getSelectOptions(catList, 'categorySlugLookupId', 'categoryName');
-    }
   );

@@ -1,19 +1,18 @@
-$light-gray: #9B9B9B;
-$pink: #F310A7;
-$turqoise: #589A9B;
-$blueGreen: #7EC3C4;
+$light-gray: #9b9b9b;
+$pink: #f310a7;
+$turqoise: #589a9b;
+$blueGreen: #7ec3c4;
 $light-turqoise: #b1cfcf;
-$light-blue: #B9D9D9;
-$darkBlueGray: #3C4A55;
+$light-blue: #b9d9d9;
+$darkBlueGray: #3c4a55;
 $font-black: #3c4a55;
-$red: #FC1048;
+$red: #fc1048;
 $black: #000;
 $white: #fff;
-$gray: #D9D9D9;
-$gold: #F3D316;
+$gray: #d9d9d9;
+$gold: #f3d316;
 $yellow: #d7ba16;
-$light-black: #1F1F1F;
-
+$light-black: #1f1f1f;
 
 /* VARIABLES: COLOR
  * */
@@ -48,7 +47,6 @@ $slooh-blue-xxdark: rgb(0, 10, 25);
 
 $slooh-black: rgb(0, 0, 0);
 
-
 // V4 NEW COLORS
 //$chambray: #41566f; // todo common-components/Slooh_v4_color_palette.html ?
 
@@ -72,10 +70,10 @@ $golda: #e2b979;
 $shadows: #ced2d8;
 $dukeBlue: #1c2633;
 $chillBlue: #9cb4d2;
-$faintBlue: #BCC2CA;
+$faintBlue: #bcc2ca;
 $thatBlue: #253446;
 $faintGray: #f8f8f8;
-$online: #4AB375;
+$online: #4ab375;
 $thatGrayWeForgot: #a2a8b0;
 $black: #000000;
 $yellow: #fad59a;
@@ -84,6 +82,8 @@ $raven: #616e7d;
 
 $pale-grey: #f4f5f6;
 $pale-grey-two: #edf0f2;
+
+$transparentShadow: rgba(88, 88, 88, 0.5);
 
 $white_tile: 'https://vega.slooh.com/assets/v4/common/LightBlueDiamondPattern_NO_TEXTURE.png';
 $white_tile_texture: 'https://vega.slooh.com/assets/v4/common/LightBlueDiamondPattern_WithTexture.png';
@@ -95,4 +95,3 @@ $blue_tile_canvas: 'https://vega.slooh.com/assets/v4/common/Darkest_Pattern_Canv
 $questTexture: 'https://vega.slooh.com/assets/v4/common/quest_card_bg.png';
 $questDetailsTexture: 'https://vega.slooh.com/assets/v4/common/quest_details_texture.png';
 $white_texture_bg: 'https://vega.slooh.com/assets/v4/dashboard/white-texture.png';
-
