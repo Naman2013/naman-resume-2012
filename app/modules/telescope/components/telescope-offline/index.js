@@ -7,7 +7,7 @@ export class TelescopeOffline extends Component {
   render() {
     // const {  } = this.props;
     return (
-      <Container className="telescope-offline">
+      <Container className="telescope-offline animated fadeIn">
         <Row>
           <Col>
             <h1>Canary One: Offline</h1>

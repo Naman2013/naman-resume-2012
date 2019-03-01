@@ -11,6 +11,7 @@ import './monitoring';
 import I18nProvider from './providers/I18nProvider';
 // redux store
 import store from './store';
+import 'animate.css/animate.css';
 import './styles/animations.scss';
 import './styles/app.scss';
 import './styles/interface.css';
