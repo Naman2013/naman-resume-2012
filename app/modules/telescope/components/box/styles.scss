@@ -1,0 +1,19 @@
+@import "~app/styles/variables/index";
+
+.box {
+  background-color: $romance;
+  box-shadow: 0 0 6px $shadows;
+
+  .box-header {
+    border-bottom: 4px solid $astronaut;
+    padding: 40px;
+    font-size: 12px;
+    //font-family: BrandonGrotesque;
+    font-weight: 900;
+    letter-spacing: 2px;
+  }
+
+  .box-body {
+    //padding: 40px;
+  }
+}
