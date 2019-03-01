@@ -3,5 +3,7 @@ import './styles.scss';
 
 export const AboutScope = props => {
   // const {  } = props;
-  return <div className="about-scope">About Scope Tab</div>;
+  return (
+    <div className="about-scope animated fadeIn faster">About Scope Tab</div>
+  );
 };
