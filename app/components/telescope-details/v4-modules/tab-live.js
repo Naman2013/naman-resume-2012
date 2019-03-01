@@ -9,6 +9,7 @@ import style from './tab-live.style';
 
 const TabLive = ({
   mission,
+  object,
   obsId,
   skyChartWidgetID,
   allSkyWidgetID,
@@ -18,10 +19,6 @@ const TabLive = ({
     <DisplayAtBreakpoint screenSmall screenMedium>
       {renderTelescopeViewer()}
     </DisplayAtBreakpoint>
-
-    <div className="tile-container">
-      <ObjectSummaryTile />
-    </div>
 
     {
       mission.missionAvailable &&
@@ -33,16 +30,15 @@ const TabLive = ({
               likeCount={mission.missionLikeCount}
             />
           </div>
-
-          <div className="tile-container">
-            <WhereInTheSky
-              obsId={obsId}
-              AllskyWidgetId={skyChartWidgetID}
-              scheduledMissionId={mission.scheduledMissionId}
-            />
-          </div>
         </Fragment>
-    }
+      }
+
+      {
+          mission.objectId != 0 && object.objectTitle &&
+        <div className="tile-container">
+          <ObjectSummaryTile {...object}/>
+        </div>
+      }
 
     <div className="tile-container">
       <ConnectedAllSkyCamera
@@ -54,6 +50,19 @@ const TabLive = ({
     <div className="tile-container">
       <HowBigModule />
     </div>
+
+    {
+      mission.missionAvailable &&
+        <Fragment>
+          <div className="tile-container">
+            <WhereInTheSky
+              obsId={obsId}
+              AllskyWidgetId={skyChartWidgetID}
+              scheduledMissionId={mission.scheduledMissionId}
+            />
+          </div>
+        </Fragment>
+    }
 
     <style jsx>{style}</style>
   </div>

@@ -264,7 +264,7 @@ class Telescope extends Component {
                   */}
                   <FadeSVG isHidden={transitionScale}>
                     <FadeSVG isHidden={isTransitioningTelescope}>
-                      <Mask />
+                      {/* <Mask /> */}
                     </FadeSVG>
 
                     {

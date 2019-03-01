@@ -61,7 +61,7 @@ class TelescopeImageLoader extends Component {
   }
 
   componentDidUpdate() {
-    if (this.props.imageSource !== this.previouslyRenderedImageSource) {
+    if (this.props.imageSource !== this.previouslyRenderedImageSource) {      
       this.props.actions.resetActiveSSE();
       this.rebuildSSE(this.props.imageSource);
       return;
@@ -106,7 +106,11 @@ class TelescopeImageLoader extends Component {
     const {
       astroObjectID,
       currentImgURL,
+      currW,
+      currH,
       previousImgURL,
+      prevW,
+      prevH,
       imageID,
       lastImageTime,
       messageText,
