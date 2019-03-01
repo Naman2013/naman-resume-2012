@@ -1,4 +1,5 @@
-import { AboutScope } from 'app/modules/telescope/components/about-scope';
+import { AboutScope } from 'app/modules/telescope/components/about-scope-tab';
+import { StatusTab } from 'app/modules/telescope/components/status-tab';
 import React, { Component } from 'react';
 import { Col, Container, Row, Tab, Tabs } from 'react-bootstrap';
 import './styles.scss';
@@ -7,7 +8,7 @@ export class TelescopeOffline extends Component {
   render() {
     // const {  } = this.props;
     return (
-      <Container className="telescope-offline animated fadeIn">
+      <Container className="telescope-offline animated fadeIn faster">
         <Row>
           <Col>
             <h1>Canary One: Offline</h1>
@@ -19,7 +20,7 @@ export class TelescopeOffline extends Component {
               mountOnEnter
             >
               <Tab eventKey="STATUS" title="STATUS">
-                STATUS
+                <StatusTab />
               </Tab>
               <Tab eventKey="QUEUE" title="QUEUE" disabled>
                 QUEUE
