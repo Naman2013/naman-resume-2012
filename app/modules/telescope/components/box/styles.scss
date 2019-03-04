@@ -1,23 +1,43 @@
 @import "~app/styles/variables/index";
+@import "~app/styles/bootstrap/index";
 
 .box {
+  $boxPadding: 40px;
   background-color: $romance;
   box-shadow: 0 0 6px $shadows;
   margin-bottom: 40px;
 
   .box-header {
     border-bottom: 4px solid $astronaut;
-    padding: 40px;
+    padding: $boxPadding;
   }
 
   .box-body {
-    padding: 40px;
+    padding: $boxPadding;
 
     hr {
       border-color: $hr-silver;
       //margin-right: -40px;
       //margin-left: -40px;
       margin: 30px -40px;
+    }
+
+    .box-cols {
+      margin: -$boxPadding;
+      display: flex;
+
+      & > * {
+        flex: 1;
+        padding: $boxPadding;
+        border-right: 1px solid $hr-silver;
+      }
+
+      @include media-breakpoint-down(xs) {
+        display: block;
+        & > * {
+          border-bottom: 1px solid $hr-silver;
+        }
+      }
     }
   }
 }
@@ -58,7 +78,7 @@
   text-transform: uppercase;
 }
 
-.p-19{
+.p-19 {
   //font-family: AGaramondPro;
   font-family: $secondary-font;
   font-size: 19px;

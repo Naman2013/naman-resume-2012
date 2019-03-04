@@ -10,7 +10,10 @@ export const StatusTab = props => {
       <Row>
         <Col md={8}>
           <Box header="OBSERVATORY INFORMATION">
-            <div>test</div>
+            <div className="box-cols">
+              <div>1</div>
+              <div>2</div>
+            </div>
           </Box>
           <Box header="THIS JUST IN!">
             <h4 className="h4-custom">MOON RISING</h4>
