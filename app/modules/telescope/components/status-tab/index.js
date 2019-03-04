@@ -1,6 +1,6 @@
 import Button from 'app/components/common/style/buttons/Button';
 import { Box } from 'app/modules/telescope/components/box';
-import { TelescopeView } from 'app/modules/telescope/components/telescope-view';
+import { TelescopeViewWrapper } from 'app/modules/telescope/components/telescope-view-wrapper';
 import { TimeUtc } from 'app/modules/telescope/components/time-utc';
 import React from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
@@ -12,20 +12,7 @@ export const StatusTab = props => {
     <div className="animated fadeIn faster status-tab">
       <div className="telescope-views">
         <Container>
-          <Row>
-            <Col sm>
-              <TelescopeView title="DOME VIEW" key="DOME VIEW" />
-            </Col>
-            <Col sm>
-              <TelescopeView title="ALL SKY CAMERA" key="ALL SKY CAMERA" />
-            </Col>
-            <Col sm>
-              <TelescopeView title="HORIZON VIEW" key="HORIZON VIEW" />
-            </Col>
-            <Col sm>
-              <TelescopeView title="DOME VIEW" key="DOME VIEW" />
-            </Col>
-          </Row>
+          <TelescopeViewWrapper />
         </Container>
       </div>
 
