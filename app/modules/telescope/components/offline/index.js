@@ -11,7 +11,7 @@ export class TelescopeOffline extends Component {
       <Container className="telescope-offline animated fadeIn faster">
         <Row>
           <Col>
-            <h1>Canary One: Offline</h1>
+            <h1 className="h1-custom">Canary One: Offline</h1>
             <hr />
             <Tabs
               defaultActiveKey="STATUS"

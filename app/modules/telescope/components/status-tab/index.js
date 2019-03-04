@@ -9,7 +9,7 @@ export const StatusTab = props => {
   return (
     <div className="animated fadeIn faster status-tab">
       <Row>
-        <Col md={8}>
+        <Col lg={8}>
           <Box header="OBSERVATORY INFORMATION">
             <div className="box-cols">
               <div>
@@ -40,7 +40,7 @@ export const StatusTab = props => {
             <div>test</div>
           </Box>
         </Col>
-        <Col md={4}>
+        <Col lg={4}>
           <Box header="SKY CONDITIONS">
             {/*<div className="sky-cond">test</div>*/}
             <h4 className="h4-custom">SEEING CONDITIONS:</h4>

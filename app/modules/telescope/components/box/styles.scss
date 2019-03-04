@@ -17,8 +17,6 @@
 
     hr {
       border-color: $hr-silver;
-      //margin-right: -40px;
-      //margin-left: -40px;
       margin: 30px -40px;
     }
 
@@ -30,12 +28,21 @@
         flex: 1;
         padding: $boxPadding;
         border-right: 1px solid $hr-silver;
+
+        &:last-child {
+          border-right: none;
+        }
       }
 
       @include media-breakpoint-down(xs) {
         display: block;
         & > * {
+          border-right: none;
           border-bottom: 1px solid $hr-silver;
+
+          &:last-child {
+            border-bottom: none;
+          }
         }
       }
     }
@@ -43,6 +50,19 @@
 }
 
 // TODO MOVE TO GLOBAL
+.h1-custom {
+  //font-family: AGaramondPro;
+  font-family: $secondary-font;
+  font-size: 30px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 2.07;
+  letter-spacing: normal;
+  //color: var(--astronaut);
+  color: $astronaut;
+}
+
 .h2-custom {
   //font-family: AGaramondPro;
   font-family: $secondary-font;
