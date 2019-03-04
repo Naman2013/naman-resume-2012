@@ -1,3 +1,4 @@
+import Button from 'app/components/common/style/buttons/Button';
 import { Box } from 'app/modules/telescope/components/box';
 import { TelescopeView } from 'app/modules/telescope/components/telescope-view';
 import { TimeUtc } from 'app/modules/telescope/components/time-utc';
@@ -43,20 +44,39 @@ export const StatusTab = props => {
                 </div>
               </div>
             </Box>
+
             <Box header="THIS JUST IN!">
-              <h4 className="h4-custom">MOON RISING</h4>
-              <p className="p19">
+              <Row>
+                <Col sm>
+                  <h4 className="h4-custom">MOON RISING</h4>
+                </Col>
+                <Col sm className="text-right">
+                  <h4 className="h4-custom">1 HOUR AGO</h4>
+                </Col>
+              </Row>
+
+              <p className="p-19">
                 The Moon is rising at the Canary Islands Observatory!
               </p>
+
               <hr />
-              <h4 className="h4-custom">TELESCOPE ALERT</h4>
+
+              <Row>
+                <Col sm>
+                  <h4 className="h4-custom">TELESCOPE ALERT</h4>
+                </Col>
+                <Col sm className="text-right">
+                  <h4 className="h4-custom">3 HOURS AGO</h4>
+                </Col>
+              </Row>
               <h2 className="h2-custom">Canary One is down to Weather</h2>
-              <p className="p19">
+              <p className="p-19">
                 Sometimes these things happen. If you had a Mission scheduled
                 for this time, you’re account will be credited.
               </p>
-              <hr />
+              <Button text="FIND ANOTHER MISSION" onClickEvent={() => {}} />
             </Box>
+
             <Box header="NEEDS A TITLE">
               <div>test</div>
             </Box>
