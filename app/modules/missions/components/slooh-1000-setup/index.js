@@ -8,10 +8,11 @@ export class Slooh1000Setup extends Component {
     const {
       categoryListOpts,
       setCategory,
-      objectListOpt,
+      objectListOpts,
       setObject,
+      getMissionSlot,
     } = this.props;
-    console.log(objectListOpt);
+
     return (
       <div className="slooh-1000-setup">
         <div className="row setup-header">
@@ -36,9 +37,9 @@ export class Slooh1000Setup extends Component {
             <span>Step 2: Choose Object</span>
             <Select
               handleChange={setObject}
-              options={objectListOpt}
+              options={objectListOpts}
               placeholder="Choose"
-              isDisabled={objectListOpt.length === 0}
+              isDisabled={objectListOpts.length === 0}
             />
           </div>
         </div>
@@ -50,7 +51,7 @@ export class Slooh1000Setup extends Component {
 
           <div className="col-sm-6 step-3">
             <span>Step 3: Click or tap to schedule</span>
-            <Button text="Schedule Mission" onClickEvent={() => {}} />
+            <Button text="Find a Mission" onClickEvent={getMissionSlot} />
           </div>
         </div>
       </div>

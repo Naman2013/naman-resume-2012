@@ -8,8 +8,10 @@ import {
   makeBySlooh1000SelectedCategorySlugSelector,
   makeBySlooh1000ObjectListSelector,
   makeBySlooh1000ObjectListSelectOptsSelector,
+  makeBySlooh1000SelectedObjectSlugSelector,
   makeBySlooh1000DataSelector,
   makeMissionsLoadingSelector,
+  makeMissionsFirstSlot,
 } from '../selectors';
 import {
   getCategoryList,
@@ -26,7 +28,9 @@ const mapStateToProps = createStructuredSelector({
   selectedCategorySlug: makeBySlooh1000SelectedCategorySlugSelector(),
   objectList: makeBySlooh1000ObjectListSelector(),
   objectListOpts: makeBySlooh1000ObjectListSelectOptsSelector(),
+  selectedObjectSlug: makeBySlooh1000SelectedObjectSlugSelector(),
   isFetching: makeMissionsLoadingSelector(),
+  missionSlot: makeMissionsFirstSlot(),
 });
 
 const mapDispatchToProps = {

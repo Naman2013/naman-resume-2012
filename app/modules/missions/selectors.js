@@ -16,6 +16,18 @@ export const makeMissionsPageSetupSelector = () =>
     state => state.pageSetup
   );
 
+export const makeMissionsData = () =>
+  createSelector(
+    selectMissions,
+    state => state.missions
+  );
+
+export const makeMissionsFirstSlot = () =>
+  createSelector(
+    makeMissionsData(),
+    state => state.missionList[0]
+  );
+
 export const makeBySlooh1000Selector = () =>
   createSelector(
     selectMissions,
@@ -57,6 +69,12 @@ export const makeBySlooh1000ObjectListSelector = () =>
   createSelector(
     makeBySlooh1000Selector(),
     state => state.objectList
+  );
+
+export const makeBySlooh1000SelectedObjectSlugSelector = () =>
+  createSelector(
+    makeBySlooh1000Selector(),
+    state => state.selectedObjectSlug
   );
 
 /**

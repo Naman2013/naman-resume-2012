@@ -10,6 +10,25 @@ export class Slooh1000 extends Component {
     getCategoryList();
   };
 
+  getMissionSlot = () => {
+    const { getMissionSlot, selectedObjectSlug, objectList } = this.props;
+    const selectedObject = objectList.filter(
+      item => item.topicSlug === selectedObjectSlug
+    );
+
+    getMissionSlot({
+      callSource: 'byPopularObjects',
+      domeId: selectedObject[0].domeId,
+      missionStart: selectedObject[0].missionStart,
+      objectId: selectedObject[0].objectId,
+      objectTitle: selectedObject[0].objectTitle,
+      objectType: selectedObject[0].objectType,
+      obsId: selectedObject[0].obsId,
+      scheduledMissionId: selectedObject[0].scheduledMissionId,
+      telescopeId: selectedObject[0].telescopeId,
+    });
+  };
+
   render() {
     const {
       categoryListOpts,
@@ -29,6 +48,7 @@ export class Slooh1000 extends Component {
                   objectListOpts={objectListOpts}
                   setCategory={setCategory}
                   setObject={setObject}
+                  getMissionSlot={this.getMissionSlot}
                 />
               </Box>
             </div>

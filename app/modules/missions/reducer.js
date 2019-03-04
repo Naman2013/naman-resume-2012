@@ -26,6 +26,10 @@ export const initialState = {
     navigationConfig: [],
   },
 
+  missions: {
+    missionList: [],
+  },
+
   bySlooh1000: {
     bySlooh1000Data: {},
     categoryList: {},
@@ -92,12 +96,11 @@ function getMissionsSuccess(state, action) {
 }
 
 function getMissionSlotSuccess(state, action) {
-  console.log(action.payload);
   return {
     ...state,
     isFetching: false,
     isLoaded: true,
-    //pageSetup: action.payload,
+    missions: { ...state.missions, missionList: action.payload.missionList },
   };
 }
 
