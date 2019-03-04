@@ -65,9 +65,12 @@ export const StatusTab = props => {
             </Box>
 
             <Box header="NEEDS A TITLE">
-              <div>test</div>
+              <div>
+                <Button text="VIEW OUR GUIDE" onClickEvent={() => {}} />
+              </div>
             </Box>
           </Col>
+
           <Col lg={4}>
             <Box header="SKY CONDITIONS">
               {/*<div className="sky-cond">test</div>*/}
@@ -87,25 +90,56 @@ export const StatusTab = props => {
             </Box>
 
             <Box header="WEATHER CONDITIONS">
-              <h4 className="h4-custom">Temperature</h4>
-              <h2 className="h2-custom float-right">67° F</h2>
-              <hr />
+              <div className="weather">
+                <Row>
+                  <Col>
+                    <h4 className="h4-custom">Temperature</h4>
+                  </Col>
+                  <Col>
+                    <h2 className="h2-custom temp-value">67° F</h2>
+                  </Col>
+                </Row>
+                <hr />
 
-              <h4 className="h4-custom">Dew Point</h4>
-              <h2 className="h2-custom float-right">57° F</h2>
-              <hr />
+                <Row>
+                  <Col>
+                    <h4 className="h4-custom">Dew Point</h4>
+                  </Col>
+                  <Col>
+                    <h2 className="h2-custom temp-value">57° F</h2>
+                  </Col>
+                </Row>
+                <hr />
 
-              <h4 className="h4-custom">Dew Point</h4>
-              <h2 className="h2-custom float-right">67° F</h2>
-              <hr />
+                <Row>
+                  <Col>
+                    <h4 className="h4-custom">Humidity</h4>
+                  </Col>
+                  <Col>
+                    <h2 className="h2-custom temp-value">69%</h2>
+                  </Col>
+                </Row>
+                <hr />
 
-              <h4 className="h4-custom">Temperature</h4>
-              <h2 className="h2-custom float-right">67° F</h2>
-              <hr />
+                <Row>
+                  <Col>
+                    <h4 className="h4-custom">Temperature</h4>
+                  </Col>
+                  <Col>
+                    <h2 className="h2-custom temp-value">67° F</h2>
+                  </Col>
+                </Row>
+                <hr />
 
-              <h4 className="h4-custom">Temperature</h4>
-              <h2 className="h2-custom float-right">67° F</h2>
-              <hr />
+                <Row>
+                  <Col>
+                    <h4 className="h4-custom">Temperature</h4>
+                  </Col>
+                  <Col>
+                    <h2 className="h2-custom temp-value">67° F</h2>
+                  </Col>
+                </Row>
+              </div>
             </Box>
           </Col>
         </Row>
