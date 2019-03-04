@@ -1,6 +1,8 @@
 import { Box } from 'app/modules/missions/components/box';
 import { Slooh1000Setup } from 'app/modules/missions/components/slooh-1000-setup';
 import React, { Component } from 'react';
+import moment from 'moment';
+import { AvailbleMissionTile } from '../available-mission-tile';
 import './styles.scss';
 
 export class Slooh1000 extends Component {
@@ -11,23 +13,53 @@ export class Slooh1000 extends Component {
   };
 
   getMissionSlot = () => {
-    const { getMissionSlot, selectedObjectSlug, objectList } = this.props;
-    const selectedObject = objectList.filter(
-      item => item.topicSlug === selectedObjectSlug
-    );
+    const { getMissionSlot, selectedObjectData } = this.props;
 
     getMissionSlot({
       callSource: 'byPopularObjects',
-      domeId: selectedObject[0].domeId,
-      missionStart: selectedObject[0].missionStart,
-      objectId: selectedObject[0].objectId,
-      objectTitle: selectedObject[0].objectTitle,
-      objectType: selectedObject[0].objectType,
-      obsId: selectedObject[0].obsId,
-      scheduledMissionId: selectedObject[0].scheduledMissionId,
-      telescopeId: selectedObject[0].telescopeId,
+      domeId: selectedObjectData.domeId,
+      missionStart: selectedObjectData.missionStart,
+      objectId: selectedObjectData.objectId,
+      objectTitle: selectedObjectData.objectTitle,
+      objectType: selectedObjectData.objectType,
+      obsId: selectedObjectData.obsId,
+      scheduledMissionId: selectedObjectData.scheduledMissionId,
+      telescopeId: selectedObjectData.telescopeId,
     });
   };
+
+  reserveMissionSlot = () => {
+    const { reserveMissionSlot, missionSlot } = this.props;
+
+    reserveMissionSlot({
+      callSource: 'byPopularObjects',
+      catName: missionSlot.catName,
+      catalog: missionSlot.catalog,
+      designation: missionSlot.designation,
+      domeId: missionSlot.domeId,
+      missionStart: missionSlot.missionStart,
+      missionType: missionSlot.missionType,
+      objectDec: missionSlot.objectDec,
+      objectIconURL: missionSlot.objectIconURL,
+      objectId: missionSlot.objectId,
+      objectRA: missionSlot.objectRA,
+      objectTitle: missionSlot.title,
+      objectType: missionSlot.objectType,
+      objective: '',
+      obsId: missionSlot.obsId,
+      obsName: missionSlot.obsName,
+      processingRecipe: missionSlot.processingRecipe,
+      scheduledMissionId: missionSlot.scheduledMissionId,
+      targetName: missionSlot.targetName,
+      telescopeId: missionSlot.telescopeId,
+      telescopeName: missionSlot.telescopeName,
+      uniqueId: missionSlot.uniqueId,
+    });
+  };
+
+  getMissionDate = timestamp => moment.unix(timestamp).format('ddd. MMM. DD');
+
+  getMissionTime = timestamp => moment.unix(timestamp).format('HH:mm');
 
   render() {
     const {
@@ -35,6 +67,10 @@ export class Slooh1000 extends Component {
       setCategory,
       objectListOpts,
       setObject,
+      missionSlot,
+      resetMissionsData,
+      selectedCategorySlug,
+      selectedObjectSlug,
     } = this.props;
     console.log(this.props);
     return (
@@ -49,12 +85,28 @@ export class Slooh1000 extends Component {
                   setCategory={setCategory}
                   setObject={setObject}
                   getMissionSlot={this.getMissionSlot}
+                  selectedCategorySlug={selectedCategorySlug}
+                  selectedObjectSlug={selectedObjectSlug}
                 />
               </Box>
             </div>
-            <div className="col-sm-4">
+            <div className="col-sm-4 reserved-mission">
               <Box inside>
-                <div>YOUR MISSION WILL APPEAR HERE</div>
+                {missionSlot && missionSlot.missionAvailable ? (
+                  <AvailbleMissionTile
+                    title={missionSlot.title}
+                    telescope={missionSlot.telescopeName}
+                    description={missionSlot.explanation}
+                    date={this.getMissionDate(missionSlot.missionStart)}
+                    time={this.getMissionTime(missionSlot.missionStart)}
+                    cancel={resetMissionsData}
+                    scheduleMission={this.reserveMissionSlot}
+                  />
+                ) : (
+                  <div className="reserved-mission-gag">
+                    YOUR MISSION WILL APPEAR HERE
+                  </div>
+                )}
               </Box>
             </div>
           </div>

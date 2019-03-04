@@ -12,6 +12,11 @@ $parentPadding: 40px;
       border-right: 1px solid $hawkesBlue;
     }
 
+    .step-3 {
+      display: flex;
+      justify-content: center;
+    }
+
     .step-1,
     .step-2,
     .step-3,
@@ -26,7 +31,7 @@ $parentPadding: 40px;
       line-height: 11px;
       letter-spacing: 0.6px;
       text-transform: uppercase;
-      color: $astronaut;
+      color: $lightHeadedAstronaut;
     }
   }
 
@@ -39,11 +44,12 @@ $parentPadding: 40px;
       font-weight: 400;
       line-height: 62px;
       letter-spacing: 0;
-      color: $astronaut;
+      color: $lightHeadedAstronaut;
     }
   }
 
   p {
+    margin: 0;
     font-family: $secondary-font;
     font-size: 19px;
     font-weight: 400;

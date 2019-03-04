@@ -3,6 +3,8 @@ import axios from 'axios';
 export const getMissionsApi = data => axios.post('/api/page/missions', data);
 export const getMissionSlotApi = data =>
   axios.post('/api/reservation/grabMissionSlot', data);
+export const reserveMissionSlotApi = data =>
+  axios.post('/api/reservation/reserveMissionSlot', data);
 
 // bySlooh1000 page
 export const getBySlooh1000Api = data =>

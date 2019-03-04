@@ -5,6 +5,7 @@ import {
   getObjectListApi,
   getBySlooh1000Api,
   getMissionSlotApi,
+  reserveMissionSlotApi,
 } from 'app/modules/missions/api';
 import { ACTION } from './reducer';
 
@@ -22,6 +23,14 @@ export const getMissionSlot = data => (dispatch, getState) => {
   return getMissionSlotApi({ at, token, cid, ...data })
     .then(result => dispatch(ACTION.getMissionSlotSuccess(result.data)))
     .catch(error => dispatch(ACTION.getMissionSlotError(error)));
+};
+
+export const reserveMissionSlot = data => (dispatch, getState) => {
+  const { at, token, cid } = getState().user;
+  dispatch(ACTION.reserveMissionSlot());
+  return reserveMissionSlotApi({ at, token, cid, ...data })
+    .then(result => dispatch(ACTION.reserveMissionSlotSuccess(result.data)))
+    .catch(error => dispatch(ACTION.reserveMissionSlotError(error)));
 };
 
 // by Slooh 1000

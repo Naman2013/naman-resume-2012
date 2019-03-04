@@ -4,6 +4,8 @@ import { handleActions } from 'redux-actions';
 export const TYPE = constants('profile', [
   '~GET_MISSIONS',
   '~GET_MISSION_SLOT',
+  'RESET_MISSIONS_DATA',
+  '~RESERVE_MISSION_SLOT',
 
   // bySlooh1000 page
   '~GET_BY_SLOOH_1000',
@@ -51,6 +53,10 @@ export default handleActions(
     [TYPE.GET_MISSION_SLOT]: setFetching,
     [TYPE.GET_MISSION_SLOT_SUCCESS]: getMissionSlotSuccess,
     [TYPE.GET_MISSION_SLOT_ERROR]: setServerError,
+    [TYPE.RESET_MISSIONS_DATA]: resetMissionsData,
+    [TYPE.RESERVE_MISSION_SLOT]: setFetching,
+    [TYPE.RESERVE_MISSION_SLOT_SUCCESS]: reserveMissionSlotSuccess,
+    [TYPE.RESERVE_MISSION_SLOT_ERROR]: setServerError,
 
     // bySlooh1000 page
     [TYPE.GET_BY_SLOOH_1000]: setFetching,
@@ -104,6 +110,23 @@ function getMissionSlotSuccess(state, action) {
   };
 }
 
+function reserveMissionSlotSuccess(state, action) {
+  console.log('reserve mission', action.payload);
+  return {
+    ...state,
+    isFetching: false,
+    isLoaded: true,
+    //missions: { ...state.missions, missionList: action.payload.missionList },
+  };
+}
+
+function resetMissionsData(state) {
+  return {
+    ...initialState,
+    pageSetup: state.pageSetup,
+  };
+}
+
 function getBySlooh1000Success(state, action) {
   return {
     ...state,
@@ -129,6 +152,7 @@ function setCategory(state, action) {
       ...state.bySlooh1000,
       selectedCategorySlug: action.payload,
       objectList: [],
+      selectedObjectSlug: null,
     },
   };
 }

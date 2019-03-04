@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
 import { Select } from '../../../../components/common/select';
 import Button from '../../../../components/common/style/buttons/Button';
 import './styles.scss';
@@ -11,6 +13,8 @@ export class Slooh1000Setup extends Component {
       objectListOpts,
       setObject,
       getMissionSlot,
+      selectedCategorySlug,
+      selectedObjectSlug,
     } = this.props;
 
     return (
@@ -25,33 +29,65 @@ export class Slooh1000Setup extends Component {
 
         <div className="steps row">
           <div className="col-sm-6 step-1">
-            <span>Step 1: Choose Category</span>
+            <OverlayTrigger
+              placement="top"
+              overlay={
+                <Tooltip id="tooltip-step1">
+                  <span>Step 1 info</span>
+                </Tooltip>
+              }
+            >
+              <span>Step 1: Choose Category</span>
+            </OverlayTrigger>
             <Select
               handleChange={setCategory}
               options={categoryListOpts}
               placeholder="Choose"
+              value={selectedCategorySlug}
             />
           </div>
 
           <div className="col-sm-6 step-2">
-            <span>Step 2: Choose Object</span>
+            <OverlayTrigger
+              placement="top"
+              overlay={
+                <Tooltip id="tooltip-step1">
+                  <span>Step 2 info</span>
+                </Tooltip>
+              }
+            >
+              <span>Step 2: Choose Object</span>
+            </OverlayTrigger>
             <Select
               handleChange={setObject}
               options={objectListOpts}
               placeholder="Choose"
               isDisabled={objectListOpts.length === 0}
+              value={selectedObjectSlug}
             />
           </div>
         </div>
 
         <div className="steps row">
           <div className="col-sm-6 messages">
-            <p>(messages go here)</p>
+            <OverlayTrigger
+              placement="top"
+              overlay={
+                <Tooltip id="tooltip-step1">
+                  <span>Step 3 info</span>
+                </Tooltip>
+              }
+            >
+              <p>Step 3: Click or tap to find</p>
+            </OverlayTrigger>
           </div>
 
           <div className="col-sm-6 step-3">
-            <span>Step 3: Click or tap to schedule</span>
-            <Button text="Find a Mission" onClickEvent={getMissionSlot} />
+            <Button
+              text="Find a Mission"
+              onClickEvent={getMissionSlot}
+              disabled={!selectedCategorySlug || !selectedObjectSlug}
+            />
           </div>
         </div>
       </div>

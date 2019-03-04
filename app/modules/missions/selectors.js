@@ -77,6 +77,16 @@ export const makeBySlooh1000SelectedObjectSlugSelector = () =>
     state => state.selectedObjectSlug
   );
 
+export const makeBySlooh1000SelectedObjectDataSelector = () =>
+  createSelector(
+    makeBySlooh1000Selector(),
+    state => {
+      return state.objectList.filter(
+        item => item.topicSlug === state.selectedObjectSlug
+      )[0];
+    }
+  );
+
 /**
  * Gets the objectList from reducer
  * Returns objectList options ready for Select

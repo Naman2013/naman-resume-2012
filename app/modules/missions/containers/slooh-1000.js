@@ -9,6 +9,7 @@ import {
   makeBySlooh1000ObjectListSelector,
   makeBySlooh1000ObjectListSelectOptsSelector,
   makeBySlooh1000SelectedObjectSlugSelector,
+  makeBySlooh1000SelectedObjectDataSelector,
   makeBySlooh1000DataSelector,
   makeMissionsLoadingSelector,
   makeMissionsFirstSlot,
@@ -18,6 +19,7 @@ import {
   setCategory,
   getBySlooh1000,
   getMissionSlot,
+  reserveMissionSlot,
 } from '../thunks';
 import { ACTION } from '../reducer';
 
@@ -29,6 +31,7 @@ const mapStateToProps = createStructuredSelector({
   objectList: makeBySlooh1000ObjectListSelector(),
   objectListOpts: makeBySlooh1000ObjectListSelectOptsSelector(),
   selectedObjectSlug: makeBySlooh1000SelectedObjectSlugSelector(),
+  selectedObjectData: makeBySlooh1000SelectedObjectDataSelector(),
   isFetching: makeMissionsLoadingSelector(),
   missionSlot: makeMissionsFirstSlot(),
 });
@@ -39,6 +42,8 @@ const mapDispatchToProps = {
   getCategoryList,
   setCategory,
   setObject: ACTION.setObject,
+  resetMissionsData: ACTION.resetMissionsData,
+  reserveMissionSlot,
 };
 
 export default compose(
