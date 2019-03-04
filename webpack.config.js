@@ -121,17 +121,17 @@ module.exports = {
           limit: 40,
         },
       },
-      {
-        test: /\.(png|jpg|gif)$/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              limit: 40,
-            },
-          },
-        ],
-      },
+      // {
+      //   test: /\.(png|jpg|gif)$/,
+      //   use: [
+      //     {
+      //       loader: 'file-loader',
+      //       options: {
+      //         limit: 40,
+      //       },
+      //     },
+      //   ],
+      // },
       {
         // loader for bootstrap
         test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
