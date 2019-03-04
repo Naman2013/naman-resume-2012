@@ -1,4 +1,5 @@
 import HubHeader from 'app/components/common/HubHeader';
+import { Spinner } from 'app/components/spinner/index';
 import { Nav } from 'app/modules/missions/components/nav';
 import React, { Component } from 'react';
 
@@ -13,10 +14,11 @@ export class Missions extends Component {
   };
 
   render() {
-    const { children, pageSetup, location } = this.props;
+    const { children, pageSetup, location, isFetching } = this.props;
     const { pageIconURL, pageTitle, navigationConfig } = pageSetup;
     return (
       <div>
+        <Spinner loading={isFetching} />
         <HubHeader
           icon={pageIconURL}
           title={pageTitle}

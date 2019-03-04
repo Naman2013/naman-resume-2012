@@ -9,7 +9,7 @@ import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 
 const mapStateToProps = createStructuredSelector({
-  isLoading: makeMissionsLoadingSelector(),
+  isFetching: makeMissionsLoadingSelector(),
   pageSetup: makeMissionsPageSetupSelector(),
 });
 
