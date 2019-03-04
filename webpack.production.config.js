@@ -72,7 +72,7 @@ module.exports = {
         exclude: /node_modules/,
         query: {
           search: 'domain: \'localhost\', secure: false',
-          replace: 'domain: \'${cookieDomain}\', secure: true',
+          replace: `domain: \'${cookieDomain}\', secure: true`,
           flags: 'g',
         },
       },
