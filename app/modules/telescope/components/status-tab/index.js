@@ -1,4 +1,5 @@
 import { Box } from 'app/modules/telescope/components/box';
+import { TimeUtc } from 'app/modules/telescope/components/time-utc';
 import React from 'react';
 import { Col, Row } from 'react-bootstrap';
 import './styles.scss';
@@ -11,8 +12,14 @@ export const StatusTab = props => {
         <Col md={8}>
           <Box header="OBSERVATORY INFORMATION">
             <div className="box-cols">
-              <div>1</div>
-              <div>2</div>
+              <div>
+                <h4 className="h4-custom">Observatory ONLINE:</h4>
+                <TimeUtc time="00:00:00" />
+              </div>
+              <div>
+                <h4 className="h4-custom">TIME IN CANARY ISLANDS:</h4>
+                <TimeUtc time="00:00:00" />
+              </div>
             </div>
           </Box>
           <Box header="THIS JUST IN!">
