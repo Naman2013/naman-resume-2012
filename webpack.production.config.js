@@ -7,6 +7,7 @@ const WebpackMd5Hash = Math.random() * 100000;
 
 const apiUrl = process.env.apiUrl || '';
 const apiPortNumber = process.env.apiPortNumber || '';
+const cookieDomain = process.env.cookieDomain || '.slooh.com';
 
 module.exports = {
   devtool: 'source-map',
@@ -71,7 +72,7 @@ module.exports = {
         exclude: /node_modules/,
         query: {
           search: 'domain: \'localhost\', secure: false',
-          replace: 'domain: \'.slooh.com\', secure: true',
+          replace: `domain: \'${cookieDomain}\', secure: true`,
           flags: 'g',
         },
       },
