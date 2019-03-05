@@ -347,7 +347,6 @@ class TelescopeImageLoader extends Component {
 
             .top-image {
               transition: opacity ease-in-out;
-              z-index:5;
               width: 100%;
               height: 100%;
               position: relative;
