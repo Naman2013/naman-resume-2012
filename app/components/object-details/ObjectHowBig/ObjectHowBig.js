@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { OBJECT_HOW_BIG } from '../../../services/objects';
 import Request from '../../../components/common/network/Request';
-import { HowBigModule } from '../../../components/telescope-details/v4-modules/how-big-module';
+import { HowBigModule } from '../../../modules/telescope/components/old/how-big-module';
 
 import style from './ObjectHowBig.style';
 

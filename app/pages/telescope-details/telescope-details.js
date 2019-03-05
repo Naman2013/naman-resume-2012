@@ -264,11 +264,11 @@ class TelescopeDetails extends Component {
     const { observatoryList } = this.props;
     const options = buildNavigationOptions(observatoryList);
 
-    if (event.currentTarget.dataset.index) {
+    if (event.currentTarget && event.currentTarget.dataset.index) {
       const { currentTarget: { dataset: { index } } } = event;
       browserHistory.push(telescopeDetailsURL(options[index]));
     } else {
-      const { target: { value } } = event;
+      const { value } = event;
       browserHistory.push(telescopeDetailsURL(options[value]));
     }
   }
@@ -369,6 +369,8 @@ class TelescopeDetails extends Component {
                             teleSystem={instrSystem}
                             telePort={instrPort}
                             cameraSourceType={instrCameraSourceType}
+                            showOverlay={false}
+                            autoplay={1}
                           />
                         </div>
                         }

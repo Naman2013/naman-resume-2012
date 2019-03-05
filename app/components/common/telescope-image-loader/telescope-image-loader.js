@@ -64,6 +64,10 @@ class TelescopeImageLoader extends Component {
     this.attachSSE(this.props.imageSource);
   }
 
+  componentDidMount() {
+    window.addEventListener('beforeunload', this.unmountHandler);
+  }
+
   componentDidUpdate() {
     if (this.props.imageSource !== this.previouslyRenderedImageSource) {
       this.props.actions.resetActiveSSE();
@@ -106,6 +110,11 @@ class TelescopeImageLoader extends Component {
   }
 
   componentWillUnmount() {
+    window.removeEventListener('beforeunload', this.unmountHandler);
+    this.unmountHandler();
+  }
+
+  unmountHandler = () => {
     this.props.actions.resetActiveSSE();
     this.detachSSE();
   }
@@ -280,7 +289,7 @@ class TelescopeImageLoader extends Component {
 
     console.log("Is the Previous Image Square?: " + isPreviousImageSquare);
     console.log("Is the Current Image Square?: " + isCurrentImageSquare);
-    
+
     if (loadThumbnails) {
       return (
         <TelescopeThumbnailView
@@ -305,32 +314,50 @@ class TelescopeImageLoader extends Component {
           <div className="top-image">
             <img
               alt=""
-              height={viewportHeight}
+              // height={viewportHeight}
               id={this.generateImageId()}
               draggable="false"
             />
           </div>
         </div>
 
-        <style jsx>{`
-          .sse-thumbnails {
-            position: relative;
-          }
+        <style jsx>
+          {`
+            .sse-thumbnails {
+              position: relative;
+            }
 
-          .bottom-image {
-            position: relative;
-          }
+            .bottom-image {
+              position: relative;
+              height: ${viewportHeight}px;
+              position: relative;
+              background: #000;
+            }
 
-          .top-image {
-            position: absolute;
-            top: 0;
-            transition: opacity ease-in-out;
-          }
-        `}
+            .bottom-image img {
+              position: absolute;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+              margin: auto;
+              max-height: ${viewportHeight}px;
+              max-width: 100%;
+              z-index:5;
+            }
+
+            .top-image {
+              transition: opacity ease-in-out;
+              width: 100%;
+              height: 100%;
+              position: relative;
+              background: #000;
+            }
+          `}
         </style>
       </div>
     );
   }
 }
+
 
 export default TelescopeImageLoader;

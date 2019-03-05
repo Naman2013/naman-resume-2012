@@ -1,0 +1,111 @@
+@import "~app/styles/variables/index";
+@import "~app/styles/bootstrap/index";
+
+.box {
+  $boxPadding: 40px;
+  background-color: $romance;
+  box-shadow: 0 0 6px $shadows;
+  margin-bottom: 40px;
+
+  .box-header {
+    border-bottom: 4px solid $astronaut;
+    padding: $boxPadding;
+  }
+
+  .box-body {
+    padding: $boxPadding;
+
+    hr {
+      border-color: $hr-silver;
+      margin: 30px -40px;
+    }
+
+    .box-cols {
+      margin: -$boxPadding;
+      display: flex;
+
+      & > * {
+        flex: 1;
+        padding: $boxPadding;
+        border-right: 1px solid $hr-silver;
+
+        &:last-child {
+          border-right: none;
+        }
+      }
+
+      @include media-breakpoint-down(xs) {
+        display: block;
+        & > * {
+          border-right: none;
+          border-bottom: 1px solid $hr-silver;
+
+          &:last-child {
+            border-bottom: none;
+          }
+        }
+      }
+    }
+  }
+}
+
+// TODO MOVE TO GLOBAL
+.h1-custom {
+  //font-family: AGaramondPro;
+  font-family: $secondary-font;
+  font-size: 30px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 2.07;
+  letter-spacing: normal;
+  //color: var(--astronaut);
+  color: $astronaut;
+}
+
+.h2-custom {
+  //font-family: AGaramondPro;
+  font-family: $secondary-font;
+  font-size: 20px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.4;
+  letter-spacing: normal;
+  color: $astronaut;
+}
+
+.h3-custom {
+  font-size: 12px;
+  font-weight: 900;
+  font-style: normal;
+  text-transform: uppercase;
+  font-stretch: normal;
+  line-height: 1.5;
+  letter-spacing: 2px;
+  color: $astronaut;
+}
+
+.h4-custom {
+  //font-family: BrandonGrotesque;
+  font-size: 11px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1;
+  letter-spacing: 0.6px;
+  color: $astronaut;
+  text-transform: uppercase;
+}
+
+.p-19 {
+  //font-family: AGaramondPro;
+  font-family: $secondary-font;
+  font-size: 19px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.53;
+  letter-spacing: normal;
+  color: $raven;
+}
