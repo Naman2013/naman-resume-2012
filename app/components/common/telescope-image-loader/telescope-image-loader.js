@@ -301,7 +301,6 @@ class TelescopeImageLoader extends Component {
       );
     }
 
-
     return (
       <div className="sse-thumbnails">
         <div className="bottom-image">
