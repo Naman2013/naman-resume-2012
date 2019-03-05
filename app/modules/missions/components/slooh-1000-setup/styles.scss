@@ -1,3 +1,4 @@
+@import '~app/styles/bootstrap/index';
 @import '~app/styles/variables/index';
 
 $parentPadding: 40px;
@@ -62,5 +63,27 @@ $parentPadding: 40px;
 
   .slooh-select-container {
     margin-top: 25px;
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  .slooh-1000-setup {
+    .steps {
+      .step-1,
+      .step-2,
+      .step-3,
+      .messages {
+        padding: 30px;
+      }
+
+      .step-1 {
+        border-right: none;
+        border-bottom: 1px solid $hawkesBlue;
+      }
+
+      .step-3 {
+        padding: 0 0 30px;
+      }
+    }
   }
 }

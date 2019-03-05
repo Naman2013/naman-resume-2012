@@ -1,3 +1,4 @@
+@import '~app/styles/bootstrap/index';
 @import '~app/styles/variables/index';
 
 .mission-tile {
@@ -58,6 +59,18 @@
     .telescope {
       border-left: 1px solid $geyser;
     }
+
+    .time {
+      display: none;
+      border-bottom: none;
+      border-left: 1px solid $geyser;
+
+      &:after {
+        transform: none;
+        left: 3px;
+        bottom: 0;
+      }
+    }
   }
 
   .description {
@@ -67,15 +80,36 @@
   .actions {
     margin-top: 15px;
     display: flex;
-    justify-content: space-between;
 
     button {
       font-family: $primary-font;
       font-size: 11px;
       font-weight: 400;
-      line-height: 22px;
+      line-height: 18px;
       letter-spacing: 1px;
       color: $lightHeadedAstronaut;
+
+      &:first-of-type {
+        margin-right: 10px;
+      }
+    }
+  }
+
+  .countdown {
+    padding: 0;
+  }
+}
+
+@include media-breakpoint-only(md) {
+  .mission-tile {
+    .time {
+      display: none;
+    }
+
+    .info {
+      .time {
+        display: block;
+      }
     }
   }
 }

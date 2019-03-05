@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import Countdown from 'react-countdown-now';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
 import Button from '../../../../components/common/style/buttons/Button';
 import './styles.scss';
 
@@ -32,11 +34,27 @@ export class AvailbleMissionTile extends Component {
         <div className="time">{time}</div>
         <div className="info">
           <div className="date">{date}</div>
+          <div className="time">{time}</div>
           <div className="telescope">{telescope}</div>
         </div>
         <div className="description">{description}</div>
         <div className="actions">
-          <Button text="Cancel" onClickEvent={cancel} />
+          <OverlayTrigger
+            placement="top"
+            overlay={
+              <Tooltip id="tooltip-step1">
+                <span>Cancel</span>
+              </Tooltip>
+            }
+          >
+            <Button
+              onClickEvent={cancel}
+              theme={{ borderRadius: '50%' }}
+              renderIcon={() => (
+                <div className="mission-tile-icon fa fa-close" />
+              )}
+            />
+          </OverlayTrigger>
           <Button text="Schedule Mission" onClickEvent={scheduleMission} />
         </div>
       </div>

@@ -85,12 +85,12 @@ export class Slooh1000 extends Component {
     } = this.props;
 
     const { successModalShow } = this.state;
-
+    
     return (
       <div className="slooh-1000">
         <div className="container">
           <div className="row">
-            <div className="col-sm-8">
+            <div className="col-lg-8">
               <Box>
                 <Slooh1000Setup
                   categoryListOpts={categoryListOpts}
@@ -103,7 +103,7 @@ export class Slooh1000 extends Component {
                 />
               </Box>
             </div>
-            <div className="col-sm-4 reserved-mission">
+            <div className="col-lg-4 reserved-mission">
               <Box inside>
                 {missionSlot && missionSlot.missionAvailable ? (
                   <AvailbleMissionTile
