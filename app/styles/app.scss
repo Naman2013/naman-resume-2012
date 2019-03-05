@@ -2,6 +2,8 @@
 @import './variables/colors.scss';
 @import './variables/layout.scss';
 @import './mixins/utilities.scss';
+@import './typo.scss';
+@import './includes.scss';
 
 html,
 body,
@@ -13,6 +15,8 @@ body,
 
 body {
   width: 100%;
+  -webkit-font-smoothing: antialiased; // makes fonts clear-cut
+  font-smoothing: antialiased;
 }
 
 #app,

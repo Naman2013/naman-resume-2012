@@ -9,5 +9,6 @@ export default css`
   
   :global(.slooh-select__menu-list > div) {
     padding: 15px;
+    font-size: 18px;
   }
 `;

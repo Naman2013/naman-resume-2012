@@ -1,0 +1,73 @@
+@import "~app/styles/variables/index";
+@import "~app/styles/mixins/utilities.scss";
+
+// article, headers, paragraphs
+// primary - BrandonGrotesque
+// secondary - Adobe Garamond Pro
+
+$goldenRatio: 1.53;
+
+article {
+  padding: 100px;
+
+  .text {
+    margin: 10px 0 30px;
+  }
+}
+
+.h-1, .h-2 {
+  font-weight: 400;
+  font-family: $secondary-font;
+}
+
+.h-3, .h-4, .h-5, .h-6, .text {
+  font-weight: 700;
+  font-family: $primary-font;
+}
+
+.h-1, .h-2, .h-3, .h-4, .h-5, .h-6, .text {
+  @include no-indent();
+  color: $astronaut;
+}
+
+.h-1 {
+  font-size: 40px;
+  line-height: 2.07;
+}
+
+.h-2 {
+  font-size: 20px;
+  line-height: 1.4;
+}
+
+.h-3 {
+  font-size: 12px;
+  line-height: 1.5;
+  letter-spacing: 2px;
+}
+
+.h-4 {
+  font-size: 11px;
+  line-height: 1;
+  letter-spacing: 0.6px;
+}
+
+.h-5 {
+  font-size: 10px;
+  line-height: $goldenRatio / 2;
+}
+
+.h-6 {
+  font-size: 8px;
+  line-height: $goldenRatio / 2;
+  text-transform: uppercase;
+}
+
+.text {
+  font: 19px $secondary-font;
+  line-height: $goldenRatio;
+  margin: 0 0 2px;
+  color: $raven;
+}
+
+
