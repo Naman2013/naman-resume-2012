@@ -42,7 +42,9 @@ import {
 
 import {
   fetchObjectDataAction,
+  fetchObjectDetailsAction,
   resetObjectData,
+  resetObjectDetails,
 } from 'modules/object-details/actions';
 
 import style from './v4-telescope-details.style';
@@ -87,7 +89,9 @@ class TelescopeDetails extends Component {
     setTelescope: PropTypes.func.isRequired,
     fetchAllTelescopeStatus: PropTypes.func.isRequired,
     fetchObjectDataAction: PropTypes.func.isRequired,
+    fetchObjectDetailsAction: PropTypes.func.isRequired,
     resetObjectData: PropTypes.func.isRequired,
+    resetObjectDetails: PropTypes.func.isRequired,
 
     // mapped state
     // TODO: map these..
@@ -191,10 +195,12 @@ class TelescopeDetails extends Component {
 
     if (isNewAstroObjectID) {
       this.props.fetchObjectDataAction(astroObjectID);
+      this.props.fetchObjectDetailsAction(astroObjectID);
     }
 
     if (this.props.activeDetailsSSE.astroObjectID > 0 && astroObjectID === 0) {
       this.props.resetObjectData();
+      this.props.resetObjectDetails();
     }
   }
 
@@ -247,8 +253,10 @@ class TelescopeDetails extends Component {
 
     if (astroObjectID) {
       this.props.fetchObjectDataAction(astroObjectID);
+      this.props.fetchObjectDetailsAction(astroObjectID);
     } else {
       this.props.resetObjectData();
+      this.props.resetObjectDetails();
     }
   }
 
@@ -256,11 +264,11 @@ class TelescopeDetails extends Component {
     const { observatoryList } = this.props;
     const options = buildNavigationOptions(observatoryList);
 
-    if (event.currentTarget.dataset.index) {
+    if (event.currentTarget && event.currentTarget.dataset.index) {
       const { currentTarget: { dataset: { index } } } = event;
       browserHistory.push(telescopeDetailsURL(options[index]));
     } else {
-      const { target: { value } } = event;
+      const { value } = event;
       browserHistory.push(telescopeDetailsURL(options[value]));
     }
   }
@@ -277,6 +285,7 @@ class TelescopeDetails extends Component {
       currentObservatory,
       currentTelescope,
       allObservatoryTelescopeStatus,
+      objectData,
       params,
     } = this.props;
 
@@ -360,6 +369,8 @@ class TelescopeDetails extends Component {
                             teleSystem={instrSystem}
                             telePort={instrPort}
                             cameraSourceType={instrCameraSourceType}
+                            showOverlay={false}
+                            autoplay={1}
                           />
                         </div>
                         }
@@ -401,6 +412,7 @@ class TelescopeDetails extends Component {
                         skyChartWidgetID={currentObservatory.SkychartWidgetId}
                         allSkyWidgetID={currentObservatory.AllskyWidgetId}
                         mission={activeTelescopeMission}
+                        object={objectData}
                         renderTelescopeViewer={() => (
                           <TelescopeImageViewerController
                             activeInstrumentID={activeInstrument.instrUniqueId}
@@ -471,7 +483,8 @@ const mapStateToProps = ({
     activeTelescopeMission: activeTelescopeMissions.activeTelescopeMission,
 
     activeDetailsSSE: telescopeDetails.activeSSE,
-    objectDetails: objectDetails.objectData,
+    objectDetails: objectDetails.objectDetails,
+    objectData: objectDetails.objectData,
   };
 };
 
@@ -481,7 +494,9 @@ const mapDispatchToProps = dispatch => (bindActionCreators({
   setTelescope,
   fetchAllTelescopeStatus,
   fetchObjectDataAction,
+  fetchObjectDetailsAction,
   resetObjectData,
+  resetObjectDetails,
 }, dispatch));
 const ConnectedTelescopeDetails = connect(mapStateToProps, mapDispatchToProps)(TelescopeDetails);
 

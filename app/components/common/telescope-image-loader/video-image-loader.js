@@ -49,11 +49,13 @@ class VideoImageLoader extends Component {
     showInfo: PropTypes.number,
     callSource: PropTypes.string,
     autoPlay: PropTypes.number,
+    showOverlay:PropTypes.bool,
   };
 
   static defaultProps = {
     clipped: false,
     showVideoControls: 0,
+    showOverlay:true,
     showInfo: 0,
     autoPlay: 1,
     callSource: 'details',

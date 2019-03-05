@@ -37,6 +37,7 @@ export default function determineImageLoader(instrument, { viewportHeight }) {
             teleSystem={instrSystem}
             telePort={instrPort}
             cameraSourceType={instrCameraSourceType}
+            
           />
         </div>
         <style jsx>{`
