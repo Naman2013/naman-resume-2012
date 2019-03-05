@@ -1,5 +1,5 @@
 import { Box } from 'app/modules/missions/components/box';
-import { Slooh1000Setup } from 'app/modules/missions/components/slooh-1000-setup';
+import { CatalogSetup } from 'app/modules/missions/components/catalog-setup';
 import React, { Component } from 'react';
 import moment from 'moment';
 import { AvailbleMissionTile } from '../available-mission-tile';
@@ -45,7 +45,17 @@ export class Catalog extends Component {
         <div className="container">
           <div className="row">
             <div className="col-lg-8">
-              <Box>fsadsafsa</Box>
+              <Box>
+                <CatalogSetup
+                  categoryListOpts={categoryListOpts}
+                  objectListOpts={objectListOpts}
+                  setCategory={setCategory}
+                  setObject={setObject}
+                  getMissionSlot={this.getMissionSlot}
+                  selectedCategorySlug={selectedCategorySlug}
+                  selectedObjectSlug={selectedObjectSlug}
+                />
+              </Box>
             </div>
             <div className="col-lg-4 reserved-mission">
               <Box inside>

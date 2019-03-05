@@ -51,7 +51,7 @@ export class Slooh1000Setup extends Component {
             <OverlayTrigger
               placement="top"
               overlay={
-                <Tooltip id="tooltip-step1">
+                <Tooltip id="tooltip-step2">
                   <span>Step 2 info</span>
                 </Tooltip>
               }
@@ -73,7 +73,7 @@ export class Slooh1000Setup extends Component {
             <OverlayTrigger
               placement="top"
               overlay={
-                <Tooltip id="tooltip-step1">
+                <Tooltip id="tooltip-step3">
                   <span>Step 3 info</span>
                 </Tooltip>
               }
