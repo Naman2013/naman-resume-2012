@@ -1,6 +1,6 @@
 import Button from 'app/components/common/style/buttons/Button';
 import { Box } from 'app/modules/telescope/components/box';
-import { TelescopeView } from 'app/modules/telescope/components/telescope-view';
+import { TelescopeViewWrapper } from 'app/modules/telescope/components/telescope-view-wrapper';
 import { TimeUtc } from 'app/modules/telescope/components/time-utc';
 import React from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
@@ -12,20 +12,7 @@ export const StatusTab = props => {
     <div className="animated fadeIn faster status-tab">
       <div className="telescope-views">
         <Container>
-          <Row>
-            <Col sm>
-              <TelescopeView title="DOME VIEW" key="DOME VIEW" />
-            </Col>
-            <Col sm>
-              <TelescopeView title="ALL SKY CAMERA" key="ALL SKY CAMERA" />
-            </Col>
-            <Col sm>
-              <TelescopeView title="HORIZON VIEW" key="HORIZON VIEW" />
-            </Col>
-            <Col sm>
-              <TelescopeView title="DOME VIEW" key="DOME VIEW" />
-            </Col>
-          </Row>
+          <TelescopeViewWrapper />
         </Container>
       </div>
 
@@ -78,9 +65,12 @@ export const StatusTab = props => {
             </Box>
 
             <Box header="NEEDS A TITLE">
-              <div>test</div>
+              <div>
+                <Button text="VIEW OUR GUIDE" onClickEvent={() => {}} />
+              </div>
             </Box>
           </Col>
+
           <Col lg={4}>
             <Box header="SKY CONDITIONS">
               {/*<div className="sky-cond">test</div>*/}
@@ -100,25 +90,56 @@ export const StatusTab = props => {
             </Box>
 
             <Box header="WEATHER CONDITIONS">
-              <h4 className="h4-custom">Temperature</h4>
-              <h2 className="h2-custom float-right">67° F</h2>
-              <hr />
+              <div className="weather">
+                <Row>
+                  <Col>
+                    <h4 className="h4-custom">Temperature</h4>
+                  </Col>
+                  <Col>
+                    <h2 className="h2-custom temp-value">67° F</h2>
+                  </Col>
+                </Row>
+                <hr />
 
-              <h4 className="h4-custom">Dew Point</h4>
-              <h2 className="h2-custom float-right">57° F</h2>
-              <hr />
+                <Row>
+                  <Col>
+                    <h4 className="h4-custom">Dew Point</h4>
+                  </Col>
+                  <Col>
+                    <h2 className="h2-custom temp-value">57° F</h2>
+                  </Col>
+                </Row>
+                <hr />
 
-              <h4 className="h4-custom">Dew Point</h4>
-              <h2 className="h2-custom float-right">67° F</h2>
-              <hr />
+                <Row>
+                  <Col>
+                    <h4 className="h4-custom">Humidity</h4>
+                  </Col>
+                  <Col>
+                    <h2 className="h2-custom temp-value">69%</h2>
+                  </Col>
+                </Row>
+                <hr />
 
-              <h4 className="h4-custom">Temperature</h4>
-              <h2 className="h2-custom float-right">67° F</h2>
-              <hr />
+                <Row>
+                  <Col>
+                    <h4 className="h4-custom">Temperature</h4>
+                  </Col>
+                  <Col>
+                    <h2 className="h2-custom temp-value">67° F</h2>
+                  </Col>
+                </Row>
+                <hr />
 
-              <h4 className="h4-custom">Temperature</h4>
-              <h2 className="h2-custom float-right">67° F</h2>
-              <hr />
+                <Row>
+                  <Col>
+                    <h4 className="h4-custom">Temperature</h4>
+                  </Col>
+                  <Col>
+                    <h2 className="h2-custom temp-value">67° F</h2>
+                  </Col>
+                </Row>
+              </div>
             </Box>
           </Col>
         </Row>

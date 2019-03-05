@@ -8,4 +8,13 @@
     box-shadow: 0 16px 30px -5px $shadows;
     padding: 40px;
   }
+
+
+  .weather {
+    .temp-value {
+      margin: 0;
+      line-height: 10px;
+      text-align: right;
+    }
+  }
 }
