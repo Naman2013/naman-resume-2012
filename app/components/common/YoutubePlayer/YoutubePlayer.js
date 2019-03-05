@@ -5,6 +5,7 @@ import classnames from 'classnames';
 
 import styles from './YoutubePlayer.style';
 import YoutubePlayerOverlay from './YoutubePlayerOverlay';
+import fetchObjectDetailsService from '../../../services/objects/object-details';
 
 export default class YoutubePlayer extends Component {
   static propTypes = {
@@ -27,7 +28,14 @@ export default class YoutubePlayer extends Component {
     autoPlay: PropTypes.number,
     title: PropTypes.string.isRequired,
     subtitle: PropTypes.string.isRequired,
+    showOverlay:PropTypes.bool,
+    autoPlay:PropTypes.bool
   };
+
+  static defaultProps = {
+    withOverlay:true,
+    autoPlay:false,
+  }
   state = { isActive: false };
 
   generateIFrameUrl() {
@@ -51,6 +59,8 @@ export default class YoutubePlayer extends Component {
       teleStreamThumbnailVideoWidth,
       teleStreamThumbnailVideoHeight,
       clipped,
+      showOverlay,
+      autoPlay
     } = this.props;
 
     const videoImageLoaderClassnames = classnames('video-image-loader video-container', {
@@ -64,7 +74,7 @@ export default class YoutubePlayer extends Component {
           onMouseOver={() => this.setState({ isActive: true })}
           onMouseLeave={() => this.setState({ isActive: false })}
         >
-          {this.state.isActive &&
+          {showOverlay && this.state.isActive &&
             (this.props.type === 'live' || (this.player && this.player.getPlayerState() !== 1)) && (
               <YoutubePlayerOverlay
                 title={this.props.title}
@@ -81,12 +91,13 @@ export default class YoutubePlayer extends Component {
             opts={{
               playerVars: {
                 enablejsapi: 1,
-                controls: this.props.type === 'recent' ? 1 : 0,
+                controls: 1,
                 iv_load_policy: 3,
                 modestbranding: 1,
                 showinfo: 0,
                 rel: 0,
                 kb: 1,
+                autoplay: autoPlay? 1:0
               },
             }}
           />
