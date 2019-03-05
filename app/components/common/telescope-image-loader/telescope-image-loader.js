@@ -50,7 +50,11 @@ class TelescopeImageLoader extends Component {
 
   state = {
     currentImageUrl: null,
+    currW: 0,
+    currH: 0,
     previousImageUrl: null,
+    prevW: 0,
+    prevH: 0,
     firstLoad: true,
     adjustedFade: 0, // duration of fade in of new image
     startingOpacity: null, // starting opacity of the new image
@@ -75,7 +79,11 @@ class TelescopeImageLoader extends Component {
 
     const {
       currentImageUrl,
+      currW,
+      currH,
       previousImageUrl,
+      prevW,
+      prevH,
       startingOpacity,
       adjustedFade,
     } = this.state;
@@ -115,7 +123,11 @@ class TelescopeImageLoader extends Component {
     const {
       astroObjectID,
       currentImgURL,
+      currW,
+      currH,
       previousImgURL,
+      prevW,
+      prevH,
       imageID,
       lastImageTime,
       messageText,
@@ -207,7 +219,11 @@ class TelescopeImageLoader extends Component {
 
       this.setState({
         currentImageUrl: currentImgURL,
+        currW: currW,
+        currH: currH,
         previousImageUrl: previousImgURL,
+        prevW: prevW,
+        prevH: prevH,
         schedMissionId: scheduledMissionID,
         msnStartTime,
         lastImgTime: lastImageTime,
@@ -248,7 +264,11 @@ class TelescopeImageLoader extends Component {
   render() {
     const {
       currentImageUrl,
+      currW,
+      currH,
       previousImageUrl,
+      prevW,
+      prevH,
       startingOpacity,
       adjustedFade,
     } = this.state;
@@ -258,6 +278,17 @@ class TelescopeImageLoader extends Component {
     if (!currentImageUrl || !previousImageUrl) {
       return null;
     }
+
+    console.log("Current Image Width: " + currW);
+    console.log("Current Image Height: " + currH);
+    console.log("Previous Image Width: " + prevW);
+    console.log("Previous Image Height: " + prevH);
+
+    const isPreviousImageSquare = (prevW == prevH);
+    const isCurrentImageSquare = (currW == currH);
+
+    console.log("Is the Previous Image Square?: " + isPreviousImageSquare);
+    console.log("Is the Current Image Square?: " + isCurrentImageSquare);
 
     if (loadThumbnails) {
       return (
@@ -283,28 +314,39 @@ class TelescopeImageLoader extends Component {
           <div className="top-image">
             <img
               alt=""
-              height={viewportHeight}
+              // height={viewportHeight}
               id={this.generateImageId()}
               draggable="false"
             />
           </div>
         </div>
 
-        <style jsx>{`
-          .sse-thumbnails {
-            position: relative;
-          }
+        <style jsx>
+          {`
+            .sse-thumbnails {
+              position: relative;
+            }
 
-          .bottom-image {
-            position: relative;
-          }
+            .bottom-image {
+              position: relative;
+              height: ${viewportHeight}px;
+              position: relative;
+              background: #000;
+            }
 
-          .top-image {
-            position: absolute;
-            top: 0;
-            transition: opacity ease-in-out;
-          }
-        `}
+            .bottom-image img {
+              position: absolute;
+              top: 50%;
+              transform: translateY(-50%);
+              margin: auto;
+              max-height: ${viewportHeight}px;
+              max-width: 100%;
+            }
+
+            .top-image {
+              transition: opacity ease-in-out;
+            }
+          `}
         </style>
       </div>
     );

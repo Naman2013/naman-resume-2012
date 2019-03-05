@@ -403,7 +403,7 @@ class Telescope extends Component {
                   :global(.telescope-modal) {
                     min-width: 92vh;
                   }
-                  
+
                   svg {
                     position: absolute;
                     left: 0;

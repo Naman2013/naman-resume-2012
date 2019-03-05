@@ -1,37 +1,57 @@
 import { AboutScope } from 'app/modules/telescope/components/about-scope-tab';
 import { StatusTab } from 'app/modules/telescope/components/status-tab';
 import React, { Component } from 'react';
-import { Col, Container, Row, Tab, Tabs } from 'react-bootstrap';
+import { Container, Nav, Tab } from 'react-bootstrap';
 import './styles.scss';
 
 export class TelescopeOffline extends Component {
   render() {
     // const {  } = this.props;
     return (
-      <Container className="telescope-offline animated fadeIn faster">
-        <Row>
-          <Col>
-            <h1 className="h1-custom">Canary One: Offline</h1>
-            <hr />
-            <Tabs
-              defaultActiveKey="STATUS"
-              id="tabs"
-              unmountOnExit
-              mountOnEnter
-            >
-              <Tab eventKey="STATUS" title="STATUS">
-                <StatusTab />
-              </Tab>
-              <Tab eventKey="QUEUE" title="QUEUE" disabled>
-                QUEUE
-              </Tab>
-              <Tab eventKey="ABOUT_THIS_SCOPE" title="ABOUT THIS SCOPE">
-                <AboutScope />
-              </Tab>
-            </Tabs>
-          </Col>
-        </Row>
-      </Container>
+      <div className="telescope-offline animated fadeIn faster">
+        {/* HEADER */}
+        <Container>
+          <h1 className="h1-custom">Canary One: Offline</h1>
+          <hr />
+        </Container>
+
+        {/* TABS */}
+        <Tab.Container
+          defaultActiveKey="STATUS"
+          id="tabs"
+          unmountOnExit
+          mountOnEnter
+        >
+          {/* TABS NAVS */}
+          <Container>
+            <Nav variant="tabs">
+              <Nav.Item>
+                <Nav.Link eventKey="STATUS">STATUS</Nav.Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Nav.Link eventKey="QUEUE" disabled>
+                  QUEUE
+                </Nav.Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Nav.Link eventKey="ABOUT_THIS_SCOPE">
+                  ABOUT THIS SCOPE
+                </Nav.Link>
+              </Nav.Item>
+            </Nav>
+          </Container>
+
+          {/* TABS CONTENT */}
+          <Tab.Content>
+            <Tab.Pane eventKey="STATUS">
+              <StatusTab />
+            </Tab.Pane>
+            <Tab.Pane eventKey="ABOUT_THIS_SCOPE">
+              <AboutScope />
+            </Tab.Pane>
+          </Tab.Content>
+        </Tab.Container>
+      </div>
     );
   }
 }

@@ -1,3 +1,20 @@
+@import "~app/styles/variables/index";
+
 .status-tab {
-  padding-top: 40px;
+  //padding-top: 40px;
+
+  .telescope-views {
+    margin-bottom: 40px;
+    box-shadow: 0 16px 30px -5px $shadows;
+    padding: 40px;
+  }
+
+
+  .weather {
+    .temp-value {
+      margin: 0;
+      line-height: 10px;
+      text-align: right;
+    }
+  }
 }
