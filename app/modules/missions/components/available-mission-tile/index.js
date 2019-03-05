@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Countdown from 'react-countdown-now';
 import Button from '../../../../components/common/style/buttons/Button';
 import './styles.scss';
 
@@ -16,6 +17,17 @@ export class AvailbleMissionTile extends Component {
 
     return (
       <div className="mission-tile">
+        <div className="countdown">
+          <Countdown
+            date={Date.now() + 5 * 60 * 1000}
+            onComplete={cancel}
+            renderer={props => (
+              <div>
+                Reservation ends in {props.minutes}:{props.seconds}
+              </div>
+            )}
+          />
+        </div>
         <h5 className="title">{title}</h5>
         <div className="time">{time}</div>
         <div className="info">
@@ -24,11 +36,7 @@ export class AvailbleMissionTile extends Component {
         </div>
         <div className="description">{description}</div>
         <div className="actions">
-          <Button
-            onClickEvent={cancel}
-            theme={{ borderRadius: '50%' }}
-            renderIcon={() => <div className="mission-tile-icon fa fa-close" />}
-          />
+          <Button text="Cancel" onClickEvent={cancel} />
           <Button text="Schedule Mission" onClickEvent={scheduleMission} />
         </div>
       </div>

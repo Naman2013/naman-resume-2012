@@ -3,9 +3,14 @@ import { Slooh1000Setup } from 'app/modules/missions/components/slooh-1000-setup
 import React, { Component } from 'react';
 import moment from 'moment';
 import { AvailbleMissionTile } from '../available-mission-tile';
+import { MissionSuccessModal } from '../mission-success-modal';
 import './styles.scss';
 
 export class Slooh1000 extends Component {
+  state = {
+    successModalShow: false,
+  };
+
   componentDidMount = () => {
     const { getCategoryList, getBySlooh1000 } = this.props;
     //getBySlooh1000(); will be soon
@@ -54,12 +59,17 @@ export class Slooh1000 extends Component {
       telescopeId: missionSlot.telescopeId,
       telescopeName: missionSlot.telescopeName,
       uniqueId: missionSlot.uniqueId,
-    });
+    }).then(() => this.setState({ successModalShow: true }));
   };
 
   getMissionDate = timestamp => moment.unix(timestamp).format('ddd. MMM. DD');
 
   getMissionTime = timestamp => moment.unix(timestamp).format('HH:mm');
+
+  modalClose = () => {
+    const { resetMissionsData } = this.props;
+    this.setState({ successModalShow: false }, () => resetMissionsData());
+  };
 
   render() {
     const {
@@ -71,8 +81,11 @@ export class Slooh1000 extends Component {
       resetMissionsData,
       selectedCategorySlug,
       selectedObjectSlug,
+      reservedMissionData,
     } = this.props;
-    console.log(this.props);
+
+    const { successModalShow } = this.state;
+
     return (
       <div className="slooh-1000">
         <div className="container">
@@ -111,6 +124,12 @@ export class Slooh1000 extends Component {
             </div>
           </div>
         </div>
+
+        <MissionSuccessModal
+          show={successModalShow}
+          onHide={this.modalClose}
+          reservedMissionData={reservedMissionData}
+        />
       </div>
     );
   }

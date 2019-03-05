@@ -12,9 +12,11 @@ $parentPadding: 40px;
       border-right: 1px solid $hawkesBlue;
     }
 
-    .step-3 {
+    .step-3,
+    .messages {
       display: flex;
       justify-content: center;
+      align-items: center;
     }
 
     .step-1,

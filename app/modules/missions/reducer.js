@@ -30,6 +30,7 @@ export const initialState = {
 
   missions: {
     missionList: [],
+    reservedMissionList: [],
   },
 
   bySlooh1000: {
@@ -111,19 +112,30 @@ function getMissionSlotSuccess(state, action) {
 }
 
 function reserveMissionSlotSuccess(state, action) {
-  console.log('reserve mission', action.payload);
   return {
     ...state,
     isFetching: false,
     isLoaded: true,
-    //missions: { ...state.missions, missionList: action.payload.missionList },
+    missions: {
+      ...state.missions,
+      reservedMissionList: action.payload.missionList,
+    },
   };
 }
 
 function resetMissionsData(state) {
   return {
-    ...initialState,
-    pageSetup: state.pageSetup,
+    ...state,
+    missions: {
+      missionList: [],
+      reservedMissionList: [],
+    },
+    bySlooh1000: {
+      ...state.bySlooh1000,
+      selectedCategorySlug: null,
+      objectList: [],
+      selectedObjectSlug: null,
+    },
   };
 }
 

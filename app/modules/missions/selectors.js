@@ -28,6 +28,12 @@ export const makeMissionsFirstSlot = () =>
     state => state.missionList[0]
   );
 
+export const makeReservedMissionData = () =>
+  createSelector(
+    makeMissionsData(),
+    state => state.reservedMissionList[0] || {}
+  );
+
 export const makeBySlooh1000Selector = () =>
   createSelector(
     selectMissions,
