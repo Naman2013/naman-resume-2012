@@ -64,7 +64,8 @@ export default css`
   :global(.telescop-select-wrapper .slooh-select__menu) {
     margin-top: 15px;
     background: transparent;
-    box-shadow: none;    
+    box-shadow: none;   
+    z-index: 3001 !important; 
   }
 
   :global(.telescop-select-wrapper .slooh-select__menu .slooh-select__menu-list) {
