@@ -50,7 +50,11 @@ class TelescopeImageLoader extends Component {
 
   state = {
     currentImageUrl: null,
+    currW: 0,
+    currH: 0,
     previousImageUrl: null,
+    prevW: 0,
+    prevH: 0,
     firstLoad: true,
     adjustedFade: 0, // duration of fade in of new image
     startingOpacity: null, // starting opacity of the new image
@@ -75,7 +79,11 @@ class TelescopeImageLoader extends Component {
 
     const {
       currentImageUrl,
+      currW,
+      currH,
       previousImageUrl,
+      prevW,
+      prevH,
       startingOpacity,
       adjustedFade,
     } = this.state;
@@ -115,7 +123,11 @@ class TelescopeImageLoader extends Component {
     const {
       astroObjectID,
       currentImgURL,
+      currW,
+      currH,
       previousImgURL,
+      prevW,
+      prevH,
       imageID,
       lastImageTime,
       messageText,
@@ -207,7 +219,11 @@ class TelescopeImageLoader extends Component {
 
       this.setState({
         currentImageUrl: currentImgURL,
+        currW: currW,
+        currH: currH,
         previousImageUrl: previousImgURL,
+        prevW: prevW,
+        prevH: prevH,
         schedMissionId: scheduledMissionID,
         msnStartTime,
         lastImgTime: lastImageTime,
@@ -248,7 +264,11 @@ class TelescopeImageLoader extends Component {
   render() {
     const {
       currentImageUrl,
+      currW,
+      currH,
       previousImageUrl,
+      prevW,
+      prevH,
       startingOpacity,
       adjustedFade,
     } = this.state;
@@ -259,6 +279,17 @@ class TelescopeImageLoader extends Component {
       return null;
     }
 
+    console.log("Current Image Width: " + currW);
+    console.log("Current Image Height: " + currH);
+    console.log("Previous Image Width: " + prevW);
+    console.log("Previous Image Height: " + prevH);
+
+    const isPreviousImageSquare = (prevW == prevH);
+    const isCurrentImageSquare = (currW == currH);
+
+    console.log("Is the Previous Image Square?: " + isPreviousImageSquare);
+    console.log("Is the Current Image Square?: " + isCurrentImageSquare);
+    
     if (loadThumbnails) {
       return (
         <TelescopeThumbnailView

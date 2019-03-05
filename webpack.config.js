@@ -177,17 +177,22 @@ module.exports = {
     overlay: true,
     proxy: {
       '/api/**': {
-        target: 'https://eris.slooh.com',
+        target: 'https://supernova.slooh.com',
         changeOrigin: true,
         secure: true,
       },
       '/sloohapp/**': {
-        target: 'https://eris.slooh.com',
+        target: 'https://supernova.slooh.com',
         changeOrigin: true,
         secure: true,
       },
       '/sse/**': {
-        target: 'https://slooh.com',
+        target: 'https://supernova.slooh.com',
+        changeOrigin: true,
+        secure: true,
+      },
+      '/bot/**': {
+        target: 'https://supernova.slooh.com',
         changeOrigin: true,
         secure: true,
       },
