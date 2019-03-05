@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { browserHistory } from 'react-router';
 import Button from 'components/common/style/buttons/Button';
 import styles from './action-items.style';
 
@@ -10,7 +9,7 @@ const ActionItems = (props) => {
     goBack,
     submitLabel,
     submitStory,
-  } = props
+  } = props;
   return (
     <div className="root">
       <Button onClickEvent={goBack} text={cancelLabel} />
@@ -20,12 +19,10 @@ const ActionItems = (props) => {
   )
 }
 ActionItems.propTypes = {
-    cancelLabel: PropTypes.string.isRequired,
-    goBack: PropTypes.func.isRequired,
-    submitLabel: PropTypes.string.isRequired,
-    submitStory: PropTypes.func.isRequired,
-}
-
-
+  cancelLabel: PropTypes.string.isRequired,
+  goBack: PropTypes.func.isRequired,
+  submitLabel: PropTypes.string.isRequired,
+  submitStory: PropTypes.func.isRequired,
+};
 
 export default ActionItems;

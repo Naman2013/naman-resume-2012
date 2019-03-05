@@ -12,10 +12,10 @@ const {
 } = PropTypes;
 
 const DisplayTags = (props) => {
-  const { tags, deleteTag } = props;
+  const { tags, deleteTag, noTagsMsg } = props;
   return (
     <div className="root">
-      {tags.length === 0 ? <span className="title-text">There are no tags</span> : null}
+      {tags.length === 0 ? <span className="title-text">{noTagsMsg}</span> : null}
       {tags.map(tag => <Tag {...tag} deleteTag={deleteTag} />)}
       <style jsx>{styles}</style>
     </div>
@@ -28,6 +28,7 @@ DisplayTags.propTypes = {
     tagText: string.isRequired,
   })),
   deleteTag: func.isRequired,
+  noTagsMsg: string.isRequired,
 };
 
 DisplayTags.defaultProps = {

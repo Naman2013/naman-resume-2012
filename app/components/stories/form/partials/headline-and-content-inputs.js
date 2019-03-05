@@ -1,5 +1,6 @@
 import React from 'react';
-import { injectIntl, intlShape } from 'react-intl';
+import PropTypes from 'prop-types';
+import { FormattedMessage } from 'react-intl';
 import RichTextEditor from 'components/rich-text-editor/RichTextEditor';
 import messages from './headline-and-content-inputs.messages';
 
@@ -11,7 +12,7 @@ const HeadlineAndContentInputs = (props) => {
     handleHeadlineChange,
     bodyContent,
     handleBodyContentChange,
-    intl,
+    titlePrompt,
   } = props;
   return (
     <form>
@@ -20,7 +21,7 @@ const HeadlineAndContentInputs = (props) => {
           value={headlineContent}
           onChange={handleHeadlineChange}
           type="text"
-          placeholder={intl.formatMessage(messages.contentHeaderPlaceholder)}
+          placeholder={titlePrompt}
           className="field-input"
         />
       </div>
@@ -33,7 +34,10 @@ const HeadlineAndContentInputs = (props) => {
 };
 
 HeadlineAndContentInputs.propTypes = {
-  intl: intlShape.isRequired,
+  titlePrompt: PropTypes.string,
+};
+HeadlineAndContentInputs.defaultProps = {
+  titlePrompt: '', 
 };
 
-export default injectIntl(HeadlineAndContentInputs);
+export default HeadlineAndContentInputs;

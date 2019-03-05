@@ -42,10 +42,6 @@ class BootstrappedRelatedStories extends Component {
 
     return (
       <div className="root">
-        <div className="related-stories-title">
-          <FormattedMessage {...messages.relatedStories} />{' '}
-          <span className="related-stories-count">({relatedStoriesListCount})</span>
-        </div>
         {relatedStoriesList.length > 0 ? (
           <AveryTile
             title={relatedStoriesList[0].title}

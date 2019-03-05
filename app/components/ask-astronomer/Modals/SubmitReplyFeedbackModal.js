@@ -5,21 +5,21 @@
  *
  ********************************** */
 
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { intlShape, injectIntl } from 'react-intl';
-import Button from 'components/common/style/buttons/Button';
+import Button from '../../common/style/buttons/Button';
 import styles from './Modals.style';
-import messages from './SubmitAnswerFeedbackModal.messages';
 
 const { func, shape, string } = PropTypes;
 
 const SubmitReplyFeedbackModal = (props) => {
-  const { modalActions, message, intl, updateQuestionsList, } = props;
+  const {
+    modalActions, message, updateQuestionsList, title, doneButtonLabel,
+  } = props;
 
   return (
     <form className="root">
-      <div className="title">{intl.formatMessage(messages.AskAnAstronomer)}</div>
+      <div className="title">{title}</div>
       <div className="prompt-text" dangerouslySetInnerHTML={{ __html: message }} />
       <div className="actions">
         <Button
@@ -27,7 +27,7 @@ const SubmitReplyFeedbackModal = (props) => {
             updateQuestionsList();
             modalActions.closeModal();
           }}
-          text={intl.formatMessage(messages.Done)}
+          text={doneButtonLabel}
         />
       </div>
       <style jsx>{styles}</style>
@@ -42,12 +42,15 @@ SubmitReplyFeedbackModal.propTypes = {
     showModal: func,
   }).isRequired,
   message: string,
-  intl: intlShape.isRequired,
   updateQuestionsList: func.isRequired,
+  title: string,
+  doneButtonLabel: string,
 };
 
 SubmitReplyFeedbackModal.defaultProps = {
   message: '',
+  title: '',
+  doneButtonLabel: '',
 };
 
-export default injectIntl(SubmitReplyFeedbackModal);
+export default SubmitReplyFeedbackModal;

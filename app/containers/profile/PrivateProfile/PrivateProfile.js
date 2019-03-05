@@ -87,7 +87,9 @@ class PrivateProfile extends Component {
             {cloneElement(children, {
               activityData: modelResult.activityData,
               groupsData: modelResult.groupsData,
+              privateProfileData,
               params,
+              profileMenuList: modelResult.profileMenuList,
             })}
           </Fragment>
         )}

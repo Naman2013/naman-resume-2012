@@ -63,6 +63,8 @@ export default css`
     color: ${astronaut};
     padding: 25px 0;
     text-transform: none;
+    white-space: pre-line;
+    word-break: break-word;
   }
 
   .date {

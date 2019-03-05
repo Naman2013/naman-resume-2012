@@ -11,4 +11,8 @@ export default css`
     width: 100%;
     margin-top: 40px;
   }
+
+  :global(.uniqclass-for-overflow *) {
+    overflow: visible;
+  }
 `;

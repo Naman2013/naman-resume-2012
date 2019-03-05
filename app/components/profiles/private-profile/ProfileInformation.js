@@ -2,8 +2,9 @@
  * V4 Private Profile My Information block
  *
  ********************************** */
-import React, { Component, Fragment } from 'react';
+import _get from 'lodash/get';
 import PropTypes from 'prop-types';
+import React, { Component, Fragment } from 'react';
 import { injectIntl, intlShape } from 'react-intl';
 import Modal from 'react-modal';
 
@@ -11,9 +12,9 @@ import { DeviceContext } from '../../../providers/DeviceProvider';
 import { modalStyleFullPage } from '../../../styles/mixins/utilities';
 import DisplayAtBreakpoint from '../../common/DisplayAtBreakpoint';
 import BackBar from '../../common/style/buttons/BackBar';
-import { ProfileStatsItem, StatsPopover, GravityBreakdown, StatsDetails, Badges, SpecialistList } from '../ProfileStats';
-import styles from './ProfileInformation.styles';
+import { Badges, GravityBreakdown, ProfileStatsItem, SpecialistList, StatsDetails, StatsPopover } from '../ProfileStats';
 import messages from './ProfileInformation.messages';
+import styles from './ProfileInformation.styles';
 
 const {
   shape,
@@ -49,8 +50,8 @@ class ProfileInformation extends Component {
         <GravityBreakdown gravityList={gravityData.gravityList} />,
         <StatsDetails
           text={gravityData.gravityDetailsText}
-          buttonLinkUrl={gravityData.gravityGuideDetails.buttonLinkUrl}
-          buttonText={gravityData.gravityGuideDetails.buttonText}
+          buttonLinkUrl={_get(gravityData, 'gravityGuideDetails.buttonLinkUrl', '')}
+          buttonText={_get(gravityData, 'gravityGuideDetails.buttonText', '')}
         />,
       ],
     };

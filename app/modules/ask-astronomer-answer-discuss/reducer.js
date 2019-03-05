@@ -17,6 +17,7 @@ import {
 const initialState = {
   fetchingObj: {},
   error: false,
+  page: 1,
   paginationCount: 5,
   resultsCount: 0,
   allReplies: {},
@@ -39,18 +40,22 @@ export default createReducer(initialState, {
     const newAllReplies = cloneDeep(state.allReplies);
     const newAllDisplayedReplies = cloneDeep(state.allDisplayedReplies);
     const newFetching = cloneDeep(state.fetchingObj);
+
     newAllReplies[replyTo] = {
       replies,
       showAllReplies,
-      page: 1,
+      page: state.page || 1,
     };
-    newAllDisplayedReplies[replyTo] = (replies && replies.length > 0) ?
-      take(replies, state.paginationCount)
-        .map(reply => reply.replyId) :
-      [];
-      
+
+    const toAnswer = newAllReplies[replyTo].page * state.paginationCount;
+    newAllDisplayedReplies[replyTo] = (replies && replies.length > 0) ? replies.map((item, index) => {
+      if (toAnswer - state.paginationCount <= index && index < toAnswer) {
+        return item.replyId;
+      }
+    }) : [];
     newFetching[replyTo] = false;
 
+    
     return {
       ...state,
       fetchingObj: newFetching,
@@ -101,6 +106,7 @@ export default createReducer(initialState, {
       ...state,
       allReplies: newAllState,
       allDisplayedReplies: newDisplayedState,
+      page,
     };
   },
   [REPLY_TO_ASTRONOMER_ANSWER_START](state, { payload }) {

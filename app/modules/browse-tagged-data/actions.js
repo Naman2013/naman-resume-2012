@@ -9,7 +9,6 @@ export const FETCH_BROWSE_TAGGED_DATA_START = 'FETCH_BROWSE_TAGGED_DATA_START';
 export const FETCH_BROWSE_TAGGED_DATA_FAIL = 'FETCH_BROWSE_TAGGED_DATA_FAIL';
 export const FETCH_BROWSE_TAGGED_DATA_SUCCESS = 'FETCH_BROWSE_TAGGED_DATA_SUCCESS';
 
-
 export const fetchBrowseTaggedDataAction = (contentTypes) => (dispatch, getState) => {
   dispatch(fetchBrowseTaggedDataActionStart());
 

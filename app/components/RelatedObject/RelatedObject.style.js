@@ -73,6 +73,13 @@ export default css`
     padding: 10px;
   }
 
+  .info-list-icon{
+    margin-right:20px;
+    height:12px;
+    width:12px;
+    margin-bottom:4px;
+  }
+
   .info-list-item:first-child {
     border-top: 0;
     padding: 10px;

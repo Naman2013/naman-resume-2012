@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { fetchPublicProfile } from '../../modules/public-profile/actions';
+import { fetchPublicProfile } from '../../modules/public-profile2/actions';
 import PublicObservations from '../../components/profiles/public-profile/public-observations';
 import ProfileMissions from '../../components/profiles/mission-list';
 import {

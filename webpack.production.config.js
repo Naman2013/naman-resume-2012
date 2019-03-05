@@ -1,3 +1,4 @@
+const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
@@ -6,6 +7,7 @@ const WebpackMd5Hash = Math.random() * 100000;
 
 const apiUrl = process.env.apiUrl || '';
 const apiPortNumber = process.env.apiPortNumber || '';
+const cookieDomain = process.env.cookieDomain || '.slooh.com';
 
 module.exports = {
   devtool: 'source-map',
@@ -38,10 +40,15 @@ module.exports = {
     bundle: './app/index.js',
   },
   output: {
-    path: __dirname + '/dist',
+    path: `${__dirname}/dist`,
     publicPath: '/',
     filename: '[chunkhash].[id].[name].js',
     sourceMapFilename: '[name].js.map',
+  },
+  resolve: {
+    alias: {
+      app: path.resolve(__dirname, 'app/'),
+    },
   },
   module: {
     rules: [
@@ -65,7 +72,7 @@ module.exports = {
         exclude: /node_modules/,
         query: {
           search: 'domain: \'localhost\', secure: false',
-          replace: 'domain: \'.slooh.com\', secure: true',
+          replace: `domain: \'${cookieDomain}\', secure: true`,
           flags: 'g',
         },
       },
@@ -76,7 +83,7 @@ module.exports = {
         query: {
           cacheDirectory: true,
           plugins: [
-            ['styled-jsx/babel', { 'optimizeForSpeed': false }],
+            ['styled-jsx/babel', { optimizeForSpeed: false }],
             'transform-object-rest-spread',
             'transform-decorators-legacy',
             'transform-class-properties',
@@ -94,9 +101,27 @@ module.exports = {
       },
       {
         test: /\.scss$/,
+        exclude: /\.module\.scss$/,
         loaders: [
           'style-loader',
           'css-loader?modules&importLoaders=1&localIdentName=[local]',
+          'sass-loader',
+        ],
+      },
+      // CSS Modules Configuration
+      {
+        test: /\.module\.scss$/,
+        loaders: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+              sourceMap: true,
+              localIdentName: '[local]__[hash:base64:5]',
+              minimize: true,
+            },
+          },
           'sass-loader',
         ],
       },
@@ -107,17 +132,17 @@ module.exports = {
           limit: 40,
         },
       },
-      {
-        test: /\.(png|jpg|gif)$/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              limit: 40,
-            },
-          },
-        ],
-      },
+      // {
+      //   test: /\.(png|jpg|gif)$/,
+      //   use: [
+      //     {
+      //       loader: 'file-loader',
+      //       options: {
+      //         limit: 40,
+      //       },
+      //     },
+      //   ],
+      // },
       { // loader for bootstrap
         test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
         loader: 'file-loader',
@@ -144,7 +169,7 @@ module.exports = {
       filename: 'common.js',
     }),
     new HtmlWebpackPlugin({
-      template: __dirname + '/app/index.html',
+      template: `${__dirname}/app/index.html`,
       filename: 'index.html',
       inject: 'body',
     }),

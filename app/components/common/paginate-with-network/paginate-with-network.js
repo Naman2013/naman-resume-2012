@@ -10,6 +10,7 @@ class PaginateWithNetwork extends Component {
     filterOptions: PropTypes.shape({}),
     apiURL: PropTypes.string.isRequired,
     onPaginationChange: PropTypes.func.isRequired,
+    hubActions: PropTypes.shape({}),
   };
 
   static defaultProps = {
@@ -18,20 +19,32 @@ class PaginateWithNetwork extends Component {
     },
     activePageNumber: 1,
     filterOptions: {},
+    hubActions: null,
   };
 
   handleServiceResponse = (resp) => {
     this.props.onServiceResponse(resp);
+    window.scrollTo(0, 0);
   };
 
+  serviceFetchStartHandler = () => {
+    const { hubActions } = this.props;
+    hubActions.hubGetRequestStart();
+  }
+
   render() {
-    const { apiURL, activePageNumber, filterOptions } = this.props;
+    const {
+      apiURL, activePageNumber, filterOptions, hubActions,
+    } = this.props;
 
     return (
       <Request
+        withoutUser
         serviceURL={apiURL}
         requestBody={Object.assign({ page: activePageNumber }, filterOptions)}
         serviceResponseHandler={this.handleServiceResponse}
+        serviceFetchStartHandler={this.serviceFetchStartHandler}
+        hubActions={hubActions}
         render={({ fetchingContent, serviceResponse }) =>
           !fetchingContent && (
             <Pagination

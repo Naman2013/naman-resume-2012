@@ -1,14 +1,15 @@
-/***********************************
-* V4 Shows DetailsTab
-*
-*
-*
-***********************************/
+/** *********************************
+ * V4 Shows DetailsTab
+ *
+ *
+ *
+ ********************************** */
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl, intlShape } from 'react-intl';
 import LikeSomethingButton from 'components/common/LikeSomethingButton';
+import Request from 'components/common/network/Request';
 import { romance } from 'styles/variables/colors_tiles_v4';
 import BlueLineDrop from 'components/common/BlueLineDrop';
 import RelatedShows from 'components/RelatedShows';
@@ -18,15 +19,11 @@ import RelatedObject from 'components/RelatedObject/BootstrappedRelatedObject';
 import styles from './MainContent.style';
 import messages from '../Show.messages';
 
+import { RELATED_SHOWS, RELATED_STORIES, RELATED_GUIDES } from 'services/events';
+import { CONTENT_RELATED_STORIES } from 'services/content';
+
 const {
-  any,
-  arrayOf,
-  bool,
-  func,
-  number,
-  oneOfType,
-  shape,
-  string,
+  any, arrayOf, bool, func, number, oneOfType, shape, string,
 } = PropTypes;
 
 class DetailsTab extends Component {
@@ -55,6 +52,7 @@ class DetailsTab extends Component {
       isDesktop,
       isScreenMedium,
       isScreenLarge,
+      hasRelatedObject,
       slugLookupId,
       relatedObject,
       showId,
@@ -64,29 +62,91 @@ class DetailsTab extends Component {
 
     return (
       <div>
-        <RelatedObject {...relatedObject} user={user} />
-        <BlueLineDrop
-          title={intl.formatMessage(messages.RelatedShows)}
-          isDesktop={isDesktop}
-          theme={{ margin: isScreenLarge ? '25px 0' : '25px' }}
-          render={() => (
-            <RelatedShows showId={showId} />
+        {hasRelatedObject && <RelatedObject {...relatedObject} user={user} />}
+        <Request
+          authorizationRedirect
+          serviceURL={RELATED_SHOWS}
+          method="POST"
+          serviceExpiresFieldName="expires"
+          requestBody={{
+            cid: user.cid,
+            token: user.token,
+            at: user.at,
+            slugLookupId,
+            showId,
+            maxCount:3,
+          }}
+          render={({ fetchingContent, serviceResponse }) => (
+            <BlueLineDrop
+              title={`${intl.formatMessage(messages.RelatedShows)} (${serviceResponse.showCount || 0}) `}
+              isDesktop={isDesktop}
+              theme={{ margin: isScreenLarge ? '25px 0' : '25px' }}
+              render={() => (
+                <RelatedShows
+                  showId={showId}
+                  fetchingContent={fetchingContent}
+                  shows={serviceResponse}
+                />
+              )}
+            />
           )}
         />
-        <BlueLineDrop
-          title={intl.formatMessage(messages.RelatedStories)}
-          isDesktop={isDesktop}
-          theme={{ margin: isScreenLarge ? '25px 0' : '25px' }}
-          render={() => (
-            <RelatedStories showId={showId} />
+        <Request
+          authorizationRedirect
+          serviceURL={CONTENT_RELATED_STORIES}
+          method="POST"
+          serviceExpiresFieldName="expires"
+          requestBody={{
+            cid: user.cid,
+            token: user.token,
+            at: user.at,
+            showId,
+            slugLookupId,
+            listType: 'sluglookupids',
+            maxCount:3,
+          }}
+          render={({ fetchingContent, serviceResponse }) => (
+            <BlueLineDrop
+              title={`${intl.formatMessage(messages.RelatedStories)} (${serviceResponse.storyCount || 0}) `}
+              isDesktop={isDesktop}
+              theme={{ margin: isScreenLarge ? '25px 0' : '25px' }}
+              render={() => (
+                <RelatedStories
+                  showId={showId}
+                  stories={serviceResponse}
+                  fetchingContent={fetchingContent}
+                />
+              )}
+            />
           )}
         />
-        <BlueLineDrop
-          title={intl.formatMessage(messages.RelatedGuides)}
-          isDesktop={isDesktop}
-          theme={{ margin: isScreenLarge ? '25px 0' : '25px' }}
-          render={() => (
-            <RelatedGuides showId={showId} />
+
+        <Request
+          authorizationRedirect
+          serviceURL={RELATED_GUIDES}
+          method="POST"
+          serviceExpiresFieldName="expires"
+          requestBody={{
+            cid: user.cid,
+            token: user.token,
+            at: user.at,
+            slugLookupId,
+            showId,
+            maxCount:3,
+          }}
+          render={({ fetchingContent, serviceResponse }) => (
+            <BlueLineDrop
+              title={`${intl.formatMessage(messages.RelatedGuides)} (${serviceResponse.guideCount || 0}) `}
+              isDesktop={isDesktop}
+              theme={{ margin: isScreenLarge ? '25px 0' : '25px' }}
+              render={() => (
+                <RelatedGuides
+                  showId={showId}
+                  fetchingContent={fetchingContent}
+                  guides={serviceResponse}
+                />
+              )}
+            />
           )}
         />
 

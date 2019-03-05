@@ -1,9 +1,9 @@
-/***********************************
-* V4 Related Shows
-*
-*
-*
-***********************************/
+/** *********************************
+ * V4 Related Shows
+ *
+ *
+ *
+ ********************************** */
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
@@ -14,75 +14,53 @@ import BootstrappedRelatedGuides from './BootstrappedRelatedGuides';
 import { RELATED_GUIDES } from 'services/events';
 
 const {
-  bool,
-  number,
-  oneOfType,
-  string,
+  bool, number, oneOfType, string,
 } = PropTypes;
-const mapStateToProps = ({
-  user,
-}) => ({
+const mapStateToProps = ({ user }) => ({
   user,
 });
 
-@connect(mapStateToProps, null)
+@connect(
+  mapStateToProps,
+  null,
+)
 class RelatedGuides extends Component {
   static propTypes = {
     serviceUrl: string,
     isDesktop: bool,
     slugLookupId: oneOfType([string, number]),
-    showId: oneOfType([string, number])
+    showId: oneOfType([string, number]),
+    maxCount: number,
   };
   static defaultProps = {
     serviceUrl: RELATED_GUIDES,
     isDesktop: false,
     showId: null,
     slugLookupId: null,
+    maxCount: 3,
   };
 
   render() {
     const {
-      serviceUrl,
-      isDesktop,
-      user,
-      slugLookupId,
-      showId,
+      serviceUrl, isDesktop, user, fetchingContent, guides, showId,
     } = this.props;
 
     return (
-      <Request
-        authorizationRedirect={true}
-        serviceURL={serviceUrl}
-        method="POST"
-        serviceExpiresFieldName="expires"
-        requestBody={{
-          cid: user.cid,
-          token: user.token,
-          at: user.at,
-          slugLookupId,
-          showId,
-        }}
-        render={({
-          fetchingContent,
-          serviceResponse,
-        }) => (
-          <div>
-            <DeviceContext.Consumer>
-              {context => (<BootstrappedRelatedGuides
-                isDesktop={isDesktop}
-                fetching={fetchingContent}
-                user={user}
-                slugLookupId={slugLookupId}
-                {...context}
-                {...serviceResponse}
-              />)}
-            </DeviceContext.Consumer>
-          </div>
-        )}
-      />
+      <div>
+        <DeviceContext.Consumer>
+          {context => (
+            <BootstrappedRelatedGuides
+              isDesktop={isDesktop}
+              fetching={fetchingContent}
+              user={user}
+              {...context}
+              {...guides}
+            />
+          )}
+        </DeviceContext.Consumer>
+      </div>
     );
   }
 }
-
 
 export default RelatedGuides;

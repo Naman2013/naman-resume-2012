@@ -1,10 +1,9 @@
 /***********************************
-* V4 Show Page
-*   Markdown support on elements????
-*   UTF-8 support....
-*   Multi-National Languages.....
-***********************************/
-
+ * V4 Show Page
+ *   Markdown support on elements????
+ *   UTF-8 support....
+ *   Multi-National Languages.....
+ ***********************************/
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
@@ -15,27 +14,23 @@ import { LIVE_SHOW_INFO } from 'services/events';
 import BootstrappedShow from './BootstrappedShow';
 import { modelWithInfoBlocks } from './showConfiguration';
 
-
-const mapStateToProps = ({
-  user,
-}) => ({
+const mapStateToProps = ({ user }) => ({
   user,
 });
 
-@connect(mapStateToProps, null)
+@connect(
+  mapStateToProps,
+  null
+)
 class Show extends Component {
-  static propTypes = {
-  }
+  static propTypes = {};
 
-  static defaultProps = {
-  }
+  static defaultProps = {};
 
   render() {
     const {
       user,
-      params: {
-        showId,
-      },
+      params: { showId },
     } = this.props;
 
     return (
@@ -56,13 +51,15 @@ class Show extends Component {
           }) => (
             <div>
               <DeviceContext.Consumer>
-                {context => (<BootstrappedShow
-                  user={user}
-                  fetching={fetchingContent}
-                  showId={showId}
-                  {...context}
-                  {...DATA_WITH_SHOW_INFO_BASED_ON_STATUS}
-                />)}
+                {context => (
+                  <BootstrappedShow
+                    user={user}
+                    fetching={fetchingContent}
+                    showId={showId}
+                    {...context}
+                    {...DATA_WITH_SHOW_INFO_BASED_ON_STATUS}
+                  />
+                )}
               </DeviceContext.Consumer>
             </div>
           )}

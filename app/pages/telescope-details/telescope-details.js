@@ -42,7 +42,9 @@ import {
 
 import {
   fetchObjectDataAction,
+  fetchObjectDetailsAction,
   resetObjectData,
+  resetObjectDetails,
 } from 'modules/object-details/actions';
 
 import style from './v4-telescope-details.style';
@@ -87,7 +89,9 @@ class TelescopeDetails extends Component {
     setTelescope: PropTypes.func.isRequired,
     fetchAllTelescopeStatus: PropTypes.func.isRequired,
     fetchObjectDataAction: PropTypes.func.isRequired,
+    fetchObjectDetailsAction: PropTypes.func.isRequired,
     resetObjectData: PropTypes.func.isRequired,
+    resetObjectDetails: PropTypes.func.isRequired,
 
     // mapped state
     // TODO: map these..
@@ -191,10 +195,12 @@ class TelescopeDetails extends Component {
 
     if (isNewAstroObjectID) {
       this.props.fetchObjectDataAction(astroObjectID);
+      this.props.fetchObjectDetailsAction(astroObjectID);
     }
 
     if (this.props.activeDetailsSSE.astroObjectID > 0 && astroObjectID === 0) {
       this.props.resetObjectData();
+      this.props.resetObjectDetails();
     }
   }
 
@@ -247,8 +253,10 @@ class TelescopeDetails extends Component {
 
     if (astroObjectID) {
       this.props.fetchObjectDataAction(astroObjectID);
+      this.props.fetchObjectDetailsAction(astroObjectID);
     } else {
       this.props.resetObjectData();
+      this.props.resetObjectDetails();
     }
   }
 
@@ -256,11 +264,11 @@ class TelescopeDetails extends Component {
     const { observatoryList } = this.props;
     const options = buildNavigationOptions(observatoryList);
 
-    if (event.currentTarget.dataset.index) {
+    if (event.currentTarget && event.currentTarget.dataset.index) {
       const { currentTarget: { dataset: { index } } } = event;
       browserHistory.push(telescopeDetailsURL(options[index]));
     } else {
-      const { target: { value } } = event;
+      const { value } = event;
       browserHistory.push(telescopeDetailsURL(options[value]));
     }
   }
@@ -276,6 +284,8 @@ class TelescopeDetails extends Component {
       fetchingObservatoryStatus,
       currentObservatory,
       currentTelescope,
+      allObservatoryTelescopeStatus,
+      objectData,
       params,
     } = this.props;
 
@@ -308,6 +318,9 @@ class TelescopeDetails extends Component {
     const activeInstrument = first(teleInstrumentList
       .filter(instrument => instrument.instrUniqueId === useActiveInstrumentID));
 
+    const activeTelescopeStatus = first(allObservatoryTelescopeStatus.statusList.statusTeleList
+      .filter(telescope => telescope.teleUniqueId === activeTelescope.telescopeUniqueID));
+
     const {
       instrStreamCode,
       instrStreamURL,
@@ -319,79 +332,49 @@ class TelescopeDetails extends Component {
 
     return (
       <div>
-        <TelescopeNavigation
-          title={activeTelescopeMission.objectTitle}
-          options={navigationOptions}
-          onSelect={this.handleOptionChange}
-          selectedIndex={selectedNavigationIndex}
-        />
+          <TelescopeNavigation
+            title={activeTelescopeMission.objectTitle}
+            options={navigationOptions}
+            onSelect={this.handleOptionChange}
+            selectedIndex={selectedNavigationIndex}
+          />
 
-        <div className="details-root">
-          <DisplayAtBreakpoint screenLarge screenXLarge>
-            <div className="viewer">
-              <DeviceContext.Consumer>
-                {context => ((context.isScreenLarge || context.isScreenXLarge)
-                  ?
-                    <div>
-                      <InstrumentNavigation
-                        instruments={teleInstrumentList}
-                        activeInstrumentID={useActiveInstrumentID}
-                        handleInstrumentClick={this.handleInstrumentNavigationClick}
-                      />
-                      {/* The Solar Telescope uses a Live Video Stream from YT as opposed to an SSE feed for other telescopes */}
-                      {activeInstrument.instrImageSourceType === 'video' && <div>
-                        <VideoImageLoader
-                          teleStreamCode={instrStreamCode}
-                          teleStreamURL={instrStreamURL}
-                          teleStreamThumbnailVideoWidth="810"
-                          teleStreamThumbnailVideoHeight="600"
-                          teleStreamThumbnailQuality={instrStreamThumbnailQuality}
-                          teleSystem={instrSystem}
-                          telePort={instrPort}
-                          cameraSourceType={instrCameraSourceType}
+          {/* Telescope: Offline State */}
+          {activeTelescopeStatus && activeTelescopeStatus.onlineStatus == 'offline' && <div className="details-root">
+            <p>{currentTelescope.teleName} is Offline.....</p>
+          </div>
+          }
+
+          {/* Telescope: Online State */}
+          {activeTelescopeStatus && activeTelescopeStatus.onlineStatus == 'online' && <div className="details-root">
+            <DisplayAtBreakpoint screenLarge screenXLarge>
+              <div className="viewer">
+                <DeviceContext.Consumer>
+                  {context => ((context.isScreenLarge || context.isScreenXLarge)
+                    ?
+                      <div>
+                        <InstrumentNavigation
+                          instruments={teleInstrumentList}
+                          activeInstrumentID={useActiveInstrumentID}
+                          handleInstrumentClick={this.handleInstrumentNavigationClick}
                         />
-                      </div>
-                      }
-                      {activeInstrument.instrImageSourceType !== 'video' && <TelescopeImageViewerController
-                        activeInstrumentID={activeInstrument.instrUniqueId}
-                        render={({ viewportHeight }) => provideLiveFeed({
-                          viewportHeight,
-                          fetchingOnlineStatus: fetchingObservatoryStatus,
-                          obsAlert: currentObservatory.obsAlert,
-                          onlineStatus: false,
-                          instrument: activeInstrument,
-                          offlineImageSource: activeInstrument.instrOfflineImgURL,
-                          activeMission: activeTelescopeMission.maskDataArray,
-                          timestamp: activeTelescopeMission.timestamp,
-                          missionStart: activeTelescopeMission.missionStart,
-                          missionEnd: activeTelescopeMission.expires,
-                          activeNeoview: activeInstrument.instrHasNeoView,
-                          handleInfoClick: this.toggleNeoview,
-                        })}
-                      />
-                      }
-                    </div>
-                  : null)
-                }
-
-              </DeviceContext.Consumer>
-            </div>
-          </DisplayAtBreakpoint>
-
-          <div className="column">
-            <ColumnTabs
-              {...this.props}
-              tabConfiguration={[
-                {
-                  tabTitle: 'Live',
-                  content: () => (
-                    <TabLive
-                      obsId={currentObservatory.obsId}
-                      skyChartWidgetID={currentObservatory.SkychartWidgetId}
-                      allSkyWidgetID={currentObservatory.AllskyWidgetId}
-                      mission={activeTelescopeMission}
-                      renderTelescopeViewer={() => (
-                        <TelescopeImageViewerController
+                        {/* The Solar Telescope uses a Live Video Stream from YT as opposed to an SSE feed for other telescopes */}
+                        {activeInstrument.instrImageSourceType === 'video' && <div>
+                          <VideoImageLoader
+                            teleStreamCode={instrStreamCode}
+                            teleStreamURL={instrStreamURL}
+                            teleStreamThumbnailVideoWidth="810"
+                            teleStreamThumbnailVideoHeight="600"
+                            teleStreamThumbnailQuality={instrStreamThumbnailQuality}
+                            teleSystem={instrSystem}
+                            telePort={instrPort}
+                            cameraSourceType={instrCameraSourceType}
+                            showOverlay={false}
+                            autoplay={1}
+                          />
+                        </div>
+                        }
+                        {activeInstrument.instrImageSourceType !== 'video' && <TelescopeImageViewerController
                           activeInstrumentID={activeInstrument.instrUniqueId}
                           render={({ viewportHeight }) => provideLiveFeed({
                             viewportHeight,
@@ -408,24 +391,65 @@ class TelescopeDetails extends Component {
                             handleInfoClick: this.toggleNeoview,
                           })}
                         />
-                      )}
-                    />),
+                        }
+                      </div>
+                    : null)
+                  }
+
+                </DeviceContext.Consumer>
+              </div>
+            </DisplayAtBreakpoint>
+
+            <div className="column">
+              <ColumnTabs
+                {...this.props}
+                tabConfiguration={[
+                  {
+                    tabTitle: 'Live',
+                    content: () => (
+                      <TabLive
+                        obsId={currentObservatory.obsId}
+                        skyChartWidgetID={currentObservatory.SkychartWidgetId}
+                        allSkyWidgetID={currentObservatory.AllskyWidgetId}
+                        mission={activeTelescopeMission}
+                        object={objectData}
+                        renderTelescopeViewer={() => (
+                          <TelescopeImageViewerController
+                            activeInstrumentID={activeInstrument.instrUniqueId}
+                            render={({ viewportHeight }) => provideLiveFeed({
+                              viewportHeight,
+                              fetchingOnlineStatus: fetchingObservatoryStatus,
+                              obsAlert: currentObservatory.obsAlert,
+                              onlineStatus: false,
+                              instrument: activeInstrument,
+                              offlineImageSource: activeInstrument.instrOfflineImgURL,
+                              activeMission: activeTelescopeMission.maskDataArray,
+                              timestamp: activeTelescopeMission.timestamp,
+                              missionStart: activeTelescopeMission.missionStart,
+                              missionEnd: activeTelescopeMission.expires,
+                              activeNeoview: activeInstrument.instrHasNeoView,
+                              handleInfoClick: this.toggleNeoview,
+                            })}
+                          />
+                        )}
+                      />),
+                    },
+                  { tabTitle: 'Queue', content: () => (<TabQueue {...this.props} />) },
+                  {
+                    tabTitle: 'Cond.',
+                    content: () => (
+                      <TabConditions
+                        obsId={currentObservatory.obsId}
+                        allSkyWidgetID={currentObservatory.AllskyWidgetId}
+                        {...this.props}
+                      />)
                   },
-                { tabTitle: 'Queue', content: () => (<TabQueue {...this.props} />) },
-                {
-                  tabTitle: 'Cond.',
-                  content: () => (
-                    <TabConditions
-                      obsId={currentObservatory.obsId}
-                      allSkyWidgetID={currentObservatory.AllskyWidgetId}
-                      {...this.props}
-                    />)
-                },
-                { tabTitle: 'Scope', content: () => (<TabTelescope {...this.props} />) },
-              ]}
-            />
+                  { tabTitle: 'Scope', content: () => (<TabTelescope {...this.props} />) },
+                ]}
+              />
+            </div>
           </div>
-        </div>
+          }
         <style jsx>{style}</style>
       </div>
     );
@@ -449,6 +473,7 @@ const mapStateToProps = ({
     currentTelescope: telescopeDetails.currentTelescope,
 
     countdownList: telescopeDetails.allObservatoryTelescopeStatus.countdownList.countdownTeleList,
+    statusList: telescopeDetails.allObservatoryTelescopeStatus.statusList.statusTeleList,
 
     isImageViewerClipped: telescopeDetails.isImageViewerClipped,
 
@@ -458,7 +483,8 @@ const mapStateToProps = ({
     activeTelescopeMission: activeTelescopeMissions.activeTelescopeMission,
 
     activeDetailsSSE: telescopeDetails.activeSSE,
-    objectDetails: objectDetails.objectData,
+    objectDetails: objectDetails.objectDetails,
+    objectData: objectDetails.objectData,
   };
 };
 
@@ -468,7 +494,9 @@ const mapDispatchToProps = dispatch => (bindActionCreators({
   setTelescope,
   fetchAllTelescopeStatus,
   fetchObjectDataAction,
+  fetchObjectDetailsAction,
   resetObjectData,
+  resetObjectDetails,
 }, dispatch));
 const ConnectedTelescopeDetails = connect(mapStateToProps, mapDispatchToProps)(TelescopeDetails);
 
