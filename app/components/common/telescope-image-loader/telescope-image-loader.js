@@ -337,7 +337,8 @@ class TelescopeImageLoader extends Component {
             .bottom-image img {
               position: absolute;
               top: 50%;
-              transform: translateY(-50%);
+              left: 50%;
+              transform: translate(-50%, -50%);
               margin: auto;
               max-height: ${viewportHeight}px;
               max-width: 100%;
@@ -345,6 +346,10 @@ class TelescopeImageLoader extends Component {
 
             .top-image {
               transition: opacity ease-in-out;
+              width: 100%;
+              height: 100%;
+              position: relative;
+              background: #000;
             }
           `}
         </style>
