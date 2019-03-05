@@ -36,6 +36,7 @@ import StaticAppContainer from 'app/containers/static-app-container';
 import StoriesHub from 'app/containers/stories-hub';
 import { fetchPlayer } from 'app/modules/get-audio-player/actions';
 import Slooh1000 from 'app/modules/missions/containers/slooh-1000';
+import Catalog from 'app/modules/missions/containers/catalog';
 import Telescope from 'app/modules/missions/containers/telescope';
 import { MissionsMain } from 'app/modules/missions/index';
 import { PublicProfileMain } from 'app/modules/profile';
@@ -472,6 +473,7 @@ export const AppRouter = () => (
       <Route path="missions" component={MissionsMain} onEnter={validateUser}>
         <IndexRedirect to="bySlooh1000" />
         <Route path="bySlooh1000" component={Slooh1000} />
+        <Route path="byCatalog" component={Catalog} />
         <Route path="byTelescope" component={Telescope} />
       </Route>
     </Route>

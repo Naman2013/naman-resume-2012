@@ -41,6 +41,8 @@ export const initialState = {
     selectedObjectSlug: null,
   },
 
+  byCatalog: {},
+
   byTelescope: {
     telescopeList: {},
   },
