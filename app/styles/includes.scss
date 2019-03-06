@@ -67,6 +67,11 @@
     @include bgRepeat($white_tile_paper);
     background-size: 100px;
   }
+
+  &-blue-tile {
+    @include bgRepeat($blue_tile_canvas);
+    background-size: 100px;
+  }
 }
 
 .inner-gap-20 {
@@ -77,6 +82,16 @@
     &:last-child {
       margin-bottom: 0;
     }
+  }
+}
+
+
+// Wrappers
+.wrap {
+  margin: 0 auto;
+
+  &-1180 {
+    max-width: 1180px;
   }
 }
 

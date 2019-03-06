@@ -4,6 +4,7 @@ import uniqueId from 'lodash/uniqueId';
 import Btn from 'app/atoms/Btn';
 import Icon from 'app/atoms/Icon';
 import { Desktop, Tablet, Mobile } from 'app/components/common/Responsive';
+import RecommendedObservations from 'app/components/common/RecommendedObservationsSlider';
 import img from './about-scope-temp.png';
 
 export const AboutScope = () => {
@@ -119,12 +120,19 @@ export const AboutScope = () => {
   };
 
   return (
-    <Container as="section" className="animated fadeIn faster top-bottom-40">
-      <Row noGutters className="shadow">
-        <Desktop>{renderDesktop()}</Desktop>
-        <Tablet>{renderTablet()}</Tablet>
-        <Mobile>{renderMobile()}</Mobile>
-      </Row>
-    </Container>
+    <Fragment>
+      <Container as="section" className="animated fadeIn faster top-bottom-40">
+        <Row noGutters className="shadow">
+          <Desktop>{renderDesktop()}</Desktop>
+          <Tablet>{renderTablet()}</Tablet>
+          <Mobile>{renderMobile()}</Mobile>
+        </Row>
+      </Container>
+      <div className="i-box-blue-tile pad-40">
+        <div className="wrap wrap-1180">
+          <RecommendedObservations />
+        </div>
+      </div>
+    </Fragment>
   );
 };
