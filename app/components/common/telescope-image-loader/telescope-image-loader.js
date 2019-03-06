@@ -314,6 +314,7 @@ class TelescopeImageLoader extends Component {
           <div className="top-image">
             <img
               alt=""
+              src={currentImageUrl}
               // height={viewportHeight}
               id={this.generateImageId()}
               draggable="false"
@@ -342,7 +343,6 @@ class TelescopeImageLoader extends Component {
               margin: auto;
               max-height: ${viewportHeight}px;
               max-width: 100%;
-              z-index: 5;
             }
 
             .top-image {
@@ -351,7 +351,6 @@ class TelescopeImageLoader extends Component {
               height: 100%;
               position: relative;
               background: #000;
-              z-index: 6;
             }
           `}
         </style>
