@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import './index.scss';
 
-const Btn = ({ type = 'button', children, onClick, mod }) => {
+const Btn = ({ type = 'button', children, onClick, mod = null }) => {
   return (
     <button
       type={type}
