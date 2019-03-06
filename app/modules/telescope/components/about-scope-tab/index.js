@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
+import uniqueId from 'lodash/uniqueId';
 import Btn from 'app/atoms/Btn';
 import Icon from 'app/atoms/Icon';
 import { Desktop, Tablet, Mobile } from 'app/components/common/Responsive';
@@ -15,32 +16,32 @@ export const AboutScope = () => {
   const desc = [
     { title: 'Telescope type', text: 'High-Magnification' },
     { title: 'Observatory', text: 'Canary Islands' },
-    { title: 'Pier', text: 'Canary One' }
+    { title: 'Pier', text: 'Canary One' },
   ];
 
   const text = (
     <p className="i-text">
-      Nam dapibus nisl lore vitae elit fringilla dolar rutrume lorei
-      rutrume lorei massa sent Vesti seti lorem sollic
-      iitudine lorem elem entum
-      aenean lorem sollic iitudine lorem elementum rutrum
-      doleil neeque lor sem pretiume metus quis mollis nisl
-      nunc eter so massa sent Vesti seti lorem sollic
-      iitudine lorem elem entum sem pretium metu.
+      Nam dapibus nisl lore vitae elit fringilla dolar rutrume lorei rutrume
+      lorei massa sent Vesti seti lorem sollic iitudine lorem elem entum aenean
+      lorem sollic iitudine lorem elementum rutrum doleil neeque lor sem
+      pretiume metus quis mollis nisl nunc eter so massa sent Vesti seti lorem
+      sollic iitudine lorem elem entum sem pretium metu.
     </p>
   );
 
-  const preTitle = (
-    <h4 className="h-4 text-uppercase">Slooh telescope</h4>
-  );
+  const preTitle = <h4 className="h-4 text-uppercase">Slooh telescope</h4>;
 
   const mainTitle = <h1 className="h-1">Canary One</h1>;
 
-  const article = <Fragment>{text} {text}</Fragment>;
+  const article = (
+    <Fragment>
+      {text} {text}
+    </Fragment>
+  );
 
-  const description = desc.map((el, i) => {
+  const description = desc.map(el => {
     return (
-      <Fragment key={i.toString()}>
+      <Fragment key={uniqueId()}>
         <div className="inner-gap-20 pad-40">
           <h4 className="h-4 text-uppercase">{el.title}</h4>
           <p className="i-text">{el.text}</p>
@@ -54,9 +55,7 @@ export const AboutScope = () => {
     return (
       <Fragment>
         {pic}
-        <div className="pad-40 no-bottom-pad">
-          {mainTitle}
-        </div>
+        <div className="pad-40 no-bottom-pad">{mainTitle}</div>
         <div className="pad-40 btn-group">
           <Btn>View guide</Btn>
           <Btn mod="circle">
@@ -120,10 +119,7 @@ export const AboutScope = () => {
   };
 
   return (
-    <Container
-      as="section"
-      className="animated fadeIn faster top-bottom-40"
-    >
+    <Container as="section" className="animated fadeIn faster top-bottom-40">
       <Row noGutters className="shadow">
         <Desktop>{renderDesktop()}</Desktop>
         <Tablet>{renderTablet()}</Tablet>
