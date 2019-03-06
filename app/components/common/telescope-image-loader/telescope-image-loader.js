@@ -342,7 +342,7 @@ class TelescopeImageLoader extends Component {
               margin: auto;
               max-height: ${viewportHeight}px;
               max-width: 100%;
-              z-index:5;
+              z-index: 5;
             }
 
             .top-image {
@@ -351,6 +351,7 @@ class TelescopeImageLoader extends Component {
               height: 100%;
               position: relative;
               background: #000;
+              z-index: 6;
             }
           `}
         </style>
