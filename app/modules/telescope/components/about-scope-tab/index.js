@@ -7,6 +7,8 @@ import { Desktop, Tablet, Mobile } from 'app/components/common/Responsive';
 import RecommendedObservations from 'app/components/common/RecommendedObservationsSlider';
 import img from './about-scope-temp.png';
 
+export const CardObsContext = React.createContext({});
+
 export const AboutScope = () => {
   const pic = (
     <div className="image">
@@ -128,11 +130,21 @@ export const AboutScope = () => {
           <Mobile>{renderMobile()}</Mobile>
         </Row>
       </Container>
-      <div className="i-box-blue-tile pad-40">
-        <div className="wrap wrap-1180">
-          <RecommendedObservations />
+      <section className="i-box-blue-tile pad-100">
+        <div className="wrap wrap-850">
+          <header className="head">
+            <h2 className="h-2 h-2-bold h-2-white h-2-primary text-uppercase">
+              Featured observations
+            </h2>
+            <p className="i-text i-text-18 i-text-white">
+              Community Observations
+            </p>
+          </header>
+          <CardObsContext.Provider value="small">
+            <RecommendedObservations />
+          </CardObsContext.Provider>
         </div>
-      </div>
+      </section>
     </Fragment>
   );
 };

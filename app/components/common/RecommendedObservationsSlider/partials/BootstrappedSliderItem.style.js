@@ -31,6 +31,11 @@ export default css`
     justify-content: space-between;
     flex-direction: column;
   }
+  
+  .card-obs-small {
+    min-height: auto;
+    max-height: inherit;
+  }
 
   .top {
     padding: 80px 80px 50px;
@@ -38,6 +43,10 @@ export default css`
     justify-content: space-between;
     width: 100%;
     text-align: initial;
+  }
+  
+  .top-small {
+    padding: 50px;
   }
 
   .bottom {
@@ -170,6 +179,9 @@ export default css`
     .top {
       padding: 45px 50px 50px;
     }
+    .top-small {
+      padding: 30px;
+    }
   }
 
   @media ${screenLarge} {
@@ -180,6 +192,10 @@ export default css`
       width: 300px;
       height: 300px;
     }
+    .image-wrapper-small {
+      width: 240px;
+      height: 240px;
+    }
     .info {
       width: 55%
     }
@@ -188,6 +204,9 @@ export default css`
     }
     .top {
       padding: 80px 80px 50px;
+    }
+    .top-small {
+      padding: 50px;
     }
   }
 `;

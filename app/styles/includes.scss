@@ -15,8 +15,23 @@
 
 
 // Inner and outer indents
-.pad-40 {
-  padding: 40px;
+.pad {
+
+  &-40 {
+    padding: 40px;
+  }
+
+  &-100 {
+    padding: 100px;
+
+    @include md() {
+      padding: 25px;
+    }
+
+    @include sm() {
+      padding: 25px;
+    }
+  }
 }
 
 .top-bottom-40 {
@@ -74,6 +89,16 @@
   }
 }
 
+.i-text-box {
+  margin: 20px 0;
+
+  p {
+    font-size: 19px;
+    color: $raven;
+    line-height: 29px;
+  }
+}
+
 .inner-gap-20 {
 
   * {
@@ -90,8 +115,8 @@
 .wrap {
   margin: 0 auto;
 
-  &-1180 {
-    max-width: 1180px;
+  &-850 {
+    max-width: 850px;
   }
 }
 

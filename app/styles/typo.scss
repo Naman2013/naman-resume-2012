@@ -19,6 +19,15 @@ article {
 .h-1, .h-2 {
   font-weight: 400;
   font-family: $secondary-font;
+
+  &-primary {
+    font-family: $primary-font;
+    letter-spacing: 2px;
+  }
+
+  &-bold {
+    font-weight: 700;
+  }
 }
 
 .h-3, .h-4, .h-5, .h-6, .text {
@@ -29,6 +38,10 @@ article {
 .h-1, .h-2, .h-3, .h-4, .h-5, .h-6, .i-text {
   @include no-indent();
   color: $astronaut;
+
+  &-white {
+    color: $white;
+  }
 }
 
 .h-1 {
@@ -45,7 +58,7 @@ article {
 }
 
 .h-2 {
-  font-size: 20px;
+  font-size: 16px;
   line-height: 1.4;
 }
 
@@ -77,6 +90,14 @@ article {
   line-height: $goldenRatio;
   margin: 0 0 2px;
   color: $raven;
+
+  &-white {
+    color: $white;
+  }
+
+  &-18 {
+    font-size: 18px;
+  }
 }
 
 
