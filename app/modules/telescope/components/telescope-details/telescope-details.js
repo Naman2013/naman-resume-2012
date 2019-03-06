@@ -350,7 +350,7 @@ export class TelescopeDetails extends Component {
         {/* Telescope: Offline State */}
         {activeTelescopeStatus &&
           activeTelescopeStatus.onlineStatus === 'offline' && (
-            <TelescopeOffline />
+            <TelescopeOffline currentTelescope={this.props.currentTelescope} />
           )}
         {/*(
         <div className="details-root">
