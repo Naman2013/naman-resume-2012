@@ -8,25 +8,21 @@ import './styles.scss';
 export class CatalogSetup extends Component {
   render() {
     const {
-      categoryListOpts,
-      setCategory,
-      objectListOpts,
-      setObject,
+      catalogListOpts,
+      setCatalog,
       getMissionSlot,
-      selectedCategorySlug,
-      selectedObjectSlug,
+      selectedCatalog,
+      selectedCatalogData,
+      checkCatalogVisibility,
+      objectData,
+      setDesignation,
+      designation,
+      telescopeData,
+      setProcessingRecipe,
+      processingRecipe,
     } = this.props;
 
-    const processingList = [
-      { title: 'Messie' },
-      { title: 'NGC' },
-      { title: 'Caldwall' },
-      { title: 'Bennett' },
-      { title: 'Messie' },
-      { title: 'NGC' },
-      { title: 'Caldwall' },
-      { title: 'Bennett' },
-    ];
+    const { objectIsVisible, explanation } = objectData;
 
     return (
       <div className="catalog-setup">
@@ -52,10 +48,10 @@ export class CatalogSetup extends Component {
               <span>Step 1: Choose Catalog</span>
             </OverlayTrigger>
             <Select
-              handleChange={setCategory}
-              options={categoryListOpts}
+              handleChange={setCatalog}
+              options={catalogListOpts}
               placeholder="Choose"
-              value={selectedCategorySlug}
+              value={selectedCatalog}
             />
           </div>
         </div>
@@ -76,14 +72,21 @@ export class CatalogSetup extends Component {
             <textarea
               className="textarea designation"
               placeholder="Type Designation here"
+              value={designation}
+              onChange={e => setDesignation(e.target.value)}
             />
 
             <div className="designation-format">
-              + or - sign, 2-digits, dash, 2-digits, dash, 3-digits, optional
-              letter suffix (11 characters)
+              {selectedCatalog
+                ? selectedCatalogData.catFormat
+                : 'FORMAT EXAMPLE'}
             </div>
 
-            <Button text="Check Visability" onClickEvent={() => {}} />
+            <Button
+              text="Check Visability"
+              onClickEvent={() => checkCatalogVisibility(designation)}
+              disabled={!selectedCatalog}
+            />
           </div>
 
           <div className="col-sm-6 step-3">
@@ -101,9 +104,24 @@ export class CatalogSetup extends Component {
             </div>
 
             <div className="processing-list">
-              {processingList.map(item => (
-                <div className="processing-list-item">{item.title}</div>
-              ))}
+              {objectIsVisible && telescopeData.telePresetList ? (
+                telescopeData.telePresetList.map(item => (
+                  <div
+                    key={item.presetId}
+                    className={`processing-list-item${
+                      item.presetOption === processingRecipe ? ' selected' : ''
+                    }`}
+                    onClick={() => setProcessingRecipe(item.presetOption)}
+                  >
+                    <div className="processing-list-item-title">
+                      {item.presetDisplayName}
+                    </div>
+                    <div className="focused-indicator" />
+                  </div>
+                ))
+              ) : (
+                <div className="processing-explanation">{explanation}</div>
+              )}
             </div>
           </div>
         </div>
@@ -126,7 +144,7 @@ export class CatalogSetup extends Component {
             <Button
               text="Find a Mission"
               onClickEvent={getMissionSlot}
-              disabled={!selectedCategorySlug || !selectedObjectSlug}
+              //disabled={!selectedCategorySlug || !selectedObjectSlug}
             />
           </div>
         </div>

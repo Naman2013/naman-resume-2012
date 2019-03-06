@@ -6,6 +6,9 @@ import {
   getBySlooh1000Api,
   getMissionSlotApi,
   reserveMissionSlotApi,
+  getCatalogListApi,
+  checkCatalogVisibilityApi,
+  getPresetOptionsApi,
 } from 'app/modules/missions/api';
 import { ACTION } from './reducer';
 
@@ -73,6 +76,58 @@ export const setCategory = category => dispatch => {
   dispatch(ACTION.setCategory(category));
   dispatch(getObjectList({ categorySlug: category }));
 };
+
+// by Catalog
+export const getCatalogList = () => (dispatch, getState) => {
+  const { at, token, cid } = getState().user;
+  dispatch(ACTION.getCatalogList());
+  return getCatalogListApi({ at, token, cid, callSource: 'byPopularObjects' })
+    .then(result => dispatch(ACTION.getCatalogListSuccess(result.data)))
+    .catch(error => dispatch(ACTION.getCatalogListError(error)));
+};
+
+export const getPresetOptions = telescopeId => (dispatch, getState) => {
+  const { at, token, cid } = getState().user;
+  dispatch(ACTION.getPresetOptions());
+  return getPresetOptionsApi({ at, token, cid, telescopeId })
+    .then(result => dispatch(ACTION.getPresetOptionsSuccess(result.data)))
+    .catch(error => dispatch(ACTION.getPresetOptionsError(error)));
+};
+
+export const checkCatalogVisibility = data => (dispatch, getState) => {
+  const { at, token, cid } = getState().user;
+  dispatch(ACTION.checkCatalogVisibility());
+  return checkCatalogVisibilityApi({ at, token, cid, ...data })
+    .then(result => {
+      dispatch(ACTION.checkCatalogVisibilitySuccess(result.data));
+      if (result.data.objectIsVisible) {
+        dispatch(getPresetOptions(result.data.telescopeId));
+      }
+    })
+    .catch(error => dispatch(ACTION.checkCatalogVisibilityError(error)));
+};
+
+// export const setCatalog = catalog => dispatch => {
+//   dispatch(ACTION.setCatalog(catalog));
+// };
+
+// export const getObjectList = ({ categorySlug, includeDescription = true }) => (
+//   dispatch,
+//   getState
+// ) => {
+//   const { at, token, cid } = getState().user;
+//   dispatch(ACTION.getCategoryList());
+//   return getObjectListApi({
+//     at,
+//     token,
+//     cid,
+//     callSource: 'byPopularObjects',
+//     includeDescription,
+//     categorySlug,
+//   })
+//     .then(result => dispatch(ACTION.getObjectListSuccess(result.data)))
+//     .catch(error => dispatch(ACTION.getObjectListError(error)));
+// };
 
 // by telescope
 export const getObservatoryList = () => (dispatch, getState) => {

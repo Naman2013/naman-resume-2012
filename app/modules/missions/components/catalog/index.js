@@ -12,8 +12,14 @@ export class Catalog extends Component {
   };
 
   componentDidMount = () => {
-    // const { getCategoryList, getBySlooh1000 } = this.props;
-    // getCategoryList();
+    const { getCatalogList } = this.props;
+    getCatalogList();
+  };
+
+  checkCatalogVisibility = designation => {
+    const { checkCatalogVisibility, selectedCatalogData } = this.props;
+    const { catName, catalog } = selectedCatalogData;
+    checkCatalogVisibility({ catName, catalog, designation });
   };
 
   getMissionDate = timestamp => moment.unix(timestamp).format('ddd. MMM. DD');
@@ -27,19 +33,23 @@ export class Catalog extends Component {
 
   render() {
     const {
-      categoryListOpts,
-      setCategory,
-      objectListOpts,
-      setObject,
+      catalogListOpts,
+      setCatalog,
       missionSlot,
       resetMissionsData,
-      selectedCategorySlug,
-      selectedObjectSlug,
+      selectedCatalog,
+      selectedCatalogData,
       reservedMissionData,
+      objectData,
+      setDesignation,
+      designation,
+      telescopeData,
+      setProcessingRecipe,
+      processingRecipe,
     } = this.props;
 
     const { successModalShow } = this.state;
-
+    console.log(this.props);
     return (
       <div className="catalog">
         <div className="container">
@@ -47,13 +57,18 @@ export class Catalog extends Component {
             <div className="col-lg-8">
               <Box>
                 <CatalogSetup
-                  categoryListOpts={categoryListOpts}
-                  objectListOpts={objectListOpts}
-                  setCategory={setCategory}
-                  setObject={setObject}
+                  catalogListOpts={catalogListOpts}
+                  setCatalog={setCatalog}
                   getMissionSlot={this.getMissionSlot}
-                  selectedCategorySlug={selectedCategorySlug}
-                  selectedObjectSlug={selectedObjectSlug}
+                  selectedCatalog={selectedCatalog}
+                  selectedCatalogData={selectedCatalogData}
+                  checkCatalogVisibility={this.checkCatalogVisibility}
+                  objectData={objectData}
+                  designation={designation}
+                  setDesignation={setDesignation}
+                  telescopeData={telescopeData}
+                  setProcessingRecipe={setProcessingRecipe}
+                  processingRecipe={processingRecipe}
                 />
               </Box>
             </div>

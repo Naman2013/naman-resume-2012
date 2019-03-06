@@ -34,6 +34,7 @@ export const makeReservedMissionData = () =>
     state => state.reservedMissionList[0] || {}
   );
 
+// bySlooh1000
 export const makeBySlooh1000Selector = () =>
   createSelector(
     selectMissions,
@@ -103,6 +104,68 @@ export const makeBySlooh1000ObjectListSelectOptsSelector = () =>
     state => {
       return getSelectOptions(state, 'topicSlug', 'topicName');
     }
+  );
+
+// byCatalog
+export const makeByCatalogSelector = () =>
+  createSelector(
+    selectMissions,
+    state => state.byCatalog
+  );
+
+export const makeByCatalogListSelector = () =>
+  createSelector(
+    makeByCatalogSelector(),
+    state => state.catalogList
+  );
+
+export const makeByCatalogListListSelectOptsSelector = () =>
+  createSelector(
+    makeByCatalogSelector(),
+    state => {
+      const catList = _get(state, 'catalogList', []);
+      return getSelectOptions(catList, 'catalog', 'catName');
+    }
+  );
+
+export const makeByCatalogSelectedCatalogSelector = () =>
+  createSelector(
+    makeByCatalogSelector(),
+    state => state.selectedCatalog
+  );
+
+export const makeByCatalogSelectedCatalogDataSelector = () =>
+  createSelector(
+    makeByCatalogSelector(),
+    state => {
+      return state.catalogList.filter(
+        item => item.catalog === state.selectedCatalog
+      )[0];
+    }
+  );
+
+export const makeByCatalogDesignationSelector = () =>
+  createSelector(
+    makeByCatalogSelector(),
+    state => state.designation
+  );
+
+export const makeByCatalogObjectDataSelector = () =>
+  createSelector(
+    makeByCatalogSelector(),
+    state => state.objectData
+  );
+
+export const makeByCatalogTelescopeDataSelector = () =>
+  createSelector(
+    makeByCatalogSelector(),
+    state => state.telescopeData
+  );
+
+export const makeByCatalogProcessingRecipeSelector = () =>
+  createSelector(
+    makeByCatalogSelector(),
+    state => state.processingRecipe
   );
 
 // by telescope

@@ -13,6 +13,14 @@ export const TYPE = constants('profile', [
   'SET_CATEGORY',
   '~GET_OBJECT_LIST',
   'SET_OBJECT',
+  'SET_PROCESSING_RECIPE',
+
+  // byCatalog page
+  '~GET_CATALOG_LIST',
+  'SET_CATALOG',
+  'SET_DESIGNATION',
+  '~CHECK_CATALOG_VISIBILITY',
+  '~GET_PRESET_OPTIONS',
 
   // byTelescope page
   '~GET_OBSERVATORY_LIST',
@@ -41,7 +49,14 @@ export const initialState = {
     selectedObjectSlug: null,
   },
 
-  byCatalog: {},
+  byCatalog: {
+    catalogList: [],
+    selectedCatalog: null,
+    designation: '',
+    objectData: {},
+    telescopeData: {},
+    processingRecipe: null,
+  },
 
   byTelescope: {
     telescopeList: {},
@@ -73,6 +88,20 @@ export default handleActions(
     [TYPE.GET_OBJECT_LIST_SUCCESS]: getObjectListSuccess,
     [TYPE.GET_OBJECT_LIST_ERROR]: setServerError,
     [TYPE.SET_OBJECT]: setObject,
+
+    // byCatalog page
+    [TYPE.GET_CATALOG_LIST]: setFetching,
+    [TYPE.GET_CATALOG_LIST_SUCCESS]: getCatalogListSuccess,
+    [TYPE.GET_CATALOG_LIST_ERROR]: setServerError,
+    [TYPE.SET_CATALOG]: setCatalog,
+    [TYPE.SET_DESIGNATION]: setDesignation,
+    [TYPE.CHECK_CATALOG_VISIBILITY]: setFetching,
+    [TYPE.CHECK_CATALOG_VISIBILITY_SUCCESS]: checkCatalogVisibilitySuccess,
+    [TYPE.CHECK_CATALOG_VISIBILITY_ERROR]: setServerError,
+    [TYPE.GET_PRESET_OPTIONS]: setFetching,
+    [TYPE.GET_PRESET_OPTIONS_SUCCESS]: getPresetOptionsSuccess,
+    [TYPE.GET_PRESET_OPTIONS_ERROR]: setServerError,
+    [TYPE.SET_PROCESSING_RECIPE]: setProcessingRecipe,
 
     // byTelescope page
     [TYPE.GET_OBSERVATORY_LIST]: setFetching,
@@ -141,6 +170,7 @@ function resetMissionsData(state) {
   };
 }
 
+// bySlooh1000
 function getBySlooh1000Success(state, action) {
   return {
     ...state,
@@ -190,6 +220,69 @@ function setObject(state, action) {
   };
 }
 
+// byCatalog
+function getCatalogListSuccess(state, action) {
+  return {
+    ...state,
+    isFetching: false,
+    isLoaded: true,
+    byCatalog: { ...state.byCatalog, catalogList: action.payload.catalogList },
+  };
+}
+
+function setCatalog(state, action) {
+  return {
+    ...state,
+    byCatalog: {
+      ...state.byCatalog,
+      selectedCatalog: action.payload,
+      designation: '',
+    },
+  };
+}
+
+function setDesignation(state, action) {
+  return {
+    ...state,
+    byCatalog: {
+      ...state.byCatalog,
+      designation: action.payload,
+    },
+  };
+}
+
+function checkCatalogVisibilitySuccess(state, action) {
+  return {
+    ...state,
+    isFetching: false,
+    isLoaded: true,
+    byCatalog: { ...state.byCatalog, objectData: action.payload },
+  };
+}
+
+function getPresetOptionsSuccess(state, action) {
+  return {
+    ...state,
+    isFetching: false,
+    isLoaded: true,
+    byCatalog: {
+      ...state.byCatalog,
+      telescopeData: action.payload.telescopeList[0],
+    },
+  };
+}
+
+function setProcessingRecipe(state, action) {
+  return {
+    ...state,
+    byCatalog: {
+      ...state.byCatalog,
+      processingRecipe: action.payload,
+    },
+  };
+}
+
+// byTelescope
 function getTelescopeListByObservatory(observatoryList) {
   return observatoryList.reduce((telescopeList, observatory) => {
     return [

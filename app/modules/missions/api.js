@@ -14,6 +14,16 @@ export const getCategoryListApi = data =>
 export const getObjectListApi = data =>
   axios.post('/api/reservation/getPopularObjectList', data);
 
+// byCatalog page
+export const getByCatalogApi = data =>
+  axios.post('/api/missions/getByCatalog', data);
+export const getCatalogListApi = data =>
+  axios.post('/api/reservation/getCatalogList', data);
+export const checkCatalogVisibilityApi = data =>
+  axios.post('/api/reservation/checkCatalogVisibility', data);
+export const getPresetOptionsApi = data =>
+  axios.post('/api/reservation/getPresetOptions', data);
+
 // byTelescope page
 export const getObservatoryListApi = data => axios.post('/api/obs/list', data);
 /*
