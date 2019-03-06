@@ -28,12 +28,12 @@ const Telescopes = ({ intl }) => (
           <div className="center-buttons">
             <Button
               text={intl.formatMessage(messages.setUp)}
-              theme={{ display: 'inline-block', marginRight: '15px' }}
+              theme={{ display: 'inline-block', textAlign: 'center', marginRight: '15px', width: '47%' }}
               onClickEvent={() => browserHistory.push('/')}
             />
             <Button
               text={intl.formatMessage(messages.myPhotos)}
-              theme={{ display: 'inline-block' }}
+              theme={{ display: 'inline-block', textAlign: 'center', width: '47%' }}
               onClickEvent={() => browserHistory.push('/my-pictures')}
             />
           </div>
@@ -53,8 +53,9 @@ const Telescopes = ({ intl }) => (
             }
 
             .center-buttons {
-              padding: 5px 0 15px 0;
-              text-align: center;
+              padding-top: 10px;
+              display: flex;
+              justify-content: space-between;
             }
 
             .action {

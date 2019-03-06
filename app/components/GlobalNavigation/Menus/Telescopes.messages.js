@@ -9,12 +9,12 @@ const messages: Messages = {
   },
   setUp: {
     id: 'Telescopes.setUp',
-    defaultMessage: 'SET-UP',
+    defaultMessage: 'MISSION SET-UP',
     description: 'Telescopes set-up button',
   },
   myPhotos: {
     id: 'Telescopes.myPhotos',
-    defaultMessage: 'MY PHOTOS',
+    defaultMessage: 'MY PHOTO HUB',
     description: 'Telescopes my photos button',
   },
 };

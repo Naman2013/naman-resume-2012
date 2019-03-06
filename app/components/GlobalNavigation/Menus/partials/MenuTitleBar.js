@@ -28,8 +28,7 @@ const MenuTitleBar = ({ title, iconURL, children }) => (
         min-height: 90px;
         display: flex;
         flex-direction: column;
-        padding: 25px;
-        padding-left: ${COMMON_STYLE.menuLeftPadding}px;
+        padding: 30px 40px 40px;
         background-color: ${romance};
         color: ${astronaut};
         text-transform: uppercase;

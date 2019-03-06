@@ -121,17 +121,17 @@ module.exports = {
           limit: 40,
         },
       },
-      {
-        test: /\.(png|jpg|gif)$/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              limit: 40,
-            },
-          },
-        ],
-      },
+      // {
+      //   test: /\.(png|jpg|gif)$/,
+      //   use: [
+      //     {
+      //       loader: 'file-loader',
+      //       options: {
+      //         limit: 40,
+      //       },
+      //     },
+      //   ],
+      // },
       {
         // loader for bootstrap
         test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
@@ -177,17 +177,22 @@ module.exports = {
     overlay: true,
     proxy: {
       '/api/**': {
-        target: 'https://eris.slooh.com',
+        target: 'https://supernova.slooh.com',
         changeOrigin: true,
         secure: true,
       },
       '/sloohapp/**': {
-        target: 'https://eris.slooh.com',
+        target: 'https://supernova.slooh.com',
         changeOrigin: true,
         secure: true,
       },
       '/sse/**': {
-        target: 'https://slooh.com',
+        target: 'https://supernova.slooh.com',
+        changeOrigin: true,
+        secure: true,
+      },
+      '/bot/**': {
+        target: 'https://supernova.slooh.com',
         changeOrigin: true,
         secure: true,
       },

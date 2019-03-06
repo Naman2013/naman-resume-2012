@@ -1,0 +1,18 @@
+@import "~app/styles/variables/index";
+
+.telescope-view {
+  width: 220px;
+  .view-line {
+    height: 25px;
+    display: flex;
+
+    & > div {
+      flex: 1;
+
+
+      &:first-child {
+        border-right: 2px solid $silver;
+      }
+    }
+  }
+}
