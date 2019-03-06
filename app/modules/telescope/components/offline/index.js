@@ -6,12 +6,12 @@ import './styles.scss';
 
 export class TelescopeOffline extends Component {
   render() {
-    // const {  } = this.props;
+    const { currentTelescope } = this.props;
     return (
       <div className="telescope-offline animated fadeIn faster">
         {/* HEADER */}
         <Container>
-          <h1 className="h1-custom">Canary One: Offline</h1>
+          <h1 className="h1-custom">{currentTelescope.teleName}: Offline</h1>
           <hr />
         </Container>
 
