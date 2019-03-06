@@ -281,7 +281,11 @@ class Telescope extends Component {
                 {!disableFullscreen && (
                   <Button
                     renderIcon={() => <i className="fa fa-arrows-alt" />}
-                    onClickEvent={() => this.setState({ isModalActive: true })}
+                    onClickEvent={() => 
+                      this.setState({
+                         isModalActive: true,
+                         isMaskActive: false
+                         })}
                     theme={menuButtonTheme}
                   />
                 )}
@@ -289,7 +293,7 @@ class Telescope extends Component {
               <Fade isHidden={isTransitioningTelescope}>
                 <div>{this.props.render({ viewportHeight: width })}</div>
               </Fade>
-              <svg version="1.1" xmlns="http://www.w3.org/2000/svg">
+              <svg version="1.1" xmlns="http://www.w3.org/2000/svg" className="telescope-svg">
                 {/**
                     TODO:
                     move non-scale transition elements into a component to keep this more readable
@@ -393,6 +397,10 @@ class Telescope extends Component {
                     float: left;
                   }
 
+                  .portal :global(.telescope-svg){
+                    z-index:5;
+                  }
+
                   .portal :global(.telescope-float-menu) {
                     position: absolute;
                     top: 40px;
@@ -401,9 +409,10 @@ class Telescope extends Component {
                   }
 
                   :global(.telescope-modal) {
-                    min-width: 92vh;
+                    max-width:90vh;
+                    width:100%;
                   }
-
+                  
                   svg {
                     position: absolute;
                     left: 0;

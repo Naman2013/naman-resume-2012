@@ -369,6 +369,8 @@ class TelescopeDetails extends Component {
                             teleSystem={instrSystem}
                             telePort={instrPort}
                             cameraSourceType={instrCameraSourceType}
+                            showOverlay={false}
+                            autoplay={1}
                           />
                         </div>
                         }

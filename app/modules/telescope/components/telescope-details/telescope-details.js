@@ -321,7 +321,7 @@ export class TelescopeDetails extends Component {
       teleInstrumentList.filter(
         instrument => instrument.instrUniqueId === useActiveInstrumentID
       )
-    );
+    ) || teleInstrumentList[0];
 
     const activeTelescopeStatus = first(
       allObservatoryTelescopeStatus.statusList.statusTeleList.filter(
@@ -389,6 +389,8 @@ export class TelescopeDetails extends Component {
                                 teleSystem={instrSystem}
                                 telePort={instrPort}
                                 cameraSourceType={instrCameraSourceType}
+                                showOverlay={false}
+                                autoplay={1}
                               />
                             </div>
                           )}
@@ -440,6 +442,25 @@ export class TelescopeDetails extends Component {
                           allSkyWidgetID={currentObservatory.AllskyWidgetId}
                           mission={activeTelescopeMission}
                           renderTelescopeViewer={() => (
+                            activeInstrument.instrImageSourceType ===
+                            'video' ? (
+                            <div>
+                              <VideoImageLoader
+                                teleStreamCode={instrStreamCode}
+                                teleStreamURL={instrStreamURL}
+                                teleStreamThumbnailVideoWidth="810"
+                                teleStreamThumbnailVideoHeight="600"
+                                teleStreamThumbnailQuality={
+                                  instrStreamThumbnailQuality
+                                }
+                                teleSystem={instrSystem}
+                                telePort={instrPort}
+                                cameraSourceType={instrCameraSourceType}
+                                showOverlay={false}
+                                autoplay={1}
+                              />
+                            </div>
+                          ):(
                             <TelescopeImageViewerController
                               activeInstrumentID={
                                 activeInstrument.instrUniqueId
@@ -465,6 +486,7 @@ export class TelescopeDetails extends Component {
                                 })
                               }
                             />
+                          )
                           )}
                         />
                       ),
