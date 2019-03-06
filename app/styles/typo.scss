@@ -1,4 +1,5 @@
 @import "~app/styles/variables/index";
+@import "~app/styles/variables/media-queries.scss";
 @import "~app/styles/mixins/utilities.scss";
 
 // article, headers, paragraphs
@@ -10,7 +11,7 @@ $goldenRatio: 1.53;
 article {
   padding: 100px;
 
-  .text {
+  .i-text {
     margin: 10px 0 30px;
   }
 }
@@ -25,7 +26,7 @@ article {
   font-family: $primary-font;
 }
 
-.h-1, .h-2, .h-3, .h-4, .h-5, .h-6, .text {
+.h-1, .h-2, .h-3, .h-4, .h-5, .h-6, .i-text {
   @include no-indent();
   color: $astronaut;
 }
@@ -33,6 +34,14 @@ article {
 .h-1 {
   font-size: 40px;
   line-height: 2.07;
+
+  @include md() {
+    font-size: 24px;
+  }
+
+  @include sm() {
+    font-size: 24px;
+  }
 }
 
 .h-2 {
@@ -63,7 +72,7 @@ article {
   text-transform: uppercase;
 }
 
-.text {
+.i-text {
   font: 19px $secondary-font;
   line-height: $goldenRatio;
   margin: 0 0 2px;

@@ -1,0 +1,54 @@
+@import "~app/styles/variables/index";
+@import "~app/styles/mixins/utilities.scss";
+
+.i-btn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 10px 20px;
+  border: 1px dashed $astronaut;
+  border-radius: 100px;
+  background: transparent;
+  text-transform: uppercase;
+  font: bold 11px $primary-font;
+  color: $astronaut;
+  cursor: pointer;
+  @include transition(all .3s ease-in-out); // TODO: add PostCSS
+
+  &:hover {
+    opacity: .7;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &-circle {
+    position: relative;
+    height: 40px;
+    width: 40px;
+    padding: 0;
+    border-radius: 50%;
+
+    .icon {
+      @include absCenter();
+    }
+  }
+}
+
+.btn-group {
+  display: flex;
+  flex-direction: row;
+  margin: 0 0 0 -5px;
+
+  .i-btn {
+    flex: 1;
+    margin: 0 5px;
+
+    &-circle {
+      flex: none;
+    }
+  }
+}
+
