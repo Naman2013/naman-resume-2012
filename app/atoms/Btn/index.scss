@@ -14,7 +14,7 @@
   font: bold 11px $primary-font;
   color: $astronaut;
   cursor: pointer;
-  @include transition(all .3s ease-in-out); // TODO: add PostCSS
+  transition: all .3s ease-in-out;
 
   &:hover {
     opacity: .7;
