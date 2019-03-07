@@ -31,6 +31,71 @@ export class Catalog extends Component {
     this.setState({ successModalShow: false }, () => resetMissionsData());
   };
 
+  getMissionSlot = () => {
+    const {
+      getMissionSlot,
+      selectedCatalogData,
+      designation,
+      objectData,
+      processingRecipe,
+    } = this.props;
+    const { catName, catalog } = selectedCatalogData;
+    const {
+      domeId,
+      missionStart,
+      objectDec,
+      objectRA,
+      obsId,
+      scheduledMissionId,
+      telescopeId,
+    } = objectData;
+
+    getMissionSlot({
+      callSource: 'byCatalog',
+      catName,
+      catalog,
+      designation,
+      domeId,
+      missionStart,
+      missionType: 'catalog',
+      objectDec,
+      objectRA,
+      obsId,
+      processingRecipe,
+      scheduledMissionId,
+      telescopeId,
+    });
+  };
+
+  reserveMissionSlot = () => {
+    const { reserveMissionSlot, missionSlot } = this.props;
+
+    reserveMissionSlot({
+      callSource: 'byPopularObjects',
+      catName: missionSlot.catName,
+      catalog: missionSlot.catalog,
+      designation: missionSlot.designation,
+      domeId: missionSlot.domeId,
+      missionStart: missionSlot.missionStart,
+      missionType: missionSlot.missionType,
+      objectDec: missionSlot.objectDec,
+      objectIconURL: missionSlot.objectIconURL,
+      objectId: missionSlot.objectId,
+      objectRA: missionSlot.objectRA,
+      objectTitle: missionSlot.title,
+      objectType: missionSlot.objectType,
+      objective: '',
+      obsId: missionSlot.obsId,
+      obsName: missionSlot.obsName,
+      processingRecipe: missionSlot.processingRecipe,
+      scheduledMissionId: missionSlot.scheduledMissionId,
+      targetName: missionSlot.targetName,
+      telescopeId: missionSlot.telescopeId,
+      telescopeName: missionSlot.telescopeName,
+      uniqueId: missionSlot.uniqueId,
+    }).then(() => this.setState({ successModalShow: true }));
+  };
+
   render() {
     const {
       catalogListOpts,
@@ -49,7 +114,7 @@ export class Catalog extends Component {
     } = this.props;
 
     const { successModalShow } = this.state;
-    console.log(this.props);
+
     return (
       <div className="catalog">
         <div className="container">
@@ -94,11 +159,11 @@ export class Catalog extends Component {
           </div>
         </div>
 
-        {/* <MissionSuccessModal
+        <MissionSuccessModal
           show={successModalShow}
           onHide={this.modalClose}
           reservedMissionData={reservedMissionData}
-        /> */}
+        />
       </div>
     );
   }

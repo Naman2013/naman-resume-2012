@@ -167,6 +167,14 @@ function resetMissionsData(state) {
       objectList: [],
       selectedObjectSlug: null,
     },
+    byCatalog: {
+      ...state.byCatalog,
+      selectedCatalog: null,
+      designation: '',
+      objectData: {},
+      telescopeData: {},
+      processingRecipe: null,
+    },
   };
 }
 

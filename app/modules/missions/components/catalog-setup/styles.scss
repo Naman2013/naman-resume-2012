@@ -148,14 +148,12 @@
 @include media-breakpoint-down(sm) {
   .catalog-setup {
     .steps {
-      .step-1,
-      .step-2,
-      .step-3,
-      .messages {
+      > div {
         padding: 30px;
       }
 
       .step-2 {
+        width: 100%;
         border-right: none;
         border-bottom: 1px solid $hawkesBlue;
       }

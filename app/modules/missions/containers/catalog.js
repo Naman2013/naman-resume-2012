@@ -33,20 +33,19 @@ const mapStateToProps = createStructuredSelector({
   telescopeData: makeByCatalogTelescopeDataSelector(),
   processingRecipe: makeByCatalogProcessingRecipeSelector(),
   isFetching: makeMissionsLoadingSelector(),
-  // missionSlot: makeMissionsFirstSlot(),
-  // reservedMissionData: makeReservedMissionData(),
+  missionSlot: makeMissionsFirstSlot(),
+  reservedMissionData: makeReservedMissionData(),
 });
 
 const mapDispatchToProps = {
-  // getMissionSlot,
+  getMissionSlot,
   getCatalogList,
   setCatalog: ACTION.setCatalog,
   setDesignation: ACTION.setDesignation,
   checkCatalogVisibility,
   setProcessingRecipe: ACTION.setProcessingRecipe,
-  // setObject: ACTION.setObject,
-  // resetMissionsData: ACTION.resetMissionsData,
-  // reserveMissionSlot,
+  resetMissionsData: ACTION.resetMissionsData,
+  reserveMissionSlot,
 };
 
 export default compose(

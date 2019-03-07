@@ -144,7 +144,7 @@ export class CatalogSetup extends Component {
             <Button
               text="Find a Mission"
               onClickEvent={getMissionSlot}
-              //disabled={!selectedCategorySlug || !selectedObjectSlug}
+              disabled={!designation || !processingRecipe || !selectedCatalog}
             />
           </div>
         </div>
