@@ -1,8 +1,16 @@
+// @flow
 import React from 'react';
 import classNames from 'classnames';
 import './index.scss';
 
-const Btn = ({ type = 'button', children, onClick, mod = null }) => {
+type Props = {
+  type?: string,
+  children: any,
+  onClick: Function,
+  mod?: string,
+};
+
+const Btn = ({ type = 'button', children, onClick, mod }: Props) => {
   return (
     <button
       type={type}
@@ -12,6 +20,11 @@ const Btn = ({ type = 'button', children, onClick, mod = null }) => {
       {children}
     </button>
   );
+};
+
+Btn.defaultProps = {
+  type: 'button',
+  mod: null,
 };
 
 export default Btn;
