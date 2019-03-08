@@ -37,7 +37,7 @@ const TabLive = ({
       }
 
       {
-          mission.objectId != 0 && object.objectTitle &&
+          mission.objectId != 0 && object && object.objectTitle &&
         <div className="tile-container">
           <ObjectSummaryTile {...object}/>
         </div>
