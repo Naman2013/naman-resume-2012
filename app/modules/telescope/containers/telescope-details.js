@@ -49,7 +49,7 @@ const mapStateToProps = ({
     activeTelescopeMission: activeTelescopeMissions.activeTelescopeMission,
 
     activeDetailsSSE: telescopeDetails.activeSSE,
-    objectDetails: objectDetails.objectData,
+    objectDetails: objectDetails,
   };
 };
 
