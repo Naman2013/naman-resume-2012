@@ -3,14 +3,15 @@ import React from 'react';
 import classNames from 'classnames';
 import './index.scss';
 
-type Props = {
+type TButton = {
   type?: string,
   children: any,
   onClick: Function,
   mod?: string,
 };
 
-const Btn = ({ type = 'button', children, onClick, mod }: Props) => {
+const Btn = (props: TButton) => {
+  const { type = 'button', children, onClick, mod = null } = props;
   return (
     <button
       type={type}
@@ -20,11 +21,6 @@ const Btn = ({ type = 'button', children, onClick, mod }: Props) => {
       {children}
     </button>
   );
-};
-
-Btn.defaultProps = {
-  type: 'button',
-  mod: null,
 };
 
 export default Btn;

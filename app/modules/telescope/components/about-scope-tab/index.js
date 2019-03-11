@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-import uniqueId from 'lodash/uniqueId';
 import Btn from 'app/atoms/Btn';
 import Icon from 'app/atoms/Icon';
 import { Desktop, Tablet, Mobile } from 'app/components/common/Responsive';
@@ -17,9 +16,9 @@ export const AboutScope = () => {
   );
 
   const desc = [
-    { title: 'Telescope type', text: 'High-Magnification' },
-    { title: 'Observatory', text: 'Canary Islands' },
-    { title: 'Pier', text: 'Canary One' },
+    { id: '1', title: 'Telescope type', text: 'High-Magnification' },
+    { id: '2', title: 'Observatory', text: 'Canary Islands' },
+    { id: '3', title: 'Pier', text: 'Canary One' },
   ];
 
   const text = (
@@ -44,7 +43,7 @@ export const AboutScope = () => {
 
   const description = desc.map(el => {
     return (
-      <Fragment key={uniqueId()}>
+      <Fragment key={el.id}>
         <div className="inner-gap-20 pad-40">
           <h4 className="h-4 text-uppercase">{el.title}</h4>
           <p className="i-text">{el.text}</p>

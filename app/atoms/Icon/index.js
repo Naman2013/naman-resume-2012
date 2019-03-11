@@ -2,10 +2,13 @@
 import React from 'react';
 import './index.scss';
 
-type Props = {
+type TIcon = {
   i: string,
 };
 
-const Icon = ({ i }: Props) => <i className={`icon fa fa-${i}`} />;
+const Icon = (props: TIcon) => {
+  const { i } = props;
+  return <i className={`icon fa fa-${i}`} />;
+};
 
 export default Icon;
