@@ -283,6 +283,7 @@ export class TelescopeDetails extends Component {
       currentObservatory,
       currentTelescope,
       allObservatoryTelescopeStatus,
+      objectDetails,
       params,
     } = this.props;
 
@@ -350,7 +351,7 @@ export class TelescopeDetails extends Component {
         {/* Telescope: Offline State */}
         {activeTelescopeStatus &&
           activeTelescopeStatus.onlineStatus === 'offline' && (
-            <TelescopeOffline />
+            <TelescopeOffline currentTelescope={this.props.currentTelescope} />
           )}
         {/*(
         <div className="details-root">
@@ -441,6 +442,7 @@ export class TelescopeDetails extends Component {
                           skyChartWidgetID={currentObservatory.SkychartWidgetId}
                           allSkyWidgetID={currentObservatory.AllskyWidgetId}
                           mission={activeTelescopeMission}
+                          object={objectDetails.objectData}
                           renderTelescopeViewer={() => (
                             activeInstrument.instrImageSourceType ===
                             'video' ? (
