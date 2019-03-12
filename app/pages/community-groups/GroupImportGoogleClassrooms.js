@@ -256,160 +256,121 @@ class GroupImportGoogleClassrooms extends Component {
     } = this.state;
 
     return (<div>
-      <Request
-        serviceURL={GROUPS_PAGE_ENDPOINT_URL}
-        model={groupsHubModel}
-        requestBody={{ currentGroupSet: 'owner' }}
-        render={({
-          fetchingContent,
-          modeledResponses: { GROUP_HUB_MODEL },
-          serviceResponse = {},
-        }) => (
-          <Fragment>
-            {
-              !fetchingContent &&
-                <DeviceContext.Consumer>
-                  {context => (
-                    <HubContainer
-                      {...this.props}
-                      {...GROUP_HUB_MODEL}
-                      {...context}
-                      hubName="groups"
-                      paginateURL={GET_GROUPS}
-                      page={DEFAULT_PAGE}
-                      count={COUNT}
-                      user={user}
-                      filterTypeFieldName="groupSet"
-                      validateResponseAccess={actions.validateResponseAccess}
-                      responseFieldNames={{
-                        currentCount: 'groupsCount',
-                        totalCount: 'totalGroupsCount',
-                      }}
-                      renderRightMenu={serviceResponse.canRequestGroup ? () => (<Button text="Request Group" onClickEvent={this.requestGroup} />) : null}
-                      updateList={this.updateGroupsList}
-                      appendToList={this.appendToGroupsList}
-                      iconURL={serviceResponse.pageIconURL}
-                      pageTitle={serviceResponse.pageTitle}
-                      filterType='owner'
-                      render={() => (
-                        <Fragment>
-                          {!fetchingContent && <div>
-                            <Request
-                              serviceURL={GOOGLE_CLASSROOM_IMPORT_PAGE_ENDPOINT_URL}
-                              requestBody={{
-                                    cid: user.cid,
-                                    at: user.at,
-                                    token: user.token,
-                                    forceReload: forceReloadStr,
-                              }}
-                              render={({
-                                fetchingContent,
-                                serviceResponse,
-                              }) => (
-                                <Fragment>
-                                  {
-                                    !fetchingContent &&
-                                      <Fragment>
-                                        <div className="header">
-                                          <div className="inner-header-container">
-                                            <div className="inner-header-text">
-                                              <div className="big">{serviceResponse.pageHeading1}</div>
-                                              <div className="little">{serviceResponse.pageHeading2}</div>
-                                            </div>
-                                          </div>
-                                        </div>
-                                        <CenterColumn widths={['620px']}>
-                                          <div className="form-area">
-                                            <BarHeader title={serviceResponse.sectionHeading} />
-                                            <Request
-                                              serviceURL={GOOGLE_CLASSROOM_GET_CLASSROOM_LIST_ENDPOINT_URL}
-                                              requestBody={{ }}
-                                              render={({
-                                                fetchingContent,
-                                                serviceResponse,
-                                              }) => (
-                                                <Fragment>
-                                                  {
-                                                    !fetchingContent &&
-                                                      <Fragment>
-                                                        <div>
-                                                          {serviceResponse.classroomList.length === 0 && <p>You do not currently have any Google Classrooms available in your Google Classroom Account.</p>}
-                                                          {serviceResponse.classroomList.length > 0 && <form className="form" onSubmit={this.handleSubmit}>
-                                                              <div className="form-section form-section-area">
-                                                                <div className="form-field-container">
-                                                                  <table style={{'width': '100%'}}>
-                                                                    <tbody>
-                                                                      <tr>
-                                                                        <th className="table-header">Import?</th>
-                                                                        <th className="table-header">Google Classroom</th>
-                                                                        <th className="table-header">Club Status</th>
-                                                                      </tr>
-                                                                      {serviceResponse.classroomList.map( (classroomListItem, index) => {
-                                                                          return (
-                                                                            <tr className="table-item" key={`googleClassroomRow_` + classroomListItem.googleClassroomId}>
-                                                                              <td>
-                                                                                {!classroomListItem.hasDiscussionGroup ? <Field style={{'marginLeft': '0px'}}
-                                                                                  key={`importAction_` + index}
-                                                                                  name={`importAction_` + index}
-                                                                                  type="checkbox"
-                                                                                  className="form-field"
-                                                                                  component={InputField}
-                                                                                  label=""
-                                                                                  onChange={(event) => { this.handleFieldChange({ googleClassroomName: classroomListItem.name, googleClassroomId: classroomListItem.googleClassroomId, selectedFlag: event.target.value }); }}
-                                                                                />: <input type="checkbox" disabled checked class="form-field" style={{marginLeft: '20px'}}/>}
-                                                                              </td>
-                                                                              <td key={`importName_` + classroomListItem.googleClassroomId}>{classroomListItem.hasDiscussionGroup ? <Link to={classroomListItem.discussionGroupLinkUrl}>{classroomListItem.name}</Link>: <p>{classroomListItem.name}</p>}</td>
-                                                                              <td key={`importStatus_` + classroomListItem.googleClassroomId}>{classroomListItem.hasDiscussionGroup ? <p>Active</p>: <p>Please Import</p>}</td>
-                                                                          </tr>
-                                                                          )
-                                                                        })
-                                                                      }
-                                                                    </tbody>
-                                                                  </table>
-                                                                </div>
-                                                              </div>
-                                                              <div className="button-container">
-                                                                <button
-                                                                  className="submit-button"
-                                                                  type="submit"
-                                                                >Import Selected Google Classrooms as Clubs
-                                                                </button>
-                                                              </div>
-                                                            </form>
-                                                          }
-                                                          </div>
-                                                      </Fragment>
-                                                    }
-                                                  </Fragment>
-                                              )}
-                                            />
-                                          </div>
-                                        </CenterColumn>
-                                      </Fragment>
-                                    }
-                                  </Fragment>
-                                )}
-                              />
-                            </div>}
-                        </Fragment>
-                      )}
-                    />
-                  )}
-                </DeviceContext.Consumer>
-            }
-          </Fragment>
-        )}
-      />
-      <Modal
-        ariaHideApp={false}
-        isOpen={showPrompt}
-        style={customModalStylesBlackOverlay}
-        contentLabel="Groups"
-        shouldCloseOnOverlayClick={false}
-        onRequestClose={this.closeModal}
-      >
-        {promptText}
-      </Modal>
+        <Request
+          serviceURL={GOOGLE_CLASSROOM_IMPORT_PAGE_ENDPOINT_URL}
+          requestBody={{
+            cid: user.cid,
+            at: user.at,
+            token: user.token,
+            forceReload: forceReloadStr,
+          }}
+          render={({
+                     fetchingContent,
+                     serviceResponse,
+                   }) => (
+            <Fragment>
+              {
+                !fetchingContent &&
+                <Fragment>
+                  <div className="header">
+                    <div className="inner-header-container">
+                      <div className="inner-header-text">
+                        <div className="big">{serviceResponse.pageHeading1}</div>
+                        <div className="little">{serviceResponse.pageHeading2}</div>
+                      </div>
+                    </div>
+                  </div>
+                  <CenterColumn widths={['620px']}>
+                    <div className="form-area">
+                      <BarHeader title={serviceResponse.sectionHeading}/>
+                      <Request
+                        serviceURL={GOOGLE_CLASSROOM_GET_CLASSROOM_LIST_ENDPOINT_URL}
+                        requestBody={{}}
+                        render={({
+                                   fetchingContent,
+                                   serviceResponse,
+                                 }) => (
+                          <Fragment>
+                            {
+                              !fetchingContent &&
+                              <Fragment>
+                                <div>
+                                  {serviceResponse.classroomList.length === 0 &&
+                                  <p>You do not currently have any Google Classrooms available in your Google Classroom
+                                    Account.</p>}
+                                  {serviceResponse.classroomList.length > 0 &&
+                                  <form className="form">
+                                    <div className="form-section form-section-area">
+                                      <div className="form-field-container">
+                                        <table style={{'width': '100%'}}>
+                                          <tbody>
+                                          <tr>
+                                            <th className="table-header">Import?</th>
+                                            <th className="table-header">Google Classroom</th>
+                                            <th className="table-header">Club Status</th>
+                                          </tr>
+                                          {serviceResponse.classroomList.map((classroomListItem, index) => {
+                                            return (
+                                              <tr className="table-item"
+                                                  key={`googleClassroomRow_` + classroomListItem.googleClassroomId}>
+                                                <td>
+                                                  {!classroomListItem.hasDiscussionGroup ?
+                                                    <Field style={{'marginLeft': '0px'}}
+                                                           key={`importAction_` + index}
+                                                           name={`importAction_` + index}
+                                                           type="checkbox"
+                                                           className="form-field"
+                                                           component={InputField}
+                                                           label=""
+                                                           onChange={(event) => {
+                                                             this.handleFieldChange({
+                                                               googleClassroomName: classroomListItem.name,
+                                                               googleClassroomId: classroomListItem.googleClassroomId,
+                                                               selectedFlag: event.target.value
+                                                             });
+                                                           }}
+                                                    /> : <input type="checkbox" disabled checked className="form-field"
+                                                                style={{marginLeft: '20px'}}/>}
+                                                </td>
+                                                <td
+                                                  key={`importName_` + classroomListItem.googleClassroomId}>{classroomListItem.hasDiscussionGroup ?
+                                                  <Link
+                                                    to={classroomListItem.discussionGroupLinkUrl}>{classroomListItem.name}</Link> :
+                                                  <p>{classroomListItem.name}</p>}</td>
+                                                <td
+                                                  key={`importStatus_` + classroomListItem.googleClassroomId}>{classroomListItem.hasDiscussionGroup ?
+                                                  <p>Active</p> : <p>Please Import</p>}</td>
+                                              </tr>
+                                            )
+                                          })
+                                          }
+                                          </tbody>
+                                        </table>
+                                      </div>
+                                    </div>
+                                    <div className="button-container">
+                                      <button
+                                        className="submit-button"
+                                        onClick={this.handleSubmit}
+                                      >Import Selected Google Classrooms as Clubs
+                                      </button>
+                                    </div>
+                                  </form>
+                                  }
+                                </div>
+                              </Fragment>
+                            }
+                          </Fragment>
+                        )}
+                      />
+                    </div>
+                  </CenterColumn>
+                </Fragment>
+              }
+            </Fragment>
+          )}
+        />
+
       <style jsx>{style}</style>
       <style jsx>{style2}</style>
       <style jsx>{style3}</style>
