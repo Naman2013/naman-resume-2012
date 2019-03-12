@@ -179,3 +179,12 @@
     clip: rect(0, 0, 0, 0);
     position: absolute;
 }
+
+@mixin bgRepeat($url) {
+  background: transparent url($url) center center repeat;
+}
+
+@mixin no-indent() {
+  margin: 0;
+  padding: 0;
+}

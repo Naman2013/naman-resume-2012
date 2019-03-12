@@ -28,6 +28,10 @@ const MenuList = ({ items }) => (
         padding: 0;
         margin: 0;
       }
+
+      .menu-list > li:first-child {
+        margin-top: 20px;
+      }
     `}
     </style>
   </div>

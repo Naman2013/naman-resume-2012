@@ -1,0 +1,57 @@
+import { AboutScope } from 'app/modules/telescope/components/about-scope-tab';
+import { StatusTab } from 'app/modules/telescope/components/status-tab';
+import React, { Component } from 'react';
+import { Container, Nav, Tab } from 'react-bootstrap';
+import './styles.scss';
+
+export class TelescopeOffline extends Component {
+  render() {
+    const { currentTelescope } = this.props;
+    return (
+      <div className="telescope-offline animated fadeIn faster">
+        {/* HEADER */}
+        <Container>
+          <h1 className="h1-custom">{currentTelescope.teleName}: Offline</h1>
+          <hr />
+        </Container>
+
+        {/* TABS */}
+        <Tab.Container
+          defaultActiveKey="STATUS"
+          id="tabs"
+          unmountOnExit
+          mountOnEnter
+        >
+          {/* TABS NAVS */}
+          <Container>
+            <Nav variant="tabs">
+              <Nav.Item>
+                <Nav.Link eventKey="STATUS">STATUS</Nav.Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Nav.Link eventKey="QUEUE" disabled>
+                  QUEUE
+                </Nav.Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Nav.Link eventKey="ABOUT_THIS_SCOPE">
+                  ABOUT THIS SCOPE
+                </Nav.Link>
+              </Nav.Item>
+            </Nav>
+          </Container>
+
+          {/* TABS CONTENT */}
+          <Tab.Content>
+            <Tab.Pane eventKey="STATUS">
+              <StatusTab />
+            </Tab.Pane>
+            <Tab.Pane eventKey="ABOUT_THIS_SCOPE">
+              <AboutScope />
+            </Tab.Pane>
+          </Tab.Content>
+        </Tab.Container>
+      </div>
+    );
+  }
+}
