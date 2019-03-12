@@ -209,7 +209,6 @@ class Groups extends Component {
 
     return (<div>
       <Request
-        withoutUser
         serviceURL={GROUPS_PAGE_ENDPOINT_URL}
         model={groupsHubModel}
         requestBody={{ currentGroupSet: this.props.params.filterType }}
@@ -244,6 +243,7 @@ class Groups extends Component {
                           {serviceResponse.canImportGoogleClassrooms &&
                             <Button text={serviceResponse.importGoogleClassroomsPrompt} onClickEvent={ this.importGoogleClassrooms } />
                           }
+                          {/* create new club */}
                           {serviceResponse.canCreateNewClubs ? <Button text={serviceResponse.createNewClubButtonText} onClickEvent={ this.createClub } /> : null}
                           {serviceResponse.canRequestGroup ? <Button text={intl.formatMessage(messages.requestGroup)} onClickEvent={this.requestGroup} /> : null}
                         </div>

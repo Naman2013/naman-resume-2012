@@ -5,6 +5,7 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Button } from 'react-bootstrap';
 import Modal from 'react-modal';
 import { injectIntl, intlShape } from 'react-intl';
 
@@ -40,7 +41,7 @@ class ProfileGroups extends Component {
   };
 
   updateGroupItemInfo = (id, resData) => {
-    const newGroupsList = this.state.groups.map((group) => {
+    const newGroupsList = this.state.groups.map(group => {
       if (group.discussionGroupId === id) {
         return Object.assign(group, resData);
       }
@@ -50,12 +51,17 @@ class ProfileGroups extends Component {
     this.setState(() => ({
       groups: newGroupsList,
     }));
-  }
+  };
 
-  updatePrompt = (data) => {
+  updatePrompt = data => {
     this.setState({
       showPrompt: data.showPrompt,
-      promptText: <PromptWithClose promptText={data.promptText} closeForm={this.closeModal} />,
+      promptText: (
+        <PromptWithClose
+          promptText={data.promptText}
+          closeForm={this.closeModal}
+        />
+      ),
     });
   };
 
@@ -75,6 +81,9 @@ class ProfileGroups extends Component {
     return (
       <div className="profile-groups">
         <CenterColumn>
+          <Button className="float-right create-club-btn">
+            create new club
+          </Button>
           <ContainerWithTitle title={intl.formatMessage(messages.MyClubs)}>
             {groupsCount > 0 ? (
               <DeviceContext.Consumer>
