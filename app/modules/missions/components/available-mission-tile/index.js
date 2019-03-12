@@ -39,22 +39,7 @@ export class AvailbleMissionTile extends Component {
         </div>
         <div className="description">{description}</div>
         <div className="actions">
-          <OverlayTrigger
-            placement="top"
-            overlay={
-              <Tooltip id="tooltip-step1">
-                <span>Cancel</span>
-              </Tooltip>
-            }
-          >
-            <Button
-              onClickEvent={cancel}
-              theme={{ borderRadius: '50%' }}
-              renderIcon={() => (
-                <div className="mission-tile-icon fa fa-close" />
-              )}
-            />
-          </OverlayTrigger>
+          <Button text="Cancel" onClickEvent={cancel} />
           <Button text="Schedule Mission" onClickEvent={scheduleMission} />
         </div>
       </div>

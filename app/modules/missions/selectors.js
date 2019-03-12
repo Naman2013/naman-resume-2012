@@ -130,7 +130,7 @@ export const makeByCatalogListListSelectOptsSelector = () =>
     makeByCatalogSelector(),
     state => {
       const catList = _get(state, 'catalogList', []);
-      return getSelectOptions(catList, 'catalog', 'catName');
+      return getSelectOptions(catList, 'catalog', 'catFullName');
     }
   );
 

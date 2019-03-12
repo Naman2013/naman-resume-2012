@@ -56,7 +56,7 @@ export const initialState = {
     designation: '',
     objectData: {},
     telescopeData: {},
-    processingRecipe: null,
+    processingRecipe: {},
   },
 
   byTelescope: {
@@ -96,10 +96,10 @@ export default handleActions(
     [TYPE.GET_CATALOG_LIST_ERROR]: setServerError,
     [TYPE.SET_CATALOG]: setCatalog,
     [TYPE.SET_DESIGNATION]: setDesignation,
-    [TYPE.CHECK_CATALOG_VISIBILITY]: setFetching,
+    [TYPE.CHECK_CATALOG_VISIBILITY]: setTelescopeFetching,
     [TYPE.CHECK_CATALOG_VISIBILITY_SUCCESS]: checkCatalogVisibilitySuccess,
     [TYPE.CHECK_CATALOG_VISIBILITY_ERROR]: setServerError,
-    [TYPE.GET_PRESET_OPTIONS]: setFetching,
+    [TYPE.GET_PRESET_OPTIONS]: setTelescopeFetching,
     [TYPE.GET_PRESET_OPTIONS_SUCCESS]: getPresetOptionsSuccess,
     [TYPE.GET_PRESET_OPTIONS_ERROR]: setServerError,
     [TYPE.SET_PROCESSING_RECIPE]: setProcessingRecipe,
@@ -179,7 +179,7 @@ function resetMissionsData(state) {
       designation: '',
       objectData: {},
       telescopeData: {},
-      processingRecipe: null,
+      processingRecipe: {},
     },
   };
 }
@@ -251,6 +251,9 @@ function setCatalog(state, action) {
       ...state.byCatalog,
       selectedCatalog: action.payload,
       designation: '',
+      objectData: {},
+      telescopeData: {},
+      processingRecipe: {},
     },
   };
 }
@@ -268,7 +271,7 @@ function setDesignation(state, action) {
 function checkCatalogVisibilitySuccess(state, action) {
   return {
     ...state,
-    isFetching: false,
+    isTelescopeFetching: false,
     isLoaded: true,
     byCatalog: { ...state.byCatalog, objectData: action.payload },
   };
@@ -277,7 +280,7 @@ function checkCatalogVisibilitySuccess(state, action) {
 function getPresetOptionsSuccess(state, action) {
   return {
     ...state,
-    isFetching: false,
+    isTelescopeFetching: false,
     isLoaded: true,
     byCatalog: {
       ...state.byCatalog,

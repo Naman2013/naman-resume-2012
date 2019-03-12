@@ -13,6 +13,15 @@
       button {
         margin-top: 20px;
       }
+
+      .processing-explanation {
+        margin-top: 20px;
+        font-family: $secondary-font;
+        font-size: 18px;
+        font-weight: 400;
+        line-height: 28px;
+        color: $lightHeadedAstronaut;
+      }
     }
 
     .step-3 {
@@ -27,15 +36,16 @@
       .processing-list {
         max-height: 300px;
         overflow-y: auto;
+        border-bottom: 1px solid $hawkesBlue;
 
-        .processing-list-item,
-        .processing-explanation {
-          padding: 20px 30px;
+        .processing-list-item {
+          padding: 10px 30px;
           font-family: $secondary-font;
           font-size: 18px;
           font-weight: 400;
           line-height: 28px;
           color: $lightHeadedAstronaut;
+          border-bottom: 1px solid $hawkesBlue;
         }
 
         .processing-list-item {
@@ -55,6 +65,15 @@
             }
           }
         }
+      }
+
+      .processing-description {
+        padding: 20px;
+        font-family: $secondary-font;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 22px;
+        color: $lightHeadedAstronaut;
       }
     }
 
@@ -82,6 +101,11 @@
     }
 
     button {
+      &:disabled {
+        cursor: not-allowed;
+        opacity: 0.5;
+      }
+
       span {
         line-height: 18px;
         font-size: 11px;
@@ -135,7 +159,8 @@
     outline: none;
   }
 
-  .designation-format {
+  .designation-format,
+  .designation-example {
     margin-top: 10px;
     font-family: $secondary-font;
     font-size: 16px;
@@ -154,7 +179,6 @@
 
       .step-2 {
         width: 100%;
-        border-right: none;
         border-bottom: 1px solid $hawkesBlue;
       }
 

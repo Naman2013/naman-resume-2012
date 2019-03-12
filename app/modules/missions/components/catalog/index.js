@@ -12,7 +12,8 @@ export class Catalog extends Component {
   };
 
   componentDidMount = () => {
-    const { getCatalogList } = this.props;
+    const { getCatalogList, resetMissionsData } = this.props;
+    resetMissionsData();
     getCatalogList();
   };
 
@@ -61,10 +62,12 @@ export class Catalog extends Component {
       objectDec,
       objectRA,
       obsId,
-      processingRecipe,
+      processingRecipe: processingRecipe.presetOption,
       scheduledMissionId,
       telescopeId,
-    });
+    }).then(() =>
+      document.getElementById('grabedMissionTile').scrollIntoView()
+    );
   };
 
   reserveMissionSlot = () => {
@@ -137,7 +140,7 @@ export class Catalog extends Component {
                 />
               </Box>
             </div>
-            <div className="col-lg-4 reserved-mission">
+            <div className="col-lg-4 reserved-mission" id="grabedMissionTile">
               <Box inside>
                 {missionSlot && missionSlot.missionAvailable ? (
                   <AvailbleMissionTile

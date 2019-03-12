@@ -22,7 +22,7 @@ export class CatalogSetup extends Component {
       processingRecipe,
     } = this.props;
 
-    const { objectIsVisible, explanation } = objectData;
+    const { explanation } = objectData;
 
     return (
       <div className="catalog-setup">
@@ -77,16 +77,20 @@ export class CatalogSetup extends Component {
             />
 
             <div className="designation-format">
-              {selectedCatalog
-                ? selectedCatalogData.catFormat
-                : 'FORMAT EXAMPLE'}
+              {selectedCatalog ? selectedCatalogData.catFormat : 'FORMAT'}
+            </div>
+
+            <div className="designation-example">
+              Example: {selectedCatalog ? selectedCatalogData.catExample : ''}
             </div>
 
             <Button
               text="Check Visability"
               onClickEvent={() => checkCatalogVisibility(designation)}
-              disabled={!selectedCatalog}
+              disabled={!selectedCatalog || !designation}
             />
+
+            <div className="processing-explanation">{explanation}</div>
           </div>
 
           <div className="col-sm-6 step-3">
@@ -104,24 +108,27 @@ export class CatalogSetup extends Component {
             </div>
 
             <div className="processing-list">
-              {objectIsVisible && telescopeData.telePresetList ? (
+              {telescopeData.telePresetList &&
                 telescopeData.telePresetList.map(item => (
                   <div
                     key={item.presetId}
                     className={`processing-list-item${
-                      item.presetOption === processingRecipe ? ' selected' : ''
+                      item.presetOption === processingRecipe.presetOption
+                        ? ' selected'
+                        : ''
                     }`}
-                    onClick={() => setProcessingRecipe(item.presetOption)}
+                    onClick={() => setProcessingRecipe(item)}
                   >
                     <div className="processing-list-item-title">
                       {item.presetDisplayName}
                     </div>
                     <div className="focused-indicator" />
                   </div>
-                ))
-              ) : (
-                <div className="processing-explanation">{explanation}</div>
-              )}
+                ))}
+            </div>
+
+            <div className="processing-description">
+              {processingRecipe.presetHelpText}
             </div>
           </div>
         </div>

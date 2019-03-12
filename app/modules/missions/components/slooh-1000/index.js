@@ -12,7 +12,8 @@ export class Slooh1000 extends Component {
   };
 
   componentDidMount = () => {
-    const { getCategoryList, getBySlooh1000 } = this.props;
+    const { getCategoryList, getBySlooh1000, resetMissionsData } = this.props;
+    resetMissionsData();
     //getBySlooh1000(); will be soon
     getCategoryList();
   };
@@ -30,7 +31,9 @@ export class Slooh1000 extends Component {
       obsId: selectedObjectData.obsId,
       scheduledMissionId: selectedObjectData.scheduledMissionId,
       telescopeId: selectedObjectData.telescopeId,
-    });
+    }).then(() =>
+      document.getElementById('grabedMissionTile').scrollIntoView()
+    );
   };
 
   reserveMissionSlot = () => {
@@ -85,7 +88,7 @@ export class Slooh1000 extends Component {
     } = this.props;
 
     const { successModalShow } = this.state;
-    
+
     return (
       <div className="slooh-1000">
         <div className="container">
@@ -103,7 +106,7 @@ export class Slooh1000 extends Component {
                 />
               </Box>
             </div>
-            <div className="col-lg-4 reserved-mission">
+            <div className="col-lg-4 reserved-mission" id="grabedMissionTile">
               <Box inside>
                 {missionSlot && missionSlot.missionAvailable ? (
                   <AvailbleMissionTile
