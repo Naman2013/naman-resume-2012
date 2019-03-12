@@ -283,6 +283,7 @@ export class TelescopeDetails extends Component {
       currentObservatory,
       currentTelescope,
       allObservatoryTelescopeStatus,
+      objectDetails,
       params,
     } = this.props;
 
@@ -321,7 +322,7 @@ export class TelescopeDetails extends Component {
       teleInstrumentList.filter(
         instrument => instrument.instrUniqueId === useActiveInstrumentID
       )
-    );
+    ) || teleInstrumentList[0];
 
     const activeTelescopeStatus = first(
       allObservatoryTelescopeStatus.statusList.statusTeleList.filter(
@@ -350,7 +351,7 @@ export class TelescopeDetails extends Component {
         {/* Telescope: Offline State */}
         {activeTelescopeStatus &&
           activeTelescopeStatus.onlineStatus === 'offline' && (
-            <TelescopeOffline />
+            <TelescopeOffline currentTelescope={this.props.currentTelescope} />
           )}
         {/*(
         <div className="details-root">
@@ -441,7 +442,27 @@ export class TelescopeDetails extends Component {
                           skyChartWidgetID={currentObservatory.SkychartWidgetId}
                           allSkyWidgetID={currentObservatory.AllskyWidgetId}
                           mission={activeTelescopeMission}
+                          object={objectDetails.objectData}
                           renderTelescopeViewer={() => (
+                            activeInstrument.instrImageSourceType ===
+                            'video' ? (
+                            <div>
+                              <VideoImageLoader
+                                teleStreamCode={instrStreamCode}
+                                teleStreamURL={instrStreamURL}
+                                teleStreamThumbnailVideoWidth="810"
+                                teleStreamThumbnailVideoHeight="600"
+                                teleStreamThumbnailQuality={
+                                  instrStreamThumbnailQuality
+                                }
+                                teleSystem={instrSystem}
+                                telePort={instrPort}
+                                cameraSourceType={instrCameraSourceType}
+                                showOverlay={false}
+                                autoplay={1}
+                              />
+                            </div>
+                          ):(
                             <TelescopeImageViewerController
                               activeInstrumentID={
                                 activeInstrument.instrUniqueId
@@ -467,6 +488,7 @@ export class TelescopeDetails extends Component {
                                 })
                               }
                             />
+                          )
                           )}
                         />
                       ),
