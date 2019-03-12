@@ -138,6 +138,16 @@ const getProfileRoutes = () => (
       <Route path=":filter" component={ProfileQaContainer} />
     </Route>
     <Route path="groups" component={ProfileGroups} />
+    <Route
+      path="groups/create"
+      component={GroupCreate}
+      onEnter={validateUser}
+    />
+    <Route
+      path="groups/importGoogleClassrooms"
+      component={GroupImportGoogleClassrooms}
+      onEnter={validateUser}
+    />
   </Fragment>
 );
 

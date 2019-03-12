@@ -83,9 +83,16 @@ class ProfileGroups extends Component {
         <CenterColumn>
           <Link
             to="/profile/private/groups/create"
-            className="btn btn-primary float-right create-club-btn"
+            className="btn btn-primary float-right club-btn"
           >
             create new club
+          </Link>
+
+          <Link
+            to="/profile/private/groups/importGoogleClassrooms"
+            className="btn btn-primary float-right club-btn"
+          >
+            Import Google classrooms
           </Link>
 
           <ContainerWithTitle title={intl.formatMessage(messages.MyClubs)}>

@@ -9,8 +9,9 @@ export default css`
     margin-top: 0;
   }
   
-  .profile-groups :global(.create-club-btn) {
+  .profile-groups :global(.club-btn) {
     margin: 0;
     margin-top: 10px;
+    margin-left: 10px;
   }
 `;

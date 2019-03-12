@@ -43,7 +43,6 @@ const googleClassroomModel = {
   model: resp => ({
     googleClassrooms: resp.googleClassrooms,
     hasGoogleClassroomEnabled: resp.hasGoogleClassroomEnabled,
-    importGoogleClassroomsButtonText: resp.importGoogleClassroomsButtonText,
   }),
 };
 
@@ -68,17 +67,7 @@ class Groups extends Component {
     groups: [],
     showPrompt: false,
     promptText: '',
-    createClubLinkUrl: '',
-    importGoogleClassroomsURL: '',
   };
-
-  /* Save the Create Club Link Url */
-  handlePageServiceResponse = (result) => {
-    this.setState(() => ({
-      createClubLinkUrl: result.createNewClubLinkUrl,
-      importGoogleClassroomsURL: result.importGoogleClassroomsURL,
-    }));
-  }
 
   updateGroupsList = (resData) => {
     this.setState(() => ({
@@ -112,14 +101,6 @@ class Groups extends Component {
         groups
       };
     });
-  }
-
-  createClub = () => {
-    browserHistory.push( this.state.createClubLinkUrl );
-  }
-
-  importGoogleClassrooms = () => {
-    browserHistory.push( this.state.importGoogleClassroomsURL );
   }
 
   submitRequestForm = ({
@@ -212,7 +193,6 @@ class Groups extends Component {
         serviceURL={GROUPS_PAGE_ENDPOINT_URL}
         model={groupsHubModel}
         requestBody={{ currentGroupSet: this.props.params.filterType }}
-        serviceResponseHandler={this.handlePageServiceResponse}
         render={({
           fetchingContent,
           modeledResponses: { GROUP_HUB_MODEL },
@@ -240,11 +220,6 @@ class Groups extends Component {
                       }}
                       renderRightMenu={() => (
                         <div className="flex">
-                          {serviceResponse.canImportGoogleClassrooms &&
-                            <Button text={serviceResponse.importGoogleClassroomsPrompt} onClickEvent={ this.importGoogleClassrooms } />
-                          }
-                          {/* create new club */}
-                          {serviceResponse.canCreateNewClubs ? <Button text={serviceResponse.createNewClubButtonText} onClickEvent={ this.createClub } /> : null}
                           {serviceResponse.canRequestGroup ? <Button text={intl.formatMessage(messages.requestGroup)} onClickEvent={this.requestGroup} /> : null}
                         </div>
                       )}
