@@ -3,21 +3,21 @@
  *
  ********************************** */
 
-import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Button } from 'react-bootstrap';
-import Modal from 'react-modal';
+import React, { Component } from 'react';
 import { injectIntl, intlShape } from 'react-intl';
+import Modal from 'react-modal';
+import { Link } from 'react-router';
+import { DeviceContext } from '../../../providers/DeviceProvider';
+import { customModalStylesBlackOverlay } from '../../../styles/mixins/utilities';
+import CenterColumn from '../../common/CenterColumn';
 
 import { ContainerWithTitle } from '../../common/ContainerWithTitle';
-import CenterColumn from '../../common/CenterColumn';
-import GroupTiles from '../../groups-hub/group-tiles';
-import { customModalStylesBlackOverlay } from '../../../styles/mixins/utilities';
-import { DeviceContext } from '../../../providers/DeviceProvider';
 import PromptWithClose from '../../community-groups/prompt-with-close';
+import GroupTiles from '../../groups-hub/group-tiles';
+import messages from './ProfileGroups.messages';
 
 import styles from './ProfileGroups.styles';
-import messages from './ProfileGroups.messages';
 
 const { shape, number, arrayOf } = PropTypes;
 
@@ -81,9 +81,13 @@ class ProfileGroups extends Component {
     return (
       <div className="profile-groups">
         <CenterColumn>
-          <Button className="float-right create-club-btn">
+          <Link
+            to="/profile/private/groups/create"
+            className="btn btn-primary float-right create-club-btn"
+          >
             create new club
-          </Button>
+          </Link>
+
           <ContainerWithTitle title={intl.formatMessage(messages.MyClubs)}>
             {groupsCount > 0 ? (
               <DeviceContext.Consumer>
