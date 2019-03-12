@@ -17,7 +17,7 @@ export class Telescope extends Component {
 
     return (
       <div className="by-telescope">
-        <div className="container-fluid">
+        <div className="container">
           <Box>
             <div>test</div>
           </Box>

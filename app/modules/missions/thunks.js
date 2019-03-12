@@ -59,7 +59,7 @@ export const getObjectList = ({ categorySlug, includeDescription = true }) => (
   getState
 ) => {
   const { at, token, cid } = getState().user;
-  dispatch(ACTION.getCategoryList());
+  dispatch(ACTION.getObjectList());
   return getObjectListApi({
     at,
     token,

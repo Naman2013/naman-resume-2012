@@ -14,7 +14,7 @@ export class Slooh1000Setup extends Component {
       setObject,
       getMissionSlot,
       selectedCategorySlug,
-      selectedObjectSlug,
+      selectedObjectId,
     } = this.props;
 
     return (
@@ -63,7 +63,7 @@ export class Slooh1000Setup extends Component {
               options={objectListOpts}
               placeholder="Choose"
               isDisabled={objectListOpts.length === 0}
-              value={selectedObjectSlug}
+              value={selectedObjectId}
             />
           </div>
         </div>
@@ -86,7 +86,7 @@ export class Slooh1000Setup extends Component {
             <Button
               text="Find a Mission"
               onClickEvent={getMissionSlot}
-              disabled={!selectedCategorySlug || !selectedObjectSlug}
+              disabled={!selectedCategorySlug || !selectedObjectId}
             />
           </div>
         </div>

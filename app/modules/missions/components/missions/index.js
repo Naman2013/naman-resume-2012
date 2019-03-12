@@ -14,11 +14,20 @@ export class Missions extends Component {
   };
 
   render() {
-    const { children, pageSetup, location, isFetching } = this.props;
+    const {
+      children,
+      pageSetup,
+      location,
+      isFetching,
+      isTelescopeFetching,
+    } = this.props;
     const { pageIconURL, pageTitle, navigationConfig } = pageSetup;
     return (
       <div>
-        <Spinner loading={isFetching} />
+        <Spinner
+          loading={isFetching || isTelescopeFetching}
+          text={isTelescopeFetching && 'Calculating proper time and telescope'}
+        />
         <HubHeader
           icon={pageIconURL}
           title={pageTitle}

@@ -10,6 +10,12 @@ export const makeMissionsLoadingSelector = () =>
     state => state.isFetching
   );
 
+export const makeMissionsTelescopeFetchingSelector = () =>
+  createSelector(
+    selectMissions,
+    state => state.isTelescopeFetching
+  );
+
 export const makeMissionsPageSetupSelector = () =>
   createSelector(
     selectMissions,
@@ -78,10 +84,10 @@ export const makeBySlooh1000ObjectListSelector = () =>
     state => state.objectList
   );
 
-export const makeBySlooh1000SelectedObjectSlugSelector = () =>
+export const makeBySlooh1000SelectedObjectIdSelector = () =>
   createSelector(
     makeBySlooh1000Selector(),
-    state => state.selectedObjectSlug
+    state => state.selectedObjectId
   );
 
 export const makeBySlooh1000SelectedObjectDataSelector = () =>
@@ -89,7 +95,7 @@ export const makeBySlooh1000SelectedObjectDataSelector = () =>
     makeBySlooh1000Selector(),
     state => {
       return state.objectList.filter(
-        item => item.topicSlug === state.selectedObjectSlug
+        item => item.objectId === state.selectedObjectId
       )[0];
     }
   );
@@ -102,7 +108,7 @@ export const makeBySlooh1000ObjectListSelectOptsSelector = () =>
   createSelector(
     makeBySlooh1000ObjectListSelector(),
     state => {
-      return getSelectOptions(state, 'topicSlug', 'topicName');
+      return getSelectOptions(state, 'objectId', 'topicName', 'topicIsEnabled');
     }
   );
 

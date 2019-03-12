@@ -33,6 +33,11 @@
     }
   }
 
+  .slooh-react-select--is-disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
   .slooh-react-select__menu {
     background-color: $romance;
     border-top: 0;
@@ -40,5 +45,12 @@
     box-shadow: none;
     font-family: $primary-font;
     cursor: pointer;
+
+    .dropdown-opt {
+      &.disabled {
+        cursor: not-allowed;
+        opacity: 0.5;
+      }
+    }
   }
 }

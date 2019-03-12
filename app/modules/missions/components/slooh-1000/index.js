@@ -80,7 +80,7 @@ export class Slooh1000 extends Component {
       missionSlot,
       resetMissionsData,
       selectedCategorySlug,
-      selectedObjectSlug,
+      selectedObjectId,
       reservedMissionData,
     } = this.props;
 
@@ -99,7 +99,7 @@ export class Slooh1000 extends Component {
                   setObject={setObject}
                   getMissionSlot={this.getMissionSlot}
                   selectedCategorySlug={selectedCategorySlug}
-                  selectedObjectSlug={selectedObjectSlug}
+                  selectedObjectId={selectedObjectId}
                 />
               </Box>
             </div>

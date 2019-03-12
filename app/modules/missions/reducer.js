@@ -29,6 +29,7 @@ export const ACTION = actions(TYPE);
 
 export const initialState = {
   isFetching: false,
+  isTelescopeFetching: false,
   isLoaded: false,
   serverError: null,
 
@@ -46,7 +47,7 @@ export const initialState = {
     categoryList: {},
     selectedCategorySlug: null,
     objectList: [],
-    selectedObjectSlug: null,
+    selectedObjectId: null,
   },
 
   byCatalog: {
@@ -68,7 +69,7 @@ export default handleActions(
     [TYPE.GET_MISSIONS]: setFetching,
     [TYPE.GET_MISSIONS_SUCCESS]: getMissionsSuccess,
     [TYPE.GET_MISSIONS_ERROR]: setServerError,
-    [TYPE.GET_MISSION_SLOT]: setFetching,
+    [TYPE.GET_MISSION_SLOT]: setTelescopeFetching,
     [TYPE.GET_MISSION_SLOT_SUCCESS]: getMissionSlotSuccess,
     [TYPE.GET_MISSION_SLOT_ERROR]: setServerError,
     [TYPE.RESET_MISSIONS_DATA]: resetMissionsData,
@@ -84,7 +85,7 @@ export default handleActions(
     [TYPE.GET_CATEGORY_LIST_SUCCESS]: getCategoryListSuccess,
     [TYPE.GET_CATEGORY_LIST_ERROR]: setServerError,
     [TYPE.SET_CATEGORY]: setCategory,
-    [TYPE.GET_OBJECT_LIST]: setFetching,
+    [TYPE.GET_OBJECT_LIST]: setTelescopeFetching,
     [TYPE.GET_OBJECT_LIST_SUCCESS]: getObjectListSuccess,
     [TYPE.GET_OBJECT_LIST_ERROR]: setServerError,
     [TYPE.SET_OBJECT]: setObject,
@@ -115,10 +116,15 @@ function setFetching(state) {
   return { ...state, isFetching: true, isLoaded: false };
 }
 
+function setTelescopeFetching(state) {
+  return { ...state, isTelescopeFetching: true, isLoaded: false };
+}
+
 function setServerError(state, action) {
   return {
     ...state,
     isFetching: false,
+    isTelescopeFetching: false,
     serverError: action.payload,
     isLoaded: false,
   };
@@ -136,7 +142,7 @@ function getMissionsSuccess(state, action) {
 function getMissionSlotSuccess(state, action) {
   return {
     ...state,
-    isFetching: false,
+    isTelescopeFetching: false,
     isLoaded: true,
     missions: { ...state.missions, missionList: action.payload.missionList },
   };
@@ -165,7 +171,7 @@ function resetMissionsData(state) {
       ...state.bySlooh1000,
       selectedCategorySlug: null,
       objectList: [],
-      selectedObjectSlug: null,
+      selectedObjectId: null,
     },
     byCatalog: {
       ...state.byCatalog,
@@ -204,7 +210,7 @@ function setCategory(state, action) {
       ...state.bySlooh1000,
       selectedCategorySlug: action.payload,
       objectList: [],
-      selectedObjectSlug: null,
+      selectedObjectId: null,
     },
   };
 }
@@ -212,7 +218,7 @@ function setCategory(state, action) {
 function getObjectListSuccess(state, action) {
   return {
     ...state,
-    isFetching: false,
+    isTelescopeFetching: false,
     isLoaded: true,
     bySlooh1000: {
       ...state.bySlooh1000,
@@ -224,7 +230,7 @@ function getObjectListSuccess(state, action) {
 function setObject(state, action) {
   return {
     ...state,
-    bySlooh1000: { ...state.bySlooh1000, selectedObjectSlug: action.payload },
+    bySlooh1000: { ...state.bySlooh1000, selectedObjectId: action.payload },
   };
 }
 

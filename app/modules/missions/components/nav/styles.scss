@@ -1,8 +1,7 @@
-@import "~app/styles/variables/index";
+@import '~app/styles/variables/index';
 
 .nav-container {
-  //padding: 0 35px;
-
+  padding: 0 40px;
 
   ul.list-inline {
     margin: 0;
@@ -18,8 +17,10 @@
         color: $moodyBleu;
         text-decoration: none;
 
-        &:hover {
+        &:hover,
+        &.active-menu-item {
           color: $astronaut;
+          font-weight: 700;
         }
 
         &.active-menu-item {
@@ -28,5 +29,4 @@
       }
     }
   }
-
 }

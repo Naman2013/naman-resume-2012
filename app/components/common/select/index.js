@@ -4,7 +4,11 @@ import './styles.scss';
 
 export class Select extends Component {
   getCustomOption = props => (
-    <div ref={props.innerRef} {...props.innerProps} className="dropdown-opt">
+    <div
+      ref={props.innerRef}
+      {...props.innerProps}
+      className={`dropdown-opt${props.data.disabled ? ' disabled' : ''}`}
+    >
       <div className="dropdown-name">{props.children}</div>
       <div className="focused-ind" />
     </div>
@@ -33,6 +37,7 @@ export class Select extends Component {
           placeholder={placeholder}
           classNamePrefix="slooh-react-select"
           isDisabled={isDisabled}
+          isOptionDisabled={option => option.disabled}
         />
       </div>
     );
