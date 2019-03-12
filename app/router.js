@@ -1,3 +1,4 @@
+import { hot } from 'react-hot-loader/root';
 import DashboardPage from 'app/components/Dashboard';
 import ImagesLayout from 'app/components/profile-photos/ImagesLayout';
 import PrivateProfilePhotos from 'app/components/profile-photos/PrivateProfilePhotos';
@@ -140,7 +141,7 @@ const getProfileRoutes = () => (
   </Fragment>
 );
 
-export const AppRouter = () => (
+const AppRouter = () => (
   <Router history={browserHistory} onUpdate={globalOnRouteUpdate}>
     <Route path="redirect-confirmation" component={RedirectConfirmation} />
 
@@ -476,3 +477,5 @@ export const AppRouter = () => (
     <Redirect from="*" to="/" />
   </Router>
 );
+
+export default hot(AppRouter);
