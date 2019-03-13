@@ -162,6 +162,7 @@ module.exports = {
     contentBase: path.join(__dirname, '/dist'),
     compress: false,
     historyApiFallback: true,
+    hot: true,
     // Shows a full-screen overlay in the browser when there are compiler errors or warnings
     overlay: true,
     proxy: {

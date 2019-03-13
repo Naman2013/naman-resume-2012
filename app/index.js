@@ -1,5 +1,5 @@
 import 'event-source-polyfill/src/eventsource';
-import { AppRouter } from 'app/router';
+import AppRouter from 'app/router';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
