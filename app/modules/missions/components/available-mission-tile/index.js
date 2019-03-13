@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { FormattedNumber } from 'react-intl';
 import Countdown from 'react-countdown-now';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
@@ -25,7 +26,11 @@ export class AvailbleMissionTile extends Component {
             onComplete={cancel}
             renderer={props => (
               <div>
-                Reservation ends in {props.minutes}:{props.seconds}
+                Reservation ends in {props.minutes}:
+                <FormattedNumber
+                  value={props.seconds}
+                  minimumIntegerDigits={2}
+                />
               </div>
             )}
           />

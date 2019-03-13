@@ -9,6 +9,7 @@ import {
   getCatalogListApi,
   checkCatalogVisibilityApi,
   getPresetOptionsApi,
+  cancelMissionSlotApi,
 } from 'app/modules/missions/api';
 import { ACTION } from './reducer';
 
@@ -34,6 +35,14 @@ export const reserveMissionSlot = data => (dispatch, getState) => {
   return reserveMissionSlotApi({ at, token, cid, ...data })
     .then(result => dispatch(ACTION.reserveMissionSlotSuccess(result.data)))
     .catch(error => dispatch(ACTION.reserveMissionSlotError(error)));
+};
+
+export const cancelMissionSlot = data => (dispatch, getState) => {
+  const { at, token, cid } = getState().user;
+  dispatch(ACTION.cancelMissionSlot());
+  return cancelMissionSlotApi({ at, token, cid, ...data })
+    .then(result => dispatch(ACTION.cancelMissionSlotSuccess(result.data)))
+    .catch(error => dispatch(ACTION.cancelMissionSlotError(error)));
 };
 
 // by Slooh 1000

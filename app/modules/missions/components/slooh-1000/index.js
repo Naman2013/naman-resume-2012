@@ -11,12 +11,16 @@ export class Slooh1000 extends Component {
     successModalShow: false,
   };
 
-  componentDidMount = () => {
+  componentDidMount() {
     const { getCategoryList, getBySlooh1000, resetMissionsData } = this.props;
     resetMissionsData();
     //getBySlooh1000(); will be soon
     getCategoryList();
-  };
+  }
+
+  componentWillUnmount() {
+    this.cancelMissionSlot();
+  }
 
   getMissionSlot = () => {
     const { getMissionSlot, selectedObjectData } = this.props;
@@ -74,6 +78,18 @@ export class Slooh1000 extends Component {
     this.setState({ successModalShow: false }, () => resetMissionsData());
   };
 
+  cancelMissionSlot = () => {
+    const { cancelMissionSlot, missionSlot } = this.props;
+
+    if (missionSlot && missionSlot.scheduledMissionId) {
+      cancelMissionSlot({
+        callSource: 'byPopularObjects',
+        grabType: 'notarget',
+        scheduledMissionId: missionSlot.scheduledMissionId,
+      });
+    }
+  };
+
   render() {
     const {
       categoryListOpts,
@@ -81,7 +97,6 @@ export class Slooh1000 extends Component {
       objectListOpts,
       setObject,
       missionSlot,
-      resetMissionsData,
       selectedCategorySlug,
       selectedObjectId,
       reservedMissionData,
@@ -103,6 +118,7 @@ export class Slooh1000 extends Component {
                   getMissionSlot={this.getMissionSlot}
                   selectedCategorySlug={selectedCategorySlug}
                   selectedObjectId={selectedObjectId}
+                  disabled={missionSlot && missionSlot.missionAvailable}
                 />
               </Box>
             </div>
@@ -115,7 +131,7 @@ export class Slooh1000 extends Component {
                     description={missionSlot.explanation}
                     date={this.getMissionDate(missionSlot.missionStart)}
                     time={this.getMissionTime(missionSlot.missionStart)}
-                    cancel={resetMissionsData}
+                    cancel={this.cancelMissionSlot}
                     scheduleMission={this.reserveMissionSlot}
                   />
                 ) : (

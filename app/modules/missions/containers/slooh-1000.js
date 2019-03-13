@@ -21,6 +21,7 @@ import {
   getBySlooh1000,
   getMissionSlot,
   reserveMissionSlot,
+  cancelMissionSlot,
 } from '../thunks';
 import { ACTION } from '../reducer';
 
@@ -46,6 +47,7 @@ const mapDispatchToProps = {
   setObject: ACTION.setObject,
   resetMissionsData: ACTION.resetMissionsData,
   reserveMissionSlot,
+  cancelMissionSlot,
 };
 
 export default compose(

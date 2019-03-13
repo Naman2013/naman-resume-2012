@@ -5,6 +5,8 @@ export const getMissionSlotApi = data =>
   axios.post('/api/reservation/grabMissionSlot', data);
 export const reserveMissionSlotApi = data =>
   axios.post('/api/reservation/reserveMissionSlot', data);
+export const cancelMissionSlotApi = data =>
+  axios.post('/api/reservation/cancelMissionSlot', data);
 
 // bySlooh1000 page
 export const getBySlooh1000Api = data =>

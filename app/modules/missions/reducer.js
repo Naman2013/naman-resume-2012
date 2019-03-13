@@ -6,6 +6,7 @@ export const TYPE = constants('profile', [
   '~GET_MISSION_SLOT',
   'RESET_MISSIONS_DATA',
   '~RESERVE_MISSION_SLOT',
+  '~CANCEL_MISSION_SLOT',
 
   // bySlooh1000 page
   '~GET_BY_SLOOH_1000',
@@ -69,13 +70,16 @@ export default handleActions(
     [TYPE.GET_MISSIONS]: setFetching,
     [TYPE.GET_MISSIONS_SUCCESS]: getMissionsSuccess,
     [TYPE.GET_MISSIONS_ERROR]: setServerError,
-    [TYPE.GET_MISSION_SLOT]: setTelescopeFetching,
+    [TYPE.GET_MISSION_SLOT]: setFetching,
     [TYPE.GET_MISSION_SLOT_SUCCESS]: getMissionSlotSuccess,
     [TYPE.GET_MISSION_SLOT_ERROR]: setServerError,
     [TYPE.RESET_MISSIONS_DATA]: resetMissionsData,
     [TYPE.RESERVE_MISSION_SLOT]: setFetching,
     [TYPE.RESERVE_MISSION_SLOT_SUCCESS]: reserveMissionSlotSuccess,
     [TYPE.RESERVE_MISSION_SLOT_ERROR]: setServerError,
+    [TYPE.CANCEL_MISSION_SLOT]: setFetching,
+    [TYPE.CANCEL_MISSION_SLOT_SUCCESS]: resetMissionsData,
+    [TYPE.CANCEL_MISSION_SLOT_ERROR]: setServerError,
 
     // bySlooh1000 page
     [TYPE.GET_BY_SLOOH_1000]: setFetching,
@@ -142,7 +146,7 @@ function getMissionsSuccess(state, action) {
 function getMissionSlotSuccess(state, action) {
   return {
     ...state,
-    isTelescopeFetching: false,
+    isFetching: false,
     isLoaded: true,
     missions: { ...state.missions, missionList: action.payload.missionList },
   };
@@ -163,6 +167,8 @@ function reserveMissionSlotSuccess(state, action) {
 function resetMissionsData(state) {
   return {
     ...state,
+    isFetching: false,
+    isLoaded: true,
     missions: {
       missionList: [],
       reservedMissionList: [],
