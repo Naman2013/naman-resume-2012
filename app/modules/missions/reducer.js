@@ -51,6 +51,8 @@ export const initialState = {
     selectedObjectId: null,
   },
 
+  byConstellation: {},
+
   byCatalog: {
     catalogList: [],
     selectedCatalog: null,
