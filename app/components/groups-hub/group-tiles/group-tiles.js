@@ -68,7 +68,7 @@ class GroupTiles extends Component {
   render() {
     const { groups, isMobile, filterType, updateGroupItemInfo, updatePrompt } = this.props;
     const { activeId } = this.state;
-    return groups.length ? (
+    return groups && groups.length ? (
       <CenterColumn widths={['645px', '965px', '965px']}>
         <ul className="group-tiles-root">
           {!isMobile && groups.map(group => (

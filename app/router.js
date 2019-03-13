@@ -1,3 +1,4 @@
+import { hot } from 'react-hot-loader/root';
 import DashboardPage from 'app/components/Dashboard';
 import ImagesLayout from 'app/components/profile-photos/ImagesLayout';
 import PrivateProfilePhotos from 'app/components/profile-photos/PrivateProfilePhotos';
@@ -137,10 +138,20 @@ const getProfileRoutes = () => (
       <Route path=":filter" component={ProfileQaContainer} />
     </Route>
     <Route path="groups" component={ProfileGroups} />
+    <Route
+      path="groups/create"
+      component={GroupCreate}
+      onEnter={validateUser}
+    />
+    <Route
+      path="groups/importGoogleClassrooms"
+      component={GroupImportGoogleClassrooms}
+      onEnter={validateUser}
+    />
   </Fragment>
 );
 
-export const AppRouter = () => (
+const AppRouter = () => (
   <Router history={browserHistory} onUpdate={globalOnRouteUpdate}>
     <Route path="redirect-confirmation" component={RedirectConfirmation} />
 
@@ -476,3 +487,5 @@ export const AppRouter = () => (
     <Redirect from="*" to="/" />
   </Router>
 );
+
+export default hot(AppRouter);
