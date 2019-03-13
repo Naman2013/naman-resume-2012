@@ -23,6 +23,14 @@ const esNext = [
   '@babel/plugin-syntax-import-meta',
   ['@babel/plugin-proposal-class-properties', { loose: false }],
   '@babel/plugin-proposal-json-strings',
+
+  // module resolver
+  [
+    'module-resolver',
+    {
+      root: ['./app'],
+    },
+  ],
 ];
 
 module.exports = {
