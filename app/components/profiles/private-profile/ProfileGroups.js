@@ -4,7 +4,7 @@
  ********************************** */
 
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { injectIntl, intlShape } from 'react-intl';
 import Modal from 'react-modal';
 import { Link } from 'react-router';
@@ -72,6 +72,41 @@ class ProfileGroups extends Component {
     });
   };
 
+  renderClubBtns = () => {
+    const { groupControls } = this.props;
+
+    const {
+      canCreateNewClubs,
+      canImportGoogleClassrooms,
+      createNewClubButtonText,
+      createNewClubLinkUrl,
+      importGoogleClassroomsPrompt,
+      importGoogleClassroomsURL,
+    } = groupControls;
+
+    return (
+      <Fragment>
+        {canCreateNewClubs && (
+          <Link
+            to={createNewClubLinkUrl}
+            className="btn btn-primary float-right club-btn"
+          >
+            {createNewClubButtonText}
+          </Link>
+        )}
+
+        {canImportGoogleClassrooms && (
+          <Link
+            to={importGoogleClassroomsURL}
+            className="btn btn-primary float-right club-btn"
+          >
+            {importGoogleClassroomsPrompt}
+          </Link>
+        )}
+      </Fragment>
+    );
+  };
+
   render() {
     const { groupsCount } = this.props.groupsData;
 
@@ -81,19 +116,7 @@ class ProfileGroups extends Component {
     return (
       <div className="profile-groups">
         <CenterColumn>
-          <Link
-            to="/profile/private/groups/create"
-            className="btn btn-primary float-right club-btn"
-          >
-            create new club
-          </Link>
-
-          <Link
-            to="/profile/private/groups/importGoogleClassrooms"
-            className="btn btn-primary float-right club-btn"
-          >
-            Import Google classrooms
-          </Link>
+          {this.renderClubBtns()}
 
           <ContainerWithTitle title={intl.formatMessage(messages.MyClubs)}>
             {groupsCount > 0 ? (

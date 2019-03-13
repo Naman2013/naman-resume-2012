@@ -74,6 +74,7 @@ class PrivateProfile extends Component {
 
   render() {
     const { children, privateProfileData, params } = this.props;
+    const { groupControls } = privateProfileData;
     const modelResult = this.modelData(privateProfileData);
 
     return (
@@ -89,6 +90,7 @@ class PrivateProfile extends Component {
               groupsData: modelResult.groupsData,
               privateProfileData,
               params,
+              groupControls,
               profileMenuList: modelResult.profileMenuList,
             })}
           </Fragment>
