@@ -1,5 +1,4 @@
-import 'babel-polyfill'; // todo remove me, use babel 7
-import 'event-source-polyfill/eventsource.min';
+import 'event-source-polyfill/src/eventsource';
 import { AppRouter } from 'app/router';
 
 import React from 'react';

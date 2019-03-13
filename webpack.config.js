@@ -69,17 +69,6 @@ module.exports = {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         loader: 'babel-loader',
-        query: {
-          cacheDirectory: true,
-          plugins: [
-            ['styled-jsx/babel', { optimizeForSpeed: false }],
-            'transform-object-rest-spread',
-            'transform-decorators-legacy',
-            'transform-class-properties',
-            'transform-function-bind',
-          ],
-          presets: ['env', 'react'],
-        },
       },
       {
         test: /\.css$/,
