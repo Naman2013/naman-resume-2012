@@ -99,6 +99,18 @@ export class Catalog extends Component {
     }).then(() => this.setState({ successModalShow: true }));
   };
 
+  cancelMissionSlot = () => {
+    const { cancelMissionSlot, missionSlot } = this.props;
+
+    if (missionSlot && missionSlot.scheduledMissionId) {
+      cancelMissionSlot({
+        callSource: 'byCatalog',
+        grabType: 'notarget',
+        scheduledMissionId: missionSlot.scheduledMissionId,
+      });
+    }
+  };
+
   render() {
     const {
       catalogListOpts,
@@ -137,6 +149,7 @@ export class Catalog extends Component {
                   telescopeData={telescopeData}
                   setProcessingRecipe={setProcessingRecipe}
                   processingRecipe={processingRecipe}
+                  disabled={missionSlot && missionSlot.missionAvailable}
                 />
               </Box>
             </div>
@@ -149,7 +162,7 @@ export class Catalog extends Component {
                     description={missionSlot.explanation}
                     date={this.getMissionDate(missionSlot.missionStart)}
                     time={this.getMissionTime(missionSlot.missionStart)}
-                    cancel={resetMissionsData}
+                    cancel={this.cancelMissionSlot}
                     scheduleMission={this.reserveMissionSlot}
                   />
                 ) : (

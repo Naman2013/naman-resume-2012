@@ -20,6 +20,7 @@ import {
   checkCatalogVisibility,
   getMissionSlot,
   reserveMissionSlot,
+  cancelMissionSlot,
 } from '../thunks';
 import { ACTION } from '../reducer';
 
@@ -46,6 +47,7 @@ const mapDispatchToProps = {
   setProcessingRecipe: ACTION.setProcessingRecipe,
   resetMissionsData: ACTION.resetMissionsData,
   reserveMissionSlot,
+  cancelMissionSlot,
 };
 
 export default compose(

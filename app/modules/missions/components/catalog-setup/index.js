@@ -20,6 +20,7 @@ export class CatalogSetup extends Component {
       telescopeData,
       setProcessingRecipe,
       processingRecipe,
+      disabled,
     } = this.props;
 
     const { explanation } = objectData;
@@ -52,6 +53,7 @@ export class CatalogSetup extends Component {
               options={catalogListOpts}
               placeholder="Choose"
               value={selectedCatalog}
+              isDisabled={disabled}
             />
           </div>
         </div>
@@ -74,10 +76,11 @@ export class CatalogSetup extends Component {
               placeholder="Type Designation here"
               value={designation}
               onChange={e => setDesignation(e.target.value)}
+              disabled={disabled}
             />
 
             <div className="designation-format">
-              {selectedCatalog ? selectedCatalogData.catFormat : 'FORMAT'}
+              FORMAT: {selectedCatalog ? selectedCatalogData.catFormat : ''}
             </div>
 
             <div className="designation-example">
@@ -87,7 +90,7 @@ export class CatalogSetup extends Component {
             <Button
               text="Check Visability"
               onClickEvent={() => checkCatalogVisibility(designation)}
-              disabled={!selectedCatalog || !designation}
+              disabled={!selectedCatalog || !designation || disabled}
             />
 
             <div className="processing-explanation">{explanation}</div>
@@ -107,7 +110,7 @@ export class CatalogSetup extends Component {
               </OverlayTrigger>
             </div>
 
-            <div className="processing-list">
+            <div className={`processing-list${disabled ? ' disabled' : ''}`}>
               {telescopeData.telePresetList &&
                 telescopeData.telePresetList.map(item => (
                   <div
@@ -151,7 +154,12 @@ export class CatalogSetup extends Component {
             <Button
               text="Find a Mission"
               onClickEvent={getMissionSlot}
-              disabled={!designation || !processingRecipe || !selectedCatalog}
+              disabled={
+                !designation ||
+                !processingRecipe.presetOption ||
+                !selectedCatalog ||
+                disabled
+              }
             />
           </div>
         </div>

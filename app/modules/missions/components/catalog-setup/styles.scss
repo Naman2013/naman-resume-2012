@@ -38,6 +38,10 @@
         overflow-y: auto;
         border-bottom: 1px solid $hawkesBlue;
 
+        &.disabled {
+          pointer-events: none;
+        }
+
         .processing-list-item {
           padding: 10px 30px;
           font-family: $secondary-font;
@@ -104,12 +108,13 @@
       &:disabled {
         cursor: not-allowed;
         opacity: 0.5;
+        font-weight: 700;
       }
 
       span {
         line-height: 18px;
         font-size: 11px;
-        font-weight: 400;
+        font-weight: 900;
       }
     }
   }

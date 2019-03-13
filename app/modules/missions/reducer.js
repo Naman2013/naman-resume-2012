@@ -100,7 +100,7 @@ export default handleActions(
     [TYPE.GET_CATALOG_LIST_ERROR]: setServerError,
     [TYPE.SET_CATALOG]: setCatalog,
     [TYPE.SET_DESIGNATION]: setDesignation,
-    [TYPE.CHECK_CATALOG_VISIBILITY]: setTelescopeFetching,
+    [TYPE.CHECK_CATALOG_VISIBILITY]: checkCatalogVisibility,
     [TYPE.CHECK_CATALOG_VISIBILITY_SUCCESS]: checkCatalogVisibilitySuccess,
     [TYPE.CHECK_CATALOG_VISIBILITY_ERROR]: setServerError,
     [TYPE.GET_PRESET_OPTIONS]: setTelescopeFetching,
@@ -270,6 +270,20 @@ function setDesignation(state, action) {
     byCatalog: {
       ...state.byCatalog,
       designation: action.payload,
+    },
+  };
+}
+
+function checkCatalogVisibility(state) {
+  return {
+    ...state,
+    isTelescopeFetching: true,
+    isLoaded: false,
+    byCatalog: {
+      ...state.byCatalog,
+      objectData: {},
+      telescopeData: {},
+      processingRecipe: {},
     },
   };
 }
