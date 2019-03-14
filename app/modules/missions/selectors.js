@@ -186,3 +186,9 @@ export const makeTelescopeListSelector = () =>
     makeByTelescopeSelector(),
     state => state.telescopeList
   );
+
+export const makeTelescopeSelectedTelescopeSelector = () =>
+  createSelector(
+    makeByTelescopeSelector(),
+    state => state.selectedTelescope
+  );

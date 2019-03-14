@@ -25,6 +25,7 @@ export const TYPE = constants('profile', [
 
   // byTelescope page
   '~GET_OBSERVATORY_LIST',
+  'SET_TELESCOPE',
 ]);
 export const ACTION = actions(TYPE);
 
@@ -63,7 +64,8 @@ export const initialState = {
   },
 
   byTelescope: {
-    telescopeList: {},
+    telescopeList: [],
+    selectedTelescope: {},
   },
 };
 
@@ -114,6 +116,7 @@ export default handleActions(
     [TYPE.GET_OBSERVATORY_LIST]: setFetching,
     [TYPE.GET_OBSERVATORY_LIST_SUCCESS]: getObservatoryListSuccess,
     [TYPE.GET_OBSERVATORY_LIST_ERROR]: setServerError,
+    [TYPE.SET_TELESCOPE]: setTelescope,
   },
   initialState
 );
@@ -334,15 +337,27 @@ function getTelescopeListByObservatory(observatoryList) {
 }
 
 function getObservatoryListSuccess(state, action) {
+  const telescopeList = getTelescopeListByObservatory(
+    action.payload.observatoryList
+  );
   return {
     ...state,
     isFetching: false,
     isLoaded: true,
     byTelescope: {
       ...state.byTelescope,
-      telescopeList: getTelescopeListByObservatory(
-        action.payload.observatoryList
-      ),
+      telescopeList,
+      selectedTelescope: telescopeList[0],
+    },
+  };
+}
+
+function setTelescope(state, action) {
+  return {
+    ...state,
+    byTelescope: {
+      ...state.byTelescope,
+      selectedTelescope: action.payload,
     },
   };
 }

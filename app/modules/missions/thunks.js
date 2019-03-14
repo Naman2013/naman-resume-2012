@@ -116,28 +116,6 @@ export const checkCatalogVisibility = data => (dispatch, getState) => {
     .catch(error => dispatch(ACTION.checkCatalogVisibilityError(error)));
 };
 
-// export const setCatalog = catalog => dispatch => {
-//   dispatch(ACTION.setCatalog(catalog));
-// };
-
-// export const getObjectList = ({ categorySlug, includeDescription = true }) => (
-//   dispatch,
-//   getState
-// ) => {
-//   const { at, token, cid } = getState().user;
-//   dispatch(ACTION.getCategoryList());
-//   return getObjectListApi({
-//     at,
-//     token,
-//     cid,
-//     callSource: 'byPopularObjects',
-//     includeDescription,
-//     categorySlug,
-//   })
-//     .then(result => dispatch(ACTION.getObjectListSuccess(result.data)))
-//     .catch(error => dispatch(ACTION.getObjectListError(error)));
-// };
-
 // by telescope
 export const getObservatoryList = () => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
@@ -152,4 +130,9 @@ export const getObservatoryList = () => (dispatch, getState) => {
   })
     .then(result => dispatch(ACTION.getObservatoryListSuccess(result.data)))
     .catch(error => dispatch(ACTION.getObservatoryListError(error)));
+};
+
+export const setTelescope = telescope => dispatch => {
+  dispatch(ACTION.setTelescope(telescope));
+  //get something here
 };

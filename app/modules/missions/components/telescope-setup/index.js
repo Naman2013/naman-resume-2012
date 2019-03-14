@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Box } from '../box';
+import { TelescopeNav } from '../telescope-nav';
 import './styles.scss';
 
 export class TelescopeSetup extends Component {
@@ -11,8 +11,23 @@ export class TelescopeSetup extends Component {
   };
 
   render() {
-    const { params } = this.props;
+    const { selectedTelescope, telescopeList, setTelescope } = this.props;
+    const { teleName, teleUniqueId } = selectedTelescope;
 
-    return <div>test</div>;
+    return (
+      <div className="telescope-setup">
+        <div className="telescope-setup-header">
+          <div className="telescope-setup-telescope-info">
+            Set up Telescope: {teleName}
+          </div>
+          <TelescopeNav
+            telescopeList={telescopeList}
+            selectedTelescopeId={teleUniqueId}
+            setTelescope={setTelescope}
+          />
+        </div>
+        test
+      </div>
+    );
   }
 }
