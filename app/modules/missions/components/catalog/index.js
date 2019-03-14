@@ -17,6 +17,10 @@ export class Catalog extends Component {
     getCatalogList();
   };
 
+  componentWillUnmount() {
+    this.cancelMissionSlot();
+  }
+
   checkCatalogVisibility = designation => {
     const { checkCatalogVisibility, selectedCatalogData } = this.props;
     const { catName, catalog } = selectedCatalogData;
