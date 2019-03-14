@@ -21,7 +21,7 @@ export class ConstellationSetup extends Component {
     return (
       <div className="slooh-1000-setup">
         <div className="row setup-header">
-          <h2>Set up with Constellation!</h2>
+          <h2>Set up a reservation by constellation!</h2>
           <p>
             Welcome to the Constellation! Tell us what you want to see, we’ll
             tell you which scope to use, and the best time to see it!
@@ -64,7 +64,7 @@ export class ConstellationSetup extends Component {
               handleChange={setObject}
               options={objectListOpts}
               placeholder="Choose"
-              isDisabled={disabled}
+              isDisabled
               value={selectedObjectId}
             />
           </div>
