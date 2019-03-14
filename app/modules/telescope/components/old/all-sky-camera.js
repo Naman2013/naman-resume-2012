@@ -1,8 +1,11 @@
-import React, { Component } from 'react';
+import { fetchAllSkyAction } from 'app/modules/Telescope-Overview';
 import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { Button, Modal } from 'react-bootstrap';
+import { Magnifier } from 'react-image-magnifiers';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { fetchAllSkyAction } from 'modules/Telescope-Overview';
+import './all-sky-camera.scss';
 import { ImagePortalViewer } from './index';
 import { ModuleContainer } from './module-container';
 
@@ -10,6 +13,9 @@ class AllSkyCamera extends Component {
   constructor(props) {
     super(props);
     this.updateAllSky(props);
+    this.state = {
+      isModalOpen: false,
+    };
   }
 
   componentDidUpdate(prevProps) {
@@ -28,17 +34,32 @@ class AllSkyCamera extends Component {
     }
   }
 
+  openModal = () => this.setState({ isModalOpen: true });
+
+  closeModal = () => this.setState({ isModalOpen: false });
+
   render() {
     const { imageURL, description } = this.props;
+    const { isModalOpen } = this.state;
 
     return (
-      <div className="root">
+      <div className="root all-sky-camera">
         <ModuleContainer title="All sky camera snap">
           <ImagePortalViewer
             imageURL={imageURL}
             description={description}
+            onClick={this.openModal}
           />
+          <div className="text-center">
+            <Button className="open-timelapse">Open Timelapse</Button>
+          </div>
         </ModuleContainer>
+
+        <Modal size="lg" centered show={isModalOpen} onHide={this.closeModal}>
+          <Modal.Body>
+            <Magnifier imageSrc={imageURL} />
+          </Modal.Body>
+        </Modal>
       </div>
     );
   }

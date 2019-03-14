@@ -95,7 +95,7 @@
     "react-draggable": "^3.0.3",
     "react-google-login": "^3.2.1",
     "react-helmet": "^5.2.0",
-    "react-image-magnifiers": "^1.0.0",
+    "react-image-magnifiers": "^1.0.1",
     "react-images": "^0.5.17",
     "react-intl": "^2.7.2",
     "react-measure": "^2.0.2",
