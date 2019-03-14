@@ -105,7 +105,7 @@ export class Constellation extends Component {
           <div className="row">
             <div className="col-lg-8">
               <Box>
-                {/* <ConstellationSetup
+                <ConstellationSetup
                   categoryListOpts={categoryListOpts}
                   objectListOpts={objectListOpts}
                   setCategory={setCategory}
@@ -114,7 +114,7 @@ export class Constellation extends Component {
                   selectedCategorySlug={selectedCategorySlug}
                   selectedObjectId={selectedObjectId}
                   disabled={missionSlot && missionSlot.missionAvailable}
-                /> */}
+                />
               </Box>
             </div>
             <div className="col-lg-4 reserved-mission" id="grabedMissionTile">

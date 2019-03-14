@@ -21,10 +21,10 @@ export class ConstellationSetup extends Component {
     return (
       <div className="slooh-1000-setup">
         <div className="row setup-header">
-          <h2>Set up with Slooh 1000!</h2>
+          <h2>Set up with Constellation!</h2>
           <p>
-            Welcome to the Slooh 1000! Tell us what you want to see, we’ll tell
-            you which scope to use, and the best time to see it!
+            Welcome to the Constellation! Tell us what you want to see, we’ll
+            tell you which scope to use, and the best time to see it!
           </p>
         </div>
 
@@ -38,7 +38,7 @@ export class ConstellationSetup extends Component {
                 </Tooltip>
               }
             >
-              <span>Step 1: Choose Category</span>
+              <span>Step 1: Choose Constellation</span>
             </OverlayTrigger>
             <Select
               handleChange={setCategory}
@@ -64,7 +64,7 @@ export class ConstellationSetup extends Component {
               handleChange={setObject}
               options={objectListOpts}
               placeholder="Choose"
-              isDisabled={objectListOpts.length === 0 || disabled}
+              isDisabled={disabled}
               value={selectedObjectId}
             />
           </div>
