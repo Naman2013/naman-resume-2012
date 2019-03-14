@@ -65,9 +65,7 @@ export class Catalog extends Component {
       processingRecipe: processingRecipe.presetOption,
       scheduledMissionId,
       telescopeId,
-    }).then(() =>
-      document.getElementById('grabedMissionTile').scrollIntoView()
-    );
+    }).then(() => this.grabedMissionTile.scrollIntoView());
   };
 
   reserveMissionSlot = () => {
@@ -153,7 +151,10 @@ export class Catalog extends Component {
                 />
               </Box>
             </div>
-            <div className="col-lg-4 reserved-mission" id="grabedMissionTile">
+            <div
+              className="col-lg-4 reserved-mission"
+              ref={node => (this.grabedMissionTile = node)}
+            >
               <Box inside>
                 {missionSlot && missionSlot.missionAvailable ? (
                   <AvailbleMissionTile
