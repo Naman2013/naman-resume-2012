@@ -1,7 +1,8 @@
 import { fetchAllSkyAction } from 'app/modules/Telescope-Overview';
+import AllSkyTimelapse from 'app/modules/telescope/containers/all-sky-timelapse';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { Button, Modal } from 'react-bootstrap';
+import { Button, Modal, Collapse } from 'react-bootstrap';
 import { Magnifier } from 'react-image-magnifiers';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -15,6 +16,7 @@ class AllSkyCamera extends Component {
     this.updateAllSky(props);
     this.state = {
       isModalOpen: false,
+      isTimelapseExpanded: false,
     };
   }
 
@@ -40,7 +42,7 @@ class AllSkyCamera extends Component {
 
   render() {
     const { imageURL, description } = this.props;
-    const { isModalOpen } = this.state;
+    const { isModalOpen, isTimelapseExpanded } = this.state;
 
     return (
       <div className="root all-sky-camera">
@@ -51,7 +53,22 @@ class AllSkyCamera extends Component {
             onClick={this.openModal}
           />
           <div className="text-center">
-            <Button className="open-timelapse">Open Timelapse</Button>
+            <Button
+              className="open-timelapse"
+              onClick={() =>
+                this.setState({ isTimelapseExpanded: !isTimelapseExpanded })
+              }
+              aria-controls="open all sky timelapse"
+              aria-expanded={isTimelapseExpanded}
+            >
+              Open Timelapse
+            </Button>
+
+            <Collapse in={isTimelapseExpanded}>
+              <div id="example-collapse-text">
+                <AllSkyTimelapse />
+              </div>
+            </Collapse>
           </div>
         </ModuleContainer>
 
@@ -83,10 +100,13 @@ const mapStateToProps = ({ telescopeOverview: { allSkyWidgetResult } }) => ({
   description: allSkyWidgetResult.title,
 });
 
-const mapDispatchToProps = dispatch => (bindActionCreators({
+const mapDispatchToProps = {
   fetchAllSkyAction,
-}, dispatch));
+};
 
-const ConnectedAllSkyCamera = connect(mapStateToProps, mapDispatchToProps)(AllSkyCamera);
+const ConnectedAllSkyCamera = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AllSkyCamera);
 
 export { AllSkyCamera, ConnectedAllSkyCamera };

@@ -1,4 +1,5 @@
 import profile from 'app/modules/profile/reducer';
+import telescope from 'app/modules/telescope/reducer';
 import storyDetails from 'app/modules/story-details/reducer';
 import { routerReducer } from 'react-router-redux';
 import { combineReducers } from 'redux';
@@ -181,4 +182,5 @@ export default combineReducers({
   videoViewerShow,
   logIn,
   storyDetails,
+  telescope,
 });

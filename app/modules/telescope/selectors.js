@@ -14,3 +14,18 @@ export const makeTelescopeDataSelector = () =>
     selectTelescope,
     state => state.data
   );
+
+export const makeAllSkyTimelapseSelector = () =>
+  createSelector(
+    selectTelescope,
+    state => state.allSkyTimelapse
+  );
+
+export const makeAllSkyTimelapseURLSelector = () =>
+  createSelector(
+    makeAllSkyTimelapseSelector(),
+    state => {
+      console.log(state);
+      return state.data.allskyTimelapseURL
+    }
+  );
