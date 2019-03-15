@@ -1,0 +1,48 @@
+@import '~app/styles/variables/index';
+
+.spinner-wrapper {
+  position: absolute;
+  z-index: 999;
+  background: rgba(255, 255, 255, 0.6);
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  .spinner-container {
+    top: 45%;
+    //top: 200px;
+    position: relative;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+
+    .spinner {
+      height: 60px;
+      width: 60px;
+      margin: 0 auto;
+      animation: rotation 1s infinite linear;
+      border: 6px solid $astronaut;
+      border-top-color: $hawkesBlue;
+      border-radius: 100%;
+    }
+
+    .spinner-text {
+      margin-top: 20px;
+      font-family: $primary-font;
+      font-size: 18px;
+      font-weight: 700;
+      color: $astronaut;
+    }
+  }
+
+  @keyframes rotation {
+    from {
+      transform: rotate(0deg);
+    }
+
+    to {
+      transform: rotate(359deg);
+    }
+  }
+}

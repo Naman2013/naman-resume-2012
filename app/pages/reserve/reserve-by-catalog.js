@@ -1,3 +1,5 @@
+// todo remove me
+
 /**
   ~ determining which visibility call to make ~
   the optional props
@@ -34,7 +36,7 @@ import { fetchPresetOptions } from '../../modules/get-preset-options/get-preset-
 import { placeOneHourHold } from '../../modules/grab-telescope-slot/actions';
 import styles from '../../components/reserve/reserve-by-object.scss';
 
-import { grabMissionSlot, missionConfirmOpen } from '../../modules/Missions';
+import { grabMissionSlot, missionConfirmOpen } from '../../modules/missions-old';
 
 const ImageProcessingHelperText = ({ content }) => (
   <div>
