@@ -47,7 +47,8 @@ const TabLive = ({
     <div className="tile-container">
       <ConnectedAllSkyCamera
         obsId={obsId}
-        allSkyWidgetID={activeTelescope.AllskyTimelapseWidgetId}
+        allSkyWidgetID={allSkyWidgetID}
+        AllskyTimelapseWidgetId={activeTelescope.AllskyTimelapseWidgetId}
       />
     </div>
 

@@ -26,3 +26,9 @@ export const makeAllSkyTimelapseURLSelector = () =>
     makeAllSkyTimelapseSelector(),
     state => state.data.allskyTimelapseURL
   );
+
+export const makeAllSkyTimelapseFetchingSelector = () =>
+  createSelector(
+    makeAllSkyTimelapseSelector(),
+    state => state.isFetching
+  );

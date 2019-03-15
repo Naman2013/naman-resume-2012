@@ -1,3 +1,4 @@
+import AllSkyTimelapseWidget from 'app/components/telescope-details/allsky-timelapse-widget';
 import { fetchAllSkyAction } from 'app/modules/Telescope-Overview';
 import AllSkyTimelapse from 'app/modules/telescope/containers/all-sky-timelapse';
 import PropTypes from 'prop-types';
@@ -5,7 +6,6 @@ import React, { Component } from 'react';
 import { Button, Modal, Collapse } from 'react-bootstrap';
 import { Magnifier } from 'react-image-magnifiers';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import './all-sky-camera.scss';
 import { ImagePortalViewer } from './index';
 import { ModuleContainer } from './module-container';
@@ -41,7 +41,7 @@ class AllSkyCamera extends Component {
   closeModal = () => this.setState({ isModalOpen: false });
 
   renderAllSkyTimelapseCollapsible = () => {
-    const { obsId, allSkyWidgetID } = this.props;
+    const { obsId, AllskyTimelapseWidgetId } = this.props;
     const { isTimelapseExpanded } = this.state;
     return (
       <div className="text-center">
@@ -58,7 +58,14 @@ class AllSkyCamera extends Component {
 
         <Collapse in={isTimelapseExpanded} mountOnEnter unmountOnExit>
           <div id="example-collapse-text">
-            <AllSkyTimelapse obsId={obsId} widgetUniqueId={allSkyWidgetID} />
+            <AllSkyTimelapseWidget
+              obsId={obsId}
+              AllskyTimelapseWidgetId={AllskyTimelapseWidgetId}
+            />
+            {/*<AllSkyTimelapse
+              obsId={obsId}
+              widgetUniqueId={AllskyTimelapseWidgetId}
+            />*/}
           </div>
         </Collapse>
       </div>
@@ -66,7 +73,7 @@ class AllSkyCamera extends Component {
   };
 
   render() {
-    const { imageURL, description, allSkyWidgetID } = this.props;
+    const { imageURL, description, AllskyTimelapseWidgetId } = this.props;
     const { isModalOpen } = this.state;
 
     return (
@@ -77,7 +84,9 @@ class AllSkyCamera extends Component {
             description={description}
             onClick={this.openModal}
           />
-          {allSkyWidgetID ? this.renderAllSkyTimelapseCollapsible() : null}
+          {AllskyTimelapseWidgetId
+            ? this.renderAllSkyTimelapseCollapsible()
+            : null}
         </ModuleContainer>
 
         <Modal size="lg" centered show={isModalOpen} onHide={this.closeModal}>
