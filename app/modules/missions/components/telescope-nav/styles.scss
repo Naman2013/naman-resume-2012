@@ -1,0 +1,39 @@
+@import '~app/styles/variables/index';
+
+.telescope-nav {
+  display: flex;
+  flex-flow: row nowrap;
+
+  .telescope-nav-item {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 24px 0;
+    border-right: 1px solid $hawkesBlue;
+    cursor: pointer;
+
+    img {
+      width: 50px;
+      height: 50px;
+      background-color: $romance;
+      border-radius: 50%;
+    }
+
+    &.active {
+      img {
+        width: 62px;
+        height: 62px;
+        padding: 5px;
+        box-shadow: 0 0 6px 0 $shadows;
+        border: solid 1px $hawkesBlue;
+      }
+    }
+  }
+
+  > div {
+    &:last-of-type {
+      border: none;
+    }
+  }
+}

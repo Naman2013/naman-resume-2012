@@ -57,7 +57,7 @@ import mashupSettings from './mashup-settings/get-mashup-reducer';
 import menu from './menu/reducer';
 import missionSlotDates from './mission-slots-by-telescope/mission-slot-dates-reducer';
 import missionSlotsByTelescope from './mission-slots-by-telescope/mission-slots-by-telescope-reducer';
-import missions from './Missions';
+import missions from './missions/reducer';
 import myPicturesFilters from './my-pictures-filters/reducer';
 import galleries from './my-pictures-galleries/reducer';
 import galleryActions from './my-pictures-gallery-actions/reducer';
@@ -145,7 +145,6 @@ export default combineReducers({
   login,
   mashupSettings,
   menu,
-  missions,
   missionSlotDates,
   missionSlotsByTelescope,
   myPictures,
@@ -183,4 +182,5 @@ export default combineReducers({
   logIn,
   storyDetails,
   telescope,
+  missions,
 });

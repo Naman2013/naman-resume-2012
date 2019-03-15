@@ -1,3 +1,4 @@
+// todo remove me
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
@@ -8,7 +9,7 @@ import truncate from 'lodash/truncate';
 import classnames from 'classnames';
 import styles from './mission-card.scss';
 
-import { updateSingleReservations, grabMissionSlot } from '../../modules/Missions';
+import { updateSingleReservations, grabMissionSlot } from '../../modules/missions-old';
 
 function mapDispatchToProps(dispatch) {
   return {
