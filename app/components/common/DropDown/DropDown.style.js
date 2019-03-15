@@ -22,7 +22,7 @@ export default css`
     font-family: ${primaryFont};
     ${faintShadow}
   }
-  :global(.slooh-select__value-container--has-value) {
+  :global(.slooh-select__value-container) {
     height: 40px;
     border-radius: 26px !important;
     background: transparent;

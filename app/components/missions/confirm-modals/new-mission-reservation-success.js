@@ -1,10 +1,11 @@
+// todo remove me
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment-timezone';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { missionGetCards } from '../../../modules/Missions';
+import { missionGetCards } from '../../../modules/missions-old';
 import { refreshListings } from '../../../modules/grab-telescope-slot/actions';
 import { resetBrowseByPopularObjects } from '../../../modules/browse-popular-objects/actions';
 

@@ -1,7 +1,8 @@
+// todo remove me
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { missionConfirmOpen, missionConfirmClose } from './../../modules/Missions';
+import { missionConfirmOpen, missionConfirmClose } from './../../modules/missions-old';
 import styles from './mission-modals.scss';
 import PiggyBackConfirm from './confirm-modals/piggyback-confirm';
 import ReserveConfirm from './confirm-modals/reserve-confirm';

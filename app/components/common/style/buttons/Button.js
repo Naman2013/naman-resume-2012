@@ -4,16 +4,9 @@ import classnames from 'classnames';
 import omit from 'lodash/omit';
 import styles from './Button.style';
 
-const {
-  bool,
-  func,
-  number,
-  oneOfType,
-  string,
-  object,
-} = PropTypes;
+const { bool, func, number, oneOfType, string, object } = PropTypes;
 
-const Button = (props) => {
+const Button = props => {
   const {
     isActive,
     text,
@@ -23,8 +16,15 @@ const Button = (props) => {
     onClickEvent,
     theme = {},
     withIntl,
+    disabled,
   } = props;
-  const buttonProps = omit(props, ['isActive', 'renderIcon', 'onClickEvent', 'icon', 'theme']);
+  const buttonProps = omit(props, [
+    'isActive',
+    'renderIcon',
+    'onClickEvent',
+    'icon',
+    'theme',
+  ]);
   return (
     <button
       {...buttonProps}
@@ -35,10 +35,11 @@ const Button = (props) => {
       })}
       style={theme}
       onClick={onClickEvent}
+      disabled={disabled}
     >
-      {
-        text && (withIntl
-          ? <span
+      {text &&
+        (withIntl ? (
+          <span
             style={{ color: theme.color }}
             className={classnames('text', {
               'pad-right': text && icon,
@@ -46,14 +47,15 @@ const Button = (props) => {
           >
             {text}
           </span>
-          : <span
+        ) : (
+          <span
             style={{ color: theme.color }}
             className={classnames('text', {
               'pad-right': text && icon,
-            })} dangerouslySetInnerHTML={{ __html: text }}
+            })}
+            dangerouslySetInnerHTML={{ __html: text }}
           />
-        )
-      }
+        ))}
 
       {icon && <img alt="" className="button-icon" src={icon} />}
 
@@ -72,6 +74,7 @@ Button.propTypes = {
   renderIcon: func,
   type: string,
   withIntl: bool,
+  disabled: bool,
 };
 Button.defaultProps = {
   type: 'text',
@@ -80,6 +83,7 @@ Button.defaultProps = {
   text: null,
   renderIcon: null,
   withIntl: false,
+  disabled: false,
 };
 
 export default Button;

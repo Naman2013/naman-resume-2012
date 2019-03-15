@@ -36,6 +36,11 @@ import SloohRecommends from 'app/containers/SloohRecommends';
 import StaticAppContainer from 'app/containers/static-app-container';
 import StoriesHub from 'app/containers/stories-hub';
 import { fetchPlayer } from 'app/modules/get-audio-player/actions';
+import Slooh1000 from 'app/modules/missions/containers/slooh-1000';
+import Catalog from 'app/modules/missions/containers/catalog';
+import Telescope from 'app/modules/missions/containers/telescope';
+import Constellation from 'app/modules/missions/containers/constellation';
+import { MissionsMain } from 'app/modules/missions/index';
 import { PublicProfileMain } from 'app/modules/profile';
 import { TelescopeDetailsMain } from 'app/modules/telescope';
 import GroupCreate from 'app/pages/community-groups/GroupCreate';
@@ -479,6 +484,13 @@ const AppRouter = () => (
         onEnter={validateUser}
         component={GroupOverviewInfo}
       />
+      <Route path="missions" component={MissionsMain} onEnter={validateUser}>
+        <IndexRedirect to="bySlooh1000" />
+        <Route path="bySlooh1000" component={Slooh1000} />
+        <Route path="byConstellation" component={Constellation} />
+        <Route path="byCatalog" component={Catalog} />
+        <Route path="byTelescope" component={Telescope} />
+      </Route>
     </Route>
 
     <Route path="sitemap" component={PlaceholderPage} onEnter={validateUser} />
