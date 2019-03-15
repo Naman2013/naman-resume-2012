@@ -24,8 +24,5 @@ export const makeAllSkyTimelapseSelector = () =>
 export const makeAllSkyTimelapseURLSelector = () =>
   createSelector(
     makeAllSkyTimelapseSelector(),
-    state => {
-      console.log(state);
-      return state.data.allskyTimelapseURL
-    }
+    state => state.data.allskyTimelapseURL
   );

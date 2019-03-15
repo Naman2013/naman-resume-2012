@@ -6,13 +6,13 @@ export class AllSkyTimelapse extends Component {
   };
 
   fetchData = () => {
-    const { getAllSkyTimelapse } = this.props;
-    getAllSkyTimelapse();
+    const { getAllSkyTimelapse, obsId, widgetUniqueId } = this.props;
+    getAllSkyTimelapse(obsId, widgetUniqueId);
   };
 
   render() {
     const { allskyTimelapseURL } = this.props;
-    console.log(allskyTimelapseURL);
+
     return (
       <div className="all-sky-timelapse">
         {allskyTimelapseURL ? (

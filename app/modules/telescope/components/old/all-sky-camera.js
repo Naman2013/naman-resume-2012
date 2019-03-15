@@ -40,9 +40,34 @@ class AllSkyCamera extends Component {
 
   closeModal = () => this.setState({ isModalOpen: false });
 
+  renderAllSkyTimelapseCollapsible = () => {
+    const { obsId, allSkyWidgetID } = this.props;
+    const { isTimelapseExpanded } = this.state;
+    return (
+      <div className="text-center">
+        <Button
+          className="open-timelapse"
+          onClick={() =>
+            this.setState({ isTimelapseExpanded: !isTimelapseExpanded })
+          }
+          aria-controls="open all sky timelapse"
+          aria-expanded={isTimelapseExpanded}
+        >
+          Open Timelapse
+        </Button>
+
+        <Collapse in={isTimelapseExpanded} mountOnEnter unmountOnExit>
+          <div id="example-collapse-text">
+            <AllSkyTimelapse obsId={obsId} widgetUniqueId={allSkyWidgetID} />
+          </div>
+        </Collapse>
+      </div>
+    );
+  };
+
   render() {
-    const { imageURL, description } = this.props;
-    const { isModalOpen, isTimelapseExpanded } = this.state;
+    const { imageURL, description, allSkyWidgetID } = this.props;
+    const { isModalOpen } = this.state;
 
     return (
       <div className="root all-sky-camera">
@@ -52,24 +77,7 @@ class AllSkyCamera extends Component {
             description={description}
             onClick={this.openModal}
           />
-          <div className="text-center">
-            <Button
-              className="open-timelapse"
-              onClick={() =>
-                this.setState({ isTimelapseExpanded: !isTimelapseExpanded })
-              }
-              aria-controls="open all sky timelapse"
-              aria-expanded={isTimelapseExpanded}
-            >
-              Open Timelapse
-            </Button>
-
-            <Collapse in={isTimelapseExpanded}>
-              <div id="example-collapse-text">
-                <AllSkyTimelapse />
-              </div>
-            </Collapse>
-          </div>
+          {allSkyWidgetID ? this.renderAllSkyTimelapseCollapsible() : null}
         </ModuleContainer>
 
         <Modal size="lg" centered show={isModalOpen} onHide={this.closeModal}>

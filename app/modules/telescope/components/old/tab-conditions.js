@@ -18,12 +18,16 @@ const TabConditions = props => (
   <div>
     {console.log(props)}
 
-    {props.currentTelescope.teleHasNeoView && <div className="tile-container">
-      <ObsBotWidget {...props} ViewGroup="conditions"/>
-    </div>
-    }
+    {props.currentTelescope.teleHasNeoView && (
+      <div className="tile-container">
+        <ObsBotWidget {...props} ViewGroup="conditions" />
+      </div>
+    )}
     <div className="tile-container">
-      <ConnectedAllSkyCamera obsId={props.obsId} allSkyWidgetID={props.AllskyWidgetId} />
+      <ConnectedAllSkyCamera
+        obsId={props.obsId}
+        allSkyWidgetID={props.AllskyWidgetId}
+      />
     </div>
 
     <div className="tile-container">

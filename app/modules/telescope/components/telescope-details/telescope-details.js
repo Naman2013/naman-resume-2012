@@ -353,11 +353,6 @@ export class TelescopeDetails extends Component {
           activeTelescopeStatus.onlineStatus === 'offline' && (
             <TelescopeOffline currentTelescope={this.props.currentTelescope} />
           )}
-        {/*(
-        <div className="details-root">
-          <p>{currentTelescope.teleName} is Offline.....</p>
-        </div>
-        )}*/}
         {/* Telescope: Online State */}
         {activeTelescopeStatus &&
           activeTelescopeStatus.onlineStatus === 'online' && (
@@ -438,6 +433,7 @@ export class TelescopeDetails extends Component {
                       tabTitle: 'Live',
                       content: () => (
                         <TabLive
+                          activeTelescope={activeTelescope}
                           obsId={currentObservatory.obsId}
                           skyChartWidgetID={currentObservatory.SkychartWidgetId}
                           allSkyWidgetID={currentObservatory.AllskyWidgetId}
