@@ -1,0 +1,28 @@
+.btn {
+  border-radius: 100px;
+  padding: 15px 30px;
+
+  &.btn-primary {
+    border: 1px dashed $lightHeadedAstronaut;
+    //font-family: BrandonGrotesque;
+    font-size: 11px;
+    font-weight: 900;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 8px;
+    letter-spacing: 1px;
+    text-align: center;
+    color: $lightHeadedAstronaut;
+    text-transform: uppercase;
+    background-color: transparent;
+
+    &:not(:disabled):not(.disabled):active,
+    &:not(:disabled):not(.disabled).active {
+      background-color: transparent;
+      color: $lightHeadedAstronaut;
+
+      &:focus {
+      }
+    }
+  }
+}

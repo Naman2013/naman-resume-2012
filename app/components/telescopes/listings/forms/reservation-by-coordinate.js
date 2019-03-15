@@ -1,3 +1,4 @@
+// todo remove me
 /**
   NOTES:
   underscores used in some naming to improve legability
@@ -34,7 +35,7 @@ import Timer from './common/timer';
 import './reservation-by-coordinate.scss';
 import { fetchPresetOptions } from '../../../../modules/get-preset-options/get-preset-options-actions';
 import { checkTargetVisibility } from '../../../../modules/check-target-visibility/api';
-import { grabMissionSlot, grabUpdateMissionSlot, missionConfirmOpen } from '../../../../modules/Missions';
+import { grabMissionSlot, grabUpdateMissionSlot, missionConfirmOpen } from '../../../../modules/missions-old';
 import { placeOneHourHold } from '../../../../modules/grab-telescope-slot/actions';
 
 

@@ -1,0 +1,15 @@
+@import '~app/styles/variables/index';
+
+.telescope-setup {
+  background-color: $romance;
+  box-shadow: 0 0 6px $shadows;
+
+  .telescope-setup-telescope-info {
+    padding: 40px 60px;
+    border-bottom: 1px solid $hawkesBlue;
+    font-family: $secondary-font;
+    font-size: 24px;
+    line-height: 2.58;
+    color: $lightHeadedAstronaut;
+  }
+}
