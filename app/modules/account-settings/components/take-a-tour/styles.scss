@@ -1,0 +1,59 @@
+@import '~app/styles/variables/index';
+
+.take-a-tour {
+  padding-top: 40px;
+
+  .start-tour {
+    padding: 40px 45px;
+    margin-bottom: 20px;
+    background-color: $romance;
+    box-shadow: 0 0 6px $shadows;
+    display: flex;
+    align-items: center;
+
+    .start-tour-label {
+      font-family: $secondary-font;
+      font-size: 24px;
+      line-height: 2.58;
+      color: $lightHeadedAstronaut;
+      text-align: left;
+    }
+
+    .start-tour-button {
+      display: flex;
+      justify-content: flex-end;
+
+      button {
+        width: 180px;
+        height: 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 15px;
+        border: 1px dashed $astronaut;
+        border-radius: 25px;
+        background: transparent;
+        font-family: $primary-font;
+        font-size: 11px;
+        font-weight: 900;
+        line-height: 2;
+        letter-spacing: 1px;
+        color: $lightHeadedAstronaut;
+        text-transform: uppercase;
+        outline: none;
+
+        img {
+          width: 15px;
+          height: 15px;
+        }
+      }
+    }
+  }
+
+  .orientation-block {
+    .root-mobile {
+      width: 100%;
+      margin: 0;
+    }
+  }
+}

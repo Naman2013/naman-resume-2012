@@ -180,7 +180,7 @@ class Overview extends Component {
     if (!modeledResult.topicContentProps.title) {
       return null;
     }
-
+    console.log(modeledResult);
     return (
       <Fragment>
         <TopicContent {...modeledResult.topicContentProps} objectId={objectId} user={user} />

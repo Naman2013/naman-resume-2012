@@ -7,19 +7,19 @@ import HubHeader from '../../../../components/common/HubHeader';
 const navigationConfig = [
   {
     title: 'ACCOUNT DETAILS',
-    linkURL: 'account-settings/account-details',
+    linkURL: '/account-settings/account-details',
   },
   {
     title: 'MY INTERESTS',
-    linkURL: 'account-settings/my-interests',
+    linkURL: '/account-settings/my-interests',
   },
   {
     title: 'ALERT SETTINGS',
-    linkURL: 'account-settings/alert-settings',
+    linkURL: '/account-settings/alert-settings',
   },
   {
     title: 'TAKE A TOUR',
-    linkURL: 'account-settings/take-a-tour',
+    linkURL: '/account-settings/take-a-tour',
   },
 ];
 export class AccountSettings extends Component {
