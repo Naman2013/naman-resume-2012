@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router';
 import Select from 'react-select';
 import PropTypes from 'prop-types';
 
@@ -21,7 +22,7 @@ const CustomOption = (
   listOfTelescopes
 ) => {
   return (
-    <div ref={innerRef} {...innerProps} className="dropdown-opt">
+    <Link ref={innerRef} {...innerProps} className="dropdown-opt">
       <div className="dropdown-name">
         <img
           className="option-icon"
@@ -30,7 +31,7 @@ const CustomOption = (
         />
         {children}
       </div>
-    </div>
+    </Link>
   );
 };
 
@@ -43,7 +44,6 @@ export default class TelescopNavigationDropDown extends Component {
         label: oneOfType([string, object]),
       })
     ).isRequired,
-    onSelect: func.isRequired,
     handleBlur: func,
     handleMenuClose: func,
     autoFocus: bool,
@@ -61,8 +61,8 @@ export default class TelescopNavigationDropDown extends Component {
   };
 
   handleChange = selectedOption => {
-    const { onSelect } = this.props;
-    onSelect(selectedOption);
+    // const { onSelect } = this.props;
+    // onSelect(selectedOption);
   };
 
   render() {

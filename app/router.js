@@ -1,3 +1,4 @@
+import InstrumentNavigation from 'app/components/telescope-details/InstrumentNavigation';
 import DashboardPage from 'app/components/Dashboard';
 import ImagesLayout from 'app/components/profile-photos/ImagesLayout';
 import PrivateProfilePhotos from 'app/components/profile-photos/PrivateProfilePhotos';
@@ -240,7 +241,9 @@ export const AppRouter = () => (
         // component={ConnectedTelescopeDetails}
         component={TelescopeDetailsMain}
         onEnter={validateUser}
-      />
+      >
+        <Route path=":instrumentId" component={InstrumentNavigation} />
+      </Route>
 
       {/**
        example id: 6

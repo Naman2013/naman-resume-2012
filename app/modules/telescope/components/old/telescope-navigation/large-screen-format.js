@@ -1,36 +1,40 @@
 import React from 'react';
 import classnames from 'classnames';
+import InstrumentNavigation from 'app/components/telescope-details/InstrumentNavigation';
 import { commonProps } from './common-prop-types';
-import style from './large-screen-format.style';
+import './large-screen-format.scss';
 
-const LargeScreenFormat = ({ onSelect, selectedIndex, options }) => (
-  <div className="large-format-nav-root">
-    <ul className="option-list">
-      {
-        options.map((telescope, index) => (
+const LargeScreenFormat = props => {
+  const {
+    options,
+    selectedIndex,
+    activeInstrumentID,
+    updateCurrentInstrument,
+  } = props;
+  return (
+    <div className="large-format-nav-root">
+      <ul className="option-list">
+        {options.map((telescope, index) => (
           <li
             key={`dt-obs-nav-${telescope.thumbnailURL}`}
-            className={classnames('option-container', { active: (selectedIndex == index) })}
+            className={classnames('option-container', {
+              active: selectedIndex === index,
+            })}
           >
-            <button
-              onClick={onSelect}
-              data-index={index}
-              className={classnames('option', { active: (selectedIndex == index) })}
-              style={{marginLeft: '0px', marginRight: '0px'}}
-            >
-                <p>{telescope.name}</p>
-                <div
-                  className="coin"
-                  style={{ backgroundImage: `url(${telescope.thumbnailURL})` }}
-                />
-            </button>
+            <div>
+              <p className="option-telescope-name">{telescope.name}</p>
+              <InstrumentNavigation
+                telescope={telescope}
+                activeInstrumentID={activeInstrumentID}
+                updateCurrentInstrument={updateCurrentInstrument}
+              />
+            </div>
           </li>
-        ))
-      }
-    </ul>
-    <style jsx>{style}</style>
-  </div>
-);
+        ))}
+      </ul>
+    </div>
+  );
+};
 
 LargeScreenFormat.propTypes = commonProps;
 

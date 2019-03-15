@@ -8,7 +8,7 @@ import style from './small-screen-format.style';
 
 class SmallScreenFormat extends Component {
   render() {
-    const { onSelect, selectedIndex, options } = this.props;
+    const { selectedIndex, options } = this.props;
     const formatedOptions = options.map((o, i) => ({
       label: o.name,
       value: i,
@@ -30,7 +30,6 @@ class SmallScreenFormat extends Component {
           </aside>
         </div>
         <TelescopNavigationDropDown
-          onSelect={onSelect}
           selectedIndex={selectedIndex}
           options={formatedOptions}
           listOfTelescopes={options}

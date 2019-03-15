@@ -3,25 +3,34 @@ import { SmallScreenFormat } from './index';
 import { enhancedProps } from './common-prop-types';
 import style from './medium-screen-format.style';
 
-const MediumScreenFormat = ({ title, onSelect, selectedIndex, options }) => (
-  <div>
-    <ul className="list-navigation">
-      {title && (
+const MediumScreenFormat = ({
+  title,
+  selectedIndex,
+  options,
+  activeInstrumentID,
+  updateCurrentInstrument,
+}) => {
+  return (
+    <div>
+      <ul className="list-navigation">
+        {title && (
+          <li className="item">
+            <h2 className="page-title">{title}</h2>
+          </li>
+        )}
         <li className="item">
-          <h2 className="page-title">{title}</h2>
+          <SmallScreenFormat
+            options={options}
+            selectedIndex={selectedIndex}
+            activeInstrumentID={activeInstrumentID}
+            updateCurrentInstrument={updateCurrentInstrument}
+          />
         </li>
-      )}
-      <li className="item">
-        <SmallScreenFormat
-          onSelect={onSelect}
-          selectedIndex={selectedIndex}
-          options={options}
-        />
-      </li>
-    </ul>
-    <style jsx>{style}</style>
-  </div>
-);
+      </ul>
+      <style jsx>{style}</style>
+    </div>
+  );
+};
 
 MediumScreenFormat.propTypes = enhancedProps;
 

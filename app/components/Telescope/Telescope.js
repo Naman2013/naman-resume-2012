@@ -1,5 +1,5 @@
+// @flow
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { Modal } from 'react-bootstrap';
 import Measure from 'react-measure';
 import noop from 'lodash/noop';
@@ -30,23 +30,23 @@ const menuButtonTheme = {
   background: 'black',
 };
 
-class Telescope extends Component {
-  static propTypes = {
-    activeInstrumentID: PropTypes.string.isRequired,
-    previousInstrumentID: PropTypes.string.isRequired,
-    missionMetaData: PropTypes.shape({
-      missionTargetID: PropTypes.number,
-      referenceObjectScale: PropTypes.number,
-      domain: PropTypes.string,
-      targetObjectScale: PropTypes.number,
-      targetObjectURL: PropTypes.string,
-      targetObjectName: PropTypes.string,
-    }),
-    render: PropTypes.func,
-    increment: PropTypes.number,
-    disableFullscreen: PropTypes.bool,
-  };
+type TTelescope = {
+  activeInstrumentID: string,
+  previousInstrumentID: string | void,
+  missionMetaData?: {
+    missionTargetID?: number,
+    referenceObjectScale?: number,
+    domain?: string,
+    targetObjectScale?: number,
+    targetObjectURL?: string,
+    targetObjectName?: string,
+  },
+  render?: Function,
+  increment?: number,
+  disableFullscreen: boolean,
+};
 
+class Telescope extends Component<TTelescope> {
   static defaultProps = {
     increment: 5,
     render: noop,

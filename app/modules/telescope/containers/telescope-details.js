@@ -7,6 +7,7 @@ import {
   fetchAllTelescopeStatus,
   setObservatory,
   setTelescope,
+  updateCurrentInstrument,
 } from 'app/modules/telescope-details/actions';
 import { TelescopeDetails } from 'app/modules/telescope/components/telescope-details/telescope-details';
 import { connect } from 'react-redux';
@@ -34,6 +35,7 @@ const mapStateToProps = ({
 
     currentObservatory: telescopeDetails.currentObservatory,
     currentTelescope: telescopeDetails.currentTelescope,
+    currentInstrument: telescopeDetails.currentInstrument,
 
     countdownList:
       telescopeDetails.allObservatoryTelescopeStatus.countdownList
@@ -61,6 +63,7 @@ const mapDispatchToProps = {
   fetchAllTelescopeStatus,
   fetchObjectDataAction,
   resetObjectData,
+  updateCurrentInstrument,
 };
 
 export default compose(
