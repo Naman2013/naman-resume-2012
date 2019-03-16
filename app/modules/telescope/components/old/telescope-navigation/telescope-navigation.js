@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
 import {
   SmallScreenFormat,
@@ -15,12 +15,13 @@ const TelescopeNavigation = props => {
     options,
     selectedIndex,
     activeInstrumentID,
+    currentInstrumentName,
     updateCurrentInstrument,
   } = props;
-  if (options.length === 0) return null;
+  if (!(options && options.length)) return null;
 
   return (
-    <div>
+    <Fragment>
       <DisplayAtBreakpoint screenLarge screenXLarge>
         <LargeScreenFormat
           options={options}
@@ -36,6 +37,7 @@ const TelescopeNavigation = props => {
           options={options}
           selectedIndex={selectedIndex}
           activeInstrumentID={activeInstrumentID}
+          currentInstrumentName={currentInstrumentName}
           updateCurrentInstrument={updateCurrentInstrument}
         />
       </DisplayAtBreakpoint>
@@ -46,12 +48,13 @@ const TelescopeNavigation = props => {
             options={options}
             selectedIndex={selectedIndex}
             activeInstrumentID={activeInstrumentID}
+            currentInstrumentName={currentInstrumentName}
             updateCurrentInstrument={updateCurrentInstrument}
           />
         </div>
       </DisplayAtBreakpoint>
       <style jsx>{style}</style>
-    </div>
+    </Fragment>
   );
 };
 

@@ -1,5 +1,5 @@
 import { hot } from 'react-hot-loader/root';
-import InstrumentNavigation from 'app/components/telescope-details/InstrumentNavigation';
+import TelescopeNavigation from 'app/modules/telescope/components/old/telescope-navigation';
 import DashboardPage from 'app/components/Dashboard';
 import ImagesLayout from 'app/components/profile-photos/ImagesLayout';
 import PrivateProfilePhotos from 'app/components/profile-photos/PrivateProfilePhotos';
@@ -258,7 +258,7 @@ const AppRouter = () => (
         component={TelescopeDetailsMain}
         onEnter={validateUser}
       >
-        <Route path=":instrumentId" component={InstrumentNavigation} />
+        <Route path=":instrumentId" component={TelescopeNavigation} />
       </Route>
 
       {/**

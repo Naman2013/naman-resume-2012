@@ -11,6 +11,7 @@ const LargeScreenFormat = props => {
     activeInstrumentID,
     updateCurrentInstrument,
   } = props;
+  const cls = 'option-telescope-name';
   return (
     <div className="large-format-nav-root">
       <ul className="option-list">
@@ -21,14 +22,18 @@ const LargeScreenFormat = props => {
               active: selectedIndex === index,
             })}
           >
-            <div>
-              <p className="option-telescope-name">{telescope.name}</p>
-              <InstrumentNavigation
-                telescope={telescope}
-                activeInstrumentID={activeInstrumentID}
-                updateCurrentInstrument={updateCurrentInstrument}
-              />
-            </div>
+            <p
+              className={
+                telescope.instruments.length === 1 ? `${cls} no-border` : cls
+              }
+            >
+              {telescope.name}
+            </p>
+            <InstrumentNavigation
+              telescope={telescope}
+              activeInstrumentID={activeInstrumentID}
+              updateCurrentInstrument={updateCurrentInstrument}
+            />
           </li>
         ))}
       </ul>

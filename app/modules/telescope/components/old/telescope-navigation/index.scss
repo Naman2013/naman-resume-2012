@@ -1,0 +1,66 @@
+@import "~app/styles/variables/index";
+
+.dropdown-link {
+  margin: 0 7px;
+  color: #000;
+  text-decoration: none;
+  font-family: $primary-font;
+  font-size: 15px;
+
+  &.active {
+    font-weight: bold;
+  }
+
+  &:hover,
+  &:focus,
+  &:visited {
+    color: #000;
+    text-decoration: none;
+  }
+
+  &:first-child {
+    margin-left: 0;
+  }
+}
+
+.dropdown-name {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+
+  .option-icon {
+    width: 35px;
+    height: 35px;
+    margin-right: 20px;
+
+    @include sm() {
+      margin: 0;
+    }
+  }
+
+  .option-instruments {
+
+    @media (max-width: 320px) {
+      display: flex;
+      flex-direction: column;
+
+      a {
+        margin: 10px 0 0;
+      }
+    }
+  }
+
+  p {
+    margin: 0;
+    line-height: 1;
+  }
+}
+
+.dropdown-content {
+
+}
+
+.slooh-select__menu-list > div {
+  padding: 15px;
+  font-size: 18px;
+}

@@ -21,7 +21,7 @@ const InstrumentNavigation = (props: TInstrumentNavigation) => {
     telescopeUniqueID,
   } = telescope;
 
-  const handleButtonClick = (instrument: Object) => () => {
+  const handleClick = (instrument: Object) => () => {
     if (instrument.instrUniqueId === activeInstrumentID) return;
     return updateCurrentInstrument(instrument);
   };
@@ -36,7 +36,7 @@ const InstrumentNavigation = (props: TInstrumentNavigation) => {
       {instruments.map(instrument => (
         <li
           className="instrument-navigation-el"
-          onClick={handleButtonClick(instrument)}
+          onClick={handleClick(instrument)}
           key={`instrument-tab-navigation-${instrument.instrUniqueId}`}
         >
           <Link
@@ -45,7 +45,7 @@ const InstrumentNavigation = (props: TInstrumentNavigation) => {
               active: instrument.instrUniqueId === activeInstrumentID,
             })}
           >
-            {instrument.instrTelescopeName}
+            {instrument.instrTelescopeShortName}
           </Link>
         </li>
       ))}

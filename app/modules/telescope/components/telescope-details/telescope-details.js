@@ -248,6 +248,7 @@ export class TelescopeDetails extends Component<TTelescopeDetails> {
       instrSystem,
       instrPort,
       instrCameraSourceType,
+      instrTelescopeShortName
     } = currentInstrument;
     return (
       <div>
@@ -255,6 +256,7 @@ export class TelescopeDetails extends Component<TTelescopeDetails> {
           options={navigationOptions}
           selectedIndex={selectedNavigationIndex}
           activeInstrumentID={activeInstrumentID}
+          currentInstrumentName={instrTelescopeShortName}
           title={activeTelescopeMission.objectTitle}
           updateCurrentInstrument={updateCurrentInstrument}
         />
