@@ -34,7 +34,7 @@ const {
 } = PropTypes;
 
 class RecentShow extends Component {
-  static propTypes = {
+  static propTypes = { 
     isDesktop: bool.isRequired,
     showInfoTiles: shape({
       list: shape({}),
@@ -96,6 +96,7 @@ class RecentShow extends Component {
       isDesktop,
       isScreenLarge,
       isScreenMedium,
+      showId,
       showInfoTiles,
       showStreamCode,
       showStreamURL,
@@ -126,11 +127,9 @@ class RecentShow extends Component {
                 teleStreamThumbnailVideoHeight="550"
                 showVideoControls={1}
                 autoPlay={0}
-                title={title}
-                subtitle={tagLine}
               />
             </div>
-            <MonotonousTile label={headerLabel} text={title} />
+            <MonotonousTile label={headerLabel} text={title} showReadingList readingListType = 'show' id={showId}/>
             <div className="hide-on-mobile">
               <LabeledTitleTiles
                 theme={{

@@ -1,5 +1,5 @@
-@import "~app/styles/variables/index";
-@import "~app/styles/mixins/utilities.scss";
+@import '~app/styles/variables/index';
+@import '~app/styles/mixins/utilities.scss';
 
 // article, headers, paragraphs
 // primary - BrandonGrotesque
@@ -8,24 +8,33 @@
 $goldenRatio: 1.53;
 
 article {
-  padding: 100px;
-
   .text {
     margin: 10px 0 30px;
   }
 }
 
-.h-1, .h-2 {
+.h-1,
+.h-2 {
   font-weight: 400;
   font-family: $secondary-font;
 }
 
-.h-3, .h-4, .h-5, .h-6, .text {
+.h-3,
+.h-4,
+.h-5,
+.h-6,
+.text {
   font-weight: 700;
   font-family: $primary-font;
 }
 
-.h-1, .h-2, .h-3, .h-4, .h-5, .h-6, .text {
+.h-1,
+.h-2,
+.h-3,
+.h-4,
+.h-5,
+.h-6,
+.text {
   @include no-indent();
   color: $astronaut;
 }
@@ -69,5 +78,3 @@ article {
   margin: 0 0 2px;
   color: $raven;
 }
-
-
