@@ -1,6 +1,5 @@
 import AllSkyTimelapseWidget from 'app/components/telescope-details/allsky-timelapse-widget';
 import { fetchAllSkyAction } from 'app/modules/Telescope-Overview';
-import AllSkyTimelapse from 'app/modules/telescope/containers/all-sky-timelapse';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Button, Modal, Collapse } from 'react-bootstrap';
