@@ -312,10 +312,10 @@ export const fetchAllWidgets = ({
   AllskyWidgetId,
   DomecamWidgetId,
 }) => (dispatch) => {
-  dispatch(fetchWeatherConditions({ obsId, CurrentConditionsWidgetId }));
+  // dispatch(fetchWeatherConditions({ obsId, CurrentConditionsWidgetId }));
   dispatch(fetchDayNightBarPanelAction({ obsId, DayNightBarPanelWidgetId }));
-  dispatch(fetchDayNightMapAction({ obsId, DayNightMapWidgetId }));
-  dispatch(fetchWeatherForecast({ obsId, MiniWeatherPanelWidgetId }));
-  dispatch(fetchAllSkyAction({ obsId, AllskyWidgetId }));
-  dispatch(fetchDomeCamAction({ obsId, DomecamWidgetId }));
+  // dispatch(fetchDayNightMapAction({ obsId, DayNightMapWidgetId }));
+  // dispatch(fetchWeatherForecast({ obsId, MiniWeatherPanelWidgetId }));
+  // dispatch(fetchAllSkyAction({ obsId, AllskyWidgetId }));
+  // dispatch(fetchDomeCamAction({ obsId, DomecamWidgetId }));
 };
