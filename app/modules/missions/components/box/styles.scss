@@ -1,0 +1,12 @@
+@import "~app/styles/variables/index";
+
+.box {
+  padding: 40px;
+  background-color: $romance;
+  box-shadow: 0 0 6px $shadows;
+
+  &.inside {
+    background-color: $pale-grey;
+    box-shadow: 0 0 7px $pale-grey-two inset;
+  }
+}

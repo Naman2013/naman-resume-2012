@@ -3,20 +3,21 @@
  *
  ********************************** */
 
-import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Modal from 'react-modal';
+import React, { Component, Fragment } from 'react';
 import { injectIntl, intlShape } from 'react-intl';
+import Modal from 'react-modal';
+import { Link } from 'react-router';
+import { DeviceContext } from '../../../providers/DeviceProvider';
+import { customModalStylesBlackOverlay } from '../../../styles/mixins/utilities';
+import CenterColumn from '../../common/CenterColumn';
 
 import { ContainerWithTitle } from '../../common/ContainerWithTitle';
-import CenterColumn from '../../common/CenterColumn';
-import GroupTiles from '../../groups-hub/group-tiles';
-import { customModalStylesBlackOverlay } from '../../../styles/mixins/utilities';
-import { DeviceContext } from '../../../providers/DeviceProvider';
 import PromptWithClose from '../../community-groups/prompt-with-close';
+import GroupTiles from '../../groups-hub/group-tiles';
+import messages from './ProfileGroups.messages';
 
 import styles from './ProfileGroups.styles';
-import messages from './ProfileGroups.messages';
 
 const { shape, number, arrayOf } = PropTypes;
 
@@ -40,7 +41,7 @@ class ProfileGroups extends Component {
   };
 
   updateGroupItemInfo = (id, resData) => {
-    const newGroupsList = this.state.groups.map((group) => {
+    const newGroupsList = this.state.groups.map(group => {
       if (group.discussionGroupId === id) {
         return Object.assign(group, resData);
       }
@@ -50,12 +51,17 @@ class ProfileGroups extends Component {
     this.setState(() => ({
       groups: newGroupsList,
     }));
-  }
+  };
 
-  updatePrompt = (data) => {
+  updatePrompt = data => {
     this.setState({
       showPrompt: data.showPrompt,
-      promptText: <PromptWithClose promptText={data.promptText} closeForm={this.closeModal} />,
+      promptText: (
+        <PromptWithClose
+          promptText={data.promptText}
+          closeForm={this.closeModal}
+        />
+      ),
     });
   };
 
@@ -64,6 +70,41 @@ class ProfileGroups extends Component {
       showPrompt: false,
       promptText: '',
     });
+  };
+
+  renderClubBtns = () => {
+    const { groupControls } = this.props;
+
+    const {
+      canCreateNewClubs,
+      canImportGoogleClassrooms,
+      createNewClubButtonText,
+      createNewClubLinkUrl,
+      importGoogleClassroomsPrompt,
+      importGoogleClassroomsURL,
+    } = groupControls;
+
+    return (
+      <Fragment>
+        {canCreateNewClubs && (
+          <Link
+            to={createNewClubLinkUrl}
+            className="btn btn-primary float-right club-btn"
+          >
+            {createNewClubButtonText}
+          </Link>
+        )}
+
+        {canImportGoogleClassrooms && (
+          <Link
+            to={importGoogleClassroomsURL}
+            className="btn btn-primary float-right club-btn"
+          >
+            {importGoogleClassroomsPrompt}
+          </Link>
+        )}
+      </Fragment>
+    );
   };
 
   render() {
@@ -75,6 +116,8 @@ class ProfileGroups extends Component {
     return (
       <div className="profile-groups">
         <CenterColumn>
+          {this.renderClubBtns()}
+
           <ContainerWithTitle title={intl.formatMessage(messages.MyClubs)}>
             {groupsCount > 0 ? (
               <DeviceContext.Consumer>

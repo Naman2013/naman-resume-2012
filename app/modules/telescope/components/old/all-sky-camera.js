@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { fetchAllSkyAction } from 'modules/Telescope-Overview';
+import { fetchAllSkyAction } from '../../../Telescope-Overview';
 import { ImagePortalViewer } from './index';
 import { ModuleContainer } from './module-container';
 
@@ -34,10 +34,7 @@ class AllSkyCamera extends Component {
     return (
       <div className="root">
         <ModuleContainer title="All sky camera snap">
-          <ImagePortalViewer
-            imageURL={imageURL}
-            description={description}
-          />
+          <ImagePortalViewer imageURL={imageURL} description={description} />
         </ModuleContainer>
       </div>
     );
@@ -62,10 +59,17 @@ const mapStateToProps = ({ telescopeOverview: { allSkyWidgetResult } }) => ({
   description: allSkyWidgetResult.title,
 });
 
-const mapDispatchToProps = dispatch => (bindActionCreators({
-  fetchAllSkyAction,
-}, dispatch));
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      fetchAllSkyAction,
+    },
+    dispatch
+  );
 
-const ConnectedAllSkyCamera = connect(mapStateToProps, mapDispatchToProps)(AllSkyCamera);
+const ConnectedAllSkyCamera = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AllSkyCamera);
 
 export { AllSkyCamera, ConnectedAllSkyCamera };
