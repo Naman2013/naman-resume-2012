@@ -10,6 +10,7 @@ import {
   checkCatalogVisibilityApi,
   getPresetOptionsApi,
   cancelMissionSlotApi,
+  getConstellationListApi,
 } from 'app/modules/missions/api';
 import { ACTION } from './reducer';
 
@@ -84,6 +85,25 @@ export const getObjectList = ({ categorySlug, includeDescription = true }) => (
 export const setCategory = category => dispatch => {
   dispatch(ACTION.setCategory(category));
   dispatch(getObjectList({ categorySlug: category }));
+};
+
+// by Constellation
+export const getConstellationList = () => (dispatch, getState) => {
+  const { at, token, cid } = getState().user;
+  dispatch(ACTION.getConstellationList());
+  return getConstellationListApi({
+    at,
+    token,
+    cid,
+    callSource: 'byConstellationV4',
+  })
+    .then(result => dispatch(ACTION.getConstellationListSuccess(result.data)))
+    .catch(error => dispatch(ACTION.getConstellationListError(error)));
+};
+
+export const setConstellation = constellation => dispatch => {
+  dispatch(ACTION.setConstellation(constellation));
+  //dispatch(getObjectList({ categorySlug: category }));
 };
 
 // by Catalog

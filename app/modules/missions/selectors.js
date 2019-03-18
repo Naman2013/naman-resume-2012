@@ -112,6 +112,33 @@ export const makeBySlooh1000ObjectListSelectOptsSelector = () =>
     }
   );
 
+// byConstellation
+export const makeByConstellationSelector = () =>
+  createSelector(
+    selectMissions,
+    state => state.byConstellation
+  );
+
+export const makeByConstellationListSelector = () =>
+  createSelector(
+    makeByConstellationSelector(),
+    state => state.constellationList
+  );
+
+export const makeByConstellationListSelectOptsSelector = () =>
+  createSelector(
+    makeByConstellationListSelector(),
+    state => {
+      return getSelectOptions(state, 'constellationName', 'constellationName');
+    }
+  );
+
+export const makeByConstellationSelectedConstellationSelector = () =>
+  createSelector(
+    makeByConstellationSelector(),
+    state => state.selectedConstellation
+  );
+
 // byCatalog
 export const makeByCatalogSelector = () =>
   createSelector(

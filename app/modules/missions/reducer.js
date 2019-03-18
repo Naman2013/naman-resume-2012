@@ -16,6 +16,10 @@ export const TYPE = constants('profile', [
   'SET_OBJECT',
   'SET_PROCESSING_RECIPE',
 
+  // byConstellation page
+  '~GET_CONSTELLATION_LIST',
+  'SET_CONSTELLATION',
+
   // byCatalog page
   '~GET_CATALOG_LIST',
   'SET_CATALOG',
@@ -52,7 +56,10 @@ export const initialState = {
     selectedObjectId: null,
   },
 
-  byConstellation: {},
+  byConstellation: {
+    constellationList: [],
+    selectedConstellation: null,
+  },
 
   byCatalog: {
     catalogList: [],
@@ -97,6 +104,12 @@ export default handleActions(
     [TYPE.GET_OBJECT_LIST_SUCCESS]: getObjectListSuccess,
     [TYPE.GET_OBJECT_LIST_ERROR]: setServerError,
     [TYPE.SET_OBJECT]: setObject,
+
+    // byConstellation page
+    [TYPE.GET_CONSTELLATION_LIST]: setFetching,
+    [TYPE.GET_CONSTELLATION_LIST_SUCCESS]: getConstellationListSuccess,
+    [TYPE.GET_CONSTELLATION_LIST_ERROR]: setServerError,
+    [TYPE.SET_CONSTELLATION]: setConstellation,
 
     // byCatalog page
     [TYPE.GET_CATALOG_LIST]: setFetching,
@@ -243,6 +256,26 @@ function setObject(state, action) {
     ...state,
     bySlooh1000: { ...state.bySlooh1000, selectedObjectId: action.payload },
   };
+}
+
+// byConstellation
+function getConstellationListSuccess(state, action) {
+  return {
+    ...state,
+    isFetching: false,
+    isLoaded: true,
+    byConstellation: {
+      ...state.byConstellation,
+      constellationList: action.payload.constellationList,
+    },
+  };
+}
+
+function setConstellation(state, action) {
+  return {
+    ...state,
+    byConstellation: { ...state.byConstellation, selectedConstellation: action.payload },
+  }
 }
 
 // byCatalog

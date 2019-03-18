@@ -16,6 +16,10 @@ export const getCategoryListApi = data =>
 export const getObjectListApi = data =>
   axios.post('/api/reservation/getPopularObjectList', data);
 
+// byConstellation
+export const getConstellationListApi = data =>
+  axios.post('/api/reservation/getConstellationList', data);
+
 // byCatalog page
 export const getByCatalogApi = data =>
   axios.post('/api/missions/getByCatalog', data);

@@ -8,12 +8,12 @@ import './styles.scss';
 export class ConstellationSetup extends Component {
   render() {
     const {
-      categoryListOpts,
-      setCategory,
+      constellationListOpt,
+      setConstellation,
       objectListOpts,
       setObject,
       getMissionSlot,
-      selectedCategorySlug,
+      selectedConstellation,
       selectedObjectId,
       disabled,
     } = this.props;
@@ -41,10 +41,10 @@ export class ConstellationSetup extends Component {
               <span>Step 1: Choose Constellation</span>
             </OverlayTrigger>
             <Select
-              handleChange={setCategory}
-              options={categoryListOpts}
+              handleChange={setConstellation}
+              options={constellationListOpt}
               placeholder="Choose"
-              value={selectedCategorySlug}
+              value={selectedConstellation}
               isDisabled={disabled}
             />
           </div>
@@ -88,7 +88,7 @@ export class ConstellationSetup extends Component {
             <Button
               text="Find a Mission"
               onClickEvent={getMissionSlot}
-              disabled={!selectedCategorySlug || !selectedObjectId || disabled}
+              disabled={!selectedConstellation || !selectedObjectId || disabled}
             />
           </div>
         </div>
