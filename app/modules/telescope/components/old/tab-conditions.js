@@ -54,7 +54,7 @@ const TabConditions = props => (
 
     <div className="tile-container">
       <ModuleContainer title="Dome view">
-        <ImagePortalViewer imageURL="" />
+        <ImagePortalViewer imageURL={props.domeCam.domeCamURL} />
       </ModuleContainer>
     </div>
 

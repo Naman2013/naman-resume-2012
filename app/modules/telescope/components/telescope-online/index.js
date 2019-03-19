@@ -20,6 +20,7 @@ export class TelescopeOnline extends Component {
       fetchAllWidgets,
       activeTelescope,
       fetchWeatherSatellite,
+      fetchDomeCamAction,
     } = this.props;
     const { observatoryData } = activeTelescope;
     const {
@@ -27,10 +28,12 @@ export class TelescopeOnline extends Component {
       obsId,
       DayNightMapWidgetId,
       SatelliteWidgetId,
+      DomecamWidgetId,
     } = observatoryData;
     console.log(observatoryData);
     fetchAllWidgets({ obsId, DayNightBarPanelWidgetId, DayNightMapWidgetId });
     fetchWeatherSatellite({ obsId, SatelliteWidgetId });
+    fetchDomeCamAction({ obsId, DomecamWidgetId });
   };
 
   render() {
