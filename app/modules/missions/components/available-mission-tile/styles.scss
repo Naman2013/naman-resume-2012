@@ -1,0 +1,116 @@
+@import '~app/styles/bootstrap/index';
+@import '~app/styles/variables/index';
+
+.mission-tile {
+  padding: 40px;
+  background-color: $romance;
+  box-shadow: 0px 0px 8px 1px rgba(65, 86, 113, 0.2);
+  color: $lightHeadedAstronaut;
+
+  .title {
+    margin: 15px 0 0;
+    padding: 0;
+    font-family: $secondary-font;
+    font-weight: normal;
+    font-size: 20px;
+    text-transform: none;
+    border-bottom: 1px solid $geyser;
+    padding-bottom: 20px;
+  }
+
+  .time {
+    font-family: $primary-font;
+    font-size: 48px;
+    border-bottom: 1px solid $geyser;
+
+    &:after {
+      position: relative;
+      left: -5px;
+      bottom: 10px;
+      content: 'UTC';
+      display: inline-block;
+      transform: rotate(90deg);
+      font-family: $primary-font;
+      font-size: 10px;
+      font-weight: 300;
+      letter-spacing: 2px;
+    }
+  }
+
+  .info {
+    display: flex;
+    border-bottom: 1px solid $geyser;
+
+    div {
+      padding: 10px;
+      font-family: $primary-font;
+      font-size: 10px;
+      text-transform: uppercase;
+      font-style: normal;
+      line-height: 14px;
+      letter-spacing: 2px;
+      color: $lightHeadedAstronaut;
+    }
+
+    .date {
+      padding-left: 0;
+    }
+
+    .telescope {
+      border-left: 1px solid $geyser;
+    }
+
+    .time {
+      display: none;
+      border-bottom: none;
+      border-left: 1px solid $geyser;
+
+      &:after {
+        transform: none;
+        left: 3px;
+        bottom: 0;
+      }
+    }
+  }
+
+  .description {
+    margin-top: 15px;
+  }
+
+  .actions {
+    display: flex;
+    flex-flow: row wrap;
+
+    button {
+      margin-top: 15px;
+      font-family: $primary-font;
+      font-size: 11px;
+      font-weight: 400;
+      line-height: 18px;
+      letter-spacing: 1px;
+      color: $lightHeadedAstronaut;
+
+      &:first-of-type {
+        margin-right: 10px;
+      }
+    }
+  }
+
+  .countdown {
+    padding: 0;
+  }
+}
+
+@include media-breakpoint-only(md) {
+  .mission-tile {
+    .time {
+      display: none;
+    }
+
+    .info {
+      .time {
+        display: block;
+      }
+    }
+  }
+}

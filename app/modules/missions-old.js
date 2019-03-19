@@ -76,29 +76,29 @@ const reserveMissionFail = error => ({
 });
 
 export const reserveMissionSlot = ({
-  scheduledMissionId,
-  callSource,
-  missionType,
-  missionStart,
-  objectId,
-  objectType,
-  objectTitle,
-  objectRA,
-  objectDec,
-  catalog,
-  catName,
-  designation,
-  processingRecipe,
-  obsId,
-  domeId,
-  telescopeId,
-  obsName,
-  telescopeName,
-  objectIconURL,
-  uniqueId,
-  targetName,
-  objective,
-}) => (dispatch, getState) => {
+                                     scheduledMissionId,
+                                     callSource,
+                                     missionType,
+                                     missionStart,
+                                     objectId,
+                                     objectType,
+                                     objectTitle,
+                                     objectRA,
+                                     objectDec,
+                                     catalog,
+                                     catName,
+                                     designation,
+                                     processingRecipe,
+                                     obsId,
+                                     domeId,
+                                     telescopeId,
+                                     obsName,
+                                     telescopeName,
+                                     objectIconURL,
+                                     uniqueId,
+                                     targetName,
+                                     objective,
+                                   }) => (dispatch, getState) => {
   const { token, at, cid } = getState().user;
   return axios.post('/api/reservation/reserveMissionSlot', {
     token,
@@ -127,38 +127,38 @@ export const reserveMissionSlot = ({
     targetName,
     objective,
   })
-  .then((result) => {
-    dispatch(cancelAllReservations());
-    dispatch(fetchUsersUpcomingMissions());
-    dispatch(reserveMissionSuccess(result.data));
-  })
-  .catch(error => dispatch(reserveMissionFail(error)));
+    .then((result) => {
+      dispatch(cancelAllReservations());
+      dispatch(fetchUsersUpcomingMissions());
+      dispatch(reserveMissionSuccess(result.data));
+    })
+    .catch(error => dispatch(reserveMissionFail(error)));
 };
 
 export const updateReservation = ({
-  scheduledMissionId,
-  callSource,
-  missionType,
-  missionStart,
-  objectId,
-  objectType,
-  objectTitle,
-  objectRA,
-  objectDec,
-  catalog,
-  catName,
-  designation,
-  processingRecipe,
-  obsId,
-  domeId,
-  telescopeId,
-  obsName,
-  telescopeName,
-  objectIconURL,
-  uniqueId,
-  targetName,
-  objective,
-}) => (dispatch, getState) => {
+                                    scheduledMissionId,
+                                    callSource,
+                                    missionType,
+                                    missionStart,
+                                    objectId,
+                                    objectType,
+                                    objectTitle,
+                                    objectRA,
+                                    objectDec,
+                                    catalog,
+                                    catName,
+                                    designation,
+                                    processingRecipe,
+                                    obsId,
+                                    domeId,
+                                    telescopeId,
+                                    obsName,
+                                    telescopeName,
+                                    objectIconURL,
+                                    uniqueId,
+                                    targetName,
+                                    objective,
+                                  }) => (dispatch, getState) => {
   const { token, at, cid } = getState().user;
   return updateMissionSlot({
     token,
@@ -187,12 +187,12 @@ export const updateReservation = ({
     targetName,
     objective,
   })
-  .then((result) => {
-    dispatch(cancelAllReservations());
-    dispatch(fetchUsersUpcomingMissions());
-    dispatch(reserveMissionSuccess(result.data));
-  })
-  .catch(error => dispatch(reserveMissionFail(error)));
+    .then((result) => {
+      dispatch(cancelAllReservations());
+      dispatch(fetchUsersUpcomingMissions());
+      dispatch(reserveMissionSuccess(result.data));
+    })
+    .catch(error => dispatch(reserveMissionFail(error)));
 };
 
 
@@ -204,9 +204,9 @@ export const cancelMissionSlot = mission => (dispatch, getState) => {
   const { user: { token, at, cid } } = getState();
 
   /**
-    remove the mission from the considerationed missions this will close up
-    any of the mission slots the user could have been looking at
-    */
+   remove the mission from the considerationed missions this will close up
+   any of the mission slots the user could have been looking at
+   */
   dispatch(removeMissionFromConsideration({ uniqueId: mission.uniqueId }));
 
   return axios.post('/api/reservation/cancelMissionSlot', {
@@ -215,8 +215,8 @@ export const cancelMissionSlot = mission => (dispatch, getState) => {
     cid,
     ...mission,
   })
-  .then(result => noop(result))
-  .catch(error => noop(error));
+    .then(result => noop(result))
+    .catch(error => noop(error));
 };
 
 const grabMissionSlotFail = error => ({
@@ -234,12 +234,39 @@ const grabMissionSlotStart = () => ({
 });
 
 /**
-  see: /api/reservation/grabMissionSlot for providing the appropriate mission shape
-  https://docs.google.com/document/d/1nYo6_O87gWCqyoD3NJ98cbA5Cpxo-8ksB3Dw3PbjAa0/edit#heading=h.tkagqs5w5vit
-*/
+ see: /api/reservation/grabMissionSlot for providing the appropriate mission shape
+ https://docs.google.com/document/d/1nYo6_O87gWCqyoD3NJ98cbA5Cpxo-8ksB3Dw3PbjAa0/edit#heading=h.tkagqs5w5vit
+ */
 export const grabMissionSlot = ({
-    onSuccessCallback, // called only when API when !apiError
+                                  onSuccessCallback, // called only when API when !apiError
 
+                                  scheduledMissionId,
+                                  callSource,
+                                  missionType,
+                                  missionStart,
+                                  obsId,
+                                  domeId,
+                                  telescopeId,
+                                  objectId,
+                                  objectType,
+                                  objectTitle,
+                                  objectRA,
+                                  objectDec,
+                                  catalog,
+                                  catName,
+                                  designation,
+                                  processingRecipe,
+                                  uniqueId,
+                                  targetName,
+                                }) => (dispatch, getState) => {
+  const { token, at, cid } = getState().user;
+
+  grabMissionSlotStart();
+
+  return axios.post('/api/reservation/grabMissionSlot', {
+    token,
+    at,
+    cid,
     scheduledMissionId,
     callSource,
     missionType,
@@ -258,39 +285,12 @@ export const grabMissionSlot = ({
     processingRecipe,
     uniqueId,
     targetName,
-  }) => (dispatch, getState) => {
-    const { token, at, cid } = getState().user;
-
-    grabMissionSlotStart();
-
-    return axios.post('/api/reservation/grabMissionSlot', {
-      token,
-      at,
-      cid,
-      scheduledMissionId,
-      callSource,
-      missionType,
-      missionStart,
-      obsId,
-      domeId,
-      telescopeId,
-      objectId,
-      objectType,
-      objectTitle,
-      objectRA,
-      objectDec,
-      catalog,
-      catName,
-      designation,
-      processingRecipe,
-      uniqueId,
-      targetName,
-    })
+  })
     .then((response) => {
       /**
-        patching the callsource to ensure that it is always included for
-        future requests
-      */
+       patching the callsource to ensure that it is always included for
+       future requests
+       */
       const { missionList } = response.data;
       if (onSuccessCallback && missionList[0]) {
         onSuccessCallback();
@@ -304,11 +304,38 @@ export const grabMissionSlot = ({
     .catch((error) => {
       dispatch(grabMissionSlotFail(error));
     });
-  };
+};
 
 export const grabUpdateMissionSlot = ({
-    onSuccessCallback,
+                                        onSuccessCallback,
 
+                                        scheduledMissionId,
+                                        callSource,
+                                        missionType,
+                                        missionStart,
+                                        obsId,
+                                        domeId,
+                                        telescopeId,
+                                        objectId,
+                                        objectType,
+                                        objectTitle,
+                                        objectRA,
+                                        objectDec,
+                                        catalog,
+                                        catName,
+                                        designation,
+                                        processingRecipe,
+                                        uniqueId,
+                                        targetName,
+                                      }) => (dispatch, getState) => {
+  const { token, at, cid } = getState().user;
+
+  grabMissionSlotStart();
+
+  return grabUpdatedSlot({
+    token,
+    at,
+    cid,
     scheduledMissionId,
     callSource,
     missionType,
@@ -327,43 +354,16 @@ export const grabUpdateMissionSlot = ({
     processingRecipe,
     uniqueId,
     targetName,
-  }) => (dispatch, getState) => {
-    const { token, at, cid } = getState().user;
-
-    grabMissionSlotStart();
-
-    return grabUpdatedSlot({
-      token,
-      at,
-      cid,
-      scheduledMissionId,
-      callSource,
-      missionType,
-      missionStart,
-      obsId,
-      domeId,
-      telescopeId,
-      objectId,
-      objectType,
-      objectTitle,
-      objectRA,
-      objectDec,
-      catalog,
-      catName,
-      designation,
-      processingRecipe,
-      uniqueId,
-      targetName,
-    })
+  })
     .then((response) => {
       /**
-        patching the callsource to ensure that it is always included for
-        future requests
+       patching the callsource to ensure that it is always included for
+       future requests
 
-        patching reservationType to allow future calls to know what type
-        of reservation this is.  In particular, whether or not this is
-        simply updating an existing reservation
-      */
+       patching reservationType to allow future calls to know what type
+       of reservation this is.  In particular, whether or not this is
+       simply updating an existing reservation
+       */
       if (onSuccessCallback) {
         onSuccessCallback();
       }
@@ -374,19 +374,19 @@ export const grabUpdateMissionSlot = ({
       })));
     })
     .catch(error => dispatch(grabMissionSlotFail(error)));
-  };
+};
 
 const fetchAllCardsStart = () => ({
   type: MISSION_ALL_CARD_START,
 });
 
 /**
-  if data from the fetch cards API has already been called use that source
-  instead of going all the way back to the API.
+ if data from the fetch cards API has already been called use that source
+ instead of going all the way back to the API.
 
-  the cards call is good for about a week and does not require to be called
-  for each request to for new missions.
-*/
+ the cards call is good for about a week and does not require to be called
+ for each request to for new missions.
+ */
 export function missionGetCards() {
   return (dispatch, getState) => {
     const { cardAPIResponse } = getState().missions;
@@ -394,9 +394,9 @@ export function missionGetCards() {
     dispatch(fetchAllCardsStart());
 
     /**
-      if we already have a cardAPIResponse with an actual missionList, we want
-      to use that
-      */
+     if we already have a cardAPIResponse with an actual missionList, we want
+     to use that
+     */
     if (cardAPIResponse && has(cardAPIResponse, 'data.missionList') && cardAPIResponse.data.missionList.length !== 0) {
       dispatch(allCards(cardAPIResponse));
       dispatch(missionGetPiggybacks(cardAPIResponse.data.objectList));
@@ -412,13 +412,13 @@ export function missionGetCards() {
         at,
         cid,
       })
-      .then((response) => {
-        dispatch(storeCardsResponse(response));
-        dispatch(allCards(response));
-        dispatch(missionGetPiggybacks(response.data.objectList));
-        dispatch(missionGetNextReservation(response.data.objectList));
-      })
-      .catch(error => dispatch(cardsFail(error)));
+        .then((response) => {
+          dispatch(storeCardsResponse(response));
+          dispatch(allCards(response));
+          dispatch(missionGetPiggybacks(response.data.objectList));
+          dispatch(missionGetNextReservation(response.data.objectList));
+        })
+        .catch(error => dispatch(cardsFail(error)));
     }
   }
 }
@@ -439,8 +439,8 @@ export function getNextPiggybackSingle(card) {
       lookaheadPiggyback: card.lookaheadDaysPiggyback,
       requestType: 'single',
     })
-    .then(response => dispatch(getNextPiggybackSingleSuccess(response.data)))
-    .catch(error => dispatch(getNextPiggybackSingleFail(error)));
+      .then(response => dispatch(getNextPiggybackSingleSuccess(response.data)))
+      .catch(error => dispatch(getNextPiggybackSingleFail(error)));
   }
 }
 
@@ -491,8 +491,8 @@ export const missionGetUpdates = () => (dispatch, getState) => {
     timestamp: moment().unix(),
     level: 'all',
   })
-  .then(response => dispatch(missionUpdatesSuccess(response.data)))
-  .catch(error => dispatch(missionUpdatesFail(error)));
+    .then(response => dispatch(missionUpdatesSuccess(response.data)))
+    .catch(error => dispatch(missionUpdatesFail(error)));
 };
 
 export function missionUpdatesSuccess(announcementList) {
@@ -524,10 +524,10 @@ export const missionGetPiggybacks = objectList => (dispatch, getState) => {
     start: '',
     requestType: 'multiple',
   })
-  .then(response => {
-    dispatch(missionGetPiggybackSuccess(response));
-  })
-  .catch(error => dispatch(missionGetPiggybackFail(error)));
+    .then(response => {
+      dispatch(missionGetPiggybackSuccess(response));
+    })
+    .catch(error => dispatch(missionGetPiggybackFail(error)));
 };
 
 const fetchPiggybacksStart = () => ({
@@ -565,8 +565,8 @@ export function missionGetNextReservation(objectList) {
       at,
       token
     })
-    .then(response => dispatch(missionGetNextReservationSuccess(response)))
-    .catch(error => dispatch(missionGetNextReservationFail(error)));
+      .then(response => dispatch(missionGetNextReservationSuccess(response)))
+      .catch(error => dispatch(missionGetNextReservationFail(error)));
   }
 }
 
@@ -579,8 +579,8 @@ export const updatePiggyback = ({ uniqueId, objectId }) => (dispatch, getState) 
     uniqueId,
     objectId,
   })
-  .then(result => dispatch(updateSinglePiggyback(result.data)))
-  .catch(error => dispatch(updateSinglePiggybackError(error)));
+    .then(result => dispatch(updateSinglePiggyback(result.data)))
+    .catch(error => dispatch(updateSinglePiggybackError(error)));
 };
 
 const updateSinglePiggyback = (data) => (dispatch, getState) => {
@@ -618,8 +618,8 @@ export function updateSingleReservations(uniqueId, objectId) {
       objectId,
       requestType: 'single',
     })
-    .then(response => dispatch( updateReservationsSuccess( response.data ) ))
-    .catch(error => dispatch( updateReservationsFail( error )));
+      .then(response => dispatch( updateReservationsSuccess( response.data ) ))
+      .catch(error => dispatch( updateReservationsFail( error )));
   }
 };
 
@@ -809,10 +809,10 @@ export default createReducer(initialState, {
   },
   [UPDATE_SINGLE_RESERVATION_SUCCESS](state, { type, payload }) {
     /**
-      Takes a single reservation from payload, if a match is determined
-      will update the reservations in state to the updated version of the
-      reservations based on the new data
-    */
+     Takes a single reservation from payload, if a match is determined
+     will update the reservations in state to the updated version of the
+     reservations based on the new data
+     */
     const { reservations } = state;
     const { uniqueId } = payload.missionList;
 

@@ -5,8 +5,8 @@ import Button from './Button';
 import CenterBar from './CenterBar';
 import MENU_INTERFACE from './Menus/MenuInterface';
 import Notifications from './Menus/Notifications';
-import ConnectUser from 'redux/components/ConnectUser';
-import AlertsIcon from 'redux/components/AlertsIcon';
+import ConnectUser from 'app/redux/components/ConnectUser';
+import AlertsIcon from 'app/redux/components/AlertsIcon';
 import {
   sloohLogoAstronaut,
   threeLinesAstronaut,

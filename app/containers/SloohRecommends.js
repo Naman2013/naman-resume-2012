@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+// todo remove me
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -12,7 +13,7 @@ import {
   missionConfirmOpen,
   missionConfirmClose,
   missionGetInfo,
-  missionGetUpdates } from '../modules/Missions';
+  missionGetUpdates } from '../modules/missions-old';
 
 const { element, func, object } = PropTypes;
 

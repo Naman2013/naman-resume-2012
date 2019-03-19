@@ -1,3 +1,4 @@
+// todo remove me
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -8,7 +9,7 @@ import PiggybackStatus from './PiggybackStatus';
 import { fetchRecommendsCards } from '../../../services/recommendations/recommends-cards';
 import { getNextPiggyback } from '../../../services/recommendations/get-next-piggyback';
 import { getNextReservation } from '../../../services/recommendations/get-next-reservation';
-import { getNextPiggybackSingle, getNextPiggybackSingleSuccess, grabMissionSlot, missionConfirmOpen, setCurrentCard } from '../../../modules/Missions';
+import { getNextPiggybackSingle, getNextPiggybackSingleSuccess, grabMissionSlot, missionConfirmOpen, setCurrentCard } from '../../../modules/missions-old';
 import { validateResponseAccess } from '../../../modules/authorization/actions';
 import s from './Recommendation.scss';
 

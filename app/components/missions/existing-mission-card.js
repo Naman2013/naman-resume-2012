@@ -1,3 +1,5 @@
+// todo remove me
+
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
@@ -15,7 +17,7 @@ import {
   getNextPiggybackSingle,
   missionGetCards,
   updatePiggyback,
-} from '../../modules/Missions';
+} from '../../modules/missions-old';
 
 import { resetMissionAvailability } from '../../modules/Piggyback';
 

@@ -1,6 +1,7 @@
+// todo remove me
 import axios from 'axios';
 import createReducer from './utils/createReducer';
-import { missionConfirmOpen, missionConfirmClose, missionGetCards } from './Missions';
+import { missionConfirmOpen, missionConfirmClose, missionGetCards } from './missions-old';
 import { fetchReservationList } from './mission-slots-by-telescope/mission-slots-by-telescope-actions';
 import { fetchUsersUpcomingMissions } from './Users-Upcoming-Missions';
 
