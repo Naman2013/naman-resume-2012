@@ -5,7 +5,7 @@
 *
 ***********************************/
 
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import has from 'lodash/has';
@@ -21,15 +21,6 @@ const {
   string,
 } = PropTypes;
 
-const relatedObjectsModel = {
-  name: 'RELATED_OBJECTS_MODEL',
-  model: resp => ({
-    objectTitle: resp.title,
-    objectIconURL: resp.iconURL,
-  }),
-};
-
-
 const RelatedObject = ({
   isDesktop,
   user,
@@ -38,21 +29,17 @@ const RelatedObject = ({
 }) => (
   <Request
     authorizationRedirect={true}
+    userParams={['at', 'cid', 'token']}
     serviceURL={serviceUrl}
     method="POST"
     serviceExpiresFieldName="expires"
     requestBody={{
-      cid: user.cid,
-      token: user.token,
-      at: user.at,
       slugLookupId,
       maxCount: 1,
     }}
-    model={relatedObjectsModel}
     render={({
       fetchingContent,
       serviceResponse,
-      RELATED_OBJECTS_MODEL,
     }) => {
       const firstObject = (has(serviceResponse, 'relatedObjectsList') && serviceResponse.relatedObjectsList[0]) || {};
       return (
@@ -64,7 +51,7 @@ const RelatedObject = ({
               relatedObjectsCount={serviceResponse.relatedObjectsCount}
               user={user}
               {...context}
-              {...RELATED_OBJECTS_MODEL}
+              {...firstObject}
             />)}
           </DeviceContext.Consumer>
         </div>

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { astronaut } from '../../../styles/variables/colors_tiles_v4'
 import TelescopeThumbnailView from '../../TelescopeThumbnailView';
 import { updateTelescopeActiveMission, setActiveTelescopeMissionID } from '../../../modules/active-telescope-missions/active-telescope-missions-actions';
 import { setImageDataToSnapshot } from '../../../modules/starshare-camera/starshare-camera-actions';
@@ -58,6 +59,7 @@ class TelescopeImageLoader extends Component {
     firstLoad: true,
     adjustedFade: 0, // duration of fade in of new image
     startingOpacity: null, // starting opacity of the new image
+    loading: true,
   };
 
   componentWillMount() {
@@ -71,6 +73,7 @@ class TelescopeImageLoader extends Component {
   componentDidUpdate() {
     if (this.props.imageSource !== this.previouslyRenderedImageSource) {
       this.props.actions.resetActiveSSE();
+      this.setState({ loading: true, firstLoad: true });
       this.rebuildSSE(this.props.imageSource);
       return;
     }
@@ -235,6 +238,7 @@ class TelescopeImageLoader extends Component {
         messageText,
         statusCode,
         firstLoad: false,
+        loading: false,
       });
     }
   }
@@ -271,13 +275,14 @@ class TelescopeImageLoader extends Component {
       prevH,
       startingOpacity,
       adjustedFade,
+      loading,
     } = this.state;
 
     const { loadThumbnails, viewportHeight } = this.props;
 
-    if (!currentImageUrl || !previousImageUrl) {
-      return null;
-    }
+    // if (!currentImageUrl || !previousImageUrl) {
+    //   return null;
+    // }
 
     console.log("Current Image Width: " + currW);
     console.log("Current Image Height: " + currH);

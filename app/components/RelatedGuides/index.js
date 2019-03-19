@@ -1,3 +1,3 @@
-import RelatedGuides from './RelatedGuides.redux';
+import RelatedGuides from './RelatedGuides';
 
 export default RelatedGuides;

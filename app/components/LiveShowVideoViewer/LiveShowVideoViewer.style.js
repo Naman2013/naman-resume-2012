@@ -12,7 +12,6 @@ export default css`
   }
   .live-video-container {
     display:block;
-    background: #1F1F1F;
     width: 100%;
     margin-top: 10px;
     position: relative;

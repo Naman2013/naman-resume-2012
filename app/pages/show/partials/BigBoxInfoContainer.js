@@ -1,22 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import MonotonousTile from 'components/common/tiles/MonotonousTile'
+import MonotonousTile from 'components/common/tiles/MonotonousTile';
 import LiveShowVideoViewer from 'components/LiveShowVideoViewer';
 import styles from './BigBoxInfoContainer.style';
 
-const {
-  arrayOf,
-  bool,
-  number,
-  oneOfType,
-  shape,
-  string,
-} = PropTypes;
+const { arrayOf, bool, number, oneOfType, shape, string } = PropTypes;
 
-const BigBoxInfoContainer = (props) => (
+const BigBoxInfoContainer = props => (
   <div className="root">
     <LiveShowVideoViewer {...props} />
-    <MonotonousTile label={props.headerLabel} text={props.title} />
+    <MonotonousTile
+      label={props.headerLabel}
+      text={props.title}
+      showReadingList
+      readingListType="show"
+      id={props.showId}
+    />
     <style jsx>{styles}</style>
   </div>
 );

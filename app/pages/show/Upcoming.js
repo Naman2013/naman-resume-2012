@@ -20,6 +20,7 @@ import AsideContainerDetailsOnly from './partials/AsideContainerDetailsOnly';
 import { romance, seashell } from 'styles/variables/colors_tiles_v4';
 import styles from './Show.style';
 import messages from './Show.messages';
+import ToggleReadingList from '../../components/common/ToggleReadingList/ToggleReadingList';
 
 const {
   any,
@@ -95,6 +96,7 @@ class UpcomingShow extends Component {
       isDesktop,
       isScreenLarge,
       isScreenMedium,
+      showId,
       showInfoTiles,
       showStreamCode,
       showStreamURL,
@@ -119,6 +121,7 @@ class UpcomingShow extends Component {
             <div className="big-box-background">
               <span className="big-box-header" dangerouslySetInnerHTML={{ __html: tagLine }} />
               <span className="big-box-title" dangerouslySetInnerHTML={{ __html: title }} />
+              <ToggleReadingList readingListType = "show" itemId={showId} />
             </div>
             <div className="hide-on-mobile">
               <LabeledTitleTiles
@@ -159,6 +162,7 @@ class UpcomingShow extends Component {
                 {...this.props}
               />)}
               isScreenLarge={isScreenLarge}
+              isDesktop={isDesktop}
               renderMainContent={() => (<MainContainerWithDiscussions
                 {...this.props}
                 selectedTab={selectedTab}
