@@ -77,7 +77,7 @@ class LiveShowVideoViewer extends Component {
             'inactive-tele-tab': selectedTab !== 0,
           })}
         >
-          <div style={videoContainerStyle} className="live-video-container">
+          <div style={videoContainerStyle} className="live-video-container" >
             {showStreamCode && showStreamURL ? (
               <ShowVideoImageLoader
                 teleStreamCode={showStreamCode}
@@ -91,7 +91,7 @@ class LiveShowVideoViewer extends Component {
         </TabPanel>
         {currentFeed && (
           <TabPanel forceRender className={classnames('active-tele-tab')}>
-            <div style={videoContainerStyle} className="live-video-container">
+            <div style={videoContainerStyle} className="live-video-container" >
               {currentFeed.imageSourceType === 'video' ? (
                 <ShowVideoImageLoader
                   teleStreamCode={currentFeed.videoStreamCode}
@@ -102,20 +102,20 @@ class LiveShowVideoViewer extends Component {
                   callSource="situationRoom"
                 />
               ) : (
-                // else currentFeed.imageSourceType === 'SSE'
-                <TelescopeImageViewer
-                  teleSystem={currentFeed.systemId}
-                  telePort={currentFeed.SSEport}
-                  teleId={currentFeed.TelescopeId}
-                  obsId={currentFeed.ObsId}
-                  domeId={String(currentFeed.DomeId)}
-                  teleFade={Number(currentFeed.SSEfade)}
-                  clipped={false}
-                  missionFormat="none"
-                  isInteractive={false}
-                  callSource="situationRoom"
-                />
-              )}
+                  // else currentFeed.imageSourceType === 'SSE'
+                  <TelescopeImageViewer
+                    teleSystem={currentFeed.systemId}
+                    telePort={currentFeed.SSEport}
+                    teleId={currentFeed.TelescopeId}
+                    obsId={currentFeed.ObsId}
+                    domeId={String(currentFeed.DomeId)}
+                    teleFade={Number(currentFeed.SSEfade)}
+                    clipped={false}
+                    missionFormat="none"
+                    isInteractive={false}
+                    callSource="situationRoom"
+                  />
+                )}
             </div>
           </TabPanel>
         )}
