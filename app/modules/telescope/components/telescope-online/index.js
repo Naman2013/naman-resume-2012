@@ -15,6 +15,20 @@ import React, { Component } from 'react';
 import style from '../telescope-details/v4-telescope-details.style';
 
 export class TelescopeOnline extends Component {
+  componentDidMount = () => {
+    const { fetchAllWidgets, activeTelescope } = this.props;
+    const { observatoryData } = activeTelescope;
+    const { DayNightBarPanelWidgetId, obsId } = observatoryData;
+    // obsId,
+    //   CurrentConditionsWidgetId,
+    //   DayNightBarPanelWidgetId,
+    //   DayNightMapWidgetId,
+    //   MiniWeatherPanelWidgetId,
+    //   AllskyWidgetId,
+    //   DomecamWidgetId,
+    fetchAllWidgets({ obsId, DayNightBarPanelWidgetId });
+  };
+
   render() {
     const {
       activeTelescopeMission,

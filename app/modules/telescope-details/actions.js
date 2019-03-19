@@ -305,7 +305,7 @@ const fetchDayNightBarPanelAction = ({ obsId, DayNightBarPanelWidgetId }) => (di
 
 export const fetchAllWidgets = ({
   obsId,
-  CurrentConditionsWidgetId,
+  // CurrentConditionsWidgetId,
   DayNightBarPanelWidgetId,
   DayNightMapWidgetId,
   MiniWeatherPanelWidgetId,

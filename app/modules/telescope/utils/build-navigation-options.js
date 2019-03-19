@@ -12,6 +12,7 @@ function buildNavigationOptions(observatoryList = []) {
             telescopeUniqueID: teleUniqueId,
             show: teleHasTelescopePage,
             AllskyTimelapseWidgetId: observatory.AllskyTimelapseWidgetId,
+            observatoryData: { ...observatory },
           })
         )
         .filter(telescope => {

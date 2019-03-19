@@ -32,3 +32,13 @@ export const makeAllSkyTimelapseFetchingSelector = () =>
     makeAllSkyTimelapseSelector(),
     state => state.isFetching
   );
+
+// -------------------------------------------
+// TELESCOPE ONLINE
+export const selectTelescopeOffline = state => state.telescopeDetails;
+
+export const makeDayNightBarPanelSelector = () =>
+  createSelector(
+    selectTelescopeOffline,
+    state => state.dayNightBarPanel
+  );

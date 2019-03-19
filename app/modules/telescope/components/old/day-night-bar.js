@@ -12,9 +12,13 @@ const data = [
   { title: 'Sunrise:', field: '07:03' },
 ];
 
-const DayNightBar = () => (
+const DayNightBar = ({ dayNightBarPanelURL }) => (
   <ModuleContainer title="Day/night bar">
-    <div style={{ background: 'blue', height: '20px' }} />
+    <img
+      style={{ maxWidth: '100%' }}
+      src={dayNightBarPanelURL}
+      alt="day Night Bar Panel"
+    />
     <SimpleList data={data} />
   </ModuleContainer>
 );
