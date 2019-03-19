@@ -33,6 +33,7 @@ export default css`
   .title {
     padding: 25px;
     text-align: center;
+    color: ${astronaut};
     width: 85%;
   }
 

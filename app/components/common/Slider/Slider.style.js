@@ -54,7 +54,7 @@ export default css`
   }
 
   @media ${screenMedium} {
-    .slick-list {
+    .sections-wrapper .slick-list {
       z-index: 100;
       pointer-events: none;
     }

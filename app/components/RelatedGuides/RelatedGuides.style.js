@@ -22,4 +22,21 @@ export default css`
   .related-shows-count {
     font-weight: normal;
   }
+
+  article {
+    margin: 30px 0;
+  }
+
+  .flipped {
+    display: none;
+  }
+
+  article:hover .card{
+    display: none;
+  }
+
+  article:hover .flipped{
+    display: block;
+  }
+
 `;

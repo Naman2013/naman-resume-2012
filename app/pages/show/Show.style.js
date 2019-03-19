@@ -61,7 +61,7 @@ export default css`
   }
 
 
-  @media ${screenLarge} {
+  @media screen and (min-width: 1025px) {
     .hide-on-mobile {
       display: block;
     }

@@ -37,16 +37,16 @@ class ResponsiveTwoColumnContainer extends Component {
 
   state = {
     showMainContainer: true,
-    showAsideContainer: this.props.isScreenLarge,
+    showAsideContainer: this.props.isDesktop,
   };
 
   componentWillReceiveProps(nextProps) {
-    if (!this.props.isScreenLarge && nextProps.isScreenLarge) {
+    if (!this.props.isDesktop && nextProps.isDesktop) {
       this.setState({
-        showMainContainer: nextProps.isScreenLarge,
-        showAsideContainer: nextProps.isScreenLarge,
+        showMainContainer: nextProps.isDesktop,
+        showAsideContainer: nextProps.isDesktop,
       });
-    } else if (this.props.isScreenLarge && !nextProps.isScreenLarge) {
+    } else if (this.props.isDesktop && !nextProps.isDesktop) {
       this.setState(state => ({
         showMainContainer: state.showMainContainer,
         showAsideContainer: (state.showMainContainer && state.showAsideContainer) ?
@@ -56,7 +56,7 @@ class ResponsiveTwoColumnContainer extends Component {
   }
 
   onShowMainContainer = () => {
-    if (!this.props.isScreenLarge) {
+    if (!this.props.isDesktop) {
       this.setState({
         showMainContainer: true,
         showAsideContainer: false,
@@ -65,7 +65,7 @@ class ResponsiveTwoColumnContainer extends Component {
   }
 
   onShowAsideContainer = () => {
-    if (!this.props.isScreenLarge) {
+    if (!this.props.isDesktop) {
       this.setState({
         showMainContainer: false,
         showAsideContainer: true,
@@ -86,9 +86,11 @@ class ResponsiveTwoColumnContainer extends Component {
       renderNavigationComponent,
       renderAsideContent,
       renderMainContent,
+      isDesktop,
     } = props;
     const { showMainContainer, showAsideContainer } = state;
     return (<div className="root">
+    {!isDesktop && (
       <div className="split-nav">
         {renderNavigationComponent({
           showMainContainer,
@@ -97,6 +99,7 @@ class ResponsiveTwoColumnContainer extends Component {
           onShowAsideContainer,
         })}
       </div>
+    )}
       <div className="main-container">
         {showMainContainer ? <div className="left-container">
           {renderMainContent()}
@@ -142,15 +145,10 @@ class ResponsiveTwoColumnContainer extends Component {
           width: 100%;
         }
 
-        @media ${screenLarge} {
+        @media screen and (min-width: 1025px) {
           .root {
             width: 940px;
             margin: 0 auto;
-          }
-
-          .split-nav {
-            display: none;
-            width: 100%;
           }
 
           .right-container {
@@ -160,30 +158,7 @@ class ResponsiveTwoColumnContainer extends Component {
           .left-container {
             width: 620px;
           }
-
         }
-
-        @media ${screenXLarge} {
-          .root {
-            width: 940px;
-            margin: 0 auto;
-          }
-
-          .split-nav {
-            display: none;
-            width: 100%;
-          }
-
-          .right-container {
-            width: 300px;
-          }
-
-          .left-container {
-            width: 620px;
-          }
-
-        }
-
       `}</style>
     </div>);
   }

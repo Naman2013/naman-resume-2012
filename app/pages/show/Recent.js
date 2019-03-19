@@ -1,9 +1,9 @@
 /***********************************
-* V4 RecentShow
-*
-*
-*
-***********************************/
+ * V4 RecentShow
+ *
+ *
+ *
+ ***********************************/
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
@@ -12,7 +12,7 @@ import ThreeTabbedNav from 'components/ThreeTabbedNav';
 import TwoTabbedNav from 'components/TwoTabbedNav';
 import CenterColumn from 'components/common/CenterColumn';
 import LabeledTitleTiles from 'components/common/style/LabeledTitleTiles';
-import MonotonousTile from 'components/common/tiles/MonotonousTile'
+import MonotonousTile from 'components/common/tiles/MonotonousTile';
 import VideoImageLoader from 'components/common/telescope-image-loader/video-image-loader';
 import ResponsiveTwoColumnContainer from 'components/ResponsiveTwoColumnContainer';
 import MainContainerWithDiscussions from './partials/MainContainerWithDiscussions';
@@ -34,10 +34,10 @@ const {
 } = PropTypes;
 
 class RecentShow extends Component {
-  static propTypes = {
+  static propTypes = { 
     isDesktop: bool.isRequired,
     showInfoTiles: shape({
-      list: shape({})
+      list: shape({}),
     }),
     user: shape({
       at: oneOfType([number, string]),
@@ -56,7 +56,7 @@ class RecentShow extends Component {
     commentsIsActive: false,
     detailsIsActive: false,
     selectedTab: 0,
-  }
+  };
 
   showAbout = () => {
     this.setState({
@@ -64,7 +64,7 @@ class RecentShow extends Component {
       commentsIsActive: false,
       detailsIsActive: false,
     });
-  }
+  };
 
   showComments = () => {
     this.setState({
@@ -72,7 +72,7 @@ class RecentShow extends Component {
       commentsIsActive: true,
       detailsIsActive: false,
     });
-  }
+  };
 
   showDetails = () => {
     this.setState({
@@ -80,14 +80,14 @@ class RecentShow extends Component {
       commentsIsActive: false,
       detailsIsActive: true,
     });
-  }
+  };
 
-  handleSelect = (index) => {
+  handleSelect = index => {
     window.scrollTo(0, 0);
     this.setState({
       selectedTab: index,
     });
-  }
+  };
 
   render() {
     const {
@@ -96,6 +96,7 @@ class RecentShow extends Component {
       isDesktop,
       isScreenLarge,
       isScreenMedium,
+      showId,
       showInfoTiles,
       showStreamCode,
       showStreamURL,
@@ -111,10 +112,11 @@ class RecentShow extends Component {
       selectedTab,
     } = this.state;
 
-
-
     return (
-      <CenterColumn theme={{ backgroundColor: seashell }} theme={{ paddingTop: '25px' }}>
+      <CenterColumn
+        theme={{ backgroundColor: seashell }}
+        theme={{ paddingTop: '25px' }}
+      >
         <div className="root">
           <div className="big-box">
             <div className="show-video-container">
@@ -125,14 +127,14 @@ class RecentShow extends Component {
                 teleStreamThumbnailVideoHeight="550"
                 showVideoControls={1}
                 autoPlay={0}
-                title={title}
-                subtitle={tagLine}
               />
             </div>
-            <MonotonousTile label={headerLabel} text={title} />
+            <MonotonousTile label={headerLabel} text={title} showReadingList readingListType = 'show' id={showId}/>
             <div className="hide-on-mobile">
               <LabeledTitleTiles
-                theme={{ margin: isDesktop ? 0 : '15px', backgroundColor: romance }}
+                theme={{
+                  backgroundColor: romance,
+                }}
                 tiles={showInfoTiles.list}
                 direction="row"
               />
@@ -141,42 +143,46 @@ class RecentShow extends Component {
           <div className="recent-main-container">
             <ResponsiveTwoColumnContainer
               renderNavigationComponent={() => (
-                <div className="full-width">{hasDiscussionThread ? (
-                  <ThreeTabbedNav
-                    firstTitle={intl.formatMessage(messages.About)}
-                    secondTitle={intl.formatMessage(messages.Comments)}
-                    thirdTitle={intl.formatMessage(messages.Details)}
-                    firstTabIsActive={aboutIsActive}
-                    firstTabOnClick={this.showAbout}
-                    secondTabIsActive={commentsIsActive}
-                    secondTabOnClick={this.showComments}
-                    thirdTabIsActive={detailsIsActive}
-                    thirdTabOnClick={this.showDetails}
-                  />
-                ) : (
-                  <TwoTabbedNav
-                    firstTitle={intl.formatMessage(messages.About)}
-                    secondTitle={intl.formatMessage(messages.Details)}
-                    firstTabIsActive={aboutIsActive}
-                    firstTabOnClick={this.showAbout}
-                    secondTabIsActive={detailsIsActive}
-                    secondTabOnClick={this.showDetails}
-                  />
-                )}
-                </div>)
-              }
-              renderAsideContent={() => (<AsideContainerDetailsOnly
-                {...this.props}
-              />)}
+                <div className="full-width">
+                  {hasDiscussionThread ? (
+                    <ThreeTabbedNav
+                      firstTitle={intl.formatMessage(messages.About)}
+                      secondTitle={intl.formatMessage(messages.Comments)}
+                      thirdTitle={intl.formatMessage(messages.Details)}
+                      firstTabIsActive={aboutIsActive}
+                      firstTabOnClick={this.showAbout}
+                      secondTabIsActive={commentsIsActive}
+                      secondTabOnClick={this.showComments}
+                      thirdTabIsActive={detailsIsActive}
+                      thirdTabOnClick={this.showDetails}
+                    />
+                  ) : (
+                    <TwoTabbedNav
+                      firstTitle={intl.formatMessage(messages.About)}
+                      secondTitle={intl.formatMessage(messages.Details)}
+                      firstTabIsActive={aboutIsActive}
+                      firstTabOnClick={this.showAbout}
+                      secondTabIsActive={detailsIsActive}
+                      secondTabOnClick={this.showDetails}
+                    />
+                  )}
+                </div>
+              )}
+              renderAsideContent={() => (
+                <AsideContainerDetailsOnly {...this.props} />
+              )}
               isScreenLarge={isScreenLarge}
-              renderMainContent={() => (<MainContainerWithDiscussions
-                {...this.props}
-                selectedTab={selectedTab}
-                handleSelect={this.handleSelect}
-                aboutIsActive={aboutIsActive}
-                commentsIsActive={commentsIsActive}
-                detailsIsActive={detailsIsActive}
-              />)}
+              isDesktop={isDesktop}
+              renderMainContent={() => (
+                <MainContainerWithDiscussions
+                  {...this.props}
+                  selectedTab={selectedTab}
+                  handleSelect={this.handleSelect}
+                  aboutIsActive={aboutIsActive}
+                  commentsIsActive={commentsIsActive}
+                  detailsIsActive={detailsIsActive}
+                />
+              )}
             />
           </div>
           <style jsx>{styles}</style>

@@ -4,7 +4,10 @@ import classnames from 'classnames';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import generateSseImageLoader from '../../../utils/generate-sse-image-source';
-import { updateActiveSSE, resetActiveSSE } from '../../../modules/telescope-details/actions';
+import {
+  updateActiveSSE,
+  resetActiveSSE,
+} from '../../../modules/telescope-details/actions';
 import {
   setImageDataToSnapshot,
   resetImageToSnap,
@@ -22,13 +25,13 @@ const mapDispatchToProps = dispatch => ({
       updateActiveSSE,
       resetActiveSSE,
     },
-    dispatch,
+    dispatch
   ),
 });
 
 @connect(
   null,
-  mapDispatchToProps,
+  mapDispatchToProps
 )
 class ShowVideoImageLoader extends Component {
   static propTypes = {
@@ -69,7 +72,7 @@ class ShowVideoImageLoader extends Component {
       this.sseSource.addEventListener(
         'message',
         event => this.handleEventSource(event.data),
-        false,
+        false
       );
     }
   }
@@ -83,7 +86,11 @@ class ShowVideoImageLoader extends Component {
 
   handleEventSource(imageData) {
     const {
-      astroObjectID, currentImgURL, imageID, messageType, scheduledMissionID,
+      astroObjectID,
+      currentImgURL,
+      imageID,
+      messageType,
+      scheduledMissionID,
     } = JSON.parse(imageData);
 
     const { callSource } = this.props;
@@ -105,7 +112,10 @@ class ShowVideoImageLoader extends Component {
 
   generateIFrameUrl() {
     const {
-      teleStreamCode, showVideoControls, showInfo, autoplay,
+      teleStreamCode,
+      showVideoControls,
+      showInfo,
+      autoplay,
     } = this.props;
     return `https://www.youtube.com/embed/${teleStreamCode}?rel=0&amp;autoplay=${autoplay}&modestbranding=1&controls=${showVideoControls}&showinfo=${showInfo}&vq=hd720&origin=http://live.slooh.com/`;
   }
@@ -118,9 +128,12 @@ class ShowVideoImageLoader extends Component {
       clipped,
     } = this.props;
 
-    const videoImageLoaderClassnames = classnames('video-image-loader video-container', {
-      clipped,
-    });
+    const videoImageLoaderClassnames = classnames(
+      'video-image-loader video-container',
+      {
+        clipped,
+      }
+    );
 
     return (
       <div className={videoImageLoaderClassnames}>
@@ -139,7 +152,8 @@ class ShowVideoImageLoader extends Component {
           height={teleStreamThumbnailVideoHeight}
           teleStreamCode={teleStreamCode}
           id={teleStreamCode}
-          type="live"
+          showVideoControls={1}
+          autoplay={1}
         />
         <style jsx>{styles}</style>
       </div>
