@@ -14,7 +14,7 @@
 }
 
 
-// Inner and outer indents
+// Inner and outer indents, positioning
 .pad {
 
   &-40 {
@@ -39,15 +39,16 @@
   margin-bottom: 40px;
 }
 
-.no-bottom-pad {
-  padding-bottom: 0;
+.position-abs {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
 }
 
-.no-last-border {
-
-  hr:last-child {
-    display: none;
-  }
+.no-bottom-pad {
+  padding-bottom: 0;
 }
 
 
@@ -57,6 +58,13 @@
   width: 100%;
   margin: 0;
   border-top: 1px solid $hr-silver;
+}
+
+.no-last-border {
+
+  hr:last-child {
+    display: none;
+  }
 }
 
 
@@ -107,6 +115,39 @@
     &:last-child {
       margin-bottom: 0;
     }
+  }
+}
+
+// Links
+.i-link {
+  margin: 0 7px;
+  font: 14px $primary-font;
+  color: $darkBlueGray;
+  text-decoration: none;
+  transition: all 0.5ms ease-in-out;
+
+  &:hover {
+    color: $turqoise;
+    text-decoration: none;
+  }
+
+  &.active {
+    font-weight: bold;
+
+    &:hover {
+      color: $darkBlueGray;
+    }
+  }
+
+  &:focus,
+  &:visited {
+    color: $darkBlueGray;
+    text-decoration: none;
+  }
+
+  @include xsm {
+    display: flex;
+    margin: 7px 0;
   }
 }
 

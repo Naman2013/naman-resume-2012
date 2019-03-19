@@ -20,6 +20,7 @@ const InstrumentNavigation = (props: TInstrumentNavigation) => {
     observatoryUniqueID,
     telescopeUniqueID,
   } = telescope;
+  if (!instruments && !instruments.length) return null;
 
   const handleClick = (instrument: Object) => () => {
     if (instrument.instrUniqueId === activeInstrumentID) return;
@@ -29,26 +30,39 @@ const InstrumentNavigation = (props: TInstrumentNavigation) => {
   const path = `/telescope-details/${observatoryUniqueID}/${telescopeUniqueID}`;
 
   return (
-    <ul
-      className="instrument-navigation"
-      style={{ backgroundImage: `url(${thumbnailURL})` }}
-    >
-      {instruments.map(instrument => (
-        <li
-          className="instrument-navigation-el"
-          onClick={handleClick(instrument)}
-          key={`instrument-tab-navigation-${instrument.instrUniqueId}`}
-        >
-          <Link
-            to={`${path}/${instrument.instrUniqueId}`}
-            className={classnames('instrument-navigation-btn', {
-              active: instrument.instrUniqueId === activeInstrumentID,
+    <ul className={classnames('instrument-navigation', {
+      'no-border': instruments.length === 1
+    })}>
+      {instruments.map((instrument, index) => {
+        return (
+          <li
+            key={`instrument-tab-navigation-${instrument.instrUniqueId}`}
+            className={classnames('instrument-navigation-el', {
+              'order-1': index === 0,
+              'order-3': instruments.length !== 1 && index === instruments.length - 1
             })}
           >
-            {instrument.instrTelescopeShortName}
-          </Link>
-        </li>
-      ))}
+            <Link
+              to={`${path}/${instrument.instrUniqueId}`}
+              onClick={handleClick(instrument)}
+              className={classnames('instrument-navigation-btn i-link', {
+                'active': instrument.instrUniqueId === activeInstrumentID
+              })}
+            >
+              {instrument.instrTelescopeShortName}
+            </Link>
+          </li>
+        )
+      })}
+      <li className="instrument-navigation-el order-2">
+        <Link
+          className="instrument-navigation-btn"
+          to={`${path}/${telescope.instruments[0].instrUniqueId}`}
+          onClick={handleClick(telescope.instruments[0])}
+        >
+          <img src={thumbnailURL} alt="" />
+        </Link>
+      </li>
     </ul>
   );
 };

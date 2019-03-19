@@ -1,38 +1,51 @@
 @import "~app/styles/variables/index";
 
 .instrument-navigation {
-  height: 120px;
+  position: relative;
+  height: 130px;
   width: 100%;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   font-family: $primary-font;
   list-style-type: none;
   padding: 0;
-  margin: 0;
-  background-size: 50px;
-  background-color: transparent;
-  background-repeat: no-repeat;
-  background-position: center;
+  margin: 10px 0 0;
+  text-decoration: none;
   z-index: 10;
 
-  &-el {
-    flex: 1;
-    width: 100%;
-    padding: 10px;
-    box-sizing: border-box;
-    display: flex;
-    justify-content: center;
-    text-align: center;
+  &:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 70px;
+    right: 0;
+    left: 0;
+    border-bottom: 1px dashed $turqoise;
+  }
 
-    &:last-child {
-      align-items: flex-end;
+  &.no-border {
+    &:after {
+      display: none;
+    }
+  }
+
+  &:hover {
+    text-decoration: none;
+  }
+
+  &-el {
+    margin: 0 0 7px;
+
+    &.order-1,
+    &.order-3 {
+      z-index: 15;
     }
 
-    &:first-child {
-      align-items: flex-start;
+    &.order-2 {
+      z-index: 20;
     }
   }
 
@@ -40,31 +53,7 @@
     flex: 1;
     padding: 0;
     background: transparent;
-    color: $darkBlueGray;
     border: none;
-    text-decoration: none;
-    transition: all 0.5ms ease-in-out;
-
-    &:hover,
-    &:focus,
-    &:active,
-    &:visited {
-      outline: none;
-      color: $darkBlueGray;
-      text-decoration: none;
-    }
-
-    &:hover {
-      color: $turqoise;
-    }
-
-    &.active {
-      font-weight: bold;
-
-      &:hover {
-        color: $darkBlueGray;
-      }
-    }
   }
 }
 

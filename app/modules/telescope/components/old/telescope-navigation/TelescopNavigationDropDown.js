@@ -29,24 +29,44 @@ const CustomOption = props => {
     return updateCurrentInstrument(instrument);
   };
 
+  const defaultInstrument = instruments[0];
+
   return (instruments && instruments.length) ? (
     <div className="dropdown-opt">
       <div className="dropdown-name">
-        <img
-          className="option-icon"
-          src={thumbnailURL}
-          alt={children}
-        />
+        <Link
+          className="dropdown-link-small"
+          key={defaultInstrument.instrUniqueId}
+          to={`${path}/${defaultInstrument.instrUniqueId}`}
+          onClick={handleClick(defaultInstrument)}
+        >
+          <img
+            className="option-icon"
+            src={thumbnailURL}
+            alt={children}
+          />
+        </Link>
+
         <Container fluid>
           <Row>
-            <Col sm={6} md={3}>{children}: </Col>
+            <Col sm={6} md={3}>
+              <Link
+                className="i-link"
+                key={defaultInstrument.instrUniqueId}
+                to={`${path}/${defaultInstrument.instrUniqueId}`}
+                onClick={handleClick(defaultInstrument)}
+              >
+                {children}:
+              </Link>
+            </Col>
+
             <Col sm={6} md={9} className="option-instruments">
             {instruments.map(instrument => {
               return (
                 <Link
                   key={instrument.instrUniqueId}
                   to={`${path}/${instrument.instrUniqueId}`}
-                  className={classnames('dropdown-link', {
+                  className={classnames('i-link', {
                     active: instrument.instrUniqueId === activeInstrumentID,
                   })}
                   onClick={handleClick(instrument)}
