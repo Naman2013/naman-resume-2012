@@ -24,7 +24,7 @@ export class Constellation extends Component {
     const { getMissionSlot, selectedObjectData } = this.props;
 
     getMissionSlot({
-      callSource: 'byPopularObjects',
+      callSource: 'byConstellationV4',
       domeId: selectedObjectData.domeId,
       missionStart: selectedObjectData.missionStart,
       objectId: selectedObjectData.objectId,
@@ -40,7 +40,7 @@ export class Constellation extends Component {
     const { reserveMissionSlot, missionSlot } = this.props;
 
     reserveMissionSlot({
-      callSource: 'byPopularObjects',
+      callSource: 'byConstellationV4',
       catName: missionSlot.catName,
       catalog: missionSlot.catalog,
       designation: missionSlot.designation,
@@ -79,7 +79,7 @@ export class Constellation extends Component {
 
     if (missionSlot && missionSlot.scheduledMissionId) {
       cancelMissionSlot({
-        callSource: 'byPopularObjects',
+        callSource: 'byConstellationV4',
         grabType: 'notarget',
         scheduledMissionId: missionSlot.scheduledMissionId,
       });
@@ -143,11 +143,11 @@ export class Constellation extends Component {
           </div>
         </div>
 
-        {/* <MissionSuccessModal
+        <MissionSuccessModal
           show={successModalShow}
           onHide={this.modalClose}
           reservedMissionData={reservedMissionData}
-        /> */}
+        />
       </div>
     );
   }

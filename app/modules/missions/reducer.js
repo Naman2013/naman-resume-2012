@@ -205,6 +205,12 @@ function resetMissionsData(state) {
       objectList: [],
       selectedObjectId: null,
     },
+    byConstellation: {
+      ...state.byConstellation,
+      selectedConstellation: null,
+      objectList: [],
+      selectedObjectId: null,
+    },
     byCatalog: {
       ...state.byCatalog,
       selectedCatalog: null,
