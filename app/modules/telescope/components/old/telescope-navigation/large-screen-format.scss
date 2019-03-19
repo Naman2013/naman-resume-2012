@@ -1,0 +1,54 @@
+@import '~app/styles/variables/index';
+
+.large-format-nav-root {
+  display: flex;
+  justify-content: center;
+  box-shadow: 0 5px 35px -11px rgba(0, 0, 0, 0.57);
+}
+
+.option-list {
+  padding: 0;
+  margin: 0;
+  display: flex;
+  list-style-type: none;
+}
+
+.option-container {
+  position: relative;
+  min-width: 135px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: white;
+  border-left: 1px solid $hawkesBlue;
+
+  &.active {
+    box-shadow: inset 0 -5px 0 $astronaut;
+  }
+}
+
+.option-container:last-child {
+  border-right: 1px solid $hawkesBlue;
+}
+
+.option-telescope-name {
+  padding: 15px 0 0;
+  font-size: 18px !important;
+  text-align: center;
+}
+
+.option {
+  flex: 1;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+
+  &:focus {
+    outline: none;
+  }
+}
+

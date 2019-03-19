@@ -1,5 +1,7 @@
-@import '~app/styles/variables/index';
-@import '~app/styles/mixins/utilities.scss';
+@import "~app/styles/variables/index";
+@import "~app/styles/variables/media-queries.scss";
+@import "~app/styles/mixins/utilities.scss";
+
 
 // article, headers, paragraphs
 // primary - BrandonGrotesque
@@ -8,6 +10,9 @@
 $goldenRatio: 1.53;
 
 article {
+
+  .i-text {
+
   .text {
     margin: 10px 0 30px;
   }
@@ -17,6 +22,15 @@ article {
 .h-2 {
   font-weight: 400;
   font-family: $secondary-font;
+
+  &-primary {
+    font-family: $primary-font;
+    letter-spacing: 2px;
+  }
+
+  &-bold {
+    font-weight: 700;
+  }
 }
 
 .h-3,
@@ -28,24 +42,31 @@ article {
   font-family: $primary-font;
 }
 
-.h-1,
-.h-2,
-.h-3,
-.h-4,
-.h-5,
-.h-6,
-.text {
+.h-1, .h-2, .h-3, .h-4, .h-5, .h-6, .i-text {
+
   @include no-indent();
   color: $astronaut;
+
+  &-white {
+    color: $white;
+  }
 }
 
 .h-1 {
   font-size: 40px;
   line-height: 2.07;
+
+  @include md() {
+    font-size: 24px;
+  }
+
+  @include sm() {
+    font-size: 24px;
+  }
 }
 
 .h-2 {
-  font-size: 20px;
+  font-size: 16px;
   line-height: 1.4;
 }
 
@@ -72,9 +93,17 @@ article {
   text-transform: uppercase;
 }
 
-.text {
+.i-text {
   font: 19px $secondary-font;
   line-height: $goldenRatio;
   margin: 0 0 2px;
   color: $raven;
+
+  &-white {
+    color: $white;
+  }
+
+  &-18 {
+    font-size: 18px;
+  }
 }
