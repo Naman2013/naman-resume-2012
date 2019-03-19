@@ -64,7 +64,7 @@ export class ConstellationSetup extends Component {
               handleChange={setObject}
               options={objectListOpts}
               placeholder="Choose"
-              isDisabled
+              isDisabled={objectListOpts.length === 0 || disabled}
               value={selectedObjectId}
             />
           </div>

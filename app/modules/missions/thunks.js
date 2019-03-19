@@ -11,6 +11,7 @@ import {
   getPresetOptionsApi,
   cancelMissionSlotApi,
   getConstellationListApi,
+  getConstellationObjectListApi,
 } from 'app/modules/missions/api';
 import { ACTION } from './reducer';
 
@@ -101,9 +102,28 @@ export const getConstellationList = () => (dispatch, getState) => {
     .catch(error => dispatch(ACTION.getConstellationListError(error)));
 };
 
-export const setConstellation = constellation => dispatch => {
-  dispatch(ACTION.setConstellation(constellation));
-  //dispatch(getObjectList({ categorySlug: category }));
+export const getConstellationObjectList = constellationName => (
+  dispatch,
+  getState
+) => {
+  const { at, token, cid } = getState().user;
+  dispatch(ACTION.getConstellationObjectList());
+  return getConstellationObjectListApi({
+    at,
+    token,
+    cid,
+    callSource: 'byConstellationV4',
+    constellationName,
+  })
+    .then(result =>
+      dispatch(ACTION.getConstellationObjectListSuccess(result.data))
+    )
+    .catch(error => dispatch(ACTION.getConstellationObjectListError(error)));
+};
+
+export const setConstellation = constellationName => dispatch => {
+  dispatch(ACTION.setConstellation(constellationName));
+  dispatch(getConstellationObjectList(constellationName));
 };
 
 // by Catalog

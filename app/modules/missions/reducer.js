@@ -19,6 +19,8 @@ export const TYPE = constants('profile', [
   // byConstellation page
   '~GET_CONSTELLATION_LIST',
   'SET_CONSTELLATION',
+  '~GET_CONSTELLATION_OBJECT_LIST',
+  'SET_CONSTELLATION_OBJECT',
 
   // byCatalog page
   '~GET_CATALOG_LIST',
@@ -59,6 +61,8 @@ export const initialState = {
   byConstellation: {
     constellationList: [],
     selectedConstellation: null,
+    objectList: [],
+    selectedObjectId: null,
   },
 
   byCatalog: {
@@ -110,6 +114,10 @@ export default handleActions(
     [TYPE.GET_CONSTELLATION_LIST_SUCCESS]: getConstellationListSuccess,
     [TYPE.GET_CONSTELLATION_LIST_ERROR]: setServerError,
     [TYPE.SET_CONSTELLATION]: setConstellation,
+    [TYPE.GET_CONSTELLATION_OBJECT_LIST]: setTelescopeFetching,
+    [TYPE.GET_CONSTELLATION_OBJECT_LIST_SUCCESS]: getConstellationObjectListSuccess,
+    [TYPE.GET_CONSTELLATION_OBJECT_LIST_ERROR]: setServerError,
+    [TYPE.SET_CONSTELLATION_OBJECT]: setConstellationObject,
 
     // byCatalog page
     [TYPE.GET_CATALOG_LIST]: setFetching,
@@ -274,8 +282,35 @@ function getConstellationListSuccess(state, action) {
 function setConstellation(state, action) {
   return {
     ...state,
-    byConstellation: { ...state.byConstellation, selectedConstellation: action.payload },
-  }
+    byConstellation: {
+      ...state.byConstellation,
+      selectedConstellation: action.payload,
+      objectList: [],
+      selectedObjectId: null,
+    },
+  };
+}
+
+function getConstellationObjectListSuccess(state, action) {
+  return {
+    ...state,
+    isTelescopeFetching: false,
+    isLoaded: true,
+    byConstellation: {
+      ...state.byConstellation,
+      objectList: action.payload.objectList,
+    },
+  };
+}
+
+function setConstellationObject(state, action) {
+  return {
+    ...state,
+    byConstellation: {
+      ...state.byConstellation,
+      selectedObjectId: action.payload,
+    },
+  };
 }
 
 // byCatalog

@@ -7,6 +7,10 @@ import {
   makeByConstellationListSelector,
   makeByConstellationListSelectOptsSelector,
   makeByConstellationSelectedConstellationSelector,
+  makeByConstellationObjectListSelector,
+  makeByConstellationSelectedObjectIdSelector,
+  makeByConstellationSelectedObjectDataSelector,
+  makeByConstellationObjectListSelectOptsSelector,
 } from '../selectors';
 import {
   getMissionSlot,
@@ -21,6 +25,10 @@ const mapStateToProps = createStructuredSelector({
   constellationList: makeByConstellationListSelector(),
   constellationListOpt: makeByConstellationListSelectOptsSelector(),
   selectedConstellation: makeByConstellationSelectedConstellationSelector(),
+  objectList: makeByConstellationObjectListSelector(),
+  objectListOpts: makeByConstellationObjectListSelectOptsSelector(),
+  selectedObjectId: makeByConstellationSelectedObjectIdSelector(),
+  selectedObjectData: makeByConstellationSelectedObjectDataSelector(),
 });
 
 const mapDispatchToProps = {
@@ -29,6 +37,7 @@ const mapDispatchToProps = {
   cancelMissionSlot,
   getConstellationList,
   setConstellation,
+  setObject: ACTION.setConstellationObject,
 };
 
 export default compose(

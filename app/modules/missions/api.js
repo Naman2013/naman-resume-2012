@@ -19,6 +19,8 @@ export const getObjectListApi = data =>
 // byConstellation
 export const getConstellationListApi = data =>
   axios.post('/api/reservation/getConstellationList', data);
+export const getConstellationObjectListApi = data =>
+  axios.post('/api/reservation/getConstellationObjectList', data);
 
 // byCatalog page
 export const getByCatalogApi = data =>
