@@ -73,7 +73,7 @@ class TelescopeImageLoader extends Component {
   componentDidUpdate() {
     if (this.props.imageSource !== this.previouslyRenderedImageSource) {
       this.props.actions.resetActiveSSE();
-      this.setState({ loading: true });
+      this.setState({ loading: true, firstLoad: true });
       this.rebuildSSE(this.props.imageSource);
       return;
     }
