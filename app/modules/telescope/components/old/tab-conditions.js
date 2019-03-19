@@ -49,7 +49,7 @@ const TabConditions = props => (
     </div>
 
     <div className="tile-container">
-      <DayNightMap />
+      <DayNightMap dayNightMapURL={props.dayNightMap.dayNightMapURL} />
     </div>
 
     <div className="tile-container">
@@ -69,7 +69,7 @@ const TabConditions = props => (
     </div>
 
     <div className="tile-container">
-      <Satellite />
+      <Satellite satelliteImageURL={props.weatherSatellite.satelliteImageURL} />
     </div>
     <style jsx>{style}</style>
   </div>

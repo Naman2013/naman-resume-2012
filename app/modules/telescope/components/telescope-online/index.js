@@ -16,17 +16,21 @@ import style from '../telescope-details/v4-telescope-details.style';
 
 export class TelescopeOnline extends Component {
   componentDidMount = () => {
-    const { fetchAllWidgets, activeTelescope } = this.props;
+    const {
+      fetchAllWidgets,
+      activeTelescope,
+      fetchWeatherSatellite,
+    } = this.props;
     const { observatoryData } = activeTelescope;
-    const { DayNightBarPanelWidgetId, obsId } = observatoryData;
-    // obsId,
-    //   CurrentConditionsWidgetId,
-    //   DayNightBarPanelWidgetId,
-    //   DayNightMapWidgetId,
-    //   MiniWeatherPanelWidgetId,
-    //   AllskyWidgetId,
-    //   DomecamWidgetId,
-    fetchAllWidgets({ obsId, DayNightBarPanelWidgetId });
+    const {
+      DayNightBarPanelWidgetId,
+      obsId,
+      DayNightMapWidgetId,
+      SatelliteWidgetId,
+    } = observatoryData;
+    console.log(observatoryData);
+    fetchAllWidgets({ obsId, DayNightBarPanelWidgetId, DayNightMapWidgetId });
+    fetchWeatherSatellite({ obsId, SatelliteWidgetId });
   };
 
   render() {
