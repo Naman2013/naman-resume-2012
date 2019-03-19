@@ -1,0 +1,52 @@
+@import "~app/styles/variables/index";
+
+.i-link {
+
+  @include md {
+    &:first-child {
+      margin-left: 0;
+    }
+  }
+
+  &-small {
+    margin: 0 -15px;
+  }
+}
+
+.dropdown-name {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+
+  .option-icon {
+    width: 35px;
+    height: 35px;
+    margin: 0 20px 0 10px;
+  }
+
+  .option-instruments {
+
+    @media (max-width: 320px) {
+      display: flex;
+      flex-direction: column;
+
+      a {
+        margin: 10px 0 0;
+      }
+    }
+  }
+
+  p {
+    margin: 0;
+    line-height: 1;
+  }
+}
+
+.dropdown-content {
+
+}
+
+.slooh-select__menu-list > div {
+  padding: 15px;
+  font-size: 18px;
+}
