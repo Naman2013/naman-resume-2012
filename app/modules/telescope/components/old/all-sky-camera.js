@@ -1,9 +1,9 @@
 import AllSkyTimelapseWidget from 'app/components/telescope-details/allsky-timelapse-widget';
 import { fetchAllSkyAction } from 'app/modules/Telescope-Overview';
+import { ModalImg } from 'app/modules/telescope/components/modal-img';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { Button, Modal, Collapse } from 'react-bootstrap';
-import { Magnifier } from 'react-image-magnifiers';
+import { Button, Collapse } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import './all-sky-camera.scss';
 import { ImagePortalViewer } from './index';
@@ -61,10 +61,6 @@ class AllSkyCamera extends Component {
               obsId={obsId}
               AllskyTimelapseWidgetId={AllskyTimelapseWidgetId}
             />
-            {/*<AllSkyTimelapse
-              obsId={obsId}
-              widgetUniqueId={AllskyTimelapseWidgetId}
-            />*/}
           </div>
         </Collapse>
       </div>
@@ -88,11 +84,7 @@ class AllSkyCamera extends Component {
             : null}
         </ModuleContainer>
 
-        <Modal size="lg" centered show={isModalOpen} onHide={this.closeModal}>
-          <Modal.Body>
-            <Magnifier imageSrc={imageURL} />
-          </Modal.Body>
-        </Modal>
+        <ModalImg isOpen={isModalOpen} imageURL={imageURL} />
       </div>
     );
   }
