@@ -1,5 +1,5 @@
+// @flow
 import React, { Component, Fragment } from 'react';
-import PropTypes from 'prop-types';
 import { Modal } from 'react-bootstrap';
 import Measure from 'react-measure';
 import noop from 'lodash/noop';
@@ -42,28 +42,29 @@ const activeButtonTheme = {
   borderColor: romance,
 };
 
-class Telescope extends Component {
-  static propTypes = {
-    activeInstrumentID: PropTypes.string.isRequired,
-    previousInstrumentID: PropTypes.string.isRequired,
-    missionMetaData: PropTypes.shape({
-      missionTargetID: PropTypes.number,
-      referenceObjectScale: PropTypes.number,
-      domain: PropTypes.string,
-      targetObjectScale: PropTypes.number,
-      targetObjectURL: PropTypes.string,
-      targetObjectName: PropTypes.string,
-    }),
-    render: PropTypes.func,
-    increment: PropTypes.number,
-    disableFullscreen: PropTypes.bool,
-  };
+type TTelescope = {
+  activeInstrumentID: string,
+  previousInstrumentID: string | void,
+  missionMetaData?: {
+    missionTargetID?: number,
+    referenceObjectScale?: number,
+    domain?: string,
+    targetObjectScale?: number,
+    targetObjectURL?: string,
+    targetObjectName?: string,
+  },
+  render?: Function,
+  increment?: number,
+  disableFullscreen?: boolean,
+};
 
+class Telescope extends Component<TTelescope> {
   static defaultProps = {
     increment: 5,
     render: noop,
     missionMetaData: { missionTargetID: 0 },
   };
+
 
   state = {
     activeInstrumentID: this.props.activeInstrumentID,
@@ -326,9 +327,9 @@ class Telescope extends Component {
                 className="telescope-svg"
               >
                 {/**
-                    TODO:
-                    move non-scale transition elements into a component to keep this more readable
-                  */}
+                 TODO:
+                 move non-scale transition elements into a component to keep this more readable
+                 */}
                 <FadeSVG isHidden={transitionScale}>
                   <FadeSVG isHidden={isTransitioningTelescope}>
                     {isMaskActive && <Mask />}
