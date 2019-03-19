@@ -65,6 +65,7 @@ class Telescope extends Component<TTelescope> {
     missionMetaData: { missionTargetID: 0 },
   };
 
+
   state = {
     activeInstrumentID: this.props.activeInstrumentID,
     previousInstrumentID: this.props.previousInstrumentID,
