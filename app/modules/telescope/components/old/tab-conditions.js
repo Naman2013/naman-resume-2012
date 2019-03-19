@@ -1,3 +1,4 @@
+import { DomCameraWidget } from 'app/modules/telescope/components/old/dom-camera-widget';
 import React from 'react';
 import {
   Satellite,
@@ -53,9 +54,7 @@ const TabConditions = props => (
     </div>
 
     <div className="tile-container">
-      <ModuleContainer title="Dome view">
-        <ImagePortalViewer imageURL={props.domeCam.domeCamURL} />
-      </ModuleContainer>
+      <DomCameraWidget imageUrl={props.domeCam.domeCamURL} />
     </div>
 
     <div className="tile-container">
