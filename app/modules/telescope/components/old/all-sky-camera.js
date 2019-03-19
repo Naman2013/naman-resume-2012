@@ -84,7 +84,11 @@ class AllSkyCamera extends Component {
             : null}
         </ModuleContainer>
 
-        <ModalImg isOpen={isModalOpen} imageURL={imageURL} />
+        <ModalImg
+          isOpen={isModalOpen}
+          imageURL={imageURL}
+          onHide={this.closeModal}
+        />
       </div>
     );
   }
