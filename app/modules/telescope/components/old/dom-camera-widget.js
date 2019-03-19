@@ -1,27 +1,66 @@
+import DomeCamTimelapseWidget from 'app/components/telescope-details/domecam-timelapse-widget';
 import { ModalImg } from 'app/modules/telescope/components/modal-img';
 import React, { Component } from 'react';
+import { Button, Collapse } from 'react-bootstrap';
 import { ImagePortalViewer, ModuleContainer } from './index';
 
 export class DomCameraWidget extends Component {
   state = {
     isModalOpen: false,
+    isTimelapseExpanded: false,
   };
 
   openModal = () => this.setState({ isModalOpen: true });
 
   closeModal = () => this.setState({ isModalOpen: false });
 
+  renderTimelapseCollapsible = () => {
+    const { activeTelescope } = this.props;
+    const { observatoryData } = activeTelescope;
+    const { obsId, DomecamTimelapseWidgetId } = observatoryData;
+    const { isTimelapseExpanded } = this.state;
+    return (
+      <div className="text-center">
+        <Button
+          className="open-timelapse"
+          onClick={() =>
+            this.setState({ isTimelapseExpanded: !isTimelapseExpanded })
+          }
+          aria-controls="open timelapse"
+          aria-expanded={isTimelapseExpanded}
+        >
+          Open Timelapse
+        </Button>
+
+        <Collapse in={isTimelapseExpanded} mountOnEnter unmountOnExit>
+          <div id="example-collapse-text">
+            <DomeCamTimelapseWidget
+              obsId={obsId}
+              DomecamTimelapseWidgetId={DomecamTimelapseWidgetId}
+            />
+          </div>
+        </Collapse>
+      </div>
+    );
+  };
+
   render() {
-    const { imageUrl } = this.props;
+    const { domeCamURL, activeTelescope } = this.props;
+
+    const { observatoryData } = activeTelescope;
+    const { DomecamTimelapseWidgetId } = observatoryData;
+
     const { isModalOpen } = this.state;
 
     return (
       <ModuleContainer title="Dome view">
-        <ImagePortalViewer imageURL={imageUrl} onClick={this.openModal} />
+        <ImagePortalViewer imageURL={domeCamURL} onClick={this.openModal} />
+
+        {DomecamTimelapseWidgetId ? this.renderTimelapseCollapsible() : null}
 
         <ModalImg
           isOpen={isModalOpen}
-          imageURL={imageUrl}
+          imageURL={domeCamURL}
           onHide={this.closeModal}
         />
       </ModuleContainer>
