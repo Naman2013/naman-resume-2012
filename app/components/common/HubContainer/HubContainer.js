@@ -94,7 +94,10 @@ class HubContainer extends Component {
     showHeaderIcon: true,
     pageTitleTheme: {},
     callSource: '',
-    hubActions: null,
+    hubActions: { 
+      hubGetRequestStart: () => {},
+      hubGetRequestError: () => {},
+    },
   };
 
   state = {
