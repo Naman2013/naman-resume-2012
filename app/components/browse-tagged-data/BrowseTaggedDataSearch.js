@@ -219,11 +219,28 @@ class BrowseTaggedDataSearch extends Component {
                   max-height: 320px;
 
               }
+              `}</style>
+          </div>
+        )
+    }
 
-              .search-results-noresultsfoundtext {
-                  font-size: 20px;
-              }
+    renderTaggedDataDisplay_BrowseList() {
 
+      const { grandParentNodeID, parentNodeID, renderTaggedData } = this.state;
+
+      //console.log(grandParentNodeID);
+      //console.log(parentNodeID);
+
+      /***************************************************************************************
+      noSearchTerm Use Cases:
+          grandParent=null and parent=null: show top level nodes only
+          grandParent=x and parent=null: show grandParent expanded one level (show parents)
+          grandParent=x and parent=y: show child nodes and links
+      ***************************************************************************************/
+      return (
+        <div>
+
+          <style jsx>{`
               .search-results-grandparent {
                 font-size: 20px;
                 padding: 15px 0;
@@ -249,25 +266,7 @@ class BrowseTaggedDataSearch extends Component {
                 color: ${astronaut};
               }
               `}</style>
-          </div>
-        )
-    }
 
-    renderTaggedDataDisplay_BrowseList() {
-
-      const { grandParentNodeID, parentNodeID, renderTaggedData } = this.state;
-
-      //console.log(grandParentNodeID);
-      //console.log(parentNodeID);
-
-      /***************************************************************************************
-      noSearchTerm Use Cases:
-          grandParent=null and parent=null: show top level nodes only
-          grandParent=x and parent=null: show grandParent expanded one level (show parents)
-          grandParent=x and parent=y: show child nodes and links
-      ***************************************************************************************/
-      return (
-        <div>
           {grandParentNodeID === null && parentNodeID === null && <div>
             {Object.keys(renderTaggedData.taggedData).map(function (grandParentKey) {
                 return (
@@ -343,7 +342,7 @@ class BrowseTaggedDataSearch extends Component {
       return (
         <div className="root">
           <div style={{display: 'inline-block'}}>
-            <div style={{display: 'block', paddingBottom: '25px'}}>
+            <div style={{display: 'block'}}>
                  <form onSubmit={(event) => { this.performFind(event); }}>
                    <Field
                     id="BrowseTaggedDataSearchInputField"
@@ -366,7 +365,12 @@ class BrowseTaggedDataSearch extends Component {
           {browseFindData.findMessage != '' && <div>
             <div style={{fontSize: '1.5rem', paddingBottom: '10px'}} dangerouslySetInnerHTML={{__html: browseFindData.findMessage}}/>
             {browseFindData.findData.map((foundItem, index) => (
-              <p style={{paddingLeft: '35px', lineHeight: '2.5em'}}>{foundItem.title}<Link to={foundItem.linkUrl}><img style={{paddingLeft: '15px'}} src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"/></Link></p>
+              <p style={{paddingLeft: '35px', lineHeight: '2.5em'}} className="search-results-item">
+                {foundItem.title}
+                <Link to={foundItem.linkUrl}>
+                  <img style={{paddingLeft: '15px'}} src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"/>
+                </Link>
+              </p>
             ))}
             <hr/>
           </div>
@@ -383,9 +387,16 @@ class BrowseTaggedDataSearch extends Component {
             .browse-outer-container {
               display: inline-block;
               padding-left: 20px;
-              position: absolute;
-              padding-top: 5px;
             }
+
+            .search-results-item {
+                font-size: 12px;
+                font-weight: bold;
+                font-family: ${primaryFont};
+                text-transform: uppercase;
+                padding: 15px 0;
+                color: ${astronaut};
+              }
 
             .browse-find-button {
               font-weight: bold;
