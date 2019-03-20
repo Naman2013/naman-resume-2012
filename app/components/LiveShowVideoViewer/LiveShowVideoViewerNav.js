@@ -7,10 +7,11 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import uniqueId from 'lodash/uniqueId';
 import { Tab, Tabs, TabList } from 'react-tabs';
 import Select from 'react-select';
 import { FormattedMessage } from 'react-intl';
+import { liveShow } from '../../styles/variables/iconURLs';
+
 import styles from './LiveShowVideoViewerNav.style';
 import messages from './LiveShowVideoViewer.messages';
 
@@ -72,7 +73,10 @@ class LiveShowVideoViewerNav extends Component {
         value: 0,
         label: (
           <div>
-            <div className="opt-icon" style={getInlineBgStyle(props.EventIconUrl)} />
+            <div
+              className="opt-icon live-show-icon"
+              style={Object.assign(getInlineBgStyle(liveShow), { backgroundSize: '80%' })}
+            />
             <span className="opt-desc">
               <FormattedMessage {...messages.LiveShow} />
             </span>
@@ -112,30 +116,33 @@ class LiveShowVideoViewerNav extends Component {
       isScreenMedium,
       isScreenLarge,
       isScreenXLarge,
+      isDesktop,
     } = this.props;
 
     const { options } = this.state;
     return (
       <div className="root">
         <Tabs onSelect={this.props.handleSelect} selectedIndex={selectedTab}>
-          {!isScreenXLarge && !isScreenLarge && !isScreenMedium ? (
+          {!isDesktop ? (
             <TabList className="tablist">
-              <Select
-                components={{ Option: CustomOption }}
-                defaultValue={options[0]}
-                onChange={this.handleChange}
-                options={options}
-                value={options[selectedTab]}
-                isSearchable={false}
-                classNamePrefix="react-select"
-              />
+              <div className="select-wrapper">
+                <Select
+                  components={{ Option: CustomOption }}
+                  defaultValue={options[0]}
+                  onChange={this.handleChange}
+                  options={options}
+                  value={options[selectedTab]}
+                  isSearchable={false}
+                  classNamePrefix="react-select"
+                />
+              </div>
             </TabList>
           ) : (
             <TabList className="tablist">
               <Tab>
                 <div className="tab-wrapper">
                   <div className="show-tab live-show">
-                    <div className="tab-icon" style={getInlineBgStyle(EventIconUrl)} />
+                    <div className="tab-icon live-show-icon" style={getInlineBgStyle(liveShow)} />
                   </div>
                 </div>
               </Tab>

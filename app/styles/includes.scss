@@ -3,20 +3,52 @@
 
 
 // Layout includes
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
 .flex-col {
   display: flex;
   flex-direction: column;
 }
 
 
-// Inner and outer indents
-.pad-40 {
-  padding: 40px;
+// Inner and outer indents, positioning
+.pad {
+
+  &-40 {
+    padding: 40px;
+  }
+
+  &-100 {
+    padding: 100px;
+
+    @include md() {
+      padding: 25px;
+    }
+
+    @include sm() {
+      padding: 25px;
+    }
+  }
 }
 
 .top-bottom-40 {
   margin-top: 40px;
   margin-bottom: 40px;
+}
+
+.position-abs {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+.no-bottom-pad {
+  padding-bottom: 0;
 }
 
 
@@ -28,8 +60,23 @@
   border-top: 1px solid $hr-silver;
 }
 
+.no-last-border {
+
+  hr:last-child {
+    display: none;
+  }
+}
+
 
 // Virtual boxes
+.image {
+
+  img {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
 .i-box {
   @extend .flex-col;
   flex: 1;
@@ -41,18 +88,76 @@
 
   &-white-tile-paper {
     @include bgRepeat($white_tile_paper);
-    background-size: 30% 20%;
+    background-size: 100px;
   }
 
-  &-inner-gap-20 {
+  &-blue-tile {
+    @include bgRepeat($blue_tile_canvas);
+    background-size: 100px;
+  }
+}
 
-    * {
-      margin-bottom: 20px;
+.i-text-box {
+  margin: 20px 0;
 
-      &:last-child {
-        margin-bottom: 0;
-      }
+  p {
+    font-size: 19px;
+    color: $raven;
+    line-height: 29px;
+  }
+}
+
+.inner-gap-20 {
+
+  * {
+    margin-bottom: 20px;
+
+    &:last-child {
+      margin-bottom: 0;
     }
+  }
+}
+
+// Links
+.i-link {
+  margin: 0 7px;
+  font: 14px $primary-font;
+  color: $darkBlueGray;
+  text-decoration: none;
+  transition: all 0.5ms ease-in-out;
+
+  &:hover {
+    color: $turqoise;
+    text-decoration: none;
+  }
+
+  &.active {
+    font-weight: bold;
+
+    &:hover {
+      color: $darkBlueGray;
+    }
+  }
+
+  &:focus,
+  &:visited {
+    color: $darkBlueGray;
+    text-decoration: none;
+  }
+
+  @include xsm {
+    display: flex;
+    margin: 7px 0;
+  }
+}
+
+
+// Wrappers
+.wrap {
+  margin: 0 auto;
+
+  &-850 {
+    max-width: 850px;
   }
 }
 

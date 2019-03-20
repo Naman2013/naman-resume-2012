@@ -1,0 +1,56 @@
+@import '~app/styles/variables/index';
+
+.slooh-select-container {
+  width: 100%;
+  .slooh-react-select__control {
+    height: 40px;
+    padding: 0 12px;
+    border: 1px dashed $astronaut;
+    border-radius: 26px;
+    background: transparent;
+    box-shadow: none;
+    font-family: $primary-font;
+    cursor: pointer;
+
+    &:hover {
+      border-color: $astronaut;
+    }
+
+    .slooh-react-select__value-container {
+      color: $astronaut;
+      text-transform: uppercase;
+      font-size: 11px;
+      font-weight: 900;
+
+      .slooh-react-select__single-value,
+      .slooh-react-select__placeholder {
+        color: $astronaut;
+      }
+    }
+
+    .slooh-react-select__indicator-separator {
+      display: none;
+    }
+  }
+
+  .slooh-react-select--is-disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  .slooh-react-select__menu {
+    background-color: $romance;
+    border-top: 0;
+    border-radius: 26px;
+    box-shadow: none;
+    font-family: $primary-font;
+    cursor: pointer;
+
+    .dropdown-opt {
+      &.disabled {
+        cursor: not-allowed;
+        opacity: 0.5;
+      }
+    }
+  }
+}

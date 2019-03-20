@@ -1,0 +1,59 @@
+@import "~app/styles/variables/index";
+
+.instrument-navigation {
+  position: relative;
+  height: 130px;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  font-family: $primary-font;
+  list-style-type: none;
+  padding: 0;
+  margin: 10px 0 0;
+  text-decoration: none;
+  z-index: 10;
+
+  &:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 70px;
+    right: 0;
+    left: 0;
+    border-bottom: 1px dashed $turqoise;
+  }
+
+  &.no-border {
+    &:after {
+      display: none;
+    }
+  }
+
+  &:hover {
+    text-decoration: none;
+  }
+
+  &-el {
+    margin: 0 0 7px;
+
+    &.order-1,
+    &.order-3 {
+      z-index: 15;
+    }
+
+    &.order-2 {
+      z-index: 20;
+    }
+  }
+
+  &-btn {
+    flex: 1;
+    padding: 0;
+    background: transparent;
+    border: none;
+  }
+}
+

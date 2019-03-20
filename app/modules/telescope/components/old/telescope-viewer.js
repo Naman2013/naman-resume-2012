@@ -1,16 +1,16 @@
 import React from 'react';
-import Telescope from 'components/Telescope';
+import Telescope from 'app/components/Telescope';
 import { StarShareCamera } from 'app/components/telescope-details/star-share-camera';
 
 const TelescopeViewer = ({
   missionMetaData,
-  activeInstrumentID,
+  currentInstrumentID,
   previousInstrumentID,
 }) => (
   <div>
     <Telescope
       missionMetaData={missionMetaData}
-      activeInstrumentID={activeInstrumentID}
+      currentInstrumentID={currentInstrumentID}
       previousInstrumentID={previousInstrumentID}
       increment={5}
     />

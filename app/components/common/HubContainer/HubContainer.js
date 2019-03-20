@@ -6,7 +6,7 @@ import findIndex from 'lodash/findIndex';
 import pick from 'lodash/pick';
 import noop from 'lodash/noop';
 import CenterColumn from 'components/common/CenterColumn';
-import HubHeader from 'components/common/HubHeader';
+import HubHeader from 'app/components/common/HubHeader';
 import HubSort from 'components/common/HubSort';
 import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
 import ShowMoreWithNetwork from 'components/common/show-more-with-network';
@@ -94,7 +94,10 @@ class HubContainer extends Component {
     showHeaderIcon: true,
     pageTitleTheme: {},
     callSource: '',
-    hubActions: null,
+    hubActions: { 
+      hubGetRequestStart: () => {},
+      hubGetRequestError: () => {},
+    },
   };
 
   state = {

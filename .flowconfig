@@ -1,0 +1,50 @@
+[ignore]
+.*/node_modules/*
+
+[include]
+
+[libs]
+
+[lints]
+sketchy-null-number=warn
+sketchy-null-mixed=warn
+sketchy-number=warn
+untyped-type-import=warn
+nonstrict-import=warn
+deprecated-type=warn
+unsafe-getters-setters=warn
+inexact-spread=warn
+unnecessary-invariant=warn
+deprecated-call-syntax=warn
+signature-verification-failure=warn
+deprecated-utility=error
+
+[options]
+# Ignore flow warning about not supporting decorator types fully yet.
+esproposal.decorators=ignore
+esproposal.class_static_fields=enable
+esproposal.class_instance_fields=enable
+
+module.system=haste
+munge_underscores=true
+module.use_strict=true
+module.system.haste.use_name_reducers=true
+
+# Provides an escape hatch to suppress flow type errors.
+# Example: `function foo(bar: $FlowFixMe) {...}`.
+suppress_type=$FlowFixMe
+
+# Provides a way to suppress flow errors in the following line.
+# Example: // $FlowSuppressError: This following line is borked because of reasons.
+suppress_comment= \\(.\\|\n\\)*\\$FlowSuppressError
+
+
+
+[strict]
+deprecated-type
+nonstrict-import
+sketchy-null
+unclear-type
+unsafe-getters-setters
+untyped-import
+untyped-type-impor

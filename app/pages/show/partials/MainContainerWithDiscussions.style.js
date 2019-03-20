@@ -17,4 +17,13 @@ export default css`
   .comment-container {
     margin: 25px 0;
   }
+
+  .desktop-view { display: none; }
+  .mobile-view { display: block; }
+
+
+  @media ${screenLarge} {
+    .desktop-view { display: block; }
+    .mobile-view { display: none; }
+  }
 `;

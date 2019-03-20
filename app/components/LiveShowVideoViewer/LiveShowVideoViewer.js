@@ -14,15 +14,7 @@ import TelescopeImageViewer from 'components/common/telescope-image-viewer/teles
 import ShowVideoImageLoader from 'components/common/ShowVideoImageLoader';
 import styles from './LiveShowVideoViewer.style';
 
-const {
-  arrayOf,
-  bool,
-  func,
-  number,
-  oneOfType,
-  shape,
-  string,
-} = PropTypes;
+const { arrayOf, bool, func, number, oneOfType, shape, string } = PropTypes;
 
 class LiveShowVideoViewer extends Component {
   static propTypes = {
@@ -43,8 +35,8 @@ class LiveShowVideoViewer extends Component {
         tabDesc: string,
         tabIconURL: string,
         videoStreamCode: string,
-        videoStreamURL: string
-      }),
+        videoStreamURL: string,
+      })
     ),
     handleSelect: func.isRequired,
     selectedTab: number.isRequired,
@@ -72,7 +64,9 @@ class LiveShowVideoViewer extends Component {
     const width = '100';
     const videoContainerStyle = { width: `${width}%` };
 
-    const currentFeed = additionalFeeds.find((feed, i) => selectedTab === i + 1);
+    const currentFeed = additionalFeeds.find(
+      (feed, i) => selectedTab === i + 1
+    );
 
     return (
       <div className="root">
@@ -83,25 +77,21 @@ class LiveShowVideoViewer extends Component {
             'inactive-tele-tab': selectedTab !== 0,
           })}
         >
-          <div style={videoContainerStyle} className="live-video-container">
+          <div style={videoContainerStyle} className="live-video-container" >
             {showStreamCode && showStreamURL ? (
               <ShowVideoImageLoader
                 teleStreamCode={showStreamCode}
                 teleStreamURL={showStreamURL}
                 showVideoControls={1}
                 showInfo={1}
-                autoplay={0}
+                autoplay={1}
               />
             ) : null}
           </div>
         </TabPanel>
         {currentFeed && (
-          <TabPanel
-            key={uniqueId()}
-            forceRender
-            className={classnames('active-tele-tab')}
-          >
-            <div style={videoContainerStyle} className="live-video-container">
+          <TabPanel forceRender className={classnames('active-tele-tab')}>
+            <div style={videoContainerStyle} className="live-video-container" >
               {currentFeed.imageSourceType === 'video' ? (
                 <ShowVideoImageLoader
                   teleStreamCode={currentFeed.videoStreamCode}
@@ -112,20 +102,20 @@ class LiveShowVideoViewer extends Component {
                   callSource="situationRoom"
                 />
               ) : (
-                // else currentFeed.imageSourceType === 'SSE'
-                <TelescopeImageViewer
-                  teleSystem={currentFeed.systemId}
-                  telePort={currentFeed.SSEport}
-                  teleId={currentFeed.TelescopeId}
-                  obsId={currentFeed.ObsId}
-                  domeId={String(currentFeed.DomeId)}
-                  teleFade={Number(currentFeed.SSEfade)}
-                  clipped={false}
-                  missionFormat="none"
-                  isInteractive={false}
-                  callSource="situationRoom"
-                />
-              )}
+                  // else currentFeed.imageSourceType === 'SSE'
+                  <TelescopeImageViewer
+                    teleSystem={currentFeed.systemId}
+                    telePort={currentFeed.SSEport}
+                    teleId={currentFeed.TelescopeId}
+                    obsId={currentFeed.ObsId}
+                    domeId={String(currentFeed.DomeId)}
+                    teleFade={Number(currentFeed.SSEfade)}
+                    clipped={false}
+                    missionFormat="none"
+                    isInteractive={false}
+                    callSource="situationRoom"
+                  />
+                )}
             </div>
           </TabPanel>
         )}

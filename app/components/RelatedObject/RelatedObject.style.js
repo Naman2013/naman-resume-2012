@@ -1,9 +1,16 @@
 import css from 'styled-jsx/css';
-import { faintShadow } from 'styles/variables/shadows';
-import { astronaut, romance, shadows } from 'styles/variables/colors_tiles_v4';
-import { primaryFont, secondaryFont } from 'styles/variables/fonts';
-import { screenMedium, screenLarge } from 'styles/variables/breakpoints';
-import { backgroundImageCover, dropShadowContainer } from 'styles/mixins/utilities';
+import { faintShadow } from '../../styles/variables/shadows';
+import {
+  astronaut,
+  romance,
+  shadows,
+} from '../../styles/variables/colors_tiles_v4';
+import { primaryFont, secondaryFont } from '../../styles/variables/fonts';
+import { screenMedium, screenLarge } from '../../styles/variables/breakpoints';
+import {
+  backgroundImageCover,
+  dropShadowContainer,
+} from '../../styles/mixins/utilities';
 
 export default css`
 
@@ -59,6 +66,9 @@ export default css`
     position: relative;
     padding: 15% 0;
     height: 200px;
+    display:flex;
+    flex-direction:row;
+    justify-content:center;
   }
 
   .info-list {
@@ -115,6 +125,10 @@ export default css`
     flex-direction: row;
     justify-content: center;
     padding: 25px;
+  }
+
+  .action-area-button{
+    margin-left:10px;
   }
 
   .display-none {

@@ -1,3 +1,5 @@
+import { hot } from 'react-hot-loader/root';
+import TelescopeNavigation from 'app/modules/telescope/components/old/telescope-navigation';
 import DashboardPage from 'app/components/Dashboard';
 import ImagesLayout from 'app/components/profile-photos/ImagesLayout';
 import PrivateProfilePhotos from 'app/components/profile-photos/PrivateProfilePhotos';
@@ -35,6 +37,11 @@ import SloohRecommends from 'app/containers/SloohRecommends';
 import StaticAppContainer from 'app/containers/static-app-container';
 import StoriesHub from 'app/containers/stories-hub';
 import { fetchPlayer } from 'app/modules/get-audio-player/actions';
+import Slooh1000 from 'app/modules/missions/containers/slooh-1000';
+import Catalog from 'app/modules/missions/containers/catalog';
+import Telescope from 'app/modules/missions/containers/telescope';
+import Constellation from 'app/modules/missions/containers/constellation';
+import { MissionsMain } from 'app/modules/missions/index';
 import { PublicProfileMain } from 'app/modules/profile';
 import { TelescopeDetailsMain } from 'app/modules/telescope';
 import GroupCreate from 'app/pages/community-groups/GroupCreate';
@@ -137,10 +144,20 @@ const getProfileRoutes = () => (
       <Route path=":filter" component={ProfileQaContainer} />
     </Route>
     <Route path="groups" component={ProfileGroups} />
+    <Route
+      path="groups/create"
+      component={GroupCreate}
+      onEnter={validateUser}
+    />
+    <Route
+      path="groups/importGoogleClassrooms"
+      component={GroupImportGoogleClassrooms}
+      onEnter={validateUser}
+    />
   </Fragment>
 );
 
-export const AppRouter = () => (
+const AppRouter = () => (
   <Router history={browserHistory} onUpdate={globalOnRouteUpdate}>
     <Route path="redirect-confirmation" component={RedirectConfirmation} />
 
@@ -240,7 +257,9 @@ export const AppRouter = () => (
         // component={ConnectedTelescopeDetails}
         component={TelescopeDetailsMain}
         onEnter={validateUser}
-      />
+      >
+        <Route path=":instrumentId" component={TelescopeNavigation} />
+      </Route>
 
       {/**
        example id: 6
@@ -468,6 +487,13 @@ export const AppRouter = () => (
         onEnter={validateUser}
         component={GroupOverviewInfo}
       />
+      <Route path="missions" component={MissionsMain} onEnter={validateUser}>
+        <IndexRedirect to="bySlooh1000" />
+        <Route path="bySlooh1000" component={Slooh1000} />
+        <Route path="byConstellation" component={Constellation} />
+        <Route path="byCatalog" component={Catalog} />
+        <Route path="byTelescope" component={Telescope} />
+      </Route>
     </Route>
 
     <Route path="sitemap" component={PlaceholderPage} onEnter={validateUser} />
@@ -476,3 +502,5 @@ export const AppRouter = () => (
     <Redirect from="*" to="/" />
   </Router>
 );
+
+export default hot(AppRouter);

@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import PropTypes, { bool, shape } from 'prop-types';
-import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
+import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
 import style from './HubHeader.style';
 
 const { string } = PropTypes;

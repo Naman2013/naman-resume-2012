@@ -302,137 +302,79 @@ class GroupCreate extends Component {
       newGroupFormDetails,
     } = this.state;
 
-    return (<div>
-      <Request
-        serviceURL={GROUPS_PAGE_ENDPOINT_URL}
-        model={groupsHubModel}
-        requestBody={{ currentGroupSet: 'owner' }}
-        serviceResponseHandler={this.handlePageServiceResponse}
-        render={({
-          fetchingContent,
-          modeledResponses: { GROUP_HUB_MODEL },
-          serviceResponse = {},
-        }) => (
-          <Fragment>
-            {
-              !fetchingContent &&
-                <DeviceContext.Consumer>
-                  {context => (
-                    <HubContainer
-                      {...this.props}
-                      {...GROUP_HUB_MODEL}
-                      {...context}
-                      hubName="groups"
-                      paginateURL={GET_GROUPS}
-                      page={DEFAULT_PAGE}
-                      count={COUNT}
-                      user={user}
-                      filterTypeFieldName="groupSet"
-                      validateResponseAccess={actions.validateResponseAccess}
-                      responseFieldNames={{
-                        currentCount: 'groupsCount',
-                        totalCount: 'totalGroupsCount',
-                      }}
-                      renderRightMenu={serviceResponse.canRequestGroup ? () => (<Button text="Request Group" onClickEvent={this.requestGroup} />) : null}
-                      updateList={this.updateGroupsList}
-                      appendToList={this.appendToGroupsList}
-                      iconURL={serviceResponse.pageIconURL}
-                      pageTitle={serviceResponse.pageTitle}
-                      filterType='owner'
-                      render={() => (
-                        <Fragment>
-                          {!fetchingContent && <div>
+    return (
+      <div>
+        <Request
+          serviceURL={CLASSROOM_CREATENEWGROUP_PAGE_ENDPOINT_URL}
+          requestBody={{ }}
+          serviceResponseHandler={this.handleCreateNewGroupPageServiceResponse}
+          render={({
+                     fetchingContent,
+                     serviceResponse: createNewGroupRes,
+                   }) => (
+            <Fragment>
+              {
+                !fetchingContent &&
+                <Fragment>
 
-                            <Request
-                              serviceURL={CLASSROOM_CREATENEWGROUP_PAGE_ENDPOINT_URL}
-                              requestBody={{ }}
-                              serviceResponseHandler={this.handleCreateNewGroupPageServiceResponse}
-                              render={({
-                                fetchingContent,
-                                serviceResponse: createNewGroupRes,
-                              }) => (
-                                <Fragment>
-                                  {
-                                    !fetchingContent &&
-                                      <Fragment>
+                  <div className="header">
+                    <div className="inner-header-container">
+                      <div className="inner-header-text">
+                        <div className="big">{createNewGroupRes.pageHeading1}</div>
+                        <div className="little">{createNewGroupRes.pageHeading2}</div>
+                      </div>
+                    </div>
+                  </div>
+                  <CenterColumn widths={['620px']}>
+                    <div className="wrapper">
+                      <div className="section-heading">{createNewGroupRes.sectionHeading}</div>
+                      <form className="form" onSubmit={this.handleSubmit}>
+                        <div className="form-section">
+                          <div className="form-field-container">
+                            <span className="form-label" dangerouslySetInnerHTML={{ __html: newGroupFormDetails.groupName.label }} />:
+                            <span className="form-error" dangerouslySetInnerHTML={{ __html: newGroupFormDetails.groupName.errorText }} />
+                            <Field
+                              name="groupName"
+                              type="name"
+                              className="form-field"
+                              label={newGroupFormDetails.groupName.hintText}
+                              component={InputField}
+                              onChange={(event) => { this.handleFieldChange({ field: 'groupName', value: event.target.value }); }}
+                              value={newGroupFormDetails.groupName.value}
+                            />
+                          </div>
 
-                                        <div className="header">
-                                          <div className="inner-header-container">
-                                            <div className="inner-header-text">
-                                              <div className="big">{createNewGroupRes.pageHeading1}</div>
-                                              <div className="little">{createNewGroupRes.pageHeading2}</div>
-                                            </div>
-                                          </div>
-                                        </div>
-                                        <CenterColumn widths={['620px']}>
-                                          <div className="wrapper">
-                                          <div className="section-heading">{createNewGroupRes.sectionHeading}</div>
-                                          <form className="form" onSubmit={this.handleSubmit}>
-                                            <div className="form-section">
-                                              <div className="form-field-container">
-                                                <span className="form-label" dangerouslySetInnerHTML={{ __html: newGroupFormDetails.groupName.label }} />:
-                                                <span className="form-error" dangerouslySetInnerHTML={{ __html: newGroupFormDetails.groupName.errorText }} />
-                                                <Field
-                                                  name="groupName"
-                                                  type="name"
-                                                  className="form-field"
-                                                  label={newGroupFormDetails.groupName.hintText}
-                                                  component={InputField}
-                                                  onChange={(event) => { this.handleFieldChange({ field: 'groupName', value: event.target.value }); }}
-                                                  value={newGroupFormDetails.groupName.value}
-                                                />
-                                              </div>
+                          <div className="form-field-container">
+                            <span className="form-label" dangerouslySetInnerHTML={{ __html: newGroupFormDetails.groupDescription.label }} />:
+                            <span className="form-error" dangerouslySetInnerHTML={{ __html: newGroupFormDetails.groupDescription.errorText }} />
+                            <Field
+                              name="groupDescription"
+                              type="name"
+                              className="form-field"
+                              label={newGroupFormDetails.groupDescription.hintText}
+                              component={InputField}
+                              onChange={(event) => { this.handleFieldChange({ field: 'groupDescription', value: event.target.value }); }}
+                              value={newGroupFormDetails.groupDescription.value}
+                            />
+                          </div>
 
-                                              <div className="form-field-container">
-                                                <span className="form-label" dangerouslySetInnerHTML={{ __html: newGroupFormDetails.groupDescription.label }} />:
-                                                <span className="form-error" dangerouslySetInnerHTML={{ __html: newGroupFormDetails.groupDescription.errorText }} />
-                                                <Field
-                                                  name="groupDescription"
-                                                  type="name"
-                                                  className="form-field"
-                                                  label={newGroupFormDetails.groupDescription.hintText}
-                                                  component={InputField}
-                                                  onChange={(event) => { this.handleFieldChange({ field: 'groupDescription', value: event.target.value }); }}
-                                                  value={newGroupFormDetails.groupDescription.value}
-                                                />
-                                              </div>
+                        </div>
+                        <div className="button-container">
+                          <button
+                            className="submit-button"
+                            type="submit"
+                          >Create New Group
+                          </button>
+                        </div>
+                      </form>
+                    </div>
+                  </CenterColumn>
+                </Fragment>
+              }
+            </Fragment>
+          )}
+        />
 
-                                            </div>
-                                            <div className="button-container">
-                                              <button
-                                                className="submit-button"
-                                                type="submit"
-                                              >Create New Group
-                                              </button>
-                                            </div>
-                                          </form>
-                                          </div>
-                                        </CenterColumn>
-                                      </Fragment>
-                                    }
-                                  </Fragment>
-                                )}
-                              />
-                            </div>}
-                        </Fragment>
-                      )}
-                    />
-                  )}
-                </DeviceContext.Consumer>
-            }
-          </Fragment>
-        )}
-      />
-      <Modal
-        ariaHideApp={false}
-        isOpen={showPrompt}
-        style={customModalStylesBlackOverlay}
-        contentLabel="Groups"
-        shouldCloseOnOverlayClick={false}
-        onRequestClose={this.closeModal}
-      >
-        {promptText}
-      </Modal>
       <style jsx>{style}</style>
       <style jsx>{style2}</style>
       <style jsx>{style3}</style>

@@ -1,6 +1,7 @@
 {
   "plugins": [
     [
+      "react-hot-loader/babel",
       "styled-jsx/babel",
       {
         "optimizeForSpeed": true
@@ -22,6 +23,7 @@
   "presets": [
     "env",
     "react",
-    "stage-0"
+    "stage-0",
+    "flow"
   ]
 }

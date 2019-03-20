@@ -80,8 +80,15 @@ class PartnershipOpportunitiesSection extends Component {
       response,
     } = this.state;
 
-    const { intl: { formatMessage } } = this.props;
-
+    const { intl: { formatMessage }, data } = this.props;
+    const {
+      sectionHeading,
+      sectionHeading2,
+      aboutSloohPressIconURL,
+      infoHeading,
+      infoEmailAddress,
+      infoPhoneNumber,
+    } = data;
     return (
       <DeviceContext.Consumer>
         {
@@ -103,8 +110,8 @@ class PartnershipOpportunitiesSection extends Component {
               </Modal>
               <section className="form">
                 <div className="header-info">
-                  <h1>{mockedData.heading1}</h1>
-                  <h2>{mockedData.heading2}</h2>
+                  <h1 dangerouslySetInnerHTML={{ __html: sectionHeading }}/>
+                  <h2 dangerouslySetInnerHTML={{ __html: sectionHeading2 }}/>
                 </div>
                 <div className="bottom-inputs">
                   <div className="inputs-row">
@@ -161,11 +168,13 @@ class PartnershipOpportunitiesSection extends Component {
                 </div>
               </section>
               <section className="contacts">
-                <div className="contact-header" />
+                <div className="contact-header text-center">
+                  <img src={aboutSloohPressIconURL} alt=""/>
+                </div>
                 <div className="contact-data">
-                  <h2 className="contact-title">{mockedData.contactTitle}</h2>
-                  <div className="contact-label"><img src={phone} className="contact-label-icon" alt="phone" />{mockedData.contactPhone}</div>
-                  <div className="contact-label"><img src={envelope} className="contact-label-icon" alt="envelope" />{mockedData.contactEmail}</div>
+                  <h2 className="contact-title">{infoHeading}</h2>
+                  <div className="contact-label"><img src={phone} className="contact-label-icon" alt="phone" />{infoPhoneNumber}</div>
+                  <div className="contact-label"><img src={envelope} className="contact-label-icon" alt="envelope" />{infoEmailAddress}</div>
                 </div>
               </section>
               <style jsx>{style}</style>

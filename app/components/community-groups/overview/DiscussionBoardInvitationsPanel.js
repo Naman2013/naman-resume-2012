@@ -14,6 +14,7 @@ import Button from 'components/common/style/buttons/Button';
 import DiscussionBoardInviteNewMemberToSlooh from 'components/community-groups/overview/DiscussionBoardInviteNewMemberToSlooh';
 import { CLASSROOM_GET_GROUP_INVITATION_PANEL_ENDPOINT_URL } from 'services/classroom/classroom';
 import { CREATE_CUSTOMER_LINK_INVITATION_ENDPOINT_URL } from 'services/registration/registration';
+import _get from 'lodash/get';
 
 import {
   astronaut,
@@ -195,7 +196,7 @@ class DiscussionBoardInvitationsPanel extends Component {
                           className="submit-button"
                           type="button"
                           onClickEvent={this.toggleInviteMode}
-                          text={serviceResponse.formsubmitbutton.buttonText}/>
+                          text={_get(serviceResponse,'formsubmitbutton.buttonText')}/>
                           <br/>
                         </div>
                       }

@@ -1,5 +1,7 @@
+// todo remove me
+
 import axios from 'axios';
-import { cancelMissionSlot } from '../Missions';
+import { cancelMissionSlot } from '../missions-old';
 import { fetchDateRanges } from '../mission-slots-by-telescope/mission-slot-dates-actions';
 import { fetchReservationSuccess } from '../mission-slots-by-telescope/mission-slots-by-telescope-actions';
 import { validateResponseAccess } from '../authorization/actions';

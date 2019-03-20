@@ -1,7 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { Fragment } from 'react';
 import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
-import clone from 'lodash/clone';
 import {
   SmallScreenFormat,
   MediumScreenFormat,
@@ -10,43 +8,53 @@ import {
 import { enhancedProps } from './common-prop-types';
 import style from './telescope-navigation.style';
 
-const TelescopeNavigation = ({ onSelect, selectedIndex, options, title }) => {
+const TelescopeNavigation = props => {
   // painting fields requires an option to be available
-
-  if (options.length === 0) {
-    return null;
-  }
+  const {
+    title,
+    options,
+    selectedIndex,
+    activeInstrumentID,
+    currentInstrumentName,
+    updateCurrentInstrument,
+  } = props;
+  if (!(options && options.length)) return null;
 
   return (
-    <div>
+    <Fragment>
       <DisplayAtBreakpoint screenLarge screenXLarge>
         <LargeScreenFormat
-          onSelect={onSelect}
-          selectedIndex={selectedIndex}
           options={options}
+          selectedIndex={selectedIndex}
+          activeInstrumentID={activeInstrumentID}
+          updateCurrentInstrument={updateCurrentInstrument}
         />
       </DisplayAtBreakpoint>
 
       <DisplayAtBreakpoint screenMedium>
         <MediumScreenFormat
           title={title}
-          onSelect={onSelect}
-          selectedIndex={selectedIndex}
           options={options}
+          selectedIndex={selectedIndex}
+          activeInstrumentID={activeInstrumentID}
+          currentInstrumentName={currentInstrumentName}
+          updateCurrentInstrument={updateCurrentInstrument}
         />
       </DisplayAtBreakpoint>
 
       <DisplayAtBreakpoint screenSmall>
         <div className="small-format-box">
           <SmallScreenFormat
-            onSelect={onSelect}
-            selectedIndex={selectedIndex}
             options={options}
+            selectedIndex={selectedIndex}
+            activeInstrumentID={activeInstrumentID}
+            currentInstrumentName={currentInstrumentName}
+            updateCurrentInstrument={updateCurrentInstrument}
           />
         </div>
       </DisplayAtBreakpoint>
       <style jsx>{style}</style>
-    </div>
+    </Fragment>
   );
 };
 
