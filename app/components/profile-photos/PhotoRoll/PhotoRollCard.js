@@ -36,7 +36,7 @@ function forceDownload(url, fileName) {
 class PhotoRollCard extends Component {
   state = {
     menuIsVisible: false,
-  }
+  };
 
   get optionsList() {
     return [
@@ -48,24 +48,22 @@ class PhotoRollCard extends Component {
     ];
   }
 
-  downloadFile = () => {
-    const { currentItem: { imageURL } } = this.props;
-    forceDownload(imageURL, 'test.png');
-  }
-
   toggleMenuVisibility = () => {
-    if (this.state.menuIsVisible) this.setState({ menuIsVisible: false });
-    else this.setState({ menuIsVisible: true });
-  }
+    this.setState({ menuIsVisible: !this.state.menuIsVisible });
+  };
 
   componentDidMount() {
-    this.setState({ width: this.blockWidth.clientWidth }, () => console.log(this.state.width));
+    this.setState({ width: this.blockWidth.clientWidth });
   }
 
   render() {
-    const { index, isDesktop, isMobile, currentItem: observation, user } = this.props;
+    const {
+      index,
+      isDesktop,
+      isMobile,
+      currentItem: observation, user
+    } = this.props;
     const { menuIsVisible, width } = this.state;
-
     const inCenter = index % 3 === 1;
 
     const {
@@ -92,7 +90,7 @@ class PhotoRollCard extends Component {
         >
           <div className="square-container">
             <div className="image" style={{ backgroundImage: `url(${imageURL})` }}>
-              <div className="onhover-overlay" onClick={this.toggleMenuVisibility}>
+              <div className="onhover-overlay">
                 <AsideToggleableMenu
                   blockWidth={width}
                   visible={menuIsVisible}
