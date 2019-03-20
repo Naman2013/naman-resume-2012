@@ -3,7 +3,10 @@ import { faintShadow } from 'styles/variables/shadows';
 import { astronaut, geyser } from 'styles/variables/colors_tiles_v4';
 import { primaryFont, secondaryFont } from 'styles/variables/fonts';
 import { screenMedium } from 'styles/variables/breakpoints';
-import { backgroundImageCover, dropShadowContainer } from 'styles/mixins/utilities';
+import {
+  backgroundImageCover,
+  dropShadowContainer,
+} from 'styles/mixins/utilities';
 
 export default css`
   .root {
@@ -25,7 +28,7 @@ export default css`
   }
 
   .tab-description {
-    color: 
+    color: ;
   }
 
   .live-show.show-tab {
@@ -84,19 +87,19 @@ export default css`
     width: 120px;
     vertical-align: top;
     border-left: 1px solid ${geyser};
-    
+    font-size: 13px;
   }
 
   :global(.react-tabs__tab:last-child, .react-tabs__tab:first-child) {
     border-right: 1px solid ${geyser};
   }
 
-   :global(.react-tabs__tab):first-child {
-    margin-right: 100px; 
+  :global(.react-tabs__tab):first-child {
+    margin-right: 100px;
   }
 
   :global(.react-select__control),
-  :global(.react-select__control--is-focused){
+  :global(.react-select__control--is-focused) {
     margin: 0 auto;
     min-width: 200px;
     height: 50px;
@@ -106,10 +109,12 @@ export default css`
 
   :global(.active-tele-tab) {
     display: block;
+    font-size: 15px;
   }
 
   :global(.inactive-tele-tab) {
     display: none;
+    font-size: 13px;
   }
 
   :global(.react-tabs__tab--selected) {
@@ -130,8 +135,8 @@ export default css`
     left: 50%;
     margin-left: -5px;
     bottom: 0px;
-    background: url('https://vega.slooh.com/assets/v4/common/icon_navarrow_blue.svg') no-repeat
-      center center;
+    background: url('https://vega.slooh.com/assets/v4/common/icon_navarrow_blue.svg')
+      no-repeat center center;
   }
 
   .tab-wrapper {

@@ -51,6 +51,7 @@ class BootstrappedRelatedShows extends Component {
                     eventTitle={show.showTitle}
                     linkLabel={show.linkText}
                     linkUrl={show.linkURL}
+                    shortDescription={show.eventDescription}
                     withinReletedSection
                   />
                 </div>
