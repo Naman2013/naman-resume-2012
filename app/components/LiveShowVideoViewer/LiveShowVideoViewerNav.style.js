@@ -28,7 +28,7 @@ export default css`
   }
 
   .tab-description {
-    color: ;
+    text-align: center;
   }
 
   .live-show.show-tab {
