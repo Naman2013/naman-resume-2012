@@ -9,10 +9,13 @@ const renderField = ({
   input,
   label,
   type,
+  className,
   meta: { touched, error },
 }) => (
   <label
-    className={classnames('root', { error: touched && error })}
+    className={classnames(
+      className ? `${className} root`: 'root', { error: touched && error }
+    )}
   >
     <input
       className="field-input"

@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
+import React, { Fragment } from 'react';
 import { Nav } from '../../../../components/common/nav';
 import HubHeader from '../../../../components/common/HubHeader';
-//import { Spinner } from 'app/components/spinner/index';
+import { sloohLogoAstronaut } from 'app/styles/variables/iconURLs';
+import { Spinner } from 'app/components/spinner/index';
 
 //static data
 const navigationConfig = [
@@ -22,31 +23,30 @@ const navigationConfig = [
     linkURL: '/account-settings/take-a-tour',
   },
 ];
-export class AccountSettings extends Component {
-  componentDidMount = () => {
-    this.fetchData();
-  };
 
-  fetchData = () => {};
+const AccountSettings = props => {
+  const { children, location, isFetching } = props;
+  const pageTitle = 'Account Controls';
 
-  render() {
-    const { children, location, isFetching } = this.props;
-    return (
-      <div>
-        {/* <Spinner loading={isFetching} /> */}
-        <HubHeader
-          //icon={pageIconURL}
-          //title={pageTitle}
-          showIcon
-          renderNav={() => (
-            <div className="navigation-bar">
-              <Nav items={navigationConfig} location={location} />
-            </div>
-          )}
-        />
+  return isFetching ? <Spinner loading={isFetching} /> : (
+    <Fragment>
+      <HubHeader
+        showIcon
+        title={pageTitle}
+        icon={sloohLogoAstronaut}
+        renderNav={() => (
+          <div className="navigation-bar">
+            <Nav
+              items={navigationConfig}
+              location={location}
+              style={{ padding: 0 }}
+            />
+          </div>
+        )}
+      />
+      {children}
+    </Fragment>
+  )
+};
 
-        {children}
-      </div>
-    );
-  }
-}
+export default AccountSettings;
