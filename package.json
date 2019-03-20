@@ -11,7 +11,7 @@
     "test:old": "jest --coverage",
     "update-snapshots": "jest -u",
     "prod-simple": "rimraf dist && webpack -p --config webpack.production.config.js --colors --progress",
-    "prod:mars": "rimraf dist && rimraf node_modules && npm cache clean && npm install && apiUrl=https://mars.slooh.com apiPortNumber=443 cookieDomain=.slooh.com  NODE_ENV=production webpack -p --config webpack.production.config.js --colors --progress",
+    "prod:mars:new": "apiUrl=https://mars.slooh.com apiPortNumber=443 cookieDomain=.slooh.com  NODE_ENV=production webpack -p --config webpack.production.config.js --colors --progress",
     "prod:saturn": "rimraf dist && rimraf node_modules && npm cache clean && npm install && apiUrl=https://saturn.slooh.com apiPortNumber=443 cookieDomain=.slooh.com  NODE_ENV=production webpack -p --config webpack.production.config.js --colors --progress",
     "prod:deneb": "rimraf dist && rimraf node_modules && npm cache clean && npm install && apiUrl=https://deneb.slooh.com apiPortNumber=443 cookieDomain=.slooh.com  NODE_ENV=production webpack -p --config webpack.production.config.js --colors --progress",
     "prod:venus": "rimraf dist && rimraf node_modules && npm cache clean && npm install && apiUrl=https://venus.slooh.com apiPortNumber=443 cookieDomain=.slooh.com  NODE_ENV=production webpack -p --config webpack.production.config.js --colors --progress",

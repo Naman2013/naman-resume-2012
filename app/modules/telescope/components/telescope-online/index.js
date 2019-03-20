@@ -44,18 +44,12 @@ export class TelescopeOnline extends Component {
   render() {
     const {
       activeTelescopeMission,
-      observatoryList,
       fetchingObservatoryStatus,
       currentObservatory,
-      currentTelescope,
-      allObservatoryTelescopeStatus,
       objectDetails,
-      params,
-      activeInstrumentID,
-      teleInstrumentList,
       activeTelescope,
-      useActiveInstrumentID,
-      activeInstrument,
+      activeInstrumentID,
+      currentInstrument,
     } = this.props;
 
     const {
@@ -65,7 +59,7 @@ export class TelescopeOnline extends Component {
       instrSystem,
       instrPort,
       instrCameraSourceType,
-    } = activeInstrument;
+    } = currentInstrument;
 
     return (
       <div className="details-root">
@@ -75,15 +69,10 @@ export class TelescopeOnline extends Component {
               {context =>
                 context.isScreenLarge || context.isScreenXLarge ? (
                   <div>
-                    <InstrumentNavigation
-                      instruments={teleInstrumentList}
-                      activeInstrumentID={useActiveInstrumentID}
-                      handleInstrumentClick={
-                        this.handleInstrumentNavigationClick
-                      }
-                    />
-                    {/* The Solar Telescope uses a Live Video Stream from YT as opposed to an SSE feed for other telescopes */}
-                    {activeInstrument.instrImageSourceType === 'video' && (
+                    {/* The Solar Telescope uses a Live Video Stream
+                          from YT as opposed to an SSE feed
+                          for other telescopes */}
+                    {currentInstrument.instrImageSourceType === 'video' && (
                       <div>
                         <VideoImageLoader
                           teleStreamCode={instrStreamCode}
@@ -101,23 +90,23 @@ export class TelescopeOnline extends Component {
                         />
                       </div>
                     )}
-                    {activeInstrument.instrImageSourceType !== 'video' && (
+                    {currentInstrument.instrImageSourceType !== 'video' && (
                       <TelescopeImageViewerController
-                        activeInstrumentID={activeInstrument.instrUniqueId}
+                        activeInstrumentID={activeInstrumentID}
                         render={({ viewportHeight }) =>
                           provideLiveFeed({
                             viewportHeight,
                             fetchingOnlineStatus: fetchingObservatoryStatus,
                             obsAlert: currentObservatory.obsAlert,
-                            onlineStatus: false,
-                            instrument: activeInstrument,
+                            onlineStatus: 'online',
+                            instrument: currentInstrument,
                             offlineImageSource:
-                              activeInstrument.instrOfflineImgURL,
+                              currentInstrument.instrOfflineImgURL,
                             activeMission: activeTelescopeMission.maskDataArray,
                             timestamp: activeTelescopeMission.timestamp,
                             missionStart: activeTelescopeMission.missionStart,
                             missionEnd: activeTelescopeMission.expires,
-                            activeNeoview: activeInstrument.instrHasNeoView,
+                            activeNeoview: currentInstrument.instrHasNeoView,
                             handleInfoClick: this.toggleNeoview,
                           })
                         }
@@ -129,7 +118,7 @@ export class TelescopeOnline extends Component {
             </DeviceContext.Consumer>
           </div>
         </DisplayAtBreakpoint>
-        <style jsx>{style}</style>
+
         <div className="column">
           <ColumnTabs
             {...this.props}
@@ -138,14 +127,14 @@ export class TelescopeOnline extends Component {
                 tabTitle: 'Live',
                 content: () => (
                   <TabLive
-                    activeTelescope={activeTelescope}
                     obsId={currentObservatory.obsId}
                     skyChartWidgetID={currentObservatory.SkychartWidgetId}
                     allSkyWidgetID={currentObservatory.AllskyWidgetId}
                     mission={activeTelescopeMission}
+                    activeTelescope={activeTelescope}
                     object={objectDetails.objectData}
                     renderTelescopeViewer={() =>
-                      activeInstrument.instrImageSourceType === 'video' ? (
+                      currentInstrument.instrImageSourceType === 'video' ? (
                         <div>
                           <VideoImageLoader
                             teleStreamCode={instrStreamCode}
@@ -164,22 +153,22 @@ export class TelescopeOnline extends Component {
                         </div>
                       ) : (
                         <TelescopeImageViewerController
-                          activeInstrumentID={activeInstrument.instrUniqueId}
+                          activeInstrumentID={activeInstrumentID}
                           render={({ viewportHeight }) =>
                             provideLiveFeed({
                               viewportHeight,
                               fetchingOnlineStatus: fetchingObservatoryStatus,
                               obsAlert: currentObservatory.obsAlert,
-                              onlineStatus: false,
-                              instrument: activeInstrument,
+                              onlineStatus: 'online',
+                              instrument: currentInstrument,
                               offlineImageSource:
-                                activeInstrument.instrOfflineImgURL,
+                                currentInstrument.instrOfflineImgURL,
                               activeMission:
                                 activeTelescopeMission.maskDataArray,
                               timestamp: activeTelescopeMission.timestamp,
                               missionStart: activeTelescopeMission.missionStart,
                               missionEnd: activeTelescopeMission.expires,
-                              activeNeoview: activeInstrument.instrHasNeoView,
+                              activeNeoview: currentInstrument.instrHasNeoView,
                               handleInfoClick: this.toggleNeoview,
                             })
                           }
@@ -210,6 +199,7 @@ export class TelescopeOnline extends Component {
             ]}
           />
         </div>
+        <style jsx>{style}</style>
       </div>
     );
   }
