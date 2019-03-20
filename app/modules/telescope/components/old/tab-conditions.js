@@ -1,4 +1,5 @@
 import { DomCameraWidget } from 'app/modules/telescope/components/old/dom-camera-widget';
+import { PicoDelTeidesWidget } from 'app/modules/telescope/components/old/pico-del-teide-widget';
 import React from 'react';
 import {
   Satellite,
@@ -17,8 +18,6 @@ import style from './tab-conditions.style';
 
 const TabConditions = props => (
   <div>
-    {console.log(props)}
-
     {props.currentTelescope.teleHasNeoView && (
       <div className="tile-container">
         <ObsBotWidget {...props} ViewGroup="conditions" />
@@ -58,9 +57,10 @@ const TabConditions = props => (
     </div>
 
     <div className="tile-container">
-      <ModuleContainer title="Pico del teide cam">
-        <ImagePortalViewer imageURL="" />
-      </ModuleContainer>
+      <PicoDelTeidesWidget
+        facilityWebcamUrl={props.facilityWebcam.facilityWebcamURL}
+        {...props}
+      />
     </div>
 
     <div className="tile-container">

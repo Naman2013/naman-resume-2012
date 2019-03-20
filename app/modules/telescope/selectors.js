@@ -61,3 +61,9 @@ export const makeDomeCamSelector = () =>
     selectTelescopeOverview,
     state => state.domeCamWidgetResult
   );
+
+export const makeFacilityWebcamSelector = () =>
+  createSelector(
+    selectTelescopeOverview,
+    state => state.observatoryLiveWebcamResult
+  );

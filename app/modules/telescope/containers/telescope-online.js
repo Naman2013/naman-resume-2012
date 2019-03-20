@@ -1,6 +1,7 @@
 import { fetchAllWidgets } from 'app/modules/telescope-details/actions';
 import {
   fetchDomeCamAction,
+  fetchObservatoryWebcam,
   fetchWeatherSatellite,
 } from 'app/modules/Telescope-Overview';
 import { TelescopeOnline } from 'app/modules/telescope/components/telescope-online';
@@ -8,6 +9,7 @@ import {
   makeDayNightBarPanelSelector,
   makeDayNightMapSelector,
   makeDomeCamSelector,
+  makeFacilityWebcamSelector,
   makeWeatherSatelliteSelector,
 } from 'app/modules/telescope/selectors';
 import { connect } from 'react-redux';
@@ -19,12 +21,14 @@ const mapStateToProps = createStructuredSelector({
   dayNightMap: makeDayNightMapSelector(),
   weatherSatellite: makeWeatherSatelliteSelector(),
   domeCam: makeDomeCamSelector(),
+  facilityWebcam: makeFacilityWebcamSelector(),
 });
 
 const mapDispatchToProps = {
   fetchAllWidgets,
   fetchWeatherSatellite,
   fetchDomeCamAction,
+  fetchObservatoryWebcam,
 };
 
 export default compose(
