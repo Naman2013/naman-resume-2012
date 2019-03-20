@@ -99,7 +99,6 @@ export class Constellation extends Component {
     } = this.props;
 
     const { successModalShow } = this.state;
-    console.log(this.props);
     return (
       <div className="slooh-1000">
         <div className="container">

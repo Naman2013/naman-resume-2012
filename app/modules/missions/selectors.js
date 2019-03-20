@@ -67,8 +67,12 @@ export const makeBySlooh1000CategoryListSelectOptsSelector = () =>
   createSelector(
     makeBySlooh1000CategoryListSelector(),
     state => {
-      const catList = _get(state, 'categoryList', []);
-      return getSelectOptions(catList, 'categorySlug', 'categoryName');
+      return getSelectOptions(
+        state,
+        'itemIndex',
+        'itemDisplayName',
+        'itemIsEnabled'
+      );
     }
   );
 
@@ -108,7 +112,12 @@ export const makeBySlooh1000ObjectListSelectOptsSelector = () =>
   createSelector(
     makeBySlooh1000ObjectListSelector(),
     state => {
-      return getSelectOptions(state, 'objectId', 'topicName', 'topicIsEnabled');
+      return getSelectOptions(
+        state,
+        'objectId',
+        'objectTitle',
+        'objectIsEnabled'
+      );
     }
   );
 

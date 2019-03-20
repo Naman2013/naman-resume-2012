@@ -12,9 +12,9 @@ export const cancelMissionSlotApi = data =>
 export const getBySlooh1000Api = data =>
   axios.post('/api/missions/getBySlooh1000', data);
 export const getCategoryListApi = data =>
-  axios.post('/api/reservation/getPopularCategoryList', data);
+  axios.post('/api/reservation/getSlooh1000CategoryList', data);
 export const getObjectListApi = data =>
-  axios.post('/api/reservation/getPopularObjectList', data);
+  axios.post('/api/reservation/getSlooh1000ObjectList', data);
 
 // byConstellation
 export const getConstellationListApi = data =>

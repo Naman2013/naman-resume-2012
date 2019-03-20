@@ -52,7 +52,7 @@ export const initialState = {
 
   bySlooh1000: {
     bySlooh1000Data: {},
-    categoryList: {},
+    categoryList: [],
     selectedCategorySlug: null,
     objectList: [],
     selectedObjectId: null,
@@ -237,11 +237,12 @@ function getCategoryListSuccess(state, action) {
     ...state,
     isFetching: false,
     isLoaded: true,
-    bySlooh1000: { ...state.bySlooh1000, categoryList: action.payload },
+    bySlooh1000: { ...state.bySlooh1000, categoryList: action.payload.itemList },
   };
 }
 
 function setCategory(state, action) {
+  console.log(action.payload);
   return {
     ...state,
     bySlooh1000: {
@@ -260,7 +261,7 @@ function getObjectListSuccess(state, action) {
     isLoaded: true,
     bySlooh1000: {
       ...state.bySlooh1000,
-      objectList: action.payload.categoryList[0].categoryTopicList,
+      objectList: action.payload.objectList,
     },
   };
 }

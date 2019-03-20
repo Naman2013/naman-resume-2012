@@ -59,13 +59,12 @@ export const getBySlooh1000 = () => (dispatch, getState) => {
 export const getCategoryList = () => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
   dispatch(ACTION.getCategoryList());
-  // todo is callSource hardcoded here?
-  return getCategoryListApi({ at, token, cid, callSource: 'byPopularObjects' })
+  return getCategoryListApi({ at, token, cid, callSource: 'bySlooh1000V4' })
     .then(result => dispatch(ACTION.getCategoryListSuccess(result.data)))
     .catch(error => dispatch(ACTION.getCategoryListError(error)));
 };
 
-export const getObjectList = ({ categorySlug, includeDescription = true }) => (
+export const getObjectList = data => (
   dispatch,
   getState
 ) => {
@@ -75,17 +74,10 @@ export const getObjectList = ({ categorySlug, includeDescription = true }) => (
     at,
     token,
     cid,
-    callSource: 'byPopularObjects',
-    includeDescription,
-    categorySlug,
+    ...data,
   })
     .then(result => dispatch(ACTION.getObjectListSuccess(result.data)))
     .catch(error => dispatch(ACTION.getObjectListError(error)));
-};
-
-export const setCategory = category => dispatch => {
-  dispatch(ACTION.setCategory(category));
-  dispatch(getObjectList({ categorySlug: category }));
 };
 
 // by Constellation
