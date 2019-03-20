@@ -64,7 +64,7 @@ const AboutSloohSection = ({ params }) => (
 
                 {
                   params.aboutSloohSectionId === SPONSOR_OPPORTUNITIES_SECTION && (
-                    <PartnershipOpportunitiesSection />
+                    <PartnershipOpportunitiesSection data={subscriptionResponse} />
                   )
                 }
 

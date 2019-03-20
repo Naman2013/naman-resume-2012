@@ -94,8 +94,10 @@ export default css`
 
   .contact-header {
     height: 200px;
-    background-color: lightblue;
-
+  }
+  
+  .contact-header img {
+    height: 100%;
   }
 
   .contact-data {
