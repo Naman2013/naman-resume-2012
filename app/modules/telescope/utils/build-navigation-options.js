@@ -5,15 +5,24 @@ function buildNavigationOptions(observatoryList = []) {
       ...navigationList,
       ...observatory.obsTelescopes
         .map(
-          ({ teleHasTelescopePage, teleName, teleLogoURL, teleUniqueId }) => ({
-            name: teleName,
-            thumbnailURL: teleLogoURL,
-            observatoryUniqueID: observatory.obsUniqueId,
-            telescopeUniqueID: teleUniqueId,
-            show: teleHasTelescopePage,
-            AllskyTimelapseWidgetId: observatory.AllskyTimelapseWidgetId,
-            observatoryData: { ...observatory },
-          })
+          ({
+            teleHasTelescopePage,
+            teleName,
+            teleLogoURL,
+            teleUniqueId,
+            teleInstrumentList,
+          }) => {
+            return {
+              name: teleName,
+              thumbnailURL: teleLogoURL,
+              observatoryUniqueID: observatory.obsUniqueId,
+              telescopeUniqueID: teleUniqueId,
+              show: teleHasTelescopePage,
+              instruments: teleInstrumentList,
+              AllskyTimelapseWidgetId: observatory.AllskyTimelapseWidgetId,
+              observatoryData: { ...observatory },
+            };
+          }
         )
         .filter(telescope => {
           return telescope.show;

@@ -18,8 +18,9 @@ const GuideTile = ({
   shortDescription,
   toggleReadingListFlag,
   updateReadingInfoInList,
+  withinReletedSection,
 }) => (
-  <div className="guide-tile-root">
+  <div className="guide-tile-root" style={withinReletedSection && { height: '200px', padding: '20px' }}>
     <div className="title" dangerouslySetInnerHTML={{ __html: guideReferenceTitle }} />
     <div className="sub-title" dangerouslySetInnerHTML={{ __html: guideAuthor }} />
     <div className="description" dangerouslySetInnerHTML={{ __html: shortDescription }} />

@@ -56,6 +56,8 @@ export const RESET_MISSION_COUNTER = 'RESET_MISSION_COUNTER';
 export const UPDATE_RECENTLY_VIEWED_MISSION_ID = 'UPDATE_RECENTLY_VIEWED_MISSION_ID';
 export const RESET_VIEWED_MISSION_STATE = 'RESET_VIEWED_MISSION_STATE';
 
+export const SET_CURRENT_INSTRUMENT = 'SET_CURRENT_INSTRUMENT';
+
 export const incrementMissionCounter = () => ({
   type: INCREMENT_MISSION_COUNTER,
 });
@@ -144,6 +146,15 @@ const setCurrentTelescope = currentTelescope => ({
   currentTelescope,
 });
 
+const setCurrentInstrument = currentInstrument => ({
+  type: SET_CURRENT_INSTRUMENT,
+  currentInstrument,
+});
+
+export const updateCurrentInstrument = currentInstrument => dispatch => {
+  return dispatch(setCurrentInstrument(currentInstrument));
+};
+
 const fetchCommunityContent = telescope => (dispatch) => {
   const { teleContentType, teleContentList } = telescope;
 
@@ -193,15 +204,26 @@ export const bootstrapTelescopeDetails = ({ obsUniqueId, teleUniqueId }) => (
 
       if (!apiError) {
         const { observatoryList } = result.data;
-        const currentObservatory = getCurrentObservatory(observatoryList, obsUniqueId);
+        const currentObservatory = getCurrentObservatory(
+          observatoryList,
+          obsUniqueId
+        );
         const currentTelescope = getCurrentTelescope(
           currentObservatory.obsTelescopes,
-          teleUniqueId,
+          teleUniqueId
         );
 
         dispatch(resetActiveMission());
-        dispatch(fetchAllTelescopeStatus({ obsId: currentObservatory.obsId, teleUniqueId }));
+        dispatch(
+          fetchAllTelescopeStatus({
+            obsId: currentObservatory.obsId,
+            teleUniqueId,
+          })
+        );
         dispatch(setCurrentObservatory(currentObservatory));
+        dispatch(
+          updateCurrentInstrument(currentTelescope.teleInstrumentList[0])
+        );
         dispatch(resetMissionAndSetTelescope(currentTelescope));
         dispatch(resetSnapshotList());
         dispatch(observatoryListSuccess(result.data));

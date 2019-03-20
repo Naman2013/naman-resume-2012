@@ -1,77 +1,70 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { white, blueBlack, darkBlueGray } from 'styles/variables/colors';
-import { primaryFont } from 'styles/variables/fonts';
+// @flow
+import React from 'react';
+import { Link } from 'react-router';
+import classnames from 'classnames';
+import './index.scss';
 
-class InstrumentNavigation extends Component {
-  static propTypes = {
-    instruments: PropTypes.shape({
-      instrTelescopeName: PropTypes.string.isRequired,
-      instrUniqueId: PropTypes.string.isRequired,
-    }).isRequired,
-    handleInstrumentClick: PropTypes.func.isRequired,
-    activeInstrumentID: PropTypes.string,
+type TInstrumentNavigation = {
+  telescope: Object,
+  activeInstrumentID: string | void,
+  updateCurrentInstrument: Function,
+};
+
+const InstrumentNavigation = (props: TInstrumentNavigation) => {
+  const { telescope, activeInstrumentID, updateCurrentInstrument } = props;
+  if (!telescope) return null;
+
+  const {
+    thumbnailURL,
+    instruments,
+    observatoryUniqueID,
+    telescopeUniqueID,
+  } = telescope;
+  if (!instruments && !instruments.length) return null;
+
+  const handleClick = (instrument: Object) => () => {
+    if (instrument.instrUniqueId === activeInstrumentID) return;
+    return updateCurrentInstrument(instrument);
   };
 
-  static defaultProps = {
-    activeInstrumentID: null,
-  };
+  const path = `/telescope-details/${observatoryUniqueID}/${telescopeUniqueID}`;
 
-  handleButtonClick = (event) => {
-    const selectedInstrumentID = event.target.getAttribute('data-instrument-id');
-    this.props.handleInstrumentClick(selectedInstrumentID);
-  }
-
-  render() {
-    const { instruments, activeInstrumentID } = this.props;
-
-    return (
-      <ul>
-        {instruments.map(instrument => (
-          <li key={`instrument-tab-navigation-${instrument.instrUniqueId}`}>
-            <button
-              style={{
-                backgroundColor:
-                  (instrument.instrUniqueId === activeInstrumentID) ? blueBlack : darkBlueGray,
-              }}
-              data-instrument-id={instrument.instrUniqueId}
-              onClick={this.handleButtonClick}
+  return (
+    <ul className={classnames('instrument-navigation', {
+      'no-border': instruments.length === 1
+    })}>
+      {instruments.map((instrument, index) => {
+        return (
+          <li
+            key={`instrument-tab-navigation-${instrument.instrUniqueId}`}
+            className={classnames('instrument-navigation-el', {
+              'order-1': index === 0,
+              'order-3': instruments.length !== 1 && index === instruments.length - 1
+            })}
+          >
+            <Link
+              to={`${path}/${instrument.instrUniqueId}`}
+              onClick={handleClick(instrument)}
+              className={classnames('instrument-navigation-btn i-link', {
+                'active': instrument.instrUniqueId === activeInstrumentID
+              })}
             >
-              {instrument.instrTelescopeName}
-            </button>
-          </li>))}
-
-        <style jsx>{`
-        ul {
-          display: flex;
-          font-family: ${primaryFont};
-          list-style-type: none;
-          padding: 0;
-          margin: 0;
-        }
-
-        li {
-          width: 100%;
-          height: 45px;
-        }
-
-        button {
-          color: ${white};
-          background: none;
-          background-color: ${darkBlueGray};
-          border: none;
-          width: 100%;
-          height: 100%;
-        }
-
-        button:focus, button:active {
-          outline: none;
-        }
-      `}
-        </style>
-      </ul>
-    );
-  }
-}
+              {instrument.instrTelescopeShortName}
+            </Link>
+          </li>
+        )
+      })}
+      <li className="instrument-navigation-el order-2">
+        <Link
+          className="instrument-navigation-btn"
+          to={`${path}/${telescope.instruments[0].instrUniqueId}`}
+          onClick={handleClick(telescope.instruments[0])}
+        >
+          <img src={thumbnailURL} alt="" />
+        </Link>
+      </li>
+    </ul>
+  );
+};
 
 export default InstrumentNavigation;

@@ -11,14 +11,47 @@ export default css`
     position: relative;
   }
 
+  .select-wrapper {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin: 10px;
+  }
+
   :global(.live-show .tablist) {
     padding: 0;
+    display: flex;
     ${faintShadow}
+  }
+
+  .tab-description {
+    color: 
+  }
+
+  .live-show.show-tab {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .live-show-icon.tab-icon {
+    width: 80%;
+    height: 80%;
+    border-radius: 50%;
+    background-repeat: no-repeat;
+  }
+
+  :global(.live-show-icon.opt-icon) {
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    background-position: center center;
   }
 
   .show-tab {
     margin: 0 auto;
-    margin-top: 10px;
+    margin-bottom: 5px;
+    margin-top: 20px;
     background-color: ${astronaut};
     height: 50px;
     width: 50px;
@@ -50,7 +83,6 @@ export default css`
   :global(.react-tabs__tab) {
     width: 120px;
     vertical-align: top;
-    height: 140px;
     border-left: 1px solid ${geyser};
     
   }
@@ -105,8 +137,16 @@ export default css`
   .tab-wrapper {
     height: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     flex-direction: column;
+  }
+
+  :global(.live-show .tablist > li:first-child > div) {
+    justify-content: center;
+  }
+
+  :global(.live-show .react-select__value-container) {
+    overflow: visible;
   }
 `;
