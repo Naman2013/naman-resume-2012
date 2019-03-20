@@ -49,7 +49,7 @@ export default css`
     font-family: ${secondaryFont};
     color: ${astronaut};
     font-size: 19px;
-    padding-top: 15px;
+    overflow: hidden;
   }
 
   .actions {
@@ -60,5 +60,4 @@ export default css`
     margin: 0 auto;
     padding: 15px 0;
   }
-
 `;
