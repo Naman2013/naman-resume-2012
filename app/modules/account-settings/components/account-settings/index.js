@@ -49,4 +49,4 @@ const AccountSettings = props => {
   )
 };
 
-export default AccountSettings;
+export { AccountSettings };

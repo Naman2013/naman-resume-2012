@@ -2,6 +2,7 @@
 @import "~app/styles/variables/media-queries.scss";
 @import "~app/styles/mixins/utilities.scss";
 
+
 // article, headers, paragraphs
 // primary - BrandonGrotesque
 // secondary - Adobe Garamond Pro
@@ -9,11 +10,13 @@
 $goldenRatio: 1.53;
 
 article {
-  padding: 100px;
 
   .i-text {
+
+  .text {
     margin: 10px 0 30px;
   }
+}
 }
 
 .h-1,
@@ -131,5 +134,3 @@ article {
     font-size: 18px;
   }
 }
-
-

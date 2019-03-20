@@ -18,4 +18,20 @@ export default css`
   .related-shows-count {
     font-weight: normal;
   }
+
+  .flipped {
+    display: none;
+  }
+
+  article {
+    margin: 30px 0;
+  }
+
+  article:hover .card{
+    display: none;
+  }
+
+  article:hover .flipped{
+    display: block;
+  }
 `;

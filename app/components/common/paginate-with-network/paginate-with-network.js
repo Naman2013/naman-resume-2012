@@ -14,15 +14,15 @@ class PaginateWithNetwork extends Component {
   };
 
   static defaultProps = {
-    onServiceResponse: (resp) => {
+    onServiceResponse: resp => {
       console.log(resp);
     },
     activePageNumber: 1,
     filterOptions: {},
-    hubActions: null,
+    hubActions: { hubGetRequestStart: () => {} },
   };
 
-  handleServiceResponse = (resp) => {
+  handleServiceResponse = resp => {
     this.props.onServiceResponse(resp);
     window.scrollTo(0, 0);
   };
@@ -30,12 +30,10 @@ class PaginateWithNetwork extends Component {
   serviceFetchStartHandler = () => {
     const { hubActions } = this.props;
     hubActions.hubGetRequestStart();
-  }
+  };
 
   render() {
-    const {
-      apiURL, activePageNumber, filterOptions, hubActions,
-    } = this.props;
+    const { apiURL, activePageNumber, filterOptions, hubActions } = this.props;
 
     return (
       <Request
