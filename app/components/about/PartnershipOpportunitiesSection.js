@@ -168,8 +168,10 @@ class PartnershipOpportunitiesSection extends Component {
                 </div>
               </section>
               <section className="contacts">
-                <div className="contact-header text-center">
-                  <img src={aboutSloohPressIconURL} alt=""/>
+                <div className="i-box-blue-tile pad-50 contact-header text-center">
+                  <div className="img-wrapper-shadow">
+                    <img src={aboutSloohPressIconURL} alt=""/>
+                  </div>
                 </div>
                 <div className="contact-data">
                   <h2 className="contact-title">{infoHeading}</h2>
