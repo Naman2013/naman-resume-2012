@@ -4,6 +4,7 @@
 
 import React from 'react';
 import PropTypes, { number } from 'prop-types';
+import { Link } from 'react-router';
 import { FormattedMessage } from 'react-intl';
 
 import DeleteImage from '../../../components/my-pictures/actions/DeleteImageV4';
@@ -24,14 +25,24 @@ const AsideToggleableMenu = (props) => {
     index,
     isDesktop,
     blockWidth,
+    redirectToImage
   } = props;
 
   return (
-    <div className="root" style={{ width: visible ? '70%' : '0' }} onClick={e => e.stopPropagation()}>
+    <div
+      className="root"
+      style={{ width: visible ? '70%' : '0' }}
+      onClick={e => e.stopPropagation()}
+    >
       <div style={{ opacity: visible ? 1 : 0 }} className="heading">
         <FormattedMessage {...messages.MoreOptions} />
-        <i className="fa fa-close" aria-hidden="true" onClick={toggleMenuVisibility} />
+        <i
+          className="fa fa-close"
+          aria-hidden="true"
+          onClick={toggleMenuVisibility}
+        />
       </div>
+
       <div className="options-list">
         {optionsList.map((option) => {
           if (option.action === 'remove') {
@@ -42,7 +53,12 @@ const AsideToggleableMenu = (props) => {
                 maxImageCount={count}
                 firstImageNumber={firstImageNumber}
                 render={removeImage => (
-                  <button style={{ opacity: visible ? 1 : 0 }} onClick={removeImage} className="option">{option.label}</button>
+                  <button
+                    style={{ opacity: visible ? 1 : 0 }}
+                    onClick={removeImage}
+                    className="option">
+                    {option.label}
+                  </button>
                 )}
               />
             );
@@ -57,12 +73,33 @@ const AsideToggleableMenu = (props) => {
                 className="option"
                 asideMenuWidth={blockWidth * 0.7}
                 render={toggleMenu => (
-                  <button style={{ opacity: visible ? 1 : 0 }} onClick={toggleMenu} className="option">{option.label}</button>
+                  <button
+                    style={{ opacity: visible ? 1 : 0 }}
+                    onClick={toggleMenu}
+                    className="option">{option.label}
+                  </button>
                 )}
               />
             );
           }
-          return <button style={{ opacity: visible ? 1 : 0 }} onClick={option.action} className="option">{option.label}</button>;
+          if(option.action === 'redirect') {
+            return (
+              <button
+                style={{ opacity: visible ? 1 : 0 }}
+                onClick={redirectToImage()}
+                className="option">
+                {option.label}
+              </button>
+            )
+          }
+          return (
+            <button
+              style={{ opacity: visible ? 1 : 0 }}
+              onClick={option.action}
+              className="option">
+              {option.label}
+            </button>
+          );
         })}
       </div>
       <style jsx>{styles}</style>
@@ -92,6 +129,7 @@ AsideToggleableMenu.propTypes = {
   index: number.isRequired,
   isDesktop: bool.isRequired,
   blockWidth: number.isRequired,
+  redirectToImage: func
 };
 
 AsideToggleableMenu.defaultProps = {

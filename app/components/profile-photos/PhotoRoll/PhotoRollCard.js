@@ -42,9 +42,9 @@ class PhotoRollCard extends Component {
     return [
       { label: 'Add to gallery', action: 'addToGallery' },
       { label: 'Delete image', action: 'remove' },
-      { label: 'Test', },
-      { label: 'Test', },
-      { label: 'Test', },
+      { label: 'Write observation', action: 'redirect' },
+      { label: 'Add Tags', },
+      { label: 'Share Image', },
     ];
   }
 
@@ -56,12 +56,20 @@ class PhotoRollCard extends Component {
     this.setState({ width: this.blockWidth.clientWidth });
   }
 
+  redirectToImage = () => () => {
+    const { currentItem, user } = this.props;
+
+    return browserHistory.push(
+      `/my-pictures/show-image/${currentItem.customerImageId}/${user.token}`
+    );
+  };
+
   render() {
     const {
       index,
       isDesktop,
       isMobile,
-      currentItem: observation, user
+      currentItem: observation
     } = this.props;
     const { menuIsVisible, width } = this.state;
     const inCenter = index % 3 === 1;
@@ -73,20 +81,15 @@ class PhotoRollCard extends Component {
       displayTime,
       telescopeName,
       instrumentName,
-      customerImageId,
     } = observation;
 
-    const { token } = user;
     return (
       <div className={cn(['root', { 'inCenter': inCenter && isDesktop }])}>
         <div 
           className="photoRollCard"
           role={isMobile ? 'button' : 'article'}
           ref={(node) => { this.blockWidth = node; }}
-          onClick={isMobile
-            ? () => browserHistory.push(`/my-pictures/show-image/${customerImageId}/${token}`)
-            : noop
-          }
+          onClick={isMobile ? this.redirectToImage() : noop}
         >
           <div className="square-container">
             <div className="image" style={{ backgroundImage: `url(${imageURL})` }}>
@@ -95,6 +98,7 @@ class PhotoRollCard extends Component {
                   blockWidth={width}
                   visible={menuIsVisible}
                   optionsList={this.optionsList}
+                  redirectToImage={this.redirectToImage}
                   toggleMenuVisibility={this.toggleMenuVisibility}
                   {...this.props}
                 />
@@ -111,8 +115,8 @@ class PhotoRollCard extends Component {
                 <div className="overlay-bottom">
                   <Button
                     withIntl
+                    onClickEvent={this.redirectToImage()}
                     text={<FormattedMessage {...messages.Details} />}
-                    onClickEvent={() => browserHistory.push(`/my-pictures/show-image/${customerImageId}/${token}`)}
                     theme={{ borderColor: '#fff', color: '#fff' }}
                   />
                   <div style={{ display: 'flex' }}>
