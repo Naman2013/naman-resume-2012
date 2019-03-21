@@ -21,6 +21,7 @@
     "prod:orion": "rimraf dist && rimraf node_modules && npm cache clean && npm install && apiUrl=https://orion.slooh.com apiPortNumber=443 cookieDomain=.slooh.com  NODE_ENV=production webpack -p --config webpack.production.config.js --colors --progress",
     "prod:cnchange": "rimraf dist && rimraf node_modules && npm cache clean && npm install && apiUrl=https://change.slooh.cn apiPortNumber=443 cookieDomain=.slooh.cn NODE_ENV=production webpack -p --config webpack.production.config.js --colors --progress",
     "prod:cnshenzhou5": "rimraf dist && rimraf node_modules && npm cache clean && npm install && apiUrl=https://slooh.cn apiPortNumber=443 cookieDomain=.slooh.cn  NODE_ENV=production webpack -p --config webpack.production.config.js --colors --progress",
+    "prod:preview": "rimraf dist && rimraf node_modules && npm cache clean && npm install && apiUrl=https://preview.slooh.com apiPortNumber=443 cookieDomain=.slooh.com  NODE_ENV=production webpack -p --config webpack.production.config.js --colors --progress",
     "prod": "rimraf dist && rimraf node_modules && npm cache clean && npm install && apiUrl=https://slooh.com apiPortNumber=443 cookieDomain=.slooh.com  NODE_ENV=production webpack -p --config webpack.production.config.js --colors --progress",
     "storybook": "start-storybook ./assets -p 6006",
     "build-storybook": "build-storybook",
