@@ -89,7 +89,8 @@ import tierLimits from './tier-limits/reducer';
 import upcomingEvents from './upcoming-events/upcoming-events-reducer';
 import user from './User';
 import usersUpcomingMission from './Users-Upcoming-Missions';
-import accountSettings from '../modules/account-settings/reducer';
+import accountSettings from 'app/modules/account-settings/reducer';
+import profilePhotos from 'app/modules/profile-photos/reducer';
 
 export default combineReducers({
   routing: routerReducer,
@@ -183,4 +184,5 @@ export default combineReducers({
   storyDetails,
   missions,
   accountSettings,
+  profilePhotos,
 });
