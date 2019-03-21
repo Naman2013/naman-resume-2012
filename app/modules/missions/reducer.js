@@ -16,6 +16,12 @@ export const TYPE = constants('profile', [
   'SET_OBJECT',
   'SET_PROCESSING_RECIPE',
 
+  // byConstellation page
+  '~GET_CONSTELLATION_LIST',
+  'SET_CONSTELLATION',
+  '~GET_CONSTELLATION_OBJECT_LIST',
+  'SET_CONSTELLATION_OBJECT',
+
   // byCatalog page
   '~GET_CATALOG_LIST',
   'SET_CATALOG',
@@ -46,13 +52,18 @@ export const initialState = {
 
   bySlooh1000: {
     bySlooh1000Data: {},
-    categoryList: {},
+    categoryList: [],
     selectedCategorySlug: null,
     objectList: [],
     selectedObjectId: null,
   },
 
-  byConstellation: {},
+  byConstellation: {
+    constellationList: [],
+    selectedConstellation: null,
+    objectList: [],
+    selectedObjectId: null,
+  },
 
   byCatalog: {
     catalogList: [],
@@ -97,6 +108,16 @@ export default handleActions(
     [TYPE.GET_OBJECT_LIST_SUCCESS]: getObjectListSuccess,
     [TYPE.GET_OBJECT_LIST_ERROR]: setServerError,
     [TYPE.SET_OBJECT]: setObject,
+
+    // byConstellation page
+    [TYPE.GET_CONSTELLATION_LIST]: setFetching,
+    [TYPE.GET_CONSTELLATION_LIST_SUCCESS]: getConstellationListSuccess,
+    [TYPE.GET_CONSTELLATION_LIST_ERROR]: setServerError,
+    [TYPE.SET_CONSTELLATION]: setConstellation,
+    [TYPE.GET_CONSTELLATION_OBJECT_LIST]: setTelescopeFetching,
+    [TYPE.GET_CONSTELLATION_OBJECT_LIST_SUCCESS]: getConstellationObjectListSuccess,
+    [TYPE.GET_CONSTELLATION_OBJECT_LIST_ERROR]: setServerError,
+    [TYPE.SET_CONSTELLATION_OBJECT]: setConstellationObject,
 
     // byCatalog page
     [TYPE.GET_CATALOG_LIST]: setFetching,
@@ -184,6 +205,12 @@ function resetMissionsData(state) {
       objectList: [],
       selectedObjectId: null,
     },
+    byConstellation: {
+      ...state.byConstellation,
+      selectedConstellation: null,
+      objectList: [],
+      selectedObjectId: null,
+    },
     byCatalog: {
       ...state.byCatalog,
       selectedCatalog: null,
@@ -210,11 +237,12 @@ function getCategoryListSuccess(state, action) {
     ...state,
     isFetching: false,
     isLoaded: true,
-    bySlooh1000: { ...state.bySlooh1000, categoryList: action.payload },
+    bySlooh1000: { ...state.bySlooh1000, categoryList: action.payload.itemList },
   };
 }
 
 function setCategory(state, action) {
+  console.log(action.payload);
   return {
     ...state,
     bySlooh1000: {
@@ -233,7 +261,7 @@ function getObjectListSuccess(state, action) {
     isLoaded: true,
     bySlooh1000: {
       ...state.bySlooh1000,
-      objectList: action.payload.categoryList[0].categoryTopicList,
+      objectList: action.payload.objectList,
     },
   };
 }
@@ -242,6 +270,53 @@ function setObject(state, action) {
   return {
     ...state,
     bySlooh1000: { ...state.bySlooh1000, selectedObjectId: action.payload },
+  };
+}
+
+// byConstellation
+function getConstellationListSuccess(state, action) {
+  return {
+    ...state,
+    isFetching: false,
+    isLoaded: true,
+    byConstellation: {
+      ...state.byConstellation,
+      constellationList: action.payload.constellationList,
+    },
+  };
+}
+
+function setConstellation(state, action) {
+  return {
+    ...state,
+    byConstellation: {
+      ...state.byConstellation,
+      selectedConstellation: action.payload,
+      objectList: [],
+      selectedObjectId: null,
+    },
+  };
+}
+
+function getConstellationObjectListSuccess(state, action) {
+  return {
+    ...state,
+    isTelescopeFetching: false,
+    isLoaded: true,
+    byConstellation: {
+      ...state.byConstellation,
+      objectList: action.payload.objectList,
+    },
+  };
+}
+
+function setConstellationObject(state, action) {
+  return {
+    ...state,
+    byConstellation: {
+      ...state.byConstellation,
+      selectedObjectId: action.payload,
+    },
   };
 }
 

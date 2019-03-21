@@ -14,7 +14,6 @@ export class Slooh1000 extends Component {
   componentDidMount() {
     const { getCategoryList, getBySlooh1000, resetMissionsData } = this.props;
     resetMissionsData();
-    //getBySlooh1000(); will be soon
     getCategoryList();
   }
 
@@ -26,7 +25,7 @@ export class Slooh1000 extends Component {
     const { getMissionSlot, selectedObjectData } = this.props;
 
     getMissionSlot({
-      callSource: 'byPopularObjects',
+      callSource: 'bySlooh1000V4',
       domeId: selectedObjectData.domeId,
       missionStart: selectedObjectData.missionStart,
       objectId: selectedObjectData.objectId,
@@ -42,7 +41,7 @@ export class Slooh1000 extends Component {
     const { reserveMissionSlot, missionSlot } = this.props;
 
     reserveMissionSlot({
-      callSource: 'byPopularObjects',
+      callSource: 'bySlooh1000V4',
       catName: missionSlot.catName,
       catalog: missionSlot.catalog,
       designation: missionSlot.designation,
@@ -81,15 +80,23 @@ export class Slooh1000 extends Component {
 
     if (missionSlot && missionSlot.scheduledMissionId) {
       cancelMissionSlot({
-        callSource: 'byPopularObjects',
+        callSource: 'bySlooh1000V4',
         grabType: 'notarget',
         scheduledMissionId: missionSlot.scheduledMissionId,
       });
     }
   };
 
+  setCategory = value => {
+    const { setCategory, getObjectList, categoryList } = this.props;
+    const { typeName, nameFrom, nameTo } = categoryList[value];
+    setCategory(value);
+    getObjectList({ typeName, nameFrom, nameTo, includeDescription: true, callSource: 'bySlooh1000V4', });
+  }
+
   render() {
     const {
+      categoryList,
       categoryListOpts,
       setCategory,
       objectListOpts,
@@ -101,7 +108,7 @@ export class Slooh1000 extends Component {
     } = this.props;
 
     const { successModalShow } = this.state;
-
+    
     return (
       <div className="slooh-1000">
         <div className="container">
@@ -109,9 +116,10 @@ export class Slooh1000 extends Component {
             <div className="col-lg-8">
               <Box>
                 <Slooh1000Setup
+                  categoryList={categoryList}
                   categoryListOpts={categoryListOpts}
                   objectListOpts={objectListOpts}
-                  setCategory={setCategory}
+                  setCategory={this.setCategory}
                   setObject={setObject}
                   getMissionSlot={this.getMissionSlot}
                   selectedCategorySlug={selectedCategorySlug}

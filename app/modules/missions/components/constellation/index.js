@@ -1,9 +1,9 @@
 import { Box } from 'app/modules/missions/components/box';
-import { ConstellationSetup } from 'app/modules/missions/components/constellation-setup';
 import React, { Component } from 'react';
 import moment from 'moment';
 import { AvailbleMissionTile } from '../available-mission-tile';
 import { MissionSuccessModal } from '../mission-success-modal';
+import { ConstellationSetup } from '../constellation-setup';
 import './styles.scss';
 
 export class Constellation extends Component {
@@ -11,7 +11,10 @@ export class Constellation extends Component {
     successModalShow: false,
   };
 
-  componentDidMount() {}
+  componentDidMount() {
+    const { getConstellationList } = this.props;
+    getConstellationList();
+  }
 
   componentWillUnmount() {
     this.cancelMissionSlot();
@@ -21,7 +24,7 @@ export class Constellation extends Component {
     const { getMissionSlot, selectedObjectData } = this.props;
 
     getMissionSlot({
-      callSource: 'byPopularObjects',
+      callSource: 'byConstellationV4',
       domeId: selectedObjectData.domeId,
       missionStart: selectedObjectData.missionStart,
       objectId: selectedObjectData.objectId,
@@ -37,7 +40,7 @@ export class Constellation extends Component {
     const { reserveMissionSlot, missionSlot } = this.props;
 
     reserveMissionSlot({
-      callSource: 'byPopularObjects',
+      callSource: 'byConstellationV4',
       catName: missionSlot.catName,
       catalog: missionSlot.catalog,
       designation: missionSlot.designation,
@@ -76,7 +79,7 @@ export class Constellation extends Component {
 
     if (missionSlot && missionSlot.scheduledMissionId) {
       cancelMissionSlot({
-        callSource: 'byPopularObjects',
+        callSource: 'byConstellationV4',
         grabType: 'notarget',
         scheduledMissionId: missionSlot.scheduledMissionId,
       });
@@ -85,18 +88,17 @@ export class Constellation extends Component {
 
   render() {
     const {
-      categoryListOpts,
-      setCategory,
+      constellationListOpt,
+      setConstellation,
       objectListOpts,
       setObject,
       missionSlot,
-      selectedCategorySlug,
+      selectedConstellation,
       selectedObjectId,
       reservedMissionData,
     } = this.props;
 
     const { successModalShow } = this.state;
-
     return (
       <div className="slooh-1000">
         <div className="container">
@@ -104,12 +106,12 @@ export class Constellation extends Component {
             <div className="col-lg-8">
               <Box>
                 <ConstellationSetup
-                  categoryListOpts={categoryListOpts}
+                  constellationListOpt={constellationListOpt}
                   objectListOpts={objectListOpts}
-                  setCategory={setCategory}
+                  setConstellation={setConstellation}
                   setObject={setObject}
                   getMissionSlot={this.getMissionSlot}
-                  selectedCategorySlug={selectedCategorySlug}
+                  selectedConstellation={selectedConstellation}
                   selectedObjectId={selectedObjectId}
                   disabled={missionSlot && missionSlot.missionAvailable}
                 />
@@ -140,11 +142,11 @@ export class Constellation extends Component {
           </div>
         </div>
 
-        {/* <MissionSuccessModal
+        <MissionSuccessModal
           show={successModalShow}
           onHide={this.modalClose}
           reservedMissionData={reservedMissionData}
-        /> */}
+        />
       </div>
     );
   }
