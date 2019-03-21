@@ -18,6 +18,7 @@ import {
 import {
   getCategoryList,
   setCategory,
+  getObjectList,
   getBySlooh1000,
   getMissionSlot,
   reserveMissionSlot,
@@ -43,7 +44,8 @@ const mapDispatchToProps = {
   getMissionSlot,
   getBySlooh1000,
   getCategoryList,
-  setCategory,
+  setCategory: ACTION.setCategory,
+  getObjectList,
   setObject: ACTION.setObject,
   resetMissionsData: ACTION.resetMissionsData,
   reserveMissionSlot,

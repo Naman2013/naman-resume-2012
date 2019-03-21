@@ -6,6 +6,24 @@ import Button from '../../../../components/common/style/buttons/Button';
 import './styles.scss';
 
 export class Slooh1000Setup extends Component {
+  renderCategoryOption = props => {
+    const { categoryList } = this.props;
+    const item = categoryList[props.data.value];
+
+    return (
+      <div
+        {...props.innerProps}
+        className={`dropdown-opt slooh1000-${item.itemType}`}
+      >
+        <div className="dropdown-name">
+          {item.itemIsEnabled && <img src={item.itemIconURL} alt="" />}
+          {props.children}
+        </div>
+        <div className="focused-ind" />
+      </div>
+    );
+  };
+
   render() {
     const {
       categoryListOpts,
@@ -43,6 +61,7 @@ export class Slooh1000Setup extends Component {
             <Select
               handleChange={setCategory}
               options={categoryListOpts}
+              renderOption={this.renderCategoryOption}
               placeholder="Choose"
               value={selectedCategorySlug}
               isDisabled={disabled}
