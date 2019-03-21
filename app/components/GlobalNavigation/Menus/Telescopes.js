@@ -34,7 +34,7 @@ const Telescopes = ({ intl }) => (
             <Button
               text={intl.formatMessage(messages.myPhotos)}
               theme={{ display: 'inline-block', textAlign: 'center', width: '47%' }}
-              onClickEvent={() => browserHistory.push('/profile/private/photos/missions')}
+              onClickEvent={() => browserHistory.push('/profile/private/photos/photoroll')}
             />
           </div>
         </MenuTitleBar>
