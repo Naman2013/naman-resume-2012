@@ -1,0 +1,35 @@
+@import "~app/styles/variables/colors.scss";
+@import "~app/styles/mixins/utilities.scss";
+
+
+.i-link {
+  margin: 0 7px;
+  font: 14px $primary-font;
+  color: $darkBlueGray;
+  text-decoration: none;
+  transition: all 0.5ms ease-in-out;
+
+  &:hover {
+    color: $turqoise;
+    text-decoration: none;
+  }
+
+  &.active {
+    font-weight: bold;
+
+    &:hover {
+      color: $darkBlueGray;
+    }
+  }
+
+  &:focus,
+  &:visited {
+    color: $darkBlueGray;
+    text-decoration: none;
+  }
+
+  @include xsm {
+    display: flex;
+    margin: 7px 0;
+  }
+}
