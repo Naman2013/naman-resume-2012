@@ -125,6 +125,10 @@ export default css`
     margin-bottom: 10px;
   }
 
+  .__html-blob-content-container__ :global(h1 *) {
+    font-size: inherit;
+  }
+
   .__html-blob-content-container__ :global(h2) {
     font-size: 1.95rem;
     margin-top: 10px;
