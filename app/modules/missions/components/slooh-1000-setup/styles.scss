@@ -5,12 +5,35 @@ $parentPadding: 40px;
 
 .slooh-1000-setup {
   .steps {
-    //margin: $parentPadding -($parentPadding) -($parentPadding);
     margin: 40px -40px -40px;
     border-top: 1px solid $hawkesBlue;
 
     .step-1 {
       border-right: 1px solid $hawkesBlue;
+
+      .dropdown-opt {
+        &.slooh1000-category {
+          cursor: default;
+
+          .focused-ind {
+            display: none;
+          }
+        }
+
+        &.slooh1000-subcategory {
+          .dropdown-name {
+            text-transform: none;
+            display: flex;
+            align-items: center;
+
+            img {
+              width: 16px;
+              height: 16px;
+              margin-right: 10px;
+            }
+          }
+        }
+      }
     }
 
     .step-3,

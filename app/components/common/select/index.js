@@ -5,7 +5,6 @@ import './styles.scss';
 export class Select extends Component {
   getCustomOption = props => (
     <div
-      ref={props.innerRef}
       {...props.innerProps}
       className={`dropdown-opt${props.data.disabled ? ' disabled' : ''}`}
     >
@@ -25,11 +24,17 @@ export class Select extends Component {
   };
 
   render() {
-    const { placeholder, options, value, isDisabled } = this.props;
+    const {
+      placeholder,
+      options,
+      value,
+      isDisabled,
+      renderOption,
+    } = this.props;
     return (
       <div className="slooh-select-container">
         <RSelect
-          components={{ Option: this.getCustomOption }}
+          components={{ Option: renderOption || this.getCustomOption }}
           onChange={this.handleChange}
           options={options}
           value={value && this.getValueFromOptions(value)}
