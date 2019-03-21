@@ -29,7 +29,7 @@ const Telescopes = ({ intl }) => (
             <Button
               text={intl.formatMessage(messages.setUp)}
               theme={{ display: 'inline-block', textAlign: 'center', marginRight: '15px', width: '47%' }}
-              onClickEvent={() => browserHistory.push('/')}
+              onClickEvent={() => browserHistory.push('/missions')}
             />
             <Button
               text={intl.formatMessage(messages.myPhotos)}
