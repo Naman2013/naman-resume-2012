@@ -158,7 +158,7 @@ handleJoinPageServiceResponse = (result) => {
       //console.log("Get a list of schools for this district." + value);
 
       const schoolResult = axios.post(CLASSROOM_GET_US_SCHOOLLIST_ENDPOINT_URL, {
-        ncesDistrictId: value,
+        districtExternalId: value,
         includePleaseSelectOption: "yes",
       })
         .then((response) => {
@@ -252,7 +252,7 @@ handleJoinPageServiceResponse = (result) => {
                                 onChange={(event) => { this.handleSchoolDistrictChange({ value: event.target.value }); }}
                               >
                                 {this.state.schoolDistrictOptions.map(schoolDistrict =>
-                                  <option value={schoolDistrict.NCESDistrictId} key={schoolDistrict.NCESDistrictId}>{schoolDistrict.DistrictName}</option>)
+                                  <option value={schoolDistrict.districtExternalId} key={schoolDistrict.districtExternalId}>{schoolDistrict.DistrictName}</option>)
                                 }
                               </Field>
                             </div>
@@ -269,7 +269,7 @@ handleJoinPageServiceResponse = (result) => {
 
                                 >
                                 {this.state.schoolOptions.map(school =>
-                                  <option value={school.NCESSchoolId} key={school.NCESSchoolId}>{school.SchoolName}</option>)
+                                  <option value={school.schoolId} key={school.schoolExternalId}>{school.SchoolName}</option>)
                                 }
                               </Field>
                             </div>
