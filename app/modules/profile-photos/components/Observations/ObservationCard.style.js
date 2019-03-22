@@ -47,6 +47,7 @@ export default css`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    cursor: pointer;
   }
 
   .details span {
