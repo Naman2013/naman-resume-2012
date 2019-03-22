@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { downloadFile } from 'app/utils/downloadFile';
 
 export const DOWNLOAD_IMAGE_REQUEST = 'DOWNLOAD_IMAGE_REQUEST';
 export const DOWNLOAD_IMAGE_SUCCESS = 'DOWNLOAD_IMAGE_SUCCESS';
@@ -17,10 +18,10 @@ const downloadImageError = error => ({
   error,
 });
 
-export const downloadImage = url => dispatch => {
+export const downloadImage = (url, fileName) => dispatch => {
   dispatch(downloadImageRequest);
 
-  // TODO: fix cors
+  // TODO: CORS on server
   return axios(url, {
     method: 'GET',
     mode: 'no-cors',
@@ -29,9 +30,20 @@ export const downloadImage = url => dispatch => {
       'Content-Type': 'application/json',
     },
     withCredentials: true,
+    responseType: 'blob',
     credentials: 'same-origin',
   })
     .then(response => {
+      const url = window.URL.createObjectURL(new Blob([response]));
+      const link = document.createElement('a');
+      link.href = url;
+      const name = `${fileName}.png`;
+      link.setAttribute('download', name);
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+
+      downloadFile(response.data, fileName);
       dispatch(downloadImageSuccess());
     })
     .catch(err => {
