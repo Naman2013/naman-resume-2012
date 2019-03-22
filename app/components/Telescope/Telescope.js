@@ -1,5 +1,5 @@
 // @flow
-import React, { Component, Fragment } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import { Modal } from 'react-bootstrap';
 import Measure from 'react-measure';
 import noop from 'lodash/noop';
@@ -58,13 +58,12 @@ type TTelescope = {
   disableFullscreen?: boolean,
 };
 
-class Telescope extends Component<TTelescope> {
+class Telescope extends PureComponent<TTelescope> {
   static defaultProps = {
     increment: 5,
     render: noop,
     missionMetaData: { missionTargetID: 0 },
   };
-
 
   state = {
     activeInstrumentID: this.props.activeInstrumentID,
@@ -91,6 +90,7 @@ class Telescope extends Component<TTelescope> {
       x: 0,
       y: 0,
     },
+    radius: 0,
   };
 
   componentWillReceiveProps({
@@ -248,7 +248,7 @@ class Telescope extends Component<TTelescope> {
 
   render() {
     const {
-      portalDimensions: { width },
+      portalDimensions: { width, height },
       increment,
       horizontalResolution,
       verticalResolution,
@@ -260,6 +260,7 @@ class Telescope extends Component<TTelescope> {
       isMaskActive,
       isModalActive,
       isGridActive,
+      radius,
     } = this.state;
 
     const { missionMetaData, disableFullscreen } = this.props;
@@ -319,7 +320,17 @@ class Telescope extends Component<TTelescope> {
                 )}
               </div>
               <Fade isHidden={isTransitioningTelescope}>
-                <div>{this.props.render({ viewportHeight: width })}</div>
+                <div>
+                  {this.props.render({ viewportHeight: width }, imageData => {
+                    const { imageWidth, imageHeight } = imageData;
+                    this.setState({
+                      radius:
+                        Number(imageWidth) < Number(imageHeight)
+                          ? Number(imageWidth) / 2
+                          : Number(imageHeight) / 2,
+                    });
+                  })}
+                </div>
               </Fade>
               <svg
                 version="1.1"
@@ -332,7 +343,7 @@ class Telescope extends Component<TTelescope> {
                  */}
                 <FadeSVG isHidden={transitionScale}>
                   <FadeSVG isHidden={isTransitioningTelescope}>
-                    {isMaskActive && <Mask />}
+                    {isMaskActive && <Mask radius={radius} />}
                   </FadeSVG>
                   {activeInstrumentID && previousInstrumentID && isGridActive && (
                     <FadeSVG isHidden={!isTransitioningTelescope}>

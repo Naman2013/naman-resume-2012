@@ -34,11 +34,14 @@ const mapDispatchToProps = dispatch => ({
       incrementMissionCounter,
       updateRecentlyViewedMissionID,
     },
-    dispatch,
+    dispatch
   ),
 });
 
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(
+  mapStateToProps,
+  mapDispatchToProps
+)
 class SSELiveImageViewer extends Component {
   static propTypes = {
     actions: PropTypes.shape({
@@ -57,6 +60,7 @@ class SSELiveImageViewer extends Component {
     recentlyViewedMissionID: PropTypes.number,
     viewportHeight: PropTypes.number.isRequired,
     callSource: PropTypes.string,
+    onImageChange: PropTypes.func,
     // TODO: complete the validation
     // imageSource: PropTypes.
     // teleThumbWidth: PropTypes.
@@ -79,6 +83,7 @@ class SSELiveImageViewer extends Component {
     },
     viewedMissionsCounter: 0,
     recentlyViewedMissionID: 0,
+    onImageChange: noop,
     // TODO: complete the validation
     // imageSource: PropTypes.
     // teleThumbWidth: PropTypes.
@@ -101,11 +106,14 @@ class SSELiveImageViewer extends Component {
     }
 
     if (pathname === this.props.routerState.pathname) {
-      if (scheduledMissionId && (scheduledMissionId !== recentlyViewedMissionID)) {
+      if (
+        scheduledMissionId &&
+        scheduledMissionId !== recentlyViewedMissionID
+      ) {
         this.props.actions.incrementMissionCounter();
         this.props.actions.updateRecentlyViewedMissionID(scheduledMissionId);
         this.setState(() => ({
-          transitionVideoOpacity: (viewedMissionsCounter > 0) ? 1 : 0,
+          transitionVideoOpacity: viewedMissionsCounter > 0 ? 1 : 0,
         }));
       }
     }
@@ -119,6 +127,7 @@ class SSELiveImageViewer extends Component {
       teleFade,
       missionFormat,
       viewportHeight,
+      onImageChange,
     } = this.props;
 
     const { obsId, domeId } = obsIdTeleIdDomeIdFromTeleId(teleId);
@@ -135,6 +144,7 @@ class SSELiveImageViewer extends Component {
         teleThumbWidth={teleThumbWidth}
         teleFade={teleFade}
         missionFormat={missionFormat}
+        onImageChange={onImageChange}
       />
     );
   }

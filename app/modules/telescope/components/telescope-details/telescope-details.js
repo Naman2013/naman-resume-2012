@@ -39,7 +39,8 @@ function provideLiveFeed({
   missionEnd,
   activeNeoview,
   handleInfoClick,
-}) {
+},
+  onImageChange) {
   return (
     <LiveFeed
       viewportHeight={viewportHeight}
@@ -54,6 +55,7 @@ function provideLiveFeed({
       missionEnd={missionEnd}
       activeNeoview={activeNeoview}
       handleInfoClick={handleInfoClick}
+      onImageChange={onImageChange}
     />
   );
 }
@@ -285,49 +287,50 @@ export class TelescopeDetails extends Component<TTelescopeDetails> {
                           for other telescopes */}
                           {currentInstrument.instrImageSourceType ===
                             'video' && (
-                            <div>
-                              <VideoImageLoader
-                                teleStreamCode={instrStreamCode}
-                                teleStreamURL={instrStreamURL}
-                                teleStreamThumbnailVideoWidth="810"
-                                teleStreamThumbnailVideoHeight="600"
-                                teleStreamThumbnailQuality={
-                                  instrStreamThumbnailQuality
-                                }
-                                teleSystem={instrSystem}
-                                telePort={instrPort}
-                                cameraSourceType={instrCameraSourceType}
-                                showOverlay={false}
-                                autoplay={1}
-                              />
-                            </div>
-                          )}
+                              <div>
+                                <VideoImageLoader
+                                  teleStreamCode={instrStreamCode}
+                                  teleStreamURL={instrStreamURL}
+                                  teleStreamThumbnailVideoWidth="810"
+                                  teleStreamThumbnailVideoHeight="600"
+                                  teleStreamThumbnailQuality={
+                                    instrStreamThumbnailQuality
+                                  }
+                                  teleSystem={instrSystem}
+                                  telePort={instrPort}
+                                  cameraSourceType={instrCameraSourceType}
+                                  showOverlay={false}
+                                  autoplay={1}
+                                />
+                              </div>
+                            )}
                           {currentInstrument.instrImageSourceType !==
                             'video' && (
-                            <TelescopeImageViewerController
-                              activeInstrumentID={activeInstrumentID}
-                              render={({ viewportHeight }) =>
-                                provideLiveFeed({
-                                  viewportHeight,
-                                  fetchingOnlineStatus: fetchingObservatoryStatus,
-                                  obsAlert: currentObservatory.obsAlert,
-                                  onlineStatus: 'online',
-                                  instrument: currentInstrument,
-                                  offlineImageSource:
-                                    currentInstrument.instrOfflineImgURL,
-                                  activeMission:
-                                    activeTelescopeMission.maskDataArray,
-                                  timestamp: activeTelescopeMission.timestamp,
-                                  missionStart:
-                                    activeTelescopeMission.missionStart,
-                                  missionEnd: activeTelescopeMission.expires,
-                                  activeNeoview:
-                                    currentInstrument.instrHasNeoView,
-                                  handleInfoClick: this.toggleNeoview,
-                                })
-                              }
-                            />
-                          )}
+                              <TelescopeImageViewerController
+                                activeInstrumentID={activeInstrumentID}
+                                render={({ viewportHeight }, onImageChange) =>
+                                  provideLiveFeed({
+                                    viewportHeight,
+                                    fetchingOnlineStatus: fetchingObservatoryStatus,
+                                    obsAlert: currentObservatory.obsAlert,
+                                    onlineStatus: 'online',
+                                    instrument: currentInstrument,
+                                    offlineImageSource:
+                                      currentInstrument.instrOfflineImgURL,
+                                    activeMission:
+                                      activeTelescopeMission.maskDataArray,
+                                    timestamp: activeTelescopeMission.timestamp,
+                                    missionStart:
+                                      activeTelescopeMission.missionStart,
+                                    missionEnd: activeTelescopeMission.expires,
+                                    activeNeoview:
+                                      currentInstrument.instrHasNeoView,
+                                    handleInfoClick: this.toggleNeoview,
+                                  },
+                                  onImageChange)
+                                }
+                              />
+                            )}
                         </div>
                       ) : null
                     }
@@ -350,48 +353,49 @@ export class TelescopeDetails extends Component<TTelescopeDetails> {
                           object={objectDetails.objectData}
                           renderTelescopeViewer={() =>
                             currentInstrument.instrImageSourceType ===
-                            'video' ? (
-                              <div>
-                                <VideoImageLoader
-                                  teleStreamCode={instrStreamCode}
-                                  teleStreamURL={instrStreamURL}
-                                  teleStreamThumbnailVideoWidth="810"
-                                  teleStreamThumbnailVideoHeight="600"
-                                  teleStreamThumbnailQuality={
-                                    instrStreamThumbnailQuality
+                              'video' ? (
+                                <div>
+                                  <VideoImageLoader
+                                    teleStreamCode={instrStreamCode}
+                                    teleStreamURL={instrStreamURL}
+                                    teleStreamThumbnailVideoWidth="810"
+                                    teleStreamThumbnailVideoHeight="600"
+                                    teleStreamThumbnailQuality={
+                                      instrStreamThumbnailQuality
+                                    }
+                                    teleSystem={instrSystem}
+                                    telePort={instrPort}
+                                    cameraSourceType={instrCameraSourceType}
+                                    showOverlay={false}
+                                    autoplay={1}
+                                  />
+                                </div>
+                              ) : (
+                                <TelescopeImageViewerController
+                                  activeInstrumentID={activeInstrumentID}
+                                  render={({ viewportHeight }, onImageChange) =>
+                                    provideLiveFeed({
+                                      viewportHeight,
+                                      fetchingOnlineStatus: fetchingObservatoryStatus,
+                                      obsAlert: currentObservatory.obsAlert,
+                                      onlineStatus: 'online',
+                                      instrument: currentInstrument,
+                                      offlineImageSource:
+                                        currentInstrument.instrOfflineImgURL,
+                                      activeMission:
+                                        activeTelescopeMission.maskDataArray,
+                                      timestamp: activeTelescopeMission.timestamp,
+                                      missionStart:
+                                        activeTelescopeMission.missionStart,
+                                      missionEnd: activeTelescopeMission.expires,
+                                      activeNeoview:
+                                        currentInstrument.instrHasNeoView,
+                                      handleInfoClick: this.toggleNeoview,
+                                    },
+                                    onImageChange)
                                   }
-                                  teleSystem={instrSystem}
-                                  telePort={instrPort}
-                                  cameraSourceType={instrCameraSourceType}
-                                  showOverlay={false}
-                                  autoplay={1}
                                 />
-                              </div>
-                            ) : (
-                              <TelescopeImageViewerController
-                                activeInstrumentID={activeInstrumentID}
-                                render={({ viewportHeight }) =>
-                                  provideLiveFeed({
-                                    viewportHeight,
-                                    fetchingOnlineStatus: fetchingObservatoryStatus,
-                                    obsAlert: currentObservatory.obsAlert,
-                                    onlineStatus: 'online',
-                                    instrument: currentInstrument,
-                                    offlineImageSource:
-                                      currentInstrument.instrOfflineImgURL,
-                                    activeMission:
-                                      activeTelescopeMission.maskDataArray,
-                                    timestamp: activeTelescopeMission.timestamp,
-                                    missionStart:
-                                      activeTelescopeMission.missionStart,
-                                    missionEnd: activeTelescopeMission.expires,
-                                    activeNeoview:
-                                      currentInstrument.instrHasNeoView,
-                                    handleInfoClick: this.toggleNeoview,
-                                  })
-                                }
-                              />
-                            )
+                              )
                           }
                         />
                       ),
