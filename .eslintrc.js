@@ -10,6 +10,8 @@ module.exports = {
   ],
   'parser': 'babel-eslint',
   'rules': {
+    "react-hooks/rules-of-hooks": "error", // Checks rules of Hooks
+    "react-hooks/exhaustive-deps": "warn", // Checks effect dependencies
     'linebreak-style': 0,
     'prefer-const': 0,
     'spaced-comment': 0,
@@ -114,6 +116,7 @@ module.exports = {
   },
   plugins: [
     'prettier',
-    'import'
+    'import',
+    'react-hooks'
   ]
 };
