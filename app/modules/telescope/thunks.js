@@ -1,10 +1,17 @@
-import { getXXApi } from 'app/modules/profile/api';
+import { getAllSkyTimelapseApi } from './api';
 import { ACTION } from './reducer';
 
-export const getXX = customerUUID => (dispatch, getState) => {
+export const getAllSkyTimelapse = (obsId, widgetUniqueId) => (
+  dispatch,
+  getState
+) => {
   const { at, token, cid } = getState().user;
-  dispatch(ACTION.getXX());
-  return getXXApi({ at, token, cid, customerUUID })
-    .then(result => dispatch(ACTION.getXXSuccess(result.data)))
-    .catch(error => dispatch(ACTION.getXXError(error)));
+  const data = {
+    obsId,
+    widgetUniqueId,
+  };
+  dispatch(ACTION.getAllSkyTimelapse());
+  return getAllSkyTimelapseApi({ at, token, cid, ...data })
+    .then(result => dispatch(ACTION.getAllSkyTimelapseSuccess(result.data)))
+    .catch(error => dispatch(ACTION.getAllSkyTimelapseError(error)));
 };
