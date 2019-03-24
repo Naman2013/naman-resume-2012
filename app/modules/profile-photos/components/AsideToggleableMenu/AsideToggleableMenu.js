@@ -43,10 +43,11 @@ const AsideToggleableMenu = (props) => {
       </div>
 
       <div className="options-list">
-        {optionsList.map((option) => {
+        {optionsList.map(option => {
           if (option.action === 'remove') {
             return (
               <DeleteImage
+                key={option.label}
                 customerImageId={customerImageId}
                 user={user}
                 maxImageCount={count}
