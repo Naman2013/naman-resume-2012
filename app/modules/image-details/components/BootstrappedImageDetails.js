@@ -5,16 +5,14 @@
 *
 ***********************************/
 
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
-import TwoTabbedNav from 'components/TwoTabbedNav';
-import ResponsiveTwoColumnContainer from 'components/ResponsiveTwoColumnContainer';
-import ObjectDetailList from 'components/common/ObjectDetailList';
+import TwoTabbedNav from 'app/components/TwoTabbedNav';
+import ResponsiveTwoColumnContainer from 'app/components/ResponsiveTwoColumnContainer';
+import ObjectDetailList from 'app/components/common/ObjectDetailList';
 import MainContainer from './partials/MainContainer';
 import AsideContainer from './partials/AsideContainer';
-import CenterColumn from 'components/common/CenterColumn';
-import { romance } from 'styles/variables/colors_tiles_v4';
+import CenterColumn from 'app/components/common/CenterColumn';
 import styles from './ImageDetails.style';
 
 const {
@@ -77,7 +75,7 @@ const BootstrappedImageDetails = (props) => {
                 <AsideContainer {...props} showMissionRelatedInfo={showMissionRelatedInfo} /> :
                 null}
             </div>)}
-            isScreenLarge={isScreenLarge}
+            isDesktop={isScreenLarge}
             renderMainContent={() => <MainContainer {...props} actions={actions} />}
           />
         </div>
