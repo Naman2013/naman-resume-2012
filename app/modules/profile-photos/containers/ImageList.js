@@ -20,7 +20,6 @@ import {
   fetchGalleriesAndCounts,
   fetchMoreGalleries,
 } from 'app/modules/my-pictures-galleries/actions';
-import { downloadImage } from '../actions';
 
 import style from './ImageList.style';
 
@@ -71,7 +70,6 @@ const mapDispatchToProps = dispatch => ({
       fetchMorePhotoroll,
       fetchMoreMissions,
       fetchMoreGalleries,
-      downloadImage,
     },
     dispatch
   ),
@@ -196,7 +194,7 @@ class ImageList extends Component {
   };
 
   render() {
-    const { children, type, deviceInfo, actions } = this.props;
+    const { children, type, deviceInfo } = this.props;
     const { activePage } = this.state;
     const arrOfImages = this.props[mapTypeToList[type]];
     const count = this.props[mapTypeToCount[type]];
@@ -225,9 +223,6 @@ class ImageList extends Component {
                       currentItem: image,
                       count,
                       user,
-                      actions: {
-                        downloadImage: actions.downloadImage,
-                      },
                     })
                   )
                 : 'The list is empty.'}

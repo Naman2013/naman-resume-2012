@@ -79,7 +79,6 @@ export default injectIntl(
             toggleFollowConfirmationPrompt: x.toggleFollowConfirmationPrompt,
           }));
         case 'object':
-          console.log('privateProfileData.activeObjectsList', privateProfileData.activeObjectsList);
           return privateProfileData.activeObjectsList.map(x => ({
             title: x.title,
             linkURL: x.linkUrl,

@@ -9,9 +9,11 @@ import { browserHistory } from 'react-router';
 import { FormattedMessage } from 'react-intl';
 import Button from 'app/components/common/style/buttons/Button';
 import Dots from 'app/atoms/icons/Dots';
+import { downloadFile } from 'app/utils/downloadFile';
 import AsideToggleableMenu from '../AsideToggleableMenu';
 import messages from './PhotoRollCard.messages';
 import style from './PhotoRollCard.style';
+
 
 type TPhotoRollCard = {
   index: number,
@@ -39,12 +41,9 @@ class PhotoRollCard extends Component<TPhotoRollCard> {
     this.setState({ width: this.blockWidth.clientWidth });
   }
 
-  onDownloadFile = () => () => {
-    const {
-      currentItem: { imageURL },
-      actions: { downloadImage },
-    } = this.props;
-    downloadImage(imageURL, 'my-photo-hub-image');
+  onDownloadFile = () => {
+    const { currentItem: { imageURL } } = this.props;
+    downloadFile(imageURL, 'my-photo-hub-image.png');
   };
 
   toggleMenuVisibility = () => {
@@ -126,7 +125,7 @@ class PhotoRollCard extends Component<TPhotoRollCard> {
                   />
                   <div style={{ display: 'flex' }}>
                     <Button
-                      onClickEvent={this.onDownloadFile()}
+                      onClickEvent={this.onDownloadFile}
                       theme={{ borderColor: '#fff', marginRight: 10 }}
                       icon="https://vega.slooh.com/assets/v4/icons/download.svg"
                     />
