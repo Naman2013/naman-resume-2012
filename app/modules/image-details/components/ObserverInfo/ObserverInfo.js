@@ -16,7 +16,7 @@ import {
   aspectRatio,
   backgroundImageCover,
   dropShadowContainer,
-} from '../../styles/mixins/utilities';
+} from '../../../../styles/mixins/utilities';
 import { screenMedium } from 'styles/variables/breakpoints';
 
 const {
@@ -33,7 +33,7 @@ const profPic = photoUrl =>
 const ObserverInfo = ({
   avatarURL, isDesktop, displayName, gravityRankLabel,
 }) => (
-  <div className="root component-container">
+  <div className="root">
     {isDesktop ? (
       <div className="title-container">
         <span className="title">Observer:</span>

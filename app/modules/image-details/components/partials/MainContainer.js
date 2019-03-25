@@ -34,7 +34,7 @@ const MainContainer = ({
   scheduledMissionId,
   showCommentsLink,
   user,
-}) => (<div>
+}) => (<div className="image-main-container">
   {!canEditFlag && <ObservationInformation
     canLikeFlag={canLikeFlag}
     customerImageId={customerImageId}

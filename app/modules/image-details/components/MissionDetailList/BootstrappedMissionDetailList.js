@@ -10,10 +10,10 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import classnames from 'classnames';
 import uniqueId from 'lodash/uniqueId';
-import { profilePhotoStyle } from 'styles/mixins/utilities';
-import BlueLineDrop from 'components/common/BlueLineDrop';
-import { astronaut, geyser, shadows, romance } from 'styles/variables/colors_tiles_v4';
-import { secondaryFont } from 'styles/variables/fonts';
+import { profilePhotoStyle } from 'app/styles/mixins/utilities';
+import BlueLineDrop from 'app/components/common/BlueLineDrop';
+import { astronaut, geyser, shadows, romance } from 'app/styles/variables/colors_tiles_v4';
+import { secondaryFont } from 'app/styles/variables/fonts';
 
 const { arrayOf, bool, shape, string } = PropTypes;
 
@@ -47,7 +47,7 @@ const BootstrappedMissionDetailList = ({
             ) : null}
             <div
               className={classnames("detail-items", {
-                "component-container": !isDesktop
+                // "component-container": !isDesktop
               })}
             >
               {missionDetailList.missiondate ? (

@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import MissionDetailList from 'components/common/MissionDetailList';
-import MissionImageDetailList from 'components/common/MissionImageDetailList';
-import ObserverInfo from 'components/ObserverInfo';
-import ObjectDetailList from 'components/common/ObjectDetailList';
+import MissionDetailList from 'app/modules/image-details/components/MissionDetailList';
+import MissionImageDetailList from 'app/components/common/MissionImageDetailList';
+import ObserverInfo from 'app/modules/image-details/components/ObserverInfo';
+import ObjectDetailList from 'app/modules/image-details/components/ObjectDetailList';
 
 const {
   arrayOf,
@@ -24,7 +24,7 @@ const AsideContainer = ({
   scheduledMissionId,
   showMissionRelatedInfo,
 }) => (
-  <div>
+  <div className="aside-container">
     <div>
       <ObserverInfo
         avatarURL={avatarURL}

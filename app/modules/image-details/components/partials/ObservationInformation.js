@@ -170,7 +170,6 @@ class BootstrappedImageDetails extends Component {
         }
 
         .component-container {
-          margin: 25px;
           background-color: ${romance};
           -moz-box-shadow: 0 2px 4px 1px ${shadows};
           -webkit-box-shadow: 0 2px 4px 1px ${shadows};

@@ -35,15 +35,13 @@ const MissionDetailList = ({
       fetchingContent,
       serviceResponse,
     }) => (
-      <div>
-        {<BootstrappedMissionDetailList
+      <BootstrappedMissionDetailList
           isDesktop={isDesktop}
           fetching={fetchingContent}
           customerImageId={customerImageId}
           scheduledMissionId={scheduledMissionId}
           {...serviceResponse}
-        />}
-      </div>
+        />
     )}
   />
 );
