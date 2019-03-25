@@ -1,0 +1,17 @@
+.image-details {
+  .root {
+    width: 100%!important;
+  }
+
+  .responsive-two-cols {
+    .left-container {
+      margin: 0 30px 0 0;
+      flex: 1;
+    }
+    .right-container {
+      .component-container {
+        margin: 20px 0!important;
+      }
+    }
+  }
+}
