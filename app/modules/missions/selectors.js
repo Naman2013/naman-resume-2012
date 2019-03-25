@@ -67,8 +67,12 @@ export const makeBySlooh1000CategoryListSelectOptsSelector = () =>
   createSelector(
     makeBySlooh1000CategoryListSelector(),
     state => {
-      const catList = _get(state, 'categoryList', []);
-      return getSelectOptions(catList, 'categorySlug', 'categoryName');
+      return getSelectOptions(
+        state,
+        'itemIndex',
+        'itemDisplayName',
+        'itemIsEnabled'
+      );
     }
   );
 
@@ -108,7 +112,74 @@ export const makeBySlooh1000ObjectListSelectOptsSelector = () =>
   createSelector(
     makeBySlooh1000ObjectListSelector(),
     state => {
-      return getSelectOptions(state, 'objectId', 'topicName', 'topicIsEnabled');
+      return getSelectOptions(
+        state,
+        'objectId',
+        'objectTitle',
+        'objectIsEnabled'
+      );
+    }
+  );
+
+// byConstellation
+export const makeByConstellationSelector = () =>
+  createSelector(
+    selectMissions,
+    state => state.byConstellation
+  );
+
+export const makeByConstellationListSelector = () =>
+  createSelector(
+    makeByConstellationSelector(),
+    state => state.constellationList
+  );
+
+export const makeByConstellationListSelectOptsSelector = () =>
+  createSelector(
+    makeByConstellationListSelector(),
+    state => {
+      return getSelectOptions(state, 'constellationName', 'constellationName');
+    }
+  );
+
+export const makeByConstellationSelectedConstellationSelector = () =>
+  createSelector(
+    makeByConstellationSelector(),
+    state => state.selectedConstellation
+  );
+
+export const makeByConstellationObjectListSelector = () =>
+  createSelector(
+    makeByConstellationSelector(),
+    state => state.objectList
+  );
+
+export const makeByConstellationSelectedObjectIdSelector = () =>
+  createSelector(
+    makeByConstellationSelector(),
+    state => state.selectedObjectId
+  );
+
+export const makeByConstellationSelectedObjectDataSelector = () =>
+  createSelector(
+    makeByConstellationSelector(),
+    state => {
+      return state.objectList.filter(
+        item => item.objectId === state.selectedObjectId
+      )[0];
+    }
+  );
+
+export const makeByConstellationObjectListSelectOptsSelector = () =>
+  createSelector(
+    makeByConstellationObjectListSelector(),
+    state => {
+      return getSelectOptions(
+        state,
+        'objectId',
+        'objectTitle',
+        'objectIsEnabled'
+      );
     }
   );
 

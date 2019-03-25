@@ -84,7 +84,7 @@ export default css`
   :global(.dropdown-name) {
     display: inline-block;
     color: ${astronaut} !important;
-    text-transform: uppercase !important;
+    text-transform: uppercase;
     font-size: 11px !important;
     font-weight: bold !important;
   }
