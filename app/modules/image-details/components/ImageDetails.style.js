@@ -6,20 +6,6 @@ import { screenMedium, screenLarge } from 'styles/variables/breakpoints';
 import { backgroundImageCover, dropShadowContainer } from 'styles/mixins/utilities';
 
 export default css`
-
-.root {
-  width: 100%;
-  font-family: ${primaryFont};
-  color: ${astronaut};
-  background-color: ${seashell};
-}
-
-
-
-.is-hidden {
-  visibility: hidden;
-}
-
 .obs-img-container {
   padding: 0;
   background-color: ${romance};

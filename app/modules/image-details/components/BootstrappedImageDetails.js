@@ -1,10 +1,3 @@
-/***********************************
-* V4 Observations Page
-*
-*
-*
-***********************************/
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import TwoTabbedNav from 'app/components/TwoTabbedNav';
@@ -12,7 +5,6 @@ import ResponsiveTwoColumnContainer from 'app/components/ResponsiveTwoColumnCont
 import ObjectDetailList from 'app/components/common/ObjectDetailList';
 import MainContainer from './partials/MainContainer';
 import AsideContainer from './partials/AsideContainer';
-import CenterColumn from 'app/components/common/CenterColumn';
 import styles from './ImageDetails.style';
 
 const {
@@ -26,7 +18,7 @@ const {
   string,
 } = PropTypes;
 
-const BootstrappedImageDetails = (props) => {
+const BootstrappedImageDetails = props => {
   const {
     actions,
     imageTitle,
@@ -39,49 +31,63 @@ const BootstrappedImageDetails = (props) => {
   } = props;
   const showMissionRelatedInfo = Number(scheduledMissionId) > 0;
   const rightPanelDisplayFlags = [showMissionRelatedInfo];
-  const showRightContainer = rightPanelDisplayFlags.filter(flag => !!flag).length > 0;
-  return (<div className="root">
-      <CenterColumn widths={['768px', '940px', '940px']} theme={{ paddingTop: '25px' }}>
-        <div className="obs-img-container">
-          <div className="obs-header">
-            <div className="obs-img-subheader" dangerouslySetInnerHTML={{ __html: imageTitle }}/>
-          </div>
-          <div className="obs-image-container">
-            <img className="obs-image" src={imageURL} />
-          </div>
-          <div className="object-details">
-            {objectId !== '0' ? <ObjectDetailList
+  const showRightContainer =
+    rightPanelDisplayFlags.filter(flag => !!flag).length > 0;
+  return (
+    <div className="container mt-5">
+      <div className="obs-img-container">
+        <div className="obs-header">
+          <div
+            className="obs-img-subheader"
+            dangerouslySetInnerHTML={{ __html: imageTitle }}
+          />
+        </div>
+        <div className="obs-image-container">
+          <img className="obs-image" src={imageURL} />
+        </div>
+        <div className="object-details">
+          {objectId !== '0' ? (
+            <ObjectDetailList
               isMobile={isMobile}
               objectId={objectId}
               iconFileData={iconFileData}
               scheduledMissionId={scheduledMissionId}
-            /> : null}
-          </div>
+            />
+          ) : null}
         </div>
-        <div className="main-container">
-          <ResponsiveTwoColumnContainer
-            renderNavigationComponent={navProps =>
-              (<TwoTabbedNav
-                firstTitle="Observations"
-                secondTitle="Details"
-                firstTabIsActive={navProps.showMainContainer}
-                firstTabOnClick={navProps.onShowMainContainer}
-                secondTabIsActive={navProps.showAsideContainer}
-                secondTabOnClick={navProps.onShowAsideContainer}
-              />)
-            }
-            renderAsideContent={() => (<div>
-              {showRightContainer ?
-                <AsideContainer {...props} showMissionRelatedInfo={showMissionRelatedInfo} /> :
-                null}
-            </div>)}
-            isDesktop={isScreenLarge}
-            renderMainContent={() => <MainContainer {...props} actions={actions} />}
-          />
-        </div>
-      </CenterColumn>
+      </div>
+
+      <div className="container">
+        <ResponsiveTwoColumnContainer
+          renderNavigationComponent={navProps => (
+            <TwoTabbedNav
+              firstTitle="Observations"
+              secondTitle="Details"
+              firstTabIsActive={navProps.showMainContainer}
+              firstTabOnClick={navProps.onShowMainContainer}
+              secondTabIsActive={navProps.showAsideContainer}
+              secondTabOnClick={navProps.onShowAsideContainer}
+            />
+          )}
+          renderAsideContent={() => (
+            <div>
+              {showRightContainer ? (
+                <AsideContainer
+                  {...props}
+                  showMissionRelatedInfo={showMissionRelatedInfo}
+                />
+              ) : null}
+            </div>
+          )}
+          isDesktop={isScreenLarge}
+          renderMainContent={() => (
+            <MainContainer {...props} actions={actions} />
+          )}
+        />
+      </div>
       <style jsx>{styles}</style>
-    </div>);
+    </div>
+  );
 };
 
 BootstrappedImageDetails.propTypes = {
