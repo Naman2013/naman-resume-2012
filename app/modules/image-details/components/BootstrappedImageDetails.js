@@ -1,4 +1,5 @@
-import React from 'react';
+import { ModalImg } from 'app/modules/telescope/components/modal-img';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import TwoTabbedNav from 'app/components/TwoTabbedNav';
 import ResponsiveTwoColumnContainer from 'app/components/ResponsiveTwoColumnContainer';
@@ -34,6 +35,7 @@ const BootstrappedImageDetails = props => {
   const rightPanelDisplayFlags = [showMissionRelatedInfo];
   const showRightContainer =
     rightPanelDisplayFlags.filter(flag => !!flag).length > 0;
+  const [isOpen, openModal] = useState(false);
   return (
     <div className="container mt-5 image-details">
       <div className="row mb-5">
@@ -46,7 +48,17 @@ const BootstrappedImageDetails = props => {
               />
             </div>
             <div className="obs-image-container">
-              <img className="obs-image" src={imageURL} />
+              <img
+                className="obs-image"
+                src={imageURL}
+                style={{ cursor: 'pointer' }}
+                onClick={() => openModal(!isOpen)}
+              />
+              <ModalImg
+                isOpen={isOpen}
+                imageURL={imageURL}
+                onHide={() => openModal(!isOpen)}
+              />
             </div>
             <div className="object-details">
               {objectId !== '0' ? (
