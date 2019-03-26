@@ -8,11 +8,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { astronaut, shadows, romance } from 'styles/variables/colors_tiles_v4';
-import { likeImage } from 'services/my-pictures/like-image';
+import { likeImage } from 'app/services/my-pictures/like-image';
 import Modal from 'react-modal';
 import { primaryFont, secondaryFont } from 'styles/variables/fonts';
 import { customModalStyles } from 'styles/mixins/utilities';
-import LikeButton from 'components/common/style/buttons/LikeButton';
+import LikeButton from 'app/components/common/style/buttons/LikeButton';
 
 const {
   any,
