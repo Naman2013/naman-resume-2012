@@ -1,9 +1,10 @@
 /***********************************
-* V4 PhotoHubNavigation
-*  Navigation bar for private profile photos
-***********************************/
+ * V4 PhotoHubNavigation
+ *  Navigation bar for private profile photos
+ ***********************************/
 
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Link, browserHistory, withRouter } from 'react-router';
 import { FormattedMessage } from 'react-intl';
 import findIndex from 'lodash/findIndex';
@@ -16,25 +17,6 @@ import Button from 'app/components/common/style/buttons/Button';
 
 import messages from './PhotoHubNavigation.messages';
 import style from './PhotoHubNavigation.style';
-
-const generatedNavItems = [
-  {
-    title: <FormattedMessage {...messages.PhotoRoll} />,
-    link: '/profile/private/photos/photoroll',
-  },
-  {
-    title: <FormattedMessage {...messages.Observations} />,
-    link: '/profile/private/photos/observations',
-  },
-  {
-    title: <FormattedMessage {...messages.Missions} />,
-    link: '/profile/private/photos/missions',
-  },
-  {
-    title: <FormattedMessage {...messages.Galleries} />,
-    link: '/profile/private/photos/galleries',
-  },
-];
 
 const filterDropdownOptions = [
   {
@@ -59,53 +41,71 @@ class PhotoHubNavigation extends Component {
   state = {
     searchValue: '',
     searchActive: false,
-    activeIndex: findIndex(generatedNavItems, navItem => navItem.link === this.props.location.pathname),
+    generatedNavItems: this.props.params.customerUUID
+      ? this.props.publicProfile.profileMenuList.find(
+          el => el.name === 'Photos'
+        ).subMenus
+      : this.props.privateProfile.profileMenuList.find(
+          el => el.name === 'Photos'
+        ).subMenus,
+    activeIndex: 1,
     filterSelectActive: false,
     optionLabel: <FormattedMessage {...messages.Options} />,
     filtersActiveIndex: 0,
     mobileFilterActive: false,
-  }
+  };
 
   handleSearchChange = e => this.setState({ searchValue: e.target.value });
-  handleSearchClick = () => this.setState({ searchActive: true }, () => this.input.focus());
-  handleSearchSubmitByEnter = (e) => {
-    if (e.key === 'Enter') {};
+
+  handleSearchClick = () =>
+    this.setState({ searchActive: true }, () => this.input.focus());
+
+  handleSearchSubmitByEnter = e => {
+    if (e.key === 'Enter') {
+    }
     // TODO: submit search
-  }
+  };
 
   handleSearchBlur = () => {
     this.setState({ searchActive: false });
-  }
+  };
 
   handleOptionsClick = () => this.setState({ filterSelectActive: true });
 
   handleFilterDropDownBlur = () => this.setState({ filterSelectActive: false });
-  
+
   handleFilterMenuClose = () => this.setState({ filterSelectActive: false });
 
   handleDropDownItemClick = (e, selectedOption) => {
     this.setState(() => ({
-      activeIndex: findIndex(generatedNavItems, navItem => navItem.link === selectedOption.value),
+      activeIndex: findIndex(
+        this.state.generatedNavItems,
+        navItem => navItem.link === selectedOption.value
+      ),
     }));
     browserHistory.push(selectedOption.value);
-  }
+  };
 
   handleFilterDropDownItemClick = (e, selectedOption) => {
     this.setState({
       optionLabel: selectedOption.label,
-      filtersActiveIndex: findIndex(filterDropdownOptions, option => option.value === selectedOption.value),
+      filtersActiveIndex: findIndex(
+        filterDropdownOptions,
+        option => option.value === selectedOption.value
+      ),
       filterSelectActive: false,
     });
-  }
+  };
 
   handle3DotsClick = () => {
     this.setState({
       mobileFilterActive: true,
     });
-  }
-  handleNavItemClick = (i) => {
+  };
+
+  handleNavItemClick = i => {
     this.setState({ activeIndex: i });
-  }
+  };
 
   render() {
     const {
@@ -116,38 +116,46 @@ class PhotoHubNavigation extends Component {
       filterSelectActive,
       optionLabel,
       mobileFilterActive,
+      generatedNavItems,
     } = this.state;
 
-    const dropdownOptions = generatedNavItems.map(item => ({ label: item.title, value: item.link }));
+    const dropdownOptions = generatedNavItems.map(item => ({
+      label: item.name,
+      value: item.linkUrl,
+    }));
 
     return (
       <div className="photohub-root">
         <div className="header">
-          <div className="photohub-title">{<FormattedMessage {...messages.MyPhotoHub} />}</div>
-          <DisplayAtBreakpoint
-            screenMedium
-            screenLarge
-            screenXLarge
-          >
+          <div className="photohub-title">
+            {<FormattedMessage {...messages.MyPhotoHub} />}
+          </div>
+          <DisplayAtBreakpoint screenMedium screenLarge screenXLarge>
             <div className="photohub-nav-bar">
               <div className="photohub-links">
                 {generatedNavItems.map((item, i) => (
-                  <div key={item.link} className="photohub-nav-block">
+                  <div key={item.linkUrl} className="photohub-nav-block">
                     <Link
-                      to={item.link}
+                      to={item.linkUrl}
                       activeClassName="photohub-nav-active"
                       className="photohub-nav-link"
                       onClick={() => this.handleNavItemClick(i)}
                     >
-                      {item.title}
+                      {item.name}
                     </Link>
                   </div>
                 ))}
               </div>
               <div className="photohub-tools">
-                {!filterSelectActive
-                  ? <Button withIntl onClickEvent={this.handleOptionsClick} theme={{ marginLeft: '10px' }} text={optionLabel} />
-                  : <DropDown
+                {!filterSelectActive ? (
+                  <Button
+                    withIntl
+                    onClickEvent={this.handleOptionsClick}
+                    theme={{ marginLeft: '10px' }}
+                    text={optionLabel}
+                  />
+                ) : (
+                  <DropDown
                     handleMenuClose={this.handleFilterMenuClose}
                     handleBlur={this.handleFilterDropDownBlur}
                     handleSelect={this.handleFilterDropDownItemClick}
@@ -155,55 +163,74 @@ class PhotoHubNavigation extends Component {
                     options={filterDropdownOptions}
                     autoFocus
                     defaultMenuIsOpen
-                  />}
-                {!searchActive
-                  ? <Button onClickEvent={this.handleSearchClick} theme={{ marginLeft: '10px' }} icon={searchAstronaut} />
-                  : <input
+                  />
+                )}
+                {!searchActive ? (
+                  <Button
+                    onClickEvent={this.handleSearchClick}
+                    theme={{ marginLeft: '10px' }}
+                    icon={searchAstronaut}
+                  />
+                ) : (
+                  <input
                     type="text"
                     className="photo-hub-search-input-field"
                     onChange={this.handleSearchChange}
                     onBlur={this.handleSearchBlur}
                     onKeyPress={this.handleSearchSubmitByEnter}
                     value={searchValue}
-                    ref={(node) => { this.input = node; }}
-                  />}
+                    ref={node => {
+                      this.input = node;
+                    }}
+                  />
+                )}
               </div>
             </div>
           </DisplayAtBreakpoint>
-          <DisplayAtBreakpoint
-            screenSmall
-          >
+          <DisplayAtBreakpoint screenSmall>
             <div className="photohub-nav-bar">
               <div className="photohub-dropdown">
-                {!mobileFilterActive && <DropDown
-                  handleSelect={this.handleDropDownItemClick}
-                  selectedIndex={activeIndex}
-                  options={dropdownOptions}
-                />
-                }
+                {!mobileFilterActive && (
+                  <DropDown
+                    handleSelect={this.handleDropDownItemClick}
+                    selectedIndex={activeIndex}
+                    options={dropdownOptions}
+                  />
+                )}
               </div>
               <div className="photohub-tools">
-                {!mobileFilterActive
-                  ? <Button
+                {!mobileFilterActive ? (
+                  <Button
                     onClickEvent={this.handle3DotsClick}
-                    renderIcon={() => <Dots theme={{ circleColor: astronaut }} />}
+                    renderIcon={() => (
+                      <Dots theme={{ circleColor: astronaut }} />
+                    )}
                   />
-                  : <DropDown
+                ) : (
+                  <DropDown
                     handleSelect={this.handleFilterDropDownItemClick}
                     selectedIndex={filtersActiveIndex}
                     options={filterDropdownOptions}
                   />
-                }
+                )}
               </div>
             </div>
           </DisplayAtBreakpoint>
         </div>
-        <style jsx>
-          {style}
-        </style>
+        <style jsx>{style}</style>
       </div>
     );
   }
 }
 
-export default withRouter(PhotoHubNavigation);
+const mapStateToProps = state => {
+  return {
+    privateProfile: state.privateProfile.privateProfileData,
+    publicProfile: state.profile.publicProfileData,
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  null
+)(withRouter(PhotoHubNavigation));
