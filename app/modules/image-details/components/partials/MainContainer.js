@@ -30,6 +30,7 @@ const MainContainer = ({
   observationLog,
   observationTimeDisplay,
   observationTitle,
+  imageTitle,
   saveLabel,
   scheduledMissionId,
   showCommentsLink,
@@ -42,8 +43,9 @@ const MainContainer = ({
     likesCount={likesCount}
     likePrompt={likePrompt}
     observationLog={observationLog}
-    observationTime={observationTimeDisplay}
+    observationTimeDisplay={observationTimeDisplay}
     observationTitle={observationTitle}
+    imageTitle={imageTitle}
     user={user}
   />}
   {canEditFlag && <ObservationsForm

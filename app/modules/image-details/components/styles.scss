@@ -9,6 +9,10 @@
     .left-container {
       margin: 0 30px 0 0;
       flex: 1;
+
+      @include md() {
+        margin: 0;
+      }
     }
     .right-container {
       .component-container {

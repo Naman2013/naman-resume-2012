@@ -138,15 +138,16 @@ class BootstrappedImageDetails extends Component {
       observationLog,
       observationTimeDisplay,
       observationTitle,
+      imageTitle,
     } = this.props;
 
     const { isOpen, likePrompt, count } = this.state;
     return (<div className="root">
       <div className="obs-container component-container">
-        <div className="obs-title" dangerouslySetInnerHTML={{ __html: observationTitle}} />
+        <div className="obs-title" dangerouslySetInnerHTML={{ __html: observationTitle || imageTitle}} />
         <div className="obs-name-and-time">
-          <div className="obs-author" dangerouslySetInnerHTML={{ __html: fileData['Photo By']}} />
-          <div className="obs-time" dangerouslySetInnerHTML={{ __html: observationTimeDisplay.join('')}} />
+          <div className="obs-author" dangerouslySetInnerHTML={{ __html: fileData['Photo by']}} />
+          <div className="obs-time" dangerouslySetInnerHTML={{ __html: observationTimeDisplay.join(' ')}} />
         </div>
         <div className="obs-content" dangerouslySetInnerHTML={{ __html: observationLog}} />
         <LikeButton onClickEvent={this.likeObservation} count={count} />
