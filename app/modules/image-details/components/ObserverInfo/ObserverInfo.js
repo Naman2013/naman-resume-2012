@@ -66,9 +66,11 @@ const ObserverInfo = ({
         font-weight: bold;
         font-size: 12px;
         border-bottom: 4px solid ${astronaut};
-        display: flex;
-        flex-direction: row;
-        align-items: center;
+      }
+      
+      .title-container span {
+        text-align: left;
+        font-size: 12px;
       }
 
       .observer-info-container {
@@ -96,7 +98,7 @@ const ObserverInfo = ({
 
       .gravity-desc {
         display: block;
-        text-align: center;
+        text-align: left;
         padding: 5px 0;
         border-top: 1px solid ${shadows};
         border-bottom: 1px solid ${shadows};
