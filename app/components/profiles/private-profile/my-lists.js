@@ -28,7 +28,6 @@ export default injectIntl(
 
     getModeledTiles = filterType => {
       const { tiles } = this.state;
-      const { privateProfileData } = this.props;
       switch (filterType) {
         case 'story':
           return tiles.map(x => ({
@@ -79,7 +78,7 @@ export default injectIntl(
             toggleFollowConfirmationPrompt: x.toggleFollowConfirmationPrompt,
           }));
         case 'object':
-          return privateProfileData.activeObjectsList.map(x => ({
+          return tiles.map(x => ({
             title: x.title,
             linkURL: x.linkUrl,
             iconURL: x.objectIconUrl,
@@ -147,7 +146,8 @@ export default injectIntl(
     };
 
     render() {
-      const { intl, profileMenuList } = this.props;
+      const { intl } = this.props;
+      const { profileMenuList } = this.props.publicProfileData || this.props.privateProfileData;
 
       const hubFilters = profileMenuList.find(mItem => mItem.name === 'Lists')
         .subMenus;
@@ -180,7 +180,7 @@ export default injectIntl(
           linkURL: '/profile/private/lists/guide',
         },
       ];
-      console.log('xxx', this.props);
+
       return (
         <div className="my-lists-hub">
           <Request
@@ -219,18 +219,24 @@ export default injectIntl(
                         useSort={false}
                         showHeaderIcon={false}
                         render={() => (
-                          <div className="margin-top-15">
+                          <Fragment>
                             {fetchingContent ? (
                               <div>{intl.formatMessage(messages.Loading)}</div>
-                            ) : (
+                            ) : null}
+
+                            {!fetchingContent &&
+                            this.state.tiles &&
+                            this.state.tiles.length ? (
                               this.GetTiles(this.props.params.filterType, {
                                 closeModal: this.closeModal,
                                 updateReadingListInfo: this.updateItemInfo,
                                 updatePrompt: this.updatePrompt,
                                 isMobile: context.isMobile,
                               })
+                            ) : (
+                              <div>{intl.formatMessage(messages.NoTiles)}</div>
                             )}
-                          </div>
+                          </Fragment>
                         )}
                       />
                     )}
@@ -238,9 +244,9 @@ export default injectIntl(
                 )}
               </Fragment>
             )}
-        />
-      </div>
-    );
+          />
+        </div>
+      );
+    }
   }
-}
 );
