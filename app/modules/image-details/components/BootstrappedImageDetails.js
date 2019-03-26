@@ -42,8 +42,9 @@ const BootstrappedImageDetails = props => {
         <div className="col-12">
           <div className="obs-img-container">
             <div className="obs-header">
+              <h3 className="text-center">AN OBSERVATION OF</h3>
               <div
-                className="obs-img-subheader"
+                className="obs-img-subheader text-center"
                 dangerouslySetInnerHTML={{ __html: imageTitle }}
               />
             </div>

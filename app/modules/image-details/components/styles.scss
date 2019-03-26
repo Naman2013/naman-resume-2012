@@ -1,3 +1,5 @@
+@import "~app/styles/variables/index";
+
 .image-details {
   .root {
     width: 100%!important;
@@ -12,6 +14,18 @@
       .component-container {
         margin: 20px 0!important;
       }
+    }
+  }
+
+  .obs-header {
+    h3 {
+      font-family: $primary-font;
+      font-size: 10px;
+      font-weight: bold;
+    }
+
+    .obs-img-subheader {
+      font-size: 40px;
     }
   }
 }
