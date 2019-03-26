@@ -19,6 +19,8 @@ function buildNavigationOptions(observatoryList = []) {
               telescopeUniqueID: teleUniqueId,
               show: teleHasTelescopePage,
               instruments: teleInstrumentList,
+              AllskyTimelapseWidgetId: observatory.AllskyTimelapseWidgetId,
+              observatoryData: { ...observatory },
             };
           }
         )
