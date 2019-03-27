@@ -339,12 +339,12 @@ const fetchWeatherSatelliteSuccess = weatherSatelliteWidgetResult => ({
 
 export const fetchWeatherSatellite = ({
   obsId,
-  satelliteWidgetId,
+  SatelliteWidgetId,
 }) => (dispatch) => {
   dispatch(startWeatherSatellite());
   return fetchWeatherSatelliteWidget({
     obsId,
-    widgetUniqueId: satelliteWidgetId,
+    widgetUniqueId: SatelliteWidgetId,
   }).then((result) => {
     if (!result.data.apiError) {
       dispatch(fetchWeatherSatelliteSuccess(result.data));

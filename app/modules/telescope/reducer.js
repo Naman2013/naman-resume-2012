@@ -1,42 +1,45 @@
 import { actions, constants } from 'ducks-helpers';
 import { handleActions } from 'redux-actions';
+import { set, apply } from 'qim';
 
-export const TYPE = constants('telescope', []);
+export const TYPE = constants('telescope', ['~GET_ALL_SKY_TIMELAPSE']);
 export const ACTION = actions(TYPE);
 
 export const initialState = {
   isFetching: false,
-  isLoaded: false,
   serverError: null,
+
+  allSkyTimelapse: {
+    isFetching: false,
+    data: {},
+    serverError: null,
+  },
 };
 
 export default handleActions(
   {
-    [TYPE.GET_XX]: setFetching,
-    [TYPE.GET_XX_SUCCESS]: getXXSuccess,
-    [TYPE.GET_XX_ERROR]: setServerError,
+    [TYPE.GET_ALL_SKY_TIMELAPSE]: getAllSkyTimelapse,
+    [TYPE.GET_ALL_SKY_TIMELAPSE_SUCCESS]: getAllSkyTimelapseSuccess,
+    [TYPE.GET_ALL_SKY_TIMELAPSE_ERROR]: getAllSkyTimelapseError,
   },
   initialState
 );
 
-function setFetching(state) {
-  return { ...state, isFetching: true, isLoaded: false };
+function getAllSkyTimelapse(state) {
+  return set(['allSkyTimelapse', 'isFetching'], true, state);
 }
 
-function setServerError(state, action) {
-  return {
-    ...state,
-    isFetching: false,
-    serverError: action.payload,
-    isLoaded: false,
-  };
+function getAllSkyTimelapseSuccess(state, action) {
+  return apply(
+    ['allSkyTimelapse'],
+    () => ({
+      isFetching: false,
+      data: action.payload,
+    }),
+    state
+  );
 }
 
-function getXXSuccess(state, action) {
-  return {
-    ...state,
-    isFetching: false,
-    isLoaded: true,
-    data: action.payload,
-  };
+function getAllSkyTimelapseError(state, action) {
+  return set(['allSkyTimelapse', 'serverError'], action.payload, state);
 }

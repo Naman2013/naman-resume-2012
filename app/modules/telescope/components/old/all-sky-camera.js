@@ -1,8 +1,11 @@
-import React, { Component } from 'react';
+import AllSkyTimelapseWidget from 'app/components/telescope-details/allsky-timelapse-widget';
+import { fetchAllSkyAction } from 'app/modules/Telescope-Overview';
+import { ModalImg } from 'app/modules/telescope/components/modal-img';
 import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { Button, Collapse } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { fetchAllSkyAction } from '../../../Telescope-Overview';
+import './all-sky-camera.scss';
 import { ImagePortalViewer } from './index';
 import { ModuleContainer } from './module-container';
 
@@ -10,6 +13,10 @@ class AllSkyCamera extends Component {
   constructor(props) {
     super(props);
     this.updateAllSky(props);
+    this.state = {
+      isModalOpen: false,
+      isTimelapseExpanded: false,
+    };
   }
 
   componentDidUpdate(prevProps) {
@@ -28,14 +35,60 @@ class AllSkyCamera extends Component {
     }
   }
 
+  openModal = () => this.setState({ isModalOpen: true });
+
+  closeModal = () => this.setState({ isModalOpen: false });
+
+  renderAllSkyTimelapseCollapsible = () => {
+    const { obsId, AllskyTimelapseWidgetId } = this.props;
+    const { isTimelapseExpanded } = this.state;
+    return (
+      <div className="text-center">
+        <Button
+          className="open-timelapse"
+          onClick={() =>
+            this.setState({ isTimelapseExpanded: !isTimelapseExpanded })
+          }
+          aria-controls="open all sky timelapse"
+          aria-expanded={isTimelapseExpanded}
+        >
+          Open Timelapse
+        </Button>
+
+        <Collapse in={isTimelapseExpanded} mountOnEnter unmountOnExit>
+          <div id="example-collapse-text">
+            <AllSkyTimelapseWidget
+              obsId={obsId}
+              AllskyTimelapseWidgetId={AllskyTimelapseWidgetId}
+            />
+          </div>
+        </Collapse>
+      </div>
+    );
+  };
+
   render() {
-    const { imageURL, description } = this.props;
+    const { imageURL, description, AllskyTimelapseWidgetId } = this.props;
+    const { isModalOpen } = this.state;
 
     return (
-      <div className="root">
+      <div className="root all-sky-camera">
         <ModuleContainer title="All sky camera snap">
-          <ImagePortalViewer imageURL={imageURL} description={description} />
+          <ImagePortalViewer
+            imageURL={imageURL}
+            description={description}
+            onClick={this.openModal}
+          />
+          {AllskyTimelapseWidgetId
+            ? this.renderAllSkyTimelapseCollapsible()
+            : null}
         </ModuleContainer>
+
+        <ModalImg
+          isOpen={isModalOpen}
+          imageURL={imageURL}
+          onHide={this.closeModal}
+        />
       </div>
     );
   }
@@ -59,13 +112,9 @@ const mapStateToProps = ({ telescopeOverview: { allSkyWidgetResult } }) => ({
   description: allSkyWidgetResult.title,
 });
 
-const mapDispatchToProps = dispatch =>
-  bindActionCreators(
-    {
-      fetchAllSkyAction,
-    },
-    dispatch
-  );
+const mapDispatchToProps = {
+  fetchAllSkyAction,
+};
 
 const ConnectedAllSkyCamera = connect(
   mapStateToProps,
