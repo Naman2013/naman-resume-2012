@@ -2,6 +2,11 @@
 
 .telescope-view {
   width: 220px;
+
+  img {
+    max-width: 100%;
+  }
+
   .view-line {
     height: 25px;
     display: flex;
