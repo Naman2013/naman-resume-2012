@@ -1,3 +1,5 @@
+import { DomCameraWidget } from 'app/modules/telescope/components/old/dom-camera-widget';
+import { PicoDelTeidesWidget } from 'app/modules/telescope/components/old/pico-del-teide-widget';
 import React from 'react';
 import {
   Satellite,
@@ -16,14 +18,16 @@ import style from './tab-conditions.style';
 
 const TabConditions = props => (
   <div>
-    {console.log(props)}
-
-    {props.currentTelescope.teleHasNeoView && <div className="tile-container">
-      <ObsBotWidget {...props} ViewGroup="conditions"/>
-    </div>
-    }
+    {props.currentTelescope.teleHasNeoView && (
+      <div className="tile-container">
+        <ObsBotWidget {...props} ViewGroup="conditions" />
+      </div>
+    )}
     <div className="tile-container">
-      <ConnectedAllSkyCamera obsId={props.obsId} allSkyWidgetID={props.AllskyWidgetId} />
+      <ConnectedAllSkyCamera
+        obsId={props.obsId}
+        allSkyWidgetID={props.AllskyWidgetId}
+      />
     </div>
 
     <div className="tile-container">
@@ -39,23 +43,25 @@ const TabConditions = props => (
     </div>
 
     <div className="tile-container">
-      <DayNightBar />
+      <DayNightBar
+        dayNightBarPanelURL={props.dayNightBarPanel.dayNightBarPanelURL}
+      />
     </div>
 
     <div className="tile-container">
-      <DayNightMap />
+      <DayNightMap dayNightMapURL={props.dayNightMap.dayNightMapURL} />
     </div>
 
     <div className="tile-container">
-      <ModuleContainer title="Dome view">
-        <ImagePortalViewer imageURL="" />
-      </ModuleContainer>
+      <DomCameraWidget domeCamURL={props.domeCam.domeCamURL} {...props} />
     </div>
 
     <div className="tile-container">
-      <ModuleContainer title="Pico del teide cam">
-        <ImagePortalViewer imageURL="" />
-      </ModuleContainer>
+      <PicoDelTeidesWidget
+        facilityWebcamUrl={props.facilityWebcam.facilityWebcamURL}
+        title={props.facilityWebcam.title}
+        {...props}
+      />
     </div>
 
     <div className="tile-container">
@@ -63,7 +69,7 @@ const TabConditions = props => (
     </div>
 
     <div className="tile-container">
-      <Satellite />
+      <Satellite satelliteImageURL={props.weatherSatellite.satelliteImageURL} />
     </div>
     <style jsx>{style}</style>
   </div>
