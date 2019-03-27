@@ -59,6 +59,7 @@ const TabConditions = props => (
     <div className="tile-container">
       <PicoDelTeidesWidget
         facilityWebcamUrl={props.facilityWebcam.facilityWebcamURL}
+        title={props.facilityWebcam.title}
         {...props}
       />
     </div>
