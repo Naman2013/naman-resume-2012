@@ -41,7 +41,14 @@ const TopBar = ({ handleMenuClick, activeMenu, handleNotificationClick }) => {
               <ul className="button-list">
                 <li>
                   <Button handleClick={home} mod="no-border">
-                    <i className="icon icon-slooh-logo-astronaut" />
+                    <i className="icon icon-logo_astronaut">
+                      <i className="path1" />
+                      <i className="path2" />
+                      <i className="path3" />
+                      <i className="path4" />
+                      <i className="path5" />
+                      <i className="path6" />
+                    </i>
                   </Button>
                 </li>
                 <li>
@@ -52,7 +59,7 @@ const TopBar = ({ handleMenuClick, activeMenu, handleNotificationClick }) => {
                   >
                     <i
                       className={
-                        mainIsActive ? 'icon icon-times' : 'icon icon-bars'
+                        mainIsActive ? 'icon icon-cross' : 'icon icon-bars'
                       }
                     />
                   </Button>
@@ -66,8 +73,8 @@ const TopBar = ({ handleMenuClick, activeMenu, handleNotificationClick }) => {
                     <i
                       className={
                         telescopesIsActive
-                          ? 'icon icon-times'
-                          : 'icon icon-telescope-astronaut'
+                          ? 'icon icon-cross'
+                          : 'icon icon-telescope_astronaut'
                       }
                     />
                   </Button>
@@ -80,7 +87,7 @@ const TopBar = ({ handleMenuClick, activeMenu, handleNotificationClick }) => {
                   >
                     <i
                       className={
-                        searchIsActive ? 'icon icon-times' : 'icon icon-search'
+                        searchIsActive ? 'icon icon-cross' : 'icon icon-search'
                       }
                     />
                   </Button>
@@ -126,26 +133,32 @@ const TopBar = ({ handleMenuClick, activeMenu, handleNotificationClick }) => {
                   >
                     {user.isAuthorized && (
                       <Fragment>
-                        <i
-                          className={
-                            userIsActive
-                              ? 'icon icon-times'
-                              : 'icon icon-user-astronaut'
-                          }
-                        />
+                        {userIsActive ? (
+                          <i className="icon icon-cross" />
+                        ) : (
+                          <i className="icon icon-user_astronaut">
+                            <i className="path1" />
+                            <i className="path2" />
+                            <i className="path3" />
+                          </i>
+                        )}
                       </Fragment>
                     )}
 
                     {!user.isAuthorized && (
                       <Fragment>
                         {userIsActive ? (
-                          <i className="icon icon-times" />
+                          <i className="icon icon-cross" />
                         ) : (
                           <div className="flex-row justify-content-center">
                             <span className="text">
                               <FormattedMessage {...messages.SignIn} />
                             </span>
-                            <i className="icon icon-user-astronaut" />
+                            <i className="icon icon-user_astronaut">
+                              <i className="path1" />
+                              <i className="path2" />
+                              <i className="path3" />
+                            </i>
                           </div>
                         )}
                       </Fragment>
