@@ -1,0 +1,45 @@
+[data-icon]:before {
+  font-family: "slooh" !important;
+  content: attr(data-icon);
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+[class^="icon-"]:before,
+[class*=" icon-"]:before {
+  font-family: "slooh" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+.icon-telescope-astronaut:before {
+  content: "\61";
+}
+.icon-slooh-logo-astronaut:before {
+  content: "\62";
+}
+.icon-search:before {
+  content: "\63";
+}
+.icon-bars:before {
+  content: "\64";
+}
+.icon-times:before {
+  content: "\65";
+}
+.icon-user-astronaut:before {
+  content: "\66";
+}

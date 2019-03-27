@@ -23,6 +23,18 @@ $slooh-serif:  "Adobe Garamond Pro", "adobe-garamond-pro", "Adobe Garamond", "Ga
   position: absolute;
 }
 
+
+@font-face {
+  font-family: "slooh";
+  src:url("app/fonts/slooh.eot");
+  src:url("app/fonts/slooh.eot?#iefix") format("embedded-opentype"),
+  url("app/fonts/slooh.woff") format("woff"),
+  url("app/fonts/slooh.ttf") format("truetype"),
+  url("app/fonts/slooh.svg#slooh") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
 // @font-face {
 //   font-family: 'Brandon Grotesque';
 //   src: url('https://vega.slooh.com/assets/fonts/BrandonGrotesque-Thin.otf')  format('opentype');
