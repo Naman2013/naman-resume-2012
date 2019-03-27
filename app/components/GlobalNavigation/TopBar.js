@@ -1,38 +1,37 @@
 import React, { Fragment } from 'react';
 import { browserHistory } from 'react-router';
 import { FormattedMessage } from 'react-intl';
-import Button from './Button';
-import CenterBar from './CenterBar';
-import MENU_INTERFACE from './Menus/MenuInterface';
-import Notifications from './Menus/Notifications';
 import ConnectUser from 'app/redux/components/ConnectUser';
 import AlertsIcon from 'app/redux/components/AlertsIcon';
-import {
-  sloohLogoAstronaut,
-  threeLinesAstronaut,
-  telescopeAstronaut,
-  searchAstronaut,
-  userAstronaut,
-  closeWhite,
-} from 'styles/variables/iconURLs';
-import { shadows, seashell } from 'styles/variables/colors_tiles_v4';
-import { primaryFont } from 'styles/variables/fonts';
+import { shadows, seashell } from 'app/styles/variables/colors_tiles_v4';
+import { primaryFont } from 'app/styles/variables/fonts';
+import MENU_INTERFACE from './Menus/MenuInterface';
+import CenterBar from './CenterBar';
+import Button from './Button';
 import messages from './TopBar.messages';
 
 function isActive(menuName, activeMenu) {
   return menuName === activeMenu;
 }
 
-const getIconStyle = url => ({
-  backgroundImage: `url(${url})`,
-});
-
 const TopBar = ({ handleMenuClick, activeMenu, handleNotificationClick }) => {
   const mainIsActive = isActive(activeMenu, MENU_INTERFACE.MAIN.name);
-  const telescopesIsActive = isActive(activeMenu, MENU_INTERFACE.TELESCOPES.name);
+  const telescopesIsActive = isActive(
+    activeMenu,
+    MENU_INTERFACE.TELESCOPES.name
+  );
   const searchIsActive = isActive(activeMenu, MENU_INTERFACE.SEARCH.name);
   const alertsIsActive = isActive(activeMenu, MENU_INTERFACE.ALERTS.name);
   const userIsActive = isActive(activeMenu, MENU_INTERFACE.PROFILE.name);
+
+  const home = () => browserHistory.push('/');
+  const main = () => handleMenuClick(MENU_INTERFACE.MAIN.name);
+  const telescope = () => handleMenuClick(MENU_INTERFACE.TELESCOPES.name);
+  const search = () => handleMenuClick(MENU_INTERFACE.SEARCH.name);
+  const alerts = () => handleNotificationClick(MENU_INTERFACE.ALERTS.name);
+  const profile = () => handleMenuClick(MENU_INTERFACE.PROFILE.name);
+  const help = () => handleMenuClick(MENU_INTERFACE.HELP.name);
+
   return (
     <Fragment>
       <ConnectUser
@@ -41,54 +40,56 @@ const TopBar = ({ handleMenuClick, activeMenu, handleNotificationClick }) => {
             <div className="left-menu">
               <ul className="button-list">
                 <li>
-                  <Button
-                    handleClick={() => {
-                      browserHistory.push('/');
-                    }}
-                  >
-                    <div className="nav-icon" style={getIconStyle(sloohLogoAstronaut)} />
+                  <Button handleClick={home} mod="no-border">
+                    <i className="icon icon-logo_astronaut">
+                      <i className="path1" />
+                      <i className="path2" />
+                      <i className="path3" />
+                      <i className="path4" />
+                      <i className="path5" />
+                      <i className="path6" />
+                    </i>
                   </Button>
                 </li>
                 <li>
                   <Button
                     isActive={mainIsActive}
-                    handleClick={() => {
-                      handleMenuClick(MENU_INTERFACE.MAIN.name);
-                    }}
+                    handleClick={main}
+                    mod="no-border"
                   >
-                    {mainIsActive ? (
-                      <div className="nav-icon fa fa-close" />
-                    ) : (
-                      <div className="nav-icon" style={getIconStyle(threeLinesAstronaut)} />
-                    )}
+                    <i
+                      className={
+                        mainIsActive ? 'icon icon-cross' : 'icon icon-bars'
+                      }
+                    />
                   </Button>
                 </li>
                 <li>
                   <Button
                     isActive={telescopesIsActive}
-                    handleClick={() => {
-                      handleMenuClick(MENU_INTERFACE.TELESCOPES.name);
-                    }}
+                    handleClick={telescope}
+                    mod="no-border"
                   >
-                    {telescopesIsActive ? (
-                      <div className="nav-icon fa fa-close" />
-                    ) : (
-                      <div className="nav-icon" style={getIconStyle(telescopeAstronaut)} />
-                    )}
+                    <i
+                      className={
+                        telescopesIsActive
+                          ? 'icon icon-cross'
+                          : 'icon icon-telescope_astronaut'
+                      }
+                    />
                   </Button>
                 </li>
                 <li>
                   <Button
                     isActive={searchIsActive}
-                    handleClick={() => {
-                      handleMenuClick(MENU_INTERFACE.SEARCH.name);
-                    }}
+                    handleClick={search}
+                    mod="no-border"
                   >
-                    {searchIsActive ? (
-                      <div className="nav-icon fa fa-close" />
-                    ) : (
-                      <div className="nav-icon" style={getIconStyle(searchAstronaut)} />
-                    )}
+                    <i
+                      className={
+                        searchIsActive ? 'icon icon-cross' : 'icon icon-search'
+                      }
+                    />
                   </Button>
                 </li>
               </ul>
@@ -102,19 +103,18 @@ const TopBar = ({ handleMenuClick, activeMenu, handleNotificationClick }) => {
               <ul className="button-list">
                 {/* <li>
                   <Button
+                    mod="no-border"
                     isActive={isActive(activeMenu, MENU_INTERFACE.HELP.name)}
-                    handleClick={() => { handleMenuClick(MENU_INTERFACE.HELP.name); }}
-                  >
-                    <span className="fa fa-question-circle" />
+                    handleClick={help}>
+                    ?
                   </Button>
                 </li> */}
                 {user.isAuthorized ? (
                   <li>
                     <Button
+                      mod="no-border"
                       isActive={alertsIsActive}
-                      handleClick={() => {
-                        handleNotificationClick(MENU_INTERFACE.ALERTS.name);
-                      }}
+                      handleClick={alerts}
                     >
                       <AlertsIcon isActive={alertsIsActive} />
                     </Button>
@@ -122,37 +122,46 @@ const TopBar = ({ handleMenuClick, activeMenu, handleNotificationClick }) => {
                 ) : null}
                 <li>
                   <Button
+                    mod="no-border"
                     isActive={userIsActive}
-                    handleClick={() => {
-                      handleMenuClick(MENU_INTERFACE.PROFILE.name);
-                    }}
-                    theme={user.isAuthorized ? {} : { width: 'auto', padding: '0 20px' }}
+                    handleClick={profile}
+                    theme={
+                      user.isAuthorized
+                        ? {}
+                        : { width: 'auto', padding: '0 20px' }
+                    }
                   >
                     {user.isAuthorized && (
-                      <div>
+                      <Fragment>
                         {userIsActive ? (
-                          <div className="nav-icon fa fa-close" />
+                          <i className="icon icon-cross" />
                         ) : (
-                          <div className="nav-icon" style={getIconStyle(userAstronaut)} />
+                          <i className="icon icon-user_astronaut">
+                            <i className="path1" />
+                            <i className="path2" />
+                            <i className="path3" />
+                          </i>
                         )}
-                      </div>
+                      </Fragment>
                     )}
+
                     {!user.isAuthorized && (
-                      <div>
+                      <Fragment>
                         {userIsActive ? (
-                          <div className="nav-icon fa fa-close" />
+                          <i className="icon icon-cross" />
                         ) : (
-                          <div>
+                          <div className="flex-row justify-content-center">
                             <span className="text">
                               <FormattedMessage {...messages.SignIn} />
                             </span>
-                            <div
-                              className="nav-icon text-icon"
-                              style={getIconStyle(userAstronaut)}
-                            />
+                            <i className="icon icon-user_astronaut">
+                              <i className="path1" />
+                              <i className="path2" />
+                              <i className="path3" />
+                            </i>
                           </div>
                         )}
-                      </div>
+                      </Fragment>
                     )}
                   </Button>
                 </li>
@@ -181,13 +190,9 @@ const TopBar = ({ handleMenuClick, activeMenu, handleNotificationClick }) => {
                   margin: 0;
                   padding: 0;
                 }
-                .nav-icon {
-                  height: 15px;
-                  width: 15px;
-                  background-size: cover;
-                  background-position: center;
-                  background-repeat: no-repeat;
-                  margin: 0 auto;
+
+                .button-list.icon {
+                  font-size: 24px;
                 }
 
                 .text {
@@ -203,6 +208,10 @@ const TopBar = ({ handleMenuClick, activeMenu, handleNotificationClick }) => {
                 .text-icon {
                   vertical-align: middle;
                   display: inline-block;
+                }
+
+                .icon {
+                  font-size: 18px;
                 }
               `}
             </style>
