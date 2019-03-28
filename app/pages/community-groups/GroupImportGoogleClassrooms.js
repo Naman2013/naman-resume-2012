@@ -304,50 +304,49 @@ class GroupImportGoogleClassrooms extends Component {
                                   <form className="form">
                                     <div className="form-section form-section-area">
                                       <div className="form-field-container">
-                                        <table style={{'width': '100%'}}>
-                                          <tbody>
-                                          <tr>
-                                            <th className="table-header">Import?</th>
-                                            <th className="table-header">Google Classroom</th>
-                                            <th className="table-header">Club Status</th>
-                                          </tr>
-                                          {serviceResponse.classroomList.map((classroomListItem, index) => {
+                                        {serviceResponse.classroomList.map((item, index) => {
                                             return (
-                                              <tr className="table-item"
-                                                  key={`googleClassroomRow_` + classroomListItem.googleClassroomId}>
-                                                <td>
-                                                  {!classroomListItem.hasDiscussionGroup ?
-                                                    <Field style={{'marginLeft': '0px'}}
-                                                           key={`importAction_` + index}
-                                                           name={`importAction_` + index}
-                                                           type="checkbox"
-                                                           className="form-field"
-                                                           component={InputField}
-                                                           label=""
-                                                           onChange={(event) => {
-                                                             this.handleFieldChange({
-                                                               googleClassroomName: classroomListItem.name,
-                                                               googleClassroomId: classroomListItem.googleClassroomId,
-                                                               selectedFlag: event.target.value
-                                                             });
-                                                           }}
-                                                    /> : <input type="checkbox" disabled checked className="form-field"
-                                                                style={{marginLeft: '20px'}}/>}
-                                                </td>
-                                                <td
-                                                  key={`importName_` + classroomListItem.googleClassroomId}>{classroomListItem.hasDiscussionGroup ?
-                                                  <Link
-                                                    to={classroomListItem.discussionGroupLinkUrl}>{classroomListItem.name}</Link> :
-                                                  <p>{classroomListItem.name}</p>}</td>
-                                                <td
-                                                  key={`importStatus_` + classroomListItem.googleClassroomId}>{classroomListItem.hasDiscussionGroup ?
-                                                  <p>Active</p> : <p>Please Import</p>}</td>
-                                              </tr>
+                                              <div className="classroom-item"
+                                                  key={`googleClassroomRow_` + item.googleClassroomId}>
+                                                <div
+                                                  className="classroom-title"
+                                                  key={`importName_` + item.googleClassroomId}>
+                                                  {item.hasDiscussionGroup ?
+                                                    <Link
+                                                      to={item.discussionGroupLinkUrl}>{item.name}</Link> :
+                                                    <p>{item.name}</p>
+                                                  }
+                                                </div>
+                                                <div className="classroom-item-actions">
+                                                  <div>
+                                                    {!item.hasDiscussionGroup ?
+                                                      <Field style={{'marginLeft': '0px'}}
+                                                            key={`importAction_` + index}
+                                                            name={`importAction_` + index}
+                                                            type="checkbox"
+                                                            className="form-field"
+                                                            component={InputField}
+                                                            label=""
+                                                            onChange={(event) => {
+                                                              this.handleFieldChange({
+                                                                googleClassroomName: item.name,
+                                                                googleClassroomId: item.googleClassroomId,
+                                                                selectedFlag: event.target.value
+                                                              });
+                                                            }}
+                                                      /> : <input type="checkbox" disabled checked className="form-field"/>}
+                                                  </div>
+                                                  <div
+                                                    className="classroom-status"
+                                                    key={`importStatus_` + item.googleClassroomId}>
+                                                      {item.hasDiscussionGroup ?
+                                                      'Active' : 'Please Import'}
+                                                  </div>
+                                                </div>
+                                              </div>
                                             )
                                           })
-                                          }
-                                          </tbody>
-                                        </table>
+                                        }
                                       </div>
                                     </div>
                                     <div className="button-container">

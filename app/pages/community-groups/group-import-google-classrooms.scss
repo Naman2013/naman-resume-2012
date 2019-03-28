@@ -25,6 +25,42 @@
       line-height: 36px;
       margin-bottom: 20px;
     }
+
+    .classroom-item {
+      background-color: $romance;
+      width: 100%;
+      padding: 25px;
+      margin: 0 0 25px;
+      min-width: 28%;
+      box-shadow: $faintShadow;
+
+      .classroom-title {
+        border-bottom: 1px solid $hawkesBlue;
+        margin-bottom: 15px;
+
+        a {
+          font-family: $secondary-font;
+          color: $astronaut;
+          font-size: 20px;
+          padding: 15px 0;
+          margin-bottom: 0;
+          text-decoration: none;
+        }
+      }
+
+      .classroom-item-actions {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .classroom-status {
+          font-family: $primary-font;
+          color: $astronaut;
+          font-size: 14px;
+          font-weight: 600;
+        }
+      }
+    }
   }
 
   .table-item {
