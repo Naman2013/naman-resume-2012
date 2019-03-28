@@ -17,6 +17,7 @@ const TabLive = ({
   skyChartWidgetID,
   allSkyWidgetID,
   renderTelescopeViewer,
+  activeTelescope,
 }) => (
   <div>
     <DisplayAtBreakpoint screenSmall screenMedium>
@@ -44,7 +45,11 @@ const TabLive = ({
       }
 
     <div className="tile-container">
-      <ConnectedAllSkyCamera obsId={obsId} allSkyWidgetID={allSkyWidgetID} />
+      <ConnectedAllSkyCamera
+        obsId={obsId}
+        allSkyWidgetID={allSkyWidgetID}
+        AllskyTimelapseWidgetId={activeTelescope.AllskyTimelapseWidgetId}
+      />
     </div>
 
     <div className="tile-container">

@@ -1,10 +1,12 @@
 import profile from 'app/modules/profile/reducer';
+import telescope from 'app/modules/telescope/reducer';
 import storyDetails from 'app/modules/story-details/reducer';
 import { routerReducer } from 'react-router-redux';
 import { combineReducers } from 'redux';
 import { reducer } from 'redux-form';
 // v4
 import logIn from 'app/modules/login/reducer';
+import accountSettings from 'app/modules/account-settings/reducer';
 import about from './about/reducer';
 import activeTelescopeMissions from './active-telescope-missions/active-telescope-missions-reducer';
 import adStats from './ad-management/ad-stats';
@@ -89,7 +91,6 @@ import tierLimits from './tier-limits/reducer';
 import upcomingEvents from './upcoming-events/upcoming-events-reducer';
 import user from './User';
 import usersUpcomingMission from './Users-Upcoming-Missions';
-import accountSettings from '../modules/account-settings/reducer';
 
 export default combineReducers({
   routing: routerReducer,
@@ -181,6 +182,7 @@ export default combineReducers({
   videoViewerShow,
   logIn,
   storyDetails,
+  telescope,
   missions,
   accountSettings,
 });

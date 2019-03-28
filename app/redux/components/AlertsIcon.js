@@ -12,7 +12,7 @@ import {
 } from 'styles/variables/iconURLs';
 const AlertsIcon = ({ notificationsCount, isActive }) => (
   <span className="root">
-    <span className={classnames('fa fa-bell', {
+    <i className={classnames('icon icon-bell', {
       'is-active': isActive,
     })}/>
     <span className={classnames('count', {
@@ -24,13 +24,15 @@ const AlertsIcon = ({ notificationsCount, isActive }) => (
         position: relative;
       }
 
-      .fa-bell {
+      .icon {
+        font-size: 18px;
         color: ${astronaut};
       }
 
-      .fa-bell.is-active {
+      .icon.is-active:before {
         color: ${romance};
       }
+
       .count {
         position: absolute;
         top: -5px;
