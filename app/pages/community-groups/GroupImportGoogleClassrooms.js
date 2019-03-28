@@ -43,7 +43,8 @@ import { primaryFont, secondaryFont } from 'styles/variables/fonts';
 import style from '../../containers/groups-hub/groups-hub.style';
 import style2 from 'pages/registration/partials/JoinHeader.style';
 import style3 from './GroupCreate.style';
-import messages from './Groups.messages'
+import messages from './Groups.messages';
+import './group-import-google-classrooms.scss';
 
 const COUNT = 9;
 const DEFAULT_PAGE = 1;
@@ -255,7 +256,8 @@ class GroupImportGoogleClassrooms extends Component {
       forceReloadStr,
     } = this.state;
 
-    return (<div>
+    return (
+      <div className="import-google-classrooms">
         <Request
           serviceURL={GOOGLE_CLASSROOM_IMPORT_PAGE_ENDPOINT_URL}
           requestBody={{
@@ -374,30 +376,6 @@ class GroupImportGoogleClassrooms extends Component {
       <style jsx>{style}</style>
       <style jsx>{style2}</style>
       <style jsx>{style3}</style>
-      <style jsx>{`
-        .table-header {
-          font-family: ${primaryFont};
-          font-weight: bold;
-          text-transform: uppercase;
-          color: ${astronaut};
-          font-size: 10px;
-        }
-
-        .form-section-area {
-          padding-top: 0;
-          padding-bottom: 15px;
-        }
-
-        .form-area {
-          padding: 50px;
-          font-family: ${secondaryFont};
-          ${faintShadow}
-        }
-
-        .table-item {
-          padding: 15px 0;
-        }
-      `}</style>
     </div>)
   }
 }
