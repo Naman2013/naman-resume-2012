@@ -77,7 +77,7 @@ const BootstrappedImageDetails = (props) => {
                 <AsideContainer {...props} showMissionRelatedInfo={showMissionRelatedInfo} /> :
                 null}
             </div>)}
-            isScreenLarge={isScreenLarge}
+            isScreenSize={isScreenLarge}
             renderMainContent={() => <MainContainer {...props} actions={actions} />}
           />
         </div>
