@@ -68,7 +68,7 @@ const AboutSloohSection = ({ params }) => (
                   )
                 }
 
-                <div className="about-section-container">
+                <div style={{paddingTop: '0px'}} className="about-section-container">
                   {
                     hasAboutSloohPartners
                     && Array.isArray(aboutSloohPartners.partnerLogoList)
