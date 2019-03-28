@@ -37,16 +37,16 @@ class ResponsiveTwoColumnContainer extends Component {
 
   state = {
     showMainContainer: true,
-    showAsideContainer: this.props.isDesktop,
+    showAsideContainer: this.props.isScreenLarge,
   };
 
   componentWillReceiveProps(nextProps) {
-    if (!this.props.isDesktop && nextProps.isDesktop) {
+    if (!this.props.isScreenLarge && nextProps.isScreenLarge) {
       this.setState({
-        showMainContainer: nextProps.isDesktop,
-        showAsideContainer: nextProps.isDesktop,
+        showMainContainer: nextProps.isScreenLarge,
+        showAsideContainer: nextProps.isScreenLarge,
       });
-    } else if (this.props.isDesktop && !nextProps.isDesktop) {
+    } else if (this.props.isScreenLarge && !nextProps.isScreenLarge) {
       this.setState(state => ({
         showMainContainer: state.showMainContainer,
         showAsideContainer: (state.showMainContainer && state.showAsideContainer) ?
@@ -56,7 +56,7 @@ class ResponsiveTwoColumnContainer extends Component {
   }
 
   onShowMainContainer = () => {
-    if (!this.props.isDesktop) {
+    if (!this.props.isScreenLarge) {
       this.setState({
         showMainContainer: true,
         showAsideContainer: false,
@@ -65,7 +65,7 @@ class ResponsiveTwoColumnContainer extends Component {
   }
 
   onShowAsideContainer = () => {
-    if (!this.props.isDesktop) {
+    if (!this.props.isScreenLarge) {
       this.setState({
         showMainContainer: false,
         showAsideContainer: true,
@@ -86,11 +86,11 @@ class ResponsiveTwoColumnContainer extends Component {
       renderNavigationComponent,
       renderAsideContent,
       renderMainContent,
-      isDesktop,
+      isScreenLarge,
     } = props;
     const { showMainContainer, showAsideContainer } = state;
     return (<div className="root">
-    {!isDesktop && (
+    {!isScreenLarge && (
       <div className="split-nav">
         {renderNavigationComponent({
           showMainContainer,
