@@ -132,22 +132,40 @@ export default css`
     .missionCard {
       min-height: 370px;
     }
-  //   .missionCard:hover {
-  //     background-color: rgba(0, 0, 0, 0.8);
-  //     color: ${romance};
-  //   }
+    
+    .hovered.missionCard {
+      background-color: rgba(0, 0, 0, 0.8);
+      color: ${romance};
+    }
+    
+    .hovered.missionCard .mission-image-wrapper {
+      display: none;
+    }
+    
+    .hovered.missionCard .mission-telescope {
+      margin-bottom: 0;
+    }
+    
+    .hovered.missionCard .show-onhover {
+      display: flex;
+    }
+    
+    .missionCard:hover {
+      background-color: rgba(0, 0, 0, 0.8);
+      color: ${romance};
+    }
 
-  //   .missionCard:hover .mission-image-wrapper {
-  //     display: none;
-  //   }
+    .missionCard:hover .mission-image-wrapper {
+      display: none;
+    }
 
-  //   .missionCard:hover .mission-telescope {
-  //     margin-bottom: 0;
-  //   }
+    .missionCard:hover .mission-telescope {
+      margin-bottom: 0;
+    }
 
-  //   .missionCard:hover .show-onhover {
-  //     display: flex;
-  //   }
+    .missionCard:hover .show-onhover {
+      display: flex;
+    }
   }
 
   @media ${screenLarge} {

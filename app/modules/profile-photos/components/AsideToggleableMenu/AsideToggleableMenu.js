@@ -24,12 +24,13 @@ const AsideToggleableMenu = (props) => {
     index,
     isDesktop,
     blockWidth,
-    redirectToImage
+    redirectToImage,
+    mod,
   } = props;
 
   return (
     <div
-      className="root"
+      className={mod ? `root ${mod}` : 'root'}
       style={{ width: visible ? '70%' : '0' }}
       onClick={e => e.stopPropagation()}
     >

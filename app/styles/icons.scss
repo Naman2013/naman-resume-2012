@@ -31,6 +31,13 @@
   }
 }
 
+.icon-download:before {
+  content: "\e90e";
+  color: #fff;
+}
+.icon-ellipsis-h:before {
+  content: "\e90d";
+}
 .icon-bell:before {
   content: "\e90c";
   color: #41566f;

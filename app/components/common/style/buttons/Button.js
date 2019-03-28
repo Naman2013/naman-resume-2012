@@ -17,6 +17,8 @@ const Button = props => {
     theme = {},
     withIntl,
     disabled,
+    children,
+    mod,
   } = props;
   const buttonProps = omit(props, [
     'isActive',
@@ -29,10 +31,13 @@ const Button = props => {
     <button
       {...buttonProps}
       type={type}
-      className={classnames('button-container', {
-        circular: (icon && !text) || (renderIcon && !text),
-        active: isActive,
-      })}
+      className={classnames(
+        mod ? `button-container ${mod}` : 'button-container',
+        {
+          circular: (icon && !text) || (renderIcon && !text),
+          active: isActive,
+        }
+      )}
       style={theme}
       onClick={onClickEvent}
       disabled={disabled}
@@ -60,7 +65,7 @@ const Button = props => {
       {icon && <img alt="" className="button-icon" src={icon} />}
 
       {renderIcon && renderIcon()}
-
+      {children}
       <style jsx>{styles}</style>
     </button>
   );
