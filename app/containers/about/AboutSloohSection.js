@@ -69,23 +69,28 @@ const AboutSloohSection = ({ params }) => (
                 }
 
                 <div className="about-section-container">
+                  {
+                    hasAboutSloohPartners
+                    && Array.isArray(aboutSloohPartners.partnerLogoList)
+                    && aboutSloohPartners.partnerLogoList.length > 0
+                    && (
+                      <CenterColumn>
+                        <div style={{paddingBottom: '30px'}}>
+                          <CardsLayout
+                            sectionHeading={aboutSloohPartners.sectionHeading}
+                            sectionHeading2={aboutSloohPartners.sectionHeading2}
+                          >
+                            {aboutSloohPartners.partnerLogoList.map(image => (
+                              <PartnerCard image={image} />
+                            ))}
+                          </CardsLayout>
+                        </div>
+                      </CenterColumn>
+                    )
+                  }
+
                   <SectionPanels list={sectionPanels} />
                   <CenterColumn>
-                    {
-                      hasAboutSloohPartners
-                      && Array.isArray(aboutSloohPartners.partnerLogoList)
-                      && aboutSloohPartners.partnerLogoList.length > 0
-                      && (
-                        <CardsLayout
-                          sectionHeading={aboutSloohPartners.sectionHeading}
-                          sectionHeading2={aboutSloohPartners.sectionHeading2}
-                        >
-                          {aboutSloohPartners.partnerLogoList.map(image => (
-                            <PartnerCard image={image} />
-                          ))}
-                        </CardsLayout>
-                      )
-                    }
                     {
                       hasAboutSloohNewsStories
                       && Array.isArray(aboutSloohNewsStories.newsStoriesList)
