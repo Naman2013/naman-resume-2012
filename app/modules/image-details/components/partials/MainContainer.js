@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import DiscussionsBoard from 'components/common/DiscussionsBoard';
-import ObservationsForm from 'components/ObservationsForm';
+import DiscussionsBoard from 'app/components/common/DiscussionsBoard';
+import ObservationsForm from 'app/modules/image-details/components/ObservationsForm';
 import ObservationInformation from './ObservationInformation';
 
 const {

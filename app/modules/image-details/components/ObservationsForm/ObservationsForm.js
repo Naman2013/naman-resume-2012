@@ -165,7 +165,7 @@ class ObservationsForm extends Component {
     } = this.state;
 
 
-    return (<div className="root">
+    return (<div className="root observations-form">
       <form className="root-form">
         <div className="header">
           <span className="inspire">Inspire the Slooh Community:</span>
