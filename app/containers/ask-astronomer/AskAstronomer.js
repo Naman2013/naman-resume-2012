@@ -323,7 +323,7 @@ class AskAstronomer extends Component {
                         />
                       </div>
                     )}
-                    isScreenLarge={context.isScreenLarge}
+                    isScreenSize={context.isScreenLarge}
                     renderMainContent={() => <MainContainer
                       {...this.props}
                       {...context}

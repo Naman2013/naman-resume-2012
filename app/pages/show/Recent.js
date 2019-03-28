@@ -171,8 +171,7 @@ class RecentShow extends Component {
               renderAsideContent={() => (
                 <AsideContainerDetailsOnly {...this.props} />
               )}
-              isScreenLarge={isScreenLarge}
-              isDesktop={isDesktop}
+              isScreenSize={isDesktop}
               renderMainContent={() => (
                 <MainContainerWithDiscussions
                   {...this.props}

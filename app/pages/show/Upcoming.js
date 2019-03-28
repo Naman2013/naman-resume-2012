@@ -161,8 +161,7 @@ class UpcomingShow extends Component {
               renderAsideContent={() => (<AsideContainerDetailsOnly
                 {...this.props}
               />)}
-              isScreenLarge={isScreenLarge}
-              isDesktop={isDesktop}
+              isScreenSize={isDesktop}
               renderMainContent={() => (<MainContainerWithDiscussions
                 {...this.props}
                 selectedTab={selectedTab}
