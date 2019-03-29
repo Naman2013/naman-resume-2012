@@ -105,6 +105,7 @@ module.exports = {
       // eslint-import-resolver-alias
       'alias': [
         ['app', path.join(__dirname, 'app/')],
+        ['assets', path.join(__dirname, 'assets/')],
       ],
       // It also works but with alias there are no red highlight in webstorm
       // and with this approach build works but I still see red highlights in webstorm

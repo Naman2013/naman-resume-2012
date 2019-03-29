@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import TwoTabbedNav from 'app/components/TwoTabbedNav';
 import ResponsiveTwoColumnContainer from 'app/components/ResponsiveTwoColumnContainer';
 import ObjectDetailList from 'app/modules/image-details/components/ObjectDetailList';
+import { Button, Col, Row } from 'react-bootstrap';
 import MainContainer from './partials/MainContainer';
 import AsideContainer from './partials/AsideContainer';
 import styles from './ImageDetails.style';
@@ -31,13 +32,31 @@ const ViewHeader = ({ imageTitle }) => (
 );
 
 const EditHeader = ({ imageTitle }) => (
-  <Fragment>
-    <h3 className="text-center">EDIT</h3>
-    <div
-      className="obs-img-subheader text-center"
-      dangerouslySetInnerHTML={{ __html: imageTitle }}
-    />
-  </Fragment>
+  <Row className="edit-header">
+    <Col sm={6}>
+      <h2 className="">{imageTitle}</h2>
+    </Col>
+    <Col sm={6}>
+      <div className="text-right">
+        <Button>Write Observation</Button>
+        <Button className="icon-btn ml-2">
+          <span className="icon-label" />
+        </Button>
+        <Button className="icon-btn ml-2">
+          <span className="icon-download" />
+        </Button>
+        <Button className="icon-btn ml-2">
+          <span className="icon-plus" />
+        </Button>
+        <Button className="icon-btn ml-2">
+          <span className="icon-share" />
+        </Button>
+        <Button className="icon-btn ml-2">
+          <span className="icon-delete" />
+        </Button>
+      </div>
+    </Col>
+  </Row>
 );
 
 const BootstrappedImageDetails = props => {
@@ -129,7 +148,7 @@ const BootstrappedImageDetails = props => {
             ) : null}
           </div>
         )}
-        isDesktop={isScreenLarge}
+        isScreenSize={isScreenLarge}
         renderMainContent={() => <MainContainer {...props} actions={actions} />}
       />
       <style jsx>{styles}</style>
