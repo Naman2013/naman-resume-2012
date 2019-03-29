@@ -8,7 +8,7 @@ import cn from 'classnames';
 import { browserHistory } from 'react-router';
 import { FormattedMessage } from 'react-intl';
 import Button from 'app/components/common/style/buttons/Button';
-import noop from 'lodash/fp/noop';
+import { downloadFile } from 'app/utils/downloadFile';
 import AsideToggleableMenu from '../AsideToggleableMenu';
 import messages from './MissionCard.messages';
 import style from './MissionCard.style';
@@ -24,8 +24,8 @@ class MissionCard extends PureComponent<TMissionCard> {
 
   optionsList = [
     { label: 'Add tags' },
-    { label: 'Download fits data' },
-    { label: 'Download all images' },
+    { label: 'Download fits data', action: 'download' },
+    { label: 'Download all images', action: 'downloadAll' },
   ];
 
   blockWidth = null;
@@ -39,8 +39,13 @@ class MissionCard extends PureComponent<TMissionCard> {
   };
 
   onOpenMission = () => {
-    const { scheduledMissionId } = this.props.mission;
+    const { scheduledMissionId } = this.props.currentItem;
     browserHistory.push(`/missions-details/${scheduledMissionId}`);
+  };
+
+  onDownloadFile = () => {
+    const { currentItem: { imageURL } } = this.props;
+    downloadFile(imageURL, 'my-photos-mission.png');
   };
 
   render() {
@@ -51,10 +56,8 @@ class MissionCard extends PureComponent<TMissionCard> {
       imageTitle,
       displayDate,
       missionImageCount,
-      missionIconURL,
       telescopeName,
       imageURL,
-      scheduledMissionId,
     } = mission;
     if (!mission) return null;
 
@@ -69,6 +72,7 @@ class MissionCard extends PureComponent<TMissionCard> {
             blockWidth={width}
             visible={menuIsVisible}
             optionsList={this.optionsList}
+            downloadFile={this.onDownloadFile}
             toggleMenuVisibility={this.onToggleMenuVisibility}
             {...this.props}
           />
@@ -96,7 +100,7 @@ class MissionCard extends PureComponent<TMissionCard> {
               <span>Contains fits data</span>
               <Button
                 mod="plain"
-                onClickEvent={noop}
+                onClickEvent={this.onDownloadFile}
                 theme={{ borderColor: '#fff', color: '#fff' }}
               >
                 <i className="icon icon-download" />
