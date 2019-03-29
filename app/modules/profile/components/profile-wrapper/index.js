@@ -1,15 +1,14 @@
-// todo refactor me
+// @flow
+import React, { cloneElement, Component, Fragment } from 'react';
 import SubPageNavigation from 'app/components/common/sub-page-navigation';
 import ProfileInformation from 'app/components/profiles/private-profile/ProfileInformation';
-import PropTypes from 'prop-types';
-import React, { cloneElement, Component, Fragment } from 'react';
 
-export class ProfileWrapper extends Component {
-  static propTypes = {
-    privateProfileData: PropTypes.shape({}).isRequired,
-    params: PropTypes.shape({}).isRequired,
-  };
+type TProfileWrapper = {
+  data: Array<Object> | void,
+  params: Array<Object>,
+};
 
+export class ProfileWrapper extends Component<TProfileWrapper> {
   generateNavItems = list =>
     list.map(item => ({ title: item.name, link: item.linkUrl }));
 
@@ -62,8 +61,8 @@ export class ProfileWrapper extends Component {
   });
 
   render() {
-    const { children, privateProfileData, params } = this.props;
-    const modelResult = this.modelData(privateProfileData);
+    const { children, data, params } = this.props;
+    const modelResult = this.modelData(data);
 
     return (
       <div className="root">
@@ -81,7 +80,7 @@ export class ProfileWrapper extends Component {
           {cloneElement(children, {
             activityData: modelResult.activityData,
             groupsData: modelResult.groupsData,
-            privateProfileData,
+            data,
             params,
           })}
         </Fragment>

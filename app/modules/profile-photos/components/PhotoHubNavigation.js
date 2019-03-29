@@ -225,7 +225,7 @@ class PhotoHubNavigation extends Component {
 
 const mapStateToProps = state => {
   return {
-    privateProfile: state.privateProfile.privateProfileData,
+    privateProfile: state.profile.privateProfileData,
     publicProfile: state.profile.publicProfileData,
   };
 };

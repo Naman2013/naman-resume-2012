@@ -1,7 +1,10 @@
 import { actions, constants } from 'ducks-helpers';
 import { handleActions } from 'redux-actions';
 
-export const TYPE = constants('profile', ['~GET_PUBLIC_PROFILE']);
+export const TYPE = constants('profile', [
+  '~GET_PUBLIC_PROFILE',
+  '~GET_PRIVATE_PROFILE',
+]);
 export const ACTION = actions(TYPE);
 
 export const initialState = {
@@ -18,6 +21,9 @@ export default handleActions(
     [TYPE.GET_PUBLIC_PROFILE]: setFetching,
     [TYPE.GET_PUBLIC_PROFILE_SUCCESS]: getPublicProfileSuccess,
     [TYPE.GET_PUBLIC_PROFILE_ERROR]: setServerError,
+    [TYPE.GET_PRIVATE_PROFILE]: setFetching,
+    [TYPE.GET_PRIVATE_PROFILE_SUCCESS]: getPrivateProfileSuccess,
+    [TYPE.GET_PRIVATE_PROFILE_ERROR]: setServerError,
   },
   initialState
 );
@@ -41,5 +47,15 @@ function getPublicProfileSuccess(state, action) {
     isFetching: false,
     isLoaded: true,
     publicProfileData: action.payload,
+  };
+}
+
+function getPrivateProfileSuccess(state, action) {
+  console.log('getPrivateProfileSuccess - action', action.payload);
+  return {
+    ...state,
+    isFetching: false,
+    isLoaded: true,
+    privateProfileData: action.payload,
   };
 }

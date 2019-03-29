@@ -1,8 +1,8 @@
+import React, { cloneElement, Component, Fragment } from 'react';
 import { ProfileWrapper } from 'app/modules/profile/components/profile-wrapper';
-import React, { cloneElement, Component } from 'react';
 
 export class PublicProfile extends Component {
-  componentWillMount = () => {
+  componentDidMount = () => {
     this.fetchData();
   };
 
@@ -15,16 +15,13 @@ export class PublicProfile extends Component {
   render() {
     const { publicProfileData, params, children } = this.props;
     return (
-      <div>
+      <Fragment>
         {publicProfileData && (
-          <ProfileWrapper
-            privateProfileData={publicProfileData}
-            params={params}
-          >
+          <ProfileWrapper data={publicProfileData} params={params}>
             {cloneElement(children, { publicProfileData, params })}
           </ProfileWrapper>
         )}
-      </div>
+      </Fragment>
     );
   }
 }

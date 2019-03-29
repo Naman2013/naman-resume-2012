@@ -27,7 +27,7 @@ import ObjectDetailsQuests from 'app/containers/object-details/ObjectDetailsQues
 import ObjectDetailsShows from 'app/containers/object-details/ObjectDetailsShows';
 import ObjectDetailsStories from 'app/containers/object-details/ObjectDetailsStories';
 import ObjectList from 'app/containers/object-post/ObjectList';
-import { PrivateProfile } from 'app/containers/profile/PrivateProfile';
+import { PublicProfileMain, PrivateProfileMain } from 'app/modules/profile';
 import QuestComplete from 'app/containers/quest-complete';
 import QuestStep from 'app/containers/quest-step';
 import QuestsHub from 'app/containers/quests-hub';
@@ -42,7 +42,6 @@ import Catalog from 'app/modules/missions/containers/catalog';
 import Telescope from 'app/modules/missions/containers/telescope';
 import Constellation from 'app/modules/missions/containers/constellation';
 import { MissionsMain } from 'app/modules/missions/index';
-import { PublicProfileMain } from 'app/modules/profile';
 import { TelescopeDetailsMain } from 'app/modules/telescope';
 import GroupCreate from 'app/pages/community-groups/GroupCreate';
 import GroupImportGoogleClassrooms from 'app/pages/community-groups/GroupImportGoogleClassrooms';
@@ -450,7 +449,7 @@ const AppRouter = () => (
 
       <Route
         path="profile/private"
-        component={PrivateProfile}
+        component={PrivateProfileMain}
         onEnter={validateUser}
       >
         {getProfileRoutes()}
