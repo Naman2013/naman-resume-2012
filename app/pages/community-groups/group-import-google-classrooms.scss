@@ -38,7 +38,8 @@
         border-bottom: 1px solid $hawkesBlue;
         margin-bottom: 15px;
 
-        a {
+        a,
+        p {
           font-family: $secondary-font;
           color: $astronaut;
           font-size: 20px;
@@ -52,6 +53,15 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+
+        label {
+          margin: 0;
+
+          input {
+            width: 12px;
+            cursor: pointer;
+          }
+        }
 
         .classroom-status {
           font-family: $primary-font;

@@ -321,8 +321,8 @@ class GroupImportGoogleClassrooms extends Component {
                                                   <div>
                                                     {!item.hasDiscussionGroup ?
                                                       <Field style={{'marginLeft': '0px'}}
-                                                            key={`importAction_` + index}
-                                                            name={`importAction_` + index}
+                                                            key={`importAction_` + item.googleClassroomId}
+                                                            name={`importAction_` + item.googleClassroomId}
                                                             type="checkbox"
                                                             className="form-field"
                                                             component={InputField}
