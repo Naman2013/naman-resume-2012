@@ -43,7 +43,8 @@ import { primaryFont, secondaryFont } from 'styles/variables/fonts';
 import style from '../../containers/groups-hub/groups-hub.style';
 import style2 from 'pages/registration/partials/JoinHeader.style';
 import style3 from './GroupCreate.style';
-import messages from './Groups.messages'
+import messages from './Groups.messages';
+import './group-import-google-classrooms.scss';
 
 const COUNT = 9;
 const DEFAULT_PAGE = 1;
@@ -255,7 +256,8 @@ class GroupImportGoogleClassrooms extends Component {
       forceReloadStr,
     } = this.state;
 
-    return (<div>
+    return (
+      <div className="import-google-classrooms">
         <Request
           serviceURL={GOOGLE_CLASSROOM_IMPORT_PAGE_ENDPOINT_URL}
           requestBody={{
@@ -302,50 +304,49 @@ class GroupImportGoogleClassrooms extends Component {
                                   <form className="form">
                                     <div className="form-section form-section-area">
                                       <div className="form-field-container">
-                                        <table style={{'width': '100%'}}>
-                                          <tbody>
-                                          <tr>
-                                            <th className="table-header">Import?</th>
-                                            <th className="table-header">Google Classroom</th>
-                                            <th className="table-header">Club Status</th>
-                                          </tr>
-                                          {serviceResponse.classroomList.map((classroomListItem, index) => {
+                                        {serviceResponse.classroomList.map((item, index) => {
                                             return (
-                                              <tr className="table-item"
-                                                  key={`googleClassroomRow_` + classroomListItem.googleClassroomId}>
-                                                <td>
-                                                  {!classroomListItem.hasDiscussionGroup ?
-                                                    <Field style={{'marginLeft': '0px'}}
-                                                           key={`importAction_` + index}
-                                                           name={`importAction_` + index}
-                                                           type="checkbox"
-                                                           className="form-field"
-                                                           component={InputField}
-                                                           label=""
-                                                           onChange={(event) => {
-                                                             this.handleFieldChange({
-                                                               googleClassroomName: classroomListItem.name,
-                                                               googleClassroomId: classroomListItem.googleClassroomId,
-                                                               selectedFlag: event.target.value
-                                                             });
-                                                           }}
-                                                    /> : <input type="checkbox" disabled checked className="form-field"
-                                                                style={{marginLeft: '20px'}}/>}
-                                                </td>
-                                                <td
-                                                  key={`importName_` + classroomListItem.googleClassroomId}>{classroomListItem.hasDiscussionGroup ?
-                                                  <Link
-                                                    to={classroomListItem.discussionGroupLinkUrl}>{classroomListItem.name}</Link> :
-                                                  <p>{classroomListItem.name}</p>}</td>
-                                                <td
-                                                  key={`importStatus_` + classroomListItem.googleClassroomId}>{classroomListItem.hasDiscussionGroup ?
-                                                  <p>Active</p> : <p>Please Import</p>}</td>
-                                              </tr>
+                                              <div className="classroom-item"
+                                                  key={`googleClassroomRow_` + item.googleClassroomId}>
+                                                <div
+                                                  className="classroom-title"
+                                                  key={`importName_` + item.googleClassroomId}>
+                                                  {item.hasDiscussionGroup ?
+                                                    <Link
+                                                      to={item.discussionGroupLinkUrl}>{item.name}</Link> :
+                                                    <p>{item.name}</p>
+                                                  }
+                                                </div>
+                                                <div className="classroom-item-actions">
+                                                  <div>
+                                                    {!item.hasDiscussionGroup ?
+                                                      <Field style={{'marginLeft': '0px'}}
+                                                            key={`importAction_` + item.googleClassroomId}
+                                                            name={`importAction_` + item.googleClassroomId}
+                                                            type="checkbox"
+                                                            className="form-field"
+                                                            component={InputField}
+                                                            label=""
+                                                            onChange={(event) => {
+                                                              this.handleFieldChange({
+                                                                googleClassroomName: item.name,
+                                                                googleClassroomId: item.googleClassroomId,
+                                                                selectedFlag: event.target.value
+                                                              });
+                                                            }}
+                                                      /> : <input type="checkbox" disabled checked className="form-field"/>}
+                                                  </div>
+                                                  <div
+                                                    className="classroom-status"
+                                                    key={`importStatus_` + item.googleClassroomId}>
+                                                      {item.hasDiscussionGroup ?
+                                                      'Active' : 'Please Import'}
+                                                  </div>
+                                                </div>
+                                              </div>
                                             )
                                           })
-                                          }
-                                          </tbody>
-                                        </table>
+                                        }
                                       </div>
                                     </div>
                                     <div className="button-container">
@@ -374,30 +375,6 @@ class GroupImportGoogleClassrooms extends Component {
       <style jsx>{style}</style>
       <style jsx>{style2}</style>
       <style jsx>{style3}</style>
-      <style jsx>{`
-        .table-header {
-          font-family: ${primaryFont};
-          font-weight: bold;
-          text-transform: uppercase;
-          color: ${astronaut};
-          font-size: 10px;
-        }
-
-        .form-section-area {
-          padding-top: 0;
-          padding-bottom: 15px;
-        }
-
-        .form-area {
-          padding: 50px;
-          font-family: ${secondaryFont};
-          ${faintShadow}
-        }
-
-        .table-item {
-          padding: 15px 0;
-        }
-      `}</style>
     </div>)
   }
 }
