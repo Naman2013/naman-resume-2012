@@ -5,6 +5,7 @@ import TwoTabbedNav from 'app/components/TwoTabbedNav';
 import ResponsiveTwoColumnContainer from 'app/components/ResponsiveTwoColumnContainer';
 import ObjectDetailList from 'app/modules/image-details/components/ObjectDetailList';
 import { Button, Col, Row } from 'react-bootstrap';
+import { Tooltip } from 'react-tippy';
 import MainContainer from './partials/MainContainer';
 import AsideContainer from './partials/AsideContainer';
 import styles from './ImageDetails.style';
@@ -33,27 +34,37 @@ const ViewHeader = ({ imageTitle }) => (
 
 const EditHeader = ({ imageTitle }) => (
   <Row className="edit-header">
-    <Col sm={6}>
+    <Col sm={6} className="header">
       <h2 className="">{imageTitle}</h2>
     </Col>
     <Col sm={6}>
       <div className="text-right">
         <Button>Write Observation</Button>
-        <Button className="icon-btn ml-2">
-          <span className="icon-label" />
-        </Button>
-        <Button className="icon-btn ml-2">
-          <span className="icon-download" />
-        </Button>
-        <Button className="icon-btn ml-2">
-          <span className="icon-plus" />
-        </Button>
-        <Button className="icon-btn ml-2">
-          <span className="icon-share" />
-        </Button>
-        <Button className="icon-btn ml-2">
-          <span className="icon-delete" />
-        </Button>
+        <Tooltip title="Label">
+          <Button className="icon-btn ml-2">
+            <span className="icon-label" />
+          </Button>
+        </Tooltip>
+        <Tooltip title="Download">
+          <Button className="icon-btn ml-2">
+            <span className="icon-download" />
+          </Button>
+        </Tooltip>
+        <Tooltip title="Plus">
+          <Button className="icon-btn ml-2">
+            <span className="icon-plus" />
+          </Button>
+        </Tooltip>
+        <Tooltip title="Share">
+          <Button className="icon-btn ml-2">
+            <span className="icon-share" />
+          </Button>
+        </Tooltip>
+        <Tooltip title="Delete">
+          <Button className="icon-btn ml-2">
+            <span className="icon-delete" />
+          </Button>
+        </Tooltip>
       </div>
     </Col>
   </Row>

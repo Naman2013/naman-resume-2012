@@ -119,6 +119,7 @@
     "react-tabs": "^2.1.0",
     "react-tag-input": "^4.3.2",
     "react-test-render": "^1.1.1",
+    "react-tippy": "^1.2.3",
     "react-tooltip": "^3.3.0",
     "react-youtube": "^7.9.0",
     "redux": "^3.5.2",
