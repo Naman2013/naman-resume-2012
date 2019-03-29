@@ -149,8 +149,7 @@ class LiveShow extends Component {
                 showComments={this.showComments}
               />
             )}
-            isScreenLarge={isScreenLarge}
-            isDesktop={isDesktop}
+            isScreenSize={isDesktop}
             renderMainContent={() => (
               <MainContainer
                 {...this.props}

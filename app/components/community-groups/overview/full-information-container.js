@@ -148,7 +148,7 @@ class FullInformationOverview extends Component {
               />
             </div>)
           }
-          isScreenLarge={context.isScreenLarge}
+          isScreenSize={context.isScreenLarge}
           renderMainContent={() => (
             <div className="discuss-container">
               <DiscussionsBoard
