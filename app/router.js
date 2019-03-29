@@ -1,6 +1,6 @@
 import DashboardPage from 'app/components/Dashboard';
-import ImagesLayout from 'app/components/profile-photos/ImagesLayout';
-import PrivateProfilePhotos from 'app/components/profile-photos/PrivateProfilePhotos';
+import ImagesLayout from 'app/modules/profile-photos/components/ImagesLayout';
+import PrivateProfilePhotos from 'app/modules/profile-photos/components/PrivateProfilePhotos';
 import {
   ProfileActivity,
   ProfileGroups,

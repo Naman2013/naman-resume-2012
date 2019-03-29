@@ -35,7 +35,7 @@ export default css`
     margin-top: 0;
     font-size: 24px;
   }
-  
+
   .header-info h2{
     margin-bottom: 0;
     font-size: 19px;
@@ -91,11 +91,11 @@ export default css`
     justify-content: center;
     align-items: center;
   }
-  
+
   .contact-header img {
     height: 100%;
   }
-  
+
   .contact-header .img-wrapper-shadow {
     height: 100px;
     padding: 10px;
@@ -128,13 +128,16 @@ export default css`
 
   @media ${screenMedium} {
     .root {
-      padding: 40px;
+      padding-top: 40px;
+      padding-left: 40px;
+      paddingright: 40px;
+      padding-bottom: 0px;
     }
 
     .form {
       width: 68%;
     }
-  
+
     .contacts {
       width: 30%;
       margin-top: 0;

@@ -7,7 +7,7 @@ import style from './SectionPanels.style';
 
 const SectionPanels = ({ list }) => (
   <CenterColumn>
-    <ul>
+    <ul style={{paddingTop: '40px'}}>
       {list.map(tile => (
         <li key={`about-panel-${tile.panelId}`}>
           <DisplayAtBreakpoint screenSmall>

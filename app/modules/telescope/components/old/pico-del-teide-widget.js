@@ -50,6 +50,7 @@ export class PicoDelTeidesWidget extends Component {
       obsId,
       FacilityWebcamWidgetId,
       facilityWebcamUrl,
+      title,
     } = this.props;
 
     const { observatoryData } = activeTelescope;
@@ -58,7 +59,7 @@ export class PicoDelTeidesWidget extends Component {
     const { isModalOpen } = this.state;
 
     return (
-      <ModuleContainer title="Pico del teide cam">
+      <ModuleContainer title={title}>
         <ImagePortalViewer
           imageURL={facilityWebcamUrl}
           onClick={this.openModal}

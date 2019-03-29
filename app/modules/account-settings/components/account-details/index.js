@@ -56,7 +56,7 @@ const AccountDetails = (props: TAccountDetails) => {
               <Row noGutters>
                 {context.isDesktop ? (
                   <Col md={4}>
-                    <div className="image">
+                    <div className="i-image">
                       <img src={img} alt=""/>
                     </div>
                   </Col>
