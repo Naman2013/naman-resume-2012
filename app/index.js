@@ -12,11 +12,12 @@ import I18nProvider from './providers/I18nProvider';
 // redux store
 import store from './store';
 import 'animate.css/animate.css';
+// Bootstrap 4
+import './styles/bootstrap/index.scss';
+
 import './styles/animations.scss';
 import './styles/app.scss';
 import './styles/interface.css';
-// Bootstrap 4
-import './styles/bootstrap/index.scss';
 
 import './styles/static.scss';
 // utilities
