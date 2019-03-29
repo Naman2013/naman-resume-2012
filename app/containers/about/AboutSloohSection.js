@@ -75,7 +75,7 @@ const AboutSloohSection = ({ params }) => (
                     && aboutSloohPartners.partnerLogoList.length > 0
                     && (
                       <CenterColumn>
-                        <div style={{paddingBottom: '30px'}}>
+                        <div style={{paddingBottom: '0px'}}>
                           <CardsLayout
                             sectionHeading={aboutSloohPartners.sectionHeading}
                             sectionHeading2={aboutSloohPartners.sectionHeading2}
@@ -90,6 +90,7 @@ const AboutSloohSection = ({ params }) => (
                   }
 
                   <SectionPanels list={sectionPanels} />
+
                   <CenterColumn>
                     {
                       hasAboutSloohNewsStories
