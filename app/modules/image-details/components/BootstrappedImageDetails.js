@@ -1,5 +1,5 @@
 import { ModalImg } from 'app/modules/telescope/components/modal-img';
-import React, { useState } from 'react';
+import React, { useState, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import TwoTabbedNav from 'app/components/TwoTabbedNav';
 import ResponsiveTwoColumnContainer from 'app/components/ResponsiveTwoColumnContainer';
@@ -20,6 +20,26 @@ const {
   string,
 } = PropTypes;
 
+const ViewHeader = ({ imageTitle }) => (
+  <Fragment>
+    <h3 className="text-center">AN OBSERVATION OF</h3>
+    <div
+      className="obs-img-subheader text-center"
+      dangerouslySetInnerHTML={{ __html: imageTitle }}
+    />
+  </Fragment>
+);
+
+const EditHeader = ({ imageTitle }) => (
+  <Fragment>
+    <h3 className="text-center">EDIT</h3>
+    <div
+      className="obs-img-subheader text-center"
+      dangerouslySetInnerHTML={{ __html: imageTitle }}
+    />
+  </Fragment>
+);
+
 const BootstrappedImageDetails = props => {
   const {
     actions,
@@ -30,6 +50,7 @@ const BootstrappedImageDetails = props => {
     objectId,
     scheduledMissionId,
     iconFileData,
+    canEditFlag,
   } = props;
   const showMissionRelatedInfo = Number(scheduledMissionId) > 0;
   const rightPanelDisplayFlags = [showMissionRelatedInfo];
@@ -42,11 +63,11 @@ const BootstrappedImageDetails = props => {
         <div className="col-12">
           <div className="obs-img-container">
             <div className="obs-header">
-              <h3 className="text-center">AN OBSERVATION OF</h3>
-              <div
-                className="obs-img-subheader text-center"
-                dangerouslySetInnerHTML={{ __html: imageTitle }}
-              />
+              {canEditFlag ? (
+                <EditHeader imageTitle={imageTitle} />
+              ) : (
+                <ViewHeader imageTitle={imageTitle} />
+              )}
             </div>
             <div className="obs-image-container">
               <img
