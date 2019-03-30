@@ -33,35 +33,7 @@ export default css`
     display: flex;
     flex-direction: column;
   }
-  .obs-form-required {
-    display: block;
-    padding-bottom: 15px;
-    text-align: right;
-    padding-top: 5px;
-  }
-  .obs-form-input {
-    display: block;
-    width: 100%;
-    padding: 15px;
-    background-color: ${shadows};
-    -moz-box-shadow: 0 2px 4px 1px ${shadows};
-    -webkit-box-shadow: 0 2px 4px 1px ${shadows};
-    box-shadow: 0 2px 4px 1px ${shadows};
-    border: 1px solid ${shadows};
-    outline: none;
-  }
-  .obs-form-textarea {
-    resize: none;
-    display: block;
-    width: 100%;
-    padding: 15px;
-    background-color: ${shadows};
-    -moz-box-shadow: 0 2px 4px 1px ${shadows};
-    -webkit-box-shadow: 0 2px 4px 1px ${shadows};
-    box-shadow: 0 2px 4px 1px ${shadows};
-    border: 1px solid ${shadows};
-    outline: none;
-  }
+
   .obs-form-button {
   }
   .fa-close {

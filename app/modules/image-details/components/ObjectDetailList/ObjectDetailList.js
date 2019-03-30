@@ -37,7 +37,7 @@ const ObjectDetailList = ({
       fetchingContent,
       serviceResponse,
     }) => (
-      <div>
+      <div className="mb-4">
         {<BootstrappedObjectDetailList
           isMobile={isMobile}
           fetching={fetchingContent}

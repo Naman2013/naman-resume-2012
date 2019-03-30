@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import MissionDetailList from 'app/modules/image-details/components/MissionDetailList';
-import MissionImageDetailList from 'app/components/common/MissionImageDetailList';
+import MissionImageDetailList from 'app/modules/image-details/components/MissionImageDetailList';
 import ObserverInfo from 'app/modules/image-details/components/ObserverInfo';
 import ObjectDetailList from 'app/modules/image-details/components/ObjectDetailList';
 

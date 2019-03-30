@@ -32,7 +32,7 @@ const BootstrappedMissionDetailList = ({
     });
 
   return (
-    <div>
+    <div className="mission-detail">
       <BlueLineDrop
         title={listTitle}
         isDesktop={isDesktop}

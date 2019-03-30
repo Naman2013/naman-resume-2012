@@ -35,7 +35,7 @@ const BootstrappedMissionImageDetailList = ({
   });
 
   return (
-    <div>
+    <div className="mission-image-detail-list">
       <BlueLineDrop
         title={listTitle}
         isDesktop={isDesktop}

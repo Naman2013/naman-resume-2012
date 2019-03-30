@@ -33,7 +33,7 @@ const profPic = photoUrl =>
 const ObserverInfo = ({
   avatarURL, isDesktop, displayName, gravityRankLabel,
 }) => (
-  <div className="root">
+  <div className="root mb-4">
     {isDesktop ? (
       <div className="title-container">
         <span className="title">Observer:</span>

@@ -95,9 +95,9 @@ module.exports = {
         exclude: /\.module\.scss$/,
         loaders: [
           'style-loader',
-          'css-loader?modules&importLoaders=1&localIdentName=[local]',
-          'postcss-loader',
-          'sass-loader',
+          'css-loader?modules&importLoaders=1&localIdentName=[local]&sourceMap=1',
+          { loader: 'postcss-loader', options: { sourceMap: true } },
+          { loader: 'sass-loader', options: { sourceMap: true } },
         ],
       },
       // CSS Modules Configuration

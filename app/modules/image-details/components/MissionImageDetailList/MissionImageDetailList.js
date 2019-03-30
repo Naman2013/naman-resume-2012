@@ -8,33 +8,32 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Request from 'components/common/network/Request';
-import { MISSION_DETAIL_LIST } from 'services/missions';
-import BootstrappedMissionDetailList from './BootstrappedMissionDetailList';
+import { IMAGE_DETAIL_LIST } from 'services/missions';
+import BootstrappedMissionImageDetailList from './BootstrappedMissionImageDetailList';
 
 const { bool, number, oneOfType, string } = PropTypes;
 
-const MissionDetailList = ({
-  isDesktop,
-  customerImageId,
-  scheduledMissionId,
-}) => (
+const MissionDetailList = ({ isDesktop, scheduledMissionId }) => (
   <div className="mb-4">
     <Request
       authorizationRedirect
-      serviceURL={MISSION_DETAIL_LIST}
+      serviceURL={IMAGE_DETAIL_LIST}
       method="POST"
       serviceExpiresFieldName="expires"
       requestBody={{
         scheduledMissionId,
       }}
       render={({ fetchingContent, serviceResponse }) => (
-        <BootstrappedMissionDetailList
-          isDesktop={isDesktop}
-          fetching={fetchingContent}
-          customerImageId={customerImageId}
-          scheduledMissionId={scheduledMissionId}
-          {...serviceResponse}
-        />
+        <div>
+          {
+            <BootstrappedMissionImageDetailList
+              isDesktop={isDesktop}
+              fetching={fetchingContent}
+              scheduledMissionId={scheduledMissionId}
+              {...serviceResponse}
+            />
+          }
+        </div>
       )}
     />
   </div>

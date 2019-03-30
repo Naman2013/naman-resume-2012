@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+import { Button } from 'react-bootstrap';
 import Modal from 'react-modal';
 import { intlShape, injectIntl } from 'react-intl';
 import { customModalStyles } from 'app/styles/mixins/utilities';
-import Button from 'app/components/common/style/buttons/Button';
 import styles from './ObservationsForm.style';
 import messages from './ObservationsForm.messages';
 import './styles.scss';
@@ -177,15 +177,17 @@ class ObservationsForm extends Component {
             placeholder="Title Your Entry"
             className="obs-form-input"
           />
-          <span className="obs-form-required">*required</span>
           <textarea
             placeholder="Tell us something interesting and earn Gravity!"
             value={observation}
             onChange={this.onObservationChange}
             className="obs-form-textarea"
           />
-          <span className="obs-form-required">*required</span>
-          <Button onClickEvent={this.onSubmitForm} text={saveLabelText} />
+
+          <div className="text-right">
+            <Button onClickEvent={this.onSubmitForm}>{saveLabelText}</Button>
+            <Button className="ml-3">Submit</Button>
+          </div>
         </form>
         <Modal
           ariaHideApp={false}
