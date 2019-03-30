@@ -175,13 +175,13 @@ class ObservationsForm extends Component {
             value={title}
             onChange={this.onTitleChange}
             placeholder="Title Your Entry"
-            className="obs-form-input"
+            className="observation-control"
           />
           <textarea
             placeholder="Tell us something interesting and earn Gravity!"
             value={observation}
             onChange={this.onObservationChange}
-            className="obs-form-textarea"
+            className="observation-control"
           />
 
           <div className="text-right">

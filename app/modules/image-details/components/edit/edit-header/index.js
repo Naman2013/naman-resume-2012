@@ -7,6 +7,7 @@ export const EditHeader = props => {
   const { imageTitle, customerImageId, deleteImage } = props;
 
   const [isDeleteOpen, setDeleteOpen] = useState(false);
+  const [isTagsOpen, setTagsOpen] = useState(false);
 
   return (
     <Row className="edit-header">
@@ -18,12 +19,19 @@ export const EditHeader = props => {
           <Button>Write Observation</Button>
 
           <BtnWithPopover
+            isOpen={isTagsOpen}
+            setOpen={setTagsOpen}
             className="ml-2"
             tooltip="Label"
             icon={<span className="icon-label" />}
             popover={
               <div>
-                <h1>Label</h1>
+                <input
+                  type="text"
+                  className="observation-control observation-control-sm"
+                  placeholder="Add tags to this image"
+                />
+                <hr />
               </div>
             }
           />
