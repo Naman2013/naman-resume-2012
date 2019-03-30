@@ -34,10 +34,10 @@ const ViewHeader = ({ imageTitle }) => (
 
 const EditHeader = ({ imageTitle }) => (
   <Row className="edit-header">
-    <Col sm={6} className="header">
+    <Col lg={6} className="header">
       <h2 className="">{imageTitle}</h2>
     </Col>
-    <Col sm={6}>
+    <Col lg={6}>
       <div className="text-right">
         <Button>Write Observation</Button>
         <Tooltip title="Label">
