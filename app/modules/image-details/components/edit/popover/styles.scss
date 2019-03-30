@@ -9,4 +9,18 @@
   box-shadow: 0 0 6px 0 $shadows;
   background-color: $romance;
   border-top: 6px solid $lightHeadedAstronaut;
+
+  .custom-popover-header {
+    //font-family: BrandonGrotesque;
+    font-family: $primary-font;
+    font-size: 12px;
+    font-weight: 900;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.5;
+    letter-spacing: 1px;
+    color: $lightHeadedAstronaut;
+    padding: 30px;
+    border-bottom: 1px solid $hawkesBlue;
+  }
 }

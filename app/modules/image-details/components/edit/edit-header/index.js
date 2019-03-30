@@ -43,6 +43,7 @@ export const EditHeader = ({ imageTitle }) => {
             className="ml-2"
             tooltip="Plus"
             icon={<span className="icon-plus" />}
+            popoverHeader="ADD IMAGE TO GALLERY"
             popover={
               <div>
                 <h1>Plus</h1>
@@ -54,6 +55,7 @@ export const EditHeader = ({ imageTitle }) => {
             className="ml-2"
             tooltip="Share"
             icon={<span className="icon-share" />}
+            popoverHeader="SHARE THIS IMAGE"
             popover={
               <div>
                 <h1>Share</h1>
@@ -65,7 +67,7 @@ export const EditHeader = ({ imageTitle }) => {
             className="ml-2"
             tooltip="Delete"
             icon={<span className="icon-delete" />}
-            popoverHeader="Delete"
+            popoverHeader="DELETE THIS IMAGE?"
             popover={
               <div>
                 <h1>Delete</h1>

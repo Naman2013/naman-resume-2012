@@ -42,10 +42,11 @@ export const BtnWithPopover = props => {
         </Button>
       </Tooltip>
 
-      <Popover isOpen={open} onHide={() => setOpen(!open)}>
-        {popoverHeader ? (
-          <h2 className="popover-header">{popoverHeader}</h2>
-        ) : null}
+      <Popover
+        isOpen={open}
+        onHide={() => setOpen(!open)}
+        header={popoverHeader}
+      >
         {popover}
       </Popover>
     </div>
