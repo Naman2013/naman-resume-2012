@@ -1,5 +1,7 @@
 @import "~app/styles/variables/index";
 
+$popoverPadding: 30px;
+
 .custom-popover {
   position: absolute;
   top: 0;
@@ -20,7 +22,15 @@
     line-height: 1.5;
     letter-spacing: 1px;
     color: $lightHeadedAstronaut;
-    padding: 30px;
+    padding: $popoverPadding;
     border-bottom: 1px solid $hawkesBlue;
+  }
+
+  .custom-popover-body {
+    padding: $popoverPadding;
+
+    hr {
+      margin: $popoverPadding (-$popoverPadding);
+    }
   }
 }

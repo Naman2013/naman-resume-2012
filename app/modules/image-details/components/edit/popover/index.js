@@ -6,7 +6,7 @@ export const Popover = props => {
   return isOpen ? (
     <div className="custom-popover animated fadeIn faster">
       {header ? <h2 className="custom-popover-header">{header}</h2> : null}
-      {children}
+      <div className="custom-popover-body">{children}</div>
     </div>
   ) : null;
 };

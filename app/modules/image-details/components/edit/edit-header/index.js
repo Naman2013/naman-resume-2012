@@ -70,7 +70,14 @@ export const EditHeader = ({ imageTitle }) => {
             popoverHeader="DELETE THIS IMAGE?"
             popover={
               <div>
-                <h1>Delete</h1>
+                <p className="p-19">
+                  Are you sure you want to delete this image? It will be removed
+                  from all galleries.
+                </p>
+                <hr />
+                <Button block>NO, DO NOT DELETE</Button>
+                <hr />
+                <Button block>YES, DELETE NOW</Button>
               </div>
             }
           />
