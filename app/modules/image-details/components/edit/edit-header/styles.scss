@@ -9,15 +9,12 @@
     display: flex;
     align-items: center;
   }
-  .icon-btn {
-    padding: 0;
-    width: 40px;
-    height: 40px;
-    text-align: center;
 
-    span {
-      line-height: 40px;
-      font-size: 15px;
-    }
+
+  .custom-popover {
+    width: 300px;
+    right: -10px;
+    bottom: -40px;
+    top: initial;
   }
 }

@@ -1,6 +1,7 @@
+import { BtnWithPopover } from 'app/modules/image-details/components/edit/btn-with-popover';
 import { Popover } from 'app/modules/image-details/components/edit/popover';
 import React, { useState } from 'react';
-import { Button, Col, Row } from 'react-bootstrap';
+import { Button, Col, OverlayTrigger, Row } from 'react-bootstrap';
 import { Tooltip } from 'react-tippy';
 import './styles.scss';
 
@@ -13,38 +14,63 @@ export const EditHeader = ({ imageTitle }) => {
         <h2 className="">{imageTitle}</h2>
       </Col>
       <Col lg={6}>
-        <div className="text-right">
+        <div className="float-right">
           <Button>Write Observation</Button>
-          <Tooltip title="Label">
-            <Button className="icon-btn ml-2">
-              <span className="icon-label" />
-            </Button>
-          </Tooltip>
-          <Tooltip title="Download">
-            <Button className="icon-btn ml-2">
-              <span className="icon-download" />
-            </Button>
-          </Tooltip>
-          <Tooltip title="Plus">
-            <Button className="icon-btn ml-2">
-              <span className="icon-plus" />
-            </Button>
-          </Tooltip>
 
-          <Tooltip title="Share">
-            <Button className="icon-btn ml-2">
-              <span className="icon-share" />
-            </Button>
-          </Tooltip>
+          <BtnWithPopover
+            className="ml-2"
+            tooltip="Label"
+            icon={<span className="icon-label" />}
+            popover={
+              <div>
+                <h1>Label</h1>
+              </div>
+            }
+          />
 
-          <Tooltip title="Delete">
-            <Button className="icon-btn ml-2" onClick={() => open(!isOpen)}>
-              <span className="icon-delete" />
-            </Button>
-          </Tooltip>
-          <Popover isOpen={isOpen} onHide={() => open(!isOpen)}>
-            <h2>test</h2>
-          </Popover>
+          <BtnWithPopover
+            className="ml-2"
+            tooltip="Download"
+            icon={<span className="icon-download" />}
+            popover={
+              <div>
+                <h1>Download</h1>
+              </div>
+            }
+          />
+
+          <BtnWithPopover
+            className="ml-2"
+            tooltip="Plus"
+            icon={<span className="icon-plus" />}
+            popover={
+              <div>
+                <h1>Plus</h1>
+              </div>
+            }
+          />
+
+          <BtnWithPopover
+            className="ml-2"
+            tooltip="Share"
+            icon={<span className="icon-share" />}
+            popover={
+              <div>
+                <h1>Share</h1>
+              </div>
+            }
+          />
+
+          <BtnWithPopover
+            className="ml-2"
+            tooltip="Delete"
+            icon={<span className="icon-delete" />}
+            popover={
+              <div>
+                <h1>Delete</h1>
+              </div>
+            }
+          />
         </div>
       </Col>
     </Row>
