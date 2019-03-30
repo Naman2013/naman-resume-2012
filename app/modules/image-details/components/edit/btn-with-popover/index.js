@@ -45,8 +45,11 @@ export const BtnWithPopover = props => {
   return (
     <div className={`btn-with-popover ${className}`} ref={node}>
       <Tooltip title={tooltip}>
-        <Button className="icon-btn" onClick={() => setOpen(!isOpen)}>
-          {icon}
+        <Button
+          className={`icon-btn ${isOpen ? 'opened' : ''}`}
+          onClick={() => setOpen(!isOpen)}
+        >
+          {!isOpen ? icon : <span className="icon-close" />}
         </Button>
       </Tooltip>
 

@@ -8,6 +8,9 @@ export const EditHeader = props => {
 
   const [isDeleteOpen, setDeleteOpen] = useState(false);
   const [isTagsOpen, setTagsOpen] = useState(false);
+  const [isDownloadOpen, setDownloadOpen] = useState(false);
+  const [isAddOpen, setAddOpen] = useState(false);
+  const [isShareOpen, setShareOpen] = useState(false);
 
   return (
     <Row className="edit-header">
@@ -37,6 +40,8 @@ export const EditHeader = props => {
           />
 
           <BtnWithPopover
+            isOpen={isDownloadOpen}
+            setOpen={setDownloadOpen}
             className="ml-2"
             tooltip="Download"
             icon={<span className="icon-download" />}
@@ -48,6 +53,8 @@ export const EditHeader = props => {
           />
 
           <BtnWithPopover
+            isOpen={isAddOpen}
+            setOpen={setAddOpen}
             className="ml-2"
             tooltip="Plus"
             icon={<span className="icon-plus" />}
@@ -60,6 +67,8 @@ export const EditHeader = props => {
           />
 
           <BtnWithPopover
+            isOpen={isShareOpen}
+            setOpen={setShareOpen}
             className="ml-2"
             tooltip="Share"
             icon={<span className="icon-share" />}
