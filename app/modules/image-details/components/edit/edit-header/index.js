@@ -65,6 +65,7 @@ export const EditHeader = ({ imageTitle }) => {
             className="ml-2"
             tooltip="Delete"
             icon={<span className="icon-delete" />}
+            popoverHeader="Delete"
             popover={
               <div>
                 <h1>Delete</h1>
