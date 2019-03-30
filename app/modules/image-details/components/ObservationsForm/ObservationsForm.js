@@ -1,28 +1,15 @@
-/***********************************
-* V4 Observation form for editing
-*
-*
-*
-***********************************/
-
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import Modal from 'react-modal';
 import { intlShape, injectIntl } from 'react-intl';
-import { customModalStyles } from 'styles/mixins/utilities';
-import Button from 'components/common/style/buttons/Button';
+import { customModalStyles } from 'app/styles/mixins/utilities';
+import Button from 'app/components/common/style/buttons/Button';
 import styles from './ObservationsForm.style';
 import messages from './ObservationsForm.messages';
+import './styles.scss';
 
-const {
-  arrayOf,
-  bool,
-  number,
-  oneOfType,
-  shape,
-  string,
-} = PropTypes;
+const { arrayOf, bool, number, oneOfType, shape, string } = PropTypes;
 
 class ObservationsForm extends Component {
   static propTypes = {
@@ -38,7 +25,7 @@ class ObservationsForm extends Component {
       cid: oneOfType([number, string]).isRequired,
     }).isRequired,
     intl: intlShape.isRequired,
-  }
+  };
 
   static defaultProps = {
     saveLabel: '',
@@ -59,8 +46,8 @@ class ObservationsForm extends Component {
   componentWillReceiveProps(nextProps) {
     let title = this.state.observationTitle;
     let observation = this.state.observationLog;
-    let allowShare = this.state.allowShare;
-    let saveLabelText = this.state.saveLabelText;
+    let { allowShare } = this.state;
+    let { saveLabelText } = this.state;
 
     if (nextProps.observationTitle !== this.state.observationTitle) {
       title = nextProps.observationTitle;
@@ -85,23 +72,23 @@ class ObservationsForm extends Component {
     });
   }
 
-  onTitleChange = (e) => {
+  onTitleChange = e => {
     e.preventDefault();
 
     this.setState({
       title: e.target.value,
     });
-  }
+  };
 
-  onObservationChange = (e) => {
+  onObservationChange = e => {
     e.preventDefault();
 
     this.setState({
       observation: e.target.value,
     });
-  }
+  };
 
-  onSubmitForm = (e) => {
+  onSubmitForm = e => {
     e.preventDefault();
     const {
       actions,
@@ -114,95 +101,105 @@ class ObservationsForm extends Component {
     if (!title || !observation) {
       window.alert(intl.formatMessage(messages.MissingRequired));
     } else {
-      axios.post('/api/images/setObservationTags', {
-        title,
-        text: observation,
-        scheduledMissionId,
-        customerImageId,
-        at: user.at,
-        token: user.token,
-        cid: user.cid,
-      }).then((res) => {
+      axios
+        .post('/api/images/setObservationTags', {
+          title,
+          text: observation,
+          scheduledMissionId,
+          customerImageId,
+          at: user.at,
+          token: user.token,
+          cid: user.cid,
+        })
+        .then(res => {
+          if (!res.data.apiError && this.state.allowShare) {
+            axios
+              .post('/api/images/shareMemberPicture', {
+                customerImageId,
+                at: user.at,
+                token: user.token,
+                cid: user.cid,
+              })
+              .then(shareRes => {
+                this.setState({
+                  showPrompt: shareRes.data.showSharePrompt,
+                  promptText: shareRes.data.sharePrompt,
+                  allowShare: false,
+                  saveLabelText: 'Save',
+                });
+              });
+          }
 
-        if (!res.data.apiError && this.state.allowShare) {
-          axios.post('/api/images/shareMemberPicture', {
-            customerImageId,
-            at: user.at,
-            token: user.token,
-            cid: user.cid,
-          }).then((shareRes) => {
-            this.setState({
-              showPrompt: shareRes.data.showSharePrompt,
-              promptText: shareRes.data.sharePrompt,
-              allowShare: false,
-              saveLabelText: 'Save',
-            });
-          });
-        }
-
-        actions.validateResponseAccess(res)
-      });
-
-
+          actions.validateResponseAccess(res);
+        });
     }
-  }
+  };
 
-  closeModal = (e) => {
+  closeModal = e => {
     this.setState({
       showPrompt: false,
     });
-  }
+  };
 
   render() {
-    const {
-    } = this.props;
     const {
       title,
       observation,
       showPrompt,
       promptText,
-      saveLabelText
+      saveLabelText,
     } = this.state;
 
+    return (
+      <div className="root observations-form">
+        <form className="root-form">
+          <div className="header">
+            <span className="icon-person">
+              <span className="path1" />
+              <span className="path2" />
+              <span className="path3" />
+              <span className="path4" />
+            </span>
+            <span className="write h3-custom">Write Your Observation</span>
+          </div>
 
-    return (<div className="root observations-form">
-      <form className="root-form">
-        <div className="header">
-          <span className="inspire">Inspire the Slooh Community:</span>
-          <span className="write">Write Your Observation</span>
-        </div>
-        <input
-          type="text"
-          value={title}
-          onChange={this.onTitleChange}
-          placeholder={'Title Your Entry'}
-          className="obs-form-input"
-        />
-        <span className="obs-form-required">*required</span>
-        <textarea
-          placeholder={'Tell us something interesting and earn Gravity!'}
-          value={observation}
-          onChange={this.onObservationChange}
-          className="obs-form-textarea"
-        />
-        <span className="obs-form-required">*required</span>
-        <Button
-          onClickEvent={this.onSubmitForm}
-          text={saveLabelText}
-        />
-      </form>
-      <Modal
-        ariaHideApp={false}
-        isOpen={showPrompt}
-        style={customModalStyles}
-        contentLabel="Observation Form"
-        onRequestClose={this.closeModal}
-      >
-        <i className="fa fa-close" onClick={this.closeModal} />
-        {promptText}
-      </Modal>
-      <style jsx>{styles}</style>
-    </div>);
+          <h2 className="h2-bigger">
+            Earn Gravity, and Inspire the Slooh Community!
+          </h2>
+          <p className="p-19">
+            Nam dapibus nisl vitae elit fringie lla rutrum. Aenean sollicitudin
+            do erat a massa estibulum sed metus in lorem tristique lorem dolar.
+          </p>
+          <input
+            type="text"
+            value={title}
+            onChange={this.onTitleChange}
+            placeholder="Title Your Entry"
+            className="obs-form-input"
+          />
+          <span className="obs-form-required">*required</span>
+          <textarea
+            placeholder="Tell us something interesting and earn Gravity!"
+            value={observation}
+            onChange={this.onObservationChange}
+            className="obs-form-textarea"
+          />
+          <span className="obs-form-required">*required</span>
+          <Button onClickEvent={this.onSubmitForm} text={saveLabelText} />
+        </form>
+        <Modal
+          ariaHideApp={false}
+          isOpen={showPrompt}
+          style={customModalStyles}
+          contentLabel="Observation Form"
+          onRequestClose={this.closeModal}
+        >
+          <i className="fa fa-close" onClick={this.closeModal} />
+          {promptText}
+        </Modal>
+        <style jsx>{styles}</style>
+      </div>
+    );
   }
 }
 

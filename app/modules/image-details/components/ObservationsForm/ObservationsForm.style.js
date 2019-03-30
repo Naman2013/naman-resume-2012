@@ -18,12 +18,6 @@ export default css`
     background-color: ${romance};
   }
 
-  .header {
-    border-bottom: 1px solid ${shadows};
-    padding-bottom: 25px;
-    margin-bottom: 25px;
-  }
-
   .inspire {
     display: block;
     font-size: 11px;

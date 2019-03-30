@@ -1,0 +1,25 @@
+@import "~app/styles/variables/index";
+
+.observations-form {
+  margin: 0 !important;
+
+
+  .header {
+    border-bottom: 1px solid $shadows;
+    margin: -30px -30px 30px;
+    display: flex;
+    align-items: center;
+
+    .icon-person {
+      border-right: 1px solid $shadows;
+      padding: 30px;
+    }
+
+    .write {
+      margin-right: 30px;
+      font-size: 12px;
+      font-family: $primary-font;
+      letter-spacing: 2px;
+    }
+  }
+}
