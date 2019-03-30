@@ -3,7 +3,9 @@ import React, { useState } from 'react';
 import { Button, Col, Row } from 'react-bootstrap';
 import './styles.scss';
 
-export const EditHeader = ({ imageTitle }) => {
+export const EditHeader = props => {
+  const { imageTitle, customerImageId, deleteImage } = props;
+
   const [isDeleteOpen, setDeleteOpen] = useState(false);
 
   return (
@@ -79,7 +81,16 @@ export const EditHeader = ({ imageTitle }) => {
                   NO, DO NOT DELETE
                 </Button>
                 <hr />
-                <Button block>YES, DELETE NOW</Button>
+                <Button
+                  block
+                  onClick={() =>
+                    deleteImage(customerImageId).then(() =>
+                      setDeleteOpen(false)
+                    )
+                  }
+                >
+                  YES, DELETE NOW
+                </Button>
               </div>
             }
           />

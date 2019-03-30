@@ -1,7 +1,10 @@
 import { actions, constants } from 'ducks-helpers';
 import { handleActions } from 'redux-actions';
 
-export const TYPE = constants('image-details', ['~GET_IMAGE_DETAILS']);
+export const TYPE = constants('image-details', [
+  '~GET_IMAGE_DETAILS',
+  '~DELETE_IMAGE',
+]);
 export const ACTION = actions(TYPE);
 
 export const initialState = {

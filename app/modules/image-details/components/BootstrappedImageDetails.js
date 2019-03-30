@@ -1,4 +1,4 @@
-import { EditHeader } from 'app/modules/image-details/components/edit/edit-header';
+import EditHeader from 'app/modules/image-details/containers/edit-header';
 import { ModalImg } from 'app/modules/telescope/components/modal-img';
 import React, { useState, Fragment } from 'react';
 import PropTypes from 'prop-types';
@@ -42,7 +42,9 @@ const BootstrappedImageDetails = props => {
     scheduledMissionId,
     iconFileData,
     canEditFlag,
+    customerImageId,
   } = props;
+
   const showMissionRelatedInfo = Number(scheduledMissionId) > 0;
   const rightPanelDisplayFlags = [showMissionRelatedInfo];
   const showRightContainer =
@@ -55,7 +57,10 @@ const BootstrappedImageDetails = props => {
           <div className="obs-img-container">
             <div className="obs-header">
               {canEditFlag ? (
-                <EditHeader imageTitle={imageTitle} />
+                <EditHeader
+                  imageTitle={imageTitle}
+                  customerImageId={customerImageId}
+                />
               ) : (
                 <ViewHeader imageTitle={imageTitle} />
               )}
