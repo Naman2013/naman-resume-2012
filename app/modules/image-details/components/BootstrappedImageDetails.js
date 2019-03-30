@@ -1,11 +1,10 @@
+import { EditHeader } from 'app/modules/image-details/components/edit/edit-header';
 import { ModalImg } from 'app/modules/telescope/components/modal-img';
 import React, { useState, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import TwoTabbedNav from 'app/components/TwoTabbedNav';
 import ResponsiveTwoColumnContainer from 'app/components/ResponsiveTwoColumnContainer';
 import ObjectDetailList from 'app/modules/image-details/components/ObjectDetailList';
-import { Button, Col, Row } from 'react-bootstrap';
-import { Tooltip } from 'react-tippy';
 import MainContainer from './partials/MainContainer';
 import AsideContainer from './partials/AsideContainer';
 import styles from './ImageDetails.style';
@@ -30,44 +29,6 @@ const ViewHeader = ({ imageTitle }) => (
       dangerouslySetInnerHTML={{ __html: imageTitle }}
     />
   </Fragment>
-);
-
-const EditHeader = ({ imageTitle }) => (
-  <Row className="edit-header">
-    <Col lg={6} className="header">
-      <h2 className="">{imageTitle}</h2>
-    </Col>
-    <Col lg={6}>
-      <div className="text-right">
-        <Button>Write Observation</Button>
-        <Tooltip title="Label">
-          <Button className="icon-btn ml-2">
-            <span className="icon-label" />
-          </Button>
-        </Tooltip>
-        <Tooltip title="Download">
-          <Button className="icon-btn ml-2">
-            <span className="icon-download" />
-          </Button>
-        </Tooltip>
-        <Tooltip title="Plus">
-          <Button className="icon-btn ml-2">
-            <span className="icon-plus" />
-          </Button>
-        </Tooltip>
-        <Tooltip title="Share">
-          <Button className="icon-btn ml-2">
-            <span className="icon-share" />
-          </Button>
-        </Tooltip>
-        <Tooltip title="Delete">
-          <Button className="icon-btn ml-2">
-            <span className="icon-delete" />
-          </Button>
-        </Tooltip>
-      </div>
-    </Col>
-  </Row>
 );
 
 const BootstrappedImageDetails = props => {
