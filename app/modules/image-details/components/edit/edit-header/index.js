@@ -1,12 +1,10 @@
 import { BtnWithPopover } from 'app/modules/image-details/components/edit/btn-with-popover';
-import { Popover } from 'app/modules/image-details/components/edit/popover';
 import React, { useState } from 'react';
-import { Button, Col, OverlayTrigger, Row } from 'react-bootstrap';
-import { Tooltip } from 'react-tippy';
+import { Button, Col, Row } from 'react-bootstrap';
 import './styles.scss';
 
 export const EditHeader = ({ imageTitle }) => {
-  const [isOpen, open] = useState(false);
+  const [isDeleteOpen, setDeleteOpen] = useState(false);
 
   return (
     <Row className="edit-header">
@@ -64,6 +62,8 @@ export const EditHeader = ({ imageTitle }) => {
           />
 
           <BtnWithPopover
+            isOpen={isDeleteOpen}
+            setOpen={setDeleteOpen}
             className="ml-2"
             tooltip="Delete"
             icon={<span className="icon-delete" />}
@@ -75,7 +75,9 @@ export const EditHeader = ({ imageTitle }) => {
                   from all galleries.
                 </p>
                 <hr />
-                <Button block>NO, DO NOT DELETE</Button>
+                <Button block onClick={() => setDeleteOpen(false)}>
+                  NO, DO NOT DELETE
+                </Button>
                 <hr />
                 <Button block>YES, DELETE NOW</Button>
               </div>
