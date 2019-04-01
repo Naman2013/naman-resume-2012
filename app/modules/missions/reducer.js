@@ -55,6 +55,7 @@ export const initialState = {
     categoryList: [],
     selectedCategorySlug: null,
     objectList: [],
+    objectListExpires: null,
     selectedObjectId: null,
   },
 
@@ -62,6 +63,7 @@ export const initialState = {
     constellationList: [],
     selectedConstellation: null,
     objectList: [],
+    objectListExpires: null,
     selectedObjectId: null,
   },
 
@@ -175,6 +177,14 @@ function getMissionSlotSuccess(state, action) {
     isFetching: false,
     isLoaded: true,
     missions: { ...state.missions, missionList: action.payload.missionList },
+    bySlooh1000: {
+      ...state.bySlooh1000,
+      objectListExpires: null,
+    },
+    byConstellation: {
+      ...state.byConstellation,
+      objectListExpires: null,
+    },
   };
 }
 
@@ -203,12 +213,14 @@ function resetMissionsData(state) {
       ...state.bySlooh1000,
       selectedCategorySlug: null,
       objectList: [],
+      objectListExpires: null,
       selectedObjectId: null,
     },
     byConstellation: {
       ...state.byConstellation,
       selectedConstellation: null,
       objectList: [],
+      objectListExpires: null,
       selectedObjectId: null,
     },
     byCatalog: {
@@ -261,6 +273,7 @@ function getObjectListSuccess(state, action) {
     bySlooh1000: {
       ...state.bySlooh1000,
       objectList: action.payload.objectList,
+      objectListExpires: action.payload.expires,
     },
   };
 }
@@ -305,6 +318,7 @@ function getConstellationObjectListSuccess(state, action) {
     byConstellation: {
       ...state.byConstellation,
       objectList: action.payload.objectList,
+      objectListExpires: action.payload.expires,
     },
   };
 }

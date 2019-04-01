@@ -104,6 +104,12 @@ export const makeBySlooh1000SelectedObjectDataSelector = () =>
     }
   );
 
+export const makeBySlooh1000ObjectListExpiresSelector = () =>
+  createSelector(
+    makeBySlooh1000Selector(),
+    state => state.objectListExpires
+  );
+
 /**
  * Gets the objectList from reducer
  * Returns objectList options ready for Select
@@ -181,6 +187,12 @@ export const makeByConstellationObjectListSelectOptsSelector = () =>
         'objectIsEnabled'
       );
     }
+  );
+
+export const makeByConstellationObjectListExpiresSelector = () =>
+  createSelector(
+    makeByConstellationSelector(),
+    state => state.objectListExpires
   );
 
 // byCatalog

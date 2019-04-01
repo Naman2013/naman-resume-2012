@@ -11,6 +11,7 @@ import {
   makeBySlooh1000SelectedObjectIdSelector,
   makeBySlooh1000SelectedObjectDataSelector,
   makeBySlooh1000DataSelector,
+  makeBySlooh1000ObjectListExpiresSelector,
   makeMissionsLoadingSelector,
   makeMissionsFirstSlot,
   makeReservedMissionData,
@@ -38,6 +39,7 @@ const mapStateToProps = createStructuredSelector({
   isFetching: makeMissionsLoadingSelector(),
   missionSlot: makeMissionsFirstSlot(),
   reservedMissionData: makeReservedMissionData(),
+  objectListExpires: makeBySlooh1000ObjectListExpiresSelector(),
 });
 
 const mapDispatchToProps = {
