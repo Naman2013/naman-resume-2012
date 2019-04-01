@@ -17,4 +17,14 @@
     //bottom: -40px;
     top: initial;
   }
+
+
+  .tags-popover {
+    position: relative;
+
+    .tag-list {
+      max-height: 300px;
+      overflow: auto;
+    }
+  }
 }

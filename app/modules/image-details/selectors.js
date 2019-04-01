@@ -5,7 +5,7 @@ export const selectImageDetails = state => state.imageDetails;
 export const makeTagsFetchingSelector = () =>
   createSelector(
     selectImageDetails,
-    state => state.tagsData.isLoading
+    state => state.tagsData.isFetching
   );
 
 export const makeTagListSelector = () =>

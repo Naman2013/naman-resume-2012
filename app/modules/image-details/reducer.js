@@ -19,7 +19,7 @@ export const initialState = {
   data: {},
 
   tagsData: {
-    isLoading: false,
+    isFetching: false,
     data: [],
     tagList: [],
   },

@@ -1,15 +1,8 @@
-import { Spinner } from 'app/components/spinner/index';
 import { BtnWithPopover } from 'app/modules/image-details/components/edit/btn-with-popover';
-import React, { useState, useEffect } from 'react';
+import { TagBtn } from 'app/modules/image-details/components/edit/edit-header/tag-btn';
+import React, { useState } from 'react';
 import { Button, Col, Row } from 'react-bootstrap';
 import './styles.scss';
-
-const didMount = props => () => {
-  const { getTags, customerImageId } = props;
-  console.log(props);
-  console.log('didMount');
-  getTags({ customerImageId });
-};
 
 export const EditHeader = props => {
   const {
@@ -18,29 +11,14 @@ export const EditHeader = props => {
     deleteImage,
     tagList,
     tagsFetching,
+    getTags,
+    setTag,
   } = props;
 
-  useEffect(didMount(props), []);
-
   const [isDeleteOpen, setDeleteOpen] = useState(false);
-  const [isTagsOpen, setTagsOpen] = useState(false);
   const [isDownloadOpen, setDownloadOpen] = useState(false);
   const [isAddOpen, setAddOpen] = useState(false);
   const [isShareOpen, setShareOpen] = useState(false);
-
-  const [tagVal, setTagVal] = useState('');
-
-  const submitTag = evt => {
-    evt.preventDefault();
-    console.log(tagVal);
-    const { setTag, customerImageId } = props;
-    setTag({
-      text: tagVal,
-      customerImageId,
-    });
-    // clear form
-    setTagVal('');
-  };
 
   return (
     <Row className="edit-header">
@@ -51,31 +29,14 @@ export const EditHeader = props => {
         <div className="float-right">
           <Button>Write Observation</Button>
 
-          <BtnWithPopover
-            isOpen={isTagsOpen}
-            setOpen={setTagsOpen}
-            className="ml-2"
-            tooltip="Label"
-            icon={<span className="icon-label" />}
-            popover={
-              <div style={{ position: 'relative' }}>
-                <Spinner loading={tagsFetching} />
-                <form noValidate onSubmit={submitTag}>
-                  <input
-                    type="text"
-                    className="observation-control observation-control-sm"
-                    placeholder="Add tags to this image"
-                    onChange={evt => setTagVal(evt.target.value)}
-                    value={tagVal}
-                  />
-                </form>
-                <hr />
-
-                {tagList.map(tag => (
-                  <Button block>{tag.tagText}</Button>
-                ))}
-              </div>
-            }
+          <TagBtn
+            {...{
+              getTags,
+              setTag,
+              tagList,
+              tagsFetching,
+              customerImageId,
+            }}
           />
 
           <BtnWithPopover
