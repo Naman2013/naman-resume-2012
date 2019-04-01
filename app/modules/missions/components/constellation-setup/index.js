@@ -67,6 +67,10 @@ export class ConstellationSetup extends Component {
               isDisabled={objectListOpts.length === 0 || disabled}
               value={selectedObjectId}
             />
+
+            {objectListOpts.length === 0 && selectedConstellation && (
+              <div className="explanation">no objects available</div>
+            )}
           </div>
         </div>
 

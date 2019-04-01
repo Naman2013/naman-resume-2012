@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import moment from 'moment';
 import { AvailbleMissionTile } from '../available-mission-tile';
 import { MissionSuccessModal } from '../mission-success-modal';
+import { ExplanationModal } from '../explanation-modal';
 import './styles.scss';
 
 export class Slooh1000 extends Component {
@@ -91,8 +92,14 @@ export class Slooh1000 extends Component {
     const { setCategory, getObjectList, categoryList } = this.props;
     const { typeName, nameFrom, nameTo } = categoryList[value];
     setCategory(value);
-    getObjectList({ typeName, nameFrom, nameTo, includeDescription: true, callSource: 'bySlooh1000V4', });
-  }
+    getObjectList({
+      typeName,
+      nameFrom,
+      nameTo,
+      includeDescription: true,
+      callSource: 'bySlooh1000V4',
+    });
+  };
 
   render() {
     const {
@@ -105,10 +112,11 @@ export class Slooh1000 extends Component {
       selectedCategorySlug,
       selectedObjectId,
       reservedMissionData,
+      resetMissionsData,
     } = this.props;
 
     const { successModalShow } = this.state;
-    
+
     return (
       <div className="slooh-1000">
         <div className="container">
@@ -152,6 +160,14 @@ export class Slooh1000 extends Component {
             </div>
           </div>
         </div>
+
+        {missionSlot && !missionSlot.missionAvailable && (
+          <ExplanationModal
+            show
+            onHide={resetMissionsData}
+            text={missionSlot.explanation}
+          />
+        )}
 
         <MissionSuccessModal
           show={successModalShow}

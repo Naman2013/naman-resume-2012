@@ -242,7 +242,6 @@ function getCategoryListSuccess(state, action) {
 }
 
 function setCategory(state, action) {
-  console.log(action.payload);
   return {
     ...state,
     bySlooh1000: {

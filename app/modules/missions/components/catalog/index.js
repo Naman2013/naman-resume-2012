@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import moment from 'moment';
 import { AvailbleMissionTile } from '../available-mission-tile';
 import { MissionSuccessModal } from '../mission-success-modal';
+import { ExplanationModal } from '../explanation-modal';
 import './styles.scss';
 
 export class Catalog extends Component {
@@ -179,6 +180,14 @@ export class Catalog extends Component {
             </div>
           </div>
         </div>
+
+        {missionSlot && !missionSlot.missionAvailable && (
+          <ExplanationModal
+            show
+            onHide={resetMissionsData}
+            text={missionSlot.explanation}
+          />
+        )}
 
         <MissionSuccessModal
           show={successModalShow}

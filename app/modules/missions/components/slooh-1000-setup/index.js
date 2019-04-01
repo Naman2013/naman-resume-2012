@@ -86,6 +86,10 @@ export class Slooh1000Setup extends Component {
               isDisabled={objectListOpts.length === 0 || disabled}
               value={selectedObjectId}
             />
+
+            {objectListOpts.length === 0 && selectedCategorySlug && (
+              <div className="explanation">no objects available</div>
+            )}
           </div>
         </div>
 
