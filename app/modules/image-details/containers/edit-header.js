@@ -3,7 +3,12 @@ import {
   makeTagListSelector,
   makeTagsFetchingSelector,
 } from 'app/modules/image-details/selectors';
-import { deleteImage, getTags, setTag } from 'app/modules/image-details/thunks';
+import {
+  deleteImage,
+  deleteTag,
+  getTags,
+  setTag,
+} from 'app/modules/image-details/thunks';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
@@ -19,6 +24,7 @@ const mapDispatchToProps = {
   deleteImage,
   getTags,
   setTag,
+  deleteTag,
 };
 
 export default compose(

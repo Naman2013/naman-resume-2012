@@ -1,5 +1,6 @@
 import {
   deleteImageApi,
+  deleteTagApi,
   getImageDetailsApi,
   getTagsApi,
   setTagApi,
@@ -39,4 +40,21 @@ export const setTag = data => (dispatch, getState) => {
   return setTagApi({ at, token, cid, customerImageId, tagClass, tagType, text })
     .then(result => dispatch(ACTION.setTagSuccess(result.data)))
     .catch(error => dispatch(ACTION.setTagError(error)));
+};
+
+export const deleteTag = data => (dispatch, getState) => {
+  const { customerImageId, text, tagClass = 'image', tagType = 'user' } = data;
+  const { at, token, cid } = getState().user;
+  dispatch(ACTION.deleteTag());
+  return deleteTagApi({
+    at,
+    token,
+    cid,
+    customerImageId,
+    tagClass,
+    tagType,
+    text,
+  })
+    .then(result => dispatch(ACTION.deleteTagSuccess(result.data)))
+    .catch(error => dispatch(ACTION.deleteTagError(error)));
 };

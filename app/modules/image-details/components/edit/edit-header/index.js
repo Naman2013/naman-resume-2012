@@ -13,6 +13,7 @@ export const EditHeader = props => {
     tagsFetching,
     getTags,
     setTag,
+    deleteTag,
   } = props;
 
   const [isDeleteOpen, setDeleteOpen] = useState(false);
@@ -33,6 +34,7 @@ export const EditHeader = props => {
             {...{
               getTags,
               setTag,
+              deleteTag,
               tagList,
               tagsFetching,
               customerImageId,

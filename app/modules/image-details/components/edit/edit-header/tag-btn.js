@@ -29,6 +29,14 @@ export const TagBtn = props => {
     setTagVal('');
   };
 
+  const deleteTag = text => {
+    const { deleteTag, customerImageId } = props;
+    deleteTag({
+      text,
+      customerImageId,
+    });
+  };
+
   return (
     <BtnWithPopover
       isOpen={isTagsOpen}
@@ -58,7 +66,12 @@ export const TagBtn = props => {
                 distance={0}
                 position="top"
               >
-                <Button size="sm" block key={tag.tagIndex}>
+                <Button
+                  size="sm"
+                  block
+                  key={tag.tagIndex}
+                  onClick={() => deleteTag(tag.tagText)}
+                >
                   {tag.tagText}
                   <span className="icon-close float-right" />
                 </Button>

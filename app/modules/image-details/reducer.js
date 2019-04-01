@@ -38,6 +38,10 @@ export default handleActions(
     [TYPE.SET_TAG]: setTagFetching,
     [TYPE.SET_TAG_SUCCESS]: setTagSuccess,
     [TYPE.SET_TAG_ERROR]: setServerError,
+
+    [TYPE.DELETE_TAG]: setTagFetching,
+    [TYPE.DELETE_TAG_SUCCESS]: setTagSuccess,
+    [TYPE.DELETE_TAG_ERROR]: setServerError,
   },
   initialState
 );
