@@ -1,3 +1,4 @@
+import { Spinner } from 'app/components/spinner/index';
 import { BtnWithPopover } from 'app/modules/image-details/components/edit/btn-with-popover';
 import React, { useState, useEffect } from 'react';
 import { Button, Col, Row } from 'react-bootstrap';
@@ -11,7 +12,13 @@ const didMount = props => () => {
 };
 
 export const EditHeader = props => {
-  const { imageTitle, customerImageId, deleteImage } = props;
+  const {
+    imageTitle,
+    customerImageId,
+    deleteImage,
+    tagList,
+    tagsFetching,
+  } = props;
 
   useEffect(didMount(props), []);
 
@@ -20,6 +27,20 @@ export const EditHeader = props => {
   const [isDownloadOpen, setDownloadOpen] = useState(false);
   const [isAddOpen, setAddOpen] = useState(false);
   const [isShareOpen, setShareOpen] = useState(false);
+
+  const [tagVal, setTagVal] = useState('');
+
+  const submitTag = evt => {
+    evt.preventDefault();
+    console.log(tagVal);
+    const { setTag, customerImageId } = props;
+    setTag({
+      text: tagVal,
+      customerImageId,
+    });
+    // clear form
+    setTagVal('');
+  };
 
   return (
     <Row className="edit-header">
@@ -37,13 +58,22 @@ export const EditHeader = props => {
             tooltip="Label"
             icon={<span className="icon-label" />}
             popover={
-              <div>
-                <input
-                  type="text"
-                  className="observation-control observation-control-sm"
-                  placeholder="Add tags to this image"
-                />
+              <div style={{ position: 'relative' }}>
+                <Spinner loading={tagsFetching} />
+                <form noValidate onSubmit={submitTag}>
+                  <input
+                    type="text"
+                    className="observation-control observation-control-sm"
+                    placeholder="Add tags to this image"
+                    onChange={evt => setTagVal(evt.target.value)}
+                    value={tagVal}
+                  />
+                </form>
                 <hr />
+
+                {tagList.map(tag => (
+                  <Button block>{tag.tagText}</Button>
+                ))}
               </div>
             }
           />
