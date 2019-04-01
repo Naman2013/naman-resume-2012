@@ -1,5 +1,5 @@
 import { EditHeader } from 'app/modules/image-details/components/edit/edit-header';
-import { deleteImage } from 'app/modules/image-details/thunks';
+import { deleteImage, getTags } from 'app/modules/image-details/thunks';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 
@@ -10,6 +10,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   deleteImage,
+  getTags,
 };
 
 export default compose(

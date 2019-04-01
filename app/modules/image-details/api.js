@@ -12,3 +12,5 @@ export const getImageDetailsApi = data =>
   }*/
 export const deleteImageApi = data =>
   axios.post('/api/images/deleteImage', data);
+
+export const getTagsApi = data => axios.post('/api/tags/getTags', data);

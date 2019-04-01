@@ -4,6 +4,11 @@ import { handleActions } from 'redux-actions';
 export const TYPE = constants('image-details', [
   '~GET_IMAGE_DETAILS',
   '~DELETE_IMAGE',
+
+  // tags
+  '~SET_TAG',
+  '~GET_TAGS',
+  '~DELETE_TAG',
 ]);
 export const ACTION = actions(TYPE);
 
@@ -11,6 +16,11 @@ export const initialState = {
   isFetching: false,
   serverError: null,
   data: {},
+
+  tagsData: {
+    isLoading: false,
+    data: [],
+  },
 };
 
 export default handleActions(

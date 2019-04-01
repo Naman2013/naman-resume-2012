@@ -1,10 +1,19 @@
 import { BtnWithPopover } from 'app/modules/image-details/components/edit/btn-with-popover';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Col, Row } from 'react-bootstrap';
 import './styles.scss';
 
+const didMount = props => () => {
+  const { getTags, customerImageId } = props;
+  console.log(props);
+  console.log('didMount');
+  getTags({ customerImageId });
+};
+
 export const EditHeader = props => {
   const { imageTitle, customerImageId, deleteImage } = props;
+
+  useEffect(didMount(props), []);
 
   const [isDeleteOpen, setDeleteOpen] = useState(false);
   const [isTagsOpen, setTagsOpen] = useState(false);
