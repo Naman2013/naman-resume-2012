@@ -2,6 +2,7 @@ import { Spinner } from 'app/components/spinner/index';
 import { BtnWithPopover } from 'app/modules/image-details/components/edit/btn-with-popover';
 import React, { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
+import { Tooltip } from 'react-tippy';
 
 const didMount = props => () => {
   const { getTags, customerImageId } = props;
@@ -51,9 +52,17 @@ export const TagBtn = props => {
 
           <div className="tag-list">
             {tagList.map(tag => (
-              <Button block key={tag.tagIndex}>
-                {tag.tagText}
-              </Button>
+              <Tooltip
+                title="Click to remove"
+                arrow
+                distance={0}
+                position="top"
+              >
+                <Button size="sm" block key={tag.tagIndex}>
+                  {tag.tagText}
+                  <span className="icon-close float-right" />
+                </Button>
+              </Tooltip>
             ))}
           </div>
         </div>
