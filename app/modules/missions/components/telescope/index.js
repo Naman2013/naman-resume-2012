@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { TelescopeSetup } from '../telescope-setup';
+import { MissionsList } from '../missions-list';
 import './styles.scss';
 
 export class Telescope extends Component {
@@ -23,6 +24,8 @@ export class Telescope extends Component {
             telescopeList={telescopeList}
             setTelescope={setTelescope}
           />
+
+          <MissionsList />
         </div>
       </div>
     );
