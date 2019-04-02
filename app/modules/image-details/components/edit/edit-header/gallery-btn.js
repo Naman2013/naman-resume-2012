@@ -1,6 +1,7 @@
 import { Select } from 'app/components/common/select';
 import { Spinner } from 'app/components/spinner/index';
 import { BtnWithPopover } from 'app/modules/image-details/components/edit/btn-with-popover';
+import { addImageToGallery } from 'app/modules/image-details/thunks';
 import React, { useEffect, useState } from 'react';
 import { Button, Dropdown } from 'react-bootstrap';
 import { Tooltip } from 'react-tippy';
@@ -12,22 +13,15 @@ const didMount = props => () => {
 
 export const GalleryBtn = props => {
   const { galleryList, galleriesFetching } = props;
+  console.log(galleriesFetching);
 
   const [isOpen, setOpen] = useState(false);
 
   useEffect(didMount(props), []);
 
-  const [tagVal, setTagVal] = useState('');
-
-  const submitTag = evt => {
-    evt.preventDefault();
-    const { setTag, customerImageId } = props;
-    setTag({
-      text: tagVal,
-      customerImageId,
-    });
-    // clear form
-    setTagVal('');
+  const addToGallery = galleryId => () => {
+    const { addImageToGallery, customerImageId } = props;
+    addImageToGallery(customerImageId, galleryId);
   };
 
   const deleteTag = text => {
@@ -56,12 +50,13 @@ export const GalleryBtn = props => {
 
             <Dropdown.Menu>
               {galleryList.map(gallery => (
-                <Dropdown.Item key={gallery.galleryId}>
+                <Dropdown.Item
+                  key={gallery.galleryId}
+                  onClick={addToGallery(gallery.galleryId)}
+                >
                   {gallery.title}
                 </Dropdown.Item>
               ))}
-              <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-              <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
 

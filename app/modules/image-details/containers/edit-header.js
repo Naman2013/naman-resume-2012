@@ -11,6 +11,7 @@ import {
   getGalleries,
   getTags,
   setTag,
+  addImageToGallery,
 } from 'app/modules/image-details/thunks';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
@@ -33,6 +34,7 @@ const mapDispatchToProps = {
   setTag,
   deleteTag,
   getGalleries,
+  addImageToGallery,
 };
 
 export default compose(

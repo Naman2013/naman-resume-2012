@@ -1,4 +1,5 @@
 import {
+  addImageToGalleryApi,
   deleteImageApi,
   deleteTagApi,
   getGalleriesApi,
@@ -80,4 +81,21 @@ export const getGalleries = data => (dispatch, getState) => {
   })
     .then(result => dispatch(ACTION.getGalleriesSuccess(result.data)))
     .catch(error => dispatch(ACTION.getGalleriesError(error)));
+};
+
+export const addImageToGallery = (customerImageId, galleryId) => (
+  dispatch,
+  getState
+) => {
+  const { at, token, cid } = getState().user;
+  dispatch(ACTION.addImageToGallery());
+  return addImageToGalleryApi({
+    at,
+    token,
+    cid,
+    customerImageId,
+    galleryId,
+  })
+    .then(result => dispatch(ACTION.addImageToGallerySuccess(result.data)))
+    .catch(error => dispatch(ACTION.addImageToGalleryError(error)));
 };

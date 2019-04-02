@@ -19,4 +19,8 @@ export const setTagApi = data => axios.post('/api/tags/setTag', data);
 
 export const deleteTagApi = data => axios.post('/api/tags/deleteTag', data);
 
-export const getGalleriesApi = data => axios.post('/api/images/getGalleryList', data);
+export const getGalleriesApi = data =>
+  axios.post('/api/images/getGalleryList', data);
+
+export const addImageToGalleryApi = data =>
+  axios.post('/api/images/addImageToGallery', data);

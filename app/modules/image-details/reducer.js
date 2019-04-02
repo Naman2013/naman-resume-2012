@@ -61,6 +61,10 @@ export default handleActions(
     [TYPE.GET_GALLERIES]: setGalleriesFetching,
     [TYPE.GET_GALLERIES_SUCCESS]: getGalleriesSuccess,
     [TYPE.GET_GALLERIES_ERROR]: setServerError,
+
+    [TYPE.ADD_IMAGE_TO_GALLERY]: setGalleriesFetching,
+    [TYPE.ADD_IMAGE_TO_GALLERY_SUCCESS]: addImageToGallerySuccess,
+    [TYPE.ADD_IMAGE_TO_GALLERY_ERROR]: setServerError,
   },
   initialState
 );
@@ -136,11 +140,20 @@ function setGalleriesFetching(state) {
 }
 
 function getGalleriesSuccess(state, action) {
-  console.log(action);
   return setGalleriesDataImmutable(
     {
       isFetching: false,
       data: action.payload,
+    },
+    state
+  );
+}
+
+function addImageToGallerySuccess(state) {
+  return setGalleriesDataImmutable(
+    {
+      isFetching: false,
+      data: state.galleriesData.data,
     },
     state
   );
