@@ -1,21 +1,23 @@
-import { Select } from 'app/components/common/select';
 import { Spinner } from 'app/components/spinner/index';
 import { BtnWithPopover } from 'app/modules/image-details/components/edit/btn-with-popover';
-import { addImageToGallery } from 'app/modules/image-details/thunks';
 import React, { useEffect, useState } from 'react';
 import { Button, Dropdown } from 'react-bootstrap';
-import { Tooltip } from 'react-tippy';
 
-const didMount = props => () => {
+const fetchGalleryList = props => {
   const { getGalleries, customerImageId } = props;
   getGalleries({ customerImageId });
 };
 
+const didMount = props => () => {
+  fetchGalleryList(props);
+};
+
 export const GalleryBtn = props => {
   const { galleryList, galleriesFetching } = props;
-  console.log(galleriesFetching);
 
   const [isOpen, setOpen] = useState(false);
+  const [isInput, switchInput] = useState(false);
+  const [val, setVal] = useState('');
 
   useEffect(didMount(props), []);
 
@@ -24,12 +26,16 @@ export const GalleryBtn = props => {
     addImageToGallery(customerImageId, galleryId);
   };
 
-  const deleteTag = text => {
-    const { deleteTag, customerImageId } = props;
-    deleteTag({
-      text,
-      customerImageId,
+  const submitGallery = evt => {
+    evt.preventDefault();
+    const { createGallery } = props;
+    createGallery(val).then(() => {
+      // refetch gallery list
+      fetchGalleryList(props);
     });
+    // clear form
+    setVal('');
+    switchInput(false);
   };
 
   return (
@@ -60,10 +66,26 @@ export const GalleryBtn = props => {
             </Dropdown.Menu>
           </Dropdown>
 
-          <Button block>
-            Create new Gallery
-            <span className="icon-plus float-right" />
-          </Button>
+          {/* SHOW BUTTON */}
+          {!isInput && (
+            <Button block onClick={() => switchInput(true)}>
+              Create new Gallery
+              <span className="icon-plus float-right" />
+            </Button>
+          )}
+
+          {/* SHOW INPUT */}
+          {isInput && (
+            <form noValidate onSubmit={submitGallery}>
+              <input
+                type="text"
+                className="observation-control observation-control-sm"
+                placeholder="Add tags to this image"
+                onChange={evt => setVal(evt.target.value)}
+                value={val}
+              />
+            </form>
+          )}
         </div>
       }
     />

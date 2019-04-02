@@ -24,3 +24,6 @@ export const getGalleriesApi = data =>
 
 export const addImageToGalleryApi = data =>
   axios.post('/api/images/addImageToGallery', data);
+
+export const createGalleryApi = data =>
+  axios.post('/api/images/createGallery', data);

@@ -65,6 +65,10 @@ export default handleActions(
     [TYPE.ADD_IMAGE_TO_GALLERY]: setGalleriesFetching,
     [TYPE.ADD_IMAGE_TO_GALLERY_SUCCESS]: addImageToGallerySuccess,
     [TYPE.ADD_IMAGE_TO_GALLERY_ERROR]: setServerError,
+
+    [TYPE.CREATE_GALLERY]: setGalleriesFetching,
+    [TYPE.CREATE_GALLERY_SUCCESS]: addImageToGallerySuccess,
+    [TYPE.CREATE_GALLERY_ERROR]: setServerError,
   },
   initialState
 );
