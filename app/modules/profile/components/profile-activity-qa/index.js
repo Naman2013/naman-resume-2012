@@ -106,7 +106,8 @@ class ProfileActivityQa extends Component<TProfileActivityQa> {
       askAnAstronomerData,
       questions,
     } = this.props;
-    if (!questions || !questions.length) return <h3 className="h-3">No questions</h3>;
+    if (!questions || !questions.length)
+      return <h3 className="h-3">No questions</h3>;
 
     const { setModal, showModal, closeModal } = this;
     const modalActions = { setModal, showModal, closeModal };

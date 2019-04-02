@@ -5,3 +5,6 @@ export const getPublicProfileApi = data =>
 
 export const getPrivateProfileApi = data =>
   axios.post('/api/page/getPrivateProfile', data);
+
+export const getProfileListsApi = data =>
+  axios.post('/api/readinglists/getReadingList', data);

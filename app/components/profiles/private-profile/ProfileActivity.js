@@ -35,7 +35,6 @@ class ProfileActivity extends Component {
   getMissionTime = timestamp => moment.unix(timestamp).format('HH:mm');
 
   render() {
-    console.log('PA', this.props);
     const { data, activityData } = this.props;
     const {
       missionsData,
@@ -55,7 +54,7 @@ class ProfileActivity extends Component {
 
     return (
       <div className="profile-activity">
-        {missionsData.missionCount > 0 && (
+        {missionsData.missionCount && missionsData.missionsList ? (
           <div className="profile-section">
             <CenterColumn>
               <ContainerWithTitle title={missionsData.missionListHeading}>
@@ -72,9 +71,9 @@ class ProfileActivity extends Component {
               </ContainerWithTitle>
             </CenterColumn>
           </div>
-        )}
+        ) : null}
 
-        {recentMissionsData.recentMissionCount > 0 && (
+        {recentMissionsData.recentMissionCount ? (
           <div className="profile-section">
             <CenterColumn>
               <ContainerWithTitle
@@ -95,7 +94,7 @@ class ProfileActivity extends Component {
               </ContainerWithTitle>
             </CenterColumn>
           </div>
-        )}
+        ) : null}
 
         {askAnAstronomerData.showAskAnAstronomer && (
           <div className="profile-section ask-section">

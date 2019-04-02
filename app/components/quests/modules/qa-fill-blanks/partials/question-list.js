@@ -7,14 +7,7 @@ import SingleQuestion from 'components/common/form-fields/single-question';
 import CircleCharacter from 'components/common/medallions/circle-character';
 import { astronaut, geyser, shadows } from 'styles/variables/colors_tiles_v4';
 
-
-const {
-  arrayOf,
-  bool,
-  number,
-  shape,
-  string,
-} = PropTypes;
+const { arrayOf, bool, number, shape, string } = PropTypes;
 
 /**
 
@@ -23,10 +16,12 @@ const {
 
 class QuestionList extends Component {
   static propTypes = {
-    questionList: arrayOf(shape({
-      questionTitle: string,
-      questionInstructions: string,
-    })),
+    questionList: arrayOf(
+      shape({
+        questionTitle: string,
+        questionInstructions: string,
+      })
+    ),
     activityPrompt: string.isRequired,
   };
 
@@ -54,7 +49,11 @@ class QuestionList extends Component {
               <div className="inner-prompt">
                 {question.options.map(choice => (
                   <div className="single-question">
-                    <SingleQuestion question={choice.question} value="" placeholder={choice.placeholder} />
+                    <SingleQuestion
+                      question={choice.question}
+                      value=""
+                      placeholder={choice.placeholder}
+                    />
                   </div>
                 ))}
               </div>
@@ -84,8 +83,5 @@ class QuestionList extends Component {
     );
   }
 }
-
-
-
 
 export default QuestionList;

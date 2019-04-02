@@ -1,14 +1,8 @@
-// @flow
 import React, { cloneElement, Component, Fragment } from 'react';
 import SubPageNavigation from 'app/components/common/sub-page-navigation';
 import ProfileInformation from 'app/components/profiles/private-profile/ProfileInformation';
 
-type TProfileWrapper = {
-  data: Array<Object> | void,
-  params: Array<Object>,
-};
-
-export class ProfileWrapper extends Component<TProfileWrapper> {
+class ProfileWrapper extends Component {
   generateNavItems = list =>
     list.map(item => ({ title: item.name, link: item.linkUrl }));
 
@@ -88,3 +82,5 @@ export class ProfileWrapper extends Component<TProfileWrapper> {
     );
   }
 }
+
+export default ProfileWrapper;
