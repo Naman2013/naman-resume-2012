@@ -485,6 +485,13 @@ const AppRouter = () => (
         onEnter={validateUser}
         component={CommunityGroupOverview}
       />
+
+      <Route
+        path="community-groups/:groupId/edit"
+        onEnter={validateUser}
+        component={CommunityGroupOverview}
+      />
+
       <Route
         path="community-groups/:groupId/info"
         onEnter={validateUser}

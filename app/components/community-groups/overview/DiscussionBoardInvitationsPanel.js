@@ -7,6 +7,7 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { CardDeck, Card, CardColumns, Container, Row, ListGroup, ListGroupItem,} from 'react-bootstrap';
 import Request from 'components/common/network/Request';
 import axios from 'axios';
 import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
@@ -22,6 +23,7 @@ import {
 import { screenLarge } from 'styles/variables/breakpoints';
 import style from './DiscussionBoardInvitationsPanel.style';
 import messages from './DiscussionBoard.messages';
+import { faintShadow } from '../../../styles/variables/shadows';
 
 const {
   arrayOf,
@@ -152,6 +154,40 @@ class DiscussionBoardInvitationsPanel extends Component {
                       <br/>
                       <h2>{serviceResponse.customerLinksData.sectionHeading}</h2>
                       <p>{serviceResponse.customerLinksData.sectionHeading_LicenseInfo}</p>
+                      <Container fluid>
+                      <Row noGutters>
+                      {
+                        
+                        serviceResponse.customerLinksData.customerLinks.map(x=>(
+                          <Card  className="list-card">
+                            <Card.Body>
+                              <Card.Title className="list-card-title">
+                                {x.name}
+                            </Card.Title>
+                              <Card.Subtitle className="list-card-subtitle">
+                                {x.emailaddress}
+                              </Card.Subtitle>
+                            </Card.Body>
+                            <ListGroup >
+                              <ListGroupItem className="list-card-item">
+                                <b>Invitation Code: </b>
+                                {x.invitationcode}
+                              </ListGroupItem>
+
+                              <ListGroupItem className="list-card-item">
+                                <b>Account status: </b>
+                                {x.status}
+                              </ListGroupItem>
+                            </ListGroup>
+
+    <Card.Footer>
+                              <small className="text-muted"><b>Last activity: </b>{x.lastactivity}</small>
+                            </Card.Footer>
+                          </Card>
+                        ))
+                      }
+                      </Row>
+                      </Container>
                       <br/>
                       <br/>
                       <p style={{"color": "red", "fontSize": "1.3em"}}>{this.state.inviteStatusMessage}</p>
@@ -208,6 +244,31 @@ class DiscussionBoardInvitationsPanel extends Component {
         </div>
 
         <style>{style}</style>
+        <style>{`
+          .list-card{
+            margin-right:25px !important;
+            margin-bottom:10px !important;
+            border:none;
+            ${faintShadow}
+          }
+          .list-card-item{
+            border-top-left-radius:0 !important;
+            border-top-right-radius:0 !important;
+            border-bottom-right-radius:0 !important;
+            border-bottom-left-radius:0 !important;
+            border-left:0px;
+            border-right:0px;
+          }
+
+          .list-card-title{
+            font-size:2rem;
+          }
+
+.list-card-subtitle{
+  font-size:0.9rem;
+}
+
+          `}</style>
     </div>
     )
   }
