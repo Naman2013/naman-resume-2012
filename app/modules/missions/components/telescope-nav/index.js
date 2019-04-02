@@ -14,6 +14,7 @@ export class TelescopeNav extends Component {
             }`}
             onClick={() => setTelescope(telescope)}
           >
+            <h4>{telescope.teleName}</h4>
             <img src={telescope.teleLogoURL} alt="" />
           </div>
         ))}
