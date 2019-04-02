@@ -27,4 +27,13 @@
       overflow: auto;
     }
   }
+
+  .gallery-btn {
+    .dropdown-menu {
+      right: 0;
+    }
+  }
+  .gallery-popover {
+    position: relative;
+  }
 }

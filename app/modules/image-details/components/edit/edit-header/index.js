@@ -1,24 +1,16 @@
 import { BtnWithPopover } from 'app/modules/image-details/components/edit/btn-with-popover';
+import { GalleryBtn } from 'app/modules/image-details/components/edit/edit-header/gallery-btn';
 import { TagBtn } from 'app/modules/image-details/components/edit/edit-header/tag-btn';
+import { getGalleries } from 'app/modules/image-details/thunks';
 import React, { useState } from 'react';
 import { Button, Col, Row } from 'react-bootstrap';
 import './styles.scss';
 
 export const EditHeader = props => {
-  const {
-    imageTitle,
-    customerImageId,
-    deleteImage,
-    tagList,
-    tagsFetching,
-    getTags,
-    setTag,
-    deleteTag,
-  } = props;
+  const { imageTitle, customerImageId, deleteImage } = props;
 
   const [isDeleteOpen, setDeleteOpen] = useState(false);
   const [isDownloadOpen, setDownloadOpen] = useState(false);
-  const [isAddOpen, setAddOpen] = useState(false);
   const [isShareOpen, setShareOpen] = useState(false);
 
   return (
@@ -30,16 +22,7 @@ export const EditHeader = props => {
         <div className="float-right">
           <Button>Write Observation</Button>
 
-          <TagBtn
-            {...{
-              getTags,
-              setTag,
-              deleteTag,
-              tagList,
-              tagsFetching,
-              customerImageId,
-            }}
-          />
+          <TagBtn {...props} />
 
           <BtnWithPopover
             isOpen={isDownloadOpen}
@@ -54,19 +37,7 @@ export const EditHeader = props => {
             }
           />
 
-          <BtnWithPopover
-            isOpen={isAddOpen}
-            setOpen={setAddOpen}
-            className="ml-2"
-            tooltip="Plus"
-            icon={<span className="icon-plus" />}
-            popoverHeader="ADD IMAGE TO GALLERY"
-            popover={
-              <div>
-                <h1>Plus</h1>
-              </div>
-            }
-          />
+          <GalleryBtn {...props} />
 
           <BtnWithPopover
             isOpen={isShareOpen}

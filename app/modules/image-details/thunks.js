@@ -1,6 +1,7 @@
 import {
   deleteImageApi,
   deleteTagApi,
+  getGalleriesApi,
   getImageDetailsApi,
   getTagsApi,
   setTagApi,
@@ -57,4 +58,26 @@ export const deleteTag = data => (dispatch, getState) => {
   })
     .then(result => dispatch(ACTION.deleteTagSuccess(result.data)))
     .catch(error => dispatch(ACTION.deleteTagError(error)));
+};
+
+// GALLERIES
+export const getGalleries = data => (dispatch, getState) => {
+  const {
+    firstGalleryNumber = 1,
+    maxGalleryCount = 6,
+    pagingMode = 'app',
+  } = data;
+
+  const { at, token, cid } = getState().user;
+  dispatch(ACTION.getGalleries());
+  return getGalleriesApi({
+    at,
+    token,
+    cid,
+    firstGalleryNumber,
+    maxGalleryCount,
+    pagingMode,
+  })
+    .then(result => dispatch(ACTION.getGalleriesSuccess(result.data)))
+    .catch(error => dispatch(ACTION.getGalleriesError(error)));
 };

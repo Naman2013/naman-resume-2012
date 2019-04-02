@@ -10,6 +10,11 @@ export const TYPE = constants('image-details', [
   '~SET_TAG',
   '~GET_TAGS',
   '~DELETE_TAG',
+
+  // galleries
+  '~GET_GALLERIES',
+  '~CREATE_GALLERY',
+  '~ADD_IMAGE_TO_GALLERY',
 ]);
 export const ACTION = actions(TYPE);
 
@@ -20,8 +25,16 @@ export const initialState = {
 
   tagsData: {
     isFetching: false,
-    data: [],
+    data: {},
     tagList: [],
+  },
+
+  galleriesData: {
+    isFetching: false,
+    data: {
+      galleryList: [],
+    },
+    // tagList: [],
   },
 };
 
@@ -31,6 +44,7 @@ export default handleActions(
     [TYPE.GET_IMAGE_DETAILS_SUCCESS]: getImageDetailsSuccess,
     [TYPE.GET_IMAGE_DETAILS_ERROR]: setServerError,
 
+    // TAGS
     [TYPE.GET_TAGS]: setFetching,
     [TYPE.GET_TAGS_SUCCESS]: getTagsSuccess,
     [TYPE.GET_TAGS_ERROR]: setServerError,
@@ -42,6 +56,11 @@ export default handleActions(
     [TYPE.DELETE_TAG]: setTagFetching,
     [TYPE.DELETE_TAG_SUCCESS]: setTagSuccess,
     [TYPE.DELETE_TAG_ERROR]: setServerError,
+
+    // GALLERIES
+    [TYPE.GET_GALLERIES]: setGalleriesFetching,
+    [TYPE.GET_GALLERIES_SUCCESS]: getGalleriesSuccess,
+    [TYPE.GET_GALLERIES_ERROR]: setServerError,
   },
   initialState
 );
@@ -98,6 +117,30 @@ function setTagFetching(state) {
       isFetching: true,
       data: state.tagsData.data,
       tagList: state.tagsData.tagList,
+    },
+    state
+  );
+}
+
+const setGalleriesDataImmutable = (data, state) =>
+  apply(['galleriesData'], () => data, state);
+
+function setGalleriesFetching(state) {
+  return setGalleriesDataImmutable(
+    {
+      isFetching: true,
+      data: state.galleriesData.data,
+    },
+    state
+  );
+}
+
+function getGalleriesSuccess(state, action) {
+  console.log(action);
+  return setGalleriesDataImmutable(
+    {
+      isFetching: false,
+      data: action.payload,
     },
     state
   );

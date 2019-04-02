@@ -2,10 +2,13 @@ import { EditHeader } from 'app/modules/image-details/components/edit/edit-heade
 import {
   makeTagListSelector,
   makeTagsFetchingSelector,
+  makeGalleriesFetchingSelector,
+  makeGalleryListSelector,
 } from 'app/modules/image-details/selectors';
 import {
   deleteImage,
   deleteTag,
+  getGalleries,
   getTags,
   setTag,
 } from 'app/modules/image-details/thunks';
@@ -18,6 +21,10 @@ const mapStateToProps = createStructuredSelector({
   //  el: select()(state)
   tagList: makeTagListSelector(),
   tagsFetching: makeTagsFetchingSelector(),
+
+  // galleries
+  galleriesFetching: makeGalleriesFetchingSelector(),
+  galleryList: makeGalleryListSelector(),
 });
 
 const mapDispatchToProps = {
@@ -25,6 +32,7 @@ const mapDispatchToProps = {
   getTags,
   setTag,
   deleteTag,
+  getGalleries,
 };
 
 export default compose(
