@@ -79,14 +79,12 @@ const BootstrappedImageDetails = props => {
               />
             </div>
             <div className="object-details">
-              {objectId !== '0' ? (
-                <ObjectDetailList
-                  isMobile={isMobile}
-                  objectId={objectId}
-                  iconFileData={iconFileData}
-                  scheduledMissionId={scheduledMissionId}
-                />
-              ) : null}
+              <ObjectDetailList
+                isMobile={isMobile}
+                objectId={objectId}
+                iconFileData={iconFileData}
+                scheduledMissionId={scheduledMissionId}
+              />
             </div>
           </div>
         </div>
