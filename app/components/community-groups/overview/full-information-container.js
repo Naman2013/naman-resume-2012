@@ -124,7 +124,7 @@ class FullInformationOverview extends Component {
     return (
       <div className="root">
         {pageMeta.canEditGroup && isEditMode && pageMeta.isGoogleClassroom === false && <DiscussionBoardInvitationsPanel {...this.props} refreshHeader={refreshHeader} />}
-        {pageMeta.canEditGroup && pageMeta.isGoogleClassroom === true && <DiscussionBoardGoogleClassroomStudentsPanel {...this.props} refreshHeader={refreshHeader} />}
+        {pageMeta.canEditGroup && isEditMode && pageMeta.isGoogleClassroom === true && <DiscussionBoardGoogleClassroomStudentsPanel {...this.props} refreshHeader={refreshHeader} />}
 
         <ResponsiveTwoColumnContainer
           renderNavigationComponent={navProps =>
