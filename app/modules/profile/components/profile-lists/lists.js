@@ -11,8 +11,8 @@ import messages from './my-lists.messages';
 class Lists extends Component {
   state = { tiles: [], items: [] };
 
-  getModeledTiles = filterType => {
-    const { tiles } = this.state;
+  getModeledTiles = (filterType, profileLists) => {
+    const tiles = profileLists.itemList || profileLists.interestsList;
     switch (filterType) {
       case 'story':
         return tiles.map(x => ({
