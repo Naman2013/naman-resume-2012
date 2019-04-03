@@ -7,9 +7,9 @@ export default css`
   .root {
     width: 100%;
     height: 142px;
-    box-size: border-box;
+    box-sizing: border-box;
     padding: 0;
-    box-shadow: 0px 0px 8px 1px rgba(65,86,113,.2);
+    box-shadow: 0 0 8px 1px rgba(65, 86, 113, 0.2);
     color: ${astronaut};
     list-style-type: none;
     background: url(${white_tile});
@@ -21,7 +21,6 @@ export default css`
     width: 80%;
     margin: 0 auto;
   }
-
 
   .icon-container {
     display: none;
@@ -64,7 +63,6 @@ export default css`
   .title {
     padding: 30px 0 20px 0;
     margin: 0;
-    font-size: 14px;
     font-family: ${secondaryFont};
     font-weight: 300;
     font-size: 18px;
