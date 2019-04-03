@@ -68,39 +68,46 @@
 .icon-bars:before {
   content: "\e907";
 }
-.icon-logo_astronaut .path1:before {
-  content: "\e900";
-  color: rgb(65, 86, 111);
+.i-logo_astronaut {
+  position: relative;
+  top: 2px;
+  display: inline-flex;
+  height: 15px;
+  width: 15px;
+  font-style: normal;
+  background: transparent url("https://vega.slooh.com/assets/v4/icons/slooh_logo_astronaut.svg") no-repeat;
+  background-size: 100%;
 }
-.icon-logo_astronaut .path2:before {
-  content: "\e901";
-  margin-left: -1em;
-  color: rgb(255, 255, 255);
+.i-telescope_astronaut {
+  position: relative;
+  top: 2px;
+  display: inline-flex;
+  height: 15px;
+  width: 15px;
+  font-style: normal;
+  background: transparent url("https://vega.slooh.com/assets/v4/icons/telescope_astronaut.svg") no-repeat;
+  background-size: 100%;
 }
-.icon-logo_astronaut .path3:before {
-  content: "\e902";
-  margin-left: -1em;
-  color: rgb(255, 255, 255);
+.i-bell {
+  position: relative;
+  top: 2px;
+  display: inline-flex;
+  height: 20px;
+  width: 20px;
+  font-style: normal;
+  background: transparent url("https://vega.slooh.com/assets/v4/icons/bell.svg") no-repeat;
+  background-size: 75%;
 }
-.icon-logo_astronaut .path4:before {
-  content: "\e903";
-  margin-left: -1em;
-  color: rgb(255, 255, 255);
+.i-user-astronaut {
+  display: inline-flex;
+  height: 15px;
+  width: 15px;
+  font-style: normal;
+  background: transparent url("https://vega.slooh.com/assets/v4/icons/user_astronaut.svg") no-repeat;
+  background-size: 100%;
 }
-.icon-logo_astronaut .path5:before {
-  content: "\e904";
-  margin-left: -1em;
-  color: rgb(255, 255, 255);
-}
-.icon-logo_astronaut .path6:before {
-  content: "\e905";
-  margin-left: -1em;
-  color: rgb(255, 255, 255);
-}
-.icon-telescope_astronaut:before {
-  content: "\e906";
-  color: #41566f;
-}
+
+
 .icon-cross:before {
   content: "\ea0f";
 }
