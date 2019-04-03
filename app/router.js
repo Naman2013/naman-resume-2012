@@ -7,7 +7,6 @@ import {
   ProfileActivity,
   ProfileGroups,
 } from 'app/components/profiles/private-profile';
-import MyListsHub from 'app/components/profiles/private-profile/my-lists';
 import ProfileQaContainer from 'app/components/profiles/private-profile/my-qa/ProfileQaContainer';
 import { About, AboutSloohSection } from 'app/containers/about';
 import App from 'app/containers/App';
@@ -27,7 +26,12 @@ import ObjectDetailsQuests from 'app/containers/object-details/ObjectDetailsQues
 import ObjectDetailsShows from 'app/containers/object-details/ObjectDetailsShows';
 import ObjectDetailsStories from 'app/containers/object-details/ObjectDetailsStories';
 import ObjectList from 'app/containers/object-post/ObjectList';
-import { PrivateProfile } from 'app/containers/profile/PrivateProfile';
+import {
+  ProfileMain,
+  PublicProfileMain,
+  PrivateProfileMain,
+  ProfileListsMain,
+} from 'app/modules/profile';
 import QuestComplete from 'app/containers/quest-complete';
 import QuestStep from 'app/containers/quest-step';
 import QuestsHub from 'app/containers/quests-hub';
@@ -42,7 +46,6 @@ import Catalog from 'app/modules/missions/containers/catalog';
 import Telescope from 'app/modules/missions/containers/telescope';
 import Constellation from 'app/modules/missions/containers/constellation';
 import { MissionsMain } from 'app/modules/missions/index';
-import { PublicProfileMain } from 'app/modules/profile';
 import { TelescopeDetailsMain } from 'app/modules/telescope';
 import GroupCreate from 'app/pages/community-groups/GroupCreate';
 import GroupImportGoogleClassrooms from 'app/pages/community-groups/GroupImportGoogleClassrooms';
@@ -140,7 +143,7 @@ const getProfileRoutes = () => (
     </Route>
     <Route path="lists">
       <IndexRedirect to="object" />
-      <Route path=":filterType" component={MyListsHub} />
+      <Route path=":filterType" component={ProfileListsMain} />
     </Route>
     <Route path="qa">
       <IndexRedirect to="asked" />
@@ -448,20 +451,22 @@ const AppRouter = () => (
 
       <Route path="missions-details/:missionId" component={MissionDetails} />
 
-      <Route
-        path="profile/private"
-        component={PrivateProfile}
-        onEnter={validateUser}
-      >
-        {getProfileRoutes()}
-      </Route>
+      <Route path="profile" component={ProfileMain} onEnter={validateUser}>
+        <Route
+          path=":private"
+          component={PrivateProfileMain}
+          onEnter={validateUser}
+        >
+          {getProfileRoutes()}
+        </Route>
 
-      <Route
-        path="profile/public/:customerUUID"
-        component={PublicProfileMain}
-        onEnter={validateUser}
-      >
-        {getProfileRoutes()}
+        <Route
+          path=":public/:customerUUID"
+          component={PublicProfileMain}
+          onEnter={validateUser}
+        >
+          {getProfileRoutes()}
+        </Route>
       </Route>
 
       <Route

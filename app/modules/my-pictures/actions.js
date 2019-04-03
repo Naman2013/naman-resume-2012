@@ -398,7 +398,7 @@ const fetchMissionCountFail = payload => ({
   payload,
 });
 
-export const fetchMissionCount = () => (dispatch, getState) => {
+export const fetchMissionCount = customerUUID => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
   const { selectedFilters } = getState().myPicturesFilters
   dispatch(fetchMissionCountStart());
@@ -407,6 +407,7 @@ export const fetchMissionCount = () => (dispatch, getState) => {
     at,
     cid,
     token,
+    customerUUID,
     ...selectedFilters,
   })
   .then(result => dispatch(fetchMissionCountSuccess(result.data)))

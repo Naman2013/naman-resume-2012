@@ -8,10 +8,10 @@ import PropTypes from 'prop-types';
 import uniqueId from 'lodash/uniqueId';
 import moment from 'moment';
 
+import ProfileActivityQa from 'app/modules/profile/containers/profile-activity-qa';
 import { ContainerWithTitle } from '../../common/ContainerWithTitle';
 import CenterColumn from '../../common/CenterColumn';
 import MissionTile from '../../common/tiles/MissionTile';
-import { ProfileActivityQa } from '../../../containers/profile/PrivateProfile';
 import { ActiveGroups } from './active-groups';
 import { ActiveObjects } from './active-objects';
 import styles from './ProfileActivity.styles';
@@ -25,7 +25,7 @@ class ProfileActivity extends Component {
       recentMissionsData: shape({}).isRequired,
       askAnAstronomerData: shape({}).isRequired,
     }).isRequired,
-    privateProfileData: shape({}).isRequired,
+    data: shape({}).isRequired,
   };
 
   static defaultProps = {};
@@ -35,7 +35,7 @@ class ProfileActivity extends Component {
   getMissionTime = timestamp => moment.unix(timestamp).format('HH:mm');
 
   render() {
-    const { privateProfileData, activityData } = this.props;
+    const { data, activityData } = this.props;
     const {
       missionsData,
       recentMissionsData,
@@ -50,11 +50,11 @@ class ProfileActivity extends Component {
       activeObjectsList,
       topPicksForYouGroupsHeading,
       topPicksForYouObjectsHeading,
-    } = privateProfileData;
+    } = data;
 
     return (
       <div className="profile-activity">
-        {missionsData.missionCount > 0 && (
+        {missionsData.missionCount && missionsData.missionsList ? (
           <div className="profile-section">
             <CenterColumn>
               <ContainerWithTitle title={missionsData.missionListHeading}>
@@ -71,9 +71,9 @@ class ProfileActivity extends Component {
               </ContainerWithTitle>
             </CenterColumn>
           </div>
-        )}
+        ) : null}
 
-        {recentMissionsData.recentMissionCount > 0 && (
+        {recentMissionsData.recentMissionCount ? (
           <div className="profile-section">
             <CenterColumn>
               <ContainerWithTitle
@@ -94,7 +94,7 @@ class ProfileActivity extends Component {
               </ContainerWithTitle>
             </CenterColumn>
           </div>
-        )}
+        ) : null}
 
         {askAnAstronomerData.showAskAnAstronomer && (
           <div className="profile-section ask-section">

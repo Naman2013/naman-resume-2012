@@ -1,15 +1,15 @@
-import { connect } from 'react-redux';
-import { compose } from 'redux';
-import PublicProfile from 'app/modules/profile/components/public-profile';
+import PrivateProfile from 'app/modules/profile/components/private-profile';
 import {
   makeProfileLoadingSelector,
-  makePublicProfileUserDataSelector,
+  makePrivateProfileUserDataSelector,
 } from 'app/modules/profile/selectors';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 
 const mapStateToProps = createStructuredSelector({
   isLoading: makeProfileLoadingSelector(),
-  publicProfileData: makePublicProfileUserDataSelector(),
+  privateProfileData: makePrivateProfileUserDataSelector(),
 });
 
 export default compose(
@@ -17,4 +17,4 @@ export default compose(
     mapStateToProps,
     null
   )
-)(PublicProfile);
+)(PrivateProfile);
