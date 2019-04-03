@@ -7,7 +7,7 @@ import styles from './active-objects.module.scss';
 export const ActiveObjects = props => {
   const { count, list = [], header } = props;
   return (
-    <div className={styles.activeObjects}>
+    <div className={`${styles.activeObjects} root`}>
       <HeaderWithCounter txt={header} count={count} />
       <div className={styles.objectsWrapper}>
         {list.map(obj => (
