@@ -29,6 +29,12 @@
   i {
     font-style: normal;
   }
+
+  &.nightfall {
+    &:before {
+      color: #253446;
+    }
+  }
 }
 
 .icon-download:before {

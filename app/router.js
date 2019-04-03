@@ -15,7 +15,7 @@ import GuidesHub from 'app/containers/guides-hub';
 import ObjectCategoryGuide from 'app/containers/guides/ObjectCategoryGuide';
 import SubjectGuides from 'app/containers/guides/SubjectGuides';
 import TopicGuides from 'app/containers/guides/TopicGuides';
-import MissionDetails from 'app/containers/mission-details/MissionDetails';
+import { MissionDetailsMain } from 'app/modules/mission-details';
 import MyPictures from 'app/containers/MyPictures';
 import ObjectDetailsMissions from 'app/containers/object-details/ObjectDetailsMissions';
 import ObjectDetailsObservations from 'app/containers/object-details/ObjectDetailsObservations';
@@ -449,7 +449,11 @@ const AppRouter = () => (
         onEnter={validateUser}
       />
 
-      <Route path="missions-details/:missionId" component={MissionDetails} />
+      <Route
+        path="missions-details/:missionId"
+        component={MissionDetailsMain}
+        onEnter={validateUser}
+      />
 
       <Route path="profile" component={ProfileMain} onEnter={validateUser}>
         <Route
