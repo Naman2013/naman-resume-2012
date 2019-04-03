@@ -10,7 +10,10 @@ module.exports = {
   ],
   'parser': 'babel-eslint',
   'rules': {
+    "react-hooks/rules-of-hooks": "error", // Checks rules of Hooks
+    "react-hooks/exhaustive-deps": "warn", // Checks effect dependencies
     'linebreak-style': 0,
+    'curly': ['error'],
     'prefer-const': 0,
     'spaced-comment': 0,
     'padded-blocks': 0,
@@ -103,6 +106,7 @@ module.exports = {
       // eslint-import-resolver-alias
       'alias': [
         ['app', path.join(__dirname, 'app/')],
+        ['assets', path.join(__dirname, 'assets/')],
       ],
       // It also works but with alias there are no red highlight in webstorm
       // and with this approach build works but I still see red highlights in webstorm
@@ -114,6 +118,7 @@ module.exports = {
   },
   plugins: [
     'prettier',
-    'import'
+    'import',
+    'react-hooks'
   ]
 };

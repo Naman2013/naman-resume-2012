@@ -146,8 +146,11 @@ export default injectIntl(
     };
 
     render() {
-      const { intl } = this.props;
-      const { profileMenuList } = this.props.publicProfileData || this.props.privateProfileData;
+      console.log('ML', this.props);
+      const { intl, params } = this.props;
+      const { tiles } = this.state;
+      const { profileMenuList } = // TODO: fix
+      this.props.publicProfileData || this.props.privateProfileData;
 
       const hubFilters = profileMenuList.find(mItem => mItem.name === 'Lists')
         .subMenus;
@@ -155,12 +158,6 @@ export default injectIntl(
         title: filter.name,
         linkURL: filter.linkUrl,
       }));
-
-      const api =
-        this.props.params.filterType === 'object'
-          ? GET_PAGE_PRIVATE_PROFILE
-          : GET_READING_LIST;
-      const count = this.props.params.filterType === 'object' ? 0 : 9;
 
       const filterOptions = [
         {
@@ -183,68 +180,41 @@ export default injectIntl(
 
       return (
         <div className="my-lists-hub">
-          <Request
-            serviceURL={api}
-            model={readingListModel}
-            requestBody={{ readingListType: this.props.params.filterType }}
-            render={({
-              fetchingContent,
-              modeledResponses: { GROUP_HUB_MODEL },
-              serviceResponse = {},
-            }) => (
-              <Fragment>
-                {!fetchingContent && (
-                  <DeviceContext.Consumer>
-                    {context => (
-                      <HubContainer
-                        {...this.props}
-                        filterOptions={filterOptions}
-                        {...context}
-                        hubName="reading_list"
-                        paginateURL={api}
-                        page={1}
-                        count={count}
-                        // user={user}
-                        filterTypeFieldName="readingListType"
-                        // validateResponseAccess={actions.validateResponseAccess}
-                        responseFieldNames={{
-                          currentCount: 'groupsCount',
-                          totalCount: 'resultsCount',
-                        }}
-                        updateList={this.updateTilesList}
-                        appendToList={this.appendToTilesList}
-                        pageTitle={serviceResponse.listTitle}
-                        filterType={this.props.params.filterType}
-                        clearTiles={this.clearTiles}
-                        useSort={false}
-                        showHeaderIcon={false}
-                        render={() => (
-                          <Fragment>
-                            {fetchingContent ? (
-                              <div>{intl.formatMessage(messages.Loading)}</div>
-                            ) : null}
-
-                            {!fetchingContent &&
-                            this.state.tiles &&
-                            this.state.tiles.length ? (
-                              this.GetTiles(this.props.params.filterType, {
-                                closeModal: this.closeModal,
-                                updateReadingListInfo: this.updateItemInfo,
-                                updatePrompt: this.updatePrompt,
-                                isMobile: context.isMobile,
-                              })
-                            ) : (
-                              <div>{intl.formatMessage(messages.NoTiles)}</div>
-                            )}
-                          </Fragment>
-                        )}
-                      />
-                    )}
-                  </DeviceContext.Consumer>
+          <DeviceContext.Consumer>
+            {context => (
+              <HubContainer
+                {...this.props}
+                filterOptions={filterOptions}
+                {...context}
+                hubName="reading_list"
+                page={1}
+                responseFieldNames={{
+                  currentCount: 'groupsCount',
+                  totalCount: 'resultsCount',
+                }}
+                filterTypeFieldName="readingListType"
+                updateList={this.updateTilesList}
+                appendToList={this.appendToTilesList}
+                pageTitle="My Lists"
+                filterType={params.filterType}
+                clearTiles={this.clearTiles}
+                useSort={false}
+                showHeaderIcon={false}
+                render={() => (
+                  <Fragment>
+                    {tiles && tiles.length
+                      ? this.GetTiles(params.filterType, {
+                        closeModal: this.closeModal,
+                        updateReadingListInfo: this.updateItemInfo,
+                        updatePrompt: this.updatePrompt,
+                        isMobile: context.isMobile,
+                      })
+                      : null}
+                  </Fragment>
                 )}
-              </Fragment>
+              />
             )}
-          />
+          </DeviceContext.Consumer>
         </div>
       );
     }

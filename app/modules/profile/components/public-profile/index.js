@@ -1,30 +1,18 @@
-import { ProfileWrapper } from 'app/modules/profile/components/profile-wrapper';
-import React, { cloneElement, Component } from 'react';
+import React, { cloneElement, Fragment } from 'react';
+import ProfileWrapper from 'app/modules/profile/components/profile-wrapper';
 
-export class PublicProfile extends Component {
-  componentWillMount = () => {
-    this.fetchData();
-  };
+const PublicProfile = props => {
+  const { publicProfileData, params, children } = props;
+  if (!publicProfileData) return null;
+  return (
+    <Fragment>
+      {publicProfileData && (
+        <ProfileWrapper params={params} data={publicProfileData}>
+          {cloneElement(children, { params })}
+        </ProfileWrapper>
+      )}
+    </Fragment>
+  );
+};
 
-  fetchData = () => {
-    const { getPublicProfile, params } = this.props;
-    const { customerUUID } = params;
-    getPublicProfile(customerUUID);
-  };
-
-  render() {
-    const { publicProfileData, params, children } = this.props;
-    return (
-      <div>
-        {publicProfileData && (
-          <ProfileWrapper
-            privateProfileData={publicProfileData}
-            params={params}
-          >
-            {cloneElement(children, { publicProfileData, params })}
-          </ProfileWrapper>
-        )}
-      </div>
-    );
-  }
-}
+export default PublicProfile;

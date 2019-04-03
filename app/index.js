@@ -23,6 +23,11 @@ import './styles/static.scss';
 // utilities
 import './utils/manual-polyfills';
 
+// icons
+import 'assets/icons/iconmoon/style.css';
+
+import 'react-tippy/dist/tippy.css';
+
 ReactDOM.render(
   <I18nProvider>
     <Provider store={store}>

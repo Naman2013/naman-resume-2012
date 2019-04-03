@@ -101,7 +101,7 @@ class ResponsiveTwoColumnContainer extends Component {
             })}
           </div>
         )}
-        <div className="main-container">
+        <div className="main-container responsive-two-cols">
           {showMainContainer ? (
             <div className="left-container">{renderMainContent()}</div>
           ) : null}

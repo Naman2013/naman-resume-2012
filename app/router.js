@@ -1,5 +1,3 @@
-import { hot } from 'react-hot-loader/root';
-import TelescopeNavigation from 'app/modules/telescope/components/old/telescope-navigation';
 import DashboardPage from 'app/components/Dashboard';
 import ImagesLayout from 'app/modules/profile-photos/components/ImagesLayout';
 import PrivateProfilePhotos from 'app/modules/profile-photos/components/PrivateProfilePhotos';
@@ -7,7 +5,6 @@ import {
   ProfileActivity,
   ProfileGroups,
 } from 'app/components/profiles/private-profile';
-import MyListsHub from 'app/components/profiles/private-profile/my-lists';
 import ProfileQaContainer from 'app/components/profiles/private-profile/my-qa/ProfileQaContainer';
 import { About, AboutSloohSection } from 'app/containers/about';
 import App from 'app/containers/App';
@@ -27,7 +24,12 @@ import ObjectDetailsQuests from 'app/containers/object-details/ObjectDetailsQues
 import ObjectDetailsShows from 'app/containers/object-details/ObjectDetailsShows';
 import ObjectDetailsStories from 'app/containers/object-details/ObjectDetailsStories';
 import ObjectList from 'app/containers/object-post/ObjectList';
-import { PrivateProfile } from 'app/containers/profile/PrivateProfile';
+import {
+  ProfileMain,
+  PublicProfileMain,
+  PrivateProfileMain,
+  ProfileListsMain,
+} from 'app/modules/profile';
 import QuestComplete from 'app/containers/quest-complete';
 import QuestStep from 'app/containers/quest-step';
 import QuestsHub from 'app/containers/quests-hub';
@@ -37,13 +39,14 @@ import SloohRecommends from 'app/containers/SloohRecommends';
 import StaticAppContainer from 'app/containers/static-app-container';
 import StoriesHub from 'app/containers/stories-hub';
 import { fetchPlayer } from 'app/modules/get-audio-player/actions';
-import Slooh1000 from 'app/modules/missions/containers/slooh-1000';
+import { ImageDetailsMain } from 'app/modules/image-details';
 import Catalog from 'app/modules/missions/containers/catalog';
-import Telescope from 'app/modules/missions/containers/telescope';
 import Constellation from 'app/modules/missions/containers/constellation';
+import Slooh1000 from 'app/modules/missions/containers/slooh-1000';
+import Telescope from 'app/modules/missions/containers/telescope';
 import { MissionsMain } from 'app/modules/missions/index';
-import { PublicProfileMain } from 'app/modules/profile';
 import { TelescopeDetailsMain } from 'app/modules/telescope';
+import { TelescopeNavigation } from 'app/modules/telescope/components/old/telescope-navigation';
 import GroupCreate from 'app/pages/community-groups/GroupCreate';
 import GroupImportGoogleClassrooms from 'app/pages/community-groups/GroupImportGoogleClassrooms';
 import CommunityGroupOverview from 'app/pages/community-groups/GroupOverview';
@@ -60,7 +63,6 @@ import SiteFeedback from 'app/pages/help/SiteFeedback';
 import SpaceSituationRoom from 'app/pages/help/SpaceSituationRoom';
 import TelescopesAndReservations from 'app/pages/help/TelescopesAndReservations';
 import TermsAndConditions from 'app/pages/help/TermsAndConditions';
-import ImageDetails from 'app/pages/image-details';
 import Galleries from 'app/pages/my-pictures/Galleries';
 import GalleryImageDetails from 'app/pages/my-pictures/GalleryImageDetails';
 import GalleryImages from 'app/pages/my-pictures/GalleryImages';
@@ -102,6 +104,7 @@ import validateUser from 'app/route-functions/validateUser';
 import store from 'app/store';
 import firePageview from 'app/utils/ga-wrapper';
 import React, { Fragment } from 'react';
+import { hot } from 'react-hot-loader/root';
 import {
   browserHistory,
   IndexRedirect,
@@ -111,10 +114,10 @@ import {
   Router,
 } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
-import { StoryDetailsMain } from './modules/story-details';
 import { AccountSettingsMain } from './modules/account-settings';
 import AccountDetails from './modules/account-settings/containers/account-details';
 import TakeATour from './modules/account-settings/containers/take-a-tour';
+import { StoryDetailsMain } from './modules/story-details';
 
 // Create an enhanced history that syncs navigation events with the store
 const history = syncHistoryWithStore(browserHistory, store);
@@ -140,7 +143,7 @@ const getProfileRoutes = () => (
     </Route>
     <Route path="lists">
       <IndexRedirect to="object" />
-      <Route path=":filterType" component={MyListsHub} />
+      <Route path=":filterType" component={ProfileListsMain} />
     </Route>
     <Route path="qa">
       <IndexRedirect to="asked" />
@@ -284,13 +287,13 @@ const AppRouter = () => (
 
       <Route
         path="my-pictures/show-image/:customerImageId/:shareToken(/:scheduledMissionId)"
-        component={ImageDetails}
+        component={ImageDetailsMain}
         onEnter={validateUser}
       />
 
       <Route
         path="my-pictures/popular/show-image(/:customerImageId)(/:shareToken)"
-        component={ImageDetails}
+        component={ImageDetailsMain}
         onEnter={validateUser}
       />
 
@@ -452,20 +455,22 @@ const AppRouter = () => (
         onEnter={validateUser}
       />
 
-      <Route
-        path="profile/private"
-        component={PrivateProfile}
-        onEnter={validateUser}
-      >
-        {getProfileRoutes()}
-      </Route>
+      <Route path="profile" component={ProfileMain} onEnter={validateUser}>
+        <Route
+          path=":private"
+          component={PrivateProfileMain}
+          onEnter={validateUser}
+        >
+          {getProfileRoutes()}
+        </Route>
 
-      <Route
-        path="profile/public/:customerUUID"
-        component={PublicProfileMain}
-        onEnter={validateUser}
-      >
-        {getProfileRoutes()}
+        <Route
+          path=":public/:customerUUID"
+          component={PublicProfileMain}
+          onEnter={validateUser}
+        >
+          {getProfileRoutes()}
+        </Route>
       </Route>
 
       <Route
