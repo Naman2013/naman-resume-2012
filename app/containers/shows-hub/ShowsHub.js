@@ -104,7 +104,6 @@ class Shows extends Component {
     return (
       <div>
         <Request
-          withoutUser
           serviceURL={SHOWS_PAGE_ENDPOINT}
           model={showsHubModel}
           requestBody={{}}
