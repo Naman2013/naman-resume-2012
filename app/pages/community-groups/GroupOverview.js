@@ -123,7 +123,7 @@ class CommunityGroupOverview extends Component {
     const {
       communityGroupOverview,
       pageMeta,
-      routeParams: { groupId },
+      routeParams: { groupId, edit },
       actions,
     } = this.props;
     const { showPopup } = this.state;
@@ -138,6 +138,7 @@ class CommunityGroupOverview extends Component {
           {context => (<Fragment>
             <CenterColumn widths={['768px', '940px', '940px']} theme={{ paddingTop: '25px' }}>
               <Header
+                isEditMode = {edit}
                 condensed={false}
                 showInformation={this.showInformation}
                 joinOrLeaveGroup={this.joinLeaveGroup}
@@ -152,6 +153,7 @@ class CommunityGroupOverview extends Component {
                 joinOrLeaveGroup={this.joinLeaveGroup}
                 context={context}
                 discussionGroupId={groupId}
+                isEditMode={edit}
               />
           </CenterColumn>
           <Modal
@@ -167,6 +169,7 @@ class CommunityGroupOverview extends Component {
               showInformation={this.showInformation}
               joinOrLeaveGroup={this.joinLeaveGroup}
               discussionGroupId={groupId}
+              isEditMode={edit}
               {...context}
               {...communityGroupOverview}
               {...pageMeta}

@@ -490,10 +490,11 @@ const AppRouter = () => (
       />
 
       <Route
-        path="community-groups/:groupId"
+        path="community-groups/:groupId(/edit=:edit)"
         onEnter={validateUser}
         component={CommunityGroupOverview}
       />
+
       <Route
         path="community-groups/:groupId/info"
         onEnter={validateUser}

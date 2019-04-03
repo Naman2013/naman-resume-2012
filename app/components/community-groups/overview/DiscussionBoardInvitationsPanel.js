@@ -7,6 +7,7 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { CardDeck, Card, CardColumns, Container, Row, ListGroup, ListGroupItem, } from 'react-bootstrap';
 import Request from 'components/common/network/Request';
 import axios from 'axios';
 import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
@@ -22,6 +23,7 @@ import {
 import { screenLarge } from 'styles/variables/breakpoints';
 import style from './DiscussionBoardInvitationsPanel.style';
 import messages from './DiscussionBoard.messages';
+import { faintShadow } from '../../../styles/variables/shadows';
 
 const {
   arrayOf,
@@ -41,18 +43,18 @@ const mapStateToProps = ({
 class DiscussionBoardInvitationsPanel extends Component {
 
   static propTypes = {
-    pageMeta: shape({ }),
+    pageMeta: shape({}),
     intl: intlShape.isRequired,
   };
 
   static defaultProps = {
-    pageMeta: { },
+    pageMeta: {},
   };
 
   state = {
-      inInviteMode: false,
-      refreshModeStr: "false",
-      inviteStatusMessage: '',
+    inInviteMode: false,
+    refreshModeStr: "false",
+    inviteStatusMessage: '',
   }
 
   toggleInviteMode = () => {
@@ -137,78 +139,119 @@ class DiscussionBoardInvitationsPanel extends Component {
               fetchingContent,
               serviceResponse,
             }) => (
-              <Fragment>
-                {fetchingContent && <div>
-                  <br/>
-                  <br/>
-                  <h3><FormattedMessage {...messages.LoadingClubInvitations} /></h3>
-                  <br/>
-                  <br/>
-                </div>
-                }
-                {
-                  !fetchingContent &&
+                <Fragment>
+                  {fetchingContent && <div>
+                    <h3><FormattedMessage {...messages.LoadingClubInvitations} /></h3>
+                    <br />
+                  </div>
+                  }
+                  {
+                    !fetchingContent &&
                     <div className="customer-links">
-                      <br/>
+                      <br />
                       <h2>{serviceResponse.customerLinksData.sectionHeading}</h2>
                       <p>{serviceResponse.customerLinksData.sectionHeading_LicenseInfo}</p>
-                      <br/>
-                      <br/>
-                      <p style={{"color": "red", "fontSize": "1.3em"}}>{this.state.inviteStatusMessage}</p>
-                      {serviceResponse.customerLinksData.customerLinks.length > 0 ? (
-                        <div>
-                          <div className="Rtable Rtable--6cols Rtable--collapse header">
-                          {serviceResponse.customerLinksData.columnHeadings.map((columnHeading, i) =>
-                            <div className="Rtable-cell" key={`heading_` + i}>{columnHeading}</div>
-                          )}
-                          </div>
-                          {serviceResponse.customerLinksData.customerLinks.map((customerLink, i) =>
-                            <div className="Rtable Rtable--6cols Rtable--collapse" key={`row_` + i}>
-                              <div className="Rtable-cell" key={`data_name_` + i}>{customerLink.name}</div>
-                              <div className="Rtable-cell" key={`data_emailaddress_` + i}>{customerLink.emailaddress}</div>
-                              <div className="Rtable-cell" key={`data_invitationcode_` + i}>{customerLink.invitationcode}</div>
-                              <div className="Rtable-cell" key={`data_accountstatus_` + i}>{customerLink.status}</div>
-                              <div className="Rtable-cell" key={`data_lastactivity_` + i}>{customerLink.lastactivity}</div>
+                      <p style={{ "color": "red", "fontSize": "1.3em" }}>{this.state.inviteStatusMessage}</p>
+                      <br />
+                      <br />
+                      <Container fluid>
+                        <Row noGutters>
+                          {
+                            serviceResponse.customerLinksData.customerLinks.length > 0 ? (
+                              serviceResponse.customerLinksData.customerLinks.map(x => (
+                                <Card className="list-card">
+                                  <Card.Body>
+                                    <Card.Title className="list-card-title">
+                                      {x.name}
+                                    </Card.Title>
+                                    <Card.Subtitle className="list-card-subtitle">
+                                      {x.emailaddress}
+                                    </Card.Subtitle>
+                                  </Card.Body>
+                                  <ListGroup >
+                                    <ListGroupItem className="list-card-item">
+                                      <b>Invitation Code: </b>
+                                      {x.invitationcode}
+                                    </ListGroupItem>
 
-                              {customerLink.alreadyAMemberOfThisGroup === false && customerLink.canBeInvitedToThisGroup === true && <div className="Rtable-cell lastCell" key={`data_clubstatus_` + i}><div className="but"><Button type="button" text={customerLink.invitationPrompt} onClickEvent={() => this.addExistingMemberToDiscussionGroup(customerLink.firstname, customerLink.lastname, customerLink.emailaddress)} /></div></div>}
-                              {customerLink.alreadyAMemberOfThisGroup === true && customerLink.canBeInvitedToThisGroup === false && <div className="Rtable-cell lastCell" key={`data_clubstatus_` + i}><FormattedMessage {...messages.Active} /></div>}
-                              {customerLink.alreadyAMemberOfThisGroup === false && customerLink.canBeInvitedToThisGroup === false && <div className="Rtable-cell lastCell" key={`data_clubstatus_` + i}><FormattedMessage {...messages.Pending} /></div>}
-                            </div>
-                          )}
-                          </div>
-                          ) : <p><FormattedMessage {...messages.NoInvitations} /></p>}
-                      <br/>
+                                    <ListGroupItem className="list-card-item">
+                                      <b>Account status: </b>
+                                      {x.status}
+                                    </ListGroupItem>
+                                    <ListGroupItem className="listy-card-item">
+                                      <b>Club status: </b>
+                                      {x.alreadyAMemberOfThisGroup === false && x.canBeInvitedToThisGroup === true && <div className="but"><Button type="button" text={x.invitationPrompt} onClickEvent={() => this.addExistingMemberToDiscussionGroup(x.firstname, x.lastname, x.emailaddress)} /></div>}
+                                      {x.alreadyAMemberOfThisGroup === true && x.canBeInvitedToThisGroup === false && <FormattedMessage {...messages.Active} />}
+                                      {x.alreadyAMemberOfThisGroup === false && x.canBeInvitedToThisGroup === false && <FormattedMessage {...messages.Pending} />}
+                                    </ListGroupItem>
+                                  </ListGroup>
+
+                                  <Card.Footer>
+                                    <small className="text-muted"><b>Last activity: </b>{x.lastactivity}</small>
+                                  </Card.Footer>
+                                </Card>
+                              ))
+                            ) : <p><FormattedMessage {...messages.NoInvitations} /></p>
+                          }
+                        </Row>
+                      </Container>
+                      <br />
                       {inInviteMode === true && <div>
-                        <DiscussionBoardInviteNewMemberToSlooh {...this.props} newInvitationComplete={(invitationCode, firstName, lastName, emailAddress, statusMessage) => this.newInvitationComplete(invitationCode, firstName, lastName, emailAddress, statusMessage)}/>
+                        <DiscussionBoardInviteNewMemberToSlooh {...this.props} newInvitationComplete={(invitationCode, firstName, lastName, emailAddress, statusMessage) => this.newInvitationComplete(invitationCode, firstName, lastName, emailAddress, statusMessage)} />
                       </div>
                       }
-                      
+
                       {inInviteMode === true && <div className="button-cancel">
                         <Button
                           type="button"
                           text={intl.formatMessage(messages.Cancel)}
                           onClickEvent={this.toggleInviteMode} />
-                          <br/>
-                        </div>
+                        <br />
+                      </div>
                       }
                       {inInviteMode === false && <div className="button-invite">
                         <Button
                           className="submit-button"
                           type="button"
                           onClickEvent={this.toggleInviteMode}
-                          text={_get(serviceResponse,'formsubmitbutton.buttonText')}/>
-                          <br/>
-                        </div>
+                          text={_get(serviceResponse, 'formsubmitbutton.buttonText')} />
+                        <br />
+                      </div>
                       }
                     </div>
-                    }
-                  </Fragment>
-                )}
-              />
+                  }
+                </Fragment>
+              )}
+          />
         </div>
 
         <style>{style}</style>
-    </div>
+        <style>{`
+          .list-card{
+            margin-right:25px !important;
+            margin-bottom:10px !important;
+            border:none;
+            ${faintShadow}
+          }
+          .list-card-item{
+            border-top-left-radius:0 !important;
+            border-top-right-radius:0 !important;
+            border-bottom-right-radius:0 !important;
+            border-bottom-left-radius:0 !important;
+            border-left:0px;
+            border-right:0px;
+          }
+
+          .list-card-title{
+            font-size:2rem;
+          }
+
+.list-card-subtitle{
+  font-size:0.9rem;
+}
+
+          `}</style>
+      </div>
     )
   }
 }
