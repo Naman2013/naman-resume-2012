@@ -152,8 +152,28 @@ class DiscussionBoardInvitationsPanel extends Component {
                       <h2>{serviceResponse.customerLinksData.sectionHeading}</h2>
                       <p>{serviceResponse.customerLinksData.sectionHeading_LicenseInfo}</p>
                       <p style={{ "color": "red", "fontSize": "1.3em" }}>{this.state.inviteStatusMessage}</p>
-                      <br />
-                      <br />
+                      {inInviteMode === true && <div>
+                        <DiscussionBoardInviteNewMemberToSlooh {...this.props} newInvitationComplete={(invitationCode, firstName, lastName, emailAddress, statusMessage) => this.newInvitationComplete(invitationCode, firstName, lastName, emailAddress, statusMessage)} />
+                      </div>
+                      }
+                      {inInviteMode === true && <div className="button-cancel">
+                        <Button
+                          type="button"
+                          text={intl.formatMessage(messages.Cancel)}
+                          onClickEvent={this.toggleInviteMode} />
+                        <br />
+                      </div>
+                      }
+                      {inInviteMode === false && <div className="button-invite">
+                        <Button
+                          className="submit-button"
+                          type="button"
+                          onClickEvent={this.toggleInviteMode}
+                          text={_get(serviceResponse, 'formsubmitbutton.buttonText')} />
+                        <br />
+                      </div>
+                      }
+
                       <Container fluid>
                         <Row noGutters>
                           {
@@ -196,28 +216,8 @@ class DiscussionBoardInvitationsPanel extends Component {
                         </Row>
                       </Container>
                       <br />
-                      {inInviteMode === true && <div>
-                        <DiscussionBoardInviteNewMemberToSlooh {...this.props} newInvitationComplete={(invitationCode, firstName, lastName, emailAddress, statusMessage) => this.newInvitationComplete(invitationCode, firstName, lastName, emailAddress, statusMessage)} />
-                      </div>
-                      }
 
-                      {inInviteMode === true && <div className="button-cancel">
-                        <Button
-                          type="button"
-                          text={intl.formatMessage(messages.Cancel)}
-                          onClickEvent={this.toggleInviteMode} />
-                        <br />
-                      </div>
-                      }
-                      {inInviteMode === false && <div className="button-invite">
-                        <Button
-                          className="submit-button"
-                          type="button"
-                          onClickEvent={this.toggleInviteMode}
-                          text={_get(serviceResponse, 'formsubmitbutton.buttonText')} />
-                        <br />
-                      </div>
-                      }
+                      
                     </div>
                   }
                 </Fragment>
@@ -247,7 +247,7 @@ class DiscussionBoardInvitationsPanel extends Component {
           }
 
 .list-card-subtitle{
-  font-size:0.9rem;
+  font-size:10px;
 }
 
           `}</style>

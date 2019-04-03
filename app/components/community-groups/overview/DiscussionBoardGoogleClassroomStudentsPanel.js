@@ -27,6 +27,7 @@ import { primaryFont, secondaryFont } from 'styles/variables/fonts';
 import { screenLarge } from 'styles/variables/breakpoints';
 
 import messages from './DiscussionBoard.messages';
+import { Container, Row, Card, ListGroup, ListGroupItem } from 'react-bootstrap';
 
 const {
   arrayOf,
@@ -159,39 +160,48 @@ class DiscussionBoardGoogleClassroomStudentsPanel extends Component {
                       />
                       <BarHeader title={serviceResponse.customerLinksData.sectionHeading_LicenseInfo} />
                       {this.state.importStudentErrorText !== "" && <p style={{"color": "red", "fontSize": "1.0em", "fontStyle": "italic"}}>{this.state.importStudentErrorText}<br/><br/></p>}
-                      {serviceResponse.customerLinksData.customerLinks.length > 0 ? (<div>
-                        <br/>
-                        <table className="classroom-table" style={{'cellPadding': '2', 'border': '1px', 'width': '100%', "borderCollapse": "collapse"}}>
-                          <tbody>
-                            <tr>
-                            {serviceResponse.customerLinksData.columnHeadings.map((columnHeading, i) =>
-                                <th className="table-header" key={`heading_` + i}>{columnHeading}</th>
-                            )}
-                            </tr>
-                            {serviceResponse.customerLinksData.customerLinks.map((customerLink, i) =>
-                                [
-                                  <tr>
-                                    <td colspan={serviceResponse.customerLinksData.columnHeadings.length}>&nbsp;</td>
-                                  </tr>,
-                                  <tr style={{"marginBottom": "20px"}} key={`data_` + i}>
-                                  <td key={`data_name_` + i}>{customerLink.name}</td>
-                                  <td key={`data_emailaddress_` + i}>{customerLink.emailaddress}</td>
-                                  <td key={`data_accountstatus_` + i}>{customerLink.status}</td>
-                                  <td key={`data_lastactivity_` + i}>{customerLink.lastactivity}</td>
+                      <Container fluid>
+                      <Row noGutters>
+                          {
+                            serviceResponse.customerLinksData.customerLinks.length > 0 ? (
+                              serviceResponse.customerLinksData.customerLinks.map(x => (
+                                <Card className="list-card">
+                                  <Card.Body>
+                                    <Card.Title className="list-card-title">
+                                      {x.name}
+                                    </Card.Title>
+                                    <Card.Subtitle className="list-card-subtitle">
+                                      {x.emailaddress}
+                                    </Card.Subtitle>
+                                  </Card.Body>
+                                  <ListGroup >
+                                    <ListGroupItem className="list-card-item">
+                                      <b>Invitation Code: </b>
+                                      {x.invitationcode}
+                                    </ListGroupItem>
 
-                                  {/* only one of these conditions will apply */}
-                                  {customerLink.alreadyAMemberOfThisGroup === false && customerLink.canBeInvitedToThisGroup === true && <td key={`data_clubstatus_` + i}><Button type="button" text={customerLink.invitationPrompt} onClickEvent={() => this.addStudentToDiscussionGroup(customerLink.firstname, customerLink.lastname, customerLink.emailaddress, customerLink.googleprofileid)} /></td>}
-                                  {customerLink.alreadyAMemberOfThisGroup === true && customerLink.canBeInvitedToThisGroup === false && <td key={`data_clubstatus_` + i}><FormattedMessage {...messages.Active} /></td>}
-                                  {customerLink.alreadyAMemberOfThisGroup === false && customerLink.canBeInvitedToThisGroup === false && <td key={`data_clubstatus_` + i}><FormattedMessage {...messages.Pending} /></td>}
-                                </tr>
-                              ]
-                            )}
-                          </tbody>
-                        </table>
-                        {serviceResponse.customerLinksData.hasStudentsToInvite && <p style={{"textAlign": "center", "color": "blue", "fontSize": "1.0em", "fontStyle": "italic"}}><br/>* <FormattedMessage {...messages.AddStudentNote} /> *<br/><br/></p>}
-                      </div>
-                      ) : <p><FormattedMessage {...messages.NoStudents} /></p>}
-                      <br/>
+                                    <ListGroupItem className="list-card-item">
+                                      <b>Account status: </b>
+                                      {x.status}
+                                    </ListGroupItem>
+                                    <ListGroupItem className="listy-card-item">
+                                      <b>Club status: </b>
+                                      {x.alreadyAMemberOfThisGroup === false && x.canBeInvitedToThisGroup === true && <Button type="button" text={x.invitationPrompt} onClickEvent={() => this.addStudentToDiscussionGroup(x.firstname, x.lastname, x.emailaddress, x.googleprofileid)} />}
+                                      {x.alreadyAMemberOfThisGroup === true && x.canBeInvitedToThisGroup === false && <FormattedMessage {...messages.Active} />}
+                                      {x.alreadyAMemberOfThisGroup === false && x.canBeInvitedToThisGroup === false && <FormattedMessage {...messages.Pending} />}
+                                    </ListGroupItem>
+                                  </ListGroup>
+
+                                  <Card.Footer>
+                                    <small className="text-muted"><b>Last activity: </b>{x.lastactivity}</small>
+                                  </Card.Footer>
+                                </Card>
+                              ))
+                            ) : <p><FormattedMessage {...messages.NoInvitations} /></p>
+                          }
+                          {serviceResponse.customerLinksData.hasStudentsToInvite && <p style={{ "textAlign": "center", "color": "blue", "fontSize": "1.0em", "fontStyle": "italic" }}><br />* <FormattedMessage {...messages.AddStudentNote} /> *<br /><br /></p>}
+                      </Row>
+                      </Container>
                       <br/>
                     </div>
                     }
