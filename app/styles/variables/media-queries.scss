@@ -25,6 +25,13 @@ $screen-xl-min: 1366px;
   }
 }
 
+// Medium and lower (from 768 to 1023)
+@mixin md-low {
+  @media (max-width: #{$screen-lg-min - 1}) {
+    @content;
+  }
+}
+
 // Large (from 1024 to 1365)
 @mixin lg {
   @media (min-width: #{$screen-lg-min}) and (max-width: #{$screen-xl-min - 1}) {

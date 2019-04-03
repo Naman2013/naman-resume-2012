@@ -1,0 +1,39 @@
+@import "~app/styles/variables/index";
+
+.edit-header {
+  position: relative;
+
+  .header {
+    font-family: $secondary-font;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+  }
+
+
+  .custom-popover {
+    width: 300px;
+    right: -10px;
+    //bottom: -40px;
+    top: initial;
+  }
+
+
+  .tags-popover {
+    position: relative;
+
+    .tag-list {
+      max-height: 300px;
+      overflow: auto;
+    }
+  }
+
+  .gallery-btn {
+    .dropdown-menu {
+      right: 0;
+    }
+  }
+  .gallery-popover {
+    position: relative;
+  }
+}

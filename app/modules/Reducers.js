@@ -1,4 +1,5 @@
 import profile from 'app/modules/profile/reducer';
+import imageDetails from 'app/modules/image-details/reducer';
 import telescope from 'app/modules/telescope/reducer';
 import storyDetails from 'app/modules/story-details/reducer';
 import { routerReducer } from 'react-router-redux';
@@ -183,4 +184,5 @@ export default combineReducers({
   telescope,
   missions,
   accountSettings,
+  imageDetails,
 });
