@@ -1,14 +1,16 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
+import moment from 'moment';
 import chevron from 'atoms/icons/chevron.svg';
 import './styles.scss';
 
-export class MissionsDaySelector extends Component {
+export class MissionsDaySelector extends PureComponent {
   render() {
-    const { telescopeList, selectedTelescopeId, setTelescope } = this.props;
+    const { selectedDate } = this.props;
     return (
       <div className="missions-day-selector">
         <div className="date">
-          <span>The night of</span> date
+          <span>The night of</span>{' '}
+          {moment(selectedDate).format('dddd, MMM DD, YYYY')}
         </div>
         <div className="arrows prev">
           <div>

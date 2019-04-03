@@ -14,7 +14,12 @@ export class Telescope extends Component {
   };
 
   render() {
-    const { selectedTelescope, telescopeList, setTelescope } = this.props;
+    const {
+      selectedTelescope,
+      telescopeList,
+      setTelescope,
+      selectedDate,
+    } = this.props;
     console.log(this.props);
     return (
       <div className="by-telescope">
@@ -25,7 +30,7 @@ export class Telescope extends Component {
             setTelescope={setTelescope}
           />
 
-          <MissionsList />
+          <MissionsList selectedDate={selectedDate} />
         </div>
       </div>
     );

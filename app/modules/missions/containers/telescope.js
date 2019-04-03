@@ -7,11 +7,13 @@ import { getObservatoryList, setTelescope } from '../thunks';
 import {
   makeTelescopeListSelector,
   makeTelescopeSelectedTelescopeSelector,
+  makeTelescopeSelectedDateSelector,
 } from '../selectors';
 
 const mapStateToProps = createStructuredSelector({
   telescopeList: makeTelescopeListSelector(),
   selectedTelescope: makeTelescopeSelectedTelescopeSelector(),
+  selectedDate: makeTelescopeSelectedDateSelector(),
 });
 
 const mapDispatchToProps = {

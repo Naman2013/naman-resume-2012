@@ -4,10 +4,10 @@ import { MissionsDaySelector } from '../missions-day-selector';
 
 export class MissionsList extends Component {
   render() {
-    const { telescopeList, selectedTelescopeId, setTelescope } = this.props;
+    const { selectedDate, selectedTelescopeId, setTelescope } = this.props;
     return (
       <div className="missions-list">
-        <MissionsDaySelector />
+        <MissionsDaySelector selectedDate={selectedDate} />
       </div>
     );
   }
