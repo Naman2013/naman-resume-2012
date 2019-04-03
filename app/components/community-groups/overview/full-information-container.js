@@ -109,6 +109,7 @@ class FullInformationOverview extends Component {
       refreshHeader,
       user,
       intl,
+      isEditMode,
     } = this.props;
 
     const createThreadFormParams = {
@@ -122,7 +123,7 @@ class FullInformationOverview extends Component {
 
     return (
       <div className="root">
-        {pageMeta.canEditGroup && pageMeta.isGoogleClassroom === false && <DiscussionBoardInvitationsPanel {...this.props} refreshHeader={refreshHeader} />}
+        {pageMeta.canEditGroup && isEditMode && pageMeta.isGoogleClassroom === false && <DiscussionBoardInvitationsPanel {...this.props} refreshHeader={refreshHeader} />}
         {pageMeta.canEditGroup && pageMeta.isGoogleClassroom === true && <DiscussionBoardGoogleClassroomStudentsPanel {...this.props} refreshHeader={refreshHeader} />}
 
         <ResponsiveTwoColumnContainer

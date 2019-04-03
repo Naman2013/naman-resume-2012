@@ -5,7 +5,7 @@
 *
 ***********************************/
 import React, { Component } from 'react';
-import { Link } from 'react-router';
+import { Link, browserHistory } from 'react-router';
 import PropTypes from 'prop-types';
 import pick from 'lodash/pick';
 import { FormattedMessage } from 'react-intl';
@@ -28,54 +28,66 @@ const {
 } = PropTypes;
 
 const GroupsHeader = ({
-  condensed=false,
+  condensed = false,
   description,
   isMobile,
   joinOrLeaveGroup,
   joinPrompt,
   showInformation,
   showJoinPrompt,
-  subtitleList={},
+  subtitleList = {},
   title,
   canEditGroup,
   discussionGroupId,
+  isEditMode,
 }) => (
-  <div className="root">
-    <div className="image-and-main-container">
-      {!condensed ? <div className="groups-header-image">
-        <img
-          className="header-img"
-          src="https://s3.amazonaws.com/webassets-slooh-com/assets/v4/icons/Group_Graphic_Placeholder.png"
-        />
-      </div> : null}
-      <div className="main-container">
-        <div className="groups-header-title desktop-hide" dangerouslySetInnerHTML={{ __html: title }} />
-        <LabeledTitleTiles tiles={subtitleList} theme={{ boxShadow: 'none' }} />
-        {condensed ? (<DiscussionBoardDescription groupId={discussionGroupId} description={description} canEdit={canEditGroup} />) : null}
+    <div className="root">
+      <div className="image-and-main-container">
+        {!condensed ? <div className="groups-header-image">
+          <img
+            className="header-img"
+            src="https://s3.amazonaws.com/webassets-slooh-com/assets/v4/icons/Group_Graphic_Placeholder.png"
+          />
+        </div> : null}
+        <div className="main-container">
+          <div className="groups-header-title desktop-hide" dangerouslySetInnerHTML={{ __html: title }} />
+          <LabeledTitleTiles tiles={subtitleList} theme={{ boxShadow: 'none' }} />
+          {canEditGroup && <Button
+          theme= {{
+            color:astronaut,
+            marginLeft:'auto',
+            marginRight:'auto',
+            marginTop:'10px'
+          }}
+          onClickEvent={() => {
+            browserHistory.push(`/community-groups/${discussionGroupId}/${isEditMode?'':'edit=true'}`);
+          }
+            }>{isEditMode ? "View Group": "Manage Group"}</Button> }
+          {condensed ? (<DiscussionBoardDescription groupId={discussionGroupId} description={description} canEdit={canEditGroup && isEditMode} />) : null}
 
-        <div className="action-container">
-          {showJoinPrompt ?
-            <LargeButtonWithRightIcon
-              icon="https://vega.slooh.com/assets/v4/common/comment.svg"
-              text={joinPrompt}
-              onClickEvent={joinOrLeaveGroup}
-            /> : null}
+          <div className="action-container">
+            {showJoinPrompt ?
+              <LargeButtonWithRightIcon
+                icon="https://vega.slooh.com/assets/v4/common/comment.svg"
+                text={joinPrompt}
+                onClickEvent={joinOrLeaveGroup}
+              /> : null}
             {isMobile && !condensed ? <Button icon={info} onClickEvent={showInformation} /> : null}
+          </div>
         </div>
       </div>
-    </div>
 
-    {!condensed ? (
-      <div className="info-container">
-        <div className="info-inner-container">
-          <div className="groups-header-subtitle"><FormattedMessage {...messages.CommunityGroup} /></div>
-          <div className="groups-header-title" dangerouslySetInnerHTML={{ __html: title }} />
-          <DiscussionBoardDescription groupId={discussionGroupId} description={description} canEdit={canEditGroup} />
+      {!condensed ? (
+        <div className="info-container">
+          <div className="info-inner-container">
+            <div className="groups-header-subtitle"><FormattedMessage {...messages.CommunityGroup} /></div>
+            <div className="groups-header-title" dangerouslySetInnerHTML={{ __html: title }} />
+            <DiscussionBoardDescription groupId={discussionGroupId} description={description} canEdit={canEditGroup && isEditMode} />
+          </div>
         </div>
-      </div>
-    ) : null}
+      ) : null}
 
-    <style jsx>{`
+      <style jsx>{`
       .root {
         display: block;
         color: ${astronaut};
@@ -236,7 +248,7 @@ const GroupsHeader = ({
       }
 
     `}</style>
-  </div>
-);
+    </div>
+  );
 
 export default GroupsHeader;
