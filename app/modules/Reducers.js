@@ -92,6 +92,7 @@ import upcomingEvents from './upcoming-events/upcoming-events-reducer';
 import user from './User';
 import usersUpcomingMission from './Users-Upcoming-Missions';
 import missionDetails from './mission-details/reducer';
+import galleryDetails from './gallery-details/reducer';
 
 export default combineReducers({
   routing: routerReducer,
@@ -187,4 +188,5 @@ export default combineReducers({
   accountSettings,
   missionDetails,
   imageDetails,
+  galleryDetails,
 });

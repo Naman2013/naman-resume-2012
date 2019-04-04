@@ -13,10 +13,10 @@ article {
 
   .i-text {
 
-  .text {
-    margin: 10px 0 30px;
+    .text {
+      margin: 10px 0 30px;
+    }
   }
-}
 }
 
 .h-1,
@@ -65,6 +65,10 @@ article {
 
   &-normal {
     font-weight: normal;
+  }
+
+  &-lowercase {
+    text-transform: none;
   }
 }
 
