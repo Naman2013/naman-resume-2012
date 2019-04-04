@@ -32,7 +32,7 @@ const MissionDetailsHeader = (props: TMissionDetailsHeader) => {
     <header className="header-wrapper shadow i-box-white">
       <Row>
         <Col md={12}>
-          <h1 className="h-1 h-1-low mission-details-head">
+          <h1 className="h-1 h-1-low h-1-lowercase mission-details-head">
             <span className="mission-details-img">
               <img src={missionIconURL} alt={missionTitle} />
             </span>

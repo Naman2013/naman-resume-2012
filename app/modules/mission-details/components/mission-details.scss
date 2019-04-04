@@ -10,14 +10,6 @@
       display: flex;
       flex-wrap: wrap;
 
-      .root {
-        margin: 5px;
-
-        @include sm {
-          margin: 2px;
-        }
-      }
-
       @include sm {
         margin-left: 15px;
         margin-right: 15px;
