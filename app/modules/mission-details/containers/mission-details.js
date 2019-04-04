@@ -7,6 +7,7 @@ import MissionDetails from '../components/mission-details';
 
 const mapStateToProps = ({ missionDetails }) => {
   return {
+    isFetching: missionDetails.isFetching,
     missionTitle: missionDetails.missionTitle,
     missionIconURL: missionDetails.missionIconURL,
     missionDateCreated: missionDetails.missionDateCreated,

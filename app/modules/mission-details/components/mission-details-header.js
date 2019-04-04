@@ -1,5 +1,6 @@
 // @flow
 import React from 'react';
+import cn from 'classnames';
 import { Col, Row } from 'react-bootstrap';
 import Btn from 'app/atoms/Btn';
 import noop from 'lodash/fp/noop';
@@ -10,6 +11,7 @@ type TMissionDetailsHeader = {
   missionIconURL: string,
   missionDateCreated: string,
   imageCount: number,
+  isMobile: boolean,
 };
 
 const MissionDetailsHeader = (props: TMissionDetailsHeader) => {
@@ -18,6 +20,7 @@ const MissionDetailsHeader = (props: TMissionDetailsHeader) => {
     missionIconURL,
     missionDateCreated,
     imageCount,
+    isMobile,
   } = props;
   const getTelescopeName = () => {
     return props.image && props.image.telescopeName;
@@ -29,30 +32,44 @@ const MissionDetailsHeader = (props: TMissionDetailsHeader) => {
     <header className="header-wrapper shadow i-box-white">
       <Row>
         <Col md={12}>
-          <h1 className="h-1 h-1-low">
-            <img src={missionIconURL} alt={missionTitle} />{' '}
+          <h1 className="h-1 h-1-low mission-details-head">
+            <span className="mission-details-img">
+              <img src={missionIconURL} alt={missionTitle} />
+            </span>
             <span>{missionTitle}</span>
           </h1>
         </Col>
       </Row>
       <hr className="hr" />
       <Row noGutters className="mission-details-box">
-        <Col md={2} sm={3}>
+        <Col lg={3} md={3} sm={12}>
           <h5 className="h-5 h-5-normal">{missionDateCreated}</h5>
         </Col>
-        <Col md={4} sm={4}>
-          <h5 className="h-5 h-5-normal mission-details-ceil">
+        <Col lg={3} md={4} sm={12}>
+          <h5
+            className={cn('h-5 h-5-normal mission-details-ceil', {
+              'mission-details-ceil-mobile': isMobile,
+            })}
+          >
             <span>{getTelescopeName()}</span>
             <span>{getInstrumentName()}</span>
           </h5>
         </Col>
-        <Col md={3} sm={3}>
-          <h5 className="h-5 h-5-normal mission-details-ceil">
+        <Col lg={3} md={3} sm={12}>
+          <h5
+            className={cn('h-5 h-5-normal mission-details-ceil', {
+              'mission-details-ceil-mobile': isMobile,
+            })}
+          >
             {imageCount} photos
           </h5>
         </Col>
-        <Col md={3} sm={2}>
-          <div className="btn-group justify-content-end">
+        <Col lg={3} md={2} sm={12}>
+          <div
+            className={`btn-group justify-content-${
+              isMobile ? 'start' : 'end'
+            }`}
+          >
             <Btn onClick={noop} mod="circle">
               <i className="fa fa-tag" />
             </Btn>

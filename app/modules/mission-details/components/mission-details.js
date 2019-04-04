@@ -14,6 +14,7 @@ import MissionDetailsHeader from './mission-details-header';
 import './mission-details.scss';
 
 type TMissionDetails = {
+  isFetching: boolean,
   missionTitle: string,
   missionIconURL: string,
   missionDateCreated: string,
@@ -39,6 +40,7 @@ class MissionDetails extends Component<TMissionDetails> {
 
   render() {
     const {
+      isFetching,
       missionTitle,
       missionIconURL,
       missionDateCreated,
@@ -46,7 +48,7 @@ class MissionDetails extends Component<TMissionDetails> {
       imageList,
     } = this.props;
     const { activePage } = this.state;
-
+    if (isFetching) return <div>Loading...</div>;
     return (
       <DeviceContext.Consumer>
         {({ isMobile, isDesktop }) => (
@@ -54,6 +56,7 @@ class MissionDetails extends Component<TMissionDetails> {
             <BackButton />
             <MissionDetailsHeader
               image={imageList[0]}
+              isMobile={isMobile}
               missionTitle={missionTitle}
               missionIconURL={missionIconURL}
               missionDateCreated={missionDateCreated}
