@@ -12,6 +12,7 @@ import PhotoRollCard from 'app/modules/profile-photos/components/PhotoRoll/Photo
 import MissionDetailsHeader from './mission-details-header';
 
 import './mission-details.scss';
+import cn from "classnames";
 
 type TMissionDetails = {
   isFetching: boolean,
@@ -55,7 +56,7 @@ class MissionDetails extends Component<TMissionDetails> {
     if (isFetching) return <div>Loading...</div>;
     return (
       <DeviceContext.Consumer>
-        {({ isMobile, isDesktop }) => (
+        {({ isMobile, isTablet, isDesktop }) => (
           <section className="mission-details root-wrapper">
             <BackButton />
             <MissionDetailsHeader
@@ -67,7 +68,12 @@ class MissionDetails extends Component<TMissionDetails> {
               imageCount={imageCount}
             />
 
-            <section className="body-wrapper">
+            <section
+              className={cn('body-wrapper', {
+                'justify-content-between': isTablet || isMobile,
+                'justify-content-normal': isDesktop,
+              })}
+            >
               {imageList.map((item, i) => (
                 <PhotoRollCard
                   key={i}
