@@ -19,6 +19,9 @@ export class Telescope extends Component {
       telescopeList,
       setTelescope,
       selectedDate,
+      setTelescopeDate,
+      getMissionSlotDates,
+      missionList,
     } = this.props;
     console.log(this.props);
     return (
@@ -30,7 +33,12 @@ export class Telescope extends Component {
             setTelescope={setTelescope}
           />
 
-          <MissionsList selectedDate={selectedDate} />
+          <MissionsList
+            selectedDate={selectedDate}
+            selectedTelescope={selectedTelescope}
+            getMissionSlotDates={getMissionSlotDates}
+            missionList={missionList}
+          />
         </div>
       </div>
     );

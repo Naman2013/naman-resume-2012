@@ -1,0 +1,102 @@
+@import '~app/styles/variables/index';
+
+.missions-list-item {
+  margin-top: 20px;
+  box-shadow: $faintShadow;
+  background-color: $romance;
+  display: flex;
+  color: $lightHeadedAstronaut;
+
+  > div {
+    width: 50%;
+  }
+
+  .left {
+    padding-left: 40px;
+    border-right: 1px solid $hawkesBlue;
+
+    .mission-title {
+      min-height: 65px;
+      padding-top: 30px;
+      padding-bottom: 5px;
+      border-bottom: 1px solid $hawkesBlue;
+      font-family: $secondary-font;
+      font-size: 20px;
+      line-height: 1.4;
+    }
+
+    .mission-owner {
+      padding: 15px 0;
+      display: flex;
+      align-items: center;
+      min-height: 60px;
+
+      span {
+        font-family: $primary-font;
+        font-size: 12px;
+        font-weight: bold;
+        line-height: 0.92;
+        letter-spacing: 0.6px;
+        text-transform: uppercase;
+      }
+
+      .owner-avatar {
+        width: 30px;
+        height: 30px;
+        object-fit: contain;
+        border-radius: 50%;
+        margin-left: 10px;
+      }
+
+      .owner-name {
+        margin-left: 10px;
+        font-family: $primary-font;
+        font-size: 20px;
+        line-height: 1.4;
+      }
+    }
+  }
+
+  .right {
+    display: flex;
+    align-items: center;
+    padding-right: 40px;
+    font-family: $primary-font;
+
+    .actions {
+      flex: 1;
+    }
+
+    .time {
+      width: 200px;
+
+      .large {
+        align-self: flex-end;
+        font-size: 60px;
+        font-weight: 400;
+        line-height: 1.13;
+        letter-spacing: 1.7px;
+        text-align: right;
+        position: relative;
+      }
+
+      .timezone {
+        font-size: 10px;
+        transform: rotate(90deg);
+        letter-spacing: 2px;
+        font-weight: 400;
+        text-transform: uppercase;
+        position: absolute;
+        bottom: 20px;
+        right: -20px;
+      }
+    }
+
+    .other {
+      font-weight: 700;
+      text-align: right;
+      position: relative;
+      right: -11px;
+    }
+  }
+}

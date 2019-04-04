@@ -279,5 +279,11 @@ export const makeTelescopeSelectedTelescopeSelector = () =>
 export const makeTelescopeSelectedDateSelector = () =>
   createSelector(
     makeByTelescopeSelector(),
-    state => state.selectedDate
+    state => state.dateList[0]
+  );
+
+export const makeTelescopeMissionListSelector = () =>
+  createSelector(
+    makeByTelescopeSelector(),
+    state => state.missionList
   );
