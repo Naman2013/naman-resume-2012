@@ -6,17 +6,12 @@
 import React, { Component } from 'react';
 import BackButton from 'app/atoms/BackButton';
 import { DeviceContext } from 'app/providers/DeviceProvider';
-import { browserHistory } from 'react-router';
-import pick from 'lodash/pick';
-import queryString from 'query-string';
 import PaginateWithNetwork from 'app/components/common/paginate-with-network';
 import ShowMoreWithNetwork from 'app/components/common/show-more-with-network';
 import PhotoRollCard from 'app/modules/profile-photos/components/PhotoRoll/PhotoRollCard';
 import MissionDetailsHeader from './mission-details-header';
 
 import './mission-details.scss';
-
-const QUERY_TYPES = ['sort', 'page'];
 
 type TMissionDetails = {
   isFetching: boolean,
@@ -37,8 +32,8 @@ class MissionDetails extends Component<TMissionDetails> {
   }
 
   fetchData = () => {
-    const { getMissionDetails } = this.props;
-    getMissionDetails();
+    const { getMissionDetails, params } = this.props;
+    getMissionDetails(params.missionId);
   };
 
   handlePageChange = ({ activePage }) => {

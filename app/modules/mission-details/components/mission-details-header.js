@@ -61,7 +61,7 @@ const MissionDetailsHeader = (props: TMissionDetailsHeader) => {
               'mission-details-ceil-mobile': isMobile,
             })}
           >
-            {imageCount} photos
+            {imageCount} photo{imageCount > 1 && 's'}
           </h5>
         </Col>
         <Col lg={3} md={2} sm={12}>
