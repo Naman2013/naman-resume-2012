@@ -103,7 +103,7 @@ class MissionCard extends PureComponent<TMissionCard> {
                 onClickEvent={this.onDownloadFile}
                 theme={{ borderColor: '#fff', color: '#fff' }}
               >
-                <i className="icon icon-download" />
+                <i className="icon white icon-download" />
               </Button>
             </div>
 

@@ -35,6 +35,11 @@
       color: #253446;
     }
   }
+  &.white {
+    &:before {
+      color: #fff;
+    }
+  }
 }
 
 .icon-download:before {

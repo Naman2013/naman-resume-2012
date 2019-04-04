@@ -4,15 +4,13 @@
 
 // @flow
 import React, { Component } from 'react';
-import { Row, Col } from 'react-bootstrap';
-import Btn from 'app/atoms/Btn';
 import BackButton from 'app/atoms/BackButton';
 import ShowMore from 'app/components/common/ShowMore';
 import { DeviceContext } from 'app/providers/DeviceProvider';
 import Pagination from 'app/components/common/pagination/v4-pagination/pagination';
 import PhotoRollCard from 'app/modules/profile-photos/components/PhotoRoll/PhotoRollCard';
+import MissionDetailsHeader from './mission-details-header';
 
-import noop from 'lodash/fp/noop';
 import './mission-details.scss';
 
 type TMissionDetails = {
@@ -47,8 +45,6 @@ class MissionDetails extends Component<TMissionDetails> {
       imageCount,
       imageList,
     } = this.props;
-    if (!imageList && imageList.length) return null;
-    const { telescopeName, instrumentName } = imageList[0];
     const { activePage } = this.state;
 
     return (
@@ -56,47 +52,13 @@ class MissionDetails extends Component<TMissionDetails> {
         {({ isMobile, isDesktop }) => (
           <section className="mission-details root-wrapper">
             <BackButton />
-            <header className="header-wrapper shadow i-box-white">
-              <Row>
-                <Col md={12}>
-                  <h1 className="h-1 h-1-low">
-                    <img src={missionIconURL} alt={missionTitle} />{' '}
-                    <span>{missionTitle}</span>
-                  </h1>
-                </Col>
-              </Row>
-              <hr className="hr" />
-              <Row noGutters className="mission-details-box">
-                <Col md={2}>
-                  <h5 className="h-5 h-5-normal">{missionDateCreated}</h5>
-                </Col>
-                <Col md={3}>
-                  <h5 className="h-5 h-5-normal mission-details-ceil">
-                    {telescopeName ? (
-                      <span>{telescopeName}</span>
-                    ) : (
-                      <span>Telescope name unknown</span>
-                    )}{' '}
-                    {instrumentName && <span>{instrumentName}</span>}
-                  </h5>
-                </Col>
-                <Col md={3}>
-                  <h5 className="h-5 h-5-normal mission-details-ceil">
-                    {imageCount} photos
-                  </h5>
-                </Col>
-                <Col md={4}>
-                  <div className="btn-group justify-content-end">
-                    <Btn onClick={noop} mod="circle">
-                      <i className="fa fa-tag" />
-                    </Btn>
-                    <Btn onClick={noop} mod="circle">
-                      <i className="icon icon-download nightfall" />
-                    </Btn>
-                  </div>
-                </Col>
-              </Row>
-            </header>
+            <MissionDetailsHeader
+              image={imageList[0]}
+              missionTitle={missionTitle}
+              missionIconURL={missionIconURL}
+              missionDateCreated={missionDateCreated}
+              imageCount={imageCount}
+            />
 
             <section className="body-wrapper">
               {imageList.map((item, i) => (
