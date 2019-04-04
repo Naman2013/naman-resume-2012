@@ -5,38 +5,46 @@
 // @flow
 import React, { Component } from 'react';
 import BackButton from 'app/atoms/BackButton';
-import ShowMore from 'app/components/common/ShowMore';
 import { DeviceContext } from 'app/providers/DeviceProvider';
-import Pagination from 'app/components/common/pagination/v4-pagination/pagination';
+import { browserHistory } from 'react-router';
+import pick from 'lodash/pick';
+import queryString from 'query-string';
+import PaginateWithNetwork from 'app/components/common/paginate-with-network';
+import ShowMoreWithNetwork from 'app/components/common/show-more-with-network';
 import PhotoRollCard from 'app/modules/profile-photos/components/PhotoRoll/PhotoRollCard';
 import MissionDetailsHeader from './mission-details-header';
 
 import './mission-details.scss';
+
+const QUERY_TYPES = ['sort', 'page'];
 
 type TMissionDetails = {
   isFetching: boolean,
   missionTitle: string,
   missionIconURL: string,
   missionDateCreated: string,
-  firstImageNumber: number,
   imageCount: number,
-  maxImageCount: number,
   imageList: Array<Object>,
   getMissionDetails: Function,
+  apiURL: string,
 };
 
 class MissionDetails extends Component<TMissionDetails> {
   state = { activePage: 1 };
 
   componentDidMount() {
-    const { getMissionDetails } = this.props;
-    getMissionDetails();
+    this.fetchData();
   }
 
-  // TODO: pagination logic
-  handlePageChange = () => {};
+  fetchData = () => {
+    const { getMissionDetails } = this.props;
+    getMissionDetails();
+  };
 
-  handleLoadMore = () => {};
+  handlePageChange = ({ activePage }) => {
+    this.fetchData();
+    this.setState({ activePage });
+  };
 
   render() {
     const {
@@ -46,6 +54,7 @@ class MissionDetails extends Component<TMissionDetails> {
       missionDateCreated,
       imageCount,
       imageList,
+      apiURL,
     } = this.props;
     const { activePage } = this.state;
     if (isFetching) return <div>Loading...</div>;
@@ -78,18 +87,18 @@ class MissionDetails extends Component<TMissionDetails> {
             <section className="pagination-wrapper">
               {imageCount && !isMobile
                 ? imageCount > 9 && (
-                    <Pagination
-                      pagesPerPage={4}
-                      activePage={activePage}
-                      onPageChange={this.handlePageChange}
+                    <PaginateWithNetwork
+                      apiURL={apiURL}
+                      activePageNumber={activePage}
+                      onPaginationChange={this.handlePageChange}
                       totalPageCount={Math.ceil(imageCount / 9)}
                     />
                   )
                 : imageCount > 10 && (
-                    <ShowMore
-                      totalCount={imageList.length}
-                      currentCount={imageCount}
-                      handleShowMore={this.handleLoadMore}
+                    <ShowMoreWithNetwork
+                      apiURL={apiURL}
+                      activePageNumber={activePage}
+                      onPaginationChange={this.handlePageChange}
                     />
                   )}
             </section>

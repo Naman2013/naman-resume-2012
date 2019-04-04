@@ -11,10 +11,9 @@ const mapStateToProps = ({ missionDetails }) => {
     missionTitle: missionDetails.missionTitle,
     missionIconURL: missionDetails.missionIconURL,
     missionDateCreated: missionDetails.missionDateCreated,
-    firstImageNumber: missionDetails.firstImageNumber,
     imageCount: missionDetails.imageCount,
-    maxImageCount: missionDetails.maxImageCount,
     imageList: missionDetails.imageList,
+    apiURL: missionDetails.apiURL,
   };
 };
 

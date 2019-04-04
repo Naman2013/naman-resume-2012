@@ -1,6 +1,7 @@
 // @flow
 import { actions, constants } from 'ducks-helpers';
 import { handleActions } from 'redux-actions';
+import { API_URL } from './api';
 
 export const TYPE = constants('mission-details', ['~GET_MISSION_DETAILS']);
 export const ACTION = actions(TYPE);
@@ -14,11 +15,13 @@ type TInitialState = {
   firstImageNumber: number,
   imageCount: number,
   imageCount: number,
+  apiURL: string,
 };
 
 export const initialState: TInitialState = {
   isFetching: false,
   isLoaded: false,
+  apiURL: API_URL,
   missionTitle: '',
   missionIconURL: '',
   missionDateCreated: '',
