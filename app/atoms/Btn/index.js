@@ -12,7 +12,7 @@ type TButton = {
 };
 
 const Btn = (props: TButton) => {
-  const { type = 'button', className = null, children, onClick, mod = null } = props;
+  const { type = 'button', className = null, children, onClick, mod } = props;
   return (
     <button
       type={type}
