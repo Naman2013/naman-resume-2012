@@ -12,6 +12,7 @@ type TInitialState = {
   galleryTitle: string,
   galleryDateCreated: string,
   imageCount: number,
+  canEditFlag: number | boolean,
   apiURL: string,
 };
 
@@ -22,6 +23,7 @@ export const initialState: TInitialState = {
   galleryTitle: '',
   galleryDateCreated: '',
   imageCount: 0,
+  canEditFlag: true,
   imageList: [],
 };
 
@@ -55,6 +57,7 @@ function getGalleryDetailsSuccess(state, { payload }) {
     galleryTitle: payload.galleryTitle,
     galleryDateCreated: payload.galleryDateCreated,
     imageCount: payload.imageCount,
+    canEditFlag: payload.canEditFlag,
     imageList: payload.imageList,
   };
 }

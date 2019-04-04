@@ -9,6 +9,7 @@ import {
   makeGalleryDetailsDateCreatedSelector,
   makeGalleryDetailsImageCountSelector,
   makeGalleryDetailsImageListSelector,
+  makeGalleryDetailsCanEditSelector,
   makeGalleryDetailsApiURLSelector,
 } from '../selectors';
 
@@ -18,6 +19,7 @@ const mapStateToProps = createStructuredSelector({
   galleryDateCreated: makeGalleryDetailsDateCreatedSelector(),
   imageCount: makeGalleryDetailsImageCountSelector(),
   imageList: makeGalleryDetailsImageListSelector(),
+  canEditFlag: makeGalleryDetailsCanEditSelector(),
   apiURL: makeGalleryDetailsApiURLSelector(),
 });
 

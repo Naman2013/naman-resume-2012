@@ -16,12 +16,12 @@ import './gallery-details.scss';
 
 type TGalleryDetails = {
   isFetching: boolean,
-  missionTitle: string,
-  missionIconURL: string,
-  missionDateCreated: string,
+  galleryTitle: string,
+  galleryDateCreated: string,
   imageCount: number,
   imageList: Array<Object>,
   getGalleryDetails: Function,
+  canEditFlag: number | boolean,
   apiURL: string,
 };
 
@@ -49,6 +49,7 @@ class GalleryDetails extends Component<TGalleryDetails> {
       galleryDateCreated,
       imageCount,
       imageList,
+      canEditFlag,
       apiURL,
     } = this.props;
     const { activePage } = this.state;
@@ -64,6 +65,7 @@ class GalleryDetails extends Component<TGalleryDetails> {
               galleryTitle={galleryTitle}
               galleryDateCreated={galleryDateCreated}
               imageCount={imageCount}
+              canEditFlag={canEditFlag}
             />
 
             <section

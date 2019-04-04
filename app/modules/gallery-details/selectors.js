@@ -32,6 +32,12 @@ export const makeGalleryDetailsImageListSelector = () =>
     state => state.imageList
   );
 
+export const makeGalleryDetailsCanEditSelector = () =>
+  createSelector(
+    selectGalleryDetails,
+    state => state.canEditFlag
+  );
+
 export const makeGalleryDetailsApiURLSelector = () =>
   createSelector(
     selectGalleryDetails,

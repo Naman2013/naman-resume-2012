@@ -9,29 +9,39 @@ type TGalleryDetailsHeader = {
   galleryTitle: string,
   galleryDateCreated: string,
   imageCount: number,
+  canEditFlag: number | boolean,
   isMobile: boolean,
 };
 
 const GalleryDetailsHeader = (props: TGalleryDetailsHeader) => {
-  const { galleryTitle, galleryDateCreated, imageCount, isMobile } = props;
+  const {
+    galleryTitle,
+    galleryDateCreated,
+    imageCount,
+    isMobile,
+    canEditFlag,
+  } = props;
+  const width = canEditFlag ? 6 : 12;
   return (
     <header className="header-wrapper shadow i-box-white">
       <Row noGutters>
-        <Col lg={6} md={6} sm={6}>
+        <Col lg={width} md={width} sm={width}>
           <h1 className="h-1 h-1-low h-1-lowercase gallery-details-head">
             <span>{galleryTitle}</span>
           </h1>
         </Col>
-        <Col
-          lg={6}
-          md={6}
-          sm={6}
-          className="flex-row justify-content-end align-items-center"
-        >
-          <Btn onClick={noop} mod="circle">
-            <i className="fa fa-pencil" />
-          </Btn>
-        </Col>
+        {canEditFlag ? (
+          <Col
+            lg={6}
+            md={6}
+            sm={6}
+            className="flex-row justify-content-end align-items-center"
+          >
+            <Btn onClick={noop} mod="circle">
+              <i className="fa fa-pencil" />
+            </Btn>
+          </Col>
+        ) : null}
       </Row>
       <hr className="hr" />
       <Row noGutters className="gallery-details-box">
@@ -59,9 +69,11 @@ const GalleryDetailsHeader = (props: TGalleryDetailsHeader) => {
             <Btn onClick={noop} mod="circle">
               <i className="fa fa-share-alt" />
             </Btn>
-            <Btn onClick={noop} mod="circle">
-              <i className="fa fa-trash" />
-            </Btn>
+            {canEditFlag ? (
+              <Btn onClick={noop} mod="circle">
+                <i className="fa fa-trash" />
+              </Btn>
+            ) : null}
           </div>
         </Col>
       </Row>
