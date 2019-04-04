@@ -49,6 +49,8 @@ article {
 .h-4,
 .h-5,
 .h-6 {
+  display: flex;
+  align-items: center;
   color: $astronaut;
   margin: 0 !important;
   text-transform: uppercase;
