@@ -77,6 +77,7 @@ class MissionDetails extends Component<TMissionDetails> {
                 <PhotoRollCard
                   key={i}
                   index={i}
+                  isShareToken
                   currentItem={item}
                   isMobile={isMobile}
                   isDesktop={isDesktop}
