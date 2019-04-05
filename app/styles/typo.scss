@@ -93,6 +93,10 @@ article {
     font-size: 24px;
     line-height: $goldenRatio;
   }
+
+  @include xsm() {
+    line-height: $goldenRatio;
+  }
 }
 
 .h-2 {

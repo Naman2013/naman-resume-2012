@@ -45,11 +45,9 @@ const MissionDetailsHeader = (props: TMissionDetailsHeader) => {
         <Col lg={3} md={3} sm={12}>
           <h5 className="h-5 h-5-normal">{missionDateCreated}</h5>
         </Col>
-        <Col lg={3} md={4} sm={12}>
+        <Col lg={4} md={4} sm={12}>
           <h5
-            className={cn('h-5 h-5-normal mission-details-ceil', {
-              'mission-details-ceil-mobile': isMobile,
-            })}
+            className="h-5 h-5-normal mission-details-ceil"
           >
             <span>{getTelescopeName()}</span>
             <span>{getInstrumentName()}</span>
@@ -64,7 +62,7 @@ const MissionDetailsHeader = (props: TMissionDetailsHeader) => {
             {imageCount} photo{imageCount > 1 && 's'}
           </h5>
         </Col>
-        <Col lg={3} md={2} sm={12}>
+        <Col lg={2} md={2} sm={12}>
           <div
             className={`btn-group justify-content-${
               isMobile ? 'start' : 'end'
