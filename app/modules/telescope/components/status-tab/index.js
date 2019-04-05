@@ -63,12 +63,6 @@ export const StatusTab = props => {
               </p>
               <Button text="FIND ANOTHER MISSION" onClickEvent={() => {}} />
             </Box>
-
-            <Box header="NEEDS A TITLE">
-              <div>
-                <Button text="VIEW OUR GUIDE" onClickEvent={() => {}} />
-              </div>
-            </Box>
           </Col>
 
           <Col lg={4}>
