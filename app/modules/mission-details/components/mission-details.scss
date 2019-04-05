@@ -1,6 +1,12 @@
 @import "~app/styles/variables/colors.scss";
 @import "~app/styles/variables/media-queries.scss";
 
+@mixin mobileCeil() {
+  border-left: none;
+  border-top: 1px solid $gray;
+  padding-left: 0;
+}
+
 .mission-details {
 
   &.root-wrapper {
@@ -44,14 +50,20 @@
       padding-left: 32px;
       border-left: 1px solid $gray;
 
-      &-mobile {
-        border-left: none;
-        border-top: 1px solid $gray;
-        padding-left: 0;
+      span {
+        margin-right: 10px;
       }
 
       @include md {
         padding-left: 22px;
+      }
+
+      @include sm {
+        @include mobileCeil();
+      }
+
+      @include xsm {
+        @include mobileCeil();
       }
     }
   }
