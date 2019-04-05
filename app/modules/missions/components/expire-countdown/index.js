@@ -9,7 +9,7 @@ export class ExpireCountdown extends PureComponent {
     return (
       expireTimestamp && (
         <div className="expire-countdown">
-          <Countdown date={objectListExpires * 1000} onComplete={onComplete} />
+          <Countdown date={expireTimestamp * 1000} onComplete={onComplete} />
         </div>
       )
     );
