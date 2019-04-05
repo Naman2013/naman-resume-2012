@@ -11,6 +11,7 @@ import {
   makeByConstellationSelectedObjectIdSelector,
   makeByConstellationSelectedObjectDataSelector,
   makeByConstellationObjectListSelectOptsSelector,
+  makeByConstellationObjectListExpiresSelector,
   makeMissionsFirstSlot,
   makeReservedMissionData,
 } from '../selectors';
@@ -33,6 +34,7 @@ const mapStateToProps = createStructuredSelector({
   selectedObjectData: makeByConstellationSelectedObjectDataSelector(),
   missionSlot: makeMissionsFirstSlot(),
   reservedMissionData: makeReservedMissionData(),
+  objectListExpires: makeByConstellationObjectListExpiresSelector(),
 });
 
 const mapDispatchToProps = {

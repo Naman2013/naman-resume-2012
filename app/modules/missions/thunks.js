@@ -12,13 +12,111 @@ import {
   cancelMissionSlotApi,
   getConstellationListApi,
   getConstellationObjectListApi,
+  getMissionListApi,
+  getMissionSlotDatesApi,
+  getMissionSlotsByTelescopeApi,
 } from 'app/modules/missions/api';
 import { ACTION } from './reducer';
+import { makeTelescopeSelectedTelescopeSelector, makeTelescopeSelectedDateSelector } from './selectors';
 
+// by telescope
+export const getMissionSlotsByTelescope = ({obsId, telescopeId, domeId}, {reservationDate}) => (dispatch, getState) => {
+  const { at, token, cid } = getState().user;
+  dispatch(ACTION.getMissionSlotsByTelescope());
+  return getMissionSlotsByTelescopeApi({
+    at,
+    token,
+    cid,
+    domeId,
+    obsId,
+    telescopeId,
+    reservationDate,
+  })
+    .then(result => dispatch(ACTION.getMissionSlotsByTelescopeSuccess(result.data)))
+    .catch(error => dispatch(ACTION.getMissionSlotsByTelescopeError(error)));
+}
+
+export const getMissionSlotDates = ({obsId, telescopeId, domeId}, requestedDate = '') => (dispatch, getState) => {
+  const { at, token, cid } = getState().user;
+  dispatch(ACTION.getMissionSlotDates());
+  return getMissionSlotDatesApi({
+    at,
+    token,
+    cid,
+    domeId,
+    obsId,
+    telescopeId,
+    requestedDate,
+  })
+    .then(result => {
+      dispatch(ACTION.getMissionSlotDatesSuccess(result.data))
+
+      const selectedTelescope = makeTelescopeSelectedTelescopeSelector()(getState());
+      const selectedDate = makeTelescopeSelectedDateSelector()(getState());
+      dispatch(getMissionSlotsByTelescope(selectedTelescope, selectedDate));
+    })
+    .catch(error => dispatch(ACTION.getMissionSlotDatesError(error)));
+};
+
+export const getObservatoryList = () => (dispatch, getState) => {
+  const { at, token, cid } = getState().user;
+  dispatch(ACTION.getObservatoryList());
+  return getObservatoryListApi({
+    at,
+    token,
+    cid,
+    callSource: 'byTelescope',
+    listType: 'full',
+    status: 'live',
+  })
+    .then(result => {
+      dispatch(ACTION.getObservatoryListSuccess(result.data))
+
+      const selectedTelescope = makeTelescopeSelectedTelescopeSelector()(getState());
+      dispatch(getMissionSlotDates(selectedTelescope));
+    })
+    .catch(error => dispatch(ACTION.getObservatoryListError(error)));
+};
+
+export const getMissionList = data => (dispatch, getState) => {
+  const { at, token, cid } = getState().user;
+  dispatch(ACTION.getMissionList());
+  return getMissionListApi({
+    at,
+    token,
+    cid,
+    ...data,
+  })
+    .then(result => dispatch(ACTION.getMissionListSuccess(result.data)))
+    .catch(error => dispatch(ACTION.getMissionListError(error)));
+};
+
+export const setTelescope = telescope => dispatch => {
+  dispatch(ACTION.setTelescope(telescope));
+  dispatch(getMissionSlotDates(telescope));
+};
+
+export const setTelescopeDate = ({ teleUniqueId, startTimestamp, endTimestamp }) => dispatch => {
+  dispatch(ACTION.setTelescopeDate(startTimestamp));
+  dispatch(getMissionList({
+    teleUniqueId,
+    startTimestamp,
+    endTimestamp,
+    requestType: 'byFullDay',
+  }));
+};
+
+// missions
 export const getMissions = () => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
   dispatch(ACTION.getMissions());
   return getMissionsApi({ at, token, cid })
+  .then(result => {
+    dispatch(ACTION.getMissionsSuccess(result.data))
+
+    const selectedTelescope = makeTelescopeSelectedTelescopeSelector()(getState());
+    dispatch(getMissionSlotDates(selectedTelescope));
+  })
     .then(result => dispatch(ACTION.getMissionsSuccess(result.data)))
     .catch(error => dispatch(ACTION.getMissionsError(error)));
 };
@@ -64,10 +162,7 @@ export const getCategoryList = () => (dispatch, getState) => {
     .catch(error => dispatch(ACTION.getCategoryListError(error)));
 };
 
-export const getObjectList = data => (
-  dispatch,
-  getState
-) => {
+export const getObjectList = data => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
   dispatch(ACTION.getObjectList());
   return getObjectListApi({
@@ -146,25 +241,4 @@ export const checkCatalogVisibility = data => (dispatch, getState) => {
       }
     })
     .catch(error => dispatch(ACTION.checkCatalogVisibilityError(error)));
-};
-
-// by telescope
-export const getObservatoryList = () => (dispatch, getState) => {
-  const { at, token, cid } = getState().user;
-  dispatch(ACTION.getObservatoryList());
-  return getObservatoryListApi({
-    at,
-    token,
-    cid,
-    callSource: 'byTelescope',
-    listType: 'full',
-    status: 'live',
-  })
-    .then(result => dispatch(ACTION.getObservatoryListSuccess(result.data)))
-    .catch(error => dispatch(ACTION.getObservatoryListError(error)));
-};
-
-export const setTelescope = telescope => dispatch => {
-  dispatch(ACTION.setTelescope(telescope));
-  //get something here
 };

@@ -1,0 +1,194 @@
+@import '~app/styles/bootstrap/index';
+@import '~app/styles/variables/index';
+
+.missions-list-item {
+  margin-top: 20px;
+  padding: 30px 40px;
+  box-shadow: $faintShadow;
+  background-color: $romance;
+  display: flex;
+  color: $lightHeadedAstronaut;
+
+  &.open {
+    background-color: $lightHeadedAstronaut;
+    color: $romance;
+    cursor: pointer;
+
+    .left {
+      border-right: 1px solid $darkBlue;
+
+      .mission-title {
+        border-bottom: 1px solid $darkBlue;
+      }
+    }
+
+    .mobile {
+      .mission-title {
+        border-bottom: 1px solid $darkBlue;
+      }
+
+      .time {
+        border-bottom: 1px solid $darkBlue;
+      }
+    }
+  }
+
+  > div {
+    width: 50%;
+  }
+
+  .left {
+    display: none;
+    padding-left: 40px;
+    border-right: 1px solid $hawkesBlue;
+
+    .mission-title {
+      min-height: 65px;
+      padding-top: 30px;
+      padding-bottom: 5px;
+      border-bottom: 1px solid $hawkesBlue;
+      font-family: $secondary-font;
+      font-size: 20px;
+      line-height: 1.4;
+    }
+  }
+
+  .mission-owner {
+    padding: 15px 0;
+    display: flex;
+    align-items: center;
+    min-height: 60px;
+
+    span {
+      font-family: $primary-font;
+      font-size: 12px;
+      font-weight: bold;
+      line-height: 0.92;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+    }
+
+    .owner-avatar {
+      width: 30px;
+      height: 30px;
+      object-fit: contain;
+      border-radius: 50%;
+      margin-left: 10px;
+    }
+
+    .owner-name {
+      margin-left: 10px;
+      font-family: $primary-font;
+      font-size: 20px;
+      line-height: 1.4;
+    }
+  }
+
+  .right {
+    display: none;
+    align-items: center;
+    padding-right: 40px;
+    font-family: $primary-font;
+
+    .actions {
+      flex: 1;
+    }
+
+    .time {
+      width: 200px;
+
+      .large {
+        align-self: flex-end;
+        font-size: 60px;
+        font-weight: 400;
+        line-height: 1.13;
+        letter-spacing: 1.7px;
+        text-align: right;
+        position: relative;
+      }
+    }
+
+    .other {
+      font-weight: 700;
+      text-align: right;
+      position: relative;
+      right: -11px;
+    }
+  }
+
+  .timezone {
+    font-size: 10px;
+    transform: rotate(90deg);
+    letter-spacing: 2px;
+    font-weight: 400;
+    text-transform: uppercase;
+    position: absolute;
+    bottom: 20px;
+    right: -20px;
+  }
+
+  .mobile {
+    width: 100%;
+    position: relative;
+
+    .actions {
+      position: absolute;
+      top: -20px;
+      right: -20px;
+      font-size: 20px;
+    }
+
+    .mission-title {
+      min-height: 35px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid $hawkesBlue;
+      font-family: $secondary-font;
+      font-size: 20px;
+      line-height: 1.4;
+    }
+
+    .mission-owner {
+      padding-top: 20px;
+      padding-bottom: 0;
+      min-height: unset;
+    }
+
+    .time {
+      border-bottom: 1px solid $hawkesBlue;
+      padding: 15px 0;
+
+      .large {
+        font-size: 48px;
+        font-weight: 400;
+        line-height: 1.13;
+        letter-spacing: 1.7px;
+        position: relative;
+
+        .timezone {
+          right: unset;
+        }
+      }
+
+      .other {
+        font-weight: 700;
+      }
+    }
+  }
+}
+
+@include media-breakpoint-up(md) {
+  .missions-list-item {
+    padding: 0;
+
+    .left {
+      display: block;
+    }
+    .right {
+      display: flex;
+    }
+
+    .mobile {
+      display: none;
+    }
+  }
+}

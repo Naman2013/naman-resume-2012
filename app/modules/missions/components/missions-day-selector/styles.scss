@@ -1,0 +1,50 @@
+@import '~app/styles/variables/index';
+
+.missions-day-selector {
+  width: 100%;
+  height: 92px;
+  padding-left: 40px;
+  background-color: $nightfall;
+  display: flex;
+  align-items: center;
+
+  .date {
+    flex: 1;
+    font-family: $secondary-font;
+    font-size: 18px;
+    line-height: 1;
+    letter-spacing: normal;
+    color: $romance;
+  }
+
+  .arrows {
+    width: 92px;
+    height: 92px;
+    padding: 15px;
+    border-left: 1px solid $dukeBlue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+
+    > div {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background-color: $lightHeadedAstronaut;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    &.prev {
+      img {
+        transform: rotate(-180deg);
+      }
+    }
+
+    &.disabled {
+      pointer-events: none;
+    }
+  }
+}

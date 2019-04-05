@@ -4,6 +4,8 @@ import moment from 'moment';
 import { AvailbleMissionTile } from '../available-mission-tile';
 import { MissionSuccessModal } from '../mission-success-modal';
 import { ConstellationSetup } from '../constellation-setup';
+import { ExplanationModal } from '../explanation-modal';
+import { ExpireCountdown } from '../expire-countdown';
 import './styles.scss';
 
 export class Constellation extends Component {
@@ -96,6 +98,8 @@ export class Constellation extends Component {
       selectedConstellation,
       selectedObjectId,
       reservedMissionData,
+      resetMissionsData,
+      objectListExpires,
     } = this.props;
 
     const { successModalShow } = this.state;
@@ -142,10 +146,23 @@ export class Constellation extends Component {
           </div>
         </div>
 
+        {missionSlot && !missionSlot.missionAvailable && (
+          <ExplanationModal
+            show
+            onHide={resetMissionsData}
+            text={missionSlot.explanation}
+          />
+        )}
+
         <MissionSuccessModal
           show={successModalShow}
           onHide={this.modalClose}
           reservedMissionData={reservedMissionData}
+        />
+
+        <ExpireCountdown
+          expireTimestamp={objectListExpires}
+          onComplete={resetMissionsData}
         />
       </div>
     );

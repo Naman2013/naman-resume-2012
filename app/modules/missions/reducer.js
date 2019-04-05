@@ -32,6 +32,9 @@ export const TYPE = constants('profile', [
   // byTelescope page
   '~GET_OBSERVATORY_LIST',
   'SET_TELESCOPE',
+  'SET_TELESCOPE_DATE',
+  '~GET_MISSION_SLOT_DATES',
+  '~GET_MISSION_SLOTS_BY_TELESCOPE',
 ]);
 export const ACTION = actions(TYPE);
 
@@ -55,6 +58,7 @@ export const initialState = {
     categoryList: [],
     selectedCategorySlug: null,
     objectList: [],
+    objectListExpires: null,
     selectedObjectId: null,
   },
 
@@ -62,6 +66,7 @@ export const initialState = {
     constellationList: [],
     selectedConstellation: null,
     objectList: [],
+    objectListExpires: null,
     selectedObjectId: null,
   },
 
@@ -77,6 +82,9 @@ export const initialState = {
   byTelescope: {
     telescopeList: [],
     selectedTelescope: {},
+    selectedDate: {},
+    dateList: [{}],
+    missionsList: [],
   },
 };
 
@@ -138,6 +146,13 @@ export default handleActions(
     [TYPE.GET_OBSERVATORY_LIST_SUCCESS]: getObservatoryListSuccess,
     [TYPE.GET_OBSERVATORY_LIST_ERROR]: setServerError,
     [TYPE.SET_TELESCOPE]: setTelescope,
+    [TYPE.SET_TELESCOPE_DATE]: setTelescopeDate,
+    [TYPE.GET_MISSION_SLOT_DATES]: setFetching,
+    [TYPE.GET_MISSION_SLOT_DATES_SUCCESS]: getMissionSlotDatesSuccess,
+    [TYPE.GET_MISSION_SLOT_DATES_ERROR]: setServerError,
+    [TYPE.GET_MISSION_SLOTS_BY_TELESCOPE]: setFetching,
+    [TYPE.GET_MISSION_SLOTS_BY_TELESCOPE_SUCCESS]: getMissionSlotsByTelescopeSuccess,
+    [TYPE.GET_MISSION_SLOTS_BY_TELESCOPE_ERROR]: setServerError,
   },
   initialState
 );
@@ -161,11 +176,18 @@ function setServerError(state, action) {
 }
 
 function getMissionsSuccess(state, action) {
+  const telescopeList = action.payload.teleButtonConfig;
+
   return {
     ...state,
     isFetching: false,
     isLoaded: true,
     pageSetup: action.payload,
+    byTelescope: {
+      ...state.byTelescope,
+      telescopeList,
+      selectedTelescope: telescopeList[0],
+    },
   };
 }
 
@@ -175,6 +197,14 @@ function getMissionSlotSuccess(state, action) {
     isFetching: false,
     isLoaded: true,
     missions: { ...state.missions, missionList: action.payload.missionList },
+    bySlooh1000: {
+      ...state.bySlooh1000,
+      objectListExpires: null,
+    },
+    byConstellation: {
+      ...state.byConstellation,
+      objectListExpires: null,
+    },
   };
 }
 
@@ -203,12 +233,14 @@ function resetMissionsData(state) {
       ...state.bySlooh1000,
       selectedCategorySlug: null,
       objectList: [],
+      objectListExpires: null,
       selectedObjectId: null,
     },
     byConstellation: {
       ...state.byConstellation,
       selectedConstellation: null,
       objectList: [],
+      objectListExpires: null,
       selectedObjectId: null,
     },
     byCatalog: {
@@ -237,12 +269,14 @@ function getCategoryListSuccess(state, action) {
     ...state,
     isFetching: false,
     isLoaded: true,
-    bySlooh1000: { ...state.bySlooh1000, categoryList: action.payload.itemList },
+    bySlooh1000: {
+      ...state.bySlooh1000,
+      categoryList: action.payload.itemList,
+    },
   };
 }
 
 function setCategory(state, action) {
-  console.log(action.payload);
   return {
     ...state,
     bySlooh1000: {
@@ -262,6 +296,7 @@ function getObjectListSuccess(state, action) {
     bySlooh1000: {
       ...state.bySlooh1000,
       objectList: action.payload.objectList,
+      objectListExpires: action.payload.expires,
     },
   };
 }
@@ -306,6 +341,7 @@ function getConstellationObjectListSuccess(state, action) {
     byConstellation: {
       ...state.byConstellation,
       objectList: action.payload.objectList,
+      objectListExpires: action.payload.expires,
     },
   };
 }
@@ -433,6 +469,39 @@ function setTelescope(state, action) {
     byTelescope: {
       ...state.byTelescope,
       selectedTelescope: action.payload,
+    },
+  };
+}
+
+function getMissionSlotDatesSuccess(state, action) {
+  return {
+    ...state,
+    byTelescope: {
+      ...state.byTelescope,
+      dateList: action.payload.dateList,
+    },
+  };
+}
+
+function setTelescopeDate(state, action) {
+  return {
+    ...state,
+    byTelescope: {
+      ...state.byTelescope,
+      selectedDate: action.payload,
+    },
+  };
+}
+
+
+function getMissionSlotsByTelescopeSuccess(state, action) {
+  return {
+    ...state,
+    isFetching: false,
+    isLoaded: true,
+    byTelescope: {
+      ...state.byTelescope,
+      missionList: action.payload.missionList,
     },
   };
 }
