@@ -4,16 +4,15 @@ import './styles.scss';
 
 const ModalDialog = props => {
   const { children, onHide } = props;
+
+  const backClick = e => {
+    e.preventDefault();
+    return onHide();
+  };
+
   return (
     <div className="custom-modal">
-      <span
-        role="presentation"
-        className="modal-back-btn"
-        onClick={e => {
-          e.preventDefault();
-          onHide();
-        }}
-      >
+      <span role="presentation" className="modal-back-btn" onClick={backClick}>
         GO BACK
       </span>
 
