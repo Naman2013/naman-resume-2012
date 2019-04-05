@@ -6,7 +6,7 @@ import './styles.scss';
 export class TelescopeSetup extends Component {
   render() {
     const { selectedTelescope, telescopeList, setTelescope } = this.props;
-    const { teleName, teleUniqueId } = selectedTelescope;
+    const { teleName, telescopeId } = selectedTelescope;
 
     return (
       <div className="telescope-setup">
@@ -16,7 +16,7 @@ export class TelescopeSetup extends Component {
           </div>
           <TelescopeNav
             telescopeList={telescopeList}
-            selectedTelescopeId={teleUniqueId}
+            selectedTelescopeId={telescopeId}
             setTelescope={setTelescope}
           />
         </div>

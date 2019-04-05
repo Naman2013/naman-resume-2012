@@ -2,9 +2,6 @@ import React, { Component } from 'react';
 import moment from 'moment';
 import { MissionsDaySelector } from '../missions-day-selector';
 import { MissionTimeSlot } from '../mission-time-slot';
-//import './styles.scss';
-
-const DAY_TIMESTAMP = 24 * 60 * 60 * 1000;
 
 export class MissionsList extends Component {
   selectDate = date => {
@@ -14,7 +11,7 @@ export class MissionsList extends Component {
 
   render() {
     const { selectedDate, missionList } = this.props;
-    console.log(missionList);
+
     return (
       <div className="missions-list">
         <MissionsDaySelector

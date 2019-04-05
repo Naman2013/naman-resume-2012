@@ -1,16 +1,16 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import './styles.scss';
 
-export class TelescopeNav extends Component {
+export class TelescopeNav extends PureComponent {
   render() {
     const { telescopeList, selectedTelescopeId, setTelescope } = this.props;
     return (
       <div className="telescope-nav">
         {telescopeList.map(telescope => (
           <div
-            key={telescope.teleUniqueId}
+            key={telescope.telescopeId}
             className={`telescope-nav-item${
-              selectedTelescopeId === telescope.teleUniqueId ? ' active' : ''
+              selectedTelescopeId === telescope.telescopeId ? ' active' : ''
             }`}
             onClick={() => setTelescope(telescope)}
           >

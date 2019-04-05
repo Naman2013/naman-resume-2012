@@ -83,7 +83,7 @@ export const initialState = {
     telescopeList: [],
     selectedTelescope: {},
     selectedDate: {},
-    dateList: [],
+    dateList: [{}],
     missionsList: [],
   },
 };
@@ -176,11 +176,18 @@ function setServerError(state, action) {
 }
 
 function getMissionsSuccess(state, action) {
+  const telescopeList = action.payload.teleButtonConfig;
+
   return {
     ...state,
     isFetching: false,
     isLoaded: true,
     pageSetup: action.payload,
+    byTelescope: {
+      ...state.byTelescope,
+      telescopeList,
+      selectedTelescope: telescopeList[0],
+    },
   };
 }
 
@@ -469,8 +476,6 @@ function setTelescope(state, action) {
 function getMissionSlotDatesSuccess(state, action) {
   return {
     ...state,
-    isFetching: false,
-    isLoaded: true,
     byTelescope: {
       ...state.byTelescope,
       dateList: action.payload.dateList,

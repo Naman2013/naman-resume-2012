@@ -21,7 +21,11 @@ export class MissionTimeSlot extends PureComponent {
     const missionStartTime = moment(missionStart * 1000);
 
     return (
-      <div className="missions-list-item">
+      <div
+        className={`missions-list-item${
+          SLOT_STATUS.AVAILABLE === slotStatus ? ' open' : ''
+        }`}
+      >
         <div className="left">
           <div className="mission-title">
             {SLOT_STATUS.AVAILABLE === slotStatus ? 'Open Slot' : slotTitle}
@@ -53,6 +57,43 @@ export class MissionTimeSlot extends PureComponent {
               {missionStartTime.tz('America/New_York').format('LT')} EDT /{' '}
               {missionStartTime.tz('America/Los_Angeles').format('LT')} PDT
             </div>
+          </div>
+        </div>
+
+        <div className="mobile">
+          <div className="actions">
+            <i className="fa fa-ellipsis-h" aria-hidden="true" />
+          </div>
+
+          <div className="mission-title">
+            {SLOT_STATUS.AVAILABLE === slotStatus ? 'Open Slot' : slotTitle}
+          </div>
+
+          <div className="time">
+            <div className="large">
+              {missionStartTime.format('HH:mm')}
+              <span className="timezone">UTC</span>
+            </div>
+            <div className="other">
+              {missionStartTime.tz('America/New_York').format('LT')} EDT /{' '}
+              {missionStartTime.tz('America/Los_Angeles').format('LT')} PDT
+            </div>
+          </div>
+
+          <div className="mission-owner">
+            {SLOT_STATUS.AVAILABLE === slotStatus ? (
+              <span>Reserve this slot soon!</span>
+            ) : (
+              <Fragment>
+                <span>Scheduled by:</span>
+
+                {ownerAvatarURL && (
+                  <img className="owner-avatar" src={ownerAvatarURL} />
+                )}
+
+                <div className="owner-name">{ownerDisplayName}</div>
+              </Fragment>
+            )}
           </div>
         </div>
       </div>
