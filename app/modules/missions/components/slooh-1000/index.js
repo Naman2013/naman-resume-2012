@@ -1,8 +1,8 @@
 import { Box } from 'app/modules/missions/components/box';
 import { Slooh1000Setup } from 'app/modules/missions/components/slooh-1000-setup';
-import React, { Component } from 'react';
 import moment from 'moment';
 import Countdown from 'react-countdown-now';
+import React, { Component } from 'react';
 import { AvailbleMissionTile } from '../available-mission-tile';
 import { MissionSuccessModal } from '../mission-success-modal';
 import { ExplanationModal } from '../explanation-modal';
