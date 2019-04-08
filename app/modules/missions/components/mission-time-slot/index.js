@@ -16,10 +16,11 @@ export class MissionTimeSlot extends PureComponent {
       ownerAvatarURL,
       ownerDisplayName,
       missionStart,
+      showSloohUser,
     } = timeSlot;
 
     const missionStartTime = moment(missionStart * 1000);
-
+    console.log(timeSlot);
     return (
       <div
         className={`missions-list-item${
@@ -38,10 +39,17 @@ export class MissionTimeSlot extends PureComponent {
                 <span>Scheduled by:</span>
 
                 {ownerAvatarURL && (
-                  <img className="owner-avatar" src={ownerAvatarURL} />
+                  <img
+                    className={`owner-avatar${
+                      showSloohUser ? ' slooh-user' : ''
+                    }`}
+                    src={ownerAvatarURL}
+                  />
                 )}
 
-                <div className="owner-name">{ownerDisplayName}</div>
+                {!showSloohUser && (
+                  <div className="owner-name">{ownerDisplayName}</div>
+                )}
               </Fragment>
             )}
           </div>
@@ -88,10 +96,17 @@ export class MissionTimeSlot extends PureComponent {
                 <span>Scheduled by:</span>
 
                 {ownerAvatarURL && (
-                  <img className="owner-avatar" src={ownerAvatarURL} />
+                  <img
+                    className={`owner-avatar${
+                      showSloohUser ? ' slooh-user' : ''
+                    }`}
+                    src={ownerAvatarURL}
+                  />
                 )}
 
-                <div className="owner-name">{ownerDisplayName}</div>
+                {!showSloohUser && (
+                  <div className="owner-name">{ownerDisplayName}</div>
+                )}
               </Fragment>
             )}
           </div>
