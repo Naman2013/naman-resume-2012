@@ -100,6 +100,8 @@ export class Constellation extends Component {
       reservedMissionData,
       resetMissionsData,
       objectListExpires,
+      availableMissions,
+      noObjects,
     } = this.props;
 
     const { successModalShow } = this.state;
@@ -118,6 +120,8 @@ export class Constellation extends Component {
                   selectedConstellation={selectedConstellation}
                   selectedObjectId={selectedObjectId}
                   disabled={missionSlot && missionSlot.missionAvailable}
+                  availableMissions={availableMissions}
+                  noObjects={noObjects}
                 />
               </Box>
             </div>

@@ -65,9 +65,11 @@ export const initialState = {
   byConstellation: {
     constellationList: [],
     selectedConstellation: null,
+    objectCount: null,
     objectList: [],
     objectListExpires: null,
     selectedObjectId: null,
+    availableMissionsCount: null,
   },
 
   byCatalog: {
@@ -239,9 +241,11 @@ function resetMissionsData(state) {
     byConstellation: {
       ...state.byConstellation,
       selectedConstellation: null,
+      objectCount: null,
       objectList: [],
       objectListExpires: null,
       selectedObjectId: null,
+      availableMissionsCount: null,
     },
     byCatalog: {
       ...state.byCatalog,
@@ -327,8 +331,10 @@ function setConstellation(state, action) {
     byConstellation: {
       ...state.byConstellation,
       selectedConstellation: action.payload,
+      objectCount: null,
       objectList: [],
       selectedObjectId: null,
+      availableMissionsCount: null,
     },
   };
 }
@@ -340,6 +346,8 @@ function getConstellationObjectListSuccess(state, action) {
     isLoaded: true,
     byConstellation: {
       ...state.byConstellation,
+      availableMissionsCount: action.payload.availableMissionsCount,
+      objectCount: action.payload.objectCount,
       objectList: action.payload.objectList,
       objectListExpires: action.payload.expires,
     },

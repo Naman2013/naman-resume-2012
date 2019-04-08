@@ -195,6 +195,26 @@ export const makeByConstellationObjectListExpiresSelector = () =>
     state => state.objectListExpires
   );
 
+export const makeByConstellationAvailableMissionsSelector = () =>
+  createSelector(
+    makeByConstellationSelector(),
+    state => {
+      return (
+        state.availableMissionsCount === 0 &&
+        state.objectCount > 0 &&
+        !!state.selectedConstellation
+      );
+    }
+  );
+
+export const makeByConstellationNoObjectsSelector = () =>
+  createSelector(
+    makeByConstellationSelector(),
+    state => {
+      return state.objectCount === 0 && !!state.selectedConstellation;
+    }
+  );
+
 // byCatalog
 export const makeByCatalogSelector = () =>
   createSelector(
