@@ -1,7 +1,5 @@
 import { Box } from 'app/modules/missions/components/box';
 import { Slooh1000Setup } from 'app/modules/missions/components/slooh-1000-setup';
-import moment from 'moment';
-import Countdown from 'react-countdown-now';
 import React, { Component } from 'react';
 import { AvailbleMissionTile } from '../available-mission-tile';
 import { MissionSuccessModal } from '../mission-success-modal';
@@ -68,10 +66,6 @@ export class Slooh1000 extends Component {
       uniqueId: missionSlot.uniqueId,
     }).then(() => this.setState({ successModalShow: true }));
   };
-
-  getMissionDate = timestamp => moment.unix(timestamp).format('ddd. MMM. DD');
-
-  getMissionTime = timestamp => moment.unix(timestamp).format('HH:mm');
 
   modalClose = () => {
     const { resetMissionsData } = this.props;
@@ -146,13 +140,9 @@ export class Slooh1000 extends Component {
               <Box inside>
                 {missionSlot && missionSlot.missionAvailable ? (
                   <AvailbleMissionTile
-                    title={missionSlot.title}
-                    telescope={missionSlot.telescopeName}
-                    description={missionSlot.explanation}
-                    date={this.getMissionDate(missionSlot.missionStart)}
-                    time={this.getMissionTime(missionSlot.missionStart)}
-                    cancel={this.cancelMissionSlot}
-                    scheduleMission={this.reserveMissionSlot}
+                    missionSlot={missionSlot}
+                    onCancel={this.cancelMissionSlot}
+                    onSubmit={this.reserveMissionSlot}
                   />
                 ) : (
                   <div className="reserved-mission-gag">

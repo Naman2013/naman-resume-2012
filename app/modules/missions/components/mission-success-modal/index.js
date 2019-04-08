@@ -14,13 +14,9 @@ export class MissionSuccessModal extends Component {
         aria-labelledby="contained-modal-title-vcenter"
         centered
       >
-        <h1 className="modal-h">Set Up a Mission on Canary One at 16:40 UTC</h1>
         <h1 className="modal-h">{reservedMissionData.title}</h1>
-        <p className="modal-p">
-          Set up a Mission using the Slooh Recommender, by Catalog, or by
-          Coordinates. One credit is required to schedule your own Mission.{' '}
-        </p>
         <p className="modal-p">{reservedMissionData.explanation}</p>
+        <p className="modal-p">{reservedMissionData.tip}</p>
       </Modal>
     );
   }
