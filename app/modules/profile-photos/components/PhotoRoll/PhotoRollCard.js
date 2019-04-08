@@ -42,10 +42,12 @@ class PhotoRollCard extends Component<TPhotoRollCard> {
   }
 
   onDownloadFile = () => {
+    console.log(this.props);
+
     const {
-      currentItem: { imageURL },
+      currentItem: { imageDownloadURL, imageDownloadFilename },
     } = this.props;
-    downloadFile(imageURL, 'my-photo-hub-image.png');
+    downloadFile(imageDownloadURL, imageDownloadFilename);
   };
 
   toggleMenuVisibility = () => {
