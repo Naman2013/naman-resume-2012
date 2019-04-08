@@ -4,6 +4,11 @@ import { MissionsList } from '../missions-list';
 import './styles.scss';
 
 export class Telescope extends Component {
+  componentDidMount() {
+    const { getMissionSlotDates, selectedTelescope } = this.props;
+    getMissionSlotDates(selectedTelescope);
+  }
+
   render() {
     const {
       selectedTelescope,
