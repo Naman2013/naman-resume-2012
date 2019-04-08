@@ -12,25 +12,27 @@ const getMissionTime = timestamp => moment.unix(timestamp).format('HH:mm');
 
 export class AvailbleMissionTile extends Component {
   render() {
-    const { onSubmit, onCancel, missionSlot } = this.props;
+    const { onSubmit, onCancel, missionSlot = {} } = this.props;
     const { title, telescopeName, explanation, missionStart } = missionSlot;
 
     return (
       <div className="mission-tile">
         <div className="countdown">
-          <Countdown
-            date={Date.now() + 5 * 60 * 1000}
-            onComplete={onCancel}
-            renderer={props => (
-              <div>
-                Reservation ends in {props.minutes}:
-                <FormattedNumber
-                  value={props.seconds}
-                  minimumIntegerDigits={2}
-                />
-              </div>
-            )}
-          />
+          {onSubmit && (
+            <Countdown
+              date={Date.now() + 5 * 60 * 1000}
+              onComplete={onCancel}
+              renderer={props => (
+                <div>
+                  Reservation ends in {props.minutes}:
+                  <FormattedNumber
+                    value={props.seconds}
+                    minimumIntegerDigits={2}
+                  />
+                </div>
+              )}
+            />
+          )}
         </div>
         <h5 className="title">{title}</h5>
         <div className="time">{getMissionTime(missionStart)}</div>
@@ -40,10 +42,12 @@ export class AvailbleMissionTile extends Component {
           <div className="telescope">{telescopeName}</div>
         </div>
         <div className="description">{explanation}</div>
-        <div className="actions">
-          <Button text="Cancel" onClickEvent={onCancel} />
-          <Button text="Schedule Mission" onClickEvent={onSubmit} />
-        </div>
+        {onSubmit && (
+          <div className="actions">
+            <Button text="Cancel" onClickEvent={onCancel} />
+            <Button text="Schedule Mission" onClickEvent={onSubmit} />
+          </div>
+        )}
       </div>
     );
   }

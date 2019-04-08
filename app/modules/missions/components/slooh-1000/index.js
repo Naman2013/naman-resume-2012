@@ -166,6 +166,7 @@ export class Slooh1000 extends Component {
           show={successModalShow}
           onHide={this.modalClose}
           reservedMissionData={reservedMissionData}
+          missionSlot={missionSlot}
         />
 
         <ExpireCountdown

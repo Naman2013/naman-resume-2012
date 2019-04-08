@@ -184,6 +184,7 @@ export class Catalog extends Component {
           show={successModalShow}
           onHide={this.modalClose}
           reservedMissionData={reservedMissionData}
+          missionSlot={missionSlot}
         />
       </div>
     );

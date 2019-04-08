@@ -149,6 +149,7 @@ export class Constellation extends Component {
           show={successModalShow}
           onHide={this.modalClose}
           reservedMissionData={reservedMissionData}
+          missionSlot={missionSlot}
         />
 
         <ExpireCountdown
