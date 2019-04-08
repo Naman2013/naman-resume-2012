@@ -8,7 +8,7 @@ export const CLASSROOM_GET_US_DISTRICTLIST_ENDPOINT_URL =
   '/api/school/getDistrictList';
 export const CLASSROOM_GET_US_SCHOOLLIST_ENDPOINT_URL =
   '/api/school/getSchoolList';
-export const CLASSROOM_CREATE_NEW_SCHOOL = 'api/school/createSchool';
+export const CLASSROOM_CREATE_NEW_SCHOOL = '/api/school/createSchool';
 
 export const CLASSROOM_SET_GROUP_DESCRIPTION_ENDPOINT_URL =
   '/api/classroom/setGroupDescription';

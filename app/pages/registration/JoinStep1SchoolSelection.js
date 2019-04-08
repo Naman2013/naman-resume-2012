@@ -62,6 +62,13 @@ class JoinStep1SchoolSelectionGeneral extends Component {
           pageHeading2: data.pageHeading2,
           sectionHeading: data.sectionHeading,
         });
+        const { change } = this.props;
+        change('schoolCountry', Object.keys(
+          data.formFieldLabels.schoolNotInMarketListCountryList
+        )[0])
+        change('schoolState', Object.keys(
+          data.formFieldLabels.schoolNotInMarketListStateList
+        )[0])
       });
   }
 
@@ -132,14 +139,51 @@ class JoinStep1SchoolSelectionGeneral extends Component {
     }
   };
 
-  handleSubmit = formValues => {
-    formValues.preventDefault();
-console.log('xui');
-   
+  handleSubmit = values => {
+    //formValues.preventDefault();
+    console.log(values);
+
+    if (!values.isNewSchool) {
+      if (values.school) {
+        window.localStorage.setItem('selectedSchoolId', values.school);
+        browserHistory.push('/join/step2');
+      }
+      else {
+        console.log("nothing is selected, can't continue...");
+      }
+    }
+    else {
+      const {
+        schoolName,
+        schoolAddress,
+        schoolCountry,
+        districtName,
+        schoolPhoneNumber,
+        schoolWebsite,
+        districtWebsite,
+        schoolCity,
+        schoolState,
+      } = values;
+      axios.post(CLASSROOM_CREATE_NEW_SCHOOL, {
+        schoolName,
+        schoolAddress,
+        schoolCountry,
+        schoolDistrict: districtName,
+        schoolPhoneNumber,
+        schoolWebsite,
+        districtWebsite,
+        schoolCity,
+        schoolState
+      }).then(({ data }) => {
+        window.localStorage.setItem('selectedSchoolId', data.schoolId);
+        browserHistory.push('/join/step2');
+      }
+      );
+    }
   };
 
   render() {
-    const { pathname, intl, isNewSchool, schoolCountry } = this.props;
+    const { pathname, intl, isNewSchool, schoolCountry, handleSubmit } = this.props;
 
     const {
       pageHeading1,
@@ -165,7 +209,7 @@ console.log('xui');
               <div className="step-root">
                 <div className="inner-container">
                   <div className="section-heading">{sectionHeading}</div>
-                  <form className="form" onSubmit={this.handleSubmit}>
+                  <form className="form" onSubmit={handleSubmit(this.handleSubmit)}>
                     <div className="form-section">
                       <div className="form-field-container">
                         <Fragment>
@@ -186,7 +230,7 @@ console.log('xui');
                               name="isNewSchool"
                               type="checkbox"
                               component="input"
-                              // onChange = {()=>console.log(this)}
+                            // onChange = {()=>console.log(this)}
                             />
                             <span className="form-label">
                               {formFieldLabels.isSchoolInMarketList.label}
@@ -255,7 +299,7 @@ console.log('xui');
                             }
                           </span>
                           <Field
-                            name="newDistrict"
+                            name="districtName"
                             label={
                               formFieldLabels.schoolNotInMarketListFormFields
                                 .schoolDistrict.hintText
