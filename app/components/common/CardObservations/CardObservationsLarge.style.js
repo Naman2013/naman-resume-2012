@@ -1,165 +1,218 @@
 import css from 'styled-jsx/css';
-import { primaryFont, secondaryFont } from '../../../styles/variables/fonts';
+import { screenMedium, screenLarge } from 'app/styles/variables/breakpoints';
 import {
-  astronaut,
-  lynch,
-  geyser,
-  white_tile,
-  black,
-} from '../../../styles/variables/colors_tiles_v4';
-import { screenXLarge } from '../../../styles/variables/breakpoints';
+  hawkesBlue,
+  white_texture_bg,
+  moodyBleu,
+  shadows,
+  lightHeadedAstronaut,
+} from 'app/styles/variables/colors_tiles_v4';
+
+const borderBottom = `border-bottom: 1px solid ${hawkesBlue};`;
+const centerChildren = `
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const toUpper = `
+  text-transform: uppercase;
+`;
 
 export default css`
-  .card-obs {
+  .card-obs-wrapper {
+    width: 100%;
     display: flex;
-    flex-direction: row;
-    align-items: flex-start;
     justify-content: center;
-    position: relative;
-    letter-spacing: 1px;
+    margin-bottom: 20px;
+    color: ${lightHeadedAstronaut};
+  }
+
+  .card-obs {
+    pointer-events: auto;
+    background: url(${white_texture_bg});
+    box-shadow: 0 0 6px 0 ${shadows};
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+  }
+  
+  .card-obs-small {
+    min-height: auto;
+    max-height: inherit;
+  }
+
+  .top {
+    padding: 80px 80px 50px;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    text-align: initial;
+  }
+  
+  .top-small {
     padding: 50px;
-    background-color: white;
-    background: url(${white_tile});
-    background-size: 22px;
-    box-shadow: 0px 0px 3px 1px rgba(0, 0, 0, 0.2);
-    margin: 25px auto;
-    color: ${astronaut};
-    font-family: ${secondaryFont};
-    transition: width 0.4s ease-in-out, height 0.4s ease-in-out;
+  }
+
+  .bottom {
     width: 100%;
-  }
-
-  .obs-left {
-    text-align: left;
-    width: 75%;
-    padding-right: 50px;
-    transition: width 0.4s ease-in-out, height 0.4s ease-in-out;
-  }
-
-  .card-obs-title {
-    font-family: ${secondaryFont};
-    font-size: 22px;
-    color: ${astronaut};
-    letter-spacing: 1px;
-    font-weight: 400;
-    padding-top: 50px;
-  }
-
-  .media-card-img-right {
+    height: 50px;
     display: flex;
-    justify-content: space-around;
-    max-height: 100%;
-    width: calc(40% - 50px);
-    transition: width 0.4s ease-in-out, height 0.4s ease-in-out;
-    margin-top: 50px;
+    justify-content: space-between;
+    box-shadow: inset 0 7px 9px -7px ${shadows};
   }
 
-  .media-card-img-container {
-    width: 100%;
-    height: 0;
-    padding-bottom: 100%;
-    position: relative;
-    background: ${black};
-  }
-
-  .media-card-img-right img {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    object-fit: contain;
-    max-width: 100%;
-    max-height: 100%;
-  }
-
-  .card-obs-author {
-    font-family: ${primaryFont};
-    font-size: 10px;
-    font-weight: 400;
-    letter-spacing: 1.5px;
-    border-top: solid 1px ${geyser};
-    border-bottom: solid 1px ${geyser};
-    text-transform: uppercase;
-    padding: 10px 0;
-    margin-top: 10px;
-  }
-
-  .card-obs-desc {
-    font-size: 16px;
-    font-weight: 100;
-    color: ${lynch};
-    padding: 20px 0;
-    transition: font-size 0.4s ease-in-out;
-  }
-
-  .card-bottom {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-  }
-
-  .card-bottom a {
-    text-decoration: none;
-  }
-
-  ul {
-    margin: 0;
-    padding: 0;
-    list-style-type: none;
+  .buttons {
     display: flex;
-    font-family: ${primaryFont};
-    color: ${astronaut};
-    text-transform: uppercase;
-    box-shadow: inset 0px 5px 20px -5px #e0e0e0;
-  }
-
-  li {
-    flex-grow: 1;
-    font-weight: 800;
-    padding: 15px 0;
-    padding-left: 30px;
+    height: 100%;
     font-size: 11px;
-    border-right: 1px solid ${geyser};
-    letter-spacing: 1px;
-    text-decoration: none;
   }
 
-  li:last-child {
-    border-right: none;
-    color: ${lynch};
-    flex-grow: 3;
-    text-align: right;
-    padding-right: 30px;
-    text-decoration: none;
+  .button {
+    ${toUpper}
+    padding: 20px 15px;
+    ${centerChildren}
   }
 
-  li:nth-last-child(2) {
-    border-right: none;
+  .button:not(:last-child) {
+    border-right: 1px solid #dee0e2;
   }
 
-  @media ${screenXLarge} {
+  .capture-date {
+    ${toUpper}
+    ${centerChildren}
+    font-size: 10px;
+    color: ${moodyBleu};
+    margin-right: 20px;
+  }
+
+  .info {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .picture { 
+    width: 35%;
+    ${centerChildren}
+    justify-content: flex-end;
+  }
+
+  .title {
+    font-size: 24px;
+    ${borderBottom}
+    line-height: 0.83;
+    padding: 12px 0;
+  }
+
+  .author {
+    font-size: 10px;
+    ${borderBottom}
+    ${toUpper}
+    padding: 4px 0;
+  }
+
+  .text {
+    font-size: 19px;
+    padding: 20px 0;
+    color: #616e7d;
+  }
+
+  .image-wrapper {
+    box-shadow: 0 0 6px 0 #ced2d8;
+    padding: 3px;
+    margin: 0;
+  }
+
+  .image-wrapper img{
+    width: 100%;
+    height: 100%;
+  }
+
+  .links {
+    display: flex;
+  }
+
+  .link {
+    ${centerChildren}
+    background-color: ${lightHeadedAstronaut};
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+  }
+
+  .link:not(:last-child) {
+    margin-right: 25px;
+  }
+
+  .details {
+    width: 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: ${lightHeadedAstronaut};
+  }
+
+  .icon {
+    margin-right: 8px
+  }
+
+  .linkIcon {
+    width: 20px;
+    height: 20px;
+    transform: rotate(-45deg);
+  }
+
+  @media ${screenMedium} {
     .card-obs {
-      width: 100%;
+      width: 95%;
     }
 
-    .obs-left {
-      width: 50%;
-      padding-left: 75px;
+    .image-wrapper {
+      width: 240px;
+      height: 240px;
     }
 
-    .card-obs-title {
-      padding-top: 75px;
+    .info {
+      width: 48%
     }
 
-    .media-card-img-right {
-      right: 75px;
-      top: 75px;
+    .picture {
+      width: 48%
+    }
+
+    .top {
+      padding: 45px 50px 50px;
+    }
+    .top-small {
+      padding: 30px;
+    }
+  }
+
+  @media ${screenLarge} {
+    .card-obs {
+      width: 80%;
+    }
+    .image-wrapper {
       width: 300px;
       height: 300px;
     }
-
-    .card-obs-desc {
-      font-size: 18px;
+    .image-wrapper-small {
+      width: 240px;
+      height: 240px;
+    }
+    .info {
+      width: 55%
+    }
+    .picture {
+      min-width: 40%
+    }
+    .top {
+      padding: 80px 80px 50px;
+    }
+    .top-small {
+      padding: 50px;
     }
   }
 `;

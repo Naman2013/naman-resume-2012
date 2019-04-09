@@ -12,13 +12,12 @@ export default css`
   .card-obs {
     letter-spacing: 1px;
     background-color: ${romance};
-    box-shadow: 0px 0px 3px 1px rgba(0, 0, 0, 0.2);
-    margin: 3px;
+    box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.2);
     color: ${astronaut};
     font-family: ${secondaryFont};
     transition: width 0.4s ease-in-out, height 0.4s ease-in-out;
     width: 90%;
-    margin: 0 auto;
+    margin: 0 auto 30px;
   }
 
   .obs-left {
@@ -30,10 +29,11 @@ export default css`
 
   .card-obs-title {
     font-family: ${secondaryFont};
-    font-size: 20px;
+    font-size: 24px;
     color: ${astronaut};
     letter-spacing: 1px;
-    font-weight: 400;
+    text-transform: uppercase;
+    font-weight: 700;
   }
 
   .obs-left img {
@@ -67,7 +67,11 @@ export default css`
 
   .card-bottom {
     width: 100%;
-    padding-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    height: 50px;
+    margin-top: 20px;
+    background: linear-gradient(to bottom, #edf0f2, rgba(255, 255, 255, 0));
   }
 
   .card-bottom a {
@@ -109,5 +113,21 @@ export default css`
     padding-bottom: 100%;
     position: relative;
     background: ${black};
+  }
+  
+  .button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 15px;
+    width: 25%;
+  }
+  
+  .button.details {
+    width: 50%;
+  }
+  
+  .button.details img {
+    margin: 0 5px;
   }
 `;
