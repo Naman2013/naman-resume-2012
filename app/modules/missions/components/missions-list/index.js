@@ -10,7 +10,7 @@ export class MissionsList extends Component {
   };
 
   render() {
-    const { selectedDate, missionList } = this.props;
+    const { selectedDate, missionList, getTelescopeSlot } = this.props;
 
     return (
       <div className="missions-list">
@@ -22,7 +22,11 @@ export class MissionsList extends Component {
         {missionList &&
           missionList.length > 0 &&
           missionList.map(item => (
-            <MissionTimeSlot key={item.scheduledMissionId} timeSlot={item} />
+            <MissionTimeSlot
+              key={item.scheduledMissionId}
+              timeSlot={item}
+              getTelescopeSlot={() => getTelescopeSlot(item)}
+            />
           ))}
       </div>
     );

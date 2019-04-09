@@ -8,6 +8,7 @@ import {
   setTelescope,
   setTelescopeDate,
   getMissionSlotDates,
+  getTelescopeSlot,
 } from '../thunks';
 import {
   makeTelescopeListSelector,
@@ -28,6 +29,7 @@ const mapDispatchToProps = {
   setTelescope,
   setTelescopeDate,
   getMissionSlotDates,
+  getTelescopeSlot,
 };
 
 export default compose(

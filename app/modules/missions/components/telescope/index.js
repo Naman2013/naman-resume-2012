@@ -9,6 +9,16 @@ export class Telescope extends Component {
     getMissionSlotDates(selectedTelescope);
   }
 
+  getTelescopeSlot = ({ scheduledMissionId, uniqueId }) => {
+    const { getTelescopeSlot } = this.props;
+    getTelescopeSlot({
+      finalizeReservation: false,
+      grabType: 'notarget',
+      scheduledMissionId,
+      uniqueId,
+    });
+  };
+
   render() {
     const {
       selectedTelescope,
@@ -34,6 +44,7 @@ export class Telescope extends Component {
             selectedTelescope={selectedTelescope}
             getMissionSlotDates={getMissionSlotDates}
             missionList={missionList}
+            getTelescopeSlot={this.getTelescopeSlot}
           />
         </div>
       </div>

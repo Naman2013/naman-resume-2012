@@ -35,6 +35,7 @@ export const TYPE = constants('profile', [
   'SET_TELESCOPE_DATE',
   '~GET_MISSION_SLOT_DATES',
   '~GET_MISSION_SLOTS_BY_TELESCOPE',
+  '~GET_TELESCOPE_SLOT',
 ]);
 export const ACTION = actions(TYPE);
 
@@ -86,7 +87,8 @@ export const initialState = {
     selectedTelescope: {},
     selectedDate: {},
     dateList: [{}],
-    missionsList: [],
+    missionList: [],
+    grabedTelescopeSlot: {},
   },
 };
 
@@ -155,6 +157,9 @@ export default handleActions(
     [TYPE.GET_MISSION_SLOTS_BY_TELESCOPE]: setFetching,
     [TYPE.GET_MISSION_SLOTS_BY_TELESCOPE_SUCCESS]: getMissionSlotsByTelescopeSuccess,
     [TYPE.GET_MISSION_SLOTS_BY_TELESCOPE_ERROR]: setServerError,
+    [TYPE.GET_TELESCOPE_SLOT]: setFetching,
+    [TYPE.GET_TELESCOPE_SLOT_SUCCESS]: getTelescopeSlotSuccess,
+    [TYPE.GET_TELESCOPE_SLOT_ERROR]: setServerError,
   },
   initialState
 );
@@ -501,7 +506,6 @@ function setTelescopeDate(state, action) {
   };
 }
 
-
 function getMissionSlotsByTelescopeSuccess(state, action) {
   return {
     ...state,
@@ -510,6 +514,18 @@ function getMissionSlotsByTelescopeSuccess(state, action) {
     byTelescope: {
       ...state.byTelescope,
       missionList: action.payload.missionList,
+    },
+  };
+}
+
+function getTelescopeSlotSuccess(state, action) {
+  return {
+    ...state,
+    isFetching: false,
+    isLoaded: true,
+    byTelescope: {
+      ...state.byTelescope,
+      grabedTelescopeSlot: action.payload.missionList[0],
     },
   };
 }

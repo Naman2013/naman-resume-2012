@@ -15,6 +15,7 @@ import {
   getMissionListApi,
   getMissionSlotDatesApi,
   getMissionSlotsByTelescopeApi,
+  getTelescopeSlotApi,
 } from 'app/modules/missions/api';
 import { ACTION } from './reducer';
 import {
@@ -125,6 +126,14 @@ export const setTelescopeDate = ({
       requestType: 'byFullDay',
     })
   );
+};
+
+export const getTelescopeSlot = data => (dispatch, getState) => {
+  const { at, token, cid } = getState().user;
+  dispatch(ACTION.getMissionSlot());
+  return getTelescopeSlotApi({ at, token, cid, ...data })
+    .then(result => dispatch(ACTION.getTelescopeSlotSuccess(result.data)))
+    .catch(error => dispatch(ACTION.getTelescopeSlotError(error)));
 };
 
 // missions

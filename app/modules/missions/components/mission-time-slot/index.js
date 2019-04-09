@@ -9,7 +9,7 @@ const SLOT_STATUS = {
 
 export class MissionTimeSlot extends PureComponent {
   render() {
-    const { timeSlot } = this.props;
+    const { timeSlot, getTelescopeSlot } = this.props;
     const {
       slotStatus,
       slotTitle,
@@ -20,12 +20,17 @@ export class MissionTimeSlot extends PureComponent {
     } = timeSlot;
 
     const missionStartTime = moment(missionStart * 1000);
-    console.log(timeSlot);
+    const missionSlotOnClick =
+      SLOT_STATUS.AVAILABLE === slotStatus
+        ? () => getTelescopeSlot()
+        : () => {};
+
     return (
       <div
         className={`missions-list-item${
           SLOT_STATUS.AVAILABLE === slotStatus ? ' open' : ''
         }`}
+        onClick={missionSlotOnClick}
       >
         <div className="left">
           <div className="mission-title">
