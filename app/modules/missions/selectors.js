@@ -307,3 +307,9 @@ export const makeTelescopeMissionListSelector = () =>
     makeByTelescopeSelector(),
     state => state.missionList
   );
+
+  export const makeTelescopeSelectedSlotSelector = () =>
+  createSelector(
+    makeByTelescopeSelector(),
+    state => state.selectedSlot
+  );

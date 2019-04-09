@@ -1,0 +1,49 @@
+@import '~app/styles/bootstrap/index';
+@import '~app/styles/variables/index';
+
+.slot-info {
+  padding: 20px 30px 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .title {
+    font-family: $primary-font;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 1.14;
+    letter-spacing: 1px;
+    color: $lightHeadedAstronaut;
+    text-transform: unset;
+
+    .label {
+      font-size: 10px;
+      line-height: 2.2;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 5px;
+    }
+  }
+
+  .time {
+    font-family: $primary-font;
+    font-size: 44px;
+    font-weight: 300;
+    line-height: 1.55;
+    letter-spacing: 1.3px;
+    text-align: right;
+    color: $lightHeadedAstronaut;
+    position: relative;
+
+    .timezone {
+      font-size: 10px;
+      transform: rotate(90deg);
+      letter-spacing: 2px;
+      font-weight: 400;
+      text-transform: uppercase;
+      position: absolute;
+      bottom: 20px;
+      right: -20px;
+    }
+  }
+}

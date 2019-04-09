@@ -36,6 +36,7 @@ export const TYPE = constants('profile', [
   '~GET_MISSION_SLOT_DATES',
   '~GET_MISSION_SLOTS_BY_TELESCOPE',
   '~GET_TELESCOPE_SLOT',
+  '~SET_SELECTED_SLOT',
 ]);
 export const ACTION = actions(TYPE);
 
@@ -89,6 +90,7 @@ export const initialState = {
     dateList: [{}],
     missionList: [],
     grabedTelescopeSlot: {},
+    selectedSlot: {},
   },
 };
 
@@ -160,6 +162,7 @@ export default handleActions(
     [TYPE.GET_TELESCOPE_SLOT]: setFetching,
     [TYPE.GET_TELESCOPE_SLOT_SUCCESS]: getTelescopeSlotSuccess,
     [TYPE.GET_TELESCOPE_SLOT_ERROR]: setServerError,
+    [TYPE.SET_SELECTED_SLOT]: setSelectedSlot,
   },
   initialState
 );
@@ -526,6 +529,16 @@ function getTelescopeSlotSuccess(state, action) {
     byTelescope: {
       ...state.byTelescope,
       grabedTelescopeSlot: action.payload.missionList[0],
+    },
+  };
+}
+
+function setSelectedSlot(state, action) {
+  return {
+    ...state,
+    byTelescope: {
+      ...state.byTelescope,
+      selectedSlot: action.payload,
     },
   };
 }
