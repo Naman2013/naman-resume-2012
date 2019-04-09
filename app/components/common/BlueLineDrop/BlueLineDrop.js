@@ -17,15 +17,17 @@ class BlueLineDrop extends Component {
     isDesktop: bool,
     title: string,
     render: func.isRequired,
+    isDefaultOpen: bool,
   };
 
   static defaultProps = {
     isDesktop: false,
     title: '',
+    isDefaultOpen:false,
   };
 
   state = {
-    showInfo: !this.props.isDesktop,
+    showInfo: !this.props.isDesktop || this.props.isDefaultOpen,
   };
 
   toggleInfo = e => {

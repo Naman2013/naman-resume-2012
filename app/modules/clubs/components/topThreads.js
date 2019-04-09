@@ -16,8 +16,9 @@ export const TopThreads = memo(function TopThreads(props) {
   return (
     <div className="top-discussions-wr">
       <BlueLineDrop
-        title="Top Discussions"
+        title={`Top Discussions (${props.topThreadsList.length})`}
         isDesktop={props.isDesktop}
+        isDefaultOpen
         render={() => (
           <div className="members-list">
             {props.topThreadsList.map(x => (
