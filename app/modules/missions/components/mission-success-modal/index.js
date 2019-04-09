@@ -1,5 +1,6 @@
 import GuideTile from 'app/components/common/tiles/guide-tile';
 import { Modal } from 'app/components/modal';
+import ObjectRelatedTile from 'app/containers/object-details/ObjectRelatedTile';
 import { AvailbleMissionTile } from 'app/modules/missions/components/available-mission-tile';
 import React, { Component } from 'react';
 import './styles.scss';
@@ -39,11 +40,21 @@ export class MissionSuccessModal extends Component {
           Here are some goodies to help you before your Mission!
         </h2>
 
-        <GuideTile
-          title={relatedGuide.imageLabel}
-          subTitle={relatedGuide.imageTitle}
-          linkUrl={relatedGuide.linkUrl}
+        <ObjectRelatedTile
+          {...relatedGuide}
+          showMobileAdditionalContent
+          additionalContent={
+            <GuideTile
+              title={relatedGuide.imageLabel}
+              subTitle={relatedGuide.imageTitle}
+              linkUrl={relatedGuide.linkUrl}
+            />
+          }
         />
+
+        <h3 className="modal-h3">
+          Add to these Quests by attending this Mission!
+        </h3>
       </Modal>
     );
   }

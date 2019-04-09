@@ -9,7 +9,6 @@
 .custom-modal {
   //font-family: BrandonGrotesque;
   font-family: $primary-font;
-  color: $romance;
   padding: 100px 30px 30px;
 
   .modal-back-btn {
@@ -32,6 +31,7 @@
     font-family: $secondary-font;
     font-size: 30px;
     line-height: 2.07;
+    color: $romance;
   }
 
   .modal-h2 {
@@ -39,6 +39,15 @@
     font-family: $secondary-font;
     font-size: 24px;
     line-height: 2.58;
+    color: $romance;
+  }
+
+  .modal-h3 {
+    //font-family: AGaramondPro;
+    font-family: $secondary-font;
+    font-size: 20px;
+    line-height: 3.1;
+    color: $romance;
   }
 
   .modal-p {
@@ -46,5 +55,6 @@
     font-family: $secondary-font;
     font-size: 19px;
     line-height: 1.53;
+    color: $romance;
   }
 }
