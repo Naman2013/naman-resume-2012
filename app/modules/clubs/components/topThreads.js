@@ -11,7 +11,7 @@ export const TopThreads = memo(function TopThreads(props) {
       callSource: 'groups',
       topicId: props.topicId,
     });
-  }, []); //eslint-disable-line react-hooks/exhaustive-deps
+  }, [props.topicId]); //eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div className="top-discussions-wr">
