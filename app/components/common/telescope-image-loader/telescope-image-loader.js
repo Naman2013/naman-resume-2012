@@ -93,7 +93,7 @@ class TelescopeImageLoader extends Component {
       return;
     }
 
-    const { loadThumbnails } = this.props;
+    const { loadThumbnails, missionTitle } = this.props;
 
     const {
       currentImageUrl,
@@ -132,6 +132,7 @@ class TelescopeImageLoader extends Component {
     this.props.onImageChange({
       imageWidth: this.imageRef.current.offsetWidth,
       imageHeight: this.imageRef.current.offsetHeight,
+      missionTitle,
     });
   }
 
