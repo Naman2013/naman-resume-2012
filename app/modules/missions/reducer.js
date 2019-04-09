@@ -493,7 +493,6 @@ function setTelescopeDate(state, action) {
   };
 }
 
-
 function getMissionSlotsByTelescopeSuccess(state, action) {
   return {
     ...state,

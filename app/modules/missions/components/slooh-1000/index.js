@@ -2,20 +2,27 @@ import { Box } from 'app/modules/missions/components/box';
 import { Slooh1000Setup } from 'app/modules/missions/components/slooh-1000-setup';
 import React, { Component } from 'react';
 import { AvailbleMissionTile } from '../available-mission-tile';
-import { MissionSuccessModal } from '../mission-success-modal';
-import { ExplanationModal } from '../explanation-modal';
 import { ExpireCountdown } from '../expire-countdown';
+import { ExplanationModal } from '../explanation-modal';
+import { MissionSuccessModal } from '../mission-success-modal';
 import './styles.scss';
 
 export class Slooh1000 extends Component {
   state = {
-    successModalShow: false,
+    successModalShow: true,
   };
 
   componentDidMount() {
-    const { getCategoryList, getBySlooh1000, resetMissionsData } = this.props;
+    const {
+      getCategoryList,
+      resetMissionsData,
+      fetchObjectDataAction,
+    } = this.props;
     resetMissionsData();
     getCategoryList();
+
+    // temp
+    fetchObjectDataAction(6);
   }
 
   componentWillUnmount() {
@@ -110,6 +117,8 @@ export class Slooh1000 extends Component {
       reservedMissionData,
       resetMissionsData,
       objectListExpires,
+      // temp
+      tempObjDetails,
     } = this.props;
 
     const { successModalShow } = this.state;
@@ -167,6 +176,7 @@ export class Slooh1000 extends Component {
           onHide={this.modalClose}
           reservedMissionData={reservedMissionData}
           missionSlot={missionSlot}
+          tempObjDetails={tempObjDetails}
         />
 
         <ExpireCountdown

@@ -1,3 +1,4 @@
+import GuideTile from 'app/components/common/tiles/guide-tile';
 import { Modal } from 'app/components/modal';
 import { AvailbleMissionTile } from 'app/modules/missions/components/available-mission-tile';
 import React, { Component } from 'react';
@@ -5,7 +6,21 @@ import './styles.scss';
 
 export class MissionSuccessModal extends Component {
   render() {
-    const { onHide, show, reservedMissionData, missionSlot } = this.props;
+    const {
+      onHide,
+      show,
+      reservedMissionData,
+      missionSlot,
+      // temp
+      tempObjDetails,
+    } = this.props;
+
+    const {
+      relatedGuide = {},
+      relatedObject = {},
+      relatedShow = {},
+      relatedStory = {},
+    } = tempObjDetails;
 
     return (
       <Modal
@@ -19,6 +34,16 @@ export class MissionSuccessModal extends Component {
         <p className="modal-p">{reservedMissionData.explanation}</p>
         <p className="modal-p">{reservedMissionData.tip}</p>
         <AvailbleMissionTile missionSlot={missionSlot} />
+
+        <h2 className="modal-h2">
+          Here are some goodies to help you before your Mission!
+        </h2>
+
+        <GuideTile
+          title={relatedGuide.imageLabel}
+          subTitle={relatedGuide.imageTitle}
+          linkUrl={relatedGuide.linkUrl}
+        />
       </Modal>
     );
   }

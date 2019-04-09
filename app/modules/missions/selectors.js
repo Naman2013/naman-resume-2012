@@ -287,3 +287,13 @@ export const makeTelescopeMissionListSelector = () =>
     makeByTelescopeSelector(),
     state => state.missionList
   );
+
+// temp
+export const selectObjectDetails = state => state.objectDetails;
+
+export const makeTempObjectDetailsSelector = () =>
+  createSelector(
+    selectObjectDetails,
+    state => state.objectData
+  );
+

@@ -1,31 +1,32 @@
+import { fetchObjectDataAction } from 'app/modules/object-details/actions';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import { Slooh1000 } from '../components/slooh-1000';
+import { ACTION } from '../reducer';
 import {
   makeBySlooh1000CategoryListSelectOptsSelector,
   makeBySlooh1000CategoryListSelector,
-  makeBySlooh1000SelectedCategorySlugSelector,
-  makeBySlooh1000ObjectListSelector,
-  makeBySlooh1000ObjectListSelectOptsSelector,
-  makeBySlooh1000SelectedObjectIdSelector,
-  makeBySlooh1000SelectedObjectDataSelector,
   makeBySlooh1000DataSelector,
   makeBySlooh1000ObjectListExpiresSelector,
-  makeMissionsLoadingSelector,
+  makeBySlooh1000ObjectListSelectOptsSelector,
+  makeBySlooh1000ObjectListSelector,
+  makeBySlooh1000SelectedCategorySlugSelector,
+  makeBySlooh1000SelectedObjectDataSelector,
+  makeBySlooh1000SelectedObjectIdSelector,
   makeMissionsFirstSlot,
+  makeMissionsLoadingSelector,
   makeReservedMissionData,
+  makeTempObjectDetailsSelector,
 } from '../selectors';
 import {
-  getCategoryList,
-  setCategory,
-  getObjectList,
-  getBySlooh1000,
-  getMissionSlot,
-  reserveMissionSlot,
   cancelMissionSlot,
+  getBySlooh1000,
+  getCategoryList,
+  getMissionSlot,
+  getObjectList,
+  reserveMissionSlot,
 } from '../thunks';
-import { ACTION } from '../reducer';
 
 const mapStateToProps = createStructuredSelector({
   bySlooh1000Data: makeBySlooh1000DataSelector(),
@@ -40,6 +41,8 @@ const mapStateToProps = createStructuredSelector({
   missionSlot: makeMissionsFirstSlot(),
   reservedMissionData: makeReservedMissionData(),
   objectListExpires: makeBySlooh1000ObjectListExpiresSelector(),
+  // temp
+  tempObjDetails: makeTempObjectDetailsSelector(),
 });
 
 const mapDispatchToProps = {
@@ -52,6 +55,7 @@ const mapDispatchToProps = {
   resetMissionsData: ACTION.resetMissionsData,
   reserveMissionSlot,
   cancelMissionSlot,
+  fetchObjectDataAction, // todo temp
 };
 
 export default compose(

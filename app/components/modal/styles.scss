@@ -32,7 +32,13 @@
     font-family: $secondary-font;
     font-size: 30px;
     line-height: 2.07;
-    letter-spacing: normal;
+  }
+
+  .modal-h2 {
+    //font-family: AGaramondPro;
+    font-family: $secondary-font;
+    font-size: 24px;
+    line-height: 2.58;
   }
 
   .modal-p {
