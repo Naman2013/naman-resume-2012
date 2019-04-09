@@ -66,7 +66,10 @@ export default css`
     position: absolute;
     top: 15px;
     right: 25px;
-
+  }
+  
+  .galleryCard-actions {
+    margin: 25px 0 0;
   }
 
   @media ${screenMedium} {
