@@ -24,6 +24,7 @@ CardObs.propTypes = {
   hasLink: PropTypes.bool.isRequired,
   linkLabel: PropTypes.string.isRequired,
   linkUrl: PropTypes.string.isRequired,
+  observationTimeDisplay: PropTypes.shape({}).isRequired,
 };
 
 export default CardObs;

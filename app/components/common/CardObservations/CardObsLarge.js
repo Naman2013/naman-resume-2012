@@ -9,14 +9,11 @@ const CardObsLarge = ({
   subTitle,
   description,
   imageUrl,
-  hasLink,
-  linkLabel,
   linkUrl,
   likesCount,
   commentsCount,
   observationTimeDisplay,
   intl,
-  shareTimeDisplay,
 }) => (
   <Fragment>
     <div className="card-obs-wrapper">
@@ -72,7 +69,7 @@ const CardObsLarge = ({
                     src="https://vega.slooh.com/assets/v4/common/heart.svg"
                     alt="heart"
                   />
-                  {likesCount}
+                  {!likesCount ? '0' : likesCount}
                 </div>
                 <div className="button">
                   <img
@@ -80,9 +77,9 @@ const CardObsLarge = ({
                     src="https://vega.slooh.com/assets/v4/common/comment.svg"
                     alt="comment"
                   />
-                  {commentsCount}
+                  {!commentsCount ? '0' : commentsCount}
                 </div>
-                {hasLink && (
+                {linkUrl && (
                   <a href={linkUrl} className="button details">
                     {intl.formatMessage(messages.Details)}
                     <img
@@ -92,7 +89,11 @@ const CardObsLarge = ({
                   </a>
                 )}
               </div>
-              <div className="capture-date">{observationTimeDisplay}</div>
+              <div className="capture-date">
+                {observationTimeDisplay
+                  ? observationTimeDisplay[0]
+                  : `${intl.formatMessage(messages.Loading)}...`}
+              </div>
             </div>
           </Fragment>
         ) : (
@@ -111,9 +112,8 @@ CardObsLarge.propTypes = {
   subTitle: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   imageUrl: PropTypes.string.isRequired,
-  hasLink: PropTypes.bool.isRequired,
-  linkLabel: PropTypes.string.isRequired,
   linkUrl: PropTypes.string.isRequired,
+  observationTimeDisplay: PropTypes.shape({}).isRequired,
 };
 
 export default injectIntl(CardObsLarge);

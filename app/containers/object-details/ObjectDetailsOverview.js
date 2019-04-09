@@ -104,6 +104,7 @@ const modelData = resp => ({
       hasLink: resp.featuredObservation.hasLink,
       linkLabel: resp.featuredObservation.linkLabel,
       linkUrl: resp.featuredObservation.linkUrl,
+      observationTimeDisplay: resp.featuredObservation.observationTimeDisplay,
     },
   },
   objectDetails: {

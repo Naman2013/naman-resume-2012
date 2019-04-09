@@ -160,9 +160,10 @@ class Observations extends Component {
                               subTitle={photoBy}
                               description={imageDetails.observationLog}
                               imageUrl={imageDetails.imageURL}
-                              hasLink=""
-                              linkLabel=""
                               linkUrl={imageDetails.linkUrl}
+                              observationTimeDisplay={
+                                imageDetails.observationTimeDisplay
+                              }
                             />
                           );
                         }}
@@ -177,19 +178,21 @@ class Observations extends Component {
                     </p>
                   )}
                   {serviceResponse.imageCount > 0 ? (
-                    <PaginateWithNetwork
-                      apiURL={SHARED_MEMBER_PHOTOS}
-                      activePageNumber={Number(page)}
-                      onServiceResponse={this.handlePaginationResponse}
-                      onPaginationChange={this.handlePaginationChange}
-                      filterOptions={{
-                        objectId,
-                        pagingMode: 'content',
-                        count: 9,
-                        page,
-                        v4Filter: this.selectedFilter,
-                      }}
-                    />
+                    <div className="top-bot-40">
+                      <PaginateWithNetwork
+                        apiURL={SHARED_MEMBER_PHOTOS}
+                        activePageNumber={Number(page)}
+                        onServiceResponse={this.handlePaginationResponse}
+                        onPaginationChange={this.handlePaginationChange}
+                        filterOptions={{
+                          objectId,
+                          pagingMode: 'content',
+                          count: 9,
+                          page,
+                          v4Filter: this.selectedFilter,
+                        }}
+                      />
+                    </div>
                   ) : null}
                 </div>
               )}

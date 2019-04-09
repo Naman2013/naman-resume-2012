@@ -65,7 +65,7 @@ const CardObsSmall = ({
             src="https://vega.slooh.com/assets/v4/common/heart.svg"
             alt="heart"
           />
-          {likesCount}
+          {!likesCount ? '0' : likesCount}
         </div>
         <div className="button">
           <img
@@ -73,9 +73,9 @@ const CardObsSmall = ({
             src="https://vega.slooh.com/assets/v4/common/comment.svg"
             alt="comment"
           />
-          {commentsCount}
+          {!commentsCount ? '0' : commentsCount}
         </div>
-        {hasLink && (
+        {linkUrl && (
           <a href={linkUrl} className="button details">
             {intl.formatMessage(messages.Details)}
             <img
@@ -98,6 +98,7 @@ CardObsSmall.propTypes = {
   hasLink: PropTypes.bool.isRequired,
   linkLabel: PropTypes.string.isRequired,
   linkUrl: PropTypes.string.isRequired,
+  observationTimeDisplay: PropTypes.shape({}).isRequired,
 };
 
 export default injectIntl(CardObsSmall);

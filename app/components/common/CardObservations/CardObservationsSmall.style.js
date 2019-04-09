@@ -6,6 +6,7 @@ import {
   geyser,
   romance,
   black,
+  hawkesBlue,
 } from '../../../styles/variables/colors_tiles_v4';
 
 export default css`
@@ -72,11 +73,14 @@ export default css`
     height: 50px;
     margin-top: 20px;
     background: linear-gradient(to bottom, #edf0f2, rgba(255, 255, 255, 0));
+    font-size: 14px;
+    font-family: ${primaryFont};
   }
 
   .card-bottom a {
     text-decoration: none;
     color: ${astronaut};
+    font-family: ${primaryFont};
   }
 
   ul {
@@ -115,19 +119,37 @@ export default css`
     background: ${black};
   }
   
-  .button {
+  .button,
+  .capture-date {
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 20px 15px;
     width: 25%;
+    text-transform: uppercase;
+    font-size: 10px;
+  }
+  
+  .capture-date {
+    margin-right: 20px;
+    color: #8d969f;
+  }
+  
+  .button {
+    border-right: 1px solid ${hawkesBlue};
+  }
+  
+  .button:last-child {
+    border-right: none;
+  }
+  
+  .button img {
+    margin: 0 5px;
   }
   
   .button.details {
     width: 50%;
-  }
-  
-  .button.details img {
-    margin: 0 5px;
+    font-size: 10px;
+    justify-content: space-between;
   }
 `;

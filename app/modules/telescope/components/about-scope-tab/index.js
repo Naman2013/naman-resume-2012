@@ -139,9 +139,7 @@ export const AboutScope = () => {
               Community Observations
             </p>
           </header>
-          <CardObsContext.Provider value="small">
-            <RecommendedObservations />
-          </CardObsContext.Provider>
+          <RecommendedObservations />
         </div>
       </section>
     </Fragment>
