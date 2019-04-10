@@ -13,16 +13,9 @@ export class Slooh1000 extends Component {
   };
 
   componentDidMount() {
-    const {
-      getCategoryList,
-      resetMissionsData,
-      fetchObjectDataAction,
-    } = this.props;
+    const { getCategoryList, resetMissionsData } = this.props;
     resetMissionsData();
     getCategoryList();
-
-    // temp
-    fetchObjectDataAction(6);
   }
 
   componentWillUnmount() {
@@ -115,10 +108,9 @@ export class Slooh1000 extends Component {
       selectedCategorySlug,
       selectedObjectId,
       reservedMissionData,
+      reservedMission,
       resetMissionsData,
       objectListExpires,
-      // temp
-      tempObjDetails,
     } = this.props;
 
     const { successModalShow } = this.state;
@@ -175,8 +167,8 @@ export class Slooh1000 extends Component {
           show={successModalShow}
           onHide={this.modalClose}
           reservedMissionData={reservedMissionData}
+          reservedMission={reservedMission}
           missionSlot={missionSlot}
-          tempObjDetails={tempObjDetails}
         />
 
         <ExpireCountdown

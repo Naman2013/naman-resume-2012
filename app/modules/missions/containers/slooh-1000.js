@@ -17,7 +17,7 @@ import {
   makeMissionsFirstSlot,
   makeMissionsLoadingSelector,
   makeReservedMissionData,
-  makeTempObjectDetailsSelector,
+  makeReservedMissionSelector,
 } from '../selectors';
 import {
   cancelMissionSlot,
@@ -40,9 +40,8 @@ const mapStateToProps = createStructuredSelector({
   isFetching: makeMissionsLoadingSelector(),
   missionSlot: makeMissionsFirstSlot(),
   reservedMissionData: makeReservedMissionData(),
+  reservedMission: makeReservedMissionSelector(),
   objectListExpires: makeBySlooh1000ObjectListExpiresSelector(),
-  // temp
-  tempObjDetails: makeTempObjectDetailsSelector(),
 });
 
 const mapDispatchToProps = {
@@ -55,7 +54,6 @@ const mapDispatchToProps = {
   resetMissionsData: ACTION.resetMissionsData,
   reserveMissionSlot,
   cancelMissionSlot,
-  fetchObjectDataAction, // todo temp
 };
 
 export default compose(
