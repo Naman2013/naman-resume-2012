@@ -8,7 +8,7 @@ const PrivateProfile = props => {
     <Fragment>
       {privateProfileData && (
         <ProfileWrapper params={params} data={privateProfileData}>
-          {cloneElement(children, { params })}
+          {cloneElement(children, { params, privateProfileData })}
         </ProfileWrapper>
       )}
     </Fragment>
