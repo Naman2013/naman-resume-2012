@@ -95,6 +95,7 @@ export class Constellation extends Component {
       reservedMissionData,
       resetMissionsData,
       objectListExpires,
+      reservedMission,
     } = this.props;
 
     const { successModalShow } = this.state;
@@ -149,6 +150,7 @@ export class Constellation extends Component {
           show={successModalShow}
           onHide={this.modalClose}
           reservedMissionData={reservedMissionData}
+          reservedMission={reservedMission}
           missionSlot={missionSlot}
         />
 

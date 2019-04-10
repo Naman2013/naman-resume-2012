@@ -124,6 +124,7 @@ export class Catalog extends Component {
       telescopeData,
       setProcessingRecipe,
       processingRecipe,
+      reservedMission,
     } = this.props;
 
     const { successModalShow } = this.state;
@@ -184,6 +185,7 @@ export class Catalog extends Component {
           show={successModalShow}
           onHide={this.modalClose}
           reservedMissionData={reservedMissionData}
+          reservedMission={reservedMission}
           missionSlot={missionSlot}
         />
       </div>
