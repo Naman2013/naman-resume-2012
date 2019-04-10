@@ -67,6 +67,7 @@ export const fetchGalleries = ({
   firstImageNumber = 1,
   pagingMode = 'app',
   noFilters = false,
+  customerUUID,
 }) => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
   const { selectedFilters } = getState().myPicturesFilters;
@@ -83,6 +84,7 @@ export const fetchGalleries = ({
     cid,
     token,
     pagingMode,
+    customerUUID,
     maxGalleryCount: maxImageCount,
     firstGalleryNumber: firstImageNumber,
     ...filters,

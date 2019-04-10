@@ -1,4 +1,4 @@
-import React, { cloneElement, Component, Fragment } from 'react';
+import React, { cloneElement, Component } from 'react';
 
 class Profile extends Component {
   componentDidMount = () => {
@@ -9,7 +9,7 @@ class Profile extends Component {
 
   render() {
     const { params, children } = this.props;
-    return <Fragment>{cloneElement(children, { params })}</Fragment>;
+    return cloneElement(children, { params });
   }
 }
 
