@@ -9,7 +9,7 @@ import './styles.scss';
 
 export class Slooh1000 extends Component {
   state = {
-    successModalShow: true,
+    successModalShow: false,
   };
 
   componentDidMount() {
