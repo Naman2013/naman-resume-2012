@@ -7,6 +7,7 @@ import fetchObjectMissionsService from '../../services/objects/object-missions';
 import fetchObjectQuestsService from '../../services/objects/object-quests';
 import fetchObjectFollowService from '../../services/objects/object-follow';
 import fetchObjectSpecialistsService from '../../services/objects/specialists';
+import fetchLikeService from '../../services/objects/object-details-like';
 
 /* getObjectDetails */
 export const FETCH_OBJECT_DETAILS = 'FETCH_OBJECT_DETAILS';
@@ -44,15 +45,17 @@ export const FETCH_OBJECT_FOLLOW_SUCCESS = 'FETCH_OBJECT_FOLLOW_SUCCESS';
 export const FETCH_OBJECT_SPECIALISTS = 'FETCH_OBJECT_SPECIALISTS';
 export const FETCH_OBJECT_SPECIALISTS_START = 'FETCH_OBJECT_SPECIALISTS_START';
 export const FETCH_OBJECT_SPECIALISTS_FAIL = 'FETCH_OBJECT_SPECIALISTS_FAIL';
-export const FETCH_OBJECT_SPECIALISTS_SUCCESS = 'FETCH_OBJECT_SPECIALISTS_SUCCESS';
+export const FETCH_OBJECT_SPECIALISTS_SUCCESS =
+  'FETCH_OBJECT_SPECIALISTS_SUCCESS';
 export const RESET_OBJECT_SPECIALISTS = 'RESET_OBJECT_SPECIALISTS';
 
-
+/*getLike */
+export const FETCH_LIKE = 'FETCH_LIKE';
 
 //////////////////////////
 /* FETCH OBJECT DETAILS */
 
-export const fetchObjectDetailsAction = (objectId) => (dispatch, getState) => {
+export const fetchObjectDetailsAction = objectId => (dispatch, getState) => {
   dispatch(fetchObjectDetailsActionStart());
 
   const { token, at, cid } = getState().user;
@@ -62,22 +65,19 @@ export const fetchObjectDetailsAction = (objectId) => (dispatch, getState) => {
     at,
     cid,
     objectId,
-  }).then(
-    result => {
-      dispatch(fetchObjectDetailsActionSuccess(result.data));
-    }
-  );
+  }).then(result => {
+    dispatch(fetchObjectDetailsActionSuccess(result.data));
+  });
 };
 
 export const resetObjectDetails = () => ({
   type: RESET_OBJECT_DETAILS,
 });
 
-
 ///////////////////////
 /* FETCH OBJECT DATA */
 
-export const fetchObjectDataAction = (objectId) => (dispatch, getState) => {
+export const fetchObjectDataAction = objectId => (dispatch, getState) => {
   dispatch(fetchObjectDataActionStart());
 
   const { token, at, cid } = getState().user;
@@ -87,22 +87,19 @@ export const fetchObjectDataAction = (objectId) => (dispatch, getState) => {
     at,
     cid,
     objectId,
-  }).then(
-    result => {
-      dispatch(fetchObjectDataActionSuccess(result.data));
-    }
-  );
+  }).then(result => {
+    dispatch(fetchObjectDataActionSuccess(result.data));
+  });
 };
 
 export const resetObjectData = () => ({
   type: RESET_OBJECT_DATA,
 });
 
-
 ///////////////////////////
 /* FETCH OBJECT MISSIONS */
 
-export const fetchObjectMissionsAction = (objectId) => (dispatch, getState) => {
+export const fetchObjectMissionsAction = objectId => (dispatch, getState) => {
   dispatch(fetchObjectMissionsActionStart());
 
   const { token, at, cid } = getState().user;
@@ -112,18 +109,15 @@ export const fetchObjectMissionsAction = (objectId) => (dispatch, getState) => {
     at,
     cid,
     objectId,
-  }).then(
-    result => {
-      dispatch(fetchObjectMissionsActionSuccess(result.data));
-    }
-  );
+  }).then(result => {
+    dispatch(fetchObjectMissionsActionSuccess(result.data));
+  });
 };
-
 
 /////////////////////////
 /* FETCH OBJECT QUESTS */
 
-export const fetchObjectQuestsAction = (objectId) => (dispatch, getState) => {
+export const fetchObjectQuestsAction = objectId => (dispatch, getState) => {
   dispatch(fetchObjectQuestsActionStart());
 
   const { token, at, cid } = getState().user;
@@ -133,18 +127,15 @@ export const fetchObjectQuestsAction = (objectId) => (dispatch, getState) => {
     at,
     cid,
     objectId,
-  }).then(
-    result => {
-      dispatch(fetchObjectQuestsActionSuccess(result.data));
-    }
-  );
+  }).then(result => {
+    dispatch(fetchObjectQuestsActionSuccess(result.data));
+  });
 };
-
 
 /////////////////////////
 /* FETCH FOLLOW OBJECT */
 
-export const fetchObjectFollowAction = (objectId) => (dispatch, getState) => {
+export const fetchObjectFollowAction = objectId => (dispatch, getState) => {
   dispatch(fetchObjectFollowActionStart());
 
   const { token, at, cid } = getState().user;
@@ -154,18 +145,18 @@ export const fetchObjectFollowAction = (objectId) => (dispatch, getState) => {
     at,
     cid,
     objectId,
-  }).then(
-    result => {
-      dispatch(fetchObjectFollowActionSuccess(result.data));
-    }
-  );
+  }).then(result => {
+    dispatch(fetchObjectFollowActionSuccess(result.data));
+  });
 };
-
 
 //////////////////////////////
 /* FETCH OBJECT SPECIALISTS */
 
-export const fetchObjectSpecialistsAction = (objectId, maxCount) => (dispatch, getState) => {
+export const fetchObjectSpecialistsAction = (objectId, maxCount) => (
+  dispatch,
+  getState
+) => {
   dispatch(fetchObjectSpecialistsActionStart());
 
   const { token, at, cid } = getState().user;
@@ -176,32 +167,41 @@ export const fetchObjectSpecialistsAction = (objectId, maxCount) => (dispatch, g
     cid,
     objectId,
     maxCount,
-  }).then(
-    result => {
-      dispatch(fetchObjectSpecialistsActionSuccess(result.data));
-    }
-  );
+  }).then(result => {
+    dispatch(fetchObjectSpecialistsActionSuccess(result.data));
+  });
 };
 
 export const resetObjectSpecialists = () => ({
   type: RESET_OBJECT_SPECIALISTS,
 });
 
+//////////////////////////////
+/* FETCH LIKE */
 
+export const fetchLikeAction = likeId => (dispatch, getState) => {
+  console.log('fetchLikeAction', likeId);
+  const { token, at, cid } = getState().user;
 
+  return fetchLikeService({
+    token,
+    at,
+    cid,
+    likeId,
+  }).then(() => dispatch(fetchLike()));
+};
 
 ////////////////////
 /* fetch handlers */
-
 
 // DETAILS
 const fetchObjectDetailsActionStart = () => ({
   type: FETCH_OBJECT_DETAILS_START,
 });
 
-const fetchObjectDetailsActionSuccess = (payload) => ({
-    type: FETCH_OBJECT_DETAILS_SUCCESS,
-    payload,
+const fetchObjectDetailsActionSuccess = payload => ({
+  type: FETCH_OBJECT_DETAILS_SUCCESS,
+  payload,
 });
 
 const fetchObjectDetailsActionError = payload => ({
@@ -209,16 +209,14 @@ const fetchObjectDetailsActionError = payload => ({
   payload,
 });
 
-
-
 // DATA
 const fetchObjectDataActionStart = () => ({
   type: FETCH_OBJECT_DATA_START,
 });
 
-const fetchObjectDataActionSuccess = (payload) => ({
-    type: FETCH_OBJECT_DATA_SUCCESS,
-    payload,
+const fetchObjectDataActionSuccess = payload => ({
+  type: FETCH_OBJECT_DATA_SUCCESS,
+  payload,
 });
 
 const fetchObjectDataActionError = payload => ({
@@ -226,15 +224,14 @@ const fetchObjectDataActionError = payload => ({
   payload,
 });
 
-
 // MISSIONS
 const fetchObjectMissionsActionStart = () => ({
   type: FETCH_OBJECT_MISSIONS_START,
 });
 
-const fetchObjectMissionsActionSuccess = (payload) => ({
-    type: FETCH_OBJECT_MISSIONS_SUCCESS,
-    payload,
+const fetchObjectMissionsActionSuccess = payload => ({
+  type: FETCH_OBJECT_MISSIONS_SUCCESS,
+  payload,
 });
 
 const fetchObjectMissionsActionError = payload => ({
@@ -242,15 +239,14 @@ const fetchObjectMissionsActionError = payload => ({
   payload,
 });
 
-
 // QUESTS
 const fetchObjectQuestsActionStart = () => ({
   type: FETCH_OBJECT_QUESTS_START,
 });
 
-const fetchObjectQuestsActionSuccess = (payload) => ({
-    type: FETCH_OBJECT_QUESTS_SUCCESS,
-    payload,
+const fetchObjectQuestsActionSuccess = payload => ({
+  type: FETCH_OBJECT_QUESTS_SUCCESS,
+  payload,
 });
 
 const fetchObjectQuestsActionError = payload => ({
@@ -258,15 +254,14 @@ const fetchObjectQuestsActionError = payload => ({
   payload,
 });
 
-
 // FOLLOW
 const fetchObjectFollowActionStart = () => ({
   type: FETCH_OBJECT_FOLLOW_START,
 });
 
-const fetchObjectFollowActionSuccess = (payload) => ({
-    type: FETCH_OBJECT_FOLLOW_SUCCESS,
-    payload,
+const fetchObjectFollowActionSuccess = payload => ({
+  type: FETCH_OBJECT_FOLLOW_SUCCESS,
+  payload,
 });
 
 const fetchObjectFollowActionError = payload => ({
@@ -274,18 +269,22 @@ const fetchObjectFollowActionError = payload => ({
   payload,
 });
 
-
 // SPECIALISTS
 const fetchObjectSpecialistsActionStart = () => ({
   type: FETCH_OBJECT_SPECIALISTS_START,
 });
 
-const fetchObjectSpecialistsActionSuccess = (payload) => ({
-    type: FETCH_OBJECT_SPECIALISTS_SUCCESS,
-    payload,
+const fetchObjectSpecialistsActionSuccess = payload => ({
+  type: FETCH_OBJECT_SPECIALISTS_SUCCESS,
+  payload,
 });
 
 const fetchObjectSpecialistsActionError = payload => ({
   type: FETCH_OBJECT_SPECIALISTS_FAIL,
   payload,
+});
+
+// LIKE
+const fetchLike = () => ({
+  type: FETCH_LIKE,
 });

@@ -27,7 +27,7 @@ export default css`
     margin-bottom: 20px;
     color: ${lightHeadedAstronaut};
   }
-
+  
   .card-obs {
     pointer-events: auto;
     background: url(${white_texture_bg});
@@ -77,7 +77,7 @@ export default css`
   .button:not(:last-child) {
     border-right: 1px solid #dee0e2;
   }
-
+  
   .capture-date {
     ${toUpper}
     ${centerChildren}

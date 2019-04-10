@@ -13,7 +13,7 @@ import has from 'lodash/has';
 import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 import Request from 'app/components/common/network/Request';
 import DropDown from 'app/components/common/DropDown';
-import { fetchObjectDetailsAction } from 'app/modules/object-details/actions';
+import { fetchObjectDetailsAction, fetchLikeAction } from 'app/modules/object-details/actions';
 import DeviceProvider from 'app/providers/DeviceProvider';
 import ObjectDetailsSectionTitle from 'app/components/object-details/ObjectDetailsSectionTitle';
 import CenterColumn from 'app/components/common/CenterColumn';
@@ -36,6 +36,7 @@ const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(
     {
       fetchObjectDetailsAction,
+      fetchLikeAction,
     },
     dispatch
   ),
@@ -96,6 +97,7 @@ class Observations extends Component {
       params: { objectId },
       objectDetails,
       intl,
+      user,
     } = this.props;
     const { selectedIndex, page } = this.state;
 
@@ -161,9 +163,11 @@ class Observations extends Component {
                               description={imageDetails.observationLog}
                               imageUrl={imageDetails.imageURL}
                               linkUrl={imageDetails.linkUrl}
+                              likesCount={imageDetails.likesCount}
                               observationTimeDisplay={
                                 imageDetails.observationTimeDisplay
                               }
+                              handleLike={fetchLikeAction}
                             />
                           );
                         }}
