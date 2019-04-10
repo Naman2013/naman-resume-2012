@@ -50,6 +50,11 @@
     width: 140px;
     height: 40px;
   }
+
+  &-white {
+    color: $romance;
+    border-color: $romance;
+  }
 }
 
 .btn-group {

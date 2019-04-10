@@ -18,6 +18,7 @@ import { createActivity } from '../../../modules/community-group-activity-list/a
 import { fetchGroupMembers } from 'modules/community-group-overview/actions';
 import ResponsiveTwoColumnContainer from 'components/ResponsiveTwoColumnContainer';
 import TwoTabbedNav from 'components/TwoTabbedNav';
+import  {TopThreads }  from '../../../modules/clubs';
 
 import MembersList from './members-list';
 import DiscussionsBoard from 'components/common/DiscussionsBoard';
@@ -139,6 +140,9 @@ class FullInformationOverview extends Component {
           }
           renderAsideContent={() => (
             <div>
+              <TopThreads 
+                topicId={pageMeta.topicId}
+                isDesktop={context.isDesktop} />
               <MembersList
                 membersSort={membersSort}
                 membersList={membersList}

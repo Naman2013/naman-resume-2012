@@ -52,11 +52,12 @@ const DiscussionsCard = (props) => {
     showLikePrompt,
     submitReply,
     title,
+    threadId,
     user,
   } = props;
 
   return (
-    <div className="root" key={uniqueId()}>
+    <div className="root" key={uniqueId()} id={`card-${threadId}`}>
       <div className="comment-item">
         <div className="user-info-container">
           <div className="user-info">

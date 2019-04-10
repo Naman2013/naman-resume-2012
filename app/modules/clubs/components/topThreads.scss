@@ -1,0 +1,63 @@
+@import '~app/styles/variables/index';
+@import '~app/styles/variables/colors.scss';
+@import '~app/styles/variables/fonts.scss';
+@import '~app/styles/variables/shadows.scss';
+
+.top-discussions-wr {
+  margin: 15px 0;
+  margin-left: 15px;
+  background-color: transparent;
+
+  .members-list {
+    width: 100%;
+
+    .navigation-link {
+      color: initial;
+
+      .members-list-card {
+        text-decoration: none;
+        text-decoration-color: none;
+        width: 100%;
+        background-color: $romance;
+        padding: 25px;
+        margin: 15px 0px;
+        -moz-box-shadow: 0 2px 4px 1px $shadows;
+        -webkit-box-shadow: 0 2px 4px 1px $shadows;
+        box-shadow: 0 2px 4px 1px $shadows;
+        .header {
+          border-bottom: 1px solid $astronaut;
+          font-size: 18px;
+          font-family: adobe-garamond-pro, serif;
+        }
+
+        .bottom {
+          font-family: brandon-grotesque, sans-serif;
+          font-weight: bold;
+          font-size: 10px;
+          text-transform: uppercase;
+          padding-top: 5px;
+
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+
+          .user-info {
+            border-right: 1px solid #415671;
+            max-width: 60%;
+            width: 60%;
+
+            .avatar {
+              width: 20px;
+              margin: 0px 5px;
+              border-radius: 50%;
+            }
+          }
+
+          .date-container {
+            text-align: end;
+          }
+        }
+      }
+    }
+  }
+}
