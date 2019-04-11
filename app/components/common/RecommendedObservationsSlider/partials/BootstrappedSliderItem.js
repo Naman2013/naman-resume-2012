@@ -7,8 +7,6 @@ import LikeSomethingButton from 'app/components/common/LikeSomethingButton';
 import style from './BootstrappedSliderItem.style';
 import messages from './BootstrappedSliderItem.messages';
 
-
-
 const BootstrappedObservationSliderItem = props => {
   const {
     imageTitle,

@@ -1,13 +1,12 @@
-import createReducer from '../utils/createReducer';
-
 // services
-import fetchObjectDetailsService from '../../services/objects/object-details';
-import fetchObjectDataService from '../../services/objects/object-data';
-import fetchObjectMissionsService from '../../services/objects/object-missions';
-import fetchObjectQuestsService from '../../services/objects/object-quests';
-import fetchObjectFollowService from '../../services/objects/object-follow';
-import fetchObjectSpecialistsService from '../../services/objects/specialists';
-import fetchLikeService from '../../services/objects/object-details-like';
+import fetchObjectDetailsService from 'app/services/objects/object-details';
+import fetchObjectDataService from 'app/services/objects/object-data';
+import fetchObjectMissionsService from 'app/services/objects/object-missions';
+import fetchObjectQuestsService from 'app/services/objects/object-quests';
+import fetchObjectFollowService from 'app/services/objects/object-follow';
+import fetchObjectSpecialistsService from 'app/services/objects/specialists';
+import fetchLikeService from 'app/services/objects/object-details-like';
+import fetchImageDetailsService from 'app/services/objects/object-details-image-details';
 
 /* getObjectDetails */
 export const FETCH_OBJECT_DETAILS = 'FETCH_OBJECT_DETAILS';
@@ -51,6 +50,12 @@ export const RESET_OBJECT_SPECIALISTS = 'RESET_OBJECT_SPECIALISTS';
 
 /*getLike */
 export const FETCH_LIKE = 'FETCH_LIKE';
+
+/* getImageDetails */
+export const FETCH_IMAGE_DETAILS = 'FETCH_IMAGE_DETAILS';
+export const FETCH_IMAGE_DETAILS_START = 'FETCH_IMAGE_DETAILS_START';
+export const FETCH_IMAGE_DETAILS_FAIL = 'FETCH_IMAGE_DETAILS_FAIL';
+export const FETCH_IMAGE_DETAILS_SUCCESS = 'FETCH_IMAGE_DETAILS_SUCCESS';
 
 //////////////////////////
 /* FETCH OBJECT DETAILS */
@@ -190,8 +195,44 @@ export const fetchLikeAction = likeId => (dispatch, getState) => {
   }).then(() => dispatch(fetchLike()));
 };
 
+//////////////////////////////
+/* FETCH IMAGE DETAILS */
+
+export const fetchImageDetailsAction = customerImageId => (
+  dispatch,
+  getState
+) => {
+  dispatch(fetchImageDetailsActionStart());
+  const { token, at, cid } = getState().user;
+  return fetchImageDetailsService({
+    token,
+    at,
+    cid,
+    customerImageId,
+  })
+    .then(result => {
+      dispatch(fetchImageDetailsActionSuccess(result.data));
+    })
+    .catch(error => dispatch(fetchImageDetailsActionError(error)));
+};
+
 ////////////////////
 /* fetch handlers */
+
+// IMAGE DETAILS
+const fetchImageDetailsActionStart = () => ({
+  type: FETCH_IMAGE_DETAILS_START,
+});
+
+const fetchImageDetailsActionSuccess = payload => ({
+  type: FETCH_IMAGE_DETAILS_SUCCESS,
+  payload,
+});
+
+const fetchImageDetailsActionError = payload => ({
+  type: FETCH_IMAGE_DETAILS_FAIL,
+  payload,
+});
 
 // DETAILS
 const fetchObjectDetailsActionStart = () => ({

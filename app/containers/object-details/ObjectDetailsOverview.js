@@ -12,7 +12,7 @@ import { bindActionCreators } from 'redux';
 import { browserHistory } from 'react-router';
 import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 import { BURNHAMS_CORNER_CONTENT } from 'app/services/content';
-
+import isEmpty from 'lodash/fp/isEmpty';
 import CenterColumn from 'app/components/common/CenterColumn';
 import TopicContent from 'app/components/guides/TopicContent';
 import Request from 'app/components/common/network/Request';
@@ -41,6 +41,7 @@ import ObjectRelatedTile from './ObjectRelatedTile';
 const mapStateToProps = ({ objectDetails, appConfig, user }) => ({
   objectData: objectDetails.objectData,
   objectSpecialists: objectDetails.objectSpecialists,
+  imageDetails: objectDetails.imageDetails,
   appConfig,
   user,
 });
@@ -94,22 +95,7 @@ const modelData = resp => ({
     subTitle: resp.objectTagline,
   },
   featuredObservation: {
-    title: <FormattedMessage {...messages.FeaturedObservation} />,
-    subTitle: <FormattedMessage {...messages.CommunityObservation} />,
-    show: resp.hasFeaturedObservation,
-    tileContent: {
-      title: resp.featuredObservation.title,
-      subTitle: resp.featuredObservation.subTitle,
-      description: resp.featuredObservation.description,
-      imageUrl: resp.featuredObservation.imageUrl,
-      hasLink: resp.featuredObservation.hasLink,
-      linkLabel: resp.featuredObservation.linkLabel,
-      linkUrl: resp.featuredObservation.linkUrl,
-      observationTimeDisplay: resp.featuredObservation.observationTimeDisplay,
-      likesCount: resp.featuredObservation.likesCount,
-      likePrompt: resp.featuredObservation.likePrompt,
-      showLikePrompt: resp.featuredObservation.showLikePrompt,
-    },
+    customerImageId: resp.featuredObservation.customerImageId,
   },
   objectDetails: {
     nameLabel: resp.displayNameLabel,
@@ -175,9 +161,10 @@ class Overview extends Component {
       params: { objectId },
       objectData,
       objectSpecialists,
+      imageDetails,
       intl,
       user,
-      actions: { fetchLikeAction }
+      actions: { fetchLikeAction },
     } = this.props;
 
     const modeledResult = modelData(objectData);
@@ -186,7 +173,6 @@ class Overview extends Component {
     if (!modeledResult.topicContentProps.title) {
       return null;
     }
-    const customerImageId = '531098'; // TODO: replace it
     return (
       <Fragment>
         <TopicContent
@@ -195,11 +181,11 @@ class Overview extends Component {
           user={user}
         />
 
-        {modeledResult.featuredObservation.show && (
+        {!isEmpty(imageDetails) && (
           <section className="blue-tile-bg">
             <DeviceProvider>
               <SterlingTitle
-                {...modeledResult.featuredObservation}
+                title="Featured Observation"
                 theme={{
                   title: { color: 'white' },
                   subTitle: { color: 'white' },
@@ -208,9 +194,19 @@ class Overview extends Component {
               <CenterColumn widths={['768px', '965px', '965px']}>
                 <CardObservations
                   user={user}
-                  customerImageId={customerImageId}
+                  title={imageDetails.imageTitle}
+                  subTitle={imageDetails.displayName}
+                  description={imageDetails.observationLog}
+                  imageUrl={imageDetails.imageURL}
+                  linkUrl={imageDetails.linkUrl}
+                  likesCount={imageDetails.likesCount}
+                  likePrompt={imageDetails.likePrompt}
+                  observationTimeDisplay={imageDetails.observationTimeDisplay}
+                  showLikePrompt={imageDetails.showLikePrompt}
                   handleLike={fetchLikeAction}
-                  {...modeledResult.featuredObservation.tileContent}
+                  customerImageId={
+                    modeledResult.featuredObservation.customerImageId
+                  }
                 />
               </CenterColumn>
             </DeviceProvider>

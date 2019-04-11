@@ -29,6 +29,7 @@ const CardObsLarge = props => {
     handleLike(customerImageId);
     changeLikesNumber(likesNumber + 1);
   };
+  console.log('customerImageId', customerImageId);
   return (
     <Fragment>
       <div className="card-obs-wrapper">
@@ -152,10 +153,10 @@ CardObsLarge.propTypes = {
   likesCount: PropTypes.number.isRequired,
   likePrompt: PropTypes.string.isRequired,
   observationTimeDisplay: PropTypes.shape({}).isRequired,
+  showLikePrompt: PropTypes.bool.isRequired,
   user: PropTypes.shape({}).isRequired,
   handleLike: PropTypes.func.isRequired,
   customerImageId: PropTypes.number.isRequired,
-  showLikePrompt: PropTypes.bool.isRequired,
 };
 
 export default injectIntl(CardObsLarge);
