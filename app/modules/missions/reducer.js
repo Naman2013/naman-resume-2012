@@ -61,8 +61,10 @@ export const initialState = {
     categoryList: [],
     selectedCategorySlug: null,
     objectList: [],
+    objectCount: null,
     objectListExpires: null,
     selectedObjectId: null,
+    availableMissionsCount: null,
   },
 
   byConstellation: {
@@ -245,8 +247,10 @@ function resetMissionsData(state) {
       ...state.bySlooh1000,
       selectedCategorySlug: null,
       objectList: [],
+      objectCount: null,
       objectListExpires: null,
       selectedObjectId: null,
+      availableMissionsCount: null,
     },
     byConstellation: {
       ...state.byConstellation,
@@ -291,14 +295,15 @@ function getCategoryListSuccess(state, action) {
 }
 
 function setCategory(state, action) {
-  console.log('adfasdfasd');
   return {
     ...state,
     bySlooh1000: {
       ...state.bySlooh1000,
       selectedCategorySlug: action.payload,
+      objectCount: null,
       objectList: [],
       selectedObjectId: null,
+      availableMissionsCount: null,
     },
   };
 }
@@ -311,7 +316,9 @@ function getObjectListSuccess(state, action) {
     bySlooh1000: {
       ...state.bySlooh1000,
       objectList: action.payload.objectList,
+      objectCount: action.payload.objectCount,
       objectListExpires: action.payload.expires,
+      availableMissionsCount: action.payload.availableMissionsCount,
     },
   };
 }

@@ -26,7 +26,7 @@ export function withSlooh1000(WrappedComponent) {
       }).then(callback);
     };
 
-    reserveMissionSlot = ({ callSource }) => {
+    reserveMissionSlot = ({ callSource }, callback) => {
       const { reserveMissionSlot, missionSlot } = this.props;
 
       reserveMissionSlot({
@@ -52,7 +52,7 @@ export function withSlooh1000(WrappedComponent) {
         telescopeId: missionSlot.telescopeId,
         telescopeName: missionSlot.telescopeName,
         uniqueId: missionSlot.uniqueId,
-      }).then(() => this.setState({ successModalShow: true }));
+      }).then(callback);
     };
 
     cancelMissionSlot = ({ callSource }) => {

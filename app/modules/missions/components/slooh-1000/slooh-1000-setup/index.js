@@ -34,6 +34,8 @@ export class Slooh1000Setup extends Component {
       selectedCategorySlug,
       selectedObjectId,
       disabled,
+      availableMissions,
+      noObjects,
     } = this.props;
 
     return (
@@ -87,8 +89,14 @@ export class Slooh1000Setup extends Component {
               value={selectedObjectId}
             />
 
-            {objectListOpts.length === 0 && selectedCategorySlug && (
-              <div className="explanation">no objects available</div>
+            {availableMissions && (
+              <div className="explanation">No objects available</div>
+            )}
+
+            {noObjects && (
+              <div className="explanation">
+                No objects werre found for {categoryListOpts[selectedCategorySlug].label}
+              </div>
             )}
           </div>
         </div>

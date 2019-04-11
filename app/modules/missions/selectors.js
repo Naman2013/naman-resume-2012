@@ -116,6 +116,26 @@ export const makeBySlooh1000ObjectListExpiresSelector = () =>
     state => state.objectListExpires
   );
 
+export const makeBySlooh1000AvailableMissionsSelector = () =>
+  createSelector(
+    makeBySlooh1000Selector(),
+    state => {
+      return (
+        state.availableMissionsCount === 0 &&
+        state.objectCount > 0 &&
+        !!state.selectedCategorySlug
+      );
+    }
+  );
+
+export const makeBySlooh1000NoObjectsSelector = () =>
+  createSelector(
+    makeBySlooh1000Selector(),
+    state => {
+      return state.objectCount === 0 && !!state.selectedCategorySlug;
+    }
+  );
+
 /**
  * Gets the objectList from reducer
  * Returns objectList options ready for Select
@@ -314,7 +334,7 @@ export const makeTelescopeMissionListSelector = () =>
     state => state.missionList
   );
 
-  export const makeTelescopeSelectedSlotSelector = () =>
+export const makeTelescopeSelectedSlotSelector = () =>
   createSelector(
     makeByTelescopeSelector(),
     state => state.selectedSlot
