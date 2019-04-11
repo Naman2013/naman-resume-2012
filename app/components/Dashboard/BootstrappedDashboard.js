@@ -155,7 +155,6 @@ class BootstrappedDashboard extends Component {
 
     return (
       <div className="root">
-        <h1>test</h1>
         <TourPopup user={user} />
         <div className="dash-hero">
           <div alt={intl.formatMessage(messages.welcome)} className="hero-img" />

@@ -9,10 +9,6 @@ export default css`
     width: 100%;
   }
 
-  h1 {
-    color: red;
-  }
-
   .vertical-helper {
     display: inline-block;
     height: 100%;
