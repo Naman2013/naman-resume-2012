@@ -38,8 +38,8 @@ module.exports = {
   env: {
     production: {
       plugins: [
-        '@babel/plugin-transform-react-constant-elements',
-        '@babel/plugin-transform-react-inline-elements',
+        // '@babel/plugin-transform-react-constant-elements',
+        // '@babel/plugin-transform-react-inline-elements',
         // 'transform-react-remove-prop-types',
         'styled-jsx/babel',
         ...esNext,
