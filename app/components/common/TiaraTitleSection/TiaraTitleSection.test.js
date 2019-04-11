@@ -1,7 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import TiaraTitleSection from './TiaraTitleSection';
-import alienHeadIcon from '../../../../assets/icons/alien-head.png';
 
 const setup = (customProps = {}) => {
   const defaultProps = { preTitle: 'Test', title: 'Test', iconURL: 'foo.com' };

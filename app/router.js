@@ -534,4 +534,5 @@ const AppRouter = () => (
   </Router>
 );
 
-export default hot(AppRouter);
+// export default hot(AppRouter);
+export default AppRouter;
