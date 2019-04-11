@@ -2,7 +2,11 @@ import React from 'react';
 import VideoImageLoader from '../common/telescope-image-loader/video-image-loader';
 import SSELiveImageViewer from './LiveImageViewer/SSELiveImageViewer';
 
-export default function determineImageLoader(instrument, { viewportHeight }) {
+export default function determineImageLoader(
+  instrument,
+  { viewportHeight },
+  onImageChange
+) {
   const { instrImageSourceType, instrCameraSourceType } = instrument;
 
   if (instrImageSourceType === 'SSE') {
@@ -14,9 +18,11 @@ export default function determineImageLoader(instrument, { viewportHeight }) {
         teleId={instrument.instrTelescopeId}
         teleFade={instrument.instrFade}
         missionFormat="full"
+        onImageChange={onImageChange}
       />
     );
-  } else if (instrImageSourceType === 'video') {
+  }
+  if (instrImageSourceType === 'video') {
     const {
       instrStreamCode,
       instrStreamURL,
@@ -37,18 +43,18 @@ export default function determineImageLoader(instrument, { viewportHeight }) {
             teleSystem={instrSystem}
             telePort={instrPort}
             cameraSourceType={instrCameraSourceType}
-            
           />
         </div>
-        <style jsx>{`
-          .root {
-            overflow: hidden;
-          }
+        <style jsx>
+          {`
+            .root {
+              overflow: hidden;
+            }
 
-          .mask {
-            position: relative;
-          }
-        `}
+            .mask {
+              position: relative;
+            }
+          `}
         </style>
       </div>
     );
