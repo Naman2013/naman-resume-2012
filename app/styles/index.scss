@@ -1,0 +1,17 @@
+@import '~animate.css/animate.css';
+@import '~react-tippy/dist/tippy.css';
+
+// Bootstrap 4
+@import './bootstrap/index.scss';
+
+// App
+@import './animations.scss';
+@import './app.scss';
+@import './interface.css';
+
+@import './static.scss';
+
+
+// icons
+// import 'assets/icons/iconmoon/style.css';
+@import "../../assets/icons/fontastic/styles.css";
