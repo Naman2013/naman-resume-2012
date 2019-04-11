@@ -180,7 +180,6 @@ export const resetObjectSpecialists = () => ({
 /* FETCH LIKE */
 
 export const fetchLikeAction = likeId => (dispatch, getState) => {
-  console.log('fetchLikeAction', likeId);
   const { token, at, cid } = getState().user;
 
   return fetchLikeService({

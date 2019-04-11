@@ -13,7 +13,10 @@ import has from 'lodash/has';
 import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 import Request from 'app/components/common/network/Request';
 import DropDown from 'app/components/common/DropDown';
-import { fetchObjectDetailsAction, fetchLikeAction } from 'app/modules/object-details/actions';
+import {
+  fetchObjectDetailsAction,
+  fetchLikeAction,
+} from 'app/modules/object-details/actions';
 import DeviceProvider from 'app/providers/DeviceProvider';
 import ObjectDetailsSectionTitle from 'app/components/object-details/ObjectDetailsSectionTitle';
 import CenterColumn from 'app/components/common/CenterColumn';
@@ -97,10 +100,10 @@ class Observations extends Component {
       params: { objectId },
       objectDetails,
       intl,
+      actions: { fetchLikeAction },
       user,
     } = this.props;
     const { selectedIndex, page } = this.state;
-
     return (
       <Fragment>
         <DeviceProvider>
@@ -136,9 +139,9 @@ class Observations extends Component {
                   has(serviceResponse, 'imageList') ? (
                     serviceResponse.imageList.map(image => (
                       <Request
+                        method="POST"
                         authorizationRedirect
                         serviceURL={IMAGE_DETAILS}
-                        method="POST"
                         serviceExpiresFieldName="expires"
                         requestBody={{
                           customerImageId: image.customerImageId,
@@ -158,16 +161,20 @@ class Observations extends Component {
                             : 'Photo by';
                           return (
                             <CardObservations
-                              title={imageDetails.imageTitle}
+                              user={user}
                               subTitle={photoBy}
+                              title={imageDetails.imageTitle}
                               description={imageDetails.observationLog}
                               imageUrl={imageDetails.imageURL}
                               linkUrl={imageDetails.linkUrl}
                               likesCount={imageDetails.likesCount}
+                              likePrompt={imageDetails.likePrompt}
+                              showLikePrompt={imageDetails.showLikePrompt}
+                              customerImageId={image.customerImageId}
+                              handleLike={fetchLikeAction}
                               observationTimeDisplay={
                                 imageDetails.observationTimeDisplay
                               }
-                              handleLike={fetchLikeAction}
                             />
                           );
                         }}

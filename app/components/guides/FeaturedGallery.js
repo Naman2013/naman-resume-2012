@@ -1,23 +1,32 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { Fragment } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { DeviceContext } from 'providers/DeviceProvider';
+import { DeviceContext } from 'app/providers/DeviceProvider';
+import SterlingTitle from 'app/components/common/titles/SterlingTitle';
+import CenterColumn from 'app/components/common/CenterColumn';
+import RecommendedObservations from 'app/components/common/RecommendedObservationsSlider';
 import style from './FeaturedGallery.style';
-import SterlingTitle from 'components/common/titles/SterlingTitle';
 import messages from './FeaturedGallery.messages';
 
 const titleTheme = {};
-const titleThemeMedium = { title: { color: 'white' }, subTitle: { color: 'white' } };
+const titleThemeMedium = {
+  title: { color: 'white' },
+  subTitle: { color: 'white' },
+};
 
 const FeaturedGallery = () => (
   <div className="root">
     <DeviceContext.Consumer>
       {context => (
-        <SterlingTitle
-          title={<FormattedMessage {...messages.FeaturedTitle} />}
-          subTitle={<FormattedMessage {...messages.FeaturedSubtitle} />}
-          theme={context.isScreenMedium ? titleThemeMedium : titleTheme}
-        />
+        <Fragment>
+          <SterlingTitle
+            title={<FormattedMessage {...messages.FeaturedTitle} />}
+            subTitle={<FormattedMessage {...messages.FeaturedSubtitle} />}
+            theme={context.isScreenMedium ? titleThemeMedium : titleTheme}
+          />
+          <CenterColumn>
+            <RecommendedObservations />
+          </CenterColumn>
+        </Fragment>
       )}
     </DeviceContext.Consumer>
     <style jsx>{style}</style>

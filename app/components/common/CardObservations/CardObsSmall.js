@@ -1,8 +1,9 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import PropTypes from 'prop-types';
+import { ModalImg } from 'app/modules/telescope/components/modal-img';
 import { injectIntl } from 'react-intl';
 import messages from 'app/components/common/CardObservations/CardObsLarge.messages';
-import Btn from 'app/atoms/Btn';
+import LikeSomethingButton from 'app/components/common/LikeSomethingButton';
 import style from './CardObservationsSmall.style';
 
 const CardObsSmall = props => {
@@ -16,8 +17,17 @@ const CardObsSmall = props => {
     commentsCount,
     intl,
     handleLike,
+    customerImageId,
+    likePrompt,
+    user,
+    showLikePrompt,
   } = props;
-  const customerImageId = '315751'; // TODO: replace with real id from API
+  const [isOpen, openModal] = useState(false);
+  const [likesNumber, changeLikesNumber] = useState(likesCount);
+  const onLikeClick = () => {
+    handleLike(customerImageId);
+    changeLikesNumber(likesNumber + 1);
+  };
   return (
     <Fragment>
       <div className="card-obs">
@@ -55,21 +65,39 @@ const CardObsSmall = props => {
           <div className="media-card-img-container">
             <div className="picture">
               <div className="image-wrapper">
-                <img src={imageUrl} alt="Observation" />
+                <img
+                  src={imageUrl}
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => openModal(!isOpen)}
+                  alt="Observation"
+                />
+                <ModalImg
+                  isOpen={isOpen}
+                  imageURL={imageUrl}
+                  onHide={() => openModal(!isOpen)}
+                />
               </div>
             </div>
           </div>
         </div>
         <div className="card-bottom">
           <div className="button">
-            <Btn onClick={handleLike(customerImageId)} mod="no-border">
+            <LikeSomethingButton
+              user={user}
+              mod="no-border"
+              likePrompt={likePrompt}
+              likesCount={likesNumber || likesCount}
+              likeHandler={onLikeClick}
+              customerId={customerImageId}
+              showLikePrompt={showLikePrompt}
+            >
               <img
                 className="icon"
                 src="https://vega.slooh.com/assets/v4/common/heart.svg"
                 alt="heart"
               />
               {!likesCount ? '0' : likesCount}
-            </Btn>
+            </LikeSomethingButton>
           </div>
           <div className="button">
             <img
@@ -100,10 +128,13 @@ CardObsSmall.propTypes = {
   subTitle: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   imageUrl: PropTypes.string.isRequired,
-  hasLink: PropTypes.bool.isRequired,
-  linkLabel: PropTypes.string.isRequired,
   linkUrl: PropTypes.string.isRequired,
+  likesCount: PropTypes.number.isRequired,
   observationTimeDisplay: PropTypes.shape({}).isRequired,
+  user: PropTypes.shape({}).isRequired,
+  handleLike: PropTypes.func.isRequired,
+  customerImageId: PropTypes.number.isRequired,
+  showLikePrompt: PropTypes.bool.isRequired,
 };
 
 export default injectIntl(CardObsSmall);

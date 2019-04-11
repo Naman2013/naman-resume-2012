@@ -91,6 +91,7 @@ export default css`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    padding-right: 20px;
   }
 
   .picture { 
@@ -206,7 +207,7 @@ export default css`
       width: 55%
     }
     .picture {
-      min-width: 40%
+      min-width: 40%;
     }
     .top {
       padding: 80px 80px 50px;
