@@ -53,5 +53,6 @@ export default css`
     margin: 0;
     font-family: ${primaryFont};
     font-size: 10px;
+    text-align: right;
   }
 `;
