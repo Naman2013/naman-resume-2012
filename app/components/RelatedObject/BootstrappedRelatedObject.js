@@ -7,7 +7,7 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router';
+import { Link, browserHistory } from 'react-router';
 import classnames from 'classnames';
 import Modal from 'react-modal';
 import uniqueId from 'lodash/uniqueId';
@@ -41,7 +41,7 @@ class RelatedObject extends Component {
     followPrompt: string,
     showFollowPromptFlag: bool,
     hasLink: bool,
-    linkURL: string,
+    linkUrl: string,
     LinkLabel: string,
     dataBlocks: shape({
       listCount: number,
@@ -74,7 +74,7 @@ class RelatedObject extends Component {
     objectIconUrl: '',
     objectTitle: '',
     hasLink: false,
-    linkURL: '',
+    linkUrl: '',
     LinkLabel: '',
     objectId: null,
     followPrompt: '',
@@ -142,6 +142,11 @@ class RelatedObject extends Component {
     });
   };
 
+  navigateToObject = () => {
+    const { linkUrl } = this.props;
+    browserHistory.push(linkUrl);
+  };
+
   render() {
     const {
       isDesktop,
@@ -150,7 +155,7 @@ class RelatedObject extends Component {
       label,
       objectIconUrl,
       v4IconURL,
-      linkURL,
+      linkUrl,
       objectTitle,
       objectDescription,
       dataBlocks,
@@ -168,7 +173,7 @@ class RelatedObject extends Component {
           className="title-container"
           dangerouslySetInnerHTML={{ __html: label }}
         />
-        <Link to={linkURL}>
+        <Link to={linkUrl}>
           <div className="info-container">
             <span
               className="object-name"
@@ -205,11 +210,22 @@ class RelatedObject extends Component {
         </Link>
         <div className="action-area">
           {showFollowPromptFlag ? (
-            <Button onClickEvent={this.onToggleFollow} text={promptText} />
+            <Button
+              onClickEvent={this.onToggleFollow}
+              text={promptText}
+              className="action-area-button"
+              theme={{ marginRight: '10px' }}
+            />
           ) : null}
           <Button
+            className="action-area-button"
             onClickEvent={this.openModal}
             icon="https://vega.slooh.com/assets/v4/common/info_icon.svg"
+            theme={{ marginRight: '10px' }}
+          />
+          <Button
+            icon="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"
+            onClickEvent={this.navigateToObject}
           />
         </div>
         <Modal

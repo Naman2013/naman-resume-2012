@@ -38,19 +38,36 @@ article {
 .h-4,
 .h-5,
 .h-6,
-.text {
+.i-text {
   font-weight: 700;
   font-family: $primary-font;
 }
 
-.h-1, .h-2, .h-3, .h-4, .h-5, .h-6, .i-text {
-
-  @include no-indent();
+.h-1,
+.h-2,
+.h-3,
+.h-4,
+.h-5,
+.h-6 {
   color: $astronaut;
+  margin: 0 !important;
+  text-transform: uppercase;
 
   &-white {
     color: $white;
   }
+
+  &-dark {
+    color: $lightHeadedAstronaut;
+  }
+
+  &-normal {
+    font-weight: normal;
+  }
+}
+
+.i-text {
+  color: $astronaut;
 }
 
 .h-1 {
@@ -59,39 +76,48 @@ article {
 
   @include md() {
     font-size: 24px;
+    line-height: $goldenRatio;
   }
 
   @include sm() {
     font-size: 24px;
+    line-height: $goldenRatio;
   }
 }
 
 .h-2 {
   font-size: 16px;
-  line-height: 1.4;
+  line-height: $goldenRatio;
+
+  &-md {
+    font-size: 20px;
+  }
+
+  &-lg {
+    font-size: 24px;
+  }
 }
 
 .h-3 {
   font-size: 12px;
-  line-height: 1.5;
+  line-height: $goldenRatio;
   letter-spacing: 2px;
 }
 
 .h-4 {
   font-size: 11px;
-  line-height: 1;
+  line-height: $goldenRatio;
   letter-spacing: 0.6px;
 }
 
 .h-5 {
   font-size: 10px;
-  line-height: $goldenRatio / 2;
+  line-height: $goldenRatio;
 }
 
 .h-6 {
   font-size: 8px;
-  line-height: $goldenRatio / 2;
-  text-transform: uppercase;
+  line-height: $goldenRatio;
 }
 
 .i-text {

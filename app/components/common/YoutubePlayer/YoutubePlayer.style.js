@@ -6,6 +6,7 @@ export default css`
     height: 250px;
     margin: 0 auto;
     overflow: hidden;
+    padding-top: 0px;
     -webkit-clip-path: circle(115px at center);
     -moz-clip-path: circle(115px);
     clip-path: circle(115px, 115px, 115px);

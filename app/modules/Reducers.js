@@ -90,6 +90,7 @@ import tierLimits from './tier-limits/reducer';
 import upcomingEvents from './upcoming-events/upcoming-events-reducer';
 import user from './User';
 import usersUpcomingMission from './Users-Upcoming-Missions';
+import accountSettings from '../modules/account-settings/reducer';
 
 export default combineReducers({
   routing: routerReducer,
@@ -183,4 +184,5 @@ export default combineReducers({
   storyDetails,
   telescope,
   missions,
+  accountSettings,
 });

@@ -38,7 +38,7 @@ class ShowMoreWithNetwork extends Component {
     },
     user: {},
     validateResponseAccess: noop,
-    hubActions: null,
+    hubActions: { hubGetRequestStart: () => {} },
   };
 
   constructor(props) {

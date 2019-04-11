@@ -122,7 +122,7 @@ export const AboutScope = () => {
 
   return (
     <Fragment>
-      <Container as="section" className="animated fadeIn faster top-bottom-40">
+      <Container as="section" className="animated fadeIn faster top-bot-40">
         <Row noGutters className="shadow">
           <Desktop>{renderDesktop()}</Desktop>
           <Tablet>{renderTablet()}</Tablet>
@@ -132,7 +132,7 @@ export const AboutScope = () => {
       <section className="i-box-blue-tile pad-100">
         <div className="wrap wrap-850">
           <header className="head">
-            <h2 className="h-2 h-2-bold h-2-white h-2-primary text-uppercase">
+            <h2 className="h-2 h-2-bold h-2-white h-2-primary">
               Featured observations
             </h2>
             <p className="i-text i-text-18 i-text-white">

@@ -1,0 +1,25 @@
+@import "~app/styles/variables/index";
+
+.input-group {
+  margin: 0 0 0 -12px;
+
+  .input {
+    margin: 0 10px;
+  }
+}
+
+.input {
+  padding: 10px 15px;
+  box-sizing: border-box;
+  background: $pale-grey;
+  border-radius: 5px;
+  box-shadow: 0 0 10px 0 inset #d2d2d2;
+  font: 18px Arial, "Helvetica Neue", Helvetica, sans-serif;
+  color: #6e7b8a;
+  line-height: 18px;
+  border: none;
+
+  &:focus {
+    outline: 0 none;
+  }
+}

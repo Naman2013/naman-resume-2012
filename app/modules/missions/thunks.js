@@ -10,6 +10,8 @@ import {
   checkCatalogVisibilityApi,
   getPresetOptionsApi,
   cancelMissionSlotApi,
+  getConstellationListApi,
+  getConstellationObjectListApi,
 } from 'app/modules/missions/api';
 import { ACTION } from './reducer';
 
@@ -57,13 +59,12 @@ export const getBySlooh1000 = () => (dispatch, getState) => {
 export const getCategoryList = () => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
   dispatch(ACTION.getCategoryList());
-  // todo is callSource hardcoded here?
-  return getCategoryListApi({ at, token, cid, callSource: 'byPopularObjects' })
+  return getCategoryListApi({ at, token, cid, callSource: 'bySlooh1000V4' })
     .then(result => dispatch(ACTION.getCategoryListSuccess(result.data)))
     .catch(error => dispatch(ACTION.getCategoryListError(error)));
 };
 
-export const getObjectList = ({ categorySlug, includeDescription = true }) => (
+export const getObjectList = data => (
   dispatch,
   getState
 ) => {
@@ -73,17 +74,48 @@ export const getObjectList = ({ categorySlug, includeDescription = true }) => (
     at,
     token,
     cid,
-    callSource: 'byPopularObjects',
-    includeDescription,
-    categorySlug,
+    ...data,
   })
     .then(result => dispatch(ACTION.getObjectListSuccess(result.data)))
     .catch(error => dispatch(ACTION.getObjectListError(error)));
 };
 
-export const setCategory = category => dispatch => {
-  dispatch(ACTION.setCategory(category));
-  dispatch(getObjectList({ categorySlug: category }));
+// by Constellation
+export const getConstellationList = () => (dispatch, getState) => {
+  const { at, token, cid } = getState().user;
+  dispatch(ACTION.getConstellationList());
+  return getConstellationListApi({
+    at,
+    token,
+    cid,
+    callSource: 'byConstellationV4',
+  })
+    .then(result => dispatch(ACTION.getConstellationListSuccess(result.data)))
+    .catch(error => dispatch(ACTION.getConstellationListError(error)));
+};
+
+export const getConstellationObjectList = constellationName => (
+  dispatch,
+  getState
+) => {
+  const { at, token, cid } = getState().user;
+  dispatch(ACTION.getConstellationObjectList());
+  return getConstellationObjectListApi({
+    at,
+    token,
+    cid,
+    callSource: 'byConstellationV4',
+    constellationName,
+  })
+    .then(result =>
+      dispatch(ACTION.getConstellationObjectListSuccess(result.data))
+    )
+    .catch(error => dispatch(ACTION.getConstellationObjectListError(error)));
+};
+
+export const setConstellation = constellationName => dispatch => {
+  dispatch(ACTION.setConstellation(constellationName));
+  dispatch(getConstellationObjectList(constellationName));
 };
 
 // by Catalog

@@ -91,11 +91,18 @@ export default css`
     justify-content: center;
     align-items: center;
   }
-
-  .contact-header {
-    height: 200px;
-    background-color: lightblue;
-
+  
+  .contact-header img {
+    height: 100%;
+  }
+  
+  .contact-header .img-wrapper-shadow {
+    height: 100px;
+    padding: 10px;
+    border-radius: 50%;
+    width: 100px;
+    box-shadow: inset 0 0 6px rgba(0,0,0,.5);
+    margin: auto;
   }
 
   .contact-data {

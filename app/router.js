@@ -112,6 +112,9 @@ import {
 } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { StoryDetailsMain } from './modules/story-details';
+import { AccountSettingsMain } from './modules/account-settings';
+import AccountDetails from './modules/account-settings/containers/account-details';
+import TakeATour from './modules/account-settings/containers/take-a-tour';
 
 // Create an enhanced history that syncs navigation events with the store
 const history = syncHistoryWithStore(browserHistory, store);
@@ -487,6 +490,17 @@ const AppRouter = () => (
         onEnter={validateUser}
         component={GroupOverviewInfo}
       />
+
+      <Route
+        path="account-settings"
+        component={AccountSettingsMain}
+        onEnter={validateUser}
+      >
+        <IndexRedirect to="account-details" />
+        <Route path="account-details" component={AccountDetails} />
+        <Route path="take-a-tour" component={TakeATour} />
+      </Route>
+
       <Route path="missions" component={MissionsMain} onEnter={validateUser}>
         <IndexRedirect to="bySlooh1000" />
         <Route path="bySlooh1000" component={Slooh1000} />
