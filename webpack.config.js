@@ -18,7 +18,7 @@ module.exports = {
   context: sourcePath,
   mode: 'development',
   entry: {
-    vendors: [
+    /*vendors: [
       'classnames',
       'cookie',
       'lodash',
@@ -42,7 +42,7 @@ module.exports = {
       'redux-form',
       'redux-logger',
       'redux-thunk',
-    ],
+    ],*/
     bundle: './index.js',
   },
   // output: {
@@ -57,18 +57,13 @@ module.exports = {
     filename: '[name].js',
     chunkFilename: '[name].chunk.js',
   },
-  optimization: {
-    splitChunks: {
-      chunks: 'all',
-    },
-  },
   resolve: {
     alias: {
       app: path.resolve(__dirname, './app/'),
       assets: path.resolve(__dirname, './app/assets/'),
     },
   },
-  target: 'web', // Make web variables accessible to webpack, e.g. window
+  // target: 'web', // Make web variables accessible to webpack, e.g. window
   module: {
     rules: [
       {

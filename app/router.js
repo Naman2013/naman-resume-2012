@@ -105,7 +105,7 @@ import validateUser from 'app/route-functions/validateUser';
 import store from 'app/store';
 import firePageview from 'app/utils/ga-wrapper';
 import React, { Fragment } from 'react';
-import { hot } from 'react-hot-loader/root';
+// import { hot } from 'react-hot-loader/root';
 import {
   browserHistory,
   IndexRedirect,
