@@ -30,7 +30,6 @@ const CenterBar = ({ remainingCredits }) => (
         letter-spacing: 1.3px;
 
         color: ${romance};
-        border-right: 1px solid ${shadows};
       }
     `}</style>
   </div>

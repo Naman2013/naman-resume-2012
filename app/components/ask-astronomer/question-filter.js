@@ -24,7 +24,7 @@ class QuestionFilter extends Component {
   state = {
     selectedIndex: findIndex(
       this.dropdownOptions,
-      filter => filter.value === this.props.selectedFilter,
+      filter => filter.value === this.props.selectedFilter
     ),
   };
 
@@ -48,32 +48,38 @@ class QuestionFilter extends Component {
   get countText() {
     const { totalCount } = this.props;
 
-    return totalCount != 1 ? `${totalCount} Questions` : `${totalCount} Question`;
+    return totalCount !== 1
+      ? `${totalCount} Questions`
+      : `${totalCount} Question`;
   }
 
   handleSelect = (e, selectedItem) => {
     this.setState(() => ({
-      selectedIndex: findIndex(this.dropdownOptions, filter => filter.value === selectedItem.value),
+      selectedIndex: findIndex(
+        this.dropdownOptions,
+        filter => filter.value === selectedItem.value
+      ),
     }));
-    
+
     this.props.changeAnswerState({ answerState: selectedItem.value });
   };
 
   render() {
-    const {
-      totalCount, dropdownOptions, countText, showDropdown,
-    } = this.props;
+    const { totalCount, dropdownOptions, countText, showDropdown } = this.props;
     const { selectedIndex } = this.state;
     return (
       <div className="root">
-        <span className="title" dangerouslySetInnerHTML={{ __html: countText || this.countText }} />
-        {showDropdown && (
+        <span
+          className="title"
+          dangerouslySetInnerHTML={{ __html: countText || this.countText }}
+        />
+        {showDropdown && totalCount ? (
           <DropDown
             options={dropdownOptions || this.dropdownOptions}
             selectedIndex={selectedIndex}
             handleSelect={this.handleSelect}
           />
-        )}
+        ) : null}
         <style jsx>{styles}</style>
       </div>
     );

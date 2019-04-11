@@ -38,12 +38,22 @@
     .icon {
       @include absCenter();
       margin: 0;
+      font-size: 16px;
+    }
+
+    .fa {
+      font-size: 16px;
     }
   }
 
   &-block-140 {
     width: 140px;
     height: 40px;
+  }
+
+  &-white {
+    color: $romance;
+    border-color: $romance;
   }
 }
 

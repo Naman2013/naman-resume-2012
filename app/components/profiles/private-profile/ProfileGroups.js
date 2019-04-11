@@ -73,7 +73,8 @@ class ProfileGroups extends Component {
   };
 
   renderClubBtns = () => {
-    const { groupControls } = this.props;
+    const { privateProfileData = {} } = this.props;
+    const { groupControls = {} } = privateProfileData;
 
     const {
       canCreateNewClubs,

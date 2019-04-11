@@ -1,0 +1,31 @@
+@import "~app/styles/variables/colors.scss";
+
+.back-button {
+  width: 100%;
+  flex: 1;
+  background: $nightfall;
+  padding: 22px;
+
+  &-btn {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: all .3s ease-in-out;
+
+    &:hover {
+      opacity: .7;
+    }
+  }
+
+  &-img {
+    transform: rotate(180deg);
+  }
+
+  &-text {
+    margin: 0 12px;
+    font-weight: 700;
+    font-size: 14px;
+    text-transform: uppercase;
+    color: $romance;
+  }
+}

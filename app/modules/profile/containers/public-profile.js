@@ -1,11 +1,10 @@
-import { PublicProfile } from 'app/modules/profile/components/public-profile';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import PublicProfile from 'app/modules/profile/components/public-profile';
 import {
   makeProfileLoadingSelector,
   makePublicProfileUserDataSelector,
 } from 'app/modules/profile/selectors';
-import { getPublicProfile } from 'app/modules/profile/thunks';
-import { connect } from 'react-redux';
-import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 
 const mapStateToProps = createStructuredSelector({
@@ -13,13 +12,9 @@ const mapStateToProps = createStructuredSelector({
   publicProfileData: makePublicProfileUserDataSelector(),
 });
 
-const mapDispatchToProps = {
-  getPublicProfile,
-};
-
 export default compose(
   connect(
     mapStateToProps,
-    mapDispatchToProps
+    null
   )
 )(PublicProfile);

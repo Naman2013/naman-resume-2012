@@ -57,6 +57,7 @@ export const fetchMorePhotoroll = ({
   maxImageCount = 10,
   firstImageNumber = 11,
   sharedOnly = false,
+  customerUUID,
 }) => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
   const { selectedFilters } = getState().myPicturesFilters;
@@ -68,6 +69,7 @@ export const fetchMorePhotoroll = ({
     pagingMode: 'api',
     maxImageCount,
     firstImageNumber,
+    customerUUID,
     ...selectedFilters,
     viewType: 'photoRoll',
   })
@@ -78,6 +80,7 @@ export const fetchMorePhotoroll = ({
 export const fetchMoreMissions = ({
   maxImageCount = 10,
   firstImageNumber = 11,
+  customerUUID,
 }) => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
   const { selectedFilters } = getState().myPicturesFilters;
@@ -88,6 +91,7 @@ export const fetchMoreMissions = ({
     pagingMode: 'api',
     firstMissionNumber: firstImageNumber,
     maxMissionCount: maxImageCount,
+    customerUUID,
     ...selectedFilters,
   })
     .then(result => dispatch(fetchMoreMissionsSuccess(result.data)))
@@ -178,6 +182,7 @@ const fetchMissionsFail = payload => ({
 export const fetchMissions = ({
   firstMissionNumber = 1,
   maxMissionCount = 9,
+  customerUUID,
 }) => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
   const { selectedFilters } = getState().myPicturesFilters
@@ -189,6 +194,7 @@ export const fetchMissions = ({
     cid,
     pagingMode: 'api',
     firstMissionNumber,
+    customerUUID,
     maxMissionCount,
     ...selectedFilters,
   })
@@ -218,6 +224,7 @@ export const fetchPhotoRoll = ({
   maxImageCount = 9,
   firstImageNumber = 1,
   sharedOnly = false,
+  customerUUID,
 }) => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
   const { selectedFilters } = getState().myPicturesFilters;
@@ -233,6 +240,7 @@ export const fetchPhotoRoll = ({
     sharedOnly,
     pagingMode: 'api',
     maxImageCount,
+    customerUUID,
     firstImageNumber,
     ...selectedFilters,
     viewType: 'photoRoll',
@@ -270,20 +278,20 @@ export const photoRollResetScheduledMissionId = () => (dispatch) => {
 */
 
 export const fetchPhotoRollAndCounts = (params) => (dispatch) => {
-  dispatch(fetchMissionCount());
-  dispatch(fetchMyPicturesCount());
-  dispatch(fetchObservationCount());
-  dispatch(fetchGalleriesCount());// for deeplinking
+  dispatch(fetchMissionCount(params));
+  dispatch(fetchMyPicturesCount(params));
+  dispatch(fetchObservationCount(params));
+  dispatch(fetchGalleriesCount(params));// for deeplinking
   dispatch(fetchPhotoRoll({
     ...params,
   }));
 };
 
 export const fetchMissionsAndCounts = (params) => (dispatch) => {
-  dispatch(fetchMissionCount());
-  dispatch(fetchMyPicturesCount());
-  dispatch(fetchObservationCount());
-  dispatch(fetchGalleriesCount());// for deeplinking
+  dispatch(fetchMissionCount(params));
+  dispatch(fetchMyPicturesCount(params));
+  dispatch(fetchObservationCount(params));
+  dispatch(fetchGalleriesCount(params));// for deeplinking
   dispatch(fetchMissions(params));
 };
 
@@ -303,7 +311,7 @@ const fetchMyPicturesCountFail = payload => ({
   payload,
 });
 
-export const fetchMyPicturesCount = () => (dispatch, getState) => {
+export const fetchMyPicturesCount = ({ customerUUID }) => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
   const { selectedFilters } = getState().myPicturesFilters
   dispatch(fetchMyPicturesCountStart());
@@ -312,6 +320,7 @@ export const fetchMyPicturesCount = () => (dispatch, getState) => {
     at,
     cid,
     token,
+    customerUUID,
     ...selectedFilters,
     viewType: 'photoRoll',
   })
@@ -334,7 +343,7 @@ const fetchObservationsCountFail = payload => ({
   payload,
 });
 
-export const fetchObservationCount = () => (dispatch, getState) => {
+export const fetchObservationCount = ({ customerUUID }) => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
   const { selectedFilters } = getState().myPicturesFilters;
   dispatch(fetchObservationsCountStart());
@@ -343,6 +352,7 @@ export const fetchObservationCount = () => (dispatch, getState) => {
     at,
     cid,
     token,
+    customerUUID,
     sharedOnly: true,
     ...selectedFilters,
     viewType: 'photoRoll',
@@ -398,7 +408,7 @@ const fetchMissionCountFail = payload => ({
   payload,
 });
 
-export const fetchMissionCount = () => (dispatch, getState) => {
+export const fetchMissionCount = ({ customerUUID }) => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
   const { selectedFilters } = getState().myPicturesFilters
   dispatch(fetchMissionCountStart());
@@ -407,6 +417,7 @@ export const fetchMissionCount = () => (dispatch, getState) => {
     at,
     cid,
     token,
+    customerUUID,
     ...selectedFilters,
   })
   .then(result => dispatch(fetchMissionCountSuccess(result.data)))

@@ -271,6 +271,8 @@ class Telescope extends PureComponent<TTelescope> {
     const midPoint = width / 2;
     const arcMinuteLabelLetterSpacing = width * 0.03;
 
+    console.log(radius);
+
     return (
       <Measure bounds onResize={this.handlePortalResize}>
         {({ measureRef }) => (
@@ -324,11 +326,11 @@ class Telescope extends PureComponent<TTelescope> {
                 <div>
                   {this.props.render({ viewportHeight: width }, imageData => {
                     const { imageWidth, imageHeight, missionTitle } = imageData;
+
+                    const radiusSize = (imageHeight *.65) / 2;
+
                     this.setState({
-                      radius:
-                        Number(imageWidth) < Number(imageHeight)
-                          ? Number(imageWidth) / 2
-                          : Number(imageHeight) / 2,
+                      radius: radiusSize,
                       missionTitle,
                     });
                   })}
