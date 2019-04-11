@@ -14,8 +14,7 @@ import {
 
 import {
   REPLY_TO_ASTRONOMER_ANSWER_SUCCESS,
-  TOGGLE_ASK_ASTRONOMER_ANSWER_REPLIES,
-  TOGGLE_ALL_ASK_ASTRONOMER_ANSWER_REPLIES,
+  // TOGGLE_ASK_ASTRONOMER_ANSWER_REPLIES,
 } from '../ask-astronomer-answer-discuss/actions';
 
 const initialState = {
@@ -144,24 +143,24 @@ export default createReducer(initialState, {
       allAnswers: newAllState,
     };
   },
-  [TOGGLE_ASK_ASTRONOMER_ANSWER_REPLIES](state, { payload }) {
-    const { threadId, replyTo } = payload;
-    const newAllAnswers = cloneDeep(state.allAnswers);
-
-    if (newAllAnswers[threadId] && newAllAnswers[threadId].replies) {
-      newAllAnswers[threadId].replies = newAllAnswers[threadId].replies.map((answer) => {
-        if (answer.replyId === replyTo) {
-          answer.showAllReplies = payload.showAllReplies;
-        }
-        return answer;
-      });
-    }
-
-    return {
-      ...state,
-      allAnswers: newAllAnswers,
-    };
-  },
+  // [TOGGLE_ASK_ASTRONOMER_ANSWER_REPLIES](state, { payload }) {
+  //   const { threadId, replyTo } = payload;
+  //   const newAllAnswers = cloneDeep(state.allAnswers);
+  //
+  //   if (newAllAnswers[threadId] && newAllAnswers[threadId].replies) {
+  //     newAllAnswers[threadId].replies = newAllAnswers[threadId].replies.map((answer) => {
+  //       if (answer.replyId === replyTo) {
+  //         answer.showAllReplies = payload.showAllReplies;
+  //       }
+  //       return answer;
+  //     });
+  //   }
+  //
+  //   return {
+  //     ...state,
+  //     allAnswers: newAllAnswers,
+  //   };
+  // },
   [SUBMIT_ANSWER_FOR_ASTRONOMER_QUESTION_START](state, { payload }) {
     const { threadId } = payload;
     const newAnswerSubmissions = cloneDeep(state.allAnswerSubmissions);

@@ -2,7 +2,6 @@ import React from 'react';
 import classnames from 'classnames';
 import { Link } from 'react-router';
 import InstrumentNavigation from 'app/components/telescope-details/InstrumentNavigation';
-import { commonProps } from './common-prop-types';
 import './large-screen-format.scss';
 
 const LargeScreenFormat = props => {
@@ -48,6 +47,6 @@ const LargeScreenFormat = props => {
   );
 };
 
-LargeScreenFormat.propTypes = commonProps;
+// LargeScreenFormat.propTypes = commonProps;
 
 export { LargeScreenFormat };

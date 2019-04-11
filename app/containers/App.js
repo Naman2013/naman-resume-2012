@@ -49,6 +49,10 @@ class App extends Component {
     const { isLanding } = this.props;
     return (
       <div style={{ overflow: 'hidden' }} className={`wrapper ${isLanding ? 'is-landing' : null}`}>
+        <button type="submit">
+          icon test
+          <span className="icon icon-long-arrow-left" />
+        </button>
         <DeviceProvider>
           <PageMetaManagement />
 

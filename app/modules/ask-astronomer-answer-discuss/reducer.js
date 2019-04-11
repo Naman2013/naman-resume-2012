@@ -3,7 +3,7 @@ import take from 'lodash/take';
 import createReducer from '../utils/createReducer';
 
 import {
-  ASTRONOMER_REPLY_UPDATE_SUBMITTED,
+  // ASTRONOMER_REPLY_UPDATE_SUBMITTED,
   FETCH_ASTRONOMER_ANSWER_REPLIES_FAIL,
   FETCH_ASTRONOMER_ANSWER_REPLIES_START,
   FETCH_ASTRONOMER_ANSWER_REPLIES_SUCCESS,
@@ -177,13 +177,13 @@ export default createReducer(initialState, {
       allReplySubmissions: newAllReplySubmissions,
     };
   },
-  [ASTRONOMER_REPLY_UPDATE_SUBMITTED](state, { payload }) {
-    const { submitted, replyTo } = payload;
-    const newSubmitted = cloneDeep(state.submitted);
-    newSubmitted[replyTo] = submitted;
-    return {
-      ...state,
-      submitted: newSubmitted,
-    };
-  },
+  // [ASTRONOMER_REPLY_UPDATE_SUBMITTED](state, { payload }) {
+  //   const { submitted, replyTo } = payload;
+  //   const newSubmitted = cloneDeep(state.submitted);
+  //   newSubmitted[replyTo] = submitted;
+  //   return {
+  //     ...state,
+  //     submitted: newSubmitted,
+  //   };
+  // },
 });
