@@ -1,50 +1,55 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import DefaultButton from 'components/common/style/buttons/Button';
-import StaticCell from 'components/common/grid/StaticCell';
+import { browserHistory } from 'react-router';
+import Btn from 'app/atoms/Btn';
+import StaticCell from 'app/components/common/grid/StaticCell';
 import style from './telescope-detail.style';
 
 const tileStyle = { minHeight: 'auto' };
 
-const TelescopeDetail = () => (
-  <div>
-    <div className="module-set">
-      <img className="telescope-image" src="" width="100%" alt="telescope" />
-      <h3 className="title">Canary three</h3>
-      <ul className="detail-actions">
-        <li><DefaultButton style={{ width: '100%' }} text="View guide" /></li>
-      </ul>
+const TelescopeDetail = props => {
+  const {
+    teleName,
+    instrAbout,
+    obsShortName,
+    instrRelatedGuideUrl,
+    obsHeroURL,
+  } = props;
+  const onViewGuideClick = () => browserHistory.push(instrRelatedGuideUrl);
+  return (
+    <div>
+      <div className="module-set">
+        <div className="image-wrap">
+          <img alt={teleName} src={obsHeroURL} className="telescope-image" />
+        </div>
+        <h3 className="title">{teleName}</h3>
+        <ul className="detail-actions">
+          <li>
+            <Btn onClick={onViewGuideClick}>View guide</Btn>
+          </li>
+        </ul>
+      </div>
+
+      <div className="module-set">
+        <h4 className="about-title">About this scope</h4>
+        <p className="about-content">{instrAbout}</p>
+      </div>
+
+      <div className="module-set">
+        <StaticCell theme={tileStyle} title="Telescope type">
+          <p className="telescope-meta">High-Magnification</p>
+        </StaticCell>
+
+        <StaticCell theme={tileStyle} title="Observatory">
+          <p className="telescope-meta">{obsShortName}</p>
+        </StaticCell>
+
+        <StaticCell theme={tileStyle} title="Pier">
+          <p className="telescope-meta">{teleName}</p>
+        </StaticCell>
+      </div>
+      <style jsx>{style}</style>
     </div>
-
-    <div className="module-set">
-      <h4 className="about-title">About this scope</h4>
-      <p className="about-content">Name dapibus nisl vitae</p>
-    </div>
-
-    <div className="module-set">
-      <StaticCell
-        theme={tileStyle}
-        title="Telescope type"
-      >
-        <p className="telescope-meta">High-Magnification</p>
-      </StaticCell>
-
-      <StaticCell
-        theme={tileStyle}
-        title="Observatory"
-      >
-        <p className="telescope-meta">Canary Islands</p>
-      </StaticCell>
-
-      <StaticCell
-        theme={tileStyle}
-        title="Pier"
-      >
-        <p className="telescope-meta">Canary Three</p>
-      </StaticCell>
-    </div>
-    <style jsx>{style}</style>
-  </div>
-);
+  );
+};
 
 export { TelescopeDetail };

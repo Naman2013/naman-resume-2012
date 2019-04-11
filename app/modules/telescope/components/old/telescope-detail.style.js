@@ -15,9 +15,14 @@ export default css`
   .module-set:last-child {
     padding: 0;
   }
+  
+  .image-wrap {
+    margin: -40px -40px 0;
+  }
 
   .telescope-image {
-    margin: -40px;
+    max-width: 100%;
+    width: 100%;
   }
 
   .title {
