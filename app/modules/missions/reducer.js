@@ -53,6 +53,7 @@ export const initialState = {
   missions: {
     missionList: [],
     reservedMissionList: [],
+    reservedMission: {},
   },
 
   bySlooh1000: {
@@ -226,6 +227,7 @@ function reserveMissionSlotSuccess(state, action) {
     missions: {
       ...state.missions,
       reservedMissionList: action.payload.missionList,
+      reservedMission: action.payload,
     },
   };
 }

@@ -1,12 +1,10 @@
 import { Box } from 'app/modules/missions/components/box';
 import { Slooh1000Setup } from 'app/modules/missions/components/slooh-1000-setup';
-import moment from 'moment';
-import Countdown from 'react-countdown-now';
 import React, { Component } from 'react';
 import { AvailbleMissionTile } from '../available-mission-tile';
-import { MissionSuccessModal } from '../mission-success-modal';
-import { ExplanationModal } from '../explanation-modal';
 import { ExpireCountdown } from '../expire-countdown';
+import { ExplanationModal } from '../explanation-modal';
+import { MissionSuccessModal } from '../mission-success-modal';
 import './styles.scss';
 
 export class ReservationSlooh1000 extends Component {
@@ -15,7 +13,7 @@ export class ReservationSlooh1000 extends Component {
   };
 
   componentDidMount() {
-    const { getCategoryList, getBySlooh1000, resetMissionsData } = this.props;
+    const { getCategoryList, resetMissionsData } = this.props;
     resetMissionsData();
     getCategoryList();
   }
@@ -69,10 +67,6 @@ export class ReservationSlooh1000 extends Component {
     }).then(() => this.setState({ successModalShow: true }));
   };
 
-  getMissionDate = timestamp => moment.unix(timestamp).format('ddd. MMM. DD');
-
-  getMissionTime = timestamp => moment.unix(timestamp).format('HH:mm');
-
   modalClose = () => {
     const { resetMissionsData } = this.props;
     this.setState({ successModalShow: false }, () => resetMissionsData());
@@ -114,6 +108,7 @@ export class ReservationSlooh1000 extends Component {
       selectedCategorySlug,
       selectedObjectId,
       reservedMissionData,
+      reservedMission,
       resetMissionsData,
       objectListExpires,
     } = this.props;
@@ -133,6 +128,28 @@ export class ReservationSlooh1000 extends Component {
                   selectedObjectId={selectedObjectId}
                   disabled={missionSlot && missionSlot.missionAvailable}
                 />
+              </Box>
+            </div>
+            <div
+              className="col-lg-4 reserved-mission"
+              ref={node => (this.grabedMissionTile = node)}
+            >
+              <Box inside>
+                {missionSlot && missionSlot.missionAvailable ? (
+                  <AvailbleMissionTile
+                    missionSlot={missionSlot}
+                    onCancel={this.cancelMissionSlot}
+                    onSubmit={this.reserveMissionSlot}
+                  />
+                ) : (
+                  <div className="reserved-mission-gag">
+                    YOUR MISSION WILL APPEAR HERE
+                  </div>
+                )}
+              </Box>
+            </div>
+          </div>
+        </div>
 
         {missionSlot && !missionSlot.missionAvailable && (
           <ExplanationModal
@@ -146,6 +163,8 @@ export class ReservationSlooh1000 extends Component {
           show={successModalShow}
           onHide={this.modalClose}
           reservedMissionData={reservedMissionData}
+          reservedMission={reservedMission}
+          missionSlot={missionSlot}
         />
 
         <ExpireCountdown
