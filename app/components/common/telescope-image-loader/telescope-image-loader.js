@@ -314,16 +314,16 @@ class TelescopeImageLoader extends Component {
     //   return null;
     // }
 
-    console.log(`Current Image Width: ${currW}`);
-    console.log(`Current Image Height: ${currH}`);
-    console.log(`Previous Image Width: ${prevW}`);
-    console.log(`Previous Image Height: ${prevH}`);
+    //console.log(`Current Image Width: ${currW}`);
+    //console.log(`Current Image Height: ${currH}`);
+    //console.log(`Previous Image Width: ${prevW}`);
+    //console.log(`Previous Image Height: ${prevH}`);
 
     const isPreviousImageSquare = prevW == prevH;
     const isCurrentImageSquare = currW == currH;
 
-    console.log(`Is the Previous Image Square?: ${isPreviousImageSquare}`);
-    console.log(`Is the Current Image Square?: ${isCurrentImageSquare}`);
+    //console.log(`Is the Previous Image Square?: ${isPreviousImageSquare}`);
+    //console.log(`Is the Current Image Square?: ${isCurrentImageSquare}`);
 
     if (loadThumbnails) {
       return (
