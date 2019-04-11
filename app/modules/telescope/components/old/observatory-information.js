@@ -2,39 +2,70 @@ import React from 'react';
 import { ModuleContainer } from './index';
 import style from './observatory-information.style';
 
-const ObservatoryInformation = () => (
-  <ModuleContainer title="Observatory information">
-    <ul className="observatory-data-list">
-      <li className="datum">
-        <h4 className="title">Observatory Closes</h4>
-        <div className="time-meta-container">
-          <div className="time-information">
-            <p className="time-field">00:00:00</p>
-            <p className="time-label">UTC</p>
+const ObservatoryInformation = ({ clockList }) => {
+  const {
+    obsCloseDisplayOtherTimeZones,
+    obsCloseDisplayTime,
+    obsClosesLabel,
+    obsCurrentDisplayOtherTimeZones,
+    obsCurrentDisplayTime,
+    obsOpenDisplayOtherTimeZones,
+    obsOpenDisplayTime,
+    obsOpenDisplayTimeZone,
+    obsOpensLabel,
+    obsTimeInLabel,
+  } = clockList;
+  return (
+    <ModuleContainer title="Observatory information">
+      <ul className="observatory-data-list">
+        <li className="datum">
+          <h4 className="title">{obsOpensLabel}</h4>
+          <div className="time-meta-container">
+            <div className="time-information">
+              <p className="time-field">{obsOpenDisplayTime}</p>
+              <p className="time-label">{obsOpenDisplayTimeZone}</p>
+            </div>
+            <div className="local-time-information">
+              <p className="local-time-line">
+                {obsOpenDisplayOtherTimeZones} &nbsp;
+              </p>
+            </div>
           </div>
-          <div className="local-time-information">
-            <p className="local-time-line">00:00 EDT</p>
-            <p className="local-time-line">00:00 PDT</p>
-          </div>
-        </div>
-      </li>
+        </li>
 
-      <li className="datum">
-        <h4 className="title">Observatory Closes</h4>
-        <div className="time-meta-container">
-          <div className="time-information">
-            <p className="time-field">00:00:00</p>
-            <p className="time-label">UTC</p>
+        <li className="datum">
+          <h4 className="title">{obsClosesLabel}</h4>
+          <div className="time-meta-container">
+            <div className="time-information">
+              <p className="time-field">{obsCloseDisplayTime}</p>
+              <p className="time-label">{obsOpenDisplayTimeZone}</p>
+            </div>
+            <div className="local-time-information">
+              <p className="local-time-line">
+                {obsCloseDisplayOtherTimeZones} &nbsp;
+              </p>
+            </div>
           </div>
-          <div className="local-time-information">
-            <p className="local-time-line">00:00 EDT</p>
-            <p className="local-time-line">00:00 PDT</p>
+        </li>
+
+        <li className="datum">
+          <h4 className="title">{obsTimeInLabel}</h4>
+          <div className="time-meta-container">
+            <div className="time-information">
+              <p className="time-field">{obsCurrentDisplayTime}</p>
+              <p className="time-label">{obsOpenDisplayTimeZone}</p>
+            </div>
+            <div className="local-time-information">
+              <p className="local-time-line">
+                {obsCurrentDisplayOtherTimeZones} &nbsp;
+              </p>
+            </div>
           </div>
-        </div>
-      </li>
-    </ul>
-    <style jsx>{style}</style>
-  </ModuleContainer>
-);
+        </li>
+      </ul>
+      <style jsx>{style}</style>
+    </ModuleContainer>
+  );
+};
 
 export { ObservatoryInformation };

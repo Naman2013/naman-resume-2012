@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-import classNames from 'classnames';
+import cn from 'classnames';
 import './index.scss';
 
 type TButton = {
@@ -12,12 +12,12 @@ type TButton = {
 };
 
 const Btn = (props: TButton) => {
-  const { type = 'button', className = null, children, onClick, mod } = props;
+  const { type = 'button', className = '', children, onClick, mod = '' } = props;
   return (
     <button
       type={type}
       onClick={onClick}
-      className={classNames(`${className} i-btn`, mod && `i-btn-${mod}`)}
+      className={cn(`${className} i-btn`, mod && `i-btn-${mod}`)}
     >
       {children}
     </button>
