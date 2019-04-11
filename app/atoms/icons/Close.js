@@ -15,6 +15,7 @@ const Close = ({ theme, width, height }) => (
         </g>
       </g>
     </g>
+    <style jsx>{`${theme}`}</style>
   </SVGRoot>
 );
 

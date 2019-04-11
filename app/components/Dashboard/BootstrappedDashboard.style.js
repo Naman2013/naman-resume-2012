@@ -9,6 +9,10 @@ export default css`
     width: 100%;
   }
 
+  h1 {
+    color: red;
+  }
+
   .vertical-helper {
     display: inline-block;
     height: 100%;
@@ -30,7 +34,7 @@ export default css`
     background-repeat: no-repeat;
     background-size: 90%;
     background-position: 50%;
-    background-image: url("https://vega.slooh.com/assets/v4/dashboard/dashboard_graphic_v4.png");
+    background-image: url('https://vega.slooh.com/assets/v4/dashboard/dashboard_graphic_v4.png');
   }
 
   .dash-nav {
@@ -45,31 +49,29 @@ export default css`
   }
 
   @media all and (min-width: 641px) and (max-width: 768px) {
-
     .dash-nav {
       top: 507px;
       display: flex;
       height: 115px;
       font-size: 9px;
     }
-    
+
     .dash-nav-item img {
       height: 22px;
       margin: 30px 0 20px 0;
     }
   }
 
-  @media all and (max-width: 640px){
+  @media all and (max-width: 640px) {
     .dash-nav {
       display: none;
     }
   }
 
-
   @media ${screenMedium} {
     .dash-hero {
       background-color: #213043;
-      background-image: url("https://vega.slooh.com/assets/v4/dashboard/Darkest_Pattern_Canvas.png");
+      background-image: url('https://vega.slooh.com/assets/v4/dashboard/Darkest_Pattern_Canvas.png');
       background-size: 100px;
     }
 
@@ -81,7 +83,7 @@ export default css`
       background-repeat: no-repeat;
       background-size: 80%;
       background-position: 50%;
-      background-image: url("https://vega.slooh.com/assets/v4/dashboard/dashboard_graphic_desktop_v4.png");
+      background-image: url('https://vega.slooh.com/assets/v4/dashboard/dashboard_graphic_desktop_v4.png');
     }
   }
 `;
