@@ -39,6 +39,16 @@ export default css`
     flex-flow: column;
     align-items: center;
   }
+  
+  .narrow .options-list {
+    padding: 0 10px;
+    flex: none;
+  }
+  
+  .narrow .options-list .option {
+    padding: 15px 0;
+    align-items: flex-start;
+  }
 
   :global(.options-list .option) {
     height: 20%;

@@ -24,12 +24,14 @@ const AsideToggleableMenu = (props) => {
     index,
     isDesktop,
     blockWidth,
-    redirectToImage
+    redirectToImage,
+    downloadFile,
+    mod,
   } = props;
 
   return (
     <div
-      className="root"
+      className={mod ? `root ${mod}` : 'root'}
       style={{ width: visible ? '70%' : '0' }}
       onClick={e => e.stopPropagation()}
     >
@@ -82,11 +84,21 @@ const AsideToggleableMenu = (props) => {
               />
             );
           }
-          if(option.action === 'redirect') {
+          if (option.action === 'redirect') {
             return (
               <button
                 style={{ opacity: visible ? 1 : 0 }}
                 onClick={redirectToImage()}
+                className="option">
+                {option.label}
+              </button>
+            )
+          }
+          if (option.action === 'download') {
+            return (
+              <button
+                style={{ opacity: visible ? 1 : 0 }}
+                onClick={downloadFile}
                 className="option">
                 {option.label}
               </button>

@@ -1,4 +1,5 @@
 import profile from 'app/modules/profile/reducer';
+import imageDetails from 'app/modules/image-details/reducer';
 import telescope from 'app/modules/telescope/reducer';
 import storyDetails from 'app/modules/story-details/reducer';
 import { routerReducer } from 'react-router-redux';
@@ -73,7 +74,6 @@ import objectTypeList from './object-type-list/reducer';
 import otherFeaturedObjects from './other-featured-objects/reducer';
 import pageLevelMetaContent from './pageLevelMetaContent/seo-reducer';
 import piggyback from './Piggyback';
-import privateProfile from './private-profile/reducer';
 import illuminationsPosts from './pulse/get-latest-posts-reducer';
 import post from './pulse/get-post-reducer';
 import questDetails from './quest-details/reducer';
@@ -91,6 +91,8 @@ import tierLimits from './tier-limits/reducer';
 import upcomingEvents from './upcoming-events/upcoming-events-reducer';
 import user from './User';
 import usersUpcomingMission from './Users-Upcoming-Missions';
+import missionDetails from './mission-details/reducer';
+import galleryDetails from './gallery-details/reducer';
 
 export default combineReducers({
   routing: routerReducer,
@@ -163,7 +165,6 @@ export default combineReducers({
   post,
   /* EK 8/9/17 registration is closed      roadtripRegistration, */
   profile,
-  privateProfile,
   shareMemberPhoto,
   sharedMemberPhotos,
   starshareCamera,
@@ -185,4 +186,7 @@ export default combineReducers({
   telescope,
   missions,
   accountSettings,
+  missionDetails,
+  imageDetails,
+  galleryDetails,
 });

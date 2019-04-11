@@ -3,6 +3,7 @@
  ***********************************/
 
 import React, { Component, Fragment, cloneElement } from 'react';
+import { withRouter } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -79,7 +80,7 @@ const mapStateToProps = ({ myPictures, galleries }) => ({
   missionsList: myPictures.missions.response.imageList,
   missionsCount: myPictures.missions.imageCount,
   galleryList: galleries.galleryList,
-  galleryCount: galleries.maxImageCount,
+  galleryCount: galleries.galleryCount,
   photoRollList: myPictures.photoRoll.response.imageList,
   photoRollCount: myPictures.photoRoll.imageCount,
   observationsList: myPictures.photoRoll.response.imageList,
@@ -90,25 +91,29 @@ const mapStateToProps = ({ myPictures, galleries }) => ({
   mapStateToProps,
   mapDispatchToProps
 )
+@withRouter
 class ImageList extends Component {
   state = {
     activePage: 1,
   };
 
   componentDidMount() {
-    const { actions, type, deviceInfo } = this.props;
+    const { actions, type, deviceInfo, params = {} } = this.props;
     const fetchImages = actions[mapTypeToRequest[type]];
     const imagesToFetch = getImagesCountToFetch(deviceInfo);
+    const { customerUUID } = params;
     fetchImages({
       sharedOnly: type === 'observations',
       maxImageCount: imagesToFetch,
       maxMissionCount: imagesToFetch,
+      customerUUID,
     });
     //  fetchMissionsAndCounts | fetchGalleriesAndCounts | fetchPhotoRollAndCounts
   }
 
   componentDidUpdate(prevProps) {
-    const { actions, type, deviceInfo } = this.props;
+    const { actions, type, deviceInfo, params = {} } = this.props;
+    const { customerUUID } = params;
     const { activePage } = this.state;
 
     const fetchImages = actions[mapTypeToRequest[type]];
@@ -128,6 +133,7 @@ class ImageList extends Component {
         firstMissionNumber: firstImageNumber,
         maxImageCount: imagesToFetch,
         maxMissionCount: imagesToFetch,
+        customerUUID,
       });
 
       this.setState({ activePage: currentPage <= 0 ? 1 : currentPage });
@@ -139,6 +145,7 @@ class ImageList extends Component {
         sharedOnly: type === 'observations',
         maxMissionCount: Math.max(imagesToFetchCount, 10),
         maxImageCount: Math.max(imagesToFetchCount, 10),
+        customerUUID,
       });
     }
 
@@ -148,12 +155,14 @@ class ImageList extends Component {
         sharedOnly: type === 'observations',
         maxImageCount: imagesToFetch,
         maxMissionCount: imagesToFetch,
+        customerUUID,
       });
     }
   }
 
   handlePageChange = ({ activePage }) => {
-    const { actions, type, deviceInfo } = this.props;
+    const { actions, type, deviceInfo, params = {} } = this.props;
+    const { customerUUID } = params;
 
     // used for determine first photo sequence number and fetch next 9 photos
     const PHOTOS_ON_ONE_PAGE = 9;
@@ -170,6 +179,7 @@ class ImageList extends Component {
       firstImageNumber: this.startFrom,
       maxImageCount: imagesToFetch,
       maxMissionCount: imagesToFetch,
+      customerUUID,
     });
     this.setState({ activePage });
   };
@@ -184,13 +194,17 @@ class ImageList extends Component {
   };
 
   handleLoadMore = () => {
-    const { actions, type } = this.props;
+    const { actions, type, params = {} } = this.props;
+    const { customerUUID } = params;
     const { activePage } = this.state;
     const arrOfImages = this.props[mapTypeToList[type]];
     const loadMoreRequest = actions[mapTypeToRequestMore[type]];
     const firstImageNumber = (arrOfImages.length + 1) * activePage;
-
-    loadMoreRequest({ firstImageNumber, sharedOnly: type === 'observations' });
+    loadMoreRequest({
+      firstImageNumber,
+      sharedOnly: type === 'observations',
+      customerUUID,
+    });
   };
 
   render() {

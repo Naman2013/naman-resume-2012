@@ -14,7 +14,6 @@ import AsideToggleableMenu from '../AsideToggleableMenu';
 import messages from './PhotoRollCard.messages';
 import style from './PhotoRollCard.style';
 
-
 type TPhotoRollCard = {
   index: number,
   isDesktop: boolean,
@@ -22,6 +21,7 @@ type TPhotoRollCard = {
   currentItem: Object,
   user: Object,
   count: number,
+  isShareToken?: boolean,
 };
 
 class PhotoRollCard extends Component<TPhotoRollCard> {
@@ -42,8 +42,12 @@ class PhotoRollCard extends Component<TPhotoRollCard> {
   }
 
   onDownloadFile = () => {
-    const { currentItem: { imageURL } } = this.props;
-    downloadFile(imageURL, 'my-photo-hub-image.png');
+    console.log(this.props);
+
+    const {
+      currentItem: { imageDownloadURL, imageDownloadFilename },
+    } = this.props;
+    downloadFile(imageDownloadURL, imageDownloadFilename);
   };
 
   toggleMenuVisibility = () => {
@@ -51,20 +55,15 @@ class PhotoRollCard extends Component<TPhotoRollCard> {
   };
 
   redirectToImage = () => () => {
-    const { currentItem, user } = this.props;
-
+    const { currentItem, user, isShareToken } = this.props;
+    const token = isShareToken ? currentItem.shareToken : user.token;
     return browserHistory.push(
-      `/my-pictures/show-image/${currentItem.customerImageId}/${user.token}`
+      `/my-pictures/show-image/${currentItem.customerImageId}/${token}`
     );
   };
 
   render() {
-    const {
-      index,
-      isDesktop,
-      isMobile,
-      currentItem: observation,
-    } = this.props;
+    const { index, isDesktop, isMobile, currentItem: observation } = this.props;
     const { menuIsVisible, width } = this.state;
     const inCenter = index % 3 === 1;
     const {
@@ -81,7 +80,9 @@ class PhotoRollCard extends Component<TPhotoRollCard> {
         <div
           className="photoRollCard"
           role={isMobile ? 'button' : 'article'}
-          ref={node => { this.blockWidth = node; }}
+          ref={node => {
+            this.blockWidth = node;
+          }}
         >
           <div className="square-container">
             <div
@@ -103,13 +104,10 @@ class PhotoRollCard extends Component<TPhotoRollCard> {
                     {imageTitle}
                   </div>
                   <div className="photoRoll-details">
-                    <div
-                      className="photoRoll-details-tile photoRoll-details-date"
-                    >
+                    <div className="photoRoll-details-tile photoRoll-details-date">
                       {displayDate}
                     </div>
-                    <div
-                      className="photoRoll-details-tile photoRoll-details-images">
+                    <div className="photoRoll-details-tile photoRoll-details-images">
                       {displayTime}
                     </div>
                   </div>

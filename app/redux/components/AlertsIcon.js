@@ -12,7 +12,7 @@ import {
 } from 'styles/variables/iconURLs';
 const AlertsIcon = ({ notificationsCount, isActive }) => (
   <span className="root">
-    <i className={classnames('icon icon-bell', {
+    <i className={classnames('i-bell', {
       'is-active': isActive,
     })}/>
     <span className={classnames('count', {

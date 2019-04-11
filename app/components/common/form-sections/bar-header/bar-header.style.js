@@ -1,10 +1,7 @@
 import css from 'styled-jsx/css';
 import { secondaryFont } from 'styles/variables/fonts';
 import { screenMedium } from 'styles/variables/breakpoints';
-import {
-  astronaut,
-  shadows,
-} from 'styles/variables/colors_tiles_v4';
+import { astronaut, shadows } from 'styles/variables/colors_tiles_v4';
 
 export default css`
   .root {
@@ -16,7 +13,7 @@ export default css`
     border-bottom: 1px solid ${shadows};
   }
   .title-text {
-    font-size: 30px;
+    font-size: 10px;
     color: ${astronaut};
     font-weight: bold;
     font-family: ${secondaryFont};
@@ -26,8 +23,7 @@ export default css`
 
   @media ${screenMedium} {
     .title-text {
-      font-size: 40px;
+      font-size: 10px;
     }
   }
-
 `;

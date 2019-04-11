@@ -1,0 +1,37 @@
+@import "~app/styles/variables/index";
+
+.image-details {
+
+  .mission-detail, .mission-image-detail-list {
+    & > div {
+      margin: 0!important;
+    }
+  }
+
+  .root {
+    width: 100%!important;
+  }
+
+  .responsive-two-cols {
+    .left-container {
+      margin: 0 30px 0 0;
+      flex: 1;
+
+      @include md-low() {
+        margin: 0;
+      }
+    }
+  }
+
+  .obs-header {
+    h3 {
+      font-family: $primary-font;
+      font-size: 10px;
+      font-weight: bold;
+    }
+
+    .obs-img-subheader {
+      font-size: 40px;
+    }
+  }
+}

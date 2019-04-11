@@ -1,10 +1,13 @@
 import axios from 'axios';
 
 function downloadFile(url, fileName) {
+  console.log(url);
   return axios({
     url,
     method: 'GET',
     responseType: 'blob',
+    crossdomain: true,
+    withCredentials: false,
   }).then(response => {
     const url = window.URL.createObjectURL(new Blob([response.data]));
     const link = document.createElement('a');

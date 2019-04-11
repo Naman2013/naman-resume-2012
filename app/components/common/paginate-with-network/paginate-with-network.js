@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Request from 'components/common/network/Request';
+import Request from 'app/components/common/network/Request';
 import Pagination from '../pagination';
 
 class PaginateWithNetwork extends Component {
