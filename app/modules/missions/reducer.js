@@ -289,6 +289,7 @@ function getCategoryListSuccess(state, action) {
 }
 
 function setCategory(state, action) {
+  console.log('adfasdfasd');
   return {
     ...state,
     bySlooh1000: {

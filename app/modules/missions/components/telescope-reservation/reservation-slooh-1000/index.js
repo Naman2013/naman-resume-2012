@@ -9,7 +9,7 @@ import { ExplanationModal } from '../explanation-modal';
 import { ExpireCountdown } from '../expire-countdown';
 import './styles.scss';
 
-export class Slooh1000 extends Component {
+export class ReservationSlooh1000 extends Component {
   state = {
     successModalShow: false,
   };
@@ -28,7 +28,7 @@ export class Slooh1000 extends Component {
     const { getMissionSlot, selectedObjectData } = this.props;
 
     getMissionSlot({
-      callSource: 'bySlooh1000V4',
+      callSource: 'byTelescope',
       domeId: selectedObjectData.domeId,
       missionStart: selectedObjectData.missionStart,
       objectId: selectedObjectData.objectId,
@@ -44,7 +44,7 @@ export class Slooh1000 extends Component {
     const { reserveMissionSlot, missionSlot } = this.props;
 
     reserveMissionSlot({
-      callSource: 'bySlooh1000V4',
+      callSource: 'byTelescope',
       catName: missionSlot.catName,
       catalog: missionSlot.catalog,
       designation: missionSlot.designation,
@@ -83,7 +83,7 @@ export class Slooh1000 extends Component {
 
     if (missionSlot && missionSlot.scheduledMissionId) {
       cancelMissionSlot({
-        callSource: 'bySlooh1000V4',
+        callSource: 'byTelescope',
         grabType: 'notarget',
         scheduledMissionId: missionSlot.scheduledMissionId,
       });
@@ -99,7 +99,7 @@ export class Slooh1000 extends Component {
       nameFrom,
       nameTo,
       includeDescription: true,
-      callSource: 'bySlooh1000V4',
+      callSource: 'byTelescope',
     });
   };
 
@@ -122,10 +122,6 @@ export class Slooh1000 extends Component {
 
     return (
       <div className="slooh-1000">
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-8">
-              <Box>
                 <Slooh1000Setup
                   categoryList={categoryList}
                   categoryListOpts={categoryListOpts}
@@ -137,32 +133,6 @@ export class Slooh1000 extends Component {
                   selectedObjectId={selectedObjectId}
                   disabled={missionSlot && missionSlot.missionAvailable}
                 />
-              </Box>
-            </div>
-            <div
-              className="col-lg-4 reserved-mission"
-              ref={node => (this.grabedMissionTile = node)}
-            >
-              <Box inside>
-                {missionSlot && missionSlot.missionAvailable ? (
-                  <AvailbleMissionTile
-                    title={missionSlot.title}
-                    telescope={missionSlot.telescopeName}
-                    description={missionSlot.explanation}
-                    date={this.getMissionDate(missionSlot.missionStart)}
-                    time={this.getMissionTime(missionSlot.missionStart)}
-                    cancel={this.cancelMissionSlot}
-                    scheduleMission={this.reserveMissionSlot}
-                  />
-                ) : (
-                  <div className="reserved-mission-gag">
-                    YOUR MISSION WILL APPEAR HERE
-                  </div>
-                )}
-              </Box>
-            </div>
-          </div>
-        </div>
 
         {missionSlot && !missionSlot.missionAvailable && (
           <ExplanationModal

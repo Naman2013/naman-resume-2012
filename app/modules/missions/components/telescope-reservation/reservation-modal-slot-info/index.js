@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import moment from 'moment';
 import './styles.scss';
 
-export class ReservationModalSlotInfo extends Component {
+export class ReservationModalSlotInfo extends PureComponent {
   render() {
     const { timeSlot, title } = this.props;
     const { missionStart } = timeSlot;

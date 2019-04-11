@@ -178,10 +178,10 @@ export const getBySlooh1000 = () => (dispatch, getState) => {
     .catch(error => dispatch(ACTION.getBySlooh1000Error(error)));
 };
 
-export const getCategoryList = () => (dispatch, getState) => {
+export const getCategoryList = data => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
   dispatch(ACTION.getCategoryList());
-  return getCategoryListApi({ at, token, cid, callSource: 'bySlooh1000V4' })
+  return getCategoryListApi({ at, token, cid, ...data })
     .then(result => dispatch(ACTION.getCategoryListSuccess(result.data)))
     .catch(error => dispatch(ACTION.getCategoryListError(error)));
 };

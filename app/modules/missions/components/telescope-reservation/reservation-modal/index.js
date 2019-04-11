@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import moment from 'moment';
 import { Modal } from 'app/components/modal';
-import { AvailbleMissionTile } from '../available-mission-tile';
-import { Box } from '../box';
+import { AvailbleMissionTile } from '../../available-mission-tile';
+import { Box } from '../../box';
 import { ReservationModalSlotInfo } from '../reservation-modal-slot-info';
 import { ReservationModalTabs } from '../reservation-modal-tabs';
 import './styles.scss';
 
-export class TelescopeReservationModal extends Component {
+export class ReservationModal extends Component {
   render() {
     const {
       onHide,

@@ -1,7 +1,8 @@
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
-import { Slooh1000 } from '../components/slooh-1000';
+import { Slooh1000 } from '../components/slooh-1000/slooh-1000';
+import { withSlooh1000 } from '../components/slooh-1000/slooh-1000-wrapper';
 import {
   makeBySlooh1000CategoryListSelectOptsSelector,
   makeBySlooh1000CategoryListSelector,
@@ -59,4 +60,4 @@ export default compose(
     mapStateToProps,
     mapDispatchToProps
   )
-)(Slooh1000);
+)(withSlooh1000(Slooh1000));

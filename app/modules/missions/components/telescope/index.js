@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { TelescopeSetup } from '../telescope-setup';
 import { MissionsList } from '../missions-list';
-import { TelescopeReservationModal } from '../telescope-reservation-modal';
+import { ReservationModal } from '../telescope-reservation/reservation-modal';
 import './styles.scss';
 
 export class Telescope extends Component {
@@ -62,7 +62,7 @@ export class Telescope extends Component {
             getTelescopeSlot={this.getTelescopeSlot}
           />
 
-          <TelescopeReservationModal
+          <ReservationModal
             onHide={this.reservationModalHide}
             show={reservationModalVisible}
             selectedSlot={selectedSlot}

@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 import './styles.scss';
 
-export class ReservationModalTabs extends Component {
+export class ReservationModalTabs extends PureComponent {
   render() {
     return (
       <div className="reservation-modal-tabs">
