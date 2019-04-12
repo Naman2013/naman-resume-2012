@@ -73,7 +73,7 @@ export class Slooh1000Setup extends Component {
               <Button
                 text="Hold one hour"
                 onClickEvent={getTelescopeSlot}
-                //disabled={!selectedCategorySlug || !selectedObjectId || disabled}
+                disabled={extendedTimer}
               />
             </div>
           )}

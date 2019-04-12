@@ -10,6 +10,7 @@ export class ReservationModal extends Component {
         show={show}
         onHide={onHide}
         size="lg"
+        //animation={false}
         aria-labelledby="contained-modal-title-vcenter"
         centered
       >

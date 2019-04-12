@@ -60,10 +60,12 @@ export class Telescope extends Component {
             getTelescopeSlot={this.getTelescopeSlot}
           />
 
-          <ReservationModal
-            onHide={this.reservationModalHide}
-            show={reservationModalVisible}
-          />
+          {reservationModalVisible && (
+            <ReservationModal
+              onHide={this.reservationModalHide}
+              show
+            />
+          )}
         </div>
       </div>
     );
