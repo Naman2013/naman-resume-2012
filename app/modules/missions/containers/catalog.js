@@ -14,6 +14,7 @@ import {
   makeByCatalogProcessingRecipeSelector,
   makeMissionsFirstSlot,
   makeReservedMissionData,
+  makeReservedMissionSelector,
 } from '../selectors';
 import {
   getCatalogList,
@@ -36,6 +37,7 @@ const mapStateToProps = createStructuredSelector({
   isFetching: makeMissionsLoadingSelector(),
   missionSlot: makeMissionsFirstSlot(),
   reservedMissionData: makeReservedMissionData(),
+  reservedMission: makeReservedMissionSelector(),
 });
 
 const mapDispatchToProps = {

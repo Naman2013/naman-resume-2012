@@ -1,11 +1,10 @@
 import { Box } from 'app/modules/missions/components/box';
 import React, { Component } from 'react';
-import moment from 'moment';
 import { AvailbleMissionTile } from '../available-mission-tile';
-import { MissionSuccessModal } from '../mission-success-modal';
 import { ConstellationSetup } from '../constellation-setup';
-import { ExplanationModal } from '../explanation-modal';
 import { ExpireCountdown } from '../expire-countdown';
+import { ExplanationModal } from '../explanation-modal';
+import { MissionSuccessModal } from '../mission-success-modal';
 import './styles.scss';
 
 export class Constellation extends Component {
@@ -67,10 +66,6 @@ export class Constellation extends Component {
     }).then(() => this.setState({ successModalShow: true }));
   };
 
-  getMissionDate = timestamp => moment.unix(timestamp).format('ddd. MMM. DD');
-
-  getMissionTime = timestamp => moment.unix(timestamp).format('HH:mm');
-
   modalClose = () => {
     const { resetMissionsData } = this.props;
     this.setState({ successModalShow: false }, () => resetMissionsData());
@@ -100,6 +95,9 @@ export class Constellation extends Component {
       reservedMissionData,
       resetMissionsData,
       objectListExpires,
+      availableMissions,
+      noObjects,
+      reservedMission,
     } = this.props;
 
     const { successModalShow } = this.state;
@@ -118,6 +116,8 @@ export class Constellation extends Component {
                   selectedConstellation={selectedConstellation}
                   selectedObjectId={selectedObjectId}
                   disabled={missionSlot && missionSlot.missionAvailable}
+                  availableMissions={availableMissions}
+                  noObjects={noObjects}
                 />
               </Box>
             </div>
@@ -128,13 +128,9 @@ export class Constellation extends Component {
               <Box inside>
                 {missionSlot && missionSlot.missionAvailable ? (
                   <AvailbleMissionTile
-                    title={missionSlot.title}
-                    telescope={missionSlot.telescopeName}
-                    description={missionSlot.explanation}
-                    date={this.getMissionDate(missionSlot.missionStart)}
-                    time={this.getMissionTime(missionSlot.missionStart)}
-                    cancel={this.cancelMissionSlot}
-                    scheduleMission={this.reserveMissionSlot}
+                    missionSlot={missionSlot}
+                    onCancel={this.cancelMissionSlot}
+                    onSubmit={this.reserveMissionSlot}
                   />
                 ) : (
                   <div className="reserved-mission-gag">
@@ -158,6 +154,8 @@ export class Constellation extends Component {
           show={successModalShow}
           onHide={this.modalClose}
           reservedMissionData={reservedMissionData}
+          reservedMission={reservedMission}
+          missionSlot={missionSlot}
         />
 
         <ExpireCountdown

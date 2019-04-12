@@ -35,6 +35,8 @@ export const TYPE = constants('profile', [
   'SET_TELESCOPE_DATE',
   '~GET_MISSION_SLOT_DATES',
   '~GET_MISSION_SLOTS_BY_TELESCOPE',
+  '~GET_TELESCOPE_SLOT',
+  '~SET_SELECTED_SLOT',
 ]);
 export const ACTION = actions(TYPE);
 
@@ -51,6 +53,7 @@ export const initialState = {
   missions: {
     missionList: [],
     reservedMissionList: [],
+    reservedMission: {},
   },
 
   bySlooh1000: {
@@ -65,9 +68,11 @@ export const initialState = {
   byConstellation: {
     constellationList: [],
     selectedConstellation: null,
+    objectCount: null,
     objectList: [],
     objectListExpires: null,
     selectedObjectId: null,
+    availableMissionsCount: null,
   },
 
   byCatalog: {
@@ -84,7 +89,9 @@ export const initialState = {
     selectedTelescope: {},
     selectedDate: {},
     dateList: [{}],
-    missionsList: [],
+    missionList: [],
+    grabedTelescopeSlot: {},
+    selectedSlot: {},
   },
 };
 
@@ -153,6 +160,10 @@ export default handleActions(
     [TYPE.GET_MISSION_SLOTS_BY_TELESCOPE]: setFetching,
     [TYPE.GET_MISSION_SLOTS_BY_TELESCOPE_SUCCESS]: getMissionSlotsByTelescopeSuccess,
     [TYPE.GET_MISSION_SLOTS_BY_TELESCOPE_ERROR]: setServerError,
+    [TYPE.GET_TELESCOPE_SLOT]: setFetching,
+    [TYPE.GET_TELESCOPE_SLOT_SUCCESS]: getTelescopeSlotSuccess,
+    [TYPE.GET_TELESCOPE_SLOT_ERROR]: setServerError,
+    [TYPE.SET_SELECTED_SLOT]: setSelectedSlot,
   },
   initialState
 );
@@ -216,6 +227,7 @@ function reserveMissionSlotSuccess(state, action) {
     missions: {
       ...state.missions,
       reservedMissionList: action.payload.missionList,
+      reservedMission: action.payload,
     },
   };
 }
@@ -239,9 +251,11 @@ function resetMissionsData(state) {
     byConstellation: {
       ...state.byConstellation,
       selectedConstellation: null,
+      objectCount: null,
       objectList: [],
       objectListExpires: null,
       selectedObjectId: null,
+      availableMissionsCount: null,
     },
     byCatalog: {
       ...state.byCatalog,
@@ -277,6 +291,7 @@ function getCategoryListSuccess(state, action) {
 }
 
 function setCategory(state, action) {
+  console.log('adfasdfasd');
   return {
     ...state,
     bySlooh1000: {
@@ -327,8 +342,10 @@ function setConstellation(state, action) {
     byConstellation: {
       ...state.byConstellation,
       selectedConstellation: action.payload,
+      objectCount: null,
       objectList: [],
       selectedObjectId: null,
+      availableMissionsCount: null,
     },
   };
 }
@@ -340,6 +357,8 @@ function getConstellationObjectListSuccess(state, action) {
     isLoaded: true,
     byConstellation: {
       ...state.byConstellation,
+      availableMissionsCount: action.payload.availableMissionsCount,
+      objectCount: action.payload.objectCount,
       objectList: action.payload.objectList,
       objectListExpires: action.payload.expires,
     },
@@ -493,7 +512,6 @@ function setTelescopeDate(state, action) {
   };
 }
 
-
 function getMissionSlotsByTelescopeSuccess(state, action) {
   return {
     ...state,
@@ -502,6 +520,28 @@ function getMissionSlotsByTelescopeSuccess(state, action) {
     byTelescope: {
       ...state.byTelescope,
       missionList: action.payload.missionList,
+    },
+  };
+}
+
+function getTelescopeSlotSuccess(state, action) {
+  return {
+    ...state,
+    isFetching: false,
+    isLoaded: true,
+    byTelescope: {
+      ...state.byTelescope,
+      grabedTelescopeSlot: action.payload.missionList[0],
+    },
+  };
+}
+
+function setSelectedSlot(state, action) {
+  return {
+    ...state,
+    byTelescope: {
+      ...state.byTelescope,
+      selectedSlot: action.payload,
     },
   };
 }

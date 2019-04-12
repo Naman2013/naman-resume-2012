@@ -40,6 +40,12 @@ export const makeReservedMissionData = () =>
     state => state.reservedMissionList[0] || {}
   );
 
+export const makeReservedMissionSelector = () =>
+  createSelector(
+    makeMissionsData(),
+    state => state.reservedMission || {}
+  );
+
 // bySlooh1000
 export const makeBySlooh1000Selector = () =>
   createSelector(
@@ -195,6 +201,26 @@ export const makeByConstellationObjectListExpiresSelector = () =>
     state => state.objectListExpires
   );
 
+export const makeByConstellationAvailableMissionsSelector = () =>
+  createSelector(
+    makeByConstellationSelector(),
+    state => {
+      return (
+        state.availableMissionsCount === 0 &&
+        state.objectCount > 0 &&
+        !!state.selectedConstellation
+      );
+    }
+  );
+
+export const makeByConstellationNoObjectsSelector = () =>
+  createSelector(
+    makeByConstellationSelector(),
+    state => {
+      return state.objectCount === 0 && !!state.selectedConstellation;
+    }
+  );
+
 // byCatalog
 export const makeByCatalogSelector = () =>
   createSelector(
@@ -286,4 +312,10 @@ export const makeTelescopeMissionListSelector = () =>
   createSelector(
     makeByTelescopeSelector(),
     state => state.missionList
+  );
+
+  export const makeTelescopeSelectedSlotSelector = () =>
+  createSelector(
+    makeByTelescopeSelector(),
+    state => state.selectedSlot
   );

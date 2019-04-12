@@ -3,7 +3,7 @@ import { Modal as BModal } from 'react-bootstrap';
 import './styles.scss';
 
 const ModalDialog = props => {
-  const { children, onHide } = props;
+  const { children, onHide, goBackText } = props;
 
   const backClick = e => {
     e.preventDefault();
@@ -13,7 +13,7 @@ const ModalDialog = props => {
   return (
     <div className="custom-modal">
       <span role="presentation" className="modal-back-btn" onClick={backClick}>
-        GO BACK
+        {goBackText || 'GO BACK'}
       </span>
 
       <div className="container">{children}</div>

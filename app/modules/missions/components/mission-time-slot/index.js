@@ -9,22 +9,28 @@ const SLOT_STATUS = {
 
 export class MissionTimeSlot extends PureComponent {
   render() {
-    const { timeSlot } = this.props;
+    const { timeSlot, getTelescopeSlot } = this.props;
     const {
       slotStatus,
       slotTitle,
       ownerAvatarURL,
       ownerDisplayName,
       missionStart,
+      showSloohUser,
     } = timeSlot;
 
     const missionStartTime = moment(missionStart * 1000);
+    const missionSlotOnClick =
+      SLOT_STATUS.AVAILABLE === slotStatus
+        ? () => getTelescopeSlot()
+        : () => {};
 
     return (
       <div
         className={`missions-list-item${
           SLOT_STATUS.AVAILABLE === slotStatus ? ' open' : ''
         }`}
+        onClick={missionSlotOnClick}
       >
         <div className="left">
           <div className="mission-title">
@@ -38,10 +44,17 @@ export class MissionTimeSlot extends PureComponent {
                 <span>Scheduled by:</span>
 
                 {ownerAvatarURL && (
-                  <img className="owner-avatar" src={ownerAvatarURL} />
+                  <img
+                    className={`owner-avatar${
+                      showSloohUser ? ' slooh-user' : ''
+                    }`}
+                    src={ownerAvatarURL}
+                  />
                 )}
 
-                <div className="owner-name">{ownerDisplayName}</div>
+                {!showSloohUser && (
+                  <div className="owner-name">{ownerDisplayName}</div>
+                )}
               </Fragment>
             )}
           </div>
@@ -88,10 +101,17 @@ export class MissionTimeSlot extends PureComponent {
                 <span>Scheduled by:</span>
 
                 {ownerAvatarURL && (
-                  <img className="owner-avatar" src={ownerAvatarURL} />
+                  <img
+                    className={`owner-avatar${
+                      showSloohUser ? ' slooh-user' : ''
+                    }`}
+                    src={ownerAvatarURL}
+                  />
                 )}
 
-                <div className="owner-name">{ownerDisplayName}</div>
+                {!showSloohUser && (
+                  <div className="owner-name">{ownerDisplayName}</div>
+                )}
               </Fragment>
             )}
           </div>
