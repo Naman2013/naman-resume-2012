@@ -8,15 +8,17 @@ const {
   number,
   oneOfType,
   string,
+bool
 } = PropTypes;
 
-const CommentButton = ({ count, isActive, onClickEvent }) => (
+const CommentButton = ({ count, isActive, onClickEvent, alwaysShowCount }) => (
   <div>
     <CountButton
       isActive={isActive}
       count={count}
       onClickEvent={onClickEvent}
       icon={isActive ? commentWhite : commentAstronaut}
+      alwaysShowCount = {alwaysShowCount}
     />
   </div>
 );
@@ -24,7 +26,10 @@ const CommentButton = ({ count, isActive, onClickEvent }) => (
 CommentButton.propTypes = {
   count: oneOfType([string, number]).isRequired,
   onClickEvent: func.isRequired,
+  alwaysShowCount:bool
 };
-CommentButton.defaultProps = {};
+CommentButton.defaultProps = {
+  alwaysShowCount:false
+};
 
 export default CommentButton;
