@@ -4,42 +4,31 @@ import Btn from 'app/atoms/Btn';
 import Icon from 'app/atoms/Icon';
 import { Desktop, Tablet, Mobile } from 'app/components/common/Responsive';
 import RecommendedObservations from 'app/components/common/RecommendedObservationsSlider';
-import img from './about-scope-temp.png';
 
-export const CardObsContext = React.createContext({});
+export const AboutScope = props => {
+  const {
+    teleName,
+    obsShortName,
+    obsHeroURL,
+    obsDescription,
+    instrAbout,
+  } = props;
+  if (!teleName) return null;
 
-export const AboutScope = () => {
   const pic = (
-    <div className="image">
-      <img src={img} alt="About this scope" />
+    <div className="i-image">
+      <img src={obsHeroURL} alt={teleName} />
     </div>
   );
 
   const desc = [
     { id: '1', title: 'Telescope type', text: 'High-Magnification' },
-    { id: '2', title: 'Observatory', text: 'Canary Islands' },
-    { id: '3', title: 'Pier', text: 'Canary One' },
+    { id: '2', title: 'Observatory', text: obsShortName },
+    { id: '3', title: 'Pier', text: teleName },
   ];
 
-  const text = (
-    <p className="i-text">
-      Nam dapibus nisl lore vitae elit fringilla dolar rutrume lorei rutrume
-      lorei massa sent Vesti seti lorem sollic iitudine lorem elem entum aenean
-      lorem sollic iitudine lorem elementum rutrum doleil neeque lor sem
-      pretiume metus quis mollis nisl nunc eter so massa sent Vesti seti lorem
-      sollic iitudine lorem elem entum sem pretium metu.
-    </p>
-  );
-
   const preTitle = <h4 className="h-4 text-uppercase">Slooh telescope</h4>;
-
-  const mainTitle = <h1 className="h-1">Canary One</h1>;
-
-  const article = (
-    <Fragment>
-      {text} {text}
-    </Fragment>
-  );
+  const mainTitle = <h1 className="h-1">{teleName}</h1>;
 
   const description = desc.map(el => {
     return (
@@ -110,16 +99,20 @@ export const AboutScope = () => {
         </Col>
 
         <Col lg={8} className="i-box-white">
-          <article>
+          <article className="pad-100">
             {preTitle}
             {mainTitle}
-            {article}
+            <article>
+              <div className="i-text">
+                <p className="text">{obsDescription}</p>
+                <p className="text">{instrAbout}</p>
+              </div>
+            </article>
           </article>
         </Col>
       </Fragment>
     );
   };
-
   return (
     <Fragment>
       <Container as="section" className="animated fadeIn faster top-bot-40">
@@ -139,9 +132,7 @@ export const AboutScope = () => {
               Community Observations
             </p>
           </header>
-          <CardObsContext.Provider value="small">
-            <RecommendedObservations />
-          </CardObsContext.Provider>
+          <RecommendedObservations />
         </div>
       </section>
     </Fragment>
