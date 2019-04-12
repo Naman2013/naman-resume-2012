@@ -14,7 +14,7 @@ const TimeUtc = (props: TTimeUtc) => {
   return (
     <div className={small ? `${cls} small` : cls}>
       <span>{time}</span>
-      <span className="utc-vertical">{timeZone}</span>
+      {timeZone && <span className="utc-vertical">{timeZone}</span>}
     </div>
   );
 };
