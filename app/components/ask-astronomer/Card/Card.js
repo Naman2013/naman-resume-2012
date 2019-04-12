@@ -94,6 +94,7 @@ const Card = (props) => {
               isActive={showComments}
               onClickEvent={toggleComments}
               count={replyToponlyCount}
+              alwaysShowCount
             /> : null}
             {S3Files.length > 0 ? <ViewImagesButton images={S3Files} /> : null}
           </div>
