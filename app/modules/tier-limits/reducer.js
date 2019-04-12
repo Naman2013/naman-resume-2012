@@ -2,7 +2,7 @@ import createReducer from '../utils/createReducer';
 import {
   FETCH_TIER_LIMITS_START,
   FETCH_TIER_LIMITS_SUCCESS,
-  FETCH_TIER_LIMITS_FAIL,
+  FETCH_TIER_LIMITS_FAILURE,
 } from './actions';
 
 const initialState = {
@@ -44,7 +44,7 @@ export default createReducer(initialState, {
       loading: false,
     };
   },
-  [FETCH_TIER_LIMITS_FAIL](state, { payload }) {
+  [FETCH_TIER_LIMITS_FAILURE](state, { payload }) {
     return {
       ...state,
       tierLimitsError: true,

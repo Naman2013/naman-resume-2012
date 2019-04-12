@@ -1,12 +1,17 @@
+import React, { Component } from 'react';
 import { AboutScope } from 'app/modules/telescope/components/about-scope-tab';
 import { StatusTab } from 'app/modules/telescope/components/status-tab';
-import React, { Component } from 'react';
 import { Container, Nav, Tab } from 'react-bootstrap';
 import './styles.scss';
 
 export class TelescopeOffline extends Component {
   render() {
-    const { currentTelescope } = this.props;
+    const {
+      currentTelescope,
+      currentObservatory,
+      currentInstrument,
+      allObservatoryTelescopeStatus,
+    } = this.props;
     return (
       <div className="telescope-offline animated fadeIn faster">
         {/* HEADER */}
@@ -44,10 +49,17 @@ export class TelescopeOffline extends Component {
           {/* TABS CONTENT */}
           <Tab.Content>
             <Tab.Pane eventKey="STATUS">
-              <StatusTab />
+              <StatusTab clockList={allObservatoryTelescopeStatus.clockList} />
             </Tab.Pane>
             <Tab.Pane eventKey="ABOUT_THIS_SCOPE">
-              <AboutScope />
+              <AboutScope
+                teleName={currentTelescope.teleName}
+                obsHeroURL={currentObservatory.obsHeroURL}
+                obsShortName={currentObservatory.obsShortName}
+                obsDescription={currentObservatory.obsDescription}
+                instrAbout={currentInstrument.instrAbout}
+                instrRelatedGuideUrl={currentInstrument.instrRelatedGuideUrl}
+              />
             </Tab.Pane>
           </Tab.Content>
         </Tab.Container>

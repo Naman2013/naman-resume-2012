@@ -22,7 +22,7 @@ class Join extends Component {
             pathname: location.pathname,
           })
         }
-        <style>{styles}</style>
+        <style jsx>{styles}</style>
       </div>
     );
   }

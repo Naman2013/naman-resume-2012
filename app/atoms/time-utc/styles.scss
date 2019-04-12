@@ -1,0 +1,33 @@
+.time-utc {
+  span:first-child {
+    font-size: 34px;
+    font-weight: 300;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.41;
+    letter-spacing: normal;
+    //color: var(--astronaut);
+  }
+  .utc-vertical {
+    //font-family: BrandonGrotesque;
+    font-size: 10px;
+    font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1;
+    letter-spacing: 1.7px;
+    //color: var(--astronaut);
+    writing-mode: vertical-rl;
+    margin-left: 10px;
+  }
+  &.small {
+    span{
+      font-size: 14.3px;
+    }
+    .utc-vertical {
+      position: relative;
+      bottom: -3px;
+      font-size: 10px;
+    }
+  }
+}

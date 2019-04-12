@@ -40,7 +40,7 @@ export class Missions extends Component {
           )}
         />
 
-        {children}
+        {pageTitle && children}
       </div>
     );
   }

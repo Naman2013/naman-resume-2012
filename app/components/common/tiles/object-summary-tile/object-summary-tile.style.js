@@ -1,7 +1,7 @@
 import css from 'styled-jsx/css';
-import { primaryFont, secondaryFont } from 'styles/variables/fonts';
-import { astronaut, hawkesBlue, white, blue_tile_feat } from 'styles/variables/colors_tiles_v4';
-import { faintShadow } from 'styles/variables/shadows';
+import { primaryFont, secondaryFont } from 'app/styles/variables/fonts';
+import { astronaut, hawkesBlue, blue_tile_feat } from 'app/styles/variables/colors_tiles_v4';
+import { faintShadow } from 'app/styles/variables/shadows';
 
 export default css`
   .object-summary-tile-root {
@@ -30,7 +30,6 @@ export default css`
     align-items: center;
     margin: 0 auto;
     border: 1px solid ${hawkesBlue};
-    background-color: ${white};
   }
 
   .icon-inner-ring {

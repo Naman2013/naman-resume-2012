@@ -20,8 +20,8 @@ import PromoPanel from '../components/home/promo-panel';
 import ThisWeekPanel from '../components/home/this-week/this-week-panel';
 import style from './home.scss';
 
-import { fetchCommunityContent }
-  from '../modules/community-content/community-object-content-actions';
+// import { fetchCommunityContent }
+//   from '../modules/community-content/community-object-content-actions';
 import { getHomePage, getNewHomePage, trackUser } from '../modules/home-content/actions';
 import { getSharedMemberPhotos } from '../modules/get-shared-member-photos/actions';
 
@@ -41,7 +41,7 @@ const mapStateToProps = ({
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
-    fetchCommunityContent,
+    // fetchCommunityContent,
     getHomePage,
     getNewHomePage,
     getSharedMemberPhotos,
@@ -86,7 +86,7 @@ const inlineInnerVideosContainer = {
 @connect(mapStateToProps, mapDispatchToProps)
 class Home extends Component {
   componentWillMount() {
-    this.props.actions.fetchCommunityContent();
+    // this.props.actions.fetchCommunityContent();
 
     this.homePageRerfreshInterval = setInterval(() => {
       this.props.actions.getHomePage();

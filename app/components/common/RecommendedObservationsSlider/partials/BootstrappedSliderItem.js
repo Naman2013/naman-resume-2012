@@ -1,8 +1,6 @@
 import React, { Fragment } from 'react';
 import PropTypes, { shape } from 'prop-types';
-import classNames from 'classnames';
 import { injectIntl } from 'react-intl';
-import { CardObsContext } from 'app/modules/telescope/components/about-scope-tab';
 
 import style from './BootstrappedSliderItem.style';
 import messages from './BootstrappedSliderItem.messages';
@@ -19,106 +17,96 @@ const BootstrappedObservationSliderItem = ({
   commentsCount,
   intl,
 }) => (
-  <CardObsContext.Consumer>
-    {value => (
-      <div className="card-obs-wrapper">
-        <div className={classNames('card-obs', value && `card-obs-${value}`)}>
-          {imageTitle.length > 0 ? (
-            <Fragment>
-              <div className={classNames('top', value && `top-${value}`)}>
-                <div className="info">
-                  <div className="main-info">
-                    <div className="title">{imageTitle}</div>
-                    <div className="author">
-                      {intl.formatMessage(messages.By)} {displayName}
-                    </div>
-                    <div
-                      className="i-text-box"
-                      dangerouslySetInnerHTML={{ __html: observationLog }}
-                    />
-                  </div>
-                  <div className="links">
-                    <div className="link">
-                      <img
-                        src="https://vega.slooh.com/assets/v4/icons/user_astronaut.svg"
-                        alt="user"
-                      />
-                    </div>
-                    <div className="link">
-                      <img
-                        className="linkIcon"
-                        src="https://vega.slooh.com/assets/v4/icons/solar_system/Jupiter.png"
-                        alt="system"
-                      />
-                    </div>
-                    <div className="link">
-                      <img
-                        src="https://vega.slooh.com/assets/v4/common/icon_observatory.svg"
-                        alt="observatory"
-                      />
-                    </div>
-                    <div className="link">
-                      <img
-                        src="https://vega.slooh.com/assets/v4/icons/location_marker.png"
-                        alt="location"
-                      />
-                    </div>
-                  </div>
+  <div className="card-obs-wrapper">
+    <div className="card-obs">
+      {imageTitle ? (
+        <Fragment>
+          <div className="top">
+            <div className="info">
+              <div className="main-info">
+                <div className="title">{imageTitle}</div>
+                <div className="author">
+                  {intl.formatMessage(messages.By)} {displayName}
                 </div>
-                <div className="picture">
-                  <div
-                    className={classNames(
-                      'image-wrapper',
-                      value && `image-wrapper-${value}`
-                    )}
-                  >
-                    <img src={imageURL} alt="observation" />
-                  </div>
+                <div
+                  className="i-text-box"
+                  dangerouslySetInnerHTML={{ __html: observationLog }}
+                />
+              </div>
+              <div className="links">
+                <div className="link">
+                  <img
+                    src="https://vega.slooh.com/assets/v4/icons/user_astronaut.svg"
+                    alt="user"
+                  />
+                </div>
+                <div className="link">
+                  <img
+                    className="linkIcon"
+                    src="https://vega.slooh.com/assets/v4/icons/solar_system/Jupiter.png"
+                    alt="system"
+                  />
+                </div>
+                <div className="link">
+                  <img
+                    src="https://vega.slooh.com/assets/v4/common/icon_observatory.svg"
+                    alt="observatory"
+                  />
+                </div>
+                <div className="link">
+                  <img
+                    src="https://vega.slooh.com/assets/v4/icons/location_marker.png"
+                    alt="location"
+                  />
                 </div>
               </div>
-              <div className="bottom">
-                <div className="buttons">
-                  <div className="button">
-                    <img
-                      className="icon"
-                      src="https://vega.slooh.com/assets/v4/common/heart.svg"
-                      alt="heart"
-                    />
-                    {likesCount}
-                  </div>
-                  <div className="button">
-                    <img
-                      className="icon"
-                      src="https://vega.slooh.com/assets/v4/common/comment.svg"
-                      alt="comment"
-                    />
-                    {commentsCount}
-                  </div>
-                  <div className="button details">
-                    {intl.formatMessage(messages.Details)}
-                    <img
-                      src="https://vega.slooh.com/assets/v4/icons/horz_arrow_right_astronaut.svg"
-                      alt="arrow-right"
-                    />
-                  </div>
-                </div>
-                <div className="capture-date">
-                  {observationTimeDisplay
-                    ? observationTimeDisplay[0]
-                    : `${intl.formatMessage(messages.Loading)}...`}
-                </div>
-              </div>
-            </Fragment>
-          ) : (
-            <div className="loading">
-              {intl.formatMessage(messages.Loading)}...
             </div>
-          )}
-        </div>
-        <style jsx>{style}</style>
-      </div>
-    )}
-  </CardObsContext.Consumer>
+            <div className="picture">
+              <div
+                className="image-wrapper">
+                <img src={imageURL} alt="observation" />
+              </div>
+            </div>
+          </div>
+          <div className="bottom">
+            <div className="buttons">
+              <div className="button">
+                <img
+                  className="icon"
+                  src="https://vega.slooh.com/assets/v4/common/heart.svg"
+                  alt="heart"
+                />
+                {likesCount}
+              </div>
+              <div className="button">
+                <img
+                  className="icon"
+                  src="https://vega.slooh.com/assets/v4/common/comment.svg"
+                  alt="comment"
+                />
+                {commentsCount}
+              </div>
+              <div className="button details">
+                {intl.formatMessage(messages.Details)}
+                <img
+                  src="https://vega.slooh.com/assets/v4/icons/horz_arrow_right_astronaut.svg"
+                  alt="arrow-right"
+                />
+              </div>
+            </div>
+            <div className="capture-date">
+              {observationTimeDisplay
+                ? observationTimeDisplay[0]
+                : `${intl.formatMessage(messages.Loading)}...`}
+            </div>
+          </div>
+        </Fragment>
+      ) : (
+        <div className="loading">{intl.formatMessage(messages.Loading)}...</div>
+      )}
+    </div>
+    <style jsx>{style}</style>
+  </div>
 );
 
 BootstrappedObservationSliderItem.propTypes = {
