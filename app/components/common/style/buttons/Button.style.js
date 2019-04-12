@@ -42,6 +42,12 @@ export default css`
     height: 40px;
     padding: 0;
   }
+  
+  .plain {
+    padding: 0;
+    margin: 0 10px;
+    border: none;
+  }
 
   .text {
     display: inline-block;

@@ -14,3 +14,9 @@ export const makePublicProfileUserDataSelector = () =>
     selectProfile,
     state => state.publicProfileData
   );
+
+export const makePrivateProfileUserDataSelector = () =>
+  createSelector(
+    selectProfile,
+    state => state.privateProfileData
+  );

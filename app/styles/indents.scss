@@ -1,0 +1,144 @@
+@import "~app/styles/variables/colors.scss";
+@import "~app/styles/mixins/utilities.scss";
+
+// Inner and outer indents, positioning
+.pad {
+
+  &-40 {
+    padding: 40px;
+  }
+
+  &-50 {
+    padding: 40px;
+  }
+
+  &-40-20 {
+    padding: 40px 20px;
+  }
+
+  &-100 {
+    padding: 100px;
+
+    @include md() {
+      padding: 50px 25px;
+    }
+
+    @include sm() {
+      padding: 50px 25px;
+    }
+  }
+
+  &-top {
+
+    &-5 {
+      padding-top: 5px;
+    }
+
+    &-15 {
+      padding-top: 15px;
+    }
+
+    &-20 {
+      padding-top: 20px;
+    }
+  }
+
+  &-bot {
+
+    &-5 {
+      padding-bottom: 5px;
+    }
+
+    &-10 {
+      padding-bottom: 10px;
+    }
+
+    &-15 {
+      padding-bottom: 15px;
+    }
+
+    &-20 {
+      padding-bottom: 20px;
+    }
+
+    &-30 {
+      padding-bottom: 30px;
+    }
+
+    &-40 {
+      padding-bottom: 40px;
+    }
+  }
+}
+
+.margin {
+
+  &-top {
+
+    &-10 {
+      margin-top: 10px;
+    }
+
+    &-15 {
+      margin-top: 15px;
+    }
+  }
+
+  &-bot {
+
+    &-10 {
+      margin-bottom: 10px;
+    }
+  }
+
+  &-40 {
+    margin: 40px;
+  }
+
+  &-40-20 {
+    margin: 40px 20px;
+  }
+}
+
+.top-bot-10 {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.top-bot-40 {
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.left-right-15 {
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+.left-right-20 {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.position-abs {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+.no-bottom-pad {
+  padding-bottom: 0;
+}
+
+.inner-gap-20 {
+
+  * {
+    margin-bottom: 20px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}

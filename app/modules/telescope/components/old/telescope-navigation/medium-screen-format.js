@@ -1,27 +1,39 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { SmallScreenFormat } from './index';
 import { enhancedProps } from './common-prop-types';
 import style from './medium-screen-format.style';
 
-const MediumScreenFormat = ({ title, onSelect, selectedIndex, options }) => (
-  <div>
-    <ul className="list-navigation">
-      {title && (
+const MediumScreenFormat = props => {
+  const {
+    title,
+    selectedIndex,
+    options,
+    activeInstrumentID,
+    currentInstrumentName,
+    updateCurrentInstrument
+  } = props;
+  return (
+    <Fragment>
+      <ul className="list-navigation">
+        {title && (
+          <li className="item">
+            <h2 className="page-title">{title}</h2>
+          </li>
+        )}
         <li className="item">
-          <h2 className="page-title">{title}</h2>
+          <SmallScreenFormat
+            options={options}
+            selectedIndex={selectedIndex}
+            activeInstrumentID={activeInstrumentID}
+            currentInstrumentName={currentInstrumentName}
+            updateCurrentInstrument={updateCurrentInstrument}
+          />
         </li>
-      )}
-      <li className="item">
-        <SmallScreenFormat
-          onSelect={onSelect}
-          selectedIndex={selectedIndex}
-          options={options}
-        />
-      </li>
-    </ul>
-    <style jsx>{style}</style>
-  </div>
-);
+      </ul>
+      <style jsx>{style}</style>
+    </Fragment>
+  );
+};
 
 MediumScreenFormat.propTypes = enhancedProps;
 

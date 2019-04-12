@@ -46,6 +46,7 @@ module.exports = {
   resolve: {
     alias: {
       app: path.resolve(__dirname, 'app/'),
+      assets: path.resolve(__dirname, 'assets/'),
     },
   },
   module: {
@@ -86,6 +87,7 @@ module.exports = {
         loaders: [
           'style-loader',
           'css-loader?modules&importLoaders=1&localIdentName=[local]',
+          'postcss-loader',
         ],
       },
       {
@@ -93,8 +95,9 @@ module.exports = {
         exclude: /\.module\.scss$/,
         loaders: [
           'style-loader',
-          'css-loader?modules&importLoaders=1&localIdentName=[local]',
-          'sass-loader',
+          'css-loader?modules&importLoaders=1&localIdentName=[local]&sourceMap=1',
+          { loader: 'postcss-loader', options: { sourceMap: true } },
+          { loader: 'sass-loader', options: { sourceMap: true } },
         ],
       },
       // CSS Modules Configuration
@@ -188,12 +191,12 @@ module.exports = {
         secure: true,
       },
       '/sse/**': {
-        target: 'https://slooh.com',
+        target: 'https://nova.slooh.com',
         changeOrigin: true,
         secure: true,
       },
       '/bot/**': {
-        target: 'https://supernova.slooh.com',
+        target: 'https://nova.slooh.com',
         changeOrigin: true,
         secure: true,
       },

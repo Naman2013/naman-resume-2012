@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
+import { horizontalArrow } from 'app/styles/variables/iconURLs';
 import style from './Laila.style';
-import { horizontalArrow } from 'styles/variables/iconURLs';
 
 const LailaTile = ({ iconURL, linkURL, title }) => (
   <div className="root">
@@ -12,7 +12,13 @@ const LailaTile = ({ iconURL, linkURL, title }) => (
         <div className="center-line" />
         <div className="border">
           <div className="icon">
-            <img className="icon-content" alt="" width="40" height="40" src={iconURL} />
+            <img
+              className="icon-content"
+              alt=""
+              width="40"
+              height="40"
+              src={iconURL}
+            />
           </div>
         </div>
       </div>

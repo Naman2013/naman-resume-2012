@@ -16,7 +16,7 @@ const {
 const HeaderContainer = props => (
   <div className="root">
     <LiveShowVideoViewerNav {...props} />
-    {!props.isScreenLarge ?
+    {!props.isDesktop ?
       <BigBoxInfoContainer {...props} headerLabel={props.headerLabel} />:
     null}
     <style jsx>{styles}</style>
@@ -25,13 +25,10 @@ const HeaderContainer = props => (
 
 HeaderContainer.propTypes = {
   headerLabel: string,
-  isScreenLarge: bool,
-  isScreenMedium: bool,
+  isDesktop: bool.isRequired,
 };
 
 HeaderContainer.defaultProps = {
   headerLabel: '',
-  isScreenLarge: true,
-  isScreenMedium: false,
 };
 export default HeaderContainer;

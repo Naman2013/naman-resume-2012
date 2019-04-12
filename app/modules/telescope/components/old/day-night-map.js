@@ -1,11 +1,35 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import { ModalImg } from 'app/modules/telescope/components/modal-img';
+import React, { Component } from 'react';
 import { ModuleContainer } from './index';
 
-const DayNightMap = () => (
-  <ModuleContainer title="Day/night map">
-    <img alt="Day night map" width="100%" height="300" src="https://polaris.slooh.com/teide/2/highmag/2018/10/18/2215_ngc253/ngc253_20181018_221824_0_ru3jfw_lrgb.png" />
-  </ModuleContainer>
-);
+export class DayNightMap extends Component {
+  state = {
+    isModalOpen: false,
+  };
 
-export {DayNightMap};
+  openModal = () => this.setState({ isModalOpen: true });
+
+  closeModal = () => this.setState({ isModalOpen: false });
+
+  render() {
+    const { dayNightMapURL } = this.props;
+    const { isModalOpen } = this.state;
+    return (
+      <ModuleContainer title="Day/night map">
+        <img
+          alt="Day night map"
+          style={{ width: '100%', cursor: 'pointer' }}
+          onClick={this.openModal}
+          role="presentation"
+          src={dayNightMapURL}
+        />
+
+        <ModalImg
+          isOpen={isModalOpen}
+          imageURL={dayNightMapURL}
+          onHide={this.closeModal}
+        />
+      </ModuleContainer>
+    );
+  }
+}

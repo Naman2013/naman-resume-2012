@@ -9,55 +9,61 @@ const propTypes = {
   handleClick: PropTypes.func.isRequired,
   isActive: PropTypes.bool,
   theme: PropTypes.object,
+  mod: PropTypes.string,
 };
 
 const defaultProps = {
   isActive: false,
 };
 
-const Button = ({
-  children, handleClick, isActive, theme,
-}) => (
+const Button = ({ children, handleClick, isActive, theme, mod }) => (
   <div className="root">
     <button
       onClick={handleClick}
-      className={classnames('action', { active: isActive })}
+      className={classnames(mod ? `action ${mod}` : 'action', {
+        active: isActive,
+      })}
       style={theme}
     >
-      { children }
+      {children}
     </button>
 
-    <style jsx>{`
-      .root {
-        display: inline-block;
-        font-family: ${primaryFont};
-      }
+    <style jsx>
+      {`
+        .root {
+          display: inline-block;
+          font-family: ${primaryFont};
+        }
 
-      .action {
-        display: block;
-        border: none;
-        cursor: pointer;
-        color: ${astronaut};
-        border-right: 1px solid ${shadows};
-        text-align: center;
-        background: none;
-        width: 60px;
-        height: 60px;
+        .action {
+          display: block;
+          border: none;
+          cursor: pointer;
+          color: ${astronaut};
+          border-right: 1px solid ${shadows};
+          text-align: center;
+          background: none;
+          width: 60px;
+          height: 60px;
 
-        transition-property: color background;
-        transition-duration: 0.15s;
-        transition-timing-function: ease-in-out;
-      }
+          transition-property: color background;
+          transition-duration: 0.15s;
+          transition-timing-function: ease-in-out;
+        }
 
-      .action.active {
-        color: ${romance};
-        background: ${astronaut};
-      }
+        .action.no-border {
+          border: none;
+        }
 
-      .action:focus {
-        outline: none;
-      }
-    `}
+        .action.active {
+          color: ${romance};
+          background: ${astronaut};
+        }
+
+        .action:focus {
+          outline: none;
+        }
+      `}
     </style>
   </div>
 );

@@ -6,40 +6,52 @@ import TelescopNavigationDropDown from './TelescopNavigationDropDown';
 
 import style from './small-screen-format.style';
 
-class SmallScreenFormat extends Component {
-  render() {
-    const { onSelect, selectedIndex, options } = this.props;
-    const formatedOptions = options.map((o, i) => ({
+const SmallScreenFormat = props => {
+  const {
+    selectedIndex,
+    options,
+    activeInstrumentID,
+    currentInstrumentName,
+    updateCurrentInstrument
+  } = props;
+  const formatedOptions = options.map((o, i) => {
+    return {
       label: o.name,
       value: i,
-    }));
-    return (
-      <div className="small-screen-select">
-        <div className="active-selection-box">
-          <div
-            className="image-container"
-            style={{
-              backgroundImage: `url(${options[selectedIndex].thumbnailURL})`,
-            }}
-          />
-          <h4 className="active-selection-title">
-            {options[selectedIndex].name}
-          </h4>
-          <aside className="chevron-box">
-            <Chevron />
-          </aside>
-        </div>
-        <TelescopNavigationDropDown
-          onSelect={onSelect}
-          selectedIndex={selectedIndex}
-          options={formatedOptions}
-          listOfTelescopes={options}
+      thumbnailURL: o.thumbnailURL,
+      observatoryUniqueID: o.observatoryUniqueID,
+      telescopeUniqueID: o.telescopeUniqueID,
+      instruments: o.instruments
+    }
+  });
+
+  return (options && options.length) ? (
+    <div className="small-screen-select">
+      <div className="active-selection-box">
+        <div
+          className="image-container"
+          style={{
+            backgroundImage: `url(${options[selectedIndex].thumbnailURL})`,
+          }}
         />
-        <style jsx>{style}</style>
+        <h4 className="active-selection-title">
+          <span>{options[selectedIndex].name} - </span>
+          <span>{currentInstrumentName}</span>
+        </h4>
+        <aside className="chevron-box">
+          <Chevron />
+        </aside>
       </div>
-    );
-  }
-}
+      <TelescopNavigationDropDown
+        options={formatedOptions}
+        selectedIndex={selectedIndex}
+        activeInstrumentID={activeInstrumentID}
+        updateCurrentInstrument={updateCurrentInstrument}
+      />
+      <style jsx>{style}</style>
+    </div>
+  ) : null;
+};
 
 SmallScreenFormat.propTypes = minProps;
 SmallScreenFormat.defaultProps = TelescopeNavigation.defaultProps;

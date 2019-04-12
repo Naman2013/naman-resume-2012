@@ -1,8 +1,10 @@
-import React, { Component } from 'react';
-import Request from 'components/common/network/Request';
+import React, { Fragment } from 'react';
+import Request from 'app/components/common/network/Request';
+import { ALERTS_INFORMATION } from 'app/services/notifications';
 import TimedNotifications from './partials/TimedNotifications';
-import { ALERTS_INFORMATION } from 'services/notifications';
-import NOTIFICATION_CONFIGURATION, { modelNotificationsFromApiRes } from './notificationsConfiguration';
+import NOTIFICATION_CONFIGURATION, {
+  modelNotificationsFromApiRes,
+} from './notificationsConfiguration';
 
 const Notifications = ({
   dismissNotification,
@@ -10,28 +12,30 @@ const Notifications = ({
   updateNotificationsCount,
 }) => (
   <Request
-    authorizationRedirect={true}
-    serviceURL={ALERTS_INFORMATION}
     method="POST"
+    authorizationRedirect
+    serviceURL={ALERTS_INFORMATION}
     serviceExpiresFieldName="expires"
     model={modelNotificationsFromApiRes}
-    serviceResponseHandler={(result) => {
-      updateNotificationsCount({ count: result.notificationsCount })
+    serviceResponseHandler={result => {
+      updateNotificationsCount({ count: result.notificationsCount });
     }}
     render={({
       fetchingContent,
       modeledResponses: { ALERTS_ONLY },
       serviceResponse,
     }) => (
-      <div>
-        {<TimedNotifications
-          alertsOnly={ALERTS_ONLY}
-          dismissNotification={dismissNotification}
-          notificationConfig={NOTIFICATION_CONFIGURATION}
-          notificationsCount={notificationsCount}
-          updateNotificationsCount={updateNotificationsCount}
-        />}
-      </div>
+      <Fragment>
+        {
+          <TimedNotifications
+            alertsOnly={ALERTS_ONLY}
+            dismissNotification={dismissNotification}
+            notificationConfig={NOTIFICATION_CONFIGURATION}
+            notificationsCount={notificationsCount}
+            updateNotificationsCount={updateNotificationsCount}
+          />
+        }
+      </Fragment>
     )}
   />
 );

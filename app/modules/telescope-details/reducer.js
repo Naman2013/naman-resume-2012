@@ -22,6 +22,7 @@ import {
   RESET_MISSION_COUNTER,
   UPDATE_RECENTLY_VIEWED_MISSION_ID,
   RESET_VIEWED_MISSION_STATE,
+  SET_CURRENT_INSTRUMENT,
 } from './actions';
 
 
@@ -36,6 +37,8 @@ const initialState = {
   currentTelescope: {
     teleInstrumentList: [],
   },
+
+  currentInstrument: null,
 
   fetchingObservatoryStatus: true,
   currentTelescopeOnlineStatus: { onlineStatus: 'offline' },
@@ -226,6 +229,12 @@ export default createReducer(initialState, {
     return {
       ...state,
       activeSSE: Object.assign({}, initialState.activeSSE),
+    };
+  },
+  [SET_CURRENT_INSTRUMENT](state, { currentInstrument }) {
+    return {
+      ...state,
+      currentInstrument,
     };
   },
 });
