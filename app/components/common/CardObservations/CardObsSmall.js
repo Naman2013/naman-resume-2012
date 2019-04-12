@@ -83,7 +83,6 @@ const CardObsSmall = props => {
         <div className="card-bottom">
           <div className="button">
             <LikeSomethingButton
-              user={user}
               mod="no-border"
               likePrompt={likePrompt}
               likesCount={likesNumber || likesCount}

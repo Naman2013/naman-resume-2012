@@ -91,7 +91,6 @@ const CardObsLarge = props => {
                 <div className="buttons">
                   <div className="button">
                     <LikeSomethingButton
-                      user={user}
                       mod="no-border"
                       likePrompt={likePrompt}
                       likesCount={likesNumber || likesCount}

@@ -5,7 +5,8 @@
  *
  ***********************************/
 
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Modal from 'react-modal';
 import { likeReply } from 'app/services/discussions/like';
@@ -57,6 +58,7 @@ class LikeHeartButton extends Component {
     openModal: null,
     alwaysShowCount: false,
     showLikePrompt: true,
+    mod: '',
   };
 
   state = {
@@ -143,9 +145,10 @@ class LikeHeartButton extends Component {
 
   render() {
     const { likePrompt, likesCount, isModalOpen } = this.state;
-    const { mod } = this.props;
+    const { mod, user } = this.props;
+    if (!user) return null;
     return (
-      <div>
+      <Fragment>
         <LikeButton
           mod={mod}
           onClickEvent={this.likeItem}
@@ -163,9 +166,11 @@ class LikeHeartButton extends Component {
           <p className="" dangerouslySetInnerHTML={{ __html: likePrompt }} />
         </Modal>
         <style jsx>{styles}</style>
-      </div>
+      </Fragment>
     );
   }
 }
 
-export default LikeHeartButton;
+const mapStateToProps = ({ user }) => ({ user });
+
+export default connect(mapStateToProps)(LikeHeartButton);
