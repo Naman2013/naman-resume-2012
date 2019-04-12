@@ -35,11 +35,7 @@ export const StatusTab = ({ clockList }) => {
                     time={obsOpenDisplayTime}
                     timeZone={obsOpenDisplayTimeZone}
                   />
-                  <TimeUtc
-                    small
-                    time={obsOpenDisplayOtherTimeZones}
-                    timeZone={obsOpenDisplayTimeZone}
-                  />
+                  <TimeUtc small time={obsOpenDisplayOtherTimeZones} />
                 </div>
                 <div>
                   <h4 className="h4-custom">{obsTimeInLabel}</h4>
@@ -47,11 +43,7 @@ export const StatusTab = ({ clockList }) => {
                     time={obsCurrentDisplayTime}
                     timeZone={obsOpenDisplayTimeZone}
                   />
-                  <TimeUtc
-                    small
-                    time={obsCurrentDisplayOtherTimeZones}
-                    timeZone={obsOpenDisplayTimeZone}
-                  />
+                  <TimeUtc small time={obsCurrentDisplayOtherTimeZones} />
                 </div>
               </div>
             </Box>

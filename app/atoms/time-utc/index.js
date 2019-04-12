@@ -4,7 +4,7 @@ import './styles.scss';
 
 type TTimeUtc = {
   time: string | Date,
-  timeZone: string | Date,
+  timeZone?: string | Date,
   small?: boolean,
 };
 
@@ -21,6 +21,7 @@ const TimeUtc = (props: TTimeUtc) => {
 
 TimeUtc.defaultProps = {
   small: false,
+  timeZone: '',
 };
 
 export default TimeUtc;
