@@ -17,7 +17,7 @@ export class MissionSuccessModal extends Component {
       show,
       reservedMissionData,
       missionSlot,
-      reservedMission,
+      reservedMission = {},
     } = this.props;
 
     const {
