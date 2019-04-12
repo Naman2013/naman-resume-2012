@@ -23,7 +23,6 @@ import {
   fetchObjectDetailsAction,
   fetchObjectQuestsAction,
 } from '../../modules/object-details/actions';
-import { fromPromise } from 'rxjs/observable/fromPromise';
 import messages from './ObjectDetails.messages';
 import styles from './ObjectDetailsQuests.style';
 
