@@ -8,7 +8,6 @@ import { ACTION } from '../reducer';
 import {
   makeBySlooh1000CategoryListSelectOptsSelector,
   makeBySlooh1000CategoryListSelector,
-  makeBySlooh1000DataSelector,
   makeBySlooh1000ObjectListExpiresSelector,
   makeBySlooh1000ObjectListSelectOptsSelector,
   makeBySlooh1000ObjectListSelector,
@@ -32,7 +31,6 @@ import {
 } from '../thunks';
 
 const mapStateToProps = createStructuredSelector({
-  bySlooh1000Data: makeBySlooh1000DataSelector(),
   categoryList: makeBySlooh1000CategoryListSelector(),
   categoryListOpts: makeBySlooh1000CategoryListSelectOptsSelector(),
   selectedCategorySlug: makeBySlooh1000SelectedCategorySlugSelector(),

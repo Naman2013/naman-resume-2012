@@ -65,6 +65,7 @@ export const initialState = {
     objectListExpires: null,
     selectedObjectId: null,
     availableMissionsCount: null,
+    missionType: null,
   },
 
   byConstellation: {
@@ -251,6 +252,7 @@ function resetMissionsData(state) {
       objectListExpires: null,
       selectedObjectId: null,
       availableMissionsCount: null,
+      missionType: null,
     },
     byConstellation: {
       ...state.byConstellation,
@@ -319,6 +321,7 @@ function getObjectListSuccess(state, action) {
       objectCount: action.payload.objectCount,
       objectListExpires: action.payload.expires,
       availableMissionsCount: action.payload.availableMissionsCount,
+      missionType: action.payload.missionType,
     },
   };
 }

@@ -76,7 +76,7 @@ export class ConstellationSetup extends Component {
 
             {noObjects && (
               <div className="explanation">
-                No objects werre found for {selectedConstellation}
+                No objects were found for {selectedConstellation}
               </div>
             )}
           </div>

@@ -1,0 +1,27 @@
+@import '~app/styles/bootstrap/index';
+@import '~app/styles/variables/index';
+
+.telescope-reservation-modal-header {
+  margin-bottom: 35px;
+}
+
+.telescope-reservation-modal-content {
+  color: $lightHeadedAstronaut;
+
+  .box {
+    padding: 0;
+  }
+
+  .reserved-mission-gag {
+    height: 200px;
+    padding: 50px 0;
+    text-align: center;
+    font-family: $primary-font;
+    font-size: 11px;
+    line-height: 11px;
+    letter-spacing: 0.6px;
+    color: $astronaut;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+}

@@ -53,12 +53,6 @@ export const makeBySlooh1000Selector = () =>
     state => state.bySlooh1000
   );
 
-export const makeBySlooh1000DataSelector = () =>
-  createSelector(
-    makeBySlooh1000Selector(),
-    state => state.bySlooh1000Data
-  );
-
 export const makeBySlooh1000CategoryListSelector = () =>
   createSelector(
     makeBySlooh1000Selector(),
@@ -136,6 +130,14 @@ export const makeBySlooh1000NoObjectsSelector = () =>
     }
   );
 
+export const makeBySlooh1000MissionTypeSelector = () =>
+  createSelector(
+    makeBySlooh1000Selector(),
+    state => {
+      return state.missionType;
+    }
+  );
+
 /**
  * Gets the objectList from reducer
  * Returns objectList options ready for Select
@@ -150,6 +152,48 @@ export const makeBySlooh1000ObjectListSelectOptsSelector = () =>
         'objectTitle',
         'objectIsEnabled'
       );
+    }
+  );
+
+export const makeBySlooh1000DataSelector = () =>
+  createSelector(
+    makeBySlooh1000CategoryListSelector(),
+    makeBySlooh1000CategoryListSelectOptsSelector(),
+    makeBySlooh1000SelectedCategorySlugSelector(),
+    makeBySlooh1000ObjectListSelector(),
+    makeBySlooh1000ObjectListSelectOptsSelector(),
+    makeBySlooh1000SelectedObjectIdSelector(),
+    makeBySlooh1000SelectedObjectDataSelector(),
+    makeBySlooh1000ObjectListExpiresSelector(),
+    makeBySlooh1000AvailableMissionsSelector(),
+    makeBySlooh1000NoObjectsSelector(),
+    makeBySlooh1000MissionTypeSelector(),
+    (
+      categoryList,
+      categoryListOpts,
+      selectedCategorySlug,
+      objectList,
+      objectListOpts,
+      selectedObjectId,
+      selectedObjectData,
+      objectListExpires,
+      availableMissions,
+      noObjects,
+      missionType,
+    ) => {
+      return {
+        categoryList,
+        categoryListOpts,
+        selectedCategorySlug,
+        objectList,
+        objectListOpts,
+        selectedObjectId,
+        selectedObjectData,
+        objectListExpires,
+        availableMissions,
+        noObjects,
+        missionType,
+      };
     }
   );
 

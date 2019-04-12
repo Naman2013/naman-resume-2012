@@ -17,8 +17,14 @@ export class ReservationModalSlotInfo extends PureComponent {
         </div>
 
         <div className="time">
-          {moment(missionStart).format('HH:mm')}
-          <span className="timezone">UTC</span>
+          <div className="large">
+            {missionStartTime.format('HH:mm')}
+            <span className="timezone">UTC</span>
+          </div>
+          <div className="other">
+            {missionStartTime.tz('America/New_York').format('LT')} EDT /{' '}
+            {missionStartTime.tz('America/Los_Angeles').format('LT')} PDT
+          </div>
         </div>
       </div>
     );

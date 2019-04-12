@@ -37,10 +37,8 @@ export class Telescope extends Component {
       telescopeList,
       setTelescope,
       selectedDate,
-      setTelescopeDate,
       getMissionSlotDates,
       missionList,
-      selectedSlot,
     } = this.props;
 
     const { reservationModalVisible } = this.state;
@@ -65,9 +63,6 @@ export class Telescope extends Component {
           <ReservationModal
             onHide={this.reservationModalHide}
             show={reservationModalVisible}
-            selectedSlot={selectedSlot}
-            selectedTelescope={selectedTelescope}
-            selectedDate={selectedDate}
           />
         </div>
       </div>

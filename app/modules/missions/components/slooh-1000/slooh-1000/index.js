@@ -100,6 +100,8 @@ export class Slooh1000 extends Component {
                   disabled={missionSlot && missionSlot.missionAvailable}
                   availableMissions={availableMissions}
                   noObjects={noObjects}
+                  description="Welcome to the Slooh 1000! Tell us what you want to see, we’ll tell
+                  you which scope to use, and the best time to see it!"
                 />
               </Box>
             </div>
