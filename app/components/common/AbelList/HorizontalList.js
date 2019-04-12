@@ -8,8 +8,10 @@ const HorizontalList = ({ list, theme, iconList }) => (
       {list.map((entry, i) => (
         <li key={`horizontal-list-${entry}`}>
           {' '}
-          {iconList[i] && <img className="bullet-image" src={iconList[i]} />}
-          {entry}
+          <span className="list-container">
+            {iconList[i] && <img className="bullet-image" src={iconList[i]} />}
+            <p>{entry} </p>
+          </span>
         </li>
       ))}
     </ul>
