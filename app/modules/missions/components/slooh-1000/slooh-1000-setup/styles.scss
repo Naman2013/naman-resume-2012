@@ -36,6 +36,17 @@ $parentPadding: 40px;
       }
     }
 
+    .step-2 {
+      .explanation {
+        margin-top: 20px;
+        font-family: $secondary-font;
+        font-size: 18px;
+        font-weight: 400;
+        line-height: 28px;
+        color: $lightHeadedAstronaut;
+      }
+    }
+
     .step-3,
     .messages {
       display: flex;

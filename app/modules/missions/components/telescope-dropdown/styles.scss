@@ -1,0 +1,84 @@
+@import '~app/styles/variables/index';
+
+.telescope-dropdown {
+  box-shadow: $faintShadow;
+  border-radius: 26px;
+  position: relative;
+
+  .active-selection-box {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    font-family: $primary-font;
+    position: absolute;
+    z-index: 10;
+    pointer-events: none;
+    background-color: $romance;
+    border-radius: 26px;
+    padding: 0 10px;
+
+    h4 {
+      margin: 0;
+      font-family: $primary-font;
+      font-size: 11px;
+      font-weight: 900;
+      line-height: 2;
+      letter-spacing: 1px;
+      color: $lightHeadedAstronaut;
+    }
+  }
+
+  .image-container {
+    background-repeat: no-repeat;
+    background-size: cover;
+    pointer-events: none;
+  }
+
+  .active-selection-title {
+    font-size: 11px;
+    font-weight: 800;
+    flex-grow: 2;
+    text-transform: uppercase;
+    padding: 0 10px;
+    pointer-events: none;
+  }
+
+  .image-container {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+  }
+
+  .chevron-box {
+    padding-right: 20px;
+    pointer-events: none;
+  }
+
+  .navigation-options {
+    position: absolute;
+    bottom: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+  }
+
+  .telescop-select-wrapper > div > div:first-of-type,
+  .telescop-select-wrapper > div > span {
+    opacity: 0;
+  }
+
+  .telescop-select-wrapper .slooh-select__menu {
+    margin-top: 15px;
+    background: transparent;
+    box-shadow: none;
+    z-index: 3001;
+  }
+
+  .telescop-select-wrapper .slooh-select__menu .slooh-select__menu-list {
+    border-radius: 50px;
+    box-shadow: $faintShadow;
+    max-height: initial;
+    background: $romance;
+  }
+}

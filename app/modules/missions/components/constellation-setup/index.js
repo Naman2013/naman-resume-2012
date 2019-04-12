@@ -16,6 +16,8 @@ export class ConstellationSetup extends Component {
       selectedConstellation,
       selectedObjectId,
       disabled,
+      availableMissions,
+      noObjects,
     } = this.props;
 
     return (
@@ -67,6 +69,16 @@ export class ConstellationSetup extends Component {
               isDisabled={objectListOpts.length === 0 || disabled}
               value={selectedObjectId}
             />
+
+            {availableMissions && (
+              <div className="explanation">No objects available</div>
+            )}
+
+            {noObjects && (
+              <div className="explanation">
+                No objects werre found for {selectedConstellation}
+              </div>
+            )}
           </div>
         </div>
 
