@@ -57,6 +57,7 @@ export class TelescopeOffline extends Component {
                 obsShortName={currentObservatory.obsShortName}
                 obsDescription={currentObservatory.obsDescription}
                 instrAbout={currentInstrument.instrAbout}
+                instrRelatedGuideUrl={currentInstrument.instrRelatedGuideUrl}
               />
             </Tab.Pane>
           </Tab.Content>

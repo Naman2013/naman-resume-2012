@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
+import { browserHistory } from 'react-router';
 import Btn from 'app/atoms/Btn';
 import Icon from 'app/atoms/Icon';
 import { Desktop, Tablet, Mobile } from 'app/components/common/Responsive';
@@ -12,6 +13,7 @@ export const AboutScope = props => {
     obsHeroURL,
     obsDescription,
     instrAbout,
+    instrRelatedGuideUrl,
   } = props;
   if (!teleName) return null;
 
@@ -28,14 +30,17 @@ export const AboutScope = props => {
   ];
 
   const preTitle = <h4 className="h-4 text-uppercase">Slooh telescope</h4>;
+
   const mainTitle = <h1 className="h-1">{teleName}</h1>;
+
+  const onViewGuideClick = () => browserHistory.push(instrRelatedGuideUrl);
 
   const description = desc.map(el => {
     return (
       <Fragment key={el.id}>
         <div className="inner-gap-20 pad-40">
           <h4 className="h-4 text-uppercase">{el.title}</h4>
-          <p className="i-text">{el.text}</p>
+          <p className="i-text top-bot-10">{el.text}</p>
         </div>
         <hr className="hr" />
       </Fragment>
@@ -48,7 +53,7 @@ export const AboutScope = props => {
         {pic}
         <div className="pad-40 no-bottom-pad">{mainTitle}</div>
         <div className="pad-40 btn-group">
-          <Btn>View guide</Btn>
+          <Btn onClick={() => onViewGuideClick()}>View guide</Btn>
           <Btn mod="circle">
             <Icon i="plus" />
           </Btn>
@@ -91,10 +96,7 @@ export const AboutScope = props => {
           {pic}
           {description}
           <div className="pad-40 btn-group">
-            <Btn>View our guide</Btn>
-            <Btn mod="circle">
-              <Icon i="ellipsis-h" />
-            </Btn>
+            <Btn onClick={() => onViewGuideClick()}>View our guide</Btn>
           </div>
         </Col>
 
