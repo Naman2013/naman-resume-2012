@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Slider from 'react-slick';
 import ThisWeekCard from './this-week-card';
-import { black, white, lightGray, sloohDarkGray } from '../../../styles/variables/colors';
+import { black, white, lightGray } from '../../../styles/variables/colors';
 import './this-week.scss';
 
 /********************************************************************
@@ -70,7 +70,6 @@ class ThisWeekPanel extends Component {
 
           .this-week-container h1 {
             font-weight: bold;
-            color: ${sloohDarkGray};
             text-transform: uppercase;
           }
         `}</style>
