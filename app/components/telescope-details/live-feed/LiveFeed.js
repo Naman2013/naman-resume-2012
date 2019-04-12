@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { noop } from 'lodash';
 import GenericLoadingBox from '../../common/loading-screens/generic-loading-box';
 import TelescopeOffline from '../telescope-offline/telescope-offline';
 import determineImageLoader from '../determine-image-loader';
 
-const LiveFeed = (props) => {
+const LiveFeed = props => {
   const {
     viewportHeight,
     fetchingOnlineStatus,
@@ -12,6 +13,7 @@ const LiveFeed = (props) => {
     onlineStatus,
     instrument,
     offlineImageSource,
+    onImageChange,
   } = props;
 
   if (fetchingOnlineStatus) {
@@ -19,23 +21,29 @@ const LiveFeed = (props) => {
       <div className="root">
         <GenericLoadingBox />
 
-        <style jsx>{`
-          .root {
-            padding-top: 80px;
-          }
-        `}
+        <style jsx>
+          {`
+            .root {
+              padding-top: 80px;
+            }
+          `}
         </style>
       </div>
     );
   }
 
   if (onlineStatus === 'offline') {
-    return <TelescopeOffline imageSource={offlineImageSource} offlineStatusMessage={obsAlert} />;
+    return (
+      <TelescopeOffline
+        imageSource={offlineImageSource}
+        offlineStatusMessage={obsAlert}
+      />
+    );
   }
 
   return (
     <div className="root">
-      {determineImageLoader(instrument, { viewportHeight })}
+      {determineImageLoader(instrument, { viewportHeight }, onImageChange)}
     </div>
   );
 };
@@ -50,6 +58,7 @@ LiveFeed.propTypes = {
     instrCameraSourceType: PropTypes.string.isRequired,
   }),
   offlineImageSource: PropTypes.string.isRequired,
+  onImageChange: PropTypes.func,
 };
 
 LiveFeed.defaultProps = {
@@ -57,7 +66,7 @@ LiveFeed.defaultProps = {
   onlineStatus: 'offline',
   instrument: null,
   obsAlert: '',
+  onImageChange: noop,
 };
-
 
 export default LiveFeed;

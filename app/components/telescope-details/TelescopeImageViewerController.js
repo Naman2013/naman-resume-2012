@@ -42,9 +42,7 @@ class TelescopeImageViewerController extends Component {
           previousInstrumentID={this.previousInstrumentID}
           render={this.props.render}
         />
-        <StarShareCamera
-          snapImage={snapImage}
-        />
+        <StarShareCamera snapImage={snapImage} />
       </div>
     );
   }
@@ -58,11 +56,18 @@ const mapStateToProps = ({ starshareCamera }) => ({
   justSnapped: starshareCamera.justSnapped,
 });
 
-const mapDispatchToProps = dispatch => (bindActionCreators({
-  snapImage,
-  resetImageToSnap,
-  resetsnapImageMsg,
-}, dispatch));
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      snapImage,
+      resetImageToSnap,
+      resetsnapImageMsg,
+    },
+    dispatch
+  );
 
-export { TelescopeImageViewerController }
-export default connect(mapStateToProps, mapDispatchToProps)(TelescopeImageViewerController);
+export { TelescopeImageViewerController };
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TelescopeImageViewerController);

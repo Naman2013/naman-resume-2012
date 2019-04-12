@@ -20,4 +20,14 @@
     writing-mode: vertical-rl;
     margin-left: 10px;
   }
+  &.small {
+    span{
+      font-size: 14.3px;
+    }
+    .utc-vertical {
+      position: relative;
+      bottom: -3px;
+      font-size: 10px;
+    }
+  }
 }

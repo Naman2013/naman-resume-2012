@@ -1,18 +1,19 @@
 import { Box } from 'app/modules/missions/components/box';
 import { Slooh1000Setup } from 'app/modules/missions/components/slooh-1000-setup';
 import React, { Component } from 'react';
-import moment from 'moment';
 import { AvailbleMissionTile } from '../available-mission-tile';
+import { ExpireCountdown } from '../expire-countdown';
+import { ExplanationModal } from '../explanation-modal';
 import { MissionSuccessModal } from '../mission-success-modal';
 import './styles.scss';
 
-export class Slooh1000 extends Component {
+export class ReservationSlooh1000 extends Component {
   state = {
     successModalShow: false,
   };
 
   componentDidMount() {
-    const { getCategoryList, getBySlooh1000, resetMissionsData } = this.props;
+    const { getCategoryList, resetMissionsData } = this.props;
     resetMissionsData();
     getCategoryList();
   }
@@ -25,7 +26,7 @@ export class Slooh1000 extends Component {
     const { getMissionSlot, selectedObjectData } = this.props;
 
     getMissionSlot({
-      callSource: 'bySlooh1000V4',
+      callSource: 'byTelescope',
       domeId: selectedObjectData.domeId,
       missionStart: selectedObjectData.missionStart,
       objectId: selectedObjectData.objectId,
@@ -41,7 +42,7 @@ export class Slooh1000 extends Component {
     const { reserveMissionSlot, missionSlot } = this.props;
 
     reserveMissionSlot({
-      callSource: 'bySlooh1000V4',
+      callSource: 'byTelescope',
       catName: missionSlot.catName,
       catalog: missionSlot.catalog,
       designation: missionSlot.designation,
@@ -66,10 +67,6 @@ export class Slooh1000 extends Component {
     }).then(() => this.setState({ successModalShow: true }));
   };
 
-  getMissionDate = timestamp => moment.unix(timestamp).format('ddd. MMM. DD');
-
-  getMissionTime = timestamp => moment.unix(timestamp).format('HH:mm');
-
   modalClose = () => {
     const { resetMissionsData } = this.props;
     this.setState({ successModalShow: false }, () => resetMissionsData());
@@ -80,7 +77,7 @@ export class Slooh1000 extends Component {
 
     if (missionSlot && missionSlot.scheduledMissionId) {
       cancelMissionSlot({
-        callSource: 'bySlooh1000V4',
+        callSource: 'byTelescope',
         grabType: 'notarget',
         scheduledMissionId: missionSlot.scheduledMissionId,
       });
@@ -91,8 +88,14 @@ export class Slooh1000 extends Component {
     const { setCategory, getObjectList, categoryList } = this.props;
     const { typeName, nameFrom, nameTo } = categoryList[value];
     setCategory(value);
-    getObjectList({ typeName, nameFrom, nameTo, includeDescription: true, callSource: 'bySlooh1000V4', });
-  }
+    getObjectList({
+      typeName,
+      nameFrom,
+      nameTo,
+      includeDescription: true,
+      callSource: 'byTelescope',
+    });
+  };
 
   render() {
     const {
@@ -105,16 +108,15 @@ export class Slooh1000 extends Component {
       selectedCategorySlug,
       selectedObjectId,
       reservedMissionData,
+      reservedMission,
+      resetMissionsData,
+      objectListExpires,
     } = this.props;
 
     const { successModalShow } = this.state;
-    
+
     return (
       <div className="slooh-1000">
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-8">
-              <Box>
                 <Slooh1000Setup
                   categoryList={categoryList}
                   categoryListOpts={categoryListOpts}
@@ -135,13 +137,9 @@ export class Slooh1000 extends Component {
               <Box inside>
                 {missionSlot && missionSlot.missionAvailable ? (
                   <AvailbleMissionTile
-                    title={missionSlot.title}
-                    telescope={missionSlot.telescopeName}
-                    description={missionSlot.explanation}
-                    date={this.getMissionDate(missionSlot.missionStart)}
-                    time={this.getMissionTime(missionSlot.missionStart)}
-                    cancel={this.cancelMissionSlot}
-                    scheduleMission={this.reserveMissionSlot}
+                    missionSlot={missionSlot}
+                    onCancel={this.cancelMissionSlot}
+                    onSubmit={this.reserveMissionSlot}
                   />
                 ) : (
                   <div className="reserved-mission-gag">
@@ -153,10 +151,25 @@ export class Slooh1000 extends Component {
           </div>
         </div>
 
+        {missionSlot && !missionSlot.missionAvailable && (
+          <ExplanationModal
+            show
+            onHide={resetMissionsData}
+            text={missionSlot.explanation}
+          />
+        )}
+
         <MissionSuccessModal
           show={successModalShow}
           onHide={this.modalClose}
           reservedMissionData={reservedMissionData}
+          reservedMission={reservedMission}
+          missionSlot={missionSlot}
+        />
+
+        <ExpireCountdown
+          expireTimestamp={objectListExpires}
+          onComplete={resetMissionsData}
         />
       </div>
     );

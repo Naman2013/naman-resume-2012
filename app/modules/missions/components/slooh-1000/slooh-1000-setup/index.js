@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
-import { Select } from '../../../../components/common/select';
-import Button from '../../../../components/common/style/buttons/Button';
+import { Select } from 'app/components/common/select';
+import Button from 'app/components/common/style/buttons/Button';
 import './styles.scss';
 
 export class Slooh1000Setup extends Component {
@@ -86,6 +86,10 @@ export class Slooh1000Setup extends Component {
               isDisabled={objectListOpts.length === 0 || disabled}
               value={selectedObjectId}
             />
+
+            {objectListOpts.length === 0 && selectedCategorySlug && (
+              <div className="explanation">no objects available</div>
+            )}
           </div>
         </div>
 

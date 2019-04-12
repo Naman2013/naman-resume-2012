@@ -13,6 +13,7 @@ import first from 'lodash/first';
 import moment from 'moment';
 import React, { Component } from 'react';
 
+
 export class TelescopeDetails extends Component {
   // dedicated timer for refreshing telescope status
   workingRefreshTimestamp = 0;
@@ -187,7 +188,12 @@ export class TelescopeDetails extends Component {
         {/* Telescope: Offline State */}
         {activeTelescopeStatus &&
           activeTelescopeStatus.onlineStatus === 'offline' && (
-            <TelescopeOffline currentTelescope={currentTelescope} />
+            <TelescopeOffline
+              currentTelescope={currentTelescope}
+              currentObservatory={currentObservatory}
+              currentInstrument={currentInstrument}
+              allObservatoryTelescopeStatus={allObservatoryTelescopeStatus}
+            />
           )}
         {/* Telescope: Online State */}
         {activeTelescopeStatus &&

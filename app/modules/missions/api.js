@@ -7,6 +7,8 @@ export const reserveMissionSlotApi = data =>
   axios.post('/api/reservation/reserveMissionSlot', data);
 export const cancelMissionSlotApi = data =>
   axios.post('/api/reservation/cancelMissionSlot', data);
+export const getMissionListApi = data =>
+  axios.post('/api/reservation/getMissionList', data);
 
 // bySlooh1000 page
 export const getBySlooh1000Api = data =>
@@ -34,3 +36,10 @@ export const getPresetOptionsApi = data =>
 
 // byTelescope page
 export const getObservatoryListApi = data => axios.post('/api/obs/list', data);
+export const getMissionSlotDatesApi = data =>
+  axios.post('/api/reservation/getMissionSlotDates', data);
+export const getMissionSlotsByTelescopeApi = data =>
+  axios.post('/api/reservation/getMissionSlotsByTelescope', data);
+export const getTelescopeSlotApi = data =>
+  axios.post('/api/reservation/grabTelescopeSlot', data);
+  

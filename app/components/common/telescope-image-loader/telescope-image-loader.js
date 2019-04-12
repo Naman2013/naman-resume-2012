@@ -2,27 +2,39 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { astronaut } from '../../../styles/variables/colors_tiles_v4'
+import { noop } from 'lodash';
 import TelescopeThumbnailView from '../../TelescopeThumbnailView';
-import { updateTelescopeActiveMission, setActiveTelescopeMissionID } from '../../../modules/active-telescope-missions/active-telescope-missions-actions';
+import {
+  updateTelescopeActiveMission,
+  setActiveTelescopeMissionID,
+} from '../../../modules/active-telescope-missions/active-telescope-missions-actions';
 import { setImageDataToSnapshot } from '../../../modules/starshare-camera/starshare-camera-actions';
-import { updateActiveSSE, resetActiveSSE } from '../../../modules/telescope-details/actions';
+import {
+  updateActiveSSE,
+  resetActiveSSE,
+} from '../../../modules/telescope-details/actions';
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({
-    updateTelescopeActiveMission,
-    setImageDataToSnapshot,
-    setActiveTelescopeMissionID,
-    updateActiveSSE,
-    resetActiveSSE,
-  }, dispatch),
+  actions: bindActionCreators(
+    {
+      updateTelescopeActiveMission,
+      setImageDataToSnapshot,
+      setActiveTelescopeMissionID,
+      updateActiveSSE,
+      resetActiveSSE,
+    },
+    dispatch
+  ),
 });
 
 const mapStateToProps = ({ activeTelescopeMissions }) => ({
   activeTelescopeMissionID: activeTelescopeMissions.activeTelescopeMissionID,
 });
 
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(
+  mapStateToProps,
+  mapDispatchToProps
+)
 class TelescopeImageLoader extends Component {
   static propTypes = {
     imageSource: PropTypes.string.isRequired,
@@ -36,17 +48,20 @@ class TelescopeImageLoader extends Component {
     actions: PropTypes.shape({
       resetActiveSSE: PropTypes.func.isRequired,
     }).isRequired,
+    onImageChange: PropTypes.func,
   };
 
   static defaultProps = {
     loadThumbnails: false,
     missionFormat: null,
     viewportHeight: 0,
+    onImageChange: noop,
   };
 
   constructor(props) {
     super(props);
     this.previouslyRenderedImageSource = this.props.imageSource;
+    this.imageRef = React.createRef();
   }
 
   state = {
@@ -78,7 +93,7 @@ class TelescopeImageLoader extends Component {
       return;
     }
 
-    const { loadThumbnails } = this.props;
+    const { loadThumbnails, missionTitle } = this.props;
 
     const {
       currentImageUrl,
@@ -91,14 +106,18 @@ class TelescopeImageLoader extends Component {
       adjustedFade,
     } = this.state;
 
-    if (!currentImageUrl || !previousImageUrl) { return; }
+    if (!currentImageUrl || !previousImageUrl) {
+      return;
+    }
 
     // TODO: continue to refactor this piece of work out of the loader and into
     // specialized image viewer like the thumbnail image viewer
     // for now, returning early when using thumbnails to prevent this work from happening
     // since this has been represented for the thumbnail image viewer already
     // we start this work when we are certain we have images to work on
-    if (loadThumbnails) { return; }
+    if (loadThumbnails) {
+      return;
+    }
 
     const topImage = window.document.getElementById(this.generateImageId());
 
@@ -110,6 +129,11 @@ class TelescopeImageLoader extends Component {
       topImage.style.transition = `opacity ${adjustedFade}s`;
       topImage.style.opacity = '1';
     }
+    this.props.onImageChange({
+      imageWidth: this.imageRef.current.offsetWidth,
+      imageHeight: this.imageRef.current.offsetHeight,
+      missionTitle,
+    });
   }
 
   componentWillUnmount() {
@@ -120,7 +144,7 @@ class TelescopeImageLoader extends Component {
   unmountHandler = () => {
     this.props.actions.resetActiveSSE();
     this.detachSSE();
-  }
+  };
 
   handleSourceImage(imageData) {
     const {
@@ -222,11 +246,11 @@ class TelescopeImageLoader extends Component {
 
       this.setState({
         currentImageUrl: currentImgURL,
-        currW: currW,
-        currH: currH,
+        currW,
+        currH,
         previousImageUrl: previousImgURL,
-        prevW: prevW,
-        prevH: prevH,
+        prevW,
+        prevH,
         schedMissionId: scheduledMissionID,
         msnStartTime,
         lastImgTime: lastImageTime,
@@ -247,11 +271,17 @@ class TelescopeImageLoader extends Component {
     this.sseSource = new EventSource(imageSource);
     this.sseSource.addEventListener(
       'message',
-      event => this.handleSourceImage(event.data), false);
+      event => this.handleSourceImage(event.data),
+      false
+    );
   }
 
   detachSSE() {
-    this.sseSource.removeEventListener('message', this.handleSourceImage, false);
+    this.sseSource.removeEventListener(
+      'message',
+      this.handleSourceImage,
+      false
+    );
     this.sseSource.close();
   }
 
@@ -284,16 +314,16 @@ class TelescopeImageLoader extends Component {
     //   return null;
     // }
 
-    console.log("Current Image Width: " + currW);
-    console.log("Current Image Height: " + currH);
-    console.log("Previous Image Width: " + prevW);
-    console.log("Previous Image Height: " + prevH);
+    //console.log(`Current Image Width: ${currW}`);
+    //console.log(`Current Image Height: ${currH}`);
+    //console.log(`Previous Image Width: ${prevW}`);
+    //console.log(`Previous Image Height: ${prevH}`);
 
-    const isPreviousImageSquare = (prevW == prevH);
-    const isCurrentImageSquare = (currW == currH);
+    const isPreviousImageSquare = prevW == prevH;
+    const isCurrentImageSquare = currW == currH;
 
-    console.log("Is the Previous Image Square?: " + isPreviousImageSquare);
-    console.log("Is the Current Image Square?: " + isCurrentImageSquare);
+    //console.log(`Is the Previous Image Square?: ${isPreviousImageSquare}`);
+    //console.log(`Is the Current Image Square?: ${isCurrentImageSquare}`);
 
     if (loadThumbnails) {
       return (
@@ -309,12 +339,7 @@ class TelescopeImageLoader extends Component {
     return (
       <div className="sse-thumbnails">
         <div className="bottom-image">
-          <img
-            alt=""
-            width="100%"
-            src={previousImageUrl}
-            draggable="false"
-          />
+          <img alt="" width="100%" src={previousImageUrl} draggable="false" />
 
           <div className="top-image">
             <img
@@ -323,6 +348,7 @@ class TelescopeImageLoader extends Component {
               // height={viewportHeight}
               id={this.generateImageId()}
               draggable="false"
+              ref={this.imageRef}
             />
           </div>
         </div>
@@ -363,6 +389,5 @@ class TelescopeImageLoader extends Component {
     );
   }
 }
-
 
 export default TelescopeImageLoader;
