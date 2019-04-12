@@ -10,6 +10,7 @@ export class TelescopeOffline extends Component {
       currentTelescope,
       currentObservatory,
       currentInstrument,
+      allObservatoryTelescopeStatus,
     } = this.props;
     return (
       <div className="telescope-offline animated fadeIn faster">
@@ -48,7 +49,7 @@ export class TelescopeOffline extends Component {
           {/* TABS CONTENT */}
           <Tab.Content>
             <Tab.Pane eventKey="STATUS">
-              <StatusTab />
+              <StatusTab clockList={allObservatoryTelescopeStatus.clockList} />
             </Tab.Pane>
             <Tab.Pane eventKey="ABOUT_THIS_SCOPE">
               <AboutScope
