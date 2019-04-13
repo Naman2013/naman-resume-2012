@@ -19,7 +19,7 @@ import {
   setConstellation,
   getCatalogList,
   setCatalog,
-  checkCatalogVisibility,
+  checkTargetVisibility,
 } from '../thunks';
 import {
   makeTelescopeSelectedTelescopeSelector,
@@ -72,7 +72,7 @@ const mapDispatchToProps = {
   getCatalogList,
   setCatalog: ACTION.setCatalog,
   setDesignation: ACTION.setDesignation,
-  checkCatalogVisibility,
+  checkTargetVisibility,
   setProcessingRecipe: ACTION.setProcessingRecipe,
 };
 

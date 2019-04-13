@@ -27,6 +27,7 @@ export const TYPE = constants('profile', [
   'SET_CATALOG',
   'SET_DESIGNATION',
   '~CHECK_CATALOG_VISIBILITY',
+  '~CHECK_TARGET_VISIBILITY',
   '~GET_PRESET_OPTIONS',
 
   // byTelescope page
@@ -148,6 +149,9 @@ export default handleActions(
     [TYPE.CHECK_CATALOG_VISIBILITY]: checkCatalogVisibility,
     [TYPE.CHECK_CATALOG_VISIBILITY_SUCCESS]: checkCatalogVisibilitySuccess,
     [TYPE.CHECK_CATALOG_VISIBILITY_ERROR]: setServerError,
+    [TYPE.CHECK_TARGET_VISIBILITY]: checkCatalogVisibility,
+    [TYPE.CHECK_TARGET_VISIBILITY_SUCCESS]: checkCatalogVisibilitySuccess,
+    [TYPE.CHECK_TARGET_VISIBILITY_ERROR]: setServerError,
     [TYPE.GET_PRESET_OPTIONS]: setTelescopeFetching,
     [TYPE.GET_PRESET_OPTIONS_SUCCESS]: getPresetOptionsSuccess,
     [TYPE.GET_PRESET_OPTIONS_ERROR]: setServerError,

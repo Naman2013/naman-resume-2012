@@ -16,6 +16,7 @@ import {
   getMissionSlotDatesApi,
   getMissionSlotsByTelescopeApi,
   getTelescopeSlotApi,
+  checkTargetVisibilityApi,
 } from 'app/modules/missions/api';
 import { ACTION } from './reducer';
 import {
@@ -265,4 +266,17 @@ export const checkCatalogVisibility = data => (dispatch, getState) => {
       }
     })
     .catch(error => dispatch(ACTION.checkCatalogVisibilityError(error)));
+};
+
+export const checkTargetVisibility = (data, telescopeId) => (dispatch, getState) => {
+  const { at, token, cid } = getState().user;
+  dispatch(ACTION.checkTargetVisibility());
+  return checkTargetVisibilityApi({ at, token, cid, ...data })
+    .then(result => {
+      dispatch(ACTION.checkTargetVisibilitySuccess(result.data));
+      if (result.data.objectIsVisible) {
+        dispatch(getPresetOptions(telescopeId));
+      }
+    })
+    .catch(error => dispatch(ACTION.checkTargetVisibilityError(error)));
 };

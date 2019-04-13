@@ -16,6 +16,31 @@ export function withCatalog(WrappedComponent) {
       checkCatalogVisibility({ catName, catalog, designation });
     };
 
+    checkTargetVisibility = designation => {
+      const {
+        checkTargetVisibility,
+        selectedCatalogData,
+        selectedSlot,
+        selectedTelescope,
+      } = this.props;
+      const { catName, catalog } = selectedCatalogData;
+      const { domeId, obsId, telescopeId } = selectedTelescope;
+      const { missionStart } = selectedSlot;
+
+      checkTargetVisibility(
+        {
+          catName,
+          catalog,
+          designation,
+          domeId,
+          missionStart,
+          obsId,
+          missionType: 'catalog',
+        },
+        telescopeId
+      );
+    };
+
     getMissionSlot = (data, callback) => {
       const {
         getMissionSlot,
@@ -23,20 +48,15 @@ export function withCatalog(WrappedComponent) {
         designation,
         objectData,
         processingRecipe,
+        selectedSlot,
+        selectedTelescope,
       } = this.props;
       const { catName, catalog } = selectedCatalogData;
-      const {
-        domeId,
-        missionStart,
-        objectDec,
-        objectRA,
-        obsId,
-        scheduledMissionId,
-        telescopeId,
-      } = objectData;
+      const { objectDec, objectRA } = objectData;
+      const { domeId, obsId, telescopeId } = selectedTelescope;
+      const { missionStart, scheduledMissionId } = selectedSlot;
 
       getMissionSlot({
-        ...data,
         catName,
         catalog,
         designation,
@@ -48,6 +68,7 @@ export function withCatalog(WrappedComponent) {
         processingRecipe: processingRecipe.presetOption,
         scheduledMissionId,
         telescopeId,
+        ...data,
       }).then(callback);
     };
 
@@ -98,6 +119,7 @@ export function withCatalog(WrappedComponent) {
           {...this.props}
           getCatalogList={this.getCatalogList}
           checkCatalogVisibility={this.checkCatalogVisibility}
+          checkTargetVisibility={this.checkTargetVisibility}
           cancelMissionSlot={this.cancelMissionSlot}
           reserveMissionSlot={this.reserveMissionSlot}
           getMissionSlot={this.getMissionSlot}

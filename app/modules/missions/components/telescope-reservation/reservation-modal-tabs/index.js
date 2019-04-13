@@ -32,7 +32,7 @@ export class ReservationModalTabs extends PureComponent {
       getCatalogList,
       setCatalog,
       setDesignation,
-      checkCatalogVisibility,
+      checkTargetVisibility,
       setProcessingRecipe,
     } = this.props;
     return (
@@ -84,7 +84,7 @@ export class ReservationModalTabs extends PureComponent {
               getCatalogList={getCatalogList}
               setCatalog={setCatalog}
               setDesignation={setDesignation}
-              checkCatalogVisibility={checkCatalogVisibility}
+              checkTargetVisibility={checkTargetVisibility}
               setProcessingRecipe={setProcessingRecipe}
               missionSlot={missionSlot}
               resetMissionsData={resetMissionsData}

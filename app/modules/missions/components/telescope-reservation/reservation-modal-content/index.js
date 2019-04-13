@@ -45,8 +45,16 @@ export class ReservationModalContent extends Component {
   };
 
   modalClose = () => {
-    const { resetMissionsData } = this.props;
-    this.setState({ successModalShow: false }, () => resetMissionsData());
+    const { resetMissionsData, onHide } = this.props;
+    this.setState(
+      {
+        successModalShow: false,
+      },
+      () => {
+        resetMissionsData();
+        onHide();
+      }
+    );
   };
 
   cancelMissionSlot = () => {

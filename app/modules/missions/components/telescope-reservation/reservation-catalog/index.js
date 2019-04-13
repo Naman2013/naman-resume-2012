@@ -18,7 +18,6 @@ class Catalog extends Component {
   getMissionSlot = () => {
     const { getMissionSlot, selectedSlot } = this.props;
     const { uniqueId } = selectedSlot;
-
     getMissionSlot(
       {
         callSource: 'byTelescopeV4',
@@ -45,7 +44,7 @@ class Catalog extends Component {
       setProcessingRecipe,
       processingRecipe,
       reservedMission,
-      checkCatalogVisibility,
+      checkTargetVisibility,
       getTelescopeSlot,
       extendedTimer,
     } = this.props;
@@ -58,7 +57,7 @@ class Catalog extends Component {
           getMissionSlot={this.getMissionSlot}
           selectedCatalog={selectedCatalog}
           selectedCatalogData={selectedCatalogData}
-          checkCatalogVisibility={checkCatalogVisibility}
+          checkCatalogVisibility={checkTargetVisibility}
           objectData={objectData}
           designation={designation}
           setDesignation={setDesignation}
