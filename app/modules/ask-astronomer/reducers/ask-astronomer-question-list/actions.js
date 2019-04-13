@@ -19,6 +19,7 @@ const fetchAstronomerQuestionListFail = payload => ({
   payload,
 });
 
+// called on Profile
 export const fetchAstronomerQuestionList = ({
   answerState,
   appendToList = false,

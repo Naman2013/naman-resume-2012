@@ -368,7 +368,7 @@ const AppRouter = () => (
       />
 
       <Route
-        path="object-details/:objectId/question"
+        path="object-details/:objectId/question/:threadId"
         component={QuestionMain}
         onEnter={validateUser}
       />

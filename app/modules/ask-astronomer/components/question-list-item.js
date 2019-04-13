@@ -66,7 +66,7 @@ const QuestionListItem = (props) => {
       toggleComments={() => {
         console.log('toggle');
         console.log(props);
-        browserHistory.push(`/object-details/${props.params.objectId}/question`)
+        browserHistory.push(`/object-details/${props.params.objectId}/question/${item.threadId}`)
       } }
       likeHandler={likeThread}
       isDesktop={isDesktop}

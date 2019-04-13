@@ -29,6 +29,7 @@ const fetchAstronomerQuestionsFail = payload => ({
   payload,
 });
 
+// on AAA page
 export const fetchAstronomerQuestions = ({
   answerState = null,
   appendToList = false,
