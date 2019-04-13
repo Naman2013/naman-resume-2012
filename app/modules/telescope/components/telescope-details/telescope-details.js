@@ -188,7 +188,12 @@ export class TelescopeDetails extends Component {
         {/* Telescope: Offline State */}
         {activeTelescopeStatus &&
           activeTelescopeStatus.onlineStatus === 'offline' && (
-            <TelescopeOffline currentTelescope={currentTelescope} />
+            <TelescopeOffline
+              currentTelescope={currentTelescope}
+              currentObservatory={currentObservatory}
+              currentInstrument={currentInstrument}
+              allObservatoryTelescopeStatus={allObservatoryTelescopeStatus}
+            />
           )}
         {/* Telescope: Online State */}
         {activeTelescopeStatus &&

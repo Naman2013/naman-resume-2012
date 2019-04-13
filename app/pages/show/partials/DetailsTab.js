@@ -5,27 +5,21 @@
  *
  ********************************** */
 
-import React, { Component } from 'react';
+import RelatedObject from 'app/components/RelatedObject/BootstrappedRelatedObject';
 import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { injectIntl, intlShape } from 'react-intl';
-import LikeSomethingButton from 'components/common/LikeSomethingButton';
-import Request from 'components/common/network/Request';
-import { romance } from 'styles/variables/colors_tiles_v4';
-import BlueLineDrop from 'components/common/BlueLineDrop';
-import RelatedShows from '../../../components/RelatedShows';
-import RelatedStories from '../../../components/RelatedStories';
-import RelatedGuides from '../../../components/RelatedGuides';
-import RelatedObject from 'components/RelatedObject/BootstrappedRelatedObject';
-
-import styles from './MainContent.style';
-import messages from '../Show.messages';
 
 import {
-  RELATED_SHOWS,
-  RELATED_STORIES,
   RELATED_GUIDES,
-} from 'services/events';
-import { CONTENT_RELATED_STORIES } from 'services/content';
+  RELATED_SHOWS,
+} from 'app/services/events';
+import RelatedGuides from '../../../components/RelatedGuides';
+import RelatedShows from '../../../components/RelatedShows';
+import RelatedStories from '../../../components/RelatedStories';
+import messages from '../Show.messages';
+
+import styles from './MainContent.style';
 
 const {
   any,
@@ -71,7 +65,7 @@ class DetailsTab extends Component {
       user,
       intl,
     } = this.props;
-    
+
     return (
       <div>
         {hasRelatedObject && <RelatedObject {...relatedObject} user={user} />}
@@ -88,7 +82,7 @@ class DetailsTab extends Component {
         />
 
         <RelatedStories
-          serviceURL={RELATED_STORIES}
+          // serviceURL={RELATED_STORIES}
           user={user}
           showId={showId}
           slugLookupId={slugLookupId}

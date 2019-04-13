@@ -3,7 +3,7 @@ import { primaryFont } from '../../../styles/variables/fonts';
 import { nightfall, romance } from '../../../styles/variables/colors_tiles_v4';
 import { screenLarge, screenMedium } from '../../../styles/variables/breakpoints';
 
-export default css`
+export default css.global`
 
   .subnav {
     box-sizing: border-box; 

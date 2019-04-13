@@ -35,7 +35,7 @@ class ModalGeneric extends Component {
             {closeButtonText}
           </Button>
         </Modal.Footer>
-        <style>{`
+        <style jsx>{`
           div.modal-content {
             background-color: ${bg};
           }

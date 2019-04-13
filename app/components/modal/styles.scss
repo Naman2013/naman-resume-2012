@@ -1,0 +1,60 @@
+@import "~app/styles/variables/index";
+
+// todo GLOBAL STYLES
+.modal-open .modal {
+  background-color: rgba(#0a0c0e, 0.96);
+}
+
+
+.custom-modal {
+  //font-family: BrandonGrotesque;
+  font-family: $primary-font;
+  padding: 100px 30px 30px;
+
+  .modal-back-btn {
+    font-size: 10px;
+    font-weight: 900;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 2.2;
+    letter-spacing: 2px;
+    color: $romance;
+    cursor: pointer;
+    position: absolute;
+    top: 30px;
+    left: 30px;
+  }
+
+  // modal header
+  .modal-h {
+    //font-family: AGaramondPro;
+    font-family: $secondary-font;
+    font-size: 30px;
+    line-height: 2.07;
+    color: $romance;
+  }
+
+  .modal-h2 {
+    //font-family: AGaramondPro;
+    font-family: $secondary-font;
+    font-size: 24px;
+    line-height: 2.58;
+    color: $romance;
+  }
+
+  .modal-h3 {
+    //font-family: AGaramondPro;
+    font-family: $secondary-font;
+    font-size: 20px;
+    line-height: 3.1;
+    color: $romance;
+  }
+
+  .modal-p {
+    //font-family: AGaramondPro;
+    font-family: $secondary-font;
+    font-size: 19px;
+    line-height: 1.53;
+    color: $romance;
+  }
+}

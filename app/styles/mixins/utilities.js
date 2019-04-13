@@ -1,5 +1,5 @@
-import { primaryFont } from 'styles/variables/fonts';
-import { shadows, romance, darkGrey } from 'styles/variables/colors_tiles_v4';
+import { primaryFont } from 'app/styles/variables/fonts';
+import { shadows, romance } from 'app/styles/variables/colors_tiles_v4';
 
 export const defaultModalContent = {
   top: '50%',
@@ -75,7 +75,7 @@ export const customModalStylesFitContent = {
     height: 'fit-content',
     width: 'fit-content',
     padding: '3px',
-    backgroundColor: darkGrey,
+    // backgroundColor: darkGrey,
   },
   overlay: {
     backgroundColor: 'rgba(0, 0, 0, .7)',
