@@ -6,7 +6,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl, intlShape } from 'react-intl';
 
-import QaContainer from '../../../../containers/ask-astronomer/QaContainer';
+import QaContainer from '../../../../modules/ask-astronomer/containers/QaContainer';
 import { ContainerWithTitle } from '../../../common/ContainerWithTitle';
 import CenterColumn from '../../../common/CenterColumn/CenterColumn';
 import MyQa from './my-qa';

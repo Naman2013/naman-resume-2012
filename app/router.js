@@ -8,7 +8,7 @@ import {
 import ProfileQaContainer from 'app/components/profiles/private-profile/my-qa/ProfileQaContainer';
 import { About, AboutSloohSection } from 'app/containers/about';
 import App from 'app/containers/App';
-import AskAstronomer from 'app/containers/ask-astronomer/AskAstronomer';
+import AskAstronomer from 'app/modules/ask-astronomer/containers/AskAstronomer';
 import CreateStory from 'app/containers/create-story';
 import GroupsHub from 'app/containers/groups-hub';
 import GuidesHub from 'app/containers/guides-hub';
