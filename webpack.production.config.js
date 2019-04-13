@@ -12,6 +12,10 @@ const apiUrl = process.env.apiUrl || '';
 const apiPortNumber = process.env.apiPortNumber || '';
 const cookieDomain = process.env.cookieDomain || '.slooh.com';
 
+// console.log(apiUrl, apiPortNumber, cookieDomain);
+
+// console.log(JSON.stringify(process.env.cookieDomain));
+
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const sourcePath = path.join(__dirname, './app');
@@ -68,27 +72,21 @@ module.exports = {
   module: {
     rules: [
       {
-        // string-replace loader is here to replace URL's mapped to /api in code
         test: /\.(js)$/,
         loader: 'string-replace-loader',
         exclude: /node_modules/,
-        query: {
-          search: '/api/',
-          replace: apiUrl ? `${apiUrl}:${apiPortNumber}/api/` : '/api/',
-          flags: 'g',
+        options: {
+          multiple: [
+            // string-replace loader is here to replace URL's mapped to /api in code
+            {
+              search: '/api/',
+              replace: apiUrl ? `${apiUrl}:${apiPortNumber}/api/` : '/api/',
+              flags: 'g',
+            },
+          ],
         },
       },
-      {
-        // string-replace replace localhost with slooh.com
-        test: /\.(js)$/,
-        loader: 'string-replace-loader',
-        exclude: /node_modules/,
-        query: {
-          search: "domain: 'localhost', secure: false",
-          replace: `domain: \'${cookieDomain}\', secure: true`,
-          flags: 'g',
-        },
-      },
+
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
@@ -137,6 +135,7 @@ module.exports = {
 
     // new WebpackMd5Hash(),
     new webpack.DefinePlugin({
+      cookieDomain: JSON.stringify(process.env.cookieDomain),
       'process.env': {
         NODE_ENV: JSON.stringify('production'),
       },
