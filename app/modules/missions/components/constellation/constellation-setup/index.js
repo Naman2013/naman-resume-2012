@@ -23,6 +23,9 @@ export class ConstellationSetup extends Component {
       byTelescope,
       getTelescopeSlot,
       extendedTimer,
+      onCountdownTick,
+      countdown,
+      onCountdownComplete,
     } = this.props;
 
     return (
@@ -34,6 +37,9 @@ export class ConstellationSetup extends Component {
             <ReservationModalCountdown
               extendedTimer={extendedTimer}
               buttonOnClick={getTelescopeSlot}
+              onCountdownTick={onCountdownTick}
+              onCountdownComplete={onCountdownComplete}
+              countdown={countdown}
             />
           )}
         </div>

@@ -26,6 +26,9 @@ export class CatalogSetup extends Component {
       byTelescope,
       getTelescopeSlot,
       extendedTimer,
+      onCountdownTick,
+      countdown,
+      onCountdownComplete,
     } = this.props;
 
     const { explanation } = objectData;
@@ -39,6 +42,9 @@ export class CatalogSetup extends Component {
             <ReservationModalCountdown
               extendedTimer={extendedTimer}
               buttonOnClick={getTelescopeSlot}
+              onCountdownTick={onCountdownTick}
+              onCountdownComplete={onCountdownComplete}
+              countdown={countdown}
             />
           )}
         </div>

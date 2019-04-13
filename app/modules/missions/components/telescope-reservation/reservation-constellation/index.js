@@ -56,6 +56,9 @@ class Constellation extends Component {
       noObjects,
       getTelescopeSlot,
       extendedTimer,
+      onCountdownTick,
+      countdown,
+      onCountdownComplete,
     } = this.props;
 
     return (
@@ -71,6 +74,9 @@ class Constellation extends Component {
           disabled={missionSlot && missionSlot.missionAvailable}
           availableMissions={availableMissions}
           noObjects={noObjects}
+          countdown={countdown}
+          onCountdownTick={onCountdownTick}
+          onCountdownComplete={onCountdownComplete}
           getTelescopeSlot={getTelescopeSlot}
           extendedTimer={extendedTimer}
           description="Welcome to the Constellation! Tell us what you want to see - we’ll make sure that the object 

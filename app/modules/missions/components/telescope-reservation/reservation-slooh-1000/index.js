@@ -63,6 +63,9 @@ class Slooh1000 extends Component {
       noObjects,
       getTelescopeSlot,
       extendedTimer,
+      onCountdownTick,
+      countdown,
+      onCountdownComplete,
     } = this.props;
 
     return (
@@ -79,6 +82,9 @@ class Slooh1000 extends Component {
           disabled={missionSlot && missionSlot.missionAvailable}
           availableMissions={availableMissions}
           noObjects={noObjects}
+          onCountdownTick={onCountdownTick}
+          countdown={countdown}
+          onCountdownComplete={onCountdownComplete}
           getTelescopeSlot={getTelescopeSlot}
           extendedTimer={extendedTimer}
           description="Welcome to the Slooh 1000! Tell us what you want to see - we’ll make sure that the object 

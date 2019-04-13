@@ -47,6 +47,9 @@ class Catalog extends Component {
       checkTargetVisibility,
       getTelescopeSlot,
       extendedTimer,
+      onCountdownTick,
+      countdown,
+      onCountdownComplete,
     } = this.props;
 
     return (
@@ -67,6 +70,9 @@ class Catalog extends Component {
           disabled={missionSlot && missionSlot.missionAvailable}
           getTelescopeSlot={getTelescopeSlot}
           extendedTimer={extendedTimer}
+          countdown={countdown}
+          onCountdownTick={onCountdownTick}
+          onCountdownComplete={onCountdownComplete}
           description="Quickly schedule a Mission by choosing from millions of cataloget objects. Tell us what you want to see - we’ll make sure that the object 
         is visible from this observatory and telescope during this time slot - if so, we'll reserve the Mission for you."
           byTelescope

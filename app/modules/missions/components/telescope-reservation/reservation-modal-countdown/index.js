@@ -6,17 +6,20 @@ import './index.scss';
 
 export class ReservationModalCountdown extends PureComponent {
   render() {
-    const { buttonOnClick, extendedTimer } = this.props;
+    const {
+      buttonOnClick,
+      extendedTimer,
+      onCountdownTick,
+      countdown,
+      onCountdownComplete,
+    } = this.props;
     return (
       <div className="reservation-modal-countdown">
         <div className="countdown">
           <Countdown
-            date={
-              extendedTimer
-                ? Date.now() + 60 * 60 * 1000
-                : Date.now() + 5 * 60 * 1000
-            }
-            //onComplete={onCancel}
+            date={Date.now() + countdown}
+            onComplete={onCountdownComplete}
+            onTick={onCountdownTick}
             renderer={props => (
               <div>
                 Please complete your reservation within {props.minutes}:

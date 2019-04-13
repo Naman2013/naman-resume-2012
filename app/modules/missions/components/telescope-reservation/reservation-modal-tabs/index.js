@@ -7,6 +7,20 @@ import { ReservationCatalog } from '../reservation-catalog';
 import './styles.scss';
 
 export class ReservationModalTabs extends PureComponent {
+  state = {
+    countdown: 300000,
+  };
+
+  onCountdownTick = data => {
+    this.setState({ countdown: data.total });
+  };
+
+  getTelescopeSlot = () => {
+    const { getTelescopeSlot } = this.props;
+    this.setState({ countdown: 3600000 });
+    getTelescopeSlot();
+  };
+
   render() {
     const {
       bySlooh1000,
@@ -34,7 +48,9 @@ export class ReservationModalTabs extends PureComponent {
       setDesignation,
       checkTargetVisibility,
       setProcessingRecipe,
+      onHide,
     } = this.props;
+    const { countdown } = this.state;
     return (
       <div className="reservation-modal-tabs">
         <Tabs
@@ -56,8 +72,11 @@ export class ReservationModalTabs extends PureComponent {
               selectedTelescope={selectedTelescope}
               selectedSlot={selectedSlot}
               getMissionSlot={getMissionSlot}
-              getTelescopeSlot={getTelescopeSlot}
+              getTelescopeSlot={this.getTelescopeSlot}
               extendedTimer={extendedTimer}
+              countdown={countdown}
+              onCountdownTick={this.onCountdownTick}
+              onCountdownComplete={onHide}
             />
           </Tab>
           <Tab eventKey="constellation" title="by constellation">
@@ -74,8 +93,11 @@ export class ReservationModalTabs extends PureComponent {
               selectedTelescope={selectedTelescope}
               selectedSlot={selectedSlot}
               getMissionSlot={getMissionSlot}
-              getTelescopeSlot={getTelescopeSlot}
+              getTelescopeSlot={this.getTelescopeSlot}
               extendedTimer={extendedTimer}
+              countdown={countdown}
+              onCountdownTick={this.onCountdownTick}
+              onCountdownComplete={onHide}
             />
           </Tab>
           <Tab eventKey="catalog" title="by catalog">
@@ -93,8 +115,11 @@ export class ReservationModalTabs extends PureComponent {
               selectedTelescope={selectedTelescope}
               selectedSlot={selectedSlot}
               getMissionSlot={getMissionSlot}
-              getTelescopeSlot={getTelescopeSlot}
+              getTelescopeSlot={this.getTelescopeSlot}
               extendedTimer={extendedTimer}
+              countdown={countdown}
+              onCountdownTick={this.onCountdownTick}
+              onCountdownComplete={onHide}
             />
           </Tab>
           <Tab eventKey="coordinates" title="by coordinates">

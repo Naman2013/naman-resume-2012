@@ -41,6 +41,9 @@ export class Slooh1000Setup extends Component {
       byTelescope,
       getTelescopeSlot,
       extendedTimer,
+      onCountdownTick,
+      countdown,
+      onCountdownComplete,
     } = this.props;
 
     return (
@@ -49,7 +52,13 @@ export class Slooh1000Setup extends Component {
           <h2>Set up with Slooh 1000!</h2>
           <p>{description}</p>
           {byTelescope && (
-            <ReservationModalCountdown extendedTimer={extendedTimer} buttonOnClick={getTelescopeSlot} />
+            <ReservationModalCountdown
+              extendedTimer={extendedTimer}
+              buttonOnClick={getTelescopeSlot}
+              onCountdownTick={onCountdownTick}
+              onCountdownComplete={onCountdownComplete}
+              countdown={countdown}
+            />
           )}
         </div>
 
