@@ -3,6 +3,7 @@ import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 import { ReservationSlooh1000 } from '../reservation-slooh-1000';
 import { ReservationConstellation } from '../reservation-constellation';
+import { ReservationCatalog } from '../reservation-catalog';
 import './styles.scss';
 
 export class ReservationModalTabs extends PureComponent {
@@ -10,6 +11,7 @@ export class ReservationModalTabs extends PureComponent {
     const {
       bySlooh1000,
       byConstellation,
+      byCatalog,
       missionSlot,
       reservedMissionData,
       reservedMission,
@@ -27,6 +29,11 @@ export class ReservationModalTabs extends PureComponent {
       getConstellationList,
       setConstellation,
       setConstellationObject,
+      getCatalogList,
+      setCatalog,
+      setDesignation,
+      checkCatalogVisibility,
+      setProcessingRecipe,
     } = this.props;
     return (
       <div className="reservation-modal-tabs">
@@ -72,10 +79,26 @@ export class ReservationModalTabs extends PureComponent {
             />
           </Tab>
           <Tab eventKey="catalog" title="by catalog">
-            asfdasd
+            <ReservationCatalog
+              {...byCatalog}
+              getCatalogList={getCatalogList}
+              setCatalog={setCatalog}
+              setDesignation={setDesignation}
+              checkCatalogVisibility={checkCatalogVisibility}
+              setProcessingRecipe={setProcessingRecipe}
+              missionSlot={missionSlot}
+              resetMissionsData={resetMissionsData}
+              reservedMissionData={reservedMissionData}
+              reservedMission={reservedMission}
+              selectedTelescope={selectedTelescope}
+              selectedSlot={selectedSlot}
+              getMissionSlot={getMissionSlot}
+              getTelescopeSlot={getTelescopeSlot}
+              extendedTimer={extendedTimer}
+            />
           </Tab>
           <Tab eventKey="coordinates" title="by coordinates">
-            asfdasd
+            By Coordinates
           </Tab>
         </Tabs>
       </div>

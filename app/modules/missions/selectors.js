@@ -397,6 +397,51 @@ export const makeByCatalogProcessingRecipeSelector = () =>
     state => state.processingRecipe
   );
 
+export const makeByCatalogDataSelector = () =>
+  createSelector(
+    makeByCatalogListSelector(),
+    makeByCatalogListListSelectOptsSelector(),
+    makeByCatalogSelectedCatalogSelector(),
+    makeByCatalogSelectedCatalogDataSelector(),
+    makeByCatalogDesignationSelector(),
+    makeByCatalogObjectDataSelector(),
+    makeByCatalogTelescopeDataSelector(),
+    makeByCatalogProcessingRecipeSelector(),
+    makeMissionsLoadingSelector(),
+    makeMissionsFirstSlot(),
+    makeReservedMissionData(),
+    makeReservedMissionSelector(),
+    (
+      catalogList,
+      catalogListOpts,
+      selectedCatalog,
+      selectedCatalogData,
+      designation,
+      objectData,
+      telescopeData,
+      processingRecipe,
+      isFetching,
+      missionSlot,
+      reservedMissionData,
+      reservedMission,
+    ) => {
+      return {
+        catalogList,
+        catalogListOpts,
+        selectedCatalog,
+        selectedCatalogData,
+        designation,
+        objectData,
+        telescopeData,
+        processingRecipe,
+        isFetching,
+        missionSlot,
+        reservedMissionData,
+        reservedMission,
+      };
+    }
+  );
+
 // by telescope
 export const makeByTelescopeSelector = () =>
   createSelector(

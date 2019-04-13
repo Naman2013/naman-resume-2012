@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
-import { Select } from '../../../../components/common/select';
-import Button from '../../../../components/common/style/buttons/Button';
+import { Select } from 'app/components/common/select';
+import Button from 'app/components/common/style/buttons/Button';
+import { ReservationModalCountdown } from '../../telescope-reservation/reservation-modal-countdown';
 import './styles.scss';
 
 export class CatalogSetup extends Component {
@@ -21,6 +22,10 @@ export class CatalogSetup extends Component {
       setProcessingRecipe,
       processingRecipe,
       disabled,
+      description,
+      byTelescope,
+      getTelescopeSlot,
+      extendedTimer,
     } = this.props;
 
     const { explanation } = objectData;
@@ -29,11 +34,13 @@ export class CatalogSetup extends Component {
       <div className="catalog-setup">
         <div className="row setup-header">
           <h2>Set up a catalog object mission reservation!</h2>
-          <p>
-            Quickly schedule a mission by choosing from millions of cataloged
-            objects. Tell us what you'd like to see. We'll find the best
-            telescope to use and the best time to see it.
-          </p>
+          <p>{description}</p>
+          {byTelescope && (
+            <ReservationModalCountdown
+              extendedTimer={extendedTimer}
+              buttonOnClick={getTelescopeSlot}
+            />
+          )}
         </div>
 
         <div className="steps row">
@@ -152,7 +159,7 @@ export class CatalogSetup extends Component {
 
           <div className="col-sm-6 step-4">
             <Button
-              text="Find a Mission"
+              text={byTelescope ? 'Define Mission' : 'Find a Mission'}
               onClickEvent={getMissionSlot}
               disabled={
                 !designation ||

@@ -1,9 +1,9 @@
 import { Box } from 'app/modules/missions/components/box';
-import { CatalogSetup } from 'app/modules/missions/components/catalog-setup';
 import React, { Component } from 'react';
-import { AvailbleMissionTile } from '../available-mission-tile';
-import { ExplanationModal } from '../explanation-modal';
-import { MissionSuccessModal } from '../mission-success-modal';
+import { AvailbleMissionTile } from '../../available-mission-tile';
+import { ExplanationModal } from '../../explanation-modal';
+import { MissionSuccessModal } from '../../mission-success-modal';
+import { CatalogSetup } from '../catalog-setup';
 import './styles.scss';
 
 export class Catalog extends Component {
@@ -12,20 +12,13 @@ export class Catalog extends Component {
   };
 
   componentDidMount = () => {
-    const { getCatalogList, resetMissionsData } = this.props;
-    resetMissionsData();
-    getCatalogList();
+    const { getCatalogList } = this.props;
+    getCatalogList({ callSource: 'byCatalogV4' });
   };
 
   componentWillUnmount() {
     this.cancelMissionSlot();
   }
-
-  checkCatalogVisibility = designation => {
-    const { checkCatalogVisibility, selectedCatalogData } = this.props;
-    const { catName, catalog } = selectedCatalogData;
-    checkCatalogVisibility({ catName, catalog, designation });
-  };
 
   modalClose = () => {
     const { resetMissionsData } = this.props;
@@ -33,80 +26,32 @@ export class Catalog extends Component {
   };
 
   getMissionSlot = () => {
-    const {
-      getMissionSlot,
-      selectedCatalogData,
-      designation,
-      objectData,
-      processingRecipe,
-    } = this.props;
-    const { catName, catalog } = selectedCatalogData;
-    const {
-      domeId,
-      missionStart,
-      objectDec,
-      objectRA,
-      obsId,
-      scheduledMissionId,
-      telescopeId,
-    } = objectData;
+    const { getMissionSlot } = this.props;
 
-    getMissionSlot({
-      callSource: 'byCatalog',
-      catName,
-      catalog,
-      designation,
-      domeId,
-      missionStart,
-      missionType: 'catalog',
-      objectDec,
-      objectRA,
-      obsId,
-      processingRecipe: processingRecipe.presetOption,
-      scheduledMissionId,
-      telescopeId,
-    }).then(() => this.grabedMissionTile.scrollIntoView());
+    getMissionSlot(
+      {
+        callSource: 'byCatalog',
+        missionType: 'catalog',
+      },
+      () => this.grabedMissionTile.scrollIntoView()
+    );
   };
 
   reserveMissionSlot = () => {
-    const { reserveMissionSlot, missionSlot } = this.props;
+    const { reserveMissionSlot } = this.props;
 
-    reserveMissionSlot({
-      callSource: 'byPopularObjects',
-      catName: missionSlot.catName,
-      catalog: missionSlot.catalog,
-      designation: missionSlot.designation,
-      domeId: missionSlot.domeId,
-      missionStart: missionSlot.missionStart,
-      missionType: missionSlot.missionType,
-      objectDec: missionSlot.objectDec,
-      objectIconURL: missionSlot.objectIconURL,
-      objectId: missionSlot.objectId,
-      objectRA: missionSlot.objectRA,
-      objectTitle: missionSlot.title,
-      objectType: missionSlot.objectType,
-      objective: '',
-      obsId: missionSlot.obsId,
-      obsName: missionSlot.obsName,
-      processingRecipe: missionSlot.processingRecipe,
-      scheduledMissionId: missionSlot.scheduledMissionId,
-      targetName: missionSlot.targetName,
-      telescopeId: missionSlot.telescopeId,
-      telescopeName: missionSlot.telescopeName,
-      uniqueId: missionSlot.uniqueId,
-    }).then(() => this.setState({ successModalShow: true }));
+    reserveMissionSlot(
+      {
+        callSource: 'byCatalog', //'byPopularObjects',
+      },
+      () => this.setState({ successModalShow: true })
+    );
   };
 
   cancelMissionSlot = () => {
-    const { cancelMissionSlot, missionSlot } = this.props;
+    const { cancelMissionSlot } = this.props;
 
-    if (missionSlot && missionSlot.scheduledMissionId) {
-      cancelMissionSlot({
-        callSource: 'byCatalog',
-        grabType: 'notarget',
-        scheduledMissionId: missionSlot.scheduledMissionId,
-      });
-    }
+    cancelMissionSlot({ callSource: 'byCatalog' });
   };
 
   render() {
@@ -125,6 +70,7 @@ export class Catalog extends Component {
       setProcessingRecipe,
       processingRecipe,
       reservedMission,
+      checkCatalogVisibility,
     } = this.props;
 
     const { successModalShow } = this.state;
@@ -141,7 +87,7 @@ export class Catalog extends Component {
                   getMissionSlot={this.getMissionSlot}
                   selectedCatalog={selectedCatalog}
                   selectedCatalogData={selectedCatalogData}
-                  checkCatalogVisibility={this.checkCatalogVisibility}
+                  checkCatalogVisibility={checkCatalogVisibility}
                   objectData={objectData}
                   designation={designation}
                   setDesignation={setDesignation}
@@ -149,6 +95,9 @@ export class Catalog extends Component {
                   setProcessingRecipe={setProcessingRecipe}
                   processingRecipe={processingRecipe}
                   disabled={missionSlot && missionSlot.missionAvailable}
+                  description="Quickly schedule a mission by choosing from millions of cataloged
+                  objects. Tell us what you'd like to see. We'll find the best
+                  telescope to use and the best time to see it."
                 />
               </Box>
             </div>

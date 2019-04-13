@@ -17,6 +17,9 @@ import {
   reserveMissionSlot,
   getConstellationList,
   setConstellation,
+  getCatalogList,
+  setCatalog,
+  checkCatalogVisibility,
 } from '../thunks';
 import {
   makeTelescopeSelectedTelescopeSelector,
@@ -29,6 +32,7 @@ import {
   makeBySlooh1000DataSelector,
   makeByConstellationDataSelector,
   makeMissionsTelescopeFetchingSelector,
+  makeByCatalogDataSelector,
 } from '../selectors';
 import { ACTION } from '../reducer';
 
@@ -41,6 +45,7 @@ const mapStateToProps = createStructuredSelector({
   reservedMission: makeReservedMissionSelector(),
   bySlooh1000: makeBySlooh1000DataSelector(),
   byConstellation: makeByConstellationDataSelector(),
+  byCatalog: makeByCatalogDataSelector(),
   isFetching: makeMissionsLoadingSelector(),
   isTelescopeFetching: makeMissionsTelescopeFetchingSelector(),
 });
@@ -64,6 +69,11 @@ const mapDispatchToProps = {
   getConstellationList,
   setConstellation,
   setConstellationObject: ACTION.setConstellationObject,
+  getCatalogList,
+  setCatalog: ACTION.setCatalog,
+  setDesignation: ACTION.setDesignation,
+  checkCatalogVisibility,
+  setProcessingRecipe: ACTION.setProcessingRecipe,
 };
 
 export default compose(

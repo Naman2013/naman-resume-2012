@@ -1,0 +1,17 @@
+@import '~app/styles/variables/index';
+
+.reservation-catalog {
+  &.catalog {
+    padding: 20px 0 0;
+  }
+
+  .catalog-setup {
+    .steps {
+      margin: 40px 0 -40px;
+    }
+
+    .setup-header {
+      padding: 0 40px;
+    }
+  }
+}

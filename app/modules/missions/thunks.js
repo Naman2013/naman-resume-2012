@@ -238,10 +238,10 @@ export const setConstellation = (constellationName, data) => dispatch => {
 };
 
 // by Catalog
-export const getCatalogList = () => (dispatch, getState) => {
+export const getCatalogList = data => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
   dispatch(ACTION.getCatalogList());
-  return getCatalogListApi({ at, token, cid, callSource: 'byPopularObjects' })
+  return getCatalogListApi({ at, token, cid, ...data })
     .then(result => dispatch(ACTION.getCatalogListSuccess(result.data)))
     .catch(error => dispatch(ACTION.getCatalogListError(error)));
 };
