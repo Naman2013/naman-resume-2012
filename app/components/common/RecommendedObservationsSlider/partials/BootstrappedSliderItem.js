@@ -21,7 +21,6 @@ const BootstrappedObservationSliderItem = props => {
     handleLike,
     customerImageId,
     likePrompt,
-    user,
     showLikePrompt,
   } = props;
   const [isOpen, openModal] = useState(false);
@@ -152,7 +151,6 @@ BootstrappedObservationSliderItem.propTypes = {
   likesCount: PropTypes.number.isRequired,
   likePrompt: PropTypes.string.isRequired,
   observationTimeDisplay: PropTypes.array.isRequired,
-  user: PropTypes.shape({}).isRequired,
   handleLike: PropTypes.func.isRequired,
   customerImageId: PropTypes.number.isRequired,
   showLikePrompt: PropTypes.bool.isRequired,

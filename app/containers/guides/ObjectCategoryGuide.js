@@ -144,7 +144,14 @@ export default class Guides extends React.Component {
                             />
                           </CenterColumn>
 
-                          <FeaturedGallery />
+                          {results.serviceResponse.FeaturedObservations
+                            .hasObservations && (
+                            <FeaturedGallery
+                              imageList={
+                                results.serviceResponse.FeaturedObservations
+                              }
+                            />
+                          )}
 
                           <GuidePanels guideId={guideId} />
 

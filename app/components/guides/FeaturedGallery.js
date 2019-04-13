@@ -13,24 +13,27 @@ const titleThemeMedium = {
   subTitle: { color: 'white' },
 };
 
-const FeaturedGallery = () => (
-  <div className="root">
-    <DeviceContext.Consumer>
-      {context => (
-        <Fragment>
-          <SterlingTitle
-            title={<FormattedMessage {...messages.FeaturedTitle} />}
-            subTitle={<FormattedMessage {...messages.FeaturedSubtitle} />}
-            theme={context.isScreenMedium ? titleThemeMedium : titleTheme}
-          />
-          <CenterColumn>
-            <RecommendedObservations />
-          </CenterColumn>
-        </Fragment>
-      )}
-    </DeviceContext.Consumer>
-    <style jsx>{style}</style>
-  </div>
-);
+const FeaturedGallery = props => {
+  const { imageList } = props;
+  return (
+    <div className="root">
+      <DeviceContext.Consumer>
+        {context => (
+          <Fragment>
+            <SterlingTitle
+              title={<FormattedMessage {...messages.FeaturedTitle} />}
+              subTitle={<FormattedMessage {...messages.FeaturedSubtitle} />}
+              theme={context.isScreenMedium ? titleThemeMedium : titleTheme}
+            />
+            <CenterColumn>
+              <RecommendedObservations imageList={imageList} />
+            </CenterColumn>
+          </Fragment>
+        )}
+      </DeviceContext.Consumer>
+      <style jsx>{style}</style>
+    </div>
+  )
+};
 
 export default FeaturedGallery;
