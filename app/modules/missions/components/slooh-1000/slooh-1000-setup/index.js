@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
-import Countdown from 'react-countdown-now';
-import { FormattedNumber } from 'react-intl';
 import { Select } from 'app/components/common/select';
 import Button from 'app/components/common/style/buttons/Button';
+import { ReservationModalCountdown } from '../../telescope-reservation/reservation-modal-countdown';
 import './styles.scss';
 
 export class Slooh1000Setup extends Component {
@@ -50,32 +49,7 @@ export class Slooh1000Setup extends Component {
           <h2>Set up with Slooh 1000!</h2>
           <p>{description}</p>
           {byTelescope && (
-            <div className="by-telescope-reservation-countdown">
-              <div className="countdown">
-                <Countdown
-                  date={
-                    extendedTimer
-                      ? Date.now() + 60 * 60 * 1000
-                      : Date.now() + 5 * 60 * 1000
-                  }
-                  //onComplete={onCancel}
-                  renderer={props => (
-                    <div>
-                      Please complete your reservation within {props.minutes}:
-                      <FormattedNumber
-                        value={props.seconds}
-                        minimumIntegerDigits={2}
-                      />
-                    </div>
-                  )}
-                />
-              </div>
-              <Button
-                text="Hold one hour"
-                onClickEvent={getTelescopeSlot}
-                disabled={extendedTimer}
-              />
-            </div>
+            <ReservationModalCountdown extendedTimer={extendedTimer} buttonOnClick={getTelescopeSlot} />
           )}
         </div>
 

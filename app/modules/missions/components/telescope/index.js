@@ -27,7 +27,14 @@ export class Telescope extends Component {
   };
 
   reservationModalHide = () => {
-    const { cancelMissionSlot } = this.props;
+    const { cancelMissionSlot, selectedSlot } = this.props;
+    const { uniqueId, scheduledMissionId } = selectedSlot;
+    cancelMissionSlot({
+      callSource: 'byTelescopeV4',
+      grabType: 'notarget',
+      scheduledMissionId,
+      uniqueId,
+    });
     this.setState({ reservationModalVisible: false });
   };
 
@@ -61,10 +68,7 @@ export class Telescope extends Component {
           />
 
           {reservationModalVisible && (
-            <ReservationModal
-              onHide={this.reservationModalHide}
-              show
-            />
+            <ReservationModal onHide={this.reservationModalHide} show />
           )}
         </div>
       </div>

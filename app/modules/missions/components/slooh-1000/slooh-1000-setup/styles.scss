@@ -101,28 +101,6 @@ $parentPadding: 40px;
       letter-spacing: 0;
       color: $lightHeadedAstronaut;
     }
-
-    .by-telescope-reservation-countdown {
-      width: 100%;
-      display: flex;
-      align-items: center;
-
-      .countdown {
-        margin-right: 20px;
-        font-family: $primary-font;
-        font-size: 16px;
-        font-weight: 700;
-        line-height: 62px;
-        color: $lightHeadedAstronaut;
-      }
-
-      button {
-        span {
-          font-family: $primary-font;
-          font-weight: 900;
-        }
-      }
-    }
   }
 
   p {

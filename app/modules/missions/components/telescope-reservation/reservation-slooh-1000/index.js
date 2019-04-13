@@ -8,23 +8,13 @@ import './styles.scss';
 
 class Slooh1000 extends Component {
   componentDidMount() {
-    const {
-      getCategoryList,
-      resetMissionsData,
-      categoryList,
-      isFetching,
-    } = this.props;
-    //resetMissionsData();
+    const { getCategoryList } = this.props;
     getCategoryList({ callSource: 'byTelescopeV4' });
   }
 
   componentWillUnmount() {
-    const { cancelMissionSlot, selectedSlot } = this.props;
-    const { uniqueId } = selectedSlot;
-    cancelMissionSlot({
-      callSource: 'byTelescopeV4',
-      uniqueId,
-    });
+    const { resetMissionsData } = this.props;
+    resetMissionsData();
   }
 
   getMissionSlot = () => {
@@ -67,7 +57,6 @@ class Slooh1000 extends Component {
       selectedCategorySlug,
       selectedObjectId,
       reservedMissionData,
-      resetMissionsData,
       objectListExpires,
       reservedMission,
       availableMissions,
