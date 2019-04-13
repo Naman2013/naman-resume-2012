@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
-import { astronaut, golda, shadows } from 'styles/variables/colors_tiles_v4';
-import { primaryFont } from 'styles/variables/fonts';
+import { astronaut, golda, shadows } from 'app/styles/variables/colors_tiles_v4';
+import { primaryFont } from 'app/styles/variables/fonts';
 
 const PrimaryButton = ({ text, anchor }) => (
   <div className="primary-button">

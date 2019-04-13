@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import CenterColumn from 'components/common/CenterColumn';
+import CenterColumn from 'app/components/common/CenterColumn';
 import TopicHeading from './TopicHeading';
 import TopicBodyContent from './TopicBodyContent';
 import TopicContentList from './TopicContentList';

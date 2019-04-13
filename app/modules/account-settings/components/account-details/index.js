@@ -1,7 +1,7 @@
 // @flow
 import React, { Fragment, PureComponent } from 'react';
 import { Field } from 'redux-form';
-import InputField from 'components/form/InputField';
+import InputField from 'app/components/form/InputField';
 import { Container, Row, Col } from 'react-bootstrap';
 import { TFormField, TAccountTypeItem } from '../../types';
 import { DeviceContext } from 'providers/DeviceProvider';

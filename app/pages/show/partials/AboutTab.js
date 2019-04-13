@@ -7,11 +7,11 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import LikeSomethingButton from 'components/common/LikeSomethingButton';
-import { romance } from 'styles/variables/colors_tiles_v4';
-import DescriptionContainer from 'components/common/description-container';
-import like from 'services/events/like';
-import LabeledTitleTiles from 'components/common/style/LabeledTitleTiles';
+import LikeSomethingButton from 'app/components/common/LikeSomethingButton';
+import { romance } from 'app/styles/variables/colors_tiles_v4';
+import DescriptionContainer from 'app/components/common/description-container';
+import like from 'app/services/events/like';
+import LabeledTitleTiles from 'app/components/common/style/LabeledTitleTiles';
 import styles from './AboutTab.style';
 
 const {

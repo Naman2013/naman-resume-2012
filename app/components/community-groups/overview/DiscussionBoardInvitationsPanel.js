@@ -8,19 +8,19 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { CardDeck, Card, CardColumns, Container, Row, ListGroup, ListGroupItem, } from 'react-bootstrap';
-import Request from 'components/common/network/Request';
+import Request from 'app/components/common/network/Request';
 import axios from 'axios';
 import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
-import Button from 'components/common/style/buttons/Button';
-import DiscussionBoardInviteNewMemberToSlooh from 'components/community-groups/overview/DiscussionBoardInviteNewMemberToSlooh';
-import { CLASSROOM_GET_GROUP_INVITATION_PANEL_ENDPOINT_URL } from 'services/classroom/classroom';
-import { CREATE_CUSTOMER_LINK_INVITATION_ENDPOINT_URL } from 'services/registration/registration';
+import Button from 'app/components/common/style/buttons/Button';
+import DiscussionBoardInviteNewMemberToSlooh from 'app/components/community-groups/overview/DiscussionBoardInviteNewMemberToSlooh';
+import { CLASSROOM_GET_GROUP_INVITATION_PANEL_ENDPOINT_URL } from 'app/services/classroom/classroom';
+import { CREATE_CUSTOMER_LINK_INVITATION_ENDPOINT_URL } from 'app/services/registration/registration';
 import _get from 'lodash/get';
 
 import {
   astronaut,
 } from '../../../styles/variables/colors_tiles_v4';
-import { screenLarge } from 'styles/variables/breakpoints';
+import { screenLarge } from 'app/styles/variables/breakpoints';
 import style from './DiscussionBoardInvitationsPanel.style';
 import messages from './DiscussionBoard.messages';
 import { faintShadow } from '../../../styles/variables/shadows';

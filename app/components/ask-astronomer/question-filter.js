@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes, { array, string, bool } from 'prop-types';
 import findIndex from 'lodash/findIndex';
 import { FormattedMessage } from 'react-intl';
-import DropDown from 'components/common/DropDown';
+import DropDown from 'app/components/common/DropDown';
 import styles from './question-filter.style';
 import messages from './question-filter.messages';
 

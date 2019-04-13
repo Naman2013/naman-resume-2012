@@ -1,10 +1,10 @@
 import css from 'styled-jsx/css';
-import { primaryFont } from 'styles/variables/fonts';
+import { primaryFont } from 'app/styles/variables/fonts';
 import {
   geyser,
   romance,
-} from 'styles/variables/colors_tiles_v4';
-import { faintShadow } from 'styles/variables/shadows';
+} from 'app/styles/variables/colors_tiles_v4';
+import { faintShadow } from 'app/styles/variables/shadows';
 
 export default css`
 .root {

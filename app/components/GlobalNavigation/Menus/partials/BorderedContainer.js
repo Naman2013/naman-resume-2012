@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { shadows } from 'styles/variables/colors_tiles_v4';
+import { shadows } from 'app/styles/variables/colors_tiles_v4';
 
 const propTypes = {
   top: PropTypes.bool,

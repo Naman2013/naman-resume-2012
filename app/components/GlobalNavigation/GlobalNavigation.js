@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import has from 'lodash/has';
-import Request from 'components/common/network/Request';
+import Request from 'app/components/common/network/Request';
 import { DeviceContext } from 'providers/DeviceProvider';
 import BootstrappedGlobalNavigation from './BootstrappedGlobalNavigation';
-import { GET_MAIN_NAVIGATION } from 'services/navigation';
+import { GET_MAIN_NAVIGATION } from 'app/services/navigation';
 
 const {
   bool, number, oneOfType, shape, string,

@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import { FormattedMessage } from 'react-intl';
-import CountdownCircleTimer from 'components/common/CountdownCircleTimer';
+import CountdownCircleTimer from 'app/components/common/CountdownCircleTimer';
 import styles from './UpcomingShowCountdown.style';
 import messages from './UpcomingShowCountdown.messages';
 

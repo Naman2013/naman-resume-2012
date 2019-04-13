@@ -1,12 +1,12 @@
 import React, { Fragment, Component } from 'react';
 import PropTypes from 'prop-types';
 import noop from 'lodash/noop';
-import GenericButton from 'components/common/style/buttons/Button';
-import { customModalStylesBlackOverlay, customModalStylesFitDevice, profilePhotoStyle } from 'styles/mixins/utilities';
-import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
+import GenericButton from 'app/components/common/style/buttons/Button';
+import { customModalStylesBlackOverlay, customModalStylesFitDevice, profilePhotoStyle } from 'app/styles/mixins/utilities';
+import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
 import SubmitQuestionForm from './Modals/SubmitQuestionForm';
 import SubmitQuestionFeedbackModal from './Modals/SubmitQuestionFeedbackModal';
-import { info } from 'styles/variables/iconURLs';
+import { info } from 'app/styles/variables/iconURLs';
 
 const circlePic = photoUrl => Object.assign(profilePhotoStyle(photoUrl), {
   height: '105px',

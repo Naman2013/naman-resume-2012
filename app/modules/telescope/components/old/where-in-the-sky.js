@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { ModuleContainer } from './module-container';
-import StaticCell from 'components/common/grid/StaticCell';
-import { fetchSkyChartWidget } from 'modules/Telescope-Overview';
-import { hawkesBlue } from 'styles/variables/colors_tiles_v4';
+import StaticCell from 'app/components/common/grid/StaticCell';
+import { fetchSkyChartWidget } from 'app/modules/Telescope-Overview';
+import { hawkesBlue } from 'app/styles/variables/colors_tiles_v4';
 import style from './where-in-the-sky.style';
 
 const cellTheme = { borderBottom: `1px solid ${hawkesBlue}`, minHeight: 'auto' };

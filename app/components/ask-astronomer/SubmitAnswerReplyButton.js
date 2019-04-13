@@ -7,13 +7,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { intlShape, injectIntl } from 'react-intl';
-import Button from 'components/common/style/buttons/Button';
-import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
+import Button from 'app/components/common/style/buttons/Button';
+import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
 import FullpageForm from './Modals/FullpageForm';
 import SubmitReplyFeedbackModal from './Modals/SubmitReplyFeedbackModal';
 import SubmitReplyForm from './Modals/SubmitReplyForm';
-import { prepareReply } from 'services/discussions/prepare-reply';
-import { customModalStylesBlackOverlay, modalStyleFullPage } from 'styles/mixins/utilities';
+import { prepareReply } from 'app/services/discussions/prepare-reply';
+import { customModalStylesBlackOverlay, modalStyleFullPage } from 'app/styles/mixins/utilities';
 import messages from './SubmitAnswerButton.messages';
 
 const {

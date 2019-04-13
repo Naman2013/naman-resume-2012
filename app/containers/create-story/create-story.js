@@ -9,9 +9,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import noop from 'lodash/noop';
 import Modal from 'react-modal';
-import CenterColumn from 'components/common/CenterColumn';
-import CreateStoryForm from 'components/stories/form/create-story-form';
-import BarHeader from 'components/common/form-sections/bar-header';
+import CenterColumn from 'app/components/common/CenterColumn';
+import CreateStoryForm from 'app/components/stories/form/create-story-form';
+import BarHeader from 'app/components/common/form-sections/bar-header';
 import styles from './create-story.style';
 
 const {

@@ -9,9 +9,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import Modal from 'react-modal';
-import { profilePhotoStyle } from 'styles/mixins/utilities';
-import Button from 'components/common/style/buttons/Button';
-import { customModalStylesV4 } from 'styles/mixins/utilities';
+import { profilePhotoStyle } from 'app/styles/mixins/utilities';
+import Button from 'app/components/common/style/buttons/Button';
+import { customModalStylesV4 } from 'app/styles/mixins/utilities';
 import styles from './Host.style';
 
 const {

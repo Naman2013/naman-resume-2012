@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import noop from 'lodash/noop';
 import uniqueId from 'lodash/uniqueId';
-import BigShowExcerptTile from 'components/common/tiles/big-show-excerpt-tile';
-import BigShowTile from 'components/common/tiles/BigShowTile';
+import BigShowExcerptTile from 'app/components/common/tiles/big-show-excerpt-tile';
+import BigShowTile from 'app/components/common/tiles/BigShowTile';
 import style from './upcoming-shows.style';
 
 class UpcomingShowsSliderItem extends Component {

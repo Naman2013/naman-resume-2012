@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { DeviceContext } from 'providers/DeviceProvider';
 import style from './FeaturedGallery.style';
-import SterlingTitle from 'components/common/titles/SterlingTitle';
+import SterlingTitle from 'app/components/common/titles/SterlingTitle';
 import messages from './FeaturedGallery.messages';
 
 const titleTheme = {};

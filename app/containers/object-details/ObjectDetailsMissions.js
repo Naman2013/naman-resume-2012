@@ -16,7 +16,7 @@ import {
 } from '../../modules/object-details/actions';
 import DeviceProvider from '../../../app/providers/DeviceProvider';
 import ObjectDetailsSectionTitle from '../../components/object-details/ObjectDetailsSectionTitle';
-import MissionTile from 'components/common/tiles/MissionTile';
+import MissionTile from 'app/components/common/tiles/MissionTile';
 import CenterColumn from '../../../app/components/common/CenterColumn';
 import messages from './ObjectDetails.messages';
 

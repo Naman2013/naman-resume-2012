@@ -9,8 +9,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { DeviceContext } from 'providers/DeviceProvider';
-import Request from 'components/common/network/Request';
-import { LIVE_SHOW_INFO } from 'services/events';
+import Request from 'app/components/common/network/Request';
+import { LIVE_SHOW_INFO } from 'app/services/events';
 import BootstrappedShow from './BootstrappedShow';
 import { modelWithInfoBlocks } from './showConfiguration';
 

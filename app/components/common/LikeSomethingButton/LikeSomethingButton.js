@@ -8,9 +8,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-modal';
-import { likeReply } from 'services/discussions/like';
+import { likeReply } from 'app/services/discussions/like';
 import LikeButton from 'app/components/common/style/buttons/LikeButton';
-import { customModalStylesBlackOverlay } from 'styles/mixins/utilities';
+import { customModalStylesBlackOverlay } from 'app/styles/mixins/utilities';
 
 import styles from './LikeSomethingButton.style';
 

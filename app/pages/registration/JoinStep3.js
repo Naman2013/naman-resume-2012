@@ -11,11 +11,11 @@ import Countdown from 'react-countdown-now';
 import { browserHistory } from 'react-router';
 import axios from 'axios';
 import { FormattedMessage } from 'react-intl';
-import { resetLogIn, logUserIn, logGoogleUserIn } from 'modules/login/actions';
-import Request from 'components/common/network/Request';
-import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
+import { resetLogIn, logUserIn, logGoogleUserIn } from 'app/modules/login/actions';
+import Request from 'app/components/common/network/Request';
+import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
 import JoinHeader from './partials/JoinHeader';
-import { JOIN_ACTIVATE_PENDING_CUSTOMER_ENDPOINT_URL, JOIN_PAGE_ENDPOINT_URL } from 'services/registration/registration.js';
+import { JOIN_ACTIVATE_PENDING_CUSTOMER_ENDPOINT_URL, JOIN_PAGE_ENDPOINT_URL } from 'app/services/registration/registration.js';
 import PlanDetailsCard from './partials/PlanDetailsCard';
 import { DEFAULT_JOIN_TABS } from './StaticNavTabs';
 

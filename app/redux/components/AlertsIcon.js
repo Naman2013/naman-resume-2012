@@ -2,14 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { connect } from 'react-redux';
-import { romance, astronaut } from 'styles/variables/colors_tiles_v4';
+import { romance, astronaut } from 'app/styles/variables/colors_tiles_v4';
 import {
   sloohLogoAstronaut,
   threeLinesAstronaut,
   telescopeAstronaut,
   searchAstronaut,
   userAstronaut,
-} from 'styles/variables/iconURLs';
+} from 'app/styles/variables/iconURLs';
 const AlertsIcon = ({ notificationsCount, isActive }) => (
   <span className="root">
     <i className={classnames('i-bell', {

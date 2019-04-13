@@ -1,7 +1,7 @@
 import css from 'styled-jsx/css';
-import { resetMarginPadding } from 'styles/variables/utils';
-import { lightHeadedAstronaut, faintBlue } from 'styles/variables/colors_tiles_v4';
-import { primaryFont } from 'styles/variables/fonts';
+import { resetMarginPadding } from 'app/styles/variables/utils';
+import { lightHeadedAstronaut, faintBlue } from 'app/styles/variables/colors_tiles_v4';
+import { primaryFont } from 'app/styles/variables/fonts';
 
 export default css`
   .page-select-root {

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { validateResponseAccess } from 'modules/authorization/actions'
+import { validateResponseAccess } from 'app/modules/authorization/actions'
 
 const propTypes = {
   user: PropTypes.shape({

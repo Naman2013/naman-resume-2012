@@ -13,17 +13,17 @@ import { intlShape, injectIntl } from 'react-intl';
 import {
   astronaut,
 } from '../../../styles/variables/colors_tiles_v4';
-import { screenLarge } from 'styles/variables/breakpoints';
+import { screenLarge } from 'app/styles/variables/breakpoints';
 import { createActivity } from '../../../modules/community-group-activity-list/actions';
-import { fetchGroupMembers } from 'modules/community-group-overview/actions';
-import ResponsiveTwoColumnContainer from 'components/ResponsiveTwoColumnContainer';
-import TwoTabbedNav from 'components/TwoTabbedNav';
+import { fetchGroupMembers } from 'app/modules/community-group-overview/actions';
+import ResponsiveTwoColumnContainer from 'app/components/ResponsiveTwoColumnContainer';
+import TwoTabbedNav from 'app/components/TwoTabbedNav';
 import  {TopThreads }  from '../../../modules/clubs';
 
 import MembersList from './members-list';
-import DiscussionsBoard from 'components/common/DiscussionsBoard';
-import DiscussionBoardInvitationsPanel from 'components/community-groups/overview/DiscussionBoardInvitationsPanel';
-import DiscussionBoardGoogleClassroomStudentsPanel from 'components/community-groups/overview/DiscussionBoardGoogleClassroomStudentsPanel';
+import DiscussionsBoard from 'app/components/common/DiscussionsBoard';
+import DiscussionBoardInvitationsPanel from 'app/components/community-groups/overview/DiscussionBoardInvitationsPanel';
+import DiscussionBoardGoogleClassroomStudentsPanel from 'app/components/community-groups/overview/DiscussionBoardGoogleClassroomStudentsPanel';
 import messages from './activity-form.messages';
 
 const {

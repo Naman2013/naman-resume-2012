@@ -1,5 +1,5 @@
-import { darkBlueGray, white, gray } from 'styles/variables/colors';
-import { profilePhotoStyle } from 'styles/mixins/utilities';
+import { darkBlueGray, white, gray } from 'app/styles/variables/colors';
+import { profilePhotoStyle } from 'app/styles/mixins/utilities';
 
 export const fullWidthBtn = (`
   width: 100%;

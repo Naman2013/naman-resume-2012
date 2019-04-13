@@ -7,7 +7,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { likeReply } from '../../services/discussions/like';
-import Card from 'components/ask-astronomer/Card';
+import Card from 'app/components/ask-astronomer/Card';
 import { secondaryFont } from '../../styles/variables/fonts';
 const {
   arrayOf,

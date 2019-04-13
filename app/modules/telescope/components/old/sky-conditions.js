@@ -1,7 +1,7 @@
 import React from 'react';
 import { ModuleContainer } from './index';
-import StaticCell from 'components/common/grid/StaticCell';
-import { hawkesBlue } from 'styles/variables/colors_tiles_v4';
+import StaticCell from 'app/components/common/grid/StaticCell';
+import { hawkesBlue } from 'app/styles/variables/colors_tiles_v4';
 import style from './sky-conditions.style';
 
 const cellTheme = { borderBottom: `1px solid ${hawkesBlue}`, minHeight: 'auto' };

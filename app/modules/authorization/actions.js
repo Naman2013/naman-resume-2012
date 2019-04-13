@@ -1,8 +1,8 @@
 import { push } from 'react-router-redux';
 import { fetchHandleErrors } from '../../services/authorization/handle-error';
 import { destroySession, removeUser } from '../User';
-import MENU_INTERFACE from 'components/GlobalNavigation/Menus/MenuInterface';
-import { toggleGlobalNavMenu, openUpsellModal } from 'modules/global-navigation/actions';
+import MENU_INTERFACE from 'app/components/GlobalNavigation/Menus/MenuInterface';
+import { toggleGlobalNavMenu, openUpsellModal } from 'app/modules/global-navigation/actions';
 import SETTINGS from '../../config';
 
 export const FETCH_ERRORS_START = 'FETCH_ERRORS_START';

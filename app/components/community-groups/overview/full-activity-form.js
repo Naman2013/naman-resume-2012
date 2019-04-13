@@ -8,8 +8,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import { intlShape, injectIntl } from 'react-intl';
-import FormHeader from 'components/common/FormHeader';
-import SingleFieldSubmitForm from 'components/common/SingleFieldSubmitForm';
+import FormHeader from 'app/components/common/FormHeader';
+import SingleFieldSubmitForm from 'app/components/common/SingleFieldSubmitForm';
 import messages from './activity-form.messages';
 
 const { bool, number, string } = PropTypes;

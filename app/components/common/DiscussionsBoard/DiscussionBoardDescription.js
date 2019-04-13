@@ -10,13 +10,13 @@ import axios from 'axios';
 import { intlShape, injectIntl } from 'react-intl'
 import { DeviceContext } from 'providers/DeviceProvider';
 import cloneDeep from 'lodash/cloneDeep';
-import TextareaField from 'components/form/TextareaField';
-import Button from 'components/common/style/buttons/Button';
+import TextareaField from 'app/components/form/TextareaField';
+import Button from 'app/components/common/style/buttons/Button';
 import {
   screenMedium,
   screenLarge,
-} from 'styles/variables/breakpoints';
-import { CLASSROOM_SET_GROUP_DESCRIPTION_ENDPOINT_URL } from 'services/classroom/classroom';
+} from 'app/styles/variables/breakpoints';
+import { CLASSROOM_SET_GROUP_DESCRIPTION_ENDPOINT_URL } from 'app/services/classroom/classroom';
 import messages from './DiscussionBoard.messages';
 
 const {

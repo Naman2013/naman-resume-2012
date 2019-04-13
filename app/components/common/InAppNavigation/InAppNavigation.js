@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
-import ContextMenu from 'components/common/ContextMenu';
+import ContextMenu from 'app/components/common/ContextMenu';
 import BackArrow from 'atoms/icons/BackArrow';
 import style from './InAppNavigation.style';
-import { horizontalArrow } from 'styles/variables/iconURLs';
+import { horizontalArrow } from 'app/styles/variables/iconURLs';
 
 const InAppNavigation = ({
   previousText,

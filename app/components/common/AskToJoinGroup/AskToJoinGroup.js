@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import noop from 'lodash/noop';
 import pick from  'lodash/pick';
 import { connect } from 'react-redux';
-import ToggleJoinGroupButton from 'components/common/style/buttons/ToggleJoinGroupButton';
-import { askToJoin } from 'services/community-groups/ask-to-join';
+import ToggleJoinGroupButton from 'app/components/common/style/buttons/ToggleJoinGroupButton';
+import { askToJoin } from 'app/services/community-groups/ask-to-join';
 
 const {
   bool,

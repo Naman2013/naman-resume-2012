@@ -9,8 +9,8 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import noop from 'lodash/noop';
 import uniqueId from 'lodash/uniqueId';
-import SubmitAnswerButton from 'components/ask-astronomer/SubmitAnswerButton';
-import { likeThread } from 'services/discussions/like';
+import SubmitAnswerButton from 'app/components/ask-astronomer/SubmitAnswerButton';
+import { likeThread } from 'app/services/discussions/like';
 import Card from 'app/components/ask-astronomer/Card';
 import AnswerList from './answer-list';
 

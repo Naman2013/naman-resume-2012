@@ -5,18 +5,18 @@ import noop from 'lodash/noop';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { intlShape, injectIntl } from 'react-intl';
-import ShowTiles from 'components/shows-hub/show-tiles';
-import Request from 'components/common/network/Request';
-import HubContainer from 'components/common/HubContainer';
-import UpcomingShows from 'components/shows-hub/upcoming-shows';
-import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
+import ShowTiles from 'app/components/shows-hub/show-tiles';
+import Request from 'app/components/common/network/Request';
+import HubContainer from 'app/components/common/HubContainer';
+import UpcomingShows from 'app/components/shows-hub/upcoming-shows';
+import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
 import {
   SHOWS_PAGE_ENDPOINT,
   SHOWS_PREVIOUS_ENDPOINT_URL,
   SHOWS_UPCOMING_ENDPOINT_URL,
-} from 'services/shows';
+} from 'app/services/shows';
 import { DeviceContext } from 'providers/DeviceProvider';
-import { validateResponseAccess } from 'modules/authorization/actions';
+import { validateResponseAccess } from 'app/modules/authorization/actions';
 import { ACTION as showsActions } from '../../modules/shows/reducer';
 import style from './shows-hub.style';
 import messages from './ShowsHub.messages';

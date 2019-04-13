@@ -2,8 +2,8 @@ import css from 'styled-jsx/css';
 import {
   seashell,
   shadows,
-} from 'styles/variables/colors_tiles_v4';
-import { secondaryFont } from 'styles/variables/fonts';
+} from 'app/styles/variables/colors_tiles_v4';
+import { secondaryFont } from 'app/styles/variables/fonts';
 
 export default css`
   .form-container {

@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Menu from './Menu';
-import Fade from 'components/common/Fade';
+import Fade from 'app/components/common/Fade';
 import VanillaButton from 'atoms/VanillaButton';
 import Dots from 'atoms/icons/Dots';
 import Close from 'atoms/icons/Close';
-import { thatBlue, astronaut } from 'styles/variables/colors_tiles_v4';
+import { thatBlue, astronaut } from 'app/styles/variables/colors_tiles_v4';
 import style, { CONTAINER_WIDTH } from './ContextMenu.style';
 
 const OPEN_LOCATION = 0;

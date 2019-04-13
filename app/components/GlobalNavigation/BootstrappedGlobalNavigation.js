@@ -11,9 +11,9 @@ import {
   closeUpsellModal,
   toggleGlobalNavMenu,
   toggleGlobalNavNotificationMenu,
-} from 'modules/global-navigation/actions';
-import { customModalStylesBlackOverlay } from 'styles/mixins/utilities';
-import { screenMedium, screenLarge } from 'styles/variables/breakpoints';
+} from 'app/modules/global-navigation/actions';
+import { customModalStylesBlackOverlay } from 'app/styles/mixins/utilities';
+import { screenMedium, screenLarge } from 'app/styles/variables/breakpoints';
 
 const mapStateToProps = ({
   globalNavigation,

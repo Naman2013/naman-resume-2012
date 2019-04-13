@@ -9,11 +9,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { browserHistory } from 'react-router';
 import { intlShape, injectIntl } from 'react-intl';
-import Button from 'components/common/style/buttons/Button';
-import PhotoUploadButton from 'components/common/style/buttons/PhotoUploadButton';
-import deletePostImage from 'services/post-creation/delete-post-image';
-import setPostImages from 'modules/set-post-images';
-import { prepareThread } from 'services/discussions/prepare-thread';
+import Button from 'app/components/common/style/buttons/Button';
+import PhotoUploadButton from 'app/components/common/style/buttons/PhotoUploadButton';
+import deletePostImage from 'app/services/post-creation/delete-post-image';
+import setPostImages from 'app/modules/set-post-images';
+import { prepareThread } from 'app/services/discussions/prepare-thread';
 import styles from './Modals.style'
 import messages from './SubmitQuestionForm.messages'
 

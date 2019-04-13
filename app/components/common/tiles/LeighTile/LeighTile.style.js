@@ -1,7 +1,7 @@
 import css from 'styled-jsx/css';
-import { primaryFont, secondaryFont } from 'styles/variables/fonts';
-import { geyser } from 'styles/variables/colors_tiles_v4';
-import { screenMedium } from 'styles/variables/breakpoints';
+import { primaryFont, secondaryFont } from 'app/styles/variables/fonts';
+import { geyser } from 'app/styles/variables/colors_tiles_v4';
+import { screenMedium } from 'app/styles/variables/breakpoints';
 
 
 export default css`

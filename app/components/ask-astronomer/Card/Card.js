@@ -10,11 +10,11 @@ import PropTypes from 'prop-types';
 import uniqueId from 'lodash/uniqueId';
 import noop from 'lodash/noop';
 import moment from 'moment';
-import CommentButton from 'components/common/style/buttons/CommentButton';
-import LikeSomethingButton from 'components/common/LikeSomethingButton';
-import Button from 'components/common/style/buttons/Button';
-import ViewImagesButton from 'components/common/style/buttons/ViewImagesButton';
-import { customModalStylesBlackOverlay, profilePhotoStyle } from 'styles/mixins/utilities';
+import CommentButton from 'app/components/common/style/buttons/CommentButton';
+import LikeSomethingButton from 'app/components/common/LikeSomethingButton';
+import Button from 'app/components/common/style/buttons/Button';
+import ViewImagesButton from 'app/components/common/style/buttons/ViewImagesButton';
+import { customModalStylesBlackOverlay, profilePhotoStyle } from 'app/styles/mixins/utilities';
 
 import styles, { profPic } from './Card.style'
 

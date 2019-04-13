@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import LiveShowVideoViewerNav from 'components/LiveShowVideoViewer/LiveShowVideoViewerNav';
+import LiveShowVideoViewerNav from 'app/components/LiveShowVideoViewer/LiveShowVideoViewerNav';
 import BigBoxInfoContainer from './BigBoxInfoContainer';
 import styles from './HeaderContainer.style';
 

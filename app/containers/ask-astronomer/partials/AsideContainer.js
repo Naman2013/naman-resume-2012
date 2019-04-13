@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import noop from 'lodash/noop';
 import { FormattedMessage } from 'react-intl';
-import AskQuestionTile from 'components/ask-astronomer/AskQuestionTile';
-import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
-import MVPAstronomerList from 'components/common/MVPAstronomer/MVPAstronomerList';
+import AskQuestionTile from 'app/components/ask-astronomer/AskQuestionTile';
+import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
+import MVPAstronomerList from 'app/components/common/MVPAstronomer/MVPAstronomerList';
 import styles from '../AskAstronomer.style';
 import messages from './AsideContainer.messages';
 

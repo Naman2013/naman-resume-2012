@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import GenericButton from 'components/common/style/buttons/Button';
-import setPostImage from 'services/post-creation/set-post-image';
-import deletePostImage from 'services/post-creation/delete-post-image';
+import GenericButton from 'app/components/common/style/buttons/Button';
+import setPostImage from 'app/services/post-creation/set-post-image';
+import deletePostImage from 'app/services/post-creation/delete-post-image';
 import ImagesInput from './partials/input';
 import ImagesDisplay from './partials/display';
 import styles from './upload-images.style';

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import BrowseTaggedDataSearch from 'components/browse-tagged-data/BrowseTaggedDataSearch';
+import BrowseTaggedDataSearch from 'app/components/browse-tagged-data/BrowseTaggedDataSearch';
 
 const propTypes = {
   isOpen: PropTypes.bool,

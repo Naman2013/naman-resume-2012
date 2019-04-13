@@ -8,8 +8,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { DeviceContext } from 'providers/DeviceProvider';
 import QuestCompleted from './quest-complete';
-import { validateResponseAccess } from 'modules/authorization/actions';
-import questActions from 'modules/quest-details/actions';
+import { validateResponseAccess } from 'app/modules/authorization/actions';
+import questActions from 'app/modules/quest-details/actions';
 
 const {
   bool,

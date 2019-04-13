@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import uniqueId from 'lodash/uniqueId';
 import { FormattedMessage } from 'react-intl';
-import CenterColumn from 'components/common/CenterColumn';
-import GuideTile from 'components/common/tiles/guide-tile';
-import GuideExcerptTile from 'components/common/tiles/guide-excerpt-tile';
+import CenterColumn from 'app/components/common/CenterColumn';
+import GuideTile from 'app/components/common/tiles/guide-tile';
+import GuideExcerptTile from 'app/components/common/tiles/guide-excerpt-tile';
 
 import style from './guide-tiles.style';
 

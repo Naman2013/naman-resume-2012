@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import Lightbox from 'react-images';
 import uniqueId from 'lodash/uniqueId';
 import { DeviceContext } from 'providers/DeviceProvider';
-import Button from 'components/common/style/buttons/Button';
-import LargeButtonWithRightIcon from 'components/common/style/buttons/LargeButtonWithRightIcon';
-import { smallProfPic } from 'styles/mixins/utilities';
+import Button from 'app/components/common/style/buttons/Button';
+import LargeButtonWithRightIcon from 'app/components/common/style/buttons/LargeButtonWithRightIcon';
+import { smallProfPic } from 'app/styles/mixins/utilities';
 import styles from './ViewImagesButton.style';
 
 class ViewImagesButton extends Component {

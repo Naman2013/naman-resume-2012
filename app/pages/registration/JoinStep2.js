@@ -12,12 +12,12 @@ import { Field, reduxForm } from 'redux-form';
 import { intlShape, injectIntl, FormattedMessage } from 'react-intl';
 import cloneDeep from 'lodash/cloneDeep';
 import noop from 'lodash/noop';
-import InputField from 'components/form/InputField';
-import { createValidator, required } from 'modules/utils/validation';
+import InputField from 'app/components/form/InputField';
+import { createValidator, required } from 'app/modules/utils/validation';
 import { browserHistory } from 'react-router';
-import Button from 'components/common/style/buttons/Button';
-import Request from 'components/common/network/Request';
-import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
+import Button from 'app/components/common/style/buttons/Button';
+import Request from 'app/components/common/network/Request';
+import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
 import JoinHeader from './partials/JoinHeader';
 import PlanDetailsCard from './partials/PlanDetailsCard';
 import { DEFAULT_JOIN_TABS } from './StaticNavTabs';
@@ -29,7 +29,7 @@ import {
   GOOGLE_SSO_SIGNIN_ENDPOINT_URL,
   JOIN_CREATE_PENDING_CUSTOMER_ENDPOINT_URL,
   VALIDATE_NEW_PENDING_CUSTOMER_DETAILS_ENDPOINT_URL
-} from 'services/registration/registration.js';
+} from 'app/services/registration/registration.js';
 import styles from './JoinStep2.style';
 import messages from './JoinStep2.messages';
 

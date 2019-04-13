@@ -11,24 +11,24 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { browserHistory } from 'react-router';
 import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
-import { BURNHAMS_CORNER_CONTENT } from 'services/content';
+import { BURNHAMS_CORNER_CONTENT } from 'app/services/content';
 
 import {
   fetchObjectDataAction,
   fetchObjectSpecialistsAction,
 } from '../../modules/object-details/actions';
 
-import CenterColumn from 'components/common/CenterColumn';
-import TopicContent from 'components/guides/TopicContent';
-import Request from 'components/common/network/Request';
+import CenterColumn from 'app/components/common/CenterColumn';
+import TopicContent from 'app/components/guides/TopicContent';
+import Request from 'app/components/common/network/Request';
 
 import DeviceProvider from 'providers/DeviceProvider';
 import ObjectProfile from '../../components/object-details/ObjectProfile';
 import ObjectVisibilityProfile from '../../components/object-details/ObjectVisibilityProfile';
 import ObjectHowBig from '../../components/object-details/ObjectHowBig';
-import CardObservations from 'components/common/CardObservations';
-import SterlingTitle from 'components/common/titles/SterlingTitle';
-import BurnhamsCorner from 'components/common/BurnhamsCorner';
+import CardObservations from 'app/components/common/CardObservations';
+import SterlingTitle from 'app/components/common/titles/SterlingTitle';
+import BurnhamsCorner from 'app/components/common/BurnhamsCorner';
 import LailaTile from '../../components/common/tiles/LailaTile';
 import GuideTile from '../../components/common/tiles/guide-tile';
 import GenericButton from '../../components/common/style/buttons/Button';

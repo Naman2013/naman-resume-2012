@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import style from './CenterColumn.style';
-import { defaultScale } from 'styles/variables/breakpoints';
+import { defaultScale } from 'app/styles/variables/breakpoints';
 import { defaultWidths } from './constants';
 
 const CenterColumn = ({

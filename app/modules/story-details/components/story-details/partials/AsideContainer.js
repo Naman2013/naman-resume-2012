@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl, intlShape } from 'react-intl';
-import Host from 'components/Host';
-import BlueLineDrop from 'components/common/BlueLineDrop';
-import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
+import Host from 'app/components/Host';
+import BlueLineDrop from 'app/components/common/BlueLineDrop';
+import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
 import RelatedShows from 'app/components/RelatedShows';
 import RelatedStories from 'app/components/RelatedStories';
 import RelatedGuides from 'app/components/RelatedGuides';
-import RelatedObject from 'components/RelatedObject';
-import { CONTENT_RELATED_GUIDES,  CONTENT_RELATED_STORIES, CONTENT_RELATED_SHOWS} from 'services/content';
+import RelatedObject from 'app/components/RelatedObject';
+import { CONTENT_RELATED_GUIDES,  CONTENT_RELATED_STORIES, CONTENT_RELATED_SHOWS} from 'app/services/content';
 import messages from './AsideContainer.messages';
 
 

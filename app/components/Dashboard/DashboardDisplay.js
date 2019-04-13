@@ -6,8 +6,8 @@
 ***********************************/
 
 import React from 'react';
-import Request from 'components/common/network/Request';
-import { DASHBOARD_META_DATA } from 'services/dashboard';
+import Request from 'app/components/common/network/Request';
+import { DASHBOARD_META_DATA } from 'app/services/dashboard';
 import BootstrappedDashboard  from './BootstrappedDashboard';
 
 const Dashboard = (user) => (

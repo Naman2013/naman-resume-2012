@@ -1,18 +1,18 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import Request from 'components/common/network/Request';
-import InAppNavigation from 'components/common/InAppNavigation';
-import CenterColumn from 'components/common/CenterColumn';
-import TiaraTitleSection from 'components/common/TiaraTitleSection';
-import SterlingTitle from 'components/common/titles/SterlingTitle';
-import GuideSection from 'components/guides/GuideSection';
-import GuideBodyContent from 'components/guides/GuideBodyContent';
-import GuideContentList from 'components/guides/GuideContentList';
-import FeaturedGallery from 'components/guides/FeaturedGallery';
-import GuideTopics from 'components/guides/GuideTopics';
-import GuidePanels from 'components/guides/GuidePanels';
-import { GUIDE_ENDPOINT_URL, GUIDE_OBJECTS_ENDPOINT_URL } from 'services/guides/guide-data';
+import Request from 'app/components/common/network/Request';
+import InAppNavigation from 'app/components/common/InAppNavigation';
+import CenterColumn from 'app/components/common/CenterColumn';
+import TiaraTitleSection from 'app/components/common/TiaraTitleSection';
+import SterlingTitle from 'app/components/common/titles/SterlingTitle';
+import GuideSection from 'app/components/guides/GuideSection';
+import GuideBodyContent from 'app/components/guides/GuideBodyContent';
+import GuideContentList from 'app/components/guides/GuideContentList';
+import FeaturedGallery from 'app/components/guides/FeaturedGallery';
+import GuideTopics from 'app/components/guides/GuideTopics';
+import GuidePanels from 'app/components/guides/GuidePanels';
+import { GUIDE_ENDPOINT_URL, GUIDE_OBJECTS_ENDPOINT_URL } from 'app/services/guides/guide-data';
 import messages from './ObjectCategoryGuide.messages';
 
 const guidePageModel = {

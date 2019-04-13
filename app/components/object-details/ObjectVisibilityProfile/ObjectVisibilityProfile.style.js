@@ -1,9 +1,9 @@
 import css from 'styled-jsx/css';
-import { primaryFont } from 'styles/variables/fonts';
-import { lightHeadedAstronaut } from 'styles/variables/colors_tiles_v4';
-import { faintShadow } from 'styles/variables/shadows';
-import { resetMarginPadding } from 'styles/variables/utils';
-import { screenLarge } from 'styles/variables/breakpoints';
+import { primaryFont } from 'app/styles/variables/fonts';
+import { lightHeadedAstronaut } from 'app/styles/variables/colors_tiles_v4';
+import { faintShadow } from 'app/styles/variables/shadows';
+import { resetMarginPadding } from 'app/styles/variables/utils';
+import { screenLarge } from 'app/styles/variables/breakpoints';
 
 export default css`
 

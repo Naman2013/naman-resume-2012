@@ -5,15 +5,15 @@ import { NavLink, browserHistory } from 'react-router';
 import findIndex from 'lodash/findIndex';
 import pick from 'lodash/pick';
 import noop from 'lodash/noop';
-import CenterColumn from 'components/common/CenterColumn';
+import CenterColumn from 'app/components/common/CenterColumn';
 import HubHeader from 'app/components/common/HubHeader';
-import HubSort from 'components/common/HubSort';
-import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
-import ShowMoreWithNetwork from 'components/common/show-more-with-network';
-import UnderlineNav from 'components/common/UnderlineNav';
+import HubSort from 'app/components/common/HubSort';
+import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
+import ShowMoreWithNetwork from 'app/components/common/show-more-with-network';
+import UnderlineNav from 'app/components/common/UnderlineNav';
 import PaginateWithNetwork from 'app/components/common/paginate-with-network';
-import { seashell } from 'styles/variables/colors_tiles_v4';
-import { goldCompass } from 'styles/variables/iconURLs';
+import { seashell } from 'app/styles/variables/colors_tiles_v4';
+import { goldCompass } from 'app/styles/variables/iconURLs';
 
 import style from './HubContainer.style';
 

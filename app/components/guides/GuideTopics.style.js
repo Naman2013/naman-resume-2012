@@ -1,5 +1,5 @@
 import css from 'styled-jsx/css';
-import { screenMedium, screenLarge } from 'styles/variables/breakpoints';
+import { screenMedium, screenLarge } from 'app/styles/variables/breakpoints';
 
 export default css`
   ul {

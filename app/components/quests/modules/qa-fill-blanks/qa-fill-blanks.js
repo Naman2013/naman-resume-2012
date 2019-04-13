@@ -10,8 +10,8 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import classnames from 'classnames';
 import uniqueId from 'lodash/uniqueId';
-import IntroText from 'components/common/form-sections/intro-text';
-import SectionHeader from 'components/common/form-sections/section-header';
+import IntroText from 'app/components/common/form-sections/intro-text';
+import SectionHeader from 'app/components/common/form-sections/section-header';
 import QuestionList from './partials/question-list';
 
 import styles from './qa-fill-blanks.style';

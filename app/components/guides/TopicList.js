@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import CenterColumn from 'components/common/CenterColumn';
-import BobbieTile from 'components/common/tiles/BobbieTile';
-import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
+import CenterColumn from 'app/components/common/CenterColumn';
+import BobbieTile from 'app/components/common/tiles/BobbieTile';
+import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
 import style from './TopicList.style';
 
 const TopicList = ({ list }) => (

@@ -8,7 +8,7 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import BlueLineDrop from 'components/common/BlueLineDrop';
+import BlueLineDrop from 'app/components/common/BlueLineDrop';
 import styles from './UpcomingMissionAside.style';
 
 const { arrayOf, bool, shape, string } = PropTypes;

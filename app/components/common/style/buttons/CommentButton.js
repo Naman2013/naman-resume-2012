@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import CountButton from './CountButton';
-import { commentWhite, commentAstronaut } from 'styles/variables/iconURLs';
+import { commentWhite, commentAstronaut } from 'app/styles/variables/iconURLs';
 
 const {
   func,
