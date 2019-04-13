@@ -66,12 +66,17 @@ const QuestionList = ({
     },
       )
     }
-    {<Pagination
-      onChange={handlePageChange}
-      defaultPageSize={count}
-      current={page}
-      total={totalCount}
-    />}
+    <div className="d-flex">
+      <Pagination
+        onChange={handlePageChange}
+        defaultPageSize={count}
+        current={page}
+        total={totalCount}
+        showTitle={false}
+        prevIcon={<span className="icon icon-arrow-left" />}
+        nextIcon={<span className="icon icon-arrow-right" />}
+      />
+    </div>
   </div>
 );
 

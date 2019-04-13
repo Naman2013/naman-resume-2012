@@ -11,7 +11,7 @@ import noop from 'lodash/noop';
 import uniqueId from 'lodash/uniqueId';
 import SubmitAnswerButton from 'components/ask-astronomer/SubmitAnswerButton';
 import { likeThread } from 'services/discussions/like';
-import Card from 'components/ask-astronomer/Card';
+import Card from 'app/components/ask-astronomer/Card';
 import AnswerList from './answer-list';
 
 import style from './question-list-item.style';

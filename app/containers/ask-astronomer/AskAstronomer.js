@@ -1,35 +1,30 @@
-/***********************************
-* V4 Ask an Astronomer
-***********************************/
-
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Modal from 'react-modal';
 import { intlShape, injectIntl } from 'react-intl';
-import ResponsiveTwoColumnContainer from 'components/ResponsiveTwoColumnContainer';
-import TwoTabbedNav from 'components/TwoTabbedNav';
-import { fetchObjectSpecialistsAction } from 'modules/object-details/actions';
-import { DeviceContext } from 'providers/DeviceProvider';
+import ResponsiveTwoColumnContainer from 'app/components/ResponsiveTwoColumnContainer';
+import TwoTabbedNav from 'app/components/TwoTabbedNav';
+import { fetchObjectSpecialistsAction } from 'app/modules/object-details/actions';
+import { DeviceContext } from 'app/providers/DeviceProvider';
 import {
   fetchAstronomerQuestions,
   askQuestion,
   changeAnswerState,
-} from 'modules/ask-astronomer-questions/actions';
+} from 'app/modules/ask-astronomer-questions/actions';
 import {
   toggleAllAnswersAndDisplay,
   submitAnswerToQuestion,
-} from 'modules/ask-astronomer-answers/actions';
-import AskQuestionTile from 'components/ask-astronomer/AskQuestionTile';
-import ObjectDetailsSectionTitle from 'components/object-details/ObjectDetailsSectionTitle';
-import CenterColumn from 'components/common/CenterColumn';
+} from 'app/modules/ask-astronomer-answers/actions';
+import AskQuestionTile from 'app/components/ask-astronomer/AskQuestionTile';
+import ObjectDetailsSectionTitle from 'app/components/object-details/ObjectDetailsSectionTitle';
+import CenterColumn from 'app/components/common/CenterColumn';
 import MainContainer from './partials/MainContainer';
-import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
-import { getAskAnAstronomer } from 'services/objects/ask-astronomer';
+import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
+import { getAskAnAstronomer } from 'app/services/objects/ask-astronomer';
 import AsideContainer from './partials/AsideContainer';
-import { customModalStylesV4 } from 'styles/mixins/utilities';
+import { customModalStylesV4 } from 'app/styles/mixins/utilities';
 import style from './AskAstronomer.style';
 import messages from './AskAstronomer.messages';
 

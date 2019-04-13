@@ -11,7 +11,7 @@ import HubSort from 'components/common/HubSort';
 import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
 import ShowMoreWithNetwork from 'components/common/show-more-with-network';
 import UnderlineNav from 'components/common/UnderlineNav';
-import PaginateWithNetwork from 'components/common/paginate-with-network';
+import PaginateWithNetwork from 'app/components/common/paginate-with-network';
 import { seashell } from 'styles/variables/colors_tiles_v4';
 import { goldCompass } from 'styles/variables/iconURLs';
 

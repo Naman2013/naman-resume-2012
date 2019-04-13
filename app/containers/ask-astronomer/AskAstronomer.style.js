@@ -10,16 +10,18 @@ import {
   lightHeadedAstronaut,
   faintGray,
 } from '../../styles/variables/colors_tiles_v4';
-import { screenMedium, screenLarge, screenXLarge } from '../../styles/variables/breakpoints';
+import {
+  screenMedium,
+  screenLarge,
+  screenXLarge,
+} from '../../styles/variables/breakpoints';
 
 export default css`
-
   .full-bg {
-     background-color: ${seashell};
+    background-color: ${seashell};
   }
 
   .ask-astronomer {
-
   }
 
   .loader {
@@ -64,7 +66,7 @@ export default css`
   }
 
   .mvp {
-    box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.1);
+    box-shadow: 0px 0px 3px 1px rgba(0, 0, 0, 0.1);
     margin: 10px;
     width: calc(100% - 20px);
     background-color: ${romance};
@@ -100,16 +102,12 @@ export default css`
     border-top: 0;
   }
 
-
-
   @media ${screenMedium} {
-
-
     .mvp {
       box-shadow: none;
       margin: 0;
       width: 100%;
-      background-color: #F2F3F4;
+      background-color: #f2f3f4;
     }
 
     .mvp .mvp-header {
@@ -118,7 +116,6 @@ export default css`
   }
 
   @media ${screenLarge} {
-
     .ask-astronomer {
       display: flex;
       flex-direction: row;
@@ -136,7 +133,7 @@ export default css`
     .mvp {
       display: block !important;
       width: 300px;
-      box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.1);
+      box-shadow: 0px 0px 3px 1px rgba(0, 0, 0, 0.1);
       margin: 10px 0;
       background-color: ${romance};
     }
