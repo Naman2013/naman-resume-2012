@@ -7,7 +7,6 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import uniqueId from 'lodash/uniqueId';
 import noop from 'lodash/noop';
 import moment from 'moment/moment';
 import CommentButton from 'app/components/common/style/buttons/CommentButton';
@@ -64,7 +63,7 @@ const Card = (props) => {
   }
   
   return (
-    <div className="root" key={uniqueId()}>
+    <div className="root">
       <div className="comment-item">
         <div className="user-info-container">
           <div className="user-info">

@@ -8,7 +8,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment/moment';
 import noop from 'lodash/noop';
-import uniqueId from 'lodash/uniqueId';
 import SubmitAnswerButton from 'app/modules/ask-astronomer/components/SubmitAnswerButton';
 import { likeThread } from 'app/services/discussions/like';
 import Card from 'app/modules/ask-astronomer/components/Card';
@@ -46,6 +45,7 @@ const QuestionListItem = (props) => {
     toggleAllAnswersAndDisplay,
     user,
     updateQuestionsList,
+    key,
   } = props;
 
   const toggleAllAnswers = () => toggleAllAnswersAndDisplay({
@@ -57,7 +57,7 @@ const QuestionListItem = (props) => {
     authorId: item.customerId,
     forumId: item.forumId,
   });
-  return (<div className="shadowed-container margin" key={uniqueId}>
+  return (<div className="shadowed-container margin" key={key}>
     <Card
       {...props.item}
       objectId={objectId}

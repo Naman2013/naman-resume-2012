@@ -26,6 +26,7 @@ const initialState = {
 export default createReducer(initialState, {
   [FETCH_ASTRONOMER_QUESTIONS_START](state, { payload }) {
     const { appendToList, threadCount } = payload;
+    console.log(state.threadList);
     return {
       ...state,
       threadList: appendToList ? state.threadList : [],
