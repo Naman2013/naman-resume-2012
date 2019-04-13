@@ -22,8 +22,8 @@ const UNMUTE_PLAYER = 'UNMUTE_PLAYER';
 export const set = createAction(SET_USER, 'user');
 export const removeUser = createAction(REMOVE_USER);
 
-const cookieD = window.cookieDomain || 'localhost';
-const cookieSecure = !!window.cookieDomain;
+const cookieD = cookieDomain || 'localhost';
+const cookieSecure = !!cookieDomain;
 
 export function store({ reload, cid, token, at, fname, avatarURL, subscriptionPlanName, googleProfileId }) {
   window.document.cookie = cookie.serialize('cid', cid, { domain: cookieD, secure: cookieSecure, expires: futureDate, path: COOKIE_PATH });
