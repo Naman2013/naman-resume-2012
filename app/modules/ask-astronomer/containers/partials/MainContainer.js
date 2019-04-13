@@ -34,6 +34,7 @@ const MainContainer = ({
   showDropdown,
   dropdownOptions,
   changeAnswerState,
+  params,
 }) => (
   <div>
     <Filter
@@ -57,6 +58,7 @@ const MainContainer = ({
         handlePageChange={handlePageChange}
         objectId={objectId}
         page={page}
+        params={params}
         likeParams={likeParams}
         isDesktop={isDesktop}
         questions={questions}

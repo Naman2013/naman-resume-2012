@@ -37,6 +37,7 @@ const QuestionList = ({
   user,
   totalCount,
   updateQuestionsList,
+  params,
 }) => (
   <div>
     {
@@ -54,6 +55,7 @@ const QuestionList = ({
           fetching={fetchingAnswers[item.threadId]}
           isDesktop={isDesktop}
           item={item}
+          params={params}
           likeParams={likeParams}
           user={user}
           key={item.threadId}

@@ -13,6 +13,8 @@ import SubmitAnswerButton from 'app/modules/ask-astronomer/components/SubmitAnsw
 import { likeThread } from 'app/services/discussions/like';
 import Card from 'app/modules/ask-astronomer/components/Card';
 import AnswerList from './answer-list';
+import { browserHistory } from 'react-router';
+
 
 import style from './question-list-item.style';
 
@@ -60,35 +62,46 @@ const QuestionListItem = (props) => {
       {...props.item}
       objectId={objectId}
       showComments={answers.showAllAnswers}
-      toggleComments={toggleAllAnswers}
+      // toggleComments={toggleAllAnswers}
+      toggleComments={() => {
+        console.log('toggle');
+        console.log(props);
+        browserHistory.push(`/object-details/${props.params.objectId}/question`)
+      } }
       likeHandler={likeThread}
       isDesktop={isDesktop}
       user={user}
       likeParams={likeThreadParams}
       allowReplies={canAnswerQuestions}
-      renderReplyButton={() => (<SubmitAnswerButton
-        {...props.item}
-        replyTo={item.threadId}
-        submitForm={submitAnswer}
-        modalActions={modalActions}
-        updateQuestionsList={updateQuestionsList}
-        user={user}
-      />)}
+      // renderReplyButton={() => (<SubmitAnswerButton
+      //   {...props.item}
+      //   replyTo={item.threadId}
+      //   submitForm={submitAnswer}
+      //   modalActions={modalActions}
+      //   updateQuestionsList={updateQuestionsList}
+      //   user={user}
+      // />)}
+      renderReplyButton={() => {
+        console.log('rendReply');
+        // const path = `/repos/${userName}/${repo}`
+        // browserHistory.push(path)
+      }}
       commentText="Answers"
       modalActions={modalActions}
-      renderChildReplies={() => (<AnswerList
-        answers={answers}
-        canAnswerQuestions={canAnswerQuestions}
-        canReplyToAnswers={canReplyToAnswers}
-        displayedAnswers={displayedAnswers}
-        isDesktop={isDesktop}
-        numberOfAnswersToThread={item.replyToponlyCount}
-        objectId={objectId}
-        threadId={item.threadId}
-        topicId={item.topicId}
-        modalActions={modalActions}
-        updateQuestionsList={updateQuestionsList}
-      />)}
+      // renderChildReplies={() => (<AnswerList
+      //   answers={answers}
+      //   canAnswerQuestions={canAnswerQuestions}
+      //   canReplyToAnswers={canReplyToAnswers}
+      //   displayedAnswers={displayedAnswers}
+      //   isDesktop={isDesktop}
+      //   numberOfAnswersToThread={item.replyToponlyCount}
+      //   objectId={objectId}
+      //   threadId={item.threadId}
+      //   topicId={item.topicId}
+      //   modalActions={modalActions}
+      //   updateQuestionsList={updateQuestionsList}
+      // />)}
+      renderChildReplies={() => {} }
     />
     {fetching && <div className="fa fa-spinner loader" />}
     <style jsx>{style}</style>
