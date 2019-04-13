@@ -179,7 +179,7 @@ export const makeBySlooh1000DataSelector = () =>
       objectListExpires,
       availableMissions,
       noObjects,
-      missionType,
+      missionType
     ) => {
       return {
         categoryList,
@@ -282,6 +282,56 @@ export const makeByConstellationNoObjectsSelector = () =>
     makeByConstellationSelector(),
     state => {
       return state.objectCount === 0 && !!state.selectedConstellation;
+    }
+  );
+
+export const makeByConstellationMissionTypeSelector = () =>
+  createSelector(
+    makeByConstellationSelector(),
+    state => {
+      return state.missionType;
+    }
+  );
+
+export const makeByConstellationDataSelector = () =>
+  createSelector(
+    makeByConstellationListSelector(),
+    makeByConstellationListSelectOptsSelector(),
+    makeByConstellationSelectedConstellationSelector(),
+    makeByConstellationObjectListSelector(),
+    makeByConstellationObjectListSelectOptsSelector(),
+    makeByConstellationSelectedObjectIdSelector(),
+    makeByConstellationSelectedObjectDataSelector(),
+    makeByConstellationObjectListExpiresSelector(),
+    makeByConstellationAvailableMissionsSelector(),
+    makeByConstellationNoObjectsSelector(),
+    makeByConstellationMissionTypeSelector(),
+    (
+      constellationList,
+      constellationListOpt,
+      selectedConstellation,
+      objectList,
+      objectListOpts,
+      selectedObjectId,
+      selectedObjectData,
+      objectListExpires,
+      availableMissions,
+      noObjects,
+      missionType
+    ) => {
+      return {
+        constellationList,
+        constellationListOpt,
+        selectedConstellation,
+        objectList,
+        objectListOpts,
+        selectedObjectId,
+        selectedObjectData,
+        objectListExpires,
+        availableMissions,
+        noObjects,
+        missionType,
+      };
     }
   );
 

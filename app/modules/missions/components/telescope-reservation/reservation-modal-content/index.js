@@ -86,6 +86,7 @@ export class ReservationModalContent extends Component {
       resetMissionsData,
       isFetching,
       isTelescopeFetching,
+      onHide,
     } = this.props;
     const { teleName } = selectedTelescope;
     const { missionStart } = selectedSlot;
@@ -149,7 +150,7 @@ export class ReservationModalContent extends Component {
         {missionSlot && !missionSlot.missionAvailable && (
           <ExplanationModal
             show
-            onHide={resetMissionsData}
+            onHide={onHide}
             text={missionSlot.explanation}
           />
         )}

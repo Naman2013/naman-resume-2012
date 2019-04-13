@@ -3,7 +3,7 @@
 
 $parentPadding: 40px;
 
-.slooh-1000-setup {
+.constellation-setup {
   .steps {
     //margin: $parentPadding -($parentPadding) -($parentPadding);
     margin: 40px -40px -40px;
@@ -96,7 +96,7 @@ $parentPadding: 40px;
 }
 
 @include media-breakpoint-down(sm) {
-  .slooh-1000-setup {
+  .constellation-setup {
     .steps {
       .step-1,
       .step-2,

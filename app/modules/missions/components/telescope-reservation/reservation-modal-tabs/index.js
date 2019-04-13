@@ -2,13 +2,14 @@ import React, { PureComponent } from 'react';
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 import { ReservationSlooh1000 } from '../reservation-slooh-1000';
+import { ReservationConstellation } from '../reservation-constellation';
 import './styles.scss';
 
 export class ReservationModalTabs extends PureComponent {
   render() {
-    console.log(this.props);
     const {
       bySlooh1000,
+      byConstellation,
       missionSlot,
       reservedMissionData,
       reservedMission,
@@ -23,6 +24,9 @@ export class ReservationModalTabs extends PureComponent {
       selectedSlot,
       getTelescopeSlot,
       extendedTimer,
+      getConstellationList,
+      setConstellation,
+      setConstellationObject,
     } = this.props;
     return (
       <div className="reservation-modal-tabs">
@@ -50,7 +54,22 @@ export class ReservationModalTabs extends PureComponent {
             />
           </Tab>
           <Tab eventKey="constellation" title="by constellation">
-            fasdfasd
+            <ReservationConstellation
+              {...byConstellation}
+              resetMissionsData={resetMissionsData}
+              getConstellationList={getConstellationList}
+              setConstellation={setConstellation}
+              getObjectList={getObjectList}
+              setObject={setConstellationObject}
+              missionSlot={missionSlot}
+              reservedMissionData={reservedMissionData}
+              reservedMission={reservedMission}
+              selectedTelescope={selectedTelescope}
+              selectedSlot={selectedSlot}
+              getMissionSlot={getMissionSlot}
+              getTelescopeSlot={getTelescopeSlot}
+              extendedTimer={extendedTimer}
+            />
           </Tab>
           <Tab eventKey="catalog" title="by catalog">
             asfdasd

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
-import { Select } from '../../../../components/common/select';
-import Button from '../../../../components/common/style/buttons/Button';
+import { Select } from 'app/components/common/select';
+import Button from 'app/components/common/style/buttons/Button';
+import { ReservationModalCountdown } from '../../telescope-reservation/reservation-modal-countdown';
 import './styles.scss';
 
 export class ConstellationSetup extends Component {
@@ -18,16 +19,23 @@ export class ConstellationSetup extends Component {
       disabled,
       availableMissions,
       noObjects,
+      description,
+      byTelescope,
+      getTelescopeSlot,
+      extendedTimer,
     } = this.props;
 
     return (
-      <div className="slooh-1000-setup">
+      <div className="constellation-setup">
         <div className="row setup-header">
           <h2>Set up a reservation by constellation!</h2>
-          <p>
-            Welcome to the Constellation! Tell us what you want to see, we’ll
-            tell you which scope to use, and the best time to see it!
-          </p>
+          <p>{description}</p>
+          {byTelescope && (
+            <ReservationModalCountdown
+              extendedTimer={extendedTimer}
+              buttonOnClick={getTelescopeSlot}
+            />
+          )}
         </div>
 
         <div className="steps row">
@@ -98,7 +106,7 @@ export class ConstellationSetup extends Component {
 
           <div className="col-sm-6 step-3">
             <Button
-              text="Find a Mission"
+              text={byTelescope ? 'Define Mission' : 'Find a Mission'}
               onClickEvent={getMissionSlot}
               disabled={!selectedConstellation || !selectedObjectId || disabled}
             />

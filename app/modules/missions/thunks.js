@@ -200,20 +200,20 @@ export const getObjectList = data => (dispatch, getState) => {
 };
 
 // by Constellation
-export const getConstellationList = () => (dispatch, getState) => {
+export const getConstellationList = data => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
   dispatch(ACTION.getConstellationList());
   return getConstellationListApi({
     at,
     token,
     cid,
-    callSource: 'byConstellationV4',
+    ...data,
   })
     .then(result => dispatch(ACTION.getConstellationListSuccess(result.data)))
     .catch(error => dispatch(ACTION.getConstellationListError(error)));
 };
 
-export const getConstellationObjectList = constellationName => (
+export const getConstellationObjectList = (constellationName, data) => (
   dispatch,
   getState
 ) => {
@@ -223,7 +223,7 @@ export const getConstellationObjectList = constellationName => (
     at,
     token,
     cid,
-    callSource: 'byConstellationV4',
+    ...data,
     constellationName,
   })
     .then(result =>
@@ -232,9 +232,9 @@ export const getConstellationObjectList = constellationName => (
     .catch(error => dispatch(ACTION.getConstellationObjectListError(error)));
 };
 
-export const setConstellation = constellationName => dispatch => {
+export const setConstellation = (constellationName, data) => dispatch => {
   dispatch(ACTION.setConstellation(constellationName));
-  dispatch(getConstellationObjectList(constellationName));
+  dispatch(getConstellationObjectList(constellationName, data));
 };
 
 // by Catalog

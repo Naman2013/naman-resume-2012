@@ -1,15 +1,13 @@
 import { Box } from 'app/modules/missions/components/box';
 import React, { Component } from 'react';
-import { AvailbleMissionTile } from '../../available-mission-tile';
-import { ExpireCountdown } from '../../expire-countdown';
-import { withSlooh1000 } from '../../slooh-1000/slooh-1000-wrapper';
-import { Slooh1000Setup } from '../../slooh-1000/slooh-1000-setup';
+import { withConstellation } from '../../constellation/constellation-wrapper';
+import { ConstellationSetup } from '../../constellation/constellation-setup';
 import './styles.scss';
 
-class Slooh1000 extends Component {
+class Constellation extends Component {
   componentDidMount() {
-    const { getCategoryList } = this.props;
-    getCategoryList({ callSource: 'byTelescopeV4' });
+    const { getConstellationList } = this.props;
+    getConstellationList({ callSource: 'byTelescopeV4' });
   }
 
   componentWillUnmount() {
@@ -31,11 +29,11 @@ class Slooh1000 extends Component {
     );
   };
 
-  setCategory = value => {
-    const { setCategory, selectedSlot, selectedTelescope } = this.props;
+  setConstellation = value => {
+    const { setConstellation, selectedSlot, selectedTelescope } = this.props;
     const { missionStart, scheduledMissionId, uniqueId } = selectedSlot;
     const { obsId, domeId, telescopeId } = selectedTelescope;
-    setCategory(value, {
+    setConstellation(value, {
       callSource: 'byTelescopeV4',
       uniqueId,
       scheduledMissionId,
@@ -48,17 +46,12 @@ class Slooh1000 extends Component {
 
   render() {
     const {
-      categoryList,
-      categoryListOpts,
-      setCategory,
+      constellationListOpt,
       objectListOpts,
       setObject,
       missionSlot,
-      selectedCategorySlug,
+      selectedConstellation,
       selectedObjectId,
-      reservedMissionData,
-      objectListExpires,
-      reservedMission,
       availableMissions,
       noObjects,
       getTelescopeSlot,
@@ -66,22 +59,21 @@ class Slooh1000 extends Component {
     } = this.props;
 
     return (
-      <div className="reservation-slooh-1000 slooh-1000">
-        <Slooh1000Setup
-          categoryList={categoryList}
-          categoryListOpts={categoryListOpts}
+      <div className="reservation-constellation constellation">
+        <ConstellationSetup
+          constellationListOpt={constellationListOpt}
           objectListOpts={objectListOpts}
-          setCategory={this.setCategory}
+          setConstellation={this.setConstellation}
           setObject={setObject}
           getMissionSlot={this.getMissionSlot}
-          selectedCategorySlug={selectedCategorySlug}
+          selectedConstellation={selectedConstellation}
           selectedObjectId={selectedObjectId}
           disabled={missionSlot && missionSlot.missionAvailable}
           availableMissions={availableMissions}
           noObjects={noObjects}
           getTelescopeSlot={getTelescopeSlot}
           extendedTimer={extendedTimer}
-          description="Welcome to the Slooh 1000! Tell us what you want to see - we’ll make sure that the object 
+          description="Welcome to the Constellation! Tell us what you want to see - we’ll make sure that the object 
           is visible from this observatory and telescope during this time slot - if so, we'll reserve the Mission for you."
           byTelescope
         />
@@ -90,4 +82,4 @@ class Slooh1000 extends Component {
   }
 }
 
-export const ReservationSlooh1000 = withSlooh1000(Slooh1000);
+export const ReservationConstellation = withConstellation(Constellation);

@@ -76,6 +76,7 @@ export const initialState = {
     objectListExpires: null,
     selectedObjectId: null,
     availableMissionsCount: null,
+    missionType: null,
   },
 
   byCatalog: {
@@ -85,6 +86,7 @@ export const initialState = {
     objectData: {},
     telescopeData: {},
     processingRecipe: {},
+    missionType: null,
   },
 
   byTelescope: {
@@ -262,6 +264,7 @@ function resetMissionsData(state) {
       objectListExpires: null,
       selectedObjectId: null,
       availableMissionsCount: null,
+      missionType: null,
     },
     byCatalog: {
       ...state.byCatalog,
@@ -270,6 +273,7 @@ function resetMissionsData(state) {
       objectData: {},
       telescopeData: {},
       processingRecipe: {},
+      missionType: null,
     },
   };
 }
@@ -371,6 +375,7 @@ function getConstellationObjectListSuccess(state, action) {
       objectCount: action.payload.objectCount,
       objectList: action.payload.objectList,
       objectListExpires: action.payload.expires,
+      missionType: action.payload.missionType,
     },
   };
 }

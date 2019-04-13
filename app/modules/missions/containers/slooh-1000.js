@@ -63,5 +63,6 @@ export default compose(
   connect(
     mapStateToProps,
     mapDispatchToProps
-  )
-)(withSlooh1000(Slooh1000));
+  ),
+  withSlooh1000
+)(Slooh1000);

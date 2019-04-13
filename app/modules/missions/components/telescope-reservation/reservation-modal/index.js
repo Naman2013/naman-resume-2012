@@ -14,7 +14,7 @@ export class ReservationModal extends Component {
         aria-labelledby="contained-modal-title-vcenter"
         centered
       >
-        <ReservationModalContent />
+        <ReservationModalContent onHide={onHide} />
       </Modal>
     );
   }
