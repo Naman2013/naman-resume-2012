@@ -62,14 +62,10 @@ const guidePageModel = {
         linkURL: chapter.link,
       })),
     },
-    navigationProps:{
+    navigationProps: {
       title: resp.chapterNavigationInfo.parentInfo.guideTitle,
       contextMenuTitle: resp.topicHeading1,
       contextMenuCount: resp.chapterNavigationInfo.chapterCount,
-      list: resp
-        .chapterNavigationInfo
-        .chapterList
-        .map(chapter => ({ title: chapter.guideTitle, linkURL: chapter.link, iconUrl: chapter.guideIconURL })),
       backLinkURL: resp.chapterNavigationInfo.parentInfo.link,
     },
   }),
@@ -78,66 +74,75 @@ const guidePageModel = {
 const guideObjectsModel = {
   name: 'GUIDE_OBJECTS',
   model: resp => ({
-    
     guideTopicsProps: {
       list: resp.objectList.map(spaceObject => ({
         title: spaceObject.popularName,
         iconURL: spaceObject.iconURL,
+        iconUrl: spaceObject.iconURL,
         linkURL: spaceObject.link,
       })),
     },
   }),
 };
 
-const Guides = ({ params: { guideId } }) => (
-  <Request
-    serviceURL={GUIDE_ENDPOINT_URL}
-    model={guidePageModel}
-    requestBody={{ guideId }}
-    render={({ fetchingContent, modeledResponses: { GUIDE_PAGE_MODEL } }) => (
-      <div>
-        {!fetchingContent && (
-          <Fragment>
-             <InAppNavigation
-                  menuTopAdjustment={0}
-                  {...GUIDE_PAGE_MODEL.navigationProps}
+export default class Guides extends React.Component {
+
+  static propTypes = {
+    params: PropTypes.shape({
+      guideId: PropTypes.string.isRequired,
+    }).isRequired,
+  };
+
+  render() {
+    const { guideId } = this.props.params;
+    return (
+      <Request
+        serviceURL={GUIDE_ENDPOINT_URL}
+        model={guidePageModel}
+        requestBody={{ guideId }}
+        render={({ fetchingContent, modeledResponses: { GUIDE_PAGE_MODEL } }) => (
+          <div>
+            {!fetchingContent && (
+              <Fragment>
+                <Request
+                  serviceURL={GUIDE_OBJECTS_ENDPOINT_URL}
+                  model={guideObjectsModel}
+                  requestBody={{ guideId }}
+                  render={results => (
+                    <div>
+                      {!results.fetchingContent && (
+                        <Fragment>
+                          <InAppNavigation
+                            menuTopAdjustment={0}
+                            {...GUIDE_PAGE_MODEL.navigationProps}
+                            {...results.modeledResponses.GUIDE_OBJECTS.guideTopicsProps}
+                          />
+                          <TiaraTitleSection {...GUIDE_PAGE_MODEL.tiaraTitleProps} />
+
+                          <CenterColumn
+                            theme={{ boxShadow: 'rgba(65, 86, 113, 0.2) 0px 3px 8px 1px', marginBottom: '60px' }}
+                          >
+                            <GuideSection {...GUIDE_PAGE_MODEL.guideSectionProps} guideId={guideId} />
+                          </CenterColumn>
+
+                          <FeaturedGallery />
+
+                          <GuidePanels guideId={guideId} />
+
+                          <SterlingTitle {...GUIDE_PAGE_MODEL.sterlingTitleProps} />
+
+                          <GuideTopics {...results.modeledResponses.GUIDE_OBJECTS.guideTopicsProps} />
+                        </Fragment>)}
+                    </div>
+                  )
+                  }
                 />
-            <TiaraTitleSection {...GUIDE_PAGE_MODEL.tiaraTitleProps} />
-
-            <CenterColumn
-              theme={{ boxShadow: 'rgba(65, 86, 113, 0.2) 0px 3px 8px 1px', marginBottom: '60px' }}
-            >
-              <GuideSection {...GUIDE_PAGE_MODEL.guideSectionProps} guideId={guideId} />
-            </CenterColumn>
-
-            <FeaturedGallery />
-
-            <GuidePanels guideId={guideId} />
-
-            <SterlingTitle {...GUIDE_PAGE_MODEL.sterlingTitleProps} />
-            <Request
-              serviceURL={GUIDE_OBJECTS_ENDPOINT_URL}
-              model={guideObjectsModel}
-              requestBody={{ guideId }}
-              render={results => (
-                <Fragment>
-                  {!results.fetchingContent && (
-                    <GuideTopics {...results.modeledResponses.GUIDE_OBJECTS.guideTopicsProps} />
-                  )}
-                </Fragment>
-              )}
-            />
-          </Fragment>
+              </Fragment>
+            )}
+          </div>
         )}
-      </div>
-    )}
-  />
-);
+      />
+    );
+  }
 
-Guides.propTypes = {
-  params: PropTypes.shape({
-    guideId: PropTypes.string.isRequired,
-  }).isRequired,
-};
-
-export default Guides;
+}

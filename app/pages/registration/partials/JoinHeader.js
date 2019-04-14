@@ -86,7 +86,7 @@ class JoinHeader extends Component {
             />
 
         </DisplayAtBreakpoint>
-        <style>{styles}</style>
+        <style jsx>{styles}</style>
       </div>
     );
   }

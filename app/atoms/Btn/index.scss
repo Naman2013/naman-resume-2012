@@ -1,0 +1,80 @@
+@import "~app/styles/variables/index";
+@import "~app/styles/mixins/utilities.scss";
+
+.i-btn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 10px 20px;
+  border: 1px dashed $astronaut;
+  border-radius: 100px;
+  background: transparent;
+  text-transform: uppercase;
+  font: bold 11px $primary-font;
+  color: $astronaut;
+  cursor: pointer;
+  transition: all .5s ease-in-out;
+
+  &:hover {
+    opacity: .7;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  .icon {
+    margin: 0 0 0 15px;
+  }
+
+  &-circle {
+    position: relative;
+    height: 40px;
+    width: 40px;
+    padding: 0;
+    border-radius: 50%;
+
+    .icon {
+      @include absCenter();
+      margin: 0;
+      font-size: 16px;
+    }
+
+    .fa {
+      font-size: 16px;
+    }
+  }
+
+  &-block-140 {
+    width: 140px;
+    height: 40px;
+  }
+
+  &-white {
+    color: $romance;
+    border-color: $romance;
+  }
+}
+
+.btn-group {
+  display: flex;
+  flex-direction: row;
+  margin: 0 0 0 -5px;
+
+  .i-btn {
+    margin: 0 5px;
+  }
+
+  @include sm() {
+
+    .i-btn {
+      flex: 1;
+
+      &-circle {
+        flex: none;
+      }
+    }
+  }
+}
+

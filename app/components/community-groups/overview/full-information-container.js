@@ -18,6 +18,7 @@ import { createActivity } from '../../../modules/community-group-activity-list/a
 import { fetchGroupMembers } from 'modules/community-group-overview/actions';
 import ResponsiveTwoColumnContainer from 'components/ResponsiveTwoColumnContainer';
 import TwoTabbedNav from 'components/TwoTabbedNav';
+import  {TopThreads }  from '../../../modules/clubs';
 
 import MembersList from './members-list';
 import DiscussionsBoard from 'components/common/DiscussionsBoard';
@@ -109,6 +110,7 @@ class FullInformationOverview extends Component {
       refreshHeader,
       user,
       intl,
+      isEditMode,
     } = this.props;
 
     const createThreadFormParams = {
@@ -122,8 +124,8 @@ class FullInformationOverview extends Component {
 
     return (
       <div className="root">
-        {pageMeta.canEditGroup && pageMeta.isGoogleClassroom === false && <DiscussionBoardInvitationsPanel {...this.props} refreshHeader={refreshHeader} />}
-        {pageMeta.canEditGroup && pageMeta.isGoogleClassroom === true && <DiscussionBoardGoogleClassroomStudentsPanel {...this.props} refreshHeader={refreshHeader} />}
+        {pageMeta.canEditGroup && isEditMode && pageMeta.isGoogleClassroom === false && <DiscussionBoardInvitationsPanel {...this.props} refreshHeader={refreshHeader} />}
+        {pageMeta.canEditGroup && isEditMode && pageMeta.isGoogleClassroom === true && <DiscussionBoardGoogleClassroomStudentsPanel {...this.props} refreshHeader={refreshHeader} />}
 
         <ResponsiveTwoColumnContainer
           renderNavigationComponent={navProps =>
@@ -138,6 +140,9 @@ class FullInformationOverview extends Component {
           }
           renderAsideContent={() => (
             <div>
+              <TopThreads 
+                topicId={pageMeta.topicId}
+                isDesktop={context.isDesktop} />
               <MembersList
                 membersSort={membersSort}
                 membersList={membersList}
@@ -148,7 +153,7 @@ class FullInformationOverview extends Component {
               />
             </div>)
           }
-          isScreenLarge={context.isScreenLarge}
+          isScreenSize={context.isScreenLarge}
           renderMainContent={() => (
             <div className="discuss-container">
               <DiscussionsBoard

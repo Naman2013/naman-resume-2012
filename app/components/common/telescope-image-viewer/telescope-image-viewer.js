@@ -22,6 +22,9 @@ function TelescopeImageViewer({
   const teleThumbWidth = '866px';
   const imageSource = generateSseImageLoader(teleSystem, telePort);
 
+  //TODO rewrite this cause i`d rather never write something like this
+  const viewportHeight = Array.prototype.filter.call(document.getElementsByClassName('live-video-container'), x => x.offsetWidth !== 0)[0].offsetWidth;
+
   return (
     <div className="telescope-image-viewer">
       <InteractiveViewer isInteractive={isInteractive} callSource={callSource}>
@@ -34,6 +37,7 @@ function TelescopeImageViewer({
           teleFade={teleFade}
           clipped={clipped}
           missionFormat={missionFormat}
+          viewportHeight={viewportHeight}
         />
 
         <StarShareCamera />

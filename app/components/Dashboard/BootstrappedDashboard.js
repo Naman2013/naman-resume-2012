@@ -174,7 +174,7 @@ class BootstrappedDashboard extends Component {
               ))}
         </div>
 
-        <style>{styles}</style>
+        <style jsx>{styles}</style>
       </div>
     );
   }

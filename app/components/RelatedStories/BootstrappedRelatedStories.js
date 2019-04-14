@@ -7,47 +7,36 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router';
-import classnames from 'classnames';
-import uniqueId from 'lodash/uniqueId';
-import { FormattedMessage } from 'react-intl';
-import AveryTile from 'components/common/tiles/AveryTile';
-import messages from './RelatedStories.messages';
 
+import AveryTile from '../common/tiles/AveryTile';
 import styles from './RelatedStories.style';
 
-const {
-  arrayOf, bool, number, shape, string,
-} = PropTypes;
+const { arrayOf, shape } = PropTypes;
 
 class BootstrappedRelatedStories extends Component {
   static propTypes = {
-    isDesktop: bool,
     relatedStoriesList: arrayOf(shape()),
-    relatedStoriesListCount: number,
   };
 
   static defaultProps = {
-    isDesktop: false,
     relatedStoriesList: [],
-    postsCount: 0,
-  };
-
-  state = {
-    showInfo: !this.props.isDesktop,
   };
 
   render() {
-    const { isDesktop, relatedStoriesList, relatedStoriesListCount } = this.props;
+    const { relatedStoriesList } = this.props;
 
     return (
       <div className="root">
-        {relatedStoriesList.length > 0 ? (
+        {relatedStoriesList.map(item => (
           <AveryTile
-            title={relatedStoriesList[0].title}
-            avatarURL={relatedStoriesList[0].avatarURL}
+            key={`story-${item.showId}`}
+            title={item.title}
+            avatarURL={item.avatarURL}
+            theme={{
+              marginBottom: '10px',
+            }}
           />
-        ) : null}
+        ))}
         <style jsx>{styles}</style>
       </div>
     );

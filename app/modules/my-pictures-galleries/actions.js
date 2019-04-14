@@ -67,6 +67,7 @@ export const fetchGalleries = ({
   firstImageNumber = 1,
   pagingMode = 'app',
   noFilters = false,
+  customerUUID,
 }) => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
   const { selectedFilters } = getState().myPicturesFilters;
@@ -83,6 +84,7 @@ export const fetchGalleries = ({
     cid,
     token,
     pagingMode,
+    customerUUID,
     maxGalleryCount: maxImageCount,
     firstGalleryNumber: firstImageNumber,
     ...filters,
@@ -106,7 +108,7 @@ const fetchGalleriesCountFail = payload => ({
   payload,
 });
 
-export const fetchGalleriesCount = () => (dispatch, getState) => {
+export const fetchGalleriesCount = ({ customerUUID }) => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
   const { selectedFilters } = getState().myPicturesFilters;
   dispatch(fetchGalleriesCountStart());
@@ -118,6 +120,7 @@ export const fetchGalleriesCount = () => (dispatch, getState) => {
     at,
     cid,
     token,
+    customerUUID,
     ...selectedFilters,
   })
   .then(result => {
@@ -131,9 +134,9 @@ export const fetchGalleriesCount = () => (dispatch, getState) => {
 };
 
 export const fetchGalleriesAndCounts = (params) => (dispatch) => {
-  dispatch(fetchMissionCount());
-  dispatch(fetchMyPicturesCount());
-  dispatch(fetchGalleriesCount());
+  dispatch(fetchMissionCount(params));
+  dispatch(fetchMyPicturesCount(params));
+  dispatch(fetchGalleriesCount(params));
   dispatch(fetchGalleries(params));
 };
 
@@ -147,6 +150,7 @@ export const fetchMoreGalleries = ({
   firstImageNumber = 11,
   pagingMode = 'app',
   noFilters = false,
+  customerUUID,
 }) => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
   const { selectedFilters } = getState().myPicturesFilters;
@@ -158,6 +162,7 @@ export const fetchMoreGalleries = ({
     pagingMode,
     maxGalleryCount: maxImageCount,
     firstGalleryNumber: firstImageNumber,
+    customerUUID,
     ...filters,
   })
   .then(result => dispatch(fetchMoreGalleriesSuccess(result.data)))

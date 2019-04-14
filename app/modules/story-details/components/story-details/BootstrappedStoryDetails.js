@@ -92,7 +92,7 @@ const BootstrappedStoryDetails = props => {
                 <AsideContainer {...props} />
               </div>
             )}
-            isScreenLarge={isScreenLarge}
+            isScreenSize={isScreenLarge}
             renderMainContent={() => (
               <MainContainer
                 {...props}

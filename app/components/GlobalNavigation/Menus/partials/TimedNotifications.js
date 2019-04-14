@@ -1,46 +1,37 @@
+// @flow
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import Modal from 'react-modal';
 import xorBy from 'lodash/xorBy';
+import { primaryFont } from 'app/styles/variables/fonts';
 import MenuTitleBar from './MenuTitleBar';
 import MenuList from './MenuList';
 import AlertTile from './AlertTile';
-import { primaryFont } from 'styles/variables/fonts';
-const {
-  arrayOf,
-  bool,
-  number,
-  shape,
-} = PropTypes;
 
-class TimedNotifications extends Component {
-  static propTypes = {
-    alertsOnly: arrayOf(shape({
-      active: bool.isRequired,
-      eventCountdown: number.isRequired,
-      eventId: number.isRequired,
-    })),
-  }
+type TTimedNotifications = {
+  alertsOnly: Array<{
+    active: boolean,
+    eventCountdown: number,
+    eventId: number,
+  }>,
+};
 
-  static defaultProps = {
-    alertsOnly: [],
-  }
-
+class TimedNotifications extends Component<TTimedNotifications> {
   state = {
     alerts: [],
     dismissedAlerts: [],
     timers: [],
     showPrompt: false,
     promptText: '',
-  }
+  };
 
   componentWillReceiveProps(nextProps) {
     const { notificationsCount, updateNotificationsCount } = this.props;
-    if (xorBy(this.state.alerts, nextProps.alertsOnly, 'eventId').length > 0) {
+    const { alerts, dismissedAlerts } = this.state;
+    if (xorBy(alerts, nextProps.alertsOnly, 'eventId').length > 0) {
       // remove all dismissed alerts
       let newAlerts = nextProps.alertsOnly;
-      this.state.dismissedAlerts.forEach(_dismissed => {
-        newAlerts = newAlerts.filter(_alert => _alert.eventId === _dismissed);
+      dismissedAlerts.forEach(_dismissed => {
+        newAlerts = newAlerts.filter(_alert => _alert.eventId !== _dismissed);
       });
       this.setState(() => ({
         alerts: newAlerts,
@@ -56,87 +47,99 @@ class TimedNotifications extends Component {
   }
 
   componentWillUnmount() {
-    this.state.timers.map(timer => clearTimeout(timer));
+    const { timers } = this.state;
+    timers.map(timer => clearTimeout(timer));
     this.setState(() => ({
       timers: [],
     }));
   }
 
-  createTimers = (alerts) => {
+  createTimers = alerts => {
     const { updateNotificationsCount } = this.props;
     const timers = [];
-    alerts.map((_alert) => {
+    alerts.map(_alert => {
       if (!_alert.active) {
-        timers.push(setTimeout(() => {
-          const latestAlerts = this.state.alerts;
-          const newAlerts = latestAlerts.map((_storedAlert) => {
-            const { notificationsCount } = this.props;
-            if (_storedAlert.eventId === _alert.eventId) {
-              _storedAlert.active = true;
-              updateNotificationsCount({
-                count: notificationsCount + 1,
-              });
-              this.setState(() => ({
-                showPrompt: true,
-                promptText: (
-                  <div>
-                    <AlertTile {..._storedAlert} dismissAlert={this.dismissAlert} />
-                  </div>
-                ),
-              }));
-            }
-            return _storedAlert;
-          });
+        timers.push(
+          setTimeout(() => {
+            const latestAlerts = this.state.alerts;
+            const newAlerts = latestAlerts.map(_storedAlert => {
+              const { notificationsCount } = this.props;
+              if (_storedAlert.eventId === _alert.eventId) {
+                _storedAlert.active = true;
+                updateNotificationsCount({
+                  count: notificationsCount + 1,
+                });
+                this.setState(() => ({
+                  showPrompt: true,
+                  promptText: (
+                    <div>
+                      <AlertTile
+                        {..._storedAlert}
+                        dismissAlert={this.dismissAlert}
+                      />
+                    </div>
+                  ),
+                }));
+              }
+              return _storedAlert;
+            });
 
-          this.setState(() => ({
-            alerts: newAlerts,
-          }));
-        }, _alert.eventCountdown * 1000));
+            this.setState(() => ({
+              alerts: newAlerts,
+            }));
+          }, _alert.eventCountdown * 1000)
+        );
       }
       this.setState(() => ({
         timers,
       }));
       return _alert;
     });
-  }
+  };
 
-  dismissAlert = (eventId) => {
-    this.props.dismissNotification({
-      eventId,
-    }).then((res) => {
-      if (res.successFlag) {
-        const dismissedAlerts = [].concat(this.state.dismissedAlerts, eventId);
-        const newAlerts = this.state.alerts.filter(_storedAlert => _storedAlert.eventId !== eventId);
-        this.setState(() => ({
-          alerts: newAlerts,
-          dismissedAlerts,
-        }));
-      }
+  dismissAlert = eventId => {
+    this.props
+      .dismissNotification({
+        eventId,
+      })
+      .then(res => {
+        if (res.successFlag) {
+          const dismissedAlerts = [].concat(
+            this.state.dismissedAlerts,
+            eventId
+          );
+          const newAlerts = this.state.alerts.filter(
+            _storedAlert => _storedAlert.eventId !== eventId
+          );
+          this.setState(() => ({
+            alerts: newAlerts,
+            dismissedAlerts,
+          }));
+        }
 
-      if (!res.error) {
-        this.setState({
-          showPrompt: res.showResponse,
-          promptText: res.response,
-        });
-      } else {
-        this.setState({
-          showPrompt: true,
-          promptText: 'There was an error.',
-        });
-      }
-    });
-  }
+        if (!res.error) {
+          this.setState({
+            showPrompt: res.showResponse,
+            promptText: res.response,
+          });
+        } else {
+          this.setState({
+            showPrompt: true,
+            promptText: 'There was an error.',
+          });
+        }
+      });
+  };
 
   closeModal = () => {
     this.setState({
       showPrompt: false,
       promptText: '',
     });
-  }
-
+  };
 
   render() {
-    const { notificationConfig, dismissNotification } = this.props;
+    const { notificationConfig } = this.props;
     const { alerts, showPrompt, promptText } = this.state;
 
     const customModalStyles = {
@@ -158,10 +161,13 @@ class TimedNotifications extends Component {
 
     return (
       <div>
-        <MenuTitleBar
-          title="Alerts"
+        <MenuTitleBar title="Alerts" />
+        <MenuList
+          items={notificationConfig({
+            alerts,
+            dismissAlert: this.dismissAlert,
+          })}
         />
-        <MenuList items={notificationConfig({ alerts, dismissAlert: this.dismissAlert })} />
         <Modal
           ariaHideApp={false}
           isOpen={showPrompt}

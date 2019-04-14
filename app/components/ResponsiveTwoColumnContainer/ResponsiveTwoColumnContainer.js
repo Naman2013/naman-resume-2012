@@ -1,16 +1,20 @@
 /***********************************
-* V4 Observations Page
-*
-*
-*
-***********************************/
+ * V4 Observations Page
+ *
+ *
+ *
+ ***********************************/
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { darkGray, gray } from 'styles/variables/colors';
 import { primaryFont, secondaryFont } from 'styles/variables/fonts';
-import { screenMedium, screenLarge, screenXLarge } from 'styles/variables/breakpoints';
+import {
+  screenMedium,
+  screenLarge,
+  screenXLarge,
+} from 'styles/variables/breakpoints';
 
 const {
   any,
@@ -26,166 +30,136 @@ const {
 
 class ResponsiveTwoColumnContainer extends Component {
   static propTypes = {
-    isScreenLarge: bool.isRequired,
+    isScreenSize: bool.isRequired,
     renderMainContent: func.isRequired,
     renderAsideContent: func.isRequired,
     renderNavigationComponent: func.isRequired,
-  }
-
-  static defaultProps = {
   };
+
+  static defaultProps = {};
 
   state = {
     showMainContainer: true,
-    showAsideContainer: this.props.isScreenLarge,
+    showAsideContainer: this.props.isScreenSize,
   };
 
   componentWillReceiveProps(nextProps) {
-    if (!this.props.isScreenLarge && nextProps.isScreenLarge) {
+    if (!this.props.isScreenSize && nextProps.isScreenSize) {
       this.setState({
-        showMainContainer: nextProps.isScreenLarge,
-        showAsideContainer: nextProps.isScreenLarge,
+        showMainContainer: nextProps.isScreenSize,
+        showAsideContainer: nextProps.isScreenSize,
       });
-    } else if (this.props.isScreenLarge && !nextProps.isScreenLarge) {
+    } else if (this.props.isScreenSize && !nextProps.isScreenSize) {
       this.setState(state => ({
         showMainContainer: state.showMainContainer,
-        showAsideContainer: (state.showMainContainer && state.showAsideContainer) ?
-          false : state.showAsideContainer,
+        showAsideContainer:
+          state.showMainContainer && state.showAsideContainer
+            ? false
+            : state.showAsideContainer,
       }));
     }
   }
 
   onShowMainContainer = () => {
-    if (!this.props.isScreenLarge) {
+    if (!this.props.isScreenSize) {
       this.setState({
         showMainContainer: true,
         showAsideContainer: false,
       });
     }
-  }
+  };
 
   onShowAsideContainer = () => {
-    if (!this.props.isScreenLarge) {
+    if (!this.props.isScreenSize) {
       this.setState({
         showMainContainer: false,
         showAsideContainer: true,
       });
     }
-  }
+  };
 
   render() {
-    const {
-      onShowAsideContainer,
-      onShowMainContainer,
-      props,
-      state,
-    } = this;
+    const { onShowAsideContainer, onShowMainContainer, props, state } = this;
     const {
       asideContainerTitle,
       mainContainerTitle,
       renderNavigationComponent,
       renderAsideContent,
       renderMainContent,
+      isScreenSize,
     } = props;
     const { showMainContainer, showAsideContainer } = state;
-    return (<div className="root">
-      <div className="split-nav">
-        {renderNavigationComponent({
-          showMainContainer,
-          onShowMainContainer,
-          showAsideContainer,
-          onShowAsideContainer,
-        })}
-      </div>
-      <div className="main-container">
-        {showMainContainer ? <div className="left-container">
-          {renderMainContent()}
-        </div> : null}
-        {showAsideContainer ? <div className="right-container">
-          {renderAsideContent()}
-        </div> : null}
-      </div>
-      <style jsx>{`
-
-        .root {
-          font-family: ${primaryFont};
-          color: ${darkGray};
-          min-height: 100px;
-
-        }
-
-
-        .is-hidden {
-          visibility: hidden;
-        }
-
-        .main-container {
-          display: flex;
-          width: 100%;
-        }
-
-        .left-container {
-          margin: 0 auto;
-        }
-
-        .left-container,
-        .right-container {
-          width: 100%;
-        }
-
-        .arrow {
-          margin-bottom: -5px;
-        }
-
-        .split-nav {
-          display: flex;
-          width: 100%;
-        }
-
-        @media ${screenLarge} {
+    return (
+      <div className="root">
+        {!isScreenSize && (
+          <div className="split-nav">
+            {renderNavigationComponent({
+              showMainContainer,
+              onShowMainContainer,
+              showAsideContainer,
+              onShowAsideContainer,
+            })}
+          </div>
+        )}
+        <div className="main-container responsive-two-cols">
+          {showMainContainer ? (
+            <div className="left-container">{renderMainContent()}</div>
+          ) : null}
+          {showAsideContainer ? (
+            <div className="right-container">{renderAsideContent()}</div>
+          ) : null}
+        </div>
+        <style jsx>{`
           .root {
-            width: 940px;
-            margin: 0 auto;
+            font-family: ${primaryFont};
+            color: ${darkGray};
+            min-height: 100px;
           }
 
-          .split-nav {
-            display: none;
+          .is-hidden {
+            visibility: hidden;
+          }
+
+          .main-container {
+            display: flex;
             width: 100%;
           }
 
-          .right-container {
-            width: 300px;
-          }
-
           .left-container {
-            width: 620px;
-          }
-
-        }
-
-        @media ${screenXLarge} {
-          .root {
-            width: 940px;
             margin: 0 auto;
           }
 
-          .split-nav {
-            display: none;
+          .left-container,
+          .right-container {
             width: 100%;
           }
 
-          .right-container {
-            width: 300px;
+          .arrow {
+            margin-bottom: -5px;
           }
 
-          .left-container {
-            width: 620px;
+          .split-nav {
+            display: flex;
+            width: 100%;
           }
 
-        }
+          @media screen and (min-width: 1025px) {
+            .root {
+              width: 940px;
+              margin: 0 auto;
+            }
 
-      `}</style>
-    </div>);
+            .right-container {
+              width: 300px;
+            }
+
+            .left-container {
+              width: 620px;
+            }
+          }
+        `}</style>
+      </div>
+    );
   }
 }
 

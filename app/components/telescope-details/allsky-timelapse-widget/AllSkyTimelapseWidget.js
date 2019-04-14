@@ -69,7 +69,7 @@ class AllSkyTimelapseWidget extends Component {
 
     return (
       <div className="telescope-block live-allsky">
-        <h1 style={inlineTitleStyle}>{allskyTimelapseTitle}</h1>
+        {/*<h1 style={inlineTitleStyle}>{allskyTimelapseTitle}</h1>*/}
         <div className="live-allskytimelapse">
           {onlineStatus == 'offline' && <Offline offlineImageURL={offlineImageURL}/>}
           {onlineStatus == 'online' && allskyTimelapseURL ?

@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+// @flow
+import React, { PureComponent, Fragment } from 'react';
 import { Modal } from 'react-bootstrap';
 import Measure from 'react-measure';
 import noop from 'lodash/noop';
-import Fade from '../../components/common/Fade';
-import FadeSVG from '../../components/common/Fade/FadeSVG';
+import Fade from '../common/Fade';
+import FadeSVG from '../common/Fade/FadeSVG';
 import easingFunctions, { animateValues } from '../../utils/easingFunctions';
 import Button from '../common/style/buttons/Button';
 
@@ -17,6 +17,8 @@ import HowBig from './HowBig';
 import { getTelescope } from './telescopeConfig';
 import FieldOfView from './FieldOfView/FieldOfView';
 
+import { moodyBleu, romance } from '../../styles/variables/colors_tiles_v4';
+
 const MAX_RESOLUTION = 250;
 const MAX_DURATION = 10000;
 const ZOOM_OUT_DURATION = MAX_DURATION / 2;
@@ -24,29 +26,39 @@ const MAX_FOV_FLIPS = 5;
 
 const menuButtonTheme = {
   fontSize: '18px',
-  color: 'white',
   borderWidth: '3px',
-  borderColor: 'white',
   background: 'black',
 };
 
-class Telescope extends Component {
-  static propTypes = {
-    activeInstrumentID: PropTypes.string.isRequired,
-    previousInstrumentID: PropTypes.string.isRequired,
-    missionMetaData: PropTypes.shape({
-      missionTargetID: PropTypes.number,
-      referenceObjectScale: PropTypes.number,
-      domain: PropTypes.string,
-      targetObjectScale: PropTypes.number,
-      targetObjectURL: PropTypes.string,
-      targetObjectName: PropTypes.string,
-    }),
-    render: PropTypes.func,
-    increment: PropTypes.number,
-    disableFullscreen: PropTypes.bool,
-  };
+const inactiveButtonTheme = {
+  ...menuButtonTheme,
+  color: moodyBleu,
+  borderColor: moodyBleu,
+};
 
+const activeButtonTheme = {
+  ...menuButtonTheme,
+  color: romance,
+  borderColor: romance,
+};
+
+type TTelescope = {
+  activeInstrumentID: string,
+  previousInstrumentID: string | void,
+  missionMetaData?: {
+    missionTargetID?: number,
+    referenceObjectScale?: number,
+    domain?: string,
+    targetObjectScale?: number,
+    targetObjectURL?: string,
+    targetObjectName?: string,
+  },
+  render?: Function,
+  increment?: number,
+  disableFullscreen?: boolean,
+};
+
+class Telescope extends PureComponent<TTelescope> {
   static defaultProps = {
     increment: 5,
     render: noop,
@@ -65,8 +77,9 @@ class Telescope extends Component {
     increment: this.props.increment,
     awaitingMission: this.props.missionMetaData.missionTargetID === 0,
     transitionScale: false,
-    isMaskActive:false,
-    isModalActive:false,
+    isMaskActive: false,
+    isModalActive: false,
+    isGridActive: true,
     portalDimensions: {
       bottom: 0,
       height: 0,
@@ -77,6 +90,7 @@ class Telescope extends Component {
       x: 0,
       y: 0,
     },
+    radius: 0,
   };
 
   componentWillReceiveProps({
@@ -110,7 +124,9 @@ class Telescope extends Component {
   }
 
   currentZoomInTransition = null;
+
   currentZoomOutTransition = null;
+
   doFOVTransitionInterval = null;
 
   transitionZoomOut() {
@@ -232,7 +248,7 @@ class Telescope extends Component {
 
   render() {
     const {
-      portalDimensions: { width },
+      portalDimensions: { width, height },
       increment,
       horizontalResolution,
       verticalResolution,
@@ -243,6 +259,9 @@ class Telescope extends Component {
       awaitingMission,
       isMaskActive,
       isModalActive,
+      isGridActive,
+      radius,
+      missionTitle
     } = this.state;
 
     const { missionMetaData, disableFullscreen } = this.props;
@@ -252,9 +271,10 @@ class Telescope extends Component {
     const midPoint = width / 2;
     const arcMinuteLabelLetterSpacing = width * 0.03;
 
+    console.log(radius);
+
     return (
       <Measure bounds onResize={this.handlePortalResize}>
-     
         {({ measureRef }) => (
           <div className="telescope">
             <div
@@ -268,41 +288,68 @@ class Telescope extends Component {
             >
               <div className="telescope-float-menu">
                 <Button
+                  renderIcon={() => <i className="fa fa-table" />}
+                  isActive={isGridActive}
+                  onClickEvent={() => {
+                    this.setState({ isGridActive: !isGridActive });
+                  }}
+                  theme={{
+                    ...(isGridActive ? activeButtonTheme : inactiveButtonTheme),
+                    marginBottom: '10px',
+                  }}
+                />
+                <Button
                   renderIcon={() => <i className="fa fa-eye" />}
                   isActive={isMaskActive}
                   onClickEvent={() => {
                     this.setState({ isMaskActive: !isMaskActive });
                   }}
                   theme={{
-                    ...menuButtonTheme,
+                    ...(isMaskActive ? activeButtonTheme : inactiveButtonTheme),
                     marginBottom: '10px',
                   }}
                 />
                 {!disableFullscreen && (
                   <Button
                     renderIcon={() => <i className="fa fa-arrows-alt" />}
-                    onClickEvent={() => 
+                    onClickEvent={() =>
                       this.setState({
-                         isModalActive: true,
-                         isMaskActive: false
-                         })}
-                    theme={menuButtonTheme}
+                        isModalActive: true,
+                        isMaskActive: false,
+                      })
+                    }
+                    theme={inactiveButtonTheme}
                   />
                 )}
               </div>
               <Fade isHidden={isTransitioningTelescope}>
-                <div>{this.props.render({ viewportHeight: width })}</div>
+                <div>
+                  {this.props.render({ viewportHeight: width }, imageData => {
+                    const { imageWidth, imageHeight, missionTitle } = imageData;
+
+                    const radiusSize = (imageHeight *.65) / 2;
+
+                    this.setState({
+                      radius: radiusSize,
+                      missionTitle,
+                    });
+                  })}
+                </div>
               </Fade>
-              <svg version="1.1" xmlns="http://www.w3.org/2000/svg" className="telescope-svg">
+              <svg
+                version="1.1"
+                xmlns="http://www.w3.org/2000/svg"
+                className="telescope-svg"
+              >
                 {/**
-                    TODO:
-                    move non-scale transition elements into a component to keep this more readable
-                  */}
+                 TODO:
+                 move non-scale transition elements into a component to keep this more readable
+                 */}
                 <FadeSVG isHidden={transitionScale}>
                   <FadeSVG isHidden={isTransitioningTelescope}>
-                    {isMaskActive && <Mask />}
+                    {isMaskActive && <Mask radius={radius} />}
                   </FadeSVG>
-                  {activeInstrumentID && previousInstrumentID && (
+                  {activeInstrumentID && previousInstrumentID && isGridActive && (
                     <FadeSVG isHidden={!isTransitioningTelescope}>
                       <FieldOfView
                         activeInstrumentID={activeInstrumentID}
@@ -312,45 +359,49 @@ class Telescope extends Component {
                       />
                     </FadeSVG>
                   )}
-                  <TelescopeFrame
-                    isGridVisible={isTransitioningTelescope}
-                    isScaleVisible={!isTransitioningTelescope}
-                    horizontalResolution={horizontalResolution}
-                    verticalResolution={verticalResolution}
-                    increment={increment}
-                    length={width}
-                  />
+                  {isGridActive && (
+                    <Fragment>
+                      <TelescopeFrame
+                        isGridVisible={isTransitioningTelescope}
+                        isScaleVisible={!isTransitioningTelescope}
+                        horizontalResolution={horizontalResolution}
+                        verticalResolution={verticalResolution}
+                        increment={increment}
+                        length={width}
+                      />
 
-                  <FadeSVG isHidden={isTransitioningTelescope}>
-                    <Scale
-                      dimension={width}
-                      scale={
-                        tickSpacing *
-                        activeInstrument.directionMarkerLengthArcMinutes
-                      }
-                      scaleText={
-                        activeInstrument.directionMarkerLengthArcMinutes
-                      }
-                      style={{ stroke: 'aqua' }}
-                    />
+                      <FadeSVG isHidden={isTransitioningTelescope}>
+                        <Scale
+                          dimension={width}
+                          scale={
+                            tickSpacing *
+                            activeInstrument.directionMarkerLengthArcMinutes
+                          }
+                          scaleText={
+                            activeInstrument.directionMarkerLengthArcMinutes
+                          }
+                          style={{ stroke: 'aqua' }}
+                        />
 
-                    <UnitText
-                      text="arcminutes"
-                      x={midPoint}
-                      y={40}
-                      style={{ letterSpacing: arcMinuteLabelLetterSpacing }}
-                    />
+                        <UnitText
+                          text="arcminutes"
+                          x={midPoint}
+                          y={40}
+                          style={{ letterSpacing: arcMinuteLabelLetterSpacing }}
+                        />
 
-                    <UnitText
-                      text="arcminutes"
-                      x={-midPoint}
-                      y={width - 40}
-                      style={{
-                        letterSpacing: arcMinuteLabelLetterSpacing,
-                        transform: 'rotate(-90)',
-                      }}
-                    />
-                  </FadeSVG>
+                        <UnitText
+                          text="arcminutes"
+                          x={-midPoint}
+                          y={width - 40}
+                          style={{
+                            letterSpacing: arcMinuteLabelLetterSpacing,
+                            transform: 'rotate(-90)',
+                          }}
+                        />
+                      </FadeSVG>
+                    </Fragment>
+                  )}
                 </FadeSVG>
                 {!disableFullscreen && (
                   <Modal
@@ -361,7 +412,7 @@ class Telescope extends Component {
                     onHide={() => this.setState({ isModalActive: false })}
                   >
                     <Modal.Header closeButton>
-                      <Modal.Title>PLACEHOLDER TEXT</Modal.Title>
+                      <Modal.Title>{missionTitle || "No mission available"}</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                       <Telescope {...this.props} disableFullscreen />
@@ -397,8 +448,8 @@ class Telescope extends Component {
                     float: left;
                   }
 
-                  .portal :global(.telescope-svg){
-                    z-index:5;
+                  .portal :global(.telescope-svg) {
+                    z-index: 5;
                   }
 
                   .portal :global(.telescope-float-menu) {
@@ -409,10 +460,10 @@ class Telescope extends Component {
                   }
 
                   :global(.telescope-modal) {
-                    max-width:90vh;
-                    width:100%;
+                    max-width: 90vh;
+                    width: 100%;
                   }
-                  
+
                   svg {
                     position: absolute;
                     left: 0;

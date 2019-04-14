@@ -1,13 +1,13 @@
 /***********************************
-* V4 Related Shows
-*
-*
-*
-***********************************/
+ * V4 Related Shows
+ *
+ *
+ *
+ ***********************************/
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router';
+import { Link, browserHistory } from 'react-router';
 import classnames from 'classnames';
 import Modal from 'react-modal';
 import uniqueId from 'lodash/uniqueId';
@@ -15,23 +15,21 @@ import { intlShape, injectIntl } from 'react-intl';
 import { profilePhotoStyle } from 'styles/mixins/utilities';
 import fetchObjectFollowService from 'services/objects/object-follow';
 import Button from 'components/common/style/buttons/Button';
-import { customModalStylesV4 } from 'styles/mixins/utilities';
+import { customModalStylesBlackOverlay } from 'styles/mixins/utilities';
+import { blue_tile_feat } from '../../styles/variables/colors_tiles_v4';
+
 import styles from './RelatedObject.style';
 import messages from './RelatedObject.messages';
 
-const {
-  arrayOf,
-  bool,
-  number,
-  shape,
-  string,
-} = PropTypes;
+const { arrayOf, bool, number, shape, string } = PropTypes;
 
-const profPic = photoUrl => Object.assign(profilePhotoStyle(photoUrl), {
-  height: '105px',
-  width: '105px',
-  backgroundSize: 'cover',
-});
+const profPic = photoUrl =>
+  Object.assign(profilePhotoStyle(photoUrl), {
+    height: '105px',
+    width: '105px',
+    backgroundRepeat: 'no-repeat',
+    background: `url(${photoUrl}) center center no-repeat, url(${blue_tile_feat})`,
+  });
 
 class RelatedObject extends Component {
   static propTypes = {
@@ -43,7 +41,7 @@ class RelatedObject extends Component {
     followPrompt: string,
     showFollowPromptFlag: bool,
     hasLink: bool,
-    linkURL: string,
+    linkUrl: string,
     LinkLabel: string,
     dataBlocks: shape({
       listCount: number,
@@ -68,7 +66,7 @@ class RelatedObject extends Component {
       token: string,
     }).isRequired,
     intl: intlShape.isRequired,
-  }
+  };
 
   static defaultProps = {
     isDesktop: false,
@@ -76,7 +74,7 @@ class RelatedObject extends Component {
     objectIconUrl: '',
     objectTitle: '',
     hasLink: false,
-    linkURL: '',
+    linkUrl: '',
     LinkLabel: '',
     objectId: null,
     followPrompt: '',
@@ -129,21 +127,25 @@ class RelatedObject extends Component {
           promptText: res.data.followPrompt,
         });
       }
-    })
-  }
+    });
+  };
 
   openModal = () => {
     this.setState({
       modalIsOpen: true,
     });
-  }
+  };
 
   closeModal = () => {
     this.setState({
       modalIsOpen: false,
     });
-  }
+  };
 
+  navigateToObject = () => {
+    const { linkUrl } = this.props;
+    browserHistory.push(linkUrl);
+  };
 
   render() {
     const {
@@ -152,7 +154,8 @@ class RelatedObject extends Component {
       relatedObjectsCount,
       label,
       objectIconUrl,
-      linkURL,
+      v4IconURL,
+      linkUrl,
       objectTitle,
       objectDescription,
       dataBlocks,
@@ -164,48 +167,83 @@ class RelatedObject extends Component {
     const hide = relatedObjectsCount === 0;
 
     const { list } = dataBlocks;
-    return (<div className={classnames('root', { 'display-none': fetching || hide })}>
-      <div className="title-container" dangerouslySetInnerHTML={{ __html: label }} />
-      <Link to={linkURL}>
-        <div className="info-container">
-          <span className="object-name" dangerouslySetInnerHTML={{ __html: objectTitle }} />
-          <span className="icon-line-horz" />
-          <div className="icon-container flex-item">
-            <div className="icon" style={profPic(objectIconUrl)} />
+    return (
+      <div className={classnames('root', { 'display-none': fetching || hide })}>
+        <div
+          className="title-container"
+          dangerouslySetInnerHTML={{ __html: label }}
+        />
+        <Link to={linkUrl}>
+          <div className="info-container">
+            <span
+              className="object-name"
+              dangerouslySetInnerHTML={{ __html: objectTitle }}
+            />
+            <span className="icon-line-horz" />
+            <div className="icon-container flex-item">
+              <div
+                className="icon"
+                style={profPic(v4IconURL || objectIconUrl)}
+              />
+            </div>
+            <span className="icon-line-horz" />
+            <div className="info-list">
+              <div className="info-list-item">
+                <img className="info-list-icon" src={list.type.iconURL} />
+                <span dangerouslySetInnerHTML={{ __html: list.type.text }} />
+              </div>
+              <div className="info-list-item">
+                <img className="info-list-icon" src={list.domain.iconURL} />
+                <span dangerouslySetInnerHTML={{ __html: list.domain.text }} />
+              </div>
+              <div className="info-list-item">
+                <img
+                  className="info-list-icon"
+                  src={list.constellation.iconURL}
+                />
+                <span
+                  dangerouslySetInnerHTML={{ __html: list.constellation.text }}
+                />
+              </div>
+            </div>
           </div>
-          <span className="icon-line-horz" />
-          <div className="info-list">
-            <div className="info-list-item">
-              <img className="info-list-icon" src= {list.type.iconURL} />
-              <span dangerouslySetInnerHTML={{ __html: list.type.text }} />
-            </div>
-            <div className="info-list-item">
-              <img className="info-list-icon" src= {list.domain.iconURL} />
-              <span dangerouslySetInnerHTML={{ __html: list.domain.text }} />
-            </div>
-            <div className="info-list-item">
-              <img className="info-list-icon" src= {list.constellation.iconURL} />
-              <span dangerouslySetInnerHTML={{ __html: list.constellation.text }} />
-            </div>
-          </div>
+        </Link>
+        <div className="action-area">
+          {showFollowPromptFlag ? (
+            <Button
+              onClickEvent={this.onToggleFollow}
+              text={promptText}
+              className="action-area-button"
+              theme={{ marginRight: '10px' }}
+            />
+          ) : null}
+          <Button
+            className="action-area-button"
+            onClickEvent={this.openModal}
+            icon="https://vega.slooh.com/assets/v4/common/info_icon.svg"
+            theme={{ marginRight: '10px' }}
+          />
+          <Button
+            icon="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"
+            onClickEvent={this.navigateToObject}
+          />
         </div>
-      </Link>
-      <div className="action-area">
-        {showFollowPromptFlag ? <Button onClickEvent={this.onToggleFollow} text={promptText} /> : null}
-        <Button onClickEvent={this.openModal} icon="https://vega.slooh.com/assets/v4/common/info_icon.svg" />
+        <Modal
+          ariaHideApp={false}
+          isOpen={modalIsOpen}
+          style={customModalStylesBlackOverlay}
+          contentLabel={intl.formatMessage(messages.RelatedObjects)}
+          onRequestClose={this.closeModal}
+        >
+          <i className="fa fa-close" onClick={this.closeModal} />
+          <p
+            className=""
+            dangerouslySetInnerHTML={{ __html: objectDescription }}
+          />
+        </Modal>
+        <style jsx>{styles}</style>
       </div>
-      <Modal
-        ariaHideApp={false}
-        isOpen={modalIsOpen}
-        style={customModalStylesV4}
-        contentLabel={intl.formatMessage(messages.RelatedObjects)}
-        onRequestClose={this.closeModal}
-      >
-        <i className="fa fa-close" onClick={this.closeModal} />
-        <p className="" dangerouslySetInnerHTML={{ __html: objectDescription }} />
-      </Modal>
-      <style jsx>{styles}</style>
-    </div>);
+    );
   }
 }
 

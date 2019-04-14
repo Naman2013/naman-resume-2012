@@ -1,37 +1,52 @@
 import React from 'react';
 import classnames from 'classnames';
-import { commonProps } from './common-prop-types';
-import style from './large-screen-format.style';
+import { Link } from 'react-router';
+import InstrumentNavigation from 'app/components/telescope-details/InstrumentNavigation';
+import './large-screen-format.scss';
 
-const LargeScreenFormat = ({ onSelect, selectedIndex, options }) => (
-  <div className="large-format-nav-root">
-    <ul className="option-list">
-      {
-        options.map((telescope, index) => (
+const LargeScreenFormat = props => {
+  const {
+    options,
+    selectedIndex,
+    activeInstrumentID,
+    updateCurrentInstrument,
+  } = props;
+
+  const handleClick = (instrument: Object) => () => {
+    if (instrument.instrUniqueId === activeInstrumentID) return;
+    return updateCurrentInstrument(instrument);
+  };
+
+  return (
+    <div className="large-format-nav-root">
+      <ul className="option-list">
+        {options.map((telescope, index) => (
           <li
             key={`dt-obs-nav-${telescope.thumbnailURL}`}
-            className={classnames('option-container', { active: (selectedIndex == index) })}
+            className={classnames('option-container', {
+              active: selectedIndex === index,
+            })}
           >
-            <button
-              onClick={onSelect}
-              data-index={index}
-              className={classnames('option', { active: (selectedIndex == index) })}
-              style={{marginLeft: '0px', marginRight: '0px'}}
+            <Link
+              className="option-telescope-name i-link"
+              onClick={handleClick(telescope.instruments[0])}
+              to={`/telescope-details/${telescope.observatoryUniqueID}/${telescope.telescopeUniqueID}/${telescope.instruments[0].instrUniqueId}`}
             >
-                <p>{telescope.name}</p>
-                <div
-                  className="coin"
-                  style={{ backgroundImage: `url(${telescope.thumbnailURL})` }}
-                />
-            </button>
-          </li>
-        ))
-      }
-    </ul>
-    <style jsx>{style}</style>
-  </div>
-);
+              {telescope.name}
+            </Link>
 
-LargeScreenFormat.propTypes = commonProps;
+            <InstrumentNavigation
+              telescope={telescope}
+              activeInstrumentID={activeInstrumentID}
+              updateCurrentInstrument={updateCurrentInstrument}
+            />
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+// LargeScreenFormat.propTypes = commonProps;
 
 export { LargeScreenFormat };

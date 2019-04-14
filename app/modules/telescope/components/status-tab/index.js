@@ -1,13 +1,21 @@
+import React from 'react';
+import { Col, Container, Row } from 'react-bootstrap';
+import TimeUtc from 'app/atoms/time-utc';
 import Button from 'app/components/common/style/buttons/Button';
 import { Box } from 'app/modules/telescope/components/box';
 import { TelescopeViewWrapper } from 'app/modules/telescope/components/telescope-view-wrapper';
-import { TimeUtc } from 'app/modules/telescope/components/time-utc';
-import React from 'react';
-import { Col, Container, Row } from 'react-bootstrap';
 import './styles.scss';
 
-export const StatusTab = props => {
-  // const {  } = props;
+export const StatusTab = ({ clockList }) => {
+  const {
+    obsOpensLabel,
+    obsOpenDisplayTime,
+    obsOpenDisplayTimeZone,
+    obsOpenDisplayOtherTimeZones,
+    obsTimeInLabel,
+    obsCurrentDisplayTime,
+    obsCurrentDisplayOtherTimeZones,
+  } = clockList;
   return (
     <div className="animated fadeIn faster status-tab">
       <div className="telescope-views">
@@ -22,12 +30,20 @@ export const StatusTab = props => {
             <Box header="OBSERVATORY INFORMATION">
               <div className="box-cols">
                 <div>
-                  <h4 className="h4-custom">Observatory ONLINE:</h4>
-                  <TimeUtc time="00:00:00" />
+                  <h4 className="h4-custom">{obsOpensLabel}</h4>
+                  <TimeUtc
+                    time={obsOpenDisplayTime}
+                    timeZone={obsOpenDisplayTimeZone}
+                  />
+                  <TimeUtc small time={obsOpenDisplayOtherTimeZones} />
                 </div>
                 <div>
-                  <h4 className="h4-custom">TIME IN CANARY ISLANDS:</h4>
-                  <TimeUtc time="00:00:00" />
+                  <h4 className="h4-custom">{obsTimeInLabel}</h4>
+                  <TimeUtc
+                    time={obsCurrentDisplayTime}
+                    timeZone={obsOpenDisplayTimeZone}
+                  />
+                  <TimeUtc small time={obsCurrentDisplayOtherTimeZones} />
                 </div>
               </div>
             </Box>
@@ -62,12 +78,6 @@ export const StatusTab = props => {
                 for this time, you’re account will be credited.
               </p>
               <Button text="FIND ANOTHER MISSION" onClickEvent={() => {}} />
-            </Box>
-
-            <Box header="NEEDS A TITLE">
-              <div>
-                <Button text="VIEW OUR GUIDE" onClickEvent={() => {}} />
-              </div>
             </Box>
           </Col>
 

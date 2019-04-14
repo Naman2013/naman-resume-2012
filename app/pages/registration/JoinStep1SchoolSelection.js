@@ -1,37 +1,36 @@
 /** *********************************
-* V4 Join - Step 1 - Select a Plan
-********************************** */
+ * V4 Join - Step 1 - Select a Plan
+ ********************************** */
 
-import React, { Component, cloneElement, Fragment } from 'react';
-import { Link } from 'react-router';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import cloneDeep from 'lodash/cloneDeep';
 import Button from 'components/common/style/buttons/Button';
 import { browserHistory } from 'react-router';
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm, formValueSelector } from 'redux-form';
 import { intlShape, injectIntl } from 'react-intl';
 import InputField from 'components/form/InputField';
-import { CLASSROOM_GET_US_DISTRICTLIST_ENDPOINT_URL, CLASSROOM_GET_US_SCHOOLLIST_ENDPOINT_URL } from 'services/classroom/classroom';
+import {
+  CLASSROOM_GET_US_DISTRICTLIST_ENDPOINT_URL,
+  CLASSROOM_GET_US_SCHOOLLIST_ENDPOINT_URL,
+  CLASSROOM_CREATE_NEW_SCHOOL,
+} from 'services/classroom/classroom';
 import { JOIN_PAGE_ENDPOINT_URL } from 'services/registration/registration.js';
 import axios from 'axios';
-import Request from 'components/common/network/Request';
+import debounce from 'lodash/debounce';
 import JoinHeader from './partials/JoinHeader';
 import { CLASSROOM_JOIN_TABS } from './StaticNavTabs';
 import styles from './JoinStep1SchoolSelection.style';
 import messages from './JoinInviteByCodeStep1.messages';
 
+const { string } = PropTypes;
 
-
-const {
-  string,
-} = PropTypes;
-
-class JoinStep1SchoolSelection extends Component {
+class JoinStep1SchoolSelectionGeneral extends Component {
   static propTypes = {
     pathname: string,
     intl: intlShape.isRequired,
   };
+
   static defaultProps = {
     // pathname: '/join/step1',
     pathname: 'join/step1SchoolSelection',
@@ -39,274 +38,463 @@ class JoinStep1SchoolSelection extends Component {
 
   constructor(props) {
     super(props);
+    this.debouncedZipChange = debounce(this.handleZipCodeChange, 300);
   }
 
   state = {
-    schoolDistrictOptions: { },
-    schoolOptions: { },
-    schoolDistrictFormDetails: {
-      zipcode: {
-        label: '',
-        value: '',
-        hintText: '',
-        errorText: ''
-      },
-      school: {
-        label: '', value: '', hintText: '', errorText: '',
-      },
-      district: {
-        label: '', value: '', hintText: '', errorText: '',
-      },
-    },
+    formFieldLabels: null,
+    pageHeading1: '',
+    pageHeading2: '',
+    sectionHeading: '',
+    schoolDistrictOptions: [],
+    schoolOptions: [],
   };
 
-
-// Obtain access to the join api service response and update the accountFormDetails state to reflect the Join Page response (set form labels)
-handleJoinPageServiceResponse = (result) => {
-  const newSchoolDistrictFormData = cloneDeep(this.state.schoolDistrictFormDetails);
-
-  newSchoolDistrictFormData.zipcode.label = result.formFieldLabels.zipcode.label;
-  newSchoolDistrictFormData.district.label = result.formFieldLabels.district.label;
-  newSchoolDistrictFormData.school.label = result.formFieldLabels.school.label;
-
-  newSchoolDistrictFormData.zipcode.hintText = result.formFieldLabels.zipcode.hintText;
-  newSchoolDistrictFormData.district.hintText = result.formFieldLabels.district.hintText;
-  newSchoolDistrictFormData.school.hintText = result.formFieldLabels.school.hintText;
-
-  /* update the account form details state so the correct hinText will show on each form field */
-  this.setState(() => ({
-    schoolDistrictFormDetails: newSchoolDistrictFormData,
-    /* was the selected plan an astronomy club? */
-  }));
-}
+  componentDidMount() {
+    axios
+      .post(JOIN_PAGE_ENDPOINT_URL, {
+        callSource: 'selectSchoolDistrict',
+      })
+      .then(({ data }) => {
+        this.setState({
+          formFieldLabels: data.formFieldLabels,
+          pageHeading1: data.pageHeading1,
+          pageHeading2: data.pageHeading2,
+          sectionHeading: data.sectionHeading,
+        });
+        const { change } = this.props;
+        change('schoolCountry', Object.keys(
+          data.formFieldLabels.schoolNotInMarketListCountryList
+        )[0])
+        change('schoolState', Object.keys(
+          data.formFieldLabels.schoolNotInMarketListStateList
+        )[0])
+      });
+  }
 
   /* This function handles a zipcode change in the form and sets the state accordingly */
-  handleZipCodeChange({ value }) {
-    /* Get the existing state of the signup form, modify it and re-set the state */
-    const field = "zipcode";
-    const schoolDistrictFormDetailsData = cloneDeep(this.state.schoolDistrictFormDetails);
-    schoolDistrictFormDetailsData[field].value = value;
-    schoolDistrictFormDetailsData["district"].value = "";
-    schoolDistrictFormDetailsData["school"].value = "";
-
-    this.setState({
-      schoolDistrictFormDetails: schoolDistrictFormDetailsData,
-    });
-
-    if (value.length >=5) {
+  handleZipCodeChange = value => {
+    if (value.length >= 5) {
       //get a list of school districts for this zipcode.
-      //console.log("Get a list of districts for this zipcode." + value);
-
-      const schoolDistrictsResult = axios.post(CLASSROOM_GET_US_DISTRICTLIST_ENDPOINT_URL, {
-        zipcode: value,
-        includePleaseSelectOption: "yes",
-      })
-        .then((response) => {
+      axios
+        .post(CLASSROOM_GET_US_DISTRICTLIST_ENDPOINT_URL, {
+          zipcode: value,
+          includePleaseSelectOption: 'yes',
+        })
+        .then(response => {
           const res = response.data;
-          if (res.apiError == false) {
+          if (!res.apiError) {
             const districtResult = {
               districtList: res.districtList,
-            }
+            };
             this.setState({
               schoolDistrictOptions: districtResult.districtList,
-              schoolOptions: { },
+              schoolOptions: {},
             });
           }
         })
-        .catch((err) => {
+        .catch(err => {
           throw ('Error: ', err);
         });
-    }
-    else {
+    } else {
       //reset the form
       this.setState({
-        schoolDistrictOptions: { },
-        schoolOptions: { },
+        schoolDistrictOptions: {},
+        schoolOptions: {},
       });
     }
-  }
-
-  /* This function handles a school change */
-  handleSchoolChange({ value }) {
-    const field = "school";
-    const schoolDistrictFormDetailsData = cloneDeep(this.state.schoolDistrictFormDetails);
-    schoolDistrictFormDetailsData[field].value = value;
-
-    this.setState({
-      schoolDistrictFormDetails: schoolDistrictFormDetailsData,
-    });
-
-    if (value !== "") {
-
-    }
-  }
+  };
 
   /* This function handles a School District change in the form and sets the state accordingly */
-  handleSchoolDistrictChange({ value }) {
+  handleSchoolDistrictChange = value => {
     /* Get the existing state of the signup form, modify it and re-set the state */
-    const field = "district";
-    const schoolDistrictFormDetailsData = cloneDeep(this.state.schoolDistrictFormDetails);
-    schoolDistrictFormDetailsData[field].value = value;
-    schoolDistrictFormDetailsData["school"].value = "";
-
-    this.setState({
-      schoolDistrictFormDetails: schoolDistrictFormDetailsData,
-    });
-
-    if (value !== "") {
+    if (value !== '') {
       //get a list of schools for this school district.
       //console.log("Get a list of schools for this district." + value);
 
-      const schoolResult = axios.post(CLASSROOM_GET_US_SCHOOLLIST_ENDPOINT_URL, {
-        ncesDistrictId: value,
-        includePleaseSelectOption: "yes",
-      })
-        .then((response) => {
+      axios
+        .post(CLASSROOM_GET_US_SCHOOLLIST_ENDPOINT_URL, {
+          districtExternalId: value,
+          includePleaseSelectOption: 'yes',
+        })
+        .then(response => {
           const res = response.data;
-          if (res.apiError == false) {
+          if (!res.apiError) {
             const schoolResult = {
               schoolList: res.schoolList,
-            }
+            };
             this.setState({
               schoolOptions: schoolResult.schoolList,
             });
           }
         })
-        .catch((err) => {
+        .catch(err => {
           throw ('Error: ', err);
         });
-    }
-    else {
+    } else {
       //reset the form
       this.setState({
-        schoolOptions: { },
+        schoolOptions: {},
       });
     }
-  }
+  };
 
-  handleSubmit = (formValues) => {
-    formValues.preventDefault();
+  handleSubmit = values => {
+    //formValues.preventDefault();
+    console.log(values);
 
-    if (this.state.schoolDistrictFormDetails.school.value !== "") {
-      window.localStorage.setItem('selectedSchoolId', this.state.schoolDistrictFormDetails.school.value);
-      browserHistory.push('/join/step2');
+    if (!values.isNewSchool) {
+      if (values.school) {
+        window.localStorage.setItem('selectedSchoolId', values.school);
+        browserHistory.push('/join/step2');
+      }
+      else {
+        console.log("nothing is selected, can't continue...");
+      }
     }
     else {
-      console.log("nothing is selected, can't continue...");
+      const {
+        schoolName,
+        schoolAddress,
+        schoolCountry,
+        districtName,
+        schoolPhoneNumber,
+        schoolWebsite,
+        districtWebsite,
+        schoolCity,
+        schoolState,
+      } = values;
+      axios.post(CLASSROOM_CREATE_NEW_SCHOOL, {
+        schoolName,
+        schoolAddress,
+        schoolCountry,
+        schoolDistrict: districtName,
+        schoolPhoneNumber,
+        schoolWebsite,
+        districtWebsite,
+        schoolCity,
+        schoolState
+      }).then(({ data }) => {
+        window.localStorage.setItem('selectedSchoolId', data.schoolId);
+        browserHistory.push('/join/step2');
+      }
+      );
     }
-  }
+  };
 
   render() {
+    const { pathname, intl, isNewSchool, schoolCountry, handleSubmit } = this.props;
+
     const {
-      pathname,
-      intl
-    } = this.props;
+      pageHeading1,
+      pageHeading2,
+      sectionHeading,
+      formFieldLabels,
+      schoolDistrictOptions,
+      schoolOptions,
+    } = this.state;
 
     return (
       <div>
-      {/*<div className="step-root">*/}
-        {/* <div className="inner-container"> */}
-        <Request
-          serviceURL={JOIN_PAGE_ENDPOINT_URL}
-          requestBody={{ 'callSource': 'selectSchoolDistrict' }}
-          serviceResponseHandler={this.handleJoinPageServiceResponse}
-          render={({
-            fetchingContent,
-            serviceResponse,
-          }) => (
+        <Fragment>
+          {formFieldLabels && (
             <Fragment>
-              {
-                !fetchingContent &&
-                  <Fragment>
-                    <JoinHeader
-                      mainHeading={serviceResponse.pageHeading1}
-                      subHeading={serviceResponse.pageHeading2}
-                      // activeTab={pathname}
-                      activeTab='join/step1SchoolSelection'
-                      tabs={CLASSROOM_JOIN_TABS}
-                    />
-
-                    <div className="step-root">
-                      <div className="inner-container">
-                      <div className="section-heading">{serviceResponse.sectionHeading}</div>
-                        <form className="form" onSubmit={this.handleSubmit}>
-                          <div className="form-section">
-                            <div className="form-field-container">
-                              <span className="form-label">{this.state.schoolDistrictFormDetails.zipcode.label}</span>
-                              <Field
-                                name="zipcode"
-                                type="name"
-                                label={this.state.schoolDistrictFormDetails.zipcode.hintText}
-                                component={InputField}
-                                onChange={(event) => { this.handleZipCodeChange({ value: event.target.value }); }}
-                              />
-                            </div>
-
-                            {this.state.schoolDistrictOptions.length > 0 &&
-                            <div className="form-field-container">
-                              <span className="form-label">{this.state.schoolDistrictFormDetails.district.label}</span>
-                              <Field
-                                name="district"
-                                className="input-row form-group form-control"
-                                component="select"
-                                onChange={(event) => { this.handleSchoolDistrictChange({ value: event.target.value }); }}
-                              >
-                                {this.state.schoolDistrictOptions.map(schoolDistrict =>
-                                  <option value={schoolDistrict.NCESDistrictId} key={schoolDistrict.NCESDistrictId}>{schoolDistrict.DistrictName}</option>)
-                                }
-                              </Field>
-                            </div>
+              <JoinHeader
+                mainHeading={pageHeading1}
+                subHeading={pageHeading2}
+                // activeTab={pathname}
+                activeTab="join/step1SchoolSelection"
+                tabs={CLASSROOM_JOIN_TABS}
+              />
+              <div className="step-root">
+                <div className="inner-container">
+                  <div className="section-heading">{sectionHeading}</div>
+                  <form className="form" onSubmit={handleSubmit(this.handleSubmit)}>
+                    <div className="form-section">
+                      <div className="form-field-container">
+                        <Fragment>
+                          <span className="form-label">
+                            {formFieldLabels.zipcode.label}
+                          </span>
+                          <Field
+                            name="zipcode"
+                            type="name"
+                            label={formFieldLabels.zipcode.hintText}
+                            component={InputField}
+                            onChange={(e, value) =>
+                              this.debouncedZipChange(value)
                             }
+                          />
+                          <span>
+                            <Field
+                              name="isNewSchool"
+                              type="checkbox"
+                              component="input"
+                            // onChange = {()=>console.log(this)}
+                            />
+                            <span className="form-label">
+                              {formFieldLabels.isSchoolInMarketList.label}
+                            </span>
+                          </span>
+                        </Fragment>
+                      </div>
 
-                            {this.state.schoolOptions.length &&
+                      {!isNewSchool && schoolDistrictOptions.length > 0 && (
+                        <Fragment>
+                          <div className="form-field-container">
+                            <span className="form-label">
+                              {formFieldLabels.district.label}
+                            </span>
+                            <Field
+                              name="district"
+                              className="input-row form-group form-control"
+                              component="select"
+                              onChange={event => {
+                                this.handleSchoolDistrictChange(
+                                  event.target.value
+                                );
+                              }}
+                            >
+                              {schoolDistrictOptions.map(schoolDistrict => (
+                                <option
+                                  value={schoolDistrict.districtExternalId}
+                                  key={schoolDistrict.districtExternalId}
+                                >
+                                  {schoolDistrict.DistrictName}
+                                </option>
+                              ))}
+                            </Field>
+                          </div>
+
+                          {schoolOptions.length && (
                             <div className="form-field-container">
-                              <span className="form-label">{this.state.schoolDistrictFormDetails.school.label}</span>
+                              <span className="form-label">
+                                {formFieldLabels.school.label}
+                              </span>
                               <Field
                                 name="school"
                                 className="input-row form-group form-control"
                                 component="select"
-                                onChange={(event) => { this.handleSchoolChange({ value: event.target.value }); }}
-
-                                >
-                                {this.state.schoolOptions.map(school =>
-                                  <option value={school.NCESSchoolId} key={school.NCESSchoolId}>{school.SchoolName}</option>)
-                                }
+                              >
+                                {schoolOptions.map(school => (
+                                  <option
+                                    value={school.schoolId}
+                                    key={school.schoolExternalId}
+                                  >
+                                    {school.SchoolName}
+                                  </option>
+                                ))}
                               </Field>
                             </div>
-                            }
-                            <br/>
-                          </div>
-                          <div className="button-container">
-                            <Button
-                              type="button"
-                              text={intl.formatMessage(messages.GoBack)}
-                              onClickEvent={() => { browserHistory.push('/join/step1'); }}
-                            />
-                            <button
-                              className="submit-button"
-                              type="submit"
-                            >
-                              {intl.formatMessage(messages.Continue)}
-                            </button>
+                          )}
+                        </Fragment>
+                      )}
 
-                          </div>
-                        </form>
-                      </div>
+                      {isNewSchool && (
+                        <Fragment>
+                          <span className="form-label">
+                            {
+                              formFieldLabels.schoolNotInMarketListFormFields
+                                .schoolDistrict.label
+                            }
+                          </span>
+                          <Field
+                            name="districtName"
+                            label={
+                              formFieldLabels.schoolNotInMarketListFormFields
+                                .schoolDistrict.hintText
+                            }
+                            component={InputField}
+                          />
+
+                          <span className="form-label">
+                            {
+                              formFieldLabels.schoolNotInMarketListFormFields
+                                .schoolName.label
+                            }
+                          </span>
+                          <Field
+                            name="schoolName"
+                            label={
+                              formFieldLabels.schoolNotInMarketListFormFields
+                                .schoolName.hintText
+                            }
+                            component={InputField}
+                          />
+
+                          <span className="form-label">
+                            {
+                              formFieldLabels.schoolNotInMarketListFormFields
+                                .schoolCountry.label
+                            }
+                          </span>
+                          <br />
+                          <Field
+                            name="schoolCountry"
+                            component="select"
+                            style={{ margin: '15px' }}
+                          >
+                            {Object.keys(
+                              formFieldLabels.schoolNotInMarketListCountryList
+                            ).map(x => (
+                              <option value={x} key={x}>
+                                {
+                                  formFieldLabels
+                                    .schoolNotInMarketListCountryList[x]
+                                }
+                              </option>
+                            ))}
+                          </Field>
+                          <br />
+
+                          {schoolCountry === 'US' && (
+                            <Fragment>
+                              <span className="form-label">
+                                {
+                                  formFieldLabels
+                                    .schoolNotInMarketListFormFields.schoolState
+                                    .label
+                                }
+                              </span>
+                              <br />
+                              <Field
+                                name="schoolState"
+                                component="select"
+                                style={{ margin: '15px' }}
+                              >
+                                {Object.keys(
+                                  formFieldLabels.schoolNotInMarketListStateList
+                                ).map(x => (
+                                  <option value={x} key={x}>
+                                    {
+                                      formFieldLabels
+                                        .schoolNotInMarketListStateList[x]
+                                    }
+                                  </option>
+                                ))}
+                              </Field>
+                              <br />
+                            </Fragment>
+                          )}
+
+                          <span className="form-label">
+                            {
+                              formFieldLabels.schoolNotInMarketListFormFields
+                                .schoolCity.label
+                            }
+                          </span>
+                          <Field
+                            name="schoolCity"
+                            label={
+                              formFieldLabels.schoolNotInMarketListFormFields
+                                .schoolCity.hintText
+                            }
+                            component={InputField}
+                          />
+
+                          <span className="form-label">
+                            {
+                              formFieldLabels.schoolNotInMarketListFormFields
+                                .schoolAddress.label
+                            }
+                          </span>
+                          <Field
+                            name="schoolAddress"
+                            label={
+                              formFieldLabels.schoolNotInMarketListFormFields
+                                .schoolAddress.hintText
+                            }
+                            component={InputField}
+                          />
+
+                          <span className="form-label">
+                            {
+                              formFieldLabels.schoolNotInMarketListFormFields
+                                .schoolPhoneNumber.label
+                            }
+                          </span>
+                          <Field
+                            name="schoolPhone"
+                            label={
+                              formFieldLabels.schoolNotInMarketListFormFields
+                                .schoolPhoneNumber.hintText
+                            }
+                            component={InputField}
+                          />
+
+                          <span className="form-label">
+                            {
+                              formFieldLabels.schoolNotInMarketListFormFields
+                                .schoolWebsite.label
+                            }
+                          </span>
+                          <Field
+                            name="schoolWebsite"
+                            label={
+                              formFieldLabels.schoolNotInMarketListFormFields
+                                .schoolWebsite.hintText
+                            }
+                            component={InputField}
+                          />
+
+                          <span className="form-label">
+                            {
+                              formFieldLabels.schoolNotInMarketListFormFields
+                                .districtWebsite.label
+                            }
+                          </span>
+                          <Field
+                            name="districtWebsite"
+                            label={
+                              formFieldLabels.schoolNotInMarketListFormFields
+                                .districtWebsite.hintText
+                            }
+                            component={InputField}
+                          />
+                        </Fragment>
+                      )}
+
+                      <br />
                     </div>
-                    </Fragment>
-                  }
-                </Fragment>
-              )}
-            />
-          {/*</div>*/}
+                    <div className="button-container">
+                      <Button
+                        type="button"
+                        text={intl.formatMessage(messages.GoBack)}
+                        onClickEvent={() => {
+                          browserHistory.push('/join/step1');
+                        }}
+                      />
+                      <button className="submit-button" type="submit">
+                        {intl.formatMessage(messages.Continue)}
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </Fragment>
+          )}
+        </Fragment>
         <style jsx>{styles}</style>
       </div>
-    )
+    );
   }
 }
 
-const mapStateToProps = ({ schoolDistrictForm }) => ({
-  schoolDistrictForm: schoolDistrictForm,
-});
+const JoinStep1SchoolSelectionForm = reduxForm({
+  form: 'schoolDistrictForm',
+  enableReinitialize: true,
+})(JoinStep1SchoolSelectionGeneral);
 
-export default connect(mapStateToProps, null)(reduxForm({ form: 'schoolDistrictForm', enableReinitialize: true, })(injectIntl(JoinStep1SchoolSelection)));
+const selector = formValueSelector('schoolDistrictForm');
+const JoinStep1SchoolSelection = connect(state => {
+  const { zipCode, isNewSchool, district, schoolCountry } = selector(
+    state,
+    'zipcode',
+    'isNewSchool',
+    'district',
+    'schoolCountry'
+  );
+  return { zipCode, isNewSchool, district, schoolCountry };
+})(injectIntl(JoinStep1SchoolSelectionForm));
+
+export default JoinStep1SchoolSelection;

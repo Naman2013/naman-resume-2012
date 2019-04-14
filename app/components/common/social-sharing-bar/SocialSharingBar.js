@@ -7,8 +7,6 @@ import {
   generateShareIcon,
 } from 'react-share';
 
-import exampleImage from '../../../../assets/icons/question-mark.png';
-
 const {
   FacebookShareButton,
   TwitterShareButton,

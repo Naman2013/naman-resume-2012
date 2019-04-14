@@ -1,9 +1,9 @@
 /***********************************
-* V4 LiveShow
-*
-*
-*
-***********************************/
+ * V4 LiveShow
+ *
+ *
+ *
+ ***********************************/
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
@@ -11,7 +11,7 @@ import { injectIntl, intlShape } from 'react-intl';
 import ThreeTabbedNav from 'components/ThreeTabbedNav';
 import TwoTabbedNav from 'components/TwoTabbedNav';
 import ResponsiveTwoColumnContainer from 'components/ResponsiveTwoColumnContainer';
-import HeaderContainer from './partials/HeaderContainer'
+import HeaderContainer from './partials/HeaderContainer';
 import MainContainer from './partials/MainContainer';
 import AsideContainerWithTabs from './partials/AsideContainerWithTabs';
 import styles from './Show.style';
@@ -49,7 +49,7 @@ class LiveShow extends Component {
     commentsIsActive: false,
     detailsIsActive: false,
     selectedTab: 0,
-  }
+  };
 
   showAbout = () => {
     this.setState({
@@ -57,7 +57,7 @@ class LiveShow extends Component {
       commentsIsActive: false,
       detailsIsActive: false,
     });
-  }
+  };
 
   showComments = () => {
     this.setState({
@@ -65,7 +65,7 @@ class LiveShow extends Component {
       commentsIsActive: true,
       detailsIsActive: false,
     });
-  }
+  };
 
   showDetails = () => {
     this.setState({
@@ -73,20 +73,21 @@ class LiveShow extends Component {
       commentsIsActive: false,
       detailsIsActive: true,
     });
-  }
+  };
 
-  handleSelect = (index) => {
+  handleSelect = index => {
     window.scrollTo(0, 0);
     this.setState({
       selectedTab: index,
     });
-  }
+  };
 
   render() {
     const {
       additionalFeeds,
       isScreenMedium,
       isScreenLarge,
+      isDesktop,
       hasDiscussionThread,
       intl,
     } = this.props;
@@ -111,50 +112,55 @@ class LiveShow extends Component {
         <div className="main-container">
           <ResponsiveTwoColumnContainer
             renderNavigationComponent={() => (
-              <div className="full-width">{hasDiscussionThread ? (
-                <ThreeTabbedNav
-                  firstTitle={intl.formatMessage(messages.About)}
-                  secondTitle={intl.formatMessage(messages.Comments)}
-                  thirdTitle={intl.formatMessage(messages.Details)}
-                  firstTabIsActive={aboutIsActive}
-                  firstTabOnClick={this.showAbout}
-                  secondTabIsActive={commentsIsActive}
-                  secondTabOnClick={this.showComments}
-                  thirdTabIsActive={detailsIsActive}
-                  thirdTabOnClick={this.showDetails}
-                />
-              ) : (
-                <TwoTabbedNav
-                  firstTitle={intl.formatMessage(messages.About)}
-                  secondTitle={intl.formatMessage(messages.Details)}
-                  firstTabIsActive={aboutIsActive}
-                  firstTabOnClick={this.showAbout}
-                  secondTabIsActive={detailsIsActive}
-                  secondTabOnClick={this.showDetails}
-                />
-              )}
-              </div>)
-            }
-            renderAsideContent={() => (<AsideContainerWithTabs
-              {...this.props}
-              headerTitle={`Slooh ${intl.formatMessage(messages.LiveShow)}`}
-              aboutIsActive={aboutIsActive}
-              commentsIsActive={commentsIsActive}
-              detailsIsActive={detailsIsActive}
-              showDetails={this.showDetails}
-              showAbout={this.showAbout}
-              showComments={this.showComments}
-            />)}
-            isScreenLarge={isScreenLarge}
-            renderMainContent={() => (<MainContainer
-              {...this.props}
-              headerLabel={headerLabel}
-              selectedTab={selectedTab}
-              handleSelect={this.handleSelect}
-              aboutIsActive={aboutIsActive}
-              commentsIsActive={commentsIsActive}
-              detailsIsActive={detailsIsActive}
-            />)}
+              <div className="full-width">
+                {hasDiscussionThread ? (
+                  <ThreeTabbedNav
+                    firstTitle={intl.formatMessage(messages.About)}
+                    secondTitle={intl.formatMessage(messages.Comments)}
+                    thirdTitle={intl.formatMessage(messages.Details)}
+                    firstTabIsActive={aboutIsActive}
+                    firstTabOnClick={this.showAbout}
+                    secondTabIsActive={commentsIsActive}
+                    secondTabOnClick={this.showComments}
+                    thirdTabIsActive={detailsIsActive}
+                    thirdTabOnClick={this.showDetails}
+                  />
+                ) : (
+                  <TwoTabbedNav
+                    firstTitle={intl.formatMessage(messages.About)}
+                    secondTitle={intl.formatMessage(messages.Details)}
+                    firstTabIsActive={aboutIsActive}
+                    firstTabOnClick={this.showAbout}
+                    secondTabIsActive={detailsIsActive}
+                    secondTabOnClick={this.showDetails}
+                  />
+                )}
+              </div>
+            )}
+            renderAsideContent={() => (
+              <AsideContainerWithTabs
+                {...this.props}
+                headerTitle={`Slooh ${intl.formatMessage(messages.LiveShow)}`}
+                aboutIsActive={aboutIsActive}
+                commentsIsActive={commentsIsActive}
+                detailsIsActive={detailsIsActive}
+                showDetails={this.showDetails}
+                showAbout={this.showAbout}
+                showComments={this.showComments}
+              />
+            )}
+            isScreenSize={isDesktop}
+            renderMainContent={() => (
+              <MainContainer
+                {...this.props}
+                headerLabel={headerLabel}
+                selectedTab={selectedTab}
+                handleSelect={this.handleSelect}
+                aboutIsActive={aboutIsActive}
+                commentsIsActive={commentsIsActive}
+                detailsIsActive={detailsIsActive}
+              />
+            )}
           />
         </div>
         <style jsx>{styles}</style>

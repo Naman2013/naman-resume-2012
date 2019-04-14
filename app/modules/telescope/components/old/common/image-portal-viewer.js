@@ -1,22 +1,30 @@
-import React from 'react';
 import PropTypes from 'prop-types';
-import { ImagePortal } from '..';
+import React, { Component } from 'react';
+import { ImagePortal } from '../index';
 import style from './image-portal-viewer.style';
 
-const ImagePortalViewer = ({ imageURL, description }) => (
-  <div className="root">
-    <div className="content">
-      <ImagePortal src={imageURL} />
-      {
-        description &&
-          <div className="meta-data">
-            <p className="copy">{description}</p>
-          </div>
-      }
-    </div>
-    <style jsx>{style}</style>
-  </div>
-);
+export class ImagePortalViewer extends Component {
+  render() {
+    const { imageURL, description, onClick } = this.props;
+    return (
+      <div
+        className="root image-portal-viewer"
+        onClick={onClick}
+        role="presentation"
+      >
+        <div className="content">
+          <ImagePortal src={imageURL} />
+          {description && (
+            <div className="meta-data">
+              <p className="copy">{description}</p>
+            </div>
+          )}
+        </div>
+        <style jsx>{style}</style>
+      </div>
+    );
+  }
+}
 
 ImagePortalViewer.propTypes = {
   imageURL: PropTypes.string.isRequired,
@@ -26,5 +34,3 @@ ImagePortalViewer.propTypes = {
 ImagePortalViewer.defaultProps = {
   description: '',
 };
-
-export { ImagePortalViewer };

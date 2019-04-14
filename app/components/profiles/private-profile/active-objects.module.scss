@@ -1,27 +1,23 @@
 @import "~app/styles/variables/index";
 
 .activeObjects {
-
   // mobile
   width: 95%;
   margin: auto;
 
-  .objectsWrapper > div {
-    margin: 10px 0;
-  }
+  .objectsWrapper {
+    width: 965px;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -10px;
 
-  // >= tablet
-  @include md {
-    width: 100%;
+    & > div {
+      margin: 10px;
+    }
 
-    .objectsWrapper {
-      display: flex;
-      flex-wrap: wrap;
-      margin: -10px;
-
-      & > div {
-        margin: 10px;
-      }
+    @include md {
+      width: 640px;
+      margin: 0 -25px;
     }
   }
 }
