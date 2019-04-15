@@ -181,8 +181,8 @@ class Overview extends Component {
           user={user}
         />
 
-        {modeledResult.featuredObservation.hasObservations &&
-          !isEmpty(imageDetails) && (
+        {modeledResult.featuredObservation.hasObservations ||
+          (!isEmpty(imageDetails) && (
             <section className="blue-tile-bg">
               <DeviceProvider>
                 <SterlingTitle
@@ -212,7 +212,7 @@ class Overview extends Component {
                 </CenterColumn>
               </DeviceProvider>
             </section>
-          )}
+          ))}
 
         <section className="off-white-bg">
           <SterlingTitle {...modeledResult.statisticsTitle} />
