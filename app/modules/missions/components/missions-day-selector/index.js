@@ -17,7 +17,7 @@ export class MissionsDaySelector extends PureComponent {
         <div className="date">{reservationDateFormatted}</div>
         <div
           className={`arrows prev${backEnabled ? '' : ' disabled'}`}
-          onClick={() => selectDate(backDate)}
+          onClick={() => (backEnabled ? selectDate(backDate) : {})}
         >
           <div>
             <img alt="prev" src={chevron} />
@@ -25,7 +25,7 @@ export class MissionsDaySelector extends PureComponent {
         </div>
         <div
           className={`arrows next${forwardEnabled ? '' : ' disabled'}`}
-          onClick={() => selectDate(forwardDate)}
+          onClick={() => (forwardEnabled ? selectDate(forwardDate) : {})}
         >
           <div>
             <img alt="next" src={chevron} />

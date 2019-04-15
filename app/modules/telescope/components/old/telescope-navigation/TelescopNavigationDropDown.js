@@ -15,10 +15,10 @@ const CustomOption = props => {
       thumbnailURL,
       observatoryUniqueID,
       telescopeUniqueID,
-      instruments
+      instruments,
     },
     selectProps: { activeInstrumentID, updateCurrentInstrument },
-    selectOption
+    selectOption,
   } = props;
 
   const path = `telescope-details/${observatoryUniqueID}/${telescopeUniqueID}`;
@@ -31,7 +31,7 @@ const CustomOption = props => {
 
   const defaultInstrument = instruments[0];
 
-  return (instruments && instruments.length) ? (
+  return instruments && instruments.length ? (
     <div className="dropdown-opt">
       <div className="dropdown-name">
         <Link
@@ -40,11 +40,7 @@ const CustomOption = props => {
           to={`${path}/${defaultInstrument.instrUniqueId}`}
           onClick={handleClick(defaultInstrument)}
         >
-          <img
-            className="option-icon"
-            src={thumbnailURL}
-            alt={children}
-          />
+          <img className="option-icon" src={thumbnailURL} alt={children} />
         </Link>
 
         <Container fluid>
@@ -61,20 +57,20 @@ const CustomOption = props => {
             </Col>
 
             <Col sm={6} md={9} className="option-instruments">
-            {instruments.map(instrument => {
-              return (
-                <Link
-                  key={instrument.instrUniqueId}
-                  to={`${path}/${instrument.instrUniqueId}`}
-                  className={classnames('i-link', {
-                    active: instrument.instrUniqueId === activeInstrumentID,
-                  })}
-                  onClick={handleClick(instrument)}
-                >
-                  {instrument.instrTelescopeShortName}
-                </Link>
-              )
-            })}
+              {instruments.map(instrument => {
+                return (
+                  <Link
+                    key={instrument.instrUniqueId}
+                    to={`${path}/${instrument.instrUniqueId}`}
+                    className={classnames('i-link', {
+                      active: instrument.instrUniqueId === activeInstrumentID,
+                    })}
+                    onClick={handleClick(instrument)}
+                  >
+                    {instrument.instrTelescopeShortName}
+                  </Link>
+                );
+              })}
             </Col>
           </Row>
         </Container>
@@ -91,7 +87,7 @@ type TTelescopNavigationDropDown = {
     thumbnailURL: string,
     observatoryUniqueID: string,
     telescopeUniqueID: string,
-    instruments: Array<Object>
+    instruments: Array<Object>,
   }>,
   handleBlur?: Function,
   handleMenuClose?: Function,
@@ -99,11 +95,13 @@ type TTelescopNavigationDropDown = {
   defaultMenuIsOpen?: boolean,
   customOption?: React.Node,
   activeInstrumentID: string,
-  updateCurrentInstrument: Function
+  updateCurrentInstrument: Function,
+  onSelect?: Function,
 };
 
 const TelescopNavigationDropDown = (props: TTelescopNavigationDropDown) => {
-  const { options,
+  const {
+    options,
     defaultMenuIsOpen = false,
     selectedIndex = 0,
     autoFocus = false,
@@ -111,16 +109,16 @@ const TelescopNavigationDropDown = (props: TTelescopNavigationDropDown) => {
     handleMenuClose = noop,
     customOption = CustomOption,
     activeInstrumentID,
-    updateCurrentInstrument
+    updateCurrentInstrument,
+    onSelect,
   } = props;
 
-  return (options && options.length) ? (
+  return options && options.length ? (
     <div className="root telescop-select-wrapper">
       <Select
         defaultMenuIsOpen={defaultMenuIsOpen}
         components={{
-          Option: props =>
-            customOption(props, selectedIndex),
+          Option: props => customOption(props, selectedIndex),
         }}
         defaultValue={options[0]}
         onBlur={handleBlur}
@@ -132,6 +130,7 @@ const TelescopNavigationDropDown = (props: TTelescopNavigationDropDown) => {
         autoFocus={autoFocus}
         activeInstrumentID={activeInstrumentID}
         updateCurrentInstrument={updateCurrentInstrument}
+        onChange={onSelect}
       />
     </div>
   ) : null;
