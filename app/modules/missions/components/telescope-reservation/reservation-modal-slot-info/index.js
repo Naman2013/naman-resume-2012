@@ -7,7 +7,7 @@ export class ReservationModalSlotInfo extends PureComponent {
     const { timeSlot, title } = this.props;
     const { missionStart } = timeSlot;
 
-    const missionStartTime = moment(missionStart * 1000);
+    const missionStartTime = moment.utc(missionStart * 1000);
 
     return (
       <div className="slot-info">
