@@ -2,6 +2,7 @@
 
 .status-tab {
   //padding-top: 40px;
+  margin-left: -10px;
 
   .telescope-views {
     margin-bottom: 40px;
@@ -16,5 +17,10 @@
       line-height: 10px;
       text-align: right;
     }
+  }
+
+  .module-container {
+    min-height: 510px;
+    margin: 0 10px 20px 10px;
   }
 }

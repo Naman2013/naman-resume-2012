@@ -17,7 +17,7 @@ export class PicoDelTeidesWidget extends Component {
   renderTimelapseCollapsible = () => {
     const { activeTelescope } = this.props;
     const { observatoryData } = activeTelescope;
-    const { obsId, DomecamTimelapseWidgetId } = observatoryData;
+    const { obsId, DomecamTimelapseWidgetId } = observatoryData || activeTelescope;
     const { isTimelapseExpanded } = this.state;
     return (
       <div className="text-center">
@@ -54,8 +54,7 @@ export class PicoDelTeidesWidget extends Component {
     } = this.props;
 
     const { observatoryData } = activeTelescope;
-    const { DomecamTimelapseWidgetId } = observatoryData;
-    console.log(facilityWebcamUrl);
+    const { DomecamTimelapseWidgetId } = observatoryData || activeTelescope;
     const { isModalOpen } = this.state;
 
     return (

@@ -1,5 +1,5 @@
-import { TelescopeView } from 'app/modules/telescope/components/telescope-view-item';
 import React from 'react';
+import { TelescopeView } from 'app/modules/telescope/components/telescope-view-item';
 import { Carousel, Col, Row } from 'react-bootstrap';
 import './styles.scss';
 
@@ -11,16 +11,13 @@ export const TelescopeViewWrapper = props => {
       <div className="d-block d-sm-none">
         <Carousel indicators={false} interval={null} nextIcon=">" prevIcon="<">
           <Carousel.Item>
-            <TelescopeView title="DOME VIEW" key="DOME VIEW" />
+
           </Carousel.Item>
           <Carousel.Item>
-            <TelescopeView title="ALL SKY CAMERA" key="ALL SKY CAMERA" />
+            item 2
           </Carousel.Item>
           <Carousel.Item>
-            <TelescopeView title="HORIZON VIEW" key="DOME VIEW" />
-          </Carousel.Item>
-          <Carousel.Item>
-            <TelescopeView title="DOME VIEW" key="ALL SKY CAMERA" />
+            item 3
           </Carousel.Item>
         </Carousel>
       </div>

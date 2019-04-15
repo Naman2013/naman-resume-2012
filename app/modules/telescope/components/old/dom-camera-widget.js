@@ -1,7 +1,7 @@
-import DomeCamTimelapseWidget from 'app/components/telescope-details/domecam-timelapse-widget';
-import { ModalImg } from 'app/modules/telescope/components/modal-img';
 import React, { Component } from 'react';
 import { Button, Collapse } from 'react-bootstrap';
+import DomeCamTimelapseWidget from 'app/components/telescope-details/domecam-timelapse-widget';
+import { ModalImg } from 'app/modules/telescope/components/modal-img';
 import { ImagePortalViewer, ModuleContainer } from './index';
 
 export class DomCameraWidget extends Component {
@@ -17,7 +17,8 @@ export class DomCameraWidget extends Component {
   renderTimelapseCollapsible = () => {
     const { activeTelescope } = this.props;
     const { observatoryData } = activeTelescope;
-    const { obsId, DomecamTimelapseWidgetId } = observatoryData;
+    const { obsId, DomecamTimelapseWidgetId } =
+      observatoryData || activeTelescope;
     const { isTimelapseExpanded } = this.state;
     return (
       <div className="text-center">
@@ -46,9 +47,10 @@ export class DomCameraWidget extends Component {
 
   render() {
     const { domeCamURL, activeTelescope } = this.props;
+    if (!activeTelescope) return null;
 
     const { observatoryData } = activeTelescope;
-    const { DomecamTimelapseWidgetId } = observatoryData;
+    const { DomecamTimelapseWidgetId } = observatoryData || activeTelescope;
 
     const { isModalOpen } = this.state;
 

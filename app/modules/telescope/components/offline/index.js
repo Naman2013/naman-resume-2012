@@ -49,7 +49,13 @@ export class TelescopeOffline extends Component {
           {/* TABS CONTENT */}
           <Tab.Content>
             <Tab.Pane eventKey="STATUS">
-              <StatusTab clockList={allObservatoryTelescopeStatus.clockList} />
+              <StatusTab
+                obsId={currentObservatory.obsId}
+                allSkyWidgetID={currentObservatory.AllskyWidgetId}
+                clockList={allObservatoryTelescopeStatus.clockList}
+                currentTelescope={currentTelescope}
+                currentObservatory={currentObservatory}
+              />
             </Tab.Pane>
             <Tab.Pane eventKey="ABOUT_THIS_SCOPE">
               <AboutScope

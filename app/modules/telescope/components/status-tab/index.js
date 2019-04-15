@@ -3,10 +3,19 @@ import { Col, Container, Row } from 'react-bootstrap';
 import TimeUtc from 'app/atoms/time-utc';
 import Button from 'app/components/common/style/buttons/Button';
 import { Box } from 'app/modules/telescope/components/box';
-import { TelescopeViewWrapper } from 'app/modules/telescope/components/telescope-view-wrapper';
+import { AllSkyCamera } from 'app/modules/telescope/components/old/all-sky-camera';
+import { DomCameraWidget } from 'app/modules/telescope/components/old/dom-camera-widget';
+import { PicoDelTeidesWidget } from 'app/modules/telescope/components/old/pico-del-teide-widget';
 import './styles.scss';
 
-export const StatusTab = ({ clockList }) => {
+export const StatusTab = props => {
+  const {
+    clockList,
+    obsId,
+    allSkyWidgetID,
+    currentTelescope,
+    currentObservatory,
+  } = props;
   const {
     obsOpensLabel,
     obsOpenDisplayTime,
@@ -20,7 +29,28 @@ export const StatusTab = ({ clockList }) => {
     <div className="animated fadeIn faster status-tab">
       <div className="telescope-views">
         <Container>
-          <TelescopeViewWrapper />
+          <Row>
+            <Col lg={4} md={12} sm={12}>
+              <AllSkyCamera
+                obsId={obsId}
+                imageURL={currentTelescope.teleOfflineImgURL}
+                allSkyWidgetID={allSkyWidgetID}
+              />
+            </Col>
+            <Col lg={4} md={12} sm={12}>
+              <DomCameraWidget
+                obsId={obsId}
+                activeTelescope={currentObservatory}
+              />
+            </Col>
+            <Col lg={4} md={12} sm={12}>
+              <PicoDelTeidesWidget
+                obsId={obsId}
+                title="TEIDE PEAK WEBCAM"
+                activeTelescope={currentObservatory}
+              />
+            </Col>
+          </Row>
         </Container>
       </div>
 
