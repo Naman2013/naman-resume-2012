@@ -181,37 +181,38 @@ class Overview extends Component {
           user={user}
         />
 
-        {!isEmpty(imageDetails) && (
-          <section className="blue-tile-bg">
-            <DeviceProvider>
-              <SterlingTitle
-                title="Featured Observation"
-                theme={{
-                  title: { color: 'white' },
-                  subTitle: { color: 'white' },
-                }}
-              />
-              <CenterColumn widths={['768px', '965px', '965px']}>
-                <CardObservations
-                  user={user}
-                  title={imageDetails.imageTitle}
-                  subTitle={imageDetails.displayName}
-                  description={imageDetails.observationLog}
-                  imageUrl={imageDetails.imageURL}
-                  linkUrl={imageDetails.linkUrl}
-                  likesCount={imageDetails.likesCount}
-                  likePrompt={imageDetails.likePrompt}
-                  observationTimeDisplay={imageDetails.observationTimeDisplay}
-                  showLikePrompt={imageDetails.showLikePrompt}
-                  handleLike={fetchLikeAction}
-                  customerImageId={
-                    modeledResult.featuredObservation.customerImageId
-                  }
+        {modeledResult.featuredObservation.hasObservations &&
+          !isEmpty(imageDetails) && (
+            <section className="blue-tile-bg">
+              <DeviceProvider>
+                <SterlingTitle
+                  title="Featured Observation"
+                  theme={{
+                    title: { color: 'white' },
+                    subTitle: { color: 'white' },
+                  }}
                 />
-              </CenterColumn>
-            </DeviceProvider>
-          </section>
-        )}
+                <CenterColumn widths={['768px', '965px', '965px']}>
+                  <CardObservations
+                    user={user}
+                    title={imageDetails.imageTitle}
+                    subTitle={imageDetails.displayName}
+                    description={imageDetails.observationLog}
+                    imageUrl={imageDetails.imageURL}
+                    linkUrl={imageDetails.linkUrl}
+                    likesCount={imageDetails.likesCount}
+                    likePrompt={imageDetails.likePrompt}
+                    observationTimeDisplay={imageDetails.observationTimeDisplay}
+                    showLikePrompt={imageDetails.showLikePrompt}
+                    handleLike={fetchLikeAction}
+                    customerImageId={
+                      modeledResult.featuredObservation.customerImageId
+                    }
+                  />
+                </CenterColumn>
+              </DeviceProvider>
+            </section>
+          )}
 
         <section className="off-white-bg">
           <SterlingTitle {...modeledResult.statisticsTitle} />

@@ -19,6 +19,7 @@ const BootstrappedObservationSliderItem = props => {
     observationTimeDisplay,
     intl,
     handleLike,
+    onLike,
     customerImageId,
     likePrompt,
     showLikePrompt,
@@ -26,8 +27,11 @@ const BootstrappedObservationSliderItem = props => {
   const [isOpen, openModal] = useState(false);
   const [likesNumber, changeLikesNumber] = useState(likesCount);
   const onLikeClick = () => {
-    handleLike(customerImageId);
-    changeLikesNumber(likesNumber + 1);
+    if (!showLikePrompt) {
+      if (handleLike) handleLike(customerImageId);
+      if (onLike) onLike(customerImageId);
+      changeLikesNumber(likesNumber + 1);
+    }
   };
   return (
     <Fragment>

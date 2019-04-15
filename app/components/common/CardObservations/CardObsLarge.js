@@ -20,16 +20,16 @@ const CardObsLarge = props => {
     handleLike,
     customerImageId,
     likePrompt,
-    user,
     showLikePrompt,
   } = props;
   const [isOpen, openModal] = useState(false);
   const [likesNumber, changeLikesNumber] = useState(likesCount);
   const onLikeClick = () => {
-    handleLike(customerImageId);
-    changeLikesNumber(likesNumber + 1);
+    if (!showLikePrompt) {
+      handleLike(customerImageId);
+      changeLikesNumber(likesNumber + 1);
+    }
   };
-  console.log('customerImageId', customerImageId);
   return (
     <Fragment>
       <div className="card-obs-wrapper">
@@ -93,7 +93,7 @@ const CardObsLarge = props => {
                     <LikeSomethingButton
                       mod="no-border"
                       likePrompt={likePrompt}
-                      likesCount={likesNumber || likesCount}
+                      likesCount={likesNumber}
                       likeHandler={onLikeClick}
                       customerId={customerImageId}
                       showLikePrompt={showLikePrompt}
