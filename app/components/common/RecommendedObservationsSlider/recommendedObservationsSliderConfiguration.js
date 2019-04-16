@@ -1,15 +1,13 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import defaultSliderConfiguration from '../../../components/common/Slider/sliderConfig';
+import defaultSliderConfiguration from '../Slider/sliderConfig';
 import RecommendedObservationSliderItem from './partials/RecommendedObservationsSliderItem';
 
 import messages from './RecommendedObservationsSlider.messages';
 
-const getSliderConfiguration = () => Object.assign(
-  {},
-  defaultSliderConfiguration(),
-  {
+const getSliderConfiguration = () =>
+  Object.assign({}, defaultSliderConfiguration(), {
     slidesToShow: 1,
     slidesToScroll: 1,
     initialSlide: 1,
@@ -39,21 +37,31 @@ const getSliderConfiguration = () => Object.assign(
         },
       },
     ],
-  },
-);
+  });
 
 const getRecommendedObservationsItems = (imageList = []) => {
-  return imageList.map(object => ({
-    customerImageId: object.customerImageId,
-    render: sliderProps => <RecommendedObservationSliderItem key={imageList.customerImageId} {...sliderProps} {...object} />,
-  }));
+  return imageList.map(object => {
+    return {
+      customerImageId: parseInt(object.customerImageId, 10),
+      render: sliderProps => (
+        <RecommendedObservationSliderItem
+          key={imageList.customerImageId}
+          {...sliderProps}
+          {...object}
+        />
+      ),
+    };
+  });
 };
 
-export const getSliderProps = (slideList = []) => (
-  Object.assign({
-    slideList: getRecommendedObservationsItems(slideList),
-  }, {
+export const getSliderProps = (slideList = []) => {
+  return Object.assign(
+    {
+      slideList: getRecommendedObservationsItems(slideList),
+    },
+    {
       sliderConfig: getSliderConfiguration(),
       emptyMessage: <FormattedMessage {...messages.NothingToShow} />,
-  })
-);
+    }
+  );
+};

@@ -1,10 +1,10 @@
 import css from 'styled-jsx/css';
-import { blue_tile_feat } from 'styles/variables/colors_tiles_v4';
-import { screenMedium } from 'styles/variables/breakpoints';
+import { blue_tile_feat } from 'app/styles/variables/colors_tiles_v4';
+import { screenMedium } from 'app/styles/variables/breakpoints';
 
 export default css`
   .root {
-
+    padding-bottom: 40px;
   }
 
   @media ${screenMedium} {

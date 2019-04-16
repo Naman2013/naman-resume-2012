@@ -28,11 +28,16 @@
 
 
 // Wrappers
-.wrap {
+.i-wrapper {
+  max-width: 1180px;
   margin: 0 auto;
 
-  &-850 {
-    max-width: 850px;
+  @media all and (min-width: 769px) and (max-width: 1024px) {
+    max-width: 860px;
+  }
+
+  @media all and (min-width: 641px) and (max-width: 768px) {
+    max-width: 690px;
   }
 }
 
