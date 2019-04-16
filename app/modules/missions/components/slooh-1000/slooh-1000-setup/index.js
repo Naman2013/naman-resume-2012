@@ -104,7 +104,7 @@ export class Slooh1000Setup extends Component {
             />
 
             {availableMissions && (
-              <div className="explanation">No objects available</div>
+              <div className="explanation">No available missions were found</div>
             )}
 
             {noObjects && (
