@@ -94,7 +94,7 @@ class RecentVideoTile extends Component {
         </div>
         {this.generateVideoDescription()}
 
-        <style>
+        <style jsx>
           {`
             .contentlink:hover {
               text-decoration: none;

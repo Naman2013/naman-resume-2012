@@ -1,0 +1,16 @@
+@import '~app/styles/bootstrap/index';
+@import '~app/styles/variables/index';
+
+.telescope-reservation-modal-header {
+  margin-bottom: 35px;
+}
+
+.telescope-reservation-modal-content {
+  color: $lightHeadedAstronaut;
+
+  .setup-block {
+    .box {
+      padding: 0;
+    }
+  }
+}

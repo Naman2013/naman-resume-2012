@@ -7,10 +7,12 @@
   .telescope-nav-item {
     flex: 1;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: space-between;
     align-items: center;
     padding: 24px 0;
     border-right: 1px solid $hawkesBlue;
+    position: relative;
     cursor: pointer;
 
     img {
@@ -18,6 +20,11 @@
       height: 50px;
       background-color: $romance;
       border-radius: 50%;
+      margin-bottom: 6px;
+    }
+
+    h4 {
+      color: $astronaut;
     }
 
     &.active {
@@ -27,6 +34,19 @@
         padding: 5px;
         box-shadow: 0 0 6px 0 $shadows;
         border: solid 1px $hawkesBlue;
+        margin-bottom: 0;
+      }
+
+      &:after {
+        position: absolute;
+        bottom: -1px;
+        display: block;
+        width: 100%;
+        height: 11px;
+        margin: auto;
+        content: '';
+        background: url('https://vega.slooh.com/assets/v4/common/icon_navarrow_blue.svg')
+          no-repeat center center;
       }
     }
   }

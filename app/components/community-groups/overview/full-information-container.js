@@ -139,7 +139,8 @@ class FullInformationOverview extends Component {
             />)
           }
           renderAsideContent={() => (
-            <div>
+            
+              !isEditMode && <div>
               <TopThreads 
                 topicId={pageMeta.topicId}
                 isDesktop={context.isDesktop} />
@@ -152,10 +153,11 @@ class FullInformationOverview extends Component {
                 isDesktop={context.isDesktop}
               />
             </div>)
-          }
+          
+        }
           isScreenSize={context.isScreenLarge}
           renderMainContent={() => (
-            <div className="discuss-container">
+            !isEditMode && <div className="discuss-container">
               <DiscussionsBoard
                 errorMessage={intl.formatMessage(messages.FetchingListError)}
                 topicId={pageMeta.topicId}

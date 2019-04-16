@@ -326,7 +326,7 @@ class Login extends Component {
             </div>
           </form>
         }
-        <style>{styles}</style>
+        <style jsx>{styles}</style>
       </div>
     );
   }

@@ -28,6 +28,10 @@
     margin: 0 0 0 15px;
   }
 
+  &-no-border {
+    border: none;
+  }
+
   &-circle {
     position: relative;
     height: 40px;
@@ -54,6 +58,10 @@
   &-white {
     color: $romance;
     border-color: $romance;
+  }
+
+  img {
+    margin: 0 5px;
   }
 }
 

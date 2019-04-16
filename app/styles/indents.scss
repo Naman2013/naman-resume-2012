@@ -20,11 +20,11 @@
     padding: 100px;
 
     @include md() {
-      padding: 25px;
+      padding: 50px 25px;
     }
 
     @include sm() {
-      padding: 25px;
+      padding: 50px 25px;
     }
   }
 

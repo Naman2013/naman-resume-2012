@@ -1,9 +1,9 @@
 /** *********************************
-* V4 Object Details Page
-*   Markdown support on elements????
-*   UTF-8 support....
-*   Multi-National Languages.....
-********************************** */
+ * V4 Object Details Page
+ *   Markdown support on elements????
+ *   UTF-8 support....
+ *   Multi-National Languages.....
+ ********************************** */
 
 import React, { Component, cloneElement } from 'react';
 import PropTypes from 'prop-types';
@@ -12,10 +12,10 @@ import { bindActionCreators } from 'redux';
 import {
   fetchObjectDetailsAction,
   fetchObjectDataAction,
-  fetchObjectSpecialistsAction
+  fetchObjectSpecialistsAction,
+  fetchImageDetailsAction,
 } from '../../modules/object-details/actions';
 import Navigation from '../../components/object-details/Navigation';
-import FollowObject from '../../components/object-details/FollowObject';
 import style from './ObjectDetails.style';
 
 const MAX_MVP_ASTRONOMERS = 3;
@@ -31,29 +31,37 @@ const mapStateToProps = ({ objectDetails, appConfig, user }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({
-    fetchObjectDetailsAction,
-    fetchObjectDataAction,
-    fetchObjectSpecialistsAction,
-  }, dispatch),
+  actions: bindActionCreators(
+    {
+      fetchObjectDetailsAction,
+      fetchObjectDataAction,
+      fetchObjectSpecialistsAction,
+      fetchImageDetailsAction,
+    },
+    dispatch
+  ),
 });
 
-@connect(mapStateToProps, mapDispatchToProps)
-
+@connect(
+  mapStateToProps,
+  mapDispatchToProps
+)
 class ObjectDetails extends Component {
   static propTypes = {
     params: PropTypes.shape({
       objectId: PropTypes.string,
     }).isRequired,
-    actions: PropTypes.shape({ }).isRequired,
-  }
+    actions: PropTypes.shape({}).isRequired,
+  };
 
   constructor(props) {
     super(props);
 
-    const { params: { objectId } } = this.props;
+    const {
+      params: { objectId },
+    } = this.props;
 
-    if (this.props.objectDetails.objectId != objectId) {
+    if (this.props.objectDetails.objectId !== objectId) {
       // fetch the object-level meta data only if the objectId changes.
       this.props.actions.fetchObjectDetailsAction(objectId);
       this.props.actions.fetchObjectDataAction(objectId);
@@ -61,24 +69,31 @@ class ObjectDetails extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { params: { objectId } } = nextProps;
+    const {
+      params: { objectId },
+    } = nextProps;
 
-    if (this.props.objectDetails.objectId != nextProps.objectDetails.objectId) {
-      this.props.actions.fetchObjectSpecialistsAction(nextProps.objectDetails.objectId, MAX_MVP_ASTRONOMERS);
+    if (this.props.objectDetails.objectId !== nextProps.objectDetails.objectId) {
+      this.props.actions.fetchObjectSpecialistsAction(
+        nextProps.objectDetails.objectId,
+        MAX_MVP_ASTRONOMERS
+      );
     }
 
     // fetch the object details, the object page has been changed.
-    if (this.props.params.objectId != nextProps.params.objectId) {
+    if (this.props.params.objectId !== nextProps.params.objectId) {
       this.props.actions.fetchObjectDetailsAction(objectId);
       this.props.actions.fetchObjectDataAction(objectId);
     }
+
+    this.props.actions.fetchImageDetailsAction(
+      this.props.objectData.featuredObservation.customerImageId
+    );
   }
 
   render() {
     const {
-      params: {
-        objectId,
-      },
+      params: { objectId },
       objectDetails: {
         objectTitle,
         objectSubtitle,
@@ -87,13 +102,13 @@ class ObjectDetails extends Component {
         followPrompt,
       },
       user,
-      children
+      children,
     } = this.props;
 
     return (
       <div>
         <header className="header">
-          <div className="icon"></div>
+          <div className="icon" />
           {objectTitle}
           {/*
           <div className="subtitle">{objectSubtitle}</div>
@@ -109,9 +124,13 @@ class ObjectDetails extends Component {
         <Navigation objectId={objectId} />
         {cloneElement(children)}
         <style jsx>{style}</style>
-        <style jsx>{`.icon { mask-image: url(${objectIconURL}); } `}</style>
+        <style jsx>{`
+          .icon {
+            mask-image: url(${objectIconURL});
+          }
+        `}</style>
       </div>
-    )
+    );
   }
 }
 

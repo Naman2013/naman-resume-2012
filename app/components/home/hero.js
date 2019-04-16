@@ -119,7 +119,7 @@ class Hero extends Component {
         </div>
 
         <ScrollForMore />
-        <style>{`
+        <style jsx>{`
           div.call-to-action {
             display: inline-block;
             margin-left: 10px;

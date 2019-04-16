@@ -39,7 +39,6 @@ const MainContainer = ({
         likePrompt={likePrompt}
         likeParams={likeParams}
         showLikePrompt={showLikePrompt}
-        user={user}
         customerId={user.cid}
       />
     </div>

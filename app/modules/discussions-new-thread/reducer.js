@@ -9,7 +9,6 @@ import {
   NEW_THREAD_START,
   NEW_THREAD_SUCCESS,
   NEW_THREAD_FAIL,
-  RESET_NEW_TREAD_STATE,
 } from './actions';
 
 const InitialState = Record({
@@ -59,12 +58,12 @@ export default createReducer(new InitialState(), {
     .set('submitting', false)
     .set('submitError', payload.errorMsg);
   },
-  [RESET_NEW_TREAD_STATE](state) {
-    return state
-    .set('forumList', new List())
-    .set('submitError', '')
-    .set('submitting', false)
-    .set('postUUID', false)
-    .set('threadSubmitted', false);
-  },
+  // [RESET_NEW_TREAD_STATE](state) {
+  //   return state
+  //   .set('forumList', new List())
+  //   .set('submitError', '')
+  //   .set('submitting', false)
+  //   .set('postUUID', false)
+  //   .set('threadSubmitted', false);
+  // },
 });

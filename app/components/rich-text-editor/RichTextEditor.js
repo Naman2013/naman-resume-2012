@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 import AddDividerBlock from './divider-block/AddDividerBlock';
-import { DividerBlock } from './divider-block/DividerBlock';
+import DividerBlock from './divider-block/DividerBlock';
 import BlockStyleControls from './BlockStyleControls';
 import InlineStyleControls from './InlineStyleControls';
 

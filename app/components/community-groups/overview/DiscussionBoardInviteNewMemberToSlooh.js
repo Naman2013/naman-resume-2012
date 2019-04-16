@@ -292,7 +292,7 @@ class DiscussionBoardInviteNewMemberToSlooh extends Component {
             </Fragment>
           )}
           />
-        <style>{styles}</style>
+        <style jsx>{styles}</style>
       </div>
     );
   }
