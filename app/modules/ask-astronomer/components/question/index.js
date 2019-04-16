@@ -45,10 +45,8 @@ export class Question extends Component {
     const { toggleAllAnswersAndDisplay } = actions;
 
     const item = questions.find(el => +el.threadId === +params.threadId);
-    console.log('toggleAllAnswersAndDisplay');
     toggleAllAnswersAndDisplay({
       threadId: item.threadId,
-      // showAllAnswers: !answers.showAllAnswers,
       showAllAnswers: res,
     });
   };
@@ -61,7 +59,6 @@ export class Question extends Component {
       allAnswers,
       canAnswerQuestions,
       canReplyToAnswers,
-      allDisplayedAnswersObjs,
       fetchingAnswers,
       isDesktop,
       likeParams,
@@ -70,6 +67,7 @@ export class Question extends Component {
       submitAnswer,
       modalActions,
       updateQuestionsList,
+      allDisplayedAnswers,
     } = this.props;
 
     if (!questions || !questions.length) {
@@ -91,19 +89,22 @@ export class Question extends Component {
 
     const item = questions.find(el => +el.threadId === +params.threadId) || {};
 
-    console.log(item);
-
-    // toggleAllAnswers();
-
     const likeThreadParams = Object.assign({}, likeParams, {
       threadId: item.threadId,
       authorId: item.customerId,
       forumId: item.forumId,
     });
 
+    const threadAnswers = allAnswers[item.threadId] || { replies: [] };
+    const allDisplayedAnswersObjs = threadAnswers.replies.filter(
+      answer =>
+        allDisplayedAnswers[item.threadId] &&
+        allDisplayedAnswers[item.threadId].indexOf(answer.replyId) > -1
+    );
+
     const answers = allAnswers[params.threadId];
-    console.log(answers);
     const fetching = fetchingAnswers[params.threadId];
+
     return (
       <>
         <BackButton />
@@ -113,17 +114,7 @@ export class Question extends Component {
             <Card
               {...item}
               objectId={objectId}
-              // showComments
               showComments={answers.showAllAnswers}
-              // toggleComments={toggleAllAnswers}
-              // toggleComments={() => {
-              //   console.log('toggle');
-              //   console.log(props);
-              //   browserHistory.push(
-              //     `/object-details/${props.params.objectId}/question/${item.threadId}`
-              //   );
-              // toggleAllAnswers();
-              //}}
               likeHandler={likeThread}
               likeParams={likeThreadParams}
               isDesktop={isDesktop}
@@ -139,11 +130,6 @@ export class Question extends Component {
                   user={user}
                 />
               )}
-              // renderReplyButton={() => {
-              //   console.log('rendReply');
-              //   // const path = `/repos/${userName}/${repo}`
-              //   // browserHistory.push(path)
-              // }}
               commentText="Answers"
               modalActions={modalActions}
               renderChildReplies={() => (
@@ -161,7 +147,6 @@ export class Question extends Component {
                   updateQuestionsList={updateQuestionsList}
                 />
               )}
-              // renderChildReplies={() => {} }
             />
             {fetching && <div className="fa fa-spinner loader" />}
             <style jsx>{style}</style>

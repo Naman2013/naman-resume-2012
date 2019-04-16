@@ -34,8 +34,8 @@ const QuestionListItem = props => {
   const toggleAllAnswers = () =>
     toggleAllAnswersAndDisplay({
       threadId: item.threadId,
-      // showAllAnswers: !answers.showAllAnswers,
-      showAllAnswers: false,
+      showAllAnswers: !answers.showAllAnswers,
+      // showAllAnswers: false,
     });
   // toggleAllAnswers();
   const likeThreadParams = Object.assign({}, likeParams, {
@@ -49,14 +49,11 @@ const QuestionListItem = props => {
         {...props.item}
         objectId={objectId}
         showComments={answers.showAllAnswers}
-        // toggleComments={toggleAllAnswers}
         toggleComments={() => {
-          console.log('toggle');
-          console.log(props);
+          toggleAllAnswers();
           browserHistory.push(
             `/object-details/${props.params.objectId}/question/${item.threadId}`
           );
-          // toggleAllAnswers();
         }}
         likeHandler={likeThread}
         isDesktop={isDesktop}
@@ -73,11 +70,6 @@ const QuestionListItem = props => {
             user={user}
           />
         )}
-        // renderReplyButton={() => {
-        //   console.log('rendReply');
-        //   // const path = `/repos/${userName}/${repo}`
-        //   // browserHistory.push(path)
-        // }}
         commentText="Answers"
         modalActions={modalActions}
         renderChildReplies={() => (
