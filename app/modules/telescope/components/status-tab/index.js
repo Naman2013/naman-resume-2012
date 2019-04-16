@@ -1,7 +1,7 @@
 import React from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
-import TimeUtc from 'app/atoms/time-utc';
 import Button from 'app/components/common/style/buttons/Button';
+import { ObservatoryInformation } from 'app/modules/telescope/components/old';
 import { Box } from 'app/modules/telescope/components/box';
 import { AllSkyCamera } from 'app/modules/telescope/components/old/all-sky-camera';
 import { DomCameraWidget } from 'app/modules/telescope/components/old/dom-camera-widget';
@@ -16,15 +16,6 @@ export const StatusTab = props => {
     currentTelescope,
     currentObservatory,
   } = props;
-  const {
-    obsOpensLabel,
-    obsOpenDisplayTime,
-    obsOpenDisplayTimeZone,
-    obsOpenDisplayOtherTimeZones,
-    obsTimeInLabel,
-    obsCurrentDisplayTime,
-    obsCurrentDisplayOtherTimeZones,
-  } = clockList;
   return (
     <div className="animated fadeIn faster status-tab">
       <div className="telescope-views">
@@ -57,26 +48,7 @@ export const StatusTab = props => {
       <Container>
         <Row>
           <Col lg={8}>
-            <Box header="OBSERVATORY INFORMATION">
-              <div className="box-cols">
-                <div>
-                  <h4 className="h4-custom">{obsOpensLabel}</h4>
-                  <TimeUtc
-                    time={obsOpenDisplayTime}
-                    timeZone={obsOpenDisplayTimeZone}
-                  />
-                  <TimeUtc small time={obsOpenDisplayOtherTimeZones} />
-                </div>
-                <div>
-                  <h4 className="h4-custom">{obsTimeInLabel}</h4>
-                  <TimeUtc
-                    time={obsCurrentDisplayTime}
-                    timeZone={obsOpenDisplayTimeZone}
-                  />
-                  <TimeUtc small time={obsCurrentDisplayOtherTimeZones} />
-                </div>
-              </div>
-            </Box>
+            <ObservatoryInformation clockList={clockList} />
 
             <Box header="THIS JUST IN!">
               <Row>

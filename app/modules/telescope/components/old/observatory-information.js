@@ -2,7 +2,8 @@ import React from 'react';
 import { ModuleContainer } from './index';
 import style from './observatory-information.style';
 
-const ObservatoryInformation = ({ clockList }) => {
+const ObservatoryInformation = props => {
+  const { clockList } = props;
   const {
     obsCloseDisplayOtherTimeZones,
     obsCloseDisplayTime,
