@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Countdown from 'react-countdown-now';
 import { TelescopeSetup } from '../telescope-setup';
 import { MissionsList } from '../missions-list';
 import { ReservationModal } from '../telescope-reservation/reservation-modal';
@@ -16,8 +17,8 @@ export class Telescope extends Component {
   getMissionSlotDates = () => {
     const { getMissionSlotDates, selectedTelescope } = this.props;
     getMissionSlotDates(selectedTelescope);
-  }
- 
+  };
+
   getTelescopeSlot = mission => {
     const { getTelescopeSlot, setSelectedSlot } = this.props;
     const { scheduledMissionId, uniqueId } = mission;
@@ -39,13 +40,14 @@ export class Telescope extends Component {
       scheduledMissionId,
       uniqueId,
     });
+    this.getMissionSlotDates();
     this.setState({ reservationModalVisible: false });
   };
 
   reservationComplete = () => {
     this.getMissionSlotDates();
     this.setState({ reservationModalVisible: false });
-  }
+  };
 
   render() {
     const {
@@ -55,8 +57,9 @@ export class Telescope extends Component {
       selectedDate,
       getMissionSlotDates,
       missionList,
+      missionListRefreshInterval,
     } = this.props;
-
+    console.log(this.props);
     const { reservationModalVisible } = this.state;
 
     return (
@@ -76,8 +79,19 @@ export class Telescope extends Component {
             getTelescopeSlot={this.getTelescopeSlot}
           />
 
-          {reservationModalVisible && (
-            <ReservationModal onHide={this.reservationModalHide} onComplete={this.reservationComplete} show />
+          {reservationModalVisible ? (
+            <ReservationModal
+              onHide={this.reservationModalHide}
+              onComplete={this.reservationComplete}
+              show
+            />
+          ) : (
+            <div className="mission-refresh-countdown">
+              <Countdown
+                date={Date.now() + missionListRefreshInterval * 1000}
+                onComplete={this.getMissionSlotDates}
+              />
+            </div>
           )}
         </div>
       </div>

@@ -478,3 +478,9 @@ export const makeTelescopeSelectedSlotSelector = () =>
     makeByTelescopeSelector(),
     state => state.selectedSlot
   );
+
+export const makeTelescopeMissionListRefreshIntervalSelector = () =>
+  createSelector(
+    makeByTelescopeSelector(),
+    state => state.missionListRefreshInterval
+  );

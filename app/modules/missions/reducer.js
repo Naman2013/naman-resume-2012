@@ -96,6 +96,7 @@ export const initialState = {
     selectedDate: {},
     dateList: [{}],
     missionList: [],
+    missionListRefreshInterval: 0,
     grabedTelescopeSlot: {},
     selectedSlot: {},
   },
@@ -538,6 +539,7 @@ function getMissionSlotsByTelescopeSuccess(state, action) {
     isLoaded: true,
     byTelescope: {
       ...state.byTelescope,
+      missionListRefreshInterval: action.payload.refreshIntervalSec,
       missionList: action.payload.missionList,
     },
   };
