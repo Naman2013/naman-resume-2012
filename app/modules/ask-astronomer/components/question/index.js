@@ -15,11 +15,19 @@ import {
 } from 'app/modules/ask-astronomer/reducers/ask-astronomer-questions/actions';
 import { fetchObjectSpecialistsAction } from 'app/modules/object-details/actions';
 import { likeThread } from 'app/services/discussions/like';
+import { customModalStylesV4 } from 'app/styles/mixins/utilities';
 import React, { Component } from 'react';
 import { Container } from 'react-bootstrap';
+import Modal from 'react-modal';
 import { browserHistory } from 'react-router';
 
 export class Question extends Component {
+  state = {
+    showPrompt: false,
+    promptComponent: null,
+    promptStyles: customModalStylesV4,
+  };
+
   componentDidMount = () => {
     this.checkData();
 
@@ -28,6 +36,31 @@ export class Question extends Component {
 
   componentWillUnmount = () => {
     this.toggleAllAnswers(false);
+  };
+
+  showModal = () => {
+    this.setState(() => ({
+      showPrompt: true,
+    }));
+  };
+
+  closeModal = () => {
+    this.setState(() => ({
+      showPrompt: false,
+    }));
+  };
+
+  setModal = ({ promptComponent, promptStyles }) => {
+    this.setState(state => ({
+      promptComponent: promptComponent || state.promptComponent,
+      promptStyles: promptStyles || state.promptComponent,
+    }));
+  };
+
+  submitAnswer = (params, callback) => {
+    const { actions } = this.props;
+    const { submitAnswerToQuestion } = actions;
+    return submitAnswerToQuestion(params).then(res => callback(res.payload));
   };
 
   checkData = () => {
@@ -44,7 +77,7 @@ export class Question extends Component {
     const { questions, params, actions } = this.props;
     const { toggleAllAnswersAndDisplay } = actions;
 
-    const item = questions.find(el => +el.threadId === +params.threadId);
+    const item = questions.find(el => +el.threadId === +params.threadId) || {};
     toggleAllAnswersAndDisplay({
       threadId: item.threadId,
       showAllAnswers: res,
@@ -65,7 +98,7 @@ export class Question extends Component {
       user,
       objectId,
       submitAnswer,
-      modalActions,
+      // modalActions,
       updateQuestionsList,
       allDisplayedAnswers,
     } = this.props;
@@ -75,6 +108,16 @@ export class Question extends Component {
       browserHistory.push(`/object-details/${params.objectId}/ask`);
       return null;
     }
+
+    const {
+      showPrompt,
+      promptComponent,
+      promptStyles,
+      // aaaQuestionPrompt,
+    } = this.state;
+
+    const { setModal, showModal, closeModal } = this;
+    const modalActions = { setModal, showModal, closeModal };
 
     const {
       askQuestion,
@@ -109,6 +152,16 @@ export class Question extends Component {
       <>
         <BackButton />
 
+        <Modal
+          ariaHideApp={false}
+          isOpen={showPrompt}
+          style={promptStyles}
+          contentLabel="askAstronomer"
+          onRequestClose={this.closeModal}
+        >
+          {promptComponent}
+        </Modal>
+
         <Container>
           <div className="shadowed-container margin">
             <Card
@@ -124,7 +177,7 @@ export class Question extends Component {
                 <SubmitAnswerButton
                   {...item}
                   replyTo={item.threadId}
-                  submitForm={submitAnswer}
+                  submitForm={this.submitAnswer}
                   modalActions={modalActions}
                   updateQuestionsList={updateQuestionsList}
                   user={user}

@@ -153,7 +153,7 @@ class AskAstronomer extends Component {
     } = this.props;
     const { getAllQuestions, fetchAstronomerQuestions } = actions;
 
-    getAllQuestions({ objectId, ...filter });
+    // getAllQuestions({ objectId, ...filter });
     fetchAstronomerQuestions({ objectId, ...filter });
   };
 
@@ -173,7 +173,7 @@ class AskAstronomer extends Component {
 
   submitAnswer = (params, callback) => {
     const { actions, page } = this.props;
-    actions.submitAnswerToQuestion(params).then(res => callback(res.payload));
+    return actions.submitAnswerToQuestion(params).then(res => callback(res.payload));
   };
 
   submitQuestion = (params, callback) => {

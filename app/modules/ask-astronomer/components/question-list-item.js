@@ -64,7 +64,14 @@ const QuestionListItem = props => {
           <SubmitAnswerButton
             {...props.item}
             replyTo={item.threadId}
-            submitForm={submitAnswer}
+            submitForm={(...params) => {
+              submitAnswer(...params);
+              browserHistory.push(
+                `/object-details/${props.params.objectId}/question/${
+                  item.threadId
+                }`
+              );
+            }}
             modalActions={modalActions}
             updateQuestionsList={updateQuestionsList}
             user={user}
