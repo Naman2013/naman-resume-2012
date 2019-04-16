@@ -25,13 +25,6 @@ import styles from './QaContainer.styles';
 const { func, shape } = PropTypes;
 
 class QaContainer extends Component {
-  static propTypes = {
-    actions: shape({
-      fetchAstronomerQuestions: func.isRequired,
-    }).isRequired,
-    children: func.isRequired,
-  };
-
   state = {
     showPrompt: false,
     promptComponent: null,

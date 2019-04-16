@@ -1,3 +1,12 @@
+import {
+  makeAskAstronomerFetchingSelector,
+  makeAskAstronomerPageDataSelector,
+  makeAskAstronomerQuestionsDataSelector,
+} from 'app/modules/ask-astronomer/selectors';
+import {
+  getAllQuestions,
+  getPageData,
+} from 'app/modules/ask-astronomer/thunks';
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -20,36 +29,34 @@ import AskQuestionTile from 'app/modules/ask-astronomer/components/AskQuestionTi
 import ObjectDetailsSectionTitle from 'app/components/object-details/ObjectDetailsSectionTitle';
 import CenterColumn from 'app/components/common/CenterColumn';
 import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
-import { getAskAnAstronomer } from 'app/services/objects/ask-astronomer';
 import { customModalStylesV4 } from 'app/styles/mixins/utilities';
+import { Spinner } from 'app/components/spinner/index';
 import AsideContainer from './partials/AsideContainer';
 import MainContainer from './partials/MainContainer';
 import style from './AskAstronomer.style';
 import messages from './AskAstronomer.messages';
 
-const mapStateToProps = ({
-  appConfig,
-  astronomerAnswers,
-  astronomerQuestions,
-  objectDetails,
-  user,
-}) => ({
-  allAnswers: astronomerAnswers.allAnswers,
-  allDisplayedAnswers: astronomerAnswers.allDisplayedAnswers,
-  appConfig,
-  objectData: objectDetails.objectData,
-  questionFilter: astronomerQuestions.questionFilter,
-  questions: astronomerQuestions.threadList,
-  page: astronomerQuestions.page,
-  totalCount: astronomerQuestions.threadCount,
-  count: astronomerQuestions.count,
-  canAnswerQuestions: astronomerQuestions.canAnswerQuestions,
-  canReplyToAnswers: astronomerQuestions.canReplyToAnswers,
-  fetchingQuestions: astronomerQuestions.fetching,
-  fetchingAnswers: astronomerAnswers.fetchingObj,
-  user,
-  objectDetails,
-  objectSpecialists: objectDetails.objectSpecialists,
+const mapStateToProps = state => ({
+  allAnswers: state.astronomerAnswers.allAnswers,
+  allDisplayedAnswers: state.astronomerAnswers.allDisplayedAnswers,
+  appConfig: state.appConfig,
+  objectData: state.objectDetails.objectData,
+  questionFilter: state.astronomerQuestions.questionFilter,
+  questions: state.astronomerQuestions.threadList,
+  page: state.astronomerQuestions.page,
+  totalCount: state.astronomerQuestions.threadCount,
+  count: state.astronomerQuestions.count,
+  canAnswerQuestions: state.astronomerQuestions.canAnswerQuestions,
+  canReplyToAnswers: state.astronomerQuestions.canReplyToAnswers,
+  fetchingQuestions: state.astronomerQuestions.fetching,
+  fetchingAnswers: state.astronomerAnswers.fetchingObj,
+  user: state.user,
+  objectDetails: state.objectDetails,
+  objectSpecialists: state.objectDetails.objectSpecialists,
+
+  fetching: makeAskAstronomerFetchingSelector()(state),
+  pageData: makeAskAstronomerPageDataSelector()(state),
+  questionsData: makeAskAstronomerQuestionsDataSelector()(state),
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -58,6 +65,8 @@ const mapDispatchToProps = dispatch => ({
       askQuestion,
       changeAnswerState,
       fetchAstronomerQuestions,
+      getAllQuestions,
+      getPageData,
       toggleAllAnswersAndDisplay,
       fetchObjectSpecialistsAction,
       submitAnswerToQuestion,
@@ -85,25 +94,21 @@ class AskAstronomer extends Component {
   constructor(props) {
     super();
 
-    const {
-      params: { objectId },
-    } = props;
-
     this.state = {
       showPrompt: false,
       promptComponent: null,
       promptStyles: customModalStylesV4,
-      aaaQuestionPrompt: {},
+      // aaaQuestionPrompt: {},
     };
 
-    getAskAnAstronomer({
-      objectId,
-    }).then(res => {
-      this.setState(() => ({
-        aaaQuestionPrompt: res.data,
-      }));
-      props.actions.fetchAstronomerQuestions({ objectId });
-    });
+    // getAskAnAstronomer({
+    //   objectId,
+    // }).then(res => {
+    //   this.setState(() => ({
+    //     aaaQuestionPrompt: res.data,
+    //   }));
+    //   props.actions.fetchAstronomerQuestions({ objectId });
+    // });
   }
 
   /*componentWillReceiveProps(nextProps) {
@@ -117,28 +122,53 @@ class AskAstronomer extends Component {
     }
   }*/
 
-  fetchQuestions
-
   componentDidMount() {
+    console.log('componentDidMount');
+
     const {
       params: { objectId },
+      actions: { getPageData },
     } = this.props;
-    if (this.props.objectData.objectId != objectId) {
-      //fetch questions only if the objectId changes.
-      this.props.actions.fetchAstronomerQuestions({ objectId });
-    }
+
+    getPageData(objectId).then(res => {
+      // console.log(res);
+      // this.setState(() => ({
+      //   aaaQuestionPrompt: res.data,
+      // }));
+    });
+    // const {
+    //   params: { objectId },
+    // } = this.props;
+    // if (this.props.objectData.objectId != objectId) {
+    //   //fetch questions only if the objectId changes.
+    //   this.props.actions.fetchAstronomerQuestions({ objectId });
+    // }
+    this.fetchQuestions();
   }
 
-  handlePageChange = page => {
+  fetchQuestions = filter => {
     const {
       actions,
       params: { objectId },
     } = this.props;
-    actions.fetchAstronomerQuestions({
-      appendToList: false,
-      currentPage: page,
-      objectId,
-    });
+    const { getAllQuestions, fetchAstronomerQuestions } = actions;
+
+    getAllQuestions({ objectId, ...filter });
+    fetchAstronomerQuestions({ objectId, ...filter });
+  };
+
+  handlePageChange = page => {
+    console.log('handlePageChange');
+    // const {
+    //   actions,
+    //   params: { objectId },
+    // } = this.props;
+    // actions.fetchAstronomerQuestions({
+    //   appendToList: false,
+    //   currentPage: page,
+    //   objectId,
+    // });
+    this.fetchQuestions({ currentPage: page });
   };
 
   submitAnswer = (params, callback) => {
@@ -171,15 +201,17 @@ class AskAstronomer extends Component {
   };
 
   updateQuestionsList = filter => {
-    const {
-      params: { objectId },
-      actions,
-    } = this.props;
-
-    actions.fetchAstronomerQuestions({
-      objectId,
-      answerState: filter && filter.answerState,
-    });
+    console.log('updateQuestionsList');
+    // const {
+    //   params: { objectId },
+    //   actions,
+    // } = this.props;
+    //
+    // actions.fetchAstronomerQuestions({
+    //   objectId,
+    //   answerState: filter && filter.answerState,
+    // });
+    this.fetchQuestions({ answerState: filter && filter.answerState });
   };
 
   render() {
@@ -199,26 +231,34 @@ class AskAstronomer extends Component {
       user,
       objectSpecialists,
       intl,
-    } = this.props;
 
-    console.log(this.props);
+      fetching,
+      pageData,
+      questionsData,
+    } = this.props;
 
     const {
       showPrompt,
       promptComponent,
       promptStyles,
-      aaaQuestionPrompt,
+      // aaaQuestionPrompt,
     } = this.state;
+
     const likeParams = {
       callSource: 'qanda',
       objectId,
       topicId: faqTopicId,
     };
+
     const { setModal, showModal, closeModal } = this;
     const modalActions = { setModal, showModal, closeModal };
 
+    console.log(questionsData);
+
     return (
-      <Fragment>
+      <div style={{ position: 'relative' }}>
+        <Spinner loading={fetching} />
+
         <DeviceContext.Consumer>
           {context => (
             <div className="full-bg">
@@ -266,7 +306,7 @@ class AskAstronomer extends Component {
                         user={user}
                         submitQuestion={this.submitQuestion}
                         updateQuestionsList={this.updateQuestionsList}
-                        {...aaaQuestionPrompt}
+                        {...pageData}
                       />
                     </div>
                   </DisplayAtBreakpoint>
@@ -294,7 +334,7 @@ class AskAstronomer extends Component {
                           objectId={objectId}
                           user={user}
                           submitQuestion={this.submitQuestion}
-                          aaaQuestionPrompt={aaaQuestionPrompt}
+                          aaaQuestionPrompt={pageData}
                           updateQuestionsList={this.updateQuestionsList}
                         />
                       </div>
@@ -322,7 +362,7 @@ class AskAstronomer extends Component {
             </div>
           )}
         </DeviceContext.Consumer>
-      </Fragment>
+      </div>
     );
   }
 }

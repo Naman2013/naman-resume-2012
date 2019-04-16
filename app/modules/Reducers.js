@@ -1,4 +1,5 @@
 import profile from 'app/modules/profile/reducer';
+import askAstronomer from 'app/modules/ask-astronomer/reducers/reducer';
 import imageDetails from 'app/modules/image-details/reducer';
 import telescope from 'app/modules/telescope/reducer';
 import storyDetails from 'app/modules/story-details/reducer';
@@ -189,4 +190,5 @@ export default combineReducers({
   missionDetails,
   imageDetails,
   galleryDetails,
+  askAstronomer,
 });

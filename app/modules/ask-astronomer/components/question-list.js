@@ -1,21 +1,15 @@
 /***********************************
-* V4 Ask Astronomer Question List
-*
-*
-*
-***********************************/
+ * V4 Ask Astronomer Question List
+ *
+ *
+ *
+ ***********************************/
 import React from 'react';
 import PropTypes from 'prop-types';
 import Pagination from 'rc-pagination';
 import QuestionListItem from './question-list-item';
 
-const {
-  arrayOf,
-  func,
-  number,
-  shape,
-  string,
-} = PropTypes;
+const { arrayOf, func, number, shape, string } = PropTypes;
 
 const QuestionList = ({
   actions,
@@ -31,7 +25,7 @@ const QuestionList = ({
   likeParams,
   objectId,
   page,
-  questions,
+  questions, // threads
   submitAnswer,
   toggleAllAnswersAndDisplay,
   user,
@@ -40,13 +34,15 @@ const QuestionList = ({
   params,
 }) => (
   <div>
-    {
-      questions.map((item) => {
-        const threadAnswers = allAnswers[item.threadId] || { replies: [] };
-        const allDisplayedAnswersObjs = threadAnswers
-          .replies
-          .filter(answer => allDisplayedAnswers[item.threadId] && allDisplayedAnswers[item.threadId].indexOf(answer.replyId) > -1);
-        return (<QuestionListItem
+    {questions.map(item => {
+      const threadAnswers = allAnswers[item.threadId] || { replies: [] };
+      const allDisplayedAnswersObjs = threadAnswers.replies.filter(
+        answer =>
+          allDisplayedAnswers[item.threadId] &&
+          allDisplayedAnswers[item.threadId].indexOf(answer.replyId) > -1
+      );
+      return (
+        <QuestionListItem
           actions={actions}
           answers={allAnswers[item.threadId]}
           canAnswerQuestions={canAnswerQuestions}
@@ -64,10 +60,9 @@ const QuestionList = ({
           modalActions={modalActions}
           toggleAllAnswersAndDisplay={toggleAllAnswersAndDisplay}
           updateQuestionsList={updateQuestionsList}
-        />)
-    },
-      )
-    }
+        />
+      );
+    })}
     <div className="d-flex">
       <Pagination
         onChange={handlePageChange}
@@ -86,14 +81,16 @@ QuestionList.defaultProps = {
   questions: [],
   allAnswers: {},
   allDisplayedAnswers: {},
-  fetchingAnswers: {}
+  fetchingAnswers: {},
 };
 QuestionList.propTypes = {
   allAnswers: shape({}),
   allDisplayedAnswers: shape({}),
-  questions: arrayOf(shape({
-    threadId: number.isRequired,
-  })),
+  questions: arrayOf(
+    shape({
+      threadId: number.isRequired,
+    })
+  ),
   toggleAllAnswersAndDisplay: func.isRequired,
   objectId: string.isRequired,
   modalActions: shape({

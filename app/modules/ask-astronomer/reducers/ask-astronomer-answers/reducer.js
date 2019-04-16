@@ -90,6 +90,7 @@ export default createReducer(initialState, {
     };
   },
   [TOGGLE_ALL_ASK_ASTRONOMER_ANSWERS](state, { payload }) {
+    console.log('TOGGLE_ALL_ASK_ASTRONOMER_ANSWERS', TOGGLE_ALL_ASK_ASTRONOMER_ANSWERS);
     const { threadId } = payload;
     const newAllAnswers = cloneDeep(state.allAnswers);
 

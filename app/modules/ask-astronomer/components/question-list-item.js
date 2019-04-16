@@ -34,8 +34,10 @@ const QuestionListItem = props => {
   const toggleAllAnswers = () =>
     toggleAllAnswersAndDisplay({
       threadId: item.threadId,
-      showAllAnswers: !answers.showAllAnswers,
+      // showAllAnswers: !answers.showAllAnswers,
+      showAllAnswers: false,
     });
+  // toggleAllAnswers();
   const likeThreadParams = Object.assign({}, likeParams, {
     threadId: item.threadId,
     authorId: item.customerId,
@@ -54,7 +56,7 @@ const QuestionListItem = props => {
           browserHistory.push(
             `/object-details/${props.params.objectId}/question/${item.threadId}`
           );
-          toggleAllAnswers();
+          // toggleAllAnswers();
         }}
         likeHandler={likeThread}
         isDesktop={isDesktop}
