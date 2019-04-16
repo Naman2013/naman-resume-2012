@@ -16,7 +16,7 @@ class Constellation extends Component {
   }
 
   getMissionSlot = () => {
-    const { getMissionSlot, selectedSlot, missionType } = this.props;
+    const { getMissionSlot, selectedSlot, missionType, scrollToGrabbedMission } = this.props;
     const { uniqueId } = selectedSlot;
 
     getMissionSlot(
@@ -25,7 +25,7 @@ class Constellation extends Component {
         uniqueId,
         missionType,
       },
-      () => {}
+      scrollToGrabbedMission
     );
   };
 

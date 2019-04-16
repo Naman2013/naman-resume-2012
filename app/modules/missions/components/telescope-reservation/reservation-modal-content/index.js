@@ -83,6 +83,10 @@ export class ReservationModalContent extends Component {
     }).then(() => this.setState({ extendedTimer: true }));
   };
 
+  scrollToGrabbedMission = () => {
+    this.grabedMissionTile.scrollIntoView();
+  }
+
   render() {
     const {
       selectedSlot,
@@ -110,7 +114,7 @@ export class ReservationModalContent extends Component {
         <div className="telescope-reservation-modal-header">
           <h1 className="modal-h">
             Set Up a Mission on {teleName} at{' '}
-            {moment(missionStart * 1000).format('HH:mm')} UTC
+            {moment.utc(missionStart * 1000).format('HH:mm')} UTC
           </h1>
           <p className="modal-p">
             Set up a Mission using the Slooh Recommender, by Catalog, or by
@@ -132,11 +136,15 @@ export class ReservationModalContent extends Component {
                   cancelMissionSlot={this.cancelMissionSlot}
                   getTelescopeSlot={this.getTelescopeSlot}
                   extendedTimer={extendedTimer}
+                  scrollToGrabbedMission={this.scrollToGrabbedMission}
                 />
               </Box>
             </div>
 
-            <div className="col-lg-4 reserved-mission">
+            <div 
+              className="col-lg-4 reserved-mission" 
+              ref={node => (this.grabedMissionTile = node)}
+            >
               <Box inside>
                 {missionSlot && missionSlot.missionAvailable ? (
                   <AvailbleMissionTile

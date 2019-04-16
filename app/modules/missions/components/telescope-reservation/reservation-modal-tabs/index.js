@@ -48,6 +48,7 @@ export class ReservationModalTabs extends PureComponent {
       setDesignation,
       checkTargetVisibility,
       setProcessingRecipe,
+      scrollToGrabbedMission,
       onHide,
     } = this.props;
     const { countdown } = this.state;
@@ -77,6 +78,7 @@ export class ReservationModalTabs extends PureComponent {
               countdown={countdown}
               onCountdownTick={this.onCountdownTick}
               onCountdownComplete={onHide}
+              scrollToGrabbedMission={scrollToGrabbedMission}
             />
           </Tab>
           <Tab eventKey="constellation" title="by constellation">
@@ -98,6 +100,7 @@ export class ReservationModalTabs extends PureComponent {
               countdown={countdown}
               onCountdownTick={this.onCountdownTick}
               onCountdownComplete={onHide}
+              scrollToGrabbedMission={scrollToGrabbedMission}
             />
           </Tab>
           <Tab eventKey="catalog" title="by catalog">
@@ -120,6 +123,7 @@ export class ReservationModalTabs extends PureComponent {
               countdown={countdown}
               onCountdownTick={this.onCountdownTick}
               onCountdownComplete={onHide}
+              scrollToGrabbedMission={scrollToGrabbedMission}
             />
           </Tab>
           <Tab eventKey="coordinates" title="by coordinates">

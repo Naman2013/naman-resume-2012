@@ -16,7 +16,7 @@ class Catalog extends Component {
   }
 
   getMissionSlot = () => {
-    const { getMissionSlot, selectedSlot } = this.props;
+    const { getMissionSlot, selectedSlot, scrollToGrabbedMission } = this.props;
     const { uniqueId } = selectedSlot;
     getMissionSlot(
       {
@@ -24,7 +24,7 @@ class Catalog extends Component {
         uniqueId,
         missionType: 'catalog',
       },
-      () => {}
+      scrollToGrabbedMission
     );
   };
 
