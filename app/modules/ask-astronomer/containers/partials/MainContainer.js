@@ -1,13 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import { Spinner } from 'app/components/spinner/index';
 import noop from 'lodash/noop';
-import QuestionList from '../../components/question-list';
+import React from 'react';
 import Filter from '../../components/question-filter';
+import QuestionList from '../../components/question-list';
 import styles from '../AskAstronomer.style';
-
-const {
-  arrayOf, bool, func, number, oneOfType, shape, string,
-} = PropTypes;
 
 const MainContainer = ({
   actions,
@@ -36,7 +32,7 @@ const MainContainer = ({
   changeAnswerState,
   params,
 }) => (
-  <div>
+  <div style={{ position: 'relative' }}>
     <Filter
       changeAnswerState={changeAnswerState}
       totalCount={totalCount}
@@ -45,7 +41,7 @@ const MainContainer = ({
       showDropdown={showDropdown}
       dropdownOptions={dropdownOptions}
     />
-    {fetchingQuestions && <div className="fa fa-spinner loader" />}
+    <Spinner loading={fetchingQuestions} />
     {!fetchingQuestions && (
       <QuestionList
         actions={actions}
@@ -73,30 +69,6 @@ const MainContainer = ({
     <style jsx>{styles}</style>
   </div>
 );
-
-MainContainer.propTypes = {
-  actions: shape({}),
-  allAnswers: shape({}),
-  allDisplayedAnswers: shape({}),
-  count: number,
-  fetchingAnswers: shape({}),
-  fetchingQuestions: bool,
-  handlePageChange: func,
-  objectId: oneOfType([number, string]),
-  page: number,
-  questions: arrayOf(shape({})),
-  totalCount: number,
-  modalActions: shape({
-    closeModal: func,
-    setModal: func,
-    showModal: func,
-  }).isRequired,
-  updateQuestionsList: func,
-  countText: string,
-  showDropdown: bool,
-  dropdownOptions: arrayOf(shape({})),
-  changeAnswerState: func,
-};
 
 MainContainer.defaultProps = {
   actions: {},

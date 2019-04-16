@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Modal from 'react-modal';
@@ -20,21 +19,13 @@ import {
 import AskQuestionTile from 'app/modules/ask-astronomer/components/AskQuestionTile';
 import ObjectDetailsSectionTitle from 'app/components/object-details/ObjectDetailsSectionTitle';
 import CenterColumn from 'app/components/common/CenterColumn';
-import MainContainer from './partials/MainContainer';
 import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
 import { getAskAnAstronomer } from 'app/services/objects/ask-astronomer';
-import AsideContainer from './partials/AsideContainer';
 import { customModalStylesV4 } from 'app/styles/mixins/utilities';
+import AsideContainer from './partials/AsideContainer';
+import MainContainer from './partials/MainContainer';
 import style from './AskAstronomer.style';
 import messages from './AskAstronomer.messages';
-
-const {
-  bool,
-  func,
-  number,
-  shape,
-  string,
-} = PropTypes;
 
 const mapStateToProps = ({
   appConfig,
@@ -62,55 +53,40 @@ const mapStateToProps = ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({
-    askQuestion,
-    changeAnswerState,
-    fetchAstronomerQuestions,
-    toggleAllAnswersAndDisplay,
-    fetchObjectSpecialistsAction,
-    submitAnswerToQuestion,
-  }, dispatch),
+  actions: bindActionCreators(
+    {
+      askQuestion,
+      changeAnswerState,
+      fetchAstronomerQuestions,
+      toggleAllAnswersAndDisplay,
+      fetchObjectSpecialistsAction,
+      submitAnswerToQuestion,
+    },
+    dispatch
+  ),
 });
 
-@connect(mapStateToProps, mapDispatchToProps)
-
+@connect(
+  mapStateToProps,
+  mapDispatchToProps
+)
 class AskAstronomer extends Component {
-
-  static propTypes = {
-    fetchingQuestions: bool,
-    fetchingAnswers: shape({}),
-    page: number,
-    totalCount: number,
-    count: number,
-    params: shape({
-      objectId: string,
-    }).isRequired,
-    actions: shape({
-      fetchAstronomerQuestions: func.isRequired,
-    }).isRequired,
-    serviceUrl: string,
-    questionFilter: string,
-    intl: intlShape.isRequired,
-  }
-
   static defaultProps = {
     fetchingQuestions: false,
     fetchingAnswers: {},
     page: 1,
     totalCount: 0,
     count: 0,
-    actions: { },
+    actions: {},
     objectId: '',
     questionFilter: 'all',
-  }
+  };
 
   constructor(props) {
     super();
 
     const {
-      params: {
-        objectId,
-      },
+      params: { objectId },
     } = props;
 
     this.state = {
@@ -118,49 +94,45 @@ class AskAstronomer extends Component {
       promptComponent: null,
       promptStyles: customModalStylesV4,
       aaaQuestionPrompt: {},
-    }
+    };
 
     getAskAnAstronomer({
-      objectId: objectId
-    }).then((res) => {
+      objectId,
+    }).then(res => {
       this.setState(() => ({
         aaaQuestionPrompt: res.data,
       }));
       props.actions.fetchAstronomerQuestions({ objectId });
-    })
+    });
   }
 
-  componentWillReceiveProps(nextProps) {
+  /*componentWillReceiveProps(nextProps) {
     const {
       questionFilter,
-      params: {
-        objectId,
-      },
+      params: { objectId },
     } = nextProps;
     //fetch the question data, the object page has been changed.
     if (this.props.params.objectId != nextProps.params.objectId) {
       this.props.actions.fetchAstronomerQuestions({ objectId });
     }
-  }
+  }*/
 
-  componentWillMount() {
+  fetchQuestions
+
+  componentDidMount() {
     const {
-      params: {
-        objectId,
-      },
+      params: { objectId },
     } = this.props;
     if (this.props.objectData.objectId != objectId) {
-        //fetch questions only if the objectId changes.
-        this.props.actions.fetchAstronomerQuestions({ objectId });
+      //fetch questions only if the objectId changes.
+      this.props.actions.fetchAstronomerQuestions({ objectId });
     }
   }
 
-  handlePageChange = (page) => {
+  handlePageChange = page => {
     const {
       actions,
-      params: {
-        objectId,
-      },
+      params: { objectId },
     } = this.props;
     actions.fetchAstronomerQuestions({
       appendToList: false,
@@ -172,42 +144,43 @@ class AskAstronomer extends Component {
   submitAnswer = (params, callback) => {
     const { actions, page } = this.props;
     actions.submitAnswerToQuestion(params).then(res => callback(res.payload));
-  }
+  };
 
   submitQuestion = (params, callback) => {
     const { actions } = this.props;
     actions.askQuestion(params).then(res => callback(res.payload));
-  }
+  };
 
   showModal = () => {
     this.setState(() => ({
       showPrompt: true,
     }));
-  }
+  };
 
   closeModal = () => {
     this.setState(() => ({
       showPrompt: false,
     }));
-  }
+  };
 
   setModal = ({ promptComponent, promptStyles }) => {
     this.setState(state => ({
       promptComponent: promptComponent || state.promptComponent,
       promptStyles: promptStyles || state.promptComponent,
     }));
-  }
+  };
 
-  updateQuestionsList = (filter) => {
+  updateQuestionsList = filter => {
     const {
-      params: {
-        objectId,
-      },
+      params: { objectId },
       actions,
     } = this.props;
 
-    actions.fetchAstronomerQuestions({ objectId, answerState: filter && filter.answerState });
-  }
+    actions.fetchAstronomerQuestions({
+      objectId,
+      answerState: filter && filter.answerState,
+    });
+  };
 
   render() {
     const {
@@ -216,13 +189,8 @@ class AskAstronomer extends Component {
       allDisplayedAnswers,
       fetchingAnswers,
       fetchingQuestions,
-      params: {
-        faqTopicId,
-        objectId,
-      },
-      objectData: {
-        objectTitle,
-      },
+      params: { faqTopicId, objectId },
+      objectData: { objectTitle },
       questions,
       questionFilter,
       totalCount,
@@ -233,25 +201,32 @@ class AskAstronomer extends Component {
       intl,
     } = this.props;
 
-    const { showPrompt, promptComponent, promptStyles, aaaQuestionPrompt } = this.state;
+    console.log(this.props);
+
+    const {
+      showPrompt,
+      promptComponent,
+      promptStyles,
+      aaaQuestionPrompt,
+    } = this.state;
     const likeParams = {
       callSource: 'qanda',
       objectId,
       topicId: faqTopicId,
     };
-    const {
-      setModal,
-      showModal,
-      closeModal,
-    } = this;
-    const modalActions = { setModal, showModal, closeModal};
+    const { setModal, showModal, closeModal } = this;
+    const modalActions = { setModal, showModal, closeModal };
 
     return (
       <Fragment>
         <DeviceContext.Consumer>
-          {(context) => (
-          <div className="full-bg">
-              <ObjectDetailsSectionTitle title={`${objectTitle}'s`} subTitle="Ask An Astronomer" theme={{ padding: '25px' }} />
+          {context => (
+            <div className="full-bg">
+              <ObjectDetailsSectionTitle
+                title={`${objectTitle}'s`}
+                subTitle="Ask An Astronomer"
+                theme={{ padding: '25px' }}
+              />
               <Modal
                 ariaHideApp={false}
                 isOpen={showPrompt}
@@ -266,22 +241,24 @@ class AskAstronomer extends Component {
                 theme={{ paddingTop: '25px' }}
               >
                 <div className="ask-astronomer">
-                  <DisplayAtBreakpoint
-                    screenSmall
-                  >
+                  <DisplayAtBreakpoint screenSmall>
                     <div className="ask-mobile-header">
                       <div className="icon-container">
                         <div className="border">
                           <div className="icon">
-                            <img className="icon-content" alt="" width="180" height="180" src="https://vega.slooh.com/assets/v4/common/ask_mobile_bg.png" />
+                            <img
+                              className="icon-content"
+                              alt=""
+                              width="180"
+                              height="180"
+                              src="https://vega.slooh.com/assets/v4/common/ask_mobile_bg.png"
+                            />
                           </div>
                         </div>
                       </div>
                     </div>
                   </DisplayAtBreakpoint>
-                  <DisplayAtBreakpoint
-                    screenMedium
-                  >
+                  <DisplayAtBreakpoint screenMedium>
                     <div className="ask-tablet-header">
                       <AskQuestionTile
                         modalActions={modalActions}
@@ -294,16 +271,20 @@ class AskAstronomer extends Component {
                     </div>
                   </DisplayAtBreakpoint>
                   <ResponsiveTwoColumnContainer
-                    renderNavigationComponent={navProps =>
-                      (<TwoTabbedNav
+                    renderNavigationComponent={navProps => (
+                      <TwoTabbedNav
                         firstTitle={intl.formatMessage(messages.Questions)}
-                        secondTitle={context.isMobile ? intl.formatMessage(messages.AskNow) : intl.formatMessage(messages.MVPAstronomers)}
+                        secondTitle={
+                          context.isMobile
+                            ? intl.formatMessage(messages.AskNow)
+                            : intl.formatMessage(messages.MVPAstronomers)
+                        }
                         firstTabIsActive={navProps.showMainContainer}
                         firstTabOnClick={navProps.onShowMainContainer}
                         secondTabIsActive={navProps.showAsideContainer}
                         secondTabOnClick={navProps.onShowAsideContainer}
-                      />)
-                    }
+                      />
+                    )}
                     renderAsideContent={() => (
                       <div>
                         <AsideContainer
@@ -319,28 +300,30 @@ class AskAstronomer extends Component {
                       </div>
                     )}
                     isScreenSize={context.isScreenLarge}
-                    renderMainContent={() => <MainContainer
-                      {...this.props}
-                      {...context}
-                      questionFilter={questionFilter}
-                      handlePageChange={this.handlePageChange}
-                      actions={actions}
-                      user={user}
-                      submitAnswer={this.submitAnswer}
-                      likeParams={likeParams}
-                      modalActions={modalActions}
-                      updateQuestionsList={this.updateQuestionsList}
-                      changeAnswerState={this.updateQuestionsList}
-                    />}
+                    renderMainContent={() => (
+                      <MainContainer
+                        {...this.props}
+                        {...context}
+                        questionFilter={questionFilter}
+                        handlePageChange={this.handlePageChange}
+                        actions={actions}
+                        user={user}
+                        submitAnswer={this.submitAnswer}
+                        likeParams={likeParams}
+                        modalActions={modalActions}
+                        updateQuestionsList={this.updateQuestionsList}
+                        changeAnswerState={this.updateQuestionsList}
+                      />
+                    )}
                   />
                 </div>
               </CenterColumn>
-            <style jsx>{style}</style>
-          </div>
-        )}
+              <style jsx>{style}</style>
+            </div>
+          )}
         </DeviceContext.Consumer>
       </Fragment>
-    )
+    );
   }
 }
 
