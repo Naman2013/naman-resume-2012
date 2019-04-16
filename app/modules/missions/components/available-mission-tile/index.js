@@ -6,9 +6,10 @@ import Button from '../../../../components/common/style/buttons/Button';
 import './styles.scss';
 
 const getMissionDate = timestamp =>
-  moment.unix(timestamp).format('ddd. MMM. DD');
+  moment.utc(moment.unix(timestamp)).format('ddd. MMM. DD');
 
-const getMissionTime = timestamp => moment.unix(timestamp).format('HH:mm');
+const getMissionTime = timestamp =>
+  moment.utc(moment.unix(timestamp)).format('HH:mm');
 
 export class AvailbleMissionTile extends Component {
   render() {
