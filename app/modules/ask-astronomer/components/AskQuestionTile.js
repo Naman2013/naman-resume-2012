@@ -6,6 +6,7 @@ import { customModalStylesBlackOverlay, customModalStylesFitDevice, profilePhoto
 import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
 import SubmitQuestionForm from './Modals/SubmitQuestionForm';
 import SubmitQuestionFeedbackModal from './Modals/SubmitQuestionFeedbackModal';
+import { Modal } from '../../../components/modal'
 import { info } from 'app/styles/variables/iconURLs';
 
 const circlePic = photoUrl => Object.assign(profilePhotoStyle(photoUrl), {
@@ -34,10 +35,14 @@ class AskQuestionTile extends Component {
   }
 
   state = {
-
+    showSuccessPopup: false,
+    popupTitle: "",
+    doneButtonLabel: "",
+    continueButtonLabel: '',
+    message: '',
   };
 
-  get questionForm () {
+  get questionForm() {
     const {
       modalActions,
       user,
@@ -56,6 +61,7 @@ class AskQuestionTile extends Component {
 
   setAskQuestionModal = (e) => {
     e.preventDefault();
+    this.setState({ showSuccessPopup: false });
     const {
       modalActions,
     } = this.props;
@@ -73,7 +79,7 @@ class AskQuestionTile extends Component {
       modalActions,
     } = this.props;
     modalActions.setModal({
-      promptComponent: <div dangerouslySetInnerHTML={{ __html: infoText}} />,
+      promptComponent: <div dangerouslySetInnerHTML={{ __html: infoText }} />,
       promptStyles: customModalStylesBlackOverlay,
     });
     modalActions.showModal();
@@ -95,20 +101,31 @@ class AskQuestionTile extends Component {
 
   handleSubmitReply = (data) => {
     const { modalActions, updateQuestionsList } = this.props;
-    const message = `${data.responseLabel}
-    <p>${data.responseText}</p>`;
-    modalActions.setModal({
-      promptComponent: <SubmitQuestionFeedbackModal
-        title={data.responseTitle}
-        doneButtonLabel={data.doneButtonLabel}
-        continueButtonLabel={data.continueButtonLabel}
-        modalActions={modalActions}
-        promptText={message}
-        requestQuestion={this.setAskQuestionModal}
-        updateQuestionsList={updateQuestionsList}
-      />,
-      promptStyles: customModalStylesBlackOverlay,
+    modalActions.closeModal();
+    this.setState({
+      message: data.responseText,
+      popupTitle: data.responseLabel,
+      doneButtonLabel: data.doneButtonLabel,
+      continueButtonLabel: data.continueButtonLabel,
+      showSuccessPopup: true,
     })
+    // modalActions.setModal({
+    //   promptComponent: <SubmitQuestionFeedbackModal
+    //     title={data.responseTitle}
+    //     doneButtonLabel={data.doneButtonLabel}
+    //     continueButtonLabel={data.continueButtonLabel}
+    //     modalActions={modalActions}
+    //     promptText={message}
+    //     requestQuestion={this.setAskQuestionModal}
+    //     updateQuestionsList={updateQuestionsList}
+    //   />,
+    //   promptStyles: customModalStylesBlackOverlay,
+    // })
+  }
+
+  updateQuestionsList = () => {
+    this.setState({ showSuccessPopup: false });
+    this.props.updateQuestionsList();
   }
 
 
@@ -122,6 +139,7 @@ class AskQuestionTile extends Component {
       subTitle,
       title,
     } = this.props;
+    const { showSuccessPopup, popupTitle, message, doneButtonLabel, continueButtonLabel } = this.state;
     return (
       <Fragment>
         <DisplayAtBreakpoint screenLarge screenXLarge>
@@ -148,28 +166,58 @@ class AskQuestionTile extends Component {
           </div>
         </DisplayAtBreakpoint>
         <DisplayAtBreakpoint screenSmall screenMedium>
-        <div className="ask-question-tile">
-          <div className="ask-question-text">
-            <span className="dek" dangerouslySetInnerHTML={{ __html: title }} />
-            <h2 dangerouslySetInnerHTML={{ __html: subTitle }} />
-            <p dangerouslySetInnerHTML={{ __html: infoText }} />
-            <div className="button-contain">
-              <GenericButton onClickEvent={this.setAskQuestionModal} text={askPrompt} icon={promptIconUrl} theme={{ width: '170px', marginRight: '10px' }} />
-              <DisplayAtBreakpoint screenMedium>
-                <GenericButton onClickEvent={this.setInfoModal} icon={info} theme={{ height: '40px', width: '40px' }} />
-              </DisplayAtBreakpoint>
+          <div className="ask-question-tile">
+            <div className="ask-question-text">
+              <span className="dek" dangerouslySetInnerHTML={{ __html: title }} />
+              <h2 dangerouslySetInnerHTML={{ __html: subTitle }} />
+              <p dangerouslySetInnerHTML={{ __html: infoText }} />
+              <div className="button-contain">
+                <GenericButton onClickEvent={this.setAskQuestionModal} text={askPrompt} icon={promptIconUrl} theme={{ width: '170px', marginRight: '10px' }} />
+                <DisplayAtBreakpoint screenMedium>
+                  <GenericButton onClickEvent={this.setInfoModal} icon={info} theme={{ height: '40px', width: '40px' }} />
+                </DisplayAtBreakpoint>
+              </div>
             </div>
-          </div>
-          <div className="icon-container">
-            <div className="border">
-              <div className="icon">
-                <img className="icon-content" alt="" src="https://vega.slooh.com/assets/v4/common/ask_mobile_bg.png" />
+            <div className="icon-container">
+              <div className="border">
+                <div className="icon">
+                  <img className="icon-content" alt="" src="https://vega.slooh.com/assets/v4/common/ask_mobile_bg.png" />
+                </div>
               </div>
             </div>
           </div>
-        </div>
         </DisplayAtBreakpoint>
+        <Modal show={showSuccessPopup} onHide={() => { }}>
+          <p className="popup-title" >
+            {popupTitle}
+          </p>
+          <p className="popup-message" style={{
+
+          }}>
+            {message}
+          </p>
+          <span style={{ display: 'flex', flexDirection: 'row' }}>
+            <GenericButton text={doneButtonLabel} theme={{ borderColor: 'white', color: 'white', marginRight: '10px' }} onClickEvent={this.updateQuestionsList} />
+            <GenericButton text={continueButtonLabel} theme={{ borderColor: 'white', color: 'white' }} onClickEvent={this.setAskQuestionModal} />
+          </span>
+        </Modal>
         <style jsx>{style}</style>
+        <style jsx> {`
+        .popup-title{
+font-family: AGaramondPro;
+            font-size: 30px;
+            font-weight: normal;
+            font-style: normal;
+            color: white;
+        }
+        .popup-message{
+font-family: AGaramondPro;
+            font-size: 19px;
+            font-weight: normal;
+            font-style: normal;
+            color: white;
+        }
+        `}</style>
       </Fragment>
     )
   }
