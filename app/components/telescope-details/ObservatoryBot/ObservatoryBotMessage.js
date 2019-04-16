@@ -1,20 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import uniqueId from 'lodash/uniqueId';
+import moment from 'moment';
+import uniqueId from 'lodash/fp/uniqueId';
+import isEmpty from 'lodash/fp/isEmpty';
 
-export default function ObservatoryBotMessage({ message }) {
+const ObservatoryBotMessage = props => {
+  if (isEmpty(props)) return null;
+  const {
+    message: { Message, DTG },
+  } = props;
   return (
     <div className="observatorybot-message" key={uniqueId()}>
-      <p className="short" dangerouslySetInnerHTML={{ __html: message }}/>
-      <br/>
+      <p>{moment.utc(DTG).fromNow()}</p>
+      <p dangerouslySetInnerHTML={{ __html: Message }} />
     </div>
   );
-}
+};
 
 ObservatoryBotMessage.defaultProps = {
-  message: '',
+  message: null,
 };
 
 ObservatoryBotMessage.propTypes = {
-  message: PropTypes.string,
+  message: PropTypes.shape({}),
 };
+
+export default ObservatoryBotMessage;
