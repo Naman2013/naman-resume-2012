@@ -2,7 +2,6 @@ import React, { Fragment } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { DeviceContext } from 'app/providers/DeviceProvider';
 import SterlingTitle from 'app/components/common/titles/SterlingTitle';
-import CenterColumn from 'app/components/common/CenterColumn';
 import RecommendedObservations from 'app/components/common/RecommendedObservationsSlider';
 import style from './FeaturedGallery.style';
 import messages from './FeaturedGallery.messages';
@@ -25,9 +24,9 @@ const FeaturedGallery = props => {
               subTitle={<FormattedMessage {...messages.FeaturedSubtitle} />}
               theme={context.isScreenMedium ? titleThemeMedium : titleTheme}
             />
-            <CenterColumn>
+            <div className="i-wrapper">
               <RecommendedObservations imageList={imageList} />
-            </CenterColumn>
+            </div>
           </Fragment>
         )}
       </DeviceContext.Consumer>

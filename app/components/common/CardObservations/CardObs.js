@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
 import CardObsLarge from './CardObsLarge';
 import CardObsSmall from './CardObsSmall';
@@ -6,7 +6,7 @@ import CardObsSmall from './CardObsSmall';
 const CardObs = props => {
   const { likesCount } = props;
   return likesCount ? (
-    <Fragment>
+    <div className="i-wrapper">
       <DisplayAtBreakpoint screenSmall>
         <CardObsSmall {...props} />
       </DisplayAtBreakpoint>
@@ -14,7 +14,7 @@ const CardObs = props => {
       <DisplayAtBreakpoint screenMedium screenLarge screenXLarge>
         <CardObsLarge {...props} />
       </DisplayAtBreakpoint>
-    </Fragment>
+    </div>
   ) : null;
 };
 

@@ -21,7 +21,7 @@ const toUpper = `
 
 export default css`
   .card-obs-wrapper {
-    width: 100%;
+    width: 98%;
     display: flex;
     justify-content: center;
     margin-bottom: 20px;
@@ -29,6 +29,7 @@ export default css`
   }
   
   .card-obs {
+    width: 100%;
     pointer-events: auto;
     background: url(${white_texture_bg});
     box-shadow: 0 0 6px 0 ${shadows};
@@ -166,10 +167,6 @@ export default css`
   }
 
   @media ${screenMedium} {
-    .card-obs {
-      width: 95%;
-    }
-
     .image-wrapper {
       width: 240px;
       height: 240px;
@@ -192,9 +189,6 @@ export default css`
   }
 
   @media ${screenLarge} {
-    .card-obs {
-      width: 80%;
-    }
     .image-wrapper {
       width: 300px;
       height: 300px;
