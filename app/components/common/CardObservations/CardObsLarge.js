@@ -21,6 +21,7 @@ const CardObsLarge = props => {
     customerImageId,
     likePrompt,
     showLikePrompt,
+    socialShareDescription,
   } = props;
   const [isOpen, openModal] = useState(false);
   const [likesNumber, changeLikesNumber] = useState(likesCount);
@@ -39,9 +40,13 @@ const CardObsLarge = props => {
               <div className="top">
                 <div className="info">
                   <div className="main-info">
-                    <div className="title">{title}</div>
-                    <div className="author">{subTitle}</div>
-                    <div className="i-text-box">{description}</div>
+                    <h2 className="title h-2 h-2-bold">{title}</h2>
+                    <h5 className="author h-5 h-5-normal">{subTitle}</h5>
+                    {(description || socialShareDescription) && (
+                      <p className="i-text-box">
+                        {description || socialShareDescription}
+                      </p>
+                    )}
                   </div>
                   <div className="links">
                     <div className="link">

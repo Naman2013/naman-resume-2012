@@ -20,6 +20,7 @@ const CardObsSmall = props => {
     customerImageId,
     likePrompt,
     showLikePrompt,
+    socialShareDescription,
   } = props;
   const [isOpen, openModal] = useState(false);
   const [likesNumber, changeLikesNumber] = useState(likesCount);
@@ -33,9 +34,13 @@ const CardObsSmall = props => {
     <Fragment>
       <div className="card-obs">
         <div className="obs-left">
-          <div className="card-obs-title">{title}</div>
-          <div className="card-obs-author">{subTitle}</div>
-          <div className="card-obs-desc">{description}</div>
+          <h2 className="card-obs-title h-2 h-2-bold">{title}</h2>
+          <h5 className="card-obs-author h-5 h-5-normal">{subTitle}</h5>
+          {(description || socialShareDescription) && (
+            <p className="i-text-box">
+              {description || socialShareDescription}
+            </p>
+          )}
           <div className="links">
             <div className="link">
               <img
