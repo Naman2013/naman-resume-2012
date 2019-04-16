@@ -59,7 +59,7 @@ export class Telescope extends Component {
       missionList,
       missionListRefreshInterval,
     } = this.props;
-    console.log(this.props);
+
     const { reservationModalVisible } = this.state;
 
     return (

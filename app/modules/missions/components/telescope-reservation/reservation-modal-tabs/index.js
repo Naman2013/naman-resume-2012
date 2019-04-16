@@ -52,11 +52,13 @@ export class ReservationModalTabs extends PureComponent {
       onHide,
     } = this.props;
     const { countdown } = this.state;
+
     return (
       <div className="reservation-modal-tabs">
         <Tabs
           defaultActiveKey="slooh1000"
           id="reservation-modal-tabs"
+          className={missionSlot?.missionAvailable ? 'mission-available' : ''}
           unmountOnExit
         >
           <Tab eventKey="slooh1000" title="by slooh 1000">

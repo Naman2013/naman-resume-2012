@@ -149,7 +149,7 @@ export class ReservationModalContent extends Component {
                 {missionSlot && missionSlot.missionAvailable ? (
                   <AvailbleMissionTile
                     missionSlot={missionSlot}
-                    onCancel={resetMissionsData}
+                    onCancel={onHide}
                     onSubmit={this.reserveMissionSlot}
                     byTelescope
                   />
