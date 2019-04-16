@@ -8,16 +8,6 @@ import MVPAstronomerList from 'app/components/common/MVPAstronomer/MVPAstronomer
 import styles from '../AskAstronomer.style';
 import messages from './AsideContainer.messages';
 
-const {
-  arrayOf,
-  bool,
-  func,
-  number,
-  oneOfType,
-  shape,
-  string,
-} = PropTypes;
-
 const AsideContainer = ({
   modalActions,
   objectSpecialists,
@@ -28,11 +18,7 @@ const AsideContainer = ({
   updateQuestionsList,
 }) => (
   <div>
-    <DisplayAtBreakpoint
-      screenSmall
-      screenLarge
-      screenXLarge
-    >
+    <DisplayAtBreakpoint screenSmall screenLarge screenXLarge>
       <AskQuestionTile
         modalActions={modalActions}
         objectId={objectId}
@@ -62,14 +48,6 @@ const AsideContainer = ({
     <style jsx>{styles}</style>
   </div>
 );
-
-AsideContainer.propTypes = {
-  modalActions: shape({
-    showModal: func,
-  }).isRequired,
-  objectSpecialists: shape({}),
-  updateQuestionsList: func.isRequired,
-};
 
 AsideContainer.defaultProps = {
   showModal: noop,
