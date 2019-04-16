@@ -10,10 +10,14 @@ export class Telescope extends Component {
   };
 
   componentDidMount() {
+    this.getMissionSlotDates();
+  }
+
+  getMissionSlotDates = () => {
     const { getMissionSlotDates, selectedTelescope } = this.props;
     getMissionSlotDates(selectedTelescope);
   }
-
+ 
   getTelescopeSlot = mission => {
     const { getTelescopeSlot, setSelectedSlot } = this.props;
     const { scheduledMissionId, uniqueId } = mission;
@@ -37,6 +41,11 @@ export class Telescope extends Component {
     });
     this.setState({ reservationModalVisible: false });
   };
+
+  reservationComplete = () => {
+    this.getMissionSlotDates();
+    this.setState({ reservationModalVisible: false });
+  }
 
   render() {
     const {
@@ -68,7 +77,7 @@ export class Telescope extends Component {
           />
 
           {reservationModalVisible && (
-            <ReservationModal onHide={this.reservationModalHide} show />
+            <ReservationModal onHide={this.reservationModalHide} onComplete={this.reservationComplete} show />
           )}
         </div>
       </div>
