@@ -34,6 +34,18 @@ export class Question extends Component {
     this.toggleAllAnswers(true);
   };
 
+  fetchQuestions = () => {
+    console.log('UPDATE');
+    const {
+      actions,
+      params: { objectId },
+    } = this.props;
+    const { fetchAstronomerQuestions } = actions;
+
+    // getAllQuestions({ objectId, ...filter });
+    fetchAstronomerQuestions({ objectId });
+  };
+
   componentWillUnmount = () => {
     this.toggleAllAnswers(false);
   };
@@ -99,7 +111,7 @@ export class Question extends Component {
       objectId,
       submitAnswer,
       // modalActions,
-      updateQuestionsList,
+      // updateQuestionsList,
       allDisplayedAnswers,
     } = this.props;
 
@@ -179,7 +191,10 @@ export class Question extends Component {
                   replyTo={item.threadId}
                   submitForm={this.submitAnswer}
                   modalActions={modalActions}
-                  updateQuestionsList={updateQuestionsList}
+                  updateQuestionsList={() => {
+                    console.log('UPD');
+                    // this.fetchQuestions();
+                  }}
                   user={user}
                 />
               )}
@@ -197,7 +212,9 @@ export class Question extends Component {
                   threadId={item.threadId}
                   topicId={item.topicId}
                   modalActions={modalActions}
-                  updateQuestionsList={updateQuestionsList}
+                  updateQuestionsList={() => {
+                    console.log('UPD');
+                  }}
                 />
               )}
             />
