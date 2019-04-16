@@ -42,10 +42,11 @@ const CardObsLarge = props => {
                   <div className="main-info">
                     <h2 className="title h-2 h-2-bold">{title}</h2>
                     <h5 className="author h-5 h-5-normal">{subTitle}</h5>
-                    {(description || socialShareDescription) && (
-                      <p className="i-text-box">
-                        {description || socialShareDescription}
-                      </p>
+                    {description && (
+                      <div
+                        className="i-text-box"
+                        dangerouslySetInnerHTML={{ __html: description }}
+                      />
                     )}
                   </div>
                   <div className="links">
