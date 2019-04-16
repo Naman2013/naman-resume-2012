@@ -1,7 +1,10 @@
 import React from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import Button from 'app/components/common/style/buttons/Button';
-import { ObservatoryInformation } from 'app/modules/telescope/components/old';
+import {
+  ObsBotWidget,
+  ObservatoryInformation,
+} from 'app/modules/telescope/components/old';
 import { Box } from 'app/modules/telescope/components/box';
 import { AllSkyCamera } from 'app/modules/telescope/components/old/all-sky-camera';
 import { DomCameraWidget } from 'app/modules/telescope/components/old/dom-camera-widget';
@@ -49,38 +52,12 @@ export const StatusTab = props => {
         <Row>
           <Col lg={8}>
             <ObservatoryInformation clockList={clockList} />
-
-            <Box header="THIS JUST IN!">
-              <Row>
-                <Col sm>
-                  <h4 className="h4-custom">MOON RISING</h4>
-                </Col>
-                <Col sm className="text-right">
-                  <h4 className="h4-custom">1 HOUR AGO</h4>
-                </Col>
-              </Row>
-
-              <p className="p-19">
-                The Moon is rising at the Canary Islands Observatory!
-              </p>
-
-              <hr />
-
-              <Row>
-                <Col sm>
-                  <h4 className="h4-custom">TELESCOPE ALERT</h4>
-                </Col>
-                <Col sm className="text-right">
-                  <h4 className="h4-custom">3 HOURS AGO</h4>
-                </Col>
-              </Row>
-              <h2 className="h2-custom">Canary One is down to Weather</h2>
-              <p className="p-19">
-                Sometimes these things happen. If you had a Mission scheduled
-                for this time, you’re account will be credited.
-              </p>
-              <Button text="FIND ANOTHER MISSION" onClickEvent={() => {}} />
-            </Box>
+            <ObsBotWidget
+              {...props}
+              shortFeed
+              ViewGroup="conditions"
+              teleSystem={currentTelescope.teleSystem}
+            />
           </Col>
 
           <Col lg={4}>

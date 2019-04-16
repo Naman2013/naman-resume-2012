@@ -19,14 +19,10 @@ export default class ObservatoryBot extends Component {
     viewGroup: '',
   };
 
-  constructor(props) {
-    super(props);
-  }
-
   state = {
     messages: [],
     showDescription: true,
-  }
+  };
 
   componentDidMount() {
     this.bootstrapSSE();
@@ -38,9 +34,8 @@ export default class ObservatoryBot extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.teleSystem !== this.props.teleSystem) {
-      this.resetSSE();
-    }
+    const { teleSystem } = this.props;
+    if (nextProps.teleSystem !== teleSystem) this.resetSSE();
   }
 
   componentWillUnmount() {
@@ -54,17 +49,29 @@ export default class ObservatoryBot extends Component {
     this.sseSource = new EventSource(observatoryBotUrl);
     this.sseSource.addEventListener(
       'initial',
-      event => this.handleInitialBotMessages(event.data), false);
+      event => this.handleInitialBotMessages(event.data),
+      false
+    );
 
     this.sseSource.addEventListener(
       'message',
-      event => this.handleBotMessages(event.data), false);
+      event => this.handleBotMessages(event.data),
+      false
+    );
   }
 
   tearDownSSE() {
     this.sseSource.close();
-    this.sseSource.removeEventListener('initial', this.handleInitialBotMessages, false);
-    this.sseSource.removeEventListener('message', this.handleBotMessages, false);
+    this.sseSource.removeEventListener(
+      'initial',
+      this.handleInitialBotMessages,
+      false
+    );
+    this.sseSource.removeEventListener(
+      'message',
+      this.handleBotMessages,
+      false
+    );
   }
 
   resetSSE() {
@@ -80,22 +87,20 @@ export default class ObservatoryBot extends Component {
     const { viewGroup } = this.props;
 
     const incomingMessages = JSON.parse(data)[viewGroup];
-
-    let latestMessage = '';
-    let theMessages = [ ];
+    let theMessages = [];
 
     //check to see if there are any valid messages (not heartbeat)
     let hasValidMessages = false;
     incomingMessages.map(theMessage => {
-
       const notHeartbeat = theMessage.MessageID !== 'HEARTBEAT';
 
       if (notHeartbeat) {
         hasValidMessages = true;
       }
+      return theMessage;
     });
 
-    if (hasValidMessages === true) {
+    if (hasValidMessages) {
       theMessages.unshift('<hr size="1" width="100%"/>');
     }
 
@@ -103,10 +108,11 @@ export default class ObservatoryBot extends Component {
       const notHeartbeat = theMessage.MessageID !== 'HEARTBEAT';
 
       if (notHeartbeat) {
-        const theBotMessage = theMessage.DTG + "<br/>" + theMessage.Message;
+        const theBotMessage = `${theMessage.DTG}<br/>${theMessage.Message}`;
         //const theBotMessage = theMessage.Message;
         theMessages.unshift(theBotMessage);
       }
+      return theMessage;
     });
 
     this.setState({
@@ -118,9 +124,7 @@ export default class ObservatoryBot extends Component {
     const { viewGroup } = this.props;
 
     const incomingMessages = JSON.parse(data)[viewGroup];
-
-    let latestMessage = '';
-    let theMessages = [ ];
+    let theMessages = [];
 
     //check to see if there are any valid messages (not heartbeat)
     let hasValidMessages = false;
@@ -136,14 +140,14 @@ export default class ObservatoryBot extends Component {
       const notHeartbeat = theMessage.MessageID !== 'HEARTBEAT';
 
       if (notHeartbeat) {
-        const theBotMessage = theMessage.DTG + "<br/>" + theMessage.Message;
+        const theBotMessage = `${theMessage.DTG}<br/>${theMessage.Message}`;
         //const theBotMessage = theMessage.Message;
         theMessages.push(theBotMessage);
       }
     });
 
-    if (hasValidMessages === true) {
-      theMessages.push('<hr className="messageDivider" width="100%"/>');
+    if (hasValidMessages) {
+      theMessages.push('<hr class="messageDivider" width="100%"/>');
     }
 
     this.setState({
@@ -152,22 +156,29 @@ export default class ObservatoryBot extends Component {
   }
 
   render() {
-    const {
-    } = this.props;
-
-    const observatoryBotContainerClassnames = classnames('observatorybot-wrapper');
+    const { messages, showDescription } = this.state;
+    const observatoryBotContainerClassnames = classnames(
+      'observatorybot-wrapper'
+    );
 
     return (
       <div
-        style={{'minHeight': '350px', 'maxHeight': '350px', 'overflowY': 'scroll'}}
-        className="observatorybot-container">
-        {this.state.showDescription === true && <div style={{'padding': '20px'}}><ObservatoryBotDescription displayFlag={this.state.showDescription}/></div>}
+        style={{ minHeight: '350px', maxHeight: '350px', overflowY: 'scroll' }}
+        className="observatorybot-container"
+      >
+        {showDescription && (
+          <div style={{ padding: '20px' }}>
+            <ObservatoryBotDescription displayFlag={showDescription} />
+          </div>
+        )}
         <div className={observatoryBotContainerClassnames}>
-          {
-            this.state.messages.map(message => <ObservatoryBotMessage key={message} message={message} />)
-          }
-          {this.state.messages.length > 0 && <p className="messageCountHeading">{this.state.messages.length} Messages:</p>}
-          {this.state.messages.length > 0 && <hr className="messageDivider" width="100%"/>}
+          {messages.map(message => (
+            <ObservatoryBotMessage key={message} message={message} />
+          ))}
+          {messages && messages.length && (
+            <p className="messageCountHeading">{messages.length} Messages:</p>
+          )}
+          {messages && messages.length && <hr className="messageDivider" />}
         </div>
       </div>
     );
