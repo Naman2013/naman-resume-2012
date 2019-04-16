@@ -146,7 +146,6 @@ export default injectIntl(
     };
 
     render() {
-      console.log('ML', this.props);
       const { intl, params } = this.props;
       const { tiles } = this.state;
       const { profileMenuList } = // TODO: fix

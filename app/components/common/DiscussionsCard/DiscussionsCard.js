@@ -81,7 +81,6 @@ const DiscussionsCard = (props) => {
               likeParams={likeParams}
               openModal={openModal}
               showLikePrompt={showLikePrompt}
-              user={user}
               customerId={customerId}
             />
             {renderChildReplies ? <CommentButton

@@ -12,7 +12,10 @@ import GuideContentList from 'components/guides/GuideContentList';
 import FeaturedGallery from 'components/guides/FeaturedGallery';
 import GuideTopics from 'components/guides/GuideTopics';
 import GuidePanels from 'components/guides/GuidePanels';
-import { GUIDE_ENDPOINT_URL, GUIDE_OBJECTS_ENDPOINT_URL } from 'services/guides/guide-data';
+import {
+  GUIDE_ENDPOINT_URL,
+  GUIDE_OBJECTS_ENDPOINT_URL,
+} from 'services/guides/guide-data';
 import messages from './ObjectCategoryGuide.messages';
 
 const guidePageModel = {
@@ -39,7 +42,11 @@ const guidePageModel = {
       ),
       column: ({ guideId }) => (
         <GuideContentList
-          list={[resp.guideBulletPoint1, resp.guideBulletPoint2, resp.guideBulletPoint3]}
+          list={[
+            resp.guideBulletPoint1,
+            resp.guideBulletPoint2,
+            resp.guideBulletPoint3,
+          ]}
           topicActionProps={{
             followButtonIconURL: resp.promptIconUrl,
             followButtonText: resp.readingListPrompt,
@@ -86,7 +93,6 @@ const guideObjectsModel = {
 };
 
 export default class Guides extends React.Component {
-
   static propTypes = {
     params: PropTypes.shape({
       guideId: PropTypes.string.isRequired,
@@ -100,7 +106,10 @@ export default class Guides extends React.Component {
         serviceURL={GUIDE_ENDPOINT_URL}
         model={guidePageModel}
         requestBody={{ guideId }}
-        render={({ fetchingContent, modeledResponses: { GUIDE_PAGE_MODEL } }) => (
+        render={({
+          fetchingContent,
+          modeledResponses: { GUIDE_PAGE_MODEL },
+        }) => (
           <div>
             {!fetchingContent && (
               <Fragment>
@@ -115,27 +124,49 @@ export default class Guides extends React.Component {
                           <InAppNavigation
                             menuTopAdjustment={0}
                             {...GUIDE_PAGE_MODEL.navigationProps}
-                            {...results.modeledResponses.GUIDE_OBJECTS.guideTopicsProps}
+                            {...results.modeledResponses.GUIDE_OBJECTS
+                              .guideTopicsProps}
                           />
-                          <TiaraTitleSection {...GUIDE_PAGE_MODEL.tiaraTitleProps} />
+                          <TiaraTitleSection
+                            {...GUIDE_PAGE_MODEL.tiaraTitleProps}
+                          />
 
                           <CenterColumn
-                            theme={{ boxShadow: 'rgba(65, 86, 113, 0.2) 0px 3px 8px 1px', marginBottom: '60px' }}
+                            theme={{
+                              boxShadow:
+                                'rgba(65, 86, 113, 0.2) 0px 3px 8px 1px',
+                              marginBottom: '60px',
+                            }}
                           >
-                            <GuideSection {...GUIDE_PAGE_MODEL.guideSectionProps} guideId={guideId} />
+                            <GuideSection
+                              {...GUIDE_PAGE_MODEL.guideSectionProps}
+                              guideId={guideId}
+                            />
                           </CenterColumn>
 
-                          <FeaturedGallery />
+                          {results.serviceResponse.FeaturedObservations
+                            .hasObservations && (
+                            <FeaturedGallery
+                              imageList={
+                                results.serviceResponse.FeaturedObservations
+                              }
+                            />
+                          )}
 
                           <GuidePanels guideId={guideId} />
 
-                          <SterlingTitle {...GUIDE_PAGE_MODEL.sterlingTitleProps} />
+                          <SterlingTitle
+                            {...GUIDE_PAGE_MODEL.sterlingTitleProps}
+                          />
 
-                          <GuideTopics {...results.modeledResponses.GUIDE_OBJECTS.guideTopicsProps} />
-                        </Fragment>)}
+                          <GuideTopics
+                            {...results.modeledResponses.GUIDE_OBJECTS
+                              .guideTopicsProps}
+                          />
+                        </Fragment>
+                      )}
                     </div>
-                  )
-                  }
+                  )}
                 />
               </Fragment>
             )}
@@ -144,5 +175,4 @@ export default class Guides extends React.Component {
       />
     );
   }
-
 }
