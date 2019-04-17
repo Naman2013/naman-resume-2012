@@ -45,6 +45,7 @@ class TelescopeImageLoader extends Component {
     loadThumbnails: PropTypes.bool,
     missionFormat: PropTypes.string,
     viewportHeight: PropTypes.number,
+    shouldUseTransitions: PropTypes.bool,
     actions: PropTypes.shape({
       resetActiveSSE: PropTypes.func.isRequired,
     }).isRequired,
@@ -55,6 +56,7 @@ class TelescopeImageLoader extends Component {
     loadThumbnails: false,
     missionFormat: null,
     viewportHeight: 0,
+    shouldUseTransitions: true,
     onImageChange: noop,
   };
 
@@ -226,7 +228,8 @@ class TelescopeImageLoader extends Component {
         opacity and timing values to make up for lost time and sync
         the rest of the experience together
       */
-      if (firstLoad) {
+      const { shouldUseTransitions } = this.props;
+      if (firstLoad && shouldUseTransitions) {
         if (progress >= teleFade) {
           adjustedFade = 0;
           startingOpacity = 1;

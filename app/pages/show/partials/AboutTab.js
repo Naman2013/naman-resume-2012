@@ -58,8 +58,6 @@ class AboutTab extends Component {
 
   }
 
-
-
   render() {
     const {
       content,

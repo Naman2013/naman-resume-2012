@@ -17,13 +17,17 @@ function TelescopeImageViewer({
   missionFormat,
   isInteractive,
   callSource,
+  shouldUseTransitions,
 }) {
   const setIds = obsIdTeleIdDomeIdFromTeleId(teleId);
   const teleThumbWidth = '866px';
   const imageSource = generateSseImageLoader(teleSystem, telePort);
 
   //TODO rewrite this cause i`d rather never write something like this
-  const viewportHeight = Array.prototype.filter.call(document.getElementsByClassName('live-video-container'), x => x.offsetWidth !== 0)[0].offsetWidth;
+  const viewportHeight = Array.prototype.filter.call(
+    document.getElementsByClassName('live-video-container'),
+    x => x.offsetWidth !== 0
+  )[0].offsetWidth;
 
   return (
     <div className="telescope-image-viewer">
@@ -38,6 +42,7 @@ function TelescopeImageViewer({
           clipped={clipped}
           missionFormat={missionFormat}
           viewportHeight={viewportHeight}
+          shouldUseTransitions={shouldUseTransitions}
         />
 
         <StarShareCamera />
@@ -51,12 +56,14 @@ TelescopeImageViewer.defaultProps = {
   missionFormat: 'full',
   isInteractive: true,
   callSource: 'details',
+  shouldUseTransitions: true,
 };
 
 TelescopeImageViewer.propTypes = {
   clipped: PropTypes.bool,
   missionFormat: PropTypes.string,
   isInteractive: PropTypes.bool,
+  shouldUseTransitions: PropTypes.bool,
 };
 
 export default TelescopeImageViewer;

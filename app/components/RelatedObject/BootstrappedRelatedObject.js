@@ -173,7 +173,6 @@ class RelatedObject extends Component {
           className="title-container"
           dangerouslySetInnerHTML={{ __html: label }}
         />
-        <Link to={linkUrl}>
           <div className="info-container">
             <span
               className="object-name"
@@ -207,7 +206,6 @@ class RelatedObject extends Component {
               </div>
             </div>
           </div>
-        </Link>
         <div className="action-area">
           {showFollowPromptFlag ? (
             <Button
