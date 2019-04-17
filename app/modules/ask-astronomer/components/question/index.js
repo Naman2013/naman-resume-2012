@@ -30,9 +30,9 @@ export class Question extends Component {
   };
 
   componentDidMount = () => {
-    this.checkData();
-
-    this.toggleAllAnswers(true);
+    if (this.checkData()) {
+      this.toggleAllAnswers(true);
+    }
   };
 
   fetchQuestions = () => {
@@ -48,7 +48,9 @@ export class Question extends Component {
   };
 
   componentWillUnmount = () => {
-    this.toggleAllAnswers(false);
+    if (this.checkData()) {
+      this.toggleAllAnswers(false);
+    }
   };
 
   showModal = () => {
@@ -84,6 +86,7 @@ export class Question extends Component {
       browserHistory.push(`/object-details/${params.objectId}/ask`);
       return null;
     }
+    return true;
   };
 
   toggleAllAnswers = res => {
@@ -115,6 +118,7 @@ export class Question extends Component {
       // updateQuestionsList,
       allDisplayedAnswers,
       answerFetching,
+      fetchingReplies,
     } = this.props;
 
     if (!questions || !questions.length) {
@@ -164,7 +168,7 @@ export class Question extends Component {
 
     return (
       <div style={{ position: 'relative' }}>
-        <Spinner loading={answerFetching} />
+        <Spinner loading={answerFetching || fetchingReplies} />
 
         <BackButton />
 

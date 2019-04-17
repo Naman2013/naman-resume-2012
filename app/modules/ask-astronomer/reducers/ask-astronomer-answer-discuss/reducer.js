@@ -24,6 +24,7 @@ const initialState = {
   allDisplayedReplies: {},
   allReplySubmissions: {},
   fetching: false,
+  fetchingReplies: false,
 };
 
 export default createReducer(initialState, {
@@ -122,6 +123,7 @@ export default createReducer(initialState, {
     };
     return {
       ...state,
+      fetchingReplies: true,
       allReplySubmissions: newAllReplySubmissions,
     };
   },
@@ -167,6 +169,7 @@ export default createReducer(initialState, {
       allReplies: newAllReplies,
       allDisplayedReplies: newAllDisplayedReplies,
       allReplySubmissions: newAllReplySubmissions,
+      fetchingReplies: false,
     };
   },
   [REPLY_TO_ASTRONOMER_ANSWER_FAIL](state, { payload }) {
@@ -178,6 +181,7 @@ export default createReducer(initialState, {
     };
     return {
       ...state,
+      fetchingReplies: false,
       allReplySubmissions: newAllReplySubmissions,
     };
   },
