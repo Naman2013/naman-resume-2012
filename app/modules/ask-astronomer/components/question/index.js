@@ -2,19 +2,8 @@ import BackButton from 'app/atoms/BackButton';
 import { Spinner } from 'app/components/spinner/index';
 import AnswerList from 'app/modules/ask-astronomer/components/answer-list';
 import Card from 'app/modules/ask-astronomer/components/Card';
-import QuestionListItem from 'app/modules/ask-astronomer/components/question-list-item';
 import style from 'app/modules/ask-astronomer/components/question-list-item.style';
 import SubmitAnswerButton from 'app/modules/ask-astronomer/components/SubmitAnswerButton';
-import {
-  submitAnswerToQuestion,
-  toggleAllAnswersAndDisplay,
-} from 'app/modules/ask-astronomer/reducers/ask-astronomer-answers/actions';
-import {
-  askQuestion,
-  changeAnswerState,
-  fetchAstronomerQuestions,
-} from 'app/modules/ask-astronomer/reducers/ask-astronomer-questions/actions';
-import { fetchObjectSpecialistsAction } from 'app/modules/object-details/actions';
 import { likeThread } from 'app/services/discussions/like';
 import { customModalStylesV4 } from 'app/styles/mixins/utilities';
 import React, { Component } from 'react';
@@ -36,15 +25,14 @@ export class Question extends Component {
   };
 
   fetchQuestions = () => {
-    console.log('UPDATE');
     const {
       actions,
       params: { objectId },
     } = this.props;
-    const { fetchAstronomerQuestions } = actions;
+    const { refetchAstronomerQuestions } = actions;
 
     // getAllQuestions({ objectId, ...filter });
-    fetchAstronomerQuestions({ objectId });
+    refetchAstronomerQuestions({ objectId });
   };
 
   componentWillUnmount = () => {
@@ -200,8 +188,7 @@ export class Question extends Component {
                   submitForm={this.submitAnswer}
                   modalActions={modalActions}
                   updateQuestionsList={() => {
-                    console.log('UPD');
-                    // this.fetchQuestions();
+                    this.fetchQuestions();
                   }}
                   user={user}
                 />
@@ -221,7 +208,7 @@ export class Question extends Component {
                   topicId={item.topicId}
                   modalActions={modalActions}
                   updateQuestionsList={() => {
-                    console.log('UPD');
+                    this.fetchQuestions();
                   }}
                 />
               )}

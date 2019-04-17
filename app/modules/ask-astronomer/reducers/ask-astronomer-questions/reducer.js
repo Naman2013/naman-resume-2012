@@ -1,15 +1,16 @@
 import createReducer from '../../../utils/createReducer';
+import { SUBMIT_ANSWER_FOR_ASTRONOMER_QUESTION_SUCCESS } from '../ask-astronomer-answers/actions';
 
 import {
-  FETCH_ASTRONOMER_QUESTIONS_START,
-  FETCH_ASTRONOMER_QUESTIONS_SUCCESS,
-  FETCH_ASTRONOMER_QUESTIONS_FAIL,
+  ASK_QUESTION_FAIL,
   ASK_QUESTION_START,
   ASK_QUESTION_SUCCESS,
-  ASK_QUESTION_FAIL,
   CHANGE_ANSWER_STATE,
+  FETCH_ASTRONOMER_QUESTIONS_FAIL,
+  FETCH_ASTRONOMER_QUESTIONS_START,
+  FETCH_ASTRONOMER_QUESTIONS_SUCCESS,
+  REFETCH_ASTRONOMER_QUESTIONS_START,
 } from './actions';
-import { SUBMIT_ANSWER_FOR_ASTRONOMER_QUESTION_SUCCESS } from '../ask-astronomer-answers/actions';
 
 const initialState = {
   error: false,
@@ -26,11 +27,20 @@ const initialState = {
 export default createReducer(initialState, {
   [FETCH_ASTRONOMER_QUESTIONS_START](state, { payload }) {
     const { appendToList, threadCount } = payload;
-    // console.log(state.threadList);
     return {
       ...state,
       threadList: appendToList ? state.threadList : [],
       threadCount: appendToList && threadCount ? threadCount : 0,
+      fetching: true,
+    };
+  },
+  [REFETCH_ASTRONOMER_QUESTIONS_START](state) {
+    // const { appendToList, threadCount } = payload;
+    console.log('reducer FETCH_ASTRONOMER_QUESTIONS_START');
+    return {
+      ...state,
+      // threadList: appendToList ? state.threadList : [],
+      // threadCount: appendToList && threadCount ? threadCount : 0,
       fetching: true,
     };
   },
@@ -44,7 +54,9 @@ export default createReducer(initialState, {
       canAnswerQuestions,
       answerState,
     } = payload;
-    const threadList = appendToList ? [].concat(state.threadList, threads) : threads;
+    const threadList = appendToList
+      ? [].concat(state.threadList, threads)
+      : threads;
 
     return {
       ...state,
@@ -97,7 +109,7 @@ export default createReducer(initialState, {
     const { threadId } = payload;
     let newThreadList = [].concat(threadList);
     // when a user submits a new answer, we need to update the counts on that thread
-    newThreadList = newThreadList.map((thread) => {
+    newThreadList = newThreadList.map(thread => {
       if (threadId === thread.threadId) {
         thread.replyToponlyCount += 1;
       }

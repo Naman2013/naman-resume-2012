@@ -1,18 +1,26 @@
+import { createThread } from 'app/services/discussions/create-thread';
 import axios from 'axios/index';
-import { getThreadList } from '../../../../services/discussions/get-thread-list';
-import { createThread } from 'services/discussions/create-thread';
 import { fetchAstronomerAnswers } from '../ask-astronomer-answers/actions';
 
-export const FETCH_ASTRONOMER_QUESTIONS_START = 'FETCH_ASTRONOMER_QUESTIONS_START';
-export const FETCH_ASTRONOMER_QUESTIONS_SUCCESS = 'FETCH_ASTRONOMER_QUESTIONS_SUCCESS';
-export const FETCH_ASTRONOMER_QUESTIONS_FAIL = 'FETCH_ASTRONOMER_QUESTIONS_FAIL';
+export const FETCH_ASTRONOMER_QUESTIONS_START =
+  'FETCH_ASTRONOMER_QUESTIONS_START';
+export const FETCH_ASTRONOMER_QUESTIONS_SUCCESS =
+  'FETCH_ASTRONOMER_QUESTIONS_SUCCESS';
+export const FETCH_ASTRONOMER_QUESTIONS_FAIL =
+  'FETCH_ASTRONOMER_QUESTIONS_FAIL';
+
+export const REFETCH_ASTRONOMER_QUESTIONS_START =
+  'REFETCH_ASTRONOMER_QUESTIONS_START';
+export const REFETCH_ASTRONOMER_QUESTIONS_SUCCESS =
+  'REFETCH_ASTRONOMER_QUESTIONS_SUCCESS';
+export const REFETCH_ASTRONOMER_QUESTIONS_FAIL =
+  'REFETCH_ASTRONOMER_QUESTIONS_FAIL';
 
 export const ASK_QUESTION_START = 'ASK_QUESTION_START';
 export const ASK_QUESTION_SUCCESS = 'ASK_QUESTION_SUCCESS';
 export const ASK_QUESTION_FAIL = 'ASK_QUESTION_FAIL';
 
 export const CHANGE_ANSWER_STATE = 'CHANGE_ANSWER_STATE';
-
 
 const fetchAstronomerQuestionsStart = payload => ({
   type: FETCH_ASTRONOMER_QUESTIONS_START,
@@ -41,28 +49,87 @@ export const fetchAstronomerQuestions = ({
   const { cid, at, token } = getState().user;
   const { count, questionFilter, page } = getState().astronomerQuestions;
   dispatch(fetchAstronomerQuestionsStart({ appendToList }));
-  return axios.post('/api/forum/getQuestionsList', {
-    appendToList,
-    at,
-    callSource: 'qanda',
-    cid,
-    count,
-    lang,
-    page: currentPage || page,
-    token,
-    ver,
-    objectId,
-    answerState: answerState || questionFilter,
-  })
-    .then((result) => {
+  return axios
+    .post('/api/forum/getQuestionsList', {
+      appendToList,
+      at,
+      callSource: 'qanda',
+      cid,
+      count,
+      lang,
+      page: currentPage || page,
+      token,
+      ver,
+      objectId,
+      answerState: answerState || questionFilter,
+    })
+    .then(result => {
       if (result.data.threads.length > 0) {
-        result.data.threads.forEach(thread => dispatch(fetchAstronomerAnswers({ threadId: thread.threadId })));
+        result.data.threads.forEach(thread =>
+          dispatch(fetchAstronomerAnswers({ threadId: thread.threadId }))
+        );
       }
-      return dispatch(fetchAstronomerQuestionsSuccess(Object.assign({
-        page: currentPage || page,
-        appendToList,
-        answerState: answerState || questionFilter,
-      }, result.data)));
+      return dispatch(
+        fetchAstronomerQuestionsSuccess(
+          Object.assign(
+            {
+              page: currentPage || page,
+              appendToList,
+              answerState: answerState || questionFilter,
+            },
+            result.data
+          )
+        )
+      );
+    })
+    .catch(error => dispatch(fetchAstronomerQuestionsFail(error)));
+};
+
+// on AAA page
+export const refetchAstronomerQuestions = ({
+  answerState = null,
+  appendToList = false,
+  lang,
+  currentPage,
+  objectId,
+  ver,
+}) => (dispatch, getState) => {
+  const { cid, at, token } = getState().user;
+  const { count, questionFilter, page } = getState().astronomerQuestions;
+  console.log('refetchAstronomerQuestions');
+  dispatch({
+    type: REFETCH_ASTRONOMER_QUESTIONS_START,
+  });
+  return axios
+    .post('/api/forum/getQuestionsList', {
+      at,
+      callSource: 'qanda',
+      cid,
+      count,
+      lang,
+      page: currentPage || page,
+      token,
+      ver,
+      objectId,
+      answerState: answerState || questionFilter,
+    })
+    .then(result => {
+      if (result.data.threads.length > 0) {
+        result.data.threads.forEach(thread =>
+          dispatch(fetchAstronomerAnswers({ threadId: thread.threadId }))
+        );
+      }
+      return dispatch(
+        fetchAstronomerQuestionsSuccess(
+          Object.assign(
+            {
+              page: currentPage || page,
+              answerState: answerState || questionFilter,
+            },
+            result.data
+          )
+        )
+      );
     })
     .catch(error => dispatch(fetchAstronomerQuestionsFail(error)));
 };

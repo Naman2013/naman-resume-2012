@@ -7,6 +7,7 @@ import {
   askQuestion,
   changeAnswerState,
   fetchAstronomerQuestions,
+  refetchAstronomerQuestions,
 } from 'app/modules/ask-astronomer/reducers/ask-astronomer-questions/actions';
 import { fetchObjectSpecialistsAction } from 'app/modules/object-details/actions';
 import { connect } from 'react-redux';
@@ -46,6 +47,7 @@ const mapDispatchToProps = dispatch => ({
       askQuestion,
       changeAnswerState,
       fetchAstronomerQuestions,
+      refetchAstronomerQuestions,
       toggleAllAnswersAndDisplay,
       fetchObjectSpecialistsAction,
       submitAnswerToQuestion,
