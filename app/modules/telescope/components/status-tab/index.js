@@ -63,6 +63,8 @@ export const StatusTab = props => {
             <ObsBotWidget
               {...props}
               shortFeed
+              noDescription
+              title="This Just In"
               ViewGroup="conditions"
               teleSystem={currentTelescope.teleSystem}
             />

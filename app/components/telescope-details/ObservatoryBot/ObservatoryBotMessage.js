@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import isEmpty from 'lodash/fp/isEmpty';
@@ -9,10 +9,15 @@ const ObservatoryBotMessage = props => {
     message: { Message, DTG },
   } = props;
   return (
-    <div className="observatorybot-message" key={`${Message}-${DTG}`}>
-      <p>{moment.utc(DTG).fromNow()}</p>
-      <p dangerouslySetInnerHTML={{ __html: Message }} />
-    </div>
+    <Fragment>
+      <div className="observatorybot-message" key={`${Message}-${DTG}`}>
+        <p dangerouslySetInnerHTML={{ __html: Message }} />
+        <p className="observatorybot-message-time">
+          {moment.utc(DTG).fromNow()}
+        </p>
+      </div>
+      <hr className="hr" />
+    </Fragment>
   );
 };
 

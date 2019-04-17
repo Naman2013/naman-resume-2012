@@ -98,7 +98,7 @@ export default class ObservatoryBot extends Component {
 
   render() {
     let { messages, showDescription } = this.state;
-    const { shortFeed } = this.props;
+    const { shortFeed, noDescription } = this.props;
     const observatoryBotContainerClassnames = classnames(
       'observatorybot-wrapper'
     );
@@ -111,7 +111,7 @@ export default class ObservatoryBot extends Component {
         style={{ minHeight: '350px', maxHeight: '350px', overflowY: 'scroll' }}
         className="observatorybot-container"
       >
-        {showDescription && (
+        {showDescription && !noDescription && (
           <div style={{ padding: '20px' }}>
             <ObservatoryBotDescription displayFlag={showDescription} />
           </div>

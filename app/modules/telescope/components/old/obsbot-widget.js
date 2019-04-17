@@ -7,14 +7,17 @@ const ObsBotWidget = props => {
     ViewGroup,
     currentTelescope: { teleSystem },
     shortFeed,
+    title,
+    noDescription,
   } = props;
   return (
     <div className="root">
-      <ModuleContainer title="Observatory Bot">
+      <ModuleContainer title={title || 'Observatory Bot'}>
         <ObservatoryBot
           viewGroup={ViewGroup}
           teleSystem={teleSystem}
           shortFeed={shortFeed}
+          noDescription={noDescription}
         />
       </ModuleContainer>
     </div>

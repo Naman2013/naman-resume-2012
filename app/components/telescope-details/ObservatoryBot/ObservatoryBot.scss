@@ -36,12 +36,18 @@
     }
 
     .observatorybot-message {
-      align-self: flex-end;
-      width: 100%;
-      padding: 5px 0;
-      font-size: 18px;
+      display: flex;
+      justify-content: space-between;
+      margin: 15px 0 1px;
+      font-size: 15px;
       font-family: $secondary-font;
       color: #415671;
+
+      &-time {
+        display: flex;
+        justify-content: flex-end;
+        min-width: 150px;
+      }
     }
   }
 
