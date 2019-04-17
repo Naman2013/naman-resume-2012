@@ -1,6 +1,5 @@
 import React from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
-import Button from 'app/components/common/style/buttons/Button';
 import {
   ObsBotWidget,
   ObservatoryInformation,
@@ -15,9 +14,12 @@ export const StatusTab = props => {
   const {
     clockList,
     obsId,
+    allSkyCam,
     allSkyWidgetID,
     currentTelescope,
     currentObservatory,
+    facilityWebcam,
+    domeCam,
   } = props;
   return (
     <div className="animated fadeIn faster status-tab">
@@ -27,21 +29,27 @@ export const StatusTab = props => {
             <Col lg={4} md={12} sm={12}>
               <AllSkyCamera
                 obsId={obsId}
-                imageURL={currentTelescope.teleOfflineImgURL}
                 allSkyWidgetID={allSkyWidgetID}
+                imageURL={allSkyCam.allSkyCamURL}
+                refreshIntervalSec={allSkyCam.allSkyRefreshIntervalSec}
+                allSkyCamURL={allSkyCam.allSkyCamURL}
+                offlineImageURL={allSkyCam.allSkyCamOfflineURL}
+                onlineStatus={allSkyCam.allSkyCamOnlineStatus}
               />
             </Col>
             <Col lg={4} md={12} sm={12}>
               <DomCameraWidget
-                obsId={obsId}
+                domeCam={domeCam}
+                domeCamURL={domeCam.domeCamURL}
                 activeTelescope={currentObservatory}
               />
             </Col>
             <Col lg={4} md={12} sm={12}>
               <PicoDelTeidesWidget
-                obsId={obsId}
-                title="TEIDE PEAK WEBCAM"
-                activeTelescope={currentObservatory}
+                domeCam={domeCam}
+                title={facilityWebcam.title}
+                activeTelescope={currentTelescope}
+                facilityWebcamUrl={facilityWebcam.facilityWebcamURL}
               />
             </Col>
           </Row>

@@ -1,14 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import uniqueId from 'lodash/uniqueId';
-import noop from 'lodash/noop';
-import cloneDeep from 'lodash/cloneDeep';
 import ObservatoryBotDescription from './ObservatoryBotDescription';
 import ObservatoryBotMessage from './ObservatoryBotMessage';
-import s from './ObservatoryBot.scss';
-
-// TODO: display a timestamp with each message
 
 export default class ObservatoryBot extends Component {
   static propTypes = {

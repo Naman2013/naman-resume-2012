@@ -15,9 +15,17 @@ export class PicoDelTeidesWidget extends Component {
   closeModal = () => this.setState({ isModalOpen: false });
 
   renderTimelapseCollapsible = () => {
-    const { activeTelescope } = this.props;
+    const { activeTelescope, domeCam } = this.props;
+    const {
+      domeCamTimelapseURL,
+      offlineImageURL,
+      onlineStatus,
+      refreshIntervalSec,
+      fetchingDomeCamTimelapseWidgetResult,
+    } = domeCam;
     const { observatoryData } = activeTelescope;
-    const { obsId, DomecamTimelapseWidgetId } = observatoryData || activeTelescope;
+    const { obsId, DomecamTimelapseWidgetId } =
+      observatoryData || activeTelescope;
     const { isTimelapseExpanded } = this.state;
     return (
       <div className="text-center">
@@ -29,14 +37,21 @@ export class PicoDelTeidesWidget extends Component {
           aria-controls="open timelapse"
           aria-expanded={isTimelapseExpanded}
         >
-          Open Timelapse
+          {isTimelapseExpanded ? 'Close' : 'Open'} Timelapse
         </Button>
 
         <Collapse in={isTimelapseExpanded} mountOnEnter unmountOnExit>
           <div id="example-collapse-text">
             <DomeCamTimelapseWidget
               obsId={obsId}
+              onlineStatus={onlineStatus}
+              offlineImageURL={offlineImageURL}
+              refreshIntervalSec={refreshIntervalSec}
+              domeCamTimelapseURL={domeCamTimelapseURL}
               DomecamTimelapseWidgetId={DomecamTimelapseWidgetId}
+              fetchingDomeCamTimelapseWidgetResult={
+                fetchingDomeCamTimelapseWidgetResult
+              }
             />
           </div>
         </Collapse>
