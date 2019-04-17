@@ -70,3 +70,9 @@ export const makeFacilityWebcamSelector = () =>
     selectTelescopeOverview,
     state => state.observatoryLiveWebcamResult
   );
+
+export const makeMoonlightBarSelector = () =>
+  createSelector(
+    selectTelescopeOverview,
+    state => state.moonlightBarResult
+  );

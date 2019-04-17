@@ -6,13 +6,13 @@ import {
   ConnectedAllSkyCamera,
   SkyConditions,
   WeatherConditions,
-  MoonlightConditions,
   DayNightBar,
   DayNightMap,
   ImagePortalViewer,
   WeeklyForecast,
   ObsBotWidget,
 } from './index';
+import { MoonlightConditions } from '../../moonlight-conditions/moonlight-conditions-container';
 import { ModuleContainer } from './module-container';
 import style from './tab-conditions.style';
 
