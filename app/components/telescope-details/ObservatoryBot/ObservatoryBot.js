@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import ObsBotWidget from 'app/constants/obsbot-widget';
 import ObservatoryBotDescription from './ObservatoryBotDescription';
 import ObservatoryBotMessage from './ObservatoryBotMessage';
 
@@ -101,7 +102,9 @@ export default class ObservatoryBot extends Component {
     const observatoryBotContainerClassnames = classnames(
       'observatorybot-wrapper'
     );
-    if (shortFeed) messages = messages.slice(0, 10);
+    if (shortFeed) {
+      messages = messages.slice(0, ObsBotWidget.SHORTFEED_MESSAGES_NUMBER);
+    }
     messages.sort((a, b) => a.serverTime - b.serverTime);
     return (
       <div
