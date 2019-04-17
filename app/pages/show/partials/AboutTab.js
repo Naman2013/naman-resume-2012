@@ -54,6 +54,10 @@ class AboutTab extends Component {
     likePrompt: '',
   };
 
+  componentDidMount(){
+    console.log('mount');
+  }
+
   state = {
 
   }
@@ -63,6 +67,7 @@ class AboutTab extends Component {
       content,
       isDesktop,
       isScreenMedium,
+      likeResultHandler,
       likePrompt,
       likesCount,
       showId,
@@ -82,6 +87,7 @@ class AboutTab extends Component {
     const contentFooter = () => (
       <div>
         <LikeSomethingButton
+          likeResultHandler = {likeResultHandler}
           likeHandler={like}
           likesCount={likesCount}
           likePrompt={likePrompt}
