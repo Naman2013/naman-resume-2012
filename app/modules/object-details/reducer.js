@@ -29,6 +29,9 @@ import {
   FETCH_OBJECT_SPECIALISTS_SUCCESS,
   FETCH_OBJECT_SPECIALISTS_FAIL,
   RESET_OBJECT_SPECIALISTS,
+  FETCH_IMAGE_DETAILS_START,
+  FETCH_IMAGE_DETAILS_FAIL,
+  FETCH_IMAGE_DETAILS_SUCCESS,
 } from './actions';
 
 const initialState = {
@@ -93,16 +96,7 @@ const initialState = {
     },
     hasFeaturedObservation: null,
     featuredObservation: {
-      title: null,
-      subTitle: null,
-      description: null,
-      iconUrl: null,
-      imageUrl: null,
-      imageLabel: null,
-      imageTitle: null,
-      hasLink: null,
-      linkLabel: null,
-      linkUrl: null,
+      customerImageId: null,
     },
     hasRelatedGuide: null,
     relatedGuide: {
@@ -161,6 +155,7 @@ const initialState = {
   objectQuests: {},
   objectFollow: {},
   objectSpecialists: {},
+  imageDetails: null,
 };
 
 export default createReducer(initialState, {
@@ -310,6 +305,27 @@ export default createReducer(initialState, {
     return {
       ...state,
       objectSpecialists: Object.assign({}, initialState.objectSpecialists),
+      errorBody: payload,
+    };
+  },
+
+  /* IMAGE DETAILS */
+  [FETCH_IMAGE_DETAILS_START](state) {
+    return {
+      ...state,
+      imageDetails: Object.assign({}, initialState.imageDetails),
+    };
+  },
+  [FETCH_IMAGE_DETAILS_SUCCESS](state, { payload }) {
+    return {
+      ...state,
+      imageDetails: payload,
+    };
+  },
+  [FETCH_IMAGE_DETAILS_FAIL](state, { payload }) {
+    return {
+      ...state,
+      imageDetails: Object.assign({}, initialState.imageDetails),
       errorBody: payload,
     };
   },

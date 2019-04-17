@@ -1,5 +1,8 @@
 import css from 'styled-jsx/css';
-import { astronaut, shadows } from '../../../../styles/variables/colors_tiles_v4';
+import {
+  astronaut,
+  shadows,
+} from '../../../../styles/variables/colors_tiles_v4';
 import { secondaryFont } from '../../../../styles/variables/fonts';
 
 export default css`
@@ -9,21 +12,20 @@ export default css`
     width: 300px;
     height: 464px;
     background-color: white;
-    box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.2);
+    box-shadow: 0px 0px 3px 1px rgba(0, 0, 0, 0.2);
     margin: 20px auto;
     padding: 0 40px;
-    background-image: url("https://vega.slooh.com/assets/v4/dashboard/object-card-bg.png");
+    background-image: url('https://vega.slooh.com/assets/v4/dashboard/object-card-bg.png');
     background-size: 100%;
     background-repeat: no-repeat;
-
   }
   .object-icon {
     width: 100%;
     height: 127px;
-    background-size: contain;
+    background-size: 167.5px;
     background-repeat: no-repeat;
     background-position: 50%;
-    background-image: url("https://vega.slooh.com/assets/v4/dashboard/object-icon-container.png");
+    background-image: url('https://vega.slooh.com/assets/v4/dashboard/object-icon-container.png');
   }
   .object-icon div {
     width: 100%;
@@ -68,6 +70,6 @@ export default css`
   }
 
   .title {
-    border-bottom: 1px solid #c3c5c7
+    border-bottom: 1px solid #c3c5c7;
   }
 `;

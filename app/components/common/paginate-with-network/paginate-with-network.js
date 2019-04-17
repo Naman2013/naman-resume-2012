@@ -29,7 +29,7 @@ class PaginateWithNetwork extends Component {
 
   serviceFetchStartHandler = () => {
     const { hubActions } = this.props;
-    hubActions.hubGetRequestStart();
+    if (hubActions) hubActions.hubGetRequestStart();
   };
 
   render() {
