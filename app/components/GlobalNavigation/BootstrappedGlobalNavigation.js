@@ -14,6 +14,7 @@ import {
 } from 'app/modules/global-navigation/actions';
 import { customModalStylesBlackOverlay } from 'app/styles/mixins/utilities';
 import { screenMedium, screenLarge } from 'app/styles/variables/breakpoints';
+import debounce from 'lodash/debounce';
 
 const mapStateToProps = ({
   globalNavigation,
@@ -69,23 +70,32 @@ class GlobalNavigation extends Component {
     isMobile: false,
   };
 
+  constructor(params) {
+    super(params);
+
+    this.debouncedCloseAll = debounce(this.closeAll, 500, {
+      leading: true,
+      trailing: false,
+    });
+  }
+
   componentDidMount() {
     if (!this.props.isMobile) {
-      window.addEventListener('scroll', this.closeAll);
+      window.addEventListener('scroll', this.debouncedCloseAll);
     }
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.routeKey !== this.props.routeKey) {
-      this.closeAll();
+      this.debouncedCloseAll();
     }
   }
 
   componentWillUnmount() {
-    window.removeEventListener('scroll', this.closeAll);
+    window.removeEventListener('scroll', this.debouncedCloseAll);
   }
 
-  closeAll = (e) => {
+  closeAll = () => {
     const { actions } = this.props;
     actions.closeAllMenus();
   };
