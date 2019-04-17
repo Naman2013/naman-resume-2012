@@ -3,7 +3,6 @@ import { Button } from 'react-bootstrap';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import PaginateSet from '../../../components/common/paginate-full-set/PaginateSet';
 import {
   replyToAnswer,
   toggleAllAnswerRepliesAndDisplay,
@@ -52,6 +51,25 @@ class AnswerList extends Component {
     fetchingReplies: {},
     displayedAnswers: [],
     threadId: null,
+  };
+
+  loadMore = (fullDataSet, page, count) => {
+    const endIndex = count * page;
+    const updatedDataSet = fullDataSet
+      .slice(0, endIndex)
+      .map(item => item.replyId);
+
+    const { actions, threadId } = this.props;
+    // make call to update page and displayed answers here
+    actions.updateAnswersDisplayList({
+      page,
+      threadId,
+      displayedAnswers: updatedDataSet,
+    });
+  };
+
+  isLastPage = (totalCount, currentPage, numberOnPage) => {
+    return totalCount < currentPage * numberOnPage;
   };
 
   handlePageChange = (paginatedSet, page) => {
@@ -157,9 +175,21 @@ class AnswerList extends Component {
                 );
               })}
               <div className="text-center mt-3 mb-3">
-                <Button>Load More</Button>
+                {!this.isLastPage(
+                  answers.replies.length,
+                  answers.page,
+                  count
+                ) && (
+                  <Button
+                    onClick={() =>
+                      this.loadMore(answers.replies, answers.page + 1, count)
+                    }
+                  >
+                    Load More
+                  </Button>
+                )}
               </div>
-              {showPagination && (
+              {/*{showPagination && (
                 <PaginateSet
                   handlePageChange={this.handlePageChange}
                   fullDataSet={answers.replies}
@@ -167,7 +197,7 @@ class AnswerList extends Component {
                   totalCount={answers.replies.length}
                   page={answers.page}
                 />
-              )}
+              )}*/}
             </div>
           </div>
         ) : null}

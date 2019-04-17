@@ -22,6 +22,8 @@ export class Question extends Component {
     if (this.checkData()) {
       this.toggleAllAnswers(true);
     }
+
+    // this.fetchAnswers();
   };
 
   fetchQuestions = () => {
@@ -34,6 +36,14 @@ export class Question extends Component {
     // getAllQuestions({ objectId, ...filter });
     refetchAstronomerQuestions({ objectId });
   };
+
+  // todo
+  /*fetchAnswers = () => {
+    const { fetchAstronomerAnswers, params } = this.props;
+    const { threadId } = params;
+    console.log(threadId);
+    fetchAstronomerAnswers({ threadId });
+  };*/
 
   componentWillUnmount = () => {
     if (this.checkData()) {
