@@ -72,7 +72,7 @@ export class DomCameraWidget extends Component {
       <ModuleContainer title="Dome view">
         <ImagePortalViewer imageURL={domeCamURL} onClick={this.openModal} />
 
-        {DomecamTimelapseWidgetId ? this.renderTimelapseCollapsible() : null}
+        {DomecamTimelapseWidgetId && this.renderTimelapseCollapsible()}
 
         <ModalImg
           isOpen={isModalOpen}

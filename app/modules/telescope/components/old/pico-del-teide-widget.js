@@ -78,9 +78,7 @@ export class PicoDelTeidesWidget extends Component {
           imageURL={facilityWebcamUrl}
           onClick={this.openModal}
         />
-        {/*{DomecamTimelapseWidgetId ? this.renderTimelapseCollapsible() : null}*/}
         {this.renderTimelapseCollapsible()}
-
         <ModalImg
           isOpen={isModalOpen}
           imageURL={facilityWebcamUrl}
