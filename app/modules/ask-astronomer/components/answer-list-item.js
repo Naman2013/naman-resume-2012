@@ -1,41 +1,14 @@
-/***********************************
-* V4 Ask Astronomer Answer List Item
-*
-*
-*
-***********************************/
-import React from 'react';
-import PropTypes from 'prop-types';
-import moment from 'moment/moment';
-import { likeReply } from '../../../services/discussions/like';
-import Heart from '../../../components/common/heart/heart';
-import noop from 'lodash/noop';
-import { intlShape, injectIntl } from 'react-intl';
 import Card from 'app/modules/ask-astronomer/components/Card';
-import GenericButton from '../../../components/common/style/buttons/Button';
-import LikeButton from '../../../components/common/style/buttons/LikeButton';
-import CommentButton from '../../../components/common/style/buttons/CommentButton';
-import AnswerReplyList from './answer-reply-list';
-import SubmitAnswerButton from 'app/modules/ask-astronomer/components/SubmitAnswerButton';
 import SubmitAnswerReplyButton from 'app/modules/ask-astronomer/components/SubmitAnswerReplyButton';
-import { avatarImgStyle } from './styles';
-import { black, darkBlueGray, white, turqoise } from '../../../styles/variables/colors';
-import { secondaryFont } from '../../../styles/variables/fonts';
+import React from 'react';
+import { injectIntl } from 'react-intl';
+import { likeReply } from '../../../services/discussions/like';
+import messages from './answer-list-item.messages';
+import AnswerReplyList from './answer-reply-list';
 
 import style from './AnswerListItem.style';
-import messages from './answer-list-item.messages';
 
-
-const {
-  arrayOf,
-  bool,
-  func,
-  number,
-  shape,
-  string,
-} = PropTypes;
-
-const AnswerListItem = (props) => {
+const AnswerListItem = props => {
   const {
     answer,
     answerReplies,
@@ -59,7 +32,11 @@ const AnswerListItem = (props) => {
   } = props;
   return (
     <div className="answer-list-item">
-      {isTopAnswer && <div className="top-answer">{intl.formatMessage(messages.TopAnswer)}</div>}
+      {isTopAnswer && (
+        <div className="top-answer">
+          {intl.formatMessage(messages.TopAnswer)}
+        </div>
+      )}
       <Card
         {...props.answer}
         topicId={topicId}
@@ -75,35 +52,39 @@ const AnswerListItem = (props) => {
         submitReply={submitReply}
         user={user}
         toggleComments={toggleAllAnswerReplies}
-        renderReplyButton={() => (<SubmitAnswerReplyButton
-          {...props.answer}
-          replyTo={answer.replyId}
-          submitForm={submitReply}
-          modalActions={modalActions}
-          replyButtonText={intl.formatMessage(messages.Reply)}
-          user={user}
-          topicId={topicId}
-          objectId={objectId}
-          threadId={threadId}
-          updateQuestionsList={updateQuestionsList}
-        />)}
-        renderChildReplies={() => (<AnswerReplyList
-          answerReplies={answerReplies}
-          numberOfRepliesToAnswer={numberOfRepliesToAnswer}
-          displayedReplies={displayedReplies}
-          objectId={objectId}
-          modalActions={modalActions}
-          isDesktop={isDesktop}
-          replyId={answer.replyId}
-          showAllReplies={showAllReplies}
-          threadId={threadId}
-          topicId={topicId}
-        />)}
+        renderReplyButton={() => (
+          <SubmitAnswerReplyButton
+            {...props.answer}
+            replyTo={answer.replyId}
+            submitForm={submitReply}
+            modalActions={modalActions}
+            replyButtonText={intl.formatMessage(messages.Reply)}
+            user={user}
+            topicId={topicId}
+            objectId={objectId}
+            threadId={threadId}
+            updateQuestionsList={updateQuestionsList}
+          />
+        )}
+        renderChildReplies={() => (
+          <AnswerReplyList
+            answerReplies={answerReplies}
+            numberOfRepliesToAnswer={numberOfRepliesToAnswer}
+            displayedReplies={displayedReplies}
+            objectId={objectId}
+            modalActions={modalActions}
+            isDesktop={isDesktop}
+            replyId={answer.replyId}
+            showAllReplies={showAllReplies}
+            threadId={threadId}
+            topicId={topicId}
+          />
+        )}
       />
       {fetchingReplies && <div className="fa fa-spinner loader" />}
       <style jsx>{style}</style>
     </div>
-  )
+  );
 };
 
 AnswerListItem.defaultProps = {
@@ -127,45 +108,6 @@ AnswerListItem.defaultProps = {
   showReplies: false,
   showAllReplies: false,
   isTopAnswer: false,
-};
-AnswerListItem.propTypes = {
-  answer: shape({
-    avatarURL: string.isRequired,
-    displayName: string.isRequired,
-    content: string.isRequired,
-    likesCount: number.isRequired,
-    replyCount: number.isRequired,
-    replyId: number.isRequired,
-  }),
-  answerReplies: shape({
-    page: number,
-    replies: arrayOf(shape({
-      avatarURL: string.isRequired,
-      displayName: string.isRequired,
-      content: string.isRequired,
-      likesCount: number.isRequired,
-      replyCount: number.isRequired,
-      replyId: number.isRequired,
-    })),
-  }),
-  modalActions: shape({
-    closeModal: func,
-    setModal: func,
-    showModal: func,
-  }).isRequired,
-  canReplyToAnswers: bool.isRequired,
-  fetchingReplies: bool,
-  isTopAnswer: bool,
-  objectId: string.isRequired,
-  showAllReplies: bool,
-  showReplies: bool,
-  submitReply: func.isRequired,
-  threadId: number.isRequired,
-  toggleAllAnswerReplies: func.isRequired,
-  toggleAnswers: func.isRequired,
-  topicId: number.isRequired,
-  intl: intlShape.isRequired,
-  updateQuestionsList: func.isRequired,
 };
 
 export default injectIntl(AnswerListItem);
