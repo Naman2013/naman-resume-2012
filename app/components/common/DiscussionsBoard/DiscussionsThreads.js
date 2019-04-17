@@ -11,8 +11,8 @@ import axios from 'axios';
 import { FormattedMessage } from 'react-intl';
 import DiscussionsItem from './DiscussionsItem';
 import CREATE_THREAD_FORM from './DiscussionsThreadFormInterface';
-import { submitReply } from 'services/discussions/submit-reply';
-import { THREAD_LIST } from 'services/discussions';
+import { submitReply } from 'app/services/discussions/submit-reply';
+import { THREAD_LIST } from 'app/services/discussions';
 import styles from './DiscussionsBoard.style';
 import messages from './DiscussionsThreads.messages';
 

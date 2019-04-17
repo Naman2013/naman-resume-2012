@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import SliderItem from './BootstrappedSliderItem';
-import { IMAGE_DETAILS } from 'services/image-details';
+import { IMAGE_DETAILS } from 'app/services/image-details';
 
 const {
   number,
