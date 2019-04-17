@@ -1,13 +1,12 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import isEmpty from 'lodash/fp/isEmpty';
 
 const ObservatoryBotMessage = props => {
-  if (isEmpty(props)) return null;
   const {
     message: { Message, DTG },
   } = props;
+  if (!Message) return null;
   return (
     <div className="observatorybot-message-wrapper">
       <div className="observatorybot-message" key={`${Message}-${DTG}`}>
