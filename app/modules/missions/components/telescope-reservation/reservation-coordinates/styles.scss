@@ -1,0 +1,17 @@
+@import '~app/styles/variables/index';
+
+.reservation-coordinates {
+  &.coordinates {
+    padding: 20px 0 0;
+  }
+
+  .coordinates-setup {
+    .steps {
+      margin: 40px 0 -40px;
+    }
+
+    .setup-header {
+      padding: 0 40px;
+    }
+  }
+}

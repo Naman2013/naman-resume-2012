@@ -33,6 +33,7 @@ import {
   makeByConstellationDataSelector,
   makeMissionsTelescopeFetchingSelector,
   makeByCatalogDataSelector,
+  makeByCoordinatesDataSelector,
 } from '../selectors';
 import { ACTION } from '../reducer';
 
@@ -46,6 +47,7 @@ const mapStateToProps = createStructuredSelector({
   bySlooh1000: makeBySlooh1000DataSelector(),
   byConstellation: makeByConstellationDataSelector(),
   byCatalog: makeByCatalogDataSelector(),
+  byCoordinates: makeByCoordinatesDataSelector(),
   isFetching: makeMissionsLoadingSelector(),
   isTelescopeFetching: makeMissionsTelescopeFetchingSelector(),
 });

@@ -484,3 +484,48 @@ export const makeTelescopeMissionListRefreshIntervalSelector = () =>
     makeByTelescopeSelector(),
     state => state.missionListRefreshInterval
   );
+
+// by coordinates
+
+export const makeByCoordinatesDataSelector = () =>
+  createSelector(
+    makeBySlooh1000CategoryListSelector(),
+    makeBySlooh1000CategoryListSelectOptsSelector(),
+    makeBySlooh1000SelectedCategorySlugSelector(),
+    makeByCatalogSelectedCatalogDataSelector(),
+    makeByCatalogDesignationSelector(),
+    makeByCatalogObjectDataSelector(),
+    makeByCatalogTelescopeDataSelector(),
+    makeByCatalogProcessingRecipeSelector(),
+    makeMissionsLoadingSelector(),
+    makeMissionsFirstSlot(),
+    makeReservedMissionData(),
+    makeReservedMissionSelector(),
+    (
+      categoryList,
+      categoryListOpts,
+      selectedCategorySlug,
+      designation,
+      objectData,
+      telescopeData,
+      processingRecipe,
+      isFetching,
+      missionSlot,
+      reservedMissionData,
+      reservedMission,
+    ) => {
+      return {
+        categoryList,
+        categoryListOpts,
+        selectedCategorySlug,
+        designation,
+        objectData,
+        telescopeData,
+        processingRecipe,
+        isFetching,
+        missionSlot,
+        reservedMissionData,
+        reservedMission,
+      };
+    }
+  );

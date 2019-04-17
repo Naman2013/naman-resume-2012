@@ -4,6 +4,7 @@ import Tab from 'react-bootstrap/Tab';
 import { ReservationSlooh1000 } from '../reservation-slooh-1000';
 import { ReservationConstellation } from '../reservation-constellation';
 import { ReservationCatalog } from '../reservation-catalog';
+import { ReservationCoordinates } from '../reservation-coordinates';
 import './styles.scss';
 
 export class ReservationModalTabs extends PureComponent {
@@ -26,6 +27,7 @@ export class ReservationModalTabs extends PureComponent {
       bySlooh1000,
       byConstellation,
       byCatalog,
+      byCoordinates,
       missionSlot,
       reservedMissionData,
       reservedMission,
@@ -129,7 +131,17 @@ export class ReservationModalTabs extends PureComponent {
             />
           </Tab>
           <Tab eventKey="coordinates" title="by coordinates">
-            By Coordinates
+            <ReservationCoordinates
+              {...byCoordinates}
+              getCategoryList={getCategoryList}
+              setCategory={setCategory}
+              missionSlot={missionSlot}
+              resetMissionsData={resetMissionsData}
+              reservedMissionData={reservedMissionData}
+              reservedMission={reservedMission}
+              selectedTelescope={selectedTelescope}
+              selectedSlot={selectedSlot}
+            />
           </Tab>
         </Tabs>
       </div>

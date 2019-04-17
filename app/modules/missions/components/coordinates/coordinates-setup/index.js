@@ -6,11 +6,13 @@ import Button from 'app/components/common/style/buttons/Button';
 import { ReservationModalCountdown } from '../../telescope-reservation/reservation-modal-countdown';
 import './styles.scss';
 
-export class CatalogSetup extends Component {
+export class CoordinatesSetup extends Component {
   render() {
     const {
-      catalogListOpts,
-      setCatalog,
+      categoryList,
+      categoryListOpts,
+      setCategory,
+      selectedCategorySlug,
       getMissionSlot,
       selectedCatalog,
       selectedCatalogData,
@@ -18,7 +20,7 @@ export class CatalogSetup extends Component {
       objectData,
       setDesignation,
       designation,
-      telescopeData,
+      telescopeData, 
       setProcessingRecipe,
       processingRecipe,
       disabled,
@@ -34,9 +36,9 @@ export class CatalogSetup extends Component {
     const { explanation } = objectData;
 
     return (
-      <div className="catalog-setup">
+      <div className="coordinates-setup">
         <div className="row setup-header">
-          <h2>Set up a catalog object mission reservation!</h2>
+          <h2>Set up by Coordinates!</h2>
           <p>{description}</p>
           {byTelescope && (
             <ReservationModalCountdown
@@ -59,20 +61,21 @@ export class CatalogSetup extends Component {
                 </Tooltip>
               }
             >
-              <span>Step 1: Choose Catalog</span>
+              <span>Step 1: Target object type</span>
             </OverlayTrigger>
             <Select
-              handleChange={setCatalog}
-              options={catalogListOpts}
+              handleChange={setCategory}
+              options={categoryListOpts}
+              renderOption={this.renderCategoryOption}
               placeholder="Choose"
-              value={selectedCatalog}
+              value={selectedCategorySlug}
               isDisabled={disabled}
             />
           </div>
         </div>
 
         <div className="steps row">
-          <div className="col-sm-6 step-2">
+          <div className="col-sm-12 step-2">
             <OverlayTrigger
               placement="top"
               overlay={
@@ -81,7 +84,7 @@ export class CatalogSetup extends Component {
                 </Tooltip>
               }
             >
-              <span>Step 2: Enter Designation</span>
+              <span>Step 2: Enter Coordinates</span>
             </OverlayTrigger>
 
             <textarea
@@ -108,18 +111,64 @@ export class CatalogSetup extends Component {
 
             <div className="processing-explanation">{explanation}</div>
           </div>
+        </div>
 
-          <div className="col-sm-6 step-3">
+        <div className="steps row">
+          <div className="col-sm-6 step-3-4">
+            <div className="step-3">
+              <OverlayTrigger
+                placement="top"
+                overlay={
+                  <Tooltip id="tooltip-step2">
+                    <span>Step 3 info</span>
+                  </Tooltip>
+                }
+              >
+                <span>Step 3: Target name (optional)</span>
+              </OverlayTrigger>
+
+              <textarea
+                className="textarea designation"
+                placeholder="Type Designation here"
+                value={designation}
+                onChange={e => setDesignation(e.target.value)}
+                disabled={disabled}
+              />
+            </div>
+
+            <div className="step-4">
+              <OverlayTrigger
+                placement="top"
+                overlay={
+                  <Tooltip id="tooltip-step2">
+                    <span>Step 4 info</span>
+                  </Tooltip>
+                }
+              >
+                <span>Step 4: Check Target Visibility</span>
+              </OverlayTrigger>
+
+              <Button
+                text="Check Visability"
+                onClickEvent={() => checkCatalogVisibility(designation)}
+                disabled={!selectedCatalog || !designation || disabled}
+              />
+
+              <div className="processing-explanation">{explanation}</div>
+            </div>
+          </div>
+
+          <div className="col-sm-6 step-5">
             <div className="step-header">
               <OverlayTrigger
                 placement="top"
                 overlay={
                   <Tooltip id="tooltip-step3">
-                    <span>Step 3 info</span>
+                    <span>Step 5 info</span>
                   </Tooltip>
                 }
               >
-                <span>Step 3: Image processing</span>
+                <span>Step 5: Image processing</span>
               </OverlayTrigger>
             </div>
 
@@ -155,11 +204,11 @@ export class CatalogSetup extends Component {
               placement="top"
               overlay={
                 <Tooltip id="tooltip-step4">
-                  <span>Step 4 info</span>
+                  <span>Step 6 info</span>
                 </Tooltip>
               }
             >
-              <span>Step 4: Click or tap to find</span>
+              <span>Step 6: Click or tap to define the mission</span>
             </OverlayTrigger>
           </div>
 
