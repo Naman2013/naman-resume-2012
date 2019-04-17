@@ -46,7 +46,6 @@ function setServerError(state, action) {
 }
 
 function getAllQuestionsSuccess(state, action) {
-  console.log(action);
   return {
     ...state,
     isFetching: false,
@@ -55,7 +54,6 @@ function getAllQuestionsSuccess(state, action) {
 }
 
 function getPageDataSuccess(state, action) {
-  console.log(action);
   return {
     ...state,
     isFetching: false,

@@ -27,6 +27,7 @@ const initialState = {
   allDisplayedAnswers: {},
   allAnswerSubmissions: {},
   submitToThreadId: null,
+  fetching: false,
 };
 
 export default createReducer(initialState, {
@@ -171,6 +172,7 @@ export default createReducer(initialState, {
     };
     return {
       ...state,
+      fetching: true,
       allAnswerSubmissions: newAnswerSubmissions,
     };
   },
@@ -225,6 +227,7 @@ export default createReducer(initialState, {
       allAnswerSubmissions: newAnswerSubmissions,
       allDisplayedAnswers: newAllDisplayedAnswers,
       submitToThreadId: threadId,
+      fetching: false,
     };
   },
   [SUBMIT_ANSWER_FOR_ASTRONOMER_QUESTION_FAIL](state, { payload }) {
@@ -236,6 +239,7 @@ export default createReducer(initialState, {
     };
     return {
       ...state,
+      fetching: false,
       allAnswerSubmissions: newAnswerSubmissions,
     };
   },

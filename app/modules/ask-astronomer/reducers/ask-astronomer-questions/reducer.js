@@ -72,6 +72,7 @@ export default createReducer(initialState, {
   [ASK_QUESTION_START](state) {
     return {
       ...state,
+      fetching: true,
     };
   },
   [ASK_QUESTION_SUCCESS](state, { payload }) {

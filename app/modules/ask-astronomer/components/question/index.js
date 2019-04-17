@@ -1,4 +1,5 @@
 import BackButton from 'app/atoms/BackButton';
+import { Spinner } from 'app/components/spinner/index';
 import AnswerList from 'app/modules/ask-astronomer/components/answer-list';
 import Card from 'app/modules/ask-astronomer/components/Card';
 import QuestionListItem from 'app/modules/ask-astronomer/components/question-list-item';
@@ -113,6 +114,7 @@ export class Question extends Component {
       // modalActions,
       // updateQuestionsList,
       allDisplayedAnswers,
+      answerFetching,
     } = this.props;
 
     if (!questions || !questions.length) {
@@ -161,7 +163,9 @@ export class Question extends Component {
     const fetching = fetchingAnswers[params.threadId];
 
     return (
-      <>
+      <div style={{ position: 'relative' }}>
+        <Spinner loading={answerFetching} />
+
         <BackButton />
 
         <Modal
@@ -222,7 +226,7 @@ export class Question extends Component {
             <style jsx>{style}</style>
           </div>
         </Container>
-      </>
+      </div>
     );
   }
 }

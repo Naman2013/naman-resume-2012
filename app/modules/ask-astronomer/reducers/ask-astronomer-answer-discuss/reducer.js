@@ -23,6 +23,7 @@ const initialState = {
   allReplies: {},
   allDisplayedReplies: {},
   allReplySubmissions: {},
+  fetching: false,
 };
 
 export default createReducer(initialState, {
@@ -33,6 +34,7 @@ export default createReducer(initialState, {
     return {
       ...state,
       fetchingObj: newFetching,
+      fetching: true,
     };
   },
   [FETCH_ASTRONOMER_ANSWER_REPLIES_SUCCESS](state, { payload }) {
@@ -61,6 +63,7 @@ export default createReducer(initialState, {
       fetchingObj: newFetching,
       allReplies: newAllReplies,
       allDisplayedReplies: newAllDisplayedReplies,
+      fetching: false,
       resultsCount,
     };
   },
@@ -75,6 +78,7 @@ export default createReducer(initialState, {
       allReplies: {},
       allDisplayedReplies: {},
       resultsCount: 0,
+      fetching: false,
     };
   },
   [TOGGLE_ALL_ASK_ASTRONOMER_ANSWER_REPLIES](state, { payload }) {

@@ -178,6 +178,7 @@ class AskAstronomer extends Component {
 
   submitQuestion = (params, callback) => {
     const { actions } = this.props;
+    this.closeModal();
     actions.askQuestion(params).then(res => callback(res.payload));
   };
 
@@ -253,11 +254,9 @@ class AskAstronomer extends Component {
     const { setModal, showModal, closeModal } = this;
     const modalActions = { setModal, showModal, closeModal };
 
-    console.log(questionsData);
-
     return (
       <div style={{ position: 'relative' }}>
-        <Spinner loading={fetching} />
+        {/*<Spinner loading={fetching} />*/}
 
         <DeviceContext.Consumer>
           {context => (
