@@ -8,6 +8,7 @@ import './moonlight-conditions.scss';
 
 export const MoonlightWidget = memo(function MoonlightWidget(props) {
   const [title, setTitle] = useState('');
+  const [relatedGuideUrl, setGuideUrl] = useState('');
   const [subwidgets, setSubwidgets] = useState([]);
 
   useEffect(() => {
@@ -20,6 +21,7 @@ export const MoonlightWidget = memo(function MoonlightWidget(props) {
       .then(res => {
         setTitle(res.data.title);
         setSubwidgets(res.data.subwidgets);
+        setGuideUrl(res.data.relatedGuideURL);
       });
   }, [props.moonlightWidget.widgetId]); //eslint-disable-line react-hooks/exhaustive-deps
 
@@ -44,7 +46,7 @@ export const MoonlightWidget = memo(function MoonlightWidget(props) {
           theme={{ width: '100%' }}
           text="View our guide"
           onClickEvent={() => {
-            browserHistory.push();
+            browserHistory.push(relatedGuideUrl);
           }}
         />
       </div>
