@@ -9,14 +9,21 @@ const ObsBotWidget = props => {
     shortFeed,
     title,
     noDescription,
+    noCounter,
+    noScroll,
   } = props;
   return (
     <div className="root">
-      <ModuleContainer title={title || 'Observatory Bot'}>
+      <ModuleContainer
+        title={title || 'Observatory Bot'}
+        titleIcon="i-logo_astronaut"
+      >
         <ObservatoryBot
           viewGroup={ViewGroup}
           teleSystem={teleSystem}
           shortFeed={shortFeed}
+          noCounter={noCounter}
+          noScroll={noScroll}
           noDescription={noDescription}
         />
       </ModuleContainer>

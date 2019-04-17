@@ -98,7 +98,7 @@ export default class ObservatoryBot extends Component {
 
   render() {
     let { messages, showDescription } = this.state;
-    const { shortFeed, noDescription } = this.props;
+    const { shortFeed, noDescription, noCounter, noScroll } = this.props;
     const observatoryBotContainerClassnames = classnames(
       'observatorybot-wrapper'
     );
@@ -108,7 +108,11 @@ export default class ObservatoryBot extends Component {
     messages.sort((a, b) => a.serverTime - b.serverTime);
     return (
       <div
-        style={{ minHeight: '350px', maxHeight: '350px', overflowY: 'scroll' }}
+        style={{
+          minHeight: '350px',
+          maxHeight: noScroll ? 'auto' : '350px',
+          overflowY: noScroll ? 'none' : 'scroll',
+        }}
         className="observatorybot-container"
       >
         {showDescription && !noDescription && (
@@ -123,10 +127,9 @@ export default class ObservatoryBot extends Component {
               message={message}
             />
           ))}
-          {messages && messages.length && (
+          {!noCounter && messages && messages.length && (
             <p className="messageCountHeading">{messages.length} Messages:</p>
           )}
-          {messages && messages.length && <hr className="messageDivider" />}
         </div>
       </div>
     );

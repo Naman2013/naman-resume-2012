@@ -5,6 +5,9 @@ import { faintShadow } from 'styles/variables/shadows';
 
 export default css`
   .module-header {
+    display: flex;
+    align-items: center;
+    padding-right: 40px;
     border-bottom: 5px solid ${lightHeadedAstronaut};
   }
 

@@ -9,15 +9,15 @@ const ObservatoryBotMessage = props => {
     message: { Message, DTG },
   } = props;
   return (
-    <Fragment>
+    <div className="observatorybot-message-wrapper">
       <div className="observatorybot-message" key={`${Message}-${DTG}`}>
-        <p dangerouslySetInnerHTML={{ __html: Message }} />
         <p className="observatorybot-message-time">
           {moment.utc(DTG).fromNow()}
         </p>
+        <p dangerouslySetInnerHTML={{ __html: Message }} />
       </div>
       <hr className="hr" />
-    </Fragment>
+    </div>
   );
 };
 

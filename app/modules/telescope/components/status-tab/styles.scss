@@ -8,6 +8,10 @@
     margin-bottom: 40px;
     box-shadow: 0 16px 30px -5px $shadows;
     padding: 40px;
+
+    .module-container {
+      min-height: 510px;
+    }
   }
 
 
@@ -20,7 +24,6 @@
   }
 
   .module-container {
-    min-height: 510px;
     margin: 0 10px 20px 10px;
   }
 }

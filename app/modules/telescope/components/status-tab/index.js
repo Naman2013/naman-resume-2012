@@ -59,10 +59,12 @@ export const StatusTab = props => {
       <Container>
         <Row>
           <Col lg={8}>
-            <ObservatoryInformation clockList={clockList} />
+            <ObservatoryInformation clockList={clockList} compactMode />
             <ObsBotWidget
               {...props}
               shortFeed
+              noScroll
+              noCounter
               noDescription
               title="This Just In"
               ViewGroup="conditions"
