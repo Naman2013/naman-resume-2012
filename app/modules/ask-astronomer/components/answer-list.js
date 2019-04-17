@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Button } from 'react-bootstrap';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -155,6 +156,9 @@ class AnswerList extends Component {
                   />
                 );
               })}
+              <div className="text-center mt-3 mb-3">
+                <Button>Load More</Button>
+              </div>
               {showPagination && (
                 <PaginateSet
                   handlePageChange={this.handlePageChange}
