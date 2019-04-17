@@ -7,6 +7,24 @@ import { ReservationModalCountdown } from '../../telescope-reservation/reservati
 import './styles.scss';
 
 export class CoordinatesSetup extends Component {
+  renderCategoryOption = props => {
+    const { categoryList } = this.props;
+    const item = categoryList[props.data.value];
+
+    return (
+      <div
+        {...props.innerProps}
+        className={`dropdown-opt coordinates-${item.itemType}`}
+      >
+        <div className="dropdown-name">
+          {item.itemIsEnabled && <img src={item.itemIconURL} alt="" />}
+          {props.children}
+        </div>
+        <div className="focused-ind" />
+      </div>
+    );
+  };
+
   render() {
     const {
       categoryList,
@@ -87,29 +105,52 @@ export class CoordinatesSetup extends Component {
               <span>Step 2: Enter Coordinates</span>
             </OverlayTrigger>
 
-            <textarea
-              className="textarea designation"
-              placeholder="Type Designation here"
-              value={designation}
-              onChange={e => setDesignation(e.target.value)}
-              disabled={disabled}
-            />
-
-            <div className="designation-format">
-              FORMAT: {selectedCatalog ? selectedCatalogData.catFormat : ''}
+            <div className='input-row'>
+              <div className="row-title col-md-1">RA:</div>
+              <div className="input-container col-md-11">
+                <div className="coordinates-input">
+                  <input /> h
+                </div>
+                <div className="coordinates-input">
+                  <input /> m
+                </div>
+                <div className="coordinates-input">
+                  <input /> s
+                </div>
+              </div>
             </div>
 
-            <div className="designation-example">
-              Example: {selectedCatalog ? selectedCatalogData.catExample : ''}
+            <div className='input-row'>
+              <div className="row-title col-md-1">DEC:</div>
+              <div className="input-container col-md-11">
+                <div className="coordinates-input">
+                  <input /> h
+                </div>
+                <div className="coordinates-input">
+                  <input /> m
+                </div>
+                <div className="coordinates-input">
+                  <input /> s
+                </div>
+              </div>
             </div>
 
-            <Button
-              text="Check Visibility"
-              onClickEvent={() => checkCatalogVisibility(designation)}
-              disabled={!selectedCatalog || !designation || disabled}
-            />
 
-            <div className="processing-explanation">{explanation}</div>
+            <div className='input-row second'>
+              <div className="row-title col-md-1">RA:</div>
+              <div className="input-container col-md-5">
+                <div className="coordinates-input">
+                  <input /> decimal
+                </div>
+              </div>
+
+              <div className="row-title col-md-1">DEC:</div>
+              <div className="input-container col-md-5">
+                <div className="coordinates-input">
+                  <input /> decimal
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 

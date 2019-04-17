@@ -3,11 +3,69 @@
 
 .coordinates-setup {
   .steps {
-    //margin: $parentPadding -($parentPadding) -($parentPadding);
     margin: 40px -40px -40px;
     border-top: 1px solid $hawkesBlue;
 
+    .step-1 {
+      .dropdown-opt {
+        &.coordinates-category {
+          cursor: default;
+
+          .focused-ind {
+            display: none;
+          }
+        }
+
+        &.coordinates-subcategory {
+          .dropdown-name {
+            text-transform: none;
+            display: flex;
+            align-items: center;
+
+            img {
+              width: 16px;
+              height: 16px;
+              margin-right: 10px;
+            }
+          }
+        }
+      }
+    }
+
     .step-2 {
+      .input-row {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: space-between;
+        align-items: center;
+        font-family: $primary-font;
+        font-size: 11px;
+        font-weight: 700;
+        line-height: 11px;
+        letter-spacing: 0.6px;
+        text-transform: uppercase;
+        color: $lightHeadedAstronaut;
+
+        &.second {
+          margin-top: 20px;
+        }
+
+        .row-title {
+          margin-top: 20px;
+        }
+
+        .input-container {
+          display: flex;
+          margin-top: 20px;
+
+          .coordinates-input {
+            text-transform: none;
+          }
+        }
+      }
+    }
+
+    .step-3-4 {
       border-right: 1px solid $hawkesBlue;
 
       button {
@@ -162,6 +220,30 @@
     background-color: $pale-grey;
     resize: none;
     outline: none;
+  }
+
+  .coordinates-input {
+    width: 30%;
+    margin-right: 30px;
+    display: flex;
+    align-items: center;
+
+    input {
+      max-width: 150px;
+      padding: 15px 20px;
+      margin-right: 10px;
+      font-size: 16px;
+      font-family: $secondary-font;
+      font-weight: 400;
+      line-height: 18px;
+      color: $astronaut;
+      border: none;
+      border-radius: 50px;
+      box-shadow: inset 0 0 7px 0 $pale-grey-two;
+      background-color: $pale-grey;
+      resize: none;
+      outline: none;
+    }
   }
 
   .designation-format,

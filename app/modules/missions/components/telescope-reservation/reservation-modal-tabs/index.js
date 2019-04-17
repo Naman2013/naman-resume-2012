@@ -141,6 +141,13 @@ export class ReservationModalTabs extends PureComponent {
               reservedMission={reservedMission}
               selectedTelescope={selectedTelescope}
               selectedSlot={selectedSlot}
+              getMissionSlot={getMissionSlot}
+              getTelescopeSlot={this.getTelescopeSlot}
+              extendedTimer={extendedTimer}
+              countdown={countdown}
+              onCountdownTick={this.onCountdownTick}
+              onCountdownComplete={onHide}
+              scrollToGrabbedMission={scrollToGrabbedMission}
             />
           </Tab>
         </Tabs>
