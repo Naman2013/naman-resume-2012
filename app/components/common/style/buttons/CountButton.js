@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
-import { DeviceContext } from 'providers/DeviceProvider';
+import cn from 'classnames';
+import { DeviceContext } from 'app/providers/DeviceProvider';
 import Button from './Button';
 import styles from './CountButton.style';
 
@@ -13,6 +13,7 @@ const CountButton = ({
   icon,
   isActive,
   onClickEvent,
+  mod,
 }) => (
   <div>
     <DeviceContext.Consumer>
@@ -20,7 +21,7 @@ const CountButton = ({
         <div>
           {context.isDesktop || alwaysShowCount ? (
             <button
-              className={classnames('button-container', { active: isActive })}
+              className={cn('button-container', mod, { active: isActive })}
               onClick={onClickEvent}
             >
               <img className="button-icon" src={icon} />
@@ -34,6 +35,7 @@ const CountButton = ({
               isActive={isActive}
               onClickEvent={onClickEvent}
               icon={icon}
+              mod={mod}
             />
           )}
         </div>
@@ -49,6 +51,7 @@ CountButton.propTypes = {
   count: oneOfType([string, number]),
   icon: string.isRequired,
   onClickEvent: func.isRequired,
+  mod: string,
 };
 CountButton.defaultProps = {
   alwaysShowCount: false,

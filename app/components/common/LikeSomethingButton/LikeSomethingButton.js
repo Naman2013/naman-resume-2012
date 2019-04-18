@@ -1,11 +1,12 @@
 /***********************************
-* V4 Like Button
-*
-*
-*
-***********************************/
+ * V4 Like Button
+ *
+ *
+ *
+ ***********************************/
 
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Modal from 'react-modal';
 import { likeReply } from 'app/services/discussions/like';
@@ -14,20 +15,13 @@ import { customModalStylesBlackOverlay } from 'app/styles/mixins/utilities';
 
 import styles from './LikeSomethingButton.style';
 
-const {
-  func,
-  bool,
-  number,
-  oneOfType,
-  shape,
-  string,
-} = PropTypes;
+const { func, bool, number, oneOfType, shape, string } = PropTypes;
 
 class LikeHeartButton extends Component {
   static propTypes = {
     customerId: oneOfType([number, string]).isRequired,
     likeHandler: func,
-    likeParams: shape({}),
+    mod: string,
     showLikePrompt: bool,
     alwaysShowCount: bool,
     likePrompt: string.isRequired,
@@ -64,13 +58,14 @@ class LikeHeartButton extends Component {
     openModal: null,
     alwaysShowCount: false,
     showLikePrompt: true,
-  }
+    mod: '',
+  };
 
   state = {
     isModalOpen: false,
     likesCount: this.props.likesCount,
     likePrompt: this.props.likePrompt,
-  }
+  };
 
   componentWillReceiveProps(nextProps) {
     if (this.props.likePrompt !== nextProps.likePrompt) {
@@ -86,7 +81,7 @@ class LikeHeartButton extends Component {
     }
   }
 
-  likeItem = (e) => {
+  likeItem = e => {
     e.preventDefault();
     const {
       likeHandler,
@@ -111,15 +106,10 @@ class LikeHeartButton extends Component {
         }
       });
     }
-  }
+  };
 
-  handleLikeResult = (res) => {
-    const {
-      apiError,
-      showLikePrompt,
-      count,
-      likePrompt,
-    } = res.data;
+  handleLikeResult = res => {
+    const { apiError, showLikePrompt, count, likePrompt } = res.data;
 
     if (!apiError) {
       this.setState(() => ({
@@ -133,50 +123,54 @@ class LikeHeartButton extends Component {
       }));
       this.setModal();
     }
-  }
+  };
 
   setModal = () => {
     if (this.props.openModal) {
       this.props.openModal(this.state.likePrompt);
-    } else  {
+    } else {
       // if no open modal function is passed, use component's modal
       this.setState({
         isModalOpen: true,
       });
     }
+  };
 
-
-  }
-
-  closeModal = (e) => {
+  closeModal = e => {
     e.preventDefault();
     this.setState({
       isModalOpen: false,
     });
-  }
+  };
 
   render() {
-
-    const {
-      likePrompt,
-      likesCount,
-      isModalOpen,
-    } = this.state;
-    return (<div>
-      <LikeButton onClickEvent={this.likeItem} count={likesCount} alwaysShowCount />
-      <Modal
-        ariaHideApp={false}
-        isOpen={isModalOpen}
-        style={customModalStylesBlackOverlay}
-        contentLabel="Like"
-        onRequestClose={this.closeModal}
-      >
-        <i className="fa fa-close" onClick={this.closeModal} />
-        <p className="" dangerouslySetInnerHTML={{ __html: likePrompt }} />
-      </Modal>
-      <style jsx>{styles}</style>
-    </div>);
+    const { likePrompt, likesCount, isModalOpen } = this.state;
+    const { mod, user } = this.props;
+    if (!user) return null;
+    return (
+      <Fragment>
+        <LikeButton
+          mod={mod}
+          onClickEvent={this.likeItem}
+          count={likesCount}
+          alwaysShowCount
+        />
+        <Modal
+          ariaHideApp={false}
+          isOpen={isModalOpen}
+          style={customModalStylesBlackOverlay}
+          contentLabel="Like"
+          onRequestClose={this.closeModal}
+        >
+          <i className="fa fa-close" onClick={this.closeModal} />
+          <p className="" dangerouslySetInnerHTML={{ __html: likePrompt }} />
+        </Modal>
+        <style jsx>{styles}</style>
+      </Fragment>
+    );
   }
 }
 
-export default LikeHeartButton;
+const mapStateToProps = ({ user }) => ({ user });
+
+export default connect(mapStateToProps)(LikeHeartButton);

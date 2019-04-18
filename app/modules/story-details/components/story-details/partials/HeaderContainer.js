@@ -62,7 +62,6 @@ const HeaderContainer = ({
             likePrompt={likePrompt}
             likeParams={likeParams}
             showLikePrompt={showLikePrompt}
-            user={user}
             customerId={authorInfo.customerId}
           />
         </div>

@@ -86,7 +86,6 @@ const Card = (props) => {
               likePrompt={likePrompt}
               likeParams={likeParams}
               showLikePrompt={showLikePrompt}
-              user={user}
               customerId={customerId}
             />
             {renderChildReplies ? <CommentButton

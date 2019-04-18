@@ -12,27 +12,27 @@ import { bindActionCreators } from 'redux';
 import { browserHistory } from 'react-router';
 import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 import { BURNHAMS_CORNER_CONTENT } from 'app/services/content';
-
-import {
-  fetchObjectDataAction,
-  fetchObjectSpecialistsAction,
-} from '../../modules/object-details/actions';
-
+import isEmpty from 'lodash/fp/isEmpty';
 import CenterColumn from 'app/components/common/CenterColumn';
 import TopicContent from 'app/components/guides/TopicContent';
 import Request from 'app/components/common/network/Request';
 
-import DeviceProvider from 'providers/DeviceProvider';
-import ObjectProfile from '../../components/object-details/ObjectProfile';
-import ObjectVisibilityProfile from '../../components/object-details/ObjectVisibilityProfile';
-import ObjectHowBig from '../../components/object-details/ObjectHowBig';
+import DeviceProvider from 'app/providers/DeviceProvider';
 import CardObservations from 'app/components/common/CardObservations';
 import SterlingTitle from 'app/components/common/titles/SterlingTitle';
 import BurnhamsCorner from 'app/components/common/BurnhamsCorner';
-import LailaTile from '../../components/common/tiles/LailaTile';
-import GuideTile from '../../components/common/tiles/guide-tile';
-import GenericButton from '../../components/common/style/buttons/Button';
-import MVPAstronomer from '../../components/common/MVPAstronomer/MVPAstronomer';
+import ObjectProfile from 'app/components/object-details/ObjectProfile';
+import ObjectVisibilityProfile from 'app/components/object-details/ObjectVisibilityProfile';
+import ObjectHowBig from 'app/components/object-details/ObjectHowBig';
+import LailaTile from 'app/components/common/tiles/LailaTile';
+import GuideTile from 'app/components/common/tiles/guide-tile';
+import GenericButton from 'app/components/common/style/buttons/Button';
+import MVPAstronomer from 'app/components/common/MVPAstronomer/MVPAstronomer';
+import {
+  fetchObjectDataAction,
+  fetchObjectSpecialistsAction,
+  fetchLikeAction,
+} from 'app/modules/object-details/actions';
 
 import messages from './ObjectDetails.messages';
 import style from './ObjectDetailsOverview.style';
@@ -41,6 +41,7 @@ import ObjectRelatedTile from './ObjectRelatedTile';
 const mapStateToProps = ({ objectDetails, appConfig, user }) => ({
   objectData: objectDetails.objectData,
   objectSpecialists: objectDetails.objectSpecialists,
+  imageDetails: objectDetails.imageDetails,
   appConfig,
   user,
 });
@@ -50,8 +51,9 @@ const mapDispatchToProps = dispatch => ({
     {
       fetchObjectDataAction,
       fetchObjectSpecialistsAction,
+      fetchLikeAction,
     },
-    dispatch,
+    dispatch
   ),
 });
 
@@ -93,18 +95,7 @@ const modelData = resp => ({
     subTitle: resp.objectTagline,
   },
   featuredObservation: {
-    title: <FormattedMessage {...messages.FeaturedObservation} />,
-    subTitle: <FormattedMessage {...messages.CommunityObservation} />,
-    show: resp.hasFeaturedObservation,
-    tileContent: {
-      title: resp.featuredObservation.title,
-      subTitle: resp.featuredObservation.subTitle,
-      description: resp.featuredObservation.description,
-      imageUrl: resp.featuredObservation.imageUrl,
-      hasLink: resp.featuredObservation.hasLink,
-      linkLabel: resp.featuredObservation.linkLabel,
-      linkUrl: resp.featuredObservation.linkUrl,
-    },
+    customerImageId: resp.featuredObservation.customerImageId,
   },
   objectDetails: {
     nameLabel: resp.displayNameLabel,
@@ -158,10 +149,10 @@ const modelData = resp => ({
 
 @connect(
   mapStateToProps,
-  mapDispatchToProps,
+  mapDispatchToProps
 )
 class Overview extends Component {
-  navigateByURl = (url) => {
+  navigateByURl = url => {
     browserHistory.push(url);
   };
 
@@ -170,8 +161,10 @@ class Overview extends Component {
       params: { objectId },
       objectData,
       objectSpecialists,
+      imageDetails,
       intl,
       user,
+      actions: { fetchLikeAction },
     } = this.props;
 
     const modeledResult = modelData(objectData);
@@ -182,21 +175,44 @@ class Overview extends Component {
     }
     return (
       <Fragment>
-        <TopicContent {...modeledResult.topicContentProps} objectId={objectId} user={user} />
+        <TopicContent
+          {...modeledResult.topicContentProps}
+          objectId={objectId}
+          user={user}
+        />
 
-        {modeledResult.featuredObservation.show && (
-          <section className="blue-tile-bg">
-            <DeviceProvider>
-              <SterlingTitle
-                {...modeledResult.featuredObservation}
-                theme={{ title: { color: 'white' }, subTitle: { color: 'white' } }}
-              />
-              <CenterColumn widths={['768px', '965px', '965px']}>
-                <CardObservations {...modeledResult.featuredObservation.tileContent} />
-              </CenterColumn>
-            </DeviceProvider>
-          </section>
-        )}
+        {modeledResult.featuredObservation.hasObservations ||
+          (!isEmpty(imageDetails) && (
+            <section className="blue-tile-bg">
+              <DeviceProvider>
+                <SterlingTitle
+                  title="Featured Observation"
+                  theme={{
+                    title: { color: 'white' },
+                    subTitle: { color: 'white' },
+                  }}
+                />
+                <CenterColumn widths={['768px', '965px', '965px']}>
+                  <CardObservations
+                    user={user}
+                    title={imageDetails.imageTitle}
+                    subTitle={imageDetails.displayName}
+                    description={imageDetails.observationLog}
+                    imageUrl={imageDetails.imageURL}
+                    linkUrl={imageDetails.linkUrl}
+                    likesCount={imageDetails.likesCount}
+                    likePrompt={imageDetails.likePrompt}
+                    observationTimeDisplay={imageDetails.observationTimeDisplay}
+                    showLikePrompt={imageDetails.showLikePrompt}
+                    handleLike={fetchLikeAction}
+                    customerImageId={
+                      modeledResult.featuredObservation.customerImageId
+                    }
+                  />
+                </CenterColumn>
+              </DeviceProvider>
+            </section>
+          ))}
 
         <section className="off-white-bg">
           <SterlingTitle {...modeledResult.statisticsTitle} />
@@ -224,9 +240,14 @@ class Overview extends Component {
               }}
             />
 
-            <ObjectVisibilityProfile defaultObsId={objectData.obsIdDefault} objectId={objectId} />
-            
-            {modeledResult.hasHowBigData && <ObjectHowBig objectId={objectId} />}
+            <ObjectVisibilityProfile
+              defaultObsId={objectData.obsIdDefault}
+              objectId={objectId}
+            />
+
+            {modeledResult.hasHowBigData && (
+              <ObjectHowBig objectId={objectId} />
+            )}
           </CenterColumn>
         </section>
 
@@ -237,7 +258,10 @@ class Overview extends Component {
               serviceURL={BURNHAMS_CORNER_CONTENT}
               withoutUser
               requestBody={{ objectId }}
-              render={({ fetchingContent, modeledResponses: { BURNHAMS_CORNER } }) =>
+              render={({
+                fetchingContent,
+                modeledResponses: { BURNHAMS_CORNER },
+              }) =>
                 !fetchingContent && (
                   <Fragment>
                     <SterlingTitle
@@ -278,7 +302,10 @@ class Overview extends Component {
           {modeledResult.relatedStory.show && (
             <section className="off-white-bg">
               <CenterColumn widths={['768px', '965px', '965px']}>
-                <ObjectRelatedTile {...modeledResult.relatedStory} showDescription={false} />
+                <ObjectRelatedTile
+                  {...modeledResult.relatedStory}
+                  showDescription={false}
+                />
               </CenterColumn>
             </section>
           )}
@@ -291,9 +318,13 @@ class Overview extends Component {
                   additionalContent={
                     <div
                       className="related-show"
-                      onClick={() => this.navigateByURl(modeledResult.relatedShow.linkUrl)}
+                      onClick={() =>
+                        this.navigateByURl(modeledResult.relatedShow.linkUrl)
+                      }
                     >
-                      <p className="related-show-title">{modeledResult.relatedShow.imageTitle} </p>
+                      <p className="related-show-title">
+                        {modeledResult.relatedShow.imageTitle}{' '}
+                      </p>
                       <GenericButton
                         theme={{ margin: '0 auto' }}
                         renderIcon={() => (

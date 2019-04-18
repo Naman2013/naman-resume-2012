@@ -35,6 +35,13 @@ export default css`
     width: 50px;
     height: 40px;
   }
+  
+  .button-container.no-border {
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
   .active.button-container {
     background-color: ${astronaut};

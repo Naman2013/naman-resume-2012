@@ -4,7 +4,7 @@ import { screenMedium } from 'app/styles/variables/breakpoints';
 
 export default css`
   .root {
-
+    padding-bottom: 40px;
   }
 
   @media ${screenMedium} {

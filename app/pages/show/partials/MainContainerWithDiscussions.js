@@ -60,12 +60,6 @@ class MainContainerWithDiscussions extends Component {
     showLikePrompt: false,
   };
 
-  state = {
-
-  }
-
-
-
   render() {
     const {
       aboutIsActive,
@@ -96,7 +90,6 @@ class MainContainerWithDiscussions extends Component {
           likePrompt={likePrompt}
           likeParams={likeParams}
           showLikePrompt={showLikePrompt}
-          user={user}
           customerId={user.cid}
         />
       </div>

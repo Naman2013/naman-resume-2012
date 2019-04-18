@@ -31,6 +31,13 @@ export default css`
     font-weight: bold;
     font-family: ${primaryFont};
   }
+  
+  .button-container.no-border {
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
   .button-container:active,
   .button-container:focus {
