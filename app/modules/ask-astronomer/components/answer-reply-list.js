@@ -1,9 +1,9 @@
 import uniqueId from 'lodash/uniqueId';
 import React, { Component } from 'react';
+import { Button } from 'react-bootstrap';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import PaginateSet from '../../../components/common/paginate-full-set/PaginateSet';
 import {
   replyToAnswer,
   updateAnswerRepliesDisplayList,
@@ -53,6 +53,25 @@ class AnswerReplyList extends Component {
       replyId,
       displayedReplies: paginatedSet,
     });
+  };
+
+  loadMore = (fullDataSet, page, count) => {
+    const endIndex = count * page;
+    const updatedDataSet = fullDataSet
+      .slice(0, endIndex)
+      .map(item => item.replyId);
+
+    const { actions, replyId } = this.props;
+    // make call to update page and displayed answers here
+    actions.updateAnswerRepliesDisplayList({
+      page,
+      replyId,
+      displayedReplies: updatedDataSet,
+    });
+  };
+
+  isLastPage = (totalCount, currentPage, numberOnPage) => {
+    return totalCount <= currentPage * numberOnPage;
   };
 
   render() {
@@ -113,7 +132,28 @@ class AnswerReplyList extends Component {
             </div>
           </div>
         ) : null}
-        {showPagination && (
+
+        <div className="text-center mt-3 mb-3">
+          {!this.isLastPage(
+            answerReplies.replies.length,
+            answerReplies.page,
+            count
+          ) && (
+            <Button
+              onClick={() =>
+                this.loadMore(
+                  answerReplies.replies,
+                  answerReplies.page + 1,
+                  count
+                )
+              }
+            >
+              Load More
+            </Button>
+          )}
+        </div>
+
+        {/*{showPagination && (
           <PaginateSet
             handlePageChange={this.handlePageChange}
             fullDataSet={answerReplies.replies}
@@ -121,7 +161,7 @@ class AnswerReplyList extends Component {
             totalCount={answerReplies.replies.length}
             page={answerReplies.page}
           />
-        )}
+        )}*/}
         <style jsx>{styles}</style>
       </div>
     );

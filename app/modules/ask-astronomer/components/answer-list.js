@@ -69,7 +69,7 @@ class AnswerList extends Component {
   };
 
   isLastPage = (totalCount, currentPage, numberOnPage) => {
-    return totalCount < currentPage * numberOnPage;
+    return totalCount <= currentPage * numberOnPage;
   };
 
   handlePageChange = (paginatedSet, page) => {
