@@ -76,6 +76,7 @@ const mapDispatchToProps = {
   setDesignation: ACTION.setDesignation,
   checkTargetVisibility,
   setProcessingRecipe: ACTION.setProcessingRecipe,
+  setCoordinatesData: ACTION.setCoordinatesData,
 };
 
 export default compose(

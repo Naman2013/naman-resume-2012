@@ -487,6 +487,12 @@ export const makeTelescopeMissionListRefreshIntervalSelector = () =>
 
 // by coordinates
 
+export const makeTelescopeCoordinatesDataSelector = () =>
+  createSelector(
+    makeByTelescopeSelector(),
+    state => state.coordinatesData
+  );
+
 export const makeByCoordinatesDataSelector = () =>
   createSelector(
     makeBySlooh1000CategoryListSelector(),
@@ -501,6 +507,7 @@ export const makeByCoordinatesDataSelector = () =>
     makeMissionsFirstSlot(),
     makeReservedMissionData(),
     makeReservedMissionSelector(),
+    makeTelescopeCoordinatesDataSelector(),
     (
       categoryList,
       categoryListOpts,
@@ -513,6 +520,7 @@ export const makeByCoordinatesDataSelector = () =>
       missionSlot,
       reservedMissionData,
       reservedMission,
+      coordinatesData,
     ) => {
       return {
         categoryList,
@@ -526,6 +534,7 @@ export const makeByCoordinatesDataSelector = () =>
         missionSlot,
         reservedMissionData,
         reservedMission,
+        coordinatesData,
       };
     }
   );

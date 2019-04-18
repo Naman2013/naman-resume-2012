@@ -50,24 +50,24 @@ export function withCatalog(WrappedComponent) {
         processingRecipe,
         selectedSlot,
         selectedTelescope,
+        byTelescope,
       } = this.props;
       const { catName, catalog } = selectedCatalogData;
       const { objectDec, objectRA } = objectData;
-      const { domeId, obsId, telescopeId } = selectedTelescope;
-      const { missionStart, scheduledMissionId } = selectedSlot;
 
       getMissionSlot({
         catName,
         catalog,
         designation,
-        domeId,
-        missionStart,
+        domeId: objectData.domeId || selectedTelescope.domeId,
+        missionStart: objectData.missionStart || selectedSlot.missionStart,
         objectDec,
         objectRA,
-        obsId,
+        obsId: objectData.obsId || selectedTelescope.obsId,
         processingRecipe: processingRecipe.presetOption,
-        scheduledMissionId,
-        telescopeId,
+        scheduledMissionId:
+          objectData.scheduledMissionId || selectedSlot.scheduledMissionId,
+        telescopeId: objectData.telescopeId || selectedTelescope.telescopeId,
         ...data,
       }).then(callback);
     };

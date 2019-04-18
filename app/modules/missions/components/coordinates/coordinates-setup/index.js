@@ -1,12 +1,13 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import { Select } from 'app/components/common/select';
 import Button from 'app/components/common/style/buttons/Button';
 import { ReservationModalCountdown } from '../../telescope-reservation/reservation-modal-countdown';
+import { CoordinatesCalculation } from '../coordinates-calculation';
 import './styles.scss';
 
-export class CoordinatesSetup extends Component {
+export class CoordinatesSetup extends PureComponent {
   renderCategoryOption = props => {
     const { categoryList } = this.props;
     const item = categoryList[props.data.value];
@@ -49,6 +50,8 @@ export class CoordinatesSetup extends Component {
       onCountdownTick,
       countdown,
       onCountdownComplete,
+      setCoordinatesData,
+      coordinatesData,
     } = this.props;
 
     const { explanation } = objectData;
@@ -92,67 +95,7 @@ export class CoordinatesSetup extends Component {
           </div>
         </div>
 
-        <div className="steps row">
-          <div className="col-sm-12 step-2">
-            <OverlayTrigger
-              placement="top"
-              overlay={
-                <Tooltip id="tooltip-step2">
-                  <span>Step 2 info</span>
-                </Tooltip>
-              }
-            >
-              <span>Step 2: Enter Coordinates</span>
-            </OverlayTrigger>
-
-            <div className='input-row'>
-              <div className="row-title col-md-1">RA:</div>
-              <div className="input-container col-md-11">
-                <div className="coordinates-input">
-                  <input /> h
-                </div>
-                <div className="coordinates-input">
-                  <input /> m
-                </div>
-                <div className="coordinates-input">
-                  <input /> s
-                </div>
-              </div>
-            </div>
-
-            <div className='input-row'>
-              <div className="row-title col-md-1">DEC:</div>
-              <div className="input-container col-md-11">
-                <div className="coordinates-input">
-                  <input /> h
-                </div>
-                <div className="coordinates-input">
-                  <input /> m
-                </div>
-                <div className="coordinates-input">
-                  <input /> s
-                </div>
-              </div>
-            </div>
-
-
-            <div className='input-row second'>
-              <div className="row-title col-md-1">RA:</div>
-              <div className="input-container col-md-5">
-                <div className="coordinates-input">
-                  <input /> decimal
-                </div>
-              </div>
-
-              <div className="row-title col-md-1">DEC:</div>
-              <div className="input-container col-md-5">
-                <div className="coordinates-input">
-                  <input /> decimal
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <CoordinatesCalculation setCoordinatesData={setCoordinatesData} coordinatesData={coordinatesData}/>
 
         <div className="steps row">
           <div className="col-sm-6 step-3-4">

@@ -52,6 +52,7 @@ export class ReservationModalTabs extends PureComponent {
       setProcessingRecipe,
       scrollToGrabbedMission,
       onHide,
+      setCoordinatesData,
     } = this.props;
     const { countdown } = this.state;
 
@@ -148,6 +149,8 @@ export class ReservationModalTabs extends PureComponent {
               onCountdownTick={this.onCountdownTick}
               onCountdownComplete={onHide}
               scrollToGrabbedMission={scrollToGrabbedMission}
+              setCoordinatesData={setCoordinatesData}
+              byTelescope
             />
           </Tab>
         </Tabs>

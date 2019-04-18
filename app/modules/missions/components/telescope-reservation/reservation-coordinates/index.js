@@ -52,6 +52,8 @@ class Coordinates extends Component {
       onCountdownTick,
       countdown,
       onCountdownComplete,
+      setCoordinatesData,
+      coordinatesData,
     } = this.props;
 
     return (
@@ -77,6 +79,8 @@ class Coordinates extends Component {
           countdown={countdown}
           onCountdownTick={onCountdownTick}
           onCountdownComplete={onCountdownComplete}
+          setCoordinatesData={setCoordinatesData}
+          coordinatesData={coordinatesData}
           description="Quickly schedule a Mission by specifying the celestial coordinates that you'd like to image. Check that those coordinates 
           are visivle from this observatory and telescope during this time slot - if so, we'll reserve the Mission for you."
           byTelescope
