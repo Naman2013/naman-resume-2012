@@ -3,6 +3,12 @@
 // todo GLOBAL STYLES
 .modal-open .modal {
   background-color: rgba(#0a0c0e, 0.96);
+
+  .btn {
+    background-color: transparent;
+    border-color: #fff;
+    color: #fff;
+  }
 }
 
 .modal-back-btn {
