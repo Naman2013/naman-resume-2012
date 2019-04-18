@@ -73,6 +73,7 @@ module.exports = {
   },
   'globals': {
     'global': true,
+    'cookieDomain': true,
     'document': true,
     'window': true,
     'describe': true,

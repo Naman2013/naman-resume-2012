@@ -183,7 +183,7 @@ class HeroInspire extends Component {
         </div>
 
         <ScrollForMore />
-        <style>{`
+        <style jsx>{`
           img.divider-image {
             margin-right: 4px;
             display: block;

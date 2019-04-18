@@ -1,6 +1,11 @@
 import css from 'styled-jsx/css';
 import { primaryFont, secondaryFont } from 'styles/variables/fonts';
-import { romance, hawkesBlue, astronaut, blue_tile_canvas } from 'styles/variables/colors_tiles_v4';
+import {
+  romance,
+  hawkesBlue,
+  astronaut,
+  blue_tile_canvas,
+} from 'styles/variables/colors_tiles_v4';
 import { screenMedium } from 'styles/variables/breakpoints';
 
 export default css`
@@ -11,7 +16,7 @@ export default css`
     text-align: center;
     box-sizing: border-box;
     padding: 10px;
-    box-shadow: 0px 0px 8px 1px rgba(65,86,113,.2);
+    box-shadow: 0px 0px 8px 1px rgba(65, 86, 113, 0.2);
     color: ${astronaut};
     list-style-type: none;
     background-color: ${romance};
@@ -69,8 +74,8 @@ export default css`
 
   .icon {
     position: absolute;
-    width: 100px;
-    height: 100px;
+    width: 96px;
+    height: 96px;
     margin: 0 auto;
     border-radius: 50%;
     background: url(${blue_tile_canvas});

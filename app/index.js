@@ -1,5 +1,4 @@
-import 'babel-polyfill'; // todo remove me, use babel 7
-import 'event-source-polyfill/eventsource.min';
+import 'event-source-polyfill/src/eventsource';
 import AppRouter from 'app/router';
 
 import React from 'react';
@@ -11,22 +10,11 @@ import './monitoring';
 import I18nProvider from './providers/I18nProvider';
 // redux store
 import store from './store';
-import 'animate.css/animate.css';
-// Bootstrap 4
-import './styles/bootstrap/index.scss';
-
-import './styles/animations.scss';
-import './styles/app.scss';
-import './styles/interface.css';
-
-import './styles/static.scss';
 // utilities
 import './utils/manual-polyfills';
 
-// icons
-import 'assets/icons/iconmoon/style.css';
-
-import 'react-tippy/dist/tippy.css';
+// styles
+import './styles/index.scss';
 
 ReactDOM.render(
   <I18nProvider>

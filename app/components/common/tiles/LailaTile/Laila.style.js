@@ -1,6 +1,10 @@
 import css from 'styled-jsx/css';
 import { primaryFont, secondaryFont } from 'styles/variables/fonts';
-import { white_tile, astronaut, blue_tile_canvas } from 'styles/variables/colors_tiles_v4';
+import {
+  white_tile,
+  astronaut,
+  blue_tile_canvas,
+} from 'styles/variables/colors_tiles_v4';
 import { screenMedium } from 'styles/variables/breakpoints';
 
 export default css`
@@ -27,7 +31,7 @@ export default css`
   }
 
   .center-line {
-    border-right: 1px solid #D9DEE4;
+    border-right: 1px solid #d9dee4;
     width: 50%;
     height: 60px;
   }
@@ -35,7 +39,7 @@ export default css`
   .border {
     width: 115px;
     height: 115px;
-    border: 1px dashed #D9DEE4;
+    border: 1px dashed #d9dee4;
     border-radius: 50%;
     margin: 0 auto;
     position: relative;
@@ -43,8 +47,8 @@ export default css`
 
   .icon {
     position: absolute;
-    width: 100px;
-    height: 100px;
+    width: 96px;
+    height: 96px;
     margin: 0 auto;
     border-radius: 50%;
     background: url(${blue_tile_canvas});
@@ -66,7 +70,7 @@ export default css`
     font-family: ${secondaryFont};
     font-weight: 300;
     font-size: 18px;
-    border-bottom: 1px solid #D9DEE4;
+    border-bottom: 1px solid #d9dee4;
   }
 
   .button-container {

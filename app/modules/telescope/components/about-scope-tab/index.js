@@ -1,52 +1,48 @@
 import React, { Fragment } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
+import isEmpty from 'lodash/fp/isEmpty';
+import { browserHistory } from 'react-router';
 import Btn from 'app/atoms/Btn';
 import Icon from 'app/atoms/Icon';
 import { Desktop, Tablet, Mobile } from 'app/components/common/Responsive';
 import RecommendedObservations from 'app/components/common/RecommendedObservationsSlider';
-import img from './about-scope-temp.png';
 
-export const CardObsContext = React.createContext({});
+export const AboutScope = props => {
+  const {
+    teleName,
+    obsShortName,
+    obsHeroURL,
+    obsDescription,
+    instrAbout,
+    instrRelatedGuideUrl,
+    imageList,
+  } = props;
+  if (!teleName) return null;
 
-export const AboutScope = () => {
   const pic = (
-    <div className="image">
-      <img src={img} alt="About this scope" />
+    <div className="i-image">
+      <img src={obsHeroURL} alt={teleName} />
     </div>
   );
 
   const desc = [
     { id: '1', title: 'Telescope type', text: 'High-Magnification' },
-    { id: '2', title: 'Observatory', text: 'Canary Islands' },
-    { id: '3', title: 'Pier', text: 'Canary One' },
+    { id: '2', title: 'Observatory', text: obsShortName },
+    { id: '3', title: 'Pier', text: teleName },
   ];
-
-  const text = (
-    <p className="i-text">
-      Nam dapibus nisl lore vitae elit fringilla dolar rutrume lorei rutrume
-      lorei massa sent Vesti seti lorem sollic iitudine lorem elem entum aenean
-      lorem sollic iitudine lorem elementum rutrum doleil neeque lor sem
-      pretiume metus quis mollis nisl nunc eter so massa sent Vesti seti lorem
-      sollic iitudine lorem elem entum sem pretium metu.
-    </p>
-  );
 
   const preTitle = <h4 className="h-4 text-uppercase">Slooh telescope</h4>;
 
-  const mainTitle = <h1 className="h-1">Canary One</h1>;
+  const mainTitle = <h1 className="h-1">{teleName}</h1>;
 
-  const article = (
-    <Fragment>
-      {text} {text}
-    </Fragment>
-  );
+  const onViewGuideClick = () => browserHistory.push(instrRelatedGuideUrl);
 
   const description = desc.map(el => {
     return (
       <Fragment key={el.id}>
         <div className="inner-gap-20 pad-40">
           <h4 className="h-4 text-uppercase">{el.title}</h4>
-          <p className="i-text">{el.text}</p>
+          <p className="i-text top-bot-10">{el.text}</p>
         </div>
         <hr className="hr" />
       </Fragment>
@@ -59,7 +55,7 @@ export const AboutScope = () => {
         {pic}
         <div className="pad-40 no-bottom-pad">{mainTitle}</div>
         <div className="pad-40 btn-group">
-          <Btn>View guide</Btn>
+          <Btn onClick={() => onViewGuideClick()}>View guide</Btn>
           <Btn mod="circle">
             <Icon i="plus" />
           </Btn>
@@ -102,24 +98,25 @@ export const AboutScope = () => {
           {pic}
           {description}
           <div className="pad-40 btn-group">
-            <Btn>View our guide</Btn>
-            <Btn mod="circle">
-              <Icon i="ellipsis-h" />
-            </Btn>
+            <Btn onClick={() => onViewGuideClick()}>View our guide</Btn>
           </div>
         </Col>
 
         <Col lg={8} className="i-box-white">
-          <article>
+          <article className="pad-100">
             {preTitle}
             {mainTitle}
-            {article}
+            <article>
+              <div className="i-text">
+                <p className="text">{obsDescription}</p>
+                <p className="text">{instrAbout}</p>
+              </div>
+            </article>
           </article>
         </Col>
       </Fragment>
     );
   };
-
   return (
     <Fragment>
       <Container as="section" className="animated fadeIn faster top-bot-40">
@@ -129,21 +126,22 @@ export const AboutScope = () => {
           <Mobile>{renderMobile()}</Mobile>
         </Row>
       </Container>
-      <section className="i-box-blue-tile pad-100">
-        <div className="wrap wrap-850">
-          <header className="head">
-            <h2 className="h-2 h-2-bold h-2-white h-2-primary">
-              Featured observations
-            </h2>
-            <p className="i-text i-text-18 i-text-white">
-              Community Observations
-            </p>
-          </header>
-          <CardObsContext.Provider value="small">
-            <RecommendedObservations />
-          </CardObsContext.Provider>
-        </div>
-      </section>
+
+      {!isEmpty(imageList) && (
+        <section className="i-box-blue-tile">
+          <div className="i-wrapper">
+            <header className="head">
+              <h2 className="h-2 h-2-bold h-2-white h-2-primary">
+                Featured observations
+              </h2>
+              <p className="i-text i-text-18 i-text-white">
+                Community Observations
+              </p>
+            </header>
+            <RecommendedObservations imageList={imageList} />
+          </div>
+        </section>
+      )}
     </Fragment>
   );
 };

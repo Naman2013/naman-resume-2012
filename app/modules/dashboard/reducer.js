@@ -3,7 +3,7 @@ import cloneDeep from 'lodash/cloneDeep';
 import {
   FETCH_DASHBOARD_START,
   FETCH_DASHBOARD_SUCCESS,
-  FETCH_DASHBOARD_FAIL,
+  FETCH_DASHBOARD_FAILURE,
 } from './actions';
 import {
   SET_AVATAR_SUCCESS,
@@ -31,7 +31,7 @@ export default createReducer(initialState, {
       profile: payload,
     };
   },
-  [FETCH_DASHBOARD_FAIL](state, { payload }) {
+  [FETCH_DASHBOARD_FAILURE](state, { payload }) {
     return {
       ...state,
       error: true,

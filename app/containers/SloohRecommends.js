@@ -12,7 +12,7 @@ import {
   missionGetCards,
   missionConfirmOpen,
   missionConfirmClose,
-  missionGetInfo,
+  // missionGetInfo,
   missionGetUpdates } from '../modules/missions-old';
 
 const { element, func, object } = PropTypes;
@@ -24,7 +24,7 @@ const { element, func, object } = PropTypes;
     missionGetCards,
     missionConfirmOpen,
     missionConfirmClose,
-    missionGetInfo,
+    // missionGetInfo,
     missionGetUpdates,
   }, dispatch),
 }))
@@ -51,7 +51,7 @@ export default class SloohRecommends extends Component {
     */
   openConfirmModal(type, card) {
     if (type == 'piggyBack') {
-      this.props.actions.missionGetInfo(type, card);
+      // this.props.actions.missionGetInfo(type, card);
     } else {
       // TODO: replace empty object with mission object from API
       this.props.actions.missionConfirmOpen(type, card);
