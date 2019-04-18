@@ -118,7 +118,7 @@ $parentPadding: 40px;
   }
 }
 
-@include media-breakpoint-down(sm) {
+@include media-breakpoint-down(md) {
   .slooh-1000-setup {
     .steps {
       .step-1,

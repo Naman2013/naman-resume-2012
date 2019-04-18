@@ -53,6 +53,7 @@ export class ReservationModalTabs extends PureComponent {
       scrollToGrabbedMission,
       onHide,
       setCoordinatesData,
+      setTargetName,
     } = this.props;
     const { countdown } = this.state;
 
@@ -136,6 +137,9 @@ export class ReservationModalTabs extends PureComponent {
               {...byCoordinates}
               getCategoryList={getCategoryList}
               setCategory={setCategory}
+              setTargetName={setTargetName}
+              checkTargetVisibility={checkTargetVisibility}
+              setProcessingRecipe={setProcessingRecipe}
               missionSlot={missionSlot}
               resetMissionsData={resetMissionsData}
               reservedMissionData={reservedMissionData}

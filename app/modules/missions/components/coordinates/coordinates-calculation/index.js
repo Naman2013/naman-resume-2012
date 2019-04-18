@@ -51,25 +51,8 @@ function removeMinusSign(value) {
 }
 
 export class CoordinatesCalculation extends PureComponent {
-  state = {
-    ra_h: 0,
-    ra_m: 0,
-    ra_s: 0,
-    ra: this.props.objectRA || 0,
-
-    dec_d: 90,
-    dec_m: 0,
-    dec_s: 0,
-    dec: this.props.objectDec || 0,
-  };
-
-  componentDidMount() {
-    this.handleRAChange({ target: { value: this.state.ra } });
-    this.handleDECChange({ target: { value: this.state.dec } });
-  }
-
   recalculateRA = (newRAValue) => {
-    const { setCoordinatesData } = this.props;
+    const { setCoordinatesData, coordinatesData } = this.props;
     let ra = cleanCalcInput(newRAValue);
     let ra_h = Math.trunc(ra);
     let ra_m = Math.trunc((ra - ra_h) * 60);
@@ -98,6 +81,7 @@ export class CoordinatesCalculation extends PureComponent {
     }
 
     setCoordinatesData({
+      ...coordinatesData,
       ra_h,
       ra_m,
       ra_s,
@@ -106,10 +90,11 @@ export class CoordinatesCalculation extends PureComponent {
   }
 
   handleRAChange = event => {
-    const { setCoordinatesData } = this.props;
+    const { setCoordinatesData, coordinatesData } = this.props;
     const newRA = removeMinusSign(event.target.value);
     if (!newRA) {
       setCoordinatesData({
+        ...coordinatesData,
         ra: newRA,
       });
       return;
@@ -119,10 +104,11 @@ export class CoordinatesCalculation extends PureComponent {
   };
 
   handleFieldChange = ({ field, value, allowNegativeValues }) => {
-    const { setCoordinatesData } = this.props;
+    const { setCoordinatesData, coordinatesData } = this.props;
     const numberValue = numberOnly(value);
     if (validNonCalculatedField(numberValue, { allowNegativeValues })) {
       setCoordinatesData({
+        ...coordinatesData,
         [field]: numberValue,
       });
     } else {
@@ -139,13 +125,14 @@ export class CoordinatesCalculation extends PureComponent {
   }
 
   handleSecondsChange = ({ field, valueRAW }) => {
-    const { setCoordinatesData } = this.props;
+    const { setCoordinatesData, coordinatesData } = this.props;
     let value = trim(valueRAW);
 
     // if this is an empty string, set the field without running calculations
     // this is a UX feature to allow users to backspace all content
     if (value === '') {
       setCoordinatesData({
+        ...coordinatesData,
         [field]: value,
       });
     }
@@ -165,7 +152,7 @@ export class CoordinatesCalculation extends PureComponent {
   }
 
   recalculateDEC = (newDec) => {
-    const { setCoordinatesData } = this.props;
+    const { setCoordinatesData, coordinatesData } = this.props;
     let dec = cleanCalcInput(newDec);
 
     const minutesDivisor = 60;
@@ -206,6 +193,7 @@ export class CoordinatesCalculation extends PureComponent {
     }
 
     setCoordinatesData({
+      ...coordinatesData,
       dec,
       dec_d: degrees,
       dec_m: minutes,
@@ -214,10 +202,11 @@ export class CoordinatesCalculation extends PureComponent {
   }
 
   handleDECChange = (event) => {
-    const { setCoordinatesData } = this.props;
+    const { setCoordinatesData, coordinatesData } = this.props;
     const newDEC = event.target.value;
     if (!newDEC) {
       setCoordinatesData({
+        ...coordinatesData,
         dec: newDEC,
       });
       return;
@@ -227,10 +216,10 @@ export class CoordinatesCalculation extends PureComponent {
   }
 
   calculateFields = (values) => {
-    const { setCoordinatesData } = this.props;
+    const { setCoordinatesData, coordinatesData } = this.props;
     let { dec, dec_d, dec_m, dec_s, ra_h, ra_m, ra_s } = Object.assign(
       {},
-      this.state,
+      coordinatesData,
       values
     );
     let ra;
@@ -291,7 +280,6 @@ export class CoordinatesCalculation extends PureComponent {
     const { coordinatesData } = this.props;
     const { ra_h, ra_m, ra_s, ra, dec_d, dec_m, dec_s, dec } = coordinatesData;
 
-    console.log('coordinatesData', coordinatesData);
     return (
       <div className="steps row">
         <div className="col-sm-12 step-2">

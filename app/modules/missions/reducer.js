@@ -39,7 +39,7 @@ export const TYPE = constants('profile', [
   '~GET_TELESCOPE_SLOT',
   '~SET_SELECTED_SLOT',
   '~SET_COORDINATES_DATA',
-
+  '~SET_TARGET_NAME',
 ]);
 export const ACTION = actions(TYPE);
 
@@ -92,6 +92,20 @@ export const initialState = {
     missionType: null,
   },
 
+  byCoordinates: {
+    coordinatesData: {
+      ra_h: 0,
+      ra_m: 0,
+      ra_s: 0,
+      ra: 0,
+      dec_d: 90,
+      dec_m: 0,
+      dec_s: 0,
+      dec: 0,
+    },
+    targetName: '',
+  },
+
   byTelescope: {
     telescopeList: [],
     selectedTelescope: {},
@@ -101,7 +115,6 @@ export const initialState = {
     missionListRefreshInterval: 0,
     grabedTelescopeSlot: {},
     selectedSlot: {},
-    coordinatesData: {},
   },
 };
 
@@ -178,6 +191,7 @@ export default handleActions(
     [TYPE.GET_TELESCOPE_SLOT_ERROR]: setServerError,
     [TYPE.SET_SELECTED_SLOT]: setSelectedSlot,
     [TYPE.SET_COORDINATES_DATA]: setCoordinatesData,
+    [TYPE.SET_TARGET_NAME]: setTargetName,
   },
   initialState
 );
@@ -283,6 +297,19 @@ function resetMissionsData(state) {
       telescopeData: {},
       processingRecipe: {},
       missionType: null,
+    },
+    byCoordinates: {
+      coordinatesData: {
+        ra_h: 0,
+        ra_m: 0,
+        ra_s: 0,
+        ra: 0,
+        dec_d: 90,
+        dec_m: 0,
+        dec_s: 0,
+        dec: 0,
+      },
+      targetName: '',
     },
   };
 }
@@ -571,15 +598,24 @@ function setSelectedSlot(state, action) {
   };
 }
 
+// by Coordinates
+
 function setCoordinatesData(state, action) {
   return {
     ...state,
-    byTelescope: {
-      ...state.byTelescope,
-      coordinatesData: {
-        ...state.byTelescope.coordinatesData,
-        ...action.payload
-      },
+    byCoordinates: {
+      ...state.byCoordinates,
+      coordinatesData: action.payload,
     },
   };
+}
+
+function setTargetName(state, action) {
+  return {
+    ...state,
+    byCoordinates: {
+      ...state.byCoordinates,
+      targetName: action.payload,
+    },
+  }
 }

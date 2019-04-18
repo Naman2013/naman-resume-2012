@@ -22,7 +22,7 @@ class Coordinates extends Component {
       {
         callSource: 'byTelescopeV4',
         uniqueId,
-        missionType: 'catalog',
+        missionType: 'coord',
       },
       scrollToGrabbedMission
     );
@@ -40,8 +40,8 @@ class Coordinates extends Component {
       selectedCatalogData,
       reservedMissionData,
       objectData,
-      setDesignation,
-      designation,
+      setTargetName,
+      targetName,
       telescopeData,
       setProcessingRecipe,
       processingRecipe,
@@ -66,10 +66,10 @@ class Coordinates extends Component {
           getMissionSlot={this.getMissionSlot}
           selectedCatalog={selectedCatalog}
           selectedCatalogData={selectedCatalogData}
-          checkCatalogVisibility={checkTargetVisibility}
+          checkTargetVisibility={checkTargetVisibility}
           objectData={objectData}
-          designation={designation}
-          setDesignation={setDesignation}
+          targetName={targetName}
+          setTargetName={setTargetName}
           telescopeData={telescopeData}
           setProcessingRecipe={setProcessingRecipe}
           processingRecipe={processingRecipe}

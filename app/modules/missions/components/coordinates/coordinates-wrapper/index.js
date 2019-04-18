@@ -5,37 +5,30 @@ import React, { Component } from 'react';
 
 export function withCoordinates(WrappedComponent) {
   return class extends Component {
-    getCategoryList = ({ callSource }) => {
-      const { getCategoryList } = this.props;
-      getCategoryList({ callSource });
-    };
-
     checkCatalogVisibility = designation => {
       const { checkCatalogVisibility, selectedCatalogData } = this.props;
       const { catName, catalog } = selectedCatalogData;
       checkCatalogVisibility({ catName, catalog, designation });
     };
 
-    checkTargetVisibility = designation => {
+    checkTargetVisibility = (ra, dec) => {
       const {
         checkTargetVisibility,
         selectedCatalogData,
         selectedSlot,
         selectedTelescope,
       } = this.props;
-      const { catName, catalog } = selectedCatalogData;
       const { domeId, obsId, telescopeId } = selectedTelescope;
       const { missionStart } = selectedSlot;
 
       checkTargetVisibility(
         {
-          catName,
-          catalog,
-          designation,
           domeId,
           missionStart,
           obsId,
-          missionType: 'catalog',
+          ra,
+          dec,
+          missionType: 'coord',
         },
         telescopeId
       );
@@ -44,22 +37,18 @@ export function withCoordinates(WrappedComponent) {
     getMissionSlot = (data, callback) => {
       const {
         getMissionSlot,
-        selectedCatalogData,
-        designation,
+        targetName,
         objectData,
         processingRecipe,
         selectedSlot,
         selectedTelescope,
       } = this.props;
-      const { catName, catalog } = selectedCatalogData;
       const { objectDec, objectRA } = objectData;
       const { domeId, obsId, telescopeId } = selectedTelescope;
       const { missionStart, scheduledMissionId } = selectedSlot;
 
       getMissionSlot({
-        catName,
-        catalog,
-        designation,
+        targetName,
         domeId,
         missionStart,
         objectDec,
@@ -117,8 +106,6 @@ export function withCoordinates(WrappedComponent) {
       return (
         <WrappedComponent
           {...this.props}
-          getCatalogList={this.getCatalogList}
-          checkCatalogVisibility={this.checkCatalogVisibility}
           checkTargetVisibility={this.checkTargetVisibility}
           cancelMissionSlot={this.cancelMissionSlot}
           reserveMissionSlot={this.reserveMissionSlot}

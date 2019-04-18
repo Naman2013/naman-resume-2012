@@ -487,18 +487,30 @@ export const makeTelescopeMissionListRefreshIntervalSelector = () =>
 
 // by coordinates
 
-export const makeTelescopeCoordinatesDataSelector = () =>
+export const makeByCoordinatesSelector = () =>
   createSelector(
-    makeByTelescopeSelector(),
+    selectMissions,
+    state => state.byCoordinates
+  );
+
+export const makeByCoordinatesCoordinatesDataSelector = () =>
+  createSelector(
+    makeByCoordinatesSelector(),
     state => state.coordinatesData
+  );
+
+export const makeByCoordinatesTargetNameSelector = () =>
+  createSelector(
+    makeByCoordinatesSelector(),
+    state => state.targetName
   );
 
 export const makeByCoordinatesDataSelector = () =>
   createSelector(
+    makeByCoordinatesCoordinatesDataSelector(),
     makeBySlooh1000CategoryListSelector(),
     makeBySlooh1000CategoryListSelectOptsSelector(),
     makeBySlooh1000SelectedCategorySlugSelector(),
-    makeByCatalogSelectedCatalogDataSelector(),
     makeByCatalogDesignationSelector(),
     makeByCatalogObjectDataSelector(),
     makeByCatalogTelescopeDataSelector(),
@@ -507,8 +519,9 @@ export const makeByCoordinatesDataSelector = () =>
     makeMissionsFirstSlot(),
     makeReservedMissionData(),
     makeReservedMissionSelector(),
-    makeTelescopeCoordinatesDataSelector(),
+    makeByCoordinatesTargetNameSelector(),
     (
+      coordinatesData,
       categoryList,
       categoryListOpts,
       selectedCategorySlug,
@@ -520,7 +533,7 @@ export const makeByCoordinatesDataSelector = () =>
       missionSlot,
       reservedMissionData,
       reservedMission,
-      coordinatesData,
+      targetName,
     ) => {
       return {
         categoryList,
@@ -535,6 +548,7 @@ export const makeByCoordinatesDataSelector = () =>
         reservedMissionData,
         reservedMission,
         coordinatesData,
+        targetName,
       };
     }
   );

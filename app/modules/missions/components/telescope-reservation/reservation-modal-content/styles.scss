@@ -26,3 +26,11 @@
     text-transform: uppercase;
   }
 }
+
+@include media-breakpoint-down(md) {
+  .telescope-reservation-modal-content {
+    .reserved-mission {
+      margin-top: 50px;
+    }
+  }
+}

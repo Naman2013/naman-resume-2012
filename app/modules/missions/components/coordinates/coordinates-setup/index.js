@@ -35,10 +35,10 @@ export class CoordinatesSetup extends PureComponent {
       getMissionSlot,
       selectedCatalog,
       selectedCatalogData,
-      checkCatalogVisibility,
+      checkTargetVisibility,
       objectData,
-      setDesignation,
-      designation,
+      targetName,
+      setTargetName,
       telescopeData, 
       setProcessingRecipe,
       processingRecipe,
@@ -55,6 +55,7 @@ export class CoordinatesSetup extends PureComponent {
     } = this.props;
 
     const { explanation } = objectData;
+    const { ra, dec } = coordinatesData;
 
     return (
       <div className="coordinates-setup">
@@ -98,7 +99,7 @@ export class CoordinatesSetup extends PureComponent {
         <CoordinatesCalculation setCoordinatesData={setCoordinatesData} coordinatesData={coordinatesData}/>
 
         <div className="steps row">
-          <div className="col-sm-6 step-3-4">
+          <div className="col-md-6 step-3-4">
             <div className="step-3">
               <OverlayTrigger
                 placement="top"
@@ -113,9 +114,9 @@ export class CoordinatesSetup extends PureComponent {
 
               <textarea
                 className="textarea designation"
-                placeholder="Type Designation here"
-                value={designation}
-                onChange={e => setDesignation(e.target.value)}
+                placeholder="Type target name here"
+                value={targetName}
+                onChange={e => setTargetName(e.target.value)}
                 disabled={disabled}
               />
             </div>
@@ -134,15 +135,15 @@ export class CoordinatesSetup extends PureComponent {
 
               <Button
                 text="Check Visability"
-                onClickEvent={() => checkCatalogVisibility(designation)}
-                disabled={!selectedCatalog || !designation || disabled}
+                onClickEvent={() => checkTargetVisibility(ra, dec)}
+                disabled={!selectedCategorySlug || !ra || !dec || disabled}
               />
 
               <div className="processing-explanation">{explanation}</div>
             </div>
           </div>
 
-          <div className="col-sm-6 step-5">
+          <div className="col-md-6 step-5">
             <div className="step-header">
               <OverlayTrigger
                 placement="top"
@@ -183,7 +184,7 @@ export class CoordinatesSetup extends PureComponent {
         </div>
 
         <div className="steps row">
-          <div className="col-sm-6 step-4">
+          <div className="col-sm-6 step-6">
             <OverlayTrigger
               placement="top"
               overlay={
@@ -196,14 +197,13 @@ export class CoordinatesSetup extends PureComponent {
             </OverlayTrigger>
           </div>
 
-          <div className="col-sm-6 step-4">
+          <div className="col-sm-6 step-6">
             <Button
               text={byTelescope ? 'Define Mission' : 'Find a Mission'}
               onClickEvent={getMissionSlot}
               disabled={
-                !designation ||
                 !processingRecipe.presetOption ||
-                !selectedCatalog ||
+                !selectedCategorySlug ||
                 disabled
               }
             />

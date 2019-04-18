@@ -95,7 +95,7 @@ $parentPadding: 40px;
   }
 }
 
-@include media-breakpoint-down(sm) {
+@include media-breakpoint-down(md) {
   .constellation-setup {
     .steps {
       .step-1,
