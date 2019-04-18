@@ -1,14 +1,13 @@
 import RecommendedQuestSliderItem from 'app/components/common/RecommendedQuestsSlider/partials/RecommendedQuestItem';
-import BigShowTile from 'app/components/common/tiles/BigShowTile';
 import GuideTile from 'app/components/common/tiles/guide-tile';
 import LailaTile from 'app/components/common/tiles/LailaTile';
-import StoryTile from 'app/components/common/tiles/StoryTile';
 import { Modal } from 'app/components/modal';
 import ObjectRelatedTile from 'app/containers/object-details/ObjectRelatedTile';
 import { AvailbleMissionTile } from 'app/modules/missions/components/available-mission-tile';
 import React, { Component, Fragment } from 'react';
-import './styles.scss';
 import { Button } from 'react-bootstrap';
+import { browserHistory } from 'react-router';
+import './styles.scss';
 
 export class MissionSuccessModal extends Component {
   render() {
@@ -104,15 +103,41 @@ export class MissionSuccessModal extends Component {
 
               <div className="row">
                 <div className="col-sm-12 text-center">
-                  <StoryTile {...relatedStory} />
+                  <ObjectRelatedTile
+                    {...relatedStory}
+                    showDescription={false}
+                  />
                 </div>
               </div>
             </Fragment>
           )}
 
-          {/*{hasRelatedShow && <BigShowTile {...relatedShow} />}*/}
+          {hasRelatedShow && (
+            <div className="mt-3">
+              <ObjectRelatedTile
+                {...relatedShow}
+                additionalContent={
+                  <div
+                    role="presentation"
+                    className="related-show"
+                    onClick={() => browserHistory.push(relatedShow.linkUrl)}
+                  >
+                    <p className="related-show-title">
+                      {relatedShow.imageTitle}{' '}
+                    </p>
+                    <Button>
+                      <img
+                        src="https://vega.slooh.com/assets/v4/icons/play_icon.svg"
+                        alt="Play"
+                      />
+                    </Button>
+                  </div>
+                }
+              />
+            </div>
+          )}
 
-          <div className="text-center">
+          <div className="text-center mt-3">
             <Button onClick={onHide}>{finishedButtonCaption}</Button>
           </div>
         </div>
