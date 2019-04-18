@@ -8,6 +8,7 @@ import './styles.scss';
 export class Telescope extends Component {
   state = {
     reservationModalVisible: false,
+    refreshCountdownLive: false,
   };
 
   componentDidMount() {
@@ -16,7 +17,9 @@ export class Telescope extends Component {
 
   getMissionSlotDates = () => {
     const { getMissionSlotDates, selectedTelescope } = this.props;
-    getMissionSlotDates(selectedTelescope);
+    this.setState({ refreshCountdownLive: false });
+
+    getMissionSlotDates(selectedTelescope).then(() => this.setState({ refreshCountdownLive: true }));
   };
 
   getTelescopeSlot = mission => {
@@ -60,7 +63,7 @@ export class Telescope extends Component {
       missionListRefreshInterval,
     } = this.props;
 
-    const { reservationModalVisible } = this.state;
+    const { reservationModalVisible, refreshCountdownLive } = this.state;
 
     return (
       <div className="by-telescope">
@@ -79,13 +82,15 @@ export class Telescope extends Component {
             getTelescopeSlot={this.getTelescopeSlot}
           />
 
-          {reservationModalVisible ? (
+          {reservationModalVisible && (
             <ReservationModal
               onHide={this.reservationModalHide}
               onComplete={this.reservationComplete}
               show
             />
-          ) : (
+          )}
+
+          {!reservationModalVisible && refreshCountdownLive && (
             <div className="mission-refresh-countdown">
               <Countdown
                 date={Date.now() + missionListRefreshInterval * 1000}
