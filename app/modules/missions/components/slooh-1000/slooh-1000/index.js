@@ -54,8 +54,11 @@ export class Slooh1000 extends Component {
 
   cancelMissionSlot = () => {
     const { cancelMissionSlot } = this.props;
+    const { successModalShow } = this.state;
 
-    cancelMissionSlot({ callSource: 'bySlooh1000V4' });
+    if (!successModalShow) {
+      cancelMissionSlot({ callSource: 'bySlooh1000V4' });
+    }
   };
 
   setCategory = value => {
