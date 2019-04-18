@@ -54,6 +54,7 @@ const DiscussionsCard = (props) => {
     title,
     threadId,
     user,
+    showTitle,
   } = props;
 
   return (
@@ -67,7 +68,7 @@ const DiscussionsCard = (props) => {
           <span className="date">{moment.utc(creationDate).fromNow()}</span>
         </div>
         <br/>
-        <div className="title" dangerouslySetInnerHTML={{ __html: title }} />
+        {showTitle == true && <div className="title" dangerouslySetInnerHTML={{ __html: title }} />}
         <div className="content" dangerouslySetInnerHTML={{ __html: content }} />
         <div className="explainantion-container">
           <div className="explainantion-item">{moment.utc(creationDate).fromNow()}</div>
