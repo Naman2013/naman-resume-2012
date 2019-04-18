@@ -43,8 +43,10 @@ export class MissionSuccessModal extends Component {
         <div className="modal-wrapper">
           <h1 className="modal-h">{confirmationHeader}</h1>
           <p className="modal-p">{congratulationsText}</p>
-          <p className="modal-p">{reservedMissionData.tip}</p>
-          <AvailbleMissionTile missionSlot={missionSlot} />
+          <AvailbleMissionTile
+            missionSlot={missionSlot}
+            tip={reservedMissionData.tip}
+          />
 
           {showGoodiesHeader && <h2 className="modal-h2">{goodiesHeader}</h2>}
 
