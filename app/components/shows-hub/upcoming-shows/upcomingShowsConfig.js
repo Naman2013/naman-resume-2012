@@ -19,7 +19,7 @@ const getSliderConfiguration = () =>
           slidesToShow: 1,
           slidesToScroll: 1,
           centerMode: true,
-          centerPadding: '50px',
+          centerPadding: '0px',
         },
       },
     ],

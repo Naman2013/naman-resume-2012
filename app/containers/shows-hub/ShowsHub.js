@@ -152,6 +152,7 @@ class Shows extends Component {
                                   screenMedium
                                   screenLarge
                                   screenXLarge
+                                  screenSmall
                                 >
                                   <UpcomingShows
                                     validateResponseAccess={actions.validateResponseAccess}
