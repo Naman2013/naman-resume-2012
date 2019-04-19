@@ -17,5 +17,6 @@ export default css`
     height: 200px;
     overflow: hidden;
     border-radius: 50%;
+    background-size: 100% 100% !important;
   }
 `;

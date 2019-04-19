@@ -5,7 +5,7 @@
   overflow: hidden;
 
   .observatorybot-wrapper {
-    padding: 20px 30px 120px 30px;
+    padding: 20px 30px 30px 30px;
     color: #B9D9D9;
     position: relative;
     width: 100%;
@@ -20,10 +20,6 @@
       color: #415671;
     }
 
-    .messageDivider {
-      background-color: #415671;
-    }
-
     .Description {
       margin-bottom: 30px;
       font-size: 18px;
@@ -35,13 +31,24 @@
       }
     }
 
+    .observatorybot-message-wrapper {
+
+    }
+
     .observatorybot-message {
-      align-self: flex-end;
-      width: 100%;
-      padding: 5px 0;
-      font-size: 18px;
+      margin: 30px 0;
+      font-size: 15px;
       font-family: $secondary-font;
       color: #415671;
+
+      &-time {
+        display: flex;
+        justify-content: flex-end;
+        margin-bottom: 15px;
+        font: 700 10px $primary-font;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+      }
     }
   }
 

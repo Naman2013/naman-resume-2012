@@ -7,12 +7,20 @@ import style from './AbelList.style';
 
 const AbelList = ({ list, iconList, theme }) => (
   <Fragment>
-    <DisplayAtBreakpoint screenMedium screenSmall>
-      <HorizontalList theme={theme.horizontalList} list={list} />
+    <DisplayAtBreakpoint screenMedium>
+      <HorizontalList
+        theme={theme.horizontalList}
+        list={list}
+        iconList={iconList}
+      />
     </DisplayAtBreakpoint>
 
-    <DisplayAtBreakpoint screenLarge screenXLarge>
-      <VerticalList theme={theme.verticalList} list={list} iconList={iconList} />
+    <DisplayAtBreakpoint screenSmall screenLarge screenXLarge>
+      <VerticalList
+        theme={theme.verticalList}
+        list={list}
+        iconList={iconList}
+      />
     </DisplayAtBreakpoint>
     <style jsx>{style}</style>
   </Fragment>

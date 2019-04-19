@@ -23,7 +23,7 @@ export default css`
     flex-grow: 1;
     font-weight: bold;
     padding: ${VERTICAL_PADDING}px 0;
-    padding-left: 30px;
+    padding-left: 15px;
     font-size: ${FONT_SIZE}px;
     border-right: 1px solid ${glitter};
     letter-spacing: 0.4px;
@@ -35,5 +35,10 @@ export default css`
 
   .bullet-image {
     margin-right: 10px;
+  }
+
+  .list-container {
+    display: flex;
+    float: left;
   }
 `;

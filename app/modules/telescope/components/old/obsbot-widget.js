@@ -1,18 +1,35 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { ImagePortalViewer } from './index';
+import ObservatoryBot from 'app/components/telescope-details/ObservatoryBot/ObservatoryBot';
 import { ModuleContainer } from './module-container';
 import ObservatoryBot from 'app/components/telescope-details/ObservatoryBot/ObservatoryBot';
 
-const ObsBotWidget = (props) => (
-  <div className="root">
-    <ModuleContainer title="Observatory Bot">
-      <ObservatoryBot
-        viewGroup={props.ViewGroup}
-        teleSystem={props.currentTelescope.teleSystem}
-      />
-    </ModuleContainer>
-  </div>
-);
+const ObsBotWidget = props => {
+  const {
+    ViewGroup,
+    currentTelescope: { teleSystem },
+    shortFeed,
+    title,
+    noDescription,
+    noCounter,
+    noScroll,
+  } = props;
+  return (
+    <div className="root">
+      <ModuleContainer
+        title={title || 'Observatory Bot'}
+        titleIcon="i-logo_astronaut"
+      >
+        <ObservatoryBot
+          viewGroup={ViewGroup}
+          teleSystem={teleSystem}
+          shortFeed={shortFeed}
+          noCounter={noCounter}
+          noScroll={noScroll}
+          noDescription={noDescription}
+        />
+      </ModuleContainer>
+    </div>
+  );
+};
 
 export { ObsBotWidget };

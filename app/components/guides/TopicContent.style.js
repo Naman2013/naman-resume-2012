@@ -33,6 +33,7 @@ export default css`
     .guide-container {
       margin: 0;
       margin-top: 10px;
+      display:flex;
     }
   }
 

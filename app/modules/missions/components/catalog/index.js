@@ -99,8 +99,9 @@ export class Catalog extends Component {
 
   cancelMissionSlot = () => {
     const { cancelMissionSlot, missionSlot } = this.props;
+    const { successModalShow } = this.state;
 
-    if (missionSlot && missionSlot.scheduledMissionId) {
+    if (!successModalShow && missionSlot && missionSlot.scheduledMissionId) {
       cancelMissionSlot({
         callSource: 'byCatalog',
         grabType: 'notarget',

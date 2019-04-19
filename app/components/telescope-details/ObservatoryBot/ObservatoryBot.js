@@ -1,14 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import uniqueId from 'lodash/uniqueId';
-import noop from 'lodash/noop';
-import cloneDeep from 'lodash/cloneDeep';
+import ObsBotWidget from 'app/constants/obsbot-widget';
 import ObservatoryBotDescription from './ObservatoryBotDescription';
 import ObservatoryBotMessage from './ObservatoryBotMessage';
-import s from './ObservatoryBot.scss';
-
-// TODO: display a timestamp with each message
 
 export default class ObservatoryBot extends Component {
   static propTypes = {
@@ -19,14 +14,10 @@ export default class ObservatoryBot extends Component {
     viewGroup: '',
   };
 
-  constructor(props) {
-    super(props);
-  }
-
   state = {
     messages: [],
     showDescription: true,
-  }
+  };
 
   componentDidMount() {
     this.bootstrapSSE();
@@ -38,9 +29,8 @@ export default class ObservatoryBot extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.teleSystem !== this.props.teleSystem) {
-      this.resetSSE();
-    }
+    const { teleSystem } = this.props;
+    if (nextProps.teleSystem !== teleSystem) this.resetSSE();
   }
 
   componentWillUnmount() {
@@ -54,22 +44,33 @@ export default class ObservatoryBot extends Component {
     this.sseSource = new EventSource(observatoryBotUrl);
     this.sseSource.addEventListener(
       'initial',
-      event => this.handleInitialBotMessages(event.data), false);
+      event => this.handleInitialBotMessages(event.data),
+      false
+    );
 
     this.sseSource.addEventListener(
       'message',
-      event => this.handleBotMessages(event.data), false);
+      event => this.handleBotMessages(event.data),
+      false
+    );
   }
 
   tearDownSSE() {
     this.sseSource.close();
-    this.sseSource.removeEventListener('initial', this.handleInitialBotMessages, false);
-    this.sseSource.removeEventListener('message', this.handleBotMessages, false);
+    this.sseSource.removeEventListener(
+      'initial',
+      this.handleInitialBotMessages,
+      false
+    );
+    this.sseSource.removeEventListener(
+      'message',
+      this.handleBotMessages,
+      false
+    );
   }
 
   resetSSE() {
     this.setState({
-      latestMessage: null,
       messages: [],
     });
     this.tearDownSSE();
@@ -78,96 +79,57 @@ export default class ObservatoryBot extends Component {
 
   handleInitialBotMessages(data) {
     const { viewGroup } = this.props;
-
     const incomingMessages = JSON.parse(data)[viewGroup];
-
-    let latestMessage = '';
-    let theMessages = [ ];
-
-    //check to see if there are any valid messages (not heartbeat)
-    let hasValidMessages = false;
-    incomingMessages.map(theMessage => {
-
-      const notHeartbeat = theMessage.MessageID !== 'HEARTBEAT';
-
-      if (notHeartbeat) {
-        hasValidMessages = true;
-      }
-    });
-
-    if (hasValidMessages === true) {
-      theMessages.unshift('<hr size="1" width="100%"/>');
-    }
-
-    incomingMessages.map(theMessage => {
-      const notHeartbeat = theMessage.MessageID !== 'HEARTBEAT';
-
-      if (notHeartbeat) {
-        const theBotMessage = theMessage.DTG + "<br/>" + theMessage.Message;
-        //const theBotMessage = theMessage.Message;
-        theMessages.unshift(theBotMessage);
-      }
-    });
-
+    incomingMessages.filter(theMessage => theMessage.MessageID !== 'HEARTBEAT');
     this.setState({
-      messages: [...theMessages],
+      messages: [...incomingMessages],
     });
   }
 
   handleBotMessages(data) {
     const { viewGroup } = this.props;
-
+    const { messages } = this.state;
     const incomingMessages = JSON.parse(data)[viewGroup];
-
-    let latestMessage = '';
-    let theMessages = [ ];
-
-    //check to see if there are any valid messages (not heartbeat)
-    let hasValidMessages = false;
-    incomingMessages.map(theMessage => {
-      const notHeartbeat = theMessage.MessageID !== 'HEARTBEAT';
-
-      if (notHeartbeat) {
-        hasValidMessages = true;
-      }
-    });
-
-    incomingMessages.map(theMessage => {
-      const notHeartbeat = theMessage.MessageID !== 'HEARTBEAT';
-
-      if (notHeartbeat) {
-        const theBotMessage = theMessage.DTG + "<br/>" + theMessage.Message;
-        //const theBotMessage = theMessage.Message;
-        theMessages.push(theBotMessage);
-      }
-    });
-
-    if (hasValidMessages === true) {
-      theMessages.push('<hr className="messageDivider" width="100%"/>');
-    }
-
+    incomingMessages.filter(theMessage => theMessage.MessageID !== 'HEARTBEAT');
     this.setState({
-      messages: [...this.state.messages, ...theMessages],
+      messages: [...messages, ...incomingMessages],
     });
   }
 
   render() {
-    const {
-    } = this.props;
-
-    const observatoryBotContainerClassnames = classnames('observatorybot-wrapper');
-
+    let { messages, showDescription } = this.state;
+    const { shortFeed, noDescription, noCounter, noScroll } = this.props;
+    const observatoryBotContainerClassnames = classnames(
+      'observatorybot-wrapper'
+    );
+    if (shortFeed) {
+      messages = messages.slice(0, ObsBotWidget.SHORTFEED_MESSAGES_NUMBER);
+    }
+    messages.sort((a, b) => a.serverTime - b.serverTime);
     return (
       <div
-        style={{'minHeight': '350px', 'maxHeight': '350px', 'overflowY': 'scroll'}}
-        className="observatorybot-container">
-        {this.state.showDescription === true && <div style={{'padding': '20px'}}><ObservatoryBotDescription displayFlag={this.state.showDescription}/></div>}
+        style={{
+          minHeight: '350px',
+          maxHeight: noScroll ? 'auto' : '350px',
+          overflowY: noScroll ? 'none' : 'scroll',
+        }}
+        className="observatorybot-container"
+      >
+        {showDescription && !noDescription && (
+          <div style={{ padding: '20px' }}>
+            <ObservatoryBotDescription displayFlag={showDescription} />
+          </div>
+        )}
         <div className={observatoryBotContainerClassnames}>
-          {
-            this.state.messages.map(message => <ObservatoryBotMessage key={message} message={message} />)
-          }
-          {this.state.messages.length > 0 && <p className="messageCountHeading">{this.state.messages.length} Messages:</p>}
-          {this.state.messages.length > 0 && <hr className="messageDivider" width="100%"/>}
+          {messages.map(message => (
+            <ObservatoryBotMessage
+              key={`${message.Message}-${message.serverTime}`}
+              message={message}
+            />
+          ))}
+          {!noCounter && messages && messages.length && (
+            <p className="messageCountHeading">{messages.length} Messages:</p>
+          )}
         </div>
       </div>
     );

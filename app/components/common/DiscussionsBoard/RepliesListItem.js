@@ -35,6 +35,7 @@ const RepliesListItem = props => (
       likeHandler={likeReply}
       isDesktop={props.isDesktop}
       allowReplies={false}
+      showTitle={false}
     />
     <style jsx>{styles}</style>
   </div>
