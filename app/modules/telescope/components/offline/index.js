@@ -4,9 +4,45 @@ import { StatusTab } from 'app/modules/telescope/components/status-tab';
 import { Container, Nav, Tab } from 'react-bootstrap';
 import './styles.scss';
 
-export class TelescopeOffline extends Component {
+export default class TelescopeOffline extends Component {
+  componentDidMount = () => {
+    const {
+      fetchAllWidgets,
+      currentTelescope,
+      currentObservatory,
+      fetchWeatherSatellite,
+      fetchDomeCamAction,
+      fetchObservatoryWebcam,
+    } = this.props;
+    const {
+      DayNightBarPanelWidgetId,
+      obsId,
+      DayNightMapWidgetId,
+      SatelliteWidgetId,
+      DomecamWidgetId,
+      FacilityWebcamWidgetId,
+      AllskyWidgetId,
+    } = currentObservatory;
+    fetchAllWidgets({
+      obsId,
+      DayNightBarPanelWidgetId,
+      DayNightMapWidgetId,
+      AllskyWidgetId,
+      DomecamWidgetId,
+    });
+    fetchWeatherSatellite({ obsId, SatelliteWidgetId });
+    fetchDomeCamAction({ obsId, DomecamWidgetId });
+    fetchObservatoryWebcam({
+      obsId,
+      facilityWebcamWidgetId: FacilityWebcamWidgetId,
+    });
+  };
+
   render() {
     const {
+      domeCam,
+      allSkyCam,
+      facilityWebcam,
       currentTelescope,
       currentObservatory,
       currentInstrument,
@@ -49,7 +85,16 @@ export class TelescopeOffline extends Component {
           {/* TABS CONTENT */}
           <Tab.Content>
             <Tab.Pane eventKey="STATUS">
-              <StatusTab clockList={allObservatoryTelescopeStatus.clockList} />
+              <StatusTab
+                domeCam={domeCam}
+                allSkyCam={allSkyCam}
+                facilityWebcam={facilityWebcam}
+                obsId={currentObservatory.obsId}
+                allSkyWidgetID={currentObservatory.AllskyWidgetId}
+                clockList={allObservatoryTelescopeStatus.clockList}
+                currentTelescope={currentTelescope}
+                currentObservatory={currentObservatory}
+              />
             </Tab.Pane>
             <Tab.Pane eventKey="ABOUT_THIS_SCOPE">
               <AboutScope
@@ -58,7 +103,9 @@ export class TelescopeOffline extends Component {
                 obsShortName={currentObservatory.obsShortName}
                 obsDescription={currentObservatory.obsDescription}
                 instrAbout={currentInstrument.instrAbout}
+                instrTelescopeType={currentInstrument.instrTelescopeType}
                 instrRelatedGuideUrl={currentInstrument.instrRelatedGuideUrl}
+                instrTelescopeShortName={currentInstrument.instrTelescopeShortName}
               />
             </Tab.Pane>
           </Tab.Content>

@@ -1,10 +1,10 @@
 import { Box } from 'app/modules/missions/components/box';
 import React, { Component } from 'react';
-import { Slooh1000Setup } from '../slooh-1000-setup';
 import { AvailbleMissionTile } from '../../available-mission-tile';
-import { MissionSuccessModal } from '../../mission-success-modal';
-import { ExplanationModal } from '../../explanation-modal';
 import { ExpireCountdown } from '../../expire-countdown';
+import { ExplanationModal } from '../../explanation-modal';
+import { MissionSuccessModal } from '../../mission-success-modal';
+import { Slooh1000Setup } from '../slooh-1000-setup';
 import './styles.scss';
 
 export class Slooh1000 extends Component {
@@ -51,8 +51,11 @@ export class Slooh1000 extends Component {
 
   cancelMissionSlot = () => {
     const { cancelMissionSlot } = this.props;
+    const { successModalShow } = this.state;
 
-    cancelMissionSlot({ callSource: 'bySlooh1000V4' });
+    if (!successModalShow) {
+      cancelMissionSlot({ callSource: 'bySlooh1000V4' });
+    }
   };
 
   setCategory = value => {

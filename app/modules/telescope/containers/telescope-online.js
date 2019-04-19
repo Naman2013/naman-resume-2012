@@ -11,6 +11,7 @@ import {
   makeDomeCamSelector,
   makeFacilityWebcamSelector,
   makeWeatherSatelliteSelector,
+  makeMoonlightBarSelector,
 } from 'app/modules/telescope/selectors';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
@@ -22,6 +23,7 @@ const mapStateToProps = createStructuredSelector({
   weatherSatellite: makeWeatherSatelliteSelector(),
   domeCam: makeDomeCamSelector(),
   facilityWebcam: makeFacilityWebcamSelector(),
+  moonlightBar: makeMoonlightBarSelector(),
 });
 
 const mapDispatchToProps = {

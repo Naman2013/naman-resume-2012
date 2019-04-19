@@ -54,6 +54,7 @@ const DiscussionsCard = (props) => {
     title,
     threadId,
     user,
+    showTitle,
   } = props;
 
   return (
@@ -66,8 +67,9 @@ const DiscussionsCard = (props) => {
           </div>
           <span className="date">{moment.utc(creationDate).fromNow()}</span>
         </div>
-
-        <div className="content" dangerouslySetInnerHTML={{ __html: title || content }} />
+        <br/>
+        {showTitle == true && <div className="title" dangerouslySetInnerHTML={{ __html: title }} />}
+        <div className="content" dangerouslySetInnerHTML={{ __html: content }} />
         <div className="explainantion-container">
           <div className="explainantion-item">{moment.utc(creationDate).fromNow()}</div>
           <div className="explainantion-item"><FormattedMessage {...messages.Likes} />: {likesCount}     <FormattedMessage {...messages.Comments} />: {replyToponlyCount}</div>
@@ -81,7 +83,6 @@ const DiscussionsCard = (props) => {
               likeParams={likeParams}
               openModal={openModal}
               showLikePrompt={showLikePrompt}
-              user={user}
               customerId={customerId}
             />
             {renderChildReplies ? <CommentButton

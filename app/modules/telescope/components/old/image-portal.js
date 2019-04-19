@@ -7,8 +7,7 @@ const ImagePortal = ({ src }) => (
     <div
       className="image-clip"
       style={{
-        background: `url(${src}) no-repeat 0 0`,
-        backgroundSize: 'cover',
+        background: `url(${src}) no-repeat 0 0`
       }}
     />
     <style jsx>{style}</style>

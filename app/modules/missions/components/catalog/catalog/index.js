@@ -50,8 +50,13 @@ export class Catalog extends Component {
 
   cancelMissionSlot = () => {
     const { cancelMissionSlot } = this.props;
+    const { successModalShow } = this.state;
 
-    cancelMissionSlot({ callSource: 'byCatalog' });
+    if (!successModalShow) {
+      cancelMissionSlot({
+        callSource: 'byCatalog'
+      });
+    }
   };
 
   render() {

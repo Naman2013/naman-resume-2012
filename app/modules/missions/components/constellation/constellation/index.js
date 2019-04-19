@@ -50,8 +50,13 @@ export class Constellation extends Component {
 
   cancelMissionSlot = () => {
     const { cancelMissionSlot } = this.props;
+    const { successModalShow } = this.state;
 
-    cancelMissionSlot({ callSource: 'byConstellationV4' });
+    if (!successModalShow) {
+      cancelMissionSlot({
+        callSource: 'byConstellationV4',
+      });
+    }
   };
 
   setConstellation = value => {

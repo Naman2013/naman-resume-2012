@@ -2,7 +2,12 @@ import { defineMessages } from 'react-intl';
 import { type Messages } from '../../../utils/i18n/MessageDescriptor';
 
 const messages: Messages = {
-  ObservationsDetails: {
+  Loading: {
+    id: 'Objects.Loading',
+    defaultMessage: 'Loading',
+    description: 'Loading label text',
+  },
+  Details: {
     id: 'Objects.ObservationsDetails',
     defaultMessage: 'Details',
     description: 'Observations Details',

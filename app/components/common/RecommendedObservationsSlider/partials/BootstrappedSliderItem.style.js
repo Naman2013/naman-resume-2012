@@ -18,9 +18,10 @@ export default css`
     width: 100%;
     display: flex;
     justify-content: center;
+    margin-bottom: 20px;
     color: ${lightHeadedAstronaut};
   }
-
+  
   .card-obs {
     pointer-events: auto;
     background: url(${white_texture_bg});
@@ -70,7 +71,7 @@ export default css`
   .button:not(:last-child) {
     border-right: 1px solid #dee0e2;
   }
-
+  
   .capture-date {
     ${toUpper}
     ${centerChildren}
@@ -84,6 +85,7 @@ export default css`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    padding-right: 20px;
   }
 
   .picture { 
@@ -144,6 +146,7 @@ export default css`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    color: ${lightHeadedAstronaut};
   }
 
   .icon {
@@ -198,7 +201,7 @@ export default css`
       width: 55%
     }
     .picture {
-      min-width: 40%
+      min-width: 40%;
     }
     .top {
       padding: 80px 80px 50px;

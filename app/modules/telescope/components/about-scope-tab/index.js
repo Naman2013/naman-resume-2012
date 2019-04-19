@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
+import isEmpty from 'lodash/fp/isEmpty';
 import { browserHistory } from 'react-router';
 import Btn from 'app/atoms/Btn';
 import Icon from 'app/atoms/Icon';
@@ -14,6 +15,9 @@ export const AboutScope = props => {
     obsDescription,
     instrAbout,
     instrRelatedGuideUrl,
+    imageList,
+    instrTelescopeType,
+    instrTelescopeShortName,
   } = props;
   if (!teleName) return null;
 
@@ -24,14 +28,18 @@ export const AboutScope = props => {
   );
 
   const desc = [
-    { id: '1', title: 'Telescope type', text: 'High-Magnification' },
+    { id: '1', title: 'Telescope type', text: instrTelescopeType },
     { id: '2', title: 'Observatory', text: obsShortName },
     { id: '3', title: 'Pier', text: teleName },
   ];
 
   const preTitle = <h4 className="h-4 text-uppercase">Slooh telescope</h4>;
 
-  const mainTitle = <h1 className="h-1">{teleName}</h1>;
+  const mainTitle = (
+    <h1 className="h-1">
+      {teleName} {instrTelescopeShortName}
+    </h1>
+  );
 
   const onViewGuideClick = () => browserHistory.push(instrRelatedGuideUrl);
 
@@ -124,19 +132,22 @@ export const AboutScope = props => {
           <Mobile>{renderMobile()}</Mobile>
         </Row>
       </Container>
-      <section className="i-box-blue-tile pad-100">
-        <div className="wrap wrap-850">
-          <header className="head">
-            <h2 className="h-2 h-2-bold h-2-white h-2-primary">
-              Featured observations
-            </h2>
-            <p className="i-text i-text-18 i-text-white">
-              Community Observations
-            </p>
-          </header>
-          <RecommendedObservations />
-        </div>
-      </section>
+
+      {!isEmpty(imageList) && (
+        <section className="i-box-blue-tile">
+          <div className="i-wrapper">
+            <header className="head">
+              <h2 className="h-2 h-2-bold h-2-white h-2-primary">
+                Featured observations
+              </h2>
+              <p className="i-text i-text-18 i-text-white">
+                Community Observations
+              </p>
+            </header>
+            <RecommendedObservations imageList={imageList} />
+          </div>
+        </section>
+      )}
     </Fragment>
   );
 };
