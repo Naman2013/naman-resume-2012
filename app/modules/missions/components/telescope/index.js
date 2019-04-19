@@ -15,11 +15,13 @@ export class Telescope extends Component {
     this.getMissionSlotDates();
   }
 
-  getMissionSlotDates = () => {
+  getMissionSlotDates = (requestedDate = '') => {
     const { getMissionSlotDates, selectedTelescope } = this.props;
     this.setState({ refreshCountdownLive: false });
 
-    getMissionSlotDates(selectedTelescope).then(() => this.setState({ refreshCountdownLive: true }));
+    getMissionSlotDates(selectedTelescope, requestedDate).then(() =>
+      this.setState({ refreshCountdownLive: true })
+    );
   };
 
   getTelescopeSlot = mission => {
@@ -77,7 +79,7 @@ export class Telescope extends Component {
           <MissionsList
             selectedDate={selectedDate}
             selectedTelescope={selectedTelescope}
-            getMissionSlotDates={getMissionSlotDates}
+            getMissionSlotDates={this.getMissionSlotDates}
             missionList={missionList}
             getTelescopeSlot={this.getTelescopeSlot}
           />
@@ -94,7 +96,9 @@ export class Telescope extends Component {
             <div className="mission-refresh-countdown">
               <Countdown
                 date={Date.now() + missionListRefreshInterval * 1000}
-                onComplete={this.getMissionSlotDates}
+                onComplete={() =>
+                  this.getMissionSlotDates(selectedDate.reservationDate)
+                }
               />
             </div>
           )}

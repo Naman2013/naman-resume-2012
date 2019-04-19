@@ -5,8 +5,8 @@ import { MissionTimeSlot } from '../mission-time-slot';
 
 export class MissionsList extends Component {
   selectDate = date => {
-    const { selectedTelescope, getMissionSlotDates } = this.props;
-    getMissionSlotDates(selectedTelescope, date);
+    const { getMissionSlotDates } = this.props;
+    getMissionSlotDates(date);
   };
 
   render() {

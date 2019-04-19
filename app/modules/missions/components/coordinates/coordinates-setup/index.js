@@ -134,7 +134,7 @@ export class CoordinatesSetup extends PureComponent {
               </OverlayTrigger>
 
               <Button
-                text="Check Visability"
+                text="Check Visibility"
                 onClickEvent={() => checkTargetVisibility(ra, dec)}
                 disabled={!selectedCategorySlug || !ra || !dec || disabled}
               />

@@ -3,7 +3,7 @@
 
 .coordinates-setup {
   .steps {
-    margin: 40px -40px -40px;
+    margin: 20px -40px -40px;
     border-top: 1px solid $hawkesBlue;
 
     .step-1 {
@@ -56,10 +56,10 @@
 
         .input-container {
           display: flex;
-          flex-flow: row wrap;
           margin-top: 20px;
 
           .coordinates-input {
+            font-size: 14px;
             text-transform: none;
             margin: 5px 15px;
           }
@@ -234,13 +234,14 @@
   }
 
   .coordinates-input {
-    width: 28%;
-    min-width: 150px;
+    //width: 28%;
+    //min-width: 150px;
     margin-right: 30px;
     display: flex;
     align-items: center;
 
     input {
+      width: 90%;
       max-width: 150px;
       padding: 15px 20px;
       margin-right: 10px;
@@ -270,7 +271,7 @@
 }
 
 @include media-breakpoint-down(md) {
-  .catalog-setup {
+  .coordinates-setup {
     .steps {
       > div {
         padding: 30px;
@@ -283,10 +284,29 @@
 
       .step-3-4 {
         border-bottom: 1px solid $hawkesBlue;
+
+        .step-4 {
+          margin: 30px -30px 0;
+        }
       }
 
       .step-5 {
         padding: 0 0 30px;
+      }
+    }
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  .coordinates-setup {
+    .steps {
+      .step-2 {
+        .input-container {
+          flex-flow: row wrap;
+          .coordinates-input {
+            width: 100%;
+          }
+        }
       }
     }
   }
