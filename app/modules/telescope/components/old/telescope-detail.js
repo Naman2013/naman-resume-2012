@@ -13,6 +13,8 @@ const TelescopeDetail = props => {
     obsShortName,
     instrRelatedGuideUrl,
     obsHeroURL,
+    instrTelescopeType,
+    instrTelescopeShortName,
   } = props;
   const onViewGuideClick = () => browserHistory.push(instrRelatedGuideUrl);
   return (
@@ -21,7 +23,11 @@ const TelescopeDetail = props => {
         <div className="image-wrap">
           <img alt={teleName} src={obsHeroURL} className="telescope-image" />
         </div>
-        <h3 className="title">{teleName}</h3>
+        <h3 className="title">
+          {teleName}
+          <br />
+          {instrTelescopeShortName}
+        </h3>
         <ul className="detail-actions">
           <li>
             <Btn onClick={onViewGuideClick}>View guide</Btn>
@@ -35,17 +41,23 @@ const TelescopeDetail = props => {
       </div>
 
       <div className="module-set">
-        <StaticCell theme={tileStyle} title="Telescope type">
-          <p className="telescope-meta">High-Magnification</p>
-        </StaticCell>
+        {instrTelescopeType && (
+          <StaticCell theme={tileStyle} title="Telescope type">
+            <p className="telescope-meta">{instrTelescopeType}</p>
+          </StaticCell>
+        )}
 
-        <StaticCell theme={tileStyle} title="Observatory">
-          <p className="telescope-meta">{obsShortName}</p>
-        </StaticCell>
+        {obsShortName && (
+          <StaticCell theme={tileStyle} title="Observatory">
+            <p className="telescope-meta">{obsShortName}</p>
+          </StaticCell>
+        )}
 
-        <StaticCell theme={tileStyle} title="Pier">
-          <p className="telescope-meta">{teleName}</p>
-        </StaticCell>
+        {teleName && (
+          <StaticCell theme={tileStyle} title="Pier">
+            <p className="telescope-meta">{teleName}</p>
+          </StaticCell>
+        )}
       </div>
       <style jsx>{style}</style>
     </div>
