@@ -13,6 +13,7 @@ const ModalDialog = props => {
   return (
     <div className="custom-modal">
       <span role="presentation" className="modal-back-btn" onClick={backClick}>
+        <span className="icon icon-arrow-left" />
         {goBackText || 'GO BACK'}
       </span>
 

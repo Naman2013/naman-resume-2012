@@ -12,7 +12,7 @@ const getMissionTime = timestamp => moment.unix(timestamp).format('HH:mm');
 
 export class AvailbleMissionTile extends Component {
   render() {
-    const { onSubmit, onCancel, missionSlot = {} } = this.props;
+    const { onSubmit, onCancel, missionSlot = {}, tip } = this.props;
     const { title, telescopeName, explanation, missionStart } = missionSlot;
 
     return (
@@ -42,6 +42,7 @@ export class AvailbleMissionTile extends Component {
           <div className="telescope">{telescopeName}</div>
         </div>
         <div className="description">{explanation}</div>
+        {tip && <div className="description">{tip}</div>}
         {onSubmit && (
           <div className="actions">
             <Button text="Cancel" onClickEvent={onCancel} />
