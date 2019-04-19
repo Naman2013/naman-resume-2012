@@ -1,7 +1,6 @@
 import React from 'react';
 import ObservatoryBot from 'app/components/telescope-details/ObservatoryBot/ObservatoryBot';
 import { ModuleContainer } from './module-container';
-import ObservatoryBot from 'app/components/telescope-details/ObservatoryBot/ObservatoryBot';
 
 const ObsBotWidget = props => {
   const {

@@ -1,7 +1,5 @@
 import css from 'styled-jsx/css';
 import { primaryFont } from 'app/styles/variables/fonts';
-import { astronaut, hawkesBlue } from 'app/styles/variables/colors_tiles_v4';
-import { primaryFont } from 'app/styles/variables/fonts';
 import {
   astronaut,
   hawkesBlue,
