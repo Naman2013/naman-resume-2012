@@ -53,12 +53,6 @@ export const makeBySlooh1000Selector = () =>
     state => state.bySlooh1000
   );
 
-export const makeBySlooh1000DataSelector = () =>
-  createSelector(
-    makeBySlooh1000Selector(),
-    state => state.bySlooh1000Data
-  );
-
 export const makeBySlooh1000CategoryListSelector = () =>
   createSelector(
     makeBySlooh1000Selector(),
@@ -116,6 +110,34 @@ export const makeBySlooh1000ObjectListExpiresSelector = () =>
     state => state.objectListExpires
   );
 
+export const makeBySlooh1000AvailableMissionsSelector = () =>
+  createSelector(
+    makeBySlooh1000Selector(),
+    state => {
+      return (
+        state.availableMissionsCount === 0 &&
+        state.objectCount > 0 &&
+        !!state.selectedCategorySlug
+      );
+    }
+  );
+
+export const makeBySlooh1000NoObjectsSelector = () =>
+  createSelector(
+    makeBySlooh1000Selector(),
+    state => {
+      return state.objectCount === 0 && !!state.selectedCategorySlug;
+    }
+  );
+
+export const makeBySlooh1000MissionTypeSelector = () =>
+  createSelector(
+    makeBySlooh1000Selector(),
+    state => {
+      return state.missionType;
+    }
+  );
+
 /**
  * Gets the objectList from reducer
  * Returns objectList options ready for Select
@@ -130,6 +152,48 @@ export const makeBySlooh1000ObjectListSelectOptsSelector = () =>
         'objectTitle',
         'objectIsEnabled'
       );
+    }
+  );
+
+export const makeBySlooh1000DataSelector = () =>
+  createSelector(
+    makeBySlooh1000CategoryListSelector(),
+    makeBySlooh1000CategoryListSelectOptsSelector(),
+    makeBySlooh1000SelectedCategorySlugSelector(),
+    makeBySlooh1000ObjectListSelector(),
+    makeBySlooh1000ObjectListSelectOptsSelector(),
+    makeBySlooh1000SelectedObjectIdSelector(),
+    makeBySlooh1000SelectedObjectDataSelector(),
+    makeBySlooh1000ObjectListExpiresSelector(),
+    makeBySlooh1000AvailableMissionsSelector(),
+    makeBySlooh1000NoObjectsSelector(),
+    makeBySlooh1000MissionTypeSelector(),
+    (
+      categoryList,
+      categoryListOpts,
+      selectedCategorySlug,
+      objectList,
+      objectListOpts,
+      selectedObjectId,
+      selectedObjectData,
+      objectListExpires,
+      availableMissions,
+      noObjects,
+      missionType
+    ) => {
+      return {
+        categoryList,
+        categoryListOpts,
+        selectedCategorySlug,
+        objectList,
+        objectListOpts,
+        selectedObjectId,
+        selectedObjectData,
+        objectListExpires,
+        availableMissions,
+        noObjects,
+        missionType,
+      };
     }
   );
 
@@ -221,6 +285,56 @@ export const makeByConstellationNoObjectsSelector = () =>
     }
   );
 
+export const makeByConstellationMissionTypeSelector = () =>
+  createSelector(
+    makeByConstellationSelector(),
+    state => {
+      return state.missionType;
+    }
+  );
+
+export const makeByConstellationDataSelector = () =>
+  createSelector(
+    makeByConstellationListSelector(),
+    makeByConstellationListSelectOptsSelector(),
+    makeByConstellationSelectedConstellationSelector(),
+    makeByConstellationObjectListSelector(),
+    makeByConstellationObjectListSelectOptsSelector(),
+    makeByConstellationSelectedObjectIdSelector(),
+    makeByConstellationSelectedObjectDataSelector(),
+    makeByConstellationObjectListExpiresSelector(),
+    makeByConstellationAvailableMissionsSelector(),
+    makeByConstellationNoObjectsSelector(),
+    makeByConstellationMissionTypeSelector(),
+    (
+      constellationList,
+      constellationListOpt,
+      selectedConstellation,
+      objectList,
+      objectListOpts,
+      selectedObjectId,
+      selectedObjectData,
+      objectListExpires,
+      availableMissions,
+      noObjects,
+      missionType
+    ) => {
+      return {
+        constellationList,
+        constellationListOpt,
+        selectedConstellation,
+        objectList,
+        objectListOpts,
+        selectedObjectId,
+        selectedObjectData,
+        objectListExpires,
+        availableMissions,
+        noObjects,
+        missionType,
+      };
+    }
+  );
+
 // byCatalog
 export const makeByCatalogSelector = () =>
   createSelector(
@@ -283,6 +397,51 @@ export const makeByCatalogProcessingRecipeSelector = () =>
     state => state.processingRecipe
   );
 
+export const makeByCatalogDataSelector = () =>
+  createSelector(
+    makeByCatalogListSelector(),
+    makeByCatalogListListSelectOptsSelector(),
+    makeByCatalogSelectedCatalogSelector(),
+    makeByCatalogSelectedCatalogDataSelector(),
+    makeByCatalogDesignationSelector(),
+    makeByCatalogObjectDataSelector(),
+    makeByCatalogTelescopeDataSelector(),
+    makeByCatalogProcessingRecipeSelector(),
+    makeMissionsLoadingSelector(),
+    makeMissionsFirstSlot(),
+    makeReservedMissionData(),
+    makeReservedMissionSelector(),
+    (
+      catalogList,
+      catalogListOpts,
+      selectedCatalog,
+      selectedCatalogData,
+      designation,
+      objectData,
+      telescopeData,
+      processingRecipe,
+      isFetching,
+      missionSlot,
+      reservedMissionData,
+      reservedMission,
+    ) => {
+      return {
+        catalogList,
+        catalogListOpts,
+        selectedCatalog,
+        selectedCatalogData,
+        designation,
+        objectData,
+        telescopeData,
+        processingRecipe,
+        isFetching,
+        missionSlot,
+        reservedMissionData,
+        reservedMission,
+      };
+    }
+  );
+
 // by telescope
 export const makeByTelescopeSelector = () =>
   createSelector(
@@ -314,8 +473,82 @@ export const makeTelescopeMissionListSelector = () =>
     state => state.missionList
   );
 
-  export const makeTelescopeSelectedSlotSelector = () =>
+export const makeTelescopeSelectedSlotSelector = () =>
   createSelector(
     makeByTelescopeSelector(),
     state => state.selectedSlot
+  );
+
+export const makeTelescopeMissionListRefreshIntervalSelector = () =>
+  createSelector(
+    makeByTelescopeSelector(),
+    state => state.missionListRefreshInterval
+  );
+
+// by coordinates
+
+export const makeByCoordinatesSelector = () =>
+  createSelector(
+    selectMissions,
+    state => state.byCoordinates
+  );
+
+export const makeByCoordinatesCoordinatesDataSelector = () =>
+  createSelector(
+    makeByCoordinatesSelector(),
+    state => state.coordinatesData
+  );
+
+export const makeByCoordinatesTargetNameSelector = () =>
+  createSelector(
+    makeByCoordinatesSelector(),
+    state => state.targetName
+  );
+
+export const makeByCoordinatesDataSelector = () =>
+  createSelector(
+    makeByCoordinatesCoordinatesDataSelector(),
+    makeBySlooh1000CategoryListSelector(),
+    makeBySlooh1000CategoryListSelectOptsSelector(),
+    makeBySlooh1000SelectedCategorySlugSelector(),
+    makeByCatalogDesignationSelector(),
+    makeByCatalogObjectDataSelector(),
+    makeByCatalogTelescopeDataSelector(),
+    makeByCatalogProcessingRecipeSelector(),
+    makeMissionsLoadingSelector(),
+    makeMissionsFirstSlot(),
+    makeReservedMissionData(),
+    makeReservedMissionSelector(),
+    makeByCoordinatesTargetNameSelector(),
+    (
+      coordinatesData,
+      categoryList,
+      categoryListOpts,
+      selectedCategorySlug,
+      designation,
+      objectData,
+      telescopeData,
+      processingRecipe,
+      isFetching,
+      missionSlot,
+      reservedMissionData,
+      reservedMission,
+      targetName,
+    ) => {
+      return {
+        categoryList,
+        categoryListOpts,
+        selectedCategorySlug,
+        designation,
+        objectData,
+        telescopeData,
+        processingRecipe,
+        isFetching,
+        missionSlot,
+        reservedMissionData,
+        reservedMission,
+        coordinatesData,
+        targetName,
+      };
+    }
   );

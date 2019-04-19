@@ -13,12 +13,7 @@ const getIconStyle = iconURL => ({
   backgroundPosition: 'center',
 });
 
-const {
-  string,
-  arrayOf,
-  shape,
-  bool,
-} = PropTypes;
+const { string, arrayOf, shape, bool } = PropTypes;
 
 const RecommendedObjectsItem = ({
   detailList,
@@ -28,8 +23,13 @@ const RecommendedObjectsItem = ({
   intl,
 }) => (
   <div className="card-object">
-    <div className="object-icon">{hasIcon ? <div style={getIconStyle(iconURL)} /> : null}</div>
-    <div className="object-field title" dangerouslySetInnerHTML={{ __html: title }} />
+    <div className="object-icon">
+      {hasIcon ? <div style={getIconStyle(iconURL)} /> : null}
+    </div>
+    <div
+      className="object-field title"
+      dangerouslySetInnerHTML={{ __html: title }}
+    />
     <div className="field-wrapper">
       <img src={detailList[0].iconUrl} alt="icon" />
       <div className="object-field details">{detailList[0].text}</div>

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Countdown from 'react-countdown-now';
 import { TelescopeSetup } from '../telescope-setup';
 import { MissionsList } from '../missions-list';
 import { ReservationModal } from '../telescope-reservation/reservation-modal';
@@ -7,12 +8,19 @@ import './styles.scss';
 export class Telescope extends Component {
   state = {
     reservationModalVisible: false,
+    refreshCountdownLive: false,
   };
 
   componentDidMount() {
-    const { getMissionSlotDates, selectedTelescope } = this.props;
-    getMissionSlotDates(selectedTelescope);
+    this.getMissionSlotDates();
   }
+
+  getMissionSlotDates = () => {
+    const { getMissionSlotDates, selectedTelescope } = this.props;
+    this.setState({ refreshCountdownLive: false });
+
+    getMissionSlotDates(selectedTelescope).then(() => this.setState({ refreshCountdownLive: true }));
+  };
 
   getTelescopeSlot = mission => {
     const { getTelescopeSlot, setSelectedSlot } = this.props;
@@ -27,7 +35,20 @@ export class Telescope extends Component {
   };
 
   reservationModalHide = () => {
-    const { cancelMissionSlot } = this.props;
+    const { cancelMissionSlot, selectedSlot } = this.props;
+    const { uniqueId, scheduledMissionId } = selectedSlot;
+    cancelMissionSlot({
+      callSource: 'byTelescopeV4',
+      grabType: 'notarget',
+      scheduledMissionId,
+      uniqueId,
+    });
+    this.getMissionSlotDates();
+    this.setState({ reservationModalVisible: false });
+  };
+
+  reservationComplete = () => {
+    this.getMissionSlotDates();
     this.setState({ reservationModalVisible: false });
   };
 
@@ -37,13 +58,12 @@ export class Telescope extends Component {
       telescopeList,
       setTelescope,
       selectedDate,
-      setTelescopeDate,
       getMissionSlotDates,
       missionList,
-      selectedSlot,
+      missionListRefreshInterval,
     } = this.props;
 
-    const { reservationModalVisible } = this.state;
+    const { reservationModalVisible, refreshCountdownLive } = this.state;
 
     return (
       <div className="by-telescope">
@@ -62,13 +82,22 @@ export class Telescope extends Component {
             getTelescopeSlot={this.getTelescopeSlot}
           />
 
-          <ReservationModal
-            onHide={this.reservationModalHide}
-            show={reservationModalVisible}
-            selectedSlot={selectedSlot}
-            selectedTelescope={selectedTelescope}
-            selectedDate={selectedDate}
-          />
+          {reservationModalVisible && (
+            <ReservationModal
+              onHide={this.reservationModalHide}
+              onComplete={this.reservationComplete}
+              show
+            />
+          )}
+
+          {!reservationModalVisible && refreshCountdownLive && (
+            <div className="mission-refresh-countdown">
+              <Countdown
+                date={Date.now() + missionListRefreshInterval * 1000}
+                onComplete={this.getMissionSlotDates}
+              />
+            </div>
+          )}
         </div>
       </div>
     );

@@ -1,7 +1,8 @@
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
-import { Constellation } from '../components/constellation';
+import { Constellation } from '../components/constellation/constellation';
+import { withConstellation } from '../components/constellation/constellation-wrapper';
 import {
   makeMissionsLoadingSelector,
   makeByConstellationListSelector,
@@ -57,5 +58,6 @@ export default compose(
   connect(
     mapStateToProps,
     mapDispatchToProps
-  )
+  ),
+  withConstellation
 )(Constellation);

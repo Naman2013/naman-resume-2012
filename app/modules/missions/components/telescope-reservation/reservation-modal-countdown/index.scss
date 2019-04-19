@@ -1,0 +1,36 @@
+@import '~app/styles/variables/index';
+
+.reservation-modal-countdown {
+  width: 100%;
+  display: flex;
+  align-items: center;
+
+  .countdown {
+    margin-top: 20px;
+    margin-right: 20px;
+    font-family: $primary-font;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 22px;
+    color: $lightHeadedAstronaut;
+
+    span {
+      font-size: 16px;
+    }
+  }
+
+  button {
+    margin-top: 20px;
+
+    &:disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+      font-weight: 700;
+    }
+
+    span {
+      font-family: $primary-font;
+      font-weight: 900;
+    }
+  }
+}

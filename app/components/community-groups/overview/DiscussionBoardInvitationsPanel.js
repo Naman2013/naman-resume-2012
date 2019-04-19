@@ -225,8 +225,8 @@ class DiscussionBoardInvitationsPanel extends Component {
           />
         </div>
 
-        <style>{style}</style>
-        <style>{`
+        <style jsx>{style}</style>
+        <style jsx>{`
           .list-card{
             margin-right:25px !important;
             margin-bottom:10px !important;

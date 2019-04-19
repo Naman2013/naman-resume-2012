@@ -73,6 +73,10 @@
     background: transparent;
     box-shadow: none;
     z-index: 3001;
+
+    .dropdown-opt {
+      cursor: pointer;
+    }
   }
 
   .telescop-select-wrapper .slooh-select__menu .slooh-select__menu-list {

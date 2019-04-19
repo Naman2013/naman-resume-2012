@@ -6,19 +6,20 @@ import Button from '../../../../components/common/style/buttons/Button';
 import './styles.scss';
 
 const getMissionDate = timestamp =>
-  moment.unix(timestamp).format('ddd. MMM. DD');
+  moment.utc(moment.unix(timestamp)).format('ddd. MMM. DD');
 
-const getMissionTime = timestamp => moment.unix(timestamp).format('HH:mm');
+const getMissionTime = timestamp =>
+  moment.utc(moment.unix(timestamp)).format('HH:mm');
 
 export class AvailbleMissionTile extends Component {
   render() {
-    const { onSubmit, onCancel, missionSlot = {} } = this.props;
+    const { onSubmit, onCancel, missionSlot = {}, byTelescope } = this.props;
     const { title, telescopeName, explanation, missionStart } = missionSlot;
 
     return (
       <div className="mission-tile">
         <div className="countdown">
-          {onSubmit && (
+          {onSubmit && !byTelescope && (
             <Countdown
               date={Date.now() + 5 * 60 * 1000}
               onComplete={onCancel}
