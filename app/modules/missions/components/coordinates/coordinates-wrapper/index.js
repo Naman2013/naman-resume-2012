@@ -42,15 +42,18 @@ export function withCoordinates(WrappedComponent) {
         processingRecipe,
         selectedSlot,
         selectedTelescope,
+        categoryList,
+        selectedCategorySlug,
       } = this.props;
       const { objectDec, objectRA } = objectData;
       const { domeId, obsId, telescopeId } = selectedTelescope;
       const { missionStart, scheduledMissionId } = selectedSlot;
-
+      
       getMissionSlot({
         targetName,
         domeId,
         missionStart,
+        objectType: categoryList[selectedCategorySlug].typeName,
         objectDec,
         objectRA,
         obsId,
@@ -59,7 +62,7 @@ export function withCoordinates(WrappedComponent) {
         telescopeId,
         ...data,
       }).then(callback);
-    };
+    };f
 
     reserveMissionSlot = ({ callSource }, callback) => {
       const { reserveMissionSlot, missionSlot } = this.props;
