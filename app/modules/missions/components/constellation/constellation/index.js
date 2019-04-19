@@ -1,10 +1,10 @@
 import { Box } from 'app/modules/missions/components/box';
 import React, { Component } from 'react';
-import { AvailbleMissionTile } from '../available-mission-tile';
+import { AvailbleMissionTile } from '../../available-mission-tile';
 import { ConstellationSetup } from '../constellation-setup';
-import { ExpireCountdown } from '../expire-countdown';
-import { ExplanationModal } from '../explanation-modal';
-import { MissionSuccessModal } from '../mission-success-modal';
+import { ExpireCountdown } from '../../expire-countdown';
+import { ExplanationModal } from '../../explanation-modal';
+import { MissionSuccessModal } from '../../mission-success-modal';
 import './styles.scss';
 
 export class Constellation extends Component {
@@ -14,7 +14,7 @@ export class Constellation extends Component {
 
   componentDidMount() {
     const { getConstellationList } = this.props;
-    getConstellationList();
+    getConstellationList({ callSource: 'byConstellationV4' });
   }
 
   componentWillUnmount() {
@@ -22,48 +22,25 @@ export class Constellation extends Component {
   }
 
   getMissionSlot = () => {
-    const { getMissionSlot, selectedObjectData } = this.props;
+    const { getMissionSlot } = this.props;
 
-    getMissionSlot({
-      callSource: 'byConstellationV4',
-      domeId: selectedObjectData.domeId,
-      missionStart: selectedObjectData.missionStart,
-      objectId: selectedObjectData.objectId,
-      objectTitle: selectedObjectData.objectTitle,
-      objectType: selectedObjectData.objectType,
-      obsId: selectedObjectData.obsId,
-      scheduledMissionId: selectedObjectData.scheduledMissionId,
-      telescopeId: selectedObjectData.telescopeId,
-    }).then(() => this.grabedMissionTile.scrollIntoView());
+    getMissionSlot(
+      {
+        callSource: 'byConstellationV4',
+      },
+      () => this.grabedMissionTile.scrollIntoView()
+    );
   };
 
   reserveMissionSlot = () => {
-    const { reserveMissionSlot, missionSlot } = this.props;
+    const { reserveMissionSlot } = this.props;
 
-    reserveMissionSlot({
-      callSource: 'byConstellationV4',
-      catName: missionSlot.catName,
-      catalog: missionSlot.catalog,
-      designation: missionSlot.designation,
-      domeId: missionSlot.domeId,
-      missionStart: missionSlot.missionStart,
-      missionType: missionSlot.missionType,
-      objectDec: missionSlot.objectDec,
-      objectIconURL: missionSlot.objectIconURL,
-      objectId: missionSlot.objectId,
-      objectRA: missionSlot.objectRA,
-      objectTitle: missionSlot.title,
-      objectType: missionSlot.objectType,
-      objective: '',
-      obsId: missionSlot.obsId,
-      obsName: missionSlot.obsName,
-      processingRecipe: missionSlot.processingRecipe,
-      scheduledMissionId: missionSlot.scheduledMissionId,
-      targetName: missionSlot.targetName,
-      telescopeId: missionSlot.telescopeId,
-      telescopeName: missionSlot.telescopeName,
-      uniqueId: missionSlot.uniqueId,
-    }).then(() => this.setState({ successModalShow: true }));
+    reserveMissionSlot(
+      {
+        callSource: 'byConstellationV4',
+      },
+      () => this.setState({ successModalShow: true })
+    );
   };
 
   modalClose = () => {
@@ -72,16 +49,21 @@ export class Constellation extends Component {
   };
 
   cancelMissionSlot = () => {
-    const { cancelMissionSlot, missionSlot } = this.props;
+    const { cancelMissionSlot } = this.props;
     const { successModalShow } = this.state;
 
-    if (!successModalShow && missionSlot && missionSlot.scheduledMissionId) {
+    if (!successModalShow) {
       cancelMissionSlot({
         callSource: 'byConstellationV4',
-        grabType: 'notarget',
-        scheduledMissionId: missionSlot.scheduledMissionId,
       });
     }
+  };
+
+  setConstellation = value => {
+    const { setConstellation } = this.props;
+    setConstellation(value, {
+      callSource: 'byConstellationV4',
+    });
   };
 
   render() {
@@ -103,7 +85,7 @@ export class Constellation extends Component {
 
     const { successModalShow } = this.state;
     return (
-      <div className="slooh-1000">
+      <div className="constellation">
         <div className="container">
           <div className="row">
             <div className="col-lg-8">
@@ -111,7 +93,7 @@ export class Constellation extends Component {
                 <ConstellationSetup
                   constellationListOpt={constellationListOpt}
                   objectListOpts={objectListOpts}
-                  setConstellation={setConstellation}
+                  setConstellation={this.setConstellation}
                   setObject={setObject}
                   getMissionSlot={this.getMissionSlot}
                   selectedConstellation={selectedConstellation}
@@ -119,6 +101,8 @@ export class Constellation extends Component {
                   disabled={missionSlot && missionSlot.missionAvailable}
                   availableMissions={availableMissions}
                   noObjects={noObjects}
+                  description="Welcome to the Constellation! Tell us what you want to see, we’ll
+                  tell you which scope to use, and the best time to see it!"
                 />
               </Box>
             </div>

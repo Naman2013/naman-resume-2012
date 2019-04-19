@@ -8,7 +8,6 @@ import { ACTION } from '../reducer';
 import {
   makeBySlooh1000CategoryListSelectOptsSelector,
   makeBySlooh1000CategoryListSelector,
-  makeBySlooh1000DataSelector,
   makeBySlooh1000ObjectListExpiresSelector,
   makeBySlooh1000ObjectListSelectOptsSelector,
   makeBySlooh1000ObjectListSelector,
@@ -19,6 +18,8 @@ import {
   makeMissionsLoadingSelector,
   makeReservedMissionData,
   makeReservedMissionSelector,
+  makeBySlooh1000AvailableMissionsSelector,
+  makeBySlooh1000NoObjectsSelector,
 } from '../selectors';
 import {
   cancelMissionSlot,
@@ -30,7 +31,6 @@ import {
 } from '../thunks';
 
 const mapStateToProps = createStructuredSelector({
-  bySlooh1000Data: makeBySlooh1000DataSelector(),
   categoryList: makeBySlooh1000CategoryListSelector(),
   categoryListOpts: makeBySlooh1000CategoryListSelectOptsSelector(),
   selectedCategorySlug: makeBySlooh1000SelectedCategorySlugSelector(),
@@ -43,6 +43,8 @@ const mapStateToProps = createStructuredSelector({
   reservedMissionData: makeReservedMissionData(),
   reservedMission: makeReservedMissionSelector(),
   objectListExpires: makeBySlooh1000ObjectListExpiresSelector(),
+  availableMissions: makeBySlooh1000AvailableMissionsSelector(),
+  noObjects: makeBySlooh1000NoObjectsSelector(),
 });
 
 const mapDispatchToProps = {
@@ -61,5 +63,6 @@ export default compose(
   connect(
     mapStateToProps,
     mapDispatchToProps
-  )
-)(withSlooh1000(Slooh1000));
+  ),
+  withSlooh1000
+)(Slooh1000);

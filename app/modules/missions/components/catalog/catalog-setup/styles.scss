@@ -175,7 +175,7 @@
   }
 }
 
-@include media-breakpoint-down(sm) {
+@include media-breakpoint-down(md) {
   .catalog-setup {
     .steps {
       > div {

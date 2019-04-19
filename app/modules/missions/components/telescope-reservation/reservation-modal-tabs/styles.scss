@@ -3,6 +3,18 @@
 
 .reservation-modal-tabs {
   .nav-tabs {
+    &.mission-available {
+      .nav-link {
+        pointer-events: none;
+        opacity: 0.5;
+
+        &.active {
+          pointer-events: all;
+          opacity: 1;
+        }
+      }
+    }
+
     .nav-link {
       margin: 0;
       width: 25%;
