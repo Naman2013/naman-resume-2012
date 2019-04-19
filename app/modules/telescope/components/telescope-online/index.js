@@ -31,8 +31,14 @@ export class TelescopeOnline extends Component {
       SatelliteWidgetId,
       DomecamWidgetId,
       FacilityWebcamWidgetId,
+      DayNightBarWidgetId,
     } = observatoryData;
-    fetchAllWidgets({ obsId, DayNightBarPanelWidgetId, DayNightMapWidgetId });
+    fetchAllWidgets({
+      obsId,
+      DayNightBarPanelWidgetId,
+      DayNightMapWidgetId,
+      DayNightBarWidgetId,
+    });
     fetchWeatherSatellite({ obsId, SatelliteWidgetId });
     fetchDomeCamAction({ obsId, DomecamWidgetId });
     fetchObservatoryWebcam({
