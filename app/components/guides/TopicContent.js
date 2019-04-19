@@ -4,30 +4,38 @@ import CenterColumn from 'components/common/CenterColumn';
 import TopicHeading from './TopicHeading';
 import TopicBodyContent from './TopicBodyContent';
 import TopicContentList from './TopicContentList';
+import { DeviceContext } from '../../providers/DeviceProvider';
 import style from './TopicContent.style';
 
 const TopicContent = ({ title, topicContentList, ...restProps }) => (
-  <div className="root">
-    <CenterColumn>
-      <div className="title-container">
-        <TopicHeading text={title} />
+  <DeviceContext.Consumer>
+    {context => (
+      <div className="root">
+        <CenterColumn>
+          <div className="title-container">
+            <TopicHeading text={title} />
+          </div>
+        </CenterColumn>
+        <CenterColumn>
+          <div className="guide-container">
+            <TopicContentList list={topicContentList} {...restProps} />
+            <TopicBodyContent {...restProps} />
+          </div>
+        </CenterColumn>
+        <style jsx>
+          {`
+            .guide-container {
+              flex-direction: ${restProps.showContentList &&
+              (context.isLargeScreen || context.isMediumScreen || context.isDesktop)
+                ? 'row'
+                : 'column'};
+            }
+          `}
+        </style>
+        <style jsx>{style}</style>
       </div>
-    </CenterColumn>
-    <CenterColumn>
-      <div className="guide-container">
-        <TopicContentList list={topicContentList} {...restProps} />
-        <TopicBodyContent {...restProps} />
-      </div>
-    </CenterColumn>
-    <style jsx>{style}</style>
-    <style jsx>
-      {`
-        .guide-container {
-          flex-direction: ${restProps.showContentList ? 'row' : 'column'};
-        }
-      `}
-    </style>
-  </div>
+    )}
+  </DeviceContext.Consumer>
 );
 
 TopicContent.propTypes = {
