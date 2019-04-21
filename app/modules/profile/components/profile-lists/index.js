@@ -39,7 +39,7 @@ class ProfileLists extends Component {
     }));
 
     return (
-      <div className="my-lists-hub">
+      <div className="my-lists-hub i-root">
         <Lists
           profileLists={profileLists}
           filterType={params.filterType}

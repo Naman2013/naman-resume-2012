@@ -153,7 +153,7 @@ module.exports = {
   devServer: {
     contentBase: sourcePath, // assets
     hot: true,
-    inline: true,
+    inline: false,
     open: true,
     overlay: true,
     historyApiFallback: {
