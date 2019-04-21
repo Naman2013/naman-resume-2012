@@ -35,6 +35,9 @@ export const StatusTab = props => {
                 allSkyCamURL={allSkyCam.allSkyCamURL}
                 offlineImageURL={allSkyCam.allSkyCamOfflineURL}
                 onlineStatus={allSkyCam.allSkyCamOnlineStatus}
+                AllskyTimelapseWidgetId={
+                  currentObservatory.AllskyTimelapseWidgetId
+                }
               />
             </Col>
             <Col lg={4} md={12} sm={12}>

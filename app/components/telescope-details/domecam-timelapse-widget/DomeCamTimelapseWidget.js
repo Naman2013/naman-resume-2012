@@ -46,10 +46,6 @@ class DomeCamTimelapseWidget extends Component {
     offlineImageURL: PropTypes.string.isRequired,
   };
 
-  constructor(props) {
-    super(props);
-  }
-
   componentDidMount() {
     const { obsId, DomecamTimelapseWidgetId } = this.props;
     this.props.actions.fetchDomeCamTimelapseAction({

@@ -20,5 +20,6 @@ export default css`
 .copy {
   font-size: 15px;
   padding-top: 40px;
+  text-align: center;
 }
 `;
