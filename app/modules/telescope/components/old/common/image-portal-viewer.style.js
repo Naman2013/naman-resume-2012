@@ -18,7 +18,7 @@ export default css`
 }
 
 .copy {
-  font-size: 19px;
-  padding-top: 30px;
+  font-size: 15px;
+  padding-top: 40px;
 }
 `;

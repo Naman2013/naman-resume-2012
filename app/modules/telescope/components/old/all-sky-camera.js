@@ -68,7 +68,7 @@ class AllSkyCamera extends Component {
   };
 
   render() {
-    const { imageURL, description, AllskyTimelapseWidgetId } = this.props;
+    const { imageURL, title, AllskyTimelapseWidgetId } = this.props;
     const { isModalOpen } = this.state;
 
     return (
@@ -76,7 +76,7 @@ class AllSkyCamera extends Component {
         <ModuleContainer title="All sky camera snap">
           <ImagePortalViewer
             imageURL={imageURL}
-            description={description}
+            title={title}
             onClick={this.openModal}
           />
           {AllskyTimelapseWidgetId
@@ -96,20 +96,20 @@ class AllSkyCamera extends Component {
 
 AllSkyCamera.propTypes = {
   imageURL: PropTypes.string.isRequired,
-  description: PropTypes.string,
+  title: PropTypes.string,
   fetchAllSkyAction: PropTypes.func.isRequired,
   obsId: PropTypes.string.isRequired,
   allSkyWidgetID: PropTypes.string.isRequired,
 };
 
 AllSkyCamera.defaultProps = {
-  description: 'Restibulum rutrum quameli mitae fringilla lorem ipsum.',
+  title: '',
   fetchAllSkyAction: () => {},
 };
 
 const mapStateToProps = ({ telescopeOverview: { allSkyWidgetResult } }) => ({
   imageURL: allSkyWidgetResult.allSkyCamURL,
-  description: allSkyWidgetResult.title,
+  title: allSkyWidgetResult.title,
 });
 
 const mapDispatchToProps = {
