@@ -3,13 +3,16 @@ import PropTypes from 'prop-types';
 import { ModuleHeader } from './module-header';
 import style from './module-container.style';
 
-const ModuleContainer = ({ children, title, titleIcon }) => (
-  <div className="module-container">
-    <ModuleHeader title={title} titleIcon={titleIcon} />
-    {children}
-    <style jsx>{style}</style>
-  </div>
-);
+const ModuleContainer = props => {
+  const { children, title, titleIcon } = props;
+  return (
+    <div className="module-container">
+      <ModuleHeader title={title} titleIcon={titleIcon} />
+      {children}
+      <style jsx>{style}</style>
+    </div>
+  );
+};
 
 ModuleContainer.propTypes = {
   title: PropTypes.string.isRequired,
