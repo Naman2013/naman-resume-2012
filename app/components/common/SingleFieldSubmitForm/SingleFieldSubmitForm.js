@@ -22,14 +22,7 @@ import { customModalStylesV4 } from 'app/styles/mixins/utilities';
 import styles from './SingleFieldSubmitForm.style';
 import messages from './SingleFieldSubmitForm.messages';
 
-
-const {
-  bool,
-  func,
-  number,
-  shape,
-  string,
-} = PropTypes;
+const { bool, func, number, shape, string } = PropTypes;
 
 class SingleFieldSubmitForm extends Component {
   static propTypes = {
@@ -47,7 +40,8 @@ class SingleFieldSubmitForm extends Component {
       token: string,
     }).isRequired,
     intl: intlShape.isRequired,
-  }
+  };
+
   static defaultProps = {
     imageClass: 'discussion',
     maxLength: null,
@@ -56,40 +50,44 @@ class SingleFieldSubmitForm extends Component {
     submitLabel: 'Post',
     useModal: true,
     uuid: null,
-  }
+  };
 
   state = {
     formText: '',
+    formTitle: '',
     showPopup: false,
     responseMessage: null,
     uploadError: null,
     uploadLoading: false,
     S3URLs: [],
-  }
+  };
 
-  onTextChange = (e) => {
+  onTextChange = e =>
     this.setState({
       formText: e.target.value,
-    })
-  }
+    });
 
-  submitForm = (e) => {
+  onTitleChange = e =>
+    this.setState({
+      formTitle: e.target.value,
+    });
+
+  submitForm = e => {
     e.preventDefault();
-    const {
-      formText,
-      S3URLs,
-    } = this.state;
+    const { formText, S3URLs, formTitle } = this.state;
 
-    this.props.submitForm(formText, S3URLs, this.handleSubmit);
-  }
+    this.props.submitForm(formText, S3URLs, formTitle, this.handleSubmit);
+  };
 
   handleSubmit = (error, message) => {
     const { intl } = this.props;
     if (!error) {
       this.setState({
         showPopup: true,
-        responseMessage: message || intl.formatMessage(messages.ResponceSubmittedText),
+        responseMessage:
+          message || intl.formatMessage(messages.ResponceSubmittedText),
         formText: '',
+        formTitle: '',
         S3URLs: [],
       });
     } else {
@@ -98,15 +96,15 @@ class SingleFieldSubmitForm extends Component {
         responseMessage: message || intl.formatMessage(messages.FormIssueText),
       });
     }
-  }
+  };
 
-  closeModal = (e) => {
+  closeModal = e => {
     this.setState({
       showPopup: false,
     });
-  }
+  };
 
-  handleUploadImage = (event) => {
+  handleUploadImage = event => {
     event.preventDefault();
 
     const { cid, token, at } = this.props.user;
@@ -126,14 +124,18 @@ class SingleFieldSubmitForm extends Component {
 
     setPostImages(data)
       .then(res => this.handleUploadImageResponse(res.data))
-      .catch(err => this.setState({
-        uploadError: err.message,
-        uploadLoading: false,
-      }));
-  }
+      .catch(err =>
+        this.setState({
+          uploadError: err.message,
+          uploadLoading: false,
+        })
+      );
+  };
 
-  handleDeleteImage = (imageURL) => {
-    if (!imageURL) { return; }
+  handleDeleteImage = imageURL => {
+    if (!imageURL) {
+      return;
+    }
 
     const { cid, token, at } = this.props.user;
     const { uuid } = this.props;
@@ -146,16 +148,16 @@ class SingleFieldSubmitForm extends Component {
       imageClass,
       imageURL,
     }).then(result => this.handleUploadImageResponse(result.data));
-  }
+  };
 
-  handleUploadImageResponse = (uploadFileData) => {
+  handleUploadImageResponse = uploadFileData => {
     this.setState({
       S3URLs: uploadFileData.S3URLs,
       uploadLoading: false,
     });
-  }
+  };
 
-  render () {
+  render() {
     const {
       placeholder,
       renderFormHeader,
@@ -168,6 +170,7 @@ class SingleFieldSubmitForm extends Component {
     const {
       S3URLs,
       formText,
+      formTitle,
       responseMessage,
       showPopup,
       uploadError,
@@ -179,6 +182,14 @@ class SingleFieldSubmitForm extends Component {
         <div>
           {renderFormHeader ? renderFormHeader() : null}
           <form className="form">
+            <input
+              type="text"
+              className="form-input-txt"
+              placeholder="Title"
+              value={formTitle}
+              onChange={this.onTitleChange}
+            />
+
             <textarea
               className="form-input"
               onChange={this.onTextChange}
@@ -186,32 +197,48 @@ class SingleFieldSubmitForm extends Component {
               value={formText}
               placeholder={placeholder}
             />
-            {maxLength ? <div className="flex-right">{formText.length}/<span dangerouslySetInnerHTML={{__html: maxLength }} /></div> : null}
+            {maxLength ? (
+              <div className="flex-right">
+                {formText.length}/
+                <span dangerouslySetInnerHTML={{ __html: maxLength }} />
+              </div>
+            ) : null}
             <div className="flex-container">
               <div className="flex-container">
                 <PhotoUploadButton handleUploadImage={this.handleUploadImage} />
                 {uploadError && <span className="errorMsg">{uploadError}</span>}
-                {(!uploadError && uploadLoading) && <div className="fa fa-spinner" />}
-                {S3URLs.length > 0 ? <ViewImagesButton images={S3URLs} /> : null}
+                {!uploadError && uploadLoading && (
+                  <div className="fa fa-spinner" />
+                )}
+                {S3URLs.length > 0 ? (
+                  <ViewImagesButton images={S3URLs} />
+                ) : null}
               </div>
               <div>
                 <Button text={submitLabel} onClickEvent={this.submitForm} />
               </div>
             </div>
           </form>
-          {useModal ? <Modal
-            ariaHideApp={false}
-            isOpen={showPopup}
-            style={customModalStylesV4}
-            contentLabel="Form"
-            onRequestClose={this.closeModal}
-          >
-            {responseMessage ? <p className="" dangerouslySetInnerHTML={{ __html: responseMessage }} /> : null}
-          </Modal> : null}
+          {useModal ? (
+            <Modal
+              ariaHideApp={false}
+              isOpen={showPopup}
+              style={customModalStylesV4}
+              contentLabel="Form"
+              onRequestClose={this.closeModal}
+            >
+              {responseMessage ? (
+                <p
+                  className=""
+                  dangerouslySetInnerHTML={{ __html: responseMessage }}
+                />
+              ) : null}
+            </Modal>
+          ) : null}
         </div>
         <style jsx>{styles}</style>
       </div>
-    )
+    );
   }
 }
 

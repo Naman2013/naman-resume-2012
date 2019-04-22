@@ -5,7 +5,7 @@ import {
   ObservatoryInformation,
 } from 'app/modules/telescope/components/old';
 import { Box } from 'app/modules/telescope/components/box';
-import { AllSkyCamera } from 'app/modules/telescope/components/old/all-sky-camera';
+import { ConnectedAllSkyCamera } from 'app/modules/telescope/components/old/all-sky-camera';
 import { DomCameraWidget } from 'app/modules/telescope/components/old/dom-camera-widget';
 import { PicoDelTeidesWidget } from 'app/modules/telescope/components/old/pico-del-teide-widget';
 import './styles.scss';
@@ -27,7 +27,7 @@ export const StatusTab = props => {
         <Container>
           <Row>
             <Col lg={4} md={12} sm={12}>
-              <AllSkyCamera
+              <ConnectedAllSkyCamera
                 obsId={obsId}
                 allSkyWidgetID={allSkyWidgetID}
                 imageURL={allSkyCam.allSkyCamURL}
@@ -35,6 +35,9 @@ export const StatusTab = props => {
                 allSkyCamURL={allSkyCam.allSkyCamURL}
                 offlineImageURL={allSkyCam.allSkyCamOfflineURL}
                 onlineStatus={allSkyCam.allSkyCamOnlineStatus}
+                AllskyTimelapseWidgetId={
+                  currentObservatory.AllskyTimelapseWidgetId
+                }
               />
             </Col>
             <Col lg={4} md={12} sm={12}>

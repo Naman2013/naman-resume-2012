@@ -1,7 +1,8 @@
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
-import { Catalog } from '../components/catalog';
+import { Catalog } from '../components/catalog/catalog';
+import { withCatalog } from '../components/catalog/catalog-wrapper';
 import {
   makeByCatalogListSelector,
   makeMissionsLoadingSelector,
@@ -56,5 +57,6 @@ export default compose(
   connect(
     mapStateToProps,
     mapDispatchToProps
-  )
+  ),
+  withCatalog
 )(Catalog);

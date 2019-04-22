@@ -34,17 +34,18 @@ class FullActivityForm extends Component {
 
   state = {};
 
-  submitForm = (content, S3URLs, callback) => {
+  submitForm = (content, S3URLs, title, callback) => {
     const { topicId, forumId, intl } = this.props;
 
     this.props
       .createThread({
         S3URLs,
         content,
+        title,
         topicId,
         forumId,
       })
-      .then((data) => {
+      .then(data => {
         const message = data.apiError
           ? intl.formatMessage(messages.SubmitPostError)
           : intl.formatMessage(messages.PostSubmitted);
@@ -55,7 +56,8 @@ class FullActivityForm extends Component {
   render() {
     const { user, intl, placeholder } = this.props;
 
-    const formPlaceholder = placeholder || `${intl.formatMessage(messages.WriteSomething)}...`;
+    const formPlaceholder =
+      placeholder || `${intl.formatMessage(messages.WriteSomething)}...`;
 
     return (
       <div className="form-container">

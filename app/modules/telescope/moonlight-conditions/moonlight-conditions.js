@@ -41,7 +41,7 @@ export const MoonlightWidget = memo(function MoonlightWidget(props) {
         ))}
       </ul>
 
-      <div className="actions">
+      <div className="moonlight-actions">
         <GenericButton
           theme={{ width: '100%' }}
           text="View our guide"

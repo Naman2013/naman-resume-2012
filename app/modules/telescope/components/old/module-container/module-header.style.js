@@ -7,8 +7,12 @@ export default css`
   .module-header {
     display: flex;
     align-items: center;
-    padding-right: 40px;
     border-bottom: 5px solid ${lightHeadedAstronaut};
+  }
+  
+  .module-header.with-icon {
+    justify-content: space-between;
+    padding-right: 40px;
   }
 
   .title {
@@ -18,5 +22,6 @@ export default css`
     font-family: ${primaryFont};
     color: ${lightHeadedAstronaut};
     text-transform: uppercase;
+    letter-spacing: 2px;
   }
 `;

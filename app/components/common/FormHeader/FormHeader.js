@@ -30,7 +30,7 @@ const FormHeader = ({
     </div>
     <div className="comment-title-text-container">
       <span className="comment-title-text">
-        Write a Public Comment
+        Start a discussion
       </span>
     </div>
   </div>
