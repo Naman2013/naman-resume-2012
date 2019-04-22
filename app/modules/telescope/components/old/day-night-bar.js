@@ -52,8 +52,8 @@ export class DayNightBar extends Component {
       field: d.sunsetTime,
     },
     {
-      title: 'timezone',
-      field: d.timeZoneLabel,
+      title: d.timeZoneLabel,
+      field: d.timeZone,
     },
   ];
 
