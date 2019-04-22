@@ -45,6 +45,7 @@ const TabConditions = props => (
     <div className="tile-container">
       <DayNightBar
         dayNightBarPanelURL={props.dayNightBarPanel.dayNightBarPanelURL}
+        dayNightBar={props.dayNightBar}
       />
     </div>
 
