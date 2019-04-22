@@ -51,11 +51,12 @@ const TabConditions = props => {
         <MoonlightConditions />
       </div>
 
-      <div className="tile-container">
-        <DayNightBar
-          dayNightBarPanelURL={dayNightBarPanel.dayNightBarPanelURL}
-        />
-      </div>
+    <div className="tile-container">
+      <DayNightBar
+        dayNightBarPanelURL={props.dayNightBarPanel.dayNightBarPanelURL}
+        dayNightBar={props.dayNightBar}
+      />
+    </div>
 
       <div className="tile-container">
         <DayNightMap dayNightMapURL={dayNightMap.dayNightMapURL} />
