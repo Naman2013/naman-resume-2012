@@ -6,10 +6,12 @@
 }
 
 .live-domecamtimelapse {
+  display: block;
+  line-height: 1;
 
   .generic-loading-box {
     height: auto;
     min-height: auto;
-    padding-top: 20px;
+    padding: 20px 0;
   }
 }

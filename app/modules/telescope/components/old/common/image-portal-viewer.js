@@ -5,7 +5,7 @@ import style from './image-portal-viewer.style';
 
 export class ImagePortalViewer extends Component {
   render() {
-    const { imageURL, description, onClick } = this.props;
+    const { imageURL, title, onClick } = this.props;
     return (
       <div
         className="root image-portal-viewer"
@@ -14,9 +14,9 @@ export class ImagePortalViewer extends Component {
       >
         <div className="content">
           <ImagePortal src={imageURL} />
-          {description && (
+          {title && (
             <div className="meta-data">
-              <p className="copy">{description}</p>
+              <p className="copy">{title}</p>
             </div>
           )}
         </div>
@@ -28,9 +28,9 @@ export class ImagePortalViewer extends Component {
 
 ImagePortalViewer.propTypes = {
   imageURL: PropTypes.string.isRequired,
-  description: PropTypes.string,
+  title: PropTypes.string,
 };
 
 ImagePortalViewer.defaultProps = {
-  description: '',
+  title: '',
 };

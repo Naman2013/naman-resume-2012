@@ -2,17 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import style from './module-header.style';
 
-const ModuleHeader = ({ title, titleIcon }) => {
-  let cls = 'module-header';
+const ModuleHeader = props => {
+  const { title, titleIcon } = props;
+  const cls = 'module-header';
   return (
-    <div
-      className={title && titleIcon ? `${cls} justify-content-between` : cls}
-    >
+    <div className={title && titleIcon ? `${cls} with-icon` : cls}>
       <h4 className="title">{title}</h4>
       {titleIcon && <i className={titleIcon} />}
       <style jsx>{style}</style>
     </div>
-  )
+  );
 };
 
 ModuleHeader.propTypes = {
