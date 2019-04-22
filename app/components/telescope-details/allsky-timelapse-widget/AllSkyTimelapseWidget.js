@@ -19,16 +19,23 @@ const mapStateToProps = ({
   offlineImageURL: allSkyTimelapseWidgetResult.offlineImageURL,
   onlineStatus: allSkyTimelapseWidgetResult.onlineStatus,
   widgetWidth: allSkyTimelapseWidgetResult.widgetWidth,
-  fetchingAllSkyTimelapseWidgetResult: telescopeOverview.fetchingAllSkyTimelapseWidgetResult,
+  fetchingAllSkyTimelapseWidgetResult:
+    telescopeOverview.fetchingAllSkyTimelapseWidgetResult,
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({
-    fetchAllSkyTimelapseAction,
-  }, dispatch),
+  actions: bindActionCreators(
+    {
+      fetchAllSkyTimelapseAction,
+    },
+    dispatch
+  ),
 });
 
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(
+  mapStateToProps,
+  mapDispatchToProps
+)
 class AllSkyTimelapseWidget extends Component {
   static propTypes = {
     obsId: PropTypes.string.isRequired,
@@ -40,13 +47,20 @@ class AllSkyTimelapseWidget extends Component {
     offlineImageURL: PropTypes.string.isRequired,
   };
 
-  constructor(props) {
-    super(props);
+  componentDidMount() {
+    const { actions } = this.props;
+    const { fetchAllSkyTimelapseAction } = actions;
+    const { obsId, AllskyTimelapseWidgetId } = this.props;
+    fetchAllSkyTimelapseAction({ obsId, AllskyTimelapseWidgetId });
   }
 
-  componentDidMount() {
-    const { obsId, AllskyTimelapseWidgetId } = this.props;
-    this.props.actions.fetchAllSkyTimelapseAction({ obsId, AllskyTimelapseWidgetId });
+  componentDidUpdate(prevProps) {
+    const { actions, obsId } = this.props;
+    const { fetchAllSkyTimelapseAction } = actions;
+    const { AllskyTimelapseWidgetId } = prevProps;
+    if (AllskyTimelapseWidgetId !== this.props.AllskyTimelapseWidgetId) {
+      fetchAllSkyTimelapseAction({ obsId, AllskyTimelapseWidgetId });
+    }
   }
 
   render() {
@@ -65,19 +79,32 @@ class AllSkyTimelapseWidget extends Component {
       textAlign: 'center',
       position: 'relative',
       minWidth: '100%',
-    }
+    };
 
     return (
       <div className="telescope-block live-allsky">
         {/*<h1 style={inlineTitleStyle}>{allskyTimelapseTitle}</h1>*/}
         <div className="live-allskytimelapse">
-          {onlineStatus == 'offline' && <Offline offlineImageURL={offlineImageURL}/>}
-          {onlineStatus == 'online' && allskyTimelapseURL ?
-            <video style={{width: widgetWidth + 'px'}} className="allskytimelapse-video" playsInline autoPlay muted loop nodownload controls controlsList="nodownload">
+          {onlineStatus === 'offline' && (
+            <Offline offlineImageURL={offlineImageURL} />
+          )}
+          {onlineStatus === 'online' && allskyTimelapseURL ? (
+            <video
+              style={{ width: `${widgetWidth}px` }}
+              className="allskytimelapse-video"
+              playsInline
+              autoPlay
+              muted
+              loop
+              nodownload
+              controls
+              controlsList="nodownload"
+            >
               <source src={allskyTimelapseURL} type="video/mp4" />
             </video>
-            : <GenericLoadingBox />
-          }
+          ) : (
+            <GenericLoadingBox />
+          )}
         </div>
       </div>
     );

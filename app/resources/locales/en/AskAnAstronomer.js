@@ -22,7 +22,7 @@ export const AskAnAstronomer = {
   'AskAnAstronomer.ReplyPlaceholder': 'Write your public reply',
   'AskAnAstronomer.SaveChanges': 'Save Changes',
   'AskAnAstronomer.EditDescription': 'Edit Description',
-  'AskAnAstronomer.Comments': 'Comments',
+  'AskAnAstronomer.Comments': 'Discussions',
   'AskAnAstronomer.Loading': 'Loading',
   'AskAnAstronomer.NoThreads': 'There is nothing to show here',
   'AskAnAstronomer.CommentErrorText': 'There was an error submitting your comment.',

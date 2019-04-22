@@ -5,7 +5,8 @@ import TelescopNavigationDropDown from '../../../telescope/components/old/telesc
 import './styles.scss';
 
 export class TelescopeDropdown extends Component {
-  customOption = ({ innerRef, innerProps, children, value }, telescopeList) => {
+  customOption = ({ innerRef, innerProps, children, value }) => {
+    const { telescopeList } = this.props;
     return (
       <div ref={innerRef} {...innerProps} className="dropdown-opt">
         <div className="dropdown-name">

@@ -19,7 +19,7 @@ export class MissionTimeSlot extends PureComponent {
       showSloohUser,
     } = timeSlot;
 
-    const missionStartTime = moment(missionStart * 1000);
+    const missionStartTime = moment.utc(missionStart * 1000);
     const missionSlotOnClick =
       SLOT_STATUS.AVAILABLE === slotStatus
         ? () => getTelescopeSlot()
