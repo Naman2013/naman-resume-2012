@@ -1,10 +1,10 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import DropDown from 'components/common/DropDown';
+import DropDown from 'app/components/common/DropDown';
 import findIndex from 'lodash/findIndex';
-import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
+import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
 import Dots from 'atoms/icons/Dots';
-import { astronaut } from 'styles/variables/colors_tiles_v4';
+import { astronaut } from 'app/styles/variables/colors_tiles_v4';
 import style from './HubSort.style';
 
 const {

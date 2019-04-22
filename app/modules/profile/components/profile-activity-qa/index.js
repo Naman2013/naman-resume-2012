@@ -6,7 +6,7 @@ import React, { Component, Fragment } from 'react';
 import Modal from 'react-modal';
 import _get from 'lodash/get';
 
-import MainContainer from 'app/containers/ask-astronomer/partials/MainContainer';
+import MainContainer from 'app/modules/ask-astronomer/containers/partials/MainContainer';
 import { DeviceContext } from 'app/providers/DeviceProvider';
 import { customModalStylesV4 } from 'app/styles/mixins/utilities';
 

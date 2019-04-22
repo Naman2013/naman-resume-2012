@@ -1,8 +1,8 @@
 import React, { Component, cloneElement } from 'react';
 import PropTypes from 'prop-types';
-import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
-import Button from 'components/common/style/buttons/Button';
-import { info } from 'styles/variables/iconURLs';
+import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
+import Button from 'app/components/common/style/buttons/Button';
+import { info } from 'app/styles/variables/iconURLs';
 import styles from './SubscriptionPlanCard.style';
 
 const {

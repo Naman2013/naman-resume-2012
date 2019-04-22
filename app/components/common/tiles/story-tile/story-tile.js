@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
-import AveryTile from 'components/common/tiles/AveryTile';
+import AveryTile from 'app/components/common/tiles/AveryTile';
 import style from './story-tile.style';
 
 const StoryTile = ({ title, imageUrl, linkUrl, isMobile, photoSize }) => {

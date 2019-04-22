@@ -7,9 +7,9 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import Request from 'components/common/network/Request';
+import Request from 'app/components/common/network/Request';
 import BootstrappedUpcomingMissionAside from './BootstrappedUpcomingMissionAside';
-import { UPCOMING_MISSION } from 'services/reservations';
+import { UPCOMING_MISSION } from 'app/services/reservations';
 
 const {
   bool,

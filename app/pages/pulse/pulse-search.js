@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Pagination from 'rc-pagination';
 import GenericLoadingBox from '../../components/common/loading-screens/generic-loading-box';
-import 'rc-pagination/assets/index.css';
 import uniqueId from 'lodash/uniqueId';
 import noop from 'lodash/noop';
 import PulsePostItem from './pulse-post-item';

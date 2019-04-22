@@ -6,8 +6,8 @@ import React, { Component, Fragment, cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { horizontalArrowRightWhite } from 'styles/variables/iconURLs'
-import { fetchMissionPhotos } from 'modules/my-pictures/actions';
+import { horizontalArrowRightWhite } from 'app/styles/variables/iconURLs'
+import { fetchMissionPhotos } from 'app/modules/my-pictures/actions';
 
 import style from './MissionDetails.style';
 

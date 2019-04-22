@@ -9,20 +9,20 @@ import React, { Component, Fragment} from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { intlShape, injectIntl, FormattedMessage } from 'react-intl';
-import GenericLoadingBox from 'components/common/loading-screens/generic-loading-box';
+import GenericLoadingBox from 'app/components/common/loading-screens/generic-loading-box';
 import DeviceProvider from 'providers/DeviceProvider';
 import has from 'lodash/has';
-import ObjectDetailsSectionTitle from 'components/object-details/ObjectDetailsSectionTitle';
-import CenterColumn from 'components/common/CenterColumn';
-import Request from 'components/common/network/Request';
-import StoryTile from 'components/common/tiles/StoryTile';
+import ObjectDetailsSectionTitle from 'app/components/object-details/ObjectDetailsSectionTitle';
+import CenterColumn from 'app/components/common/CenterColumn';
+import Request from 'app/components/common/network/Request';
+import StoryTile from 'app/components/common/tiles/StoryTile';
 
-import { OBJECT_STORIES } from 'services/objects';
+import { OBJECT_STORIES } from 'app/services/objects';
 
 import {
   fetchObjectDetailsAction,
   fetchObjectDataAction,
-} from 'modules/object-details/actions';
+} from 'app/modules/object-details/actions';
 import messages from './ObjectDetails.messages';
 
 

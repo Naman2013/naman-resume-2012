@@ -1,5 +1,5 @@
 import css from 'styled-jsx/css';
-import { resetMarginPadding } from 'styles/variables/utils';
+import { resetMarginPadding } from 'app/styles/variables/utils';
 
 export default css`
   .pagination-root {

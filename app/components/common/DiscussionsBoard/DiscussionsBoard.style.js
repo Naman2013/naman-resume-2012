@@ -1,8 +1,8 @@
 import css from 'styled-jsx/css';
-import { astronaut, romance, shadows } from 'styles/variables/colors_tiles_v4';
-import { primaryFont } from 'styles/variables/fonts';
-import { dropShadowContainer, customModalStylesV4 } from 'styles/mixins/utilities';
-import { faintShadow } from 'styles/variables/shadows';
+import { astronaut, romance, shadows } from 'app/styles/variables/colors_tiles_v4';
+import { primaryFont } from 'app/styles/variables/fonts';
+import { dropShadowContainer, customModalStylesV4 } from 'app/styles/mixins/utilities';
+import { faintShadow } from 'app/styles/variables/shadows';
 
 export default css`
   .root {

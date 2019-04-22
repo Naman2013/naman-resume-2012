@@ -11,7 +11,7 @@ import { Link } from 'react-router';
 import classnames from 'classnames';
 import take from 'lodash/take';
 import uniqueId from 'lodash/uniqueId';
-import { SORT_AZ, SORT_ZA, SORT_RANK, SORT_DATE } from 'modules/community-group-overview/actions';
+import { SORT_AZ, SORT_ZA, SORT_RANK, SORT_DATE } from 'app/modules/community-group-overview/actions';
 import styles from './members-list.style';
 
 const {

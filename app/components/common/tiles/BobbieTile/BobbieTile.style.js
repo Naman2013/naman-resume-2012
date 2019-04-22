@@ -1,9 +1,9 @@
 import css from 'styled-jsx/css';
-import { primaryFont, secondaryFont } from 'styles/variables/fonts';
-import { faintShadow } from 'styles/variables/shadows';
-import { astronaut, geyser } from 'styles/variables/colors_tiles_v4';
-import { resetMarginPadding } from 'styles/variables/utils';
-import { screenMedium, screenLarge } from 'styles/variables/breakpoints';
+import { primaryFont, secondaryFont } from 'app/styles/variables/fonts';
+import { faintShadow } from 'app/styles/variables/shadows';
+import { astronaut, geyser } from 'app/styles/variables/colors_tiles_v4';
+import { resetMarginPadding } from 'app/styles/variables/utils';
+import { screenMedium, screenLarge } from 'app/styles/variables/breakpoints';
 
 export default css`
   div,

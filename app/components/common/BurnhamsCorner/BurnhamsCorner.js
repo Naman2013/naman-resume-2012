@@ -1,6 +1,6 @@
 import React, { Fragment, Component } from 'react';
 import PropTypes from 'prop-types';
-import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
+import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
 import BurnhamsCornerLarge from './BurnhamsCornerLarge';
 import BurnhamsCornerSmall from './BurnhamsCornerSmall';
 

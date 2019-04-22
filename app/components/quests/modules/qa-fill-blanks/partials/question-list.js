@@ -1,11 +1,11 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import IntroText from 'components/common/form-sections/intro-text';
-import SectionHeader from 'components/common/form-sections/section-header';
-import PromptBox from 'components/quests/modules/partials/prompt-box';
-import SingleQuestion from 'components/common/form-fields/single-question';
-import CircleCharacter from 'components/common/medallions/circle-character';
-import { astronaut, geyser, shadows } from 'styles/variables/colors_tiles_v4';
+import IntroText from 'app/components/common/form-sections/intro-text';
+import SectionHeader from 'app/components/common/form-sections/section-header';
+import PromptBox from 'app/components/quests/modules/partials/prompt-box';
+import SingleQuestion from 'app/components/common/form-fields/single-question';
+import CircleCharacter from 'app/components/common/medallions/circle-character';
+import { astronaut, geyser, shadows } from 'app/styles/variables/colors_tiles_v4';
 
 const { arrayOf, bool, number, shape, string } = PropTypes;
 

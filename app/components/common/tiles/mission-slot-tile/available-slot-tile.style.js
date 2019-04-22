@@ -1,7 +1,7 @@
 import css from 'styled-jsx/css';
-import { faintShadow } from 'styles/variables/shadows';
-import { primaryFont, secondaryFont } from 'styles/variables/fonts';
-import { astronaut, hawkesBlue } from 'styles/variables/colors_tiles_v4';
+import { faintShadow } from 'app/styles/variables/shadows';
+import { primaryFont, secondaryFont } from 'app/styles/variables/fonts';
+import { astronaut, hawkesBlue } from 'app/styles/variables/colors_tiles_v4';
 
 export default css`
   .available-slot-root {

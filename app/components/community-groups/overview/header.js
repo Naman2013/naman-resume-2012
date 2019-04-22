@@ -9,18 +9,18 @@ import { Link, browserHistory } from 'react-router';
 import PropTypes from 'prop-types';
 import pick from 'lodash/pick';
 import { FormattedMessage } from 'react-intl';
-import LabeledTitleTiles from 'components/common/style/LabeledTitleTiles';
-import LargeButtonWithRightIcon from 'components/common/style/buttons/LargeButtonWithRightIcon';
-import Button from 'components/common/style/buttons/Button';
-import { astronaut, romance, white_tile_paper, nightfall } from 'styles/variables/colors_tiles_v4';
-import { secondaryFont } from 'styles/variables/fonts';
-import { info } from 'styles/variables/iconURLs';
+import LabeledTitleTiles from 'app/components/common/style/LabeledTitleTiles';
+import LargeButtonWithRightIcon from 'app/components/common/style/buttons/LargeButtonWithRightIcon';
+import Button from 'app/components/common/style/buttons/Button';
+import { astronaut, romance, white_tile_paper, nightfall } from 'app/styles/variables/colors_tiles_v4';
+import { secondaryFont } from 'app/styles/variables/fonts';
+import { info } from 'app/styles/variables/iconURLs';
 import {
   screenMedium,
   screenLarge,
-} from 'styles/variables/breakpoints';
-import { dropShadowContainer } from 'styles/mixins/utilities';
-import DiscussionBoardDescription from 'components/common/DiscussionsBoard/DiscussionBoardDescription';
+} from 'app/styles/variables/breakpoints';
+import { dropShadowContainer } from 'app/styles/mixins/utilities';
+import DiscussionBoardDescription from 'app/components/common/DiscussionsBoard/DiscussionBoardDescription';
 import messages from './activity-form.messages';
 
 const {

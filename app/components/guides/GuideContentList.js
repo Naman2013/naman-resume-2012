@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import AbelList from '../common/AbelList';
 import TopicActions from './TopicActions';
-import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
+import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
 import style from './GuideContentList.style';
 
 const GuideContentList = ({ list, topicActionProps, guideId }) => (

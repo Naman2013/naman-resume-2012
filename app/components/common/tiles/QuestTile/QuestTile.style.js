@@ -1,6 +1,6 @@
 import css from 'styled-jsx/css';
-import { primaryFont, secondaryFont } from 'styles/variables/fonts';
-import { astronaut, blue_tile_canvas } from 'styles/variables/colors_tiles_v4';
+import { primaryFont, secondaryFont } from 'app/styles/variables/fonts';
+import { astronaut, blue_tile_canvas } from 'app/styles/variables/colors_tiles_v4';
 
 export default css`
   .root {

@@ -9,11 +9,11 @@ import noop from 'lodash/noop';
 import { fetchBrowseTaggedDataAction } from '../../modules/browse-tagged-data/actions';
 import { fetchBrowseFindDataAction, resetBrowseFindDataAction } from '../../modules/browse-find-data/actions';
 import { shadows, astronaut, romance, gainsboro, seashell } from '../../styles/variables/colors_tiles_v4';
-import { primaryFont, secondaryFont } from 'styles/variables/fonts';
+import { primaryFont, secondaryFont } from 'app/styles/variables/fonts';
 import DisplayAtBreakpoint from '../common/DisplayAtBreakpoint';
 import { Field, reduxForm } from 'redux-form';
-import InputField from 'components/form/InputField';
-import Request from 'components/common/network/Request';
+import InputField from 'app/components/form/InputField';
+import Request from 'app/components/common/network/Request';
 
 const {
   func,

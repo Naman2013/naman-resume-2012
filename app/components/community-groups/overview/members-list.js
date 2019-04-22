@@ -11,8 +11,8 @@ import { Link } from 'react-router';
 import take from 'lodash/take';
 import uniqueId from 'lodash/uniqueId';
 import { intlShape, injectIntl } from 'react-intl';
-import BlueLineDrop from 'components/common/BlueLineDrop';
-import ShowMoreFullSet from 'components/common/ShowMoreFullSet';
+import BlueLineDrop from 'app/components/common/BlueLineDrop';
+import ShowMoreFullSet from 'app/components/common/ShowMoreFullSet';
 import MembersListSort from './members-list-sort';
 import MembersCardList from './members-list-card-list';
 import {

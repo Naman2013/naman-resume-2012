@@ -7,11 +7,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import { bindActionCreators } from 'redux';
-import questActions from 'modules/quest-details/actions';
-import { validateResponseAccess } from 'modules/authorization/actions';
-import { customModalStylesBlackOverlay } from 'styles/mixins/utilities';
+import questActions from 'app/modules/quest-details/actions';
+import { validateResponseAccess } from 'app/modules/authorization/actions';
+import { customModalStylesBlackOverlay } from 'app/styles/mixins/utilities';
 import ResourcesButton from './resources-button';
-import { GET_APPENDIX } from 'services/quests';
+import { GET_APPENDIX } from 'app/services/quests';
 import ResourcesModal from './modals/resources-modal';
 
 

@@ -9,10 +9,10 @@ import PropTypes from 'prop-types';
 import uniqueId from 'lodash/uniqueId';
 import take from 'lodash/take';
 import has from 'lodash/has';
-import SloohSlider from 'components/common/Slider';
-import { romance } from 'styles/variables/colors_tiles_v4';
-import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
-import BigGuideTile from 'components/common/tiles/BigGuideTile/BigGuideTile';
+import SloohSlider from 'app/components/common/Slider';
+import { romance } from 'app/styles/variables/colors_tiles_v4';
+import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
+import BigGuideTile from 'app/components/common/tiles/BigGuideTile/BigGuideTile';
 import { getSliderProps } from './recommendedGuidesConfiguration';
 const {
   arrayOf,

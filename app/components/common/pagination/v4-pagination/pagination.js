@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import GenericButton from 'components/common/style/buttons/Button';
-import { horizontalArrow } from 'styles/variables/iconURLs';
+import GenericButton from 'app/components/common/style/buttons/Button';
+import { horizontalArrow } from 'app/styles/variables/iconURLs';
 import Pages from './pages';
 import style from './pagination.style';
 

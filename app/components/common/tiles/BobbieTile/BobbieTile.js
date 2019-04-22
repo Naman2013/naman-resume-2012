@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ImageClickHandler from '../../ImageClickHandler';
-import { horizontalArrow } from 'styles/variables/iconURLs';
+import { horizontalArrow } from 'app/styles/variables/iconURLs';
 import style from './BobbieTile.style';
 import CMSStyle from './CMS.style';
 

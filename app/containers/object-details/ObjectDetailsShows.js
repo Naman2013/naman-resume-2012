@@ -12,18 +12,18 @@ import { bindActionCreators } from 'redux';
 import noop from 'lodash/noop';
 import has from 'lodash/has';
 import { intlShape, injectIntl, FormattedMessage } from 'react-intl';
-import Request from 'components/common/network/Request';
+import Request from 'app/components/common/network/Request';
 
 import DeviceProvider from 'providers/DeviceProvider';
-import ObjectDetailsSectionTitle from 'components/object-details/ObjectDetailsSectionTitle';
-import CenterColumn from 'components/common/CenterColumn';
-import ShowTile from 'components/common/tiles/ShowTile';
-import { OBJECT_SHOWS } from 'services/objects';
+import ObjectDetailsSectionTitle from 'app/components/object-details/ObjectDetailsSectionTitle';
+import CenterColumn from 'app/components/common/CenterColumn';
+import ShowTile from 'app/components/common/tiles/ShowTile';
+import { OBJECT_SHOWS } from 'app/services/objects';
 
 import {
   fetchObjectDetailsAction,
   fetchObjectDataAction,
-} from 'modules/object-details/actions';
+} from 'app/modules/object-details/actions';
 import messages from './ObjectDetails.messages';
 
 const {

@@ -7,12 +7,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { intlShape, injectIntl } from 'react-intl';
-import FormHeader from 'components/common/FormHeader';
-import SingleFieldSubmitForm from 'components/common/SingleFieldSubmitForm';
-import RevealSubmitForm from 'components/common/RevealSubmitForm';
-import { prepareReply } from 'services/discussions/prepare-reply';
-import { romance, astronaut, shadows } from 'styles/variables/colors_tiles_v4';
-import { dropShadowContainer } from 'styles/mixins/utilities';
+import FormHeader from 'app/components/common/FormHeader';
+import SingleFieldSubmitForm from 'app/components/common/SingleFieldSubmitForm';
+import RevealSubmitForm from 'app/components/common/RevealSubmitForm';
+import { prepareReply } from 'app/services/discussions/prepare-reply';
+import { romance, astronaut, shadows } from 'app/styles/variables/colors_tiles_v4';
+import { dropShadowContainer } from 'app/styles/mixins/utilities';
 import messages from './ReplyForm.messages';
 
 const {

@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
-import { romance, astronaut, shadows, lynch } from 'styles/variables/colors_tiles_v4';
-import { primaryFont, secondaryFont } from 'styles/variables/fonts';
+import { romance, astronaut, shadows, lynch } from 'app/styles/variables/colors_tiles_v4';
+import { primaryFont, secondaryFont } from 'app/styles/variables/fonts';
 import {
   horizontalArrowRightAstronaut
-} from 'styles/variables/iconURLs';
+} from 'app/styles/variables/iconURLs';
 
 const {
   bool,

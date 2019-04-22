@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import noop from 'lodash/noop';
 
-import Telescope from 'components/Telescope';
-import { StarShareCamera } from 'components/telescope-details/star-share-camera';
+import Telescope from 'app/components/Telescope';
+import { StarShareCamera } from 'app/components/telescope-details/star-share-camera';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -12,7 +12,7 @@ import {
   snapImage,
   resetImageToSnap,
   resetsnapImageMsg,
-} from 'modules/starshare-camera/starshare-camera-actions';
+} from 'app/modules/starshare-camera/starshare-camera-actions';
 
 class TelescopeImageViewerController extends Component {
   static propTypes = {

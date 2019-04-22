@@ -1,5 +1,5 @@
 import css from 'styled-jsx/css';
-import { astronaut } from 'styles/variables/colors_tiles_v4';
+import { astronaut } from 'app/styles/variables/colors_tiles_v4';
 import { secondaryFont } from  'styles/variables/fonts';
 
 export default css`

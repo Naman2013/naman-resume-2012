@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import MultipleChoiceItem from 'components/common/form-fields/multiple-choice-item';
-import CircleCharacter from 'components/common/medallions/circle-character';
+import MultipleChoiceItem from 'app/components/common/form-fields/multiple-choice-item';
+import CircleCharacter from 'app/components/common/medallions/circle-character';
 import styles from './content-category-selector.style';
 
 const ContentCategorySelector = (props) => {

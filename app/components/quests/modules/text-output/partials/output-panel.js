@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import Request from 'components/common/network/Request';
-import SectionHeader from 'components/common/form-sections/section-header';
+import Request from 'app/components/common/network/Request';
+import SectionHeader from 'app/components/common/form-sections/section-header';
 
 const {
   arrayOf,

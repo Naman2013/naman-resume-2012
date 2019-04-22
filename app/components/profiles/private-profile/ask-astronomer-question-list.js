@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import AstronomerQuestionListItem from './ask-astronomer-question-list-item';
-import { fetchAstronomerQuestionList } from '../../../modules/ask-astronomer-question-list/actions';
+import { fetchAstronomerQuestionList } from '../../../modules/ask-astronomer/reducers/ask-astronomer-question-list/actions';
 import { black, darkBlueGray, white, turqoise } from '../../../styles/variables/colors';
 import { secondaryFont } from '../../../styles/variables/fonts';
 

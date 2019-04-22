@@ -8,7 +8,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
-import { profilePhotoStyle } from 'styles/mixins/utilities';
+import { profilePhotoStyle } from 'app/styles/mixins/utilities';
 import style from './BootstrappedObjectDetailList.style';
 
 

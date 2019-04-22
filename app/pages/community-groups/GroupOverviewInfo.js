@@ -9,22 +9,22 @@ import React, { Component, cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import { browserHistory } from 'react-router';
 import { DeviceContext } from 'providers/DeviceProvider';
-import Header from 'components/community-groups/overview/header';
-import FullInformationOverview from 'components/community-groups/overview/full-information-container';
+import Header from 'app/components/community-groups/overview/header';
+import FullInformationOverview from 'app/components/community-groups/overview/full-information-container';
 import {
   joinOrLeaveGroup,
-} from 'modules/community-groups/actions';
+} from 'app/modules/community-groups/actions';
 import {
   astronaut,
   romance,
-} from 'styles/variables/colors_tiles_v4';
+} from 'app/styles/variables/colors_tiles_v4';
 import {
   SCREEN_SMALL,
   SCREEN_MEDIUM,
   SCREEN_LARGE,
   screenMedium,
   screenLarge,
-} from 'styles/variables/breakpoints'
+} from 'app/styles/variables/breakpoints'
 
 class CommunityGroupOverview extends Component {
   static propTypes = {

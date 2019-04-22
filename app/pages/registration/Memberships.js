@@ -8,10 +8,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 import SubscriptionPlanCardSmall from './partials/SubscriptionPlanCardSmall';
-import Button from 'components/common/style/buttons/Button';
-import Request from 'components/common/network/Request';
-import CenterColumn from 'components/common/CenterColumn';
-import { JOIN_PAGE_ENDPOINT_URL, SUBSCRIPTION_PLANS_ENDPOINT_URL } from 'services/registration/registration.js';
+import Button from 'app/components/common/style/buttons/Button';
+import Request from 'app/components/common/network/Request';
+import CenterColumn from 'app/components/common/CenterColumn';
+import { JOIN_PAGE_ENDPOINT_URL, SUBSCRIPTION_PLANS_ENDPOINT_URL } from 'app/services/registration/registration.js';
 import styles from './Memberships.style';
 
 class Memberships extends Component {

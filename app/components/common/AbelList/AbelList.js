@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
+import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
 import HorizontalList from './HorizontalList';
 import VerticalList from './VerticalList';
 import style from './AbelList.style';

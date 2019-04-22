@@ -9,7 +9,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import uniqueId from 'lodash/uniqueId';
-import { triangleUp } from 'styles/variables/iconURLs';
+import { triangleUp } from 'app/styles/variables/iconURLs';
 import styles from './TabbedNav.style';
 
 const {

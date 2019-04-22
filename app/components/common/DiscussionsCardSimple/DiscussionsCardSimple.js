@@ -9,12 +9,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import uniqueId from 'lodash/uniqueId';
 import moment from 'moment';
-import CommentButton from 'components/common/style/buttons/CommentButton';
-import LikeSomethingButton from 'components/common/LikeSomethingButton';
-import ReplyForm from 'components/common/DiscussionsBoard/ReplyForm';
-import ReplyButton from 'components/common/DiscussionsBoard/ReplyButton';
-import Button from 'components/common/style/buttons/Button';
-import ViewImagesButton from 'components/common/style/buttons/ViewImagesButton';
+import CommentButton from 'app/components/common/style/buttons/CommentButton';
+import LikeSomethingButton from 'app/components/common/LikeSomethingButton';
+import ReplyForm from 'app/components/common/DiscussionsBoard/ReplyForm';
+import ReplyButton from 'app/components/common/DiscussionsBoard/ReplyButton';
+import Button from 'app/components/common/style/buttons/Button';
+import ViewImagesButton from 'app/components/common/style/buttons/ViewImagesButton';
 import styles, { profPic } from './DiscussionsCardSimple.style'
 
 const {

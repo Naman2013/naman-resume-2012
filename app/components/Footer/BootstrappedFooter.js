@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import uniqueId from 'lodash/uniqueId';
-import SocialMenu from 'components/GlobalNavigation/Menus/partials/SocialMenu';
+import SocialMenu from 'app/components/GlobalNavigation/Menus/partials/SocialMenu';
 import style from './Footer.style';
 
 const Footer = ({

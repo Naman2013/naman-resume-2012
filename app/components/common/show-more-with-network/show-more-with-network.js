@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import noop from 'lodash/noop';
 import isMatch from 'lodash/isMatch';
 import axios from 'axios';
-import ShowMore from 'components/common/ShowMore';
+import ShowMore from 'app/components/common/ShowMore';
 
 class ShowMoreWithNetwork extends Component {
   static propTypes = {

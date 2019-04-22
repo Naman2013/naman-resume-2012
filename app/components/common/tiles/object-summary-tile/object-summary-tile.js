@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import GenericButton from 'components/common/style/buttons/Button';
+import GenericButton from 'app/components/common/style/buttons/Button';
 import { Link } from 'react-router';
-import { plus, info } from 'styles/variables/iconURLs';
+import { plus, info } from 'app/styles/variables/iconURLs';
 import style from './object-summary-tile.style';
 
 import Dots from 'atoms/icons/Dots';

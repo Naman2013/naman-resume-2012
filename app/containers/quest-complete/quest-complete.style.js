@@ -13,7 +13,7 @@ import {
   faintGray,
   questDetailsTexture,
 } from '../../styles/variables/colors_tiles_v4';
-import { faintShadow } from 'styles/variables/shadows';
+import { faintShadow } from 'app/styles/variables/shadows';
 import { screenMedium, screenLarge, screenXLarge } from '../../styles/variables/breakpoints';
 import {
   questShield,

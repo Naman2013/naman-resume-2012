@@ -8,9 +8,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import uniqueId from 'lodash/uniqueId';
-import { likeReply } from 'services/discussions/like';;
-import DiscussionsCard from 'components/common/DiscussionsCard';
-import DiscussionsCardSimple from 'components/common/DiscussionsCardSimple';
+import { likeReply } from 'app/services/discussions/like';;
+import DiscussionsCard from 'app/components/common/DiscussionsCard';
+import DiscussionsCardSimple from 'app/components/common/DiscussionsCardSimple';
 import DiscussionReplies from './DiscussionComments';
 import styles from './DiscussionsBoard.style';
 

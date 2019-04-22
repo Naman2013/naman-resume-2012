@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Login from 'redux/components/Login';
 import MenuTitleBar from './MenuTitleBar';
-import { romance } from 'styles/variables/colors_tiles_v4';
+import { romance } from 'app/styles/variables/colors_tiles_v4';
 import messages from './Login.messages';
 
-import { userAstronaut } from 'styles/variables/iconURLs';
+import { userAstronaut } from 'app/styles/variables/iconURLs';
 
 const LogIn = ({ avatarURL }) => (
   <div className="root">

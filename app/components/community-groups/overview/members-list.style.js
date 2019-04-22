@@ -4,13 +4,13 @@ import {
   romance,
   glitter,
   seashell,
-} from 'styles/variables/colors_tiles_v4';
-import { primaryFont, secondaryFont } from 'styles/variables/fonts';
+} from 'app/styles/variables/colors_tiles_v4';
+import { primaryFont, secondaryFont } from 'app/styles/variables/fonts';
 import {
   fullWidthBtn,
   profPic,
 } from '../styles';
-import { dropShadowContainer } from 'styles/mixins/utilities';
+import { dropShadowContainer } from 'app/styles/mixins/utilities';
 export const profilePicSmall = (url) => Object.assign(profPic(url),
 { height: '20px', width: '20px', backgroundSize: 'cover' });
 

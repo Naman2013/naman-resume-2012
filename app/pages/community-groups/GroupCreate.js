@@ -5,27 +5,27 @@ import noop from 'lodash/noop';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Modal from 'react-modal';
-import GroupTiles from 'components/groups-hub/group-tiles';
-import RequestGroupForm from 'components/community-groups/request-group-form';
-import PromptWithClose from 'components/community-groups/prompt-with-close';
-import RequestGroupFormFeedback from 'components/community-groups/request-group-form-feedback';
-import HubContainer from 'components/common/HubContainer';
-import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
-import CenterColumn from 'components/common/CenterColumn';
+import GroupTiles from 'app/components/groups-hub/group-tiles';
+import RequestGroupForm from 'app/components/community-groups/request-group-form';
+import PromptWithClose from 'app/components/community-groups/prompt-with-close';
+import RequestGroupFormFeedback from 'app/components/community-groups/request-group-form-feedback';
+import HubContainer from 'app/components/common/HubContainer';
+import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
+import CenterColumn from 'app/components/common/CenterColumn';
 import { DeviceContext } from 'providers/DeviceProvider';
-import { validateResponseAccess } from 'modules/authorization/actions'
-import { customModalStylesBlackOverlay } from 'styles/mixins/utilities';
-import { requestGroup } from 'services/community-groups/request-group';
+import { validateResponseAccess } from 'app/modules/authorization/actions'
+import { customModalStylesBlackOverlay } from 'app/styles/mixins/utilities';
+import { requestGroup } from 'app/services/community-groups/request-group';
 import { browserHistory } from 'react-router';
 
 import axios from 'axios';
-import Request from 'components/common/network/Request';
-import { GROUPS_PAGE_ENDPOINT_URL, GET_GROUPS } from 'services/community-groups';
-import { CLASSROOM_CREATENEWGROUP_PAGE_ENDPOINT_URL, CLASSROOM_CREATENEWGROUP_ENDPOINT_URL } from 'services/classroom/classroom';
+import Request from 'app/components/common/network/Request';
+import { GROUPS_PAGE_ENDPOINT_URL, GET_GROUPS } from 'app/services/community-groups';
+import { CLASSROOM_CREATENEWGROUP_PAGE_ENDPOINT_URL, CLASSROOM_CREATENEWGROUP_ENDPOINT_URL } from 'app/services/classroom/classroom';
 
 import { Field, reduxForm } from 'redux-form';
-import InputField from 'components/form/InputField';
-import Button from 'components/common/style/buttons/Button';
+import InputField from 'app/components/form/InputField';
+import Button from 'app/components/common/style/buttons/Button';
 
 import style from '../../containers/groups-hub/groups-hub.style';
 import style2 from 'pages/registration/partials/JoinHeader.style';

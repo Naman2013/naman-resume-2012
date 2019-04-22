@@ -1,7 +1,7 @@
 import React from 'react';
 import { ModuleContainer } from './module-container';
 import Triangle from 'atoms/icons/Triangle';
-import { astronaut } from 'styles/variables/colors_tiles_v4';
+import { astronaut } from 'app/styles/variables/colors_tiles_v4';
 import style from './weekly-forecast.style';
 
 const WeeklyForecast = () => (

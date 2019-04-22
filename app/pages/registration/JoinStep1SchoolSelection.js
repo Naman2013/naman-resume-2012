@@ -5,17 +5,17 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Button from 'components/common/style/buttons/Button';
+import Button from 'app/components/common/style/buttons/Button';
 import { browserHistory } from 'react-router';
 import { Field, reduxForm, formValueSelector } from 'redux-form';
 import { intlShape, injectIntl } from 'react-intl';
-import InputField from 'components/form/InputField';
+import InputField from 'app/components/form/InputField';
 import {
   CLASSROOM_GET_US_DISTRICTLIST_ENDPOINT_URL,
   CLASSROOM_GET_US_SCHOOLLIST_ENDPOINT_URL,
   CLASSROOM_CREATE_NEW_SCHOOL,
-} from 'services/classroom/classroom';
-import { JOIN_PAGE_ENDPOINT_URL } from 'services/registration/registration.js';
+} from 'app/services/classroom/classroom';
+import { JOIN_PAGE_ENDPOINT_URL } from 'app/services/registration/registration.js';
 import axios from 'axios';
 import debounce from 'lodash/debounce';
 import JoinHeader from './partials/JoinHeader';

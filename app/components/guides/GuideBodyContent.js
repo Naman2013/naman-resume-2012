@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import TopicActions from './TopicActions';
-import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
+import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
 import AboutContent from './AboutContent';
 import style from './GuideBodyContent.style';
 

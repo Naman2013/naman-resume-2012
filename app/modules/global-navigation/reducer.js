@@ -1,5 +1,5 @@
 import createReducer from '../utils/createReducer';
-import MENU_INTERFACE from 'components/GlobalNavigation/Menus/MenuInterface';
+import MENU_INTERFACE from 'app/components/GlobalNavigation/Menus/MenuInterface';
 import {
   CLOSE_ALL_GLOBAL_NAV_MENUS,
   CLOSE_UPSELL_MODAL,

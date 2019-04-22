@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
-import { DeviceContext } from 'providers/DeviceProvider';
+import { DeviceContext } from 'app/providers/DeviceProvider';
 import Button from './Button';
 import styles from './CountButton.style';
 

@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link, browserHistory } from 'react-router';
-import { guideCorner } from 'styles/variables/iconURLs';
-import ToggleJoinGroup from 'components/common/ToggleJoinGroup';
-import AskToJoinGroup from 'components/common/AskToJoinGroup';
-import Button from 'components/common/style/buttons/Button';
+import { guideCorner } from 'app/styles/variables/iconURLs';
+import ToggleJoinGroup from 'app/components/common/ToggleJoinGroup';
+import AskToJoinGroup from 'app/components/common/AskToJoinGroup';
+import Button from 'app/components/common/style/buttons/Button';
 import style from './group-excerpt-tile.style';
 
 const GroupExcerptTile = ({

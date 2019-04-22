@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Pagination from 'rc-pagination';
-import 'rc-pagination/assets/index.css';
 import uniqueId from 'lodash/uniqueId';
 import PulsePostItem from './pulse-post-item';
 

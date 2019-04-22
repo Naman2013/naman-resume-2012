@@ -5,21 +5,21 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
-import InputField from 'components/form/InputField';
+import InputField from 'app/components/form/InputField';
 import PropTypes from 'prop-types';
 import cloneDeep from 'lodash/cloneDeep';
 import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 import { DeviceContext } from 'providers/DeviceProvider';
-import TextareaField from 'components/form/TextareaField';
-import Button from 'components/common/style/buttons/Button';
-import { CLASSROOM_GET_GROUP_INVITATION_PANEL_ENDPOINT_URL } from 'services/classroom/classroom';
-import { CREATE_CUSTOMER_LINK_INVITATION_ENDPOINT_URL } from 'services/registration/registration';
-import Request from 'components/common/network/Request';
+import TextareaField from 'app/components/form/TextareaField';
+import Button from 'app/components/common/style/buttons/Button';
+import { CLASSROOM_GET_GROUP_INVITATION_PANEL_ENDPOINT_URL } from 'app/services/classroom/classroom';
+import { CREATE_CUSTOMER_LINK_INVITATION_ENDPOINT_URL } from 'app/services/registration/registration';
+import Request from 'app/components/common/network/Request';
 import axios from 'axios';
 import {
   screenMedium,
   screenLarge,
-} from 'styles/variables/breakpoints';
+} from 'app/styles/variables/breakpoints';
 import styles from './DiscussionBoardInviteNewMemberToSlooh.style';
 import messages from './DiscussionBoard.messages';
 

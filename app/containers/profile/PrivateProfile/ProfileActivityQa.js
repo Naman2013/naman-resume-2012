@@ -9,16 +9,16 @@ import { bindActionCreators } from 'redux';
 import Modal from 'react-modal';
 import _get from 'lodash/get';
 
-import MainContainer from '../../ask-astronomer/partials/MainContainer';
+import MainContainer from '../../../modules/ask-astronomer/containers/partials/MainContainer';
 import {
   fetchAstronomerQuestions,
   askQuestion,
   changeAnswerState,
-} from '../../../modules/ask-astronomer-questions/actions';
+} from '../../../modules/ask-astronomer/reducers/ask-astronomer-questions/actions';
 import {
   toggleAllAnswersAndDisplay,
   submitAnswerToQuestion,
-} from '../../../modules/ask-astronomer-answers/actions';
+} from '../../../modules/ask-astronomer/reducers/ask-astronomer-answers/actions';
 import { DeviceContext } from '../../../providers/DeviceProvider';
 import { customModalStylesV4 } from '../../../styles/mixins/utilities';
 
