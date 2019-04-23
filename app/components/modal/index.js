@@ -1,6 +1,7 @@
 import React from 'react';
 import { Modal as BModal } from 'react-bootstrap';
 import './styles.scss';
+import cx from 'classnames';
 
 const ModalDialog = props => {
   const { children, onHide, goBackText } = props;
@@ -23,12 +24,14 @@ const ModalDialog = props => {
 };
 
 export const Modal = props => {
-  const { children } = props;
+  const { children, mobileStyle } = props;
+  const cls = cx({ 'mobile-style': mobileStyle });
   return (
     <BModal
       {...props}
       dialogAs={() => <ModalDialog {...props} />}
       backdrop={false}
+      className={cls}
     >
       {children}
     </BModal>
