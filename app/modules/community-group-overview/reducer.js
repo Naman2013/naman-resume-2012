@@ -96,6 +96,8 @@ export default createReducer(initialState, {
       ...state,
       membersCallError: false,
       membersCallFetching: true,
+      membersCount: 0,
+      membersList: [],
     };
   },
   [FETCH_GROUP_MEMBERS_SUCCESS](state, { payload }) {

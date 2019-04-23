@@ -16,7 +16,7 @@ export default handleActions(
     [TYPE.GET_CLUBS]: getClubs,
     [TYPE.GET_CLUBS_SUCCESS]: getClubsSuccess,
     [TYPE.GET_CLUBS_ERROR]: getClubsError,
-    [TYPE.GET_TOP_THREADS]: setFetching,
+    [TYPE.GET_TOP_THREADS]: getTopThreadsStart,
     [TYPE.GET_TOP_THREADS_SUCCESS]: getTopThreadsSuccess,
     [TYPE.GET_TOP_THREADS_ERROR]: getTopThreadsError,
   },
@@ -25,6 +25,10 @@ export default handleActions(
 
 function setFetching(state) {
   return { ...state, isFetching: true, isLoaded: false };
+}
+
+function getTopThreadsStart(state) {
+  return { ...state, isFetching: true, isLoaded: false, topThreadsList: [] };
 }
 
 function getTopThreadsSuccess(state, action) {
