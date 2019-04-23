@@ -1,17 +1,17 @@
-import React from 'react';
 import { DomCameraWidget } from 'app/modules/telescope/components/old/dom-camera-widget';
 import { PicoDelTeidesWidget } from 'app/modules/telescope/components/old/pico-del-teide-widget';
+import React from 'react';
+import { MoonlightConditions } from '../../moonlight-conditions/moonlight-conditions-container';
 import {
-  Satellite,
   ConnectedAllSkyCamera,
-  SkyConditions,
-  WeatherConditions,
   DayNightBar,
   DayNightMap,
-  WeeklyForecast,
   ObsBotWidget,
+  Satellite,
+  SkyConditions,
+  WeatherConditions,
+  WeeklyForecast,
 } from './index';
-import { MoonlightConditions } from '../../moonlight-conditions/moonlight-conditions-container';
 import style from './tab-conditions.style';
 
 const TabConditions = props => {
@@ -25,7 +25,6 @@ const TabConditions = props => {
     facilityWebcam,
     weatherSatellite,
   } = props;
-
   const { SeeingConditionsWidgetId, obsId } = currentObservatory;
   return (
     <div>
@@ -47,7 +46,7 @@ const TabConditions = props => {
       </div>
 
       <div className="tile-container">
-        <WeatherConditions />
+        <WeatherConditions obsId={obsId} />
       </div>
 
       <div className="tile-container">
