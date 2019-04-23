@@ -26,7 +26,7 @@ class Lists extends Component {
           promptIconUrl: x.promptIconUrl,
           readingListPrompt: x.readingListPrompt,
           readingListType: x.readingListType,
-          shortDescription: x.shortDescroption || 'PLACEHOLDER DESCRIPTION',
+          shortDescription: x.shortDescription || 'PLACEHOLDER DESCRIPTION',
           toggleReadingListFlag: x.toggleReadingListFlag,
           toggleFollowConfirmationFlag: x.toggleFollowConfirmationFlag,
           toggleFollowConfirmationPrompt: x.toggleFollowConfirmationPrompt,
@@ -41,7 +41,7 @@ class Lists extends Component {
           promptIconUrl: x.promptIconUrl,
           readingListPrompt: x.readingListPrompt,
           readingListType: x.readingListType,
-          shortDescription: x.shortDescroption || 'PLACEHOLDER DESCRIPTION',
+          shortDescription: x.shortDescription || 'PLACEHOLDER DESCRIPTION',
           toggleReadingListFlag: x.toggleReadingListFlag,
           toggleFollowConfirmationFlag: x.toggleFollowConfirmationFlag,
           toggleFollowConfirmationPrompt: x.toggleFollowConfirmationPrompt,
@@ -57,7 +57,7 @@ class Lists extends Component {
           promptIconUrl: x.promptIconUrl,
           readingListPrompt: x.readingListPrompt,
           readingListType: x.readingListType,
-          shortDescription: x.shortDescroption || 'PLACEHOLDER DESCRIPTION',
+          shortDescription: x.shortDescription || 'PLACEHOLDER DESCRIPTION',
           toggleReadingListFlag: x.toggleReadingListFlag,
           toggleFollowConfirmationFlag: x.toggleFollowConfirmationFlag,
           toggleFollowConfirmationPrompt: x.toggleFollowConfirmationPrompt,
@@ -139,6 +139,7 @@ class Lists extends Component {
         {context => (
           <HubContainer
             page={1}
+            profile
             {...context}
             {...this.props}
             hubName="reading_list"

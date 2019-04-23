@@ -6,6 +6,7 @@ import { hawkesBlue, shadows, lightHeadedAstronaut, seashell, astronaut } from '
 export default css`
   .photohub-root {
     font-family: ${primaryFont};
+    padding: 20px 0;
   }
   .photohub-title {
     font-size: 14px;
