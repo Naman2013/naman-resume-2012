@@ -10,13 +10,19 @@ export class MissionsList extends Component {
   };
 
   render() {
-    const { selectedDate, missionList, getTelescopeSlot } = this.props;
+    const {
+      selectedDate,
+      missionList,
+      getTelescopeSlot,
+      showDateArrows,
+    } = this.props;
 
     return (
       <div className="missions-list">
         <MissionsDaySelector
           selectedDate={selectedDate}
           selectDate={this.selectDate}
+          showDateArrows={showDateArrows}
         />
 
         {missionList &&

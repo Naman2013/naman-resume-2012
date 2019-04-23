@@ -76,3 +76,17 @@ export const makeMoonlightBarSelector = () =>
     selectTelescopeOverview,
     state => state.moonlightBarResult
   );
+
+// Queue tab
+
+export const makeQueueTabSelector = () =>
+  createSelector(
+    selectTelescope,
+    state => state.queueTab
+  );
+
+export const makeQueueTabUpcomingSlotsDataSelector = () =>
+  createSelector(
+    makeQueueTabSelector(),
+    state => state.upcomingSlotsData
+  );
