@@ -213,12 +213,9 @@ class ImageList extends Component {
     const { children, type, deviceInfo } = this.props;
     const { activePage } = this.state;
     const arrOfImages = this.props[mapTypeToList[type]];
-
-    if (!arrOfImages.length) return null;
-
     const count = this.props[mapTypeToCount[type]];
     const currentImagesNumber = arrOfImages.length * activePage;
-    console.log('arrOfImages', arrOfImages);
+
     return Array.isArray(arrOfImages) && arrOfImages.length > 0 ? (
       <ConnectUser
         render={user => (

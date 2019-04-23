@@ -11,7 +11,7 @@ class ProfileLists extends Component {
     } = this.props;
     if (params.private) getPrivateProfile();
     if (params.public) getPublicProfile(params.customerUUID);
-    if (params.filterType) {
+    if (params.filterType && params.filterType !== 'object') {
       if (params.private) getProfileLists(params.filterType);
       if (params.public)
         getProfileLists(params.filterType, params.customerUUID);
@@ -20,17 +20,20 @@ class ProfileLists extends Component {
 
   componentDidUpdate(prevProps) {
     const { params, getProfileLists } = this.props;
-    if (prevProps.params.filterType !== params.filterType) {
+    if (
+      prevProps.params.filterType !== params.filterType &&
+      params.filterType !== 'object'
+    ) {
       if (params.private) getProfileLists(params.filterType);
-      if (params.public)
+      if (params.public) {
         getProfileLists(params.filterType, params.customerUUID);
+      }
     }
     return null;
   }
 
   render() {
     const { data, params, profileLists } = this.props;
-    if (!data) return null;
     const hubFilters = data.profileMenuList.find(el => el.name === 'Lists')
       .subMenus;
     const formatedHubFilter = hubFilters.map(filter => ({

@@ -88,11 +88,7 @@ class Lists extends Component {
     }));
   };
 
-  GetTiles = (filterType, props) => {
-    const {
-      profileLists,
-      data: { interestsList },
-    } = this.props;
+  GetTiles = (filterType, profileLists, interestsList, props) => {
     const tiles = this.getModeledTiles(filterType, profileLists, interestsList);
     switch (filterType) {
       case 'object':
@@ -141,8 +137,13 @@ class Lists extends Component {
   };
 
   render() {
-    const { filterType, filterOptions, profileLists, intl, data } = this.props;
-    if (isEmpty(profileLists) || isEmpty(data)) return null;
+    const {
+      filterType,
+      filterOptions,
+      intl,
+      profileLists,
+      data: { interestsList },
+    } = this.props;
     return (
       <DeviceContext.Consumer>
         {context => (
@@ -167,7 +168,7 @@ class Lists extends Component {
             showHeaderIcon={false}
             render={() => (
               <Fragment>
-                {this.GetTiles(filterType, {
+                {this.GetTiles(filterType, profileLists, interestsList, {
                   closeModal: this.closeModal,
                   updateReadingListInfo: this.updateItemInfo,
                   updatePrompt: this.updatePrompt,
