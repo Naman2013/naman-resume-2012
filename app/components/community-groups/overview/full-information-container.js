@@ -106,6 +106,7 @@ class FullInformationOverview extends Component {
       membersCount,
       membersList,
       membersSort,
+      leadersList,
       showJoinPrompt,
       refreshHeader,
       user,
@@ -148,6 +149,7 @@ class FullInformationOverview extends Component {
                 membersSort={membersSort}
                 membersList={membersList}
                 membersCount={membersCount}
+                leadersList ={leadersList}
                 discussionGroupId={discussionGroupId}
                 fetchGroupMembers={actions.fetchGroupMembers}
                 isDesktop={context.isDesktop}
