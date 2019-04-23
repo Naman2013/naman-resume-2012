@@ -90,10 +90,6 @@ class FullInformationOverview extends Component {
     membersList: [],
   };
 
-  componentWillUnmount(){
-    console.log('unmount');
-  }
-
   render() {
     const {
       actions,
