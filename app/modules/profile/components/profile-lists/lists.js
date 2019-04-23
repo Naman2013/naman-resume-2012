@@ -14,9 +14,10 @@ class Lists extends Component {
 
   getModeledTiles = (filterType, profileLists, interestsList) => {
     const { tiles } = this.state;
+    const { itemList } = profileLists;
     let mergedTiles = [].concat(
       tiles,
-      filterType === 'object' ? interestsList : profileLists.itemList
+      filterType === 'object' ? interestsList : itemList
     );
     switch (filterType) {
       case 'story':
@@ -80,11 +81,12 @@ class Lists extends Component {
 
   updateTilesList = () => {
     const { profileLists, params, data } = this.props;
+    const { itemList } = profileLists;
     this.setState(() => ({
       tiles:
         params.filterType === 'object'
           ? data.interestsList
-          : profileLists.itemList,
+          : itemList,
     }));
   };
 
@@ -121,12 +123,13 @@ class Lists extends Component {
 
   appendToTilesList = () => {
     const { params, profileLists, data } = this.props;
+    const { itemList } = profileLists;
     this.setState(state => {
       const tiles = [].concat(
         state.tiles,
         params.filterType === 'object'
           ? data.interestsList
-          : profileLists.itemList
+          : itemList
       );
       return { tiles };
     });
