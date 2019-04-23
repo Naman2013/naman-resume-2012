@@ -37,7 +37,7 @@ const GroupMemberListSort = ({
   <div className="members-list-card" key={uniqueId()} style={theme}>
     {clubLeaderLabel ? (
       <div>
-        <p className="leader-label"> {clubLeaderLabel}:</p>
+        <p className="leader-label"> {clubLeaderLabel}</p>
         <div className="pic" style={profilePicLeader(iconUrl)} />
         <div
           className="leader-title"
