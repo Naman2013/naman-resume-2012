@@ -6,13 +6,23 @@ import {
   seashell,
 } from 'app/styles/variables/colors_tiles_v4';
 import { primaryFont, secondaryFont } from 'app/styles/variables/fonts';
-import {
-  fullWidthBtn,
-  profPic,
-} from '../styles';
 import { dropShadowContainer } from 'app/styles/mixins/utilities';
-export const profilePicSmall = (url) => Object.assign(profPic(url),
-{ height: '20px', width: '20px', backgroundSize: 'cover' });
+import { fullWidthBtn, profPic } from '../styles';
+import { lightHeadedAstronaut } from '../../../styles/variables/colors_tiles_v4';
+
+export const profilePicSmall = url =>
+  Object.assign(profPic(url), {
+    height: '20px',
+    width: '20px',
+    backgroundSize: 'cover',
+  });
+
+export const profilePicLeader = url =>
+  Object.assign(profPic(url), {
+    height: '40px',
+    width: '40px',
+    backgroundSize: 'cover',
+  });
 
 export default css`
   .members-list {
@@ -40,7 +50,6 @@ export default css`
     ${fullWidthBtn}
   }
 
-
   .sort-button {
     position: relative;
     color: ${glitter};
@@ -48,7 +57,7 @@ export default css`
     flex: 1 1 0;
     text-align: center;
     height: 100%;
-    cursor:pointer;
+    cursor: pointer;
   }
 
   .sort-button.active {
@@ -81,7 +90,19 @@ export default css`
     border-top: 1px solid ${astronaut};
     height: 35px;
     align-items: center;
+  }
 
+  .leader-info{
+    display: flex;
+    flex-direction: row;
+    font-family: ${primaryFont};
+    font-weight: bold;
+    font-size: 10px;
+    justify-content: space-between;
+    border-top: 1px solid ${astronaut};
+    height: 35px;
+    align-items: center;
+    color:${lightHeadedAstronaut}
   }
 
   .gravity-label {
@@ -102,7 +123,6 @@ export default css`
   .header {
     display: flex;
     flex-direction: row;
-
   }
 
   .button-container {
@@ -122,8 +142,6 @@ export default css`
     background-color: ${astronaut};
     padding-top: 10px;
     overflow: hidden;
-
-
   }
   .caret {
     display: none;
@@ -141,8 +159,27 @@ export default css`
     -o-transform: rotate(45deg);
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
-
   }
 
+  .leader-label {
+    font-family: ${primaryFont};
+    font-size: 11px;
+    font-weight: bold;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1;
+    letter-spacing: 0.6px;
+    color: ${lightHeadedAstronaut};
+    padding-bottom: 28px;
+  }
 
+  .leader-title {
+    font-size: 20px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.4;
+    letter-spacing: normal;
+    color: ${lightHeadedAstronaut};
+  }
 `;
