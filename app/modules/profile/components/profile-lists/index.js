@@ -41,6 +41,7 @@ class ProfileLists extends Component {
     return (
       <div className="my-lists-hub i-root">
         <Lists
+          data={data}
           profileLists={profileLists}
           filterType={params.filterType}
           filterOptions={formatedHubFilter}

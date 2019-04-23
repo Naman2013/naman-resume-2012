@@ -16,7 +16,7 @@ export default css`
     background-size: cover;
     transition: width, height 0.4s ease-in-out;
     text-align: center;
-    margin: 20px auto;
+    margin: 0 auto 20px;
   }
 
   .show-tile-title {
