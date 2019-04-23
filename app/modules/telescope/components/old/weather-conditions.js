@@ -1,18 +1,71 @@
-import React from 'react';
+import { fetchWeatherConditions } from 'app/modules/Telescope-Overview';
+import React, { PureComponent } from 'react';
+import { connect } from 'react-redux';
 import { ModuleContainer, SimpleList } from './index';
 
-const data = [
-  { title: 'Temperature', field: '67F' },
-  { title: 'Dew point', field: '57F' },
-  { title: 'Humidity', field: '69%' },
-  { title: 'Wind speed', field: '0 mph' },
-  { title: 'Wind gusts', field: '0 mph' },
-];
+const mapStateToProps = ({
+  telescopeOverview: { weatherConditionsWidgetResult },
+}) => ({
+  weatherConditionsWidgetResult,
+});
 
-const WeatherConditions = () => (
-  <ModuleContainer title="Weather conditions">
-    <SimpleList data={data} />
-  </ModuleContainer>
-);
+const mapDispatchToProps = {
+  fetchWeatherConditions,
+};
 
-export { WeatherConditions };
+@connect(
+  mapStateToProps,
+  mapDispatchToProps
+)
+export class WeatherConditions extends PureComponent {
+  componentDidMount() {
+    const { obsId, fetchWeatherConditions } = this.props;
+    fetchWeatherConditions({ obsId });
+  }
+
+  parseData = (l = {}) => {
+    const result = [];
+    if (l.dewpointShow) {
+      result.push({
+        title: l.dewpointPrompt,
+        field: `${l.dewpoint}${l.dewpointUnits}`,
+      });
+    }
+    if (l.humidityShow) {
+      result.push({
+        title: l.humidityPrompt,
+        field: `${l.humidity}${l.humidityUnits}`,
+      });
+    }
+    if (l.temperatureShow) {
+      result.push({
+        title: l.temperaturePrompt,
+        field: `${l.temperature}${l.temperatureUnits}`,
+      });
+    }
+    if (l.windgustShow) {
+      result.push({
+        title: l.windgustPrompt,
+        field: `${l.windgust}${l.windgustUnits}`,
+      });
+    }
+    if (l.windspeedShow) {
+      result.push({
+        title: l.windspeedPrompt,
+        field: `${l.windspeed}${l.windspeedUnits}`,
+      });
+    }
+    return result;
+  };
+
+  render() {
+    const { weatherConditionsWidgetResult = {} } = this.props;
+    const { wxList } = weatherConditionsWidgetResult;
+    const data = wxList ? this.parseData(wxList) : [];
+    return (
+      <ModuleContainer title="Weather conditions">
+        <SimpleList data={data} />
+      </ModuleContainer>
+    );
+  }
+}
