@@ -90,3 +90,9 @@ export const makeQueueTabUpcomingSlotsDataSelector = () =>
     makeQueueTabSelector(),
     state => state.upcomingSlotsData
   );
+
+export const makeQueueTabIsFetchingSelector = () =>
+  createSelector(
+    makeQueueTabSelector(),
+    state => state.isFetching
+  );

@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import moment from 'moment';
+import { Button } from 'react-bootstrap';
 import { MissionsDaySelector } from '../missions-day-selector';
 import { MissionTimeSlot } from '../mission-time-slot';
+import './styles.scss';
 
 export class MissionsList extends Component {
   selectDate = date => {
@@ -15,6 +17,9 @@ export class MissionsList extends Component {
       missionList,
       getTelescopeSlot,
       showDateArrows,
+      showShowMoreButton,
+      showMoreButtonCaption,
+      showMore,
     } = this.props;
 
     return (
@@ -34,6 +39,12 @@ export class MissionsList extends Component {
               getTelescopeSlot={() => getTelescopeSlot(item)}
             />
           ))}
+
+        {showShowMoreButton && (
+          <Button className="show-more" onClick={showMore}>
+            {showMoreButtonCaption}
+          </Button>
+        )}
       </div>
     );
   }

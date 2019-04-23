@@ -11,10 +11,14 @@ import {
   getTelescopeSlot,
   cancelMissionSlot,
 } from '../thunks';
-import { makeQueueTabUpcomingSlotsDataSelector } from '../selectors';
+import { 
+  makeQueueTabUpcomingSlotsDataSelector,
+  makeQueueTabIsFetchingSelector,
+ } from '../selectors';
 import { ACTION } from '../reducer';
 
 const mapStateToProps = createStructuredSelector({
+  isFetching: makeQueueTabIsFetchingSelector(),
   upcomingSlotsData: makeQueueTabUpcomingSlotsDataSelector(),
   // selectedSlot: makeTelescopeSelectedSlotSelector(),
 });

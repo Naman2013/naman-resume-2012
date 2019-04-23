@@ -18,7 +18,6 @@ export const getAllSkyTimelapse = (obsId, widgetUniqueId) => (
 
 export const getUpcomingSlotsByTelescope = data => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
-  console.log(ACTION);
   dispatch(ACTION.getUpcomingSlotsByTelescope());
   return getUpcomingSlotsByTelescopeApi({ at, token, cid, ...data })
     .then(result =>
