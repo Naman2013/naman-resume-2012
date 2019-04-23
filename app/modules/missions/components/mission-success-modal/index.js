@@ -24,6 +24,7 @@ export class MissionSuccessModal extends Component {
       showGoodiesHeader,
       goodiesHeader,
       goBackLinkText,
+      exitLinkText,
       finishedButtonCaption,
       confirmationHeader,
       congratulationsText,

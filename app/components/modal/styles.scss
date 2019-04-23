@@ -1,5 +1,6 @@
 @import "~app/styles/variables/index";
 @import "~app/styles/mixins/utilities";
+@import '~app/styles/bootstrap/index.scss';
 
 // todo GLOBAL STYLES
 .modal-open .modal {
@@ -77,11 +78,10 @@
 
 
 // MOBILE STYLE (https://app.zeplin.io/project/5c49ec8466e3b3bee968092b/screen/5c5c088821ae342cd2815030)
-.modal.mobile-style{
-  @include sm-low {
+.modal.mobile-style {
+  @include media-breakpoint-down(xs) {
 
     background-color: $faintGray;
-
 
     &:before {
       content: '';

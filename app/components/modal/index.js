@@ -4,7 +4,7 @@ import './styles.scss';
 import cx from 'classnames';
 
 const ModalDialog = props => {
-  const { children, onHide, goBackText } = props;
+  const { children, onHide, goBackText, mobileGoBackText } = props;
 
   const backClick = e => {
     e.preventDefault();
@@ -14,8 +14,13 @@ const ModalDialog = props => {
   return (
     <div className="custom-modal">
       <span role="presentation" className="modal-back-btn" onClick={backClick}>
-        <span className="icon icon-arrow-left" />
-        {goBackText || 'GO BACK'}
+        <span className="d-sm-none">
+          <span className="icon icon-arrow-left" />{' '}
+          {mobileGoBackText || 'GO BACK'}
+        </span>
+        <span className="d-none d-sm-block">
+          <span className="icon icon-arrow-left" /> {goBackText || 'GO BACK'}
+        </span>
       </span>
 
       <div className="container">{children}</div>
