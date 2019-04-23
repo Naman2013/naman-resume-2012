@@ -19,11 +19,14 @@ const TabConditions = props => {
     currentTelescope,
     currentObservatory,
     dayNightBarPanel,
+    dayNightBar,
     dayNightMap,
     domeCam,
     facilityWebcam,
     weatherSatellite,
   } = props;
+
+  const { SeeingConditionsWidgetId, obsId } = currentObservatory;
   return (
     <div>
       {currentTelescope.teleHasNeoView && (
@@ -33,14 +36,14 @@ const TabConditions = props => {
       )}
       <div className="tile-container">
         <ConnectedAllSkyCamera
-          obsId={currentObservatory.obsId}
+          obsId={obsId}
           allSkyWidgetID={currentObservatory.AllskyWidgetId}
           AllskyTimelapseWidgetId={currentObservatory.AllskyTimelapseWidgetId}
         />
       </div>
 
       <div className="tile-container">
-        <SkyConditions />
+        <SkyConditions widgetID={SeeingConditionsWidgetId} obsId={obsId} />
       </div>
 
       <div className="tile-container">
@@ -51,12 +54,12 @@ const TabConditions = props => {
         <MoonlightConditions />
       </div>
 
-    <div className="tile-container">
-      <DayNightBar
-        dayNightBarPanelURL={props.dayNightBarPanel.dayNightBarPanelURL}
-        dayNightBar={props.dayNightBar}
-      />
-    </div>
+      <div className="tile-container">
+        <DayNightBar
+          dayNightBarPanelURL={dayNightBarPanel.dayNightBarPanelURL}
+          dayNightBar={dayNightBar}
+        />
+      </div>
 
       <div className="tile-container">
         <DayNightMap dayNightMapURL={dayNightMap.dayNightMapURL} />
