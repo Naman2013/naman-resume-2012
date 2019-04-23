@@ -7,7 +7,7 @@ export default css`
     width: 100%;
     margin: 0 auto;
   }
-
+  
   .body-wrapper {
     margin: 0 10px 20px 10px;    
   }
@@ -22,26 +22,13 @@ export default css`
     }
   
     .header-wrapper {
-      margin: 0 72px;
       box-shadow: none;
-    }
-
-    .body-wrapper {
-      margin: 0 74px 20px 74px;
     }
   }
 
   @media ${screenLarge} {
     .root-wrapper {
       width: 780px;
-    }
-    
-    .header-wrapper {
-      margin: 0 42px;
-    }
-
-    .body-wrapper {
-      margin: 0 42px 20px 42px;
     }
   }
   
