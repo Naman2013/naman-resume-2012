@@ -73,7 +73,7 @@ class LiveShowMainContent extends Component {
           <div>
             <BigBoxInfoContainer {...this.props} headerLabel={this.props.headerLabel} />
             <br/>
-            <iframe frameBorder="0" style={{width: '100%', minHeight: '450px'}} src={showLiveChatURL}></iframe>
+            <iframe frameBorder="0" style={{width: '100%', minHeight: '575px'}} src={showLiveChatURL}></iframe>
           </div>
         ) : (
           <div>
