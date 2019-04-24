@@ -20,7 +20,14 @@ export class QueueTab extends Component {
   };
 
   componentDidMount(){
+    const { setTelescope, currentTelescope, currentObservatory } = this.props;
     this.getUpcomingSlotsByTelescope();
+    setTelescope({
+      ...currentTelescope,
+      obsId: currentObservatory.obsId,
+      domeId: currentTelescope.telePierNumber,
+      telescopeId: currentTelescope.teleId,
+    });
   }
 
   getUpcomingSlotsByTelescope = requestedSlotCount => {
@@ -53,21 +60,22 @@ export class QueueTab extends Component {
   };
 
   reservationModalHide = () => {
-    const { cancelMissionSlot, selectedSlot, selectedDate } = this.props;
+    const { cancelMissionSlot, selectedSlot, upcomingSlotsData } = this.props;
     const { uniqueId, scheduledMissionId } = selectedSlot;
+    const { requestedSlotCount } = upcomingSlotsData;
     cancelMissionSlot({
       callSource: 'byTelescopeV4',
       grabType: 'notarget',
       scheduledMissionId,
       uniqueId,
-    });
-    this.getMissionSlotDates(selectedDate.reservationDate);
+    }).then(() => this.getUpcomingSlotsByTelescope(requestedSlotCount));
     this.setState({ reservationModalVisible: false });
   };
 
   reservationComplete = () => {
-    const { selectedDate } = this.props;
-    this.getMissionSlotDates(selectedDate.reservationDate);
+    const { upcomingSlotsData } = this.props;
+    const { requestedSlotCount } = upcomingSlotsData;
+    this.getUpcomingSlotsByTelescope(requestedSlotCount);
     this.setState({ reservationModalVisible: false });
   };
 
@@ -78,9 +86,8 @@ export class QueueTab extends Component {
       mobileMissionList,
     } = this.props;
     const { missionList, reservationDateFormatted, showShowMoreButton, showMoreButtonCaption } = upcomingSlotsData;
-
     const { reservationModalVisible } = this.state;
-    console.log(upcomingSlotsData);
+
     return (
       <div className={`animated fadeIn faster queue-tab${
         mobileMissionList ? ' mobile-missions-list' : ''

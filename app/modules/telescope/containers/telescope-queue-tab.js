@@ -3,32 +3,29 @@ import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 
 import { QueueTab } from '../components/queue-tab';
+import { getUpcomingSlotsByTelescope } from '../thunks';
 import {
-  getUpcomingSlotsByTelescope,
-  setTelescope,
-  setTelescopeDate,
-  getMissionSlotDates,
-  cancelMissionSlot,
-} from '../thunks';
-import { 
   makeQueueTabUpcomingSlotsDataSelector,
   makeQueueTabIsFetchingSelector,
- } from '../selectors';
+} from '../selectors';
 import { ACTION } from '../reducer';
-import { getTelescopeSlot } from '../../missions/thunks';
+import {
+  getTelescopeSlot,
+  setTelescope,
+  cancelMissionSlot,
+} from '../../missions/thunks';
 import { ACTION as MISSION_ACTION } from '../../missions/reducer';
+import { makeTelescopeSelectedSlotSelector } from '../../missions/selectors';
 
 const mapStateToProps = createStructuredSelector({
   isFetching: makeQueueTabIsFetchingSelector(),
   upcomingSlotsData: makeQueueTabUpcomingSlotsDataSelector(),
-  // selectedSlot: makeTelescopeSelectedSlotSelector(),
+  selectedSlot: makeTelescopeSelectedSlotSelector(),
 });
 
 const mapDispatchToProps = {
   getUpcomingSlotsByTelescope,
   setTelescope,
-  setTelescopeDate,
-  getMissionSlotDates,
   getTelescopeSlot,
   setSelectedSlot: MISSION_ACTION.setSelectedSlot,
   cancelMissionSlot,

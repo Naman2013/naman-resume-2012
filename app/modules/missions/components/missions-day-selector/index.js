@@ -12,7 +12,6 @@ export class MissionsDaySelector extends PureComponent {
       backDate,
       forwardDate,
     } = selectedDate;
-    console.log(showDateArrows);
     return (
       <div className="missions-day-selector">
         <div className="date">{reservationDateFormatted}</div>
