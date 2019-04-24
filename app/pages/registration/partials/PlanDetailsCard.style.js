@@ -68,4 +68,10 @@ export default css`
     align-items: center;
   }
 
+  .audience-type {
+    font-family: ${secondaryFont};
+    font-size: 0.75em;
+    font-style: italic;
+  }
+
 `;

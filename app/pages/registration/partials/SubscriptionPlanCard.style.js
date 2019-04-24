@@ -38,6 +38,12 @@ export default css`
     font-size: 24px;
   }
 
+  .audience-type {
+    font-family: ${secondaryFont};
+    font-size: 0.75em;
+    font-style: italic;
+  }
+
   .plan-cost {
     font-family: ${primaryFont};
     font-size: 45px;

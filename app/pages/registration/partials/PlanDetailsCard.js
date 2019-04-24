@@ -1,14 +1,14 @@
 /***********************************
-* V4 Discussions Thread List Item
-*
-*
-*
-***********************************/
+ * V4 Discussions Thread List Item
+ *
+ *
+ *
+ ***********************************/
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Button from 'app/components/common/style/buttons/Button';
-import styles from './PlanDetailsCard.style'
+import styles from './PlanDetailsCard.style';
 
 const {
   any,
@@ -21,9 +21,10 @@ const {
   string,
 } = PropTypes;
 
-const PlanDetailsCard = (props) => {
+const PlanDetailsCard = props => {
   const {
     nextRenewalDate,
+    planAudienceType,
     planCost,
     planCostPostfix,
     planCostPrefix,
@@ -36,17 +37,25 @@ const PlanDetailsCard = (props) => {
     <div className="root">
       <div className="flex">
         <div className="plan-details-container">
-          <div className="plan-name border-bottom" dangerouslySetInnerHTML={{ __html: planName }} />
+          <div
+            className="plan-name "
+            dangerouslySetInnerHTML={{ __html: planName }}
+          />
+          <br />
+          <div className="audience-type border-bottom">{planAudienceType}</div>
           <div className="plan-info emphasize">
             {`${startDateText}  ${nextRenewalDate}`}
           </div>
         </div>
         <div className="plan-cost-container">
           <div className="plan-cost padded-top-bottom">
-            <span dangerouslySetInnerHTML={{ __html: planCostPrefix}} />
-            <span dangerouslySetInnerHTML={{ __html: planCost}} />
+            <span dangerouslySetInnerHTML={{ __html: planCostPrefix }} />
+            <span dangerouslySetInnerHTML={{ __html: planCost }} />
           </div>
-          <span className="emphasize post-cost" dangerouslySetInnerHTML={{ __html: planCostPostfix}} />
+          <span
+            className="emphasize post-cost"
+            dangerouslySetInnerHTML={{ __html: planCostPostfix }}
+          />
         </div>
       </div>
 
@@ -65,8 +74,6 @@ PlanDetailsCard.propTypes = {
   startDateText: string.isRequired,
 };
 
-PlanDetailsCard.defaultProps = {
-
-};
+PlanDetailsCard.defaultProps = {};
 
 export default PlanDetailsCard;

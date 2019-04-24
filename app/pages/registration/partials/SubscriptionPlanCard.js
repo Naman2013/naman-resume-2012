@@ -45,6 +45,7 @@ class SubscriptionPlanCard extends Component {
     const {
       aboutThisPlan,
       imageUrl,
+      planAudienceType,
       planCost,
       planCostPrefix,
       planCostPostfix,
@@ -69,7 +70,11 @@ class SubscriptionPlanCard extends Component {
         <div className="inner-container">
           <div className="emphasize border-bottom title">Slooh Membership</div>
           <div className="flex border-bottom padded-top-bottom">
+          <div>
             <div className="plan-name" dangerouslySetInnerHTML={{ __html: planName }} />
+            <br/>
+            <div className="audience-type">{planAudienceType}</div>
+              </div>
             <div className="plan-cost">
               <span dangerouslySetInnerHTML={{ __html: planCostPrefix}} />
               <span dangerouslySetInnerHTML={{ __html: planCost}} />
