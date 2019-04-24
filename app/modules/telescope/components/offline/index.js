@@ -49,7 +49,7 @@ export default class TelescopeOffline extends Component {
       currentInstrument,
       allObservatoryTelescopeStatus,
     } = this.props;
-    console.log(this.props);
+
     return (
       <div className="telescope-offline animated fadeIn faster">
         {/* HEADER */}

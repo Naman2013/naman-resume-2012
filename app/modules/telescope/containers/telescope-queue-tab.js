@@ -8,7 +8,6 @@ import {
   setTelescope,
   setTelescopeDate,
   getMissionSlotDates,
-  getTelescopeSlot,
   cancelMissionSlot,
 } from '../thunks';
 import { 
@@ -16,6 +15,8 @@ import {
   makeQueueTabIsFetchingSelector,
  } from '../selectors';
 import { ACTION } from '../reducer';
+import { getTelescopeSlot } from '../../missions/thunks';
+import { ACTION as MISSION_ACTION } from '../../missions/reducer';
 
 const mapStateToProps = createStructuredSelector({
   isFetching: makeQueueTabIsFetchingSelector(),
@@ -29,7 +30,7 @@ const mapDispatchToProps = {
   setTelescopeDate,
   getMissionSlotDates,
   getTelescopeSlot,
-  //setSelectedSlot: ACTION.setSelectedSlot,
+  setSelectedSlot: MISSION_ACTION.setSelectedSlot,
   cancelMissionSlot,
 };
 

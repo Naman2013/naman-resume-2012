@@ -1,4 +1,26 @@
 @import '~app/styles/variables/index';
 
 .queue-tab {
+  &.mobile-missions-list {
+    .container {
+      padding: 0;
+    }
+
+    .missions-day-selector {
+      padding: 0 10px;
+    }
+
+    .missions-list-item {
+      padding: 30px 40px;
+
+      .left,
+      .right {
+        display: none;
+      }
+
+      .mobile {
+        display: block;
+      }
+    }
+  }
 }

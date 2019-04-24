@@ -9,22 +9,29 @@ import { ConnectedAllSkyCamera } from 'app/modules/telescope/components/old/all-
 import { DomCameraWidget } from 'app/modules/telescope/components/old/dom-camera-widget';
 import { PicoDelTeidesWidget } from 'app/modules/telescope/components/old/pico-del-teide-widget';
 import { MissionsList } from 'app/modules/missions/components/missions-list';
+import { ReservationModal } from 'app/modules/missions/components/telescope-reservation/reservation-modal';
 import { Spinner } from 'app/components/spinner/index';
+import { setupMissionListTimer, stopMissionListTimer} from 'app/services/missions/timer';
 import './styles.scss';
 
 export class QueueTab extends Component {
+  state = {
+    reservationModalVisible: false,
+  };
+
   componentDidMount(){
     this.getUpcomingSlotsByTelescope();
   }
 
   getUpcomingSlotsByTelescope = requestedSlotCount => {
     const { getUpcomingSlotsByTelescope, currentTelescope, currentObservatory } = this.props;
+    stopMissionListTimer();
     getUpcomingSlotsByTelescope({
       obsId: currentObservatory.obsId,
       domeId: currentTelescope.telePierNumber,
       telescopeId: currentTelescope.teleId,
       requestedSlotCount,
-    });
+    }).then(data => setupMissionListTimer(data.payload.refreshIntervalSec * 1000, () => this.getUpcomingSlotsByTelescope(requestedSlotCount)));
   }
 
   showMore = () => {
@@ -33,15 +40,51 @@ export class QueueTab extends Component {
     this.getUpcomingSlotsByTelescope(requestedSlotCount + showMoreSlotsIncrement);
   }
 
+  getTelescopeSlot = mission => {
+    const { getTelescopeSlot, setSelectedSlot } = this.props;
+    const { scheduledMissionId, uniqueId } = mission;
+    setSelectedSlot(mission);
+    getTelescopeSlot({
+      finalizeReservation: false,
+      grabType: 'notarget',
+      scheduledMissionId,
+      uniqueId,
+    }).then(() => this.setState({ reservationModalVisible: true }));
+  };
+
+  reservationModalHide = () => {
+    const { cancelMissionSlot, selectedSlot, selectedDate } = this.props;
+    const { uniqueId, scheduledMissionId } = selectedSlot;
+    cancelMissionSlot({
+      callSource: 'byTelescopeV4',
+      grabType: 'notarget',
+      scheduledMissionId,
+      uniqueId,
+    });
+    this.getMissionSlotDates(selectedDate.reservationDate);
+    this.setState({ reservationModalVisible: false });
+  };
+
+  reservationComplete = () => {
+    const { selectedDate } = this.props;
+    this.getMissionSlotDates(selectedDate.reservationDate);
+    this.setState({ reservationModalVisible: false });
+  };
+
   render(){
     const {
       upcomingSlotsData,
       isFetching,
+      mobileMissionList,
     } = this.props;
     const { missionList, reservationDateFormatted, showShowMoreButton, showMoreButtonCaption } = upcomingSlotsData;
+
+    const { reservationModalVisible } = this.state;
     console.log(upcomingSlotsData);
     return (
-      <div className="animated fadeIn faster queue-tab">
+      <div className={`animated fadeIn faster queue-tab${
+        mobileMissionList ? ' mobile-missions-list' : ''
+      }`}>
         <Container>
           <Spinner
             loading={isFetching}
@@ -54,6 +97,14 @@ export class QueueTab extends Component {
             showShowMoreButton={showShowMoreButton}
             showMoreButtonCaption={showMoreButtonCaption}
           />
+
+          {reservationModalVisible && (
+            <ReservationModal
+              onHide={this.reservationModalHide}
+              onComplete={this.reservationComplete}
+              show
+            />
+          )}
         </Container>
       </div>
   )};

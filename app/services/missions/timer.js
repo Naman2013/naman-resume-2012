@@ -1,4 +1,4 @@
-const missionListTimer = null;
+let missionListTimer = null;
 
 export const setupMissionListTimer = (time, callback) => {
   missionListTimer = setTimeout(callback, time);
