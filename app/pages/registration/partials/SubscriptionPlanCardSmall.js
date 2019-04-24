@@ -57,11 +57,10 @@ class SubscriptionPlanCardSmall extends Component {
         <img src={imageUrl} className="plan-image" />
         <div className="inner-container">
           <div
-            className="plan-name border-bottom"
+            className="plan-name "
             dangerouslySetInnerHTML={{ __html: planName }}
           />
-          <br />
-          <div className="audience-type">{planAudienceType}</div>
+          <div className="audience-type border-bottom">{planAudienceType}</div>
           <div className="emphasize border-bottom padded-top-bottom">
             {`${planCostPrefix}${planCost} ${planCostPostfix}`}
           </div>

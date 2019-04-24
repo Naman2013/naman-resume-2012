@@ -29,7 +29,7 @@ export default css`
   }
 
   .plan-name {
-    padding: 15px;
+    padding: 5px;
     font-family: ${secondaryFont};
     font-size: 24px;
   }
@@ -80,5 +80,6 @@ export default css`
     font-family: ${secondaryFont};
     font-size: 18px;
     font-style: italic;
+    padding-left:5px;
   }
 `;

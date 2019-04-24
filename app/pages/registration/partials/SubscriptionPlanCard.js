@@ -72,7 +72,6 @@ class SubscriptionPlanCard extends Component {
           <div className="flex border-bottom padded-top-bottom">
           <div>
             <div className="plan-name" dangerouslySetInnerHTML={{ __html: planName }} />
-            <br/>
             <div className="audience-type">{planAudienceType}</div>
               </div>
             <div className="plan-cost">

@@ -41,7 +41,6 @@ const PlanDetailsCard = props => {
             className="plan-name "
             dangerouslySetInnerHTML={{ __html: planName }}
           />
-          <br />
           <div className="audience-type border-bottom">{planAudienceType}</div>
           <div className="plan-info emphasize">
             {`${startDateText}  ${nextRenewalDate}`}
