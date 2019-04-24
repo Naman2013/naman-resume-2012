@@ -49,6 +49,8 @@ export class MissionSuccessModal extends Component {
             tip={reservedMissionData.tip}
           />
 
+          <div className="dark-text-after-me-in-mobile" />
+
           {showGoodiesHeader && (
             <h2 className="modal-h2 my-5">{goodiesHeader}</h2>
           )}

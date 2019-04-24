@@ -89,5 +89,15 @@
       width: 100%;
     }
 
+    .btn {
+      border-color: $lightHeadedAstronaut;
+      color: $lightHeadedAstronaut;
+    }
+
+    .dark-text-after-me-in-mobile ~ .modal-h2,
+    .dark-text-after-me-in-mobile ~ .modal-h3 {
+      color: $lightHeadedAstronaut;
+    }
+
   }
 }
