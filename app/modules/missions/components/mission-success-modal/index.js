@@ -1,11 +1,10 @@
-import RecommendedQuestSliderItem from 'app/components/common/RecommendedQuestsSlider/partials/RecommendedQuestItem';
 import GenericButton from 'app/components/common/style/buttons/Button';
 import GuideTile from 'app/components/common/tiles/guide-tile';
 import LailaTile from 'app/components/common/tiles/LailaTile';
 import { Modal } from 'app/components/modal';
 import ObjectRelatedTile from 'app/containers/object-details/ObjectRelatedTile';
 import { AvailbleMissionTile } from 'app/modules/missions/components/available-mission-tile';
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { Button } from 'react-bootstrap';
 import { browserHistory } from 'react-router';
 import './styles.scss';
@@ -21,7 +20,6 @@ export class MissionSuccessModal extends Component {
     } = this.props;
 
     const {
-      hasRelatedQuests,
       showGoodiesHeader,
       goodiesHeader,
       goBackLinkText,
@@ -40,7 +38,13 @@ export class MissionSuccessModal extends Component {
     } = reservedMission;
 
     return (
-      <Modal show={show} onHide={onHide} goBackText={goBackLinkText}>
+      <Modal
+        show={show}
+        onHide={onHide}
+        goBackText={goBackLinkText}
+        mobileGoBackText={exitLinkText}
+        mobileStyle
+      >
         <div className="modal-wrapper">
           <h1 className="modal-h">{confirmationHeader}</h1>
           <p className="modal-p my-5">{congratulationsText}</p>
