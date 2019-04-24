@@ -33,6 +33,8 @@ export const checkCatalogVisibilityApi = data =>
   axios.post('/api/reservation/checkCatalogVisibility', data);
 export const getPresetOptionsApi = data =>
   axios.post('/api/reservation/getPresetOptions', data);
+export const checkTargetVisibilityApi = data =>
+  axios.post('/api/reservation/checkTargetVisibility', data);
 
 // byTelescope page
 export const getObservatoryListApi = data => axios.post('/api/obs/list', data);
@@ -42,4 +44,3 @@ export const getMissionSlotsByTelescopeApi = data =>
   axios.post('/api/reservation/getMissionSlotsByTelescope', data);
 export const getTelescopeSlotApi = data =>
   axios.post('/api/reservation/grabTelescopeSlot', data);
-  

@@ -1,5 +1,5 @@
 import React from 'react';
-import defaultSliderConfiguration from 'components/common/Slider/sliderConfig';
+import defaultSliderConfiguration from 'app/components/common/Slider/sliderConfig';
 import RecommendedQuestItem from './partials/RecommendedQuestItem';
 import { FormattedMessage } from 'react-intl';
 

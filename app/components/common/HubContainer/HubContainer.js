@@ -1,23 +1,20 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import queryString from 'query-string';
-import { NavLink, browserHistory } from 'react-router';
+import { browserHistory } from 'react-router';
 import findIndex from 'lodash/findIndex';
 import pick from 'lodash/pick';
 import noop from 'lodash/noop';
-import CenterColumn from 'components/common/CenterColumn';
 import HubHeader from 'app/components/common/HubHeader';
-import HubSort from 'components/common/HubSort';
-import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
-import ShowMoreWithNetwork from 'components/common/show-more-with-network';
-import UnderlineNav from 'components/common/UnderlineNav';
-import PaginateWithNetwork from 'components/common/paginate-with-network';
-import { seashell } from 'styles/variables/colors_tiles_v4';
-import { goldCompass } from 'styles/variables/iconURLs';
+import HubSort from 'app/components/common/HubSort';
+import ShowMoreWithNetwork from 'app/components/common/show-more-with-network';
+import UnderlineNav from 'app/components/common/UnderlineNav';
+import PaginateWithNetwork from 'app/components/common/paginate-with-network';
+import { goldCompass } from 'app/styles/variables/iconURLs';
 
 import style from './HubContainer.style';
 
-const { arrayOf, bool, shape, string, func, number } = PropTypes;
+const { arrayOf, bool, shape, string, func } = PropTypes;
 
 const getDefaultIndex = (set, item) => {
   const idx = findIndex(set, setItem => setItem.value === item);
@@ -68,6 +65,7 @@ class HubContainer extends Component {
     pageTitleTheme: shape({}),
     callSource: string,
     hubActions: shape({}),
+    plain: bool,
   };
 
   static defaultProps = {
@@ -95,6 +93,7 @@ class HubContainer extends Component {
       hubGetRequestStart: () => {},
       hubGetRequestError: () => {},
     },
+    plain: false,
   };
 
   state = {
@@ -196,6 +195,7 @@ class HubContainer extends Component {
       useSort,
       showHeaderIcon,
       hubActions,
+      profile,
     } = this.props;
 
     const { defaultSortIndex, sort, page } = this.state;
@@ -203,6 +203,7 @@ class HubContainer extends Component {
     return (
       <div className="root">
         <HubHeader
+          plain
           icon={iconURL}
           title={pageTitle}
           renderRightMenu={renderRightMenu}
@@ -211,6 +212,7 @@ class HubContainer extends Component {
           renderNav={() => (
             <div className="navigation-bar">
               <UnderlineNav
+                plain
                 activeFilter={filterType}
                 activeSort={sort}
                 navItems={filterOptions}

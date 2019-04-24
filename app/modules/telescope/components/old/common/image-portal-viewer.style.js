@@ -1,6 +1,6 @@
 import css from 'styled-jsx/css';
-import { astronaut } from 'styles/variables/colors_tiles_v4';
-import { secondaryFont } from 'styles/variables/fonts';
+import { astronaut } from 'app/styles/variables/colors_tiles_v4';
+import { secondaryFont } from 'app/styles/variables/fonts';
 
 export default css`
 .root {
@@ -18,7 +18,8 @@ export default css`
 }
 
 .copy {
-  font-size: 19px;
-  padding-top: 30px;
+  font-size: 15px;
+  padding-top: 40px;
+  text-align: center;
 }
 `;

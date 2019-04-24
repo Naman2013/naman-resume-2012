@@ -1,5 +1,5 @@
 import css from 'styled-jsx/css';
-import { hawkesBlue, shadows } from 'styles/variables/colors_tiles_v4';
+import { hawkesBlue, shadows } from 'app/styles/variables/colors_tiles_v4';
 
 const borderBottom = `border-bottom: 1px solid ${hawkesBlue};`;
 const centerChildren = `

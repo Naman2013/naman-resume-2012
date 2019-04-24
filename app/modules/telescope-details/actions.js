@@ -12,6 +12,7 @@ import { validateResponseAccess } from '../authorization/actions';
 // services
 import fetchCurrentConditions from '../../services/sky-widgets/current-conditions';
 import fetchDayNightBarPanel from '../../services/sky-widgets/day-night-bar-panel';
+import fetchDayNightBar from '../../services/sky-widgets/day-night-bar';
 import fetchDayNightMap from '../../services/sky-widgets/day-night-map';
 import fetchObservatoryList from '../../services/telescopes/observatory-list';
 import fetchTelescopeStatus from '../../services/telescopes/telescope-status';
@@ -38,6 +39,9 @@ export const FETCH_CURRENT_WEATHER_CONDITIONS_SUCCESS = 'FETCH_CURRENT_WEATHER_C
 
 export const FETCH_DAY_NIGHT_BAR_PANEL_START = 'FETCH_DAY_NIGHT_BAR_PANEL_START';
 export const FETCH_DAY_NIGHT_BAR_PANEL_SUCCESS = 'FETCH_DAY_NIGHT_BAR_PANEL_SUCCESS';
+
+export const FETCH_DAY_NIGHT_BAR_START = 'FETCH_DAY_NIGHT_BAR_START';
+export const FETCH_DAY_NIGHT_BAR_SUCCESS = 'FETCH_DAY_NIGHT_BAR_SUCCESS';
 
 export const FETCH_DAY_NIGHT_MAP_START = 'FETCH_DAY_NIGHT_MAP_START';
 export const FETCH_DAY_NIGHT_MAP_SUCCESS = 'FETCH_DAY_NIGHT_MAP_SUCCESS';
@@ -325,19 +329,40 @@ const fetchDayNightBarPanelAction = ({ obsId, DayNightBarPanelWidgetId }) => (di
   }).then(result => dispatch(fetchDayNightBarPanelSuccess(result.data)));
 };
 
+const fetchDayNightBarStart = () => ({
+  type: FETCH_DAY_NIGHT_BAR_START,
+});
+
+const fetchDayNightBarSuccess = payload => ({
+  type: FETCH_DAY_NIGHT_BAR_SUCCESS,
+  payload,
+});
+
+const fetchDayNightBarAction = ({ obsId, DayNightBarWidgetId }) => (dispatch) => {
+  dispatch(fetchDayNightBarStart());
+  return fetchDayNightBar({
+    obsId,
+    DayNightBarWidgetId,
+  }).then(result => dispatch(fetchDayNightBarSuccess(result.data)));
+};
+
 export const fetchAllWidgets = ({
   obsId,
   // CurrentConditionsWidgetId,
   DayNightBarPanelWidgetId,
   DayNightMapWidgetId,
   MiniWeatherPanelWidgetId,
+  DayNightBarWidgetId,
   AllskyWidgetId,
   DomecamWidgetId,
-}) => (dispatch) => {
+}) => dispatch => {
   // dispatch(fetchWeatherConditions({ obsId, CurrentConditionsWidgetId }));
   dispatch(fetchDayNightBarPanelAction({ obsId, DayNightBarPanelWidgetId }));
+  if (DayNightBarWidgetId) {
+    dispatch(fetchDayNightBarAction({ obsId, DayNightBarWidgetId }));
+  }
   dispatch(fetchDayNightMapAction({ obsId, DayNightMapWidgetId }));
   // dispatch(fetchWeatherForecast({ obsId, MiniWeatherPanelWidgetId }));
-  // dispatch(fetchAllSkyAction({ obsId, AllskyWidgetId }));
-  // dispatch(fetchDomeCamAction({ obsId, DomecamWidgetId }));
+  dispatch(fetchAllSkyAction({ obsId, AllskyWidgetId }));
+  dispatch(fetchDomeCamAction({ obsId, DomecamWidgetId }));
 };

@@ -1,5 +1,5 @@
 import React from 'react';
-import { AvailableSlotTile, MissionSlotTile } from 'components/common/tiles';
+import { AvailableSlotTile, MissionSlotTile } from 'app/components/common/tiles';
 import { ObsBotWidget, QueueNavigation } from './index';
 import style from './tab-queue.style';
 

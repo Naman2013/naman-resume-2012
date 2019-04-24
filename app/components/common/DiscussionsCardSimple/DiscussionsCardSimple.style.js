@@ -1,10 +1,10 @@
 import css from 'styled-jsx/css';
-import { profilePhotoStyle } from 'styles/mixins/utilities';
+import { profilePhotoStyle } from 'app/styles/mixins/utilities';
 
-import { astronaut, geyser, shadows } from 'styles/variables/colors_tiles_v4';
-import { primaryFont, secondaryFont } from 'styles/variables/fonts';
-import { dropShadowContainer } from 'styles/mixins/utilities';
-import { screenMedium, screenLarge } from 'styles/variables/breakpoints';
+import { astronaut, geyser, shadows } from 'app/styles/variables/colors_tiles_v4';
+import { primaryFont, secondaryFont } from 'app/styles/variables/fonts';
+import { dropShadowContainer } from 'app/styles/mixins/utilities';
+import { screenMedium, screenLarge } from 'app/styles/variables/breakpoints';
 
 export const profPic = photoUrl => Object.assign(profilePhotoStyle(photoUrl), {
   height: '14px',

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
 
-import MainContainer from '../../../../containers/ask-astronomer/partials/MainContainer';
+import MainContainer from '../../../../modules/ask-astronomer/containers/partials/MainContainer';
 import DisplayAtBreakpoint from '../../../common/DisplayAtBreakpoint';
 import { GuidePromoTile } from '../../../common/tiles/GuidePromoTile';
 import { InfoTile } from '../../../common/tiles/InfoTile';

@@ -17,6 +17,7 @@ import {
   makeTelescopeSelectedDateSelector,
   makeTelescopeMissionListSelector,
   makeTelescopeSelectedSlotSelector,
+  makeTelescopeMissionListRefreshIntervalSelector,
 } from '../selectors';
 import { ACTION } from '../reducer';
 
@@ -26,6 +27,7 @@ const mapStateToProps = createStructuredSelector({
   selectedDate: makeTelescopeSelectedDateSelector(),
   missionList: makeTelescopeMissionListSelector(),
   selectedSlot: makeTelescopeSelectedSlotSelector(),
+  missionListRefreshInterval: makeTelescopeMissionListRefreshIntervalSelector(),
 });
 
 const mapDispatchToProps = {

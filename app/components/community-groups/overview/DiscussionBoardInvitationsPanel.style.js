@@ -1,7 +1,7 @@
 import css from 'styled-jsx/css';
-import { screenLarge, screenMedium } from 'styles/variables/breakpoints';
-import { moodyBleu, shadows } from 'styles/variables/colors_tiles_v4';
-import { primaryFont, secondaryFont } from 'styles/variables/fonts';
+import { screenLarge, screenMedium } from 'app/styles/variables/breakpoints';
+import { moodyBleu, shadows } from 'app/styles/variables/colors_tiles_v4';
+import { primaryFont, secondaryFont } from 'app/styles/variables/fonts';
 
 export default css`  
 

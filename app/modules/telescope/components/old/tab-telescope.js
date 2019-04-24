@@ -4,7 +4,12 @@ import style from './tab-telescope.style';
 
 const TabTelescope = props => {
   const {
-    currentInstrument: { instrRelatedGuideUrl, instrAbout },
+    currentInstrument: {
+      instrRelatedGuideUrl,
+      instrAbout,
+      instrTelescopeType,
+      instrTelescopeShortName,
+    },
     currentTelescope: { teleName, teleHasNeoView },
     currentObservatory: { obsShortName, obsHeroURL },
     allObservatoryTelescopeStatus: { clockList },
@@ -22,6 +27,8 @@ const TabTelescope = props => {
           obsHeroURL={obsHeroURL}
           instrAbout={instrAbout}
           obsShortName={obsShortName}
+          instrTelescopeType={instrTelescopeType}
+          instrTelescopeShortName={instrTelescopeShortName}
           instrRelatedGuideUrl={instrRelatedGuideUrl}
         />
       </div>

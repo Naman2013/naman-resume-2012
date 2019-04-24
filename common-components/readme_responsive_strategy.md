@@ -25,8 +25,8 @@ SASS is also a large part of the CSS present in this application, where it can b
 ### Example use case for applying media queries with Styled JSX
 
 ```javascript
-import { screenMedium, screenLarge, screenXLarge } from 'styles/variables/breakpoints';
-import { midnight_express, astronaut, lynch } from 'styles/variables/colors_tiles_v4';
+import { screenMedium, screenLarge, screenXLarge } from 'app/styles/variables/breakpoints';
+import { midnight_express, astronaut, lynch } from 'app/styles/variables/colors_tiles_v4';
 const FooComponent = () => (
   <div>
     <h1 className="title">Foo</h1>

@@ -3,12 +3,21 @@
   height: auto;
   min-height: auto;
   max-height: auto;
+
+  &:focus {
+    outline: none;
+  }
 }
 
 .live-allsky {
   .generic-loading-box {
-    min-height: 200px;
-    height: 200px;
-    padding-top: 50px;
+    min-height: auto;
+    height: auto;
+    padding: 20px 0;
   }
+}
+
+.live-allskytimelapse {
+  display: block;
+  line-height: 1; // to clear an empty space after <video>
 }

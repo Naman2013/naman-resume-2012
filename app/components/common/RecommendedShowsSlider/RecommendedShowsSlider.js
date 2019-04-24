@@ -7,12 +7,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import take from 'lodash/take';
-import SloohSlider from 'components/common/Slider';
-import Request from 'components/common/network/Request';
-import ShowTile from 'components/common/tiles/ShowTile';
-import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
-import { HIGHLIGHTED_EVENTS } from 'services/events';
-// import { secondaryFont } from 'styles/variables/fonts';
+import SloohSlider from 'app/components/common/Slider';
+import Request from 'app/components/common/network/Request';
+import ShowTile from 'app/components/common/tiles/ShowTile';
+import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
+import { HIGHLIGHTED_EVENTS } from 'app/services/events';
+// import { secondaryFont } from 'app/styles/variables/fonts';
 import { getSliderProps } from './recommendedShowsSliderConfiguration';
 const {
   arrayOf,

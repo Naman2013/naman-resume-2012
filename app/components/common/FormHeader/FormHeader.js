@@ -6,8 +6,8 @@
 ***********************************/
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { romance, astronaut, shadows } from 'styles/variables/colors_tiles_v4';
-import { dropShadowContainer, smallProfPic } from 'styles/mixins/utilities';
+import { romance, astronaut, shadows } from 'app/styles/variables/colors_tiles_v4';
+import { dropShadowContainer, smallProfPic } from 'app/styles/mixins/utilities';
 
 const {
   arrayOf,
@@ -30,7 +30,7 @@ const FormHeader = ({
     </div>
     <div className="comment-title-text-container">
       <span className="comment-title-text">
-        Write a Public Comment
+        Start a discussion
       </span>
     </div>
   </div>

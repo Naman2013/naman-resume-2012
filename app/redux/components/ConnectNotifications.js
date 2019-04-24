@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { updateNotificationsCount, dismissNotification } from 'modules/alerts/actions';
+import { updateNotificationsCount, dismissNotification } from 'app/modules/alerts/actions';
 
 const propTypes = {
   notificationsCount: PropTypes.number,

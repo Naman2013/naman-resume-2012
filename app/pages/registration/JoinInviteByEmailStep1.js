@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import cloneDeep from 'lodash/cloneDeep';
 import noop from 'lodash/noop';
-import { createValidator, required } from 'modules/utils/validation';
+import { createValidator, required } from 'app/modules/utils/validation';
 import { browserHistory } from 'react-router';
 import JoinByInviteAccountSignup from './common/JoinByInviteAccountSignup';
 import styles from './JoinStep2.style';

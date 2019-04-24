@@ -10,11 +10,11 @@ export function withSlooh1000(WrappedComponent) {
       getCategoryList({ callSource });
     };
 
-    getMissionSlot = ({ callSource }, callback) => {
+    getMissionSlot = (data, callback) => {
       const { getMissionSlot, selectedObjectData } = this.props;
 
       getMissionSlot({
-        callSource,
+        ...data,
         domeId: selectedObjectData.domeId,
         missionStart: selectedObjectData.missionStart,
         objectId: selectedObjectData.objectId,
@@ -26,7 +26,7 @@ export function withSlooh1000(WrappedComponent) {
       }).then(callback);
     };
 
-    reserveMissionSlot = ({ callSource }) => {
+    reserveMissionSlot = ({ callSource }, callback) => {
       const { reserveMissionSlot, missionSlot } = this.props;
 
       reserveMissionSlot({
@@ -52,22 +52,22 @@ export function withSlooh1000(WrappedComponent) {
         telescopeId: missionSlot.telescopeId,
         telescopeName: missionSlot.telescopeName,
         uniqueId: missionSlot.uniqueId,
-      }).then(() => this.setState({ successModalShow: true }));
+      }).then(callback);
     };
 
-    cancelMissionSlot = ({ callSource }) => {
+    cancelMissionSlot = data => {
       const { cancelMissionSlot, missionSlot } = this.props;
 
       if (missionSlot && missionSlot.scheduledMissionId) {
         cancelMissionSlot({
-          callSource,
+          ...data,
           grabType: 'notarget',
           scheduledMissionId: missionSlot.scheduledMissionId,
         });
       }
     };
 
-    setCategory = (value, { callSource }) => {
+    setCategory = (value, data) => {
       const { setCategory, getObjectList, categoryList } = this.props;
       const { typeName, nameFrom, nameTo } = categoryList[value];
 
@@ -77,7 +77,7 @@ export function withSlooh1000(WrappedComponent) {
         nameFrom,
         nameTo,
         includeDescription: true,
-        callSource,
+        ...data,
       });
     };
 

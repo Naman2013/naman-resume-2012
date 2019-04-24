@@ -3,8 +3,8 @@
 **/
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import CircleCounter from 'components/circle-counter';
-import { astronaut } from 'styles/variables/colors_tiles_v4';
+import CircleCounter from 'app/components/circle-counter';
+import { astronaut } from 'app/styles/variables/colors_tiles_v4';
 import styles from './CountdownCircleTimer.style';
 
 const { number, shape } = PropTypes;

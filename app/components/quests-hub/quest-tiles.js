@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import uniqueId from 'lodash/uniqueId';
 import { FormattedMessage } from 'react-intl';
-import CenterColumn from 'components/common/CenterColumn';
-import QuestHubTileBig from 'components/common/tiles/QuestHubTileBig';
-import QuestHubTileSmall from 'components/common/tiles/QuestHubTileSmall';
-import QuestExcerptTile from 'components/common/tiles/quest-excerpt-tile';
+import CenterColumn from 'app/components/common/CenterColumn';
+import QuestHubTileBig from 'app/components/common/tiles/QuestHubTileBig';
+import QuestHubTileSmall from 'app/components/common/tiles/QuestHubTileSmall';
+import QuestExcerptTile from 'app/components/common/tiles/quest-excerpt-tile';
 
 import style from './quest-tiles.style';
 

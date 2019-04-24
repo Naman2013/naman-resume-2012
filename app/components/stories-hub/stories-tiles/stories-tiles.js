@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import uniqueId from 'lodash/uniqueId';
 import { FormattedMessage } from 'react-intl';
-import CenterColumn from 'components/common/CenterColumn';
-import StoryTile from 'components/common/tiles/story-tile';
-import StoryExcerptTile from 'components/common/tiles/story-excerpt-tile';
+import CenterColumn from 'app/components/common/CenterColumn';
+import StoryTile from 'app/components/common/tiles/story-tile';
+import StoryExcerptTile from 'app/components/common/tiles/story-excerpt-tile';
 
 import style from './stories-tiles.style';
 

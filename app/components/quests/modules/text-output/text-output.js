@@ -10,8 +10,8 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import classnames from 'classnames';
 import uniqueId from 'lodash/uniqueId';
-import IntroText from 'components/common/form-sections/intro-text';
-import SectionHeader from 'components/common/form-sections/section-header';
+import IntroText from 'app/components/common/form-sections/intro-text';
+import SectionHeader from 'app/components/common/form-sections/section-header';
 import OutputPanel from './partials/output-panel';
 
 import styles from './text-output.style';

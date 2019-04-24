@@ -1,6 +1,6 @@
 import css from 'styled-jsx/css';
 import { blue_tile_feat, astronaut, dukeBlue } from  'styles/variables/colors_tiles_v4';
-import { secondaryFont } from 'styles/variables/fonts';
+import { secondaryFont } from 'app/styles/variables/fonts';
 
 export default css`
   .queue-root {

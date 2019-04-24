@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { gray } from 'styles/variables/colors';
+import { gray } from 'app/styles/variables/colors';
 
 const {
   instanceOf

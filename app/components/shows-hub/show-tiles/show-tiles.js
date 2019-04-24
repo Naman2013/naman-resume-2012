@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import uniqueId from 'lodash/uniqueId';
 import { FormattedMessage } from 'react-intl';
-import CenterColumn from 'components/common/CenterColumn';
-import ShowTile from 'components/common/tiles/show-tile-hub';
-import ShowExcerptTile from 'components/common/tiles/show-excerpt-tile-hub';
+import CenterColumn from 'app/components/common/CenterColumn';
+import ShowTile from 'app/components/common/tiles/show-tile-hub';
+import ShowExcerptTile from 'app/components/common/tiles/show-excerpt-tile-hub';
 
 import style from './show-tiles.style';
 

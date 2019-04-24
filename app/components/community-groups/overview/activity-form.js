@@ -10,15 +10,15 @@ import PropTypes from 'prop-types';
 import { intlShape, injectIntl } from 'react-intl';
 import FullActivityForm from './full-activity-form';
 import SmallActivityForm from './small-activity-form';
-import { prepareThread } from 'services/discussions/prepare-thread';
+import { prepareThread } from 'app/services/discussions/prepare-thread';
 import {
   romance,
   seashell,
   shadows,
-} from 'styles/variables/colors_tiles_v4';
-import { secondaryFont } from 'styles/variables/fonts';
-import { dropShadowContainer } from 'styles/mixins/utilities';
-import { screenLarge, screenMedium } from 'styles/variables/breakpoints';
+} from 'app/styles/variables/colors_tiles_v4';
+import { secondaryFont } from 'app/styles/variables/fonts';
+import { dropShadowContainer } from 'app/styles/mixins/utilities';
+import { screenLarge, screenMedium } from 'app/styles/variables/breakpoints';
 import messages from './activity-form.messages';
 
 const {

@@ -11,11 +11,11 @@ import { Field, reduxForm } from 'redux-form';
 import { intlShape, injectIntl } from 'react-intl';
 import cloneDeep from 'lodash/cloneDeep';
 import noop from 'lodash/noop';
-import InputField from 'components/form/InputField';
-import { createValidator, required } from 'modules/utils/validation';
+import InputField from 'app/components/form/InputField';
+import { createValidator, required } from 'app/modules/utils/validation';
 import { browserHistory } from 'react-router';
-import Button from 'components/common/style/buttons/Button';
-import Request from 'components/common/network/Request';
+import Button from 'app/components/common/style/buttons/Button';
+import Request from 'app/components/common/network/Request';
 import JoinHeader from './partials/JoinHeader';
 import { JOIN_BY_INVITE_TABS } from './StaticNavTabs';
 import messages from './JoinInviteByCodeStep1.messages';
@@ -23,7 +23,7 @@ import messages from './JoinInviteByCodeStep1.messages';
 import {
   JOIN_PAGE_ENDPOINT_URL,
   JOIN_VALIDATE_INVITATIONCODE_ENDPOINT_URL,
-} from 'services/registration/registration.js';
+} from 'app/services/registration/registration.js';
 import styles from './JoinStep2.style';
 
 const {

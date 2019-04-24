@@ -14,12 +14,18 @@ const StoryTile = ({ iconURL, title, author, theme, linkUrl, storyId }) => (
         <div className="center-line" />
         <div className="border">
           <div className="icon">
-            <img className="icon-content" alt="" width="40" height="40" src={iconURL} />
+            <img
+              className="icon-content"
+              alt=""
+              width="40"
+              height="40"
+              src={iconURL}
+            />
           </div>
         </div>
       </div>
       <Link to={linkUrl || `community/post/${storyId}`} href={linkUrl}>
-        <h5 className="title">{title}</h5>
+        <h5 className="title" dangerouslySetInnerHTML={{ __html: title }} />
       </Link>
       <div className="author">{author}</div>
     </div>
@@ -41,6 +47,6 @@ StoryTile.defaultProps = {
   theme: {},
   linkUrl: '',
   storyId: 0,
-}
+};
 
 export default StoryTile;

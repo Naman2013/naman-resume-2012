@@ -1,5 +1,5 @@
 import css from 'styled-jsx/css';
-import { screenMedium, screenLarge, screenXLarge } from 'styles/variables/breakpoints';
+import { screenMedium, screenLarge, screenXLarge } from 'app/styles/variables/breakpoints';
 
 export default css`
   .root { display: none; width: 100%; }

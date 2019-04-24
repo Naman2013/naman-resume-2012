@@ -1,8 +1,8 @@
 import React from 'react';
 import uniqueId from 'lodash/uniqueId';
 import { FormattedMessage } from 'react-intl';
-import defaultSliderConfiguration from 'components/common/Slider/sliderConfig';
-import GroupTile from 'components/common/tiles/GroupTile';
+import defaultSliderConfiguration from 'app/components/common/Slider/sliderConfig';
+import GroupTile from 'app/components/common/tiles/GroupTile';
 
 import messages from './RecommendedGroupsSlider.messages';
 

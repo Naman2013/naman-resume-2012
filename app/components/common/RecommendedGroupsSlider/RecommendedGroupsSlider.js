@@ -7,11 +7,11 @@
 import React, { Component } from 'react';
 import uniqueId from 'lodash/uniqueId';
 import take from 'lodash/take';
-import SloohSlider from 'components/common/Slider';
-import Request from 'components/common/network/Request';
-import GroupTile from 'components/common/tiles/GroupTile';
-import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
-import { GET_GROUPS, SORT_BY_POPULAR } from 'services/community-groups';
+import SloohSlider from 'app/components/common/Slider';
+import Request from 'app/components/common/network/Request';
+import GroupTile from 'app/components/common/tiles/GroupTile';
+import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
+import { GET_GROUPS, SORT_BY_POPULAR } from 'app/services/community-groups';
 import { getSliderProps } from './recommendedGroupsSliderConfiguration';
 
 const Groups = ({

@@ -1,6 +1,6 @@
 import css from 'styled-jsx/css';
-import { primaryFont, secondaryFont } from 'styles/variables/fonts';
-import { screenMedium } from 'styles/variables/breakpoints';
+import { primaryFont, secondaryFont } from 'app/styles/variables/fonts';
+import { screenMedium } from 'app/styles/variables/breakpoints';
 
 export default css`
   .root {

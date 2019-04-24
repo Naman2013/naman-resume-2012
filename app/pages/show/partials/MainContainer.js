@@ -8,7 +8,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import BigBoxInfoContainer from './BigBoxInfoContainer';
-import { romance } from 'styles/variables/colors_tiles_v4';
+import { romance } from 'app/styles/variables/colors_tiles_v4';
 import AboutTab from './AboutTab';
 import CommentsTab from './CommentsTab';
 import DetailsTab from './DetailsTab';
@@ -60,6 +60,7 @@ class LiveShowMainContent extends Component {
       detailsIsActive,
       isDesktop,
       isScreenMedium,
+      showLiveChatURL,
     } = this.props;
 
     const {
@@ -71,6 +72,8 @@ class LiveShowMainContent extends Component {
         {isDesktop ? (
           <div>
             <BigBoxInfoContainer {...this.props} headerLabel={this.props.headerLabel} />
+            <br/>
+            <iframe frameBorder="0" style={{width: '100%', minHeight: '575px'}} src={showLiveChatURL}></iframe>
           </div>
         ) : (
           <div>

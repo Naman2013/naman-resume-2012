@@ -1,8 +1,8 @@
 import React, { Component, cloneElement } from 'react';
 import PropTypes from 'prop-types';
-import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
-import Button from 'components/common/style/buttons/Button';
-import { info } from 'styles/variables/iconURLs';
+import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
+import Button from 'app/components/common/style/buttons/Button';
+import { info } from 'app/styles/variables/iconURLs';
 import SubscriptionPlanCardSmall from './SubscriptionPlanCardSmall';
 import styles from './SubscriptionPlanCard.style';
 
@@ -45,6 +45,7 @@ class SubscriptionPlanCard extends Component {
     const {
       aboutThisPlan,
       imageUrl,
+      planAudienceType,
       planCost,
       planCostPrefix,
       planCostPostfix,
@@ -69,7 +70,10 @@ class SubscriptionPlanCard extends Component {
         <div className="inner-container">
           <div className="emphasize border-bottom title">Slooh Membership</div>
           <div className="flex border-bottom padded-top-bottom">
+          <div>
             <div className="plan-name" dangerouslySetInnerHTML={{ __html: planName }} />
+            <div className="audience-type">{planAudienceType}</div>
+              </div>
             <div className="plan-cost">
               <span dangerouslySetInnerHTML={{ __html: planCostPrefix}} />
               <span dangerouslySetInnerHTML={{ __html: planCost}} />

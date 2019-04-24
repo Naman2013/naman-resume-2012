@@ -9,8 +9,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import noop from 'lodash/noop';
 import Modal from 'react-modal';
-import CenterColumn from 'components/common/CenterColumn';
-import ModuleList from 'components/quests/module-list';
+import CenterColumn from 'app/components/common/CenterColumn';
+import ModuleList from 'app/components/quests/module-list';
 import styles from './quest-step.style';
 
 const {

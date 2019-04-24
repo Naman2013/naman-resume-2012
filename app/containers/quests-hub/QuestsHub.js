@@ -5,14 +5,14 @@ import noop from 'lodash/noop';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { intlShape, injectIntl } from 'react-intl';
-import QuestTiles from 'components/quests-hub/quest-tiles';
-import Request from 'components/common/network/Request';
-import HubContainer from 'components/common/HubContainer';
-import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
-import ShowMoreWithNetwork from 'components/common/show-more-with-network';
-import { QUESTS_PAGE_ENDPOINT_URL, QUESTS_ENDPOINT_URL } from 'services/quests/quest-data';
+import QuestTiles from 'app/components/quests-hub/quest-tiles';
+import Request from 'app/components/common/network/Request';
+import HubContainer from 'app/components/common/HubContainer';
+import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
+import ShowMoreWithNetwork from 'app/components/common/show-more-with-network';
+import { QUESTS_PAGE_ENDPOINT_URL, QUESTS_ENDPOINT_URL } from 'app/services/quests/quest-data';
 import { DeviceContext } from 'providers/DeviceProvider';
-import { validateResponseAccess } from 'modules/authorization/actions'
+import { validateResponseAccess } from 'app/modules/authorization/actions'
 import { ACTION as questsActions } from '../../modules/quests/reducer';
 import style from './quests-hub.style';
 import messages from './QuestsHub.messages';

@@ -1,8 +1,24 @@
 @import "~app/styles/variables/index";
+@import "~app/styles/mixins/utilities";
+@import '~app/styles/bootstrap/index.scss';
 
 // todo GLOBAL STYLES
 .modal-open .modal {
   background-color: rgba(#0a0c0e, 0.96);
+
+  .btn {
+    background-color: transparent;
+    border-color: #fff;
+    color: #fff;
+  }
+}
+
+.modal-back-btn {
+  .icon {
+    position: relative;
+    top: 3px;
+    margin-right: 10px;
+  }
 }
 
 
@@ -10,13 +26,13 @@
   //font-family: BrandonGrotesque;
   font-family: $primary-font;
   padding: 100px 30px 30px;
+  position: relative;
 
   .modal-back-btn {
     font-size: 10px;
     font-weight: 900;
     font-style: normal;
     font-stretch: normal;
-    line-height: 2.2;
     letter-spacing: 2px;
     color: $romance;
     cursor: pointer;
@@ -30,7 +46,6 @@
     //font-family: AGaramondPro;
     font-family: $secondary-font;
     font-size: 30px;
-    line-height: 2.07;
     color: $romance;
   }
 
@@ -38,7 +53,6 @@
     //font-family: AGaramondPro;
     font-family: $secondary-font;
     font-size: 24px;
-    line-height: 2.58;
     color: $romance;
   }
 
@@ -46,7 +60,6 @@
     //font-family: AGaramondPro;
     font-family: $secondary-font;
     font-size: 20px;
-    line-height: 3.1;
     color: $romance;
   }
 
@@ -54,7 +67,37 @@
     //font-family: AGaramondPro;
     font-family: $secondary-font;
     font-size: 19px;
-    line-height: 1.53;
     color: $romance;
+  }
+}
+
+
+// MOBILE STYLE (https://app.zeplin.io/project/5c49ec8466e3b3bee968092b/screen/5c5c088821ae342cd2815030)
+.modal.mobile-style {
+  @include media-breakpoint-down(xs) {
+
+    background-color: $faintGray;
+
+    &:before {
+      content: '';
+      @include bgRepeat($blue_tile_canvas);
+      background-size: 100px;
+      display: block;
+      position: absolute;
+      height: 400px;
+      z-index: 0;
+      width: 100%;
+    }
+
+    .btn {
+      border-color: $lightHeadedAstronaut;
+      color: $lightHeadedAstronaut;
+    }
+
+    .dark-text-after-me-in-mobile ~ .modal-h2,
+    .dark-text-after-me-in-mobile ~ .modal-h3 {
+      color: $lightHeadedAstronaut;
+    }
+
   }
 }

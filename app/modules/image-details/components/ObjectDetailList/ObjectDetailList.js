@@ -7,9 +7,9 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import Request from 'components/common/network/Request';
+import Request from 'app/components/common/network/Request';
 import BootstrappedObjectDetailList from './BootstrappedObjectDetailList';
-import { OBJECT_DETAIL_LIST } from 'services/objects';
+import { OBJECT_DETAIL_LIST } from 'app/services/objects';
 
 const {
   bool,

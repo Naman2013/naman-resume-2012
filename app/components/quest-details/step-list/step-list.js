@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import noop from 'lodash/noop';
-import StepListItem from 'components/quest-details/step-list-item';
+import StepListItem from 'app/components/quest-details/step-list-item';
 import style from './step-list.style';
 
 const QuestStepList = ({

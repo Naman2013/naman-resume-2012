@@ -10,8 +10,8 @@ import PropTypes from 'prop-types';
 import Live from './Live';
 import Recent from './Recent';
 import Upcoming from './Upcoming';
-import CenterColumn from 'components/common/CenterColumn';
-import { seashell } from 'styles/variables/colors_tiles_v4';
+import CenterColumn from 'app/components/common/CenterColumn';
+import { seashell } from 'app/styles/variables/colors_tiles_v4';
 import styles from './BootstrappedShow.style';
 
 const {

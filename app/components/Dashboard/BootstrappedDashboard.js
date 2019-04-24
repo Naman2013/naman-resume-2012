@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import uniqueId from 'lodash/uniqueId';
 import { FormattedMessage, intlShape, injectIntl } from 'react-intl';
 import TourPopup from './tour-popup/TourPopup';
-import PromoPanel from 'components/home/promo-panel';
+import PromoPanel from 'app/components/home/promo-panel';
 import { getSectionComponent } from './dashboardPanelItemsConfiguration';
 import DashNav from './nav/DashboardNav';
 import styles from './BootstrappedDashboard.style';

@@ -1,9 +1,9 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import Request from 'components/common/network/Request';
-import SterlingTitle from 'components/common/titles/SterlingTitle';
-import TopicList from 'components/guides/TopicList';
-import { GUIDE_PANEL_ENDPOINT_URL } from 'services/guides/guide-data';
+import Request from 'app/components/common/network/Request';
+import SterlingTitle from 'app/components/common/titles/SterlingTitle';
+import TopicList from 'app/components/guides/TopicList';
+import { GUIDE_PANEL_ENDPOINT_URL } from 'app/services/guides/guide-data';
 
 const guidePanelsModel = {
   name: 'GUIDE_PANELS',

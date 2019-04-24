@@ -1,7 +1,7 @@
 import css from 'styled-jsx/css';
-import { astronaut, hawkesBlue, lightHeadedAstronaut, moodyBleu } from 'styles/variables/colors_tiles_v4';
-import { primaryFont, secondaryFont } from 'styles/variables/fonts';
-import { screenLarge } from 'styles/variables/breakpoints';
+import { astronaut, hawkesBlue, lightHeadedAstronaut, moodyBleu } from 'app/styles/variables/colors_tiles_v4';
+import { primaryFont, secondaryFont } from 'app/styles/variables/fonts';
+import { screenLarge } from 'app/styles/variables/breakpoints';
 
 export default css`
   .menu-title {

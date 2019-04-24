@@ -4,10 +4,10 @@ import {
   shadows,
   romance,
   hawkesBlue,
-} from 'styles/variables/colors_tiles_v4';
-import { secondaryFont } from 'styles/variables/fonts';
-import { screenMedium, screenLarge } from 'styles/variables/breakpoints';
-import { profilePhotoStyle } from 'styles/mixins/utilities';
+} from 'app/styles/variables/colors_tiles_v4';
+import { secondaryFont } from 'app/styles/variables/fonts';
+import { screenMedium, screenLarge } from 'app/styles/variables/breakpoints';
+import { profilePhotoStyle } from 'app/styles/mixins/utilities';
 
 export const profPic = photoUrl =>
   Object.assign(profilePhotoStyle(photoUrl), {

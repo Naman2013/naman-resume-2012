@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { logout } from 'modules/User';
+import { logout } from 'app/modules/User';
 
 const mapDispatchToProps = () => (bindActionCreators({
   signOut: logout,

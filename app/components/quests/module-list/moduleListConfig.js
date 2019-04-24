@@ -8,7 +8,7 @@ import {
   OUTPUT_PANEL,
   GET_QA_MULTI,
   GET_QA_FILL_BLANKS,
-} from 'services/quests';
+} from 'app/services/quests';
 
 const TEXT_OUTPUT = 'textoutput';
 const QA_MULTI = 'qamultiplechoice';

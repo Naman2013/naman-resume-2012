@@ -5,7 +5,7 @@
 import React from 'react';
 import uniqueId from 'lodash/uniqueId';
 import MVPAstronomer from './MVPAstronomer';
-import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
+import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
 import style from './MVPAstronomerList.style';
 
 const MVPAstronomerList = props => (

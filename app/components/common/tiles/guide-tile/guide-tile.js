@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
-import { guideCorner } from 'styles/variables/iconURLs';
+import { guideCorner } from 'app/styles/variables/iconURLs';
 import style from './guide-tile.style';
 
 const GuideTile = ({ title, subTitle, linkUrl, theme }) => (

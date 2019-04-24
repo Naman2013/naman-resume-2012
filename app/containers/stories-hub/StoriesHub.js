@@ -5,13 +5,13 @@ import { browserHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { intlShape, injectIntl } from 'react-intl';
-import StoryTiles from 'components/stories-hub/stories-tiles';
-import Request from 'components/common/network/Request';
-import HubContainer from 'components/common/HubContainer';
-import Button from 'components/common/style/buttons/Button';
-import { STORIES_PAGE_ENDPOINT_URL, STORIES_ENDPOINT_URL } from 'services/stories';
+import StoryTiles from 'app/components/stories-hub/stories-tiles';
+import Request from 'app/components/common/network/Request';
+import HubContainer from 'app/components/common/HubContainer';
+import Button from 'app/components/common/style/buttons/Button';
+import { STORIES_PAGE_ENDPOINT_URL, STORIES_ENDPOINT_URL } from 'app/services/stories';
 import { DeviceContext } from 'providers/DeviceProvider';
-import { validateResponseAccess } from 'modules/authorization/actions'
+import { validateResponseAccess } from 'app/modules/authorization/actions'
 import { getStoriesStart, getStoriesSuccess, getStoriesError } from '../../modules/stories/actions';
 import style from './stories-hub.style';
 import messages from './StoriesHub.messages';

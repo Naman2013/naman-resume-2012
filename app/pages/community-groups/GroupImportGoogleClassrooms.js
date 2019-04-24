@@ -6,40 +6,40 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Modal from 'react-modal';
 import { intlShape, injectIntl } from 'react-intl';
-import GroupTiles from 'components/groups-hub/group-tiles';
-import RequestGroupForm from 'components/community-groups/request-group-form';
-import PromptWithClose from 'components/community-groups/prompt-with-close';
-import RequestGroupFormFeedback from 'components/community-groups/request-group-form-feedback';
-import HubContainer from 'components/common/HubContainer';
-import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
-import CenterColumn from 'components/common/CenterColumn';
+import GroupTiles from 'app/components/groups-hub/group-tiles';
+import RequestGroupForm from 'app/components/community-groups/request-group-form';
+import PromptWithClose from 'app/components/community-groups/prompt-with-close';
+import RequestGroupFormFeedback from 'app/components/community-groups/request-group-form-feedback';
+import HubContainer from 'app/components/common/HubContainer';
+import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
+import CenterColumn from 'app/components/common/CenterColumn';
 import { DeviceContext } from 'providers/DeviceProvider';
-import BarHeader from 'components/common/form-sections/bar-header';
+import BarHeader from 'app/components/common/form-sections/bar-header';
 
-import { validateResponseAccess } from 'modules/authorization/actions'
-import { customModalStylesBlackOverlay } from 'styles/mixins/utilities';
-import { requestGroup } from 'services/community-groups/request-group';
+import { validateResponseAccess } from 'app/modules/authorization/actions'
+import { customModalStylesBlackOverlay } from 'app/styles/mixins/utilities';
+import { requestGroup } from 'app/services/community-groups/request-group';
 import { browserHistory } from 'react-router';
 
 import axios from 'axios';
-import Request from 'components/common/network/Request';
-import { GROUPS_PAGE_ENDPOINT_URL, GET_GROUPS } from 'services/community-groups';
+import Request from 'app/components/common/network/Request';
+import { GROUPS_PAGE_ENDPOINT_URL, GET_GROUPS } from 'app/services/community-groups';
 import {
   GOOGLE_CLASSROOM_IMPORT_PAGE_ENDPOINT_URL,
   GOOGLE_CLASSROOM_GET_CLASSROOM_LIST_ENDPOINT_URL,
   GOOGLE_CLASSROOM_IMPORT_CLASSROOMS_ENDPOINT_URL
-} from 'services/classroom/classroom';
+} from 'app/services/classroom/classroom';
 
 import { Field, reduxForm } from 'redux-form';
-import InputField from 'components/form/InputField';
-import Button from 'components/common/style/buttons/Button';
+import InputField from 'app/components/form/InputField';
+import Button from 'app/components/common/style/buttons/Button';
 import { Link } from 'react-router';
-import { faintShadow } from 'styles/variables/shadows';
+import { faintShadow } from 'app/styles/variables/shadows';
 import {
   romance,
   astronaut,
-} from 'styles/variables/colors_tiles_v4';
-import { primaryFont, secondaryFont } from 'styles/variables/fonts';
+} from 'app/styles/variables/colors_tiles_v4';
+import { primaryFont, secondaryFont } from 'app/styles/variables/fonts';
 import style from '../../containers/groups-hub/groups-hub.style';
 import style2 from 'pages/registration/partials/JoinHeader.style';
 import style3 from './GroupCreate.style';

@@ -4,3 +4,14 @@
   min-height: auto;
   max-height: auto;
 }
+
+.live-domecamtimelapse {
+  display: block;
+  line-height: 1;
+
+  .generic-loading-box {
+    height: auto;
+    min-height: auto;
+    padding: 20px 0;
+  }
+}

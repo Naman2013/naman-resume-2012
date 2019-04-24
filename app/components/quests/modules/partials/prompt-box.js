@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { faintShadow } from 'styles/variables/shadows';
+import { faintShadow } from 'app/styles/variables/shadows';
 
 const {
   arrayOf,

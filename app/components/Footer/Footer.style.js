@@ -1,7 +1,7 @@
 import css from 'styled-jsx/css';
-import { shadows, lynch, seashell } from 'styles/variables/colors_tiles_v4';
-import { primaryFont } from 'styles/variables/fonts';
-import { faintShadow } from 'styles/variables/shadows';
+import { shadows, lynch, seashell } from 'app/styles/variables/colors_tiles_v4';
+import { primaryFont } from 'app/styles/variables/fonts';
+import { faintShadow } from 'app/styles/variables/shadows';
 export default css`
 
   .root {

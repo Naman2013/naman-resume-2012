@@ -1,6 +1,6 @@
 import React from 'react';
 import Modal from 'react-modal';
-import { customModalStylesFitContent } from 'styles/mixins/utilities';
+import { customModalStylesFitContent } from 'app/styles/mixins/utilities';
 
 import ImagePreview from './ImagePreview';
 import { GUIDE_PANEL_IMAGE_ENDPOINT_URL } from '../../../services/guides/guide-data';

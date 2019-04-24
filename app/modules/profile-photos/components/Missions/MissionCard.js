@@ -44,7 +44,9 @@ class MissionCard extends PureComponent<TMissionCard> {
   };
 
   onDownloadFile = () => {
-    const { currentItem: { imageURL } } = this.props;
+    const {
+      currentItem: { imageURL },
+    } = this.props;
     downloadFile(imageURL, 'my-photos-mission.png');
   };
 
@@ -58,6 +60,7 @@ class MissionCard extends PureComponent<TMissionCard> {
       missionImageCount,
       telescopeName,
       imageURL,
+      fitsIsAvailable,
     } = mission;
     if (!mission) return null;
 
@@ -65,7 +68,9 @@ class MissionCard extends PureComponent<TMissionCard> {
       <div className={cn(['root', { inCenter: inCenter && isDesktop }])}>
         <div
           className={cn('missionCard', { hovered: menuIsVisible })}
-          ref={node => { this.blockWidth = node; }}
+          ref={node => {
+            this.blockWidth = node;
+          }}
         >
           <AsideToggleableMenu
             mod="narrow"
@@ -96,16 +101,18 @@ class MissionCard extends PureComponent<TMissionCard> {
             </div>
 
             <div className="onhover-field show-onhover">ULTRA-WIDE-FIELD</div>
-            <div className="onhover-field show-onhover flex-row justify-content-between">
-              <span>Contains fits data</span>
-              <Button
-                mod="plain"
-                onClickEvent={this.onDownloadFile}
-                theme={{ borderColor: '#fff', color: '#fff' }}
-              >
-                <i className="icon white icon-download" />
-              </Button>
-            </div>
+            {fitsIsAvailable && (
+              <div className="onhover-field show-onhover flex-row justify-content-between">
+                <span>Contains fits data</span>
+                <Button
+                  mod="plain"
+                  onClickEvent={this.onDownloadFile}
+                  theme={{ borderColor: '#fff', color: '#fff' }}
+                >
+                  <i className="icon white icon-download" />
+                </Button>
+              </div>
+            )}
 
             <div className="mission-image-wrapper">
               <div className="mission-image-border">

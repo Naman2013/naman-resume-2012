@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import RefreshedImage from '../../common/refreshed-static-image/RefreshedImage';
 import Offline from '../condition-snapshot/Offline';
 import GenericLoadingBox from '../../common/loading-screens/generic-loading-box';
 import { fetchDomeCamTimelapseAction } from '../../../modules/Telescope-Overview';
@@ -19,16 +18,23 @@ const mapStateToProps = ({
   offlineImageURL: domeCamTimelapseWidgetResult.offlineImageURL,
   onlineStatus: domeCamTimelapseWidgetResult.onlineStatus,
   widgetWidth: domeCamTimelapseWidgetResult.widgetWidth,
-  fetchingDomeCamTimelapseWidgetResult: telescopeOverview.fetchingDomeCamTimelapseWidgetResult,
+  fetchingDomeCamTimelapseWidgetResult:
+    telescopeOverview.fetchingDomeCamTimelapseWidgetResult,
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({
-    fetchDomeCamTimelapseAction,
-  }, dispatch),
+  actions: bindActionCreators(
+    {
+      fetchDomeCamTimelapseAction,
+    },
+    dispatch
+  ),
 });
 
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(
+  mapStateToProps,
+  mapDispatchToProps
+)
 class DomeCamTimelapseWidget extends Component {
   static propTypes = {
     obsId: PropTypes.string.isRequired,
@@ -40,13 +46,12 @@ class DomeCamTimelapseWidget extends Component {
     offlineImageURL: PropTypes.string.isRequired,
   };
 
-  constructor(props) {
-    super(props);
-  }
-
   componentDidMount() {
     const { obsId, DomecamTimelapseWidgetId } = this.props;
-    this.props.actions.fetchDomeCamTimelapseAction({ obsId, DomecamTimelapseWidgetId });
+    this.props.actions.fetchDomeCamTimelapseAction({
+      obsId,
+      DomecamTimelapseWidgetId,
+    });
   }
 
   render() {
@@ -65,19 +70,32 @@ class DomeCamTimelapseWidget extends Component {
       textAlign: 'center',
       position: 'relative',
       minWidth: '100%',
-    }
+    };
 
     return (
       <div className="telescope-block live-domecam">
         <h1 style={inlineTitleStyle}>{domeCamTimelapseTitle}</h1>
         <div className="live-domecamtimelapse">
-          {onlineStatus == 'offline' && <Offline offlineImageURL={offlineImageURL}/>}
-          {onlineStatus == 'online' && domeCamTimelapseURL ?
-            <video style={{width: widgetWidth + 'px'}} className="domecamtimelapse-video" playsInline autoPlay muted loop nodownload controls controlsList="nodownload">
+          {onlineStatus === 'offline' && (
+            <Offline offlineImageURL={offlineImageURL} />
+          )}
+          {onlineStatus === 'online' && domeCamTimelapseURL ? (
+            <video
+              style={{ width: `${widgetWidth}px` }}
+              className="domecamtimelapse-video"
+              playsInline
+              autoPlay
+              muted
+              loop
+              nodownload
+              controls
+              controlsList="nodownload"
+            >
               <source src={domeCamTimelapseURL} type="video/mp4" />
             </video>
-            : <GenericLoadingBox />
-          }
+          ) : (
+            <GenericLoadingBox />
+          )}
         </div>
       </div>
     );

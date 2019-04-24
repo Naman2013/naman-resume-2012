@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link, browserHistory } from 'react-router';
-import ToggleReadingList from 'components/common/ToggleReadingList';
-import Button from 'components/common/style/buttons/Button';
+import ToggleReadingList from 'app/components/common/ToggleReadingList';
+import Button from 'app/components/common/style/buttons/Button';
 import style from './big-show-excerpt-tile.style';
 
 const BigShowExcerptTile = ({

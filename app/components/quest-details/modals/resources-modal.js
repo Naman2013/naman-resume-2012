@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import noop from 'lodash/noop';
 import { intlShape, injectIntl } from 'react-intl';
-import SterlingTitle from 'components/common/titles/SterlingTitle';
-import IntroText from 'components/common/form-sections/intro-text';
-import GenericButton from 'components/common/style/buttons/Button';
+import SterlingTitle from 'app/components/common/titles/SterlingTitle';
+import IntroText from 'app/components/common/form-sections/intro-text';
+import GenericButton from 'app/components/common/style/buttons/Button';
 import style from './resources-modal.style';
 import messages from './resources-modal.messages';
 

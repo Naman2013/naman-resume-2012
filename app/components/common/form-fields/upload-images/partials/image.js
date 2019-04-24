@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { closeAstronaut } from 'styles/variables/iconURLs';
+import { closeAstronaut } from 'app/styles/variables/iconURLs';
 import styles from './image.style';
 
 const {

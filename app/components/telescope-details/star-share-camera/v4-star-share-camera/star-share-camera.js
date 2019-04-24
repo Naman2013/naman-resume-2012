@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import GenericButton from 'components/common/style/buttons/Button';
+import GenericButton from 'app/components/common/style/buttons/Button';
 import starShareCamera from 'atoms/icons/star-share-camera.svg';
-import { info } from 'styles/variables/iconURLs';
+import { info } from 'app/styles/variables/iconURLs';
 import style from './star-share-camera.style';
 
 const StarShareCamera = ({ snapImage }) => (

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import CenterColumn from 'components/common/CenterColumn';
-import LailaTile from 'components/common/tiles/LailaTile';
+import CenterColumn from 'app/components/common/CenterColumn';
+import LailaTile from 'app/components/common/tiles/LailaTile';
 import style from './GuideTopics.style';
 
 const GuideTopics = ({ list }) => (

@@ -12,31 +12,31 @@ import { browserHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
 import Modal from 'react-modal';
 import { DeviceContext } from 'providers/DeviceProvider';
-import Header from 'components/community-groups/overview/header';
-import FullInformationOverview from 'components/community-groups/overview/full-information-container';
-import CenterColumn from 'components/common/CenterColumn';
-import { modalStyleFullPage } from 'styles/mixins/utilities';
-import MembersList from 'components/community-groups/overview/members-list';
-import BackBar from 'components/common/style/buttons/BackBar';
+import Header from 'app/components/community-groups/overview/header';
+import FullInformationOverview from 'app/components/community-groups/overview/full-information-container';
+import CenterColumn from 'app/components/common/CenterColumn';
+import { modalStyleFullPage } from 'app/styles/mixins/utilities';
+import MembersList from 'app/components/community-groups/overview/members-list';
+import BackBar from 'app/components/common/style/buttons/BackBar';
 
 import {
   joinOrLeaveGroup,
-} from 'modules/community-groups/actions';
+} from 'app/modules/community-groups/actions';
 import {
   astronaut,
   seashell,
-} from 'styles/variables/colors_tiles_v4';
+} from 'app/styles/variables/colors_tiles_v4';
 import {
   SCREEN_SMALL,
   SCREEN_MEDIUM,
   SCREEN_LARGE,
   screenMedium,
   screenLarge,
-} from 'styles/variables/breakpoints'
+} from 'app/styles/variables/breakpoints'
 import {
   fetchGroupOverviewPageMeta,
   fetchGroupOverview,
-} from 'modules/community-group-overview/actions';
+} from 'app/modules/community-group-overview/actions';
 
 const mapStateToProps = ({
   communityGroupOverview,

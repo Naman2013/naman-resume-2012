@@ -8,9 +8,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl, intlShape } from 'react-intl';
-import ThreeTabbedNav from 'components/ThreeTabbedNav';
-import TwoTabbedNav from 'components/TwoTabbedNav';
-import ResponsiveTwoColumnContainer from 'components/ResponsiveTwoColumnContainer';
+import ThreeTabbedNav from 'app/components/ThreeTabbedNav';
+import TwoTabbedNav from 'app/components/TwoTabbedNav';
+import ResponsiveTwoColumnContainer from 'app/components/ResponsiveTwoColumnContainer';
 import HeaderContainer from './partials/HeaderContainer';
 import MainContainer from './partials/MainContainer';
 import AsideContainerWithTabs from './partials/AsideContainerWithTabs';
@@ -90,6 +90,7 @@ class LiveShow extends Component {
       isDesktop,
       hasDiscussionThread,
       intl,
+      user,
     } = this.props;
 
     const {
@@ -100,6 +101,7 @@ class LiveShow extends Component {
     } = this.state;
 
     const headerLabel = intl.formatMessage(messages.AiringNow);
+    const showLiveChatURL = window.location.protocol + '//' + window.location.host + '/getHostedShowChat.php?show_id=' + this.props.showId + '&customer_uuid=' + user.customerUUID + "&customer_token=" + user.token;
 
     return (
       <div className="root live-show">
@@ -159,6 +161,7 @@ class LiveShow extends Component {
                 aboutIsActive={aboutIsActive}
                 commentsIsActive={commentsIsActive}
                 detailsIsActive={detailsIsActive}
+                showLiveChatURL={showLiveChatURL}
               />
             )}
           />

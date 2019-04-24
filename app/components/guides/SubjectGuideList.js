@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import LeighTile from 'components/common/tiles/LeighTile';
+import LeighTile from 'app/components/common/tiles/LeighTile';
 import style from './SubjectGuideList.style';
 
 const SubjectGuideList = ({ list }) => (

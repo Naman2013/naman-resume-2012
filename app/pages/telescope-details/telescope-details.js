@@ -5,14 +5,14 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import first from 'lodash/first';
-import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
-import { ColumnTabs } from 'components/common/Tabs';
-import telescopeConfig from 'components/Telescope/telescopeConfig';
-import TelescopeImageViewerController from 'components/telescope-details/TelescopeImageViewerController';
-import LiveFeed from 'components/telescope-details/live-feed-v3';
+import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
+import { ColumnTabs } from 'app/components/common/Tabs';
+import telescopeConfig from 'app/components/Telescope/telescopeConfig';
+import TelescopeImageViewerController from 'app/components/telescope-details/TelescopeImageViewerController';
+import LiveFeed from 'app/components/telescope-details/live-feed-v3';
 import { DeviceContext } from 'providers/DeviceProvider';
-import InstrumentNavigation from 'components/telescope-details/InstrumentNavigation';
-import VideoImageLoader from 'components/common/telescope-image-loader/video-image-loader';
+import InstrumentNavigation from 'app/components/telescope-details/InstrumentNavigation';
+import VideoImageLoader from 'app/components/common/telescope-image-loader/video-image-loader';
 
 import {
   buildNavigationOptions,
@@ -31,21 +31,21 @@ import {
   TabTelescope,
   TelescopeNavigation,
   TelescopeViewer,
-} from 'components/telescope-details/v4-modules';
+} from 'app/components/telescope-details/v4-modules';
 
 import {
   bootstrapTelescopeDetails,
   setObservatory,
   setTelescope,
   fetchAllTelescopeStatus,
-} from 'modules/telescope-details/actions';
+} from 'app/modules/telescope-details/actions';
 
 import {
   fetchObjectDataAction,
   fetchObjectDetailsAction,
   resetObjectData,
   resetObjectDetails,
-} from 'modules/object-details/actions';
+} from 'app/modules/object-details/actions';
 
 import style from './v4-telescope-details.style';
 

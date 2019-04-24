@@ -9,9 +9,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import noop from 'lodash/noop';
 import Modal from 'react-modal';
-import CenterColumn from 'components/common/CenterColumn';
-import GenericButton from 'components/common/style/buttons/Button';
-import QuestTile from 'components/common/tiles/QuestHubTileBig';
+import CenterColumn from 'app/components/common/CenterColumn';
+import GenericButton from 'app/components/common/style/buttons/Button';
+import QuestTile from 'app/components/common/tiles/QuestHubTileBig';
 import styles from './quest-complete.style';
 
 const {

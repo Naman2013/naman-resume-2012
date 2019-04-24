@@ -1,0 +1,18 @@
+@import '~app/styles/variables/index';
+
+.reservation-catalog {
+  background-color: $romance;
+  &.catalog {
+    padding: 20px 0 0;
+  }
+
+  .catalog-setup {
+    .steps {
+      margin: 20px 0 -40px;
+    }
+
+    .setup-header {
+      padding: 0 40px;
+    }
+  }
+}

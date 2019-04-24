@@ -7,7 +7,7 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Host from 'components/Host';
+import Host from 'app/components/Host';
 import DetailsTab from './DetailsTab';
 import styles from './AsideContainerDetailsOnly.style';
 

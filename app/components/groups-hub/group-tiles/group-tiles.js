@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import uniqueId from 'lodash/uniqueId';
 import { FormattedMessage } from 'react-intl';
-import CenterColumn from 'components/common/CenterColumn';
-import GroupTile from 'components/common/tiles/GroupTile';
-import GroupExcerptTile from 'components/common/tiles/group-excerpt-tile';
-import { askToJoin } from 'services/community-groups/ask-to-join';
-import { toggleJoinGroup } from 'services/community-groups/toggle-join-group';
+import CenterColumn from 'app/components/common/CenterColumn';
+import GroupTile from 'app/components/common/tiles/GroupTile';
+import GroupExcerptTile from 'app/components/common/tiles/group-excerpt-tile';
+import { askToJoin } from 'app/services/community-groups/ask-to-join';
+import { toggleJoinGroup } from 'app/services/community-groups/toggle-join-group';
 import style from './group-tiles.style';
 
 class GroupTiles extends Component {

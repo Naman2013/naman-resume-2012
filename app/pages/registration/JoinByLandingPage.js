@@ -5,12 +5,12 @@
 import React, { Component, cloneElement, Fragment } from 'react';
 import { Link } from 'react-router';
 import PropTypes from 'prop-types';
-import Button from 'components/common/style/buttons/Button';
+import Button from 'app/components/common/style/buttons/Button';
 import { browserHistory } from 'react-router';
 import JoinHeader from './partials/JoinHeader';
 import SubscriptionPlanCard from './partials/SubscriptionPlanCard';
-import Request from 'components/common/network/Request';
-import { JOIN_PAGE_ENDPOINT_URL, SUBSCRIPTION_PLANS_ENDPOINT_URL } from 'services/registration/registration.js';
+import Request from 'app/components/common/network/Request';
+import { JOIN_PAGE_ENDPOINT_URL, SUBSCRIPTION_PLANS_ENDPOINT_URL } from 'app/services/registration/registration.js';
 import { DEFAULT_JOIN_TABS } from './StaticNavTabs';
 
 import styles from './JoinStep1.style';

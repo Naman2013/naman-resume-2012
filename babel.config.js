@@ -46,7 +46,11 @@ module.exports = {
       ],
     },
     development: {
-      plugins: ['react-hot-loader/babel', 'styled-jsx/babel', ...esNext],
+      plugins: [
+        // 'react-hot-loader/babel',
+        ['styled-jsx/babel', { sourceMaps: true }],
+        ...esNext,
+      ],
     },
     test: {
       // plugins: ['dynamic-import-node-babel-7', ...esNext],

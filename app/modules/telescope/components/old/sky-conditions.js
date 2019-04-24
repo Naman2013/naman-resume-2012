@@ -1,26 +1,56 @@
-import React from 'react';
+import StaticCell from 'app/components/common/grid/StaticCell';
+import { fetchSeeingConditionsWidget } from 'app/modules/Telescope-Overview';
+import { hawkesBlue } from 'app/styles/variables/colors_tiles_v4';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { ModuleContainer } from './index';
-import StaticCell from 'components/common/grid/StaticCell';
-import { hawkesBlue } from 'styles/variables/colors_tiles_v4';
 import style from './sky-conditions.style';
 
-const cellTheme = { borderBottom: `1px solid ${hawkesBlue}`, minHeight: 'auto' };
+const cellTheme = {
+  borderBottom: `1px solid ${hawkesBlue}`,
+  minHeight: 'auto',
+};
 
-const SkyConditions = () => (
-  <ModuleContainer title="Sky conditions">
-    <StaticCell theme={cellTheme} title="Seeing conditions">
-      <h3 className="level">Level 3</h3>
-      <p className="content-description">
-        Almost continuous distortion with occasional brief good moments.
-      </p>
-    </StaticCell>
+const mapStateToProps = ({ telescopeOverview }) => ({
+  title: telescopeOverview.seeingConditionsWidgetResult.title,
+  seeingConditionsIndex:
+    telescopeOverview.seeingConditionsWidgetResult.seeingConditionsIndex,
+  seeingConditionsDescription:
+    telescopeOverview.seeingConditionsWidgetResult.seeingConditionsDescription,
+});
 
-    <StaticCell theme={cellTheme} title="Measured FWHM telemetry">
-      <p className="content-description">N.N Arcseconds</p>
-    </StaticCell>
+const mapDispatchToProps = {
+  fetchSeeingConditionsWidget,
+};
 
-    <style jsx>{style}</style>
-  </ModuleContainer>
-);
+@connect(
+  mapStateToProps,
+  mapDispatchToProps
+)
+export class SkyConditions extends Component {
+  componentDidMount = () => {
+    const { fetchSeeingConditionsWidget, obsId, widgetID } = this.props;
+    fetchSeeingConditionsWidget({
+      obsId,
+      widgetUniqueId: widgetID,
+    });
+  };
 
-export { SkyConditions };
+  render() {
+    const {
+      seeingConditionsIndex,
+      seeingConditionsDescription,
+      title,
+    } = this.props;
+    return (
+      <ModuleContainer title="Sky conditions">
+        <StaticCell theme={cellTheme} title={title}>
+          <h3 className="level">Level {seeingConditionsIndex}</h3>
+          <p className="content-description">{seeingConditionsDescription}</p>
+        </StaticCell>
+
+        <style jsx>{style}</style>
+      </ModuleContainer>
+    );
+  }
+}

@@ -76,16 +76,18 @@ const mapDispatchToProps = dispatch => ({
   ),
 });
 
-const mapStateToProps = ({ myPictures, galleries }) => ({
-  missionsList: myPictures.missions.response.imageList,
-  missionsCount: myPictures.missions.imageCount,
-  galleryList: galleries.galleryList,
-  galleryCount: galleries.galleryCount,
-  photoRollList: myPictures.photoRoll.response.imageList,
-  photoRollCount: myPictures.photoRoll.imageCount,
-  observationsList: myPictures.photoRoll.response.imageList,
-  observationsCount: myPictures.observations.imageCount,
-});
+const mapStateToProps = ({ myPictures, galleries }) => {
+  return {
+    missionsList: myPictures.missions.response.imageList,
+    missionsCount: myPictures.missions.imageCount,
+    galleryList: galleries.galleryList,
+    galleryCount: galleries.galleryCount,
+    photoRollList: myPictures.photoRoll.response.imageList,
+    photoRollCount: myPictures.photoRoll.imageCount,
+    observationsList: myPictures.photoRoll.response.imageList,
+    observationsCount: myPictures.observations.imageCount,
+  };
+};
 
 @connect(
   mapStateToProps,
@@ -244,8 +246,8 @@ class ImageList extends Component {
                 {count && !deviceInfo.isMobile
                   ? count > 9 && (
                       <Pagination
-                        activePage={this.state.activePage}
                         pagesPerPage={4}
+                        activePage={activePage}
                         onPageChange={this.handlePageChange}
                         totalPageCount={Math.ceil(count / 9)}
                       />

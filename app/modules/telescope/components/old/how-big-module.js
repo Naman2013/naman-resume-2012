@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Measure from 'react-measure';
 import noop from 'lodash/noop';
-import DefaultButton from 'components/common/style/buttons/Button';
+import DefaultButton from 'app/components/common/style/buttons/Button';
 import { ModuleContainer } from './index';
 import HowBig from 'app/components/Telescope/HowBig';
 import style from './how-big-module.style';
