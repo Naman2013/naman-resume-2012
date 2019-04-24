@@ -42,7 +42,6 @@ export default css`
     font-family: ${secondaryFont};
     font-size: 18px;
     font-style: italic;
-    padding-left:5px;
   }
 
   .plan-cost {
