@@ -5,15 +5,9 @@ import Button from 'app/components/common/style/buttons/Button';
 import { info } from 'app/styles/variables/iconURLs';
 import styles from './SubscriptionPlanCard.style';
 
-const {
-  func,
-  number,
-  oneOfType,
-  string,
-} = PropTypes;
+const { func, number, oneOfType, string } = PropTypes;
 
 class SubscriptionPlanCardSmall extends Component {
-
   static propTypes = {
     aboutThisPlan: string.isRequired,
     imageUrl: string.isRequired,
@@ -28,8 +22,7 @@ class SubscriptionPlanCardSmall extends Component {
     viewPlanDetails: func.isRequired,
   };
 
-  static defaultProps = {
-  }
+  static defaultProps = {};
 
   state = {
     showDetails: false,
@@ -39,11 +32,12 @@ class SubscriptionPlanCardSmall extends Component {
     this.setState(state => ({
       showDetails: !state.showDetails,
     }));
-  }
+  };
 
   render() {
     const {
       aboutThisPlan,
+      planAudienceType,
       imageUrl,
       planCost,
       planCostPrefix,
@@ -56,35 +50,25 @@ class SubscriptionPlanCardSmall extends Component {
       viewPlanDetails,
     } = this.props;
 
-    const {
-      showDetails,
-    } = this.state;
+    const { showDetails } = this.state;
 
     return (
       <div className="root">
         <img src={imageUrl} className="plan-image" />
         <div className="inner-container">
           <div
-            className="plan-name border-bottom"
+            className="plan-name "
             dangerouslySetInnerHTML={{ __html: planName }}
           />
-          <div
-            className="emphasize border-bottom padded-top-bottom"
-          >
+          <div className="audience-type border-bottom">{planAudienceType}</div>
+          <div className="emphasize border-bottom padded-top-bottom">
             {`${planCostPrefix}${planCost} ${planCostPostfix}`}
           </div>
           <div className="flex padded-top-bottom">
             <div>
-              <Button
-                icon={info}
-                onClickEvent={viewPlanDetails}
-              />
-
+              <Button icon={info} onClickEvent={viewPlanDetails} />
             </div>
-            <Button
-              text={selectButtonText}
-              onClickEvent={setSelectedPlan}
-            />
+            <Button text={selectButtonText} onClickEvent={setSelectedPlan} />
           </div>
         </div>
         <style jsx>{styles}</style>
