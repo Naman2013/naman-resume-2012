@@ -40,7 +40,7 @@ export default css`
 
   .audience-type {
     font-family: ${secondaryFont};
-    font-size: 0.75em;
+    font-size: 18px;
     font-style: italic;
   }
 
