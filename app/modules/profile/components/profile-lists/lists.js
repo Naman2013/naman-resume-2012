@@ -6,16 +6,21 @@ import GuideTopics from 'app/components/guides/GuideTopics';
 import StoryTiles from 'app/components/stories-hub/stories-tiles';
 import GuideTiles from 'app/components/guides-hub/guide-tiles';
 import ShowTiles from 'app/components/shows-hub/show-tiles';
+import isEmpty from 'lodash/fp/isEmpty';
 import messages from './my-lists.messages';
 
 class Lists extends Component {
   state = { tiles: [], items: [] };
 
-  getModeledTiles = (filterType, profileLists) => {
-    const tiles = profileLists.itemList || profileLists.interestsList;
+  getModeledTiles = (filterType, itemList, interestsList) => {
+    const { tiles } = this.state;
+    let mergedTiles = [].concat(
+      tiles,
+      filterType === 'object' ? interestsList : itemList
+    );
     switch (filterType) {
       case 'story':
-        return tiles.map(x => ({
+        return mergedTiles.map(x => ({
           iconURL: x.imageURL,
           imageUrl: x.imageURL,
           title: x.itemTitle,
@@ -26,13 +31,13 @@ class Lists extends Component {
           promptIconUrl: x.promptIconUrl,
           readingListPrompt: x.readingListPrompt,
           readingListType: x.readingListType,
-          shortDescription: x.shortDescroption || 'PLACEHOLDER DESCRIPTION',
+          shortDescription: x.shortDescription || 'PLACEHOLDER DESCRIPTION',
           toggleReadingListFlag: x.toggleReadingListFlag,
           toggleFollowConfirmationFlag: x.toggleFollowConfirmationFlag,
           toggleFollowConfirmationPrompt: x.toggleFollowConfirmationPrompt,
         }));
       case 'show':
-        return tiles.map(x => ({
+        return mergedTiles.map(x => ({
           eventTitle: x.itemTitle,
           linkUrl: x.linkURL,
           eventId: x.itemId,
@@ -41,13 +46,13 @@ class Lists extends Component {
           promptIconUrl: x.promptIconUrl,
           readingListPrompt: x.readingListPrompt,
           readingListType: x.readingListType,
-          shortDescription: x.shortDescroption || 'PLACEHOLDER DESCRIPTION',
+          shortDescription: x.shortDescription || 'PLACEHOLDER DESCRIPTION',
           toggleReadingListFlag: x.toggleReadingListFlag,
           toggleFollowConfirmationFlag: x.toggleFollowConfirmationFlag,
           toggleFollowConfirmationPrompt: x.toggleFollowConfirmationPrompt,
         }));
       case 'guide':
-        return tiles.map(x => ({
+        return mergedTiles.map(x => ({
           title: x.itemTitle,
           linkUrl: x.linkURL,
           guideAuthor: x.author || 'PLACEHOLDER AUTHOR',
@@ -57,13 +62,13 @@ class Lists extends Component {
           promptIconUrl: x.promptIconUrl,
           readingListPrompt: x.readingListPrompt,
           readingListType: x.readingListType,
-          shortDescription: x.shortDescroption || 'PLACEHOLDER DESCRIPTION',
+          shortDescription: x.shortDescription || 'PLACEHOLDER DESCRIPTION',
           toggleReadingListFlag: x.toggleReadingListFlag,
           toggleFollowConfirmationFlag: x.toggleFollowConfirmationFlag,
           toggleFollowConfirmationPrompt: x.toggleFollowConfirmationPrompt,
         }));
       case 'object':
-        return tiles.map(x => ({
+        return mergedTiles.map(x => ({
           title: x.title,
           linkURL: x.linkUrl,
           iconURL: x.objectIconUrl,
@@ -74,17 +79,19 @@ class Lists extends Component {
   };
 
   updateTilesList = () => {
-    const { profileLists, params } = this.props;
+    const { profileLists, filterType, data } = this.props;
+    const { itemList } = profileLists;
+    const { interestsList } = data;
     this.setState(() => ({
-      tiles:
-        params.filterType === 'object'
-          ? profileLists.interestsList
-          : profileLists.itemList,
+      tiles: filterType === 'object' ? interestsList : itemList,
     }));
   };
 
   GetTiles = (filterType, props) => {
-    const tiles = this.getModeledTiles(filterType, props.profileLists);
+    const { profileLists, data } = this.props;
+    const { interestsList } = data;
+    const { itemList } = profileLists;
+    const tiles = this.getModeledTiles(filterType, itemList, interestsList);
     switch (filterType) {
       case 'object':
         return <GuideTopics {...props} list={tiles} />;
@@ -115,13 +122,13 @@ class Lists extends Component {
   };
 
   appendToTilesList = () => {
-    const { params, profileLists } = this.props;
+    const { filterType, profileLists, data } = this.props;
+    const { itemList } = profileLists;
+    const { interestsList } = data;
     this.setState(state => {
       const tiles = [].concat(
         state.tiles,
-        params.filterType === 'object'
-          ? profileLists.interestsList
-          : profileLists.itemList
+        filterType === 'object' ? interestsList : itemList
       );
       return { tiles };
     });
@@ -132,13 +139,14 @@ class Lists extends Component {
   };
 
   render() {
-    const { filterType, filterOptions, profileLists, intl } = this.props;
-    if (!profileLists) return null;
+    const { filterType, filterOptions, profileLists, intl, data } = this.props;
+    if (!profileLists || !data) return null;
     return (
       <DeviceContext.Consumer>
         {context => (
           <HubContainer
             page={1}
+            profile
             {...context}
             {...this.props}
             hubName="reading_list"
@@ -158,7 +166,6 @@ class Lists extends Component {
             render={() => (
               <Fragment>
                 {this.GetTiles(filterType, {
-                  profileLists,
                   closeModal: this.closeModal,
                   updateReadingListInfo: this.updateItemInfo,
                   updatePrompt: this.updatePrompt,
