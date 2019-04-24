@@ -84,10 +84,11 @@ export class QueueTab extends Component {
       upcomingSlotsData,
       isFetching,
       mobileMissionList,
+      featuredObjectsData,
     } = this.props;
     const { missionList, reservationDateFormatted, showShowMoreButton, showMoreButtonCaption } = upcomingSlotsData;
     const { reservationModalVisible } = this.state;
-
+    
     return (
       <div className={`animated fadeIn faster queue-tab${
         mobileMissionList ? ' mobile-missions-list' : ''

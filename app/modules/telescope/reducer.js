@@ -5,6 +5,7 @@ import { set, apply } from 'qim';
 export const TYPE = constants('telescope', [
   '~GET_ALL_SKY_TIMELAPSE',
   '~GET_UPCOMING_SLOTS_BY_TELESCOPE',
+  '~GET_FEATURED_OBJECTS_BY_TELESCOPE',
 ]);
 export const ACTION = actions(TYPE);
 
@@ -24,6 +25,7 @@ export const initialState = {
       missionList: [],
       reservationDateFormatted: '',
     },
+    featuredObjectsData: {},
   },
 };
 
@@ -35,6 +37,9 @@ export default handleActions(
     [TYPE.GET_UPCOMING_SLOTS_BY_TELESCOPE]: setQueueTabFetching,
     [TYPE.GET_UPCOMING_SLOTS_BY_TELESCOPE_SUCCESS]: getUpcomingSlotsByTelescopeSuccess,
     [TYPE.GET_UPCOMING_SLOTS_BY_TELESCOPE_ERROR]: setQueueTabServerError,
+    [TYPE.GET_FEATURED_OBJECTS_BY_TELESCOPE]: setQueueTabFetching,
+    [TYPE.GET_FEATURED_OBJECTS_BY_TELESCOPE_SUCCESS]: getFeaturedObjectsByTelescopeSuccess,
+    [TYPE.GET_FEATURED_OBJECTS_BY_TELESCOPE_ERROR]: setQueueTabServerError,
   },
   initialState
 );
@@ -74,6 +79,17 @@ function getUpcomingSlotsByTelescopeSuccess(state, action) {
     () => ({
       isFetching: false,
       upcomingSlotsData: action.payload,
+    }),
+    state
+  );
+}
+
+function getFeaturedObjectsByTelescopeSuccess(state, action) {
+  return apply(
+    ['queueTab'],
+    () => ({
+      isFetching: false,
+      featuredObjectsData: action.payload,
     }),
     state
   );

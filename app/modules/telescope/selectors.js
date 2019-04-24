@@ -96,3 +96,9 @@ export const makeQueueTabIsFetchingSelector = () =>
     makeQueueTabSelector(),
     state => state.isFetching
   );
+
+export const makeQueueTabFeaturedObjectsDataSelector = () =>
+  createSelector(
+    makeQueueTabSelector(),
+    state => state.featuredObjectsData
+  );

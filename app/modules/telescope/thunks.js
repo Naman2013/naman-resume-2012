@@ -1,4 +1,8 @@
-import { getAllSkyTimelapseApi, getUpcomingSlotsByTelescopeApi } from './api';
+import {
+  getAllSkyTimelapseApi,
+  getUpcomingSlotsByTelescopeApi,
+  getFeaturedObjectsByTelescopeApi,
+} from './api';
 import { ACTION } from './reducer';
 
 export const getAllSkyTimelapse = (obsId, widgetUniqueId) => (
@@ -24,4 +28,14 @@ export const getUpcomingSlotsByTelescope = data => (dispatch, getState) => {
       dispatch(ACTION.getUpcomingSlotsByTelescopeSuccess(result.data))
     )
     .catch(error => dispatch(ACTION.getUpcomingSlotsByTelescopeError(error)));
+};
+
+export const getFeaturedObjectsByTelescope = data => (dispatch, getState) => {
+  const { at, token, cid } = getState().user;
+  dispatch(ACTION.getFeaturedObjectsByTelescope());
+  return getFeaturedObjectsByTelescopeApi({ at, token, cid, ...data })
+    .then(result =>
+      dispatch(ACTION.getFeaturedObjectsByTelescopeSuccess(result.data))
+    )
+    .catch(error => dispatch(ACTION.getFeaturedObjectsByTelescopeError(error)));
 };
