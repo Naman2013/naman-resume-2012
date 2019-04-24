@@ -25,8 +25,9 @@ export const removeUser = createAction(REMOVE_USER);
 const cookieD = cookieDomain || 'localhost';
 const cookieSecure = !!cookieDomain;
 
-export function store({ reload, cid, token, at, fname, avatarURL, subscriptionPlanName, googleProfileId }) {
+export function store({ reload, cid, customerUUID, token, at, fname, avatarURL, subscriptionPlanName, googleProfileId }) {
   window.document.cookie = cookie.serialize('cid', cid, { domain: cookieD, secure: cookieSecure, expires: futureDate, path: COOKIE_PATH });
+  window.document.cookie = cookie.serialize('customerUUID', customerUUID, { domain: cookieD, secure: cookieSecure, expires: futureDate, path: COOKIE_PATH });
   window.document.cookie = cookie.serialize('token', token, { domain: cookieD, secure: cookieSecure, expires: futureDate, path: COOKIE_PATH });
   window.document.cookie = cookie.serialize('at', at, { domain: cookieD, secure: cookieSecure, expires: futureDate, path: COOKIE_PATH });
   window.document.cookie = cookie.serialize('fname', fname, { domain: cookieD, secure: cookieSecure, expires: futureDate, path: COOKIE_PATH });
@@ -40,6 +41,7 @@ export function store({ reload, cid, token, at, fname, avatarURL, subscriptionPl
     dispatch(
       set({
         cid,
+        customerUUID,
         token,
         at,
         fname,
@@ -60,6 +62,7 @@ const setPlayerState = ({ playerMuted, playerVolume }) => ({
 export function destroySession() {
   window.localStorage.removeItem('user');
   window.document.cookie = cookie.serialize('cid', '', { domain: cookieD, secure: cookieSecure, expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT'), path: COOKIE_PATH });
+  window.document.cookie = cookie.serialize('customerUUID', '', { domain: cookieD, secure: cookieSecure, expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT'), path: COOKIE_PATH });
   window.document.cookie = cookie.serialize('token', '', { domain: cookieD, secure: cookieSecure, expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT'), path: COOKIE_PATH });
   window.document.cookie = cookie.serialize('at', '', { domain: cookieD, secure: cookieSecure, expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT'), path: COOKIE_PATH });
   window.document.cookie = cookie.serialize('fname', '', { domain: cookieD, secure: cookieSecure, expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT'), path: COOKIE_PATH });
@@ -122,7 +125,7 @@ export function destroy() {
   */
 export function checkUser(pathname, replace, callback) {
   return (dispatch) => {
-    const { cid, token, at, fname, avatarURL, playerMuted, playerVolume, subscriptionPlanName, googleProfileId } = cookie.parse(
+    const { cid, customerUUID, token, at, fname, avatarURL, playerMuted, playerVolume, subscriptionPlanName, googleProfileId } = cookie.parse(
       window.document.cookie,
     );
 
@@ -142,6 +145,7 @@ export function checkUser(pathname, replace, callback) {
       dispatch(
         store({
           cid,
+          customerUUID,
           token,
           at,
           fname,
