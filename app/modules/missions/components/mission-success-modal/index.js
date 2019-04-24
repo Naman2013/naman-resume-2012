@@ -1,4 +1,5 @@
 import RecommendedQuestSliderItem from 'app/components/common/RecommendedQuestsSlider/partials/RecommendedQuestItem';
+import GenericButton from 'app/components/common/style/buttons/Button';
 import GuideTile from 'app/components/common/tiles/guide-tile';
 import LailaTile from 'app/components/common/tiles/LailaTile';
 import { Modal } from 'app/components/modal';
@@ -126,12 +127,12 @@ export class MissionSuccessModal extends Component {
                     <p className="related-show-title">
                       {relatedShow.imageTitle}{' '}
                     </p>
-                    <Button>
-                      <img
-                        src="https://vega.slooh.com/assets/v4/icons/play_icon.svg"
-                        alt="Play"
-                      />
-                    </Button>
+                    <GenericButton
+                      theme={{ margin: '0 auto' }}
+                      renderIcon={() => (
+                        <img src="https://vega.slooh.com/assets/v4/icons/play_icon.svg" />
+                      )}
+                    />
                   </div>
                 }
               />
