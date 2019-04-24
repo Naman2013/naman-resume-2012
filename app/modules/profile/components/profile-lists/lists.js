@@ -12,9 +12,8 @@ import messages from './my-lists.messages';
 class Lists extends Component {
   state = { tiles: [], items: [] };
 
-  getModeledTiles = (filterType, profileLists, interestsList) => {
+  getModeledTiles = (filterType, itemList, interestsList) => {
     const { tiles } = this.state;
-    const { itemList } = profileLists;
     let mergedTiles = [].concat(
       tiles,
       filterType === 'object' ? interestsList : itemList
@@ -80,18 +79,19 @@ class Lists extends Component {
   };
 
   updateTilesList = () => {
-    const { profileLists, params, data } = this.props;
+    const { profileLists, filterType, data } = this.props;
     const { itemList } = profileLists;
+    const { interestsList } = data;
     this.setState(() => ({
-      tiles:
-        params.filterType === 'object'
-          ? data.interestsList
-          : itemList,
+      tiles: filterType === 'object' ? interestsList : itemList,
     }));
   };
 
-  GetTiles = (filterType, profileLists, interestsList, props) => {
-    const tiles = this.getModeledTiles(filterType, profileLists, interestsList);
+  GetTiles = (filterType, props) => {
+    const { profileLists, data } = this.props;
+    const { interestsList } = data;
+    const { itemList } = profileLists;
+    const tiles = this.getModeledTiles(filterType, itemList, interestsList);
     switch (filterType) {
       case 'object':
         return <GuideTopics {...props} list={tiles} />;
@@ -122,14 +122,13 @@ class Lists extends Component {
   };
 
   appendToTilesList = () => {
-    const { params, profileLists, data } = this.props;
+    const { filterType, profileLists, data } = this.props;
     const { itemList } = profileLists;
+    const { interestsList } = data;
     this.setState(state => {
       const tiles = [].concat(
         state.tiles,
-        params.filterType === 'object'
-          ? data.interestsList
-          : itemList
+        filterType === 'object' ? interestsList : itemList
       );
       return { tiles };
     });
@@ -140,13 +139,8 @@ class Lists extends Component {
   };
 
   render() {
-    const {
-      filterType,
-      filterOptions,
-      intl,
-      profileLists,
-      data: { interestsList },
-    } = this.props;
+    const { filterType, filterOptions, profileLists, intl, data } = this.props;
+    if (!profileLists || !data) return null;
     return (
       <DeviceContext.Consumer>
         {context => (
@@ -171,7 +165,7 @@ class Lists extends Component {
             showHeaderIcon={false}
             render={() => (
               <Fragment>
-                {this.GetTiles(filterType, profileLists, interestsList, {
+                {this.GetTiles(filterType, {
                   closeModal: this.closeModal,
                   updateReadingListInfo: this.updateItemInfo,
                   updatePrompt: this.updatePrompt,

@@ -11,7 +11,7 @@ class ProfileLists extends Component {
     } = this.props;
     if (params.private) getPrivateProfile();
     if (params.public) getPublicProfile(params.customerUUID);
-    if (params.filterType && params.filterType !== 'object') {
+    if (params.filterType) {
       if (params.private) getProfileLists(params.filterType);
       if (params.public)
         getProfileLists(params.filterType, params.customerUUID);
@@ -20,10 +20,7 @@ class ProfileLists extends Component {
 
   componentDidUpdate(prevProps) {
     const { params, getProfileLists } = this.props;
-    if (
-      prevProps.params.filterType !== params.filterType &&
-      params.filterType !== 'object'
-    ) {
+    if (prevProps.params.filterType !== params.filterType) {
       if (params.private) getProfileLists(params.filterType);
       if (params.public) {
         getProfileLists(params.filterType, params.customerUUID);
