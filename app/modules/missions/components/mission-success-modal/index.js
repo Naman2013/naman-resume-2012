@@ -1,10 +1,10 @@
-import RecommendedQuestSliderItem from 'app/components/common/RecommendedQuestsSlider/partials/RecommendedQuestItem';
+import GenericButton from 'app/components/common/style/buttons/Button';
 import GuideTile from 'app/components/common/tiles/guide-tile';
 import LailaTile from 'app/components/common/tiles/LailaTile';
 import { Modal } from 'app/components/modal';
 import ObjectRelatedTile from 'app/containers/object-details/ObjectRelatedTile';
 import { AvailbleMissionTile } from 'app/modules/missions/components/available-mission-tile';
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { Button } from 'react-bootstrap';
 import { browserHistory } from 'react-router';
 import './styles.scss';
@@ -20,10 +20,10 @@ export class MissionSuccessModal extends Component {
     } = this.props;
 
     const {
-      hasRelatedQuests,
       showGoodiesHeader,
       goodiesHeader,
       goBackLinkText,
+      exitLinkText,
       finishedButtonCaption,
       confirmationHeader,
       congratulationsText,
@@ -38,103 +38,100 @@ export class MissionSuccessModal extends Component {
     } = reservedMission;
 
     return (
-      <Modal show={show} onHide={onHide} goBackText={goBackLinkText}>
+      <Modal
+        show={show}
+        onHide={onHide}
+        goBackText={goBackLinkText}
+        mobileGoBackText={exitLinkText}
+        mobileStyle
+      >
         <div className="modal-wrapper">
           <h1 className="modal-h">{confirmationHeader}</h1>
-          <p className="modal-p">{congratulationsText}</p>
+          <p className="modal-p my-5">{congratulationsText}</p>
           <AvailbleMissionTile
             missionSlot={missionSlot}
             tip={reservedMissionData.tip}
           />
 
-          {showGoodiesHeader && <h2 className="modal-h2">{goodiesHeader}</h2>}
+          <div className="dark-text-after-me-in-mobile" />
+
+          {showGoodiesHeader && (
+            <h2 className="modal-h2 my-5">{goodiesHeader}</h2>
+          )}
 
           {hasRelatedGuide && (
-            <ObjectRelatedTile
-              {...relatedGuide}
-              showMobileAdditionalContent
-              additionalContent={
-                <GuideTile
-                  title={relatedGuide.imageLabel}
-                  subTitle={relatedGuide.imageTitle}
-                  linkUrl={relatedGuide.linkUrl}
-                />
-              }
-            />
+            <>
+              <h3 className="modal-h3 my-5">{relatedObject.header}</h3>
+              <ObjectRelatedTile
+                {...relatedGuide}
+                showMobileAdditionalContent
+                additionalContent={
+                  <GuideTile
+                    title={relatedGuide.imageLabel}
+                    subTitle={relatedGuide.imageTitle}
+                    linkUrl={relatedGuide.linkUrl}
+                  />
+                }
+              />
+            </>
           )}
-
-          <br />
 
           {hasRelatedObject && (
-            <ObjectRelatedTile
-              {...relatedObject}
-              additionalContent={
-                <LailaTile
-                  iconURL={relatedObject.iconUrl}
-                  title={relatedObject.imageTitle}
-                  linkURL={relatedObject.linkUrl}
-                />
-              }
-            />
-          )}
-
-          {hasRelatedQuests && (
-            <Fragment>
-              <h3 className="modal-h3">
-                Add to these Quests by attending this Mission!
-              </h3>
-
-              <div className="row">
-                <div className="col-sm-6">
-                  <RecommendedQuestSliderItem />
-                </div>
-                <div className="col-sm-6">
-                  <RecommendedQuestSliderItem />
-                </div>
-              </div>
-            </Fragment>
+            <>
+              <h3 className="modal-h3 my-5">{relatedObject.header}</h3>
+              <ObjectRelatedTile
+                {...relatedObject}
+                additionalContent={
+                  <LailaTile
+                    iconURL={relatedObject.iconUrl}
+                    title={relatedObject.imageTitle}
+                    linkURL={relatedObject.linkUrl}
+                  />
+                }
+              />
+            </>
           )}
 
           {hasRelatedStory && (
-            <Fragment>
-              <h3 className="modal-h3">
-                Get Inspired about this Object by reading these stories
-              </h3>
-
+            <>
+              <h3 className="modal-h3 my-5">{relatedStory.header}</h3>
               <div className="row">
-                <div className="col-sm-12 text-center">
+                <div className="col-sm-12">
                   <ObjectRelatedTile
                     {...relatedStory}
                     showDescription={false}
                   />
                 </div>
               </div>
-            </Fragment>
+            </>
           )}
 
           {hasRelatedShow && (
-            <div className="mt-3">
-              <ObjectRelatedTile
-                {...relatedShow}
-                additionalContent={
-                  <div
-                    role="presentation"
-                    className="related-show"
-                    onClick={() => browserHistory.push(relatedShow.linkUrl)}
-                  >
-                    <p className="related-show-title">
-                      {relatedShow.imageTitle}{' '}
-                    </p>
-                    <Button>
-                      <img
-                        src="https://vega.slooh.com/assets/v4/icons/play_icon.svg"
-                        alt="Play"
+            <>
+              <h3 className="modal-h3 my-5">{relatedShow.header}</h3>
+              <div className="mt-3">
+                <ObjectRelatedTile
+                  {...relatedShow}
+                  additionalContent={
+                    <div
+                      role="presentation"
+                      className="related-show"
+                      onClick={() => browserHistory.push(relatedShow.linkUrl)}
+                    >
+                      <p className="related-show-title">
+                        {relatedShow.imageTitle}{' '}
+                      </p>
+                      <GenericButton
+                        theme={{ margin: '0 auto' }}
+                        renderIcon={() => (
+                          <img src="https://vega.slooh.com/assets/v4/icons/play_icon.svg" />
+                        )}
                       />
-                    </Button>
-                  </div>
-                }
-              />
-            </div>
+                    </div>
+                  }
+                />
+              </div>
+            </>
           )}
 
           <div className="text-center mt-3">
