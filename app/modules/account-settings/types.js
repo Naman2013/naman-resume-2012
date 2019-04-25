@@ -15,7 +15,7 @@ export type TTypeSectionItem = {
   accountStatus: string,
   accountStatusLabel: string,
   accountTypeHeading: string,
-  currentSubscriptionPlan: Array<TCurrentSubscriptionPlanItem>,
+  currentSubscriptionPlan: Object<TCurrentSubscriptionPlanItem>,
 };
 
 export type TFormFieldItem = {
@@ -49,11 +49,6 @@ export type TInfoItem = {
 };
 
 // mocked types
-export type TAccountTypeItem = {
-  label: string,
-  name: string | Date | number,
-};
-
 export type TFormFieldMocked = {
   count: number,
   name: string,
@@ -64,14 +59,13 @@ export type TInitialState = {
   isFetching: boolean,
   isLoaded: boolean,
   serverError: boolean,
-  accountCancelSection: Array<TAccountCancelSectionItem>,
-  accountDetails: Array<TAccountDetailsItem>,
+  accountCancelSection: Object<TAccountCancelSectionItem>,
+  accountDetails: Object<TAccountDetailsItem>,
   accountMenuList: Object<TInfoItem>,
-  accountTypeSection: Array<TTypeSectionItem>,
+  accountTypeSection: Object<TTypeSectionItem>,
 
   // mocked
   // TODO: get rid of mocked data
-  accountTypeItems: Array<TAccountTypeItem>,
   accountDetailsOptions: Array<TFormFieldMocked>,
   paymentDetailsOptions: Array<TFormFieldMocked>,
 };

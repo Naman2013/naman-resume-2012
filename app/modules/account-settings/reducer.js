@@ -18,12 +18,6 @@ export const initialState: TInitialState = {
 
   // TODO: get rid from mocked data
   // mocked
-  accountTypeItems: [
-    { label: 'USD/Monthly', name: '$00.00' },
-    { label: 'Joined', name: 'Sept. 12' },
-    { label: 'Renews', name: 'Oct. 22, 2019' },
-    { label: 'Status', name: 'Active' },
-  ],
   accountDetailsOptions: [
     { count: 1, name: 'Name on account', type: 'John Snow' },
     { count: 1, name: 'Display name', type: 'Epic Knight' },

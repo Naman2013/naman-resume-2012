@@ -13,3 +13,9 @@ export const makeAccountMenuListSelector = () =>
     selectAccountSettings,
     state => state.accountMenuList
   );
+
+export const makeaccountTypeSectionSelector = () =>
+  createSelector(
+    selectAccountSettings,
+    state => state.accountTypeSection
+  );
