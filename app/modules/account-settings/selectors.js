@@ -19,3 +19,15 @@ export const makeAccountTypeSectionSelector = () =>
     selectAccountSettings,
     state => state.accountTypeSection
   );
+
+export const makeAccountDetailsSelector = () =>
+  createSelector(
+    selectAccountSettings,
+    state => state.accountDetails
+  );
+
+export const makeAccountCancelSectionSelector = () =>
+  createSelector(
+    selectAccountSettings,
+    state => state.accountCancelSection
+  );

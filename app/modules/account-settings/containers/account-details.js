@@ -1,7 +1,11 @@
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
-import { makeAccountTypeSectionSelector } from '../selectors';
+import {
+  makeAccountTypeSectionSelector,
+  makeAccountDetailsSelector,
+  makeAccountCancelSectionSelector
+} from '../selectors';
 import { AccountDetails } from '../components/account-details';
 
 const mapStateToProps = createStructuredSelector({
