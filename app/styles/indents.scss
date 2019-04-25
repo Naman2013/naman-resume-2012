@@ -2,6 +2,14 @@
 @import "~app/styles/mixins/utilities.scss";
 
 // Inner and outer indents, positioning
+.left-right {
+
+  &-minus-20 {
+    margin-left: -20px;
+    margin-right: -20px;
+  }
+}
+
 .pad {
 
   &-40 {
