@@ -8,14 +8,15 @@ export class ProfilePhotos extends PureComponent {
   };
 
   componentDidMount = () => {
-    const { fetchFiltersLists } = this.props;
+    const { fetchFiltersLists, fetchObjectTypeList } = this.props;
     fetchFiltersLists();
+    fetchObjectTypeList();
   };
 
   setFilterOpen = isFilterOpen => this.setState({ isFilterOpen });
 
   render() {
-    const { children, location, allFilters } = this.props;
+    const { children, location, allFilters, objectTypeList } = this.props;
     // console.log(this.props);
     const currentTab = location.pathname.split('/').pop();
 
@@ -29,6 +30,7 @@ export class ProfilePhotos extends PureComponent {
               isFilterOpen={isFilterOpen}
               setFilterOpen={this.setFilterOpen}
               filters={allFilters}
+              objectTypeList={objectTypeList}
             />
           </div>
           <div className="body-wrapper">

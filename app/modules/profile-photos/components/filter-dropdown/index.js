@@ -1,5 +1,6 @@
 // @flow
 
+import { FilterElImg } from 'app/modules/profile-photos/components/filter-dropdown/filter-el-img';
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import './index.scss';
@@ -12,8 +13,8 @@ type TFilterDropdown = {
 };
 
 export const FilterDropdown = (props: TFilterDropdown) => {
-  const { isOpen, setOpen, onChange, filters } = props;
-  console.log(filters);
+  const { isOpen, setOpen, onChange, filters, objectTypeList } = props;
+  console.log(objectTypeList);
 
   const open = () => setOpen(true);
   const close = () => setOpen(false);
@@ -36,7 +37,22 @@ export const FilterDropdown = (props: TFilterDropdown) => {
             />
           </div>
 
-          <div className="filter-dropdown-body">x</div>
+          <div className="filter-dropdown-body">
+            <h4 className="h4-custom">BY OBJECT TYPE</h4>
+
+            <div className="grid-elements-img">
+              {objectTypeList.map(ot => (
+                <FilterElImg
+                  imgUrl={ot.objectTypeIconURL}
+                  key={ot.objectTypeIndex}
+                  title={ot.objectTypeDisplayName}
+                  active={false}
+                />
+              ))}
+            </div>
+
+            <hr />
+          </div>
 
           <div className="filter-dropdown-footer text-center">
             <Button className="mr-3">reset</Button>

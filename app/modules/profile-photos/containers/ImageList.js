@@ -189,7 +189,9 @@ class ImageList extends Component {
     return this.props[mapTypeToCount[type]] > 0 ? (
       <div>Loading...</div>
     ) : (
-      <div>The list is empty.</div>
+      <div style={{ marginBottom: 700 }}>
+        The list is empty TODO Add margin when filter's open.
+      </div>
     );
   };
 
