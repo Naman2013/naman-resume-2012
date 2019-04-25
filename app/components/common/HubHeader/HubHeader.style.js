@@ -1,9 +1,13 @@
 import css from 'styled-jsx/css';
 import { faintShadow } from 'app/styles/variables/shadows';
-import { astronaut, romance, golden_yellow, shadows, seashell } from 'app/styles/variables/colors_tiles_v4';
-import { primaryFont, secondaryFont } from 'app/styles/variables/fonts';
-import { screenMedium, screenLarge } from 'app/styles/variables/breakpoints';
-import { backgroundImageCover, dropShadowContainer } from 'app/styles/mixins/utilities';
+import {
+  astronaut,
+  golden_yellow,
+  shadows,
+  seashell,
+} from 'app/styles/variables/colors_tiles_v4';
+import { primaryFont } from 'app/styles/variables/fonts';
+import { screenMedium } from 'app/styles/variables/breakpoints';
 
 export default css`
   .root {
@@ -16,6 +20,25 @@ export default css`
     background-color: ${seashell};
     ${faintShadow}
   }
+
+  .root.plain {
+    padding: 20px 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .root.plain .hub-header-title-container {
+    height: 62px;
+    padding-left: 0;
+    border: none;
+  }
+
+  .root.plain .hub-header-title {
+    font: 400 14px ${primaryFont};
+    letter-spacing: 0.6px;
+    color: #648282;
+  }
+
   .hub-header-icon {
     display: none;
   }
@@ -27,7 +50,7 @@ export default css`
     border-bottom: 1px solid ${shadows};
   }
 
-  .hub-header-title  {
+  .hub-header-title {
     display: flex;
     flex: 0 75%;
     align-items: center;
@@ -55,6 +78,7 @@ export default css`
       align-items: flex-start;
       padding: 0;
     }
+
     .hub-header-icon {
       height: 100px;
       width: 100px;
@@ -78,8 +102,7 @@ export default css`
       border-left: 0;
     }
 
-
-    .hub-header-title  {
+    .hub-header-title {
       font-size: 29px;
     }
 
@@ -90,6 +113,15 @@ export default css`
     .right-menu-nav {
       margin-left: 0;
     }
-  }
 
+    .root.plain .hub-header-title-container {
+      border: none;
+    }
+
+    .root.plain .hub-header-title {
+      font: 400 14px ${primaryFont};
+      letter-spacing: 0.6px;
+      color: #648282;
+    }
+  }
 `;
