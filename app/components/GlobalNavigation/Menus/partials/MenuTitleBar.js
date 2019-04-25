@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import noop from 'lodash/noop';
 import { romance, astronaut, shadows } from '../../../../styles/variables/colors_tiles_v4';
-import { faintShadow } from 'styles/variables/shadows';
+import { faintShadow } from 'app/styles/variables/shadows';
 import { primaryFont } from '../../../../styles/variables/fonts';
 import COMMON_STYLE from '../../common-style';
 

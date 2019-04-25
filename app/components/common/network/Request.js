@@ -13,7 +13,7 @@ import { connect } from 'react-redux';
 import compact from 'lodash/compact';
 import isMatch from 'lodash/isMatch';
 import axios from 'axios';
-import { validateResponseAccess } from 'modules/authorization/actions';
+import { validateResponseAccess } from 'app/modules/authorization/actions';
 
 function getFieldsFromObj(obj, fields) {
   let result;

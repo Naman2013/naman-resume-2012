@@ -5,7 +5,7 @@ import Search from './Search';
 import Help from './Help';
 import NotificationsRedux from './Notifications.redux';
 import ProfileRedux from './Profile.redux';
-import { romance } from 'styles/variables/colors_tiles_v4';
+import { romance } from 'app/styles/variables/colors_tiles_v4';
 
 export const LEFT_MENU = {
   DEFAULT: {

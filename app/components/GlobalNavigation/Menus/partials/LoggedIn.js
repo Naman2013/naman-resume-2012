@@ -8,7 +8,7 @@ import MenuTitleBar from './MenuTitleBar';
 import MenuList from './MenuList';
 import messages from './LoggedIn.messages';
 
-import { userAstronaut, horizontalArrowRightAstronaut } from 'styles/variables/iconURLs';
+import { userAstronaut, horizontalArrowRightAstronaut } from 'app/styles/variables/iconURLs';
 
 const getIconStyle = url => ({
   backgroundImage: `url(${url})`,

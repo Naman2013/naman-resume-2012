@@ -1,0 +1,41 @@
+@import '~app/styles/variables/index';
+
+.filter-dropdown-wrapper {
+  position: relative;
+
+  .filter-dropdown {
+    position: absolute;
+    z-index: 10;
+    top: 0;
+    right: 0;
+    //border: 1px solid;
+    box-shadow: 0 0 6px 0 $shadows;
+    overflow: hidden;
+
+    width: 570px;
+    //max-width: 570px; todo
+
+    &-header {
+      padding: 20px;
+      background-color: $romance;
+      box-shadow: 0 0 6px 0 $shadows;
+      position: relative;
+
+      .close-btn {
+        cursor: pointer;
+      }
+    }
+
+    &-body {
+      padding: 30px;
+      background-color: $faintGray;
+    }
+
+    &-footer {
+      padding: 30px;
+      background-color: $romance;
+      box-shadow: 0 0 6px 0 $shadows;
+      position: relative;
+    }
+  }
+}

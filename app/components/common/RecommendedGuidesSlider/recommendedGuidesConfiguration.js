@@ -1,7 +1,7 @@
 import React from 'react';
 import uniqueId from 'lodash/uniqueId';
-import defaultSliderConfiguration from 'components/common/Slider/sliderConfig';
-import BigGuideTile from 'components/common/tiles/BigGuideTile/BigGuideTile';
+import defaultSliderConfiguration from 'app/components/common/Slider/sliderConfig';
+import BigGuideTile from 'app/components/common/tiles/BigGuideTile/BigGuideTile';
 
 
 const getSliderConfiguration = () => Object.assign(

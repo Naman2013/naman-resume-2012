@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { romance, astronaut } from 'styles/variables/colors_tiles_v4';
-import { primaryFont } from 'styles/variables/fonts';
+import { romance, astronaut } from 'app/styles/variables/colors_tiles_v4';
+import { primaryFont } from 'app/styles/variables/fonts';
 
 const propTypes = {
   mainTitle: PropTypes.string.isRequired,

@@ -2,18 +2,18 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import flatten from 'lodash/flatten';
 import { injectIntl, intlShape } from 'react-intl';
-import IntroText from 'components/common/form-sections/intro-text';
-import FormSectionHeader from 'components/common/form-sections/section-header';
-import Tags from 'components/common/form-fields/tags';
-import GenericModal from 'components/common/v4-modals';
-import UploadImages from 'components/common/form-fields/upload-images';
-import Button from 'components/common/style/buttons/Button';
+import IntroText from 'app/components/common/form-sections/intro-text';
+import FormSectionHeader from 'app/components/common/form-sections/section-header';
+import Tags from 'app/components/common/form-fields/tags';
+import GenericModal from 'app/components/common/v4-modals';
+import UploadImages from 'app/components/common/form-fields/upload-images';
+import Button from 'app/components/common/style/buttons/Button';
 import HeadlineAndContentInputs from './partials/headline-and-content-inputs';
 import ActionItems from './partials/action-items';
 import ContentCategorySelector from './partials/content-category-selector';
 import ObjectCategoryAndTopicSelects from './partials/object-category-and-topic-selects';
 import FormFeedbackActions from './partials/form-feedback-actions';
-import { customModalStylesBlackOverlay } from 'styles/mixins/utilities';
+import { customModalStylesBlackOverlay } from 'app/styles/mixins/utilities';
 import messages from './create-story-form.messages';
 
 class CreateStoryForm extends Component {

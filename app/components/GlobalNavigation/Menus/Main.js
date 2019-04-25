@@ -7,7 +7,7 @@ import MenuList from './partials/MenuList';
 import MenuTitleBar from './partials/MenuTitleBar';
 import SocialMenu from './partials/SocialMenu';
 import { PRIMARY_CONFIGURATION, SECONDARY_CONFIGURATION } from './mainConfiguration';
-import { sloohLogoAstronaut } from 'styles/variables/iconURLs';
+import { sloohLogoAstronaut } from 'app/styles/variables/iconURLs';
 
 const Main = ({ mainMenu }) => (
   <Fragment>

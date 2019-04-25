@@ -1,17 +1,17 @@
-import React from 'react';
 import { DomCameraWidget } from 'app/modules/telescope/components/old/dom-camera-widget';
 import { PicoDelTeidesWidget } from 'app/modules/telescope/components/old/pico-del-teide-widget';
+import React from 'react';
+import { MoonlightConditions } from '../../moonlight-conditions/moonlight-conditions-container';
 import {
-  Satellite,
   ConnectedAllSkyCamera,
-  SkyConditions,
-  WeatherConditions,
   DayNightBar,
   DayNightMap,
-  WeeklyForecast,
   ObsBotWidget,
+  Satellite,
+  SkyConditions,
+  WeatherConditions,
+  WeeklyForecast,
 } from './index';
-import { MoonlightConditions } from '../../moonlight-conditions/moonlight-conditions-container';
 import style from './tab-conditions.style';
 
 const TabConditions = props => {
@@ -19,11 +19,13 @@ const TabConditions = props => {
     currentTelescope,
     currentObservatory,
     dayNightBarPanel,
+    dayNightBar,
     dayNightMap,
     domeCam,
     facilityWebcam,
     weatherSatellite,
   } = props;
+  const { SeeingConditionsWidgetId, obsId } = currentObservatory;
   return (
     <div>
       {currentTelescope.teleHasNeoView && (
@@ -33,18 +35,18 @@ const TabConditions = props => {
       )}
       <div className="tile-container">
         <ConnectedAllSkyCamera
-          obsId={currentObservatory.obsId}
+          obsId={obsId}
           allSkyWidgetID={currentObservatory.AllskyWidgetId}
           AllskyTimelapseWidgetId={currentObservatory.AllskyTimelapseWidgetId}
         />
       </div>
 
       <div className="tile-container">
-        <SkyConditions />
+        <SkyConditions widgetID={SeeingConditionsWidgetId} obsId={obsId} />
       </div>
 
       <div className="tile-container">
-        <WeatherConditions />
+        <WeatherConditions obsId={obsId} />
       </div>
 
       <div className="tile-container">
@@ -54,6 +56,7 @@ const TabConditions = props => {
       <div className="tile-container">
         <DayNightBar
           dayNightBarPanelURL={dayNightBarPanel.dayNightBarPanelURL}
+          dayNightBar={dayNightBar}
         />
       </div>
 

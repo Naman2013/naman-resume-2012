@@ -9,15 +9,15 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import uniqueId from 'lodash/uniqueId';
-import { profilePhotoStyle } from 'styles/mixins/utilities';
-import { astronaut, shadows, romance } from 'styles/variables/colors_tiles_v4';
-import { primaryFont, secondaryFont } from 'styles/variables/fonts';
+import { profilePhotoStyle } from 'app/styles/mixins/utilities';
+import { astronaut, shadows, romance } from 'app/styles/variables/colors_tiles_v4';
+import { primaryFont, secondaryFont } from 'app/styles/variables/fonts';
 import {
   aspectRatio,
   backgroundImageCover,
   dropShadowContainer,
 } from '../../../../styles/mixins/utilities';
-import { screenMedium } from 'styles/variables/breakpoints';
+import { screenMedium } from 'app/styles/variables/breakpoints';
 
 const {
   arrayOf, bool, shape, string,

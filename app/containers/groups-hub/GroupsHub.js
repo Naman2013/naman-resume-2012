@@ -6,23 +6,23 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Modal from 'react-modal';
 import { intlShape, injectIntl } from 'react-intl';
-import GroupTiles from 'components/groups-hub/group-tiles';
-import Request from 'components/common/network/Request';
-import RequestGroupForm from 'components/community-groups/request-group-form';
-import PromptWithClose from 'components/community-groups/prompt-with-close';
-import RequestGroupFormFeedback from 'components/community-groups/request-group-form-feedback';
-import HubContainer from 'components/common/HubContainer';
-import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
-import ShowMoreWithNetwork from 'components/common/show-more-with-network';
-import { GROUPS_PAGE_ENDPOINT_URL, GET_GROUPS } from 'services/community-groups';
+import GroupTiles from 'app/components/groups-hub/group-tiles';
+import Request from 'app/components/common/network/Request';
+import RequestGroupForm from 'app/components/community-groups/request-group-form';
+import PromptWithClose from 'app/components/community-groups/prompt-with-close';
+import RequestGroupFormFeedback from 'app/components/community-groups/request-group-form-feedback';
+import HubContainer from 'app/components/common/HubContainer';
+import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
+import ShowMoreWithNetwork from 'app/components/common/show-more-with-network';
+import { GROUPS_PAGE_ENDPOINT_URL, GET_GROUPS } from 'app/services/community-groups';
 import { DeviceContext } from 'providers/DeviceProvider';
-import Button from 'components/common/style/buttons/Button';
-import { validateResponseAccess } from 'modules/authorization/actions'
-import { customModalStylesBlackOverlay } from 'styles/mixins/utilities';
-import { requestGroup } from 'services/community-groups/request-group';
+import Button from 'app/components/common/style/buttons/Button';
+import { validateResponseAccess } from 'app/modules/authorization/actions'
+import { customModalStylesBlackOverlay } from 'app/styles/mixins/utilities';
+import { requestGroup } from 'app/services/community-groups/request-group';
 import { browserHistory } from 'react-router';
 import { ACTION as clubsActions } from '../../modules/clubs/reducer';
-import { GOOGLE_CLASSROOM_GET_CLASSROOM_LIST_ENDPOINT_URL } from 'services/classroom/classroom.js';
+import { GOOGLE_CLASSROOM_GET_CLASSROOM_LIST_ENDPOINT_URL } from 'app/services/classroom/classroom.js';
 import style from './groups-hub.style';
 import messages from './GroupsHub.messages';
 

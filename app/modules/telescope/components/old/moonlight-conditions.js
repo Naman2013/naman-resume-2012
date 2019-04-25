@@ -1,7 +1,7 @@
 import React from 'react';
 import { ModuleContainer } from './index';
 import style from './moonlight-conditions.style';
-import GenericButton from 'components/common/style/buttons/Button';
+import GenericButton from 'app/components/common/style/buttons/Button';
 
 const MoonlightConditions = () => (
   <ModuleContainer title="Moonlight Conditions">

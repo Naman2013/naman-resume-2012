@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { lightTurqoise, black } from 'styles/variables/colors';
-import { primaryFont } from 'styles/variables/fonts';
+import { lightTurqoise, black } from 'app/styles/variables/colors';
+import { primaryFont } from 'app/styles/variables/fonts';
 
 const SectionHeader = ({ title, subtitle }) => (
   <div className="root">

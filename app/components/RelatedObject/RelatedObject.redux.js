@@ -10,9 +10,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import has from 'lodash/has';
 import { DeviceContext } from 'providers/DeviceProvider';
-import Request from 'components/common/network/Request';
+import Request from 'app/components/common/network/Request';
 import BootstrappedRelatedObject from './BootstrappedRelatedObject';
-import { CONTENT_RELATED_OBJECTS } from 'services/content';
+import { CONTENT_RELATED_OBJECTS } from 'app/services/content';
 
 const {
   bool,

@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
-import CenterColumn from 'components/common/CenterColumn';
-import GenericButton from 'components/common/style/buttons/Button';
-import Medallion from 'components/common/TiaraTitleSection/Medallion';
-import { white_tile_paper, golden, golda } from 'styles/variables/colors_tiles_v4';
+import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
+import CenterColumn from 'app/components/common/CenterColumn';
+import GenericButton from 'app/components/common/style/buttons/Button';
+import Medallion from 'app/components/common/TiaraTitleSection/Medallion';
+import { white_tile_paper, golden, golda } from 'app/styles/variables/colors_tiles_v4';
 import style from './title-section.style';
 
 const QuestDetailsTitleSection = ({

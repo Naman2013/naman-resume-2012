@@ -1,9 +1,9 @@
-import React, { Component, Fragment } from 'react';
-import PropTypes from 'prop-types';
+import bobbietilestyle from 'app/components/common/tiles/BobbieTile/BobbieTile.style.js';
+import cmsstyle from 'app/components/common/tiles/BobbieTile/CMS.style.js';
 import truncate from 'lodash/truncate';
+import PropTypes from 'prop-types';
+import React, { Component, Fragment } from 'react';
 import style from './AboutContent.style';
-import cmsstyle from 'components/common/tiles/BobbieTile/CMS.style.js';
-import bobbietilestyle from 'components/common/tiles/BobbieTile/BobbieTile.style.js';
 
 const TRUNCATED_CONTENT_LENGTH = 210;
 const TRUNCATED_BUTTON_TEXT = 'read more';

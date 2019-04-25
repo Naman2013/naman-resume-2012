@@ -5,11 +5,11 @@ import {
   fetchAstronomerQuestions,
   askQuestion,
   changeAnswerState,
-} from 'app/modules/ask-astronomer-questions/actions';
+} from 'app/modules/ask-astronomer/reducers/ask-astronomer-questions/actions';
 import {
   toggleAllAnswersAndDisplay,
   submitAnswerToQuestion,
-} from 'app/modules/ask-astronomer-answers/actions';
+} from 'app/modules/ask-astronomer/reducers/ask-astronomer-answers/actions';
 
 const mapStateToProps = ({ astronomerAnswers, astronomerQuestions, user }) => ({
   allAnswers: astronomerAnswers.allAnswers,

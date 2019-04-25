@@ -12,9 +12,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { browserHistory } from 'react-router';
 import { DeviceContext } from 'providers/DeviceProvider';
-import questActions from 'modules/quest-details/actions';
-import { validateResponseAccess } from 'modules/authorization/actions';
-import { START_QUEST } from 'services/quests'
+import questActions from 'app/modules/quest-details/actions';
+import { validateResponseAccess } from 'app/modules/authorization/actions';
+import { START_QUEST } from 'app/services/quests'
 import Quest from './QuestDetails';
 
 const {

@@ -10,8 +10,8 @@ import { bindActionCreators } from 'redux';
 import { DeviceContext } from 'providers/DeviceProvider';
 import CreateStory from './create-story';
 import { validateResponseAccess } from '../../modules/authorization/actions';
-import storiesActions from 'modules/stories/actions';
-import fetchCategoryTopicList from 'services/content/object-category-topic-list';
+import storiesActions from 'app/modules/stories/actions';
+import fetchCategoryTopicList from 'app/services/content/object-category-topic-list';
 
 
 class ConnectedCreateStory extends Component {

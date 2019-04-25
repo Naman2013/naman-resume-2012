@@ -7,7 +7,7 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Button from 'components/common/style/buttons/Button';
+import Button from 'app/components/common/style/buttons/Button';
 import styles from './PlanDetailsCard.style'
 
 const {

@@ -7,10 +7,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { intlShape, injectIntl } from 'react-intl';
-import Button from 'components/common/style/buttons/Button';
-import RevealSubmitForm from 'components/common/RevealSubmitForm';
-import { romance, astronaut, shadows } from 'styles/variables/colors_tiles_v4';
-import { dropShadowContainer } from 'styles/mixins/utilities';
+import Button from 'app/components/common/style/buttons/Button';
+import RevealSubmitForm from 'app/components/common/RevealSubmitForm';
+import { romance, astronaut, shadows } from 'app/styles/variables/colors_tiles_v4';
+import { dropShadowContainer } from 'app/styles/mixins/utilities';
 import messages from './ReplyForm.messages';
 
 const {

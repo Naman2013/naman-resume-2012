@@ -1,16 +1,16 @@
 import React from 'react';
 import { browserHistory } from 'react-router';
 import { FormattedMessage, intlShape, injectIntl } from 'react-intl';
-import { primaryFont } from 'styles/variables/fonts';
-import { romance, astronaut, golda } from 'styles/variables/colors_tiles_v4';
-import Request from 'components/common/network/Request';
-import { OBSERVATORIES_COMPACT } from 'services/observatories';
+import { primaryFont } from 'app/styles/variables/fonts';
+import { romance, astronaut, golda } from 'app/styles/variables/colors_tiles_v4';
+import Request from 'app/components/common/network/Request';
+import { OBSERVATORIES_COMPACT } from 'app/services/observatories';
 import BorderContainer from './partials/BorderedContainer';
-import Button from 'components/common/style/buttons/Button';
+import Button from 'app/components/common/style/buttons/Button';
 import MenuList from './partials/MenuList';
 import MenuTitleBar from './partials/MenuTitleBar';
 import TELESCOPE_CONFIGURATION, { modelTelescopesFromObsList } from './telescopeConfiguration';
-import { telescopeAstronaut } from 'styles/variables/iconURLs';
+import { telescopeAstronaut } from 'app/styles/variables/iconURLs';
 import messages from './Telescopes.messages';
 
 const Telescopes = ({ intl }) => (

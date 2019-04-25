@@ -8,7 +8,7 @@ const SimpleList = ({ data }) => (
         <li key={`${measurement.title}-${measurement.field}`} className="node">
           <ul className="datum">
             <li className="title">{measurement.title}</li>
-            <li className="field">{measurement.field}</li>
+            <li className="field text-right" dangerouslySetInnerHTML={{ __html: measurement.field }}/>
           </ul>
         </li>
       ))}

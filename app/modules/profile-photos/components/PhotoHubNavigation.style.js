@@ -1,7 +1,13 @@
 import css from 'styled-jsx/css';
 import { primaryFont, secondaryFont } from 'app/styles/variables/fonts';
 import { screenMedium } from 'app/styles/variables/breakpoints';
-import { hawkesBlue, shadows, lightHeadedAstronaut, seashell, astronaut } from 'app/styles/variables/colors_tiles_v4';
+import {
+  hawkesBlue,
+  shadows,
+  lightHeadedAstronaut,
+  seashell,
+  astronaut,
+} from 'app/styles/variables/colors_tiles_v4';
 
 export default css`
   .photohub-root {
@@ -14,6 +20,11 @@ export default css`
     align-items: center;
     text-transform: uppercase;
     border-bottom: 1px solid ${hawkesBlue};
+  }
+  
+  .filter-shader {
+    opacity: 0.9;
+    background-color: #0a0c0e;
   }
 
   .photohub-nav-bar {

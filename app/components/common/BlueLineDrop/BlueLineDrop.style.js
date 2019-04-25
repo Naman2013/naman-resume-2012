@@ -1,8 +1,8 @@
 import css from 'styled-jsx/css';
-import { astronaut, shadows, romance } from 'styles/variables/colors_tiles_v4';
-import { primaryFont } from 'styles/variables/fonts';
-import { screenMedium } from 'styles/variables/breakpoints';
-import { dropShadowContainer } from 'styles/mixins/utilities';
+import { astronaut, shadows, romance } from 'app/styles/variables/colors_tiles_v4';
+import { primaryFont } from 'app/styles/variables/fonts';
+import { screenMedium } from 'app/styles/variables/breakpoints';
+import { dropShadowContainer } from 'app/styles/mixins/utilities';
 export default css`
 
   .component-container {

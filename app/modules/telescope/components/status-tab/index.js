@@ -3,6 +3,7 @@ import { Col, Container, Row } from 'react-bootstrap';
 import {
   ObsBotWidget,
   ObservatoryInformation,
+  WeatherConditions,
 } from 'app/modules/telescope/components/old';
 import { Box } from 'app/modules/telescope/components/box';
 import { ConnectedAllSkyCamera } from 'app/modules/telescope/components/old/all-sky-camera';
@@ -93,58 +94,7 @@ export const StatusTab = props => {
               <h2 className="h2-custom">Moderate Haze</h2>
             </Box>
 
-            <Box header="WEATHER CONDITIONS">
-              <div className="weather">
-                <Row>
-                  <Col>
-                    <h4 className="h4-custom">Temperature</h4>
-                  </Col>
-                  <Col>
-                    <h2 className="h2-custom temp-value">67° F</h2>
-                  </Col>
-                </Row>
-                <hr />
-
-                <Row>
-                  <Col>
-                    <h4 className="h4-custom">Dew Point</h4>
-                  </Col>
-                  <Col>
-                    <h2 className="h2-custom temp-value">57° F</h2>
-                  </Col>
-                </Row>
-                <hr />
-
-                <Row>
-                  <Col>
-                    <h4 className="h4-custom">Humidity</h4>
-                  </Col>
-                  <Col>
-                    <h2 className="h2-custom temp-value">69%</h2>
-                  </Col>
-                </Row>
-                <hr />
-
-                <Row>
-                  <Col>
-                    <h4 className="h4-custom">Temperature</h4>
-                  </Col>
-                  <Col>
-                    <h2 className="h2-custom temp-value">67° F</h2>
-                  </Col>
-                </Row>
-                <hr />
-
-                <Row>
-                  <Col>
-                    <h4 className="h4-custom">Temperature</h4>
-                  </Col>
-                  <Col>
-                    <h2 className="h2-custom temp-value">67° F</h2>
-                  </Col>
-                </Row>
-              </div>
-            </Box>
+            <WeatherConditions obsId={obsId} />
           </Col>
         </Row>
       </Container>

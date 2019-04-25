@@ -8,23 +8,23 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import axios from 'axios';
 import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
-import FormSectionHeader from 'components/common/form-sections/section-header';
-import Request from 'components/common/network/Request';
-import BarHeader from 'components/common/form-sections/bar-header';
-import Button from 'components/common/style/buttons/Button';
-import { faintShadow } from 'styles/variables/shadows';
+import FormSectionHeader from 'app/components/common/form-sections/section-header';
+import Request from 'app/components/common/network/Request';
+import BarHeader from 'app/components/common/form-sections/bar-header';
+import Button from 'app/components/common/style/buttons/Button';
+import { faintShadow } from 'app/styles/variables/shadows';
 
 import {
   GOOGLE_CLASSROOM_IMPORTSTUDENTS_PANEL_ENDPOINT_URL,
   GOOGLE_CLASSROOM_IMPORTSTUDENT_ENDPOINT_URL
-} from 'services/classroom/classroom';
+} from 'app/services/classroom/classroom';
 
 import {
   romance,
   astronaut,
 } from '../../../styles/variables/colors_tiles_v4';
-import { primaryFont, secondaryFont } from 'styles/variables/fonts';
-import { screenLarge } from 'styles/variables/breakpoints';
+import { primaryFont, secondaryFont } from 'app/styles/variables/fonts';
+import { screenLarge } from 'app/styles/variables/breakpoints';
 
 import messages from './DiscussionBoard.messages';
 import { Container, Row, Card, ListGroup, ListGroupItem } from 'react-bootstrap';

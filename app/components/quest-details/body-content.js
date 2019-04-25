@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ResourcesButton from './resources-button.redux';
-import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
-import AboutContent from 'components/guides/AboutContent';
+import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
+import AboutContent from 'app/components/guides/AboutContent';
 import style from './body-content.style';
 
 const BodyContent = ({

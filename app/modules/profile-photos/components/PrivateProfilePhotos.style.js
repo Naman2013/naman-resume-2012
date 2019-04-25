@@ -1,5 +1,9 @@
 import css from 'styled-jsx/css';
-import { screenMedium, screenLarge, screenXLarge } from 'app/styles/variables/breakpoints';
+import {
+  screenMedium,
+  screenLarge,
+  screenXLarge,
+} from 'app/styles/variables/breakpoints';
 import { shadows } from 'app/styles/variables/colors_tiles_v4';
 
 export default css`
@@ -9,7 +13,17 @@ export default css`
   }
 
   .body-wrapper {
-    margin: 0 10px 20px 10px;    
+    margin: 0 10px 20px 10px;
+    position: relative;
+  }
+
+  .filter-shader {
+    position: absolute;
+    top: 0;
+    left: -500px;
+    right: -500px;
+    bottom: -500px;
+    background-color: rgba(10, 12, 14, 0.9);
   }
 
   .header-wrapper {
@@ -20,14 +34,9 @@ export default css`
     .root-wrapper {
       width: 620px;
     }
-  
-    .header-wrapper {
-      margin: 0 72px;
-      box-shadow: none;
-    }
 
-    .body-wrapper {
-      margin: 0 74px 20px 74px;
+    .header-wrapper {
+      box-shadow: none;
     }
   }
 
@@ -35,16 +44,8 @@ export default css`
     .root-wrapper {
       width: 780px;
     }
-    
-    .header-wrapper {
-      margin: 0 42px;
-    }
-
-    .body-wrapper {
-      margin: 0 42px 20px 42px;
-    }
   }
-  
+
   @media ${screenXLarge} {
     .root-wrapper {
       width: 940px;

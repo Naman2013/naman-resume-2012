@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { astronaut, lynch, seashell, shadows, gainsboro } from 'styles/variables/colors_tiles_v4';
-import { primaryFont } from 'styles/variables/fonts';
+import { astronaut, lynch, seashell, shadows, gainsboro } from 'app/styles/variables/colors_tiles_v4';
+import { primaryFont } from 'app/styles/variables/fonts';
 
 const { object, string } = PropTypes;
 

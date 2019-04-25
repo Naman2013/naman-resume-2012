@@ -8,9 +8,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { dropShadowContainer } from 'styles/mixins/utilities';
-import { astronaut, geyser, romance } from 'styles/variables/colors_tiles_v4';
-import { primaryFont, secondaryFont } from 'styles/variables/fonts';
+import { dropShadowContainer } from 'app/styles/mixins/utilities';
+import { astronaut, geyser, romance } from 'app/styles/variables/colors_tiles_v4';
+import { primaryFont, secondaryFont } from 'app/styles/variables/fonts';
 
 const {
   any,

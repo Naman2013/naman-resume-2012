@@ -8,7 +8,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { intlShape, injectIntl } from 'react-intl';
 
-import RevealSubmitForm from 'components/common/RevealSubmitForm';
+import RevealSubmitForm from 'app/components/common/RevealSubmitForm';
 import messages from './activity-form.messages';
 
 const { bool, number, string } = PropTypes;

@@ -5,8 +5,8 @@ import findIndex from 'lodash/findIndex';
 import find from 'lodash/find';
 import classnames from 'classnames';
 import noop from 'lodash/noop';
-import DropDown from 'components/common/DropDown';
-import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
+import DropDown from 'app/components/common/DropDown';
+import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
 import style from './UnderlineNav.style';
 
 const {

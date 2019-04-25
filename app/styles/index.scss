@@ -1,5 +1,6 @@
 @import '~animate.css/animate.min.css';
 @import '~react-tippy/dist/tippy.css';
+@import '~rc-pagination/dist/rc-pagination.min.css';
 
 // Bootstrap 4
 @import './bootstrap/index.scss';
@@ -10,6 +11,9 @@
 @import './interface.css';
 
 @import './static.scss';
+
+// components
+@import "components/index";
 
 
 // icons

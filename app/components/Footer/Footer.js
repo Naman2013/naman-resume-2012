@@ -6,9 +6,9 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import Request from 'components/common/network/Request';
+import Request from 'app/components/common/network/Request';
 import BootstrappedFooter from './BootstrappedFooter';
-import { GET_FOOTER_NAVIGATION } from 'services/navigation';
+import { GET_FOOTER_NAVIGATION } from 'app/services/navigation';
 
 const {
   bool,

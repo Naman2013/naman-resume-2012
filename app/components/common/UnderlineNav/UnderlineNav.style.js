@@ -1,6 +1,6 @@
 import css from 'styled-jsx/css';
-import { astronaut, moodyBleu } from 'styles/variables/colors_tiles_v4';
-import { primaryFont, secondaryFont } from 'styles/variables/fonts';
+import { astronaut, moodyBleu } from 'app/styles/variables/colors_tiles_v4';
+import { primaryFont, secondaryFont } from 'app/styles/variables/fonts';
 
 export default css`
   .root {

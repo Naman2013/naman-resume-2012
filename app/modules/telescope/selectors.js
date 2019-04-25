@@ -47,6 +47,12 @@ export const makeDayNightBarPanelSelector = () =>
     state => state.dayNightBarPanel
   );
 
+export const makeDayNightBarSelector = () =>
+  createSelector(
+    selectTelescopeDetails,
+    state => state.dayNightBar
+  );
+
 export const makeDayNightMapSelector = () =>
   createSelector(
     selectTelescopeDetails,

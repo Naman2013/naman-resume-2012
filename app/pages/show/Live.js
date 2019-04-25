@@ -8,9 +8,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl, intlShape } from 'react-intl';
-import ThreeTabbedNav from 'components/ThreeTabbedNav';
-import TwoTabbedNav from 'components/TwoTabbedNav';
-import ResponsiveTwoColumnContainer from 'components/ResponsiveTwoColumnContainer';
+import ThreeTabbedNav from 'app/components/ThreeTabbedNav';
+import TwoTabbedNav from 'app/components/TwoTabbedNav';
+import ResponsiveTwoColumnContainer from 'app/components/ResponsiveTwoColumnContainer';
 import HeaderContainer from './partials/HeaderContainer';
 import MainContainer from './partials/MainContainer';
 import AsideContainerWithTabs from './partials/AsideContainerWithTabs';

@@ -2,8 +2,8 @@ import React, { Component, cloneElement } from 'react';
 import { browserHistory } from 'react-router';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import TabbedNav from 'components/TabbedNav';
-import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
+import TabbedNav from 'app/components/TabbedNav';
+import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
 import styles from './JoinHeader.style';
 import messages from './JoinHeader.messages';
 

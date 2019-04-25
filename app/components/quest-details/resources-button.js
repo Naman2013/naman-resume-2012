@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import GenericButton from 'components/common/style/buttons/Button';
+import GenericButton from 'app/components/common/style/buttons/Button';
 import style from './resources-button.style';
 
 const ResourcesButton = ({

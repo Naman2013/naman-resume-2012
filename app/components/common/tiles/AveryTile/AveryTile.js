@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { profilePhotoStyle } from 'styles/mixins/utilities';
+import { profilePhotoStyle } from 'app/styles/mixins/utilities';
 import style from './AveryTile.style';
 
 const profPic = (photoUrl, photoSize) => Object.assign(profilePhotoStyle(photoUrl), {

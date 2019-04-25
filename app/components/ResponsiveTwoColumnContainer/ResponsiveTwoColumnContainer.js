@@ -8,13 +8,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { darkGray, gray } from 'styles/variables/colors';
-import { primaryFont, secondaryFont } from 'styles/variables/fonts';
+import { darkGray, gray } from 'app/styles/variables/colors';
+import { primaryFont, secondaryFont } from 'app/styles/variables/fonts';
 import {
   screenMedium,
   screenLarge,
   screenXLarge,
-} from 'styles/variables/breakpoints';
+} from 'app/styles/variables/breakpoints';
 
 const {
   any,

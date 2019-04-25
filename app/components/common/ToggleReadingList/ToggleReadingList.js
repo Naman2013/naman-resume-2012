@@ -2,8 +2,8 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import noop from 'lodash/noop';
 import pick from 'lodash/pick';
-import ReadingListButton from 'components/common/style/buttons/ReadingListButton';
-import { toggleReadingListState, STORY } from 'services/reading-lists';
+import ReadingListButton from 'app/components/common/style/buttons/ReadingListButton';
+import { toggleReadingListState, STORY } from 'app/services/reading-lists';
 
 const { bool, func, number, oneOfType, string } = PropTypes;
 

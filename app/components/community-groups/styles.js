@@ -1,4 +1,4 @@
-import { astronaut, romance } from 'styles/variables/colors_tiles_v4';
+import { astronaut, romance } from 'app/styles/variables/colors_tiles_v4';
 import { profilePhotoStyle, dropShadowContainer } from '../../styles/mixins/utilities';
 
 export const fullWidthBtn = (`
