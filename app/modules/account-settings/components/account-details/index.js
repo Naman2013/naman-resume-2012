@@ -1,5 +1,6 @@
 // @flow
 import React, { Fragment, PureComponent } from 'react';
+import { browserHistory } from 'react-router';
 import { Field } from 'redux-form';
 import InputField from 'app/components/form/InputField';
 import { Container, Row, Col } from 'react-bootstrap';
@@ -88,14 +89,19 @@ const AccountType = props => {
     backgroundSize: '100% 100%',
   };
 
+  const goToPlanInfoUrl = () => {
+    const { localStorage } = window;
+    localStorage.setItem('selectedPlanId', planId);
+    if (localStorage.getItem('selectedPlanId')) {
+      browserHistory.push(planInfoUrl);
+    }
+  };
+
   const renderActions = () => {
     return (
       <div className="btn-group pad-top-20 pad-bot-40">
-        <Btn mod="circle">
+        <Btn mod="circle" onClick={goToPlanInfoUrl}>
           <Icon i="info" />
-        </Btn>
-        <Btn mod="circle">
-          <Icon i="ellipsis-h" />
         </Btn>
         {isUpgradeAvailable && <Btn>{upgradeButtonLabel}</Btn>}
       </div>
