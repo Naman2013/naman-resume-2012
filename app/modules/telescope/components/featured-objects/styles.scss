@@ -17,6 +17,14 @@
     .slick-slider {
       margin-left: -20px;
       margin-right: -19px;
+
+      .icon-slider-right:before {
+        color: $lightHeadedAstronaut;
+      }
+
+      .icon-slider-left:before {
+        color: $lightHeadedAstronaut;
+      }
     }
   }
 }

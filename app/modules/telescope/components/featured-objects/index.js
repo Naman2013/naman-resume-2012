@@ -5,6 +5,28 @@ import { FeaturedObjectCard } from '../featured-object-card';
 import { sliderResponsiveConfig } from 'app/styles/variables/slider-config';
 import './styles.scss';
 
+function NextArrow(props) {
+  const { className, style, onClick } = props;
+  return (
+    <div
+      className={`icon-slider-right ${className}`}
+      style={style}
+      onClick={onClick}
+    />
+  );
+}
+
+function PrevArrow(props) {
+  const { className, style, onClick } = props;
+  return (
+    <div
+      className={`icon-slider-left ${className}`}
+      style={style}
+      onClick={onClick}
+    />
+  );
+}
+
 export class FeaturedObjects extends PureComponent {
   render() {
     const { currentTelescope, featuredObjectsData } = this.props;
@@ -20,7 +42,12 @@ export class FeaturedObjects extends PureComponent {
         </h3>
 
         <div className="featured-objects-slider">
-          <Slider {...defaultSliderConfig} {...sliderResponsiveConfig}>
+          <Slider 
+            {...defaultSliderConfig}
+            {...sliderResponsiveConfig}
+            nextArrow={<NextArrow />}
+            prevArrow={<PrevArrow />}
+          >
             {missionList.map(item => (
               <FeaturedObjectCard
                 key={item.scheduledMissionId}
