@@ -14,8 +14,8 @@ type TAccountDetails = {
 
 // mocked
 const mockedPaymentDetailsOptions = [
-  { count: 1, name: 'Payment method', type: 'Credit card' },
-  { count: 2, name: 'Reset password', type: '********' },
+  { label: 'Payment method', currentValue: 'Credit card' },
+  { label: 'Reset password', currentValue: '********' },
 ];
 
 const mockedTitle = 'Payment details';
