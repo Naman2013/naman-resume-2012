@@ -1,5 +1,8 @@
 import React, { PureComponent, Fragment } from 'react';
+import Slider from 'react-slick';
+import getDefaultConfig from 'app/components/common/Slider/sliderConfig';
 import { FeaturedObjectCard } from '../featured-object-card';
+import { sliderResponsiveConfig } from 'app/styles/variables/slider-config';
 import './styles.scss';
 
 export class FeaturedObjects extends PureComponent {
@@ -7,6 +10,7 @@ export class FeaturedObjects extends PureComponent {
     const { currentTelescope, featuredObjectsData } = this.props;
     const { teleName } = currentTelescope;
     const { missionCount, missionList } = featuredObjectsData;
+    const defaultSliderConfig = getDefaultConfig();
 
     return (
       <div className="featured-objects">
@@ -16,12 +20,14 @@ export class FeaturedObjects extends PureComponent {
         </h3>
 
         <div className="featured-objects-slider">
-          {missionList.map(item => (
-            <FeaturedObjectCard
-              key={item.scheduledMissionId}
-              featureObject={item}
-            />
-          ))}
+          <Slider {...defaultSliderConfig} {...sliderResponsiveConfig}>
+            {missionList.map(item => (
+              <FeaturedObjectCard
+                key={item.scheduledMissionId}
+                featureObject={item}
+              />
+            ))}
+          </Slider>
         </div>
       </div>
     );

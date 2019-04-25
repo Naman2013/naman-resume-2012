@@ -3,11 +3,20 @@
 
 .featured-objects {
   margin-top: 30px;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 
   .featured-objects-title {
     span {
       font-weight: 500;
+    }
+  }
+
+  .featured-objects-slider {
+    width: 100%;
+
+    .slick-slider {
+      margin-left: -20px;
+      margin-right: -19px;
     }
   }
 }
