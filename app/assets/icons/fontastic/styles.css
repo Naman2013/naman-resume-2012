@@ -71,3 +71,9 @@
 .icon-close:before {
   content: "\6b";
 }
+.icon-slider-left:before {
+  content: "\6c";
+}
+.icon-slider-right:before {
+  content: "\6d";
+}
