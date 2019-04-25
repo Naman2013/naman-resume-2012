@@ -22,7 +22,7 @@ class UnderlineNav extends Component {
       })
     ),
     parentPath: string.isRequired,
-    plain: bool,
+    profile: bool,
   };
 
   static defaultProps = {
@@ -30,7 +30,7 @@ class UnderlineNav extends Component {
     activeSort: null,
     navItems: [],
     onItemClick: noop,
-    plain: false,
+    profile: false,
   };
 
   state = {
@@ -58,7 +58,7 @@ class UnderlineNav extends Component {
   };
 
   render() {
-    const { activeFilter, navItems, activeSort, plain } = this.props;
+    const { activeFilter, navItems, activeSort, profile } = this.props;
     const { activeIndex } = this.state;
     const dropdownOptions = navItems.map(item => ({
       label: item.title,
@@ -66,7 +66,7 @@ class UnderlineNav extends Component {
     }));
 
     return (
-      <div className={classnames('root underlined-nav', { plain })}>
+      <div className={classnames('root underlined-nav', { profile })}>
         <DisplayAtBreakpoint screenMedium screenLarge screenXLarge>
           <div className="nav">
             {navItems.map(item => {
