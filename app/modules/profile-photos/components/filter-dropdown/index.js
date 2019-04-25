@@ -10,11 +10,20 @@ type TFilterDropdown = {
   isOpen: Boolean,
   setOpen: Function,
   onChange: Function,
+  telescopeList: any,
+  objectTypeList: any,
 };
 
 export const FilterDropdown = (props: TFilterDropdown) => {
-  const { isOpen, setOpen, onChange, filters, objectTypeList } = props;
-  console.log(objectTypeList);
+  const {
+    isOpen,
+    setOpen,
+    onChange,
+    filters,
+    objectTypeList,
+    telescopeList,
+  } = props;
+  console.log(telescopeList);
 
   const open = () => setOpen(true);
   const close = () => setOpen(false);
@@ -46,6 +55,21 @@ export const FilterDropdown = (props: TFilterDropdown) => {
                   imgUrl={ot.objectTypeIconURL}
                   key={ot.objectTypeIndex}
                   title={ot.objectTypeDisplayName}
+                  active={false}
+                />
+              ))}
+            </div>
+
+            <hr />
+
+            <h4 className="h4-custom">BY TELESCOPE</h4>
+
+            <div className="grid-elements-img">
+              {telescopeList.map(telescope => (
+                <FilterElImg
+                  imgUrl={telescope.iconUrl}
+                  key={telescope.observatoryId + telescope.pierNumber}
+                  title={telescope.name}
                   active={false}
                 />
               ))}

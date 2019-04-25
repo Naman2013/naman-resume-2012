@@ -22,7 +22,7 @@ export default css`
     top: 0;
     left: -500px;
     right: -500px;
-    bottom: -500px;
+    bottom: -1500px; // todo FIX ME IVAN
     background-color: rgba(10, 12, 14, 0.9);
   }
 

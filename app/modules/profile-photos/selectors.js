@@ -4,10 +4,10 @@ export const myPicturesFilters = state => state.myPicturesFilters;
 
 export const objectTypeList = state => state.objectTypeList;
 
-export const selectMyPicturesFilters = () =>
+export const selectTelescopeList = () =>
   createSelector(
     myPicturesFilters,
-    state => state
+    state => state.telescopes.telescopesList
   );
 
 export const selectObjectTypeList = () =>

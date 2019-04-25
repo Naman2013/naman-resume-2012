@@ -4,10 +4,10 @@ import { ProfilePhotos } from 'app/modules/profile-photos/components/profile-pho
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
-import { selectMyPicturesFilters, selectObjectTypeList } from '../selectors';
+import { selectTelescopeList, selectObjectTypeList } from '../selectors';
 
 const mapStateToProps = createStructuredSelector({
-  allFilters: selectMyPicturesFilters(),
+  telescopeList: selectTelescopeList(),
   objectTypeList: selectObjectTypeList(),
 });
 

@@ -21,11 +21,6 @@ export default css`
     text-transform: uppercase;
     border-bottom: 1px solid ${hawkesBlue};
   }
-  
-  .filter-shader {
-    opacity: 0.9;
-    background-color: #0a0c0e;
-  }
 
   .photohub-nav-bar {
     display: flex;
