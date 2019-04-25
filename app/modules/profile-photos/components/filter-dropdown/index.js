@@ -8,19 +8,21 @@ import useOnClickOutside from 'use-onclickoutside';
 type TFilterDropdown = {
   isOpen: Boolean,
   setOpen: Function,
-  setClose: Function,
   onChange: Function,
 };
 
 export const FilterDropdown = (props: TFilterDropdown) => {
-  const { isOpen, setOpen, setClose, onChange } = props;
+  const { isOpen, setOpen, onChange } = props;
+
+  const open = () => setOpen(true);
+  const close = () => setOpen(false);
 
   const ref = React.useRef(null);
-  useOnClickOutside(ref, setClose);
+  useOnClickOutside(ref, close);
 
   return (
     <div className="filter-dropdown-wrapper">
-      <Button onClick={setOpen}>Options</Button>
+      <Button onClick={open}>Options</Button>
 
       {isOpen && (
         <div className="filter-dropdown animated fadeIn faster" ref={ref}>
@@ -28,7 +30,7 @@ export const FilterDropdown = (props: TFilterDropdown) => {
             <span>OPTIONS</span>
             <span
               className="icon-close close-btn"
-              onClick={setClose}
+              onClick={close}
               role="presentation"
             />
           </div>

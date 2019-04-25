@@ -54,7 +54,6 @@ class PhotoHubNavigation extends Component {
     optionLabel: <FormattedMessage {...messages.Options} />,
     filtersActiveIndex: 0,
     mobileFilterActive: false,
-    isFilterOpen: true,
   };
 
   handleSearchChange = e => this.setState({ searchValue: e.target.value });
@@ -109,10 +108,6 @@ class PhotoHubNavigation extends Component {
     this.setState({ activeIndex: i });
   };
 
-  openFilter = () => this.setState({ isFilterOpen: true });
-
-  closeFilter = () => this.setState({ isFilterOpen: false });
-
   handleFilterChange = filter => {
     console.log('handleFilterChange', filter);
   };
@@ -127,8 +122,9 @@ class PhotoHubNavigation extends Component {
       optionLabel,
       mobileFilterActive,
       generatedNavItems,
-      isFilterOpen,
     } = this.state;
+
+    const { isFilterOpen, setFilterOpen } = this.props;
 
     const dropdownOptions = generatedNavItems.map(item => ({
       label: item.name,
@@ -160,11 +156,10 @@ class PhotoHubNavigation extends Component {
               <div className="photohub-tools">
                 <FilterDropdown
                   isOpen={isFilterOpen}
-                  setOpen={this.openFilter}
-                  setClose={this.closeFilter}
+                  setOpen={setFilterOpen}
                   onChange={this.handleFilterChange()}
                 />
-{/*
+                {/*
                 {!filterSelectActive ? (
                   <Button
                     withIntl
