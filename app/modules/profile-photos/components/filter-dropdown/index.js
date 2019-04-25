@@ -12,7 +12,8 @@ type TFilterDropdown = {
 };
 
 export const FilterDropdown = (props: TFilterDropdown) => {
-  const { isOpen, setOpen, onChange } = props;
+  const { isOpen, setOpen, onChange, filters } = props;
+  console.log(filters);
 
   const open = () => setOpen(true);
   const close = () => setOpen(false);

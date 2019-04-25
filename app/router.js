@@ -45,7 +45,7 @@ import {
   PublicProfileMain,
 } from 'app/modules/profile';
 import ImagesLayout from 'app/modules/profile-photos/components/ImagesLayout';
-import PrivateProfilePhotos from 'app/modules/profile-photos/components/PrivateProfilePhotos';
+import ProfilePhotos from 'app/modules/profile-photos/containers/profile-photos';
 import { TelescopeDetailsMain } from 'app/modules/telescope';
 import { TelescopeNavigation } from 'app/modules/telescope/components/old/telescope-navigation';
 import GroupCreate from 'app/pages/community-groups/GroupCreate';
@@ -138,7 +138,7 @@ const getProfileRoutes = () => (
   <Fragment>
     <IndexRedirect to="activity" />
     <Route path="activity" component={ProfileActivity} />
-    <Route path="photos" component={PrivateProfilePhotos}>
+    <Route path="photos" component={ProfilePhotos}>
       <IndexRedirect to="photoroll" />
       <Route path=":type" component={ImagesLayout} />
     </Route>
