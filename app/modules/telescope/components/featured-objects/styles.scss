@@ -1,0 +1,13 @@
+@import '~app/styles/bootstrap/index';
+@import '~app/styles/variables/index';
+
+.featured-objects {
+  margin-top: 30px;
+  margin-bottom: 40px;
+
+  .featured-objects-title {
+    span {
+      font-weight: 500;
+    }
+  }
+}
