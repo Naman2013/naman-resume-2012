@@ -5,6 +5,7 @@ import React from 'react';
 import { Button } from 'react-bootstrap';
 import './index.scss';
 import useOnClickOutside from 'use-onclickoutside';
+import { Tooltip } from 'react-tippy';
 
 type TFilterDropdown = {
   isOpen: Boolean,
@@ -39,11 +40,13 @@ export const FilterDropdown = (props: TFilterDropdown) => {
         <div className="filter-dropdown animated fadeIn faster" ref={ref}>
           <div className="filter-dropdown-header d-flex justify-content-between">
             <span>OPTIONS</span>
-            <span
-              className="icon-close close-btn"
-              onClick={close}
-              role="presentation"
-            />
+            <Tooltip title="Close">
+              <span
+                className="icon-close close-btn"
+                onClick={close}
+                role="presentation"
+              />
+            </Tooltip>
           </div>
 
           <div className="filter-dropdown-body">
