@@ -278,6 +278,7 @@ export class QueueTab extends Component {
       mobileMissionList,
       featuredObjectsData,
       currentTelescope,
+      showFeaturedObjects,
     } = this.props;
     const { missionList, reservationDateFormatted, showShowMoreButton, showMoreButtonCaption } = upcomingSlotsData;
     const { reservationModalVisible } = this.state;
@@ -291,10 +292,12 @@ export class QueueTab extends Component {
             loading={isFetching}
           />
 
-          <FeaturedObjects 
-            featuredObjectsData={FEATURED_OBJECTS}
-            currentTelescope={currentTelescope}
-          />
+          {showFeaturedObjects && (
+            <FeaturedObjects 
+              featuredObjectsData={FEATURED_OBJECTS}
+              currentTelescope={currentTelescope}
+            />
+          )}
 
           <MissionsList 
             selectedDate={{ reservationDateFormatted }}

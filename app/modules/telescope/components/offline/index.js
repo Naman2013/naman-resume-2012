@@ -98,6 +98,7 @@ export default class TelescopeOffline extends Component {
             </Tab.Pane>
             <Tab.Pane eventKey="QUEUE">
               <QueueTab 
+                showFeaturedObjects
                 currentTelescope={currentTelescope}
                 currentObservatory={currentObservatory}
               />
