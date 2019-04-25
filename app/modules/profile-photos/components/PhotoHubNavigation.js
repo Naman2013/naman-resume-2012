@@ -3,6 +3,7 @@
  *  Navigation bar for private profile photos
  ***********************************/
 
+import { FilterDropdown } from 'app/modules/profile-photos/components/filter-dropdown';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, browserHistory, withRouter } from 'react-router';
@@ -53,6 +54,7 @@ class PhotoHubNavigation extends Component {
     optionLabel: <FormattedMessage {...messages.Options} />,
     filtersActiveIndex: 0,
     mobileFilterActive: false,
+    isFilterOpen: true,
   };
 
   handleSearchChange = e => this.setState({ searchValue: e.target.value });
@@ -107,6 +109,14 @@ class PhotoHubNavigation extends Component {
     this.setState({ activeIndex: i });
   };
 
+  openFilter = () => this.setState({ isFilterOpen: true });
+
+  closeFilter = () => this.setState({ isFilterOpen: false });
+
+  handleFilterChange = filter => {
+    console.log('handleFilterChange', filter);
+  };
+
   render() {
     const {
       activeIndex,
@@ -117,6 +127,7 @@ class PhotoHubNavigation extends Component {
       optionLabel,
       mobileFilterActive,
       generatedNavItems,
+      isFilterOpen,
     } = this.state;
 
     const dropdownOptions = generatedNavItems.map(item => ({
@@ -147,6 +158,13 @@ class PhotoHubNavigation extends Component {
                 ))}
               </div>
               <div className="photohub-tools">
+                <FilterDropdown
+                  isOpen={isFilterOpen}
+                  setOpen={this.openFilter}
+                  setClose={this.closeFilter}
+                  onChange={this.handleFilterChange()}
+                />
+{/*
                 {!filterSelectActive ? (
                   <Button
                     withIntl
@@ -165,6 +183,7 @@ class PhotoHubNavigation extends Component {
                     defaultMenuIsOpen
                   />
                 )}
+*/}
                 {!searchActive ? (
                   <Button
                     onClickEvent={this.handleSearchClick}

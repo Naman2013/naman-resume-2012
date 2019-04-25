@@ -34,6 +34,7 @@ export const BtnWithPopover = props => {
     setOpen(false);
   };
 
+  // click outside
   useEffect(() => {
     document.addEventListener('mousedown', handleClick);
 
