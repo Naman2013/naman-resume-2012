@@ -15,17 +15,6 @@ export const initialState: TInitialState = {
   accountTypeSection: [],
   accountDetails: [],
   accountCancelSection: [],
-
-  // TODO: get rid from mocked data
-  // mocked
-  accountDetailsOptions: [
-    { count: 1, name: 'Name on account', type: 'John Snow' },
-    { count: 1, name: 'Display name', type: 'Epic Knight' },
-  ],
-  paymentDetailsOptions: [
-    { count: 1, name: 'Payment method', type: 'Credit card' },
-    { count: 1, name: 'Display location', type: 'Some place on map' },
-  ],
 };
 
 export default handleActions(
