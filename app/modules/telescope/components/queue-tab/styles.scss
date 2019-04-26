@@ -1,6 +1,10 @@
 @import '~app/styles/variables/index';
 
 .queue-tab {
+  .missions-list {
+    margin-top: 20px;
+  }
+
   &.mobile-missions-list {
     .container {
       padding: 0;

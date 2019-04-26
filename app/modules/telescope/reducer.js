@@ -74,23 +74,23 @@ function setQueueTabServerError(state, action) {
 }
 
 function getUpcomingSlotsByTelescopeSuccess(state, action) {
-  return apply(
-    ['queueTab'],
-    () => ({
+  return {
+    ...state,
+    queueTab: {
+      ...state.queueTab,
       isFetching: false,
       upcomingSlotsData: action.payload,
-    }),
-    state
-  );
+    },
+  };
 }
 
 function getFeaturedObjectsByTelescopeSuccess(state, action) {
-  return apply(
-    ['queueTab'],
-    () => ({
+  return {
+    ...state,
+    queueTab: {
+      ...state.queueTab,
       isFetching: false,
       featuredObjectsData: action.payload,
-    }),
-    state
-  );
+    },
+  };
 }

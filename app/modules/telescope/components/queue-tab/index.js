@@ -286,6 +286,7 @@ export class QueueTab extends Component {
       currentTelescope,
       showFeaturedObjects,
     } = this.props;
+    
     const { missionList, reservationDateFormatted, showShowMoreButton, showMoreButtonCaption } = upcomingSlotsData;
     const { reservationModalVisible } = this.state;
     
@@ -298,9 +299,9 @@ export class QueueTab extends Component {
             loading={isFetching}
           />
 
-          {showFeaturedObjects && (
+          {showFeaturedObjects && featuredObjectsData.showFeaturedObjects && (
             <FeaturedObjects 
-              featuredObjectsData={FEATURED_OBJECTS}
+              featuredObjectsData={featuredObjectsData}
               currentTelescope={currentTelescope}
             />
           )}
