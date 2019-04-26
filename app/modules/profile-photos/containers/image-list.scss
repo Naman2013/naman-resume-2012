@@ -9,13 +9,19 @@
     position: absolute;
     z-index: 1;
     top: 0;
-    left: -500px;
-    right: -500px;
-    bottom: -1500px; // todo FIX ME IVAN
+    left: -1000px;
+    right: -1000px;
+    bottom: -1500px;
     background-color: rgba(10, 12, 14, 0.9);
   }
 
-  .uniqclass-for-overflow {
-    margin-bottom: 500px; // TODO FIX MARGIN HERE
+  // apply styles when filter dropdown is opened
+  &.filter-open {
+    .uniqclass-for-overflow {
+      margin-bottom: 1000px;
+    }
+    .image-list-placeholder {
+      margin-bottom: 1000px;
+    }
   }
 }

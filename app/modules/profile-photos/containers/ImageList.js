@@ -22,6 +22,7 @@ import ConnectUser from 'app/redux/components/ConnectUser';
 import Pagination from 'app/components/common/pagination/v4-pagination/pagination';
 import ShowMore from 'app/components/common/ShowMore';
 import './image-list.scss';
+import cx from 'classnames';
 
 import {
   fetchMissionsAndCounts,
@@ -117,7 +118,7 @@ const mapStateToProps = state => {
 class ImageList extends Component {
   state = {
     activePage: 1,
-    isFilterOpen: true,
+    isFilterOpen: false,
   };
 
   componentDidMount() {
@@ -222,9 +223,7 @@ class ImageList extends Component {
     return this.props[mapTypeToCount[type]] > 0 ? (
       <div>Loading...</div>
     ) : (
-      <div style={{ marginBottom: 1200 }}>
-        The list is empty TODO Add margin when filter's open.
-      </div>
+      <div className="image-list-placeholder">The list is empty.</div>
     );
   };
 
@@ -278,8 +277,12 @@ class ImageList extends Component {
     const count = this.props[mapTypeToCount[type]];
     const currentImagesNumber = arrOfImages.length * activePage;
 
+    const cn = cx('profile-image-list-wrapper', {
+      'filter-open': isFilterOpen,
+    });
+
     return (
-      <div className="profile-image-list-wrapper">
+      <div className={cn}>
         <div className="filter-dropdown-btn">
           <FilterDropdown
             isOpen={isFilterOpen}
