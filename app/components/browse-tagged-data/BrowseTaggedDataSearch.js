@@ -7,17 +7,24 @@ import { Link } from 'react-router';
 import clone from 'lodash/clone';
 import noop from 'lodash/noop';
 import { fetchBrowseTaggedDataAction } from '../../modules/browse-tagged-data/actions';
-import { fetchBrowseFindDataAction, resetBrowseFindDataAction } from '../../modules/browse-find-data/actions';
-import { shadows, astronaut, romance, gainsboro, seashell } from '../../styles/variables/colors_tiles_v4';
+import {
+  fetchBrowseFindDataAction,
+  resetBrowseFindDataAction,
+} from '../../modules/browse-find-data/actions';
+import {
+  shadows,
+  astronaut,
+  romance,
+  gainsboro,
+  seashell,
+} from '../../styles/variables/colors_tiles_v4';
 import { primaryFont, secondaryFont } from 'app/styles/variables/fonts';
 import DisplayAtBreakpoint from '../common/DisplayAtBreakpoint';
 import { Field, reduxForm } from 'redux-form';
 import InputField from 'app/components/form/InputField';
 import Request from 'app/components/common/network/Request';
 
-const {
-  func,
-} = PropTypes;
+const { func } = PropTypes;
 
 const mapStateToProps = ({
   browseTaggedData,
@@ -32,11 +39,14 @@ const mapStateToProps = ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({
-    fetchBrowseTaggedDataAction,
-    fetchBrowseFindDataAction,
-    resetBrowseFindDataAction,
-  }, dispatch),
+  actions: bindActionCreators(
+    {
+      fetchBrowseTaggedDataAction,
+      fetchBrowseFindDataAction,
+      resetBrowseFindDataAction,
+    },
+    dispatch
+  ),
 });
 
 class BrowseTaggedDataSearch extends Component {
@@ -44,7 +54,7 @@ class BrowseTaggedDataSearch extends Component {
     topNavFindTerm: '',
     browseTaggedDataEnabled: false,
     renderTaggedData: {
-      taggedData: { },
+      taggedData: {},
     },
     grandParentNodeID: null,
     parentNodeID: null,
@@ -59,7 +69,7 @@ class BrowseTaggedDataSearch extends Component {
   };
 
   componentDidMount() {
-    this.handleClick({ value: ''});
+    this.handleClick({ value: '' });
   }
 
   componentWillReceiveProps(nextProps) {
@@ -67,14 +77,15 @@ class BrowseTaggedDataSearch extends Component {
 
     if (!isOpen) {
       this.doTearDown();
-    }
-    else {
-       this.handleClick({ value: ''});
+    } else {
+      this.handleClick({ value: '' });
     }
 
     /* do a deep comparision on the next data coming in to see if it's different. */
     var equal = require('deep-equal');
-    if (equal( this.props.browseTaggedData, nextProps.browseTaggedData ) == false) {
+    if (
+      equal(this.props.browseTaggedData, nextProps.browseTaggedData) == false
+    ) {
       //console.log('Browse Tagged Data has changed...');
       //console.log(this.props.browseTaggedData);
       //console.log(nextProps.browseTaggedData);
@@ -102,26 +113,26 @@ class BrowseTaggedDataSearch extends Component {
   }
 
   handleClick(searchData) {
-      //console.log("Click: " + searchData.value)
+    //console.log("Click: " + searchData.value)
 
-      const { browseTaggedDataEnabled } = this.state;
-      /* only fetch the browse tagged data if the search has not already been iniated,
+    const { browseTaggedDataEnabled } = this.state;
+    /* only fetch the browse tagged data if the search has not already been iniated,
         this will prevent multiple data calls when a user clicks in the text box when the results are already active. */
-      //console.log(topNavSearchEnabled);
-      //console.log(this.props.browseTaggedData);
+    //console.log(topNavSearchEnabled);
+    //console.log(this.props.browseTaggedData);
 
-      if (browseTaggedDataEnabled != true) {
-        this.setState({
-          renderTaggedData: _.cloneDeep(this.props.browseTaggedData),
-          topNavFindTerm: searchData.value,
-          browseTaggedDataEnabled: true,
-          grandParentNodeID: null,
-          parentNodeID: null,
-        });
+    if (browseTaggedDataEnabled != true) {
+      this.setState({
+        renderTaggedData: _.cloneDeep(this.props.browseTaggedData),
+        topNavFindTerm: searchData.value,
+        browseTaggedDataEnabled: true,
+        grandParentNodeID: null,
+        parentNodeID: null,
+      });
 
-        /* fetch the browse tagged data */
-        this.props.actions.fetchBrowseTaggedDataAction();
-      }
+      /* fetch the browse tagged data */
+      this.props.actions.fetchBrowseTaggedDataAction();
+    }
   }
 
   endFind() {
@@ -155,44 +166,46 @@ class BrowseTaggedDataSearch extends Component {
     this.props.actions.fetchBrowseFindDataAction(topNavFindTerm);
   }
 
-    /* act on changes to the grandparent node */
-    changeGrandParentNodeID(grandParentKey) {
-      const { grandParentNodeID } = this.state;
+  /* act on changes to the grandparent node */
+  changeGrandParentNodeID(grandParentKey) {
+    const { grandParentNodeID } = this.state;
 
-      /* detect changes in the grand parent key */
-      if ( (grandParentNodeID === null) || (grandParentNodeID != grandParentKey) ) {
-        /* select the grand parent node */
-        this.setState({ grandParentNodeID: grandParentKey, parentNodeID: null });
-      }
-      else {
-        /* un-select the grand parent node */
-        this.setState({ grandParentNodeID: null, parentNodeID: null });
-      }
+    /* detect changes in the grand parent key */
+    if (grandParentNodeID === null || grandParentNodeID != grandParentKey) {
+      /* select the grand parent node */
+      this.setState({ grandParentNodeID: grandParentKey, parentNodeID: null });
+    } else {
+      /* un-select the grand parent node */
+      this.setState({ grandParentNodeID: null, parentNodeID: null });
     }
+  }
 
-    /* act on changes to the parent node */
-    changeParentNodeID(parentKey) {
-      const { parentNodeID } = this.state;
+  /* act on changes to the parent node */
+  changeParentNodeID(parentKey) {
+    const { parentNodeID } = this.state;
 
-      if ( (parentNodeID === null) || (parentNodeID != parentKey) ) {
-        /* select the parent node */
-        this.setState({
-          parentNodeID: parentKey
-        });
-      }
-      else {
-        /* un-select the parent node */
-        this.setState({
-          parentNodeID: null
-        });
-      }
+    if (parentNodeID === null || parentNodeID != parentKey) {
+      /* select the parent node */
+      this.setState({
+        parentNodeID: parentKey,
+      });
+    } else {
+      /* un-select the parent node */
+      this.setState({
+        parentNodeID: null,
+      });
     }
+  }
 
-    renderTaggedDataDisplay() {
-        const { topNavFindTerm, browseTaggedDataEnabled, renderTaggedData } = this.state;
-        const { browseTaggedData } = this.props;
+  renderTaggedDataDisplay() {
+    const {
+      topNavFindTerm,
+      browseTaggedDataEnabled,
+      renderTaggedData,
+    } = this.state;
+    const { browseTaggedData } = this.props;
 
-        /**************************************************************************************
+    /**************************************************************************************
         Use cases:
           Use Cases:
               (X) grandParent=null and parent=null: show top level nodes only
@@ -200,190 +213,448 @@ class BrowseTaggedDataSearch extends Component {
               (X) grandParent=x and parent=y: show child nodes and links
         **************************************************************************************/
 
-        return (
-          <div className="search-results-set">
-            {Object.keys(browseTaggedData.taggedData).length === 0 && Object.keys(renderTaggedData.taggedData).length === 0 && <p>Loading....</p>}
-            {Object.keys(renderTaggedData.taggedData).length > 0 &&
-              <div key="search-results-no-searchterm">
-                {this.renderTaggedDataDisplay_BrowseList()}
-              </div>
-            }
-
-            <style jsx>{`
-              .search-results-set {
-                  margin-left: 0px;
-                  margin-top: 20px;
-                  overflow-y: none;
-                  min-height: 320px;
-                  height: 320px;
-                  max-height: 320px;
-
-              }
-              `}</style>
+    return (
+      <div className="search-results-set">
+        {Object.keys(browseTaggedData.taggedData).length === 0 &&
+          Object.keys(renderTaggedData.taggedData).length === 0 && (
+            <p>Loading....</p>
+          )}
+        {Object.keys(renderTaggedData.taggedData).length > 0 && (
+          <div key="search-results-no-searchterm">
+            {this.renderTaggedDataDisplay_BrowseList()}
           </div>
-        )
-    }
+        )}
 
-    renderTaggedDataDisplay_BrowseList() {
+        <style jsx>{`
+          .search-results-set {
+            margin-left: 0px;
+            margin-top: 20px;
+            overflow-y: none;
+            min-height: 320px;
+            height: 320px;
+            max-height: 320px;
+          }
+        `}</style>
+      </div>
+    );
+  }
 
-      const { grandParentNodeID, parentNodeID, renderTaggedData } = this.state;
+  renderTaggedDataDisplay_BrowseList() {
+    const { grandParentNodeID, parentNodeID, renderTaggedData } = this.state;
 
-      //console.log(grandParentNodeID);
-      //console.log(parentNodeID);
+    //console.log(grandParentNodeID);
+    //console.log(parentNodeID);
 
-      /***************************************************************************************
+    /***************************************************************************************
       noSearchTerm Use Cases:
           grandParent=null and parent=null: show top level nodes only
           grandParent=x and parent=null: show grandParent expanded one level (show parents)
           grandParent=x and parent=y: show child nodes and links
       ***************************************************************************************/
-      return (
-        <div>
-
-          <style jsx>{`
-              .search-results-grandparent {
-                font-size: 20px;
-                padding: 15px 0;
-                border-top: 1px solid ${shadows};
-              }
-
-              .search-results-parent {
-                font-size: 18px;
-                padding: 15px 0;
-                margin-left: 35px;
-                font-family: ${primaryFont};
-                color: ${astronaut};
-
-              }
-
-              .search-results-item {
-                font-size: 12px;
-                font-weight: bold;
-                font-family: ${primaryFont};
-                text-transform: uppercase;
-                padding: 15px 0;
-                margin-left: 100px;
-                color: ${astronaut};
-              }
-              `}</style>
-
-          {grandParentNodeID === null && parentNodeID === null && <div>
-            {Object.keys(renderTaggedData.taggedData).map(function (grandParentKey) {
-                return (
-                  <div>
-                    <div onClick={(event) => { this.changeGrandParentNodeID(grandParentKey) }} className="search-results-grandparent">{renderTaggedData.taggedData[grandParentKey].title} ({Object.keys(renderTaggedData.taggedData[grandParentKey].subnodes).length})<Link to={renderTaggedData.taggedData[grandParentKey].linkUrl}><img style={{paddingLeft: '15px'}} src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"/></Link></div>
-                  </div>
-                )
-              }, this)
-            }
-            </div>
+    return (
+      <div>
+        <style jsx>{`
+          .search-results-grandparent {
+            font-size: 20px;
+            padding: 15px 0;
+            border-top: 1px solid ${shadows};
           }
 
-          {grandParentNodeID !== null && parentNodeID === null && <div>
-            {Object.keys(renderTaggedData.taggedData).map(function (grandParentKey) {
-                return (
-                  <div>
-                    <div onClick={(event) => { this.changeGrandParentNodeID(grandParentKey) }} className="search-results-grandparent">{renderTaggedData.taggedData[grandParentKey].title} ({Object.keys(renderTaggedData.taggedData[grandParentKey].subnodes).length})<Link to={renderTaggedData.taggedData[grandParentKey].linkUrl}><img style={{paddingLeft: '15px'}} src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"/></Link></div>
-                    {Object.keys(renderTaggedData.taggedData[grandParentKey].subnodes).map(function (parentKey) {
-                        return (
-                          <div>
-                            {grandParentKey === grandParentNodeID && Object.keys(renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].subnodes).length === 0 && <div className="search-results-parent">{renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].title} ({Object.keys(renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].subnodes).length})<Link to={renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].linkUrl}><img style={{paddingLeft: '15px'}} src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"/></Link></div>}
-                            {grandParentKey === grandParentNodeID && Object.keys(renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].subnodes).length > 0 && <div onClick={(event) => { this.changeParentNodeID(parentKey) }} className="search-results-parent">{renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].title} ({Object.keys(renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].subnodes).length}) <Link to={renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].linkUrl}><img style={{paddingLeft: '15px'}} src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"/></Link></div>}
-                          </div>
-                        )
-                      }, this)
+          .search-results-parent {
+            font-size: 18px;
+            padding: 15px 0;
+            margin-left: 35px;
+            font-family: ${primaryFont};
+            color: ${astronaut};
+          }
+
+          .search-results-item {
+            font-size: 12px;
+            font-weight: bold;
+            font-family: ${primaryFont};
+            text-transform: uppercase;
+            padding: 15px 0;
+            margin-left: 100px;
+            color: ${astronaut};
+          }
+        `}</style>
+
+        {grandParentNodeID === null && parentNodeID === null && (
+          <div>
+            {Object.keys(renderTaggedData.taggedData).map(function(
+              grandParentKey
+            ) {
+              return (
+                <div>
+                  <div
+                    onClick={event => {
+                      this.changeGrandParentNodeID(grandParentKey);
+                    }}
+                    className="search-results-grandparent"
+                  >
+                    {renderTaggedData.taggedData[grandParentKey].title} (
+                    {
+                      Object.keys(
+                        renderTaggedData.taggedData[grandParentKey].subnodes
+                      ).length
                     }
+                    )
+                    <Link
+                      to={renderTaggedData.taggedData[grandParentKey].linkUrl}
+                    >
+                      <img
+                        style={{ paddingLeft: '15px' }}
+                        src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"
+                      />
+                    </Link>
                   </div>
-                )
-              }, this)
-            }
-            </div>
-          }
-
-          {grandParentNodeID !== null && parentNodeID !== null && <div>
-            {Object.keys(renderTaggedData.taggedData).map(function (grandParentKey) {
-                return (
-                  <div>
-                    <div onClick={(event) => { this.changeGrandParentNodeID(grandParentKey) }} className="search-results-grandparent">{renderTaggedData.taggedData[grandParentKey].title} ({Object.keys(renderTaggedData.taggedData[grandParentKey].subnodes).length})<Link to={renderTaggedData.taggedData[grandParentKey].linkUrl}><img style={{paddingLeft: '15px'}} src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"/></Link></div>
-                    {Object.keys(renderTaggedData.taggedData[grandParentKey].subnodes).map(function (parentKey) {
-                        return (
-                          <div>
-                            {grandParentKey === grandParentNodeID && Object.keys(renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].subnodes).length == 0 && <div className="search-results-parent">{renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].title} ({Object.keys(renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].subnodes).length}) <Link to={renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].linkUrl}><img style={{paddingLeft: '15px'}} src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"/></Link></div>}
-                            {grandParentKey === grandParentNodeID && Object.keys(renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].subnodes).length > 0 && <div onClick={(event) => { this.changeParentNodeID(parentKey) }} className="search-results-parent">{renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].title} ({Object.keys(renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].subnodes).length}) <Link to={renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].linkUrl}><img style={{paddingLeft: '15px'}} src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"/></Link></div>}
-                            {grandParentKey === grandParentNodeID && parentKey === parentNodeID && Object.keys(renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].subnodes).map(function (itemKey) {
-                                return (
-                                  <div className="search-results-item">
-                                    <div>{renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].subnodes[itemKey].title}<Link to={renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].subnodes[itemKey].linkUrl}><img style={{paddingLeft: '15px'}} src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"/></Link></div>
-                                  </div>
-                                )
-                              }, this)
-                            }
-                          </div>
-                        )
-                      }, this)
-                    }
-                  </div>
-                )
-              }, this)
-            }
-            </div>
-          }
-        </div>
-      )
-    }
-
-    render() {
-      const { browseTaggedData, browseFindData, isOpen } = this.props;
-      const { browseTaggedDataEnabled, renderTaggedData } = this.state;
-
-      //console.log('Rendering...');
-      //console.log(renderTaggedData.taggedData);
-
-      return (
-        <div className="root">
-          <div style={{display: 'inline-block'}}>
-            <div style={{display: 'block'}}>
-                 <form onSubmit={(event) => { this.performFind(event); }}>
-                   <Field
-                    id="BrowseTaggedDataSearchInputField"
-                    name="findTerm"
-                    type="name"
-                    label="Find a Slooh 1000 Object"
-                    component={InputField}
-                    onChange={(event) => { this.handleFieldChange({ value: event.target.value }); }}
-                    value={this.state.topNavFindTerm}
-                  />
-                  <div className="browse-outer-container">
-                    <Button onClick={(event) => { this.performFind(event); }} className="browse-find-button">Find</Button>
-                    <Button style={{marginLeft: "25px"}} onClick={(event) => { this.endFind(event); }} className="browse-find-button">Clear</Button>
-                  </div>
-                </form>
-            </div>
+                </div>
+              );
+            },
+            this)}
           </div>
-          <hr/>
+        )}
 
-          {browseFindData.findMessage != '' && <div>
-            <div style={{fontSize: '1.5rem', paddingBottom: '10px'}} dangerouslySetInnerHTML={{__html: browseFindData.findMessage}}/>
+        {grandParentNodeID !== null && parentNodeID === null && (
+          <div>
+            {Object.keys(renderTaggedData.taggedData).map(function(
+              grandParentKey
+            ) {
+              return (
+                <div>
+                  <div
+                    onClick={event => {
+                      this.changeGrandParentNodeID(grandParentKey);
+                    }}
+                    className="search-results-grandparent"
+                  >
+                    {renderTaggedData.taggedData[grandParentKey].title} (
+                    {
+                      Object.keys(
+                        renderTaggedData.taggedData[grandParentKey].subnodes
+                      ).length
+                    }
+                    )
+                    <Link
+                      to={renderTaggedData.taggedData[grandParentKey].linkUrl}
+                    >
+                      <img
+                        style={{ paddingLeft: '15px' }}
+                        src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"
+                      />
+                    </Link>
+                  </div>
+                  {Object.keys(
+                    renderTaggedData.taggedData[grandParentKey].subnodes
+                  ).map(function(parentKey) {
+                    return (
+                      <div>
+                        {grandParentKey === grandParentNodeID &&
+                          Object.keys(
+                            renderTaggedData.taggedData[grandParentKey]
+                              .subnodes[parentKey].subnodes
+                          ).length === 0 && (
+                            <div className="search-results-parent">
+                              {
+                                renderTaggedData.taggedData[grandParentKey]
+                                  .subnodes[parentKey].title
+                              }{' '}
+                              (
+                              {
+                                Object.keys(
+                                  renderTaggedData.taggedData[grandParentKey]
+                                    .subnodes[parentKey].subnodes
+                                ).length
+                              }
+                              )
+                              <Link
+                                to={
+                                  renderTaggedData.taggedData[grandParentKey]
+                                    .subnodes[parentKey].linkUrl
+                                }
+                              >
+                                <img
+                                  style={{ paddingLeft: '15px' }}
+                                  src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"
+                                />
+                              </Link>
+                            </div>
+                          )}
+                        {grandParentKey === grandParentNodeID &&
+                          Object.keys(
+                            renderTaggedData.taggedData[grandParentKey]
+                              .subnodes[parentKey].subnodes
+                          ).length > 0 && (
+                            <div
+                              onClick={event => {
+                                this.changeParentNodeID(parentKey);
+                              }}
+                              className="search-results-parent"
+                            >
+                              {
+                                renderTaggedData.taggedData[grandParentKey]
+                                  .subnodes[parentKey].title
+                              }{' '}
+                              (
+                              {
+                                Object.keys(
+                                  renderTaggedData.taggedData[grandParentKey]
+                                    .subnodes[parentKey].subnodes
+                                ).length
+                              }
+                              ){' '}
+                              <Link
+                                to={
+                                  renderTaggedData.taggedData[grandParentKey]
+                                    .subnodes[parentKey].linkUrl
+                                }
+                              >
+                                <img
+                                  style={{ paddingLeft: '15px' }}
+                                  src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"
+                                />
+                              </Link>
+                            </div>
+                          )}
+                      </div>
+                    );
+                  }, this)}
+                </div>
+              );
+            },
+            this)}
+          </div>
+        )}
+
+        {grandParentNodeID !== null && parentNodeID !== null && (
+          <div>
+            {Object.keys(renderTaggedData.taggedData).map(function(
+              grandParentKey
+            ) {
+              return (
+                <div>
+                  <div
+                    onClick={event => {
+                      this.changeGrandParentNodeID(grandParentKey);
+                    }}
+                    className="search-results-grandparent"
+                  >
+                    {renderTaggedData.taggedData[grandParentKey].title} (
+                    {
+                      Object.keys(
+                        renderTaggedData.taggedData[grandParentKey].subnodes
+                      ).length
+                    }
+                    )
+                    <Link
+                      to={renderTaggedData.taggedData[grandParentKey].linkUrl}
+                    >
+                      <img
+                        style={{ paddingLeft: '15px' }}
+                        src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"
+                      />
+                    </Link>
+                  </div>
+                  {Object.keys(
+                    renderTaggedData.taggedData[grandParentKey].subnodes
+                  ).map(function(parentKey) {
+                    return (
+                      <div>
+                        {grandParentKey === grandParentNodeID &&
+                          Object.keys(
+                            renderTaggedData.taggedData[grandParentKey]
+                              .subnodes[parentKey].subnodes
+                          ).length == 0 && (
+                            <div className="search-results-parent">
+                              {
+                                renderTaggedData.taggedData[grandParentKey]
+                                  .subnodes[parentKey].title
+                              }{' '}
+                              (
+                              {
+                                Object.keys(
+                                  renderTaggedData.taggedData[grandParentKey]
+                                    .subnodes[parentKey].subnodes
+                                ).length
+                              }
+                              ){' '}
+                              <Link
+                                to={
+                                  renderTaggedData.taggedData[grandParentKey]
+                                    .subnodes[parentKey].linkUrl
+                                }
+                              >
+                                <img
+                                  style={{ paddingLeft: '15px' }}
+                                  src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"
+                                />
+                              </Link>
+                            </div>
+                          )}
+                        {grandParentKey === grandParentNodeID &&
+                          Object.keys(
+                            renderTaggedData.taggedData[grandParentKey]
+                              .subnodes[parentKey].subnodes
+                          ).length > 0 && (
+                            <div
+                              onClick={event => {
+                                this.changeParentNodeID(parentKey);
+                              }}
+                              className="search-results-parent"
+                            >
+                              {
+                                renderTaggedData.taggedData[grandParentKey]
+                                  .subnodes[parentKey].title
+                              }{' '}
+                              (
+                              {
+                                Object.keys(
+                                  renderTaggedData.taggedData[grandParentKey]
+                                    .subnodes[parentKey].subnodes
+                                ).length
+                              }
+                              ){' '}
+                              <Link
+                                to={
+                                  renderTaggedData.taggedData[grandParentKey]
+                                    .subnodes[parentKey].linkUrl
+                                }
+                              >
+                                <img
+                                  style={{ paddingLeft: '15px' }}
+                                  src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"
+                                />
+                              </Link>
+                            </div>
+                          )}
+                        {grandParentKey === grandParentNodeID &&
+                          parentKey === parentNodeID &&
+                          Object.keys(
+                            renderTaggedData.taggedData[grandParentKey]
+                              .subnodes[parentKey].subnodes
+                          ).map(function(itemKey) {
+                            return (
+                              <div className="search-results-item">
+                                <div>
+                                  {
+                                    renderTaggedData.taggedData[grandParentKey]
+                                      .subnodes[parentKey].subnodes[itemKey]
+                                      .title
+                                  }
+                                  <Link
+                                    to={
+                                      renderTaggedData.taggedData[
+                                        grandParentKey
+                                      ].subnodes[parentKey].subnodes[itemKey]
+                                        .linkUrl
+                                    }
+                                  >
+                                    <img
+                                      style={{ paddingLeft: '15px' }}
+                                      src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"
+                                    />
+                                  </Link>
+                                </div>
+                              </div>
+                            );
+                          }, this)}
+                      </div>
+                    );
+                  }, this)}
+                </div>
+              );
+            },
+            this)}
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  render() {
+    const { browseTaggedData, browseFindData, isOpen } = this.props;
+    const { browseTaggedDataEnabled, renderTaggedData } = this.state;
+
+    //console.log('Rendering...');
+    //console.log(renderTaggedData.taggedData);
+
+    return (
+      <div className="root">
+        <div style={{ display: 'inline-block' }}>
+          <div style={{ display: 'block' }}>
+            <form
+              onSubmit={event => {
+                this.performFind(event);
+              }}
+            >
+              <Field
+                id="BrowseTaggedDataSearchInputField"
+                name="findTerm"
+                type="name"
+                label="Find a Slooh 1000 Object"
+                component={InputField}
+                onChange={event => {
+                  this.handleFieldChange({ value: event.target.value });
+                }}
+                value={this.state.topNavFindTerm}
+              />
+              <div className="browse-outer-container">
+                <Button
+                  onClick={event => {
+                    this.performFind(event);
+                  }}
+                  className="browse-find-button"
+                >
+                  Find
+                </Button>
+                <Button
+                  style={{ marginLeft: '25px' }}
+                  onClick={event => {
+                    this.endFind(event);
+                  }}
+                  className="browse-find-button"
+                >
+                  Clear
+                </Button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <hr />
+
+        {browseFindData.findMessage != '' && (
+          <div>
+            <div
+              style={{ fontSize: '1.5rem', paddingBottom: '10px' }}
+              dangerouslySetInnerHTML={{ __html: browseFindData.findMessage }}
+            />
             {browseFindData.findData.map((foundItem, index) => (
-              <p style={{paddingLeft: '35px', lineHeight: '2.5em'}} className="search-results-item">
+              <p
+                style={{ paddingLeft: '35px', lineHeight: '2.5em' }}
+                className="search-results-item"
+              >
                 {foundItem.title}
                 <Link to={foundItem.linkUrl}>
-                  <img style={{paddingLeft: '15px'}} src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"/>
+                  <img
+                    style={{ paddingLeft: '15px' }}
+                    src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"
+                  />
                 </Link>
               </p>
             ))}
-            <hr/>
+            <hr />
           </div>
-          }
+        )}
 
-          {browseTaggedDataEnabled == true && <div className="search-results-container">
-            <div style={{display: 'block'}}>
+        {browseTaggedDataEnabled == true && (
+          <div className="search-results-container">
+            <div style={{ display: 'block' }}>
               {this.renderTaggedDataDisplay()}
             </div>
           </div>
-          }
+        )}
 
-          <style jsx>{`
+        <style jsx>{`
             .browse-outer-container {
               display: inline-block;
               padding-left: 20px;
@@ -448,9 +719,16 @@ class BrowseTaggedDataSearch extends Component {
               border-radius: .25rem;
             }
             `}</style>
-        </div>
-      );
-    }
+      </div>
+    );
+  }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({ form: 'findTermForm', enableReinitialize: true, })(BrowseTaggedDataSearch));
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(
+  reduxForm({ form: 'findTermForm', enableReinitialize: true })(
+    BrowseTaggedDataSearch
+  )
+);

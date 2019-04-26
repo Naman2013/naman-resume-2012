@@ -10,45 +10,49 @@ export const fetchDateRanges = ({
   obsId,
   domeId,
   telescopeId,
-  requestedDate }) => (dispatch, getState) => {
+  requestedDate,
+}) => (dispatch, getState) => {
   const { token, at, cid } = getState().user;
 
   dispatch(fetchDateRangeStart());
 
-  return axios.post('/api/reservation/getMissionSlotDates', {
-    token,
-    at,
-    cid,
-    obsId,
-    domeId,
-    telescopeId,
-    requestedDate,
-  })
-  .then((result) => {
-    const { data } = result;
-    if (!data.apiError) {
-      const { reservationDate } = data.dateList[0];
-      dispatch(fetchReservationList({
-        obsId,
-        domeId,
-        telescopeId,
-        reservationDate,
-      }));
-    }
-    dispatch(fetchDateRangesSuccess(data));
-  })
-  .catch(error => {
-    dispatch(fetchDateRangesFail(error));
-    throw(error);
-  });
+  return axios
+    .post('/api/reservation/getMissionSlotDates', {
+      token,
+      at,
+      cid,
+      obsId,
+      domeId,
+      telescopeId,
+      requestedDate,
+    })
+    .then(result => {
+      const { data } = result;
+      if (!data.apiError) {
+        const { reservationDate } = data.dateList[0];
+        dispatch(
+          fetchReservationList({
+            obsId,
+            domeId,
+            telescopeId,
+            reservationDate,
+          })
+        );
+      }
+      dispatch(fetchDateRangesSuccess(data));
+    })
+    .catch(error => {
+      dispatch(fetchDateRangesFail(error));
+      throw error;
+    });
 };
 
-const fetchDateRangesSuccess = (payload) => ({
+const fetchDateRangesSuccess = payload => ({
   type: FETCH_DATE_RANGE_SUCCESS,
   payload,
 });
 
-const fetchDateRangesFail = (payload) => ({
+const fetchDateRangesFail = payload => ({
   type: FETCH_DATE_RANGE_FAIL,
   payload,
 });

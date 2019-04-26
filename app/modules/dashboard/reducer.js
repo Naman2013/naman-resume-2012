@@ -5,9 +5,7 @@ import {
   FETCH_DASHBOARD_SUCCESS,
   FETCH_DASHBOARD_FAILURE,
 } from './actions';
-import {
-  SET_AVATAR_SUCCESS,
-} from '../avatar/actions';
+import { SET_AVATAR_SUCCESS } from '../avatar/actions';
 
 const initialState = {
   refreshIntervalSec: 300,
@@ -35,11 +33,11 @@ export default createReducer(initialState, {
     return {
       ...state,
       error: true,
-      profile: {}
+      profile: {},
     };
   },
   [SET_AVATAR_SUCCESS](state, { payload }) {
-    const { imageURL, apiError } = payload
+    const { imageURL, apiError } = payload;
     const newState = cloneDeep(state);
     newState.profile.avatarURL = !apiError ? imageURL : state.profile.avatarURL;
     return {

@@ -10,16 +10,18 @@ import Request from 'app/components/common/network/Request';
 import HubContainer from 'app/components/common/HubContainer';
 import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
 import ShowMoreWithNetwork from 'app/components/common/show-more-with-network';
-import { QUESTS_PAGE_ENDPOINT_URL, QUESTS_ENDPOINT_URL } from 'app/services/quests/quest-data';
+import {
+  QUESTS_PAGE_ENDPOINT_URL,
+  QUESTS_ENDPOINT_URL,
+} from 'app/services/quests/quest-data';
 import { DeviceContext } from 'providers/DeviceProvider';
-import { validateResponseAccess } from 'app/modules/authorization/actions'
+import { validateResponseAccess } from 'app/modules/authorization/actions';
 import { ACTION as questsActions } from '../../modules/quests/reducer';
 import style from './quests-hub.style';
 import messages from './QuestsHub.messages';
 
 const COUNT = 9;
 const DEFAULT_PAGE = 1;
-
 
 const questsHubModel = {
   name: 'QUEST_HUB_MODEL',
@@ -42,7 +44,7 @@ class Quests extends Component {
   static defaultProps = {
     validateResponseAccess: noop,
     params: {
-      filterType: 'all'
+      filterType: 'all',
     },
   };
 
@@ -50,16 +52,16 @@ class Quests extends Component {
     quests: [],
   };
 
-  updateQuestsList = (resData) => {
+  updateQuestsList = resData => {
     this.setState(() => ({
       quests: resData.questsList,
     }));
-  }
+  };
 
   updateReadingListInQuest = (id, resData) => {
     let newQuestsList = [].concat(this.state.quests);
 
-    newQuestsList = newQuestsList.map((quest) => {
+    newQuestsList = newQuestsList.map(quest => {
       if (quest.questId === id) {
         return Object.assign(quest, resData);
       }
@@ -69,47 +71,40 @@ class Quests extends Component {
     this.setState(() => ({
       quests: newQuestsList,
     }));
-  }
+  };
 
-  appendToQuestsList = (resData) => {
-    this.setState((state) => {
-      const quests = [].concat(state.quests, resData.questsList)
+  appendToQuestsList = resData => {
+    this.setState(state => {
+      const quests = [].concat(state.quests, resData.questsList);
       return {
-        quests
+        quests,
       };
     });
-  }
+  };
 
   clearQuests = () => {
     this.setState({
       quests: [],
     });
-  }
+  };
 
   render() {
-    const {
-      user,
-      actions,
-      intl,
-      isFetching,
-    } = this.props;
-    const {
-      quests
-    } = this.state;
-    return (<div>
-      <Request
-        withoutUser
-        serviceURL={QUESTS_PAGE_ENDPOINT_URL}
-        model={questsHubModel}
-        requestBody={{}}
-        render={({
-          fetchingContent,
-          modeledResponses: { QUEST_HUB_MODEL },
-          serviceResponse = {},
-        }) => (
-          <Fragment>
-            {
-              !fetchingContent &&
+    const { user, actions, intl, isFetching } = this.props;
+    const { quests } = this.state;
+    return (
+      <div>
+        <Request
+          withoutUser
+          serviceURL={QUESTS_PAGE_ENDPOINT_URL}
+          model={questsHubModel}
+          requestBody={{}}
+          render={({
+            fetchingContent,
+            modeledResponses: { QUEST_HUB_MODEL },
+            serviceResponse = {},
+          }) => (
+            <Fragment>
+              {!fetchingContent && (
                 <DeviceContext.Consumer>
                   {context => (
                     <HubContainer
@@ -139,40 +134,49 @@ class Quests extends Component {
                       }}
                       render={() => (
                         <Fragment>
-                          {isFetching ? <div>{intl.formatMessage(messages.loading)}</div> : null}
-                          {!isFetching &&
+                          {isFetching ? (
+                            <div>{intl.formatMessage(messages.loading)}</div>
+                          ) : null}
+                          {!isFetching && (
                             <QuestTiles
-                              updateReadingListInfo={this.updateReadingListInQuest}
+                              updateReadingListInfo={
+                                this.updateReadingListInQuest
+                              }
                               quests={quests}
                               isMobile={context.isMobile}
-                            />}
+                            />
+                          )}
                         </Fragment>
                       )}
                     />
                   )}
                 </DeviceContext.Consumer>
-            }
-          </Fragment>
-        )}
-      />
-      <style jsx>{style}</style>
-    </div>)
+              )}
+            </Fragment>
+          )}
+        />
+        <style jsx>{style}</style>
+      </div>
+    );
   }
 }
 
-const mapStateToProps = ({
-  user,
-  quests,
-}) => ({
+const mapStateToProps = ({ user, quests }) => ({
   user,
   isFetching: quests.isFetching,
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({
-    validateResponseAccess,
-    ...questsActions,
-  }, dispatch),
+  actions: bindActionCreators(
+    {
+      validateResponseAccess,
+      ...questsActions,
+    },
+    dispatch
+  ),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(injectIntl(Quests));
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(injectIntl(Quests));

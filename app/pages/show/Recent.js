@@ -34,7 +34,7 @@ const {
 } = PropTypes;
 
 class RecentShow extends Component {
-  static propTypes = { 
+  static propTypes = {
     isDesktop: bool.isRequired,
     showInfoTiles: shape({
       list: shape({}),
@@ -129,7 +129,13 @@ class RecentShow extends Component {
                 autoPlay={0}
               />
             </div>
-            <MonotonousTile label={headerLabel} text={title} showReadingList readingListType = 'show' id={showId}/>
+            <MonotonousTile
+              label={headerLabel}
+              text={title}
+              showReadingList
+              readingListType="show"
+              id={showId}
+            />
             <div className="hide-on-mobile">
               <LabeledTitleTiles
                 theme={{

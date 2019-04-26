@@ -8,21 +8,31 @@ import LastRefreshed from './last-refreshed';
 import { fetchDateRanges } from '../../../modules/mission-slots-by-telescope/mission-slot-dates-actions';
 import './date-selection-navigation.scss';
 
-const mapStateToProps = ({ missionSlotDates, missionSlotsByTelescope, telescopeSlots }) => ({
+const mapStateToProps = ({
+  missionSlotDates,
+  missionSlotsByTelescope,
+  telescopeSlots,
+}) => ({
   missionSlotDates,
   missionSlotsByTelescope,
   activeMissions: telescopeSlots.missions,
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({
-    fetchDateRanges,
-  }, dispatch),
+  actions: bindActionCreators(
+    {
+      fetchDateRanges,
+    },
+    dispatch
+  ),
 });
 
 const INITIAL_REFRESH_TIME = 0;
 
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(
+  mapStateToProps,
+  mapDispatchToProps
+)
 class DateSelectionNavigation extends Component {
   constructor(props) {
     super(props);
@@ -35,7 +45,7 @@ class DateSelectionNavigation extends Component {
 
   state = {
     lastRefreshed: INITIAL_REFRESH_TIME,
-  }
+  };
 
   componentWillMount() {
     const { actions, obsId, telescopeId, domeId } = this.props;
@@ -45,7 +55,8 @@ class DateSelectionNavigation extends Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.routeRoot !== this.props.routeRoot) {
       const requestedDate =
-        nextProps.missionSlotDates.dateRangeResponse.dateList[0].reservationDate;
+        nextProps.missionSlotDates.dateRangeResponse.dateList[0]
+          .reservationDate;
       const { actions, obsId, telescopeId, domeId } = nextProps;
 
       actions.fetchDateRanges({
@@ -69,7 +80,9 @@ class DateSelectionNavigation extends Component {
   setupTelescopeListingsRefresh() {
     const { missionSlotsByTelescope, obsId } = this.props;
     const { refreshIntervalSec } = missionSlotsByTelescope.reservationList;
-    const { reservationDate } = this.props.missionSlotDates.dateRangeResponse.dateList[0];
+    const {
+      reservationDate,
+    } = this.props.missionSlotDates.dateRangeResponse.dateList[0];
 
     clearTimeout(this.telescopeTimer);
     if (refreshIntervalSec) {
@@ -101,7 +114,10 @@ class DateSelectionNavigation extends Component {
 
   handlePreviousClick(event) {
     event.preventDefault();
-    const { backEnabled, backDate } = this.props.missionSlotDates.dateRangeResponse.dateList[0];
+    const {
+      backEnabled,
+      backDate,
+    } = this.props.missionSlotDates.dateRangeResponse.dateList[0];
     if (backEnabled) {
       this.handleDateChange(backDate);
     }
@@ -109,8 +125,11 @@ class DateSelectionNavigation extends Component {
 
   handleProgressClick(event) {
     event.preventDefault();
-    const { forwardEnabled, forwardDate } = this.props.missionSlotDates.dateRangeResponse.dateList[0];
-    if(forwardEnabled) {
+    const {
+      forwardEnabled,
+      forwardDate,
+    } = this.props.missionSlotDates.dateRangeResponse.dateList[0];
+    if (forwardEnabled) {
       this.handleDateChange(forwardDate);
     }
   }
@@ -119,7 +138,7 @@ class DateSelectionNavigation extends Component {
     const {
       dateRangeResponse,
       dateRangeIsError,
-      dateRangeIsFetching
+      dateRangeIsFetching,
     } = this.props.missionSlotDates;
 
     if (dateRangeIsFetching || dateRangeIsError || isEmpty(dateRangeResponse)) {
@@ -135,7 +154,8 @@ class DateSelectionNavigation extends Component {
     const {
       reservationDateFormatted,
       forwardEnabled,
-      backEnabled } = dateRangeResponse.dateList[0];
+      backEnabled,
+    } = dateRangeResponse.dateList[0];
 
     const progressPastStyle = classnames('fa fa-chevron-circle-left', {
       available: backEnabled,
@@ -149,11 +169,10 @@ class DateSelectionNavigation extends Component {
 
     return (
       <div className="reserve-by-telescope-date-selection-navigation">
-
         <div className="progress-time-action">
           <button onClick={this.handlePreviousClick} className="button">
             <div className="flex-box-wrapper">
-              <i className={progressPastStyle}></i> Back
+              <i className={progressPastStyle} /> Back
             </div>
           </button>
         </div>
@@ -161,17 +180,18 @@ class DateSelectionNavigation extends Component {
         <div className="current-date-content">
           <h3 className="title">The night of</h3>
           <p className="current-time">{reservationDateFormatted}</p>
-          <h5 className="last-updated">Last updated <LastRefreshed startCounter={lastRefreshed} />.</h5>
+          <h5 className="last-updated">
+            Last updated <LastRefreshed startCounter={lastRefreshed} />.
+          </h5>
         </div>
 
         <div className="progress-time-action">
           <button onClick={this.handleProgressClick} className="button">
             <div className="flex-box-wrapper">
-              Next Day <i className={progressFutureStyle}></i>
+              Next Day <i className={progressFutureStyle} />
             </div>
           </button>
         </div>
-
       </div>
     );
   }

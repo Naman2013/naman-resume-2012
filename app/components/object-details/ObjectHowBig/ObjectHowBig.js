@@ -6,9 +6,8 @@ import { HowBigModule } from '../../../modules/telescope/components/old/how-big-
 
 import style from './ObjectHowBig.style';
 
-
 class ObjectHowBig extends Component {
-  state = {}
+  state = {};
 
   render() {
     const { objectId } = this.props;
@@ -18,10 +17,7 @@ class ObjectHowBig extends Component {
         serviceURL={OBJECT_HOW_BIG}
         requestBody={{ objectId }}
         withoutUser
-        render={({
-          fetchingContent,
-          serviceResponse: { howBigData },
-        }) => (
+        render={({ fetchingContent, serviceResponse: { howBigData } }) => (
           <div className="root">
             {!fetchingContent && (
               <HowBigModule

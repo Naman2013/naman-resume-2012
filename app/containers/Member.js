@@ -20,7 +20,10 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({ ...userActions, ...loginActions }, dispatch);
 }
 
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(
+  mapStateToProps,
+  mapDispatchToProps
+)
 export default class Member extends Component {
   static propTypes = {
     user: object.isRequired,
@@ -46,45 +49,44 @@ export default class Member extends Component {
   render() {
     return (
       <div className={styles.member}>
-        {
-          this.props.user.isAuthorized && (
-            <div
-              className={styles.memberInfo}
-            >
-              <span
-                className={styles.avatar}
-                style={{
-                  backgroundImage: `url(${this.props.user.avatarURL})`,
-                }}
-              />
-              <span className={styles.usernameContainer}>
-                <span className={styles.userMessage}>Keep Looking Up, </span>
-                <strong>{this.props.user.fname}</strong>
-              </span>
-            </div>
+        {this.props.user.isAuthorized && (
+          <div className={styles.memberInfo}>
+            <span
+              className={styles.avatar}
+              style={{
+                backgroundImage: `url(${this.props.user.avatarURL})`,
+              }}
+            />
+            <span className={styles.usernameContainer}>
+              <span className={styles.userMessage}>Keep Looking Up, </span>
+              <strong>{this.props.user.fname}</strong>
+            </span>
+          </div>
         )}
 
-        {
-          this.props.user.isAuthorized ? (
-            <button
-              className={styles.rightButton}
-              onClick={this.onLogout}
-            >
-              Log-out
-            </button>
+        {this.props.user.isAuthorized ? (
+          <button className={styles.rightButton} onClick={this.onLogout}>
+            Log-out
+          </button>
         ) : (
           <span className={styles.loggedOutWrapper}>
             <a
               href={this.props.appConfig.registerNewMemberURL}
               target="_blank"
               rel="noopener noreferrer"
-              className={classnames('ignore-react-onclickoutside', styles.regButton)}
+              className={classnames(
+                'ignore-react-onclickoutside',
+                styles.regButton
+              )}
             >
               Join Now
             </a>
 
             <a
-              className={classnames('ignore-react-onclickoutside', styles.rightButton)}
+              className={classnames(
+                'ignore-react-onclickoutside',
+                styles.rightButton
+              )}
               onClick={this.onLogin}
             >
               Log-in
@@ -98,9 +100,7 @@ export default class Member extends Component {
           transitionEnterTimeout={300}
           transitionLeaveTimeout={300}
         >
-          {
-            this.props.loginData.isShowed && <Login />
-          }
+          {this.props.loginData.isShowed && <Login />}
         </ReactCSSTransitionGroup>
       </div>
     );

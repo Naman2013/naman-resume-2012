@@ -24,14 +24,20 @@ const mapStateToProps = ({ user, tags }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({
-    setTags,
-    deleteTag,
-    validateResponseAccess,
-  }, dispatch),
+  actions: bindActionCreators(
+    {
+      setTags,
+      deleteTag,
+      validateResponseAccess,
+    },
+    dispatch
+  ),
 });
 
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(
+  mapStateToProps,
+  mapDispatchToProps
+)
 class PublishPost extends Component {
   constructor(props) {
     super(props);
@@ -57,7 +63,9 @@ class PublishPost extends Component {
     };
 
     this.handleCategoryListSelect = this.handleCategoryListSelect.bind(this);
-    this.handleCategorySelectChange = this.handleCategorySelectChange.bind(this);
+    this.handleCategorySelectChange = this.handleCategorySelectChange.bind(
+      this
+    );
     this.handleTopicSelectChange = this.handleTopicSelectChange.bind(this);
     this.handleHeadlineChange = this.handleHeadlineChange.bind(this);
     this.handleBodyContentChange = this.handleBodyContentChange.bind(this);
@@ -79,10 +87,9 @@ class PublishPost extends Component {
       cid,
       at,
       token,
-    })
-    .then((result) => {
+    }).then(result => {
       this.props.actions.validateResponseAccess(result.data);
-      this.handleCategoryResponse(result.data)
+      this.handleCategoryResponse(result.data);
     });
   }
 
@@ -96,7 +103,9 @@ class PublishPost extends Component {
     postUUID,
     scienceLogText,
   }) {
-    if (apiError) { return; }
+    if (apiError) {
+      return;
+    }
 
     this.setState({
       artCultureText,
@@ -210,22 +219,31 @@ class PublishPost extends Component {
 
     setPostImages(data)
       .then(result => this.handleUploadImageResponse(result.data))
-      .catch(err => this.setState({
-        uploadError: err.message,
-        uploadLoading: false,
-      }));
+      .catch(err =>
+        this.setState({
+          uploadError: err.message,
+          uploadLoading: false,
+        })
+      );
   }
 
-  handleDeleteImage = (imageURL) => {
-    if (!imageURL) { return; }
+  handleDeleteImage = imageURL => {
+    if (!imageURL) {
+      return;
+    }
 
     const { cid, token, at } = this.props.user;
     const { postUUID } = this.state;
     const imageClass = 'community';
     deletePostImage({
-      cid, token, at, uniqueId: postUUID, imageClass, imageURL
+      cid,
+      token,
+      at,
+      uniqueId: postUUID,
+      imageClass,
+      imageURL,
     }).then(result => this.handleUploadImageResponse(result.data));
-  }
+  };
 
   handleUploadImageResponse(uploadFileData) {
     this.setState({
@@ -248,27 +266,36 @@ class PublishPost extends Component {
         at,
         token,
         cid,
-        objectSlug: publishPostCategory.categorySlug || publishPostCategory.topicSlug,
+        objectSlug:
+          publishPostCategory.categorySlug || publishPostCategory.topicSlug,
         type: contentCategory,
         title: headline,
         content: bodyContent,
         postTags: tags,
         S3URLs,
-      }).then((result) => {
-        if ( !result.data.apiError) {
-          alert('Your post has been submitted for review.  Your post will appear on the website once it has been approved.');
+      }).then(result => {
+        if (!result.data.apiError) {
+          alert(
+            'Your post has been submitted for review.  Your post will appear on the website once it has been approved.'
+          );
           this.setupForm();
         } else {
-          alert('There was an error while submitting your post. The submission was not successful.');
+          alert(
+            'There was an error while submitting your post. The submission was not successful.'
+          );
         }
       });
     } else {
-      alert('Make sure to add a title, content and to at least select a category for this post.');
+      alert(
+        'Make sure to add a title, content and to at least select a category for this post.'
+      );
     }
   }
 
   get objectCategories() {
-    return this.state.categoryList.map(category => category.categoryDisplayName);
+    return this.state.categoryList.map(
+      category => category.categoryDisplayName
+    );
   }
 
   get currentCategory() {
@@ -278,17 +305,22 @@ class PublishPost extends Component {
 
   get currentCategoryTopics() {
     const { categoryList, selectedCategoryIndex } = this.state;
-    return (categoryList[selectedCategoryIndex]
-            && categoryList[selectedCategoryIndex].categoryTopicList) || [];
+    return (
+      (categoryList[selectedCategoryIndex] &&
+        categoryList[selectedCategoryIndex].categoryTopicList) ||
+      []
+    );
   }
 
   get formattedCategoryTopics() {
-    return flatten(this.currentCategoryTopics.map((topic) => {
-      return {
-        option: topic.topicDisplayName,
-        ...topic,
-      };
-    }));
+    return flatten(
+      this.currentCategoryTopics.map(topic => {
+        return {
+          option: topic.topicDisplayName,
+          ...topic,
+        };
+      })
+    );
   }
 
   get selectedCategory() {
@@ -331,10 +363,11 @@ class PublishPost extends Component {
 
     return (
       <div>
-        <Header
-          cancelPost={this.setupForm}
+        <Header cancelPost={this.setupForm} />
+        <div
+          className="publish-subtitle"
+          dangerouslySetInnerHTML={{ __html: introText }}
         />
-        <div className="publish-subtitle"  dangerouslySetInnerHTML={{ __html: introText }} />
         <ul className="publish-post-list">
           <li className="item">
             <span className="number">1</span>
@@ -351,7 +384,9 @@ class PublishPost extends Component {
 
           <li className="item">
             <span className="number">2</span>
-            <p className="description">Select an Object Category and Object Topic from the List</p>
+            <p className="description">
+              Select an Object Category and Object Topic from the List
+            </p>
 
             <div className="select-object-category-and-topic-wrapper">
               <div className="select-object-category">
@@ -387,7 +422,9 @@ class PublishPost extends Component {
 
           <li className="item">
             <span className="number">4</span>
-            <p className="description">Add Tags <span className="param">(optional)</span></p>
+            <p className="description">
+              Add Tags <span className="param">(optional)</span>
+            </p>
             <AddTags
               newTagText={newTagContent}
               handleTagTextChange={this.handleTagTextChange}
@@ -399,7 +436,9 @@ class PublishPost extends Component {
 
           <li className="item">
             <span className="number">5</span>
-            <p className="description">Upload Image <span className="param">(optional)</span></p>
+            <p className="description">
+              Upload Image <span className="param">(optional)</span>
+            </p>
 
             <UploadImage
               handleDeleteImage={this.handleDeleteImage}
@@ -408,12 +447,16 @@ class PublishPost extends Component {
               inputValue={imageInputValue}
             />
             {uploadError && <span className="errorMsg">{uploadError}</span>}
-            {(!uploadError && uploadLoading) && <GenericLoadingBox />}
+            {!uploadError && uploadLoading && <GenericLoadingBox />}
           </li>
 
           <li className="item">
-            <button onClick={this.setupForm} className="btn-primary cancel-btn">Sorry, Cancel This.</button>
-            <button onClick={this.handleSubmitPost} className="btn-primary">Submit for Review</button>
+            <button onClick={this.setupForm} className="btn-primary cancel-btn">
+              Sorry, Cancel This.
+            </button>
+            <button onClick={this.handleSubmitPost} className="btn-primary">
+              Submit for Review
+            </button>
           </li>
         </ul>
         <style jsx>

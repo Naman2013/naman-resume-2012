@@ -28,7 +28,7 @@ class Login extends Component {
     forgotPasswordURL: '',
     registerNewMemberURL: '',
     error: '',
-  }
+  };
 
   componentWillUnmount() {
     const { loginReset } = this.props;
@@ -37,7 +37,7 @@ class Login extends Component {
 
   handleClickOutside = () => {
     this.props.hide();
-  }
+  };
 
   render() {
     const { loginFailed } = this.props;
@@ -46,13 +46,12 @@ class Login extends Component {
       <aside className={styles.login}>
         <form onSubmit={this.props.handleSubmit(this.props.globalHeaderlogin)}>
           <h3>Log into your Slooh account:</h3>
-          {
-            loginFailed ?
-              <FormErrorMessage
-                messageTitle="Sign in Error"
-                messageBody="Please check your username and password."
-              /> : null
-          }
+          {loginFailed ? (
+            <FormErrorMessage
+              messageTitle="Sign in Error"
+              messageBody="Please check your username and password."
+            />
+          ) : null}
           <div>
             <Field
               name="username"
@@ -98,4 +97,9 @@ const loginValidation = createValidator({
   passwd: [required],
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({ form: 'login', validate: loginValidation })(onClickOutside(Login)));
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(
+  reduxForm({ form: 'login', validate: loginValidation })(onClickOutside(Login))
+);

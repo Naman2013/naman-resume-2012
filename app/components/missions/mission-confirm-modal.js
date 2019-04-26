@@ -2,7 +2,10 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { missionConfirmOpen, missionConfirmClose } from './../../modules/missions-old';
+import {
+  missionConfirmOpen,
+  missionConfirmClose,
+} from './../../modules/missions-old';
 import styles from './mission-modals.scss';
 import PiggyBackConfirm from './confirm-modals/piggyback-confirm';
 import ReserveConfirm from './confirm-modals/reserve-confirm';
@@ -13,10 +16,13 @@ const PIGGYBACK = 'piggyback';
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators({
-      missionConfirmOpen,
-      missionConfirmClose
-    }, dispatch)
+    actions: bindActionCreators(
+      {
+        missionConfirmOpen,
+        missionConfirmClose,
+      },
+      dispatch
+    ),
   };
 }
 
@@ -24,9 +30,11 @@ function mapStateToProps({ missions }) {
   return { missions };
 }
 
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(
+  mapStateToProps,
+  mapDispatchToProps
+)
 class MissionConfirmModal extends Component {
-
   constructor(props) {
     super(props);
 
@@ -42,7 +50,8 @@ class MissionConfirmModal extends Component {
       mission,
       isConfirmationOpen,
       confirmType,
-      currentCard } = this.props.missions;
+      currentCard,
+    } = this.props.missions;
 
     if (confirmType === RESERVE) {
       return (

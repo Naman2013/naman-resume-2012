@@ -15,24 +15,24 @@ const ReservationByObjects = ({
   obsId,
   domeId,
   telescopeId,
-  }) => (
-    <div className="reservation-form-container">
-      <Timer startTime={expires} expireCallback={expireCallback} />
-      <ReserveByObjects
-        resetForm={false}
-        showMakeReservation={showMakeReservation}
-        showPlaceOnHold={showPlaceOnHold}
-        showCancelHold={showCancelHold}
-        callSource={'byTelescope'}
-        uniqueId={uniqueId}
-        scheduledMissionId={scheduledMissionId}
-        missionStart={missionStart}
-        obsId={obsId}
-        domeId={domeId}
-        telescopeId={telescopeId}
-      />
-    </div>
-  );
+}) => (
+  <div className="reservation-form-container">
+    <Timer startTime={expires} expireCallback={expireCallback} />
+    <ReserveByObjects
+      resetForm={false}
+      showMakeReservation={showMakeReservation}
+      showPlaceOnHold={showPlaceOnHold}
+      showCancelHold={showCancelHold}
+      callSource={'byTelescope'}
+      uniqueId={uniqueId}
+      scheduledMissionId={scheduledMissionId}
+      missionStart={missionStart}
+      obsId={obsId}
+      domeId={domeId}
+      telescopeId={telescopeId}
+    />
+  </div>
+);
 
 ReservationByObjects.defaultProps = {
   showMakeReservation: true,

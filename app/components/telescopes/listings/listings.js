@@ -23,19 +23,13 @@ class Listings extends Component {
 
     if (!allowReservations && slotStatus === NOT_AVAILABLE) {
       return (
-        <NoMissionsAvailable
-          key={reservation.missionIndex}
-          {...reservation}
-        />
+        <NoMissionsAvailable key={reservation.missionIndex} {...reservation} />
       );
     }
 
     if (slotStatus === RESERVED) {
       return (
-        <MissionReserved
-          key={reservation.missionIndex}
-          {...reservation}
-        />
+        <MissionReserved key={reservation.missionIndex} {...reservation} />
       );
     }
 
@@ -63,10 +57,7 @@ class Listings extends Component {
 
     if (slotStatus === NOT_AVAILABLE) {
       return (
-        <MissionNotAvailable
-          key={reservation.missionIndex}
-          {...reservation}
-        />
+        <MissionNotAvailable key={reservation.missionIndex} {...reservation} />
       );
     }
 
@@ -78,15 +69,11 @@ class Listings extends Component {
 
     return (
       <div className="telescope-listings">
-        <ReactTooltip
-          className="tooltip"
-          place="left"
-          effect="solid"
-        />
+        <ReactTooltip className="tooltip" place="left" effect="solid" />
         <ul className="list">
-          {
-            reservations.map(reservation => this.renderReservationSlot(reservation))
-          }
+          {reservations.map(reservation =>
+            this.renderReservationSlot(reservation)
+          )}
         </ul>
       </div>
     );
@@ -97,51 +84,53 @@ const { string, number, bool, arrayOf } = PropTypes;
 Listings.propTypes = {
   allowReservations: bool.isRequired,
   telescopeId: string.isRequired,
-  reservations: arrayOf(PropTypes.shape({
-    missionIndex: number.isRequired,
-    scheduledMissionId: number.isRequired,
-    uniqueId: string.isRequired,
-    missionStart: number.isRequired,
-    durationSec: number.isRequired,
-    expires: number.isRequired,
-    slotStatus: string.isRequired,
-    missionType: string.isRequired,
-    showSlotTimes: bool.isRequired,
-    showBrowseButton: bool.isRequired,
-    showCatalogButton: bool.isRequired,
-    showCoordinateButton: bool.isRequired,
-    showHoldOneHourButtonWhenExpanded: bool.isRequired,
-    showCancelHoldButtonWhenExpanded: bool.isRequired,
-    showCancelXWhenExpanded: bool.isRequired,
-    showEditCoordinatesButton: bool.isRequired,
-    showFinishReservationButton: bool.isRequired,
-    showPiggybackButton: bool.isRequired,
-    showShareMissionIcons: bool.isRequired,
-    shareMissionIconsText: string.isRequired,
-    canEditMission: bool.isRequired,
-    canDeleteMission: bool.isRequired,
-    canDeletePiggyback: bool.isRequired,
-    showNoReservations: bool.isRequired,
-    noReservationsIconURL: string.isRequired,
-    noReservationsExplanation: string.isRequired,
-    slotTitle: string.isRequired,
-    slotIconURL: string.isRequired,
-    userHasReservation: bool.isRequired,
-    userReservationType: string.isRequired,
-    userHasHold: bool.isRequired,
-    userHoldType: string.isRequired,
-    showSloohUser: bool.isRequired,
-    showUserDetails: bool.isRequired,
-    ownerId: number.isRequired,
-    ownerLocation: string.isRequired,
-    ownerFirstName: string.isRequired,
-    ownerDisplayName: string.isRequired,
-    ownerMembershipType: string.isRequired,
-    ownerGuardianFlag: bool.isRequired,
-    ownerMemberSince: string.isRequired,
-    ownerAvatarType: string.isRequired,
-    ownerAvatarURL: string.isRequired,
-  })),
+  reservations: arrayOf(
+    PropTypes.shape({
+      missionIndex: number.isRequired,
+      scheduledMissionId: number.isRequired,
+      uniqueId: string.isRequired,
+      missionStart: number.isRequired,
+      durationSec: number.isRequired,
+      expires: number.isRequired,
+      slotStatus: string.isRequired,
+      missionType: string.isRequired,
+      showSlotTimes: bool.isRequired,
+      showBrowseButton: bool.isRequired,
+      showCatalogButton: bool.isRequired,
+      showCoordinateButton: bool.isRequired,
+      showHoldOneHourButtonWhenExpanded: bool.isRequired,
+      showCancelHoldButtonWhenExpanded: bool.isRequired,
+      showCancelXWhenExpanded: bool.isRequired,
+      showEditCoordinatesButton: bool.isRequired,
+      showFinishReservationButton: bool.isRequired,
+      showPiggybackButton: bool.isRequired,
+      showShareMissionIcons: bool.isRequired,
+      shareMissionIconsText: string.isRequired,
+      canEditMission: bool.isRequired,
+      canDeleteMission: bool.isRequired,
+      canDeletePiggyback: bool.isRequired,
+      showNoReservations: bool.isRequired,
+      noReservationsIconURL: string.isRequired,
+      noReservationsExplanation: string.isRequired,
+      slotTitle: string.isRequired,
+      slotIconURL: string.isRequired,
+      userHasReservation: bool.isRequired,
+      userReservationType: string.isRequired,
+      userHasHold: bool.isRequired,
+      userHoldType: string.isRequired,
+      showSloohUser: bool.isRequired,
+      showUserDetails: bool.isRequired,
+      ownerId: number.isRequired,
+      ownerLocation: string.isRequired,
+      ownerFirstName: string.isRequired,
+      ownerDisplayName: string.isRequired,
+      ownerMembershipType: string.isRequired,
+      ownerGuardianFlag: bool.isRequired,
+      ownerMemberSince: string.isRequired,
+      ownerAvatarType: string.isRequired,
+      ownerAvatarURL: string.isRequired,
+    })
+  ),
 };
 
 export default Listings;

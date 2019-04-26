@@ -13,8 +13,7 @@ import s from './ChangeAvatarModal.scss';
 
 const { bool, func, string, shape } = PropTypes;
 class ChangeAvatarModal extends Component {
-
-  uploadAvatar = (event) => {
+  uploadAvatar = event => {
     event.preventDefault();
     const { cid, token, at } = this.props.user;
     const { actions } = this.props;
@@ -27,25 +26,32 @@ class ChangeAvatarModal extends Component {
     data.append('enctype', 'multipart/form-data');
 
     actions.uploadAvatar(data);
-  }
+  };
 
   saveAvatar = () => {
     const { imageURL, actions, closeModal } = this.props;
-    actions.setAvatar({ imageURL }).then((result) => {
+    actions.setAvatar({ imageURL }).then(result => {
       if (result && result.payload && !result.payload.apiError) {
         closeModal();
       }
     });
-  }
+  };
 
   componentWillUnmount() {
     const { actions } = this.props;
     actions.clearAvatarData();
   }
 
-  render() { // always show Modal, and rely on parent to show/hide modal so component unmounts on close
+  render() {
+    // always show Modal, and rely on parent to show/hide modal so component unmounts on close
     const { saveAvatar, uploadAvatar } = this;
-    const { closeModal, loading, imageURL, setAvatarError, uploadError } = this.props;
+    const {
+      closeModal,
+      loading,
+      imageURL,
+      setAvatarError,
+      uploadError,
+    } = this.props;
     const showGenericError = setAvatarError || uploadError;
     return (
       <Modal show>
@@ -55,14 +61,25 @@ class ChangeAvatarModal extends Component {
             <div className={s.uploadLabel}>
               Choose a JPEG, GIF, or PNG (max 100kB)
             </div>
-            {(!loading && imageURL) && <div
-              style={{ background: `url(${imageURL})`, backgroundPosition: 'center', backgroundSize: 'cover', backgroundRepeat: 'no-repeat' }}
-              className={s.profilePic}
-            />}
-            {(loading && !showGenericError) && <GenericLoadingBox height="100px" />}
-            {showGenericError &&
-              <div>There was an issue uploading your avatar. Please try again.</div>
-            }
+            {!loading && imageURL && (
+              <div
+                style={{
+                  background: `url(${imageURL})`,
+                  backgroundPosition: 'center',
+                  backgroundSize: 'cover',
+                  backgroundRepeat: 'no-repeat',
+                }}
+                className={s.profilePic}
+              />
+            )}
+            {loading && !showGenericError && (
+              <GenericLoadingBox height="100px" />
+            )}
+            {showGenericError && (
+              <div>
+                There was an issue uploading your avatar. Please try again.
+              </div>
+            )}
           </section>
           <section className={s.ChangeAvatarModalActionContainer}>
             <label htmlFor="avatar-upload" className={`file-input-label`}>
@@ -74,7 +91,9 @@ class ChangeAvatarModal extends Component {
                 accept="image/*"
               />
             </label>
-            <span className={s.ChangeAvatarModalAction} onClick={saveAvatar}>Save Avatar</span>
+            <span className={s.ChangeAvatarModalAction} onClick={saveAvatar}>
+              Save Avatar
+            </span>
             <span className={s.ChangeAvatarModalAction} onClick={closeModal}>
               Cancel
             </span>
@@ -88,7 +107,7 @@ class ChangeAvatarModal extends Component {
 ChangeAvatarModal.defaultProps = {
   show: false,
   setAvatarError: false,
-  actions: {}
+  actions: {},
 };
 
 ChangeAvatarModal.propTypes = {
@@ -107,14 +126,20 @@ ChangeAvatarModal.propTypes = {
 
 const mapStateToProps = ({ avatar, user }) => ({
   ...avatar,
-  user
+  user,
 });
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({
-    uploadAvatar,
-    setAvatar,
-    clearAvatarData,
-  }, dispatch),
+  actions: bindActionCreators(
+    {
+      uploadAvatar,
+      setAvatar,
+      clearAvatarData,
+    },
+    dispatch
+  ),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ChangeAvatarModal);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ChangeAvatarModal);

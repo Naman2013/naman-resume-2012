@@ -1,4 +1,7 @@
-import { observatoryListSuccess, getCurrentObservatory } from '../Telescope-Overview';
+import {
+  observatoryListSuccess,
+  getCurrentObservatory,
+} from '../Telescope-Overview';
 import { resetSnapshotList } from '../starshare-camera/starshare-camera-actions';
 import { resetActiveMission } from '../active-telescope-missions/active-telescope-missions-actions';
 
@@ -22,23 +25,30 @@ import { fetchWeatherForecast } from '../../modules/Telescope-Overview';
 import { fetchAllSkyAction } from '../../modules/Telescope-Overview';
 import { fetchDomeCamAction } from '../../modules/Telescope-Overview';
 
-export const BOOTSTRAP_TELESCOPE_DETAILS_START = 'BOOTSTRAP_TELESCOPE_DETAILS_START';
+export const BOOTSTRAP_TELESCOPE_DETAILS_START =
+  'BOOTSTRAP_TELESCOPE_DETAILS_START';
 export const BOOTSTRAP_TELESCOPE_DETAILS = 'BOOTSTRAP_TELESCOPE_DETAILS';
-export const BOOTSTRAP_TELESCOPE_DETAILS_FAIL = 'BOOTSTRAP_TELESCOPE_DETAILS_FAIL';
+export const BOOTSTRAP_TELESCOPE_DETAILS_FAIL =
+  'BOOTSTRAP_TELESCOPE_DETAILS_FAIL';
 
 export const FETCH_TELESCOPE_STATUS_START = 'FETCH_TELESCOPE_STATUS_START';
 export const FETCH_TELESCOPE_STATUS_SUCCESS = 'FETCH_TELESCOPE_STATUS_SUCCESS';
 export const FETCH_TELESCOPE_STATUS_FAIL = 'FETCH_TELESCOPE_STATUS_FAIL';
 
-export const RESET_CURRENT_OBSERVATORY_STATUS = 'RESET_CURRENT_OBSERVATORY_STATUS';
+export const RESET_CURRENT_OBSERVATORY_STATUS =
+  'RESET_CURRENT_OBSERVATORY_STATUS';
 export const SET_CURRENT_OBSERVATORY_STATUS = 'SET_CURRENT_OBSERVATORY_STATUS';
 export const UPDATE_TELESCOPE_STATUS = 'UPDATE_TELESCOPE_STATUS';
 
-export const FETCH_CURRENT_WEATHER_CONDITIONS_START = 'FETCH_CURRENT_WEATHER_CONDITIONS_START';
-export const FETCH_CURRENT_WEATHER_CONDITIONS_SUCCESS = 'FETCH_CURRENT_WEATHER_CONDITIONS_SUCCESS';
+export const FETCH_CURRENT_WEATHER_CONDITIONS_START =
+  'FETCH_CURRENT_WEATHER_CONDITIONS_START';
+export const FETCH_CURRENT_WEATHER_CONDITIONS_SUCCESS =
+  'FETCH_CURRENT_WEATHER_CONDITIONS_SUCCESS';
 
-export const FETCH_DAY_NIGHT_BAR_PANEL_START = 'FETCH_DAY_NIGHT_BAR_PANEL_START';
-export const FETCH_DAY_NIGHT_BAR_PANEL_SUCCESS = 'FETCH_DAY_NIGHT_BAR_PANEL_SUCCESS';
+export const FETCH_DAY_NIGHT_BAR_PANEL_START =
+  'FETCH_DAY_NIGHT_BAR_PANEL_START';
+export const FETCH_DAY_NIGHT_BAR_PANEL_SUCCESS =
+  'FETCH_DAY_NIGHT_BAR_PANEL_SUCCESS';
 
 export const FETCH_DAY_NIGHT_BAR_START = 'FETCH_DAY_NIGHT_BAR_START';
 export const FETCH_DAY_NIGHT_BAR_SUCCESS = 'FETCH_DAY_NIGHT_BAR_SUCCESS';
@@ -49,7 +59,8 @@ export const FETCH_DAY_NIGHT_MAP_SUCCESS = 'FETCH_DAY_NIGHT_MAP_SUCCESS';
 export const SET_CURRENT_OBSERVATORY = 'SET_CURRENT_OBSERVATORY';
 export const SET_CURRENT_TELESCOPE = 'SET_CURRENT_TELESCOPE';
 
-export const RESET_DETAILS_SELECTED_ELEMENTS = 'RESET_DETAILS_SELECTED_ELEMENTS';
+export const RESET_DETAILS_SELECTED_ELEMENTS =
+  'RESET_DETAILS_SELECTED_ELEMENTS';
 export const SET_DISPLAY_COMMUNITY_CONTENT = 'SET_DISPLAY_COMMUNITY_CONTENT';
 
 export const UPDATE_ACTIVE_SSE = 'UPDATE_ACTIVE_SSE';
@@ -57,7 +68,8 @@ export const RESET_ACTIVE_SSE = 'RESET_ACTIVE_SSE';
 
 export const INCREMENT_MISSION_COUNTER = 'INCREMENT_MISSION_COUNTER';
 export const RESET_MISSION_COUNTER = 'RESET_MISSION_COUNTER';
-export const UPDATE_RECENTLY_VIEWED_MISSION_ID = 'UPDATE_RECENTLY_VIEWED_MISSION_ID';
+export const UPDATE_RECENTLY_VIEWED_MISSION_ID =
+  'UPDATE_RECENTLY_VIEWED_MISSION_ID';
 export const RESET_VIEWED_MISSION_STATE = 'RESET_VIEWED_MISSION_STATE';
 
 export const SET_CURRENT_INSTRUMENT = 'SET_CURRENT_INSTRUMENT';
@@ -80,13 +92,15 @@ export const resetViewedMissionState = () => ({
 });
 
 /**
-  * Getting the current telescope from the API response
-  * @param {array} observatoryTelescopes - Array of all telescopes in the current observatory
-  * @param {string} telescopeId - Id of the current telescope, which available in URL and/or props.params
-  * @returns {Object} telescope - Current telescope object
-  */
+ * Getting the current telescope from the API response
+ * @param {array} observatoryTelescopes - Array of all telescopes in the current observatory
+ * @param {string} telescopeId - Id of the current telescope, which available in URL and/or props.params
+ * @returns {Object} telescope - Current telescope object
+ */
 function getCurrentTelescope(observatoryTelescopes, telescopeId) {
-  return observatoryTelescopes.find(telescope => telescope.teleUniqueId === telescopeId);
+  return observatoryTelescopes.find(
+    telescope => telescope.teleUniqueId === telescopeId
+  );
 }
 
 export const updateActiveSSE = payload => ({
@@ -112,7 +126,11 @@ const startFetchTelescopeStatus = () => ({
   type: FETCH_TELESCOPE_STATUS_START,
 });
 
-export const fetchAllTelescopeStatus = ({ obsId, teleUniqueId, isRefresh }) => (dispatch) => {
+export const fetchAllTelescopeStatus = ({
+  obsId,
+  teleUniqueId,
+  isRefresh,
+}) => dispatch => {
   // if we are not refreshing inline then reset the flags
   // otherwise we expect to update in place seamlessly
   if (!isRefresh) {
@@ -120,8 +138,10 @@ export const fetchAllTelescopeStatus = ({ obsId, teleUniqueId, isRefresh }) => (
   }
 
   return fetchTelescopeStatus(obsId)
-    .then((result) => {
-      const { statusList: { statusTeleList } } = result.data;
+    .then(result => {
+      const {
+        statusList: { statusTeleList },
+      } = result.data;
       dispatch(fetchTelescopeStatusSuccess(result.data));
     })
     .catch(error => dispatch(fetchTelescopeStatusError(error)));
@@ -159,7 +179,7 @@ export const updateCurrentInstrument = currentInstrument => dispatch => {
   return dispatch(setCurrentInstrument(currentInstrument));
 };
 
-const fetchCommunityContent = telescope => (dispatch) => {
+const fetchCommunityContent = telescope => dispatch => {
   const { teleContentType, teleContentList } = telescope;
 
   const NONE = 'none';
@@ -178,12 +198,12 @@ const fetchCommunityContent = telescope => (dispatch) => {
       fetchObjectContent({
         objectId: teleContentList[0],
         callSource: 'telescopeDetails',
-      }),
+      })
     );
   }
 };
 
-const resetMissionAndSetTelescope = currentTelescope => (dispatch) => {
+const resetMissionAndSetTelescope = currentTelescope => dispatch => {
   dispatch(fetchCommunityContent(currentTelescope));
   dispatch(resetActiveMission());
   dispatch(setCurrentTelescope(currentTelescope));
@@ -191,7 +211,7 @@ const resetMissionAndSetTelescope = currentTelescope => (dispatch) => {
 
 export const bootstrapTelescopeDetails = ({ obsUniqueId, teleUniqueId }) => (
   dispatch,
-  getState,
+  getState
 ) => {
   const { at, cid, token } = getState().user;
 
@@ -203,7 +223,7 @@ export const bootstrapTelescopeDetails = ({ obsUniqueId, teleUniqueId }) => (
     token,
     callSource: 'details',
   })
-    .then((result) => {
+    .then(result => {
       const { apiError } = result.data;
 
       if (!apiError) {
@@ -236,14 +256,17 @@ export const bootstrapTelescopeDetails = ({ obsUniqueId, teleUniqueId }) => (
         dispatch(validateResponseAccess(result.data));
       }
     })
-    .catch((error) => {
+    .catch(error => {
       // TODO: handle error scenario when we have no information
       throw error;
       // dispatch(bootstrapTelescopeDetailsFail());
     });
 };
 
-export const setObservatory = ({ obsUniqueId, teleUniqueId }) => (dispatch, getState) => {
+export const setObservatory = ({ obsUniqueId, teleUniqueId }) => (
+  dispatch,
+  getState
+) => {
   const {
     telescopeDetails: { currentObservatory, fetchingObservatoryList },
     telescopeOverview: { observatoryList },
@@ -252,12 +275,18 @@ export const setObservatory = ({ obsUniqueId, teleUniqueId }) => (dispatch, getS
   if (!currentObservatory) {
     dispatch(bootstrapTelescopeDetails({ obsUniqueId, teleUniqueId }));
   } else if (!fetchingObservatoryList) {
-    const nextObservatory = getCurrentObservatory(observatoryList.observatoryList, obsUniqueId);
+    const nextObservatory = getCurrentObservatory(
+      observatoryList.observatoryList,
+      obsUniqueId
+    );
     dispatch(setCurrentObservatory(nextObservatory));
   }
 };
 
-export const setTelescope = ({ obsUniqueId, teleUniqueId }) => (dispatch, getState) => {
+export const setTelescope = ({ obsUniqueId, teleUniqueId }) => (
+  dispatch,
+  getState
+) => {
   const {
     telescopeDetails: { currentObservatory, fetchingObservatoryList },
     telescopeOverview: { observatoryList },
@@ -266,14 +295,23 @@ export const setTelescope = ({ obsUniqueId, teleUniqueId }) => (dispatch, getSta
   if (!currentObservatory) {
     dispatch(bootstrapTelescopeDetails({ obsUniqueId, teleUniqueId }));
   } else if (!fetchingObservatoryList) {
-    const nextObservatory = getCurrentObservatory(observatoryList.observatoryList, obsUniqueId);
-    const nextTelescope = getCurrentTelescope(nextObservatory.obsTelescopes, teleUniqueId);
+    const nextObservatory = getCurrentObservatory(
+      observatoryList.observatoryList,
+      obsUniqueId
+    );
+    const nextTelescope = getCurrentTelescope(
+      nextObservatory.obsTelescopes,
+      teleUniqueId
+    );
     dispatch(resetMissionAndSetTelescope(nextTelescope));
     dispatch(resetSnapshotList());
   }
 };
 
-export const updateObservatoryAndTelescope = ({ obsUniqueId, teleUniqueId }) => (dispatch) => {
+export const updateObservatoryAndTelescope = ({
+  obsUniqueId,
+  teleUniqueId,
+}) => dispatch => {
   dispatch(setObservatory({ obsUniqueId, teleUniqueId }));
   dispatch(setTelescope({ obsUniqueId, teleUniqueId }));
 };
@@ -287,7 +325,7 @@ const fetchDayNightMapSuccess = payload => ({
   payload,
 });
 
-const fetchDayNightMapAction = ({ obsId, DayNightMapWidgetId }) => (dispatch) => {
+const fetchDayNightMapAction = ({ obsId, DayNightMapWidgetId }) => dispatch => {
   dispatch(fetchDayNightMapStart());
   return fetchDayNightMap({
     obsId,
@@ -304,7 +342,10 @@ const fetchWeatherConditionsSuccess = payload => ({
   payload,
 });
 
-const fetchWeatherConditions = ({ obsId, CurrentConditionsWidgetId }) => (dispatch) => {
+const fetchWeatherConditions = ({
+  obsId,
+  CurrentConditionsWidgetId,
+}) => dispatch => {
   dispatch(fetchWeatherConditionsStart());
   return fetchCurrentConditions({
     obsId,
@@ -321,7 +362,10 @@ const fetchDayNightBarPanelSuccess = payload => ({
   payload,
 });
 
-const fetchDayNightBarPanelAction = ({ obsId, DayNightBarPanelWidgetId }) => (dispatch) => {
+const fetchDayNightBarPanelAction = ({
+  obsId,
+  DayNightBarPanelWidgetId,
+}) => dispatch => {
   dispatch(fetchDayNightBarPanelStart());
   return fetchDayNightBarPanel({
     obsId,
@@ -338,7 +382,7 @@ const fetchDayNightBarSuccess = payload => ({
   payload,
 });
 
-const fetchDayNightBarAction = ({ obsId, DayNightBarWidgetId }) => (dispatch) => {
+const fetchDayNightBarAction = ({ obsId, DayNightBarWidgetId }) => dispatch => {
   dispatch(fetchDayNightBarStart());
   return fetchDayNightBar({
     obsId,

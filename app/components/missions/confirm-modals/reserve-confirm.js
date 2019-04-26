@@ -12,7 +12,10 @@ import {
   updateReservation,
   missionGetCards,
 } from '../../../modules/missions-old';
-import { setTags, resetClientTagData } from '../../../modules/tag-management/Tags';
+import {
+  setTags,
+  resetClientTagData,
+} from '../../../modules/tag-management/Tags';
 import MissionTags from '../../common/tags/mission-tags';
 import NewMissionReservationSuccess from './new-mission-reservation-success';
 import ReservationError from './reservation-error';
@@ -35,18 +38,23 @@ const mapDispatchToProps = dispatch => ({
       resetClientTagData,
       missionGetCards,
     },
-    dispatch,
+    dispatch
   ),
 });
 
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(
+  mapStateToProps,
+  mapDispatchToProps
+)
 class ReserveConfirm extends Component {
   constructor(props) {
     super(props);
 
     this.onSubmit = this.onSubmit.bind(this);
     this.handleCloseModalClick = this.handleCloseModalClick.bind(this);
-    this.cancelMissionAndCloseModal = this.cancelMissionAndCloseModal.bind(this);
+    this.cancelMissionAndCloseModal = this.cancelMissionAndCloseModal.bind(
+      this
+    );
   }
 
   componentWillMount() {
@@ -112,9 +120,17 @@ class ReserveConfirm extends Component {
     the current state
   */
   handleMissionReservationResponse() {
-    const { currentMissionSlot, previousMissionSlotReservation, closeModal } = this.props;
+    const {
+      currentMissionSlot,
+      previousMissionSlotReservation,
+      closeModal,
+    } = this.props;
     const { callSource } = currentMissionSlot;
-    const { apiError, errorCode, missionCount } = previousMissionSlotReservation;
+    const {
+      apiError,
+      errorCode,
+      missionCount,
+    } = previousMissionSlotReservation;
     if (apiError || missionCount === 0) {
       return <ReservationError closeModal={closeModal} />;
     }
@@ -130,7 +146,11 @@ class ReserveConfirm extends Component {
 
     if (!missionAvailable) {
       return (
-        <ReservationError errorCode={errorCode} message={explanation} closeModal={closeModal} />
+        <ReservationError
+          errorCode={errorCode}
+          message={explanation}
+          closeModal={closeModal}
+        />
       );
     }
 
@@ -148,7 +168,11 @@ class ReserveConfirm extends Component {
   }
 
   renderModalContent() {
-    const { currentMissionSlot, missionSlotJustReserved, closeModal } = this.props;
+    const {
+      currentMissionSlot,
+      missionSlotJustReserved,
+      closeModal,
+    } = this.props;
     const missionData = currentMissionSlot.missionList[0];
 
     if (!missionData) return null;
@@ -156,9 +180,15 @@ class ReserveConfirm extends Component {
     const { explanation, missionAvailable, missionStart } = missionData;
 
     const formattedUTCDate = new Date(missionStart * 1000);
-    const EST_start = moment.tz(formattedUTCDate, 'America/New_York').format('dddd, MMMM Do');
-    const EST_start_time = moment.tz(formattedUTCDate, 'America/New_York').format('h:mma z');
-    const PST_start_time = moment.tz(formattedUTCDate, 'America/Los_Angeles').format('h:mma z');
+    const EST_start = moment
+      .tz(formattedUTCDate, 'America/New_York')
+      .format('dddd, MMMM Do');
+    const EST_start_time = moment
+      .tz(formattedUTCDate, 'America/New_York')
+      .format('h:mma z');
+    const PST_start_time = moment
+      .tz(formattedUTCDate, 'America/Los_Angeles')
+      .format('h:mma z');
     const UTC_start_time = moment.utc(formattedUTCDate).format('HH:mm z');
 
     const inlineButtonRowStyle = {
@@ -198,7 +228,11 @@ class ReserveConfirm extends Component {
           <h1 className="title-secondary">
             You’re scheduling the {missionData.telescopeName} telescope to see:
           </h1>
-          <img height="50" className={styles.cardIcon} src={missionData.objectIconURL} />
+          <img
+            height="50"
+            className={styles.cardIcon}
+            src={missionData.objectIconURL}
+          />
           <h2 className="mission-title">{missionData.title}</h2>
         </div>
 
@@ -206,8 +240,8 @@ class ReserveConfirm extends Component {
           <div className="mission-schedule">
             <h4>Mission Details:</h4>
             <p>
-              {EST_start} &middot; {EST_start_time} &middot; {PST_start_time} &middot;{' '}
-              {UTC_start_time}
+              {EST_start} &middot; {EST_start_time} &middot; {PST_start_time}{' '}
+              &middot; {UTC_start_time}
             </p>
           </div>
 
@@ -222,7 +256,10 @@ class ReserveConfirm extends Component {
 
         <div className="modal-footer">
           <div style={inlineButtonRowStyle} className="button-row">
-            <button className="btn-primary" onClick={this.handleCloseModalClick}>
+            <button
+              className="btn-primary"
+              onClick={this.handleCloseModalClick}
+            >
               Sorry, Cancel This.
             </button>
             <button className="btn-primary" onClick={this.onSubmit}>
