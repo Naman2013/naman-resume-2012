@@ -5,12 +5,20 @@ import AbelList from '../common/AbelList';
 import style from './TopicContentList.style';
 
 const TopicContentList = ({
-  list, theme, topicActionProps, topicIconList, ...restProps
+  list,
+  theme,
+  topicActionProps,
+  topicIconList,
+  ...restProps
 }) => (
   <div style={theme} className="root">
-    {restProps.showContentList && <AbelList list={list} iconList={topicIconList} />}
+    {restProps.showContentList && (
+      <AbelList list={list} iconList={topicIconList} />
+    )}
     <div className="action-container">
-      {topicActionProps.showActions && <TopicActions {...topicActionProps} {...restProps} />}
+      {topicActionProps.showActions && (
+        <TopicActions {...topicActionProps} {...restProps} />
+      )}
     </div>
     <style jsx>{style}</style>
   </div>

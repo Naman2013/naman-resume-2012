@@ -52,36 +52,35 @@ const setAvatarFailure = payload => ({
   payload,
 });
 
-export const setAvatar = ({
-  lang,
-  ver,
-  imageURL,
-}) => (dispatch, getState) => {
+export const setAvatar = ({ lang, ver, imageURL }) => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
   dispatch(setAvatarStart());
-  return axios.post('/api/users/setAvatar', {
-    at,
-    token,
-    cid,
-    lang,
-    ver,
-    imageURL,
-  })
-    .then((result) => {
+  return axios
+    .post('/api/users/setAvatar', {
+      at,
+      token,
+      cid,
+      lang,
+      ver,
+      imageURL,
+    })
+    .then(result => {
       // if set avatar was successful,
       // update browser cookie and User store with correct avatar url
       if (!result.data.apiError) {
         const cookies = cookie.parse(window.document.cookie || '');
         // const avatarURL = result.data.imageURL.split('\\').pop().split('/').pop();
-        dispatch(store({
-          cid: cookies.cid,
-          at: cookies.at,
-          token: cookies.token,
-          fname: cookies.fname,
-          avatarURL: result.data.imageURL,
-          radioDefaultVolume: cookies.radioDefaultVolume,
-          radioDefaultMute: cookies.radioDefaultMute,
-        }));
+        dispatch(
+          store({
+            cid: cookies.cid,
+            at: cookies.at,
+            token: cookies.token,
+            fname: cookies.fname,
+            avatarURL: result.data.imageURL,
+            radioDefaultVolume: cookies.radioDefaultVolume,
+            radioDefaultMute: cookies.radioDefaultMute,
+          })
+        );
       }
       return dispatch(setAvatarSuccess(result.data));
     })

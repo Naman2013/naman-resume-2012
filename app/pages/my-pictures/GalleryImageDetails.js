@@ -6,7 +6,10 @@ import { browserHistory } from 'react-router';
 import { findIndex } from 'lodash';
 import Pagination from '../../components/common/pagination/Pagination';
 import MyPicturesNavigation from '../../components/my-pictures/my-pictures-navigation';
-import { fetchImageDetailsAndCounts, fetchMyPicturesImageDetails } from '../../modules/my-pictures-image-details/actions';
+import {
+  fetchImageDetailsAndCounts,
+  fetchMyPicturesImageDetails,
+} from '../../modules/my-pictures-image-details/actions';
 import { verifyMyPicsOwner } from '../../modules/my-pictures-verify-owner/actions';
 import { fetchGalleryPictures } from '../../modules/my-pictures-gallery-pictures/actions';
 import ImageViewer from '../../components/my-pictures/ImageViewer';
@@ -16,8 +19,12 @@ import PhotoActions from '../../components/my-pictures/actions/PhotoActions';
 import ModalGeneric from '../../components/common/modals/modal-generic';
 import { resetShareMemberPhoto } from '../../modules/share-member-photo/actions';
 
-
-const mapStateToProps = ({ user, myPicturesImageDetails, shareMemberPhoto, galleryPictures }) => ({
+const mapStateToProps = ({
+  user,
+  myPicturesImageDetails,
+  shareMemberPhoto,
+  galleryPictures,
+}) => ({
   myPicturesImageDetails,
   galleryPictures,
   showSharePrompt: shareMemberPhoto.showSharePrompt,
@@ -26,24 +33,28 @@ const mapStateToProps = ({ user, myPicturesImageDetails, shareMemberPhoto, galle
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({
-    fetchMyPicturesImageDetails,
-    fetchGalleryPictures,
-    fetchImageDetailsAndCounts,
-    verifyMyPicsOwner,
-    resetShareMemberPhoto,
-  }, dispatch),
+  actions: bindActionCreators(
+    {
+      fetchMyPicturesImageDetails,
+      fetchGalleryPictures,
+      fetchImageDetailsAndCounts,
+      verifyMyPicsOwner,
+      resetShareMemberPhoto,
+    },
+    dispatch
+  ),
 });
 
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(
+  mapStateToProps,
+  mapDispatchToProps
+)
 class ImageDetails extends Component {
   constructor(props) {
     super(props);
 
     const {
-      params: {
-        galleryId
-      },
+      params: { galleryId },
     } = this.props;
 
     this.state = {
@@ -59,60 +70,65 @@ class ImageDetails extends Component {
     window.scrollTo(0, 0);
     const {
       actions,
-      params: {
-        customerImageId,
-        shareToken,
-        galleryId
-      }
+      params: { customerImageId, shareToken, galleryId },
     } = this.props;
 
-    actions.verifyMyPicsOwner({
-      itemId: customerImageId,
-      itemType: 'image'
-    }).then(() => {
-
-      if (this.props.myPicturesImageDetails.customerImageId !== customerImageId) { // don't call api for info we already have
-        actions.fetchImageDetailsAndCounts({
-          customerImageId,
-          shareToken,
-        });
-      }
-      actions.fetchGalleryPictures({
-        galleryId,
-        firstImageNumber: 1,
-      });
-    });
-
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const {
-      params: {
-        customerImageId,
-        shareToken,
-        galleryId,
-      }
-    } = nextProps;
-    if (nextProps.galleryPictures.imageList.length) {
-      const currentImageIndex = findIndex(nextProps.galleryPictures.imageList, image => (image.customerImageId === Number(customerImageId) && image.shareToken === String(shareToken)));
-      this.setState({
-        currentImageIndex,
-      });
-    }
-    if (Number(this.props.params.customerImageId) !== Number(customerImageId) || String(this.props.params.shareToken) !== String(shareToken)) {
-      this.props.actions.verifyMyPicsOwner({
+    actions
+      .verifyMyPicsOwner({
         itemId: customerImageId,
-        itemType: 'image'
-      }).then(() => {
-        this.props.actions.fetchImageDetailsAndCounts({
-          customerImageId: nextProps.params.customerImageId,
-          shareToken: nextProps.params.shareToken,
-        });
-        this.props.actions.fetchGalleryPictures({
+        itemType: 'image',
+      })
+      .then(() => {
+        if (
+          this.props.myPicturesImageDetails.customerImageId !== customerImageId
+        ) {
+          // don't call api for info we already have
+          actions.fetchImageDetailsAndCounts({
+            customerImageId,
+            shareToken,
+          });
+        }
+        actions.fetchGalleryPictures({
           galleryId,
           firstImageNumber: 1,
         });
       });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const {
+      params: { customerImageId, shareToken, galleryId },
+    } = nextProps;
+    if (nextProps.galleryPictures.imageList.length) {
+      const currentImageIndex = findIndex(
+        nextProps.galleryPictures.imageList,
+        image =>
+          image.customerImageId === Number(customerImageId) &&
+          image.shareToken === String(shareToken)
+      );
+      this.setState({
+        currentImageIndex,
+      });
+    }
+    if (
+      Number(this.props.params.customerImageId) !== Number(customerImageId) ||
+      String(this.props.params.shareToken) !== String(shareToken)
+    ) {
+      this.props.actions
+        .verifyMyPicsOwner({
+          itemId: customerImageId,
+          itemType: 'image',
+        })
+        .then(() => {
+          this.props.actions.fetchImageDetailsAndCounts({
+            customerImageId: nextProps.params.customerImageId,
+            shareToken: nextProps.params.shareToken,
+          });
+          this.props.actions.fetchGalleryPictures({
+            galleryId,
+            firstImageNumber: 1,
+          });
+        });
     }
 
     if (nextProps.showSharePrompt !== this.state.showSharePicturePrompt) {
@@ -121,7 +137,6 @@ class ImageDetails extends Component {
         sharePicturePrompt: nextProps.sharePrompt,
       });
     }
-
   }
 
   closeModal = () => {
@@ -129,30 +144,42 @@ class ImageDetails extends Component {
       showSharePicturePrompt: false,
     });
     this.props.actions.resetShareMemberPhoto();
-  }
+  };
 
   handleNextPageClick = () => {
-    const { galleryPictures: { imageList } } = this.props;
+    const {
+      galleryPictures: { imageList },
+    } = this.props;
     const { currentImageIndex, galleryId } = this.state;
     const nextImage = imageList[currentImageIndex + 1];
 
     if (nextImage) {
-      browserHistory.push(`/my-pictures/gallery/${galleryId}/show-image/${nextImage.customerImageId}/${nextImage.shareToken}`);
+      browserHistory.push(
+        `/my-pictures/gallery/${galleryId}/show-image/${
+          nextImage.customerImageId
+        }/${nextImage.shareToken}`
+      );
     }
-  }
+  };
 
   handlePreviousPageClick = () => {
-    const { galleryPictures: { imageList } } = this.props;
+    const {
+      galleryPictures: { imageList },
+    } = this.props;
     const { currentImageIndex, galleryId } = this.state;
     const previousImage = imageList[currentImageIndex - 1];
     if (previousImage) {
-      browserHistory.push(`/my-pictures/gallery/${galleryId}/show-image/${previousImage.customerImageId}/${previousImage.shareToken}`);
+      browserHistory.push(
+        `/my-pictures/gallery/${galleryId}/show-image/${
+          previousImage.customerImageId
+        }/${previousImage.shareToken}`
+      );
     }
-  }
+  };
 
-  handleEditorChange = (editorHTML) => {
+  handleEditorChange = editorHTML => {
     this.setState({ editorValue: editorHTML });
-  }
+  };
 
   render() {
     const {
@@ -175,16 +202,17 @@ class ImageDetails extends Component {
       currentImageIndex,
       galleryId,
       sharePicturePrompt,
-      showSharePicturePrompt
+      showSharePicturePrompt,
     } = this.state;
     const { user } = this.props;
     const rangeText = Pagination.generateRangeText({
       startRange: currentImageIndex,
       itemsPerPage: 1,
     });
-    const canNext = (currentImageIndex + 1) < imageCount;
+    const canNext = currentImageIndex + 1 < imageCount;
     const canPrevious = currentImageIndex !== 0;
-    const image = imageList[currentImageIndex] && imageList[currentImageIndex].imageURL;
+    const image =
+      imageList[currentImageIndex] && imageList[currentImageIndex].imageURL;
     const heartProps = {
       likePrompt,
       canLikeFlag,
@@ -200,33 +228,38 @@ class ImageDetails extends Component {
           closeModal={this.closeModal}
           description={String(sharePicturePrompt)}
         />
-        {canEditFlag && <MyPicturesNavigation
-          page="galleryImages"
-          galleryId={galleryId}
-        />}
+        {canEditFlag && (
+          <MyPicturesNavigation page="galleryImages" galleryId={galleryId} />
+        )}
         <div className="clearfix my-pictures-container">
           <div className="container">
             <div className="left">
               <h2>
-                <span dangerouslySetInnerHTML={{ __html: galleryTitle }} /> Photos: <span dangerouslySetInnerHTML={{ __html: imageTitle }} />
+                <span dangerouslySetInnerHTML={{ __html: galleryTitle }} />{' '}
+                Photos:{' '}
+                <span dangerouslySetInnerHTML={{ __html: imageTitle }} />
               </h2>
             </div>
             <div className="right-top">
-            <PhotoActions
-              canShareFlag={canShareFlag}
-              canEditFlag={canEditFlag}
-              imageURL={image}
-              galleryId={galleryId}
-              customerImageId={this.props.params.customerImageId}
-              user={user}
-              actionSource="galleryImageDetails"
-              heartProps={heartProps}
-            />
+              <PhotoActions
+                canShareFlag={canShareFlag}
+                canEditFlag={canEditFlag}
+                imageURL={image}
+                galleryId={galleryId}
+                customerImageId={this.props.params.customerImageId}
+                user={user}
+                actionSource="galleryImageDetails"
+                heartProps={heartProps}
+              />
             </div>
           </div>
           <div className="container">
             <div className="left my-pic-galleries">
-              <ImageViewer currentImage={image} fetching={fetching} error={error} />
+              <ImageViewer
+                currentImage={image}
+                fetching={fetching}
+                error={error}
+              />
               <Pagination
                 totalCount={imageCount}
                 currentRange={rangeText}
@@ -237,19 +270,21 @@ class ImageDetails extends Component {
               />
             </div>
             <aside className="right">
-              <ImageInfoPanel customerImageId={this.props.params.customerImageId}  />
+              <ImageInfoPanel
+                customerImageId={this.props.params.customerImageId}
+              />
             </aside>
           </div>
         </div>
         <style jsx>{imageDetailsStyle}</style>
         <style jsx global>
-        {`
-          @media(min-width:768px) {
-            .my-pic-galleries .count {
-              padding: 0 200px;
+          {`
+            @media (min-width: 768px) {
+              .my-pic-galleries .count {
+                padding: 0 200px;
+              }
             }
-          }
-        `}
+          `}
         </style>
       </div>
     );
@@ -277,7 +312,7 @@ ImageDetails.defaultProps = {
     fileData: {},
   },
   galleryPictures: {
-    imageList: []
+    imageList: [],
   },
   actions: {},
 };
@@ -302,9 +337,11 @@ ImageDetails.propTypes = {
     fileData: PropTypes.shape({}),
   }),
   galleryPictures: PropTypes.shape({
-    imageList: PropTypes.arrayOf(PropTypes.shape({
-      imageURL: PropTypes.string,
-    }))
+    imageList: PropTypes.arrayOf(
+      PropTypes.shape({
+        imageURL: PropTypes.string,
+      })
+    ),
   }),
   // actions: PropTypes.shape({
   //   fetchImageDetailsAndCounts,

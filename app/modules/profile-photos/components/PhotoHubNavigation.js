@@ -3,6 +3,7 @@
  *  Navigation bar for private profile photos
  ***********************************/
 
+import { FilterDropdown } from 'app/modules/profile-photos/components/filter-dropdown';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, browserHistory, withRouter } from 'react-router';
@@ -107,6 +108,10 @@ class PhotoHubNavigation extends Component {
     this.setState({ activeIndex: i });
   };
 
+  handleFilterChange = filter => {
+    console.log('handleFilterChange', filter);
+  };
+
   render() {
     const {
       activeIndex,
@@ -147,6 +152,7 @@ class PhotoHubNavigation extends Component {
                 ))}
               </div>
               <div className="photohub-tools">
+                {/*
                 {!filterSelectActive ? (
                   <Button
                     withIntl
@@ -165,6 +171,7 @@ class PhotoHubNavigation extends Component {
                     defaultMenuIsOpen
                   />
                 )}
+*/}
                 {!searchActive ? (
                   <Button
                     onClickEvent={this.handleSearchClick}

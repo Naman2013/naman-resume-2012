@@ -16,20 +16,20 @@ const initialState = {
   selectedTagsTabIndex: 0,
   currentVisibleCalMonth: moment().startOf('month'),
   dates: {
-    datesList: []
+    datesList: [],
   },
   pictureUserTags: {
     tagsList: [],
   },
   pictureSystemTags: {},
   missionUserTags: {
-    tagsList: []
+    tagsList: [],
   },
   missionSystemTags: {
-    tagsList: []
+    tagsList: [],
   },
   times: {
-    timesList: []
+    timesList: [],
   },
   telescopes: {
     telescopesList: [],
@@ -44,7 +44,7 @@ const initialState = {
     timeFilter: null,
     pictureUserTags: [],
     missionUserTags: [],
-    missionSystemTags: []
+    missionSystemTags: [],
   },
 };
 

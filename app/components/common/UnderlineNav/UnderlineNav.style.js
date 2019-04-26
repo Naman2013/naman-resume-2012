@@ -17,7 +17,7 @@ export default css`
     border-top: 1px solid ${shadows};
     border-bottom: 1px solid ${shadows};
   }
-  
+
   .root.profile .nav {
     display: flex;
     min-height: 65px;
@@ -28,7 +28,7 @@ export default css`
     display: flex;
     align-items: center;
   }
-  
+
   .root.profile .item-container .nav-item {
     letter-spacing: 1px;
   }
@@ -36,7 +36,7 @@ export default css`
   .root.profile .item-container:first-child {
     padding-left: 0;
   }
-  
+
   .item-container {
     display: inline-block;
     height: 100%;

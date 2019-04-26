@@ -1,6 +1,6 @@
 /***********************************
-* V4 Completed Pages for Quests - connected with redux
-***********************************/
+ * V4 Completed Pages for Quests - connected with redux
+ ***********************************/
 
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
@@ -11,35 +11,20 @@ import QuestCompleted from './quest-complete';
 import { validateResponseAccess } from 'app/modules/authorization/actions';
 import questActions from 'app/modules/quest-details/actions';
 
-const {
-  bool,
-  func,
-  number,
-  shape,
-  string,
-} = PropTypes;
-
+const { bool, func, number, shape, string } = PropTypes;
 
 class ConnectedQuestComplete extends Component {
-
   static propTypes = {
     questId: string.isRequired,
     moduleId: string.isRequired,
-  }
+  };
 
-  static defaultProps = {
+  static defaultProps = {};
 
-  }
-
-  state = {
-  }
+  state = {};
 
   componentDidMount() {
-    const {
-      actions,
-      questId,
-      moduleId,
-    } = this.props;
+    const { actions, questId, moduleId } = this.props;
 
     actions.fetchQuestPageMeta({ questId });
 
@@ -50,13 +35,11 @@ class ConnectedQuestComplete extends Component {
   }
 
   render() {
-    const {
-    } = this.state;
+    const {} = this.state;
 
-    const userActions = {
-    };
+    const userActions = {};
 
-    console.log(this.props)
+    console.log(this.props);
     return (
       <Fragment>
         <DeviceContext.Consumer>
@@ -69,16 +52,11 @@ class ConnectedQuestComplete extends Component {
           )}
         </DeviceContext.Consumer>
       </Fragment>
-    )
+    );
   }
 }
 
-const mapStateToProps = ({
-  user,
-  questDetails,
-}, {
-  routeParams,
-}) => ({
+const mapStateToProps = ({ user, questDetails }, { routeParams }) => ({
   user,
   modal: questDetails.modal,
   pageMeta: questDetails.pageMeta,
@@ -88,10 +66,16 @@ const mapStateToProps = ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({
-    ...questActions,
-    validateResponseAccess,
-  }, dispatch),
+  actions: bindActionCreators(
+    {
+      ...questActions,
+      validateResponseAccess,
+    },
+    dispatch
+  ),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ConnectedQuestComplete);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ConnectedQuestComplete);

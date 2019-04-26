@@ -14,18 +14,9 @@ import { previousShows } from '../../services/shows/previous-shows';
 import { upcomingShows } from '../../services/shows/upcoming-shows';
 import messages from './ShowVideoViewer.messages';
 
-
 import { white } from '../../styles/variables/colors';
 
-
-const {
-  bool,
-  number,
-  string,
-  shape,
-  func,
-  arrayOf,
-} = PropTypes;
+const { bool, number, string, shape, func, arrayOf } = PropTypes;
 
 function mapStateToProps({ videoViewerShow, communityShowContent }) {
   return {
@@ -36,14 +27,20 @@ function mapStateToProps({ videoViewerShow, communityShowContent }) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators({
-      fetchRecordedShow,
-      fetchShowContent,
-    }, dispatch),
+    actions: bindActionCreators(
+      {
+        fetchRecordedShow,
+        fetchShowContent,
+      },
+      dispatch
+    ),
   };
 }
 
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(
+  mapStateToProps,
+  mapDispatchToProps
+)
 class ShowVideoViewer extends Component {
   static propTypes = {
     actions: shape({
@@ -63,7 +60,7 @@ class ShowVideoViewer extends Component {
     hasRecommends: bool,
     recommends: arrayOf(shape({})),
     communityPosts: arrayOf(shape({})),
-  }
+  };
   static defaultProps = {
     actions: {
       fetchRecordedShow: noop,
@@ -81,7 +78,7 @@ class ShowVideoViewer extends Component {
       showId: null,
     },
     communityPosts: [],
-  }
+  };
   constructor(props) {
     super(props);
 
@@ -90,7 +87,10 @@ class ShowVideoViewer extends Component {
       previousShowsList: [],
     };
 
-    const { actions, params: { showId } } = props;
+    const {
+      actions,
+      params: { showId },
+    } = props;
 
     actions.fetchRecordedShow({
       showId,
@@ -104,7 +104,7 @@ class ShowVideoViewer extends Component {
     previousShows({
       page: 1,
       count: 9,
-    }).then((res) => {
+    }).then(res => {
       this.setState({
         previousShowsList: res.data.eventList,
       });
@@ -113,7 +113,7 @@ class ShowVideoViewer extends Component {
     upcomingShows({
       page: 1,
       count: 9,
-    }).then((res) => {
+    }).then(res => {
       this.setState({
         upcomingShowsList: res.data.eventList,
       });
@@ -121,7 +121,10 @@ class ShowVideoViewer extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { actions, params: { showId } } = nextProps;
+    const {
+      actions,
+      params: { showId },
+    } = nextProps;
     if (showId === this.props.params.showId) {
       return;
     }
@@ -141,7 +144,7 @@ class ShowVideoViewer extends Component {
       hasUpcomingShows,
       hasRecentShows,
       hasRecommends,
-      recommends
+      recommends,
     } = this.props;
 
     const { upcomingShowsList, previousShowsList } = this.state;
@@ -154,29 +157,25 @@ class ShowVideoViewer extends Component {
           </h1>
         </header>
         <main className="main-container row">
-
           <div className="col-md-8 col-sm-6">
             <VideoImageLoader
-                teleStreamCode={showStreamCode}
-                teleStreamURL={showStreamURL}
-                teleStreamThumbnailVideoWidth="800"
-                teleStreamThumbnailVideoHeight="550"
-                showVideoControls={1}
-                showInfo={1}
-                />
+              teleStreamCode={showStreamCode}
+              teleStreamURL={showStreamURL}
+              teleStreamThumbnailVideoWidth="800"
+              teleStreamThumbnailVideoHeight="550"
+              showVideoControls={1}
+              showInfo={1}
+            />
           </div>
 
           <div className="col-md-4 col-sm-6">
-
-
             <GoogleAd
               adURL={'/5626790/Replay'}
               adWidth={300}
               adHeight={600}
               targetDivID={'div-gpt-ad-1495118239378-0'}
             />
-
-            </div>
+          </div>
         </main>
         <CommunityMashup
           hasSocialFlow={hasSocialFlow}
@@ -223,7 +222,6 @@ class ShowVideoViewer extends Component {
       </div>
     );
   }
-
 }
 
 export default ShowVideoViewer;

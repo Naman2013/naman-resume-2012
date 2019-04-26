@@ -24,7 +24,6 @@ import messages from './ShowsHub.messages';
 const COUNT = 9;
 const DEFAULT_PAGE = 1;
 
-
 const showsHubModel = {
   name: 'SHOW_HUB_MODEL',
   model: resp => ({
@@ -54,16 +53,16 @@ class Shows extends Component {
     shows: [],
   };
 
-  updateShowsList = (resData) => {
+  updateShowsList = resData => {
     this.setState(() => ({
       shows: resData.eventList,
     }));
-  }
+  };
 
   updateReadingListInShow = (id, resData) => {
     let newShowsList = [].concat(this.state.shows);
 
-    newShowsList = newShowsList.map((show) => {
+    newShowsList = newShowsList.map(show => {
       if (show.eventId === id) {
         return Object.assign(show, resData);
       }
@@ -73,34 +72,27 @@ class Shows extends Component {
     this.setState(() => ({
       shows: newShowsList,
     }));
-  }
+  };
 
-  appendToShowsList = (resData) => {
-    this.setState((state) => {
-      const shows = [].concat(state.shows, resData.eventList)
+  appendToShowsList = resData => {
+    this.setState(state => {
+      const shows = [].concat(state.shows, resData.eventList);
       return {
-        shows
+        shows,
       };
     });
-  }
+  };
 
   clearShows = () => {
     this.setState({
       shows: [],
     });
-  }
+  };
 
   render() {
-    const {
-      user,
-      actions,
-      intl,
-      isFetching,
-    } = this.props;
-    const {
-      shows,
-    } = this.state;
-    
+    const { user, actions, intl, isFetching } = this.props;
+    const { shows } = this.state;
+
     return (
       <div>
         <Request
@@ -113,63 +105,68 @@ class Shows extends Component {
             serviceResponse = {},
           }) => (
             <Fragment>
-              {
-                !fetchingContent &&
-                  <DeviceContext.Consumer>
-                    {context => (
-                      <HubContainer
-                        {...this.props}
-                        {...SHOW_HUB_MODEL}
-                        {...context}
-                        hubName="shows"
-                        paginateURL={SHOWS_PREVIOUS_ENDPOINT_URL}
-                        page={DEFAULT_PAGE}
-                        count={COUNT}
-                        user={user}
-                        validateResponseAccess={actions.validateResponseAccess}
-                        responseFieldNames={{
-                          currentCount: 'showsCount',
-                          totalCount: 'resultsCount',
-                        }}
-                        updateList={this.updateShowsList}
-                        appendToList={this.appendToShowsList}
-                        iconURL={serviceResponse.pageIconURL}
-                        pageTitle={serviceResponse.pageTitle}
-                        filterTypeFieldName="theme"
-                        filterType={this.props.params.filterType}
-                        clearTiles={this.clearShows}
-                        hubActions={{
-                          hubGetRequestStart: actions.getShows,
-                          hubGetRequestSuccess: actions.getShowsSuccess,
-                          hubGetRequestError: actions.getShowsError,
-                        }}
-                        render={() => (
-                          <Fragment>
-                            {isFetching ? <div>{intl.formatMessage(messages.loading)}</div> : null}
-                            {!isFetching && (
-                              <Fragment>
-                                <DisplayAtBreakpoint
-                                  screenMedium
-                                  screenLarge
-                                  screenXLarge
-                                >
-                                  <UpcomingShows
-                                    validateResponseAccess={actions.validateResponseAccess}
-                                  />
-                                </DisplayAtBreakpoint>
-                                <ShowTiles
-                                  updateReadingListInfo={this.updateReadingListInShow}
-                                  shows={shows}
-                                  isMobile={context.isMobile}
+              {!fetchingContent && (
+                <DeviceContext.Consumer>
+                  {context => (
+                    <HubContainer
+                      {...this.props}
+                      {...SHOW_HUB_MODEL}
+                      {...context}
+                      hubName="shows"
+                      paginateURL={SHOWS_PREVIOUS_ENDPOINT_URL}
+                      page={DEFAULT_PAGE}
+                      count={COUNT}
+                      user={user}
+                      validateResponseAccess={actions.validateResponseAccess}
+                      responseFieldNames={{
+                        currentCount: 'showsCount',
+                        totalCount: 'resultsCount',
+                      }}
+                      updateList={this.updateShowsList}
+                      appendToList={this.appendToShowsList}
+                      iconURL={serviceResponse.pageIconURL}
+                      pageTitle={serviceResponse.pageTitle}
+                      filterTypeFieldName="theme"
+                      filterType={this.props.params.filterType}
+                      clearTiles={this.clearShows}
+                      hubActions={{
+                        hubGetRequestStart: actions.getShows,
+                        hubGetRequestSuccess: actions.getShowsSuccess,
+                        hubGetRequestError: actions.getShowsError,
+                      }}
+                      render={() => (
+                        <Fragment>
+                          {isFetching ? (
+                            <div>{intl.formatMessage(messages.loading)}</div>
+                          ) : null}
+                          {!isFetching && (
+                            <Fragment>
+                              <DisplayAtBreakpoint
+                                screenMedium
+                                screenLarge
+                                screenXLarge
+                              >
+                                <UpcomingShows
+                                  validateResponseAccess={
+                                    actions.validateResponseAccess
+                                  }
                                 />
-                              </Fragment>
-                            )}
-                          </Fragment>
-                        )}
-                      />
-                    )}
-                  </DeviceContext.Consumer>
-              }
+                              </DisplayAtBreakpoint>
+                              <ShowTiles
+                                updateReadingListInfo={
+                                  this.updateReadingListInShow
+                                }
+                                shows={shows}
+                                isMobile={context.isMobile}
+                              />
+                            </Fragment>
+                          )}
+                        </Fragment>
+                      )}
+                    />
+                  )}
+                </DeviceContext.Consumer>
+              )}
             </Fragment>
           )}
         />
@@ -179,19 +176,22 @@ class Shows extends Component {
   }
 }
 
-const mapStateToProps = ({
-  user,
-  shows,
-}) => ({
+const mapStateToProps = ({ user, shows }) => ({
   user,
   isFetching: shows.isFetching,
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({
-    validateResponseAccess,
-    ...showsActions,
-  }, dispatch),
+  actions: bindActionCreators(
+    {
+      validateResponseAccess,
+      ...showsActions,
+    },
+    dispatch
+  ),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(injectIntl(Shows));
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(injectIntl(Shows));

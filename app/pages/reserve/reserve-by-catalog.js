@@ -31,18 +31,22 @@ import has from 'lodash/has';
 import ReservationSelectList from '../../components/common/forms/reservation-select-list';
 import EnterDesignationForm from '../../components/reserve/enter-designation-form';
 import { fetchCatalog } from '../../modules/catalog/get-catalog-actions';
-import { checkTargetVisibility, checkCatalogVisibility } from '../../modules/check-target-visibility/api';
+import {
+  checkTargetVisibility,
+  checkCatalogVisibility,
+} from '../../modules/check-target-visibility/api';
 import { fetchPresetOptions } from '../../modules/get-preset-options/get-preset-options-actions';
 import { placeOneHourHold } from '../../modules/grab-telescope-slot/actions';
 import styles from '../../components/reserve/reserve-by-object.scss';
 
-import { grabMissionSlot, missionConfirmOpen } from '../../modules/missions-old';
+import {
+  grabMissionSlot,
+  missionConfirmOpen,
+} from '../../modules/missions-old';
 
 const ImageProcessingHelperText = ({ content }) => (
   <div>
-    <p className="sub-text">
-      {content}
-    </p>
+    <p className="sub-text">{content}</p>
   </div>
 );
 
@@ -52,15 +56,21 @@ const mapStateToProps = ({ catalog, user }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({
-    fetchCatalog,
-    grabMissionSlot,
-    missionConfirmOpen,
-    placeOneHourHold,
-  }, dispatch),
+  actions: bindActionCreators(
+    {
+      fetchCatalog,
+      grabMissionSlot,
+      missionConfirmOpen,
+      placeOneHourHold,
+    },
+    dispatch
+  ),
 });
 
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(
+  mapStateToProps,
+  mapDispatchToProps
+)
 class ReserveByCatalog extends Component {
   constructor(props) {
     super(props);
@@ -79,7 +89,9 @@ class ReserveByCatalog extends Component {
 
     this.handleVisibilityCheck = this.handleVisibilityCheck.bind(this);
     this.handleCatalogSelect = this.handleCatalogSelect.bind(this);
-    this.handleSelectImageProcessing = this.handleSelectImageProcessing.bind(this);
+    this.handleSelectImageProcessing = this.handleSelectImageProcessing.bind(
+      this
+    );
     this.handleDesignationChange = this.handleDesignationChange.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.handlePlaceHourHold = this.handlePlaceHourHold.bind(this);
@@ -120,8 +132,7 @@ class ReserveByCatalog extends Component {
     if (normalizedTelescopeIdSource) {
       fetchPresetOptions({
         telescopeId: normalizedTelescopeIdSource,
-      })
-      .then(result => {
+      }).then(result => {
         this.setState({
           presetOptions: result.data,
         });
@@ -133,7 +144,9 @@ class ReserveByCatalog extends Component {
     const { presetOptions, selectedImageProcessingIndex } = this.state;
     const hasSelectedImageProcessing = selectedImageProcessingIndex;
     if (hasSelectedImageProcessing) {
-      return presetOptions.telescopeList[0].telePresetList[selectedImageProcessingIndex];
+      return presetOptions.telescopeList[0].telePresetList[
+        selectedImageProcessingIndex
+      ];
     }
 
     return {};
@@ -142,7 +155,9 @@ class ReserveByCatalog extends Component {
   get imageProcessingList() {
     const { presetOptions } = this.state;
     if (has(presetOptions, 'telescopeList')) {
-      return presetOptions.telescopeList[0].telePresetList.map(presetOption => presetOption.presetDisplayName);
+      return presetOptions.telescopeList[0].telePresetList.map(
+        presetOption => presetOption.presetDisplayName
+      );
     }
     return [];
   }
@@ -156,7 +171,7 @@ class ReserveByCatalog extends Component {
   onMissionGrabSuccess = () => {
     this.props.actions.missionConfirmOpen('reserve');
     this.handleCatalogSelect();
-  }
+  };
 
   handleFormSubmit(event) {
     event.preventDefault();
@@ -166,8 +181,10 @@ class ReserveByCatalog extends Component {
     const { objectDec, objectRA } = visibilityStatus;
 
     // determining from which source to read these parameters
-    const scheduledMissionId = visibilityStatus.scheduledMissionId || this.props.scheduledMissionId;
-    const missionStart = visibilityStatus.missionStart || this.props.missionStart;
+    const scheduledMissionId =
+      visibilityStatus.scheduledMissionId || this.props.scheduledMissionId;
+    const missionStart =
+      visibilityStatus.missionStart || this.props.missionStart;
     const telescopeId = visibilityStatus.telescopeId || this.props.telescopeId;
     const obsId = visibilityStatus.obsId || this.props.obsId;
     const domeId = visibilityStatus.domeId || this.props.domeId;
@@ -196,8 +213,11 @@ class ReserveByCatalog extends Component {
 
   // TODO: continue to build out and use normalizeMissionInfo instead of running the || guard checks in other places
   normalizedMissionInfo() {
-    const scheduledMissionId = this.props.scheduledMissionId || this.state.visibilityStatus.scheduledMissionId;
-    const uniqueId = this.props.uniqueId || this.state.visibilityStatus.uniqueId;
+    const scheduledMissionId =
+      this.props.scheduledMissionId ||
+      this.state.visibilityStatus.scheduledMissionId;
+    const uniqueId =
+      this.props.uniqueId || this.state.visibilityStatus.uniqueId;
     return {
       scheduledMissionId,
       uniqueId,
@@ -226,14 +246,20 @@ class ReserveByCatalog extends Component {
           listHeight={170}
         />
 
-        <ImageProcessingHelperText content={this.selectedImageProcessing.presetHelpText} />
+        <ImageProcessingHelperText
+          content={this.selectedImageProcessing.presetHelpText}
+        />
       </div>
     );
   }
 
   handleVisibilityCheck(event) {
     event.preventDefault();
-    const { checkVisibilityEnabled, selectedCatalogIndex, designation } = this.state;
+    const {
+      checkVisibilityEnabled,
+      selectedCatalogIndex,
+      designation,
+    } = this.state;
     const { user, catalog, domeId, obsId, missionStart } = this.props;
     const { cid, at, token } = user;
 
@@ -252,8 +278,7 @@ class ReserveByCatalog extends Component {
           catalog: currentCatalog.catalog,
           catName: currentCatalog.catName,
           missionType: 'catalog',
-        })
-        .then(result => {
+        }).then(result => {
           this.handleVisibilityResult(result.data);
           this.fetchImageProcessing(result.data.telescopeId);
         });
@@ -265,8 +290,7 @@ class ReserveByCatalog extends Component {
           designation,
           catalog: currentCatalog.catalog,
           catName: currentCatalog.catName,
-        })
-        .then(result => {
+        }).then(result => {
           this.handleVisibilityResult(result.data);
           this.fetchImageProcessing(result.data.telescopeId);
         });
@@ -303,7 +327,9 @@ class ReserveByCatalog extends Component {
     let selectedCatalog;
     if (has(catalog, 'catalogList')) {
       catalogList = catalog.catalogList.map(catalogItem => (
-        <span><img alt="" src={catalogItem.catIconURL} /> {catalogItem.catFullName}</span>
+        <span>
+          <img alt="" src={catalogItem.catIconURL} /> {catalogItem.catFullName}
+        </span>
       ));
 
       selectedCatalog = catalog.catalogList[selectedCatalogIndex];
@@ -311,14 +337,12 @@ class ReserveByCatalog extends Component {
 
     return (
       <div className={styles.reserveObjectPage}>
-        <form
-          onSubmit={this.handleFormSubmit}
-          onChange={this.handleFormChange}
-        >
-
+        <form onSubmit={this.handleFormSubmit} onChange={this.handleFormChange}>
           <div className="row">
             <div className="col-md-4">
-              <h2><span className="number">1</span> Select Catalog</h2>
+              <h2>
+                <span className="number">1</span> Select Catalog
+              </h2>
               <ReservationSelectList
                 options={catalogList}
                 selectedIndex={selectedCatalogIndex}
@@ -328,65 +352,62 @@ class ReserveByCatalog extends Component {
             </div>
 
             <div className="col-md-4">
-              <h2><span className="number">2</span> Enter Designation</h2>
-              {
-                showStepTwo ?
-                  <EnterDesignationForm
-                    exampleFormat={selectedCatalog.catFormat}
-                    example={selectedCatalog.catExample}
-                    designation={designation}
-                    designationChangeCallback={this.handleDesignationChange}
-                    checkVisibilityEnabled={checkVisibilityEnabled}
-                    handleVisibilityCheck={this.handleVisibilityCheck}
-                    visibilityStatusExplanation={visibilityStatus.explanation}
-                  /> : null
-              }
+              <h2>
+                <span className="number">2</span> Enter Designation
+              </h2>
+              {showStepTwo ? (
+                <EnterDesignationForm
+                  exampleFormat={selectedCatalog.catFormat}
+                  example={selectedCatalog.catExample}
+                  designation={designation}
+                  designationChangeCallback={this.handleDesignationChange}
+                  checkVisibilityEnabled={checkVisibilityEnabled}
+                  handleVisibilityCheck={this.handleVisibilityCheck}
+                  visibilityStatusExplanation={visibilityStatus.explanation}
+                />
+              ) : null}
             </div>
 
             <div className="col-md-4">
-              <h2><span className="number">3</span> Select Image Processing</h2>
-              {
-                showStepThree ?
-                  this.renderStepThree() : null
-              }
+              <h2>
+                <span className="number">3</span> Select Image Processing
+              </h2>
+              {showStepThree ? this.renderStepThree() : null}
 
               <section className="actions-container">
-                {
-                  showPlaceOnHold ?
-                    <button
-                      onClick={this.handlePlaceHourHold}
-                      className="btn-primary"
-                    >
+                {showPlaceOnHold ? (
+                  <button
+                    onClick={this.handlePlaceHourHold}
+                    className="btn-primary"
+                  >
                     Hold One Hour
-                    </button> : null
-                }
-                {
-                  !showPlaceOnHold && hasSelectedImageProcessing ?
-                    <button
-                      onClick={this.handleCatalogSelect}
-                      className="btn-primary"
-                    >
-                      Reset Browse
-                    </button> : null
-                }
-                {
-                  showCancelHold && hasSelectedImageProcessing ?
-                    <button className="btn-primary">Cancel Hold</button> : null
-                }
-                {
-                  hasSelectedImageProcessing ?
-                    <button
-                      type="submit"
-                      className={scheduleMissionButtonClasses}>
-                        Schedule Mission
-                    </button> : null
-                }
+                  </button>
+                ) : null}
+                {!showPlaceOnHold && hasSelectedImageProcessing ? (
+                  <button
+                    onClick={this.handleCatalogSelect}
+                    className="btn-primary"
+                  >
+                    Reset Browse
+                  </button>
+                ) : null}
+                {showCancelHold && hasSelectedImageProcessing ? (
+                  <button className="btn-primary">Cancel Hold</button>
+                ) : null}
+                {hasSelectedImageProcessing ? (
+                  <button
+                    type="submit"
+                    className={scheduleMissionButtonClasses}
+                  >
+                    Schedule Mission
+                  </button>
+                ) : null}
               </section>
             </div>
           </div>
         </form>
       </div>
-    )
+    );
   }
 }
 

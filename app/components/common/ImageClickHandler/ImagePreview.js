@@ -30,11 +30,11 @@ export default class ImagePreview extends React.PureComponent {
 
   state = {
     imgLoaded: false,
-  }
+  };
 
   handleImageLoad = () => {
     this.setState({ imgLoaded: true });
-  }
+  };
 
   render() {
     const { url, id, withMagnifier } = this.props;
@@ -48,28 +48,32 @@ export default class ImagePreview extends React.PureComponent {
             imageRelatedRecordId: id,
           }}
           render={({ fetchingContent, serviceResponse }) => {
-            if (!fetchingContent && !imgLoaded) preloadImage(serviceResponse.imageFullsizeURL, this.handleImageLoad);
-            return withMagnifier
-              ? (
-                <div className="magnifier-wrapper">
-                  {!fetchingContent && imgLoaded && <Magnifier
+            if (!fetchingContent && !imgLoaded)
+              preloadImage(
+                serviceResponse.imageFullsizeURL,
+                this.handleImageLoad
+              );
+            return withMagnifier ? (
+              <div className="magnifier-wrapper">
+                {!fetchingContent && imgLoaded && (
+                  <Magnifier
                     className="image"
                     imageSrc={serviceResponse.imageFullsizeURL}
                     largeImageSrc={serviceResponse.imageFullsizeURL}
                     imageAlt={serviceResponse.imageAltText}
                     mouseActivation={MOUSE_ACTIVATION.CLICK}
                     touchActivation={TOUCH_ACTIVATION.DOUBLE_TAP}
-                  />}
-                </div>
-              ) : (
-                <img
-                  className="image"
-                  src={serviceResponse.imageFullsizeURL}
-                  alt={serviceResponse.imageAltText}
-                />
-              );
-            }
-          }
+                  />
+                )}
+              </div>
+            ) : (
+              <img
+                className="image"
+                src={serviceResponse.imageFullsizeURL}
+                alt={serviceResponse.imageAltText}
+              />
+            );
+          }}
         />
         <style jsx>{style}</style>
       </Fragment>

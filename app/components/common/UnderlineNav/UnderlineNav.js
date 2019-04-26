@@ -78,8 +78,10 @@ class UnderlineNav extends Component {
                 <div
                   className={classnames('item-container', {
                     'is-active':
-                      activeFilter === itemSplitPath[itemSplitPath.length - 1] ||
-                      (!activeFilter && !itemSplitPath[itemSplitPath.length - 1]),
+                      activeFilter ===
+                        itemSplitPath[itemSplitPath.length - 1] ||
+                      (!activeFilter &&
+                        !itemSplitPath[itemSplitPath.length - 1]),
                   })}
                   key={`${item.linkURL}`}
                 >

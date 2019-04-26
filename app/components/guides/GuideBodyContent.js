@@ -16,10 +16,10 @@ const GuideBodyContent = ({
   <div className="root" style={theme}>
     <h4 className="title">{title}</h4>
     <AboutContent content={content} />
-    <DisplayAtBreakpoint
-      screenMedium
-    >{topicActionProps.showActions && 
-      <TopicActions {...topicActionProps} guideId={guideId} />}
+    <DisplayAtBreakpoint screenMedium>
+      {topicActionProps.showActions && (
+        <TopicActions {...topicActionProps} guideId={guideId} />
+      )}
     </DisplayAtBreakpoint>
     {footer ? footer() : null}
     <style jsx>{style}</style>

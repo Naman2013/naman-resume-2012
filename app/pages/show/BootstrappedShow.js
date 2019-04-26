@@ -1,9 +1,9 @@
 /***********************************
-* V4 Observations Page
-*
-*
-*
-***********************************/
+ * V4 Observations Page
+ *
+ *
+ *
+ ***********************************/
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
@@ -23,7 +23,7 @@ const {
   oneOfType,
   shape,
   string,
-} = PropTypes;  
+} = PropTypes;
 
 class BootstrappedShow extends Component {
   static propTypes = {
@@ -38,14 +38,13 @@ class BootstrappedShow extends Component {
     upcomingFlag: false,
   };
 
-
   constructor(props) {
     super(props);
     this.state = {
       isLiveShow: props.inProgressFlag,
       isUpcomingShow: props.upcomingFlag,
       isRecentShow: props.previousFlag,
-    }
+    };
 
     if (props.inProgressFlag) {
       this.configureTimer({
@@ -61,7 +60,6 @@ class BootstrappedShow extends Component {
       });
     }
   }
-
 
   componentWillReceiveProps(nextProps) {
     if (this.props.inProgressFlag !== nextProps.inProgressFlag) {
@@ -125,7 +123,7 @@ class BootstrappedShow extends Component {
         isUpcomingShow: false,
       });
     }
-  }
+  };
 
   timerPointer = undefined; // maintains a pointer to the running timer
 
@@ -135,11 +133,7 @@ class BootstrappedShow extends Component {
 
   render() {
     // const {} = this.props;
-    const {
-      isLiveShow,
-      isUpcomingShow,
-      isRecentShow,
-    } = this.state;
+    const { isLiveShow, isUpcomingShow, isRecentShow } = this.state;
 
     return (
       <div className="root">
@@ -148,9 +142,8 @@ class BootstrappedShow extends Component {
         {isUpcomingShow ? <Upcoming {...this.props} /> : null}
         <style jsx>{styles}</style>
       </div>
-    )
+    );
   }
 }
-
 
 export default BootstrappedShow;

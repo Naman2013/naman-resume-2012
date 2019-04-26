@@ -1,10 +1,11 @@
 import createReducer from '../utils/createReducer';
-import * as missionSlotActions from './mission-slots-by-telescope-actions'
+import * as missionSlotActions from './mission-slots-by-telescope-actions';
 
 const {
   FETCH_MISSION_SLOTS_START,
   FETCH_MISSION_SLOTS_SUCCESS,
-  FETCH_MISSION_SLOTS_FAIL } = missionSlotActions;
+  FETCH_MISSION_SLOTS_FAIL,
+} = missionSlotActions;
 
 const initialState = {
   reservationListIsFetching: true,

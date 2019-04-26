@@ -19,16 +19,16 @@ export const CANCEL_MISSION = 'CANCEL_MISSION';
 export const COMMIT_UPDATED_RESERVATIONS = 'COMMIT_UPDATED_RESERVATIONS';
 
 // helpers
-export const getReservationOnHold = (uniqueId, missions) => (
-  missions.find(mission => mission.uniqueId === uniqueId)
-);
+export const getReservationOnHold = (uniqueId, missions) =>
+  missions.find(mission => mission.uniqueId === uniqueId);
 
-const hasReserverationOnHold = (uniqueId, missions) => (
-  missions.some(mission => mission.mission.missionList[0].uniqueId === uniqueId)
-);
+const hasReserverationOnHold = (uniqueId, missions) =>
+  missions.some(
+    mission => mission.mission.missionList[0].uniqueId === uniqueId
+  );
 
 // TODO: based on some details of the grabMissionResult - we set a default supported for tab type
-const setDefaultFormView = (grabTelescopeSuccessResult) => {
+const setDefaultFormView = grabTelescopeSuccessResult => {
   const { defaultFormTab } = grabTelescopeSuccessResult;
   return defaultFormTab;
 };
@@ -65,13 +65,20 @@ export const grabTelescopeSlotSuccess = result => (dispatch, getState) => {
   // otherwise simply return the list of missions we are tracking
   // if defaultFormTab does not exist - then add the default as BY_OBJECT
   // TODO: deprecate defaultFormTab OR how we are patching the mission
-  if (!hasReserverationOnHold(missionList[0].uniqueId, currentMissions.missions)) {
+  if (
+    !hasReserverationOnHold(missionList[0].uniqueId, currentMissions.missions)
+  ) {
     updatedMissions = [
       ...currentMissions.missions,
       {
         uniqueId: missionList[0].uniqueId,
         defaultFormTab: setDefaultFormView(result),
-        mission: Object.assign({ defaultFormType: SUPPORTED_RESERVATION_TAB_FORM_TYPES.DEFAULT_FORM }, result),
+        mission: Object.assign(
+          {
+            defaultFormType: SUPPORTED_RESERVATION_TAB_FORM_TYPES.DEFAULT_FORM,
+          },
+          result
+        ),
       },
     ];
   } else {
@@ -81,10 +88,9 @@ export const grabTelescopeSlotSuccess = result => (dispatch, getState) => {
   dispatch(commitUpdatedReservations(updatedMissions));
 };
 
-const grabTelescopeSlotFail = (error) => {
+const grabTelescopeSlotFail = error => {
   throw error;
 };
-
 
 /**
   see documentation:
@@ -103,25 +109,30 @@ export const grabTelescopeSlot = ({
 }) => (dispatch, getState) => {
   const { at, cid, token } = getState().user;
 
-  return axios.post('/api/reservation/grabTelescopeSlot', {
-    at,
-    cid,
-    token,
-    scheduledMissionId,
-    uniqueId,
-    grabType,
-    finalizeReservation,
-    buttonType: defaultFormType,
-  })
-  .then((result) => {
-    const { data } = result;
-    if (data.apiError) {
-      dispatch(validateResponseAccess(data));
-    } else {
-      dispatch(grabTelescopeSlotSuccess(Object.assign({}, result.data, { defaultFormType })));
-    }
-  })
-  .catch(error => dispatch(grabTelescopeSlotFail(error)));
+  return axios
+    .post('/api/reservation/grabTelescopeSlot', {
+      at,
+      cid,
+      token,
+      scheduledMissionId,
+      uniqueId,
+      grabType,
+      finalizeReservation,
+      buttonType: defaultFormType,
+    })
+    .then(result => {
+      const { data } = result;
+      if (data.apiError) {
+        dispatch(validateResponseAccess(data));
+      } else {
+        dispatch(
+          grabTelescopeSlotSuccess(
+            Object.assign({}, result.data, { defaultFormType })
+          )
+        );
+      }
+    })
+    .catch(error => dispatch(grabTelescopeSlotFail(error)));
 };
 
 /**
@@ -145,27 +156,41 @@ export const finalizeTelescopeSlot = ({
     grabType: 'notarget',
     finalizeReservation: true,
   })
-  .then(result => console.log(result))
-  .catch(error => console.log(error));
+    .then(result => console.log(result))
+    .catch(error => console.log(error));
 };
 
 export const refreshListings = () => (dispatch, getState) => {
-  const { obsId, telescopeId, domeId } = getState().missionSlotsByTelescope.reservationList;
-  const { reservationDate } = getState().missionSlotDates.dateRangeResponse.dateList[0];
-  if (!obsId || !telescopeId || !domeId) { return; }
-
-  dispatch(fetchDateRanges({
+  const {
     obsId,
     telescopeId,
     domeId,
-    requestedDate: reservationDate,
-  }));
+  } = getState().missionSlotsByTelescope.reservationList;
+  const {
+    reservationDate,
+  } = getState().missionSlotDates.dateRangeResponse.dateList[0];
+  if (!obsId || !telescopeId || !domeId) {
+    return;
+  }
+
+  dispatch(
+    fetchDateRanges({
+      obsId,
+      telescopeId,
+      domeId,
+      requestedDate: reservationDate,
+    })
+  );
 };
 
-export const removeMissionFromConsideration = ({ uniqueId }) => (dispatch, getState) => {
+export const removeMissionFromConsideration = ({ uniqueId }) => (
+  dispatch,
+  getState
+) => {
   const { telescopeSlots } = getState();
-  const updatedMissions = telescopeSlots.missions.filter(missionSlot =>
-    (missionSlot.uniqueId !== uniqueId));
+  const updatedMissions = telescopeSlots.missions.filter(
+    missionSlot => missionSlot.uniqueId !== uniqueId
+  );
 
   dispatch(commitUpdatedReservations(updatedMissions));
 };
@@ -174,93 +199,118 @@ export const removeMissionFromConsideration = ({ uniqueId }) => (dispatch, getSt
   @changeFormType: responsible for changing the selected form type in state
   associated with a specific mission
   */
-export const changeFormType = ({ formType, uniqueId }) => (dispatch, getState) => {
+export const changeFormType = ({ formType, uniqueId }) => (
+  dispatch,
+  getState
+) => {
   const { telescopeSlots } = getState();
 
-  const updatedMissions = telescopeSlots.missions.map((missionSlot) => {
+  const updatedMissions = telescopeSlots.missions.map(missionSlot => {
     if (missionSlot.uniqueId === uniqueId) {
-      return Object.assign({}, missionSlot, { mission: Object.assign({}, missionSlot.mission, { defaultFormType: formType }) });
+      return Object.assign({}, missionSlot, {
+        mission: Object.assign({}, missionSlot.mission, {
+          defaultFormType: formType,
+        }),
+      });
     }
     return missionSlot;
   });
   dispatch(commitUpdatedReservations(updatedMissions));
-}
-
-export const cancelReservation = ({ uniqueId, scheduledMissionId }) => (dispatch) => {
-  dispatch(removeMissionFromConsideration({ uniqueId }));
-
-  dispatch(cancelMissionSlot({
-    uniqueId,
-    scheduledMissionId,
-    grabType: 'notarget',
-    callSource: 'byTelescope',
-  }));
 };
 
-export const cancelEditCoordinateMission = ({ uniqueId }) => (dispatch) => {
+export const cancelReservation = ({
+  uniqueId,
+  scheduledMissionId,
+}) => dispatch => {
+  dispatch(removeMissionFromConsideration({ uniqueId }));
+
+  dispatch(
+    cancelMissionSlot({
+      uniqueId,
+      scheduledMissionId,
+      grabType: 'notarget',
+      callSource: 'byTelescope',
+    })
+  );
+};
+
+export const cancelEditCoordinateMission = ({ uniqueId }) => dispatch => {
   dispatch(removeMissionFromConsideration({ uniqueId }));
   dispatch(refreshListings());
 };
 
-export const cancelEditMission = ({ uniqueId, missionIndex }) => (dispatch, getState) => {
+export const cancelEditMission = ({ uniqueId, missionIndex }) => (
+  dispatch,
+  getState
+) => {
   dispatch(removeMissionFromConsideration({ uniqueId }));
 
   // revert the mission slot back to its state before we started editing it...
   const {
     reservationList,
-    reservationList: {
-      missionList,
-    },
-   } = getState().missionSlotsByTelescope;
-   const updatedMission = Object.assign(missionList[missionIndex],
-     { slotStatus: 'reserved' }
-   );
+    reservationList: { missionList },
+  } = getState().missionSlotsByTelescope;
+  const updatedMission = Object.assign(missionList[missionIndex], {
+    slotStatus: 'reserved',
+  });
 
-   // if we have the mission, lets create a new object with the reversed props to convert it
-   const updatedMissionList = missionList.map((mission) => {
-     if (mission.missionIndex === missionIndex) {
-       return updatedMission;
-     }
-     return mission;
-   });
+  // if we have the mission, lets create a new object with the reversed props to convert it
+  const updatedMissionList = missionList.map(mission => {
+    if (mission.missionIndex === missionIndex) {
+      return updatedMission;
+    }
+    return mission;
+  });
 
-   // this commits the updated list of missions to state
-   dispatch(fetchReservationSuccess(
-     Object.assign({}, reservationList, { missionList: updatedMissionList })),
-   );
+  // this commits the updated list of missions to state
+  dispatch(
+    fetchReservationSuccess(
+      Object.assign({}, reservationList, { missionList: updatedMissionList })
+    )
+  );
 };
 
 /**
   @cancelReservationAndRefresh
   cancels a specific mission slot hold - then refreshes the list of time slots
 */
-export const cancelReservationAndRefresh = ({ uniqueId, scheduledMissionId }) => (dispatch) => {
+export const cancelReservationAndRefresh = ({
+  uniqueId,
+  scheduledMissionId,
+}) => dispatch => {
   dispatch(cancelReservation({ uniqueId, scheduledMissionId }));
   dispatch(refreshListings());
 };
 
 export const cancelAllReservations = () => (dispatch, getState) => {
   const { telescopeSlots } = getState();
-  telescopeSlots.missions.forEach((heldMission) => {
+  telescopeSlots.missions.forEach(heldMission => {
     const cancelMission = heldMission.mission.missionList[0];
     const { uniqueId, scheduledMissionId } = cancelMission;
-    dispatch(cancelMissionSlot({
-      uniqueId,
-      scheduledMissionId,
-      grabType: 'notarget',
-      callSource: 'byTelescope',
-    }));
+    dispatch(
+      cancelMissionSlot({
+        uniqueId,
+        scheduledMissionId,
+        grabType: 'notarget',
+        callSource: 'byTelescope',
+      })
+    );
   });
 
   dispatch(commitUpdatedReservations([]));
 };
 
-export const placeOneHourHold = ({ scheduledMissionId, uniqueId }) => (dispatch, getState) => {
-  dispatch(grabTelescopeSlot({
-    scheduledMissionId,
-    uniqueId,
-    grabType: 'placeholder',
-  }));
+export const placeOneHourHold = ({ scheduledMissionId, uniqueId }) => (
+  dispatch,
+  getState
+) => {
+  dispatch(
+    grabTelescopeSlot({
+      scheduledMissionId,
+      uniqueId,
+      grabType: 'placeholder',
+    })
+  );
 
   dispatch(refreshListings());
 };

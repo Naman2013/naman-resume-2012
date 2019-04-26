@@ -17,13 +17,9 @@ const TopicBodyContent = ({
     </div>
     <AboutContent content={aboutContent} />
     <div className="action-container">
-      {
-        topicActionProps.showActions &&
-          <TopicActions
-            {...topicActionProps}
-            {...restProps}
-          />
-      }
+      {topicActionProps.showActions && (
+        <TopicActions {...topicActionProps} {...restProps} />
+      )}
     </div>
     <style jsx>{style}</style>
   </div>

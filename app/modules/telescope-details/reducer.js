@@ -27,7 +27,6 @@ import {
   SET_CURRENT_INSTRUMENT,
 } from './actions';
 
-
 const initialState = {
   fetchingObservatoryList: true,
   fetchingObservatoryListFail: false,
@@ -50,7 +49,7 @@ const initialState = {
     },
     statusList: {
       statusTeleList: [],
-    }
+    },
   },
 
   fetchingWeatherWidget: false,
@@ -132,7 +131,9 @@ export default createReducer(initialState, {
     return {
       ...state,
       fetchingObservatoryStatus: true,
-      allObservatoryTelescopeStatus: { ...initialState.allObservatoryTelescopeStatus },
+      allObservatoryTelescopeStatus: {
+        ...initialState.allObservatoryTelescopeStatus,
+      },
     };
   },
   [FETCH_TELESCOPE_STATUS_SUCCESS](state, { payload }) {
@@ -201,7 +202,9 @@ export default createReducer(initialState, {
     return {
       ...state,
       fetchingWeatherWidget: true,
-      weatherConditionWidgetResult: { ...initialState.weatherConditionWidgetResult },
+      weatherConditionWidgetResult: {
+        ...initialState.weatherConditionWidgetResult,
+      },
     };
   },
   [FETCH_CURRENT_WEATHER_CONDITIONS_SUCCESS](state, { payload }) {

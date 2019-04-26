@@ -19,30 +19,38 @@ const FinishReservationButton = ({ handleFinishReservationClick }) => (
 
 const CountDown = ({ expires }) => (
   <div className="col-xs-2 hold-timer-content">
-    <h5 className="hold-timer"><InlineCountdown startTime={expires} /></h5>
+    <h5 className="hold-timer">
+      <InlineCountdown startTime={expires} />
+    </h5>
     <p className="title">Hold time remaining.</p>
   </div>
 );
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({
-    startCompleteReservation,
-    fetchDateRanges,
-    finalizeTelescopeSlot,
-  }, dispatch),
+  actions: bindActionCreators(
+    {
+      startCompleteReservation,
+      fetchDateRanges,
+      finalizeTelescopeSlot,
+    },
+    dispatch
+  ),
 });
 
-@connect(null, mapDispatchToProps)
+@connect(
+  null,
+  mapDispatchToProps
+)
 class MissionOnHold extends Component {
-  handleFinishReservationClick = (event) => {
+  handleFinishReservationClick = event => {
     event.preventDefault();
     const { scheduledMissionId, uniqueId } = this.props;
-    this.props.actions. finalizeTelescopeSlot({
+    this.props.actions.finalizeTelescopeSlot({
       scheduledMissionId,
       uniqueId,
     });
     this.props.actions.startCompleteReservation(this.props.missionIndex);
-  }
+  };
 
   render() {
     let { expires } = this.props;
@@ -72,25 +80,25 @@ class MissionOnHold extends Component {
 
     return (
       <li className="telescope-listings-item on-hold">
-
         <div className="col-xs-2">
-          {
-            showSlotTimes ?
-            <MissionTime
-              startTime={missionStart}
-            /> : null
-          }
+          {showSlotTimes ? <MissionTime startTime={missionStart} /> : null}
         </div>
 
         <div className="col-md-4 slot-description">
-          <img className="slot-logo" src="https://vega.slooh.com/assets/icons/question-mark.png" width="38" alt="This slot is marked as on hold" />
-          {
-            userHasHold ?
-              <h4 className="slot-name">On Hold. Finish Reservation Within <InlineCountdown startTime={expires} exitAction={refreshAction} /></h4>
-            :
-              <h4 className="slot-name">On Hold. Object Not Yet Set.</h4>
-          }
-
+          <img
+            className="slot-logo"
+            src="https://vega.slooh.com/assets/icons/question-mark.png"
+            width="38"
+            alt="This slot is marked as on hold"
+          />
+          {userHasHold ? (
+            <h4 className="slot-name">
+              On Hold. Finish Reservation Within{' '}
+              <InlineCountdown startTime={expires} exitAction={refreshAction} />
+            </h4>
+          ) : (
+            <h4 className="slot-name">On Hold. Object Not Yet Set.</h4>
+          )}
         </div>
 
         <div className="col-xs-4 reserved-by-user-content">
@@ -103,13 +111,13 @@ class MissionOnHold extends Component {
           />
         </div>
 
-        {
-          showFinishReservationButton ?
-            <FinishReservationButton handleFinishReservationClick={this.handleFinishReservationClick} />
-            :
-            <CountDown expires={expires} />
-        }
-
+        {showFinishReservationButton ? (
+          <FinishReservationButton
+            handleFinishReservationClick={this.handleFinishReservationClick}
+          />
+        ) : (
+          <CountDown expires={expires} />
+        )}
       </li>
     );
   }
