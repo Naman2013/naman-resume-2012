@@ -202,8 +202,10 @@ export class QueueTab extends Component {
   };
 
   componentDidMount(){
-    const { setTelescope, currentTelescope, currentObservatory } = this.props;
-    this.getFeaturedObjectsByTelescope();
+    const { setTelescope, currentTelescope, currentObservatory, showFeaturedObjects } = this.props;
+    if (showFeaturedObjects) {
+      this.getFeaturedObjectsByTelescope();
+    }
     this.getUpcomingSlotsByTelescope();
     setTelescope({
       ...currentTelescope,
@@ -211,6 +213,10 @@ export class QueueTab extends Component {
       domeId: currentTelescope.telePierNumber,
       telescopeId: currentTelescope.teleId,
     });
+  }
+
+  componentWillUnmount() {
+    stopMissionListTimer();
   }
 
   getUpcomingSlotsByTelescope = requestedSlotCount => {

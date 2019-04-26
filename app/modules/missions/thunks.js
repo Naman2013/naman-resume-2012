@@ -108,12 +108,14 @@ export const getMissionList = data => (dispatch, getState) => {
     .catch(error => dispatch(ACTION.getMissionListError(error)));
 };
 
-export const setTelescope = telescope => (dispatch, getState) => {
+export const setTelescope = (telescope, getMissions) => (dispatch, getState) => {
   dispatch(ACTION.setTelescope(telescope));
   const selectedDate = makeTelescopeSelectedDateSelector()(
     getState()
   );
-  dispatch(getMissionSlotDates(telescope, selectedDate.reservationDate));
+  if (getMissions) {
+    dispatch(getMissionSlotDates(telescope, selectedDate.reservationDate));
+  }
 };
 
 export const setTelescopeDate = ({
