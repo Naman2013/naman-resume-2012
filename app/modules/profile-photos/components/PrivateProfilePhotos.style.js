@@ -17,15 +17,6 @@ export default css`
     position: relative;
   }
 
-  .filter-shader {
-    position: absolute;
-    top: 0;
-    left: -500px;
-    right: -500px;
-    bottom: -1500px; // todo FIX ME IVAN
-    background-color: rgba(10, 12, 14, 0.9);
-  }
-
   .header-wrapper {
     box-shadow: 0 0 6px 0 ${shadows};
   }

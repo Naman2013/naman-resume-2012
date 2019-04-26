@@ -94,6 +94,8 @@ export default css`
     background-clip: padding-box;
     border: 1px solid ${shadows};
     border-radius: .25rem;
+    position: relative;
+    z-index: 10;
   }
 
   .header {

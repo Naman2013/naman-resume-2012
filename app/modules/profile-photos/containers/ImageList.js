@@ -2,6 +2,17 @@
  * V4 ImageList
  ***********************************/
 
+import {
+  fetchFiltersLists,
+  setFilters,
+} from 'app/modules/my-pictures-filters/actions';
+import { fetchObjectTypeList } from 'app/modules/object-type-list/actions';
+import { FilterDropdown } from 'app/modules/profile-photos/components/filter-dropdown';
+import {
+  selectObjectTypeList,
+  selectSelectedFilters,
+  selectTelescopeList,
+} from 'app/modules/profile-photos/selectors';
 import React, { Component, Fragment, cloneElement } from 'react';
 import { withRouter } from 'react-router';
 import { bindActionCreators } from 'redux';
@@ -10,6 +21,7 @@ import PropTypes from 'prop-types';
 import ConnectUser from 'app/redux/components/ConnectUser';
 import Pagination from 'app/components/common/pagination/v4-pagination/pagination';
 import ShowMore from 'app/components/common/ShowMore';
+import './image-list.scss';
 
 import {
   fetchMissionsAndCounts,
@@ -71,21 +83,29 @@ const mapDispatchToProps = dispatch => ({
       fetchMorePhotoroll,
       fetchMoreMissions,
       fetchMoreGalleries,
+
+      fetchFiltersLists,
+      fetchObjectTypeList,
+      setFilters,
     },
     dispatch
   ),
 });
 
-const mapStateToProps = ({ myPictures, galleries }) => {
+const mapStateToProps = state => {
   return {
-    missionsList: myPictures.missions.response.imageList,
-    missionsCount: myPictures.missions.imageCount,
-    galleryList: galleries.galleryList,
-    galleryCount: galleries.galleryCount,
-    photoRollList: myPictures.photoRoll.response.imageList,
-    photoRollCount: myPictures.photoRoll.imageCount,
-    observationsList: myPictures.photoRoll.response.imageList,
-    observationsCount: myPictures.observations.imageCount,
+    missionsList: state.myPictures.missions.response.imageList,
+    missionsCount: state.myPictures.missions.imageCount,
+    galleryList: state.galleries.galleryList,
+    galleryCount: state.galleries.galleryCount,
+    photoRollList: state.myPictures.photoRoll.response.imageList,
+    photoRollCount: state.myPictures.photoRoll.imageCount,
+    observationsList: state.myPictures.photoRoll.response.imageList,
+    observationsCount: state.myPictures.observations.imageCount,
+
+    telescopeList: selectTelescopeList()(state),
+    objectTypeList: selectObjectTypeList()(state),
+    selectedFilters: selectSelectedFilters()(state),
   };
 };
 
@@ -97,6 +117,7 @@ const mapStateToProps = ({ myPictures, galleries }) => {
 class ImageList extends Component {
   state = {
     activePage: 1,
+    isFilterOpen: true,
   };
 
   componentDidMount() {
@@ -111,6 +132,7 @@ class ImageList extends Component {
       customerUUID,
     });
     //  fetchMissionsAndCounts | fetchGalleriesAndCounts | fetchPhotoRollAndCounts
+    this.fetchFilters();
   }
 
   componentDidUpdate(prevProps) {
@@ -162,6 +184,15 @@ class ImageList extends Component {
     }
   }
 
+  fetchFilters = () => {
+    const { actions } = this.props;
+    const { fetchFiltersLists, fetchObjectTypeList } = actions;
+    fetchFiltersLists();
+    fetchObjectTypeList();
+  };
+
+  setFilterOpen = isFilterOpen => this.setState({ isFilterOpen });
+
   handlePageChange = ({ activePage }) => {
     const { actions, type, deviceInfo, params = {} } = this.props;
     const { customerUUID } = params;
@@ -212,15 +243,33 @@ class ImageList extends Component {
   };
 
   render() {
-    const { children, type, deviceInfo } = this.props;
-    const { activePage } = this.state;
+    const {
+      children,
+      type,
+      deviceInfo,
+      telescopeList,
+      objectTypeList,
+    } = this.props;
+    const { activePage, isFilterOpen } = this.state;
     const arrOfImages = this.props[mapTypeToList[type]];
     const count = this.props[mapTypeToCount[type]];
     const currentImagesNumber = arrOfImages.length * activePage;
 
     return (
-      <>
-        <h1>test</h1>
+      <div className="profile-image-list-wrapper">
+        <div className="filter-dropdown-btn">
+          <FilterDropdown
+            isOpen={isFilterOpen}
+            setOpen={this.setFilterOpen}
+            onChange={() => {}}
+            telescopeList={telescopeList}
+            objectTypeList={objectTypeList}
+          />
+        </div>
+        {isFilterOpen && (
+          <div className="filter-shader animated fadeIn faster" />
+        )}
+
         {Array.isArray(arrOfImages) && arrOfImages.length > 0 ? (
           <ConnectUser
             render={user => (
@@ -273,7 +322,7 @@ class ImageList extends Component {
         ) : (
           this.placeholder()
         )}
-      </>
+      </div>
     );
   }
 }
