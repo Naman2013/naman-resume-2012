@@ -243,7 +243,6 @@ class ImageList extends Component {
   };
 
   handleFilterChange = filter => {
-    console.log(filter);
     this.props.actions.setFilters({ ...filter });
   };
 
@@ -255,7 +254,6 @@ class ImageList extends Component {
 
     const imagesToFetch = getImagesCountToFetch(deviceInfo);
 
-    // if (!_isEqual(prevProps.selectedFilters, this.props.selectedFilters)) {
     this.setState({ activePage: 1 });
     fetchImages({
       sharedOnly: type === 'observations',
@@ -263,7 +261,6 @@ class ImageList extends Component {
       maxMissionCount: imagesToFetch,
       customerUUID,
     });
-    // }
   };
 
   render() {

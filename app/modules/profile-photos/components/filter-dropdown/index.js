@@ -26,7 +26,6 @@ export const FilterDropdown = (props: TFilterDropdown) => {
     telescopeList,
     onApply,
   } = props;
-  console.log(selectedFilters);
 
   const { filterType: activeFilterType } = selectedFilters;
 
@@ -36,8 +35,25 @@ export const FilterDropdown = (props: TFilterDropdown) => {
   const ref = React.useRef(null);
   useOnClickOutside(ref, close);
 
-  const handleSelect = filter => {
-    onChange(filter);
+  const isTelescopeSelected = (observatoryId, pierNumber) => {
+    const {
+      pierNumber: activePierNumber,
+      observatoryId: activeObservatoryId,
+    } = selectedFilters;
+    return (
+      activePierNumber === pierNumber && activeObservatoryId === observatoryId
+    );
+  };
+
+  const handleReset = () => {
+    // reset all filters
+    onChange({
+      pierNumber: null,
+      observatoryId: null,
+      filterType: null,
+    });
+    onApply();
+    close();
   };
 
   return (
@@ -67,10 +83,7 @@ export const FilterDropdown = (props: TFilterDropdown) => {
                   key={ot.objectTypeIndex}
                   title={ot.objectTypeDisplayName}
                   active={ot.objectTypeFilter === activeFilterType}
-                  // onSelect={handleObjectTypeSelect}
-                  onClick={() =>
-                    handleSelect({ filterType: ot.objectTypeFilter })
-                  }
+                  onClick={() => onChange({ filterType: ot.objectTypeFilter })}
                 />
               ))}
             </div>
@@ -85,7 +98,16 @@ export const FilterDropdown = (props: TFilterDropdown) => {
                   imgUrl={telescope.iconUrl}
                   key={telescope.observatoryId + telescope.pierNumber}
                   title={telescope.name}
-                  active={false}
+                  active={isTelescopeSelected(
+                    telescope.observatoryId,
+                    telescope.pierNumber
+                  )}
+                  onClick={() =>
+                    onChange({
+                      pierNumber: telescope.pierNumber,
+                      observatoryId: telescope.observatoryId,
+                    })
+                  }
                 />
               ))}
             </div>
@@ -94,7 +116,9 @@ export const FilterDropdown = (props: TFilterDropdown) => {
           </div>
 
           <div className="filter-dropdown-footer text-center">
-            <Button className="mr-3">reset</Button>
+            <Button className="mr-3" onClick={handleReset}>
+              reset
+            </Button>
             <Button
               onClick={() => {
                 onApply();
