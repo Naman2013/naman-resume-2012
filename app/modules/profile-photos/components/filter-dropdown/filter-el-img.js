@@ -7,12 +7,14 @@ type TFilterElImg = {
   imgUrl: string,
   title: string,
   active: Boolean,
+  onClick: Function,
 };
 
 export const FilterElImg = (props: TFilterElImg) => {
-  const { imgUrl, title, active } = props;
+  const { imgUrl, title, active, onClick } = props;
+
   return (
-    <div className="filter-el-img">
+    <div className="filter-el-img" onClick={onClick} role="presentation">
       <img src={imgUrl} alt="" />
       <div className="filter-el-img-title">{title}</div>
     </div>

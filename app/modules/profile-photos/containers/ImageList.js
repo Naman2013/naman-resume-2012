@@ -218,57 +218,62 @@ class ImageList extends Component {
     const count = this.props[mapTypeToCount[type]];
     const currentImagesNumber = arrOfImages.length * activePage;
 
-    return Array.isArray(arrOfImages) && arrOfImages.length > 0 ? (
-      <ConnectUser
-        render={user => (
-          <Fragment>
-            <div
-              className="root uniqclass-for-overflow"
-              style={{
-                justifyContent: deviceInfo.isDesktop
-                  ? 'normal'
-                  : 'space-between',
-              }}
-            >
-              {count > 0
-                ? arrOfImages.map((image, i) =>
-                    cloneElement(children, {
-                      key: image[mapTypeToId[type]],
-                      isDesktop: deviceInfo.isDesktop,
-                      isMobile: deviceInfo.isMobile,
-                      firstImageNumber: this.startFrom,
-                      index: i,
-                      currentItem: image,
-                      count,
-                      user,
-                    })
-                  )
-                : 'The list is empty.'}
-              <div className="pagination-wrapper">
-                {count && !deviceInfo.isMobile
-                  ? count > 9 && (
-                      <Pagination
-                        pagesPerPage={4}
-                        activePage={activePage}
-                        onPageChange={this.handlePageChange}
-                        totalPageCount={Math.ceil(count / 9)}
-                      />
-                    )
-                  : count > 10 && (
-                      <ShowMore
-                        totalCount={count}
-                        currentCount={currentImagesNumber}
-                        handleShowMore={this.handleLoadMore}
-                      />
-                    )}
-              </div>
-            </div>
-            <style jsx>{style}</style>
-          </Fragment>
+    return (
+      <>
+        <h1>test</h1>
+        {Array.isArray(arrOfImages) && arrOfImages.length > 0 ? (
+          <ConnectUser
+            render={user => (
+              <Fragment>
+                <div
+                  className="root uniqclass-for-overflow"
+                  style={{
+                    justifyContent: deviceInfo.isDesktop
+                      ? 'normal'
+                      : 'space-between',
+                  }}
+                >
+                  {count > 0
+                    ? arrOfImages.map((image, i) =>
+                        cloneElement(children, {
+                          key: image[mapTypeToId[type]],
+                          isDesktop: deviceInfo.isDesktop,
+                          isMobile: deviceInfo.isMobile,
+                          firstImageNumber: this.startFrom,
+                          index: i,
+                          currentItem: image,
+                          count,
+                          user,
+                        })
+                      )
+                    : 'The list is empty.'}
+                  <div className="pagination-wrapper">
+                    {count && !deviceInfo.isMobile
+                      ? count > 9 && (
+                          <Pagination
+                            pagesPerPage={4}
+                            activePage={activePage}
+                            onPageChange={this.handlePageChange}
+                            totalPageCount={Math.ceil(count / 9)}
+                          />
+                        )
+                      : count > 10 && (
+                          <ShowMore
+                            totalCount={count}
+                            currentCount={currentImagesNumber}
+                            handleShowMore={this.handleLoadMore}
+                          />
+                        )}
+                  </div>
+                </div>
+                <style jsx>{style}</style>
+              </Fragment>
+            )}
+          />
+        ) : (
+          this.placeholder()
         )}
-      />
-    ) : (
-      this.placeholder()
+      </>
     );
   }
 }

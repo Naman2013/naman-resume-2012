@@ -32,6 +32,14 @@ export const FilterDropdown = (props: TFilterDropdown) => {
   const ref = React.useRef(null);
   useOnClickOutside(ref, close);
 
+  const handleSelect = () => {
+    // filterType: "stars"
+  };
+
+  const handleObjectTypeSelect = val => {
+    console.log(val);
+  };
+
   return (
     <div className="filter-dropdown-wrapper">
       <Button onClick={open}>Options</Button>
@@ -59,6 +67,10 @@ export const FilterDropdown = (props: TFilterDropdown) => {
                   key={ot.objectTypeIndex}
                   title={ot.objectTypeDisplayName}
                   active={false}
+                  // onSelect={handleObjectTypeSelect}
+                  onClick={() =>
+                    handleSelect({ filterType: ot.objectTypeFilter })
+                  }
                 />
               ))}
             </div>

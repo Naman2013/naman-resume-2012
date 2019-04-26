@@ -10,6 +10,12 @@ export const selectTelescopeList = () =>
     state => state.telescopes.telescopesList
   );
 
+export const selectSelectedFilters = () =>
+  createSelector(
+    myPicturesFilters,
+    state => state.selectedFilters
+  );
+
 export const selectObjectTypeList = () =>
   createSelector(
     objectTypeList,

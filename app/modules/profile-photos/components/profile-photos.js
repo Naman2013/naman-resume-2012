@@ -16,7 +16,15 @@ export class ProfilePhotos extends PureComponent {
   setFilterOpen = isFilterOpen => this.setState({ isFilterOpen });
 
   render() {
-    const { children, location, telescopeList, objectTypeList } = this.props;
+    const {
+      children,
+      location,
+      telescopeList,
+      objectTypeList,
+      selectedFilters,
+      setFilters,
+    } = this.props;
+    console.log(this.props);
     // console.log(this.props);
     const currentTab = location.pathname.split('/').pop();
 
@@ -27,10 +35,13 @@ export class ProfilePhotos extends PureComponent {
         <div className="root-wrapper">
           <div className="header-wrapper">
             <PhotoHubNavigation
-              isFilterOpen={isFilterOpen}
+              {...{
+                isFilterOpen,
+                telescopeList,
+                objectTypeList,
+                selectedFilters,
+              }}
               setFilterOpen={this.setFilterOpen}
-              telescopeList={telescopeList}
-              objectTypeList={objectTypeList}
             />
           </div>
           <div className="body-wrapper">
