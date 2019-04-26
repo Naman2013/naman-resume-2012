@@ -242,6 +242,30 @@ class ImageList extends Component {
     });
   };
 
+  handleFilterChange = filter => {
+    console.log(filter);
+    this.props.actions.setFilters({ ...filter });
+  };
+
+  handleApplyFilter = () => {
+    const { actions, type, deviceInfo, params = {} } = this.props;
+    const { customerUUID } = params;
+
+    const fetchImages = actions[mapTypeToRequest[type]];
+
+    const imagesToFetch = getImagesCountToFetch(deviceInfo);
+
+    // if (!_isEqual(prevProps.selectedFilters, this.props.selectedFilters)) {
+    this.setState({ activePage: 1 });
+    fetchImages({
+      sharedOnly: type === 'observations',
+      maxImageCount: imagesToFetch,
+      maxMissionCount: imagesToFetch,
+      customerUUID,
+    });
+    // }
+  };
+
   render() {
     const {
       children,
@@ -249,7 +273,9 @@ class ImageList extends Component {
       deviceInfo,
       telescopeList,
       objectTypeList,
+      selectedFilters,
     } = this.props;
+    // console.log(this.props);
     const { activePage, isFilterOpen } = this.state;
     const arrOfImages = this.props[mapTypeToList[type]];
     const count = this.props[mapTypeToCount[type]];
@@ -261,9 +287,11 @@ class ImageList extends Component {
           <FilterDropdown
             isOpen={isFilterOpen}
             setOpen={this.setFilterOpen}
-            onChange={() => {}}
+            onChange={this.handleFilterChange}
             telescopeList={telescopeList}
             objectTypeList={objectTypeList}
+            selectedFilters={selectedFilters}
+            onApply={this.handleApplyFilter}
           />
         </div>
         {isFilterOpen && (

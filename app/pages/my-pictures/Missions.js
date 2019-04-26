@@ -20,12 +20,18 @@ const mapStateToProps = ({ user, myPictures }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({
-    fetchMissionsAndCounts,
-  }, dispatch),
+  actions: bindActionCreators(
+    {
+      fetchMissionsAndCounts,
+    },
+    dispatch
+  ),
 });
 
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(
+  mapStateToProps,
+  mapDispatchToProps
+)
 class Missions extends Component {
   componentWillMount() {
     this.props.actions.fetchMissionsAndCounts({});
@@ -48,15 +54,14 @@ class Missions extends Component {
     } = this.props;
     return (
       <div>
-        {user && user.at == 9 && <GoogleOutOfPageAd
-         adURL={'/5626790/HP_Pop-up'}
-         targetDivID={'div-gpt-ad-1516029782692-0'}
-         />
-       }
+        {user && user.at == 9 && (
+          <GoogleOutOfPageAd
+            adURL={'/5626790/HP_Pop-up'}
+            targetDivID={'div-gpt-ad-1516029782692-0'}
+          />
+        )}
 
-        <MyPicturesNavigation
-          page="missions"
-        />
+        <MyPicturesNavigation page="missions" />
 
         <div className="clearfix my-pictures-container">
           <div>
@@ -88,11 +93,13 @@ Missions.defaultProps = {
 };
 
 Missions.propTypes = {
-  imageList: PropTypes.arrayOf(PropTypes.shape({
-    imageURL: PropTypes.string.isRequired,
-    imageId: PropTypes.number.isRequired,
-    scheduledMissionId: PropTypes.number.isRequired,
-  })),
+  imageList: PropTypes.arrayOf(
+    PropTypes.shape({
+      imageURL: PropTypes.string.isRequired,
+      imageId: PropTypes.number.isRequired,
+      scheduledMissionId: PropTypes.number.isRequired,
+    })
+  ),
   imageCount: PropTypes.number,
   maxMissionCount: PropTypes.number,
   firstMissionNumber: PropTypes.number,

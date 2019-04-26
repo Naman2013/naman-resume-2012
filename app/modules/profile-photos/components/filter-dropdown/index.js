@@ -11,6 +11,7 @@ type TFilterDropdown = {
   isOpen: Boolean,
   setOpen: Function,
   onChange: Function,
+  onApply: Function,
   telescopeList: any,
   objectTypeList: any,
 };
@@ -20,11 +21,14 @@ export const FilterDropdown = (props: TFilterDropdown) => {
     isOpen,
     setOpen,
     onChange,
-    filters,
+    selectedFilters,
     objectTypeList,
     telescopeList,
+    onApply,
   } = props;
-  console.log(telescopeList);
+  console.log(selectedFilters);
+
+  const { filterType: activeFilterType } = selectedFilters;
 
   const open = () => setOpen(true);
   const close = () => setOpen(false);
@@ -32,12 +36,8 @@ export const FilterDropdown = (props: TFilterDropdown) => {
   const ref = React.useRef(null);
   useOnClickOutside(ref, close);
 
-  const handleSelect = () => {
-    // filterType: "stars"
-  };
-
-  const handleObjectTypeSelect = val => {
-    console.log(val);
+  const handleSelect = filter => {
+    onChange(filter);
   };
 
   return (
@@ -66,7 +66,7 @@ export const FilterDropdown = (props: TFilterDropdown) => {
                   imgUrl={ot.objectTypeIconURL}
                   key={ot.objectTypeIndex}
                   title={ot.objectTypeDisplayName}
-                  active={false}
+                  active={ot.objectTypeFilter === activeFilterType}
                   // onSelect={handleObjectTypeSelect}
                   onClick={() =>
                     handleSelect({ filterType: ot.objectTypeFilter })
@@ -95,7 +95,14 @@ export const FilterDropdown = (props: TFilterDropdown) => {
 
           <div className="filter-dropdown-footer text-center">
             <Button className="mr-3">reset</Button>
-            <Button>apply filters</Button>
+            <Button
+              onClick={() => {
+                onApply();
+                close();
+              }}
+            >
+              apply filters
+            </Button>
           </div>
         </div>
       )}

@@ -18,17 +18,23 @@ const mapStateToProps = ({ galleries }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({
-    fetchGalleriesAndCounts,
-  }, dispatch),
+  actions: bindActionCreators(
+    {
+      fetchGalleriesAndCounts,
+    },
+    dispatch
+  ),
 });
 
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(
+  mapStateToProps,
+  mapDispatchToProps
+)
 class Galleries extends Component {
   componentWillMount() {
     window.scrollTo(0, 0);
     this.props.actions.fetchGalleriesAndCounts({
-      pagingMode: 'api'
+      pagingMode: 'api',
     });
   }
 
@@ -45,9 +51,7 @@ class Galleries extends Component {
 
     return (
       <div>
-        <MyPicturesNavigation
-          page="galleries"
-        />
+        <MyPicturesNavigation page="galleries" />
 
         <div className="clearfix my-pictures-container">
           <div>
@@ -79,10 +83,12 @@ Galleries.defaultProps = {
 };
 
 Galleries.propTypes = {
-  galleryList: PropTypes.arrayOf(PropTypes.shape({
-    imageURL: PropTypes.string.isRequired,
-    imageId: PropTypes.number.isRequired,
-  })),
+  galleryList: PropTypes.arrayOf(
+    PropTypes.shape({
+      imageURL: PropTypes.string.isRequired,
+      imageId: PropTypes.number.isRequired,
+    })
+  ),
   imageCount: PropTypes.number,
   maxImageCount: PropTypes.number,
   firstGalleryNumber: PropTypes.number,
