@@ -50,6 +50,7 @@ export type TInfoItem = {
 
 export type TInitialState = {
   isFetching: boolean,
+  isFetchingFormField: boolean,
   isLoaded: boolean,
   serverError: boolean,
   accountCancelSection: Object<TAccountCancelSectionItem>,

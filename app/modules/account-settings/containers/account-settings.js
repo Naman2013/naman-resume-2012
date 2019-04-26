@@ -4,6 +4,7 @@ import { createStructuredSelector } from 'reselect';
 import { AccountSettings } from '../components/account-settings';
 import {
   makeIsFetchingSelector,
+  makeAccountDetailsSelector,
   makeAccountMenuListSelector,
 } from '../selectors';
 import { fetchAccountSettingsAction } from '../thunks';
@@ -11,6 +12,7 @@ import { fetchAccountSettingsAction } from '../thunks';
 const mapStateToProps = createStructuredSelector({
   isFetching: makeIsFetchingSelector(),
   accountMenuList: makeAccountMenuListSelector(),
+  accountDetails: makeAccountDetailsSelector(),
 });
 
 const mapDispatchToProps = {

@@ -1,6 +1,8 @@
 // @flow
-import React, { Fragment } from 'react';
-import { Container, Row } from 'react-bootstrap';
+import React, { Component, Fragment } from 'react';
+import isEmpty from 'lodash/fp/isEmpty';
+import { Col, Container, Row } from 'react-bootstrap';
+import Btn from 'app/atoms/Btn';
 import { AccountDetailsHeader } from './header';
 import { AccountOptionRow } from './option-row';
 import { AccountType } from './account-type';
@@ -10,6 +12,7 @@ type TAccountDetails = {
   accountTypeSection: Object<TTypeSectionItem>,
   accountDetails: Object<TFormField>,
   accountCancelSection: Object<TFormField>,
+  fetchAccountFormFieldAction: Function,
 };
 
 // mocked
@@ -20,74 +23,126 @@ const mockedPaymentDetailsOptions = [
 
 const mockedTitle = 'Payment details';
 
-const AccountDetails = (props: TAccountDetails) => {
-  const { accountTypeSection, accountDetails, accountCancelSection } = props;
-  if (!accountTypeSection && !accountTypeSection.length) return null;
-  const {
-    currentSubscriptionPlan,
-    accountTypeHeading,
-    accountStatusLabel,
-    accountStatus,
-  } = accountTypeSection;
+class AccountDetails extends Component<TAccountDetails> {
+  render() {
+    const {
+      accountTypeSection,
+      accountDetails,
+      fetchAccountFormFieldAction,
+      accountCancelSection,
+    } = this.props;
+    if (isEmpty(accountTypeSection)) return null;
+    const {
+      currentSubscriptionPlan,
+      accountTypeHeading,
+      accountStatusLabel,
+      accountStatus,
+    } = accountTypeSection;
+    const {
+      userCancellationHeading1,
+      userCancellationInstructionsText,
+      userCancellationInProgressExplaination,
+      userCancellationInProgress,
+      canUserCancelTheirAccount,
+    } = accountCancelSection;
 
-  const getFormFields = data => {
-    return data ? Object.values(data).map(item => item) : [];
-  };
+    const getFormFields = data => {
+      return data
+        ? Object.entries(data).map(item => {
+            return {
+              formFieldName: item[0],
+              currentValue: item[1].currentValue,
+              hintText: item[1].hintText,
+              label: item[1].label,
+            };
+          })
+        : [];
+    };
 
-  const formFields = getFormFields(accountDetails.formFields);
+    const formFields = getFormFields(accountDetails.formFields);
 
-  return (
-    <Fragment>
-      <AccountType
-        currentSubscriptionPlan={currentSubscriptionPlan}
-        accountTypeHeading={accountTypeHeading}
-        accountStatusLabel={accountStatusLabel}
-        accountStatus={accountStatus}
-      />
+    return (
+      <Fragment>
+        <AccountType
+          currentSubscriptionPlan={currentSubscriptionPlan}
+          accountTypeHeading={accountTypeHeading}
+          accountStatusLabel={accountStatusLabel}
+          accountStatus={accountStatus}
+        />
 
-      <Container>
-        <div className="top-bot-40 left-right-minus-20">
-          <Row noGutters>
-            <AccountDetailsHeader
-              title={accountDetails.accountDetailsHeading}
-            />
-          </Row>
-        </div>
+        <Container>
+          <div className="top-bot-40 left-right-minus-20">
+            <Row noGutters>
+              <AccountDetailsHeader
+                title={accountDetails.accountDetailsHeading}
+              />
+            </Row>
+          </div>
 
-        <div className="top-bot-40 left-right-minus-20">
-          <Row noGutters>
-            <Container>
-              {formFields.map((el, i) => {
-                return (
-                  <AccountOptionRow
-                    i={i}
-                    {...el}
-                    key={`${el.label}-${el.currentValue}`}
-                  />
-                );
-              })}
-            </Container>
-          </Row>
-        </div>
+          <div className="top-bot-40 left-right-minus-20">
+            <Row noGutters>
+              <Container>
+                {formFields.map((el, i) => {
+                  return (
+                    <AccountOptionRow
+                      i={i}
+                      {...el}
+                      key={`${el.label}-${el.currentValue}`}
+                      fetchAccountFormFieldAction={fetchAccountFormFieldAction}
+                    />
+                  );
+                })}
+              </Container>
+            </Row>
+          </div>
 
-        <div className="top-bot-40 left-right-minus-20">
-          <Row noGutters>
-            <AccountDetailsHeader title={mockedTitle} />
-          </Row>
-        </div>
+          <div className="top-bot-40 left-right-minus-20">
+            <Row noGutters>
+              <AccountDetailsHeader title={mockedTitle} />
+            </Row>
+          </div>
 
-        <div className="top-bot-40 left-right-minus-20">
-          <Row noGutters>
-            <Container>
-              {mockedPaymentDetailsOptions.map((option, i) => {
-                return <AccountOptionRow key={i} i={i} {...option} />;
-              })}
-            </Container>
-          </Row>
-        </div>
-      </Container>
-    </Fragment>
-  );
-};
+          <div className="top-bot-40 left-right-minus-20">
+            <Row noGutters>
+              <Container>
+                {mockedPaymentDetailsOptions.map((option, i) => {
+                  return <AccountOptionRow key={i} i={i} {...option} />;
+                })}
+              </Container>
+            </Row>
+          </div>
+
+          <div className="top-bot-40 left-right-minus-20">
+            <Row noGutters>
+              <AccountDetailsHeader title={userCancellationHeading1} noEdit />
+            </Row>
+          </div>
+
+          <div className="top-bot-40 left-right-minus-20">
+            <Row noGutters>
+              <Container>
+                <div className="i-box i-box-white pad-40 margin-bot-10 min-height-150">
+                  <Row>
+                    <Col md={7}>
+                      {userCancellationInstructionsText}
+                      {userCancellationInProgressExplaination}
+                    </Col>
+                    <Col md={5} className="row-reverse">
+                      {canUserCancelTheirAccount && (
+                        <div className="btn-group margin-top-15">
+                          <Btn>Cancel</Btn>
+                        </div>
+                      )}
+                    </Col>
+                  </Row>
+                </div>
+              </Container>
+            </Row>
+          </div>
+        </Container>
+      </Fragment>
+    );
+  }
+}
 
 export { AccountDetails };

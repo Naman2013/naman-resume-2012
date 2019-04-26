@@ -4,8 +4,9 @@ import { createStructuredSelector } from 'reselect';
 import {
   makeAccountTypeSectionSelector,
   makeAccountDetailsSelector,
-  makeAccountCancelSectionSelector
+  makeAccountCancelSectionSelector,
 } from '../selectors';
+import { fetchAccountFormFieldAction } from '../thunks';
 import { AccountDetails } from '../components/account-details';
 
 const mapStateToProps = createStructuredSelector({
@@ -14,7 +15,9 @@ const mapStateToProps = createStructuredSelector({
   accountCancelSection: makeAccountCancelSectionSelector(),
 });
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+  fetchAccountFormFieldAction,
+};
 
 export default compose(
   connect(
