@@ -10,7 +10,10 @@ import Request from 'app/components/common/network/Request';
 import HubContainer from 'app/components/common/HubContainer';
 import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
 import ShowMoreWithNetwork from 'app/components/common/show-more-with-network';
-import { GUIDES_PAGE_ENDPOINT_URL, GUIDES_ENDPOINT_URL } from 'app/services/guides/guide-data';
+import {
+  GUIDES_PAGE_ENDPOINT_URL,
+  GUIDES_ENDPOINT_URL,
+} from 'app/services/guides/guide-data';
 import { DeviceContext } from 'providers/DeviceProvider';
 import { validateResponseAccess } from 'app/modules/authorization/actions';
 import { ACTION as guidesActions } from '../../modules/guides/reducer';
@@ -19,7 +22,6 @@ import messages from './GuidesHub.messages';
 
 const COUNT = 9;
 const DEFAULT_PAGE = 1;
-
 
 const guidesHubModel = {
   name: 'GUIDE_HUB_MODEL',
@@ -42,7 +44,7 @@ class Guides extends Component {
   static defaultProps = {
     validateResponseAccess: noop,
     params: {
-      filterType: 'all'
+      filterType: 'all',
     },
   };
 
@@ -50,22 +52,22 @@ class Guides extends Component {
     guides: [],
   };
 
-  updateGuidesList = (resData) => {
+  updateGuidesList = resData => {
     this.setState(() => ({
       guides: resData.guidesList,
     }));
-  }
+  };
 
   clearGuides = () => {
     this.setState({
-      guides:[],
+      guides: [],
     });
-  }
+  };
 
   updateReadingListInGuide = (id, resData) => {
     let newGuidesList = [].concat(this.state.guides);
 
-    newGuidesList = newGuidesList.map((guide) => {
+    newGuidesList = newGuidesList.map(guide => {
       if (guide.guideId === id) {
         return Object.assign(guide, resData);
       }
@@ -75,42 +77,35 @@ class Guides extends Component {
     this.setState(() => ({
       guides: newGuidesList,
     }));
-  }
+  };
 
-  appendToGuidesList = (resData) => {
-    this.setState((state) => {
-      const guides = [].concat(state.guides, resData.guidesList)
+  appendToGuidesList = resData => {
+    this.setState(state => {
+      const guides = [].concat(state.guides, resData.guidesList);
       return {
-        guides
+        guides,
       };
     });
-  }
+  };
 
   render() {
-    const {
-      user,
-      actions,
-      intl,
-      isFetching,
-    } = this.props;
-    const {
-      guides
-    } = this.state;
-    
-    return (<div>
-      <Request
-        withoutUser
-        serviceURL={GUIDES_PAGE_ENDPOINT_URL}
-        model={guidesHubModel}
-        requestBody={{}}
-        render={({
-          fetchingContent,
-          modeledResponses: { GUIDE_HUB_MODEL },
-          serviceResponse = {},
-        }) => (
-          <Fragment>
-            {
-              !fetchingContent &&
+    const { user, actions, intl, isFetching } = this.props;
+    const { guides } = this.state;
+
+    return (
+      <div>
+        <Request
+          withoutUser
+          serviceURL={GUIDES_PAGE_ENDPOINT_URL}
+          model={guidesHubModel}
+          requestBody={{}}
+          render={({
+            fetchingContent,
+            modeledResponses: { GUIDE_HUB_MODEL },
+            serviceResponse = {},
+          }) => (
+            <Fragment>
+              {!fetchingContent && (
                 <DeviceContext.Consumer>
                   {context => (
                     <HubContainer
@@ -140,40 +135,49 @@ class Guides extends Component {
                       }}
                       render={() => (
                         <Fragment>
-                          {isFetching ? <div>{intl.formatMessage(messages.loading)}</div> : null}
-                          {!isFetching &&
+                          {isFetching ? (
+                            <div>{intl.formatMessage(messages.loading)}</div>
+                          ) : null}
+                          {!isFetching && (
                             <GuideTiles
-                              updateReadingListInfo={this.updateReadingListInGuide}
+                              updateReadingListInfo={
+                                this.updateReadingListInGuide
+                              }
                               guides={guides}
                               isMobile={context.isMobile}
-                            />}
+                            />
+                          )}
                         </Fragment>
                       )}
                     />
                   )}
                 </DeviceContext.Consumer>
-            }
-          </Fragment>
-        )}
-      />
-      <style jsx>{style}</style>
-    </div>)
+              )}
+            </Fragment>
+          )}
+        />
+        <style jsx>{style}</style>
+      </div>
+    );
   }
 }
 
-const mapStateToProps = ({
-  user,
-  guides,
-}) => ({
+const mapStateToProps = ({ user, guides }) => ({
   user,
   isFetching: guides.isFetching,
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({
-    validateResponseAccess,
-    ...guidesActions,
-  }, dispatch),
+  actions: bindActionCreators(
+    {
+      validateResponseAccess,
+      ...guidesActions,
+    },
+    dispatch
+  ),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(injectIntl(Guides));
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(injectIntl(Guides));

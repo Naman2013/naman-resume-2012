@@ -9,16 +9,22 @@ import StoryTiles from 'app/components/stories-hub/stories-tiles';
 import Request from 'app/components/common/network/Request';
 import HubContainer from 'app/components/common/HubContainer';
 import Button from 'app/components/common/style/buttons/Button';
-import { STORIES_PAGE_ENDPOINT_URL, STORIES_ENDPOINT_URL } from 'app/services/stories';
+import {
+  STORIES_PAGE_ENDPOINT_URL,
+  STORIES_ENDPOINT_URL,
+} from 'app/services/stories';
 import { DeviceContext } from 'providers/DeviceProvider';
-import { validateResponseAccess } from 'app/modules/authorization/actions'
-import { getStoriesStart, getStoriesSuccess, getStoriesError } from '../../modules/stories/actions';
+import { validateResponseAccess } from 'app/modules/authorization/actions';
+import {
+  getStoriesStart,
+  getStoriesSuccess,
+  getStoriesError,
+} from '../../modules/stories/actions';
 import style from './stories-hub.style';
 import messages from './StoriesHub.messages';
 
 const COUNT = 9;
 const DEFAULT_PAGE = 1;
-
 
 const storiesHubModel = {
   name: 'STORIES_HUB_MODEL',
@@ -41,7 +47,7 @@ class Stories extends Component {
   static defaultProps = {
     validateResponseAccess: noop,
     params: {
-      filterType: 'all'
+      filterType: 'all',
     },
   };
 
@@ -49,16 +55,16 @@ class Stories extends Component {
     stories: [],
   };
 
-  updateStoriesList = (resData) => {
+  updateStoriesList = resData => {
     this.setState(() => ({
       stories: resData.storiesList,
     }));
-  }
+  };
 
   updateReadingListInStories = (id, resData) => {
     let newStoriesList = [].concat(this.state.stories);
 
-    newStoriesList = newStoriesList.map((story) => {
+    newStoriesList = newStoriesList.map(story => {
       if (story.postId === id) {
         return Object.assign(story, resData);
       }
@@ -68,48 +74,41 @@ class Stories extends Component {
     this.setState(() => ({
       stories: newStoriesList,
     }));
-  }
+  };
 
-  appendToStoriesList = (resData) => {
-    this.setState((state) => {
-      const stories = [].concat(state.stories, resData.storiesList)
+  appendToStoriesList = resData => {
+    this.setState(state => {
+      const stories = [].concat(state.stories, resData.storiesList);
       return {
-        stories
+        stories,
       };
     });
-  }
+  };
 
   clearStories = () => {
     this.setState({
       stories: [],
     });
-  }
+  };
 
   render() {
-    const {
-      user,
-      actions,
-      intl,
-      isFetching,
-    } = this.props;
-    const {
-      stories
-    } = this.state;
+    const { user, actions, intl, isFetching } = this.props;
+    const { stories } = this.state;
 
-    return (<div>
-      <Request
-        withoutUser
-        serviceURL={STORIES_PAGE_ENDPOINT_URL}
-        model={storiesHubModel}
-        requestBody={{}}
-        render={({
-          fetchingContent,
-          modeledResponses: { STORIES_HUB_MODEL },
-          serviceResponse = {},
-        }) => (
-          <Fragment>
-            {
-              !fetchingContent &&
+    return (
+      <div>
+        <Request
+          withoutUser
+          serviceURL={STORIES_PAGE_ENDPOINT_URL}
+          model={storiesHubModel}
+          requestBody={{}}
+          render={({
+            fetchingContent,
+            modeledResponses: { STORIES_HUB_MODEL },
+            serviceResponse = {},
+          }) => (
+            <Fragment>
+              {!fetchingContent && (
                 <DeviceContext.Consumer>
                   {context => (
                     <HubContainer
@@ -140,47 +139,65 @@ class Stories extends Component {
                       }}
                       renderRightMenu={() => (
                         <div className="flex">
-                          <Button text={intl.formatMessage(messages.submitStory)} onClickEvent={() => browserHistory.push(`/stories/${this.props.params.filterType}/create`)} />
+                          <Button
+                            text={intl.formatMessage(messages.submitStory)}
+                            onClickEvent={() =>
+                              browserHistory.push(
+                                `/stories/${
+                                  this.props.params.filterType
+                                }/create`
+                              )
+                            }
+                          />
                         </div>
                       )}
                       render={() => (
                         <Fragment>
-                          {isFetching ? <div>{intl.formatMessage(messages.loading)}</div> : null}
-                          {!isFetching &&
+                          {isFetching ? (
+                            <div>{intl.formatMessage(messages.loading)}</div>
+                          ) : null}
+                          {!isFetching && (
                             <StoryTiles
                               stories={stories}
-                              updateReadingListInfo={this.updateReadingListInStories}
+                              updateReadingListInfo={
+                                this.updateReadingListInStories
+                              }
                               isMobile={context.isMobile}
-                            />}
+                            />
+                          )}
                         </Fragment>
                       )}
                     />
                   )}
                 </DeviceContext.Consumer>
-            }
-          </Fragment>
-        )}
-      />
-      <style jsx>{style}</style>
-    </div>)
+              )}
+            </Fragment>
+          )}
+        />
+        <style jsx>{style}</style>
+      </div>
+    );
   }
 }
 
-const mapStateToProps = ({
-  user,
-  stories,
-}) => ({
+const mapStateToProps = ({ user, stories }) => ({
   user,
   isFetching: stories.isFetching,
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({
-    validateResponseAccess,
-    getStoriesStart,
-    getStoriesSuccess,
-    getStoriesError,
-  }, dispatch),
+  actions: bindActionCreators(
+    {
+      validateResponseAccess,
+      getStoriesStart,
+      getStoriesSuccess,
+      getStoriesError,
+    },
+    dispatch
+  ),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(injectIntl(Stories));
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(injectIntl(Stories));

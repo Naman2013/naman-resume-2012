@@ -2,14 +2,20 @@ import React from 'react';
 import { browserHistory } from 'react-router';
 import { FormattedMessage, intlShape, injectIntl } from 'react-intl';
 import { primaryFont } from 'app/styles/variables/fonts';
-import { romance, astronaut, golda } from 'app/styles/variables/colors_tiles_v4';
+import {
+  romance,
+  astronaut,
+  golda,
+} from 'app/styles/variables/colors_tiles_v4';
 import Request from 'app/components/common/network/Request';
 import { OBSERVATORIES_COMPACT } from 'app/services/observatories';
 import BorderContainer from './partials/BorderedContainer';
 import Button from 'app/components/common/style/buttons/Button';
 import MenuList from './partials/MenuList';
 import MenuTitleBar from './partials/MenuTitleBar';
-import TELESCOPE_CONFIGURATION, { modelTelescopesFromObsList } from './telescopeConfiguration';
+import TELESCOPE_CONFIGURATION, {
+  modelTelescopesFromObsList,
+} from './telescopeConfiguration';
 import { telescopeAstronaut } from 'app/styles/variables/iconURLs';
 import messages from './Telescopes.messages';
 
@@ -28,17 +34,30 @@ const Telescopes = ({ intl }) => (
           <div className="center-buttons">
             <Button
               text={intl.formatMessage(messages.setUp)}
-              theme={{ display: 'inline-block', textAlign: 'center', marginRight: '15px', width: '47%' }}
+              theme={{
+                display: 'inline-block',
+                textAlign: 'center',
+                marginRight: '15px',
+                width: '47%',
+              }}
               onClickEvent={() => browserHistory.push('/missions')}
             />
             <Button
               text={intl.formatMessage(messages.myPhotos)}
-              theme={{ display: 'inline-block', textAlign: 'center', width: '47%' }}
-              onClickEvent={() => browserHistory.push('/profile/private/photos/photoroll')}
+              theme={{
+                display: 'inline-block',
+                textAlign: 'center',
+                width: '47%',
+              }}
+              onClickEvent={() =>
+                browserHistory.push('/profile/private/photos/photoroll')
+              }
             />
           </div>
         </MenuTitleBar>
-        {!fetchingContent && <MenuList items={TELESCOPE_CONFIGURATION(TELESCOPES_ONLY)} />}
+        {!fetchingContent && (
+          <MenuList items={TELESCOPE_CONFIGURATION(TELESCOPES_ONLY)} />
+        )}
 
         <style jsx>
           {`

@@ -33,7 +33,7 @@ class SloohRecommends extends Component {
       token: null,
       at: null,
     },
-  }
+  };
 
   static propTypes = {
     title: PropTypes.string,
@@ -46,7 +46,7 @@ class SloohRecommends extends Component {
       token: PropTypes.string,
       at: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     }),
-  }
+  };
 
   shouldComponentUpdate(nextProps) {
     /**
@@ -55,7 +55,10 @@ class SloohRecommends extends Component {
       */
     const currentRecommendations = this.props.recommendations;
     const nextRecommendations = nextProps.recommendations;
-    const diffBetweenSets = difference(currentRecommendations, nextRecommendations);
+    const diffBetweenSets = difference(
+      currentRecommendations,
+      nextRecommendations
+    );
     if (diffBetweenSets.length === 0) {
       return false;
     }
@@ -65,36 +68,30 @@ class SloohRecommends extends Component {
   render() {
     const { recommendations, type, columns, title, subTitle } = this.props;
     const { cid, token, at } = this.props.user;
-    const recommendationContainerClassnames = classnames(COLUMN_COUNT_CLASSES[columns], {
-      singleColumn: columns === 1,
-    });
+    const recommendationContainerClassnames = classnames(
+      COLUMN_COUNT_CLASSES[columns],
+      {
+        singleColumn: columns === 1,
+      }
+    );
 
     return (
       <div className="clearfix sloohRecommendsRoot">
-
         <MissionConfirmModal />
 
-        <RecommendationTitleBar
-          title={title}
-          subTitle={subTitle}
-        />
+        <RecommendationTitleBar title={title} subTitle={subTitle} />
 
-        {
-          recommendations.map(recommendation => (
-            <div
-              key={uniqueId()}
-              className={recommendationContainerClassnames}
-            >
-              <Recommendation
-                at={at}
-                token={token}
-                cid={cid}
-                objectId={recommendation}
-                type={type}
-              />
-            </div>
-          ))
-        }
+        {recommendations.map(recommendation => (
+          <div key={uniqueId()} className={recommendationContainerClassnames}>
+            <Recommendation
+              at={at}
+              token={token}
+              cid={cid}
+              objectId={recommendation}
+              type={type}
+            />
+          </div>
+        ))}
       </div>
     );
   }

@@ -25,10 +25,13 @@ function mapStateToProps(state, ownProps) {
     observatoryList: state.telescopeOverview.observatoryList.observatoryList,
     currentObservatoryId: ownProps.params.observatoryId,
     moonPhaseWidgetResult: state.telescopeOverview.moonPhaseWidgetResult,
-    satelliteViewWidgetResult: state.telescopeOverview.satelliteViewWidgetResult,
-    observatoryTelecopeStatus: state.telescopeOverview.observatoryTelecopeStatus,
+    satelliteViewWidgetResult:
+      state.telescopeOverview.satelliteViewWidgetResult,
+    observatoryTelecopeStatus:
+      state.telescopeOverview.observatoryTelecopeStatus,
     telescopeCardData: state.telescopeOverview.telescopeCardData,
-    isTelescopeCardDataLoading: state.telescopeOverview.telescopeCardDataLoading,
+    isTelescopeCardDataLoading:
+      state.telescopeOverview.telescopeCardDataLoading,
   };
 }
 
@@ -41,12 +44,15 @@ function mapDispatchToProps(dispatch) {
         fetchObservatoryTelescopeStatus,
         fetchTelescopeCardData,
       },
-      dispatch,
+      dispatch
     ),
   };
 }
 
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(
+  mapStateToProps,
+  mapDispatchToProps
+)
 class TelescopeOverview extends Component {
   componentDidMount() {
     this.props.actions.getObservatoryList(this.props.currentObservatoryId);
@@ -57,11 +63,13 @@ class TelescopeOverview extends Component {
     if (nextProps.params.observatoryId !== this.props.currentObservatoryId) {
       const currentObservatory = getCurrentObservatory(
         nextProps.observatoryList,
-        nextProps.params.observatoryId,
+        nextProps.params.observatoryId
       );
 
       this.props.actions.fetchAllWidgetsByObservatory(currentObservatory);
-      this.props.actions.fetchObservatoryTelescopeStatus(currentObservatory.obsId);
+      this.props.actions.fetchObservatoryTelescopeStatus(
+        currentObservatory.obsId
+      );
     }
 
     this.buildTelescopeStatusTimer();
@@ -90,7 +98,10 @@ class TelescopeOverview extends Component {
   render() {
     const { observatoryList, currentObservatoryId } = this.props;
 
-    const currentObservatory = getCurrentObservatory(observatoryList, currentObservatoryId);
+    const currentObservatory = getCurrentObservatory(
+      observatoryList,
+      currentObservatoryId
+    );
 
     if (!currentObservatory) {
       return null;
@@ -155,7 +166,7 @@ TelescopeOverview.propTypes = {
     shape({
       obsDescription: string,
       obsHeroURL: string,
-    }),
+    })
   ),
   currentObservatoryId: string,
   actions: shape({

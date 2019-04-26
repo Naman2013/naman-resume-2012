@@ -9,7 +9,13 @@ import PiggybackStatus from './PiggybackStatus';
 import { fetchRecommendsCards } from '../../../services/recommendations/recommends-cards';
 import { getNextPiggyback } from '../../../services/recommendations/get-next-piggyback';
 import { getNextReservation } from '../../../services/recommendations/get-next-reservation';
-import { getNextPiggybackSingle, getNextPiggybackSingleSuccess, grabMissionSlot, missionConfirmOpen, setCurrentCard } from '../../../modules/missions-old';
+import {
+  getNextPiggybackSingle,
+  getNextPiggybackSingleSuccess,
+  grabMissionSlot,
+  missionConfirmOpen,
+  setCurrentCard,
+} from '../../../modules/missions-old';
 import { validateResponseAccess } from '../../../modules/authorization/actions';
 import s from './Recommendation.scss';
 
@@ -39,24 +45,30 @@ const mapStateToProps = ({ piggyback, missions }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({
-    getNextPiggybackSingle, //  TODO: do we still need this?
-    getNextPiggybackSingleSuccess,
-    grabMissionSlot,
-    missionConfirmOpen,
-    validateResponseAccess,
-    setCurrentCard,
-  }, dispatch),
+  actions: bindActionCreators(
+    {
+      getNextPiggybackSingle, //  TODO: do we still need this?
+      getNextPiggybackSingleSuccess,
+      grabMissionSlot,
+      missionConfirmOpen,
+      validateResponseAccess,
+      setCurrentCard,
+    },
+    dispatch
+  ),
 });
 
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(
+  mapStateToProps,
+  mapDispatchToProps
+)
 class Recommendation extends Component {
   static defaultProps = {
     at: null,
     token: null,
     cid: null,
     type: 'community',
-  }
+  };
 
   static propTypes = {
     at: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
@@ -64,18 +76,21 @@ class Recommendation extends Component {
     cid: PropTypes.string,
     objectId: PropTypes.number.isRequired,
     type: PropTypes.oneOf(['community']),
-  }
+  };
 
   constructor(props) {
     super(props);
     this.initialize();
   }
 
-  state = { ...defaultState }
+  state = { ...defaultState };
 
   componentWillReceiveProps() {
     // if either a new mission or piggyback had occurred reset the card
-    const { piggybackReservationConfirmed, newMissionJustReserved } = this.props;
+    const {
+      piggybackReservationConfirmed,
+      newMissionJustReserved,
+    } = this.props;
     if (piggybackReservationConfirmed || newMissionJustReserved) {
       this.reset();
     }
@@ -89,8 +104,8 @@ class Recommendation extends Component {
   initialize() {
     const { at, token, cid, objectId, type } = this.props;
     fetchRecommendsCards({ at, token, cid, objectId, type })
-    .then(result => this.handleCardResult(result.data))
-    .catch(error => this.handleCardError(error));
+      .then(result => this.handleCardResult(result.data))
+      .catch(error => this.handleCardError(error));
   }
 
   handleCardResult(cardResult) {
@@ -113,19 +128,19 @@ class Recommendation extends Component {
       uniqueId,
       requestType: 'single',
     })
-    .then((result) => {
-      this.props.actions.validateResponseAccess(result.data);
+      .then(result => {
+        this.props.actions.validateResponseAccess(result.data);
 
-      if (!result.data.apiError) {
-        this.setState({
-          piggybackResult: result.data,
-          cardApiError: cardResult.apiError,
-          cardErrorMessage: cardResult.errorMsg,
-          cardData: cardResult,
-        });
-      }
-    })
-    .catch(error => this.handleCardError(error));
+        if (!result.data.apiError) {
+          this.setState({
+            piggybackResult: result.data,
+            cardApiError: cardResult.apiError,
+            cardErrorMessage: cardResult.errorMsg,
+            cardData: cardResult,
+          });
+        }
+      })
+      .catch(error => this.handleCardError(error));
   }
 
   handleCardError(error) {
@@ -136,15 +151,15 @@ class Recommendation extends Component {
     });
   }
 
-  handleReservePiggybackClick = (event) => {
+  handleReservePiggybackClick = event => {
     event.preventDefault();
 
     const { piggybackResult, cardData } = this.state;
     this.props.actions.setCurrentCard(cardData.cardList[0]);
     this.props.actions.getNextPiggybackSingleSuccess(piggybackResult);
-  }
+  };
 
-  handleLoadReservationClick = (event) => {
+  handleLoadReservationClick = event => {
     event.preventDefault();
     const { cid, at, token } = this.props;
     const { uniqueId, astroObjectId } = this.state.cardData.cardList[0];
@@ -155,14 +170,13 @@ class Recommendation extends Component {
       uniqueId,
       objectId: astroObjectId,
       requestType: 'single',
-    })
-    .then((result) => {
+    }).then(result => {
       this.props.actions.validateResponseAccess(result.data);
       if (!result.data.apiError) {
         this.handleLoadNewReservationResult(result.data);
       }
     });
-  }
+  };
 
   handleLoadNewReservationResult(newReservationResult) {
     this.setState({
@@ -180,11 +194,12 @@ class Recommendation extends Component {
     this.props.actions.missionConfirmOpen('reserve', card);
   };
 
-  handleReserveNewMissionClick = (event) => {
+  handleReserveNewMissionClick = event => {
     event.preventDefault();
     const {
       newReservationResult: { missionList },
-      cardData: { cardList } } = this.state;
+      cardData: { cardList },
+    } = this.state;
     const card = cardList[0];
     const mission = {
       ...missionList,
@@ -195,7 +210,7 @@ class Recommendation extends Component {
     };
 
     this.props.actions.grabMissionSlot(mission);
-  }
+  };
 
   render() {
     const {
@@ -215,7 +230,11 @@ class Recommendation extends Component {
       title,
       description,
     } = cardData.cardList[0];
-    const truncatedDescription = truncate(description, { length: 150, omission: '...', separator: ' ' });
+    const truncatedDescription = truncate(description, {
+      length: 150,
+      omission: '...',
+      separator: ' ',
+    });
     const piggybackMissionResult = piggybackResult.missionList[0];
 
     const { missionList } = this.state.piggybackResult;
@@ -223,11 +242,7 @@ class Recommendation extends Component {
 
     return (
       <div className={s.recommendationRoot}>
-        <ReactTooltip
-          className={s.tooltip}
-          place="left"
-          effect="solid"
-        />
+        <ReactTooltip className={s.tooltip} place="left" effect="solid" />
 
         <h4 className={s.title}>{headline}</h4>
 
@@ -236,7 +251,9 @@ class Recommendation extends Component {
             <img alt="" src={objectIconURL} height="60" />
           </span>
           <h3 className={s.objectName}>{title}</h3>
-          <p data-tip={description} className={s.description}>{truncatedDescription}</p>
+          <p data-tip={description} className={s.description}>
+            {truncatedDescription}
+          </p>
         </div>
 
         {/** bottom half is dynamic based on result calls */}
@@ -246,7 +263,9 @@ class Recommendation extends Component {
           piggybackMissionStart={missionStart}
           userHasReservation={piggybackMissionResult.userHasReservation}
           telescopePierName={piggybackMissionResult.telescopePierName}
-          newMissionAvailable={newReservationResult.missionList.missionAvailable}
+          newMissionAvailable={
+            newReservationResult.missionList.missionAvailable
+          }
           newMissionMissionStart={newReservationResult.missionList.missionStart}
           handleReservePiggybackClick={this.handleReservePiggybackClick}
           handleLoadReservationClick={this.handleLoadReservationClick}

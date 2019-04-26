@@ -3,12 +3,12 @@
  ********************************** */
 
 import React, { Component, cloneElement, Fragment } from 'react';
-import { Link, browserHistory } from 'react-router';
+import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import cloneDeep from 'lodash/cloneDeep';
 import Button from 'app/components/common/style/buttons/Button';
-
+import { browserHistory } from 'react-router';
 import { Field, reduxForm } from 'redux-form';
 import { intlShape, injectIntl, FormattedMessage } from 'react-intl';
 import InputField from 'app/components/form/InputField';
@@ -19,10 +19,10 @@ import {
 import { JOIN_PAGE_ENDPOINT_URL } from 'app/services/registration/registration.js';
 import axios from 'axios';
 import Request from 'app/components/common/network/Request';
-import BobbieTile from 'app/components/common/tiles/BobbieTile';
-import TabbedNav from 'app/components/TabbedNav';
 import JoinHeader from './partials/JoinHeader';
 import PlanDetailsCard from './partials/PlanDetailsCard';
+import BobbieTile from 'app/components/common/tiles/BobbieTile';
+import TabbedNav from 'app/components/TabbedNav';
 import { PLAN_DETAILS_JOIN_TABS } from './StaticNavTabs';
 import styles from './JoinStep1SchoolSelection.style';
 import messages from './MembershipPlanDetailsStep.messages';
@@ -48,10 +48,16 @@ class MembershipPlanDetailsStep extends Component {
     activeTab: '/join/membershipPlanDetailsStep',
   };
 
+  constructor(props) {
+    super(props);
+  }
+
   state = {
     selectedPlanId: window.localStorage.getItem('selectedPlanId'),
-    isAstronomyClub: window.localStorage.getItem('isAstronomyClub') === 'true',
-    isClassroom: window.localStorage.getItem('isClassroom') === 'true',
+    isAstronomyClub:
+      window.localStorage.getItem('isAstronomyClub') === 'true' ? true : false,
+    isClassroom:
+      window.localStorage.getItem('isClassroom') === 'true' ? true : false,
   };
 
   continueToJoinFlow = formValues => {
@@ -81,7 +87,7 @@ class MembershipPlanDetailsStep extends Component {
             serviceURL={JOIN_PAGE_ENDPOINT_URL}
             requestBody={{
               callSource: 'membershipspagePlanDetails',
-              PlanId: this.state.selectedPlanId,
+              selectedPlanId: this.state.selectedPlanId,
             }}
             render={({ fetchingContent, serviceResponse }) => (
               <Fragment>

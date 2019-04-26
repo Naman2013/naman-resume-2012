@@ -5,11 +5,18 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import classnames from 'classnames';
 import FilterMenu from './FilterMenu';
-import { toggleFilterMenuDisplay, setFilters } from '../../modules/my-pictures-filters/actions';
+import {
+  toggleFilterMenuDisplay,
+  setFilters,
+} from '../../modules/my-pictures-filters/actions';
 import s from './my-pictures-navigation.scss';
 
-
-const mapStateToProps = ({ objectTypeList, myPictures, galleries, myPicturesFilters }) => ({
+const mapStateToProps = ({
+  objectTypeList,
+  myPictures,
+  galleries,
+  myPicturesFilters,
+}) => ({
   photoRollCount: myPictures.photoRoll.imageCount,
   missionCount: myPictures.missions.imageCount,
   galleriesCount: galleries.imageCount,
@@ -18,51 +25,56 @@ const mapStateToProps = ({ objectTypeList, myPictures, galleries, myPicturesFilt
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({
-    toggleFilterMenuDisplay,
-    setFilters
-  }, dispatch),
+  actions: bindActionCreators(
+    {
+      toggleFilterMenuDisplay,
+      setFilters,
+    },
+    dispatch
+  ),
 });
 
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(
+  mapStateToProps,
+  mapDispatchToProps
+)
 class MyPicturesNavigation extends Component {
-  handleFilterClick = (event) => {
+  handleFilterClick = event => {
     const { actions, filterMenuIsOpen } = this.props;
     event.preventDefault();
     actions.toggleFilterMenuDisplay({
-      filterMenuIsOpen: !filterMenuIsOpen
+      filterMenuIsOpen: !filterMenuIsOpen,
     });
-  }
+  };
 
   handleResetFilters = () => {
-    const {
-      actions,
-      page,
-      scheduledMissionId,
-      galleryId,
-    } = this.props;
+    const { actions, page, scheduledMissionId, galleryId } = this.props;
 
-    actions.setFilters({
-      dateFilter: '',
-      pierNumber: null,
-      observatoryId: null,
-      filterType: '',
-      timeFilter: null,
-      pictureUserTags: [],
-      missionUserTags: [],
-      missionSystemTags: []
-    }, {
-      page,
-      scheduledMissionId,
-      galleryId
-    });
-  }
+    actions.setFilters(
+      {
+        dateFilter: '',
+        pierNumber: null,
+        observatoryId: null,
+        filterType: '',
+        timeFilter: null,
+        pictureUserTags: [],
+        missionUserTags: [],
+        missionSystemTags: [],
+      },
+      {
+        page,
+        scheduledMissionId,
+        galleryId,
+      }
+    );
+  };
 
   hasFilters() {
     const { selectedFilters } = this.props;
-    const filtersSelected = Object.values(selectedFilters).filter(filter => Array.isArray(filter) ? filter.length > 0 : !!filter);
+    const filtersSelected = Object.values(selectedFilters).filter(filter =>
+      Array.isArray(filter) ? filter.length > 0 : !!filter
+    );
     return filtersSelected && filtersSelected.length > 0;
-
   }
 
   render() {
@@ -88,27 +100,42 @@ class MyPicturesNavigation extends Component {
       hide: !this.hasFilters(),
     });
 
-    const rootNavigationFilterItemClassnames = classnames(`${s.rootNavigationItem} ${s.filters}`, {
-      active: filterMenuIsOpen,
-    });
+    const rootNavigationFilterItemClassnames = classnames(
+      `${s.rootNavigationItem} ${s.filters}`,
+      {
+        active: filterMenuIsOpen,
+      }
+    );
 
     return (
       <nav className={s.myPictureNavigationRoot}>
         <ul className={s.myPictureNavigationContainer}>
           <li className={s.rootNavigationItem}>
-            <Link to="/my-pictures/missions" className={s.button} activeClassName="active">
+            <Link
+              to="/my-pictures/missions"
+              className={s.button}
+              activeClassName="active"
+            >
               Missions <span>({missionCount})</span>
             </Link>
           </li>
           <li className={s.rootNavigationItem}>
-            <Link to="/my-pictures/galleries" className={s.button} activeClassName="active">
+            <Link
+              to="/my-pictures/galleries"
+              className={s.button}
+              activeClassName="active"
+            >
               Galleries <span>({galleriesCount || 0})</span>
             </Link>
           </li>
           <li className={s.rootNavigationItem}>
-          <Link to="/my-pictures/photo-roll" className={s.button} activeClassName="active">
-            Photo Roll <span>({photoRollCount})</span>
-          </Link>
+            <Link
+              to="/my-pictures/photo-roll"
+              className={s.button}
+              activeClassName="active"
+            >
+              Photo Roll <span>({photoRollCount})</span>
+            </Link>
           </li>
 
           <li className={rootNavigationFilterItemClassnames}>
@@ -120,7 +147,7 @@ class MyPicturesNavigation extends Component {
                 <span className={filterButtonIconClassnames} />
               </button>
               <button className={s.button} onClick={this.handleResetFilters}>
-                 <span className={clearDisplayClassnames} />
+                <span className={clearDisplayClassnames} />
               </button>
             </div>
           </li>
@@ -148,7 +175,7 @@ MyPicturesNavigation.propTypes = {
   page: PropTypes.string,
   scheduledMissionId: PropTypes.number,
   galleryId: PropTypes.string,
-  filterMenuIsOpen: PropTypes.bool
+  filterMenuIsOpen: PropTypes.bool,
 };
 
 export default MyPicturesNavigation;

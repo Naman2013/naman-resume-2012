@@ -21,19 +21,19 @@ export default css`
     ${faintShadow}
   }
 
-  .root.plain {
+  .root.profile {
     padding: 20px 0;
     background: transparent;
     box-shadow: none;
   }
 
-  .root.plain .hub-header-title-container {
+  .root.profile .hub-header-title-container {
     height: 62px;
     padding-left: 0;
     border: none;
   }
 
-  .root.plain .hub-header-title {
+  .root.profile .hub-header-title {
     font: 400 14px ${primaryFont};
     letter-spacing: 0.6px;
     color: #648282;
@@ -114,11 +114,11 @@ export default css`
       margin-left: 0;
     }
 
-    .root.plain .hub-header-title-container {
+    .root.profile .hub-header-title-container {
       border: none;
     }
 
-    .root.plain .hub-header-title {
+    .root.profile .hub-header-title {
       font: 400 14px ${primaryFont};
       letter-spacing: 0.6px;
       color: #648282;

@@ -37,13 +37,17 @@ const subjectGuideModel = {
       ),
       column: ({ guideId }) => (
         <GuideContentList
-          list={[resp.guideBulletPoint1, resp.guideBulletPoint2, resp.guideBulletPoint3]}
+          list={[
+            resp.guideBulletPoint1,
+            resp.guideBulletPoint2,
+            resp.guideBulletPoint3,
+          ]}
           topicActionProps={{
             followButtonIconURL: resp.promptIconUrl,
             followButtonText: resp.readingListPrompt,
             showActions: resp.toggleReadingListFlag,
             readingListType: resp.readingListType,
-           }}
+          }}
           guideId={guideId}
         />
       ),
@@ -54,12 +58,15 @@ const subjectGuideModel = {
       subTitle: <FormattedMessage {...messages.SubjectsSterlingSubtitle} />,
     },
     subjectGuideListProps: {
-      list: resp.myTopicsNavigationInfo
-        && resp.myTopicsNavigationInfo.topicsList.map(({ topicHeading, topicTitle, link }) => ({
-          link,
-          title: topicTitle,
-          anchorText: topicHeading,
-        })),
+      list:
+        resp.myTopicsNavigationInfo &&
+        resp.myTopicsNavigationInfo.topicsList.map(
+          ({ topicHeading, topicTitle, link }) => ({
+            link,
+            title: topicTitle,
+            anchorText: topicHeading,
+          })
+        ),
     },
   }),
 };
@@ -71,11 +78,16 @@ const SubjectGuides = ({ params: { guideId } }) => (
       serviceURL={GUIDE_ENDPOINT_URL}
       model={subjectGuideModel}
       requestBody={{ guideId }}
-      render={({ fetchingContent, modeledResponses: { SUBJECT_GUIDE_MODEL } }) => (
+      render={({
+        fetchingContent,
+        modeledResponses: { SUBJECT_GUIDE_MODEL },
+      }) => (
         <Fragment>
           {!fetchingContent && (
             <Fragment>
-              <TiaraTitleSection {...SUBJECT_GUIDE_MODEL.tiaraTitleSectionProps} />
+              <TiaraTitleSection
+                {...SUBJECT_GUIDE_MODEL.tiaraTitleSectionProps}
+              />
 
               <CenterColumn
                 theme={{
@@ -83,16 +95,22 @@ const SubjectGuides = ({ params: { guideId } }) => (
                   marginBottom: '60px',
                 }}
               >
-                <GuideSection {...SUBJECT_GUIDE_MODEL.guideSectionProps} guideId={guideId} />
+                <GuideSection
+                  {...SUBJECT_GUIDE_MODEL.guideSectionProps}
+                  guideId={guideId}
+                />
               </CenterColumn>
               <GuidePanels guideId={guideId} />
 
-              {Array.isArray(SUBJECT_GUIDE_MODEL.subjectGuideListProps.list)
-                && SUBJECT_GUIDE_MODEL.subjectGuideListProps.list.length > 0
-                && <SterlingTitle {...SUBJECT_GUIDE_MODEL.sterlingTitleProps} />}
+              {Array.isArray(SUBJECT_GUIDE_MODEL.subjectGuideListProps.list) &&
+                SUBJECT_GUIDE_MODEL.subjectGuideListProps.list.length > 0 && (
+                  <SterlingTitle {...SUBJECT_GUIDE_MODEL.sterlingTitleProps} />
+                )}
 
               <CenterColumn>
-                <SubjectGuideList {...SUBJECT_GUIDE_MODEL.subjectGuideListProps} />
+                <SubjectGuideList
+                  {...SUBJECT_GUIDE_MODEL.subjectGuideListProps}
+                />
               </CenterColumn>
             </Fragment>
           )}

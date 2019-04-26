@@ -2,7 +2,7 @@ import createReducer from '../utils/createReducer';
 import {
   GRAB_TELESCOPE_SUCCESS,
   COMMIT_UPDATED_RESERVATIONS,
-  CANCEL_REMAINING_MISSIONS
+  CANCEL_REMAINING_MISSIONS,
 } from './actions';
 
 /**

@@ -9,7 +9,10 @@ import truncate from 'lodash/truncate';
 import classnames from 'classnames';
 import styles from './mission-card.scss';
 
-import { updateSingleReservations, grabMissionSlot } from '../../modules/missions-old';
+import {
+  updateSingleReservations,
+  grabMissionSlot,
+} from '../../modules/missions-old';
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -18,17 +21,22 @@ function mapDispatchToProps(dispatch) {
         updateSingleReservations,
         grabMissionSlot,
       },
-      dispatch,
+      dispatch
     ),
   };
 }
 
-@connect(null, mapDispatchToProps)
+@connect(
+  null,
+  mapDispatchToProps
+)
 class NewMissionCard extends Component {
   constructor(props) {
     super(props);
 
-    this.handleMakeReservationClick = this.handleMakeReservationClick.bind(this);
+    this.handleMakeReservationClick = this.handleMakeReservationClick.bind(
+      this
+    );
     this.updateReservation = this.updateReservation.bind(this);
   }
 
@@ -44,7 +52,10 @@ class NewMissionCard extends Component {
     const { expires } = this.props.reservation;
     const timer = moment.unix(expires).diff(moment());
     if (typeof timer === 'number') {
-      this.updateReservationTimeout = setInterval(this.updateReservation, timer);
+      this.updateReservationTimeout = setInterval(
+        this.updateReservation,
+        timer
+      );
     }
   }
 
@@ -77,9 +88,15 @@ class NewMissionCard extends Component {
     const { missionStart, telescopePierName } = this.props.reservation;
     const formattedUTCDate = new Date(missionStart * 1000);
 
-    const EST_start = moment.tz(formattedUTCDate, 'America/New_York').format('dddd, MMMM Do');
-    const EST_start_time = moment.tz(formattedUTCDate, 'America/New_York').format('h:mma z');
-    const PST_start_time = moment.tz(formattedUTCDate, 'America/Los_Angeles').format('h:mma z');
+    const EST_start = moment
+      .tz(formattedUTCDate, 'America/New_York')
+      .format('dddd, MMMM Do');
+    const EST_start_time = moment
+      .tz(formattedUTCDate, 'America/New_York')
+      .format('h:mma z');
+    const PST_start_time = moment
+      .tz(formattedUTCDate, 'America/Los_Angeles')
+      .format('h:mma z');
     const UTC_start_time = moment.utc(formattedUTCDate).format('HH:mm z');
 
     return (
@@ -89,8 +106,9 @@ class NewMissionCard extends Component {
             {EST_start}
             {featured ? ':' : ''}
           </strong>
-          {!featured ? <br /> : null} {EST_start_time} <span className="highlight">&middot;</span>{' '}
-          {PST_start_time} <span className="highlight">&middot;</span> {UTC_start_time}{' '}
+          {!featured ? <br /> : null} {EST_start_time}{' '}
+          <span className="highlight">&middot;</span> {PST_start_time}{' '}
+          <span className="highlight">&middot;</span> {UTC_start_time}{' '}
           {!featured ? <br /> : null}{' '}
           <span className={styles.telescopePierName}>{telescopePierName}</span>
         </p>
@@ -105,7 +123,11 @@ class NewMissionCard extends Component {
       return (
         <div>
           {this.renderMissionTime()}
-          <Link className={styles.piggybackCta} to="#" onClick={this.handleMakeReservationClick}>
+          <Link
+            className={styles.piggybackCta}
+            to="#"
+            onClick={this.handleMakeReservationClick}
+          >
             Schedule
           </Link>
         </div>
@@ -122,7 +144,8 @@ class NewMissionCard extends Component {
       return (
         <div>
           <h5 className="mission-status">
-            You have an upcoming {reservation.userReservationType} reservation scheduled for
+            You have an upcoming {reservation.userReservationType} reservation
+            scheduled for
           </h5>
           <div className="join-mission-callout">{this.renderMissionTime()}</div>
         </div>
@@ -169,7 +192,11 @@ class NewMissionCard extends Component {
 
           <div className={styles.cardsubTitle}>
             {featured ? (
-              <img alt="Mission icon" className={styles.cardIcon} src={card.objectIconURL} />
+              <img
+                alt="Mission icon"
+                className={styles.cardIcon}
+                src={card.objectIconURL}
+              />
             ) : (
               <img
                 alt="Mission icon"
@@ -191,7 +218,9 @@ class NewMissionCard extends Component {
 
           {this.determineMissionStatusMessage()}
 
-          <div className="join-mission-callout">{this.renderCallToAction()}</div>
+          <div className="join-mission-callout">
+            {this.renderCallToAction()}
+          </div>
         </div>
       </div>
     );

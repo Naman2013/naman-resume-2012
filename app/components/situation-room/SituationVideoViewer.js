@@ -37,17 +37,20 @@ class SituationVideoViewer extends Component {
     const { starShareAvailable, additionalFeeds, videoInProgress } = this.props;
     const { selectedTab } = this.state;
 
-    return selectedTab === 0 ? (starShareAvailable && videoInProgress) : additionalFeeds[selectedTab - 1].canStarShare
+    return selectedTab === 0
+      ? starShareAvailable && videoInProgress
+      : additionalFeeds[selectedTab - 1].canStarShare;
   }
 
   get noVideoHtml() {
-    return (<div className={s.showNotStartedContainer}>
-      <div className={s.showCountdownContainer}>
-        <Countdown size={150} className="live" lineWidth={10} />
+    return (
+      <div className={s.showNotStartedContainer}>
+        <div className={s.showCountdownContainer}>
+          <Countdown size={150} className="live" lineWidth={10} />
+        </div>
       </div>
-    </div>)
+    );
   }
-
 
   render() {
     const {
@@ -66,69 +69,63 @@ class SituationVideoViewer extends Component {
 
     return (
       <section className={s.situationVideoViewerRoot}>
-
         <header className={s.liveViewHeader}>
-          <h2 dangerouslySetInnerHTML={{ __html: eventTitle }}></h2>
-
+          <h2 dangerouslySetInnerHTML={{ __html: eventTitle }} />
         </header>
 
-        {videoInProgress && <Tabs onSelect={this.handleSelect} selectedIndex={selectedTab}>
-
-          <TabList className={s.liveTelescopeTabs}>
-
+        {videoInProgress && (
+          <Tabs onSelect={this.handleSelect} selectedIndex={selectedTab}>
+            <TabList className={s.liveTelescopeTabs}>
               <Tab>
                 <div className={s.liveTelescopeTitle}>
                   <h6>Main Show</h6>
                 </div>
-                <div className="telescope" style={getInlineBgStyle(eventIconURL)} />
+                <div
+                  className="telescope"
+                  style={getInlineBgStyle(eventIconURL)}
+                />
               </Tab>
 
-            {
-              additionalFeeds.map(feed => (
+              {additionalFeeds.map(feed => (
                 <Tab key={uniqueId()}>
                   <div className={s.liveTelescopeTitle}>
-                    {<h6>{feed.tabDesc}</h6> }
+                    {<h6>{feed.tabDesc}</h6>}
                   </div>
-                  <div className="telescope" style={getInlineBgStyle(feed.tabIconURL)} />
+                  <div
+                    className="telescope"
+                    style={getInlineBgStyle(feed.tabIconURL)}
+                  />
                 </Tab>
-              ))
-            }
-          </TabList>
+              ))}
+            </TabList>
 
-          <TabPanel
-            forceRender={true}
-            className={classnames({
-            'active-tele-tab': selectedTab === 0,
-            'inactive-tele-tab': selectedTab !== 0,
-          })}>
-            <aside className={s.liveViewContent}>
-              {
+            <TabPanel
+              forceRender={true}
+              className={classnames({
+                'active-tele-tab': selectedTab === 0,
+                'inactive-tele-tab': selectedTab !== 0,
+              })}
+            >
+              <aside className={s.liveViewContent}>
+                {initialStreamCode && initialStreamURL ? (
+                  <VideoImageLoader
+                    teleStreamCode={initialStreamCode}
+                    teleStreamURL={initialStreamURL}
+                    teleStreamThumbnailVideoWidth="1000"
+                    teleStreamThumbnailVideoHeight="550"
+                    showVideoControls={1}
+                    showInfo={1}
+                  />
+                ) : (
+                  this.noVideoHtml
+                )}
+              </aside>
+            </TabPanel>
 
-                 initialStreamCode && initialStreamURL ?
-
-                 <VideoImageLoader
-                     teleStreamCode={initialStreamCode}
-                     teleStreamURL={initialStreamURL}
-                     teleStreamThumbnailVideoWidth="1000"
-                     teleStreamThumbnailVideoHeight="550"
-                     showVideoControls={1}
-                     showInfo={1}
-                     />    : this.noVideoHtml
-
-
-              }
-            </aside>
-          </TabPanel>
-
-
-
-          {
-            additionalFeeds.map((feed, i) => (
-              <TabPanel
-                key={uniqueId()}
-              >
+            {additionalFeeds.map((feed, i) => (
+              <TabPanel key={uniqueId()}>
                 <aside className={s.liveViewContent}>
-                  {feed.imageSourceType === 'video' ?
+                  {feed.imageSourceType === 'video' ? (
                     <VideoImageLoader
                       teleStreamCode={feed.videoStreamCode}
                       teleStreamURL={feed.videoStreamURL}
@@ -138,9 +135,9 @@ class SituationVideoViewer extends Component {
                       teleSystem={feed.systemId}
                       telePort={feed.SSEport}
                       callSource="situationRoom"
-
                     />
-                  : // else feed.imageSourceType === 'SSE'
+                  ) : (
+                    // else feed.imageSourceType === 'SSE'
                     <TelescopeImageViewer
                       teleSystem={feed.systemId}
                       telePort={feed.SSEport}
@@ -153,34 +150,31 @@ class SituationVideoViewer extends Component {
                       isInteractive={false}
                       callSource="situationRoom"
                     />
-                  }
+                  )}
                 </aside>
-              </TabPanel>)
-            )}
-        </Tabs> }
+              </TabPanel>
+            ))}
+          </Tabs>
+        )}
 
-        {!videoInProgress && <aside className={s.liveViewContent}>
-          {this.noVideoHtml}
-        </aside>}
+        {!videoInProgress && (
+          <aside className={s.liveViewContent}>{this.noVideoHtml}</aside>
+        )}
 
         <footer className={s.liveCameraTabs}>
-          {
-            this.isStarShareAvailable ?
-              <StarShareCamera /> : null
-          }
+          {this.isStarShareAvailable ? <StarShareCamera /> : null}
         </footer>
 
         <style jsx>
-        {`
+          {`
+            :global(.active-tele-tab) {
+              display: block;
+            }
 
-          :global(.active-tele-tab) {
-            display: block;
-          }
-
-          :global(.inactive-tele-tab) {
-            display: none;
-          }
-        `}
+            :global(.inactive-tele-tab) {
+              display: none;
+            }
+          `}
         </style>
       </section>
     );
@@ -209,24 +203,26 @@ SituationVideoViewer.propTypes = {
   sponsorLogoURL: PropTypes.string,
   sponsorLinkURL: PropTypes.string,
   eventIconURL: PropTypes.string,
-  additionalFeeds: PropTypes.arrayOf(PropTypes.shape({
-    DomeId: PropTypes.string,
-    ObsId: PropTypes.string,
-    PierNumber: PropTypes.string,
-    SSEfade: PropTypes.number,
-    SSEport: PropTypes.number,
-    TelescopeCode: PropTypes.string,
-    TelescopeId: PropTypes.string,
-    TelescopeName: PropTypes.string,
-    cameraSourceType: PropTypes.string,
-    canStarShare: PropTypes.bool,
-    imageSourceType: PropTypes.string,
-    systemId: PropTypes.string,
-    tabDesc: PropTypes.string,
-    tabIconURL: PropTypes.string,
-    videoStreamCode: PropTypes.string,
-    videoStreamURL: PropTypes.string,
-  })),
+  additionalFeeds: PropTypes.arrayOf(
+    PropTypes.shape({
+      DomeId: PropTypes.string,
+      ObsId: PropTypes.string,
+      PierNumber: PropTypes.string,
+      SSEfade: PropTypes.number,
+      SSEport: PropTypes.number,
+      TelescopeCode: PropTypes.string,
+      TelescopeId: PropTypes.string,
+      TelescopeName: PropTypes.string,
+      cameraSourceType: PropTypes.string,
+      canStarShare: PropTypes.bool,
+      imageSourceType: PropTypes.string,
+      systemId: PropTypes.string,
+      tabDesc: PropTypes.string,
+      tabIconURL: PropTypes.string,
+      videoStreamCode: PropTypes.string,
+      videoStreamURL: PropTypes.string,
+    })
+  ),
   starShareAvailable: PropTypes.bool,
   initialStreamCode: PropTypes.string,
   initialStreamURL: PropTypes.string,

@@ -38,22 +38,26 @@ class TelescopeCards extends Component {
     // to what telescope-card
 
     const { obsUniqueId } = this.props.observatory;
-    const { observatoryTelecopeStatus, fetchTelescopeCardData, telescopeCardData } = this.props;
+    const {
+      observatoryTelecopeStatus,
+      fetchTelescopeCardData,
+      telescopeCardData,
+    } = this.props;
     const { statusTeleList } = observatoryTelecopeStatus.statusList;
     const { obsAlertText } = observatoryTelecopeStatus.alertList.alertListObs;
 
-    return obsTelescopes.map((telescope) => {
+    return obsTelescopes.map(telescope => {
       const { teleStatus, teleHasTelescopePage } = telescope;
 
       let telescopeStatus = statusTeleList.find(
-        status => telescope.teleUniqueId === status.teleUniqueId,
+        status => telescope.teleUniqueId === status.teleUniqueId
       );
 
       // if a status is provided by the status API, we use that - otherwise we generate one
       telescopeStatus = telescopeStatus || generateTelescopeStatus(telescope);
 
       const telescopeCardBack = telescopeCardData.cardList.find(
-        card => card.teleId === telescopeStatus.telescopeId,
+        card => card.teleId === telescopeStatus.telescopeId
       );
 
       if (teleStatus !== 'live' && !teleHasTelescopePage) {

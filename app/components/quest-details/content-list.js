@@ -7,12 +7,13 @@ import style from './content-list.style';
 
 const ContentList = ({ list, resourcesProps, showResources }) => (
   <div className="root">
-    <AbelList theme={{ horizontalList: { boxShadow: 'inset 0px 5px 20px -5px #e0e0e0' } }} list={list} />
-    <DisplayAtBreakpoint
-      screenSmall
-      screenLarge
-      screenXLarge
-    >
+    <AbelList
+      theme={{
+        horizontalList: { boxShadow: 'inset 0px 5px 20px -5px #e0e0e0' },
+      }}
+      list={list}
+    />
+    <DisplayAtBreakpoint screenSmall screenLarge screenXLarge>
       {showResources ? <ResourcesButton {...resourcesProps} /> : null}
     </DisplayAtBreakpoint>
     <style jsx>{style}</style>

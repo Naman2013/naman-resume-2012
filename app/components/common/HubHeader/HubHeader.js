@@ -14,12 +14,12 @@ const HubHeader = props => {
     renderNav,
     renderRightMenu,
     titleTheme,
-    plain,
+    profile,
   } = props;
 
   return (
     <Fragment>
-      <div className={cn('root', { plain })}>
+      <div className={cn('root', { profile })}>
         {showIcon && (
           <div className="hub-header-icon">
             <img src={icon} className="hub-icon" alt={title} />
@@ -56,7 +56,7 @@ HubHeader.propTypes = {
   icon: string,
   showIcon: bool,
   titleTheme: shape({}),
-  plain: bool,
+  profile: bool,
 };
 
 HubHeader.defaultProps = {
@@ -64,7 +64,7 @@ HubHeader.defaultProps = {
   icon: '',
   showIcon: true,
   titleTheme: {},
-  plain: false,
+  profile: false,
 };
 
 export default HubHeader;

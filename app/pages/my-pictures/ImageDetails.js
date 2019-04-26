@@ -11,9 +11,18 @@ import ImageInfoPanel from '../../components/my-pictures/ImageInfoPanel';
 import PhotoActions from '../../components/my-pictures/actions/PhotoActions';
 import ModalGeneric from '../../components/common/modals/modal-generic';
 import { resetShareMemberPhoto } from '../../modules/share-member-photo/actions';
-import { setPageTitle, setStandardMeta, setOpenGraphMeta } from '../../modules/pageLevelMetaContent/seo-actions';
+import {
+  setPageTitle,
+  setStandardMeta,
+  setOpenGraphMeta,
+} from '../../modules/pageLevelMetaContent/seo-actions';
 
-const mapStateToProps = ({ appConfig, myPicturesImageDetails, user, shareMemberPhoto }) => ({
+const mapStateToProps = ({
+  appConfig,
+  myPicturesImageDetails,
+  user,
+  shareMemberPhoto,
+}) => ({
   myPicturesImageDetails,
   showSharePrompt: shareMemberPhoto.showSharePrompt,
   sharePrompt: shareMemberPhoto.sharePrompt,
@@ -22,17 +31,23 @@ const mapStateToProps = ({ appConfig, myPicturesImageDetails, user, shareMemberP
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({
-    fetchImageDetailsAndCounts,
-    verifyMyPicsOwner,
-    resetShareMemberPhoto,
-    setPageTitle,
-    setStandardMeta,
-    setOpenGraphMeta,
-  }, dispatch),
+  actions: bindActionCreators(
+    {
+      fetchImageDetailsAndCounts,
+      verifyMyPicsOwner,
+      resetShareMemberPhoto,
+      setPageTitle,
+      setStandardMeta,
+      setOpenGraphMeta,
+    },
+    dispatch
+  ),
 });
 
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(
+  mapStateToProps,
+  mapDispatchToProps
+)
 class ImageDetails extends Component {
   constructor(props) {
     super(props);
@@ -48,24 +63,25 @@ class ImageDetails extends Component {
     window.scrollTo(0, 0);
     const {
       actions,
-      params: {
-        customerImageId,
-        shareToken,
-        galleryId
-      }
+      params: { customerImageId, shareToken, galleryId },
     } = this.props;
 
-    actions.verifyMyPicsOwner({
-      itemId: customerImageId,
-      itemType: 'image'
-    }).then(() => {
-      if (this.props.myPicturesImageDetails.customerImageId !== customerImageId) { // don't call api for info we already have
-        actions.fetchImageDetailsAndCounts({
-          customerImageId,
-          shareToken,
-        });
-      }
-    });
+    actions
+      .verifyMyPicsOwner({
+        itemId: customerImageId,
+        itemType: 'image',
+      })
+      .then(() => {
+        if (
+          this.props.myPicturesImageDetails.customerImageId !== customerImageId
+        ) {
+          // don't call api for info we already have
+          actions.fetchImageDetailsAndCounts({
+            customerImageId,
+            shareToken,
+          });
+        }
+      });
   }
 
   componentWillReceiveProps(nextProps) {
@@ -77,24 +93,32 @@ class ImageDetails extends Component {
     }
 
     /* set the Page Meta Tags and Open Graph tagging */
-    this.props.actions.setPageTitle(nextProps.myPicturesImageDetails.imageTitle);
-    this.props.actions.setStandardMeta({ description: nextProps.myPicturesImageDetailsSocialShareDescription });
-    this.props.actions.setOpenGraphMeta({ type: "image", title: nextProps.myPicturesImageDetails.imageTitle, description: nextProps.myPicturesImageDetails.socialShareDescription, image: nextProps.myPicturesImageDetails.imageURL });
+    this.props.actions.setPageTitle(
+      nextProps.myPicturesImageDetails.imageTitle
+    );
+    this.props.actions.setStandardMeta({
+      description: nextProps.myPicturesImageDetailsSocialShareDescription,
+    });
+    this.props.actions.setOpenGraphMeta({
+      type: 'image',
+      title: nextProps.myPicturesImageDetails.imageTitle,
+      description: nextProps.myPicturesImageDetails.socialShareDescription,
+      image: nextProps.myPicturesImageDetails.imageURL,
+    });
   }
 
-
-  handleEditorChange = (editorHTML) => {
+  handleEditorChange = editorHTML => {
     this.setState({ editorValue: editorHTML });
 
     // make call to update changes
-  }
+  };
 
   closeModal = () => {
     this.setState({
       showSharePicturePrompt: false,
     });
     this.props.actions.resetShareMemberPhoto();
-  }
+  };
 
   render() {
     const {
@@ -117,7 +141,7 @@ class ImageDetails extends Component {
         customerImageId,
         shareToken,
         galleryId,
-        scheduledMissionId: scheduledMissionIdParam // only images coming from mission pictures page will have this.
+        scheduledMissionId: scheduledMissionIdParam, // only images coming from mission pictures page will have this.
       },
       user,
       socialSharePageURL,
@@ -134,7 +158,9 @@ class ImageDetails extends Component {
     };
 
     // only send scheduledMissionId to PhotoActions if user is coming from the Mission Images page
-    const photoActionsScheduledMissionId = scheduledMissionIdParam ? scheduledMissionId : null;
+    const photoActionsScheduledMissionId = scheduledMissionIdParam
+      ? scheduledMissionId
+      : null;
 
     return (
       <div>
@@ -143,10 +169,12 @@ class ImageDetails extends Component {
           closeModal={this.closeModal}
           description={String(sharePicturePrompt)}
         />
-        {canEditFlag && <MyPicturesNavigation
-          page="photo-roll"
-          scheduledMissionId={scheduledMissionId}
-        />}
+        {canEditFlag && (
+          <MyPicturesNavigation
+            page="photo-roll"
+            scheduledMissionId={scheduledMissionId}
+          />
+        )}
         <div className="clearfix my-pictures-container">
           <div className="container">
             <div className="left title">
@@ -173,10 +201,16 @@ class ImageDetails extends Component {
           </div>
           <div className="container">
             <div className="left">
-              <ImageViewer fetching={fetching} error={error} currentImage={imageURL} />
+              <ImageViewer
+                fetching={fetching}
+                error={error}
+                currentImage={imageURL}
+              />
             </div>
             <aside className="right">
-              <ImageInfoPanel customerImageId={this.props.params.customerImageId} />
+              <ImageInfoPanel
+                customerImageId={this.props.params.customerImageId}
+              />
             </aside>
           </div>
         </div>
