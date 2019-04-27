@@ -53,6 +53,7 @@ class BobbieTile extends Component {
       readDuration,
       authorName,
       HTMLBlob,
+      disableReadMore,
     } = this.props;
 
     return (
@@ -62,20 +63,28 @@ class BobbieTile extends Component {
             {showTitle === true ? <h3>{title}</h3> : null}
             {showSubtitle === true ? <div className="subtitle">{subtitle}</div> : null}
 
-            <ImageClickHandler>
-              <span
+            {disableReadMore == true && <span
                 className="__html-blob-content-container__"
-                dangerouslySetInnerHTML={{
-                  __html: this.prepareContent(HTMLBlob, contentLength),
-                }}
+                dangerouslySetInnerHTML={{ __html: HTMLBlob }}
               />
-              {HTMLBlob.length > TRUNCATED_CONTENT_LENGTH && (
-                <div>
-                  <button onClick={this.handleReadMoreClick} className="action-read-more">
-                  {buttonText}
-                </button></div>
-              )}
+            }
+            {disableReadMore == false && <Fragment>
+              <ImageClickHandler>
+                <span
+                  className="__html-blob-content-container__"
+                  dangerouslySetInnerHTML={{
+                    __html: this.prepareContent(HTMLBlob, contentLength),
+                  }}
+                />
+                {HTMLBlob.length > TRUNCATED_CONTENT_LENGTH && (
+                  <div>
+                    <button onClick={this.handleReadMoreClick} className="action-read-more">
+                    {buttonText}
+                  </button></div>
+                )}
               </ImageClickHandler>
+            </Fragment>
+            }
             </div>
           </div>
         <style jsx>{style}</style>
@@ -97,6 +106,7 @@ BobbieTile.defaultProps = {
   readDuration: '',
   authorName: '',
   HTMLBlob: '',
+  disableReadMore: false,
 };
 
 export default BobbieTile;
