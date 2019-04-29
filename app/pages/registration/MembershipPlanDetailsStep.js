@@ -134,7 +134,7 @@ class MembershipPlanDetailsStep extends Component {
                             type="button"
                             text={intl.formatMessage(messages.GoBack)}
                             onClickEvent={() => {
-                              browserHistory.push('/about/memberships');
+                              browserHistory.goBack();
                             }}
                           />
                           <button className="submit-button" type="submit">
