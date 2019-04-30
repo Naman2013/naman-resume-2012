@@ -144,6 +144,7 @@ const modelData = resp => ({
     ...resp.relatedGuide,
   },
   hasHowBigData: resp.hasHowBigData,
+  hasFeaturedObservation: resp.hasFeaturedObservation,
 });
 
 @connect(
@@ -180,7 +181,7 @@ class Overview extends Component {
           user={user}
         />
 
-        {modeledResult.featuredObservation.hasFeaturedObservation && (
+        {modeledResult.hasFeaturedObservation && (
           <section className="blue-tile-bg">
             <DeviceProvider>
               <SterlingTitle
