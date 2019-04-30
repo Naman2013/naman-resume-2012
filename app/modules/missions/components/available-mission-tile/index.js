@@ -1,8 +1,10 @@
 import moment from 'moment';
 import React, { Component } from 'react';
+import { Link } from 'react-router';
 import Countdown from 'react-countdown-now';
 import { FormattedNumber } from 'react-intl';
 import Button from '../../../../components/common/style/buttons/Button';
+import FollowObjectButton from 'app/components/object-details/FollowObjectButton.js';
 import './styles.scss';
 
 const getMissionDate = timestamp =>
@@ -19,8 +21,23 @@ export class AvailbleMissionTile extends Component {
       missionSlot = {},
       byTelescope,
       tip,
+      objectIconURL,
+      communityMissions,
+      user,
+      onMissionView,
     } = this.props;
-    const { title, telescopeName, explanation, missionStart } = missionSlot;
+    const {
+      title,
+      telescopeName,
+      explanation,
+      missionStart,
+      learnButtonCaption,
+      learnButtonLink,
+      objectId,
+      followPrompt,
+      followPromptIconUrl,
+      viewMissionButtonCaption,
+    } = missionSlot;
 
     return (
       <div className="mission-tile">
@@ -41,7 +58,10 @@ export class AvailbleMissionTile extends Component {
             />
           )}
         </div>
-        <h5 className="title">{title}</h5>
+        <h5 className="title">
+          {objectIconURL && <img src={objectIconURL} alt="" />}
+          <span>{title}</span>
+        </h5>
         <div className="time">{getMissionTime(missionStart)}</div>
         <div className="info">
           <div className="date">{getMissionDate(missionStart)}</div>
@@ -54,6 +74,24 @@ export class AvailbleMissionTile extends Component {
           <div className="actions">
             <Button text="Cancel" onClickEvent={onCancel} />
             <Button text="Schedule Mission" onClickEvent={onSubmit} />
+          </div>
+        )}
+        {communityMissions && (
+          <div className="actions community-mission-actions">
+            <div>
+              <Link to={learnButtonLink} className="learn-btn">
+                <Button text={learnButtonCaption}/>
+              </Link>
+              <FollowObjectButton
+                objectId={objectId}
+                user={user}
+                followButtonText={followPrompt}
+                followButtonIconURL={followPromptIconUrl}
+              />
+            </div>
+            <div>
+              <Button text={viewMissionButtonCaption} onClickEvent={onMissionView} />
+            </div>
           </div>
         )}
       </div>

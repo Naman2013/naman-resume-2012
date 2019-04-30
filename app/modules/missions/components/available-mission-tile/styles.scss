@@ -16,6 +16,18 @@
     text-transform: none;
     border-bottom: 1px solid $geyser;
     padding-bottom: 20px;
+    display: flex;
+    align-items: center;
+
+    img {
+      background-color: $lightHeadedAstronaut;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      margin-right: 10px;
+      margin-bottom: 3px;
+      padding: 5px;
+    }
   }
 
   .time {
@@ -96,6 +108,25 @@
 
       span {
         font-weight: 900;
+      }
+    }
+
+    &.community-mission-actions {
+      align-items: center;
+      justify-content: space-between;
+
+      > div {
+        display: flex;
+        align-items: center;
+        flex-flow: row wrap;
+
+        .learn-btn {
+          margin-right: 10px;
+        }
+
+        button {
+          margin: 15px 0 0;
+        }
       }
     }
   }

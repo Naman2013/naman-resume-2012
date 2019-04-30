@@ -6,11 +6,14 @@ import { QueueTab } from '../components/queue-tab';
 import {
   getUpcomingSlotsByTelescope,
   getFeaturedObjectsByTelescope,
+  reserveCommunityMission,
 } from '../thunks';
 import {
   makeQueueTabUpcomingSlotsDataSelector,
   makeQueueTabIsFetchingSelector,
   makeQueueTabFeaturedObjectsDataSelector,
+  makeQueueTabReservedCommunityMissionDataSelector,
+  makeQueueTabReservedCommunityMissionSelector,
 } from '../selectors';
 import { ACTION } from '../reducer';
 import {
@@ -20,12 +23,16 @@ import {
 } from '../../missions/thunks';
 import { ACTION as MISSION_ACTION } from '../../missions/reducer';
 import { makeTelescopeSelectedSlotSelector } from '../../missions/selectors';
+import { makeUserSelector } from '../../user/selectors';
 
 const mapStateToProps = createStructuredSelector({
   isFetching: makeQueueTabIsFetchingSelector(),
   upcomingSlotsData: makeQueueTabUpcomingSlotsDataSelector(),
   selectedSlot: makeTelescopeSelectedSlotSelector(),
   featuredObjectsData: makeQueueTabFeaturedObjectsDataSelector(),
+  reservedCommunityMissionData: makeQueueTabReservedCommunityMissionDataSelector(),
+  user: makeUserSelector(),
+  reservedCommunityMission: makeQueueTabReservedCommunityMissionSelector(),
 });
 
 const mapDispatchToProps = {
@@ -35,6 +42,7 @@ const mapDispatchToProps = {
   setSelectedSlot: MISSION_ACTION.setSelectedSlot,
   cancelMissionSlot,
   getFeaturedObjectsByTelescope,
+  reserveCommunityMission,
 };
 
 export default compose(

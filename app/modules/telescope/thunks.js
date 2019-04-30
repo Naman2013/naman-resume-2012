@@ -2,6 +2,7 @@ import {
   getAllSkyTimelapseApi,
   getUpcomingSlotsByTelescopeApi,
   getFeaturedObjectsByTelescopeApi,
+  reserveCommunityMissionApi,
 } from './api';
 import { ACTION } from './reducer';
 
@@ -38,4 +39,14 @@ export const getFeaturedObjectsByTelescope = data => (dispatch, getState) => {
       dispatch(ACTION.getFeaturedObjectsByTelescopeSuccess(result.data))
     )
     .catch(error => dispatch(ACTION.getFeaturedObjectsByTelescopeError(error)));
+};
+
+export const reserveCommunityMission = data => (dispatch, getState) => {
+  const { at, token, cid } = getState().user;
+  dispatch(ACTION.reserveCommunityMission());
+  return reserveCommunityMissionApi({ at, token, cid, ...data })
+    .then(result =>
+      dispatch(ACTION.reserveCommunityMissionSuccess(result.data))
+    )
+    .catch(error => dispatch(ACTION.reserveCommunityMissionError(error)));
 };

@@ -6,6 +6,7 @@ export const TYPE = constants('telescope', [
   '~GET_ALL_SKY_TIMELAPSE',
   '~GET_UPCOMING_SLOTS_BY_TELESCOPE',
   '~GET_FEATURED_OBJECTS_BY_TELESCOPE',
+  '~RESERVE_COMMUNITY_MISSION',
 ]);
 export const ACTION = actions(TYPE);
 
@@ -26,6 +27,8 @@ export const initialState = {
       reservationDateFormatted: '',
     },
     featuredObjectsData: {},
+    reservedCommunityMissionData: {},
+    reservedCommunityMissionList: [],
   },
 };
 
@@ -40,6 +43,9 @@ export default handleActions(
     [TYPE.GET_FEATURED_OBJECTS_BY_TELESCOPE]: setQueueTabFetching,
     [TYPE.GET_FEATURED_OBJECTS_BY_TELESCOPE_SUCCESS]: getFeaturedObjectsByTelescopeSuccess,
     [TYPE.GET_FEATURED_OBJECTS_BY_TELESCOPE_ERROR]: setQueueTabServerError,
+    [TYPE.RESERVE_COMMUNITY_MISSION]: setQueueTabFetching,
+    [TYPE.RESERVE_COMMUNITY_MISSION_SUCCESS]: reserveCommunityMissionSuccess,
+    [TYPE.RESERVE_COMMUNITY_MISSION_ERROR]: setQueueTabServerError,
   },
   initialState
 );
@@ -91,6 +97,18 @@ function getFeaturedObjectsByTelescopeSuccess(state, action) {
       ...state.queueTab,
       isFetching: false,
       featuredObjectsData: action.payload,
+    },
+  };
+}
+
+function reserveCommunityMissionSuccess(state, action) {
+  return {
+    ...state,
+    queueTab: {
+      ...state.queueTab,
+      isFetching: false,
+      reservedCommunityMissionData: action.payload,
+      reservedCommunityMissionList: action.payload.missionList,
     },
   };
 }

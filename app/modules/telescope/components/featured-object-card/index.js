@@ -4,7 +4,7 @@ import './styles.scss';
 
 export class FeaturedObjectCard extends PureComponent {
   render() {
-    const { featureObject, getTelescopeSlot } = this.props;
+    const { featureObject, getTelescopeSlot, onOptionClick } = this.props;
     const {
       title,
       ownerAvatarURL,
@@ -37,7 +37,7 @@ export class FeaturedObjectCard extends PureComponent {
         <div className="featured-object-card-footer">
           <div className="mission-date">{displayWeekdayMonthDayUTC}</div>
 
-          <Button className="option-btn" onClick={() => {}}>
+          <Button className="option-btn" onClick={onOptionClick}>
             Options
           </Button>
         </div>

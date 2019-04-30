@@ -108,3 +108,15 @@ export const makeQueueTabFeaturedObjectsDataSelector = () =>
     makeQueueTabSelector(),
     state => state.featuredObjectsData
   );
+
+export const makeQueueTabReservedCommunityMissionDataSelector = () =>
+  createSelector(
+    makeQueueTabSelector(),
+    state => state.reservedCommunityMissionData
+  );
+
+export const makeQueueTabReservedCommunityMissionSelector = () =>
+  createSelector(
+    makeQueueTabSelector(),
+    state => state.reservedCommunityMissionList[0]
+  );
