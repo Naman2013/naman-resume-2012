@@ -196,6 +196,11 @@ class DiscussionBoardGoogleClassroomStudentsPanel extends Component {
                                   </Card.Subtitle>
                                 </Card.Body>
                                 <ListGroup>
+				   {x.showInvitationCode == true && <ListGroupItem className="list-card-item">
+                                     <b>Invitation Code: </b>
+                                     {x.invitationcode}
+                                  </ListGroupItem>
+				  }
                                   <ListGroupItem className="list-card-item">
                                     <b>Account status: </b>
                                     {x.status}
