@@ -204,16 +204,18 @@ export const fetchImageDetailsAction = customerImageId => (
 ) => {
   dispatch(fetchImageDetailsActionStart());
   const { token, at, cid } = getState().user;
-  return fetchImageDetailsService({
-    token,
-    at,
-    cid,
-    customerImageId,
-  })
-    .then(result => {
-      dispatch(fetchImageDetailsActionSuccess(result.data));
+  if (customerImageId) {
+    return fetchImageDetailsService({
+      token,
+      at,
+      cid,
+      customerImageId,
     })
-    .catch(error => dispatch(fetchImageDetailsActionError(error)));
+      .then(result => {
+        dispatch(fetchImageDetailsActionSuccess(result.data));
+      })
+      .catch(error => dispatch(fetchImageDetailsActionError(error)));
+  }
 };
 
 ////////////////////

@@ -12,7 +12,6 @@ import { bindActionCreators } from 'redux';
 import { browserHistory } from 'react-router';
 import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 import { BURNHAMS_CORNER_CONTENT } from 'app/services/content';
-import isEmpty from 'lodash/fp/isEmpty';
 import CenterColumn from 'app/components/common/CenterColumn';
 import TopicContent from 'app/components/guides/TopicContent';
 import Request from 'app/components/common/network/Request';
@@ -181,38 +180,37 @@ class Overview extends Component {
           user={user}
         />
 
-        {modeledResult.featuredObservation.hasObservations ||
-          (!isEmpty(imageDetails) && (
-            <section className="blue-tile-bg">
-              <DeviceProvider>
-                <SterlingTitle
-                  title="Featured Observation"
-                  theme={{
-                    title: { color: 'white' },
-                    subTitle: { color: 'white' },
-                  }}
+        {modeledResult.featuredObservation.hasFeaturedObservation && (
+          <section className="blue-tile-bg">
+            <DeviceProvider>
+              <SterlingTitle
+                title="Featured Observation"
+                theme={{
+                  title: { color: 'white' },
+                  subTitle: { color: 'white' },
+                }}
+              />
+              <CenterColumn widths={['768px', '965px', '965px']}>
+                <CardObservations
+                  user={user}
+                  title={imageDetails.imageTitle}
+                  subTitle={imageDetails.displayName}
+                  description={imageDetails.observationLog}
+                  imageUrl={imageDetails.imageURL}
+                  linkUrl={imageDetails.linkUrl}
+                  likesCount={imageDetails.likesCount}
+                  likePrompt={imageDetails.likePrompt}
+                  observationTimeDisplay={imageDetails.observationTimeDisplay}
+                  showLikePrompt={imageDetails.showLikePrompt}
+                  handleLike={fetchLikeAction}
+                  customerImageId={
+                    modeledResult.featuredObservation.customerImageId
+                  }
                 />
-                <CenterColumn widths={['768px', '965px', '965px']}>
-                  <CardObservations
-                    user={user}
-                    title={imageDetails.imageTitle}
-                    subTitle={imageDetails.displayName}
-                    description={imageDetails.observationLog}
-                    imageUrl={imageDetails.imageURL}
-                    linkUrl={imageDetails.linkUrl}
-                    likesCount={imageDetails.likesCount}
-                    likePrompt={imageDetails.likePrompt}
-                    observationTimeDisplay={imageDetails.observationTimeDisplay}
-                    showLikePrompt={imageDetails.showLikePrompt}
-                    handleLike={fetchLikeAction}
-                    customerImageId={
-                      modeledResult.featuredObservation.customerImageId
-                    }
-                  />
-                </CenterColumn>
-              </DeviceProvider>
-            </section>
-          ))}
+              </CenterColumn>
+            </DeviceProvider>
+          </section>
+        )}
 
         <section className="off-white-bg">
           <SterlingTitle {...modeledResult.statisticsTitle} />
