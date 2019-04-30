@@ -42,8 +42,6 @@ class PhotoRollCard extends Component<TPhotoRollCard> {
   }
 
   onDownloadFile = () => {
-    console.log(this.props);
-
     const {
       currentItem: { imageDownloadURL, imageDownloadFilename },
     } = this.props;
@@ -98,7 +96,6 @@ class PhotoRollCard extends Component<TPhotoRollCard> {
                   toggleMenuVisibility={this.toggleMenuVisibility}
                   {...this.props}
                 />
-                <div className="circle" />
                 <div className="overlay-top">
                   <div className="photoRoll-title" title={imageTitle}>
                     {imageTitle}
