@@ -77,3 +77,6 @@
 .icon-slider-right:before {
   content: "\6d";
 }
+.icon-clip:before {
+  content: "\6e";
+}

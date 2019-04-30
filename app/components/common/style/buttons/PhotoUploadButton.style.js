@@ -37,7 +37,14 @@ export default css`
   }
 
   label {
-    margin: 0;
+    border: 1px dashed;
+    font-size: 11px;
+    height: 40px;
+    width: 40px;
+    line-height: 40px;
+    text-align: center;
+    border-radius: 50%;
+    cursor: pointer;
   }
 
   .text {

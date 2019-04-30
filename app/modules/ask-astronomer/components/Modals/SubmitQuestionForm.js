@@ -160,25 +160,18 @@ class SubmitQuestionForm extends Component {
           onChange={this.onChangeQuestionText}
           placeholder={askPrompt}
         />
-        <div className="button-container question-form">
-          <div className="left-buttons">
-            <PhotoUploadButton handleUploadImage={this.handleUploadImage} />
-            <Button
-              onClickEvent={() => browserHistory('/help/posting-guidelines')}
-              text={intl.formatMessage(messages.Guidelines)}
-              theme={{ height: '40px', marginLeft: '10px' }}
-            />
-          </div>
 
+        <div className="buttons-wrapper d-flex justify-content-between">
           <div>
-            <div className="float-right">
-              <Button onClick={this.cancel}>
-                {intl.formatMessage(messages.Cancel)}
-              </Button>
-              <Button onClick={this.submitForm}>
-                {intl.formatMessage(messages.Submit)}
-              </Button>
-            </div>
+            <PhotoUploadButton handleUploadImage={this.handleUploadImage} />
+          </div>
+          <div>
+            <Button onClick={this.cancel} className="mr-3">
+              {intl.formatMessage(messages.Cancel)}
+            </Button>
+            <Button onClick={this.submitForm}>
+              {intl.formatMessage(messages.Submit)}
+            </Button>
           </div>
         </div>
       </form>

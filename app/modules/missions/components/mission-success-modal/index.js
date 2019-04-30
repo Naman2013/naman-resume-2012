@@ -134,7 +134,7 @@ export class MissionSuccessModal extends Component {
             </>
           )}
 
-          <div className="text-center mt-3">
+          <div className="text-center">
             <Button onClick={onHide}>{finishedButtonCaption}</Button>
           </div>
         </div>

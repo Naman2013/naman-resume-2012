@@ -4,18 +4,10 @@ import styles from './PhotoUploadButton.style';
 
 const { func, number, oneOfType, string } = PropTypes;
 
-const PhotoUploadButton = ({ text, icon, handleUploadImage }) => (
+const PhotoUploadButton = ({ handleUploadImage }) => (
   <div className="button-input-container">
     <label htmlFor="file-upload">
-      <div className="button-container">
-        <div className="button-inner-container">
-          <span className="button-text fa fa-image" />
-          <div className="button-text">
-            <span className="fa fa-plus" />
-            <span className="text" dangerouslySetInnerHTML={{ __html: text }} />
-          </div>
-        </div>
-      </div>
+      <span className="icon-clip" />
     </label>
     <input
       id="file-upload"
