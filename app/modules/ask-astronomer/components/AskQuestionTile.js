@@ -1,17 +1,17 @@
-import React, { Fragment, Component } from 'react';
-import PropTypes from 'prop-types';
-import noop from 'lodash/noop';
+import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
 import GenericButton from 'app/components/common/style/buttons/Button';
 import {
   customModalStylesBlackOverlay,
   customModalStylesFitDevice,
   profilePhotoStyle,
 } from 'app/styles/mixins/utilities';
-import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
-import SubmitQuestionForm from './Modals/SubmitQuestionForm';
-import SubmitQuestionFeedbackModal from './Modals/SubmitQuestionFeedbackModal';
-import { Modal } from '../../../components/modal';
 import { info } from 'app/styles/variables/iconURLs';
+import PropTypes from 'prop-types';
+import React, { Component, Fragment } from 'react';
+import { Button } from 'react-bootstrap';
+import { Modal } from '../../../components/modal';
+import style from './AskQuestionTile.style';
+import SubmitQuestionForm from './Modals/SubmitQuestionForm';
 
 const circlePic = photoUrl =>
   Object.assign(profilePhotoStyle(photoUrl), {
@@ -19,7 +19,6 @@ const circlePic = photoUrl =>
     width: '105px',
     backgroundSize: 'cover',
   });
-import style from './AskQuestionTile.style';
 
 const { func, shape } = PropTypes;
 
@@ -225,22 +224,18 @@ class AskQuestionTile extends Component {
           <p className="popup-message" style={{}}>
             {message}
           </p>
-          <span style={{ display: 'flex', flexDirection: 'row' }}>
-            <GenericButton
-              text={doneButtonLabel}
-              theme={{
-                borderColor: 'white',
-                color: 'white',
-                marginRight: '10px',
-              }}
-              onClickEvent={this.updateQuestionsList}
-            />
-            <GenericButton
-              text={continueButtonLabel}
-              theme={{ borderColor: 'white', color: 'white' }}
-              onClickEvent={this.setAskQuestionModal}
-            />
-          </span>
+
+          <div>
+            <Button
+              onClick={this.updateQuestionsList}
+              className="mr-3 modal-btn"
+            >
+              {doneButtonLabel}
+            </Button>
+            <Button onClick={this.setAskQuestionModal} className="modal-btn">
+              {continueButtonLabel}
+            </Button>
+          </div>
         </Modal>
         <style jsx>{style}</style>
         <style jsx>
