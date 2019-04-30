@@ -270,13 +270,6 @@ class AskAstronomer extends Component {
                 theme={{ padding: '25px' }}
               />
               <Modal show={showPrompt} onHide={this.closeModal}>
-                {/*<Modal
-                ariaHideApp={false}
-                isOpen={showPrompt}
-                style={promptStyles}
-                contentLabel="askAstronomer"
-                onRequestClose={this.closeModal}
-              >*/}
                 {promptComponent}
               </Modal>
               <CenterColumn
