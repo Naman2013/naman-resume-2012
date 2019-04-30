@@ -18,6 +18,8 @@ import messages from './AboutSloohSection.messages';
 
 const ABOUT_SLOOH_SECTION = 'about-slooh';
 const SPONSOR_OPPORTUNITIES_SECTION = 'about-slooh-sponsor';
+const CAREERS_SECTION = 'about-slooh-careers';
+const TEAM_SECTION = 'about-slooh-team';
 
 const AboutSloohSection = ({ params }) => (
   <Fragment>
@@ -90,7 +92,8 @@ const AboutSloohSection = ({ params }) => (
                       </CenterColumn>
                     )}
 
-                  <SectionPanels list={sectionPanels} />
+                  { (params.aboutSloohSectionId === CAREERS_SECTION || params.aboutSloohSectionId === TEAM_SECTION) && <SectionPanels disableReadMore={true} list={sectionPanels} />}
+                  { (params.aboutSloohSectionId !== CAREERS_SECTION && params.aboutSloohSectionId !== TEAM_SECTION) && <SectionPanels disableReadMore={false} list={sectionPanels} />}
 
                   <CenterColumn>
                     {hasAboutSloohNewsStories &&

@@ -125,6 +125,7 @@ class MembershipPlanDetailsStep extends Component {
                             serviceResponse.selectedSubscriptionPlan
                               .aboutThisPlan
                           }
+                          disableReadMore={true}
                         />
                         <div
                           style={{ paddingTop: '40px' }}
