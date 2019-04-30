@@ -155,14 +155,15 @@ class SubmitAnswerForm extends Component {
             dangerouslySetInnerHTML={{ __html: content }}
           />
         </div>
-        <div className="input-container">
-          <textarea
-            className="field-input"
-            value={answerText}
-            onChange={this.onChangeAnswerText}
-            placeholder={intl.formatMessage(messages.AnswerPlaceholder)}
-          />
-        </div>
+
+        <hr />
+
+        <textarea
+          className="field-input"
+          value={answerText}
+          onChange={this.onChangeAnswerText}
+          placeholder={intl.formatMessage(messages.AnswerPlaceholder)}
+        />
         <div className="button-container">
           <div className="privacy-buttons">
             <PhotoUploadButton handleUploadImage={this.handleUploadImage} />
@@ -178,7 +179,6 @@ class SubmitAnswerForm extends Component {
               text={intl.formatMessage(messages.Submit)}
               theme={{ height: '40px' }}
             />
-
           </div>
         </div>
       </form>
