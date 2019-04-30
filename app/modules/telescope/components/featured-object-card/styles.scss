@@ -18,6 +18,16 @@
     font-family: $secondary-font;
     font-size: 20px;
     line-height: 1.4;
+    display: flex;
+    align-items: center;
+
+    img {
+      background-color: $lightHeadedAstronaut;
+      width: 22px;
+      height: 22px;
+      margin-right: 10px;
+      margin-bottom: 3px;
+    }
   }
 
   .featured-object-card-footer {

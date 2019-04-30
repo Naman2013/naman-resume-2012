@@ -13,7 +13,6 @@ export const sliderResponsiveConfig = {
     {
       breakpoint: 768,
       settings: {
-        arrows: false,
         initialSlide: 0,
         slidesToShow: 1,
         slidesToScroll: 1,

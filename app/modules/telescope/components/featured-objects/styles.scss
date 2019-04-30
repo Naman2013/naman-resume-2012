@@ -28,3 +28,11 @@
     }
   }
 }
+
+@include media-breakpoint-down(sm) {
+  .featured-objects {
+    .featured-objects-slider {
+      padding: 0px 40px;
+    }
+  }
+}

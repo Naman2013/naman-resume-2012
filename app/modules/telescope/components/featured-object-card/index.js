@@ -11,6 +11,7 @@ export class FeaturedObjectCard extends PureComponent {
       ownerDisplayName,
       showSloohUser,
       missionStartFormatted,
+      objectIconURL,
     } = featureObject;
     const {
       displayOtherTimeZones,
@@ -21,14 +22,16 @@ export class FeaturedObjectCard extends PureComponent {
 
     return (
       <div className="featured-object-card">
-        <div className="mission-title">{title}</div>
+        <div className="mission-title">
+          <img src={objectIconURL} alt="" />
+          <span>{title}</span>
+        </div>
 
         <div className="mission-time">
           <div className="large">
             {displayTime}
             <span className="timezone">{displayTimeZone}</span>
           </div>
-          <div className="other">{displayOtherTimeZones}</div>
         </div>
 
         <div className="featured-object-card-footer">

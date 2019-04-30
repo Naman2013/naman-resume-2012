@@ -47,6 +47,7 @@ export class FeaturedObjects extends PureComponent {
             {...sliderResponsiveConfig}
             nextArrow={<NextArrow />}
             prevArrow={<PrevArrow />}
+            dots
           >
             {missionList.map(item => (
               <FeaturedObjectCard
