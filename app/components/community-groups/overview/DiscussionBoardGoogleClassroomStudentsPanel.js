@@ -201,34 +201,20 @@ class DiscussionBoardGoogleClassroomStudentsPanel extends Component {
                                     {x.status}
                                   </ListGroupItem>
                                   <ListGroupItem className="listy-card-item">
-                                    <b>Club status: </b>
-                                    {x.alreadyAMemberOfThisGroup === false &&
-                                      x.canBeInvitedToThisGroup === true && (
-                                        <Button
-                                          type="button"
-                                          text={x.invitationPrompt}
-                                          onClickEvent={() =>
-                                            this.addStudentToDiscussionGroup(
-                                              x.firstname,
-                                              x.lastname,
-                                              x.emailaddress,
-                                              x.googleprofileid
-                                            )
-                                          }
-                                        />
-                                      )}
-                                    {x.alreadyAMemberOfThisGroup === true &&
-                                      x.canBeInvitedToThisGroup === false && (
-                                        <FormattedMessage
-                                          {...messages.Active}
-                                        />
-                                      )}
-                                    {x.alreadyAMemberOfThisGroup === false &&
-                                      x.canBeInvitedToThisGroup === false && (
-                                        <FormattedMessage
-                                          {...messages.Pending}
-                                        />
-                                      )}
+                                    {x.showAddButton == true && <Button
+                                      type="button"
+                                      text={x.invitationPrompt}
+                                      onClickEvent={() =>
+                                        this.addStudentToDiscussionGroup(
+                                          x.firstname,
+                                          x.lastname,
+                                          x.emailaddress,
+                                          x.googleprofileid
+                                        )
+                                      }
+                                    />
+                                    }
+                                    {x.showClubStatus == true && <span><b>Club status: </b>{x.clubStatus}</span>}
                                   </ListGroupItem>
                                 </ListGroup>
 
