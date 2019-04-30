@@ -12,7 +12,7 @@ import PhotoRollCard from 'app/modules/profile-photos/components/PhotoRoll/Photo
 import MissionDetailsHeader from './mission-details-header';
 
 import './mission-details.scss';
-import cn from "classnames";
+import cn from 'classnames';
 
 type TMissionDetails = {
   isFetching: boolean,

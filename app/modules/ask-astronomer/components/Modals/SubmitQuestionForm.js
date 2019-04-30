@@ -1,21 +1,21 @@
 /***********************************
-* V4 Submit Question Form Modal
-*
-*
-*
-***********************************/
+ * V4 Submit Question Form Modal
+ *
+ *
+ *
+ ***********************************/
 
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { browserHistory } from 'react-router';
-import { intlShape, injectIntl } from 'react-intl';
-import Button from 'app/components/common/style/buttons/Button';
 import PhotoUploadButton from 'app/components/common/style/buttons/PhotoUploadButton';
-import deletePostImage from 'app/services/post-creation/delete-post-image';
 import setPostImages from 'app/modules/set-post-images';
 import { prepareThread } from 'app/services/discussions/prepare-thread';
-import styles from './Modals.style'
-import messages from './SubmitQuestionForm.messages'
+import deletePostImage from 'app/services/post-creation/delete-post-image';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { Button } from 'react-bootstrap';
+import { injectIntl, intlShape } from 'react-intl';
+import { browserHistory } from 'react-router';
+import './styles.scss';
+import messages from './SubmitQuestionForm.messages';
 
 const {
   any,
@@ -47,7 +47,7 @@ class SubmitQuestionForm extends Component {
   };
 
   static defaultProps = {
-    updateQuestionsList: {}
+    updateQuestionsList: {},
   };
 
   constructor(props) {
@@ -57,26 +57,26 @@ class SubmitQuestionForm extends Component {
       questionText: '',
       S3URLs: [],
       uuid: '',
-    }
+    };
     prepareThread({
       at: user.at,
       token: user.token,
-      cid: user.cid
-    }).then((res) => {
+      cid: user.cid,
+    }).then(res => {
       this.setState(() => ({
         uuid: res.data.postUUID,
       }));
-    })
+    });
   }
 
-  onChangeQuestionText = (e) => {
+  onChangeQuestionText = e => {
     e.preventDefault();
     this.setState({
       questionText: e.target.value,
     });
-  }
+  };
 
-  handleUploadImage = (event) => {
+  handleUploadImage = event => {
     event.preventDefault();
 
     const { cid, token, at } = this.props.user;
@@ -96,25 +96,26 @@ class SubmitQuestionForm extends Component {
 
     setPostImages(data)
       .then(res => this.handleUploadImageResponse(res.data))
-      .catch(err => this.setState({
-        uploadError: err.message,
-        uploadLoading: false,
-      }));
-  }
+      .catch(err =>
+        this.setState({
+          uploadError: err.message,
+          uploadLoading: false,
+        })
+      );
+  };
 
-  submitForm = (e) => {
+  submitForm = e => {
     e.preventDefault();
-    const {
-      questionText,
-      S3URLs,
-    } = this.state;
+    const { questionText, S3URLs } = this.state;
     if (questionText.replace(/\s/g, '').length) {
       this.props.submitForm(questionText, S3URLs);
     }
-  }
+  };
 
-  handleDeleteImage = (imageURL) => {
-    if (!imageURL) { return; }
+  handleDeleteImage = imageURL => {
+    if (!imageURL) {
+      return;
+    }
 
     const { cid, token, at } = this.props.user;
     const { uuid } = this.state;
@@ -127,63 +128,62 @@ class SubmitQuestionForm extends Component {
       imageClass: 'discussion',
       imageURL,
     }).then(result => this.handleUploadImageResponse(result.data));
-  }
+  };
 
-  handleUploadImageResponse = (uploadFileData) => {
+  handleUploadImageResponse = uploadFileData => {
     this.setState({
       S3URLs: uploadFileData.S3URLs,
       uploadLoading: false,
     });
-  }
+  };
 
   cancel = () => {
-    const {
-      updateQuestionsList,
-      modalActions,
-    } = this.props;
-    
+    const { updateQuestionsList, modalActions } = this.props;
+
     updateQuestionsList();
     modalActions.closeModal();
-  }
+  };
 
-  render () {
-    const {
-      title,
-      modalActions,
-      submitReply,
-      askPrompt,
-      intl,
-    } = this.props;
+  render() {
+    const { title, modalActions, submitReply, askPrompt, intl } = this.props;
 
-    const {
-      questionText,
-    } = this.state;
+    const { questionText } = this.state;
     return (
-      <form className="root">
-        <div className="title" dangerouslySetInnerHTML={{ __html: title }}/>
-        <div className="input-container">
-          <textarea
-            className="field-input"
-            value={questionText}
-            onChange={this.onChangeQuestionText}
-            placeholder={askPrompt}
-          />
-        </div>
+      <form className="aaa-modal">
+        <div
+          className="h3-custom title"
+          dangerouslySetInnerHTML={{ __html: title }}
+        />
+        <textarea
+          className="field-input"
+          value={questionText}
+          onChange={this.onChangeQuestionText}
+          placeholder={askPrompt}
+        />
         <div className="button-container question-form">
           <div className="left-buttons">
             <PhotoUploadButton handleUploadImage={this.handleUploadImage} />
-            <Button onClickEvent={() => browserHistory('/help/posting-guidelines')} text={intl.formatMessage(messages.Guidelines)} theme={{ height: '40px', marginLeft: '10px' }} />
+            <Button
+              onClickEvent={() => browserHistory('/help/posting-guidelines')}
+              text={intl.formatMessage(messages.Guidelines)}
+              theme={{ height: '40px', marginLeft: '10px' }}
+            />
           </div>
-          <div className="actions">
-            <Button onClickEvent={this.cancel} text={intl.formatMessage(messages.Cancel)} theme={{ height: '40px', marginRight: '10px' }} />
-            <Button onClickEvent={this.submitForm} text={intl.formatMessage(messages.Submit)} theme={{ height: '40px' }} />
+
+          <div>
+            <div className="float-right">
+              <Button onClick={this.cancel}>
+                {intl.formatMessage(messages.Cancel)}
+              </Button>
+              <Button onClick={this.submitForm}>
+                {intl.formatMessage(messages.Submit)}
+              </Button>
+            </div>
           </div>
         </div>
-        <style jsx>{styles}</style>
       </form>
     );
   }
 }
-
 
 export default injectIntl(SubmitQuestionForm);

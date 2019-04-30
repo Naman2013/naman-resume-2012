@@ -1,9 +1,9 @@
 /***********************************
-* V4
-*
-*
-*
-***********************************/
+ * V4
+ *
+ *
+ *
+ ***********************************/
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
@@ -16,13 +16,7 @@ import QuestionList from './partials/question-list';
 
 import styles from './qa-multi.style';
 
-const {
-  arrayOf,
-  bool,
-  number,
-  shape,
-  string,
-} = PropTypes;
+const { arrayOf, bool, number, shape, string } = PropTypes;
 
 class QAMulti extends Component {
   static propTypes = {
@@ -30,16 +24,11 @@ class QAMulti extends Component {
     activityTitle: string,
     activityInstructions: string,
     activityPrompt: string,
-  }
-
-  static defaultProps = {
-
   };
 
-  state = {
-  };
+  static defaultProps = {};
 
-
+  state = {};
 
   render() {
     const {
@@ -50,17 +39,19 @@ class QAMulti extends Component {
       correctText,
       incorrectText,
     } = this.props;
-    console.log("PROPS", this.props)
-    return (<div className="root">
-      <IntroText title={activityTitle} desc={activityInstructions} />
-      <QuestionList
-        questionList={questionList}
-        activityPrompt={activityPrompt}
-        correctText={correctText}
-        incorrectText={incorrectText}
-      />
-      <style jsx>{styles}</style>
-    </div>);
+    console.log('PROPS', this.props);
+    return (
+      <div className="root">
+        <IntroText title={activityTitle} desc={activityInstructions} />
+        <QuestionList
+          questionList={questionList}
+          activityPrompt={activityPrompt}
+          correctText={correctText}
+          incorrectText={incorrectText}
+        />
+        <style jsx>{styles}</style>
+      </div>
+    );
   }
 }
 

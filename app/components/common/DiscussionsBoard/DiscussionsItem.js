@@ -1,9 +1,9 @@
 /***********************************
-* V4 Discussions Thread List Item
-*
-*
-*
-***********************************/
+ * V4 Discussions Thread List Item
+ *
+ *
+ *
+ ***********************************/
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
@@ -11,52 +11,43 @@ import uniqueId from 'lodash/uniqueId';
 import DiscussionComments from './DiscussionComments';
 import { likeThread } from 'app/services/discussions/like';
 import DiscussionsCard from 'app/components/common/DiscussionsCard';
-import styles from './DiscussionsBoard.style'
+import styles from './DiscussionsBoard.style';
 
-const {
-  any,
-  arrayOf,
-  bool,
-  number,
-  oneOfType,
-  shape,
-  string,
-} = PropTypes;
+const { any, arrayOf, bool, number, oneOfType, shape, string } = PropTypes;
 
 const DiscussionsItem = props => (
-  <div
-    className="shadowed-container margin"
-    key={uniqueId()}
-  >
+  <div className="shadowed-container margin" key={uniqueId()}>
     <DiscussionsCard
       {...props}
       replyTo={props.threadId}
-      toggleComments={() => props.discussionsActions.toggleThreadComments(props.threadId)}
+      toggleComments={() =>
+        props.discussionsActions.toggleThreadComments(props.threadId)
+      }
       likeHandler={likeThread}
       isDesktop={props.isDesktop}
       allowReplies={true}
       showTitle={true}
-      renderChildReplies={({
-        renderToggle,
-      }) => (<DiscussionComments
-        validateResponseAccess={props.validateResponseAccess}
-        discussions={props.discussions}
-        discussionsActions={props.discussionsActions}
-        callSource={props.callSource}
-        threadId={props.threadId}
-        count={props.count}
-        replyToponlyCount={props.replyToponlyCount}
-        page={props.page}
-        topicId={props.topicId}
-        forumId={props.forumId}
-        user={props.user}
-        isDesktop={props.isDesktop}
-        renderToggle={renderToggle}
-      />)}
+      renderChildReplies={({ renderToggle }) => (
+        <DiscussionComments
+          validateResponseAccess={props.validateResponseAccess}
+          discussions={props.discussions}
+          discussionsActions={props.discussionsActions}
+          callSource={props.callSource}
+          threadId={props.threadId}
+          count={props.count}
+          replyToponlyCount={props.replyToponlyCount}
+          page={props.page}
+          topicId={props.topicId}
+          forumId={props.forumId}
+          user={props.user}
+          isDesktop={props.isDesktop}
+          renderToggle={renderToggle}
+        />
+      )}
     />
     <style jsx>{styles}</style>
-  </div>);
-
+  </div>
+);
 
 DiscussionsItem.propTypes = {
   avatarURL: string.isRequired,

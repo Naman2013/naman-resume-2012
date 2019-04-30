@@ -1,9 +1,9 @@
 /***********************************
-* V4  Discussions Reply Form
-*
-*
-*
-***********************************/
+ * V4  Discussions Reply Form
+ *
+ *
+ *
+ ***********************************/
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { intlShape, injectIntl } from 'react-intl';
@@ -13,7 +13,10 @@ import FullpageForm from './Modals/FullpageForm';
 import SubmitReplyFeedbackModal from './Modals/SubmitReplyFeedbackModal';
 import SubmitReplyForm from './Modals/SubmitReplyForm';
 import { prepareReply } from 'app/services/discussions/prepare-reply';
-import { customModalStylesBlackOverlay, modalStyleFullPage } from 'app/styles/mixins/utilities';
+import {
+  customModalStylesBlackOverlay,
+  modalStyleFullPage,
+} from 'app/styles/mixins/utilities';
 import messages from './SubmitAnswerButton.messages';
 
 const {
@@ -27,7 +30,6 @@ const {
   string,
 } = PropTypes;
 
-
 class SubmitReplyReplyButton extends Component {
   static defaultProps = {
     avatarURL: '',
@@ -40,7 +42,7 @@ class SubmitReplyReplyButton extends Component {
     },
     forumId: null,
     replyButtonText: 'Submit an Reply',
-  }
+  };
   static propTypes = {
     avatarURL: string,
     submitForm: func.isRequired,
@@ -56,40 +58,43 @@ class SubmitReplyReplyButton extends Component {
       cid: oneOfType([number, string]),
     }),
     intl: intlShape.isRequired,
-  }
+  };
 
   setCommentModal = () => {
     const { modalActions, user, authorInfo, freshness, content } = this.props;
     modalActions.setModal({
-      promptComponent: (<SubmitReplyForm
-        modalActions={modalActions}
-        submitForm={this.submitForm}
-        user={user}
-        authorInfo={authorInfo}
-        freshness={freshness}
-        content={content}
-      />),
+      promptComponent: (
+        <SubmitReplyForm
+          modalActions={modalActions}
+          submitForm={this.submitForm}
+          user={user}
+          authorInfo={authorInfo}
+          freshness={freshness}
+          content={content}
+        />
+      ),
       promptStyles: customModalStylesBlackOverlay,
-    })
+    });
     modalActions.showModal();
-  }
+  };
 
   setFullpageCommentModal = () => {
     const { modalActions, user, intl } = this.props;
     modalActions.setModal({
-      promptComponent: (<FullpageForm
-        modalActions={modalActions}
-        submitForm={this.submitForm}
-        user={user}
-        prepareCall={prepareReply}
-        submitButtonText={intl.formatMessage(messages.Discuss)}
-        fieldPlaceholder={intl.formatMessage(messages.ReplyPlaceholder)}
-      />),
+      promptComponent: (
+        <FullpageForm
+          modalActions={modalActions}
+          submitForm={this.submitForm}
+          user={user}
+          prepareCall={prepareReply}
+          submitButtonText={intl.formatMessage(messages.Discuss)}
+          fieldPlaceholder={intl.formatMessage(messages.ReplyPlaceholder)}
+        />
+      ),
       promptStyles: modalStyleFullPage,
-    })
+    });
     modalActions.showModal();
-  }
-
+  };
 
   submitForm = (content, S3URLs) => {
     const {
@@ -102,38 +107,43 @@ class SubmitReplyReplyButton extends Component {
       user,
     } = this.props;
 
-    submitForm({
-      content,
-      S3URLs,
-      threadId,
-      topicId,
-      forumId,
-      replyTo,
-      at: user.at,
-      token: user.token,
-      cid: user.cid,
-      callSource,
-    }, (data) => this.handleSubmitReply(data));
-  }
+    submitForm(
+      {
+        content,
+        S3URLs,
+        threadId,
+        topicId,
+        forumId,
+        replyTo,
+        at: user.at,
+        token: user.token,
+        cid: user.cid,
+        callSource,
+      },
+      data => this.handleSubmitReply(data)
+    );
+  };
 
-  handleSubmitReply = (data) => {
+  handleSubmitReply = data => {
     // set the AskAstronomer.js [parent] modal to say a success or error message
     const { modalActions, intl, updateQuestionsList } = this.props;
     const message = `${data.responseLabel}
     <p>${data.responseText}</p>`;
 
     modalActions.setModal({
-      promptComponent: <SubmitReplyFeedbackModal
-        title={data.responseTitle}
-        doneButtonLabel={data.doneButtonLabel}
-        modalActions={modalActions}
-        message={message}
-        updateQuestionsList={updateQuestionsList}
-      />,
+      promptComponent: (
+        <SubmitReplyFeedbackModal
+          title={data.responseTitle}
+          doneButtonLabel={data.doneButtonLabel}
+          modalActions={modalActions}
+          message={message}
+          updateQuestionsList={updateQuestionsList}
+        />
+      ),
       promptStyles: customModalStylesBlackOverlay,
     });
     modalActions.showModal();
-  }
+  };
 
   render() {
     const {
@@ -147,17 +157,17 @@ class SubmitReplyReplyButton extends Component {
 
     return (
       <div className="reply-form-container">
-        <DisplayAtBreakpoint
-          screenMedium
-          screenLarge
-          screenXLarge
-        >
-          <Button text={intl.formatMessage(messages.Reply)} onClickEvent={this.setCommentModal} />
+        <DisplayAtBreakpoint screenMedium screenLarge screenXLarge>
+          <Button
+            text={intl.formatMessage(messages.Reply)}
+            onClickEvent={this.setCommentModal}
+          />
         </DisplayAtBreakpoint>
-        <DisplayAtBreakpoint
-          screenSmall
-        >
-          <Button text={intl.formatMessage(messages.Reply)} onClickEvent={this.setFullpageCommentModal} />
+        <DisplayAtBreakpoint screenSmall>
+          <Button
+            text={intl.formatMessage(messages.Reply)}
+            onClickEvent={this.setFullpageCommentModal}
+          />
         </DisplayAtBreakpoint>
       </div>
     );

@@ -29,10 +29,13 @@ const MissionSlotTile = ({
 
     <ul className="attendee-info">
       <li>
-        {date}<br />
+        {date}
+        <br />
         Scheduled by: {scheduledBy}
       </li>
-      <li><DefaultButton onClick={onAutosaveClick} text="autosave" /></li>
+      <li>
+        <DefaultButton onClick={onAutosaveClick} text="autosave" />
+      </li>
     </ul>
     <style jsx>{style}</style>
   </div>

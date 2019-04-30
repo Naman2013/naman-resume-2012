@@ -2,17 +2,22 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './section-header.style';
 
-const SectionHeader = (props) => {
-  const {
-    title,
-    desc,
-  } = props;
+const SectionHeader = props => {
+  const { title, desc } = props;
   return (
     <div className="root">
       <div className="title-container">
-        <span className="title-text" dangerouslySetInnerHTML={{ __html: title }} />
+        <span
+          className="title-text"
+          dangerouslySetInnerHTML={{ __html: title }}
+        />
       </div>
-      {desc ? <span className="desc-text" dangerouslySetInnerHTML={{ __html: desc }} /> : null}
+      {desc ? (
+        <span
+          className="desc-text"
+          dangerouslySetInnerHTML={{ __html: desc }}
+        />
+      ) : null}
       <style jsx>{styles}</style>
     </div>
   );

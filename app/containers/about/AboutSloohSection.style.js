@@ -1,6 +1,10 @@
 import css from 'styled-jsx/css';
 import { screenMedium } from '../../styles/variables/breakpoints';
-import { romance, yellow, faintGray } from '../../styles/variables/colors_tiles_v4';
+import {
+  romance,
+  yellow,
+  faintGray,
+} from '../../styles/variables/colors_tiles_v4';
 import { primaryFont } from '../../styles/variables/fonts';
 
 export default css`

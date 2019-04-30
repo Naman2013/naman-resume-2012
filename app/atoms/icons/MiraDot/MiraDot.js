@@ -5,8 +5,8 @@ import style from './MiraDot.style';
 const MiraDot = ({ theme }) => (
   <div
     style={{
-        width: `${theme.dimension}px`,
-        height: `${theme.dimension}px`,
+      width: `${theme.dimension}px`,
+      height: `${theme.dimension}px`,
     }}
     className="root"
   >

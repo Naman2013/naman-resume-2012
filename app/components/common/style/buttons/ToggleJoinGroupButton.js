@@ -4,13 +4,7 @@ import noop from 'lodash/noop';
 import GenericButton from './LargeButtonWithRightIcon';
 import { DeviceContext } from 'providers/DeviceProvider';
 
-const {
-  bool,
-  func,
-  number,
-  oneOfType,
-  string,
-} = PropTypes;
+const { bool, func, number, oneOfType, string } = PropTypes;
 
 const ToggleJoinGroupButton = ({ icon, text, onClickEvent }) => (
   <Fragment>

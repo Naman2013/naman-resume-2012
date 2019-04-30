@@ -1,12 +1,16 @@
 import css from 'styled-jsx/css';
 import { primaryFont, secondaryFont } from 'app/styles/variables/fonts';
 import { screenMedium, screenLarge } from 'app/styles/variables/breakpoints';
-import { romance, hawkesBlue, shadows, lightHeadedAstronaut } from 'app/styles/variables/colors_tiles_v4';
+import {
+  romance,
+  hawkesBlue,
+  shadows,
+  lightHeadedAstronaut,
+} from 'app/styles/variables/colors_tiles_v4';
 
 const borderColor = 'rgba(217,222,228, 0.35)';
 
 export default css`
-
   .observation-title {
     font-family: ${secondaryFont};
     text-transform: none;
@@ -41,7 +45,7 @@ export default css`
   .photoRollCard {
     display: flex;
     flex-direction: column;
-    background-color: ${romance};    
+    background-color: ${romance};
     width: 100%;
     height: 100%;
     box-shadow: 0 0 6px 0 ${shadows};
@@ -57,10 +61,10 @@ export default css`
   }
 
   .square-container::after {
-    content: "";
+    content: '';
     display: block;
     padding-top: 100%;
-  }  
+  }
 
   .root {
     margin-top: 20px;
@@ -122,7 +126,6 @@ export default css`
     padding: 7px 0;
   }
 
-
   .overlay-bottom {
     margin-top: 20px;
     display: flex;
@@ -133,7 +136,7 @@ export default css`
     width: 16px;
     height: 16px;
     box-sizing: border-box;
-    background-color: #6A6A6A;
+    background-color: #6a6a6a;
     position: absolute;
     top: 12px;
     left: 12px;
@@ -141,9 +144,8 @@ export default css`
     border: 2px solid ${romance};
   }
 
-
   @media ${screenMedium} {
-    .photoRollCard:hover .onhover-overlay{
+    .photoRollCard:hover .onhover-overlay {
       display: flex;
     }
   }

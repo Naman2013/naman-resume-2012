@@ -24,7 +24,10 @@ const BobbieTileWelcomeToPlan = ({
   hasRelatedGuide,
 }) => (
   <div className="root">
-    <div style={{ marginTop: '0px', marginBottom: '0px', padding: '0px' }} className="tile-content-container">
+    <div
+      style={{ marginTop: '0px', marginBottom: '0px', padding: '0px' }}
+      className="tile-content-container"
+    >
       <h1 style={{ marginBottom: '20px' }}>{title}</h1>
       <table className="middle-content" style={{ width: '100%' }}>
         <tr>
@@ -43,20 +46,34 @@ const BobbieTileWelcomeToPlan = ({
             <td className="handle-hover" style={{ width: '40%' }}>
               <div className="guide-tile">
                 <div className="guide-tile-frame">
-                  <img alt="" src="https://vega.slooh.com/assets/v4/common/guide_corner.svg" className="top-left" />
-                  <img alt="" src="https://vega.slooh.com/assets/v4/common/guide_corner.svg" className="top-right" />
+                  <img
+                    alt=""
+                    src="https://vega.slooh.com/assets/v4/common/guide_corner.svg"
+                    className="top-left"
+                  />
+                  <img
+                    alt=""
+                    src="https://vega.slooh.com/assets/v4/common/guide_corner.svg"
+                    className="top-right"
+                  />
                 </div>
                 <div className="guide-tile-frame bottom">
-                  <img alt="" src="https://vega.slooh.com/assets/v4/common/guide_corner.svg" className="top-left" />
-                  <img alt="" src="https://vega.slooh.com/assets/v4/common/guide_corner.svg" className="top-right" />
+                  <img
+                    alt=""
+                    src="https://vega.slooh.com/assets/v4/common/guide_corner.svg"
+                    className="top-left"
+                  />
+                  <img
+                    alt=""
+                    src="https://vega.slooh.com/assets/v4/common/guide_corner.svg"
+                    className="top-right"
+                  />
                 </div>
                 <h4 className="title">{relatedGuide.title}</h4>
                 <h5 className="subTitle">{relatedGuide.subTitle}</h5>
               </div>
               <div className="excerpt-tile">
-                <GuideExcerptTile
-                  {...relatedGuide}
-                />
+                <GuideExcerptTile {...relatedGuide} />
               </div>
             </td>
           )}
@@ -68,11 +85,7 @@ const BobbieTileWelcomeToPlan = ({
   </div>
 );
 
-const {
-  string,
-  bool,
-  shape,
-} = PropTypes;
+const { string, bool, shape } = PropTypes;
 
 BobbieTileWelcomeToPlan.propTypes = {
   title: string.isRequired,

@@ -1,9 +1,9 @@
 /***********************************
-* V4 Discussions Thread List Item
-*
-*
-*
-***********************************/
+ * V4 Discussions Thread List Item
+ *
+ *
+ *
+ ***********************************/
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
@@ -29,7 +29,7 @@ const {
   string,
 } = PropTypes;
 
-const DiscussionsCard = (props) => {
+const DiscussionsCard = props => {
   const {
     avatarURL,
     allowReplies,
@@ -63,16 +63,29 @@ const DiscussionsCard = (props) => {
         <div className="user-info-container">
           <div className="user-info">
             <div style={profPic(avatarURL)} />
-            <div className="display-name" dangerouslySetInnerHTML={{ __html: displayName }} />
+            <div
+              className="display-name"
+              dangerouslySetInnerHTML={{ __html: displayName }}
+            />
           </div>
           <span className="date">{moment.utc(creationDate).fromNow()}</span>
         </div>
-        <br/>
-        {showTitle == true && <div className="title" dangerouslySetInnerHTML={{ __html: title }} />}
-        <div className="content" dangerouslySetInnerHTML={{ __html: content }} />
+        <br />
+        {showTitle == true && (
+          <div className="title" dangerouslySetInnerHTML={{ __html: title }} />
+        )}
+        <div
+          className="content"
+          dangerouslySetInnerHTML={{ __html: content }}
+        />
         <div className="explainantion-container">
-          <div className="explainantion-item">{moment.utc(creationDate).fromNow()}</div>
-          <div className="explainantion-item"><FormattedMessage {...messages.Likes} />: {likesCount}     <FormattedMessage {...messages.Comments} />: {replyToponlyCount}</div>
+          <div className="explainantion-item">
+            {moment.utc(creationDate).fromNow()}
+          </div>
+          <div className="explainantion-item">
+            <FormattedMessage {...messages.Likes} />: {likesCount}{' '}
+            <FormattedMessage {...messages.Comments} />: {replyToponlyCount}
+          </div>
         </div>
         <div className="activity-actions">
           <div className="action-left">
@@ -85,26 +98,36 @@ const DiscussionsCard = (props) => {
               showLikePrompt={showLikePrompt}
               customerId={customerId}
             />
-            {renderChildReplies ? <CommentButton
-              isActive={showComments}
-              onClickEvent={toggleComments}
-              count={replyToponlyCount}
-            /> : null}
+            {renderChildReplies ? (
+              <CommentButton
+                isActive={showComments}
+                onClickEvent={toggleComments}
+                count={replyToponlyCount}
+              />
+            ) : null}
             {S3Files.length > 0 ? <ViewImagesButton images={S3Files} /> : null}
           </div>
           <div className="action-right">
-            {allowReplies ? <ReplyButton
-              {...props}
-              replyTo={replyTo}
-              submitForm={submitReply}
-            /> : null }
-
+            {allowReplies ? (
+              <ReplyButton
+                {...props}
+                replyTo={replyTo}
+                submitForm={submitReply}
+              />
+            ) : null}
           </div>
         </div>
       </div>
-      {showComments && renderChildReplies ? renderChildReplies({
-        renderToggle: () => <Button icon="https://vega.slooh.com/assets/v4/common/close_icon.svg" onClickEvent={toggleComments} />
-      }) : null}
+      {showComments && renderChildReplies
+        ? renderChildReplies({
+            renderToggle: () => (
+              <Button
+                icon="https://vega.slooh.com/assets/v4/common/close_icon.svg"
+                onClickEvent={toggleComments}
+              />
+            ),
+          })
+        : null}
       <style jsx>{styles}</style>
     </div>
   );

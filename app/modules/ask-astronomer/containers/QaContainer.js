@@ -55,7 +55,7 @@ class QaContainer extends Component {
     actions.submitAnswerToQuestion(params).then(res => callback(res.payload));
   };
 
-  handlePageChange = (page) => {
+  handlePageChange = page => {
     const { actions } = this.props;
     actions.fetchAstronomerQuestions({
       appendToList: false,
@@ -129,11 +129,11 @@ const mapDispatchToProps = dispatch => ({
       toggleAllAnswersAndDisplay,
       submitAnswerToQuestion,
     },
-    dispatch,
+    dispatch
   ),
 });
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
+  mapDispatchToProps
 )(QaContainer);

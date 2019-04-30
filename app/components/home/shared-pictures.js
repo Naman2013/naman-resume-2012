@@ -8,23 +8,17 @@ import '../common/community-perspectives/slick-theme.min.css';
 import SharedPicturesItem from './shared-pictures-item';
 import { white, darkBlueGray } from '../../styles/variables/colors';
 
-const {
-  arrayOf,
-  bool,
-  func,
-  number,
-  shape,
-  string,
-} = PropTypes;
+const { arrayOf, bool, func, number, shape, string } = PropTypes;
 
 class SharedPictures extends Component {
-
   static propTypes = {
-    imageList: arrayOf(shape({
-      customerImageId: number.isRequired,
-      imageIndex: number.isRequired,
-      imageTimestamp: number.isRequired,
-    })),
+    imageList: arrayOf(
+      shape({
+        customerImageId: number.isRequired,
+        imageIndex: number.isRequired,
+        imageTimestamp: number.isRequired,
+      })
+    ),
     heading: string,
     subheading: string,
   };
@@ -37,7 +31,7 @@ class SharedPictures extends Component {
 
   state = {
     currentIndex: this.props.imageList.length - 1,
-  }
+  };
 
   componentWillReceiveProps(nextProps) {
     if (this.props.imageList.length !== nextProps.imageList.length) {
@@ -51,22 +45,17 @@ class SharedPictures extends Component {
     this.setState({
       currentIndex,
     });
-  }
+  };
 
-  changeSlide = (image) => {
+  changeSlide = image => {
     this.slider.slickGoTo(image.imageIndex);
     this.setState({
       currentIndex: image.imageIndex,
     });
-
-  }
+  };
 
   render() {
-    const {
-      imageList,
-      heading,
-      subheading,
-    } = this.props;
+    const { imageList, heading, subheading } = this.props;
     const { currentIndex } = this.state;
 
     const mainPicturesSliderSettings = {
@@ -84,36 +73,49 @@ class SharedPictures extends Component {
       // prevArrow: <div><i className="fa fa-arrow-left" /><div>Previous</div></div>,
     };
 
-    const images = imageList.map(
-      imageInfo => <div key={imageInfo.customerImageId}>
+    const images = imageList.map(imageInfo => (
+      <div key={imageInfo.customerImageId}>
         <SharedPicturesItem
           {...imageInfo}
           isActive={imageInfo.imageIndex === currentIndex}
         />
       </div>
-    );
-    const currentTime = imageList[currentIndex] && imageList[currentIndex].imageTimestamp ? moment(imageList[currentIndex].imageTimestamp * 1000) : moment();
+    ));
+    const currentTime =
+      imageList[currentIndex] && imageList[currentIndex].imageTimestamp
+        ? moment(imageList[currentIndex].imageTimestamp * 1000)
+        : moment();
     const longTime = currentTime.utc().format('MMMM Do, YYYY');
     const utcTime = currentTime.utc().format('HH:mm UTC');
     return (
       <div className="shared-container">
         <div className="header">
-          <h3 className="heading" dangerouslySetInnerHTML={{ __html: heading }} />
-          <h4 className="subheading" dangerouslySetInnerHTML={{ __html: subheading }} />
+          <h3
+            className="heading"
+            dangerouslySetInnerHTML={{ __html: heading }}
+          />
+          <h4
+            className="subheading"
+            dangerouslySetInnerHTML={{ __html: subheading }}
+          />
         </div>
-        {imageList.length === 0 && <div className="empty">There are no shared images.</div>}
-        {imageList.length > 0 && <div className="shared-slider-container">
-          <Slider
-            {...mainPicturesSliderSettings}
-            ref={c => this.slider = c}
-          >
-            {images}
-          </Slider>
-          <div className="timestamp">
-            <h4 className="timestamp-top">{longTime}</h4>
-            <h3 className="timestamp-bottom">{utcTime}</h3>
+        {imageList.length === 0 && (
+          <div className="empty">There are no shared images.</div>
+        )}
+        {imageList.length > 0 && (
+          <div className="shared-slider-container">
+            <Slider
+              {...mainPicturesSliderSettings}
+              ref={c => (this.slider = c)}
+            >
+              {images}
+            </Slider>
+            <div className="timestamp">
+              <h4 className="timestamp-top">{longTime}</h4>
+              <h3 className="timestamp-bottom">{utcTime}</h3>
+            </div>
           </div>
-        </div>}
+        )}
 
         <style jsx>{`
           .shared-container {
@@ -126,11 +128,11 @@ class SharedPictures extends Component {
           :not(:global(.pulse-post-extras)) .shared-container {
             min-height: 500px;
           }
-            @media(max-width:640px){
-
-            .shared-container{padding:25px 30px}
-
+          @media (max-width: 640px) {
+            .shared-container {
+              padding: 25px 30px;
             }
+          }
 
           .empty {
             padding: 50px;
@@ -168,7 +170,8 @@ class SharedPictures extends Component {
             text-align: center;
           }
 
-          .timestamp-top, .timestamp-bottom {
+          .timestamp-top,
+          .timestamp-bottom {
             font-weight: bold;
             text-decoration: uppercase;
           }
@@ -180,14 +183,12 @@ class SharedPictures extends Component {
           .timestamp-bottom {
             font-size: 2rem;
           }
-
         `}</style>
 
         <style jsx global>
           {`
-
             .pulse-post-extras .shared-container,
-            .pulse-post-extras .shared-slider-container{
+            .pulse-post-extras .shared-slider-container {
               max-height: 600px;
             }
 
@@ -220,13 +221,13 @@ class SharedPictures extends Component {
 
             .shared-container .slick-prev.slick-disabled,
             .shared-container .slick-next.slick-disabled {
-              opacity: .25;
+              opacity: 0.25;
             }
 
             .shared-container .slick-prev:before {
               font-family: FontAwesome;
               font-style: normal;
-              content: "\\f060";
+              content: '\\f060';
               font-size: 40px;
               position: absolute;
               left: 25px;
@@ -236,7 +237,7 @@ class SharedPictures extends Component {
             .shared-container .slick-next:before {
               font-family: FontAwesome;
               font-style: normal;
-              content: "\\f061";
+              content: '\\f061';
               font-size: 40px;
               right: 30px;
               position: absolute;
@@ -255,18 +256,29 @@ class SharedPictures extends Component {
               font-size: 10px;
               top: 30%;
             }
-            @media(max-width:850px){
-              .shared-container .slick-prev,  .shared-container .slick-next{padding:0px; height:auto; text-indent:-9999999px}
-              .shared-container .slick-prev {left:-45px}
-              .shared-container .slick-next {right:-51px}
+            @media (max-width: 850px) {
+              .shared-container .slick-prev,
+              .shared-container .slick-next {
+                padding: 0px;
+                height: auto;
+                text-indent: -9999999px;
+              }
+              .shared-container .slick-prev {
+                left: -45px;
+              }
+              .shared-container .slick-next {
+                right: -51px;
+              }
               .shared-container .slick-prev:before,
-              .shared-container .slick-next:before {text-indent:0px; font-size:20px !important}
-
+              .shared-container .slick-next:before {
+                text-indent: 0px;
+                font-size: 20px !important;
+              }
             }
 
-            @media(max-width:775px) {
+            @media (max-width: 775px) {
               .pulse-post-extras .shared-container,
-              .pulse-post-extras .shared-slider-container{
+              .pulse-post-extras .shared-slider-container {
                 height: auto;
                 max-height: none !important;
               }
@@ -276,7 +288,7 @@ class SharedPictures extends Component {
               }
             }
 
-            @media(max-width:1080px) {
+            @media (max-width: 1080px) {
               .pulse-post-extras .slick-slider {
                 height: auto !important;
               }

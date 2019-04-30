@@ -1,9 +1,9 @@
 /***********************************
-* V4 Submit Answer Form Modal
-*
-*
-*
-***********************************/
+ * V4 Submit Answer Form Modal
+ *
+ *
+ *
+ ***********************************/
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
@@ -13,14 +13,10 @@ import PhotoUploadButton from 'app/components/common/style/buttons/PhotoUploadBu
 import deletePostImage from 'app/services/post-creation/delete-post-image';
 import setPostImages from 'app/modules/set-post-images';
 import { prepareReply } from 'app/services/discussions/prepare-reply';
-import styles from './Modals.style';
+import './styles.scss';
 import messages from './SubmitQuestionForm.messages';
 
-const {
-  func,
-  shape,
-  string,
-} = PropTypes;
+const { func, shape, string } = PropTypes;
 
 class SubmitAnswerForm extends Component {
   static propTypes = {
@@ -39,9 +35,7 @@ class SubmitAnswerForm extends Component {
     intl: intlShape.isRequired,
   };
 
-  static defaultProps = {
-
-  };
+  static defaultProps = {};
 
   constructor(props) {
     super(props);
@@ -50,26 +44,26 @@ class SubmitAnswerForm extends Component {
       answerText: '',
       S3URLs: [],
       uuid: '',
-    }
+    };
     prepareReply({
       at: user.at,
       token: user.token,
-      cid: user.cid
-    }).then((res) => {
+      cid: user.cid,
+    }).then(res => {
       this.setState(() => ({
         uuid: res.data.postUUID,
       }));
-    })
+    });
   }
 
-  onChangeAnswerText = (e) => {
+  onChangeAnswerText = e => {
     e.preventDefault();
     this.setState({
       answerText: e.target.value,
     });
-  }
+  };
 
-  handleUploadImage = (event) => {
+  handleUploadImage = event => {
     event.preventDefault();
 
     const { cid, token, at } = this.props.user;
@@ -89,27 +83,28 @@ class SubmitAnswerForm extends Component {
 
     setPostImages(data)
       .then(res => this.handleUploadImageResponse(res.data))
-      .catch(err => this.setState({
-        uploadError: err.message,
-        uploadLoading: false,
-      }));
-  }
+      .catch(err =>
+        this.setState({
+          uploadError: err.message,
+          uploadLoading: false,
+        })
+      );
+  };
 
-  submitForm = (e) => {
+  submitForm = e => {
     e.preventDefault();
-    const {
-      answerText,
-      S3URLs,
-    } = this.state;
+    const { answerText, S3URLs } = this.state;
 
     if (answerText.replace(/\s/g, '').length) {
       this.props.submitForm(answerText, S3URLs);
       this.props.modalActions.closeModal();
     }
-  }
+  };
 
-  handleDeleteImage = (imageURL) => {
-    if (!imageURL) { return; }
+  handleDeleteImage = imageURL => {
+    if (!imageURL) {
+      return;
+    }
 
     const { cid, token, at } = this.props.user;
     const { uuid } = this.state;
@@ -122,14 +117,14 @@ class SubmitAnswerForm extends Component {
       imageClass: 'discussion',
       imageURL,
     }).then(result => this.handleUploadImageResponse(result.data));
-  }
+  };
 
-  handleUploadImageResponse = (uploadFileData) => {
+  handleUploadImageResponse = uploadFileData => {
     this.setState({
       S3URLs: uploadFileData.S3URLs,
       uploadLoading: false,
     });
-  }
+  };
 
   render() {
     const {
@@ -141,12 +136,10 @@ class SubmitAnswerForm extends Component {
       intl,
     } = this.props;
 
-    const {
-      answerText,
-    } = this.state;
+    const { answerText } = this.state;
 
     return (
-      <form className="root">
+      <form className="aaa-modal">
         <div className="top">
           <div className="title flex info-container">
             <div>
@@ -157,7 +150,10 @@ class SubmitAnswerForm extends Component {
               <span dangerouslySetInnerHTML={{ __html: freshness }} />
             </div>
           </div>
-          <div className="prompt-text" dangerouslySetInnerHTML={{ __html: content }} />
+          <div
+            className="prompt-text"
+            dangerouslySetInnerHTML={{ __html: content }}
+          />
         </div>
         <div className="input-container">
           <textarea
@@ -172,15 +168,22 @@ class SubmitAnswerForm extends Component {
             <PhotoUploadButton handleUploadImage={this.handleUploadImage} />
           </div>
           <div className="actions">
-            <Button onClickEvent={modalActions.closeModal} text={intl.formatMessage(messages.Cancel)} theme={{ height: '40px', marginRight: '10px' }} />
-            <Button onClickEvent={this.submitForm} text={intl.formatMessage(messages.Submit)} theme={{ height: '40px' }} />
+            <Button
+              onClickEvent={modalActions.closeModal}
+              text={intl.formatMessage(messages.Cancel)}
+              theme={{ height: '40px', marginRight: '10px' }}
+            />
+            <Button
+              onClickEvent={this.submitForm}
+              text={intl.formatMessage(messages.Submit)}
+              theme={{ height: '40px' }}
+            />
+
           </div>
         </div>
-        <style jsx>{styles}</style>
       </form>
     );
   }
 }
-
 
 export default injectIntl(SubmitAnswerForm);

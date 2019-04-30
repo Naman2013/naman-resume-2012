@@ -6,7 +6,7 @@
 .modal-open .modal {
   background-color: rgba(#0a0c0e, 0.96);
 
-  .btn {
+  & > .btn {
     background-color: transparent;
     border-color: #fff;
     color: #fff;
@@ -89,7 +89,7 @@
       width: 100%;
     }
 
-    .btn {
+    & > .btn {
       border-color: $lightHeadedAstronaut;
       color: $lightHeadedAstronaut;
     }

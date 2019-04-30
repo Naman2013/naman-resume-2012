@@ -23,7 +23,7 @@ class BlueLineDrop extends Component {
   static defaultProps = {
     isDesktop: false,
     title: '',
-    isDefaultOpen:false,
+    isDefaultOpen: false,
   };
 
   state = {

@@ -1,16 +1,16 @@
 /***********************************
-* V4 Submit Answer Feedback Modal
-*
-*
-*
-***********************************/
+ * V4 Submit Answer Feedback Modal
+ *
+ *
+ *
+ ***********************************/
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import uniqueId from 'lodash/uniqueId';
 import noop from 'lodash/noop';
 import Button from 'app/components/common/style/buttons/Button';
-import styles from './Modals.style';
+import './styles.scss';
 
 const {
   any,
@@ -23,7 +23,7 @@ const {
   string,
 } = PropTypes;
 
-const SubmitQuestionFeedback = (props) => {
+const SubmitQuestionFeedback = props => {
   const {
     modalActions,
     promptText,
@@ -31,12 +31,15 @@ const SubmitQuestionFeedback = (props) => {
     title,
     doneButtonLabel,
     continueButtonLabel,
-    updateQuestionsList
+    updateQuestionsList,
   } = props;
   return (
-    <form className="root">
-      <div className="title" dangerouslySetInnerHTML={{ __html: title}} />
-      <div className="prompt-text" dangerouslySetInnerHTML={{ __html: promptText}} />
+    <form className="aaa-modal">
+      <div className="title" dangerouslySetInnerHTML={{ __html: title }} />
+      <div
+        className="prompt-text"
+        dangerouslySetInnerHTML={{ __html: promptText }}
+      />
       <div className="actions">
         <Button
           onClickEvent={() => {
@@ -48,9 +51,7 @@ const SubmitQuestionFeedback = (props) => {
         />
         <Button onClickEvent={requestQuestion} text={continueButtonLabel} />
       </div>
-      <style jsx>{styles}</style>
     </form>
-
   );
 };
 

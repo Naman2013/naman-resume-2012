@@ -48,10 +48,7 @@ class TelescopeThumbnailView extends Component {
   }
 
   render() {
-    const {
-      topImageURL,
-      bottomImageURL,
-    } = this.props;
+    const { topImageURL, bottomImageURL } = this.props;
 
     const bottomThumbServiceURL = createThumbnailURL(bottomImageURL);
     const topThumbServiceURL = createThumbnailURL(topImageURL);
@@ -66,7 +63,9 @@ class TelescopeThumbnailView extends Component {
           <div
             style={createCSS(topThumbServiceURL)}
             className="top-image"
-            ref={(topImageNode) => { this.topImageNode = topImageNode; }}
+            ref={topImageNode => {
+              this.topImageNode = topImageNode;
+            }}
           />
         </div>
 

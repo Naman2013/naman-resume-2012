@@ -1,5 +1,8 @@
 import css from 'styled-jsx/css';
-import { lightHeadedAstronaut, hawkesBlue } from '../../../styles/variables/colors_tiles_v4';
+import {
+  lightHeadedAstronaut,
+  hawkesBlue,
+} from '../../../styles/variables/colors_tiles_v4';
 import { helvetica } from '../../../styles/variables/fonts';
 import { screenMedium } from '../../../styles/variables/breakpoints';
 

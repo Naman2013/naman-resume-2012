@@ -18,12 +18,18 @@ const mapStateToProps = ({ userPublicGalleries }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({
-    fetchUserPublicGalleries,
-  }, dispatch),
+  actions: bindActionCreators(
+    {
+      fetchUserPublicGalleries,
+    },
+    dispatch
+  ),
 });
 
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(
+  mapStateToProps,
+  mapDispatchToProps
+)
 class Galleries extends Component {
   componentWillMount() {
     const { params } = this.props;
@@ -51,7 +57,10 @@ class Galleries extends Component {
       <div>
         <div className="clearfix my-pictures-container">
           <div className="public-header">
-            <span className="pubic-header" dangerouslySetInnerHTML={{ __html: galleryListTitle }} />
+            <span
+              className="pubic-header"
+              dangerouslySetInnerHTML={{ __html: galleryListTitle }}
+            />
           </div>
           <div>
             <PhotoView
@@ -68,17 +77,17 @@ class Galleries extends Component {
           </div>
         </div>
         <style jsx>
-        {`
-          .public-header {
-            padding: 10px 30px;
-            color: ${black};
-          }
-          .pubic-header {
-            text-transform: uppercase;
-            font-size: 15px;
-            font-weight: 800;
-          }
-        `}
+          {`
+            .public-header {
+              padding: 10px 30px;
+              color: ${black};
+            }
+            .pubic-header {
+              text-transform: uppercase;
+              font-size: 15px;
+              font-weight: 800;
+            }
+          `}
         </style>
       </div>
     );
@@ -89,17 +98,19 @@ Galleries.defaultProps = {
   galleryList: [],
   fetching: false,
   error: false,
-  imageCount: "0",
+  imageCount: '0',
   maxImageCount: 9,
   firstGalleryNumber: 1,
   cid: null,
 };
 
 Galleries.propTypes = {
-  galleryList: PropTypes.arrayOf(PropTypes.shape({
-    imageURL: PropTypes.string.isRequired,
-    imageId: PropTypes.number.isRequired,
-  })),
+  galleryList: PropTypes.arrayOf(
+    PropTypes.shape({
+      imageURL: PropTypes.string.isRequired,
+      imageId: PropTypes.number.isRequired,
+    })
+  ),
   imageCount: PropTypes.string,
   maxImageCount: PropTypes.number,
   firstGalleryNumber: PropTypes.number,

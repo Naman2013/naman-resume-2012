@@ -2,23 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './PhotoUploadButton.style';
 
-const {
-  func,
-  number,
-  oneOfType,
-  string,
-} = PropTypes;
+const { func, number, oneOfType, string } = PropTypes;
 
-const PhotoUploadButton = ({
-  text,
-  icon,
-  handleUploadImage,
-}) => (
+const PhotoUploadButton = ({ text, icon, handleUploadImage }) => (
   <div className="button-input-container">
     <label htmlFor="file-upload">
-      <div
-        className="button-container"
-      >
+      <div className="button-container">
         <div className="button-inner-container">
           <span className="button-text fa fa-image" />
           <div className="button-text">

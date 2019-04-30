@@ -1,6 +1,6 @@
 /** *********************************
-* V4 AsideToggleableMenu
-********************************* */
+ * V4 AsideToggleableMenu
+ ********************************* */
 
 import React from 'react';
 import PropTypes, { number } from 'prop-types';
@@ -12,7 +12,7 @@ import AddToGallery from 'app/components/my-pictures/actions/AddToGalleryV4';
 import styles from './AsideToggleableMenu.style';
 import messages from './AsideToggleableMenu.messages';
 
-const AsideToggleableMenu = (props) => {
+const AsideToggleableMenu = props => {
   const {
     visible,
     optionsList,
@@ -58,7 +58,8 @@ const AsideToggleableMenu = (props) => {
                   <button
                     style={{ opacity: visible ? 1 : 0 }}
                     onClick={removeImage}
-                    className="option">
+                    className="option"
+                  >
                     {option.label}
                   </button>
                 )}
@@ -78,7 +79,9 @@ const AsideToggleableMenu = (props) => {
                   <button
                     style={{ opacity: visible ? 1 : 0 }}
                     onClick={toggleMenu}
-                    className="option">{option.label}
+                    className="option"
+                  >
+                    {option.label}
                   </button>
                 )}
               />
@@ -89,26 +92,29 @@ const AsideToggleableMenu = (props) => {
               <button
                 style={{ opacity: visible ? 1 : 0 }}
                 onClick={redirectToImage()}
-                className="option">
+                className="option"
+              >
                 {option.label}
               </button>
-            )
+            );
           }
           if (option.action === 'download') {
             return (
               <button
                 style={{ opacity: visible ? 1 : 0 }}
                 onClick={downloadFile}
-                className="option">
+                className="option"
+              >
                 {option.label}
               </button>
-            )
+            );
           }
           return (
             <button
               style={{ opacity: visible ? 1 : 0 }}
               onClick={option.action}
-              className="option">
+              className="option"
+            >
               {option.label}
             </button>
           );
@@ -119,20 +125,16 @@ const AsideToggleableMenu = (props) => {
   );
 };
 
-const {
-  bool,
-  arrayOf,
-  shape,
-  string,
-  func,
-} = PropTypes;
+const { bool, arrayOf, shape, string, func } = PropTypes;
 
 AsideToggleableMenu.propTypes = {
   visible: bool.isRequired,
-  optionsList: arrayOf(shape({
-    label: string,
-    action: func,
-  })),
+  optionsList: arrayOf(
+    shape({
+      label: string,
+      action: func,
+    })
+  ),
   toggleMenuVisibility: func.isRequired,
   user: shape({}).isRequired,
   currentItem: shape({}).isRequired,
@@ -141,7 +143,7 @@ AsideToggleableMenu.propTypes = {
   index: number.isRequired,
   isDesktop: bool.isRequired,
   blockWidth: number.isRequired,
-  redirectToImage: func
+  redirectToImage: func,
 };
 
 AsideToggleableMenu.defaultProps = {

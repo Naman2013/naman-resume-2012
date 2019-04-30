@@ -22,20 +22,20 @@ const NAV_ITEMS = [
 ];
 
 function mapStateToProps() {
-  return {
-  };
+  return {};
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators({
-    }, dispatch),
+    actions: bindActionCreators({}, dispatch),
   };
 }
 
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(
+  mapStateToProps,
+  mapDispatchToProps
+)
 class BrowseShows extends Component {
-
   render() {
     const { children } = this.props;
     return (
@@ -43,11 +43,13 @@ class BrowseShows extends Component {
         <header className="header">
           <h1 className="header-title">Browse Livecasts</h1>
         </header>
-        <BrowseShowsNavigation
-          navigationItems={NAV_ITEMS}
+        <BrowseShowsNavigation navigationItems={NAV_ITEMS} />
+        {cloneElement(children)}
+        <OtherFeaturedObjects
+          params={{ featuredType: 'videoViewer' }}
+          layoutDirection="row"
+          style={{ margin: 0 }}
         />
-        { cloneElement(children) }
-        <OtherFeaturedObjects params={{ featuredType: 'videoViewer' }} layoutDirection="row" style={{ margin: 0 }} />
         <style jsx>{`
           .header {
             ${backgroundImageCover}
@@ -70,6 +72,5 @@ class BrowseShows extends Component {
     );
   }
 }
-
 
 export default BrowseShows;

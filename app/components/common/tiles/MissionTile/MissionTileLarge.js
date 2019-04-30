@@ -2,9 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import style from './MissionTileLarge.style';
 
-const MissionTileLarge = ({
-  title, telescope, date, time, timezone,
-}) => (
+const MissionTileLarge = ({ title, telescope, date, time, timezone }) => (
   <div className="root">
     <div className="left">
       <h5 className="title">{title}</h5>

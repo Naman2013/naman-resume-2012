@@ -8,19 +8,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Button from '../../../../components/common/style/buttons/Button';
-import styles from './Modals.style';
+import './styles.scss';
 
 const { func, shape, string } = PropTypes;
 
-const SubmitReplyFeedbackModal = (props) => {
+const SubmitReplyFeedbackModal = props => {
   const {
-    modalActions, message, updateQuestionsList, title, doneButtonLabel,
+    modalActions,
+    message,
+    updateQuestionsList,
+    title,
+    doneButtonLabel,
   } = props;
 
   return (
-    <form className="root">
+    <form className="aaa-modal">
       <div className="title">{title}</div>
-      <div className="prompt-text" dangerouslySetInnerHTML={{ __html: message }} />
+      <div
+        className="prompt-text"
+        dangerouslySetInnerHTML={{ __html: message }}
+      />
       <div className="actions">
         <Button
           onClickEvent={() => {
@@ -30,7 +37,6 @@ const SubmitReplyFeedbackModal = (props) => {
           text={doneButtonLabel}
         />
       </div>
-      <style jsx>{styles}</style>
     </form>
   );
 };

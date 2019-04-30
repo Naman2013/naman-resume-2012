@@ -1,9 +1,9 @@
 /** *********************************
-* V4 Discussion Replies (to comments) List Bootstrapped
-*
-*
-*
-***********************************/
+ * V4 Discussion Replies (to comments) List Bootstrapped
+ *
+ *
+ *
+ ***********************************/
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
@@ -17,16 +17,7 @@ import Form from './ReplyForm';
 import ShowMoreFullSet from '../../common/ShowMoreFullSet';
 import styles from './DiscussionsBoard.style';
 
-
-const {
-  arrayOf,
-  bool,
-  func,
-  number,
-  oneOfType,
-  shape,
-  string,
-} = PropTypes;
+const { arrayOf, bool, func, number, oneOfType, shape, string } = PropTypes;
 
 class DiscussionsReplies extends Component {
   static propTypes = {
@@ -60,7 +51,7 @@ class DiscussionsReplies extends Component {
     forumId: null,
     threadId: null,
     topicId: null,
-  }
+  };
 
   componentDidMount() {
     const {
@@ -76,40 +67,42 @@ class DiscussionsReplies extends Component {
       discussionsActions: { updateCommentsProps },
     } = this.props;
     if (typeof commentsList[replyId] === 'undefined') {
-      axios.post(THREAD_REPLIES, {
-        callSource,
-        topicId,
-        threadId,
-        forumId,
-        replyTo: replyId,
-        page: 1,
-        at: user.at,
-        token: user.token,
-        cid: user.cid,
-      }).then((res) => {
-        validateResponseAccess(res);
-        if (!res.data.apiError) {
-          const { replies } = res.data;
-          const newReplies = [].concat(replies);
-          const displayedComments = take([].concat(replies), count)
-            .map(reply => reply.replyId);
-          updateCommentsProps(replyId, newReplies, displayedComments);
-        }
-      });
+      axios
+        .post(THREAD_REPLIES, {
+          callSource,
+          topicId,
+          threadId,
+          forumId,
+          replyTo: replyId,
+          page: 1,
+          at: user.at,
+          token: user.token,
+          cid: user.cid,
+        })
+        .then(res => {
+          validateResponseAccess(res);
+          if (!res.data.apiError) {
+            const { replies } = res.data;
+            const newReplies = [].concat(replies);
+            const displayedComments = take([].concat(replies), count).map(
+              reply => reply.replyId
+            );
+            updateCommentsProps(replyId, newReplies, displayedComments);
+          }
+        });
     }
   }
 
   get displayedCommentsObjs() {
     const {
       replyId,
-      discussions: {
-        commentsList,
-        displayedComments,
-      },
+      discussions: { commentsList, displayedComments },
     } = this.props;
     const comments = commentsList[replyId] || [];
     const displayed = displayedComments[replyId] || [];
-    return [].concat(comments).filter(reply => displayed.indexOf(reply.replyId) > -1);
+    return []
+      .concat(comments)
+      .filter(reply => displayed.indexOf(reply.replyId) > -1);
   }
 
   handleShowMore = (paginatedSet, page) => {
@@ -121,7 +114,7 @@ class DiscussionsReplies extends Component {
     } = this.props;
     const newCommentList = Object.assign({}, commentsList);
     let comments = newCommentList[threadId] || [];
-    comments = comments.map((reply) => {
+    comments = comments.map(reply => {
       const currentReply = Object.assign({}, reply);
       if (currentReply.replyId === replyId) {
         currentReply.page = page;
@@ -130,7 +123,7 @@ class DiscussionsReplies extends Component {
     });
     updateCommentsProps(threadId, comments, null);
     updateCommentsProps(replyId, null, paginatedSet);
-  }
+  };
 
   render() {
     const {
@@ -155,63 +148,69 @@ class DiscussionsReplies extends Component {
     return (
       <div className="comment" key={uniqueId()}>
         <div>
-          {canSubmitReplies ? <Form
-            avatarURL={user.avatarURL}
-            callSource={callSource}
-            forumId={forumId}
-            key={uniqueId()}
-            replyTo={replyId}
-            submitReply={handleReplyToComment}
-            threadId={threadId}
-            topicId={topicId}
-            user={user}
-            isDesktop={isDesktop}
-          /> : null}
+          {canSubmitReplies ? (
+            <Form
+              avatarURL={user.avatarURL}
+              callSource={callSource}
+              forumId={forumId}
+              key={uniqueId()}
+              replyTo={replyId}
+              submitReply={handleReplyToComment}
+              threadId={threadId}
+              topicId={topicId}
+              user={user}
+              isDesktop={isDesktop}
+            />
+          ) : null}
         </div>
-        {comments.length > 0 ? <div className="replies-list-contanier">
-          <div className="num-replies">
-            <span className="replies-number">Replies: {comments.length}</span>
+        {comments.length > 0 ? (
+          <div className="replies-list-contanier">
+            <div className="num-replies">
+              <span className="replies-number">Replies: {comments.length}</span>
+            </div>
+            <div className="comment-replies-list">
+              {displayedCommentsObjs.map(displayedComment => {
+                const likeParams = {
+                  callSource,
+                  replyId: displayedComment.replyId,
+                  topicId,
+                  forumId,
+                };
+                return (
+                  <RepliesListItem
+                    {...displayedComment}
+                    key={displayedComment.replyId}
+                    likeParams={likeParams}
+                    isDesktop={isDesktop}
+                    threadId={threadId}
+                    topicId={topicId}
+                    forumId={forumId}
+                    count={count}
+                    callSource={callSource}
+                    user={user}
+                  />
+                );
+              })}
+            </div>
           </div>
-          <div className="comment-replies-list">
-            {displayedCommentsObjs.map((displayedComment) => {
-              const likeParams = {
-                callSource,
-                replyId: displayedComment.replyId,
-                topicId,
-                forumId,
-              };
-              return (<RepliesListItem
-                {...displayedComment}
-                key={displayedComment.replyId}
-                likeParams={likeParams}
-                isDesktop={isDesktop}
-                threadId={threadId}
-                topicId={topicId}
-                forumId={forumId}
-                count={count}
-                callSource={callSource}
-                user={user}
-              />)
-           })}
-           </div>
-        </div> : null}
+        ) : null}
 
         <div className="flex toggle-container">
-          {displayedCommentsObjs.length > 0 && <ShowMoreFullSet
-            handleShowMore={this.handleShowMore}
-            fullDataSet={comments}
-            count={count}
-            totalCount={comments.length}
-            page={page}
-          />}
+          {displayedCommentsObjs.length > 0 && (
+            <ShowMoreFullSet
+              handleShowMore={this.handleShowMore}
+              fullDataSet={comments}
+              count={count}
+              totalCount={comments.length}
+              page={page}
+            />
+          )}
           {renderToggle ? renderToggle() : null}
         </div>
         <style jsx>{styles}</style>
-
       </div>
     );
   }
 }
-
 
 export default DiscussionsReplies;

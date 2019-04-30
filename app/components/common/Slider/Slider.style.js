@@ -1,6 +1,9 @@
 import css from 'styled-jsx/css';
 import { romance, golda } from '../../../styles/variables/colors_tiles_v4';
-import { screenMedium, screenLarge } from '../../../styles/variables/breakpoints';
+import {
+  screenMedium,
+  screenLarge,
+} from '../../../styles/variables/breakpoints';
 
 export default css.global`
   .slick-prev, .slick-next {

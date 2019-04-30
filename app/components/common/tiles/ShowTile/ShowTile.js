@@ -8,7 +8,11 @@ const ShowTile = ({ header, title, time, author, linkUrl }) => (
     <Link to={linkUrl} href={linkUrl}>
       <div className="show-tile-header">{header}</div>
       <div className="show-tile-title">{title}</div>
-      <div className="show-tile-author">{time}<span> | </span>{author}</div>
+      <div className="show-tile-author">
+        {time}
+        <span> | </span>
+        {author}
+      </div>
     </Link>
     <style jsx>{style}</style>
   </div>

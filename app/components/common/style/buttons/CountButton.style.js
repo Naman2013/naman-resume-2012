@@ -35,7 +35,7 @@ export default css`
     width: 50px;
     height: 40px;
   }
-  
+
   .button-container.no-border {
     border: none;
     display: flex;
@@ -50,6 +50,4 @@ export default css`
   .active .text {
     color: ${romance};
   }
-
-
 `;

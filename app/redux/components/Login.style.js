@@ -1,6 +1,11 @@
 import css from 'styled-jsx/css';
 import { faintShadow } from 'app/styles/variables/shadows';
-import { astronaut, romance, golden_yellow, shadows } from 'app/styles/variables/colors_tiles_v4';
+import {
+  astronaut,
+  romance,
+  golden_yellow,
+  shadows,
+} from 'app/styles/variables/colors_tiles_v4';
 import { primaryFont, secondaryFont } from 'app/styles/variables/fonts';
 
 export default css`
@@ -29,7 +34,8 @@ export default css`
     font-family: ${primaryFont};
   }
 
-  .title-link, .title-link:hover {
+  .title-link,
+  .title-link:hover {
     font-weight: bold;
     font-size: 11px;
     color: ${astronaut};
@@ -54,7 +60,6 @@ export default css`
     top: 5px;
     left: 0;
     width: 100%;
-
   }
 
   .or-text {
@@ -76,7 +81,7 @@ export default css`
   }
 
   .google-button {
-    background-color: #4285F4;
+    background-color: #4285f4;
     border-radius: 100px;
     padding: 10px 15px;
     color: ${romance};

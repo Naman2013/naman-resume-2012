@@ -1,19 +1,12 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import noop from 'lodash/noop';
-import pick from  'lodash/pick';
+import pick from 'lodash/pick';
 import { connect } from 'react-redux';
 import ToggleJoinGroupButton from 'app/components/common/style/buttons/ToggleJoinGroupButton';
 import { toggleJoinGroup } from 'app/services/community-groups/toggle-join-group';
 
-const {
-  bool,
-  func,
-  shape,
-  number,
-  oneOfType,
-  string,
-} = PropTypes;
+const { bool, func, shape, number, oneOfType, string } = PropTypes;
 
 const RESPONSE_FIELDS = [
   'joinPromptIconUrl',
@@ -46,7 +39,7 @@ class ToggleJoinGroup extends Component {
   state = {
     icon: this.props.joinPromptIconUrl,
     text: this.props.joinPrompt,
-  }
+  };
 
   toggleGroup = () => {
     const {
@@ -62,25 +55,18 @@ class ToggleJoinGroup extends Component {
       token: user.token,
       cid: user.cid,
       discussionGroupId,
-    }).then((res) => {
-
+    }).then(res => {
       if (!res.data.apiError) {
-        updateGroupItemInfo(
-          discussionGroupId,
-          pick(res.data, RESPONSE_FIELDS)
-        );
+        updateGroupItemInfo(discussionGroupId, pick(res.data, RESPONSE_FIELDS));
         this.setState(() => ({
           icon: res.data.joinPromptIconUrl,
           text: joinPrompt ? res.data.joinPrompt : null,
         }));
       }
     });
-  }
-  render () {
-    const {
-      icon,
-      text,
-    } = this.state;
+  };
+  render() {
+    const { icon, text } = this.state;
     return (
       <Fragment>
         <ToggleJoinGroupButton
@@ -93,9 +79,10 @@ class ToggleJoinGroup extends Component {
   }
 }
 
-const mapStateToProps = ({
-  user,
-}) => ({
+const mapStateToProps = ({ user }) => ({
   user,
 });
-export default connect(mapStateToProps, null)(ToggleJoinGroup);
+export default connect(
+  mapStateToProps,
+  null
+)(ToggleJoinGroup);

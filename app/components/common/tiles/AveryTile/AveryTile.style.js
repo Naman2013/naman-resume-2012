@@ -1,5 +1,10 @@
 import css from 'styled-jsx/css';
-import { astronaut, romance, golden_yellow, shadows } from 'app/styles/variables/colors_tiles_v4';
+import {
+  astronaut,
+  romance,
+  golden_yellow,
+  shadows,
+} from 'app/styles/variables/colors_tiles_v4';
 import { faintShadow } from 'app/styles/variables/shadows';
 import { primaryFont, secondaryFont } from 'app/styles/variables/fonts';
 

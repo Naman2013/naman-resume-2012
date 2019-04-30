@@ -7,14 +7,7 @@ import ShowsList from '../../components/video-viewer/ShowsList';
 import { fetchPreviousShows } from '../../modules/browse-video-viewer/previous-shows-actions';
 // import CategoryNavigation from '../../components/video-viewer/CategoryNavigation';
 
-const {
-  bool,
-  number,
-  string,
-  shape,
-  func,
-  arrayOf,
-} = PropTypes;
+const { bool, number, string, shape, func, arrayOf } = PropTypes;
 /*
 const NAV_ITEMS = [
   {
@@ -57,40 +50,48 @@ function mapStateToProps({ videoViewerBrowser }) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators({
-      fetchPreviousShows
-    }, dispatch),
+    actions: bindActionCreators(
+      {
+        fetchPreviousShows,
+      },
+      dispatch
+    ),
   };
 }
 
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(
+  mapStateToProps,
+  mapDispatchToProps
+)
 class RecentShows extends Component {
   static propTypes = {
     actions: shape({
       fetchPreviousShows: func,
     }),
-    eventList: arrayOf(shape({
-      eventDescription: string,
-      eventDetailsURL: string,
-      eventEnd: number,
-      eventIconURL: string,
-      eventId: number,
-      eventImageURL: string,
-      eventIndex: number,
-      eventIsLive: bool,
-      eventLinkTarget: string,
-      eventLiveURL: string,
-      eventShortDescription: string,
-      eventShowRemindersIcon: bool,
-      eventStart: number,
-      eventStatus: string,
-      eventTitle: string,
-    })),
+    eventList: arrayOf(
+      shape({
+        eventDescription: string,
+        eventDetailsURL: string,
+        eventEnd: number,
+        eventIconURL: string,
+        eventId: number,
+        eventImageURL: string,
+        eventIndex: number,
+        eventIsLive: bool,
+        eventLinkTarget: string,
+        eventLiveURL: string,
+        eventShortDescription: string,
+        eventShowRemindersIcon: bool,
+        eventStart: number,
+        eventStatus: string,
+        eventTitle: string,
+      })
+    ),
     resultsCount: number,
     page: number,
     pages: number,
     count: number,
-  }
+  };
   static defaultProps = {
     actions: {
       fetchPreviousShows: noop,
@@ -100,7 +101,7 @@ class RecentShows extends Component {
     page: 0,
     pages: 0,
     count: number,
-  }
+  };
   constructor(props) {
     super(props);
 
@@ -111,22 +112,15 @@ class RecentShows extends Component {
     });
   }
   render() {
-    const {
-      actions,
-      eventList,
-      resultsCount,
-      page,
-      pages,
-      count,
-    } = this.props;
+    const { actions, eventList, resultsCount, page, pages, count } = this.props;
 
     return (
       <div>
-        { /*
+        {/*
         <CategoryNavigation
           navigationItems={NAV_ITEMS}
         />
-        */ }
+        */}
         <ShowsList
           eventList={eventList}
           resultsCount={resultsCount}
@@ -138,7 +132,6 @@ class RecentShows extends Component {
       </div>
     );
   }
-
 }
 
 export default RecentShows;

@@ -8,15 +8,13 @@ import TabbedNav from '../TabbedNav';
 
 let mockedEvents = new Array(JOIN_TABS.length).fill({});
 
-mockedEvents = mockedEvents.map((evt, i) => (
-  {
-    currentTarget: {
-      dataset: {
-        tab: JOIN_TABS[i].value,
-      },
+mockedEvents = mockedEvents.map((evt, i) => ({
+  currentTarget: {
+    dataset: {
+      tab: JOIN_TABS[i].value,
     },
-  }
-));
+  },
+}));
 
 it('it should render a tab menu', () => {
   const onTabClickSpy = sinon.spy();
