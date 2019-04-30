@@ -7,8 +7,8 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Button } from 'react-bootstrap';
 import { intlShape, injectIntl } from 'react-intl';
-import Button from 'app/components/common/style/buttons/Button';
 import PhotoUploadButton from 'app/components/common/style/buttons/PhotoUploadButton';
 import deletePostImage from 'app/services/post-creation/delete-post-image';
 import setPostImages from 'app/modules/set-post-images';
@@ -164,29 +164,26 @@ class SubmitReplyForm extends Component {
             dangerouslySetInnerHTML={{ __html: content }}
           />
         </div>
-        <div className="input-container">
-          <textarea
-            className="field-input"
-            value={answerText}
-            onChange={this.onChangeAnswerText}
-            placeholder={intl.formatMessage(messages.CommentPlaceholder)}
-          />
-        </div>
-        <div className="button-container">
-          <div className="privacy-buttons">
+
+        <hr />
+
+        <textarea
+          className="field-input"
+          value={answerText}
+          onChange={this.onChangeAnswerText}
+          placeholder={intl.formatMessage(messages.CommentPlaceholder)}
+        />
+        <div className="buttons-wrapper d-flex justify-content-between">
+          <div>
             <PhotoUploadButton handleUploadImage={this.handleUploadImage} />
           </div>
-          <div className="actions">
-            <Button
-              onClickEvent={modalActions.closeModal}
-              text={intl.formatMessage(messages.Cancel)}
-              theme={{ height: '40px', marginRight: '10px' }}
-            />
-            <Button
-              onClickEvent={this.submitForm}
-              text={intl.formatMessage(messages.Submit)}
-              theme={{ height: '40px' }}
-            />
+          <div>
+            <Button onClick={modalActions.closeModal} className="mr-3">
+              {intl.formatMessage(messages.Cancel)}
+            </Button>
+            <Button onClick={this.submitForm}>
+              {intl.formatMessage(messages.Submit)}
+            </Button>
           </div>
         </div>
       </form>
