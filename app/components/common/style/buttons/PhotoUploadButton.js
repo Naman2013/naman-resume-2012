@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import cx from 'classnames';
 import styles from './PhotoUploadButton.style';
 
 const { func, number, oneOfType, string } = PropTypes;
 
-const PhotoUploadButton = ({ handleUploadImage }) => (
-  <div className="button-input-container">
+const PhotoUploadButton = ({ handleUploadImage, disabled }) => (
+  <div className={cx('button-input-container', { disabled })}>
     <label htmlFor="file-upload">
       <span className="icon-clip" />
     </label>

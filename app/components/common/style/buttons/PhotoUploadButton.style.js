@@ -70,4 +70,12 @@ export default css`
     width: 120px;
     height: 40px;
   }
+
+  .button-input-container.disabled {
+    cursor: not-allowed;
+  }
+
+  .button-input-container.disabled label {
+    pointer-events: none;
+  }
 `;
