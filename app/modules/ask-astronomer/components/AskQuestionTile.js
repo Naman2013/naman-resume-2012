@@ -219,22 +219,24 @@ class AskQuestionTile extends Component {
             </div>
           </div>
         </DisplayAtBreakpoint>
-        <Modal show={showSuccessPopup} onHide={() => {}}>
-          <p className="popup-title">{popupTitle}</p>
-          <p className="popup-message" style={{}}>
-            {message}
-          </p>
+        <Modal show={showSuccessPopup} onHide={this.updateQuestionsList}>
+          <div className="aaa-modal-success">
+            <p className="popup-title">{popupTitle}</p>
+            <p className="popup-message" style={{}}>
+              {message}
+            </p>
 
-          <div>
-            <Button
-              onClick={this.updateQuestionsList}
-              className="mr-3 modal-btn"
-            >
-              {doneButtonLabel}
-            </Button>
-            <Button onClick={this.setAskQuestionModal} className="modal-btn">
-              {continueButtonLabel}
-            </Button>
+            <div>
+              <Button
+                onClick={this.updateQuestionsList}
+                className="mr-3 modal-btn"
+              >
+                {doneButtonLabel}
+              </Button>
+              <Button onClick={this.setAskQuestionModal} className="modal-btn">
+                {continueButtonLabel}
+              </Button>
+            </div>
           </div>
         </Modal>
         <style jsx>{style}</style>

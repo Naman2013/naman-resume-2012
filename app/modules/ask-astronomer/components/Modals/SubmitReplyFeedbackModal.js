@@ -7,8 +7,8 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import Button from '../../../../components/common/style/buttons/Button';
 import './styles.scss';
+import { Button } from 'react-bootstrap';
 
 const { func, shape, string } = PropTypes;
 
@@ -22,22 +22,23 @@ const SubmitReplyFeedbackModal = props => {
   } = props;
 
   return (
-    <form className="aaa-modal">
-      <div className="title">{title}</div>
+    <div className="aaa-modal-success">
+      <h1 className="modal-h">{title}</h1>
+
       <div
-        className="prompt-text"
+        className="modal-p mt-5"
         dangerouslySetInnerHTML={{ __html: message }}
       />
-      <div className="actions">
-        <Button
-          onClickEvent={() => {
-            updateQuestionsList();
-            modalActions.closeModal();
-          }}
-          text={doneButtonLabel}
-        />
-      </div>
-    </form>
+      <Button
+        onClick={() => {
+          updateQuestionsList();
+          modalActions.closeModal();
+        }}
+        className="modal-btn"
+      >
+        {doneButtonLabel}
+      </Button>
+    </div>
   );
 };
 

@@ -1,4 +1,5 @@
 @import "~app/styles/variables/index";
+@import '~app/styles/bootstrap/index.scss';
 
 
 .aaa-modal {
@@ -125,3 +126,15 @@
 }
 
 
+.aaa-modal-success {
+  // MOBILE STYLE (https://app.zeplin.io/project/5c49ec8466e3b3bee968092b/screen/5c5c05c354dee73544e0de89)
+    @include media-breakpoint-down(xs) {
+      .modal-btn {
+        display: block;
+        width: 100%;
+        margin: 15px 0 0 0;
+      }
+
+
+    }
+}
