@@ -6,14 +6,15 @@
  ***********************************/
 
 import PhotoUploadButton from 'app/components/common/style/buttons/PhotoUploadButton';
+import { Spinner } from 'app/components/spinner/index';
+import { UploadImgThumb } from 'app/modules/ask-astronomer/components/Modals/upload-img-thumb';
 import setPostImages from 'app/modules/set-post-images';
 import { prepareThread } from 'app/services/discussions/prepare-thread';
 import deletePostImage from 'app/services/post-creation/delete-post-image';
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Button } from 'react-bootstrap';
 import { injectIntl, intlShape } from 'react-intl';
-import { browserHistory } from 'react-router';
 import './styles.scss';
 import messages from './SubmitQuestionForm.messages';
 
@@ -28,7 +29,7 @@ const {
   string,
 } = PropTypes;
 
-class SubmitQuestionForm extends Component {
+class SubmitQuestionForm extends PureComponent {
   static propTypes = {
     modalActions: shape({
       closeModal: func,
@@ -120,6 +121,10 @@ class SubmitQuestionForm extends Component {
     const { cid, token, at } = this.props.user;
     const { uuid } = this.state;
 
+    this.setState({
+      uploadLoading: true,
+    });
+
     deletePostImage({
       cid,
       token,
@@ -145,15 +150,31 @@ class SubmitQuestionForm extends Component {
   };
 
   render() {
+    const { S3URLs, uploadLoading } = this.state;
     const { title, modalActions, submitReply, askPrompt, intl } = this.props;
 
     const { questionText } = this.state;
     return (
       <form className="aaa-modal">
+        <Spinner loading={uploadLoading} />
+
         <div
           className="h3-custom title"
           dangerouslySetInnerHTML={{ __html: title }}
         />
+
+        {S3URLs.length ? (
+          <>
+            <UploadImgThumb
+              src={S3URLs[0]}
+              onDelete={() => {
+                this.handleDeleteImage(S3URLs[0]);
+              }}
+            />
+            <hr />
+          </>
+        ) : null}
+
         <textarea
           className="field-input"
           value={questionText}
@@ -163,7 +184,10 @@ class SubmitQuestionForm extends Component {
 
         <div className="buttons-wrapper d-flex justify-content-between">
           <div>
-            <PhotoUploadButton handleUploadImage={this.handleUploadImage} />
+            <PhotoUploadButton
+              handleUploadImage={this.handleUploadImage}
+              disabled={S3URLs.length}
+            />
           </div>
           <div>
             <Button onClick={this.cancel} className="mr-3">

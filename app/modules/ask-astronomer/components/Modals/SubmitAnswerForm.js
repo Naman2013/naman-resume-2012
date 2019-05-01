@@ -5,20 +5,22 @@
  *
  ***********************************/
 
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { Button } from 'react-bootstrap';
-import { intlShape, injectIntl } from 'react-intl';
 import PhotoUploadButton from 'app/components/common/style/buttons/PhotoUploadButton';
-import deletePostImage from 'app/services/post-creation/delete-post-image';
+import { Spinner } from 'app/components/spinner/index';
+import { UploadImgThumb } from 'app/modules/ask-astronomer/components/Modals/upload-img-thumb';
 import setPostImages from 'app/modules/set-post-images';
 import { prepareReply } from 'app/services/discussions/prepare-reply';
+import deletePostImage from 'app/services/post-creation/delete-post-image';
+import PropTypes from 'prop-types';
+import React, { PureComponent } from 'react';
+import { Button } from 'react-bootstrap';
+import { injectIntl, intlShape } from 'react-intl';
 import './styles.scss';
 import messages from './SubmitQuestionForm.messages';
 
 const { func, shape, string } = PropTypes;
 
-class SubmitAnswerForm extends Component {
+class SubmitAnswerForm extends PureComponent {
   static propTypes = {
     modalActions: shape({
       closeModal: func,
@@ -109,6 +111,10 @@ class SubmitAnswerForm extends Component {
     const { cid, token, at } = this.props.user;
     const { uuid } = this.state;
 
+    this.setState({
+      uploadLoading: true,
+    });
+
     deletePostImage({
       cid,
       token,
@@ -127,6 +133,7 @@ class SubmitAnswerForm extends Component {
   };
 
   render() {
+    const { S3URLs, uploadLoading } = this.state;
     const {
       authorInfo,
       freshness,
@@ -140,6 +147,8 @@ class SubmitAnswerForm extends Component {
 
     return (
       <form className="aaa-modal">
+        <Spinner loading={uploadLoading} />
+
         <div className="top">
           <div className="title flex info-container">
             <div>
@@ -158,6 +167,18 @@ class SubmitAnswerForm extends Component {
 
         <hr />
 
+        {S3URLs.length ? (
+          <>
+            <UploadImgThumb
+              src={S3URLs[0]}
+              onDelete={() => {
+                this.handleDeleteImage(S3URLs[0]);
+              }}
+            />
+            <hr />
+          </>
+        ) : null}
+
         <textarea
           className="field-input"
           value={answerText}
@@ -166,7 +187,10 @@ class SubmitAnswerForm extends Component {
         />
         <div className="buttons-wrapper d-flex justify-content-between">
           <div>
-            <PhotoUploadButton handleUploadImage={this.handleUploadImage} />
+            <PhotoUploadButton
+              handleUploadImage={this.handleUploadImage}
+              disabled={S3URLs.length}
+            />
           </div>
           <div>
             <Button onClick={modalActions.closeModal} className="mr-3">
