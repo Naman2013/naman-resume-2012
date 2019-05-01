@@ -4,19 +4,18 @@
  *
  *
  ***********************************/
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { intlShape, injectIntl } from 'react-intl';
 import Button from 'app/components/common/style/buttons/Button';
-import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
-import FullpageForm from './Modals/FullpageForm';
-import SubmitReplyFeedbackModal from './Modals/SubmitReplyFeedbackModal';
-import SubmitAnswerForm from './Modals/SubmitAnswerForm';
 import { prepareReply } from 'app/services/discussions/prepare-reply';
 import {
   customModalStylesBlackOverlay,
   modalStyleFullPage,
 } from 'app/styles/mixins/utilities';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { injectIntl, intlShape } from 'react-intl';
+import FullpageForm from './Modals/FullpageForm';
+import SubmitAnswerForm from './Modals/SubmitAnswerForm';
+import SubmitReplyFeedbackModal from './Modals/SubmitReplyFeedbackModal';
 import messages from './SubmitAnswerButton.messages';
 
 const {
@@ -43,6 +42,7 @@ class SubmitAnswerButton extends Component {
     forumId: null,
     replyButtonText: 'Submit an Answer',
   };
+
   static propTypes = {
     avatarURL: string,
     submitForm: func.isRequired,
@@ -165,18 +165,16 @@ class SubmitAnswerButton extends Component {
 
     return (
       <div className="reply-form-container">
-        <DisplayAtBreakpoint screenMedium screenLarge screenXLarge>
-          <Button
-            text={intl.formatMessage(messages.SubmitAnswer)}
-            onClickEvent={this.setAnswerModal}
-          />
-        </DisplayAtBreakpoint>
-        <DisplayAtBreakpoint screenSmall>
+        <Button
+          text={intl.formatMessage(messages.SubmitAnswer)}
+          onClickEvent={this.setAnswerModal}
+        />
+        {/*<DisplayAtBreakpoint screenSmall>
           <Button
             text={intl.formatMessage(messages.SubmitAnswer)}
             onClickEvent={this.setFullpageAnswerModal}
           />
-        </DisplayAtBreakpoint>
+        </DisplayAtBreakpoint>*/}
       </div>
     );
   }

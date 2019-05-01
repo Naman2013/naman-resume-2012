@@ -77,13 +77,7 @@ class QaContainer extends Component {
 
     return (
       <div className="root">
-        <Modal
-          ariaHideApp={false}
-          isOpen={showPrompt}
-          style={promptStyles}
-          contentLabel="askAstronomer"
-          onRequestClose={this.closeModal}
-        >
+        <Modal show={showPrompt} onHide={this.closeModal}>
           {promptComponent}
         </Modal>
         <DeviceContext.Consumer>
