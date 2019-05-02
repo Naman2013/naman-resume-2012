@@ -224,45 +224,30 @@ class DiscussionBoardInvitationsPanel extends Component {
                                   </Card.Subtitle>
                                 </Card.Body>
                                 <ListGroup>
-                                  <ListGroupItem className="list-card-item">
-                                    <b>Invitation Code: </b>
-                                    {x.invitationcode}
+				   {x.showInvitationCode == true && <ListGroupItem className="list-card-item">
+                                     <b>Invitation Code: </b>
+                                     {x.invitationcode}
                                   </ListGroupItem>
-
+				  }
                                   <ListGroupItem className="list-card-item">
                                     <b>Account status: </b>
                                     {x.status}
                                   </ListGroupItem>
                                   <ListGroupItem className="listy-card-item">
-                                    <b>Club status: </b>
-                                    {x.alreadyAMemberOfThisGroup === false &&
-                                      x.canBeInvitedToThisGroup === true && (
-                                        <div className="but">
-                                          <Button
-                                            type="button"
-                                            text={x.invitationPrompt}
-                                            onClickEvent={() =>
-                                              this.addExistingMemberToDiscussionGroup(
-                                                x.firstname,
-                                                x.lastname,
-                                                x.emailaddress
-                                              )
-                                            }
-                                          />
-                                        </div>
-                                      )}
-                                    {x.alreadyAMemberOfThisGroup === true &&
-                                      x.canBeInvitedToThisGroup === false && (
-                                        <FormattedMessage
-                                          {...messages.Active}
-                                        />
-                                      )}
-                                    {x.alreadyAMemberOfThisGroup === false &&
-                                      x.canBeInvitedToThisGroup === false && (
-                                        <FormattedMessage
-                                          {...messages.Pending}
-                                        />
-                                      )}
+                                    {x.showAddButton == true && <Button
+                                      type="button"
+                                      text={x.invitationPrompt}
+                                      onClickEvent={() =>
+                                        this.addExistingMemberToDiscussionGroup(
+                                          x.firstname,
+                                          x.lastname,
+                                          x.emailaddress,
+                                          x.googleprofileid
+                                        )
+                                      }
+                                    />
+                                    }
+                                    {x.showClubStatus == true && <span><b>Club status: </b>{x.clubStatus}</span>}
                                   </ListGroupItem>
                                 </ListGroup>
 
