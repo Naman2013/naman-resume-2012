@@ -1,7 +1,8 @@
 // @flow
 
 import { FilterElImg } from 'app/modules/profile-photos/components/filter-dropdown/filter-el-img';
-import React from 'react';
+import { FilterElTime } from 'app/modules/profile-photos/components/filter-dropdown/filter-el-time';
+import React, { memo } from 'react';
 import { Button } from 'react-bootstrap';
 import './index.scss';
 import useOnClickOutside from 'use-onclickoutside';
@@ -14,9 +15,10 @@ type TFilterDropdown = {
   onApply: Function,
   telescopeList: any,
   objectTypeList: any,
+  timeList: any,
 };
 
-export const FilterDropdown = (props: TFilterDropdown) => {
+export const FilterDropdown = memo((props: TFilterDropdown) => {
   const {
     isOpen,
     setOpen,
@@ -25,7 +27,10 @@ export const FilterDropdown = (props: TFilterDropdown) => {
     objectTypeList,
     telescopeList,
     onApply,
+    timeList,
   } = props;
+
+  console.log(timeList);
 
   const { filterType: activeFilterType } = selectedFilters;
 
@@ -113,6 +118,14 @@ export const FilterDropdown = (props: TFilterDropdown) => {
             </div>
 
             <hr />
+
+            <h4 className="h4-custom">BY TIME</h4>
+
+            <div className="grid-elements-time">
+              {timeList.map(time => (
+                <FilterElTime key={time.value} title={time.name} />
+              ))}
+            </div>
           </div>
 
           <div className="filter-dropdown-footer text-center">
@@ -132,4 +145,4 @@ export const FilterDropdown = (props: TFilterDropdown) => {
       )}
     </div>
   );
-};
+});
