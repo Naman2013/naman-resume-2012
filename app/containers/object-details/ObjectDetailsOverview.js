@@ -15,7 +15,6 @@ import { BURNHAMS_CORNER_CONTENT } from 'app/services/content';
 import CenterColumn from 'app/components/common/CenterColumn';
 import TopicContent from 'app/components/guides/TopicContent';
 import Request from 'app/components/common/network/Request';
-
 import DeviceProvider from 'app/providers/DeviceProvider';
 import CardObservations from 'app/components/common/CardObservations';
 import SterlingTitle from 'app/components/common/titles/SterlingTitle';
@@ -147,6 +146,18 @@ const modelData = resp => ({
   hasFeaturedObservation: resp.hasFeaturedObservation,
 });
 
+const obsData = resp => ({
+  title: resp.imageTitle,
+  subTitle: resp.displayName,
+  desc: resp.observationLog,
+  imageURL: resp.imageURL,
+  linkUrl: resp.linkUrl,
+  likesCount: resp.likesCount,
+  likePrompt: resp.likePrompt,
+  timeDisplay: resp.observationTimeDisplay,
+  showLikePrompt: resp.showLikePrompt,
+});
+
 @connect(
   mapStateToProps,
   mapDispatchToProps
@@ -168,11 +179,13 @@ class Overview extends Component {
     } = this.props;
 
     const modeledResult = modelData(objectData);
+    const observation = obsData(imageDetails);
 
     // TODO: need something more substantial than this to prevent bad renders
     if (!modeledResult.topicContentProps.title) {
       return null;
     }
+
     return (
       <Fragment>
         <TopicContent
@@ -194,15 +207,15 @@ class Overview extends Component {
               <CenterColumn widths={['768px', '965px', '965px']}>
                 <CardObservations
                   user={user}
-                  title={imageDetails.imageTitle}
-                  subTitle={imageDetails.displayName}
-                  description={imageDetails.observationLog}
-                  imageUrl={imageDetails.imageURL}
-                  linkUrl={imageDetails.linkUrl}
-                  likesCount={imageDetails.likesCount}
-                  likePrompt={imageDetails.likePrompt}
-                  observationTimeDisplay={imageDetails.observationTimeDisplay}
-                  showLikePrompt={imageDetails.showLikePrompt}
+                  title={observation.title}
+                  subTitle={observation.subTitle}
+                  description={observation.desc}
+                  imageUrl={observation.imageURL}
+                  linkUrl={observation.linkUrl}
+                  likesCount={observation.likesCount}
+                  likePrompt={observation.likePrompt}
+                  observationTimeDisplay={observation.timeDisplay}
+                  showLikePrompt={observation.showLikePrompt}
                   handleLike={fetchLikeAction}
                   customerImageId={
                     modeledResult.featuredObservation.customerImageId

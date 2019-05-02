@@ -16,13 +16,11 @@ import DropDown from 'app/components/common/DropDown';
 import {
   fetchObjectDetailsAction,
   fetchLikeAction,
+  fetchSharedMemberPhotosAction,
 } from 'app/modules/object-details/actions';
-import DeviceProvider from 'app/providers/DeviceProvider';
 import ObjectDetailsSectionTitle from 'app/components/object-details/ObjectDetailsSectionTitle';
 import CenterColumn from 'app/components/common/CenterColumn';
-import PaginateWithNetwork from 'app/components/common/paginate-with-network';
 import CardObservations from 'app/components/common/CardObservations';
-import { SHARED_MEMBER_PHOTOS } from 'app/services/shared-photos';
 import { IMAGE_DETAILS } from 'app/services/image-details';
 
 import messages from './ObjectDetails.messages';
@@ -31,6 +29,8 @@ import styles from './ObjectDetailsObservations.style';
 const mapStateToProps = ({ objectDetails, appConfig, user }) => ({
   objectData: objectDetails.objectData,
   objectDetails: objectDetails.objectDetails,
+  imageDetails: objectDetails.imageDetails,
+  sharedMemberPhotos: objectDetails.sharedMemberPhotos,
   appConfig,
   user,
 });
@@ -40,6 +40,7 @@ const mapDispatchToProps = dispatch => ({
     {
       fetchObjectDetailsAction,
       fetchLikeAction,
+      fetchSharedMemberPhotosAction,
     },
     dispatch
   ),
@@ -54,6 +55,22 @@ class Observations extends Component {
     selectedIndex: 0,
     page: 1,
   };
+
+  componentDidMount() {
+    const {
+      actions: { fetchSharedMemberPhotosAction },
+      params: { objectId },
+    } = this.props;
+    const { page } = this.state;
+    const requestBody = {
+      objectId,
+      pagingMode: 'content',
+      count: 9,
+      page,
+      v4Filter: this.selectedFilter,
+    };
+    fetchSharedMemberPhotosAction(requestBody);
+  }
 
   get dropdownOptions() {
     return has(this.props.objectData, 'observationsV4Filters.options')
@@ -82,134 +99,85 @@ class Observations extends Component {
     }));
   };
 
-  handlePaginationResponse = resp => {};
-
-  handlePaginationChange = ({ activePage }) => {
-    this.setState(state => {
-      // TODO: preserve page in query params
-      // const query = Object.assign({}, state, { page: activePage });
-      // this.setQueryParams(pick(query, QUERY_TYPES));
-      return {
-        page: activePage,
-      };
-    });
-  };
-
   render() {
     const {
-      params: { objectId },
       objectDetails,
+      sharedMemberPhotos,
       intl,
       actions: { fetchLikeAction },
       user,
     } = this.props;
-    const { selectedIndex, page } = this.state;
+
+    if (!sharedMemberPhotos.imageCount) {
+      return (
+        <p>
+          <FormattedMessage
+            {...messages.NoObservations}
+            values={{ objectTitle: objectDetails.objectTitle }}
+          />
+        </p>
+      );
+    }
+
+    const { selectedIndex } = this.state;
+
     return (
       <Fragment>
-        <DeviceProvider>
-          <ObjectDetailsSectionTitle
-            title={`${objectDetails.objectTitle}'s`}
-            subTitle={intl.formatMessage(messages.Observations)}
-            renderNav={() => (
-              <div className="nav-actions">
-                <DropDown
-                  options={this.dropdownOptions}
-                  selectedIndex={selectedIndex}
-                  handleSelect={this.handleSelect}
-                />
-              </div>
-            )}
-          />
-          <CenterColumn widths={['645px', '965px', '965px']}>
-            <Request
-              authorizationRedirect
-              serviceURL={SHARED_MEMBER_PHOTOS}
-              method="POST"
-              serviceExpiresFieldName="expires"
-              requestBody={{
-                objectId,
-                pagingMode: 'content',
-                count: 9,
-                page,
-                v4Filter: this.selectedFilter,
-              }}
-              render={({ fetchingContent, serviceResponse }) => (
-                <div className="root">
-                  {serviceResponse.imageCount > 0 &&
-                  has(serviceResponse, 'imageList') ? (
-                    serviceResponse.imageList.map(image => (
-                      <Request
-                        method="POST"
-                        authorizationRedirect
-                        serviceURL={IMAGE_DETAILS}
-                        serviceExpiresFieldName="expires"
-                        requestBody={{
-                          customerImageId: image.customerImageId,
-                          useShareToken: 'n',
-                          callSource: 'sharedPictures',
-                        }}
-                        render={({
-                          fetchingContent,
-                          serviceResponse: imageDetails,
-                        }) => {
-                          const photoBy = imageDetails.linkableFileData
-                            ? `${
-                                imageDetails.linkableFileData['Photo by'].label
-                              } ${
-                                imageDetails.linkableFileData['Photo by'].text
-                              }`
-                            : 'Photo by';
-                          return (
-                            <CardObservations
-                              user={user}
-                              subTitle={photoBy}
-                              title={imageDetails.imageTitle}
-                              description={imageDetails.observationLog}
-                              imageUrl={imageDetails.imageURL}
-                              linkUrl={imageDetails.linkUrl}
-                              likesCount={imageDetails.likesCount}
-                              likePrompt={imageDetails.likePrompt}
-                              showLikePrompt={imageDetails.showLikePrompt}
-                              customerImageId={image.customerImageId}
-                              handleLike={fetchLikeAction}
-                              observationTimeDisplay={
-                                imageDetails.observationTimeDisplay
-                              }
-                            />
-                          );
-                        }}
-                      />
-                    ))
-                  ) : (
-                    <p>
-                      <FormattedMessage
-                        {...messages.NoObservations}
-                        values={{ objectTitle: objectDetails.objectTitle }}
-                      />
-                    </p>
-                  )}
-                  {serviceResponse.imageCount > 0 ? (
-                    <div className="top-bot-40">
-                      <PaginateWithNetwork
-                        apiURL={SHARED_MEMBER_PHOTOS}
-                        activePageNumber={Number(page)}
-                        onServiceResponse={this.handlePaginationResponse}
-                        onPaginationChange={this.handlePaginationChange}
-                        filterOptions={{
-                          objectId,
-                          pagingMode: 'content',
-                          count: 9,
-                          page,
-                          v4Filter: this.selectedFilter,
-                        }}
-                      />
-                    </div>
-                  ) : null}
-                </div>
-              )}
-            />
-          </CenterColumn>
-        </DeviceProvider>
+        <ObjectDetailsSectionTitle
+          title={`${objectDetails.objectTitle}'s`}
+          subTitle={intl.formatMessage(messages.Observations)}
+          renderNav={() => (
+            <div className="nav-actions">
+              <DropDown
+                options={this.dropdownOptions}
+                selectedIndex={selectedIndex}
+                handleSelect={this.handleSelect}
+              />
+            </div>
+          )}
+        />
+        <CenterColumn widths={['645px', '965px', '965px']}>
+          <div className="root">
+            {sharedMemberPhotos.imageList.map(image => (
+              <Request
+                method="POST"
+                authorizationRedirect
+                serviceURL={IMAGE_DETAILS}
+                serviceExpiresFieldName="expires"
+                requestBody={{
+                  customerImageId: image.customerImageId,
+                  useShareToken: 'n',
+                  callSource: 'sharedPictures',
+                }}
+                render={({ serviceResponse: imageDetails }) => {
+                  const photoBy = imageDetails.linkableFileData
+                    ? `${imageDetails.linkableFileData['Photo by'].label} ${
+                        imageDetails.linkableFileData['Photo by'].text
+                      }`
+                    : 'Photo by';
+                  return (
+                    <CardObservations
+                      user={user}
+                      subTitle={photoBy}
+                      title={imageDetails.imageTitle}
+                      description={imageDetails.observationLog}
+                      imageUrl={imageDetails.imageURL}
+                      linkUrl={imageDetails.linkUrl}
+                      likesCount={imageDetails.likesCount}
+                      likePrompt={imageDetails.likePrompt}
+                      showLikePrompt={imageDetails.showLikePrompt}
+                      customerImageId={image.customerImageId}
+                      handleLike={fetchLikeAction}
+                      observationTimeDisplay={
+                        imageDetails.observationTimeDisplay
+                      }
+                    />
+                  );
+                }}
+              />
+            ))}
+          </div>
+        </CenterColumn>
         <style jsx>{styles}</style>
       </Fragment>
     );
