@@ -1,3 +1,4 @@
+import { Modal } from 'app/components/modal';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Lightbox from 'react-images';
@@ -37,7 +38,7 @@ class ViewImagesButton extends Component {
   };
 
   toggleLightbox = e => {
-    e.preventDefault();
+    // e.preventDefault();
     this.setState(state => ({
       lightboxIsOpen: !state.lightboxIsOpen,
       currentImageIdx: 0,
@@ -50,7 +51,7 @@ class ViewImagesButton extends Component {
 
   render() {
     const { images } = this.props;
-    const { currentImageIdx } = this.state;
+    const { currentImageIdx, lightboxIsOpen } = this.state;
     const formattedImgs = images.map(image => ({ src: image }));
     const firstImage = images.length > 0 && images[0];
     const buttonStyle = Object.assign(smallProfPic(firstImage), {
@@ -63,7 +64,7 @@ class ViewImagesButton extends Component {
         <DeviceContext.Consumer>
           {context => (
             <div className="thumbnails-container">
-              <Lightbox
+              {/*<Lightbox
                 currentImage={currentImageIdx}
                 images={formattedImgs}
                 isOpen={this.state.lightboxIsOpen}
@@ -72,7 +73,14 @@ class ViewImagesButton extends Component {
                 onClickPrev={this.onClickPrev}
                 onClickNext={this.onClickNext}
                 showThumbnails={images.length > 1}
-              />
+              />*/}
+              <Modal show={lightboxIsOpen} onHide={this.toggleLightbox}>
+                <div className="text-center">
+                  <div className="modal-img-wrapper">
+                    <img src={images[0]} alt="" />
+                  </div>
+                </div>
+              </Modal>
               {firstImage && context.isDesktop ? (
                 <LargeButtonWithRightIcon
                   text="Pics"
