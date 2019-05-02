@@ -30,9 +30,13 @@ export const FilterDropdown = memo((props: TFilterDropdown) => {
     timeList,
   } = props;
 
-  console.log(timeList);
+  // console.log(timeList);
+  // console.log('selectedFilters', selectedFilters);
 
-  const { filterType: activeFilterType } = selectedFilters;
+  const {
+    filterType: activeFilterType,
+    timeFilter: activeTimeFilter,
+  } = selectedFilters;
 
   const open = () => setOpen(true);
   const close = () => setOpen(false);
@@ -56,6 +60,7 @@ export const FilterDropdown = memo((props: TFilterDropdown) => {
       pierNumber: null,
       observatoryId: null,
       filterType: null,
+      timeFilter: null,
     });
     onApply();
     close();
@@ -123,7 +128,16 @@ export const FilterDropdown = memo((props: TFilterDropdown) => {
 
             <div className="grid-elements-time">
               {timeList.map(time => (
-                <FilterElTime key={time.value} title={time.name} />
+                <FilterElTime
+                  key={time.value}
+                  title={time.name}
+                  onClick={() =>
+                    onChange({
+                      timeFilter: time.value,
+                    })
+                  }
+                  active={time.value === activeTimeFilter}
+                />
               ))}
             </div>
           </div>

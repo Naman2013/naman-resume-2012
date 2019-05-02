@@ -1,5 +1,6 @@
 // @flow
 
+import cx from 'classnames';
 import React from 'react';
 import './filter-el-time.scss';
 
@@ -14,7 +15,7 @@ export const FilterElTime = (props: TFilterElTime) => {
 
   return (
     <div
-      className={`filter-el-time ${active ? 'active' : ''}`}
+      className={cx('filter-el-time', { active })}
       onClick={onClick}
       role="presentation"
     >
