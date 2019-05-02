@@ -8,5 +8,9 @@ export default css`
     padding: 50px;
     margin: auto;
     display: inline-block;
+    max-width: 100%;
+  }
+  .modal-img-wrapper img {
+    max-width: 100%;
   }
 `;
