@@ -5,7 +5,7 @@ import BobbieTile from '../common/tiles/BobbieTile';
 import DisplayAtBreakpoint from '../common/DisplayAtBreakpoint';
 import style from './SectionPanels.style';
 
-const SectionPanels = ({ list }) => (
+const SectionPanels = ({ disableReadMore, list }) => (
   <CenterColumn>
     <ul style={{paddingTop: '40px'}}>
       {list.map(tile => (
@@ -17,6 +17,7 @@ const SectionPanels = ({ list }) => (
               showSubtitle={tile.showPanelSubtitle}
               subtitle={tile.panelSubtitle}
               HTMLBlob={tile.content_device_small}
+              disableReadMore={disableReadMore}
             />
           </DisplayAtBreakpoint>
 
@@ -27,6 +28,7 @@ const SectionPanels = ({ list }) => (
               showSubtitle={tile.showPanelSubtitle}
               subtitle={tile.panelSubtitle}
               HTMLBlob={tile.content_device_medium}
+              disableReadMore={disableReadMore}
             />
           </DisplayAtBreakpoint>
 
@@ -37,6 +39,7 @@ const SectionPanels = ({ list }) => (
               showSubtitle={tile.showPanelSubtitle}
               subtitle={tile.panelSubtitle}
               HTMLBlob={tile.content_device_large}
+              disableReadMore={disableReadMore}
             />
           </DisplayAtBreakpoint>
         </li>
