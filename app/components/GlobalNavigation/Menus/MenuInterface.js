@@ -11,17 +11,17 @@ export const LEFT_MENU = {
   DEFAULT: {
     name: 'DEFAULT',
     title: null,
-    render: () => (null),
+    render: () => null,
   },
   MAIN: {
     name: 'MAIN',
     title: 'Menu',
-    render: props => (<Main {...props} />),
+    render: props => <Main {...props} />,
   },
   TELESCOPES: {
     name: 'TELESCOPES',
     title: 'Telescopes',
-    render: props => (<Telescopes {...props} />),
+    render: props => <Telescopes {...props} />,
   },
   SEARCH: {
     name: 'SEARCH',
@@ -29,7 +29,7 @@ export const LEFT_MENU = {
     menuWidth: '100',
     menuWidthUnits: '%',
     theme: { backgroundColor: romance },
-    render: props => (<Search {...props} />),
+    render: props => <Search {...props} />,
   },
 };
 
@@ -37,17 +37,17 @@ const RIGHT_MENU = {
   HELP: {
     name: 'HELP',
     title: 'Account info',
-    render: props => (<Help {...props} />),
+    render: props => <Help {...props} />,
   },
   ALERTS: {
     name: 'ALERTS',
     title: 'Notifications',
-    render: props => (<NotificationsRedux {...props} />),
+    render: props => <NotificationsRedux {...props} />,
   },
   PROFILE: {
     name: 'PROFILE',
     title: 'Profile',
-    render: props => (<ProfileRedux {...props} />),
+    render: props => <ProfileRedux {...props} />,
   },
 };
 

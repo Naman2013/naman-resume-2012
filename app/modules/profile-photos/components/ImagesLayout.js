@@ -1,8 +1,3 @@
-/***********************************
-* V4 ImageLayout 
-***********************************/
-
-
 import React from 'react';
 
 import { DeviceContext } from 'app/providers/DeviceProvider';

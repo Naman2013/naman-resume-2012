@@ -26,7 +26,9 @@ const TopicContent = ({ title, topicContentList, ...restProps }) => (
           {`
             .guide-container {
               flex-direction: ${restProps.showContentList &&
-              (context.isLargeScreen || context.isMediumScreen || context.isDesktop)
+              (context.isLargeScreen ||
+                context.isMediumScreen ||
+                context.isDesktop)
                 ? 'row'
                 : 'column'};
             }

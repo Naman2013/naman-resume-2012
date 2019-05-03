@@ -1,4 +1,8 @@
-import { START_FETCH_PLAYER, SUCCESS_FETCH_PLAYER, FAIL_FETCH_PLAYER } from './actions';
+import {
+  START_FETCH_PLAYER,
+  SUCCESS_FETCH_PLAYER,
+  FAIL_FETCH_PLAYER,
+} from './actions';
 
 import createReducer from '../utils/createReducer';
 

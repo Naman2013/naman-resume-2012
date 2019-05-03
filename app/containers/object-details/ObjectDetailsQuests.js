@@ -1,9 +1,9 @@
 /***********************************
-* V4 Object Details : Quests
-*   Markdown support on elements????
-*   UTF-8 support....
-*   Multi-National Languages.....
-***********************************/
+ * V4 Object Details : Quests
+ *   Markdown support on elements????
+ *   UTF-8 support....
+ *   Multi-National Languages.....
+ ***********************************/
 
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
@@ -33,28 +33,34 @@ const mapStateToProps = ({ objectDetails, appConfig, user }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({
-    fetchObjectDetailsAction,
-    fetchObjectQuestsAction,
-  }, dispatch),
+  actions: bindActionCreators(
+    {
+      fetchObjectDetailsAction,
+      fetchObjectQuestsAction,
+    },
+    dispatch
+  ),
 });
 
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(
+  mapStateToProps,
+  mapDispatchToProps
+)
 class Quests extends Component {
   render() {
     const {
-      params: {
-        objectId,
-      },
+      params: { objectId },
       objectDetails,
       intl,
-      
     } = this.props;
 
     return (
       <Fragment>
         <DeviceProvider>
-          <ObjectDetailsSectionTitle title={objectDetails.objectTitle + "'s"} subTitle={intl.formatMessage(messages.RelatedQuests)} />
+          <ObjectDetailsSectionTitle
+            title={objectDetails.objectTitle + "'s"}
+            subTitle={intl.formatMessage(messages.RelatedQuests)}
+          />
 
           <CenterColumn widths={['645px', '965px', '965px']}>
             <Request
@@ -65,38 +71,37 @@ class Quests extends Component {
               requestBody={{
                 objectId,
               }}
-              render={({
-                fetchingContent,
-                serviceResponse,
-              }) => (
+              render={({ fetchingContent, serviceResponse }) => (
                 <DeviceContext.Consumer>
                   {context => (
                     <div className="root">
-                      {serviceResponse && serviceResponse.relatedQuestsCount > 0 ? (
+                      {serviceResponse &&
+                      serviceResponse.relatedQuestsCount > 0 ? (
                         <div className="card-container__quests">
-                          {!context.isMobile && serviceResponse.relatedQuestsList.map(quest => (
-                            <div className="tile">
-                              <QuestHubTileBig
-                                {...quest}
-                              />
-                            </div>
-                          ))}
-                          {context.isMobile && serviceResponse.relatedQuestsList.map(quest => (
-                            <div className="tile">
-                              <QuestHubTileSmall {...quest} />
-                            </div>
-                          ))}
+                          {!context.isMobile &&
+                            serviceResponse.relatedQuestsList.map(quest => (
+                              <div className="tile">
+                                <QuestHubTileBig {...quest} />
+                              </div>
+                            ))}
+                          {context.isMobile &&
+                            serviceResponse.relatedQuestsList.map(quest => (
+                              <div className="tile">
+                                <QuestHubTileSmall {...quest} />
+                              </div>
+                            ))}
                         </div>
-                      ) :
-                        (
-                          <div>
-                            <p>
-                              <FormattedMessage
-                                {...messages.NoQuests}
-                                values={{ objectTitle: objectDetails.objectTitle }}
-                              />
-                            </p>
-                          </div>
+                      ) : (
+                        <div>
+                          <p>
+                            <FormattedMessage
+                              {...messages.NoQuests}
+                              values={{
+                                objectTitle: objectDetails.objectTitle,
+                              }}
+                            />
+                          </p>
+                        </div>
                       )}
                     </div>
                   )}

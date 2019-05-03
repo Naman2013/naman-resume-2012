@@ -24,16 +24,26 @@ const mapStateToProps = ({ galleryPictures }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({
-    fetchGalleryPicturesAndCounts,
-    togglePublicGallery,
-  }, dispatch),
+  actions: bindActionCreators(
+    {
+      fetchGalleryPicturesAndCounts,
+      togglePublicGallery,
+    },
+    dispatch
+  ),
 });
 
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(
+  mapStateToProps,
+  mapDispatchToProps
+)
 class GalleryImages extends Component {
   componentWillMount() {
-    const { params: { galleryId }, firstImageNumber, maxImageCount } = this.props;
+    const {
+      params: { galleryId },
+      firstImageNumber,
+      maxImageCount,
+    } = this.props;
     window.scrollTo(0, 0);
     this.props.actions.fetchGalleryPicturesAndCounts({
       galleryId,
@@ -50,7 +60,7 @@ class GalleryImages extends Component {
     this.props.actions.togglePublicGallery({
       galleryId,
     });
-  }
+  };
 
   render() {
     const {
@@ -64,7 +74,7 @@ class GalleryImages extends Component {
       galleryTitle,
       galleryDateCreated,
       publicFlag,
-      params: { galleryId }
+      params: { galleryId },
     } = this.props;
 
     const publicIcon = classnames('fa public-icon', {
@@ -73,16 +83,26 @@ class GalleryImages extends Component {
     });
     return (
       <div>
-        <MyPicturesNavigation
-          page="galleryImages"
-          galleryId={galleryId}
-        />
+        <MyPicturesNavigation page="galleryImages" galleryId={galleryId} />
         <div className="flex">
           <div className="missionInfo">
-            {galleryTitle && <span className="galleryTitle" dangerouslySetInnerHTML={{ __html: galleryTitle }} />}
+            {galleryTitle && (
+              <span
+                className="galleryTitle"
+                dangerouslySetInnerHTML={{ __html: galleryTitle }}
+              />
+            )}
           </div>
           <div className="galleryImage-actions">
-            {galleryDateCreated && <div className="galleryDesc">Created <span dangerouslySetInnerHTML={{ __html: galleryDateCreated }} /> (UTC)</div>}
+            {galleryDateCreated && (
+              <div className="galleryDesc">
+                Created{' '}
+                <span
+                  dangerouslySetInnerHTML={{ __html: galleryDateCreated }}
+                />{' '}
+                (UTC)
+              </div>
+            )}
             <span
               className={publicIcon}
               onClick={e => this.togglePublicGallery(e, galleryId)}
@@ -107,15 +127,15 @@ class GalleryImages extends Component {
         </div>
         <style jsx>{`
           .flex {
-            display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
-            display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
-            display: -ms-flexbox;      /* TWEENER - IE 10 */
-            display: -webkit-flex;     /* NEW - Chrome */
-            display: flex;             /* NEW, Spec - Opera 12.1, Firefox 20+ */
+            display: -webkit-box; /* OLD - iOS 6-, Safari 3.1-6 */
+            display: -moz-box; /* OLD - Firefox 19- (buggy but mostly works) */
+            display: -ms-flexbox; /* TWEENER - IE 10 */
+            display: -webkit-flex; /* NEW - Chrome */
+            display: flex; /* NEW, Spec - Opera 12.1, Firefox 20+ */
             justify-content: space-between;
             width: 100%;
             padding: 0 30px;
-            background-color: #D9D9D9;
+            background-color: #d9d9d9;
             color: ${darkBlueGray};
           }
           .galleryTitle {
@@ -123,11 +143,11 @@ class GalleryImages extends Component {
           }
 
           .galleryImage-actions {
-            display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
-            display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
-            display: -ms-flexbox;      /* TWEENER - IE 10 */
-            display: -webkit-flex;     /* NEW - Chrome */
-            display: flex;             /* NEW, Spec - Opera 12.1, Firefox 20+ */
+            display: -webkit-box; /* OLD - iOS 6-, Safari 3.1-6 */
+            display: -moz-box; /* OLD - Firefox 19- (buggy but mostly works) */
+            display: -ms-flexbox; /* TWEENER - IE 10 */
+            display: -webkit-flex; /* NEW - Chrome */
+            display: flex; /* NEW, Spec - Opera 12.1, Firefox 20+ */
             flex-direction: row;
             align-items: center;
           }
@@ -143,7 +163,6 @@ class GalleryImages extends Component {
           }
 
           .galleryDesc {
-
           }
         `}</style>
       </div>
@@ -167,10 +186,12 @@ GalleryImages.propTypes = {
   actions: PropTypes.shape({
     fetchGalleryPicturesAndCounts: PropTypes.func.isRequired,
   }),
-  imageList: PropTypes.arrayOf(PropTypes.shape({
-    imageURL: PropTypes.string.isRequired,
-    imageId: PropTypes.number.isRequired,
-  })),
+  imageList: PropTypes.arrayOf(
+    PropTypes.shape({
+      imageURL: PropTypes.string.isRequired,
+      imageId: PropTypes.number.isRequired,
+    })
+  ),
   imageCount: PropTypes.number,
   maxImageCount: PropTypes.number,
   firstImageNumber: PropTypes.number,

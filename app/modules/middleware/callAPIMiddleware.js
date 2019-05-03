@@ -1,18 +1,12 @@
 import { validateResponseAccess } from '../authorization/actions';
 
 export default function callAPIMiddleware({ dispatch, getState }) {
-  return next => (action) => {
-
+  return next => action => {
     if (!action) {
       return;
     }
 
-    const {
-      types,
-      callAPI,
-      shouldCallAPI = () => true,
-      payload = {},
-    } = action;
+    const { types, callAPI, shouldCallAPI = () => true, payload = {} } = action;
 
     // =================================================
     // here is where the access validation magic occurrs
@@ -40,22 +34,30 @@ export default function callAPIMiddleware({ dispatch, getState }) {
       return next(action);
     }
 
-    const [ requestType, successType, failureType ] = types;
+    const [requestType, successType, failureType] = types;
 
-    next(Object.assign({}, payload, {
-      type: requestType
-    }));
+    next(
+      Object.assign({}, payload, {
+        type: requestType,
+      })
+    );
 
     return callAPI().then(
       response => {
-        return next(Object.assign({}, payload, {
-        response,
-        type: successType
-      }))},
-      error => next(Object.assign({}, payload, {
-        error,
-        type: failureType
-      }))
-    )
-  }
+        return next(
+          Object.assign({}, payload, {
+            response,
+            type: successType,
+          })
+        );
+      },
+      error =>
+        next(
+          Object.assign({}, payload, {
+            error,
+            type: failureType,
+          })
+        )
+    );
+  };
 }

@@ -20,7 +20,7 @@ function validMissionExpireTime(unixStartTime, unixEndTime) {
 
   const difference = moment(convertedTimestamp).diff(
     convertedServerTimestamp,
-    'minutes',
+    'minutes'
   );
 
   if (difference <= 0 || difference >= MAX_MINUTES_ALLOWABLE) {
@@ -121,7 +121,7 @@ class CardFront extends Component {
     if (has(activeMission, 'activeMission.compact.missionList')) {
       Object.assign(
         cardContent,
-        activeMission.activeMission.compact.missionList[0],
+        activeMission.activeMission.compact.missionList[0]
       );
     }
 
@@ -168,7 +168,7 @@ class CardFront extends Component {
               {this.isMissionReadyTelescope() &&
               validMissionExpireTime(
                 cardContent.expires,
-                cardContent.startTime,
+                cardContent.startTime
               ) ? (
                 <CountdownTimer missionStartTime={cardContent.expires} />
               ) : null}
@@ -246,7 +246,7 @@ CardFront.propTypes = {
   teleUniqueId: PropTypes.string,
   teleInstrumentList: PropTypes.array,
   obsUniqueId: PropTypes.string,
-  alertText: PropTypes.string
+  alertText: PropTypes.string,
 };
 
 export default CardFront;

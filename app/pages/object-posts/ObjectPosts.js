@@ -30,11 +30,11 @@ class ObjectPosts extends Component {
     showFeaturedObjects: PropTypes.bool.isRequired,
     showFollowObjectButton: PropTypes.bool.isRequired,
     showCreateNewPostButton: PropTypes.bool.isRequired,
-  }
+  };
 
   static defaultProps = {
     fetchingPosts: true,
-  }
+  };
 
   render() {
     const {
@@ -57,41 +57,38 @@ class ObjectPosts extends Component {
       count,
       page,
       postsCount,
-      route: { path }
+      route: { path },
     } = this.props;
 
     return (
       <section className="container clearfix">
         <div className="col-md-8 nopadding">
-
-          {
-            fetchingPosts ?
-              <GenericLoadingBox />
-            :
-              <ObjectPostList
-                objectPosts={objectPosts}
-                pages={pages}
-                page={page}
-                count={count}
-                path={path}
-                postsCount={postsCount}
-                fetchObjectLatestContent={fetchObjectLatestContent}
-                SlugLookupId={SlugLookupId}
-                firstPostIndex={firstPostIndex}
-              />
-          }
+          {fetchingPosts ? (
+            <GenericLoadingBox />
+          ) : (
+            <ObjectPostList
+              objectPosts={objectPosts}
+              pages={pages}
+              page={page}
+              count={count}
+              path={path}
+              postsCount={postsCount}
+              fetchObjectLatestContent={fetchObjectLatestContent}
+              SlugLookupId={SlugLookupId}
+              firstPostIndex={firstPostIndex}
+            />
+          )}
         </div>
 
         <div className="col-md-4 mission-sidebar">
           {showGuardian && <Guardian slugLookupId={SlugLookupId} />}
-          {
-            showRecommends ?
-              <SloohRecommends
-                title="Schedule A Mission Now"
-                subTitle={`See ${headerObjectTitle} through Slooh's Telscopes`}
-                recommendations={recommendationCards}
-              /> : null
-          }
+          {showRecommends ? (
+            <SloohRecommends
+              title="Schedule A Mission Now"
+              subTitle={`See ${headerObjectTitle} through Slooh's Telscopes`}
+              recommendations={recommendationCards}
+            />
+          ) : null}
           <OtherFeaturedObjects />
         </div>
       </section>

@@ -9,12 +9,18 @@ const mapStateToProps = ({ authorization }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({
-    fetchErrors,
-  }, dispatch),
+  actions: bindActionCreators(
+    {
+      fetchErrors,
+    },
+    dispatch
+  ),
 });
 
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(
+  mapStateToProps,
+  mapDispatchToProps
+)
 class RedirectConfirmation extends Component {
   componentDidMount() {
     this.props.actions.fetchErrors();

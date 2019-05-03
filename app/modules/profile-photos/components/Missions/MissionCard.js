@@ -81,7 +81,6 @@ class MissionCard extends PureComponent<TMissionCard> {
             toggleMenuVisibility={this.onToggleMenuVisibility}
             {...this.props}
           />
-          <div className="circle show-onhover" />
           <div className="card-top">
             <div className="mission-title" title={imageTitle}>
               {imageTitle}
@@ -126,13 +125,6 @@ class MissionCard extends PureComponent<TMissionCard> {
               theme={{ borderColor: '#fff', color: '#fff' }}
               text="Open mission"
             />
-            <Button
-              mod="circular"
-              onClickEvent={this.onToggleMenuVisibility}
-              theme={{ borderColor: '#fff', color: '#fff', marginLeft: '10px' }}
-            >
-              <i className="icon icon-ellipsis-h" />
-            </Button>
           </div>
         </div>
         <style jsx>{style}</style>

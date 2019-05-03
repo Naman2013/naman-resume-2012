@@ -4,7 +4,6 @@ import AnnouncementBanner from '../components/common/announcement-banner/announc
 import ReserveBanner from '../components/missions/reserve-banner';
 import MissionNav from '../components/missions/mission-nav';
 
-
 function Reservations({ route, location, children }) {
   return (
     <div>

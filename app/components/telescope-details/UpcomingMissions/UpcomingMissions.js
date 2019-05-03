@@ -32,11 +32,12 @@ class UpcomingMissions extends Component {
               showStatusMessage={showStatusMessage}
               statusMessage={statusMessage}
             />
-            <style jsx>{`
-              .root {
-                margin-top: 10px;
-              }
-            `}
+            <style jsx>
+              {`
+                .root {
+                  margin-top: 10px;
+                }
+              `}
             </style>
           </div>
         )}

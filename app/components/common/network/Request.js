@@ -25,7 +25,10 @@ function getFieldsFromObj(obj, fields) {
         return resultedObj;
       }, {});
   } catch (err) {
-    console.error('Error occured while computing list of user params, message: ', err.message);
+    console.error(
+      'Error occured while computing list of user params, message: ',
+      err.message
+    );
     result = {};
   }
   return result;
@@ -40,12 +43,18 @@ const mapStateToProps = ({ user }) => ({
   user,
 });
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({
-    validateResponseAccess,
-  }, dispatch),
+  actions: bindActionCreators(
+    {
+      validateResponseAccess,
+    },
+    dispatch
+  ),
 });
 
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(
+  mapStateToProps,
+  mapDispatchToProps
+)
 class Request extends Component {
   static propTypes = {
     // provided by client
@@ -73,10 +82,12 @@ class Request extends Component {
 
     // array of models focused on doing work against RAW API DATA
     // and will provide these generated responses as a MAP under `modeledResponses`
-    models: PropTypes.arrayOf(PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      model: PropTypes.func.isRequired,
-    })),
+    models: PropTypes.arrayOf(
+      PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        model: PropTypes.func.isRequired,
+      })
+    ),
 
     // will be called with the RAW API DATA as an argument
     // TODO: should we also provide error?
@@ -179,7 +190,7 @@ class Request extends Component {
 
     // this is part of the reduce refactor suggested from earlier
     // build the models defined by the client
-    consolidatedModels.forEach((_model) => {
+    consolidatedModels.forEach(_model => {
       modeledResponses = Object.assign({}, modeledResponses, {
         [_model.name]: _model.model(result),
       });
@@ -228,7 +239,7 @@ class Request extends Component {
     if (serviceFetchStartHandler) {
       serviceFetchStartHandler();
     }
-    
+
     this.tearDown();
     this.setState({ fetchingContent: true, serviceResponse: {} });
     this.source = CancelToken.source();
@@ -236,30 +247,35 @@ class Request extends Component {
     const validatedRequestBody = nextRequestBody || requestBody;
 
     let resultedUserParams = user;
-    if (userParams.length > 0) resultedUserParams = getFieldsFromObj(user, userParams);
+    if (userParams.length > 0)
+      resultedUserParams = getFieldsFromObj(user, userParams);
 
     if (method === POST) {
-      axios.post(serviceURL, Object.assign({
-        cancelToken: this.source.token,
-      }, validatedRequestBody, withoutUser ? { } : resultedUserParams))
+      axios
+        .post(
+          serviceURL,
+          Object.assign(
+            {
+              cancelToken: this.source.token,
+            },
+            validatedRequestBody,
+            withoutUser ? {} : resultedUserParams
+          )
+        )
         .then(result => this.handleServiceResponse(result.data));
     }
 
     if (method === GET) {
-      axios.get(serviceURL, {
-        params: Object.assign({}, validatedRequestBody),
-      }).then(result => this.handleServiceResponse(result.data));
+      axios
+        .get(serviceURL, {
+          params: Object.assign({}, validatedRequestBody),
+        })
+        .then(result => this.handleServiceResponse(result.data));
     }
   }
 
   render() {
-    return (
-      <div>
-        {
-          this.props.render(this.state)
-        }
-      </div>
-    );
+    return <div>{this.props.render(this.state)}</div>;
   }
 }
 

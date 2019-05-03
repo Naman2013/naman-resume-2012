@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { fetchMissionPhotos, loadFITImages } from '../../modules/my-pictures/actions';
+import {
+  fetchMissionPhotos,
+  loadFITImages,
+} from '../../modules/my-pictures/actions';
 import MyPicturesNavigation from '../../components/my-pictures/my-pictures-navigation';
 import PhotoView from '../../components/my-pictures/PhotoView';
 import s from './my-pictures-gallery.scss';
@@ -23,13 +26,19 @@ const mapStateToProps = ({ myPictures, objectTypeList }, ownProps) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({
-    fetchMissionPhotos,
-    loadFITImages,
-  }, dispatch),
+  actions: bindActionCreators(
+    {
+      fetchMissionPhotos,
+      loadFITImages,
+    },
+    dispatch
+  ),
 });
 
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(
+  mapStateToProps,
+  mapDispatchToProps
+)
 class MissionImages extends Component {
   componentWillMount() {
     const { scheduledMissionId } = this.props;
@@ -39,7 +48,7 @@ class MissionImages extends Component {
   handleFITClick = () => {
     const { scheduledMissionId } = this.props;
     this.props.actions.loadFITImages({ scheduledMissionId });
-  }
+  };
 
   render() {
     const {
@@ -63,12 +72,31 @@ class MissionImages extends Component {
         />
         <div className="flex">
           <div className="missionInfo">
-            {missionTitle && <div className="missionTitle">Mission to <span className="missionName" dangerouslySetInnerHTML={{ __html: missionTitle }} /><img className="missionIcon" src={missionIconURL} /></div>}
+            {missionTitle && (
+              <div className="missionTitle">
+                Mission to{' '}
+                <span
+                  className="missionName"
+                  dangerouslySetInnerHTML={{ __html: missionTitle }}
+                />
+                <img className="missionIcon" src={missionIconURL} />
+              </div>
+            )}
           </div>
           <div className={`${s.missionImageControl} clearfix`}>
-            {missionDateCreated && <div className="missionDesc">Created <span dangerouslySetInnerHTML={{ __html: missionDateCreated }} /> (UTC)</div>}
+            {missionDateCreated && (
+              <div className="missionDesc">
+                Created{' '}
+                <span
+                  dangerouslySetInnerHTML={{ __html: missionDateCreated }}
+                />{' '}
+                (UTC)
+              </div>
+            )}
             <div className={`${s.navigation} nav`}>
-              <button onClick={this.handleFITClick} className={s.FITButton}>FITS</button>
+              <button onClick={this.handleFITClick} className={s.FITButton}>
+                FITS
+              </button>
             </div>
           </div>
         </div>
@@ -91,15 +119,15 @@ class MissionImages extends Component {
         </div>
         <style jsx>{`
           .flex {
-            display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
-            display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
-            display: -ms-flexbox;      /* TWEENER - IE 10 */
-            display: -webkit-flex;     /* NEW - Chrome */
-            display: flex;             /* NEW, Spec - Opera 12.1, Firefox 20+ */
+            display: -webkit-box; /* OLD - iOS 6-, Safari 3.1-6 */
+            display: -moz-box; /* OLD - Firefox 19- (buggy but mostly works) */
+            display: -ms-flexbox; /* TWEENER - IE 10 */
+            display: -webkit-flex; /* NEW - Chrome */
+            display: flex; /* NEW, Spec - Opera 12.1, Firefox 20+ */
             justify-content: space-between;
             width: 100%;
             padding: 0 30px;
-            background-color: #D9D9D9;
+            background-color: #d9d9d9;
             color: ${darkBlueGray};
           }
           .nav {
@@ -110,7 +138,6 @@ class MissionImages extends Component {
             font-size: 18px;
           }
 
-
           .missionTitle {
             font-size: 30px;
           }
@@ -120,11 +147,11 @@ class MissionImages extends Component {
           }
 
           .missionImageControl {
-            display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
-            display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
-            display: -ms-flexbox;      /* TWEENER - IE 10 */
-            display: -webkit-flex;     /* NEW - Chrome */
-            display: flex;             /* NEW, Spec - Opera 12.1, Firefox 20+ */
+            display: -webkit-box; /* OLD - iOS 6-, Safari 3.1-6 */
+            display: -moz-box; /* OLD - Firefox 19- (buggy but mostly works) */
+            display: -ms-flexbox; /* TWEENER - IE 10 */
+            display: -webkit-flex; /* NEW - Chrome */
+            display: flex; /* NEW, Spec - Opera 12.1, Firefox 20+ */
             flex-direction: row;
             align-items: center;
             justify-content: flex-end;
@@ -151,10 +178,12 @@ MissionImages.defaultProps = {
 };
 
 MissionImages.propTypes = {
-  imageList: PropTypes.arrayOf(PropTypes.shape({
-    imageURL: PropTypes.string.isRequired,
-    imageId: PropTypes.number.isRequired,
-  })),
+  imageList: PropTypes.arrayOf(
+    PropTypes.shape({
+      imageURL: PropTypes.string.isRequired,
+      imageId: PropTypes.number.isRequired,
+    })
+  ),
   imageCount: PropTypes.number,
   maxImageCount: PropTypes.number,
   firstImageNumber: PropTypes.number,

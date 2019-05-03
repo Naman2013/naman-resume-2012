@@ -8,11 +8,15 @@ import style from './GuideContentList.style';
 const GuideContentList = ({ list, topicActionProps, guideId }) => (
   <div className="root">
     <AbelList
-      theme={{ horizontalList: { boxShadow: 'inset 0px 5px 20px -5px #e0e0e0' } }}
+      theme={{
+        horizontalList: { boxShadow: 'inset 0px 5px 20px -5px #e0e0e0' },
+      }}
       list={list}
     />
     <DisplayAtBreakpoint screenSmall screenLarge screenXLarge>
-      {topicActionProps.showActions && <TopicActions {...topicActionProps} guideId={guideId} />}
+      {topicActionProps.showActions && (
+        <TopicActions {...topicActionProps} guideId={guideId} />
+      )}
     </DisplayAtBreakpoint>
     <style jsx>{style}</style>
   </div>

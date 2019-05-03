@@ -36,13 +36,13 @@ const mapDispatchToProps = dispatch => ({
       toggleGlobalNavMenu,
       toggleGlobalNavNotificationMenu,
     },
-    dispatch,
+    dispatch
   ),
 });
 
 @connect(
   mapStateToProps,
-  mapDispatchToProps,
+  mapDispatchToProps
 )
 class GlobalNavigation extends Component {
   static propTypes = {
@@ -105,7 +105,7 @@ class GlobalNavigation extends Component {
     actions.closeUpsellModal();
   };
 
-  handleMenuClick = (menuName) => {
+  handleMenuClick = menuName => {
     const { activeMenu, actions } = this.props;
     const sameMenu = menuName === activeMenu;
     const nextMenu = sameMenu ? MENU_INTERFACE.DEFAULT.name : menuName;
@@ -122,7 +122,7 @@ class GlobalNavigation extends Component {
     });
   };
 
-  handleNotificationClick = (menuName) => {
+  handleNotificationClick = menuName => {
     const { activeMenu, actions } = this.props;
     const sameMenu = menuName === activeMenu;
     const nextMenu = sameMenu ? MENU_INTERFACE.DEFAULT.name : menuName;
@@ -170,7 +170,11 @@ class GlobalNavigation extends Component {
           widthUnits={leftMenuContent.menuWidthUnits}
           theme={leftMenuContent.theme}
           isOpen={isLeftOpen}
-          render={props => leftMenuContent.render(Object.assign({}, props, { userMenu, mainMenu }))}
+          render={props =>
+            leftMenuContent.render(
+              Object.assign({}, props, { userMenu, mainMenu })
+            )
+          }
         />
 
         <Menu
@@ -182,7 +186,9 @@ class GlobalNavigation extends Component {
           widthUnits={rightMenuContent.menuWidthUnits}
           theme={rightMenuContent.theme}
           render={props =>
-            rightMenuContent.render(Object.assign({}, props, { userMenu, mainMenu }))
+            rightMenuContent.render(
+              Object.assign({}, props, { userMenu, mainMenu })
+            )
           }
         />
         {/* Prerender Notification Menu */}
