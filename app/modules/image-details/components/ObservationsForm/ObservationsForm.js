@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import axios from 'axios';
 import { Button } from 'react-bootstrap';
 import Modal from 'react-modal';
 import { intlShape, injectIntl } from 'react-intl';
@@ -9,7 +8,7 @@ import styles from './ObservationsForm.style';
 import messages from './ObservationsForm.messages';
 import './styles.scss';
 
-const { arrayOf, bool, number, oneOfType, shape, string } = PropTypes;
+const { bool, number, oneOfType, shape, string } = PropTypes;
 
 class ObservationsForm extends Component {
   static propTypes = {
@@ -34,43 +33,7 @@ class ObservationsForm extends Component {
     canShareFlag: true,
   };
 
-  state = {
-    title: this.props.observationTitle || '',
-    observation: this.props.observationLog || '',
-    showPrompt: false,
-    promptText: '',
-    saveLabelText: this.props.saveLabel,
-    allowShare: this.props.canShareFlag,
-  };
-
-  componentWillReceiveProps(nextProps) {
-    let title = this.state.observationTitle;
-    let observation = this.state.observationLog;
-    let { allowShare } = this.state;
-    let { saveLabelText } = this.state;
-
-    if (nextProps.observationTitle !== this.state.observationTitle) {
-      title = nextProps.observationTitle;
-    }
-    if (nextProps.observationLog !== this.state.observationLog) {
-      observation = nextProps.observationLog;
-    }
-
-    if (nextProps.canShareFlag !== this.state.allowShare) {
-      allowShare = nextProps.canShareFlag;
-    }
-
-    if (nextProps.saveLabel !== this.state.saveLabelText) {
-      saveLabelText = nextProps.saveLabel;
-    }
-
-    this.setState({
-      title,
-      observation,
-      allowShare,
-      saveLabelText,
-    });
-  }
+  state = { title: '', observation: '' };
 
   onTitleChange = e => {
     e.preventDefault();
@@ -91,47 +54,23 @@ class ObservationsForm extends Component {
   onSubmitForm = e => {
     e.preventDefault();
     const {
-      actions,
+      actions: { setObservationTags },
       customerImageId,
       scheduledMissionId,
-      user,
       intl,
+      observationTagsError,
     } = this.props;
     const { title, observation } = this.state;
     if (!title || !observation) {
       window.alert(intl.formatMessage(messages.MissingRequired));
     } else {
-      axios
-        .post('/api/images/setObservationTags', {
-          title,
-          text: observation,
-          scheduledMissionId,
-          customerImageId,
-          at: user.at,
-          token: user.token,
-          cid: user.cid,
-        })
-        .then(res => {
-          if (!res.data.apiError && this.state.allowShare) {
-            axios
-              .post('/api/images/shareMemberPicture', {
-                customerImageId,
-                at: user.at,
-                token: user.token,
-                cid: user.cid,
-              })
-              .then(shareRes => {
-                this.setState({
-                  showPrompt: shareRes.data.showSharePrompt,
-                  promptText: shareRes.data.sharePrompt,
-                  allowShare: false,
-                  saveLabelText: 'Save',
-                });
-              });
-          }
-
-          actions.validateResponseAccess(res);
-        });
+      setObservationTags(
+        customerImageId,
+        scheduledMissionId,
+        title,
+        observation
+      );
+      this.setState(() => ({ title: '', observation: '' }));
     }
   };
 
@@ -142,13 +81,7 @@ class ObservationsForm extends Component {
   };
 
   render() {
-    const {
-      title,
-      observation,
-      showPrompt,
-      promptText,
-      saveLabelText,
-    } = this.state;
+    const { title, observation, showPrompt, promptText } = this.state;
 
     return (
       <div className="root observations-form">
@@ -185,8 +118,9 @@ class ObservationsForm extends Component {
           />
 
           <div className="text-right">
-            <Button onClickEvent={this.onSubmitForm}>{saveLabelText}</Button>
-            <Button className="ml-3">Submit</Button>
+            <Button className="ml-3" onClick={this.onSubmitForm}>
+              Submit
+            </Button>
           </div>
         </form>
         <Modal
