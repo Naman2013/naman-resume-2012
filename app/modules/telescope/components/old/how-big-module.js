@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import Measure from 'react-measure';
 import noop from 'lodash/noop';
 import DefaultButton from 'app/components/common/style/buttons/Button';
-import { ModuleContainer } from './index';
 import HowBig from 'app/components/Telescope/HowBig';
-import style from './how-big-module.style';
-
 import fauxMission from 'content/fauxMissions';
+import { ModuleContainer } from './index';
+import style from './how-big-module.style';
+import {browserHistory } from 'react-router';
 
 class HowBigModule extends Component {
   state = {
@@ -20,75 +20,67 @@ class HowBigModule extends Component {
       width: 0,
       x: 0,
       y: 0,
+      isStarted: this.props.autoplay,
     },
-  }
+  };
 
-  handleDimensionChange = (contentBox) => {
+  handleDimensionChange = contentBox => {
     this.setState({ dimensions: { ...contentBox.bounds } });
-  }
+  };
 
   handleAnimationComplete = () => {
     console.log('Anim complete,...');
-  }
+    this.setState({isStarted})
+  };
 
   render() {
-    const { dimensions: { width } } = this.state;
     const {
-      referenceObjectScale,
-      domain,
-      targetObjectScale,
-      targetObjectURL,
-      targetObjectName,
-      onComplete,
-    } = this.props;
+      dimensions: { width },
+      isStarted,
+    } = this.state;
+    const { autoplay } = this.props;
     return (
-      <Measure
-        bounds
-        onResize={this.handleDimensionChange}
-      >
-        {
-          ({ measureRef }) => (
-            <ModuleContainer title="How big">
-              <div
-                ref={measureRef}
-                className="portal"
-              >
-                <svg
-                  version="1.1"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <HowBig
-                    dimension={width}
-                    referenceObjectScale={referenceObjectScale}
-                    domain={domain}
-                    targetObjectScale={targetObjectScale}
-                    targetObjectURL={targetObjectURL}
-                    targetObjectName={targetObjectName}
-                    onComplete={onComplete}
-                  />
-                </svg>
-              </div>
+      <Measure bounds onResize={this.handleDimensionChange}>
+        {({ measureRef }) => (
+          <ModuleContainer title={this.props.howBigLabel}>
+            <div ref={measureRef} className="portal">
+              <svg version="1.1" xmlns="http://www.w3.org/2000/svg">
+                <HowBig dimension={width} {...this.props} isStart={isStarted} />
+              </svg>
+            </div>
 
-              <ul className="tile-actions">
+            {this.props.showInfoText && <p>
+              {this.props.infoText}
+            </p>}
+
+            <ul className="tile-actions">
+              <li>
+                <DefaultButton
+                  theme={{ width: '100%' }}
+                  text="View our guide"
+                  onClickEvent = {()=>browserHistory.push(this.props.guideURL)}
+                />
+              </li>
+              {!autoplay && (
                 <li>
-                  <DefaultButton theme={{ width: '100%' }} text="View our guide" />
+                  <DefaultButton
+                    theme={{ width: '100%' }}
+                    text={this.props.playButtonCaption}
+                    onClickEvent={() => this.setState({ isStarted: true })}
+                  />
                 </li>
-              </ul>
+              )}
+            </ul>
 
-              <style jsx>{style}</style>
-            </ModuleContainer>
-          )
-        }
+            <style jsx>{style}</style>
+          </ModuleContainer>
+        )}
       </Measure>
     );
   }
 }
 
-const {
-  string,
-  func,
-  number,
-} = PropTypes;
+const { string, func, number, bool } = PropTypes;
 
 HowBigModule.propTypes = {
   referenceObjectScale: number,
@@ -97,6 +89,7 @@ HowBigModule.propTypes = {
   targetObjectName: string,
   domain: string,
   onComplete: func,
+  autoplay: bool,
 };
 
 HowBigModule.defaultProps = {
@@ -106,6 +99,7 @@ HowBigModule.defaultProps = {
   targetObjectURL: fauxMission.scaleDown.targetObjectURL,
   targetObjectName: fauxMission.scaleDown.targetObjectName,
   onComplete: noop,
+  autoplay: true,
 };
 
 export { HowBigModule };

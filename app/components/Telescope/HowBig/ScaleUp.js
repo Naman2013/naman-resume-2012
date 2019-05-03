@@ -1,22 +1,23 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import noop from 'lodash/noop';
 import convertToDecimal from 'utils/convertToDecimal';
 import calculatePercentage from 'utils/calculatePercentage';
-import FadeSVG from '../../../components/common/Fade/FadeSVG';
+import FadeSVG from '../../common/Fade/FadeSVG';
 import SVGText from '../common/SVGText';
 import ObjectFrame from './ReferenceObjects/ObjectFrame';
 import domains from './domains';
 import easingFunctions, { animateValues } from '../../../utils/easingFunctions';
 
-class ScaleUp extends Component {
-  static BEFORE_START = 1000;
-  static PAUSE_BEFORE_SCALING_REFERENCE = 2000;
-  static DURATION_OF_SCALE_DOWN_REFERENCE = 500;
+class ScaleUp extends PureComponent {
   static PAUSE_BEFORE_MOVING_REFERENCE = 1000;
+
   static DURATION_TO_MOVE_REFERENCE = 500;
+
   static PAUSE_BEFORE_INTRODUCING_TARGET_OBJECT = 1500;
+
   static ANIMATE_TARGET_DURATION = 500;
+
   static PAUSE_BEFORE_COMPLETE = 2000;
 
   static ARTWORK_VS_CANVAS_SIZE_PERCENTAGE = 0.8;
@@ -43,6 +44,7 @@ class ScaleUp extends Component {
     showReferenceText: true,
     referencePositionModifier: 100,
     targetObjectOpacity: 0,
+    bottomTitle: '',
   };
 
   componentDidMount() {
@@ -59,40 +61,50 @@ class ScaleUp extends Component {
 
   handleReferenceObjectLoaded = () => {
     this.setState({ referenceObjectLoaded: true });
-  }
+  };
 
   handleTargetObjectLoaded = () => {
     this.setState({ targetObjectLoaded: true });
-  }
+  };
 
   beginDelayToShowReference() {
     setTimeout(() => {
       this.presentReference();
-    }, ScaleUp.BEFORE_START);
+    }, this.props.startDelaySec * 1000);
   }
 
   presentReference() {
-    this.setState({ showReference: true });
+    const { changeTitle, phase1TopTitle, phase1BottomTitle } = this.props;
+
+    this.setState({ showReference: true, bottomTitle: phase1BottomTitle });
+    changeTitle(phase1TopTitle);
     this.timerDelayScaleReference = setTimeout(() => {
       this.scaleReference();
-    }, ScaleUp.PAUSE_BEFORE_SCALING_REFERENCE);
+    }, this.props.phase1Sec * 1000);
   }
 
   scaleReference() {
-    this.animateScaleOfReference = animateValues({
-      referenceScale: this.state.referenceScale,
-    }, ScaleUp.DURATION_OF_SCALE_DOWN_REFERENCE, {
-      referenceScale: (this.props.referenceObjectScale * 100),
-      onUpdate: ({ referenceScale }) => {
-        this.setState(() => ({
-          referenceScale,
-        }));
+    const { changeTitle, phase2TopTitle, phase2BottomTitle } = this.props;
+    changeTitle(phase2TopTitle);
+    this.animateScaleOfReference = animateValues(
+      {
+        referenceScale: this.state.referenceScale,
       },
-      onComplete: () => {
-        this.prepareToAnimateReferenceLocation();
-      },
-      ease: easingFunctions.easeInOutQuad,
-    });
+      this.props.phase2Sec * 1000,
+      {
+        referenceScale: this.props.referenceObjectScale * 100,
+        onUpdate: ({ referenceScale }) => {
+          this.setState(() => ({
+            referenceScale,
+            bottomTitle: phase2BottomTitle,
+          }));
+        },
+        onComplete: () => {
+          this.prepareToAnimateReferenceLocation();
+        },
+        ease: easingFunctions.easeInOutQuad,
+      }
+    );
   }
 
   prepareToAnimateReferenceLocation() {
@@ -102,16 +114,27 @@ class ScaleUp extends Component {
   }
 
   animateMoveReference() {
-    this.animateReferenceMoveHandle = animateValues({
-      referencePositionModifier: this.state.referencePositionModifier,
-    }, ScaleUp.DURATION_TO_MOVE_REFERENCE, {
-      referencePositionModifier: 17,
-      onUpdate: ({ referencePositionModifier }) => {
-        this.setState(() => ({ referencePositionModifier }));
+    const { changeTitle, phase3TopTitle, phase3BottomTitle } = this.props;
+    changeTitle(phase3TopTitle);
+    this.animateReferenceMoveHandle = animateValues(
+      {
+        referencePositionModifier: this.state.referencePositionModifier,
       },
-      onComplete: () => { this.prepareToIntroduceTargetObject(); },
-      ease: easingFunctions.easeInOutQuad,
-    });
+      this.props.phase3Sec * 1000,
+      {
+        referencePositionModifier: 17,
+        onUpdate: ({ referencePositionModifier }) => {
+          this.setState(() => ({
+            referencePositionModifier,
+            bottomTitle: phase3BottomTitle,
+          }));
+        },
+        onComplete: () => {
+          this.prepareToIntroduceTargetObject();
+        },
+        ease: easingFunctions.easeInOutQuad,
+      }
+    );
   }
 
   prepareToIntroduceTargetObject() {
@@ -122,16 +145,27 @@ class ScaleUp extends Component {
   }
 
   animateIntroduceTargetObject() {
-    this.animateTargetObjectOpacity = animateValues({
-      targetObjectOpacity: this.state.targetObjectOpacity,
-    }, ScaleUp.ANIMATE_TARGET_DURATION, {
-      targetObjectOpacity: 1,
-      onUpdate: ({ targetObjectOpacity }) => {
-        this.setState(() => ({ targetObjectOpacity }));
+    const { changeTitle, phase4TopTitle, phase4BottomTitle } = this.props;
+    changeTitle(phase4TopTitle);
+    this.animateTargetObjectOpacity = animateValues(
+      {
+        targetObjectOpacity: this.state.targetObjectOpacity,
       },
-      onComplete: () => { this.complete(); },
-      ease: easingFunctions.easeInOutQuad,
-    });
+      this.props.phase4Sec * 1000,
+      {
+        targetObjectOpacity: 1,
+        onUpdate: ({ targetObjectOpacity }) => {
+          this.setState(() => ({
+            targetObjectOpacity,
+            bottomTitle: phase4BottomTitle,
+          }));
+        },
+        onComplete: () => {
+          this.complete();
+        },
+        ease: easingFunctions.easeInOutQuad,
+      }
+    );
   }
 
   complete() {
@@ -141,21 +175,21 @@ class ScaleUp extends Component {
   }
 
   timerDelayPresentReference = undefined;
+
   timerDelayScaleReference = undefined;
+
   timerDelayToAnimateReference = undefined;
+
   timerDelayToPresentTarget = undefined;
+
   timerPauseBeforeComplete = undefined;
 
   animateScaleOfReference = undefined;
+
   animateReferenceMoveHandle = undefined;
 
   render() {
-    const {
-      domain,
-      targetObjectURL,
-      targetObjectName,
-      dimension,
-    } = this.props;
+    const { domain, targetObjectURL, targetObjectName, dimension } = this.props;
 
     const {
       referenceObjectLoaded,
@@ -163,43 +197,44 @@ class ScaleUp extends Component {
       referenceScale,
       referencePositionModifier,
       showReferenceText,
+      bottomTitle,
     } = this.state;
 
-    const displayReferenceObject = (showReference && referenceObjectLoaded);
-    const artworkDimension = (dimension * 0.8);
-    const midPoint = (dimension / 2);
-    const staticArtworkPosition = (midPoint - (artworkDimension / 2));
-    const textLabelFontSize = (dimension * 0.03);
+    const displayReferenceObject = showReference && referenceObjectLoaded;
+    const artworkDimension = dimension * 0.8;
+    const midPoint = dimension / 2;
+    const staticArtworkPosition = midPoint - artworkDimension / 2;
+    const textLabelFontSize = dimension * 0.03;
     const showTargetObject = showReferenceText;
 
     const referenceSize = calculatePercentage(dimension, referenceScale);
 
-    const referencePosition = (midPoint - (referenceSize / 2)) * (referencePositionModifier / 100);
+    const referencePosition =
+      (midPoint - referenceSize / 2) * (referencePositionModifier / 100);
 
     const domainValues = domains.enumValueOf(domain);
 
     return (
       <g>
-        <FadeSVG isHidden={!(displayReferenceObject)}>
-          <g style={{
+        <FadeSVG isHidden={!displayReferenceObject}>
+          <g
+            style={{
               transformOrigin: 'center',
             }}
           >
-            {
-              domainValues.render({
-                width: referenceSize,
-                height: referenceSize,
-                x: referencePosition,
-                y: referencePosition,
-                onLoadCallback: this.handleReferenceObjectLoaded,
-              })
-            }
+            {domainValues.render({
+              width: referenceSize,
+              height: referenceSize,
+              x: referencePosition,
+              y: referencePosition,
+              onLoadCallback: this.handleReferenceObjectLoaded,
+            })}
           </g>
           <FadeSVG isHidden={!showReferenceText}>
             <SVGText
-              text={`Reference object = ${domainValues.titleText}`}
+              text={bottomTitle}
               x={midPoint}
-              y={(dimension - (dimension * 0.05))}
+              y={dimension - dimension * 0.05}
               displayProperties={{
                 fontSize: `${textLabelFontSize}px`,
               }}
@@ -219,9 +254,9 @@ class ScaleUp extends Component {
             />
 
             <SVGText
-              text={`Target object = ${targetObjectName}`}
+              text={bottomTitle}
               x={midPoint}
-              y={(dimension - (dimension * 0.05))}
+              y={dimension - dimension * 0.05}
               displayProperties={{ fontSize: `${textLabelFontSize}px` }}
             />
           </g>
