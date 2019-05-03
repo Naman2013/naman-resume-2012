@@ -11,8 +11,8 @@ import axios from 'axios';
 import { FormattedMessage } from 'react-intl';
 import DiscussionsItem from './DiscussionsItem';
 import CREATE_THREAD_FORM from './DiscussionsThreadFormInterface';
-import { submitReply } from 'app/services/discussions/submit-reply';
-import { THREAD_LIST } from 'app/services/discussions';
+import { submitReply } from 'services/discussions/submit-reply';
+import { THREAD_LIST } from 'services/discussions';
 import styles from './DiscussionsBoard.style';
 import messages from './DiscussionsThreads.messages';
 
@@ -68,60 +68,60 @@ class DiscussionsThreads extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (this.props.topicId !== nextProps.topicId) {
-      const {
-        callSource,
-        count,
-        topicId,
-        validateResponseAccess,
-        user,
-        discussionsActions: { updateThreadsProps },
-      } = nextProps;
-
-      axios.post(THREAD_LIST, {
-        callSource,
-        count,
-        page: 1,
-        topicId,
-        at: user.at,
-        token: user.token,
-        cid: user.cid,
-      }).then((res) => {
-        validateResponseAccess(res);
-        if (!res.data.apiError) {
-          const { threads, threadCount } = res.data;
-          let newThreads = [].concat(threads);
-          newThreads = newThreads.map((thread) => {
-            const currentThread = Object.assign({}, thread);
-            currentThread.showComments = false;
-            currentThread.page = 1;
-            currentThread.key = currentThread.threadId;
-            return currentThread;
-          });
-          updateThreadsProps(newThreads, threadCount);
-        }
-
-        this.setState({
-          fetching: false,
-        });
-      });
+      this.getThreads(nextProps);
     }
+  }
+
+  getThreads = parms => {
+    const {
+      callSource,
+      count,
+      topicId,
+      validateResponseAccess,
+      user,
+      discussionsActions: { updateThreadsProps },
+    } = parms;
+
+    this.setState({
+      fetching: true,
+    });
+
+    axios.post(THREAD_LIST, {
+      callSource,
+      count,
+      page: 1,
+      topicId,
+      at: user.at,
+      token: user.token,
+      cid: user.cid,
+    }).then((res) => {
+      validateResponseAccess(res);
+      if (!res.data.apiError) {
+        const { threads, threadCount } = res.data;
+        let newThreads = [].concat(threads);
+        newThreads = newThreads.map((thread) => {
+          const currentThread = Object.assign({}, thread);
+          currentThread.showComments = false;
+          currentThread.page = 1;
+          currentThread.key = currentThread.threadId;
+          return currentThread;
+        });
+        updateThreadsProps(newThreads, threadCount);
+      }
+
+      this.setState({
+        fetching: false,
+      });
+    });
   }
 
   createThread = (params) => {
     const {
       createThread,
-      discussionsActions: { updateThreadsProps },
-      discussions: { threadsList, threadsCount },
     } = this.props;
     return createThread(params).then((res) => {
       if (!res.payload.apiError) {
-        const newThread = Object.assign({
-          likesCount: 0,
-          replyToponlyCount: 0,
-          showComments: false,
-          page: 1,
-        }, res.payload.thread)
-        updateThreadsProps([newThread].concat(threadsList), threadsCount + 1);
+        this.getThreads(this.props);
       }
 
       return res.payload;
@@ -171,6 +171,8 @@ class DiscussionsThreads extends Component {
           newDisplayedComments = [].concat(newDisplayedComments, reply.replyId);
         }
         updateCommentsProps(params.threadId, currentCommentsList, newDisplayedComments);
+
+        this.getThreads(this.props);
       }
       callback(res.data);
     });
@@ -191,7 +193,7 @@ class DiscussionsThreads extends Component {
       validateResponseAccess,
     } = this.props;
     const { fetching } = this.state;
-
+    
     return (<div className="root">
       {CREATE_THREAD_FORM[callSource].render({
         ...createThreadFormParams,
