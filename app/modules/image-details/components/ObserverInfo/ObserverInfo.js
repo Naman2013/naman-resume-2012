@@ -54,10 +54,11 @@ const ObserverInfo = ({
     <style jsx>{`
       .root {
         background-color: ${romance};
+        ${dropShadowContainer}
       }
+      
       .component-container {
         margin: 25px;
-        ${dropShadowContainer}
       }
 
       .title-container {
