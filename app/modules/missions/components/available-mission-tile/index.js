@@ -37,7 +37,9 @@ export class AvailbleMissionTile extends Component {
       followPrompt,
       followPromptIconUrl,
       viewMissionButtonCaption,
+      missionStartFormatted,
     } = missionSlot;
+    const { displayWeekdayMonthDayUTC } = missionStartFormatted;
 
     return (
       <div className="mission-tile">
@@ -64,7 +66,7 @@ export class AvailbleMissionTile extends Component {
         </h5>
         <div className="time">{getMissionTime(missionStart)}</div>
         <div className="info">
-          <div className="date">{getMissionDate(missionStart)}</div>
+          <div className="date">{displayWeekdayMonthDayUTC}</div>
           <div className="time">{getMissionTime(missionStart)}</div>
           <div className="telescope">{telescopeName}</div>
         </div>
