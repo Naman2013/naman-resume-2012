@@ -7,6 +7,7 @@ import fetchObjectFollowService from 'app/services/objects/object-follow';
 import fetchObjectSpecialistsService from 'app/services/objects/specialists';
 import fetchLikeService from 'app/services/objects/object-details-like';
 import fetchImageDetailsService from 'app/services/objects/object-details-image-details';
+import fetchSharedMemberPhotosService from 'app/services/objects/object-details-shared-member-photos';
 
 /* getObjectDetails */
 export const FETCH_OBJECT_DETAILS = 'FETCH_OBJECT_DETAILS';
@@ -56,6 +57,39 @@ export const FETCH_IMAGE_DETAILS = 'FETCH_IMAGE_DETAILS';
 export const FETCH_IMAGE_DETAILS_START = 'FETCH_IMAGE_DETAILS_START';
 export const FETCH_IMAGE_DETAILS_FAIL = 'FETCH_IMAGE_DETAILS_FAIL';
 export const FETCH_IMAGE_DETAILS_SUCCESS = 'FETCH_IMAGE_DETAILS_SUCCESS';
+
+/* getSharedMemberPhotos */
+export const FETCH_SHARED_MEMBER_PHOTOS = 'FETCH_SHARED_MEMBER_PHOTOS';
+export const FETCH_SHARED_MEMBER_PHOTOS_START =
+  'FETCH_SHARED_MEMBER_PHOTOS_START';
+export const FETCH_SHARED_MEMBER_PHOTOS_SUCCESS =
+  'FETCH_SHARED_MEMBER_PHOTOS_SUCCESS';
+
+//////////////////////////
+/* FETCH SHARED MEMBER PHOTOS */
+
+export const fetchSharedMemberPhotosAction = requestBody => (
+  dispatch,
+  getState
+) => {
+  dispatch(fetchSharedMemberPhotosStart());
+
+  const { objectId, pagingMode, count, page, v4Filter } = requestBody;
+  const { token, at, cid } = getState().user;
+
+  return fetchSharedMemberPhotosService({
+    token,
+    at,
+    cid,
+    objectId,
+    pagingMode,
+    count,
+    page,
+    v4Filter,
+  }).then(result => {
+    dispatch(fetchSharedMemberPhotosSuccess(result.data));
+  });
+};
 
 //////////////////////////
 /* FETCH OBJECT DETAILS */
@@ -218,6 +252,16 @@ export const fetchImageDetailsAction = customerImageId => (
 
 ////////////////////
 /* fetch handlers */
+
+// SHARED MEMBER PHOTOS
+const fetchSharedMemberPhotosStart = () => ({
+  type: FETCH_SHARED_MEMBER_PHOTOS_START,
+});
+
+const fetchSharedMemberPhotosSuccess = payload => ({
+  type: FETCH_SHARED_MEMBER_PHOTOS_SUCCESS,
+  payload,
+});
 
 // IMAGE DETAILS
 const fetchImageDetailsActionStart = () => ({

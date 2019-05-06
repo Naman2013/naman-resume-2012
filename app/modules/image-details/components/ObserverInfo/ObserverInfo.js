@@ -62,15 +62,15 @@ const ObserverInfo = ({
       </div>
     </div>
 
-    <style jsx>
-      {`
-        .root {
-          background-color: ${romance};
-        }
-        .component-container {
-          margin: 25px;
-          ${dropShadowContainer}
-        }
+    <style jsx>{`
+      .root {
+        background-color: ${romance};
+        ${dropShadowContainer}
+      }
+      
+      .component-container {
+        margin: 25px;
+      }
 
         .title-container {
           text-transform: uppercase;

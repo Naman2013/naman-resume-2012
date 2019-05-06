@@ -54,43 +54,52 @@ class ObjectDetails extends Component {
     actions: PropTypes.shape({}).isRequired,
   };
 
-  constructor(props) {
-    super(props);
-
+  componentDidMount() {
     const {
+      actions,
+      objectDetails,
       params: { objectId },
     } = this.props;
 
-    if (this.props.objectDetails.objectId !== objectId) {
-      // fetch the object-level meta data only if the objectId changes.
-      this.props.actions.fetchObjectDetailsAction(objectId);
-      this.props.actions.fetchObjectDataAction(objectId);
+    // Fetch the object-level meta data only if the objectId changes
+    if (objectDetails.objectId !== objectId) {
+      actions.fetchObjectDetailsAction(objectId);
+      // customerImageId is coming from fetchObjectDataAction API call
+      // and fetchImageDetailsAction should wait it from response
+      actions.fetchObjectDataAction(objectId).then(() => {
+        actions.fetchImageDetailsAction(
+          this.props.objectData.featuredObservation.customerImageId
+        );
+      });
     }
   }
 
   componentWillReceiveProps(nextProps) {
     const {
+      actions,
       params: { objectId },
     } = nextProps;
 
     if (
       this.props.objectDetails.objectId !== nextProps.objectDetails.objectId
     ) {
-      this.props.actions.fetchObjectSpecialistsAction(
+      actions.fetchObjectSpecialistsAction(
         nextProps.objectDetails.objectId,
         MAX_MVP_ASTRONOMERS
       );
     }
 
-    // fetch the object details, the object page has been changed.
+    // Fetch the object details, the object page has been changed
     if (this.props.params.objectId !== nextProps.params.objectId) {
-      this.props.actions.fetchObjectDetailsAction(objectId);
-      this.props.actions.fetchObjectDataAction(objectId);
+      actions.fetchObjectDetailsAction(objectId);
+      // customerImageId is coming from fetchObjectDataAction API call
+      // and fetchImageDetailsAction should wait it from response
+      actions.fetchObjectDataAction(objectId).then(() => {
+        actions.fetchImageDetailsAction(
+          this.props.objectData.featuredObservation.customerImageId
+        );
+      });
     }
-
-    this.props.actions.fetchImageDetailsAction(
-      this.props.objectData.featuredObservation.customerImageId
-    );
   }
 
   render() {
