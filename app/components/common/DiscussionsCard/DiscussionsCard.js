@@ -98,13 +98,12 @@ const DiscussionsCard = props => {
               showLikePrompt={showLikePrompt}
               customerId={customerId}
             />
-            {renderChildReplies ? (
-              <CommentButton
-                isActive={showComments}
-                onClickEvent={toggleComments}
-                count={replyToponlyCount}
-              />
-            ) : null}
+            {renderChildReplies ? <CommentButton
+              isActive={showComments}
+              onClickEvent={toggleComments}
+              count={replyToponlyCount}
+              alwaysShowCount
+            /> : null}
             {S3Files.length > 0 ? <ViewImagesButton images={S3Files} /> : null}
           </div>
           <div className="action-right">

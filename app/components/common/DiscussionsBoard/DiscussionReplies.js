@@ -14,7 +14,7 @@ import { submitReply } from 'app/services/discussions/submit-reply';
 import { THREAD_REPLIES } from 'app/services/discussions';
 import RepliesListItem from './RepliesListItem';
 import Form from './ReplyForm';
-import ShowMoreFullSet from '../../common/ShowMoreFullSet';
+import ShowMoreFullSet from '../ShowMoreFullSet';
 import styles from './DiscussionsBoard.style';
 
 const { arrayOf, bool, func, number, oneOfType, shape, string } = PropTypes;
@@ -44,6 +44,7 @@ class DiscussionsReplies extends Component {
       cid: oneOfType([number, string]),
     }).isRequired,
   };
+
   static defaultProps = {
     canSubmitReplies: true,
     callSource: null,
@@ -83,10 +84,18 @@ class DiscussionsReplies extends Component {
           validateResponseAccess(res);
           if (!res.data.apiError) {
             const { replies } = res.data;
-            const newReplies = [].concat(replies);
+            //const newReplies = [].concat(replies);
             const displayedComments = take([].concat(replies), count).map(
               reply => reply.replyId
             );
+
+            const newReplies = replies.map(reply => {
+              const currentReply = Object.assign({}, reply);
+              //if (currentReply.replyId === replyId) {
+              currentReply.showComments = true;
+              //}
+              return currentReply;
+            });
             updateCommentsProps(replyId, newReplies, displayedComments);
           }
         });
