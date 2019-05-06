@@ -45,6 +45,7 @@ class DiscussionsBoard extends Component {
     threadsCount: 0,
     commentsList: {},
     displayedComments: {},
+    discussionKey: Date.now(),
   };
 
   updateThreadsProps = (threadsList, threadsCount, displayed) => {
@@ -74,10 +75,12 @@ class DiscussionsBoard extends Component {
       threadsCount: newThreadsCount,
       displayedThreads,
       commentsList: newCommentsList,
+      discussionKey: Date.now(),
     });
   };
 
   updateCommentsProps = (id, comments, displayed) => {
+    console.log('COMMENTS', comments);
     this.setState(state => {
       const { commentsList, displayedComments } = state;
       const newCommentsList = Object.assign({}, commentsList);

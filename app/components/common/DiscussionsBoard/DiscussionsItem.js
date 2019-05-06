@@ -26,7 +26,7 @@ const {
 const DiscussionsItem = props => (
   <div
     className="shadowed-container margin"
-    key={uniqueId()}
+    //key={uniqueId()}
   >
     <DiscussionsCard
       {...props}
@@ -52,6 +52,7 @@ const DiscussionsItem = props => (
         user={props.user}
         isDesktop={props.isDesktop}
         renderToggle={renderToggle}
+        getThreads={props.getThreads}
       />)}
     />
     <style jsx>{styles}</style>

@@ -63,6 +63,7 @@ class DiscussionsReplies extends Component {
   }
 
   componentDidMount() {
+    console.log('MOUNT');
     const {
       replyId,
       callSource,
@@ -90,9 +91,19 @@ class DiscussionsReplies extends Component {
         validateResponseAccess(res);
         if (!res.data.apiError) {
           const { replies } = res.data;
-          const newReplies = [].concat(replies);
+          //const newReplies = [].concat(replies);
           const displayedComments = take([].concat(replies), count)
             .map(reply => reply.replyId);
+
+          const newReplies = replies.map((reply) => {
+            const currentReply = Object.assign({}, reply);
+            console.log('NEW REPLIES2222', currentReply.replyId, replyId);
+            //if (currentReply.replyId === replyId) {
+              currentReply.showComments = true;
+            //}
+            return currentReply;
+          });
+          console.log('NEW REPLIES', newReplies);
           updateCommentsProps(replyId, newReplies, displayedComments);
         }
       });

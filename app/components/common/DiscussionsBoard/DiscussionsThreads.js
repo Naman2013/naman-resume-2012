@@ -72,7 +72,7 @@ class DiscussionsThreads extends Component {
     }
   }
 
-  getThreads = parms => {
+  getThreads = (parms = this.props) => {
     const {
       callSource,
       count,
@@ -129,6 +129,7 @@ class DiscussionsThreads extends Component {
   }
 
   handleReply = (params, callback) => {
+    console.log('fasdfas', params);
     submitReply(params).then((res) => {
       const { apiError, reply } = res.data;
       const { count } = this.props;
@@ -193,7 +194,7 @@ class DiscussionsThreads extends Component {
       validateResponseAccess,
     } = this.props;
     const { fetching } = this.state;
-    
+    console.log('DISCUSSION', discussions);
     return (<div className="root">
       {CREATE_THREAD_FORM[callSource].render({
         ...createThreadFormParams,
@@ -215,6 +216,7 @@ class DiscussionsThreads extends Component {
           };
           return (<DiscussionsItem
             {...thread}
+            //key={discussions.discussionKey}
             validateResponseAccess={validateResponseAccess}
             discussionsActions={discussionsActions}
             toggleComments={() => discussionsActions.toggleThreadComments(thread.threadId)}
@@ -229,6 +231,7 @@ class DiscussionsThreads extends Component {
             submitReply={this.handleReply}
             page={thread.page}
             user={user}
+            getThreads={this.getThreads}
           />)
         })}
       </div>}

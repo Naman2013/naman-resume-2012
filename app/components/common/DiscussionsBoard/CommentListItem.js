@@ -26,7 +26,7 @@ const {
 const CommentListItem = props => (
   <div
     className="comment-list-item"
-    key={uniqueId()}
+    //key={uniqueId()}
   >
     <DiscussionsCard
       {...props}
