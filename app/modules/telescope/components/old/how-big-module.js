@@ -5,9 +5,9 @@ import noop from 'lodash/noop';
 import DefaultButton from 'app/components/common/style/buttons/Button';
 import HowBig from 'app/components/Telescope/HowBig';
 import fauxMission from 'content/fauxMissions';
+import {browserHistory } from 'react-router';
 import { ModuleContainer } from './index';
 import style from './how-big-module.style';
-import {browserHistory } from 'react-router';
 
 class HowBigModule extends Component {
   state = {
@@ -30,7 +30,7 @@ class HowBigModule extends Component {
 
   handleAnimationComplete = () => {
     console.log('Anim complete,...');
-    this.setState({isStarted})
+    this.setState({ isStarted: false });
   };
 
   render() {
@@ -49,16 +49,14 @@ class HowBigModule extends Component {
               </svg>
             </div>
 
-            {this.props.showInfoText && <p>
-              {this.props.infoText}
-            </p>}
+            {this.props.showInfoText && <p>{this.props.infoText}</p>}
 
             <ul className="tile-actions">
               <li>
                 <DefaultButton
                   theme={{ width: '100%' }}
                   text="View our guide"
-                  onClickEvent = {()=>browserHistory.push(this.props.guideURL)}
+                  onClickEvent={() => browserHistory.push(this.props.guideURL)}
                 />
               </li>
               {!autoplay && (

@@ -38,10 +38,14 @@ class HowBig extends Component {
 
     return (
       <g>
-        {isScaledUp && isStart ? (
-          <ScaleUp {...this.props} changeTitle={this.changeTitle} />
+        {isStart ? (
+          isScaledUp ? (
+            <ScaleUp {...this.props} changeTitle={this.changeTitle} />
+          ) : (
+            <ScaleDown {...this.props} changeTitle={this.changeTitle} />
+          )
         ) : (
-          <ScaleDown {...this.props} changeTitle={this.changeTitle} />
+          <div />
         )}
 
         <AutoFadeSVG duration={0.5}>

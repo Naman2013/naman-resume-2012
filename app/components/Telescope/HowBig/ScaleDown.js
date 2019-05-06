@@ -21,7 +21,7 @@ class ScaleDown extends PureComponent {
   static TIME_BEFORE_COMPLETE = 3000;
 
   static propTypes = {
-    targetObjectURL: PropTypes.string.isRequired,
+    targetImageURL: PropTypes.string.isRequired,
     targetObjectScale: PropTypes.number.isRequired,
     targetObjectName: PropTypes.string.isRequired,
     domain: PropTypes.string.isRequired,
@@ -171,7 +171,7 @@ class ScaleDown extends PureComponent {
   }
 
   render() {
-    const { domain, targetObjectURL, dimension } = this.props;
+    const { domain, targetImageURL, dimension } = this.props;
 
     const {
       targetScale,
@@ -227,7 +227,7 @@ class ScaleDown extends PureComponent {
         >
           <g>
             <ObjectFrame
-              svgURL={targetObjectURL}
+              svgURL={targetImageURL}
               width={targetSize}
               height={targetSize}
               x={targetPosition}

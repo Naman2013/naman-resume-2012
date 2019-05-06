@@ -24,7 +24,7 @@ class ScaleUp extends PureComponent {
 
   static propTypes = {
     dimension: PropTypes.number,
-    targetObjectURL: PropTypes.string.isRequired,
+    targetImageURL: PropTypes.string.isRequired,
     targetObjectName: PropTypes.string.isRequired,
     domain: PropTypes.string.isRequired,
     referenceObjectScale: PropTypes.number.isRequired,
@@ -189,7 +189,7 @@ class ScaleUp extends PureComponent {
   animateReferenceMoveHandle = undefined;
 
   render() {
-    const { domain, targetObjectURL, targetObjectName, dimension } = this.props;
+    const { domain, targetImageURL, targetObjectName, dimension } = this.props;
 
     const {
       referenceObjectLoaded,
@@ -245,7 +245,7 @@ class ScaleUp extends PureComponent {
         <FadeSVG isHidden={showTargetObject}>
           <g>
             <ObjectFrame
-              svgURL={targetObjectURL}
+              svgURL={targetImageURL}
               width={artworkDimension}
               height={artworkDimension}
               x={staticArtworkPosition}
