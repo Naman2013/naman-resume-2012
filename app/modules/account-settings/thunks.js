@@ -1,5 +1,9 @@
 import { ACTION } from './reducer';
-import { getAccountSettingsApi, saveAccountFormFieldApi } from './api';
+import {
+  getAccountSettingsApi,
+  saveAccountFormFieldApi,
+  getSubscriptionPlansApi,
+} from './api';
 
 export const fetchAccountSettingsAction = () => (dispatch, getState) => {
   dispatch(ACTION.fetchAccountSettings());
@@ -41,4 +45,12 @@ export const fetchAccountFormFieldAction = (formFieldName, newValue) => (
       );
     })
     .catch(error => ACTION.fetchAccountFormFieldError(error));
+};
+
+export const getSubscriptionPlans = () => (dispatch, getState) => {
+  dispatch(ACTION.getSubscriptionPlans());
+  const { token, at, cid } = getState().user;
+  return getSubscriptionPlansApi({ token, at, cid, callSource: 'upgrade' })
+    .then(result => dispatch(ACTION.getSubscriptionPlansSuccess(result.data)))
+    .catch(error => ACTION.getSubscriptionPlansError(error));
 };
