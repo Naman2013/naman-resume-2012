@@ -10,7 +10,7 @@ const MediumScreenFormat = props => {
     options,
     activeInstrumentID,
     currentInstrumentName,
-    updateCurrentInstrument
+    updateCurrentInstrument,
   } = props;
   return (
     <Fragment>

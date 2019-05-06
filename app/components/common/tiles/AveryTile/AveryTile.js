@@ -5,19 +5,28 @@ import classnames from 'classnames';
 import { profilePhotoStyle } from 'app/styles/mixins/utilities';
 import style from './AveryTile.style';
 
-const profPic = (photoUrl, photoSize) => Object.assign(profilePhotoStyle(photoUrl), {
-  height: `${photoSize}px`,
-  width: `${photoSize}px`,
-  backgroundSize: 'cover',
-});
+const profPic = (photoUrl, photoSize) =>
+  Object.assign(profilePhotoStyle(photoUrl), {
+    height: `${photoSize}px`,
+    width: `${photoSize}px`,
+    backgroundSize: 'cover',
+  });
 const AveryTile = ({ title, iconUrl, theme, photoSize }) => (
   <div className="root avery-tile" style={theme}>
     <div className={classnames('inner-container', { 'no-image': !iconUrl })}>
-      {iconUrl ? <div className="avatar-container">
-        <div className="avatar-circle" style={{ height: `${photoSize + (photoSize * .10)}px`, width: `${photoSize + (photoSize * .10)}px` }} />
-        <div className="avatar-line" />
-        <div className="avatar-img" style={profPic(iconUrl, photoSize)} />
-      </div> : null}
+      {iconUrl ? (
+        <div className="avatar-container">
+          <div
+            className="avatar-circle"
+            style={{
+              height: `${photoSize + photoSize * 0.1}px`,
+              width: `${photoSize + photoSize * 0.1}px`,
+            }}
+          />
+          <div className="avatar-line" />
+          <div className="avatar-img" style={profPic(iconUrl, photoSize)} />
+        </div>
+      ) : null}
       <div className="title-text" dangerouslySetInnerHTML={{ __html: title }} />
     </div>
     <style jsx>{style}</style>

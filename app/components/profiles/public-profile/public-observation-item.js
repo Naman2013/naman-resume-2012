@@ -1,9 +1,9 @@
 /***********************************
-* V4 Public Profile Observation Item
-*
-*
-*
-***********************************/
+ * V4 Public Profile Observation Item
+ *
+ *
+ *
+ ***********************************/
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -19,27 +19,25 @@ import {
 import { white, black } from '../../../styles/variables/colors';
 import { secondaryFont } from '../../../styles/variables/fonts';
 
-const {
-  arrayOf,
-  bool,
-  number,
-  shape,
-  string,
-} = PropTypes;
+const { arrayOf, bool, number, shape, string } = PropTypes;
 
-const mapStateToProps = ({
-  myPicturesImageDetails,
-}) => ({
+const mapStateToProps = ({ myPicturesImageDetails }) => ({
   ...myPicturesImageDetails,
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({
-    fetchMyPicturesImageDetails,
-  }, dispatch),
+  actions: bindActionCreators(
+    {
+      fetchMyPicturesImageDetails,
+    },
+    dispatch
+  ),
 });
 
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(
+  mapStateToProps,
+  mapDispatchToProps
+)
 class PublicObservationItem extends Component {
   static propTypes = {
     avatarURL: string,
@@ -98,109 +96,109 @@ class PublicObservationItem extends Component {
     zoom: string,
   };
 
-static defaultProps = {
-  avatarURL: '',
-  canDownloadFlag: false,
-  canEditFlag: false,
-  canLikeFlag: false,
-  canShareFlag: false,
-  commentsCount: 0,
-  commentsForumId: 0,
-  commentsThreadId: 0,
-  commentsTopicId: 0,
-  customerImageId: 0,
-  iconFileData: {
-    Category: {
-      hasLink: false,
-      iconUrl: '',
-      label: '',
-      linkUrl: '',
-      text: '',
+  static defaultProps = {
+    avatarURL: '',
+    canDownloadFlag: false,
+    canEditFlag: false,
+    canLikeFlag: false,
+    canShareFlag: false,
+    commentsCount: 0,
+    commentsForumId: 0,
+    commentsThreadId: 0,
+    commentsTopicId: 0,
+    customerImageId: 0,
+    iconFileData: {
+      Category: {
+        hasLink: false,
+        iconUrl: '',
+        label: '',
+        linkUrl: '',
+        text: '',
+      },
+      Domain: {
+        hasLink: false,
+        iconUrl: '',
+        label: '',
+        linkUrl: '',
+        text: '',
+      },
+      Member: {
+        hasLink: false,
+        iconUrl: '',
+        label: '',
+        linkUrl: '',
+        text: '',
+      },
+      Telescope: {
+        hasLink: false,
+        iconUrl: '',
+        label: '',
+        linkUrl: '',
+        text: '',
+      },
     },
-    Domain: {
-      hasLink: false,
-      iconUrl: '',
-      label: '',
-      linkUrl: '',
-      text: '',
-    },
-    Member: {
-      hasLink: false,
-      iconUrl: '',
-      label: '',
-      linkUrl: '',
-      text: '',
-    },
-    Telescope: {
-      hasLink: false,
-      iconUrl: '',
-      label: '',
-      linkUrl: '',
-      text: '',
+    imageTitle: '',
+    imageURL: '',
+    likePrompt: '',
+    likesCount: 0,
+    observationLog: '',
+    observationTimeDisplay: [],
+    originX: '',
+    originY: '',
+    photoViewFullURL: '',
+    scheduledMissionId: '',
+    shareToken: '',
+    showCommentsLink: false,
+    showLikePrompt: false,
+    zoom: '',
+  };
+
+  componentDidMount() {
+    const { isActive, actions, customerImageId } = this.props;
+
+    if (isActive) {
+      actions.fetchMyPicturesImageDetails({
+        customerImageId,
+        useShareToken: 'n',
+        callSource: 'sharedpictures',
+      });
     }
-  },
-  imageTitle: '',
-  imageURL: '',
-  likePrompt: '',
-  likesCount: 0,
-  observationLog: '',
-  observationTimeDisplay: [],
-  originX: '',
-  originY: '',
-  photoViewFullURL: '',
-  scheduledMissionId: '',
-  shareToken: '',
-  showCommentsLink: false,
-  showLikePrompt: false,
-  zoom: '',
-};
-
-componentDidMount() {
-  const { isActive, actions, customerImageId } = this.props;
-
-  if (isActive) {
-    actions.fetchMyPicturesImageDetails({
-      customerImageId,
-      useShareToken: 'n',
-      callSource: 'sharedpictures',
-    });
   }
-}
 
-componentWillReceiveProps(nextProps) {
-  const { actions, isActive } = this.props;
+  componentWillReceiveProps(nextProps) {
+    const { actions, isActive } = this.props;
 
-  if ((isActive !== nextProps.isActive) && nextProps.isActive) {
-    actions.fetchMyPicturesImageDetails({
-      customerImageId: nextProps.customerImageId,
-      useShareToken: 'n',
-      callSource: 'sharedpictures',
-    });
+    if (isActive !== nextProps.isActive && nextProps.isActive) {
+      actions.fetchMyPicturesImageDetails({
+        customerImageId: nextProps.customerImageId,
+        useShareToken: 'n',
+        callSource: 'sharedpictures',
+      });
+    }
   }
-}
 
   render() {
-  const {
-    avatarURL,
-    canLikeFlag,
-    commentsCount,
-    commentsForumId,
-    commentsThreadId,
-    commentsTopicId,
-    customerImageId,
-    error,
-    fetching,
-    iconFileData,
-    imageTitle,
-    imageURL,
-    likePrompt,
-    likesCount,
-    observationLog,
-    observationTimeDisplay,
-    shareToken,
-    showCommentsLink,
-    showLikePrompt,
-  } = this.props;
+    const {
+      avatarURL,
+      canLikeFlag,
+      commentsCount,
+      commentsForumId,
+      commentsThreadId,
+      commentsTopicId,
+      customerImageId,
+      error,
+      fetching,
+      iconFileData,
+      imageTitle,
+      imageURL,
+      likePrompt,
+      likesCount,
+      observationLog,
+      observationTimeDisplay,
+      shareToken,
+      showCommentsLink,
+      showLikePrompt,
+    } = this.props;
 
     const heartProps = {
       canLikeFlag,
@@ -211,11 +209,12 @@ componentWillReceiveProps(nextProps) {
       likeId: customerImageId,
     };
 
-    const infoIcon = url => Object.assign(profilePhotoStyle(url), {
-      height: '50px',
-      width: '50px',
-      margin: '0 auto',
-    });
+    const infoIcon = url =>
+      Object.assign(profilePhotoStyle(url), {
+        height: '50px',
+        width: '50px',
+        margin: '0 auto',
+      });
 
     const member = iconFileData.Member;
     const domain = iconFileData.Domain;
@@ -224,71 +223,110 @@ componentWillReceiveProps(nextProps) {
     const observationTime = observationTimeDisplay.join('  |  ');
     return (
       <div className="observation-item">
-        {error && <div className="loading">There was an error fetching this photo.</div>}
+        {error && (
+          <div className="loading">There was an error fetching this photo.</div>
+        )}
         {fetching && <div className="loading">Loading...</div>}
-        {!error && !fetching && <div className="observation-item-container">
-          <div className="info-panel">
-            <div className="main-title" dangerouslySetInnerHTML={{ __html: imageTitle }} />
-            <div className="time" dangerouslySetInnerHTML={{ __html: observationTime }} />
-            <div className="description" dangerouslySetInnerHTML={{ __html: observationLog }} />
-            <div className="actions">
-              <Heart
-                {...heartProps}
-                likeAction={likeImage}
-                showLikeText={false}
+        {!error && !fetching && (
+          <div className="observation-item-container">
+            <div className="info-panel">
+              <div
+                className="main-title"
+                dangerouslySetInnerHTML={{ __html: imageTitle }}
               />
-              {showCommentsLink && <Link
-                to={`/discussions/forums/${commentsForumId}/topics/${commentsTopicId}/threads/${commentsThreadId}`}>
-                  <span>{`Comments (${commentsCount})`}</span>
-                </Link>}
-            </div>
-            <div className="iconFileData">
-              <div className="title">
-                <span
-                  className="block"
-                  dangerouslySetInnerHTML={{ __html: `${member.label} ` }}
+              <div
+                className="time"
+                dangerouslySetInnerHTML={{ __html: observationTime }}
+              />
+              <div
+                className="description"
+                dangerouslySetInnerHTML={{ __html: observationLog }}
+              />
+              <div className="actions">
+                <Heart
+                  {...heartProps}
+                  likeAction={likeImage}
+                  showLikeText={false}
                 />
-                {member.hasLink ? <Link to={member.linkUrl}><div style={infoIcon(member.iconUrl)} /></Link> :
-                <div style={infoIcon(member.iconUrl)} />
-                }
+                {showCommentsLink && (
+                  <Link
+                    to={`/discussions/forums/${commentsForumId}/topics/${commentsTopicId}/threads/${commentsThreadId}`}
+                  >
+                    <span>{`Comments (${commentsCount})`}</span>
+                  </Link>
+                )}
               </div>
-              {category && <div className="title">
-              <span
-                className="block"
-                dangerouslySetInnerHTML={{ __html: `${category.label} ` }}
-              />
-                {category.hasLink ? <Link to={category.linkUrl}><div style={infoIcon(category.iconUrl)} /></Link> :
-                <div style={infoIcon(category.iconUrl)} />
-                }
-              </div>
-              }
+              <div className="iconFileData">
+                <div className="title">
+                  <span
+                    className="block"
+                    dangerouslySetInnerHTML={{ __html: `${member.label} ` }}
+                  />
+                  {member.hasLink ? (
+                    <Link to={member.linkUrl}>
+                      <div style={infoIcon(member.iconUrl)} />
+                    </Link>
+                  ) : (
+                    <div style={infoIcon(member.iconUrl)} />
+                  )}
+                </div>
+                {category && (
+                  <div className="title">
+                    <span
+                      className="block"
+                      dangerouslySetInnerHTML={{ __html: `${category.label} ` }}
+                    />
+                    {category.hasLink ? (
+                      <Link to={category.linkUrl}>
+                        <div style={infoIcon(category.iconUrl)} />
+                      </Link>
+                    ) : (
+                      <div style={infoIcon(category.iconUrl)} />
+                    )}
+                  </div>
+                )}
 
-              <div className="title">
-              <span
-                className="block"
-                dangerouslySetInnerHTML={{ __html: `${telescope.label} ` }}
-              />
-                {telescope.hasLink ? <Link to={telescope.linkUrl}><div style={infoIcon(telescope.iconUrl)} /></Link> :
-                <div style={infoIcon(telescope.iconUrl)} />
-                }
+                <div className="title">
+                  <span
+                    className="block"
+                    dangerouslySetInnerHTML={{ __html: `${telescope.label} ` }}
+                  />
+                  {telescope.hasLink ? (
+                    <Link to={telescope.linkUrl}>
+                      <div style={infoIcon(telescope.iconUrl)} />
+                    </Link>
+                  ) : (
+                    <div style={infoIcon(telescope.iconUrl)} />
+                  )}
+                </div>
+                {domain && (
+                  <div className="title">
+                    <span
+                      className="block"
+                      dangerouslySetInnerHTML={{ __html: `${domain.label} ` }}
+                    />
+                    {domain.hasLink ? (
+                      <Link to={domain.linkUrl}>
+                        <div style={infoIcon(domain.iconUrl)} />
+                      </Link>
+                    ) : (
+                      <div style={infoIcon(domain.iconUrl)} />
+                    )}
+                  </div>
+                )}
               </div>
-              {domain && <div className="title">
-              <span
-                className="block"
-                dangerouslySetInnerHTML={{ __html: `${domain.label} ` }}
-              />
-                {domain.hasLink ? <Link to={domain.linkUrl}><div style={infoIcon(domain.iconUrl)} /></Link> :
-                <div style={infoIcon(domain.iconUrl)} /> }
-              </div>
-              }
             </div>
+            <Link
+              to={`/my-pictures/show-image/${customerImageId}/${shareToken}`}
+            >
+              <div
+                style={{ backgroundImage: `url(${imageURL})` }}
+                className="shared-image"
+              />
+            </Link>
           </div>
-          <Link to={`/my-pictures/show-image/${customerImageId}/${shareToken}`}>
-            <div style={{ backgroundImage: `url(${imageURL})` }} className="shared-image" />
-          </Link>
-        </div>}
+        )}
         <style jsx>{`
-
           .title {
             margin-top: -2px;
           }
@@ -304,15 +342,18 @@ componentWillReceiveProps(nextProps) {
             -ms-flex-wrap: wrap;
           }
 
-          @media(max-width:767px){
-            .observation-item-container{padding:0px}
+          @media (max-width: 767px) {
+            .observation-item-container {
+              padding: 0px;
+            }
           }
 
           .shared-image {
             ${backgroundImageCover}
             height: auto;
             width: 500px;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16),
+              0 3px 6px rgba(0, 0, 0, 0.23);
           }
 
           :global(.pulse-post-extras) .shared-image {
@@ -321,19 +362,21 @@ componentWillReceiveProps(nextProps) {
 
           .shared-image:before {
             display: block;
-            content: "";
+            content: '';
             width: 100%;
             padding-top: 68.49%;
           }
-            @media(max-width:640px){
-            .observation-item .observation-item-container {display:block}
-            .shared-image, .info-panel{width:100%}
-
-
+          @media (max-width: 640px) {
+            .observation-item .observation-item-container {
+              display: block;
             }
+            .shared-image,
+            .info-panel {
+              width: 100%;
+            }
+          }
 
-
-          .observation-item :global(.buttonOnly:hover .action-description){
+          .observation-item :global(.buttonOnly:hover .action-description) {
             display: none;
           }
 
@@ -343,12 +386,13 @@ componentWillReceiveProps(nextProps) {
             align-items: stretch;
             padding: 25px;
             color: #2d3949;
-            min-width:300px;
+            min-width: 300px;
             max-width: 500px;
             max-height: 340px;
             background-color: ${white};
             position: relative;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16),
+              0 3px 6px rgba(0, 0, 0, 0.23);
           }
 
           :global(.pulse-post-extras) .info-panel {
@@ -391,7 +435,6 @@ componentWillReceiveProps(nextProps) {
             padding-top: 10px;
           }
 
-
           .loading {
             color: ${black};
             text-align: center;
@@ -406,16 +449,15 @@ componentWillReceiveProps(nextProps) {
             display: block;
           }
 
-          @media(max-width:950px){
+          @media (max-width: 950px) {
             .info-panel {
               width: 500px;
             }
           }
-
         `}</style>
       </div>
-    )
+    );
   }
-};
+}
 
 export default PublicObservationItem;

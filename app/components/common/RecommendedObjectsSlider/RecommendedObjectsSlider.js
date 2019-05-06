@@ -1,9 +1,9 @@
 /***********************************
-* V4 Recommended Objects Slider
-*
-*
-*
-***********************************/
+ * V4 Recommended Objects Slider
+ *
+ *
+ *
+ ***********************************/
 import React from 'react';
 import PropTypes from 'prop-types';
 import uniqueId from 'lodash/uniqueId';
@@ -15,28 +15,17 @@ import MissionTileSmall from '../../../components/common/tiles/MissionTile/Missi
 
 import style from './RecommendedObjectsSlider.style';
 
-const {
-  arrayOf,
-  shape,
-} = PropTypes;
+const { arrayOf, shape } = PropTypes;
 
-const RecommendedObjects = ({
-  recommendedObjectsList = [],
-}) => {
+const RecommendedObjects = ({ recommendedObjectsList = [] }) => {
   const sliderProps = getSliderProps(recommendedObjectsList);
   const shortList = take(recommendedObjectsList, 3) || [];
   return (
     <div className="root" key={uniqueId()}>
-      <DisplayAtBreakpoint
-        screenMedium
-        screenLarge
-        screenXLarge
-      >
+      <DisplayAtBreakpoint screenMedium screenLarge screenXLarge>
         <SloohSlider {...sliderProps} />
       </DisplayAtBreakpoint>
-      <DisplayAtBreakpoint
-        screenSmall
-      >
+      <DisplayAtBreakpoint screenSmall>
         <div className="mobile-tiles-wrapper">
           {shortList.map(object => (
             <MissionTileSmall
@@ -49,13 +38,13 @@ const RecommendedObjects = ({
           ))}
         </div>
       </DisplayAtBreakpoint>
-      <style jsx>{`
+      <style jsx>{``}</style>
 
-      `}
+      <style jsx global>
+        {style}
       </style>
-
-      <style jsx global>{style}</style>
-    </div>);
+    </div>
+  );
 };
 
 RecommendedObjects.propTypes = {

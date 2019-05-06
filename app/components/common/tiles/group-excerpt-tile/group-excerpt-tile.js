@@ -27,27 +27,39 @@ const GroupExcerptTile = ({
 }) => (
   <div className="group-tile-root">
     <div className="title" dangerouslySetInnerHTML={{ __html: title }} />
-    <div className="sub-title" dangerouslySetInnerHTML={{ __html: memberCountDisplay }} />
-    <div className="description" dangerouslySetInnerHTML={{ __html: accessDescription }} />
+    <div
+      className="sub-title"
+      dangerouslySetInnerHTML={{ __html: memberCountDisplay }}
+    />
+    <div
+      className="description"
+      dangerouslySetInnerHTML={{ __html: accessDescription }}
+    />
     <div className="actions">
-      {canView ? <Button
-        theme={{ height: '40px', marginRight: '10px' }}
-        text={viewMessage}
-        onClickEvent={() => browserHistory.push(linkUrl)}
-      /> : null}
-      {showJoinPrompt ? <ToggleJoinGroup
-        filterType={filterType}
-        updateGroupItemInfo={updateGroupItemInfo}
-        discussionGroupId={discussionGroupId}
-        joinPrompt={joinPrompt}
-        joinPromptIconUrl={joinPromptIconUrl}
-      /> : null}
-      {showAskPrompt ? <AskToJoinGroup
-        updatePrompt={updatePrompt}
-        discussionGroupId={discussionGroupId}
-        askPrompt={askPrompt}
-        joinActionIconUrl={joinActionIconUrl}
-      /> : null}
+      {canView ? (
+        <Button
+          theme={{ height: '40px', marginRight: '10px' }}
+          text={viewMessage}
+          onClickEvent={() => browserHistory.push(linkUrl)}
+        />
+      ) : null}
+      {showJoinPrompt ? (
+        <ToggleJoinGroup
+          filterType={filterType}
+          updateGroupItemInfo={updateGroupItemInfo}
+          discussionGroupId={discussionGroupId}
+          joinPrompt={joinPrompt}
+          joinPromptIconUrl={joinPromptIconUrl}
+        />
+      ) : null}
+      {showAskPrompt ? (
+        <AskToJoinGroup
+          updatePrompt={updatePrompt}
+          discussionGroupId={discussionGroupId}
+          askPrompt={askPrompt}
+          joinActionIconUrl={joinActionIconUrl}
+        />
+      ) : null}
     </div>
     <style jsx>{style}</style>
   </div>

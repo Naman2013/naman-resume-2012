@@ -9,7 +9,7 @@ export default css`
     align-items: center;
     border-bottom: 5px solid ${lightHeadedAstronaut};
   }
-  
+
   .module-header.with-icon {
     justify-content: space-between;
     padding-right: 40px;

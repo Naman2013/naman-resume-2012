@@ -5,7 +5,7 @@ import { romance, golda } from 'app/styles/variables/colors_tiles_v4';
 export default css`
   .card-shows {
     pointer-events: auto;
-    background-image: url("https://vega.slooh.com/assets/v4/dashboard/show-card-bg.jpg");
+    background-image: url('https://vega.slooh.com/assets/v4/dashboard/show-card-bg.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: 50%;
@@ -19,7 +19,6 @@ export default css`
     margin: 20px auto;
     font-family: ${primaryFont};
     text-align: center;
-
   }
   .show-card-head {
     color: ${golda};

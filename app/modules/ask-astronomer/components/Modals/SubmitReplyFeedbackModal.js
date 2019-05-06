@@ -7,31 +7,38 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import Button from '../../../../components/common/style/buttons/Button';
-import styles from './Modals.style';
+import './styles.scss';
+import { Button } from 'react-bootstrap';
 
 const { func, shape, string } = PropTypes;
 
-const SubmitReplyFeedbackModal = (props) => {
+const SubmitReplyFeedbackModal = props => {
   const {
-    modalActions, message, updateQuestionsList, title, doneButtonLabel,
+    modalActions,
+    message,
+    updateQuestionsList,
+    title,
+    doneButtonLabel,
   } = props;
 
   return (
-    <form className="root">
-      <div className="title">{title}</div>
-      <div className="prompt-text" dangerouslySetInnerHTML={{ __html: message }} />
-      <div className="actions">
-        <Button
-          onClickEvent={() => {
-            updateQuestionsList();
-            modalActions.closeModal();
-          }}
-          text={doneButtonLabel}
-        />
-      </div>
-      <style jsx>{styles}</style>
-    </form>
+    <div className="aaa-modal-success">
+      <h1 className="modal-h">{title}</h1>
+
+      <div
+        className="modal-p mt-5"
+        dangerouslySetInnerHTML={{ __html: message }}
+      />
+      <Button
+        onClick={() => {
+          updateQuestionsList();
+          modalActions.closeModal();
+        }}
+        className="modal-btn"
+      >
+        {doneButtonLabel}
+      </Button>
+    </div>
   );
 };
 

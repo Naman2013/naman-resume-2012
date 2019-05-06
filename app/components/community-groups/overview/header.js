@@ -1,9 +1,9 @@
 /***********************************
-* V4 Community Group Overview Header
-*
-*
-*
-***********************************/
+ * V4 Community Group Overview Header
+ *
+ *
+ *
+ ***********************************/
 import React, { Component } from 'react';
 import { Link, browserHistory } from 'react-router';
 import PropTypes from 'prop-types';
@@ -12,20 +12,20 @@ import { FormattedMessage } from 'react-intl';
 import LabeledTitleTiles from 'app/components/common/style/LabeledTitleTiles';
 import LargeButtonWithRightIcon from 'app/components/common/style/buttons/LargeButtonWithRightIcon';
 import Button from 'app/components/common/style/buttons/Button';
-import { astronaut, romance, white_tile_paper, nightfall } from 'app/styles/variables/colors_tiles_v4';
+import {
+  astronaut,
+  romance,
+  white_tile_paper,
+  nightfall,
+} from 'app/styles/variables/colors_tiles_v4';
 import { secondaryFont } from 'app/styles/variables/fonts';
 import { info } from 'app/styles/variables/iconURLs';
-import {
-  screenMedium,
-  screenLarge,
-} from 'app/styles/variables/breakpoints';
+import { screenMedium, screenLarge } from 'app/styles/variables/breakpoints';
 import { dropShadowContainer } from 'app/styles/mixins/utilities';
 import DiscussionBoardDescription from 'app/components/common/DiscussionsBoard/DiscussionBoardDescription';
 import messages from './activity-form.messages';
 
-const {
-  string,
-} = PropTypes;
+const { string } = PropTypes;
 
 const GroupsHeader = ({
   condensed = false,
@@ -41,53 +41,84 @@ const GroupsHeader = ({
   discussionGroupId,
   isEditMode,
 }) => (
-    <div className="root">
-      <div className="image-and-main-container">
-        {!condensed ? <div className="groups-header-image">
+  <div className="root">
+    <div className="image-and-main-container">
+      {!condensed ? (
+        <div className="groups-header-image">
           <img
             className="header-img"
             src="https://s3.amazonaws.com/webassets-slooh-com/assets/v4/icons/Group_Graphic_Placeholder.png"
           />
-        </div> : null}
-        <div className="main-container">
-          <div className="groups-header-title desktop-hide" dangerouslySetInnerHTML={{ __html: title }} />
-          <LabeledTitleTiles tiles={subtitleList} theme={{ boxShadow: 'none' }} />
-          {canEditGroup && <Button
-          theme= {{
-            color:astronaut,
-            marginLeft:'auto',
-            marginRight:'auto',
-            marginTop:'10px'
-          }}
-          onClickEvent={() => {
-            browserHistory.push(`/community-groups/${discussionGroupId}/${isEditMode?'':'edit=true'}`);
-          }
-            }>{isEditMode ? "View Group": "Manage Group"}</Button> }
-          {condensed ? (<DiscussionBoardDescription groupId={discussionGroupId} description={description} canEdit={canEditGroup && isEditMode} />) : null}
-
-          <div className="action-container">
-            {showJoinPrompt ?
-              <LargeButtonWithRightIcon
-                icon="https://vega.slooh.com/assets/v4/common/comment.svg"
-                text={joinPrompt}
-                onClickEvent={joinOrLeaveGroup}
-              /> : null}
-            {isMobile && !condensed ? <Button icon={info} onClickEvent={showInformation} /> : null}
-          </div>
-        </div>
-      </div>
-
-      {!condensed ? (
-        <div className="info-container">
-          <div className="info-inner-container">
-            <div className="groups-header-subtitle"><FormattedMessage {...messages.CommunityGroup} /></div>
-            <div className="groups-header-title" dangerouslySetInnerHTML={{ __html: title }} />
-            <DiscussionBoardDescription groupId={discussionGroupId} description={description} canEdit={canEditGroup && isEditMode} />
-          </div>
         </div>
       ) : null}
+      <div className="main-container">
+        <div
+          className="groups-header-title desktop-hide"
+          dangerouslySetInnerHTML={{ __html: title }}
+        />
+        <LabeledTitleTiles tiles={subtitleList} theme={{ boxShadow: 'none' }} />
+        {canEditGroup && (
+          <Button
+            theme={{
+              color: astronaut,
+              marginLeft: 'auto',
+              marginRight: 'auto',
+              marginTop: '10px',
+            }}
+            onClickEvent={() => {
+              browserHistory.push(
+                `/community-groups/${discussionGroupId}/${
+                  isEditMode ? '' : 'edit=true'
+                }`
+              );
+            }}
+          >
+            {isEditMode ? 'View Group' : 'Manage Group'}
+          </Button>
+        )}
+        {condensed ? (
+          <DiscussionBoardDescription
+            groupId={discussionGroupId}
+            description={description}
+            canEdit={canEditGroup && isEditMode}
+          />
+        ) : null}
 
-      <style jsx>{`
+        <div className="action-container">
+          {showJoinPrompt ? (
+            <LargeButtonWithRightIcon
+              icon="https://vega.slooh.com/assets/v4/common/comment.svg"
+              text={joinPrompt}
+              onClickEvent={joinOrLeaveGroup}
+            />
+          ) : null}
+          {isMobile && !condensed ? (
+            <Button icon={info} onClickEvent={showInformation} />
+          ) : null}
+        </div>
+      </div>
+    </div>
+
+    {!condensed ? (
+      <div className="info-container">
+        <div className="info-inner-container">
+          <div className="groups-header-subtitle">
+            <FormattedMessage {...messages.CommunityGroup} />
+          </div>
+          <div
+            className="groups-header-title"
+            dangerouslySetInnerHTML={{ __html: title }}
+          />
+          <DiscussionBoardDescription
+            groupId={discussionGroupId}
+            description={description}
+            canEdit={canEditGroup && isEditMode}
+          />
+        </div>
+      </div>
+    ) : null}
+
+    <style jsx>{`
       .root {
         display: block;
         color: ${astronaut};
@@ -246,9 +277,8 @@ const GroupsHeader = ({
           font-size: 19px;
         }
       }
-
     `}</style>
-    </div>
-  );
+  </div>
+);
 
 export default GroupsHeader;

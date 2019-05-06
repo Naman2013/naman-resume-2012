@@ -21,18 +21,20 @@ class HowBigModule extends Component {
       x: 0,
       y: 0,
     },
-  }
+  };
 
-  handleDimensionChange = (contentBox) => {
+  handleDimensionChange = contentBox => {
     this.setState({ dimensions: { ...contentBox.bounds } });
-  }
+  };
 
   handleAnimationComplete = () => {
     console.log('Anim complete,...');
-  }
+  };
 
   render() {
-    const { dimensions: { width } } = this.state;
+    const {
+      dimensions: { width },
+    } = this.state;
     const {
       referenceObjectScale,
       domain,
@@ -42,53 +44,41 @@ class HowBigModule extends Component {
       onComplete,
     } = this.props;
     return (
-      <Measure
-        bounds
-        onResize={this.handleDimensionChange}
-      >
-        {
-          ({ measureRef }) => (
-            <ModuleContainer title="How big">
-              <div
-                ref={measureRef}
-                className="portal"
-              >
-                <svg
-                  version="1.1"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <HowBig
-                    dimension={width}
-                    referenceObjectScale={referenceObjectScale}
-                    domain={domain}
-                    targetObjectScale={targetObjectScale}
-                    targetObjectURL={targetObjectURL}
-                    targetObjectName={targetObjectName}
-                    onComplete={onComplete}
-                  />
-                </svg>
-              </div>
+      <Measure bounds onResize={this.handleDimensionChange}>
+        {({ measureRef }) => (
+          <ModuleContainer title="How big">
+            <div ref={measureRef} className="portal">
+              <svg version="1.1" xmlns="http://www.w3.org/2000/svg">
+                <HowBig
+                  dimension={width}
+                  referenceObjectScale={referenceObjectScale}
+                  domain={domain}
+                  targetObjectScale={targetObjectScale}
+                  targetObjectURL={targetObjectURL}
+                  targetObjectName={targetObjectName}
+                  onComplete={onComplete}
+                />
+              </svg>
+            </div>
 
-              <ul className="tile-actions">
-                <li>
-                  <DefaultButton theme={{ width: '100%' }} text="View our guide" />
-                </li>
-              </ul>
+            <ul className="tile-actions">
+              <li>
+                <DefaultButton
+                  theme={{ width: '100%' }}
+                  text="View our guide"
+                />
+              </li>
+            </ul>
 
-              <style jsx>{style}</style>
-            </ModuleContainer>
-          )
-        }
+            <style jsx>{style}</style>
+          </ModuleContainer>
+        )}
       </Measure>
     );
   }
 }
 
-const {
-  string,
-  func,
-  number,
-} = PropTypes;
+const { string, func, number } = PropTypes;
 
 HowBigModule.propTypes = {
   referenceObjectScale: number,

@@ -1,14 +1,18 @@
 /***********************************
-* V4  Discussions Reply Form
-*
-*
-*
-***********************************/
+ * V4  Discussions Reply Form
+ *
+ *
+ *
+ ***********************************/
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Button from 'app/components/common/style/buttons/Button';
 import RevealSubmitForm from 'app/components/common/RevealSubmitForm';
-import { romance, astronaut, shadows } from 'app/styles/variables/colors_tiles_v4';
+import {
+  romance,
+  astronaut,
+  shadows,
+} from 'app/styles/variables/colors_tiles_v4';
 import { dropShadowContainer } from 'app/styles/mixins/utilities';
 import { customModalStylesBlackOverlay } from 'app/styles/mixins/utilities';
 
@@ -23,7 +27,6 @@ const {
   string,
 } = PropTypes;
 
-
 class ReplyButton extends Component {
   static defaultProps = {
     avatarURL: '',
@@ -36,7 +39,7 @@ class ReplyButton extends Component {
     },
     forumId: null,
     replyButtonText: 'Submit an Answer',
-  }
+  };
   static propTypes = {
     avatarURL: string,
     submitReply: func.isRequired,
@@ -51,8 +54,7 @@ class ReplyButton extends Component {
       token: oneOfType([number, string]),
       cid: oneOfType([number, string]),
     }),
-  }
-
+  };
 
   submitForm = (content, S3URLs, callback) => {
     const {
@@ -65,36 +67,34 @@ class ReplyButton extends Component {
       user,
     } = this.props;
 
-    submitReply({
-      content,
-      S3URLs,
-      threadId,
-      topicId,
-      forumId,
-      replyTo,
-      at: user.at,
-      token: user.token,
-      cid: user.cid,
-      callSource,
-    }, (data) => this.handleSubmitReply(data, callback));
-  }
+    submitReply(
+      {
+        content,
+        S3URLs,
+        threadId,
+        topicId,
+        forumId,
+        replyTo,
+        at: user.at,
+        token: user.token,
+        cid: user.cid,
+        callSource,
+      },
+      data => this.handleSubmitReply(data, callback)
+    );
+  };
 
-  handleSubmitReply = (data) => {
+  handleSubmitReply = data => {
     // set the AskAstronomer.js [parent] modal to say a success or error message
     const { modalActions } = this.props;
     modalActions.setModal({
       promptComponent: <div>testing 1 2 3</div>,
       promptStyles: customModalStylesBlackOverlay,
-    })
-  }
+    });
+  };
 
   render() {
-    const {
-      avatarURL,
-      isDesktop,
-      user,
-      replyButtonText,
-    } = this.props;
+    const { avatarURL, isDesktop, user, replyButtonText } = this.props;
 
     return (
       <div className="reply-form-container">
@@ -102,7 +102,12 @@ class ReplyButton extends Component {
           {...this.props}
           submitForm={this.submitForm}
           placeholder="Write a public comment"
-          revealButtonRender={btnProps => <Button text={replyButtonText} onClickEvent={btnProps.displayForm} />}
+          revealButtonRender={btnProps => (
+            <Button
+              text={replyButtonText}
+              onClickEvent={btnProps.displayForm}
+            />
+          )}
         />
       </div>
     );

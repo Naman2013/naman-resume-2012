@@ -52,48 +52,42 @@ const MainContainer = ({
           direction="column"
         />
       </DisplayAtBreakpoint>
-      {storyDetails.length > 0 ? <DisplayAtBreakpoint
-        screenMedium
-      >
-        <GridContainer theme={{ marginTop: '25px' }}>
-          <Row>
-            <StaticCell
-              title={storyDetails[0].label}
-              flexScale={['100%']}
-            >
-              <p>{storyDetails[0].text}</p>
-            </StaticCell>
-          </Row>
-          <Row>
-            <StaticCell
-              title={storyDetails[1].label}
-              flexScale={['50%']}
-              hasBorderScale={[false, true, false]}
-            >
-              <p>{storyDetails[1].text}</p>
-            </StaticCell>
-            <StaticCell
-              title={storyDetails[2].label}
-              flexScale={['50%']}
-            >
-              <p>{storyDetails[2].text}</p>
-            </StaticCell>
-          </Row>
-          <Row>
-            <StaticCell flexScale={['100%']}>
-              <HostLongTile
-                hostGravity={authorInfo.gravity}
-                hostName={authorInfo.displayName}
-                hostPhotoURL={authorInfo.iconUrl}
-                hostTitle={authorInfo.gravityLabel}
-                hostURL={authorInfo.linkUrl}
-                isDesktop={isDesktop}
-                title={authorInfo.label}
-              />
-            </StaticCell>
-          </Row>
-        </GridContainer>
-      </DisplayAtBreakpoint> : null}
+      {storyDetails.length > 0 ? (
+        <DisplayAtBreakpoint screenMedium>
+          <GridContainer theme={{ marginTop: '25px' }}>
+            <Row>
+              <StaticCell title={storyDetails[0].label} flexScale={['100%']}>
+                <p>{storyDetails[0].text}</p>
+              </StaticCell>
+            </Row>
+            <Row>
+              <StaticCell
+                title={storyDetails[1].label}
+                flexScale={['50%']}
+                hasBorderScale={[false, true, false]}
+              >
+                <p>{storyDetails[1].text}</p>
+              </StaticCell>
+              <StaticCell title={storyDetails[2].label} flexScale={['50%']}>
+                <p>{storyDetails[2].text}</p>
+              </StaticCell>
+            </Row>
+            <Row>
+              <StaticCell flexScale={['100%']}>
+                <HostLongTile
+                  hostGravity={authorInfo.gravity}
+                  hostName={authorInfo.displayName}
+                  hostPhotoURL={authorInfo.iconUrl}
+                  hostTitle={authorInfo.gravityLabel}
+                  hostURL={authorInfo.linkUrl}
+                  isDesktop={isDesktop}
+                  title={authorInfo.label}
+                />
+              </StaticCell>
+            </Row>
+          </GridContainer>
+        </DisplayAtBreakpoint>
+      ) : null}
       {storyDetails.length > 0 ? (
         <DisplayAtBreakpoint screenMedium>
           <GridContainer theme={{ marginTop: '25px' }}>

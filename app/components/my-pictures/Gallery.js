@@ -14,13 +14,14 @@ const mapStateToProps = ({ user }) => ({
   user,
 });
 
-
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({
-  }, dispatch),
+  actions: bindActionCreators({}, dispatch),
 });
 
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(
+  mapStateToProps,
+  mapDispatchToProps
+)
 class Gallery extends Component {
   static propTypes = {
     imageURL: PropTypes.string.isRequired,
@@ -34,7 +35,7 @@ class Gallery extends Component {
     customerImageId: PropTypes.number,
     shareToken: PropTypes.string,
     isPublicGallery: PropTypes.bool,
-  }
+  };
 
   static defaultProps = {
     created: null,
@@ -45,23 +46,23 @@ class Gallery extends Component {
     customerImageId: null,
     shareToken: '',
     isPublicGallery: false,
-  }
+  };
 
   state = {
     showHoverMenu: false,
-  }
+  };
 
   showMenu = () => {
     this.setState({
       showHoverMenu: true,
     });
-  }
+  };
 
   hideMenu = () => {
     this.setState({
       showHoverMenu: false,
     });
-  }
+  };
 
   render() {
     const {
@@ -76,44 +77,57 @@ class Gallery extends Component {
       customerImageId,
       shareToken,
       user,
-      isPublicGallery
+      isPublicGallery,
     } = this.props;
 
-    const {
-      showHoverMenu
-    } = this.state;
+    const { showHoverMenu } = this.state;
     const createdDate = moment(Number(created) * 1000);
-    const url = isImages || isPublicGallery ? `/my-pictures/gallery/${galleryId}/show-image/${customerImageId}/${shareToken}` : `/my-pictures/galleries/${galleryId}`;
+    const url =
+      isImages || isPublicGallery
+        ? `/my-pictures/gallery/${galleryId}/show-image/${customerImageId}/${shareToken}`
+        : `/my-pictures/galleries/${galleryId}`;
     const hoverStyle = classnames({
-      showMenu: showHoverMenu
+      showMenu: showHoverMenu,
     });
 
     return (
       <div>
-        <Link to={url} className="gallery-container-image" style={{ backgroundImage: `url(${imageURL})` }}>
+        <Link
+          to={url}
+          className="gallery-container-image"
+          style={{ backgroundImage: `url(${imageURL})` }}
+        >
           <div
             className={`innerContainer content ${hoverStyle}`}
             onMouseOver={this.showMenu}
             onMouseLeave={this.hideMenu}
           >
             <div>{imageTitle}</div>
-            {created && <div>Created on {createdDate.format('dddd, MMMM Do YYYY')}</div>}
-            {
-              overlayText && overlayText.map((markdownText, index) => <Markdown key={`markdown-text-${index}`} source={markdownText} />)
-            }
-            {!isPublicGallery && <ul className="photoMenu">
-              <li>
-                <PhotoActions
-                  canShareFlag={canShareFlag}
-                  canEditFlag={canEditFlag}
-                  imageURL={imageURL}
-                  customerImageId={customerImageId}
-                  user={user}
-                  actionSource={isImages ? 'galleryPictures' : 'galleries'}
-                  galleryId={galleryId}
+            {created && (
+              <div>Created on {createdDate.format('dddd, MMMM Do YYYY')}</div>
+            )}
+            {overlayText &&
+              overlayText.map((markdownText, index) => (
+                <Markdown
+                  key={`markdown-text-${index}`}
+                  source={markdownText}
                 />
-              </li>
-            </ul>}
+              ))}
+            {!isPublicGallery && (
+              <ul className="photoMenu">
+                <li>
+                  <PhotoActions
+                    canShareFlag={canShareFlag}
+                    canEditFlag={canEditFlag}
+                    imageURL={imageURL}
+                    customerImageId={customerImageId}
+                    user={user}
+                    actionSource={isImages ? 'galleryPictures' : 'galleries'}
+                    galleryId={galleryId}
+                  />
+                </li>
+              </ul>
+            )}
           </div>
           <style jsx>
             {`
@@ -147,7 +161,7 @@ class Gallery extends Component {
 
               .gallery-container-image:before {
                 display: block;
-                content: "";
+                content: '';
                 width: 100%;
                 padding-top: 68.49%;
               }

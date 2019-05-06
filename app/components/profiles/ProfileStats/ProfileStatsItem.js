@@ -8,9 +8,7 @@ import PropTypes from 'prop-types';
 import Button from '../../common/style/buttons/Button';
 import styles from './ProfileStatsItem.styles';
 
-const {
-  bool, func, string, number,
-} = PropTypes;
+const { bool, func, string, number } = PropTypes;
 
 class ProfileStatsItem extends Component {
   static propTypes = {
@@ -24,9 +22,7 @@ class ProfileStatsItem extends Component {
   renderIcon = () => <div className="profile-stats-icon fa fa-close" />;
 
   render() {
-    const {
-      label, buttonText, onClickEvent, isActive, type,
-    } = this.props;
+    const { label, buttonText, onClickEvent, isActive, type } = this.props;
     return (
       <div className={`profile-stats${isActive ? ' active' : ''}`}>
         <div className="profile-stats-label">{label}</div>

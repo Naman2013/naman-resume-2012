@@ -3,13 +3,18 @@ import PropTypes from 'prop-types';
 import CenterColumn from '../CenterColumn';
 import Medallion from './Medallion';
 import HorizontalRule from './HorizontalRule';
-import { white_tile_paper, golden, golda } from '../../../styles/variables/colors_tiles_v4';
+import {
+  white_tile_paper,
+  golden,
+  golda,
+} from '../../../styles/variables/colors_tiles_v4';
 import style from './TiaraTitleSection.style';
 
 const TiaraTitleSection = ({ preTitle, title, iconURL }) => (
   <div className="root">
     <div className="center-line" />
-    <CenterColumn theme={{
+    <CenterColumn
+      theme={{
         background: `url(${white_tile_paper})`,
         position: 'relative',
         zIndex: '10',
@@ -28,7 +33,9 @@ const TiaraTitleSection = ({ preTitle, title, iconURL }) => (
         }}
       />
 
-      <HorizontalRule theme={{ borderTop: `2px solid ${golden}`, top: '6px' }} />
+      <HorizontalRule
+        theme={{ borderTop: `2px solid ${golden}`, top: '6px' }}
+      />
       <HorizontalRule theme={{ borderTop: `1px solid ${golda}`, top: '9px' }} />
 
       <h2 className="title">

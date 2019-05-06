@@ -1,9 +1,9 @@
 /***********************************
-* V4 Common Discussions Board
-*
-*
-*
-***********************************/
+ * V4 Common Discussions Board
+ *
+ *
+ *
+ ***********************************/
 
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
@@ -13,15 +13,7 @@ import { DeviceContext } from 'providers/DeviceProvider';
 import DiscussionsThreads from './DiscussionsThreads';
 import DiscussionComments from './DiscussionComments';
 
-
-const {
-  any,
-  bool,
-  func,
-  number,
-  shape,
-  string,
-} = PropTypes;
+const { any, bool, func, number, shape, string } = PropTypes;
 
 class DiscussionsBoard extends Component {
   static propTypes = {
@@ -65,7 +57,7 @@ class DiscussionsBoard extends Component {
       threadsCount: newThreadsCount,
       displayedThreads,
     });
-  }
+  };
 
   updateCommentsProps = (id, comments, displayed) => {
     this.setState(state => {
@@ -81,17 +73,17 @@ class DiscussionsBoard extends Component {
           newDisplayedComments[id] = displayed;
         }
       }
-      return ({
+      return {
         commentsList: newCommentsList,
         displayedComments: newDisplayedComments,
-      })
+      };
     });
-  }
+  };
 
-  toggleThreadComments = (threadId) => {
+  toggleThreadComments = threadId => {
     const { threadsList } = this.state;
     let newThreadsList = [].concat(threadsList);
-    newThreadsList = newThreadsList.map((thread) => {
+    newThreadsList = newThreadsList.map(thread => {
       const newThread = Object.assign({}, thread);
       if (newThread.threadId === threadId) {
         newThread.showComments = !newThread.showComments;
@@ -101,13 +93,13 @@ class DiscussionsBoard extends Component {
     this.setState({
       threadsList: newThreadsList,
     });
-  }
+  };
 
   toggleCommentsReplies = (threadId, replyId) => {
     const { commentsList } = this.state;
     const newCommentsList = Object.assign({}, commentsList);
     let comments = newCommentsList[threadId] || [];
-    comments = comments.map((reply) => {
+    comments = comments.map(reply => {
       const newReply = Object.assign({}, reply);
       if (newReply.replyId === replyId) {
         newReply.showComments = !newReply.showComments;
@@ -120,7 +112,7 @@ class DiscussionsBoard extends Component {
     this.setState({
       commentsList: newCommentsList,
     });
-  }
+  };
 
   render() {
     const {
@@ -158,34 +150,38 @@ class DiscussionsBoard extends Component {
             <DeviceContext.Consumer>
               {context => (
                 <Fragment>
-                  {topLevelThread ? <DiscussionsThreads
-                    validateResponseAccess={validateResponseAccess}
-                    discussions={this.state}
-                    discussionsActions={discussionsActions}
-                    errorMessage={errorMessage}
-                    callSource={callSource}
-                    count={count}
-                    page={page}
-                    topicId={topicId}
-                    forumId={forumId}
-                    user={user}
-                    createThread={createThread}
-                    createThreadFormParams={createThreadFormParams}
-                    {...context}
-                  /> : <DiscussionComments
-                    validateResponseAccess={validateResponseAccess}
-                    discussions={this.state}
-                    discussionsActions={discussionsActions}
-                    errorMessage={errorMessage}
-                    callSource={callSource}
-                    count={count}
-                    threadId={threadId}
-                    formPlaceholder="Write a public comment"
-                    page={page}
-                    topicId={topicId}
-                    forumId={forumId}
-                    user={user}
-                   />}
+                  {topLevelThread ? (
+                    <DiscussionsThreads
+                      validateResponseAccess={validateResponseAccess}
+                      discussions={this.state}
+                      discussionsActions={discussionsActions}
+                      errorMessage={errorMessage}
+                      callSource={callSource}
+                      count={count}
+                      page={page}
+                      topicId={topicId}
+                      forumId={forumId}
+                      user={user}
+                      createThread={createThread}
+                      createThreadFormParams={createThreadFormParams}
+                      {...context}
+                    />
+                  ) : (
+                    <DiscussionComments
+                      validateResponseAccess={validateResponseAccess}
+                      discussions={this.state}
+                      discussionsActions={discussionsActions}
+                      errorMessage={errorMessage}
+                      callSource={callSource}
+                      count={count}
+                      threadId={threadId}
+                      formPlaceholder="Write a public comment"
+                      page={page}
+                      topicId={topicId}
+                      forumId={forumId}
+                      user={user}
+                    />
+                  )}
                 </Fragment>
               )}
             </DeviceContext.Consumer>
@@ -195,7 +191,5 @@ class DiscussionsBoard extends Component {
     );
   }
 }
-
-
 
 export default DiscussionsBoard;

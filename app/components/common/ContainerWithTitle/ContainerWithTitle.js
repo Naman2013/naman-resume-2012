@@ -8,9 +8,7 @@ import PropTypes from 'prop-types';
 import UnderlineNav from '../UnderlineNav';
 import styles from './ContainerWithTitle.styles';
 
-const {
-  string, shape, bool, arrayOf,
-} = PropTypes;
+const { string, shape, bool, arrayOf } = PropTypes;
 
 export class ContainerWithTitle extends Component {
   static defaultProps = {
@@ -26,10 +24,12 @@ export class ContainerWithTitle extends Component {
     theme: shape({}),
     showNavigation: bool,
     activeFilter: string,
-    navItems: arrayOf(shape({
-      label: string,
-      linkURL: string,
-    })),
+    navItems: arrayOf(
+      shape({
+        label: string,
+        linkURL: string,
+      })
+    ),
     parentPath: string,
   };
 

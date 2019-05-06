@@ -29,13 +29,14 @@ export default css`
   .bottom {
     transform: rotate(180deg);
     bottom: 0;
-    left:0;
+    left: 0;
   }
 
-  .top-left {}
-  .top-right { transform: rotate(90deg) }
-
-
+  .top-left {
+  }
+  .top-right {
+    transform: rotate(90deg);
+  }
 
   .title {
     margin: 0;

@@ -3,13 +3,12 @@ import { shadows, lynch, seashell } from 'app/styles/variables/colors_tiles_v4';
 import { primaryFont } from 'app/styles/variables/fonts';
 import { faintShadow } from 'app/styles/variables/shadows';
 export default css`
-
   .root {
     display: flex;
     flex-direction: row;
     font-size: 13px;
     font-family: Arial, sans-serif;
-    backgroundColor: ${seashell};
+    backgroundcolor: ${seashell};
     ${faintShadow}
     padding: 15px;
     justify-content: space-between;
@@ -37,7 +36,8 @@ export default css`
     border-right: 1px solid ${shadows};
   }
 
-  li:last-child .action, .social {
+  li:last-child .action,
+  .social {
     border-right: 0;
   }
 `;

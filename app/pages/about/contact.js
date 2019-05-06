@@ -5,13 +5,16 @@ import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import InputField from '../../components/form/InputField';
 import TextareaField from '../../components/form/TextareaField';
-import { createValidator, required, maxLength } from '../../modules/utils/validation';
+import {
+  createValidator,
+  required,
+  maxLength,
+} from '../../modules/utils/validation';
 import { contact } from '../../modules/Contact';
 // import styles from '../styles/login.scss';
 const { bool, func, string } = PropTypes;
 
 class Contact extends Component {
-
   static propTypes = {
     contact: func.isRequired,
     handleSubmit: func.isRequired,
@@ -27,7 +30,6 @@ class Contact extends Component {
           <header className="margin-bottom-reg" />
 
           <form name="contact" onSubmit={handleSubmit(contact)}>
-
             <fieldset className="form-group pull-left half-width-margin required">
               <Field
                 name="firstName"
@@ -79,14 +81,14 @@ class Contact extends Component {
             </fieldset>
 
             {contactFormError && <strong>{contactFormError}</strong>}
-            {!contactFormError && isSent && <strong>Message successfully sent.</strong>}
+            {!contactFormError && isSent && (
+              <strong>Message successfully sent.</strong>
+            )}
 
             <footer>
-              <button className="btn-primary" >Submit Message</button>
+              <button className="btn-primary">Submit Message</button>
             </footer>
           </form>
-
-
         </article>
       </section>
     );
@@ -109,7 +111,12 @@ const loginValidation = createValidator({
   subject: [maxLength(100)],
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
-  form: 'contact',
-  validate: loginValidation,
-})(Contact));
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(
+  reduxForm({
+    form: 'contact',
+    validate: loginValidation,
+  })(Contact)
+);

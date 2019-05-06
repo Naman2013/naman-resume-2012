@@ -1,19 +1,31 @@
 import css from 'styled-jsx/css';
 import { primaryFont, secondaryFont } from '../../../styles/variables/fonts';
-import { hawkesBlue, astronaut, shadows, romance, midnight_express, geyser, lightHeadedAstronaut, faintGray } from '../../../styles/variables/colors_tiles_v4';
-import { screenMedium, screenLarge, screenXLarge } from '../../../styles/variables/breakpoints';
+import {
+  hawkesBlue,
+  astronaut,
+  shadows,
+  romance,
+  midnight_express,
+  geyser,
+  lightHeadedAstronaut,
+  faintGray,
+} from '../../../styles/variables/colors_tiles_v4';
+import {
+  screenMedium,
+  screenLarge,
+  screenXLarge,
+} from '../../../styles/variables/breakpoints';
 
 export default css`
-
   .ask-question-tile {
-    box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.1);
+    box-shadow: 0px 0px 3px 1px rgba(0, 0, 0, 0.1);
     margin: 10px;
     width: calc(100% - 20px);
     padding: 40px;
     background-color: ${romance};
     font-size: 18px;
     font-family: ${secondaryFont};
-    color: #616E7D;
+    color: #616e7d;
   }
 
   .ask-question-tile .dek {
@@ -123,9 +135,7 @@ export default css`
     transform: translate(-50%, -50%);
   }
 
-
   @media ${screenMedium} {
-
     .ask-question-tile {
       width: 100%;
       display: flex;

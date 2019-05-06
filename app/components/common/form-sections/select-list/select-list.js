@@ -5,21 +5,10 @@ import uniqueId from 'lodash/uniqueId';
 import SelectListOption from './select-list-option';
 import styles from './select-list.style';
 
-const {
-  arrayOf,
-  func,
-  shape,
-  string,
-} = PropTypes;
+const { arrayOf, func, shape, string } = PropTypes;
 
-
-const SelectList = (props) => {
-  const {
-    name,
-    handleSelectChange,
-    options,
-    selectedValue,
-  } = props;
+const SelectList = props => {
+  const { name, handleSelectChange, options, selectedValue } = props;
   return (
     <div className="root">
       {options.map((opt, index) => {
@@ -44,7 +33,7 @@ const SelectList = (props) => {
               {opt.label}
             </label>
           </div>
-        )
+        );
       })}
       <style jsx>{styles}</style>
     </div>
@@ -52,10 +41,12 @@ const SelectList = (props) => {
 };
 
 SelectList.propTypes = {
-  options: arrayOf(shape({
-    label: string.isRequired,
-    value: string.isRequired,
-  })),
+  options: arrayOf(
+    shape({
+      label: string.isRequired,
+      value: string.isRequired,
+    })
+  ),
   name: string.isRequired,
   selectedValue: string,
   handleSelectChange: func.isRequired,

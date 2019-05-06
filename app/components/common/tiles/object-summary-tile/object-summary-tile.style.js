@@ -1,6 +1,10 @@
 import css from 'styled-jsx/css';
 import { primaryFont, secondaryFont } from 'app/styles/variables/fonts';
-import { astronaut, hawkesBlue, blue_tile_feat } from 'app/styles/variables/colors_tiles_v4';
+import {
+  astronaut,
+  hawkesBlue,
+  blue_tile_feat,
+} from 'app/styles/variables/colors_tiles_v4';
 import { faintShadow } from 'app/styles/variables/shadows';
 
 export default css`
@@ -56,7 +60,8 @@ export default css`
     margin: 0 auto;
   }
 
-  .attribute-list, .action-list {
+  .attribute-list,
+  .action-list {
     list-style-type: none;
     margin: 0;
     padding: 0;

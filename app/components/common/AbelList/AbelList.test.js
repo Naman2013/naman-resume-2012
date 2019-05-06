@@ -3,7 +3,11 @@ import { shallow } from 'enzyme';
 import AbelList from './AbelList';
 
 describe('AbelList', () => {
-  const sampleList = ['Contains 10 objects', 'category guide', 'beginners and up'];
+  const sampleList = [
+    'Contains 10 objects',
+    'category guide',
+    'beginners and up',
+  ];
   const shallowWrapper = shallow(<AbelList list={sampleList} />);
 
   it('should render correctly', () => {

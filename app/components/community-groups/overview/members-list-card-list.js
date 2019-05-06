@@ -1,9 +1,9 @@
 /***********************************
-* V4 Community Groups Member list
-*
-*
-*
-***********************************/
+ * V4 Community Groups Member list
+ *
+ *
+ *
+ ***********************************/
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
@@ -11,21 +11,16 @@ import uniqueId from 'lodash/uniqueId';
 import MembersListCard from './members-list-card';
 import styles from './members-list.style';
 
-const {
-  bool,
-  func,
-  string,
-} = PropTypes;
+const { bool, func, string } = PropTypes;
 
-const GroupMembersCardList = ({
-  list,
-}) => (
+const GroupMembersCardList = ({ list }) => (
   <div className="">
-    {list.map(listItem => <MembersListCard {...listItem} key={uniqueId()} />)}
+    {list.map(listItem => (
+      <MembersListCard {...listItem} key={uniqueId()} />
+    ))}
     <style jsx>{styles}</style>
   </div>
 );
-
 
 GroupMembersCardList.propTypes = {
   // isDesktop: bool.isRequired,

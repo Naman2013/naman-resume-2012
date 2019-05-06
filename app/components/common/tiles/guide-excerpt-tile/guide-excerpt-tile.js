@@ -20,19 +20,37 @@ const GuideTile = ({
   updateReadingInfoInList,
   withinReletedSection,
 }) => (
-  <div className="guide-tile-root" style={withinReletedSection && { height: '200px', padding: '20px' }}>
-    <div className="title" dangerouslySetInnerHTML={{ __html: guideReferenceTitle }} />
-    <div className="sub-title" dangerouslySetInnerHTML={{ __html: guideAuthor }} />
-    <div className="description" dangerouslySetInnerHTML={{ __html: shortDescription }} />
+  <div
+    className="guide-tile-root"
+    style={withinReletedSection && { height: '200px', padding: '20px' }}
+  >
+    <div
+      className="title"
+      dangerouslySetInnerHTML={{ __html: guideReferenceTitle }}
+    />
+    <div
+      className="sub-title"
+      dangerouslySetInnerHTML={{ __html: guideAuthor }}
+    />
+    <div
+      className="description"
+      dangerouslySetInnerHTML={{ __html: shortDescription }}
+    />
     <div className="actions">
-      <Button theme={{ height: 'fit-content' }} text={linkLabel} onClickEvent={() => browserHistory.push(linkUrl)} />
-      {toggleReadingListFlag ? <ToggleReadingList
-        updateReadingInfoInList={updateReadingInfoInList}
-        itemId={guideId}
-        readingListType={readingListType}
-        readingListPrompt={null}
-        promptIconUrl={promptIconUrl}
-      /> : null}
+      <Button
+        theme={{ height: 'fit-content' }}
+        text={linkLabel}
+        onClickEvent={() => browserHistory.push(linkUrl)}
+      />
+      {toggleReadingListFlag ? (
+        <ToggleReadingList
+          updateReadingInfoInList={updateReadingInfoInList}
+          itemId={guideId}
+          readingListType={readingListType}
+          readingListPrompt={null}
+          promptIconUrl={promptIconUrl}
+        />
+      ) : null}
     </div>
     <style jsx>{style}</style>
   </div>

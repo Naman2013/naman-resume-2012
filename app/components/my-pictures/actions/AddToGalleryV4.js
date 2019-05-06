@@ -4,8 +4,15 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import ContextMenu from '../../common/context-menu/ContextMenuV4';
 import GalleryListMenuItem from './GalleryListMenuItem';
-import { fetchGalleries, createGallery, fetchGalleriesCount } from '../../../modules/my-pictures-galleries/actions';
-import { addImageToGallery, resetAddResponse } from '../../../modules/my-pictures-gallery-actions/actions';
+import {
+  fetchGalleries,
+  createGallery,
+  fetchGalleriesCount,
+} from '../../../modules/my-pictures-galleries/actions';
+import {
+  addImageToGallery,
+  resetAddResponse,
+} from '../../../modules/my-pictures-gallery-actions/actions';
 import { togglePublicGallery } from '../../../modules/toggle-public-gallery/actions';
 
 import styles from './AddToGalleryV4.style';
@@ -31,19 +38,24 @@ const mapStateToProps = ({ galleries, galleryActions }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({
-    fetchGalleries,
-    fetchGalleriesCount,
-    createGallery,
-    addImageToGallery,
-    resetAddResponse,
-    togglePublicGallery,
-  }, dispatch),
+  actions: bindActionCreators(
+    {
+      fetchGalleries,
+      fetchGalleriesCount,
+      createGallery,
+      addImageToGallery,
+      resetAddResponse,
+      togglePublicGallery,
+    },
+    dispatch
+  ),
 });
 
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(
+  mapStateToProps,
+  mapDispatchToProps
+)
 class AddToGallery extends Component {
-
   static propTypes = {
     customerImageId: oneOfType([number, string]).isRequired,
     actions: shape({
@@ -60,8 +72,7 @@ class AddToGallery extends Component {
     galleryCreated: bool,
     galleryCreating: bool,
     galleryCreatingError: bool,
-    galleryList: arrayOf(shape({
-    })).isRequired,
+    galleryList: arrayOf(shape({})).isRequired,
     render: node.isRequired,
     className: string,
     isDesktop: bool.isRequired,
@@ -97,50 +108,54 @@ class AddToGallery extends Component {
     newGalleryName: '',
   };
 
-  createGallery = (event) => {
+  createGallery = event => {
     event.preventDefault();
     const { actions } = this.props;
     const { newGalleryName } = this.state;
 
     if (!newGalleryName) return;
-    actions.createGallery({
-      title: newGalleryName,
-    }).then((res) => {
-      if (!res.payload.apiError) {
-        actions.fetchGalleriesCount({});
-      }
-      this.setState({
-        newGalleryName: '',
+    actions
+      .createGallery({
+        title: newGalleryName,
+      })
+      .then(res => {
+        if (!res.payload.apiError) {
+          actions.fetchGalleriesCount({});
+        }
+        this.setState({
+          newGalleryName: '',
+        });
       });
-    });
-  }
+  };
 
-  updateNewGalleryName = (e) => {
+  updateNewGalleryName = e => {
     this.setState({
       newGalleryName: e.target.value,
     });
-  }
+  };
 
   addToGalleryAndReset = ({ galleryId, customerImageId }) => {
     const { actions } = this.props;
 
-    actions.addImageToGallery({
-      galleryId,
-      customerImageId,
-    }).then(() => actions.fetchGalleriesCount({}));
+    actions
+      .addImageToGallery({
+        galleryId,
+        customerImageId,
+      })
+      .then(() => actions.fetchGalleriesCount({}));
 
     setTimeout(() => {
       actions.resetAddResponse();
     }, 5000);
-  }
+  };
 
-  onKeyPress = (e) => {
+  onKeyPress = e => {
     if (e.key === 'Enter') {
       this.createGallery(e);
     }
-  }
+  };
 
-  toggleMenu = (e) => {
+  toggleMenu = e => {
     const { actions } = this.props;
     e.preventDefault();
     e.stopPropagation();
@@ -150,19 +165,19 @@ class AddToGallery extends Component {
     }
 
     actions.resetAddResponse();
-  }
+  };
 
   fetchGalleries = () => {
     const { actions } = this.props;
     actions.fetchGalleries({
       noFilters: true,
     });
-  }
+  };
 
-  forceFocus = (e) => {
+  forceFocus = e => {
     e.preventDefault();
     this._createInput.focus();
-  }
+  };
 
   togglePublicGalleryIcon = (e, galleryId) => {
     e.preventDefault();
@@ -171,7 +186,7 @@ class AddToGallery extends Component {
     this.props.actions.togglePublicGallery({
       galleryId,
     });
-  }
+  };
 
   render() {
     const {
@@ -188,68 +203,74 @@ class AddToGallery extends Component {
       asideMenuWidth,
     } = this.props;
 
-    const {
-      newGalleryName,
-    } = this.state;
+    const { newGalleryName } = this.state;
 
     let leftOffset = -45;
 
     if (isDesktop) {
-      leftOffset = 0 || (index) % 3 === 0 ? asideMenuWidth : leftOffset;
+      leftOffset = 0 || index % 3 === 0 ? asideMenuWidth : leftOffset;
     } else {
-      leftOffset = (index === 0 || index % 2 === 0) ? asideMenuWidth : leftOffset;
+      leftOffset = index === 0 || index % 2 === 0 ? asideMenuWidth : leftOffset;
     }
 
     return (
       <div className={`action-menu-container ${className && className}`}>
         <ContextMenu
           className="add-gallery-context-menu"
-          ref={(c) => { this.contextTrigger = c; }}
+          ref={c => {
+            this.contextTrigger = c;
+          }}
           menuWidth={250}
           onShow={this.fetchGalleries}
           leftOffset={leftOffset}
           titleText="Select A Gallery Below"
         >
-          {fetchGalleriesLoading && <div className="loading">
-              Loading your galleries
+          {fetchGalleriesLoading && (
+            <div className="loading">Loading your galleries</div>
+          )}
+          {!fetchGalleriesLoading && (
+            <div className="rest-of-list">
+              <div className="create-gallery">
+                <button className="action-create" onClick={this.createGallery}>
+                  <span className="fa fa-plus" />
+                </button>
+                {galleryCreating && <span>Creating your gallery...</span>}
+                {!galleryCreating && (
+                  <input
+                    className="name-input"
+                    onClick={e => e.preventDefault()}
+                    onKeyPress={this.onKeyPress}
+                    onMouseDown={this.forceFocus}
+                    type="text"
+                    placeholder="Type Here to Create Gallery"
+                    value={newGalleryName}
+                    onChange={this.updateNewGalleryName}
+                    ref={input => {
+                      this._createInput = input;
+                    }}
+                  />
+                )}
+                {galleryCreatingError && (
+                  <span>Your gallery could not be created</span>
+                )}
+              </div>
+              <GalleryListMenuItem
+                galleryList={galleryList}
+                togglePublicGallery={this.togglePublicGalleryIcon}
+                customerImageId={customerImageId}
+                galleryAction={this.addToGalleryAndReset}
+                loading={addToGalleryState.loading}
+                response={addToGalleryState.response}
+                currentGalleryId={addToGalleryState.galleryId}
+              />
             </div>
-          }
-          {!fetchGalleriesLoading && <div className="rest-of-list">
-            <div className="create-gallery">
-              <button className="action-create" onClick={this.createGallery}>
-                <span className="fa fa-plus" />
-              </button>
-              {galleryCreating && <span>Creating your gallery...</span>}
-              {!galleryCreating && <input
-                className="name-input"
-                onClick={e => e.preventDefault()}
-                onKeyPress={this.onKeyPress}
-                onMouseDown={this.forceFocus}
-                type="text"
-                placeholder="Type Here to Create Gallery"
-                value={newGalleryName}
-                onChange={this.updateNewGalleryName}
-                ref={(input) => { this._createInput = input; }}
-              />}
-              {galleryCreatingError && <span>Your gallery could not be created</span>}
-            </div>
-            <GalleryListMenuItem
-              galleryList={galleryList}
-              togglePublicGallery={this.togglePublicGalleryIcon}
-              customerImageId={customerImageId}
-              galleryAction={this.addToGalleryAndReset}
-              loading={addToGalleryState.loading}
-              response={addToGalleryState.response}
-              currentGalleryId={addToGalleryState.galleryId}
-            />
-          </div>}
+          )}
         </ContextMenu>
 
         {render(this.toggleMenu)}
 
         <style jsx>{styles}</style>
       </div>
-
     );
   }
 }
