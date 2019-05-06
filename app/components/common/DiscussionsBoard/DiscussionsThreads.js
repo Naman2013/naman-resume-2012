@@ -1,18 +1,19 @@
 /***********************************
-* V4 Discussions Board Thread List
-*
-*
-*
-***********************************/
+ * V4 Discussions Board Thread List
+ *
+ *
+ *
+ ***********************************/
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import { FormattedMessage } from 'react-intl';
+import take from 'lodash/take';
+import { submitReply } from 'app/services/discussions/submit-reply';
+import { THREAD_LIST, THREAD_REPLIES } from 'app/services/discussions';
 import DiscussionsItem from './DiscussionsItem';
 import CREATE_THREAD_FORM from './DiscussionsThreadFormInterface';
-import { submitReply } from 'services/discussions/submit-reply';
-import { THREAD_LIST } from 'services/discussions';
 import styles from './DiscussionsBoard.style';
 import messages from './DiscussionsThreads.messages';
 
@@ -50,7 +51,7 @@ class DiscussionsThreads extends Component {
       token: oneOfType([number, string]),
       cid: oneOfType([number, string]),
     }).isRequired,
-  }
+  };
 
   static defaultProps = {
     callSource: null,
@@ -64,7 +65,7 @@ class DiscussionsThreads extends Component {
 
   state = {
     fetching: true,
-  }
+  };
 
   componentWillReceiveProps(nextProps) {
     if (this.props.topicId !== nextProps.topicId) {
@@ -86,51 +87,110 @@ class DiscussionsThreads extends Component {
       fetching: true,
     });
 
-    axios.post(THREAD_LIST, {
+    axios
+      .post(THREAD_LIST, {
+        callSource,
+        count,
+        page: 1,
+        topicId,
+        at: user.at,
+        token: user.token,
+        cid: user.cid,
+      })
+      .then(res => {
+        validateResponseAccess(res);
+        if (!res.data.apiError) {
+          const { threads, threadCount } = res.data;
+          let newThreads = [].concat(threads);
+          newThreads = newThreads.map(thread => {
+            const currentThread = Object.assign({}, thread);
+            currentThread.showComments = false;
+            currentThread.page = 1;
+            currentThread.key = currentThread.threadId;
+            return currentThread;
+          });
+          updateThreadsProps(newThreads, threadCount);
+        }
+
+        this.setState({
+          fetching: false,
+        });
+      });
+  };
+
+  getReplies = (threadId, replyTo) => {
+    const {
       callSource,
       count,
-      page: 1,
       topicId,
-      at: user.at,
-      token: user.token,
-      cid: user.cid,
-    }).then((res) => {
-      validateResponseAccess(res);
-      if (!res.data.apiError) {
-        const { threads, threadCount } = res.data;
-        let newThreads = [].concat(threads);
-        newThreads = newThreads.map((thread) => {
-          const currentThread = Object.assign({}, thread);
-          currentThread.showComments = false;
-          currentThread.page = 1;
-          currentThread.key = currentThread.threadId;
-          return currentThread;
-        });
-        updateThreadsProps(newThreads, threadCount);
-      }
-
-      this.setState({
-        fetching: false,
-      });
-    });
-  }
-
-  createThread = (params) => {
-    const {
-      createThread,
+      forumId,
+      //threadId,
+      validateResponseAccess,
+      user,
+      discussions: { commentsList },
+      discussionsActions: { updateCommentsProps },
     } = this.props;
-    return createThread(params).then((res) => {
+
+    axios
+      .post(THREAD_REPLIES, {
+        callSource,
+        topicId,
+        threadId,
+        forumId,
+        replyTo: replyTo || threadId, // should be threadId
+        page: 1,
+        at: user.at,
+        token: user.token,
+        cid: user.cid,
+      })
+      .then(res => {
+        validateResponseAccess(res);
+        if (!res.data.apiError) {
+          const { replies } = res.data;
+          const newReplies = replies.map((reply, index) => {
+            const currentReply = Object.assign({}, reply);
+            currentReply.page = 1;
+            if (
+              commentsList[threadId] &&
+              commentsList[threadId][index]?.replyId === currentReply.replyId
+            ) {
+              currentReply.showComments =
+                commentsList[threadId][index].showComments;
+            }
+            if (
+              replyTo === currentReply.replyId ||
+              threadId === currentReply.replyId
+            ) {
+              currentReply.showComments = true;
+            }
+            currentReply.key = currentReply.replyId;
+            return currentReply;
+          });
+          const displayedComments = take([].concat(replies), count).map(
+            reply => reply.replyId
+          );
+          updateCommentsProps(
+            replyTo || threadId,
+            newReplies,
+            displayedComments
+          );
+        }
+      });
+  };
+
+  createThread = params => {
+    const { createThread } = this.props;
+    return createThread(params).then(res => {
       if (!res.payload.apiError) {
         this.getThreads(this.props);
       }
 
       return res.payload;
     });
-  }
+  };
 
   handleReply = (params, callback) => {
-    console.log('fasdfas', params);
-    submitReply(params).then((res) => {
+    submitReply(params).then(res => {
       const { apiError, reply } = res.data;
       const { count } = this.props;
       if (!apiError) {
@@ -140,10 +200,10 @@ class DiscussionsThreads extends Component {
         } = this.props;
         let newThreadsList = [].concat(threadsList);
         let page = 1;
-        newThreadsList = newThreadsList.map((thread) => {
+        newThreadsList = newThreadsList.map(thread => {
           const newThread = Object.assign({}, thread);
           if (newThread.threadId === params.threadId) {
-            newThread.replyToponlyCount = newThread.replyToponlyCount + 1;
+            newThread.replyToponlyCount += 1;
             if (!newThread.showComments) {
               newThread.showComments = true;
             }
@@ -160,24 +220,33 @@ class DiscussionsThreads extends Component {
         let currentCommentsList = comments[params.threadId] || [];
         currentCommentsList = [].concat(
           currentCommentsList,
-          Object.assign({
-            likesCount: 0,
-            replyToponlyCount: 0,
-            showComments: false,
-            page: 1,
-          }, reply)
+          Object.assign(
+            {
+              likesCount: 0,
+              replyToponlyCount: 0,
+              showComments: false,
+              page: 1,
+            },
+            reply
+          )
         );
-        const lastPage = (Math.ceil(currentCommentsList.length / count)) || 1;
-        if (page === lastPage) { // if there's only one page of comments, append the new comment to the displayed comments
+        const lastPage = Math.ceil(currentCommentsList.length / count) || 1;
+        if (page === lastPage) {
+          // if there's only one page of comments, append the new comment to the displayed comments
           newDisplayedComments = [].concat(newDisplayedComments, reply.replyId);
         }
-        updateCommentsProps(params.threadId, currentCommentsList, newDisplayedComments);
+        updateCommentsProps(
+          params.threadId,
+          currentCommentsList,
+          newDisplayedComments
+        );
 
         this.getThreads(this.props);
+        this.getReplies(params.threadId);
       }
       callback(res.data);
     });
-  }
+  };
 
   render() {
     const {
@@ -194,49 +263,66 @@ class DiscussionsThreads extends Component {
       validateResponseAccess,
     } = this.props;
     const { fetching } = this.state;
-    console.log('DISCUSSION', discussions);
-    return (<div className="root">
-      {CREATE_THREAD_FORM[callSource].render({
-        ...createThreadFormParams,
-        createThread: this.createThread,
-        isDesktop,
-      })}
-      <div className="comments-bar">
-        <FormattedMessage {...messages.Comments} /> ({discussions.threadsCount})
-      </div>
-      {fetching && <div><FormattedMessage {...messages.Loading} /></div>}
-      {!fetching && discussions.threadsCount === 0 ? <div><FormattedMessage {...messages.NoThreads} /></div> : null}
-      {!fetching && discussions.threadsCount > 0 && <div>
-        {discussions.threadsList.map((thread) => {
-          const likeParams = {
-            forumId,
-            callSource,
-            threadId: thread.threadId,
-            topicId,
-          };
-          return (<DiscussionsItem
-            {...thread}
-            //key={discussions.discussionKey}
-            validateResponseAccess={validateResponseAccess}
-            discussionsActions={discussionsActions}
-            toggleComments={() => discussionsActions.toggleThreadComments(thread.threadId)}
-            discussions={discussions}
-            callSource={callSource}
-            forumId={forumId}
-            isDesktop={isDesktop}
-            key={thread.threadId}
-            likeParams={likeParams}
-            topicId={topicId}
-            count={count}
-            submitReply={this.handleReply}
-            page={thread.page}
-            user={user}
-            getThreads={this.getThreads}
-          />)
+    return (
+      <div className="root">
+        {CREATE_THREAD_FORM[callSource].render({
+          ...createThreadFormParams,
+          createThread: this.createThread,
+          isDesktop,
         })}
-      </div>}
-      <style jsx>{styles}</style>
-    </div>);
+        <div className="comments-bar">
+          <FormattedMessage {...messages.Comments} /> (
+          {discussions.threadsCount})
+        </div>
+        {fetching && (
+          <div>
+            <FormattedMessage {...messages.Loading} />
+          </div>
+        )}
+        {!fetching && discussions.threadsCount === 0 ? (
+          <div>
+            <FormattedMessage {...messages.NoThreads} />
+          </div>
+        ) : null}
+        {!fetching && discussions.threadsCount > 0 && (
+          <div>
+            {discussions.threadsList.map(thread => {
+              const likeParams = {
+                forumId,
+                callSource,
+                threadId: thread.threadId,
+                topicId,
+              };
+              return (
+                <DiscussionsItem
+                  {...thread}
+                  key={discussions.discussionKey}
+                  validateResponseAccess={validateResponseAccess}
+                  discussionsActions={discussionsActions}
+                  toggleComments={() =>
+                    discussionsActions.toggleThreadComments(thread.threadId)
+                  }
+                  discussions={discussions}
+                  callSource={callSource}
+                  forumId={forumId}
+                  isDesktop={isDesktop}
+                  key={thread.threadId}
+                  likeParams={likeParams}
+                  topicId={topicId}
+                  count={count}
+                  submitReply={this.handleReply}
+                  page={thread.page}
+                  user={user}
+                  getThreads={this.getThreads}
+                  getReplies={this.getReplies}
+                />
+              );
+            })}
+          </div>
+        )}
+        <style jsx>{styles}</style>
+      </div>
+    );
   }
 }
 

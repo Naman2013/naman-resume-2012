@@ -80,7 +80,6 @@ class DiscussionsBoard extends Component {
   };
 
   updateCommentsProps = (id, comments, displayed) => {
-    console.log('COMMENTS', comments);
     this.setState(state => {
       const { commentsList, displayedComments } = state;
       const newCommentsList = Object.assign({}, commentsList);
