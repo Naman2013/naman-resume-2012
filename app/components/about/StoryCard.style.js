@@ -19,8 +19,8 @@ export default css`
   }
 
   .story-card {
-    display: flex;  
-    flex-direction: column; 
+    display: flex;
+    flex-direction: column;
     height: 400px;
   }
 

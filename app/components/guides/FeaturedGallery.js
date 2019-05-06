@@ -32,7 +32,7 @@ const FeaturedGallery = props => {
       </DeviceContext.Consumer>
       <style jsx>{style}</style>
     </div>
-  )
+  );
 };
 
 export default FeaturedGallery;

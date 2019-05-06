@@ -5,7 +5,11 @@ import SectionHeader from 'app/components/common/form-sections/section-header';
 import PromptBox from 'app/components/quests/modules/partials/prompt-box';
 import SingleQuestion from 'app/components/common/form-fields/single-question';
 import CircleCharacter from 'app/components/common/medallions/circle-character';
-import { astronaut, geyser, shadows } from 'app/styles/variables/colors_tiles_v4';
+import {
+  astronaut,
+  geyser,
+  shadows,
+} from 'app/styles/variables/colors_tiles_v4';
 
 const { arrayOf, bool, number, shape, string } = PropTypes;
 

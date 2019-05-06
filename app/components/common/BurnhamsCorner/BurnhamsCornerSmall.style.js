@@ -1,12 +1,18 @@
 import css from 'styled-jsx/css';
 import { primaryFont, secondaryFont } from '../../../styles/variables/fonts';
-import { astronaut, lynch, geyser, iron, romance } from '../../../styles/variables/colors_tiles_v4';
+import {
+  astronaut,
+  lynch,
+  geyser,
+  iron,
+  romance,
+} from '../../../styles/variables/colors_tiles_v4';
 
 export default css`
   .bc {
     letter-spacing: 1px;
     background-color: ${romance};
-    box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.2);
+    box-shadow: 0px 0px 3px 1px rgba(0, 0, 0, 0.2);
     color: ${astronaut};
     font-family: ${secondaryFont};
     width: 90%;
@@ -68,6 +74,4 @@ export default css`
   .action-read-more:active {
     outline: none;
   }
-
-
 `;

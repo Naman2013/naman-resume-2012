@@ -11,10 +11,13 @@ import {
   lightHeadedAstronaut,
   faintGray,
 } from '../../styles/variables/colors_tiles_v4';
-import { screenMedium, screenLarge, screenXLarge } from '../../styles/variables/breakpoints';
+import {
+  screenMedium,
+  screenLarge,
+  screenXLarge,
+} from '../../styles/variables/breakpoints';
 
 export default css`
-
   .root {
     background-color: ${seashell};
     padding-top: 50px;
@@ -29,9 +32,7 @@ export default css`
     padding: 50px;
   }
 
-
   @media ${screenMedium} {
-
   }
 
   @media ${screenLarge} {

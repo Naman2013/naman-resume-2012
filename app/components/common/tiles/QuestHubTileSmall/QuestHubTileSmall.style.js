@@ -9,7 +9,6 @@ import {
 import { questShield } from 'app/styles/variables/iconURLs';
 import { faintShadow } from 'app/styles/variables/shadows';
 
-
 export default css`
   .root {
     width: 300px;
@@ -44,7 +43,6 @@ export default css`
     justify-content: center;
     align-items: center;
   }
-
 
   .quest-info {
     position: absolute;
@@ -94,7 +92,6 @@ export default css`
     color: ${astronaut};
     padding: 25px;
   }
-
 
   .quest-info-item {
     width: 50%;

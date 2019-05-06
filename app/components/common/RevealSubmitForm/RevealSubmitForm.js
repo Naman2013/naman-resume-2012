@@ -20,14 +20,7 @@ import { customModalStylesFitContent } from 'app/styles/mixins/utilities';
 import ViewImagesButton from 'app/components/common/style/buttons/ViewImagesButton';
 import styles, { profPic } from './RevealSubmitForm.style';
 import messages from './RevealSubmitForm.messages';
-const {
-  bool,
-  func,
-  instanceOf,
-  number,
-  shape,
-  string,
-} = PropTypes;
+const { bool, func, instanceOf, number, shape, string } = PropTypes;
 
 class RevealSubmitForm extends Component {
   static propTypes = {
@@ -44,7 +37,7 @@ class RevealSubmitForm extends Component {
       token: string,
     }).isRequired,
     intl: intlShape.isRequired,
-  }
+  };
   static defaultProps = {
     imageClass: 'discussion',
     maxLength: null,
@@ -52,7 +45,7 @@ class RevealSubmitForm extends Component {
     revealButtonRender: null,
     submitLabel: 'Post',
     uuid: null,
-  }
+  };
 
   state = {
     formText: '',
@@ -61,32 +54,29 @@ class RevealSubmitForm extends Component {
     uploadError: null,
     uploadLoading: false,
     S3URLs: [],
-  }
+  };
 
-  onTextChange = (e) => {
+  onTextChange = e => {
     this.setState({
       formText: e.target.value,
     });
-  }
+  };
 
-  submitForm = (e) => {
+  submitForm = e => {
     e.preventDefault();
-    const {
-      formText,
-      S3URLs,
-    } = this.state;
+    const { formText, S3URLs } = this.state;
     if (formText.replace(/\s/g, '').length) {
       this.props.submitForm(formText, S3URLs, this.handleSubmit);
     }
-
-  }
+  };
 
   handleSubmit = (error, message) => {
     const { intl } = this.props;
     if (!error) {
       this.setState({
         showPopup: true,
-        modalDescription: message || intl.formatMessage(messages.ResponceSubmittedText),
+        modalDescription:
+          message || intl.formatMessage(messages.ResponceSubmittedText),
         formText: '',
         S3URLs: [],
       });
@@ -96,23 +86,23 @@ class RevealSubmitForm extends Component {
         modalDescription: message || intl.formatMessage(messages.FormIssueText),
       });
     }
-  }
+  };
 
-  displayForm = (e) => {
+  displayForm = e => {
     e.preventDefault();
     this.setState({
       showPopup: true,
       modalDescription: null,
     });
-  }
+  };
 
-  closeModal = (e) => {
+  closeModal = e => {
     this.setState({
       showPopup: false,
     });
-  }
+  };
 
-  handleUploadImage = (event) => {
+  handleUploadImage = event => {
     event.preventDefault();
 
     const { cid, token, at } = this.props.user;
@@ -132,14 +122,18 @@ class RevealSubmitForm extends Component {
 
     setPostImages(data)
       .then(res => this.handleUploadImageResponse(res.data))
-      .catch(err => this.setState({
-        uploadError: err.message,
-        uploadLoading: false,
-      }));
-  }
+      .catch(err =>
+        this.setState({
+          uploadError: err.message,
+          uploadLoading: false,
+        })
+      );
+  };
 
-  handleDeleteImage = (imageURL) => {
-    if (!imageURL) { return; }
+  handleDeleteImage = imageURL => {
+    if (!imageURL) {
+      return;
+    }
 
     const { cid, token, at } = this.props.user;
     const { uuid, imageClass } = this.props;
@@ -152,16 +146,16 @@ class RevealSubmitForm extends Component {
       imageClass,
       imageURL,
     }).then(result => this.handleUploadImageResponse(result.data));
-  }
+  };
 
-  handleUploadImageResponse = (uploadFileData) => {
+  handleUploadImageResponse = uploadFileData => {
     this.setState({
       S3URLs: uploadFileData.S3URLs,
       uploadLoading: false,
     });
-  }
+  };
 
-  render () {
+  render() {
     const {
       maxLength,
       placeholder,
@@ -171,7 +165,7 @@ class RevealSubmitForm extends Component {
       title,
       content,
       intl,
-      avatarURL
+      avatarURL,
     } = this.props;
 
     const {
@@ -184,19 +178,38 @@ class RevealSubmitForm extends Component {
     } = this.state;
     return (
       <div className="root">
-        {revealButtonRender ? revealButtonRender({
-          displayForm: this.displayForm,
-        }) : <div className="fake-input" dangerouslySetInnerHTML={{ __html: placeholder }} onClick={this.displayForm} />}
+        {revealButtonRender ? (
+          revealButtonRender({
+            displayForm: this.displayForm,
+          })
+        ) : (
+          <div
+            className="fake-input"
+            dangerouslySetInnerHTML={{ __html: placeholder }}
+            onClick={this.displayForm}
+          />
+        )}
         <Modal
           ariaHideApp={false}
           isOpen={showPopup}
-          style={{ content: { ...customModalStylesFitContent.content, border: 'none' }, overlay: customModalStylesFitContent.overlay }}
+          style={{
+            content: { ...customModalStylesFitContent.content, border: 'none' },
+            overlay: customModalStylesFitContent.overlay,
+          }}
           contentLabel="Comment"
           onRequestClose={this.closeModal}
         >
-          {modalDescription ? <p className="" dangerouslySetInnerHTML={{ __html: modalDescription }} /> : null}
+          {modalDescription ? (
+            <p
+              className=""
+              dangerouslySetInnerHTML={{ __html: modalDescription }}
+            />
+          ) : null}
           <form className="form">
-            <div className="form-author"><div style={profPic(avatarURL)} />{`${intl.formatMessage(messages.WrittenBy)} ${displayName}`}</div>
+            <div className="form-author">
+              <div style={profPic(avatarURL)} />
+              {`${intl.formatMessage(messages.WrittenBy)} ${displayName}`}
+            </div>
             <div className="form-quote">{title || content}</div>
             <textarea
               className="reveal-form-input"
@@ -206,24 +219,40 @@ class RevealSubmitForm extends Component {
               value={formText}
               placeholder={placeholder}
             />
-            {maxLength ? <div className="flex-right">{formText.length}/<span dangerouslySetInnerHTML={{__html: maxLength }} /></div> : null}
+            {maxLength ? (
+              <div className="flex-right">
+                {formText.length}/
+                <span dangerouslySetInnerHTML={{ __html: maxLength }} />
+              </div>
+            ) : null}
             <div className="flex-container">
               <div className="flex-container">
                 <PhotoUploadButton handleUploadImage={this.handleUploadImage} />
                 {uploadError && <span className="errorMsg">{uploadError}</span>}
-                {(!uploadError && uploadLoading) && <div className="fa fa-spinner" />}
-                {S3URLs.length > 0 ? <ViewImagesButton images={S3URLs} /> : null}
+                {!uploadError && uploadLoading && (
+                  <div className="fa fa-spinner" />
+                )}
+                {S3URLs.length > 0 ? (
+                  <ViewImagesButton images={S3URLs} />
+                ) : null}
               </div>
               <div className="buttons-wrapper">
-                <Button text={intl.formatMessage(messages.Cancel)} onClickEvent={this.closeModal} />
-                <Button theme={{ marginLeft: '10px' }} text={submitLabel} onClickEvent={this.submitForm} />
+                <Button
+                  text={intl.formatMessage(messages.Cancel)}
+                  onClickEvent={this.closeModal}
+                />
+                <Button
+                  theme={{ marginLeft: '10px' }}
+                  text={submitLabel}
+                  onClickEvent={this.submitForm}
+                />
               </div>
             </div>
           </form>
         </Modal>
         <style jsx>{styles}</style>
       </div>
-    )
+    );
   }
 }
 

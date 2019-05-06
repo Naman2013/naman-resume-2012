@@ -15,8 +15,12 @@ export const TYPE = constants('image-details', [
   '~GET_GALLERIES',
   '~CREATE_GALLERY',
   '~ADD_IMAGE_TO_GALLERY',
+
+  // observation submit form
+  '~SET_OBSERVATION_TAGS'
 ]);
 export const ACTION = actions(TYPE);
+
 
 export const initialState = {
   isFetching: false,
@@ -36,6 +40,8 @@ export const initialState = {
     },
     // tagList: [],
   },
+
+  observationTagsError: null,
 };
 
 export default handleActions(
@@ -69,6 +75,11 @@ export default handleActions(
     [TYPE.CREATE_GALLERY]: setGalleriesFetching,
     [TYPE.CREATE_GALLERY_SUCCESS]: addImageToGallerySuccess,
     [TYPE.CREATE_GALLERY_ERROR]: setServerError,
+
+    // OBSERVATION SUBMIT FORM
+    [TYPE.SET_OBSERVATION_TAGS]: setFetching,
+    [TYPE.SET_OBSERVATION_TAGS_SUCCESS]: setObservationTagsSuccess,
+    [TYPE.SET_OBSERVATION_TAGS_ERROR]: setServerError,
   },
   initialState
 );
@@ -83,6 +94,14 @@ function setServerError(state, action) {
     isFetching: false,
     serverError: action.payload,
     isLoded: false,
+  };
+}
+
+function setObservationTagsSuccess(state, action) {
+  return {
+    ...state,
+    isFetching: false,
+    observationTagsError: action.payload.apiError,
   };
 }
 

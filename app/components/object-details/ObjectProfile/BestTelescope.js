@@ -11,11 +11,13 @@ const TELESCOPE_INDEX = 'data-telescope-index';
 
 class BestTelescope extends Component {
   static propTypes = {
-    telescopes: PropTypes.arrayOf(PropTypes.shape({
-      label: PropTypes.string.isRequired,
-      description: PropTypes.string.isRequired,
-      linkUrl: PropTypes.string.isRequired,
-    })),
+    telescopes: PropTypes.arrayOf(
+      PropTypes.shape({
+        label: PropTypes.string.isRequired,
+        description: PropTypes.string.isRequired,
+        linkUrl: PropTypes.string.isRequired,
+      })
+    ),
     visitLabel: PropTypes.string.isRequired,
   };
 
@@ -25,7 +27,7 @@ class BestTelescope extends Component {
     activeTelescope: 0,
   };
 
-  updateActiveTelescope = (event) => {
+  updateActiveTelescope = event => {
     this.setState({
       activeTelescope: parseInt(event.target.getAttribute(TELESCOPE_INDEX), 10),
     });

@@ -32,6 +32,7 @@ import {
   FETCH_IMAGE_DETAILS_START,
   FETCH_IMAGE_DETAILS_FAIL,
   FETCH_IMAGE_DETAILS_SUCCESS,
+  FETCH_SHARED_MEMBER_PHOTOS_SUCCESS,
 } from './actions';
 
 const initialState = {
@@ -155,10 +156,19 @@ const initialState = {
   objectQuests: {},
   objectFollow: {},
   objectSpecialists: {},
-  imageDetails: null,
+  imageDetails: {},
+  sharedMemberPhotos: {},
 };
 
 export default createReducer(initialState, {
+  /* SHARED MEMBER PHOTOS */
+  [FETCH_SHARED_MEMBER_PHOTOS_SUCCESS](state, { payload }) {
+    return {
+      ...state,
+      sharedMemberPhotos: payload,
+    };
+  },
+
   /* DETAILS */
 
   [FETCH_OBJECT_DETAILS_SUCCESS](state, { payload }) {

@@ -15,13 +15,19 @@ function mapStateToProps({ post }) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators({
-      fetchContent,
-    }, dispatch),
+    actions: bindActionCreators(
+      {
+        fetchContent,
+      },
+      dispatch
+    ),
   };
 }
 
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(
+  mapStateToProps,
+  mapDispatchToProps
+)
 class Footer extends Component {
   static defaultProps = {
     communityPosts: [],
@@ -29,14 +35,15 @@ class Footer extends Component {
   };
 
   static propTypes = {
-    communityPosts: PropTypes.arrayOf(PropTypes.shape({
-      postId: PropTypes.number.isRequired,
-      title: PropTypes.string.isRequired,
-      content: PropTypes.string.isRequired,
-      type: PropTypes.string.isRequired,
-    })),
+    communityPosts: PropTypes.arrayOf(
+      PropTypes.shape({
+        postId: PropTypes.number.isRequired,
+        title: PropTypes.string.isRequired,
+        content: PropTypes.string.isRequired,
+        type: PropTypes.string.isRequired,
+      })
+    ),
   };
-
 
   constructor(props) {
     super(props);
@@ -47,21 +54,24 @@ class Footer extends Component {
   }
 
   render() {
-    const {
-      communityPosts,
-    } = this.props;
+    const { communityPosts } = this.props;
 
     return (
       <div className="footer-wrapper">
         <div className="logo-container center">
-          <img alt="Book" className="bookclub-img" src="https://vega.slooh.com/assets/images/bookclub/Space_BookClub_Logo.png" />
+          <img
+            alt="Book"
+            className="bookclub-img"
+            src="https://vega.slooh.com/assets/images/bookclub/Space_BookClub_Logo.png"
+          />
         </div>
         <div className="community-title center">
-          Illuminations&nbsp;&nbsp;|&nbsp;&nbsp;<Link to="/publish-post" className="community-link">Upload your own</Link>
+          Illuminations&nbsp;&nbsp;|&nbsp;&nbsp;
+          <Link to="/publish-post" className="community-link">
+            Upload your own
+          </Link>
         </div>
-        <CommunityPerspectives
-          communityContent={communityPosts}
-        />
+        <CommunityPerspectives communityContent={communityPosts} />
         <style jsx>{`
           a.community-link {
             color: ${pink};

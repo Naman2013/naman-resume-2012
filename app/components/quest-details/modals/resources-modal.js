@@ -16,10 +16,7 @@ const ResourcesModal = ({
   intl,
 }) => (
   <div className="root">
-    <SterlingTitle
-      title={appendixHeader}
-      subTitle={appendixSubheader}
-    />
+    <SterlingTitle title={appendixHeader} subTitle={appendixSubheader} />
     <IntroText desc={appendixText} />
     <GenericButton
       onClickEvent={closeModal}
@@ -39,6 +36,6 @@ ResourcesModal.propTypes = {
 
 ResourcesModal.defaultProps = {
   closeModal: noop,
-}
+};
 
 export default injectIntl(ResourcesModal);

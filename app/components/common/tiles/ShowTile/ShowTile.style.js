@@ -10,7 +10,7 @@ export default css`
     height: 200px;
     box-sizing: border-box;
     padding: 0;
-    box-shadow: 0px 0px 8px 1px rgba(65,86,113,.2);
+    box-shadow: 0px 0px 8px 1px rgba(65, 86, 113, 0.2);
     color: ${romance};
     background: url('https://vega.slooh.com/assets/v4/common/show_card_bg.jpg');
     background-repeat: no-repeat;
@@ -62,7 +62,6 @@ export default css`
     padding: 0 15px;
     color: ${romance};
   }
-
 
   @media ${screenMedium} {
     .root {

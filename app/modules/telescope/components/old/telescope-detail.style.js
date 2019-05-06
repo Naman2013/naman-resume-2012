@@ -15,7 +15,7 @@ export default css`
   .module-set:last-child {
     padding: 0;
   }
-  
+
   .image-wrap {
     margin: -40px -40px 0;
   }

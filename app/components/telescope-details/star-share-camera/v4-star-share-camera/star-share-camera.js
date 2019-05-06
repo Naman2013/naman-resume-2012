@@ -8,7 +8,9 @@ import style from './star-share-camera.style';
 const StarShareCamera = ({ snapImage }) => (
   <div className="star-share-camera-root">
     <ul className="action-list">
-      <li><GenericButton icon={info} /></li>
+      <li>
+        <GenericButton icon={info} />
+      </li>
       <li>
         <GenericButton
           theme={{ width: '60px', height: '60px' }}
@@ -16,7 +18,9 @@ const StarShareCamera = ({ snapImage }) => (
           onClickEvent={snapImage}
         />
       </li>
-      <li><GenericButton icon={info} /></li>
+      <li>
+        <GenericButton icon={info} />
+      </li>
     </ul>
 
     <style jsx>{style}</style>
@@ -28,7 +32,9 @@ StarShareCamera.propTypes = {
 };
 
 StarShareCamera.defaultProps = {
-  snapImage: () => { console.log('WARNING: No snap method provided'); }
+  snapImage: () => {
+    console.log('WARNING: No snap method provided');
+  },
 };
 
 export { StarShareCamera };

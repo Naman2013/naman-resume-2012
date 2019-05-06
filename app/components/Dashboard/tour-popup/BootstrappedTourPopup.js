@@ -11,15 +11,9 @@ import BobbieTileWelcomeToPlan from '../../../components/common/tiles/BobbieTile
 import styles from './BootstrappedTourPopup.styles';
 import messages from './BootstrappedTourPopup.messages';
 
-const {
-  bool,
-  string,
-  shape,
-  func,
-} = PropTypes;
+const { bool, string, shape, func } = PropTypes;
 
 class BootstrappedTourPopup extends Component {
-
   static propTypes = {
     canDismiss: bool,
     dismissText: string,
@@ -59,7 +53,6 @@ class BootstrappedTourPopup extends Component {
     relatedGuide: {},
   };
 
-
   state = {
     showModal: true,
   };
@@ -68,19 +61,17 @@ class BootstrappedTourPopup extends Component {
     this.setState({
       showModal: false,
     });
-  }
+  };
 
   dismissTour = () => {
-    const {
-      validateResponseAccess,
-      user,
-    } = this.props;
+    const { validateResponseAccess, user } = this.props;
 
     this.closeModal();
 
-    axios.post(DASHBOARD_DISMISS_TOUR_POPUP, ...user)
+    axios
+      .post(DASHBOARD_DISMISS_TOUR_POPUP, ...user)
       .then(res => validateResponseAccess(res.data));
-  }
+  };
 
   render() {
     const {
@@ -98,9 +89,7 @@ class BootstrappedTourPopup extends Component {
       relatedGuide,
     } = this.props;
 
-    const {
-      showModal,
-    } = this.state;
+    const { showModal } = this.state;
 
     const { subscriptionPlanName } = user;
 
@@ -123,12 +112,19 @@ class BootstrappedTourPopup extends Component {
             relatedGuide={relatedGuide}
           />
 
-          {hasLink ? <button className="user-btn">
-            <Link to={linkURL}>
-              <span dangerouslySetInnerHTML={{ __html: linkLabel }} />
-            </Link>
-          </button> : null}
-          {canDismiss ? <span onClick={this.dismissTour} dangerouslySetInnerHTML={{ __html: dismissText }} /> : null}
+          {hasLink ? (
+            <button className="user-btn">
+              <Link to={linkURL}>
+                <span dangerouslySetInnerHTML={{ __html: linkLabel }} />
+              </Link>
+            </button>
+          ) : null}
+          {canDismiss ? (
+            <span
+              onClick={this.dismissTour}
+              dangerouslySetInnerHTML={{ __html: dismissText }}
+            />
+          ) : null}
         </Modal>
         <style jsx>{styles}</style>
       </div>

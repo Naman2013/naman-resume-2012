@@ -3,6 +3,7 @@ import { GalleryBtn } from 'app/modules/image-details/components/edit/edit-heade
 import { TagBtn } from 'app/modules/image-details/components/edit/edit-header/tag-btn';
 import { getGalleries } from 'app/modules/image-details/thunks';
 import React, { useState } from 'react';
+import { downloadFile } from 'app/utils/downloadFile';
 import { Button, Col, Row } from 'react-bootstrap';
 import './styles.scss';
 
@@ -13,6 +14,14 @@ export const EditHeader = props => {
   const [isDownloadOpen, setDownloadOpen] = useState(false);
   const [isShareOpen, setShareOpen] = useState(false);
 
+  const onDownloadFile = () => {
+    const { imageDownloadURL, imageDownloadFilename } = props;
+    downloadFile(imageDownloadURL, imageDownloadFilename);
+  };
+
+  const onWriteObservation = () =>
+    window.scrollTo(0, document.body.scrollHeight);
+
   return (
     <Row className="edit-header">
       <Col lg={6} className="header">
@@ -20,7 +29,9 @@ export const EditHeader = props => {
       </Col>
       <Col lg={6}>
         <div className="float-right">
-          <Button>Write Observation</Button>
+          <Button onClick={() => onWriteObservation()}>
+            Write Observation
+          </Button>
 
           <TagBtn {...props} />
 
@@ -31,9 +42,9 @@ export const EditHeader = props => {
             tooltip="Download"
             icon={<span className="icon-download" />}
             popover={
-              <div>
-                <h1>Download</h1>
-              </div>
+              <Button block onClick={() => onDownloadFile()}>
+                Download
+              </Button>
             }
           />
 

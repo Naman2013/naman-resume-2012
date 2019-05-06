@@ -10,10 +10,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { injectIntl, intlShape } from 'react-intl';
 
-import {
-  RELATED_GUIDES,
-  RELATED_SHOWS,
-} from 'app/services/events';
+import { RELATED_GUIDES, RELATED_SHOWS } from 'app/services/events';
 import RelatedGuides from '../../../components/RelatedGuides';
 import RelatedShows from '../../../components/RelatedShows';
 import RelatedStories from '../../../components/RelatedStories';

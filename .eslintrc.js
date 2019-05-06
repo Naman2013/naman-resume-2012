@@ -15,6 +15,7 @@ module.exports = {
     'linebreak-style': 0,
     'curly': ['error'],
     'prefer-const': 0,
+    'react/require-default-props': 0,
     'spaced-comment': 0,
     'padded-blocks': 0,
     'import/imports-first': 0,

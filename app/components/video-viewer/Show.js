@@ -3,8 +3,10 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import moment from 'moment';
 import { white, pink } from '../../styles/variables/colors';
-import { aspectRatio, backgroundImageCover } from '../../styles/mixins/utilities';
-
+import {
+  aspectRatio,
+  backgroundImageCover,
+} from '../../styles/mixins/utilities';
 
 class Show extends Component {
   constructor(props) {
@@ -12,60 +14,73 @@ class Show extends Component {
   }
 
   render() {
-    const { eventImageURL, eventStart, eventIconURL, eventTitle, eventShortDescription, textSize } = this.props;
+    const {
+      eventImageURL,
+      eventStart,
+      eventIconURL,
+      eventTitle,
+      eventShortDescription,
+      textSize,
+    } = this.props;
     const inlineShowStyle = {
       backgroundImage: `url(${decodeURIComponent(eventImageURL)})`,
     };
-    const t = Number(eventStart)*1000;
-    const showStartDate = `${moment(t).format('dddd, MMMM D, YYYY h:mmA z')} ${moment.tz(t, 'America/New_York').zoneAbbr()}`;
+    const t = Number(eventStart) * 1000;
+    const showStartDate = `${moment(t).format(
+      'dddd, MMMM D, YYYY h:mmA z'
+    )} ${moment.tz(t, 'America/New_York').zoneAbbr()}`;
     return (
       <div className="photoRoot">
         <div className="photoLink" style={inlineShowStyle}>
-        <div className="inner-show-content content">
-          <h3 className="show-title">{eventTitle}</h3>
-          <h5>{showStartDate}</h5>
-          {/*}<img className="show-icon" src={decodeURIComponent(eventIconURL)} />*/}
-        </div>
+          <div className="inner-show-content content">
+            <h3 className="show-title">{eventTitle}</h3>
+            <h5>{showStartDate}</h5>
+            {/*}<img className="show-icon" src={decodeURIComponent(eventIconURL)} />*/}
+          </div>
           <div className="innerPhotoContainer content">
             <h3 className="show-title">{eventTitle}</h3>
             <h5>{showStartDate}</h5>
             <div className="show-content">
-              <span style={{ fontSize: textSize || 'inherit' }} dangerouslySetInnerHTML={{ __html: eventShortDescription }} />
+              <span
+                style={{ fontSize: textSize || 'inherit' }}
+                dangerouslySetInnerHTML={{ __html: eventShortDescription }}
+              />
             </div>
           </div>
         </div>
         <style jsx>{`
-            .inner-show-content {
-              width: 100%;
-              height: 100%;
-              background: rgba(0, 0, 0, 0.5);
-              color: ${white};
-              padding: 20px;
-              opacity: 1;
-            }
+          .inner-show-content {
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            color: ${white};
+            padding: 20px;
+            opacity: 1;
+          }
 
-            .photoLink:hover .inner-show-content {
-              opacity: 0;
-            }
-            .show-title {
-              color: ${white};
-              line-height: 1.2;
-              margin-bottom: 10px;
-              font-weight: bold;
-            }
+          .photoLink:hover .inner-show-content {
+            opacity: 0;
+          }
+          .show-title {
+            color: ${white};
+            line-height: 1.2;
+            margin-bottom: 10px;
+            font-weight: bold;
+          }
 
-            .show-icon {
-              display: block;
-              margin: 25px auto;
-              height: 75px;
-              width: 75px;
-            }
+          .show-icon {
+            display: block;
+            margin: 25px auto;
+            height: 75px;
+            width: 75px;
+          }
 
-            .show-content {
-              padding-top: 5px;
-            }
-            .action {}
-          `}</style>
+          .show-content {
+            padding-top: 5px;
+          }
+          .action {
+          }
+        `}</style>
       </div>
     );
   }

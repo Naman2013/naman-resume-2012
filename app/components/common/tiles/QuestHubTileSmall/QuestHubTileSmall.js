@@ -3,7 +3,14 @@ import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import style from './QuestHubTileSmall.style';
 
-const QuestHubTileSmall = ({ linkUrl, questType, questDifficulty, iconURL, title, anchorText }) => (
+const QuestHubTileSmall = ({
+  linkUrl,
+  questType,
+  questDifficulty,
+  iconURL,
+  title,
+  anchorText,
+}) => (
   <div className="root">
     <Link to={linkUrl}>
       <div className="main-container">
@@ -19,7 +26,13 @@ const QuestHubTileSmall = ({ linkUrl, questType, questDifficulty, iconURL, title
         <div className="right-container">
           <div className="icon-container">
             <div className="blue-shield" />
-            <img className="icon-content" alt="" width="40" height="40" src={iconURL} />
+            <img
+              className="icon-content"
+              alt=""
+              width="40"
+              height="40"
+              src={iconURL}
+            />
           </div>
         </div>
       </div>
@@ -29,8 +42,8 @@ const QuestHubTileSmall = ({ linkUrl, questType, questDifficulty, iconURL, title
 );
 
 QuestHubTileSmall.propTypes = {
-   questType: PropTypes.string.isRequired,
-   questDifficulty: PropTypes.string.isRequired,
+  questType: PropTypes.string.isRequired,
+  questDifficulty: PropTypes.string.isRequired,
   linkUrl: PropTypes.string.isRequired,
   iconURL: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,

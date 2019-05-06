@@ -161,7 +161,6 @@ CardObsLarge.propTypes = {
   showLikePrompt: PropTypes.bool.isRequired,
   user: PropTypes.shape({}).isRequired,
   handleLike: PropTypes.func.isRequired,
-  customerImageId: PropTypes.number.isRequired,
 };
 
 export default injectIntl(CardObsLarge);

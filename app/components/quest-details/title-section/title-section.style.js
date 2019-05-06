@@ -15,9 +15,7 @@ import {
   screenLarge,
   screenXLarge,
 } from '../../../styles/variables/breakpoints';
-import {
-  questShield,
-} from '../../../styles/variables/iconURLs';
+import { questShield } from '../../../styles/variables/iconURLs';
 
 export default css`
   .root {

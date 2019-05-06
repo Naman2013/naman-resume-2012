@@ -83,8 +83,8 @@ export default css`
     height: 11px;
     margin: auto;
     content: '';
-    background: url('https://vega.slooh.com/assets/v4/common/icon_navarrow_blue.svg') no-repeat
-      center center;
+    background: url('https://vega.slooh.com/assets/v4/common/icon_navarrow_blue.svg')
+      no-repeat center center;
   }
 
   :global(.react-tabs__tab-list li):last-of-type {

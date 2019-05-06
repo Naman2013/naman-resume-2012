@@ -27,7 +27,9 @@ const MoonlightConditions = () => (
       <GenericButton
         theme={{ width: '100%' }}
         text="View our guide"
-        onClickEvent={() => { console.log('Click'); }}
+        onClickEvent={() => {
+          console.log('Click');
+        }}
       />
     </div>
 

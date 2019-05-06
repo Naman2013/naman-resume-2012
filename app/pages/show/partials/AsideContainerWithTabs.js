@@ -1,9 +1,9 @@
 /***********************************
-* V4 Aside content for shows
-* this will hold the three tab nav on desktop
-* and will never be shown on tablet/mobile
-*
-***********************************/
+ * V4 Aside content for shows
+ * this will hold the three tab nav on desktop
+ * and will never be shown on tablet/mobile
+ *
+ ***********************************/
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
@@ -73,30 +73,33 @@ class AsideContainerWithTabs extends Component {
 
     return (
       <div className="root">
-        <div className="header-title" dangerouslySetInnerHTML={{ __html: headerTitle }} />
-        <div className="full-width">{hasDiscussionThread ? (
-          <ThreeTabbedNav
-            firstTitle={intl.formatMessage(messages.About)}
-            secondTitle={intl.formatMessage(messages.Comments)}
-            thirdTitle={intl.formatMessage(messages.Details)}
-            firstTabIsActive={aboutIsActive}
-            firstTabOnClick={showAbout}
-            secondTabIsActive={commentsIsActive}
-            secondTabOnClick={showComments}
-            thirdTabIsActive={detailsIsActive}
-            thirdTabOnClick={showDetails}
-          />
-        ) : (
-          <TwoTabbedNav
-            firstTitle={intl.formatMessage(messages.About)}
-            secondTitle={intl.formatMessage(messages.Details)}
-            firstTabIsActive={aboutIsActive}
-            firstTabOnClick={showAbout}
-            secondTabIsActive={detailsIsActive}
-            secondTabOnClick={showDetails}
-          />
-          )
-        }
+        <div
+          className="header-title"
+          dangerouslySetInnerHTML={{ __html: headerTitle }}
+        />
+        <div className="full-width">
+          {hasDiscussionThread ? (
+            <ThreeTabbedNav
+              firstTitle={intl.formatMessage(messages.About)}
+              secondTitle={intl.formatMessage(messages.Comments)}
+              thirdTitle={intl.formatMessage(messages.Details)}
+              firstTabIsActive={aboutIsActive}
+              firstTabOnClick={showAbout}
+              secondTabIsActive={commentsIsActive}
+              secondTabOnClick={showComments}
+              thirdTabIsActive={detailsIsActive}
+              thirdTabOnClick={showDetails}
+            />
+          ) : (
+            <TwoTabbedNav
+              firstTitle={intl.formatMessage(messages.About)}
+              secondTitle={intl.formatMessage(messages.Details)}
+              firstTabIsActive={aboutIsActive}
+              firstTabOnClick={showAbout}
+              secondTabIsActive={detailsIsActive}
+              secondTabOnClick={showDetails}
+            />
+          )}
         </div>
         {aboutIsActive ? <AboutTab {...this.props} /> : null}
         {commentsIsActive ? <CommentsTab {...this.props} /> : null}

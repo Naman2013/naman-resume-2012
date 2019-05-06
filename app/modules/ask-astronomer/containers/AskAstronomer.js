@@ -10,7 +10,7 @@ import {
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import Modal from 'react-modal';
+// import Modal from 'react-modal';
 import { intlShape, injectIntl } from 'react-intl';
 import ResponsiveTwoColumnContainer from 'app/components/ResponsiveTwoColumnContainer';
 import TwoTabbedNav from 'app/components/TwoTabbedNav';
@@ -31,6 +31,7 @@ import CenterColumn from 'app/components/common/CenterColumn';
 import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
 import { customModalStylesV4 } from 'app/styles/mixins/utilities';
 import { Spinner } from 'app/components/spinner/index';
+import { Modal } from 'app/components/modal';
 import AsideContainer from './partials/AsideContainer';
 import MainContainer from './partials/MainContainer';
 import style from './AskAstronomer.style';
@@ -173,7 +174,9 @@ class AskAstronomer extends Component {
 
   submitAnswer = (params, callback) => {
     const { actions, page } = this.props;
-    return actions.submitAnswerToQuestion(params).then(res => callback(res.payload));
+    return actions
+      .submitAnswerToQuestion(params)
+      .then(res => callback(res.payload));
   };
 
   submitQuestion = (params, callback) => {
@@ -266,13 +269,7 @@ class AskAstronomer extends Component {
                 subTitle="Ask An Astronomer"
                 theme={{ padding: '25px' }}
               />
-              <Modal
-                ariaHideApp={false}
-                isOpen={showPrompt}
-                style={promptStyles}
-                contentLabel="askAstronomer"
-                onRequestClose={this.closeModal}
-              >
+              <Modal show={showPrompt} onHide={this.closeModal}>
                 {promptComponent}
               </Modal>
               <CenterColumn

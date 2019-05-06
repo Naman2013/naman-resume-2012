@@ -31,7 +31,7 @@ export default css`
     font-weight: bold;
     font-family: ${primaryFont};
   }
-  
+
   .button-container.no-border {
     border: none;
     display: flex;
@@ -49,7 +49,7 @@ export default css`
     height: 40px;
     padding: 0;
   }
-  
+
   .plain {
     padding: 0;
     margin: 0 10px;
