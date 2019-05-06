@@ -57,7 +57,9 @@ export class FeaturedObjects extends PureComponent {
   };
 
   modalClose = () => {
+    const { getFeaturedObjectsByTelescope } = this.props;
     this.setState({ successModalShow: false, reservationModalVisible: false, selectedMission: {} });
+    getFeaturedObjectsByTelescope();
   }
 
   render() {

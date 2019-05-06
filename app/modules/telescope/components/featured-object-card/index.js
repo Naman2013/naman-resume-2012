@@ -12,6 +12,8 @@ export class FeaturedObjectCard extends PureComponent {
       showSloohUser,
       missionStartFormatted,
       objectIconURL,
+      missionAvailable,
+      userHasReservation,
     } = featureObject;
     const {
       displayOtherTimeZones,
@@ -37,9 +39,11 @@ export class FeaturedObjectCard extends PureComponent {
         <div className="featured-object-card-footer">
           <div className="mission-date">{displayWeekdayMonthDayUTC}</div>
 
-          <Button className="option-btn" onClick={onOptionClick}>
-            Options
-          </Button>
+          {missionAvailable && !userHasReservation && (
+            <Button className="option-btn" onClick={onOptionClick}>
+              Options
+            </Button>
+          )}
         </div>
       </div>
     );

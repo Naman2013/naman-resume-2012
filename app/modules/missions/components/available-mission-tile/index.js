@@ -8,7 +8,7 @@ import FollowObjectButton from 'app/components/object-details/FollowObjectButton
 import './styles.scss';
 
 const getMissionDate = timestamp =>
-  moment.utc(moment.unix(timestamp)).format('ddd. MMM. DD');
+  moment.utc(moment.unix(timestamp)).format('ddd. MMM. D');
 
 const getMissionTime = timestamp =>
   moment.utc(moment.unix(timestamp)).format('HH:mm');

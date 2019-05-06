@@ -31,6 +31,7 @@ export class FeaturedObjectsModal extends Component {
             missionSlot={selectedMission}
             objectIconURL={objectIconURL}
             user={user}
+            tip={tip}
             onMissionView={onMissionView}
             communityMissions
           />

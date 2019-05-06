@@ -130,6 +130,7 @@ export class QueueTab extends Component {
               reservedCommunityMissionData={reservedCommunityMissionData}
               reserveCommunityMission={reserveCommunityMission}
               reservedCommunityMission={reservedCommunityMission}
+              getFeaturedObjectsByTelescope={this.getFeaturedObjectsByTelescope}
             />
           )}
 
