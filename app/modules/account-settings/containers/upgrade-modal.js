@@ -2,7 +2,7 @@
 
 import { UpgradeModal } from 'app/modules/account-settings/components/upgrade-modal';
 import {
-  makeSubscriptionPlansSelector,
+  makeSubscriptionPlansDataSelector,
   makeSubscriptionPlansFetchingSelector,
 } from 'app/modules/account-settings/selectors';
 import { getSubscriptionPlans } from 'app/modules/account-settings/thunks';
@@ -11,7 +11,7 @@ import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 
 const mapStateToProps = createStructuredSelector({
-  subscriptionPlans: makeSubscriptionPlansSelector(),
+  subscriptionPlansData: makeSubscriptionPlansDataSelector(),
   isFetching: makeSubscriptionPlansFetchingSelector(),
 });
 

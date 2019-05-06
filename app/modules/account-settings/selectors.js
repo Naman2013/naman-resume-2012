@@ -32,10 +32,10 @@ export const makeAccountCancelSectionSelector = () =>
     state => state.accountCancelSection
   );
 
-export const makeSubscriptionPlansSelector = () =>
+export const makeSubscriptionPlansDataSelector = () =>
   createSelector(
     selectAccountSettings,
-    state => state.subscriptionPlans.data.subscriptionPlans
+    state => state.subscriptionPlans.data
   );
 
 export const makeSubscriptionPlansFetchingSelector = () =>

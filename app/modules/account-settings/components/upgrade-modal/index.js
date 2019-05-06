@@ -11,7 +11,7 @@ type TUpgradeModal = {
   onHide: Function,
 
   getSubscriptionPlans: Function,
-  subscriptionPlans: Array<any>,
+  subscriptionPlansData: any,
   isFetching: Boolean,
 };
 
@@ -23,19 +23,22 @@ export class UpgradeModal extends PureComponent<TUpgradeModal> {
   };
 
   render() {
-    const { show, onHide, isFetching, subscriptionPlans = [] } = this.props;
+    const { show, onHide, isFetching, subscriptionPlansData } = this.props;
 
-    console.log(subscriptionPlans);
+    const {
+      subscriptionPlans = [],
+      pageHeading1,
+      pageHeading2,
+    } = subscriptionPlansData;
+
+    console.log(subscriptionPlansData);
 
     return (
       <Modal show={show} onHide={onHide}>
         <Spinner loading={isFetching} />
 
-        <h1 className="modal-h">Looking to Level-up?</h1>
-        <p className="modal-p mb-5">
-          Here are your options. We think you’d like our Research Astronomer
-          membership.
-        </p>
+        <h1 className="modal-h">{pageHeading1}</h1>
+        <p className="modal-p mb-5">{pageHeading2}</p>
 
         {subscriptionPlans.map(plan => (
           <SubscriptionPlan plan={plan} />
