@@ -1,4 +1,3 @@
-
 const DEFAULT_CONFIG = {
   arrows: true,
   dots: false,

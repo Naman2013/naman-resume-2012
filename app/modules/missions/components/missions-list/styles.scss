@@ -1,0 +1,10 @@
+@import '~app/styles/variables/index';
+
+.missions-list {
+  padding-bottom: 40px;
+
+  .show-more {
+    display: block;
+    margin: 30px auto 0;
+  }
+}
