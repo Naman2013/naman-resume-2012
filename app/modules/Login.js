@@ -35,33 +35,34 @@ export const login = loginFormValues => (dispatch, getState) => {
 
   dispatch(startLogin());
 
-  return axios.post('/api/users/login', {
-    username,
-    passwd,
-  })
-  .then((result) => {
-    const { apiError } = result.data;
-    if (apiError) {
-      dispatch(loginFailed(result.data));
-    } else {
-      dispatch(loginReset());
-      dispatch(userActions.store(result.data));
-      dispatch(hide());
+  return axios
+    .post('/api/users/login', {
+      username,
+      passwd,
+    })
+    .then(result => {
+      const { apiError } = result.data;
+      if (apiError) {
+        dispatch(loginFailed(result.data));
+      } else {
+        dispatch(loginReset());
+        dispatch(userActions.store(result.data));
+        dispatch(hide());
 
-      /**
+        /**
         TODO: remove this check once we are in production with the pretty
         URL branch...
       */
-      if (SETTINGS.isHashHistory()) {
-        dispatch(push(errorHandlerBody.currentPageId.substr(2)));
-      } else {
-        dispatch(push(errorHandlerBody.currentPageId));
+        if (SETTINGS.isHashHistory()) {
+          dispatch(push(errorHandlerBody.currentPageId.substr(2)));
+        } else {
+          dispatch(push(errorHandlerBody.currentPageId));
+        }
       }
-    }
-  })
-  .catch((error) => {
-    dispatch(loginFailed(error));
-  });
+    })
+    .catch(error => {
+      dispatch(loginFailed(error));
+    });
 };
 
 export const globalHeaderlogin = loginFormValues => (dispatch, getState) => {
@@ -70,25 +71,26 @@ export const globalHeaderlogin = loginFormValues => (dispatch, getState) => {
 
   dispatch(startLogin());
 
-  return axios.post('/api/users/login', {
-    username,
-    passwd,
-  })
-  .then((result) => {
-    const { apiError } = result.data;
+  return axios
+    .post('/api/users/login', {
+      username,
+      passwd,
+    })
+    .then(result => {
+      const { apiError } = result.data;
 
-    if (apiError) {
-      dispatch(loginFailed(result.data));
-    } else {
-      dispatch(loginReset());
-      dispatch(userActions.store(result.data));
-      dispatch(hide());
-      window.location.reload();
-    }
-  })
-  .catch((error) => {
-    dispatch(loginFailed(error));
-  });
+      if (apiError) {
+        dispatch(loginFailed(result.data));
+      } else {
+        dispatch(loginReset());
+        dispatch(userActions.store(result.data));
+        dispatch(hide());
+        window.location.reload();
+      }
+    })
+    .catch(error => {
+      dispatch(loginFailed(error));
+    });
 };
 
 const initialState = {

@@ -13,7 +13,6 @@ import first from 'lodash/first';
 import moment from 'moment';
 import React, { Component } from 'react';
 
-
 export class TelescopeDetails extends Component {
   // dedicated timer for refreshing telescope status
   workingRefreshTimestamp = 0;

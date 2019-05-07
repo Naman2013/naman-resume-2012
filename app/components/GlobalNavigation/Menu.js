@@ -26,7 +26,7 @@ const defaultProps = {
   widthUnits: MENU_WIDTH_UNITS,
 };
 
-const Menu = (props) => {
+const Menu = props => {
   const {
     handleClose,
     isOpen,
@@ -41,40 +41,39 @@ const Menu = (props) => {
     open: isOpen,
   });
 
-  const isLeft = (position === LEFT);
+  const isLeft = position === LEFT;
 
   const inlineStyle = {
     ...theme,
-    left: isLeft ? (isOpen) ? 0 : `${-width}${widthUnits}` : 'auto',
-    right: isLeft ? 'auto' : (isOpen) ? 0 : `${-width}${widthUnits}`,
+    left: isLeft ? (isOpen ? 0 : `${-width}${widthUnits}`) : 'auto',
+    right: isLeft ? 'auto' : isOpen ? 0 : `${-width}${widthUnits}`,
     width: `${width}${widthUnits}`,
   };
 
   return (
     <div className={`root ${rootClasses}`} style={inlineStyle}>
+      <div className="menu-list">{render({ isOpen })}</div>
 
-      <div className="menu-list">{ render({ isOpen }) }</div>
+      <style jsx>
+        {`
+          .root {
+            position: fixed;
+            z-index: 9999;
+            width: 400px;
+            top: 60px;
+            overflow-y: auto;
+            min-height: 100vh;
+            height: 100%;
+            background: ${seashell};
+            transition-property: left, right;
+            transition-duration: 0.15s;
+            transition-timing-function: ease-in-out;
+          }
 
-      <style jsx>{`
-        .root {
-          position: fixed;
-          z-index: 9999;
-          width: 400px;
-          top: 60px;
-          overflow-y: auto;
-          min-height: 100vh;
-          height: 100%;
-          background: ${seashell};
-          transition-property: left, right;
-          transition-duration: 0.15s;
-          transition-timing-function: ease-in-out;
-
-        }
-
-        .menu-list {
-          margin-bottom: 500px;
-        }
-      `}
+          .menu-list {
+            margin-bottom: 500px;
+          }
+        `}
       </style>
     </div>
   );

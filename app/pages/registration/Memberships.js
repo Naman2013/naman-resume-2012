@@ -1,6 +1,6 @@
 /** *********************************
-* V4 Memberships page
-********************************** */
+ * V4 Memberships page
+ ********************************** */
 
 import React, { Component, cloneElement, Fragment } from 'react';
 import { Link } from 'react-router';
@@ -11,7 +11,10 @@ import SubscriptionPlanCardSmall from './partials/SubscriptionPlanCardSmall';
 import Button from 'app/components/common/style/buttons/Button';
 import Request from 'app/components/common/network/Request';
 import CenterColumn from 'app/components/common/CenterColumn';
-import { JOIN_PAGE_ENDPOINT_URL, SUBSCRIPTION_PLANS_ENDPOINT_URL } from 'app/services/registration/registration.js';
+import {
+  JOIN_PAGE_ENDPOINT_URL,
+  SUBSCRIPTION_PLANS_ENDPOINT_URL,
+} from 'app/services/registration/registration.js';
 import styles from './Memberships.style';
 
 class Memberships extends Component {
@@ -26,15 +29,16 @@ class Memberships extends Component {
     window.localStorage.setItem('isAstronomyClub', isAstronomyClubFlag);
     window.localStorage.setItem('isClassroom', isClassroomFlag);
 
-    const isAstronomyClub = window.localStorage.getItem('isAstronomyClub') === "true" ? true : false;
-    const isClassroom = window.localStorage.getItem('isClassroom') === "true" ? true : false;
-    
+    const isAstronomyClub =
+      window.localStorage.getItem('isAstronomyClub') === 'true' ? true : false;
+    const isClassroom =
+      window.localStorage.getItem('isClassroom') === 'true' ? true : false;
+
     /* Teacher Subscription Plans should prompt for School Selection */
     if (isClassroom) {
       /* move to step 2 in the join flow */
       browserHistory.push('/join/step1SchoolSelection');
-    }
-    else {
+    } else {
       /* move to step 2 in the join flow */
       browserHistory.push('/join/step2');
     }
@@ -50,9 +54,8 @@ class Memberships extends Component {
   }
 
   render() {
-
     return (
-      <div >
+      <div>
         <Request
           serviceURL={SUBSCRIPTION_PLANS_ENDPOINT_URL}
           requestBody={{ callSource: 'membershipspage' }}
@@ -61,27 +64,46 @@ class Memberships extends Component {
             serviceResponse: subscriptionResponse,
           }) => (
             <Fragment>
-              {
-                !fetchingContent && (
-                  <CenterColumn widths={['645px', '960px', '960px']}>
-                    <ul className="subscription-plans-list">
-                      {subscriptionResponse.subscriptionPlans.map(subscriptionPlan => (
+              {!fetchingContent && (
+                <CenterColumn widths={['645px', '960px', '960px']}>
+                  <ul className="subscription-plans-list">
+                    {subscriptionResponse.subscriptionPlans.map(
+                      subscriptionPlan => (
                         <li
-                          key={`subscriptionplan-tile-${subscriptionPlan.planID}`}
+                          key={`subscriptionplan-tile-${
+                            subscriptionPlan.planID
+                          }`}
                           className="subscription-plans-list-item"
                         >
-                          <SubscriptionPlanCardSmall {...subscriptionPlan} viewPlanDetails={() => this.viewPlanDetails(subscriptionPlan.planID, subscriptionPlan.isAstronomyClub, subscriptionPlan.isClassroom)} setSelectedPlan={() => this.setSelectedPlan(subscriptionPlan.planID, subscriptionPlan.isAstronomyClub, subscriptionPlan.isClassroom)} />
+                          <SubscriptionPlanCardSmall
+                            {...subscriptionPlan}
+                            viewPlanDetails={() =>
+                              this.viewPlanDetails(
+                                subscriptionPlan.planID,
+                                subscriptionPlan.isAstronomyClub,
+                                subscriptionPlan.isClassroom
+                              )
+                            }
+                            setSelectedPlan={() =>
+                              this.setSelectedPlan(
+                                subscriptionPlan.planID,
+                                subscriptionPlan.isAstronomyClub,
+                                subscriptionPlan.isClassroom
+                              )
+                            }
+                          />
                         </li>
-                      ))}
-                    </ul>
-                  </CenterColumn>
-                )}
+                      )
+                    )}
+                  </ul>
+                </CenterColumn>
+              )}
             </Fragment>
           )}
         />
         <style jsx>{styles}</style>
       </div>
-    )
+    );
   }
 }
 
@@ -89,4 +111,7 @@ const mapStateToProps = ({ appConfig }) => ({
   appConfig,
 });
 
-export default connect(mapStateToProps, null)(Memberships);
+export default connect(
+  mapStateToProps,
+  null
+)(Memberships);

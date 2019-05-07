@@ -38,5 +38,5 @@ export const getSliderProps = (imageList = []) =>
     {
       sliderConfig: getSliderConfiguration(),
       emptyMessage: <FormattedMessage {...messages.noShows} />,
-    },
+    }
   );

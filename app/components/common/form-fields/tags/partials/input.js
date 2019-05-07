@@ -2,16 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './input.style';
 
-const {
-  string,
-  func,
-} = PropTypes;
+const { string, func } = PropTypes;
 
-const TagInput = ({
-  newTagText,
-  placeholder,
-  handleTagTextChange,
-}) => (
+const TagInput = ({ newTagText, placeholder, handleTagTextChange }) => (
   <div className="root">
     <input
       className="add-tag-input"

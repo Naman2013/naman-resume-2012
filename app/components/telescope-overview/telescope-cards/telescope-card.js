@@ -32,9 +32,14 @@ class TelescopeCard extends Component {
   }
 
   render() {
-    const { teleId, activeTelescopeMissions, telescopeCardData, telescopeCardBack } = this.props;
+    const {
+      teleId,
+      activeTelescopeMissions,
+      telescopeCardData,
+      telescopeCardBack,
+    } = this.props;
     const activeMission = activeTelescopeMissions.telescopes.find(
-      telescopeMissionData => telescopeMissionData.telescopeId === teleId,
+      telescopeMissionData => telescopeMissionData.telescopeId === teleId
     );
 
     // this toggles classname as either "card-content" or "card-content flipped"
@@ -54,7 +59,9 @@ class TelescopeCard extends Component {
             {...this.props}
             activeMission={activeMission}
             handleFlip={this.handleFlip.bind(this)}
-            telescopeOnline={this.props.telescopeStatus.onlineStatus === 'online'}
+            telescopeOnline={
+              this.props.telescopeStatus.onlineStatus === 'online'
+            }
             alertText={this.props.alertText}
           />
 

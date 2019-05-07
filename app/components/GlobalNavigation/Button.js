@@ -1,7 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { astronaut, romance, shadows } from 'app/styles/variables/colors_tiles_v4';
+import {
+  astronaut,
+  romance,
+  shadows,
+} from 'app/styles/variables/colors_tiles_v4';
 import { primaryFont } from 'app/styles/variables/fonts';
 
 const propTypes = {

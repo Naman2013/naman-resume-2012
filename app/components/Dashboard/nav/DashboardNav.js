@@ -11,11 +11,16 @@ import uniqueId from 'lodash/uniqueId';
 import { FormattedMessage } from 'react-intl';
 import messages from './DashboardNav.messages';
 import styles from './DashboardNav.style';
-import { missions, guides, quests, shows, stories, groups } from 'app/styles/variables/iconURLs';
+import {
+  missions,
+  guides,
+  quests,
+  shows,
+  stories,
+  groups,
+} from 'app/styles/variables/iconURLs';
 
-const {
-  arrayOf, bool, number, shape, string,
-} = PropTypes;
+const { arrayOf, bool, number, shape, string } = PropTypes;
 
 class DashboardNav extends Component {
   static propTypes = {};

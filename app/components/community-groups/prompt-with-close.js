@@ -16,9 +16,15 @@ const { func, string } = PropTypes;
 
 const PromptWithClose = ({ closeForm, promptText, intl }) => (
   <form className="root">
-    <div className="prompt-text" dangerouslySetInnerHTML={{ __html: promptText }} />
+    <div
+      className="prompt-text"
+      dangerouslySetInnerHTML={{ __html: promptText }}
+    />
     <div className="actions">
-      <Button onClickEvent={closeForm} text={intl.formatMessage(messages.Cancel)} />
+      <Button
+        onClickEvent={closeForm}
+        text={intl.formatMessage(messages.Cancel)}
+      />
     </div>
     <style jsx>{styles}</style>
   </form>

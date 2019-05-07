@@ -6,33 +6,35 @@ import { bindActionCreators } from 'redux';
 import { white } from '../../styles/variables/colors';
 import { secondaryFont } from '../../styles/variables/fonts';
 import { likeImage } from '../../services/my-pictures/like-image';
-import { backgroundImageCover, borderRadius } from '../../styles/mixins/utilities';
+import {
+  backgroundImageCover,
+  borderRadius,
+} from '../../styles/mixins/utilities';
 import Heart from '../common/heart/heart';
 import { fetchMyPicturesImageDetails } from '../../modules/my-pictures-image-details/actions';
 import SocialSharingBar from '../common/social-sharing-bar';
 
-const {
-  bool,
-  func,
-  number,
-  shape,
-} = PropTypes;
+const { bool, func, number, shape } = PropTypes;
 
-const mapStateToProps = ({
-  myPicturesImageDetails, appConfig,
-}) => ({
-  myPicturesImageDetails, appConfig,
+const mapStateToProps = ({ myPicturesImageDetails, appConfig }) => ({
+  myPicturesImageDetails,
+  appConfig,
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({
-    fetchMyPicturesImageDetails,
-  }, dispatch),
+  actions: bindActionCreators(
+    {
+      fetchMyPicturesImageDetails,
+    },
+    dispatch
+  ),
 });
 
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(
+  mapStateToProps,
+  mapDispatchToProps
+)
 class SharedPicturesItem extends Component {
-
   static propTypes = {
     actions: shape({
       fetchMyPicturesImageDetails: func.isRequired,
@@ -60,8 +62,7 @@ class SharedPicturesItem extends Component {
         Telescope: PropTypes.shape({}),
         'Observation time': PropTypes.shape({
           text: PropTypes.string,
-        },
-      ),
+        }),
       }),
       fileData: PropTypes.shape({
         Observatory: '',
@@ -105,8 +106,7 @@ class SharedPicturesItem extends Component {
     },
   };
 
-  state = {
-  }
+  state = {};
 
   componentDidMount() {
     const { isActive, actions, customerImageId } = this.props;
@@ -123,7 +123,7 @@ class SharedPicturesItem extends Component {
   componentWillReceiveProps(nextProps) {
     const { actions, isActive } = this.props;
 
-    if ((isActive !== nextProps.isActive) && nextProps.isActive) {
+    if (isActive !== nextProps.isActive && nextProps.isActive) {
       actions.fetchMyPicturesImageDetails({
         customerImageId: nextProps.customerImageId,
         useShareToken: 'n',
@@ -132,13 +132,10 @@ class SharedPicturesItem extends Component {
     }
   }
 
-
   render() {
     const { appConfig, customerImageId, myPicturesImageDetails } = this.props;
 
-    const {
-      socialSharePageURL,
-    } = appConfig;
+    const { socialSharePageURL } = appConfig;
 
     const {
       imageURL,
@@ -185,79 +182,107 @@ class SharedPicturesItem extends Component {
     if (myImageTitle == '') {
       /* the social sharing modules require a title, so even a space is sufficient */
       myImageTitle = encodeurl(base64.encode('Shared Photo from Slooh.com'));
-    }
-    else {
+    } else {
       myImageTitle = encodeurl(base64.encode(myImageTitle));
     }
 
     /* construct the social sharing URL */
-    const shareURL = socialSharePageURL +
-        "?title=" + myImageTitle +
-        "&pagetype=image" +
-        "&description=" + encodeurl(base64.encode(socialShareDescription)) +
-        "&shareURL=" + encodeurl(base64.encode(photoViewFullURL)) +
-        "&imageURL=" + encodeurl(base64.encode(imageURL));
+    const shareURL =
+      socialSharePageURL +
+      '?title=' +
+      myImageTitle +
+      '&pagetype=image' +
+      '&description=' +
+      encodeurl(base64.encode(socialShareDescription)) +
+      '&shareURL=' +
+      encodeurl(base64.encode(photoViewFullURL)) +
+      '&imageURL=' +
+      encodeurl(base64.encode(imageURL));
 
     return (
       <div className="shared-pictures-item">
-        {error && <div className="loading">There was an error fetching this photo.</div>}
+        {error && (
+          <div className="loading">There was an error fetching this photo.</div>
+        )}
         {fetching && <div className="loading">Loading...</div>}
-        {!error && !fetching && <div className="shared-pictures-item-container">
-          <Link to={`/my-pictures/show-image/${customerImageId}/${shareToken}`}>
-            <div style={{ backgroundImage: `url(${imageURL})` }} className="shared-image" />
-          </Link>
-          <div className="info-panel">
-            <Heart
-              {...heartProps}
-              likeAction={likeImage}
-              showLikeText={false}
-            />
-            <div className="title" dangerouslySetInnerHTML={{ __html: imageTitle }} />
-            <div className="description" dangerouslySetInnerHTML={{ __html: observationLog }} />
-            <div className="telescopeAndUser">
-              <div>
-                <h4 className="telescope">
-                  <span
-                    className="block"
-                    dangerouslySetInnerHTML={{ __html: `${photoBy.label}: ` }}
-                  />
-                  {photoBy.hasLink ? <Link to={photoBy.linkUrl}>{photoBy.text}</Link> :
-                  <span
-                    dangerouslySetInnerHTML={{ __html: `${photoBy.text} ` }}
-                  />
-                  }
-                </h4>
+        {!error && !fetching && (
+          <div className="shared-pictures-item-container">
+            <Link
+              to={`/my-pictures/show-image/${customerImageId}/${shareToken}`}
+            >
+              <div
+                style={{ backgroundImage: `url(${imageURL})` }}
+                className="shared-image"
+              />
+            </Link>
+            <div className="info-panel">
+              <Heart
+                {...heartProps}
+                likeAction={likeImage}
+                showLikeText={false}
+              />
+              <div
+                className="title"
+                dangerouslySetInnerHTML={{ __html: imageTitle }}
+              />
+              <div
+                className="description"
+                dangerouslySetInnerHTML={{ __html: observationLog }}
+              />
+              <div className="telescopeAndUser">
+                <div>
+                  <h4 className="telescope">
+                    <span
+                      className="block"
+                      dangerouslySetInnerHTML={{ __html: `${photoBy.label}: ` }}
+                    />
+                    {photoBy.hasLink ? (
+                      <Link to={photoBy.linkUrl}>{photoBy.text}</Link>
+                    ) : (
+                      <span
+                        dangerouslySetInnerHTML={{ __html: `${photoBy.text} ` }}
+                      />
+                    )}
+                  </h4>
 
-                <h3 className="title telescope">
-                  {telescope.hasLink ? <Link to={telescope.linkUrl}>{telescope.text}</Link> :
-                  <span
-                    dangerouslySetInnerHTML={{ __html: `${telescope.text} ` }}
-                  />
-                  }
-                </h3>
-                <h4 className="observatory">
-                  {observatory.hasLink ? <Link to={observatory.linkUrl}>{observatory.text}</Link> :
-                  <span
-                    dangerouslySetInnerHTML={{ __html: `${observatory.text} ` }}
-                  />
-                  }
-                </h4>
-                <div className="socialsharingbar">
-                  <SocialSharingBar
-                    contentLayout="horizontal"
-                    shareTitle={myImageTitle}
-                    shareDescription={socialShareDescription}
-                    shareURL={shareURL}
-                    shareImageURL={imageURL}
-                  />
+                  <h3 className="title telescope">
+                    {telescope.hasLink ? (
+                      <Link to={telescope.linkUrl}>{telescope.text}</Link>
+                    ) : (
+                      <span
+                        dangerouslySetInnerHTML={{
+                          __html: `${telescope.text} `,
+                        }}
+                      />
+                    )}
+                  </h3>
+                  <h4 className="observatory">
+                    {observatory.hasLink ? (
+                      <Link to={observatory.linkUrl}>{observatory.text}</Link>
+                    ) : (
+                      <span
+                        dangerouslySetInnerHTML={{
+                          __html: `${observatory.text} `,
+                        }}
+                      />
+                    )}
+                  </h4>
+                  <div className="socialsharingbar">
+                    <SocialSharingBar
+                      contentLayout="horizontal"
+                      shareTitle={myImageTitle}
+                      shareDescription={socialShareDescription}
+                      shareURL={shareURL}
+                      shareImageURL={imageURL}
+                    />
+                  </div>
                 </div>
+                <div className="profile-photo" style={profilePhotoStyle} />
               </div>
-              <div className="profile-photo" style={profilePhotoStyle} />
             </div>
           </div>
-        </div>}
+        )}
         <style jsx>{`
-
           .title {
             margin-top: -2px;
           }
@@ -272,9 +297,11 @@ class SharedPicturesItem extends Component {
             flex-wrap: wrap;
             -ms-flex-wrap: wrap;
           }
-          
-          @media(max-width:767px){
-            .shared-pictures-item-container{padding:0px}
+
+          @media (max-width: 767px) {
+            .shared-pictures-item-container {
+              padding: 0px;
+            }
           }
 
           .shared-image {
@@ -289,16 +316,19 @@ class SharedPicturesItem extends Component {
 
           .shared-image:before {
             display: block;
-            content: "";
+            content: '';
             width: 100%;
             padding-top: 68.49%;
           }
-            @media(max-width:640px){
-            .shared-pictures-item .shared-pictures-item-container {display:block}
-            .shared-image, .info-panel{width:100%}
-
-
+          @media (max-width: 640px) {
+            .shared-pictures-item .shared-pictures-item-container {
+              display: block;
             }
+            .shared-image,
+            .info-panel {
+              width: 100%;
+            }
+          }
 
           .profile-photo {
             ${backgroundImageCover};
@@ -311,7 +341,7 @@ class SharedPicturesItem extends Component {
             min-height: 45px;
           }
 
-          .shared-pictures-item :global(.buttonOnly){
+          .shared-pictures-item :global(.buttonOnly) {
             height: 45px;
             width: 75px;
             white-space: nowrap;
@@ -320,7 +350,7 @@ class SharedPicturesItem extends Component {
             position: absolute;
           }
 
-          .shared-pictures-item :global(.buttonOnly:hover .action-description){
+          .shared-pictures-item :global(.buttonOnly:hover .action-description) {
             display: none;
           }
 
@@ -330,7 +360,7 @@ class SharedPicturesItem extends Component {
             align-items: stretch;
             padding: 25px;
             color: #2d3949;
-            min-width:150px;
+            min-width: 150px;
             max-width: 250px;
             max-height: 340px;
             background-color: ${white};
@@ -365,7 +395,8 @@ class SharedPicturesItem extends Component {
             padding-top: 10px;
           }
 
-          .telescope, .observatory {
+          .telescope,
+          .observatory {
             font-size: 1.1rem;
             margin-top: 5px;
           }
@@ -384,7 +415,7 @@ class SharedPicturesItem extends Component {
             display: block;
           }
 
-          @media(max-width:950px){
+          @media (max-width: 950px) {
             .info-panel {
               width: 500px;
             }

@@ -1,5 +1,10 @@
 import css from 'styled-jsx/css';
-import { astronaut, geyser, shadows, romance } from 'app/styles/variables/colors_tiles_v4';
+import {
+  astronaut,
+  geyser,
+  shadows,
+  romance,
+} from 'app/styles/variables/colors_tiles_v4';
 import { secondaryFont } from 'app/styles/variables/fonts';
 
 export default css`

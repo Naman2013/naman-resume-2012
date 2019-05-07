@@ -48,7 +48,10 @@ export default createReducer(initialState, {
       errorHandlerBody: payload,
     };
   },
-  [CAPTURE_ERROR_STATE](state, { apiError, errorCode, statusCode, currentPageID }) {
+  [CAPTURE_ERROR_STATE](
+    state,
+    { apiError, errorCode, statusCode, currentPageID }
+  ) {
     return {
       ...state,
       apiError,

@@ -12,13 +12,21 @@ const MVPAstronomerList = props => (
   <div className="root">
     <DisplayAtBreakpoint screenSmall screenXLarge screenLarge>
       {props.specialistsList.map(specialist => (
-        <MVPAstronomer key={uniqueId()} cardClass="ask-an-astronomer-card" {...specialist} />
+        <MVPAstronomer
+          key={uniqueId()}
+          cardClass="ask-an-astronomer-card"
+          {...specialist}
+        />
       ))}
     </DisplayAtBreakpoint>
 
     <DisplayAtBreakpoint screenMedium>
       {props.specialistsList.map(specialist => (
-        <MVPAstronomer key={uniqueId()} cardClass="ask-an-astronomer-card" {...specialist} />
+        <MVPAstronomer
+          key={uniqueId()}
+          cardClass="ask-an-astronomer-card"
+          {...specialist}
+        />
       ))}
     </DisplayAtBreakpoint>
 

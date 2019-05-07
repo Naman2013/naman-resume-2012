@@ -24,25 +24,23 @@ const TabLive = ({
       {renderTelescopeViewer()}
     </DisplayAtBreakpoint>
 
-    {
-      mission.missionAvailable &&
-        <Fragment>
-          <div className="tile-container">
-            <ScheduledByTile
-              scheduledBy={mission.ownerDisplayName}
-              targetName={mission.objectTitle}
-              likeCount={mission.missionLikeCount}
-            />
-          </div>
-        </Fragment>
-      }
-
-      {
-          mission.objectId != 0 && object && object.objectTitle &&
+    {mission.missionAvailable && (
+      <Fragment>
         <div className="tile-container">
-          <ObjectSummaryTile {...object}/>
+          <ScheduledByTile
+            scheduledBy={mission.ownerDisplayName}
+            targetName={mission.objectTitle}
+            likeCount={mission.missionLikeCount}
+          />
         </div>
-      }
+      </Fragment>
+    )}
+
+    {mission.objectId != 0 && object && object.objectTitle && (
+      <div className="tile-container">
+        <ObjectSummaryTile {...object} />
+      </div>
+    )}
 
     <div className="tile-container">
       <ConnectedAllSkyCamera
@@ -56,18 +54,17 @@ const TabLive = ({
       <HowBigModule />
     </div>
 
-    {
-      mission.missionAvailable &&
-        <Fragment>
-          <div className="tile-container">
-            <WhereInTheSky
-              obsId={obsId}
-              AllskyWidgetId={skyChartWidgetID}
-              scheduledMissionId={mission.scheduledMissionId}
-            />
-          </div>
-        </Fragment>
-    }
+    {mission.missionAvailable && (
+      <Fragment>
+        <div className="tile-container">
+          <WhereInTheSky
+            obsId={obsId}
+            AllskyWidgetId={skyChartWidgetID}
+            scheduledMissionId={mission.scheduledMissionId}
+          />
+        </div>
+      </Fragment>
+    )}
 
     <style jsx>{style}</style>
   </div>

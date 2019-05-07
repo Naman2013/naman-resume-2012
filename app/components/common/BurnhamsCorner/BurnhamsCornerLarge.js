@@ -26,27 +26,27 @@ const BurnhamsCornerLarge = ({
           <div className="bc-img">
             <img src={imageURL} alt="Burnhams Corner" />
           </div>
-          <div className="bc-desc" dangerouslySetInnerHTML={{ __html: content }} />
+          <div
+            className="bc-desc"
+            dangerouslySetInnerHTML={{ __html: content }}
+          />
           {needToShowMore && (
             <p>
               <button onClick={toggleReadMore} className="action-read-more">
-                {showMore
-                  ? <FormattedMessage {...messages.ReadLess} /> 
-                  : <FormattedMessage {...messages.ReadMore} /> 
-                }
+                {showMore ? (
+                  <FormattedMessage {...messages.ReadLess} />
+                ) : (
+                  <FormattedMessage {...messages.ReadMore} />
+                )}
               </button>
             </p>
           )}
         </div>
-        {
-          hasLink &&
+        {hasLink && (
           <div className="bc-action">
-            <TileButton
-              text={linkLabel}
-              linkURL={linkURL}
-            />
+            <TileButton text={linkLabel} linkURL={linkURL} />
           </div>
-        }
+        )}
       </div>
     </div>
     <style jsx>{style}</style>

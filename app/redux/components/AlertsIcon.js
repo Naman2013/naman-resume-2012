@@ -12,12 +12,18 @@ import {
 } from 'app/styles/variables/iconURLs';
 const AlertsIcon = ({ notificationsCount, isActive }) => (
   <span className="root">
-    <i className={classnames('i-bell', {
-      'is-active': isActive,
-    })}/>
-    <span className={classnames('count', {
-      zero: notificationsCount === 0,
-    })}>{notificationsCount}</span>
+    <i
+      className={classnames('i-bell', {
+        'is-active': isActive,
+      })}
+    />
+    <span
+      className={classnames('count', {
+        zero: notificationsCount === 0,
+      })}
+    >
+      {notificationsCount}
+    </span>
     <style jsx>{`
       .root {
         display: block;
@@ -61,11 +67,11 @@ AlertsIcon.defaultProps = {
   notificationsCount: 0,
 };
 
-const mapStateToProps = ({
-  alerts,
-}) => ({
+const mapStateToProps = ({ alerts }) => ({
   notificationsCount: alerts.notificationsCount,
 });
 
-
-export default connect(mapStateToProps, null)(AlertsIcon);
+export default connect(
+  mapStateToProps,
+  null
+)(AlertsIcon);

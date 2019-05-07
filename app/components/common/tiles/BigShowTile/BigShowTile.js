@@ -4,7 +4,11 @@ import PropTypes from 'prop-types';
 import style from './BigShowTile.style';
 
 const BigShowTile = ({
-  heading, eventTitle, eventHost, linkUrl, dateDisplay,
+  heading,
+  eventTitle,
+  eventHost,
+  linkUrl,
+  dateDisplay,
 }) => (
   <div className="card-shows">
     <div className="show-card-head">{heading}</div>

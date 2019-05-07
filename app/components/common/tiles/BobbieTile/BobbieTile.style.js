@@ -61,6 +61,22 @@ export default css`
     align-items: center;
   }
 
+  .action-read-more {
+    display: block;
+    background: none;
+    border: none;
+    margin: 0 0 32px;
+    padding: 0;
+    font-weight: 700;
+    font-style: italic;
+    font-size: 1.6em;
+  }
+
+  .action-read-more:focus,
+  .action-read-more:active {
+    outline: none;
+  }
+
   @media ${screenLarge} {
     .tile-content-container {
       padding: 80px;

@@ -18,7 +18,10 @@ const { func, object } = PropTypes;
 class EventDetails extends Component {
   constructor(props) {
     super(props);
-    const { fetchEventInfo, routeParams: { showId } } = this.props;
+    const {
+      fetchEventInfo,
+      routeParams: { showId },
+    } = this.props;
     if (showId) {
       fetchEventInfo({
         showId,
@@ -27,20 +30,28 @@ class EventDetails extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { fetchEventInfo, routeParams: { showId } } = this.props;
-    const { routeParams: { showId: nextShowId } } = nextProps;
+    const {
+      fetchEventInfo,
+      routeParams: { showId },
+    } = this.props;
+    const {
+      routeParams: { showId: nextShowId },
+    } = nextProps;
 
-    if (!showId && (this.props.nextEvent.eventId !== nextProps.nextEvent.eventId)) {
+    if (
+      !showId &&
+      this.props.nextEvent.eventId !== nextProps.nextEvent.eventId
+    ) {
       if (nextProps.nextEvent.eventId !== 0) {
         fetchEventInfo({
-          showId: nextProps.nextEvent.eventId
+          showId: nextProps.nextEvent.eventId,
         });
       }
     }
 
     if (showId !== nextShowId) {
       fetchEventInfo({
-        showId: nextShowId
+        showId: nextShowId,
       });
     }
   }
@@ -52,73 +63,72 @@ class EventDetails extends Component {
       fetching,
       moreAboutObject,
       user,
-     } = this.props;
+    } = this.props;
 
-     const {
-       socialSharePageURL,
-     } = this.props.appConfig;
+    const { socialSharePageURL } = this.props.appConfig;
 
     const { recommends, title } = eventContent;
 
     return (
       <div className={s.eventDetailsRoot}>
         {fetching && <GenericLoadingBox />}
-        {!fetching && !title && <GenericLoadingBox text="Details about this event are currently unavailable." />}
-        {!fetching && title && <div>
-          <EventHero eventContent={eventContent} />
-          <section className="row">
-            <section className="col-md-8">
-              <EventDescription
-                eventContent={eventContent}
-                showId={showId}
-                socialSharePageURL={socialSharePageURL}
-              />
-              <EventHosts hosts={eventContent.hosts} />
-            </section>
-            <aside className="sideBar col-md-4">
+        {!fetching && !title && (
+          <GenericLoadingBox text="Details about this event are currently unavailable." />
+        )}
+        {!fetching && title && (
+          <div>
+            <EventHero eventContent={eventContent} />
+            <section className="row">
+              <section className="col-md-8">
+                <EventDescription
+                  eventContent={eventContent}
+                  showId={showId}
+                  socialSharePageURL={socialSharePageURL}
+                />
+                <EventHosts hosts={eventContent.hosts} />
+              </section>
+              <aside className="sideBar col-md-4">
+                {eventContent.sponsorInformation &&
+                eventContent.sponsorInformation.SponsorFlag ? (
+                  <SponsoredBy
+                    sponsorLogoURL={
+                      eventContent.sponsorInformation.SponsorLogoURL
+                    }
+                    sponsorLinkURL={
+                      eventContent.sponsorInformation.SponsorLinkURL
+                    }
+                  />
+                ) : null}
 
-
-
-              {
-                eventContent.sponsorInformation &&  eventContent.sponsorInformation.SponsorFlag ?
-                    <SponsoredBy
-                        sponsorLogoURL={eventContent.sponsorInformation.SponsorLogoURL}
-                        sponsorLinkURL={eventContent.sponsorInformation.SponsorLinkURL}
-                        />
-
-                    : null
-              }
-
-
-              <GoogleAd
-                adURL={'/5626790/EventPages'}
-                adWidth={300}
-                adHeight={250}
-                targetDivID={'div-gpt-ad-1495118105329-0'}
-              />
-              {
-                recommends.length > 0 ?
+                <GoogleAd
+                  adURL={'/5626790/EventPages'}
+                  adWidth={300}
+                  adHeight={250}
+                  targetDivID={'div-gpt-ad-1495118105329-0'}
+                />
+                {recommends.length > 0 ? (
                   <SloohRecommends
                     title="Schedule A Mission Now"
                     subTitle={`See ${title} through Slooh's Telescopes`}
                     user={user}
                     recommendations={recommends}
-                  /> : null
-              }
-
-              {(eventContent.hasMoreAbout &&
-                moreAboutObject.itemList.length > 0) &&
-                  <PulsePopular
-                    tag={moreAboutObject.sectionObjectTitle}
-                    list={moreAboutObject.itemList}
-                    subtitle={moreAboutObject.sectionSubtitle}
-                    title={moreAboutObject.sectionTitle}
-                    slugLookupId={eventContent.moreAbout}
                   />
-              }
-            </aside>
-          </section>
-        </div>}
+                ) : null}
+
+                {eventContent.hasMoreAbout &&
+                  moreAboutObject.itemList.length > 0 && (
+                    <PulsePopular
+                      tag={moreAboutObject.sectionObjectTitle}
+                      list={moreAboutObject.itemList}
+                      subtitle={moreAboutObject.sectionSubtitle}
+                      title={moreAboutObject.sectionTitle}
+                      slugLookupId={eventContent.moreAbout}
+                    />
+                  )}
+              </aside>
+            </section>
+          </div>
+        )}
       </div>
     );
   }
@@ -129,15 +139,28 @@ EventDetails.propTypes = {
   fetchEventInfo: func.isRequired,
 };
 
-const mapStateToProps = ({ appConfig, eventInfo, post, user, upcomingEvents }) => ({
+const mapStateToProps = ({
+  appConfig,
+  eventInfo,
+  post,
+  user,
+  upcomingEvents,
+}) => ({
   ...eventInfo,
   user,
   moreAboutObject: post.moreAboutObject,
   nextEvent: upcomingEvents.nextEvent,
   appConfig,
 });
-const mapDispatchToProps = dispatch => (bindActionCreators({
-  fetchEventInfo
-}, dispatch));
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      fetchEventInfo,
+    },
+    dispatch
+  );
 
-export default connect(mapStateToProps, mapDispatchToProps)(EventDetails);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(EventDetails);

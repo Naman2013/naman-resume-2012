@@ -124,8 +124,6 @@ class PhotoHubNavigation extends Component {
       generatedNavItems,
     } = this.state;
 
-    const { isFilterOpen, setFilterOpen, filters } = this.props;
-
     const dropdownOptions = generatedNavItems.map(item => ({
       label: item.name,
       value: item.linkUrl,
@@ -154,12 +152,6 @@ class PhotoHubNavigation extends Component {
                 ))}
               </div>
               <div className="photohub-tools">
-                <FilterDropdown
-                  isOpen={isFilterOpen}
-                  setOpen={setFilterOpen}
-                  onChange={this.handleFilterChange()}
-                  filters={filters}
-                />
                 {/*
                 {!filterSelectActive ? (
                   <Button

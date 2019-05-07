@@ -29,20 +29,21 @@ class HeadshotAccountDetail extends Component {
           <p>{membershipType}</p>
         </div>
 
-        {
-          profileImageURL ?
-            <div style={{ backgroundImage: `url(${profileImageURL})` }} className={`${s.profilePicture}`} />
-            :
-            <div className={`${s.profilePicture}`} />
-        }
-
+        {profileImageURL ? (
+          <div
+            style={{ backgroundImage: `url(${profileImageURL})` }}
+            className={`${s.profilePicture}`}
+          />
+        ) : (
+          <div className={`${s.profilePicture}`} />
+        )}
 
         <div className={s.accountDetail}>
-          <span className="changeAvatar" onClick={toggleModal}>Change Avatar</span>
+          <span className="changeAvatar" onClick={toggleModal}>
+            Change Avatar
+          </span>
         </div>
-        {avatarModalIsOpen && <ChangeAvatarModal
-          closeModal={toggleModal}
-        />}
+        {avatarModalIsOpen && <ChangeAvatarModal closeModal={toggleModal} />}
       </div>
     );
   }

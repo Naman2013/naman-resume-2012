@@ -5,8 +5,15 @@ import {
   hawkesBlue,
   lightHeadedAstronaut,
 } from '../../../styles/variables/colors_tiles_v4';
-import { primaryFont, secondaryFont, helvetica } from '../../../styles/variables/fonts';
-import { screenMedium, screenLarge } from '../../../styles/variables/breakpoints';
+import {
+  primaryFont,
+  secondaryFont,
+  helvetica,
+} from '../../../styles/variables/fonts';
+import {
+  screenMedium,
+  screenLarge,
+} from '../../../styles/variables/breakpoints';
 
 export default css`
   .profile-header {

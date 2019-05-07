@@ -9,13 +9,7 @@ import TagInput from './partials/input';
 import TagDisplay from './partials/display';
 import styles from './tags.style';
 
-const {
-  arrayOf,
-  func,
-  number,
-  shape,
-  string,
-} = PropTypes;
+const { arrayOf, func, number, shape, string } = PropTypes;
 
 class Tags extends Component {
   static propTypes = {
@@ -23,10 +17,12 @@ class Tags extends Component {
     onTagsChange: func.isRequired,
     scheduledMissionId: number,
     tagClass: string.isRequired,
-    tags: arrayOf(shape({
-      tagIndex: number.isRequired,
-      tagText: string.isRequired,
-    })),
+    tags: arrayOf(
+      shape({
+        tagIndex: number.isRequired,
+        tagText: string.isRequired,
+      })
+    ),
     tagType: string.isRequired,
     uuid: string,
     user: shape({
@@ -49,17 +45,17 @@ class Tags extends Component {
   state = {
     newTagText: '',
     hasError: false,
-  }
+  };
 
-  onChangeText = (event) => {
+  onChangeText = event => {
     const { value } = event.target;
 
     this.setState(() => ({
       newTagText: value,
     }));
-  }
+  };
 
-  addTag = (e) => {
+  addTag = e => {
     e.preventDefault();
     const { onTagsChange } = this.props;
     const {
@@ -87,7 +83,7 @@ class Tags extends Component {
       at: user.at,
       cid: user.cid,
       token: user.token,
-    }).then((res) => {
+    }).then(res => {
       if (!res.data.apiError) {
         onTagsChange(res.data.tagList);
         this.setState(() => ({
@@ -100,9 +96,9 @@ class Tags extends Component {
       }
       validateResponseAccess(res);
     });
-  }
+  };
 
-  deleteTag = (e) => {
+  deleteTag = e => {
     e.preventDefault();
     const { text } = e.currentTarget.dataset;
     const { onTagsChange } = this.props;
@@ -130,32 +126,29 @@ class Tags extends Component {
       at: user.at,
       cid: user.cid,
       token: user.token,
-    }).then((res) => {
+    }).then(res => {
       if (!res.data.apiError) {
         onTagsChange(res.data.tagList);
       }
 
       validateResponseAccess(res);
     });
-  }
+  };
 
   render() {
-    const {
-      tags,
-      noTagsMsg,
-      tagLabel,
-      tagPrompt,
-    } = this.props;
+    const { tags, noTagsMsg, tagLabel, tagPrompt } = this.props;
 
-    const {
-      newTagText,
-      hasError,
-    } = this.state;
+    const { newTagText, hasError } = this.state;
     return (
       <div className="root">
         {noTagsMsg && (
           <Fragment>
-            <TagDisplay noTagsMsg={noTagsMsg} tags={tags} onTagDelete={this.deleteTag} deleteTag={this.deleteTag} />
+            <TagDisplay
+              noTagsMsg={noTagsMsg}
+              tags={tags}
+              onTagDelete={this.deleteTag}
+              deleteTag={this.deleteTag}
+            />
             <TagInput
               newTagText={newTagText}
               placeholder={tagPrompt}
@@ -167,7 +160,13 @@ class Tags extends Component {
               theme={{ margin: '15px auto' }}
             />
             <div className="tag-error">
-              <span>{hasError ? <FormattedMessage {...messages.AddTagErrorText} /> : ''}</span>
+              <span>
+                {hasError ? (
+                  <FormattedMessage {...messages.AddTagErrorText} />
+                ) : (
+                  ''
+                )}
+              </span>
             </div>
           </Fragment>
         )}
@@ -175,6 +174,6 @@ class Tags extends Component {
       </div>
     );
   }
-};
+}
 
 export default Tags;

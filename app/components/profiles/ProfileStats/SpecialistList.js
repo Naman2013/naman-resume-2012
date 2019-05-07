@@ -24,7 +24,11 @@ class SpecialistList extends Component {
     return (
       <div className="specialist-list">
         {specialistList.map(item => (
-          <Link to={item.linkUrl} key={uniqueId()} className="specialist-list-item">
+          <Link
+            to={item.linkUrl}
+            key={uniqueId()}
+            className="specialist-list-item"
+          >
             <div className="specialist-list-item-title">{item.title}</div>
             <div className="specialist-list-item-icon">
               <img alt={item.linkLabel} src={item.iconUrl} />

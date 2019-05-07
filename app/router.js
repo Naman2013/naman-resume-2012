@@ -45,7 +45,7 @@ import {
   PublicProfileMain,
 } from 'app/modules/profile';
 import ImagesLayout from 'app/modules/profile-photos/components/ImagesLayout';
-import ProfilePhotos from 'app/modules/profile-photos/containers/profile-photos';
+import { ProfilePhotos } from 'app/modules/profile-photos/components/profile-photos';
 import { TelescopeDetailsMain } from 'app/modules/telescope';
 import { TelescopeNavigation } from 'app/modules/telescope/components/old/telescope-navigation';
 import GroupCreate from 'app/pages/community-groups/GroupCreate';

@@ -15,9 +15,7 @@ const BodyContent = ({
   <div className="root" style={theme}>
     <h4 className="title">{title}</h4>
     <AboutContent content={content} />
-    <DisplayAtBreakpoint
-      screenMedium
-    >
+    <DisplayAtBreakpoint screenMedium>
       {showResources ? <ResourcesButton {...resourcesProps} /> : null}
     </DisplayAtBreakpoint>
     <style jsx>{style}</style>

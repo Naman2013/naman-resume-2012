@@ -25,14 +25,15 @@ export default function FITModalHeader({
       </div>
 
       <div className={s.titleBody}>
-        <p className={s.titleLine}><img src={missionIconURL} alt="" height="35" /> {missionTitle}</p>
+        <p className={s.titleLine}>
+          <img src={missionIconURL} alt="" height="35" /> {missionTitle}
+        </p>
         <p className={s.titleLine}>{missionObsName}</p>
         <p className={s.titleLine}>{missionPierName}</p>
         <p className={s.titleLine}>{missionDateTime}</p>
       </div>
 
       <div className={s.takenBy}>
-
         <span className={s.inlineLabel}>{takenByText}</span>
 
         <ByUserTag

@@ -53,9 +53,9 @@ class CommunityPerspectives extends Component {
             avatarURL: PropTypes.string.isRequired,
             likesCount: PropTypes.number.isRequired,
             canLikeFlag: PropTypes.number.isRequired,
-          }),
+          })
         ),
-      }),
+      })
     ),
   };
 
@@ -75,7 +75,7 @@ class CommunityPerspectives extends Component {
 
     const perspectiveCategory = find(
       perspectiveCatagories,
-      c => this.filterPosts(this.props.communityContent, c.catagory).length > 0,
+      c => this.filterPosts(this.props.communityContent, c.catagory).length > 0
     );
 
     if (perspectiveCategory) {
@@ -93,7 +93,7 @@ class CommunityPerspectives extends Component {
   componentWillReceiveProps(nextProps) {
     const perspectiveCategory = find(
       perspectiveCatagories,
-      c => this.filterPosts(nextProps.communityContent, c.catagory).length > 0,
+      c => this.filterPosts(nextProps.communityContent, c.catagory).length > 0
     );
 
     if (perspectiveCategory) {
@@ -107,7 +107,9 @@ class CommunityPerspectives extends Component {
 
   getPosts(postType, communityContent) {
     const { sortOrder, sortType } = this.props;
-    const filteredPosts = communityContent.filter(post => post.type === postType);
+    const filteredPosts = communityContent.filter(
+      post => post.type === postType
+    );
     return sortType === SORTED
       ? orderBy(filteredPosts, sortOrder, ['desc', 'desc'])
       : shuffle(filteredPosts);
@@ -125,8 +127,11 @@ class CommunityPerspectives extends Component {
   generateCommunityPostsMap(communityContent) {
     const postMap = new Map();
 
-    perspectiveCatagories.forEach((postType) => {
-      postMap.set(postType.catagory, this.getPosts(postType.contentKey, communityContent));
+    perspectiveCatagories.forEach(postType => {
+      postMap.set(
+        postType.catagory,
+        this.getPosts(postType.contentKey, communityContent)
+      );
     });
 
     this.communityPostsByType = postMap;
@@ -141,8 +146,9 @@ class CommunityPerspectives extends Component {
   filterPosts(posts = [], category) {
     const { activeCatagory } = this.state;
     const active = category || activeCatagory;
-    const matchContentKey = perspectiveCatagories.find(profile => profile.catagory === active)
-      .contentKey;
+    const matchContentKey = perspectiveCatagories.find(
+      profile => profile.catagory === active
+    ).contentKey;
     return posts.filter(post => post.type === matchContentKey);
   }
 
@@ -175,7 +181,12 @@ class CommunityPerspectives extends Component {
   }
 
   render() {
-    const { showCallToAction, showSliderBorder, showArrows, numberOfSlidesToDisplay } = this.props;
+    const {
+      showCallToAction,
+      showSliderBorder,
+      showArrows,
+      numberOfSlidesToDisplay,
+    } = this.props;
 
     const sliderStyle = classnames('slide', {
       'with-border': showSliderBorder,
@@ -216,8 +227,10 @@ class CommunityPerspectives extends Component {
             <ul className="col-xs-12 clearfix categories">
               {perspectiveCatagories.map((perspective, index) => {
                 const isActiveNonHoveredCategory =
-                  !this.state.hoverCategory && this.state.activeCatagory === perspective.catagory;
-                const isHoverCategory = this.state.hoverCategory === perspective.catagory;
+                  !this.state.hoverCategory &&
+                  this.state.activeCatagory === perspective.catagory;
+                const isHoverCategory =
+                  this.state.hoverCategory === perspective.catagory;
                 const navigationClasses = classnames('action', {
                   active: isActiveNonHoveredCategory || isHoverCategory,
                 });
@@ -225,15 +238,17 @@ class CommunityPerspectives extends Component {
                   <li
                     key={index}
                     className="col-xs-3 category"
-                    onMouseOver={(e) => {
+                    onMouseOver={e => {
                       this.changeHoverCategory(e, perspective.catagory);
                     }}
-                    onMouseOut={(e) => {
+                    onMouseOut={e => {
                       this.changeHoverCategory(e, this.state.activeCatagory);
                     }}
                   >
                     <button
-                      onClick={event => this.handleNavigationClick(event, perspective.catagory)}
+                      onClick={event =>
+                        this.handleNavigationClick(event, perspective.catagory)
+                      }
                       className={navigationClasses}
                       id={perspective.catagory}
                     >

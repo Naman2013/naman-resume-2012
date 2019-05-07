@@ -3,17 +3,15 @@ import { DeviceContext } from '../../../../providers/DeviceProvider';
 import MissionTileLarge from './MissionTileLarge';
 import MissionTileSmall from './MissionTileSmall';
 
-const MissionTile = (props) => (
+const MissionTile = props => (
   <Fragment>
     <DeviceContext.Consumer>
-      {
-        (context) => {
-          if (!context.isMobile) {
-            return ( <MissionTileLarge {...props} /> );
-          }
-          return ( <MissionTileSmall {...props} />);
+      {context => {
+        if (!context.isMobile) {
+          return <MissionTileLarge {...props} />;
         }
-      }
+        return <MissionTileSmall {...props} />;
+      }}
     </DeviceContext.Consumer>
   </Fragment>
 );

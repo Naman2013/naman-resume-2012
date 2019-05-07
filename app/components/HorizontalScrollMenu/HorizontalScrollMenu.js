@@ -8,7 +8,9 @@ const HorizontalScrollMenu = () => (
     <ul>
       <li>
         <a href="#">Overview</a>
-        <span className="triangle"><Triangle /></span>
+        <span className="triangle">
+          <Triangle />
+        </span>
       </li>
       <li>
         <a href="#">Quests</a>

@@ -1,24 +1,27 @@
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { reduxForm } from 'redux-form';
 import { createStructuredSelector } from 'reselect';
+import {
+  makeAccountTypeSectionSelector,
+  makeAccountDetailsSelector,
+  makeAccountCancelSectionSelector,
+} from '../selectors';
+import { fetchAccountFormFieldAction } from '../thunks';
 import { AccountDetails } from '../components/account-details';
 
+const mapStateToProps = createStructuredSelector({
+  accountTypeSection: makeAccountTypeSectionSelector(),
+  accountDetails: makeAccountDetailsSelector(),
+  accountCancelSection: makeAccountCancelSectionSelector(),
+});
 
-// const mapStateToProps = createStructuredSelector({});
-
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+  fetchAccountFormFieldAction,
+};
 
 export default compose(
   connect(
-    state => {
-      return {
-        accountTypeItems: state.accountSettings.accountTypeItems,
-        accountDetailsOptions: state.accountSettings.accountDetailsOptions,
-        paymentDetailsOptions: state.accountSettings.paymentDetailsOptions
-      }
-    },
+    mapStateToProps,
     mapDispatchToProps
   )
-)(reduxForm({ form: 'accountDetails', enableReinitialize: true })(AccountDetails));
-
+)(AccountDetails);

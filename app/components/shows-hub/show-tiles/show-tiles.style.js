@@ -6,7 +6,7 @@ export default css`
   .show-tiles-root {
     ${resetMarginPadding}
     list-style-type: none;
-    margin-top: 10px;
+    margin: 0 -10px;
   }
 
   .tile {
@@ -31,13 +31,6 @@ export default css`
     .show-tiles-root {
       display: flex;
       flex-wrap: wrap;
-      margin-top: 65px;
-    }
-  }
-
-  @media ${screenLarge} {
-    .show-tiles-root {
-      margin-top: 40px;
     }
   }
 `;

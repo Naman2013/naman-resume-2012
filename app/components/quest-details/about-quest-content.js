@@ -16,9 +16,7 @@ const AboutQuest = ({
   <div className="root" style={theme}>
     <h4 className="title">{title}</h4>
     <AboutContent content={content} />
-    <DisplayAtBreakpoint
-      screenMedium
-    >
+    <DisplayAtBreakpoint screenMedium>
       <ResourcesButton {...resourcesProps} questId={questId} />
     </DisplayAtBreakpoint>
     {footer ? footer() : null}

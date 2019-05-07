@@ -16,9 +16,7 @@ import styles from './BootstrappedDashboard.style';
 import messages from './BootstrappedDashboard.messages';
 // import { connect } from 'react-redux';
 
-const {
-  arrayOf, bool, number, shape, string,
-} = PropTypes;
+const { arrayOf, bool, number, shape, string } = PropTypes;
 
 const sectionOrder = [
   'recommendedObjects',
@@ -157,21 +155,28 @@ class BootstrappedDashboard extends Component {
       <div className="root">
         <TourPopup user={user} />
         <div className="dash-hero">
-          <div alt={intl.formatMessage(messages.welcome)} className="hero-img" />
+          <div
+            alt={intl.formatMessage(messages.welcome)}
+            className="hero-img"
+          />
         </div>
         {promoPanelShow
-          ? promoArray.map(promoObject => <PromoPanel {...promoObject} key={uniqueId()} />)
+          ? promoArray.map(promoObject => (
+              <PromoPanel {...promoObject} key={uniqueId()} />
+            ))
           : null}
         <div className="dash-nav">
           <DashNav />
         </div>
         <div className="sections-wrapper">
-          {sectionOrder.map((section, i) =>
+          {sectionOrder.map(
+            (section, i) =>
               this.props[section] &&
               getSectionComponent(
                 section,
-                Object.assign({ orderNumber: i + 1 }, this.props[section]),
-              ))}
+                Object.assign({ orderNumber: i + 1 }, this.props[section])
+              )
+          )}
         </div>
 
         <style jsx>{styles}</style>

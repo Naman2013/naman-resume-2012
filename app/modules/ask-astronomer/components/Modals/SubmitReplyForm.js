@@ -1,19 +1,21 @@
 /***********************************
-* V4 Submit Answer Form Modal
-*
-*
-*
-***********************************/
+ * V4 Submit Answer Form Modal
+ *
+ *
+ *
+ ***********************************/
 
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { intlShape, injectIntl } from 'react-intl';
-import Button from 'app/components/common/style/buttons/Button';
 import PhotoUploadButton from 'app/components/common/style/buttons/PhotoUploadButton';
-import deletePostImage from 'app/services/post-creation/delete-post-image';
+import { Spinner } from 'app/components/spinner/index';
+import { UploadImgThumb } from 'app/modules/ask-astronomer/components/Modals/upload-img-thumb';
 import setPostImages from 'app/modules/set-post-images';
 import { prepareReply } from 'app/services/discussions/prepare-reply';
-import styles from './Modals.style';
+import deletePostImage from 'app/services/post-creation/delete-post-image';
+import PropTypes from 'prop-types';
+import React, { PureComponent } from 'react';
+import { Button } from 'react-bootstrap';
+import { injectIntl, intlShape } from 'react-intl';
+import './styles.scss';
 import messages from './SubmitQuestionForm.messages';
 
 const {
@@ -27,7 +29,7 @@ const {
   string,
 } = PropTypes;
 
-class SubmitReplyForm extends Component {
+class SubmitReplyForm extends PureComponent {
   static propTypes = {
     modalActions: shape({
       closeModal: func,
@@ -44,8 +46,7 @@ class SubmitReplyForm extends Component {
     intl: intlShape.isRequired,
   };
 
-  static defaultProps = {
-  };
+  static defaultProps = {};
 
   constructor(props) {
     super(props);
@@ -54,26 +55,26 @@ class SubmitReplyForm extends Component {
       answerText: '',
       S3URLs: [],
       uuid: '',
-    }
+    };
     prepareReply({
       at: user.at,
       token: user.token,
-      cid: user.cid
-    }).then((res) => {
+      cid: user.cid,
+    }).then(res => {
       this.setState(() => ({
         uuid: res.data.postUUID,
       }));
-    })
+    });
   }
 
-  onChangeAnswerText = (e) => {
+  onChangeAnswerText = e => {
     e.preventDefault();
     this.setState({
       answerText: e.target.value,
     });
-  }
+  };
 
-  handleUploadImage = (event) => {
+  handleUploadImage = event => {
     event.preventDefault();
 
     const { cid, token, at } = this.props.user;
@@ -93,30 +94,34 @@ class SubmitReplyForm extends Component {
 
     setPostImages(data)
       .then(res => this.handleUploadImageResponse(res.data))
-      .catch(err => this.setState({
-        uploadError: err.message,
-        uploadLoading: false,
-      }));
-  }
+      .catch(err =>
+        this.setState({
+          uploadError: err.message,
+          uploadLoading: false,
+        })
+      );
+  };
 
-  submitForm = (e) => {
+  submitForm = e => {
     e.preventDefault();
-    const {
-      answerText,
-      S3URLs,
-    } = this.state;
+    const { answerText, S3URLs } = this.state;
     if (answerText.replace(/\s/g, '').length) {
       this.props.submitForm(answerText, S3URLs);
       this.props.modalActions.closeModal();
     }
+  };
 
-  }
-
-  handleDeleteImage = (imageURL) => {
-    if (!imageURL) { return; }
+  handleDeleteImage = imageURL => {
+    if (!imageURL) {
+      return;
+    }
 
     const { cid, token, at } = this.props.user;
     const { uuid } = this.state;
+
+    this.setState({
+      uploadLoading: true,
+    });
 
     deletePostImage({
       cid,
@@ -126,64 +131,88 @@ class SubmitReplyForm extends Component {
       imageClass: 'discussion',
       imageURL,
     }).then(result => this.handleUploadImageResponse(result.data));
-  }
+  };
 
-  handleUploadImageResponse = (uploadFileData) => {
+  handleUploadImageResponse = uploadFileData => {
     this.setState({
       S3URLs: uploadFileData.S3URLs,
       uploadLoading: false,
     });
-  }
+  };
 
   render() {
-    const {
-      authorInfo,
-      freshness,
-      content,
-      modalActions,
-      intl,
-    } = this.props;
+    const { S3URLs, uploadLoading } = this.state;
+    const { authorInfo, freshness, content, modalActions, intl } = this.props;
 
-    const {
-      answerText,
-    } = this.state;
-    
+    const { answerText } = this.state;
+
     return (
-      <form className="root">
+      <form className="aaa-modal">
+        <Spinner loading={uploadLoading} />
+
         <div className="top">
           <div className="title flex info-container">
             <div>
-              <img src={authorInfo && authorInfo.iconUrl} className="avatar" alt="user" />
-              <span dangerouslySetInnerHTML={{ __html: authorInfo && authorInfo.byline }} />
+              <img
+                src={authorInfo && authorInfo.iconUrl}
+                className="avatar"
+                alt="user"
+              />
+              <span
+                dangerouslySetInnerHTML={{
+                  __html: authorInfo && authorInfo.byline,
+                }}
+              />
             </div>
             <div>
               <span dangerouslySetInnerHTML={{ __html: freshness }} />
             </div>
           </div>
-          <div className="prompt-text" dangerouslySetInnerHTML={{ __html: content }} />
-        </div>
-        <div className="input-container">
-          <textarea
-            className="field-input"
-            value={answerText}
-            onChange={this.onChangeAnswerText}
-            placeholder={intl.formatMessage(messages.CommentPlaceholder)}
+          <div
+            className="prompt-text"
+            dangerouslySetInnerHTML={{ __html: content }}
           />
         </div>
-        <div className="button-container">
-          <div className="privacy-buttons">
-            <PhotoUploadButton handleUploadImage={this.handleUploadImage} />
+
+        <hr />
+
+        {S3URLs.length ? (
+          <>
+            <UploadImgThumb
+              src={S3URLs[0]}
+              onDelete={() => {
+                this.handleDeleteImage(S3URLs[0]);
+              }}
+            />
+            <hr />
+          </>
+        ) : null}
+
+        <textarea
+          className="field-input"
+          value={answerText}
+          onChange={this.onChangeAnswerText}
+          placeholder={intl.formatMessage(messages.CommentPlaceholder)}
+        />
+        <div className="buttons-wrapper d-flex justify-content-between">
+          <div>
+            <PhotoUploadButton
+              handleUploadImage={this.handleUploadImage}
+              disabled={S3URLs.length}
+            />
           </div>
-          <div className="actions">
-            <Button onClickEvent={modalActions.closeModal} text={intl.formatMessage(messages.Cancel)} theme={{ height: '40px', marginRight: '10px' }} />
-            <Button onClickEvent={this.submitForm} text={intl.formatMessage(messages.Submit)} theme={{ height: '40px' }} />
+          <div>
+            <Button onClick={modalActions.closeModal} className="mr-3">
+              {intl.formatMessage(messages.Cancel)}
+            </Button>
+            <Button onClick={this.submitForm}>
+              {intl.formatMessage(messages.Submit)}
+            </Button>
           </div>
         </div>
-        <style jsx>{styles}</style>
       </form>
     );
   }
 }
-
 
 export default injectIntl(SubmitReplyForm);

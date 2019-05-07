@@ -19,12 +19,18 @@ const mapStateToProps = ({ myPictures, objectTypeList }, ownProps) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({
-    fetchPhotoRollAndCounts,
-  }, dispatch),
+  actions: bindActionCreators(
+    {
+      fetchPhotoRollAndCounts,
+    },
+    dispatch
+  ),
 });
 
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(
+  mapStateToProps,
+  mapDispatchToProps
+)
 class PhotoRoll extends Component {
   componentWillMount() {
     window.scrollTo(0, 0);
@@ -43,9 +49,7 @@ class PhotoRoll extends Component {
     } = this.props;
     return (
       <div>
-        <MyPicturesNavigation
-          page="photoRoll"
-        />
+        <MyPicturesNavigation page="photoRoll" />
 
         <div className="clearfix my-pictures-container">
           <div>
@@ -76,10 +80,12 @@ PhotoRoll.defaultProps = {
 };
 
 PhotoRoll.propTypes = {
-  imageList: PropTypes.arrayOf(PropTypes.shape({
-    imageURL: PropTypes.string.isRequired,
-    imageId: PropTypes.number.isRequired,
-  })),
+  imageList: PropTypes.arrayOf(
+    PropTypes.shape({
+      imageURL: PropTypes.string.isRequired,
+      imageId: PropTypes.number.isRequired,
+    })
+  ),
   imageCount: PropTypes.number,
   maxImageCount: PropTypes.number,
   firstImageNumber: PropTypes.number,

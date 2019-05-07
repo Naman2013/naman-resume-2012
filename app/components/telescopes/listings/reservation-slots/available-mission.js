@@ -26,23 +26,28 @@ const mapStateToProps = ({ telescopeSlots, missionSlotDates }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({
-    cancelReservation,
-    cancelEditMission,
-    grabTelescopeSlot,
-    cancelReservationAndRefresh,
-    cancelEditCoordinateMission,
-    changeFormType,
-  }, dispatch),
+  actions: bindActionCreators(
+    {
+      cancelReservation,
+      cancelEditMission,
+      grabTelescopeSlot,
+      cancelReservationAndRefresh,
+      cancelEditCoordinateMission,
+      changeFormType,
+    },
+    dispatch
+  ),
 });
 
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(
+  mapStateToProps,
+  mapDispatchToProps
+)
 class AvailableMission extends Component {
-
   // either set a defaultFormTab from the state OR fallback to none at all
   state = {
     formType: SUPPORTED_RESERVATION_TAB_FORM_TYPES.NONE,
-  }
+  };
 
   renderForm() {
     const {
@@ -57,13 +62,18 @@ class AvailableMission extends Component {
       targetName,
     } = this.props;
 
-    const reservationOnHold = getReservationOnHold(uniqueId, telescopeSlots.missions);
+    const reservationOnHold = getReservationOnHold(
+      uniqueId,
+      telescopeSlots.missions
+    );
 
     if (!reservationOnHold) {
       return null;
     }
 
-    const adjustedFormType = reservationOnHold.defaultFormTab || reservationOnHold.mission.defaultFormType;
+    const adjustedFormType =
+      reservationOnHold.defaultFormTab ||
+      reservationOnHold.mission.defaultFormType;
 
     const currentMissionOnHold = reservationOnHold.mission.missionList[0];
     const { expires } = currentMissionOnHold;
@@ -103,8 +113,14 @@ class AvailableMission extends Component {
       );
     }
 
-    if (adjustedFormType === SUPPORTED_RESERVATION_TAB_FORM_TYPES.BY_COORDINATE) {
-      const { objectDec, objectRA, userHasReservation } = reservationOnHold.mission.missionList[0];
+    if (
+      adjustedFormType === SUPPORTED_RESERVATION_TAB_FORM_TYPES.BY_COORDINATE
+    ) {
+      const {
+        objectDec,
+        objectRA,
+        userHasReservation,
+      } = reservationOnHold.mission.missionList[0];
 
       return (
         <ReservationByCoordinate
@@ -149,7 +165,10 @@ class AvailableMission extends Component {
 
   matchFormType(matchOnFormType) {
     const { uniqueId, telescopeSlots } = this.props;
-    const reservationOnHold = getReservationOnHold(uniqueId, telescopeSlots.missions);
+    const reservationOnHold = getReservationOnHold(
+      uniqueId,
+      telescopeSlots.missions
+    );
     if (reservationOnHold) {
       return reservationOnHold.mission.defaultFormType === matchOnFormType;
     }
@@ -171,7 +190,7 @@ class AvailableMission extends Component {
         scheduledMissionId,
       });
     }
-  }
+  };
 
   cancelHoldOnMission = () => {
     const { actions, uniqueId, scheduledMissionId } = this.props;
@@ -179,14 +198,14 @@ class AvailableMission extends Component {
       uniqueId,
       scheduledMissionId,
     });
-  }
+  };
 
   cancelEditingMission() {
     const { actions, uniqueId, scheduledMissionId, missionIndex } = this.props;
     actions.cancelEditMission({ uniqueId, scheduledMissionId, missionIndex });
   }
 
-  handleReservationTypeClick = (newFormType) => {
+  handleReservationTypeClick = newFormType => {
     /**
       when the next form type is the the same as the formType
       that is already set, then we toggle the form to none
@@ -228,7 +247,7 @@ class AvailableMission extends Component {
         this.props.actions.changeFormType({ formType: newFormType, uniqueId });
       }
     }
-  }
+  };
 
   get activeMission() {
     const { uniqueId, telescopeSlots } = this.props;
@@ -254,37 +273,41 @@ class AvailableMission extends Component {
       missionOnHold: false,
     };
 
-    const reservationOnHold = getReservationOnHold(uniqueId, telescopeSlots.missions);
+    const reservationOnHold = getReservationOnHold(
+      uniqueId,
+      telescopeSlots.missions
+    );
 
     if (reservationOnHold) {
-      Object.assign(
-        templateContent,
-        reservationOnHold.mission.missionList[0],
-      );
+      Object.assign(templateContent, reservationOnHold.mission.missionList[0]);
     }
 
-    const containerClassnames = classnames('telescope-listings-item-inline-reservation available', {
-      expanded: templateContent.missionAvailable,
-    });
+    const containerClassnames = classnames(
+      'telescope-listings-item-inline-reservation available',
+      {
+        expanded: templateContent.missionAvailable,
+      }
+    );
 
     return (
       <li className={containerClassnames}>
-
         <div className="above-the-fold-content clearfix">
           <div className="content">
             <div className="close-button">
-              <button onClick={() => { this.handleReservationTypeClick(SUPPORTED_RESERVATION_TAB_FORM_TYPES.NONE); }} className="action">
+              <button
+                onClick={() => {
+                  this.handleReservationTypeClick(
+                    SUPPORTED_RESERVATION_TAB_FORM_TYPES.NONE
+                  );
+                }}
+                className="action"
+              >
                 <span className="fa fa-close" />
               </button>
             </div>
 
             <div className="col-xs-2">
-              {
-                showSlotTimes ?
-                  <MissionTime
-                    startTime={missionStart}
-                  /> : null
-              }
+              {showSlotTimes ? <MissionTime startTime={missionStart} /> : null}
             </div>
 
             <div className="col-xs-4 slot-description">
@@ -294,49 +317,62 @@ class AvailableMission extends Component {
 
             <div className="col-xs-6 reservation-options-content">
               <ul className="reservation-options">
-                {
-                  showBrowseButton ?
-                    <li className="option">
-                      <button
-                        onClick={() => { this.handleReservationTypeClick(SUPPORTED_RESERVATION_TAB_FORM_TYPES.BY_OBJECTS); }}
-                        className={this.buttonRenderedClasses(SUPPORTED_RESERVATION_TAB_FORM_TYPES.BY_OBJECTS)}
-                      >
-                        Slooh 500
-                      </button>
-                    </li> : null
-                }
+                {showBrowseButton ? (
+                  <li className="option">
+                    <button
+                      onClick={() => {
+                        this.handleReservationTypeClick(
+                          SUPPORTED_RESERVATION_TAB_FORM_TYPES.BY_OBJECTS
+                        );
+                      }}
+                      className={this.buttonRenderedClasses(
+                        SUPPORTED_RESERVATION_TAB_FORM_TYPES.BY_OBJECTS
+                      )}
+                    >
+                      Slooh 500
+                    </button>
+                  </li>
+                ) : null}
 
-                {
-                  showCatalogButton ?
-                    <li className="option">
-                      <button
-                        onClick={(event) => {this.handleReservationTypeClick(SUPPORTED_RESERVATION_TAB_FORM_TYPES.BY_CATALOG)}}
-                        className={this.buttonRenderedClasses(SUPPORTED_RESERVATION_TAB_FORM_TYPES.BY_CATALOG)}
-                      >
-                          Select by Catalog #
-                      </button>
-                    </li> : null
-                }
+                {showCatalogButton ? (
+                  <li className="option">
+                    <button
+                      onClick={event => {
+                        this.handleReservationTypeClick(
+                          SUPPORTED_RESERVATION_TAB_FORM_TYPES.BY_CATALOG
+                        );
+                      }}
+                      className={this.buttonRenderedClasses(
+                        SUPPORTED_RESERVATION_TAB_FORM_TYPES.BY_CATALOG
+                      )}
+                    >
+                      Select by Catalog #
+                    </button>
+                  </li>
+                ) : null}
 
-                {
-                  showCoordinateButton ?
-                    <li className="option">
-                      <button
-                        onClick={(event) => {this.handleReservationTypeClick(SUPPORTED_RESERVATION_TAB_FORM_TYPES.BY_COORDINATE)}}
-                        className={this.buttonRenderedClasses(SUPPORTED_RESERVATION_TAB_FORM_TYPES.BY_COORDINATE)}
-                      >
-                        Enter Coordinates
-                      </button>
-                    </li> : null
-                }
+                {showCoordinateButton ? (
+                  <li className="option">
+                    <button
+                      onClick={event => {
+                        this.handleReservationTypeClick(
+                          SUPPORTED_RESERVATION_TAB_FORM_TYPES.BY_COORDINATE
+                        );
+                      }}
+                      className={this.buttonRenderedClasses(
+                        SUPPORTED_RESERVATION_TAB_FORM_TYPES.BY_COORDINATE
+                      )}
+                    >
+                      Enter Coordinates
+                    </button>
+                  </li>
+                ) : null}
               </ul>
             </div>
           </div>
         </div>
 
-        {
-          templateContent.missionAvailable ? this.renderForm() : null
-        }
+        {templateContent.missionAvailable ? this.renderForm() : null}
       </li>
     );
   }

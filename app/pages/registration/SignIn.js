@@ -19,23 +19,29 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({
-    login,
-    loginReset,
-  }, dispatch),
+  actions: bindActionCreators(
+    {
+      login,
+      loginReset,
+    },
+    dispatch
+  ),
 });
 
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(
+  mapStateToProps,
+  mapDispatchToProps
+)
 class SignIn extends Component {
   static propTypes = {
     forgotPasswordURL: PropTypes.string,
     registerNewMemberURL: PropTypes.string,
-  }
+  };
 
   static defaultProps = {
     forgotPasswordURL: '',
     registerNewMemberURL: '',
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -71,7 +77,6 @@ class SignIn extends Component {
     });
   }
 
-
   handleSignin(event) {
     event.preventDefault();
     const { username, passwd } = this.state;
@@ -99,7 +104,11 @@ class SignIn extends Component {
   render() {
     const { username, passwd, badLogin, passwordFieldType } = this.state;
     const { loggingIn, loginFailed, loginSuccess } = this.props.login;
-    const { forgotPasswordURL, registerNewMemberURL, errorHandlerBody } = this.props;
+    const {
+      forgotPasswordURL,
+      registerNewMemberURL,
+      errorHandlerBody,
+    } = this.props;
 
     if (!errorHandlerBody.upsellPageArray) {
       return null;
@@ -130,52 +139,51 @@ class SignIn extends Component {
 
     return (
       <div className="registration paid-signin">
-        <Header
-          text={title2}
-        />
+        <Header text={title2} />
 
         <form method="POST" onSubmit={this.handleSignin}>
           <article className="page">
             <section className="row-wide">
               <article className="dark backdrop">
                 <section className="col-md-6 border-dark-right padding-xxlarge center">
-                  <div className="text-large margin-bottom-large padding-small">{tiersPrompt1}<br />{tiersPrompt2}</div>
+                  <div className="text-large margin-bottom-large padding-small">
+                    {tiersPrompt1}
+                    <br />
+                    {tiersPrompt2}
+                  </div>
 
-                  {
-                    membershipTierArray.map((tier, index) => (
-                      <div key={uniqueId()}>
-                        <Tier
-                          tierName={tier.tierName}
-                          tierIconURL={tier.tierIconURL}
-                        />
-                        {
-                          /** display this if we are not on the last tier type */
-                          membershipTierArray.length - 1 !== index ?
-                            <div className="divider-img clearfix padding-tb-reg">{tiersSeparator}</div> : null
-                        }
-                      </div>
-                      ),
-                    )
-                  }
+                  {membershipTierArray.map((tier, index) => (
+                    <div key={uniqueId()}>
+                      <Tier
+                        tierName={tier.tierName}
+                        tierIconURL={tier.tierIconURL}
+                      />
+                      {/** display this if we are not on the last tier type */
+                      membershipTierArray.length - 1 !== index ? (
+                        <div className="divider-img clearfix padding-tb-reg">
+                          {tiersSeparator}
+                        </div>
+                      ) : null}
+                    </div>
+                  ))}
 
                   <div className="clearfix margin-top-large">
                     <a href={plansLinkURL}>{plansLinkTitle}</a>
                   </div>
-
                 </section>
 
                 <section className="col-md-6 border-dark-left padding-xxlarge">
-
-                  {
-                    loginFailed || badLogin ?
-                      <FormErrorMessage
-                        messageTitle="Sign in Error"
-                        messageBody="Please check your username and password."
-                      /> : null
-                  }
+                  {loginFailed || badLogin ? (
+                    <FormErrorMessage
+                      messageTitle="Sign in Error"
+                      messageBody="Please check your username and password."
+                    />
+                  ) : null}
 
                   <fieldset className="clearfix form-group required margin-top-xlarge">
-                    <label className="" htmlFor="email">{emailUsernamePrompt}</label>
+                    <label className="" htmlFor="email">
+                      {emailUsernamePrompt}
+                    </label>
                     <input
                       onChange={this.handleUsernameChange}
                       value={username}
@@ -186,7 +194,20 @@ class SignIn extends Component {
                   </fieldset>
                   <fieldset className="clearfix form-group required">
                     <label htmlFor="password">
-                      {passwordPrompt} <a onClick={this.toggleShowPassword} href="" className="control">{passwordShowTitle}</a> <a href={forgotPasswordLinkURL} className="control pull-right">{forgotPasswordTitle}</a>
+                      {passwordPrompt}{' '}
+                      <a
+                        onClick={this.toggleShowPassword}
+                        href=""
+                        className="control"
+                      >
+                        {passwordShowTitle}
+                      </a>{' '}
+                      <a
+                        href={forgotPasswordLinkURL}
+                        className="control pull-right"
+                      >
+                        {forgotPasswordTitle}
+                      </a>
                     </label>
                     <input
                       onChange={this.handlePasswordChange}
@@ -203,18 +224,18 @@ class SignIn extends Component {
                   >
                     {signInButtonPrompt}
                   </button>
-                  {
-                    /**
+                  {/**
                     <p className="divider-img clearfix">or</p>
 
                     <div className="clearfix center">
                         <button className="sign-in google">Sign-in</button>
                         <button className="sign-in facebook">Sign-in</button>
                     </div>
-                    */
-                  }
+                    */}
                   <div className="spacer-huge" />
-                  <div className="clearfix margin-top-med">{registerAccountPrompt} <a href={registerAccountLinkURL}>{registerAccountTitle}</a>
+                  <div className="clearfix margin-top-med">
+                    {registerAccountPrompt}{' '}
+                    <a href={registerAccountLinkURL}>{registerAccountTitle}</a>
                   </div>
                 </section>
               </article>

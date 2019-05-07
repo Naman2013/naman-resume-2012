@@ -7,19 +7,15 @@ import PROFILE_CONFIGURATION from './profileConfiguration';
 const Profile = ({ user, userMenu }) => {
   return (
     <div>
-      {
-        user.isAuthorized &&
-          <LoggedIn
-            {...user}
-            {...userMenu.userInfo}
-            menuItems={PROFILE_CONFIGURATION(userMenu.userLinks)}
-          />
-      }
+      {user.isAuthorized && (
+        <LoggedIn
+          {...user}
+          {...userMenu.userInfo}
+          menuItems={PROFILE_CONFIGURATION(userMenu.userLinks)}
+        />
+      )}
 
-      {
-        !user.isAuthorized &&
-          <Login avatarURL={user.avatarURL} />
-      }
+      {!user.isAuthorized && <Login avatarURL={user.avatarURL} />}
     </div>
   );
 };
@@ -34,10 +30,12 @@ Profile.propTypes = {
     userInfo: PropTypes.shape({
       displayName: PropTypes.string,
     }),
-    userLinks: PropTypes.arrayOf(PropTypes.shape({
-      name: PropTypes.string,
-      link: PropTypes.string,
-    })),
+    userLinks: PropTypes.arrayOf(
+      PropTypes.shape({
+        name: PropTypes.string,
+        link: PropTypes.string,
+      })
+    ),
   }),
 };
 

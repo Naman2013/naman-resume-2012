@@ -16,19 +16,29 @@ describe('ContextMenu', () => {
     });
 
     it('first click of menu button will toggle `isOpen` to `true`', () => {
-      shallowWrapper.find('VanillaButton').dive().find('button').simulate('click');
+      shallowWrapper
+        .find('VanillaButton')
+        .dive()
+        .find('button')
+        .simulate('click');
       expect(shallowWrapper.state('isOpen')).toEqual(true);
     });
 
     it('second click of menu will toggle `isOpen` back to `false`', () => {
-      shallowWrapper.find('VanillaButton').dive().find('button').simulate('click');
+      shallowWrapper
+        .find('VanillaButton')
+        .dive()
+        .find('button')
+        .simulate('click');
       expect(shallowWrapper.state('isOpen')).toEqual(false);
     });
   });
 });
 
 describe('Menu', () => {
-  const menuShallowWrapper = shallow(<Menu list={[{ title: 'foo', linkURL: '#' }]} />);
+  const menuShallowWrapper = shallow(
+    <Menu list={[{ title: 'foo', linkURL: '#' }]} />
+  );
   it('should render correctly', () => {
     expect(menuShallowWrapper).toMatchSnapshot();
   });

@@ -4,8 +4,7 @@ import CardObsLarge from './CardObsLarge';
 import CardObsSmall from './CardObsSmall';
 
 const CardObs = props => {
-  const { likesCount } = props;
-  return likesCount ? (
+  return (
     <div className="i-wrapper">
       <DisplayAtBreakpoint screenSmall>
         <CardObsSmall {...props} />
@@ -15,7 +14,7 @@ const CardObs = props => {
         <CardObsLarge {...props} />
       </DisplayAtBreakpoint>
     </div>
-  ) : null;
+  );
 };
 
 export default CardObs;

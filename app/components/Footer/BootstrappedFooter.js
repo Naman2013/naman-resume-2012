@@ -5,17 +5,16 @@ import uniqueId from 'lodash/uniqueId';
 import SocialMenu from 'app/components/GlobalNavigation/Menus/partials/SocialMenu';
 import style from './Footer.style';
 
-const Footer = ({
-  primaryLinks,
-  copyrightText,
-}) => (
+const Footer = ({ primaryLinks, copyrightText }) => (
   <div className="root">
     <div className="button-container">
       <div dangerouslySetInnerHTML={{ __html: copyrightText }} />
       <ul className="buttons">
         {primaryLinks.map(item => (
           <li key={uniqueId()}>
-            <Link to={item.link}><span className="action">{item.name}</span></Link>
+            <Link to={item.link}>
+              <span className="action">{item.name}</span>
+            </Link>
           </li>
         ))}
       </ul>
@@ -42,10 +41,12 @@ const Footer = ({
 );
 
 Footer.propTypes = {
-  primaryLinks: PropTypes.arrayOf(PropTypes.shape({
-    name: PropTypes.string,
-    link: PropTypes.string,
-  })),
+  primaryLinks: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      link: PropTypes.string,
+    })
+  ),
   copyrightText: PropTypes.string,
 };
 

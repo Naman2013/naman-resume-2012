@@ -1,7 +1,14 @@
 import css from 'styled-jsx/css';
-import { astronaut, romance, shadows } from 'app/styles/variables/colors_tiles_v4';
+import {
+  astronaut,
+  romance,
+  shadows,
+} from 'app/styles/variables/colors_tiles_v4';
 import { primaryFont } from 'app/styles/variables/fonts';
-import { dropShadowContainer, customModalStylesV4 } from 'app/styles/mixins/utilities';
+import {
+  dropShadowContainer,
+  customModalStylesV4,
+} from 'app/styles/mixins/utilities';
 import { faintShadow } from 'app/styles/variables/shadows';
 
 export default css`
@@ -47,12 +54,10 @@ export default css`
 
   .replies-list {
     flex: 0 0 93%;
-
   }
 
   .comment-replies-list {
     flex: 0 0 92.5%;
-
   }
 
   .comment-list-item {
@@ -63,10 +68,9 @@ export default css`
     border-bottom: 0;
   }
 
-
   .num-replies {
     background-color: ${romance};
-    width: 45px
+    width: 45px;
   }
 
   .replies-number {

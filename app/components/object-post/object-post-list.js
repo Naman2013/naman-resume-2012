@@ -9,16 +9,18 @@ import CommunityPostTools from '../../components/community/tools/community-post-
 import styles from './object-post.scss';
 
 class ObjectPostList extends Component {
-
   prepareData(objectPosts, firstPostIndex) {
-    return objectPosts.map((v, k) =>
+    return objectPosts.map((v, k) => (
       <div key={uniqueId()}>
         <div className={styles.ObjectPostList} key={v.postId}>
           <span className={styles.ObjectPostListID}>{firstPostIndex + k}.</span>
 
           <figure className={styles.ObjectPostListInfo}>
             <Link to={`/community/post/${v.postId}`}>
-              <h2 dangerouslySetInnerHTML={{ __html: v.title }} className={styles.ObjectPostListInfoTitle}></h2>
+              <h2
+                dangerouslySetInnerHTML={{ __html: v.title }}
+                className={styles.ObjectPostListInfoTitle}
+              />
             </Link>
 
             <div className="row">
@@ -52,46 +54,43 @@ class ObjectPostList extends Component {
               </div>
             </div>
 
+            <div className="row visible-xs">
+              <div className="col-xs-6">
+                <img className="icon" src={v.typeIconURL} />
+              </div>
 
-             <div className="row visible-xs">
-               <div className="col-xs-6">
-                 <img className="icon" src={v.typeIconURL} />
-               </div>
-
-               <div className="col-xs-6">
-                 <div className={styles.ObjectPostListToolsHot}>
-                   <CommunityPostTools
-                     type={v.type}
-                     authorId={v.customerId}
-                     objectSlug={v.slug}
-                     likesCount={v.likesCount}
-                     showLikePrompt={v.showLikePrompt}
-                     likePrompt={v.likePrompt}
-                     likeId={v.postId}
-                    />
-                 </div>
-               </div>
-               </div>
+              <div className="col-xs-6">
+                <div className={styles.ObjectPostListToolsHot}>
+                  <CommunityPostTools
+                    type={v.type}
+                    authorId={v.customerId}
+                    objectSlug={v.slug}
+                    likesCount={v.likesCount}
+                    showLikePrompt={v.showLikePrompt}
+                    likePrompt={v.likePrompt}
+                    likeId={v.postId}
+                  />
+                </div>
+              </div>
+            </div>
 
             <figcaption className={styles.ObjectPostListInfoDesc}>
-              {
-                /**
+              {/**
                   <h3>HOW IT MADE THE LIST</h3>
-                */
-              }
-              <span dangerouslySetInnerHTML={{ __html: (v.rubric || v.excerpt) }}></span>
+                */}
+              <span
+                dangerouslySetInnerHTML={{ __html: v.rubric || v.excerpt }}
+              />
             </figcaption>
-
           </figure>
-
         </div>
 
         <hr className={styles.ObjectPostListHr} />
       </div>
-    );
+    ));
   }
 
-  handlePageChange = (page) => {
+  handlePageChange = page => {
     const { fetchObjectLatestContent, SlugLookupId } = this.props;
     fetchObjectLatestContent({
       page,
@@ -100,13 +99,7 @@ class ObjectPostList extends Component {
   };
 
   render() {
-    const {
-      objectPosts,
-      page,
-      count,
-      postsCount,
-      firstPostIndex,
-    } = this.props;
+    const { objectPosts, page, count, postsCount, firstPostIndex } = this.props;
     const hasPosts = !objectPosts || isEmpty(objectPosts);
     const noPosts = (
       <div>
@@ -149,5 +142,4 @@ ObjectPostList.propTypes = {
   path: PropTypes.string,
 };
 
-
-export default ObjectPostList
+export default ObjectPostList;

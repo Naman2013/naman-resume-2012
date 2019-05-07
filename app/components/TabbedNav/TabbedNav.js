@@ -1,9 +1,9 @@
 /***********************************
-* V4 Dynamic Tabbed Nav
-*
-*
-*
-***********************************/
+ * V4 Dynamic Tabbed Nav
+ *
+ *
+ *
+ ***********************************/
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
@@ -12,48 +12,35 @@ import uniqueId from 'lodash/uniqueId';
 import { triangleUp } from 'app/styles/variables/iconURLs';
 import styles from './TabbedNav.style';
 
-const {
-  arrayOf,
-  func,
-  number,
-  shape,
-  string,
-  oneOfType,
-} = PropTypes;
+const { arrayOf, func, number, shape, string, oneOfType } = PropTypes;
 
 class TabbedNav extends Component {
   static propTypes = {
-    tabs: arrayOf(shape({
-      label: string,
-      value: oneOfType([string, number]),
-    })).isRequired,
+    tabs: arrayOf(
+      shape({
+        label: string,
+        value: oneOfType([string, number]),
+      })
+    ).isRequired,
     onTabClick: func.isRequired,
     activeTabValue: oneOfType([string, number]),
     theme: shape({}),
-  }
+  };
 
   static defaultProps = {
     activeTabValue: 0,
     theme: {},
   };
 
-  changeActiveTab = (e) => {
+  changeActiveTab = e => {
     const { tab } = e.currentTarget.dataset;
     this.props.onTabClick(tab);
-  }
+  };
 
   render() {
-    const {
-      tabs,
-      activeTabValue,
-      theme,
-    } = this.props;
+    const { tabs, activeTabValue, theme } = this.props;
     return (
-      <div
-        key={uniqueId()}
-        className="root component-container"
-        style={theme}
-      >
+      <div key={uniqueId()} className="root component-container" style={theme}>
         {tabs.map(tile => (
           <button
             key={uniqueId()}

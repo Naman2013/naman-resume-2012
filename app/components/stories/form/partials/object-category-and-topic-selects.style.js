@@ -3,14 +3,12 @@ import { secondaryFont } from 'app/styles/variables/fonts';
 import {
   astronaut,
   shadows,
-  lynch
+  lynch,
 } from 'app/styles/variables/colors_tiles_v4';
 
 import { screenMedium } from 'app/styles/variables/breakpoints';
 
-
 export default css`
-
   .select-container {
     display: block;
     width: 100%;
@@ -32,5 +30,4 @@ export default css`
       width: 50%;
     }
   }
-
 `;

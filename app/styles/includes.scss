@@ -10,6 +10,13 @@
   border-top: 1px solid $hr-silver;
 }
 
+.cursor {
+
+  &-pointer {
+    cursor: pointer;
+  }
+}
+
 .no-last-border {
 
   hr:last-child {
@@ -20,6 +27,8 @@
 
 // Virtual boxes
 .i-image {
+  height: 100%;
+  min-height: 100%;
 
   img {
     width: 100%;

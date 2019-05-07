@@ -1,52 +1,58 @@
-import React, { Fragment } from 'react';
-import { Nav } from '../../../../components/common/nav';
-import HubHeader from '../../../../components/common/HubHeader';
+// @flow
+import React, { Component, Fragment } from 'react';
+import Nav from 'app/components/common/nav';
+import isEqual from 'lodash/fp/isEqual';
+import constants from 'app/constants/defaults';
+import HubHeader from 'app/components/common/HubHeader';
 import { sloohLogoAstronaut } from 'app/styles/variables/iconURLs';
 import { Spinner } from 'app/components/spinner/index';
+import type { TAccountDetailsItem, TInfoItem } from '../../types';
 
-//static data
-const navigationConfig = [
-  {
-    title: 'ACCOUNT DETAILS',
-    linkURL: '/account-settings/account-details',
-  },
-  {
-    title: 'MY INTERESTS',
-    linkURL: '/account-settings/my-interests',
-  },
-  {
-    title: 'ALERT SETTINGS',
-    linkURL: '/account-settings/alert-settings',
-  },
-  {
-    title: 'TAKE A TOUR',
-    linkURL: '/account-settings/take-a-tour',
-  },
-];
-
-const AccountSettings = props => {
-  const { children, location, isFetching } = props;
-  const pageTitle = 'Account Controls';
-
-  return isFetching ? <Spinner loading={isFetching} /> : (
-    <Fragment>
-      <HubHeader
-        showIcon
-        title={pageTitle}
-        icon={sloohLogoAstronaut}
-        renderNav={() => (
-          <div className="navigation-bar">
-            <Nav
-              items={navigationConfig}
-              location={location}
-              style={{ padding: 0 }}
-            />
-          </div>
-        )}
-      />
-      {children}
-    </Fragment>
-  )
+type TAccountSettings = {
+  children: React.Node,
+  location: Object,
+  isFetching: boolean,
+  accountMenuList: Object<TInfoItem>,
+  accountDetails: Object<TAccountDetailsItem>,
 };
+
+class AccountSettings extends Component<TAccountSettings> {
+  componentDidMount() {
+    const { fetchAccountSettingsAction } = this.props;
+    fetchAccountSettingsAction();
+  }
+
+  componentDidUpdate(prevProps) {
+    const { fetchAccountSettingsAction, accountDetails } = this.props;
+    if (!isEqual(prevProps.accountDetails, accountDetails)) {
+      fetchAccountSettingsAction();
+    }
+  }
+
+  getMenuList = items => {
+    return items ? Object.values(items).map(item => item) : [];
+  };
+
+  render() {
+    const { children, location, isFetching, accountMenuList } = this.props;
+    const items = this.getMenuList(accountMenuList);
+    if (isFetching) return <Spinner loading={isFetching} />;
+    return (
+      <Fragment>
+        <HubHeader
+          showIcon
+          icon={sloohLogoAstronaut}
+          title={constants.ACCOUNT_CONTROLS_PAGE_TITLE}
+          renderNav={() => (
+            <div className="navigation-bar">
+              <Nav items={items} location={location} style={{ padding: 0 }} />
+            </div>
+          )}
+        />
+        {children}
+      </Fragment>
+    );
+  }
+}
 
 export { AccountSettings };

@@ -17,3 +17,10 @@
   flex-direction: row-reverse;
   align-items: center;
 }
+
+.min {
+
+  &-height-150 {
+    min-height: 150px;
+  }
+}

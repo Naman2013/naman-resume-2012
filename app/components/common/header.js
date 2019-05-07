@@ -22,7 +22,7 @@ function mapDispatchToProps(dispatch) {
     {
       tickEvent,
     },
-    dispatch,
+    dispatch
   );
 }
 
@@ -41,7 +41,10 @@ function mapStateToProps({ countdown, upcomingEvents, audioPlayer }) {
   };
 }
 
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(
+  mapStateToProps,
+  mapDispatchToProps
+)
 export default class Header extends Component {
   static propTypes = {
     showAudioPlayerBeforeLive: PropTypes.bool,
@@ -112,7 +115,12 @@ export default class Header extends Component {
     }
 
     this.updateIntervalId = setInterval(() => {
-      const { serverTime, countdownEventTimer, calculatedEventValues, nextEvent } = this.props;
+      const {
+        serverTime,
+        countdownEventTimer,
+        calculatedEventValues,
+        nextEvent,
+      } = this.props;
 
       const { eventStartMoment, eventEndMoment } = calculatedEventValues;
       const { currentTime } = countdownEventTimer;
@@ -149,15 +157,21 @@ export default class Header extends Component {
     } = this.props;
 
     /* re we before the event start time? */
-    const isBeforeEvent = (countdownEventTimer.currentTime < audioPlayerEventStart)
+    const isBeforeEvent =
+      countdownEventTimer.currentTime < audioPlayerEventStart;
 
     /* has the event passed? */
-    const isAfterEvent = (countdownEventTimer.currentTime > audioPlayerEventEnd);
+    const isAfterEvent = countdownEventTimer.currentTime > audioPlayerEventEnd;
 
     const showAudioPlayer =
-      (!eventIsLive && showAudioPlayerBeforeLive && isBeforeEvent) ||   /* NOT LIVE & SHOW BEFORE & AND EVENT IS COMING UP, HASNT STARTED YET */
-      (!eventIsLive && showAudioPlayerAfterEnd && isAfterEvent) ||      /* NOT LIVE & SHOW AFTER & EVENT HAS PASSED */
-      (eventIsLive && showAudioPlayerWhenLive);                         /* EVENT IS LIVE AND SHOW WHEN LIVE */
+      (!eventIsLive &&
+        showAudioPlayerBeforeLive &&
+        isBeforeEvent) /* NOT LIVE & SHOW BEFORE & AND EVENT IS COMING UP, HASNT STARTED YET */ ||
+      (!eventIsLive &&
+        showAudioPlayerAfterEnd &&
+        isAfterEvent) /* NOT LIVE & SHOW AFTER & EVENT HAS PASSED */ ||
+      (eventIsLive &&
+        showAudioPlayerWhenLive); /* EVENT IS LIVE AND SHOW WHEN LIVE */
 
     //console.log("Event End: " + audioPlayerEventEnd);
     //console.log("Show Audio Player: " + showAudioPlayer);
@@ -189,7 +203,6 @@ export default class Header extends Component {
         )}
 
         <style jsx>{`
-
           .player-container {
             float: right;
             margin-right: 20px;

@@ -5,7 +5,7 @@ import { screenMedium } from 'app/styles/variables/breakpoints';
 import {
   astronaut,
   shadows,
-  lynch
+  lynch,
 } from 'app/styles/variables/colors_tiles_v4';
 
 export default css`
@@ -25,7 +25,6 @@ export default css`
 
   .title-text {
     font-size: 20px;
-
   }
 
   .desc-text {
@@ -40,5 +39,4 @@ export default css`
       font-size: 20px;
     }
   }
-
 `;

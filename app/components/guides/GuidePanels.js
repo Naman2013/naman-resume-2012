@@ -22,23 +22,14 @@ const GuidePanels = ({ guideId }) => (
     serviceURL={GUIDE_PANEL_ENDPOINT_URL}
     model={guidePanelsModel}
     requestBody={{ guideId }}
-    render={({
-      fetchingContent,
-      modeledResponses: { GUIDE_PANELS },
-    }) => (
+    render={({ fetchingContent, modeledResponses: { GUIDE_PANELS } }) => (
       <div className="lightgray-background">
-        {
-          !fetchingContent &&
-          (GUIDE_PANELS.topicListProps.list.length > 0) &&
-            <Fragment>
-              <SterlingTitle
-                {...GUIDE_PANELS.sterlingTitleProps}
-              />
-              <TopicList
-                {...GUIDE_PANELS.topicListProps}
-              />
-            </Fragment>
-        }
+        {!fetchingContent && GUIDE_PANELS.topicListProps.list.length > 0 && (
+          <Fragment>
+            <SterlingTitle {...GUIDE_PANELS.sterlingTitleProps} />
+            <TopicList {...GUIDE_PANELS.topicListProps} />
+          </Fragment>
+        )}
       </div>
     )}
   />

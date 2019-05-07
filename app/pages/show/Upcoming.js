@@ -1,9 +1,9 @@
 /***********************************
-* V4 UpcomingShow
-*
-*
-*
-***********************************/
+ * V4 UpcomingShow
+ *
+ *
+ *
+ ***********************************/
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
@@ -11,7 +11,7 @@ import { injectIntl, intlShape } from 'react-intl';
 import ThreeTabbedNav from 'app/components/ThreeTabbedNav';
 import TwoTabbedNav from 'app/components/TwoTabbedNav';
 import LabeledTitleTiles from 'app/components/common/style/LabeledTitleTiles';
-import MonotonousTile from 'app/components/common/tiles/MonotonousTile'
+import MonotonousTile from 'app/components/common/tiles/MonotonousTile';
 import CenterColumn from 'app/components/common/CenterColumn';
 import VideoImageLoader from 'app/components/common/telescope-image-loader/video-image-loader';
 import ResponsiveTwoColumnContainer from 'app/components/ResponsiveTwoColumnContainer';
@@ -37,14 +37,14 @@ class UpcomingShow extends Component {
   static propTypes = {
     isDesktop: bool.isRequired,
     showInfoTiles: shape({
-      list: shape({})
+      list: shape({}),
     }),
     user: shape({
       at: oneOfType([number, string]),
       token: oneOfType([number, string]),
       cid: oneOfType([number, string]),
     }).isRequired,
-    intl: intlShape.isRequired
+    intl: intlShape.isRequired,
   };
 
   static defaultProps = {
@@ -56,7 +56,7 @@ class UpcomingShow extends Component {
     commentsIsActive: false,
     detailsIsActive: false,
     selectedTab: 0,
-  }
+  };
 
   showAbout = () => {
     this.setState({
@@ -64,7 +64,7 @@ class UpcomingShow extends Component {
       commentsIsActive: false,
       detailsIsActive: false,
     });
-  }
+  };
 
   showComments = () => {
     this.setState({
@@ -72,7 +72,7 @@ class UpcomingShow extends Component {
       commentsIsActive: true,
       detailsIsActive: false,
     });
-  }
+  };
 
   showDetails = () => {
     this.setState({
@@ -80,14 +80,14 @@ class UpcomingShow extends Component {
       commentsIsActive: false,
       detailsIsActive: true,
     });
-  }
+  };
 
-  handleSelect = (index) => {
+  handleSelect = index => {
     window.scrollTo(0, 0);
     this.setState({
       selectedTab: index,
     });
-  }
+  };
 
   render() {
     const {
@@ -112,20 +112,30 @@ class UpcomingShow extends Component {
       selectedTab,
     } = this.state;
 
-
-
     return (
-      <CenterColumn theme={{ backgroundColor: seashell }} theme={{ paddingTop: '25px' }}>
+      <CenterColumn
+        theme={{ backgroundColor: seashell }}
+        theme={{ paddingTop: '25px' }}
+      >
         <div className="root">
           <div className="big-box">
             <div className="big-box-background">
-              <span className="big-box-header" dangerouslySetInnerHTML={{ __html: tagLine }} />
-              <span className="big-box-title" dangerouslySetInnerHTML={{ __html: title }} />
-              <ToggleReadingList readingListType = "show" itemId={showId} />
+              <span
+                className="big-box-header"
+                dangerouslySetInnerHTML={{ __html: tagLine }}
+              />
+              <span
+                className="big-box-title"
+                dangerouslySetInnerHTML={{ __html: title }}
+              />
+              <ToggleReadingList readingListType="show" itemId={showId} />
             </div>
             <div className="hide-on-mobile">
               <LabeledTitleTiles
-                theme={{ margin: isDesktop ? 0 : '15px', backgroundColor: romance }}
+                theme={{
+                  margin: isDesktop ? 0 : '15px',
+                  backgroundColor: romance,
+                }}
                 tiles={showInfoTiles.list}
                 direction="row"
               />
@@ -134,42 +144,45 @@ class UpcomingShow extends Component {
           <div className="recent-main-container">
             <ResponsiveTwoColumnContainer
               renderNavigationComponent={() => (
-                <div className="full-width">{hasDiscussionThread ? (
-                  <ThreeTabbedNav
-                    firstTitle={intl.formatMessage(messages.About)}
-                    secondTitle={intl.formatMessage(messages.Comments)}
-                    thirdTitle={intl.formatMessage(messages.Details)}
-                    firstTabIsActive={aboutIsActive}
-                    firstTabOnClick={this.showAbout}
-                    secondTabIsActive={commentsIsActive}
-                    secondTabOnClick={this.showComments}
-                    thirdTabIsActive={detailsIsActive}
-                    thirdTabOnClick={this.showDetails}
-                  />
-                ) : (
-                  <TwoTabbedNav
-                    firstTitle={intl.formatMessage(messages.About)}
-                    secondTitle={intl.formatMessage(messages.Details)}
-                    firstTabIsActive={aboutIsActive}
-                    firstTabOnClick={this.showAbout}
-                    secondTabIsActive={detailsIsActive}
-                    secondTabOnClick={this.showDetails}
-                  />
-                )}
+                <div className="full-width">
+                  {hasDiscussionThread ? (
+                    <ThreeTabbedNav
+                      firstTitle={intl.formatMessage(messages.About)}
+                      secondTitle={intl.formatMessage(messages.Comments)}
+                      thirdTitle={intl.formatMessage(messages.Details)}
+                      firstTabIsActive={aboutIsActive}
+                      firstTabOnClick={this.showAbout}
+                      secondTabIsActive={commentsIsActive}
+                      secondTabOnClick={this.showComments}
+                      thirdTabIsActive={detailsIsActive}
+                      thirdTabOnClick={this.showDetails}
+                    />
+                  ) : (
+                    <TwoTabbedNav
+                      firstTitle={intl.formatMessage(messages.About)}
+                      secondTitle={intl.formatMessage(messages.Details)}
+                      firstTabIsActive={aboutIsActive}
+                      firstTabOnClick={this.showAbout}
+                      secondTabIsActive={detailsIsActive}
+                      secondTabOnClick={this.showDetails}
+                    />
+                  )}
                 </div>
               )}
-              renderAsideContent={() => (<AsideContainerDetailsOnly
-                {...this.props}
-              />)}
+              renderAsideContent={() => (
+                <AsideContainerDetailsOnly {...this.props} />
+              )}
               isScreenSize={isDesktop}
-              renderMainContent={() => (<MainContainerWithDiscussions
-                {...this.props}
-                selectedTab={selectedTab}
-                handleSelect={this.handleSelect}
-                aboutIsActive={aboutIsActive}
-                commentsIsActive={commentsIsActive}
-                detailsIsActive={detailsIsActive}
-              />)}
+              renderMainContent={() => (
+                <MainContainerWithDiscussions
+                  {...this.props}
+                  selectedTab={selectedTab}
+                  handleSelect={this.handleSelect}
+                  aboutIsActive={aboutIsActive}
+                  commentsIsActive={commentsIsActive}
+                  detailsIsActive={detailsIsActive}
+                />
+              )}
             />
           </div>
           <style jsx>{styles}</style>

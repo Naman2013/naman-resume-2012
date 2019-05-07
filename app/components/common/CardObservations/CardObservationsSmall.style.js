@@ -118,7 +118,7 @@ export default css`
     position: relative;
     background: ${black};
   }
-  
+
   .button,
   .capture-date {
     display: flex;
@@ -129,24 +129,24 @@ export default css`
     text-transform: uppercase;
     font-size: 10px;
   }
-  
+
   .capture-date {
     margin-right: 20px;
     color: #8d969f;
   }
-  
+
   .button {
     border-right: 1px solid ${hawkesBlue};
   }
-  
+
   .button:last-child {
     border-right: none;
   }
-  
+
   .button img {
     margin: 0 5px;
   }
-  
+
   .button.details {
     width: 50%;
     font-size: 10px;

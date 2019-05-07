@@ -2,26 +2,22 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { backgroundImageCover } from '../../styles/mixins/utilities';
 
-
 class ImageViewer extends Component {
-
   render() {
-    const {
-      currentImage,
-      error,
-      fetching,
-    } = this.props; // for galleries
+    const { currentImage, error, fetching } = this.props; // for galleries
 
     return (
       <div className="image-container">
         {fetching && <div className="message">Loading Image...</div>}
         {error && <div className="message">Could not get image .</div>}
-        {(!fetching && !error) && <div
-          className="image"
-          style={{
-            backgroundImage: `url(${currentImage})`
-          }}
-        />}
+        {!fetching && !error && (
+          <div
+            className="image"
+            style={{
+              backgroundImage: `url(${currentImage})`,
+            }}
+          />
+        )}
         <style jsx>
           {`
             .message {
@@ -42,7 +38,7 @@ class ImageViewer extends Component {
 
             .image:before {
               display: block;
-              content: "";
+              content: '';
               width: 100%;
               padding-top: 68.49%;
             }

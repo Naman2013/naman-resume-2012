@@ -1,6 +1,10 @@
 import css from 'styled-jsx/css';
 import { primaryFont } from '../../styles/variables/fonts';
-import { screenMedium, screenLarge, screenXLarge } from '../../styles/variables/breakpoints';
+import {
+  screenMedium,
+  screenLarge,
+  screenXLarge,
+} from '../../styles/variables/breakpoints';
 import { astronaut } from '../../styles/variables/colors_tiles_v4';
 
 export default css`
