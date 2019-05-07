@@ -4,53 +4,36 @@
  *
  *
  ***********************************/
-import React from 'react';
-import PropTypes from 'prop-types';
-import uniqueId from 'lodash/uniqueId';
+import React, { Component } from 'react';
 import take from 'lodash/take';
+import { FeaturedObjectCard } from 'app/modules/telescope/components/featured-object-card';
 import SloohSlider from '../Slider';
 import DisplayAtBreakpoint from '../DisplayAtBreakpoint';
 import { getSliderProps } from './recommendedObjectsSliderConfiguration';
-import MissionTileSmall from '../tiles/MissionTile/MissionTileSmall';
+import './styles.scss';
 
-import style from './RecommendedObjectsSlider.style';
-
-const { arrayOf, shape } = PropTypes;
-
-const RecommendedObjects = ({ recommendedObjectsList = [] }) => {
-  const sliderProps = getSliderProps(recommendedObjectsList);
-  const shortList = take(recommendedObjectsList, 3) || [];
-  return (
-    <div className="root">
-      <DisplayAtBreakpoint screenMedium screenLarge screenXLarge>
-        <SloohSlider {...sliderProps} />
-      </DisplayAtBreakpoint>
-      <DisplayAtBreakpoint screenSmall>
-        <div className="mobile-tiles-wrapper">
-          {shortList.map(object => (
-            <MissionTileSmall
-              key={`${object.title} ${object.subtitle}`}
-              title={object.title}
-              date={object.detailList[0].text}
-              time={object.detailList[1].text.split(' ')[0]}
-              telescope={object.detailList[2].text}
-            />
-          ))}
-        </div>
-      </DisplayAtBreakpoint>
-      <style jsx global>
-        {style}
-      </style>
-    </div>
-  );
-};
-
-RecommendedObjects.propTypes = {
-  recommendedObjectsList: arrayOf(shape({})),
-};
-
-RecommendedObjects.defaultProps = {
-  recommendedObjectsList: [],
-};
-
-export default RecommendedObjects;
+export class RecommendedObjects extends Component {
+  render() {
+    const { missionList } = this.props;
+    const sliderProps = getSliderProps(missionList);
+    const shortList = take(missionList, 3) || [];
+    return (
+      <div className="dashboard-recomended-objects">
+        <DisplayAtBreakpoint screenMedium screenLarge screenXLarge>
+          <SloohSlider {...sliderProps} />
+        </DisplayAtBreakpoint>
+        <DisplayAtBreakpoint screenSmall>
+          <div className="mobile-tiles-wrapper">
+            {shortList.map(object => (
+              <FeaturedObjectCard
+                key={object.scheduledMissionId}
+                featureObject={object}
+                onOptionClick={() => this.reservationModalShow(object)}
+              />
+            ))}
+          </div>
+        </DisplayAtBreakpoint>
+      </div>
+    );
+  }
+}

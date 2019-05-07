@@ -19,7 +19,7 @@ const getRecommendedObjectsItems = (recommendedObjectsList = []) =>
     render: () => (
       <RecommendedObjectsItem
         key={`${object.title} ${object.subtitle}`}
-        {...object}
+        object={object}
       />
     ),
   }));

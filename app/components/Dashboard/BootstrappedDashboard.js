@@ -151,7 +151,7 @@ class BootstrappedDashboard extends Component {
       user,
       intl,
     } = this.props;
-    console.log(this.props);
+    
     return (
       <div className="root">
         <TourPopup user={user} />
@@ -189,6 +189,5 @@ class BootstrappedDashboard extends Component {
 const mapStateToProps = ({ dashboard }) => ({
   recommendedObjects: dashboard.featuredObjects,
 });
-
 
 export default connect(mapStateToProps, null)(injectIntl(BootstrappedDashboard));
