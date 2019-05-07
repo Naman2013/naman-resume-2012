@@ -81,15 +81,16 @@ export default css`
   }
 
   .google-button {
-    background-color: #4285f4;
-    border-radius: 100px;
-    padding: 10px 15px;
-    color: ${romance};
-    border: 0;
-    text-transform: uppercase;
-    font-family: ${primaryFont};
-    font-size: 12px;
+    background: rgb(209, 72, 54);
+    color: rgb(255, 255, 255);
+    width: 190px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 2px;
+    border: 1px solid transparent;
+    font-size: 16px;
     font-weight: bold;
+    font-family: Roboto;
   }
 
   .forgot-password-req h1 {
