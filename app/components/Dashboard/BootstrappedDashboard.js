@@ -5,6 +5,7 @@
  *
  ********************************** */
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import uniqueId from 'lodash/uniqueId';
 import { FormattedMessage, intlShape, injectIntl } from 'react-intl';
@@ -150,7 +151,7 @@ class BootstrappedDashboard extends Component {
       user,
       intl,
     } = this.props;
-
+    console.log(this.props);
     return (
       <div className="root">
         <TourPopup user={user} />
@@ -185,4 +186,9 @@ class BootstrappedDashboard extends Component {
   }
 }
 
-export default injectIntl(BootstrappedDashboard);
+const mapStateToProps = ({ dashboard }) => ({
+  recommendedObjects: dashboard.featuredObjects,
+});
+
+
+export default connect(mapStateToProps, null)(injectIntl(BootstrappedDashboard));

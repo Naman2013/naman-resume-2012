@@ -8,10 +8,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import uniqueId from 'lodash/uniqueId';
 import take from 'lodash/take';
-import SloohSlider from '../../../components/common/Slider';
-import DisplayAtBreakpoint from '../../../components/common/DisplayAtBreakpoint';
+import SloohSlider from '../Slider';
+import DisplayAtBreakpoint from '../DisplayAtBreakpoint';
 import { getSliderProps } from './recommendedObjectsSliderConfiguration';
-import MissionTileSmall from '../../../components/common/tiles/MissionTile/MissionTileSmall';
+import MissionTileSmall from '../tiles/MissionTile/MissionTileSmall';
 
 import style from './RecommendedObjectsSlider.style';
 
@@ -21,7 +21,7 @@ const RecommendedObjects = ({ recommendedObjectsList = [] }) => {
   const sliderProps = getSliderProps(recommendedObjectsList);
   const shortList = take(recommendedObjectsList, 3) || [];
   return (
-    <div className="root" key={uniqueId()}>
+    <div className="root">
       <DisplayAtBreakpoint screenMedium screenLarge screenXLarge>
         <SloohSlider {...sliderProps} />
       </DisplayAtBreakpoint>
@@ -38,8 +38,6 @@ const RecommendedObjects = ({ recommendedObjectsList = [] }) => {
           ))}
         </div>
       </DisplayAtBreakpoint>
-      <style jsx>{``}</style>
-
       <style jsx global>
         {style}
       </style>
