@@ -8,15 +8,18 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import uniqueId from 'lodash/uniqueId';
-import DiscussionComments from './DiscussionComments';
 import { likeThread } from 'app/services/discussions/like';
 import DiscussionsCard from 'app/components/common/DiscussionsCard';
+import DiscussionComments from './DiscussionComments';
 import styles from './DiscussionsBoard.style';
 
 const { any, arrayOf, bool, number, oneOfType, shape, string } = PropTypes;
 
 const DiscussionsItem = props => (
-  <div className="shadowed-container margin" key={uniqueId()}>
+  <div
+    className="shadowed-container margin"
+    //key={uniqueId()}
+  >
     <DiscussionsCard
       {...props}
       replyTo={props.threadId}
@@ -25,8 +28,8 @@ const DiscussionsItem = props => (
       }
       likeHandler={likeThread}
       isDesktop={props.isDesktop}
-      allowReplies={true}
-      showTitle={true}
+      allowReplies
+      showTitle
       renderChildReplies={({ renderToggle }) => (
         <DiscussionComments
           validateResponseAccess={props.validateResponseAccess}
@@ -42,6 +45,8 @@ const DiscussionsItem = props => (
           user={props.user}
           isDesktop={props.isDesktop}
           renderToggle={renderToggle}
+          getThreads={props.getThreads}
+          getReplies={props.getReplies}
         />
       )}
     />

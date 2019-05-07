@@ -45,17 +45,37 @@ class DiscussionsBoard extends Component {
     threadsCount: 0,
     commentsList: {},
     displayedComments: {},
+    discussionKey: Date.now(),
   };
 
   updateThreadsProps = (threadsList, threadsCount, displayed) => {
     const newThreadsList = threadsList || this.state.threadsList;
     const newThreadsCount = threadsCount || this.state.threadsCount;
     const displayedThreads = displayed || this.state.displayedThreads;
+    const displayedComments = Object.keys(this.state.displayedComments);
+    const commentsList = Object.keys(this.state.commentsList);
+    const newCommentsList = { ...this.state.commentsList };
+
+    newThreadsList.map(item => {
+      if (displayedComments.includes(item.threadId.toString())) {
+        item.showComments = true;
+      }
+      return item;
+    });
+
+    commentsList.map(item => {
+      if (displayedComments.includes(item)) {
+        newCommentsList[item].showComments = true;
+      }
+      return item;
+    });
 
     this.setState({
       threadsList: newThreadsList,
       threadsCount: newThreadsCount,
       displayedThreads,
+      commentsList: newCommentsList,
+      discussionKey: Date.now(),
     });
   };
 
