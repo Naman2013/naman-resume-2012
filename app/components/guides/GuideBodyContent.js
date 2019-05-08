@@ -12,23 +12,23 @@ const GuideBodyContent = ({
   guideId,
   footer,
   theme,
-  showGoogleClassroomShareIcon
+  showShareButton
 }) => {
   useEffect(() => {
-    if(showGoogleClassroomShareIcon){
-    const script = document.createElement('script');
-    script.onload = () => {
-      gapi.sharetoclassroom.render('google-classroom-share', {
-        url: window.location,
-        size: '32',
-      });
-    };
-    script.src = 'https://apis.google.com/js/platform.js';
-    document.body.appendChild(script);
-    return () => {
-      document.body.removeChild(script);
-    };
-  }
+    if (showShareButton) {
+      const script = document.createElement('script');
+      script.onload = () => {
+        gapi.sharetoclassroom.render('google-classroom-share', {
+          url: window.location,
+          size: '32',
+        });
+      };
+      script.src = 'https://apis.google.com/js/platform.js';
+      document.body.appendChild(script);
+      return () => {
+        document.body.removeChild(script);
+      };
+    }
   });
 
   return (
