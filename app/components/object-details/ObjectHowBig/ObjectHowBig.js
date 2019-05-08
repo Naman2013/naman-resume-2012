@@ -20,7 +20,7 @@ class ObjectHowBig extends Component {
         render={({ fetchingContent, serviceResponse: resp }) => (
           <div className="root">
             {!fetchingContent && (
-              <HowBigModule {...resp} {...resp.howBigData} autoplay={false} />
+              <HowBigModule {...resp} {...resp.howBigData} />
             )}
             <style jsx>{style}</style>
           </div>

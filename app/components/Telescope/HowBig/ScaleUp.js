@@ -204,7 +204,7 @@ class ScaleUp extends PureComponent {
     const artworkDimension = dimension * 0.8;
     const midPoint = dimension / 2;
     const staticArtworkPosition = midPoint - artworkDimension / 2;
-    const textLabelFontSize = dimension * 0.03;
+    const textLabelFontSize = dimension * 0.04;
     const showTargetObject = showReferenceText;
 
     const referenceSize = calculatePercentage(dimension, referenceScale);
@@ -217,6 +217,16 @@ class ScaleUp extends PureComponent {
     return (
       <g>
         <FadeSVG isHidden={!displayReferenceObject}>
+          <FadeSVG isHidden={!showReferenceText}>
+            <SVGText
+              text={bottomTitle}
+              x={midPoint}
+              y={dimension * 0.12}
+              displayProperties={{
+                fontSize: `${textLabelFontSize}px`,
+              }}
+            />
+          </FadeSVG>
           <g
             style={{
               transformOrigin: 'center',
@@ -226,38 +236,27 @@ class ScaleUp extends PureComponent {
               width: referenceSize,
               height: referenceSize,
               x: referencePosition,
-              y: referencePosition,
+              y: referencePosition + textLabelFontSize,
               onLoadCallback: this.handleReferenceObjectLoaded,
             })}
           </g>
-          <FadeSVG isHidden={!showReferenceText}>
-            <SVGText
-              text={bottomTitle}
-              x={midPoint}
-              y={dimension - dimension * 0.05}
-              displayProperties={{
-                fontSize: `${textLabelFontSize}px`,
-              }}
-            />
-          </FadeSVG>
         </FadeSVG>
 
         <FadeSVG isHidden={showTargetObject}>
           <g>
+            <SVGText
+              text={bottomTitle}
+              x={midPoint}
+              y={dimension * 0.12}
+              displayProperties={{ fontSize: `${textLabelFontSize}px` }}
+            />
             <ObjectFrame
               svgURL={targetImageURL}
               width={artworkDimension}
               height={artworkDimension}
               x={staticArtworkPosition}
-              y={staticArtworkPosition}
+              y={staticArtworkPosition + textLabelFontSize}
               onLoadCallback={this.handleTargetObjectLoaded}
-            />
-
-            <SVGText
-              text={bottomTitle}
-              x={midPoint}
-              y={dimension - dimension * 0.05}
-              displayProperties={{ fontSize: `${textLabelFontSize}px` }}
             />
           </g>
         </FadeSVG>

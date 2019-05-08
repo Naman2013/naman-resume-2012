@@ -5,7 +5,7 @@ import noop from 'lodash/noop';
 import DefaultButton from 'app/components/common/style/buttons/Button';
 import HowBig from 'app/components/Telescope/HowBig';
 import fauxMission from 'content/fauxMissions';
-import {browserHistory } from 'react-router';
+import { browserHistory } from 'react-router';
 import { ModuleContainer } from './index';
 import style from './how-big-module.style';
 
@@ -20,7 +20,7 @@ class HowBigModule extends Component {
       width: 0,
       x: 0,
       y: 0,
-      isStarted: this.props.autoplay,
+      isStarted: this.props.autoPlay,
     },
   };
 
@@ -33,41 +33,58 @@ class HowBigModule extends Component {
     this.setState({ isStarted: false });
   };
 
+  restartAnimation = () => {
+    this.setState({ isStarted: false }, () => {
+      this.setState({ isStarted: true });
+    });
+  };
+
   render() {
     const {
       dimensions: { width },
       isStarted,
     } = this.state;
-    const { autoplay } = this.props;
+    const { autoPlay } = this.props;
     return (
       <Measure bounds onResize={this.handleDimensionChange}>
         {({ measureRef }) => (
           <ModuleContainer title={this.props.howBigLabel}>
+            {this.props.showInfoText && (
+              <p className="how-big-description">{this.props.infoText}</p>
+            )}
+
             <div ref={measureRef} className="portal">
               <svg version="1.1" xmlns="http://www.w3.org/2000/svg">
                 <HowBig dimension={width} {...this.props} isStart={isStarted} />
               </svg>
             </div>
 
-            {this.props.showInfoText && <p>{this.props.infoText}</p>}
-
             <ul className="tile-actions">
+              {!autoPlay && (
+                <li>
+                  <DefaultButton
+                    theme={{
+                      width: '70%',
+                      marginBottom: '10px',
+                      marginLeft: 'auto',
+                      marginRight: 'auto',
+                    }}
+                    text={this.props.playButtonCaption}
+                    onClickEvent={this.restartAnimation}
+                  />
+                </li>
+              )}
               <li>
                 <DefaultButton
-                  theme={{ width: '100%' }}
+                  theme={{
+                    width: '70%',
+                    marginLeft: 'auto',
+                    marginRight: 'auto',
+                  }}
                   text="View our guide"
                   onClickEvent={() => browserHistory.push(this.props.guideURL)}
                 />
               </li>
-              {!autoplay && (
-                <li>
-                  <DefaultButton
-                    theme={{ width: '100%' }}
-                    text={this.props.playButtonCaption}
-                    onClickEvent={() => this.setState({ isStarted: true })}
-                  />
-                </li>
-              )}
             </ul>
 
             <style jsx>{style}</style>
@@ -87,7 +104,7 @@ HowBigModule.propTypes = {
   targetObjectName: string,
   domain: string,
   onComplete: func,
-  autoplay: bool,
+  autoPlay: bool,
 };
 
 HowBigModule.defaultProps = {
@@ -97,7 +114,7 @@ HowBigModule.defaultProps = {
   targetObjectURL: fauxMission.scaleDown.targetObjectURL,
   targetObjectName: fauxMission.scaleDown.targetObjectName,
   onComplete: noop,
-  autoplay: true,
+  autoPlay: true,
 };
 
 export { HowBigModule };

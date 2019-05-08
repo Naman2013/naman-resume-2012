@@ -75,23 +75,23 @@ class ScaleDown extends PureComponent {
   beginFadeReferenceTimer() {
     clearTimeout(this.timerToFadeReference);
     this.timerToFadeReference = setTimeout(() => {
-      const { changeTitle, phase2TopTitle, phase2BottomTitle } = this.props;
-      changeTitle(phase2TopTitle);
-      this.setState({ bottomTitle: phase2BottomTitle });
+      const { changeTitle, phase1TopTitle, phase1BottomTitle } = this.props;
+      changeTitle(phase1TopTitle);
+      this.setState({ bottomTitle: phase1BottomTitle });
       this.fadeReferenceAnimationHandle = this.fadeReference();
-    }, this.props.phase2Sec * 1000);
+    }, this.props.phase1Sec * 1000);
   }
 
   fadeReference() {
-    const { changeTitle, phase3TopTitle, phase3BottomTitle } = this.props;
-    changeTitle(phase3TopTitle);
-    this.setState({ bottomTitle: phase3BottomTitle });
+    const { changeTitle, phase2TopTitle, phase2BottomTitle } = this.props;
+    changeTitle(phase2TopTitle);
+    this.setState({ bottomTitle: phase2BottomTitle });
     return animateValues(
       {
         referenceOpacity: this.state.referenceOpacity,
         referenceNameOpacity: this.state.referenceNameOpacity,
       },
-      this.props.phase3Sec * 1000,
+      this.props.phase2Sec * 1000,
       {
         referenceOpacity: 0.5,
         referenceNameOpacity: 0,
@@ -105,11 +105,14 @@ class ScaleDown extends PureComponent {
   }
 
   presentTargetObject() {
+    const { changeTitle, phase3TopTitle, phase3BottomTitle } = this.props;
+    changeTitle(phase3TopTitle);
+    this.setState({ bottomTitle: phase3BottomTitle });
     this.presentTargetObjectAnimationHandle = animateValues(
       {
         targetObjectOpacity: this.state.targetObjectOpacity,
       },
-      ScaleDown.TIME_TO_FADE_IN_TARGET,
+      this.props.phase3Sec * 1000,
       {
         targetObjectOpacity: 1,
         onUpdate: ({ targetObjectOpacity }) => {
@@ -180,13 +183,14 @@ class ScaleDown extends PureComponent {
       referenceObjectLoaded,
       beginReference,
       targetObjectOpacity,
+      bottomTitle,
     } = this.state;
 
     const beginAnimation = !(referenceObjectLoaded && beginReference);
     const midPoint = dimension / 2;
     const subjectDimensionSquare = dimension * 0.8;
     const objectFrameLocation = midPoint - subjectDimensionSquare / 2;
-    const textLabelFontSize = dimension * 0.03;
+    const textLabelFontSize = dimension * 0.04;
     const targetSize = calculatePercentage(dimension, targetScale);
     const targetPosition = midPoint - targetSize / 2;
 
@@ -205,7 +209,7 @@ class ScaleDown extends PureComponent {
               width: subjectDimensionSquare,
               height: subjectDimensionSquare,
               x: objectFrameLocation,
-              y: objectFrameLocation,
+              y: objectFrameLocation + textLabelFontSize,
               onLoadCallback: this.handleReferenceObjectLoaded,
             })}
           </g>
@@ -213,9 +217,9 @@ class ScaleDown extends PureComponent {
           <g style={{ opacity: referenceNameOpacity }}>
             <SVGText
               x={midPoint}
-              y={dimension - dimension * 0.05}
+              y={dimension * 0.12}
               displayProperties={{ fontSize: `${textLabelFontSize}px` }}
-              text={`Reference object = ${domainValues.titleText}`}
+              text={bottomTitle}
             />
           </g>
         </FadeSVG>
@@ -231,16 +235,16 @@ class ScaleDown extends PureComponent {
               width={targetSize}
               height={targetSize}
               x={targetPosition}
-              y={targetPosition}
+              y={targetPosition + textLabelFontSize}
               onLoadCallback={this.handleTargetObjectLoaded}
             />
           </g>
 
           <SVGText
             x={midPoint}
-            y={dimension - dimension * 0.05}
+            y={dimension * 0.12}
             displayProperties={{ fontSize: `${textLabelFontSize}px` }}
-            text={`Target object = ${this.props.targetObjectName}`}
+            text={bottomTitle}
           />
         </g>
       </g>

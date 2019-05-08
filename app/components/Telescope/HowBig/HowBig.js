@@ -34,7 +34,7 @@ class HowBig extends Component {
     const { title } = this.state;
 
     const isScaledUp = targetObjectScale > referenceObjectScale;
-    const titleFontSize = dimension * 0.05;
+    const titleFontSize = dimension * 0.04;
 
     return (
       <g>
