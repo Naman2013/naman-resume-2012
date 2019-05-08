@@ -34,7 +34,7 @@ class HowBigModule extends Component {
   };
 
   restartAnimation = () => {
-    this.setState({ isStarted: false, title: '' }, () => {
+    this.setState({ isStarted: false, }, () => {
       this.setState({ isStarted: true });
     });
   };

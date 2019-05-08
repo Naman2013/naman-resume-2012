@@ -24,6 +24,12 @@ class HowBig extends Component {
     this.setState({ title });
   };
 
+  componentWillReceiveProps(newProps) {
+    if (newProps.isStart) {
+      this.setState({ title: '' })
+    }
+  }
+
   render() {
     const {
       dimension,
@@ -42,11 +48,11 @@ class HowBig extends Component {
           isScaledUp ? (
             <ScaleUp {...this.props} changeTitle={this.changeTitle} />
           ) : (
-            <ScaleDown {...this.props} changeTitle={this.changeTitle} />
-          )
+              <ScaleDown {...this.props} changeTitle={this.changeTitle} />
+            )
         ) : (
-          <div />
-        )}
+            <div />
+          )}
 
         <AutoFadeSVG duration={0.5}>
           <SVGText
