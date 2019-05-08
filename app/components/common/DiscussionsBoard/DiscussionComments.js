@@ -16,7 +16,7 @@ import { submitReply } from 'app/services/discussions/submit-reply';
 import { THREAD_REPLIES } from 'app/services/discussions';
 import CommentListItem from './CommentListItem';
 import Form from './ReplyForm';
-import ShowMoreFullSet from '../../common/ShowMoreFullSet';
+import ShowMoreFullSet from '../ShowMoreFullSet';
 import styles from './DiscussionsBoard.style';
 
 const { arrayOf, bool, func, number, oneOfType, shape, string } = PropTypes;
@@ -45,6 +45,7 @@ class DiscussionsComment extends Component {
       cid: oneOfType([number, string]),
     }).isRequired,
   };
+
   static defaultProps = {
     discussionsActions: {
       updateThreadsProps: noop,
@@ -66,48 +67,13 @@ class DiscussionsComment extends Component {
 
   componentDidMount() {
     const {
-      callSource,
-      count,
-      topicId,
-      forumId,
       threadId,
-      validateResponseAccess,
-      user,
+      getReplies,
       discussions: { commentsList },
-      discussionsActions: { updateCommentsProps },
     } = this.props;
 
     if (typeof commentsList[threadId] === 'undefined') {
-      axios
-        .post(THREAD_REPLIES, {
-          callSource,
-          topicId,
-          threadId,
-          forumId,
-          replyTo: threadId, // should be threadId
-          page: 1,
-          at: user.at,
-          token: user.token,
-          cid: user.cid,
-        })
-        .then(res => {
-          validateResponseAccess(res);
-          if (!res.data.apiError) {
-            const { replies } = res.data;
-            let newReplies = [].concat(replies);
-            newReplies = newReplies.map(reply => {
-              const currentReply = Object.assign({}, reply);
-              currentReply.page = 1;
-              currentReply.showComments = false;
-              currentReply.key = currentReply.replyId;
-              return currentReply;
-            });
-            const displayedComments = take([].concat(replies), count).map(
-              reply => reply.replyId
-            );
-            updateCommentsProps(threadId, newReplies, displayedComments);
-          }
-        });
+      getReplies(threadId);
     }
   }
 
@@ -147,48 +113,45 @@ class DiscussionsComment extends Component {
     submitReply(params).then(res => {
       const { apiError, reply } = res.data;
       if (!apiError) {
-        const {
-          count,
-          threadId,
-          discussions: { commentsList, displayedComments, threadsList },
-          discussionsActions: { updateCommentsProps, updateThreadsProps },
-        } = this.props;
-        if (commentsList[threadId]) {
-          let newThreadsList = [].concat(threadsList);
-          const comments = commentsList[threadId];
-          const { page } =
-            find(newThreadsList, thread => thread.threadId === threadId) || {};
-          const displayed = displayedComments[threadId] || [];
-          const lastPage = Math.ceil(comments.length / count) || 1;
-          let newDisplayedComments = [].concat(displayed);
+        const { getThreads, threadId, getReplies } = this.props;
+        getThreads();
+        getReplies(threadId);
+        //updateThreadsProps(threadsList);
+        // const {
+        //   count,
+        //   threadId,
+        //   discussions: { commentsList, displayedComments, threadsList },
+        //   discussionsActions: { updateCommentsProps, updateThreadsProps },
+        // } = this.props;
+        // if (commentsList[threadId]) {
+        //   let newThreadsList = [].concat(threadsList);
+        //   const comments = commentsList[threadId];
+        //   const { page } = (find(newThreadsList, thread => thread.threadId === threadId) || {});
+        //   const displayed = displayedComments[threadId] || [];
+        //   const lastPage = (Math.ceil(comments.length / count)) || 1;
+        //   let newDisplayedComments = [].concat(displayed);
 
-          // add new comment to the thread's list of commments in state
-          const newCommentsList = [].concat(
-            comments,
-            Object.assign({ likesCount: 0, replyToponlyCount: 0 }, reply)
-          );
-          // update comment count on the thread
-          newThreadsList = newThreadsList.map(thread => {
-            const newThread = Object.assign({}, thread);
-            if (thread.threadId === threadId) {
-              newThread.replyToponlyCount = newThread.replyToponlyCount + 1;
-            }
+        //   // add new comment to the thread's list of commments in state
+        //   const newCommentsList = [].concat(comments, Object.assign({ likesCount: 0, replyToponlyCount: 0 }, reply));
+        //   // update comment count on the thread
+        //   newThreadsList = newThreadsList.map((thread) => {
+        //     const newThread = Object.assign({}, thread);
+        //     if (thread.threadId === threadId) {
+        //       newThread.replyToponlyCount = newThread.replyToponlyCount + 1;
+        //     }
 
-            return newThread;
-          });
+        //     return newThread;
+        //   });
 
-          if (page === lastPage) {
-            // if there's only one page of comments, append the new comment to the displayed comments
-            newDisplayedComments = [].concat(
-              newDisplayedComments,
-              reply.replyId
-            );
-          }
+        //   if (page === lastPage) { // if there's only one page of comments, append the new comment to the displayed comments
+        //     newDisplayedComments = [].concat(newDisplayedComments, reply.replyId);
+        //   }
 
-          // set state in parent component
-          updateCommentsProps(threadId, newCommentsList, newDisplayedComments);
-          updateThreadsProps(newThreadsList);
-        }
+        //   // set state in parent component
+        //   updateCommentsProps(threadId, newCommentsList, newDisplayedComments);
+        //   updateThreadsProps(newThreadsList);
+        //   this.getReplies();
+        // }
       }
       callback(res.data);
     });
@@ -205,6 +168,8 @@ class DiscussionsComment extends Component {
     submitReply(params).then(res => {
       const { apiError, reply } = res.data;
       if (!apiError) {
+        const { getThreads, getReplies } = this.props;
+
         const parentThread = find(
           threadsList,
           thread => thread.threadId === threadId
@@ -240,8 +205,8 @@ class DiscussionsComment extends Component {
             newThreadComments = newThreadComments.map(comment => {
               const currentComment = Object.assign({}, comment);
               if (replyTo === currentComment.replyId) {
-                currentComment.replyToponlyCount =
-                  currentComment.replyToponlyCount + 1;
+                currentComment.replyToponlyCount += 1;
+                currentComment.showComments = true;
               }
               return currentComment;
             });
@@ -251,13 +216,11 @@ class DiscussionsComment extends Component {
           } else {
             // toggle showComments so we do a fresh API call to get the comments
             let newThreadComments = commentsList[threadId] || [];
-
             // need to update parent replyToponlyCount and showComments
             newThreadComments = newThreadComments.map(comment => {
               const currentComment = Object.assign({}, comment);
               if (replyTo === currentComment.replyId) {
-                currentComment.replyToponlyCount =
-                  currentComment.replyToponlyCount + 1;
+                currentComment.replyToponlyCount += 1;
                 currentComment.showComments = true;
               }
               return currentComment;
@@ -265,6 +228,10 @@ class DiscussionsComment extends Component {
             updateCommentsProps(threadId, newThreadComments, null);
           }
         }
+
+        getThreads();
+        getReplies(threadId);
+        getReplies(threadId, replyTo);
       }
       callback(res.data);
     });

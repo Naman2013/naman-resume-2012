@@ -339,6 +339,17 @@ class Login extends Component {
                           buttonText={GOOGLE_CLIENT_ID_MODEL.loginButtonText}
                           onSuccess={this.processGoogleSuccessResponse}
                           onFailure={this.processGoogleFailureResponse}
+                          style={{
+                            background: 'rgb(209, 72, 54)',
+                            color: '#ffffff',
+                            width: '190px',
+                            padding: '10px 0',
+                            borderRadius: '2px',
+                            border: '1px solid transparent',
+                            fontSize: '16px',
+                            fontWeight: 'bold',
+                            fontFamily: 'Roboto',
+                          }}
                         />
                       </div>
                     </Fragment>

@@ -12,6 +12,7 @@ import {
   selectObjectTypeList,
   selectSelectedFilters,
   selectTelescopeList,
+  selectFitsData,
 } from 'app/modules/profile-photos/selectors';
 import React, { Component, Fragment, cloneElement } from 'react';
 import { withRouter } from 'react-router';
@@ -34,7 +35,7 @@ import {
   fetchGalleriesAndCounts,
   fetchMoreGalleries,
 } from 'app/modules/my-pictures-galleries/actions';
-
+import { getFitsData } from 'app/modules/profile-photos/thunks';
 import style from './ImageList.style';
 
 const mapTypeToList = {
@@ -88,6 +89,7 @@ const mapDispatchToProps = dispatch => ({
       fetchFiltersLists,
       fetchObjectTypeList,
       setFilters,
+      getFitsData,
     },
     dispatch
   ),
@@ -103,6 +105,7 @@ const mapStateToProps = state => {
     photoRollCount: state.myPictures.photoRoll.imageCount,
     observationsList: state.myPictures.photoRoll.response.imageList,
     observationsCount: state.myPictures.observations.imageCount,
+    fitsData: state.fitsData,
 
     telescopeList: selectTelescopeList()(state),
     objectTypeList: selectObjectTypeList()(state),
@@ -264,14 +267,15 @@ class ImageList extends Component {
 
   render() {
     const {
+      actions: { getFitsData },
       children,
       type,
       deviceInfo,
       telescopeList,
       objectTypeList,
       selectedFilters,
+      fitsData,
     } = this.props;
-    // console.log(this.props);
     const { activePage, isFilterOpen } = this.state;
     const arrOfImages = this.props[mapTypeToList[type]];
     const count = this.props[mapTypeToCount[type]];
@@ -321,6 +325,8 @@ class ImageList extends Component {
                           currentItem: image,
                           count,
                           user,
+                          getFitsData: type === 'missions' && getFitsData,
+                          fitsData: type === 'missions' && fitsData,
                         })
                       )
                     : 'The list is empty.'}

@@ -39,6 +39,10 @@ export default css`
     justify-content: center;
   }
 
+  .button-container.auto {
+    margin: auto;
+  }
+
   .button-container:active,
   .button-container:focus {
     outline: none;

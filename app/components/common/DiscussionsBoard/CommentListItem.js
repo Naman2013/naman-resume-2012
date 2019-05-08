@@ -16,7 +16,10 @@ import styles from './DiscussionsBoard.style';
 const { bool, func, number, oneOfType, shape, string } = PropTypes;
 
 const CommentListItem = props => (
-  <div className="comment-list-item" key={uniqueId()}>
+  <div
+    className="comment-list-item"
+    //key={uniqueId()}
+  >
     <DiscussionsCard
       {...props}
       replyTo={props.replyId}

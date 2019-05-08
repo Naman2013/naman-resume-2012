@@ -94,6 +94,7 @@ import user from './User';
 import usersUpcomingMission from './Users-Upcoming-Missions';
 import missionDetails from './mission-details/reducer';
 import galleryDetails from './gallery-details/reducer';
+import fitsData from './profile-photos/reducer';
 
 export default combineReducers({
   routing: routerReducer,
@@ -191,4 +192,5 @@ export default combineReducers({
   imageDetails,
   galleryDetails,
   askAstronomer,
+  fitsData,
 });
