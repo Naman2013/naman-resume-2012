@@ -101,7 +101,11 @@ function fetchAccountFormFieldError(state, action) {
 function getSubscriptionPlan(state) {
   return {
     ...state,
-    subscriptionPlans: { ...state.subscriptionPlans, isFetching: true },
+    subscriptionPlans: {
+      ...state.subscriptionPlans,
+      isFetching: true,
+      data: {},
+    },
   };
 }
 
