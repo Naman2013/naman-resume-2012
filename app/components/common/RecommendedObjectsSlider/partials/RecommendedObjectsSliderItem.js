@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl } from 'react-intl';
-import noop from 'lodash/noop';
 import Button from '../../style/buttons/Button';
 
 import styles from './RecommendedObjectsSliderItem.style';
@@ -15,7 +14,7 @@ const getIconStyle = iconURL => ({
 
 const { string, arrayOf, shape, bool } = PropTypes;
 
-const RecommendedObjectsItem = ({ object, intl }) => {
+const RecommendedObjectsItem = ({ object, intl, reservationModalShow }) => {
   const {
     missionStartFormatted,
     title,
@@ -24,6 +23,8 @@ const RecommendedObjectsItem = ({ object, intl }) => {
     observatoryIconURL,
     objectIconURL,
     telescopeName,
+    missionAvailable,
+    userHasReservation,
   } = object;
   const {
     displayWeekdayMonthDayYearUTC,
@@ -54,11 +55,13 @@ const RecommendedObjectsItem = ({ object, intl }) => {
         <img src={observatoryIconURL} alt="icon" />
         <div className="object-field details">{telescopeName}</div>
       </div>
-      <Button
-        onClickEvent={noop}
-        text={intl.formatMessage(messages.Options)}
-        theme={{ margin: '30px auto 0', width: '140px' }}
-      />
+      {missionAvailable && !userHasReservation && (
+        <Button
+          onClickEvent={() => reservationModalShow(object)}
+          text={intl.formatMessage(messages.Options)}
+          theme={{ margin: '30px auto 0', width: '140px' }}
+        />
+      )}
       <style jsx>{styles}</style>
     </div>
   );

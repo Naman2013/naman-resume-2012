@@ -7,15 +7,64 @@
 import React, { Component } from 'react';
 import take from 'lodash/take';
 import { FeaturedObjectCard } from 'app/modules/telescope/components/featured-object-card';
+import { FeaturedObjectsModal } from 'app/modules/telescope/components/featured-objects-modal';
+import { MissionSuccessModal } from 'app/modules/missions/components/mission-success-modal';
 import SloohSlider from '../Slider';
 import DisplayAtBreakpoint from '../DisplayAtBreakpoint';
 import { getSliderProps } from './recommendedObjectsSliderConfiguration';
 import './styles.scss';
 
 export class RecommendedObjects extends Component {
+  state = {
+    reservationModalVisible: false,
+    selectedMission: {},
+    successModalShow: false,
+  };
+
+  reserveCommunityMission = () => {
+    const { reserveCommunityMission, callSource } = this.props;
+    const { selectedMission } = this.state;
+    const { scheduledMissionId, missionStart } = selectedMission;
+
+    reserveCommunityMission({
+      callSource,
+      scheduledMissionId,
+      missionStart,
+    }).then(() =>
+      this.setState({ successModalShow: true, reservationModalVisible: false })
+    );
+  };
+
+  reservationModalShow = mission => {
+    this.setState({ reservationModalVisible: true, selectedMission: mission });
+  };
+
+  reservationModalHide = () => {
+    this.setState({ reservationModalVisible: false, selectedMission: {} });
+  };
+
+  modalClose = () => {
+    const { getDashboardFeaturedObjects } = this.props;
+    this.setState({
+      successModalShow: false,
+      selectedMission: {},
+    });
+    getDashboardFeaturedObjects();
+  };
+
   render() {
-    const { missionList } = this.props;
-    const sliderProps = getSliderProps(missionList);
+    const {
+      missionList,
+      user,
+      reservedCommunityMissionData,
+      reservedCommunityMission,
+    } = this.props;
+    const {
+      reservationModalVisible,
+      selectedMission,
+      successModalShow,
+    } = this.state;
+    const sliderProps = getSliderProps(missionList, this.reservationModalShow);
     const shortList = take(missionList, 3) || [];
     return (
       <div className="dashboard-recomended-objects">
@@ -33,6 +82,25 @@ export class RecommendedObjects extends Component {
             ))}
           </div>
         </DisplayAtBreakpoint>
+
+        {reservationModalVisible && (
+          <FeaturedObjectsModal
+            onHide={this.reservationModalHide}
+            onComplete={this.reserveCommunityMission}
+            selectedMission={selectedMission}
+            user={user}
+            onMissionView={this.reserveCommunityMission}
+            show
+          />
+        )}
+
+        <MissionSuccessModal
+          show={successModalShow}
+          onHide={this.modalClose}
+          reservedMissionData={selectedMission}
+          reservedMission={reservedCommunityMissionData}
+          missionSlot={reservedCommunityMission}
+        />
       </div>
     );
   }

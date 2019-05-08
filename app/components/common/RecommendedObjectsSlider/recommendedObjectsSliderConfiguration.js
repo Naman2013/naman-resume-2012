@@ -14,20 +14,21 @@ const getSliderConfiguration = () =>
     centerPadding: '25px',
   });
 
-const getRecommendedObjectsItems = (recommendedObjectsList = []) =>
+const getRecommendedObjectsItems = (recommendedObjectsList = [], reservationModalShow) =>
   recommendedObjectsList.map(object => ({
     render: () => (
       <RecommendedObjectsItem
         key={`${object.title} ${object.subtitle}`}
         object={object}
+        reservationModalShow={reservationModalShow}
       />
     ),
   }));
 
-export const getSliderProps = (slideList = []) =>
+export const getSliderProps = (slideList = [], reservationModalShow) =>
   Object.assign(
     {
-      slideList: getRecommendedObjectsItems(slideList),
+      slideList: getRecommendedObjectsItems(slideList, reservationModalShow),
     },
     {
       sliderConfig: getSliderConfiguration(),

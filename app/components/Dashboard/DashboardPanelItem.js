@@ -21,7 +21,7 @@ const PanelItem = ({
   title,
   subtitle,
 }) => (
-    <div className={"dash-item" + (orderNumber === 1 ? '-first' : '')} key={uniqueId()}>
+    <div className={"dash-item" + (orderNumber === 1 ? '-first' : '')}>
         <div className="outer-well">
           <div className="inner-well">
             <h5>{('0' + orderNumber).slice(-2)}</h5>

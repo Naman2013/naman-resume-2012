@@ -87,7 +87,7 @@ const PopularGroupsPanel = props =>
 
 export const getSectionComponent = (section, props) => {
   const sectionComponents = {
-    recommendedObjects: <RecommendedObjectsPanel {...props} key={uniqueId()} />,
+    recommendedObjects: <RecommendedObjectsPanel {...props} />,
     featuredObservations: (
       <FeaturedObservationsPanel {...props} key={uniqueId()} />
     ),
