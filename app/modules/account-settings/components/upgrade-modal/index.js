@@ -17,7 +17,6 @@ type TUpgradeModal = {
 
 export class UpgradeModal extends PureComponent<TUpgradeModal> {
   componentDidMount = () => {
-    console.log('didMount');
     const { getSubscriptionPlans } = this.props;
     getSubscriptionPlans();
   };
