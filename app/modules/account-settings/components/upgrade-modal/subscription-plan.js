@@ -8,12 +8,13 @@ import cx from 'classnames';
 
 type TSubscriptionPlan = {
   plan: any,
+  expanded?: boolean,
 };
 
 export const SubscriptionPlan = (props: TSubscriptionPlan) => {
-  const [isDetailsExpanded, setDetailsExpanded] = useState(false);
+  const { plan, expanded = false } = props;
 
-  const { plan } = props;
+  const [isDetailsExpanded, setDetailsExpanded] = useState(expanded);
   const {
     planHeading,
     planName,
@@ -46,22 +47,24 @@ export const SubscriptionPlan = (props: TSubscriptionPlan) => {
 
       <hr />
 
-      <div className="d-flex justify-content-between">
-        <div>
-          <Button
-            onClick={() => setDetailsExpanded(!isDetailsExpanded)}
-            className={cx({ 'btn-active': isDetailsExpanded })}
-          >
-            {isDetailsExpanded ? <span className="icon-close" /> : 'details'}
-          </Button>
-          <Button className="ml-3 btn-circle">
-            <span className="icon-share" />
+      {!expanded && (
+        <div className="d-flex justify-content-between">
+          <div>
+            <Button
+              onClick={() => setDetailsExpanded(!isDetailsExpanded)}
+              className={cx({ 'btn-active': isDetailsExpanded })}
+            >
+              {isDetailsExpanded ? <span className="icon-close" /> : 'details'}
+            </Button>
+            <Button className="ml-3 btn-circle">
+              <span className="icon-share" />
+            </Button>
+          </div>
+          <Button>
+            {selectButtonText} <span className="icon-arrow-right" />
           </Button>
         </div>
-        <Button>
-          {selectButtonText} <span className="icon-arrow-right" />
-        </Button>
-      </div>
+      )}
 
       <Collapse in={isDetailsExpanded}>
         <div className="plan-details-expanded">
@@ -77,7 +80,11 @@ export const SubscriptionPlan = (props: TSubscriptionPlan) => {
           />
           <hr />
           <div className="d-flex justify-content-between">
-            <Button onClick={() => setDetailsExpanded(false)}>close</Button>
+            {expanded ? (
+              <span />
+            ) : (
+              <Button onClick={() => setDetailsExpanded(false)}>close</Button>
+            )}
             <Button className="btn-active">{selectButtonText}</Button>
           </div>
         </div>

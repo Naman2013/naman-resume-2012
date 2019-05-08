@@ -47,10 +47,16 @@ export const fetchAccountFormFieldAction = (formFieldName, newValue) => (
     .catch(error => ACTION.fetchAccountFormFieldError(error));
 };
 
-export const getSubscriptionPlans = () => (dispatch, getState) => {
+export const getSubscriptionPlans = data => (dispatch, getState) => {
   dispatch(ACTION.getSubscriptionPlans());
   const { token, at, cid } = getState().user;
-  return getSubscriptionPlansApi({ token, at, cid, callSource: 'upgrade' })
+  return getSubscriptionPlansApi({
+    token,
+    at,
+    cid,
+    callSource: 'upgrade',
+    ...data,
+  })
     .then(result => dispatch(ACTION.getSubscriptionPlansSuccess(result.data)))
     .catch(error => ACTION.getSubscriptionPlansError(error));
 };

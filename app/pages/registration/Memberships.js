@@ -16,7 +16,7 @@ class Memberships extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isUpgradeModalOpen: false,
+      upgradeSubscriptionPlanId: false,
     };
     window.localStorage.removeItem('selectedPlanId');
   }
@@ -36,7 +36,7 @@ class Memberships extends Component {
     const isClassroom = window.localStorage.getItem('isClassroom') === 'true';
 
     if (triggerUpgradeFlow) {
-      this.setUpgradeModalOpen(true);
+      this.setUpgradeModalOpen(subscriptionPlanId);
     } else if (isClassroom) {
       /* Teacher Subscription Plans should prompt for School Selection */
       browserHistory.push('/join/step1SchoolSelection');
@@ -46,8 +46,8 @@ class Memberships extends Component {
     }
   }
 
-  setUpgradeModalOpen = isUpgradeModalOpen =>
-    this.setState({ isUpgradeModalOpen });
+  setUpgradeModalOpen = upgradeSubscriptionPlanId =>
+    this.setState({ upgradeSubscriptionPlanId });
 
   viewPlanDetails(subscriptionPlanId, isAstronomyClub, isClassroom) {
     window.localStorage.setItem('selectedPlanId', subscriptionPlanId);
@@ -59,12 +59,13 @@ class Memberships extends Component {
   }
 
   render() {
-    const { isUpgradeModalOpen } = this.state;
+    const { upgradeSubscriptionPlanId } = this.state;
     return (
       <div>
-        {isUpgradeModalOpen && (
+        {upgradeSubscriptionPlanId && (
           <UpgradeModal
-            show={isUpgradeModalOpen}
+            show={upgradeSubscriptionPlanId}
+            selectedPlanId={upgradeSubscriptionPlanId}
             onHide={() => this.setUpgradeModalOpen(false)}
           />
         )}

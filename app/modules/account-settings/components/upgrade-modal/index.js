@@ -12,17 +12,24 @@ type TUpgradeModal = {
 
   getSubscriptionPlans: Function,
   subscriptionPlansData: any,
+  selectedPlanId?: string,
   isFetching: Boolean,
 };
 
 export class UpgradeModal extends PureComponent<TUpgradeModal> {
   componentDidMount = () => {
-    const { getSubscriptionPlans } = this.props;
-    getSubscriptionPlans();
+    const { getSubscriptionPlans, selectedPlanId } = this.props;
+    getSubscriptionPlans({ selectedPlanId });
   };
 
   render() {
-    const { show, onHide, isFetching, subscriptionPlansData } = this.props;
+    const {
+      show,
+      onHide,
+      isFetching,
+      subscriptionPlansData,
+      selectedPlanId,
+    } = this.props;
 
     const {
       subscriptionPlans = [],
@@ -38,7 +45,7 @@ export class UpgradeModal extends PureComponent<TUpgradeModal> {
         <p className="modal-p mb-5">{pageHeading2}</p>
 
         {subscriptionPlans.map(plan => (
-          <SubscriptionPlan plan={plan} />
+          <SubscriptionPlan plan={plan} expanded={Boolean(selectedPlanId)} />
         ))}
       </Modal>
     );
