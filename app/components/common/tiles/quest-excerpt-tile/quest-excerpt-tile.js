@@ -15,10 +15,19 @@ const QuestExcerptTile = ({
 }) => (
   <div className="quest-tile-root">
     <div className="title" dangerouslySetInnerHTML={{ __html: title }} />
-    <div className="sub-title" dangerouslySetInnerHTML={{ __html: questAuthor }} />
-    <div className="description" dangerouslySetInnerHTML={{ __html: shortDescription }} />
+    <div
+      className="sub-title"
+      dangerouslySetInnerHTML={{ __html: questAuthor }}
+    />
+    <div
+      className="description"
+      dangerouslySetInnerHTML={{ __html: shortDescription }}
+    />
     <div className="actions">
-      <Button text={linkLabel} onClickEvent={() => browserHistory.push(linkUrl)} />
+      <Button
+        text={linkLabel}
+        onClickEvent={() => browserHistory.push(linkUrl)}
+      />
     </div>
     <style jsx>{style}</style>
   </div>

@@ -7,13 +7,15 @@ export const modelTelescopesFromObsList = {
   name: 'TELESCOPES_ONLY',
   model: function modelTelescopes(API_RAW) {
     const { observatoryList } = API_RAW;
-    const telescopesByObservatory = observatoryList.map(_observatory => _observatory.obsTelescopes);
+    const telescopesByObservatory = observatoryList.map(
+      _observatory => _observatory.obsTelescopes
+    );
     return flatten(telescopesByObservatory);
   },
 };
 
 export default (telescopes = []) => ({
-  render: props => (<Telescope {...props} />),
+  render: props => <Telescope {...props} />,
   content: telescopes.map(_telescope => ({
     _ID: uniqueId(),
     text: _telescope.teleName,

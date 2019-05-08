@@ -26,7 +26,9 @@ const InAppNavigation = ({
 
     <div className="core-navigation-container">
       <span className="back-arrow">
-        <Link to={backLinkURL}><BackArrow /></Link>
+        <Link to={backLinkURL}>
+          <BackArrow />
+        </Link>
       </span>
       <h5 className="title">{title}</h5>
       <div className="context-menu-container">
@@ -49,10 +51,12 @@ InAppNavigation.propTypes = {
   title: PropTypes.string.isRequired,
   contextMenuTitle: PropTypes.string.isRequired,
   contextMenuCount: PropTypes.number,
-  list: PropTypes.arrayOf(PropTypes.shape({
-    title: PropTypes.string,
-    linkURL: PropTypes.string,
-  })).isRequired,
+  list: PropTypes.arrayOf(
+    PropTypes.shape({
+      title: PropTypes.string,
+      linkURL: PropTypes.string,
+    })
+  ).isRequired,
   isOpen: PropTypes.bool,
   menuTopAdjustment: PropTypes.number,
   backLinkURL: PropTypes.string.isRequired,

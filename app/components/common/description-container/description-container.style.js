@@ -1,6 +1,10 @@
 import css from 'styled-jsx/css';
 import { primaryFont, secondaryFont } from 'app/styles/variables/fonts';
-import { screenMedium, screenLarge, screenXLarge } from 'app/styles/variables/breakpoints';
+import {
+  screenMedium,
+  screenLarge,
+  screenXLarge,
+} from 'app/styles/variables/breakpoints';
 import { astronaut, lynch } from 'app/styles/variables/colors_tiles_v4';
 
 const prefix = '.description-container';

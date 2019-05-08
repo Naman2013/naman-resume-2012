@@ -15,14 +15,23 @@ import {
   resetsnapImageMsg,
 } from '../../../modules/starshare-camera/starshare-camera-actions';
 
-import { black, lightGray, white, turqoise, pink } from '../../../styles/variables/colors';
+import {
+  black,
+  lightGray,
+  white,
+  turqoise,
+  pink,
+} from '../../../styles/variables/colors';
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({
-    snapImage,
-    resetImageToSnap,
-    resetsnapImageMsg,
-  }, dispatch),
+  actions: bindActionCreators(
+    {
+      snapImage,
+      resetImageToSnap,
+      resetsnapImageMsg,
+    },
+    dispatch
+  ),
 });
 
 const mapStateToProps = ({ starshareCamera }) => ({
@@ -36,11 +45,14 @@ const mapStateToProps = ({ starshareCamera }) => ({
 function getSnapClasses(index, snappingImages) {
   const FIRST_ELEMENT = 0;
   return classnames('snapshot', {
-    shake: (index === FIRST_ELEMENT) && snappingImages,
+    shake: index === FIRST_ELEMENT && snappingImages,
   });
 }
 
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(
+  mapStateToProps,
+  mapDispatchToProps
+)
 class StarShareCamera extends Component {
   static propTypes = {
     actions: PropTypes.shape({
@@ -66,7 +78,6 @@ class StarShareCamera extends Component {
     snappingPhoto: false,
   };
 
-
   componentWillReceiveProps(nextProps) {
     if (this.props.snapshotMsg !== nextProps.snapshotMsg) {
       this.openModal();
@@ -74,7 +85,9 @@ class StarShareCamera extends Component {
   }
 
   openLightbox = (imageSource, event) => {
-    if (event) { event.preventDefault(); }
+    if (event) {
+      event.preventDefault();
+    }
     this.setState({
       lightboxOpen: true,
       lightboxImage: imageSource,
@@ -98,13 +111,13 @@ class StarShareCamera extends Component {
       snappingPhoto: true,
     });
     this.props.actions.snapImage();
-  }
+  };
 
   openModal = () => {
     this.setState({
       openedModal: true,
     });
-  }
+  };
 
   closeModal = () => {
     this.setState({
@@ -112,81 +125,77 @@ class StarShareCamera extends Component {
     });
 
     this.props.actions.resetsnapImageMsg();
-  }
+  };
 
   render() {
-    const {
-      lightboxOpen,
-      lightboxImage,
-      snappingPhoto,
-    } = this.state;
+    const { lightboxOpen, lightboxImage, snappingPhoto } = this.state;
 
-    const {
-      snapshotList,
-      snapshotMsg,
-      snapAPIError,
-      justSnapped,
-    } = this.props;
+    const { snapshotList, snapshotMsg, snapAPIError, justSnapped } = this.props;
 
-    const snappingImages = (justSnapped && snappingPhoto);
+    const snappingImages = justSnapped && snappingPhoto;
 
     return (
       <div className="star-share-camera-wrapper">
         <button className="snapshot-btn" onClick={this.takeSnapshot}>
           <i className="fa fa-camera" />
         </button>
-        {
-          snapshotList.map((snapshot, i) => {
-            return (
-              <button
-                onClick={(event) => { this.openLightbox(snapshot.imageURL, event); }}
-                key={`${snapshot.imageID}-${uniqueId()}`}
-                className={getSnapClasses(i, snappingImages)}
-              >
-                {
-                  snapshot.imageURL
-                    ? <Snap key={snapshot.imageID} width="100px" height="50px" imageURL={snapshot.imageURL} />
-                    : null
-                }
-              </button>
-            );
-          })
-        }
-        {
-          snapshotMsg && snapAPIError && <ModalGeneric
+        {snapshotList.map((snapshot, i) => {
+          return (
+            <button
+              onClick={event => {
+                this.openLightbox(snapshot.imageURL, event);
+              }}
+              key={`${snapshot.imageID}-${uniqueId()}`}
+              className={getSnapClasses(i, snappingImages)}
+            >
+              {snapshot.imageURL ? (
+                <Snap
+                  key={snapshot.imageID}
+                  width="100px"
+                  height="50px"
+                  imageURL={snapshot.imageURL}
+                />
+              ) : null}
+            </button>
+          );
+        })}
+        {snapshotMsg && snapAPIError && (
+          <ModalGeneric
             open={this.state.openedModal}
             closeModal={this.closeModal}
             description={String(snapshotMsg)}
           />
-        }
+        )}
 
-        {
-          lightboxImage &&
-            <Lightbox
-              images={[{ src: lightboxImage }]}
-              isOpen={lightboxOpen}
-              onClose={this.closeLightbox}
-              backdropClosesModal={true}
-              showImageCount={false}
-            />
-        }
+        {lightboxImage && (
+          <Lightbox
+            images={[{ src: lightboxImage }]}
+            isOpen={lightboxOpen}
+            onClose={this.closeLightbox}
+            backdropClosesModal={true}
+            showImageCount={false}
+          />
+        )}
 
         <style jsx>{`
           @keyframes shake-keyframes {
-            15%, 40%, 75%, 100% {
-              transform-origin: center center
+            15%,
+            40%,
+            75%,
+            100% {
+              transform-origin: center center;
             }
             15% {
-              transform:scale(1.4, 1.2);
+              transform: scale(1.4, 1.2);
             }
             40% {
-              transform:scale(0.9, 0.9);
+              transform: scale(0.9, 0.9);
             }
             75% {
-              transform:scale(1.08, 1);
+              transform: scale(1.08, 1);
             }
             100% {
-              transform:scale(1, 1);
+              transform: scale(1, 1);
             }
           }
 
@@ -196,7 +205,7 @@ class StarShareCamera extends Component {
 
           .star-share-camera-wrapper {
             display: flex;
-            flex-wrap:wrap;
+            flex-wrap: wrap;
             width: 100%;
           }
 

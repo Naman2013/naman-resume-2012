@@ -12,7 +12,7 @@ const SmallScreenFormat = props => {
     options,
     activeInstrumentID,
     currentInstrumentName,
-    updateCurrentInstrument
+    updateCurrentInstrument,
   } = props;
   const formatedOptions = options.map((o, i) => {
     return {
@@ -21,11 +21,11 @@ const SmallScreenFormat = props => {
       thumbnailURL: o.thumbnailURL,
       observatoryUniqueID: o.observatoryUniqueID,
       telescopeUniqueID: o.telescopeUniqueID,
-      instruments: o.instruments
-    }
+      instruments: o.instruments,
+    };
   });
 
-  return (options && options.length) ? (
+  return options && options.length ? (
     <div className="small-screen-select">
       <div className="active-selection-box">
         <div

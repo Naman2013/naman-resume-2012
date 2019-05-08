@@ -11,16 +11,16 @@ export default css`
     padding: 0;
     list-style-type: none;
   }
-  
+
   .observatory-data-list.compact {
     display: flex;
     background: ${romance};
   }
-  
+
   .observatory-data-list .datum {
     flex: 1;
   }
-  
+
   .observatory-data-list .datum:first-child {
     border-right: 1px solid ${hawkesBlue};
   }

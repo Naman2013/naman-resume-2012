@@ -11,7 +11,7 @@ export default css`
     align-items: center;
     justify-content: space-between;
     list-style-type: none;
-    background: linear-gradient(to bottom, #0b121b 0%,#263344 74%);
+    background: linear-gradient(to bottom, #0b121b 0%, #263344 74%);
     overflow-x: scroll;
   }
 

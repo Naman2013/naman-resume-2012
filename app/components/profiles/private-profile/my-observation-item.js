@@ -1,9 +1,9 @@
 /***********************************
-* V4 Private Profile Observation Item
-*
-*
-*
-***********************************/
+ * V4 Private Profile Observation Item
+ *
+ *
+ *
+ ***********************************/
 
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -11,17 +11,15 @@ import { Link } from 'react-router';
 import { backgroundImageCover } from '../../../styles/mixins/utilities';
 import { likeImage } from '../../../services/my-pictures/like-image';
 
-import { black, darkBlueGray, white, turqoise } from '../../../styles/variables/colors';
+import {
+  black,
+  darkBlueGray,
+  white,
+  turqoise,
+} from '../../../styles/variables/colors';
 import { secondaryFont } from '../../../styles/variables/fonts';
 
-const {
-  arrayOf,
-  bool,
-  func,
-  number,
-  shape,
-  string,
-} = PropTypes;
+const { arrayOf, bool, func, number, shape, string } = PropTypes;
 
 const MyObservationItem = ({
   canEditFlag,
@@ -41,37 +39,54 @@ const MyObservationItem = ({
   showCommentsLink,
   showLikePrompt,
 }) => {
-
   const observationTime = observationTimeDisplay.join('  |  ');
   return (
     <div className="observation-item" key={customerImageId}>
       <div className="title" dangerouslySetInnerHTML={{ __html: imageTitle }} />
-      <div className="time" dangerouslySetInnerHTML={{ __html: observationTime }} />
+      <div
+        className="time"
+        dangerouslySetInnerHTML={{ __html: observationTime }}
+      />
       <div className="body">
         <Link to={`/my-pictures/show-image/${customerImageId}/${shareToken}`}>
-          <div style={{ backgroundImage: `url(${imageURL})` }} className="shared-image" />
+          <div
+            style={{ backgroundImage: `url(${imageURL})` }}
+            className="shared-image"
+          />
         </Link>
         <div className="info-panel">
-          <div className="description" dangerouslySetInnerHTML={{ __html: observationLog }} />
+          <div
+            className="description"
+            dangerouslySetInnerHTML={{ __html: observationLog }}
+          />
           <div className="actions">
             <div>Likes ({likesCount})</div>
-            {showCommentsLink && <Link
-              to={`/discussions/forums/${commentsForumId}/topics/${commentsTopicId}/threads/${commentsThreadId}`}>
+            {showCommentsLink && (
+              <Link
+                to={`/discussions/forums/${commentsForumId}/topics/${commentsTopicId}/threads/${commentsThreadId}`}
+              >
                 <span>{`Comments (${commentsCount})`}</span>
-              </Link>}
-            {canEditFlag && <Link to={`/my-pictures/show-image/${customerImageId}/${shareToken}`}>
-              <div className=""><span className="fa fa-pencil"/> Edit</div>
-            </Link>}
+              </Link>
+            )}
+            {canEditFlag && (
+              <Link
+                to={`/my-pictures/show-image/${customerImageId}/${shareToken}`}
+              >
+                <div className="">
+                  <span className="fa fa-pencil" /> Edit
+                </div>
+              </Link>
+            )}
           </div>
         </div>
       </div>
       <style jsx>{`
-
         .observation-item {
           background-color: ${white};
           margin: 10px;
           padding: 15px;
-          box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+          box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16),
+            0 3px 6px rgba(0, 0, 0, 0.23);
         }
 
         .actions {
@@ -95,7 +110,7 @@ const MyObservationItem = ({
         }
       `}</style>
     </div>
-  )
+  );
 };
 
 MyObservationItem.defaultProps = {

@@ -8,7 +8,10 @@ import { fetchSkyChartWidget } from 'app/modules/Telescope-Overview';
 import { hawkesBlue } from 'app/styles/variables/colors_tiles_v4';
 import style from './where-in-the-sky.style';
 
-const cellTheme = { borderBottom: `1px solid ${hawkesBlue}`, minHeight: 'auto' };
+const cellTheme = {
+  borderBottom: `1px solid ${hawkesBlue}`,
+  minHeight: 'auto',
+};
 
 class WhereInTheSky extends Component {
   static propTypes = {
@@ -16,8 +19,7 @@ class WhereInTheSky extends Component {
     AllskyWidgetId: PropTypes.string.isRequired,
     scheduledMissionId: PropTypes.string.isRequired,
     fetchSkyChartWidget: PropTypes.func.isRequired,
-  }
-
+  };
 
   constructor(props) {
     super(props);
@@ -34,7 +36,8 @@ class WhereInTheSky extends Component {
     if (
       obsId !== prevProps.obsId ||
       AllskyWidgetId !== prevProps.AllskyWidgetId ||
-      scheduledMissionId !== prevProps.scheduledMissionId) {
+      scheduledMissionId !== prevProps.scheduledMissionId
+    ) {
       this.props.fetchSkyChartWidget({
         obsId,
         scheduledMissionId,
@@ -47,7 +50,9 @@ class WhereInTheSky extends Component {
     return (
       <div>
         <ModuleContainer title="Where in the night&#39;s sky">
-          <div style={{ border: '1px solid blue', width: '100%', height: '300px' }} />
+          <div
+            style={{ border: '1px solid blue', width: '100%', height: '300px' }}
+          />
           <StaticCell title="Distance from earth" theme={cellTheme}>
             <p>Deep space</p>
           </StaticCell>
@@ -68,8 +73,12 @@ const mapStateToProps = ({ telescopeOverview }) => ({
   skyChartWidgetResult: telescopeOverview.skyChartWidgetResult,
 });
 
-const mapDispatchToProps = dispatch => (bindActionCreators({ fetchSkyChartWidget }, dispatch));
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ fetchSkyChartWidget }, dispatch);
 
-const connectedWhereInTheSky = connect(mapStateToProps, mapDispatchToProps)(WhereInTheSky);
+const connectedWhereInTheSky = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(WhereInTheSky);
 
 export { connectedWhereInTheSky as WhereInTheSky };

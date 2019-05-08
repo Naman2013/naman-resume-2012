@@ -1,34 +1,23 @@
 /***********************************
-* V4 Discussions Comment List Item
-*
-*
-*
-***********************************/
+ * V4 Discussions Comment List Item
+ *
+ *
+ *
+ ***********************************/
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import uniqueId from 'lodash/uniqueId';
-import { likeReply } from 'app/services/discussions/like';;
+import { likeReply } from 'app/services/discussions/like';
 import DiscussionsCard from 'app/components/common/DiscussionsCard';
 import DiscussionsCardSimple from 'app/components/common/DiscussionsCardSimple';
 import DiscussionReplies from './DiscussionComments';
 import styles from './DiscussionsBoard.style';
 
-const {
-  bool,
-  func,
-  number,
-  oneOfType,
-  shape,
-  string,
-} = PropTypes;
-
+const { bool, func, number, oneOfType, shape, string } = PropTypes;
 
 const RepliesListItem = props => (
-  <div
-    className="comment-list-item"
-    key={uniqueId()}
-  >
+  <div className="comment-list-item" key={uniqueId()}>
     <DiscussionsCard
       {...props}
       replyTo={props.replyId}
@@ -74,6 +63,5 @@ RepliesListItem.propTypes = {
     cid: oneOfType([number, string]),
   }).isRequired,
 };
-
 
 export default RepliesListItem;

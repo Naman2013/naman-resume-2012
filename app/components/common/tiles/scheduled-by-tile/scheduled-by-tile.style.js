@@ -1,6 +1,9 @@
 import css from 'styled-jsx/css';
 import { primaryFont, secondaryFont } from 'app/styles/variables/fonts';
-import { lightHeadedAstronaut, hawkesBlue } from 'app/styles/variables/colors_tiles_v4';
+import {
+  lightHeadedAstronaut,
+  hawkesBlue,
+} from 'app/styles/variables/colors_tiles_v4';
 import { faintShadow } from 'app/styles/variables/shadows';
 
 export default css`
@@ -18,7 +21,9 @@ export default css`
     font-size: 11px;
   }
 
-  .profile-photo { margin-bottom: 20px; }
+  .profile-photo {
+    margin-bottom: 20px;
+  }
 
   .profile-name {
     margin: 0;
@@ -42,7 +47,9 @@ export default css`
     color: ${lightHeadedAstronaut};
   }
 
-  .list-attributes li { padding: 10px 0; }
+  .list-attributes li {
+    padding: 10px 0;
+  }
 
   .list-attributes li:first-child {
     border-right: 1px solid ${hawkesBlue};

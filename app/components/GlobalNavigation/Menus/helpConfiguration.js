@@ -3,7 +3,7 @@ import uniqueId from 'lodash/uniqueId';
 import PrimaryButton from './partials/buttons/PrimaryButton';
 
 export default {
-  render: props => (<PrimaryButton {...props} />),
+  render: props => <PrimaryButton {...props} />,
   content: [
     {
       _ID: uniqueId(),

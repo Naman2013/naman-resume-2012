@@ -16,7 +16,14 @@ import styles from './LiveShowVideoViewerNav.style';
 import messages from './LiveShowVideoViewer.messages';
 
 const {
-  any, arrayOf, bool, func, number, oneOfType, shape, string,
+  any,
+  arrayOf,
+  bool,
+  func,
+  number,
+  oneOfType,
+  shape,
+  string,
 } = PropTypes;
 
 const CustomOption = ({ innerRef, innerProps, children }) => (
@@ -33,24 +40,26 @@ const getInlineBgStyle = imgUrl => ({
 
 class LiveShowVideoViewerNav extends Component {
   static propTypes = {
-    additionalFeeds: arrayOf(shape({
-      DomeId: string,
-      ObsId: string,
-      PierNumber: string,
-      SSEfade: number,
-      SSEport: number,
-      TelescopeCode: oneOfType([string, number]),
-      TelescopeId: string,
-      TelescopeName: string,
-      cameraSourceType: string,
-      canStarShare: bool,
-      imageSourceType: string,
-      systemId: string,
-      tabDesc: string,
-      tabIconURL: string,
-      videoStreamCode: string,
-      videoStreamURL: string,
-    })),
+    additionalFeeds: arrayOf(
+      shape({
+        DomeId: string,
+        ObsId: string,
+        PierNumber: string,
+        SSEfade: number,
+        SSEport: number,
+        TelescopeCode: oneOfType([string, number]),
+        TelescopeId: string,
+        TelescopeName: string,
+        cameraSourceType: string,
+        canStarShare: bool,
+        imageSourceType: string,
+        systemId: string,
+        tabDesc: string,
+        tabIconURL: string,
+        videoStreamCode: string,
+        videoStreamURL: string,
+      })
+    ),
     handleSelect: func.isRequired,
     selectedTab: number.isRequired,
     showStreamCode: oneOfType([string, number]),
@@ -75,7 +84,9 @@ class LiveShowVideoViewerNav extends Component {
           <div>
             <div
               className="opt-icon live-show-icon"
-              style={Object.assign(getInlineBgStyle(liveShow), { backgroundSize: '80%' })}
+              style={Object.assign(getInlineBgStyle(liveShow), {
+                backgroundSize: '80%',
+              })}
             />
             <span className="opt-desc">
               <FormattedMessage {...messages.LiveShow} />
@@ -90,8 +101,14 @@ class LiveShowVideoViewerNav extends Component {
         value: i + 1,
         label: (
           <div>
-            <div className="opt-icon" style={getInlineBgStyle(feed.tabIconURL)} />
-            <span className="opt-desc" dangerouslySetInnerHTML={{ __html: feed.tabDesc }} />
+            <div
+              className="opt-icon"
+              style={getInlineBgStyle(feed.tabIconURL)}
+            />
+            <span
+              className="opt-desc"
+              dangerouslySetInnerHTML={{ __html: feed.tabDesc }}
+            />
           </div>
         ),
       });
@@ -102,10 +119,10 @@ class LiveShowVideoViewerNav extends Component {
     };
   }
 
-  handleChange = (selectedOption) => {
+  handleChange = selectedOption => {
     this.props.handleSelect(Number(selectedOption.value));
   };
-  
+
   render() {
     const {
       additionalFeeds,
@@ -142,7 +159,10 @@ class LiveShowVideoViewerNav extends Component {
               <Tab>
                 <div className="tab-wrapper">
                   <div className="show-tab live-show">
-                    <div className="tab-icon live-show-icon" style={getInlineBgStyle(liveShow)} />
+                    <div
+                      className="tab-icon live-show-icon"
+                      style={getInlineBgStyle(liveShow)}
+                    />
                   </div>
                 </div>
               </Tab>
@@ -151,7 +171,10 @@ class LiveShowVideoViewerNav extends Component {
                   <div className="tab-wrapper">
                     <div className="tab-description">{feed.tabDesc}</div>
                     <div className="show-tab">
-                      <div className="tab-icon" style={getInlineBgStyle(feed.tabIconURL)} />
+                      <div
+                        className="tab-icon"
+                        style={getInlineBgStyle(feed.tabIconURL)}
+                      />
                     </div>
                   </div>
                 </Tab>

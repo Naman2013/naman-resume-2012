@@ -39,7 +39,7 @@ export class CoordinatesSetup extends PureComponent {
       objectData,
       targetName,
       setTargetName,
-      telescopeData, 
+      telescopeData,
       setProcessingRecipe,
       processingRecipe,
       disabled,
@@ -96,7 +96,10 @@ export class CoordinatesSetup extends PureComponent {
           </div>
         </div>
 
-        <CoordinatesCalculation setCoordinatesData={setCoordinatesData} coordinatesData={coordinatesData}/>
+        <CoordinatesCalculation
+          setCoordinatesData={setCoordinatesData}
+          coordinatesData={coordinatesData}
+        />
 
         <div className="steps row">
           <div className="col-md-6 step-3-4">

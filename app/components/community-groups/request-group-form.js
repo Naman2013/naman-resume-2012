@@ -28,30 +28,34 @@ class RequestGroupForm extends Component {
     requestFormPrivacy: 'public',
   };
 
-  onChangeRequestForm = (e) => {
+  onChangeRequestForm = e => {
     e.preventDefault();
     this.setState({
       requestFormText: e.target.value,
     });
   };
 
-  changeFormTitle = (e) => {
+  changeFormTitle = e => {
     this.setState({
       requestFormTitle: e.target.value,
     });
   };
 
-  changeFormPrivacy = (e) => {
+  changeFormPrivacy = e => {
     e.preventDefault();
     this.setState({
       requestFormPrivacy: e.currentTarget.dataset.privacy,
     });
   };
 
-  submitRequestForm = (e) => {
+  submitRequestForm = e => {
     e.preventDefault();
     const { submitForm } = this.props;
-    const { requestFormTitle, requestFormText, requestFormPrivacy } = this.state;
+    const {
+      requestFormTitle,
+      requestFormText,
+      requestFormPrivacy,
+    } = this.state;
 
     submitForm({
       requestFormTitle,
@@ -63,7 +67,11 @@ class RequestGroupForm extends Component {
   render() {
     const { closeForm, intl } = this.props;
 
-    const { requestFormTitle, requestFormText, requestFormPrivacy } = this.state;
+    const {
+      requestFormTitle,
+      requestFormText,
+      requestFormPrivacy,
+    } = this.state;
 
     return (
       <form className="root">
@@ -105,7 +113,10 @@ class RequestGroupForm extends Component {
             />
           </div>
           <div className="actions">
-            <Button onClickEvent={closeForm} text={intl.formatMessage(messages.Cancel)} />
+            <Button
+              onClickEvent={closeForm}
+              text={intl.formatMessage(messages.Cancel)}
+            />
             <Button
               onClickEvent={this.submitRequestForm}
               text={intl.formatMessage(messages.Submit)}

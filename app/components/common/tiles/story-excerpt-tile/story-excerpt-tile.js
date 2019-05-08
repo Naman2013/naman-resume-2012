@@ -21,16 +21,25 @@ const StoryExcerptTile = ({
   <div className="story-tile-root">
     <div className="title" dangerouslySetInnerHTML={{ __html: title }} />
     <div className="sub-title" dangerouslySetInnerHTML={{ __html: author }} />
-    <div className="description" dangerouslySetInnerHTML={{ __html: shortDescription }} />
+    <div
+      className="description"
+      dangerouslySetInnerHTML={{ __html: shortDescription }}
+    />
     <div className="actions">
-      <Button text={linkLabel} onClickEvent={() => browserHistory.push(linkUrl)} theme={{ height: '40px' }}/>
-      {toggleReadingListFlag ? <ToggleReadingList
-        itemId={postId}
-        promptIconUrl={promptIconUrl}
-        readingListPrompt={null}
-        readingListType={readingListType}
-        updateReadingInfoInList={updateReadingInfoInList}
-      /> : null}
+      <Button
+        text={linkLabel}
+        onClickEvent={() => browserHistory.push(linkUrl)}
+        theme={{ height: '40px' }}
+      />
+      {toggleReadingListFlag ? (
+        <ToggleReadingList
+          itemId={postId}
+          promptIconUrl={promptIconUrl}
+          readingListPrompt={null}
+          readingListType={readingListType}
+          updateReadingInfoInList={updateReadingInfoInList}
+        />
+      ) : null}
     </div>
     <style jsx>{style}</style>
   </div>

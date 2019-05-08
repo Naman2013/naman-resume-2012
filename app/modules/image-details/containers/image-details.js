@@ -1,19 +1,24 @@
 import { validateResponseAccess } from 'app/modules/authorization/actions';
 import { ImageDetails } from 'app/modules/image-details/components/image-details';
-import { getImageDetails } from 'app/modules/image-details/thunks';
+import {
+  getImageDetails,
+  setObservationTags,
+} from 'app/modules/image-details/thunks';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 
-// const mapStateToProps = createStructuredSelector({});
-const mapStateToProps = state => ({
-  user: state.user,
-  //  el: select()(state)
-});
+const mapStateToProps = ({ user, imageDetails }) => {
+  return {
+    user,
+    observationTagsError: imageDetails.observationTagsError,
+  };
+};
 
 const mapDispatchToProps = {
   getImageDetails,
   validateResponseAccess,
+  setObservationTags,
 };
 
 export default compose(

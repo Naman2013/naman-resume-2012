@@ -92,7 +92,7 @@ export default css`
     align-items: center;
   }
 
-  .leader-info{
+  .leader-info {
     display: flex;
     flex-direction: row;
     font-family: ${primaryFont};
@@ -102,7 +102,7 @@ export default css`
     border-top: 1px solid ${astronaut};
     height: 35px;
     align-items: center;
-    color:${lightHeadedAstronaut}
+    color: ${lightHeadedAstronaut};
   }
 
   .gravity-label {

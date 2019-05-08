@@ -6,14 +6,11 @@ import styles from './form-feedback-actions.style';
 import messages from './form-feedback-actions.messages';
 
 const { func, string } = PropTypes;
-const FormFeedbackActions = (props) => {
+const FormFeedbackActions = props => {
   const { closeResponseFeedback, submitButtonCaption } = props;
   return (
     <div className="root">
-      <Button
-        onClickEvent={closeResponseFeedback}
-        text={submitButtonCaption}
-      />
+      <Button onClickEvent={closeResponseFeedback} text={submitButtonCaption} />
       <style jsx>{styles}</style>
     </div>
   );
@@ -29,7 +26,5 @@ FormFeedbackActions.propTypes = {
 FormFeedbackActions.defaultProps = {
   submitButtonCaption: 'OK',
 };
-
-
 
 export default FormFeedbackActions;

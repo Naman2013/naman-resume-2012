@@ -43,6 +43,9 @@ const BootstrappedImageDetails = props => {
     iconFileData,
     canEditFlag,
     customerImageId,
+    imageDownloadFilename,
+    imageDownloadURL,
+    observationTagsError,
   } = props;
 
   const showMissionRelatedInfo = Number(scheduledMissionId) > 0;
@@ -60,6 +63,8 @@ const BootstrappedImageDetails = props => {
                 <EditHeader
                   imageTitle={imageTitle}
                   customerImageId={customerImageId}
+                  imageDownloadFilename={imageDownloadFilename}
+                  imageDownloadURL={imageDownloadURL}
                 />
               ) : (
                 <ViewHeader imageTitle={imageTitle} />
@@ -78,14 +83,16 @@ const BootstrappedImageDetails = props => {
                 onHide={() => openModal(!isOpen)}
               />
             </div>
-            <div className="object-details">
-              <ObjectDetailList
-                isMobile={isMobile}
-                objectId={objectId}
-                iconFileData={iconFileData}
-                scheduledMissionId={scheduledMissionId}
-              />
-            </div>
+            {objectId && objectId !== '0' && (
+              <div className="object-details">
+                <ObjectDetailList
+                  isMobile={isMobile}
+                  objectId={objectId}
+                  iconFileData={iconFileData}
+                  scheduledMissionId={scheduledMissionId}
+                />
+              </div>
+            )}
           </div>
         </div>
       </div>

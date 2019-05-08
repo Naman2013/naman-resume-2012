@@ -22,27 +22,28 @@ const componentsByRole = {
   HOST: ['myobservations'],
   ASTROLAB: ['missions', 'myobservations'],
 };
-const mapStateToProps = ({
-  dashboard,
-  user,
-}) => ({
+const mapStateToProps = ({ dashboard, user }) => ({
   dashboard,
   user,
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({
-    fetchDashboard,
-  }, dispatch),
+  actions: bindActionCreators(
+    {
+      fetchDashboard,
+    },
+    dispatch
+  ),
 });
 
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(
+  mapStateToProps,
+  mapDispatchToProps
+)
 class PrivateProfile extends Component {
-  static propTypes = {
-  }
+  static propTypes = {};
 
-  static defaultProps = {
-  }
+  static defaultProps = {};
 
   constructor(props) {
     super();
@@ -50,11 +51,11 @@ class PrivateProfile extends Component {
   }
 
   render() {
-    const {
-      dashboard,
-      user,
-    } = this.props;
-    const avatarStyle = Object.assign(profilePhotoStyle(dashboard.profile.avatarURL), { backgroundSize: 'cover' });
+    const { dashboard, user } = this.props;
+    const avatarStyle = Object.assign(
+      profilePhotoStyle(dashboard.profile.avatarURL),
+      { backgroundSize: 'cover' }
+    );
     const membershipType = dashboard.profile.membershipType;
     return (
       <div className="private-profile">
@@ -63,7 +64,9 @@ class PrivateProfile extends Component {
           <div className="main-header-info">
             <div
               className=""
-              dangerouslySetInnerHTML={{ __html: dashboard.profile.displayName }}
+              dangerouslySetInnerHTML={{
+                __html: dashboard.profile.displayName,
+              }}
             />
             <div
               className=""
@@ -71,26 +74,31 @@ class PrivateProfile extends Component {
             />
           </div>
         </header>
-        {componentsByRole[membershipType] && componentsByRole[membershipType].indexOf('missions') > -1 ?
+        {componentsByRole[membershipType] &&
+        componentsByRole[membershipType].indexOf('missions') > -1 ? (
           <div className="section">
             <div className="uppercase">
               <h4 className="emphasis">My Upcoming Missions</h4>
             </div>
             <ProfileMissions missionList={dashboard.profile.missionList} />
           </div>
-          : null}
+        ) : null}
 
-        {componentsByRole[membershipType] && componentsByRole[membershipType].indexOf('askastronomer') > -1 ?
+        {componentsByRole[membershipType] &&
+        componentsByRole[membershipType].indexOf('askastronomer') > -1 ? (
           <div className="section">
             <div className="header">
-              <h4 className="emphasis uppercase">Activity Feed: This Just In, Just For You</h4>
+              <h4 className="emphasis uppercase">
+                Activity Feed: This Just In, Just For You
+              </h4>
               <h5>Questions from the community</h5>
             </div>
             <AskAstronomerQuestionList />
           </div>
-          : null}
+        ) : null}
 
-        {componentsByRole[membershipType] && componentsByRole[membershipType].indexOf('myobservations') > -1 ?
+        {componentsByRole[membershipType] &&
+        componentsByRole[membershipType].indexOf('myobservations') > -1 ? (
           <div className="section">
             <div className="header">
               <h4 className="emphasis uppercase">My Observations</h4>
@@ -98,7 +106,7 @@ class PrivateProfile extends Component {
             </div>
             <MyObservations cid={user.cid} />
           </div>
-          : null}
+        ) : null}
         <style jsx>{`
           .private-profile {
             background-color: ${gray};

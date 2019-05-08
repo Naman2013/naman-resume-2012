@@ -1,7 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import noop from 'lodash/noop';
-import { romance, astronaut, shadows } from '../../../../styles/variables/colors_tiles_v4';
+import {
+  romance,
+  astronaut,
+  shadows,
+} from '../../../../styles/variables/colors_tiles_v4';
 import { faintShadow } from 'app/styles/variables/shadows';
 import { primaryFont } from '../../../../styles/variables/fonts';
 import COMMON_STYLE from '../../common-style';
@@ -55,7 +59,10 @@ const MenuTitleBar = ({ title, iconURL, children }) => (
         margin-right: 25px;
       }
 
-      h4 { font-size: 12px; padding: 10px 0; }
+      h4 {
+        font-size: 12px;
+        padding: 10px 0;
+      }
 
       .action {
         width: 70px;

@@ -6,18 +6,18 @@ import style from './pages.style';
 const Pages = ({ pages, activePage, onPageSelect }) => (
   <div>
     <ul className="page-select-root">
-      {pages
-        .map(page => (
-          <li className="page-select" key={`pagination-page-${page}`}>
-            <button
-              className={classnames('action', { active: page === activePage })}
-              onClick={() => { onPageSelect({ pageNumber: page }); }}
-            >
-              {page}
-            </button>
-          </li>
-        ))
-      }
+      {pages.map(page => (
+        <li className="page-select" key={`pagination-page-${page}`}>
+          <button
+            className={classnames('action', { active: page === activePage })}
+            onClick={() => {
+              onPageSelect({ pageNumber: page });
+            }}
+          >
+            {page}
+          </button>
+        </li>
+      ))}
     </ul>
     <style jsx>{style}</style>
   </div>
