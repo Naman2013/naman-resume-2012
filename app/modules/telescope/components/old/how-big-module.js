@@ -42,9 +42,6 @@ class HowBigModule extends Component {
   render() {
     const {
       dimensions: { width },
-    } = this.state;
-    const {
-      dimensions: { width },
       isStarted,
     } = this.state;
     const { autoPlay } = this.props;
