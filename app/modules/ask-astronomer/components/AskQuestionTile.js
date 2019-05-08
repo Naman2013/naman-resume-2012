@@ -76,7 +76,9 @@ class AskQuestionTile extends Component {
     const { infoText, modalActions } = this.props;
     modalActions.setModal({
       promptComponent: (
-        <p className="modal-p" dangerouslySetInnerHTML={{ __html: infoText }} />
+        <div className="modal-box">
+          <p dangerouslySetInnerHTML={{ __html: infoText }} />
+        </div>
       ),
       promptStyles: customModalStylesBlackOverlay,
     });

@@ -70,6 +70,18 @@
     font-size: 19px;
     color: $romance;
   }
+
+  .modal-box {
+    padding: 40px;
+    background-color: $romance;
+    box-shadow: 0 0 6px 0 $shadows;
+
+    p {
+      font-family: $secondary-font;
+      font-size: 19px;
+      color: $lightHeadedAstronaut;
+    }
+  }
 }
 
 
