@@ -24,6 +24,11 @@
       &:focus {
       }
     }
+
+    &.btn-active {
+      background-color: $lightHeadedAstronaut;
+      color: $romance;
+    }
   }
 
   &-circle {

@@ -1,15 +1,18 @@
 // @flow
 
 import BobbieTile from 'app/components/common/tiles/BobbieTile';
-import React from 'react';
-import { Button } from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Button, Collapse } from 'react-bootstrap';
 import './subscription-plan.scss';
+import cx from 'classnames';
 
 type TSubscriptionPlan = {
   plan: any,
 };
 
 export const SubscriptionPlan = (props: TSubscriptionPlan) => {
+  const [isDetailsExpanded, setDetailsExpanded] = useState(false);
+
   const { plan } = props;
   const {
     planHeading,
@@ -45,29 +48,40 @@ export const SubscriptionPlan = (props: TSubscriptionPlan) => {
 
       <div className="d-flex justify-content-between">
         <div>
-          <Button>details</Button>
+          <Button
+            onClick={() => setDetailsExpanded(!isDetailsExpanded)}
+            className={cx({ 'btn-active': isDetailsExpanded })}
+          >
+            {isDetailsExpanded ? <span className="icon-close" /> : 'details'}
+          </Button>
           <Button className="ml-3 btn-circle">
             <span className="icon-share" />
           </Button>
         </div>
-        <div>
-          <Button>
-            {selectButtonText} <span className="icon-arrow-right" />
-          </Button>
-        </div>
+        <Button>
+          {selectButtonText} <span className="icon-arrow-right" />
+        </Button>
       </div>
 
-      <h2>Descr</h2>
-
-      <BobbieTile
-        className="form-section"
-        showTitle={false}
-        showSubtitle={false}
-        title=""
-        subtitle=""
-        HTMLBlob={plan.aboutThisPlan}
-        disableReadMore
-      />
+      <Collapse in={isDetailsExpanded}>
+        <div className="plan-details-expanded">
+          <BobbieTile
+            className="form-section"
+            showTitle={false}
+            showSubtitle={false}
+            title=""
+            subtitle=""
+            HTMLBlob={plan.aboutThisPlan}
+            disableReadMore
+            embed
+          />
+          <hr />
+          <div className="d-flex justify-content-between">
+            <Button onClick={() => setDetailsExpanded(false)}>close</Button>
+            <Button className="btn-active">{selectButtonText}</Button>
+          </div>
+        </div>
+      </Collapse>
     </div>
   );
 };
