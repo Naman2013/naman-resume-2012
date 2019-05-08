@@ -26,6 +26,7 @@ const subjectGuideModel = {
         <GuideBodyContent
           title={resp.AboutThisTitle}
           content={resp.AboutThisContent}
+          showShareButton={resp.showGoogleClassroomShareIcon}
           topicActionProps={{
             followButtonIconURL: resp.promptIconUrl,
             followButtonText: resp.readingListPrompt,

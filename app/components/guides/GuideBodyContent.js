@@ -12,8 +12,10 @@ const GuideBodyContent = ({
   guideId,
   footer,
   theme,
+  showGoogleClassroomShareIcon
 }) => {
   useEffect(() => {
+    if(showGoogleClassroomShareIcon){
     const script = document.createElement('script');
     script.onload = () => {
       gapi.sharetoclassroom.render('google-classroom-share', {
@@ -26,6 +28,7 @@ const GuideBodyContent = ({
     return () => {
       document.body.removeChild(script);
     };
+  }
   });
 
   return (
