@@ -75,7 +75,6 @@ const subjectGuideModel = {
 const SubjectGuides = ({ params: { guideId } }) => (
   <div className="lightgray-background">
     <Request
-      withoutUser
       serviceURL={GUIDE_ENDPOINT_URL}
       model={subjectGuideModel}
       requestBody={{ guideId }}
@@ -83,40 +82,40 @@ const SubjectGuides = ({ params: { guideId } }) => (
         fetchingContent,
         modeledResponses: { SUBJECT_GUIDE_MODEL },
       }) => (
-        <Fragment>
-          {!fetchingContent && (
-            <Fragment>
-              <TiaraTitleSection
-                {...SUBJECT_GUIDE_MODEL.tiaraTitleSectionProps}
-              />
-
-              <CenterColumn
-                theme={{
-                  boxShadow: 'rgba(65, 86, 113, 0.2) 0px 3px 8px 1px',
-                  marginBottom: '60px',
-                }}
-              >
-                <GuideSection
-                  {...SUBJECT_GUIDE_MODEL.guideSectionProps}
-                  guideId={guideId}
+          <Fragment>
+            {!fetchingContent && (
+              <Fragment>
+                <TiaraTitleSection
+                  {...SUBJECT_GUIDE_MODEL.tiaraTitleSectionProps}
                 />
-              </CenterColumn>
-              <GuidePanels guideId={guideId} />
 
-              {Array.isArray(SUBJECT_GUIDE_MODEL.subjectGuideListProps.list) &&
-                SUBJECT_GUIDE_MODEL.subjectGuideListProps.list.length > 0 && (
-                  <SterlingTitle {...SUBJECT_GUIDE_MODEL.sterlingTitleProps} />
-                )}
+                <CenterColumn
+                  theme={{
+                    boxShadow: 'rgba(65, 86, 113, 0.2) 0px 3px 8px 1px',
+                    marginBottom: '60px',
+                  }}
+                >
+                  <GuideSection
+                    {...SUBJECT_GUIDE_MODEL.guideSectionProps}
+                    guideId={guideId}
+                  />
+                </CenterColumn>
+                <GuidePanels guideId={guideId} />
 
-              <CenterColumn>
-                <SubjectGuideList
-                  {...SUBJECT_GUIDE_MODEL.subjectGuideListProps}
-                />
-              </CenterColumn>
-            </Fragment>
-          )}
-        </Fragment>
-      )}
+                {Array.isArray(SUBJECT_GUIDE_MODEL.subjectGuideListProps.list) &&
+                  SUBJECT_GUIDE_MODEL.subjectGuideListProps.list.length > 0 && (
+                    <SterlingTitle {...SUBJECT_GUIDE_MODEL.sterlingTitleProps} />
+                  )}
+
+                <CenterColumn>
+                  <SubjectGuideList
+                    {...SUBJECT_GUIDE_MODEL.subjectGuideListProps}
+                  />
+                </CenterColumn>
+              </Fragment>
+            )}
+          </Fragment>
+        )}
     />
   </div>
 );
