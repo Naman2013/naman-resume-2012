@@ -10,50 +10,61 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
+import { createStructuredSelector } from 'reselect';
+import { getCommunityMissions } from '../../modules/object-details/actions';
 import {
-  fetchObjectDetailsAction,
-  fetchObjectMissionsAction,
-} from '../../modules/object-details/actions';
+  makeObjectDetailsMissionsSelector,
+  makeObjectDetailsDataSelector,
+} from '../../modules/object-details/selectors';
+import {
+  makeQueueTabReservedCommunityMissionDataSelector,
+  makeQueueTabReservedCommunityMissionSelector,
+} from '../../modules/telescope/selectors';
+import {
+  makeUserSelector,
+} from '../../modules/user/selectors';
+import { MissionTimeSlot } from '../../modules/missions/components/mission-time-slot';
 import DeviceProvider from '../../../app/providers/DeviceProvider';
 import ObjectDetailsSectionTitle from '../../components/object-details/ObjectDetailsSectionTitle';
 import MissionTile from 'app/components/common/tiles/MissionTile';
 import CenterColumn from '../../../app/components/common/CenterColumn';
 import messages from './ObjectDetails.messages';
 
-const mapStateToProps = ({ objectDetails, appConfig, user }) => ({
-  objectMissions: objectDetails.objectMissions,
-  objectDetails: objectDetails.objectDetails,
-  appConfig,
-  user,
+const mapStateToProps = createStructuredSelector({
+  missionData: makeObjectDetailsMissionsSelector(),
+  reservedCommunityMissionData: makeQueueTabReservedCommunityMissionDataSelector(),
+  reservedCommunityMission: makeQueueTabReservedCommunityMissionSelector(),
+  user: makeUserSelector(),
+  objectDetails: makeObjectDetailsDataSelector(),
 });
 
-const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators(
-    {
-      fetchObjectDetailsAction,
-      fetchObjectMissionsAction,
-    },
-    dispatch,
-  ),
-});
+const mapDispatchToProps = {
+  getCommunityMissions,
+};
 
 @connect(
   mapStateToProps,
-  mapDispatchToProps,
+  mapDispatchToProps
 )
 class Missions extends Component {
-  constructor(props) {
-    super(props);
+  componentDidMount() {
+    const {
+      getCommunityMissions,
+      params: { objectId },
+    } = this.props;
+    getCommunityMissions(objectId);
   }
 
   render() {
     const {
       params: { objectId },
       objectDetails,
-      objectMissions,
+      missionData,
       intl,
     } = this.props;
+    const { missionCount, missionList } = missionData;
 
+    console.log('PROPS', this.props);
     return (
       <Fragment>
         <DeviceProvider>
@@ -63,16 +74,29 @@ class Missions extends Component {
           />
         </DeviceProvider>
         <CenterColumn>
-          {objectMissions && objectMissions.missionsCount > 0 ? (
+          {missionCount > 0 ? (
             <div>
-              {Object.keys(objectMissions.missionsList).map(key => (
-                <MissionTile
-                  key={`mission_${key}`}
-                  title={objectMissions.missionsList[key].title}
-                  telescope={objectMissions.missionsList[key].missionDetails.telescope.itemText}
-                  date={objectMissions.missionsList[key].missionDetails.date.itemText}
-                  time={objectMissions.missionsList[key].missionDetails.time.itemText.slice(0, -4)}
+              {missionList.map(item => (
+                <MissionTimeSlot
+                  key={item.scheduledMissionId}
+                  timeSlot={item}
+                  //getTelescopeSlot={() => getTelescopeSlot(item)}
                 />
+                // <MissionTimeSlot
+                //   key={`mission_${key}`}
+                //   title={objectMissions.missionsList[key].title}
+                //   telescope={
+                //     objectMissions.missionsList[key].missionDetails.telescope
+                //       .itemText
+                //   }
+                //   date={
+                //     objectMissions.missionsList[key].missionDetails.date
+                //       .itemText
+                //   }
+                //   time={objectMissions.missionsList[
+                //     key
+                //   ].missionDetails.time.itemText.slice(0, -4)}
+                // />
               ))}
             </div>
           ) : (
