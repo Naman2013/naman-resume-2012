@@ -25,4 +25,21 @@
       }
     }
   }
+
+  &-circle {
+    position: relative;
+    height: 40px;
+    width: 40px;
+    padding: 0;
+
+    [class^=icon] {
+      // centering
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      margin: 0;
+      font-size: 16px;
+    }
+  }
 }
