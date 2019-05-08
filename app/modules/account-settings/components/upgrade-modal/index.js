@@ -31,8 +31,6 @@ export class UpgradeModal extends PureComponent<TUpgradeModal> {
       pageHeading2,
     } = subscriptionPlansData;
 
-    console.log(subscriptionPlansData);
-
     return (
       <Modal show={show} onHide={onHide}>
         <Spinner loading={isFetching} />

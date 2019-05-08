@@ -2,47 +2,52 @@
  * V4 Memberships page
  ********************************** */
 
-import React, { Component, cloneElement, Fragment } from 'react';
-import { Link } from 'react-router';
-import PropTypes from 'prop-types';
+import CenterColumn from 'app/components/common/CenterColumn';
+import Request from 'app/components/common/network/Request';
+import UpgradeModal from 'app/modules/account-settings/containers/upgrade-modal';
+import { SUBSCRIPTION_PLANS_ENDPOINT_URL } from 'app/services/registration/registration';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
-import SubscriptionPlanCardSmall from './partials/SubscriptionPlanCardSmall';
-import Button from 'app/components/common/style/buttons/Button';
-import Request from 'app/components/common/network/Request';
-import CenterColumn from 'app/components/common/CenterColumn';
-import {
-  JOIN_PAGE_ENDPOINT_URL,
-  SUBSCRIPTION_PLANS_ENDPOINT_URL,
-} from 'app/services/registration/registration.js';
 import styles from './Memberships.style';
+import SubscriptionPlanCardSmall from './partials/SubscriptionPlanCardSmall';
 
 class Memberships extends Component {
   constructor(props) {
     super(props);
-
+    this.state = {
+      isUpgradeModalOpen: false,
+    };
     window.localStorage.removeItem('selectedPlanId');
   }
 
-  setSelectedPlan(subscriptionPlanId, isAstronomyClubFlag, isClassroomFlag) {
+  setSelectedPlan(
+    subscriptionPlanId,
+    isAstronomyClubFlag,
+    isClassroomFlag,
+    triggerUpgradeFlow
+  ) {
     window.localStorage.setItem('selectedPlanId', subscriptionPlanId);
     window.localStorage.setItem('isAstronomyClub', isAstronomyClubFlag);
     window.localStorage.setItem('isClassroom', isClassroomFlag);
 
     const isAstronomyClub =
-      window.localStorage.getItem('isAstronomyClub') === 'true' ? true : false;
-    const isClassroom =
-      window.localStorage.getItem('isClassroom') === 'true' ? true : false;
+      window.localStorage.getItem('isAstronomyClub') === 'true';
+    const isClassroom = window.localStorage.getItem('isClassroom') === 'true';
 
-    /* Teacher Subscription Plans should prompt for School Selection */
-    if (isClassroom) {
-      /* move to step 2 in the join flow */
+    if (triggerUpgradeFlow) {
+      this.setUpgradeModalOpen(true);
+    } else if (isClassroom) {
+      /* Teacher Subscription Plans should prompt for School Selection */
       browserHistory.push('/join/step1SchoolSelection');
     } else {
       /* move to step 2 in the join flow */
       browserHistory.push('/join/step2');
     }
   }
+
+  setUpgradeModalOpen = isUpgradeModalOpen =>
+    this.setState({ isUpgradeModalOpen });
 
   viewPlanDetails(subscriptionPlanId, isAstronomyClub, isClassroom) {
     window.localStorage.setItem('selectedPlanId', subscriptionPlanId);
@@ -54,8 +59,14 @@ class Memberships extends Component {
   }
 
   render() {
+    const { isUpgradeModalOpen } = this.state;
     return (
       <div>
+        <UpgradeModal
+          show={isUpgradeModalOpen}
+          onHide={() => this.setUpgradeModalOpen(false)}
+        />
+
         <Request
           serviceURL={SUBSCRIPTION_PLANS_ENDPOINT_URL}
           requestBody={{ callSource: 'membershipspage' }}
@@ -88,7 +99,8 @@ class Memberships extends Component {
                               this.setSelectedPlan(
                                 subscriptionPlan.planID,
                                 subscriptionPlan.isAstronomyClub,
-                                subscriptionPlan.isClassroom
+                                subscriptionPlan.isClassroom,
+                                subscriptionPlan.triggerUpgradeFlow
                               )
                             }
                           />
