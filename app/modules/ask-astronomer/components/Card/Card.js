@@ -1,9 +1,9 @@
 /***********************************
-* V4 Ask an Astronomer Question / Answer / Reply Item card
-*
-*
-*
-***********************************/
+ * V4 Ask an Astronomer Question / Answer / Reply Item card
+ *
+ *
+ *
+ ***********************************/
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
@@ -13,9 +13,12 @@ import CommentButton from 'app/components/common/style/buttons/CommentButton';
 import LikeSomethingButton from 'app/components/common/LikeSomethingButton';
 import Button from 'app/components/common/style/buttons/Button';
 import ViewImagesButton from 'app/components/common/style/buttons/ViewImagesButton';
-import { customModalStylesBlackOverlay, profilePhotoStyle } from 'app/styles/mixins/utilities';
+import {
+  customModalStylesBlackOverlay,
+  profilePhotoStyle,
+} from 'app/styles/mixins/utilities';
 
-import styles, { profPic } from './Card.style'
+import styles, { profPic } from './Card.style';
 
 const {
   any,
@@ -28,7 +31,7 @@ const {
   string,
 } = PropTypes;
 
-const Card = (props) => {
+const Card = props => {
   const {
     avatarURL,
     allowReplies,
@@ -54,29 +57,44 @@ const Card = (props) => {
     user,
   } = props;
 
-  const setModalAndShow = (updatedLikePrompt) => {
+  const setModalAndShow = updatedLikePrompt => {
     modalActions.setModal({
-      promptComponent: <div dangerouslySetInnerHTML={{ __html: updatedLikePrompt }} />,
+      promptComponent: (
+        <div dangerouslySetInnerHTML={{ __html: updatedLikePrompt }} />
+      ),
       promptStyles: customModalStylesBlackOverlay,
-    })
+    });
     modalActions.showModal();
-  }
-  
+  };
+
   return (
     <div className="root">
       <div className="comment-item">
         <div className="user-info-container">
           <div className="user-info">
             <div style={profPic(avatarURL)} />
-            <div className="display-name" dangerouslySetInnerHTML={{ __html: displayName }} />
+            <div
+              className="display-name"
+              dangerouslySetInnerHTML={{ __html: displayName }}
+            />
           </div>
           <span className="date">{moment.utc(creationDate).fromNow()}</span>
         </div>
 
-        <div className="content" dangerouslySetInnerHTML={{ __html: content || title }} />
+        <div
+          className="content"
+          dangerouslySetInnerHTML={{ __html: content || title }}
+        />
         <div className="explainantion-container">
-          <div className="explainantion-item">{moment.utc(creationDate).fromNow()}</div>
-          <div className="explainantion-item">{`Likes: ${likesCount} `}  {allowReplies ? <span>&nbsp;{`${commentText}: ${replyToponlyCount}`}</span> : null}</div>
+          <div className="explainantion-item">
+            {moment.utc(creationDate).fromNow()}
+          </div>
+          <div className="explainantion-item">
+            {`Likes: ${likesCount} `}{' '}
+            {allowReplies ? (
+              <span>&nbsp;{`${commentText}: ${replyToponlyCount}`}</span>
+            ) : null}
+          </div>
         </div>
         <div className="activity-actions">
           <div className="action-left">
@@ -88,23 +106,31 @@ const Card = (props) => {
               showLikePrompt={showLikePrompt}
               customerId={customerId}
             />
-            {renderChildReplies ? <CommentButton
-              isActive={showComments}
-              onClickEvent={toggleComments}
-              count={replyToponlyCount}
-              alwaysShowCount
-            /> : null}
+            {renderChildReplies ? (
+              <CommentButton
+                isActive={showComments}
+                onClickEvent={toggleComments}
+                count={replyToponlyCount}
+                alwaysShowCount
+              />
+            ) : null}
             {S3Files.length > 0 ? <ViewImagesButton images={S3Files} /> : null}
           </div>
           <div className="action-right">
-            {allowReplies ? renderReplyButton() : null }
-
+            {allowReplies ? renderReplyButton() : null}
           </div>
         </div>
       </div>
-      {showComments && renderChildReplies ? renderChildReplies({
-        renderToggle: () => <Button icon="https://vega.slooh.com/assets/v4/common/close_icon.svg" onClickEvent={toggleComments} />
-      }) : null}
+      {showComments && renderChildReplies
+        ? renderChildReplies({
+            renderToggle: () => (
+              <Button
+                icon="https://vega.slooh.com/assets/v4/common/close_icon.svg"
+                onClickEvent={toggleComments}
+              />
+            ),
+          })
+        : null}
       <style jsx>{styles}</style>
     </div>
   );

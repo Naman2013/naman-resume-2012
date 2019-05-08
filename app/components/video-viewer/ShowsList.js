@@ -16,16 +16,16 @@ class ShowsList extends Component {
     paginate({
       page: page + 1,
     });
-  }
+  };
 
   handlePreviousPageClick = () => {
     const { paginate, page } = this.props;
     paginate({
       page: page - 1,
     });
-  }
+  };
 
-  getEventLink = (event) => {
+  getEventLink = event => {
     if (event.eventLinkTarget === 'videoviewer') {
       return `/shows/video-viewer/${event.eventId}`;
     }
@@ -37,7 +37,7 @@ class ShowsList extends Component {
     if (event.eventLinkTarget === 'ssr') {
       return `/shows/situation-room/${event.eventId}`;
     }
-  }
+  };
 
   render() {
     const {
@@ -59,39 +59,37 @@ class ShowsList extends Component {
       [`col-lg-${colNum} col-md-6 `]: !galleryType,
       'col-xs-12': galleryType,
     });
-    const firstImageNumberIndex = (eventList[0] && eventList[0].eventIndex) || 0;
+    const firstImageNumberIndex =
+      (eventList[0] && eventList[0].eventIndex) || 0;
     const rangeText = Pagination.generateRangeText({
       startRange: firstImageNumberIndex,
       itemsPerPage: eventList.length, // use length here because there may be less than maxImageCount
     });
 
-    const canNext = (firstImageNumberIndex + count) < resultsCount;
+    const canNext = firstImageNumberIndex + count < resultsCount;
     const canPrevious = firstImageNumberIndex !== 0;
 
     return (
       <div className="show-list-root clearfix">
         <ul className={`show-list ${containerColClassNames}`}>
-          {
-            eventList.map(event => (
-              <li key={event.eventId} className={listColClassNames}>
-                <Link to={this.getEventLink(event)}>
-                  <Show
-                    textSize={textSize}
-                    {...event}
-                  />
-                </Link>
-              </li>
-            ))
-          }
+          {eventList.map(event => (
+            <li key={event.eventId} className={listColClassNames}>
+              <Link to={this.getEventLink(event)}>
+                <Show textSize={textSize} {...event} />
+              </Link>
+            </li>
+          ))}
         </ul>
-        {paginate && <Pagination
-          totalCount={Number(resultsCount)}
-          currentRange={rangeText}
-          handleNextPageClick={this.handleNextPageClick}
-          handlePreviousPageClick={this.handlePreviousPageClick}
-          canNext={canNext}
-          canPrevious={canPrevious}
-        />}
+        {paginate && (
+          <Pagination
+            totalCount={Number(resultsCount)}
+            currentRange={rangeText}
+            handleNextPageClick={this.handleNextPageClick}
+            handlePreviousPageClick={this.handlePreviousPageClick}
+            canNext={canNext}
+            canPrevious={canPrevious}
+          />
+        )}
 
         <style jsx>{`
           .show-list-root {
@@ -104,7 +102,7 @@ class ShowsList extends Component {
           .myPicturesControl {
             width: 100%;
           }
-          `}</style>
+        `}</style>
       </div>
     );
   }
@@ -121,10 +119,12 @@ ShowsList.defaultProps = {
 };
 
 ShowsList.propTypes = {
-  eventList: PropTypes.arrayOf(PropTypes.shape({
-    eventId: PropTypes.number.isRequired,
-    eventImageURL: PropTypes.string.isRequired,
-  })).isRequired,
+  eventList: PropTypes.arrayOf(
+    PropTypes.shape({
+      eventId: PropTypes.number.isRequired,
+      eventImageURL: PropTypes.string.isRequired,
+    })
+  ).isRequired,
   galleryType: PropTypes.bool,
   colNum: PropTypes.string,
   paginate: PropTypes.func,

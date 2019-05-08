@@ -6,7 +6,7 @@ import liveMissionStyle from './live-mission.style';
 class LiveMission extends Component {
   state = {
     classes: [],
-  }
+  };
 
   render() {
     const {
@@ -21,54 +21,47 @@ class LiveMission extends Component {
       showSloohUser,
       showUserDetails,
       objectDescription,
-     } = this.props;
+    } = this.props;
 
     return (
       <div className="live-mission">
         <div className="content">
-          {
-            missionAvailable ?
+          {missionAvailable ? (
+            <div>
               <div>
-                <div>
-                  <div className="current-mission-title-container">
-                    <img alt="" height="50" src={objectIconURL} />
-                    <div className="current-mission-title">
-                      <h3 className="title">CURRENT LIVE MISSION</h3>
-                      <p className="mission-title">{objectTitle}</p>
-                    </div>
+                <div className="current-mission-title-container">
+                  <img alt="" height="50" src={objectIconURL} />
+                  <div className="current-mission-title">
+                    <h3 className="title">CURRENT LIVE MISSION</h3>
+                    <p className="mission-title">{objectTitle}</p>
                   </div>
                 </div>
-
-                {
-                  showSloohUser ?
-                    <div style={{ marginBottom: '20px' }}>
-                      <img alt="Slooh" height="30" src={ownerAvatarURL} />
-                    </div> : null
-                }
-
-                {
-                  showUserDetails ?
-                    <ByUserTag
-                      theme="dark"
-                      photo={ownerAvatarURL}
-                      name={ownerDisplayName}
-                      accountType={ownerMembershipType}
-                      memberSince={ownerMemberSince}
-                      location={ownerLocation}
-                    /> : null
-                }
-
-                {
-                  objectDescription ?
-                    <div className="users-quote">
-                      <p>
-                        &quot;{objectDescription}&quot;
-                      </p>
-                    </div> : null
-                }
               </div>
-            : null
-          }
+
+              {showSloohUser ? (
+                <div style={{ marginBottom: '20px' }}>
+                  <img alt="Slooh" height="30" src={ownerAvatarURL} />
+                </div>
+              ) : null}
+
+              {showUserDetails ? (
+                <ByUserTag
+                  theme="dark"
+                  photo={ownerAvatarURL}
+                  name={ownerDisplayName}
+                  accountType={ownerMembershipType}
+                  memberSince={ownerMemberSince}
+                  location={ownerLocation}
+                />
+              ) : null}
+
+              {objectDescription ? (
+                <div className="users-quote">
+                  <p>&quot;{objectDescription}&quot;</p>
+                </div>
+              ) : null}
+            </div>
+          ) : null}
         </div>
 
         <style jsx>{liveMissionStyle}</style>

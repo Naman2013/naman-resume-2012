@@ -1,9 +1,9 @@
 /** *********************************
-* V4 MultipleChoiceItem
-*
-*
-*
-***********************************/
+ * V4 MultipleChoiceItem
+ *
+ *
+ *
+ ***********************************/
 
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -11,13 +11,9 @@ import classnames from 'classnames';
 import uniqueId from 'lodash/uniqueId';
 import styles from './multiple-choice-item.style';
 
-const {
-  bool,
-  func,
-  string,
-} = PropTypes;
+const { bool, func, string } = PropTypes;
 
-export const MultipleChoiceItem = (props) => {
+export const MultipleChoiceItem = props => {
   const {
     iconUrl,
     isActive,
@@ -44,7 +40,10 @@ export const MultipleChoiceItem = (props) => {
         </div>
       </div>
       <div className="right">
-        <span className="title-character" dangerouslySetInnerHTML={{ __html: title }} />
+        <span
+          className="title-character"
+          dangerouslySetInnerHTML={{ __html: title }}
+        />
         <span className="status" dangerouslySetInnerHTML={{ __html: status }} />
       </div>
       <style jsx>{styles}</style>
@@ -59,13 +58,12 @@ MultipleChoiceItem.propTypes = {
   status: string,
   isActive: bool,
   onClickItem: func.isRequired,
-
-}
+};
 MultipleChoiceItem.defaultProps = {
   iconUrl: null,
   isActive: false,
   renderIcon: null,
   status: null,
-}
+};
 
 export default MultipleChoiceItem;

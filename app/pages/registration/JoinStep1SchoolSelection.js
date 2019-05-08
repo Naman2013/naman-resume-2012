@@ -63,12 +63,14 @@ class JoinStep1SchoolSelectionGeneral extends Component {
           sectionHeading: data.sectionHeading,
         });
         const { change } = this.props;
-        change('schoolCountry', Object.keys(
-          data.formFieldLabels.schoolNotInMarketListCountryList
-        )[0])
-        change('schoolState', Object.keys(
-          data.formFieldLabels.schoolNotInMarketListStateList
-        )[0])
+        change(
+          'schoolCountry',
+          Object.keys(data.formFieldLabels.schoolNotInMarketListCountryList)[0]
+        );
+        change(
+          'schoolState',
+          Object.keys(data.formFieldLabels.schoolNotInMarketListStateList)[0]
+        );
       });
   }
 
@@ -147,12 +149,10 @@ class JoinStep1SchoolSelectionGeneral extends Component {
       if (values.school) {
         window.localStorage.setItem('selectedSchoolId', values.school);
         browserHistory.push('/join/step2');
-      }
-      else {
+      } else {
         console.log("nothing is selected, can't continue...");
       }
-    }
-    else {
+    } else {
       const {
         schoolName,
         schoolAddress,
@@ -164,26 +164,33 @@ class JoinStep1SchoolSelectionGeneral extends Component {
         schoolCity,
         schoolState,
       } = values;
-      axios.post(CLASSROOM_CREATE_NEW_SCHOOL, {
-        schoolName,
-        schoolAddress,
-        schoolCountry,
-        schoolDistrict: districtName,
-        schoolPhoneNumber,
-        schoolWebsite,
-        districtWebsite,
-        schoolCity,
-        schoolState
-      }).then(({ data }) => {
-        window.localStorage.setItem('selectedSchoolId', data.schoolId);
-        browserHistory.push('/join/step2');
-      }
-      );
+      axios
+        .post(CLASSROOM_CREATE_NEW_SCHOOL, {
+          schoolName,
+          schoolAddress,
+          schoolCountry,
+          schoolDistrict: districtName,
+          schoolPhoneNumber,
+          schoolWebsite,
+          districtWebsite,
+          schoolCity,
+          schoolState,
+        })
+        .then(({ data }) => {
+          window.localStorage.setItem('selectedSchoolId', data.schoolId);
+          browserHistory.push('/join/step2');
+        });
     }
   };
 
   render() {
-    const { pathname, intl, isNewSchool, schoolCountry, handleSubmit } = this.props;
+    const {
+      pathname,
+      intl,
+      isNewSchool,
+      schoolCountry,
+      handleSubmit,
+    } = this.props;
 
     const {
       pageHeading1,
@@ -209,7 +216,10 @@ class JoinStep1SchoolSelectionGeneral extends Component {
               <div className="step-root">
                 <div className="inner-container">
                   <div className="section-heading">{sectionHeading}</div>
-                  <form className="form" onSubmit={handleSubmit(this.handleSubmit)}>
+                  <form
+                    className="form"
+                    onSubmit={handleSubmit(this.handleSubmit)}
+                  >
                     <div className="form-section">
                       <div className="form-field-container">
                         <Fragment>
@@ -230,7 +240,7 @@ class JoinStep1SchoolSelectionGeneral extends Component {
                               name="isNewSchool"
                               type="checkbox"
                               component="input"
-                            // onChange = {()=>console.log(this)}
+                              // onChange = {()=>console.log(this)}
                             />
                             <span className="form-label">
                               {formFieldLabels.isSchoolInMarketList.label}

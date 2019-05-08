@@ -8,7 +8,7 @@ import { likeThread } from 'app/services/discussions/like';
 import { customModalStylesV4 } from 'app/styles/mixins/utilities';
 import React, { Component } from 'react';
 import { Container } from 'react-bootstrap';
-import Modal from 'react-modal';
+import { Modal } from 'app/components/modal';
 import { browserHistory } from 'react-router';
 
 export class Question extends Component {
@@ -170,13 +170,7 @@ export class Question extends Component {
 
         <BackButton />
 
-        <Modal
-          ariaHideApp={false}
-          isOpen={showPrompt}
-          style={promptStyles}
-          contentLabel="askAstronomer"
-          onRequestClose={this.closeModal}
-        >
+        <Modal show={showPrompt} onHide={this.closeModal}>
           {promptComponent}
         </Modal>
 

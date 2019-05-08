@@ -15,10 +15,13 @@ import { resetFITImages } from '../../modules/my-pictures/actions';
 import { resetShareMemberPhoto } from '../../modules/share-member-photo/actions';
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({
-    resetFITImages,
-    resetShareMemberPhoto,
-  }, dispatch),
+  actions: bindActionCreators(
+    {
+      resetFITImages,
+      resetShareMemberPhoto,
+    },
+    dispatch
+  ),
 });
 
 const mapStateToProps = ({ myPictures, shareMemberPhoto }) => ({
@@ -29,7 +32,10 @@ const mapStateToProps = ({ myPictures, shareMemberPhoto }) => ({
   sharePrompt: shareMemberPhoto.sharePrompt,
 });
 
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(
+  mapStateToProps,
+  mapDispatchToProps
+)
 class PhotoView extends Component {
   constructor(props) {
     super(props);
@@ -41,7 +47,7 @@ class PhotoView extends Component {
   state = {
     showSharePicturePrompt: false,
     sharePicturePrompt: false,
-  }
+  };
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.showSharePrompt !== this.state.showSharePicturePrompt) {
@@ -109,7 +115,7 @@ class PhotoView extends Component {
 
   handleCloseFITSModal = () => {
     this.props.actions.resetFITImages();
-  }
+  };
 
   closeModal = () => {
     this.setState({
@@ -117,7 +123,7 @@ class PhotoView extends Component {
     });
 
     this.props.actions.resetShareMemberPhoto();
-  }
+  };
 
   render() {
     const {
@@ -144,7 +150,7 @@ class PhotoView extends Component {
       itemsPerPage: imageList ? imageList.length : galleryList.length, // use length here because there may be less than maxImageCount
     });
 
-    const canNext = (firstImageNumberIndex + maxImageCount) < imageCount;
+    const canNext = firstImageNumberIndex + maxImageCount < imageCount;
     const canPrevious = firstImageNumberIndex !== 0;
     const showFITSModal = FITImages.imageCount > 0;
     const galleryTypes = ['gallery', 'galleryImages', 'publicGalleries'];
@@ -153,10 +159,16 @@ class PhotoView extends Component {
     }
 
     if (error) {
-      return <GenericLoadingBox text="We apologize, there was an issue fetching your images." />;
+      return (
+        <GenericLoadingBox text="We apologize, there was an issue fetching your images." />
+      );
     }
 
-    if (galleryTypes.indexOf(type) === -1 ? imageList.length === 0 : galleryList.length === 0) {
+    if (
+      galleryTypes.indexOf(type) === -1
+        ? imageList.length === 0
+        : galleryList.length === 0
+    ) {
       return <GenericLoadingBox text="No images are available." />;
     }
 
@@ -196,29 +208,23 @@ class PhotoView extends Component {
           closeButtonText={FITImages.buttonText}
         />
 
-        {
-          type === 'covers' ?
-            <MissionList imageList={imageList} /> : null
-        }
-        {
-          type === 'images' ?
-            <PhotoList imageList={imageList} scheduledMissionId={scheduledMissionId} /> : null
-        }
+        {type === 'covers' ? <MissionList imageList={imageList} /> : null}
+        {type === 'images' ? (
+          <PhotoList
+            imageList={imageList}
+            scheduledMissionId={scheduledMissionId}
+          />
+        ) : null}
 
-        {
-          type === 'galleryImages' ?
-            <GalleryList galleryList={galleryList} isImages={true} /> : null
-        }
+        {type === 'galleryImages' ? (
+          <GalleryList galleryList={galleryList} isImages={true} />
+        ) : null}
 
-        {
-          type === 'gallery' ?
-            <GalleryList galleryList={galleryList} /> : null
-        }
+        {type === 'gallery' ? <GalleryList galleryList={galleryList} /> : null}
 
-        {
-          type === 'publicGalleries' ?
-            <PublicGalleryList galleryList={galleryList} /> : null
-        }
+        {type === 'publicGalleries' ? (
+          <PublicGalleryList galleryList={galleryList} />
+        ) : null}
 
         <Pagination
           totalCount={imageCount}
@@ -250,14 +256,18 @@ PhotoView.propTypes = {
   sharePrompt: PropTypes.string,
   showSharePrompt: PropTypes.bool,
   fetching: PropTypes.bool.isRequired,
-  imageList: PropTypes.arrayOf(PropTypes.shape({
-    imageURL: PropTypes.string.isRequired,
-    imageId: PropTypes.number.isRequired,
-  })),
-  galleryList: PropTypes.arrayOf(PropTypes.shape({
-    imageURL: PropTypes.string.isRequired,
-    galleryId: PropTypes.any.isRequired,
-  })),
+  imageList: PropTypes.arrayOf(
+    PropTypes.shape({
+      imageURL: PropTypes.string.isRequired,
+      imageId: PropTypes.number.isRequired,
+    })
+  ),
+  galleryList: PropTypes.arrayOf(
+    PropTypes.shape({
+      imageURL: PropTypes.string.isRequired,
+      galleryId: PropTypes.any.isRequired,
+    })
+  ),
   paginateParams: PropTypes.object,
   paginate: PropTypes.func.isRequired,
   imageCount: PropTypes.number,
@@ -265,7 +275,13 @@ PhotoView.propTypes = {
   firstImageNumber: PropTypes.number,
   error: PropTypes.bool.isRequired,
   missions: PropTypes.bool,
-  type: PropTypes.oneOf(['covers', 'images', 'gallery', 'galleryImages', 'publicGalleries']).isRequired,
+  type: PropTypes.oneOf([
+    'covers',
+    'images',
+    'gallery',
+    'galleryImages',
+    'publicGalleries',
+  ]).isRequired,
 };
 
 export default PhotoView;

@@ -9,13 +9,7 @@ import ByUserTag from '../../components/common/by-user-tag/by-user-tag';
 import CommunityPostTools from '../../components/community/tools/community-post-tools';
 import { lightBlue, pink, black } from '../../styles/variables/colors';
 
-const {
-  arrayOf,
-  func,
-  number,
-  shape,
-  string,
-} = PropTypes;
+const { arrayOf, func, number, shape, string } = PropTypes;
 
 class AuthorPostList extends Component {
   static propTypes = {
@@ -27,7 +21,7 @@ class AuthorPostList extends Component {
     page: number,
     posts: arrayOf(shape({})),
     postsCount: number,
-  }
+  };
 
   static defaultProps = {
     childPath: 'all',
@@ -38,17 +32,20 @@ class AuthorPostList extends Component {
     authorId: '',
     postsCount: 0,
     fetchAuthorContent: noop,
-  }
+  };
 
   prepareData = (posts, firstPostIndex) => {
-    return posts.map((v, k) =>
+    return posts.map((v, k) => (
       <div key={uniqueId()}>
         <div className="author-post-list" key={v.postId}>
           <span className="author-post-list-id">{firstPostIndex + k}.</span>
 
           <figure className="author-post-list-info">
             <Link to={`/community/post/${v.postId}`}>
-              <h2 dangerouslySetInnerHTML={{ __html: v.title }} className="author-post-list-info-title" />
+              <h2
+                dangerouslySetInnerHTML={{ __html: v.title }}
+                className="author-post-list-info-title"
+              />
             </Link>
 
             <div className="row">
@@ -83,7 +80,6 @@ class AuthorPostList extends Component {
               </div>
             </div>
 
-
             <div className="row visible-xs">
               <div className="col-xs-6">
                 <img className="icon" src={v.typeIconURL} alt="icon" />
@@ -105,92 +101,93 @@ class AuthorPostList extends Component {
             </div>
 
             <figcaption className="author-post-list-info-desc">
-              <span dangerouslySetInnerHTML={{ __html: (v.rubric || v.excerpt) }} />
+              <span
+                dangerouslySetInnerHTML={{ __html: v.rubric || v.excerpt }}
+              />
             </figcaption>
           </figure>
         </div>
         <hr className="author-post-list-hr" />
         <style jsx>{`
-            .author-post-list {
-              display: flex;
-              flex-direction: row;
-            }
+          .author-post-list {
+            display: flex;
+            flex-direction: row;
+          }
 
-            .author-post-list .row {
-              display: flex;
-              align-items: center;
-            }
+          .author-post-list .row {
+            display: flex;
+            align-items: center;
+          }
 
-            .author-post-list-id {
-              flex-grow: 0;
-              font-size: 110px;
-              color: ${lightBlue};
-              padding: 0 20px 10px 30px;
-              display: block;
-              font-weight: 700;
-            }
+          .author-post-list-id {
+            flex-grow: 0;
+            font-size: 110px;
+            color: ${lightBlue};
+            padding: 0 20px 10px 30px;
+            display: block;
+            font-weight: 700;
+          }
 
-            .author-post-list-info {
-              flex-grow: 1;
-              font-size: 16px;
-              color: ${black};
-              padding: 35px 140px 10px 30px;
-              width: 100%;
-            }
+          .author-post-list-info {
+            flex-grow: 1;
+            font-size: 16px;
+            color: ${black};
+            padding: 35px 140px 10px 30px;
+            width: 100%;
+          }
 
+          .author-post-list-info .icon {
+            width: 35px;
+            height: 35px;
+            float: right;
+          }
 
-            .author-post-list-info .icon {
-              width: 35px;
-              height: 35px;
-              float:right
-            }
+          .author-post-list-info-title {
+            font-size: 35px;
+            color: ${pink};
+            text-decoration: none;
+            font-weight: 500;
+            margin: 0;
+            display: flex;
+            align-items: flex-end;
+            height: 90px;
+          }
 
-            .author-post-list-info-title {
-              font-size: 35px;
-              color: ${pink};
-              text-decoration: none;
-              font-weight: 500;
-              margin: 0;
-              display: flex;
-              align-items: flex-end;
-              height: 90px;
-            }
+          .author-post-list,
+          .author-post-list-info-desc {
+            margin-bottom: 0;
+            white-space: pre-wrap;
+            margin-top: 15px;
+            width: auto;
+          }
 
-            .author-post-list,
-            .author-post-list-info-desc {
-              margin-bottom: 0;
-              white-space: pre-wrap;
-              margin-top: 15px;
-              width: auto;
-            }
+          .author-post-list-info-desc h3 {
+            font-weight: 700;
+            color: #546069;
+            font-size: 15px;
+            padding-bottom: 5px;
+          }
 
-            .author-post-list-info-desc h3 {
-              font-weight: 700;
-              color: #546069;
-              font-size: 15px;
-              padding-bottom: 5px;
-            }
+          .author-post-list-hr {
+            display: block;
+            width: 90%;
+            margin: 15px auto -10px;
+            background: #e6e6e4;
+            height: 1px;
+            border: 0;
+          }
 
+          @media (max-width: 767px) {
             .author-post-list-hr {
-              display: block;
-              width: 90%;
-              margin: 15px auto -10px;
-              background: #E6E6E4;
-              height: 1px;
-              border: 0;
+              margin-bottom: 10px;
             }
-
-            @media(max-width:767px){
-              .author-post-list-hr {
-                margin-bottom:10px;
-              }
-            }
-          `}</style>
+          }
+        `}</style>
       </div>
-    );
-  }
+    ));
+  };
 
-  handlePageChange = (page) => {
+  handlePageChange = page => {
     const { fetchAuthorContent, authorId, childPath } = this.props;
     fetchAuthorContent({
       page,
@@ -200,13 +197,7 @@ class AuthorPostList extends Component {
   };
 
   render() {
-    const {
-      posts,
-      page,
-      count,
-      postsCount,
-      firstPostIndex,
-    } = this.props;
+    const { posts, page, count, postsCount, firstPostIndex } = this.props;
     const hasNoPosts = !posts || isEmpty(posts);
     const noPosts = (
       <div>
@@ -227,13 +218,13 @@ class AuthorPostList extends Component {
         </div>
 
         <style jsx>{`
-            .pagination {
-              margin: 25px 50px;
-            }
-          `}</style>
+          .pagination {
+            margin: 25px 50px;
+          }
+        `}</style>
       </div>
     );
   }
 }
 
-export default AuthorPostList
+export default AuthorPostList;

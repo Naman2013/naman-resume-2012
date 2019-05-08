@@ -27,7 +27,7 @@ class CreateStoryForm extends Component {
       [PropTypes.string]: PropTypes.shape({
         title: PropTypes.string.isRequired,
         desc: PropTypes.string,
-      })
+      }),
     }),
     submitLabel: PropTypes.string.isRequired,
     intl: intlShape.isRequired,
@@ -41,7 +41,7 @@ class CreateStoryForm extends Component {
     actions: PropTypes.shape({
       submitStory: PropTypes.func.isRequired,
     }),
-  }
+  };
   static defaultProps = {
     actions: {},
     contentCategories: [],
@@ -64,7 +64,7 @@ class CreateStoryForm extends Component {
         title: '',
       },
     },
-  }
+  };
   state = {
     bodyContent: '',
     headlineContent: '',
@@ -74,42 +74,42 @@ class CreateStoryForm extends Component {
     selectedObjectCategoryIndex: null,
     selectedObjectTopic: null,
     tags: [],
-  }
+  };
 
-  onSelectContentCategory = (event) => {
+  onSelectContentCategory = event => {
     const { value } = event.currentTarget.dataset;
     this.setState(() => ({
       selectedContentCategory: value,
     }));
-  }
+  };
 
-  onSelectObjectCategory = (event) => {
+  onSelectObjectCategory = event => {
     const { target, currentTarget } = event;
     this.setState(() => ({
       selectedObjectCategory: target.value,
       selectedObjectCategoryIndex: Number(currentTarget.dataset.index),
       selectedObjectTopic: null,
     }));
-  }
+  };
 
-  onSelectObjectTopic = (event) => {
+  onSelectObjectTopic = event => {
     const { target } = event;
     this.setState(() => ({
       selectedObjectTopic: target.value,
     }));
-  }
+  };
 
-  onTagsChange = (tags) => {
+  onTagsChange = tags => {
     this.setState(() => ({
       tags,
     }));
-  }
+  };
 
-  onImagesChange = (S3URLs) => {
+  onImagesChange = S3URLs => {
     this.setState(() => ({
       S3URLs,
     }));
-  }
+  };
 
   get formattedObjectCategories() {
     return this.props.objectCategoriesList.map(category => ({
@@ -121,31 +121,34 @@ class CreateStoryForm extends Component {
   get currentCategoryTopics() {
     const { objectCategoriesList } = this.props;
     const { selectedObjectCategoryIndex } = this.state;
-    return objectCategoriesList[selectedObjectCategoryIndex] ?
-      objectCategoriesList[selectedObjectCategoryIndex].categoryTopicList : [];
+    return objectCategoriesList[selectedObjectCategoryIndex]
+      ? objectCategoriesList[selectedObjectCategoryIndex].categoryTopicList
+      : [];
   }
 
   get formattedCategoryTopics() {
-    return flatten(this.currentCategoryTopics.map(topic => ({
-      label: topic.topicDisplayName,
-      value: topic.topicSlug,
-    })));
+    return flatten(
+      this.currentCategoryTopics.map(topic => ({
+        label: topic.topicDisplayName,
+        value: topic.topicSlug,
+      }))
+    );
   }
 
-  handleHeadlineChange = (event) => {
+  handleHeadlineChange = event => {
     const { target } = event;
     this.setState(() => ({
       headlineContent: target.value,
     }));
-  }
+  };
 
-  handleBodyContentChange = (editorHTML) => {
+  handleBodyContentChange = editorHTML => {
     this.setState(() => ({
       bodyContent: editorHTML,
     }));
-  }
+  };
 
-  submitForm = (e) => {
+  submitForm = e => {
     e.preventDefault();
     const {
       bodyContent,
@@ -157,39 +160,54 @@ class CreateStoryForm extends Component {
       tags,
     } = this.state;
 
-    const { actions, user, intl, } = this.props;
+    const { actions, user, intl } = this.props;
 
-    if (bodyContent && headlineContent && selectedContentCategory && selectedObjectCategory) {
+    if (
+      bodyContent &&
+      headlineContent &&
+      selectedContentCategory &&
+      selectedObjectCategory
+    ) {
       const { at, token, cid } = user;
       const tagsText = tags.map(tag => tag.tagText);
-      actions.submitStory({
-        at,
-        token,
-        cid,
-        objectSlug: selectedObjectCategory || selectedObjectTopic,
-        storyType: selectedContentCategory,
-        title: headlineContent,
-        content: bodyContent,
-        postTags: tagsText,
-        S3URLs,
-      }).then(res => this.handleSubmitPost(res));
+      actions
+        .submitStory({
+          at,
+          token,
+          cid,
+          objectSlug: selectedObjectCategory || selectedObjectTopic,
+          storyType: selectedContentCategory,
+          title: headlineContent,
+          content: bodyContent,
+          postTags: tagsText,
+          S3URLs,
+        })
+        .then(res => this.handleSubmitPost(res));
     } else {
       const missingFields = [];
 
       if (!bodyContent) {
-        missingFields.push(`<li>${intl.formatMessage(messages.bodyContentErrorMessage)}</li>`);
+        missingFields.push(
+          `<li>${intl.formatMessage(messages.bodyContentErrorMessage)}</li>`
+        );
       }
 
       if (!headlineContent) {
-        missingFields.push(`<li>${intl.formatMessage(messages.headlineErrorMessage)}</li>`);
+        missingFields.push(
+          `<li>${intl.formatMessage(messages.headlineErrorMessage)}</li>`
+        );
       }
 
       if (!selectedContentCategory) {
-        missingFields.push(`<li>${intl.formatMessage(messages.contentCategoryErrorMessage)}</li>`);
+        missingFields.push(
+          `<li>${intl.formatMessage(messages.contentCategoryErrorMessage)}</li>`
+        );
       }
 
       if (!selectedObjectCategory) {
-        missingFields.push(`<li>${intl.formatMessage(messages.objectCategoryErrorMessage)}</li>`);
+        missingFields.push(
+          `<li>${intl.formatMessage(messages.objectCategoryErrorMessage)}</li>`
+        );
       }
 
       actions.setAndOpenModal({
@@ -198,28 +216,25 @@ class CreateStoryForm extends Component {
           <GenericModal
             title={intl.formatMessage(messages.errorMessagePopupTitle)}
             promptText={missingFields.join('')}
-            renderActions={() => <Button onClickEvent={actions.closeModal} text="close" />}
+            renderActions={() => (
+              <Button onClickEvent={actions.closeModal} text="close" />
+            )}
           />
         ),
       });
     }
-  }
+  };
 
-  handleSubmitPost = (res) => {
+  handleSubmitPost = res => {
     const { actions, goBack } = this.props;
     actions.validateResponseAccess(res);
-    const {
-      apiError,
-      responseText,
-      errorMsg,
-      buttonCaption,
-    } = res.payload;
+    const { apiError, responseText, errorMsg, buttonCaption } = res.payload;
 
     actions.setAndOpenModal({
       modalStyles: customModalStylesBlackOverlay,
       modalComponent: (
         <GenericModal
-          promptText={!apiError ? responseText : (responseText || errorMsg)}
+          promptText={!apiError ? responseText : responseText || errorMsg}
           renderActions={() => (
             <FormFeedbackActions
               submitButtonCaption={buttonCaption}
@@ -231,9 +246,9 @@ class CreateStoryForm extends Component {
       ),
       onDismissAction: !apiError ? goBack : null,
     });
-  }
+  };
 
-  closeModalAndResetForm = (e) => {
+  closeModalAndResetForm = e => {
     e.preventDefault();
     const { actions } = this.props;
     actions.closeModal();
@@ -247,8 +262,7 @@ class CreateStoryForm extends Component {
       selectedObjectTopic: null,
       tags: [],
     }));
-  }
-
+  };
 
   render() {
     const {
@@ -282,9 +296,7 @@ class CreateStoryForm extends Component {
       <form>
         <IntroText desc={introText} />
 
-        <FormSectionHeader
-          title={sectionLabels.section1.title}
-        />
+        <FormSectionHeader title={sectionLabels.section1.title} />
         <ContentCategorySelector
           contentCategories={contentCategories}
           contentCategoriesDescText={contentCategoriesDescText}
@@ -292,9 +304,7 @@ class CreateStoryForm extends Component {
           onSelectContentCategory={this.onSelectContentCategory}
         />
 
-        <FormSectionHeader
-          title={sectionLabels.section2.title}
-        />
+        <FormSectionHeader title={sectionLabels.section2.title} />
         <ObjectCategoryAndTopicSelects
           formattedObjectCategories={this.formattedObjectCategories}
           formattedCategoryTopics={this.formattedCategoryTopics}
@@ -304,9 +314,7 @@ class CreateStoryForm extends Component {
           onSelectObjectTopic={this.onSelectObjectTopic}
         />
 
-        <FormSectionHeader
-          title={sectionLabels.section3.title}
-        />
+        <FormSectionHeader title={sectionLabels.section3.title} />
         <HeadlineAndContentInputs
           titlePrompt={titlePrompt}
           bodyContent={bodyContent}
@@ -315,9 +323,7 @@ class CreateStoryForm extends Component {
           headlineContent={headlineContent}
         />
 
-        <FormSectionHeader
-          title={sectionLabels.section4.title}
-        />
+        <FormSectionHeader title={sectionLabels.section4.title} />
         <Tags
           noTagsMsg={noTagsMsg}
           tagLabel={tagLabel}

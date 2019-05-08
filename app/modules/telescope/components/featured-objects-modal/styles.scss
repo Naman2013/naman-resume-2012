@@ -1,0 +1,19 @@
+@import '~app/styles/variables/index';
+
+.featured-objects-modal {
+  .modal-p {
+    margin-bottom: 20px;
+  }
+
+  .mission-tile {
+    .time {
+      display: none;
+    }
+
+    .info {
+      .time {
+        display: block;
+      }
+    }
+  }
+}

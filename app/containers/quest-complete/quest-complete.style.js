@@ -14,22 +14,23 @@ import {
   questDetailsTexture,
 } from '../../styles/variables/colors_tiles_v4';
 import { faintShadow } from 'app/styles/variables/shadows';
-import { screenMedium, screenLarge, screenXLarge } from '../../styles/variables/breakpoints';
 import {
-  questShield,
-} from '../../styles/variables/iconURLs';
+  screenMedium,
+  screenLarge,
+  screenXLarge,
+} from '../../styles/variables/breakpoints';
+import { questShield } from '../../styles/variables/iconURLs';
 export default css`
   .root {
     margin-top: -45px;
     background-color: ${seashell};
-    height: 125vw;;
+    height: 125vw;
   }
   .inner-root-header {
     background-image: url(${questDetailsTexture});
     margin-top: 0;
     width: 100%;
     height: 500px;
-
   }
   .inner-center {
     position: absolute;
@@ -70,7 +71,6 @@ export default css`
   .content-container {
     text-align: left;
     height: auto;
-
   }
 
   .awarded {
@@ -130,7 +130,6 @@ export default css`
     text-transform: capitalize;
     color: ${astronaut};
     border-bottom: 1px solid ${shadows};
-
   }
 
   .check-icon {
@@ -140,7 +139,6 @@ export default css`
 
   .did-you-know {
     padding: 25px;
-
   }
 
   .did-you-know-caption {
@@ -149,14 +147,12 @@ export default css`
     font-size: 11px;
     font-weight: bold;
     color: ${astronaut};
-
   }
   .did-you-know-text {
     padding-bottom: 15px;
     font-family: ${secondaryFont};
     font-size: 16px;
     color: ${astronaut};
-
   }
 
   .more-quests-container {

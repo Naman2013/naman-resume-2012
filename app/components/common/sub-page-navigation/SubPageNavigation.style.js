@@ -1,7 +1,10 @@
 import css from 'styled-jsx/css';
 import { primaryFont } from '../../../styles/variables/fonts';
 import { nightfall, romance } from '../../../styles/variables/colors_tiles_v4';
-import { screenLarge, screenMedium } from '../../../styles/variables/breakpoints';
+import {
+  screenLarge,
+  screenMedium,
+} from '../../../styles/variables/breakpoints';
 
 export default css.global`
 

@@ -90,7 +90,6 @@ export default css`
     height: 50px;
     width: 50px;
     border-left: 1px solid ${shadows};
-
   }
 
   @media ${screenMedium} {
@@ -127,5 +126,4 @@ export default css`
       display: none;
     }
   }
-
 `;

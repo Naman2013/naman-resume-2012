@@ -17,7 +17,10 @@ import {
   SORT_RANK,
   SORT_DATE,
 } from 'app/modules/community-group-overview/actions';
-import styles, { profilePicSmall, profilePicLeader } from './members-list.style';
+import styles, {
+  profilePicSmall,
+  profilePicLeader,
+} from './members-list.style';
 
 const { bool, func, string } = PropTypes;
 

@@ -1,9 +1,18 @@
-import React from 'react';
+// @flow
+
+import * as React from 'react';
 import { Modal as BModal } from 'react-bootstrap';
 import './styles.scss';
 import cx from 'classnames';
 
-const ModalDialog = props => {
+type TModalDialog = {
+  children?: React.Node,
+  onHide: Function,
+  goBackText: string,
+  mobileGoBackText: string,
+};
+
+const ModalDialog = (props: TModalDialog) => {
   const { children, onHide, goBackText, mobileGoBackText } = props;
 
   const backClick = e => {
@@ -28,7 +37,16 @@ const ModalDialog = props => {
   );
 };
 
-export const Modal = props => {
+type TModal = {
+  children?: React.Node,
+  mobileStyle?: boolean,
+  onHide: Function,
+  goBackText?: string,
+  mobileGoBackText?: string,
+  show: boolean,
+};
+
+export const Modal = (props: TModal) => {
   const { children, mobileStyle } = props;
   const cls = cx({ 'mobile-style': mobileStyle });
   return (

@@ -1,16 +1,21 @@
 import css from 'styled-jsx/css';
 import { profilePhotoStyle } from 'app/styles/mixins/utilities';
 
-import { astronaut, geyser, shadows } from 'app/styles/variables/colors_tiles_v4';
+import {
+  astronaut,
+  geyser,
+  shadows,
+} from 'app/styles/variables/colors_tiles_v4';
 import { primaryFont, secondaryFont } from 'app/styles/variables/fonts';
 import { dropShadowContainer } from 'app/styles/mixins/utilities';
 import { screenMedium, screenLarge } from 'app/styles/variables/breakpoints';
 
-export const profPic = photoUrl => Object.assign(profilePhotoStyle(photoUrl), {
-  height: '14px',
-  width: '14px',
-  backgroundSize: 'cover',
-});
+export const profPic = photoUrl =>
+  Object.assign(profilePhotoStyle(photoUrl), {
+    height: '14px',
+    width: '14px',
+    backgroundSize: 'cover',
+  });
 
 export default css`
   .root {
@@ -23,7 +28,8 @@ export default css`
     color: ${astronaut};
   }
 
-  .user-info, .user-info-container {
+  .user-info,
+  .user-info-container {
     display: flex;
     flex-direction: row;
     font-size: 10px;
@@ -67,7 +73,6 @@ export default css`
     min-width: 100px;
   }
 
-
   .action-right {
     margin-left: auto;
   }
@@ -96,7 +101,6 @@ export default css`
     border-bottom: 0;
   }
 
-
   @media ${screenMedium} {
     .date {
       visibility: visible;
@@ -113,6 +117,5 @@ export default css`
   }
 
   @media ${screenLarge} {
-
   }
 `;

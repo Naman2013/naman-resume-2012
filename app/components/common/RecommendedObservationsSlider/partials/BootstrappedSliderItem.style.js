@@ -1,6 +1,15 @@
 import css from 'styled-jsx/css';
-import { screenMedium, screenLarge } from '../../../../styles/variables/breakpoints';
-import { hawkesBlue, white_texture_bg, moodyBleu, shadows, lightHeadedAstronaut } from '../../../../styles/variables/colors_tiles_v4';
+import {
+  screenMedium,
+  screenLarge,
+} from '../../../../styles/variables/breakpoints';
+import {
+  hawkesBlue,
+  white_texture_bg,
+  moodyBleu,
+  shadows,
+  lightHeadedAstronaut,
+} from '../../../../styles/variables/colors_tiles_v4';
 
 const borderBottom = `border-bottom: 1px solid ${hawkesBlue};`;
 const centerChildren = `

@@ -82,3 +82,41 @@ export const makeMoonlightBarSelector = () =>
     selectTelescopeOverview,
     state => state.moonlightBarResult
   );
+
+// Queue tab
+
+export const makeQueueTabSelector = () =>
+  createSelector(
+    selectTelescope,
+    state => state.queueTab
+  );
+
+export const makeQueueTabUpcomingSlotsDataSelector = () =>
+  createSelector(
+    makeQueueTabSelector(),
+    state => state.upcomingSlotsData
+  );
+
+export const makeQueueTabIsFetchingSelector = () =>
+  createSelector(
+    makeQueueTabSelector(),
+    state => state.isFetching
+  );
+
+export const makeQueueTabFeaturedObjectsDataSelector = () =>
+  createSelector(
+    makeQueueTabSelector(),
+    state => state.featuredObjectsData
+  );
+
+export const makeQueueTabReservedCommunityMissionDataSelector = () =>
+  createSelector(
+    makeQueueTabSelector(),
+    state => state.reservedCommunityMissionData
+  );
+
+export const makeQueueTabReservedCommunityMissionSelector = () =>
+  createSelector(
+    makeQueueTabSelector(),
+    state => state.reservedCommunityMissionList[0]
+  );

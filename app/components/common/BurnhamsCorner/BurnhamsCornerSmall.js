@@ -22,27 +22,27 @@ const BurnhamsCornerSmall = ({
       <div className="bc-left">
         <div className="bc-title">{objectTitle}</div>
         <div className="bc-author">Burnham&#39;s Corner</div>
-        <div className="bc-desc" dangerouslySetInnerHTML={{ __html: content }} />
+        <div
+          className="bc-desc"
+          dangerouslySetInnerHTML={{ __html: content }}
+        />
         {needToShowMore && (
           <p>
             <button onClick={toggleReadMore} className="action-read-more">
-              {showMore
-                ? <FormattedMessage {...messages.ReadLess} /> 
-                : <FormattedMessage {...messages.ReadMore} /> 
-              }
+              {showMore ? (
+                <FormattedMessage {...messages.ReadLess} />
+              ) : (
+                <FormattedMessage {...messages.ReadMore} />
+              )}
             </button>
           </p>
         )}
         <img src={imageURL} alt="" />
-        {
-          hasLink &&
-            <div className="action-container">
-              <TileButton
-                text={linkLabel}
-                linkURL={linkURL}
-              />
-            </div>
-        }
+        {hasLink && (
+          <div className="action-container">
+            <TileButton text={linkLabel} linkURL={linkURL} />
+          </div>
+        )}
       </div>
     </div>
     <style jsx>{style}</style>

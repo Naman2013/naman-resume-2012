@@ -15,7 +15,14 @@ import styles from './CommentsTab.style';
 import messages from '../Show.messages';
 
 const {
-  any, arrayOf, bool, func, number, oneOfType, shape, string,
+  any,
+  arrayOf,
+  bool,
+  func,
+  number,
+  oneOfType,
+  shape,
+  string,
 } = PropTypes;
 
 class CommentsTab extends Component {

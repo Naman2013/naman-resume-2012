@@ -1,6 +1,10 @@
 import css from 'styled-jsx/css';
 import { primaryFont } from 'app/styles/variables/fonts';
-import { faintGray, astronaut, lightHeadedAstronaut } from 'app/styles/variables/colors_tiles_v4';
+import {
+  faintGray,
+  astronaut,
+  lightHeadedAstronaut,
+} from 'app/styles/variables/colors_tiles_v4';
 import { shadyBottomShadow } from 'app/styles/variables/shadows';
 
 export const CONTAINER_WIDTH = 440;

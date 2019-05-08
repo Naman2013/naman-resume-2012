@@ -1,5 +1,8 @@
 import css from 'styled-jsx/css';
-import { lightHeadedAstronaut, romance } from '../../../styles/variables/colors_tiles_v4';
+import {
+  lightHeadedAstronaut,
+  romance,
+} from '../../../styles/variables/colors_tiles_v4';
 
 export default css`
   .profile-stats {
@@ -18,8 +21,8 @@ export default css`
     width: 100%;
     height: 10px;
     content: '';
-    background: url('https://vega.slooh.com/assets/v4/common/icon_navarrow_blue.svg') no-repeat
-      center center;
+    background: url('https://vega.slooh.com/assets/v4/common/icon_navarrow_blue.svg')
+      no-repeat center center;
   }
 
   .profile-stats-label {
