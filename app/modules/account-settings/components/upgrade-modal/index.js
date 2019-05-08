@@ -32,7 +32,7 @@ export class UpgradeModal extends PureComponent<TUpgradeModal> {
 
     return (
       <Modal show={show} onHide={onHide}>
-        <Spinner loading={isFetching} />
+        <Spinner transparent loading={isFetching} />
 
         <h1 className="modal-h">{pageHeading1}</h1>
         <p className="modal-p mb-5">{pageHeading2}</p>

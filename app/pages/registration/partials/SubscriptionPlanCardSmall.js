@@ -48,6 +48,7 @@ class SubscriptionPlanCardSmall extends Component {
       selectButtonText,
       setSelectedPlan,
       viewPlanDetails,
+      isPlanActionEnabled,
     } = this.props;
 
     const { showDetails } = this.state;
@@ -68,7 +69,9 @@ class SubscriptionPlanCardSmall extends Component {
             <div>
               <Button icon={info} onClickEvent={viewPlanDetails} />
             </div>
-            <Button text={selectButtonText} onClickEvent={setSelectedPlan} />
+            {isPlanActionEnabled && (
+              <Button text={selectButtonText} onClickEvent={setSelectedPlan} />
+            )}
           </div>
         </div>
         <style jsx>{styles}</style>

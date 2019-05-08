@@ -62,10 +62,12 @@ class Memberships extends Component {
     const { isUpgradeModalOpen } = this.state;
     return (
       <div>
-        <UpgradeModal
-          show={isUpgradeModalOpen}
-          onHide={() => this.setUpgradeModalOpen(false)}
-        />
+        {isUpgradeModalOpen && (
+          <UpgradeModal
+            show={isUpgradeModalOpen}
+            onHide={() => this.setUpgradeModalOpen(false)}
+          />
+        )}
 
         <Request
           serviceURL={SUBSCRIPTION_PLANS_ENDPOINT_URL}
