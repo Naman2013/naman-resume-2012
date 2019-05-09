@@ -1,11 +1,10 @@
-import bobbietilestyle from 'app/components/common/tiles/BobbieTile/BobbieTile.style.js';
-import cmsstyle from 'app/components/common/tiles/BobbieTile/CMS.style.js';
+import cmsstyle from 'app/components/common/tiles/BobbieTile/CMS.style';
+import cx from 'classnames';
 import truncate from 'lodash/truncate';
 import PropTypes from 'prop-types';
 import React, { Component, Fragment } from 'react';
-import style from './BobbieTile.style';
-import CMSStyle from './CMS.style';
 import ImageClickHandler from '../../ImageClickHandler';
+import style from './BobbieTile.style';
 
 const TRUNCATED_CONTENT_LENGTH = 800;
 const TRUNCATED_BUTTON_TEXT = 'read more';
@@ -54,42 +53,58 @@ class BobbieTile extends Component {
       authorName,
       HTMLBlob,
       disableReadMore,
+      embed,
     } = this.props;
 
     return (
       <Fragment>
-        <div className="root">
+        <div className={cx('root', { embed })}>
           <div className="tile-content-container">
             {showTitle === true ? <h3>{title}</h3> : null}
-            {showSubtitle === true ? <div className="subtitle">{subtitle}</div> : null}
+            {showSubtitle === true ? (
+              <div className="subtitle">{subtitle}</div>
+            ) : null}
 
-            {disableReadMore == true && <span
+            {disableReadMore == true && (
+              <span
                 className="__html-blob-content-container__"
                 dangerouslySetInnerHTML={{ __html: HTMLBlob }}
               />
-            }
-            {disableReadMore == false && <Fragment>
-              <ImageClickHandler>
-                <span
-                  className="__html-blob-content-container__"
-                  dangerouslySetInnerHTML={{
-                    __html: this.prepareContent(HTMLBlob, contentLength),
-                  }}
-                />
-                {HTMLBlob.length > TRUNCATED_CONTENT_LENGTH && (
-                  <div>
-                    <button onClick={this.handleReadMoreClick} className="action-read-more">
-                    {buttonText}
-                  </button></div>
-                )}
-              </ImageClickHandler>
-            </Fragment>
-            }
-            </div>
+            )}
+            {disableReadMore == false && (
+              <Fragment>
+                <ImageClickHandler>
+                  <span
+                    className="__html-blob-content-container__"
+                    dangerouslySetInnerHTML={{
+                      __html: this.prepareContent(HTMLBlob, contentLength),
+                    }}
+                  />
+                  {HTMLBlob.length > TRUNCATED_CONTENT_LENGTH && (
+                    <div>
+                      <button
+                        onClick={this.handleReadMoreClick}
+                        className="action-read-more"
+                      >
+                        {buttonText}
+                      </button>
+                    </div>
+                  )}
+                </ImageClickHandler>
+              </Fragment>
+            )}
           </div>
+        </div>
         <style jsx>{style}</style>
-        <style jsx>{bobbietilestyle}</style>
         <style jsx>{cmsstyle}</style>
+        <style jsx>{`
+          .root.embed {
+            box-shadow: none;
+          }
+          .embed .tile-content-container {
+            padding: 0;
+          }
+        `}</style>
       </Fragment>
     );
   }

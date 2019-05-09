@@ -1,5 +1,5 @@
 // @flow
-import React, { Component, Fragment } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import isEmpty from 'lodash/fp/isEmpty';
 import { Col, Container, Row } from 'react-bootstrap';
 import Btn from 'app/atoms/Btn';
@@ -23,7 +23,7 @@ const mockedPaymentDetailsOptions = [
 
 const mockedTitle = 'Payment details';
 
-class AccountDetails extends Component<TAccountDetails> {
+class AccountDetails extends PureComponent<TAccountDetails> {
   render() {
     const {
       accountTypeSection,
