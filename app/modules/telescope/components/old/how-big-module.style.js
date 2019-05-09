@@ -29,4 +29,9 @@ export default css`
     list-style-type: none;
     padding: 35px 40px;
   }
+
+  .how-big-description {
+    padding: 5px 10px;
+    font-size: 10px;
+  }
 `;

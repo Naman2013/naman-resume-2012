@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import SVGText from '../common/SVGText';
-import AutoFadeSVG from '../../../components/common/Fade/AutoFadeSVG';
+import AutoFadeSVG from '../../common/Fade/AutoFadeSVG';
 import ScaleUp from './ScaleUp';
 import ScaleDown from './ScaleDown';
 
@@ -16,49 +16,49 @@ class HowBig extends Component {
     onComplete: PropTypes.func.isRequired,
   };
 
-  state = {};
+  state = {
+    title: '',
+  };
+
+  changeTitle = title => {
+    this.setState({ title });
+  };
+
+  componentWillReceiveProps(newProps) {
+    if (newProps.isStart) {
+      this.setState({ title: '' })
+    }
+  }
 
   render() {
     const {
       dimension,
       referenceObjectScale,
-      domain,
       targetObjectScale,
-      targetObjectName,
-      targetObjectURL,
-      onComplete,
+      isStart,
     } = this.props;
+    const { title } = this.state;
 
-    const isScaledUp = (targetObjectScale > referenceObjectScale);
-    const titleFontSize = (dimension * 0.05);
+    const isScaledUp = targetObjectScale > referenceObjectScale;
+    const titleFontSize = dimension * 0.04;
 
     return (
       <g>
-        {
-          (isScaledUp)
-            ? <ScaleUp
-              dimension={dimension}
-              targetObjectURL={targetObjectURL}
-              targetObjectName={targetObjectName}
-              referenceObjectScale={referenceObjectScale}
-              domain={domain}
-              onComplete={onComplete}
-            />
-            : <ScaleDown
-              dimension={dimension}
-              targetObjectURL={targetObjectURL}
-              targetObjectScale={targetObjectScale}
-              targetObjectName={targetObjectName}
-              domain={domain}
-              onComplete={onComplete}
-            />
-        }
+        {isStart ? (
+          isScaledUp ? (
+            <ScaleUp {...this.props} changeTitle={this.changeTitle} />
+          ) : (
+              <ScaleDown {...this.props} changeTitle={this.changeTitle} />
+            )
+        ) : (
+            <div />
+          )}
 
         <AutoFadeSVG duration={0.5}>
           <SVGText
-            text="HOW BIG?"
-            x={(dimension / 2)}
-            y={(dimension * 0.07)}
+            text={title}
+            x={dimension / 2}
+            y={dimension * 0.07}
             displayProperties={{
               fontSize: `${titleFontSize}px`,
             }}
