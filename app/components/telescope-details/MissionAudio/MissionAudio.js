@@ -47,7 +47,9 @@ class MissionAudio extends Component {
           {
             audioEnabled && displayPlayer &&
               <audio
+                style={{display: 'none'}}
                 src={missionAudioURL}
+                autoPlay
                 controls
                 controlsList="nodownload"
               />
@@ -62,19 +64,21 @@ class MissionAudio extends Component {
         <style jsx>{`
           .root {
             color: ${lightBlack};
+            margin-left: auto;
+            margin-right: auto;
           }
 
           .player-container {
             font-family: ${primaryFont};
             background-color: rgba(137, 137, 137, .5);
-            margin-bottom: 20px;
+            margin-bottom: 0px;
             text-align: center;
             padding: 20px 0;
-            margin-bottom: 10px;
+            margin-bottom: 0px;
           }
 
           .player {
-            margin-bottom: 10px;
+            margin-bottom: 0px;
           }
 
           .disabled-text {

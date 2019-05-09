@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
+import MissionAudio from 'app/components/telescope-details/MissionAudio';
 
 import {
   ObjectSummaryTile,
@@ -39,8 +40,15 @@ const TabLive = ({
       </Fragment>
     )}
 
+    {mission.missionAvailable && (
+      <MissionAudio
+        missionAudioURL={object.objectAudioURL}
+        audioEnabled={mission.objectId !== 0 && !!object.objectAudioURL}
+      />
+    )}
     {mission.objectId !== 0 && object && object.objectTitle && (
       <div className="tile-container">
+
         <ObjectSummaryTile {...object} />
       </div>
     )}
