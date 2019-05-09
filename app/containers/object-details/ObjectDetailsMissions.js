@@ -21,8 +21,13 @@ import {
   makeQueueTabReservedCommunityMissionSelector,
 } from '../../modules/telescope/selectors';
 import {
+  reserveCommunityMission,
+} from '../../modules/telescope/thunks';
+import {
   makeUserSelector,
 } from '../../modules/user/selectors';
+import { FeaturedObjectsModal } from 'app/modules/telescope/components/featured-objects-modal';
+import { MissionSuccessModal } from 'app/modules/missions/components/mission-success-modal';
 import { MissionTimeSlot } from '../../modules/missions/components/mission-time-slot';
 import DeviceProvider from '../../../app/providers/DeviceProvider';
 import ObjectDetailsSectionTitle from '../../components/object-details/ObjectDetailsSectionTitle';
@@ -40,6 +45,7 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = {
   getCommunityMissions,
+  reserveCommunityMission,
 };
 
 @connect(
@@ -47,12 +53,48 @@ const mapDispatchToProps = {
   mapDispatchToProps
 )
 class Missions extends Component {
+  state = {
+    reservationModalVisible: false,
+    selectedMission: {},
+    successModalShow: false,
+  };
+
   componentDidMount() {
+    this.getCommunityMissions();
+  }
+
+  getCommunityMissions = () => {
     const {
       getCommunityMissions,
       params: { objectId },
     } = this.props;
     getCommunityMissions(objectId);
+  }
+
+  reserveCommunityMission = () => {
+    const { reserveCommunityMission, missionData } = this.props;
+    const { selectedMission } = this.state;
+    const { scheduledMissionId, missionStart } = selectedMission;
+    const { callSource } = missionData;
+
+    reserveCommunityMission({
+      callSource,
+      scheduledMissionId,
+      missionStart,
+    }).then(() => this.setState({ successModalShow: true, reservationModalVisible: false, }));
+  }
+  
+  reservationModalShow = mission => {
+    this.setState({ reservationModalVisible: true, selectedMission: mission });
+  }
+
+  reservationModalHide = () => {
+    this.setState({ reservationModalVisible: false, selectedMission: {} });
+  };
+
+  modalClose = () => {
+    this.setState({ successModalShow: false, selectedMission: {} });
+    this.getCommunityMissions();
   }
 
   render() {
@@ -61,10 +103,13 @@ class Missions extends Component {
       objectDetails,
       missionData,
       intl,
+      user,
+      reservedCommunityMissionData,
+      reservedCommunityMission,
     } = this.props;
     const { missionCount, missionList } = missionData;
+    const { reservationModalVisible, selectedMission, successModalShow } = this.state;
 
-    console.log('PROPS', this.props);
     return (
       <Fragment>
         <DeviceProvider>
@@ -77,26 +122,14 @@ class Missions extends Component {
           {missionCount > 0 ? (
             <div>
               {missionList.map(item => (
-                <MissionTimeSlot
-                  key={item.scheduledMissionId}
-                  timeSlot={item}
-                  //getTelescopeSlot={() => getTelescopeSlot(item)}
-                />
-                // <MissionTimeSlot
-                //   key={`mission_${key}`}
-                //   title={objectMissions.missionsList[key].title}
-                //   telescope={
-                //     objectMissions.missionsList[key].missionDetails.telescope
-                //       .itemText
-                //   }
-                //   date={
-                //     objectMissions.missionsList[key].missionDetails.date
-                //       .itemText
-                //   }
-                //   time={objectMissions.missionsList[
-                //     key
-                //   ].missionDetails.time.itemText.slice(0, -4)}
-                // />
+                <div 
+                onClick={() => this.reservationModalShow(item)}>
+                  <MissionTimeSlot
+                    key={item.scheduledMissionId}
+                    timeSlot={item}
+                    getTelescopeSlot={() => this.reservationModalShow(item)}
+                  />
+                </div>
               ))}
             </div>
           ) : (
@@ -108,6 +141,25 @@ class Missions extends Component {
             </div>
           )}
         </CenterColumn>
+
+        {reservationModalVisible && (
+          <FeaturedObjectsModal
+            onHide={this.reservationModalHide}
+            onComplete={this.reserveCommunityMission}
+            selectedMission={selectedMission}
+            user={user}
+            onMissionView={this.reserveCommunityMission}
+            show
+          />
+        )}
+
+        <MissionSuccessModal
+          show={successModalShow}
+          onHide={this.modalClose}
+          reservedMissionData={selectedMission}
+          reservedMission={reservedCommunityMissionData}
+          missionSlot={reservedCommunityMission}
+        />
       </Fragment>
     );
   }
