@@ -23,25 +23,24 @@ export default css`
   .container {
     width: 85%;
     max-width: 962px;
-    height: 0;
-    padding-top: 48%;
     position: relative;
     margin: 0 auto;
+    padding: 50px 0;
   }
 
   svg {
-      position: absolute;
+      /* position: absolute;
       top: 3.5%;
-      left: 0;
+      left: 0; */
   }
 
   .moon {
       position: absolute;
-      top: 49.5%;
+      top: 41%;
       left: 37.5%;
       display: block;
       width: 25%;
-      height: 45%;
+      height: 32%;
       max-width: 237px;
       max-height: 242px;
       border-radius: 50%;
@@ -75,7 +74,7 @@ export default css`
 
   @media only screen and (min-width: 1170px) {
     .moon {
-        top: 274px
+        top: 304px
     }
   }
 
