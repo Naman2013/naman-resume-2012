@@ -28,7 +28,7 @@ import {
 } from '../../modules/user/selectors';
 import { FeaturedObjectsModal } from 'app/modules/telescope/components/featured-objects-modal';
 import { MissionSuccessModal } from 'app/modules/missions/components/mission-success-modal';
-import { MissionTimeSlot } from '../../modules/missions/components/mission-time-slot';
+import { MissionCard } from '../../modules/object-details/components/mission-card';
 import DeviceProvider from '../../../app/providers/DeviceProvider';
 import ObjectDetailsSectionTitle from '../../components/object-details/ObjectDetailsSectionTitle';
 import MissionTile from 'app/components/common/tiles/MissionTile';
@@ -120,14 +120,13 @@ class Missions extends Component {
         </DeviceProvider>
         <CenterColumn>
           {missionCount > 0 ? (
-            <div>
+            <div style={{margin: '0 20px 40px'}}>
               {missionList.map(item => (
-                <div 
-                onClick={() => this.reservationModalShow(item)}>
-                  <MissionTimeSlot
+                <div>
+                  <MissionCard
                     key={item.scheduledMissionId}
                     timeSlot={item}
-                    getTelescopeSlot={() => this.reservationModalShow(item)}
+                    onClickHandler={() => this.reservationModalShow(item)}
                   />
                 </div>
               ))}
