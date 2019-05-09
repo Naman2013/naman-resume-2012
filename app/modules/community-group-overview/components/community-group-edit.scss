@@ -1,0 +1,58 @@
+@import "~app/styles/variables/index";
+
+.community-group-edit {
+
+  &-root {
+    padding: 40px 0;
+  }
+
+  &-title {
+    font: 20px $secondary-font;
+  }
+
+  &-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    margin: 15px -40px -20px;
+    padding: 20px 40px 0;
+    border-top: 1px solid $hawkesBlue;
+
+    h5 {
+      display: flex;
+      flex: 1;
+
+      &:last-child {
+        border: none;
+      }
+    }
+  }
+
+  &-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+  }
+
+  &-hero-unit {
+    margin: 0 -3px;
+    font: 100 45px $primary-font;
+  }
+
+  &-section {
+    padding: 40px 0;
+  }
+
+  &-header {
+    margin: 10px 0;
+  }
+
+  &-member {
+    margin: 15px 0;
+
+    .i-btn {
+      margin: 0 5px;
+    }
+  }
+}
