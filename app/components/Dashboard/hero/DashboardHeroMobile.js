@@ -1,5 +1,5 @@
 /** *********************************
- * V4 Dashboard Hero
+ * V4 Dashboard Hero Mobile
  *
  *
  *
@@ -14,7 +14,8 @@ class DashboardHeroMobile extends Component {
   render() {
 
     return (
-    <div ref={div => this.heroContainer = div} className="container">
+    <div ref={div => this.heroContainer = div} className="mobile-hero-container">
+      <style jsx>{styles}</style>
     </div> 
     );
   }

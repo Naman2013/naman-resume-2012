@@ -1,9 +1,9 @@
 import css from 'styled-jsx/css';
 
 export default css`
-  .hero-img {
+  .mobile-hero-container {
     width: 100%;
-    height: 100%;
+    height: 700px;
     background-repeat: no-repeat;
     background-size: 90%;
     background-position: 50%;
