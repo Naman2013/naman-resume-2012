@@ -11,6 +11,9 @@ import { bindActionCreators } from 'redux';
 import findIndex from 'lodash/findIndex';
 import has from 'lodash/has';
 import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
+import { Button } from 'react-bootstrap';
+import GenericButton from 'app/components/common/style/buttons/Button';
+import { plus } from 'app/styles/variables/iconURLs';
 import Request from 'app/components/common/network/Request';
 import DropDown from 'app/components/common/DropDown';
 import {
@@ -128,6 +131,19 @@ class Observations extends Component {
           subTitle={intl.formatMessage(messages.Observations)}
           renderNav={() => (
             <div className="nav-actions">
+              {/* <Button
+                onClick={() => {}}
+                className="add-observation-button"
+              >
+                Add observation
+                <span className="icon-plus" />
+              </Button> */}
+              <GenericButton
+                //onClickEvent={this.setAskQuestionModal}
+                text="Add observation"
+                icon={plus}
+                theme={{ marginRight: '10px' }}
+              />
               <DropDown
                 options={this.dropdownOptions}
                 selectedIndex={selectedIndex}
