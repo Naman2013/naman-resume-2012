@@ -22,8 +22,11 @@ import TourPopup from './tour-popup/TourPopup';
 import PromoPanel from 'app/components/home/promo-panel';
 import { getSectionComponent } from './dashboardPanelItemsConfiguration';
 import DashNav from './nav/DashboardNav';
+import DashHero from './hero/DashboardHero';
+import DashHeroMobile from './hero/DashboardHeroMobile';
 import styles from './BootstrappedDashboard.style';
 import messages from './BootstrappedDashboard.messages';
+import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
 // import { connect } from 'react-redux';
 
 const { arrayOf, bool, number, shape, string } = PropTypes;
@@ -178,10 +181,16 @@ class BootstrappedDashboard extends Component {
       <div className="root">
         <TourPopup user={user} />
         <div className="dash-hero">
-          <div
+          {/*<div
             alt={intl.formatMessage(messages.welcome)}
             className="hero-img"
-          />
+          />*/}
+          <DisplayAtBreakpoint screenSmall>
+            <DashHeroMobile />
+          </DisplayAtBreakpoint>
+          <DisplayAtBreakpoint screenMedium screenLarge screenXLarge>
+            <DashHero />
+          </DisplayAtBreakpoint>
         </div>
         {promoPanelShow
           ? promoArray.map(promoObject => (
