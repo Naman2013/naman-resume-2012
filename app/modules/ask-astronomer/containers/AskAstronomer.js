@@ -261,8 +261,6 @@ class AskAstronomer extends Component {
           {promptComponent}
         </Modal>
 
-        {/*<Spinner loading={fetching} />*/}
-
         <DeviceContext.Consumer>
           {context => (
             <div className="full-bg">
