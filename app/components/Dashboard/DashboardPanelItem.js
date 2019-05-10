@@ -21,7 +21,7 @@ const PanelItem = ({
   title,
   subtitle,
 }) => (
-    <div className={"dash-item" + (orderNumber === 1 ? '-first' : '')} key={uniqueId()}>
+    <div className={"dash-item" + (orderNumber === 1 ? '-first' : '')}>
         <div className="outer-well">
           <div className="inner-well">
             <h5>{('0' + orderNumber).slice(-2)}</h5>
@@ -81,7 +81,7 @@ const PanelItem = ({
             background-color: #213043;
             background-image: url("https://vega.slooh.com/assets/v4/dashboard/Darkest_Pattern_Canvas.png");
             background-size: 100px;
-            padding-top: 280px;
+            padding-top: 245px;
             transition: padding ease-in-out 0.3s; 
           }
           
