@@ -124,8 +124,6 @@ class AskAstronomer extends Component {
   }*/
 
   componentDidMount() {
-    console.log('componentDidMount');
-
     const {
       params: { objectId },
       actions: { getPageData },
@@ -259,6 +257,10 @@ class AskAstronomer extends Component {
 
     return (
       <div style={{ position: 'relative' }}>
+        <Modal show={showPrompt} onHide={this.closeModal}>
+          {promptComponent}
+        </Modal>
+
         {/*<Spinner loading={fetching} />*/}
 
         <DeviceContext.Consumer>
@@ -269,9 +271,6 @@ class AskAstronomer extends Component {
                 subTitle="Ask An Astronomer"
                 theme={{ padding: '25px' }}
               />
-              <Modal show={showPrompt} onHide={this.closeModal}>
-                {promptComponent}
-              </Modal>
               <CenterColumn
                 widths={['768px', '940px', '940px']}
                 theme={{ paddingTop: '25px' }}
