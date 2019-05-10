@@ -128,7 +128,8 @@ class AskQuestionTile extends Component {
 
   updateQuestionsList = () => {
     this.setState({ showSuccessPopup: false });
-    this.props.updateQuestionsList();
+    // refetch question list first page
+    this.props.updateQuestionsList({ currentPage: 1 });
   };
 
   render() {
