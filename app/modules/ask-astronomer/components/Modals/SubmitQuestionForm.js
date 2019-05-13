@@ -8,6 +8,7 @@
 import PhotoUploadButton from 'app/components/common/style/buttons/PhotoUploadButton';
 import { Spinner } from 'app/components/spinner/index';
 import { UploadImgThumb } from 'app/modules/ask-astronomer/components/Modals/upload-img-thumb';
+import { uploadedImgCleanUp } from 'app/modules/ask-astronomer/services/post-image';
 import setPostImages from 'app/modules/set-post-images';
 import { prepareThread } from 'app/services/discussions/prepare-thread';
 import deletePostImage from 'app/services/post-creation/delete-post-image';
@@ -69,6 +70,14 @@ class SubmitQuestionForm extends PureComponent {
       }));
     });
   }
+
+  componentWillUnmount = () => {
+    const { cid, token, at } = this.props.user;
+    const { uuid } = this.state;
+    // calling service directly here
+    // it allows to fully reuse it, without passing parameters down to modals
+    uploadedImgCleanUp(this.state.S3URLs, cid, token, at, uuid, 'discussion');
+  };
 
   onChangeQuestionText = e => {
     e.preventDefault();
