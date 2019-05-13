@@ -49,20 +49,17 @@ export const SubscriptionPlan = (props: TSubscriptionPlan) => {
 
       {!expanded && (
         <div className="d-flex justify-content-between">
-          <div>
-            <Button
-              onClick={() => setDetailsExpanded(!isDetailsExpanded)}
-              className={cx({ 'btn-active': isDetailsExpanded })}
-            >
-              {isDetailsExpanded ? <span className="icon-close" /> : 'details'}
-            </Button>
-            <Button className="ml-3 btn-circle">
-              <span className="icon-share" />
-            </Button>
-          </div>
-          <Button>
-            {selectButtonText} <span className="icon-arrow-right" />
+          <Button
+            onClick={() => setDetailsExpanded(!isDetailsExpanded)}
+            className={cx({ 'btn-active': isDetailsExpanded })}
+          >
+            {isDetailsExpanded ? <span className="icon-close" /> : 'details'}
           </Button>
+          {!isDetailsExpanded && (
+            <Button className="animated fadeIn faster">
+              {selectButtonText} <span className="icon-arrow-right" />
+            </Button>
+          )}
         </div>
       )}
 
