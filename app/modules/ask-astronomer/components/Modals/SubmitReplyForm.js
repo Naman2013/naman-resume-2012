@@ -18,16 +18,7 @@ import { injectIntl, intlShape } from 'react-intl';
 import './styles.scss';
 import messages from './SubmitQuestionForm.messages';
 
-const {
-  any,
-  arrayOf,
-  bool,
-  func,
-  number,
-  oneOfType,
-  shape,
-  string,
-} = PropTypes;
+const { func, shape, string } = PropTypes;
 
 class SubmitReplyForm extends PureComponent {
   static propTypes = {
