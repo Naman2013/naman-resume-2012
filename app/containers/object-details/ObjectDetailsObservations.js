@@ -12,6 +12,7 @@ import findIndex from 'lodash/findIndex';
 import has from 'lodash/has';
 import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 import { Button } from 'react-bootstrap';
+import { createStructuredSelector } from 'reselect';
 import GenericButton from 'app/components/common/style/buttons/Button';
 import { plus } from 'app/styles/variables/iconURLs';
 import Request from 'app/components/common/network/Request';
@@ -20,34 +21,42 @@ import {
   fetchObjectDetailsAction,
   fetchLikeAction,
   fetchSharedMemberPhotosAction,
+  getMyPictures,
 } from 'app/modules/object-details/actions';
 import ObjectDetailsSectionTitle from 'app/components/object-details/ObjectDetailsSectionTitle';
 import CenterColumn from 'app/components/common/CenterColumn';
 import CardObservations from 'app/components/common/CardObservations';
 import { IMAGE_DETAILS } from 'app/services/image-details';
+import { WriteObservationModal } from 'app/modules/object-details/components/write-observation-modal';
+import {
+  makeObjectDetailsDataSelector,
+  makeObjectDataSelector,
+  makeObjectSharedMemberPhotosSelector,
+  makeObjectImageDetailsSelector,
+  makeObjectObservationMyPicturesSelector,
+} from '../../modules/object-details/selectors';
+import {
+  makeUserSelector,
+} from '../../modules/user/selectors';
 
 import messages from './ObjectDetails.messages';
 import styles from './ObjectDetailsObservations.style';
 
-const mapStateToProps = ({ objectDetails, appConfig, user }) => ({
-  objectData: objectDetails.objectData,
-  objectDetails: objectDetails.objectDetails,
-  imageDetails: objectDetails.imageDetails,
-  sharedMemberPhotos: objectDetails.sharedMemberPhotos,
-  appConfig,
-  user,
+const mapStateToProps = createStructuredSelector({
+  objectData: makeObjectDataSelector(),
+  imageDetails: makeObjectImageDetailsSelector(),
+  sharedMemberPhotos: makeObjectSharedMemberPhotosSelector(),
+  user: makeUserSelector(),
+  objectDetails: makeObjectDetailsDataSelector(),
+  myPictures: makeObjectObservationMyPicturesSelector(),
 });
 
-const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators(
-    {
-      fetchObjectDetailsAction,
-      fetchLikeAction,
-      fetchSharedMemberPhotosAction,
-    },
-    dispatch
-  ),
-});
+const mapDispatchToProps = {
+  fetchObjectDetailsAction,
+  fetchLikeAction,
+  fetchSharedMemberPhotosAction,
+  getMyPictures,
+};
 
 @connect(
   mapStateToProps,
@@ -57,11 +66,12 @@ class Observations extends Component {
   state = {
     selectedIndex: 0,
     page: 1,
+    writeObservationModalShow: false,
   };
 
   componentDidMount() {
     const {
-      actions: { fetchSharedMemberPhotosAction },
+      fetchSharedMemberPhotosAction,
       params: { objectId },
     } = this.props;
     const { page } = this.state;
@@ -102,14 +112,25 @@ class Observations extends Component {
     }));
   };
 
+  showWriteObservationModal = () => {
+    this.setState({ writeObservationModalShow: true });
+  };
+
+  closeWriteObservationModal = () => {
+    this.setState({ writeObservationModalShow: false });
+  };
+
   render() {
     const {
       objectDetails,
       sharedMemberPhotos,
       intl,
-      actions: { fetchLikeAction },
+      fetchLikeAction,
+      getMyPictures,
       user,
     } = this.props;
+    console.log(this.props);
+    const { writeObservationModalShow } = this.state;
 
     if (!sharedMemberPhotos.imageCount) {
       return (
@@ -131,15 +152,8 @@ class Observations extends Component {
           subTitle={intl.formatMessage(messages.Observations)}
           renderNav={() => (
             <div className="nav-actions">
-              {/* <Button
-                onClick={() => {}}
-                className="add-observation-button"
-              >
-                Add observation
-                <span className="icon-plus" />
-              </Button> */}
               <GenericButton
-                //onClickEvent={this.setAskQuestionModal}
+                onClickEvent={this.showWriteObservationModal}
                 text="Add observation"
                 icon={plus}
                 theme={{ marginRight: '10px' }}
@@ -194,6 +208,13 @@ class Observations extends Component {
             ))}
           </div>
         </CenterColumn>
+
+        <WriteObservationModal
+          show={writeObservationModalShow}
+          onHide={this.closeWriteObservationModal}
+          getMyPictures={getMyPictures}
+        />
+
         <style jsx>{styles}</style>
       </Fragment>
     );

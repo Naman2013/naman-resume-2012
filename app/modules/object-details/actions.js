@@ -8,7 +8,7 @@ import fetchObjectSpecialistsService from 'app/services/objects/specialists';
 import fetchLikeService from 'app/services/objects/object-details-like';
 import fetchImageDetailsService from 'app/services/objects/object-details-image-details';
 import fetchSharedMemberPhotosService from 'app/services/objects/object-details-shared-member-photos';
-import { getCommunityMissionsApi } from './api';
+import { getCommunityMissionsApi, getMyPicturesApi, } from './api';
 
 /* getObjectDetails */
 export const FETCH_OBJECT_DETAILS = 'FETCH_OBJECT_DETAILS';
@@ -65,6 +65,12 @@ export const FETCH_SHARED_MEMBER_PHOTOS_START =
   'FETCH_SHARED_MEMBER_PHOTOS_START';
 export const FETCH_SHARED_MEMBER_PHOTOS_SUCCESS =
   'FETCH_SHARED_MEMBER_PHOTOS_SUCCESS';
+
+/* getMyPictures */
+export const GET_MY_PICTURES = 'GET_MY_PICTURES';
+export const GET_MY_PICTURES_START = 'GET_MY_PICTURES_START';
+export const GET_MY_PICTURES_FAIL = 'GET_MY_PICTURES_FAIL';
+export const GET_MY_PICTURES_SUCCESS = 'GET_MY_PICTURES_SUCCESS';
 
 //////////////////////////
 /* FETCH SHARED MEMBER PHOTOS */
@@ -251,6 +257,25 @@ export const fetchImageDetailsAction = customerImageId => (
     .catch(error => dispatch(fetchImageDetailsActionError(error)));
 };
 
+//////////////////////////////
+/* GET MY PICTURES */
+
+export const getMyPictures = data => (dispatch, getState) => {
+  dispatch(getMyPicturesStart());
+  const { token, at, cid } = getState().user;
+  return getMyPicturesApi({
+    token,
+    at,
+    cid,
+    ...data,
+  })
+    .then(result => {
+      dispatch(getMyPicturesSuccess(result.data));
+    })
+    .catch(error => dispatch(getMyPicturesError(error)));
+}
+
+
 ////////////////////
 /* fetch handlers */
 
@@ -373,3 +398,19 @@ const fetchObjectSpecialistsActionError = payload => ({
 const fetchLike = () => ({
   type: FETCH_LIKE,
 });
+
+// GET MY PICTURES
+const getMyPicturesStart = () => ({
+  type: GET_MY_PICTURES_START,
+});
+
+const getMyPicturesSuccess = payload => ({
+  type: GET_MY_PICTURES_SUCCESS,
+  payload,
+});
+
+const getMyPicturesError = payload => ({
+  type: GET_MY_PICTURES_FAIL,
+  payload,
+});
+

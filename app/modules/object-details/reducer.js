@@ -33,6 +33,10 @@ import {
   FETCH_IMAGE_DETAILS_FAIL,
   FETCH_IMAGE_DETAILS_SUCCESS,
   FETCH_SHARED_MEMBER_PHOTOS_SUCCESS,
+  GET_MY_PICTURES,
+  GET_MY_PICTURES_START,
+  GET_MY_PICTURES_FAIL,
+  GET_MY_PICTURES_SUCCESS,
 } from './actions';
 
 const initialState = {
@@ -156,6 +160,9 @@ const initialState = {
   objectQuests: {},
   objectFollow: {},
   objectSpecialists: {},
+  objectObservation: {
+    myPictures: {},
+  },
   imageDetails: {},
   sharedMemberPhotos: {},
 };
@@ -336,6 +343,32 @@ export default createReducer(initialState, {
     return {
       ...state,
       imageDetails: Object.assign({}, initialState.imageDetails),
+      errorBody: payload,
+    };
+  },
+
+  // OBSERVATION
+
+  [GET_MY_PICTURES_START](state) {
+    return {
+      ...state,
+      objectObservation: {
+        ...initialState.objectObservation,
+      },
+    };
+  },
+  [GET_MY_PICTURES_SUCCESS](state, { payload }) {
+    return {
+      ...state,
+      objectObservation: {
+        ...state.objectObservation,
+        myPictures: payload,
+      },
+    };
+  },
+  [GET_MY_PICTURES_FAIL](state, { payload }) {
+    return {
+      ...state,
       errorBody: payload,
     };
   },
