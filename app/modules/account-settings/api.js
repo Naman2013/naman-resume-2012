@@ -7,3 +7,6 @@ export const getAccountSettingsApi = data =>
 
 export const saveAccountFormFieldApi = data =>
   axios.post('/api/registration/saveAccountFormField', data);
+
+export const getSubscriptionPlansApi = data =>
+  axios.post('/api/registration/getSubscriptionPlans', data);

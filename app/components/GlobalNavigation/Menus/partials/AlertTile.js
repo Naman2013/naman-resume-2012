@@ -57,7 +57,7 @@ class AlertTile extends Component {
         <div className="tile-container">
           {canDismiss && (
             <div className="dismiss" onClick={this.dismiss}>
-              <span className="fa fa-check" />
+              <span className="fa fa-close" />
             </div>
           )}
           {loading && (

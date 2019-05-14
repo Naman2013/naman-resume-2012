@@ -8,6 +8,7 @@ import fetchObjectSpecialistsService from 'app/services/objects/specialists';
 import fetchLikeService from 'app/services/objects/object-details-like';
 import fetchImageDetailsService from 'app/services/objects/object-details-image-details';
 import fetchSharedMemberPhotosService from 'app/services/objects/object-details-shared-member-photos';
+import { getCommunityMissionsApi } from './api';
 
 /* getObjectDetails */
 export const FETCH_OBJECT_DETAILS = 'FETCH_OBJECT_DETAILS';
@@ -138,19 +139,19 @@ export const resetObjectData = () => ({
 ///////////////////////////
 /* FETCH OBJECT MISSIONS */
 
-export const fetchObjectMissionsAction = objectId => (dispatch, getState) => {
+export const getCommunityMissions = objectId => (dispatch, getState) => {
   dispatch(fetchObjectMissionsActionStart());
 
   const { token, at, cid } = getState().user;
 
-  return fetchObjectMissionsService({
+  return getCommunityMissionsApi({
     token,
     at,
     cid,
     objectId,
   }).then(result => {
     dispatch(fetchObjectMissionsActionSuccess(result.data));
-  });
+  }).catch(error => dispatch(fetchObjectMissionsActionError(error)));
 };
 
 /////////////////////////

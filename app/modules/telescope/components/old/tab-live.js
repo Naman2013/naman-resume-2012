@@ -1,11 +1,15 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
+import MissionAudio from 'app/components/telescope-details/MissionAudio';
 
 import {
   ObjectSummaryTile,
   ScheduledByTile,
 } from 'app/components/common/tiles';
+import { OBJECT_HOW_BIG } from '../../../../services/objects';
+import Request from '../../../../components/common/network/Request';
+
 import { WhereInTheSky, ConnectedAllSkyCamera, HowBigModule } from './index';
 
 import style from './tab-live.style';
@@ -36,8 +40,15 @@ const TabLive = ({
       </Fragment>
     )}
 
-    {mission.objectId != 0 && object && object.objectTitle && (
+    {mission.missionAvailable && (
+      <MissionAudio
+        missionAudioURL={object.objectAudioURL}
+        audioEnabled={mission.objectId !== 0 && !!object.objectAudioURL}
+      />
+    )}
+    {mission.objectId !== 0 && object && object.objectTitle && (
       <div className="tile-container">
+
         <ObjectSummaryTile {...object} />
       </div>
     )}
@@ -49,10 +60,22 @@ const TabLive = ({
         AllskyTimelapseWidgetId={activeTelescope.AllskyTimelapseWidgetId}
       />
     </div>
-
-    <div className="tile-container">
-      <HowBigModule />
-    </div>
+    {mission.objectId && (
+      <div className="tile-container">
+        <Request
+          serviceURL={OBJECT_HOW_BIG}
+          requestBody={{ objectId: mission.objectId }}
+          withoutUser
+          render={({ fetchingContent, serviceResponse: resp }) => (
+            <div className="root">
+              {!fetchingContent && (
+                <HowBigModule {...resp} {...resp.howBigData} />
+              )}
+            </div>
+          )}
+        />
+      </div>
+    )}
 
     {mission.missionAvailable && (
       <Fragment>

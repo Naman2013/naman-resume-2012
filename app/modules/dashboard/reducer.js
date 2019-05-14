@@ -1,15 +1,21 @@
-import createReducer from '../utils/createReducer';
 import cloneDeep from 'lodash/cloneDeep';
+import createReducer from '../utils/createReducer';
 import {
   FETCH_DASHBOARD_START,
   FETCH_DASHBOARD_SUCCESS,
   FETCH_DASHBOARD_FAILURE,
+  GET_DASHBOARD_FEATURED_OBJECTS_SUCCESS,
 } from './actions';
 import { SET_AVATAR_SUCCESS } from '../avatar/actions';
 
 const initialState = {
   refreshIntervalSec: 300,
   profile: {},
+  featuredObjects: {
+    recommendedObjectsShow: false,
+    recommendedObjectsHeading: '',
+    recommendedObjectsSubHeading: '',
+  },
   error: false,
 };
 
@@ -43,6 +49,12 @@ export default createReducer(initialState, {
     return {
       ...newState,
       error: true,
+    };
+  },
+  [GET_DASHBOARD_FEATURED_OBJECTS_SUCCESS](state, { payload }) {
+    return {
+      ...state,
+      featuredObjects: payload,
     };
   },
 });
