@@ -2,9 +2,9 @@
 
 import React from 'react';
 
-type TSelectPlanStep = {};
+type TPaymentStep = {};
 
-export const PaymentStep = (props: TSelectPlanStep) => {
+export const PaymentStep = (props: TPaymentStep) => {
   // const {} = props;
 
   return (
