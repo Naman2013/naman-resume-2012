@@ -3,16 +3,17 @@
 import BobbieTile from 'app/components/common/tiles/BobbieTile';
 import React, { useState } from 'react';
 import { Button, Collapse } from 'react-bootstrap';
-import './subscription-plan.scss';
+import './styles.scss';
 import cx from 'classnames';
 
 type TSubscriptionPlan = {
   plan: any,
   expanded?: boolean,
+  onSelect: Function,
 };
 
 export const SubscriptionPlan = (props: TSubscriptionPlan) => {
-  const { plan, expanded = false } = props;
+  const { plan, expanded = false, onSelect } = props;
 
   const [isDetailsExpanded, setDetailsExpanded] = useState(expanded);
   const {
@@ -49,20 +50,17 @@ export const SubscriptionPlan = (props: TSubscriptionPlan) => {
 
       {!expanded && (
         <div className="d-flex justify-content-between">
-          <div>
-            <Button
-              onClick={() => setDetailsExpanded(!isDetailsExpanded)}
-              className={cx({ 'btn-active': isDetailsExpanded })}
-            >
-              {isDetailsExpanded ? <span className="icon-close" /> : 'details'}
-            </Button>
-            <Button className="ml-3 btn-circle">
-              <span className="icon-share" />
-            </Button>
-          </div>
-          <Button>
-            {selectButtonText} <span className="icon-arrow-right" />
+          <Button
+            onClick={() => setDetailsExpanded(!isDetailsExpanded)}
+            className={cx({ 'btn-active': isDetailsExpanded })}
+          >
+            {isDetailsExpanded ? <span className="icon-close" /> : 'details'}
           </Button>
+          {!isDetailsExpanded && (
+            <Button className="animated fadeIn faster" onClick={onSelect}>
+              {selectButtonText} <span className="icon-arrow-right" />
+            </Button>
+          )}
         </div>
       )}
 
@@ -85,7 +83,9 @@ export const SubscriptionPlan = (props: TSubscriptionPlan) => {
             ) : (
               <Button onClick={() => setDetailsExpanded(false)}>close</Button>
             )}
-            <Button className="btn-active">{selectButtonText}</Button>
+            <Button onClick={onSelect} className="btn-active">
+              {selectButtonText}
+            </Button>
           </div>
         </div>
       </Collapse>
