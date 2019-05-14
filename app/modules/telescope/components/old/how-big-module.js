@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import Measure from 'react-measure';
 import noop from 'lodash/noop';
 import DefaultButton from 'app/components/common/style/buttons/Button';
-import { ModuleContainer } from './index';
 import HowBig from 'app/components/Telescope/HowBig';
-import style from './how-big-module.style';
-
 import fauxMission from 'content/fauxMissions';
+import { browserHistory } from 'react-router';
+import { ModuleContainer } from './index';
+import style from './how-big-module.style';
 
 class HowBigModule extends Component {
   state = {
@@ -20,6 +20,7 @@ class HowBigModule extends Component {
       width: 0,
       x: 0,
       y: 0,
+      isStarted: this.props.autoPlay,
     },
   };
 
@@ -29,43 +30,59 @@ class HowBigModule extends Component {
 
   handleAnimationComplete = () => {
     console.log('Anim complete,...');
+    this.setState({ isStarted: false });
+  };
+
+  restartAnimation = () => {
+    this.setState({ isStarted: false, }, () => {
+      this.setState({ isStarted: true });
+    });
   };
 
   render() {
     const {
       dimensions: { width },
+      isStarted,
     } = this.state;
-    const {
-      referenceObjectScale,
-      domain,
-      targetObjectScale,
-      targetObjectURL,
-      targetObjectName,
-      onComplete,
-    } = this.props;
+    const { autoPlay } = this.props;
     return (
       <Measure bounds onResize={this.handleDimensionChange}>
         {({ measureRef }) => (
-          <ModuleContainer title="How big">
+          <ModuleContainer title={this.props.howBigLabel}>
+            {this.props.showInfoText && (
+              <p className="how-big-description">{this.props.infoText}</p>
+            )}
+
             <div ref={measureRef} className="portal">
               <svg version="1.1" xmlns="http://www.w3.org/2000/svg">
-                <HowBig
-                  dimension={width}
-                  referenceObjectScale={referenceObjectScale}
-                  domain={domain}
-                  targetObjectScale={targetObjectScale}
-                  targetObjectURL={targetObjectURL}
-                  targetObjectName={targetObjectName}
-                  onComplete={onComplete}
-                />
+                <HowBig dimension={width} {...this.props} isStart={isStarted} />
               </svg>
             </div>
 
             <ul className="tile-actions">
+              {!autoPlay && (
+                <li>
+                  <DefaultButton
+                    theme={{
+                      width: '70%',
+                      marginBottom: '10px',
+                      marginLeft: 'auto',
+                      marginRight: 'auto',
+                    }}
+                    text={this.props.playButtonCaption}
+                    onClickEvent={this.restartAnimation}
+                  />
+                </li>
+              )}
               <li>
                 <DefaultButton
-                  theme={{ width: '100%' }}
+                  theme={{
+                    width: '70%',
+                    marginLeft: 'auto',
+                    marginRight: 'auto',
+                  }}
                   text="View our guide"
+                  onClickEvent={() => browserHistory.push(this.props.guideURL)}
                 />
               </li>
             </ul>
@@ -78,7 +95,7 @@ class HowBigModule extends Component {
   }
 }
 
-const { string, func, number } = PropTypes;
+const { string, func, number, bool } = PropTypes;
 
 HowBigModule.propTypes = {
   referenceObjectScale: number,
@@ -87,6 +104,7 @@ HowBigModule.propTypes = {
   targetObjectName: string,
   domain: string,
   onComplete: func,
+  autoPlay: bool,
 };
 
 HowBigModule.defaultProps = {
@@ -96,6 +114,7 @@ HowBigModule.defaultProps = {
   targetObjectURL: fauxMission.scaleDown.targetObjectURL,
   targetObjectName: fauxMission.scaleDown.targetObjectName,
   onComplete: noop,
+  autoPlay: true,
 };
 
 export { HowBigModule };
