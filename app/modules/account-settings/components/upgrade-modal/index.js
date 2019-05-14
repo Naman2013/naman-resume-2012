@@ -2,6 +2,7 @@
 
 import { Modal } from 'app/components/modal';
 import { Spinner } from 'app/components/spinner/index';
+import { PaymentStep } from 'app/modules/account-settings/components/upgrade-modal/payment-step';
 import { SelectPlanStep } from 'app/modules/account-settings/components/upgrade-modal/select-plan-step';
 
 import React, { useEffect, useState } from 'react';
@@ -49,6 +50,8 @@ export const UpgradeModal = (props: TUpgradeModal) => {
           goNext={() => setStep('PAYMENT')}
         />
       )}
+
+      {step === 'PAYMENT' && <PaymentStep />}
     </Modal>
   );
 };

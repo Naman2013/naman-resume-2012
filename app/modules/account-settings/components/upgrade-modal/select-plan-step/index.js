@@ -1,7 +1,7 @@
 // @flow
 
 import { SubscriptionPlan } from 'app/modules/account-settings/components/upgrade-modal/subscription-plan/index';
-import React, { useEffect } from 'react';
+import React from 'react';
 
 type TSelectPlanStep = {
   goNext: Function,
@@ -10,7 +10,6 @@ type TSelectPlanStep = {
 };
 
 export const SelectPlanStep = (props: TSelectPlanStep) => {
-
   const { subscriptionPlansData, selectedPlanId, goNext } = props;
   const {
     subscriptionPlans = [],
