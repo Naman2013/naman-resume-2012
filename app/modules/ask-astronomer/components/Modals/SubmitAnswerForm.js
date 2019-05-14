@@ -59,14 +59,6 @@ class SubmitAnswerForm extends PureComponent {
     });
   }
 
-  componentWillUnmount = () => {
-    const { cid, token, at } = this.props.user;
-    const { uuid } = this.state;
-    // calling service directly here
-    // it allows to fully reuse it, without passing parameters down to modals
-    uploadedImgCleanUp(this.state.S3URLs, cid, token, at, uuid, 'discussion');
-  };
-
   onChangeAnswerText = e => {
     e.preventDefault();
     this.setState({
@@ -141,16 +133,17 @@ class SubmitAnswerForm extends PureComponent {
     });
   };
 
+  closeModal = () => {
+    const { modalActions, user } = this.props;
+    const { cid, token, at } = user;
+    const { uuid, S3URLs } = this.state;
+    modalActions.closeModal();
+    uploadedImgCleanUp(S3URLs, cid, token, at, uuid, 'discussion');
+  };
+
   render() {
     const { S3URLs, uploadLoading } = this.state;
-    const {
-      authorInfo,
-      freshness,
-      content,
-      modalActions,
-      submitReply,
-      intl,
-    } = this.props;
+    const { authorInfo, freshness, content, intl } = this.props;
 
     const { answerText } = this.state;
 
@@ -202,7 +195,7 @@ class SubmitAnswerForm extends PureComponent {
             />
           </div>
           <div>
-            <Button onClick={modalActions.closeModal} className="mr-3">
+            <Button onClick={this.closeModal} className="mr-3">
               {intl.formatMessage(messages.Cancel)}
             </Button>
             <Button onClick={this.submitForm}>

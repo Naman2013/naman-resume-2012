@@ -71,14 +71,6 @@ class SubmitQuestionForm extends PureComponent {
     });
   }
 
-  componentWillUnmount = () => {
-    const { cid, token, at } = this.props.user;
-    const { uuid } = this.state;
-    // calling service directly here
-    // it allows to fully reuse it, without passing parameters down to modals
-    uploadedImgCleanUp(this.state.S3URLs, cid, token, at, uuid, 'discussion');
-  };
-
   onChangeQuestionText = e => {
     e.preventDefault();
     this.setState({
@@ -152,15 +144,17 @@ class SubmitQuestionForm extends PureComponent {
   };
 
   cancel = () => {
-    const { updateQuestionsList, modalActions } = this.props;
-
+    const { updateQuestionsList, modalActions, user } = this.props;
+    const { cid, token, at } = user;
+    const { uuid, S3URLs } = this.state;
     updateQuestionsList();
     modalActions.closeModal();
+    uploadedImgCleanUp(S3URLs, cid, token, at, uuid, 'discussion');
   };
 
   render() {
     const { S3URLs, uploadLoading } = this.state;
-    const { title, modalActions, submitReply, askPrompt, intl } = this.props;
+    const { title, askPrompt, intl } = this.props;
 
     const { questionText } = this.state;
     return (
