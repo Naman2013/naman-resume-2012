@@ -1,49 +1,39 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 
+import { getMyPictures } from '../actions';
 import {
-  getObservatoryList,
-  setTelescope,
-  setTel
-  checkTargetVisibility,
-} from '../thunks';
-import {
-  makeTelescopeSelectedTelescopeSelector,
-  makeTelescopeSelectedDateSelector,
-  makeTelescopeSelectedSlotSelector,
-  makeMissionsFirstSlot,
-  makeReservedMissionData,
-  makeReservedMissionSelector,
+  makeObjectObservationMyPicturesSelector,
+  makeObjectDetailsDataSelector,
 } from '../selectors';
 import { ACTION } from '../reducer';
+import { WriteObservationStep1 } from '../components/write-observation-step1';
 
 class ObjectObservationModal extends Component {
   render() {
-    
+    const { getMyPictures, myPictures, objectDetails } = this.props;
+
+    return (
+      <Fragment>
+        <WriteObservationStep1
+          getMyPictures={getMyPictures}
+          myPictures={myPictures}
+          objectDetails={objectDetails}
+        />
+      </Fragment>
+    );
   }
 }
 
 const mapStateToProps = createStructuredSelector({
-  selectedTelescope: makeTelescopeSelectedTelescopeSelector(),
-  selectedDate: makeTelescopeSelectedDateSelector(),
-  selectedSlot: makeTelescopeSelectedSlotSelector(),
-  missionSlot: makeMissionsFirstSlot(),
-  reservedMissionData: makeReservedMissionData(),
-  reservedMission: makeReservedMissionSelector(),
-  bySlooh1000: makeBySlooh1000DataSelector(),
-  byConstellation: makeByConstellationDataSelector(),
-  byCatalog: makeByCatalogDataSelector(),
-  byCoordinates: makeByCoordinatesDataSelector(),
-  isFetching: makeMissionsLoadingSelector(),
-  isTelescopeFetching: makeMissionsTelescopeFetchingSelector(),
+  myPictures: makeObjectObservationMyPicturesSelector(),
+  objectDetails: makeObjectDetailsDataSelector(),
 });
 
 const mapDispatchToProps = {
-  getObservatoryList,
-  setTelescope,
-  setTelescopeDate,
+  getMyPictures,
 };
 
 export default compose(
@@ -51,4 +41,4 @@ export default compose(
     mapStateToProps,
     mapDispatchToProps
   )
-)();
+)(ObjectObservationModal);

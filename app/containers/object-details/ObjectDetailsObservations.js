@@ -21,7 +21,6 @@ import {
   fetchObjectDetailsAction,
   fetchLikeAction,
   fetchSharedMemberPhotosAction,
-  getMyPictures,
 } from 'app/modules/object-details/actions';
 import ObjectDetailsSectionTitle from 'app/components/object-details/ObjectDetailsSectionTitle';
 import CenterColumn from 'app/components/common/CenterColumn';
@@ -33,7 +32,6 @@ import {
   makeObjectDataSelector,
   makeObjectSharedMemberPhotosSelector,
   makeObjectImageDetailsSelector,
-  makeObjectObservationMyPicturesSelector,
 } from '../../modules/object-details/selectors';
 import {
   makeUserSelector,
@@ -48,14 +46,12 @@ const mapStateToProps = createStructuredSelector({
   sharedMemberPhotos: makeObjectSharedMemberPhotosSelector(),
   user: makeUserSelector(),
   objectDetails: makeObjectDetailsDataSelector(),
-  myPictures: makeObjectObservationMyPicturesSelector(),
 });
 
 const mapDispatchToProps = {
   fetchObjectDetailsAction,
   fetchLikeAction,
   fetchSharedMemberPhotosAction,
-  getMyPictures,
 };
 
 @connect(
@@ -129,7 +125,6 @@ class Observations extends Component {
       getMyPictures,
       user,
     } = this.props;
-    console.log(this.props);
     const { writeObservationModalShow } = this.state;
 
     if (!sharedMemberPhotos.imageCount) {
@@ -212,7 +207,6 @@ class Observations extends Component {
         <WriteObservationModal
           show={writeObservationModalShow}
           onHide={this.closeWriteObservationModal}
-          getMyPictures={getMyPictures}
         />
 
         <style jsx>{styles}</style>

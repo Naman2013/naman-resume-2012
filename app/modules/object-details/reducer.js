@@ -161,7 +161,9 @@ const initialState = {
   objectFollow: {},
   objectSpecialists: {},
   objectObservation: {
-    myPictures: {},
+    myPictures: {
+      imageList: [],
+    },
   },
   imageDetails: {},
   sharedMemberPhotos: {},
