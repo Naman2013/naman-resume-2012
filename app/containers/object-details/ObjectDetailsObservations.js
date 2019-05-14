@@ -26,7 +26,7 @@ import ObjectDetailsSectionTitle from 'app/components/object-details/ObjectDetai
 import CenterColumn from 'app/components/common/CenterColumn';
 import CardObservations from 'app/components/common/CardObservations';
 import { IMAGE_DETAILS } from 'app/services/image-details';
-import { WriteObservationModal } from 'app/modules/object-details/components/write-observation-modal';
+import { ObjectObservationModal } from 'app/modules/object-details/components/object-observation-modal';
 import {
   makeObjectDetailsDataSelector,
   makeObjectDataSelector,
@@ -204,7 +204,7 @@ class Observations extends Component {
           </div>
         </CenterColumn>
 
-        <WriteObservationModal
+        <ObjectObservationModal
           show={writeObservationModalShow}
           onHide={this.closeWriteObservationModal}
         />

@@ -14,25 +14,27 @@ export class WriteObservationStep1 extends Component {
   }
 
   render() {
-    const { myPictures, objectDetails } = this.props;
+    const { myPictures, objectDetails, selectImage } = this.props;
     const { imageList } = myPictures;
 
     return (
       <div className="write-observation-step1">
         <h1 className="modal-h">Select an Image for your Observation.</h1>
         <Row>
-          <Col md={6} lg={4}>
+          <Col md={6} xl={4}>
             <WriteObservationImageCard
               imageData={{}}
               objectDetails={objectDetails}
+              onClick={() => selectImage({})}
               defaultCard
             />
           </Col>
           {imageList.map(item => (
-            <Col md={6} lg={4}>
+            <Col md={6} xl={4}>
               <WriteObservationImageCard
                 imageData={item}
                 objectDetails={objectDetails}
+                onClick={() => selectImage(item)}
               />
             </Col>
           ))}

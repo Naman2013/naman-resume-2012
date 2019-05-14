@@ -1,0 +1,46 @@
+@import '~app/styles/variables/index';
+
+.write-observation-step2 {
+  .modal-h {
+    margin-bottom: 40px;
+  }
+
+  .selected-image {
+    display: flex;
+
+    .selected-image-details {
+      width: 50%;
+      padding: 40px;
+      background-color: $romance;
+      display: flex;
+      flex-flow: column;
+      justify-content: space-between;
+
+      h3 {
+        font-family: $secondary-font;
+        font-size: 24px;
+        font-weight: normal;
+        line-height: 0.83;
+        color: $lightHeadedAstronaut;
+        margin-bottom: 30px;
+      }
+
+      p {
+        font-family: $secondary-font;
+        font-size: 19px;
+        font-weight: normal;
+        line-height: 1.53;
+        color: $raven;
+      }
+    }
+
+    .selected-image-container {
+      width: 50%;
+      img {
+        width: 100%;
+        object-fit: contain;
+        background-color: $black;
+      }
+    }
+  }
+}
