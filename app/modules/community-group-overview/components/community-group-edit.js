@@ -53,6 +53,8 @@ class CommunityGroupEdit extends Component {
   render() {
     const { renderMembers } = this;
     const {
+      changeGroupDescription,
+      routeParams: { groupId },
       communityGroupOverview: {
         fetching,
         membersCount,
@@ -73,6 +75,8 @@ class CommunityGroupEdit extends Component {
               isMobile={isMobile}
               membersCount={membersCount}
               canEditGroup={canEditGroup}
+              onChangeGroupDescription = {changeGroupDescription}
+              groupId = {groupId}
             />
 
             <div className="community-group-edit-section shadow">

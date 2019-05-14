@@ -303,7 +303,6 @@ class GroupCreate extends Component {
             <Fragment>
               {!fetchingContent && (
                 <Fragment>
-                  <div className="header">
                     <div className="inner-header-container">
                       <div className="inner-header-text">
                         <div className="big">
@@ -314,7 +313,6 @@ class GroupCreate extends Component {
                         </div>
                       </div>
                     </div>
-                  </div>
                   <CenterColumn widths={['620px']}>
                     <div className="wrapper">
                       <div className="section-heading">

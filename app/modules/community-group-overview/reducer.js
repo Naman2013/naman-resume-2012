@@ -9,6 +9,9 @@ import {
   FETCH_GROUP_MEMBERS_START,
   FETCH_GROUP_MEMBERS_SUCCESS,
   FETCH_GROUP_MEMBERS_FAIL,
+  GROUP_DESCRIPTION_CHANGE_START,
+  GROUP_DESCRIPTION_CHANGE_SUCCESS,
+  GROUP_DESCRIPTION_CHANGE_FAIL,
   SORT_AZ,
   SORT_ZA,
   SORT_RANK,
@@ -29,6 +32,26 @@ const initialState = {
 };
 
 export default createReducer(initialState, {
+  [GROUP_DESCRIPTION_CHANGE_START](state) {
+    return {
+      ...state,
+      fetching: true,
+    };
+  },
+  [GROUP_DESCRIPTION_CHANGE_SUCCESS](state, { payload }) {
+    return {
+      ...state,
+      fetching: false,
+      description: payload.groupDescription,
+    };
+  },
+  [GROUP_DESCRIPTION_CHANGE_FAIL](state) {
+    return {
+      ...state,
+      error: true,
+      fetching: false,
+    };
+  },
   [FETCH_GROUP_OVERVIEW_START](state) {
     return {
       ...state,
