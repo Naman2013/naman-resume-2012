@@ -1,5 +1,6 @@
 // @flow
 
+import { Datepicker } from 'app/modules/profile-photos/components/filter-dropdown/datepicker';
 import { FilterElImg } from 'app/modules/profile-photos/components/filter-dropdown/filter-el-img';
 import { FilterElTime } from 'app/modules/profile-photos/components/filter-dropdown/filter-el-time';
 import React, { memo } from 'react';
@@ -36,6 +37,7 @@ export const FilterDropdown = memo((props: TFilterDropdown) => {
   const {
     filterType: activeFilterType,
     timeFilter: activeTimeFilter,
+    dateFilter: activeDateFilter,
   } = selectedFilters;
 
   const open = () => setOpen(true);
@@ -61,6 +63,7 @@ export const FilterDropdown = memo((props: TFilterDropdown) => {
       observatoryId: null,
       filterType: null,
       timeFilter: null,
+      dateFilter: null,
     });
     onApply();
     close();
@@ -139,6 +142,16 @@ export const FilterDropdown = memo((props: TFilterDropdown) => {
                   active={time.value === activeTimeFilter}
                 />
               ))}
+            </div>
+
+            <div className="grid-elements-time mt-5">
+              <Datepicker
+                className="filter-custom-date"
+                value={activeDateFilter}
+                onChange={dateFilter => onChange({ dateFilter })}
+                placeholder="SET DATE"
+                outputFormat="YYYY-MM-DD"
+              />
             </div>
           </div>
 

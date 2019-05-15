@@ -1,3 +1,4 @@
+$BOTTOM_MARGIN_FIX: 3000px; // todo
 .profile-image-list-wrapper {
   .filter-dropdown-btn {
     position: absolute;
@@ -11,17 +12,19 @@
     top: 0;
     left: -1000px;
     right: -1000px;
-    bottom: -1500px;
+    bottom: -($BOTTOM_MARGIN_FIX);
     background-color: rgba(10, 12, 14, 0.9);
   }
+
 
   // apply styles when filter dropdown is opened
   &.filter-open {
     .uniqclass-for-overflow {
-      margin-bottom: 1000px;
+      margin-bottom: $BOTTOM_MARGIN_FIX;
     }
+
     .image-list-placeholder {
-      margin-bottom: 1000px;
+      margin-bottom: $BOTTOM_MARGIN_FIX;
     }
   }
 }

@@ -6,7 +6,7 @@ import './filter-el-time.scss';
 
 type TFilterElTime = {
   title: string,
-  active: Boolean,
+  active?: Boolean,
   onClick: Function,
 };
 
