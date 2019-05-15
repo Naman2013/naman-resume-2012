@@ -12,6 +12,9 @@ import {
   GROUP_DESCRIPTION_CHANGE_START,
   GROUP_DESCRIPTION_CHANGE_SUCCESS,
   GROUP_DESCRIPTION_CHANGE_FAIL,
+  FETCH_GROUP_INVITATION_PANEL_START,
+  FETCH_GROUP_INVITATION_PANEL_SUCCESS,
+  FETCH_GROUP_INVITATION_PANEL_FAIL,
   SORT_AZ,
   SORT_ZA,
   SORT_RANK,
@@ -29,6 +32,7 @@ const initialState = {
   membersCallError: false,
   membersCallFetching: false,
   membersSort: SORT_AZ,
+  groupInformation: {},
 };
 
 export default createReducer(initialState, {
@@ -42,10 +46,32 @@ export default createReducer(initialState, {
     return {
       ...state,
       fetching: false,
-      description: payload.groupDescription,
+      description: payload,
     };
   },
   [GROUP_DESCRIPTION_CHANGE_FAIL](state) {
+    return {
+      ...state,
+      error: true,
+      fetching: false,
+    };
+  },
+  [FETCH_GROUP_INVITATION_PANEL_START](state) {
+    return {
+      ...state,
+      error: false,
+      fetching: true,
+    };
+  },
+  [FETCH_GROUP_INVITATION_PANEL_SUCCESS](state, { payload }) {
+    return {
+      ...state,
+      error: false,
+      fetching: false,
+      groupInformation: payload,
+    };
+  },
+  [FETCH_GROUP_INVITATION_PANEL_FAIL](state) {
     return {
       ...state,
       error: true,

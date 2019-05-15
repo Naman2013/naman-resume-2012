@@ -5,15 +5,28 @@
  *
  ********************************** */
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 import PropTypes from 'prop-types';
 import uniqueId from 'lodash/uniqueId';
 import { FormattedMessage, intlShape, injectIntl } from 'react-intl';
+import { getDashboardFeaturedObjects } from 'app/modules/dashboard/actions';
+import { makeDashboardFeaturedObjectsSelector } from 'app/modules/dashboard/selectors';
+import { reserveCommunityMission } from 'app/modules/telescope/thunks';
+import { makeUserSelector } from 'app/modules/user/selectors';
+import {
+  makeQueueTabReservedCommunityMissionDataSelector,
+  makeQueueTabReservedCommunityMissionSelector,
+} from 'app/modules/telescope/selectors';
 import TourPopup from './tour-popup/TourPopup';
 import PromoPanel from 'app/components/home/promo-panel';
 import { getSectionComponent } from './dashboardPanelItemsConfiguration';
 import DashNav from './nav/DashboardNav';
+import DashHero from './hero/DashboardHero';
+import DashHeroMobile from './hero/DashboardHeroMobile';
 import styles from './BootstrappedDashboard.style';
 import messages from './BootstrappedDashboard.messages';
+import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
 // import { connect } from 'react-redux';
 
 const { arrayOf, bool, number, shape, string } = PropTypes;
@@ -145,20 +158,39 @@ class BootstrappedDashboard extends Component {
   state = {};
 
   render() {
-    const {
+    let {
       promoPanel: { promoArray, promoPanelShow },
       user,
       intl,
+      recommendedObjects,
+      reserveCommunityMission,
+      reservedCommunityMission,
+      reservedCommunityMissionData,
+      getDashboardFeaturedObjects,
     } = this.props;
+
+    recommendedObjects = { 
+      ...recommendedObjects,
+      reserveCommunityMission, 
+      reservedCommunityMission,
+      reservedCommunityMissionData,
+      getDashboardFeaturedObjects,
+    };
 
     return (
       <div className="root">
         <TourPopup user={user} />
         <div className="dash-hero">
-          <div
+          {/*<div
             alt={intl.formatMessage(messages.welcome)}
             className="hero-img"
-          />
+          />*/}
+          <DisplayAtBreakpoint screenSmall>
+            <DashHeroMobile />
+          </DisplayAtBreakpoint>
+          <DisplayAtBreakpoint screenMedium screenLarge screenXLarge>
+            <DashHero />
+          </DisplayAtBreakpoint>
         </div>
         {promoPanelShow
           ? promoArray.map(promoObject => (
@@ -174,7 +206,9 @@ class BootstrappedDashboard extends Component {
               this.props[section] &&
               getSectionComponent(
                 section,
-                Object.assign({ orderNumber: i + 1 }, this.props[section])
+                Object.assign({ orderNumber: i + 1 }, this.props[section], {
+                  user,
+                }, recommendedObjects)
               )
           )}
         </div>
@@ -185,4 +219,19 @@ class BootstrappedDashboard extends Component {
   }
 }
 
-export default injectIntl(BootstrappedDashboard);
+const mapStateToProps = createStructuredSelector({
+  recommendedObjects: makeDashboardFeaturedObjectsSelector(),
+  reservedCommunityMissionData: makeQueueTabReservedCommunityMissionDataSelector(),
+  reservedCommunityMission: makeQueueTabReservedCommunityMissionSelector(),
+  user: makeUserSelector(),
+});
+
+const mapDispatchToProps = {
+  getDashboardFeaturedObjects,
+  reserveCommunityMission,
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(injectIntl(BootstrappedDashboard));

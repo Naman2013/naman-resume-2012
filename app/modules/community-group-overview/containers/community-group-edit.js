@@ -1,7 +1,11 @@
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { fetchGroupOverviewPageMeta, changeGroupDescription } from '../actions';
-import { CommunityGroupEdit } from '../components/community-group-edit';
+import {
+  fetchGroupOverviewPageMeta,
+  changeGroupDescription,
+  fetchGroupInvitationPanel,
+} from '../actions';
+import CommunityGroupEdit from '../components/community-group-edit';
 
 const mapStateToProps = state => {
   return {
@@ -12,6 +16,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = {
   fetchGroupOverviewPageMeta,
   changeGroupDescription,
+  fetchGroupInvitationPanel,
 };
 
 export default compose(

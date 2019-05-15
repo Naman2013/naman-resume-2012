@@ -18,11 +18,46 @@ export const GROUP_DESCRIPTION_CHANGE_START = 'GROUP_DESCRIPTION_CHANGE_START';
 export const GROUP_DESCRIPTION_CHANGE_SUCCESS =
   'GROUP_DESCRIPTION_CHANGE_SUCCESS';
 export const GROUP_DESCRIPTION_CHANGE_FAIL = 'GROUP_DESCRIPTION_CHANGE_FAIL';
+export const FETCH_GROUP_INVITATION_PANEL_START =
+  'FETCH_GROUP_INVITATION_PANEL_START';
+export const FETCH_GROUP_INVITATION_PANEL_SUCCESS =
+  'FETCH_GROUP_INVITATION_PANEL_SUCCESS';
+export const FETCH_GROUP_INVITATION_PANEL_FAIL =
+  'FETCH_GROUP_INVITATION_PANEL_FAIL';
 
 export const SORT_AZ = 'atoz';
 export const SORT_ZA = 'ztoa';
 export const SORT_RANK = 'rank';
 export const SORT_DATE = 'date';
+
+const fetchGroupInvitationPanelStart = payload => ({
+  type: FETCH_GROUP_INVITATION_PANEL_START,
+  payload,
+});
+
+const fetchGroupInvitationPanelSuccess = payload => ({
+  type: FETCH_GROUP_INVITATION_PANEL_SUCCESS,
+  payload,
+});
+
+const fetchGroupInvitationPanelFail = payload => ({
+  type: FETCH_GROUP_INVITATION_PANEL_FAIL,
+  payload,
+});
+
+export const fetchGroupInvitationPanel = groupId => (dispatch, getState) => {
+  const { cid, at, token } = getState().user;
+  dispatch(fetchGroupInvitationPanelStart());
+  return axios
+    .post('/api/classroom/getGroupInvitationPanel', {
+      at,
+      cid,
+      token,
+      groupId,
+    })
+    .then(result => dispatch(fetchGroupInvitationPanelSuccess(result.data)))
+    .catch(error => dispatch(fetchGroupInvitationPanelFail(error)));
+};
 
 const fetchGroupOverviewStart = payload => ({
   type: FETCH_GROUP_OVERVIEW_START,
@@ -193,6 +228,6 @@ export const changeGroupDescription = ({ groupId, groupDescription }) => (
       groupId,
       groupDescription,
     })
-    .then(result => dispatch(groupDescriptionChangeSuccess(result.data)))
+    .then(result => dispatch(groupDescriptionChangeSuccess(groupDescription)))
     .catch(error => dispatch(groupDescriptionChangeFail(error)));
 };

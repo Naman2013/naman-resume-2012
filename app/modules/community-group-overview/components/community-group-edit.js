@@ -24,29 +24,33 @@ class CommunityGroupEdit extends Component {
     const {
       routeParams: { groupId },
       fetchGroupOverviewPageMeta,
+      fetchGroupInvitationPanel,
     } = this.props;
 
     fetchGroupOverviewPageMeta({ discussionGroupId: groupId });
+    fetchGroupInvitationPanel(groupId);
   }
 
   componentDidUpdate(prevProps) {
     const {
-      routeParams: { groupId },
+      routeParams,
       fetchGroupOverviewPageMeta,
+      fetchGroupInvitationPanel,
     } = this.props;
-    if (prevProps.routeParams.groupId !== groupId) {
-      fetchGroupOverviewPageMeta({
-        discussionGroupId: this.state.groupId,
-      });
+    if (prevProps.routeParams.groupId !== routeParams.groupId) {
+      const { groupId } = this.state;
+      fetchGroupOverviewPageMeta({ discussionGroupId: groupId });
+      fetchGroupInvitationPanel(groupId);
     }
   }
 
-  renderMembers = membersList => {
-    const { fetching } = this.props;
-    return membersList && membersList.length ? (
-      membersList.map(member => <MemberCard member={member} />)
-    ) : (
-      <Spinner loading={fetching} />
+  renderMembers = data => {
+    if (!data) return null;
+    const { customerLinks } = data;
+    return (
+      customerLinks &&
+      customerLinks.length &&
+      customerLinks.map(member => <MemberCard member={member} />)
     );
   };
 
@@ -59,8 +63,8 @@ class CommunityGroupEdit extends Component {
         fetching,
         membersCount,
         descriptionHeading,
+        groupInformation,
         description,
-        membersList,
         pageMeta: { title, canEditGroup, subMenus },
       },
     } = this.props;
@@ -141,7 +145,7 @@ class CommunityGroupEdit extends Component {
                 </Row>
               </div>
 
-              {renderMembers(membersList)}
+              {renderMembers(groupInformation.customerLinksData)}
             </div>
           </div>
         )}

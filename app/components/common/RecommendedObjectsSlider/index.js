@@ -1,3 +1,3 @@
-import RecommendedObjectsSlider from './RecommendedObjectsSlider';
+import { RecommendedObjectsSlider } from './RecommendedObjectsSlider';
 
 export default RecommendedObjectsSlider;
