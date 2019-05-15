@@ -1,17 +1,22 @@
 import React, { Component } from 'react';
+import { Field, reduxForm } from 'redux-form';
 import { DeviceContext } from 'app/providers/DeviceProvider';
 import { Col, Row } from 'react-bootstrap';
 import BackButton from 'app/atoms/BackButton';
 import { Spinner } from 'app/components/spinner/index';
 import { NavigationWithOptions } from 'app/components/NavigationWithOptions/NavigationWithOptions';
+import TextareaField from 'app/components/form/TextareaField';
 import './community-group-edit.scss';
 import noop from 'lodash/fp/noop';
 import Btn from 'app/atoms/Btn';
+import DiscussionBoardInviteNewMemberToSlooh from 'app/components/community-groups/overview/DiscussionBoardInviteNewMemberToSlooh';
+import {Modal} from 'app/components/modal';
 import { CommunityGroupEditHeader } from './community-group-edit-header';
 import { MemberCard } from './member-card';
+import Button from '../../../components/common/style/buttons/Button';
 
 class CommunityGroupEdit extends Component {
-  state = { groupId: null };
+  state = { groupId: null, isDescriptionEditOn: false };
 
   static getDerivedStateFromProps(nextProps, prevState) {
     if (nextProps.routeParams.groupId !== prevState.groupId) {
@@ -42,6 +47,13 @@ class CommunityGroupEdit extends Component {
       fetchGroupOverviewPageMeta({ discussionGroupId: groupId });
       fetchGroupInvitationPanel(groupId);
     }
+    if(!this.props.fetching){
+    const {
+      change,
+      communityGroupOverview: { description },
+    } = this.props;
+    change('groupDescription', description);
+  }
   }
 
   renderMembers = data => {
@@ -54,10 +66,20 @@ class CommunityGroupEdit extends Component {
     );
   };
 
+  handleSubmit = value => {
+    const {
+      changeGroupDescription,
+      routeParams: { groupId },
+    } = this.props;
+    changeGroupDescription({ ...value, groupId }).then(() =>
+      this.setState({ isDescriptionEditOn: false })
+    );
+  };
+
   render() {
     const { renderMembers } = this;
     const {
-      changeGroupDescription,
+      handleSubmit,
       routeParams: { groupId },
       communityGroupOverview: {
         fetching,
@@ -68,6 +90,7 @@ class CommunityGroupEdit extends Component {
         pageMeta: { title, canEditGroup, subMenus },
       },
     } = this.props;
+    const { isDescriptionEditOn } = this.state;
     if (fetching) return <Spinner loading={fetching} />;
     return (
       <DeviceContext.Consumer>
@@ -79,8 +102,6 @@ class CommunityGroupEdit extends Component {
               isMobile={isMobile}
               membersCount={membersCount}
               canEditGroup={canEditGroup}
-              onChangeGroupDescription = {changeGroupDescription}
-              groupId = {groupId}
             />
 
             <div className="community-group-edit-section shadow">
@@ -91,10 +112,42 @@ class CommunityGroupEdit extends Component {
                       <div className="community-group-edit-desc">
                         <h4 className="h-4">Classroom overview</h4>
                         <div className="community-group-edit-row">
-                          {description && <p>{description}</p>}
-                          <Btn onClick={noop} mod="circle">
-                            <i className="fa fa-pencil" />
-                          </Btn>
+                          {!isDescriptionEditOn ? (
+                            description && <p>{description}</p>
+                          ) : (
+                            <form onSubmit={handleSubmit(this.handleSubmit)}>
+                              <Field
+                                name="groupDescription"
+                                component={TextareaField}
+                              />
+                              <div className="button-actions">
+                                <Button
+                                  type="button"
+                                  text="Cancel"
+                                  onClickEvent={() =>
+                                    this.setState({
+                                      isDescriptionEditOn: false,
+                                    })
+                                  }
+                                />
+                                <Button
+                                  className="submit-button"
+                                  type="submit"
+                                  text="Save Changes"
+                                />
+                              </div>
+                            </form>
+                          )}
+                          {!isDescriptionEditOn && (
+                            <Btn
+                              onClick={() =>
+                                this.setState({ isDescriptionEditOn: true })
+                              }
+                              mod="circle"
+                            >
+                              <i className="fa fa-pencil" />
+                            </Btn>
+                          )}
                         </div>
                       </div>
                     </div>
@@ -147,6 +200,7 @@ class CommunityGroupEdit extends Component {
 
               {renderMembers(groupInformation.customerLinksData)}
             </div>
+            
           </div>
         )}
       </DeviceContext.Consumer>
@@ -154,4 +208,7 @@ class CommunityGroupEdit extends Component {
   }
 }
 
-export { CommunityGroupEdit };
+export default reduxForm({
+  form: 'editGroupDescriptionForm',
+  enableReinitialize: true,
+})(CommunityGroupEdit);
