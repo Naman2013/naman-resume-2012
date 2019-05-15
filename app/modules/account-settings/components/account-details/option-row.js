@@ -22,7 +22,7 @@ class AccountOptionRow extends PureComponent {
   };
 
   render() {
-    const { i, label, currentValue, hintText } = this.props;
+    const { i, label, currentValue, hintText, transformText } = this.props;
     const { value } = this.state;
     const { editableId } = this.state;
     const id = `${i}-${label}-${currentValue}`;
@@ -34,7 +34,11 @@ class AccountOptionRow extends PureComponent {
             <h4 className="h-4">{label}</h4>
 
             <div className="margin-top-10">
-              <h2 className="h-2 h-2-md text-capitalize">
+              <h2
+                className={`h-2 h-2-md ${
+                  transformText ? 'text-capitalize' : 'text-no-transform'
+                }`}
+              >
                 {editableId === id ? (
                   <div className="form-field">
                     <input
