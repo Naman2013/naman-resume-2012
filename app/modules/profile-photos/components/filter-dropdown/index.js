@@ -27,7 +27,7 @@ export const FilterDropdown = memo((props: TFilterDropdown) => {
     objectTypeList,
     telescopeList,
     onApply,
-    timeList,
+    timeList = [],
   } = props;
 
   // console.log(timeList);

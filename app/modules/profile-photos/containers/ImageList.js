@@ -25,6 +25,7 @@ import {
   selectObjectTypeList,
   selectSelectedFilters,
   selectTelescopeList,
+  selectTimeList,
 } from 'app/modules/profile-photos/selectors';
 import { getFitsData } from 'app/modules/profile-photos/thunks';
 import ConnectUser from 'app/redux/components/ConnectUser';
@@ -107,6 +108,7 @@ const mapStateToProps = state => {
     fitsData: state.fitsData,
 
     telescopeList: selectTelescopeList()(state),
+    timeList: selectTimeList()(state),
     objectTypeList: selectObjectTypeList()(state),
     selectedFilters: selectSelectedFilters()(state),
   };
@@ -274,6 +276,7 @@ class ImageList extends Component {
       objectTypeList,
       selectedFilters,
       fitsData,
+      timeList,
     } = this.props;
     const { activePage, isFilterOpen } = this.state;
     const arrOfImages = this.props[mapTypeToList[type]];
@@ -292,6 +295,7 @@ class ImageList extends Component {
             setOpen={this.setFilterOpen}
             onChange={this.handleFilterChange}
             telescopeList={telescopeList}
+            timeList={timeList}
             objectTypeList={objectTypeList}
             selectedFilters={selectedFilters}
             onApply={this.handleApplyFilter}
