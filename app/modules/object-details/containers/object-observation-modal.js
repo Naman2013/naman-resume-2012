@@ -10,6 +10,7 @@ import {
 } from '../selectors';
 import { ACTION } from '../reducer';
 import { WriteObservationModal } from '../components/write-observation-modal';
+import { setObservationTags } from '../../image-details/thunks';
 
 const mapStateToProps = createStructuredSelector({
   myPictures: makeObjectObservationMyPicturesSelector(),
@@ -18,6 +19,7 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = {
   getMyPictures,
+  setObservationTags,
 };
 
 export default compose(

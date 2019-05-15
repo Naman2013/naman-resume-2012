@@ -4,9 +4,16 @@ import './styles.scss';
 
 export class WriteObservationStep2 extends Component {
   render() {
-    const { imageData, goBack } = this.props;
+    const {
+      imageData,
+      goBack,
+      onHide,
+      setTitle,
+      setText,
+      onSubmit,
+    } = this.props;
     const { imageURL } = imageData;
-    console.log(imageData);
+
     return (
       <div className="write-observation-step2">
         <h1 className="modal-h">Add an Observation!</h1>
@@ -26,6 +33,21 @@ export class WriteObservationStep2 extends Component {
 
           <div className="selected-image-container">
             <img src={imageURL} alt="" />
+          </div>
+        </div>
+
+        <div className="observation-form">
+          <input
+            placeholder="Title your Observation"
+            onChange={e => setTitle(e.target.value)}
+          />
+          <textarea
+            placeholder="Write your Observation"
+            onChange={e => setText(e.target.value)}
+          />
+          <div className="observation-form-actions">
+            <Button onClick={onHide}>Cancel</Button>
+            <Button onClick={onSubmit}>Submit</Button>
           </div>
         </div>
       </div>

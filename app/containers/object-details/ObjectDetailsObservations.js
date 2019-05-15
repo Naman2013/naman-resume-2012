@@ -204,10 +204,12 @@ class Observations extends Component {
           </div>
         </CenterColumn>
 
-        <ObjectObservationModal
-          show={writeObservationModalShow}
-          onHide={this.closeWriteObservationModal}
-        />
+        {writeObservationModalShow && (
+          <ObjectObservationModal
+            show
+            onHide={this.closeWriteObservationModal}
+          />
+        )}
 
         <style jsx>{styles}</style>
       </Fragment>

@@ -7,8 +7,8 @@ export class ObjectObservationModal extends Component {
     const { onHide, show } = this.props;
 
     return (
-      <Modal show={show} onHide={onHide} goBackText="GO BACK">
-        <ObjectObservationModalContainer />
+      <Modal show={show} onHide={onHide} goBackText="EXIT">
+        <ObjectObservationModalContainer onHide={onHide} />
       </Modal>
     );
   }
