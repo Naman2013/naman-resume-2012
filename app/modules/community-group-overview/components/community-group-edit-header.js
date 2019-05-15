@@ -17,7 +17,7 @@ const CommunityGroupEditHeader = (props: TGroupOverviewHeader) => {
   const { isMobile, title, canEditGroup, membersCount } = props;
   const width = canEditGroup ? 6 : 12;
   return (
-    <header className="details shadow i-box-white ">
+    <header className="details i-box-white ">
       <div className="i-root">
         <Row noGutters>
           <Col lg={width} md={width} sm={width}>
@@ -58,7 +58,7 @@ const CommunityGroupEditHeader = (props: TGroupOverviewHeader) => {
                 isMobile ? 'start' : 'end'
               }`}
             >
-              <Btn onClick={noop}>
+              <Btn onClick={props.onInviteClick}>
                 Invite
                 <i className="fa fa-plus" />
               </Btn>

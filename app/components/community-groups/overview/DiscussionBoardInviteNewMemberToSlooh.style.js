@@ -18,6 +18,7 @@ export default css`
     margin: 0 auto;
     width: 100%;
     color: ${astronaut};
+    background: white;
   }
 
   .groups-header-information {
@@ -28,7 +29,6 @@ export default css`
   .inner-container {
     padding: 25px;
     width: 100%;
-    background-color: ${romance};
     ${faintShadow}
   }
 
@@ -41,6 +41,7 @@ export default css`
     padding: 25px 0;
     letter-spacing: 2px;
     border-bottom: 1px solid ${shadows};
+    background-color: white;
   }
 
   .google-login-button {

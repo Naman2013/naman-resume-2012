@@ -10,13 +10,13 @@ import './community-group-edit.scss';
 import noop from 'lodash/fp/noop';
 import Btn from 'app/atoms/Btn';
 import DiscussionBoardInviteNewMemberToSlooh from 'app/components/community-groups/overview/DiscussionBoardInviteNewMemberToSlooh';
-import {Modal} from 'app/components/modal';
+import { Modal } from 'app/components/modal';
 import { CommunityGroupEditHeader } from './community-group-edit-header';
 import { MemberCard } from './member-card';
 import Button from '../../../components/common/style/buttons/Button';
 
 class CommunityGroupEdit extends Component {
-  state = { groupId: null, isDescriptionEditOn: false };
+  state = { groupId: null, isDescriptionEditOn: false, isInviteOn: false };
 
   static getDerivedStateFromProps(nextProps, prevState) {
     if (nextProps.routeParams.groupId !== prevState.groupId) {
@@ -47,13 +47,13 @@ class CommunityGroupEdit extends Component {
       fetchGroupOverviewPageMeta({ discussionGroupId: groupId });
       fetchGroupInvitationPanel(groupId);
     }
-    if(!this.props.fetching){
-    const {
-      change,
-      communityGroupOverview: { description },
-    } = this.props;
-    change('groupDescription', description);
-  }
+    if (!this.props.fetching) {
+      const {
+        change,
+        communityGroupOverview: { description },
+      } = this.props;
+      change('groupDescription', description);
+    }
   }
 
   renderMembers = data => {
@@ -90,7 +90,7 @@ class CommunityGroupEdit extends Component {
         pageMeta: { title, canEditGroup, subMenus },
       },
     } = this.props;
-    const { isDescriptionEditOn } = this.state;
+    const { isDescriptionEditOn, isInviteOn } = this.state;
     if (fetching) return <Spinner loading={fetching} />;
     return (
       <DeviceContext.Consumer>
@@ -102,9 +102,10 @@ class CommunityGroupEdit extends Component {
               isMobile={isMobile}
               membersCount={membersCount}
               canEditGroup={canEditGroup}
+              onInviteClick = {()=>this.setState({isInviteOn:true})}
             />
 
-            <div className="community-group-edit-section shadow">
+            <div className="community-group-edit-section">
               <div className="i-root">
                 <Row>
                   <Col lg={8} md={8} sm={8}>
@@ -188,7 +189,9 @@ class CommunityGroupEdit extends Component {
                     className="flex-row justify-content-between border-left"
                   >
                     <Btn
-                      onClick={noop}
+                      onClick={() => {
+                        this.setState({ isInviteOn: true });
+                      }}
                       className="margin-auto width-140 justify-content-between"
                     >
                       Invite
@@ -200,7 +203,29 @@ class CommunityGroupEdit extends Component {
 
               {renderMembers(groupInformation.customerLinksData)}
             </div>
-            
+            <Modal
+              show={isInviteOn}
+              onHide={() => this.setState({ isInviteOn: false })}
+            >
+              <DiscussionBoardInviteNewMemberToSlooh
+                newInvitationComplete={(
+                  invitationCode,
+                  firstName,
+                  lastName,
+                  emailAddress,
+                  statusMessage
+                ) =>
+                  this.newInvitationComplete(
+                    invitationCode,
+                    firstName,
+                    lastName,
+                    emailAddress,
+                    statusMessage
+                  )
+                }
+                discussionGroupId={groupId}
+              />
+            </Modal>
           </div>
         )}
       </DeviceContext.Consumer>
