@@ -3,6 +3,7 @@ import React, { PureComponent, Fragment } from 'react';
 import isEmpty from 'lodash/fp/isEmpty';
 import { Col, Container, Row } from 'react-bootstrap';
 import Btn from 'app/atoms/Btn';
+import { Modal } from '../../../../components/modal';
 import { AccountDetailsHeader } from './header';
 import { AccountOptionRow } from './option-row';
 import { AccountType } from './account-type';
@@ -17,8 +18,16 @@ type TAccountDetails = {
 
 // mocked
 const mockedPaymentDetailsOptions = [
-  { label: 'Payment method', currentValue: 'Credit card' },
-  { label: 'Reset password', currentValue: '********' },
+  {
+    label: 'Payment method',
+    currentValue: 'Credit card',
+    formFieldName: 'payment',
+  },
+  {
+    label: 'Reset password',
+    currentValue: '********',
+    formFieldName: 'password',
+  },
 ];
 
 const mockedTitle = 'Payment details';
@@ -30,6 +39,11 @@ class AccountDetails extends PureComponent<TAccountDetails> {
       accountDetails,
       fetchAccountFormFieldAction,
       accountCancelSection,
+      resetPassword,
+      accountEmail,
+      dismissResetPasswordPopup,
+      showForgetPasswordPopup,
+      forgetPasswordPopupText,
     } = this.props;
     if (isEmpty(accountTypeSection)) return null;
     const {
@@ -107,7 +121,16 @@ class AccountDetails extends PureComponent<TAccountDetails> {
             <Row noGutters>
               <Container>
                 {mockedPaymentDetailsOptions.map((option, i) => {
-                  return <AccountOptionRow key={i} i={i} {...option} />;
+                  return (
+                    <AccountOptionRow
+                      key={i}
+                      i={i}
+                      {...option}
+                      isPassword={option.formFieldName === 'password'}
+                      resetPassword={resetPassword}
+                      email={accountEmail}
+                    />
+                  );
                 })}
               </Container>
             </Row>
@@ -141,6 +164,13 @@ class AccountDetails extends PureComponent<TAccountDetails> {
             </Row>
           </div>
         </Container>
+        <Modal
+          show={showForgetPasswordPopup}
+          onHide={dismissResetPasswordPopup}
+        >
+          <div dangerouslySetInnerHTML={{ __html: forgetPasswordPopupText }} />
+          <Btn onClick={dismissResetPasswordPopup}>Close</Btn>
+        </Modal>
       </Fragment>
     );
   }

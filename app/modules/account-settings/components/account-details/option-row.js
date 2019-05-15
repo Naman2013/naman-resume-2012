@@ -22,8 +22,18 @@ class AccountOptionRow extends PureComponent {
   };
 
   handleReset = () => {
-    const { fetchAccountFormFieldAction, formFieldName } = this.props;
-    fetchAccountFormFieldAction(formFieldName, null);
+    const {
+      fetchAccountFormFieldAction,
+      resetPassword,
+      formFieldName,
+      isPassword,
+      email,
+    } = this.props;
+    if (!isPassword) {
+      fetchAccountFormFieldAction(formFieldName, null);
+    } else {
+      resetPassword(email);
+    }
   };
 
   render() {
@@ -34,6 +44,7 @@ class AccountOptionRow extends PureComponent {
       hintText,
       transformText,
       withReset,
+      isPassword,
     } = this.props;
     const { value } = this.state;
     const { editableId } = this.state;
@@ -76,14 +87,16 @@ class AccountOptionRow extends PureComponent {
               </div>
             ) : (
               <div className="btn-group margin-top-21">
-                {withReset && (
+                {(withReset || isPassword) && (
                   <Btn mod="block-140" onClick={this.handleReset}>
                     Reset
                   </Btn>
                 )}
-                <Btn mod="block-140" onClick={this.onClick(id)}>
-                  Edit
-                </Btn>
+                {!isPassword && (
+                  <Btn mod="block-140" onClick={this.onClick(id)}>
+                    Edit
+                  </Btn>
+                )}
               </div>
             )}
           </Col>

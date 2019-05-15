@@ -3,6 +3,7 @@ import {
   getAccountSettingsApi,
   saveAccountFormFieldApi,
   getSubscriptionPlansApi,
+  resetPasswordApi,
 } from './api';
 
 export const fetchAccountSettingsAction = () => (dispatch, getState) => {
@@ -59,4 +60,21 @@ export const getSubscriptionPlans = data => (dispatch, getState) => {
   })
     .then(result => dispatch(ACTION.getSubscriptionPlansSuccess(result.data)))
     .catch(error => ACTION.getSubscriptionPlansError(error));
+};
+
+export const resetPassword = data => (dispatch, getState) => {
+  dispatch(ACTION.resetPassword());
+  const { token, at, cid } = getState().user;
+  return resetPasswordApi({
+    token,
+    at,
+    cid,
+    loginEmailAddress: data,
+  }).then(res => {
+    dispatch(ACTION.resetPasswordSuccess(res.data.statusMessage));
+  });
+};
+
+export const dismissResetPasswordPopup = () => (dispatch, getState) => {
+  dispatch(ACTION.dismissPasswordPopup());
 };
