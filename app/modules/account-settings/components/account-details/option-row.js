@@ -21,8 +21,31 @@ class AccountOptionRow extends PureComponent {
     }
   };
 
+  handleReset = () => {
+    const {
+      fetchAccountFormFieldAction,
+      resetPassword,
+      formFieldName,
+      isPassword,
+      email,
+    } = this.props;
+    if (!isPassword) {
+      fetchAccountFormFieldAction(formFieldName, null);
+    } else {
+      resetPassword(email);
+    }
+  };
+
   render() {
-    const { i, label, currentValue, hintText } = this.props;
+    const {
+      i,
+      label,
+      currentValue,
+      hintText,
+      transformText,
+      withReset,
+      isPassword,
+    } = this.props;
     const { value } = this.state;
     const { editableId } = this.state;
     const id = `${i}-${label}-${currentValue}`;
@@ -34,7 +57,11 @@ class AccountOptionRow extends PureComponent {
             <h4 className="h-4">{label}</h4>
 
             <div className="margin-top-10">
-              <h2 className="h-2 h-2-md text-capitalize">
+              <h2
+                className={`h-2 h-2-md ${
+                  transformText ? 'text-capitalize' : 'text-no-transform'
+                }`}
+              >
                 {editableId === id ? (
                   <div className="form-field">
                     <input
@@ -60,9 +87,16 @@ class AccountOptionRow extends PureComponent {
               </div>
             ) : (
               <div className="btn-group margin-top-21">
-                <Btn mod="block-140" onClick={this.onClick(id)}>
-                  Edit
-                </Btn>
+                {(withReset || isPassword) && (
+                  <Btn mod="block-140" onClick={this.handleReset}>
+                    Reset
+                  </Btn>
+                )}
+                {!isPassword && (
+                  <Btn mod="block-140" onClick={this.onClick(id)}>
+                    Edit
+                  </Btn>
+                )}
               </div>
             )}
           </Col>
