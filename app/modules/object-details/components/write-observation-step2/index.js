@@ -11,8 +11,10 @@ export class WriteObservationStep2 extends Component {
       setTitle,
       setText,
       onSubmit,
+      objectDetails,
     } = this.props;
     const { imageURL } = imageData;
+    const { objectIconURL } = objectDetails;
 
     return (
       <div className="write-observation-step2">
@@ -32,7 +34,15 @@ export class WriteObservationStep2 extends Component {
           </div>
 
           <div className="selected-image-container">
-            <img src={imageURL} alt="" />
+            {imageURL ? (
+              <img src={imageURL} alt="" />
+            ) : (
+              <div className="image-background">
+                <div className="object-icon-container">
+                  <img src={objectIconURL} alt="" />
+                </div>
+              </div>
+            )}
           </div>
         </div>
 

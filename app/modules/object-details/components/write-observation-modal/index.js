@@ -54,7 +54,13 @@ export class WriteObservationModal extends Component {
   };
 
   render() {
-    const { getMyPictures, myPictures, objectDetails, onHide } = this.props;
+    const {
+      getMyPictures,
+      myPictures,
+      objectDetails,
+      onHide,
+      imageDetails,
+    } = this.props;
     const { currentStep, imageData } = this.state;
     const { STEP_1, STEP_2, STEP_3 } = WRITE_OBSERVATIONS_STEPS;
     return (
@@ -65,6 +71,7 @@ export class WriteObservationModal extends Component {
             myPictures={myPictures}
             objectDetails={objectDetails}
             selectImage={this.selectImage}
+            imageDetails={imageDetails}
           />
         )}
 
@@ -76,6 +83,7 @@ export class WriteObservationModal extends Component {
             setTitle={this.setTitle}
             setText={this.setText}
             onSubmit={this.onSubmit}
+            objectDetails={objectDetails}
           />
         )}
 

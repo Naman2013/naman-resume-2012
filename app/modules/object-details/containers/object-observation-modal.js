@@ -7,14 +7,18 @@ import { getMyPictures } from '../actions';
 import {
   makeObjectObservationMyPicturesSelector,
   makeObjectDetailsDataSelector,
+  makeObjectImageDetailsSelector,
 } from '../selectors';
 import { ACTION } from '../reducer';
 import { WriteObservationModal } from '../components/write-observation-modal';
 import { setObservationTags } from '../../image-details/thunks';
+import { makeUserSelector } from '../../user/selectors';
 
 const mapStateToProps = createStructuredSelector({
   myPictures: makeObjectObservationMyPicturesSelector(),
   objectDetails: makeObjectDetailsDataSelector(),
+  imageDetails: makeObjectImageDetailsSelector(),
+  user: makeUserSelector(),
 });
 
 const mapDispatchToProps = {

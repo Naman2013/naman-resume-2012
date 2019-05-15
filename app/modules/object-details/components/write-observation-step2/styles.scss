@@ -43,6 +43,34 @@
         object-fit: contain;
         background-color: $black;
       }
+
+      .image-background {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-width: 260px;
+        min-height: 320px;
+        background-color: $dark-background;
+        background-image: url('https://vega.slooh.com/assets/v4/dashboard/Darkest_Pattern_Canvas.png');
+        background-size: 100px;
+
+        .object-icon-container {
+          width: 168px;
+          padding: 66px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background-size: 167.5px;
+          background-repeat: no-repeat;
+          background-position: 50%;
+          background-image: url('https://vega.slooh.com/assets/v4/dashboard/object-icon-container-dark.png');
+
+          img {
+            margin: 0;
+            background-color: transparent;
+          }
+        }
+      }
     }
   }
 

@@ -14,8 +14,9 @@ export class WriteObservationStep1 extends Component {
   }
 
   render() {
-    const { myPictures, objectDetails, selectImage } = this.props;
+    const { myPictures, objectDetails, selectImage, imageDetails } = this.props;
     const { imageList } = myPictures;
+    const { customerImageId, scheduledMissionId } = imageDetails;
 
     return (
       <div className="write-observation-step1">
@@ -25,7 +26,12 @@ export class WriteObservationStep1 extends Component {
             <WriteObservationImageCard
               imageData={{}}
               objectDetails={objectDetails}
-              onClick={() => selectImage({})}
+              onClick={() =>
+                selectImage({
+                  customerImageId: parseInt(customerImageId),
+                  scheduledMissionId: parseInt(scheduledMissionId),
+                })
+              }
               defaultCard
             />
           </Col>
