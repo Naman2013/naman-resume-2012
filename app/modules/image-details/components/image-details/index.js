@@ -15,11 +15,16 @@ export class ImageDetails extends Component {
 
   render() {
     const {
-      actions,
+      getImageDetails,
+      setObservationTags,
       user,
+      observationTagsError,
       params: { customerImageId, scheduledMissionId, shareToken },
     } = this.props;
-
+    const actions = {
+      getImageDetails,
+      setObservationTags,
+    };
     return (
       <div>
         <Request
@@ -39,8 +44,10 @@ export class ImageDetails extends Component {
                 {context => (
                   <BoostrappedImageDetails
                     actions={actions}
+                    observationTagsError={observationTagsError}
                     callSource={CALLSOURCE_PHOTOVIEW}
                     customerImageId={customerImageId}
+                    scheduledMissionId={scheduledMissionId}
                     user={user}
                     {...context}
                     {...serviceResponse}

@@ -1,0 +1,141 @@
+@import "~app/styles/variables/index";
+@import '~app/styles/bootstrap/index.scss';
+
+
+.aaa-modal {
+  height: 100%;
+  width: 100%;
+  max-width: 620px;
+  margin: auto;
+  background-color: $romance;
+  padding: 40px 50px;
+  color: $astronaut;
+  box-shadow: 0 0 12px 0 rgba(190, 190, 190, 0.5);
+  position: relative;
+
+  .fullpage-form {
+    height: 100%;
+    width: 100%;
+    background-color: $romance;
+    color: $astronaut;
+  }
+
+  .title {
+    margin-bottom: 15px;
+  }
+
+  .avatar {
+    height: 14px;
+    width: 14px;
+    margin-top: -3px;
+    margin-right: 15px;
+    border-radius: 100%;
+  }
+
+  hr {
+    margin: 30px -50px;
+  }
+
+  .left-buttons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .info-container {
+    font-size: 10px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    border-bottom: 1px solid $shadows;
+    padding-bottom: 15px;
+  }
+
+  .flex {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .request-textarea {
+    height: 200px;
+    width: 300px;
+  }
+
+  .input-container {
+    margin: 15px;
+    display: block;
+  }
+
+  .actions {
+    display: flex;
+    margin-top: 30px;
+  }
+
+  .privacy-buttons {
+    margin-top: 30px;
+    min-height: 41px;
+  }
+
+  .button-container {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 40px;
+    line-height: 39px;
+  }
+
+  .buttons-wrapper {
+    margin-top: 30px;
+  }
+
+  .button-container :global(.button-container) {
+    padding: 0 20px;
+    margin: 0;
+  }
+
+  .button-container.question-form {
+    min-height: 41px;
+  }
+
+  .field-input {
+    display: block;
+    width: 100%;
+    min-height: 220px;
+    padding: 20px 30px;
+    background-color: $pale-grey;
+    //background-clip: padding-box;
+    border: none;
+    border-radius: 4px;
+    box-shadow: inset 0 0 7px 0 $pale-grey-two;
+    //font-family: AGaramondPro;
+    font-family: $secondary-font;
+    font-size: 16px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.13;
+    letter-spacing: normal;
+    color: $battleship-grey;
+  }
+
+  .prompt-text {
+    font-size: 19px;
+    font-weight: normal;
+    font-family: $secondary-font;
+    word-break: break-word;
+  }
+}
+
+
+.aaa-modal-success {
+  // MOBILE STYLE (https://app.zeplin.io/project/5c49ec8466e3b3bee968092b/screen/5c5c05c354dee73544e0de89)
+    @include media-breakpoint-down(xs) {
+      .modal-btn {
+        display: block;
+        width: 100%;
+        margin: 15px 0 0 0;
+      }
+
+
+    }
+}

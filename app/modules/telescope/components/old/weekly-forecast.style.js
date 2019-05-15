@@ -51,7 +51,9 @@ export default css`
     cursor: pointer;
   }
 
-  .forecast-action:focus { outline: none; }
+  .forecast-action:focus {
+    outline: none;
+  }
 
   .active-weather-condition-summary {
     padding: 40px;

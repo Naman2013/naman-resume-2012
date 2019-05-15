@@ -26,7 +26,7 @@ export default class UpcomingShowCountdown extends PureComponent {
     minutesTo: 0,
     secondsTo: 0,
     millisecondsTo: 0,
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -70,13 +70,9 @@ export default class UpcomingShowCountdown extends PureComponent {
         currentTimeMoment,
       });
     }, 1000);
-  }
+  };
 
-  tickTime = ({
-    currentTime,
-    eventStartMoment,
-    currentTimeMoment,
-  }) => {
+  tickTime = ({ currentTime, eventStartMoment, currentTimeMoment }) => {
     const startTimeDifference = eventStartMoment.diff(currentTimeMoment);
     const duration = moment.duration(startTimeDifference, 'milliseconds');
 
@@ -99,12 +95,10 @@ export default class UpcomingShowCountdown extends PureComponent {
         millisecondsTo: 0,
       }));
     }
-  }
+  };
 
   render() {
-    const {
-      eventStartTime,
-    } = this.props;
+    const { eventStartTime } = this.props;
 
     if (eventStartTime) {
       return (

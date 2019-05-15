@@ -1,7 +1,12 @@
 import css from 'styled-jsx/css';
 import { primaryFont, secondaryFont } from 'app/styles/variables/fonts';
 import { screenMedium, screenLarge } from 'app/styles/variables/breakpoints';
-import { romance, hawkesBlue, shadows, lightHeadedAstronaut } from 'app/styles/variables/colors_tiles_v4';
+import {
+  romance,
+  hawkesBlue,
+  shadows,
+  lightHeadedAstronaut,
+} from 'app/styles/variables/colors_tiles_v4';
 
 export default css`
   .root {
@@ -17,7 +22,7 @@ export default css`
     font-size: 11px;
     text-transform: uppercase;
     overflow: visible;
-    transition: width .2s;
+    transition: width 0.2s;
     transition-timing-function: ease-out;
   }
 
@@ -39,12 +44,12 @@ export default css`
     flex-flow: column;
     align-items: center;
   }
-  
+
   .narrow .options-list {
     padding: 0 10px;
     flex: none;
   }
-  
+
   .narrow .options-list .option {
     padding: 15px 0;
     align-items: flex-start;
@@ -55,13 +60,13 @@ export default css`
     width: 90%;
     display: flex;
     align-items: center;
-    
+
     background: transparent;
     border: none;
     border-bottom: 1px solid #d5d8dd;
     text-transform: uppercase;
     white-space: nowrap;
-    transition: opacity .1s ease-in-out;
+    transition: opacity 0.1s ease-in-out;
   }
 
   :global(.options-list .option > button) {
@@ -69,7 +74,7 @@ export default css`
     width: 100%;
     display: flex;
     align-items: center;
-    
+
     background: transparent;
     border: none;
     text-transform: uppercase;

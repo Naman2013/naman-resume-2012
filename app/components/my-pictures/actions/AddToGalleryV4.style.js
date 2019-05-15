@@ -1,12 +1,19 @@
 import css from 'styled-jsx/css';
 import { primaryFont, secondaryFont } from '../../../styles/variables/fonts';
-import { screenMedium, screenLarge } from '../../../styles/variables/breakpoints';
-import { romance, astronaut, black } from '../../../styles/variables/colors_tiles_v4';
+import {
+  screenMedium,
+  screenLarge,
+} from '../../../styles/variables/breakpoints';
+import {
+  romance,
+  astronaut,
+  black,
+} from '../../../styles/variables/colors_tiles_v4';
 
 export default css`
   .loading {
     width: 50%;
-    margin:  25px 50%;
+    margin: 25px 50%;
     transform: translateX(-50%);
     text-transform: lowercase;
   }

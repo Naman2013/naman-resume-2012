@@ -7,7 +7,8 @@ const VerticalList = ({ list, iconList }) => (
     <ul>
       {list.map((entry, i) => (
         <li key={`vertical-list-${entry}`}>
-          {iconList[i] && <img className="bullet-image" src={iconList[i]} />} {entry}
+          {iconList[i] && <img className="bullet-image" src={iconList[i]} />}{' '}
+          {entry}
         </li>
       ))}
     </ul>

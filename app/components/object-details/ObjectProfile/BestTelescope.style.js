@@ -1,7 +1,10 @@
 import css from 'styled-jsx/css';
 import { secondaryFont } from 'app/styles/variables/fonts';
 import { resetMarginPadding } from 'app/styles/variables/utils';
-import { lightHeadedAstronaut, thatGrayWeForgot } from 'app/styles/variables/colors_tiles_v4';
+import {
+  lightHeadedAstronaut,
+  thatGrayWeForgot,
+} from 'app/styles/variables/colors_tiles_v4';
 
 export default css`
   .navigation {
@@ -33,7 +36,11 @@ export default css`
     outline: none;
   }
 
-  .description { margin-bottom: 20px; }
+  .description {
+    margin-bottom: 20px;
+  }
 
-  .action-link-container { margin-top: 10px; }
+  .action-link-container {
+    margin-top: 10px;
+  }
 `;

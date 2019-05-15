@@ -3,13 +3,7 @@ import PropTypes from 'prop-types';
 import CountButton from './CountButton';
 import { commentWhite, commentAstronaut } from 'app/styles/variables/iconURLs';
 
-const {
-  func,
-  number,
-  oneOfType,
-  string,
-bool
-} = PropTypes;
+const { func, number, oneOfType, string, bool } = PropTypes;
 
 const CommentButton = ({ count, isActive, onClickEvent, alwaysShowCount }) => (
   <div>
@@ -18,7 +12,7 @@ const CommentButton = ({ count, isActive, onClickEvent, alwaysShowCount }) => (
       count={count}
       onClickEvent={onClickEvent}
       icon={isActive ? commentWhite : commentAstronaut}
-      alwaysShowCount = {alwaysShowCount}
+      alwaysShowCount={alwaysShowCount}
     />
   </div>
 );
@@ -26,10 +20,10 @@ const CommentButton = ({ count, isActive, onClickEvent, alwaysShowCount }) => (
 CommentButton.propTypes = {
   count: oneOfType([string, number]).isRequired,
   onClickEvent: func.isRequired,
-  alwaysShowCount:bool
+  alwaysShowCount: bool,
 };
 CommentButton.defaultProps = {
-  alwaysShowCount:false
+  alwaysShowCount: false,
 };
 
 export default CommentButton;

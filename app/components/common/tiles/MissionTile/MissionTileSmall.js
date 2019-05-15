@@ -2,9 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import style from './MissionTileSmall.style';
 
-const MissionTileSmall = ({
-  title, telescope, date, time, timezone,
-}) => (
+const MissionTileSmall = ({ title, telescope, date, time, timezone }) => (
   <div className="root">
     <h5 className="title">{title}</h5>
     <div className="time">{time}</div>

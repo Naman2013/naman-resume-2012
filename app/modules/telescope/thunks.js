@@ -1,4 +1,9 @@
-import { getAllSkyTimelapseApi } from './api';
+import {
+  getAllSkyTimelapseApi,
+  getUpcomingSlotsByTelescopeApi,
+  getFeaturedObjectsByTelescopeApi,
+  reserveCommunityMissionApi,
+} from './api';
 import { ACTION } from './reducer';
 
 export const getAllSkyTimelapse = (obsId, widgetUniqueId) => (
@@ -14,4 +19,34 @@ export const getAllSkyTimelapse = (obsId, widgetUniqueId) => (
   return getAllSkyTimelapseApi({ at, token, cid, ...data })
     .then(result => dispatch(ACTION.getAllSkyTimelapseSuccess(result.data)))
     .catch(error => dispatch(ACTION.getAllSkyTimelapseError(error)));
+};
+
+export const getUpcomingSlotsByTelescope = data => (dispatch, getState) => {
+  const { at, token, cid } = getState().user;
+  dispatch(ACTION.getUpcomingSlotsByTelescope());
+  return getUpcomingSlotsByTelescopeApi({ at, token, cid, ...data })
+    .then(result =>
+      dispatch(ACTION.getUpcomingSlotsByTelescopeSuccess(result.data))
+    )
+    .catch(error => dispatch(ACTION.getUpcomingSlotsByTelescopeError(error)));
+};
+
+export const getFeaturedObjectsByTelescope = data => (dispatch, getState) => {
+  const { at, token, cid } = getState().user;
+  dispatch(ACTION.getFeaturedObjectsByTelescope());
+  return getFeaturedObjectsByTelescopeApi({ at, token, cid, ...data })
+    .then(result =>
+      dispatch(ACTION.getFeaturedObjectsByTelescopeSuccess(result.data))
+    )
+    .catch(error => dispatch(ACTION.getFeaturedObjectsByTelescopeError(error)));
+};
+
+export const reserveCommunityMission = data => (dispatch, getState) => {
+  const { at, token, cid } = getState().user;
+  dispatch(ACTION.reserveCommunityMission());
+  return reserveCommunityMissionApi({ at, token, cid, ...data })
+    .then(result =>
+      dispatch(ACTION.reserveCommunityMissionSuccess(result.data))
+    )
+    .catch(error => dispatch(ACTION.reserveCommunityMissionError(error)));
 };

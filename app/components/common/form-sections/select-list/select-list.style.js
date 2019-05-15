@@ -8,7 +8,6 @@ import {
 } from 'app/styles/variables/colors_tiles_v4';
 
 export default css`
-
   .root {
     height: 340px;
     overflow-y: scroll;
@@ -29,7 +28,5 @@ export default css`
   .multi-select-label:hover {
     color: ${romance};
     background-color: ${astronaut};
-   }
-
-
+  }
 `;

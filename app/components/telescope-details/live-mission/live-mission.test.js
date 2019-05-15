@@ -3,5 +3,5 @@ import renderer from 'react-test-renderer';
 import LiveMission from './live-mission';
 
 describe('<LiveMission />', () => {
-  it('should render a live mission', () => { });
+  it('should render a live mission', () => {});
 });

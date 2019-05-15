@@ -3,14 +3,15 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import styles from './LargeButtonWithRightIcon.style';
 
-const {
-  func,
-  number,
-  oneOfType,
-  string,
-} = PropTypes;
+const { func, number, oneOfType, string } = PropTypes;
 
-const LargeButtonWithRightIcon = ({ text, onClickEvent, icon, renderIcon, theme }) => (
+const LargeButtonWithRightIcon = ({
+  text,
+  onClickEvent,
+  icon,
+  renderIcon,
+  theme,
+}) => (
   <button
     className={classnames('button-container', {
       circular: icon && !text,
@@ -19,10 +20,7 @@ const LargeButtonWithRightIcon = ({ text, onClickEvent, icon, renderIcon, theme 
     onClick={onClickEvent}
   >
     <span className="text" dangerouslySetInnerHTML={{ __html: text }} />
-    {icon ? <img
-      className="icon"
-      src={icon}
-    /> : null}
+    {icon ? <img className="icon" src={icon} /> : null}
     {renderIcon ? renderIcon() : null}
     <style jsx>{styles}</style>
   </button>

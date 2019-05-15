@@ -13,14 +13,13 @@ import styles from './UpcomingMissionAside.style';
 
 const { arrayOf, bool, shape, string } = PropTypes;
 
-
 const BootstrappedUpcomingMissionAside = ({
   title,
   telescope,
   isDesktop,
   isScreenLarge,
   hasUpcomingMissions,
-  upcomingMissionArray
+  upcomingMissionArray,
 }) => (
   <div>
     <BlueLineDrop
@@ -30,23 +29,31 @@ const BootstrappedUpcomingMissionAside = ({
       render={() => {
         let time = false;
         if (upcomingMissionArray[0] && upcomingMissionArray[0].upcomingStart) {
-          time = upcomingMissionArray[0].upcomingStart
+          time = upcomingMissionArray[0].upcomingStart;
         }
         const momentTime = moment(time);
         return (
           <Fragment>
-            {upcomingMissionArray[0] ? <div className="root">
-              <h5 className="title">{upcomingMissionArray[0].upcomingTitle}</h5>
-              {time ? <div className="thyme-container">
-                <div className="thyme">{momentTime.format('HH:mm')}<span className="utc">UTC</span>
+            {upcomingMissionArray[0] ? (
+              <div className="root">
+                <h5 className="title">
+                  {upcomingMissionArray[0].upcomingTitle}
+                </h5>
+                {time ? (
+                  <div className="thyme-container">
+                    <div className="thyme">
+                      {momentTime.format('HH:mm')}
+                      <span className="utc">UTC</span>
+                    </div>
+                  </div>
+                ) : null}
+                <div className="bottom">
+                  <div className="dat">{momentTime.format('ddd. MMM. DD')}</div>
+                  <div className="telescope">{telescope}</div>
                 </div>
-              </div> : null}
-              <div className="bottom">
-                <div className="dat">{momentTime.format('ddd. MMM. DD')}</div>
-                <div className="telescope">{telescope}</div>
               </div>
-          </div> : null}
-        </Fragment>
+            ) : null}
+          </Fragment>
         );
       }}
     />
@@ -65,7 +72,6 @@ BootstrappedUpcomingMissionAside.defaultProps = {
   isDesktop: false,
   title: '',
   upcomingMissionArray: [],
-
 };
 
 export default BootstrappedUpcomingMissionAside;

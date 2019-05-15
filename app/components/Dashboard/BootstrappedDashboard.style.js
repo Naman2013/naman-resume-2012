@@ -16,7 +16,6 @@ export default css`
   }
 
   .dash-hero {
-    height: 625px;
     width: 100%;
     vertical-align: middle;
     text-align: center;
@@ -35,7 +34,6 @@ export default css`
 
   .dash-nav {
     position: absolute;
-    top: 687px;
     height: 160px;
     width: 100%;
   }
@@ -61,6 +59,10 @@ export default css`
   @media all and (max-width: 640px) {
     .dash-nav {
       display: none;
+    }
+
+    .sections-wrapper {
+      margin-top: 0;
     }
   }
 

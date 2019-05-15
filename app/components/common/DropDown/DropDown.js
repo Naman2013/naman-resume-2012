@@ -1,9 +1,9 @@
 /***********************************
-* V4 DropDown component
-*
-*
-*
-***********************************/
+ * V4 DropDown component
+ *
+ *
+ *
+ ***********************************/
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
@@ -25,7 +25,7 @@ const {
   object,
 } = PropTypes;
 
-const CustomOption = (props) => (
+const CustomOption = props => (
   <div ref={props.innerRef} {...props.innerProps} className="dropdown-opt">
     <div className="dropdown-name">{props.children}</div>
     <div className="focused-ind" />
@@ -36,10 +36,12 @@ class DropDown extends Component {
   static propTypes = {
     selectedIndex: number,
     placeholder: string,
-    options: arrayOf(shape({
-      value: oneOfType([number, string]),
-      label: oneOfType([string, object]),
-    })),
+    options: arrayOf(
+      shape({
+        value: oneOfType([number, string]),
+        label: oneOfType([string, object]),
+      })
+    ),
     handleSelect: func.isRequired,
     handleBlur: func,
     handleMenuClose: func,
@@ -55,9 +57,9 @@ class DropDown extends Component {
     handleMenuClose: noop,
   };
 
-  handleChange = (selectedOption) => {
+  handleChange = selectedOption => {
     this.props.handleSelect(null, selectedOption);
-  }
+  };
 
   render() {
     const {

@@ -79,18 +79,37 @@ class JoinStep3 extends Component {
     if (e.data) {
       const paymentMessageData = e.data + '';
 
+      var paymentMethod = 'creditcard';
+      var paymentNonceTokenData = null;
+
       /* make sure the data message we received is an ECommerce Payment Token */
-      if (paymentMessageData.startsWith('__ECOMMERCE_PAYMENT_TOKEN__')) {
-        const paymentNonceTokenData = String.prototype.replace.call(
-          paymentMessageData,
-          '__ECOMMERCE_PAYMENT_TOKEN__',
-          ''
-        );
+      if (paymentMessageData.startsWith('__ECOMMERCE_PAYMENT_TOKEN_')) {
+        //Check to see if the payment token is a credit card payment token or a paypal payment token
+        if (paymentMessageData.startsWith('__ECOMMERCE_PAYMENT_TOKEN_CREDITCARD__')) {
+          paymentNonceTokenData = String.prototype.replace.call(
+            paymentMessageData,
+            '__ECOMMERCE_PAYMENT_TOKEN_CREDITCARD__',
+            ''
+          );
+          paymentMethod = 'creditcard';
+        }
+        else if (paymentMessageData.startsWith('__ECOMMERCE_PAYMENT_TOKEN_PAYPAL__')) {
+          paymentNonceTokenData = String.prototype.replace.call(
+            paymentMessageData,
+            '__ECOMMERCE_PAYMENT_TOKEN_PAYPAL__',
+            ''
+          );
+
+          paymentMethod = 'paypal';
+        }
+
+        this.setState({ paymentMethod: paymentMethod });
         this.setState({ paymentToken: paymentNonceTokenData });
         //console.log('Payment Token!! ' + paymentNonceTokenData);
 
         /* Process the Customer's Activation and Sign the User into the website */
         const activatePendingCustomerData = {
+          paymentMethod: paymentMethod,
           paymentToken: paymentNonceTokenData,
           customerId: window.localStorage.getItem('pending_cid'),
           selectedSchoolId: window.localStorage.getItem('selectedSchoolId'),

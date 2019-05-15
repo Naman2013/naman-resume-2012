@@ -6,27 +6,32 @@ import RecommendedObjectsItem from './partials/RecommendedObjectsSliderItem';
 
 import messages from './RecommendedObjectsSlider.message';
 
-const getSliderConfiguration = () => Object.assign(
-  {},
-  defaultSliderConfiguration(),
-  {
+const getSliderConfiguration = () =>
+  Object.assign({}, defaultSliderConfiguration(), {
     slidesToShow: 3,
     slidesToScroll: 1,
     initialSlide: 0,
     centerPadding: '25px',
-  },
-);
+  });
 
-const getRecommendedObjectsItems = (recommendedObjectsList = []) =>
+const getRecommendedObjectsItems = (recommendedObjectsList = [], reservationModalShow) =>
   recommendedObjectsList.map(object => ({
-    render: () => <RecommendedObjectsItem key={`${object.title} ${object.subtitle}`} {...object} />,
+    render: () => (
+      <RecommendedObjectsItem
+        key={`${object.title} ${object.subtitle}`}
+        object={object}
+        reservationModalShow={reservationModalShow}
+      />
+    ),
   }));
 
-export const getSliderProps = (slideList = []) => (
-  Object.assign({
-    slideList: getRecommendedObjectsItems(slideList),
-  }, {
-    sliderConfig: getSliderConfiguration(),
-    emptyMessage: <FormattedMessage {...messages.NothingToShow} />,
-  })
-);
+export const getSliderProps = (slideList = [], reservationModalShow) =>
+  Object.assign(
+    {
+      slideList: getRecommendedObjectsItems(slideList, reservationModalShow),
+    },
+    {
+      sliderConfig: getSliderConfiguration(),
+      emptyMessage: <FormattedMessage {...messages.NothingToShow} />,
+    }
+  );

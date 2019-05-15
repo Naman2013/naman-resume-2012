@@ -1,7 +1,12 @@
 import css from 'styled-jsx/css';
 import { profilePhotoStyle } from 'app/styles/mixins/utilities';
 
-import { astronaut, geyser, shadows, romance } from 'app/styles/variables/colors_tiles_v4';
+import {
+  astronaut,
+  geyser,
+  shadows,
+  romance,
+} from 'app/styles/variables/colors_tiles_v4';
 import { primaryFont, secondaryFont } from 'app/styles/variables/fonts';
 import { faintShadow } from 'app/styles/variables/shadows';
 import { dropShadowContainer } from 'app/styles/mixins/utilities';

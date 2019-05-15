@@ -1,16 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { golda, blue_tile_feat } from '../../../styles/variables/colors_tiles_v4';
+import {
+  golda,
+  blue_tile_feat,
+} from '../../../styles/variables/colors_tiles_v4';
 
 function calculateIconSize(dimension) {
   const iconToDimensionRatio = 0.5;
-  return (dimension * iconToDimensionRatio);
+  return dimension * iconToDimensionRatio;
 }
 
 const Medallion = ({ iconURL, dimension, theme }) => (
-  <div
-    style={theme}
-  >
+  <div style={theme}>
     <img
       alt=""
       width={calculateIconSize(dimension)}

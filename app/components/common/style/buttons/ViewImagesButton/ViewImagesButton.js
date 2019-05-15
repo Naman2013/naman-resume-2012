@@ -1,3 +1,4 @@
+import { Modal } from 'app/components/modal';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Lightbox from 'react-images';
@@ -11,38 +12,38 @@ import styles from './ViewImagesButton.style';
 class ViewImagesButton extends Component {
   static propTypes = {
     images: PropTypes.arrayOf(PropTypes.string).isRequired,
-  }
+  };
 
   state = {
     lightboxIsOpen: false,
     currentImageIdx: 0,
-  }
+  };
 
   onClickPrev = () => {
     this.setState(state => ({
       currentImageIdx: state.currentImageIdx - 1,
     }));
-  }
+  };
 
   onClickNext = () => {
     this.setState(state => ({
       currentImageIdx: state.currentImageIdx + 1,
     }));
-  }
+  };
 
-  goToImage = (idx) => {
+  goToImage = idx => {
     this.setState({
       currentImageIdx: idx,
     });
-  }
+  };
 
-  toggleLightbox = (e) => {
-    e.preventDefault();
+  toggleLightbox = e => {
+    // e.preventDefault();
     this.setState(state => ({
       lightboxIsOpen: !state.lightboxIsOpen,
       currentImageIdx: 0,
     }));
-  }
+  };
 
   componentDidCatch(error, info) {
     console.log(error);
@@ -50,44 +51,56 @@ class ViewImagesButton extends Component {
 
   render() {
     const { images } = this.props;
-    const { currentImageIdx } = this.state;
+    const { currentImageIdx, lightboxIsOpen } = this.state;
     const formattedImgs = images.map(image => ({ src: image }));
     const firstImage = images.length > 0 && images[0];
-    const buttonStyle = Object.assign(smallProfPic(firstImage), { height: '20px', width: '20px' });
-    const littleButtonStyle = Object.assign(buttonStyle, { margin: '0 auto' })
+    const buttonStyle = Object.assign(smallProfPic(firstImage), {
+      height: '20px',
+      width: '20px',
+    });
+    const littleButtonStyle = Object.assign(buttonStyle, { margin: '0 auto' });
     return (
       <div>
         <DeviceContext.Consumer>
-          {context => (<div
-            className="thumbnails-container"
-          >
-            <Lightbox
-              currentImage={currentImageIdx}
-              images={formattedImgs}
-              isOpen={this.state.lightboxIsOpen}
-              onClose={this.toggleLightbox}
-              onClickThumbnail={this.goToImage}
-              onClickPrev={this.onClickPrev}
-              onClickNext={this.onClickNext}
-              showThumbnails={images.length > 1}
-            />
-            {firstImage && context.isDesktop ? <LargeButtonWithRightIcon
-              text="Pics"
-              onClickEvent={this.toggleLightbox}
-              renderIcon={() => <div style={buttonStyle} />}
-            /> :
-            <Button
-              onClickEvent={this.toggleLightbox}
-              renderIcon={() => <div style={littleButtonStyle} />}
-            />
-            }
-            <style jsx>{styles}</style>
+          {context => (
+            <div className="thumbnails-container">
+              {/*<Lightbox
+                currentImage={currentImageIdx}
+                images={formattedImgs}
+                isOpen={this.state.lightboxIsOpen}
+                onClose={this.toggleLightbox}
+                onClickThumbnail={this.goToImage}
+                onClickPrev={this.onClickPrev}
+                onClickNext={this.onClickNext}
+                showThumbnails={images.length > 1}
+              />*/}
+              <Modal show={lightboxIsOpen} onHide={this.toggleLightbox}>
+                <div className="text-center">
+                  <div className="modal-img-wrapper">
+                    <img src={images[0]} alt="" />
+                  </div>
+                </div>
+              </Modal>
+              {firstImage && context.isDesktop ? (
+                <LargeButtonWithRightIcon
+                  text="Pics"
+                  onClickEvent={this.toggleLightbox}
+                  renderIcon={() => <div style={buttonStyle} />}
+                />
+              ) : (
+                <Button
+                  onClickEvent={this.toggleLightbox}
+                  renderIcon={() => <div style={littleButtonStyle} />}
+                />
+              )}
+              <style jsx>{styles}</style>
 
-            <style jsx global>{`
+              <style jsx global>{`
               #lightboxBackdrop {
               z-index: 9999999;
             `}</style>
-          </div>)}
+            </div>
+          )}
         </DeviceContext.Consumer>
       </div>
     );

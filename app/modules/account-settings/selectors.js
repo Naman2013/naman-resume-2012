@@ -31,3 +31,15 @@ export const makeAccountCancelSectionSelector = () =>
     selectAccountSettings,
     state => state.accountCancelSection
   );
+
+export const makeSubscriptionPlansDataSelector = () =>
+  createSelector(
+    selectAccountSettings,
+    state => state.subscriptionPlans.data
+  );
+
+export const makeSubscriptionPlansFetchingSelector = () =>
+  createSelector(
+    selectAccountSettings,
+    state => state.subscriptionPlans.isFetching
+  );

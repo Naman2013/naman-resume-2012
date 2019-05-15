@@ -4,12 +4,7 @@ import uniqueId from 'lodash/uniqueId';
 import PropTypes from 'prop-types';
 import style from './BigGuide.style';
 
-const GuideTile = ({
-  title,
-  heading,
-  theme,
-  linkUrl,
-}) => (
+const GuideTile = ({ title, heading, theme, linkUrl }) => (
   <div key={uniqueId()} className="card-guides" theme={theme}>
     <div className="card-guides-head">{heading}</div>
     <Link to={linkUrl} href={linkUrl}>
@@ -29,6 +24,6 @@ GuideTile.propTypes = {
 GuideTile.defaultProps = {
   theme: {},
   linkUrl: '',
-}
+};
 
 export default GuideTile;

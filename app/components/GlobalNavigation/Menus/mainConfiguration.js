@@ -4,7 +4,7 @@ import PrimaryButton from './partials/buttons/PrimaryButton';
 import SecondaryButton from './partials/buttons/SecondaryButton';
 
 export const PRIMARY_CONFIGURATION = (primaryLinks = []) => ({
-  render: props => (<PrimaryButton {...props} />),
+  render: props => <PrimaryButton {...props} />,
   content: primaryLinks.map(link => ({
     _ID: uniqueId(),
     text: link.name,
@@ -13,7 +13,7 @@ export const PRIMARY_CONFIGURATION = (primaryLinks = []) => ({
 });
 
 export const SECONDARY_CONFIGURATION = (secondaryLinks = []) => ({
-  render: props => (<SecondaryButton {...props} />),
+  render: props => <SecondaryButton {...props} />,
   content: secondaryLinks.map(link => ({
     _ID: uniqueId(),
     text: link.name,

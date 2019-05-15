@@ -1,14 +1,22 @@
 import css from 'styled-jsx/css';
 import { faintShadow } from 'app/styles/variables/shadows';
-import { romance, geyser, shadows, lightHeadedAstronaut } from 'app/styles/variables/colors_tiles_v4';
+import {
+  romance,
+  geyser,
+  shadows,
+  lightHeadedAstronaut,
+} from 'app/styles/variables/colors_tiles_v4';
 import { primaryFont, secondaryFont } from 'app/styles/variables/fonts';
 import { screenLarge, screenMedium } from 'app/styles/variables/breakpoints';
-import { backgroundImageCover, dropShadowContainer } from 'app/styles/mixins/utilities';
+import {
+  backgroundImageCover,
+  dropShadowContainer,
+} from 'app/styles/mixins/utilities';
 
 export default css`
   .root {
     padding: 25px;
-    box-shadow: 0px 0px 8px 1px rgba(65,86,113,.2);
+    box-shadow: 0px 0px 8px 1px rgba(65, 86, 113, 0.2);
     color: ${lightHeadedAstronaut};
     background-color: ${romance};
   }
@@ -60,7 +68,6 @@ export default css`
     letter-spacing: 2px;
     font-weight: 400;
     position: absolute;
-
   }
 
   .bottom {
@@ -77,5 +84,4 @@ export default css`
       font-weight: 100;
     }
   }
-
 `;

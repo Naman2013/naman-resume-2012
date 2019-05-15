@@ -29,7 +29,7 @@ export default css`
     display: flex;
     justify-content: center;
     align-items: center;
-    border-right: 1px solid #dee0e2; 
+    border-right: 1px solid #dee0e2;
   }
 
   .comments {
@@ -38,7 +38,7 @@ export default css`
     display: flex;
     justify-content: center;
     align-items: center;
-    border-right: 1px solid #dee0e2; 
+    border-right: 1px solid #dee0e2;
   }
 
   .details {
@@ -55,7 +55,7 @@ export default css`
   }
 
   .icon {
-    margin-right: 8px
+    margin-right: 8px;
   }
 
   .observation-image-wrapper {
@@ -93,7 +93,7 @@ export default css`
   .observationCard {
     display: flex;
     flex-direction: column;
-    background-color: #fff;    
+    background-color: #fff;
     width: 100%;
     height: 100%;
     box-shadow: 0 0 6px 0 #ced2d8;

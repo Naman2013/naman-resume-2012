@@ -1,6 +1,9 @@
-@import "~app/styles/variables/index";
+@import '~app/styles/variables/index';
 
 .telescope-offline {
   padding-top: 40px;
 
+  hr {
+    margin: 0;
+  }
 }

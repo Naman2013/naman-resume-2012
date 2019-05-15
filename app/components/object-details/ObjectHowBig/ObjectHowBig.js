@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { OBJECT_HOW_BIG } from '../../../services/objects';
-import Request from '../../../components/common/network/Request';
+import Request from '../../common/network/Request';
 import { HowBigModule } from '../../../modules/telescope/components/old/how-big-module';
 
 import style from './ObjectHowBig.style';
@@ -17,16 +17,10 @@ class ObjectHowBig extends Component {
         serviceURL={OBJECT_HOW_BIG}
         requestBody={{ objectId }}
         withoutUser
-        render={({ fetchingContent, serviceResponse: { howBigData } }) => (
+        render={({ fetchingContent, serviceResponse: resp }) => (
           <div className="root">
             {!fetchingContent && (
-              <HowBigModule
-                referenceObjectScale={howBigData.referenceObjectScale}
-                domain={howBigData.domain}
-                targetObjectScale={howBigData.targetObjectScale}
-                targetObjectURL={howBigData.targetImageURL}
-                targetObjectName={howBigData.targetTitleText}
-              />
+              <HowBigModule {...resp} {...resp.howBigData} />
             )}
             <style jsx>{style}</style>
           </div>

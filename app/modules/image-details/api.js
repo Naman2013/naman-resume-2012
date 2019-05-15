@@ -27,3 +27,6 @@ export const addImageToGalleryApi = data =>
 
 export const createGalleryApi = data =>
   axios.post('/api/images/createGallery', data);
+
+export const setObservationTagsApi = data =>
+  axios.post('/api/images/setObservationTags', data);

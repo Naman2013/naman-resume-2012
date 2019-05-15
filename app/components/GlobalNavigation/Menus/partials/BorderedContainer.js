@@ -14,7 +14,7 @@ const defaultProps = {
 };
 
 function hasBorder(hasBorder) {
-  return (hasBorder) ? `1px solid ${shadows}` : 'none';
+  return hasBorder ? `1px solid ${shadows}` : 'none';
 }
 
 const BorderContainer = ({ children, top, bottom }) => {
@@ -23,9 +23,9 @@ const BorderContainer = ({ children, top, bottom }) => {
     borderBottom: hasBorder(bottom),
   };
 
-  return(
+  return (
     <div style={inlineStyle} className="root">
-      { children }
+      {children}
 
       <style jsx>{`
         .root {

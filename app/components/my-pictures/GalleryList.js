@@ -13,17 +13,20 @@ class GalleryList extends Component {
     return (
       <div className={`${style.photoListRoot} clearfix`}>
         <ul className={`${style.photoList} col-xs-12`}>
-          {
-            galleryList.map(gallery => (
-              <li key={isImages ? gallery.customerImageId : gallery.galleryId} className="col-xs-12 col-sm-4">
-                <div className="relative-container"><Gallery
+          {galleryList.map(gallery => (
+            <li
+              key={isImages ? gallery.customerImageId : gallery.galleryId}
+              className="col-xs-12 col-sm-4"
+            >
+              <div className="relative-container">
+                <Gallery
                   {...gallery}
                   isImages={isImages}
                   imageTitle={gallery.title || gallery.imageTitle}
-                /></div>
-              </li>
-            ))
-          }
+                />
+              </div>
+            </li>
+          ))}
         </ul>
         <style jsx>
           {`
@@ -38,11 +41,13 @@ class GalleryList extends Component {
 }
 
 GalleryList.propTypes = {
-  galleryList: PropTypes.arrayOf(PropTypes.shape({
-    galleryId: PropTypes.any.isRequired,
-    imageURL: PropTypes.string.isRequired,
-    title: PropTypes.string,
-  })),
+  galleryList: PropTypes.arrayOf(
+    PropTypes.shape({
+      galleryId: PropTypes.any.isRequired,
+      imageURL: PropTypes.string.isRequired,
+      title: PropTypes.string,
+    })
+  ),
 };
 
 export default GalleryList;
