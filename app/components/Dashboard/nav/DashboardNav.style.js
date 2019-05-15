@@ -5,6 +5,7 @@ import {
   romance,
   golden_yellow,
   shadows,
+  golda
 } from 'app/styles/variables/colors_tiles_v4';
 import { primaryFont, secondaryFont } from 'app/styles/variables/fonts';
 import { screenMedium, screenLarge } from 'app/styles/variables/breakpoints';
@@ -19,9 +20,9 @@ export default css`
     box-shadow: inset 0 40px 40px -7px rgba(0, 0, 0, 0.3);
     height: 100%;
     width: 100%;
-    font-weight: 400;
+    font-weight: 600;
     text-transform: uppercase;
-    font-size: 11px;
+    font-size: 13px;
     letter-spacing: 1px;
     color: white;
     display: none;
@@ -38,7 +39,7 @@ export default css`
   }
   .dash-nav-item img {
     height: 30px;
-    margin: 50px 0 30px 0;
+    margin: 45px 0 30px 0;
   }
 
   .link-container {
@@ -51,21 +52,21 @@ export default css`
     text-transform: uppercase;
   }
   .dash-nav-item .title-item:hover {
-    font-weight: 600;
+    font-weight: 800;
     cursor: pointer;
-    color: ${romance};
+    color: ${golda};
     text-transform: uppercase;
   }
 
   @media ${screenMedium} {
     .root {
       display: flex;
-      height: 115px;
-      font-size: 9px;
+      height: 160px;
+      font-size: 12px;
     }
     .dash-nav-item img {
-      height: 22px;
-      margin: 30px 0 20px 0;
+      height: 30px;
+      margin: 45px 0 20px 0;
     }
   }
   @media ${screenLarge} {
