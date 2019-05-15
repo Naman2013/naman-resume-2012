@@ -21,8 +21,20 @@ class AccountOptionRow extends PureComponent {
     }
   };
 
+  handleReset = () => {
+    const { fetchAccountFormFieldAction, formFieldName } = this.props;
+    fetchAccountFormFieldAction(formFieldName, null);
+  };
+
   render() {
-    const { i, label, currentValue, hintText, transformText } = this.props;
+    const {
+      i,
+      label,
+      currentValue,
+      hintText,
+      transformText,
+      withReset,
+    } = this.props;
     const { value } = this.state;
     const { editableId } = this.state;
     const id = `${i}-${label}-${currentValue}`;
@@ -64,6 +76,11 @@ class AccountOptionRow extends PureComponent {
               </div>
             ) : (
               <div className="btn-group margin-top-21">
+                {withReset && (
+                  <Btn mod="block-140" onClick={this.handleReset}>
+                    Reset
+                  </Btn>
+                )}
                 <Btn mod="block-140" onClick={this.onClick(id)}>
                   Edit
                 </Btn>

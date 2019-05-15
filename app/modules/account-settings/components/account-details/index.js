@@ -85,6 +85,7 @@ class AccountDetails extends PureComponent<TAccountDetails> {
                 {formFields.map((el, i) => {
                   return (
                     <AccountOptionRow
+                      withReset={el.formFieldName === 'displayName'}
                       i={i}
                       {...el}
                       key={`${el.label}-${el.currentValue}`}
