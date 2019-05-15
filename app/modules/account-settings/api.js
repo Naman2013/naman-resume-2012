@@ -10,3 +10,6 @@ export const saveAccountFormFieldApi = data =>
 
 export const getSubscriptionPlansApi = data =>
   axios.post('/api/registration/getSubscriptionPlans', data);
+
+export const resetPasswordApi = data =>
+  axios.post('/api/registration/forgotPasswordRequest', data);

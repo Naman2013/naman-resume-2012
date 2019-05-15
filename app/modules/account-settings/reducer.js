@@ -8,6 +8,8 @@ export const TYPE = constants('account-settings', [
   '~FETCH_ACCOUNT_SETTINGS',
   '~FETCH_ACCOUNT_FORM_FIELD',
   '~GET_SUBSCRIPTION_PLANS',
+  '~RESET_PASSWORD',
+  'DISMISS_PASSWORD_POPUP',
 ]);
 export const ACTION = actions(TYPE);
 
@@ -20,6 +22,8 @@ export const initialState: TInitialState = {
   accountTypeSection: {},
   accountDetails: {},
   accountCancelSection: {},
+  showForgetPasswordPopup: false,
+  forgetPasswordText: '',
 
   subscriptionPlans: {
     isFetching: false,
@@ -39,6 +43,10 @@ export default handleActions(
 
     [TYPE.GET_SUBSCRIPTION_PLANS]: getSubscriptionPlan,
     [TYPE.GET_SUBSCRIPTION_PLANS_SUCCESS]: getSubscriptionPlanSuccess,
+
+    [TYPE.RESET_PASSWORD_START]: resetPasswordStart,
+    [TYPE.RESET_PASSWORD_SUCCESS]: resetPasswordSuccess,
+    [TYPE.DISMISS_PASSWORD_POPUP]: dismissResetPasswordPopup,
   },
   initialState
 );
@@ -118,4 +126,23 @@ function getSubscriptionPlanSuccess(state, { payload }) {
       data: payload,
     },
   };
+}
+
+function resetPasswordStart(state) {
+  return {
+    ...state,
+    isFetching: true,
+  };
+}
+
+function resetPasswordSuccess(state, { payload }) {
+  return {
+    ...state,
+    showForgetPasswordPopup: true,
+    forgetPasswordText: payload,
+  };
+}
+
+export function dismissResetPasswordPopup(state) {
+  return { ...state, showForgetPasswordPopup: false };
 }
