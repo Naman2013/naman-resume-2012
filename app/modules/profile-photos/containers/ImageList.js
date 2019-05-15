@@ -7,6 +7,7 @@ import ShowMore from 'app/components/common/ShowMore';
 import {
   fetchFiltersLists,
   setFilters,
+  setSelectedTagsTabIndex,
 } from 'app/modules/my-pictures-filters/actions';
 import {
   fetchGalleriesAndCounts,
@@ -90,6 +91,7 @@ const mapDispatchToProps = dispatch => ({
       fetchObjectTypeList,
       setFilters,
       getFitsData,
+      setSelectedTagsTabIndex,
     },
     dispatch
   ),
@@ -111,6 +113,7 @@ const mapStateToProps = state => {
     timeList: selectTimeList()(state),
     objectTypeList: selectObjectTypeList()(state),
     selectedFilters: selectSelectedFilters()(state),
+    myPicturesFilters: state.myPicturesFilters,
   };
 };
 
@@ -268,7 +271,7 @@ class ImageList extends Component {
 
   render() {
     const {
-      actions: { getFitsData },
+      actions: { getFitsData, setSelectedTagsTabIndex },
       children,
       type,
       deviceInfo,
@@ -277,6 +280,7 @@ class ImageList extends Component {
       selectedFilters,
       fitsData,
       timeList,
+      myPicturesFilters,
     } = this.props;
     const { activePage, isFilterOpen } = this.state;
     const arrOfImages = this.props[mapTypeToList[type]];
@@ -299,6 +303,9 @@ class ImageList extends Component {
             objectTypeList={objectTypeList}
             selectedFilters={selectedFilters}
             onApply={this.handleApplyFilter}
+            //tags component
+            setSelectedTagsTabIndex={setSelectedTagsTabIndex}
+            myPicturesFilters={myPicturesFilters}
           />
         </div>
         {isFilterOpen && (

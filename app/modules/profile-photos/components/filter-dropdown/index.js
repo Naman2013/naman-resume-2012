@@ -1,13 +1,14 @@
 // @flow
 
+import FilterMenuTags from 'app/components/my-pictures/FilterMenuTags';
 import { Datepicker } from 'app/modules/profile-photos/components/filter-dropdown/datepicker';
 import { FilterElImg } from 'app/modules/profile-photos/components/filter-dropdown/filter-el-img';
 import { FilterElTime } from 'app/modules/profile-photos/components/filter-dropdown/filter-el-time';
 import React, { memo } from 'react';
 import { Button } from 'react-bootstrap';
-import './index.scss';
-import useOnClickOutside from 'use-onclickoutside';
 import { Tooltip } from 'react-tippy';
+import useOnClickOutside from 'use-onclickoutside';
+import './index.scss';
 
 type TFilterDropdown = {
   isOpen: Boolean,
@@ -29,6 +30,9 @@ export const FilterDropdown = memo((props: TFilterDropdown) => {
     telescopeList,
     onApply,
     timeList = [],
+    // tags
+    setSelectedTagsTabIndex,
+    myPicturesFilters,
   } = props;
 
   // console.log(timeList);
@@ -64,6 +68,9 @@ export const FilterDropdown = memo((props: TFilterDropdown) => {
       filterType: null,
       timeFilter: null,
       dateFilter: null,
+      missionSystemTags: [],
+      missionUserTags: [],
+      pictureUserTags: [],
     });
     onApply();
     close();
@@ -153,6 +160,27 @@ export const FilterDropdown = memo((props: TFilterDropdown) => {
                 outputFormat="YYYY-MM-DD"
               />
             </div>
+
+            <hr />
+
+            <h4 className="h4-custom">BY TAGS</h4>
+
+            <FilterMenuTags
+              setSelectedTagsTabIndex={setSelectedTagsTabIndex}
+              selectedTagsTabIndex={myPicturesFilters.selectedTagsTabIndex}
+              missionSystemTagsCount={myPicturesFilters.missionSystemTagsCount}
+              missionUserTagsCount={myPicturesFilters.missionUserTagsCount}
+              pictureUserTagsCount={myPicturesFilters.pictureUserTagsCount}
+              selectedFilters={selectedFilters}
+              missionSystemTags={myPicturesFilters.missionSystemTags}
+              missionUserTags={myPicturesFilters.missionUserTags}
+              pictureUserTags={myPicturesFilters.pictureUserTags}
+              handleTagClick={(filterProp, filterVal) => {
+                onChange({
+                  [filterProp]: filterVal,
+                });
+              }}
+            />
           </div>
 
           <div className="filter-dropdown-footer text-center">
