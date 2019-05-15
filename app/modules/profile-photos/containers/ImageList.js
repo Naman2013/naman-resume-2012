@@ -2,40 +2,39 @@
  * V4 ImageList
  ***********************************/
 
+import Pagination from 'app/components/common/pagination/v4-pagination/pagination';
+import ShowMore from 'app/components/common/ShowMore';
 import {
   fetchFiltersLists,
   setFilters,
 } from 'app/modules/my-pictures-filters/actions';
+import {
+  fetchGalleriesAndCounts,
+  fetchMoreGalleries,
+} from 'app/modules/my-pictures-galleries/actions';
+
+import {
+  fetchMissionsAndCounts,
+  fetchMoreMissions,
+  fetchMorePhotoroll,
+  fetchPhotoRollAndCounts,
+} from 'app/modules/my-pictures/actions';
 import { fetchObjectTypeList } from 'app/modules/object-type-list/actions';
 import { FilterDropdown } from 'app/modules/profile-photos/components/filter-dropdown';
 import {
   selectObjectTypeList,
   selectSelectedFilters,
   selectTelescopeList,
-  selectFitsData,
 } from 'app/modules/profile-photos/selectors';
-import React, { Component, Fragment, cloneElement } from 'react';
+import { getFitsData } from 'app/modules/profile-photos/thunks';
+import ConnectUser from 'app/redux/components/ConnectUser';
+import cx from 'classnames';
+import PropTypes from 'prop-types';
+import React, { cloneElement, Component, Fragment } from 'react';
+import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import ConnectUser from 'app/redux/components/ConnectUser';
-import Pagination from 'app/components/common/pagination/v4-pagination/pagination';
-import ShowMore from 'app/components/common/ShowMore';
 import './image-list.scss';
-import cx from 'classnames';
-
-import {
-  fetchMissionsAndCounts,
-  fetchPhotoRollAndCounts,
-  fetchMorePhotoroll,
-  fetchMoreMissions,
-} from 'app/modules/my-pictures/actions';
-import {
-  fetchGalleriesAndCounts,
-  fetchMoreGalleries,
-} from 'app/modules/my-pictures-galleries/actions';
-import { getFitsData } from 'app/modules/profile-photos/thunks';
 import style from './ImageList.style';
 
 const mapTypeToList = {
