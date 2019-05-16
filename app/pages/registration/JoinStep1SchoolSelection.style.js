@@ -16,7 +16,6 @@ import {
 
 export default css`
   .join-root-alt {
-    background-image: url(https://vega.slooh.com/assets/v4/common/night_cliffs.png);
     background-size: contain;
     background-position: top;
     background-color: ${black};
