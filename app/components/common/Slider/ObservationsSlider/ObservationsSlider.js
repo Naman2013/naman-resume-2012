@@ -44,7 +44,7 @@ class ObservationsSlider extends Component {
       <div className="root slooh-slider">
         {slideList.length === 0 && <div className="empty">{emptyMessage}</div>}
         {
-          <div className="slider-container">
+          <div className="slider-container dash-obs">
             <Slider {...sliderConfig} beforeChange={this.beforeSlideChange}>
               {slideList.map(slideElement => (
                 <div key={slideElement.customerImageId}>
