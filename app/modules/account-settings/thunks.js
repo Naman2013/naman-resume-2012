@@ -4,7 +4,24 @@ import {
   saveAccountFormFieldApi,
   getSubscriptionPlansApi,
   resetPasswordApi,
+  getDashboardPopupInfoApi,
 } from './api';
+
+export const getDashboardPopupInfo = () => (dispatch, getState) => {
+  dispatch(ACTION.getDashboardPopupInfo());
+
+  const { token, at, cid } = getState().user;
+
+  return getDashboardPopupInfoApi({
+    token,
+    at,
+    cid,
+  })
+    .then(result => {
+      dispatch(ACTION.getDashboardPopupInfoSuccess(result.data));
+    })
+    .catch(error => ACTION.getDashboardPopupInfoError(error));
+};
 
 export const fetchAccountSettingsAction = () => (dispatch, getState) => {
   dispatch(ACTION.fetchAccountSettings());
