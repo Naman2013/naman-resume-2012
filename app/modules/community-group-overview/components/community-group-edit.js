@@ -7,7 +7,6 @@ import { Spinner } from 'app/components/spinner/index';
 import { NavigationWithOptions } from 'app/components/NavigationWithOptions/NavigationWithOptions';
 import TextareaField from 'app/components/form/TextareaField';
 import './community-group-edit.scss';
-import noop from 'lodash/fp/noop';
 import Btn from 'app/atoms/Btn';
 import DiscussionBoardInviteNewMemberToSlooh from 'app/components/community-groups/overview/DiscussionBoardInviteNewMemberToSlooh';
 import { Modal } from 'app/components/modal';
@@ -102,13 +101,13 @@ class CommunityGroupEdit extends Component {
               isMobile={isMobile}
               membersCount={membersCount}
               canEditGroup={canEditGroup}
-              onInviteClick = {()=>this.setState({isInviteOn:true})}
+              onInviteClick={() => this.setState({ isInviteOn: true })}
             />
 
             <div className="community-group-edit-section">
               <div className="i-root">
                 <Row>
-                  <Col lg={8} md={8} sm={8}>
+                  <Col lg={12} md={12} sm={12}>
                     <div className="i-box i-box-white pad-40 height-max">
                       <div className="community-group-edit-desc">
                         <h4 className="h-4">Classroom overview</h4>
@@ -153,22 +152,22 @@ class CommunityGroupEdit extends Component {
                       </div>
                     </div>
                   </Col>
-                  <Col lg={4} md={4} sm={4}>
-                    <div className="i-box i-box-white pad-40 height-max">
-                      <h4 className="h-4">Classroom gravity score</h4>
-                      <p className="community-group-edit-hero-unit">830K</p>
-                      <div className="community-group-edit-actions">
-                        <h5 className="h-5">Breakdown</h5>
-                        <h5 className="h-5 justify-content-center">Details</h5>
-                      </div>
-                    </div>
-                  </Col>
+                  {/*<Col lg={4} md={4} sm={4}>*/}
+                  {/*  <div className="i-box i-box-white pad-40 height-max">*/}
+                  {/*    <h4 className="h-4">Classroom gravity score</h4>*/}
+                  {/*    <p className="community-group-edit-hero-unit">830K</p>*/}
+                  {/*    <div className="community-group-edit-actions">*/}
+                  {/*      <h5 className="h-5">Breakdown</h5>*/}
+                  {/*      <h5 className="h-5 justify-content-center">Details</h5>*/}
+                  {/*    </div>*/}
+                  {/*  </div>*/}
+                  {/*</Col>*/}
                 </Row>
               </div>
             </div>
 
             <div className="i-root">
-              <NavigationWithOptions navItems={subMenus} />
+              <NavigationWithOptions navItems={subMenus} hideOptions />
 
               <div className="community-group-edit-header i-box i-box-white">
                 <Row noGutters>

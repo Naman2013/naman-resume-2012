@@ -6,13 +6,14 @@ import './NavigationWithOptions.scss';
 
 type TNavigation = {
   navItems: Array | Object,
+  hideOptions?: boolean,
 };
 
 // TODO: create options logic, work on tablet/mobile versions
 export const NavigationWithOptions = memo(function Navigation(
   props: TNavigation
 ) {
-  const { navItems } = props;
+  const { navItems, hideOptions } = props;
   const [activeIndex, handleNavItemClick] = useState(1);
 
   const generateNavigation = items => {
@@ -38,9 +39,11 @@ export const NavigationWithOptions = memo(function Navigation(
         <div className="navigation-with-options-links">
           {generateNavigation(navItems)}
         </div>
-        <div className="navigation-with-options-filter">
-          <Btn>Options</Btn>
-        </div>
+        {!hideOptions && (
+          <div className="navigation-with-options-filter">
+            <Btn>Options</Btn>
+          </div>
+        )}
       </div>
     </div>
   );

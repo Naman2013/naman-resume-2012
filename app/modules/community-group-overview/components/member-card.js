@@ -20,6 +20,9 @@ type TMemberCard = {
     lastactivity: string | Date,
     invitationcode: string | number,
     invitationPrompt: string,
+    showInvitationCode: boolean,
+    showAddButton: boolean,
+    invitationPrompt: string,
   },
 };
 
@@ -33,24 +36,27 @@ const MemberCard = (props: TMemberCard) => {
       invitationcode,
       emailaddress,
       lastactivity,
+      showInvitationCode,
+      showAddButton,
+      invitationPrompt,
     },
   } = props;
   return (
     <div className="member-card i-box i-box-white">
       <Row noGutters className="member-card-row">
         <Col
-          lg={10}
-          md={10}
-          sm={10}
-          className="member-card-col member-card-col-bordered"
+          lg={9}
+          md={9}
+          sm={9}
+          className="member-card-col member-card-col-pad border-right"
         >
           <h2 className="community-group-edit-title">{name}</h2>
           <h4 className="h-4 h-4-bold">{status}</h4>
         </Col>
         <Col
-          lg={2}
-          md={2}
-          sm={2}
+          lg={3}
+          md={3}
+          sm={3}
           className="member-card-col member-card-col-centered"
         >
           {isOpen ? (
@@ -62,9 +68,7 @@ const MemberCard = (props: TMemberCard) => {
               <i className="fa fa-info" />
             </Btn>
           )}
-          <Btn mod="circle" onClick={noop}>
-            <i className="fa fa-ellipsis-h" />
-          </Btn>
+          {showAddButton && <Btn onClick={noop}>{invitationPrompt}</Btn>}
         </Col>
       </Row>
 
@@ -77,13 +81,13 @@ const MemberCard = (props: TMemberCard) => {
             className="member-card-col member-card-col-start member-card-col-pad"
           >
             <h4 className="h-4">Invitation code:</h4>
-            <p>{invitationcode}</p>
+            <p>{!showInvitationCode ? 'n/a' : invitationcode}</p>
           </Col>
           <Col
             lg={7}
             md={7}
             sm={7}
-            className="member-card-col member-card-col-pad border-left"
+            className="member-card-col member-card-col-pad border-left border-right"
           >
             <div>
               <h4 className="h-4">Email:</h4>
@@ -94,7 +98,7 @@ const MemberCard = (props: TMemberCard) => {
             lg={3}
             md={3}
             sm={3}
-            className="member-card-col member-card-col-start member-card-col-pad border-left"
+            className="member-card-col member-card-col-start member-card-col-pad"
           >
             <h4 className="h-4">Last Activity:</h4>
             <p>{lastactivity}</p>
@@ -123,10 +127,10 @@ const MemberCard = (props: TMemberCard) => {
               <h4 className="h-4">Email:</h4>
               <p>{emailaddress}</p>
             </div>
-            <div className="member-card-col">
-              <Btn onClick={noop}>Rescind</Btn>
-              <Btn onClick={noop}>Remind</Btn>
-            </div>
+            {/*<div className="member-card-col">*/}
+            {/*  <Btn onClick={noop}>Rescind</Btn>*/}
+            {/*  <Btn onClick={noop}>Remind</Btn>*/}
+            {/*</div>*/}
           </Col>
         </Row>
       )}
