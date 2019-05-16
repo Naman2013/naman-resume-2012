@@ -5,7 +5,7 @@ export default css.global`
   .slick-prev, .slick-next {
     width: 50px;
     height: 50px;
-    margin: 0 15px;
+    /* margin: 0 15px; */
     transform: translate(0, -50%);
     cursor: pointer;
     color: ${romance};
@@ -15,7 +15,23 @@ export default css.global`
     background-color: transparent;
   }
 
-  .dash-item-first .outer-well .dashboard-recomended-objects .root .root .slider-container .slick-slider .slick-prev {
+  .slick-prev {
+    margin-left: -87px;
+  }
+
+  .slick-next {
+    margin-right: -87px;
+  }
+
+  .dash-obs .slick-slider .slick-prev {
+    margin-left: 23px;
+  }
+
+  .dash-obs .slick-slider .slick-next {
+    margin-right: 23px;
+  }
+
+  .dash-item-first .outer-well .dashboard-recomended-objects .root .root .slider-container .slick-slider .slick-next {
     border: solid 2px ${golda};
   }
 

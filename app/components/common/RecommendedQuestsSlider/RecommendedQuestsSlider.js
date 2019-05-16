@@ -27,8 +27,19 @@ const RecommendedObjects = ({ recommendedQuestsList = [] }) => {
         {shortList.map(quest => (
           <RecommendedQuestSliderItem key={quest.linkUrl} {...quest} />
         ))}
-      </DisplayAtBreakpoint>
-    </div>
+      </DisplayAtBreakpoint>      
+      <style jsx>{`
+        .root {
+          margin: 0 auto;
+          max-width: 620px;
+        }
+        @media only screen and (min-width: 1100px) {
+          .root {
+            max-width: 940px;
+          }
+        }
+      `}</style>
+      </div>
   );
 };
 

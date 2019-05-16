@@ -22,7 +22,7 @@ export default css`
     width: 100%;
     font-weight: 600;
     text-transform: uppercase;
-    font-size: 13px;
+    font-size: 12px;
     letter-spacing: 1px;
     color: white;
     display: none;
