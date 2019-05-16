@@ -275,7 +275,9 @@ class GroupCreate extends Component {
 
             /* need to force evaulation of "true"/"false" vs. true/false. */
             if (createGroupResult.status === 'success') {
-              browserHistory.push(createGroupResult.discussionGroupLinkUrl);
+              browserHistory.push(
+                `${createGroupResult.discussionGroupLinkUrl}/edit=:edit`
+              );
             } else {
               //error occured
             }
@@ -303,16 +305,16 @@ class GroupCreate extends Component {
             <Fragment>
               {!fetchingContent && (
                 <Fragment>
-                    <div className="inner-header-container">
-                      <div className="inner-header-text">
-                        <div className="big">
-                          {createNewGroupRes.pageHeading1}
-                        </div>
-                        <div className="little">
-                          {createNewGroupRes.pageHeading2}
-                        </div>
+                  <div className="inner-header-container">
+                    <div className="inner-header-text">
+                      <div className="big">
+                        {createNewGroupRes.pageHeading1}
+                      </div>
+                      <div className="little">
+                        {createNewGroupRes.pageHeading2}
                       </div>
                     </div>
+                  </div>
                   <CenterColumn widths={['620px']}>
                     <div className="wrapper">
                       <div className="section-heading">
