@@ -13,3 +13,6 @@ export const getSubscriptionPlansApi = data =>
 
 export const resetPasswordApi = data =>
   axios.post('/api/registration/forgotPasswordRequest', data);
+
+export const getDashboardPopupInfoApi = data =>
+  axios.post('/api/app/dashboardPopupInfo', data);

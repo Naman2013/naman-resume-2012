@@ -1,11 +1,17 @@
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { createStructuredSelector } from 'reselect';
+import { getDashboardPopupInfo } from '../thunks';
 import { TakeATour } from '../components/take-a-tour';
 
-const mapStateToProps = createStructuredSelector({});
+const mapStateToProps = ({ accountSettings }) => {
+  return {
+    dashboardPopupInfo: accountSettings.dashboardPopupInfo,
+  };
+};
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+  getDashboardPopupInfo,
+};
 
 export default compose(
   connect(
