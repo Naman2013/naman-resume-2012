@@ -16,6 +16,7 @@ const renderField = ({
   label,
   type,
   className,
+  id,
   meta: { touched, error },
 }) => (
   <label
@@ -23,7 +24,7 @@ const renderField = ({
       error: touched && error,
     })}
   >
-    <input className="field-input" type={type} {...input} placeholder={label} />
+    <input id={id} className="field-input" type={type} {...input} placeholder={label} />
     {touched && error && <span className="error-text">{error}</span>}
     <style jsx>{`
       .root {
