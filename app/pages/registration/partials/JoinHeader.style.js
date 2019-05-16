@@ -15,7 +15,6 @@ import {
 
 export default css`
   .header {
-    background-image: url('https://vega.slooh.com/assets/v4/common/night_cliffs.png');
     background-size: cover;
     background-position: center;
     width: auto;
