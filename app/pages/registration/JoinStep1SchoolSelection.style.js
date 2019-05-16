@@ -5,6 +5,7 @@ import {
   romance,
   golden_yellow,
   shadows,
+  black,
 } from 'app/styles/variables/colors_tiles_v4';
 import { primaryFont, secondaryFont } from 'app/styles/variables/fonts';
 import { screenLarge, screenMedium } from 'app/styles/variables/breakpoints';
@@ -16,8 +17,9 @@ import {
 export default css`
   .join-root-alt {
     background-image: url(https://vega.slooh.com/assets/v4/common/night_cliffs.png);
-    background-size: cover;
-    background-position: center;
+    background-size: contain;
+    background-position: top;
+    background-color: ${black};
     width: auto;
     background-repeat: no-repeat;
     margin-bottom: -50px;
