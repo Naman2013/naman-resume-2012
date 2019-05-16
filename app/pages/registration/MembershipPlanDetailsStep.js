@@ -21,13 +21,11 @@ import axios from 'axios';
 import Request from 'app/components/common/network/Request';
 import BobbieTile from 'app/components/common/tiles/BobbieTile';
 import TabbedNav from 'app/components/TabbedNav';
-import { DeviceContext } from 'app/providers/DeviceProvider';
 import JoinHeader from './partials/JoinHeader';
 import PlanDetailsCard from './partials/PlanDetailsCard';
 import { PLAN_DETAILS_JOIN_TABS } from './StaticNavTabs';
 import styles from './JoinStep1SchoolSelection.style';
 import messages from './MembershipPlanDetailsStep.messages';
-import { makeIsFetchingSelector } from 'app/modules/account-settings/selectors';
 
 const { string, arrayOf, shape } = PropTypes;
 
@@ -79,103 +77,86 @@ class MembershipPlanDetailsStep extends Component {
 
   render() {
     const { pathname, tabs, activeTab, intl } = this.props;
-
     return (
-      <DeviceContext.Consumer>
-        {({ isMobile, isTablet, isDesktop }) => (
-          <>
-            <Request
-              serviceURL={JOIN_PAGE_ENDPOINT_URL}
-              requestBody={{
-                callSource: 'membershipspagePlanDetails',
-                selectedPlanId: this.state.selectedPlanId,
+      <Fragment>
+        <Request
+          serviceURL={JOIN_PAGE_ENDPOINT_URL}
+          requestBody={{
+            callSource: 'membershipspagePlanDetails',
+            selectedPlanId: this.state.selectedPlanId,
+          }}
+          render={({ fetchingContent, serviceResponse }) => (
+            <div
+              className="join-root-alt"
+              style={{
+                backgroundImage: `url(${
+                  serviceResponse?.selectedSubscriptionPlan
+                    ?.planSelectedBackgroundImageUrl_Desktop
+                })`,
               }}
-              render={({ fetchingContent, serviceResponse }) => (
-                <Fragment>
-                  <div
-                    className="join-root-alt"
-                    style={{
-                      backgroundImage: `url(${
-                        fetchingContent
-                          ? '' :
-                        isMobile
-                          ? serviceResponse.selectedSubscriptionPlan
-                              .planSelectedBackgroundImageUrl_Mobile
-                          : isDesktop
-                          ? serviceResponse.selectedSubscriptionPlan
-                              .planSelectedBackgroundImageUrl_Desktop
-                          : isTablet
-                          ? serviceResponse.selectedSubscriptionPlan
-                              .planSelectedBackgroundImageUrl_Tablet
-                          : ''
-                      })`,
-                    }}
-                  >
-                    <div className="step-root">
-                      {!fetchingContent && (
-                        <Fragment>
-                          <div className="join-root-alt-header">
-                            <h1>
-                              <FormattedMessage {...messages.JoinSlooh} />
-                            </h1>
-                            <h2>
-                              <FormattedMessage {...messages.JoinSloohTrial} />
-                            </h2>
-                          </div>
-                          <PlanDetailsCard
-                            {...serviceResponse.selectedSubscriptionPlan}
-                          />
-                          <TabbedNav
-                            tabs={PLAN_DETAILS_JOIN_TABS}
-                            activeTabValue={activeTab}
-                            onTabClick={this.changeActiveTab}
-                          />
-                          <div className="inner-container">
-                            <form
-                              style={{ paddingTop: '0px' }}
-                              className="form"
-                              onSubmit={this.continueToJoinFlow}
-                            >
-                              <BobbieTile
-                                className="form-section"
-                                showTitle={false}
-                                showSubtitle={false}
-                                title=""
-                                subtitle=""
-                                HTMLBlob={
-                                  serviceResponse.selectedSubscriptionPlan
-                                    .aboutThisPlan
-                                }
-                                disableReadMore
-                              />
-                              <div
-                                style={{ paddingTop: '40px' }}
-                                className="button-container"
-                              >
-                                <Button
-                                  type="button"
-                                  text={intl.formatMessage(messages.GoBack)}
-                                  onClickEvent={() => {
-                                    browserHistory.goBack();
-                                  }}
-                                />
-                                <button className="submit-button" type="submit">
-                                  <FormattedMessage {...messages.JoinNow} />
-                                </button>
-                              </div>
-                            </form>
-                          </div>
-                        </Fragment>
-                      )}
+            >
+              <div className="step-root">
+                {!fetchingContent && (
+                  <Fragment>
+                    <div className="join-root-alt-header">
+                      <h1>
+                        <FormattedMessage {...messages.JoinSlooh} />
+                      </h1>
+                      <h2>
+                        <FormattedMessage {...messages.JoinSloohTrial} />
+                      </h2>
                     </div>
-                  </div>
-                </Fragment>
-              )}
-            />
-            <style jsx>{styles}</style>
-          </>
-        )}
-      </DeviceContext.Consumer>
+                    <PlanDetailsCard
+                      {...serviceResponse.selectedSubscriptionPlan}
+                    />
+                    <TabbedNav
+                      tabs={PLAN_DETAILS_JOIN_TABS}
+                      activeTabValue={activeTab}
+                      onTabClick={this.changeActiveTab}
+                    />
+                    <div className="inner-container">
+                      <form
+                        style={{ paddingTop: '0px' }}
+                        className="form"
+                        onSubmit={this.continueToJoinFlow}
+                      >
+                        <BobbieTile
+                          className="form-section"
+                          showTitle={false}
+                          showSubtitle={false}
+                          title=""
+                          subtitle=""
+                          HTMLBlob={
+                            serviceResponse.selectedSubscriptionPlan
+                              .aboutThisPlan
+                          }
+                          disableReadMore
+                        />
+                        <div
+                          style={{ paddingTop: '40px' }}
+                          className="button-container"
+                        >
+                          <Button
+                            type="button"
+                            text={intl.formatMessage(messages.GoBack)}
+                            onClickEvent={() => {
+                              browserHistory.goBack();
+                            }}
+                          />
+                          <button className="submit-button" type="submit">
+                            <FormattedMessage {...messages.JoinNow} />
+                          </button>
+                        </div>
+                      </form>
+                    </div>
+                  </Fragment>
+                )}
+              </div>
+            </div>
+          )}
+        />
+        <style jsx>{styles}</style>
+      </Fragment>
     );
   }
 }
