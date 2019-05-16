@@ -104,7 +104,7 @@ class DiscussionBoardInviteNewMemberToSlooh extends Component {
 
     const inviteFormData = cloneDeep(this.state.inviteFormDetails);
 
-    var isFormComplete = true;
+    let isFormComplete = true;
 
     if (this.state.inviteFormDetails.firstName.value === '') {
       isFormComplete = false;
@@ -123,23 +123,23 @@ class DiscussionBoardInviteNewMemberToSlooh extends Component {
       inviteFormData.emailAddress.errorText = intl.formatMessage(
         messages.EmailAddress
       );
+    } else if (
+      this.state.inviteFormDetails.emailAddressVerification.value === ''
+    ) {
+      isFormComplete = false;
+      inviteFormData.emailAddressVerification.errorText = intl.formatMessage(
+        messages.ConfirmEmailAddress
+      );
     } else {
-      if (this.state.inviteFormDetails.emailAddressVerification.value === '') {
+      //check to make sure the email address and email address verification fields matches
+      if (
+        this.state.inviteFormDetails.emailAddress.value !=
+        this.state.inviteFormDetails.emailAddressVerification.value
+      ) {
         isFormComplete = false;
         inviteFormData.emailAddressVerification.errorText = intl.formatMessage(
-          messages.ConfirmEmailAddress
+          messages.EmailsDontMatch
         );
-      } else {
-        //check to make sure the email address and email address verification fields matches
-        if (
-          this.state.inviteFormDetails.emailAddress.value !=
-          this.state.inviteFormDetails.emailAddressVerification.value
-        ) {
-          isFormComplete = false;
-          inviteFormData.emailAddressVerification.errorText = intl.formatMessage(
-            messages.EmailsDontMatch
-          );
-        }
       }
     }
 
@@ -370,6 +370,7 @@ class DiscussionBoardInviteNewMemberToSlooh extends Component {
                             className="submit-button"
                             type="submit"
                             onClickEvent={this.handleSubmit}
+                            theme={{ color: 'white', borderColor: 'white' }}
                             text={intl.formatMessage(messages.SendInvitation)}
                           />
                         </div>

@@ -24,6 +24,7 @@ export default css`
   .groups-header-information {
     border-top: 1px solid ${shadows};
     padding-top: 30px;
+    color: white;
   }
 
   .inner-container {
