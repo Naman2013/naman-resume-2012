@@ -82,6 +82,18 @@ export class RecommendedObjects extends Component {
             ))}
           </div>
         </DisplayAtBreakpoint>
+        <style jsx>{`
+          .dashboard-recomended-objects {
+            margin: 0 auto;
+            max-width: 620px;
+          }
+          @media only screen and (min-width: 1100px) {
+            .dashboard-recomended-objects {
+              max-width: 940px;
+            }
+          }
+
+        `}</style>
 
         {reservationModalVisible && (
           <FeaturedObjectsModal

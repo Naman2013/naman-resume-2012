@@ -19,10 +19,10 @@ import {
 import { JOIN_PAGE_ENDPOINT_URL } from 'app/services/registration/registration.js';
 import axios from 'axios';
 import Request from 'app/components/common/network/Request';
-import JoinHeader from './partials/JoinHeader';
-import PlanDetailsCard from './partials/PlanDetailsCard';
 import BobbieTile from 'app/components/common/tiles/BobbieTile';
 import TabbedNav from 'app/components/TabbedNav';
+import JoinHeader from './partials/JoinHeader';
+import PlanDetailsCard from './partials/PlanDetailsCard';
 import { PLAN_DETAILS_JOIN_TABS } from './StaticNavTabs';
 import styles from './JoinStep1SchoolSelection.style';
 import messages from './MembershipPlanDetailsStep.messages';
@@ -54,10 +54,8 @@ class MembershipPlanDetailsStep extends Component {
 
   state = {
     selectedPlanId: window.localStorage.getItem('selectedPlanId'),
-    isAstronomyClub:
-      window.localStorage.getItem('isAstronomyClub') === 'true' ? true : false,
-    isClassroom:
-      window.localStorage.getItem('isClassroom') === 'true' ? true : false,
+    isAstronomyClub: window.localStorage.getItem('isAstronomyClub') === 'true',
+    isClassroom: window.localStorage.getItem('isClassroom') === 'true',
   };
 
   continueToJoinFlow = formValues => {
@@ -79,18 +77,25 @@ class MembershipPlanDetailsStep extends Component {
 
   render() {
     const { pathname, tabs, activeTab, intl } = this.props;
-
     return (
-      <div className="join-root-alt">
-        <div className="step-root">
-          <Request
-            serviceURL={JOIN_PAGE_ENDPOINT_URL}
-            requestBody={{
-              callSource: 'membershipspagePlanDetails',
-              selectedPlanId: this.state.selectedPlanId,
-            }}
-            render={({ fetchingContent, serviceResponse }) => (
-              <Fragment>
+      <Fragment>
+        <Request
+          serviceURL={JOIN_PAGE_ENDPOINT_URL}
+          requestBody={{
+            callSource: 'membershipspagePlanDetails',
+            selectedPlanId: this.state.selectedPlanId,
+          }}
+          render={({ fetchingContent, serviceResponse }) => (
+            <div
+              className="join-root-alt"
+              style={{
+                backgroundImage: `url(${
+                  serviceResponse?.selectedSubscriptionPlan
+                    ?.planSelectedBackgroundImageUrl_Desktop
+                })`,
+              }}
+            >
+              <div className="step-root">
                 {!fetchingContent && (
                   <Fragment>
                     <div className="join-root-alt-header">
@@ -125,7 +130,7 @@ class MembershipPlanDetailsStep extends Component {
                             serviceResponse.selectedSubscriptionPlan
                               .aboutThisPlan
                           }
-                          disableReadMore={true}
+                          disableReadMore
                         />
                         <div
                           style={{ paddingTop: '40px' }}
@@ -146,12 +151,12 @@ class MembershipPlanDetailsStep extends Component {
                     </div>
                   </Fragment>
                 )}
-              </Fragment>
-            )}
-          />
-        </div>
+              </div>
+            </div>
+          )}
+        />
         <style jsx>{styles}</style>
-      </div>
+      </Fragment>
     );
   }
 }

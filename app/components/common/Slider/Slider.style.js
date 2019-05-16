@@ -9,7 +9,7 @@ export default css.global`
   .slick-prev, .slick-next {
     width: 50px;
     height: 50px;
-    margin: 0 15px;
+    /* margin: 0 15px; */
     transform: translate(0, -50%);
     cursor: pointer;
     color: ${romance};
