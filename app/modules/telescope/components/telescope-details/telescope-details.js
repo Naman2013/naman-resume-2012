@@ -79,6 +79,10 @@ export class TelescopeDetails extends Component {
     }
   }
 
+  componentWillUnmount() {
+    clearTimeout(this.refreshTelescopeStatusTimeout);
+  }
+
   scaffoldRefreshInterval(expirationTimestamp = 0) {
     if (this.workingRefreshTimestamp !== expirationTimestamp) {
       this.workingRefreshTimestamp = expirationTimestamp;
