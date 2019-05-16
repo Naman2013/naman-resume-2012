@@ -78,6 +78,7 @@ class BrowseTaggedDataSearch extends Component {
     if (!isOpen) {
       this.doTearDown();
     } else {
+      document.getElementById('BrowseTaggedDataSearchInputField').focus();
       this.handleClick({ value: '' });
     }
 
@@ -296,6 +297,10 @@ class BrowseTaggedDataSearch extends Component {
           .search-results-link {
             color: #415671;
           }
+
+          .ml-24 {
+            margin-left: 23.9px;
+          }
         `}</style>
 
         {grandParentNodeID === null && parentNodeID === null && (
@@ -303,6 +308,10 @@ class BrowseTaggedDataSearch extends Component {
             {Object.keys(renderTaggedData.taggedData).map(function(
               grandParentKey
             ) {
+              const countSubItems = Object.keys(
+                renderTaggedData.taggedData[grandParentKey].subnodes
+              ).length;
+              const additionalClass = countSubItems === 0 ? ' ml-24' : '';
               return (
                 <div>
                   <div
@@ -311,22 +320,20 @@ class BrowseTaggedDataSearch extends Component {
                     }}
                     className="search-results-grandparent"
                   >
-                    {Object.keys(
-                      renderTaggedData.taggedData[grandParentKey].subnodes
-                    ).length
+                    {countSubItems
                       ? this.renderExpandIcon(grandParentNodeID, grandParentKey)
                       : null}
                     <Link
                       to={renderTaggedData.taggedData[grandParentKey].linkUrl}
                     >
-                      <span className="search-results-link">
-                        {renderTaggedData.taggedData[grandParentKey].title} (
-                        {
-                          Object.keys(
-                            renderTaggedData.taggedData[grandParentKey].subnodes
-                          ).length
-                        }
-                        )
+                      <span className={"search-results-link" + additionalClass}>
+                        {renderTaggedData.taggedData[grandParentKey].title} {countSubItems
+                          ? `(${
+                              Object.keys(
+                                renderTaggedData.taggedData[grandParentKey].subnodes
+                              ).length
+                            })`
+                          : null}
                       </span>
                       <img
                         style={{ paddingLeft: '15px' }}
@@ -380,6 +387,12 @@ class BrowseTaggedDataSearch extends Component {
                   {Object.keys(
                     renderTaggedData.taggedData[grandParentKey].subnodes
                   ).map(function(parentKey) {
+                    const countSubItems = Object.keys(
+                      renderTaggedData.taggedData[grandParentKey].subnodes[
+                        parentKey
+                      ].subnodes
+                    ).length;
+                    const additionalClass = countSubItems === 0 ? ' ml-24' : '';
                     return (
                       <div>
                         {grandParentKey === grandParentNodeID &&
@@ -400,20 +413,11 @@ class BrowseTaggedDataSearch extends Component {
                                     .subnodes[parentKey].linkUrl
                                 }
                               >
-                                <span className="search-results-link">
+                                <span className={"search-results-link" + additionalClass}>
                                   {
                                     renderTaggedData.taggedData[grandParentKey]
                                       .subnodes[parentKey].title
-                                  }{' '}
-                                  (
-                                  {
-                                    Object.keys(
-                                      renderTaggedData.taggedData[
-                                        grandParentKey
-                                      ].subnodes[parentKey].subnodes
-                                    ).length
                                   }
-                                  )
                                 </span>
                                 <img
                                   style={{ paddingLeft: '15px' }}
@@ -516,6 +520,12 @@ class BrowseTaggedDataSearch extends Component {
                   {Object.keys(
                     renderTaggedData.taggedData[grandParentKey].subnodes
                   ).map(function(parentKey) {
+                    const countSubItems = Object.keys(
+                      renderTaggedData.taggedData[grandParentKey].subnodes[
+                        parentKey
+                      ].subnodes
+                    ).length;
+                    const additionalClass = countSubItems === 0 ? ' ml-24' : '';
                     return (
                       <div>
                         {grandParentKey === grandParentNodeID &&
@@ -536,20 +546,11 @@ class BrowseTaggedDataSearch extends Component {
                                     .subnodes[parentKey].linkUrl
                                 }
                               >
-                                <span className="search-results-link">
+                                <span className={"search-results-link" + additionalClass}>
                                   {
                                     renderTaggedData.taggedData[grandParentKey]
                                       .subnodes[parentKey].title
-                                  }{' '}
-                                  (
-                                  {
-                                    Object.keys(
-                                      renderTaggedData.taggedData[
-                                        grandParentKey
-                                      ].subnodes[parentKey].subnodes
-                                    ).length
                                   }
-                                  ){' '}
                                 </span>
                                 <img
                                   style={{ paddingLeft: '15px' }}
