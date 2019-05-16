@@ -1,4 +1,5 @@
 import { createSelector } from 'reselect';
+import { get } from 'lodash';
 
 export const selectAccountSettings = state => state.accountSettings;
 
@@ -42,4 +43,28 @@ export const makeSubscriptionPlansFetchingSelector = () =>
   createSelector(
     selectAccountSettings,
     state => state.subscriptionPlans.isFetching
+  );
+
+export const makeEmailSelector = () =>
+  createSelector(
+    selectAccountSettings,
+    state => {
+      return get(
+        state,
+        'accountDetails.formFields.loginEmailAddress.currentValue',
+        ''
+      );
+    }
+  );
+
+export const makeShowPasswordPopupSelector = () =>
+  createSelector(
+    selectAccountSettings,
+    state => state.showForgetPasswordPopup
+  );
+
+export const makePasswordPopupTextSelector = () =>
+  createSelector(
+    selectAccountSettings,
+    state => state.forgetPasswordText
   );

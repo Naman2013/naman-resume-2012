@@ -32,11 +32,11 @@ const resetSnapshots = () => ({
   type: RESET_SNAPSHOT_LIST,
 });
 
-export const resetSnapshotList = () => (dispatch) => {
+export const resetSnapshotList = () => dispatch => {
   dispatch(resetSnapshots());
 };
 
-export const setImageDataToSnapshot = data => (dispatch) => {
+export const setImageDataToSnapshot = data => dispatch => {
   dispatch(setImageData(data));
 };
 
@@ -59,23 +59,30 @@ export const snapImage = () => (dispatch, getState) => {
   dispatch(snapImageStart());
 
   if (callSource && imageURL && imageID) {
-    return axios.post('/api/images/snapImage', {
-      token,
-      at,
-      cid,
-      ...imageDataToSnapshot,
-    }).then((result) => {
-      if (!result.data.apiError) {
-        dispatch(snapImageSuccess(
-          Object.assign({
-            explanation: result.data.explanation,
-            imagesLastSnapped: result.data.imagesAdded,
-            apiError: result.data.apiError,
-          }, imageDataToSnapshot)),
-        );
-      } else {
-        dispatch(snapImageFail(result.data));
-      }
-    });
+    return axios
+      .post('/api/images/snapImage', {
+        token,
+        at,
+        cid,
+        ...imageDataToSnapshot,
+      })
+      .then(result => {
+        if (!result.data.apiError) {
+          dispatch(
+            snapImageSuccess(
+              Object.assign(
+                {
+                  explanation: result.data.explanation,
+                  imagesLastSnapped: result.data.imagesAdded,
+                  apiError: result.data.apiError,
+                },
+                imageDataToSnapshot
+              )
+            )
+          );
+        } else {
+          dispatch(snapImageFail(result.data));
+        }
+      });
   }
 };

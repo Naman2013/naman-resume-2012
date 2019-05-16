@@ -15,9 +15,7 @@ const defaultProps = {
 };
 
 const Snap = ({ imageURL, width, height }) => {
-  if (!imageURL) {
-    return null;
-  }
+  if (!imageURL) return null;
 
   return (
     <div
