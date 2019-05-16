@@ -18,10 +18,6 @@ import { browserHistory } from 'react-router';
 import Button from 'app/components/common/style/buttons/Button';
 import Request from 'app/components/common/network/Request';
 import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
-import JoinHeader from './partials/JoinHeader';
-import PlanDetailsCard from './partials/PlanDetailsCard';
-import { DEFAULT_JOIN_TABS } from './StaticNavTabs';
-import { CLASSROOM_JOIN_TABS } from './StaticNavTabs';
 import {
   JOIN_PAGE_ENDPOINT_URL,
   SUBSCRIPTION_PLANS_ENDPOINT_URL,
@@ -30,6 +26,11 @@ import {
   JOIN_CREATE_PENDING_CUSTOMER_ENDPOINT_URL,
   VALIDATE_NEW_PENDING_CUSTOMER_DETAILS_ENDPOINT_URL,
 } from 'app/services/registration/registration.js';
+import { DeviceContext } from 'app/providers/DeviceProvider';
+import JoinHeader from './partials/JoinHeader';
+import PlanDetailsCard from './partials/PlanDetailsCard';
+import { DEFAULT_JOIN_TABS } from './StaticNavTabs';
+import { CLASSROOM_JOIN_TABS } from './StaticNavTabs';
 import styles from './JoinStep2.style';
 import messages from './JoinStep2.messages';
 
@@ -63,12 +64,9 @@ class JoinStep2 extends Component {
     this.state = {
       accountCreationType: 'userpass',
       isAstronomyClub:
-        window.localStorage.getItem('isAstronomyClub') === 'true'
-          ? true
-          : false,
+        window.localStorage.getItem('isAstronomyClub') === 'true',
       isAgeRestricted: true,
-      isClassroom:
-        window.localStorage.getItem('isClassroom') === 'true' ? true : false,
+      isClassroom: window.localStorage.getItem('isClassroom') === 'true',
       googleProfileData: {
         googleProfileId: '',
         googleProfileEmail: '',
@@ -455,7 +453,7 @@ class JoinStep2 extends Component {
       selectedPlanId: window.localStorage.selectedPlanId,
       googleProfileId: this.state.googleProfileData.googleProfileId,
       accountFormDetails: this.state.accountFormDetails,
-      selectedSchoolId: selectedSchoolId,
+      selectedSchoolId,
       isAgeRestricted: this.state.isAgeRestricted,
     };
     /* update tool/false values for Astronomy Club */
@@ -624,40 +622,70 @@ class JoinStep2 extends Component {
           serviceURL={JOIN_PAGE_ENDPOINT_URL}
           requestBody={{
             callSource: 'setupCredentials',
-            selectedPlanId: selectedPlanId,
-            selectedSchoolId: selectedSchoolId,
+            selectedPlanId,
+            selectedSchoolId,
           }}
           serviceResponseHandler={this.handleJoinPageServiceResponse}
           render={({ fetchingContent, serviceResponse: joinPageRes }) => (
             <Fragment>
               {!fetchingContent && selectedPlanId && (
-                <Fragment>
-                  {joinPageRes.hasSelectedSchool === 'yes' ? (
-                    <JoinHeader
-                      mainHeading={joinPageRes.pageHeading1}
-                      subHeading={joinPageRes.pageHeading2}
-                      activeTab={pathname}
-                      tabs={CLASSROOM_JOIN_TABS}
-                    />
-                  ) : (
-                    <JoinHeader
-                      mainHeading={joinPageRes.pageHeading1}
-                      subHeading={joinPageRes.pageHeading2}
-                      activeTab={pathname}
-                      tabs={DEFAULT_JOIN_TABS}
-                    />
-                  )}
-                  <div className="step-root">
-                    <DisplayAtBreakpoint screenMedium screenLarge screenXLarge>
-                      <PlanDetailsCard
-                        {...joinPageRes.selectedSubscriptionPlan}
-                      />
-                    </DisplayAtBreakpoint>
-                    <div className="inner-container">
-                      <div className="section-heading">
-                        {joinPageRes.sectionHeading}
-                      </div>
-                      {/*
+                <DeviceContext.Consumer>
+                  {({ isMobile, isDesktop, isTablet }) => (
+                    <Fragment>
+                      {joinPageRes.hasSelectedSchool === 'yes' ? (
+                        <JoinHeader
+                          mainHeading={joinPageRes.pageHeading1}
+                          subHeading={joinPageRes.pageHeading2}
+                          activeTab={pathname}
+                          tabs={CLASSROOM_JOIN_TABS}
+                          backgroundImage={
+                            isMobile
+                              ? joinPageRes.selectedSubscriptionPlan
+                                  .planSelectedBackgroundImageUrl_Mobile
+                              : isDesktop
+                              ? joinPageRes.selectedSubscriptionPlan
+                                  .planSelectedBackgroundImageUrl_Desktop
+                              : isTablet
+                              ? joinPageRes.selectedSubscriptionPlan
+                                  .planSelectedBackgroundImageUrl_Tablet
+                              : ''
+                          }
+                        />
+                      ) : (
+                        <JoinHeader
+                          mainHeading={joinPageRes.pageHeading1}
+                          subHeading={joinPageRes.pageHeading2}
+                          activeTab={pathname}
+                          tabs={DEFAULT_JOIN_TABS}
+                          backgroundImage={
+                            isMobile
+                              ? joinPageRes.selectedSubscriptionPlan
+                                  .planSelectedBackgroundImageUrl_Mobile
+                              : isDesktop
+                              ? joinPageRes.selectedSubscriptionPlan
+                                  .planSelectedBackgroundImageUrl_Desktop
+                              : isTablet
+                              ? joinPageRes.selectedSubscriptionPlan
+                                  .planSelectedBackgroundImageUrl_Tablet
+                              : ''
+                          }
+                        />
+                      )}
+                      <div className="step-root">
+                        <DisplayAtBreakpoint
+                          screenMedium
+                          screenLarge
+                          screenXLarge
+                        >
+                          <PlanDetailsCard
+                            {...joinPageRes.selectedSubscriptionPlan}
+                          />
+                        </DisplayAtBreakpoint>
+                        <div className="inner-container">
+                          <div className="section-heading">
+                            {joinPageRes.sectionHeading}
+                          </div>
+                          {/*
                             <p>Account Creation Type: {accountCreationType}</p>
                             <br/>
                             <br/>
@@ -669,191 +697,451 @@ class JoinStep2 extends Component {
                             </div>
                           */}
 
-                      {joinPageRes.hasSelectedSchool === 'yes' && (
-                        <div>
-                          <br />
-                          <p>
-                            <FormattedMessage {...messages.YourSchool} />:{' '}
-                            {joinPageRes.selectedSchool.schoolName}
-                          </p>
-                          <p style={{ fontSize: '1.0em' }}>
-                            <FormattedMessage
-                              {...messages.YourSchoolDistrict}
-                            />
-                            : {joinPageRes.selectedSchool.districtName}
-                          </p>
-                          <br />
-                          <br />
-                        </div>
-                      )}
-
-                      <Request
-                        serviceURL={GOOGLE_CLIENT_ID_ENDPOINT_URL}
-                        requestBody={{
-                          callSource: 'join',
-                        }}
-                        render={({
-                          fetchingContent: fetchingGoogleClient,
-                          serviceResponse: googleClientResponse,
-                        }) => (
-                          <Fragment>
-                            {!fetchingGoogleClient && (
-                              <div className="google-login-button">
-                                <GoogleLogin
-                                  prompt="select_account"
-                                  responseType={
-                                    googleClientResponse.googleClientResponseType
-                                  }
-                                  fetchBasicProfile={
-                                    googleClientResponse.googleClientFetchBasicProfile
-                                  }
-                                  accessType={
-                                    googleClientResponse.googleClientAccessType
-                                  }
-                                  scope={googleClientResponse.googleClientScope}
-                                  clientId={googleClientResponse.googleClientID}
-                                  buttonText={
-                                    googleClientResponse.loginButtonText
-                                  }
-                                  onSuccess={this.processGoogleSuccessResponse}
-                                  onFailure={this.processGoogleFailureResponse}
-                                />
-                              </div>
-                            )}
-                          </Fragment>
-                        )}
-                      />
-                      <form onSubmit={this.handleSubmit}>
-                        {isAstronomyClub ? (
-                          <div className="form-section">
-                            <div className="form-field-container">
-                              <span
-                                className="form-label"
-                                dangerouslySetInnerHTML={{
-                                  __html:
-                                    accountFormDetails.astronomyClubName.label,
-                                }}
-                              />
-                              :
-                              <span
-                                className="form-error"
-                                dangerouslySetInnerHTML={{
-                                  __html:
-                                    accountFormDetails.astronomyClubName
-                                      .errorText,
-                                }}
-                              />
-                              <Field
-                                className="form-field"
-                                name="astronomyClubName"
-                                type="name"
-                                label={
-                                  accountFormDetails.astronomyClubName.hintText
-                                }
-                                component={InputField}
-                                onChange={event => {
-                                  this.handleFieldChange({
-                                    field: 'astronomyClubName',
-                                    value: event.target.value,
-                                  });
-                                }}
-                              />
-                            </div>
-                            <div className="form-field-container">
-                              <span
-                                className="form-label"
-                                dangerouslySetInnerHTML={{
-                                  __html:
-                                    accountFormDetails.astronomyClub18AndOver
-                                      .label,
-                                }}
-                              />
-                              :
-                              <Field
-                                className="form-field"
-                                name="astronomyClub18AndOver"
-                                component={InputField}
-                                type="checkbox"
-                                onChange={event => {
-                                  this.handleFieldChange({
-                                    field: 'astronomyClub18AndOver',
-                                    value: event.target.value,
-                                  });
-                                }}
-                              />
-                            </div>
-                          </div>
-                        ) : null}
-
-                        {this.state.isAgeRestricted && (
-                          <div className="form-section">
+                          {joinPageRes.hasSelectedSchool === 'yes' && (
                             <div>
-                              <span
-                                className="form-label"
-                                dangerouslySetInnerHTML={{
-                                  __html:
-                                    accountFormDetails.is13YearsAndOlder.label,
-                                }}
-                              />
-                              :
-                              <span
-                                className="form-error"
-                                dangerouslySetInnerHTML={{
-                                  __html:
-                                    accountFormDetails.is13YearsAndOlder
-                                      .errorText,
-                                }}
-                              />
+                              <br />
+                              <p>
+                                <FormattedMessage {...messages.YourSchool} />:{' '}
+                                {joinPageRes.selectedSchool.schoolName}
+                              </p>
+                              <p style={{ fontSize: '1.0em' }}>
+                                <FormattedMessage
+                                  {...messages.YourSchoolDistrict}
+                                />
+                                : {joinPageRes.selectedSchool.districtName}
+                              </p>
                               <br />
                               <br />
-                              <fieldset>
-                                <label>
+                            </div>
+                          )}
+
+                          <Request
+                            serviceURL={GOOGLE_CLIENT_ID_ENDPOINT_URL}
+                            requestBody={{
+                              callSource: 'join',
+                            }}
+                            render={({
+                              fetchingContent: fetchingGoogleClient,
+                              serviceResponse: googleClientResponse,
+                            }) => (
+                              <Fragment>
+                                {!fetchingGoogleClient && (
+                                  <div className="google-login-button">
+                                    <GoogleLogin
+                                      prompt="select_account"
+                                      responseType={
+                                        googleClientResponse.googleClientResponseType
+                                      }
+                                      fetchBasicProfile={
+                                        googleClientResponse.googleClientFetchBasicProfile
+                                      }
+                                      accessType={
+                                        googleClientResponse.googleClientAccessType
+                                      }
+                                      scope={
+                                        googleClientResponse.googleClientScope
+                                      }
+                                      clientId={
+                                        googleClientResponse.googleClientID
+                                      }
+                                      buttonText={
+                                        googleClientResponse.loginButtonText
+                                      }
+                                      onSuccess={
+                                        this.processGoogleSuccessResponse
+                                      }
+                                      onFailure={
+                                        this.processGoogleFailureResponse
+                                      }
+                                    />
+                                  </div>
+                                )}
+                              </Fragment>
+                            )}
+                          />
+                          <form onSubmit={this.handleSubmit}>
+                            {isAstronomyClub ? (
+                              <div className="form-section">
+                                <div className="form-field-container">
+                                  <span
+                                    className="form-label"
+                                    dangerouslySetInnerHTML={{
+                                      __html:
+                                        accountFormDetails.astronomyClubName
+                                          .label,
+                                    }}
+                                  />
+                                  :
+                                  <span
+                                    className="form-error"
+                                    dangerouslySetInnerHTML={{
+                                      __html:
+                                        accountFormDetails.astronomyClubName
+                                          .errorText,
+                                    }}
+                                  />
                                   <Field
-                                    name="13andOlder"
-                                    label="Yes"
-                                    component="input"
-                                    type="radio"
-                                    value="13andolder"
-                                    onClick={event => {
+                                    className="form-field"
+                                    name="astronomyClubName"
+                                    type="name"
+                                    label={
+                                      accountFormDetails.astronomyClubName
+                                        .hintText
+                                    }
+                                    component={InputField}
+                                    onChange={event => {
                                       this.handleFieldChange({
-                                        field: 'is13YearsAndOlder',
-                                        value: true,
+                                        field: 'astronomyClubName',
+                                        value: event.target.value,
                                       });
                                     }}
-                                  />{' '}
-                                  <FormattedMessage {...messages.Yes} />
-                                </label>
-                                <span style={{ paddingLeft: '15px' }}>
-                                  <label>
-                                    <Field
-                                      name="13andOlder"
-                                      label="No"
-                                      component="input"
-                                      type="radio"
-                                      value="under13"
-                                      onClick={event => {
-                                        this.handleFieldChange({
-                                          field: 'is13YearsAndOlder',
-                                          value: false,
-                                        });
-                                      }}
-                                    />
-                                    <FormattedMessage {...messages.No} />
-                                  </label>
-                                </span>
-                              </fieldset>
-                            </div>
-                            <br />
-                            {accountFormDetails.is13YearsAndOlder.value ===
-                              false && (
-                              <div>
+                                  />
+                                </div>
                                 <div className="form-field-container">
                                   <span
                                     className="form-label"
                                     dangerouslySetInnerHTML={{
                                       __html:
                                         accountFormDetails
-                                          .not13YearsOldLegalGuardianOk.label,
+                                          .astronomyClub18AndOver.label,
+                                    }}
+                                  />
+                                  :
+                                  <Field
+                                    className="form-field"
+                                    name="astronomyClub18AndOver"
+                                    component={InputField}
+                                    type="checkbox"
+                                    onChange={event => {
+                                      this.handleFieldChange({
+                                        field: 'astronomyClub18AndOver',
+                                        value: event.target.value,
+                                      });
+                                    }}
+                                  />
+                                </div>
+                              </div>
+                            ) : null}
+
+                            {this.state.isAgeRestricted && (
+                              <div className="form-section">
+                                <div>
+                                  <span
+                                    className="form-label"
+                                    dangerouslySetInnerHTML={{
+                                      __html:
+                                        accountFormDetails.is13YearsAndOlder
+                                          .label,
+                                    }}
+                                  />
+                                  :
+                                  <span
+                                    className="form-error"
+                                    dangerouslySetInnerHTML={{
+                                      __html:
+                                        accountFormDetails.is13YearsAndOlder
+                                          .errorText,
+                                    }}
+                                  />
+                                  <br />
+                                  <br />
+                                  <fieldset>
+                                    <label>
+                                      <Field
+                                        name="13andOlder"
+                                        label="Yes"
+                                        component="input"
+                                        type="radio"
+                                        value="13andolder"
+                                        onClick={event => {
+                                          this.handleFieldChange({
+                                            field: 'is13YearsAndOlder',
+                                            value: true,
+                                          });
+                                        }}
+                                      />{' '}
+                                      <FormattedMessage {...messages.Yes} />
+                                    </label>
+                                    <span style={{ paddingLeft: '15px' }}>
+                                      <label>
+                                        <Field
+                                          name="13andOlder"
+                                          label="No"
+                                          component="input"
+                                          type="radio"
+                                          value="under13"
+                                          onClick={event => {
+                                            this.handleFieldChange({
+                                              field: 'is13YearsAndOlder',
+                                              value: false,
+                                            });
+                                          }}
+                                        />
+                                        <FormattedMessage {...messages.No} />
+                                      </label>
+                                    </span>
+                                  </fieldset>
+                                </div>
+                                <br />
+                                {accountFormDetails.is13YearsAndOlder.value ===
+                                  false && (
+                                  <div>
+                                    <div className="form-field-container">
+                                      <span
+                                        className="form-label"
+                                        dangerouslySetInnerHTML={{
+                                          __html:
+                                            accountFormDetails
+                                              .not13YearsOldLegalGuardianOk
+                                              .label,
+                                        }}
+                                      />
+                                      :
+                                      <span
+                                        className="form-error"
+                                        dangerouslySetInnerHTML={{
+                                          __html:
+                                            accountFormDetails
+                                              .not13YearsOldLegalGuardianOk
+                                              .errorText,
+                                        }}
+                                      />
+                                    </div>
+                                    <Field
+                                      name="not13YearsOldLegalGuardianOk"
+                                      type="checkbox"
+                                      className="form-field"
+                                      label={
+                                        accountFormDetails
+                                          .not13YearsOldLegalGuardianOk.hintText
+                                      }
+                                      component="input"
+                                      value={
+                                        accountFormDetails
+                                          .not13YearsOldLegalGuardianOk.value
+                                      }
+                                      onClick={event => {
+                                        this.handleFieldChange({
+                                          field: 'not13YearsOldLegalGuardianOk',
+                                          value: !accountFormDetails
+                                            .not13YearsOldLegalGuardianOk.value,
+                                        });
+                                      }}
+                                    />
+                                    <br />
+                                    <br />
+                                    <span
+                                      className="form-label"
+                                      dangerouslySetInnerHTML={{
+                                        __html:
+                                          accountFormDetails.parentEmailAddress
+                                            .label,
+                                      }}
+                                    />
+                                    :
+                                    <span
+                                      className="form-error"
+                                      dangerouslySetInnerHTML={{
+                                        __html:
+                                          accountFormDetails.parentEmailAddress
+                                            .errorText,
+                                      }}
+                                    />
+                                    <Field
+                                      name="parentEmailAddress"
+                                      type="name"
+                                      className="form-field"
+                                      label={
+                                        accountFormDetails.parentEmailAddress
+                                          .hintText
+                                      }
+                                      component={InputField}
+                                      onChange={event => {
+                                        this.handleFieldChange({
+                                          field: 'parentEmailAddress',
+                                          value: event.target.value,
+                                        });
+                                      }}
+                                      value={
+                                        accountFormDetails.parentEmailAddress
+                                          .value
+                                      }
+                                    />
+                                    <br />
+                                  </div>
+                                )}
+                              </div>
+                            )}
+                            <div className="form-section split">
+                              <div className="form-field-container form-field-half">
+                                <span
+                                  className="form-label"
+                                  dangerouslySetInnerHTML={{
+                                    __html: accountFormDetails.givenName.label,
+                                  }}
+                                />
+                                :
+                                <span
+                                  className="form-error"
+                                  dangerouslySetInnerHTML={{
+                                    __html:
+                                      accountFormDetails.givenName.errorText,
+                                  }}
+                                />
+                                <Field
+                                  name="givenName"
+                                  type="name"
+                                  className="form-field"
+                                  label={accountFormDetails.givenName.hintText}
+                                  component={InputField}
+                                  onChange={event => {
+                                    this.handleFieldChange({
+                                      field: 'givenName',
+                                      value: event.target.value,
+                                    });
+                                  }}
+                                  value={accountFormDetails.givenName.value}
+                                />
+                              </div>
+
+                              <div className="form-field-container form-field-half">
+                                <span
+                                  className="form-label"
+                                  dangerouslySetInnerHTML={{
+                                    __html: accountFormDetails.familyName.label,
+                                  }}
+                                />
+                                :
+                                <span
+                                  className="form-error"
+                                  dangerouslySetInnerHTML={{
+                                    __html:
+                                      accountFormDetails.familyName.errorText,
+                                  }}
+                                />
+                                <Field
+                                  name="familyName"
+                                  type="name"
+                                  className="form-field"
+                                  label={accountFormDetails.familyName.hintText}
+                                  component={InputField}
+                                  onChange={event => {
+                                    this.handleFieldChange({
+                                      field: 'familyName',
+                                      value: event.target.value,
+                                    });
+                                  }}
+                                  value={accountFormDetails.familyName.value}
+                                />
+                              </div>
+                            </div>
+
+                            <div className="form-section">
+                              <div className="form-field-container">
+                                <span
+                                  className="form-label"
+                                  dangerouslySetInnerHTML={{
+                                    __html:
+                                      accountFormDetails.displayName.label,
+                                  }}
+                                />
+                                :
+                              </div>
+                              <Field
+                                name="displayName"
+                                type="name"
+                                className="form-field"
+                                label={accountFormDetails.displayName.hintText}
+                                component={InputField}
+                                onChange={event => {
+                                  this.handleFieldChange({
+                                    field: 'displayName',
+                                    value: event.target.value,
+                                  });
+                                }}
+                              />
+                            </div>
+
+                            {accountCreationType === 'userpass' ? (
+                              <div className="form-section">
+                                <div className="form-field-container">
+                                  <span
+                                    className="form-label"
+                                    dangerouslySetInnerHTML={{
+                                      __html:
+                                        accountFormDetails.loginEmailAddress
+                                          .label,
+                                    }}
+                                  />
+                                  :
+                                  <span
+                                    className="form-error"
+                                    dangerouslySetInnerHTML={{
+                                      __html:
+                                        accountFormDetails.loginEmailAddress
+                                          .errorText,
+                                    }}
+                                  />
+                                </div>
+                                <Field
+                                  name="loginEmailAddress"
+                                  type="email"
+                                  className="form-field"
+                                  label={
+                                    accountFormDetails.loginEmailAddress
+                                      .hintText
+                                  }
+                                  component={InputField}
+                                  onChange={event => {
+                                    this.handleFieldChange({
+                                      field: 'loginEmailAddress',
+                                      value: event.target.value,
+                                    });
+                                  }}
+                                  value={
+                                    accountFormDetails.loginEmailAddress.value
+                                  }
+                                />
+                              </div>
+                            ) : null}
+
+                            {accountCreationType === 'googleaccount' ? (
+                              <div className="form-section">
+                                <div className="form-field-container">
+                                  <span
+                                    className="form-label"
+                                    dangerouslySetInnerHTML={{
+                                      __html:
+                                        accountFormDetails.loginEmailAddress
+                                          .label,
+                                    }}
+                                  />
+                                  :
+                                  <span
+                                    className="form-error"
+                                    dangerouslySetInnerHTML={{
+                                      __html:
+                                        accountFormDetails.loginEmailAddress
+                                          .errorText,
+                                    }}
+                                  />
+                                </div>
+                                <span className="google-field">
+                                  {accountFormDetails.loginEmailAddress.value}
+                                </span>
+                              </div>
+                            ) : null}
+
+                            {accountFormDetails.loginEmailAddressVerification
+                              .visible ? (
+                              <div className="form-section">
+                                <div className="form-field-container">
+                                  <span
+                                    className="form-label"
+                                    dangerouslySetInnerHTML={{
+                                      __html:
+                                        accountFormDetails
+                                          .loginEmailAddressVerification.label,
                                     }}
                                   />
                                   :
@@ -862,359 +1150,125 @@ class JoinStep2 extends Component {
                                     dangerouslySetInnerHTML={{
                                       __html:
                                         accountFormDetails
-                                          .not13YearsOldLegalGuardianOk
+                                          .loginEmailAddressVerification
                                           .errorText,
                                     }}
                                   />
                                 </div>
                                 <Field
-                                  name="not13YearsOldLegalGuardianOk"
-                                  type="checkbox"
+                                  name="loginEmailAddressVerification"
+                                  type="email"
                                   className="form-field"
                                   label={
-                                    accountFormDetails
-                                      .not13YearsOldLegalGuardianOk.hintText
+                                    joinPageRes.formFieldLabels
+                                      .loginemailaddressverification.hintText
                                   }
-                                  component="input"
+                                  component={InputField}
+                                  onChange={event => {
+                                    this.handleFieldChange({
+                                      field: 'loginEmailAddressVerification',
+                                      value: event.target.value,
+                                    });
+                                  }}
                                   value={
                                     accountFormDetails
-                                      .not13YearsOldLegalGuardianOk.value
+                                      .loginEmailAddressVerification.value
                                   }
-                                  onClick={event => {
+                                />
+                              </div>
+                            ) : null}
+
+                            {accountFormDetails.password.visible ? (
+                              <div className="form-section">
+                                <div className="form-field-container">
+                                  <span
+                                    className="form-label"
+                                    dangerouslySetInnerHTML={{
+                                      __html: accountFormDetails.password.label,
+                                    }}
+                                  />
+                                  :
+                                  <span
+                                    className="form-error"
+                                    dangerouslySetInnerHTML={{
+                                      __html:
+                                        accountFormDetails.password.errorText,
+                                    }}
+                                  />
+                                </div>
+                                <Field
+                                  name="password"
+                                  type="password"
+                                  className="form-field"
+                                  label={accountFormDetails.password.hintText}
+                                  component={InputField}
+                                  onChange={event => {
                                     this.handleFieldChange({
-                                      field: 'not13YearsOldLegalGuardianOk',
-                                      value: !accountFormDetails
-                                        .not13YearsOldLegalGuardianOk.value,
+                                      field: 'password',
+                                      value: event.target.value,
                                     });
                                   }}
                                 />
-                                <br />
-                                <br />
-                                <span
-                                  className="form-label"
-                                  dangerouslySetInnerHTML={{
-                                    __html:
-                                      accountFormDetails.parentEmailAddress
-                                        .label,
-                                  }}
-                                />
-                                :
-                                <span
-                                  className="form-error"
-                                  dangerouslySetInnerHTML={{
-                                    __html:
-                                      accountFormDetails.parentEmailAddress
-                                        .errorText,
-                                  }}
-                                />
+                              </div>
+                            ) : null}
+
+                            {accountFormDetails.passwordVerification.visible ? (
+                              <div className="form-section">
+                                <div className="form-field-container">
+                                  <span
+                                    className="form-label"
+                                    dangerouslySetInnerHTML={{
+                                      __html:
+                                        joinPageRes.formFieldLabels
+                                          .passwordverification.label,
+                                    }}
+                                  />
+                                  :
+                                  <span
+                                    className="form-error"
+                                    dangerouslySetInnerHTML={{
+                                      __html:
+                                        accountFormDetails.passwordVerification
+                                          .errorText,
+                                    }}
+                                  />
+                                </div>
                                 <Field
-                                  name="parentEmailAddress"
-                                  type="name"
+                                  name="passwordVerification"
+                                  type="password"
                                   className="form-field"
                                   label={
-                                    accountFormDetails.parentEmailAddress
+                                    accountFormDetails.passwordVerification
                                       .hintText
                                   }
                                   component={InputField}
                                   onChange={event => {
                                     this.handleFieldChange({
-                                      field: 'parentEmailAddress',
+                                      field: 'passwordVerification',
                                       value: event.target.value,
                                     });
                                   }}
-                                  value={
-                                    accountFormDetails.parentEmailAddress.value
-                                  }
                                 />
-                                <br />
                               </div>
-                            )}
-                          </div>
-                        )}
-                        <div className="form-section split">
-                          <div className="form-field-container form-field-half">
-                            <span
-                              className="form-label"
-                              dangerouslySetInnerHTML={{
-                                __html: accountFormDetails.givenName.label,
-                              }}
-                            />
-                            :
-                            <span
-                              className="form-error"
-                              dangerouslySetInnerHTML={{
-                                __html: accountFormDetails.givenName.errorText,
-                              }}
-                            />
-                            <Field
-                              name="givenName"
-                              type="name"
-                              className="form-field"
-                              label={accountFormDetails.givenName.hintText}
-                              component={InputField}
-                              onChange={event => {
-                                this.handleFieldChange({
-                                  field: 'givenName',
-                                  value: event.target.value,
-                                });
-                              }}
-                              value={accountFormDetails.givenName.value}
-                            />
-                          </div>
-
-                          <div className="form-field-container form-field-half">
-                            <span
-                              className="form-label"
-                              dangerouslySetInnerHTML={{
-                                __html: accountFormDetails.familyName.label,
-                              }}
-                            />
-                            :
-                            <span
-                              className="form-error"
-                              dangerouslySetInnerHTML={{
-                                __html: accountFormDetails.familyName.errorText,
-                              }}
-                            />
-                            <Field
-                              name="familyName"
-                              type="name"
-                              className="form-field"
-                              label={accountFormDetails.familyName.hintText}
-                              component={InputField}
-                              onChange={event => {
-                                this.handleFieldChange({
-                                  field: 'familyName',
-                                  value: event.target.value,
-                                });
-                              }}
-                              value={accountFormDetails.familyName.value}
-                            />
-                          </div>
+                            ) : null}
+                            <div className="button-container">
+                              <Button
+                                type="button"
+                                text="Go Back"
+                                onClickEvent={() => {
+                                  browserHistory.push('/join/step1');
+                                }}
+                              />
+                              <button className="submit-button" type="submit">
+                                <FormattedMessage {...messages.GoToPayment} />
+                              </button>
+                            </div>
+                          </form>
                         </div>
-
-                        <div className="form-section">
-                          <div className="form-field-container">
-                            <span
-                              className="form-label"
-                              dangerouslySetInnerHTML={{
-                                __html: accountFormDetails.displayName.label,
-                              }}
-                            />
-                            :
-                          </div>
-                          <Field
-                            name="displayName"
-                            type="name"
-                            className="form-field"
-                            label={accountFormDetails.displayName.hintText}
-                            component={InputField}
-                            onChange={event => {
-                              this.handleFieldChange({
-                                field: 'displayName',
-                                value: event.target.value,
-                              });
-                            }}
-                          />
-                        </div>
-
-                        {accountCreationType === 'userpass' ? (
-                          <div className="form-section">
-                            <div className="form-field-container">
-                              <span
-                                className="form-label"
-                                dangerouslySetInnerHTML={{
-                                  __html:
-                                    accountFormDetails.loginEmailAddress.label,
-                                }}
-                              />
-                              :
-                              <span
-                                className="form-error"
-                                dangerouslySetInnerHTML={{
-                                  __html:
-                                    accountFormDetails.loginEmailAddress
-                                      .errorText,
-                                }}
-                              />
-                            </div>
-                            <Field
-                              name="loginEmailAddress"
-                              type="email"
-                              className="form-field"
-                              label={
-                                accountFormDetails.loginEmailAddress.hintText
-                              }
-                              component={InputField}
-                              onChange={event => {
-                                this.handleFieldChange({
-                                  field: 'loginEmailAddress',
-                                  value: event.target.value,
-                                });
-                              }}
-                              value={accountFormDetails.loginEmailAddress.value}
-                            />
-                          </div>
-                        ) : null}
-
-                        {accountCreationType === 'googleaccount' ? (
-                          <div className="form-section">
-                            <div className="form-field-container">
-                              <span
-                                className="form-label"
-                                dangerouslySetInnerHTML={{
-                                  __html:
-                                    accountFormDetails.loginEmailAddress.label,
-                                }}
-                              />
-                              :
-                              <span
-                                className="form-error"
-                                dangerouslySetInnerHTML={{
-                                  __html:
-                                    accountFormDetails.loginEmailAddress
-                                      .errorText,
-                                }}
-                              />
-                            </div>
-                            <span className="google-field">
-                              {accountFormDetails.loginEmailAddress.value}
-                            </span>
-                          </div>
-                        ) : null}
-
-                        {accountFormDetails.loginEmailAddressVerification
-                          .visible ? (
-                          <div className="form-section">
-                            <div className="form-field-container">
-                              <span
-                                className="form-label"
-                                dangerouslySetInnerHTML={{
-                                  __html:
-                                    accountFormDetails
-                                      .loginEmailAddressVerification.label,
-                                }}
-                              />
-                              :
-                              <span
-                                className="form-error"
-                                dangerouslySetInnerHTML={{
-                                  __html:
-                                    accountFormDetails
-                                      .loginEmailAddressVerification.errorText,
-                                }}
-                              />
-                            </div>
-                            <Field
-                              name="loginEmailAddressVerification"
-                              type="email"
-                              className="form-field"
-                              label={
-                                joinPageRes.formFieldLabels
-                                  .loginemailaddressverification.hintText
-                              }
-                              component={InputField}
-                              onChange={event => {
-                                this.handleFieldChange({
-                                  field: 'loginEmailAddressVerification',
-                                  value: event.target.value,
-                                });
-                              }}
-                              value={
-                                accountFormDetails.loginEmailAddressVerification
-                                  .value
-                              }
-                            />
-                          </div>
-                        ) : null}
-
-                        {accountFormDetails.password.visible ? (
-                          <div className="form-section">
-                            <div className="form-field-container">
-                              <span
-                                className="form-label"
-                                dangerouslySetInnerHTML={{
-                                  __html: accountFormDetails.password.label,
-                                }}
-                              />
-                              :
-                              <span
-                                className="form-error"
-                                dangerouslySetInnerHTML={{
-                                  __html: accountFormDetails.password.errorText,
-                                }}
-                              />
-                            </div>
-                            <Field
-                              name="password"
-                              type="password"
-                              className="form-field"
-                              label={accountFormDetails.password.hintText}
-                              component={InputField}
-                              onChange={event => {
-                                this.handleFieldChange({
-                                  field: 'password',
-                                  value: event.target.value,
-                                });
-                              }}
-                            />
-                          </div>
-                        ) : null}
-
-                        {accountFormDetails.passwordVerification.visible ? (
-                          <div className="form-section">
-                            <div className="form-field-container">
-                              <span
-                                className="form-label"
-                                dangerouslySetInnerHTML={{
-                                  __html:
-                                    joinPageRes.formFieldLabels
-                                      .passwordverification.label,
-                                }}
-                              />
-                              :
-                              <span
-                                className="form-error"
-                                dangerouslySetInnerHTML={{
-                                  __html:
-                                    accountFormDetails.passwordVerification
-                                      .errorText,
-                                }}
-                              />
-                            </div>
-                            <Field
-                              name="passwordVerification"
-                              type="password"
-                              className="form-field"
-                              label={
-                                accountFormDetails.passwordVerification.hintText
-                              }
-                              component={InputField}
-                              onChange={event => {
-                                this.handleFieldChange({
-                                  field: 'passwordVerification',
-                                  value: event.target.value,
-                                });
-                              }}
-                            />
-                          </div>
-                        ) : null}
-                        <div className="button-container">
-                          <Button
-                            type="button"
-                            text="Go Back"
-                            onClickEvent={() => {
-                              browserHistory.push('/join/step1');
-                            }}
-                          />
-                          <button className="submit-button" type="submit">
-                            <FormattedMessage {...messages.GoToPayment} />
-                          </button>
-                        </div>
-                      </form>
-                    </div>
-                  </div>
-                </Fragment>
+                      </div>
+                    </Fragment>
+                  )}
+                </DeviceContext.Consumer>
               )}
             </Fragment>
           )}
