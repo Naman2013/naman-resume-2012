@@ -4,12 +4,16 @@ import {
   fetchGroupOverviewPageMeta,
   changeGroupDescription,
   fetchGroupInvitationPanel,
+  fetchInvitePopupContent,
 } from '../actions';
 import CommunityGroupEdit from '../components/community-group-edit';
 
 const mapStateToProps = state => {
   return {
     communityGroupOverview: state.communityGroupOverview,
+    invitePopupContent: state.communityGroupOverview.invitePopupContent,
+    isInvitePopupFetching:
+      state.communityGroupOverview.invitePopupContentFetching,
   };
 };
 
@@ -17,6 +21,7 @@ const mapDispatchToProps = {
   fetchGroupOverviewPageMeta,
   changeGroupDescription,
   fetchGroupInvitationPanel,
+  fetchInvitePopupContent,
 };
 
 export default compose(

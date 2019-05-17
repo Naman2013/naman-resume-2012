@@ -65,6 +65,15 @@ class CommunityGroupEdit extends Component {
     );
   };
 
+  onInviteClick = () => {
+    const {
+      fetchInvitePopupContent,
+      routeParams: { groupId },
+    } = this.props;
+    fetchInvitePopupContent(groupId);
+    this.setState({ isInviteOn: true });
+  };
+
   handleSubmit = value => {
     const {
       changeGroupDescription,
@@ -80,6 +89,8 @@ class CommunityGroupEdit extends Component {
     const {
       handleSubmit,
       routeParams: { groupId },
+      invitePopupContent,
+      isInvitePopupFetching,
       communityGroupOverview: {
         fetching,
         membersCount,
@@ -101,7 +112,7 @@ class CommunityGroupEdit extends Component {
               isMobile={isMobile}
               membersCount={membersCount}
               canEditGroup={canEditGroup}
-              onInviteClick={() => this.setState({ isInviteOn: true })}
+              onInviteClick={this.onInviteClick}
             />
 
             <div className="community-group-edit-section">
@@ -188,9 +199,7 @@ class CommunityGroupEdit extends Component {
                     className="flex-row justify-content-between border-left"
                   >
                     <Btn
-                      onClick={() => {
-                        this.setState({ isInviteOn: true });
-                      }}
+                      onClick={this.onInviteClick}
                       className="margin-auto width-140 justify-content-between"
                     >
                       Invite
@@ -207,21 +216,17 @@ class CommunityGroupEdit extends Component {
               onHide={() => this.setState({ isInviteOn: false })}
             >
               <DiscussionBoardInviteNewMemberToSlooh
-                newInvitationComplete={(
-                  invitationCode,
-                  firstName,
-                  lastName,
-                  emailAddress,
-                  statusMessage
-                ) =>
-                  this.newInvitationComplete(
-                    invitationCode,
-                    firstName,
-                    lastName,
-                    emailAddress,
-                    statusMessage
-                  )
-                }
+                invitePopupContent={invitePopupContent}
+                isFetching={isInvitePopupFetching}
+                newInvitationComplete={() => {
+                  this.setState({ isInviteOn: false });
+                  const {
+                    routeParams: { groupId },
+                    fetchGroupOverviewPageMeta,
+                  } = this.props;
+
+                  fetchGroupOverviewPageMeta({ discussionGroupId: groupId });
+                }}
                 discussionGroupId={groupId}
               />
             </Modal>

@@ -15,6 +15,9 @@ import {
   FETCH_GROUP_INVITATION_PANEL_START,
   FETCH_GROUP_INVITATION_PANEL_SUCCESS,
   FETCH_GROUP_INVITATION_PANEL_FAIL,
+  FETCH_INVITE_POPUP_CONTENT_START,
+  FETCH_INVITE_POPUP_CONTENT_SUCCESS,
+  FETCH_INVITE_POPUP_CONTENT_FAIL,
   SORT_AZ,
   SORT_ZA,
   SORT_RANK,
@@ -33,6 +36,8 @@ const initialState = {
   membersCallFetching: false,
   membersSort: SORT_AZ,
   groupInformation: {},
+  invitePopupContent: {},
+  invitePopupContentFetching: false,
 };
 
 export default createReducer(initialState, {
@@ -167,6 +172,27 @@ export default createReducer(initialState, {
       error: true,
       membersCallError: true,
       membersCallFetching: false,
+    };
+  },
+  [FETCH_INVITE_POPUP_CONTENT_START](state) {
+    return {
+      ...state,
+      invitePopupContentFetching: true,
+    };
+  },
+  [FETCH_INVITE_POPUP_CONTENT_SUCCESS](state, { payload }) {
+    return {
+      ...state,
+      error: false,
+      invitePopupContentFetching: false,
+      invitePopupContent: payload,
+    };
+  },
+  [FETCH_INVITE_POPUP_CONTENT_FAIL](state) {
+    return {
+      ...state,
+      invitePopupContentFetching: false,
+      error: true,
     };
   },
 });

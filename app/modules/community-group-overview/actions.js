@@ -24,6 +24,12 @@ export const FETCH_GROUP_INVITATION_PANEL_SUCCESS =
   'FETCH_GROUP_INVITATION_PANEL_SUCCESS';
 export const FETCH_GROUP_INVITATION_PANEL_FAIL =
   'FETCH_GROUP_INVITATION_PANEL_FAIL';
+export const FETCH_INVITE_POPUP_CONTENT_START =
+  'FETCH_INVITE_POPUP_CONTENT_START';
+export const FETCH_INVITE_POPUP_CONTENT_SUCCESS =
+  'FETCH_INVITE_POPUP_CONTENT_SUCCESS';
+export const FETCH_INVITE_POPUP_CONTENT_FAIL =
+  'FETCH_INVITE_POPUP_CONTENT_FAIL';
 
 export const SORT_AZ = 'atoz';
 export const SORT_ZA = 'ztoa';
@@ -230,4 +236,32 @@ export const changeGroupDescription = ({ groupId, groupDescription }) => (
     })
     .then(result => dispatch(groupDescriptionChangeSuccess(groupDescription)))
     .catch(error => dispatch(groupDescriptionChangeFail(error)));
+};
+
+const fetchInvitePopupContentStart = () => ({
+  type: FETCH_INVITE_POPUP_CONTENT_START,
+});
+
+const fetchInvitePopupContentSuccess = payload => ({
+  type: FETCH_INVITE_POPUP_CONTENT_SUCCESS,
+  payload,
+});
+
+const fetchInvitePopupContentFail = payload => ({
+  type: FETCH_INVITE_POPUP_CONTENT_FAIL,
+  payload,
+});
+
+export const fetchInvitePopupContent = groupId => (dispatch, getState) => {
+  const { cid, at, token } = getState().user;
+  dispatch(fetchInvitePopupContentStart());
+  return axios
+    .post('/api/classroom/getGroupInvitationPanel', {
+      at,
+      cid,
+      token,
+      groupId,
+    })
+    .then(res => dispatch(fetchInvitePopupContentSuccess(res.data)))
+    .catch(error => dispatch(fetchInvitePopupContentFail(error)));
 };
