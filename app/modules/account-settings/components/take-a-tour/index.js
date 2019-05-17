@@ -1,40 +1,55 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import ObjectRelatedTile from '../../../../containers/object-details/ObjectRelatedTile';
-import GuideTile from '../../../../components/common/tiles/guide-tile';
+import ObjectRelatedTile from 'app/containers/object-details/ObjectRelatedTile';
+import GuideTile from 'app/components/common/tiles/guide-tile';
 import './styles.scss';
 
-const orientationGuide = {
-  description:
-    'Nam dapibus nisl vitae elit fringilla rutrum. Aenean lene lorem sollicitudin, erat a elementum toirutrum neeque sem pretium metuis, quis mollis nisl nunc it  tristique de ullam ecorpere pretium…',
-  hasLink: true,
-  iconUrl: '',
-  imageLabel: 'A GUIDE TO',
-  imageTitle: 'Slooh Apprentice',
-  imageUrl: '',
-  linkLabel: 'GO TO GUIDE',
-  linkUrl: '',
-  mobileSubTitle: 'A Guide to Slooh Apprentice Plan',
-  show: true,
-  subTitle: 'A Guide to Slooh Apprentice Plan',
-  title: 'Check out this Orientation Guide',
-};
-export class TakeATour extends Component {
+class TakeATour extends PureComponent {
+  componentDidMount() {
+    const { getDashboardPopupInfo } = this.props;
+    getDashboardPopupInfo();
+  }
+
+  getGuideInfo = data => {
+    return {
+      title: data.title,
+      subTitle: data.subTitle,
+      description: data.guideDescription,
+      excerpt: '',
+      linkLabel: data.linkLabel,
+      linkUrl: data.linkUrl,
+      additionalContent: '',
+      hasLink: !!data.linkUrl,
+      showDescription: true,
+      showExcerpt: '',
+      showMobileAdditionalContent: '',
+    };
+  };
+
   render() {
+    const { dashboardPopupInfo } = this.props;
+    if (!dashboardPopupInfo) return null;
+    const { popupData } = dashboardPopupInfo;
+    if (!popupData) return null;
+    const { relatedGuide } = popupData;
+    if (!relatedGuide) return null;
+    const guide = this.getGuideInfo(relatedGuide);
+
     return (
       <div className="take-a-tour">
         <Container>
           <Row className="orientation-block">
             <ObjectRelatedTile
-              {...orientationGuide}
+              {...guide}
               showMobileAdditionalContent
               additionalContent={
                 <GuideTile
-                  title={orientationGuide.imageLabel}
-                  subTitle={orientationGuide.imageTitle}
-                  linkUrl={orientationGuide.linkUrl}
+                  title={guide.title}
+                  subTitle={guide.subTitle}
+                  linkUrl={guide.linkUrl}
+                  linkLabel={guide.linkLabel}
                 />
               }
             />
@@ -44,3 +59,5 @@ export class TakeATour extends Component {
     );
   }
 }
+
+export { TakeATour };

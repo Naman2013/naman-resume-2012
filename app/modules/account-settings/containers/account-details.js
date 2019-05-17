@@ -5,18 +5,30 @@ import {
   makeAccountTypeSectionSelector,
   makeAccountDetailsSelector,
   makeAccountCancelSectionSelector,
+  makeEmailSelector,
+  makeShowPasswordPopupSelector,
+  makePasswordPopupTextSelector,
 } from '../selectors';
-import { fetchAccountFormFieldAction } from '../thunks';
+import {
+  fetchAccountFormFieldAction,
+  resetPassword,
+  dismissResetPasswordPopup,
+} from '../thunks';
 import { AccountDetails } from '../components/account-details';
 
 const mapStateToProps = createStructuredSelector({
   accountTypeSection: makeAccountTypeSectionSelector(),
   accountDetails: makeAccountDetailsSelector(),
   accountCancelSection: makeAccountCancelSectionSelector(),
+  accountEmail: makeEmailSelector(),
+  showForgetPasswordPopup: makeShowPasswordPopupSelector(),
+  forgetPasswordPopupText: makePasswordPopupTextSelector(),
 });
 
 const mapDispatchToProps = {
   fetchAccountFormFieldAction,
+  resetPassword,
+  dismissResetPasswordPopup,
 };
 
 export default compose(

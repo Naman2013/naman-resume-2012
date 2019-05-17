@@ -16,12 +16,12 @@ export const commentAstronaut = 'https://vega.slooh.com/assets/v4/common/comment
 
 export const goldCompass = 'https://vega.slooh.com/assets/v4/icons/gold_compass.svg';
 
-export const missions = 'https://vega.slooh.com/assets/v4/dashboard/icon_missions.svg';
-export const guides = 'https://vega.slooh.com/assets/v4/dashboard/icon_guides.svg';
-export const quests = 'https://vega.slooh.com/assets/v4/dashboard/icon_quests.svg';
-export const shows = 'https://vega.slooh.com/assets/v4/dashboard/icon_shows.svg';
-export const stories = 'https://vega.slooh.com/assets/v4/dashboard/icon_stories.svg';
-export const groups = 'https://vega.slooh.com/assets/v4/dashboard/icon_groups.svg';
+export const missions = 'https://vega.slooh.com/assets/v4/dashboard/icon_missions_2.svg';
+export const guides = 'https://vega.slooh.com/assets/v4/dashboard/icon_guides_2.svg';
+export const quests = 'https://vega.slooh.com/assets/v4/dashboard/icon_quests_2.svg';
+export const shows = 'https://vega.slooh.com/assets/v4/dashboard/icon_shows_2.svg';
+export const stories = 'https://vega.slooh.com/assets/v4/dashboard/icon_stories_2.svg';
+export const groups = 'https://vega.slooh.com/assets/v4/dashboard/icon_groups_2.svg';
 
 export const resources = 'https://vega.slooh.com/assets/v4/icons/resources.svg';
 export const info = 'https://vega.slooh.com/assets/v4/common/info_icon.svg';
