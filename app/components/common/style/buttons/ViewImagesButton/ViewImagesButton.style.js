@@ -12,5 +12,6 @@ export default css`
   }
   .modal-img-wrapper img {
     max-width: 100%;
+    max-height: calc(100vh - 100px - 100px);
   }
 `;

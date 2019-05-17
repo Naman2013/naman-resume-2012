@@ -8,6 +8,7 @@
 import PhotoUploadButton from 'app/components/common/style/buttons/PhotoUploadButton';
 import { Spinner } from 'app/components/spinner/index';
 import { UploadImgThumb } from 'app/modules/ask-astronomer/components/Modals/upload-img-thumb';
+import { uploadedImgCleanUp } from 'app/modules/ask-astronomer/services/post-image';
 import setPostImages from 'app/modules/set-post-images';
 import { prepareReply } from 'app/services/discussions/prepare-reply';
 import deletePostImage from 'app/services/post-creation/delete-post-image';
@@ -18,16 +19,7 @@ import { injectIntl, intlShape } from 'react-intl';
 import './styles.scss';
 import messages from './SubmitQuestionForm.messages';
 
-const {
-  any,
-  arrayOf,
-  bool,
-  func,
-  number,
-  oneOfType,
-  shape,
-  string,
-} = PropTypes;
+const { func, shape, string } = PropTypes;
 
 class SubmitReplyForm extends PureComponent {
   static propTypes = {
@@ -66,13 +58,6 @@ class SubmitReplyForm extends PureComponent {
       }));
     });
   }
-
-  onChangeAnswerText = e => {
-    e.preventDefault();
-    this.setState({
-      answerText: e.target.value,
-    });
-  };
 
   handleUploadImage = event => {
     event.preventDefault();
@@ -140,6 +125,14 @@ class SubmitReplyForm extends PureComponent {
     });
   };
 
+  closeModal = () => {
+    const { modalActions, user } = this.props;
+    const { cid, token, at } = user;
+    const { uuid, S3URLs } = this.state;
+    modalActions.closeModal();
+    uploadedImgCleanUp(S3URLs, cid, token, at, uuid, 'discussion');
+  };
+
   render() {
     const { S3URLs, uploadLoading } = this.state;
     const { authorInfo, freshness, content, modalActions, intl } = this.props;
@@ -202,7 +195,7 @@ class SubmitReplyForm extends PureComponent {
             />
           </div>
           <div>
-            <Button onClick={modalActions.closeModal} className="mr-3">
+            <Button onClick={this.closeModal} className="mr-3">
               {intl.formatMessage(messages.Cancel)}
             </Button>
             <Button onClick={this.submitForm}>
