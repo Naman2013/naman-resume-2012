@@ -2,7 +2,6 @@
 import React from 'react';
 import { Col, Row } from 'react-bootstrap';
 import Btn from 'app/atoms/Btn';
-import noop from 'lodash/fp/noop';
 import cn from 'classnames';
 import './community-group-edit-header.scss';
 
@@ -11,32 +10,20 @@ type TGroupOverviewHeader = {
   title: string,
   canEditGroup: boolean,
   membersCount: number | string,
+  onInviteClick: Function,
 };
 
 const CommunityGroupEditHeader = (props: TGroupOverviewHeader) => {
-  const { isMobile, title, canEditGroup, membersCount } = props;
-  const width = canEditGroup ? 6 : 12;
+  const { isMobile, title, membersCount, onInviteClick } = props;
   return (
     <header className="details i-box-white ">
       <div className="i-root">
         <Row noGutters>
-          <Col lg={width} md={width} sm={width}>
+          <Col lg={12} md={12} sm={12}>
             <h1 className="h-1 h-1-low h-1-lowercase details-head">
               <span>{title}</span>
             </h1>
           </Col>
-          {canEditGroup && (
-            <Col
-              lg={6}
-              md={6}
-              sm={6}
-              className="flex-row justify-content-end align-items-center"
-            >
-              <Btn onClick={noop} mod="circle">
-                <i className="fa fa-pencil" />
-              </Btn>
-            </Col>
-          )}
         </Row>
         <hr className="hr" />
         <Row noGutters className="details-box">
@@ -58,7 +45,7 @@ const CommunityGroupEditHeader = (props: TGroupOverviewHeader) => {
                 isMobile ? 'start' : 'end'
               }`}
             >
-              <Btn onClick={props.onInviteClick}>
+              <Btn onClick={onInviteClick}>
                 Invite
                 <i className="fa fa-plus" />
               </Btn>

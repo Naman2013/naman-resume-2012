@@ -177,7 +177,10 @@ class CommunityGroupEdit extends Component {
                         Your Students
                       </h2>
                       <p className="community-group-edit-hero-unit">
-                        {membersCount}
+                        {groupInformation &&
+                          groupInformation.customerLinksData &&
+                          groupInformation.customerLinksData
+                            .sectionHeading_LicenseInfo}
                       </p>
                     </div>
                   </Col>
