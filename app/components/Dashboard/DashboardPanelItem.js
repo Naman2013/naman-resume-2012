@@ -37,6 +37,13 @@ const PanelItem = ({
             min-height: 400px;
             margin-top: 120px;
           }
+
+          .dash-item:nth-child(2) {
+            margin-top: -170px;
+            padding-top: 230px;
+            background-color: #f8f8f8;
+          }
+
           .outer-well {
             max-width: 1180px;
             margin: 0 auto;
