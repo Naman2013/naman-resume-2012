@@ -5,7 +5,6 @@ export default css.global`
   .slick-prev, .slick-next {
     width: 50px;
     height: 50px;
-    /* margin: 0 15px; */
     transform: translate(0, -50%);
     cursor: pointer;
     color: ${romance};
@@ -61,19 +60,10 @@ export default css.global`
     transform: rotate(180deg);
   }
 
-  /* .dash-item-first .slick-prev, .dash-item-first .slick-next {
-    border: solid 2px #FAD59A;
-  } */
   .dash-item-first .slick-prev:before {
     background: url('https://vega.slooh.com/assets/v4/common/slider_arrow_white.svg') 0 0 no-repeat;
   }
   .dash-item-first .slick-next:before {
     background: url('https://vega.slooh.com/assets/v4/common/slider_arrow_white.svg') 0 0 no-repeat;
   }
-
-  .slick-slide {
-    /* box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.2);
-  margin: 3px 10px; */
-  }
-
 `;

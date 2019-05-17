@@ -31,11 +31,11 @@ const RecommendedObjects = ({ recommendedQuestsList = [] }) => {
       <style jsx>{`
         .root {
           margin: 0 auto;
-          max-width: 620px;
+          max-width: 644px;
         }
-        @media only screen and (min-width: 1100px) {
+        @media only screen and (min-width: 1200px) {
           .root {
-            max-width: 940px;
+            max-width: 965px;
           }
         }
       `}</style>
