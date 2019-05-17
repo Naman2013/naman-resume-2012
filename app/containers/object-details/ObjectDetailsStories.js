@@ -1,11 +1,11 @@
 /***********************************
-* V4 Object Details : Stories
-*   Markdown support on elements????
-*   UTF-8 support....
-*   Multi-National Languages.....
-***********************************/
+ * V4 Object Details : Stories
+ *   Markdown support on elements????
+ *   UTF-8 support....
+ *   Multi-National Languages.....
+ ***********************************/
 
-import React, { Component, Fragment} from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { intlShape, injectIntl, FormattedMessage } from 'react-intl';
@@ -25,8 +25,12 @@ import {
 } from 'app/modules/object-details/actions';
 import messages from './ObjectDetails.messages';
 
-
-const mapStateToProps = ({ objectDetails, objectPostList, appConfig, user }) => ({
+const mapStateToProps = ({
+  objectDetails,
+  objectPostList,
+  appConfig,
+  user,
+}) => ({
   objectDetails: objectDetails.objectDetails,
   objectData: objectDetails.objectData,
   slugLookupId: objectDetails.objectData.slugLookupId,
@@ -35,26 +39,26 @@ const mapStateToProps = ({ objectDetails, objectPostList, appConfig, user }) => 
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({
-    fetchObjectDetailsAction,
-    fetchObjectDataAction,
-  }, dispatch),
+  actions: bindActionCreators(
+    {
+      fetchObjectDetailsAction,
+      fetchObjectDataAction,
+    },
+    dispatch
+  ),
 });
 
-@connect(mapStateToProps, mapDispatchToProps)
-
+@connect(
+  mapStateToProps,
+  mapDispatchToProps
+)
 class Stories extends Component {
-
-
   render() {
     const {
-      params: {
-        objectId,
-      },
+      params: { objectId },
       objectDetails,
       slugLookupId,
-      actions: {
-      },
+      actions: {},
       intl,
     } = this.props;
 
@@ -66,7 +70,10 @@ class Stories extends Component {
     return (
       <Fragment>
         <DeviceProvider>
-          <ObjectDetailsSectionTitle title={objectDetails.objectTitle + "'s"} subTitle={intl.formatMessage(messages.RelatedStories)} />
+          <ObjectDetailsSectionTitle
+            title={objectDetails.objectTitle + "'s"}
+            subTitle={intl.formatMessage(messages.RelatedStories)}
+          />
         </DeviceProvider>
         <CenterColumn widths={['645px', '965px', '965px']}>
           <Request
@@ -77,19 +84,19 @@ class Stories extends Component {
             requestBody={{
               objectId,
             }}
-            render={({
-              fetchingContent,
-              serviceResponse,
-            }) => (
+            render={({ fetchingContent, serviceResponse }) => (
               <div className="root">
-                {serviceResponse.relatedStoriesCount > 0 && has(serviceResponse, 'relatedStoriesList') ? serviceResponse.relatedStoriesList.map(story => (
-                  <StoryTile
-                    iconURL={story.iconUrl}
-                    title={story.title}
-                    author={story.author}
-                    linkUrl={story.linkUrl}
-                  />
-                )) : (
+                {serviceResponse.relatedStoriesCount > 0 &&
+                has(serviceResponse, 'relatedStoriesList') ? (
+                  serviceResponse.relatedStoriesList.map(story => (
+                    <StoryTile
+                      iconURL={story.iconUrl}
+                      title={story.title}
+                      author={story.author}
+                      linkUrl={story.linkUrl}
+                    />
+                  ))
+                ) : (
                   <p>
                     <FormattedMessage
                       {...messages.NoStories}
@@ -108,7 +115,7 @@ class Stories extends Component {
           }
         `}</style>
       </Fragment>
-    )
+    );
   }
 }
 

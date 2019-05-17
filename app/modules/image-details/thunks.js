@@ -7,6 +7,7 @@ import {
   getImageDetailsApi,
   getTagsApi,
   setTagApi,
+  setObservationTagsApi,
 } from 'app/modules/image-details/api';
 import { ACTION } from './reducer';
 
@@ -112,4 +113,25 @@ export const createGallery = title => (dispatch, getState) => {
   })
     .then(result => dispatch(ACTION.createGallerySuccess(result.data)))
     .catch(error => dispatch(ACTION.createGalleryError(error)));
+};
+
+export const setObservationTags = (
+  customerImageId,
+  scheduledMissionId,
+  title,
+  text
+) => (dispatch, getState) => {
+  const { at, token, cid } = getState().user;
+  dispatch(ACTION.setObservationTags());
+  return setObservationTagsApi({
+    at,
+    token,
+    cid,
+    customerImageId,
+    scheduledMissionId,
+    title,
+    text,
+  })
+    .then(result => dispatch(ACTION.setObservationTagsSuccess(result.data)))
+    .catch(error => dispatch(ACTION.setServerError(error)));
 };

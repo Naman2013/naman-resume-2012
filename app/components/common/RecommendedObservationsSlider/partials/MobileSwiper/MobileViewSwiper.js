@@ -8,10 +8,7 @@ import SwiperItem from './SwiperItem';
 import styles from './MobileViewSwiper.style';
 import messages from './MobileViewSwiper.messages';
 
-const {
-  arrayOf,
-  shape,
-} = PropTypes;
+const { arrayOf, shape } = PropTypes;
 
 const emptyState = {
   title: '',
@@ -34,7 +31,14 @@ class MobileViewSwiper extends Component {
     currentIndex: 0,
   };
 
-  setObservationInfo = ({ title, author, description, commentsCount, likesCount, error }) => {
+  setObservationInfo = ({
+    title,
+    author,
+    description,
+    commentsCount,
+    likesCount,
+    error,
+  }) => {
     this.setState({
       title,
       author,
@@ -44,13 +48,13 @@ class MobileViewSwiper extends Component {
       error,
       loading: false,
     });
-  }
+  };
 
   purgeState = () => this.setState({ ...emptyState });
 
   handleSlideChange = (old, nextSlideIndex) => {
     this.setState({ currentIndex: Math.max(0, nextSlideIndex) });
-  }
+  };
 
   render() {
     const { imagesList } = this.props;
@@ -71,19 +75,22 @@ class MobileViewSwiper extends Component {
           <div className="top">
             <div className="title">{title}</div>
             <div className="author">{author}</div>
-            <div className="description" dangerouslySetInnerHTML={{ __html: description }} />
+            <div
+              className="description"
+              dangerouslySetInnerHTML={{ __html: description }}
+            />
           </div>
         ) : (
-          <div className="top">{!error
-            ? `${<FormattedMessage {...messages.Loading} />}...`
-            : <FormattedMessage {...messages.ErrorWhileLoading} />}
+          <div className="top">
+            {!error ? (
+              `${<FormattedMessage {...messages.Loading} />}...`
+            ) : (
+              <FormattedMessage {...messages.ErrorWhileLoading} />
+            )}
           </div>
         )}
         <div className="swiper-container">
-          <Swiper
-            {...sliderConfig}
-            beforeChange={this.handleSlideChange}
-          >
+          <Swiper {...sliderConfig} beforeChange={this.handleSlideChange}>
             {imagesList.map(image => (
               <SwiperItem
                 key={image.imageTimestamp}
@@ -97,11 +104,28 @@ class MobileViewSwiper extends Component {
         </div>
         <div className="bottom">
           <div className="buttons">
-            <div className="button"><img className="icon" src="https://vega.slooh.com/assets/v4/common/heart.svg" alt="heart" />{likesCount}</div>
-            <div className="button"><img className="icon" src="https://vega.slooh.com/assets/v4/common/comment.svg" alt="comment" />{commentsCount}</div>
+            <div className="button">
+              <img
+                className="icon"
+                src="https://vega.slooh.com/assets/v4/common/heart.svg"
+                alt="heart"
+              />
+              {likesCount}
+            </div>
+            <div className="button">
+              <img
+                className="icon"
+                src="https://vega.slooh.com/assets/v4/common/comment.svg"
+                alt="comment"
+              />
+              {commentsCount}
+            </div>
             <div className="button details">
               <FormattedMessage {...messages.Details} />
-              <img src="https://vega.slooh.com/assets/v4/icons/horz_arrow_right_astronaut.svg" alt="arrow-right" />
+              <img
+                src="https://vega.slooh.com/assets/v4/icons/horz_arrow_right_astronaut.svg"
+                alt="arrow-right"
+              />
             </div>
           </div>
         </div>

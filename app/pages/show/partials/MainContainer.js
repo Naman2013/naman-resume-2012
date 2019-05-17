@@ -1,9 +1,9 @@
 /***********************************
-* V4 Shows Main Container
-* This will show the video on desktop
-* on tablet and mobile, it will hold the content
-* associated with the three tabbed nav.
-***********************************/
+ * V4 Shows Main Container
+ * This will show the video on desktop
+ * on tablet and mobile, it will hold the content
+ * associated with the three tabbed nav.
+ ***********************************/
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
@@ -46,11 +46,7 @@ class LiveShowMainContent extends Component {
     content: '',
   };
 
-  state = {
-
-  }
-
-
+  state = {};
 
   render() {
     const {
@@ -63,29 +59,28 @@ class LiveShowMainContent extends Component {
       showLiveChatURL,
     } = this.props;
 
-    const {
-
-    } = this.state;
+    const {} = this.state;
 
     return (
       <div className="root">
         {isDesktop ? (
           <div>
-            <BigBoxInfoContainer {...this.props} headerLabel={this.props.headerLabel} />
-            <br/>
-            <iframe frameBorder="0" style={{width: '100%', minHeight: '575px'}} src={showLiveChatURL}></iframe>
+            <BigBoxInfoContainer
+              {...this.props}
+              headerLabel={this.props.headerLabel}
+            />
+            <br />
+            <iframe
+              frameBorder="0"
+              style={{ width: '100%', minHeight: '575px' }}
+              src={showLiveChatURL}
+            />
           </div>
         ) : (
           <div>
-            {aboutIsActive ?
-              <AboutTab {...this.props} /> :
-            null}
-            {commentsIsActive ?
-              <CommentsTab {...this.props} /> :
-            null}
-            {detailsIsActive ?
-              <DetailsTab {...this.props} /> :
-            null}
+            {aboutIsActive ? <AboutTab {...this.props} /> : null}
+            {commentsIsActive ? <CommentsTab {...this.props} /> : null}
+            {detailsIsActive ? <DetailsTab {...this.props} /> : null}
           </div>
         )}
         <style jsx>{styles}</style>

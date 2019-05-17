@@ -6,8 +6,6 @@ import { likeReply } from '../../../services/discussions/like';
 import messages from './answer-list-item.messages';
 import AnswerReplyList from './answer-reply-list';
 
-import style from './AnswerListItem.style';
-
 const AnswerListItem = props => {
   const {
     answer,
@@ -82,7 +80,6 @@ const AnswerListItem = props => {
         )}
       />
       {fetchingReplies && <div className="fa fa-spinner loader" />}
-      <style jsx>{style}</style>
     </div>
   );
 };

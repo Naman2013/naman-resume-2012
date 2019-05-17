@@ -12,13 +12,7 @@ import UserStats from './user-stats';
 import { profilePhotoStyle } from '../../styles/mixins/utilities';
 import { white, black, pink, lightBlack } from '../../styles/variables/colors';
 
-
-const {
-  string,
-  number,
-  shape,
-  bool,
-} = PropTypes;
+const { string, number, shape, bool } = PropTypes;
 
 const HeroAboutYou = ({
   // adHeight,
@@ -32,38 +26,46 @@ const HeroAboutYou = ({
   showAdFlag,
   showEditLinkFlag,
   enhancedUserStats,
-}) => (<div className="hero-about-you">
+}) => (
+  <div className="hero-about-you">
     <div className="info">
       <div className="user">
         <div className="avatar" style={profilePhotoStyle(avatarURL)} />
         <div className="user-info">
-          <h2 className="name" dangerouslySetInnerHTML={{ __html: displayName }} />
+          <h2
+            className="name"
+            dangerouslySetInnerHTML={{ __html: displayName }}
+          />
           <div>
             <h4 className="membership">
               <span
                 className={classnames({ membershipType: showEditLinkFlag })}
                 dangerouslySetInnerHTML={{ __html: membershipType }}
               />
-              { showEditLinkFlag && <Link to={`${editLinkURL}`}>
-                <span className="about-you-link" dangerouslySetInnerHTML={{ __html: editLinkLabel }} />
-              </Link>}
+              {showEditLinkFlag && (
+                <Link to={`${editLinkURL}`}>
+                  <span
+                    className="about-you-link"
+                    dangerouslySetInnerHTML={{ __html: editLinkLabel }}
+                  />
+                </Link>
+              )}
             </h4>
-
           </div>
         </div>
       </div>
-      <UserStats
-        enhancedUserStats={enhancedUserStats}
-      />
+      <UserStats enhancedUserStats={enhancedUserStats} />
     </div>
-    {showAdFlag && <div className="ad">
-      <GoogleAd
-        adURL={'/5626790/Recommends'}
-        adWidth={300}
-        adHeight={250}
-        targetDivID={'div-gpt-ad-1495111021281-0'}
-      />
-    </div>}
+    {showAdFlag && (
+      <div className="ad">
+        <GoogleAd
+          adURL={'/5626790/Recommends'}
+          adWidth={300}
+          adHeight={250}
+          targetDivID={'div-gpt-ad-1495111021281-0'}
+        />
+      </div>
+    )}
     <style jsx>{`
       .hero-about-you {
         display: flex;
@@ -109,7 +111,8 @@ const HeroAboutYou = ({
         padding-right: 15px;
       }
 
-      :global(a .about-you-link), :global(a:visited .about-you-link) {
+      :global(a .about-you-link),
+      :global(a:visited .about-you-link) {
         margin-left: 10px;
         color: ${white};
       }
@@ -129,25 +132,36 @@ const HeroAboutYou = ({
         flex: 1;
       }
 
-      
-
-      @media(max-width:768px){
-
-            .ad{margin-top:20px; max-width:100%}
-            .ad .root {overflow:hidden}
-            h2.name{font-size:20px;}
-            h4.membership{font-size:14px}
+      @media (max-width: 768px) {
+        .ad {
+          margin-top: 20px;
+          max-width: 100%;
+        }
+        .ad .root {
+          overflow: hidden;
+        }
+        h2.name {
+          font-size: 20px;
+        }
+        h4.membership {
+          font-size: 14px;
+        }
       }
-      @media(max-width:767px){
-        .hero-about-you{padding:10px}
+      @media (max-width: 767px) {
+        .hero-about-you {
+          padding: 10px;
+        }
       }
-      @media(max-width:640px){
-
-        .info, .ad{display:block; max-width:100%}
-
+      @media (max-width: 640px) {
+        .info,
+        .ad {
+          display: block;
+          max-width: 100%;
+        }
       }
     `}</style>
-  </div>);
+  </div>
+);
 
 HeroAboutYou.propTypes = {
   adHeight: number,

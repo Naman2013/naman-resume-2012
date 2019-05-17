@@ -4,14 +4,25 @@ import PropTypes from 'prop-types';
 import style from './QuestHubTileBig.style';
 
 const QuestHubTileBig = ({
-  linkUrl, questType, questDifficulty, iconURL, title, anchorText,
+  linkUrl,
+  questType,
+  questDifficulty,
+  iconURL,
+  title,
+  anchorText,
 }) => (
   <div className="root">
     <Link to={linkUrl}>
       <div className="container">
         <div className="blue-shield" />
         <div className="icon-container">
-          <img className="icon-content" alt="" width="40" height="40" src={iconURL} />
+          <img
+            className="icon-content"
+            alt=""
+            width="40"
+            height="40"
+            src={iconURL}
+          />
         </div>
         <h5 className="title">{title}</h5>
       </div>

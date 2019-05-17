@@ -9,11 +9,10 @@ export const SHOW = 'show';
 export const STORY = 'story';
 export const GUIDE = 'guide';
 
-export function toggleReadingListState({
-  readingListType,
-  listItemId,
-}) {
-  const { user: { at, cid, token } } = store.getState();
+export function toggleReadingListState({ readingListType, listItemId }) {
+  const {
+    user: { at, cid, token },
+  } = store.getState();
   return axios.post(TOGGLE_READING_LIST_URL, {
     cid,
     at,

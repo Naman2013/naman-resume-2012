@@ -1,32 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import cx from 'classnames';
 import styles from './PhotoUploadButton.style';
 
-const {
-  func,
-  number,
-  oneOfType,
-  string,
-} = PropTypes;
+const { func, number, oneOfType, string } = PropTypes;
 
-const PhotoUploadButton = ({
-  text,
-  icon,
-  handleUploadImage,
-}) => (
-  <div className="button-input-container">
+const PhotoUploadButton = ({ handleUploadImage, disabled }) => (
+  <div className={cx('button-input-container', { disabled })}>
     <label htmlFor="file-upload">
-      <div
-        className="button-container"
-      >
-        <div className="button-inner-container">
-          <span className="button-text fa fa-image" />
-          <div className="button-text">
-            <span className="fa fa-plus" />
-            <span className="text" dangerouslySetInnerHTML={{ __html: text }} />
-          </div>
-        </div>
-      </div>
+      <span className="icon-clip" />
     </label>
     <input
       id="file-upload"

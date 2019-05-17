@@ -101,7 +101,16 @@ class LiveShow extends Component {
     } = this.state;
 
     const headerLabel = intl.formatMessage(messages.AiringNow);
-    const showLiveChatURL = window.location.protocol + '//' + window.location.host + '/getHostedShowChat.php?show_id=' + this.props.showId + '&customer_uuid=' + user.customerUUID + "&customer_token=" + user.token;
+    const showLiveChatURL =
+      window.location.protocol +
+      '//' +
+      window.location.host +
+      '/getHostedShowChat.php?show_id=' +
+      this.props.showId +
+      '&customer_uuid=' +
+      user.customerUUID +
+      '&customer_token=' +
+      user.token;
 
     return (
       <div className="root live-show">

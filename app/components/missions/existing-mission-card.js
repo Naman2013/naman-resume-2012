@@ -23,12 +23,15 @@ import { resetMissionAvailability } from '../../modules/Piggyback';
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators({
-      getNextPiggybackSingle,
-      missionGetCards,
-      resetMissionAvailability,
-      updatePiggyback,
-    }, dispatch),
+    actions: bindActionCreators(
+      {
+        getNextPiggybackSingle,
+        missionGetCards,
+        resetMissionAvailability,
+        updatePiggyback,
+      },
+      dispatch
+    ),
   };
 }
 
@@ -38,9 +41,11 @@ function mapStateToProps({ piggyback }, ownProps) {
   };
 }
 
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(
+  mapStateToProps,
+  mapDispatchToProps
+)
 class ExistingMissionCard extends Component {
-
   constructor(props) {
     super(props);
 
@@ -70,7 +75,7 @@ class ExistingMissionCard extends Component {
   update() {
     const { uniqueId, objectId } = this.props.piggyback;
     const { updatePiggyback } = this.props.actions;
-    updatePiggyback({uniqueId, objectId});
+    updatePiggyback({ uniqueId, objectId });
   }
 
   handleGrabPiggybackResponse(result) {
@@ -111,15 +116,24 @@ class ExistingMissionCard extends Component {
 
     const formattedUTCDate = new Date(piggyback.missionStart * 1000);
 
-    const EST_start = moment.tz(formattedUTCDate, 'America/New_York').format('dddd, MMMM Do');
-    const EST_start_time = moment.tz(formattedUTCDate, 'America/New_York').format('h:mma z');
-    const PST_start_time = moment.tz(formattedUTCDate, 'America/Los_Angeles').format('h:mma z');
+    const EST_start = moment
+      .tz(formattedUTCDate, 'America/New_York')
+      .format('dddd, MMMM Do');
+    const EST_start_time = moment
+      .tz(formattedUTCDate, 'America/New_York')
+      .format('h:mma z');
+    const PST_start_time = moment
+      .tz(formattedUTCDate, 'America/Los_Angeles')
+      .format('h:mma z');
     const UTC_start_time = moment.utc(formattedUTCDate).format('HH:mm z');
 
     return (
       <p className="start-time">
         <strong>{EST_start}</strong>
-        {!featured ? <br /> : null} {EST_start_time} <span className="highlight">&middot;</span> {PST_start_time} <span className="highlight">&middot;</span> {UTC_start_time} <span className={styles.telescopePierName}>{telescopePierName}</span>
+        {!featured ? <br /> : null} {EST_start_time}{' '}
+        <span className="highlight">&middot;</span> {PST_start_time}{' '}
+        <span className="highlight">&middot;</span> {UTC_start_time}{' '}
+        <span className={styles.telescopePierName}>{telescopePierName}</span>
       </p>
     );
   }
@@ -127,10 +141,13 @@ class ExistingMissionCard extends Component {
   determineMissionStatusMessage() {
     const { piggyback } = this.props;
 
-    if(piggyback.userHasReservation) {
-      return(
+    if (piggyback.userHasReservation) {
+      return (
         <div>
-          <h5 className="mission-status">You have an upcoming { piggyback.userReservationType } reservation scheduled for</h5>
+          <h5 className="mission-status">
+            You have an upcoming {piggyback.userReservationType} reservation
+            scheduled for
+          </h5>
           <div className="join-mission-callout">
             {this.userHasReservation()}
           </div>
@@ -141,10 +158,10 @@ class ExistingMissionCard extends Component {
     if (piggyback.missionAvailable) {
       return (
         <div>
-          <h5 className="mission-status">Join an <i>existing</i> mission</h5>
-          <div className="join-mission-callout">
-            {this.missionAvailable()}
-          </div>
+          <h5 className="mission-status">
+            Join an <i>existing</i> mission
+          </h5>
+          <div className="join-mission-callout">{this.missionAvailable()}</div>
         </div>
       );
     }
@@ -183,7 +200,7 @@ class ExistingMissionCard extends Component {
   missionAvailable() {
     return (
       <div className="mission-available">
-        { this.startMissionTime() }
+        {this.startMissionTime()}
         <a
           data-tip={APP_DEFAULTS.PIGGYBACK_SHORT_DESCRIPTION}
           className={styles.piggybackCta}
@@ -197,11 +214,7 @@ class ExistingMissionCard extends Component {
   }
 
   userHasReservation() {
-    return (
-      <div className="mission-available">
-        {this.startMissionTime()}
-      </div>
-    );
+    return <div className="mission-available">{this.startMissionTime()}</div>;
   }
 
   handleCloseErrorModal() {
@@ -233,33 +246,41 @@ class ExistingMissionCard extends Component {
     return (
       <div className={existingMissionCardClassnames}>
         <div className="card-content-container">
-          {
-            featured ?
-              <span className="callOut"><span className="first-word">Don&apos;t</span> Miss</span> : null
-          }
+          {featured ? (
+            <span className="callOut">
+              <span className="first-word">Don&apos;t</span> Miss
+            </span>
+          ) : null}
 
           <h2>{card.headline}</h2>
 
           <div className={styles.cardsubTitle}>
-            {
-              featured ?
-                <img alt="Mission icon" className={styles.cardIcon} src={card.objectIconURL} /> :
-                <img alt="Mission icon" height="50" className={styles.cardIcon} src={card.objectIconURL} />
-            }
+            {featured ? (
+              <img
+                alt="Mission icon"
+                className={styles.cardIcon}
+                src={card.objectIconURL}
+              />
+            ) : (
+              <img
+                alt="Mission icon"
+                height="50"
+                className={styles.cardIcon}
+                src={card.objectIconURL}
+              />
+            )}
             <h3>{card.title}</h3>
           </div>
 
-          {
-            featured ?
-              <p className={styles.cardDescription}>{card.description}</p>
-              :
-              <p className={styles.cardDescription}>{truncate(card.description, { length: 130, separator: ' ' })}</p>
-          }
+          {featured ? (
+            <p className={styles.cardDescription}>{card.description}</p>
+          ) : (
+            <p className={styles.cardDescription}>
+              {truncate(card.description, { length: 130, separator: ' ' })}
+            </p>
+          )}
 
-          {
-            this.determineMissionStatusMessage()
-          }
-
+          {this.determineMissionStatusMessage()}
         </div>
 
         <ModalGeneric
@@ -275,7 +296,6 @@ class ExistingMissionCard extends Component {
           title="Oops..."
           description={'The mission you requested is no longer available.'}
         />
-
       </div>
     );
   }

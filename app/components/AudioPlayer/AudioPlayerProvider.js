@@ -4,15 +4,21 @@ import { bindActionCreators } from 'redux';
 import noop from 'lodash/noop';
 import PropTypes from 'prop-types';
 import AudioPlayer from './AudioPlayer';
-import { mutePlayer, unmutePlayer, updatePlayerVolume } from '../../modules/User';
+import {
+  mutePlayer,
+  unmutePlayer,
+  updatePlayerVolume,
+} from '../../modules/User';
 
-const mapDispatchToProps = dispatch => (
-  bindActionCreators({
-    mutePlayer,
-    unmutePlayer,
-    updatePlayerVolume,
-  }, dispatch)
-);
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      mutePlayer,
+      unmutePlayer,
+      updatePlayerVolume,
+    },
+    dispatch
+  );
 
 const mapStateToProps = ({ audioPlayer, user }) => ({
   ...audioPlayer,
@@ -20,7 +26,10 @@ const mapStateToProps = ({ audioPlayer, user }) => ({
   playerMuted: user.playerMuted,
 });
 
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(
+  mapStateToProps,
+  mapDispatchToProps
+)
 class AudioPlayerProvider extends Component {
   static propTypes = Object.assign(
     {
@@ -29,7 +38,7 @@ class AudioPlayerProvider extends Component {
       unmutePlayer: PropTypes.func,
       updatePlayerVolume: PropTypes.func,
     },
-    AudioPlayer.propTypes,
+    AudioPlayer.propTypes
   );
 
   static defaultProps = Object.assign(AudioPlayer.defaultProps, {
@@ -39,7 +48,11 @@ class AudioPlayerProvider extends Component {
   });
 
   render() {
-    return <div className="root">{cloneElement(this.props.children, { ...this.props })}</div>;
+    return (
+      <div className="root">
+        {cloneElement(this.props.children, { ...this.props })}
+      </div>
+    );
   }
 }
 

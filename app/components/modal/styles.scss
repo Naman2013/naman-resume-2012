@@ -6,10 +6,11 @@
 .modal-open .modal {
   background-color: rgba(#0a0c0e, 0.96);
 
-  .btn {
+  .btn.modal-btn {
     background-color: transparent;
     border-color: #fff;
     color: #fff;
+    margin-top: 30px;
   }
 }
 
@@ -69,6 +70,18 @@
     font-size: 19px;
     color: $romance;
   }
+
+  .modal-box {
+    padding: 40px;
+    background-color: $romance;
+    box-shadow: 0 0 6px 0 $shadows;
+
+    p {
+      font-family: $secondary-font;
+      font-size: 19px;
+      color: $lightHeadedAstronaut;
+    }
+  }
 }
 
 
@@ -89,7 +102,7 @@
       width: 100%;
     }
 
-    .btn {
+    .btn.modal-btn {
       border-color: $lightHeadedAstronaut;
       color: $lightHeadedAstronaut;
     }

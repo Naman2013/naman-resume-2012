@@ -8,7 +8,9 @@ const TitleButton = ({ text, linkURL }) => (
   <GenericButton
     text={text}
     icon={horizontalArrow}
-    onClickEvent={() => { window.open(linkURL); }}
+    onClickEvent={() => {
+      window.open(linkURL);
+    }}
   />
 );
 

@@ -2,7 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import uniqueId from 'lodash/uniqueId';
 import { intlShape, injectIntl } from 'react-intl';
-import { horizontalArrow, complete, incomplete } from 'app/styles/variables/iconURLs';
+import {
+  horizontalArrow,
+  complete,
+  incomplete,
+} from 'app/styles/variables/iconURLs';
 import style from './step-list-item.style';
 import messages from './step-list-item.messages';
 
@@ -37,7 +41,11 @@ const StepListItem = ({
       <div className="action-left">
         {stepStatusMsg}
         {stepCompleted ? (
-          <img className="check" src={complete} alt={intl.formatMessage(messages.CompletedIcon)} />
+          <img
+            className="check"
+            src={complete}
+            alt={intl.formatMessage(messages.CompletedIcon)}
+          />
         ) : (
           <img
             className="check"

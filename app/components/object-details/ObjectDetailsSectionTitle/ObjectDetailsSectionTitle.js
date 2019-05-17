@@ -2,12 +2,12 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import style from './SectionTitle.style';
 
-const ObjectDetailsSectionTitle = ( { title, subTitle, theme, renderNav } ) => (
+const ObjectDetailsSectionTitle = ({ title, subTitle, theme, renderNav }) => (
   <div className="title-bg" style={theme}>
     {title}
     <h1>{subTitle}</h1>
     {renderNav ? renderNav() : null}
-  <style jsx>{style}</style>
+    <style jsx>{style}</style>
   </div>
 );
 

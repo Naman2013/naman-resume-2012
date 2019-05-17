@@ -12,14 +12,20 @@ import { resetBrowseByPopularObjects } from '../../../modules/browse-popular-obj
 import styles from '../mission-modals.scss';
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({
-    missionGetCards,
-    refreshListings,
-    resetBrowseByPopularObjects,
-  }, dispatch),
+  actions: bindActionCreators(
+    {
+      missionGetCards,
+      refreshListings,
+      resetBrowseByPopularObjects,
+    },
+    dispatch
+  ),
 });
 
-@connect(null, mapDispatchToProps)
+@connect(
+  null,
+  mapDispatchToProps
+)
 class NewMissionReservationSuccess extends Component {
   static propTypes = {
     closeModal: PropTypes.func.isRequired,
@@ -28,9 +34,9 @@ class NewMissionReservationSuccess extends Component {
     objectIconURL: PropTypes.string.isRequired,
     telescopeName: PropTypes.string.isRequired,
     callSource: PropTypes.string.isRequired,
-  }
+  };
 
-  flushReservationProcess = (event) => {
+  flushReservationProcess = event => {
     event.preventDefault();
 
     // depending on the callsource, run the appropriate background actions
@@ -49,7 +55,7 @@ class NewMissionReservationSuccess extends Component {
     }
 
     this.props.closeModal();
-  }
+  };
 
   render() {
     const {
@@ -63,16 +69,24 @@ class NewMissionReservationSuccess extends Component {
 
     const formattedUTCDate = new Date(missionStartTime * 1000);
 
-    const EST_start = moment.tz(formattedUTCDate, 'America/New_York').format('dddd, MMMM Do');
-    const EST_start_time = moment.tz(formattedUTCDate, 'America/New_York').format('h:mma z');
-    const PST_start_time = moment.tz(formattedUTCDate, 'America/Los_Angeles').format('h:mma z');
+    const EST_start = moment
+      .tz(formattedUTCDate, 'America/New_York')
+      .format('dddd, MMMM Do');
+    const EST_start_time = moment
+      .tz(formattedUTCDate, 'America/New_York')
+      .format('h:mma z');
+    const PST_start_time = moment
+      .tz(formattedUTCDate, 'America/Los_Angeles')
+      .format('h:mma z');
     const UTC_start_time = moment.utc(formattedUTCDate).format('HH:mm z');
 
     return (
       <div>
         <div className="modal-header">
           <h1 className="title">Congratulations</h1>
-          <h2 className="title-secondary">We&#8217;ve scheduled your mission to:</h2>
+          <h2 className="title-secondary">
+            We&#8217;ve scheduled your mission to:
+          </h2>
           <img height="50" className={styles.cardIcon} src={objectIconURL} />
           <h2 className="mission-title">{missionTitle}</h2>
           <p className="tips-and-tricks">
@@ -84,8 +98,11 @@ class NewMissionReservationSuccess extends Component {
           <div className="mission-schedule">
             <h4>Mission Details:</h4>
             <p>
-              {EST_start}<br />
-              {EST_start_time} &middot; {PST_start_time} &middot; {UTC_start_time}<br />
+              {EST_start}
+              <br />
+              {EST_start_time} &middot; {PST_start_time} &middot;{' '}
+              {UTC_start_time}
+              <br />
               {telescopeName}
             </p>
           </div>
@@ -93,11 +110,15 @@ class NewMissionReservationSuccess extends Component {
 
         <div className="modal-footer">
           <div className="button-row">
-            <button className="btn-primary" onClick={this.flushReservationProcess}>Got It, Thanks.</button>
+            <button
+              className="btn-primary"
+              onClick={this.flushReservationProcess}
+            >
+              Got It, Thanks.
+            </button>
           </div>
 
-          {
-            /**
+          {/**
               deferred for a later build
               see guide: https://docs.google.com/document/d/1ev1CmnIPv2UlA-PnDePjD5-odzt0yAf-euRFlAq5P24/edit
 
@@ -112,8 +133,7 @@ class NewMissionReservationSuccess extends Component {
                   </ul>
                 </div>
               </div>
-              */
-          }
+              */}
         </div>
       </div>
     );

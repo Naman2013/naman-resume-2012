@@ -1,8 +1,8 @@
 /** ********************************************
-* V4 Join - Step 3 - Collect Payment Details
-********************************************** */
+ * V4 Join - Step 3 - Collect Payment Details
+ ********************************************** */
 
-import React, { Component , cloneElement, Fragment } from 'react';
+import React, { Component, cloneElement, Fragment } from 'react';
 import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
@@ -11,17 +11,23 @@ import Countdown from 'react-countdown-now';
 import { browserHistory } from 'react-router';
 import axios from 'axios';
 import { FormattedMessage } from 'react-intl';
-import { resetLogIn, logUserIn, logGoogleUserIn } from 'app/modules/login/actions';
+import {
+  resetLogIn,
+  logUserIn,
+  logGoogleUserIn,
+} from 'app/modules/login/actions';
 import Request from 'app/components/common/network/Request';
 import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
 import JoinHeader from './partials/JoinHeader';
-import { JOIN_ACTIVATE_PENDING_CUSTOMER_ENDPOINT_URL, JOIN_PAGE_ENDPOINT_URL } from 'app/services/registration/registration.js';
+import {
+  JOIN_ACTIVATE_PENDING_CUSTOMER_ENDPOINT_URL,
+  JOIN_PAGE_ENDPOINT_URL,
+} from 'app/services/registration/registration.js';
 import PlanDetailsCard from './partials/PlanDetailsCard';
 import { DEFAULT_JOIN_TABS } from './StaticNavTabs';
 
 import styles from './JoinStep3.style';
 import messages from './JoinStep3.messages';
-
 
 const propTypes = {
   actions: PropTypes.shape({
@@ -36,20 +42,26 @@ const mapStateToProps = ({ appConfig }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({
-    resetLogIn,
-    logUserIn,
-    logGoogleUserIn,
-  }, dispatch),
+  actions: bindActionCreators(
+    {
+      resetLogIn,
+      logUserIn,
+      logGoogleUserIn,
+    },
+    dispatch
+  ),
 });
 
-@connect(mapStateToProps, mapDispatchToProps)
-class JoinStep3 extends Component  {
+@connect(
+  mapStateToProps,
+  mapDispatchToProps
+)
+class JoinStep3 extends Component {
   static propTypes = propTypes;
 
   state = {
-    'paymentToken': '',
-    'redirectInXSecondsOnExpiredSignupRequest': 0,
+    paymentToken: '',
+    redirectInXSecondsOnExpiredSignupRequest: 0,
   };
 
   componentDidMount() {
@@ -62,30 +74,68 @@ class JoinStep3 extends Component  {
     actions.resetLogIn();
   }
 
-  handleIframeTask = (e) => {
+  handleIframeTask = e => {
     /* Verify there is data in this event) */
     if (e.data) {
       const paymentMessageData = e.data + '';
 
+      var paymentMethod = 'creditcard';
+      var paymentNonceTokenData = null;
+
       /* make sure the data message we received is an ECommerce Payment Token */
-      if (paymentMessageData.startsWith('__ECOMMERCE_PAYMENT_TOKEN__')) {
-        const paymentNonceTokenData = String.prototype.replace.call(paymentMessageData, '__ECOMMERCE_PAYMENT_TOKEN__', '');
-        this.setState( { 'paymentToken': paymentNonceTokenData });
+      if (paymentMessageData.startsWith('__ECOMMERCE_PAYMENT_TOKEN_')) {
+        //Check to see if the payment token is a credit card payment token or a paypal payment token
+        if (paymentMessageData.startsWith('__ECOMMERCE_PAYMENT_TOKEN_CREDITCARD__')) {
+          paymentNonceTokenData = String.prototype.replace.call(
+            paymentMessageData,
+            '__ECOMMERCE_PAYMENT_TOKEN_CREDITCARD__',
+            ''
+          );
+          paymentMethod = 'creditcard';
+        }
+        else if (paymentMessageData.startsWith('__ECOMMERCE_PAYMENT_TOKEN_PAYPAL__')) {
+          paymentNonceTokenData = String.prototype.replace.call(
+            paymentMessageData,
+            '__ECOMMERCE_PAYMENT_TOKEN_PAYPAL__',
+            ''
+          );
+
+          paymentMethod = 'paypal';
+        }
+
+        this.setState({ paymentMethod: paymentMethod });
+        this.setState({ paymentToken: paymentNonceTokenData });
         //console.log('Payment Token!! ' + paymentNonceTokenData);
 
         /* Process the Customer's Activation and Sign the User into the website */
         const activatePendingCustomerData = {
+          paymentMethod: paymentMethod,
           paymentToken: paymentNonceTokenData,
           customerId: window.localStorage.getItem('pending_cid'),
           selectedSchoolId: window.localStorage.getItem('selectedSchoolId'),
-          isAstronomyClub: window.localStorage.getItem('isAstronomyClub') === "true" ? true : false,
-          isClassroom: window.localStorage.getItem('isClassroom') === "true" ? true : false,
+          isAstronomyClub:
+            window.localStorage.getItem('isAstronomyClub') === 'true'
+              ? true
+              : false,
+          isClassroom:
+            window.localStorage.getItem('isClassroom') === 'true'
+              ? true
+              : false,
           astronomyClubName: window.localStorage.getItem('astronomyClubName'),
-          isAstronomyClubForMembers18AndOver: window.localStorage.getItem('isAstronomyClubForMembers18AndOver')  === "true" ? true : false,
+          isAstronomyClubForMembers18AndOver:
+            window.localStorage.getItem(
+              'isAstronomyClubForMembers18AndOver'
+            ) === 'true'
+              ? true
+              : false,
         };
 
-        axios.post(JOIN_ACTIVATE_PENDING_CUSTOMER_ENDPOINT_URL, activatePendingCustomerData)
-          .then((response) => {
+        axios
+          .post(
+            JOIN_ACTIVATE_PENDING_CUSTOMER_ENDPOINT_URL,
+            activatePendingCustomerData
+          )
+          .then(response => {
             const res = response.data;
             if (!res.apiError) {
               if (res.status === 'success') {
@@ -98,12 +148,13 @@ class JoinStep3 extends Component  {
                 window.localStorage.removeItem('isAstronomyClub');
                 window.localStorage.removeItem('isClassroom');
                 window.localStorage.removeItem('astronomyClubName');
-                window.localStorage.removeItem('isAstronomyClubForMembers18AndOver');
+                window.localStorage.removeItem(
+                  'isAstronomyClubForMembers18AndOver'
+                );
 
                 // log the user in (userpass or googleaccount logins supported)
                 const { accountCreationType } = window.localStorage;
                 if (accountCreationType === 'userpass') {
-
                   const loginDataPayload = {
                     username: window.localStorage.username,
                     pwd: window.localStorage.password,
@@ -116,7 +167,6 @@ class JoinStep3 extends Component  {
 
                   actions.logUserIn(loginDataPayload);
                   browserHistory.push('/');
-
                 } else if (accountCreationType === 'googleaccount') {
                   const loginDataPayload = {
                     googleProfileId: window.localStorage.googleProfileId,
@@ -132,48 +182,56 @@ class JoinStep3 extends Component  {
               }
             }
           })
-          .catch((err) => {
+          .catch(err => {
             throw ('Error: ', err);
           });
       }
     }
-  }
+  };
 
   /* Obtain access to the join api service response and update the  redirectInX Seconds state */
-  handleJoinPageServiceResponse = (result) => {
-      /* update the account form details state so the correct hinText will show on each form field */
-      this.setState(() => ({
-        redirectInXSecondsOnExpiredSignupRequest: result.redirectInXSecondsOnExpiredSignupRequest,
-      }));
-  }
+  handleJoinPageServiceResponse = result => {
+    /* update the account form details state so the correct hinText will show on each form field */
+    this.setState(() => ({
+      redirectInXSecondsOnExpiredSignupRequest:
+        result.redirectInXSecondsOnExpiredSignupRequest,
+    }));
+  };
 
-  CountdownRenderer = ({
-    completed,
-    minutes,
-    seconds,
-  }) => {
+  CountdownRenderer = ({ completed, minutes, seconds }) => {
     if (completed) {
       // Render a completed state
       //console.log('The countdown has completed.....');
-      return <Countdown date={Date.now() + this.state.redirectInXSecondsOnExpiredSignupRequest} renderer={this.CountdownExpiredRenderer} onComplete={this.CountdownExpiredComplete}/>;
+      return (
+        <Countdown
+          date={
+            Date.now() + this.state.redirectInXSecondsOnExpiredSignupRequest
+          }
+          renderer={this.CountdownExpiredRenderer}
+          onComplete={this.CountdownExpiredComplete}
+        />
+      );
     }
     // Render a countdown
     return (
-      <p style={{'fontSize': '1.3em', 'color': 'green'}}>
-        <FormattedMessage {...messages.SignupRequestExpireTime} values={{ minutes: minutes, seconds: seconds }} />
+      <p style={{ fontSize: '1.3em', color: 'green' }}>
+        <FormattedMessage
+          {...messages.SignupRequestExpireTime}
+          values={{ minutes: minutes, seconds: seconds }}
+        />
       </p>
     );
   };
 
-  CountdownExpiredRenderer = ({
-    seconds,
-    completed,
-  }) => {
+  CountdownExpiredRenderer = ({ seconds, completed }) => {
     if (!completed) {
       // Render a countdown to redirect to the homepage
       return (
-        <p style={{'fontSize': '1.3em', 'fontWeight': 'bold', 'color': 'red'}}>
-          <FormattedMessage {...messages.SignupRequestExpireTime} values={{ seconds }} />
+        <p style={{ fontSize: '1.3em', fontWeight: 'bold', color: 'red' }}>
+          <FormattedMessage
+            {...messages.SignupRequestExpireTime}
+            values={{ seconds }}
+          />
         </p>
       );
     }
@@ -189,7 +247,7 @@ class JoinStep3 extends Component  {
     window.localStorage.removeItem('googleProfileId');
 
     browserHistory.push('/');
-  }
+  };
 
   render() {
     const { pathname } = this.props;
@@ -203,65 +261,72 @@ class JoinStep3 extends Component  {
           serviceURL={JOIN_PAGE_ENDPOINT_URL}
           requestBody={{ callSource: 'providePaymentDetails', selectedPlanId }}
           serviceResponseHandler={this.handleJoinPageServiceResponse}
-          render={({
-            fetchingContent,
-            serviceResponse: joinPageRes,
-          }) => (
+          render={({ fetchingContent, serviceResponse: joinPageRes }) => (
             <Fragment>
-              {
-                !fetchingContent &&
-                  <Fragment>
-                    {joinPageRes.hasSelectedSchool === "yes" ? (
-                      <JoinHeader
-                        mainHeading={joinPageRes.pageHeading1}
-                        subHeading={joinPageRes.pageHeading2}
-                        activeTab={pathname}
-                        tabs={CLASSROOM_JOIN_TABS}
+              {!fetchingContent && (
+                <Fragment>
+                  {joinPageRes.hasSelectedSchool === 'yes' ? (
+                    <JoinHeader
+                      mainHeading={joinPageRes.pageHeading1}
+                      subHeading={joinPageRes.pageHeading2}
+                      activeTab={pathname}
+                      tabs={CLASSROOM_JOIN_TABS}
+                    />
+                  ) : (
+                    <JoinHeader
+                      mainHeading={joinPageRes.pageHeading1}
+                      subHeading={joinPageRes.pageHeading2}
+                      activeTab={pathname}
+                      tabs={DEFAULT_JOIN_TABS}
+                    />
+                  )}
+                  <div className="step-root">
+                    <DisplayAtBreakpoint screenMedium screenLarge screenXLarge>
+                      <PlanDetailsCard
+                        {...joinPageRes.selectedSubscriptionPlan}
                       />
-                    ) : (
-                      <JoinHeader
-                        mainHeading={joinPageRes.pageHeading1}
-                        subHeading={joinPageRes.pageHeading2}
-                        activeTab={pathname}
-                        tabs={DEFAULT_JOIN_TABS}
-                      />
-                    )}
-                    <div className="step-root">
+                    </DisplayAtBreakpoint>
+                    <div className="section-heading">
+                      {joinPageRes.sectionHeading}
+                    </div>
+                    <Countdown
+                      date={
+                        Date.now() +
+                        joinPageRes.customerHasXSecondsToCompleteSignup
+                      }
+                      renderer={this.CountdownRenderer}
+                      onComplete={this.CountdownComplete}
+                    />
+                    <div className="inner-container">
                       <DisplayAtBreakpoint
                         screenMedium
                         screenLarge
                         screenXLarge
                       >
-                        <PlanDetailsCard {...joinPageRes.selectedSubscriptionPlan} />
+                        <iframe
+                          frameBorder="0"
+                          style={{ width: '100%', minHeight: '750px' }}
+                          src={joinPageRes.hostedPaymentFormURL}
+                        />
                       </DisplayAtBreakpoint>
-                      <div className="section-heading">{joinPageRes.sectionHeading}</div>
-                      <Countdown date={Date.now() + joinPageRes.customerHasXSecondsToCompleteSignup} renderer={this.CountdownRenderer} onComplete={this.CountdownComplete}/>
-                      <div className="inner-container">
-                        <DisplayAtBreakpoint
-                          screenMedium
-                          screenLarge
-                          screenXLarge
-                        >
-                          <iframe frameBorder="0" style={{width: '100%', minHeight: '750px'}} src={joinPageRes.hostedPaymentFormURL}></iframe>
-                        </DisplayAtBreakpoint>
 
-                        <DisplayAtBreakpoint
-                          screenSmall
-                        >
-                          <iframe frameBorder="0" style={{width: '100%', minHeight: '850px'}} src={joinPageRes.hostedPaymentFormURL}></iframe>
-                        </DisplayAtBreakpoint>
-
-
-                      </div>
+                      <DisplayAtBreakpoint screenSmall>
+                        <iframe
+                          frameBorder="0"
+                          style={{ width: '100%', minHeight: '850px' }}
+                          src={joinPageRes.hostedPaymentFormURL}
+                        />
+                      </DisplayAtBreakpoint>
                     </div>
-                  </Fragment>
-                }
+                  </div>
                 </Fragment>
               )}
-            />
+            </Fragment>
+          )}
+        />
         <style jsx>{styles}</style>
       </div>
-    )
+    );
   }
 }
 

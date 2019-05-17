@@ -13,7 +13,6 @@ import first from 'lodash/first';
 import moment from 'moment';
 import React, { Component } from 'react';
 
-
 export class TelescopeDetails extends Component {
   // dedicated timer for refreshing telescope status
   workingRefreshTimestamp = 0;
@@ -78,6 +77,10 @@ export class TelescopeDetails extends Component {
     if (this.props.activeDetailsSSE.astroObjectID > 0 && astroObjectID === 0) {
       resetObjectData();
     }
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this.refreshTelescopeStatusTimeout);
   }
 
   scaffoldRefreshInterval(expirationTimestamp = 0) {

@@ -3,15 +3,18 @@
  *  Mission tile on the /profile/private/photos/missions
  ***********************************/
 // @flow
-import React, { PureComponent } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import cn from 'classnames';
+import Modal from 'react-modal';
 import { browserHistory } from 'react-router';
 import { FormattedMessage } from 'react-intl';
 import Button from 'app/components/common/style/buttons/Button';
 import { downloadFile } from 'app/utils/downloadFile';
+import { customModalStylesFitDevice } from 'app/styles/mixins/utilities';
 import AsideToggleableMenu from '../AsideToggleableMenu';
 import messages from './MissionCard.messages';
 import style from './MissionCard.style';
+import './fitsData.scss';
 
 type TMissionCard = {
   isDesktop: boolean,
@@ -20,7 +23,13 @@ type TMissionCard = {
 };
 
 class MissionCard extends PureComponent<TMissionCard> {
-  state = { menuIsVisible: false, width: null };
+  state = {
+    menuIsVisible: false,
+    width: null,
+    showPrompt: false,
+    modalComponent: null,
+    modalStyles: customModalStylesFitDevice,
+  };
 
   optionsList = [
     { label: 'Add tags' },
@@ -39,19 +48,122 @@ class MissionCard extends PureComponent<TMissionCard> {
   };
 
   onOpenMission = () => {
-    const { scheduledMissionId } = this.props.currentItem;
+    const {
+      currentItem: { scheduledMissionId },
+    } = this.props;
     browserHistory.push(`/missions-details/${scheduledMissionId}`);
   };
 
-  onDownloadFile = () => {
+  onDownloadFitsData = () => {
+    const { currentItem, getFitsData } = this.props;
+    if (
+      currentItem.scheduledMissionId !==
+      this.props.fitsData.data.scheduledMissionId
+    ) {
+      getFitsData(currentItem.scheduledMissionId).then(() => {
+        const { fitsData } = this.props;
+        this.setModal(fitsData);
+      });
+    }
+    this.showModal();
+  };
+
+  onDownloadFile = (url, name) => downloadFile(url, name);
+
+  setModal = modalComponent => {
+    this.setState(state => ({
+      modalComponent: modalComponent || state.modalComponent,
+    }));
+  };
+
+  showModal = () => {
+    this.setState(() => ({
+      showPrompt: true,
+    }));
+  };
+
+  closeModal = () => {
+    this.setState(() => ({
+      showPrompt: false,
+    }));
+  };
+
+  renderModalComponent = data => {
     const {
-      currentItem: { imageURL },
-    } = this.props;
-    downloadFile(imageURL, 'my-photos-mission.png');
+      popupTitleText,
+      missionIconURL,
+      missionTitle,
+      missionObsName,
+      missionPierName,
+      missionDateTime,
+      ownerMembershipType,
+      takenByText,
+      ownerAvatarURL,
+      ownerFirstName,
+      ownerMemberSince,
+      groupList,
+      buttonText,
+    } = data;
+    const { closeModal, onDownloadFile } = this;
+    return (
+      <div className="fitsData">
+        <h2>{popupTitleText}</h2>
+        <h3>
+          <img src={missionIconURL} alt="" />
+          {missionTitle}
+        </h3>
+        <h3>{missionObsName}</h3>
+        <h3>{missionPierName}</h3>
+        <h3>{missionDateTime}</h3>
+        <h5>
+          <p>{takenByText}</p>
+          <img src={ownerAvatarURL} alt="" />
+          <p className="flex-column text-left">
+            <p>
+              <span>{ownerFirstName}</span> <span>{ownerMembershipType}</span>
+            </p>
+            <p>Member Since {ownerMemberSince}</p>
+          </p>
+        </h5>
+
+        {groupList &&
+          groupList.length &&
+          groupList.map(({ groupIndex, groupName, groupImageList }) => {
+            return (
+              <ul key={`${groupIndex}-${groupName}`}>
+                <h5>{groupName}</h5>
+                {groupImageList.map(({ imageId, imageTitle, imageURL }) => {
+                  return (
+                    <li key={`${imageId}-${imageTitle}`}>
+                      <span
+                        className="cursor-pointer"
+                        onClick={() => onDownloadFile(imageURL, imageTitle)}
+                      >
+                        {imageTitle}
+                      </span>
+                    </li>
+                  );
+                })}
+              </ul>
+            );
+          })}
+
+        <p className="top-bot-20">To download: Click on image</p>
+        <Button onClickEvent={closeModal} mod="auto">
+          {buttonText}
+        </Button>
+      </div>
+    );
   };
 
   render() {
-    const { index, isDesktop, isMobile, currentItem: mission } = this.props;
+    const {
+      index,
+      isDesktop,
+      isMobile,
+      fitsData,
+      currentItem: mission,
+    } = this.props;
     const inCenter = index % 3 === 1;
     const { menuIsVisible, width } = this.state;
     const {
@@ -63,6 +175,8 @@ class MissionCard extends PureComponent<TMissionCard> {
       fitsIsAvailable,
     } = mission;
     if (!mission) return null;
+    const { closeModal, renderModalComponent } = this;
+    const { showPrompt, modalStyles, modalComponent } = this.state;
 
     return (
       <div className={cn(['root', { inCenter: inCenter && isDesktop }])}>
@@ -81,7 +195,6 @@ class MissionCard extends PureComponent<TMissionCard> {
             toggleMenuVisibility={this.onToggleMenuVisibility}
             {...this.props}
           />
-          <div className="circle show-onhover" />
           <div className="card-top">
             <div className="mission-title" title={imageTitle}>
               {imageTitle}
@@ -102,16 +215,34 @@ class MissionCard extends PureComponent<TMissionCard> {
 
             <div className="onhover-field show-onhover">ULTRA-WIDE-FIELD</div>
             {fitsIsAvailable && (
-              <div className="onhover-field show-onhover flex-row justify-content-between">
-                <span>Contains fits data</span>
-                <Button
-                  mod="plain"
-                  onClickEvent={this.onDownloadFile}
-                  theme={{ borderColor: '#fff', color: '#fff' }}
+              <Fragment>
+                <div className="onhover-field show-onhover flex-row justify-content-between">
+                  <span>Contains fits data</span>
+                  <Button
+                    mod="plain"
+                    onClickEvent={this.onDownloadFitsData}
+                    theme={{ borderColor: '#fff', color: '#fff' }}
+                  >
+                    <i className="icon white icon-download" />
+                  </Button>
+                </div>
+
+                <Modal
+                  ariaHideApp={false}
+                  isOpen={showPrompt}
+                  style={modalStyles}
+                  contentLabel="Fits image download"
+                  onRequestClose={closeModal}
+                  shouldCloseOnOverlayClick
                 >
-                  <i className="icon white icon-download" />
-                </Button>
-              </div>
+                  {fitsData && fitsData.isFetching && !modalComponent && (
+                    <div className="text-center">Loading...</div>
+                  )}
+                  {modalComponent &&
+                    modalComponent.isLoaded &&
+                    renderModalComponent(modalComponent.data)}
+                </Modal>
+              </Fragment>
             )}
 
             <div className="mission-image-wrapper">
@@ -126,13 +257,6 @@ class MissionCard extends PureComponent<TMissionCard> {
               theme={{ borderColor: '#fff', color: '#fff' }}
               text="Open mission"
             />
-            <Button
-              mod="circular"
-              onClickEvent={this.onToggleMenuVisibility}
-              theme={{ borderColor: '#fff', color: '#fff', marginLeft: '10px' }}
-            >
-              <i className="icon icon-ellipsis-h" />
-            </Button>
           </div>
         </div>
         <style jsx>{style}</style>

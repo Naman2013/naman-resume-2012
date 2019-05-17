@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { AboutScope } from 'app/modules/telescope/components/about-scope-tab';
 import { StatusTab } from 'app/modules/telescope/components/status-tab';
+import QueueTab from 'app/modules/telescope/containers/telescope-queue-tab';
 import { Container, Nav, Tab } from 'react-bootstrap';
 import './styles.scss';
 
@@ -48,6 +49,7 @@ export default class TelescopeOffline extends Component {
       currentInstrument,
       allObservatoryTelescopeStatus,
     } = this.props;
+
     return (
       <div className="telescope-offline animated fadeIn faster">
         {/* HEADER */}
@@ -70,9 +72,7 @@ export default class TelescopeOffline extends Component {
                 <Nav.Link eventKey="STATUS">STATUS</Nav.Link>
               </Nav.Item>
               <Nav.Item>
-                <Nav.Link eventKey="QUEUE" disabled>
-                  QUEUE
-                </Nav.Link>
+                <Nav.Link eventKey="QUEUE">QUEUE</Nav.Link>
               </Nav.Item>
               <Nav.Item>
                 <Nav.Link eventKey="ABOUT_THIS_SCOPE">
@@ -96,6 +96,13 @@ export default class TelescopeOffline extends Component {
                 currentObservatory={currentObservatory}
               />
             </Tab.Pane>
+            <Tab.Pane eventKey="QUEUE">
+              <QueueTab 
+                showFeaturedObjects
+                currentTelescope={currentTelescope}
+                currentObservatory={currentObservatory}
+              />
+            </Tab.Pane>
             <Tab.Pane eventKey="ABOUT_THIS_SCOPE">
               <AboutScope
                 teleName={currentTelescope.teleName}
@@ -105,7 +112,9 @@ export default class TelescopeOffline extends Component {
                 instrAbout={currentInstrument.instrAbout}
                 instrTelescopeType={currentInstrument.instrTelescopeType}
                 instrRelatedGuideUrl={currentInstrument.instrRelatedGuideUrl}
-                instrTelescopeShortName={currentInstrument.instrTelescopeShortName}
+                instrTelescopeShortName={
+                  currentInstrument.instrTelescopeShortName
+                }
               />
             </Tab.Pane>
           </Tab.Content>

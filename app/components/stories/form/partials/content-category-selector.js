@@ -4,20 +4,22 @@ import MultipleChoiceItem from 'app/components/common/form-fields/multiple-choic
 import CircleCharacter from 'app/components/common/medallions/circle-character';
 import styles from './content-category-selector.style';
 
-const ContentCategorySelector = (props) => {
+const ContentCategorySelector = props => {
   const {
     selectedContentCategory,
     onSelectContentCategory,
     contentCategories,
     contentCategoriesDescText,
-  } = props
+  } = props;
   return (
     <div className="root">
       {contentCategories.map((cat, i) => (
         <MultipleChoiceItem
           halfWidth
           isActive={selectedContentCategory === cat.value}
-          renderIcon={() => <CircleCharacter size={35} character={cat.title[0]} />}
+          renderIcon={() => (
+            <CircleCharacter size={35} character={cat.title[0]} />
+          )}
           title={cat.title}
           onClickItem={onSelectContentCategory}
           value={cat.value}
@@ -26,17 +28,15 @@ const ContentCategorySelector = (props) => {
       ))}
       <style jsx>{styles}</style>
     </div>
-  )
-}
+  );
+};
 ContentCategorySelector.propTypes = {
-    onSelectContentCategory: PropTypes.func.isRequired,
-    contentCategories: PropTypes.arrayOf(PropTypes.shape({})),
-}
+  onSelectContentCategory: PropTypes.func.isRequired,
+  contentCategories: PropTypes.arrayOf(PropTypes.shape({})),
+};
 
 ContentCategorySelector.defaultProps = {
-    contentCategories: [],
-}
-
-
+  contentCategories: [],
+};
 
 export default ContentCategorySelector;

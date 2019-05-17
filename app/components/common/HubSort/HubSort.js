@@ -7,23 +7,18 @@ import Dots from 'atoms/icons/Dots';
 import { astronaut } from 'app/styles/variables/colors_tiles_v4';
 import style from './HubSort.style';
 
-const {
-  arrayOf,
-  func,
-  shape,
-  string,
-  number,
-  oneOfType,
-} = PropTypes;
+const { arrayOf, func, shape, string, number, oneOfType } = PropTypes;
 
 class HubSort extends Component {
   static propTypes = {
     defaultIndex: oneOfType([string, number]),
     handleSort: func.isRequired,
-    sortItems: arrayOf(shape({
-      label: string,
-      value: string,
-    })),
+    sortItems: arrayOf(
+      shape({
+        label: string,
+        value: string,
+      })
+    ),
   };
 
   static defaultProps = {
@@ -34,24 +29,27 @@ class HubSort extends Component {
   state = {
     activeIndex: this.props.defaultIndex,
     mobileDropdownIsShowing: false,
-  }
+  };
 
   selectSort = (e, selectedItem) => {
     if (e) e.preventDefault();
     const { handleSort, sortItems } = this.props;
     this.setState(() => ({
-      activeIndex: findIndex(sortItems, sorItem => sorItem.value === selectedItem.value),
+      activeIndex: findIndex(
+        sortItems,
+        sorItem => sorItem.value === selectedItem.value
+      ),
       mobileDropdownIsShowing: false,
     }));
 
     handleSort(selectedItem.value);
-  }
+  };
 
   toggleMobileDropdown = () => {
     this.setState(state => ({
       mobileDropdownIsShowing: !state.mobileDropdownIsShowing,
     }));
-  }
+  };
 
   render() {
     const { sortItems } = this.props;
@@ -59,11 +57,7 @@ class HubSort extends Component {
     return (
       <Fragment>
         <div className="root">
-          <DisplayAtBreakpoint
-            screenMedium
-            screenLarge
-            screenXLarge
-          >
+          <DisplayAtBreakpoint screenMedium screenLarge screenXLarge>
             <DropDown
               handleSelect={this.selectSort}
               selectedIndex={activeIndex}
@@ -72,22 +66,18 @@ class HubSort extends Component {
             />
           </DisplayAtBreakpoint>
 
-          <DisplayAtBreakpoint
-            screenSmall
-          >
+          <DisplayAtBreakpoint screenSmall>
             <div className="context-container">
-              {mobileDropdownIsShowing ? null : (<div
-                className="dots-container"
-                onClick={this.toggleMobileDropdown}
-              >
-                <Dots
-                  theme={{ circleColor: astronaut }}
-                />
-              </div>)}
-              {mobileDropdownIsShowing ?
+              {mobileDropdownIsShowing ? null : (
                 <div
-                  className="sort-dropdown-container"
+                  className="dots-container"
+                  onClick={this.toggleMobileDropdown}
                 >
+                  <Dots theme={{ circleColor: astronaut }} />
+                </div>
+              )}
+              {mobileDropdownIsShowing ? (
+                <div className="sort-dropdown-container">
                   <DropDown
                     handleSelect={this.selectSort}
                     selectedIndex={activeIndex}
@@ -95,16 +85,14 @@ class HubSort extends Component {
                     placeholder="Sort Options"
                   />
                 </div>
-              : null}
+              ) : null}
             </div>
           </DisplayAtBreakpoint>
         </div>
         <style jsx>{style}</style>
       </Fragment>
-    )
+    );
   }
 }
-
-
 
 export default HubSort;

@@ -8,17 +8,19 @@ const Tourpopup = user => (
   <Request
     serviceURL={DASHBOARD_TOUR_POPUP}
     method="POST"
-    render={({
-      serviceResponse,
-    }) => (
+    render={({ serviceResponse }) => (
       <div className="root">
-        {serviceResponse.hasPopupDataFlag && <ConnectUserAndResponseAccess
-          render={props => (<BootstrappedTourPopup
-            {...user}
-            {...serviceResponse.popupData}
-            validateResponseAccess={props.validateResponseAccess}
-          />)}
-        />}
+        {serviceResponse.hasPopupDataFlag && (
+          <ConnectUserAndResponseAccess
+            render={props => (
+              <BootstrappedTourPopup
+                {...user}
+                {...serviceResponse.popupData}
+                validateResponseAccess={props.validateResponseAccess}
+              />
+            )}
+          />
+        )}
       </div>
     )}
   />

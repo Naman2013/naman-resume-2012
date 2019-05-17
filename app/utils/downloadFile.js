@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 function downloadFile(url, fileName) {
-  console.log(url);
   return axios({
     url,
     method: 'GET',

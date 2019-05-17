@@ -1,7 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { astronaut, lynch, seashell, shadows, gainsboro } from 'app/styles/variables/colors_tiles_v4';
+import {
+  astronaut,
+  lynch,
+  seashell,
+  shadows,
+  gainsboro,
+} from 'app/styles/variables/colors_tiles_v4';
 import { secondaryFont } from 'app/styles/variables/fonts';
 const { shape, string } = PropTypes;
 
@@ -10,19 +16,15 @@ const renderField = ({
   label,
   type,
   className,
+  id,
   meta: { touched, error },
 }) => (
   <label
-    className={classnames(
-      className ? `${className} root`: 'root', { error: touched && error }
-    )}
+    className={classnames(className ? `${className} root` : 'root', {
+      error: touched && error,
+    })}
   >
-    <input
-      className="field-input"
-      type={type}
-      {...input}
-      placeholder={label}
-    />
+    <input id={id} className="field-input" type={type} {...input} placeholder={label} />
     {touched && error && <span className="error-text">{error}</span>}
     <style jsx>{`
       .root {
@@ -42,7 +44,7 @@ const renderField = ({
         background-color: ${seashell};
         background-clip: padding-box;
         border: 1px solid ${shadows};
-        border-radius: .25rem;
+        border-radius: 0.25rem;
       }
 
       .error-text {

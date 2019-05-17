@@ -1,6 +1,9 @@
 import css from 'styled-jsx/css';
 import { primaryFont, secondaryFont } from 'app/styles/variables/fonts';
-import { lightHeadedAstronaut, hawkesBlue } from 'app/styles/variables/colors_tiles_v4';
+import {
+  lightHeadedAstronaut,
+  hawkesBlue,
+} from 'app/styles/variables/colors_tiles_v4';
 
 export default css`
   .moonlight-conditions {
@@ -23,7 +26,6 @@ export default css`
     border-radius: 50%;
     width: 50px;
     height: 50px;
-    background: ${lightHeadedAstronaut};
   }
 
   .moonlight-title {

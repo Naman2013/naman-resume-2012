@@ -1,69 +1,119 @@
 /***********************************
-* V4 Recommended Objects Slider
-*
-*
-*
-***********************************/
-import React from 'react';
-import PropTypes from 'prop-types';
-import uniqueId from 'lodash/uniqueId';
+ * V4 Recommended Objects Slider
+ *
+ *
+ *
+ ***********************************/
+import React, { Component } from 'react';
 import take from 'lodash/take';
-import SloohSlider from '../../../components/common/Slider';
-import DisplayAtBreakpoint from '../../../components/common/DisplayAtBreakpoint';
+import { FeaturedObjectCard } from 'app/modules/telescope/components/featured-object-card';
+import { FeaturedObjectsModal } from 'app/modules/telescope/components/featured-objects-modal';
+import { MissionSuccessModal } from 'app/modules/missions/components/mission-success-modal';
+import SloohSlider from '../Slider';
+import DisplayAtBreakpoint from '../DisplayAtBreakpoint';
 import { getSliderProps } from './recommendedObjectsSliderConfiguration';
-import MissionTileSmall from '../../../components/common/tiles/MissionTile/MissionTileSmall';
+import './styles.scss';
 
-import style from './RecommendedObjectsSlider.style';
+export class RecommendedObjects extends Component {
+  state = {
+    reservationModalVisible: false,
+    selectedMission: {},
+    successModalShow: false,
+  };
 
-const {
-  arrayOf,
-  shape,
-} = PropTypes;
+  reserveCommunityMission = () => {
+    const { reserveCommunityMission, callSource } = this.props;
+    const { selectedMission } = this.state;
+    const { scheduledMissionId, missionStart } = selectedMission;
 
-const RecommendedObjects = ({
-  recommendedObjectsList = [],
-}) => {
-  const sliderProps = getSliderProps(recommendedObjectsList);
-  const shortList = take(recommendedObjectsList, 3) || [];
-  return (
-    <div className="root" key={uniqueId()}>
-      <DisplayAtBreakpoint
-        screenMedium
-        screenLarge
-        screenXLarge
-      >
-        <SloohSlider {...sliderProps} />
-      </DisplayAtBreakpoint>
-      <DisplayAtBreakpoint
-        screenSmall
-      >
-        <div className="mobile-tiles-wrapper">
-          {shortList.map(object => (
-            <MissionTileSmall
-              key={`${object.title} ${object.subtitle}`}
-              title={object.title}
-              dat={object.detailList[0].text}
-              thyme={object.detailList[1].text.split(' ')[0]}
-              telescope={object.detailList[2].text}
-            />
-          ))}
-        </div>
-      </DisplayAtBreakpoint>
-      <style jsx>{`
+    reserveCommunityMission({
+      callSource,
+      scheduledMissionId,
+      missionStart,
+    }).then(() =>
+      this.setState({ successModalShow: true, reservationModalVisible: false })
+    );
+  };
 
-      `}
-      </style>
+  reservationModalShow = mission => {
+    this.setState({ reservationModalVisible: true, selectedMission: mission });
+  };
 
-      <style jsx global>{style}</style>
-    </div>);
-};
+  reservationModalHide = () => {
+    this.setState({ reservationModalVisible: false, selectedMission: {} });
+  };
 
-RecommendedObjects.propTypes = {
-  recommendedObjectsList: arrayOf(shape({})),
-};
+  modalClose = () => {
+    const { getDashboardFeaturedObjects } = this.props;
+    this.setState({
+      successModalShow: false,
+      selectedMission: {},
+    });
+    getDashboardFeaturedObjects();
+  };
 
-RecommendedObjects.defaultProps = {
-  recommendedObjectsList: [],
-};
+  render() {
+    const {
+      missionList,
+      user,
+      reservedCommunityMissionData,
+      reservedCommunityMission,
+    } = this.props;
+    const {
+      reservationModalVisible,
+      selectedMission,
+      successModalShow,
+    } = this.state;
+    const sliderProps = getSliderProps(missionList, this.reservationModalShow);
+    const shortList = take(missionList, 3) || [];
+    return (
+      <div className="dashboard-recomended-objects">
+        <DisplayAtBreakpoint screenMedium screenLarge screenXLarge>
+          <SloohSlider {...sliderProps} />
+        </DisplayAtBreakpoint>
+        <DisplayAtBreakpoint screenSmall>
+          <div className="mobile-tiles-wrapper">
+            {shortList.map(object => (
+              <FeaturedObjectCard
+                key={object.scheduledMissionId}
+                featureObject={object}
+                onOptionClick={() => this.reservationModalShow(object)}
+              />
+            ))}
+          </div>
+        </DisplayAtBreakpoint>
+        <style jsx>{`
+          .dashboard-recomended-objects {
+            margin: 0 auto;
+            max-width: 644px;
+          }
+          @media only screen and (min-width: 1200px) {
+            .dashboard-recomended-objects {
+              max-width: 965px;
+            }
+          }
 
-export default RecommendedObjects;
+        `}</style>
+
+        {reservationModalVisible && (
+          <FeaturedObjectsModal
+            onHide={this.reservationModalHide}
+            onComplete={this.reserveCommunityMission}
+            selectedMission={selectedMission}
+            user={user}
+            onMissionView={this.reserveCommunityMission}
+            show
+          />
+        )}
+
+        <MissionSuccessModal
+          show={successModalShow}
+          onHide={this.modalClose}
+          reservedMissionData={selectedMission}
+          reservedMission={reservedCommunityMissionData}
+          missionSlot={reservedCommunityMission}
+        />
+      </div>
+    );
+  }
+}

@@ -29,6 +29,17 @@ const Observations = props => {
       <DisplayAtBreakpoint screenSmall>
         <MobileSwiper imagesList={shortList} />
       </DisplayAtBreakpoint>
+      <style jsx>{`
+        .root {
+          margin: 0 auto;
+          max-width: 780px;
+        }
+        @media only screen and (min-width: 1200px) {
+          .root {
+            max-width: 1180px;
+          }
+        }
+      `}</style>
     </div>
   );
 };

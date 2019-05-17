@@ -1,10 +1,13 @@
 import css from 'styled-jsx/css';
 import { primaryFont, secondaryFont } from '../../../styles/variables/fonts';
-import { astronaut, romance, white_tile_texture } from '../../../styles/variables/colors_tiles_v4';
+import {
+  astronaut,
+  romance,
+  white_tile_texture,
+} from '../../../styles/variables/colors_tiles_v4';
 import { screenXLarge } from '../../../styles/variables/breakpoints';
 
 export default css`
-
   .title-bg {
     letter-spacing: 1px;
     background-color: ${romance};
@@ -35,7 +38,7 @@ export default css`
       background-size: 15px;
       height: 223px;
       padding-top: 75px;
-      box-shadow: 0px 15px 30px 2px rgba(237,240,242,1);
+      box-shadow: 0px 15px 30px 2px rgba(237, 240, 242, 1);
       margin-bottom: 40px;
     }
 
@@ -43,6 +46,5 @@ export default css`
       font-size: 30px;
       margin: 15px;
     }
-
   }
 `;

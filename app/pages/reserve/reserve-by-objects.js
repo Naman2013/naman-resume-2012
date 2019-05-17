@@ -13,7 +13,10 @@ import styles from '../../components/reserve/reserve-by-object.scss';
 import fetchCatagoryList, {
   fetchPopularObjectList,
 } from '../../modules/browse-popular-objects/api';
-import { grabMissionSlot, missionConfirmOpen } from '../../modules/missions-old';
+import {
+  grabMissionSlot,
+  missionConfirmOpen,
+} from '../../modules/missions-old';
 
 import { resetBrowseByPopularObjects } from '../../modules/browse-popular-objects/actions';
 import { placeOneHourHold } from '../../modules/grab-telescope-slot/actions';
@@ -34,13 +37,14 @@ const mapDispatchToProps = dispatch => ({
       validateResponseAccess,
       placeOneHourHold,
     },
-    dispatch,
+    dispatch
   ),
 });
 
 const Catagory = ({ text, imageURL }) => (
   <span>
-    {imageURL ? <img alt={`Icon representing ${text}`} src={imageURL} /> : null} {text}
+    {imageURL ? <img alt={`Icon representing ${text}`} src={imageURL} /> : null}{' '}
+    {text}
   </span>
 );
 
@@ -61,12 +65,17 @@ const defaultObjectsList = {
   categoryList: [],
 };
 
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(
+  mapStateToProps,
+  mapDispatchToProps
+)
 class ReserveObjects extends Component {
   constructor(props) {
     super(props);
 
-    this.handleCatagorySelectChange = this.handleCatagorySelectChange.bind(this);
+    this.handleCatagorySelectChange = this.handleCatagorySelectChange.bind(
+      this
+    );
     this.handleObjectSelectChange = this.handleObjectSelectChange.bind(this);
     this.handleClearBrowse = this.handleClearBrowse.bind(this);
     this.handleScheduleMission = this.handleScheduleMission.bind(this);
@@ -89,7 +98,7 @@ class ReserveObjects extends Component {
       cid,
       token,
       callSource,
-    }).then((result) => {
+    }).then(result => {
       this.props.actions.validateResponseAccess(result.data);
       if (!result.data.apiError) {
         this.setCatagoryList(result.data);
@@ -120,8 +129,10 @@ class ReserveObjects extends Component {
   // TODO: continue to build out and use normalizeMissionInfo instead of running the || guard checks in other places
   normalizedMissionInfo() {
     const scheduledMissionId =
-      this.props.scheduledMissionId || this.state.visibilityStatus.scheduledMissionId;
-    const uniqueId = this.props.uniqueId || this.state.visibilityStatus.uniqueId;
+      this.props.scheduledMissionId ||
+      this.state.visibilityStatus.scheduledMissionId;
+    const uniqueId =
+      this.props.uniqueId || this.state.visibilityStatus.uniqueId;
     return {
       scheduledMissionId,
       uniqueId,
@@ -143,7 +154,9 @@ class ReserveObjects extends Component {
     const { categorySlug } = this.getSelectedCategory(event.target.value);
 
     if (this.fetchPopularObjectListPromise) {
-      this.fetchPopularObjectListPromise.cancelToken.cancel('canceled request...');
+      this.fetchPopularObjectListPromise.cancelToken.cancel(
+        'canceled request...'
+      );
     }
 
     this.fetchPopularObjectListPromise = fetchPopularObjectList({
@@ -160,7 +173,7 @@ class ReserveObjects extends Component {
       telescopeId,
       includeDescription: true,
     });
-    this.fetchPopularObjectListPromise.promise.then((result) => {
+    this.fetchPopularObjectListPromise.promise.then(result => {
       if (result) {
         this.setObjects(result);
       }
@@ -181,7 +194,9 @@ class ReserveObjects extends Component {
   }
 
   handleClearBrowse(event) {
-    if (event) { event.preventDefault(); }
+    if (event) {
+      event.preventDefault();
+    }
     this.setState({
       objects: defaultObjectsList,
       selectedCategoryIndex: null,
@@ -189,7 +204,7 @@ class ReserveObjects extends Component {
     });
   }
 
-  handlePlaceHourHold = (event) => {
+  handlePlaceHourHold = event => {
     event.preventDefault();
     const { scheduledMissionId, uniqueId } = this.normalizedMissionInfo();
     this.props.actions.placeOneHourHold({
@@ -201,7 +216,7 @@ class ReserveObjects extends Component {
   onSuccessfulGrabMissionCallback = () => {
     this.props.actions.missionConfirmOpen('reserve');
     this.handleClearBrowse();
-  }
+  };
 
   handleScheduleMission(event) {
     event.preventDefault();
@@ -240,7 +255,7 @@ class ReserveObjects extends Component {
     const { objects } = this.state;
     return flatten(
       objects.categoryList.map(category =>
-        category.categoryTopicList.map((object) => {
+        category.categoryTopicList.map(object => {
           if (object.topicIsSubcategory) {
             return {
               title: object.objectTitle,
@@ -253,10 +268,10 @@ class ReserveObjects extends Component {
               option: <Catagory text={object.topicName} />,
               enabled: object.topicIsEnabled,
             },
-            object,
+            object
           );
-        }),
-      ),
+        })
+      )
     );
   }
 
@@ -270,7 +285,9 @@ class ReserveObjects extends Component {
     const { selectedCategoryIndex, selectedObjectIndex } = this.state;
 
     if (fetchingObjectList) {
-      return <GenericLoadingBox text="Calculating best time and telescope..." />;
+      return (
+        <GenericLoadingBox text="Calculating best time and telescope..." />
+      );
     }
 
     if (!fetchingObjectList && selectedCategoryIndex) {
@@ -288,11 +305,19 @@ class ReserveObjects extends Component {
   }
 
   render() {
-    const { showMakeReservation, showPlaceOnHold, showCancelHold, resetForm } = this.props;
+    const {
+      showMakeReservation,
+      showPlaceOnHold,
+      showCancelHold,
+      resetForm,
+    } = this.props;
     const { catagoryList, selectedCategoryIndex } = this.state;
 
     const catagories = catagoryList.categoryList.map(catagory => (
-      <Catagory text={catagory.categoryDisplayName} imageURL={catagory.categoryIconURL} />
+      <Catagory
+        text={catagory.categoryDisplayName}
+        imageURL={catagory.categoryIconURL}
+      />
     ));
 
     const currentObjectSelection = this.currentObjectSelection;
@@ -305,8 +330,8 @@ class ReserveObjects extends Component {
               <span className="number">1</span> Select Category
             </h2>
             <h3 className="sub-title">
-              Start by choosing the type of object you want to see, and we will show you a list of objects that are visible this time of
-              year.
+              Start by choosing the type of object you want to see, and we will
+              show you a list of objects that are visible this time of year.
             </h3>
             <ReservationSelectList
               selectedIndex={selectedCategoryIndex}
@@ -321,8 +346,8 @@ class ReserveObjects extends Component {
               <span className="number">2</span> Choose Specific Object
             </h2>
             <h3 className="sub-title">
-              Select the object you want to see, and we’ll pick the time and best telescope for you
-              to schedule the mission.
+              Select the object you want to see, and we’ll pick the time and
+              best telescope for you to schedule the mission.
             </h3>
             {this.renderStepTwo()}
           </div>
@@ -334,7 +359,9 @@ class ReserveObjects extends Component {
             <div className={styles.objectSummary}>
               {currentObjectSelection ? (
                 <div>
-                  <span className="title">{currentObjectSelection.topicDisplayName}</span>
+                  <span className="title">
+                    {currentObjectSelection.topicDisplayName}
+                  </span>
                   <p>{currentObjectSelection.topicDescription}</p>
                 </div>
               ) : null}
@@ -346,17 +373,26 @@ class ReserveObjects extends Component {
                   </button>
                 ) : null}
                 {showPlaceOnHold ? (
-                  <button className="btn-primary" onClick={this.handlePlaceHourHold}>
+                  <button
+                    className="btn-primary"
+                    onClick={this.handlePlaceHourHold}
+                  >
                     Hold One Hour
                   </button>
                 ) : null}
                 {currentObjectSelection && resetForm ? (
-                  <button className="btn-primary" onClick={this.handleClearBrowse}>
+                  <button
+                    className="btn-primary"
+                    onClick={this.handleClearBrowse}
+                  >
                     Reset Browse
                   </button>
                 ) : null}
                 {currentObjectSelection && showMakeReservation ? (
-                  <button className="btn-primary" onClick={this.handleScheduleMission}>
+                  <button
+                    className="btn-primary"
+                    onClick={this.handleScheduleMission}
+                  >
                     Schedule Mission
                   </button>
                 ) : null}

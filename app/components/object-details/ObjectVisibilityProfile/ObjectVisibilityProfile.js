@@ -38,30 +38,26 @@ const riseSetModel = {
 class ObjectVisibilityProfile extends Component {
   static propTypes = {
     objectId: PropTypes.string.isRequired,
-  }
+  };
 
   state = {
     obsId: this.props.defaultObsId ? this.props.defaultObsId : DEFAULT_OBSID,
     activeDateIndex: 0,
-  }
+  };
 
-  handleObservatoryChange = (event) => {
+  handleObservatoryChange = event => {
     this.setState({ obsId: event.target.value });
-  }
+  };
 
   handleDateSelect = (dateString, index) => {
     this.setState({
       activeDateIndex: index,
       dateString,
     });
-  }
+  };
 
   render() {
-    const {
-      dateString,
-      obsId,
-      activeDateIndex,
-    } = this.state;
+    const { dateString, obsId, activeDateIndex } = this.state;
 
     const { objectId, intl } = this.props;
 
@@ -75,97 +71,143 @@ class ObjectVisibilityProfile extends Component {
         }}
         withoutUser
         model={riseSetModel}
-        render={({
-          fetchingContent,
-          modeledResponses: { RISE_SET_MODEL },
-        }) => {
+        render={({ fetchingContent, modeledResponses: { RISE_SET_MODEL } }) => {
           const riseSet = RISE_SET_MODEL || {};
           return (
             <div>
               {riseSet.hasRiseAndSetTimes === true && (
-              <div className="obs-visibility-root">
-                <GridContainer theme={{ margin: '20px 0 0 0' }}>
-                  <form
-                    method="POST"
-                  >
-                    <Row wrap>
-                      <StaticCell
-                        flexScale={['100%', '75%']}
-                        hasBorderScale={[true]}
-                        titleHtml={riseSet.title}
-                      >
-                        {riseSet.riseAndSetSelectors
-                          && riseSet.riseAndSetSelectors.dates.map((date, index) => (
+                <div className="obs-visibility-root">
+                  <GridContainer theme={{ margin: '20px 0 0 0' }}>
+                    <form method="POST">
+                      <Row wrap>
+                        <StaticCell
+                          flexScale={['100%', '75%']}
+                          hasBorderScale={[true]}
+                          titleHtml={riseSet.title}
+                        >
+                          {riseSet.riseAndSetSelectors &&
+                            riseSet.riseAndSetSelectors.dates.map(
+                              (date, index) => (
+                                <div
+                                  key={date.dateString}
+                                  role="button"
+                                  tabIndex={index + 1}
+                                  className={cn('day-sell', {
+                                    'is-active': activeDateIndex === index,
+                                  })}
+                                  onClick={() =>
+                                    this.handleDateSelect(
+                                      date.dateString,
+                                      index
+                                    )
+                                  }
+                                >
+                                  <div
+                                    className="day-month"
+                                    dangerouslySetInnerHTML={{
+                                      __html: date.dateLabel,
+                                    }}
+                                  />
+                                </div>
+                              )
+                            )}
                           <div
-                            key={date.dateString}
-                            role="button"
-                            tabIndex={index + 1}
-                            className={cn('day-sell', { 'is-active': activeDateIndex === index })}
-                            onClick={() => this.handleDateSelect(date.dateString, index)}
-                          >
-                            <div className="day-month" dangerouslySetInnerHTML={{ __html: date.dateLabel }} />
+                            className="rise-set-subtitle"
+                            dangerouslySetInnerHTML={{
+                              __html: riseSet.subtitle,
+                            }}
+                          />
+                        </StaticCell>
+                        <StaticCell
+                          title={riseSet.obsLabel}
+                          flexScale={['100%', '25%']}
+                        >
+                          <div className="select-field">
+                            <label
+                              className="option-label"
+                              htmlFor="select-obsId"
+                            >
+                              <span className="field-value-name">
+                                {
+                                  riseSet.riseAndSetSelectors.observatories[
+                                    this.state.obsId
+                                  ]
+                                }
+                              </span>
+                              <img
+                                alt=""
+                                width="8"
+                                src={downwardFacingChevron}
+                              />
+                            </label>
+                            <select
+                              className="select"
+                              id="select-obsId"
+                              value={this.state.obsId}
+                              onChange={this.handleObservatoryChange}
+                            >
+                              {Object.entries(
+                                riseSet.riseAndSetSelectors.observatories
+                              ).map(obs => (
+                                <option value={obs[0]}>{obs[1]}</option>
+                              ))}
+                            </select>
                           </div>
-                        ))}
-                        <div className="rise-set-subtitle" dangerouslySetInnerHTML={{
-                          __html: riseSet.subtitle,
-                        }}
-                        />
-                      </StaticCell>
-                      <StaticCell title={riseSet.obsLabel} flexScale={['100%', '25%']}>
-                        <div className="select-field">
-                          <label
-                            className="option-label"
-                            htmlFor="select-obsId"
-                          >
-                            <span className="field-value-name">
-                              {riseSet.riseAndSetSelectors.observatories[this.state.obsId]}
-                            </span>
-                            <img alt="" width="8" src={downwardFacingChevron} />
-                          </label>
-                          <select
-                            className="select"
-                            id="select-obsId"
-                            value={this.state.obsId}
-                            onChange={this.handleObservatoryChange}
-                          >
-                            {Object.entries(riseSet.riseAndSetSelectors.observatories).map(obs => (
-                              <option value={obs[0]}>{obs[1]}</option>
-                            ))}
-                          </select>
-                        </div>
-                      </StaticCell>
-                    </Row>
-                    <Row>
-                      <StaticCell title={riseSet.riseLabel} hasBorderScale={[true]}>
-                        <p>{ (fetchingContent) ? `${intl.formatMessage(messages.Loading)}...` : riseSet.rise }</p>
-                      </StaticCell>
-                      <StaticCell title={riseSet.setLabel} hasBorderScale={[true]}>
-                        <p>{ (fetchingContent) ? `${intl.formatMessage(messages.Loading)}...` : riseSet.transit }</p>
-                      </StaticCell>
-                      <StaticCell title={riseSet.transitLabel}>
-                        <p>{ (fetchingContent) ? `${intl.formatMessage(messages.Loading)}...` : riseSet.set }</p>
-                      </StaticCell>
-                    </Row>
-                    <Row>
-                      <StaticCell title={riseSet.notesLabel}>
-                        <p>{ (fetchingContent) ? `${intl.formatMessage(messages.Loading)}...` : riseSet.notes }</p>
-                      </StaticCell>
-                    </Row>
-                  </form>
-                </GridContainer>
-                <ViewOurGuide
-                  guideHeader={riseSet.guideHeader}
-                  guideTitle={riseSet.guideLabel}
-                  guideUrl={riseSet.guideUrl}
-                  guideSubTitle={riseSet.guideSubTitle}
-                />
-              </div>
+                        </StaticCell>
+                      </Row>
+                      <Row>
+                        <StaticCell
+                          title={riseSet.riseLabel}
+                          hasBorderScale={[true]}
+                        >
+                          <p>
+                            {fetchingContent
+                              ? `${intl.formatMessage(messages.Loading)}...`
+                              : riseSet.rise}
+                          </p>
+                        </StaticCell>
+                        <StaticCell
+                          title={riseSet.setLabel}
+                          hasBorderScale={[true]}
+                        >
+                          <p>
+                            {fetchingContent
+                              ? `${intl.formatMessage(messages.Loading)}...`
+                              : riseSet.transit}
+                          </p>
+                        </StaticCell>
+                        <StaticCell title={riseSet.transitLabel}>
+                          <p>
+                            {fetchingContent
+                              ? `${intl.formatMessage(messages.Loading)}...`
+                              : riseSet.set}
+                          </p>
+                        </StaticCell>
+                      </Row>
+                      <Row>
+                        <StaticCell title={riseSet.notesLabel}>
+                          <p>
+                            {fetchingContent
+                              ? `${intl.formatMessage(messages.Loading)}...`
+                              : riseSet.notes}
+                          </p>
+                        </StaticCell>
+                      </Row>
+                    </form>
+                  </GridContainer>
+                  <ViewOurGuide
+                    guideHeader={riseSet.guideHeader}
+                    guideTitle={riseSet.guideLabel}
+                    guideUrl={riseSet.guideUrl}
+                    guideSubTitle={riseSet.guideSubTitle}
+                  />
+                </div>
               )}
               <style jsx>{style}</style>
             </div>
           );
         }}
-    />
+      />
     );
   }
 }

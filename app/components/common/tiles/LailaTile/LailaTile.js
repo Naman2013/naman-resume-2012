@@ -7,7 +7,6 @@ import style from './Laila.style';
 const LailaTile = ({ iconURL, linkURL, title }) => (
   <div className="root">
     <div className="container">
-
       <div className="icon-container">
         <div className="center-line" />
         <div className="border">

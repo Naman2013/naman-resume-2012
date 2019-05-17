@@ -7,23 +7,19 @@ import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
 import styles from './JoinHeader.style';
 import messages from './JoinHeader.messages';
 
-const {
-  string,
-  arrayOf,
-  shape,
-} = PropTypes;
-
+const { string, arrayOf, shape } = PropTypes;
 
 class JoinHeader extends Component {
-
   static propTypes = {
     activeTab: string,
     mainHeading: string,
     subHeading: string,
-    tabs: arrayOf(shape({
-      label: string,
-      value: string,
-    })),
+    tabs: arrayOf(
+      shape({
+        label: string,
+        value: string,
+      })
+    ),
   };
 
   static defaultProps = {
@@ -31,13 +27,12 @@ class JoinHeader extends Component {
     activeTab: '/join/step1',
     mainHeading: <FormattedMessage {...messages.JoinMainHeader} />,
     subHeading: <FormattedMessage {...messages.JoinSubHeader} />,
-  }
+  };
 
-
-  changeActiveTab = (activeTab) => {
+  changeActiveTab = activeTab => {
     // do nothing for now
     // browserHistory.push(activeTab);
-  }
+  };
 
   render() {
     const {
@@ -45,17 +40,12 @@ class JoinHeader extends Component {
       mainHeading,
       subHeading,
       tabs,
+      backgroundImage,
     } = this.props;
-
-
 
     return (
       <div className="root">
-        <DisplayAtBreakpoint
-          screenMedium
-          screenLarge
-          screenXLarge
-        >
+        <DisplayAtBreakpoint screenMedium screenLarge screenXLarge>
           <div className="header">
             <div className="inner-header-container">
               <div className="inner-header-text">
@@ -66,27 +56,30 @@ class JoinHeader extends Component {
                 tabs={tabs}
                 activeTabValue={activeTab}
                 onTabClick={this.changeActiveTab}
-                theme={ {position: 'absolute', bottom: 0 } }
+                theme={{ position: 'absolute', bottom: 0 }}
               />
             </div>
-
           </div>
         </DisplayAtBreakpoint>
-        <DisplayAtBreakpoint
-          screenSmall
-        >
+        <DisplayAtBreakpoint screenSmall>
           <div className="inner-header-text">
             <div className="big">{mainHeading}</div>
             <div className="little">{subHeading}</div>
           </div>
-            <TabbedNav
-              tabs={tabs}
-              activeTabValue={activeTab}
-              onTabClick={this.changeActiveTab}
-            />
-
+          <TabbedNav
+            tabs={tabs}
+            activeTabValue={activeTab}
+            onTabClick={this.changeActiveTab}
+          />
         </DisplayAtBreakpoint>
         <style jsx>{styles}</style>
+        <style jsx>
+          {`
+            .header {
+              background-image: url(${backgroundImage});
+            }
+          `}
+        </style>
       </div>
     );
   }

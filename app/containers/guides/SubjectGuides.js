@@ -26,6 +26,7 @@ const subjectGuideModel = {
         <GuideBodyContent
           title={resp.AboutThisTitle}
           content={resp.AboutThisContent}
+          showShareButton={resp.showGoogleClassroomShareIcon}
           topicActionProps={{
             followButtonIconURL: resp.promptIconUrl,
             followButtonText: resp.readingListPrompt,
@@ -37,13 +38,17 @@ const subjectGuideModel = {
       ),
       column: ({ guideId }) => (
         <GuideContentList
-          list={[resp.guideBulletPoint1, resp.guideBulletPoint2, resp.guideBulletPoint3]}
+          list={[
+            resp.guideBulletPoint1,
+            resp.guideBulletPoint2,
+            resp.guideBulletPoint3,
+          ]}
           topicActionProps={{
             followButtonIconURL: resp.promptIconUrl,
             followButtonText: resp.readingListPrompt,
             showActions: resp.toggleReadingListFlag,
             readingListType: resp.readingListType,
-           }}
+          }}
           guideId={guideId}
         />
       ),
@@ -54,12 +59,15 @@ const subjectGuideModel = {
       subTitle: <FormattedMessage {...messages.SubjectsSterlingSubtitle} />,
     },
     subjectGuideListProps: {
-      list: resp.myTopicsNavigationInfo
-        && resp.myTopicsNavigationInfo.topicsList.map(({ topicHeading, topicTitle, link }) => ({
-          link,
-          title: topicTitle,
-          anchorText: topicHeading,
-        })),
+      list:
+        resp.myTopicsNavigationInfo &&
+        resp.myTopicsNavigationInfo.topicsList.map(
+          ({ topicHeading, topicTitle, link }) => ({
+            link,
+            title: topicTitle,
+            anchorText: topicHeading,
+          })
+        ),
     },
   }),
 };
@@ -67,37 +75,47 @@ const subjectGuideModel = {
 const SubjectGuides = ({ params: { guideId } }) => (
   <div className="lightgray-background">
     <Request
-      withoutUser
       serviceURL={GUIDE_ENDPOINT_URL}
       model={subjectGuideModel}
       requestBody={{ guideId }}
-      render={({ fetchingContent, modeledResponses: { SUBJECT_GUIDE_MODEL } }) => (
-        <Fragment>
-          {!fetchingContent && (
-            <Fragment>
-              <TiaraTitleSection {...SUBJECT_GUIDE_MODEL.tiaraTitleSectionProps} />
+      render={({
+        fetchingContent,
+        modeledResponses: { SUBJECT_GUIDE_MODEL },
+      }) => (
+          <Fragment>
+            {!fetchingContent && (
+              <Fragment>
+                <TiaraTitleSection
+                  {...SUBJECT_GUIDE_MODEL.tiaraTitleSectionProps}
+                />
 
-              <CenterColumn
-                theme={{
-                  boxShadow: 'rgba(65, 86, 113, 0.2) 0px 3px 8px 1px',
-                  marginBottom: '60px',
-                }}
-              >
-                <GuideSection {...SUBJECT_GUIDE_MODEL.guideSectionProps} guideId={guideId} />
-              </CenterColumn>
-              <GuidePanels guideId={guideId} />
+                <CenterColumn
+                  theme={{
+                    boxShadow: 'rgba(65, 86, 113, 0.2) 0px 3px 8px 1px',
+                    marginBottom: '60px',
+                  }}
+                >
+                  <GuideSection
+                    {...SUBJECT_GUIDE_MODEL.guideSectionProps}
+                    guideId={guideId}
+                  />
+                </CenterColumn>
+                <GuidePanels guideId={guideId} />
 
-              {Array.isArray(SUBJECT_GUIDE_MODEL.subjectGuideListProps.list)
-                && SUBJECT_GUIDE_MODEL.subjectGuideListProps.list.length > 0
-                && <SterlingTitle {...SUBJECT_GUIDE_MODEL.sterlingTitleProps} />}
+                {Array.isArray(SUBJECT_GUIDE_MODEL.subjectGuideListProps.list) &&
+                  SUBJECT_GUIDE_MODEL.subjectGuideListProps.list.length > 0 && (
+                    <SterlingTitle {...SUBJECT_GUIDE_MODEL.sterlingTitleProps} />
+                  )}
 
-              <CenterColumn>
-                <SubjectGuideList {...SUBJECT_GUIDE_MODEL.subjectGuideListProps} />
-              </CenterColumn>
-            </Fragment>
-          )}
-        </Fragment>
-      )}
+                <CenterColumn>
+                  <SubjectGuideList
+                    {...SUBJECT_GUIDE_MODEL.subjectGuideListProps}
+                  />
+                </CenterColumn>
+              </Fragment>
+            )}
+          </Fragment>
+        )}
     />
   </div>
 );

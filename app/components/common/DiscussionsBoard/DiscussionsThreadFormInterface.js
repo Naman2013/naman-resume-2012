@@ -4,8 +4,8 @@ import { CALLSOURCE_GROUPS } from './discussionsBoardConfiguration';
 
 const CREATE_THREAD_FORM = {
   [CALLSOURCE_GROUPS]: {
-    render: props => (<ActivityForm {...props} />),
-  }
+    render: props => <ActivityForm {...props} />,
+  },
 };
 
 export default CREATE_THREAD_FORM;

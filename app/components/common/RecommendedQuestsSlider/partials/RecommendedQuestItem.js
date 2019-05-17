@@ -7,10 +7,7 @@ import { FormattedMessage } from 'react-intl';
 import styles from './RecommendedQuestItem.style';
 import messages from './RecommendedQuestItem.messages';
 
-const {
-  string,
-  bool,
-} = PropTypes;
+const { string, bool } = PropTypes;
 
 const RecommendedQuestsItem = ({
   questDifficulty,
@@ -24,17 +21,27 @@ const RecommendedQuestsItem = ({
       <div className="container">
         <div className="blue-shield" />
         <div className="icon-container">
-          <img className="icon-content" alt="" width="40" height="40" src={iconUrl} />
+          <img
+            className="icon-content"
+            alt=""
+            width="40"
+            height="40"
+            src={iconUrl}
+          />
         </div>
         <h5 className="title">{title}</h5>
         <h6 className="level">{questDifficulty}</h6>
       </div>
       <div className="quest-info">
         <div className="quest-info-item left">
-          <span><FormattedMessage {...messages.Slooh} /></span>
+          <span>
+            <FormattedMessage {...messages.Slooh} />
+          </span>
         </div>
         <div className="quest-info-item right">
-          <span><FormattedMessage {...messages.Quest} /></span>
+          <span>
+            <FormattedMessage {...messages.Quest} />
+          </span>
         </div>
       </div>
     </Link>

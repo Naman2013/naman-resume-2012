@@ -1,9 +1,9 @@
 /***********************************
-* V4 Quest Details State
-*
-*
-*
-***********************************/
+ * V4 Quest Details State
+ *
+ *
+ *
+ ***********************************/
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
@@ -14,16 +14,10 @@ import { browserHistory } from 'react-router';
 import { DeviceContext } from 'providers/DeviceProvider';
 import questActions from 'app/modules/quest-details/actions';
 import { validateResponseAccess } from 'app/modules/authorization/actions';
-import { START_QUEST } from 'app/services/quests'
+import { START_QUEST } from 'app/services/quests';
 import Quest from './QuestDetails';
 
-const {
-  func,
-  number,
-  oneOfType,
-  shape,
-  string,
-} = PropTypes;
+const { func, number, oneOfType, shape, string } = PropTypes;
 
 export class ConnectedQuestDetails extends Component {
   static propTypes = {
@@ -36,45 +30,42 @@ export class ConnectedQuestDetails extends Component {
       token: oneOfType([number, string]),
       cid: oneOfType([number, string]),
     }),
-  }
+  };
 
   static defaultProps = {
     actions: {},
     user: {},
-  }
+  };
 
-  state = {
-  }
+  state = {};
 
   componentDidMount() {
-    const {
-      actions,
-      questId,
-    } = this.props;
+    const { actions, questId } = this.props;
     actions.fetchQuestPageMeta({ questId });
   }
 
   setupQuest = () => {
     const { actions, questId } = this.props;
     const { at, token, cid } = this.props.user;
-    axios.post(START_QUEST, {
-      at,
-      cid,
-      token,
-      questId,
-    })
-      .then((res) => {
+    axios
+      .post(START_QUEST, {
+        at,
+        cid,
+        token,
+        questId,
+      })
+      .then(res => {
         if (res.data.startedQuest) {
           this.goToStep(1);
         }
         actions.validateResponseAccess(res);
       });
-  }
+  };
 
-  goToStep = (stepId) => {
+  goToStep = stepId => {
     const { questId } = this.props;
     browserHistory.push(`/quest-details/${questId}/${stepId}`);
-  }
+  };
 
   render() {
     const userActions = {
@@ -86,11 +77,7 @@ export class ConnectedQuestDetails extends Component {
       <div className="root">
         <DeviceContext.Consumer>
           {context => (
-            <Quest
-              {...this.props}
-              {...context}
-              userActions={userActions}
-            />
+            <Quest {...this.props} {...context} userActions={userActions} />
           )}
         </DeviceContext.Consumer>
       </div>
@@ -98,10 +85,7 @@ export class ConnectedQuestDetails extends Component {
   }
 }
 
-const mapStateToProps = ({
-  questDetails,
-  user,
-}, { routeParams }) => ({
+const mapStateToProps = ({ questDetails, user }, { routeParams }) => ({
   questDetails,
   modal: questDetails.modal,
   pageMeta: questDetails.pageMeta,
@@ -110,10 +94,16 @@ const mapStateToProps = ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({
-    ...questActions,
-    validateResponseAccess,
-  }, dispatch),
+  actions: bindActionCreators(
+    {
+      ...questActions,
+      validateResponseAccess,
+    },
+    dispatch
+  ),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ConnectedQuestDetails);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ConnectedQuestDetails);

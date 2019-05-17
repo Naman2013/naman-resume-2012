@@ -11,32 +11,32 @@ export default css`
     padding: 0 25px;
   }
 
-  .root.plain {
+  .root.profile {
     padding: 0;
     width: 100%;
     border-top: 1px solid ${shadows};
     border-bottom: 1px solid ${shadows};
   }
-  
-  .root.plain .nav {
+
+  .root.profile .nav {
     display: flex;
     min-height: 65px;
   }
 
-  .root.plain .item-container {
+  .root.profile .item-container {
     height: auto;
     display: flex;
     align-items: center;
   }
-  
-  .root.plain .item-container .nav-item {
+
+  .root.profile .item-container .nav-item {
     letter-spacing: 1px;
   }
 
-  .root.plain .item-container:first-child {
+  .root.profile .item-container:first-child {
     padding-left: 0;
   }
-  
+
   .item-container {
     display: inline-block;
     height: 100%;

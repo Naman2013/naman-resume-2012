@@ -12,9 +12,11 @@ import './condition-snapshot.scss';
 const mapStateToProps = ({ telescopeDetails }) => ({
   title: telescopeDetails.weatherConditionWidgetResult.title,
   subtitle: telescopeDetails.weatherConditionWidgetResult.subtitle,
-  currentConditionsURL: telescopeDetails.weatherConditionWidgetResult.currentConditionsURL,
+  currentConditionsURL:
+    telescopeDetails.weatherConditionWidgetResult.currentConditionsURL,
 
-  dayNightBarPanelRefreshInterval: telescopeDetails.dayNightBarPanel.refreshIntervalSec,
+  dayNightBarPanelRefreshInterval:
+    telescopeDetails.dayNightBarPanel.refreshIntervalSec,
   dayNightBarPanelURL: telescopeDetails.dayNightBarPanel.dayNightBarPanelURL,
 
   dayNightMapRefreshInterval: telescopeDetails.dayNightMap.refreshIntervalSec,
@@ -32,12 +34,18 @@ const mapStateToProps = ({ telescopeDetails }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({
-    fetchAllWidgets,
-  }, dispatch),
+  actions: bindActionCreators(
+    {
+      fetchAllWidgets,
+    },
+    dispatch
+  ),
 });
 
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(
+  mapStateToProps,
+  mapDispatchToProps
+)
 class TelescopeConditionSnapshot extends Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
@@ -69,7 +77,7 @@ class TelescopeConditionSnapshot extends Component {
     actions: PropTypes.shape({
       fetchAllWidgets: PropTypes.func.isRequired,
     }).isRequired,
-  }
+  };
 
   componentWillMount() {
     const {
@@ -135,52 +143,46 @@ class TelescopeConditionSnapshot extends Component {
           </div>
         </div>
         <div className="content">
-
           <div className="row">
             <div className="col-xs-12">
-              {
-                dayNightBarPanelRefreshInterval && dayNightBarPanelURL ?
-                  <DayNightTimeline
-                    dayNightBarPanelURL={dayNightBarPanelURL}
-                    refreshIntervalSec={dayNightBarPanelRefreshInterval}
-                  /> : null
-              }
+              {dayNightBarPanelRefreshInterval && dayNightBarPanelURL ? (
+                <DayNightTimeline
+                  dayNightBarPanelURL={dayNightBarPanelURL}
+                  refreshIntervalSec={dayNightBarPanelRefreshInterval}
+                />
+              ) : null}
             </div>
 
             <div className="col-xs-12">
-              {
-                dayNightMapRefreshInterval && dayNightMapURL ?
-                  <DayNightMap
-                    refreshIntervalSec={dayNightMapRefreshInterval}
-                    dayNightMapURL={dayNightMapURL}
-                  /> : null
-              }
+              {dayNightMapRefreshInterval && dayNightMapURL ? (
+                <DayNightMap
+                  refreshIntervalSec={dayNightMapRefreshInterval}
+                  dayNightMapURL={dayNightMapURL}
+                />
+              ) : null}
             </div>
 
             <div className="col-xs-12">
-              {
-                allSkyRefreshIntervalSec && allSkyCamURL ?
-                  <AllSkyCamera
-                    refreshIntervalSec={allSkyRefreshIntervalSec}
-                    allSkyCamURL={allSkyCamURL}
-                    offlineImageURL={allSkyCamOfflineURL}
-                    onlineStatus={allSkyCamOnlineStatus}
-                  /> : null
-              }
+              {allSkyRefreshIntervalSec && allSkyCamURL ? (
+                <AllSkyCamera
+                  refreshIntervalSec={allSkyRefreshIntervalSec}
+                  allSkyCamURL={allSkyCamURL}
+                  offlineImageURL={allSkyCamOfflineURL}
+                  onlineStatus={allSkyCamOnlineStatus}
+                />
+              ) : null}
             </div>
 
             <div className="col-xs-12">
-              {
-                domeCamRefreshIntervalSec && domeCamURL ?
-                  <DomeCam
-                    refreshIntervalSec={domeCamRefreshIntervalSec}
-                    domeCamURL={domeCamURL}
-                    offlineImageURL={domeCamOfflineURL}
-                    onlineStatus={domeCamOnlineStatus}
-                  /> : null
-              }
+              {domeCamRefreshIntervalSec && domeCamURL ? (
+                <DomeCam
+                  refreshIntervalSec={domeCamRefreshIntervalSec}
+                  domeCamURL={domeCamURL}
+                  offlineImageURL={domeCamOfflineURL}
+                  onlineStatus={domeCamOnlineStatus}
+                />
+              ) : null}
             </div>
-
           </div>
         </div>
       </div>

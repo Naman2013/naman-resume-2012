@@ -2,26 +2,42 @@
  * V4 ImageList
  ***********************************/
 
-import React, { Component, Fragment, cloneElement } from 'react';
-import { withRouter } from 'react-router';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import ConnectUser from 'app/redux/components/ConnectUser';
 import Pagination from 'app/components/common/pagination/v4-pagination/pagination';
 import ShowMore from 'app/components/common/ShowMore';
-
 import {
-  fetchMissionsAndCounts,
-  fetchPhotoRollAndCounts,
-  fetchMorePhotoroll,
-  fetchMoreMissions,
-} from 'app/modules/my-pictures/actions';
+  fetchFiltersLists,
+  setFilters,
+  setSelectedTagsTabIndex,
+} from 'app/modules/my-pictures-filters/actions';
 import {
   fetchGalleriesAndCounts,
   fetchMoreGalleries,
 } from 'app/modules/my-pictures-galleries/actions';
 
+import {
+  fetchMissionsAndCounts,
+  fetchMoreMissions,
+  fetchMorePhotoroll,
+  fetchPhotoRollAndCounts,
+} from 'app/modules/my-pictures/actions';
+import { fetchObjectTypeList } from 'app/modules/object-type-list/actions';
+import { FilterDropdown } from 'app/modules/profile-photos/components/filter-dropdown';
+import { SelectedFilters } from 'app/modules/profile-photos/components/selected-filters';
+import {
+  selectObjectTypeList,
+  selectSelectedFilters,
+  selectTelescopeList,
+  selectTimeList,
+} from 'app/modules/profile-photos/selectors';
+import { getFitsData } from 'app/modules/profile-photos/thunks';
+import ConnectUser from 'app/redux/components/ConnectUser';
+import cx from 'classnames';
+import PropTypes from 'prop-types';
+import React, { cloneElement, Component, Fragment } from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
+import { bindActionCreators } from 'redux';
+import './image-list.scss';
 import style from './ImageList.style';
 
 const mapTypeToList = {
@@ -71,21 +87,34 @@ const mapDispatchToProps = dispatch => ({
       fetchMorePhotoroll,
       fetchMoreMissions,
       fetchMoreGalleries,
+
+      fetchFiltersLists,
+      fetchObjectTypeList,
+      setFilters,
+      getFitsData,
+      setSelectedTagsTabIndex,
     },
     dispatch
   ),
 });
 
-const mapStateToProps = ({ myPictures, galleries }) => {
+const mapStateToProps = state => {
   return {
-    missionsList: myPictures.missions.response.imageList,
-    missionsCount: myPictures.missions.imageCount,
-    galleryList: galleries.galleryList,
-    galleryCount: galleries.galleryCount,
-    photoRollList: myPictures.photoRoll.response.imageList,
-    photoRollCount: myPictures.photoRoll.imageCount,
-    observationsList: myPictures.photoRoll.response.imageList,
-    observationsCount: myPictures.observations.imageCount,
+    missionsList: state.myPictures.missions.response.imageList,
+    missionsCount: state.myPictures.missions.imageCount,
+    galleryList: state.galleries.galleryList,
+    galleryCount: state.galleries.galleryCount,
+    photoRollList: state.myPictures.photoRoll.response.imageList,
+    photoRollCount: state.myPictures.photoRoll.imageCount,
+    observationsList: state.myPictures.photoRoll.response.imageList,
+    observationsCount: state.myPictures.observations.imageCount,
+    fitsData: state.fitsData,
+
+    telescopeList: selectTelescopeList()(state),
+    timeList: selectTimeList()(state),
+    objectTypeList: selectObjectTypeList()(state),
+    selectedFilters: selectSelectedFilters()(state),
+    myPicturesFilters: state.myPicturesFilters,
   };
 };
 
@@ -97,6 +126,7 @@ const mapStateToProps = ({ myPictures, galleries }) => {
 class ImageList extends Component {
   state = {
     activePage: 1,
+    isFilterOpen: false,
   };
 
   componentDidMount() {
@@ -111,6 +141,7 @@ class ImageList extends Component {
       customerUUID,
     });
     //  fetchMissionsAndCounts | fetchGalleriesAndCounts | fetchPhotoRollAndCounts
+    this.fetchFilters();
   }
 
   componentDidUpdate(prevProps) {
@@ -162,6 +193,15 @@ class ImageList extends Component {
     }
   }
 
+  fetchFilters = () => {
+    const { actions } = this.props;
+    const { fetchFiltersLists, fetchObjectTypeList } = actions;
+    fetchFiltersLists();
+    fetchObjectTypeList();
+  };
+
+  setFilterOpen = isFilterOpen => this.setState({ isFilterOpen });
+
   handlePageChange = ({ activePage }) => {
     const { actions, type, deviceInfo, params = {} } = this.props;
     const { customerUUID } = params;
@@ -191,7 +231,7 @@ class ImageList extends Component {
     return this.props[mapTypeToCount[type]] > 0 ? (
       <div>Loading...</div>
     ) : (
-      <div>The list is empty.</div>
+      <div className="image-list-placeholder">The list is empty.</div>
     );
   };
 
@@ -209,64 +249,138 @@ class ImageList extends Component {
     });
   };
 
+  handleFilterChange = filter => {
+    this.props.actions.setFilters({ ...filter });
+  };
+
+  handleApplyFilter = () => {
+    const { actions, type, deviceInfo, params = {} } = this.props;
+    const { customerUUID } = params;
+
+    const fetchImages = actions[mapTypeToRequest[type]];
+
+    const imagesToFetch = getImagesCountToFetch(deviceInfo);
+
+    this.setState({ activePage: 1 });
+    fetchImages({
+      sharedOnly: type === 'observations',
+      maxImageCount: imagesToFetch,
+      maxMissionCount: imagesToFetch,
+      customerUUID,
+    });
+  };
+
   render() {
-    const { children, type, deviceInfo } = this.props;
-    const { activePage } = this.state;
+    const {
+      actions: { getFitsData, setSelectedTagsTabIndex },
+      children,
+      type,
+      deviceInfo,
+      telescopeList,
+      objectTypeList,
+      selectedFilters,
+      fitsData,
+      timeList,
+      myPicturesFilters,
+    } = this.props;
+    const { activePage, isFilterOpen } = this.state;
     const arrOfImages = this.props[mapTypeToList[type]];
     const count = this.props[mapTypeToCount[type]];
     const currentImagesNumber = arrOfImages.length * activePage;
 
-    return Array.isArray(arrOfImages) && arrOfImages.length > 0 ? (
-      <ConnectUser
-        render={user => (
-          <Fragment>
-            <div
-              className="root uniqclass-for-overflow"
-              style={{
-                justifyContent: deviceInfo.isDesktop
-                  ? 'normal'
-                  : 'space-between',
-              }}
-            >
-              {count > 0
-                ? arrOfImages.map((image, i) =>
-                    cloneElement(children, {
-                      key: image[mapTypeToId[type]],
-                      isDesktop: deviceInfo.isDesktop,
-                      isMobile: deviceInfo.isMobile,
-                      firstImageNumber: this.startFrom,
-                      index: i,
-                      currentItem: image,
-                      count,
-                      user,
-                    })
-                  )
-                : 'The list is empty.'}
-              <div className="pagination-wrapper">
-                {count && !deviceInfo.isMobile
-                  ? count > 9 && (
-                      <Pagination
-                        pagesPerPage={4}
-                        activePage={activePage}
-                        onPageChange={this.handlePageChange}
-                        totalPageCount={Math.ceil(count / 9)}
-                      />
-                    )
-                  : count > 10 && (
-                      <ShowMore
-                        totalCount={count}
-                        currentCount={currentImagesNumber}
-                        handleShowMore={this.handleLoadMore}
-                      />
-                    )}
-              </div>
-            </div>
-            <style jsx>{style}</style>
-          </Fragment>
+    const cn = cx('profile-image-list-wrapper', {
+      'filter-open': isFilterOpen,
+    });
+
+    console.log(selectedFilters);
+
+    return (
+      <div className={cn}>
+        <div className="filter-dropdown-btn">
+          <FilterDropdown
+            isOpen={isFilterOpen}
+            setOpen={this.setFilterOpen}
+            onChange={this.handleFilterChange}
+            telescopeList={telescopeList}
+            timeList={timeList}
+            objectTypeList={objectTypeList}
+            selectedFilters={selectedFilters}
+            onApply={this.handleApplyFilter}
+            //tags component
+            setSelectedTagsTabIndex={setSelectedTagsTabIndex}
+            myPicturesFilters={myPicturesFilters}
+          />
+        </div>
+        {isFilterOpen && (
+          <div className="filter-shader animated fadeIn faster" />
         )}
-      />
-    ) : (
-      this.placeholder()
+
+        <SelectedFilters
+          {...{
+            selectedFilters,
+            telescopeList,
+            timeList,
+            objectTypeList,
+          }}
+          onChange={this.handleFilterChange}
+          onApply={this.handleApplyFilter}
+        />
+
+        {Array.isArray(arrOfImages) && arrOfImages.length > 0 ? (
+          <ConnectUser
+            render={user => (
+              <Fragment>
+                <div
+                  className="root uniqclass-for-overflow"
+                  style={{
+                    justifyContent: deviceInfo.isDesktop
+                      ? 'normal'
+                      : 'space-between',
+                  }}
+                >
+                  {count > 0
+                    ? arrOfImages.map((image, i) =>
+                        cloneElement(children, {
+                          key: image[mapTypeToId[type]],
+                          isDesktop: deviceInfo.isDesktop,
+                          isMobile: deviceInfo.isMobile,
+                          firstImageNumber: this.startFrom,
+                          index: i,
+                          currentItem: image,
+                          count,
+                          user,
+                          getFitsData: type === 'missions' && getFitsData,
+                          fitsData: type === 'missions' && fitsData,
+                        })
+                      )
+                    : 'The list is empty.'}
+                  <div className="pagination-wrapper">
+                    {count && !deviceInfo.isMobile
+                      ? count > 9 && (
+                          <Pagination
+                            pagesPerPage={4}
+                            activePage={activePage}
+                            onPageChange={this.handlePageChange}
+                            totalPageCount={Math.ceil(count / 9)}
+                          />
+                        )
+                      : count > 10 && (
+                          <ShowMore
+                            totalCount={count}
+                            currentCount={currentImagesNumber}
+                            handleShowMore={this.handleLoadMore}
+                          />
+                        )}
+                  </div>
+                </div>
+                <style jsx>{style}</style>
+              </Fragment>
+            )}
+          />
+        ) : (
+          this.placeholder()
+        )}
+      </div>
     );
   }
 }

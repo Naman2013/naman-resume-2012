@@ -44,12 +44,17 @@ const ObjectProfile = ({
         flexScale={['100%', '40%', '20%']}
         theme={{ minHeight: '165px' }}
       >
-        <p dangerouslySetInnerHTML={{ __html: objectSpecs.apparentAngularSizeText }} />
+        <p
+          dangerouslySetInnerHTML={{
+            __html: objectSpecs.apparentAngularSizeText,
+          }}
+        />
       </StaticCell>
     </Row>
 
     <Row wrap>
-      {(visibilitySeason.showVisibilitySeason || midnightCulmination.showMidnightCulmination) && (
+      {(visibilitySeason.showVisibilitySeason ||
+        midnightCulmination.showMidnightCulmination) && (
         <StaticCell
           flexScale={['100%', '100%', '20%']}
           hasBorderScale={[true]}
@@ -92,7 +97,10 @@ const ObjectProfile = ({
           theme={{ alignSelf: 'flex-start' }}
           hasBottomBorder={false}
         >
-          <BestTelescope visitLabel={bestTelescope.buttonCaption} telescopes={bestTelescope.list} />
+          <BestTelescope
+            visitLabel={bestTelescope.buttonCaption}
+            telescopes={bestTelescope.list}
+          />
         </StaticCell>
       )}
     </Row>
@@ -122,11 +130,13 @@ ObjectProfile.propTypes = {
   }).isRequired,
   bestTelescope: PropTypes.shape({
     label: PropTypes.string.isRequired,
-    list: PropTypes.arrayOf(PropTypes.shape({
-      label: PropTypes.string.isRequired,
-      description: PropTypes.string.isRequired,
-      linkUrl: PropTypes.string.isRequired,
-    })),
+    list: PropTypes.arrayOf(
+      PropTypes.shape({
+        label: PropTypes.string.isRequired,
+        description: PropTypes.string.isRequired,
+        linkUrl: PropTypes.string.isRequired,
+      })
+    ),
     buttonCaption: PropTypes.string.isRequired,
   }).isRequired,
 };

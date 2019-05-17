@@ -1,16 +1,29 @@
 import React from 'react';
-import { astronaut, shadows } from '../../../../styles/variables/colors_tiles_v4';
+import {
+  astronaut,
+  shadows,
+} from '../../../../styles/variables/colors_tiles_v4';
 
 const SocialMenu = () => (
   <div className="root">
     <ul className="buttons">
       <li>
-        <a className="action" rel="noopener noreferrer" target="_blank" href="https://twitter.com/slooh">
+        <a
+          className="action"
+          rel="noopener noreferrer"
+          target="_blank"
+          href="https://twitter.com/slooh"
+        >
           <span className="fa fa-twitter" />
         </a>
       </li>
       <li>
-        <a className="action" rel="noopener noreferrer" target="_blank" href="https://www.facebook.com/SloohLive/">
+        <a
+          className="action"
+          rel="noopener noreferrer"
+          target="_blank"
+          href="https://www.facebook.com/SloohLive/"
+        >
           <span className="fa fa-facebook" />
         </a>
       </li>
@@ -23,7 +36,6 @@ const SocialMenu = () => (
 
     <style jsx>{`
       .root {
-
       }
       .buttons {
         display: flex;

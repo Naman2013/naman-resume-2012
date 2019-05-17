@@ -16,7 +16,6 @@ export default css`
   }
 
   .dash-hero {
-    height: 625px;
     width: 100%;
     vertical-align: middle;
     text-align: center;
@@ -35,7 +34,6 @@ export default css`
 
   .dash-nav {
     position: absolute;
-    top: 687px;
     height: 160px;
     width: 100%;
   }
@@ -43,6 +41,12 @@ export default css`
   .sections-wrapper {
     background-color: ${faintGray};
   }
+
+  /* .sections-wrapper div:nth-child(2) {
+    margin-top: -170px;
+    padding-top: 230px;
+    background-color: #f8f8f8;
+  } */
 
   @media all and (min-width: 641px) and (max-width: 768px) {
     .dash-nav {
@@ -61,6 +65,10 @@ export default css`
   @media all and (max-width: 640px) {
     .dash-nav {
       display: none;
+    }
+
+    .sections-wrapper {
+      margin-top: 0;
     }
   }
 

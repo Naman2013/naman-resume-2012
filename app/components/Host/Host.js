@@ -14,9 +14,7 @@ import Button from 'app/components/common/style/buttons/Button';
 import { customModalStylesV4 } from 'app/styles/mixins/utilities';
 import styles from './Host.style';
 
-const {
-  arrayOf, bool, number, shape, string,
-} = PropTypes;
+const { arrayOf, bool, number, shape, string } = PropTypes;
 
 const profPic = photoUrl =>
   Object.assign(profilePhotoStyle(photoUrl), {
@@ -70,7 +68,10 @@ class Hosts extends Component {
         <div className="title-container">{title}</div>
         <Link to={hostURL}>
           <div className="info-container">
-            <span className="host-name" dangerouslySetInnerHTML={{ __html: hostName }} />
+            <span
+              className="host-name"
+              dangerouslySetInnerHTML={{ __html: hostName }}
+            />
             <span className="icon-line-horz" />
             <div className="icon-container flex-item">
               <div className="vert-line" />
@@ -84,11 +85,19 @@ class Hosts extends Component {
             <div className="member-info">
               <span
                 className="gravity-label"
-                dangerouslySetInnerHTML={{ __html: hostTitle || hostGravityRankLabel }}
+                dangerouslySetInnerHTML={{
+                  __html: hostTitle || hostGravityRankLabel,
+                }}
               />
               <div className="gravity-container">
-                <img className="star" src="https://vega.slooh.com/assets/v4/common/star_icon.svg" />
-                <span className="gravity-text" dangerouslySetInnerHTML={{ __html: hostGravity }} />
+                <img
+                  className="star"
+                  src="https://vega.slooh.com/assets/v4/common/star_icon.svg"
+                />
+                <span
+                  className="gravity-text"
+                  dangerouslySetInnerHTML={{ __html: hostGravity }}
+                />
               </div>
             </div>
           </div>

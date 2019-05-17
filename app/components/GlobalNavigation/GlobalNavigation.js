@@ -6,23 +6,27 @@ import { DeviceContext } from 'providers/DeviceProvider';
 import BootstrappedGlobalNavigation from './BootstrappedGlobalNavigation';
 import { GET_MAIN_NAVIGATION } from 'app/services/navigation';
 
-const {
-  bool, number, oneOfType, shape, string,
-} = PropTypes;
+const { bool, number, oneOfType, shape, string } = PropTypes;
 
 const userMenuModel = {
   name: 'USER_MENU',
   model: resp => ({
     userInfo: has(resp, 'mainMenu.userInfo') ? resp.mainMenu.userInfo : {},
-    userLinks: has(resp, 'mainMenu.userInfo.userLinks') ? resp.mainMenu.userInfo.userLinks : [],
+    userLinks: has(resp, 'mainMenu.userInfo.userLinks')
+      ? resp.mainMenu.userInfo.userLinks
+      : [],
   }),
 };
 
 const mainMenuModel = {
   name: 'MAIN_MENU',
   model: resp => ({
-    primaryLinks: has(resp, 'mainMenu.primaryLinks') ? resp.mainMenu.primaryLinks : [],
-    secondaryLinks: has(resp, 'mainMenu.secondaryLinks') ? resp.mainMenu.secondaryLinks : [],
+    primaryLinks: has(resp, 'mainMenu.primaryLinks')
+      ? resp.mainMenu.primaryLinks
+      : [],
+    secondaryLinks: has(resp, 'mainMenu.secondaryLinks')
+      ? resp.mainMenu.secondaryLinks
+      : [],
   }),
 };
 

@@ -1,6 +1,11 @@
 import css from 'styled-jsx/css';
 import { primaryFont, secondaryFont } from '../../../../styles/variables/fonts';
-import { golda, geyser, lightHeadedAstronaut, romance } from '../../../../styles/variables/colors_tiles_v4';
+import {
+  golda,
+  geyser,
+  lightHeadedAstronaut,
+  romance,
+} from '../../../../styles/variables/colors_tiles_v4';
 
 export default css`
   .root {

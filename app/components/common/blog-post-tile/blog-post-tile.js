@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import style from './blog-post-tile.scss';
 
@@ -18,7 +18,7 @@ const BlogPostTile = ({
   location,
   slugLookupId,
   slugIconURL,
-  postId
+  postId,
 }) => {
   const postTileStyle = {
     backgroundImage: `url(${imageURL})`,
@@ -29,24 +29,33 @@ const BlogPostTile = ({
       <div style={postTileStyle} className="best-post-container">
         <div className="best-post-header">
           <h3 className="best-post-header-title">
-            <img src={typeIconURL} width="50" alt="" /> <span dangerouslySetInnerHTML={{ __html: typeDesc }}></span>
+            <img src={typeIconURL} width="50" alt="" />{' '}
+            <span dangerouslySetInnerHTML={{ __html: typeDesc }} />
           </h3>
         </div>
         <div className="best-post-body clearfix">
-
           <Link className="title-link" to={`community/post/${postId}`}>
-            <h2 className="title" dangerouslySetInnerHTML={{ __html: title }}></h2>
+            <h2 className="title" dangerouslySetInnerHTML={{ __html: title }} />
           </Link>
 
           <div className="user-profile-snapshot">
             <ByUserTag
-              theme={'dark'} photo={avatarURL} name={displayName}
+              theme={'dark'}
+              photo={avatarURL}
+              name={displayName}
               accountType={membershipType}
-              memberSince={memberSince} location={location}
+              memberSince={memberSince}
+              location={location}
             />
             <div className="call-to-action col-md-12">
-              See more about <Link className="action" to={`/objects/latest-entries/${slugLookupId}/all`}>{slugDesc}
-                <img src={slugIconURL} alt="" /></Link>
+              See more about{' '}
+              <Link
+                className="action"
+                to={`/objects/latest-entries/${slugLookupId}/all`}
+              >
+                {slugDesc}
+                <img src={slugIconURL} alt="" />
+              </Link>
             </div>
           </div>
         </div>

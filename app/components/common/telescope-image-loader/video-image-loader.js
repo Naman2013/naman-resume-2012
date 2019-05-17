@@ -4,7 +4,10 @@ import classnames from 'classnames';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import generateSseImageLoader from '../../../utils/generate-sse-image-source';
-import { updateActiveSSE, resetActiveSSE } from '../../../modules/telescope-details/actions';
+import {
+  updateActiveSSE,
+  resetActiveSSE,
+} from '../../../modules/telescope-details/actions';
 import {
   setImageDataToSnapshot,
   resetImageToSnap,
@@ -22,13 +25,13 @@ const mapDispatchToProps = dispatch => ({
       updateActiveSSE,
       resetActiveSSE,
     },
-    dispatch,
+    dispatch
   ),
 });
 
 @connect(
   null,
-  mapDispatchToProps,
+  mapDispatchToProps
 )
 class VideoImageLoader extends Component {
   static propTypes = {
@@ -49,13 +52,13 @@ class VideoImageLoader extends Component {
     showInfo: PropTypes.number,
     callSource: PropTypes.string,
     autoPlay: PropTypes.number,
-    showOverlay:PropTypes.bool,
+    showOverlay: PropTypes.bool,
   };
 
   static defaultProps = {
     clipped: false,
     showVideoControls: 0,
-    showOverlay:true,
+    showOverlay: true,
     showInfo: 0,
     autoPlay: 1,
     callSource: 'details',
@@ -71,7 +74,7 @@ class VideoImageLoader extends Component {
       this.sseSource.addEventListener(
         'message',
         event => this.handleEventSource(event.data),
-        false,
+        false
       );
     }
   }
@@ -85,7 +88,11 @@ class VideoImageLoader extends Component {
 
   handleEventSource(imageData) {
     const {
-      astroObjectID, currentImgURL, imageID, messageType, scheduledMissionID,
+      astroObjectID,
+      currentImgURL,
+      imageID,
+      messageType,
+      scheduledMissionID,
     } = JSON.parse(imageData);
 
     const { callSource } = this.props;
@@ -107,13 +114,16 @@ class VideoImageLoader extends Component {
 
   generateIFrameUrl() {
     const {
-      autoPlay, teleStreamCode, showVideoControls, showInfo,
+      autoPlay,
+      teleStreamCode,
+      showVideoControls,
+      showInfo,
     } = this.props;
     return `https://www.youtube.com/embed/${teleStreamCode}?rel=0&amp;autoplay=${autoPlay}&modestbranding=1&controls=${showVideoControls}&showinfo=${showInfo}&vq=hd720&origin=http://live.slooh.com/`;
   }
 
   render() {
-    return <YoutubePlayer {...this.props} />
+    return <YoutubePlayer {...this.props} />;
   }
 }
 

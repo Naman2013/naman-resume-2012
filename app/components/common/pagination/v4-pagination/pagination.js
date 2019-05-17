@@ -11,7 +11,10 @@ const DEFAULT_PAGES_PER_PAGE = 4;
 const createPages = (activePage, pagesPerPage, totalPageCount) => {
   const pages = [];
   const min = activePage - ((activePage - 1) % pagesPerPage);
-  const max = min + pagesPerPage >= totalPageCount ? totalPageCount + 1 : min + pagesPerPage;
+  const max =
+    min + pagesPerPage >= totalPageCount
+      ? totalPageCount + 1
+      : min + pagesPerPage;
   for (let i = min; i < max; i += 1) {
     pages.push(i);
   }
@@ -38,7 +41,11 @@ class Pagination extends Component {
   };
 
   state = {
-    pages: createPages(this.props.activePage, this.props.pagesPerPage, this.props.totalPageCount),
+    pages: createPages(
+      this.props.activePage,
+      this.props.pagesPerPage,
+      this.props.totalPageCount
+    ),
     activePage: this.props.activePage,
   };
 
@@ -82,7 +89,7 @@ class Pagination extends Component {
     const { pagesPerPage, totalPageCount } = this.props;
     const lastPageInSet = pages[pages.length - 1];
     if (activePage < lastPageInSet) {
-      this.setState((prevState) => {
+      this.setState(prevState => {
         const newPageNumber = prevState.activePage + 1;
         this.props.onPageChange({ activePage: newPageNumber });
         return { activePage: newPageNumber };
@@ -106,7 +113,7 @@ class Pagination extends Component {
     const { pagesPerPage, totalPageCount } = this.props;
     const [firstPageInSet] = pages;
     if (activePage > firstPageInSet) {
-      this.setState((prevState) => {
+      this.setState(prevState => {
         const newPage = prevState.activePage - 1;
         this.props.onPageChange({ activePage: newPage });
         return { activePage: newPage };
@@ -165,12 +172,19 @@ class Pagination extends Component {
           </ul>
 
           <div>
-            <Pages pages={pages} activePage={activePage} onPageSelect={this.handlePageSelect} />
+            <Pages
+              pages={pages}
+              activePage={activePage}
+              onPageSelect={this.handlePageSelect}
+            />
           </div>
 
           <ul className="buttons">
             <li className="button">
-              <GenericButton onClickEvent={this.handleNextPage} icon={horizontalArrow} />
+              <GenericButton
+                onClickEvent={this.handleNextPage}
+                icon={horizontalArrow}
+              />
             </li>
             <li className="button">
               <GenericButton text="Last" onClickEvent={this.handleLastPage} />

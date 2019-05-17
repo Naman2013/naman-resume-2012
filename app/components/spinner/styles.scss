@@ -9,6 +9,10 @@
   left: 0;
   right: 0;
 
+  &.transparent {
+    background: none;
+  }
+
   .spinner-container {
     top: 45%;
     //top: 200px;

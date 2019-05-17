@@ -20,7 +20,12 @@ const StoryTile = ({ title, imageUrl, linkUrl, isMobile, photoSize }) => {
   return (
     <div className="root">
       <Link to={linkUrl}>
-        <AveryTile title={title} iconUrl={imageUrl} theme={theme} photoSize={photoSize} />
+        <AveryTile
+          title={title}
+          iconUrl={imageUrl}
+          theme={theme}
+          photoSize={photoSize}
+        />
       </Link>
       <style jsx>{style}</style>
     </div>

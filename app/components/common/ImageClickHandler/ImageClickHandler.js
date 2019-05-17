@@ -11,7 +11,7 @@ export default class ImageClickHandler extends React.Component {
     imageId: null,
   };
 
-  handleClick = (e) => {
+  handleClick = e => {
     if (this.state.imageId === null && e.target.tagName === 'IMG') {
       this.setState({
         imageId: e.target.getAttribute('sloohrelatedimagerecordid'),

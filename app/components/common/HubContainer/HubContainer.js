@@ -65,7 +65,7 @@ class HubContainer extends Component {
     pageTitleTheme: shape({}),
     callSource: string,
     hubActions: shape({}),
-    plain: bool,
+    profile: bool,
   };
 
   static defaultProps = {
@@ -203,7 +203,7 @@ class HubContainer extends Component {
     return (
       <div className="root">
         <HubHeader
-          plain
+          profile={profile}
           icon={iconURL}
           title={pageTitle}
           renderRightMenu={renderRightMenu}
@@ -212,7 +212,7 @@ class HubContainer extends Component {
           renderNav={() => (
             <div className="navigation-bar">
               <UnderlineNav
-                plain
+                profile={profile}
                 activeFilter={filterType}
                 activeSort={sort}
                 navItems={filterOptions}

@@ -1,9 +1,9 @@
 /***********************************
-* V4 Shows About Tab
-*
-*
-*
-***********************************/
+ * V4 Shows About Tab
+ *
+ *
+ *
+ ***********************************/
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
@@ -36,7 +36,7 @@ class AboutTab extends Component {
     likePrompt: string,
     showInfoTileDirection: string,
     showInfoTiles: shape({
-      list: shape({})
+      list: shape({}),
     }),
     user: shape({
       at: oneOfType([number, string]),
@@ -54,11 +54,7 @@ class AboutTab extends Component {
     likePrompt: '',
   };
 
-  state = {
-
-  }
-
-
+  state = {};
 
   render() {
     const {
@@ -74,9 +70,7 @@ class AboutTab extends Component {
       user,
     } = this.props;
 
-    const {
-
-    } = this.state;
+    const {} = this.state;
     const likeParams = {
       likeId: showId,
       likeType: 'show',
@@ -96,11 +90,20 @@ class AboutTab extends Component {
     return (
       <div className="root">
         <LabeledTitleTiles
-          theme={{ margin: isDesktop ? 0 : '15px', backgroundColor: romance, height: 'auto' }}
+          theme={{
+            margin: isDesktop ? 0 : '15px',
+            backgroundColor: romance,
+            height: 'auto',
+          }}
           tiles={showInfoTiles.list}
           direction={showInfoTileDirection}
         />
-        <DescriptionContainer title="" content={content} theme={{ backgroundColor: romance }} footer={contentFooter} />
+        <DescriptionContainer
+          title=""
+          content={content}
+          theme={{ backgroundColor: romance }}
+          footer={contentFooter}
+        />
         <style jsx>{styles}</style>
       </div>
     );

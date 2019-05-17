@@ -23,7 +23,10 @@ function TelescopeImageViewer({
   const imageSource = generateSseImageLoader(teleSystem, telePort);
 
   //TODO rewrite this cause i`d rather never write something like this
-  const viewportHeight = Array.prototype.filter.call(document.getElementsByClassName('live-video-container'), x => x.offsetWidth !== 0)[0].offsetWidth;
+  const viewportHeight = Array.prototype.filter.call(
+    document.getElementsByClassName('live-video-container'),
+    x => x.offsetWidth !== 0
+  )[0].offsetWidth;
 
   return (
     <div className="telescope-image-viewer">

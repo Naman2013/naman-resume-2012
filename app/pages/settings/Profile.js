@@ -18,18 +18,23 @@ const { arrayOf, bool, number, string, shape, func } = PropTypes;
 class Profile extends Component {
   constructor(props) {
     super(props);
-    const {
-      fetchDashboard,
-    } = props;
+    const { fetchDashboard } = props;
     fetchDashboard({});
   }
 
   render() {
-    const { profile, fetchDashboard, refreshIntervalSec, imageList } = this.props;
+    const {
+      profile,
+      fetchDashboard,
+      refreshIntervalSec,
+      imageList,
+    } = this.props;
     return (
       <div className={s.ProfileDashboard}>
         <Header
-          headerCopy={`Dashboard for ${profile.memberName} (${profile.displayName})`}
+          headerCopy={`Dashboard for ${profile.memberName} (${
+            profile.displayName
+          })`}
           subHeaderCopy={`Member Since ${profile.memberSinceMDY}`}
         />
 
@@ -41,45 +46,50 @@ class Profile extends Component {
         <ReservationsLimit />
         <article>
           <section className="missions">
-            <h2 className="center margin-top-reg margin-bottom-large">Recent &amp; Upcoming Missions</h2>
+            <h2 className="center margin-top-reg margin-bottom-large">
+              Recent &amp; Upcoming Missions
+            </h2>
             <UsersReservations
               unixTimestamp={profile.timestamp * 1000}
               reservationsList={profile.missionList}
               refreshAction={fetchDashboard}
-              refreshIntervalSec={refreshIntervalSec} />
+              refreshIntervalSec={refreshIntervalSec}
+            />
             <div className="row-xxwide center-center margin-top-large">
-              <Link
-                className="btn-primary center-block"
-                to="/reservations"
-              >
+              <Link className="btn-primary center-block" to="/reservations">
                 Schedule Telescope
               </Link>
             </div>
           </section>
 
-          {profile.showUpsellMessage && profile.membershipType !== 'ASTRONOMER' && <section className="interstital padding-top-xsmall padding-bottom-med margin-top-xlarge margin-bottom-small white sans-serif">
-            <MembershipUpsell upsellDetails={profile.upsellDetails} />
-          </section>}
+          {profile.showUpsellMessage &&
+            profile.membershipType !== 'ASTRONOMER' && (
+              <section className="interstital padding-top-xsmall padding-bottom-med margin-top-xlarge margin-bottom-small white sans-serif">
+                <MembershipUpsell upsellDetails={profile.upsellDetails} />
+              </section>
+            )}
         </article>
 
         <section className="recent-pictures row-xxwide">
-          <h2 className="center margin-top-large margin-bottom-large ">Recent Pictures</h2>
+          <h2 className="center margin-top-large margin-bottom-large ">
+            Recent Pictures
+          </h2>
           <article className={s.ProfilePictures}>
-            <UsersPictures fetchPhotosAction={fetchDashboard} imageList={imageList} colNum="3" />
+            <UsersPictures
+              fetchPhotosAction={fetchDashboard}
+              imageList={imageList}
+              colNum="3"
+            />
           </article>
 
           <div className="row-xxwide center-center">
-            <Link
-              className="btn-primary center-block"
-              to="/my-pictures"
-            >
-                Go To My Pictures
+            <Link className="btn-primary center-block" to="/my-pictures">
+              Go To My Pictures
             </Link>
           </div>
         </section>
 
-          {
-              /**
+        {/**
               <section className="row-xxwide objects-followed">
 
                   <h2 className="center margin-bottom-large padding-top-large border-top">Objects Followed</h2>
@@ -203,9 +213,9 @@ class Profile extends Component {
                 </article>
 
             </section>
-            */
-          }
-      </div>);
+            */}
+      </div>
+    );
   }
 }
 Profile.defaultProps = {
@@ -216,10 +226,12 @@ Profile.defaultProps = {
 Profile.propTypes = {
   fetchDashboard: func.isRequired,
   fetchPhotoRoll: func.isRequired,
-  imageList: arrayOf(shape({
-    imageURL: string.isRequired,
-    imageId: number.isRequired,
-  })),
+  imageList: arrayOf(
+    shape({
+      imageURL: string.isRequired,
+      imageId: number.isRequired,
+    })
+  ),
   photoRollError: bool,
 };
 
@@ -227,9 +239,16 @@ const mapStateToProps = ({ dashboard, myPictures }) => ({
   ...dashboard,
   imageList: dashboard.profile.imageList,
 });
-const mapDispatchToProps = dispatch => (bindActionCreators({
-  fetchDashboard,
-  fetchPhotoRoll,
-}, dispatch));
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      fetchDashboard,
+      fetchPhotoRoll,
+    },
+    dispatch
+  );
 
-export default connect(mapStateToProps, mapDispatchToProps)(Profile);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Profile);

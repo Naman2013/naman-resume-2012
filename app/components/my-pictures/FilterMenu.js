@@ -1,14 +1,19 @@
-import 'react-dates/lib/css/_datepicker.css';
-
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import moment from 'moment';
 import isEqual from 'lodash/isEqual';
+import 'react-dates/initialize';
+import 'react-dates/lib/css/_datepicker.css';
 import { DayPickerSingleDateController } from 'react-dates';
 import { fetchObjectTypeList } from '../../modules/object-type-list/actions';
-import { fetchFiltersLists, setFilters, setSelectedTagsTabIndex, setCurrentVisibleCalMonth } from '../../modules/my-pictures-filters/actions';
+import {
+  fetchFiltersLists,
+  setFilters,
+  setSelectedTagsTabIndex,
+  setCurrentVisibleCalMonth,
+} from '../../modules/my-pictures-filters/actions';
 import SelectToggleList from '../common/forms/SelectToggleList';
 import { white, darkBlueGray } from '../../styles/variables/colors';
 import FilterMenuTags from './FilterMenuTags';
@@ -21,13 +26,16 @@ const mapStateToProps = ({ objectTypeList, myPicturesFilters }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({
-    fetchFiltersLists,
-    fetchObjectTypeList,
-    setFilters,
-    setSelectedTagsTabIndex,
-    setCurrentVisibleCalMonth
-  }, dispatch),
+  actions: bindActionCreators(
+    {
+      fetchFiltersLists,
+      fetchObjectTypeList,
+      setFilters,
+      setSelectedTagsTabIndex,
+      setCurrentVisibleCalMonth,
+    },
+    dispatch
+  ),
 });
 
 export class FilterMenuComponent extends Component {
@@ -35,10 +43,13 @@ export class FilterMenuComponent extends Component {
     super(props);
 
     this.state = {
-      date: props.selectedFilters.dateFilter ? moment(props.selectedFilters.dateFilter).startOf('day') : null, // for datepicker
+      date: props.selectedFilters.dateFilter
+        ? moment(props.selectedFilters.dateFilter).startOf('day')
+        : null, // for datepicker
       focused: true,
       selectedTelescopeIndex: props.telescopes.telescopesList.findIndex(
-        tele => tele.pierNumber === props.selectedFilters.pierNumber &&
+        tele =>
+          tele.pierNumber === props.selectedFilters.pierNumber &&
           tele.observatoryId === props.selectedFilters.observatoryId
       ),
       selectedTimeIndex: props.times.timesList.findIndex(
@@ -58,12 +69,18 @@ export class FilterMenuComponent extends Component {
   }
 
   componentWillUpdate(nextProps) {
-    if (this.props.page !== nextProps.page || !isEqual(this.props.selectedFilters, nextProps.selectedFilters)) {
+    if (
+      this.props.page !== nextProps.page ||
+      !isEqual(this.props.selectedFilters, nextProps.selectedFilters)
+    ) {
       this.setState({
-        date: nextProps.selectedFilters.dateFilter ? moment(nextProps.selectedFilters.dateFilter) : null, // for datepicker
+        date: nextProps.selectedFilters.dateFilter
+          ? moment(nextProps.selectedFilters.dateFilter)
+          : null, // for datepicker
         focused: true,
         selectedTelescopeIndex: nextProps.telescopes.telescopesList.findIndex(
-          tele => tele.pierNumber === nextProps.selectedFilters.pierNumber &&
+          tele =>
+            tele.pierNumber === nextProps.selectedFilters.pierNumber &&
             tele.observatoryId === nextProps.selectedFilters.observatoryId
         ),
         selectedTimeIndex: nextProps.times.timesList.findIndex(
@@ -76,72 +93,91 @@ export class FilterMenuComponent extends Component {
     }
   }
 
-  handleTimeChange = (value) => {
+  handleTimeChange = value => {
     const { page, selectedFilters, galleryId, scheduledMissionId } = this.props;
     const nextTimeSelectedIndex = value;
     const nextTimeFilter = this.originalTimesFilter(nextTimeSelectedIndex);
     if (nextTimeSelectedIndex === this.state.selectedTimeIndex) {
-      this.props.actions.setFilters({
-        timeFilter: null,
-      }, { page, galleryId, scheduledMissionId });
+      this.props.actions.setFilters(
+        {
+          timeFilter: null,
+        },
+        { page, galleryId, scheduledMissionId }
+      );
       this.setState({
-        selectedTimeIndex: null
+        selectedTimeIndex: null,
       });
     } else {
-      this.props.actions.setFilters({
-        timeFilter: nextTimeFilter.value
-      }, { page, galleryId, scheduledMissionId });
+      this.props.actions.setFilters(
+        {
+          timeFilter: nextTimeFilter.value,
+        },
+        { page, galleryId, scheduledMissionId }
+      );
       this.setState({
-        selectedTimeIndex: nextTimeSelectedIndex
+        selectedTimeIndex: nextTimeSelectedIndex,
       });
     }
-  }
+  };
 
-  handleObjectFilterChange = (value) => {
+  handleObjectFilterChange = value => {
     const { page, selectedFilters, galleryId, scheduledMissionId } = this.props;
     const nextObjectFilterIndex = value;
     const nextObjectFilter = this.originalObjectFilter(nextObjectFilterIndex);
     if (nextObjectFilterIndex === this.state.selectedObjectTypeIndex) {
-      this.props.actions.setFilters({
-        filterType: null
-      }, { page, galleryId, scheduledMissionId });
+      this.props.actions.setFilters(
+        {
+          filterType: null,
+        },
+        { page, galleryId, scheduledMissionId }
+      );
       this.setState({
-        selectedObjectTypeIndex: null
+        selectedObjectTypeIndex: null,
       });
     } else {
-      this.props.actions.setFilters({
-        filterType: nextObjectFilter.objectTypeFilter
-      }, { page, galleryId, scheduledMissionId });
+      this.props.actions.setFilters(
+        {
+          filterType: nextObjectFilter.objectTypeFilter,
+        },
+        { page, galleryId, scheduledMissionId }
+      );
       this.setState({
-        selectedObjectTypeIndex: nextObjectFilterIndex
+        selectedObjectTypeIndex: nextObjectFilterIndex,
       });
     }
-  }
+  };
 
-  handleTelescopeChange = (value) => {
+  handleTelescopeChange = value => {
     const { page, selectedFilters, galleryId, scheduledMissionId } = this.props;
     const nextTelescopeSelectedIndex = value;
-    const nextTelescopeFilter = this.originalTelescopeFilter(nextTelescopeSelectedIndex);
+    const nextTelescopeFilter = this.originalTelescopeFilter(
+      nextTelescopeSelectedIndex
+    );
 
     if (this.state.selectedTelescopeIndex === nextTelescopeSelectedIndex) {
-      this.props.actions.setFilters({
-        pierNumber: null,
-        observatoryId: null,
-      }, { page, galleryId, scheduledMissionId });
+      this.props.actions.setFilters(
+        {
+          pierNumber: null,
+          observatoryId: null,
+        },
+        { page, galleryId, scheduledMissionId }
+      );
       this.setState({
-        selectedTelescopeIndex: null
+        selectedTelescopeIndex: null,
       });
     } else {
-      this.props.actions.setFilters({
-        pierNumber: nextTelescopeFilter.pierNumber,
-        observatoryId: nextTelescopeFilter.observatoryId,
-      }, { page, galleryId, scheduledMissionId });
+      this.props.actions.setFilters(
+        {
+          pierNumber: nextTelescopeFilter.pierNumber,
+          observatoryId: nextTelescopeFilter.observatoryId,
+        },
+        { page, galleryId, scheduledMissionId }
+      );
       this.setState({
-        selectedTelescopeIndex: nextTelescopeSelectedIndex
+        selectedTelescopeIndex: nextTelescopeSelectedIndex,
       });
     }
-
-  }
+  };
 
   originalObjectFilter(index) {
     return this.props.objectFilterList[index];
@@ -155,44 +191,56 @@ export class FilterMenuComponent extends Component {
     return this.props.times.timesList[index];
   }
 
+  isDayHighlighted = e => {
+    const availableDate = this.props.dates.datesList.filter(availableMoment =>
+      e.isSame(moment(availableMoment), 'day')
+    );
+    return availableDate.length > 0;
+  };
 
-  isDayHighlighted = (e) => {
-    const availableDate = this.props.dates.datesList.filter(availableMoment => e.isSame(moment(availableMoment), 'day'));
-    return availableDate.length > 0
-  }
-
-  setDateFilter = (date) => {
+  setDateFilter = date => {
     const { actions, page, galleryId, scheduledMissionId } = this.props;
-    if ((this.state.date && this.state.date.format('YYYY-MM-DD')) === (date && date.format('YYYY-MM-DD'))) {
-      this.setState((() => ({
+    if (
+      (this.state.date && this.state.date.format('YYYY-MM-DD')) ===
+      (date && date.format('YYYY-MM-DD'))
+    ) {
+      this.setState(() => ({
         date: null, // for the datepicker
-      })));
+      }));
 
-      actions.setFilters({
-        dateFilter: null,
-      }, { page, galleryId, scheduledMissionId });
+      actions.setFilters(
+        {
+          dateFilter: null,
+        },
+        { page, galleryId, scheduledMissionId }
+      );
     } else {
-      this.setState((() => ({
+      this.setState(() => ({
         date, // for the datepicker
-      })));
+      }));
 
-      actions.setFilters({
-        dateFilter: date.format('YYYY-MM-DD'),
-      }, { page, galleryId, scheduledMissionId });
+      actions.setFilters(
+        {
+          dateFilter: date.format('YYYY-MM-DD'),
+        },
+        { page, galleryId, scheduledMissionId }
+      );
     }
-
-  }
+  };
 
   handleTagClick = (param, value) => {
     const { actions, page, galleryId, scheduledMissionId } = this.props;
-    actions.setFilters({
-      [param]: value,
-    }, { page, galleryId, scheduledMissionId });
-  }
+    actions.setFilters(
+      {
+        [param]: value,
+      },
+      { page, galleryId, scheduledMissionId }
+    );
+  };
 
-  onFocusChange = (input) => {
+  onFocusChange = input => {
     this.setState({ focused: true });
-  }
+  };
 
   setCalendarMonth = () => {
     const { actions, currentVisibleCalMonth } = this.props;
@@ -202,7 +250,7 @@ export class FilterMenuComponent extends Component {
         currentVisibleCalMonth: currMonth,
       });
     }
-  }
+  };
 
   getIconStyle = (item, prop) => ({
     backgroundImage: `url(${item[prop]})`,
@@ -212,7 +260,7 @@ export class FilterMenuComponent extends Component {
     marginRight: '5px',
     backgroundRepeat: 'no-repeat',
     backgroundSize: '20px',
-  })
+  });
 
   get timeFilterOptions() {
     const { times } = this.props;
@@ -221,16 +269,30 @@ export class FilterMenuComponent extends Component {
 
   get objectFilterOptions() {
     const { objectFilterList } = this.props;
-    return objectFilterList.map(objectFilter => (<span><div style={this.getIconStyle(objectFilter, 'objectTypeIconURL')} />{objectFilter.objectTypeDisplayName}</span>));
+    return objectFilterList.map(objectFilter => (
+      <span>
+        <div style={this.getIconStyle(objectFilter, 'objectTypeIconURL')} />
+        {objectFilter.objectTypeDisplayName}
+      </span>
+    ));
   }
 
   get telescopeFilterOptions() {
     const { telescopes } = this.props;
-    return telescopes.telescopesList.map(tele => (<span><div style={this.getIconStyle(tele, 'iconUrl')} />{tele.name}</span>));
+    return telescopes.telescopesList.map(tele => (
+      <span>
+        <div style={this.getIconStyle(tele, 'iconUrl')} />
+        {tele.name}
+      </span>
+    ));
   }
 
   render() {
-    const { selectedTelescopeIndex, selectedTimeIndex, selectedObjectTypeIndex } = this.state;
+    const {
+      selectedTelescopeIndex,
+      selectedTimeIndex,
+      selectedObjectTypeIndex,
+    } = this.state;
     const {
       currentVisibleCalMonth,
       pictureUserTags,
@@ -238,7 +300,7 @@ export class FilterMenuComponent extends Component {
       missionUserTags,
       selectedFilters,
       actions,
-      selectedTagsTabIndex
+      selectedTagsTabIndex,
     } = this.props;
 
     const missionSystemTagsCount = selectedFilters.missionSystemTags.length;
@@ -260,7 +322,9 @@ export class FilterMenuComponent extends Component {
               keepOpenOnDateSelect={true}
               isDayHighlighted={this.isDayHighlighted}
               orientation="horizontal"
-              ref={(_calRef) => { this.calRef = _calRef; }}
+              ref={_calRef => {
+                this.calRef = _calRef;
+              }}
               onNextMonthClick={this.setCalendarMonth}
               onPrevMonthClick={this.setCalendarMonth}
               initialVisibleMonth={() => currentVisibleCalMonth}
@@ -322,20 +386,20 @@ export class FilterMenuComponent extends Component {
             -webkit-border-radius: 10px;
             -moz-border-radius: 10px;
             border-radius: 10px;
-            -webkit-box-shadow: 0px 0px 32px 0px rgba(117,117,117,1);
-            -moz-box-shadow: 0px 0px 32px 0px rgba(117,117,117,1);
-            box-shadow: 0px 0px 32px 0px rgba(117,117,117,1);
+            -webkit-box-shadow: 0px 0px 32px 0px rgba(117, 117, 117, 1);
+            -moz-box-shadow: 0px 0px 32px 0px rgba(117, 117, 117, 1);
+            box-shadow: 0px 0px 32px 0px rgba(117, 117, 117, 1);
           }
           .filterMenu {
             padding: 0;
             margin: 0 auto;
             list-style: none;
             text-transform: capitalize;
-            display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
-            display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
-            display: -ms-flexbox;      /* TWEENER - IE 10 */
-            display: -webkit-flex;     /* NEW - Chrome */
-            display: flex;             /* NEW, Spec - Opera 12.1, Firefox 20+ */
+            display: -webkit-box; /* OLD - iOS 6-, Safari 3.1-6 */
+            display: -moz-box; /* OLD - Firefox 19- (buggy but mostly works) */
+            display: -ms-flexbox; /* TWEENER - IE 10 */
+            display: -webkit-flex; /* NEW - Chrome */
+            display: flex; /* NEW, Spec - Opera 12.1, Firefox 20+ */
             flex-direction: row;
             width: 100%;
           }
@@ -381,10 +445,10 @@ export class FilterMenuComponent extends Component {
 FilterMenuComponent.defaultProps = {
   objectFilterList: [],
   dates: {
-    datesList: []
+    datesList: [],
   },
   telescopes: {
-    telescopesList: []
+    telescopesList: [],
   },
   galleryId: null,
   scheduledMissionId: null,
@@ -397,43 +461,49 @@ FilterMenuComponent.defaultProps = {
     pictureUserTags: [],
     missionUserTags: [],
     missionSystemTags: [],
-    selectedTagsTabIndex: 0
-  }
+    selectedTagsTabIndex: 0,
+  },
 };
 
 FilterMenuComponent.propTypes = {
   page: PropTypes.string.isRequired, // used to sort out some hard wiring of API calls
   scheduledMissionId: PropTypes.number,
   galleryId: PropTypes.string,
-  objectFilterList: PropTypes.arrayOf(PropTypes.shape({
-    objectTypeDisplayName: PropTypes.string.isRequired,
-    objectTypeFilter: PropTypes.string.isRequired,
-  })),
+  objectFilterList: PropTypes.arrayOf(
+    PropTypes.shape({
+      objectTypeDisplayName: PropTypes.string.isRequired,
+      objectTypeFilter: PropTypes.string.isRequired,
+    })
+  ),
   dates: PropTypes.shape({
     datesList: PropTypes.arrayOf(PropTypes.string),
   }),
   times: PropTypes.shape({
-    timesList: PropTypes.arrayOf(PropTypes.shape({
-      name: PropTypes.string,
-      value: PropTypes.number,
-    })),
+    timesList: PropTypes.arrayOf(
+      PropTypes.shape({
+        name: PropTypes.string,
+        value: PropTypes.number,
+      })
+    ),
   }),
   telescopes: PropTypes.shape({
-    telescopesList: PropTypes.arrayOf(PropTypes.shape({
-      pierNumber: PropTypes.string,
-      observatoryId: PropTypes.string,
-      name: PropTypes.string,
-      iconUrl: PropTypes.string,
-    }))
+    telescopesList: PropTypes.arrayOf(
+      PropTypes.shape({
+        pierNumber: PropTypes.string,
+        observatoryId: PropTypes.string,
+        name: PropTypes.string,
+        iconUrl: PropTypes.string,
+      })
+    ),
   }),
   missionSystemTags: PropTypes.shape({
-    tagsList: PropTypes.arrayOf(PropTypes.string)
+    tagsList: PropTypes.arrayOf(PropTypes.string),
   }),
   missionUserTags: PropTypes.shape({
-    tagsList: PropTypes.arrayOf(PropTypes.string)
+    tagsList: PropTypes.arrayOf(PropTypes.string),
   }),
   pictureUserTags: PropTypes.shape({
-    tagsList: PropTypes.arrayOf(PropTypes.string)
+    tagsList: PropTypes.arrayOf(PropTypes.string),
   }),
   selectedFilters: PropTypes.shape({
     dateFilter: PropTypes.string,
@@ -443,7 +513,10 @@ FilterMenuComponent.propTypes = {
     timeFilter: PropTypes.number,
   }),
   selectedTagsTabIndex: PropTypes.number,
-  currentVisibleCalMonth: PropTypes.instanceOf(moment)
+  currentVisibleCalMonth: PropTypes.instanceOf(moment),
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(FilterMenuComponent);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(FilterMenuComponent);

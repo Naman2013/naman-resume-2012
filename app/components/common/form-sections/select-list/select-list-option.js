@@ -4,25 +4,10 @@ import has from 'lodash/has';
 import uniqueId from 'lodash/uniqueId';
 import styles from './select-list-option.style';
 
-const {
-  arrayOf,
-  bool,
-  func,
-  number,
-  shape,
-  string,
-} = PropTypes;
+const { arrayOf, bool, func, number, shape, string } = PropTypes;
 
-
-const SelectListOption = (props) => {
-  const {
-    handleSelectChange,
-    id,
-    index,
-    isChecked,
-    name,
-    value,
-  } = props;
+const SelectListOption = props => {
+  const { handleSelectChange, id, index, isChecked, name, value } = props;
   return (
     <Fragment>
       <input

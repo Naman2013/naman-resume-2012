@@ -7,28 +7,30 @@ class ColumnTabs extends Component {
   static propTypes = {
     title: PropTypes.string,
     activeTabIndex: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    tabConfiguration: PropTypes.arrayOf(PropTypes.shape({
-      tabTitle: PropTypes.string.isRequired,
-      content: PropTypes.func.isRequired,
-    })),
-  }
+    tabConfiguration: PropTypes.arrayOf(
+      PropTypes.shape({
+        tabTitle: PropTypes.string.isRequired,
+        content: PropTypes.func.isRequired,
+      })
+    ),
+  };
 
   static defaultProps = {
     title: '',
     activeTabIndex: 0,
     tabConfiguration: [
-      { tabTitle: 'Live', content: () => (<h1>Live stuff!</h1>) },
-      { tabTitle: 'Queue', content: () => (<h1>Queue</h1>) },
-      { tabTitle: 'Cond.', content: () => (<h1>Conditions!</h1>) },
-      { tabTitle: 'Scope', content: () => (<h1>About the telescope..</h1>) },
+      { tabTitle: 'Live', content: () => <h1>Live stuff!</h1> },
+      { tabTitle: 'Queue', content: () => <h1>Queue</h1> },
+      { tabTitle: 'Cond.', content: () => <h1>Conditions!</h1> },
+      { tabTitle: 'Scope', content: () => <h1>About the telescope..</h1> },
     ],
-  }
+  };
 
-  state = { activeTabIndex: this.props.activeTabIndex }
+  state = { activeTabIndex: this.props.activeTabIndex };
 
-  handleTabClick = (event) => {
+  handleTabClick = event => {
     this.setState({ activeTabIndex: event.currentTarget.dataset.index });
-  }
+  };
 
   render() {
     const { currentTelescope } = this.props;
@@ -41,7 +43,9 @@ class ColumnTabs extends Component {
             {this.props.tabConfiguration.map((tab, index) => (
               <li key={`column-tab-${tab.tabTitle}`} className="column-tab">
                 <button
-                  className={classnames('column-tab-button', { active: (index == this.state.activeTabIndex) })}
+                  className={classnames('column-tab-button', {
+                    active: index == this.state.activeTabIndex,
+                  })}
                   data-index={index}
                   onClick={this.handleTabClick}
                 >

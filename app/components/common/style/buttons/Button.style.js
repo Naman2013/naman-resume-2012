@@ -31,12 +31,16 @@ export default css`
     font-weight: bold;
     font-family: ${primaryFont};
   }
-  
+
   .button-container.no-border {
     border: none;
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+  .button-container.auto {
+    margin: auto;
   }
 
   .button-container:active,
@@ -49,7 +53,7 @@ export default css`
     height: 40px;
     padding: 0;
   }
-  
+
   .plain {
     padding: 0;
     margin: 0 10px;

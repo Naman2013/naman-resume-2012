@@ -1,7 +1,11 @@
 // todo remove me
 import axios from 'axios';
 import createReducer from './utils/createReducer';
-import { missionConfirmOpen, missionConfirmClose, missionGetCards } from './missions-old';
+import {
+  missionConfirmOpen,
+  missionConfirmClose,
+  missionGetCards,
+} from './missions-old';
 import { fetchReservationList } from './mission-slots-by-telescope/mission-slots-by-telescope-actions';
 import { fetchUsersUpcomingMissions } from './Users-Upcoming-Missions';
 
@@ -52,12 +56,14 @@ export const closeConfirmationModal = () => (dispatch, getState) => {
   if (callSource === BY_TELESCOPE) {
     const { missionSlotDates } = getState();
     const { reservationDate } = missionSlotDates.dateRangeResponse.dateList[0];
-    dispatch(fetchReservationList({
-      obsId,
-      domeId,
-      telescopeId,
-      reservationDate,
-    })); // refresh telescope reservation list
+    dispatch(
+      fetchReservationList({
+        obsId,
+        domeId,
+        telescopeId,
+        reservationDate,
+      })
+    ); // refresh telescope reservation list
   }
 
   if (callSource === RECOMMENDS) {
@@ -94,15 +100,16 @@ export const reservePiggyback = () => (dispatch, getState) => {
 
   dispatch(startPiggybackReservation());
 
-  return axios.post('/api/reservation/reservePiggyback', {
-    token,
-    at,
-    cid,
-    callSource,
-    ...currentMission,
-  })
-  .then(result => dispatch(reservePiggybackSuccess(result.data)))
-  .catch(error => dispatch(reservePiggybackFail(error)));
+  return axios
+    .post('/api/reservation/reservePiggyback', {
+      token,
+      at,
+      cid,
+      callSource,
+      ...currentMission,
+    })
+    .then(result => dispatch(reservePiggybackSuccess(result.data)))
+    .catch(error => dispatch(reservePiggybackFail(error)));
 };
 
 /**
@@ -121,44 +128,49 @@ export const grabPiggyback = mission => (dispatch, getState) => {
   }
 
   if (missionAvailable) {
-    return axios.post('/api/reservation/grabPiggyback', {
-      token,
-      at,
-      cid,
-      scheduledMissionId: mission.scheduledMissionId,
-      uniqueId: currentCard.uniqueId,
-      callSource: 'recommends',
-      objectTitle: currentCard.title,
-      lookaheadPiggyback: currentCard.lookaheadDaysPiggyback,
-    })
-    .then((result) => {
-      dispatch(grabPiggybackSuccess(result.data));
-      if (!result.data.apiError) {
-        dispatch(missionConfirmOpen('piggyback'));
-      }
-    })
-    .catch(error => dispatch(missionUnavailable(error)));
+    return axios
+      .post('/api/reservation/grabPiggyback', {
+        token,
+        at,
+        cid,
+        scheduledMissionId: mission.scheduledMissionId,
+        uniqueId: currentCard.uniqueId,
+        callSource: 'recommends',
+        objectTitle: currentCard.title,
+        lookaheadPiggyback: currentCard.lookaheadDaysPiggyback,
+      })
+      .then(result => {
+        dispatch(grabPiggybackSuccess(result.data));
+        if (!result.data.apiError) {
+          dispatch(missionConfirmOpen('piggyback'));
+        }
+      })
+      .catch(error => dispatch(missionUnavailable(error)));
   }
 };
 
-export const grabPiggybackByTelescope = ({ uniqueId, scheduledMissionId }) => (dispatch, getState) => {
+export const grabPiggybackByTelescope = ({ uniqueId, scheduledMissionId }) => (
+  dispatch,
+  getState
+) => {
   const { token, at, cid } = getState().user;
 
   dispatch(startGrabPiggyback());
 
-  return axios.post('/api/reservation/grabPiggyback', {
-    token,
-    at,
-    cid,
-    uniqueId,
-    scheduledMissionId,
-    callSource: 'byTelescope',
-  })
-  .then((result) => {
-    dispatch(grabPiggybackSuccess(result.data));
-    dispatch(missionConfirmOpen('piggyback'));
-  })
-  .catch(error => dispatch(missionUnavailable(error)));
+  return axios
+    .post('/api/reservation/grabPiggyback', {
+      token,
+      at,
+      cid,
+      uniqueId,
+      scheduledMissionId,
+      callSource: 'byTelescope',
+    })
+    .then(result => {
+      dispatch(grabPiggybackSuccess(result.data));
+      dispatch(missionConfirmOpen('piggyback'));
+    })
+    .catch(error => dispatch(missionUnavailable(error)));
 };
 
 export const resetMissionAvailability = () => ({
@@ -230,7 +242,7 @@ export default createReducer(initialState, {
     return {
       ...state,
       missionAvailable: true,
-    }
+    };
   },
   [GRAB_PIGGYBACK_SUCCESS](state, { payload }) {
     return {
@@ -248,7 +260,7 @@ export default createReducer(initialState, {
       piggybackError: error,
       error: true,
       fetching: false,
-    }
+    };
   },
   [GRAB_PIGGYBACK_START](state) {
     return {
@@ -257,6 +269,6 @@ export default createReducer(initialState, {
       piggybackError: {},
       error: false,
       fetching: true,
-    }
+    };
   },
 });

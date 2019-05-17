@@ -9,13 +9,7 @@ import styles from './upload-images.style';
 import messages from './upload-images.messages';
 import { FormattedMessage } from 'react-intl';
 
-const {
-  arrayOf,
-  func,
-  number,
-  shape,
-  string,
-} = PropTypes;
+const { arrayOf, func, number, shape, string } = PropTypes;
 
 class UploadImages extends Component {
   static propTypes = {
@@ -30,17 +24,15 @@ class UploadImages extends Component {
     validateResponseAccess: func.isRequired,
   };
 
-  static defaultProps = {
-
-  };
+  static defaultProps = {};
 
   state = {
     uploadLoading: false,
     uploadError: null,
     imageInputValue: '',
-  }
+  };
 
-  handleUploadImage = (event) => {
+  handleUploadImage = event => {
     event.preventDefault();
 
     const { cid, token, at } = this.props.user;
@@ -60,13 +52,15 @@ class UploadImages extends Component {
 
     setPostImage(data)
       .then(result => this.handleUploadImageResponse(result.data))
-      .catch(err => this.setState({
-        uploadError: err.message,
-        uploadLoading: false,
-      }));
-  }
+      .catch(err =>
+        this.setState({
+          uploadError: err.message,
+          uploadLoading: false,
+        })
+      );
+  };
 
-  handleDeleteImage = (e) => {
+  handleDeleteImage = e => {
     e.preventDefault();
     const { url } = e.currentTarget.dataset;
 
@@ -79,42 +73,48 @@ class UploadImages extends Component {
       uniqueId: uuid,
       imageClass,
       imageURL: url,
-    }).then((result) => {
+    }).then(result => {
       validateResponseAccess(result);
       this.handleUploadImageResponse(result.data);
     });
-  }
+  };
 
-  handleUploadImageResponse = (uploadFileData) => {
+  handleUploadImageResponse = uploadFileData => {
     const images = uploadFileData.imageList.map(img => img.imageURL);
     this.setState({
       uploadLoading: false,
     });
 
     this.props.onImagesChange(images);
-  }
+  };
 
   render() {
-    const {
-      S3URLs,
-      title,
-    } = this.props;
+    const { S3URLs, title } = this.props;
 
-    const {
-      uploadLoading,
-      uploadError,
-      imageInputValue,
-    } = this.state;
+    const { uploadLoading, uploadError, imageInputValue } = this.state;
     return (
       <div className="root">
         {uploadLoading ? <div>Loading...</div> : null}
-        <ImagesDisplay S3URLs={S3URLs} handleDeleteImage={this.handleDeleteImage} />
-        {title && <ImagesInput handleUploadImage={this.handleUploadImage} imageInputValue={imageInputValue} title={title}/>}
-        {uploadError && !uploadLoading && <div><FormattedMessage {...messages.UploadImageErrorText} /></div>}
+        <ImagesDisplay
+          S3URLs={S3URLs}
+          handleDeleteImage={this.handleDeleteImage}
+        />
+        {title && (
+          <ImagesInput
+            handleUploadImage={this.handleUploadImage}
+            imageInputValue={imageInputValue}
+            title={title}
+          />
+        )}
+        {uploadError && !uploadLoading && (
+          <div>
+            <FormattedMessage {...messages.UploadImageErrorText} />
+          </div>
+        )}
         <style jsx>{styles}</style>
       </div>
     );
   }
-};
+}
 
 export default UploadImages;

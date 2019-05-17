@@ -23,7 +23,9 @@ export default class CircleTimer extends Component {
   };
 
   getDaysInMonth() {
-    return new Date(new Date().setMonth(new Date().getMonth() + 1, 0)).getDate();
+    return new Date(
+      new Date().setMonth(new Date().getMonth() + 1, 0)
+    ).getDate();
   }
 
   getDoubleNumber(number) {
@@ -37,7 +39,13 @@ export default class CircleTimer extends Component {
       getDoubleNumber,
     } = this;
 
-    const { daysTo, hoursTo, minutesTo, secondsTo, millisecondsTo } = countdownEventTimer;
+    const {
+      daysTo,
+      hoursTo,
+      minutesTo,
+      secondsTo,
+      millisecondsTo,
+    } = countdownEventTimer;
 
     const daysProgress = getDaysInMonth() - daysTo;
 

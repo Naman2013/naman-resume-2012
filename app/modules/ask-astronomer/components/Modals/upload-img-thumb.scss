@@ -1,0 +1,20 @@
+.upload-img-thumb {
+  height: 122px;
+  position: relative;
+  display: inline-block;
+
+  img {
+    object-fit: cover;
+    height: 100%;
+  }
+
+  .close-btn {
+    font-size: 10px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    text-shadow: 0 0 3px #000;
+    color: #fff;
+    cursor: pointer;
+  }
+}

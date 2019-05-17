@@ -149,7 +149,7 @@ export default injectIntl(
       const { intl, params } = this.props;
       const { tiles } = this.state;
       const { profileMenuList } = // TODO: fix
-      this.props.publicProfileData || this.props.privateProfileData;
+        this.props.publicProfileData || this.props.privateProfileData;
 
       const hubFilters = profileMenuList.find(mItem => mItem.name === 'Lists')
         .subMenus;
@@ -203,11 +203,11 @@ export default injectIntl(
                   <Fragment>
                     {tiles && tiles.length
                       ? this.GetTiles(params.filterType, {
-                        closeModal: this.closeModal,
-                        updateReadingListInfo: this.updateItemInfo,
-                        updatePrompt: this.updatePrompt,
-                        isMobile: context.isMobile,
-                      })
+                          closeModal: this.closeModal,
+                          updateReadingListInfo: this.updateItemInfo,
+                          updatePrompt: this.updatePrompt,
+                          isMobile: context.isMobile,
+                        })
                       : null}
                   </Fragment>
                 )}

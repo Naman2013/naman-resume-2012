@@ -139,7 +139,6 @@ CardObsSmall.propTypes = {
   observationTimeDisplay: PropTypes.shape({}).isRequired,
   user: PropTypes.shape({}).isRequired,
   handleLike: PropTypes.func.isRequired,
-  customerImageId: PropTypes.number.isRequired,
   showLikePrompt: PropTypes.bool.isRequired,
 };
 

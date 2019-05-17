@@ -1,9 +1,9 @@
 /***********************************
-* V4
-*
-*
-*
-***********************************/
+ * V4
+ *
+ *
+ *
+ ***********************************/
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
@@ -16,13 +16,7 @@ import OutputPanel from './partials/output-panel';
 
 import styles from './text-output.style';
 
-const {
-  arrayOf,
-  bool,
-  number,
-  shape,
-  string,
-} = PropTypes;
+const { arrayOf, bool, number, shape, string } = PropTypes;
 
 class TextOutput extends Component {
   static propTypes = {
@@ -34,28 +28,24 @@ class TextOutput extends Component {
       activityInstructions: string,
       activityPrompt: string,
     }),
-  }
+  };
 
   static defaultProps = {
     panel: {},
-
   };
 
-  state = {
-  };
-
-
+  state = {};
 
   render() {
-    const {
-      panel,
-    } = this.props;
-    return (<div className="root">
-      <SectionHeader title={panel.activityTitle} />
-      <IntroText desc={panel.activityInstructions} />
-      <OutputPanel {...panel} />
-      <style jsx>{styles}</style>
-    </div>);
+    const { panel } = this.props;
+    return (
+      <div className="root">
+        <SectionHeader title={panel.activityTitle} />
+        <IntroText desc={panel.activityInstructions} />
+        <OutputPanel {...panel} />
+        <style jsx>{styles}</style>
+      </div>
+    );
   }
 }
 

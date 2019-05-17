@@ -18,6 +18,8 @@ import messages from './AboutSloohSection.messages';
 
 const ABOUT_SLOOH_SECTION = 'about-slooh';
 const SPONSOR_OPPORTUNITIES_SECTION = 'about-slooh-sponsor';
+const CAREERS_SECTION = 'about-slooh-careers';
+const TEAM_SECTION = 'about-slooh-team';
 
 const AboutSloohSection = ({ params }) => (
   <Fragment>
@@ -62,20 +64,22 @@ const AboutSloohSection = ({ params }) => (
                   </div>
                 )}
 
-                {
-                  params.aboutSloohSectionId === SPONSOR_OPPORTUNITIES_SECTION && (
-                    <PartnershipOpportunitiesSection data={subscriptionResponse} />
-                  )
-                }
+                {params.aboutSloohSectionId ===
+                  SPONSOR_OPPORTUNITIES_SECTION && (
+                  <PartnershipOpportunitiesSection
+                    data={subscriptionResponse}
+                  />
+                )}
 
-                <div style={{paddingTop: '0px'}} className="about-section-container">
-                  {
-                    hasAboutSloohPartners
-                    && Array.isArray(aboutSloohPartners.partnerLogoList)
-                    && aboutSloohPartners.partnerLogoList.length > 0
-                    && (
+                <div
+                  style={{ paddingTop: '0px' }}
+                  className="about-section-container"
+                >
+                  {hasAboutSloohPartners &&
+                    Array.isArray(aboutSloohPartners.partnerLogoList) &&
+                    aboutSloohPartners.partnerLogoList.length > 0 && (
                       <CenterColumn>
-                        <div style={{paddingBottom: '0px'}}>
+                        <div style={{ paddingBottom: '0px' }}>
                           <CardsLayout
                             sectionHeading={aboutSloohPartners.sectionHeading}
                             sectionHeading2={aboutSloohPartners.sectionHeading2}
@@ -86,52 +90,51 @@ const AboutSloohSection = ({ params }) => (
                           </CardsLayout>
                         </div>
                       </CenterColumn>
-                    )
-                  }
+                    )}
 
-                  <SectionPanels list={sectionPanels} />
+                  { (params.aboutSloohSectionId === CAREERS_SECTION || params.aboutSloohSectionId === TEAM_SECTION) && <SectionPanels disableReadMore={true} list={sectionPanels} />}
+                  { (params.aboutSloohSectionId !== CAREERS_SECTION && params.aboutSloohSectionId !== TEAM_SECTION) && <SectionPanels disableReadMore={false} list={sectionPanels} />}
 
                   <CenterColumn>
-                    {
-                      hasAboutSloohNewsStories
-                      && Array.isArray(aboutSloohNewsStories.newsStoriesList)
-                      && aboutSloohNewsStories.newsStoriesList.length > 0
-                      && (
+                    {hasAboutSloohNewsStories &&
+                      Array.isArray(aboutSloohNewsStories.newsStoriesList) &&
+                      aboutSloohNewsStories.newsStoriesList.length > 0 && (
                         <CardsLayout
                           sectionHeading={aboutSloohNewsStories.sectionHeading}
-                          sectionHeading2={aboutSloohNewsStories.sectionHeading2}
+                          sectionHeading2={
+                            aboutSloohNewsStories.sectionHeading2
+                          }
                         >
                           {aboutSloohNewsStories.newsStoriesList.map(story => (
                             <StoryCard story={story} />
                           ))}
                         </CardsLayout>
-                      )
-                    }
-                    {
-                      hasAboutSloohStore
-                      && (
-                        <CardsLayout
-                          sectionHeading={aboutSloohStore.sectionHeading}
-                          sectionHeading2={aboutSloohStore.sectionHeading2}
+                      )}
+                    {hasAboutSloohStore && (
+                      <CardsLayout
+                        sectionHeading={aboutSloohStore.sectionHeading}
+                        sectionHeading2={aboutSloohStore.sectionHeading2}
+                      >
+                        <a
+                          href={aboutSloohStore.linkUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
                         >
-                          <a href={aboutSloohStore.linkUrl} target="_blank" rel="noopener noreferrer">
-                            <img
-                              src={aboutSloohStore.imageUrl}
-                              alt="Store"
-                              className="store-banner"
-                            />
-                          </a>
-                        </CardsLayout>
-                      )
-                    }
+                          <img
+                            src={aboutSloohStore.imageUrl}
+                            alt="Store"
+                            className="store-banner"
+                          />
+                        </a>
+                      </CardsLayout>
+                    )}
                   </CenterColumn>
                 </div>
               </Fragment>
             )}
           </Fragment>
         );
-      }
-      }
+      }}
     />
     <style jsx>{styles}</style>
   </Fragment>

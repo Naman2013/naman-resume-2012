@@ -1,7 +1,11 @@
 import css from 'styled-jsx/css';
 import { screenMedium } from 'app/styles/variables/breakpoints';
 import { primaryFont, secondaryFont } from 'app/styles/variables/fonts';
-import { astronaut, romance, shadows } from 'app/styles/variables/colors_tiles_v4';
+import {
+  astronaut,
+  romance,
+  shadows,
+} from 'app/styles/variables/colors_tiles_v4';
 
 export default css`
   .guide-tile-root {
