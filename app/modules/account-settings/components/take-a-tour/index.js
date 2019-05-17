@@ -40,17 +40,6 @@ class TakeATour extends PureComponent {
     return (
       <div className="take-a-tour">
         <Container>
-          <Row className="start-tour">
-            <Col md={8} className="start-tour-label">
-              Take a Tour of your Membership
-            </Col>
-            <Col md={4} className="start-tour-button">
-              <button>
-                Start Tour
-                <img src="https://vega.slooh.com/assets/v4/icons/horz_arrow_right_astronaut.svg" />
-              </button>
-            </Col>
-          </Row>
           <Row className="orientation-block">
             <ObjectRelatedTile
               {...guide}
