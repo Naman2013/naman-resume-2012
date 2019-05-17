@@ -324,6 +324,7 @@ class ImageList extends Component {
             myPicturesFilters,
           }}
           onChange={this.handleFilterChange}
+          onApply={this.handleApplyFilter}
         />
 
         {Array.isArray(arrOfImages) && arrOfImages.length > 0 ? (

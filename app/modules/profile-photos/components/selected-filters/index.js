@@ -1,6 +1,7 @@
 // @flow
 
 import { SelectedFilterItem } from 'app/modules/profile-photos/components/selected-filters/selected-filter-item';
+import _without from 'lodash/without';
 import React from 'react';
 
 type TFilters = {
@@ -19,7 +20,9 @@ type TSelectedFilters = {
   telescopeList: any,
   timeList: any,
   objectTypeList: any,
-  myPicturesFilters: any,
+
+  onApply: Function,
+  onChange: Function,
 };
 
 const getObjectTypeLabel = (objectTypeList, filterType) =>
@@ -40,7 +43,8 @@ export const SelectedFilters = (props: TSelectedFilters) => {
     telescopeList,
     timeList,
     objectTypeList,
-    myPicturesFilters,
+    onApply,
+    onChange,
   } = props;
 
   const {
@@ -54,45 +58,76 @@ export const SelectedFilters = (props: TSelectedFilters) => {
     pictureUserTags = [],
   } = selectedFilters;
 
-  console.log(props);
+  const removeFilter = (filterNames: string[]) => {
+    let newFilter = {};
+    filterNames.forEach(filterName => {
+      newFilter[filterName] = null;
+    });
+    onChange(newFilter);
+    onApply();
+  };
+
+  const removeLabel = (
+    allLabels: string[],
+    label: string,
+    labelGroup: string
+  ) => {
+    const newLabels = _without(allLabels, label);
+    onChange({ [labelGroup]: newLabels });
+    onApply();
+  };
 
   return (
     <>
       {dateFilter && (
-        <SelectedFilterItem label={dateFilter} onClick={() => {}} />
+        <SelectedFilterItem
+          label={dateFilter}
+          onClick={() => removeFilter(['dateFilter'])}
+        />
       )}
       {filterType && (
         <SelectedFilterItem
           label={getObjectTypeLabel(objectTypeList, filterType)}
-          onClick={() => {}}
+          onClick={() => removeFilter(['filterType'])}
         />
       )}
       {observatoryId && pierNumber && (
         <SelectedFilterItem
           label={getTelescopeLabel(telescopeList, observatoryId, pierNumber)}
-          onClick={() => {}}
+          onClick={() => removeFilter(['observatoryId', 'pierNumber'])}
         />
       )}
       {timeFilter && (
         <SelectedFilterItem
           label={getTimeLabel(timeList, timeFilter)}
-          onClick={() => {}}
+          onClick={() => removeFilter(['timeFilter'])}
         />
       )}
 
       {Boolean(missionSystemTags.length) &&
         missionSystemTags.map(tag => (
-          <SelectedFilterItem label={tag} onClick={() => {}} />
+          <SelectedFilterItem
+            label={tag}
+            onClick={() =>
+              removeLabel(missionSystemTags, tag, 'missionSystemTags')
+            }
+          />
         ))}
 
       {Boolean(missionUserTags.length) &&
         missionUserTags.map(tag => (
-          <SelectedFilterItem label={tag} onClick={() => {}} />
+          <SelectedFilterItem
+            label={tag}
+            onClick={() => removeLabel(missionUserTags, tag, 'missionUserTags')}
+          />
         ))}
 
       {Boolean(pictureUserTags.length) &&
         pictureUserTags.map(tag => (
-          <SelectedFilterItem label={tag} onClick={() => {}} />
+          <SelectedFilterItem
+            label={tag}
+            onClick={() => removeLabel(pictureUserTags, tag, 'pictureUserTags')}
+          />
         ))}
     </>
   );
