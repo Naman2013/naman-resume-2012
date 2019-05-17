@@ -66,7 +66,7 @@ export const logGoogleUserIn = googleProfileResult => dispatch => {
     .post('/api/users/login', {
       username: googleProfileEmail,
       passwd: 'notrequiredforthiscall',
-      googleProfileId: googleProfileId,
+      googleProfileId,
     })
     .then(result => {
       const { apiError } = result.data;
@@ -76,6 +76,7 @@ export const logGoogleUserIn = googleProfileResult => dispatch => {
       } else {
         dispatch(resetLogIn());
         dispatch(storeUser(result.data));
+        window.location.reload();
       }
     })
     .catch(error => dispatch(logGoogleUserInFail(error)));

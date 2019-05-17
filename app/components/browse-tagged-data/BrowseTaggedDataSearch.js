@@ -78,6 +78,7 @@ class BrowseTaggedDataSearch extends Component {
     if (!isOpen) {
       this.doTearDown();
     } else {
+      document.getElementById('BrowseTaggedDataSearchInputField').focus();
       this.handleClick({ value: '' });
     }
 
@@ -239,6 +240,21 @@ class BrowseTaggedDataSearch extends Component {
     );
   }
 
+  renderExpandIcon(nodeId, key) {
+    return (
+      <span className="search-results-expand-button">
+        <style jsx>{`
+          .search-results-expand-button {
+            cursor: pointer;
+            margin-right: 10px;
+            font-size: 14px;
+          }
+        `}</style>
+        <span className={nodeId === key ? 'icon-minus' : 'icon-plus'} />
+      </span>
+    );
+  }
+
   renderTaggedDataDisplay_BrowseList() {
     const { grandParentNodeID, parentNodeID, renderTaggedData } = this.state;
 
@@ -277,6 +293,14 @@ class BrowseTaggedDataSearch extends Component {
             margin-left: 100px;
             color: ${astronaut};
           }
+
+          .search-results-link {
+            color: #415671;
+          }
+
+          .ml-24 {
+            margin-left: 23.9px;
+          }
         `}</style>
 
         {grandParentNodeID === null && parentNodeID === null && (
@@ -284,6 +308,10 @@ class BrowseTaggedDataSearch extends Component {
             {Object.keys(renderTaggedData.taggedData).map(function(
               grandParentKey
             ) {
+              const countSubItems = Object.keys(
+                renderTaggedData.taggedData[grandParentKey].subnodes
+              ).length;
+              const additionalClass = countSubItems === 0 ? ' ml-24' : '';
               return (
                 <div>
                   <div
@@ -292,16 +320,21 @@ class BrowseTaggedDataSearch extends Component {
                     }}
                     className="search-results-grandparent"
                   >
-                    {renderTaggedData.taggedData[grandParentKey].title} (
-                    {
-                      Object.keys(
-                        renderTaggedData.taggedData[grandParentKey].subnodes
-                      ).length
-                    }
-                    )
+                    {countSubItems
+                      ? this.renderExpandIcon(grandParentNodeID, grandParentKey)
+                      : null}
                     <Link
                       to={renderTaggedData.taggedData[grandParentKey].linkUrl}
                     >
+                      <span className={"search-results-link" + additionalClass}>
+                        {renderTaggedData.taggedData[grandParentKey].title} {countSubItems
+                          ? `(${
+                              Object.keys(
+                                renderTaggedData.taggedData[grandParentKey].subnodes
+                              ).length
+                            })`
+                          : null}
+                      </span>
                       <img
                         style={{ paddingLeft: '15px' }}
                         src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"
@@ -328,16 +361,23 @@ class BrowseTaggedDataSearch extends Component {
                     }}
                     className="search-results-grandparent"
                   >
-                    {renderTaggedData.taggedData[grandParentKey].title} (
-                    {
-                      Object.keys(
-                        renderTaggedData.taggedData[grandParentKey].subnodes
-                      ).length
-                    }
-                    )
+                    {Object.keys(
+                      renderTaggedData.taggedData[grandParentKey].subnodes
+                    ).length
+                      ? this.renderExpandIcon(grandParentNodeID, grandParentKey)
+                      : null}
                     <Link
                       to={renderTaggedData.taggedData[grandParentKey].linkUrl}
                     >
+                      <span className="search-results-link">
+                        {renderTaggedData.taggedData[grandParentKey].title} (
+                        {
+                          Object.keys(
+                            renderTaggedData.taggedData[grandParentKey].subnodes
+                          ).length
+                        }
+                        )
+                      </span>
                       <img
                         style={{ paddingLeft: '15px' }}
                         src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"
@@ -347,6 +387,12 @@ class BrowseTaggedDataSearch extends Component {
                   {Object.keys(
                     renderTaggedData.taggedData[grandParentKey].subnodes
                   ).map(function(parentKey) {
+                    const countSubItems = Object.keys(
+                      renderTaggedData.taggedData[grandParentKey].subnodes[
+                        parentKey
+                      ].subnodes
+                    ).length;
+                    const additionalClass = countSubItems === 0 ? ' ml-24' : '';
                     return (
                       <div>
                         {grandParentKey === grandParentNodeID &&
@@ -355,24 +401,24 @@ class BrowseTaggedDataSearch extends Component {
                               .subnodes[parentKey].subnodes
                           ).length === 0 && (
                             <div className="search-results-parent">
-                              {
+                              {Object.keys(
                                 renderTaggedData.taggedData[grandParentKey]
-                                  .subnodes[parentKey].title
-                              }{' '}
-                              (
-                              {
-                                Object.keys(
-                                  renderTaggedData.taggedData[grandParentKey]
-                                    .subnodes[parentKey].subnodes
-                                ).length
-                              }
-                              )
+                                  .subnodes[parentKey].subnodes
+                              ).length
+                                ? this.renderExpandIcon(parentNodeID, parentKey)
+                                : null}
                               <Link
                                 to={
                                   renderTaggedData.taggedData[grandParentKey]
                                     .subnodes[parentKey].linkUrl
                                 }
                               >
+                                <span className={"search-results-link" + additionalClass}>
+                                  {
+                                    renderTaggedData.taggedData[grandParentKey]
+                                      .subnodes[parentKey].title
+                                  }
+                                </span>
                                 <img
                                   style={{ paddingLeft: '15px' }}
                                   src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"
@@ -391,24 +437,33 @@ class BrowseTaggedDataSearch extends Component {
                               }}
                               className="search-results-parent"
                             >
-                              {
+                              {Object.keys(
                                 renderTaggedData.taggedData[grandParentKey]
-                                  .subnodes[parentKey].title
-                              }{' '}
-                              (
-                              {
-                                Object.keys(
-                                  renderTaggedData.taggedData[grandParentKey]
-                                    .subnodes[parentKey].subnodes
-                                ).length
-                              }
-                              ){' '}
+                                  .subnodes[parentKey].subnodes
+                              ).length
+                                ? this.renderExpandIcon(parentNodeID, parentKey)
+                                : null}
                               <Link
                                 to={
                                   renderTaggedData.taggedData[grandParentKey]
                                     .subnodes[parentKey].linkUrl
                                 }
                               >
+                                <span className="search-results-link">
+                                  {
+                                    renderTaggedData.taggedData[grandParentKey]
+                                      .subnodes[parentKey].title
+                                  }{' '}
+                                  (
+                                  {
+                                    Object.keys(
+                                      renderTaggedData.taggedData[
+                                        grandParentKey
+                                      ].subnodes[parentKey].subnodes
+                                    ).length
+                                  }
+                                  ){' '}
+                                </span>
                                 <img
                                   style={{ paddingLeft: '15px' }}
                                   src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"
@@ -439,16 +494,23 @@ class BrowseTaggedDataSearch extends Component {
                     }}
                     className="search-results-grandparent"
                   >
-                    {renderTaggedData.taggedData[grandParentKey].title} (
-                    {
-                      Object.keys(
-                        renderTaggedData.taggedData[grandParentKey].subnodes
-                      ).length
-                    }
-                    )
+                    {Object.keys(
+                      renderTaggedData.taggedData[grandParentKey].subnodes
+                    ).length
+                      ? this.renderExpandIcon(grandParentNodeID, grandParentKey)
+                      : null}
                     <Link
                       to={renderTaggedData.taggedData[grandParentKey].linkUrl}
                     >
+                      <span className="search-results-link">
+                        {renderTaggedData.taggedData[grandParentKey].title} (
+                        {
+                          Object.keys(
+                            renderTaggedData.taggedData[grandParentKey].subnodes
+                          ).length
+                        }
+                        )
+                      </span>
                       <img
                         style={{ paddingLeft: '15px' }}
                         src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"
@@ -458,6 +520,12 @@ class BrowseTaggedDataSearch extends Component {
                   {Object.keys(
                     renderTaggedData.taggedData[grandParentKey].subnodes
                   ).map(function(parentKey) {
+                    const countSubItems = Object.keys(
+                      renderTaggedData.taggedData[grandParentKey].subnodes[
+                        parentKey
+                      ].subnodes
+                    ).length;
+                    const additionalClass = countSubItems === 0 ? ' ml-24' : '';
                     return (
                       <div>
                         {grandParentKey === grandParentNodeID &&
@@ -466,24 +534,24 @@ class BrowseTaggedDataSearch extends Component {
                               .subnodes[parentKey].subnodes
                           ).length == 0 && (
                             <div className="search-results-parent">
-                              {
+                              {Object.keys(
                                 renderTaggedData.taggedData[grandParentKey]
-                                  .subnodes[parentKey].title
-                              }{' '}
-                              (
-                              {
-                                Object.keys(
-                                  renderTaggedData.taggedData[grandParentKey]
-                                    .subnodes[parentKey].subnodes
-                                ).length
-                              }
-                              ){' '}
+                                  .subnodes[parentKey].subnodes
+                              ).length
+                                ? this.renderExpandIcon(parentNodeID, parentKey)
+                                : null}
                               <Link
                                 to={
                                   renderTaggedData.taggedData[grandParentKey]
                                     .subnodes[parentKey].linkUrl
                                 }
                               >
+                                <span className={"search-results-link" + additionalClass}>
+                                  {
+                                    renderTaggedData.taggedData[grandParentKey]
+                                      .subnodes[parentKey].title
+                                  }
+                                </span>
                                 <img
                                   style={{ paddingLeft: '15px' }}
                                   src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"
@@ -502,24 +570,33 @@ class BrowseTaggedDataSearch extends Component {
                               }}
                               className="search-results-parent"
                             >
-                              {
+                              {Object.keys(
                                 renderTaggedData.taggedData[grandParentKey]
-                                  .subnodes[parentKey].title
-                              }{' '}
-                              (
-                              {
-                                Object.keys(
-                                  renderTaggedData.taggedData[grandParentKey]
-                                    .subnodes[parentKey].subnodes
-                                ).length
-                              }
-                              ){' '}
+                                  .subnodes[parentKey].subnodes
+                              ).length
+                                ? this.renderExpandIcon(parentNodeID, parentKey)
+                                : null}
                               <Link
                                 to={
                                   renderTaggedData.taggedData[grandParentKey]
                                     .subnodes[parentKey].linkUrl
                                 }
                               >
+                                <span className="search-results-link">
+                                  {
+                                    renderTaggedData.taggedData[grandParentKey]
+                                      .subnodes[parentKey].title
+                                  }{' '}
+                                  (
+                                  {
+                                    Object.keys(
+                                      renderTaggedData.taggedData[
+                                        grandParentKey
+                                      ].subnodes[parentKey].subnodes
+                                    ).length
+                                  }
+                                  ){' '}
+                                </span>
                                 <img
                                   style={{ paddingLeft: '15px' }}
                                   src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"
@@ -536,11 +613,6 @@ class BrowseTaggedDataSearch extends Component {
                             return (
                               <div className="search-results-item">
                                 <div>
-                                  {
-                                    renderTaggedData.taggedData[grandParentKey]
-                                      .subnodes[parentKey].subnodes[itemKey]
-                                      .title
-                                  }
                                   <Link
                                     to={
                                       renderTaggedData.taggedData[
@@ -549,6 +621,14 @@ class BrowseTaggedDataSearch extends Component {
                                         .linkUrl
                                     }
                                   >
+                                    <span className="search-results-link">
+                                      {
+                                        renderTaggedData.taggedData[
+                                          grandParentKey
+                                        ].subnodes[parentKey].subnodes[itemKey]
+                                          .title
+                                      }
+                                    </span>
                                     <img
                                       style={{ paddingLeft: '15px' }}
                                       src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"

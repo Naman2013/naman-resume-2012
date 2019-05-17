@@ -35,7 +35,13 @@ class JoinHeader extends Component {
   };
 
   render() {
-    const { activeTab, mainHeading, subHeading, tabs } = this.props;
+    const {
+      activeTab,
+      mainHeading,
+      subHeading,
+      tabs,
+      backgroundImage,
+    } = this.props;
 
     return (
       <div className="root">
@@ -67,6 +73,13 @@ class JoinHeader extends Component {
           />
         </DisplayAtBreakpoint>
         <style jsx>{styles}</style>
+        <style jsx>
+          {`
+            .header {
+              background-image: url(${backgroundImage});
+            }
+          `}
+        </style>
       </div>
     );
   }
