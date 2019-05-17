@@ -10,6 +10,7 @@ export const TYPE = constants('account-settings', [
   '~GET_SUBSCRIPTION_PLANS',
   '~RESET_PASSWORD',
   'DISMISS_PASSWORD_POPUP',
+  '~GET_DASHBOARD_POPUP_INFO',
 ]);
 export const ACTION = actions(TYPE);
 
@@ -29,6 +30,7 @@ export const initialState: TInitialState = {
     isFetching: false,
     data: {},
   },
+  dashboardPopupInfo: {},
 };
 
 export default handleActions(
@@ -47,9 +49,28 @@ export default handleActions(
     [TYPE.RESET_PASSWORD_START]: resetPasswordStart,
     [TYPE.RESET_PASSWORD_SUCCESS]: resetPasswordSuccess,
     [TYPE.DISMISS_PASSWORD_POPUP]: dismissResetPasswordPopup,
+
+    [TYPE.GET_DASHBOARD_POPUP_INFO_START]: getDashboardPopupInfo,
+    [TYPE.GET_DASHBOARD_POPUP_INFO_SUCCESS]: getDashboardPopupInfoSuccess,
+    [TYPE.GET_DASHBOARD_POPUP_INFO_ERROR]: getDashboardPopupInfoError,
   },
   initialState
 );
+
+function getDashboardPopupInfo(state) {
+  return set(['isFetching'], true, state);
+}
+
+function getDashboardPopupInfoSuccess(state, { payload }) {
+  return {
+    ...state,
+    dashboardPopupInfo: payload,
+  };
+}
+
+function getDashboardPopupInfoError(state, action) {
+  return set(['serverError'], action.payload, state);
+}
 
 function fetchAccountSettings(state) {
   return set(['isFetching'], true, state);
