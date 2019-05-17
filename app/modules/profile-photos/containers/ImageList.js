@@ -22,6 +22,7 @@ import {
 } from 'app/modules/my-pictures/actions';
 import { fetchObjectTypeList } from 'app/modules/object-type-list/actions';
 import { FilterDropdown } from 'app/modules/profile-photos/components/filter-dropdown';
+import { SelectedFilters } from 'app/modules/profile-photos/components/selected-filters';
 import {
   selectObjectTypeList,
   selectSelectedFilters,
@@ -291,6 +292,8 @@ class ImageList extends Component {
       'filter-open': isFilterOpen,
     });
 
+    console.log(selectedFilters);
+
     return (
       <div className={cn}>
         <div className="filter-dropdown-btn">
@@ -311,6 +314,17 @@ class ImageList extends Component {
         {isFilterOpen && (
           <div className="filter-shader animated fadeIn faster" />
         )}
+
+        <SelectedFilters
+          {...{
+            selectedFilters,
+            telescopeList,
+            timeList,
+            objectTypeList,
+            myPicturesFilters,
+          }}
+          onChange={this.handleFilterChange}
+        />
 
         {Array.isArray(arrOfImages) && arrOfImages.length > 0 ? (
           <ConnectUser
