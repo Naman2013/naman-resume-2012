@@ -40,14 +40,14 @@ export default css`
   .dash-nav-item img {
     height: 30px;
     margin: 45px 0 30px 0;
-    transition: all 0.4s ease;
+    transition: all 0.3s ease;
   }
 
   .link-container {
     height: 100%;
     width: 100%;
     color: ${romance};
-    transition: color 0.4s ease;
+    transition: color 0.3s ease;
   }
 
   .link-container:hover {
