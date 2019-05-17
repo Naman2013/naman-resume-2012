@@ -29,6 +29,7 @@ type TMemberCard = {
 const MemberCard = (props: TMemberCard) => {
   const [isOpen, toggleCard] = useState(false);
   const {
+    onAddClick,
     member: {
       status,
       name,
@@ -68,7 +69,7 @@ const MemberCard = (props: TMemberCard) => {
               <i className="fa fa-info" />
             </Btn>
           )}
-          {showAddButton && <Btn onClick={noop}>{invitationPrompt}</Btn>}
+          {showAddButton && <Btn onClick={onAddClick}>{invitationPrompt}</Btn>}
         </Col>
       </Row>
 

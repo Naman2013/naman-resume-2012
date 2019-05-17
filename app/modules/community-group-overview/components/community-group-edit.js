@@ -56,12 +56,31 @@ class CommunityGroupEdit extends Component {
   }
 
   renderMembers = data => {
+    const {
+      addExistingUser,
+      fetchGroupOverviewPageMeta,
+      routeParams: { groupId },
+    } = this.props;
     if (!data) return null;
     const { customerLinks } = data;
     return (
       customerLinks &&
       customerLinks.length &&
-      customerLinks.map(member => <MemberCard member={member} />)
+      customerLinks.map(member => (
+        <MemberCard
+          member={member}
+          onAddClick={() => {
+            addExistingUser(
+              {
+                firstName: member.firstName,
+                lastName: member.lastName,
+                emailAddress: member.emailAddress,
+              },
+              groupId
+            ).then(() => fetchGroupOverviewPageMeta({ discussionGroupId: groupId }));
+          }}
+        />
+      ))
     );
   };
 

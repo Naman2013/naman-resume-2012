@@ -31,6 +31,10 @@ export const FETCH_INVITE_POPUP_CONTENT_SUCCESS =
 export const FETCH_INVITE_POPUP_CONTENT_FAIL =
   'FETCH_INVITE_POPUP_CONTENT_FAIL';
 
+export const ADD_EXISTING_USER_START = 'ADD_EXISTING_USER_START';
+export const ADD_EXISTING_USER_SUCCESS = 'ADD_EXISTING_USER_SUCCESS';
+export const ADD_EXISTING_USER_FAIL = 'ADD_EXISTING_USER_FAIL';
+
 export const SORT_AZ = 'atoz';
 export const SORT_ZA = 'ztoa';
 export const SORT_RANK = 'rank';
@@ -264,4 +268,33 @@ export const fetchInvitePopupContent = groupId => (dispatch, getState) => {
     })
     .then(res => dispatch(fetchInvitePopupContentSuccess(res.data)))
     .catch(error => dispatch(fetchInvitePopupContentFail(error)));
+};
+
+const addExistingUserStart = () => ({
+  type: ADD_EXISTING_USER_START,
+});
+
+const addExistingUserSuccess = payload => ({
+  type: ADD_EXISTING_USER_SUCCESS,
+  payload,
+});
+
+const addExistingUserFail = payload => ({
+  type: ADD_EXISTING_USER_FAIL,
+  payload,
+});
+
+export const addExistingUser = (user, groupId) => (dispatch, getState) => {
+  const { cid, at, token } = getState().user;
+  dispatch(addExistingUserStart());
+  return axios
+    .post('/api/registration/createCustomerLinkInvitation', {
+      cid,
+      at,
+      token,
+      groupId,
+      inviteeDetails: user,
+    })
+    .then(res => dispatch(addExistingUserSuccess(res.data)))
+    .catch(error => dispatch(addExistingUserFail(error)));
 };

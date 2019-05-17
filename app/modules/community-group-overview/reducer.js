@@ -18,6 +18,9 @@ import {
   FETCH_INVITE_POPUP_CONTENT_START,
   FETCH_INVITE_POPUP_CONTENT_SUCCESS,
   FETCH_INVITE_POPUP_CONTENT_FAIL,
+  ADD_EXISTING_USER_FAIL,
+  ADD_EXISTING_USER_START,
+  ADD_EXISTING_USER_SUCCESS,
   SORT_AZ,
   SORT_ZA,
   SORT_RANK,
@@ -195,4 +198,25 @@ export default createReducer(initialState, {
       error: true,
     };
   },
+  [ADD_EXISTING_USER_START](state){
+    return {
+      ...state,
+      error:false,
+      fetching:true
+    }
+  },
+  [ADD_EXISTING_USER_SUCCESS] (state){
+    return {
+      ...state,
+      error:false,
+      fetching:false,
+    }
+  },
+  [ADD_EXISTING_USER_FAIL](state){
+    return {
+      ...state,
+      error:true,
+fetching:false
+    }
+  }
 });
