@@ -49,6 +49,7 @@ class DiscussionBoardInviteNewMemberToSlooh extends PureComponent {
         errorText: '',
       },
     },
+    submitError: '',
   };
 
   /* Submit the Form and perform any validations as needed */
@@ -113,17 +114,21 @@ class DiscussionBoardInviteNewMemberToSlooh extends PureComponent {
             emailAddress: formValues.emailAddress,
           },
         })
-        .then(response => {
-          const { reset } = this.props;
-          reset();
+        .then(({ data }) => {
+          if (data.status !== 'failed') {
+            const { reset, newInvitationComplete } = this.props;
+            reset();
 
-          inviteFormData.firstName.errorText = '';
-          inviteFormData.emailAddress.errorText = '';
-          inviteFormData.lastName.errorText = '';
-          inviteFormData.emailAddressVerification.errorText = '';
-          this.setState({ inviteFormDetails: inviteFormData });
+            inviteFormData.firstName.errorText = '';
+            inviteFormData.emailAddress.errorText = '';
+            inviteFormData.lastName.errorText = '';
+            inviteFormData.emailAddressVerification.errorText = '';
+            this.setState({ inviteFormDetails: inviteFormData });
 
-          this.props.newInvitationComplete();
+            newInvitationComplete();
+          } else {
+            this.setState({ submitError: data.statusMessage });
+          }
         })
         .catch(err => {
           throw ('Error: ', err);
@@ -141,7 +146,7 @@ class DiscussionBoardInviteNewMemberToSlooh extends PureComponent {
 
     const formDetails = invitePopupContent.formfields;
 
-    const { inviteFormDetails } = this.state;
+    const { inviteFormDetails, submitError } = this.state;
     if (isFetching) return null;
 
     return (
@@ -237,6 +242,7 @@ class DiscussionBoardInviteNewMemberToSlooh extends PureComponent {
                     />
                   </div>
                 </div>
+                <span className="form-error">{submitError}</span>
                 <div className="button-actions">
                   <Button
                     className="submit-button"
