@@ -22,6 +22,18 @@ type TSelectedFilters = {
   myPicturesFilters: any,
 };
 
+const getObjectTypeLabel = (objectTypeList, filterType) =>
+  objectTypeList.find(t => t.objectTypeFilter === filterType)
+    ?.objectTypeDisplayName;
+
+const getTelescopeLabel = (telescopeList, observatoryId, pierNumber) =>
+  telescopeList.find(
+    tel => tel.observatoryId === observatoryId && tel.pierNumber === pierNumber
+  )?.name;
+
+const getTimeLabel = (timeList, timeFilter) =>
+  timeList.find(tl => tl.value === timeFilter)?.name;
+
 export const SelectedFilters = (props: TSelectedFilters) => {
   const {
     selectedFilters,
@@ -50,16 +62,22 @@ export const SelectedFilters = (props: TSelectedFilters) => {
         <SelectedFilterItem label={dateFilter} onClick={() => {}} />
       )}
       {filterType && (
-        <SelectedFilterItem label={filterType} onClick={() => {}} />
+        <SelectedFilterItem
+          label={getObjectTypeLabel(objectTypeList, filterType)}
+          onClick={() => {}}
+        />
       )}
-      {observatoryId && (
-        <SelectedFilterItem label={observatoryId} onClick={() => {}} />
-      )}
-      {pierNumber && (
-        <SelectedFilterItem label={pierNumber} onClick={() => {}} />
+      {observatoryId && pierNumber && (
+        <SelectedFilterItem
+          label={getTelescopeLabel(telescopeList, observatoryId, pierNumber)}
+          onClick={() => {}}
+        />
       )}
       {timeFilter && (
-        <SelectedFilterItem label={timeFilter} onClick={() => {}} />
+        <SelectedFilterItem
+          label={getTimeLabel(timeList, timeFilter)}
+          onClick={() => {}}
+        />
       )}
 
       {Boolean(missionSystemTags.length) &&
