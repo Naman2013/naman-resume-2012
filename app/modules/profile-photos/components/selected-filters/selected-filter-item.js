@@ -15,7 +15,6 @@ export const SelectedFilterItem = (props: TSelectedFilterItem) => {
     <Tooltip title="Click to remove">
       <span className="selected-filter" onClick={onClick} role="presentation">
         {label}
-
         <span className="icon-close" />
       </span>
     </Tooltip>

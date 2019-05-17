@@ -321,7 +321,6 @@ class ImageList extends Component {
             telescopeList,
             timeList,
             objectTypeList,
-            myPicturesFilters,
           }}
           onChange={this.handleFilterChange}
           onApply={this.handleApplyFilter}

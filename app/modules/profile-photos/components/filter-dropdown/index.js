@@ -35,9 +35,6 @@ export const FilterDropdown = memo((props: TFilterDropdown) => {
     myPicturesFilters,
   } = props;
 
-  // console.log(timeList);
-  // console.log('selectedFilters', selectedFilters);
-
   const {
     filterType: activeFilterType,
     timeFilter: activeTimeFilter,
