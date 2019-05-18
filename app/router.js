@@ -4,6 +4,7 @@ import {
   ProfileGroups,
 } from 'app/components/profiles/private-profile';
 import ProfileQaContainer from 'app/components/profiles/private-profile/my-qa/ProfileQaContainer';
+import { ProfileQuests } from 'app/components/profiles/private-profile/profile-quests';
 import { About, AboutSloohSection } from 'app/containers/about';
 import App from 'app/containers/App';
 import CreateStory from 'app/containers/create-story';
@@ -161,6 +162,7 @@ const getProfileRoutes = () => (
       component={GroupImportGoogleClassrooms}
       onEnter={validateUser}
     />
+    <Route path="quests" component={ProfileQuests} />
   </Fragment>
 );
 
