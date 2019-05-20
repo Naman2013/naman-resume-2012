@@ -30,6 +30,12 @@ export const FETCH_INVITE_POPUP_CONTENT_SUCCESS =
   'FETCH_INVITE_POPUP_CONTENT_SUCCESS';
 export const FETCH_INVITE_POPUP_CONTENT_FAIL =
   'FETCH_INVITE_POPUP_CONTENT_FAIL';
+export const FETCH_GOOGLE_CLASSROOM_STUDENTS_PANEL_START =
+  'FETCH_GOOGLE_CLASSROOM_STUDENTS_PANEL_START';
+export const FETCH_GOOGLE_CLASSROOM_STUDENTS_PANEL_SUCCESS =
+  'FETCH_GOOGLE_CLASSROOM_STUDENTS_PANEL_SUCCESS';
+export const FETCH_GOOGLE_CLASSROOM_STUDENTS_PANEL_FAIL =
+  'FETCH_GOOGLE_CLASSROOM_STUDENTS_PANEL_FAIL';
 
 export const ADD_EXISTING_USER_START = 'ADD_EXISTING_USER_START';
 export const ADD_EXISTING_USER_SUCCESS = 'ADD_EXISTING_USER_SUCCESS';
@@ -43,6 +49,40 @@ export const SORT_AZ = 'atoz';
 export const SORT_ZA = 'ztoa';
 export const SORT_RANK = 'rank';
 export const SORT_DATE = 'date';
+
+const fetchGoogleClassroomStudentsPanelStart = payload => ({
+  type: FETCH_GOOGLE_CLASSROOM_STUDENTS_PANEL_START,
+  payload,
+});
+
+const fetchGoogleClassroomStudentsPanelSuccess = payload => ({
+  type: FETCH_GOOGLE_CLASSROOM_STUDENTS_PANEL_SUCCESS,
+  payload,
+});
+
+const fetchGoogleClassroomStudentsPanelFail = payload => ({
+  type: FETCH_GOOGLE_CLASSROOM_STUDENTS_PANEL_FAIL,
+  payload,
+});
+
+export const fetchGoogleClassroomStudentsPanel = groupId => (
+  dispatch,
+  getState
+) => {
+  const { cid, at, token } = getState().user;
+  dispatch(fetchGoogleClassroomStudentsPanelStart());
+  return axios
+    .post('/api/classroom/google/importGoogleClassroomStudentsPanel', {
+      at,
+      cid,
+      token,
+      groupId,
+    })
+    .then(result =>
+      dispatch(fetchGoogleClassroomStudentsPanelSuccess(result.data))
+    )
+    .catch(error => dispatch(fetchGoogleClassroomStudentsPanelFail(error)));
+};
 
 const fetchGroupInvitationPanelStart = payload => ({
   type: FETCH_GROUP_INVITATION_PANEL_START,

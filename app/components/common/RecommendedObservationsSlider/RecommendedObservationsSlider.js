@@ -32,11 +32,11 @@ const Observations = props => {
       <style jsx>{`
         .root {
           margin: 0 auto;
-          max-width: 620px;
+          max-width: 780px;
         }
-        @media only screen and (min-width: 1100px) {
+        @media only screen and (min-width: 1200px) {
           .root {
-            max-width: 940px;
+            max-width: 1180px;
           }
         }
       `}</style>

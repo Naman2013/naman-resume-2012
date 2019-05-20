@@ -246,7 +246,9 @@ class Request extends Component {
 
     const validatedRequestBody = nextRequestBody || requestBody;
 
+    const { cid, at, token, } = user;
     let resultedUserParams = user;
+
     if (userParams.length > 0)
       resultedUserParams = getFieldsFromObj(user, userParams);
 
@@ -259,7 +261,7 @@ class Request extends Component {
               cancelToken: this.source.token,
             },
             validatedRequestBody,
-            withoutUser ? {} : resultedUserParams
+            withoutUser ? { cid, at, token } : resultedUserParams
           )
         )
         .then(result => this.handleServiceResponse(result.data));

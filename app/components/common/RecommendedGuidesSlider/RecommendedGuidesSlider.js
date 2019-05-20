@@ -37,11 +37,11 @@ const Guides = ({ recommendedGuidesList }) => {
       <style jsx>{`
         .root-dash {
           margin: 0 auto;
-          max-width: 620px;
+          max-width: 644px;
         }
-        @media only screen and (min-width: 1100px) {
+        @media only screen and (min-width: 1200px) {
           .root-dash {
-            max-width: 940px;
+            max-width: 965px;
           }
         }
       `}</style>

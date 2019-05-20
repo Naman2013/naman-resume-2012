@@ -8,6 +8,7 @@
 
   &-title {
     font: 20px $secondary-font;
+    margin: 0;
   }
 
   &-actions {
@@ -37,7 +38,7 @@
 
   &-hero-unit {
     margin: 0 -3px;
-    font: 100 45px $primary-font;
+    font: 100 16px $primary-font;
   }
 
   &-section {

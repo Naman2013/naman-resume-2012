@@ -24,6 +24,9 @@ import {
   ADD_GOOGLE_USER_FAIL,
   ADD_GOOGLE_USER_START,
   ADD_GOOGLE_USER_SUCCESS,
+  FETCH_GOOGLE_CLASSROOM_STUDENTS_PANEL_START,
+  FETCH_GOOGLE_CLASSROOM_STUDENTS_PANEL_SUCCESS,
+  FETCH_GOOGLE_CLASSROOM_STUDENTS_PANEL_FAIL,
   SORT_AZ,
   SORT_ZA,
   SORT_RANK,
@@ -47,6 +50,28 @@ const initialState = {
 };
 
 export default createReducer(initialState, {
+  [FETCH_GOOGLE_CLASSROOM_STUDENTS_PANEL_START](state) {
+    return {
+      ...state,
+      error: false,
+      fetching: true,
+    };
+  },
+  [FETCH_GOOGLE_CLASSROOM_STUDENTS_PANEL_SUCCESS](state, { payload }) {
+    return {
+      ...state,
+      error: false,
+      fetching: false,
+      groupInformation: payload,
+    };
+  },
+  [FETCH_GOOGLE_CLASSROOM_STUDENTS_PANEL_FAIL](state) {
+    return {
+      ...state,
+      error: true,
+      fetching: false,
+    };
+  },
   [GROUP_DESCRIPTION_CHANGE_START](state) {
     return {
       ...state,
@@ -236,6 +261,7 @@ export default createReducer(initialState, {
       fetching: false,
     };
   },
+  
   [ADD_GOOGLE_USER_FAIL](state) {
     return {
       ...state,
