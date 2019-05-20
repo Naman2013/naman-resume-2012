@@ -261,7 +261,7 @@ export default createReducer(initialState, {
       fetching: false,
     };
   },
-  
+
   [ADD_GOOGLE_USER_FAIL](state) {
     return {
       ...state,

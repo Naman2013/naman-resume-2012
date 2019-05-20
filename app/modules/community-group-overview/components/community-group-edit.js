@@ -82,37 +82,6 @@ class CommunityGroupEdit extends Component {
     }
   }
 
-  renderMembers = data => {
-    const {
-      addExistingUser,
-      fetchGroupOverviewPageMeta,
-      routeParams: { groupId },
-    } = this.props;
-    if (!data) return null;
-    const { customerLinks } = data;
-    return (
-      customerLinks &&
-      customerLinks.length &&
-      customerLinks.map(member => (
-        <MemberCard
-          member={member}
-          onAddClick={() => {
-            addExistingUser(
-              {
-                firstName: member.firstName,
-                lastName: member.lastName,
-                emailAddress: member.emailAddress,
-              },
-              groupId
-            ).then(() =>
-              fetchGroupOverviewPageMeta({ discussionGroupId: groupId })
-            );
-          }}
-        />
-      ))
-    );
-  };
-
   onInviteClick = () => {
     const {
       fetchInvitePopupContent,
@@ -129,6 +98,46 @@ class CommunityGroupEdit extends Component {
     } = this.props;
     changeGroupDescription({ ...value, groupId }).then(() =>
       this.setState({ isDescriptionEditOn: false })
+    );
+  };
+
+  renderMembers = data => {
+    const {
+      addExistingUser,
+      addGoogleUser,
+      fetchGroupOverviewPageMeta,
+      routeParams: { groupId },
+      communityGroupOverview: {
+        pageMeta: { isGoogleClassroom },
+      },
+    } = this.props;
+    if (!data) return null;
+    const { customerLinks } = data;
+    return (
+      customerLinks &&
+      customerLinks.length &&
+      customerLinks.map(member => (
+        <MemberCard
+          member={member}
+          onAddClick={() => {
+            let user = {
+              firstName: member.firstName,
+              lastName: member.lastName,
+              emailAddress: member.emailAddress,
+            };
+            if (!isGoogleClassroom) {
+              addExistingUser(user, groupId).then(() =>
+                fetchGroupOverviewPageMeta({ discussionGroupId: groupId })
+              );
+            } else {
+              user = { ...user, googleProfileId: member.googleProfileId };
+              addGoogleUser(user, groupId).then(() =>
+                fetchGroupOverviewPageMeta({ discussionGroupId: groupId })
+              );
+            }
+          }}
+        />
+      ))
     );
   };
 
