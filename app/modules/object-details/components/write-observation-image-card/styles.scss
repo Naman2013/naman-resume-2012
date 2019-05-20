@@ -5,6 +5,7 @@
   margin-bottom: 20px;
   background-color: $romance;
   cursor: pointer;
+  position: relative;
 
   .object-image {
     width: 100%;
@@ -13,6 +14,8 @@
     object-fit: contain;
     margin-bottom: 10px;
     background-color: $black;
+    position: absolute;
+    z-index: 1;
   }
 
   h5 {
@@ -43,6 +46,7 @@
     background-color: $dark-background;
     background-image: url('https://vega.slooh.com/assets/v4/dashboard/Darkest_Pattern_Canvas.png');
     background-size: 100px;
+    position: relative;
 
     .object-icon-container {
       width: 168px;

@@ -24,14 +24,9 @@ export class WriteObservationStep1 extends Component {
         <Row>
           <Col md={6} xl={4}>
             <WriteObservationImageCard
-              imageData={{}}
+              imageData={imageList[0] || {}}
               objectDetails={objectDetails}
-              onClick={() =>
-                selectImage({
-                  customerImageId: parseInt(customerImageId),
-                  scheduledMissionId: parseInt(scheduledMissionId),
-                })
-              }
+              onClick={() => selectImage(imageList[0] || {})}
               defaultCard
             />
           </Col>
