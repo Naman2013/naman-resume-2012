@@ -65,11 +65,12 @@ class BootstrappedTourPopup extends Component {
 
   dismissTour = () => {
     const { validateResponseAccess, user } = this.props;
+    const { cid, at, token } = user;
 
     this.closeModal();
 
     axios
-      .post(DASHBOARD_DISMISS_TOUR_POPUP, ...user)
+      .post(DASHBOARD_DISMISS_TOUR_POPUP, { data: { cid, at, token } })
       .then(res => validateResponseAccess(res.data));
   };
 
