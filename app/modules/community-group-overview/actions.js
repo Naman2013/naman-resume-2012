@@ -35,6 +35,10 @@ export const ADD_EXISTING_USER_START = 'ADD_EXISTING_USER_START';
 export const ADD_EXISTING_USER_SUCCESS = 'ADD_EXISTING_USER_SUCCESS';
 export const ADD_EXISTING_USER_FAIL = 'ADD_EXISTING_USER_FAIL';
 
+export const ADD_GOOGLE_USER_START = 'ADD_GOOGLE_USER_START';
+export const ADD_GOOGLE_USER_SUCCESS = 'ADD_GOOGLE_USER_SUCCESS';
+export const ADD_GOOGLE_USER_FAIL = 'ADD_GOOGLE_USER_FAIL';
+
 export const SORT_AZ = 'atoz';
 export const SORT_ZA = 'ztoa';
 export const SORT_RANK = 'rank';
@@ -297,4 +301,33 @@ export const addExistingUser = (user, groupId) => (dispatch, getState) => {
     })
     .then(res => dispatch(addExistingUserSuccess(res.data)))
     .catch(error => dispatch(addExistingUserFail(error)));
+};
+
+const addGoogleUserStart = () => ({
+  type: ADD_GOOGLE_USER_START,
+});
+
+const addGoogleUserSuccess = payload => ({
+  type: ADD_GOOGLE_USER_SUCCESS,
+  payload,
+});
+
+const addGoogleUserFail = payload => ({
+  type: ADD_GOOGLE_USER_FAIL,
+  payload,
+});
+
+export const addGoogleUser = (user, groupId) => (dispatch, getState) => {
+  const { cid, at, token } = getState().user;
+  dispatch(addGoogleUserStart());
+  return axios
+    .post('/api/classroom/google/importGoogleClassroomStudent', {
+      cid,
+      at,
+      token,
+      groupId,
+      studentAccountDetails: user,
+    })
+    .then(res => dispatch(addGoogleUserSuccess(res.data)))
+    .catch(error => dispatch(addGoogleUserFail(error)));
 };

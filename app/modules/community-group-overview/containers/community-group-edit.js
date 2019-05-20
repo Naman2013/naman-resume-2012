@@ -6,6 +6,7 @@ import {
   fetchGroupInvitationPanel,
   fetchInvitePopupContent,
   addExistingUser,
+  addGoogleUser,
 } from '../actions';
 import CommunityGroupEdit from '../components/community-group-edit';
 
@@ -24,6 +25,7 @@ const mapDispatchToProps = {
   fetchGroupInvitationPanel,
   fetchInvitePopupContent,
   addExistingUser,
+  addGoogleUser,
 };
 
 export default compose(

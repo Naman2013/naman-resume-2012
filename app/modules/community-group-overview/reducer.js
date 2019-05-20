@@ -21,6 +21,9 @@ import {
   ADD_EXISTING_USER_FAIL,
   ADD_EXISTING_USER_START,
   ADD_EXISTING_USER_SUCCESS,
+  ADD_GOOGLE_USER_FAIL,
+  ADD_GOOGLE_USER_START,
+  ADD_GOOGLE_USER_SUCCESS,
   SORT_AZ,
   SORT_ZA,
   SORT_RANK,
@@ -198,25 +201,46 @@ export default createReducer(initialState, {
       error: true,
     };
   },
-  [ADD_EXISTING_USER_START](state){
+  [ADD_EXISTING_USER_START](state) {
     return {
       ...state,
-      error:false,
-      fetching:true
-    }
+      error: false,
+      fetching: true,
+    };
   },
-  [ADD_EXISTING_USER_SUCCESS] (state){
+  [ADD_EXISTING_USER_SUCCESS](state) {
     return {
       ...state,
-      error:false,
-      fetching:false,
-    }
+      error: false,
+      fetching: false,
+    };
   },
-  [ADD_EXISTING_USER_FAIL](state){
+  [ADD_EXISTING_USER_FAIL](state) {
     return {
       ...state,
-      error:true,
-fetching:false
-    }
-  }
+      error: true,
+      fetching: false,
+    };
+  },
+  [ADD_GOOGLE_USER_START](state) {
+    return {
+      ...state,
+      error: false,
+      fetching: true,
+    };
+  },
+  [ADD_GOOGLE_USER_SUCCESS](state) {
+    return {
+      ...state,
+      error: false,
+      fetching: false,
+    };
+  },
+  [ADD_GOOGLE_USER_FAIL](state) {
+    return {
+      ...state,
+      error: true,
+      fetching: false,
+    };
+  },
 });
