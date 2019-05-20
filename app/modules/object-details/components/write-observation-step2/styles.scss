@@ -1,0 +1,128 @@
+@import '~app/styles/bootstrap/index';
+@import '~app/styles/variables/index';
+
+.write-observation-step2 {
+  .modal-h {
+    margin-bottom: 40px;
+  }
+
+  .selected-image {
+    display: flex;
+    flex-flow: row wrap;
+
+    .selected-image-details {
+      width: 50%;
+      padding: 40px;
+      background-color: $romance;
+      display: flex;
+      flex-flow: column;
+      justify-content: space-between;
+
+      h3 {
+        font-family: $secondary-font;
+        font-size: 24px;
+        font-weight: normal;
+        line-height: 0.83;
+        color: $lightHeadedAstronaut;
+        margin-bottom: 30px;
+      }
+
+      p {
+        font-family: $secondary-font;
+        font-size: 19px;
+        font-weight: normal;
+        line-height: 1.53;
+        color: $raven;
+      }
+    }
+
+    .selected-image-container {
+      width: 50%;
+      img {
+        width: 100%;
+        object-fit: contain;
+        background-color: $black;
+      }
+
+      .image-background {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-width: 260px;
+        min-height: 320px;
+        background-color: $dark-background;
+        background-image: url('https://vega.slooh.com/assets/v4/dashboard/Darkest_Pattern_Canvas.png');
+        background-size: 100px;
+
+        .object-icon-container {
+          width: 168px;
+          padding: 66px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background-size: 167.5px;
+          background-repeat: no-repeat;
+          background-position: 50%;
+          background-image: url('https://vega.slooh.com/assets/v4/dashboard/object-icon-container-dark.png');
+
+          img {
+            margin: 0;
+            background-color: transparent;
+          }
+        }
+      }
+    }
+  }
+
+  .observation-form {
+    padding: 50px 50px 40px;
+    box-shadow: 0 0 6px 0 $shadows;
+    background-color: $romance;
+    display: flex;
+    flex-flow: column;
+    position: relative;
+    z-index: 1;
+
+    input,
+    textarea {
+      border-radius: 4px;
+      box-shadow: inset 0 0 7px 0 $pale-grey-two;
+      background-color: $pale-grey;
+      border: none;
+      padding: 26px 32px;
+      outline: none;
+      font-family: $secondary-font;
+      font-size: 16px;
+      line-height: 1.13;
+      color: $battleship-grey;
+    }
+
+    input {
+      height: 72px;
+      margin-bottom: 20px;
+    }
+
+    textarea {
+      height: 220px;
+      margin-bottom: 30px;
+      resize: none;
+    }
+
+    .observation-form-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  .write-observation-step2 {
+    .selected-image {
+      .selected-image-details,
+      .selected-image-container {
+        width: 100%;
+      }
+    }
+  }
+}
