@@ -1,11 +1,11 @@
 import { push } from 'react-router-redux';
-import { fetchHandleErrors } from '../../services/authorization/handle-error';
-import { destroySession, removeUser } from '../User';
 import MENU_INTERFACE from 'app/components/GlobalNavigation/Menus/MenuInterface';
 import {
   toggleGlobalNavMenu,
   openUpsellModal,
 } from 'app/modules/global-navigation/actions';
+import { fetchHandleErrors } from '../../services/authorization/handle-error';
+import { destroySession, removeUser } from '../User';
 import SETTINGS from '../../config';
 
 export const FETCH_ERRORS_START = 'FETCH_ERRORS_START';
@@ -18,6 +18,11 @@ export const VALIDATE_RESPONSE = 'VALIDATE_RESPONSE';
 
 // URL to return to when the user successfully signs in
 export const SET_SIGN_IN_RETURN_URL = 'SET_SIGN_IN_RETURN_URL';
+
+export const SHOW_ISSUE_WITH_USER_ACCOUNT_MODAL =
+  'SHOW_ISSUE_WITH_USER_ACCOUNT_MODAL';
+export const HIDE_ISSUE_WITH_USER_ACCOUNT_MODAL =
+  'HIDE_ISSUE_WITH_USER_ACCOUNT_MODAL';
 
 const setSignInReturnURL = signInReturnURL => ({
   type: SET_SIGN_IN_RETURN_URL,
@@ -37,17 +42,27 @@ const fetchErrorsSuccess = payload => ({
   payload,
 });
 
+export const showIssueWithUserAccountModal = () => ({
+  type: SHOW_ISSUE_WITH_USER_ACCOUNT_MODAL,
+});
+
+export const hideIssueWithUserAccountModal = () => ({
+  type: HIDE_ISSUE_WITH_USER_ACCOUNT_MODAL,
+});
+
 export const captureErrorState = ({
   apiError,
   errorCode,
   statusCode,
   currentPageID,
+  loginError,
 }) => ({
   type: CAPTURE_ERROR_STATE,
   apiError,
   errorCode,
   statusCode,
   currentPageID,
+  loginError,
 });
 
 export const fetchErrors = () => (dispatch, getState) => {
@@ -147,9 +162,16 @@ export const validateResponseAccess = apiResponse => (dispatch, getState) => {
           apiError,
           errorCode,
           statusCode,
+          loginError,
         })
       );
-      dispatch(push(REDIRECT_CONFIRMATION_PATH));
+      console.log('AAAAAAAAAAAAAAAAA', {
+        apiError,
+        errorCode,
+        statusCode,
+        loginError,
+      });
+      dispatch(showIssueWithUserAccountModal());
     }
     return false;
   }

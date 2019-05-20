@@ -85,11 +85,11 @@ export class RecommendedObjects extends Component {
         <style jsx>{`
           .dashboard-recomended-objects {
             margin: 0 auto;
-            max-width: 620px;
+            max-width: 644px;
           }
-          @media only screen and (min-width: 1100px) {
+          @media only screen and (min-width: 1200px) {
             .dashboard-recomended-objects {
-              max-width: 940px;
+              max-width: 965px;
             }
           }
 

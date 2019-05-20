@@ -46,8 +46,12 @@
     border: 1px dashed #415671;
 
     span {
-      margin-top: 15px;
+      margin-top: 12px;
       font-size: 16px;
     }
+  }
+
+  .rc-pagination-disabled {
+    cursor: not-allowed;
   }
 }
