@@ -39,7 +39,7 @@ export class WriteObservationModal extends Component {
   };
 
   onSubmit = () => {
-    const { setObservationTags } = this.props;
+    const { setObservationTags, shareMemberPicture } = this.props;
     const { title, text, imageData } = this.state;
     const { customerImageId, scheduledMissionId } = imageData;
     setObservationTags(customerImageId, scheduledMissionId, title, text).then(
@@ -51,6 +51,7 @@ export class WriteObservationModal extends Component {
         }
       }
     );
+    shareMemberPicture({ customerImageId });
   };
 
   render() {
