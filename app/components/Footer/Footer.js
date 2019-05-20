@@ -1,23 +1,16 @@
 /***********************************
-* V4 Footer
-*
-*
-***********************************/
+ * V4 Footer
+ *
+ *
+ ***********************************/
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import Request from 'components/common/network/Request';
+import Request from 'app/components/common/network/Request';
 import BootstrappedFooter from './BootstrappedFooter';
-import { GET_FOOTER_NAVIGATION } from 'services/navigation';
+import { GET_FOOTER_NAVIGATION } from 'app/services/navigation';
 
-const {
-  bool,
-  number,
-  oneOfType,
-  shape,
-  string,
-} = PropTypes;
-
+const { bool, number, oneOfType, shape, string } = PropTypes;
 
 // const footerModel = {
 //   name: 'FOOTER_MENU',
@@ -32,17 +25,10 @@ const Footer = () => (
     method="POST"
     serviceExpiresFieldName="expires"
     // model={footerModel}
-    render={({
-      serviceResponse,
-    }) => (
-      <div>
-        {<BootstrappedFooter
-          {...serviceResponse}
-        />}
-      </div>
+    render={({ serviceResponse }) => (
+      <div>{<BootstrappedFooter {...serviceResponse} />}</div>
     )}
   />
 );
-
 
 export default Footer;

@@ -14,7 +14,7 @@ class MissionNotAvailable extends Component {
       slotTitle,
       showShareMissionIcons,
       shareMissionIconsText,
-     } = this.props;
+    } = this.props;
 
     const containerClassnames = classnames({
       'telescope-listings-item': 1,
@@ -23,18 +23,17 @@ class MissionNotAvailable extends Component {
 
     return (
       <li className={containerClassnames}>
-
         <div className="col-xs-2">
-          {
-            showSlotTimes ?
-              <MissionTime
-                startTime={missionStart}
-              /> : null
-          }
+          {showSlotTimes ? <MissionTime startTime={missionStart} /> : null}
         </div>
 
         <div className="col-md-4 slot-description">
-          <img className="slot-logo" src={slotIconURL} width="38" alt={slotTitle} />
+          <img
+            className="slot-logo"
+            src={slotIconURL}
+            width="38"
+            alt={slotTitle}
+          />
           <h4 className="slot-name">{slotTitle}</h4>
         </div>
 

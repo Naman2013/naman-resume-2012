@@ -13,26 +13,32 @@ import {
   missionConfirmOpen,
   missionConfirmClose,
   // missionGetInfo,
-  missionGetUpdates } from '../modules/missions-old';
+  missionGetUpdates,
+} from '../modules/missions-old';
 
 const { element, func, object } = PropTypes;
 
-@connect(({ missions }) => ({
-  announcements: missions.announcements,
-}), dispatch => ({
-  actions: bindActionCreators({
-    missionGetCards,
-    missionConfirmOpen,
-    missionConfirmClose,
-    // missionGetInfo,
-    missionGetUpdates,
-  }, dispatch),
-}))
-
+@connect(
+  ({ missions }) => ({
+    announcements: missions.announcements,
+  }),
+  dispatch => ({
+    actions: bindActionCreators(
+      {
+        missionGetCards,
+        missionConfirmOpen,
+        missionConfirmClose,
+        // missionGetInfo,
+        missionGetUpdates,
+      },
+      dispatch
+    ),
+  })
+)
 export default class SloohRecommends extends Component {
   static propTypes = {
     children: element,
-    actions: object.isRequired
+    actions: object.isRequired,
   };
 
   componentDidMount() {
@@ -45,10 +51,10 @@ export default class SloohRecommends extends Component {
   }
 
   /**
-    * @param {object} card - current card in which modal window is called from
-    * @param {string} type - type of mission reservation, either piggyBack or reserve (new reservation)
-    * @param {object} event - current event, provided by default from React JSX
-    */
+   * @param {object} card - current card in which modal window is called from
+   * @param {string} type - type of mission reservation, either piggyBack or reserve (new reservation)
+   * @param {object} event - current event, provided by default from React JSX
+   */
   openConfirmModal(type, card) {
     if (type == 'piggyBack') {
       // this.props.actions.missionGetInfo(type, card);
@@ -59,24 +65,21 @@ export default class SloohRecommends extends Component {
   }
 
   /**
-    * Render JSX and content on the slooh recommends page
-    * This is a container for 2 pages:
-    * 1) Existing Missions
-    * 2) New Missions
-  */
+   * Render JSX and content on the slooh recommends page
+   * This is a container for 2 pages:
+   * 1) Existing Missions
+   * 2) New Missions
+   */
   render() {
     const { announcements, children } = this.props;
 
     return (
       <div className="reserve-missions">
-
         <section className="container clearfix">
           <div className="col-md-8">
-            {
-              React.cloneElement(children, {
-                openConfirmModal: ::this.openConfirmModal,
-              })
-            }
+            {React.cloneElement(children, {
+              openConfirmModal: ::this.openConfirmModal,
+            })}
           </div>
 
           <div className="col-md-4 mission-sidebar">

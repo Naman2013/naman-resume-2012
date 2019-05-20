@@ -1,9 +1,12 @@
 import css from 'styled-jsx/css';
-import { secondaryFont } from 'styles/variables/fonts';
-import { resetMarginPadding } from 'styles/variables/utils';
-import { faintShadow } from 'styles/variables/shadows';
-import { romance } from 'styles/variables/colors_tiles_v4';
-import { lightHeadedAstronaut, thatGrayWeForgot } from 'styles/variables/colors_tiles_v4';
+import { secondaryFont } from 'app/styles/variables/fonts';
+import { resetMarginPadding } from 'app/styles/variables/utils';
+import { faintShadow } from 'app/styles/variables/shadows';
+import { romance } from 'app/styles/variables/colors_tiles_v4';
+import {
+  lightHeadedAstronaut,
+  thatGrayWeForgot,
+} from 'app/styles/variables/colors_tiles_v4';
 
 export default css`
   .root {

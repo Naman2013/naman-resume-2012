@@ -1,9 +1,9 @@
 /***********************************
-* V4 Recommended Stories Slider
-*
-*
-*
-***********************************/
+ * V4 Recommended Stories Slider
+ *
+ *
+ *
+ ***********************************/
 
 import React from 'react';
 import has from 'lodash/has';
@@ -24,26 +24,36 @@ const Stories = () => (
       const shortList = take(serviceResponse.posts, 2) || [];
       return (
         <div className="root">
-          <DisplayAtBreakpoint
-            screenMedium
-            screenLarge
-            screenXLarge
-          >
+          <DisplayAtBreakpoint screenMedium screenLarge screenXLarge>
             <SloohSlider {...sliderProps} />
           </DisplayAtBreakpoint>
-          <DisplayAtBreakpoint
-            screenSmall
-          >
+          <DisplayAtBreakpoint screenSmall>
             {shortList.map(post => (
               <StoryTile
                 key={post.postId}
                 storyId={post.postId}
                 iconURL={post.slugIconURL}
                 title={post.title}
-                author={has(post, 'authorInfo.displayName') ? post.authorInfo.displayName : ''}
+                author={
+                  has(post, 'authorInfo.displayName')
+                    ? post.authorInfo.displayName
+                    : ''
+                }
                 // linkUrl={post.linkUrl}
-              />))}
+              />
+            ))}
           </DisplayAtBreakpoint>
+          <style jsx>{`
+            .root {
+              margin: 0 auto;
+              max-width: 644px;
+            }
+            @media only screen and (min-width: 1200px) {
+              .root {
+                max-width: 965px;
+              }
+            }
+          `}</style>
         </div>
       );
     }}

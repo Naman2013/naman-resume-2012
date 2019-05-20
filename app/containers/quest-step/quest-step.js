@@ -1,35 +1,22 @@
 /** *********************************
-* V4 Quest Step
-*
-*
-*
-***********************************/
+ * V4 Quest Step
+ *
+ *
+ *
+ ***********************************/
 
 import React from 'react';
 import PropTypes from 'prop-types';
 import noop from 'lodash/noop';
 import Modal from 'react-modal';
-import CenterColumn from 'components/common/CenterColumn';
-import ModuleList from 'components/quests/module-list';
+import CenterColumn from 'app/components/common/CenterColumn';
+import ModuleList from 'app/components/quests/module-list';
 import styles from './quest-step.style';
 
-const {
-  arrayOf,
-  func,
-  number,
-  shape,
-  string,
-} = PropTypes;
+const { arrayOf, func, number, shape, string } = PropTypes;
 
-
-export const QuestStep = (props) => {
-  const {
-    actions,
-    modal,
-    user,
-    pageMeta,
-    questId,
-  } = props;
+export const QuestStep = props => {
+  const { actions, modal, user, pageMeta, questId } = props;
   return (
     <div className="root">
       <Modal
@@ -46,7 +33,13 @@ export const QuestStep = (props) => {
           <div className="shield-container">
             <div className="blue-shield" />
             <div className="icon-container">
-              <img className="icon-content" alt="" width="40" height="40" src={pageMeta.stepIconURL} />
+              <img
+                className="icon-content"
+                alt=""
+                width="40"
+                height="40"
+                src={pageMeta.stepIconURL}
+              />
             </div>
           </div>
           <ModuleList moduleList={pageMeta.stepModuleList} questId={questId} />
@@ -58,20 +51,16 @@ export const QuestStep = (props) => {
 };
 
 QuestStep.propTypes = {
-  actions: shape({
-  }),
+  actions: shape({}),
   user: shape({
     at: string.isRequired,
     token: string.isRequired,
     cid: string.isRequired,
   }).isRequired,
-  userActions: shape({
-  }),
-
-}
+  userActions: shape({}),
+};
 QuestStep.defaultProps = {
-  actions: {
-  },
-}
+  actions: {},
+};
 
 export default QuestStep;

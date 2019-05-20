@@ -11,23 +11,20 @@ const { bool, func, number, string, array, shape } = PropTypes;
 
 class GuardianWidget extends Component {
   componentWillMount() {
-    const {
-      fetchGuardianInfo,
-      slugLookupId,
-    } = this.props;
+    const { fetchGuardianInfo, slugLookupId } = this.props;
 
     fetchGuardianInfo({
       slugLookupId,
     });
   }
   render() {
-    const {
-      guardianInfo,
-    } = this.props;
+    const { guardianInfo } = this.props;
     return (
       <section className={styles.otherFeaturedObjects}>
         <header className={styles.otherFeaturedObjectsHeader}>
-          <h2 dangerouslySetInnerHTML={{ __html: guardianInfo.guardianTitle }} />
+          <h2
+            dangerouslySetInnerHTML={{ __html: guardianInfo.guardianTitle }}
+          />
           <p dangerouslySetInnerHTML={{ __html: guardianInfo.guardianText }} />
         </header>
 
@@ -43,14 +40,12 @@ class GuardianWidget extends Component {
             <p dangerouslySetInnerHTML={{ __html: guardianInfo.bioBlurb }} />
           </article>
         </div>
-
       </section>
     );
   }
 }
 
-GuardianWidget.defaultProps = {
-};
+GuardianWidget.defaultProps = {};
 
 GuardianWidget.propTypes = {
   fetchGuardianInfo: func.isRequired,
@@ -68,14 +63,21 @@ GuardianWidget.propTypes = {
     avatarType: string,
     avatarURL: string,
     bioBlurb: string,
-  }).isRequired
+  }).isRequired,
 };
 
 const mapStateToProps = ({ guardian }) => ({
-  ...guardian
+  ...guardian,
 });
-const mapDispatchToProps = dispatch => (bindActionCreators({
-  fetchGuardianInfo
-}, dispatch));
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      fetchGuardianInfo,
+    },
+    dispatch
+  );
 
-export default connect(mapStateToProps, mapDispatchToProps)(GuardianWidget);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(GuardianWidget);

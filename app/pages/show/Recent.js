@@ -8,16 +8,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl, intlShape } from 'react-intl';
-import ThreeTabbedNav from 'components/ThreeTabbedNav';
-import TwoTabbedNav from 'components/TwoTabbedNav';
-import CenterColumn from 'components/common/CenterColumn';
-import LabeledTitleTiles from 'components/common/style/LabeledTitleTiles';
-import MonotonousTile from 'components/common/tiles/MonotonousTile';
-import VideoImageLoader from 'components/common/telescope-image-loader/video-image-loader';
-import ResponsiveTwoColumnContainer from 'components/ResponsiveTwoColumnContainer';
+import ThreeTabbedNav from 'app/components/ThreeTabbedNav';
+import TwoTabbedNav from 'app/components/TwoTabbedNav';
+import CenterColumn from 'app/components/common/CenterColumn';
+import LabeledTitleTiles from 'app/components/common/style/LabeledTitleTiles';
+import MonotonousTile from 'app/components/common/tiles/MonotonousTile';
+import VideoImageLoader from 'app/components/common/telescope-image-loader/video-image-loader';
+import ResponsiveTwoColumnContainer from 'app/components/ResponsiveTwoColumnContainer';
 import MainContainerWithDiscussions from './partials/MainContainerWithDiscussions';
 import AsideContainerDetailsOnly from './partials/AsideContainerDetailsOnly';
-import { romance, seashell } from 'styles/variables/colors_tiles_v4';
+import { romance, seashell } from 'app/styles/variables/colors_tiles_v4';
 
 import styles from './Show.style';
 import messages from './Show.messages';
@@ -34,7 +34,7 @@ const {
 } = PropTypes;
 
 class RecentShow extends Component {
-  static propTypes = { 
+  static propTypes = {
     isDesktop: bool.isRequired,
     showInfoTiles: shape({
       list: shape({}),
@@ -129,7 +129,13 @@ class RecentShow extends Component {
                 autoPlay={0}
               />
             </div>
-            <MonotonousTile label={headerLabel} text={title} showReadingList readingListType = 'show' id={showId}/>
+            <MonotonousTile
+              label={headerLabel}
+              text={title}
+              showReadingList
+              readingListType="show"
+              id={showId}
+            />
             <div className="hide-on-mobile">
               <LabeledTitleTiles
                 theme={{

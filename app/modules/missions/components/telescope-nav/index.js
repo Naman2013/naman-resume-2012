@@ -12,7 +12,7 @@ export class TelescopeNav extends PureComponent {
             className={`telescope-nav-item${
               selectedTelescopeId === telescope.telescopeId ? ' active' : ''
             }`}
-            onClick={() => setTelescope(telescope)}
+            onClick={() => setTelescope(telescope, true)}
           >
             <h4>{telescope.teleName}</h4>
             <img src={telescope.teleLogoURL} alt="" />

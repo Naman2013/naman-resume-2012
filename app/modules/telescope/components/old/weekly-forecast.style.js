@@ -1,6 +1,6 @@
 import css from 'styled-jsx/css';
-import { hawkesBlue, astronaut } from 'styles/variables/colors_tiles_v4';
-import { primaryFont, secondaryFont } from 'styles/variables/fonts';
+import { hawkesBlue, astronaut } from 'app/styles/variables/colors_tiles_v4';
+import { primaryFont, secondaryFont } from 'app/styles/variables/fonts';
 
 export default css`
   .carousel-container {
@@ -51,7 +51,9 @@ export default css`
     cursor: pointer;
   }
 
-  .forecast-action:focus { outline: none; }
+  .forecast-action:focus {
+    outline: none;
+  }
 
   .active-weather-condition-summary {
     padding: 40px;

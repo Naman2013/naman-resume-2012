@@ -22,13 +22,12 @@ class ProfileStatsItem extends Component {
   state = {};
 
   render() {
-    const {
-      selectedStats, title, total, show, tabs,
-    } = this.props;
+    const { selectedStats, title, total, show, tabs } = this.props;
 
     const tabsList = tabs && tabs.tabsList.map(item => <Tab>{item}</Tab>);
-    const tabPanels = tabs && tabs.panels.map(item => <TabPanel>{item}</TabPanel>);
-    
+    const tabPanels =
+      tabs && tabs.panels.map(item => <TabPanel>{item}</TabPanel>);
+
     return (
       show && (
         <div className={`stats-popover ${selectedStats}`}>

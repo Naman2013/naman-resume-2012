@@ -1,17 +1,17 @@
 /***********************************
-* V4 Observations Page
-*
-*
-*
-***********************************/
+ * V4 Observations Page
+ *
+ *
+ *
+ ***********************************/
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Live from './Live';
 import Recent from './Recent';
 import Upcoming from './Upcoming';
-import CenterColumn from 'components/common/CenterColumn';
-import { seashell } from 'styles/variables/colors_tiles_v4';
+import CenterColumn from 'app/components/common/CenterColumn';
+import { seashell } from 'app/styles/variables/colors_tiles_v4';
 import styles from './BootstrappedShow.style';
 
 const {
@@ -38,7 +38,6 @@ class BootstrappedShow extends Component {
     upcomingFlag: false,
   };
 
-
   constructor(props) {
     super(props);
     this.state = {
@@ -47,6 +46,7 @@ class BootstrappedShow extends Component {
       isRecentShow: props.previousFlag,
       likes: props.likesCount,
     }
+    };
 
     if (props.inProgressFlag) {
       this.configureTimer({
@@ -62,7 +62,6 @@ class BootstrappedShow extends Component {
       });
     }
   }
-
 
   componentWillReceiveProps(nextProps) {
     if (this.props.inProgressFlag !== nextProps.inProgressFlag) {
@@ -136,7 +135,7 @@ class BootstrappedShow extends Component {
         isUpcomingShow: false,
       });
     }
-  }
+  };
 
   timerPointer = undefined; // maintains a pointer to the running timer
 
@@ -160,9 +159,8 @@ class BootstrappedShow extends Component {
         {isUpcomingShow ? <Upcoming {...this.props} likesCount={likes} likeResultHandler={this.likeResultHandler} /> : null}
         <style jsx>{styles}</style>
       </div>
-    )
+    );
   }
 }
-
 
 export default BootstrappedShow;

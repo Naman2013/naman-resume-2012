@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ResourcesButton from './resources-button.redux';
-import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
-import AboutContent from 'components/guides/AboutContent';
+import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
+import AboutContent from 'app/components/guides/AboutContent';
 import style from './body-content.style';
 
 const BodyContent = ({
@@ -15,9 +15,7 @@ const BodyContent = ({
   <div className="root" style={theme}>
     <h4 className="title">{title}</h4>
     <AboutContent content={content} />
-    <DisplayAtBreakpoint
-      screenMedium
-    >
+    <DisplayAtBreakpoint screenMedium>
       {showResources ? <ResourcesButton {...resourcesProps} /> : null}
     </DisplayAtBreakpoint>
     <style jsx>{style}</style>

@@ -1,6 +1,10 @@
 import css from 'styled-jsx/css';
-import { primaryFont } from 'styles/variables/fonts';
-import { astronaut, hawkesBlue } from 'styles/variables/colors_tiles_v4';
+import { primaryFont } from 'app/styles/variables/fonts';
+import {
+  astronaut,
+  hawkesBlue,
+  romance,
+} from 'app/styles/variables/colors_tiles_v4';
 
 export default css`
   .observatory-data-list {
@@ -8,12 +12,27 @@ export default css`
     list-style-type: none;
   }
 
+  .observatory-data-list.compact {
+    display: flex;
+    background: ${romance};
+  }
+
+  .observatory-data-list .datum {
+    flex: 1;
+  }
+
+  .observatory-data-list .datum:first-child {
+    border-right: 1px solid ${hawkesBlue};
+  }
+
   .datum {
     padding: 30px;
     border-bottom: 1px solid ${hawkesBlue};
   }
 
-  .datum:last-child { border-bottom: none; }
+  .datum:last-child {
+    border-bottom: none;
+  }
 
   .title {
     font-size: 11px;

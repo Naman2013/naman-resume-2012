@@ -1,7 +1,7 @@
 import css from 'styled-jsx/css';
-import { resetMarginPadding } from 'styles/variables/utils';
-import { primaryFont } from 'styles/variables/fonts';
-import { astronaut } from 'styles/variables/colors_tiles_v4';
+import { resetMarginPadding } from 'app/styles/variables/utils';
+import { primaryFont } from 'app/styles/variables/fonts';
+import { astronaut } from 'app/styles/variables/colors_tiles_v4';
 
 export default css`
   .title {

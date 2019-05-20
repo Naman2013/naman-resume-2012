@@ -1,22 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import CountButton from './CountButton';
-import { commentWhite, commentAstronaut } from 'styles/variables/iconURLs';
+import { commentWhite, commentAstronaut } from 'app/styles/variables/iconURLs';
 
-const {
-  func,
-  number,
-  oneOfType,
-  string,
-} = PropTypes;
+const { func, number, oneOfType, string, bool } = PropTypes;
 
-const CommentButton = ({ count, isActive, onClickEvent }) => (
+const CommentButton = ({ count, isActive, onClickEvent, alwaysShowCount }) => (
   <div>
     <CountButton
       isActive={isActive}
       count={count}
       onClickEvent={onClickEvent}
       icon={isActive ? commentWhite : commentAstronaut}
+      alwaysShowCount={alwaysShowCount}
     />
   </div>
 );
@@ -24,7 +20,10 @@ const CommentButton = ({ count, isActive, onClickEvent }) => (
 CommentButton.propTypes = {
   count: oneOfType([string, number]).isRequired,
   onClickEvent: func.isRequired,
+  alwaysShowCount: bool,
 };
-CommentButton.defaultProps = {};
+CommentButton.defaultProps = {
+  alwaysShowCount: false,
+};
 
 export default CommentButton;

@@ -1,9 +1,9 @@
 /***********************************
-* V4 Object Details : Quests
-*   Markdown support on elements????
-*   UTF-8 support....
-*   Multi-National Languages.....
-***********************************/
+ * V4 Object Details : Quests
+ *   Markdown support on elements????
+ *   UTF-8 support....
+ *   Multi-National Languages.....
+ ***********************************/
 
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
@@ -11,19 +11,18 @@ import { bindActionCreators } from 'redux';
 import has from 'lodash/has';
 import uniqueId from 'lodash/uniqueId';
 import { intlShape, injectIntl, FormattedMessage } from 'react-intl';
-import Request from 'components/common/network/Request';
-import CenterColumn from 'components/common/CenterColumn';
+import Request from 'app/components/common/network/Request';
+import CenterColumn from 'app/components/common/CenterColumn';
 import DeviceProvider, { DeviceContext } from 'providers/DeviceProvider';
 import ObjectDetailsSectionTitle from '../../components/object-details/ObjectDetailsSectionTitle';
-import QuestHubTileBig from 'components/common/tiles/QuestHubTileBig';
-import QuestHubTileSmall from 'components/common/tiles/QuestHubTileSmall';
-import { OBJECT_QUESTS } from 'services/objects';
+import QuestHubTileBig from 'app/components/common/tiles/QuestHubTileBig';
+import QuestHubTileSmall from 'app/components/common/tiles/QuestHubTileSmall';
+import { OBJECT_QUESTS } from 'app/services/objects';
 
 import {
   fetchObjectDetailsAction,
   fetchObjectQuestsAction,
 } from '../../modules/object-details/actions';
-import { fromPromise } from 'rxjs/observable/fromPromise';
 import messages from './ObjectDetails.messages';
 import styles from './ObjectDetailsQuests.style';
 
@@ -34,28 +33,34 @@ const mapStateToProps = ({ objectDetails, appConfig, user }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({
-    fetchObjectDetailsAction,
-    fetchObjectQuestsAction,
-  }, dispatch),
+  actions: bindActionCreators(
+    {
+      fetchObjectDetailsAction,
+      fetchObjectQuestsAction,
+    },
+    dispatch
+  ),
 });
 
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(
+  mapStateToProps,
+  mapDispatchToProps
+)
 class Quests extends Component {
   render() {
     const {
-      params: {
-        objectId,
-      },
+      params: { objectId },
       objectDetails,
       intl,
-      
     } = this.props;
 
     return (
       <Fragment>
         <DeviceProvider>
-          <ObjectDetailsSectionTitle title={objectDetails.objectTitle + "'s"} subTitle={intl.formatMessage(messages.RelatedQuests)} />
+          <ObjectDetailsSectionTitle
+            title={objectDetails.objectTitle + "'s"}
+            subTitle={intl.formatMessage(messages.RelatedQuests)}
+          />
 
           <CenterColumn widths={['645px', '965px', '965px']}>
             <Request
@@ -66,38 +71,38 @@ class Quests extends Component {
               requestBody={{
                 objectId,
               }}
-              render={({
-                fetchingContent,
-                serviceResponse,
-              }) => (
+              render={({ fetchingContent, serviceResponse }) => (
                 <DeviceContext.Consumer>
                   {context => (
                     <div className="root">
-                      {serviceResponse && serviceResponse.relatedQuestsCount > 0 ? (
+                      {serviceResponse &&
+                      serviceResponse.relatedQuestsCount > 0 ? (
                         <div className="card-container__quests">
-                          {!context.isMobile && serviceResponse.relatedQuestsList.map(quest => (
-                            <div className="tile">
-                              <QuestHubTileBig
-                                {...quest}
-                              />
-                            </div>
-                          ))}
-                          {context.isMobile && serviceResponse.relatedQuestsList.map(quest => (
-                            <div className="tile">
-                              <QuestHubTileSmall {...quest} />
-                            </div>
-                          ))}
+                          {!context.isMobile &&
+                            serviceResponse.relatedQuestsList.map(quest => (
+                              <div className="tile">
+                                <QuestHubTileBig {...quest} />
+                              </div>
+                            ))}
+                          {context.isMobile &&
+                            serviceResponse.relatedQuestsList.map(quest => (
+                              <div className="tile">
+                                <QuestHubTileSmall {...quest} />
+                              </div>
+                            ))}
                         </div>
-                      ) :
-                        (
-                          <div>
-                            <p>
-                              <FormattedMessage
-                                {...messages.NoQuests}
-                                values={{ objectTitle: objectDetails.objectTitle }}
-                              />
-                            </p>
-                          </div>
+                      ) : (
+                        <div>
+                          <p>
+                            {serviceResponse.questsComingSoonMessage}
+                            {/*<FormattedMessage*/}
+                            {/*  {...messages.NoQuests}*/}
+                            {/*  values={{*/}
+                            {/*    objectTitle: objectDetails.objectTitle,*/}
+                            {/*  }}*/}
+                            {/*/>*/}
+                          </p>
+                        </div>
                       )}
                     </div>
                   )}

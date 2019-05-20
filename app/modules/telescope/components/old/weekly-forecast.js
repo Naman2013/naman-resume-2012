@@ -1,31 +1,42 @@
 import React from 'react';
 import { ModuleContainer } from './module-container';
 import Triangle from 'atoms/icons/Triangle';
-import { astronaut } from 'styles/variables/colors_tiles_v4';
+import { astronaut } from 'app/styles/variables/colors_tiles_v4';
 import style from './weekly-forecast.style';
 
 const WeeklyForecast = () => (
   <ModuleContainer title="Weekly forecast">
     <div className="carousel-container">
-
       <ul className="week-carousel">
         <li className="day-forecast">
           <h5 className="forecast-name">Sun</h5>
           <div className="forecast-coin">
-            <img alt="" width="24" src="https://vega.slooh.com/assets/v4/icons/search_astronaut.svg" />
+            <img
+              alt=""
+              width="24"
+              src="https://vega.slooh.com/assets/v4/icons/search_astronaut.svg"
+            />
           </div>
           <Triangle theme={{ color: astronaut }} />
         </li>
         <li className="day-forecast">
           <h5 className="forecast-name">Sun</h5>
           <div className="forecast-coin">
-            <img alt="" width="24" src="https://vega.slooh.com/assets/v4/icons/search_astronaut.svg" />
+            <img
+              alt=""
+              width="24"
+              src="https://vega.slooh.com/assets/v4/icons/search_astronaut.svg"
+            />
           </div>
         </li>
         <li className="day-forecast">
           <h5 className="forecast-name">Sun</h5>
           <div className="forecast-coin">
-            <img alt="" width="24" src="https://vega.slooh.com/assets/v4/icons/search_astronaut.svg" />
+            <img
+              alt=""
+              width="24"
+              src="https://vega.slooh.com/assets/v4/icons/search_astronaut.svg"
+            />
           </div>
         </li>
       </ul>
@@ -34,7 +45,6 @@ const WeeklyForecast = () => (
         <button className="forecast-action">&#60;</button>
         <button className="forecast-action">&#62;</button>
       </div>
-
     </div>
 
     <div className="active-weather-condition-summary">
@@ -49,7 +59,9 @@ const WeeklyForecast = () => (
     <div className="condition-summary">
       <h4 className="title">Estimated seeing conditions</h4>
       <h5 className="secondary-title">Level 3</h5>
-      <p className="condition-summary-content">Almost continuous distortion with occasional brief good moments.</p>
+      <p className="condition-summary-content">
+        Almost continuous distortion with occasional brief good moments.
+      </p>
     </div>
     <style jsx>{style}</style>
   </ModuleContainer>

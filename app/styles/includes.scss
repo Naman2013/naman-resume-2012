@@ -1,5 +1,6 @@
 @import "~app/styles/variables/colors.scss";
 @import "~app/styles/mixins/utilities.scss";
+@import "~app/styles/variables/media-queries.scss";
 
 // Borders
 .hr {
@@ -7,6 +8,13 @@
   width: 100%;
   margin: 0;
   border-top: 1px solid $hr-silver;
+}
+
+.cursor {
+
+  &-pointer {
+    cursor: pointer;
+  }
 }
 
 .no-last-border {
@@ -19,6 +27,8 @@
 
 // Virtual boxes
 .i-image {
+  height: 100%;
+  min-height: 100%;
 
   img {
     width: 100%;
@@ -40,6 +50,33 @@
     max-width: 690px;
   }
 }
+
+.i-root {
+  width: 100%;
+  margin: 0 auto;
+
+  @include xl() {
+    width: 940px;
+  }
+
+  @include lg() {
+    width: 780px;
+  }
+
+  @include md() {
+    width: 620px;
+  }
+
+  @include sm() {
+    width: 95%;
+  }
+
+  @include xsm() {
+    width: 95%;
+  }
+}
+
+
 
 
 

@@ -3,8 +3,8 @@
 **/
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import CircleCounter from 'components/circle-counter';
-import { astronaut } from 'styles/variables/colors_tiles_v4';
+import CircleCounter from 'app/components/circle-counter';
+import { astronaut } from 'app/styles/variables/colors_tiles_v4';
 import styles from './CountdownCircleTimer.style';
 
 const { number, shape } = PropTypes;
@@ -23,7 +23,9 @@ export default class CircleTimer extends Component {
   };
 
   getDaysInMonth() {
-    return new Date(new Date().setMonth(new Date().getMonth() + 1, 0)).getDate();
+    return new Date(
+      new Date().setMonth(new Date().getMonth() + 1, 0)
+    ).getDate();
   }
 
   getDoubleNumber(number) {
@@ -37,7 +39,13 @@ export default class CircleTimer extends Component {
       getDoubleNumber,
     } = this;
 
-    const { daysTo, hoursTo, minutesTo, secondsTo, millisecondsTo } = countdownEventTimer;
+    const {
+      daysTo,
+      hoursTo,
+      minutesTo,
+      secondsTo,
+      millisecondsTo,
+    } = countdownEventTimer;
 
     const daysProgress = getDaysInMonth() - daysTo;
 

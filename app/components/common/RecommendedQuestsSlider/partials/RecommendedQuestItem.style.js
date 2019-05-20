@@ -9,7 +9,6 @@ import {
 } from '../../../../styles/variables/colors_tiles_v4';
 import { questShield } from '../../../../styles/variables/iconURLs';
 
-
 export default css`
   .root {
     pointer-events: auto;
@@ -18,7 +17,7 @@ export default css`
     text-align: center;
     box-size: border-box;
     padding: 0;
-    box-shadow: 0px 0px 8px 1px rgba(65,86,113,.2);
+    box-shadow: 0px 0px 8px 1px rgba(65, 86, 113, 0.2);
     color: ${astronaut};
     list-style-type: none;
     background: url(${questTexture});
@@ -55,7 +54,6 @@ export default css`
     flex-direction: row;
     padding: 0;
   }
-
 
   .icon-container {
     display: block;
@@ -104,7 +102,6 @@ export default css`
     color: ${lightHeadedAstronaut};
     text-transform: uppercase;
   }
-
 
   .quest-info-item {
     width: 50%;

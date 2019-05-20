@@ -1,7 +1,7 @@
 import css from 'styled-jsx/css';
-import { chillBlue } from 'styles/variables/colors_tiles_v4';
-import { primaryFont } from 'styles/variables/fonts';
-import { resetMarginPadding } from 'styles/variables/utils';
+import { chillBlue } from 'app/styles/variables/colors_tiles_v4';
+import { primaryFont } from 'app/styles/variables/fonts';
+import { resetMarginPadding } from 'app/styles/variables/utils';
 
 export default css`
   ul {
@@ -11,7 +11,7 @@ export default css`
     align-items: center;
     justify-content: space-between;
     list-style-type: none;
-    background: linear-gradient(to bottom, #0b121b 0%,#263344 74%);
+    background: linear-gradient(to bottom, #0b121b 0%, #263344 74%);
     overflow-x: scroll;
   }
 

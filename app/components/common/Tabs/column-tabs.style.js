@@ -1,7 +1,12 @@
 import css from 'styled-jsx/css';
-import { astronaut, hawkesBlue, lightHeadedAstronaut, moodyBleu } from 'styles/variables/colors_tiles_v4';
-import { primaryFont, secondaryFont } from 'styles/variables/fonts';
-import { screenLarge } from 'styles/variables/breakpoints';
+import {
+  astronaut,
+  hawkesBlue,
+  lightHeadedAstronaut,
+  moodyBleu,
+} from 'app/styles/variables/colors_tiles_v4';
+import { primaryFont, secondaryFont } from 'app/styles/variables/fonts';
+import { screenLarge } from 'app/styles/variables/breakpoints';
 
 export default css`
   .menu-title {
@@ -50,11 +55,17 @@ export default css`
     color: ${lightHeadedAstronaut};
   }
 
-  .column-tab-button:focus { outline: none; }
+  .column-tab-button:focus {
+    outline: none;
+  }
 
   @media ${screenLarge} {
-    .tabs-root { width: 300px; }
-    .menu-title { display: block; }
+    .tabs-root {
+      width: 300px;
+    }
+    .menu-title {
+      display: block;
+    }
 
     .column-tab-set {
       border-bottom: 1px solid ${hawkesBlue};
@@ -80,6 +91,5 @@ export default css`
     .column-tab-button.active {
       border-bottom: 2px solid ${astronaut};
     }
-
   }
 `;

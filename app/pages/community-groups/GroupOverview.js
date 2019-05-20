@@ -1,9 +1,9 @@
 /***********************************
-* V4 Community Group Overview Page
-*
-*
-*
-***********************************/
+ * V4 Community Group Overview Page
+ *
+ *
+ *
+ ***********************************/
 
 import React, { Component, cloneElement, Fragment } from 'react';
 import PropTypes from 'prop-types';
@@ -12,58 +12,55 @@ import { browserHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
 import Modal from 'react-modal';
 import { DeviceContext } from 'providers/DeviceProvider';
-import Header from 'components/community-groups/overview/header';
-import FullInformationOverview from 'components/community-groups/overview/full-information-container';
-import CenterColumn from 'components/common/CenterColumn';
-import { modalStyleFullPage } from 'styles/mixins/utilities';
-import MembersList from 'components/community-groups/overview/members-list';
-import BackBar from 'components/common/style/buttons/BackBar';
+import Header from 'app/components/community-groups/overview/header';
+import FullInformationOverview from 'app/components/community-groups/overview/full-information-container';
+import CenterColumn from 'app/components/common/CenterColumn';
+import { modalStyleFullPage } from 'app/styles/mixins/utilities';
+import MembersList from 'app/components/community-groups/overview/members-list';
+import BackBar from 'app/components/common/style/buttons/BackBar';
 
-import {
-  joinOrLeaveGroup,
-} from 'modules/community-groups/actions';
-import {
-  astronaut,
-  seashell,
-} from 'styles/variables/colors_tiles_v4';
+import { joinOrLeaveGroup } from 'app/modules/community-groups/actions';
+import { astronaut, seashell } from 'app/styles/variables/colors_tiles_v4';
 import {
   SCREEN_SMALL,
   SCREEN_MEDIUM,
   SCREEN_LARGE,
   screenMedium,
   screenLarge,
-} from 'styles/variables/breakpoints'
+} from 'app/styles/variables/breakpoints';
 import {
   fetchGroupOverviewPageMeta,
   fetchGroupOverview,
-} from 'modules/community-group-overview/actions';
+} from 'app/modules/community-group-overview/actions';
 
-const mapStateToProps = ({
-  communityGroupOverview,
-}) => ({
+const mapStateToProps = ({ communityGroupOverview }) => ({
   communityGroupOverview,
   pageMeta: communityGroupOverview.pageMeta,
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({
-    fetchGroupOverviewPageMeta,
-    fetchGroupOverview,
-    joinOrLeaveGroup,
-  }, dispatch),
+  actions: bindActionCreators(
+    {
+      fetchGroupOverviewPageMeta,
+      fetchGroupOverview,
+      joinOrLeaveGroup,
+    },
+    dispatch
+  ),
 });
 
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(
+  mapStateToProps,
+  mapDispatchToProps
+)
 class CommunityGroupOverview extends Component {
-  static propTypes = {
-  }
+  static propTypes = {};
 
-  static defaultProps = {
-  }
+  static defaultProps = {};
 
   state = {
     showPopup: false,
-  }
+  };
 
   componentWillMount() {
     const {
@@ -93,7 +90,7 @@ class CommunityGroupOverview extends Component {
     actions.fetchGroupOverviewPageMeta({
       discussionGroupId: groupId,
     });
-  }
+  };
 
   joinLeaveGroup = () => {
     const {
@@ -103,21 +100,20 @@ class CommunityGroupOverview extends Component {
 
     actions.joinOrLeaveGroup({
       discussionGroupId: groupId,
-    })
-  }
+    });
+  };
 
-  showInformation = (e) => {
+  showInformation = e => {
     this.setState({
       showPopup: true,
     });
+  };
 
-  }
-
-  closeModal = (e) => {
+  closeModal = e => {
     this.setState({
       showPopup: false,
     });
-  }
+  };
 
   render() {
     const {
@@ -130,65 +126,73 @@ class CommunityGroupOverview extends Component {
 
     const modalStyles = modalStyleFullPage;
 
-     modalStyles.content = Object.assign(modalStyleFullPage.content, { backgroundColor: seashell });
+    modalStyles.content = Object.assign(modalStyleFullPage.content, {
+      backgroundColor: seashell,
+    });
 
     return (
       <div className="root">
-      <DeviceContext.Consumer>
-          {context => (<Fragment>
-            <CenterColumn widths={['768px', '940px', '940px']} theme={{ paddingTop: '25px' }}>
-              <Header
-                isEditMode = {edit}
-                condensed={false}
-                showInformation={this.showInformation}
-                joinOrLeaveGroup={this.joinLeaveGroup}
-                discussionGroupId={groupId}
-                {...context}
-                {...communityGroupOverview}
-                {...pageMeta}
-              />
+        <DeviceContext.Consumer>
+          {context => (
+            <Fragment>
+              <CenterColumn
+                widths={['768px', '940px', '940px']}
+                theme={{ paddingTop: '25px' }}
+              >
+                <Header
+                  isEditMode={edit}
+                  condensed={false}
+                  showInformation={this.showInformation}
+                  joinOrLeaveGroup={this.joinLeaveGroup}
+                  discussionGroupId={groupId}
+                  {...context}
+                  {...communityGroupOverview}
+                  {...pageMeta}
+                />
 
-              <FullInformationOverview
-                refreshHeader={this.refreshHeader}
-                joinOrLeaveGroup={this.joinLeaveGroup}
-                context={context}
-                discussionGroupId={groupId}
-                isEditMode={edit}
-              />
-          </CenterColumn>
-          <Modal
-            ariaHideApp={false}
-            isOpen={showPopup}
-            style={modalStyles}
-            contentLabel="Group Info"
-            onRequestClose={this.closeModal}
-          >
-            <BackBar onClickEvent={this.closeModal} />
-            <Header
-              condensed={true}
-              showInformation={this.showInformation}
-              joinOrLeaveGroup={this.joinLeaveGroup}
-              discussionGroupId={groupId}
-              isEditMode={edit}
-              {...context}
-              {...communityGroupOverview}
-              {...pageMeta}
-            />
+                <FullInformationOverview
+                  refreshHeader={this.refreshHeader}
+                  joinOrLeaveGroup={this.joinLeaveGroup}
+                  context={context}
+                  discussionGroupId={groupId}
+                  isEditMode={edit}
+                />
+              </CenterColumn>
+              <Modal
+                ariaHideApp={false}
+                isOpen={showPopup}
+                style={modalStyles}
+                contentLabel="Group Info"
+                onRequestClose={this.closeModal}
+              >
+                <BackBar onClickEvent={this.closeModal} />
+                <Header
+                  condensed={true}
+                  showInformation={this.showInformation}
+                  joinOrLeaveGroup={this.joinLeaveGroup}
+                  discussionGroupId={groupId}
+                  isEditMode={edit}
+                  {...context}
+                  {...communityGroupOverview}
+                  {...pageMeta}
+                />
 
-            <h2 className="groupmembers-contain"><span className="groupmembers">Group members</span>{` (${communityGroupOverview.membersCount})`}</h2>
-            <MembersList
-              membersSort={communityGroupOverview.membersSort}
-              membersList={communityGroupOverview.membersList}
-              membersCount={communityGroupOverview.membersCount}
-              discussionGroupId={groupId}
-              fetchGroupMembers={actions.fetchGroupMembers}
-              isDesktop={context.isDesktop}
-              theme={{ marginLeft: 0 }}
-            />
-
-          </Modal>
-        </Fragment>)}
-
+                <h2 className="groupmembers-contain">
+                  <span className="groupmembers">Group members</span>
+                  {` (${communityGroupOverview.membersCount})`}
+                </h2>
+                <MembersList
+                  membersSort={communityGroupOverview.membersSort}
+                  membersList={communityGroupOverview.membersList}
+                  membersCount={communityGroupOverview.membersCount}
+                  discussionGroupId={groupId}
+                  fetchGroupMembers={actions.fetchGroupMembers}
+                  isDesktop={context.isDesktop}
+                  theme={{ marginLeft: 0 }}
+                />
+              </Modal>
+            </Fragment>
+          )}
         </DeviceContext.Consumer>
 
         <style jsx>{`
@@ -203,17 +207,15 @@ class CommunityGroupOverview extends Component {
             text-transform: uppercase;
             margin: 25px 0;
             text-align: center;
-
           }
 
           .groupmembers {
             font-weight: normal;
             font-weight: bold;
           }
-
         `}</style>
       </div>
-    )
+    );
   }
 }
 

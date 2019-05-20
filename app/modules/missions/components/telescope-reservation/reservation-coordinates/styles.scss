@@ -1,0 +1,19 @@
+@import '~app/styles/variables/index';
+
+.reservation-coordinates {
+  background-color: $romance;
+
+  &.coordinates {
+    padding: 20px 0 0;
+  }
+
+  .coordinates-setup {
+    .steps {
+      margin: 20px 0 -40px;
+    }
+
+    .setup-header {
+      padding: 0 40px;
+    }
+  }
+}

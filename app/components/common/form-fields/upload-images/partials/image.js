@@ -1,21 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { closeAstronaut } from 'styles/variables/iconURLs';
+import { closeAstronaut } from 'app/styles/variables/iconURLs';
 import styles from './image.style';
 
-const {
-  string,
-  func,
-} = PropTypes;
+const { string, func } = PropTypes;
 
-const Image = (props) => {
-  const {
-    imageURL,
-    handleDeleteImage,
-  } = props;
+const Image = props => {
+  const { imageURL, handleDeleteImage } = props;
   return (
     <div className="root">
-      <img className="delete-tag" src={closeAstronaut} data-url={imageURL} onClick={handleDeleteImage} />
+      <img
+        className="delete-tag"
+        src={closeAstronaut}
+        data-url={imageURL}
+        onClick={handleDeleteImage}
+      />
       <div className="displayed-img-container">
         <img className="displayed-img" src={imageURL} alt="uploaded image" />
       </div>
@@ -29,7 +28,6 @@ Image.propTypes = {
   handleDeleteImage: func.isRequired,
 };
 
-Image.defaultProps = {
-};
+Image.defaultProps = {};
 
 export default Image;

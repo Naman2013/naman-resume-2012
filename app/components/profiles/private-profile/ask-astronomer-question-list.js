@@ -1,80 +1,84 @@
 /***********************************
-* V4 Private Profile Ask Astronomer Question List
-*
-*
-*
-***********************************/
+ * V4 Private Profile Ask Astronomer Question List
+ *
+ *
+ *
+ ***********************************/
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import AstronomerQuestionListItem from './ask-astronomer-question-list-item';
-import { fetchAstronomerQuestionList } from '../../../modules/ask-astronomer-question-list/actions';
-import { black, darkBlueGray, white, turqoise } from '../../../styles/variables/colors';
+import { fetchAstronomerQuestionList } from '../../../modules/ask-astronomer/reducers/ask-astronomer-question-list/actions';
+import {
+  black,
+  darkBlueGray,
+  white,
+  turqoise,
+} from '../../../styles/variables/colors';
 import { secondaryFont } from '../../../styles/variables/fonts';
 
-const {
-  arrayOf,
-  bool,
-  func,
-  number,
-  shape,
-  string,
-} = PropTypes;
+const { arrayOf, bool, func, number, shape, string } = PropTypes;
 
-const mapStateToProps = ({
-  astronomerQuestionList,
-  user,
-}) => ({
+const mapStateToProps = ({ astronomerQuestionList, user }) => ({
   astronomerQuestionList,
   user,
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({
-    fetchAstronomerQuestionList,
-  }, dispatch),
+  actions: bindActionCreators(
+    {
+      fetchAstronomerQuestionList,
+    },
+    dispatch
+  ),
 });
 
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(
+  mapStateToProps,
+  mapDispatchToProps
+)
 class AstronomerQuestionList extends Component {
   static defaultProps = {
     asrronomerQuestionList: {},
-  }
+  };
 
   static propTypes = {
     actions: shape({
       fetchAstronomerQuestionList: func.isRequired,
     }),
     astronomerQuestionList: shape({}),
-  }
+  };
 
   constructor(props) {
-    super(props)
+    super(props);
 
     props.actions.fetchAstronomerQuestionList({
-      answerState: 'unanswered'
+      answerState: 'unanswered',
     });
   }
 
   render() {
-    const {
-      astronomerQuestionList,
-      user,
-    } = this.props;
+    const { astronomerQuestionList, user } = this.props;
 
     return (
       <div className="ask-astronomer-question-list">
-        <div>{astronomerQuestionList.threadCount} new questions! Earn gravity by mentoring in the Slooh community</div>
         <div>
-          {astronomerQuestionList.threads.map(question => <AstronomerQuestionListItem {...question} key={question.threadId} user={user} />)}
+          {astronomerQuestionList.threadCount} new questions! Earn gravity by
+          mentoring in the Slooh community
         </div>
-        <style jsx>{`
-
-
-        `}</style>
+        <div>
+          {astronomerQuestionList.threads.map(question => (
+            <AstronomerQuestionListItem
+              {...question}
+              key={question.threadId}
+              user={user}
+            />
+          ))}
+        </div>
+        <style jsx>{``}</style>
       </div>
-    )
+    );
   }
 }
 

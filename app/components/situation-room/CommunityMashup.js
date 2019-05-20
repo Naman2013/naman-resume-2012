@@ -40,95 +40,94 @@ class CommunityMashup extends Component {
     const { selectedTabIndex } = this.state;
     return (
       <div className={s.communityMashupRoot}>
-        <Tabs className={s.tabSet} onSelect={this.handleSelect} selectedIndex={selectedTabIndex}>
+        <Tabs
+          className={s.tabSet}
+          onSelect={this.handleSelect}
+          selectedIndex={selectedTabIndex}
+        >
           <TabList className={s.tabList}>
-            {
-              hasSocialFlow ?
-                <Tab className={s.tab}>
-                  <h5 className={s.tabTitle}>Social Flow</h5>
-                </Tab> : null
-            }
+            {hasSocialFlow ? (
+              <Tab className={s.tab}>
+                <h5 className={s.tabTitle}>Social Flow</h5>
+              </Tab>
+            ) : null}
 
-            {
-              hasPerspectives ?
-                <Tab className={s.tab}>
-                  <h5 className={s.tabTitle}>Illuminations</h5>
-                </Tab> : null
-            }
+            {hasPerspectives ? (
+              <Tab className={s.tab}>
+                <h5 className={s.tabTitle}>Illuminations</h5>
+              </Tab>
+            ) : null}
 
-            {
-              hasUpcomingShows ?
-                <Tab className={s.tab}>
-                  <h5 className={s.tabTitle}>Upcoming Livecasts</h5>
-                </Tab> : null
-            }
+            {hasUpcomingShows ? (
+              <Tab className={s.tab}>
+                <h5 className={s.tabTitle}>Upcoming Livecasts</h5>
+              </Tab>
+            ) : null}
 
-            {
-              hasRecentShows ?
-                <Tab className={s.tab}>
-                  <h5 className={s.tabTitle}>Recent Livecasts</h5>
-                </Tab> : null
-            }
+            {hasRecentShows ? (
+              <Tab className={s.tab}>
+                <h5 className={s.tabTitle}>Recent Livecasts</h5>
+              </Tab>
+            ) : null}
 
-            {
-              hasRecommends ?
-                <Tab className={s.tab}>
-                  <h5 className={s.tabTitle}>Slooh Recommends</h5>
-                </Tab> : null
-            }
+            {hasRecommends ? (
+              <Tab className={s.tab}>
+                <h5 className={s.tabTitle}>Slooh Recommends</h5>
+              </Tab>
+            ) : null}
           </TabList>
 
+          {hasSocialFlow ? (
+            <TabPanel className={s.tabPanel}>
+              <aside>
+                <TintUp />
+              </aside>
+            </TabPanel>
+          ) : null}
 
-          {
-            hasSocialFlow ?
-              <TabPanel className={s.tabPanel}>
-                <aside>
-                  <TintUp />
-                </aside>
-              </TabPanel> : null
-          }
+          {hasPerspectives ? (
+            <TabPanel className={s.tabPanel}>
+              <aside>
+                <CommunityPerspectives communityContent={communityPosts} />
+              </aside>
+            </TabPanel>
+          ) : null}
 
-          {
-            hasPerspectives ?
-              <TabPanel className={s.tabPanel}>
-                <aside>
-                  <CommunityPerspectives
-                    communityContent={communityPosts}
-                  />
-                </aside>
-              </TabPanel> : null
-          }
+          {hasUpcomingShows ? (
+            <TabPanel className={s.tabPanel}>
+              <aside>
+                <ShowsList
+                  eventList={upcomingShows}
+                  textSize="12px"
+                  colNum={colNum}
+                />
+              </aside>
+            </TabPanel>
+          ) : null}
 
-          {
-            hasUpcomingShows ?
-              <TabPanel className={s.tabPanel}>
-                <aside>
-                  <ShowsList eventList={upcomingShows} textSize="12px" colNum={colNum} />
-                </aside>
-              </TabPanel> : null
-          }
+          {hasRecentShows ? (
+            <TabPanel className={s.tabPanel}>
+              <aside>
+                <ShowsList
+                  eventList={recentShows}
+                  textSize="12px"
+                  colNum={colNum}
+                />
+              </aside>
+            </TabPanel>
+          ) : null}
 
-          {
-            hasRecentShows ?
-              <TabPanel className={s.tabPanel}>
-                <aside>
-                  <ShowsList eventList={recentShows} textSize="12px" colNum={colNum} />
-                </aside>
-              </TabPanel> : null
-          }
-
-          {
-            hasRecommends ?
-              <TabPanel className={s.tabPanel}>
-                <aside className={s.sloohRecommendsPanel}>
-                  <SloohRecommends
-                    columns={2}
-                    recommendations={recommends}
-                    type="community"
-                  />
-                </aside>
-              </TabPanel> : null
-          }
+          {hasRecommends ? (
+            <TabPanel className={s.tabPanel}>
+              <aside className={s.sloohRecommendsPanel}>
+                <SloohRecommends
+                  columns={2}
+                  recommendations={recommends}
+                  type="community"
+                />
+              </aside>
+            </TabPanel>
+          ) : null}
         </Tabs>
       </div>
     );
@@ -152,12 +151,14 @@ CommunityMashup.propTypes = {
   hasRecentShows: PropTypes.bool,
   colNum: PropTypes.string,
   recommends: PropTypes.arrayOf(PropTypes.number.isRequired),
-  communityPosts: PropTypes.arrayOf(PropTypes.shape({
-    postId: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    content: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
-  })),
+  communityPosts: PropTypes.arrayOf(
+    PropTypes.shape({
+      postId: PropTypes.number.isRequired,
+      title: PropTypes.string.isRequired,
+      content: PropTypes.string.isRequired,
+      type: PropTypes.string.isRequired,
+    })
+  ),
 };
 
 export default CommunityMashup;

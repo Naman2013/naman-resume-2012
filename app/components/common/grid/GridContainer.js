@@ -3,10 +3,7 @@ import PropTypes from 'prop-types';
 import style from './GridContainer.style';
 
 const GridContainer = ({ children, theme }) => (
-  <section
-    style={theme}
-    className="object-details-grid-container"
-  >
+  <section style={theme} className="object-details-grid-container">
     {children}
     <style jsx>{style}</style>
   </section>
@@ -14,7 +11,7 @@ const GridContainer = ({ children, theme }) => (
 
 GridContainer.propTypes = {
   children: PropTypes.node.isRequired,
-  theme: PropTypes.shape({ }),
+  theme: PropTypes.shape({}),
 };
 
 GridContainer.defaultProps = {

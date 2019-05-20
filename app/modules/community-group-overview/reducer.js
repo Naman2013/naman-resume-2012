@@ -21,6 +21,7 @@ const initialState = {
   error: false,
   pageMeta: {},
   membersList: [],
+  leadersList: [],
   membersCount: 0,
   membersCallError: false,
   membersCallFetching: false,
@@ -82,7 +83,11 @@ export default createReducer(initialState, {
       joinPrompt,
       // showAskPrompt,
       showJoinPrompt,
-      pageMeta: Object.assign({}, state.pageMeta, { joinPrompt, showJoinPrompt, canPost })
+      pageMeta: Object.assign({}, state.pageMeta, {
+        joinPrompt,
+        showJoinPrompt,
+        canPost,
+      }),
     };
   },
 
@@ -91,13 +96,16 @@ export default createReducer(initialState, {
       ...state,
       membersCallError: false,
       membersCallFetching: true,
+      membersCount: 0,
+      membersList: [],
     };
   },
   [FETCH_GROUP_MEMBERS_SUCCESS](state, { payload }) {
-    const { membersList, membersCount, sortBy } = payload;
+    const { membersList, membersCount, sortBy, leadersList } = payload;
     return {
       ...state,
       membersList,
+      leadersList,
       membersCount,
       membersSort: sortBy,
       membersCallError: false,

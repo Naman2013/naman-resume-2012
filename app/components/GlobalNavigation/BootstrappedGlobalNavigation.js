@@ -11,9 +11,10 @@ import {
   closeUpsellModal,
   toggleGlobalNavMenu,
   toggleGlobalNavNotificationMenu,
-} from 'modules/global-navigation/actions';
-import { customModalStylesBlackOverlay } from 'styles/mixins/utilities';
-import { screenMedium, screenLarge } from 'styles/variables/breakpoints';
+} from 'app/modules/global-navigation/actions';
+import { customModalStylesBlackOverlay } from 'app/styles/mixins/utilities';
+import { screenMedium, screenLarge } from 'app/styles/variables/breakpoints';
+import debounce from 'lodash/debounce';
 
 const mapStateToProps = ({
   globalNavigation,
@@ -35,13 +36,13 @@ const mapDispatchToProps = dispatch => ({
       toggleGlobalNavMenu,
       toggleGlobalNavNotificationMenu,
     },
-    dispatch,
+    dispatch
   ),
 });
 
 @connect(
   mapStateToProps,
-  mapDispatchToProps,
+  mapDispatchToProps
 )
 class GlobalNavigation extends Component {
   static propTypes = {
@@ -69,23 +70,32 @@ class GlobalNavigation extends Component {
     isMobile: false,
   };
 
+  constructor(params) {
+    super(params);
+
+    this.debouncedCloseAll = debounce(this.closeAll, 500, {
+      leading: true,
+      trailing: false,
+    });
+  }
+
   componentDidMount() {
     if (!this.props.isMobile) {
-      window.addEventListener('scroll', this.closeAll);
+      window.addEventListener('scroll', this.debouncedCloseAll);
     }
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.routeKey !== this.props.routeKey) {
-      this.closeAll();
+      this.debouncedCloseAll();
     }
   }
 
   componentWillUnmount() {
-    window.removeEventListener('scroll', this.closeAll);
+    window.removeEventListener('scroll', this.debouncedCloseAll);
   }
 
-  closeAll = (e) => {
+  closeAll = () => {
     const { actions } = this.props;
     actions.closeAllMenus();
   };
@@ -95,7 +105,7 @@ class GlobalNavigation extends Component {
     actions.closeUpsellModal();
   };
 
-  handleMenuClick = (menuName) => {
+  handleMenuClick = menuName => {
     const { activeMenu, actions } = this.props;
     const sameMenu = menuName === activeMenu;
     const nextMenu = sameMenu ? MENU_INTERFACE.DEFAULT.name : menuName;
@@ -112,7 +122,7 @@ class GlobalNavigation extends Component {
     });
   };
 
-  handleNotificationClick = (menuName) => {
+  handleNotificationClick = menuName => {
     const { activeMenu, actions } = this.props;
     const sameMenu = menuName === activeMenu;
     const nextMenu = sameMenu ? MENU_INTERFACE.DEFAULT.name : menuName;
@@ -160,7 +170,11 @@ class GlobalNavigation extends Component {
           widthUnits={leftMenuContent.menuWidthUnits}
           theme={leftMenuContent.theme}
           isOpen={isLeftOpen}
-          render={props => leftMenuContent.render(Object.assign({}, props, { userMenu, mainMenu }))}
+          render={props =>
+            leftMenuContent.render(
+              Object.assign({}, props, { userMenu, mainMenu })
+            )
+          }
         />
 
         <Menu
@@ -172,7 +186,9 @@ class GlobalNavigation extends Component {
           widthUnits={rightMenuContent.menuWidthUnits}
           theme={rightMenuContent.theme}
           render={props =>
-            rightMenuContent.render(Object.assign({}, props, { userMenu, mainMenu }))
+            rightMenuContent.render(
+              Object.assign({}, props, { userMenu, mainMenu })
+            )
           }
         />
         {/* Prerender Notification Menu */}

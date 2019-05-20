@@ -22,15 +22,15 @@ class ProfileLists extends Component {
     const { params, getProfileLists } = this.props;
     if (prevProps.params.filterType !== params.filterType) {
       if (params.private) getProfileLists(params.filterType);
-      if (params.public)
+      if (params.public) {
         getProfileLists(params.filterType, params.customerUUID);
+      }
     }
     return null;
   }
 
   render() {
     const { data, params, profileLists } = this.props;
-    if (!data) return null;
     const hubFilters = data.profileMenuList.find(el => el.name === 'Lists')
       .subMenus;
     const formatedHubFilter = hubFilters.map(filter => ({
@@ -39,8 +39,9 @@ class ProfileLists extends Component {
     }));
 
     return (
-      <div className="my-lists-hub">
+      <div className="my-lists-hub i-root">
         <Lists
+          data={data}
           profileLists={profileLists}
           filterType={params.filterType}
           filterOptions={formatedHubFilter}

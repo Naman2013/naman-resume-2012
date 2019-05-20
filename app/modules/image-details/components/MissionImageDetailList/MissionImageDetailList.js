@@ -7,8 +7,8 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import Request from 'components/common/network/Request';
-import { IMAGE_DETAIL_LIST } from 'services/missions';
+import Request from 'app/components/common/network/Request';
+import { IMAGE_DETAIL_LIST } from 'app/services/missions';
 import BootstrappedMissionImageDetailList from './BootstrappedMissionImageDetailList';
 
 const { bool, number, oneOfType, string } = PropTypes;

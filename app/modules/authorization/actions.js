@@ -1,8 +1,11 @@
 import { push } from 'react-router-redux';
+import MENU_INTERFACE from 'app/components/GlobalNavigation/Menus/MenuInterface';
+import {
+  toggleGlobalNavMenu,
+  openUpsellModal,
+} from 'app/modules/global-navigation/actions';
 import { fetchHandleErrors } from '../../services/authorization/handle-error';
 import { destroySession, removeUser } from '../User';
-import MENU_INTERFACE from 'components/GlobalNavigation/Menus/MenuInterface';
-import { toggleGlobalNavMenu, openUpsellModal } from 'modules/global-navigation/actions';
 import SETTINGS from '../../config';
 
 export const FETCH_ERRORS_START = 'FETCH_ERRORS_START';
@@ -15,6 +18,11 @@ export const VALIDATE_RESPONSE = 'VALIDATE_RESPONSE';
 
 // URL to return to when the user successfully signs in
 export const SET_SIGN_IN_RETURN_URL = 'SET_SIGN_IN_RETURN_URL';
+
+export const SHOW_ISSUE_WITH_USER_ACCOUNT_MODAL =
+  'SHOW_ISSUE_WITH_USER_ACCOUNT_MODAL';
+export const HIDE_ISSUE_WITH_USER_ACCOUNT_MODAL =
+  'HIDE_ISSUE_WITH_USER_ACCOUNT_MODAL';
 
 const setSignInReturnURL = signInReturnURL => ({
   type: SET_SIGN_IN_RETURN_URL,
@@ -34,19 +42,39 @@ const fetchErrorsSuccess = payload => ({
   payload,
 });
 
-export const captureErrorState = ({ apiError, errorCode, statusCode, currentPageID }) => ({
+export const showIssueWithUserAccountModal = () => ({
+  type: SHOW_ISSUE_WITH_USER_ACCOUNT_MODAL,
+});
+
+export const hideIssueWithUserAccountModal = () => ({
+  type: HIDE_ISSUE_WITH_USER_ACCOUNT_MODAL,
+});
+
+export const captureErrorState = ({
+  apiError,
+  errorCode,
+  statusCode,
+  currentPageID,
+  loginError,
+}) => ({
   type: CAPTURE_ERROR_STATE,
   apiError,
   errorCode,
   statusCode,
   currentPageID,
+  loginError,
 });
 
 export const fetchErrors = () => (dispatch, getState) => {
   dispatch(fetchErrorsStart());
   const { cid, token, at } = getState().user;
   const { activeLeft } = getState().globalNavigation;
-  const { apiError, errorCode, statusCode, signInReturnURL } = getState().authorization;
+  const {
+    apiError,
+    errorCode,
+    statusCode,
+    signInReturnURL,
+  } = getState().authorization;
   if (!apiError || !errorCode || !statusCode) {
     dispatch(push('/'));
   } else {
@@ -58,51 +86,52 @@ export const fetchErrors = () => (dispatch, getState) => {
       errorCodeCheck: errorCode,
       statusCodeCheck: statusCode,
       currentPageId: signInReturnURL.split('?')[0],
-    })
-      .then((result) => {
-        dispatch(fetchErrorsSuccess(result.data));
+    }).then(result => {
+      dispatch(fetchErrorsSuccess(result.data));
 
-        const MEMBER_UPSELL = 'memberUpsell';
-        const GOTO_HOMEPAGE = 'gotoHomePage';
-        const LOGIN_UPSELL = 'loginUpsell';
-        const GOTO_PAGE_ID = 'gotoPageId';
-        const GOTO_URL = 'gotoURL';
-        const GOTO_URL_NEW_TAB = 'gotoURLNewTab';
-        const POPUP_MESSAGE = 'popupMessage';
-        const IGNORE = 'ignore';
+      const MEMBER_UPSELL = 'memberUpsell';
+      const GOTO_HOMEPAGE = 'gotoHomePage';
+      const LOGIN_UPSELL = 'loginUpsell';
+      const GOTO_PAGE_ID = 'gotoPageId';
+      const GOTO_URL = 'gotoURL';
+      const GOTO_URL_NEW_TAB = 'gotoURLNewTab';
+      const POPUP_MESSAGE = 'popupMessage';
+      const IGNORE = 'ignore';
 
-        const { responseType, responseURL } = result.data;
+      const { responseType, responseURL } = result.data;
 
-        if (responseType === MEMBER_UPSELL) {
-          dispatch(push('/'));
-          dispatch(openUpsellModal());
-        }
+      if (responseType === MEMBER_UPSELL) {
+        dispatch(push('/'));
+        dispatch(openUpsellModal());
+      }
 
-        if (responseType === GOTO_HOMEPAGE) {
-          dispatch(push('/'));
-        }
+      if (responseType === GOTO_HOMEPAGE) {
+        dispatch(push('/'));
+      }
 
-        if (responseType === LOGIN_UPSELL) {
-          destroySession();
-          dispatch(removeUser());
-          dispatch(push('/'));
-          dispatch(toggleGlobalNavMenu({
+      if (responseType === LOGIN_UPSELL) {
+        destroySession();
+        dispatch(removeUser());
+        dispatch(push('/'));
+        dispatch(
+          toggleGlobalNavMenu({
             activeMenu: MENU_INTERFACE.PROFILE.name,
             isLeftOpen: false,
             isRightOpen: true,
             activeLeft,
             activeRight: MENU_INTERFACE.PROFILE.name,
             isNotificationMenuOpen: false,
-          }));
-        }
+          })
+        );
+      }
 
-        if (responseType === GOTO_URL) {
-          window.location.href = decodeURIComponent(responseURL);
-        }
+      if (responseType === GOTO_URL) {
+        window.location.href = decodeURIComponent(responseURL);
+      }
 
-        // TODO: this may need to happen during other parts of resolution
-        dispatch(resetErrorState());
-      });
+      // TODO: this may need to happen during other parts of resolution
+      dispatch(resetErrorState());
+    });
   }
 };
 
@@ -113,7 +142,10 @@ export const validateResponseAccess = apiResponse => (dispatch, getState) => {
   const EXPIRED_ACCOUNT_STATUS_CODE = 418;
 
   const { apiError, errorCode, statusCode, loginError } = apiResponse;
-  if (statusCode === UNAUTHORIZED_STATUS_CODE || statusCode === EXPIRED_ACCOUNT_STATUS_CODE) {
+  if (
+    statusCode === UNAUTHORIZED_STATUS_CODE ||
+    statusCode === EXPIRED_ACCOUNT_STATUS_CODE
+  ) {
     // if it is not a log in error, and we are not currently handling something already
     /**
       TODO: once the migration is complete and we have hashless URL's in production
@@ -125,12 +157,21 @@ export const validateResponseAccess = apiResponse => (dispatch, getState) => {
       } else {
         dispatch(setSignInReturnURL(window.location.pathname));
       }
-      dispatch(captureErrorState({
+      dispatch(
+        captureErrorState({
+          apiError,
+          errorCode,
+          statusCode,
+          loginError,
+        })
+      );
+      console.log('AAAAAAAAAAAAAAAAA', {
         apiError,
         errorCode,
         statusCode,
-      }));
-      dispatch(push(REDIRECT_CONFIRMATION_PATH));
+        loginError,
+      });
+      dispatch(showIssueWithUserAccountModal());
     }
     return false;
   }

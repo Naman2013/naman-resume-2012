@@ -1,14 +1,13 @@
 import css from 'styled-jsx/css';
-import { primaryFont, secondaryFont } from 'styles/variables/fonts';
+import { primaryFont, secondaryFont } from 'app/styles/variables/fonts';
 import {
   astronaut,
   shadows,
   questTexture,
   blue_tile_canvas,
-} from 'styles/variables/colors_tiles_v4';
-import { questShield } from 'styles/variables/iconURLs';
-import { faintShadow } from 'styles/variables/shadows';
-
+} from 'app/styles/variables/colors_tiles_v4';
+import { questShield } from 'app/styles/variables/iconURLs';
+import { faintShadow } from 'app/styles/variables/shadows';
 
 export default css`
   .root {
@@ -17,7 +16,7 @@ export default css`
     text-align: center;
     box-size: border-box;
     padding: 0;
-    box-shadow: 0px 0px 8px 1px rgba(65,86,113,.2);
+    box-shadow: 0px 0px 8px 1px rgba(65, 86, 113, 0.2);
     color: ${astronaut};
     list-style-type: none;
     background: url(${questTexture});
@@ -55,7 +54,6 @@ export default css`
     padding: 0;
     ${faintShadow}
   }
-
 
   .icon-container {
     display: block;
@@ -97,7 +95,6 @@ export default css`
     text-transform: initial;
     color: ${astronaut};
   }
-
 
   .quest-info-item {
     width: 50%;

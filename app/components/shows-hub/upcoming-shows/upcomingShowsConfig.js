@@ -1,8 +1,8 @@
 import React from 'react';
 import uniqueId from 'lodash/uniqueId';
 import { FormattedMessage } from 'react-intl';
-import defaultSliderConfiguration from 'components/common/Slider/sliderConfig';
-import BigShowTile from 'components/common/tiles/BigShowTile';
+import defaultSliderConfiguration from 'app/components/common/Slider/sliderConfig';
+import BigShowTile from 'app/components/common/tiles/BigShowTile';
 import UpcomingShowSliderItem from './upcoming-shows-slider-item';
 import messages from './upcomingShowsConfig.messages';
 
@@ -38,5 +38,5 @@ export const getSliderProps = (imageList = []) =>
     {
       sliderConfig: getSliderConfiguration(),
       emptyMessage: <FormattedMessage {...messages.noShows} />,
-    },
+    }
   );

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import DefaultButton from 'components/common/style/buttons/Button';
+import DefaultButton from 'app/components/common/style/buttons/Button';
 import style from './mission-slot-tile.style';
 
 const MissionSlotTile = ({
@@ -29,10 +29,13 @@ const MissionSlotTile = ({
 
     <ul className="attendee-info">
       <li>
-        {date}<br />
+        {date}
+        <br />
         Scheduled by: {scheduledBy}
       </li>
-      <li><DefaultButton onClick={onAutosaveClick} text="autosave" /></li>
+      <li>
+        <DefaultButton onClick={onAutosaveClick} text="autosave" />
+      </li>
     </ul>
     <style jsx>{style}</style>
   </div>

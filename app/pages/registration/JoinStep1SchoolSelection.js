@@ -5,17 +5,17 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Button from 'components/common/style/buttons/Button';
+import Button from 'app/components/common/style/buttons/Button';
 import { browserHistory } from 'react-router';
 import { Field, reduxForm, formValueSelector } from 'redux-form';
 import { intlShape, injectIntl } from 'react-intl';
-import InputField from 'components/form/InputField';
+import InputField from 'app/components/form/InputField';
 import {
   CLASSROOM_GET_US_DISTRICTLIST_ENDPOINT_URL,
   CLASSROOM_GET_US_SCHOOLLIST_ENDPOINT_URL,
   CLASSROOM_CREATE_NEW_SCHOOL,
-} from 'services/classroom/classroom';
-import { JOIN_PAGE_ENDPOINT_URL } from 'services/registration/registration.js';
+} from 'app/services/classroom/classroom';
+import { JOIN_PAGE_ENDPOINT_URL } from 'app/services/registration/registration.js';
 import axios from 'axios';
 import debounce from 'lodash/debounce';
 import JoinHeader from './partials/JoinHeader';
@@ -63,12 +63,14 @@ class JoinStep1SchoolSelectionGeneral extends Component {
           sectionHeading: data.sectionHeading,
         });
         const { change } = this.props;
-        change('schoolCountry', Object.keys(
-          data.formFieldLabels.schoolNotInMarketListCountryList
-        )[0])
-        change('schoolState', Object.keys(
-          data.formFieldLabels.schoolNotInMarketListStateList
-        )[0])
+        change(
+          'schoolCountry',
+          Object.keys(data.formFieldLabels.schoolNotInMarketListCountryList)[0]
+        );
+        change(
+          'schoolState',
+          Object.keys(data.formFieldLabels.schoolNotInMarketListStateList)[0]
+        );
       });
   }
 
@@ -147,12 +149,10 @@ class JoinStep1SchoolSelectionGeneral extends Component {
       if (values.school) {
         window.localStorage.setItem('selectedSchoolId', values.school);
         browserHistory.push('/join/step2');
-      }
-      else {
+      } else {
         console.log("nothing is selected, can't continue...");
       }
-    }
-    else {
+    } else {
       const {
         schoolName,
         schoolAddress,
@@ -164,26 +164,33 @@ class JoinStep1SchoolSelectionGeneral extends Component {
         schoolCity,
         schoolState,
       } = values;
-      axios.post(CLASSROOM_CREATE_NEW_SCHOOL, {
-        schoolName,
-        schoolAddress,
-        schoolCountry,
-        schoolDistrict: districtName,
-        schoolPhoneNumber,
-        schoolWebsite,
-        districtWebsite,
-        schoolCity,
-        schoolState
-      }).then(({ data }) => {
-        window.localStorage.setItem('selectedSchoolId', data.schoolId);
-        browserHistory.push('/join/step2');
-      }
-      );
+      axios
+        .post(CLASSROOM_CREATE_NEW_SCHOOL, {
+          schoolName,
+          schoolAddress,
+          schoolCountry,
+          schoolDistrict: districtName,
+          schoolPhoneNumber,
+          schoolWebsite,
+          districtWebsite,
+          schoolCity,
+          schoolState,
+        })
+        .then(({ data }) => {
+          window.localStorage.setItem('selectedSchoolId', data.schoolId);
+          browserHistory.push('/join/step2');
+        });
     }
   };
 
   render() {
-    const { pathname, intl, isNewSchool, schoolCountry, handleSubmit } = this.props;
+    const {
+      pathname,
+      intl,
+      isNewSchool,
+      schoolCountry,
+      handleSubmit,
+    } = this.props;
 
     const {
       pageHeading1,
@@ -209,7 +216,10 @@ class JoinStep1SchoolSelectionGeneral extends Component {
               <div className="step-root">
                 <div className="inner-container">
                   <div className="section-heading">{sectionHeading}</div>
-                  <form className="form" onSubmit={handleSubmit(this.handleSubmit)}>
+                  <form
+                    className="form"
+                    onSubmit={handleSubmit(this.handleSubmit)}
+                  >
                     <div className="form-section">
                       <div className="form-field-container">
                         <Fragment>
@@ -230,7 +240,7 @@ class JoinStep1SchoolSelectionGeneral extends Component {
                               name="isNewSchool"
                               type="checkbox"
                               component="input"
-                            // onChange = {()=>console.log(this)}
+                              // onChange = {()=>console.log(this)}
                             />
                             <span className="form-label">
                               {formFieldLabels.isSchoolInMarketList.label}

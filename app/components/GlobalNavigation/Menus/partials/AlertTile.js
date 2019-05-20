@@ -2,18 +2,16 @@ import React, { Component } from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
-import { romance, astronaut, shadows, lynch } from 'styles/variables/colors_tiles_v4';
-import { primaryFont, secondaryFont } from 'styles/variables/fonts';
 import {
-  horizontalArrowRightAstronaut
-} from 'styles/variables/iconURLs';
+  romance,
+  astronaut,
+  shadows,
+  lynch,
+} from 'app/styles/variables/colors_tiles_v4';
+import { primaryFont, secondaryFont } from 'app/styles/variables/fonts';
+import { horizontalArrowRightAstronaut } from 'app/styles/variables/iconURLs';
 
-const {
-  bool,
-  func,
-  number,
-  string,
-} = PropTypes;
+const { bool, func, number, string } = PropTypes;
 const propTypes = {
   canDismiss: bool.isRequired,
   dismissAlert: func.isRequired,
@@ -26,20 +24,19 @@ const propTypes = {
   linkUrl: string.isRequired,
 };
 
-const defaultProps = {
-};
+const defaultProps = {};
 
 class AlertTile extends Component {
   state = {
     loading: false,
     showResponse: false,
     responseText: '',
-  }
+  };
 
   dismiss = () => {
     const { dismissAlert, eventId } = this.props;
     dismissAlert(eventId);
-  }
+  };
 
   render() {
     const {
@@ -53,29 +50,50 @@ class AlertTile extends Component {
       linkUrl,
     } = this.props;
 
-    const {
-      loading,
-      showResponse,
-      responseText,
-    } = this.state;
+    const { loading, showResponse, responseText } = this.state;
 
     return (
       <div className="root" key={eventId}>
         <div className="tile-container">
-          {canDismiss && <div className="dismiss" onClick={this.dismiss }><span className="fa fa-check" /></div>}
-          {loading && <div className="dismiss"><span className="fa fa-spinner" /></div>}
-          {showResponse && <div className="title" dangerouslySetInnerHTML={{ __html: responseText }} />}
-          <div className="event-label" dangerouslySetInnerHTML={{ __html: eventLabel }} />
-          <div className="event-title" dangerouslySetInnerHTML={{ __html: eventTitle }} />
+          {canDismiss && (
+            <div className="dismiss" onClick={this.dismiss}>
+              <span className="fa fa-close" />
+            </div>
+          )}
+          {loading && (
+            <div className="dismiss">
+              <span className="fa fa-spinner" />
+            </div>
+          )}
+          {showResponse && (
+            <div
+              className="title"
+              dangerouslySetInnerHTML={{ __html: responseText }}
+            />
+          )}
+          <div
+            className="event-label"
+            dangerouslySetInnerHTML={{ __html: eventLabel }}
+          />
+          <div
+            className="event-title"
+            dangerouslySetInnerHTML={{ __html: eventTitle }}
+          />
           <div dangerouslySetInnerHTML={{ __html: eventSubtitle }} />
-          {hasLink && <div className="link-container">
+          {hasLink && (
+            <div className="link-container">
               <Link to={linkUrl}>
-                <span className="link-text" dangerouslySetInnerHTML={{ __html: linkLabel }} />
+                <span
+                  className="link-text"
+                  dangerouslySetInnerHTML={{ __html: linkLabel }}
+                />
               </Link>
               <div className="arrow" />
-          </div>}
+            </div>
+          )}
         </div>
-        <style jsx>{`
+        <style jsx>
+          {`
           .root {
             width: 90%;
             margin: 0 auto;

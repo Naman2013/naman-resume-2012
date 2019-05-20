@@ -10,8 +10,8 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import uniqueId from 'lodash/uniqueId';
 import { TabPanel } from 'react-tabs';
-import TelescopeImageViewer from 'components/common/telescope-image-viewer/telescope-image-viewer';
-import ShowVideoImageLoader from 'components/common/ShowVideoImageLoader';
+import TelescopeImageViewer from 'app/components/common/telescope-image-viewer/telescope-image-viewer';
+import ShowVideoImageLoader from 'app/components/common/ShowVideoImageLoader';
 import styles from './LiveShowVideoViewer.style';
 
 const { arrayOf, bool, func, number, oneOfType, shape, string } = PropTypes;

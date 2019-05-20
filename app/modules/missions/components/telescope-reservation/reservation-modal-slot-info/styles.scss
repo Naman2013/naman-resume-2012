@@ -30,24 +30,34 @@
   }
 
   .time {
-    font-family: $primary-font;
-    font-size: 44px;
-    font-weight: 300;
-    line-height: 1.55;
-    letter-spacing: 1.3px;
-    text-align: right;
-    color: $lightHeadedAstronaut;
-    position: relative;
-
-    .timezone {
-      font-size: 10px;
-      transform: rotate(90deg);
-      letter-spacing: 2px;
+    .large {
+      font-family: $primary-font;
+      font-size: 44px;
       font-weight: 400;
-      text-transform: uppercase;
-      position: absolute;
-      bottom: 20px;
-      right: -20px;
+      line-height: 1.2;
+      letter-spacing: 1.3px;
+      text-align: right;
+      color: $lightHeadedAstronaut;
+      position: relative;
+
+      .timezone {
+        font-size: 10px;
+        transform: rotate(90deg);
+        letter-spacing: 2px;
+        font-weight: 400;
+        text-transform: uppercase;
+        position: absolute;
+        bottom: 20px;
+        right: -20px;
+      }
+    }
+
+    .other {
+      font-size: 12px;
+      font-weight: 700;
+      text-align: right;
+      position: relative;
+      right: -11px;
     }
   }
 }

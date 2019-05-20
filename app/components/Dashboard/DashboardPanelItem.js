@@ -21,7 +21,7 @@ const PanelItem = ({
   title,
   subtitle,
 }) => (
-    <div className={"dash-item" + (orderNumber === 1 ? '-first' : '')} key={uniqueId()}>
+    <div className={"dash-item" + (orderNumber === 1 ? '-first' : '')}>
         <div className="outer-well">
           <div className="inner-well">
             <h5>{('0' + orderNumber).slice(-2)}</h5>
@@ -37,6 +37,13 @@ const PanelItem = ({
             min-height: 400px;
             margin-top: 120px;
           }
+
+          .dash-item:nth-child(2) {
+            margin-top: -170px;
+            padding-top: 230px;
+            background-color: #f8f8f8;
+          }
+
           .outer-well {
             max-width: 1180px;
             margin: 0 auto;
@@ -44,7 +51,7 @@ const PanelItem = ({
           }
           .inner-well {
             max-width: 940px;
-            margin: 0 auto 40px auto;
+            margin: 0 auto 20px auto;
             text-align: center;
           }
           h5 {
@@ -81,7 +88,7 @@ const PanelItem = ({
             background-color: #213043;
             background-image: url("https://vega.slooh.com/assets/v4/dashboard/Darkest_Pattern_Canvas.png");
             background-size: 100px;
-            padding-top: 280px;
+            padding-top: 285px;
             transition: padding ease-in-out 0.3s; 
           }
           

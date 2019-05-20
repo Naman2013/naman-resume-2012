@@ -1,6 +1,6 @@
 import React, { Fragment, Component } from 'react';
 import PropTypes from 'prop-types';
-import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
+import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
 import BurnhamsCornerLarge from './BurnhamsCornerLarge';
 import BurnhamsCornerSmall from './BurnhamsCornerSmall';
 
@@ -15,7 +15,10 @@ function cutString(string, maxLength) {
   }
 
   let trimmedString = string.substr(0, MAX_LENGTH);
-  trimmedString = `${trimmedString.substr(0, Math.min(trimmedString.length, trimmedString.lastIndexOf(' ')))} ...`;
+  trimmedString = `${trimmedString.substr(
+    0,
+    Math.min(trimmedString.length, trimmedString.lastIndexOf(' '))
+  )} ...`;
 
   return {
     needToShowMore: true,
@@ -26,9 +29,10 @@ function cutString(string, maxLength) {
 class BurnhamsCorner extends Component {
   state = {
     showMore: false,
-  }
+  };
 
-  toggleReadMore = () => this.setState(prevState => ({ showMore: !prevState.showMore }));
+  toggleReadMore = () =>
+    this.setState(prevState => ({ showMore: !prevState.showMore }));
 
   render() {
     const { content } = this.props;
@@ -71,6 +75,5 @@ BurnhamsCorner.propTypes = {
   linkLabel: PropTypes.string.isRequired,
   linkURL: PropTypes.string.isRequired,
 };
-
 
 export default BurnhamsCorner;

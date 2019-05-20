@@ -16,6 +16,8 @@ export const AboutScope = props => {
     instrAbout,
     instrRelatedGuideUrl,
     imageList,
+    instrTelescopeType,
+    instrTelescopeShortName,
   } = props;
   if (!teleName) return null;
 
@@ -26,14 +28,18 @@ export const AboutScope = props => {
   );
 
   const desc = [
-    { id: '1', title: 'Telescope type', text: 'High-Magnification' },
+    { id: '1', title: 'Telescope type', text: instrTelescopeType },
     { id: '2', title: 'Observatory', text: obsShortName },
     { id: '3', title: 'Pier', text: teleName },
   ];
 
   const preTitle = <h4 className="h-4 text-uppercase">Slooh telescope</h4>;
 
-  const mainTitle = <h1 className="h-1">{teleName}</h1>;
+  const mainTitle = (
+    <h1 className="h-1">
+      {teleName} {instrTelescopeShortName}
+    </h1>
+  );
 
   const onViewGuideClick = () => browserHistory.push(instrRelatedGuideUrl);
 

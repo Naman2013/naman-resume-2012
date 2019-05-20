@@ -1,8 +1,13 @@
 import css from 'styled-jsx/css';
-import { romance, lightHeadedAstronaut, geyser, hawkesBlue } from 'styles/variables/colors_tiles_v4';
-import { primaryFont, secondaryFont } from 'styles/variables/fonts';
-import { screenMedium } from 'styles/variables/breakpoints';
-import { resetMarginPadding } from 'styles/variables/utils';
+import {
+  romance,
+  lightHeadedAstronaut,
+  geyser,
+  hawkesBlue,
+} from 'app/styles/variables/colors_tiles_v4';
+import { primaryFont, secondaryFont } from 'app/styles/variables/fonts';
+import { screenMedium } from 'app/styles/variables/breakpoints';
+import { resetMarginPadding } from 'app/styles/variables/utils';
 
 export default css`
   div {

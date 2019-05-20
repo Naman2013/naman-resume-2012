@@ -9,9 +9,7 @@ import PropTypes from 'prop-types';
 import GenericButton from '../common/style/buttons/LargeButtonWithRightIcon';
 import fetchFollowObject from '../../services/objects/object-follow';
 
-const {
-  number, oneOfType, shape, string,
-} = PropTypes;
+const { number, oneOfType, shape, string } = PropTypes;
 
 class FollowObjectButton extends Component {
   static propTypes = {
@@ -38,7 +36,7 @@ class FollowObjectButton extends Component {
       token: user.token,
       cid: user.cid,
       objectId,
-    }).then((res) => {
+    }).then(res => {
       if (!res.data.apiError) {
         this.setState({
           icon: res.data.promptIconUrl,

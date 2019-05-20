@@ -11,9 +11,11 @@ import generateTelescopeDetailsTabConfiguration from './generate-tab-configurati
 import { DefaultTabs } from '../../common/Tabs';
 
 const mapStateToProps = ({ telescopeDetails }) => ({
-  currentConditionsURL: telescopeDetails.weatherConditionWidgetResult.currentConditionsURL,
+  currentConditionsURL:
+    telescopeDetails.weatherConditionWidgetResult.currentConditionsURL,
 
-  dayNightBarPanelRefreshInterval: telescopeDetails.dayNightBarPanel.refreshIntervalSec,
+  dayNightBarPanelRefreshInterval:
+    telescopeDetails.dayNightBarPanel.refreshIntervalSec,
   dayNightBarPanelURL: telescopeDetails.dayNightBarPanel.dayNightBarPanelURL,
   dayNightBarPanelImageWidth: telescopeDetails.dayNightBarPanel.imageWidth,
   dayNightBarPanelTitle: telescopeDetails.dayNightBarPanel.title,
@@ -25,12 +27,18 @@ const mapStateToProps = ({ telescopeDetails }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({
-    fetchAllWidgets,
-  }, dispatch),
+  actions: bindActionCreators(
+    {
+      fetchAllWidgets,
+    },
+    dispatch
+  ),
 });
 
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(
+  mapStateToProps,
+  mapDispatchToProps
+)
 class TelescopeDetailsTabs extends Component {
   static propTypes = {
     // provided by redux state
@@ -64,7 +72,7 @@ class TelescopeDetailsTabs extends Component {
     actions: PropTypes.shape({
       fetchAllWidgets: PropTypes.func.isRequired,
     }).isRequired,
-  }
+  };
 
   state = {
     selectedTabIndex: 0,
@@ -108,7 +116,7 @@ class TelescopeDetailsTabs extends Component {
     }
   }
 
-  handleTabClick = (selectedTabIndex) => {
+  handleTabClick = selectedTabIndex => {
     this.setState({
       selectedTabIndex,
     });
@@ -116,7 +124,9 @@ class TelescopeDetailsTabs extends Component {
 
   render() {
     const { selectedTabIndex } = this.state;
-    const tabConfiguration = generateTelescopeDetailsTabConfiguration(this.props);
+    const tabConfiguration = generateTelescopeDetailsTabConfiguration(
+      this.props
+    );
 
     return (
       <div>

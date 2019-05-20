@@ -1,4 +1,5 @@
 import profile from 'app/modules/profile/reducer';
+import askAstronomer from 'app/modules/ask-astronomer/reducers/reducer';
 import imageDetails from 'app/modules/image-details/reducer';
 import telescope from 'app/modules/telescope/reducer';
 import storyDetails from 'app/modules/story-details/reducer';
@@ -14,10 +15,10 @@ import adStats from './ad-management/ad-stats';
 import alerts from './alerts/reducer';
 import announcementBanner from './Announcement-Banner';
 import appConfig from './app-config/reducer';
-import astronomerDiscuss from './ask-astronomer-answer-discuss/reducer';
-import astronomerAnswers from './ask-astronomer-answers/reducer';
-import astronomerQuestionList from './ask-astronomer-question-list/reducer';
-import astronomerQuestions from './ask-astronomer-questions/reducer';
+import astronomerDiscuss from './ask-astronomer/reducers/ask-astronomer-answer-discuss/reducer';
+import astronomerAnswers from './ask-astronomer/reducers/ask-astronomer-answers/reducer';
+import astronomerQuestionList from './ask-astronomer/reducers/ask-astronomer-question-list/reducer';
+import astronomerQuestions from './ask-astronomer/reducers/ask-astronomer-questions/reducer';
 import authorContent from './author-content/reducer';
 import authorPostsLayout from './author-posts-page-layout/reducer';
 import authorization from './authorization/reducer';
@@ -93,6 +94,7 @@ import user from './User';
 import usersUpcomingMission from './Users-Upcoming-Missions';
 import missionDetails from './mission-details/reducer';
 import galleryDetails from './gallery-details/reducer';
+import fitsData from './profile-photos/reducer';
 
 export default combineReducers({
   routing: routerReducer,
@@ -189,4 +191,6 @@ export default combineReducers({
   missionDetails,
   imageDetails,
   galleryDetails,
+  askAstronomer,
+  fitsData,
 });

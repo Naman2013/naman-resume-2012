@@ -1,23 +1,20 @@
 /** **********************************************************************************
-* V4 Join with an Invitation Code - Collect Account Setup Information from Valid Invitation
-*************************************************************************************/
+ * V4 Join with an Invitation Code - Collect Account Setup Information from Valid Invitation
+ *************************************************************************************/
 import React, { Component, cloneElement, Fragment } from 'react';
 import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import cloneDeep from 'lodash/cloneDeep';
 import noop from 'lodash/noop';
-import { createValidator, required } from 'modules/utils/validation';
+import { createValidator, required } from 'app/modules/utils/validation';
 import { browserHistory } from 'react-router';
-import Button from 'components/common/style/buttons/Button';
+import Button from 'app/components/common/style/buttons/Button';
 import JoinHeader from './partials/JoinHeader';
 import JoinByInviteAccountSignup from './common/JoinByInviteAccountSignup';
 import { JOIN_BY_INVITE_TABS } from './StaticNavTabs';
 
-const {
-  string,
-  func,
-} = PropTypes;
+const { string, func } = PropTypes;
 
 class JoinByInviteCodeStep2 extends Component {
   static propTypes = {
@@ -34,7 +31,7 @@ class JoinByInviteCodeStep2 extends Component {
     this.state = {
       invitationCodeAlt: window.localStorage.getItem('invitationCodeAlt'),
       inviteeEmailAddress: window.localStorage.getItem('inviteeEmailAddress'),
-    }
+    };
   }
 
   render() {
@@ -43,18 +40,24 @@ class JoinByInviteCodeStep2 extends Component {
     const joinByInviteParams = {
       callSource: 'joinByInvitationAltStep2',
       invitationCodeAlt: this.state.invitationCodeAlt,
-      inviteeEmailAddress: this.state.inviteeEmailAddress
+      inviteeEmailAddress: this.state.inviteeEmailAddress,
     };
 
     return (
-      <JoinByInviteAccountSignup pathname={pathname} navTabs={JOIN_BY_INVITE_TABS} joinByInviteParams={joinByInviteParams} />
-    )
+      <JoinByInviteAccountSignup
+        pathname={pathname}
+        navTabs={JOIN_BY_INVITE_TABS}
+        joinByInviteParams={joinByInviteParams}
+      />
+    );
   }
 }
-
 
 const mapStateToProps = ({ joinAccountForm }) => ({
   joinAccountForm,
 });
 
-export default connect(mapStateToProps, null)(JoinByInviteCodeStep2);
+export default connect(
+  mapStateToProps,
+  null
+)(JoinByInviteCodeStep2);

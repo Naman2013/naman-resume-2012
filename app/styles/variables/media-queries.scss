@@ -18,6 +18,13 @@ $screen-xl-min: 1366px;
   }
 }
 
+// Small and lower
+@mixin sm-low {
+  @media (max-width: #{$screen-md-min - 1}) {
+    @content;
+  }
+}
+
 // Medium (from 768 to 1023)
 @mixin md {
   @media (min-width: #{$screen-md-min}) and (max-width: #{$screen-lg-min - 1}) {
@@ -25,7 +32,7 @@ $screen-xl-min: 1366px;
   }
 }
 
-// Medium and lower (from 768 to 1023)
+// Medium and lower
 @mixin md-low {
   @media (max-width: #{$screen-lg-min - 1}) {
     @content;

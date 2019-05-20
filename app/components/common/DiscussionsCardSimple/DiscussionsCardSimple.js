@@ -1,21 +1,21 @@
 /***********************************
-* V4 Discussions Thread List Item
-*
-*
-*
-***********************************/
+ * V4 Discussions Thread List Item
+ *
+ *
+ *
+ ***********************************/
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import uniqueId from 'lodash/uniqueId';
 import moment from 'moment';
-import CommentButton from 'components/common/style/buttons/CommentButton';
-import LikeSomethingButton from 'components/common/LikeSomethingButton';
-import ReplyForm from 'components/common/DiscussionsBoard/ReplyForm';
-import ReplyButton from 'components/common/DiscussionsBoard/ReplyButton';
-import Button from 'components/common/style/buttons/Button';
-import ViewImagesButton from 'components/common/style/buttons/ViewImagesButton';
-import styles, { profPic } from './DiscussionsCardSimple.style'
+import CommentButton from 'app/components/common/style/buttons/CommentButton';
+import LikeSomethingButton from 'app/components/common/LikeSomethingButton';
+import ReplyForm from 'app/components/common/DiscussionsBoard/ReplyForm';
+import ReplyButton from 'app/components/common/DiscussionsBoard/ReplyButton';
+import Button from 'app/components/common/style/buttons/Button';
+import ViewImagesButton from 'app/components/common/style/buttons/ViewImagesButton';
+import styles, { profPic } from './DiscussionsCardSimple.style';
 
 const {
   any,
@@ -29,7 +29,6 @@ const {
 } = PropTypes;
 
 class DiscussionsCardSimple extends Component {
-
   static propTypes = {
     avatarURL: string.isRequired,
     displayName: string.isRequired,
@@ -58,11 +57,9 @@ class DiscussionsCardSimple extends Component {
     S3Files: [],
   };
 
-  state = {
-  };
+  state = {};
 
-
-  render () {
+  render() {
     const {
       avatarURL,
       content,
@@ -78,23 +75,26 @@ class DiscussionsCardSimple extends Component {
       user,
     } = this.props;
 
-    const {
-    } = this.state;
+    const {} = this.state;
 
-    const {
-    } = this;
+    const {} = this;
     return (
       <div className="root" key={uniqueId()}>
         <div className="comment-item">
           <div className="user-info-container">
             <div className="user-info">
               <div style={profPic(avatarURL)} />
-              <div className="display-name" dangerouslySetInnerHTML={{ __html: displayName }} />
+              <div
+                className="display-name"
+                dangerouslySetInnerHTML={{ __html: displayName }}
+              />
             </div>
           </div>
 
-          <div className="content" dangerouslySetInnerHTML={{ __html: title || content }} />
-
+          <div
+            className="content"
+            dangerouslySetInnerHTML={{ __html: title || content }}
+          />
         </div>
         <style jsx>{styles}</style>
       </div>

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { romance, astronaut } from 'styles/variables/colors_tiles_v4';
-import { primaryFont } from 'styles/variables/fonts';
+import { romance, astronaut } from 'app/styles/variables/colors_tiles_v4';
+import { primaryFont } from 'app/styles/variables/fonts';
 
 const propTypes = {
   mainTitle: PropTypes.string.isRequired,
@@ -28,10 +28,7 @@ const MissionTile = ({
     <h3>{mainTitle}</h3>
     <div className="mission-name">
       <h4>{objectTitle}</h4>
-      {
-        objectSubTitle &&
-          <h5>{objectSubTitle}</h5>
-      }
+      {objectSubTitle && <h5>{objectSubTitle}</h5>}
     </div>
 
     <div className="call-to-action">
@@ -40,17 +37,18 @@ const MissionTile = ({
       <p>{occurred}</p>
     </div>
 
-    <style jsx>{`
-      .root {
-        width: 90%;
-        margin: 0 auto;
-        background: ${romance};
-        padding: 15px;
-        color: ${astronaut};
-        font-family: ${primaryFont};
-        margin-bottom: 10px;
-      }
-    `}
+    <style jsx>
+      {`
+        .root {
+          width: 90%;
+          margin: 0 auto;
+          background: ${romance};
+          padding: 15px;
+          color: ${astronaut};
+          font-family: ${primaryFont};
+          margin-bottom: 10px;
+        }
+      `}
     </style>
   </div>
 );

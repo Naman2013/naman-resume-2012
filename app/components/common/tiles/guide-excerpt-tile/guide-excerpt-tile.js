@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link, browserHistory } from 'react-router';
-import { guideCorner } from 'styles/variables/iconURLs';
-import ToggleReadingList from 'components/common/ToggleReadingList';
-import Button from 'components/common/style/buttons/Button';
+import { guideCorner } from 'app/styles/variables/iconURLs';
+import ToggleReadingList from 'app/components/common/ToggleReadingList';
+import Button from 'app/components/common/style/buttons/Button';
 import style from './guide-excerpt-tile.style';
 
 const GuideTile = ({
@@ -20,19 +20,37 @@ const GuideTile = ({
   updateReadingInfoInList,
   withinReletedSection,
 }) => (
-  <div className="guide-tile-root" style={withinReletedSection && { height: '200px', padding: '20px' }}>
-    <div className="title" dangerouslySetInnerHTML={{ __html: guideReferenceTitle }} />
-    <div className="sub-title" dangerouslySetInnerHTML={{ __html: guideAuthor }} />
-    <div className="description" dangerouslySetInnerHTML={{ __html: shortDescription }} />
+  <div
+    className="guide-tile-root"
+    style={withinReletedSection && { height: '200px', padding: '20px' }}
+  >
+    <div
+      className="title"
+      dangerouslySetInnerHTML={{ __html: guideReferenceTitle }}
+    />
+    <div
+      className="sub-title"
+      dangerouslySetInnerHTML={{ __html: guideAuthor }}
+    />
+    <div
+      className="description"
+      dangerouslySetInnerHTML={{ __html: shortDescription }}
+    />
     <div className="actions">
-      <Button theme={{ height: 'fit-content' }} text={linkLabel} onClickEvent={() => browserHistory.push(linkUrl)} />
-      {toggleReadingListFlag ? <ToggleReadingList
-        updateReadingInfoInList={updateReadingInfoInList}
-        itemId={guideId}
-        readingListType={readingListType}
-        readingListPrompt={null}
-        promptIconUrl={promptIconUrl}
-      /> : null}
+      <Button
+        theme={{ height: 'fit-content' }}
+        text={linkLabel}
+        onClickEvent={() => browserHistory.push(linkUrl)}
+      />
+      {toggleReadingListFlag ? (
+        <ToggleReadingList
+          updateReadingInfoInList={updateReadingInfoInList}
+          itemId={guideId}
+          readingListType={readingListType}
+          readingListPrompt={null}
+          promptIconUrl={promptIconUrl}
+        />
+      ) : null}
     </div>
     <style jsx>{style}</style>
   </div>

@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { Link } from 'react-router';
-import { astronaut, online  } from 'styles/variables/colors_tiles_v4';
-import { primaryFont, secondaryFont } from 'styles/variables/fonts';
+import { astronaut, online } from 'app/styles/variables/colors_tiles_v4';
+import { primaryFont, secondaryFont } from 'app/styles/variables/fonts';
 
 const propTypes = {
   text: PropTypes.string.isRequired,
@@ -12,23 +12,26 @@ const propTypes = {
   logoURL: PropTypes.string.isRequired,
 };
 
-const Telescope = ({
-  text, anchor, isOnline, logoURL,
-}) => (
+const Telescope = ({ text, anchor, isOnline, logoURL }) => (
   <Link to={anchor}>
     <div className="telescope root">
       <div className="telescope-link">
-        <div className="action" to={anchor}>{text}</div>
-        <div className={classnames('online-status text', {
-          'is-online': isOnline,
-        })}
-        >{isOnline ? 'online' : 'offline' }
+        <div className="action" to={anchor}>
+          {text}
+        </div>
+        <div
+          className={classnames('online-status text', {
+            'is-online': isOnline,
+          })}
+        >
+          {isOnline ? 'online' : 'offline'}
         </div>
       </div>
       <div className="image-container">
-        <div className={classnames('online-status', {
-          'is-online': isOnline,
-        })}
+        <div
+          className={classnames('online-status', {
+            'is-online': isOnline,
+          })}
         >
           <span className="fa fa-circle" />
         </div>
@@ -43,7 +46,8 @@ const Telescope = ({
       </div>
     </div>
 
-    <style jsx>{`
+    <style jsx>
+      {`
       .root.telescope {
         font-family: ${primaryFont};
         display: flex;

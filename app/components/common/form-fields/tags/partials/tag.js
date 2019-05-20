@@ -1,21 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { closeAstronaut } from 'styles/variables/iconURLs';
+import { closeAstronaut } from 'app/styles/variables/iconURLs';
 import styles from './tag.style';
 
-const {
-  string,
-  func,
-} = PropTypes;
+const { string, func } = PropTypes;
 
-const Tag = (props) => {
-  const {
-    tagText,
-    deleteTag,
-  } = props;
+const Tag = props => {
+  const { tagText, deleteTag } = props;
   return (
     <div className="root">
-      <img className="delete-tag" src={closeAstronaut} data-text={tagText} onClick={deleteTag} />
+      <img
+        className="delete-tag"
+        src={closeAstronaut}
+        data-text={tagText}
+        onClick={deleteTag}
+      />
       <span dangerouslySetInnerHTML={{ __html: tagText }} />
       <style jsx>{styles}</style>
     </div>
@@ -27,7 +26,6 @@ Tag.propTypes = {
   deleteTag: func.isRequired,
 };
 
-Tag.defaultProps = {
-};
+Tag.defaultProps = {};
 
 export default Tag;

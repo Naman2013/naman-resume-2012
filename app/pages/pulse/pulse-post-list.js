@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import Pagination from 'rc-pagination';
-import 'rc-pagination/assets/index.css';
 import uniqueId from 'lodash/uniqueId';
 import PulsePostItem from './pulse-post-item';
 
 class PulsePostList extends Component {
-  handlePageChange = (page) => {
+  handlePageChange = page => {
     const { fetchPosts, childPath, path } = this.props;
     fetchPosts(path, childPath, page);
   };
@@ -22,10 +21,15 @@ class PulsePostList extends Component {
     }
     return (
       <div>
-        {
-          posts.map(data => <PulsePostItem {...data} key={uniqueId()} />)
-        }
-        <Pagination onChange={this.handlePageChange} defaultPageSize={postsPerPage} current={page} total={postsCount} />
+        {posts.map(data => (
+          <PulsePostItem {...data} key={uniqueId()} />
+        ))}
+        <Pagination
+          onChange={this.handlePageChange}
+          defaultPageSize={postsPerPage}
+          current={page}
+          total={postsCount}
+        />
       </div>
     );
   }

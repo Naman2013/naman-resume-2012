@@ -8,7 +8,11 @@ import uniqueId from 'lodash/uniqueId';
 import style from './MVPAstronomerCard.style';
 
 const MVPAstronomerCard = ({
-  gravityRankLabel, displayName, iconUrl, gravity, cardClass,
+  gravityRankLabel,
+  displayName,
+  iconUrl,
+  gravity,
+  cardClass,
 }) => (
   <div className={`mvp-card ${cardClass}`} key={uniqueId()}>
     <div className="mvp-icon">
@@ -18,7 +22,11 @@ const MVPAstronomerCard = ({
     <div className="mvp-gravity">
       <div className="mvp-gravity-label">{gravityRankLabel}</div>
       <div className="mvp-gravity-rank">
-        <img className="star" src="https://vega.slooh.com/assets/v4/common/star_icon.svg" alt="" />{' '}
+        <img
+          className="star"
+          src="https://vega.slooh.com/assets/v4/common/star_icon.svg"
+          alt=""
+        />{' '}
         <span>{gravity}</span>
       </div>
     </div>

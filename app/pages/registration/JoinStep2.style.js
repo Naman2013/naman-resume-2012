@@ -1,9 +1,17 @@
 import css from 'styled-jsx/css';
-import { faintShadow } from 'styles/variables/shadows';
-import { astronaut, romance, golden_yellow, shadows } from 'styles/variables/colors_tiles_v4';
-import { primaryFont, secondaryFont } from 'styles/variables/fonts';
-import { screenLarge, screenMedium } from 'styles/variables/breakpoints';
-import { backgroundImageCover, dropShadowContainer } from 'styles/mixins/utilities';
+import { faintShadow } from 'app/styles/variables/shadows';
+import {
+  astronaut,
+  romance,
+  golden_yellow,
+  shadows,
+} from 'app/styles/variables/colors_tiles_v4';
+import { primaryFont, secondaryFont } from 'app/styles/variables/fonts';
+import { screenLarge, screenMedium } from 'app/styles/variables/breakpoints';
+import {
+  backgroundImageCover,
+  dropShadowContainer,
+} from 'app/styles/mixins/utilities';
 
 export default css`
   .step-root {
@@ -57,7 +65,6 @@ export default css`
     font-family: Arial, sans-serif;
     font-size: 13px;
     font-weight: bold;
-
   }
 
   .form-error {
@@ -66,14 +73,14 @@ export default css`
     font-weight: bold;
   }
 
-
   .form-field {
-
   }
 
-  .google-field {}
+  .google-field {
+  }
 
-  .form-field-container {}
+  .form-field-container {
+  }
 
   .invited-by {
     border: 1px solid ${shadows};
@@ -99,7 +106,6 @@ export default css`
     text-transform: capitalize;
     font-weight: normal;
   }
-  
 
   .form-field-half {
     width: 100%;
@@ -132,25 +138,23 @@ export default css`
     font-size: 11px;
     font-weight: bold;
     font-family: ${primaryFont};
-
   }
 
   button.submit-button:focus {
     outline: none;
   }
 
-
   @media ${screenMedium} {
-      .step-root {
-        width: 600px;
-      }
-
-      .form-section.split {
-        flex-direction: row;
-      }
-
-      .form-field-half {
-        width: 50%;
-      }
+    .step-root {
+      width: 600px;
     }
+
+    .form-section.split {
+      flex-direction: row;
+    }
+
+    .form-field-half {
+      width: 50%;
+    }
+  }
 `;

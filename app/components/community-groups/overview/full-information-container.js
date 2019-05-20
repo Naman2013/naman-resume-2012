@@ -1,55 +1,49 @@
 /***********************************
-* V4 Community Group Overview Full Overview Layout
-*
-*
-*
-***********************************/
+ * V4 Community Group Overview Full Overview Layout
+ *
+ *
+ *
+ ***********************************/
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { intlShape, injectIntl } from 'react-intl';
-import {
-  astronaut,
-} from '../../../styles/variables/colors_tiles_v4';
-import { screenLarge } from 'styles/variables/breakpoints';
+import { astronaut } from '../../../styles/variables/colors_tiles_v4';
+import { screenLarge } from 'app/styles/variables/breakpoints';
 import { createActivity } from '../../../modules/community-group-activity-list/actions';
-import { fetchGroupMembers } from 'modules/community-group-overview/actions';
-import ResponsiveTwoColumnContainer from 'components/ResponsiveTwoColumnContainer';
-import TwoTabbedNav from 'components/TwoTabbedNav';
-import  {TopThreads }  from '../../../modules/clubs';
+import { fetchGroupMembers } from 'app/modules/community-group-overview/actions';
+import ResponsiveTwoColumnContainer from 'app/components/ResponsiveTwoColumnContainer';
+import TwoTabbedNav from 'app/components/TwoTabbedNav';
+import { TopThreads } from '../../../modules/clubs';
 
 import MembersList from './members-list';
-import DiscussionsBoard from 'components/common/DiscussionsBoard';
-import DiscussionBoardInvitationsPanel from 'components/community-groups/overview/DiscussionBoardInvitationsPanel';
-import DiscussionBoardGoogleClassroomStudentsPanel from 'components/community-groups/overview/DiscussionBoardGoogleClassroomStudentsPanel';
+import DiscussionsBoard from 'app/components/common/DiscussionsBoard';
+import DiscussionBoardInvitationsPanel from 'app/components/community-groups/overview/DiscussionBoardInvitationsPanel';
+import DiscussionBoardGoogleClassroomStudentsPanel from 'app/components/community-groups/overview/DiscussionBoardGoogleClassroomStudentsPanel';
 import messages from './activity-form.messages';
 
-const {
-  arrayOf,
-  bool,
-  func,
-  number,
-  shape,
-  string,
-} = PropTypes;
-const mapStateToProps = ({
-  communityGroupOverview,
-  user,
-}) => ({
+const { arrayOf, bool, func, number, shape, string } = PropTypes;
+const mapStateToProps = ({ communityGroupOverview, user }) => ({
   ...communityGroupOverview,
   user,
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({
-    createActivity,
-    fetchGroupMembers,
-  }, dispatch),
+  actions: bindActionCreators(
+    {
+      createActivity,
+      fetchGroupMembers,
+    },
+    dispatch
+  ),
 });
 
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(
+  mapStateToProps,
+  mapDispatchToProps
+)
 class FullInformationOverview extends Component {
   static propTypes = {
     description: string,
@@ -106,6 +100,7 @@ class FullInformationOverview extends Component {
       membersCount,
       membersList,
       membersSort,
+      leadersList,
       showJoinPrompt,
       refreshHeader,
       user,
@@ -124,60 +119,79 @@ class FullInformationOverview extends Component {
 
     return (
       <div className="root">
-        {pageMeta.canEditGroup && isEditMode && pageMeta.isGoogleClassroom === false && <DiscussionBoardInvitationsPanel {...this.props} refreshHeader={refreshHeader} />}
-        {pageMeta.canEditGroup && isEditMode && pageMeta.isGoogleClassroom === true && <DiscussionBoardGoogleClassroomStudentsPanel {...this.props} refreshHeader={refreshHeader} />}
+        {pageMeta.canEditGroup &&
+          isEditMode &&
+          pageMeta.isGoogleClassroom === false && (
+            <DiscussionBoardInvitationsPanel
+              {...this.props}
+              refreshHeader={refreshHeader}
+            />
+          )}
+        {pageMeta.canEditGroup &&
+          isEditMode &&
+          pageMeta.isGoogleClassroom === true && (
+            <DiscussionBoardGoogleClassroomStudentsPanel
+              {...this.props}
+              refreshHeader={refreshHeader}
+            />
+          )}
 
         <ResponsiveTwoColumnContainer
-          renderNavigationComponent={navProps =>
-            (<TwoTabbedNav
+          renderNavigationComponent={navProps => (
+            <TwoTabbedNav
               firstTitle={intl.formatMessage(messages.NavTitle)}
               secondTitle={intl.formatMessage(messages.NavSecondTitle)}
               firstTabIsActive={navProps.showMainContainer}
               firstTabOnClick={navProps.onShowMainContainer}
               secondTabIsActive={navProps.showAsideContainer}
               secondTabOnClick={navProps.onShowAsideContainer}
-            />)
-          }
-          renderAsideContent={() => (
-            
-              !isEditMode && <div>
-              <TopThreads 
-                topicId={pageMeta.topicId}
-                isDesktop={context.isDesktop} />
-              <MembersList
-                membersSort={membersSort}
-                membersList={membersList}
-                membersCount={membersCount}
-                discussionGroupId={discussionGroupId}
-                fetchGroupMembers={actions.fetchGroupMembers}
-                isDesktop={context.isDesktop}
-              />
-            </div>)
-          
-        }
-          isScreenSize={context.isScreenLarge}
-          renderMainContent={() => (
-            !isEditMode && <div className="discuss-container">
-              <DiscussionsBoard
-                errorMessage={intl.formatMessage(messages.FetchingListError)}
-                topicId={pageMeta.topicId}
-                forumId={pageMeta.forumId}
-                callSource="groups"
-                createThread={actions.createActivity}
-                createThreadFormParams={createThreadFormParams}
-              />
-            </div>
+            />
           )}
+          renderAsideContent={() =>
+            !isEditMode && (
+              <div>
+                <TopThreads
+                  topicId={pageMeta.topicId}
+                  isDesktop={context.isDesktop}
+                />
+                <MembersList
+                  membersSort={membersSort}
+                  membersList={membersList}
+                  membersCount={membersCount}
+                  leadersList={leadersList}
+                  discussionGroupId={discussionGroupId}
+                  fetchGroupMembers={actions.fetchGroupMembers}
+                  isDesktop={context.isDesktop}
+                />
+              </div>
+            )
+          }
+          isScreenSize={context.isScreenLarge}
+          renderMainContent={() =>
+            !isEditMode && (
+              <div className="discuss-container">
+                <DiscussionsBoard
+                  errorMessage={intl.formatMessage(messages.FetchingListError)}
+                  topicId={pageMeta.topicId}
+                  forumId={pageMeta.forumId}
+                  callSource="groups"
+                  createThread={actions.createActivity}
+                  createThreadFormParams={createThreadFormParams}
+                />
+              </div>
+            )
+          }
         />
 
-        <style jsx>{`
-          .root {
-          }
+        <style jsx>
+          {`
+            .root {
+            }
 
-          .discuss-container {
-            margin-top: 15px;
-          }
-        `}
+            .discuss-container {
+              margin-top: 15px;
+            }
+          `}
         </style>
       </div>
     );

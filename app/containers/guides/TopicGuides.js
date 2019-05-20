@@ -1,10 +1,10 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import Request from 'components/common/network/Request';
-import InAppNavigation from 'components/common/InAppNavigation';
-import TopicContent from 'components/guides/TopicContent';
-import GuidePanels from 'components/guides/GuidePanels';
-import { GUIDE_ENDPOINT_URL } from 'services/guides/guide-data';
+import Request from 'app/components/common/network/Request';
+import InAppNavigation from 'app/components/common/InAppNavigation';
+import TopicContent from 'app/components/guides/TopicContent';
+import GuidePanels from 'app/components/guides/GuidePanels';
+import { GUIDE_ENDPOINT_URL } from 'app/services/guides/guide-data';
 
 const subjectGuideModel = {
   name: 'SUBJECT_GUIDE_MODEL',
@@ -13,15 +13,19 @@ const subjectGuideModel = {
       title: resp.chapterNavigationInfo.parentInfo.guideTitle,
       contextMenuTitle: resp.topicHeading1,
       contextMenuCount: resp.chapterNavigationInfo.chapterCount,
-      list: resp
-        .chapterNavigationInfo
-        .chapterList
-        .map(chapter => ({ title: chapter.guideTitle, linkURL: chapter.link })),
+      list: resp.chapterNavigationInfo.chapterList.map(chapter => ({
+        title: chapter.guideTitle,
+        linkURL: chapter.link,
+      })),
       backLinkURL: resp.chapterNavigationInfo.parentInfo.link,
     },
     topicContentProps: {
       title: resp.guideTitle,
-      topicContentList: [resp.guideBulletPoint1, resp.guideBulletPoint2, resp.guideBulletPoint3],
+      topicContentList: [
+        resp.guideBulletPoint1,
+        resp.guideBulletPoint2,
+        resp.guideBulletPoint3,
+      ],
       showContentList: resp.showBulletPoints,
       aboutTitle: resp.AboutThisTitle,
       readingListType: resp.readingListType,
@@ -46,23 +50,21 @@ const TopicGuides = ({ params: { guideId } }) => (
         modeledResponses: { SUBJECT_GUIDE_MODEL },
       }) => (
         <Fragment>
-          {
-            !fetchingContent &&
-              <Fragment>
-                <InAppNavigation
-                  menuTopAdjustment={0}
-                  {...SUBJECT_GUIDE_MODEL.inAppNavigationProps}
-                />
+          {!fetchingContent && (
+            <Fragment>
+              <InAppNavigation
+                menuTopAdjustment={0}
+                {...SUBJECT_GUIDE_MODEL.inAppNavigationProps}
+              />
 
-                <TopicContent
-                  {...SUBJECT_GUIDE_MODEL.topicContentProps}
-                  guideId={guideId}
-                />
+              <TopicContent
+                {...SUBJECT_GUIDE_MODEL.topicContentProps}
+                guideId={guideId}
+              />
 
-                <GuidePanels guideId={guideId} />
-
-              </Fragment>
-          }
+              <GuidePanels guideId={guideId} />
+            </Fragment>
+          )}
         </Fragment>
       )}
     />

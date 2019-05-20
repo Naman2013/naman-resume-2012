@@ -44,11 +44,11 @@ export const fetchPlayer = ({ pageURL }) => (dispatch, getState) => {
   dispatch(startFetchPlayer());
 
   getAudioPlayer({ at, cid, token, pageSource: pageURL })
-    .then((result) => {
+    .then(result => {
       setExpiresTimer(pageURL, result.data);
       dispatch(successFetchPlayer(result.data));
     })
-    .catch((error) => {
+    .catch(error => {
       dispatch(failFetchPlayer(error));
     });
 };

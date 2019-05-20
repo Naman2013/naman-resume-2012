@@ -22,8 +22,44 @@ export class DayNightBar extends Component {
 
   closeModal = () => this.setState({ isModalOpen: false });
 
+  parseData = d => [
+    {
+      title: d.astroTwilightEndLabel,
+      field: d.astroTwilightEndTime,
+    },
+    {
+      title: d.astroTwilightStartLabel,
+      field: d.astroTwilightStartTime,
+    },
+    {
+      title: d.currentTimeLabel,
+      field: d.currenTimeFormatted,
+    },
+    {
+      title: d.domesOpenLabel,
+      field: d.domesOpenTime,
+    },
+    {
+      title: d.missionEndTime,
+      field: d.missionStartTime,
+    },
+    {
+      title: d.sunriseLabel,
+      field: d.sunriseTime,
+    },
+    {
+      title: d.sunsetLabel,
+      field: d.sunsetTime,
+    },
+    {
+      title: d.timeZoneLabel,
+      field: d.timeZone,
+    },
+  ];
+
   render() {
-    const { dayNightBarPanelURL } = this.props;
+    const { dayNightBarPanelURL, dayNightBar } = this.props;
+    const data = this.parseData(dayNightBar.dayNightRawData);
     const { isModalOpen } = this.state;
     return (
       <ModuleContainer title="Day/night bar">

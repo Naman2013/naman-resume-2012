@@ -8,14 +8,21 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl, intlShape } from 'react-intl';
-import LikeSomethingButton from 'components/common/LikeSomethingButton';
-import { romance } from 'styles/variables/colors_tiles_v4';
-import DiscussionComments from 'components/common/DiscussionsBoard';
+import LikeSomethingButton from 'app/components/common/LikeSomethingButton';
+import { romance } from 'app/styles/variables/colors_tiles_v4';
+import DiscussionComments from 'app/components/common/DiscussionsBoard';
 import styles from './CommentsTab.style';
 import messages from '../Show.messages';
 
 const {
-  any, arrayOf, bool, func, number, oneOfType, shape, string,
+  any,
+  arrayOf,
+  bool,
+  func,
+  number,
+  oneOfType,
+  shape,
+  string,
 } = PropTypes;
 
 class CommentsTab extends Component {

@@ -1,18 +1,18 @@
 /***********************************
-* V4 Shows Main Container
-* This will show the video on desktop
-* on tablet and mobile, it will hold the content
-* associated with the three tabbed nav.
-***********************************/
+ * V4 Shows Main Container
+ * This will show the video on desktop
+ * on tablet and mobile, it will hold the content
+ * associated with the three tabbed nav.
+ ***********************************/
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { romance } from 'styles/variables/colors_tiles_v4';
-import LabeledTitleTiles from 'components/common/style/LabeledTitleTiles';
-import LikeSomethingButton from 'components/common/LikeSomethingButton';
-import UpcomingShowCountdown from 'components/UpcomingShowCountdown';
-import DescriptionContainer from 'components/common/description-container';
-import like from 'services/events/like';
+import { romance } from 'app/styles/variables/colors_tiles_v4';
+import LabeledTitleTiles from 'app/components/common/style/LabeledTitleTiles';
+import LikeSomethingButton from 'app/components/common/LikeSomethingButton';
+import UpcomingShowCountdown from 'app/components/UpcomingShowCountdown';
+import DescriptionContainer from 'app/components/common/description-container';
+import like from 'app/services/events/like';
 import AboutTab from './AboutTab';
 import CommentsTab from './CommentsTab';
 import DetailsTab from './DetailsTab';
@@ -100,14 +100,21 @@ class MainContainerWithDiscussions extends Component {
         {isDesktop ? (
           <div className="main-content-container">
             <div>
-              {Number(serverTime) < Number(startDate) ? <UpcomingShowCountdown
-                eventStartTime={Number(startDate)}
-                eventId={showId}
-                serverTime={serverTime}
-              /> : null}
+              {Number(serverTime) < Number(startDate) ? (
+                <UpcomingShowCountdown
+                  eventStartTime={Number(startDate)}
+                  eventId={showId}
+                  serverTime={serverTime}
+                />
+              ) : null}
             </div>
             <div className="shadowed">
-              <DescriptionContainer title="" content={content} theme={{ backgroundColor: romance }} footer={contentFooter} />
+              <DescriptionContainer
+                title=""
+                content={content}
+                theme={{ backgroundColor: romance }}
+                footer={contentFooter}
+              />
             </div>
             <div className="comment-container">
               {hasDiscussionThread ? <CommentsTab {...this.props} /> : null}
@@ -115,15 +122,9 @@ class MainContainerWithDiscussions extends Component {
           </div>
         ) : (
           <div>
-            {aboutIsActive ?
-              <AboutTab {...this.props} /> :
-            null}
-            {commentsIsActive ?
-              <CommentsTab {...this.props} /> :
-            null}
-            {detailsIsActive ?
-              <DetailsTab {...this.props} /> :
-            null}
+            {aboutIsActive ? <AboutTab {...this.props} /> : null}
+            {commentsIsActive ? <CommentsTab {...this.props} /> : null}
+            {detailsIsActive ? <DetailsTab {...this.props} /> : null}
           </div>
         )}
         <style jsx>{styles}</style>

@@ -1,9 +1,9 @@
 /** *********************************
-* V4 Single Question
-*
-*
-*
-***********************************/
+ * V4 Single Question
+ *
+ *
+ *
+ ***********************************/
 
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -11,26 +11,19 @@ import classnames from 'classnames';
 import uniqueId from 'lodash/uniqueId';
 import styles from './single-question.style';
 
-const {
-  bool,
-  func,
-  string,
-} = PropTypes;
+const { bool, func, string } = PropTypes;
 
-
-export const SingleQuestion = (props) => {
-  const {
-    question,
-    placeholder,
-    value,
-  } = props;
+export const SingleQuestion = props => {
+  const { question, placeholder, value } = props;
 
   return (
-    <div
-      key={uniqueId()}
-    >
-      <div className="question" dangerouslySetInnerHTML={{ __html: question }} />
-      <input type="text"
+    <div key={uniqueId()}>
+      <div
+        className="question"
+        dangerouslySetInnerHTML={{ __html: question }}
+      />
+      <input
+        type="text"
         className="answer"
         value={value}
         placeholder={placeholder}
@@ -47,13 +40,12 @@ SingleQuestion.propTypes = {
   status: string,
   isActive: bool,
   onClickItem: func.isRequired,
-
-}
+};
 SingleQuestion.defaultProps = {
   iconUrl: null,
   isActive: false,
   renderIcon: null,
   status: null,
-}
+};
 
 export default SingleQuestion;

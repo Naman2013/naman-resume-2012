@@ -12,7 +12,12 @@ import classnames from 'classnames';
 import uniqueId from 'lodash/uniqueId';
 import { profilePhotoStyle } from 'app/styles/mixins/utilities';
 import BlueLineDrop from 'app/components/common/BlueLineDrop';
-import { astronaut, geyser, shadows, romance } from 'app/styles/variables/colors_tiles_v4';
+import {
+  astronaut,
+  geyser,
+  shadows,
+  romance,
+} from 'app/styles/variables/colors_tiles_v4';
 import { secondaryFont } from 'app/styles/variables/fonts';
 
 const { arrayOf, bool, shape, string } = PropTypes;
@@ -23,12 +28,11 @@ const BootstrappedMissionDetailList = ({
   missionDetailList,
   isScreenLarge,
 }) => {
-
   const profPic = photoUrl =>
     Object.assign(profilePhotoStyle(photoUrl), {
-      height: "50px",
-      width: "50px",
-      backgroundSize: "cover"
+      height: '50px',
+      width: '50px',
+      backgroundSize: 'cover',
     });
 
   return (
@@ -46,7 +50,7 @@ const BootstrappedMissionDetailList = ({
               />
             ) : null}
             <div
-              className={classnames("detail-items", {
+              className={classnames('detail-items', {
                 // "component-container": !isDesktop
               })}
             >
@@ -60,25 +64,25 @@ const BootstrappedMissionDetailList = ({
                   <div
                     className="detail-label"
                     dangerouslySetInnerHTML={{
-                      __html: missionDetailList.missiondate.label
+                      __html: missionDetailList.missiondate.label,
                     }}
                   />
                   <div
                     className="detail-text"
                     dangerouslySetInnerHTML={{
-                      __html: missionDetailList.missiondate.text
+                      __html: missionDetailList.missiondate.text,
                     }}
                   />
                   <div
                     className="detail-text-detail"
                     dangerouslySetInnerHTML={{
-                      __html: missionDetailList.missiondate.textDetail
+                      __html: missionDetailList.missiondate.textDetail,
                     }}
                   />
                   <div
                     className="detail-note"
                     dangerouslySetInnerHTML={{
-                      __html: missionDetailList.missiondate.textNote
+                      __html: missionDetailList.missiondate.textNote,
                     }}
                   />
                   {missionDetailList.missiondate.hasLinkFlag ? (
@@ -86,7 +90,7 @@ const BootstrappedMissionDetailList = ({
                       <span
                         className="link"
                         dangerouslySetInnerHTML={{
-                          __html: missionDetailList.missiondate.linkLabel
+                          __html: missionDetailList.missiondate.linkLabel,
                         }}
                       />
                     </Link>
@@ -103,25 +107,25 @@ const BootstrappedMissionDetailList = ({
                   <div
                     className="detail-label"
                     dangerouslySetInnerHTML={{
-                      __html: missionDetailList.scheduledby.label
+                      __html: missionDetailList.scheduledby.label,
                     }}
                   />
                   <div
                     className="detail-text"
                     dangerouslySetInnerHTML={{
-                      __html: missionDetailList.scheduledby.text
+                      __html: missionDetailList.scheduledby.text,
                     }}
                   />
                   <div
                     className="detail-text-detail"
                     dangerouslySetInnerHTML={{
-                      __html: missionDetailList.scheduledby.textDetail
+                      __html: missionDetailList.scheduledby.textDetail,
                     }}
                   />
                   <div
                     className="detail-note"
                     dangerouslySetInnerHTML={{
-                      __html: missionDetailList.scheduledby.textNote
+                      __html: missionDetailList.scheduledby.textNote,
                     }}
                   />
                   {missionDetailList.scheduledby.hasLinkFlag ? (
@@ -129,7 +133,7 @@ const BootstrappedMissionDetailList = ({
                       <span
                         className="link"
                         dangerouslySetInnerHTML={{
-                          __html: missionDetailList.scheduledby.linkLabel
+                          __html: missionDetailList.scheduledby.linkLabel,
                         }}
                       />
                     </Link>
@@ -146,25 +150,25 @@ const BootstrappedMissionDetailList = ({
                   <div
                     className="detail-label"
                     dangerouslySetInnerHTML={{
-                      __html: missionDetailList.observatory.label
+                      __html: missionDetailList.observatory.label,
                     }}
                   />
                   <div
                     className="detail-text"
                     dangerouslySetInnerHTML={{
-                      __html: missionDetailList.observatory.text
+                      __html: missionDetailList.observatory.text,
                     }}
                   />
                   <div
                     className="detail-text-detail"
                     dangerouslySetInnerHTML={{
-                      __html: missionDetailList.observatory.textDetail
+                      __html: missionDetailList.observatory.textDetail,
                     }}
                   />
                   <div
                     className="detail-note"
                     dangerouslySetInnerHTML={{
-                      __html: missionDetailList.observatory.textNote
+                      __html: missionDetailList.observatory.textNote,
                     }}
                   />
                   {missionDetailList.observatory.hasLinkFlag ? (
@@ -172,7 +176,7 @@ const BootstrappedMissionDetailList = ({
                       <span
                         className="link"
                         dangerouslySetInnerHTML={{
-                          __html: missionDetailList.observatory.linkLabel
+                          __html: missionDetailList.observatory.linkLabel,
                         }}
                       />
                     </Link>
@@ -182,32 +186,30 @@ const BootstrappedMissionDetailList = ({
               {missionDetailList.telescope ? (
                 <div className="info" key={uniqueId()}>
                   {missionDetailList.telescope.hasIconFlag ? (
-                    <div
-                      style={profPic(missionDetailList.telescope.iconUrl)}
-                    />
+                    <div style={profPic(missionDetailList.telescope.iconUrl)} />
                   ) : null}
                   <div
                     className="detail-label"
                     dangerouslySetInnerHTML={{
-                      __html: missionDetailList.telescope.label
+                      __html: missionDetailList.telescope.label,
                     }}
                   />
                   <div
                     className="detail-text"
                     dangerouslySetInnerHTML={{
-                      __html: missionDetailList.telescope.text
+                      __html: missionDetailList.telescope.text,
                     }}
                   />
                   <div
                     className="detail-text-detail"
                     dangerouslySetInnerHTML={{
-                      __html: missionDetailList.telescope.textDetail
+                      __html: missionDetailList.telescope.textDetail,
                     }}
                   />
                   <div
                     className="detail-note"
                     dangerouslySetInnerHTML={{
-                      __html: missionDetailList.telescope.textNote
+                      __html: missionDetailList.telescope.textNote,
                     }}
                   />
                   {missionDetailList.telescope.hasLinkFlag ? (
@@ -215,7 +217,7 @@ const BootstrappedMissionDetailList = ({
                       <span
                         className="link"
                         dangerouslySetInnerHTML={{
-                          __html: missionDetailList.telescope.linkLabel
+                          __html: missionDetailList.telescope.linkLabel,
                         }}
                       />
                     </Link>
@@ -227,7 +229,6 @@ const BootstrappedMissionDetailList = ({
         )}
       />
       <style jsx>{`
-
         .title {
           padding: 25px;
           text-align: center;
@@ -237,7 +238,6 @@ const BootstrappedMissionDetailList = ({
         .info {
           padding: 25px;
         }
-
 
         .detail-items {
           display: flex;
@@ -286,7 +286,6 @@ const BootstrappedMissionDetailList = ({
         }
 
         @media all and (min-width: 641px) and (max-width: 768px) {
-
           .scheduledby {
             flex: 0 0 100%;
           }
@@ -327,7 +326,7 @@ const BootstrappedMissionDetailList = ({
       `}</style>
     </div>
   );
-}
+};
 
 BootstrappedMissionDetailList.propTypes = {
   isDesktop: bool,
@@ -342,7 +341,7 @@ BootstrappedMissionDetailList.propTypes = {
       linkUrl: string,
       text: string,
       textDetail: string,
-      textNote: string
+      textNote: string,
     }),
     observatory: shape({
       hasIconFlag: bool,
@@ -353,7 +352,7 @@ BootstrappedMissionDetailList.propTypes = {
       linkUrl: string,
       text: string,
       textDetail: string,
-      textNote: string
+      textNote: string,
     }),
     scheduledby: shape({
       hasIconFlag: bool,
@@ -364,7 +363,7 @@ BootstrappedMissionDetailList.propTypes = {
       linkUrl: string,
       text: string,
       textDetail: string,
-      textNote: string
+      textNote: string,
     }),
     telescope: shape({
       hasIconFlag: bool,
@@ -375,20 +374,20 @@ BootstrappedMissionDetailList.propTypes = {
       linkUrl: string,
       text: string,
       textDetail: string,
-      textNote: string
-    })
-  })
+      textNote: string,
+    }),
+  }),
 };
 
 BootstrappedMissionDetailList.defaultProps = {
   isDesktop: false,
-  listTitle: "",
+  listTitle: '',
   missionDetailList: {
     scheduledby: {},
     observatory: {},
     missiondate: {},
-    telescope: {}
-  }
+    telescope: {},
+  },
 };
 
 export default BootstrappedMissionDetailList;

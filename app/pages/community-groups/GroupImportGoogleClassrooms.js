@@ -6,40 +6,40 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Modal from 'react-modal';
 import { intlShape, injectIntl } from 'react-intl';
-import GroupTiles from 'components/groups-hub/group-tiles';
-import RequestGroupForm from 'components/community-groups/request-group-form';
-import PromptWithClose from 'components/community-groups/prompt-with-close';
-import RequestGroupFormFeedback from 'components/community-groups/request-group-form-feedback';
-import HubContainer from 'components/common/HubContainer';
-import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
-import CenterColumn from 'components/common/CenterColumn';
+import GroupTiles from 'app/components/groups-hub/group-tiles';
+import RequestGroupForm from 'app/components/community-groups/request-group-form';
+import PromptWithClose from 'app/components/community-groups/prompt-with-close';
+import RequestGroupFormFeedback from 'app/components/community-groups/request-group-form-feedback';
+import HubContainer from 'app/components/common/HubContainer';
+import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
+import CenterColumn from 'app/components/common/CenterColumn';
 import { DeviceContext } from 'providers/DeviceProvider';
-import BarHeader from 'components/common/form-sections/bar-header';
+import BarHeader from 'app/components/common/form-sections/bar-header';
 
-import { validateResponseAccess } from 'modules/authorization/actions'
-import { customModalStylesBlackOverlay } from 'styles/mixins/utilities';
-import { requestGroup } from 'services/community-groups/request-group';
+import { validateResponseAccess } from 'app/modules/authorization/actions';
+import { customModalStylesBlackOverlay } from 'app/styles/mixins/utilities';
+import { requestGroup } from 'app/services/community-groups/request-group';
 import { browserHistory } from 'react-router';
 
 import axios from 'axios';
-import Request from 'components/common/network/Request';
-import { GROUPS_PAGE_ENDPOINT_URL, GET_GROUPS } from 'services/community-groups';
+import Request from 'app/components/common/network/Request';
+import {
+  GROUPS_PAGE_ENDPOINT_URL,
+  GET_GROUPS,
+} from 'app/services/community-groups';
 import {
   GOOGLE_CLASSROOM_IMPORT_PAGE_ENDPOINT_URL,
   GOOGLE_CLASSROOM_GET_CLASSROOM_LIST_ENDPOINT_URL,
-  GOOGLE_CLASSROOM_IMPORT_CLASSROOMS_ENDPOINT_URL
-} from 'services/classroom/classroom';
+  GOOGLE_CLASSROOM_IMPORT_CLASSROOMS_ENDPOINT_URL,
+} from 'app/services/classroom/classroom';
 
 import { Field, reduxForm } from 'redux-form';
-import InputField from 'components/form/InputField';
-import Button from 'components/common/style/buttons/Button';
+import InputField from 'app/components/form/InputField';
+import Button from 'app/components/common/style/buttons/Button';
 import { Link } from 'react-router';
-import { faintShadow } from 'styles/variables/shadows';
-import {
-  romance,
-  astronaut,
-} from 'styles/variables/colors_tiles_v4';
-import { primaryFont, secondaryFont } from 'styles/variables/fonts';
+import { faintShadow } from 'app/styles/variables/shadows';
+import { romance, astronaut } from 'app/styles/variables/colors_tiles_v4';
+import { primaryFont, secondaryFont } from 'app/styles/variables/fonts';
 import style from '../../containers/groups-hub/groups-hub.style';
 import style2 from 'pages/registration/partials/JoinHeader.style';
 import style3 from './GroupCreate.style';
@@ -48,7 +48,6 @@ import './group-import-google-classrooms.scss';
 
 const COUNT = 9;
 const DEFAULT_PAGE = 1;
-
 
 const groupsHubModel = {
   name: 'GROUP_HUB_MODEL',
@@ -71,7 +70,7 @@ class GroupImportGoogleClassrooms extends Component {
   static defaultProps = {
     validateResponseAccess: noop,
     params: {
-      filterType: 'owner'
+      filterType: 'owner',
     },
     isCreateMode: true,
   };
@@ -80,20 +79,20 @@ class GroupImportGoogleClassrooms extends Component {
     groups: [],
     showPrompt: false,
     promptText: '',
-    selectedGoogleClassroomIds: { },
-    googleClassrooms: { },
+    selectedGoogleClassroomIds: {},
+    googleClassrooms: {},
     forceReloadStr: '',
-  }
+  };
 
-  updateGroupsList = (resData) => {
+  updateGroupsList = resData => {
     this.setState(() => ({
       groups: resData.groups,
     }));
-  }
+  };
 
   updateGroupItemInfo = (id, resData) => {
     let newGroupsList = [].concat(this.state.groups);
-    newGroupsList = newGroupsList.map((group) => {
+    newGroupsList = newGroupsList.map(group => {
       if (group.discussionGroupId === id) {
         return Object.assign(group, resData);
       }
@@ -103,16 +102,16 @@ class GroupImportGoogleClassrooms extends Component {
     this.setState(() => ({
       groups: newGroupsList,
     }));
-  }
+  };
 
-  appendToGroupsList = (resData) => {
-    this.setState((state) => {
-      const groups = [].concat(state.groups, resData.groups)
+  appendToGroupsList = resData => {
+    this.setState(state => {
+      const groups = [].concat(state.groups, resData.groups);
       return {
-        groups
+        groups,
       };
     });
-  }
+  };
 
   submitRequestForm = ({
     requestFormTitle,
@@ -127,67 +126,77 @@ class GroupImportGoogleClassrooms extends Component {
       title: requestFormTitle,
       access: requestFormPrivacy,
       definition: requestFormText,
-    })
-      .then((res) => {
-        if (!res.data.apiError) {
-          this.setState({
-            showPrompt: res.data.showResponse,
-            promptText: (<RequestGroupFormFeedback
+    }).then(res => {
+      if (!res.data.apiError) {
+        this.setState({
+          showPrompt: res.data.showResponse,
+          promptText: (
+            <RequestGroupFormFeedback
               promptText={res.data.response}
               closeForm={this.closeModal}
               requestNew={this.requestGroup}
-            />),
-          });
-        } else {
-          this.setState({
-            showPrompt: true,
-            promptText: (<RequestGroupFormFeedback
+            />
+          ),
+        });
+      } else {
+        this.setState({
+          showPrompt: true,
+          promptText: (
+            <RequestGroupFormFeedback
               promptText={intl.formatMessage(messages.errorSubmitting)}
               closeForm={this.closeModal}
               requestNew={this.requestGroup}
-            />),
-          });
-        }
-        actions.validateResponseAccess(res);
-      });
-  }
+            />
+          ),
+        });
+      }
+      actions.validateResponseAccess(res);
+    });
+  };
 
   requestGroup = () => {
     this.setState({
       showPrompt: true,
-      promptText: <RequestGroupForm
-        submitForm={this.submitRequestForm}
-        closeForm={this.closeModal}
-      />
+      promptText: (
+        <RequestGroupForm
+          submitForm={this.submitRequestForm}
+          closeForm={this.closeModal}
+        />
+      ),
     });
-  }
+  };
 
-  updatePrompt = (data) => {
+  updatePrompt = data => {
     this.setState({
       showPrompt: data.showPrompt,
-      promptText: <PromptWithClose
-        promptText={data.promptText}
-        closeForm={this.closeModal}
-      />,
-    })
-  }
+      promptText: (
+        <PromptWithClose
+          promptText={data.promptText}
+          closeForm={this.closeModal}
+        />
+      ),
+    });
+  };
 
   closeModal = () => {
     this.setState({
       showPrompt: false,
       promptText: '',
     });
-  }
+  };
 
   /* This function handles a field change in the form and sets the state accordingly */
-  handleFieldChange = ({ googleClassroomName, googleClassroomId, selectedFlag }) => {
+  handleFieldChange = ({
+    googleClassroomName,
+    googleClassroomId,
+    selectedFlag,
+  }) => {
     const googleClassroomsData = cloneDeep(this.state.googleClassrooms);
     let selectedFlagValue = false;
 
-    if (selectedFlag === "true") {
+    if (selectedFlag === 'true') {
       selectedFlagValue = false;
-    }
-    else {
+    } else {
       selectedFlagValue = true;
     }
 
@@ -196,16 +205,16 @@ class GroupImportGoogleClassrooms extends Component {
       googleClassroomName: googleClassroomName,
       googleClassroomDescription: '',
       googleClassroomSelected: selectedFlagValue,
-    }
+    };
 
     googleClassroomsData[googleClassroomId] = myGoogleClassroom;
 
     this.setState(() => ({
       googleClassrooms: googleClassroomsData,
     }));
-  }
+  };
 
-  handleSubmit = (formValues) => {
+  handleSubmit = formValues => {
     formValues.preventDefault();
 
     const { user } = this.props;
@@ -213,41 +222,38 @@ class GroupImportGoogleClassrooms extends Component {
     let forceReloadStrData = cloneDeep(this.state.forceReloadStr);
     forceReloadStrData = Math.floor(Math.random() * 100000);
 
-    const importGoogleClassroomsResult = axios.post(GOOGLE_CLASSROOM_IMPORT_CLASSROOMS_ENDPOINT_URL, {
-      googleClassrooms: this.state.googleClassrooms,
-      cid: user.cid,
-      at: user.at,
-      token: user.token,
-    })
-      .then((response) => {
+    const importGoogleClassroomsResult = axios
+      .post(GOOGLE_CLASSROOM_IMPORT_CLASSROOMS_ENDPOINT_URL, {
+        googleClassrooms: this.state.googleClassrooms,
+        cid: user.cid,
+        at: user.at,
+        token: user.token,
+      })
+      .then(response => {
         const res = response.data;
         if (res.apiError == false) {
           const importResult = {
             status: res.status,
             statusMessage: res.statusMessage,
-          }
+          };
 
-          if (importResult.status === "success") {
+          if (importResult.status === 'success') {
             //force reload the import google classes list....
             this.setState(() => ({
               forceReloadStr: forceReloadStrData,
             }));
-          }
-          else {
+          } else {
             //display an error message on the screen....
           }
         }
       })
-      .catch((err) => {
+      .catch(err => {
         throw ('Error: ', err);
       });
-  }
+  };
 
   render() {
-    const {
-      user,
-      actions,
-    } = this.props;
+    const { user, actions } = this.props;
     const {
       groups,
       showPrompt,
@@ -266,120 +272,168 @@ class GroupImportGoogleClassrooms extends Component {
             token: user.token,
             forceReload: forceReloadStr,
           }}
-          render={({
-                     fetchingContent,
-                     serviceResponse,
-                   }) => (
+          render={({ fetchingContent, serviceResponse }) => (
             <Fragment>
-              {
-                !fetchingContent &&
+              {!fetchingContent && (
                 <Fragment>
                   <div className="header">
                     <div className="inner-header-container">
                       <div className="inner-header-text">
-                        <div className="big">{serviceResponse.pageHeading1}</div>
-                        <div className="little">{serviceResponse.pageHeading2}</div>
+                        <div className="big">
+                          {serviceResponse.pageHeading1}
+                        </div>
+                        <div className="little">
+                          {serviceResponse.pageHeading2}
+                        </div>
                       </div>
                     </div>
                   </div>
                   <CenterColumn widths={['620px']}>
                     <div className="form-area">
-                      <BarHeader title={serviceResponse.sectionHeading}/>
+                      <BarHeader title={serviceResponse.sectionHeading} />
                       <Request
-                        serviceURL={GOOGLE_CLASSROOM_GET_CLASSROOM_LIST_ENDPOINT_URL}
+                        serviceURL={
+                          GOOGLE_CLASSROOM_GET_CLASSROOM_LIST_ENDPOINT_URL
+                        }
                         requestBody={{}}
-                        render={({
-                                   fetchingContent,
-                                   serviceResponse,
-                                 }) => (
+                        render={({ fetchingContent, serviceResponse }) => (
                           <Fragment>
-                            {
-                              !fetchingContent &&
+                            {!fetchingContent && (
                               <Fragment>
                                 <div>
-                                  {serviceResponse.classroomList.length === 0 &&
-                                  <p>You do not currently have any Google Classrooms available in your Google Classroom
-                                    Account.</p>}
-                                  {serviceResponse.classroomList.length > 0 &&
-                                  <form className="form">
-                                    <div className="form-section form-section-area">
-                                      <div className="form-field-container">
-                                        {serviceResponse.classroomList.map((item, index) => {
-                                            return (
-                                              <div className="classroom-item"
-                                                  key={`googleClassroomRow_` + item.googleClassroomId}>
+                                  {serviceResponse.classroomList.length ===
+                                    0 && (
+                                    <p>
+                                      You do not currently have any Google
+                                      Classrooms available in your Google
+                                      Classroom Account.
+                                    </p>
+                                  )}
+                                  {serviceResponse.classroomList.length > 0 && (
+                                    <form className="form">
+                                      <div className="form-section form-section-area">
+                                        <div className="form-field-container">
+                                          {serviceResponse.classroomList.map(
+                                            (item, index) => {
+                                              return (
                                                 <div
-                                                  className="classroom-title"
-                                                  key={`importName_` + item.googleClassroomId}>
-                                                  {item.hasDiscussionGroup ?
-                                                    <Link
-                                                      to={item.discussionGroupLinkUrl}>{item.name}</Link> :
-                                                    <p>{item.name}</p>
+                                                  className="classroom-item"
+                                                  key={
+                                                    `googleClassroomRow_` +
+                                                    item.googleClassroomId
                                                   }
-                                                </div>
-                                                <div className="classroom-item-actions">
-                                                  <div>
-                                                    {!item.hasDiscussionGroup ?
-                                                      <Field style={{'marginLeft': '0px'}}
-                                                            key={`importAction_` + item.googleClassroomId}
-                                                            name={`importAction_` + item.googleClassroomId}
-                                                            type="checkbox"
-                                                            className="form-field"
-                                                            component={InputField}
-                                                            label=""
-                                                            onChange={(event) => {
-                                                              this.handleFieldChange({
-                                                                googleClassroomName: item.name,
-                                                                googleClassroomId: item.googleClassroomId,
-                                                                selectedFlag: event.target.value
-                                                              });
-                                                            }}
-                                                      /> : <input type="checkbox" disabled checked className="form-field"/>}
-                                                  </div>
+                                                >
                                                   <div
-                                                    className="classroom-status"
-                                                    key={`importStatus_` + item.googleClassroomId}>
-                                                      {item.hasDiscussionGroup ?
-                                                      'Active' : 'Please Import'}
+                                                    className="classroom-title"
+                                                    key={
+                                                      `importName_` +
+                                                      item.googleClassroomId
+                                                    }
+                                                  >
+                                                    {item.hasDiscussionGroup ? (
+                                                      <Link
+                                                        to={
+                                                          item.discussionGroupLinkUrl
+                                                        }
+                                                      >
+                                                        {item.name}
+                                                      </Link>
+                                                    ) : (
+                                                      <p>{item.name}</p>
+                                                    )}
+                                                  </div>
+                                                  <div className="classroom-item-actions">
+                                                    <div>
+                                                      {!item.hasDiscussionGroup ? (
+                                                        <Field
+                                                          style={{
+                                                            marginLeft: '0px',
+                                                          }}
+                                                          key={
+                                                            `importAction_` +
+                                                            item.googleClassroomId
+                                                          }
+                                                          name={
+                                                            `importAction_` +
+                                                            item.googleClassroomId
+                                                          }
+                                                          type="checkbox"
+                                                          className="form-field"
+                                                          component={InputField}
+                                                          label=""
+                                                          onChange={event => {
+                                                            this.handleFieldChange(
+                                                              {
+                                                                googleClassroomName:
+                                                                  item.name,
+                                                                googleClassroomId:
+                                                                  item.googleClassroomId,
+                                                                selectedFlag:
+                                                                  event.target
+                                                                    .value,
+                                                              }
+                                                            );
+                                                          }}
+                                                        />
+                                                      ) : (
+                                                        <input
+                                                          type="checkbox"
+                                                          disabled
+                                                          checked
+                                                          className="form-field"
+                                                        />
+                                                      )}
+                                                    </div>
+                                                    <div
+                                                      className="classroom-status"
+                                                      key={
+                                                        `importStatus_` +
+                                                        item.googleClassroomId
+                                                      }
+                                                    >
+                                                      {item.hasDiscussionGroup
+                                                        ? 'Active'
+                                                        : 'Please Import'}
+                                                    </div>
                                                   </div>
                                                 </div>
-                                              </div>
-                                            )
-                                          })
-                                        }
+                                              );
+                                            }
+                                          )}
+                                        </div>
                                       </div>
-                                    </div>
-                                    <div className="button-container">
-                                      <button
-                                        className="submit-button"
-                                        onClick={this.handleSubmit}
-                                      >Import Selected Google Classrooms as Clubs
-                                      </button>
-                                    </div>
-                                  </form>
-                                  }
+                                      <div className="button-container">
+                                        <button
+                                          className="submit-button"
+                                          onClick={this.handleSubmit}
+                                        >
+                                          Import Selected Google Classrooms as
+                                          Clubs
+                                        </button>
+                                      </div>
+                                    </form>
+                                  )}
                                 </div>
                               </Fragment>
-                            }
+                            )}
                           </Fragment>
                         )}
                       />
                     </div>
                   </CenterColumn>
                 </Fragment>
-              }
+              )}
             </Fragment>
           )}
         />
 
-      <style jsx>{style}</style>
-      <style jsx>{style2}</style>
-      <style jsx>{style3}</style>
-    </div>)
+        <style jsx>{style}</style>
+        <style jsx>{style2}</style>
+        <style jsx>{style3}</style>
+      </div>
+    );
   }
 }
-
-
 
 const mapStateToProps = ({ user, importGoogleClassroomsForm }) => ({
   user,
@@ -390,9 +444,19 @@ const mapStateToProps = ({ user, importGoogleClassroomsForm }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({
-    validateResponseAccess,
-  }, dispatch),
+  actions: bindActionCreators(
+    {
+      validateResponseAccess,
+    },
+    dispatch
+  ),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({ form: 'importGoogleClassroomsForm', enableReinitialize: true })(injectIntl(GroupImportGoogleClassrooms)));
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(
+  reduxForm({ form: 'importGoogleClassroomsForm', enableReinitialize: true })(
+    injectIntl(GroupImportGoogleClassrooms)
+  )
+);

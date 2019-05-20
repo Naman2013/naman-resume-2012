@@ -13,19 +13,19 @@ class PublicGalleryList extends Component {
     return (
       <div className={`${style.photoListRoot} clearfix`}>
         <ul className={`${style.photoList} col-xs-12`}>
-          {
-            galleryList.map(gallery => (
-              <li key={gallery.galleryId} className="col-xs-12 col-sm-4">
-                <div className="relative-container"><Gallery
+          {galleryList.map(gallery => (
+            <li key={gallery.galleryId} className="col-xs-12 col-sm-4">
+              <div className="relative-container">
+                <Gallery
                   {...gallery}
                   isPublicGallery={true}
                   customerImageId={gallery.firstCustomerImageId}
                   shareToken={gallery.firstImageShareToken}
                   imageTitle={gallery.title || gallery.imageTitle}
-                /></div>
-              </li>
-            ))
-          }
+                />
+              </div>
+            </li>
+          ))}
         </ul>
         <style jsx>
           {`
@@ -40,13 +40,15 @@ class PublicGalleryList extends Component {
 }
 
 PublicGalleryList.propTypes = {
-  galleryList: PropTypes.arrayOf(PropTypes.shape({
-    galleryId: PropTypes.any.isRequired,
-    imageURL: PropTypes.string.isRequired,
-    title: PropTypes.string,
-    firstImageShareToken: PropTypes.string,
-    firstCustomerImageId: PropTypes.string
-  })),
+  galleryList: PropTypes.arrayOf(
+    PropTypes.shape({
+      galleryId: PropTypes.any.isRequired,
+      imageURL: PropTypes.string.isRequired,
+      title: PropTypes.string,
+      firstImageShareToken: PropTypes.string,
+      firstCustomerImageId: PropTypes.string,
+    })
+  ),
 };
 
 export default PublicGalleryList;

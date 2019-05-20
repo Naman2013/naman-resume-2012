@@ -5,7 +5,7 @@ import {
   shadows,
   romance,
 } from '../../../styles/variables/colors_tiles_v4';
-import { faintShadow } from 'styles/variables/shadows';
+import { faintShadow } from 'app/styles/variables/shadows';
 import {
   screenMedium,
   screenLarge,
@@ -90,7 +90,6 @@ export default css`
     height: 50px;
     width: 50px;
     border-left: 1px solid ${shadows};
-
   }
 
   @media ${screenMedium} {
@@ -127,5 +126,4 @@ export default css`
       display: none;
     }
   }
-
 `;

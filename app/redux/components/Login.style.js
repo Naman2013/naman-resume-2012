@@ -1,7 +1,12 @@
 import css from 'styled-jsx/css';
-import { faintShadow } from 'styles/variables/shadows';
-import { astronaut, romance, golden_yellow, shadows } from 'styles/variables/colors_tiles_v4';
-import { primaryFont, secondaryFont } from 'styles/variables/fonts';
+import { faintShadow } from 'app/styles/variables/shadows';
+import {
+  astronaut,
+  romance,
+  golden_yellow,
+  shadows,
+} from 'app/styles/variables/colors_tiles_v4';
+import { primaryFont, secondaryFont } from 'app/styles/variables/fonts';
 
 export default css`
   .root {
@@ -29,7 +34,8 @@ export default css`
     font-family: ${primaryFont};
   }
 
-  .title-link, .title-link:hover {
+  .title-link,
+  .title-link:hover {
     font-weight: bold;
     font-size: 11px;
     color: ${astronaut};
@@ -54,7 +60,6 @@ export default css`
     top: 5px;
     left: 0;
     width: 100%;
-
   }
 
   .or-text {
@@ -76,15 +81,16 @@ export default css`
   }
 
   .google-button {
-    background-color: #4285F4;
-    border-radius: 100px;
-    padding: 10px 15px;
-    color: ${romance};
-    border: 0;
-    text-transform: uppercase;
-    font-family: ${primaryFont};
-    font-size: 12px;
+    background: rgb(209, 72, 54);
+    color: rgb(255, 255, 255);
+    width: 190px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 2px;
+    border: 1px solid transparent;
+    font-size: 16px;
     font-weight: bold;
+    font-family: Roboto;
   }
 
   .forgot-password-req h1 {

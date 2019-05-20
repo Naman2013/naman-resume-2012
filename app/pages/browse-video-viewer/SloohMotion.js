@@ -7,14 +7,7 @@ import ShowsList from '../../components/video-viewer/ShowsList';
 import { fetchHighlightsShows } from '../../modules/browse-video-viewer/highlights-shows-actions';
 // import CategoryNavigation from '../../components/video-viewer/CategoryNavigation';
 
-const {
-  bool,
-  number,
-  string,
-  shape,
-  func,
-  arrayOf,
-} = PropTypes;
+const { bool, number, string, shape, func, arrayOf } = PropTypes;
 /*
 const NAV_ITEMS = [
   {
@@ -57,40 +50,48 @@ function mapStateToProps({ videoViewerBrowser }) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators({
-      fetchHighlightsShows,
-    }, dispatch),
+    actions: bindActionCreators(
+      {
+        fetchHighlightsShows,
+      },
+      dispatch
+    ),
   };
 }
 
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(
+  mapStateToProps,
+  mapDispatchToProps
+)
 class SloohMotion extends Component {
   static propTypes = {
     actions: shape({
       fetchHighlightsShows: func,
     }),
-    eventList: arrayOf(shape({
-      eventDescription: string,
-      eventDetailsURL: string,
-      eventEnd: number,
-      eventIconURL: string,
-      eventId: number,
-      eventImageURL: string,
-      eventIndex: number,
-      eventIsLive: bool,
-      eventLinkTarget: string,
-      eventLiveURL: string,
-      eventShortDescription: string,
-      eventShowRemindersIcon: bool,
-      eventStart: number,
-      eventStatus: string,
-      eventTitle: string,
-    })),
+    eventList: arrayOf(
+      shape({
+        eventDescription: string,
+        eventDetailsURL: string,
+        eventEnd: number,
+        eventIconURL: string,
+        eventId: number,
+        eventImageURL: string,
+        eventIndex: number,
+        eventIsLive: bool,
+        eventLinkTarget: string,
+        eventLiveURL: string,
+        eventShortDescription: string,
+        eventShowRemindersIcon: bool,
+        eventStart: number,
+        eventStatus: string,
+        eventTitle: string,
+      })
+    ),
     resultsCount: number,
     page: number,
     pages: number,
     count: number,
-  }
+  };
   static defaultProps = {
     actions: {
       fetchHighlightsShows: noop,
@@ -100,7 +101,7 @@ class SloohMotion extends Component {
     page: 0,
     pages: 0,
     count: number,
-  }
+  };
   constructor(props) {
     super(props);
 
@@ -111,22 +112,15 @@ class SloohMotion extends Component {
     });
   }
   render() {
-    const {
-      actions,
-      eventList,
-      resultsCount,
-      page,
-      pages,
-      count,
-    } = this.props;
+    const { actions, eventList, resultsCount, page, pages, count } = this.props;
 
     return (
       <div>
-        { /*
+        {/*
         <CategoryNavigation
           navigationItems={NAV_ITEMS}
         />
-        */ }
+        */}
         <ShowsList
           eventList={eventList}
           resultsCount={resultsCount}
@@ -138,7 +132,6 @@ class SloohMotion extends Component {
       </div>
     );
   }
-
 }
 
 export default SloohMotion;

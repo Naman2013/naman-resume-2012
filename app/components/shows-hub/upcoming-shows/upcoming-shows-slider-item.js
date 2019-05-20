@@ -3,34 +3,31 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import noop from 'lodash/noop';
 import uniqueId from 'lodash/uniqueId';
-import BigShowExcerptTile from 'components/common/tiles/big-show-excerpt-tile';
-import BigShowTile from 'components/common/tiles/BigShowTile';
+import BigShowExcerptTile from 'app/components/common/tiles/big-show-excerpt-tile';
+import BigShowTile from 'app/components/common/tiles/BigShowTile';
 import style from './upcoming-shows.style';
 
 class UpcomingShowsSliderItem extends Component {
-  static propTypes = {
-  };
+  static propTypes = {};
 
-  static defaultProps = {
-  };
+  static defaultProps = {};
 
   state = {
     showInfo: false,
-  }
+  };
   setActive = () => {
     if (!this.state.showInfo) {
       this.setState(() => ({
         showInfo: true,
       }));
     }
-
-  }
+  };
 
   removeActive = () => {
     this.setState(() => ({
       showInfo: false,
     }));
-  }
+  };
 
   render() {
     const {
@@ -39,33 +36,32 @@ class UpcomingShowsSliderItem extends Component {
       displayTime,
       eventHostName,
       linkUrl,
-      eventTitle
+      eventTitle,
     } = this.props;
-    const {
-      showInfo,
-    } = this.state;
-    return (<div
+    const { showInfo } = this.state;
+    return (
+      <div
         className="upcoming-container"
         onMouseOver={this.setActive}
         onMouseLeave={this.removeActive}
       >
-      {!showInfo ? <BigShowTile
-        header={eventLabel}
-        displayDate={displayDate}
-        displayTime={displayTime}
-        eventHostName={eventHostName}
-        key={uniqueId()}
-        linkUrl={linkUrl}
-        title={eventTitle}
-      /> :
-        <BigShowExcerptTile {...this.props} />
-      }
-      <style jsx>{style}</style>
-    </div>)
+        {!showInfo ? (
+          <BigShowTile
+            header={eventLabel}
+            displayDate={displayDate}
+            displayTime={displayTime}
+            eventHostName={eventHostName}
+            key={uniqueId()}
+            linkUrl={linkUrl}
+            title={eventTitle}
+          />
+        ) : (
+          <BigShowExcerptTile {...this.props} />
+        )}
+        <style jsx>{style}</style>
+      </div>
+    );
   }
 }
-
-
-
 
 export default UpcomingShowsSliderItem;

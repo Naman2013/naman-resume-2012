@@ -1,11 +1,18 @@
 import css from 'styled-jsx/css';
 import { primaryFont, secondaryFont } from 'app/styles/variables/fonts';
 import { screenMedium } from 'app/styles/variables/breakpoints';
-import { hawkesBlue, shadows, lightHeadedAstronaut, seashell, astronaut } from 'app/styles/variables/colors_tiles_v4';
+import {
+  hawkesBlue,
+  shadows,
+  lightHeadedAstronaut,
+  seashell,
+  astronaut,
+} from 'app/styles/variables/colors_tiles_v4';
 
 export default css`
   .photohub-root {
     font-family: ${primaryFont};
+    padding: 20px 0;
   }
   .photohub-title {
     font-size: 14px;
@@ -87,6 +94,8 @@ export default css`
     background-clip: padding-box;
     border: 1px solid ${shadows};
     border-radius: .25rem;
+    position: relative;
+    z-index: 10;
   }
 
   .header {

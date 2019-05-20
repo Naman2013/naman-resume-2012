@@ -12,10 +12,10 @@ import classnames from 'classnames';
 import Modal from 'react-modal';
 import uniqueId from 'lodash/uniqueId';
 import { intlShape, injectIntl } from 'react-intl';
-import { profilePhotoStyle } from 'styles/mixins/utilities';
-import fetchObjectFollowService from 'services/objects/object-follow';
-import Button from 'components/common/style/buttons/Button';
-import { customModalStylesBlackOverlay } from 'styles/mixins/utilities';
+import { profilePhotoStyle } from 'app/styles/mixins/utilities';
+import fetchObjectFollowService from 'app/services/objects/object-follow';
+import Button from 'app/components/common/style/buttons/Button';
+import { customModalStylesBlackOverlay } from 'app/styles/mixins/utilities';
 import { blue_tile_feat } from '../../styles/variables/colors_tiles_v4';
 
 import styles from './RelatedObject.style';

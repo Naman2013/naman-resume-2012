@@ -19,7 +19,7 @@
   }
 }
 
-@include media-breakpoint-down(lg) {
+@include media-breakpoint-down(md) {
   .telescope-setup {
     .telescope-setup-nav {
       display: none;

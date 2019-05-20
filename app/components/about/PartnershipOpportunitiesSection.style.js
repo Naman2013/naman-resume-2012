@@ -10,7 +10,7 @@ export default css`
     justify-content: space-between;
     flex-wrap: wrap;
     padding: 40px 10px;
-    background-color: ${faintGray}
+    background-color: ${faintGray};
   }
 
   .form {
@@ -36,7 +36,7 @@ export default css`
     font-size: 24px;
   }
 
-  .header-info h2{
+  .header-info h2 {
     margin-bottom: 0;
     font-size: 19px;
   }
@@ -64,7 +64,6 @@ export default css`
   .input-label {
     margin-bottom: 5px;
   }
-
 
   .input {
     padding: 14px 12px;
@@ -101,7 +100,7 @@ export default css`
     padding: 10px;
     border-radius: 50%;
     width: 100px;
-    box-shadow: inset 0 0 6px rgba(0,0,0,.5);
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
     margin: auto;
   }
 

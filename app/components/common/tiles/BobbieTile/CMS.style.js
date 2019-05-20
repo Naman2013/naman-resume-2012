@@ -1,8 +1,11 @@
 import css from 'styled-jsx/css';
-import { resetMarginPadding } from 'styles/variables/utils';
-import { primaryFont, secondaryFont } from 'styles/variables/fonts';
-import { lightHeadedAstronaut, geyser } from 'styles/variables/colors_tiles_v4';
-import { screenMedium, screenLarge } from 'styles/variables/breakpoints';
+import { resetMarginPadding } from 'app/styles/variables/utils';
+import { primaryFont, secondaryFont } from 'app/styles/variables/fonts';
+import {
+  lightHeadedAstronaut,
+  geyser,
+} from 'app/styles/variables/colors_tiles_v4';
+import { screenMedium, screenLarge } from 'app/styles/variables/breakpoints';
 
 const stylePrefix = '.__html-blob-content-container__';
 

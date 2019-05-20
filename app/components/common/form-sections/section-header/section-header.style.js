@@ -1,12 +1,12 @@
 import css from 'styled-jsx/css';
-import { secondaryFont } from 'styles/variables/fonts';
-import { screenMedium } from 'styles/variables/breakpoints';
+import { secondaryFont } from 'app/styles/variables/fonts';
+import { screenMedium } from 'app/styles/variables/breakpoints';
 
 import {
   astronaut,
   shadows,
-  lynch
-} from 'styles/variables/colors_tiles_v4';
+  lynch,
+} from 'app/styles/variables/colors_tiles_v4';
 
 export default css`
   .root {
@@ -25,7 +25,6 @@ export default css`
 
   .title-text {
     font-size: 20px;
-
   }
 
   .desc-text {
@@ -40,5 +39,4 @@ export default css`
       font-size: 20px;
     }
   }
-
 `;

@@ -1,42 +1,28 @@
 /***********************************
-* V4 Quest Details
-*
-*
-*
-***********************************/
+ * V4 Quest Details
+ *
+ *
+ *
+ ***********************************/
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-modal';
-import CenterColumn from 'components/common/CenterColumn';
-import SterlingTitle from 'components/common/titles/SterlingTitle';
-import GuideSection from 'components/guides/GuideSection';
-import BodyContent from 'components/quest-details/body-content';
-import ContentList from 'components/quest-details/content-list';
-import QuestTitleSection from 'components/quest-details/title-section';
-import QuestStepList from 'components/quest-details/step-list';
-import { resources } from 'styles/variables/iconURLs';
-import { romance } from 'styles/variables/colors_tiles_v4';
+import CenterColumn from 'app/components/common/CenterColumn';
+import SterlingTitle from 'app/components/common/titles/SterlingTitle';
+import GuideSection from 'app/components/guides/GuideSection';
+import BodyContent from 'app/components/quest-details/body-content';
+import ContentList from 'app/components/quest-details/content-list';
+import QuestTitleSection from 'app/components/quest-details/title-section';
+import QuestStepList from 'app/components/quest-details/step-list';
+import { resources } from 'app/styles/variables/iconURLs';
+import { romance } from 'app/styles/variables/colors_tiles_v4';
 import styles from './QuestDetails.style';
 
-const {
-  bool,
-  func,
-  number,
-  shape,
-  string,
-  instanceOf,
-} = PropTypes;
+const { bool, func, number, shape, string, instanceOf } = PropTypes;
 
-
-export const QuestDetails = (props) => {
-  const {
-    actions,
-    modal,
-    pageMeta,
-    questId,
-    userActions,
-  } = props;
+export const QuestDetails = props => {
+  const { actions, modal, pageMeta, questId, userActions } = props;
   const resourcesProps = {
     resourcesIconUrl: resources,
     resourcesButtonText: pageMeta.resourcesButtonCaption,

@@ -1,9 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { black, white, lightTurqoise, red } from '../../../styles/variables/colors';
-import { backgroundImageCover, borderRadius } from '../../../styles/mixins/utilities';
-
+import {
+  black,
+  white,
+  lightTurqoise,
+  red,
+} from '../../../styles/variables/colors';
+import {
+  backgroundImageCover,
+  borderRadius,
+} from '../../../styles/mixins/utilities';
 
 /**
   THEMES
@@ -14,14 +21,7 @@ import { backgroundImageCover, borderRadius } from '../../../styles/mixins/utili
   light ( good for sitting on top of dark colored things )
 */
 
-function ByUserTag({
-  theme,
-  photo,
-  name,
-  accountType,
-  location,
-  memberSince,
-}) {
+function ByUserTag({ theme, photo, name, accountType, location, memberSince }) {
   const profilePhotoStyle = {
     backgroundImage: `url(${photo})`,
   };
@@ -32,11 +32,14 @@ function ByUserTag({
 
       <div className="profile-name">
         <h4 className="username">
-          {name} { accountType && <span className="account-level">{accountType}</span> }
+          {name}{' '}
+          {accountType && <span className="account-level">{accountType}</span>}
           <br />
-          {
-            memberSince && <span className={`user-details ${theme}`}>{location} Member since {memberSince}</span>
-          }
+          {memberSince && (
+            <span className={`user-details ${theme}`}>
+              {location} Member since {memberSince}
+            </span>
+          )}
         </h4>
       </div>
 

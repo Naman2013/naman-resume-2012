@@ -1,7 +1,7 @@
 import css from 'styled-jsx/css';
-import { white_tile_paper } from 'styles/variables/colors_tiles_v4';
+import { white_tile_paper } from 'app/styles/variables/colors_tiles_v4';
 import { shadyBottomShadow } from '../../styles/variables/shadows';
-import { screenMedium, screenLarge } from 'styles/variables/breakpoints';
+import { screenMedium, screenLarge } from 'app/styles/variables/breakpoints';
 
 export default css`
   .root {
@@ -33,6 +33,7 @@ export default css`
     .guide-container {
       margin: 0;
       margin-top: 10px;
+      display: flex;
     }
   }
 

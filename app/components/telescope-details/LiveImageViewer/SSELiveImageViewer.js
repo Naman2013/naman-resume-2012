@@ -128,7 +128,7 @@ class SSELiveImageViewer extends Component {
       missionFormat,
       viewportHeight,
       onImageChange,
-      currentMission
+      currentMission,
     } = this.props;
 
     const { obsId, domeId } = obsIdTeleIdDomeIdFromTeleId(teleId);
@@ -145,7 +145,7 @@ class SSELiveImageViewer extends Component {
         teleThumbWidth={teleThumbWidth}
         teleFade={teleFade}
         missionFormat={missionFormat}
-        missionName= {currentMission.objectTitle}
+        missionName={currentMission.objectTitle}
         onImageChange={onImageChange}
       />
     );

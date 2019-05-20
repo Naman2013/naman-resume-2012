@@ -15,7 +15,8 @@ class ReservationByCatalog extends Component {
       obsId,
       domeId,
       uniqueId,
-      scheduledMissionId } = this.props;
+      scheduledMissionId,
+    } = this.props;
 
     return (
       <div className="reservation-form-container">

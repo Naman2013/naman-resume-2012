@@ -6,6 +6,8 @@ import {
   FETCH_ERRORS_SUCCESS,
   CAPTURE_ERROR_STATE,
   SET_SIGN_IN_RETURN_URL,
+  SHOW_ISSUE_WITH_USER_ACCOUNT_MODAL,
+  HIDE_ISSUE_WITH_USER_ACCOUNT_MODAL,
 } from './actions';
 
 const initialState = {
@@ -24,6 +26,17 @@ const initialState = {
   errorCode: null,
   statusCode: null,
   currentPageID: null,
+  loginError: null,
+
+  errorData: {
+    apiError: null,
+    errorCode: null,
+    statusCode: null,
+    currentPageID: null,
+    loginError: null,
+  },
+
+  issueWithUserAccountModalVisible: false,
 
   signInReturnURL: '',
 };
@@ -48,14 +61,25 @@ export default createReducer(initialState, {
       errorHandlerBody: payload,
     };
   },
-  [CAPTURE_ERROR_STATE](state, { apiError, errorCode, statusCode, currentPageID }) {
+  [CAPTURE_ERROR_STATE](
+    state,
+    { apiError, errorCode, statusCode, currentPageID, loginError }
+  ) {
     return {
       ...state,
       apiError,
       errorCode,
       statusCode,
       currentPageID,
+      loginError,
       handlingScenario: true,
+      errorData: {
+        apiError,
+        errorCode,
+        statusCode,
+        currentPageID,
+        loginError,
+      },
     };
   },
   [RESET_ERROR_STATE](state) {
@@ -65,8 +89,29 @@ export default createReducer(initialState, {
       errorCode: null,
       statusCode: null,
       currentPageID: null,
+      loginError: null,
       handlingScenario: false,
       signInReturnURL: '',
+      errorData: {
+        apiError: null,
+        errorCode: null,
+        statusCode: null,
+        currentPageID: null,
+        loginError: null,
+      },
+    };
+  },
+  [SHOW_ISSUE_WITH_USER_ACCOUNT_MODAL](state) {
+    console.log('BBBBBBBBBBBBBBBBBB');
+    return {
+      ...state,
+      issueWithUserAccountModalVisible: true,
+    };
+  },
+  [HIDE_ISSUE_WITH_USER_ACCOUNT_MODAL](state) {
+    return {
+      ...state,
+      issueWithUserAccountModalVisible: false,
     };
   },
 });

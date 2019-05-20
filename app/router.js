@@ -1,22 +1,18 @@
 import DashboardPage from 'app/components/Dashboard';
-import ImagesLayout from 'app/modules/profile-photos/components/ImagesLayout';
-import PrivateProfilePhotos from 'app/modules/profile-photos/components/PrivateProfilePhotos';
 import {
   ProfileActivity,
   ProfileGroups,
 } from 'app/components/profiles/private-profile';
 import ProfileQaContainer from 'app/components/profiles/private-profile/my-qa/ProfileQaContainer';
+import { ProfileQuests } from 'app/components/profiles/private-profile/profile-quests';
 import { About, AboutSloohSection } from 'app/containers/about';
 import App from 'app/containers/App';
-import AskAstronomer from 'app/containers/ask-astronomer/AskAstronomer';
 import CreateStory from 'app/containers/create-story';
 import GroupsHub from 'app/containers/groups-hub';
 import GuidesHub from 'app/containers/guides-hub';
 import ObjectCategoryGuide from 'app/containers/guides/ObjectCategoryGuide';
 import SubjectGuides from 'app/containers/guides/SubjectGuides';
 import TopicGuides from 'app/containers/guides/TopicGuides';
-import { MissionDetailsMain } from 'app/modules/mission-details';
-import { GalleryDetailsMain } from 'app/modules/gallery-details';
 import MyPictures from 'app/containers/MyPictures';
 import ObjectDetailsMissions from 'app/containers/object-details/ObjectDetailsMissions';
 import ObjectDetailsObservations from 'app/containers/object-details/ObjectDetailsObservations';
@@ -25,12 +21,6 @@ import ObjectDetailsQuests from 'app/containers/object-details/ObjectDetailsQues
 import ObjectDetailsShows from 'app/containers/object-details/ObjectDetailsShows';
 import ObjectDetailsStories from 'app/containers/object-details/ObjectDetailsStories';
 import ObjectList from 'app/containers/object-post/ObjectList';
-import {
-  ProfileMain,
-  PublicProfileMain,
-  PrivateProfileMain,
-  ProfileListsMain,
-} from 'app/modules/profile';
 import QuestComplete from 'app/containers/quest-complete';
 import QuestStep from 'app/containers/quest-step';
 import QuestsHub from 'app/containers/quests-hub';
@@ -39,13 +29,24 @@ import ShowsHub from 'app/containers/shows-hub';
 import SloohRecommends from 'app/containers/SloohRecommends';
 import StaticAppContainer from 'app/containers/static-app-container';
 import StoriesHub from 'app/containers/stories-hub';
+import { AskAstronomerMain, QuestionMain } from 'app/modules/ask-astronomer';
+import { GalleryDetailsMain } from 'app/modules/gallery-details';
 import { fetchPlayer } from 'app/modules/get-audio-player/actions';
 import { ImageDetailsMain } from 'app/modules/image-details';
+import { MissionDetailsMain } from 'app/modules/mission-details';
 import Catalog from 'app/modules/missions/containers/catalog';
 import Constellation from 'app/modules/missions/containers/constellation';
 import Slooh1000 from 'app/modules/missions/containers/slooh-1000';
 import Telescope from 'app/modules/missions/containers/telescope';
 import { MissionsMain } from 'app/modules/missions/index';
+import {
+  PrivateProfileMain,
+  ProfileListsMain,
+  ProfileMain,
+  PublicProfileMain,
+} from 'app/modules/profile';
+import ImagesLayout from 'app/modules/profile-photos/components/ImagesLayout';
+import { ProfilePhotos } from 'app/modules/profile-photos/components/profile-photos';
 import { TelescopeDetailsMain } from 'app/modules/telescope';
 import { TelescopeNavigation } from 'app/modules/telescope/components/old/telescope-navigation';
 import GroupCreate from 'app/pages/community-groups/GroupCreate';
@@ -138,7 +139,7 @@ const getProfileRoutes = () => (
   <Fragment>
     <IndexRedirect to="activity" />
     <Route path="activity" component={ProfileActivity} />
-    <Route path="photos" component={PrivateProfilePhotos}>
+    <Route path="photos" component={ProfilePhotos}>
       <IndexRedirect to="photoroll" />
       <Route path=":type" component={ImagesLayout} />
     </Route>
@@ -161,6 +162,7 @@ const getProfileRoutes = () => (
       component={GroupImportGoogleClassrooms}
       onEnter={validateUser}
     />
+    <Route path="quests" component={ProfileQuests} />
   </Fragment>
 );
 
@@ -368,6 +370,11 @@ const AppRouter = () => (
       />
 
       <Route
+        path="object-details/:objectId/question/:threadId"
+        component={QuestionMain}
+        onEnter={validateUser}
+      />
+      <Route
         path="object-details/:objectId"
         component={ObjectDetails}
         onEnter={validateUser}
@@ -403,7 +410,11 @@ const AppRouter = () => (
           component={ObjectDetailsObservations}
           onEnter={validateUser}
         />
-        <Route path="ask" component={AskAstronomer} onEnter={validateUser} />
+        <Route
+          path="ask"
+          component={AskAstronomerMain}
+          onEnter={validateUser}
+        />
       </Route>
 
       <Route

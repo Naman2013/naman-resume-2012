@@ -16,6 +16,7 @@ import {
   getMissionSlotDatesApi,
   getMissionSlotsByTelescopeApi,
   getTelescopeSlotApi,
+  checkTargetVisibilityApi,
 } from 'app/modules/missions/api';
 import { ACTION } from './reducer';
 import {
@@ -107,9 +108,14 @@ export const getMissionList = data => (dispatch, getState) => {
     .catch(error => dispatch(ACTION.getMissionListError(error)));
 };
 
-export const setTelescope = telescope => dispatch => {
+export const setTelescope = (telescope, getMissions) => (dispatch, getState) => {
   dispatch(ACTION.setTelescope(telescope));
-  dispatch(getMissionSlotDates(telescope));
+  const selectedDate = makeTelescopeSelectedDateSelector()(
+    getState()
+  );
+  if (getMissions) {
+    dispatch(getMissionSlotDates(telescope, selectedDate.reservationDate));
+  }
 };
 
 export const setTelescopeDate = ({
@@ -200,20 +206,20 @@ export const getObjectList = data => (dispatch, getState) => {
 };
 
 // by Constellation
-export const getConstellationList = () => (dispatch, getState) => {
+export const getConstellationList = data => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
   dispatch(ACTION.getConstellationList());
   return getConstellationListApi({
     at,
     token,
     cid,
-    callSource: 'byConstellationV4',
+    ...data,
   })
     .then(result => dispatch(ACTION.getConstellationListSuccess(result.data)))
     .catch(error => dispatch(ACTION.getConstellationListError(error)));
 };
 
-export const getConstellationObjectList = constellationName => (
+export const getConstellationObjectList = (constellationName, data) => (
   dispatch,
   getState
 ) => {
@@ -223,7 +229,7 @@ export const getConstellationObjectList = constellationName => (
     at,
     token,
     cid,
-    callSource: 'byConstellationV4',
+    ...data,
     constellationName,
   })
     .then(result =>
@@ -232,16 +238,16 @@ export const getConstellationObjectList = constellationName => (
     .catch(error => dispatch(ACTION.getConstellationObjectListError(error)));
 };
 
-export const setConstellation = constellationName => dispatch => {
+export const setConstellation = (constellationName, data) => dispatch => {
   dispatch(ACTION.setConstellation(constellationName));
-  dispatch(getConstellationObjectList(constellationName));
+  dispatch(getConstellationObjectList(constellationName, data));
 };
 
 // by Catalog
-export const getCatalogList = () => (dispatch, getState) => {
+export const getCatalogList = data => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
   dispatch(ACTION.getCatalogList());
-  return getCatalogListApi({ at, token, cid, callSource: 'byPopularObjects' })
+  return getCatalogListApi({ at, token, cid, ...data })
     .then(result => dispatch(ACTION.getCatalogListSuccess(result.data)))
     .catch(error => dispatch(ACTION.getCatalogListError(error)));
 };
@@ -265,4 +271,17 @@ export const checkCatalogVisibility = data => (dispatch, getState) => {
       }
     })
     .catch(error => dispatch(ACTION.checkCatalogVisibilityError(error)));
+};
+
+export const checkTargetVisibility = (data, telescopeId) => (dispatch, getState) => {
+  const { at, token, cid } = getState().user;
+  dispatch(ACTION.checkTargetVisibility());
+  return checkTargetVisibilityApi({ at, token, cid, ...data })
+    .then(result => {
+      dispatch(ACTION.checkTargetVisibilitySuccess(result.data));
+      if (result.data.objectIsVisible) {
+        dispatch(getPresetOptions(telescopeId));
+      }
+    })
+    .catch(error => dispatch(ACTION.checkTargetVisibilityError(error)));
 };

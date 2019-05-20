@@ -1,26 +1,26 @@
 /***********************************
-* V4 Mission Image Detail List populated with info
-*
-*
-*
-***********************************/
+ * V4 Mission Image Detail List populated with info
+ *
+ *
+ *
+ ***********************************/
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import classnames from 'classnames';
 import uniqueId from 'lodash/uniqueId';
-import BlueLineDrop from 'components/common/BlueLineDrop';
-import { profilePhotoStyle } from 'styles/mixins/utilities';
-import { astronaut, geyser, shadows,  romance } from 'styles/variables/colors_tiles_v4';
-import { secondaryFont } from 'styles/variables/fonts';
+import BlueLineDrop from 'app/components/common/BlueLineDrop';
+import { profilePhotoStyle } from 'app/styles/mixins/utilities';
+import {
+  astronaut,
+  geyser,
+  shadows,
+  romance,
+} from 'app/styles/variables/colors_tiles_v4';
+import { secondaryFont } from 'app/styles/variables/fonts';
 
-const {
-  arrayOf,
-  bool,
-  shape,
-  string,
-} = PropTypes;
+const { arrayOf, bool, shape, string } = PropTypes;
 
 const BootstrappedMissionImageDetailList = ({
   isDesktop,
@@ -28,11 +28,12 @@ const BootstrappedMissionImageDetailList = ({
   isScreenLarge,
   imagingDetailList,
 }) => {
-  const profPic = photoUrl => Object.assign(profilePhotoStyle(photoUrl), {
-    height: '50px',
-    width: '50px',
-    backgroundSize: 'cover',
-  });
+  const profPic = photoUrl =>
+    Object.assign(profilePhotoStyle(photoUrl), {
+      height: '50px',
+      width: '50px',
+      backgroundSize: 'cover',
+    });
 
   return (
     <div className="mission-image-detail-list">
@@ -42,140 +43,150 @@ const BootstrappedMissionImageDetailList = ({
         theme={{ margin: isScreenLarge ? '25px 0' : '25px' }}
         render={() => (
           <div>
-            {!isDesktop ? <div className="title" dangerouslySetInnerHTML={{ __html: listTitle}} /> : null}
-            <div className={classnames('detail-items', {
-              'component-container': !isDesktop,
-            })}>
+            {!isDesktop ? (
+              <div
+                className="title"
+                dangerouslySetInnerHTML={{ __html: listTitle }}
+              />
+            ) : null}
+            <div
+              className={classnames('detail-items', {
+                'component-container': !isDesktop,
+              })}
+            >
               {imagingDetailList.seeingconditions ? (
-              <div className="info" key={uniqueId()}>
-                {imagingDetailList.seeingconditions.hasIconFlag ? (
-                  <div style={profPic(imagingDetailList.seeingconditions.iconUrl)} />
-                ) : null}
-                <div
-                  className="detail-label"
-                  dangerouslySetInnerHTML={{
-                    __html: imagingDetailList.seeingconditions.label
-                  }}
-                />
-                <div
-                  className="detail-text"
-                  dangerouslySetInnerHTML={{
-                    __html: imagingDetailList.seeingconditions.text
-                  }}
-                />
-                <div
-                  className="detail-text-detail"
-                  dangerouslySetInnerHTML={{
-                    __html: imagingDetailList.seeingconditions.textDetail
-                  }}
-                />
-                <div
-                  className="detail-note"
-                  dangerouslySetInnerHTML={{
-                    __html: imagingDetailList.seeingconditions.textNote
-                  }}
-                />
-                {imagingDetailList.seeingconditions.hasLinkFlag ? (
-                  <Link to={imagingDetailList.seeingconditions.linkUrl}>
-                    <span
-                      className="link"
-                      dangerouslySetInnerHTML={{
-                        __html: imagingDetailList.seeingconditions.linkLabel
-                      }}
+                <div className="info" key={uniqueId()}>
+                  {imagingDetailList.seeingconditions.hasIconFlag ? (
+                    <div
+                      style={profPic(
+                        imagingDetailList.seeingconditions.iconUrl
+                      )}
                     />
-                  </Link>
-                ) : null}
-              </div>
-            ) : null}
-            {imagingDetailList.humidity ? (
-              <div className="info half-info" key={uniqueId()}>
-                {imagingDetailList.humidity.hasIconFlag ? (
-                  <div style={profPic(imagingDetailList.humidity.iconUrl)} />
-                ) : null}
-                <div
-                  className="detail-label"
-                  dangerouslySetInnerHTML={{
-                    __html: imagingDetailList.humidity.label
-                  }}
-                />
-                <div
-                  className="detail-text"
-                  dangerouslySetInnerHTML={{
-                    __html: imagingDetailList.humidity.text
-                  }}
-                />
-                <div
-                  className="detail-text-detail"
-                  dangerouslySetInnerHTML={{
-                    __html: imagingDetailList.humidity.textDetail
-                  }}
-                />
-                <div
-                  className="detail-note"
-                  dangerouslySetInnerHTML={{
-                    __html: imagingDetailList.humidity.textNote
-                  }}
-                />
-                {imagingDetailList.humidity.hasLinkFlag ? (
-                  <Link to={imagingDetailList.humidity.linkUrl}>
-                    <span
-                      className="link"
-                      dangerouslySetInnerHTML={{
-                        __html: imagingDetailList.humidity.linkLabel
-                      }}
-                    />
-                  </Link>
-                ) : null}
-              </div>
-            ) : null}
-            {imagingDetailList.wind ? (
-              <div className="info half-info" key={uniqueId()}>
-                {imagingDetailList.wind.hasIconFlag ? (
-                  <div style={profPic(imagingDetailList.wind.iconUrl)} />
-                ) : null}
-                <div
-                  className="detail-label"
-                  dangerouslySetInnerHTML={{
-                    __html: imagingDetailList.wind.label
-                  }}
-                />
-                <div
-                  className="detail-text"
-                  dangerouslySetInnerHTML={{
-                    __html: imagingDetailList.wind.text
-                  }}
-                />
-                <div
-                  className="detail-text-detail"
-                  dangerouslySetInnerHTML={{
-                    __html: imagingDetailList.wind.textDetail
-                  }}
-                />
-                <div
-                  className="detail-note"
-                  dangerouslySetInnerHTML={{
-                    __html: imagingDetailList.wind.textNote
-                  }}
-                />
-                {imagingDetailList.wind.hasLinkFlag ? (
-                  <Link to={imagingDetailList.wind.linkUrl}>
-                    <span
-                      className="link"
-                      dangerouslySetInnerHTML={{
-                        __html: imagingDetailList.wind.linkLabel
-                      }}
-                    />
-                  </Link>
-                ) : null}
-              </div>
-            ) : null}
+                  ) : null}
+                  <div
+                    className="detail-label"
+                    dangerouslySetInnerHTML={{
+                      __html: imagingDetailList.seeingconditions.label,
+                    }}
+                  />
+                  <div
+                    className="detail-text"
+                    dangerouslySetInnerHTML={{
+                      __html: imagingDetailList.seeingconditions.text,
+                    }}
+                  />
+                  <div
+                    className="detail-text-detail"
+                    dangerouslySetInnerHTML={{
+                      __html: imagingDetailList.seeingconditions.textDetail,
+                    }}
+                  />
+                  <div
+                    className="detail-note"
+                    dangerouslySetInnerHTML={{
+                      __html: imagingDetailList.seeingconditions.textNote,
+                    }}
+                  />
+                  {imagingDetailList.seeingconditions.hasLinkFlag ? (
+                    <Link to={imagingDetailList.seeingconditions.linkUrl}>
+                      <span
+                        className="link"
+                        dangerouslySetInnerHTML={{
+                          __html: imagingDetailList.seeingconditions.linkLabel,
+                        }}
+                      />
+                    </Link>
+                  ) : null}
+                </div>
+              ) : null}
+              {imagingDetailList.humidity ? (
+                <div className="info half-info" key={uniqueId()}>
+                  {imagingDetailList.humidity.hasIconFlag ? (
+                    <div style={profPic(imagingDetailList.humidity.iconUrl)} />
+                  ) : null}
+                  <div
+                    className="detail-label"
+                    dangerouslySetInnerHTML={{
+                      __html: imagingDetailList.humidity.label,
+                    }}
+                  />
+                  <div
+                    className="detail-text"
+                    dangerouslySetInnerHTML={{
+                      __html: imagingDetailList.humidity.text,
+                    }}
+                  />
+                  <div
+                    className="detail-text-detail"
+                    dangerouslySetInnerHTML={{
+                      __html: imagingDetailList.humidity.textDetail,
+                    }}
+                  />
+                  <div
+                    className="detail-note"
+                    dangerouslySetInnerHTML={{
+                      __html: imagingDetailList.humidity.textNote,
+                    }}
+                  />
+                  {imagingDetailList.humidity.hasLinkFlag ? (
+                    <Link to={imagingDetailList.humidity.linkUrl}>
+                      <span
+                        className="link"
+                        dangerouslySetInnerHTML={{
+                          __html: imagingDetailList.humidity.linkLabel,
+                        }}
+                      />
+                    </Link>
+                  ) : null}
+                </div>
+              ) : null}
+              {imagingDetailList.wind ? (
+                <div className="info half-info" key={uniqueId()}>
+                  {imagingDetailList.wind.hasIconFlag ? (
+                    <div style={profPic(imagingDetailList.wind.iconUrl)} />
+                  ) : null}
+                  <div
+                    className="detail-label"
+                    dangerouslySetInnerHTML={{
+                      __html: imagingDetailList.wind.label,
+                    }}
+                  />
+                  <div
+                    className="detail-text"
+                    dangerouslySetInnerHTML={{
+                      __html: imagingDetailList.wind.text,
+                    }}
+                  />
+                  <div
+                    className="detail-text-detail"
+                    dangerouslySetInnerHTML={{
+                      __html: imagingDetailList.wind.textDetail,
+                    }}
+                  />
+                  <div
+                    className="detail-note"
+                    dangerouslySetInnerHTML={{
+                      __html: imagingDetailList.wind.textNote,
+                    }}
+                  />
+                  {imagingDetailList.wind.hasLinkFlag ? (
+                    <Link to={imagingDetailList.wind.linkUrl}>
+                      <span
+                        className="link"
+                        dangerouslySetInnerHTML={{
+                          __html: imagingDetailList.wind.linkLabel,
+                        }}
+                      />
+                    </Link>
+                  ) : null}
+                </div>
+              ) : null}
             </div>
           </div>
         )}
       />
       <style jsx>{`
         .component-container {
-
         }
 
         .title {
@@ -187,7 +198,6 @@ const BootstrappedMissionImageDetailList = ({
         .info {
           padding: 25px;
         }
-
 
         .detail-items {
           display: flex;
@@ -214,7 +224,6 @@ const BootstrappedMissionImageDetailList = ({
           color: ${astronaut};
           font-weight: bold;
           font-size: 12px;
-
         }
         .info {
           flex: 0 100%;
@@ -230,13 +239,10 @@ const BootstrappedMissionImageDetailList = ({
           font-style: italic;
         }
 
-
         @media all and (min-width: 641px) and (max-width: 768px) {
-
           .scheduledby {
             flex: 0 0 100%;
           }
-
 
           .title {
             flex: 0 0 100%;
@@ -249,11 +255,8 @@ const BootstrappedMissionImageDetailList = ({
           .half-info {
             width: 50%;
           }
-
         }
-        @media all and (max-width: 640px){
-
-
+        @media all and (max-width: 640px) {
           .scheduledby {
             flex: 0 0 100%;
           }
@@ -273,12 +276,11 @@ const BootstrappedMissionImageDetailList = ({
           .half-info {
             width: 50%;
           }
-
         }
       `}</style>
     </div>
-  )
-}
+  );
+};
 
 BootstrappedMissionImageDetailList.propTypes = {
   isDesktop: bool,
@@ -318,7 +320,7 @@ BootstrappedMissionImageDetailList.propTypes = {
       textNote: string,
     }),
   }),
-}
+};
 
 BootstrappedMissionImageDetailList.defaultProps = {
   isDesktop: false,

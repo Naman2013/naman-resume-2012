@@ -1,22 +1,17 @@
 /***********************************
-* V4 Object Detail List
-*
-*
-*
-***********************************/
+ * V4 Object Detail List
+ *
+ *
+ *
+ ***********************************/
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import Request from 'components/common/network/Request';
+import Request from 'app/components/common/network/Request';
 import BootstrappedObjectDetailList from './BootstrappedObjectDetailList';
-import { OBJECT_DETAIL_LIST } from 'services/objects';
+import { OBJECT_DETAIL_LIST } from 'app/services/objects';
 
-const {
-  bool,
-  number,
-  oneOfType,
-  string,
-} = PropTypes;
+const { bool, number, oneOfType, string } = PropTypes;
 
 const ObjectDetailList = ({
   isMobile,
@@ -33,19 +28,18 @@ const ObjectDetailList = ({
       objectId,
       scheduledMissionId,
     }}
-    render={({
-      fetchingContent,
-      serviceResponse,
-    }) => (
+    render={({ fetchingContent, serviceResponse }) => (
       <div className="mb-4">
-        {<BootstrappedObjectDetailList
-          isMobile={isMobile}
-          fetching={fetchingContent}
-          objectId={objectId}
-          scheduledMissionId={scheduledMissionId}
-          {...serviceResponse}
-          {...iconFileData}
-        />}
+        {
+          <BootstrappedObjectDetailList
+            isMobile={isMobile}
+            fetching={fetchingContent}
+            objectId={objectId}
+            scheduledMissionId={scheduledMissionId}
+            {...serviceResponse}
+            {...iconFileData}
+          />
+        }
       </div>
     )}
   />

@@ -2,18 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { logout } from 'modules/User';
+import { logout } from 'app/modules/User';
 
-const mapDispatchToProps = () => (bindActionCreators({
-  signOut: logout,
-}));
+const mapDispatchToProps = () =>
+  bindActionCreators({
+    signOut: logout,
+  });
 
-const Logout = ({
-  buttonText,
-  signOut,
-  theme,
-  render
-}) => (
+const Logout = ({ buttonText, signOut, theme, render }) => (
   <a style={theme} onClick={signOut}>
     {render ? render() : buttonText}
   </a>
@@ -31,4 +27,7 @@ Logout.defaultProps = {
   render: null,
 };
 
-export default connect(null, mapDispatchToProps)(Logout);
+export default connect(
+  null,
+  mapDispatchToProps
+)(Logout);

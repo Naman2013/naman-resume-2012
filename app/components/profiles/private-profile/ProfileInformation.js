@@ -12,13 +12,18 @@ import { DeviceContext } from '../../../providers/DeviceProvider';
 import { modalStyleFullPage } from '../../../styles/mixins/utilities';
 import DisplayAtBreakpoint from '../../common/DisplayAtBreakpoint';
 import BackBar from '../../common/style/buttons/BackBar';
-import { Badges, GravityBreakdown, ProfileStatsItem, SpecialistList, StatsDetails, StatsPopover } from '../ProfileStats';
+import {
+  Badges,
+  GravityBreakdown,
+  ProfileStatsItem,
+  SpecialistList,
+  StatsDetails,
+  StatsPopover,
+} from '../ProfileStats';
 import messages from './ProfileInformation.messages';
 import styles from './ProfileInformation.styles';
 
-const {
-  shape,
-} = PropTypes;
+const { shape } = PropTypes;
 
 const PROFILE_STATS = {
   gravity: 'gravity',
@@ -45,51 +50,62 @@ class ProfileInformation extends Component {
     const { gravityData } = this.props.myInformationData;
     const { intl } = this.props;
     return {
-      tabsList: [intl.formatMessage(messages.Breakdown), intl.formatMessage(messages.Details)],
+      tabsList: [
+        intl.formatMessage(messages.Breakdown),
+        intl.formatMessage(messages.Details),
+      ],
       panels: [
         <GravityBreakdown gravityList={gravityData.gravityList} />,
         <StatsDetails
           text={gravityData.gravityDetailsText}
-          buttonLinkUrl={_get(gravityData, 'gravityGuideDetails.buttonLinkUrl', '')}
+          buttonLinkUrl={_get(
+            gravityData,
+            'gravityGuideDetails.buttonLinkUrl',
+            ''
+          )}
           buttonText={_get(gravityData, 'gravityGuideDetails.buttonText', '')}
         />,
       ],
     };
-  }
+  };
 
   getBadgesTabs = () => {
     const { badgesData } = this.props.myInformationData;
     const { intl } = this.props;
     return {
-      tabsList: [intl.formatMessage(messages.MyBadges), intl.formatMessage(messages.Details)],
-      panels: [
-        <Badges badgesList={badgesData.badgesList} />,
-        null,
+      tabsList: [
+        intl.formatMessage(messages.MyBadges),
+        intl.formatMessage(messages.Details),
       ],
+      panels: [<Badges badgesList={badgesData.badgesList} />, null],
     };
-  }
+  };
 
   getMvpTabs = () => {
     const { mvpData } = this.props.myInformationData;
     const { intl } = this.props;
     return {
-      tabsList: [intl.formatMessage(messages.Specialties), intl.formatMessage(messages.Details)],
+      tabsList: [
+        intl.formatMessage(messages.Specialties),
+        intl.formatMessage(messages.Details),
+      ],
       panels: [
         <SpecialistList specialistList={mvpData.specialistObjects} />,
         null,
       ],
     };
-  }
+  };
 
-  toggleStatsPopover = (selectedStats) => {
-    this.setState({ selectedStats: this.state.selectedStats === selectedStats ? null : selectedStats });
+  toggleStatsPopover = selectedStats => {
+    this.setState({
+      selectedStats:
+        this.state.selectedStats === selectedStats ? null : selectedStats,
+    });
   };
 
   render() {
     const { intl, myInformationData } = this.props;
-    const {
-      generalInfo, gravityData, badgesData, mvpData,
-    } = myInformationData;
+    const { generalInfo, gravityData, badgesData, mvpData } = myInformationData;
     const { selectedStats } = this.state;
 
     const profileStatsItems = (
@@ -152,7 +168,9 @@ class ProfileInformation extends Component {
           <div className="profile-avatar">
             <img src={generalInfo.avatarURL} alt="" />
             <div className="profile-user-name">
-              <DisplayAtBreakpoint screenMedium>{generalInfo.memberName}</DisplayAtBreakpoint>
+              <DisplayAtBreakpoint screenMedium>
+                {generalInfo.memberName}
+              </DisplayAtBreakpoint>
             </div>
           </div>
 
@@ -163,12 +181,21 @@ class ProfileInformation extends Component {
               </DisplayAtBreakpoint>
             </div>
             <div className="profile-user-info">
-              <div className="profile-user-gravity-rank">{generalInfo.gravityRankLabel}</div>
-              <div className="profile-user-member-since">{generalInfo.memberSinceText}</div>
+              <div className="profile-user-gravity-rank">
+                {generalInfo.gravityRankLabel}
+              </div>
+              <div className="profile-user-member-since">
+                {generalInfo.memberSinceText}
+              </div>
             </div>
           </div>
 
-          <div className="profile-user-statistics" ref={(ref) => { this.statsContainer = ref; }} >
+          <div
+            className="profile-user-statistics"
+            ref={ref => {
+              this.statsContainer = ref;
+            }}
+          >
             {profileStatsItems}
             <StatsPopover
               show={selectedStats === PROFILE_STATS.gravity}
@@ -198,21 +225,29 @@ class ProfileInformation extends Component {
           {context => (
             <div className="profile-information-mobile">
               <div className="avatar-border">
-                <img src={generalInfo.avatarURL} alt="" className="avatar-inner-ring" />
+                <img
+                  src={generalInfo.avatarURL}
+                  alt=""
+                  className="avatar-inner-ring"
+                />
               </div>
 
               <div className="vertical-line" style={{ height: '40px' }} />
               <div className="horizontal-line" />
 
               <ul className="user-info-list">
-                <li className="user-info-list-item profile-user-name ">{generalInfo.memberName}</li>
-                <li className="user-info-list-item">{generalInfo.gravityRankLabel}</li>
-                <li className="user-info-list-item">{generalInfo.memberSinceText}</li>
+                <li className="user-info-list-item profile-user-name ">
+                  {generalInfo.memberName}
+                </li>
+                <li className="user-info-list-item">
+                  {generalInfo.gravityRankLabel}
+                </li>
+                <li className="user-info-list-item">
+                  {generalInfo.memberSinceText}
+                </li>
               </ul>
 
-              <div className="profile-user-statistics">
-                {profileStatsItems}
-              </div>
+              <div className="profile-user-statistics">{profileStatsItems}</div>
 
               {context.isMobile && (
                 <Modal

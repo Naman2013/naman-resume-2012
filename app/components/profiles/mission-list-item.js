@@ -1,24 +1,29 @@
 /***********************************
-* V4 Profiles Mission List Item
-*
-*
-*
-***********************************/
+ * V4 Profiles Mission List Item
+ *
+ *
+ *
+ ***********************************/
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import moment from 'moment';
-import { backgroundImageCover, profilePhotoStyle } from '../../styles/mixins/utilities';
+import {
+  backgroundImageCover,
+  profilePhotoStyle,
+} from '../../styles/mixins/utilities';
 import { likeImage } from '../../services/my-pictures/like-image';
 
-import { black, darkBlueGray, white, turqoise, gray } from '../../styles/variables/colors';
+import {
+  black,
+  darkBlueGray,
+  white,
+  turqoise,
+  gray,
+} from '../../styles/variables/colors';
 import { secondaryFont } from '../../styles/variables/fonts';
 
-const {
-  number,
-  string,
-} = PropTypes;
-
+const { number, string } = PropTypes;
 
 const ProfileMissionListItem = ({
   categoryDescription,
@@ -30,21 +35,35 @@ const ProfileMissionListItem = ({
   const formattedUTCDate = new Date(missionStart * 1000);
   const UTCStartTime = moment.utc(formattedUTCDate).format('dddd, MMMM Do');
   const UTCStartDate = moment.utc(formattedUTCDate).format('HH:mm z');
-  const avatarStyle = Object.assign(profilePhotoStyle(missionIconURL), { height: '50px', width: '50px' , backgroundSize: 'cover' });
+  const avatarStyle = Object.assign(profilePhotoStyle(missionIconURL), {
+    height: '50px',
+    width: '50px',
+    backgroundSize: 'cover',
+  });
   return (
     <div className="mission-item">
       <div style={avatarStyle} />
-      <div className="object-name" dangerouslySetInnerHTML={{ __html: missionTitle }} />
-      <div className="" dangerouslySetInnerHTML={{ __html: categoryDescription }} />
+      <div
+        className="object-name"
+        dangerouslySetInnerHTML={{ __html: missionTitle }}
+      />
+      <div
+        className=""
+        dangerouslySetInnerHTML={{ __html: categoryDescription }}
+      />
       <div className="section">{UTCStartDate}</div>
       <div className="section">{UTCStartTime}</div>
-      <div className="section" dangerouslySetInnerHTML={{ __html: telescopePierName }} />
+      <div
+        className="section"
+        dangerouslySetInnerHTML={{ __html: telescopePierName }}
+      />
       <style jsx>{`
         .mission-item {
           background-color: ${white};
           margin: 10px;
           padding: 25px;
-          box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+          box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16),
+            0 3px 6px rgba(0, 0, 0, 0.23);
           max-width: 300px;
         }
         .category {
@@ -64,7 +83,7 @@ const ProfileMissionListItem = ({
         }
       `}</style>
     </div>
-  )
+  );
 };
 
 ProfileMissionListItem.defaultProps = {
@@ -82,16 +101,16 @@ ProfileMissionListItem.defaultProps = {
 };
 
 ProfileMissionListItem.propTypes = {
-    categoryDescription: string,
-    expires: number,
-    missionIconURL: string,
-    missionIndex: number,
-    missionStart: number,
-    missionTitle: string,
-    observatoryUniqueId: string,
-    scheduledMissionId: number,
-    telescopePierName: string,
-    telescopeUniqueId: string,
-    userReservationType: string,
+  categoryDescription: string,
+  expires: number,
+  missionIconURL: string,
+  missionIndex: number,
+  missionStart: number,
+  missionTitle: string,
+  observatoryUniqueId: string,
+  scheduledMissionId: number,
+  telescopePierName: string,
+  telescopeUniqueId: string,
+  userReservationType: string,
 };
 export default ProfileMissionListItem;

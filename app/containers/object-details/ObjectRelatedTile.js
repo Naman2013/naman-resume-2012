@@ -40,6 +40,7 @@ export default class ObjectRelatedTile extends React.Component {
     const {
       title,
       subTitle,
+      mobileSubTitle,
       description,
       excerpt,
       linkLabel,
@@ -57,7 +58,10 @@ export default class ObjectRelatedTile extends React.Component {
               <div className="content">
                 <div className="description-container">
                   <h3 dangerouslySetInnerHTML={{ __html: title }} />
-                  <div dangerouslySetInnerHTML={{ __html: subTitle }} className="subtitle" />
+                  <div
+                    dangerouslySetInnerHTML={{ __html: subTitle }}
+                    className="subtitle"
+                  />
                   {showDescription && (
                     <div
                       className="__html-blob-content-container__"
@@ -84,10 +88,11 @@ export default class ObjectRelatedTile extends React.Component {
                     />
                   )}
                 </div>
-                {additionalContent && <div className="additional-content">{additionalContent}</div>}
+                {additionalContent && (
+                  <div className="additional-content">{additionalContent}</div>
+                )}
               </div>
             </div>
-            <style jsx>{style}</style>
           </div>
         </DisplayAtBreakpoint>
         <DisplayAtBreakpoint screenSmall>
@@ -95,7 +100,7 @@ export default class ObjectRelatedTile extends React.Component {
             <h3 className="title" dangerouslySetInnerHTML={{ __html: title }} />
             <div className="mobile-content">
               <div className="subtitle-mobile">
-                {subTitle}{' '}
+                {mobileSubTitle}{' '}
                 <img
                   onClick={this.navigateToLink}
                   className="arrow-link"
@@ -107,6 +112,7 @@ export default class ObjectRelatedTile extends React.Component {
             </div>
           </div>
         </DisplayAtBreakpoint>
+        <style jsx>{style}</style>
       </Fragment>
     );
   }

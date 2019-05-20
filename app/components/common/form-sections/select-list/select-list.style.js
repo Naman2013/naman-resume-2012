@@ -1,14 +1,13 @@
 import css from 'styled-jsx/css';
-import { secondaryFont } from 'styles/variables/fonts';
+import { secondaryFont } from 'app/styles/variables/fonts';
 import {
   astronaut,
   lynch,
   romance,
   shadows,
-} from 'styles/variables/colors_tiles_v4';
+} from 'app/styles/variables/colors_tiles_v4';
 
 export default css`
-
   .root {
     height: 340px;
     overflow-y: scroll;
@@ -29,7 +28,5 @@ export default css`
   .multi-select-label:hover {
     color: ${romance};
     background-color: ${astronaut};
-   }
-
-
+  }
 `;

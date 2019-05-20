@@ -1,7 +1,7 @@
 import css from 'styled-jsx/css';
-import { primaryFont } from 'styles/variables/fonts';
-import { lightHeadedAstronaut } from 'styles/variables/colors_tiles_v4';
-import { resetMarginPadding } from 'styles/variables/utils';
+import { primaryFont } from 'app/styles/variables/fonts';
+import { lightHeadedAstronaut } from 'app/styles/variables/colors_tiles_v4';
+import { resetMarginPadding } from 'app/styles/variables/utils';
 
 export default css`
   .root {

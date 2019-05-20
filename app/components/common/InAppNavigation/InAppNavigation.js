@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
-import ContextMenu from 'components/common/ContextMenu';
+import ContextMenu from 'app/components/common/ContextMenu';
 import BackArrow from 'atoms/icons/BackArrow';
 import style from './InAppNavigation.style';
-import { horizontalArrow } from 'styles/variables/iconURLs';
+import { horizontalArrow } from 'app/styles/variables/iconURLs';
 
 const InAppNavigation = ({
   previousText,
@@ -26,7 +26,9 @@ const InAppNavigation = ({
 
     <div className="core-navigation-container">
       <span className="back-arrow">
-        <Link to={backLinkURL}><BackArrow /></Link>
+        <Link to={backLinkURL}>
+          <BackArrow />
+        </Link>
       </span>
       <h5 className="title">{title}</h5>
       <div className="context-menu-container">
@@ -49,10 +51,12 @@ InAppNavigation.propTypes = {
   title: PropTypes.string.isRequired,
   contextMenuTitle: PropTypes.string.isRequired,
   contextMenuCount: PropTypes.number,
-  list: PropTypes.arrayOf(PropTypes.shape({
-    title: PropTypes.string,
-    linkURL: PropTypes.string,
-  })).isRequired,
+  list: PropTypes.arrayOf(
+    PropTypes.shape({
+      title: PropTypes.string,
+      linkURL: PropTypes.string,
+    })
+  ).isRequired,
   isOpen: PropTypes.bool,
   menuTopAdjustment: PropTypes.number,
   backLinkURL: PropTypes.string.isRequired,

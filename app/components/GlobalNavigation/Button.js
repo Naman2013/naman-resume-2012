@@ -1,8 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { astronaut, romance, shadows } from 'styles/variables/colors_tiles_v4';
-import { primaryFont } from 'styles/variables/fonts';
+import {
+  astronaut,
+  romance,
+  shadows,
+} from 'app/styles/variables/colors_tiles_v4';
+import { primaryFont } from 'app/styles/variables/fonts';
 
 const propTypes = {
   children: PropTypes.node.isRequired,

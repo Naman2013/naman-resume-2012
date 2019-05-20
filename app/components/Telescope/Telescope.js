@@ -261,7 +261,7 @@ class Telescope extends PureComponent<TTelescope> {
       isModalActive,
       isGridActive,
       radius,
-      missionTitle
+      missionTitle,
     } = this.state;
 
     const { missionMetaData, disableFullscreen } = this.props;
@@ -270,8 +270,6 @@ class Telescope extends PureComponent<TTelescope> {
     const tickSpacing = width / horizontalResolution;
     const midPoint = width / 2;
     const arcMinuteLabelLetterSpacing = width * 0.03;
-
-    console.log(radius);
 
     return (
       <Measure bounds onResize={this.handlePortalResize}>
@@ -327,7 +325,7 @@ class Telescope extends PureComponent<TTelescope> {
                   {this.props.render({ viewportHeight: width }, imageData => {
                     const { imageWidth, imageHeight, missionTitle } = imageData;
 
-                    const radiusSize = (imageHeight *.65) / 2;
+                    const radiusSize = (imageHeight * 0.65) / 2;
 
                     this.setState({
                       radius: radiusSize,
@@ -412,7 +410,9 @@ class Telescope extends PureComponent<TTelescope> {
                     onHide={() => this.setState({ isModalActive: false })}
                   >
                     <Modal.Header closeButton>
-                      <Modal.Title>{missionTitle || "No mission available"}</Modal.Title>
+                      <Modal.Title>
+                        {missionTitle || 'No mission available'}
+                      </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                       <Telescope {...this.props} disableFullscreen />

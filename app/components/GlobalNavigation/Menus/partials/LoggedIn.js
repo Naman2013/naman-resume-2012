@@ -8,28 +8,40 @@ import MenuTitleBar from './MenuTitleBar';
 import MenuList from './MenuList';
 import messages from './LoggedIn.messages';
 
-import { userAstronaut, horizontalArrowRightAstronaut } from 'styles/variables/iconURLs';
+import {
+  userAstronaut,
+  horizontalArrowRightAstronaut,
+} from 'app/styles/variables/iconURLs';
 
 const getIconStyle = url => ({
   backgroundImage: `url(${url})`,
 });
 
-const LoggedIn = ({
-  displayName, avatarURL, menuItems, intl,
-}) => (
+const LoggedIn = ({ displayName, avatarURL, menuItems, intl }) => (
   <div className="root">
-    <Link to='/profile/private'>
+    <Link to="/profile/private">
       <MenuTitleBar title="">
-        <div className="nav-icon avatar" style={getIconStyle(avatarURL || userAstronaut)} />
+        <div
+          className="nav-icon avatar"
+          style={getIconStyle(avatarURL || userAstronaut)}
+        />
         <div className="username-container">
-          <div className="username" dangerouslySetInnerHTML={{ __html: displayName }} />
-            <div className="nav-icon" style={getIconStyle(horizontalArrowRightAstronaut)} />
+          <div
+            className="username"
+            dangerouslySetInnerHTML={{ __html: displayName }}
+          />
+          <div
+            className="nav-icon"
+            style={getIconStyle(horizontalArrowRightAstronaut)}
+          />
         </div>
       </MenuTitleBar>
     </Link>
     <MenuList items={menuItems} />
     <Logout
-      render={() => <PrimaryButton text={intl.formatMessage(messages.LogOut)} anchor="#" />}
+      render={() => (
+        <PrimaryButton text={intl.formatMessage(messages.LogOut)} anchor="#" />
+      )}
     />
     <style jsx>
       {`
@@ -67,10 +79,12 @@ LoggedIn.propTypes = {
   userInfo: PropTypes.shape({
     displayName: PropTypes.string,
   }),
-  menuLinks: PropTypes.arrayOf(PropTypes.shape({
-    name: PropTypes.string,
-    link: PropTypes.string,
-  })),
+  menuLinks: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      link: PropTypes.string,
+    })
+  ),
   intl: intlShape.isRequired,
 };
 

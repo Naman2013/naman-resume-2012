@@ -1,9 +1,9 @@
 /***********************************
-* V4 Public Profile Observations
-*
-*
-*
-***********************************/
+ * V4 Public Profile Observations
+ *
+ *
+ *
+ ***********************************/
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -16,34 +16,31 @@ import '../../common/community-perspectives/slick-theme.min.css';
 import { black, gray } from '../../../styles/variables/colors';
 // import { secondaryFont } from '../../styles/variables/fonts';
 
-const {
-  arrayOf,
-  bool,
-  func,
-  number,
-  shape,
-  string,
-} = PropTypes;
+const { arrayOf, bool, func, number, shape, string } = PropTypes;
 
-const mapStateToProps = ({
-  sharedMemberPhotos,
-}) => ({
+const mapStateToProps = ({ sharedMemberPhotos }) => ({
   sharedMemberPhotos,
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({
-    getSharedMemberPhotos,
-  }, dispatch),
+  actions: bindActionCreators(
+    {
+      getSharedMemberPhotos,
+    },
+    dispatch
+  ),
 });
 
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(
+  mapStateToProps,
+  mapDispatchToProps
+)
 class PublicObservations extends Component {
   static defaultProps = {
     sharedMemberPhotos: {
       imageList: [],
     },
-  }
+  };
 
   static propTypes = {
     actions: shape({
@@ -51,14 +48,14 @@ class PublicObservations extends Component {
     }),
     sharedMemberPhotos: shape({}),
     cid: string.isRequired,
-  }
+  };
 
   state = {
     currentIndex: this.props.sharedMemberPhotos.imageList.length - 1,
-  }
+  };
 
   constructor(props) {
-    super(props)
+    super(props);
 
     props.actions.getSharedMemberPhotos({
       customerUUID: props.cid,
@@ -67,7 +64,10 @@ class PublicObservations extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.sharedMemberPhotos.imageList.length !== nextProps.sharedMemberPhotos.imageList.length) {
+    if (
+      this.props.sharedMemberPhotos.imageList.length !==
+      nextProps.sharedMemberPhotos.imageList.length
+    ) {
       this.setState({
         currentIndex: nextProps.sharedMemberPhotos.imageList.length - 1,
       });
@@ -78,21 +78,18 @@ class PublicObservations extends Component {
     this.setState({
       currentIndex,
     });
-  }
+  };
 
-  changeSlide = (image) => {
+  changeSlide = image => {
     this.slider.slickGoTo(image.imageIndex);
     this.setState({
       currentIndex: image.imageIndex,
     });
-
-  }
+  };
 
   render() {
     const {
-      sharedMemberPhotos: {
-        imageList,
-      },
+      sharedMemberPhotos: { imageList },
     } = this.props;
 
     const { currentIndex } = this.state;
@@ -112,87 +109,90 @@ class PublicObservations extends Component {
       // prevArrow: <div><i className="fa fa-arrow-left" /><div>Previous</div></div>,
     };
 
-    const images = imageList.map(imageInfo =>
-      (<div key={imageInfo.customerImageId}>
+    const images = imageList.map(imageInfo => (
+      <div key={imageInfo.customerImageId}>
         <PublicObservationItem
           customerImageId={imageInfo.customerImageId}
           isActive={imageInfo.imageIndex === currentIndex}
         />
-      </div>));
+      </div>
+    ));
 
     return (
       <div className="observation-container">
         <h4 className="title">Recent Observations</h4>
-        {imageList.length === 0 && <div className="empty">There are no shared images.</div>}
-        {imageList.length > 0 && <div className="observation-slider-container">
-          <Slider
-            {...mainPicturesSliderSettings}
-            ref={c => this.slider = c}
-          >
-            {images}
-          </Slider>
-        </div>}
+        {imageList.length === 0 && (
+          <div className="empty">There are no shared images.</div>
+        )}
+        {imageList.length > 0 && (
+          <div className="observation-slider-container">
+            <Slider
+              {...mainPicturesSliderSettings}
+              ref={c => (this.slider = c)}
+            >
+              {images}
+            </Slider>
+          </div>
+        )}
 
-        <style jsx>{`
-          .observation-container {
-            padding: 25px 50px;
-            color: ${black};
-            margin-bottom: 0px;
-            background: ${gray};
-          }
-
-          :not(:global(.pulse-post-extras)) .observation-container {
-            min-height: 500px;
-          }
-            @media(max-width:640px){
-
-            .observation-container{padding:25px 30px}
-
+        <style jsx>
+          {`
+            .observation-container {
+              padding: 25px 50px;
+              color: ${black};
+              margin-bottom: 0px;
+              background: ${gray};
             }
 
-          .empty {
-            padding: 50px;
-            text-align: center;
-          }
+            :not(:global(.pulse-post-extras)) .observation-container {
+              min-height: 500px;
+            }
+            @media (max-width: 640px) {
+              .observation-container {
+                padding: 25px 30px;
+              }
+            }
 
-          .observation-slider-container {
-            position: relative;
-            z-index: 999;
-            min-height: 400px;
-            padding-bottom: 20px;
-          }
+            .empty {
+              padding: 50px;
+              text-align: center;
+            }
 
-          .header {
-            margin-bottom: 25px;
-            text-align: center;
-            font-size: 0.8rem;
-          }
+            .observation-slider-container {
+              position: relative;
+              z-index: 999;
+              min-height: 400px;
+              padding-bottom: 20px;
+            }
 
-          .heading {
-            font-size: 2.5rem;
-          }
+            .header {
+              margin-bottom: 25px;
+              text-align: center;
+              font-size: 0.8rem;
+            }
 
-          .subheading {
-            text-transform: uppercase;
-            font-weight: bold;
-            font-size: 1.25rem;
-          }
+            .heading {
+              font-size: 2.5rem;
+            }
 
-          .observation-container :global(.slick-slider) {
-            height: 50%;
-          }
+            .subheading {
+              text-transform: uppercase;
+              font-weight: bold;
+              font-size: 1.25rem;
+            }
 
-          .title {
-            padding-bottom: 15px;
-          }
+            .observation-container :global(.slick-slider) {
+              height: 50%;
+            }
 
-        `}
+            .title {
+              padding-bottom: 15px;
+            }
+          `}
         </style>
 
         <style jsx global>
           {`
-
-
             .observation-container .slick-prev {
               z-index: 99999;
             }
@@ -210,13 +210,13 @@ class PublicObservations extends Component {
 
             .observation-container .slick-prev.slick-disabled,
             .observation-container .slick-next.slick-disabled {
-              opacity: .25;
+              opacity: 0.25;
             }
 
             .observation-container .slick-prev:before {
               font-family: FontAwesome;
               font-style: normal;
-              content: "\\f060";
+              content: '\\f060';
               font-size: 40px;
               position: absolute;
               left: 25px;
@@ -226,24 +226,35 @@ class PublicObservations extends Component {
             .observation-container .slick-next:before {
               font-family: FontAwesome;
               font-style: normal;
-              content: "\\f061";
+              content: '\\f061';
               font-size: 40px;
               right: 30px;
               position: absolute;
               top: 40px;
             }
-            @media(max-width:850px){
-              .observation-container .slick-prev,  .observation-container .slick-next{padding:0px; height:auto; text-indent:-9999999px}
-              .observation-container .slick-prev {left:-45px}
-              .observation-container .slick-next {right:-51px}
+            @media (max-width: 850px) {
+              .observation-container .slick-prev,
+              .observation-container .slick-next {
+                padding: 0px;
+                height: auto;
+                text-indent: -9999999px;
+              }
+              .observation-container .slick-prev {
+                left: -45px;
+              }
+              .observation-container .slick-next {
+                right: -51px;
+              }
               .observation-container .slick-prev:before,
-              .observation-container .slick-next:before {text-indent:0px; font-size:20px !important}
-
+              .observation-container .slick-next:before {
+                text-indent: 0px;
+                font-size: 20px !important;
+              }
             }
-
           `}
         </style>
-      </div>);
+      </div>
+    );
   }
 }
 

@@ -8,20 +8,21 @@ import { FormattedMessage } from 'react-intl';
 import style from './StoryCard.style';
 import messages from './StoryCard.messages';
 
-const StoryCard = ({
-  story: {
-    title,
-    author,
-    iconURL,
-    linkUrl,
-    hasLink,
-  },
-}) => (
-  <a className="card-wrapper" href={hasLink ? linkUrl : ''} target="_blank" rel="noopener noreferrer">
+const StoryCard = ({ story: { title, author, iconURL, linkUrl, hasLink } }) => (
+  <a
+    className="card-wrapper"
+    href={hasLink ? linkUrl : ''}
+    target="_blank"
+    rel="noopener noreferrer"
+  >
     <div className="story-card">
       <div className="header">
-        <div className="header-tile left"><FormattedMessage {...messages.Slooh} /></div>
-        <div className="header-tile right"><FormattedMessage {...messages.News} /></div>
+        <div className="header-tile left">
+          <FormattedMessage {...messages.Slooh} />
+        </div>
+        <div className="header-tile right">
+          <FormattedMessage {...messages.News} />
+        </div>
       </div>
       <div className="logo-wrapper">
         <div className="logo-border">
@@ -44,6 +45,5 @@ StoryCard.propTypes = {
     hasLink: PropTypes.bool,
   }).isRequired,
 };
-
 
 export default StoryCard;

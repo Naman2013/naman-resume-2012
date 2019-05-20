@@ -1,14 +1,19 @@
 import css from 'styled-jsx/css';
-import { primaryFont, secondaryFont } from 'styles/variables/fonts';
-import { romance, hawkesBlue, astronaut, blue_tile_canvas } from 'styles/variables/colors_tiles_v4';
-import { screenMedium } from 'styles/variables/breakpoints';
+import { primaryFont, secondaryFont } from 'app/styles/variables/fonts';
+import {
+  romance,
+  hawkesBlue,
+  astronaut,
+  blue_tile_canvas,
+} from 'app/styles/variables/colors_tiles_v4';
+import { screenMedium } from 'app/styles/variables/breakpoints';
 
 export default css`
   .root {
     pointer-events: auto;
     width: 300px;
     height: 370px;
-    background-image: url("https://vega.slooh.com/assets/v4/dashboard/group-card-bg.svg");
+    background-image: url('https://vega.slooh.com/assets/v4/dashboard/group-card-bg.svg');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: 50%;
@@ -23,7 +28,7 @@ export default css`
     text-align: center;
   }
   .card-groups-img {
-    background-image: url("https://vega.slooh.com/assets/v4/dashboard/group-graphic-1.png");
+    background-image: url('https://vega.slooh.com/assets/v4/dashboard/group-graphic-1.png');
     background-size: 112px;
     background-repeat: no-repeat;
     background-position: 50%;

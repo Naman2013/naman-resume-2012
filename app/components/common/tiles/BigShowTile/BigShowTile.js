@@ -4,27 +4,31 @@ import PropTypes from 'prop-types';
 import style from './BigShowTile.style';
 
 const BigShowTile = ({
-  heading, eventTitle, eventHost, linkUrl, dateDisplay,
+  header,
+  title,
+  eventHostName,
+  linkUrl,
+  displayDate,
 }) => (
   <div className="card-shows">
-    <div className="show-card-head">{heading}</div>
+    <div className="show-card-head">{header}</div>
     <Link to={linkUrl} href={linkUrl}>
-      <div className="show-card-title">{eventTitle}</div>
+      <div className="show-card-title">{title}</div>
     </Link>
     <div className="show-card-author">
-      {dateDisplay}
+      {displayDate}
       <span> | </span>
-      {eventHost}
+      {eventHostName}
     </div>
     <style jsx>{style}</style>
   </div>
 );
 
 BigShowTile.propTypes = {
-  heading: PropTypes.string.isRequired,
-  eventTitle: PropTypes.string.isRequired,
-  dateDisplay: PropTypes.string.isRequired,
-  eventHost: PropTypes.string.isRequired,
+  header: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  displayDate: PropTypes.string.isRequired,
+  eventHostName: PropTypes.string.isRequired,
   linkUrl: PropTypes.string.isRequired,
 };
 

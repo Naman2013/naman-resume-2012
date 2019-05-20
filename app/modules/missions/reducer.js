@@ -27,6 +27,7 @@ export const TYPE = constants('profile', [
   'SET_CATALOG',
   'SET_DESIGNATION',
   '~CHECK_CATALOG_VISIBILITY',
+  '~CHECK_TARGET_VISIBILITY',
   '~GET_PRESET_OPTIONS',
 
   // byTelescope page
@@ -37,6 +38,8 @@ export const TYPE = constants('profile', [
   '~GET_MISSION_SLOTS_BY_TELESCOPE',
   '~GET_TELESCOPE_SLOT',
   '~SET_SELECTED_SLOT',
+  '~SET_COORDINATES_DATA',
+  '~SET_TARGET_NAME',
 ]);
 export const ACTION = actions(TYPE);
 
@@ -61,8 +64,11 @@ export const initialState = {
     categoryList: [],
     selectedCategorySlug: null,
     objectList: [],
+    objectCount: null,
     objectListExpires: null,
     selectedObjectId: null,
+    availableMissionsCount: null,
+    missionType: null,
   },
 
   byConstellation: {
@@ -73,6 +79,7 @@ export const initialState = {
     objectListExpires: null,
     selectedObjectId: null,
     availableMissionsCount: null,
+    missionType: null,
   },
 
   byCatalog: {
@@ -82,6 +89,21 @@ export const initialState = {
     objectData: {},
     telescopeData: {},
     processingRecipe: {},
+    missionType: null,
+  },
+
+  byCoordinates: {
+    coordinatesData: {
+      ra_h: 0,
+      ra_m: 0,
+      ra_s: 0,
+      ra: 0,
+      dec_d: 90,
+      dec_m: 0,
+      dec_s: 0,
+      dec: 0,
+    },
+    targetName: '',
   },
 
   byTelescope: {
@@ -90,6 +112,7 @@ export const initialState = {
     selectedDate: {},
     dateList: [{}],
     missionList: [],
+    missionListRefreshInterval: 0,
     grabedTelescopeSlot: {},
     selectedSlot: {},
   },
@@ -143,6 +166,9 @@ export default handleActions(
     [TYPE.CHECK_CATALOG_VISIBILITY]: checkCatalogVisibility,
     [TYPE.CHECK_CATALOG_VISIBILITY_SUCCESS]: checkCatalogVisibilitySuccess,
     [TYPE.CHECK_CATALOG_VISIBILITY_ERROR]: setServerError,
+    [TYPE.CHECK_TARGET_VISIBILITY]: checkCatalogVisibility,
+    [TYPE.CHECK_TARGET_VISIBILITY_SUCCESS]: checkCatalogVisibilitySuccess,
+    [TYPE.CHECK_TARGET_VISIBILITY_ERROR]: setServerError,
     [TYPE.GET_PRESET_OPTIONS]: setTelescopeFetching,
     [TYPE.GET_PRESET_OPTIONS_SUCCESS]: getPresetOptionsSuccess,
     [TYPE.GET_PRESET_OPTIONS_ERROR]: setServerError,
@@ -164,6 +190,8 @@ export default handleActions(
     [TYPE.GET_TELESCOPE_SLOT_SUCCESS]: getTelescopeSlotSuccess,
     [TYPE.GET_TELESCOPE_SLOT_ERROR]: setServerError,
     [TYPE.SET_SELECTED_SLOT]: setSelectedSlot,
+    [TYPE.SET_COORDINATES_DATA]: setCoordinatesData,
+    [TYPE.SET_TARGET_NAME]: setTargetName,
   },
   initialState
 );
@@ -245,8 +273,11 @@ function resetMissionsData(state) {
       ...state.bySlooh1000,
       selectedCategorySlug: null,
       objectList: [],
+      objectCount: null,
       objectListExpires: null,
       selectedObjectId: null,
+      availableMissionsCount: null,
+      missionType: null,
     },
     byConstellation: {
       ...state.byConstellation,
@@ -256,6 +287,7 @@ function resetMissionsData(state) {
       objectListExpires: null,
       selectedObjectId: null,
       availableMissionsCount: null,
+      missionType: null,
     },
     byCatalog: {
       ...state.byCatalog,
@@ -264,6 +296,20 @@ function resetMissionsData(state) {
       objectData: {},
       telescopeData: {},
       processingRecipe: {},
+      missionType: null,
+    },
+    byCoordinates: {
+      coordinatesData: {
+        ra_h: 0,
+        ra_m: 0,
+        ra_s: 0,
+        ra: 0,
+        dec_d: 90,
+        dec_m: 0,
+        dec_s: 0,
+        dec: 0,
+      },
+      targetName: '',
     },
   };
 }
@@ -291,14 +337,15 @@ function getCategoryListSuccess(state, action) {
 }
 
 function setCategory(state, action) {
-  console.log('adfasdfasd');
   return {
     ...state,
     bySlooh1000: {
       ...state.bySlooh1000,
       selectedCategorySlug: action.payload,
+      objectCount: null,
       objectList: [],
       selectedObjectId: null,
+      availableMissionsCount: null,
     },
   };
 }
@@ -311,7 +358,10 @@ function getObjectListSuccess(state, action) {
     bySlooh1000: {
       ...state.bySlooh1000,
       objectList: action.payload.objectList,
+      objectCount: action.payload.objectCount,
       objectListExpires: action.payload.expires,
+      availableMissionsCount: action.payload.availableMissionsCount,
+      missionType: action.payload.missionType,
     },
   };
 }
@@ -361,6 +411,7 @@ function getConstellationObjectListSuccess(state, action) {
       objectCount: action.payload.objectCount,
       objectList: action.payload.objectList,
       objectListExpires: action.payload.expires,
+      missionType: action.payload.missionType,
     },
   };
 }
@@ -519,6 +570,7 @@ function getMissionSlotsByTelescopeSuccess(state, action) {
     isLoaded: true,
     byTelescope: {
       ...state.byTelescope,
+      missionListRefreshInterval: action.payload.refreshIntervalSec,
       missionList: action.payload.missionList,
     },
   };
@@ -544,4 +596,26 @@ function setSelectedSlot(state, action) {
       selectedSlot: action.payload,
     },
   };
+}
+
+// by Coordinates
+
+function setCoordinatesData(state, action) {
+  return {
+    ...state,
+    byCoordinates: {
+      ...state.byCoordinates,
+      coordinatesData: action.payload,
+    },
+  };
+}
+
+function setTargetName(state, action) {
+  return {
+    ...state,
+    byCoordinates: {
+      ...state.byCoordinates,
+      targetName: action.payload,
+    },
+  }
 }

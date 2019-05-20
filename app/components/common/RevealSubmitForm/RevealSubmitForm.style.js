@@ -4,10 +4,10 @@ import {
   shadows,
   romance,
   hawkesBlue,
-} from 'styles/variables/colors_tiles_v4';
-import { secondaryFont } from 'styles/variables/fonts';
-import { screenMedium, screenLarge } from 'styles/variables/breakpoints';
-import { profilePhotoStyle } from 'styles/mixins/utilities';
+} from 'app/styles/variables/colors_tiles_v4';
+import { secondaryFont } from 'app/styles/variables/fonts';
+import { screenMedium, screenLarge } from 'app/styles/variables/breakpoints';
+import { profilePhotoStyle } from 'app/styles/mixins/utilities';
 
 export const profPic = photoUrl =>
   Object.assign(profilePhotoStyle(photoUrl), {
@@ -42,12 +42,12 @@ export default css`
     padding: 60px 40px;
   }
   .fake-input {
-    -moz-box-shadow:    inset 0 0 7px 0 ${shadows};
+    -moz-box-shadow: inset 0 0 7px 0 ${shadows};
     -webkit-box-shadow: inset 0 0 7px 0 ${shadows};
     background-color: ${seashell};
     border-radius: 4px;
     border: 0;
-    box-shadow:         inset 0 0 7px 0 ${shadows};
+    box-shadow: inset 0 0 7px 0 ${shadows};
     font-family: ${secondaryFont};
     font-size: 16px;
     height: 60px;
@@ -58,12 +58,12 @@ export default css`
     width: 260px;
   }
   .reveal-form-input {
-    -moz-box-shadow:    inset 0 0 7px 0 ${shadows};
+    -moz-box-shadow: inset 0 0 7px 0 ${shadows};
     -webkit-box-shadow: inset 0 0 7px 0 ${shadows};
     background-color: ${seashell};
     border-radius: 4px;
     border: 0;
-    box-shadow:         inset 0 0 7px 0 ${shadows};
+    box-shadow: inset 0 0 7px 0 ${shadows};
     font-family: ${secondaryFont};
     font-size: 16px;
     margin: 0 auto;
@@ -80,7 +80,7 @@ export default css`
     padding-bottom: 4px;
     border-bottom: 1px solid ${hawkesBlue};
   }
-  
+
   .form-quote {
     padding: 15px;
     font-size: 20px;

@@ -9,11 +9,15 @@ import React from 'react';
 import PropTypes, { number } from 'prop-types';
 import uniqueId from 'lodash/uniqueId';
 import classnames from 'classnames';
-import { profilePhotoStyle } from 'styles/mixins/utilities';
-import { astronaut, geyser, shadows } from 'styles/variables/colors_tiles_v4';
-import { secondaryFont } from 'styles/variables/fonts';
-import { screenLarge } from 'styles/variables/breakpoints';
-import { faintShadow } from 'styles/variables/shadows';
+import { profilePhotoStyle } from 'app/styles/mixins/utilities';
+import {
+  astronaut,
+  geyser,
+  shadows,
+} from 'app/styles/variables/colors_tiles_v4';
+import { secondaryFont } from 'app/styles/variables/fonts';
+import { screenLarge } from 'app/styles/variables/breakpoints';
+import { faintShadow } from 'app/styles/variables/shadows';
 
 const { arrayOf, oneOf, bool, shape, string } = PropTypes;
 

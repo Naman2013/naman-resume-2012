@@ -1,6 +1,6 @@
 import css from 'styled-jsx/css';
-import { astronaut, romance } from 'styles/variables/colors_tiles_v4';
-import { primaryFont } from 'styles/variables/fonts';
+import { astronaut, romance } from 'app/styles/variables/colors_tiles_v4';
+import { primaryFont } from 'app/styles/variables/fonts';
 
 export default css`
   button {
@@ -35,7 +35,7 @@ export default css`
     width: 50px;
     height: 40px;
   }
-  
+
   .button-container.no-border {
     border: none;
     display: flex;
@@ -50,6 +50,4 @@ export default css`
   .active .text {
     color: ${romance};
   }
-
-
 `;

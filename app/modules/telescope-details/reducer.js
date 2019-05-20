@@ -11,6 +11,8 @@ import {
   FETCH_CURRENT_WEATHER_CONDITIONS_SUCCESS,
   FETCH_DAY_NIGHT_BAR_PANEL_START,
   FETCH_DAY_NIGHT_BAR_PANEL_SUCCESS,
+  FETCH_DAY_NIGHT_BAR_START,
+  FETCH_DAY_NIGHT_BAR_SUCCESS,
   FETCH_DAY_NIGHT_MAP_START,
   FETCH_DAY_NIGHT_MAP_SUCCESS,
   SET_CURRENT_OBSERVATORY,
@@ -24,7 +26,6 @@ import {
   RESET_VIEWED_MISSION_STATE,
   SET_CURRENT_INSTRUMENT,
 } from './actions';
-
 
 const initialState = {
   fetchingObservatoryList: true,
@@ -48,11 +49,12 @@ const initialState = {
     },
     statusList: {
       statusTeleList: [],
-    }
+    },
   },
 
   fetchingWeatherWidget: false,
   fetchingDayNightBarPanel: false,
+  fetchingDayNightBar: false,
   fetchingDayNightMap: false,
   weatherConditionWidgetResult: {
     apiError: false,
@@ -66,6 +68,9 @@ const initialState = {
     apiError: false,
     refreshIntervalSec: 0,
     dayNightBarPanelURL: '',
+  },
+  dayNightBar: {
+    apiError: false,
   },
   dayNightMap: {
     apiError: false,
@@ -126,7 +131,9 @@ export default createReducer(initialState, {
     return {
       ...state,
       fetchingObservatoryStatus: true,
-      allObservatoryTelescopeStatus: { ...initialState.allObservatoryTelescopeStatus },
+      allObservatoryTelescopeStatus: {
+        ...initialState.allObservatoryTelescopeStatus,
+      },
     };
   },
   [FETCH_TELESCOPE_STATUS_SUCCESS](state, { payload }) {
@@ -195,7 +202,9 @@ export default createReducer(initialState, {
     return {
       ...state,
       fetchingWeatherWidget: true,
-      weatherConditionWidgetResult: { ...initialState.weatherConditionWidgetResult },
+      weatherConditionWidgetResult: {
+        ...initialState.weatherConditionWidgetResult,
+      },
     };
   },
   [FETCH_CURRENT_WEATHER_CONDITIONS_SUCCESS](state, { payload }) {
@@ -217,6 +226,20 @@ export default createReducer(initialState, {
       ...state,
       fetchingDayNightBarPanel: false,
       dayNightBarPanel: payload,
+    };
+  },
+  [FETCH_DAY_NIGHT_BAR_START](state) {
+    return {
+      ...state,
+      fetchingDayNightBar: true,
+      dayNightBar: { ...initialState.dayNightBar },
+    };
+  },
+  [FETCH_DAY_NIGHT_BAR_SUCCESS](state, { payload }) {
+    return {
+      ...state,
+      fetchingDayNightBar: false,
+      dayNightBar: payload,
     };
   },
   [UPDATE_ACTIVE_SSE](state, { payload }) {

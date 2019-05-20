@@ -1,7 +1,11 @@
 import css from 'styled-jsx/css';
-import { primaryFont, secondaryFont } from 'styles/variables/fonts';
-import { astronaut, dukeBlue, thatBlue } from 'styles/variables/colors_tiles_v4';
-import { screenMedium } from 'styles/variables/breakpoints';
+import { primaryFont, secondaryFont } from 'app/styles/variables/fonts';
+import {
+  astronaut,
+  dukeBlue,
+  thatBlue,
+} from 'app/styles/variables/colors_tiles_v4';
+import { screenMedium } from 'app/styles/variables/breakpoints';
 
 export default css`
   .mobile-back-text-container {
@@ -41,8 +45,12 @@ export default css`
     color: white;
   }
 
-  .back-arrow { display: none; }
-  .context-menu-container { display: none }
+  .back-arrow {
+    display: none;
+  }
+  .context-menu-container {
+    display: none;
+  }
 
   .back-arrow :global(a) {
     display: flex;
@@ -72,8 +80,14 @@ export default css`
   }
 
   @media ${screenMedium} {
-    .mobile-back-text-container { display: none; }
-    .back-arrow { display: block; }
-    .context-menu-container { display: block; }
+    .mobile-back-text-container {
+      display: none;
+    }
+    .back-arrow {
+      display: block;
+    }
+    .context-menu-container {
+      display: block;
+    }
   }
 `;

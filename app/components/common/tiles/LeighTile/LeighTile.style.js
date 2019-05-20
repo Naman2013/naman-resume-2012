@@ -1,15 +1,14 @@
 import css from 'styled-jsx/css';
-import { primaryFont, secondaryFont } from 'styles/variables/fonts';
-import { geyser } from 'styles/variables/colors_tiles_v4';
-import { screenMedium } from 'styles/variables/breakpoints';
-
+import { primaryFont, secondaryFont } from 'app/styles/variables/fonts';
+import { geyser } from 'app/styles/variables/colors_tiles_v4';
+import { screenMedium } from 'app/styles/variables/breakpoints';
 
 export default css`
   .root {
     margin: 0 auto;
     padding: 0;
     padding: 40px;
-    box-shadow: 0px 0px 8px 1px rgba(65,86,113,.2);
+    box-shadow: 0px 0px 8px 1px rgba(65, 86, 113, 0.2);
     width: 96%;
   }
 
@@ -20,7 +19,7 @@ export default css`
     font-weight: normal;
     font-size: 18px;
     text-transform: capitalize;
-    color: #41566F;
+    color: #41566f;
     border-bottom: 1px solid ${geyser};
     padding-bottom: 30px;
   }
@@ -41,7 +40,7 @@ export default css`
     text-transform: uppercase;
     text-decoration: none;
     font-size: 10px;
-    color: #41566F;
+    color: #41566f;
   }
 
   @media ${screenMedium} {

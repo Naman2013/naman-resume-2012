@@ -6,29 +6,31 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Modal from 'react-modal';
 import { intlShape, injectIntl } from 'react-intl';
-import GroupTiles from 'components/groups-hub/group-tiles';
-import Request from 'components/common/network/Request';
-import RequestGroupForm from 'components/community-groups/request-group-form';
-import PromptWithClose from 'components/community-groups/prompt-with-close';
-import RequestGroupFormFeedback from 'components/community-groups/request-group-form-feedback';
-import HubContainer from 'components/common/HubContainer';
-import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
-import ShowMoreWithNetwork from 'components/common/show-more-with-network';
-import { GROUPS_PAGE_ENDPOINT_URL, GET_GROUPS } from 'services/community-groups';
+import GroupTiles from 'app/components/groups-hub/group-tiles';
+import Request from 'app/components/common/network/Request';
+import RequestGroupForm from 'app/components/community-groups/request-group-form';
+import PromptWithClose from 'app/components/community-groups/prompt-with-close';
+import RequestGroupFormFeedback from 'app/components/community-groups/request-group-form-feedback';
+import HubContainer from 'app/components/common/HubContainer';
+import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
+import ShowMoreWithNetwork from 'app/components/common/show-more-with-network';
+import {
+  GROUPS_PAGE_ENDPOINT_URL,
+  GET_GROUPS,
+} from 'app/services/community-groups';
 import { DeviceContext } from 'providers/DeviceProvider';
-import Button from 'components/common/style/buttons/Button';
-import { validateResponseAccess } from 'modules/authorization/actions'
-import { customModalStylesBlackOverlay } from 'styles/mixins/utilities';
-import { requestGroup } from 'services/community-groups/request-group';
+import Button from 'app/components/common/style/buttons/Button';
+import { validateResponseAccess } from 'app/modules/authorization/actions';
+import { customModalStylesBlackOverlay } from 'app/styles/mixins/utilities';
+import { requestGroup } from 'app/services/community-groups/request-group';
 import { browserHistory } from 'react-router';
 import { ACTION as clubsActions } from '../../modules/clubs/reducer';
-import { GOOGLE_CLASSROOM_GET_CLASSROOM_LIST_ENDPOINT_URL } from 'services/classroom/classroom.js';
+import { GOOGLE_CLASSROOM_GET_CLASSROOM_LIST_ENDPOINT_URL } from 'app/services/classroom/classroom.js';
 import style from './groups-hub.style';
 import messages from './GroupsHub.messages';
 
 const COUNT = 9;
 const DEFAULT_PAGE = 1;
-
 
 const groupsHubModel = {
   name: 'GROUP_HUB_MODEL',
@@ -59,7 +61,7 @@ class Groups extends Component {
   static defaultProps = {
     validateResponseAccess: noop,
     params: {
-      filterType: 'all'
+      filterType: 'all',
     },
   };
 
@@ -69,39 +71,40 @@ class Groups extends Component {
     promptText: '',
   };
 
-  updateGroupsList = (resData) => {
+  updateGroupsList = resData => {
     this.setState(() => ({
       groups: resData.groups,
     }));
-  }
+  };
 
   updateGroupItemInfo = (id, resData) => {
     let newGroupsList = [].concat(this.state.groups);
-    newGroupsList = newGroupsList.map((group) => {
+    newGroupsList = newGroupsList.map(group => {
       if (group.discussionGroupId === id) {
         return Object.assign(group, resData);
       }
       return group;
     });
 
-
     if (resData.removeGroupFlag) {
-      newGroupsList = newGroupsList.filter(group => group.discussionGroupId !== id);
+      newGroupsList = newGroupsList.filter(
+        group => group.discussionGroupId !== id
+      );
     }
 
     this.setState(() => ({
       groups: newGroupsList,
     }));
-  }
+  };
 
-  appendToGroupsList = (resData) => {
-    this.setState((state) => {
-      const groups = [].concat(state.groups, resData.groups)
+  appendToGroupsList = resData => {
+    this.setState(state => {
+      const groups = [].concat(state.groups, resData.groups);
       return {
-        groups
+        groups,
       };
     });
-  }
+  };
 
   submitRequestForm = ({
     requestFormTitle,
@@ -116,91 +119,89 @@ class Groups extends Component {
       title: requestFormTitle,
       access: requestFormPrivacy,
       definition: requestFormText,
-    })
-      .then((res) => {
-        if (!res.data.apiError) {
-          this.setState({
-            showPrompt: res.data.showResponse,
-            promptText: (<RequestGroupFormFeedback
+    }).then(res => {
+      if (!res.data.apiError) {
+        this.setState({
+          showPrompt: res.data.showResponse,
+          promptText: (
+            <RequestGroupFormFeedback
               promptText={res.data.response}
               closeForm={this.closeModal}
               requestNew={this.requestGroup}
-            />),
-          });
-        } else {
-          this.setState({
-            showPrompt: true,
-            promptText: (<RequestGroupFormFeedback
+            />
+          ),
+        });
+      } else {
+        this.setState({
+          showPrompt: true,
+          promptText: (
+            <RequestGroupFormFeedback
               promptText={intl.formatMessage(messages.errorSubmitting)}
               closeForm={this.closeModal}
               requestNew={this.requestGroup}
-            />),
-          });
-        }
-        actions.validateResponseAccess(res);
-      });
-  }
+            />
+          ),
+        });
+      }
+      actions.validateResponseAccess(res);
+    });
+  };
 
   requestGroup = () => {
     this.setState({
       showPrompt: true,
-      promptText: <RequestGroupForm
-        submitForm={this.submitRequestForm}
-        closeForm={this.closeModal}
-      />
+      promptText: (
+        <RequestGroupForm
+          submitForm={this.submitRequestForm}
+          closeForm={this.closeModal}
+        />
+      ),
     });
-  }
+  };
 
-  updatePrompt = (data) => {
+  updatePrompt = data => {
     this.setState({
       showPrompt: data.showPrompt,
-      promptText: <PromptWithClose
-        promptText={data.promptText}
-        closeForm={this.closeModal}
-      />,
-    })
-  }
+      promptText: (
+        <PromptWithClose
+          promptText={data.promptText}
+          closeForm={this.closeModal}
+        />
+      ),
+    });
+  };
 
   closeModal = () => {
     this.setState({
       showPrompt: false,
       promptText: '',
     });
-  }
+  };
 
   clearGroups = () => {
     this.setState({
       groups: [],
     });
-  }
+  };
 
   render() {
-    const {
-      user,
-      actions,
-      intl,
-      isFetching,
-    } = this.props;
+    const { user, actions, intl, isFetching } = this.props;
 
-    const {
-      groups,
-      showPrompt,
-      promptText,
-    } = this.state;
+    const { groups, showPrompt, promptText } = this.state;
 
-    return (<div>
-      <Request
-        serviceURL={GROUPS_PAGE_ENDPOINT_URL}
-        model={groupsHubModel}
-        requestBody={{ currentGroupSet: this.props.params.filterType }}
-        render={({
-          fetchingContent,
-          modeledResponses: { GROUP_HUB_MODEL },
-          serviceResponse = {},
-        }) => (
-          <Fragment>
-            {
-              !fetchingContent &&
+    return (
+      <div>
+        <Request
+          serviceURL={GROUPS_PAGE_ENDPOINT_URL}
+          model={groupsHubModel}
+          requestBody={{ currentGroupSet: this.props.params.filterType }}
+          render={({
+            fetchingContent,
+            modeledResponses: { GROUP_HUB_MODEL },
+            serviceResponse = {},
+          }) => (
+            <Fragment>
+              {!fetchingContent && (
                 <DeviceContext.Consumer>
                   {context => (
                     <HubContainer
@@ -220,7 +221,12 @@ class Groups extends Component {
                       }}
                       renderRightMenu={() => (
                         <div className="flex">
-                          {serviceResponse.canRequestGroup ? <Button text={intl.formatMessage(messages.requestGroup)} onClickEvent={this.requestGroup} /> : null}
+                          {serviceResponse.canRequestGroup ? (
+                            <Button
+                              text={intl.formatMessage(messages.requestGroup)}
+                              onClickEvent={this.requestGroup}
+                            />
+                          ) : null}
                         </div>
                       )}
                       updateList={this.updateGroupsList}
@@ -236,8 +242,10 @@ class Groups extends Component {
                       }}
                       render={() => (
                         <Fragment>
-                          {isFetching ? <div>{intl.formatMessage(messages.loading)}</div> : null}
-                          {!isFetching &&
+                          {isFetching ? (
+                            <div>{intl.formatMessage(messages.loading)}</div>
+                          ) : null}
+                          {!isFetching && (
                             <GroupTiles
                               filterType={this.props.params.filterType}
                               closeModal={this.closeModal}
@@ -245,44 +253,49 @@ class Groups extends Component {
                               updatePrompt={this.updatePrompt}
                               groups={groups}
                               isMobile={context.isMobile}
-                            />}
+                            />
+                          )}
                         </Fragment>
                       )}
                     />
                   )}
                 </DeviceContext.Consumer>
-            }
-          </Fragment>
-        )}
-      />
-      <Modal
-        ariaHideApp={false}
-        isOpen={showPrompt}
-        style={customModalStylesBlackOverlay}
-        contentLabel="Groups"
-        shouldCloseOnOverlayClick={false}
-        onRequestClose={this.closeModal}
-      >
-        {promptText}
-      </Modal>
-      <style jsx>{style}</style>
-    </div>)
+              )}
+            </Fragment>
+          )}
+        />
+        <Modal
+          ariaHideApp={false}
+          isOpen={showPrompt}
+          style={customModalStylesBlackOverlay}
+          contentLabel="Groups"
+          shouldCloseOnOverlayClick={false}
+          onRequestClose={this.closeModal}
+        >
+          {promptText}
+        </Modal>
+        <style jsx>{style}</style>
+      </div>
+    );
   }
 }
 
-const mapStateToProps = ({
-  user,
-  clubs,
-}) => ({
+const mapStateToProps = ({ user, clubs }) => ({
   user,
   isFetching: clubs.isFetching,
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({
-    validateResponseAccess,
-    ...clubsActions,
-  }, dispatch),
+  actions: bindActionCreators(
+    {
+      validateResponseAccess,
+      ...clubsActions,
+    },
+    dispatch
+  ),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(injectIntl(Groups));
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(injectIntl(Groups));

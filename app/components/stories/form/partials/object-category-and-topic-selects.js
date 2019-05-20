@@ -1,14 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import SelectList from 'components/common/form-sections/select-list';
+import SelectList from 'app/components/common/form-sections/select-list';
 import messages from './object-category-and-topic-selects.messages';
 import styles from './object-category-and-topic-selects.style';
 
-const {
-  arrayOf, func, shape, string,
-} = PropTypes;
-const ObjectCategoryAndTopicSelects = (props) => {
+const { arrayOf, func, shape, string } = PropTypes;
+const ObjectCategoryAndTopicSelects = props => {
   const {
     formattedCategoryTopics,
     formattedObjectCategories,
@@ -53,14 +51,18 @@ const ObjectCategoryAndTopicSelects = (props) => {
 };
 
 ObjectCategoryAndTopicSelects.propTypes = {
-  formattedCategoryTopics: arrayOf(shape({
-    value: string.isRequired,
-    label: string.isRequired,
-  })),
-  formattedObjectCategories: arrayOf(shape({
-    value: string.isRequired,
-    label: string.isRequired,
-  })),
+  formattedCategoryTopics: arrayOf(
+    shape({
+      value: string.isRequired,
+      label: string.isRequired,
+    })
+  ),
+  formattedObjectCategories: arrayOf(
+    shape({
+      value: string.isRequired,
+      label: string.isRequired,
+    })
+  ),
   onSelectObjectCategory: func.isRequired,
   onSelectObjectTopic: func.isRequired,
   selectedObjectCategory: string,

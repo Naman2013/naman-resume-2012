@@ -1,6 +1,12 @@
 import css from 'styled-jsx/css';
 import { primaryFont, secondaryFont } from '../../../styles/variables/fonts';
-import { astronaut, romance, lynch, geyser, iron } from '../../../styles/variables/colors_tiles_v4';
+import {
+  astronaut,
+  romance,
+  lynch,
+  geyser,
+  iron,
+} from '../../../styles/variables/colors_tiles_v4';
 import { screenXLarge } from '../../../styles/variables/breakpoints';
 
 export default css`
@@ -9,7 +15,7 @@ export default css`
     letter-spacing: 1px;
     background-color: ${romance};
     background-size: 22px;
-    box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.2);
+    box-shadow: 0px 0px 3px 1px rgba(0, 0, 0, 0.2);
     color: ${astronaut};
     font-family: ${secondaryFont};
     padding: 50px;
@@ -28,6 +34,10 @@ export default css`
     float: right;
     margin-left: 20px;
     margin-bottom: 20px;
+  }
+
+  .bc-img img {
+    width: 100%;
   }
 
   .bc-left {

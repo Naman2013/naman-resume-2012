@@ -1,13 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import isUndefined from 'lodash/isUndefined';
-import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
-import { screenMedium, screenLarge, screenXLarge } from 'styles/variables/breakpoints';
-import { geyser } from 'styles/variables/colors_tiles_v4';
+import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
+import {
+  screenMedium,
+  screenLarge,
+  screenXLarge,
+} from 'app/styles/variables/breakpoints';
+import { geyser } from 'app/styles/variables/colors_tiles_v4';
 import style from './StaticCell.style';
 
 function getScaleTarget(scale = [], targetIndex = 0) {
-  return isUndefined(scale[targetIndex]) ? scale[scale.length - 1] : scale[targetIndex];
+  return isUndefined(scale[targetIndex])
+    ? scale[scale.length - 1]
+    : scale[targetIndex];
 }
 
 function getBorderStyle(hasBorder = false) {
@@ -29,7 +35,7 @@ const StaticCell = ({
       {
         borderColor: geyser,
       },
-      theme,
+      theme
     )}
   >
     <div className="positioning-container">

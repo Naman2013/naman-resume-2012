@@ -1,49 +1,169 @@
 // @flow
 import { actions, constants } from 'ducks-helpers';
 import { handleActions } from 'redux-actions';
+import { set } from 'qim';
 import { TInitialState } from './types';
 
-export const TYPE = constants('account-settings', []);
+export const TYPE = constants('account-settings', [
+  '~FETCH_ACCOUNT_SETTINGS',
+  '~FETCH_ACCOUNT_FORM_FIELD',
+  '~GET_SUBSCRIPTION_PLANS',
+  '~RESET_PASSWORD',
+  'DISMISS_PASSWORD_POPUP',
+  '~GET_DASHBOARD_POPUP_INFO',
+]);
 export const ACTION = actions(TYPE);
 
 export const initialState: TInitialState = {
   isFetching: false,
+  isFetchingFormField: false,
   isLoaded: false,
   serverError: null,
+  accountMenuList: {},
+  accountTypeSection: {},
+  accountDetails: {},
+  accountCancelSection: {},
+  showForgetPasswordPopup: false,
+  forgetPasswordText: '',
 
-  // mocked
-  accountTypeItems: [
-    {label: 'USD/Monthly', name: '$00.00'},
-    {label: 'Joined', name: 'Sept. 12'},
-    {label: 'Renews', name: 'Oct. 22, 2019'},
-    {label: 'Status', name: 'Active'}
-  ],
-  accountDetailsOptions: [
-    {count: 1, name: 'Name on account', type: 'John Snow'},
-    {count: 1, name: 'Display name', type: 'Epic Knight'}
-  ],
-  paymentDetailsOptions: [
-    {count: 1, name: 'Payment method', type: 'Credit card'},
-    {count: 1, name: 'Display location', type: 'Some place on map'},
-  ]
+  subscriptionPlans: {
+    isFetching: false,
+    data: {},
+  },
+  dashboardPopupInfo: {},
 };
 
 export default handleActions(
   {
-    //actions
+    [TYPE.FETCH_ACCOUNT_SETTINGS]: fetchAccountSettings,
+    [TYPE.FETCH_ACCOUNT_SETTINGS_SUCCESS]: fetchAccountSettingsSuccess,
+    [TYPE.FETCH_ACCOUNT_SETTINGS_ERROR]: fetchAccountSettingsError,
+
+    [TYPE.FETCH_ACCOUNT_FORM_FIELD]: fetchAccountFormField,
+    [TYPE.FETCH_ACCOUNT_FORM_FIELD_SUCCESS]: fetchAccountFormFieldSuccess,
+    [TYPE.FETCH_ACCOUNT_FORM_FIELD_ERROR]: fetchAccountFormFieldError,
+
+    [TYPE.GET_SUBSCRIPTION_PLANS]: getSubscriptionPlan,
+    [TYPE.GET_SUBSCRIPTION_PLANS_SUCCESS]: getSubscriptionPlanSuccess,
+
+    [TYPE.RESET_PASSWORD_START]: resetPasswordStart,
+    [TYPE.RESET_PASSWORD_SUCCESS]: resetPasswordSuccess,
+    [TYPE.DISMISS_PASSWORD_POPUP]: dismissResetPasswordPopup,
+
+    [TYPE.GET_DASHBOARD_POPUP_INFO_START]: getDashboardPopupInfo,
+    [TYPE.GET_DASHBOARD_POPUP_INFO_SUCCESS]: getDashboardPopupInfoSuccess,
+    [TYPE.GET_DASHBOARD_POPUP_INFO_ERROR]: getDashboardPopupInfoError,
   },
   initialState
 );
 
-function setFetching(state) {
-  return { ...state, isFetching: true, isLoaded: false };
+function getDashboardPopupInfo(state) {
+  return set(['isFetching'], true, state);
 }
 
-function setServerError(state, action) {
+function getDashboardPopupInfoSuccess(state, { payload }) {
+  return {
+    ...state,
+    dashboardPopupInfo: payload,
+  };
+}
+
+function getDashboardPopupInfoError(state, action) {
+  return set(['serverError'], action.payload, state);
+}
+
+function fetchAccountSettings(state) {
+  return set(['isFetching'], true, state);
+}
+
+function fetchAccountSettingsSuccess(state, action) {
+  const {
+    accountMenuList,
+    accountTypeSection,
+    accountDetails,
+    accountCancelSection,
+  } = action.payload;
   return {
     ...state,
     isFetching: false,
-    serverError: action.payload,
-    isLoaded: false,
+    isLoaded: true,
+    accountMenuList,
+    accountTypeSection,
+    accountDetails,
+    accountCancelSection,
   };
+}
+
+function fetchAccountSettingsError(state, action) {
+  return set(['serverError'], action.payload, state);
+}
+
+function fetchAccountFormField(state) {
+  return set(['isFetchingFormField'], true, state);
+}
+
+function fetchAccountFormFieldSuccess(state, action) {
+  const { status } = action.payload;
+  const { formFieldName, newValue } = action.meta;
+  return status === 'success'
+    ? {
+        ...state,
+        isFetchingFormField: false,
+        accountDetails: {
+          ...state.accountDetails,
+          formFields: {
+            ...state.accountDetails.formFields,
+            [formFieldName]: {
+              ...state.accountDetails.formFields[formFieldName],
+              currentValue: newValue,
+            },
+          },
+        },
+      }
+    : { ...state, isFetchingFormField: false };
+}
+
+function fetchAccountFormFieldError(state, action) {
+  return set(['serverError'], action.payload, state);
+}
+
+function getSubscriptionPlan(state) {
+  return {
+    ...state,
+    subscriptionPlans: {
+      ...state.subscriptionPlans,
+      isFetching: true,
+      data: {},
+    },
+  };
+}
+
+function getSubscriptionPlanSuccess(state, { payload }) {
+  return {
+    ...state,
+    subscriptionPlans: {
+      ...state.subscriptionPlans,
+      isFetching: false,
+      data: payload,
+    },
+  };
+}
+
+function resetPasswordStart(state) {
+  return {
+    ...state,
+    isFetching: true,
+  };
+}
+
+function resetPasswordSuccess(state, { payload }) {
+  return {
+    ...state,
+    showForgetPasswordPopup: true,
+    forgetPasswordText: payload,
+  };
+}
+
+export function dismissResetPasswordPopup(state) {
+  return { ...state, showForgetPasswordPopup: false };
 }

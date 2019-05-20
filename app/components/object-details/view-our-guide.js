@@ -1,14 +1,9 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import RubyTitle from 'atoms/titles/RubyTitle';
-import GuideTile from 'components/common/tiles/guide-tile';
+import GuideTile from 'app/components/common/tiles/guide-tile';
 import styles from './view-our-guide.style';
-const ViewOurGuide = ({
-  guideHeader,
-  guideTitle,
-  guideUrl,
-  guideSubTitle,
-}) => (
+const ViewOurGuide = ({ guideHeader, guideTitle, guideUrl, guideSubTitle }) => (
   <div className="root">
     <RubyTitle text={guideHeader} />
     <GuideTile
@@ -21,8 +16,6 @@ const ViewOurGuide = ({
   </div>
 );
 
-ViewOurGuide.propTypes = {
-
-};
+ViewOurGuide.propTypes = {};
 
 export default ViewOurGuide;

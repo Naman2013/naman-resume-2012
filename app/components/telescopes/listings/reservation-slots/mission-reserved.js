@@ -15,14 +15,20 @@ import {
 import { editCoordinateMission } from '../../../../modules/mission-slots-by-telescope/mission-slots-by-telescope-actions';
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({
-    grabPiggybackByTelescope,
-    resetMissionAvailability,
-    editCoordinateMission,
-  }, dispatch),
+  actions: bindActionCreators(
+    {
+      grabPiggybackByTelescope,
+      resetMissionAvailability,
+      editCoordinateMission,
+    },
+    dispatch
+  ),
 });
 
-@connect(null, mapDispatchToProps)
+@connect(
+  null,
+  mapDispatchToProps
+)
 class MissionReserved extends Component {
   constructor(props) {
     super(props);
@@ -32,14 +38,17 @@ class MissionReserved extends Component {
   handlePiggybackClick(event) {
     event.preventDefault();
     const { uniqueId, scheduledMissionId } = this.props;
-    this.props.actions.grabPiggybackByTelescope({ uniqueId, scheduledMissionId });
+    this.props.actions.grabPiggybackByTelescope({
+      uniqueId,
+      scheduledMissionId,
+    });
   }
 
-  handleEditCoordinatesClick = (event) => {
+  handleEditCoordinatesClick = event => {
     event.preventDefault();
     const { missionIndex } = this.props;
     this.props.actions.editCoordinateMission(missionIndex);
-  }
+  };
 
   renderMissionStatus() {
     const {
@@ -47,7 +56,7 @@ class MissionReserved extends Component {
       showShareMissionIcons,
       shareMissionIconsText,
       showEditCoordinatesButton,
-     } = this.props;
+    } = this.props;
 
     if (showPiggybackButton) {
       return (
@@ -75,7 +84,10 @@ class MissionReserved extends Component {
     if (showEditCoordinatesButton) {
       return (
         <div className="col-xs-2 piggyback-on-mission-action">
-          <button onClick={this.handleEditCoordinatesClick} className="btn-primary">
+          <button
+            onClick={this.handleEditCoordinatesClick}
+            className="btn-primary"
+          >
             Edit Coordinates
           </button>
         </div>
@@ -86,11 +98,7 @@ class MissionReserved extends Component {
   }
 
   render() {
-    const {
-      slotIconURL,
-      missionStart,
-      slotTitle,
-      showSlotTimes } = this.props;
+    const { slotIconURL, missionStart, slotTitle, showSlotTimes } = this.props;
 
     const containerClassnames = classnames({
       'telescope-listings-item': 1,
@@ -99,14 +107,8 @@ class MissionReserved extends Component {
 
     return (
       <li className={containerClassnames}>
-
         <div className="col-xs-2">
-          {
-            showSlotTimes ?
-              <MissionTime
-                startTime={missionStart}
-              /> : null
-          }
+          {showSlotTimes ? <MissionTime startTime={missionStart} /> : null}
         </div>
 
         <div className="col-xs-4 slot-description">
@@ -116,9 +118,7 @@ class MissionReserved extends Component {
 
         <UserDetails {...this.props} />
 
-        {
-          this.renderMissionStatus()
-        }
+        {this.renderMissionStatus()}
       </li>
     );
   }

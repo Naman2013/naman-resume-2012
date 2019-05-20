@@ -1,6 +1,6 @@
 import css from 'styled-jsx/css';
-import { resetMarginPadding } from 'styles/variables/utils';
-import { screenMedium, screenLarge } from 'styles/variables/breakpoints';
+import { resetMarginPadding } from 'app/styles/variables/utils';
+import { screenMedium, screenLarge } from 'app/styles/variables/breakpoints';
 
 export default css`
   .group-tiles-root {

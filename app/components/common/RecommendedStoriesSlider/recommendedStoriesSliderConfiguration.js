@@ -1,8 +1,8 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import has from 'lodash/has';
-import defaultSliderConfiguration from 'components/common/Slider/sliderConfig';
-import StoryTile from 'components/common/tiles/StoryTile';
+import defaultSliderConfiguration from 'app/components/common/Slider/sliderConfig';
+import StoryTile from 'app/components/common/tiles/StoryTile';
 
 import messages from './RecommendedStoriesSlider.messages';
 

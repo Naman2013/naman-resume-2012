@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import MonotonousTile from 'components/common/tiles/MonotonousTile';
-import LiveShowVideoViewer from 'components/LiveShowVideoViewer';
+import MonotonousTile from 'app/components/common/tiles/MonotonousTile';
+import LiveShowVideoViewer from 'app/components/LiveShowVideoViewer';
 import styles from './BigBoxInfoContainer.style';
 
 const { arrayOf, bool, number, oneOfType, shape, string } = PropTypes;

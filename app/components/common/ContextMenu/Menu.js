@@ -13,11 +13,13 @@ const Menu = ({ list }) => (
 );
 
 Menu.propTypes = {
-  list: PropTypes.arrayOf(PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    linkURL: PropTypes.string.isRequired,
-    iconUrl: PropTypes.string,
-  })).isRequired,
+  list: PropTypes.arrayOf(
+    PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      linkURL: PropTypes.string.isRequired,
+      iconUrl: PropTypes.string,
+    })
+  ).isRequired,
 };
 
 export default Menu;

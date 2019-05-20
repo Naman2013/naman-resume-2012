@@ -15,11 +15,15 @@ export class MissionTimeSlot extends PureComponent {
       slotTitle,
       ownerAvatarURL,
       ownerDisplayName,
-      missionStart,
+      missionStartFormatted,
       showSloohUser,
     } = timeSlot;
+    const {
+      displayOtherTimeZones,
+      displayTime,
+      displayTimeZone,
+    } = missionStartFormatted;
 
-    const missionStartTime = moment(missionStart * 1000);
     const missionSlotOnClick =
       SLOT_STATUS.AVAILABLE === slotStatus
         ? () => getTelescopeSlot()
@@ -63,13 +67,10 @@ export class MissionTimeSlot extends PureComponent {
           <div className="actions" />
           <div className="time">
             <div className="large">
-              {missionStartTime.format('HH:mm')}
-              <span className="timezone">UTC</span>
+              {displayTime}
+              <span className="timezone">{displayTimeZone}</span>
             </div>
-            <div className="other">
-              {missionStartTime.tz('America/New_York').format('LT')} EDT /{' '}
-              {missionStartTime.tz('America/Los_Angeles').format('LT')} PDT
-            </div>
+            <div className="other">{displayOtherTimeZones}</div>
           </div>
         </div>
 
@@ -84,13 +85,10 @@ export class MissionTimeSlot extends PureComponent {
 
           <div className="time">
             <div className="large">
-              {missionStartTime.format('HH:mm')}
-              <span className="timezone">UTC</span>
+              {displayTime}
+              <span className="timezone">{displayTimeZone}</span>
             </div>
-            <div className="other">
-              {missionStartTime.tz('America/New_York').format('LT')} EDT /{' '}
-              {missionStartTime.tz('America/Los_Angeles').format('LT')} PDT
-            </div>
+            <div className="other">{displayOtherTimeZones}</div>
           </div>
 
           <div className="mission-owner">

@@ -25,28 +25,88 @@ export const removeUser = createAction(REMOVE_USER);
 const cookieD = cookieDomain || 'localhost';
 const cookieSecure = !!cookieDomain;
 
-export function store({ reload, cid, token, at, fname, avatarURL, subscriptionPlanName, googleProfileId }) {
-  window.document.cookie = cookie.serialize('cid', cid, { domain: cookieD, secure: cookieSecure, expires: futureDate, path: COOKIE_PATH });
-  window.document.cookie = cookie.serialize('token', token, { domain: cookieD, secure: cookieSecure, expires: futureDate, path: COOKIE_PATH });
-  window.document.cookie = cookie.serialize('at', at, { domain: cookieD, secure: cookieSecure, expires: futureDate, path: COOKIE_PATH });
-  window.document.cookie = cookie.serialize('fname', fname, { domain: cookieD, secure: cookieSecure, expires: futureDate, path: COOKIE_PATH });
-  window.document.cookie = cookie.serialize('avatarURL', avatarURL, { domain: cookieD, secure: cookieSecure, expires: futureDate, path: COOKIE_PATH });
-  window.document.cookie = cookie.serialize('subscriptionPlanName', subscriptionPlanName, { domain: cookieD, secure: cookieSecure, expires: futureDate, path: COOKIE_PATH });
-  window.document.cookie = cookie.serialize('googleProfileId', googleProfileId, { domain: cookieD, secure: cookieSecure, expires: futureDate, path: COOKIE_PATH });
+export function store({
+  reload,
+  cid,
+  customerUUID,
+  token,
+  at,
+  fname,
+  avatarURL,
+  subscriptionPlanName,
+  googleProfileId,
+}) {
+  window.document.cookie = cookie.serialize('cid', cid, {
+    domain: cookieD,
+    secure: cookieSecure,
+    expires: futureDate,
+    path: COOKIE_PATH,
+  });
+  window.document.cookie = cookie.serialize('customerUUID', customerUUID, {
+    domain: cookieD,
+    secure: cookieSecure,
+    expires: futureDate,
+    path: COOKIE_PATH,
+  });
+  window.document.cookie = cookie.serialize('token', token, {
+    domain: cookieD,
+    secure: cookieSecure,
+    expires: futureDate,
+    path: COOKIE_PATH,
+  });
+  window.document.cookie = cookie.serialize('at', at, {
+    domain: cookieD,
+    secure: cookieSecure,
+    expires: futureDate,
+    path: COOKIE_PATH,
+  });
+  window.document.cookie = cookie.serialize('fname', fname, {
+    domain: cookieD,
+    secure: cookieSecure,
+    expires: futureDate,
+    path: COOKIE_PATH,
+  });
+  window.document.cookie = cookie.serialize('avatarURL', avatarURL, {
+    domain: cookieD,
+    secure: cookieSecure,
+    expires: futureDate,
+    path: COOKIE_PATH,
+  });
+  window.document.cookie = cookie.serialize(
+    'subscriptionPlanName',
+    subscriptionPlanName,
+    {
+      domain: cookieD,
+      secure: cookieSecure,
+      expires: futureDate,
+      path: COOKIE_PATH,
+    }
+  );
+  window.document.cookie = cookie.serialize(
+    'googleProfileId',
+    googleProfileId,
+    {
+      domain: cookieD,
+      secure: cookieSecure,
+      expires: futureDate,
+      path: COOKIE_PATH,
+    }
+  );
   if (reload) {
     window.location.reload();
   }
-  return (dispatch) => {
+  return dispatch => {
     dispatch(
       set({
         cid,
+        customerUUID,
         token,
         at,
         fname,
         avatarURL,
         subscriptionPlanName,
         googleProfileId,
-      }),
+      })
     );
   };
 }
@@ -59,25 +119,81 @@ const setPlayerState = ({ playerMuted, playerVolume }) => ({
 
 export function destroySession() {
   window.localStorage.removeItem('user');
-  window.document.cookie = cookie.serialize('cid', '', { domain: cookieD, secure: cookieSecure, expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT'), path: COOKIE_PATH });
-  window.document.cookie = cookie.serialize('token', '', { domain: cookieD, secure: cookieSecure, expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT'), path: COOKIE_PATH });
-  window.document.cookie = cookie.serialize('at', '', { domain: cookieD, secure: cookieSecure, expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT'), path: COOKIE_PATH });
-  window.document.cookie = cookie.serialize('fname', '', { domain: cookieD, secure: cookieSecure, expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT'), path: COOKIE_PATH });
-  window.document.cookie = cookie.serialize('avatarURL', '', { domain: cookieD, secure: cookieSecure, expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT'), path: COOKIE_PATH });
-  window.document.cookie = cookie.serialize('subscriptionPlanName', '', { domain: cookieD, secure: cookieSecure, expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT'), path: COOKIE_PATH });
-  window.document.cookie = cookie.serialize('googleProfileId', '', { domain: cookieD, secure: cookieSecure, expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT'), path: COOKIE_PATH });
+  window.document.cookie = cookie.serialize('cid', '', {
+    domain: cookieD,
+    secure: cookieSecure,
+    expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT'),
+    path: COOKIE_PATH,
+  });
+  window.document.cookie = cookie.serialize('customerUUID', '', {
+    domain: cookieD,
+    secure: cookieSecure,
+    expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT'),
+    path: COOKIE_PATH,
+  });
+  window.document.cookie = cookie.serialize('token', '', {
+    domain: cookieD,
+    secure: cookieSecure,
+    expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT'),
+    path: COOKIE_PATH,
+  });
+  window.document.cookie = cookie.serialize('at', '', {
+    domain: cookieD,
+    secure: cookieSecure,
+    expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT'),
+    path: COOKIE_PATH,
+  });
+  window.document.cookie = cookie.serialize('fname', '', {
+    domain: cookieD,
+    secure: cookieSecure,
+    expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT'),
+    path: COOKIE_PATH,
+  });
+  window.document.cookie = cookie.serialize('avatarURL', '', {
+    domain: cookieD,
+    secure: cookieSecure,
+    expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT'),
+    path: COOKIE_PATH,
+  });
+  window.document.cookie = cookie.serialize('subscriptionPlanName', '', {
+    domain: cookieD,
+    secure: cookieSecure,
+    expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT'),
+    path: COOKIE_PATH,
+  });
+  window.document.cookie = cookie.serialize('googleProfileId', '', {
+    domain: cookieD,
+    secure: cookieSecure,
+    expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT'),
+    path: COOKIE_PATH,
+  });
 }
 
 function updatePlayerVolumeCookie(volume) {
-  window.document.cookie = cookie.serialize('playerVolume', volume, { domain: cookieD, secure: cookieSecure, expires: futureDate, path: COOKIE_PATH });
+  window.document.cookie = cookie.serialize('playerVolume', volume, {
+    domain: cookieD,
+    secure: cookieSecure,
+    expires: futureDate,
+    path: COOKIE_PATH,
+  });
 }
 
 function mutePlayerCookie() {
-  window.document.cookie = cookie.serialize('playerMuted', true, { domain: cookieD, secure: cookieSecure, expires: futureDate, path: COOKIE_PATH });
+  window.document.cookie = cookie.serialize('playerMuted', true, {
+    domain: cookieD,
+    secure: cookieSecure,
+    expires: futureDate,
+    path: COOKIE_PATH,
+  });
 }
 
 function unmutePlayerCookie() {
-  window.document.cookie = cookie.serialize('playerMuted', false, { domain: cookieD, secure: cookieSecure, expires: futureDate, path: COOKIE_PATH });
+  window.document.cookie = cookie.serialize('playerMuted', false, {
+    domain: cookieD,
+    secure: cookieSecure,
+    expires: futureDate,
+    path: COOKIE_PATH,
+  });
 }
 
 export const mutePlayer = () => {
@@ -94,7 +210,7 @@ export const unmutePlayer = () => {
   };
 };
 
-export const updatePlayerVolume = (volume) => {
+export const updatePlayerVolume = volume => {
   updatePlayerVolumeCookie(volume);
   return {
     type: UPDATE_PLAYER_VOLUME,
@@ -111,7 +227,7 @@ export const logout = () => {
 export function destroy() {
   destroySession();
 
-  return (dispatch) => {
+  return dispatch => {
     dispatch(removeUser());
   };
 }
@@ -121,10 +237,19 @@ export function destroy() {
   checks if user is logged in
   */
 export function checkUser(pathname, replace, callback) {
-  return (dispatch) => {
-    const { cid, token, at, fname, avatarURL, playerMuted, playerVolume, subscriptionPlanName, googleProfileId } = cookie.parse(
-      window.document.cookie,
-    );
+  return dispatch => {
+    const {
+      cid,
+      customerUUID,
+      token,
+      at,
+      fname,
+      avatarURL,
+      playerMuted,
+      playerVolume,
+      subscriptionPlanName,
+      googleProfileId,
+    } = cookie.parse(window.document.cookie);
 
     const castedVolume = parseInt(playerVolume, 10) || 25;
     const castedMute = playerMuted == 'true';
@@ -134,7 +259,7 @@ export function checkUser(pathname, replace, callback) {
       setPlayerState({
         playerVolume: castedVolume,
         playerMuted: castedMute,
-      }),
+      })
     );
 
     // if we have a user to set, set it
@@ -142,13 +267,14 @@ export function checkUser(pathname, replace, callback) {
       dispatch(
         store({
           cid,
+          customerUUID,
           token,
           at,
           fname,
           avatarURL,
           subscriptionPlanName,
           googleProfileId,
-        }),
+        })
       );
       callback();
     } else {

@@ -11,7 +11,6 @@ export const profilePhotoWrapperStyle = `
   }
 `;
 class PersonDetail extends Component {
-
   static defaultProps = {
     photo: '',
     firstName: '',
@@ -29,25 +28,20 @@ class PersonDetail extends Component {
   };
 
   render() {
-    const {
-      toggleModal,
-      photo,
-      firstName,
-      lastName,
-      bio,
-      index,
-    } = this.props;
+    const { toggleModal, photo, firstName, lastName, bio, index } = this.props;
 
     return (
       <div className="person-detail">
-        <div className="profile-photo" style={profilePhotoStyle(photo)}></div>
+        <div className="profile-photo" style={profilePhotoStyle(photo)} />
 
         <div className="profile-name">
           <h4 className="username">
             <div>{firstName}</div>
             <div>{lastName}</div>
           </h4>
-          <a onClick={() => toggleModal(true, index)} className="link">View Bio</a>
+          <a onClick={() => toggleModal(true, index)} className="link">
+            View Bio
+          </a>
         </div>
 
         <style jsx>{`
@@ -74,7 +68,7 @@ class PersonDetail extends Component {
             font-weight: bold;
           }
           ${profilePhotoWrapperStyle}
-          `}</style>
+        `}</style>
       </div>
     );
   }

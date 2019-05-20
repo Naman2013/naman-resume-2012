@@ -1,6 +1,10 @@
 import css from 'styled-jsx/css';
-import { astronaut, geyser, nightfall } from 'styles/variables/colors_tiles_v4';
-import { secondaryFont } from 'styles/variables/fonts';
+import {
+  astronaut,
+  geyser,
+  nightfall,
+} from 'app/styles/variables/colors_tiles_v4';
+import { secondaryFont } from 'app/styles/variables/fonts';
 
 export default css`
   .menu-item {

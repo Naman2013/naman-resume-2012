@@ -1,17 +1,17 @@
 /***********************************
-* V4 Shows About Tab
-*
-*
-*
-***********************************/
+ * V4 Shows About Tab
+ *
+ *
+ *
+ ***********************************/
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import LikeSomethingButton from 'components/common/LikeSomethingButton';
-import { romance } from 'styles/variables/colors_tiles_v4';
-import DescriptionContainer from 'components/common/description-container';
-import like from 'services/events/like';
-import LabeledTitleTiles from 'components/common/style/LabeledTitleTiles';
+import LikeSomethingButton from 'app/components/common/LikeSomethingButton';
+import { romance } from 'app/styles/variables/colors_tiles_v4';
+import DescriptionContainer from 'app/components/common/description-container';
+import like from 'app/services/events/like';
+import LabeledTitleTiles from 'app/components/common/style/LabeledTitleTiles';
 import styles from './AboutTab.style';
 
 const {
@@ -36,7 +36,7 @@ class AboutTab extends Component {
     likePrompt: string,
     showInfoTileDirection: string,
     showInfoTiles: shape({
-      list: shape({})
+      list: shape({}),
     }),
     user: shape({
       at: oneOfType([number, string]),
@@ -54,13 +54,7 @@ class AboutTab extends Component {
     likePrompt: '',
   };
 
-  componentDidMount(){
-    console.log('mount');
-  }
-
-  state = {
-
-  }
+  state = {};
 
   render() {
     const {
@@ -77,9 +71,6 @@ class AboutTab extends Component {
       user,
     } = this.props;
 
-    const {
-
-    } = this.state;
     const likeParams = {
       likeId: showId,
       likeType: 'show',
@@ -87,7 +78,7 @@ class AboutTab extends Component {
     const contentFooter = () => (
       <div>
         <LikeSomethingButton
-          likeResultHandler = {likeResultHandler}
+          likeResultHandler={likeResultHandler}
           likeHandler={like}
           likesCount={likesCount}
           likePrompt={likePrompt}
@@ -100,11 +91,20 @@ class AboutTab extends Component {
     return (
       <div className="root">
         <LabeledTitleTiles
-          theme={{ margin: isDesktop ? 0 : '15px', backgroundColor: romance, height: 'auto' }}
+          theme={{
+            margin: isDesktop ? 0 : '15px',
+            backgroundColor: romance,
+            height: 'auto',
+          }}
           tiles={showInfoTiles.list}
           direction={showInfoTileDirection}
         />
-        <DescriptionContainer title="" content={content} theme={{ backgroundColor: romance }} footer={contentFooter} />
+        <DescriptionContainer
+          title=""
+          content={content}
+          theme={{ backgroundColor: romance }}
+          footer={contentFooter}
+        />
         <style jsx>{styles}</style>
       </div>
     );

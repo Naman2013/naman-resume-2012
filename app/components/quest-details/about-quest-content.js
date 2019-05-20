@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ResourcesButton from './resources-button';
-import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
+import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
 import AboutContent from './AboutContent';
 import style from './about-quest-content.style';
 
@@ -16,9 +16,7 @@ const AboutQuest = ({
   <div className="root" style={theme}>
     <h4 className="title">{title}</h4>
     <AboutContent content={content} />
-    <DisplayAtBreakpoint
-      screenMedium
-    >
+    <DisplayAtBreakpoint screenMedium>
       <ResourcesButton {...resourcesProps} questId={questId} />
     </DisplayAtBreakpoint>
     {footer ? footer() : null}

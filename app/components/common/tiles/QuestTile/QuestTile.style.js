@@ -1,6 +1,9 @@
 import css from 'styled-jsx/css';
-import { primaryFont, secondaryFont } from 'styles/variables/fonts';
-import { astronaut, blue_tile_canvas } from 'styles/variables/colors_tiles_v4';
+import { primaryFont, secondaryFont } from 'app/styles/variables/fonts';
+import {
+  astronaut,
+  blue_tile_canvas,
+} from 'app/styles/variables/colors_tiles_v4';
 
 export default css`
   .root {
@@ -9,7 +12,7 @@ export default css`
     text-align: center;
     box-size: border-box;
     padding: 0;
-    box-shadow: 0px 0px 8px 1px rgba(65,86,113,.2);
+    box-shadow: 0px 0px 8px 1px rgba(65, 86, 113, 0.2);
     color: ${astronaut};
     list-style-type: none;
     background: url('https://vega.slooh.com/assets/v4/common/Quest_BlueCard.png');
@@ -23,7 +26,6 @@ export default css`
     width: 80%;
     margin: 0 auto;
   }
-
 
   .icon-container {
     display: block;

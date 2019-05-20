@@ -1,0 +1,30 @@
+@import '~app/styles/variables/index';
+
+.constellation {
+  background-color: $faintGray;
+  padding-bottom: 100px;
+  padding-top: 40px;
+
+  .box {
+    margin-bottom: 15px;
+  }
+
+  .reserved-mission {
+    .box {
+      padding: 0;
+    }
+
+    .reserved-mission-gag {
+      height: 200px;
+      padding: 50px 0;
+      text-align: center;
+      font-family: $primary-font;
+      font-size: 11px;
+      line-height: 11px;
+      letter-spacing: 0.6px;
+      color: $astronaut;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+  }
+}

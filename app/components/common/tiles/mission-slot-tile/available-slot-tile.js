@@ -1,13 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import DefaultButton from 'components/common/style/buttons/Button';
+import DefaultButton from 'app/components/common/style/buttons/Button';
 import style from './available-slot-tile.style';
 
-const AvailableSlotTile = ({
-  time,
-  date,
-  handleScheduleClick,
-}) => (
+const AvailableSlotTile = ({ time, date, handleScheduleClick }) => (
   <div className="available-slot-root">
     <h4 className="object-title">Available slot</h4>
 

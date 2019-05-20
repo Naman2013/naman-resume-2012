@@ -1,10 +1,9 @@
 import css from 'styled-jsx/css';
-import { screenLarge, screenMedium } from 'styles/variables/breakpoints';
-import { moodyBleu, shadows } from 'styles/variables/colors_tiles_v4';
-import { primaryFont, secondaryFont } from 'styles/variables/fonts';
+import { screenLarge, screenMedium } from 'app/styles/variables/breakpoints';
+import { moodyBleu, shadows } from 'app/styles/variables/colors_tiles_v4';
+import { primaryFont, secondaryFont } from 'app/styles/variables/fonts';
 
-export default css`  
-
+export default css`
   .invite-container {
     margin-top: 25px;
   }
@@ -53,7 +52,7 @@ export default css`
     text-transform: uppercase;
     padding: 25px 0 0 25px;
   }
-  
+
   .Rtable {
     display: block;
     font-size: 13px;
@@ -61,7 +60,7 @@ export default css`
     margin-bottom: 15px;
     padding: 5px;
   }
-  
+
   .Rtable-cell {
     box-sizing: border-box;
     flex-grow: 1;
@@ -69,14 +68,14 @@ export default css`
     padding: 5px 15px;
     overflow: hidden;
     list-style: none;
-  }  
+  }
 
   .Rtable .lastCell {
     border-top: 1px solid ${shadows};
     margin-top: 20px;
     padding: 20px;
   }
-  
+
   .Rtable-cell .but {
     float: right;
   }
@@ -85,7 +84,7 @@ export default css`
     display: none;
   }
 
-  @media ${screenMedium} { 
+  @media ${screenMedium} {
     .Rtable {
       display: flex;
       flex-wrap: wrap;
@@ -117,12 +116,25 @@ export default css`
       padding: 0;
     }
 
-    .Rtable--2cols > .Rtable-cell  { width: 50%;    }
-    .Rtable--3cols > .Rtable-cell  { width: 33.33%; }
-    .Rtable--4cols > .Rtable-cell  { width: 25%;    }
-    .Rtable--5cols > .Rtable-cell  { width: 20%;    }
-    .Rtable--6cols > .Rtable-cell  { width: 15%;    }    
-    
-    .Rtable--6cols .Rtable-cell:last-child { width: 25%; text-align: right; }
+    .Rtable--2cols > .Rtable-cell {
+      width: 50%;
+    }
+    .Rtable--3cols > .Rtable-cell {
+      width: 33.33%;
+    }
+    .Rtable--4cols > .Rtable-cell {
+      width: 25%;
+    }
+    .Rtable--5cols > .Rtable-cell {
+      width: 20%;
+    }
+    .Rtable--6cols > .Rtable-cell {
+      width: 15%;
+    }
+
+    .Rtable--6cols .Rtable-cell:last-child {
+      width: 25%;
+      text-align: right;
+    }
   }
 `;

@@ -3,6 +3,7 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import { Select } from 'app/components/common/select';
 import Button from 'app/components/common/style/buttons/Button';
+import { ReservationModalCountdown } from '../../telescope-reservation/reservation-modal-countdown';
 import './styles.scss';
 
 export class Slooh1000Setup extends Component {
@@ -34,16 +35,31 @@ export class Slooh1000Setup extends Component {
       selectedCategorySlug,
       selectedObjectId,
       disabled,
+      availableMissions,
+      noObjects,
+      description,
+      byTelescope,
+      getTelescopeSlot,
+      extendedTimer,
+      onCountdownTick,
+      countdown,
+      onCountdownComplete,
     } = this.props;
 
     return (
       <div className="slooh-1000-setup">
         <div className="row setup-header">
           <h2>Set up with Slooh 1000!</h2>
-          <p>
-            Welcome to the Slooh 1000! Tell us what you want to see, we’ll tell
-            you which scope to use, and the best time to see it!
-          </p>
+          <p>{description}</p>
+          {byTelescope && (
+            <ReservationModalCountdown
+              extendedTimer={extendedTimer}
+              buttonOnClick={getTelescopeSlot}
+              onCountdownTick={onCountdownTick}
+              onCountdownComplete={onCountdownComplete}
+              countdown={countdown}
+            />
+          )}
         </div>
 
         <div className="steps row">
@@ -87,8 +103,17 @@ export class Slooh1000Setup extends Component {
               value={selectedObjectId}
             />
 
-            {objectListOpts.length === 0 && selectedCategorySlug && (
-              <div className="explanation">no objects available</div>
+            {availableMissions && (
+              <div className="explanation">
+                No available missions were found
+              </div>
+            )}
+
+            {noObjects && (
+              <div className="explanation">
+                No objects were found for{' '}
+                {categoryListOpts[selectedCategorySlug].label}
+              </div>
             )}
           </div>
         </div>
@@ -109,7 +134,7 @@ export class Slooh1000Setup extends Component {
 
           <div className="col-sm-6 step-3">
             <Button
-              text="Find a Mission"
+              text={byTelescope ? 'Define Mission' : 'Find a Mission'}
               onClickEvent={getMissionSlot}
               disabled={!selectedCategorySlug || !selectedObjectId || disabled}
             />

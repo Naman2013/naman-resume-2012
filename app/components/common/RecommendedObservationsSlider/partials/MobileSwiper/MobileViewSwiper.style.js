@@ -1,5 +1,5 @@
 import css from 'styled-jsx/css';
-import { hawkesBlue, shadows } from 'styles/variables/colors_tiles_v4';
+import { hawkesBlue, shadows } from 'app/styles/variables/colors_tiles_v4';
 
 const borderBottom = `border-bottom: 1px solid ${hawkesBlue};`;
 const centerChildren = `
@@ -30,7 +30,11 @@ export default css`
     height: 50px;
     display: flex;
     justify-content: space-between;
-    background-image: linear-gradient(to bottom, #edf0f2, rgba(255, 255, 255, 0));
+    background-image: linear-gradient(
+      to bottom,
+      #edf0f2,
+      rgba(255, 255, 255, 0)
+    );
   }
 
   .title {
@@ -57,7 +61,7 @@ export default css`
   }
 
   .swiper-container {
-    padding: 0 20px;   
+    padding: 0 20px;
     margin-bottom: 40px;
   }
 
@@ -86,7 +90,7 @@ export default css`
   }
 
   .icon {
-    margin-right: 8px
+    margin-right: 8px;
   }
 
   :global(.mobile-swiper-root .slick-dots li) {
@@ -100,7 +104,8 @@ export default css`
     background: #41566f;
   }
 
-  :global(.mobile-swiper-root .slick-arrow.slick-prev, .mobile-swiper-root .slick-arrow.slick-next) {
+  :global(.mobile-swiper-root .slick-arrow.slick-prev, .mobile-swiper-root
+      .slick-arrow.slick-next) {
     width: 8px;
     height: 8px;
     border: none;
@@ -113,20 +118,20 @@ export default css`
   :global(.mobile-swiper-root .slick-arrow.slick-disabled) {
     border-color: #96a1ad;
   }
-  
+
   :global(.mobile-swiper-root .slick-arrow.slick-prev) {
     border-width: 1px 0px 0px 1px;
     left: -15px;
   }
-  
+
   :global(.mobile-swiper-root .slick-arrow.slick-next) {
     border-width: 0px 1px 1px 0px;
     right: -15px;
-
   }
-  
-  :global(.mobile-swiper-root .slick-arrow.slick-prev::before, .mobile-swiper-root .slick-arrow.slick-next::before) {
+
+  :global(.mobile-swiper-root
+      .slick-arrow.slick-prev::before, .mobile-swiper-root
+      .slick-arrow.slick-next::before) {
     content: none;
   }
-
 `;

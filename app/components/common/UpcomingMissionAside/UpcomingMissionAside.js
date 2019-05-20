@@ -1,30 +1,19 @@
 /***********************************
-* V4 Mission Detail List
-*
-*
-*
-***********************************/
+ * V4 Mission Detail List
+ *
+ *
+ *
+ ***********************************/
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import Request from 'components/common/network/Request';
+import Request from 'app/components/common/network/Request';
 import BootstrappedUpcomingMissionAside from './BootstrappedUpcomingMissionAside';
-import { UPCOMING_MISSION } from 'services/reservations';
+import { UPCOMING_MISSION } from 'app/services/reservations';
 
-const {
-  bool,
-  number,
-  oneOfType,
-  string,
-} = PropTypes;
+const { bool, number, oneOfType, string } = PropTypes;
 
-const MissionSnapDetails = ({
-  domeId,
-  isDesktop,
-  obsId,
-  title,
-  telescope,
-}) => (
+const MissionSnapDetails = ({ domeId, isDesktop, obsId, title, telescope }) => (
   <Request
     authorizationRedirect={true}
     serviceURL={UPCOMING_MISSION}
@@ -34,20 +23,19 @@ const MissionSnapDetails = ({
       domeId,
       obsId,
     }}
-    render={({
-      fetchingContent,
-      serviceResponse,
-    }) => (
+    render={({ fetchingContent, serviceResponse }) => (
       <div>
-        {<BootstrappedUpcomingMissionAside
-          {...serviceResponse}
-          domeId={domeId}
-          fetching={fetchingContent}
-          isDesktop={isDesktop}
-          obsId={obsId}
-          title={title}
-          telescope={telescope}
-        />}
+        {
+          <BootstrappedUpcomingMissionAside
+            {...serviceResponse}
+            domeId={domeId}
+            fetching={fetchingContent}
+            isDesktop={isDesktop}
+            obsId={obsId}
+            title={title}
+            telescope={telescope}
+          />
+        }
       </div>
     )}
   />

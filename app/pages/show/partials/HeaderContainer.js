@@ -1,24 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import LiveShowVideoViewerNav from 'components/LiveShowVideoViewer/LiveShowVideoViewerNav';
+import LiveShowVideoViewerNav from 'app/components/LiveShowVideoViewer/LiveShowVideoViewerNav';
 import BigBoxInfoContainer from './BigBoxInfoContainer';
 import styles from './HeaderContainer.style';
 
-const {
-  arrayOf,
-  bool,
-  number,
-  oneOfType,
-  shape,
-  string,
-} = PropTypes;
+const { arrayOf, bool, number, oneOfType, shape, string } = PropTypes;
 
 const HeaderContainer = props => (
   <div className="root">
     <LiveShowVideoViewerNav {...props} />
-    {!props.isDesktop ?
-      <BigBoxInfoContainer {...props} headerLabel={props.headerLabel} />:
-    null}
+    {!props.isDesktop ? (
+      <BigBoxInfoContainer {...props} headerLabel={props.headerLabel} />
+    ) : null}
     <style jsx>{styles}</style>
   </div>
 );

@@ -1,9 +1,12 @@
 import css from 'styled-jsx/css';
-import { faintShadow } from 'styles/variables/shadows';
-import { astronaut } from 'styles/variables/colors_tiles_v4';
-import { primaryFont, secondaryFont } from 'styles/variables/fonts';
-import { screenMedium, screenLarge } from 'styles/variables/breakpoints';
-import { backgroundImageCover, dropShadowContainer } from 'styles/mixins/utilities';
+import { faintShadow } from 'app/styles/variables/shadows';
+import { astronaut } from 'app/styles/variables/colors_tiles_v4';
+import { primaryFont, secondaryFont } from 'app/styles/variables/fonts';
+import { screenMedium, screenLarge } from 'app/styles/variables/breakpoints';
+import {
+  backgroundImageCover,
+  dropShadowContainer,
+} from 'app/styles/mixins/utilities';
 
 export default css`
   .related-stories-title {

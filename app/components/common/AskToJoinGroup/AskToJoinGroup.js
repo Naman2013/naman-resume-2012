@@ -1,20 +1,12 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import noop from 'lodash/noop';
-import pick from  'lodash/pick';
+import pick from 'lodash/pick';
 import { connect } from 'react-redux';
-import ToggleJoinGroupButton from 'components/common/style/buttons/ToggleJoinGroupButton';
-import { askToJoin } from 'services/community-groups/ask-to-join';
+import ToggleJoinGroupButton from 'app/components/common/style/buttons/ToggleJoinGroupButton';
+import { askToJoin } from 'app/services/community-groups/ask-to-join';
 
-const {
-  bool,
-  func,
-  shape,
-  number,
-  oneOfType,
-  string,
-} = PropTypes;
-
+const { bool, func, shape, number, oneOfType, string } = PropTypes;
 
 class AskToJoinGroup extends Component {
   static propTypes = {
@@ -38,22 +30,16 @@ class AskToJoinGroup extends Component {
   state = {
     icon: this.props.askPromptIconUrl,
     text: this.props.askPrompt,
-  }
+  };
 
   toggleGroup = () => {
-    const {
-      user,
-      discussionGroupId,
-      askPrompt,
-      updatePrompt,
-    } = this.props;
+    const { user, discussionGroupId, askPrompt, updatePrompt } = this.props;
     askToJoin({
       at: user.at,
       token: user.token,
       cid: user.cid,
       discussionGroupId,
-    }).then((res) => {
-
+    }).then(res => {
       if (!res.data.apiError) {
         updatePrompt({
           promptText: res.data.response,
@@ -65,12 +51,9 @@ class AskToJoinGroup extends Component {
         }));
       }
     });
-  }
-  render () {
-    const {
-      icon,
-      text,
-    } = this.state;
+  };
+  render() {
+    const { icon, text } = this.state;
     return (
       <Fragment>
         <ToggleJoinGroupButton
@@ -83,9 +66,10 @@ class AskToJoinGroup extends Component {
   }
 }
 
-const mapStateToProps = ({
-  user,
-}) => ({
+const mapStateToProps = ({ user }) => ({
   user,
 });
-export default connect(mapStateToProps, null)(AskToJoinGroup);
+export default connect(
+  mapStateToProps,
+  null
+)(AskToJoinGroup);

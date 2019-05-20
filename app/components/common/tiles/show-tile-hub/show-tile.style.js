@@ -1,7 +1,7 @@
 import css from 'styled-jsx/css';
-import { primaryFont, secondaryFont } from 'styles/variables/fonts';
-import { romance, golda } from 'styles/variables/colors_tiles_v4';
-import { screenMedium, screenLarge } from 'styles/variables/breakpoints';
+import { primaryFont, secondaryFont } from 'app/styles/variables/fonts';
+import { romance, golda } from 'app/styles/variables/colors_tiles_v4';
+import { screenMedium, screenLarge } from 'app/styles/variables/breakpoints';
 
 export default css`
   .root {
@@ -16,7 +16,7 @@ export default css`
     background-size: cover;
     transition: width, height 0.4s ease-in-out;
     text-align: center;
-    margin: 20px auto;
+    margin: 0 auto 20px;
   }
 
   .show-tile-title {

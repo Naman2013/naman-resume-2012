@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link, browserHistory } from 'react-router';
-import { guideCorner } from 'styles/variables/iconURLs';
-import ToggleJoinGroup from 'components/common/ToggleJoinGroup';
-import AskToJoinGroup from 'components/common/AskToJoinGroup';
-import Button from 'components/common/style/buttons/Button';
+import { guideCorner } from 'app/styles/variables/iconURLs';
+import ToggleJoinGroup from 'app/components/common/ToggleJoinGroup';
+import AskToJoinGroup from 'app/components/common/AskToJoinGroup';
+import Button from 'app/components/common/style/buttons/Button';
 import style from './group-excerpt-tile.style';
 
 const GroupExcerptTile = ({
@@ -27,27 +27,39 @@ const GroupExcerptTile = ({
 }) => (
   <div className="group-tile-root">
     <div className="title" dangerouslySetInnerHTML={{ __html: title }} />
-    <div className="sub-title" dangerouslySetInnerHTML={{ __html: memberCountDisplay }} />
-    <div className="description" dangerouslySetInnerHTML={{ __html: accessDescription }} />
+    <div
+      className="sub-title"
+      dangerouslySetInnerHTML={{ __html: memberCountDisplay }}
+    />
+    <div
+      className="description"
+      dangerouslySetInnerHTML={{ __html: accessDescription }}
+    />
     <div className="actions">
-      {canView ? <Button
-        theme={{ height: '40px', marginRight: '10px' }}
-        text={viewMessage}
-        onClickEvent={() => browserHistory.push(linkUrl)}
-      /> : null}
-      {showJoinPrompt ? <ToggleJoinGroup
-        filterType={filterType}
-        updateGroupItemInfo={updateGroupItemInfo}
-        discussionGroupId={discussionGroupId}
-        joinPrompt={joinPrompt}
-        joinPromptIconUrl={joinPromptIconUrl}
-      /> : null}
-      {showAskPrompt ? <AskToJoinGroup
-        updatePrompt={updatePrompt}
-        discussionGroupId={discussionGroupId}
-        askPrompt={askPrompt}
-        joinActionIconUrl={joinActionIconUrl}
-      /> : null}
+      {canView ? (
+        <Button
+          theme={{ height: '40px', marginRight: '10px' }}
+          text={viewMessage}
+          onClickEvent={() => browserHistory.push(linkUrl)}
+        />
+      ) : null}
+      {showJoinPrompt ? (
+        <ToggleJoinGroup
+          filterType={filterType}
+          updateGroupItemInfo={updateGroupItemInfo}
+          discussionGroupId={discussionGroupId}
+          joinPrompt={joinPrompt}
+          joinPromptIconUrl={joinPromptIconUrl}
+        />
+      ) : null}
+      {showAskPrompt ? (
+        <AskToJoinGroup
+          updatePrompt={updatePrompt}
+          discussionGroupId={discussionGroupId}
+          askPrompt={askPrompt}
+          joinActionIconUrl={joinActionIconUrl}
+        />
+      ) : null}
     </div>
     <style jsx>{style}</style>
   </div>

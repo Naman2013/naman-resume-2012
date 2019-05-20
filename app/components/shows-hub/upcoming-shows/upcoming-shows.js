@@ -2,11 +2,9 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import noop from 'lodash/noop';
-import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
-import {
-  SHOWS_UPCOMING_ENDPOINT_URL,
-} from 'services/shows';
-import SloohSlider from 'components/common/Slider';
+import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
+import { SHOWS_UPCOMING_ENDPOINT_URL } from 'app/services/shows';
+import SloohSlider from 'app/components/common/Slider';
 import { getSliderProps } from './upcomingShowsConfig';
 import style from './upcoming-shows.style';
 
@@ -27,14 +25,12 @@ class UpcomingShowsInHub extends Component {
 
   state = {
     upcomingShows: [],
-  }
+  };
 
   componentDidMount() {
-    const {
-      validateResponseAccess,
-    } = this.props;
+    const { validateResponseAccess } = this.props;
 
-    axios.get(SHOWS_UPCOMING_ENDPOINT_URL).then((res) => {
+    axios.get(SHOWS_UPCOMING_ENDPOINT_URL).then(res => {
       if (!res.data.apiError) {
         this.setState({
           upcomingShows: res.data.eventList,
@@ -45,11 +41,8 @@ class UpcomingShowsInHub extends Component {
     });
   }
 
-
   render() {
-    const {
-      upcomingShows,
-    } = this.state;
+    const { upcomingShows } = this.state;
 
     const sliderProps = upcomingShows ? getSliderProps(upcomingShows) : {};
     return upcomingShows.length ? (

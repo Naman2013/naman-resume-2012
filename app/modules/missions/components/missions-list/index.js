@@ -1,22 +1,33 @@
 import React, { Component } from 'react';
 import moment from 'moment';
+import { Button } from 'react-bootstrap';
 import { MissionsDaySelector } from '../missions-day-selector';
 import { MissionTimeSlot } from '../mission-time-slot';
+import './styles.scss';
 
 export class MissionsList extends Component {
   selectDate = date => {
-    const { selectedTelescope, getMissionSlotDates } = this.props;
-    getMissionSlotDates(selectedTelescope, date);
+    const { getMissionSlotDates } = this.props;
+    getMissionSlotDates(date);
   };
 
   render() {
-    const { selectedDate, missionList, getTelescopeSlot } = this.props;
+    const {
+      selectedDate,
+      missionList,
+      getTelescopeSlot,
+      showDateArrows,
+      showShowMoreButton,
+      showMoreButtonCaption,
+      showMore,
+    } = this.props;
 
     return (
       <div className="missions-list">
         <MissionsDaySelector
           selectedDate={selectedDate}
           selectDate={this.selectDate}
+          showDateArrows={showDateArrows}
         />
 
         {missionList &&
@@ -28,6 +39,12 @@ export class MissionsList extends Component {
               getTelescopeSlot={() => getTelescopeSlot(item)}
             />
           ))}
+
+        {showShowMoreButton && (
+          <Button className="show-more" onClick={showMore}>
+            {showMoreButtonCaption}
+          </Button>
+        )}
       </div>
     );
   }

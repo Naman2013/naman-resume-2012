@@ -3,15 +3,9 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { white, darkBlueGray } from '../../../styles/variables/colors';
 
-const {
-  bool,
-  number,
-  string,
-  func,
-} = PropTypes;
+const { bool, number, string, func } = PropTypes;
 
 class ContextMenu extends Component {
-
   static propTypes = {
     menuHeight: number,
     menuWidth: number,
@@ -20,7 +14,7 @@ class ContextMenu extends Component {
     backgroundColor: string,
     onShow: func,
     titleText: string,
-  }
+  };
 
   static defaultProps = {
     // how tall the menu will be (in pixels)
@@ -38,31 +32,29 @@ class ContextMenu extends Component {
 
   state = {
     triggerElement: null,
-    left: -(this.props.menuWidth + this.props.distanceFromTrigger),
+    left: -(this.props.menuWidth),
     top: -(this.props.menuHeight / 2),
     showMenu: false,
-  }
+  };
 
-  handleContextClick = (e) => {
+  handleContextClick = () => {
     const { onShow } = this.props;
     const { showMenu } = this.state;
 
-    if (!showMenu) {
-      onShow();
-    }
+    if (!showMenu) onShow();
 
     this.setState({
       showMenu: !showMenu,
     });
-  }
+  };
 
-  hideMenu = (e) => {
+  hideMenu = e => {
     e.preventDefault();
 
     this.setState({
       showMenu: false,
     });
-  }
+  };
 
   render() {
     const {
@@ -76,14 +68,19 @@ class ContextMenu extends Component {
     } = this.props;
 
     const { left, showMenu } = this.state;
+    const indentBetween = 10;
     const menuRootStyle = {
       position: 'absolute',
       top: '0',
-      left: `${leftOffset < 0 ? left + leftOffset : leftOffset}px`,
+      left: `${
+        leftOffset < 0
+          ? left + leftOffset - indentBetween
+          : leftOffset - indentBetween
+      }px`,
       height: `${menuHeight}px`,
       width: `${menuWidth}px`,
       backgroundColor,
-      marginLeft: leftOffset < 0 ? '30px' : '0',
+      marginLeft: leftOffset < 0 ? '45px' : '0',
     };
 
     const containerClass = classnames({
@@ -95,28 +92,28 @@ class ContextMenu extends Component {
     });
 
     return (
-      <div
-        className={containerClass}
-      >
+      <div className={containerClass}>
         <div
           className="arrow-right"
-          style={{ left: `${(left + leftOffset < 0) ? 15 + leftOffset : (leftOffset - 5) - menuWidth}px`, top: '20%' }}
+          style={{
+            left: `${
+              left + leftOffset < 0
+                ? 15 + leftOffset
+                : leftOffset - 5 - menuWidth
+            }px`,
+            top: '20%',
+          }}
         />
-        <div
-          style={menuRootStyle}
-          className={rootClasses}
-          onMouseLeave={this.hideMenu}
-        >
-          {titleText && <div className="header">
-            <span dangerouslySetInnerHTML={{ __html: titleText }} />
-            <i className="fa fa-close" onClick={this.hideMenu} />
-          </div>}
-          <div className="list">
-            {children}
-          </div>
+        <div style={menuRootStyle} className={rootClasses}>
+          {titleText && (
+            <div className="header">
+              <span dangerouslySetInnerHTML={{ __html: titleText }} />
+              <i className="fa fa-close" onClick={this.hideMenu} />
+            </div>
+          )}
+          <div className="list">{children}</div>
         </div>
         <style jsx>{`
-
           .header {
             display: flex;
             flex-direction: row;
@@ -144,7 +141,6 @@ class ContextMenu extends Component {
             border-bottom: 20px solid transparent;
             border-left: 20px solid ${white};
           }
-
         `}</style>
       </div>
     );

@@ -35,9 +35,12 @@ import Timer from './common/timer';
 import './reservation-by-coordinate.scss';
 import { fetchPresetOptions } from '../../../../modules/get-preset-options/get-preset-options-actions';
 import { checkTargetVisibility } from '../../../../modules/check-target-visibility/api';
-import { grabMissionSlot, grabUpdateMissionSlot, missionConfirmOpen } from '../../../../modules/missions-old';
+import {
+  grabMissionSlot,
+  grabUpdateMissionSlot,
+  missionConfirmOpen,
+} from '../../../../modules/missions-old';
 import { placeOneHourHold } from '../../../../modules/grab-telescope-slot/actions';
-
 
 const MAX_SECONDS_CHARACTER_LENGTH = 4;
 const MAX_TIME = 60;
@@ -53,15 +56,17 @@ function round(number, precision) {
 }
 
 function cleanTimeInput(timeValue) {
-  if (!timeValue) { return timeValue; }
+  if (!timeValue) {
+    return timeValue;
+  }
   const absoluteValue = window.Math.abs(timeValue);
-  return (absoluteValue >= MAX_TIME) ? TIME_CEILING : absoluteValue;
+  return absoluteValue >= MAX_TIME ? TIME_CEILING : absoluteValue;
 }
 
 // TODO: move this into a utility file
 function cleanCalcInput(value) {
   let cleanedInput = value || 0;
-  cleanedInput = (isNaN(cleanedInput)) ? 0 : cleanedInput;
+  cleanedInput = isNaN(cleanedInput) ? 0 : cleanedInput;
   return parseFloat(cleanedInput);
 }
 
@@ -86,7 +91,7 @@ function numberOnly(value) {
 }
 
 function validFloat(value) {
-  return (/^\d+(\.)?\d{0,1}$/).test(value);
+  return /^\d+(\.)?\d{0,1}$/.test(value);
 }
 
 function removeMinusSign(value) {
@@ -98,15 +103,21 @@ const mapStateToProps = ({ user }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({
-    grabMissionSlot,
-    grabUpdateMissionSlot,
-    missionConfirmOpen,
-    placeOneHourHold,
-  }, dispatch),
+  actions: bindActionCreators(
+    {
+      grabMissionSlot,
+      grabUpdateMissionSlot,
+      missionConfirmOpen,
+      placeOneHourHold,
+    },
+    dispatch
+  ),
 });
 
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(
+  mapStateToProps,
+  mapDispatchToProps
+)
 class ReservationByCoordinate extends Component {
   constructor(props) {
     super(props);
@@ -132,7 +143,9 @@ class ReservationByCoordinate extends Component {
     this.handleDECChange = this.handleDECChange.bind(this);
     this.handleVisibilityCheck = this.handleVisibilityCheck.bind(this);
     this.handleTargetChange = this.handleTargetChange.bind(this);
-    this.handleSelectImageTypeChange = this.handleSelectImageTypeChange.bind(this);
+    this.handleSelectImageTypeChange = this.handleSelectImageTypeChange.bind(
+      this
+    );
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
   }
 
@@ -145,7 +158,7 @@ class ReservationByCoordinate extends Component {
     let ra = cleanCalcInput(newRAValue);
     let ra_h = Math.trunc(ra);
     let ra_m = Math.trunc((ra - ra_h) * 60);
-    let ra_s = round((((ra - ra_h) * 60) - ra_m) * 60, 1);
+    let ra_s = round(((ra - ra_h) * 60 - ra_m) * 60, 1);
 
     if (ra_s >= MAX_TIME) {
       ra_s = 0;
@@ -178,7 +191,7 @@ class ReservationByCoordinate extends Component {
     });
   }
 
-  handleRAChange = (event) => {
+  handleRAChange = event => {
     const newRA = removeMinusSign(event.target.value);
     if (!newRA) {
       this.updateRA(newRA);
@@ -186,11 +199,11 @@ class ReservationByCoordinate extends Component {
     }
 
     this.recalculateRA(newRA);
-  }
+  };
 
-  handleRABlur = (event) => {
+  handleRABlur = event => {
     this.recalculateRA(event.target.value);
-  }
+  };
 
   handleFieldChange({ field, value, allowNegativeValues }) {
     const numberValue = numberOnly(value);
@@ -223,7 +236,7 @@ class ReservationByCoordinate extends Component {
     }
 
     if (validFloat(value)) {
-      value = (value >= MAX_TIME) ? TIME_CEILING : value;
+      value = value >= MAX_TIME ? TIME_CEILING : value;
       this.calculateFields({
         [field]: value,
       });
@@ -250,7 +263,10 @@ class ReservationByCoordinate extends Component {
 
     let degrees = String.prototype.split.call(dec, '.')[0];
     let minutes = Math.trunc((dec - degrees) * minutesDivisor);
-    let seconds = round((dec - degrees - (minutes / minutesDivisor)) * secondsDivisor, 1);
+    let seconds = round(
+      (dec - degrees - minutes / minutesDivisor) * secondsDivisor,
+      1
+    );
 
     minutes = Math.abs(minutes);
     seconds = Math.abs(seconds);
@@ -306,17 +322,21 @@ class ReservationByCoordinate extends Component {
     this.recalculateDEC(newDEC);
   }
 
-  handleDECBlur = (event) => {
+  handleDECBlur = event => {
     this.recalculateDEC(event.target.value);
-  }
+  };
 
   calculateFields(values) {
-    let { dec, dec_d, dec_m, dec_s, ra_h, ra_m, ra_s } = Object.assign({}, this.state, values);
+    let { dec, dec_d, dec_m, dec_s, ra_h, ra_m, ra_s } = Object.assign(
+      {},
+      this.state,
+      values
+    );
     let ra;
 
     // if dec_d is negative, make all numbers negative
-    const minutesToHoursDivisor = (dec_d >= 0) ? 60 : -60;
-    const secondsToHoursDivisor = (dec_d >= 0) ? 3600 : -3600;
+    const minutesToHoursDivisor = dec_d >= 0 ? 60 : -60;
+    const secondsToHoursDivisor = dec_d >= 0 ? 3600 : -3600;
 
     // perform value casting
     dec_d = parseInt(dec_d, 10);
@@ -327,11 +347,11 @@ class ReservationByCoordinate extends Component {
     ra_m = cleanTimeInput(ra_m);
 
     // calculate the dec value from the minutes and seconds provided
-    const secondsToHours = (dec_s / secondsToHoursDivisor);
-    const minutesToHours = (dec_m / minutesToHoursDivisor);
+    const secondsToHours = dec_s / secondsToHoursDivisor;
+    const minutesToHours = dec_m / minutesToHoursDivisor;
 
-    dec = round((dec_d + secondsToHours + minutesToHours), 7);
-    ra = round(ra_h + (ra_m / 60) + (ra_s / 3600), 7);
+    dec = round(dec_d + secondsToHours + minutesToHours, 7);
+    ra = round(ra_h + ra_m / 60 + ra_s / 3600, 7);
 
     if (dec >= 90) {
       dec = 90.0;
@@ -385,7 +405,7 @@ class ReservationByCoordinate extends Component {
       domeId,
       missionStart,
       telescopeId,
-    }).then((result) => {
+    }).then(result => {
       this.handleVisibilityResult(result.data);
       this.fetchImageOptions(result.data.objectIsVisible);
     });
@@ -424,60 +444,73 @@ class ReservationByCoordinate extends Component {
     });
   }
 
-  handlePlaceHourHold = (event) => {
+  handlePlaceHourHold = event => {
     event.preventDefault();
     const { scheduledMissionId, uniqueId } = this.props;
     this.props.actions.placeOneHourHold({
       scheduledMissionId,
       uniqueId,
     });
-  }
+  };
 
   renderStepThree() {
     const { showPlaceOnHold, showCancelHold, userHasReservation } = this.props;
-    const { visibilityStatus, presetOptions, selectedImageProcessIndex } = this.state;
+    const {
+      visibilityStatus,
+      presetOptions,
+      selectedImageProcessIndex,
+    } = this.state;
     const scheduleMissionButtonClasses = classnames('btn-primary', {
       disabled: !!selectedImageProcessIndex ? false : true,
     });
     let presetOptionsText = [];
     if (presetOptions) {
-      presetOptionsText = presetOptions.telescopeList[0].telePresetList.map(presetOption => presetOption.presetDisplayName);
+      presetOptionsText = presetOptions.telescopeList[0].telePresetList.map(
+        presetOption => presetOption.presetDisplayName
+      );
     }
 
     return (
       <div>
-        {
-          visibilityStatus.objectIsVisible ?
-            <div>
-              <ReservationSelectList
-                options={presetOptionsText}
-                selectedIndex={selectedImageProcessIndex}
-                handleSelectChange={this.handleSelectImageTypeChange}
-                name="imageProcessing"
-                listHeight={170}
-              />
+        {visibilityStatus.objectIsVisible ? (
+          <div>
+            <ReservationSelectList
+              options={presetOptionsText}
+              selectedIndex={selectedImageProcessIndex}
+              handleSelectChange={this.handleSelectImageTypeChange}
+              name="imageProcessing"
+              listHeight={170}
+            />
 
-              <p className="sub-text">Your captures will be saved to the <br /> My Pictures area of the Telescopes menu.</p>
-            </div> : null
-        }
+            <p className="sub-text">
+              Your captures will be saved to the <br /> My Pictures area of the
+              Telescopes menu.
+            </p>
+          </div>
+        ) : null}
         <div className="col-xs-12">
           <section className="actions-container">
-            {
-              showPlaceOnHold ?
-                <button onClick={this.handlePlaceHourHold} className="btn-primary">Hold One Hour</button> : null
-            }
-            {
-              visibilityStatus.objectIsVisible && showCancelHold ?
-                <button className="btn-primary">Cancel Hold</button> : null
-            }
-            {
-              userHasReservation ?
-                <button className={scheduleMissionButtonClasses}>Update Mission</button> : null
-            }
-            {
-              visibilityStatus.objectIsVisible && !userHasReservation ?
-                <button className={scheduleMissionButtonClasses}>Schedule Mission</button> : null
-            }
+            {showPlaceOnHold ? (
+              <button
+                onClick={this.handlePlaceHourHold}
+                className="btn-primary"
+              >
+                Hold One Hour
+              </button>
+            ) : null}
+            {visibilityStatus.objectIsVisible && showCancelHold ? (
+              <button className="btn-primary">Cancel Hold</button>
+            ) : null}
+            {userHasReservation ? (
+              <button className={scheduleMissionButtonClasses}>
+                Update Mission
+              </button>
+            ) : null}
+            {visibilityStatus.objectIsVisible && !userHasReservation ? (
+              <button className={scheduleMissionButtonClasses}>
+                Schedule Mission
+              </button>
+            ) : null}
           </section>
         </div>
       </div>
@@ -494,7 +527,7 @@ class ReservationByCoordinate extends Component {
   }
 
   calculateRAField({ ra_h, ra_m, ra_s }) {
-    const calculatedRA = round(ra_h + (ra_m / 60) + (ra_s / 3600), 6);
+    const calculatedRA = round(ra_h + ra_m / 60 + ra_s / 3600, 6);
     if (calculatedRA > 24) {
       this.resetRAFields();
     }
@@ -504,13 +537,13 @@ class ReservationByCoordinate extends Component {
 
   onMissionGrabSuccess = () => {
     this.props.actions.missionConfirmOpen('reserve');
-  }
+  };
 
-  updateRA = (ra) => {
+  updateRA = ra => {
     this.setState({
       ra,
     });
-  }
+  };
 
   handleFormSubmit(event) {
     event.preventDefault();
@@ -529,11 +562,14 @@ class ReservationByCoordinate extends Component {
       dec,
       selectedImageProcessIndex,
       presetOptions,
-      targetName
+      targetName,
     } = this.state;
 
     if (selectedImageProcessIndex) {
-      const selectedImageProcess = presetOptions.telescopeList[0].telePresetList[selectedImageProcessIndex];
+      const selectedImageProcess =
+        presetOptions.telescopeList[0].telePresetList[
+          selectedImageProcessIndex
+        ];
       const missionPayload = {
         onSuccessCallback: this.onMissionGrabSuccess,
         callSource: 'byTelescope',
@@ -576,7 +612,6 @@ class ReservationByCoordinate extends Component {
     return (
       <div className="reservation-form-container">
         <form onSubmit={this.handleFormSubmit} method="POST" noValidate>
-
           <div className="reserveObjectPage reserve-by-coordinate">
             <Timer startTime={expires} expireCallback={expireCallback} />
             <div className="row">
@@ -593,8 +628,18 @@ class ReservationByCoordinate extends Component {
                     <input
                       type="text"
                       value={ra_h}
-                      onChange={(event) => { this.handleFieldChange({ field: 'ra_h', value: event.target.value }); }}
-                      onBlur={(event) => { this.handleFieldBlur({ field: 'ra_h', value: event.target.value }); }}
+                      onChange={event => {
+                        this.handleFieldChange({
+                          field: 'ra_h',
+                          value: event.target.value,
+                        });
+                      }}
+                      onBlur={event => {
+                        this.handleFieldBlur({
+                          field: 'ra_h',
+                          value: event.target.value,
+                        });
+                      }}
                       className="generic-text-input"
                     />
                     <span className="symbol-character">h</span>
@@ -603,8 +648,19 @@ class ReservationByCoordinate extends Component {
                     <input
                       type="text"
                       value={ra_m}
-                      onChange={(event) => { this.handleFieldChange({ field: 'ra_m', value: event.target.value, allowNegativeValues: false }); }}
-                      onBlur={(event) => { this.handleFieldBlur({ field: 'ra_m', value: event.target.value }); }}
+                      onChange={event => {
+                        this.handleFieldChange({
+                          field: 'ra_m',
+                          value: event.target.value,
+                          allowNegativeValues: false,
+                        });
+                      }}
+                      onBlur={event => {
+                        this.handleFieldBlur({
+                          field: 'ra_m',
+                          value: event.target.value,
+                        });
+                      }}
                       className="generic-text-input"
                     />
                     <span className="symbol-character">m</span>
@@ -614,8 +670,18 @@ class ReservationByCoordinate extends Component {
                       type="text"
                       maxLength={MAX_SECONDS_CHARACTER_LENGTH}
                       value={ra_s}
-                      onChange={(event) => { this.handleSecondsChange({ field: 'ra_s', valueRAW: event.target.value }); }}
-                      onBlur={(event) => {this.handleSecondsBlur({ field: 'ra_s', valueRAW: event.target.value }); }}
+                      onChange={event => {
+                        this.handleSecondsChange({
+                          field: 'ra_s',
+                          valueRAW: event.target.value,
+                        });
+                      }}
+                      onBlur={event => {
+                        this.handleSecondsBlur({
+                          field: 'ra_s',
+                          valueRAW: event.target.value,
+                        });
+                      }}
                       className="generic-text-input"
                     />
                     <span className="symbol-character">s</span>
@@ -628,21 +694,92 @@ class ReservationByCoordinate extends Component {
                     <input
                       type="text"
                       value={dec_d}
-                      onChange={(event) => { this.handleFieldChange({ field: 'dec_d', value: event.target.value, allowNegativeValues: true }); }}
-                      onBlur={(event) => { this.handleFieldBlur({ field: 'dec_d', value: event.target.value }); }}
+                      onChange={event => {
+                        this.handleFieldChange({
+                          field: 'dec_d',
+                          value: event.target.value,
+                          allowNegativeValues: true,
+                        });
+                      }}
+                      onBlur={event => {
+                        this.handleFieldBlur({
+                          field: 'dec_d',
+                          value: event.target.value,
+                        });
+                      }}
                       className="generic-text-input"
                     />
                     <span className="symbol-character">d</span>
                   </div>
-                  <div className="form-row"><input type="text" value={dec_m} onChange={(event) => { this.handleFieldChange({ field: 'dec_m', value: event.target.value }); }} onBlur={(event) => { this.handleFieldBlur({ field: 'dec_m', value: event.target.value }); }} className="generic-text-input" /> <span className="symbol-character">m</span></div>
                   <div className="form-row">
-                    <input type="text" maxLength={MAX_SECONDS_CHARACTER_LENGTH} value={dec_s} onChange={(event) => { this.handleSecondsChange({ field: 'dec_s', valueRAW: event.target.value }); }} onBlur={(event) => { this.handleSecondsBlur({ field: 'dec_s', valueRAW: event.target.value }); }} className="generic-text-input" /> <span className="symbol-character">s</span>
+                    <input
+                      type="text"
+                      value={dec_m}
+                      onChange={event => {
+                        this.handleFieldChange({
+                          field: 'dec_m',
+                          value: event.target.value,
+                        });
+                      }}
+                      onBlur={event => {
+                        this.handleFieldBlur({
+                          field: 'dec_m',
+                          value: event.target.value,
+                        });
+                      }}
+                      className="generic-text-input"
+                    />{' '}
+                    <span className="symbol-character">m</span>
+                  </div>
+                  <div className="form-row">
+                    <input
+                      type="text"
+                      maxLength={MAX_SECONDS_CHARACTER_LENGTH}
+                      value={dec_s}
+                      onChange={event => {
+                        this.handleSecondsChange({
+                          field: 'dec_s',
+                          valueRAW: event.target.value,
+                        });
+                      }}
+                      onBlur={event => {
+                        this.handleSecondsBlur({
+                          field: 'dec_s',
+                          valueRAW: event.target.value,
+                        });
+                      }}
+                      className="generic-text-input"
+                    />{' '}
+                    <span className="symbol-character">s</span>
                   </div>
                 </div>
 
                 <div className="form-row-container highlighted">
-                  <div className="form-row">RA: <input type="number" value={ra} maxLength="9" min="0" max="24" step="0.0000001" onChange={this.handleRAChange} onBlur={this.handleRABlur} className="generic-text-input" /></div>
-                  <div className="form-row">Dec: <input type="number" value={dec} maxLength="9" onChange={this.handleDECChange} onBlur={this.handleDECBlur} className="generic-text-input" /></div>
+                  <div className="form-row">
+                    RA:{' '}
+                    <input
+                      type="number"
+                      value={ra}
+                      maxLength="9"
+                      min="0"
+                      max="24"
+                      step="0.0000001"
+                      onChange={this.handleRAChange}
+                      onBlur={this.handleRABlur}
+                      className="generic-text-input"
+                    />
+                  </div>
+                  <div className="form-row">
+                    Dec:{' '}
+                    <input
+                      type="number"
+                      value={dec}
+                      maxLength="9"
+                      onChange={this.handleDECChange}
+                      onBlur={this.handleDECBlur}
+                      className="generic-text-input"
+                    />
+                  </div>
                 </div>
               </div>
 
@@ -666,14 +803,10 @@ class ReservationByCoordinate extends Component {
                   <span className="number">3</span> Select Image Processing
                 </h2>
 
-                {
-                  this.renderStepThree()
-                }
-
+                {this.renderStepThree()}
               </div>
             </div>
           </div>
-
         </form>
       </div>
     );

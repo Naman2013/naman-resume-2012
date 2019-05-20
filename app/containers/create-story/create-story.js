@@ -1,27 +1,22 @@
 /** *********************************
-* V4 Create Story
-*
-*
-*
-***********************************/
+ * V4 Create Story
+ *
+ *
+ *
+ ***********************************/
 
 import React from 'react';
 import PropTypes from 'prop-types';
 import noop from 'lodash/noop';
 import Modal from 'react-modal';
-import CenterColumn from 'components/common/CenterColumn';
-import CreateStoryForm from 'components/stories/form/create-story-form';
-import BarHeader from 'components/common/form-sections/bar-header';
+import CenterColumn from 'app/components/common/CenterColumn';
+import CreateStoryForm from 'app/components/stories/form/create-story-form';
+import BarHeader from 'app/components/common/form-sections/bar-header';
 import styles from './create-story.style';
 
-const {
-  func,
-  shape,
-  string,
-} = PropTypes;
+const { func, shape, string } = PropTypes;
 
-
-export const CreateStory = (props) => {
+export const CreateStory = props => {
   const {
     actions,
     cancelLabel,
@@ -84,7 +79,6 @@ export const CreateStory = (props) => {
             />
           </div>
         </div>
-
       </CenterColumn>
       <style jsx>{styles}</style>
     </div>
@@ -101,7 +95,7 @@ CreateStory.propTypes = {
     [string]: shape({
       title: string.isRequired,
       desc: string,
-    })
+    }),
   }),
   user: shape({
     at: string.isRequired,
@@ -112,8 +106,7 @@ CreateStory.propTypes = {
   userActions: shape({
     goToHubs: func.isRequired,
   }),
-
-}
+};
 CreateStory.defaultProps = {
   actions: {
     submitStory: noop,
@@ -138,6 +131,6 @@ CreateStory.defaultProps = {
     },
   },
   introText: '',
-}
+};
 
 export default CreateStory;
