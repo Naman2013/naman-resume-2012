@@ -3,7 +3,6 @@ import { screenMedium, screenSmall } from 'styles/variables/breakpoints';
 import { primaryFont, secondaryFont } from 'styles/variables/fonts';
 import { astronaut, romance, shadows } from 'styles/variables/colors_tiles_v4';
 
-
 export default css`
   .show-tile-root {
     display: flex;
@@ -13,7 +12,7 @@ export default css`
     position: relative;
     background-color: ${romance};
     height: 259px;
-    width:100%;
+    width: 100%;
     color: ${astronaut};
     padding: 25px;
     margin: 20px auto;
@@ -23,7 +22,7 @@ export default css`
 
   @media ${screenMedium} {
     .show-tile-root {
-    width: 600px;
+      width: 600px;
     }
   }
 

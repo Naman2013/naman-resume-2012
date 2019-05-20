@@ -7,11 +7,11 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import CenterColumn from 'app/components/common/CenterColumn';
+import { seashell } from 'app/styles/variables/colors_tiles_v4';
 import Live from './Live';
 import Recent from './Recent';
 import Upcoming from './Upcoming';
-import CenterColumn from 'app/components/common/CenterColumn';
-import { seashell } from 'app/styles/variables/colors_tiles_v4';
 import styles from './BootstrappedShow.style';
 
 const {
@@ -45,7 +45,6 @@ class BootstrappedShow extends Component {
       isUpcomingShow: props.upcomingFlag,
       isRecentShow: props.previousFlag,
       likes: props.likesCount,
-    }
     };
 
     if (props.inProgressFlag) {
@@ -75,8 +74,6 @@ class BootstrappedShow extends Component {
           timestamp: nextProps.startDate,
         });
       }
-
-      
     }
 
     if (this.props.upcomingFlag !== nextProps.upcomingFlag) {
@@ -98,13 +95,13 @@ class BootstrappedShow extends Component {
     }
 
     this.setState({
-        likes:nextProps.likesCount
-      })
+      likes: nextProps.likesCount,
+    });
   }
 
-  likeResultHandler = (count) => {
+  likeResultHandler = count => {
     this.setState({ likes: count });
-  }
+  };
 
   componentWillUnmount() {
     this.tearDown();
@@ -116,7 +113,7 @@ class BootstrappedShow extends Component {
     const milliTimestamp = Number(timestamp) * 1000;
     const remainingTime = milliExpires - milliTimestamp;
     if (remainingTime > 1000) {
-      this.timerPointer = setTimeout(:: this.setNextShowState, remainingTime);
+      this.timerPointer = setTimeout(::this.setNextShowState, remainingTime);
     }
   }
 
@@ -145,18 +142,31 @@ class BootstrappedShow extends Component {
 
   render() {
     // const {} = this.props;
-    const {
-      isLiveShow,
-      isUpcomingShow,
-      isRecentShow,
-      likes
-    } = this.state;
+    const { isLiveShow, isUpcomingShow, isRecentShow, likes } = this.state;
 
     return (
       <div className="root">
-        {isLiveShow ? <Live {...this.props} likesCount={likes} likeResultHandler={this.likeResultHandler} /> : null}
-        {isRecentShow ? <Recent {...this.props} likesCount={likes} likeResultHandler={this.likeResultHandler} /> : null}
-        {isUpcomingShow ? <Upcoming {...this.props} likesCount={likes} likeResultHandler={this.likeResultHandler} /> : null}
+        {isLiveShow ? (
+          <Live
+            {...this.props}
+            likesCount={likes}
+            likeResultHandler={this.likeResultHandler}
+          />
+        ) : null}
+        {isRecentShow ? (
+          <Recent
+            {...this.props}
+            likesCount={likes}
+            likeResultHandler={this.likeResultHandler}
+          />
+        ) : null}
+        {isUpcomingShow ? (
+          <Upcoming
+            {...this.props}
+            likesCount={likes}
+            likeResultHandler={this.likeResultHandler}
+          />
+        ) : null}
         <style jsx>{styles}</style>
       </div>
     );

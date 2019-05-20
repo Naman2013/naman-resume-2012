@@ -105,7 +105,6 @@ class Shows extends Component {
             serviceResponse = {},
           }) => (
             <Fragment>
-
               {!fetchingContent && (
                 <DeviceContext.Consumer>
                   {context => (
