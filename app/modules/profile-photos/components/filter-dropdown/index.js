@@ -1,11 +1,14 @@
 // @flow
 
+import FilterMenuTags from 'app/components/my-pictures/FilterMenuTags';
+import { Datepicker } from 'app/modules/profile-photos/components/filter-dropdown/datepicker';
 import { FilterElImg } from 'app/modules/profile-photos/components/filter-dropdown/filter-el-img';
-import React from 'react';
+import { FilterElTime } from 'app/modules/profile-photos/components/filter-dropdown/filter-el-time';
+import React, { memo } from 'react';
 import { Button } from 'react-bootstrap';
-import './index.scss';
-import useOnClickOutside from 'use-onclickoutside';
 import { Tooltip } from 'react-tippy';
+import useOnClickOutside from 'use-onclickoutside';
+import './index.scss';
 
 type TFilterDropdown = {
   isOpen: Boolean,
@@ -14,9 +17,10 @@ type TFilterDropdown = {
   onApply: Function,
   telescopeList: any,
   objectTypeList: any,
+  timeList: any,
 };
 
-export const FilterDropdown = (props: TFilterDropdown) => {
+export const FilterDropdown = memo((props: TFilterDropdown) => {
   const {
     isOpen,
     setOpen,
@@ -25,9 +29,17 @@ export const FilterDropdown = (props: TFilterDropdown) => {
     objectTypeList,
     telescopeList,
     onApply,
+    timeList = [],
+    // tags
+    setSelectedTagsTabIndex,
+    myPicturesFilters,
   } = props;
 
-  const { filterType: activeFilterType } = selectedFilters;
+  const {
+    filterType: activeFilterType,
+    timeFilter: activeTimeFilter,
+    dateFilter: activeDateFilter,
+  } = selectedFilters;
 
   const open = () => setOpen(true);
   const close = () => setOpen(false);
@@ -51,6 +63,11 @@ export const FilterDropdown = (props: TFilterDropdown) => {
       pierNumber: null,
       observatoryId: null,
       filterType: null,
+      timeFilter: null,
+      dateFilter: null,
+      missionSystemTags: [],
+      missionUserTags: [],
+      pictureUserTags: [],
     });
     onApply();
     close();
@@ -113,6 +130,54 @@ export const FilterDropdown = (props: TFilterDropdown) => {
             </div>
 
             <hr />
+
+            <h4 className="h4-custom">BY TIME</h4>
+
+            <div className="grid-elements-time">
+              {timeList.map(time => (
+                <FilterElTime
+                  key={time.value}
+                  title={time.name}
+                  onClick={() =>
+                    onChange({
+                      timeFilter: time.value,
+                    })
+                  }
+                  active={time.value === activeTimeFilter}
+                />
+              ))}
+            </div>
+
+            <div className="grid-elements-time mt-5">
+              <Datepicker
+                className="filter-custom-date"
+                value={activeDateFilter}
+                onChange={dateFilter => onChange({ dateFilter })}
+                placeholder="SET DATE"
+                outputFormat="YYYY-MM-DD"
+              />
+            </div>
+
+            <hr />
+
+            <h4 className="h4-custom">BY TAGS</h4>
+
+            <FilterMenuTags
+              setSelectedTagsTabIndex={setSelectedTagsTabIndex}
+              selectedTagsTabIndex={myPicturesFilters.selectedTagsTabIndex}
+              missionSystemTagsCount={myPicturesFilters.missionSystemTagsCount}
+              missionUserTagsCount={myPicturesFilters.missionUserTagsCount}
+              pictureUserTagsCount={myPicturesFilters.pictureUserTagsCount}
+              selectedFilters={selectedFilters}
+              missionSystemTags={myPicturesFilters.missionSystemTags}
+              missionUserTags={myPicturesFilters.missionUserTags}
+              pictureUserTags={myPicturesFilters.pictureUserTags}
+              handleTagClick={(filterProp, filterVal) => {
+                onChange({
+                  [filterProp]: filterVal,
+                });
+              }}
+            />
           </div>
 
           <div className="filter-dropdown-footer text-center">
@@ -132,4 +197,4 @@ export const FilterDropdown = (props: TFilterDropdown) => {
       )}
     </div>
   );
-};
+});

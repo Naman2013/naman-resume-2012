@@ -59,7 +59,7 @@ const GroupMemberListSort = ({
           active: membersSort === SORT_RANK,
         })}
       >
-        MVP
+        GP
         <div className="caret" />
       </a>
     </div>

@@ -50,11 +50,13 @@ class Quests extends Component {
 
   state = {
     quests: [],
+    questsComingSoonMessage: '',
   };
 
   updateQuestsList = resData => {
     this.setState(() => ({
       quests: resData.questsList,
+      questsComingSoonMessage: resData.questsComingSoonMessage,
     }));
   };
 
@@ -90,7 +92,7 @@ class Quests extends Component {
 
   render() {
     const { user, actions, intl, isFetching } = this.props;
-    const { quests } = this.state;
+    const { quests, questsComingSoonMessage } = this.state;
     return (
       <div>
         <Request
@@ -143,6 +145,7 @@ class Quests extends Component {
                                 this.updateReadingListInQuest
                               }
                               quests={quests}
+                              questsComingSoonMessage={questsComingSoonMessage}
                               isMobile={context.isMobile}
                             />
                           )}
