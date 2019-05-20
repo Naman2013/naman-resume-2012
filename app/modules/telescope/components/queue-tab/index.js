@@ -39,14 +39,18 @@ export class QueueTab extends Component {
   }
 
   getUpcomingSlotsByTelescope = requestedSlotCount => {
-    const { getUpcomingSlotsByTelescope, currentTelescope, currentObservatory } = this.props;
+    const { getUpcomingSlotsByTelescope, currentTelescope, currentObservatory, missionsRefreshTimerEnabled } = this.props;
     stopMissionListTimer();
     getUpcomingSlotsByTelescope({
       obsId: currentObservatory.obsId,
       domeId: currentTelescope.telePierNumber,
       telescopeId: currentTelescope.teleId,
       requestedSlotCount,
-    }).then(data => setupMissionListTimer(data.payload.refreshIntervalSec * 1000, () => this.getUpcomingSlotsByTelescope(requestedSlotCount)));
+    }).then(data => {
+      if( missionsRefreshTimerEnabled ) {
+        setupMissionListTimer(data.payload.refreshIntervalSec * 1000, () => this.getUpcomingSlotsByTelescope(requestedSlotCount))
+      }
+    });
   }
 
   getFeaturedObjectsByTelescope = () => {
