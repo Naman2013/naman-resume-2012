@@ -23,7 +23,11 @@ export class FeaturedObjectCard extends PureComponent {
     } = missionStartFormatted;
 
     return (
-      <div className="featured-object-card">
+      <div
+        className={`featured-object-card${
+          userHasReservation ? ' reserved' : ''
+        }`}
+      >
         <div className="mission-title">
           <img src={objectIconURL} alt="" />
           <span>{title}</span>
