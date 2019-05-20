@@ -21,6 +21,9 @@ import {
   ADD_EXISTING_USER_FAIL,
   ADD_EXISTING_USER_START,
   ADD_EXISTING_USER_SUCCESS,
+  FETCH_GOOGLE_CLASSROOM_STUDENTS_PANEL_START,
+  FETCH_GOOGLE_CLASSROOM_STUDENTS_PANEL_SUCCESS,
+  FETCH_GOOGLE_CLASSROOM_STUDENTS_PANEL_FAIL,
   SORT_AZ,
   SORT_ZA,
   SORT_RANK,
@@ -44,6 +47,28 @@ const initialState = {
 };
 
 export default createReducer(initialState, {
+  [FETCH_GOOGLE_CLASSROOM_STUDENTS_PANEL_START](state) {
+    return {
+      ...state,
+      error: false,
+      fetching: true,
+    };
+  },
+  [FETCH_GOOGLE_CLASSROOM_STUDENTS_PANEL_SUCCESS](state, { payload }) {
+    return {
+      ...state,
+      error: false,
+      fetching: false,
+      groupInformation: payload,
+    };
+  },
+  [FETCH_GOOGLE_CLASSROOM_STUDENTS_PANEL_FAIL](state) {
+    return {
+      ...state,
+      error: true,
+      fetching: false,
+    };
+  },
   [GROUP_DESCRIPTION_CHANGE_START](state) {
     return {
       ...state,
@@ -198,25 +223,25 @@ export default createReducer(initialState, {
       error: true,
     };
   },
-  [ADD_EXISTING_USER_START](state){
+  [ADD_EXISTING_USER_START](state) {
     return {
       ...state,
-      error:false,
-      fetching:true
-    }
+      error: false,
+      fetching: true,
+    };
   },
-  [ADD_EXISTING_USER_SUCCESS] (state){
+  [ADD_EXISTING_USER_SUCCESS](state) {
     return {
       ...state,
-      error:false,
-      fetching:false,
-    }
+      error: false,
+      fetching: false,
+    };
   },
-  [ADD_EXISTING_USER_FAIL](state){
+  [ADD_EXISTING_USER_FAIL](state) {
     return {
       ...state,
-      error:true,
-fetching:false
-    }
-  }
+      error: true,
+      fetching: false,
+    };
+  },
 });

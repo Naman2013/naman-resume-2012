@@ -4,6 +4,7 @@ import {
   fetchGroupOverviewPageMeta,
   changeGroupDescription,
   fetchGroupInvitationPanel,
+  fetchGoogleClassroomStudentsPanel,
   fetchInvitePopupContent,
   addExistingUser,
 } from '../actions';
@@ -22,6 +23,7 @@ const mapDispatchToProps = {
   fetchGroupOverviewPageMeta,
   changeGroupDescription,
   fetchGroupInvitationPanel,
+  fetchGoogleClassroomStudentsPanel,
   fetchInvitePopupContent,
   addExistingUser,
 };

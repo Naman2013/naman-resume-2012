@@ -10,9 +10,9 @@ import './community-group-edit.scss';
 import Btn from 'app/atoms/Btn';
 import DiscussionBoardInviteNewMemberToSlooh from 'app/components/community-groups/overview/DiscussionBoardInviteNewMemberToSlooh';
 import { Modal } from 'app/components/modal';
+import Button from 'app/components/common/style/buttons/Button';
 import { CommunityGroupEditHeader } from './community-group-edit-header';
 import { MemberCard } from './member-card';
-import Button from '../../../components/common/style/buttons/Button';
 
 class CommunityGroupEdit extends Component {
   state = { groupId: null, isDescriptionEditOn: false, isInviteOn: false };
@@ -29,10 +29,22 @@ class CommunityGroupEdit extends Component {
       routeParams: { groupId },
       fetchGroupOverviewPageMeta,
       fetchGroupInvitationPanel,
+      fetchGoogleClassroomStudentsPanel,
     } = this.props;
 
-    fetchGroupOverviewPageMeta({ discussionGroupId: groupId });
-    fetchGroupInvitationPanel(groupId);
+    fetchGroupOverviewPageMeta({ discussionGroupId: groupId }).then(() => {
+      const {
+        communityGroupOverview: {
+          pageMeta: { isGoogleClassroom },
+        },
+      } = this.props;
+
+      if (isGoogleClassroom) {
+        fetchGoogleClassroomStudentsPanel(groupId);
+      } else {
+        fetchGroupInvitationPanel(groupId);
+      }
+    });
   }
 
   componentDidUpdate(prevProps) {
@@ -40,13 +52,28 @@ class CommunityGroupEdit extends Component {
       routeParams,
       fetchGroupOverviewPageMeta,
       fetchGroupInvitationPanel,
+      fetchGoogleClassroomStudentsPanel,
+      fetching,
     } = this.props;
+
     if (prevProps.routeParams.groupId !== routeParams.groupId) {
       const { groupId } = this.state;
-      fetchGroupOverviewPageMeta({ discussionGroupId: groupId });
-      fetchGroupInvitationPanel(groupId);
+      fetchGroupOverviewPageMeta({ discussionGroupId: groupId }).then(() => {
+        const {
+          communityGroupOverview: {
+            pageMeta: { isGoogleClassroom },
+          },
+        } = this.props;
+
+        if (isGoogleClassroom) {
+          fetchGoogleClassroomStudentsPanel(groupId);
+        } else {
+          fetchGroupInvitationPanel(groupId);
+        }
+      });
     }
-    if (!this.props.fetching) {
+
+    if (!fetching) {
       const {
         change,
         communityGroupOverview: { description },
@@ -77,7 +104,9 @@ class CommunityGroupEdit extends Component {
                 emailAddress: member.emailAddress,
               },
               groupId
-            ).then(() => fetchGroupOverviewPageMeta({ discussionGroupId: groupId }));
+            ).then(() =>
+              fetchGroupOverviewPageMeta({ discussionGroupId: groupId })
+            );
           }}
         />
       ))
