@@ -2,7 +2,6 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import noop from 'lodash/noop';
-import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
 import { SHOWS_UPCOMING_ENDPOINT_URL } from 'app/services/shows';
 import SloohSlider from 'app/components/common/Slider';
 import { getSliderProps } from './upcomingShowsConfig';
@@ -46,7 +45,7 @@ class UpcomingShowsInHub extends Component {
 
     const sliderProps = upcomingShows ? getSliderProps(upcomingShows) : {};
     return upcomingShows.length ? (
-      <div>
+      <div className="i-root">
         <SloohSlider {...sliderProps} />
         <style jsx>{style}</style>
       </div>

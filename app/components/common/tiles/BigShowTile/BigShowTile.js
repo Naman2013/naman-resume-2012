@@ -9,8 +9,9 @@ const BigShowTile = ({
   eventHost,
   linkUrl,
   dateDisplay,
+  onMouseEnter,
 }) => (
-  <div className="card-shows">
+  <div className="card-shows" onMouseEnter={onMouseEnter}>
     <div className="show-card-head">{heading}</div>
     <Link to={linkUrl} href={linkUrl}>
       <div className="show-card-title">{eventTitle}</div>
