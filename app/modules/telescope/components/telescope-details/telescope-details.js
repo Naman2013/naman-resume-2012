@@ -173,7 +173,7 @@ export class TelescopeDetails extends Component {
           telescope.teleUniqueId === activeTelescope.telescopeUniqueID
       )
     );
-
+    
     return (
       <div>
         <TelescopeNavigation
@@ -188,6 +188,7 @@ export class TelescopeDetails extends Component {
         {activeTelescopeStatus &&
           activeTelescopeStatus.onlineStatus === 'offline' && (
             <TelescopeOffline
+              key={`currentTelescopeId-${currentTelescope.teleId}`}
               currentTelescope={currentTelescope}
               currentObservatory={currentObservatory}
               currentInstrument={currentInstrument}
