@@ -11,6 +11,7 @@ import ShowMoreWithNetwork from 'app/components/common/show-more-with-network';
 import UnderlineNav from 'app/components/common/UnderlineNav';
 import PaginateWithNetwork from 'app/components/common/paginate-with-network';
 import { goldCompass } from 'app/styles/variables/iconURLs';
+import classnames from 'classnames';
 
 import style from './HubContainer.style';
 
@@ -103,6 +104,7 @@ class HubContainer extends Component {
       this.props.sortOptions,
       this.props.location.query.sort || 'atoz'
     ),
+    toggleMobileSort: false
   };
 
   componentWillReceiveProps(nextProps) {
@@ -175,6 +177,12 @@ class HubContainer extends Component {
     }
   };
 
+  toggleMobileSort = () => {
+    this.setState({
+      toggleMobileSort: true
+    });
+  };
+
   render() {
     const {
       callSource,
@@ -198,7 +206,7 @@ class HubContainer extends Component {
       profile,
     } = this.props;
 
-    const { defaultSortIndex, sort, page } = this.state;
+    const { defaultSortIndex, sort, page, toggleMobileSort } = this.state;
 
     return (
       <div className="root">
@@ -210,7 +218,7 @@ class HubContainer extends Component {
           showIcon={showHeaderIcon}
           titleTheme={pageTitleTheme}
           renderNav={() => (
-            <div className="navigation-bar">
+            <div className={classnames('navigation-bar', {toggle: toggleMobileSort})}>
               <UnderlineNav
                 profile={profile}
                 activeFilter={filterType}
@@ -222,6 +230,7 @@ class HubContainer extends Component {
                 <HubSort
                   defaultIndex={defaultSortIndex}
                   handleSort={this.handleSortChange}
+                  toggleMobileSort={this.toggleMobileSort}
                   sortItems={sortOptions}
                 />
               ) : null}
