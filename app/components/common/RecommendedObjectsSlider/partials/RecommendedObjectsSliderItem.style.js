@@ -2,10 +2,22 @@ import css from 'styled-jsx/css';
 import {
   astronaut,
   shadows,
+  lightHeadedAstronaut,
 } from '../../../../styles/variables/colors_tiles_v4';
-import { secondaryFont } from '../../../../styles/variables/fonts';
+import { primaryFont, secondaryFont } from '../../../../styles/variables/fonts';
 
 export default css`
+
+  @font-face {
+    font-family: 'Angelique';
+    src:
+      url('/assets/fonts/AngeliquemadouceColombe.woff') format('woff'),
+      url('/assets/fonts/AngeliquemadouceColombe.eot') format('eot'),
+      url('/assets/fonts/AngeliquemadouceColombe.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+  }
+  
   .card-object {
     pointer-events: auto;
     text-align: initial;
@@ -32,21 +44,33 @@ export default css`
     height: 100%;
   }
   .object-field {
-    color: ${astronaut};
-    font-family: ${secondaryFont};
-    font-size: 20px;
+    color: ${lightHeadedAstronaut};
     padding: 15px 0;
   }
 
   .title {
     border-top: 1px solid #c3c5c7;
+    font-family: ${secondaryFont};
+    font-size: 20px; 
+    font-weight: 400;
+    letter-spacing: 0;
+    text-transform: none;
   }
 
   .details {
+    font-family: ${primaryFont};
     font-size: 12px;
-    letter-spacing: 0.6px;
     font-weight: bold;
+    letter-spacing: 0.6px;
     text-transform: uppercase;
+  }
+
+  .details-telescope {
+    font-family: 'Angelique';
+    font-size: 52px; 
+    line-height: 0.5;
+    padding: 10px 0 16px 0;
+    text-transform: none;
   }
 
   .field-wrapper {
