@@ -9,6 +9,10 @@ import take from 'lodash/take';
 import { FeaturedObjectCard } from 'app/modules/telescope/components/featured-object-card';
 import { FeaturedObjectsModal } from 'app/modules/telescope/components/featured-objects-modal';
 import { MissionSuccessModal } from 'app/modules/missions/components/mission-success-modal';
+import {
+  setupFeaturedObjectsExpireTimer,
+  stopFeaturedObjectsExpireTimer,
+} from 'app/services/dashboard/timer';
 import SloohSlider from '../Slider';
 import DisplayAtBreakpoint from '../DisplayAtBreakpoint';
 import { getSliderProps } from './recommendedObjectsSliderConfiguration';
@@ -19,6 +23,18 @@ export class RecommendedObjects extends Component {
     reservationModalVisible: false,
     selectedMission: {},
     successModalShow: false,
+  };
+
+  getDashboardFeaturedObjects = () => {
+    const { getDashboardFeaturedObjects } = this.props;
+    stopFeaturedObjectsExpireTimer();
+    getDashboardFeaturedObjects().then(({ payload }) => {
+      const timerTime = payload.expires - payload.timestamp;
+      setupFeaturedObjectsExpireTimer(timerTime, () =>
+        this.getDashboardFeaturedObjects()
+      );
+
+    });
   };
 
   reserveCommunityMission = () => {
@@ -44,12 +60,11 @@ export class RecommendedObjects extends Component {
   };
 
   modalClose = () => {
-    const { getDashboardFeaturedObjects } = this.props;
     this.setState({
       successModalShow: false,
       selectedMission: {},
     });
-    getDashboardFeaturedObjects();
+    this.getDashboardFeaturedObjects();
   };
 
   render() {
