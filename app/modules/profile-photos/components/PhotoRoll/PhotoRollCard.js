@@ -22,6 +22,7 @@ type TPhotoRollCard = {
   user: Object,
   count: number,
   isShareToken?: boolean,
+  tagActions: Object,
 };
 
 class PhotoRollCard extends Component<TPhotoRollCard> {
@@ -31,7 +32,7 @@ class PhotoRollCard extends Component<TPhotoRollCard> {
     { label: 'Add to gallery', action: 'addToGallery' },
     { label: 'Delete image', action: 'remove' },
     { label: 'Write observation', action: 'redirect' },
-    { label: 'Add Tags' },
+    { label: 'Add Tags', action: 'tagging' },
     { label: 'Share Image' },
   ];
 
@@ -61,7 +62,13 @@ class PhotoRollCard extends Component<TPhotoRollCard> {
   };
 
   render() {
-    const { index, isDesktop, isMobile, currentItem: observation } = this.props;
+    const {
+      index,
+      isDesktop,
+      isMobile,
+      currentItem: observation,
+      tagActions,
+    } = this.props;
     const { menuIsVisible, width } = this.state;
     const inCenter = index % 3 === 1;
     const {
@@ -91,6 +98,7 @@ class PhotoRollCard extends Component<TPhotoRollCard> {
                 <AsideToggleableMenu
                   blockWidth={width}
                   visible={menuIsVisible}
+                  tagActions={tagActions}
                   optionsList={this.optionsList}
                   redirectToImage={this.redirectToImage}
                   toggleMenuVisibility={this.toggleMenuVisibility}

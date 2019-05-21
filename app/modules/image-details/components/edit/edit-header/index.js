@@ -33,7 +33,7 @@ export const EditHeader = props => {
             Write Observation
           </Button>
 
-          <TagBtn {...props} />
+          <TagBtn placeholder="Add tags to this image" {...props} />
 
           <BtnWithPopover
             isOpen={isDownloadOpen}

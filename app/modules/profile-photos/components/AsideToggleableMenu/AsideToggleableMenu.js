@@ -8,6 +8,7 @@ import { FormattedMessage } from 'react-intl';
 
 import DeleteImage from 'app/components/my-pictures/actions/DeleteImageV4';
 import AddToGallery from 'app/components/my-pictures/actions/AddToGalleryV4';
+import { TagBtn } from 'app/modules/image-details/components/edit/edit-header/tag-btn';
 
 import styles from './AsideToggleableMenu.style';
 import messages from './AsideToggleableMenu.messages';
@@ -27,6 +28,8 @@ const AsideToggleableMenu = props => {
     redirectToImage,
     downloadFile,
     mod,
+    tagActions,
+    tagsData,
   } = props;
 
   return (
@@ -105,6 +108,25 @@ const AsideToggleableMenu = props => {
                 onClick={downloadFile}
                 className="option"
               >
+                {option.label}
+              </button>
+            );
+          }
+          if (option.action === 'tagging') {
+            return (
+              <button
+                style={{ opacity: visible ? 1 : 0 }}
+                className="option flex-row-reverse"
+              >
+                <TagBtn
+                  fullSize
+                  placeholder="Add tags"
+                  tagList={tagsData.tagList}
+                  setTag={tagActions.setTag}
+                  getTags={tagActions.getTags}
+                  deleteTag={tagActions.deleteTag}
+                  customerImageId={customerImageId}
+                />
                 {option.label}
               </button>
             );

@@ -10,7 +10,7 @@ const didMount = props => () => {
 };
 
 export const TagBtn = props => {
-  const { tagList, tagsFetching } = props;
+  const { tagList, tagsFetching, fullSize, placeholder } = props;
 
   const [isTagsOpen, setTagsOpen] = useState(false);
 
@@ -39,9 +39,10 @@ export const TagBtn = props => {
 
   return (
     <BtnWithPopover
+      fullSize={fullSize}
       isOpen={isTagsOpen}
       setOpen={setTagsOpen}
-      className="ml-2"
+      className={fullSize ? 'ml-2 plain' : 'ml-2'}
       tooltip="Label"
       icon={<span className="icon-label" />}
       popover={
@@ -51,7 +52,7 @@ export const TagBtn = props => {
             <input
               type="text"
               className="observation-control observation-control-sm"
-              placeholder="Add tags to this image"
+              placeholder={placeholder}
               onChange={evt => setTagVal(evt.target.value)}
               value={tagVal}
             />

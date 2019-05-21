@@ -17,6 +17,7 @@ export const BtnWithPopover = props => {
     popoverHeader,
     isOpen = false,
     setOpen = fn,
+    fullSize,
   } = props;
   const node = useRef();
 
@@ -56,6 +57,7 @@ export const BtnWithPopover = props => {
 
       <Popover
         isOpen={isOpen}
+        fullSize={fullSize}
         onHide={() => setOpen(!isOpen)}
         header={popoverHeader}
       >
