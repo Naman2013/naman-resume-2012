@@ -45,13 +45,13 @@ export class WriteObservationModal extends Component {
     setObservationTags(customerImageId, scheduledMissionId, title, text).then(
       data => {
         if (!data.payload.apiError) {
+          shareMemberPicture({ customerImageId });
           this.setState({
             currentStep: WRITE_OBSERVATIONS_STEPS.STEP_3,
           });
         }
       }
     );
-    shareMemberPicture({ customerImageId });
   };
 
   render() {
