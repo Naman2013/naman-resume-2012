@@ -11,14 +11,17 @@ import { bindActionCreators } from 'redux';
 import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 import { createStructuredSelector } from 'reselect';
+import { Button } from 'react-bootstrap';
 import {
   setupCommunityMissionExpireTimer,
   stopCommunityMissionExpireTimer,
 } from 'app/services/objects/timer';
+import { Spinner } from 'app/components/spinner/index';
 import { getCommunityMissions } from '../../modules/object-details/actions';
 import {
   makeObjectDetailsMissionsSelector,
   makeObjectDetailsDataSelector,
+  makeObjectDetailsFetchingSelector,
 } from '../../modules/object-details/selectors';
 import {
   makeQueueTabReservedCommunityMissionDataSelector,
@@ -45,6 +48,7 @@ const mapStateToProps = createStructuredSelector({
   reservedCommunityMission: makeQueueTabReservedCommunityMissionSelector(),
   user: makeUserSelector(),
   objectDetails: makeObjectDetailsDataSelector(),
+  isFetching: makeObjectDetailsFetchingSelector(),
 });
 
 const mapDispatchToProps = {
@@ -120,16 +124,31 @@ class Missions extends Component {
       user,
       reservedCommunityMissionData,
       reservedCommunityMission,
+      isFetching
     } = this.props;
     const { missionCount, missionList } = missionData;
     const { reservationModalVisible, selectedMission, successModalShow } = this.state;
 
     return (
       <Fragment>
+        <Spinner
+          loading={isFetching}
+        />
         <DeviceProvider>
           <ObjectDetailsSectionTitle
             title={`${objectDetails.objectTitle}'s`}
             subTitle={intl.formatMessage(messages.UpcomingMissions)}
+            renderNav={() => (
+              <div className="nav-actions">
+                {!isFetching && (
+                  <Button
+                    onClick={this.getCommunityMissions}
+                  >
+                    Refresh
+                  </Button>
+                )}
+              </div>
+            )}
           />
         </DeviceProvider>
         <CenterColumn>
@@ -147,10 +166,12 @@ class Missions extends Component {
             </div>
           ) : (
             <div>
-              <FormattedMessage
-                {...messages.NoMissions}
-                values={{ objectTitle: objectDetails.objectTitle }}
-              />
+              {!isFetching && (
+                <FormattedMessage
+                  {...messages.NoMissions}
+                  values={{ objectTitle: objectDetails.objectTitle }}
+                />
+              )}
             </div>
           )}
         </CenterColumn>
