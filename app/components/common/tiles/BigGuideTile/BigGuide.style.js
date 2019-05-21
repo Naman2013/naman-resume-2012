@@ -17,12 +17,7 @@ export default css`
     background-size: contain;
     background-repeat: no-repeat;
     background-position: 50%;
-    font-family: ${primaryFont};
-    color: ${romance};
-    font-weight: 600;
-    letter-spacing: 1px;
     padding: 0 40px;
-    font-size: 10px;
     width: 300px;
     height: 462px;
     margin: 20px auto;
@@ -30,19 +25,22 @@ export default css`
   }
   .card-guides-head {
     color: ${golda};
-    font-weight: 400;
-    padding: 200px 0 20px 0;
+    font-weight: bold;
     font-family: ${primaryFont};
+    font-size: 10px;
     letter-spacing: 2px;
+    padding: 200px 0 20px 0;
     text-transform: uppercase;
   }
   .card-guides-title {
     color: ${romance};
     font-family: ${secondaryFont};
     font-size: 22px;
+    letter-spacing: 0;
     line-height: 22px;
     font-weight: 400;
     max-width: 80%;
     margin: 0 auto;
+    text-transform: none;
   }
 `;
