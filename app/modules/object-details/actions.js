@@ -151,6 +151,7 @@ export const getCommunityMissions = objectId => (dispatch, getState) => {
     objectId,
   }).then(result => {
     dispatch(fetchObjectMissionsActionSuccess(result.data));
+    return result;
   }).catch(error => dispatch(fetchObjectMissionsActionError(error)));
 };
 

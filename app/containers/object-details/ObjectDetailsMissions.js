@@ -11,6 +11,10 @@ import { bindActionCreators } from 'redux';
 import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 import { createStructuredSelector } from 'reselect';
+import {
+  setupCommunityMissionExpireTimer,
+  stopCommunityMissionExpireTimer,
+} from 'app/services/objects/timer';
 import { getCommunityMissions } from '../../modules/object-details/actions';
 import {
   makeObjectDetailsMissionsSelector,
@@ -63,12 +67,22 @@ class Missions extends Component {
     this.getCommunityMissions();
   }
 
+  componentWillUnmount() {
+    stopCommunityMissionExpireTimer();
+  }
+
   getCommunityMissions = () => {
     const {
       getCommunityMissions,
       params: { objectId },
     } = this.props;
-    getCommunityMissions(objectId);
+    stopCommunityMissionExpireTimer();
+    getCommunityMissions(objectId).then(({ data }) => {
+      const timerTime = data.expires - data.timestamp;
+      setupCommunityMissionExpireTimer(timerTime, () =>
+        this.getCommunityMissions()
+      );
+    });;
   }
 
   reserveCommunityMission = () => {

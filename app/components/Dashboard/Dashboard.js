@@ -31,6 +31,10 @@ class Dashboard extends Component {
     this.getDashboardFeaturedObjects();
   }
 
+  componentWillUnmount() {
+    stopFeaturedObjectsExpireTimer();
+  }
+
   getDashboardFeaturedObjects = () => {
     const { getDashboardFeaturedObjects } = this.props;
     stopFeaturedObjectsExpireTimer();
@@ -39,7 +43,6 @@ class Dashboard extends Component {
       setupFeaturedObjectsExpireTimer(timerTime, () =>
         this.getDashboardFeaturedObjects()
       );
-
     });
   };
 
