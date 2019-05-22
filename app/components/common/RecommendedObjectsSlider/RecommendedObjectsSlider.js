@@ -73,6 +73,8 @@ export class RecommendedObjects extends Component {
       user,
       reservedCommunityMissionData,
       reservedCommunityMission,
+      reservedButtonCaption,
+      optionsButtonCaption,
     } = this.props;
     const {
       reservationModalVisible,
@@ -93,6 +95,8 @@ export class RecommendedObjects extends Component {
                 key={object.scheduledMissionId}
                 featureObject={object}
                 onOptionClick={() => this.reservationModalShow(object)}
+                reservedButtonCaption={reservedButtonCaption}
+                optionsButtonCaption={optionsButtonCaption}
               />
             ))}
           </div>
