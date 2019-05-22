@@ -70,7 +70,7 @@ class BootstrappedTourPopup extends Component {
     this.closeModal();
 
     axios
-      .post(DASHBOARD_DISMISS_TOUR_POPUP, { data: { cid, at, token } })
+      .post(DASHBOARD_DISMISS_TOUR_POPUP, { cid, at, token })
       .then(res => validateResponseAccess(res.data));
   };
 
@@ -122,6 +122,7 @@ class BootstrappedTourPopup extends Component {
           ) : null}
           {canDismiss ? (
             <span
+              className="dismiss-link"
               onClick={this.dismissTour}
               dangerouslySetInnerHTML={{ __html: dismissText }}
             />
