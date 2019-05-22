@@ -40,6 +40,7 @@ const GroupsHeader = ({
   canEditGroup,
   discussionGroupId,
   isEditMode,
+  editButtonText,
 }) => (
   <div className="root">
     <div className="image-and-main-container">
@@ -73,7 +74,7 @@ const GroupsHeader = ({
               );
             }}
           >
-            {isEditMode ? 'View Group' : 'Manage Group'}
+            {editButtonText}
           </Button>
         )}
         {condensed ? (

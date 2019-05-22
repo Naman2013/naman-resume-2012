@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link, browserHistory } from 'react-router';
-import { guideCorner } from 'app/styles/variables/iconURLs';
+import { browserHistory } from 'react-router';
+import Btn from 'app/atoms/Btn';
+import Icon from 'app/atoms/Icon';
 import ToggleJoinGroup from 'app/components/common/ToggleJoinGroup';
 import AskToJoinGroup from 'app/components/common/AskToJoinGroup';
 import Button from 'app/components/common/style/buttons/Button';
@@ -24,6 +25,7 @@ const GroupExcerptTile = ({
   askPrompt,
   updatePrompt,
   updateGroupItemInfo,
+  canEditGroup,
 }) => (
   <div className="group-tile-root">
     <div className="title" dangerouslySetInnerHTML={{ __html: title }} />
@@ -36,13 +38,21 @@ const GroupExcerptTile = ({
       dangerouslySetInnerHTML={{ __html: accessDescription }}
     />
     <div className="actions">
-      {canView ? (
+      {canView && (
         <Button
           theme={{ height: '40px', marginRight: '10px' }}
           text={viewMessage}
           onClickEvent={() => browserHistory.push(linkUrl)}
         />
-      ) : null}
+      )}
+      {canEditGroup && (
+        <Btn
+          mod="circle"
+          onClick={() => browserHistory.push(`${linkUrl}/edit=:edit`)}
+        >
+          <Icon i="pencil" />
+        </Btn>
+      )}
       {showJoinPrompt ? (
         <ToggleJoinGroup
           filterType={filterType}

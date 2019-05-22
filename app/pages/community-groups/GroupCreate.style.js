@@ -20,10 +20,15 @@ export default css`
     color: ${astronaut};
   }
 
+  .root {
+    background: white;
+  }
+
   .wrapper {
     margin-bottom: 40px;
     box-shadow: 0px 3px 5px 0px rgba(88, 88, 88, 0.5);
     border-top: none;
+    background:white;
   }
 
   .section-heading {
