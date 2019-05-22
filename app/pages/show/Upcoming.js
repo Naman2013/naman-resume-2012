@@ -15,9 +15,9 @@ import MonotonousTile from 'app/components/common/tiles/MonotonousTile';
 import CenterColumn from 'app/components/common/CenterColumn';
 import VideoImageLoader from 'app/components/common/telescope-image-loader/video-image-loader';
 import ResponsiveTwoColumnContainer from 'app/components/ResponsiveTwoColumnContainer';
+import { romance, seashell } from 'app/styles/variables/colors_tiles_v4';
 import MainContainerWithDiscussions from './partials/MainContainerWithDiscussions';
 import AsideContainerDetailsOnly from './partials/AsideContainerDetailsOnly';
-import { romance, seashell } from 'app/styles/variables/colors_tiles_v4';
 import styles from './Show.style';
 import messages from './Show.messages';
 import ToggleReadingList from '../../components/common/ToggleReadingList/ToggleReadingList';
@@ -100,6 +100,8 @@ class UpcomingShow extends Component {
       showInfoTiles,
       showStreamCode,
       showStreamURL,
+      readingListPrompt,
+      promptIconUrl,
       tagLine,
       title,
       intl,
@@ -128,7 +130,19 @@ class UpcomingShow extends Component {
                 className="big-box-title"
                 dangerouslySetInnerHTML={{ __html: title }}
               />
-              <ToggleReadingList readingListType="show" itemId={showId} />
+              <ToggleReadingList
+                theme={{
+                  marginLeft: 'auto',
+                  marginRight: 'auto',
+                  width: '120px',
+                  borderColor: 'white',
+                  color: 'white',
+                }}
+                readingListPrompt={readingListPrompt}
+                promptIconUrl={promptIconUrl}
+                readingListType="show"
+                itemId={showId}
+              />
             </div>
             <div className="hide-on-mobile">
               <LabeledTitleTiles
