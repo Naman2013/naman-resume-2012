@@ -40,13 +40,14 @@ class SwiperItem extends Component {
       useShareToken: 'n',
       callSource: 'sharedpictures',
     })
-      .then(({ data: { imageTitle, displayName, observationLog, imageURL, commentsCount, likesCount }}) => {
+      .then(({ data: { imageTitle, displayName, observationLog, imageURL, commentsCount, likesCount, linkUrl }}) => {
         setObservationInfo({
           title: imageTitle,
           author: displayName,
           description: observationLog,
           commentsCount,
           likesCount,
+          linkUrl,
         });
         this.setState({
           imageURL,
