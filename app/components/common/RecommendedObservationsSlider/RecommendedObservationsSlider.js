@@ -5,7 +5,7 @@
  *
  ***********************************/
 import React from 'react';
-import take from 'lodash/fp/take';
+import take from 'lodash/take';
 
 import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
 import SloohSlider from 'app/components/common/Slider/ObservationsSlider';

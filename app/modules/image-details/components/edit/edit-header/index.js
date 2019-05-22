@@ -85,9 +85,10 @@ export const EditHeader = props => {
                 <Button
                   block
                   onClick={() =>
-                    deleteImage(customerImageId).then(() =>
-                      setDeleteOpen(false)
-                    )
+                    deleteImage(customerImageId).then(() => {
+                      setDeleteOpen(false);
+                      props.router.push('/profile/private/photos/photoroll');
+                    })
                   }
                 >
                   YES, DELETE NOW

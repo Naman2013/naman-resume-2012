@@ -103,11 +103,15 @@ class HubContainer extends Component {
       this.props.sortOptions,
       this.props.location.query.sort || 'atoz'
     ),
+    scrollTop: 0,
+    isFetching: false
   };
 
   componentWillReceiveProps(nextProps) {
     const { sort } = this.props.location.query;
     const { sort: nextSort } = nextProps.location.query;
+    const { isFetching } = this.props;
+    const { isFetching: nextIsFetching } = nextProps;
 
     if (this.props.filterType !== nextProps.filterType) {
       this.props.clearTiles();
@@ -119,6 +123,20 @@ class HubContainer extends Component {
     if (sort !== nextSort) {
       this.props.clearTiles();
       this.setState({ sort: nextSort });
+    }
+
+    if (isFetching !== nextIsFetching) {
+      this.setState({
+        isFetching: nextIsFetching,
+      });
+    }
+  }
+
+  componentDidUpdate(prevState) {
+    const { isFetching, scrollTop } = this.state;
+    const { isFetching: prevIsFetching } = prevState;
+    if (isFetching !== prevIsFetching && !isFetching) {
+      window.scrollTo(0, scrollTop);
     }
   }
 
@@ -161,6 +179,7 @@ class HubContainer extends Component {
       this.setQueryParams(pick(query, QUERY_TYPES));
       return {
         page: activePage,
+        scrollTop: window.pageYOffset || document.documentElement.scrollTop,
       };
     });
   };
@@ -196,6 +215,7 @@ class HubContainer extends Component {
       showHeaderIcon,
       hubActions,
       profile,
+      isFetching,
     } = this.props;
 
     const { defaultSortIndex, sort, page } = this.state;
