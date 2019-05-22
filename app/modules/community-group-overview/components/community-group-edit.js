@@ -121,9 +121,9 @@ class CommunityGroupEdit extends Component {
           member={member}
           onAddClick={() => {
             let user = {
-              firstName: member.firstName,
-              lastName: member.lastName,
-              emailAddress: member.emailAddress,
+              firstName: member.firstname,
+              lastName: member.lastname,
+              emailAddress: member.emailaddress,
             };
             if (!isGoogleClassroom) {
               addExistingUser(user, groupId).then(() =>
