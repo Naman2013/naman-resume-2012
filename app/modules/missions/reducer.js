@@ -40,6 +40,7 @@ export const TYPE = constants('profile', [
   '~SET_SELECTED_SLOT',
   '~SET_COORDINATES_DATA',
   '~SET_TARGET_NAME',
+  '~GET_COORDINATES_CATEGORY_LIST',
 ]);
 export const ACTION = actions(TYPE);
 
@@ -104,6 +105,7 @@ export const initialState = {
       dec: 0,
     },
     targetName: '',
+    categoryList: [],
   },
 
   byTelescope: {
@@ -192,6 +194,9 @@ export default handleActions(
     [TYPE.SET_SELECTED_SLOT]: setSelectedSlot,
     [TYPE.SET_COORDINATES_DATA]: setCoordinatesData,
     [TYPE.SET_TARGET_NAME]: setTargetName,
+    [TYPE.GET_COORDINATES_CATEGORY_LIST]: setFetching,
+    [TYPE.GET_COORDINATES_CATEGORY_LIST_SUCCESS]: getCoordinatesCategoryListSuccess,
+    [TYPE.GET_COORDINATES_CATEGORY_LIST_ERROR]: setServerError,
   },
   initialState
 );
@@ -599,6 +604,18 @@ function setSelectedSlot(state, action) {
 }
 
 // by Coordinates
+
+function getCoordinatesCategoryListSuccess(state, action) {
+  return {
+    ...state,
+    isFetching: false,
+    isLoaded: true,
+    byCoordinates: {
+      ...state.byCoordinates,
+      categoryList: action.payload.itemList,
+    },
+  };
+}
 
 function setCoordinatesData(state, action) {
   return {

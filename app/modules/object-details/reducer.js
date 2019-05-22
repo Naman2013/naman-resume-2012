@@ -40,6 +40,7 @@ import {
 } from './actions';
 
 const initialState = {
+  isFetching: false,
   objectDetails: {},
   objectData: {
     objectTitle: null,
@@ -239,18 +240,21 @@ export default createReducer(initialState, {
   [FETCH_OBJECT_MISSIONS_SUCCESS](state, { payload }) {
     return {
       ...state,
+      isFetching: false,
       objectMissions: payload,
     };
   },
   [FETCH_OBJECT_MISSIONS_START](state) {
     return {
       ...state,
+      isFetching: true,
       objectMissions: {},
     };
   },
   [FETCH_OBJECT_MISSIONS_FAIL](state, { payload }) {
     return {
       ...state,
+      isFetching: false,
       objectMissions: {},
       errorBody: payload,
     };

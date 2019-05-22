@@ -7,7 +7,7 @@ import './styles.scss';
 class Coordinates extends Component {
   componentDidMount() {
     const { getCategoryList } = this.props;
-    getCategoryList({ callSource: 'byTelescopeV4' });
+    getCategoryList();
   }
 
   componentWillUnmount() {

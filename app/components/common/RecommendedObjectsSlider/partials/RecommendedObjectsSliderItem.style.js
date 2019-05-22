@@ -3,7 +3,10 @@ import {
   astronaut,
   shadows,
 } from '../../../../styles/variables/colors_tiles_v4';
-import { secondaryFont } from '../../../../styles/variables/fonts';
+import {
+  secondaryFont,
+  AngeliquemadouceColombeFont,
+} from '../../../../styles/variables/fonts';
 
 export default css`
   .card-object {
@@ -71,5 +74,23 @@ export default css`
 
   .title {
     border-bottom: 1px solid #c3c5c7;
+  }
+
+  .telescope-name-container {
+    padding: 0;
+    position: relative;
+  }
+
+  .telescope-name-container .telescope-name {
+    font-family: ${AngeliquemadouceColombeFont};
+    font-size: 52px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: capitalize;
+    position: relative;
+    top: -5px;
   }
 `;
