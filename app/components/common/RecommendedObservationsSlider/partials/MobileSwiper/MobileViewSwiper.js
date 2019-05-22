@@ -14,6 +14,7 @@ const emptyState = {
   title: '',
   author: '',
   description: '',
+  linkUrl: '',
   likesCount: 0,
   commentsCount: 0,
   loading: true,
@@ -38,6 +39,7 @@ class MobileViewSwiper extends Component {
     commentsCount,
     likesCount,
     error,
+    linkUrl,
   }) => {
     this.setState({
       title,
@@ -46,6 +48,7 @@ class MobileViewSwiper extends Component {
       likesCount,
       commentsCount,
       error,
+      linkUrl,
       loading: false,
     });
   };
@@ -67,6 +70,7 @@ class MobileViewSwiper extends Component {
       commentsCount,
       loading,
       error,
+      linkUrl,
     } = this.state;
 
     return (
@@ -120,13 +124,13 @@ class MobileViewSwiper extends Component {
               />
               {commentsCount}
             </div>
-            <div className="button details">
+            <a href={linkUrl} className="button details">
               <FormattedMessage {...messages.Details} />
               <img
                 src="https://vega.slooh.com/assets/v4/icons/horz_arrow_right_astronaut.svg"
                 alt="arrow-right"
               />
-            </div>
+            </a>
           </div>
         </div>
         <style jsx>{styles}</style>
