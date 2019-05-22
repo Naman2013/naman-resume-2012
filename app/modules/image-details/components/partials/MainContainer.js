@@ -28,6 +28,7 @@ const MainContainer = ({
   scheduledMissionId,
   showCommentsLink,
   user,
+  validateResponseAccess,
 }) => (
   <div className="image-main-container">
     {!canEditFlag && (
@@ -54,6 +55,7 @@ const MainContainer = ({
         saveLabel={saveLabel}
         scheduledMissionId={scheduledMissionId}
         user={user}
+        validateResponseAccess={validateResponseAccess}
       />
     )}
     {showCommentsLink ? (

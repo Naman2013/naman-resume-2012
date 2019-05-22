@@ -56,6 +56,7 @@ class CommentsTab extends Component {
       isScreenMedium,
       user,
       intl,
+      validateResponseAccess,
     } = this.props;
 
     return (
@@ -70,6 +71,7 @@ class CommentsTab extends Component {
           isDesktop={isDesktop}
           header={intl.formatMessage(messages.Comments)}
           canSubmitReplies={canSubmitReplies}
+          validateResponseAccess={validateResponseAccess}
           callSource="shows"
         />
         <style jsx>{styles}</style>

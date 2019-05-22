@@ -16,6 +16,7 @@ import { createActivity } from '../../../modules/community-group-activity-list/a
 import { fetchGroupMembers } from 'app/modules/community-group-overview/actions';
 import ResponsiveTwoColumnContainer from 'app/components/ResponsiveTwoColumnContainer';
 import TwoTabbedNav from 'app/components/TwoTabbedNav';
+import { validateResponseAccess } from 'app/modules/authorization/actions';
 import { TopThreads } from '../../../modules/clubs';
 
 import MembersList from './members-list';
@@ -35,6 +36,7 @@ const mapDispatchToProps = dispatch => ({
     {
       createActivity,
       fetchGroupMembers,
+      validateResponseAccess,
     },
     dispatch
   ),
@@ -177,6 +179,8 @@ class FullInformationOverview extends Component {
                   callSource="groups"
                   createThread={actions.createActivity}
                   createThreadFormParams={createThreadFormParams}
+                  user={user}
+                  validateResponseAccess={actions.validateResponseAccess}
                 />
               </div>
             )

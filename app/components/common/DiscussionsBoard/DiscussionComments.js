@@ -114,8 +114,10 @@ class DiscussionsComment extends Component {
       const { apiError, reply } = res.data;
       if (!apiError) {
         const { getThreads, threadId, getReplies } = this.props;
-        if(getThreads && getReplies) {
+        if(getThreads) {
           getThreads();
+        }
+        if(getReplies) {
           getReplies(threadId);
         }
         //updateThreadsProps(threadsList);
@@ -231,8 +233,10 @@ class DiscussionsComment extends Component {
           }
         }
 
-        if(getThreads && getReplies) {
+        if(getThreads) {
           getThreads();
+        }
+        if(getReplies) {
           getReplies(threadId);
           getReplies(threadId, replyTo);
         }
@@ -264,7 +268,7 @@ class DiscussionsComment extends Component {
 
     const comments = commentsList[threadId] || [];
     const { displayedCommentsObjs } = this;
-
+    
     return (
       <div className="comment" key={uniqueId()}>
         <div>

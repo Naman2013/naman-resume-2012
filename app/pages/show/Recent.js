@@ -104,7 +104,7 @@ class RecentShow extends Component {
       tagLine,
       intl,
     } = this.props;
-
+    
     const {
       aboutIsActive,
       commentsIsActive,

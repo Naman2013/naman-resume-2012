@@ -19,6 +19,7 @@ export class ImageDetails extends Component {
       setObservationTags,
       user,
       observationTagsError,
+      validateResponseAccess,
       params: { customerImageId, scheduledMissionId, shareToken },
     } = this.props;
     const actions = {
@@ -49,6 +50,7 @@ export class ImageDetails extends Component {
                     customerImageId={customerImageId}
                     scheduledMissionId={scheduledMissionId}
                     user={user}
+                    validateResponseAccess={validateResponseAccess}
                     {...context}
                     {...serviceResponse}
                   />

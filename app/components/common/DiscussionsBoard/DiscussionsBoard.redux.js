@@ -8,10 +8,12 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+import take from 'lodash/take';
 import ConnectUserAndResponseAccess from 'redux/components/ConnectUserAndResponseAccess';
 import { DeviceContext } from 'providers/DeviceProvider';
 import DiscussionsThreads from './DiscussionsThreads';
 import DiscussionComments from './DiscussionComments';
+import { THREAD_REPLIES } from 'app/services/discussions';
 
 const { any, bool, func, number, shape, string } = PropTypes;
 
@@ -77,6 +79,65 @@ class DiscussionsBoard extends Component {
       commentsList: newCommentsList,
       discussionKey: Date.now(),
     });
+  };
+
+  getReplies = (threadId, replyTo) => {
+    const {
+      callSource,
+      count,
+      topicId,
+      forumId,
+      validateResponseAccess,
+      user,
+    } = this.props;
+    const { commentsList } = this.state;
+
+    axios
+      .post(THREAD_REPLIES, {
+        callSource,
+        topicId,
+        threadId,
+        forumId,
+        replyTo: replyTo || threadId,
+        page: 1,
+        at: user.at,
+        token: user.token,
+        cid: user.cid,
+      })
+      .then(res => {
+        validateResponseAccess(res);
+        if (!res.data.apiError) {
+          const { replies } = res.data;
+          const newReplies = replies.map((reply, index) => {
+            const currentReply = Object.assign({}, reply);
+            currentReply.page = 1;
+            if (
+              commentsList[threadId] &&
+              commentsList[threadId][index]?.replyId === currentReply.replyId
+            ) {
+              currentReply.showComments =
+                commentsList[threadId][index].showComments;
+            }
+            if (
+              replyTo === currentReply.replyId ||
+              threadId === currentReply.replyId
+            ) {
+              currentReply.showComments = true;
+            }
+            currentReply.key = currentReply.replyId;
+            return currentReply;
+          });
+          const displayedComments = take([].concat(replies), count).map(
+            reply => reply.replyId
+          );
+          console.log(newReplies, displayedComments);
+          this.updateCommentsProps(
+            replyTo || threadId,
+            newReplies,
+            displayedComments
+          );
+        }
+      });
   };
 
   updateCommentsProps = (id, comments, displayed) => {
@@ -154,6 +215,8 @@ class DiscussionsBoard extends Component {
       topLevelThread,
       createThread,
       createThreadFormParams,
+      validateResponseAccess,
+      user,
     } = props;
 
     const discussionsActions = {
@@ -165,48 +228,45 @@ class DiscussionsBoard extends Component {
 
     return (
       <div>
-        <ConnectUserAndResponseAccess
-          render={({ user, validateResponseAccess }) => (
-            <DeviceContext.Consumer>
-              {context => (
-                <Fragment>
-                  {topLevelThread ? (
-                    <DiscussionsThreads
-                      validateResponseAccess={validateResponseAccess}
-                      discussions={this.state}
-                      discussionsActions={discussionsActions}
-                      errorMessage={errorMessage}
-                      callSource={callSource}
-                      count={count}
-                      page={page}
-                      topicId={topicId}
-                      forumId={forumId}
-                      user={user}
-                      createThread={createThread}
-                      createThreadFormParams={createThreadFormParams}
-                      {...context}
-                    />
-                  ) : (
-                    <DiscussionComments
-                      validateResponseAccess={validateResponseAccess}
-                      discussions={this.state}
-                      discussionsActions={discussionsActions}
-                      errorMessage={errorMessage}
-                      callSource={callSource}
-                      count={count}
-                      threadId={threadId}
-                      formPlaceholder="Write a public comment"
-                      page={page}
-                      topicId={topicId}
-                      forumId={forumId}
-                      user={user}
-                    />
-                  )}
-                </Fragment>
+        <DeviceContext.Consumer>
+          {context => (
+            <Fragment>
+              {topLevelThread ? (
+                <DiscussionsThreads
+                  validateResponseAccess={validateResponseAccess}
+                  discussions={this.state}
+                  discussionsActions={discussionsActions}
+                  errorMessage={errorMessage}
+                  callSource={callSource}
+                  count={count}
+                  page={page}
+                  topicId={topicId}
+                  forumId={forumId}
+                  user={user}
+                  createThread={createThread}
+                  createThreadFormParams={createThreadFormParams}
+                  {...context}
+                />
+              ) : (
+                <DiscussionComments
+                  validateResponseAccess={validateResponseAccess}
+                  discussions={this.state}
+                  discussionsActions={discussionsActions}
+                  errorMessage={errorMessage}
+                  callSource={callSource}
+                  count={count}
+                  threadId={threadId}
+                  formPlaceholder="Write a public comment"
+                  page={page}
+                  topicId={topicId}
+                  forumId={forumId}
+                  user={user}
+                  getReplies={this.getReplies}
+                />
               )}
-            </DeviceContext.Consumer>
+            </Fragment>
           )}
-        />
+        </DeviceContext.Consumer>
       </div>
     );
   }

@@ -10,6 +10,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { DeviceContext } from 'providers/DeviceProvider';
 import Request from 'app/components/common/network/Request';
+import { validateResponseAccess } from 'app/modules/authorization/actions';
 import { LIVE_SHOW_INFO } from 'app/services/events';
 import BootstrappedShow from './BootstrappedShow';
 import { modelWithInfoBlocks } from './showConfiguration';
@@ -18,9 +19,13 @@ const mapStateToProps = ({ user }) => ({
   user,
 });
 
+const mapDispatchToProps = {
+  validateResponseAccess,
+};
+
 @connect(
   mapStateToProps,
-  null
+  mapDispatchToProps,
 )
 class Show extends Component {
   static propTypes = {};
@@ -30,6 +35,7 @@ class Show extends Component {
   render() {
     const {
       user,
+      validateResponseAccess,
       params: { showId },
     } = this.props;
 
@@ -56,6 +62,7 @@ class Show extends Component {
                     user={user}
                     fetching={fetchingContent}
                     showId={showId}
+                    validateResponseAccess={validateResponseAccess}
                     {...context}
                     {...DATA_WITH_SHOW_INFO_BASED_ON_STATUS}
                   />
