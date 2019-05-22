@@ -71,6 +71,11 @@ class CommunityGroupEdit extends Component {
 
     refreshPage = () => {
       const { groupId } = this.state;
+      const {
+        fetchGroupOverviewPageMeta,
+        fetchGroupInvitationPanel,
+        fetchGoogleClassroomStudentsPanel,
+      } = this.props;
       fetchGroupOverviewPageMeta({ discussionGroupId: groupId }).then(() => {
         const {
           communityGroupOverview: {
