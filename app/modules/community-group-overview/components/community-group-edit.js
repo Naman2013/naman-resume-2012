@@ -57,21 +57,7 @@ class CommunityGroupEdit extends Component {
     } = this.props;
 
     if (prevProps.routeParams.groupId !== routeParams.groupId) {
-      const { groupId } = this.state;
-      fetchGroupOverviewPageMeta({ discussionGroupId: groupId }).then(() => {
-        const {
-          communityGroupOverview: {
-            pageMeta: { isGoogleClassroom },
-          },
-        } = this.props;
-
-        if (isGoogleClassroom) {
-          fetchGoogleClassroomStudentsPanel(groupId);
-        } else {
-          fetchGroupInvitationPanel(groupId);
-        }
-      });
-    }
+      refreshPage();
 
     if (!fetching) {
       const {
@@ -80,6 +66,23 @@ class CommunityGroupEdit extends Component {
       } = this.props;
       change('groupDescription', description);
     }
+  }
+
+  refreshPage = ()=>{
+      const { groupId } = this.state;
+     fetchGroupOverviewPageMeta({ discussionGroupId: groupId }).then(() => {
+      const {
+        communityGroupOverview: {
+          pageMeta: { isGoogleClassroom },
+        },
+      } = this.props;
+
+      if (isGoogleClassroom) {
+        fetchGoogleClassroomStudentsPanel(groupId);
+      } else {
+        fetchGroupInvitationPanel(groupId);
+      }
+    });
   }
 
   onInviteClick = () => {
@@ -105,6 +108,7 @@ class CommunityGroupEdit extends Component {
     const {
       addExistingUser,
       addGoogleUser,
+      fetchGroupOverviewPageMeta,
       fetchGroupInvitationPanel,
       fetchGoogleClassroomStudentsPanel,
       routeParams: { groupId },
@@ -128,12 +132,12 @@ class CommunityGroupEdit extends Component {
             };
             if (!isGoogleClassroom) {
               addExistingUser(user, groupId).then(() =>
-                fetchGroupInvitationPanel(groupId)
+                refreshPage())
               );
             } else {
               user = { ...user, googleProfileId: member.googleProfileId };
               addGoogleUser(user, groupId).then(() =>
-                fetchGoogleClassroomStudentsPanel(groupId)
+                refreshPage()
               );
             }
           }}
@@ -290,11 +294,7 @@ class CommunityGroupEdit extends Component {
                     },
                   } = this.props;
 
-                  if (isGoogleClassroom) {
-                    fetchGoogleClassroomStudentsPanel(groupId);
-                  } else {
-                    fetchGroupInvitationPanel(groupId);
-                  }
+                 refreshPage();
                 }}
                 discussionGroupId={groupId}
               />
