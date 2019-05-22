@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 import { injectIntl, intlShape } from 'react-intl';
 import LikeSomethingButton from 'app/components/common/LikeSomethingButton';
 import { romance } from 'app/styles/variables/colors_tiles_v4';
-import DiscussionComments from 'app/components/common/DiscussionsBoard';
+import DiscussionsBoard from 'app/components/common/DiscussionsBoard';
 import styles from './CommentsTab.style';
 import messages from '../Show.messages';
 
@@ -60,7 +60,7 @@ class CommentsTab extends Component {
 
     return (
       <div className="root">
-        <DiscussionComments
+        <DiscussionsBoard
           topLevelThread={false}
           forumId={discussionForumId}
           threadId={discussionThreadId}
