@@ -15,6 +15,8 @@ const BigBoxInfoContainer = props => (
       showReadingList
       readingListType="show"
       id={props.showId}
+      readingListPrompt={props.readingListPrompt}
+      promptIconUrl={props.promptIconUrl}
     />
     <style jsx>{styles}</style>
   </div>
