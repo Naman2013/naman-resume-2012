@@ -69,6 +69,7 @@ const MainContainer = ({
         topicId={commentsTopicId}
         threadId={commentsThreadId}
         user={user}
+        validateResponseAccess={validateResponseAccess}
       />
     ) : null}
   </div>
