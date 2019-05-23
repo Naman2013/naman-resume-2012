@@ -18,6 +18,7 @@ import Button from 'app/components/common/style/buttons/Button';
 import BackBar from 'app/components/common/style/buttons/BackBar';
 import { customModalStylesFitContent } from 'app/styles/mixins/utilities';
 import ViewImagesButton from 'app/components/common/style/buttons/ViewImagesButton';
+import { Spinner } from 'app/components/spinner/index';
 import styles, { profPic } from './RevealSubmitForm.style';
 import messages from './RevealSubmitForm.messages';
 const { bool, func, instanceOf, number, shape, string } = PropTypes;
@@ -54,6 +55,7 @@ class RevealSubmitForm extends Component {
     uploadError: null,
     uploadLoading: false,
     S3URLs: [],
+    isFetching: false,
   };
 
   onTextChange = e => {
@@ -66,6 +68,7 @@ class RevealSubmitForm extends Component {
     e.preventDefault();
     const { formText, S3URLs } = this.state;
     if (formText.replace(/\s/g, '').length) {
+      this.setState({ isFetching: true });
       this.props.submitForm(formText, S3URLs, this.handleSubmit);
     }
   };
@@ -176,6 +179,7 @@ class RevealSubmitForm extends Component {
       showPopup,
       uploadError,
       uploadLoading,
+      isFetching,
     } = this.state;
     return (
       <div className="root">
@@ -206,6 +210,10 @@ class RevealSubmitForm extends Component {
               dangerouslySetInnerHTML={{ __html: modalDescription }}
             />
           ) : null}
+          <Spinner
+            loading={isFetching}
+            text={'Please wait...loading discussions'}
+          />
           <form className="form">
             <div className="form-author">
               <div style={profPic(avatarURL)} />
