@@ -118,15 +118,15 @@ const AsideToggleableMenu = props => {
                 style={{ opacity: visible ? 1 : 0 }}
                 className="option flex-row-reverse"
               >
-                {/*<TagBtn
-                  placeholder="Add tags"
+                <AddTagsAsideMenu
+                  label={option.label}
                   tagList={tagsData.tagList}
+                  isFetching={tagsData.isFetching}
                   setTag={tagActions.setTag}
                   getTags={tagActions.getTags}
                   deleteTag={tagActions.deleteTag}
                   customerImageId={customerImageId}
-                />*/}
-                <AddTagsAsideMenu label={option.label} />
+                />
               </button>
             );
           }

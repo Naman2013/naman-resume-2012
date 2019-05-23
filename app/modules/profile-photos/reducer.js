@@ -24,7 +24,7 @@ export const initialState = {
   },
 
   tagsData: {
-    isFetching: false,
+    isFetching: true,
     data: {},
     tagList: [],
   },
@@ -37,7 +37,7 @@ export default handleActions(
     [TYPE.GET_FITS_DATA_ERROR]: setServerError,
 
     // TAGS
-    [TYPE.GET_TAGS]: setFetching,
+    [TYPE.GET_TAGS]: setTagFetching,
     [TYPE.GET_TAGS_SUCCESS]: getTagsSuccess,
     [TYPE.GET_TAGS_ERROR]: setServerError,
 
