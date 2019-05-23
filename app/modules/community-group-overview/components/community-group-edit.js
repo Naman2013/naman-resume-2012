@@ -136,7 +136,7 @@ class CommunityGroupEdit extends Component {
               if (!isGoogleClassroom) {
                 addExistingUser(user, groupId).then(() => this.refreshPage());
               } else {
-                user = { ...user, googleProfileId: member.googleProfileId };
+                user = { ...user, googleProfileId: member.googleprofileid };
                 addGoogleUser(user, groupId).then(() => this.refreshPage());
               }
             }}
