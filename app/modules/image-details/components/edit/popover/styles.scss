@@ -33,10 +33,4 @@ $popoverPadding: 30px;
       margin: $popoverPadding (-$popoverPadding);
     }
   }
-
-  &.full-size {
-    left: 0;
-    bottom: 0;
-    overflow-y: scroll;
-  }
 }
