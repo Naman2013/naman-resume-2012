@@ -6,7 +6,7 @@ export default css`
   .guide-tiles-root {
     ${resetMarginPadding}
     list-style-type: none;
-    margin: 0 -10px;
+    margin: 20px -10px;
   }
 
   .tile {

@@ -18,7 +18,7 @@ export default css`
     width: 100%;
     height: 200px;
     color: ${astronaut};
-    padding: 25px;
+    padding: 25px 25px 65px;
     border: 1px solid ${shadows};
     border-bottom: 4px solid ${astronaut};
   }
@@ -57,13 +57,21 @@ export default css`
   }
 
   .actions {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
     width: 100%;
     margin: 0 auto;
     padding: 15px 0;
     align-items: center;
+  }
+  
+  .actions button {
+    margin: 0 5px;
   }
 
   @media ${screenMedium} {
