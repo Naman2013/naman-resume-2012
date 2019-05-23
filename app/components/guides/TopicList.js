@@ -10,15 +10,15 @@ const TopicList = ({ list }) => (
     <ul>
       {list.map(tile => <li key={`guide-panel-${tile.guidePanelId}`}>
         <DisplayAtBreakpoint screenSmall>
-          <BobbieTile showTitle={true} title={tile.title} showSubtitle={false} subtitle="" readDuration={tile.readDuration} authorName={tile.authorName} HTMLBlob={tile.content_device_small} />
+          <BobbieTile disableReadMore={true} showTitle={true} title={tile.title} showSubtitle={false} subtitle="" readDuration={tile.readDuration} authorName={tile.authorName} HTMLBlob={tile.content_device_small} />
         </DisplayAtBreakpoint>
 
         <DisplayAtBreakpoint screenMedium>
-          <BobbieTile showTitle={true} title={tile.title} showSubtitle={false} subtitle="" readDuration={tile.readDuration} authorName={tile.authorName} HTMLBlob={tile.content_device_medium} />
+          <BobbieTile disableReadMore={true} showTitle={true} title={tile.title} showSubtitle={false} subtitle="" readDuration={tile.readDuration} authorName={tile.authorName} HTMLBlob={tile.content_device_medium} />
         </DisplayAtBreakpoint>
 
         <DisplayAtBreakpoint screenLarge screenXLarge>
-          <BobbieTile showTitle={true} title={tile.title} showSubtitle={false} subtitle="" readDuration={tile.readDuration} authorName={tile.authorName} HTMLBlob={tile.content_device_large} />
+          <BobbieTile disableReadMore={true} showTitle={true} title={tile.title} showSubtitle={false} subtitle="" readDuration={tile.readDuration} authorName={tile.authorName} HTMLBlob={tile.content_device_large} />
         </DisplayAtBreakpoint>
       </li>)}
     </ul>
