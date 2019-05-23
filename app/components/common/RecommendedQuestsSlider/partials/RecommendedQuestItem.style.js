@@ -1,5 +1,5 @@
 import css from 'styled-jsx/css';
-import { secondaryFont } from '../../../../styles/variables/fonts';
+import { primaryFont, secondaryFont } from '../../../../styles/variables/fonts';
 import {
   astronaut,
   shadows,
@@ -83,23 +83,24 @@ export default css`
   }
 
   .title {
-    padding: 30px 0 20px 0;
-    margin: 0;
-    font-size: 22px;
-    font-family: ${secondaryFont};
-    font-weight: 300;
-    font-size: 18px;
     border-bottom: none;
-    padding-top: 135px;
-    padding-bottom: 0;
-    text-transform: initial;
-    color: ${astronaut};
+    color: ${lightHeadedAstronaut};    
+    font-family: ${secondaryFont};
+    font-size: 21px;
+    font-weight: 300;
+    letter-spacing: 0;
+    padding: 135px 0 0 0;
+    margin: 0;
+    text-transform: none;    
   }
 
   .level {
-    padding-top: 25px;
-    font-size: 10px;
     color: ${lightHeadedAstronaut};
+    font-family: ${primaryFont};
+    font-size: 10px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    padding-top: 25px;    
     text-transform: uppercase;
   }
 

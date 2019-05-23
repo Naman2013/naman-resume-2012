@@ -10,6 +10,8 @@ import {
   shadows,
   lightHeadedAstronaut,
 } from '../../../../styles/variables/colors_tiles_v4';
+import { primaryFont, secondaryFont } from '../../../../styles/variables/fonts';
+
 
 const borderBottom = `border-bottom: 1px solid ${hawkesBlue};`;
 const centerChildren = `
@@ -104,14 +106,22 @@ export default css`
   }
 
   .title {
-    font-size: 24px;
+    color: ${lightHeadedAstronaut};
+    font: ${secondaryFont};
+    font-size: 22px;
+    font-weight: 300;
     ${borderBottom}
-    line-height: 0.83;
+    line-height: 24px;
     padding: 12px 0;
+    text-transform: none;
   }
 
   .author {
+    color: ${lightHeadedAstronaut};
+    font: ${secondaryFont};
     font-size: 10px;
+    letter-spacing: 2px;
+    line-height: 10px;
     ${borderBottom}
     ${toUpper}
     padding: 4px 0;
@@ -120,7 +130,7 @@ export default css`
   .text {
     font-size: 19px;
     padding: 20px 0;
-    color: #616e7d;
+    
   }
 
   .image-wrapper {
@@ -217,6 +227,9 @@ export default css`
     }
     .top-small {
       padding: 50px;
+    }
+    .title {
+      font-size: 24px;
     }
   }
 `;
