@@ -2,7 +2,7 @@
  * V4 Common Discussions Board - Classroom/Astronomy Club Invitations
  ********************************************************************/
 
-import React, { Component, Fragment } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import InputField from 'app/components/form/InputField';
@@ -22,7 +22,7 @@ import messages from './DiscussionBoard.messages';
 
 const { any, bool, func, number, shape, string } = PropTypes;
 
-class DiscussionBoardInviteNewMemberToSlooh extends Component {
+class DiscussionBoardInviteNewMemberToSlooh extends PureComponent {
   static propTypes = {
     discussionGroupId: string,
     newInvitationComplete: func.isRequired,
@@ -37,110 +37,68 @@ class DiscussionBoardInviteNewMemberToSlooh extends Component {
     inEditMode: false,
     inviteFormDetails: {
       firstName: {
-        label: '',
-        value: '',
-        hintText: '',
         errorText: '',
       },
       lastName: {
-        label: '',
-        value: '',
-        hintText: '',
         errorText: '',
       },
       emailAddress: {
-        label: '',
-        value: '',
-        hintText: '',
         errorText: '',
       },
       emailAddressVerification: {
-        label: '',
-        value: '',
-        hintText: '',
         errorText: '',
       },
     },
-  };
-
-  // Obtain access to the join api service response and update the accountFormDetails state to reflect the Join Page response (set form labels)
-  handleInvitationPanelServiceResponse = result => {
-    const inviteFormData = cloneDeep(this.state.inviteFormDetails);
-
-    inviteFormData.firstName.label = result.formfields.firstname.label;
-    inviteFormData.lastName.label = result.formfields.lastname.label;
-    inviteFormData.emailAddress.label = result.formfields.emailaddress.label;
-    inviteFormData.emailAddressVerification.label =
-      result.formfields.emailaddressverification.label;
-
-    inviteFormData.firstName.hintText = result.formfields.firstname.hintText;
-    inviteFormData.lastName.hintText = result.formfields.lastname.hintText;
-    inviteFormData.emailAddress.hintText =
-      result.formfields.emailaddress.hintText;
-    inviteFormData.emailAddressVerification.hintText =
-      result.formfields.emailaddressverification.hintText;
-
-    /* update the account form details state so the correct hinText will show on each form field */
-    this.setState(() => ({
-      inviteFormDetails: inviteFormData,
-    }));
-  };
-
-  /* This function handles a field change in the form and sets the state accordingly */
-  handleFieldChange = ({ field, value }) => {
-    /* Get the existing state of the invite form, modify it and re-set the state */
-    const inviteFormData = cloneDeep(this.state.inviteFormDetails);
-    inviteFormData[field].value = value;
-
-    this.setState(() => ({
-      inviteFormDetails: inviteFormData,
-    }));
+    submitError: '',
   };
 
   /* Submit the Form and perform any validations as needed */
   handleSubmit = formValues => {
     const { discussionGroupId, user, intl } = this.props;
-    formValues.preventDefault();
 
     const inviteFormData = cloneDeep(this.state.inviteFormDetails);
 
-    var isFormComplete = true;
+    let isFormComplete = true;
 
-    if (this.state.inviteFormDetails.firstName.value === '') {
+    if (!formValues.firstName || formValues.firstName.value === '') {
       isFormComplete = false;
       inviteFormData.firstName.errorText = intl.formatMessage(
         messages.FirstName
       );
+    } else {
+      inviteFormData.firstName.errorText = '';
     }
 
-    if (this.state.inviteFormDetails.lastName.value === '') {
+    if (!formValues.lastName || formValues.lastName.value === '') {
       isFormComplete = false;
       inviteFormData.lastName.errorText = intl.formatMessage(messages.LastName);
+    } else {
+      inviteFormData.lastName.errorText = '';
     }
 
-    if (this.state.inviteFormDetails.emailAddress.value === '') {
+    if (!formValues.emailAddress || formValues.emailAddress.value === '') {
       isFormComplete = false;
       inviteFormData.emailAddress.errorText = intl.formatMessage(
         messages.EmailAddress
       );
     } else {
-      if (this.state.inviteFormDetails.emailAddressVerification.value === '') {
-        isFormComplete = false;
-        inviteFormData.emailAddressVerification.errorText = intl.formatMessage(
-          messages.ConfirmEmailAddress
-        );
-      } else {
-        //check to make sure the email address and email address verification fields matches
-        if (
-          this.state.inviteFormDetails.emailAddress.value !=
-          this.state.inviteFormDetails.emailAddressVerification.value
-        ) {
-          isFormComplete = false;
-          inviteFormData.emailAddressVerification.errorText = intl.formatMessage(
-            messages.EmailsDontMatch
-          );
-        }
-      }
+      inviteFormData.emailAddress.errorText = '';
+    }
+    if (
+      !formValues.emailAddressVerification ||
+      formValues.emailAddressVerification === ''
+    ) {
+      isFormComplete = false;
+      inviteFormData.emailAddressVerification.errorText = intl.formatMessage(
+        messages.ConfirmEmailAddress
+      );
+    } else if (formValues.emailAddress != formValues.emailAddressVerification) {
+      isFormComplete = false;
+      inviteFormData.emailAddressVerification.errorText = intl.formatMessage(
+        messages.EmailsDontMatch
+      );
+    } else {
+      inviteFormData.emailAddressVerification.errorText = '';
     }
 
     if (isFormComplete === true) {
@@ -151,46 +109,25 @@ class DiscussionBoardInviteNewMemberToSlooh extends Component {
           token: user.token,
           groupId: discussionGroupId,
           inviteeDetails: {
-            firstName: this.state.inviteFormDetails.firstName.value,
-            lastName: this.state.inviteFormDetails.lastName.value,
-            emailAddress: this.state.inviteFormDetails.emailAddress.value,
+            firstName: formValues.firstName,
+            lastName: formValues.lastName,
+            emailAddress: formValues.emailAddress,
           },
         })
-        .then(response => {
-          const serviceResponse = response.data;
-          if (serviceResponse.apiError == false) {
-            //the invitation was successful, reset the form....
-
-            const inviteFormDataKeep = cloneDeep(this.state.inviteFormDetails);
-            const invitationCode = 'a';
-            const firstName = inviteFormDataKeep.firstName.value;
-            const lastName = inviteFormDataKeep.lastName.value;
-            const emailAddress = inviteFormDataKeep.emailAddress.value;
-
-            const inviteFormData = cloneDeep(this.state.inviteFormDetails);
-            inviteFormData.firstName.value = '';
-            inviteFormData.lastName.value = '';
-            inviteFormData.emailAddress.value = '';
-            inviteFormData.emailAddressVerification.value = '';
+        .then(({ data }) => {
+          if (data.status !== 'failed') {
+            const { reset, newInvitationComplete } = this.props;
+            reset();
 
             inviteFormData.firstName.errorText = '';
-            inviteFormData.lastName.errorText = '';
             inviteFormData.emailAddress.errorText = '';
+            inviteFormData.lastName.errorText = '';
             inviteFormData.emailAddressVerification.errorText = '';
+            this.setState({ inviteFormDetails: inviteFormData });
 
-            /* update the form details and reset the form fields */
-            this.setState(() => ({
-              inviteFormDetails: inviteFormData,
-            }));
-
-            //Tell the Parent Invitation Component to close this form and re-fire the Request object to retrieve the latest invitation status/details.
-            this.props.newInvitationComplete(
-              invitationCode,
-              firstName,
-              lastName,
-              emailAddress,
-              serviceResponse.statusMessage
-            );
+            newInvitationComplete();
+          } else {
+            this.setState({ submitError: data.statusMessage });
           }
         })
         .catch(err => {
@@ -205,183 +142,120 @@ class DiscussionBoardInviteNewMemberToSlooh extends Component {
   };
 
   render() {
-    const { discussionGroupId, user, intl } = this.props;
+    const { invitePopupContent, isFetching, handleSubmit } = this.props;
 
-    const { inviteFormDetails } = this.state;
+    const formDetails = invitePopupContent.formfields;
+
+    const { inviteFormDetails, submitError } = this.state;
+    if (isFetching) return null;
 
     return (
       <div className="groups-header-information">
-        <Request
-          serviceURL={CLASSROOM_GET_GROUP_INVITATION_PANEL_ENDPOINT_URL}
-          requestBody={{
-            cid: user.cid,
-            at: user.at,
-            token: user.token,
-            groupId: discussionGroupId,
-          }}
-          serviceResponseHandler={this.handleInvitationPanelServiceResponse}
-          render={({ fetchingContent, serviceResponse }) => (
-            <Fragment>
-              {!fetchingContent && (
-                <Fragment>
-                  <form onSubmit={this.handleSubmit}>
-                    <div>
-                      <div className="form-field-container">
-                        <h2>{serviceResponse.formHeading1}</h2>
-                        <p>{serviceResponse.formHeading2}</p>
-                        <div className="form-section split">
-                          <div className="form-field-container form-field-half">
-                            <span
-                              className="form-label"
-                              dangerouslySetInnerHTML={{
-                                __html: inviteFormDetails.firstName.label,
-                              }}
-                            />
-                            :
-                            <span
-                              className="form-error"
-                              dangerouslySetInnerHTML={{
-                                __html: inviteFormDetails.firstName.errorText,
-                              }}
-                            />
-                            <Field
-                              name="firstName"
-                              component={InputField}
-                              label={
-                                this.state.inviteFormDetails.firstName.hintText
-                              }
-                              value={
-                                this.state.inviteFormDetails.firstName.value
-                              }
-                              onChange={event => {
-                                this.handleFieldChange({
-                                  field: 'firstName',
-                                  value: event.target.value,
-                                });
-                              }}
-                            />
-                          </div>
-                          <div className="form-field-container form-field-half">
-                            <span
-                              className="form-label"
-                              dangerouslySetInnerHTML={{
-                                __html: inviteFormDetails.lastName.label,
-                              }}
-                            />
-                            :
-                            <span
-                              className="form-error"
-                              dangerouslySetInnerHTML={{
-                                __html: inviteFormDetails.lastName.errorText,
-                              }}
-                            />
-                            <Field
-                              name="lastName"
-                              component={InputField}
-                              label={
-                                this.state.inviteFormDetails.lastName.hintText
-                              }
-                              value={
-                                this.state.inviteFormDetails.lastName.value
-                              }
-                              onChange={event => {
-                                this.handleFieldChange({
-                                  field: 'lastName',
-                                  value: event.target.value,
-                                });
-                              }}
-                            />
-                          </div>
-                        </div>
-                        <div className="form-section">
-                          <div className="form-field-container">
-                            <span
-                              className="form-label"
-                              dangerouslySetInnerHTML={{
-                                __html: inviteFormDetails.emailAddress.label,
-                              }}
-                            />
-                            :
-                            <span
-                              className="form-error"
-                              dangerouslySetInnerHTML={{
-                                __html:
-                                  inviteFormDetails.emailAddress.errorText,
-                              }}
-                            />
-                            <Field
-                              name="emailAddress"
-                              component={InputField}
-                              label={
-                                this.state.inviteFormDetails.emailAddress
-                                  .hintText
-                              }
-                              value={
-                                this.state.inviteFormDetails.emailAddress.value
-                              }
-                              onChange={event => {
-                                this.handleFieldChange({
-                                  field: 'emailAddress',
-                                  value: event.target.value,
-                                });
-                              }}
-                            />
-                          </div>
-                          <div className="form-field-container">
-                            <span
-                              className="form-label"
-                              dangerouslySetInnerHTML={{
-                                __html:
-                                  inviteFormDetails.emailAddressVerification
-                                    .label,
-                              }}
-                            />
-                            :
-                            <span
-                              className="form-error"
-                              dangerouslySetInnerHTML={{
-                                __html:
-                                  inviteFormDetails.emailAddressVerification
-                                    .errorText,
-                              }}
-                            />
-                            <Field
-                              name="emailAddressVerification"
-                              component={InputField}
-                              label={
-                                this.state.inviteFormDetails
-                                  .emailAddressVerification.hintText
-                              }
-                              value={
-                                this.state.inviteFormDetails
-                                  .emailAddressVerification.value
-                              }
-                              onChange={event => {
-                                this.handleFieldChange({
-                                  field: 'emailAddressVerification',
-                                  value: event.target.value,
-                                });
-                              }}
-                            />
-                          </div>
-                        </div>
-                        <div className="button-actions">
-                          <Button
-                            className="submit-button"
-                            type="submit"
-                            onClickEvent={this.handleSubmit}
-                            text={intl.formatMessage(messages.SendInvitation)}
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </form>
-                  <br />
-                </Fragment>
-              )}
-            </Fragment>
-          )}
-        />
+        <Fragment>
+          <form onSubmit={handleSubmit(this.handleSubmit)}>
+            <div>
+              <div className="form-field-container">
+                <h2>{invitePopupContent.formHeading1}</h2>
+                <p>{invitePopupContent.formHeading2}</p>
+                <div className="form-section split">
+                  <div className="form-field-container form-field-half">
+                    <span
+                      className="form-label"
+                      dangerouslySetInnerHTML={{
+                        __html: formDetails.firstname.label,
+                      }}
+                    />
+                    :
+                    <span
+                      className="form-error"
+                      dangerouslySetInnerHTML={{
+                        __html: inviteFormDetails.firstName.errorText,
+                      }}
+                    />
+                    <Field
+                      name="firstName"
+                      component={InputField}
+                      label={formDetails.firstname.hintText}
+                    />
+                  </div>
+                  <div className="form-field-container form-field-half">
+                    <span
+                      className="form-label"
+                      dangerouslySetInnerHTML={{
+                        __html: formDetails.lastname.label,
+                      }}
+                    />
+                    :
+                    <span
+                      className="form-error"
+                      dangerouslySetInnerHTML={{
+                        __html: inviteFormDetails.lastName.errorText,
+                      }}
+                    />
+                    <Field
+                      name="lastName"
+                      component={InputField}
+                      label={formDetails.lastname.hintText}
+                    />
+                  </div>
+                </div>
+                <div className="form-section">
+                  <div className="form-field-container">
+                    <span
+                      className="form-label"
+                      dangerouslySetInnerHTML={{
+                        __html: formDetails.emailaddress.label,
+                      }}
+                    />
+                    :
+                    <span
+                      className="form-error"
+                      dangerouslySetInnerHTML={{
+                        __html: inviteFormDetails.emailAddress.errorText,
+                      }}
+                    />
+                    <Field
+                      name="emailAddress"
+                      component={InputField}
+                      label={formDetails.emailaddress.hintText}
+                    />
+                  </div>
+                  <div className="form-field-container">
+                    <span
+                      className="form-label"
+                      dangerouslySetInnerHTML={{
+                        __html: formDetails.emailaddressverification.label,
+                      }}
+                    />
+                    :
+                    <span
+                      className="form-error"
+                      dangerouslySetInnerHTML={{
+                        __html:
+                          inviteFormDetails.emailAddressVerification.errorText,
+                      }}
+                    />
+                    <Field
+                      name="emailAddressVerification"
+                      component={InputField}
+                      label={formDetails.emailaddressverification.hintText}
+                    />
+                  </div>
+                </div>
+                <span className="form-error">{submitError}</span>
+                <div className="button-actions">
+                  <Button
+                    className="submit-button"
+                    type="submit"
+                    theme={{ color: 'white', borderColor: 'white' }}
+                    text="Send Invitation"
+                  />
+                </div>
+              </div>
+            </div>
+          </form>
+          <br />
+        </Fragment>
         <style jsx>{styles}</style>
       </div>
     );
@@ -397,7 +271,8 @@ export default connect(
   mapStateToProps,
   null
 )(
-  reduxForm({ form: 'editGroupDescriptionForm', enableReinitialize: true })(
-    injectIntl(DiscussionBoardInviteNewMemberToSlooh)
-  )
+  reduxForm({
+    form: 'discussionBoardInviteNewMemberToSloohForm',
+    enableReinitialize: true,
+  })(injectIntl(DiscussionBoardInviteNewMemberToSlooh))
 );

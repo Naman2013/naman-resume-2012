@@ -1,0 +1,34 @@
+@import "~app/styles/variables/index";
+
+.navigation-with-options {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  font-family: $primary-font;
+  padding: 20px 0;
+
+  &-bar {
+    width: 100%;
+    height: 65px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid $hawkesBlue;
+  }
+
+  &-link {
+    height: 65px;
+    display: inline-flex;
+    align-items: center;
+    font-size: 11px;
+    text-transform: uppercase;
+    cursor: pointer;
+    color: $astronaut;
+
+    &.active {
+      font-weight: bold;
+      border-bottom: 2px solid $astronaut;
+      pointer-events: none;
+    }
+  }
+}

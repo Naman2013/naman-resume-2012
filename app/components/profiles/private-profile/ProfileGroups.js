@@ -6,8 +6,11 @@
 import PropTypes from 'prop-types';
 import React, { Component, Fragment } from 'react';
 import { injectIntl, intlShape } from 'react-intl';
-import Modal from 'react-modal';
 import { Link } from 'react-router';
+import ReactModal from 'react-modal';
+import GroupImportGoogleClassrooms from 'app/pages/community-groups/GroupImportGoogleClassrooms';
+import GroupCreate from 'app/pages/community-groups/GroupCreate';
+import { Modal } from '../../modal';
 import { DeviceContext } from '../../../providers/DeviceProvider';
 import { customModalStylesBlackOverlay } from '../../../styles/mixins/utilities';
 import CenterColumn from '../../common/CenterColumn';
@@ -38,6 +41,8 @@ class ProfileGroups extends Component {
     showPrompt: false,
     promptText: '',
     groups: this.props.groupsData.groupsList,
+    showImportPopup: false,
+    showCreatePopup: false,
   };
 
   updateGroupItemInfo = (id, resData) => {
@@ -88,21 +93,23 @@ class ProfileGroups extends Component {
     return (
       <Fragment>
         {canCreateNewClubs && (
-          <Link
-            to={createNewClubLinkUrl}
+          <button
+            onClick={() => this.setState({ showCreatePopup: true })}
             className="btn btn-primary float-right club-btn"
+            type="button"
           >
             {createNewClubButtonText}
-          </Link>
+          </button>
         )}
 
         {canImportGoogleClassrooms && (
-          <Link
-            to={importGoogleClassroomsURL}
+          <button
             className="btn btn-primary float-right club-btn"
+            onClick={() => this.setState({ showImportPopup: true })}
+            type="button"
           >
             {importGoogleClassroomsPrompt}
-          </Link>
+          </button>
         )}
       </Fragment>
     );
@@ -111,7 +118,13 @@ class ProfileGroups extends Component {
   render() {
     const { groupsCount } = this.props.groupsData;
 
-    const { showPrompt, promptText, groups } = this.state;
+    const {
+      showPrompt,
+      promptText,
+      groups,
+      showImportPopup,
+      showCreatePopup,
+    } = this.state;
     const { intl } = this.props;
 
     return (
@@ -138,7 +151,7 @@ class ProfileGroups extends Component {
             )}
           </ContainerWithTitle>
         </CenterColumn>
-        <Modal
+        <ReactModal
           ariaHideApp={false}
           isOpen={showPrompt}
           style={customModalStylesBlackOverlay}
@@ -147,6 +160,19 @@ class ProfileGroups extends Component {
           onRequestClose={this.closeModal}
         >
           {promptText}
+        </ReactModal>
+
+        <Modal
+          show={showImportPopup}
+          onHide={() => this.setState({ showImportPopup: false })}
+        >
+          <GroupImportGoogleClassrooms />
+        </Modal>
+        <Modal
+          show={showCreatePopup}
+          onHide={() => this.setState({ showCreatePopup: false })}
+        >
+          <GroupCreate />
         </Modal>
         <style jsx>{styles}</style>
       </div>
