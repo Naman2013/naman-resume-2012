@@ -34,6 +34,17 @@ const Guides = ({ recommendedGuidesList }) => {
           />
         ))}
       </DisplayAtBreakpoint>
+      <style jsx>{`
+        .root-dash {
+          margin: 0 auto;
+          max-width: 644px;
+        }
+        @media only screen and (min-width: 1200px) {
+          .root-dash {
+            max-width: 965px;
+          }
+        }
+      `}</style>
     </div>
   );
 };

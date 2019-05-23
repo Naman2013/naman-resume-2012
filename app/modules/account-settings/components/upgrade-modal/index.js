@@ -2,9 +2,10 @@
 
 import { Modal } from 'app/components/modal';
 import { Spinner } from 'app/components/spinner/index';
-import { SubscriptionPlan } from 'app/modules/account-settings/components/upgrade-modal/subscription-plan';
+import { PaymentStep } from 'app/modules/account-settings/components/upgrade-modal/payment-step';
+import { SelectPlanStep } from 'app/modules/account-settings/components/upgrade-modal/select-plan-step';
 
-import React, { PureComponent } from 'react';
+import React, { useEffect, useState } from 'react';
 
 type TUpgradeModal = {
   show: boolean,
@@ -16,38 +17,42 @@ type TUpgradeModal = {
   isFetching: Boolean,
 };
 
-export class UpgradeModal extends PureComponent<TUpgradeModal> {
-  componentDidMount = () => {
-    const { getSubscriptionPlans, selectedPlanId } = this.props;
-    getSubscriptionPlans({ selectedPlanId });
-  };
+type TSteps = 'SELECT_PLAN' | 'PAYMENT';
 
-  render() {
-    const {
-      show,
-      onHide,
-      isFetching,
-      subscriptionPlansData,
-      selectedPlanId,
-    } = this.props;
+const didMount = (props: TUpgradeModal) => () => {
+  const { getSubscriptionPlans, selectedPlanId } = props;
+  getSubscriptionPlans({ selectedPlanId });
+};
 
-    const {
-      subscriptionPlans = [],
-      pageHeading1,
-      pageHeading2,
-    } = subscriptionPlansData;
+export const UpgradeModal = (props: TUpgradeModal) => {
+  const [step, setStep] = useState<TSteps>('SELECT_PLAN');
+  useEffect(didMount(props), []);
 
-    return (
-      <Modal show={show} onHide={onHide}>
-        <Spinner transparent loading={isFetching} />
+  const {
+    show,
+    onHide,
+    isFetching,
+    subscriptionPlansData,
+    selectedPlanId,
+    errorData, // errors from issue with user account modal
+  } = props;
 
-        <h1 className="modal-h">{pageHeading1}</h1>
-        <p className="modal-p mb-5">{pageHeading2}</p>
+  return (
+    <Modal show={show} onHide={onHide}>
+      <Spinner transparent loading={isFetching} />
 
-        {subscriptionPlans.map(plan => (
-          <SubscriptionPlan plan={plan} expanded={Boolean(selectedPlanId)} />
-        ))}
-      </Modal>
-    );
-  }
-}
+      {step === 'SELECT_PLAN' && (
+        <SelectPlanStep
+          {...{
+            subscriptionPlansData,
+            selectedPlanId,
+            isFetching,
+          }}
+          goNext={() => setStep('PAYMENT')}
+        />
+      )}
+
+      {step === 'PAYMENT' && <PaymentStep />}
+    </Modal>
+  );
+};

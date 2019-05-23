@@ -1,5 +1,6 @@
 // @flow
 
+import cx from 'classnames';
 import React from 'react';
 import './filter-el-img.scss';
 
@@ -15,7 +16,7 @@ export const FilterElImg = (props: TFilterElImg) => {
 
   return (
     <div
-      className={`filter-el-img ${active ? 'active' : ''}`}
+      className={cx('filter-el-img', { active })}
       onClick={onClick}
       role="presentation"
     >

@@ -8,6 +8,7 @@
 import PhotoUploadButton from 'app/components/common/style/buttons/PhotoUploadButton';
 import { Spinner } from 'app/components/spinner/index';
 import { UploadImgThumb } from 'app/modules/ask-astronomer/components/Modals/upload-img-thumb';
+import { uploadedImgCleanUp } from 'app/modules/ask-astronomer/services/post-image';
 import setPostImages from 'app/modules/set-post-images';
 import { prepareThread } from 'app/services/discussions/prepare-thread';
 import deletePostImage from 'app/services/post-creation/delete-post-image';
@@ -143,15 +144,17 @@ class SubmitQuestionForm extends PureComponent {
   };
 
   cancel = () => {
-    const { updateQuestionsList, modalActions } = this.props;
-
+    const { updateQuestionsList, modalActions, user } = this.props;
+    const { cid, token, at } = user;
+    const { uuid, S3URLs } = this.state;
     updateQuestionsList();
     modalActions.closeModal();
+    uploadedImgCleanUp(S3URLs, cid, token, at, uuid, 'discussion');
   };
 
   render() {
     const { S3URLs, uploadLoading } = this.state;
-    const { title, modalActions, submitReply, askPrompt, intl } = this.props;
+    const { title, askPrompt, intl } = this.props;
 
     const { questionText } = this.state;
     return (

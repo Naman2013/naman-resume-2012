@@ -1,3 +1,19 @@
+import CenterColumn from 'app/components/common/CenterColumn';
+import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
+import { Modal } from 'app/components/modal';
+import ObjectDetailsSectionTitle from 'app/components/object-details/ObjectDetailsSectionTitle';
+import ResponsiveTwoColumnContainer from 'app/components/ResponsiveTwoColumnContainer';
+import TwoTabbedNav from 'app/components/TwoTabbedNav';
+import AskQuestionTile from 'app/modules/ask-astronomer/components/AskQuestionTile';
+import {
+  submitAnswerToQuestion,
+  toggleAllAnswersAndDisplay,
+} from 'app/modules/ask-astronomer/reducers/ask-astronomer-answers/actions';
+import {
+  askQuestion,
+  changeAnswerState,
+  fetchAstronomerQuestions,
+} from 'app/modules/ask-astronomer/reducers/ask-astronomer-questions/actions';
 import {
   makeAskAstronomerFetchingSelector,
   makeAskAstronomerPageDataSelector,
@@ -7,35 +23,17 @@ import {
   getAllQuestions,
   getPageData,
 } from 'app/modules/ask-astronomer/thunks';
-import React, { Component, Fragment } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-// import Modal from 'react-modal';
-import { intlShape, injectIntl } from 'react-intl';
-import ResponsiveTwoColumnContainer from 'app/components/ResponsiveTwoColumnContainer';
-import TwoTabbedNav from 'app/components/TwoTabbedNav';
 import { fetchObjectSpecialistsAction } from 'app/modules/object-details/actions';
 import { DeviceContext } from 'app/providers/DeviceProvider';
-import {
-  fetchAstronomerQuestions,
-  askQuestion,
-  changeAnswerState,
-} from 'app/modules/ask-astronomer/reducers/ask-astronomer-questions/actions';
-import {
-  toggleAllAnswersAndDisplay,
-  submitAnswerToQuestion,
-} from 'app/modules/ask-astronomer/reducers/ask-astronomer-answers/actions';
-import AskQuestionTile from 'app/modules/ask-astronomer/components/AskQuestionTile';
-import ObjectDetailsSectionTitle from 'app/components/object-details/ObjectDetailsSectionTitle';
-import CenterColumn from 'app/components/common/CenterColumn';
-import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
 import { customModalStylesV4 } from 'app/styles/mixins/utilities';
-import { Spinner } from 'app/components/spinner/index';
-import { Modal } from 'app/components/modal';
+import React, { Component } from 'react';
+import { injectIntl } from 'react-intl';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import messages from './AskAstronomer.messages';
+import style from './AskAstronomer.style';
 import AsideContainer from './partials/AsideContainer';
 import MainContainer from './partials/MainContainer';
-import style from './AskAstronomer.style';
-import messages from './AskAstronomer.messages';
 
 const mapStateToProps = state => ({
   allAnswers: state.astronomerAnswers.allAnswers,
@@ -101,49 +99,15 @@ class AskAstronomer extends Component {
       promptStyles: customModalStylesV4,
       // aaaQuestionPrompt: {},
     };
-
-    // getAskAnAstronomer({
-    //   objectId,
-    // }).then(res => {
-    //   this.setState(() => ({
-    //     aaaQuestionPrompt: res.data,
-    //   }));
-    //   props.actions.fetchAstronomerQuestions({ objectId });
-    // });
   }
 
-  /*componentWillReceiveProps(nextProps) {
-    const {
-      questionFilter,
-      params: { objectId },
-    } = nextProps;
-    //fetch the question data, the object page has been changed.
-    if (this.props.params.objectId != nextProps.params.objectId) {
-      this.props.actions.fetchAstronomerQuestions({ objectId });
-    }
-  }*/
-
   componentDidMount() {
-    console.log('componentDidMount');
-
     const {
       params: { objectId },
       actions: { getPageData },
     } = this.props;
 
-    getPageData(objectId).then(res => {
-      // console.log(res);
-      // this.setState(() => ({
-      //   aaaQuestionPrompt: res.data,
-      // }));
-    });
-    // const {
-    //   params: { objectId },
-    // } = this.props;
-    // if (this.props.objectData.objectId != objectId) {
-    //   //fetch questions only if the objectId changes.
-    //   this.props.actions.fetchAstronomerQuestions({ objectId });
-    // }
+    getPageData(objectId);
     this.fetchQuestions();
   }
 
@@ -159,16 +123,6 @@ class AskAstronomer extends Component {
   };
 
   handlePageChange = page => {
-    console.log('handlePageChange');
-    // const {
-    //   actions,
-    //   params: { objectId },
-    // } = this.props;
-    // actions.fetchAstronomerQuestions({
-    //   appendToList: false,
-    //   currentPage: page,
-    //   objectId,
-    // });
     this.fetchQuestions({ currentPage: page });
   };
 
@@ -205,17 +159,7 @@ class AskAstronomer extends Component {
   };
 
   updateQuestionsList = filter => {
-    console.log('updateQuestionsList');
-    // const {
-    //   params: { objectId },
-    //   actions,
-    // } = this.props;
-    //
-    // actions.fetchAstronomerQuestions({
-    //   objectId,
-    //   answerState: filter && filter.answerState,
-    // });
-    this.fetchQuestions({ answerState: filter && filter.answerState });
+    this.fetchQuestions({ ...filter });
   };
 
   render() {
@@ -259,7 +203,9 @@ class AskAstronomer extends Component {
 
     return (
       <div style={{ position: 'relative' }}>
-        {/*<Spinner loading={fetching} />*/}
+        <Modal show={showPrompt} onHide={this.closeModal}>
+          {promptComponent}
+        </Modal>
 
         <DeviceContext.Consumer>
           {context => (
@@ -269,9 +215,6 @@ class AskAstronomer extends Component {
                 subTitle="Ask An Astronomer"
                 theme={{ padding: '25px' }}
               />
-              <Modal show={showPrompt} onHide={this.closeModal}>
-                {promptComponent}
-              </Modal>
               <CenterColumn
                 widths={['768px', '940px', '940px']}
                 theme={{ paddingTop: '25px' }}

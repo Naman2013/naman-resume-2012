@@ -152,8 +152,8 @@ module.exports = {
   // devtool: 'cheap-module-eval-source-map',
   devServer: {
     contentBase: sourcePath, // assets
-    hot: true,
-    inline: true,
+    hot: false,
+    inline: false,
     open: true,
     overlay: true,
     historyApiFallback: {
@@ -161,22 +161,22 @@ module.exports = {
     },
     proxy: {
       '/api/**': {
-        target: 'https://eris.slooh.com',
+        target: 'https://nova.slooh.com',
         changeOrigin: true,
         secure: true,
       },
       '/sloohapp/**': {
-        target: 'https://eris.slooh.com',
+        target: 'https://nova.slooh.com',
         changeOrigin: true,
         secure: true,
       },
       '/sse/**': {
-        target: 'https://eris.slooh.com',
+        target: 'https://nova.slooh.com',
         changeOrigin: true,
         secure: true,
       },
       '/bot/**': {
-        target: 'https://eris.slooh.com',
+        target: 'https://nova.slooh.com',
         changeOrigin: true,
         secure: true,
       },

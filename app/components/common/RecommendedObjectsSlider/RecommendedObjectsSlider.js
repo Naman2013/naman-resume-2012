@@ -9,6 +9,10 @@ import take from 'lodash/take';
 import { FeaturedObjectCard } from 'app/modules/telescope/components/featured-object-card';
 import { FeaturedObjectsModal } from 'app/modules/telescope/components/featured-objects-modal';
 import { MissionSuccessModal } from 'app/modules/missions/components/mission-success-modal';
+import {
+  setupFeaturedObjectsExpireTimer,
+  stopFeaturedObjectsExpireTimer,
+} from 'app/services/dashboard/timer';
 import SloohSlider from '../Slider';
 import DisplayAtBreakpoint from '../DisplayAtBreakpoint';
 import { getSliderProps } from './recommendedObjectsSliderConfiguration';
@@ -19,6 +23,18 @@ export class RecommendedObjects extends Component {
     reservationModalVisible: false,
     selectedMission: {},
     successModalShow: false,
+  };
+
+  getDashboardFeaturedObjects = () => {
+    const { getDashboardFeaturedObjects } = this.props;
+    stopFeaturedObjectsExpireTimer();
+    getDashboardFeaturedObjects().then(({ payload }) => {
+      const timerTime = payload.expires - payload.timestamp;
+      setupFeaturedObjectsExpireTimer(timerTime, () =>
+        this.getDashboardFeaturedObjects()
+      );
+
+    });
   };
 
   reserveCommunityMission = () => {
@@ -44,12 +60,11 @@ export class RecommendedObjects extends Component {
   };
 
   modalClose = () => {
-    const { getDashboardFeaturedObjects } = this.props;
     this.setState({
       successModalShow: false,
       selectedMission: {},
     });
-    getDashboardFeaturedObjects();
+    this.getDashboardFeaturedObjects();
   };
 
   render() {
@@ -58,6 +73,8 @@ export class RecommendedObjects extends Component {
       user,
       reservedCommunityMissionData,
       reservedCommunityMission,
+      reservedButtonCaption,
+      optionsButtonCaption,
     } = this.props;
     const {
       reservationModalVisible,
@@ -78,10 +95,24 @@ export class RecommendedObjects extends Component {
                 key={object.scheduledMissionId}
                 featureObject={object}
                 onOptionClick={() => this.reservationModalShow(object)}
+                reservedButtonCaption={reservedButtonCaption}
+                optionsButtonCaption={optionsButtonCaption}
               />
             ))}
           </div>
         </DisplayAtBreakpoint>
+        <style jsx>{`
+          .dashboard-recomended-objects {
+            margin: 0 auto;
+            max-width: 644px;
+          }
+          @media only screen and (min-width: 1200px) {
+            .dashboard-recomended-objects {
+              max-width: 965px;
+            }
+          }
+
+        `}</style>
 
         {reservationModalVisible && (
           <FeaturedObjectsModal

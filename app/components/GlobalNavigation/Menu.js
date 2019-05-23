@@ -47,7 +47,7 @@ const Menu = props => {
     ...theme,
     left: isLeft ? (isOpen ? 0 : `${-width}${widthUnits}`) : 'auto',
     right: isLeft ? 'auto' : isOpen ? 0 : `${-width}${widthUnits}`,
-    width: `${width}${widthUnits}`,
+    width: isOpen ? `${width}${widthUnits}` : 0,
   };
 
   return (

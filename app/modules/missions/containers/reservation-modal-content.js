@@ -20,6 +20,7 @@ import {
   getCatalogList,
   setCatalog,
   checkTargetVisibility,
+  getCoordinatesCategoryList,
 } from '../thunks';
 import {
   makeTelescopeSelectedTelescopeSelector,
@@ -78,6 +79,7 @@ const mapDispatchToProps = {
   setProcessingRecipe: ACTION.setProcessingRecipe,
   setCoordinatesData: ACTION.setCoordinatesData,
   setTargetName: ACTION.setTargetName,
+  getCoordinatesCategoryList,
 };
 
 export default compose(

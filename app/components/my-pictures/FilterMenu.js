@@ -1,11 +1,11 @@
-import 'react-dates/lib/css/_datepicker.css';
-
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import moment from 'moment';
 import isEqual from 'lodash/isEqual';
+import 'react-dates/initialize';
+import 'react-dates/lib/css/_datepicker.css';
 import { DayPickerSingleDateController } from 'react-dates';
 import { fetchObjectTypeList } from '../../modules/object-type-list/actions';
 import {

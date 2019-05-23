@@ -42,6 +42,12 @@ export default css`
     background-color: ${faintGray};
   }
 
+  /* .sections-wrapper div:nth-child(2) {
+    margin-top: -170px;
+    padding-top: 230px;
+    background-color: #f8f8f8;
+  } */
+
   @media all and (min-width: 641px) and (max-width: 768px) {
     .dash-nav {
       top: 507px;

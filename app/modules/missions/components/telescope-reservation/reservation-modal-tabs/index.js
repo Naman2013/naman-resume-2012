@@ -54,6 +54,7 @@ export class ReservationModalTabs extends PureComponent {
       onHide,
       setCoordinatesData,
       setTargetName,
+      getCoordinatesCategoryList,
     } = this.props;
     const { countdown } = this.state;
 
@@ -135,7 +136,7 @@ export class ReservationModalTabs extends PureComponent {
           <Tab eventKey="coordinates" title="by coordinates">
             <ReservationCoordinates
               {...byCoordinates}
-              getCategoryList={getCategoryList}
+              getCategoryList={getCoordinatesCategoryList}
               setCategory={setCategory}
               setTargetName={setTargetName}
               checkTargetVisibility={checkTargetVisibility}

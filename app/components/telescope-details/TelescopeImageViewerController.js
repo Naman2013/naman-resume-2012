@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import noop from 'lodash/noop';
-
-import Telescope from 'app/components/Telescope';
-import { StarShareCamera } from 'app/components/telescope-details/star-share-camera';
-
+import noop from 'lodash/fp/noop';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-
+import Telescope from 'app/components/Telescope';
+import StarShareCamera from 'app/components/telescope-details/star-share-camera/star-share-camera';
 import {
   snapImage,
   resetImageToSnap,
@@ -33,16 +30,38 @@ class TelescopeImageViewerController extends Component {
   previousInstrumentID = null;
 
   render() {
-    const { snapImage } = this.props;
-
+    const {
+      activeInstrumentID,
+      render,
+      justSnapped,
+      resetImageToSnap,
+      resetsnapImageMsg,
+      snapImage,
+      snapshotList,
+      snapshotMsg,
+      snapAPIError,
+      imagesLastSnapped,
+    } = this.props;
+    const actions = {
+      snapImage,
+      resetImageToSnap,
+      resetsnapImageMsg,
+    };
     return (
       <div>
         <Telescope
-          activeInstrumentID={this.props.activeInstrumentID}
+          activeInstrumentID={activeInstrumentID}
           previousInstrumentID={this.previousInstrumentID}
-          render={this.props.render}
+          render={render}
         />
-        <StarShareCamera snapImage={snapImage} />
+        <StarShareCamera
+          actions={actions}
+          snapshotMsg={snapshotMsg}
+          justSnapped={justSnapped}
+          snapAPIError={snapAPIError}
+          snapshotList={snapshotList}
+          imagesLastSnapped={imagesLastSnapped}
+        />
       </div>
     );
   }

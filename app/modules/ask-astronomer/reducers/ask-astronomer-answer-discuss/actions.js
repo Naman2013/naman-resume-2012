@@ -76,11 +76,13 @@ export const replyToAnswer = payload => (dispatch, getState) => {
     threadId,
     replyTo,
     content,
+    S3URLs,
     objectId,
   } = payload;
   const { cid, at, token } = getState().user;
   dispatch(replyToAnswerStart({ replyTo }))
-  dispatch(toggleAllAnswerRepliesAndDisplay(Object.assign({ showAllReplies: true }, payload)))
+  dispatch(toggleAllAnswerRepliesAndDisplay(Object.assign({ showAllReplies: true }, payload)));
+
   return submitReply({
     at,
     callSource: 'qanda',
@@ -88,6 +90,7 @@ export const replyToAnswer = payload => (dispatch, getState) => {
     content,
     lang,
     objectId,
+    S3URLs,
     replyTo,
     threadId,
     token,

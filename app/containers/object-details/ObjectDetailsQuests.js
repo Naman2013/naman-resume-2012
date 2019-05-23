@@ -94,12 +94,13 @@ class Quests extends Component {
                       ) : (
                         <div>
                           <p>
-                            <FormattedMessage
-                              {...messages.NoQuests}
-                              values={{
-                                objectTitle: objectDetails.objectTitle,
-                              }}
-                            />
+                            {serviceResponse.questsComingSoonMessage}
+                            {/*<FormattedMessage*/}
+                            {/*  {...messages.NoQuests}*/}
+                            {/*  values={{*/}
+                            {/*    objectTitle: objectDetails.objectTitle,*/}
+                            {/*  }}*/}
+                            {/*/>*/}
                           </p>
                         </div>
                       )}

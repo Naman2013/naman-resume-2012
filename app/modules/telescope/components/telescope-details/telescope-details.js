@@ -79,6 +79,10 @@ export class TelescopeDetails extends Component {
     }
   }
 
+  componentWillUnmount() {
+    clearTimeout(this.refreshTelescopeStatusTimeout);
+  }
+
   scaffoldRefreshInterval(expirationTimestamp = 0) {
     if (this.workingRefreshTimestamp !== expirationTimestamp) {
       this.workingRefreshTimestamp = expirationTimestamp;
@@ -173,7 +177,7 @@ export class TelescopeDetails extends Component {
           telescope.teleUniqueId === activeTelescope.telescopeUniqueID
       )
     );
-
+    
     return (
       <div>
         <TelescopeNavigation
@@ -188,6 +192,7 @@ export class TelescopeDetails extends Component {
         {activeTelescopeStatus &&
           activeTelescopeStatus.onlineStatus === 'offline' && (
             <TelescopeOffline
+              key={`currentTelescopeId-${currentTelescope.teleId}`}
               currentTelescope={currentTelescope}
               currentObservatory={currentObservatory}
               currentInstrument={currentInstrument}

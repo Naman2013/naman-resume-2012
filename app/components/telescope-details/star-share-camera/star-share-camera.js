@@ -5,23 +5,15 @@ import { connect } from 'react-redux';
 import Lightbox from 'react-images';
 import classnames from 'classnames';
 import { canUseDOM } from 'exenv';
-import uniqueId from 'lodash/uniqueId';
-import removeStyle from '../../../utils/removeStyle';
-import ModalGeneric from '../../../components/common/modals/modal-generic';
-import Snap from './Snap';
 import {
   snapImage,
   resetImageToSnap,
   resetsnapImageMsg,
-} from '../../../modules/starshare-camera/starshare-camera-actions';
-
-import {
-  black,
-  lightGray,
-  white,
-  turqoise,
-  pink,
-} from '../../../styles/variables/colors';
+} from 'app/modules/starshare-camera/starshare-camera-actions';
+import removeStyle from 'app/utils/removeStyle';
+import ModalGeneric from 'app/components/common/modals/modal-generic';
+import Snap from './Snap';
+import './star-share-camera.scss';
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(
@@ -79,15 +71,11 @@ class StarShareCamera extends Component {
   };
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.snapshotMsg !== nextProps.snapshotMsg) {
-      this.openModal();
-    }
+    const { snapshotMsg } = this.props;
+    if (snapshotMsg !== nextProps.snapshotMsg) this.openModal();
   }
 
-  openLightbox = (imageSource, event) => {
-    if (event) {
-      event.preventDefault();
-    }
+  openLightbox = imageSource => {
     this.setState({
       lightboxOpen: true,
       lightboxImage: imageSource,
@@ -107,10 +95,13 @@ class StarShareCamera extends Component {
   };
 
   takeSnapshot = () => {
-    this.setState({
-      snappingPhoto: true,
-    });
-    this.props.actions.snapImage();
+    const { actions } = this.props;
+    this.setState(
+      {
+        snappingPhoto: true,
+      },
+      () => actions.snapImage()
+    );
   };
 
   openModal = () => {
@@ -120,49 +111,53 @@ class StarShareCamera extends Component {
   };
 
   closeModal = () => {
-    this.setState({
-      openedModal: false,
-    });
-
-    this.props.actions.resetsnapImageMsg();
+    const { actions } = this.props;
+    this.setState(
+      {
+        openedModal: false,
+      },
+      () => actions.resetsnapImageMsg()
+    );
   };
 
   render() {
-    const { lightboxOpen, lightboxImage, snappingPhoto } = this.state;
-
+    const { takeSnapshot, openLightbox, closeModal, closeLightbox } = this;
+    const {
+      lightboxOpen,
+      lightboxImage,
+      snappingPhoto,
+      openedModal,
+    } = this.state;
     const { snapshotList, snapshotMsg, snapAPIError, justSnapped } = this.props;
-
     const snappingImages = justSnapped && snappingPhoto;
 
     return (
       <div className="star-share-camera-wrapper">
-        <button className="snapshot-btn" onClick={this.takeSnapshot}>
+        <button className="snapshot-btn" onClick={takeSnapshot}>
           <i className="fa fa-camera" />
         </button>
         {snapshotList.map((snapshot, i) => {
           return (
             <button
-              onClick={event => {
-                this.openLightbox(snapshot.imageURL, event);
-              }}
-              key={`${snapshot.imageID}-${uniqueId()}`}
+              key={snapshot.imageID}
+              onClick={() => openLightbox(snapshot.imageURL)}
               className={getSnapClasses(i, snappingImages)}
             >
-              {snapshot.imageURL ? (
+              {snapshot.imageURL && (
                 <Snap
-                  key={snapshot.imageID}
                   width="100px"
                   height="50px"
+                  key={snapshot.imageID}
                   imageURL={snapshot.imageURL}
                 />
-              ) : null}
+              )}
             </button>
           );
         })}
         {snapshotMsg && snapAPIError && (
           <ModalGeneric
-            open={this.state.openedModal}
-            closeModal={this.closeModal}
+            open={openedModal}
+            closeModal={closeModal}
             description={String(snapshotMsg)}
           />
         )}
@@ -171,87 +166,11 @@ class StarShareCamera extends Component {
           <Lightbox
             images={[{ src: lightboxImage }]}
             isOpen={lightboxOpen}
-            onClose={this.closeLightbox}
-            backdropClosesModal={true}
+            onClose={closeLightbox}
+            backdropClosesModal
             showImageCount={false}
           />
         )}
-
-        <style jsx>{`
-          @keyframes shake-keyframes {
-            15%,
-            40%,
-            75%,
-            100% {
-              transform-origin: center center;
-            }
-            15% {
-              transform: scale(1.4, 1.2);
-            }
-            40% {
-              transform: scale(0.9, 0.9);
-            }
-            75% {
-              transform: scale(1.08, 1);
-            }
-            100% {
-              transform: scale(1, 1);
-            }
-          }
-
-          .shake {
-            animation: shake-keyframes 0.5s ease-out;
-          }
-
-          .star-share-camera-wrapper {
-            display: flex;
-            flex-wrap: wrap;
-            width: 100%;
-          }
-
-          .snapshot-btn {
-            color: ${turqoise};
-            background: transparent;
-            border: 0;
-            font-size: 32px;
-            display: flex;
-
-            justify-content: center;
-            align-items: center;
-            padding: 0 20px;
-          }
-
-          .snapshot-btn:focus {
-            outline: none;
-          }
-
-          .snapshot-btn:hover {
-            color: ${pink};
-          }
-
-          .snapshot {
-            background: ${black};
-            height: 40px;
-            overflow: hidden;
-            margin: 10px;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 0 4px ${lightGray};
-            width: 11%;
-            height: 50px;
-            outline: 0;
-            border: none;
-          }
-
-          .snapshot-index {
-            position: absolute;
-            color: ${white};
-            z-index: 2;
-            font-size: 12px;
-          }
-        `}</style>
       </div>
     );
   }

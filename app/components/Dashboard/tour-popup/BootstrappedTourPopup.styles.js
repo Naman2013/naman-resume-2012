@@ -10,4 +10,7 @@ export default css`
     float: right;
     margin: -10px -10px 0 0;
   }
+  .dismiss-link {
+    cursor: pointer;
+  }
 `;
