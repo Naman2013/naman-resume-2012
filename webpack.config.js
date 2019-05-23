@@ -152,8 +152,8 @@ module.exports = {
   // devtool: 'cheap-module-eval-source-map',
   devServer: {
     contentBase: sourcePath, // assets
-    hot: true,
-    inline: true,
+    hot: false,
+    inline: false,
     open: true,
     overlay: true,
     historyApiFallback: {

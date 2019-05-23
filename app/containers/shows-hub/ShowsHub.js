@@ -141,17 +141,11 @@ class Shows extends Component {
                           ) : null}
                           {!isFetching && (
                             <Fragment>
-                              <DisplayAtBreakpoint
-                                screenMedium
-                                screenLarge
-                                screenXLarge
-                              >
                                 <UpcomingShows
                                   validateResponseAccess={
                                     actions.validateResponseAccess
                                   }
                                 />
-                              </DisplayAtBreakpoint>
                               <ShowTiles
                                 updateReadingListInfo={
                                   this.updateReadingListInShow

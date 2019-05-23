@@ -17,6 +17,7 @@ import {
   getMissionSlotsByTelescopeApi,
   getTelescopeSlotApi,
   checkTargetVisibilityApi,
+  getCoordinatesCategoryListApi,
 } from 'app/modules/missions/api';
 import { ACTION } from './reducer';
 import {
@@ -140,6 +141,14 @@ export const getTelescopeSlot = data => (dispatch, getState) => {
   return getTelescopeSlotApi({ at, token, cid, ...data })
     .then(result => dispatch(ACTION.getTelescopeSlotSuccess(result.data)))
     .catch(error => dispatch(ACTION.getTelescopeSlotError(error)));
+};
+
+export const getCoordinatesCategoryList = () => (dispatch, getState) => {
+  const { at, token, cid } = getState().user;
+  dispatch(ACTION.getCoordinatesCategoryList());
+  return getCoordinatesCategoryListApi({ at, token, cid })
+    .then(result => dispatch(ACTION.getCoordinatesCategoryListSuccess(result.data)))
+    .catch(error => dispatch(ACTION.getCoordinatesCategoryListError(error)));
 };
 
 // missions

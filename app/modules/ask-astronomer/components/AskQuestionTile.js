@@ -75,7 +75,11 @@ class AskQuestionTile extends Component {
     e.preventDefault();
     const { infoText, modalActions } = this.props;
     modalActions.setModal({
-      promptComponent: <div dangerouslySetInnerHTML={{ __html: infoText }} />,
+      promptComponent: (
+        <div className="modal-box">
+          <p dangerouslySetInnerHTML={{ __html: infoText }} />
+        </div>
+      ),
       promptStyles: customModalStylesBlackOverlay,
     });
     modalActions.showModal();
@@ -124,7 +128,8 @@ class AskQuestionTile extends Component {
 
   updateQuestionsList = () => {
     this.setState({ showSuccessPopup: false });
-    this.props.updateQuestionsList();
+    // refetch question list first page
+    this.props.updateQuestionsList({ currentPage: 1 });
   };
 
   render() {

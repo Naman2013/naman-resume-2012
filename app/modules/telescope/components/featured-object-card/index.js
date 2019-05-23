@@ -4,7 +4,7 @@ import './styles.scss';
 
 export class FeaturedObjectCard extends PureComponent {
   render() {
-    const { featureObject, getTelescopeSlot, onOptionClick } = this.props;
+    const { featureObject, getTelescopeSlot, onOptionClick, reservedButtonCaption, optionsButtonCaption, } = this.props;
     const {
       title,
       ownerAvatarURL,
@@ -23,7 +23,11 @@ export class FeaturedObjectCard extends PureComponent {
     } = missionStartFormatted;
 
     return (
-      <div className="featured-object-card">
+      <div
+        className={`featured-object-card${
+          userHasReservation ? ' reserved' : ''
+        }`}
+      >
         <div className="mission-title">
           <img src={objectIconURL} alt="" />
           <span>{title}</span>
@@ -41,8 +45,12 @@ export class FeaturedObjectCard extends PureComponent {
 
           {missionAvailable && !userHasReservation && (
             <Button className="option-btn" onClick={onOptionClick}>
-              Options
+              {optionsButtonCaption || 'Options'}
             </Button>
+          )}
+
+          {missionAvailable && userHasReservation && reservedButtonCaption && (
+            <div className="reserved-mission-capture">{reservedButtonCaption}</div>
           )}
         </div>
       </div>

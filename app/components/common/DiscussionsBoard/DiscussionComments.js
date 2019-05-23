@@ -72,7 +72,7 @@ class DiscussionsComment extends Component {
       discussions: { commentsList },
     } = this.props;
 
-    if (typeof commentsList[threadId] === 'undefined') {
+    if (typeof commentsList[threadId] === 'undefined' && getReplies) {
       getReplies(threadId);
     }
   }
@@ -114,8 +114,10 @@ class DiscussionsComment extends Component {
       const { apiError, reply } = res.data;
       if (!apiError) {
         const { getThreads, threadId, getReplies } = this.props;
-        getThreads();
-        getReplies(threadId);
+        if(getThreads && getReplies) {
+          getThreads();
+          getReplies(threadId);
+        }
         //updateThreadsProps(threadsList);
         // const {
         //   count,
@@ -229,9 +231,11 @@ class DiscussionsComment extends Component {
           }
         }
 
-        getThreads();
-        getReplies(threadId);
-        getReplies(threadId, replyTo);
+        if(getThreads && getReplies) {
+          getThreads();
+          getReplies(threadId);
+          getReplies(threadId, replyTo);
+        }
       }
       callback(res.data);
     });

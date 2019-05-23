@@ -53,7 +53,9 @@ const RecommendedObjectsItem = ({ object, intl, reservationModalShow }) => {
       </div>
       <div className="field-wrapper">
         <img src={observatoryIconURL} alt="icon" />
-        <div className="object-field details-telescope">{telescopeName}</div>
+        <div className="object-field details telescope-name-container">
+          <div className="telescope-name">{telescopeName}</div>
+        </div>
       </div>
       {missionAvailable && !userHasReservation && (
         <Button

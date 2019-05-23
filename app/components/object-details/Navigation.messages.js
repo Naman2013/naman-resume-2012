@@ -34,7 +34,7 @@ const messages: Messages = {
   },
   Stories: {
     id: 'Objects.Stories',
-    defaultMessage: 'Stories',
+    defaultMessage: 'Illuminations',
     description: 'Objects navigation Stories',
   },
 };

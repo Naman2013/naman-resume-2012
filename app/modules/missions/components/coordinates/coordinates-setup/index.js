@@ -11,7 +11,7 @@ export class CoordinatesSetup extends PureComponent {
   renderCategoryOption = props => {
     const { categoryList } = this.props;
     const item = categoryList[props.data.value];
-
+    
     return (
       <div
         {...props.innerProps}
@@ -196,7 +196,7 @@ export class CoordinatesSetup extends PureComponent {
                 </Tooltip>
               }
             >
-              <span>Step 6: Click or tap to define the mission</span>
+              <span>Step 6: Click or tap to define</span>
             </OverlayTrigger>
           </div>
 

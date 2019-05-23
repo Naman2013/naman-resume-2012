@@ -44,3 +44,5 @@ export const getMissionSlotsByTelescopeApi = data =>
   axios.post('/api/reservation/getMissionSlotsByTelescope', data);
 export const getTelescopeSlotApi = data =>
   axios.post('/api/reservation/grabTelescopeSlot', data);
+export const getCoordinatesCategoryListApi = data =>
+  axios.post('/api/reservation/getCoordinatesCategoryList', data);
