@@ -18,7 +18,7 @@ export default css`
     width: 300px;
     height: 300px;
     color: ${astronaut};
-    padding: 25px;
+    padding: 25px 25px 65px;
     border: 1px solid ${shadows};
     border-bottom: 4px solid ${astronaut};
   }
@@ -33,7 +33,7 @@ export default css`
     margin-bottom: 10px;
     font-family: ${secondaryFont};
     font-size: 16px;
-    font-weight: 0;
+    font-weight: 400;
   }
 
   .sub-title {
@@ -50,6 +50,7 @@ export default css`
   }
 
   .description {
+    margin-top: 10px;
     font-family: ${secondaryFont};
     color: ${astronaut};
     font-size: 19px;
@@ -57,11 +58,19 @@ export default css`
   }
 
   .actions {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
     width: 65%;
     margin: 0 auto;
     padding: 15px 0;
+  }
+  
+  .actions button {
+    margin: 0 5px;
   }
 `;

@@ -19,7 +19,7 @@ export default css`
   .excerpt {
     visibility: hidden;
     position: absolute;
-    top: 20px;
+    top: 0;
     left: 10px;
   }
 
