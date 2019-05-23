@@ -67,6 +67,7 @@ export const ImgTagsPopover = (props: TImgTagsPopover) => {
               <Button
                 size="sm"
                 block
+                className="mt-1"
                 key={tag.tagIndex}
                 onClick={() => deleteTag(tag.tagText)}
               >
