@@ -5,22 +5,12 @@ import {
   lightHeadedAstronaut,
 } from '../../../../styles/variables/colors_tiles_v4';
 import {
+  primaryFont,
   secondaryFont,
   AngeliquemadouceColombeFont,
 } from '../../../../styles/variables/fonts';
 
 export default css`
-
-  @font-face {
-    font-family: 'Angelique';
-    src:
-      url('/assets/fonts/AngeliquemadouceColombe.woff') format('woff'),
-      url('/assets/fonts/AngeliquemadouceColombe.eot') format('eot'),
-      url('/assets/fonts/AngeliquemadouceColombe.svg') format('svg');
-    font-weight: normal;
-    font-style: normal;
-  }
-  
   .card-object {
     pointer-events: auto;
     text-align: initial;
@@ -54,7 +44,7 @@ export default css`
   .title {
     border-top: 1px solid #c3c5c7;
     font-family: ${secondaryFont};
-    font-size: 20px; 
+    font-size: 20px;
     font-weight: 400;
     letter-spacing: 0;
     text-transform: none;
@@ -66,14 +56,6 @@ export default css`
     font-weight: bold;
     letter-spacing: 0.6px;
     text-transform: uppercase;
-  }
-
-  .details-telescope {
-    font-family: 'Angelique';
-    font-size: 52px; 
-    line-height: 0.5;
-    padding: 10px 0 16px 0;
-    text-transform: none;
   }
 
   .field-wrapper {
