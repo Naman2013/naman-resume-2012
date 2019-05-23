@@ -2,6 +2,7 @@ import css from 'styled-jsx/css';
 import { primaryFont, secondaryFont } from 'app/styles/variables/fonts';
 import {
   romance,
+  failedRomance,
   hawkesBlue,
   astronaut,
   blue_tile_canvas,
@@ -17,14 +18,9 @@ export default css`
     background-size: contain;
     background-repeat: no-repeat;
     background-position: 50%;
-    color: ${romance};
-    font-weight: 600;
-    letter-spacing: 1px;
     transition: width, height 0.15s ease-out;
     padding: 0 40px;
-    font-size: 10px;
     margin: 20px auto;
-    font-family: ${primaryFont};
     text-align: center;
   }
   .card-groups-img {
@@ -39,13 +35,21 @@ export default css`
     color: ${romance};
     text-decoration: none;
     font-family: ${secondaryFont};
-    font-size: 22px;
-    line-height: 22px;
-    font-weight: 400;
+    font-size: 21px;
+    letter-spacing: 0;
+    line-height: 21px;
+    font-weight: 300;
     margin-bottom: 15px;
+    text-transform: none;
   }
 
   .card-desc {
+    color: ${failedRomance};
+    font-family: ${primaryFont};
+    font-size: 10px;
+    letter-spacing: 2px;
+    line-height: 10px;
+    font-weight: bold;
     text-transform: uppercase;
   }
 `;

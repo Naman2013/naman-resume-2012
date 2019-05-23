@@ -43,8 +43,8 @@ const BootstrappedObservationSliderItem = props => {
               <div className="top">
                 <div className="info">
                   <div className="main-info">
-                    <h2 className="title h-2 h-2-bold">{imageTitle}</h2>
-                    <h5 className="author h-5 h-5-normal">{displayName}</h5>
+                    <h2 className="title">{imageTitle}</h2>
+                    <h5 className="author">{displayName}</h5>
                     {(observationLog || socialShareDescription) && (
                       <p className="i-text-box">
                         {observationLog || socialShareDescription}
