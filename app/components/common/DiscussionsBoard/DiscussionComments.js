@@ -168,6 +168,7 @@ class DiscussionsComment extends Component {
       threadId,
       discussions: { commentsList, displayedComments, threadsList },
       discussionsActions: { updateCommentsProps },
+      updateComments,
     } = this.props;
     submitReply(params).then(res => {
       const { apiError, reply } = res.data;
@@ -182,7 +183,7 @@ class DiscussionsComment extends Component {
           commentsList[threadId],
           rep => rep.replyId === replyTo
         );
-        if (parentThread && parentComment) {
+        if ((parentThread && parentComment) || (updateComments && parentComment)) {
           // safeguard
           if (commentsList[replyTo]) {
             const comments = commentsList[replyTo] || [];

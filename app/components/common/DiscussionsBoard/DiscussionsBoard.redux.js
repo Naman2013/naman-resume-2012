@@ -130,7 +130,7 @@ class DiscussionsBoard extends Component {
           const displayedComments = take([].concat(replies), count).map(
             reply => reply.replyId
           );
-          console.log(newReplies, displayedComments);
+
           this.updateCommentsProps(
             replyTo || threadId,
             newReplies,
@@ -225,7 +225,7 @@ class DiscussionsBoard extends Component {
       toggleThreadComments,
       toggleCommentsReplies,
     };
-
+    
     return (
       <div>
         <DeviceContext.Consumer>
@@ -262,6 +262,7 @@ class DiscussionsBoard extends Component {
                   forumId={forumId}
                   user={user}
                   getReplies={this.getReplies}
+                  updateComments
                 />
               )}
             </Fragment>
