@@ -14,6 +14,7 @@ export const seashell = '#f2f2f2';
 export const paleGrey = '#f4f5f6';
 export const paleGreyTwo = '#edf0f2';
 export const romance = '#ffffff';
+export const failedRomance = '#b1b8c1';
 export const golden_yellow = '#ffde00';
 export const golden = '#c2a068';
 export const golda = '#e2b979';

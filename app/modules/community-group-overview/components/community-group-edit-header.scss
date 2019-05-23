@@ -1,0 +1,42 @@
+@import "~app/styles/variables/colors.scss";
+@import "~app/styles/variables/media-queries.scss";
+
+.details {
+  padding: 20px 0 0;
+
+  .hr {
+    margin-top: 20px;
+  }
+
+  &-box {
+
+    .h-5 {
+      padding-top: 28px;
+      padding-bottom: 28px;
+    }
+
+    .btn-group {
+      padding: 15px 0;
+    }
+
+    .i-btn {
+      width: 140px;
+      justify-content: space-between;
+    }
+  }
+
+  &-ceil {
+    padding-left: 32px;
+    border-left: 1px solid $gray;
+
+    &-mobile {
+      border-left: none;
+      border-top: 1px solid $gray;
+      padding-left: 0;
+    }
+
+    @include md {
+      padding-left: 22px;
+    }
+  }
+}

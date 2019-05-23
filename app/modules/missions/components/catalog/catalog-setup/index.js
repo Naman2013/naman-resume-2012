@@ -159,7 +159,11 @@ export class CatalogSetup extends Component {
                 </Tooltip>
               }
             >
-              <span>Step 4: Click or tap to find</span>
+              {byTelescope ? (
+                <span>Step 4: Click or tap to define</span>
+              ) : (
+                <span>Step 4: Click or tap to find</span>
+              )}
             </OverlayTrigger>
           </div>
 

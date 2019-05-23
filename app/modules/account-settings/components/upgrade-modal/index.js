@@ -34,6 +34,7 @@ export const UpgradeModal = (props: TUpgradeModal) => {
     isFetching,
     subscriptionPlansData,
     selectedPlanId,
+    errorData, // errors from issue with user account modal
   } = props;
 
   return (

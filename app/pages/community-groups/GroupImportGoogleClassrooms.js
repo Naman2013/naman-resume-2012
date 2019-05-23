@@ -40,8 +40,8 @@ import { Link } from 'react-router';
 import { faintShadow } from 'app/styles/variables/shadows';
 import { romance, astronaut } from 'app/styles/variables/colors_tiles_v4';
 import { primaryFont, secondaryFont } from 'app/styles/variables/fonts';
-import style from '../../containers/groups-hub/groups-hub.style';
 import style2 from 'pages/registration/partials/JoinHeader.style';
+import style from '../../containers/groups-hub/groups-hub.style';
 import style3 from './GroupCreate.style';
 import messages from './Groups.messages';
 import './group-import-google-classrooms.scss';
@@ -201,8 +201,8 @@ class GroupImportGoogleClassrooms extends Component {
     }
 
     const myGoogleClassroom = {
-      googleClassroomId: googleClassroomId,
-      googleClassroomName: googleClassroomName,
+      googleClassroomId,
+      googleClassroomName,
       googleClassroomDescription: '',
       googleClassroomSelected: selectedFlagValue,
     };
@@ -276,15 +276,11 @@ class GroupImportGoogleClassrooms extends Component {
             <Fragment>
               {!fetchingContent && (
                 <Fragment>
-                  <div className="header">
-                    <div className="inner-header-container">
-                      <div className="inner-header-text">
-                        <div className="big">
-                          {serviceResponse.pageHeading1}
-                        </div>
-                        <div className="little">
-                          {serviceResponse.pageHeading2}
-                        </div>
+                  <div className="inner-header-container">
+                    <div className="inner-header-text">
+                      <div className="big">{serviceResponse.pageHeading1}</div>
+                      <div className="little">
+                        {serviceResponse.pageHeading2}
                       </div>
                     </div>
                   </div>
@@ -318,17 +314,15 @@ class GroupImportGoogleClassrooms extends Component {
                                               return (
                                                 <div
                                                   className="classroom-item"
-                                                  key={
-                                                    `googleClassroomRow_` +
+                                                  key={`googleClassroomRow_${
                                                     item.googleClassroomId
-                                                  }
+                                                  }`}
                                                 >
                                                   <div
                                                     className="classroom-title"
-                                                    key={
-                                                      `importName_` +
+                                                    key={`importName_${
                                                       item.googleClassroomId
-                                                    }
+                                                    }`}
                                                   >
                                                     {item.hasDiscussionGroup ? (
                                                       <Link
@@ -349,14 +343,12 @@ class GroupImportGoogleClassrooms extends Component {
                                                           style={{
                                                             marginLeft: '0px',
                                                           }}
-                                                          key={
-                                                            `importAction_` +
+                                                          key={`importAction_${
                                                             item.googleClassroomId
-                                                          }
-                                                          name={
-                                                            `importAction_` +
+                                                          }`}
+                                                          name={`importAction_${
                                                             item.googleClassroomId
-                                                          }
+                                                          }`}
                                                           type="checkbox"
                                                           className="form-field"
                                                           component={InputField}
@@ -386,10 +378,9 @@ class GroupImportGoogleClassrooms extends Component {
                                                     </div>
                                                     <div
                                                       className="classroom-status"
-                                                      key={
-                                                        `importStatus_` +
+                                                      key={`importStatus_${
                                                         item.googleClassroomId
-                                                      }
+                                                      }`}
                                                     >
                                                       {item.hasDiscussionGroup
                                                         ? 'Active'

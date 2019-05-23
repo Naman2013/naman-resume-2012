@@ -114,6 +114,7 @@ class LiveShowVideoViewer extends Component {
                   missionFormat="none"
                   isInteractive={false}
                   callSource="situationRoom"
+                  shouldUseTransitions={false}
                 />
               )}
             </div>

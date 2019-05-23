@@ -15,9 +15,9 @@ import LabeledTitleTiles from 'app/components/common/style/LabeledTitleTiles';
 import MonotonousTile from 'app/components/common/tiles/MonotonousTile';
 import VideoImageLoader from 'app/components/common/telescope-image-loader/video-image-loader';
 import ResponsiveTwoColumnContainer from 'app/components/ResponsiveTwoColumnContainer';
+import { romance, seashell } from 'app/styles/variables/colors_tiles_v4';
 import MainContainerWithDiscussions from './partials/MainContainerWithDiscussions';
 import AsideContainerDetailsOnly from './partials/AsideContainerDetailsOnly';
-import { romance, seashell } from 'app/styles/variables/colors_tiles_v4';
 
 import styles from './Show.style';
 import messages from './Show.messages';
@@ -96,6 +96,8 @@ class RecentShow extends Component {
       isDesktop,
       isScreenLarge,
       isScreenMedium,
+      readingListPrompt,
+      promptIconUrl,
       showId,
       showInfoTiles,
       showStreamCode,
@@ -104,7 +106,7 @@ class RecentShow extends Component {
       tagLine,
       intl,
     } = this.props;
-
+    
     const {
       aboutIsActive,
       commentsIsActive,
@@ -134,6 +136,8 @@ class RecentShow extends Component {
               text={title}
               showReadingList
               readingListType="show"
+              readingListPrompt={readingListPrompt}
+              promptIconUrl={promptIconUrl}
               id={showId}
             />
             <div className="hide-on-mobile">

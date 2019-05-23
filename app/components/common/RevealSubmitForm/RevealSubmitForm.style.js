@@ -39,7 +39,7 @@ export default css`
     padding: 15px;
     background-color: ${romance};
     border-radius: 5px;
-    padding: 60px 40px;
+    padding: 50px 40px 40px;
   }
   .fake-input {
     -moz-box-shadow: inset 0 0 7px 0 ${shadows};
@@ -66,7 +66,7 @@ export default css`
     box-shadow: inset 0 0 7px 0 ${shadows};
     font-family: ${secondaryFont};
     font-size: 16px;
-    margin: 0 auto;
+    margin: 0 auto 21px;
     padding: 25px;
     resize: none;
     vertical-align: top;

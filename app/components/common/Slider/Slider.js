@@ -7,14 +7,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Slider from 'react-slick';
-import uniqueId from 'lodash/uniqueId';
 import defaultSliderConfiguration from './sliderConfig';
 
 import '../community-perspectives/slick.min.css';
 import '../community-perspectives/slick-theme.min.css';
 import style from './Slider.style';
 
-const { any, arrayOf, bool, func, number, shape, string } = PropTypes;
+const { any, arrayOf, shape } = PropTypes;
 
 class SloohSlider extends Component {
   static propTypes = {
@@ -31,9 +30,8 @@ class SloohSlider extends Component {
   render() {
     const { sliderConfig, slideList, emptyMessage } = this.props;
     return (
-      <div className="root" key={uniqueId()}>
-        {slideList.length === 0 && <div className="empty">{emptyMessage}</div>}
-        {slideList.length > 0 && (
+      <div className="root">
+        {slideList && slideList.length ? (
           <div className="slider-container">
             <Slider
               {...sliderConfig}
@@ -42,10 +40,12 @@ class SloohSlider extends Component {
               }}
             >
               {slideList.map(slideElement => (
-                <div key={uniqueId()}>{slideElement.render()}</div>
+                <div>{slideElement.render()}</div>
               ))}
             </Slider>
           </div>
+        ) : (
+          <div className="empty">{emptyMessage}</div>
         )}
         <style jsx global>
           {style}

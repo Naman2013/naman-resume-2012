@@ -24,7 +24,7 @@ class ProfileStatsItem extends Component {
   render() {
     const { selectedStats, title, total, show, tabs } = this.props;
 
-    const tabsList = tabs && tabs.tabsList.map(item => <Tab>{item}</Tab>);
+    const tabsList = tabs && tabs.tabsList.map((item, index) => <Tab disabled={tabs.disabledList && tabs.disabledList[index]}>{item}</Tab>);
     const tabPanels =
       tabs && tabs.panels.map(item => <TabPanel>{item}</TabPanel>);
 
@@ -36,7 +36,7 @@ class ProfileStatsItem extends Component {
             <div className="stats-popover-total">{total}</div>
           </div>
 
-          <Tabs className="stats-popover-tabs">
+          <Tabs defaultIndex={tabs.defaultIndex} className="stats-popover-tabs">
             <TabList>{tabsList}</TabList>
 
             {tabPanels}

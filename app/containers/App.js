@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import DeviceProvider from 'providers/DeviceProvider';
+import IssueWithUserAccount from 'app/modules/account-settings/containers/issue-with-user-account';
 import PageMetaManagement from '../components/PageMetaManagement';
 
 import GlobalNavigation from '../components/GlobalNavigation';
@@ -15,7 +16,7 @@ function mapDispatchToProps(dispatch) {
     {
       fetchEvents,
     },
-    dispatch,
+    dispatch
   );
 }
 
@@ -27,7 +28,7 @@ function mapStateToProps({ isLanding }) {
 
 @connect(
   mapStateToProps,
-  mapDispatchToProps,
+  mapDispatchToProps
 )
 class App extends Component {
   static propTypes = {
@@ -48,9 +49,14 @@ class App extends Component {
   render() {
     const { isLanding } = this.props;
     return (
-      <div style={{ overflow: 'hidden' }} className={`wrapper ${isLanding ? 'is-landing' : null}`}>
+      <div
+        style={{ overflow: 'hidden' }}
+        className={`wrapper ${isLanding ? 'is-landing' : null}`}
+      >
         <DeviceProvider>
           <PageMetaManagement />
+
+          <IssueWithUserAccount />
 
           <nav className="navigation">
             <GlobalNavigation />

@@ -108,7 +108,11 @@ export class ConstellationSetup extends Component {
                 </Tooltip>
               }
             >
-              <span>Step 3: Click or tap to find</span>
+              {byTelescope ? (
+                <span>Step 3: Click or tap to define</span>
+              ) : (
+                <span>Step 3: Click or tap to find</span>
+              )}
             </OverlayTrigger>
           </div>
 

@@ -15,6 +15,7 @@ import {
   createGallery,
 } from 'app/modules/image-details/thunks';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 
@@ -44,4 +45,4 @@ export default compose(
     mapStateToProps,
     mapDispatchToProps
   )
-)(EditHeader);
+)(withRouter(EditHeader));

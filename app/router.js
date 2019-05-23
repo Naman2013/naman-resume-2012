@@ -4,6 +4,7 @@ import {
   ProfileGroups,
 } from 'app/components/profiles/private-profile';
 import ProfileQaContainer from 'app/components/profiles/private-profile/my-qa/ProfileQaContainer';
+import { ProfileQuests } from 'app/components/profiles/private-profile/profile-quests';
 import { About, AboutSloohSection } from 'app/containers/about';
 import App from 'app/containers/App';
 import CreateStory from 'app/containers/create-story';
@@ -51,6 +52,7 @@ import { TelescopeNavigation } from 'app/modules/telescope/components/old/telesc
 import GroupCreate from 'app/pages/community-groups/GroupCreate';
 import GroupImportGoogleClassrooms from 'app/pages/community-groups/GroupImportGoogleClassrooms';
 import CommunityGroupOverview from 'app/pages/community-groups/GroupOverview';
+import { CommunityGroupEdit } from 'app/modules/community-group-overview';
 import GroupOverviewInfo from 'app/pages/community-groups/GroupOverviewInfo';
 import ExistingMissions from 'app/pages/existing-missions';
 import GuideDetails from 'app/pages/guide-details/GuideDetails';
@@ -161,6 +163,7 @@ const getProfileRoutes = () => (
       component={GroupImportGoogleClassrooms}
       onEnter={validateUser}
     />
+    <Route path="quests" component={ProfileQuests} />
   </Fragment>
 );
 
@@ -506,9 +509,15 @@ const AppRouter = () => (
       />
 
       <Route
-        path="community-groups/:groupId(/edit=:edit)"
+        path="community-groups/:groupId"
         onEnter={validateUser}
         component={CommunityGroupOverview}
+      />
+
+      <Route
+        path="community-groups/:groupId/edit=:edit"
+        onEnter={validateUser}
+        component={CommunityGroupEdit}
       />
 
       <Route

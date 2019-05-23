@@ -25,6 +25,10 @@
     .tag-list {
       max-height: 300px;
       overflow: auto;
+
+      .btn {
+        margin: 10px 0;
+      }
     }
   }
 
