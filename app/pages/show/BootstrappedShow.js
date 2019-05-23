@@ -7,11 +7,11 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import CenterColumn from 'app/components/common/CenterColumn';
+import { seashell } from 'app/styles/variables/colors_tiles_v4';
 import Live from './Live';
 import Recent from './Recent';
 import Upcoming from './Upcoming';
-import CenterColumn from 'app/components/common/CenterColumn';
-import { seashell } from 'app/styles/variables/colors_tiles_v4';
 import styles from './BootstrappedShow.style';
 
 const {
@@ -44,6 +44,7 @@ class BootstrappedShow extends Component {
       isLiveShow: props.inProgressFlag,
       isUpcomingShow: props.upcomingFlag,
       isRecentShow: props.previousFlag,
+      likes: props.likesCount,
     };
 
     if (props.inProgressFlag) {
@@ -92,7 +93,15 @@ class BootstrappedShow extends Component {
         isRecentShow: nextProps.previousFlag,
       });
     }
+
+    this.setState({
+      likes: nextProps.likesCount,
+    });
   }
+
+  likeResultHandler = count => {
+    this.setState({ likes: count });
+  };
 
   componentWillUnmount() {
     this.tearDown();
@@ -133,13 +142,31 @@ class BootstrappedShow extends Component {
 
   render() {
     // const {} = this.props;
-    const { isLiveShow, isUpcomingShow, isRecentShow } = this.state;
+    const { isLiveShow, isUpcomingShow, isRecentShow, likes } = this.state;
 
     return (
       <div className="root">
-        {isLiveShow ? <Live {...this.props} /> : null}
-        {isRecentShow ? <Recent {...this.props} /> : null}
-        {isUpcomingShow ? <Upcoming {...this.props} /> : null}
+        {isLiveShow ? (
+          <Live
+            {...this.props}
+            likesCount={likes}
+            likeResultHandler={this.likeResultHandler}
+          />
+        ) : null}
+        {isRecentShow ? (
+          <Recent
+            {...this.props}
+            likesCount={likes}
+            likeResultHandler={this.likeResultHandler}
+          />
+        ) : null}
+        {isUpcomingShow ? (
+          <Upcoming
+            {...this.props}
+            likesCount={likes}
+            likeResultHandler={this.likeResultHandler}
+          />
+        ) : null}
         <style jsx>{styles}</style>
       </div>
     );

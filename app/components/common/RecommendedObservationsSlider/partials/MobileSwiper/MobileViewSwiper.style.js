@@ -1,5 +1,5 @@
 import css from 'styled-jsx/css';
-import { hawkesBlue, shadows } from 'app/styles/variables/colors_tiles_v4';
+import { hawkesBlue, shadows, lightHeadedAstronaut } from 'app/styles/variables/colors_tiles_v4';
 
 const borderBottom = `border-bottom: 1px solid ${hawkesBlue};`;
 const centerChildren = `
@@ -87,6 +87,7 @@ export default css`
     display: flex;
     width: 50%;
     justify-content: space-between;
+    color: ${lightHeadedAstronaut};
   }
 
   .icon {

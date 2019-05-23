@@ -1,4 +1,4 @@
-import { getFitsDataApi } from 'app/modules/profile-photos/api';
+import { getFitsDataApi, deleteTagApi, getTagsApi, setTagApi } from './api';
 import { ACTION } from './reducer';
 
 export const getFitsData = scheduledMissionId => (dispatch, getState) => {
@@ -7,4 +7,40 @@ export const getFitsData = scheduledMissionId => (dispatch, getState) => {
   return getFitsDataApi({ at, token, cid, scheduledMissionId })
     .then(result => dispatch(ACTION.getFitsDataSuccess(result.data)))
     .catch(error => dispatch(ACTION.getFitsDataError(error)));
+};
+
+// TAGS
+export const getTags = data => (dispatch, getState) => {
+  const { customerImageId, tagClass = 'image', tagType = 'user' } = data;
+  const { at, token, cid } = getState().user;
+  dispatch(ACTION.getTags());
+  return getTagsApi({ at, token, cid, customerImageId, tagClass, tagType })
+    .then(result => dispatch(ACTION.getTagsSuccess(result.data)))
+    .catch(error => dispatch(ACTION.getTagsError(error)));
+};
+
+export const setTag = data => (dispatch, getState) => {
+  const { customerImageId, text, tagClass = 'image', tagType = 'user' } = data;
+  const { at, token, cid } = getState().user;
+  dispatch(ACTION.setTag());
+  return setTagApi({ at, token, cid, customerImageId, tagClass, tagType, text })
+    .then(result => dispatch(ACTION.setTagSuccess(result.data)))
+    .catch(error => dispatch(ACTION.setTagError(error)));
+};
+
+export const deleteTag = data => (dispatch, getState) => {
+  const { customerImageId, text, tagClass = 'image', tagType = 'user' } = data;
+  const { at, token, cid } = getState().user;
+  dispatch(ACTION.deleteTag());
+  return deleteTagApi({
+    at,
+    token,
+    cid,
+    customerImageId,
+    tagClass,
+    tagType,
+    text,
+  })
+    .then(result => dispatch(ACTION.deleteTagSuccess(result.data)))
+    .catch(error => dispatch(ACTION.deleteTagError(error)));
 };

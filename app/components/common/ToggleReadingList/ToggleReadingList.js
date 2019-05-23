@@ -62,9 +62,11 @@ class ToggleReadingList extends Component {
 
   render() {
     const { icon, text } = this.state;
+    const { theme } = this.props;
     return (
       <Fragment>
         <ReadingListButton
+          theme={theme}
           icon={icon}
           text={text}
           onClickEvent={this.toggleList}

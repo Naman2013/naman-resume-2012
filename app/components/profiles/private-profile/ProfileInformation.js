@@ -78,6 +78,8 @@ class ProfileInformation extends Component {
         intl.formatMessage(messages.Details),
       ],
       panels: [<Badges badgesList={badgesData.badgesList} />, null],
+      disabledList: [true, false],
+      defaultIndex: 1
     };
   };
 

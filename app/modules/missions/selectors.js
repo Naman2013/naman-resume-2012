@@ -493,6 +493,25 @@ export const makeByCoordinatesSelector = () =>
     state => state.byCoordinates
   );
 
+export const makeByCoordinatesCategoryListSelector = () =>
+  createSelector(
+    makeByCoordinatesSelector(),
+    state => state.categoryList
+  );
+
+export const makeByCoordinatesCategoryListSelectOptsSelector = () =>
+  createSelector(
+    makeByCoordinatesCategoryListSelector(),
+    state => {
+      return getSelectOptions(
+        state,
+        'itemIndex',
+        'itemDisplayName',
+        'itemIsEnabled'
+      );
+    }
+  );
+
 export const makeByCoordinatesCoordinatesDataSelector = () =>
   createSelector(
     makeByCoordinatesSelector(),
@@ -508,8 +527,8 @@ export const makeByCoordinatesTargetNameSelector = () =>
 export const makeByCoordinatesDataSelector = () =>
   createSelector(
     makeByCoordinatesCoordinatesDataSelector(),
-    makeBySlooh1000CategoryListSelector(),
-    makeBySlooh1000CategoryListSelectOptsSelector(),
+    makeByCoordinatesCategoryListSelector(),
+    makeByCoordinatesCategoryListSelectOptsSelector(),
     makeBySlooh1000SelectedCategorySlugSelector(),
     makeByCatalogDesignationSelector(),
     makeByCatalogObjectDataSelector(),
