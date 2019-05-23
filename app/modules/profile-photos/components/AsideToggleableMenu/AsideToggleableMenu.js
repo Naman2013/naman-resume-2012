@@ -2,13 +2,13 @@
  * V4 AsideToggleableMenu
  ********************************* */
 
+import { AddTagsAsideMenu } from 'app/modules/profile-photos/components/add-tags-aside-menu';
 import React from 'react';
 import PropTypes, { number } from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
 import DeleteImage from 'app/components/my-pictures/actions/DeleteImageV4';
 import AddToGallery from 'app/components/my-pictures/actions/AddToGalleryV4';
-import { TagBtn } from 'app/modules/image-details/components/edit/edit-header/tag-btn';
 
 import styles from './AsideToggleableMenu.style';
 import messages from './AsideToggleableMenu.messages';
@@ -118,16 +118,15 @@ const AsideToggleableMenu = props => {
                 style={{ opacity: visible ? 1 : 0 }}
                 className="option flex-row-reverse"
               >
-                <TagBtn
-                  fullSize
+                {/*<TagBtn
                   placeholder="Add tags"
                   tagList={tagsData.tagList}
                   setTag={tagActions.setTag}
                   getTags={tagActions.getTags}
                   deleteTag={tagActions.deleteTag}
                   customerImageId={customerImageId}
-                />
-                {option.label}
+                />*/}
+                <AddTagsAsideMenu label={option.label} />
               </button>
             );
           }
