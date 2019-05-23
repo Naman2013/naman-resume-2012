@@ -114,6 +114,24 @@ class DiscussionsReplies extends Component {
       .filter(reply => displayed.indexOf(reply.replyId) > -1);
   }
 
+  getCommentData = () => {
+    const {
+      threadId,
+      replyId,
+      discussions: { commentsList },
+    } = this.props;
+
+    if (commentsList[threadId].length > 0) {
+      return commentsList[threadId].filter(
+        reply => reply.replyId === replyId
+      )[0];
+    }
+
+    return {
+      commentPlaceholder: 'Reply to this comment',
+    };
+  };
+
   handleShowMore = (paginatedSet, page) => {
     const {
       threadId,
@@ -153,6 +171,7 @@ class DiscussionsReplies extends Component {
 
     const comments = commentsList[replyId] || [];
     const { displayedCommentsObjs } = this;
+    const threadData = this.getCommentData();
 
     return (
       <div className="comment" key={uniqueId()}>
@@ -169,6 +188,7 @@ class DiscussionsReplies extends Component {
               topicId={topicId}
               user={user}
               isDesktop={isDesktop}
+              {...threadData}
             />
           ) : null}
         </div>
