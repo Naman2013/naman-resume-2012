@@ -166,6 +166,7 @@ class RevealSubmitForm extends Component {
       content,
       intl,
       avatarURL,
+      commentPlaceholder,
     } = this.props;
 
     const {
@@ -208,7 +209,7 @@ class RevealSubmitForm extends Component {
           <form className="form">
             <div className="form-author">
               <div style={profPic(avatarURL)} />
-              {`${intl.formatMessage(messages.WrittenBy)} ${displayName}`}
+              {displayName ? `${intl.formatMessage(messages.WrittenBy)} ${displayName}` : commentPlaceholder}
             </div>
             <div className="form-quote">{title || content}</div>
             <textarea

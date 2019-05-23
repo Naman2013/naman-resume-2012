@@ -89,6 +89,21 @@ class DiscussionsComment extends Component {
       .filter(reply => displayed.indexOf(reply.replyId) > -1);
   }
 
+  getThreadData = () => {
+    const {
+      threadId,
+      discussions: { threadsList },
+    } = this.props;
+
+    if (threadsList.length > 0){
+      return threadsList.filter(thread => thread.threadId === threadId)[0];
+    }
+    
+    return {
+      commentPlaceholder: 'Write a public comment',
+    }
+  }
+
   handleShowMore = (paginatedSet, page) => {
     const {
       threadId,
@@ -269,7 +284,8 @@ class DiscussionsComment extends Component {
 
     const comments = commentsList[threadId] || [];
     const { displayedCommentsObjs } = this;
-    
+    const threadData = this.getThreadData();
+
     return (
       <div className="comment" key={uniqueId()}>
         <div>
@@ -286,6 +302,7 @@ class DiscussionsComment extends Component {
               user={user}
               isDesktop={isDesktop}
               placeholder={formPlaceholder}
+              {...threadData}
             />
           ) : null}
         </div>
