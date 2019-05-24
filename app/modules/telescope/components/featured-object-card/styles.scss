@@ -12,6 +12,11 @@
   color: $lightHeadedAstronaut;
   cursor: auto;
 
+  &.reserved {
+    border-bottom: 6px solid $lightHeadedAstronaut;
+    pointer-events: none;
+  }
+
   .mission-title {
     min-height: 35px;
     padding-bottom: 10px;

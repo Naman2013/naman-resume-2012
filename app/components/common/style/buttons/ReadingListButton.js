@@ -1,15 +1,15 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import noop from 'lodash/noop';
-import GenericButton from './Button';
 import { DeviceContext } from 'providers/DeviceProvider';
+import GenericButton from './Button';
 
 const { bool, func, number, oneOfType, string } = PropTypes;
 
-const ReadingListButton = ({ icon, text, onClickEvent }) => (
+const ReadingListButton = ({ icon, text, onClickEvent, theme }) => (
   <Fragment>
     <GenericButton
-      theme={{ height: '40px' }}
+      theme={{ height: '40px', ...theme }}
       onClickEvent={onClickEvent}
       text={text}
       icon={icon}

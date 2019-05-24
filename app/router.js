@@ -52,6 +52,7 @@ import { TelescopeNavigation } from 'app/modules/telescope/components/old/telesc
 import GroupCreate from 'app/pages/community-groups/GroupCreate';
 import GroupImportGoogleClassrooms from 'app/pages/community-groups/GroupImportGoogleClassrooms';
 import CommunityGroupOverview from 'app/pages/community-groups/GroupOverview';
+import { CommunityGroupEdit } from 'app/modules/community-group-overview';
 import GroupOverviewInfo from 'app/pages/community-groups/GroupOverviewInfo';
 import ExistingMissions from 'app/pages/existing-missions';
 import GuideDetails from 'app/pages/guide-details/GuideDetails';
@@ -508,9 +509,15 @@ const AppRouter = () => (
       />
 
       <Route
-        path="community-groups/:groupId(/edit=:edit)"
+        path="community-groups/:groupId"
         onEnter={validateUser}
         component={CommunityGroupOverview}
+      />
+
+      <Route
+        path="community-groups/:groupId/edit=:edit"
+        onEnter={validateUser}
+        component={CommunityGroupEdit}
       />
 
       <Route

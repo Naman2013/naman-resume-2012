@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link, browserHistory } from 'react-router';
-import { guideCorner } from 'app/styles/variables/iconURLs';
+import { browserHistory } from 'react-router';
 import ToggleReadingList from 'app/components/common/ToggleReadingList';
 import Button from 'app/components/common/style/buttons/Button';
 import style from './guide-excerpt-tile.style';

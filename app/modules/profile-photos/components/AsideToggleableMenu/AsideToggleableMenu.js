@@ -2,6 +2,7 @@
  * V4 AsideToggleableMenu
  ********************************* */
 
+import { AddTagsAsideMenu } from 'app/modules/profile-photos/components/add-tags-aside-menu';
 import React from 'react';
 import PropTypes, { number } from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -27,6 +28,8 @@ const AsideToggleableMenu = props => {
     redirectToImage,
     downloadFile,
     mod,
+    tagActions,
+    tagsData,
   } = props;
 
   return (
@@ -106,6 +109,24 @@ const AsideToggleableMenu = props => {
                 className="option"
               >
                 {option.label}
+              </button>
+            );
+          }
+          if (option.action === 'tagging') {
+            return (
+              <button
+                style={{ opacity: visible ? 1 : 0 }}
+                className="option flex-row-reverse"
+              >
+                <AddTagsAsideMenu
+                  label={option.label}
+                  tagList={tagsData.tagList}
+                  isFetching={tagsData.isFetching}
+                  setTag={tagActions.setTag}
+                  getTags={tagActions.getTags}
+                  deleteTag={tagActions.deleteTag}
+                  customerImageId={customerImageId}
+                />
               </button>
             );
           }

@@ -1,16 +1,18 @@
 /* VARIABLES: Typefaces
  * */
-$primary-font: "Brandon Grotesque", "brandon-grotesque", sans-serif;
-$secondary-font:  "Adobe Garamond Pro", "adobe-garamond-pro", "Adobe Garamond", "Garamond", serif;
+$primary-font: 'Brandon Grotesque', 'brandon-grotesque', sans-serif;
+$secondary-font: 'Adobe Garamond Pro', 'adobe-garamond-pro', 'Adobe Garamond',
+  'Garamond', serif;
+$AngeliquemadouceColombe-font: 'AngeliquemadouceColombe', serif;
 
-$slooh-headers: "Brandon Grotesque", "brandon-grotesque", sans-serif;
-$slooh-header: "Brandon Grotesque", "brandon-grotesque", sans-serif;
-$slooh-body:  "Adobe Garamond Pro", "adobe-garamond-pro", "Adobe Garamond", "Garamond", serif;
+$slooh-headers: 'Brandon Grotesque', 'brandon-grotesque', sans-serif;
+$slooh-header: 'Brandon Grotesque', 'brandon-grotesque', sans-serif;
+$slooh-body: 'Adobe Garamond Pro', 'adobe-garamond-pro', 'Adobe Garamond',
+  'Garamond', serif;
 
-$slooh-sans: "Brandon Grotesque", "brandon-grotesque", sans-serif;
-$slooh-serif:  "Adobe Garamond Pro", "adobe-garamond-pro", "Adobe Garamond", "Garamond", serif;
-
-
+$slooh-sans: 'Brandon Grotesque', 'brandon-grotesque', sans-serif;
+$slooh-serif: 'Adobe Garamond Pro', 'adobe-garamond-pro', 'Adobe Garamond',
+  'Garamond', serif;
 
 %visuallyhidden {
   margin: -1px;
@@ -22,7 +24,6 @@ $slooh-serif:  "Adobe Garamond Pro", "adobe-garamond-pro", "Adobe Garamond", "Ga
   clip: rect(0, 0, 0, 0);
   position: absolute;
 }
-
 
 //@font-face {
 //  font-family: 'icon';

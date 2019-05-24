@@ -14,7 +14,7 @@ export const Objects = {
   'Objects.Ask': 'Ask',
   'Objects.Observations': 'Observations',
   'Objects.Shows': 'Shows',
-  'Objects.Stories': 'Stories',
+  'Objects.Stories': 'Illuminations',
   'Objects.RelatedObjects': 'Related Objects',
   'Objects.UpcomingMissions': 'Upcoming Missions',
   'Objects.NoMissions': 'Sorry, there are no missions available for {objectTitle} at this time.',

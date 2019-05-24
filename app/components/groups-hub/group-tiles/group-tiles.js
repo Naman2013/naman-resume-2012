@@ -13,10 +13,12 @@ import style from './group-tiles.style';
 class GroupTiles extends Component {
   static propTypes = {
     closeModal: PropTypes.func.isRequired,
-    groups: PropTypes.arrayOf(PropTypes.shape({
-      title: PropTypes.string.isRequired,
-      subTitle: PropTypes.string.isRequired,
-    })).isRequired,
+    groups: PropTypes.arrayOf(
+      PropTypes.shape({
+        title: PropTypes.string.isRequired,
+        subTitle: PropTypes.string.isRequired,
+      })
+    ).isRequired,
     isMobile: PropTypes.bool,
     updateGroupItemInfo: PropTypes.func.isRequired,
     updatePrompt: PropTypes.func.isRequired,
@@ -24,9 +26,9 @@ class GroupTiles extends Component {
 
   state = {
     activeId: null,
-  }
+  };
 
-  setActiveTile = (e) => {
+  setActiveTile = e => {
     e.preventDefault();
     e.stopPropagation();
     const { id } = e.currentTarget.dataset;
@@ -36,23 +38,21 @@ class GroupTiles extends Component {
         activeId: Number(parsedId),
       }));
     }
-  }
+  };
 
-  removeActiveTile = (e) => {
+  removeActiveTile = e => {
     this.setState(() => ({
       activeId: null,
     }));
-  }
+  };
 
-  askToJoinGroup = () => { // for private groups
+  askToJoinGroup = () => {
+    // for private groups
+  };
 
-  }
-
-  toggleJoinGroup = (e) => { // for public groups
-    const {
-      closeModal,
-      params,
-    } = this.props;
+  toggleJoinGroup = e => {
+    // for public groups
+    const { closeModal, params } = this.props;
 
     const { discussionGroupId } = e.currentTarget.dataset;
 
@@ -62,52 +62,59 @@ class GroupTiles extends Component {
       discussionGroupId,
       groupSet: params.filterType,
     });
-  }
-
+  };
 
   render() {
-    const { groups, isMobile, filterType, updateGroupItemInfo, updatePrompt } = this.props;
+    const {
+      groups,
+      isMobile,
+      filterType,
+      updateGroupItemInfo,
+      updatePrompt,
+    } = this.props;
     const { activeId } = this.state;
     return groups && groups.length ? (
       <CenterColumn widths={['645px', '965px', '965px']}>
         <ul className="group-tiles-root">
-          {!isMobile && groups.map(group => (
-            <li
-              key={uniqueId()}
-              className="tile"
-              data-id={group.discussionGroupId}
-              onMouseOver={this.setActiveTile}
-              onMouseLeave={this.removeActiveTile}
-            >
-              <div>
+          {!isMobile &&
+            groups.map(group => (
+              <li
+                key={uniqueId()}
+                className="tile"
+                data-id={group.discussionGroupId}
+                onMouseOver={this.setActiveTile}
+                onMouseLeave={this.removeActiveTile}
+              >
+                <div>
+                  <GroupTile {...group} />
+                </div>
+                <div
+                  className={classnames('excerpt', {
+                    'show-excerpt':
+                      Number(activeId) === Number(group.discussionGroupId),
+                  })}
+                >
+                  <GroupExcerptTile
+                    {...group}
+                    filterType={filterType}
+                    updateGroupItemInfo={updateGroupItemInfo}
+                    updatePrompt={updatePrompt}
+                  />
+                </div>
+              </li>
+            ))}
+          {isMobile &&
+            groups.map(group => (
+              <li key={uniqueId()} className="tile">
                 <GroupTile {...group} />
-              </div>
-              <div className={classnames('excerpt', {
-                'show-excerpt': Number(activeId) === Number(group.discussionGroupId),
-              })}>
-                <GroupExcerptTile
-                  {...group}
-                  filterType={filterType}
-                  updateGroupItemInfo={updateGroupItemInfo}
-                  updatePrompt={updatePrompt}
-                />
-              </div>
-
-
-            </li>
-          ))}
-          {isMobile && groups.map(group => (
-            <li
-              key={uniqueId()}
-              className="tile"
-            >
-              <GroupTile {...group} />
-            </li>
-          ))}
+              </li>
+            ))}
         </ul>
         <style jsx>{style}</style>
       </CenterColumn>
-    ) : <FormattedMessage id="Hubs.noGroups" />;
+    ) : (
+      <FormattedMessage id="Hubs.noGroups" />
+    );
   }
 }
 

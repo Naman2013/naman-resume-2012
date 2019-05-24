@@ -48,15 +48,33 @@ export class MissionSuccessModal extends Component {
         <div className="modal-wrapper">
           <h1 className="modal-h">{confirmationHeader}</h1>
           <p className="modal-p my-5">{congratulationsText}</p>
-          <AvailbleMissionTile
-            missionSlot={missionSlot}
-            tip={reservedMissionData.tip}
-          />
+          {missionSlot && (
+            <AvailbleMissionTile
+              missionSlot={missionSlot}
+              tip={reservedMissionData.tip}
+            />
+          )}
 
           <div className="dark-text-after-me-in-mobile" />
 
           {showGoodiesHeader && (
             <h2 className="modal-h2 my-5">{goodiesHeader}</h2>
+          )}
+
+          {hasRelatedObject && (
+            <>
+              <h3 className="modal-h3 my-5">{relatedObject.header}</h3>
+              <ObjectRelatedTile
+                {...relatedObject}
+                additionalContent={
+                  <LailaTile
+                    iconURL={relatedObject.iconUrl}
+                    title={relatedObject.imageTitle}
+                    linkURL={relatedObject.linkUrl}
+                  />
+                }
+              />
+            </>
           )}
 
           {hasRelatedGuide && (
@@ -70,22 +88,6 @@ export class MissionSuccessModal extends Component {
                     title={relatedGuide.imageLabel}
                     subTitle={relatedGuide.imageTitle}
                     linkUrl={relatedGuide.linkUrl}
-                  />
-                }
-              />
-            </>
-          )}
-
-          {hasRelatedObject && (
-            <>
-              <h3 className="modal-h3 my-5">{relatedObject.header}</h3>
-              <ObjectRelatedTile
-                {...relatedObject}
-                additionalContent={
-                  <LailaTile
-                    iconURL={relatedObject.iconUrl}
-                    title={relatedObject.imageTitle}
-                    linkURL={relatedObject.linkUrl}
                   />
                 }
               />

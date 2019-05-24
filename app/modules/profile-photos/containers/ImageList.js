@@ -29,7 +29,6 @@ import {
   selectTelescopeList,
   selectTimeList,
 } from 'app/modules/profile-photos/selectors';
-import { getFitsData } from 'app/modules/profile-photos/thunks';
 import ConnectUser from 'app/redux/components/ConnectUser';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
@@ -37,6 +36,7 @@ import React, { cloneElement, Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { bindActionCreators } from 'redux';
+import { getFitsData, deleteTag, getTags, setTag } from '../thunks';
 import './image-list.scss';
 import style from './ImageList.style';
 
@@ -93,6 +93,9 @@ const mapDispatchToProps = dispatch => ({
       setFilters,
       getFitsData,
       setSelectedTagsTabIndex,
+      getTags,
+      setTag,
+      deleteTag,
     },
     dispatch
   ),
@@ -108,7 +111,8 @@ const mapStateToProps = state => {
     photoRollCount: state.myPictures.photoRoll.imageCount,
     observationsList: state.myPictures.photoRoll.response.imageList,
     observationsCount: state.myPictures.observations.imageCount,
-    fitsData: state.fitsData,
+    fitsData: state.photoHubs.fitsData,
+    tagsData: state.photoHubs.tagsData,
 
     telescopeList: selectTelescopeList()(state),
     timeList: selectTimeList()(state),
@@ -272,7 +276,13 @@ class ImageList extends Component {
 
   render() {
     const {
-      actions: { getFitsData, setSelectedTagsTabIndex },
+      actions: {
+        getFitsData,
+        setSelectedTagsTabIndex,
+        getTags,
+        setTag,
+        deleteTag,
+      },
       children,
       type,
       deviceInfo,
@@ -282,7 +292,13 @@ class ImageList extends Component {
       fitsData,
       timeList,
       myPicturesFilters,
+      tagsData,
     } = this.props;
+    const tagActions = {
+      getTags,
+      setTag,
+      deleteTag,
+    };
     const { activePage, isFilterOpen } = this.state;
     const arrOfImages = this.props[mapTypeToList[type]];
     const count = this.props[mapTypeToCount[type]];
@@ -291,8 +307,6 @@ class ImageList extends Component {
     const cn = cx('profile-image-list-wrapper', {
       'filter-open': isFilterOpen,
     });
-
-    console.log(selectedFilters);
 
     return (
       <div className={cn}>
@@ -351,6 +365,8 @@ class ImageList extends Component {
                           user,
                           getFitsData: type === 'missions' && getFitsData,
                           fitsData: type === 'missions' && fitsData,
+                          tagActions: type === 'photoroll' && tagActions,
+                          tagsData: type === 'photoroll' && tagsData,
                         })
                       )
                     : 'The list is empty.'}

@@ -4,6 +4,7 @@ import {
   romance,
   hawkesBlue,
   astronaut,
+  lightHeadedAstronaut,
   blue_tile_canvas,
 } from 'app/styles/variables/colors_tiles_v4';
 import { screenMedium } from 'app/styles/variables/breakpoints';
@@ -92,10 +93,12 @@ export default css`
   }
 
   .title {
-    margin: 0 auto;
+    color: ${lightHeadedAstronaut};
     font-family: ${secondaryFont};
     font-weight: 300;
     font-size: 22px;
+    line-height: 24px;
+    margin: 0 auto;
     padding-top: 50px;
     width: 80%;
     text-transform: none;
@@ -103,12 +106,13 @@ export default css`
 
   .author {
     display: block;
-    padding-top: 20px;
-    color: ${astronaut};
-    text-transform: uppercase;
-    font-family: ${primaryFont};
+    color: ${lightHeadedAstronaut};
+    font-family: ${primaryFont};   
     font-size: 10px;
     font-weight: bold;
     letter-spacing: 2px;
+    line-height: 0;
+    padding-top: 20px;
+    text-transform: uppercase;
   }
 `;

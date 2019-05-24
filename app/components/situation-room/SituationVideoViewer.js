@@ -145,6 +145,7 @@ class SituationVideoViewer extends Component {
                       obsId={feed.ObsId}
                       domeId={String(feed.DomeId)}
                       teleFade={Number(feed.SSEfade)}
+                      shouldUseTransitions={false}
                       clipped={false}
                       missionFormat="none"
                       isInteractive={false}

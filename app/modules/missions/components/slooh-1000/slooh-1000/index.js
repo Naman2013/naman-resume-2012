@@ -84,7 +84,7 @@ export class Slooh1000 extends Component {
     } = this.props;
 
     const { successModalShow } = this.state;
-
+    
     return (
       <div className="slooh-1000">
         <div className="container">

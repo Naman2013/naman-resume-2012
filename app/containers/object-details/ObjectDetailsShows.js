@@ -9,12 +9,11 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import noop from 'lodash/noop';
 import has from 'lodash/has';
 import { intlShape, injectIntl, FormattedMessage } from 'react-intl';
 import Request from 'app/components/common/network/Request';
 
-import DeviceProvider from 'providers/DeviceProvider';
+import DeviceProvider from 'app/providers/DeviceProvider';
 import ObjectDetailsSectionTitle from 'app/components/object-details/ObjectDetailsSectionTitle';
 import CenterColumn from 'app/components/common/CenterColumn';
 import ShowTile from 'app/components/common/tiles/ShowTile';
@@ -26,7 +25,7 @@ import {
 } from 'app/modules/object-details/actions';
 import messages from './ObjectDetails.messages';
 
-const { bool, number, string, shape, func, arrayOf } = PropTypes;
+const { number } = PropTypes;
 
 const mapStateToProps = ({
   objectDetails,
@@ -64,19 +63,6 @@ class Shows extends Component {
     pages: 0,
     count: number,
   };
-
-  constructor(props) {
-    super(props);
-    const { actions } = props;
-  }
-
-  componentWillReceiveProps(nextProps) {}
-
-  componentWillUpdate(nextProps) {}
-
-  componentWillMount() {
-    //console.log(this.props)
-  }
 
   render() {
     const {
