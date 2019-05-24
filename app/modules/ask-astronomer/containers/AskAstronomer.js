@@ -88,7 +88,7 @@ class AskAstronomer extends Component {
     count: 0,
     actions: {},
     objectId: '',
-    questionFilter: 'all',
+    questionFilter: 'objectonly',
   };
 
   constructor(props) {
