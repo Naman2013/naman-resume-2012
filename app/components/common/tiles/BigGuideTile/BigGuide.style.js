@@ -22,6 +22,7 @@ export default css`
     height: 462px;
     margin: 20px auto;
     text-align: center;
+    max-width: 100%;
   }
   .card-guides-head {
     color: ${golda};
