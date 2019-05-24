@@ -9,6 +9,8 @@ export class Telescope extends Component {
   state = {
     reservationModalVisible: false,
     refreshCountdownLive: false,
+    scrolledToSlot: false,
+    missionListLodaded: false,
   };
 
   componentDidMount() {
@@ -55,6 +57,16 @@ export class Telescope extends Component {
     this.setState({ reservationModalVisible: false });
   };
 
+  scrollToSlot = () => {
+    const { scrollToSMID } = this.props;
+    const slotElement = document.getElementById(`mission-slot-${scrollToSMID}`);
+    window.scrollTo(
+      0,
+      window.scrollY + slotElement.getBoundingClientRect().top - 70
+    );
+    this.setState({ scrolledToSlot: true, missionListLodaded: false });
+  };
+
   render() {
     const {
       selectedTelescope,
@@ -64,9 +76,29 @@ export class Telescope extends Component {
       getMissionSlotDates,
       missionList,
       missionListRefreshInterval,
+      scrollToSMID,
     } = this.props;
 
-    const { reservationModalVisible, refreshCountdownLive } = this.state;
+    const {
+      reservationModalVisible,
+      refreshCountdownLive,
+      scrolledToSlot,
+      missionListLodaded,
+    } = this.state;
+    const isManuallyScrolled = window.scrollY > 0;
+
+    if (missionList.length > 0 && !scrolledToSlot) {
+      this.setState({ missionListLodaded: true });
+    }
+    
+    if (
+      scrollToSMID &&
+      !scrolledToSlot &&
+      !isManuallyScrolled &&
+      missionListLodaded
+    ) {
+      this.scrollToSlot();
+    }
 
     return (
       <div className="by-telescope">

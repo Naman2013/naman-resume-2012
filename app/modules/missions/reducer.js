@@ -117,6 +117,7 @@ export const initialState = {
     missionListRefreshInterval: 0,
     grabedTelescopeSlot: {},
     selectedSlot: {},
+    scrollToSMID: null,
   },
 };
 
@@ -577,6 +578,7 @@ function getMissionSlotsByTelescopeSuccess(state, action) {
       ...state.byTelescope,
       missionListRefreshInterval: action.payload.refreshIntervalSec,
       missionList: action.payload.missionList,
+      scrollToSMID: action.payload.scrollToSMID,
     },
   };
 }
