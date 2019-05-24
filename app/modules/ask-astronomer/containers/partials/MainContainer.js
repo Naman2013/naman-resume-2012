@@ -31,6 +31,7 @@ const MainContainer = ({
   dropdownOptions,
   changeAnswerState,
   params,
+  fetchingAnswersBool,
 }) => (
   <div style={{ position: 'relative' }}>
     <Filter
@@ -41,7 +42,7 @@ const MainContainer = ({
       showDropdown={showDropdown}
       dropdownOptions={dropdownOptions}
     />
-    <Spinner loading={fetchingQuestions} />
+    <Spinner loading={fetchingQuestions || fetchingAnswersBool} />
     {!fetchingQuestions && (
       <QuestionList
         actions={actions}

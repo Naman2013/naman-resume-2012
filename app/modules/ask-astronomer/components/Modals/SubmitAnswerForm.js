@@ -99,8 +99,8 @@ class SubmitAnswerForm extends PureComponent {
     const { answerText, S3URLs } = this.state;
 
     if (answerText.replace(/\s/g, '').length) {
-      this.props.submitForm(answerText, S3URLs);
       this.props.modalActions.closeModal();
+      return this.props.submitForm(answerText, S3URLs);
     }
   };
 

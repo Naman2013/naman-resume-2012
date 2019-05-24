@@ -117,6 +117,8 @@ export class Question extends Component {
       allDisplayedAnswers,
       answerFetching,
       fetchingReplies,
+      fetchingQuestions,
+      fetchingDiscuss,
     } = this.props;
 
     if (!questions || !questions.length) {
@@ -166,7 +168,14 @@ export class Question extends Component {
 
     return (
       <div style={{ position: 'relative' }}>
-        <Spinner loading={answerFetching || fetchingReplies} />
+        <Spinner
+          loading={
+            answerFetching ||
+            fetchingReplies ||
+            fetchingQuestions ||
+            fetchingDiscuss
+          }
+        />
 
         <BackButton />
 
