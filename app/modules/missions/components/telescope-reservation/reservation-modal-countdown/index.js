@@ -12,6 +12,7 @@ export class ReservationModalCountdown extends PureComponent {
       onCountdownTick,
       countdown,
       onCountdownComplete,
+      completeReservationPromptLong,
     } = this.props;
     return (
       <div className="reservation-modal-countdown">
@@ -22,7 +23,7 @@ export class ReservationModalCountdown extends PureComponent {
             onTick={onCountdownTick}
             renderer={props => (
               <div>
-                Please complete your reservation within {props.minutes}:
+                {completeReservationPromptLong} {props.minutes}:
                 <FormattedNumber
                   value={props.seconds}
                   minimumIntegerDigits={2}

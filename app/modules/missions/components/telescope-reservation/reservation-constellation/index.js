@@ -59,7 +59,9 @@ class Constellation extends Component {
       onCountdownTick,
       countdown,
       onCountdownComplete,
+      pageSetup,
     } = this.props;
+    const { completeReservationPromptLong, choosePrompt } = pageSetup;
 
     return (
       <div className="reservation-constellation constellation">
@@ -79,6 +81,8 @@ class Constellation extends Component {
           onCountdownComplete={onCountdownComplete}
           getTelescopeSlot={getTelescopeSlot}
           extendedTimer={extendedTimer}
+          completeReservationPromptLong={completeReservationPromptLong}
+          choosePrompt={choosePrompt}
           description="Welcome to the Constellation! Tell us what you want to see - we’ll make sure that the object 
           is visible from this observatory and telescope during this time slot - if so, we'll reserve the Mission for you."
           byTelescope

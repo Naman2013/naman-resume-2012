@@ -99,9 +99,11 @@ export class ReservationModalContent extends Component {
       isFetching,
       isTelescopeFetching,
       onHide,
+      pageSetup,
     } = this.props;
     const { teleName } = selectedTelescope;
     const { missionStart } = selectedSlot;
+    const { yourMissionPrompt, cancelButtonCaption, scheduleMissionCaption, completeReservationPromptShort } = pageSetup;
     const { successModalShow, extendedTimer } = this.state;
 
     return (
@@ -137,6 +139,7 @@ export class ReservationModalContent extends Component {
                   getTelescopeSlot={this.getTelescopeSlot}
                   extendedTimer={extendedTimer}
                   scrollToGrabbedMission={this.scrollToGrabbedMission}
+                  pageSetup={pageSetup}
                 />
               </Box>
             </div>
@@ -151,11 +154,14 @@ export class ReservationModalContent extends Component {
                     missionSlot={missionSlot}
                     onCancel={onHide}
                     onSubmit={this.reserveMissionSlot}
+                    cancelButtonCaption={cancelButtonCaption}
+                    scheduleMissionCaption={scheduleMissionCaption}
+                    completeReservationPromptShort={completeReservationPromptShort}
                     byTelescope
                   />
                 ) : (
                   <div className="reserved-mission-gag">
-                    YOUR MISSION WILL APPEAR HERE
+                    {yourMissionPrompt}
                   </div>
                 )}
               </Box>

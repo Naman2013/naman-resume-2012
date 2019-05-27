@@ -54,7 +54,7 @@ export class Catalog extends Component {
 
     if (!successModalShow) {
       cancelMissionSlot({
-        callSource: 'byCatalog'
+        callSource: 'byCatalog',
       });
     }
   };
@@ -76,7 +76,15 @@ export class Catalog extends Component {
       processingRecipe,
       reservedMission,
       checkCatalogVisibility,
+      pageSetup,
     } = this.props;
+    const {
+      yourMissionPrompt,
+      cancelButtonCaption,
+      scheduleMissionCaption,
+      choosePrompt,
+      completeReservationPromptShort,
+    } = pageSetup;
 
     const { successModalShow } = this.state;
 
@@ -100,6 +108,7 @@ export class Catalog extends Component {
                   setProcessingRecipe={setProcessingRecipe}
                   processingRecipe={processingRecipe}
                   disabled={missionSlot && missionSlot.missionAvailable}
+                  choosePrompt={choosePrompt}
                   description="Quickly schedule a mission by choosing from millions of cataloged
                   objects. Tell us what you'd like to see. We'll find the best
                   telescope to use and the best time to see it."
@@ -116,10 +125,15 @@ export class Catalog extends Component {
                     missionSlot={missionSlot}
                     onCancel={this.cancelMissionSlot}
                     onSubmit={this.reserveMissionSlot}
+                    cancelButtonCaption={cancelButtonCaption}
+                    scheduleMissionCaption={scheduleMissionCaption}
+                    completeReservationPromptShort={
+                      completeReservationPromptShort
+                    }
                   />
                 ) : (
                   <div className="reserved-mission-gag">
-                    YOUR MISSION WILL APPEAR HERE
+                    {yourMissionPrompt}
                   </div>
                 )}
               </Box>

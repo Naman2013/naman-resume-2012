@@ -26,6 +26,8 @@ export class ConstellationSetup extends Component {
       onCountdownTick,
       countdown,
       onCountdownComplete,
+      choosePrompt,
+      completeReservationPromptLong,
     } = this.props;
 
     return (
@@ -40,6 +42,7 @@ export class ConstellationSetup extends Component {
               onCountdownTick={onCountdownTick}
               onCountdownComplete={onCountdownComplete}
               countdown={countdown}
+              completeReservationPromptLong={completeReservationPromptLong}
             />
           )}
         </div>
@@ -59,7 +62,7 @@ export class ConstellationSetup extends Component {
             <Select
               handleChange={setConstellation}
               options={constellationListOpt}
-              placeholder="Choose"
+              placeholder={choosePrompt}
               value={selectedConstellation}
               isDisabled={disabled}
             />
@@ -79,7 +82,7 @@ export class ConstellationSetup extends Component {
             <Select
               handleChange={setObject}
               options={objectListOpts}
-              placeholder="Choose"
+              placeholder={choosePrompt}
               isDisabled={objectListOpts.length === 0 || disabled}
               value={selectedObjectId}
             />

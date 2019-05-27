@@ -44,6 +44,8 @@ export class Slooh1000Setup extends Component {
       onCountdownTick,
       countdown,
       onCountdownComplete,
+      choosePrompt,
+      completeReservationPromptLong,
     } = this.props;
 
     return (
@@ -58,6 +60,7 @@ export class Slooh1000Setup extends Component {
               onCountdownTick={onCountdownTick}
               onCountdownComplete={onCountdownComplete}
               countdown={countdown}
+              completeReservationPromptLong={completeReservationPromptLong}
             />
           )}
         </div>
@@ -78,7 +81,7 @@ export class Slooh1000Setup extends Component {
               handleChange={setCategory}
               options={categoryListOpts}
               renderOption={this.renderCategoryOption}
-              placeholder="Choose"
+              placeholder={choosePrompt}
               value={selectedCategorySlug}
               isDisabled={disabled}
             />
@@ -98,7 +101,7 @@ export class Slooh1000Setup extends Component {
             <Select
               handleChange={setObject}
               options={objectListOpts}
-              placeholder="Choose"
+              placeholder={choosePrompt}
               isDisabled={objectListOpts.length === 0 || disabled}
               value={selectedObjectId}
             />

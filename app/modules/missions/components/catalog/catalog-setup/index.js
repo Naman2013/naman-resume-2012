@@ -29,6 +29,8 @@ export class CatalogSetup extends Component {
       onCountdownTick,
       countdown,
       onCountdownComplete,
+      choosePrompt,
+      completeReservationPromptLong,
     } = this.props;
 
     const { explanation } = objectData;
@@ -45,6 +47,7 @@ export class CatalogSetup extends Component {
               onCountdownTick={onCountdownTick}
               onCountdownComplete={onCountdownComplete}
               countdown={countdown}
+              completeReservationPromptLong={completeReservationPromptLong}
             />
           )}
         </div>
@@ -64,7 +67,7 @@ export class CatalogSetup extends Component {
             <Select
               handleChange={setCatalog}
               options={catalogListOpts}
-              placeholder="Choose"
+              placeholder={choosePrompt}
               value={selectedCatalog}
               isDisabled={disabled}
             />

@@ -50,7 +50,10 @@ class Catalog extends Component {
       onCountdownTick,
       countdown,
       onCountdownComplete,
+      pageSetup,
     } = this.props;
+
+    const { completeReservationPromptLong, choosePrompt } = pageSetup;
 
     return (
       <div className="reservation-catalog catalog">
@@ -73,6 +76,8 @@ class Catalog extends Component {
           countdown={countdown}
           onCountdownTick={onCountdownTick}
           onCountdownComplete={onCountdownComplete}
+          completeReservationPromptLong={completeReservationPromptLong}
+          choosePrompt={choosePrompt}
           description="Quickly schedule a Mission by choosing from millions of cataloget objects. Tell us what you want to see - we’ll make sure that the object 
         is visible from this observatory and telescope during this time slot - if so, we'll reserve the Mission for you."
           byTelescope

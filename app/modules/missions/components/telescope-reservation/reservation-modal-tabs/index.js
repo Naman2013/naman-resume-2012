@@ -55,6 +55,7 @@ export class ReservationModalTabs extends PureComponent {
       setCoordinatesData,
       setTargetName,
       getCoordinatesCategoryList,
+      pageSetup,
     } = this.props;
     const { countdown } = this.state;
 
@@ -86,6 +87,7 @@ export class ReservationModalTabs extends PureComponent {
               onCountdownTick={this.onCountdownTick}
               onCountdownComplete={onHide}
               scrollToGrabbedMission={scrollToGrabbedMission}
+              pageSetup={pageSetup}
             />
           </Tab>
           <Tab eventKey="constellation" title="by constellation">
@@ -108,6 +110,7 @@ export class ReservationModalTabs extends PureComponent {
               onCountdownTick={this.onCountdownTick}
               onCountdownComplete={onHide}
               scrollToGrabbedMission={scrollToGrabbedMission}
+              pageSetup={pageSetup}
             />
           </Tab>
           <Tab eventKey="catalog" title="by catalog">
@@ -131,6 +134,7 @@ export class ReservationModalTabs extends PureComponent {
               onCountdownTick={this.onCountdownTick}
               onCountdownComplete={onHide}
               scrollToGrabbedMission={scrollToGrabbedMission}
+              pageSetup={pageSetup}
             />
           </Tab>
           <Tab eventKey="coordinates" title="by coordinates">
@@ -155,6 +159,7 @@ export class ReservationModalTabs extends PureComponent {
               onCountdownComplete={onHide}
               scrollToGrabbedMission={scrollToGrabbedMission}
               setCoordinatesData={setCoordinatesData}
+              pageSetup={pageSetup}
               byTelescope
             />
           </Tab>

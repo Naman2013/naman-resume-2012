@@ -77,8 +77,9 @@ export class Telescope extends Component {
       missionList,
       missionListRefreshInterval,
       scrollToSMID,
+      pageSetup,
     } = this.props;
-
+    const { setUpTelescopePrompt } = pageSetup;
     const {
       reservationModalVisible,
       refreshCountdownLive,
@@ -107,6 +108,7 @@ export class Telescope extends Component {
             selectedTelescope={selectedTelescope}
             telescopeList={telescopeList}
             setTelescope={setTelescope}
+            setUpTelescopePrompt={setUpTelescopePrompt}
           />
 
           <MissionsList
@@ -122,6 +124,7 @@ export class Telescope extends Component {
             <ReservationModal
               onHide={this.reservationModalHide}
               onComplete={this.reservationComplete}
+              pageSetup={pageSetup}
               show
             />
           )}

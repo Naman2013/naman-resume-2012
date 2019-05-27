@@ -52,6 +52,8 @@ export class CoordinatesSetup extends PureComponent {
       onCountdownComplete,
       setCoordinatesData,
       coordinatesData,
+      choosePrompt,
+      completeReservationPromptLong,
     } = this.props;
 
     const { explanation } = objectData;
@@ -69,6 +71,7 @@ export class CoordinatesSetup extends PureComponent {
               onCountdownTick={onCountdownTick}
               onCountdownComplete={onCountdownComplete}
               countdown={countdown}
+              completeReservationPromptLong={completeReservationPromptLong}
             />
           )}
         </div>
@@ -89,7 +92,7 @@ export class CoordinatesSetup extends PureComponent {
               handleChange={setCategory}
               options={categoryListOpts}
               renderOption={this.renderCategoryOption}
-              placeholder="Choose"
+              placeholder={choosePrompt}
               value={selectedCategorySlug}
               isDisabled={disabled}
             />

@@ -19,6 +19,7 @@ import {
   makeTelescopeSelectedSlotSelector,
   makeTelescopeMissionListRefreshIntervalSelector,
   makeTelescopeMissionscrollToSMIDSelector,
+  makeMissionsPageSetupSelector,
 } from '../selectors';
 import { ACTION } from '../reducer';
 
@@ -30,6 +31,7 @@ const mapStateToProps = createStructuredSelector({
   selectedSlot: makeTelescopeSelectedSlotSelector(),
   missionListRefreshInterval: makeTelescopeMissionListRefreshIntervalSelector(),
   scrollToSMID: makeTelescopeMissionscrollToSMIDSelector(),
+  pageSetup: makeMissionsPageSetupSelector(),
 });
 
 const mapDispatchToProps = {
