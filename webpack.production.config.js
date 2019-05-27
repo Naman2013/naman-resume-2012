@@ -22,6 +22,7 @@ const sourcePath = path.join(__dirname, './app');
 const outPath = path.join(__dirname, './dist');
 const isProduction = process.env.NODE_ENV === 'production';
 const TerserPlugin = require('terser-webpack-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 module.exports = {
   context: sourcePath,
@@ -211,6 +212,7 @@ module.exports = {
         cache: true,
         sourceMap: true,
       }),
+      new OptimizeCSSAssetsPlugin({}),
     ],
     nodeEnv: 'production',
     sideEffects: true,
