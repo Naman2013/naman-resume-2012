@@ -64,16 +64,17 @@ const QuestionListItem = props => {
           <SubmitAnswerButton
             {...props.item}
             replyTo={item.threadId}
-            submitForm={(...params) => {
-              submitAnswer(...params);
-              browserHistory.push(
-                `/object-details/${props.params.objectId}/question/${
-                  item.threadId
-                }`
-              );
-            }}
+            submitForm={submitAnswer}
             modalActions={modalActions}
-            updateQuestionsList={updateQuestionsList}
+            updateQuestionsList={() => {
+              updateQuestionsList().then(() => {
+                browserHistory.push(
+                  `/object-details/${props.params.objectId}/question/${
+                    item.threadId
+                  }`
+                );
+              });
+            }}
             user={user}
           />
         )}
