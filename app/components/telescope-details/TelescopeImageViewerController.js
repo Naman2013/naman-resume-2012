@@ -15,6 +15,7 @@ class TelescopeImageViewerController extends Component {
   static propTypes = {
     activeInstrumentID: PropTypes.string.isRequired,
     render: PropTypes.func,
+    instrStarShareCamera: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -41,6 +42,7 @@ class TelescopeImageViewerController extends Component {
       snapshotMsg,
       snapAPIError,
       imagesLastSnapped,
+      instrStarShareCamera,
     } = this.props;
     const actions = {
       snapImage,
@@ -54,14 +56,16 @@ class TelescopeImageViewerController extends Component {
           previousInstrumentID={this.previousInstrumentID}
           render={render}
         />
-        <StarShareCamera
-          actions={actions}
-          snapshotMsg={snapshotMsg}
-          justSnapped={justSnapped}
-          snapAPIError={snapAPIError}
-          snapshotList={snapshotList}
-          imagesLastSnapped={imagesLastSnapped}
-        />
+        {instrStarShareCamera && (
+          <StarShareCamera
+            actions={actions}
+            snapshotMsg={snapshotMsg}
+            justSnapped={justSnapped}
+            snapAPIError={snapAPIError}
+            snapshotList={snapshotList}
+            imagesLastSnapped={imagesLastSnapped}
+          />
+        )}
       </div>
     );
   }

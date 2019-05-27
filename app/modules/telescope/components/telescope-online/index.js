@@ -68,6 +68,7 @@ export class TelescopeOnline extends Component {
       instrSystem,
       instrPort,
       instrCameraSourceType,
+      instrStarShareCamera,
     } = currentInstrument;
 
     return (
@@ -102,6 +103,7 @@ export class TelescopeOnline extends Component {
                     {currentInstrument.instrImageSourceType !== 'video' && (
                       <TelescopeImageViewerController
                         activeInstrumentID={activeInstrumentID}
+                        instrStarShareCamera={instrStarShareCamera}
                         render={({ viewportHeight }, onImageChange) =>
                           provideLiveFeed(
                             {
@@ -167,6 +169,7 @@ export class TelescopeOnline extends Component {
                       ) : (
                         <TelescopeImageViewerController
                           activeInstrumentID={activeInstrumentID}
+                          instrStarShareCamera={instrStarShareCamera}
                           render={({ viewportHeight }, onImageChange) =>
                             provideLiveFeed(
                               {
