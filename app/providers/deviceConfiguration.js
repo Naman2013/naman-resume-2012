@@ -7,14 +7,17 @@ export const SCREEN_MEDIUM = 768;
 export const SCREEN_LARGE = 1024;
 export const SCREEN_XLARGE = 1366;
 
-
 class DeviceConfiguration extends Enum {}
 DeviceConfiguration.initEnum({
   DESKTOP: {
-    get min() { return DESKTOP_MINIMUM_PIXELS; },
+    get min() {
+      return DESKTOP_MINIMUM_PIXELS;
+    },
   },
   TABLET: {
-    get min() { return TABLET_MINIMUM_PIXELS; },
+    get min() {
+      return TABLET_MINIMUM_PIXELS;
+    },
   },
 });
 
