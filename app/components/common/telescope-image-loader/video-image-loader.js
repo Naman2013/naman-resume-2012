@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import StarShareCamera from 'app/components/telescope-details/star-share-camera/star-share-camera';
 import generateSseImageLoader from '../../../utils/generate-sse-image-source';
 import {
   updateActiveSSE,
@@ -29,8 +30,16 @@ const mapDispatchToProps = dispatch => ({
   ),
 });
 
+const mapStateToProps = ({ starshareCamera }) => ({
+  snapshotList: starshareCamera.snapshotList,
+  snapshotMsg: starshareCamera.snapshotMsg,
+  snapAPIError: starshareCamera.apiError,
+  imagesLastSnapped: starshareCamera.imagesLastSnapped,
+  justSnapped: starshareCamera.justSnapped,
+});
+
 @connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )
 class VideoImageLoader extends Component {
@@ -123,7 +132,27 @@ class VideoImageLoader extends Component {
   }
 
   render() {
-    return <YoutubePlayer {...this.props} />;
+    const {
+      actions,
+      snapshotMsg,
+      justSnapped,
+      snapAPIError,
+      snapshotList,
+      imagesLastSnapped,
+    } = this.props;
+    return (
+      <div>
+        <YoutubePlayer {...this.props} />
+        <StarShareCamera
+          actions={actions}
+          snapshotMsg={snapshotMsg}
+          justSnapped={justSnapped}
+          snapAPIError={snapAPIError}
+          snapshotList={snapshotList}
+          imagesLastSnapped={imagesLastSnapped}
+        />
+      </div>
+    );
   }
 }
 

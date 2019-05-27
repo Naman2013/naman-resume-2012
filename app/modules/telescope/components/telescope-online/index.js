@@ -85,6 +85,7 @@ export class TelescopeOnline extends Component {
                     {currentInstrument.instrImageSourceType === 'video' && (
                       <div>
                         <VideoImageLoader
+                          instrStarShareCamera={instrStarShareCamera}
                           teleStreamCode={instrStreamCode}
                           teleStreamURL={instrStreamURL}
                           teleStreamThumbnailVideoWidth="810"
@@ -152,6 +153,7 @@ export class TelescopeOnline extends Component {
                       currentInstrument.instrImageSourceType === 'video' ? (
                         <div>
                           <VideoImageLoader
+                            instrStarShareCamera={instrStarShareCamera}
                             teleStreamCode={instrStreamCode}
                             teleStreamURL={instrStreamURL}
                             teleStreamThumbnailVideoWidth="810"
