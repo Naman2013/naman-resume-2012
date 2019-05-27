@@ -168,8 +168,8 @@ class AccountDetails extends PureComponent<TAccountDetails> {
           show={showForgetPasswordPopup}
           onHide={dismissResetPasswordPopup}
         >
-          <div dangerouslySetInnerHTML={{ __html: forgetPasswordPopupText }} />
-          <Btn onClick={dismissResetPasswordPopup}>Close</Btn>
+          <div className='color-white' dangerouslySetInnerHTML={{ __html: forgetPasswordPopupText }} />
+          <Btn className='color-white' onClick={dismissResetPasswordPopup}>Close</Btn>
         </Modal>
       </Fragment>
     );
