@@ -5,6 +5,7 @@ import { createStructuredSelector } from 'reselect';
 
 import { getMyPictures } from '../actions';
 import {
+  makeObjectDetailsFetchingSelector,
   makeObjectObservationMyPicturesSelector,
   makeObjectDetailsDataSelector,
   makeObjectImageDetailsSelector,
@@ -16,6 +17,7 @@ import { makeUserSelector } from '../../user/selectors';
 import { shareMemberPicture } from '../../share-member-photo/actions';
 
 const mapStateToProps = createStructuredSelector({
+  isFetching: makeObjectDetailsFetchingSelector(),
   myPictures: makeObjectObservationMyPicturesSelector(),
   objectDetails: makeObjectDetailsDataSelector(),
   imageDetails: makeObjectImageDetailsSelector(),

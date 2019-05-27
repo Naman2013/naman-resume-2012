@@ -61,6 +61,7 @@ export class WriteObservationModal extends Component {
       objectDetails,
       onHide,
       imageDetails,
+      isFetching,
     } = this.props;
     const { currentStep, imageData } = this.state;
     const { STEP_1, STEP_2, STEP_3 } = WRITE_OBSERVATIONS_STEPS;
@@ -73,6 +74,7 @@ export class WriteObservationModal extends Component {
             objectDetails={objectDetails}
             selectImage={this.selectImage}
             imageDetails={imageDetails}
+            isFetching={isFetching}
           />
         )}
 
