@@ -20,6 +20,8 @@ export class TelescopeDetails extends Component {
   refreshTelescopeStatusTimeout = null;
 
   componentDidMount() {
+    const { getTelescopes } = this.props;
+    getTelescopes();
     this.scaffoldPage();
   }
 

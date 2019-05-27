@@ -112,6 +112,7 @@ export class QueueTab extends Component {
       reservedCommunityMissionData,
       reserveCommunityMission,
       reservedCommunityMission,
+      pageSetup,
     } = this.props;
     
     const { missionList, reservationDateFormatted, showShowMoreButton, showMoreButtonCaption } = upcomingSlotsData;
@@ -151,6 +152,7 @@ export class QueueTab extends Component {
             <ReservationModal
               onHide={this.reservationModalHide}
               onComplete={this.reservationComplete}
+              pageSetup={pageSetup}
               show
             />
           )}
