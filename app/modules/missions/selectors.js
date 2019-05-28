@@ -491,6 +491,18 @@ export const makeTelescopeMissionscrollToSMIDSelector = () =>
     state => state.scrollToSMID
   );
 
+export const makeTelescopeScrolledToSlotSelector = () =>
+  createSelector(
+    makeByTelescopeSelector(),
+    state => state.scrolledToSlot
+  );
+
+export const makeTelescopeMissionListLodadedSelector = () =>
+  createSelector(
+    makeByTelescopeSelector(),
+    state => state.missionListLodaded
+  );
+
 // by coordinates
 
 export const makeByCoordinatesSelector = () =>

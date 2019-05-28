@@ -9,12 +9,17 @@ export class Telescope extends Component {
   state = {
     reservationModalVisible: false,
     refreshCountdownLive: false,
-    scrolledToSlot: false,
-    missionListLodaded: false,
   };
 
   componentDidMount() {
     this.getMissionSlotDates();
+  }
+
+  componentDidUpdate() {
+    const { scrolledToSlot, missionListLodaded, scrollToSMID } = this.props;
+    if (scrollToSMID && !scrolledToSlot && missionListLodaded) {
+      this.scrollToSlot();
+    }
   }
 
   getMissionSlotDates = (requestedDate = '') => {
@@ -58,13 +63,17 @@ export class Telescope extends Component {
   };
 
   scrollToSlot = () => {
-    const { scrollToSMID } = this.props;
+    const { scrollToSMID, missionList, setScrolledToSlot } = this.props;
     const slotElement = document.getElementById(`mission-slot-${scrollToSMID}`);
-    window.scrollTo(
-      0,
-      window.scrollY + slotElement.getBoundingClientRect().top - 70
-    );
-    this.setState({ scrolledToSlot: true, missionListLodaded: false });
+    const scrollLength =
+      missionList[0].scheduledMissionId === scrollToSMID ? 300 : 70;
+    if (slotElement) {
+      window.scrollTo(
+        0,
+        window.scrollY + slotElement.getBoundingClientRect().top - scrollLength
+      );
+      setScrolledToSlot();
+    }
   };
 
   render() {
@@ -73,33 +82,12 @@ export class Telescope extends Component {
       telescopeList,
       setTelescope,
       selectedDate,
-      getMissionSlotDates,
       missionList,
       missionListRefreshInterval,
-      scrollToSMID,
       pageSetup,
     } = this.props;
     const { setUpTelescopePrompt } = pageSetup;
-    const {
-      reservationModalVisible,
-      refreshCountdownLive,
-      scrolledToSlot,
-      missionListLodaded,
-    } = this.state;
-    const isManuallyScrolled = window.scrollY > 0;
-
-    if (missionList.length > 0 && !scrolledToSlot) {
-      this.setState({ missionListLodaded: true });
-    }
-    
-    if (
-      scrollToSMID &&
-      !scrolledToSlot &&
-      !isManuallyScrolled &&
-      missionListLodaded
-    ) {
-      this.scrollToSlot();
-    }
+    const { reservationModalVisible, refreshCountdownLive } = this.state;
 
     return (
       <div className="by-telescope">

@@ -41,6 +41,7 @@ export const TYPE = constants('profile', [
   '~SET_COORDINATES_DATA',
   '~SET_TARGET_NAME',
   '~GET_COORDINATES_CATEGORY_LIST',
+  '~SET_SCROLLED_TO_SLOT',
 ]);
 export const ACTION = actions(TYPE);
 
@@ -118,6 +119,8 @@ export const initialState = {
     grabedTelescopeSlot: {},
     selectedSlot: {},
     scrollToSMID: null,
+    scrolledToSlot: false,
+    missionListLodaded: false,
   },
 };
 
@@ -198,6 +201,7 @@ export default handleActions(
     [TYPE.GET_COORDINATES_CATEGORY_LIST]: setFetching,
     [TYPE.GET_COORDINATES_CATEGORY_LIST_SUCCESS]: getCoordinatesCategoryListSuccess,
     [TYPE.GET_COORDINATES_CATEGORY_LIST_ERROR]: setServerError,
+    [TYPE.SET_SCROLLED_TO_SLOT]: setScrolledToSlot,
   },
   initialState
 );
@@ -545,6 +549,18 @@ function setTelescope(state, action) {
     byTelescope: {
       ...state.byTelescope,
       selectedTelescope: action.payload,
+      scrolledToSlot: false,
+      missionListLodaded: false,
+    },
+  };
+}
+
+function setScrolledToSlot(state, action) {
+  return {
+    ...state,
+    byTelescope: {
+      ...state.byTelescope,
+      scrolledToSlot: true,
     },
   };
 }
@@ -579,6 +595,7 @@ function getMissionSlotsByTelescopeSuccess(state, action) {
       missionListRefreshInterval: action.payload.refreshIntervalSec,
       missionList: action.payload.missionList,
       scrollToSMID: action.payload.scrollToSMID,
+      missionListLodaded: true,
     },
   };
 }
@@ -636,5 +653,5 @@ function setTargetName(state, action) {
       ...state.byCoordinates,
       targetName: action.payload,
     },
-  }
+  };
 }
