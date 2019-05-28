@@ -157,12 +157,28 @@ export const validateResponseAccess = apiResponse => (dispatch, getState) => {
   const UPSELL_STATUS_CODE = 420;
 
   const { apiError, errorCode, statusCode, loginError } = apiResponse;
+  //console.log(statusCode);
+
   let subscriptionPlansCallSource = '';
   let triggerUserAccountIssueModal = false;
 
   if ( statusCode === UNAUTHORIZED_STATUS_CODE || statusCode === UNAUTHORIZED_CREDSREQD_STATUS_CODE ) {
-    //login issues....
+    //login issues....send the user to a screen that requires login....
     triggerUserAccountIssueModal = false;
+    /* send the user to the login screen */
+    destroySession();
+    dispatch(removeUser());
+    dispatch(push('/'));
+    dispatch(
+      toggleGlobalNavMenu({
+        activeMenu: MENU_INTERFACE.PROFILE.name,
+        isLeftOpen: false,
+        isRightOpen: true,
+        activeLeft: MENU_INTERFACE.MAIN.name,
+        activeRight: MENU_INTERFACE.PROFILE.name,
+        isNotificationMenuOpen: false,
+      })
+    );
   }
   else if (statusCode === EXPIRED_ACCOUNT_STATUS_CODE) {
     subscriptionPlansCallSource = 'expired';
