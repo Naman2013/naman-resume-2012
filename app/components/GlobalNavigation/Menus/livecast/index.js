@@ -5,18 +5,23 @@ import type { TLivecastData } from 'app/components/GlobalNavigation/Menus/liveca
 import axios from 'axios';
 import React, { PureComponent } from 'react';
 import './styles.scss';
+import YouTube from 'react-youtube';
 
 type TLivecast = {};
 
 type TState = {
   livecastData: TLivecastData,
   isOpen: boolean,
+  volume: number,
 };
 
 export class Livecast extends PureComponent<TLivecast, TState> {
+  YTPlayer: null;
+
   state = {
     livecastData: {},
     isOpen: false,
+    volume: 0,
   };
 
   componentDidMount = () => {
@@ -31,10 +36,23 @@ export class Livecast extends PureComponent<TLivecast, TState> {
 
   setOpen = isOpen => this.setState({ isOpen });
 
+  onPlayerReady = event => {
+    const { volume } = this.state;
+    event.target.setVolume(volume);
+    this.YTPlayer = event.target;
+  };
+
+  setVolume = volume =>
+    this.setState({ volume }, () => {
+      this.YTPlayer.setVolume(volume);
+    });
+
   render() {
-    const { livecastData, isOpen } = this.state;
+    const { livecastData, isOpen, volume } = this.state;
     const { LiveShowData = {} } = livecastData;
     const { streamCode } = LiveShowData;
+
+    // streamCode = 'r5MRT7hZbto'; // todo
 
     console.log(livecastData);
 
@@ -46,10 +64,28 @@ export class Livecast extends PureComponent<TLivecast, TState> {
           onClick={() => this.setOpen(true)}
         />
 
-        {/*{streamCode && <AudioPlayer isLiveEvent streamCode={streamCode} />}*/}
+        {streamCode && (
+          <YouTube
+            id="global-audio-player-instance"
+            onReady={this.onPlayerReady}
+            videoId={streamCode}
+            opts={{
+              height: '0',
+              width: '0',
+              playerVars: {
+                autoplay: 1,
+              },
+            }}
+          />
+        )}
 
         {isOpen && (
-          <LivecastPopup setOpen={this.setOpen} livecastData={livecastData} />
+          <LivecastPopup
+            setOpen={this.setOpen}
+            livecastData={livecastData}
+            onVolumeChange={this.setVolume}
+            volume={volume}
+          />
         )}
       </div>
     );

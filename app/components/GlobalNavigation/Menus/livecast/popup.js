@@ -1,16 +1,25 @@
 // @flow
 
 import type { TLivecastData } from 'app/components/GlobalNavigation/Menus/livecast/types';
-import React from 'react';
+import React, { useState } from 'react';
+import { Tooltip } from 'react-tippy';
 import useOnClickOutside from 'use-onclickoutside';
+import './range.scss';
 
 type TLivecastPopup = {
   setOpen: Function,
   livecastData: TLivecastData,
+  onVolumeChange: Function,
+  volume: number,
 };
 
 export const LivecastPopup = (props: TLivecastPopup) => {
-  const { setOpen, livecastData } = props;
+  const {
+    setOpen,
+    livecastData,
+    onVolumeChange,
+    volume: initialVolume,
+  } = props;
   const { displayTitle = '', LiveShowData = {} } = livecastData;
   const { title = '', description = '' } = LiveShowData;
 
@@ -19,11 +28,26 @@ export const LivecastPopup = (props: TLivecastPopup) => {
   const ref = React.useRef(null);
   useOnClickOutside(ref, close);
 
+  const [volume, setVolume] = useState(initialVolume);
+
+  const handleVolumeChange = evt => {
+    const { value } = evt.target;
+    setVolume(value);
+    onVolumeChange(value);
+  };
+
+  const mute = () => {
+    setVolume(0);
+    onVolumeChange(0);
+  };
+
   return (
     <div className="livecast-popup animated fadeIn faster" ref={ref}>
       <div className="popup-header d-flex justify-content-between align-items-center">
         <span className="h4-custom">{displayTitle}</span>
-        <span className="icon-close" onClick={close} role="presentation" />
+        <Tooltip title="Close">
+          <span className="icon-close" onClick={close} role="presentation" />
+        </Tooltip>
       </div>
       <div className="popup-body">
         <div className="h2-custom">{title}</div>
@@ -32,11 +56,21 @@ export const LivecastPopup = (props: TLivecastPopup) => {
         <hr />
 
         <div className="controls">
-          <input type="range" name="points" min="0" max="100" />
+          <input
+            type="range"
+            name="points"
+            min="0"
+            max="100"
+            onChange={handleVolumeChange}
+            value={volume}
+            id="volume-range"
+          />
 
-          <div className="mute-btn">
-            <span className="icon-volume-muted" />
-          </div>
+          <Tooltip title="Mute">
+            <div className="mute-btn" role="presentation" onClick={mute}>
+              <span className="icon-volume-muted" />
+            </div>
+          </Tooltip>
         </div>
       </div>
     </div>
