@@ -49,6 +49,7 @@ const mapStateToProps = state => ({
   canReplyToAnswers: state.astronomerQuestions.canReplyToAnswers,
   fetchingQuestions: state.astronomerQuestions.fetching,
   fetchingAnswers: state.astronomerAnswers.fetchingObj,
+  fetchingAnswersBool: state.astronomerAnswers.fetching,
   user: state.user,
   objectDetails: state.objectDetails,
   objectSpecialists: state.objectDetails.objectSpecialists,
@@ -87,7 +88,7 @@ class AskAstronomer extends Component {
     count: 0,
     actions: {},
     objectId: '',
-    questionFilter: 'all',
+    questionFilter: 'objectonly',
   };
 
   constructor(props) {
@@ -119,7 +120,7 @@ class AskAstronomer extends Component {
     const { getAllQuestions, fetchAstronomerQuestions } = actions;
 
     // getAllQuestions({ objectId, ...filter });
-    fetchAstronomerQuestions({ objectId, ...filter });
+    return fetchAstronomerQuestions({ objectId, ...filter });
   };
 
   handlePageChange = page => {
@@ -139,28 +140,23 @@ class AskAstronomer extends Component {
     actions.askQuestion(params).then(res => callback(res.payload));
   };
 
-  showModal = () => {
+  showModal = () =>
     this.setState(() => ({
       showPrompt: true,
     }));
-  };
 
-  closeModal = () => {
+  closeModal = () =>
     this.setState(() => ({
       showPrompt: false,
     }));
-  };
 
-  setModal = ({ promptComponent, promptStyles }) => {
+  setModal = ({ promptComponent, promptStyles }) =>
     this.setState(state => ({
       promptComponent: promptComponent || state.promptComponent,
       promptStyles: promptStyles || state.promptComponent,
     }));
-  };
 
-  updateQuestionsList = filter => {
-    this.fetchQuestions({ ...filter });
-  };
+  updateQuestionsList = filter => this.fetchQuestions({ ...filter });
 
   render() {
     const {
@@ -183,6 +179,7 @@ class AskAstronomer extends Component {
       fetching,
       pageData,
       questionsData,
+      fetchingAnswersBool,
     } = this.props;
 
     const {
@@ -292,6 +289,7 @@ class AskAstronomer extends Component {
                         modalActions={modalActions}
                         updateQuestionsList={this.updateQuestionsList}
                         changeAnswerState={this.updateQuestionsList}
+                        fetchingAnswersBool={fetchingAnswersBool}
                       />
                     )}
                   />

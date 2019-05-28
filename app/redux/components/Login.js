@@ -290,14 +290,14 @@ class Login extends Component {
               }}
               value={this.state.loginFormDetails.password.value}
             />
-            <Link
+            <a
               className="forgot title-link"
               onClick={event => {
                 this.startForgotPassword();
               }}
             >
               Forgot Your Password?
-            </Link>
+            </a>
 
             <Button
               theme={{ margin: '0 auto', color: astronaut }}

@@ -21,7 +21,7 @@ const initialState = {
   threadCount: 0,
   count: 5,
   threadList: [],
-  questionFilter: 'all',
+  questionFilter: 'objectonly',
 };
 
 export default createReducer(initialState, {

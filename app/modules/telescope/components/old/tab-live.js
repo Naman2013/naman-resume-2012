@@ -41,14 +41,15 @@ const TabLive = ({
     )}
 
     {mission.missionAvailable && (
-      <MissionAudio
-        missionAudioURL={object.objectAudioURL}
-        audioEnabled={mission.objectId !== 0 && !!object.objectAudioURL}
-      />
+      <div className="tile-container">
+        <MissionAudio
+          missionAudioURL={object.objectAudioURL}
+          audioEnabled={mission.objectId !== 0 && !!object.objectAudioURL}
+        />
+      </div>
     )}
     {mission.objectId !== 0 && object && object.objectTitle && (
       <div className="tile-container">
-
         <ObjectSummaryTile {...object} />
       </div>
     )}

@@ -22,6 +22,7 @@ export default css`
     padding: 0 40px;
     margin: 20px auto;
     text-align: center;
+    max-width: 100%;
   }
   .card-groups-img {
     background-image: url('https://vega.slooh.com/assets/v4/dashboard/group-graphic-1.png');

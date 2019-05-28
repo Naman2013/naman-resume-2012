@@ -39,6 +39,7 @@ const mapStateToProps = ({
   objectDetails,
   objectSpecialists: objectDetails.objectSpecialists,
   fetchingReplies: astronomerDiscuss.fetchingReplies,
+  fetchingDiscuss: astronomerDiscuss.fetching,
 });
 
 const mapDispatchToProps = dispatch => ({

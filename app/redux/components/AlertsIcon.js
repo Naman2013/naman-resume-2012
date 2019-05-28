@@ -1,22 +1,12 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import { astronaut, romance } from 'app/styles/variables/colors_tiles_v4';
 import classnames from 'classnames';
+import PropTypes from 'prop-types';
+import React from 'react';
 import { connect } from 'react-redux';
-import { romance, astronaut } from 'app/styles/variables/colors_tiles_v4';
-import {
-  sloohLogoAstronaut,
-  threeLinesAstronaut,
-  telescopeAstronaut,
-  searchAstronaut,
-  userAstronaut,
-} from 'app/styles/variables/iconURLs';
+
 const AlertsIcon = ({ notificationsCount, isActive }) => (
   <span className="root">
-    <i
-      className={classnames('i-bell', {
-        'is-active': isActive,
-      })}
-    />
+    <span className="icon-bell" />
     <span
       className={classnames('count', {
         zero: notificationsCount === 0,
@@ -30,19 +20,17 @@ const AlertsIcon = ({ notificationsCount, isActive }) => (
         position: relative;
       }
 
-      .icon {
-        font-size: 18px;
-        color: ${astronaut};
-      }
-
-      .icon.is-active:before {
-        color: ${romance};
+      .icon-bell {
+        font-size: 20px;
+        line-height: 20px;
+        height: 20px;
+        display: inline-block;
       }
 
       .count {
         position: absolute;
         top: -5px;
-        right: 5px;
+        right: 4px;
         color: ${romance};
         background-color: red;
         border-radius: 50%;

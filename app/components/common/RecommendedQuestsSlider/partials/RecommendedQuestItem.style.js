@@ -26,6 +26,7 @@ export default css`
     transition: width, height 0.15s ease-out;
     margin: 10px auto;
     position: relative;
+    max-width: 100%;
   }
 
   .blue-shield {

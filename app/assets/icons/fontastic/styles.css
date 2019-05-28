@@ -80,3 +80,12 @@
 .icon-clip:before {
   content: "\6e";
 }
+.icon-volume-muted:before {
+  content: "\6f";
+}
+.icon-volume:before {
+  content: "\70";
+}
+.icon-bell:before {
+  content: "\71";
+}
