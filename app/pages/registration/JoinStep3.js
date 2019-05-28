@@ -82,32 +82,34 @@ class JoinStep3 extends Component {
 
       let paymentMethod = 'creditcard';
       let paymentNonceTokenData = null;
+      console.log(paymentMessageData);
+      var paymentDataString = paymentMessageData.split('!952bccf9afe8e4c04306f70f7bed6610');
 
+      console.log(paymentDataString);
       /* make sure the data message we received is an ECommerce Payment Token */
-      if (paymentMessageData.startsWith('__ECOMMERCE_PAYMENT_TOKEN_')) {
+      if (paymentDataString[0].startsWith('__ECOMMERCE_PAYMENT_TOKEN_')) {
         //Check to see if the payment token is a credit card payment token or a paypal payment token
         if (
-          paymentMessageData.startsWith(
-            '__ECOMMERCE_PAYMENT_TOKEN_CREDITCARD__'
-          )
+          paymentDataString[0].startsWith('__ECOMMERCE_PAYMENT_TOKEN_CREDITCARD__')
         ) {
           paymentNonceTokenData = String.prototype.replace.call(
-            paymentMessageData,
+            paymentDataString[0],
             '__ECOMMERCE_PAYMENT_TOKEN_CREDITCARD__',
             ''
           );
           paymentMethod = 'creditcard';
         } else if (
-          paymentMessageData.startsWith('__ECOMMERCE_PAYMENT_TOKEN_PAYPAL__')
+          paymentDataString[0].startsWith('__ECOMMERCE_PAYMENT_TOKEN_PAYPAL__')
         ) {
           paymentNonceTokenData = String.prototype.replace.call(
-            paymentMessageData,
+            paymentDataString[0],
             '__ECOMMERCE_PAYMENT_TOKEN_PAYPAL__',
             ''
           );
 
           paymentMethod = 'paypal';
         }
+        console.log('Payment Token:' + paymentNonceTokenData);
 
         this.setState({ paymentMethod });
         this.setState({ paymentToken: paymentNonceTokenData });
@@ -127,9 +129,10 @@ class JoinStep3 extends Component {
             window.localStorage.getItem(
               'isAstronomyClubForMembers18AndOver'
             ) === 'true',
+          billingAddressString: paymentDataString[1],
         };
-
-        axios
+//add string aboc to this //ADD THIS BACK AFTER TESTING
+            axios
           .post(
             JOIN_ACTIVATE_PENDING_CUSTOMER_ENDPOINT_URL,
             activatePendingCustomerData
@@ -159,7 +162,7 @@ class JoinStep3 extends Component {
                     pwd: window.localStorage.password,
                   };
 
-                  /* cleanup local storage */
+                  /* cleanup local storage */ 
                   window.localStorage.removeItem('accountCreationType');
                   window.localStorage.removeItem('username');
                   window.localStorage.removeItem('password');
@@ -177,7 +180,7 @@ class JoinStep3 extends Component {
                   browserHistory.push('/');
                 }
               } else {
-                /* process / display error to user */
+                /* process / display error to user */ 
               }
             }
           })
@@ -186,7 +189,7 @@ class JoinStep3 extends Component {
           });
       }
     }
-  };
+  }; 
 
   /* Obtain access to the join api service response and update the  redirectInX Seconds state */
   handleJoinPageServiceResponse = result => {
