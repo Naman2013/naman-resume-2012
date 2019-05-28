@@ -15,6 +15,14 @@ type TState = {
   volume: number,
 };
 
+const YT_OPTIONS = {
+  height: '0',
+  width: '0',
+  playerVars: {
+    autoplay: 1,
+  },
+};
+
 export class Livecast extends PureComponent<TLivecast, TState> {
   YTPlayer: null;
 
@@ -43,18 +51,12 @@ export class Livecast extends PureComponent<TLivecast, TState> {
   };
 
   setVolume = volume =>
-    this.setState({ volume }, () => {
-      this.YTPlayer.setVolume(volume);
-    });
+    this.setState({ volume }, () => this.YTPlayer.setVolume(volume));
 
   render() {
     const { livecastData, isOpen, volume } = this.state;
     const { LiveShowData = {} } = livecastData;
     const { streamCode } = LiveShowData;
-
-    // streamCode = 'r5MRT7hZbto'; // todo
-
-    console.log(livecastData);
 
     return (
       <div className="livecast-btn">
@@ -69,13 +71,7 @@ export class Livecast extends PureComponent<TLivecast, TState> {
             id="global-audio-player-instance"
             onReady={this.onPlayerReady}
             videoId={streamCode}
-            opts={{
-              height: '0',
-              width: '0',
-              playerVars: {
-                autoplay: 1,
-              },
-            }}
+            opts={YT_OPTIONS}
           />
         )}
 
