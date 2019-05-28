@@ -1,33 +1,12 @@
 // @flow
 
 import { LivecastPopup } from 'app/components/GlobalNavigation/Menus/livecast/popup';
+import type { TLivecastData } from 'app/components/GlobalNavigation/Menus/livecast/types';
 import axios from 'axios';
 import React, { PureComponent } from 'react';
 import './styles.scss';
 
 type TLivecast = {};
-
-type TLiveShowData = {
-  description: string,
-  endTime: string,
-  hostName: string,
-  startTime: string,
-  streamCode: string,
-  title: string,
-};
-
-type TLivecastData = {
-  LiveShowData: TLiveShowData,
-  UpcommingShowData: Array<any>,
-  apiError: boolean,
-  displayTitle: string,
-  errorCode: number,
-  errorMsg: string,
-  isLive: boolean,
-  lang: string,
-  statusCode: number,
-  ver: string,
-};
 
 type TState = {
   livecastData: TLivecastData,
@@ -69,7 +48,9 @@ export class Livecast extends PureComponent<TLivecast, TState> {
 
         {/*{streamCode && <AudioPlayer isLiveEvent streamCode={streamCode} />}*/}
 
-        {isOpen && <LivecastPopup setOpen={this.setOpen} />}
+        {isOpen && (
+          <LivecastPopup setOpen={this.setOpen} livecastData={livecastData} />
+        )}
       </div>
     );
   }

@@ -21,8 +21,7 @@
 
 .livecast-popup {
   position: absolute;
-  background-color: #fff;
-  padding: 20px;
+  background-color: $romance;
   top: 60px;
   left: -235px;
   width: 400px;
@@ -34,10 +33,67 @@
     height: 0;
     border-left: 5px solid transparent;
     border-right: 5px solid transparent;
-    border-bottom: 5px solid #fff;
+    border-bottom: 5px solid $romance;
     position: absolute;
     top: -5px;
     right: 132px;
     z-index: 1;
+  }
+
+  .popup-header {
+    padding: 20px;
+    border-bottom: 1px solid $hawkesBlue;
+
+    .icon-close {
+      font-size: 8px;
+      height: 8px;
+      cursor: pointer;
+    }
+  }
+
+  .popup-body {
+    padding: 30px;
+    border-bottom: 6px solid $lightHeadedAstronaut;
+
+    .h4-custom {
+      font-family: $primary-font;
+    }
+
+    .h2-custom {
+      color: $lightHeadedAstronaut;
+    }
+
+    .p-19 {
+      color: $raven;
+    }
+
+    hr {
+      border-color: $hawkesBlue;
+    }
+
+    .controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      input {
+        width: calc(100% - 80px);
+      }
+      .mute-btn {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        @include boxShadow();
+        font-size: 20px;
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        cursor: pointer;
+
+        span {
+          height: 20px;
+        }
+      }
+    }
   }
 }
