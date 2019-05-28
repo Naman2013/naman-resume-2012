@@ -5,12 +5,14 @@ import './topThreads.scss';
 
 export const TopThreads = memo(function TopThreads(props) {
   useEffect(() => {
-    props.getTopThreadList({
-      count: 10,
-      page: 1,
-      callSource: 'groups',
-      topicId: props.topicId,
-    });
+    if (props.topicId !== undefined) {
+      props.getTopThreadList({
+        count: 10,
+        page: 1,
+        callSource: 'groups',
+        topicId: props.topicId,
+      });
+    }
   }, [props.topicId]); //eslint-disable-line react-hooks/exhaustive-deps
 
   return (
