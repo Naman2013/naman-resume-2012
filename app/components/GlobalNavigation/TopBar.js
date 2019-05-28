@@ -103,13 +103,7 @@ const TopBar = ({ handleMenuClick, activeMenu, handleNotificationClick }) => {
                 </li> */}
                 {user.isAuthorized ? (
                   <li>
-                    <Button
-                      mod="no-border"
-                      isActive={alertsIsActive}
-                      handleClick={alerts}
-                    >
-                      <Livecast />
-                    </Button>
+                    <Livecast user={user} />
                   </li>
                 ) : null}
                 {user.isAuthorized ? (
