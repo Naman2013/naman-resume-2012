@@ -10,7 +10,6 @@ import {
   TabQueue,
   TabTelescope,
 } from 'app/modules/telescope/components/old';
-import SunsetCountdown from 'app/components/telescope-details/SunsetCountdown';
 import { DeviceContext } from 'app/providers/DeviceProvider';
 import React, { Component } from 'react';
 import style from '../telescope-details/v4-telescope-details.style';
@@ -166,19 +165,11 @@ export class TelescopeOnline extends Component {
                     mission={activeTelescopeMission}
                     activeTelescope={activeTelescope}
                     object={objectDetails.objectData}
+                    fetchAllTelescopeStatus={this.fetchAllTelescopeStatus}
+                    currentObservatory={currentObservatory}
+                    currentMissionCountdown={currentMissionCountdown}
                     renderTelescopeViewer={() => (
                       <div>
-                        {currentObservatory.showCountdown &&
-                          currentMissionCountdown &&
-                          currentMissionCountdown.showCountdown && (
-                            <SunsetCountdown
-                              label={currentMissionCountdown.countdownLabel}
-                              countdownTimestamp={
-                                currentMissionCountdown.countdownTimestamp
-                              }
-                              onExpired={::this.fetchAllTelescopeStatus}
-                            />
-                          )}
                         {currentInstrument.instrImageSourceType === 'video' ? (
                           <div>
                             <VideoImageLoader

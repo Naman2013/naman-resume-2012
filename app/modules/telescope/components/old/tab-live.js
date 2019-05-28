@@ -7,6 +7,7 @@ import {
   ObjectSummaryTile,
   ScheduledByTile,
 } from 'app/components/common/tiles';
+import SunsetCountdown from 'app/components/telescope-details/SunsetCountdown';
 import { OBJECT_HOW_BIG } from '../../../../services/objects';
 import Request from '../../../../components/common/network/Request';
 
@@ -22,6 +23,9 @@ const TabLive = ({
   allSkyWidgetID,
   renderTelescopeViewer,
   activeTelescope,
+  currentObservatory,
+  currentMissionCountdown,
+  fetchAllTelescopeStatus,
 }) => (
   <div>
     <DisplayAtBreakpoint screenSmall screenMedium>
@@ -48,10 +52,19 @@ const TabLive = ({
     )}
     {mission.objectId !== 0 && object && object.objectTitle && (
       <div className="tile-container">
-
         <ObjectSummaryTile {...object} />
       </div>
     )}
+
+    {currentObservatory.showCountdown &&
+      currentMissionCountdown &&
+      currentMissionCountdown.showCountdown && (
+        <SunsetCountdown
+          label={currentMissionCountdown.countdownLabel}
+          countdownTimestamp={currentMissionCountdown.countdownTimestamp}
+          onExpired={fetchAllTelescopeStatus}
+        />
+      )}
 
     <div className="tile-container">
       <ConnectedAllSkyCamera
