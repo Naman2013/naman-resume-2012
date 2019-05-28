@@ -7,7 +7,9 @@ import React, { PureComponent } from 'react';
 import './styles.scss';
 import YouTube from 'react-youtube';
 
-type TLivecast = {};
+type TLivecast = {
+  onClick: Function,
+};
 
 type TState = {
   livecastData: TLivecastData,
@@ -29,7 +31,8 @@ export class Livecast extends PureComponent<TLivecast, TState> {
   state = {
     livecastData: {},
     isOpen: false,
-    volume: 0,
+    isPlaying: false,
+    volume: 50,
   };
 
   componentDidMount = () => {
@@ -47,23 +50,36 @@ export class Livecast extends PureComponent<TLivecast, TState> {
   onPlayerReady = event => {
     const { volume } = this.state;
     event.target.setVolume(volume);
+    event.target.pauseVideo();
     this.YTPlayer = event.target;
   };
 
   setVolume = volume =>
     this.setState({ volume }, () => this.YTPlayer.setVolume(volume));
 
-  render() {
-    const { livecastData, isOpen, volume } = this.state;
-    const { LiveShowData = {} } = livecastData;
-    const { streamCode } = LiveShowData;
+  setPlaying = isPlaying =>
+    this.setState({ isPlaying }, () =>
+      isPlaying ? this.YTPlayer.playVideo() : this.YTPlayer.stopVideo()
+    );
 
+  render() {
+    const { onClick } = this.props;
+    const { livecastData, isOpen, volume, isPlaying } = this.state;
+    const { LiveShowData = {} } = livecastData;
+    let { streamCode } = LiveShowData;
+
+    streamCode = 'KBoBIrqwf8o';
+
+    console.log(livecastData);
     return (
       <div className="livecast-btn">
         <span
           role="presentation"
           className="icon-volume"
-          onClick={() => this.setOpen(true)}
+          onClick={() => {
+            onClick();
+            this.setOpen(true);
+          }}
         />
 
         {streamCode && (
@@ -81,6 +97,8 @@ export class Livecast extends PureComponent<TLivecast, TState> {
             livecastData={livecastData}
             onVolumeChange={this.setVolume}
             volume={volume}
+            isPlaying={isPlaying}
+            setPlaying={this.setPlaying}
           />
         )}
       </div>

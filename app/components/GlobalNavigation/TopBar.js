@@ -15,7 +15,12 @@ function isActive(menuName, activeMenu) {
   return menuName === activeMenu;
 }
 
-const TopBar = ({ handleMenuClick, activeMenu, handleNotificationClick }) => {
+const TopBar = ({
+  handleMenuClick,
+  activeMenu,
+  handleNotificationClick,
+  closeAllMenus,
+}) => {
   const mainIsActive = isActive(activeMenu, MENU_INTERFACE.MAIN.name);
   const telescopesIsActive = isActive(
     activeMenu,
@@ -103,7 +108,7 @@ const TopBar = ({ handleMenuClick, activeMenu, handleNotificationClick }) => {
                 </li> */}
                 {user.isAuthorized ? (
                   <li>
-                    <Livecast user={user} />
+                    <Livecast user={user} onClick={closeAllMenus} />
                   </li>
                 ) : null}
                 {user.isAuthorized ? (

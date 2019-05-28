@@ -11,6 +11,8 @@ type TLivecastPopup = {
   livecastData: TLivecastData,
   onVolumeChange: Function,
   volume: number,
+  isPlaying: boolean,
+  setPlaying: Function,
 };
 
 export const LivecastPopup = (props: TLivecastPopup) => {
@@ -19,6 +21,8 @@ export const LivecastPopup = (props: TLivecastPopup) => {
     livecastData,
     onVolumeChange,
     volume: initialVolume,
+    isPlaying,
+    setPlaying,
   } = props;
   const { displayTitle = '', LiveShowData = {} } = livecastData;
   const { title = '', description = '' } = LiveShowData;
@@ -40,6 +44,9 @@ export const LivecastPopup = (props: TLivecastPopup) => {
     setVolume(0);
     onVolumeChange(0);
   };
+
+  const play = () => setPlaying(true);
+  const stop = () => setPlaying(false);
 
   return (
     <div className="livecast-popup animated fadeIn faster" ref={ref}>
@@ -71,6 +78,22 @@ export const LivecastPopup = (props: TLivecastPopup) => {
               <span className="icon-volume-muted" />
             </div>
           </Tooltip>
+
+          {!isPlaying && (
+            <Tooltip title="Play">
+              <div className="mute-btn" role="presentation" onClick={play}>
+                <span className="icon-play" />
+              </div>
+            </Tooltip>
+          )}
+
+          {isPlaying && (
+            <Tooltip title="Stop">
+              <div className="mute-btn" role="presentation" onClick={stop}>
+                <span className="icon-stop" />
+              </div>
+            </Tooltip>
+          )}
         </div>
       </div>
     </div>
