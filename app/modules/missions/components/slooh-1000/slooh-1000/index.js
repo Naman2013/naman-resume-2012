@@ -83,9 +83,15 @@ export class Slooh1000 extends Component {
       noObjects,
       pageSetup,
     } = this.props;
-
     const { successModalShow } = this.state;
-    const { yourMissionPrompt, cancelButtonCaption, scheduleMissionCaption, choosePrompt, completeReservationPromptShort } = pageSetup;
+    const {
+      yourMissionPrompt,
+      cancelButtonCaption,
+      scheduleMissionCaption,
+      choosePrompt,
+      completeReservationPromptShort,
+      navigationConfig,
+    } = pageSetup;
 
     return (
       <div className="slooh-1000">
@@ -106,8 +112,7 @@ export class Slooh1000 extends Component {
                   availableMissions={availableMissions}
                   noObjects={noObjects}
                   choosePrompt={choosePrompt}
-                  description="Welcome to the Slooh 1000! Tell us what you want to see, we’ll tell
-                  you which scope to use, and the best time to see it!"
+                  pageConfig={navigationConfig[0]}
                 />
               </Box>
             </div>
@@ -123,7 +128,9 @@ export class Slooh1000 extends Component {
                     onSubmit={this.reserveMissionSlot}
                     cancelButtonCaption={cancelButtonCaption}
                     scheduleMissionCaption={scheduleMissionCaption}
-                    completeReservationPromptShort={completeReservationPromptShort}
+                    completeReservationPromptShort={
+                      completeReservationPromptShort
+                    }
                   />
                 ) : (
                   <div className="reserved-mission-gag">

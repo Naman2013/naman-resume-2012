@@ -37,7 +37,6 @@ export class Slooh1000Setup extends Component {
       disabled,
       availableMissions,
       noObjects,
-      description,
       byTelescope,
       getTelescopeSlot,
       extendedTimer,
@@ -46,13 +45,25 @@ export class Slooh1000Setup extends Component {
       onCountdownComplete,
       choosePrompt,
       completeReservationPromptLong,
+      pageConfig,
     } = this.props;
+    const {
+      header,
+      step1Title,
+      step1Tooltip,
+      step2Title,
+      step2Tooltip,
+      step3ButtonCaption,
+      step3Title,
+      step3Tooltip,
+      subheader,
+    } = pageConfig;
 
     return (
       <div className="slooh-1000-setup">
         <div className="row setup-header">
-          <h2>Set up with Slooh 1000!</h2>
-          <p>{description}</p>
+          <h2>{header}</h2>
+          <p>{subheader}</p>
           {byTelescope && (
             <ReservationModalCountdown
               extendedTimer={extendedTimer}
@@ -71,11 +82,11 @@ export class Slooh1000Setup extends Component {
               placement="top"
               overlay={
                 <Tooltip id="tooltip-step1">
-                  <span>Step 1 info</span>
+                  <span>{step1Tooltip}</span>
                 </Tooltip>
               }
             >
-              <span>Step 1: Choose Category</span>
+              <span>{step1Title}</span>
             </OverlayTrigger>
             <Select
               handleChange={setCategory}
@@ -92,11 +103,11 @@ export class Slooh1000Setup extends Component {
               placement="top"
               overlay={
                 <Tooltip id="tooltip-step2">
-                  <span>Step 2 info</span>
+                  <span>{step2Tooltip}</span>
                 </Tooltip>
               }
             >
-              <span>Step 2: Choose Object</span>
+              <span>{step2Title}</span>
             </OverlayTrigger>
             <Select
               handleChange={setObject}
@@ -127,21 +138,17 @@ export class Slooh1000Setup extends Component {
               placement="top"
               overlay={
                 <Tooltip id="tooltip-step3">
-                  <span>Step 3 info</span>
+                  <span>{step3Tooltip}</span>
                 </Tooltip>
               }
             >
-              {byTelescope ? (
-                <span>Step 3: Click or tap to define</span>
-              ) : (
-                <span>Step 3: Click or tap to find</span>
-              )}
+              <span>{step3Title}</span>
             </OverlayTrigger>
           </div>
 
           <div className="col-sm-6 step-3">
             <Button
-              text={byTelescope ? 'Define Mission' : 'Find a Mission'}
+              text={step3ButtonCaption}
               onClickEvent={getMissionSlot}
               disabled={!selectedCategorySlug || !selectedObjectId || disabled}
             />

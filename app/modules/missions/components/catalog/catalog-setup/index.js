@@ -22,7 +22,6 @@ export class CatalogSetup extends Component {
       setProcessingRecipe,
       processingRecipe,
       disabled,
-      description,
       byTelescope,
       getTelescopeSlot,
       extendedTimer,
@@ -31,15 +30,33 @@ export class CatalogSetup extends Component {
       onCountdownComplete,
       choosePrompt,
       completeReservationPromptLong,
+      pageConfig,
     } = this.props;
 
     const { explanation } = objectData;
+    const {
+      header,
+      step1Title,
+      step1Tooltip,
+      step2ButtonCaption,
+      step2DesignationPrompt,
+      step2ExamplePrompt,
+      step2FormatPrompt,
+      step2Title,
+      step2Tooltip,
+      step3Title,
+      step3Tooltip,
+      step4ButtonCaption,
+      step4Title,
+      step4Tooltip,
+      subheader,
+    } = pageConfig;
 
     return (
       <div className="catalog-setup">
         <div className="row setup-header">
-          <h2>Set up a catalog object mission reservation!</h2>
-          <p>{description}</p>
+          <h2>{header}</h2>
+          <p>{subheader}</p>
           {byTelescope && (
             <ReservationModalCountdown
               extendedTimer={extendedTimer}
@@ -58,11 +75,11 @@ export class CatalogSetup extends Component {
               placement="top"
               overlay={
                 <Tooltip id="tooltip-step1">
-                  <span>Step 1 info</span>
+                  <span>{step1Tooltip}</span>
                 </Tooltip>
               }
             >
-              <span>Step 1: Choose Catalog</span>
+              <span>{step1Title}</span>
             </OverlayTrigger>
             <Select
               handleChange={setCatalog}
@@ -80,31 +97,31 @@ export class CatalogSetup extends Component {
               placement="top"
               overlay={
                 <Tooltip id="tooltip-step2">
-                  <span>Step 2 info</span>
+                  <span>{step2Tooltip}</span>
                 </Tooltip>
               }
             >
-              <span>Step 2: Enter Designation</span>
+              <span>{step2Title}</span>
             </OverlayTrigger>
 
             <textarea
               className="textarea designation"
-              placeholder="Type Designation here"
+              placeholder={step2DesignationPrompt}
               value={designation}
               onChange={e => setDesignation(e.target.value)}
               disabled={disabled}
             />
 
             <div className="designation-format">
-              FORMAT: {selectedCatalog ? selectedCatalogData.catFormat : ''}
+              {step2FormatPrompt} {selectedCatalog ? selectedCatalogData.catFormat : ''}
             </div>
 
             <div className="designation-example">
-              Example: {selectedCatalog ? selectedCatalogData.catExample : ''}
+              {step2ExamplePrompt} {selectedCatalog ? selectedCatalogData.catExample : ''}
             </div>
 
             <Button
-              text="Check Visibility"
+              text={step2ButtonCaption}
               onClickEvent={() => checkCatalogVisibility(designation)}
               disabled={!selectedCatalog || !designation || disabled}
             />
@@ -118,11 +135,11 @@ export class CatalogSetup extends Component {
                 placement="top"
                 overlay={
                   <Tooltip id="tooltip-step3">
-                    <span>Step 3 info</span>
+                    <span>{step3Tooltip}</span>
                   </Tooltip>
                 }
               >
-                <span>Step 3: Image processing</span>
+              <span>{step3Title}</span>
               </OverlayTrigger>
             </div>
 
@@ -158,21 +175,17 @@ export class CatalogSetup extends Component {
               placement="top"
               overlay={
                 <Tooltip id="tooltip-step4">
-                  <span>Step 4 info</span>
+                  <span>{step4Tooltip}</span>
                 </Tooltip>
               }
             >
-              {byTelescope ? (
-                <span>Step 4: Click or tap to define</span>
-              ) : (
-                <span>Step 4: Click or tap to find</span>
-              )}
+              <span>{step4Title}</span>
             </OverlayTrigger>
           </div>
 
           <div className="col-sm-6 step-4">
             <Button
-              text={byTelescope ? 'Define Mission' : 'Find a Mission'}
+              text={step4ButtonCaption}
               onClickEvent={getMissionSlot}
               disabled={
                 !designation ||

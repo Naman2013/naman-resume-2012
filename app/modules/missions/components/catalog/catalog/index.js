@@ -84,6 +84,7 @@ export class Catalog extends Component {
       scheduleMissionCaption,
       choosePrompt,
       completeReservationPromptShort,
+      navigationConfig,
     } = pageSetup;
 
     const { successModalShow } = this.state;
@@ -109,9 +110,7 @@ export class Catalog extends Component {
                   processingRecipe={processingRecipe}
                   disabled={missionSlot && missionSlot.missionAvailable}
                   choosePrompt={choosePrompt}
-                  description="Quickly schedule a mission by choosing from millions of cataloged
-                  objects. Tell us what you'd like to see. We'll find the best
-                  telescope to use and the best time to see it."
+                  pageConfig={navigationConfig[2]}
                 />
               </Box>
             </div>

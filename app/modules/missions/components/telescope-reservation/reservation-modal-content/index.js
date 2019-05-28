@@ -85,7 +85,7 @@ export class ReservationModalContent extends Component {
 
   scrollToGrabbedMission = () => {
     this.grabedMissionTile.scrollIntoView();
-  }
+  };
 
   render() {
     const {
@@ -95,7 +95,6 @@ export class ReservationModalContent extends Component {
       selectedDate,
       reservedMissionData,
       reservedMission,
-      resetMissionsData,
       isFetching,
       isTelescopeFetching,
       onHide,
@@ -103,8 +102,20 @@ export class ReservationModalContent extends Component {
     } = this.props;
     const { teleName } = selectedTelescope;
     const { missionStart } = selectedSlot;
-    const { yourMissionPrompt, cancelButtonCaption, scheduleMissionCaption, completeReservationPromptShort } = pageSetup;
+    const {
+      yourMissionPrompt,
+      cancelButtonCaption,
+      scheduleMissionCaption,
+      completeReservationPromptShort,
+    } = pageSetup;
     const { successModalShow, extendedTimer } = this.state;
+    const { navigationConfig } = pageSetup;
+    const {
+      pageHeader1,
+      pageHeader2,
+      pageSubheader,
+      timeSlotPrompt,
+    } = navigationConfig[3];
 
     return (
       <Fragment>
@@ -115,13 +126,10 @@ export class ReservationModalContent extends Component {
 
         <div className="telescope-reservation-modal-header">
           <h1 className="modal-h">
-            Set Up a Mission on {teleName} at{' '}
+            {pageHeader1} {teleName} {pageHeader2}{' '}
             {moment.utc(missionStart * 1000).format('HH:mm')} UTC
           </h1>
-          <p className="modal-p">
-            Set up a Mission using the Slooh Recommender, by Catalog, or by
-            Coordinates. One credit is required to schedule your own Mission.
-          </p>
+          <p className="modal-p">{pageSubheader}</p>
         </div>
 
         <div className="telescope-reservation-modal-content">
@@ -131,6 +139,7 @@ export class ReservationModalContent extends Component {
                 <ReservationModalSlotInfo
                   timeSlot={selectedSlot}
                   title={selectedDate.reservationDateFormatted}
+                  timeSlotPrompt={timeSlotPrompt}
                 />
 
                 <ReservationModalTabs
@@ -144,8 +153,8 @@ export class ReservationModalContent extends Component {
               </Box>
             </div>
 
-            <div 
-              className="col-lg-4 reserved-mission" 
+            <div
+              className="col-lg-4 reserved-mission"
               ref={node => (this.grabedMissionTile = node)}
             >
               <Box inside>
@@ -156,7 +165,9 @@ export class ReservationModalContent extends Component {
                     onSubmit={this.reserveMissionSlot}
                     cancelButtonCaption={cancelButtonCaption}
                     scheduleMissionCaption={scheduleMissionCaption}
-                    completeReservationPromptShort={completeReservationPromptShort}
+                    completeReservationPromptShort={
+                      completeReservationPromptShort
+                    }
                     byTelescope
                   />
                 ) : (

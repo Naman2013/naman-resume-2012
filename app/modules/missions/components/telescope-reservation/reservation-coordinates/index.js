@@ -35,17 +35,14 @@ class Coordinates extends Component {
       setCategory,
       selectedCategorySlug,
       missionSlot,
-      resetMissionsData,
       selectedCatalog,
       selectedCatalogData,
-      reservedMissionData,
       objectData,
       setTargetName,
       targetName,
       telescopeData,
       setProcessingRecipe,
       processingRecipe,
-      reservedMission,
       checkTargetVisibility,
       getTelescopeSlot,
       extendedTimer,
@@ -57,7 +54,11 @@ class Coordinates extends Component {
       pageSetup,
     } = this.props;
 
-    const { completeReservationPromptLong, choosePrompt } = pageSetup;
+    const {
+      completeReservationPromptLong,
+      choosePrompt,
+      navigationConfig,
+    } = pageSetup;
 
     return (
       <div className="reservation-coordinates coordinates">
@@ -86,8 +87,7 @@ class Coordinates extends Component {
           coordinatesData={coordinatesData}
           completeReservationPromptLong={completeReservationPromptLong}
           choosePrompt={choosePrompt}
-          description="Quickly schedule a Mission by specifying the celestial coordinates that you'd like to image. Check that those coordinates 
-          are visivle from this observatory and telescope during this time slot - if so, we'll reserve the Mission for you."
+          pageConfig={navigationConfig[3].byCoordinates}
           byTelescope
         />
       </div>

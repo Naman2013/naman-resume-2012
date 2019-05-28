@@ -83,7 +83,7 @@ export class Constellation extends Component {
       reservedMission,
       pageSetup,
     } = this.props;
-    const { yourMissionPrompt, cancelButtonCaption, scheduleMissionCaption, choosePrompt, completeReservationPromptShort } = pageSetup;
+    const { yourMissionPrompt, cancelButtonCaption, scheduleMissionCaption, choosePrompt, completeReservationPromptShort, navigationConfig, } = pageSetup;
 
     const { successModalShow } = this.state;
     return (
@@ -104,8 +104,7 @@ export class Constellation extends Component {
                   availableMissions={availableMissions}
                   noObjects={noObjects}
                   choosePrompt={choosePrompt}
-                  description="Welcome to the Constellation! Tell us what you want to see, we’ll
-                  tell you which scope to use, and the best time to see it!"
+                  pageConfig={navigationConfig[1]}
                 />
               </Box>
             </div>
