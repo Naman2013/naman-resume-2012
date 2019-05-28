@@ -86,7 +86,7 @@ export class Telescope extends Component {
       missionListRefreshInterval,
       pageSetup,
     } = this.props;
-    const { setUpTelescopePrompt } = pageSetup;
+    const { setUpTelescopePrompt, navigationConfig } = pageSetup;
     const { reservationModalVisible, refreshCountdownLive } = this.state;
 
     return (
@@ -113,6 +113,7 @@ export class Telescope extends Component {
               onHide={this.reservationModalHide}
               onComplete={this.reservationComplete}
               pageSetup={pageSetup}
+              navigationConfig={navigationConfig[3]}
               show
             />
           )}

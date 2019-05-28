@@ -65,12 +65,9 @@ class Constellation extends Component {
       countdown,
       onCountdownComplete,
       pageSetup,
-    } = this.props;
-    const {
-      completeReservationPromptLong,
-      choosePrompt,
       navigationConfig,
-    } = pageSetup;
+    } = this.props;
+    const { completeReservationPromptLong, choosePrompt } = pageSetup;
 
     return (
       <div className="reservation-constellation constellation">
@@ -92,7 +89,7 @@ class Constellation extends Component {
           extendedTimer={extendedTimer}
           completeReservationPromptLong={completeReservationPromptLong}
           choosePrompt={choosePrompt}
-          pageConfig={navigationConfig[3].byConstellation}
+          pageConfig={navigationConfig.byConstellation}
           byTelescope
         />
       </div>

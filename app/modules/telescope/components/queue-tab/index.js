@@ -118,6 +118,7 @@ export class QueueTab extends Component {
     
     const { missionList, reservationDateFormatted, showShowMoreButton, showMoreButtonCaption } = upcomingSlotsData;
     const { reservationModalVisible } = this.state;
+    const { navigationConfig } = pageSetup;
 
     return (
       <div className={`animated fadeIn faster queue-tab${
@@ -154,6 +155,7 @@ export class QueueTab extends Component {
               onHide={this.reservationModalHide}
               onComplete={this.reservationComplete}
               pageSetup={pageSetup}
+              navigationConfig={navigationConfig[0]}
               show
             />
           )}

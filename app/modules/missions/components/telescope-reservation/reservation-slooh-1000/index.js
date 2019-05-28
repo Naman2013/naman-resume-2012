@@ -68,14 +68,11 @@ class Slooh1000 extends Component {
       countdown,
       onCountdownComplete,
       pageSetup,
+      navigationConfig,
     } = this.props;
 
-    const {
-      completeReservationPromptLong,
-      choosePrompt,
-      navigationConfig,
-    } = pageSetup;
-    
+    const { completeReservationPromptLong, choosePrompt } = pageSetup;
+
     return (
       <div className="reservation-slooh-1000 slooh-1000">
         <Slooh1000Setup
@@ -97,7 +94,7 @@ class Slooh1000 extends Component {
           extendedTimer={extendedTimer}
           completeReservationPromptLong={completeReservationPromptLong}
           choosePrompt={choosePrompt}
-          pageConfig={navigationConfig[3].bySlooh1000}
+          pageConfig={navigationConfig.bySlooh1000}
           byTelescope
         />
       </div>

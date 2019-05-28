@@ -99,6 +99,7 @@ export class ReservationModalContent extends Component {
       isTelescopeFetching,
       onHide,
       pageSetup,
+      navigationConfig,
     } = this.props;
     const { teleName } = selectedTelescope;
     const { missionStart } = selectedSlot;
@@ -109,13 +110,12 @@ export class ReservationModalContent extends Component {
       completeReservationPromptShort,
     } = pageSetup;
     const { successModalShow, extendedTimer } = this.state;
-    const { navigationConfig } = pageSetup;
     const {
       pageHeader1,
       pageHeader2,
       pageSubheader,
       timeSlotPrompt,
-    } = navigationConfig[3];
+    } = navigationConfig;
 
     return (
       <Fragment>
@@ -149,6 +149,7 @@ export class ReservationModalContent extends Component {
                   extendedTimer={extendedTimer}
                   scrollToGrabbedMission={this.scrollToGrabbedMission}
                   pageSetup={pageSetup}
+                  navigationConfig={navigationConfig}
                 />
               </Box>
             </div>
