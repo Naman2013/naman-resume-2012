@@ -39,15 +39,16 @@ export class QueueTab extends Component {
   }
 
   getUpcomingSlotsByTelescope = requestedSlotCount => {
-    const { getUpcomingSlotsByTelescope, currentTelescope, currentObservatory, missionsRefreshTimerEnabled } = this.props;
+    const { getUpcomingSlotsByTelescope, currentTelescope, currentObservatory, missionsRefreshTimerEnabled, offlineQueueTab } = this.props;
     stopMissionListTimer();
     getUpcomingSlotsByTelescope({
+      callSource: offlineQueueTab ? 'offlineQueue' : 'onlineQueue',
       obsId: currentObservatory.obsId,
       domeId: currentTelescope.telePierNumber,
       telescopeId: currentTelescope.teleId,
       requestedSlotCount,
     }).then(data => {
-      if( missionsRefreshTimerEnabled ) {
+      if( missionsRefreshTimerEnabled && offlineQueueTab ) {
         setupMissionListTimer(data.payload.refreshIntervalSec * 1000, () => this.getUpcomingSlotsByTelescope(requestedSlotCount))
       }
     });

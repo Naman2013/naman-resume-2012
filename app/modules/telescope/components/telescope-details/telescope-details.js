@@ -152,7 +152,7 @@ export class TelescopeDetails extends Component {
     ) {
       return null;
     }
-
+    
     const activeInstrumentID = currentInstrument.instrUniqueId;
     const navigationOptions = buildNavigationOptions(observatoryList);
     const selectedNavigationIndex = findActiveTelescopeIndex(
