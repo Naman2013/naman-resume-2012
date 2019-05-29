@@ -72,6 +72,7 @@ export class TelescopeOnline extends Component {
       currentInstrument,
       countdownList,
       params,
+      weatherConditions,
     } = this.props;
 
     const {
