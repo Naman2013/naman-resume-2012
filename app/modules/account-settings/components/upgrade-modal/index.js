@@ -20,8 +20,15 @@ type TUpgradeModal = {
 type TSteps = 'SELECT_PLAN' | 'PAYMENT';
 
 const didMount = (props: TUpgradeModal) => () => {
-  const { getSubscriptionPlans, selectedPlanId } = props;
-  getSubscriptionPlans({ selectedPlanId });
+  const {
+    getSubscriptionPlans,
+    selectedPlanId,
+    subscriptionPlansCallSource,
+  } = props;
+  getSubscriptionPlans({
+    selectedPlanId,
+    callSource: subscriptionPlansCallSource,
+  });
 };
 
 export const UpgradeModal = (props: TUpgradeModal) => {
