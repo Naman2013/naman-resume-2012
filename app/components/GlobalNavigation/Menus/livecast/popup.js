@@ -1,5 +1,6 @@
 // @flow
 
+import { LiveShowControl } from 'app/components/GlobalNavigation/Menus/livecast/liveshow-control';
 import type { TLivecastData } from 'app/components/GlobalNavigation/Menus/livecast/types';
 import React, { useState } from 'react';
 import { Tooltip } from 'react-tippy';
@@ -13,6 +14,7 @@ type TLivecastPopup = {
   volume: number,
   isPlaying: boolean,
   setPlaying: Function,
+  liveShows: any,
 };
 
 export const LivecastPopup = (props: TLivecastPopup) => {
@@ -23,9 +25,11 @@ export const LivecastPopup = (props: TLivecastPopup) => {
     volume: initialVolume,
     isPlaying,
     setPlaying,
+    liveShows,
   } = props;
   const { displayTitle = '', LiveShowData = {} } = livecastData;
-  const { title = '', description = '' } = LiveShowData;
+
+  console.log(liveShows);
 
   const close = () => setOpen(false);
 
@@ -57,44 +61,9 @@ export const LivecastPopup = (props: TLivecastPopup) => {
         </Tooltip>
       </div>
       <div className="popup-body">
-        <div className="h2-custom">{title}</div>
-        <p className="p-19">{description}</p>
-
-        <hr />
-
-        <div className="controls">
-          <input
-            type="range"
-            name="points"
-            min="0"
-            max="100"
-            onChange={handleVolumeChange}
-            value={volume}
-            id="volume-range"
-          />
-
-          <Tooltip title="Mute">
-            <div className="mute-btn" role="presentation" onClick={mute}>
-              <span className="icon-volume-muted" />
-            </div>
-          </Tooltip>
-
-          {!isPlaying && (
-            <Tooltip title="Play">
-              <div className="mute-btn" role="presentation" onClick={play}>
-                <span className="icon-play" />
-              </div>
-            </Tooltip>
-          )}
-
-          {isPlaying && (
-            <Tooltip title="Stop">
-              <div className="mute-btn" role="presentation" onClick={stop}>
-                <span className="icon-stop" />
-              </div>
-            </Tooltip>
-          )}
-        </div>
+        {Object.values(liveShows).map(liveShow => (
+          <LiveShowControl liveShow={liveShow} />
+        ))}
       </div>
     </div>
   );

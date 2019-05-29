@@ -6,6 +6,7 @@ import axios from 'axios';
 import React, { PureComponent } from 'react';
 import './styles.scss';
 import YouTube from 'react-youtube';
+import _keyBy from 'lodash/keyBy';
 
 type TLivecast = {
   onClick: Function,
@@ -18,21 +19,22 @@ type TState = {
 };
 
 const YT_OPTIONS = {
-  height: '0',
-  width: '0',
+  height: '210',
+  width: '210',
   playerVars: {
     autoplay: 1,
   },
 };
 
 export class Livecast extends PureComponent<TLivecast, TState> {
-  YTPlayer: null;
+  // YTPlayer: null;
 
   state = {
     livecastData: {},
     isOpen: false,
     isPlaying: false,
     volume: 50,
+    liveShows: {},
   };
 
   componentDidMount = () => {
@@ -41,17 +43,32 @@ export class Livecast extends PureComponent<TLivecast, TState> {
     axios
       .post('/api/events/getLivecast', { cid, at, token })
       .then(({ data }) => {
-        this.setState({ livecastData: data });
+        this.setState({
+          livecastData: data,
+          liveShows: _keyBy(data.LiveShowData, 'livecastId'),
+        });
       });
   };
 
+  getLiveShow = (liveShows, livecastId) =>
+    liveShows.find(ls => ls.livecastId === livecastId);
+
   setOpen = isOpen => this.setState({ isOpen });
 
-  onPlayerReady = event => {
-    const { volume } = this.state;
-    event.target.setVolume(volume);
-    event.target.pauseVideo();
-    this.YTPlayer = event.target;
+  onPlayerReady = (event, liveShow, id) => {
+    let { volume, liveShows } = this.state;
+
+    const ytPlayer = event.target;
+    ytPlayer.setVolume(volume);
+    ytPlayer.pauseVideo();
+
+    // this.YTPlayer = ytPlayer;
+    const newLiveShow = { ...liveShow };
+    newLiveShow.ytPlayer = ytPlayer;
+
+    liveShows = { ...liveShows, ...{ [id]: newLiveShow } };
+
+    this.setState({ liveShows });
   };
 
   setVolume = volume =>
@@ -64,13 +81,10 @@ export class Livecast extends PureComponent<TLivecast, TState> {
 
   render() {
     const { onClick } = this.props;
-    const { livecastData, isOpen, volume, isPlaying } = this.state;
-    const { LiveShowData = {} } = livecastData;
-    let { streamCode } = LiveShowData;
+    const { livecastData, isOpen, volume, isPlaying, liveShows } = this.state;
 
-    streamCode = 'KBoBIrqwf8o';
+    console.log(liveShows);
 
-    console.log(livecastData);
     return (
       <div className="livecast-btn">
         <span
@@ -82,14 +96,13 @@ export class Livecast extends PureComponent<TLivecast, TState> {
           }}
         />
 
-        {streamCode && (
+        {Object.values(liveShows).map(liveShow => (
           <YouTube
-            id="global-audio-player-instance"
-            onReady={this.onPlayerReady}
-            videoId={streamCode}
+            onReady={e => this.onPlayerReady(e, liveShow, liveShow.livecastId)}
+            videoId={liveShow.streamCode}
             opts={YT_OPTIONS}
           />
-        )}
+        ))}
 
         {isOpen && (
           <LivecastPopup
@@ -99,6 +112,7 @@ export class Livecast extends PureComponent<TLivecast, TState> {
             volume={volume}
             isPlaying={isPlaying}
             setPlaying={this.setPlaying}
+            liveShows={liveShows}
           />
         )}
       </div>

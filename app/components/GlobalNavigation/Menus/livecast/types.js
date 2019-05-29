@@ -10,8 +10,8 @@ export type TLiveShowData = {
 };
 
 export type TLivecastData = {
-  LiveShowData: TLiveShowData,
-  UpcommingShowData: Array<any>,
+  LiveShowData: Array<TLiveShowData>,
+  UpcommingShowData: Array<TLiveShowData>,
   apiError: boolean,
   displayTitle: string,
   errorCode: number,
