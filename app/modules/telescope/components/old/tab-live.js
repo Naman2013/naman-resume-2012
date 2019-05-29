@@ -61,11 +61,13 @@ const TabLive = ({
     {currentObservatory.showCountdown &&
       currentMissionCountdown &&
       currentMissionCountdown.showCountdown && (
-        <SunsetCountdown
-          label={currentMissionCountdown.countdownLabel}
-          countdownTimestamp={currentMissionCountdown.countdownTimestamp}
-          onExpired={fetchAllTelescopeStatus}
-        />
+        <div className="tile-container">
+          <SunsetCountdown
+            label={currentMissionCountdown.countdownLabel}
+            countdownTimestamp={currentMissionCountdown.countdownTimestamp}
+            onExpired={fetchAllTelescopeStatus}
+          />
+        </div>
       )}
 
     <div className="tile-container">

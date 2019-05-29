@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { ModuleContainer } from 'app/modules/telescope/components/old/module-container';
 import SectionHeader from '../../common/headers/SectionHeader';
 import TimeUntil from '../../common/inline-countdown/TimeUntil';
-import { white } from '../../../styles/variables/colors';
+import { fontBlack } from '../../../styles/variables/colors';
 
 const propTypes = {
   label: PropTypes.string,
@@ -16,29 +17,17 @@ const defaultProps = {
 
 const SunsetCountdown = ({ label, countdownTimestamp, onExpired }) => (
   <div className="root">
-    <SectionHeader title={label} />
-    <div className="countdown-container">
+    <ModuleContainer title={label}>
       <TimeUntil
         onExpired={onExpired}
         startTime={countdownTimestamp}
         style={{
           textAlign: 'center',
-          color: white,
+          color: fontBlack,
           fontSize: '22px',
         }}
       />
-    </div>
-
-    <style jsx>{`
-      .root {
-        margin-bottom: 20px;
-      }
-
-      .countdown-container {
-        background: rgba(0, 0, 0, 0.75);
-        padding: 20px;
-      }
-    `}</style>
+    </ModuleContainer>
   </div>
 );
 
