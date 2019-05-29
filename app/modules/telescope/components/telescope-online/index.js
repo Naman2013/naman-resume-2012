@@ -175,21 +175,27 @@ export class TelescopeOnline extends Component {
                       <div>
                         {currentInstrument.instrImageSourceType === 'video' ? (
                           <div>
-                            <VideoImageLoader
-                              instrStarShareCamera={instrStarShareCamera}
-                              teleStreamCode={instrStreamCode}
-                              teleStreamURL={instrStreamURL}
-                              teleStreamThumbnailVideoWidth="810"
-                              teleStreamThumbnailVideoHeight="600"
-                              teleStreamThumbnailQuality={
-                                instrStreamThumbnailQuality
+                            <DeviceContext.Consumer>
+                              {context =>
+                                !context.isScreenLarge && !context.isScreenXLarge ? (
+                                <VideoImageLoader
+                                  instrStarShareCamera={instrStarShareCamera}
+                                  teleStreamCode={instrStreamCode}
+                                  teleStreamURL={instrStreamURL}
+                                  teleStreamThumbnailVideoWidth="810"
+                                  teleStreamThumbnailVideoHeight="600"
+                                  teleStreamThumbnailQuality={
+                                    instrStreamThumbnailQuality
+                                  }
+                                  teleSystem={instrSystem}
+                                  telePort={instrPort}
+                                  cameraSourceType={instrCameraSourceType}
+                                  showOverlay={false}
+                                  autoplay={1}
+                                />
+                                ) : null
                               }
-                              teleSystem={instrSystem}
-                              telePort={instrPort}
-                              cameraSourceType={instrCameraSourceType}
-                              showOverlay={false}
-                              autoplay={1}
-                            />
+                            </DeviceContext.Consumer>
                           </div>
                         ) : (      
                           <DeviceContext.Consumer>
