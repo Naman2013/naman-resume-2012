@@ -1,22 +1,34 @@
 // @flow
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Tooltip } from 'react-tippy';
 
 type TLiveShowControl = {
   liveShow: any,
+  onVolumeChange: Function,
+  volume: number,
+  isPlaying: boolean,
+  play: Function,
+  stop: Function,
+  play: Function,
 };
 
 export const LiveShowControl = (props: TLiveShowControl) => {
-  const { liveShow } = props;
+  const { liveShow, volume: initialVolume, isPlaying, play, stop } = props;
   const { title = '', description = '' } = liveShow;
 
-  const volume = 50;
-  const handleVolumeChange = () => {};
-  const mute = () => {};
-  const play = () => {};
-  const stop = () => {};
-  const isPlaying = false;
+  const [volume, setVolume] = useState(initialVolume);
+
+  const handleVolumeChange = evt => {
+    const { value } = evt.target;
+    setVolume(value);
+    // onVolumeChange(value);
+  };
+
+  const mute = () => {
+    setVolume(0);
+    // onVolumeChange(0);
+  };
 
   return (
     <>
