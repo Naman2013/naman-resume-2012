@@ -13,7 +13,7 @@ export class WeeklyForecast extends Component {
     showNextButton: false,
   };
 
-  componentWillMount() {
+  componentDidMount() {
     this.refreshData(this.props);
   }
 
