@@ -61,7 +61,7 @@ const TabLive = ({
         AllskyTimelapseWidgetId={activeTelescope.AllskyTimelapseWidgetId}
       />
     </div>
-    {mission.objectId && (
+    {/* {mission.objectId && (
       <div className="tile-container">
         <Request
           serviceURL={OBJECT_HOW_BIG}
@@ -76,7 +76,7 @@ const TabLive = ({
           )}
         />
       </div>
-    )}
+    )} */}
 
     {mission.missionAvailable && (
       <Fragment>

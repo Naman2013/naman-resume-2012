@@ -8,27 +8,34 @@ const FieldOfView = ({
   canvasWidth,
   activeInstrumentID,
   previousInstrumentID,
+  currentZoomIn,
+  currentZoomOut,
 }) => {
   const activeTelescope = getTelescope(activeInstrumentID);
   const previousTelescope = getTelescope(previousInstrumentID);
 
   return (
     <g>
-      <FOV
-        tickSpacing={tickSpacing}
-        canvasWidth={canvasWidth}
-        gridWidth={activeTelescope.PORTAL.horizontal}
-        largeRectGridWidth={activeTelescope.FOV.horizontal}
-        stroke="red"
-      />
+      {currentZoomIn && !currentZoomOut && (
+        <FOV
+          tickSpacing={tickSpacing}
+          canvasWidth={canvasWidth}
+          gridWidth={activeTelescope.PORTAL.horizontal}
+          largeRectGridWidth={activeTelescope.FOV.horizontal}
+          stroke="gold"
+        />
+      )}
 
-      <FOV
-        tickSpacing={tickSpacing}
-        canvasWidth={canvasWidth}
-        gridWidth={previousTelescope.PORTAL.horizontal}
-        largeRectGridWidth={previousTelescope.FOV.horizontal}
-        stroke="aqua"
-      />
+      {currentZoomOut && (
+        <FOV
+          tickSpacing={tickSpacing}
+          canvasWidth={canvasWidth}
+          gridWidth={previousTelescope.PORTAL.horizontal}
+          largeRectGridWidth={previousTelescope.FOV.horizontal}
+          stroke={currentZoomIn ? 'gold' : 'aqua'}
+          telescope={currentZoomIn ? previousTelescope : activeTelescope}
+        />
+      )}
     </g>
   );
 };

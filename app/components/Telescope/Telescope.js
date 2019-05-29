@@ -18,6 +18,7 @@ import { getTelescope } from './telescopeConfig';
 import FieldOfView from './FieldOfView/FieldOfView';
 
 import { moodyBleu, romance } from '../../styles/variables/colors_tiles_v4';
+import Text from '../SVG/Text';
 
 const MAX_RESOLUTION = 250;
 const MAX_DURATION = 10000;
@@ -349,11 +350,22 @@ class Telescope extends PureComponent<TTelescope> {
                   </FadeSVG>
                   {activeInstrumentID && previousInstrumentID && isGridActive && (
                     <FadeSVG isHidden={!isTransitioningTelescope}>
+                      {!this.currentZoomInTransition &&
+                        !this.currentZoomOutTransition && (
+                          <UnitText
+                            text="CHANGING FIELD OF VIEW"
+                            x={width / 2}
+                            y={height / 2}
+                            style={{ fill: 'aqua', width: '100%' }}
+                          />
+                        )}
                       <FieldOfView
                         activeInstrumentID={activeInstrumentID}
                         previousInstrumentID={previousInstrumentID}
                         tickSpacing={tickSpacing}
                         canvasWidth={width}
+                        currentZoomIn={this.currentZoomInTransition}
+                        currentZoomOut={this.currentZoomOutTransition}
                       />
                     </FadeSVG>
                   )}
