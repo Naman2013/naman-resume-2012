@@ -14,8 +14,8 @@ import {
   makeQueueTabFeaturedObjectsDataSelector,
   makeQueueTabReservedCommunityMissionDataSelector,
   makeQueueTabReservedCommunityMissionSelector,
+  makeTelescopePageSetupSelector,
 } from '../selectors';
-import { ACTION } from '../reducer';
 import {
   getTelescopeSlot,
   setTelescope,
@@ -33,6 +33,7 @@ const mapStateToProps = createStructuredSelector({
   reservedCommunityMissionData: makeQueueTabReservedCommunityMissionDataSelector(),
   user: makeUserSelector(),
   reservedCommunityMission: makeQueueTabReservedCommunityMissionSelector(),
+  pageSetup: makeTelescopePageSetupSelector(),
 });
 
 const mapDispatchToProps = {

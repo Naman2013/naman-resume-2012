@@ -1,0 +1,6 @@
+.mission-card-container {
+  &.mission-expired {
+    pointer-events: none;
+    opacity: 0.5;
+  }
+}

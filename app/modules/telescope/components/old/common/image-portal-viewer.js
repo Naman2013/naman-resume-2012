@@ -14,11 +14,6 @@ export class ImagePortalViewer extends Component {
       >
         <div className="content">
           <ImagePortal src={imageURL} />
-          {title && (
-            <div className="meta-data">
-              <p className="copy">{title}</p>
-            </div>
-          )}
         </div>
         <style jsx>{style}</style>
       </div>

@@ -41,6 +41,7 @@ import ObjectDetailsSectionTitle from '../../components/object-details/ObjectDet
 import MissionTile from 'app/components/common/tiles/MissionTile';
 import CenterColumn from '../../../app/components/common/CenterColumn';
 import messages from './ObjectDetails.messages';
+import './ObjectDetailsMissions.scss';
 
 const mapStateToProps = createStructuredSelector({
   missionData: makeObjectDetailsMissionsSelector(),
@@ -65,6 +66,7 @@ class Missions extends Component {
     reservationModalVisible: false,
     selectedMission: {},
     successModalShow: false,
+    missionListExpired: false,
   };
 
   componentDidMount() {
@@ -83,8 +85,9 @@ class Missions extends Component {
     stopCommunityMissionExpireTimer();
     getCommunityMissions(objectId).then(({ data }) => {
       const timerTime = data.expires - data.timestamp;
+      this.setState({ missionListExpired: false });
       setupCommunityMissionExpireTimer(timerTime, () =>
-        this.getCommunityMissions()
+        this.setState({ missionListExpired: true })
       );
     });;
   }
@@ -127,7 +130,7 @@ class Missions extends Component {
       isFetching
     } = this.props;
     const { missionCount, missionList } = missionData;
-    const { reservationModalVisible, selectedMission, successModalShow } = this.state;
+    const { reservationModalVisible, selectedMission, successModalShow, missionListExpired } = this.state;
 
     return (
       <Fragment>
@@ -140,7 +143,7 @@ class Missions extends Component {
             subTitle={intl.formatMessage(messages.UpcomingMissions)}
             renderNav={() => (
               <div className="nav-actions">
-                {!isFetching && (
+                {missionListExpired && (
                   <Button
                     onClick={this.getCommunityMissions}
                   >
@@ -155,7 +158,7 @@ class Missions extends Component {
           {missionCount > 0 ? (
             <div style={{margin: '0 20px 40px'}}>
               {missionList.map(item => (
-                <div>
+                <div className={`mission-card-container${missionListExpired ? ' mission-expired' : ''}`}>
                   <MissionCard
                     key={item.scheduledMissionId}
                     timeSlot={item}

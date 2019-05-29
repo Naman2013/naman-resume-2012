@@ -125,6 +125,13 @@ class SubmitReplyForm extends PureComponent {
     });
   };
 
+  onChangeAnswerText = e => {
+    e.preventDefault();
+    this.setState({
+      answerText: e.target.value,
+    });
+  };
+
   closeModal = () => {
     const { modalActions, user } = this.props;
     const { cid, token, at } = user;

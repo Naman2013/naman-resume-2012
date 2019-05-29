@@ -150,7 +150,7 @@ class SubmitAnswerButton extends Component {
       ),
       promptStyles: customModalStylesBlackOverlay,
     });
-    modalActions.showModal();
+    return modalActions.showModal();
   };
 
   render() {

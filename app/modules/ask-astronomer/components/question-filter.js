@@ -32,7 +32,7 @@ class QuestionFilter extends Component {
     return [
       {
         label: <FormattedMessage {...messages.AllQuestions} />,
-        value: 'all',
+        value: 'objectonly',
       },
       {
         label: <FormattedMessage {...messages.AllAnswered} />,

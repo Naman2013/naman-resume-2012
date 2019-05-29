@@ -17,6 +17,6 @@ export default css`
     height: 200px;
     overflow: hidden;
     border-radius: 50%;
-    background-size: 133% 100% !important;
+    background-size: cover !important;
   }
 `;

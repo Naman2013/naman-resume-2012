@@ -1,3 +1,4 @@
+import { Livecast } from 'app/components/GlobalNavigation/Menus/livecast';
 import React, { Fragment } from 'react';
 import { browserHistory } from 'react-router';
 import { FormattedMessage } from 'react-intl';
@@ -100,6 +101,17 @@ const TopBar = ({ handleMenuClick, activeMenu, handleNotificationClick }) => {
                     ?
                   </Button>
                 </li> */}
+                {user.isAuthorized ? (
+                  <li>
+                    <Button
+                      mod="no-border"
+                      isActive={alertsIsActive}
+                      handleClick={alerts}
+                    >
+                      <Livecast />
+                    </Button>
+                  </li>
+                ) : null}
                 {user.isAuthorized ? (
                   <li>
                     <Button

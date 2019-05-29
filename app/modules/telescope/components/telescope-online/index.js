@@ -81,6 +81,7 @@ export class TelescopeOnline extends Component {
       instrSystem,
       instrPort,
       instrCameraSourceType,
+      instrStarShareCamera,
     } = currentInstrument;
 
     const { teleUniqueId } = params;
@@ -103,6 +104,7 @@ export class TelescopeOnline extends Component {
                     {currentInstrument.instrImageSourceType === 'video' && (
                       <div>
                         <VideoImageLoader
+                          instrStarShareCamera={instrStarShareCamera}
                           teleStreamCode={instrStreamCode}
                           teleStreamURL={instrStreamURL}
                           teleStreamThumbnailVideoWidth="810"
@@ -121,6 +123,7 @@ export class TelescopeOnline extends Component {
                     {currentInstrument.instrImageSourceType !== 'video' && (
                       <TelescopeImageViewerController
                         activeInstrumentID={activeInstrumentID}
+                        instrStarShareCamera={instrStarShareCamera}
                         render={({ viewportHeight }, onImageChange) =>
                           provideLiveFeed(
                             {
@@ -173,6 +176,7 @@ export class TelescopeOnline extends Component {
                         {currentInstrument.instrImageSourceType === 'video' ? (
                           <div>
                             <VideoImageLoader
+                              instrStarShareCamera={instrStarShareCamera}
                               teleStreamCode={instrStreamCode}
                               teleStreamURL={instrStreamURL}
                               teleStreamThumbnailVideoWidth="810"
@@ -190,6 +194,7 @@ export class TelescopeOnline extends Component {
                         ) : (
                           <TelescopeImageViewerController
                             activeInstrumentID={activeInstrumentID}
+                            instrStarShareCamera={instrStarShareCamera}
                             render={({ viewportHeight }, onImageChange) =>
                               provideLiveFeed(
                                 {

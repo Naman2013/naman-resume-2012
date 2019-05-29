@@ -1,10 +1,6 @@
 .icon-ellipsis-h:before {
   content: "\e90d";
 }
-.icon-bell:before {
-  content: "\e90c";
-  color: #41566f;
-}
 .icon-user_astronaut .path1:before {
   content: "\e909";
   color: #000;
@@ -44,16 +40,6 @@
   font-style: normal;
   background: transparent url("https://vega.slooh.com/assets/v4/icons/telescope_astronaut.svg") no-repeat;
   background-size: 100%;
-}
-.i-bell {
-  position: relative;
-  top: 2px;
-  display: inline-flex;
-  height: 20px;
-  width: 20px;
-  font-style: normal;
-  background: transparent url("https://vega.slooh.com/assets/v4/icons/bell.svg") no-repeat;
-  background-size: 75%;
 }
 .i-user-astronaut {
   display: inline-flex;
