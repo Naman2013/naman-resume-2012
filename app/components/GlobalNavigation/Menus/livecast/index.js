@@ -19,88 +19,15 @@ type TState = {
 };
 
 const YT_OPTIONS = {
-  height: '210',
-  width: '210',
+  height: '0',
+  width: '0',
   playerVars: {
     autoplay: 1,
   },
 };
 
-const R = {
-  ver: 'v1',
-  lang: 'en',
-  apiError: false,
-  errorCode: 0,
-  errorMsg: '',
-  statusCode: 200,
-  test1: '8',
-  displayTitle: 'Listen to this live audio show!',
-  LiveShowData: [
-    {
-      livecastId: '5',
-      title: 'Test Show 2.5',
-      hostName: 'ColinLynch',
-      streamCode: 'YBzMGZd3RPE',
-      startTime: '1559044800',
-      endTime: '1559304000',
-      formattedStartTime: '05/28/2019 12:00:00 PM',
-      formattedEndTime: '05/31/2019 12:00:00 PM',
-      description: 'Test Edit description 2',
-    },
-    {
-      livecastId: '10',
-      title: 'Tests quick show 2',
-      hostName: 'Mike Kastke',
-      streamCode: 'BTSosSzjbd4',
-      startTime: '1559044800',
-      endTime: '1559304000',
-      formattedStartTime: '05/28/2019 12:00:00 PM',
-      formattedEndTime: '05/31/2019 12:00:00 PM',
-      description: 'Test Edit Description',
-    },
-    {
-      livecastId: '11',
-      title: 'Tests quick show 3',
-      hostName: 'Mike Kastke',
-      streamCode: 'gasP4MEdkss',
-      startTime: '1559044800',
-      endTime: '1559304000',
-      formattedStartTime: '05/28/2019 12:00:00 PM',
-      formattedEndTime: '05/31/2019 12:00:00 PM',
-      description: 'Test Edit Description 3',
-    },
-  ],
-  UpcommingShowData: [
-    {
-      livecastId: '1',
-      title: 'Test Quick Show',
-      hostName: 'Mike Kastke',
-      streamCode: '3RZ9Kj1kr_8',
-      startTime: '1569248400',
-      endTime: '1569369647',
-      formattedStartTime: '09/23/2019 02:20:00 PM',
-      formattedEndTime: '09/25/2019 12:00:47 AM',
-      description: 'Test Edit Description',
-      countdownTests: 2811.0686111111113,
-    },
-    {
-      livecastId: '8',
-      title: 'Test create2',
-      hostName: null,
-      streamCode: 'HF7824JC-62',
-      startTime: '1600864200',
-      endTime: '1600952400',
-      formattedStartTime: '09/23/2020 12:30:00 PM',
-      formattedEndTime: '09/24/2020 01:00:00 PM',
-      description: ';lkasdfk;j',
-      countdownTests: 11593.235277777778,
-    },
-  ],
-  isLive: true,
-};
-
 export class Livecast extends PureComponent<TLivecast, TState> {
-  YTPlayer: null;
+  YTPlayer: {};
 
   state = {
     livecastData: {},
@@ -115,8 +42,7 @@ export class Livecast extends PureComponent<TLivecast, TState> {
     const { cid, at, token } = user;
     axios
       .post('/api/events/getLivecast', { cid, at, token })
-      .then((/*{ data }*/) => {
-        const data = R; // todo temp mocked
+      .then(({ data }) => {
         this.setState({
           livecastData: data,
           liveShows: [...data.LiveShowData],
@@ -127,7 +53,6 @@ export class Livecast extends PureComponent<TLivecast, TState> {
   setOpen = isOpen => this.setState({ isOpen });
 
   onPlayerReady = event => {
-    console.log('ON_PLAYER_READY');
     let { volume } = this.state;
 
     this.YTPlayer = event.target;
@@ -139,14 +64,7 @@ export class Livecast extends PureComponent<TLivecast, TState> {
     this.setState({ volume }, () => this.YTPlayer.setVolume(volume));
 
   setPlay = playingVideoId =>
-    this.setState(
-      { playingVideoId },
-      () => {
-        console.log('play');
-        this.YTPlayer.playVideo();
-      }
-      // playingVideoId ? this.YTPlayer.playVideo() : this.YTPlayer.stopVideo()
-    );
+    this.setState({ playingVideoId }, () => this.YTPlayer.playVideo());
 
   render() {
     const { onClick } = this.props;
@@ -159,8 +77,6 @@ export class Livecast extends PureComponent<TLivecast, TState> {
     } = this.state;
 
     const { displayTitle } = livecastData;
-
-    console.log(liveShows);
 
     return (
       <div className="livecast-btn">
@@ -180,21 +96,16 @@ export class Livecast extends PureComponent<TLivecast, TState> {
         />
 
         {isOpen && (
-          <LivecastPopup
-            setOpen={this.setOpen}
-            title={displayTitle}
-            playingVideoId={playingVideoId}
-            liveShows={liveShows}
-          >
+          <LivecastPopup setOpen={this.setOpen} title={displayTitle}>
             <>
               {liveShows.map(liveShow => (
                 <LiveShowControl
                   key={liveShow.livecastId}
                   liveShow={liveShow}
                   volume={volume}
-                  play={() => this.setPlay(liveShow.streamCode)}
-                  stop={() => this.setPlay(null)}
+                  setPlay={this.setPlay}
                   isPlaying={playingVideoId === liveShow.streamCode}
+                  onVolumeChange={this.setVolume}
                 />
               ))}
             </>

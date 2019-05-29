@@ -8,13 +8,16 @@ type TLiveShowControl = {
   onVolumeChange: Function,
   volume: number,
   isPlaying: boolean,
-  play: Function,
-  stop: Function,
-  play: Function,
 };
 
 export const LiveShowControl = (props: TLiveShowControl) => {
-  const { liveShow, volume: initialVolume, isPlaying, play, stop } = props;
+  const {
+    liveShow,
+    volume: initialVolume,
+    isPlaying,
+    setPlay,
+    onVolumeChange,
+  } = props;
   const { title = '', description = '' } = liveShow;
 
   const [volume, setVolume] = useState(initialVolume);
@@ -22,13 +25,23 @@ export const LiveShowControl = (props: TLiveShowControl) => {
   const handleVolumeChange = evt => {
     const { value } = evt.target;
     setVolume(value);
-    // onVolumeChange(value);
+    if (isPlaying) {
+      onVolumeChange(value);
+    }
   };
 
   const mute = () => {
     setVolume(0);
-    // onVolumeChange(0);
+    if (isPlaying) {
+      onVolumeChange(0);
+    }
   };
+
+  const play = () => {
+    setPlay(liveShow.streamCode);
+    onVolumeChange(volume);
+  };
+  const stop = () => setPlay(null);
 
   return (
     <>
@@ -49,14 +62,22 @@ export const LiveShowControl = (props: TLiveShowControl) => {
         />
 
         <Tooltip title="Mute">
-          <div className="mute-btn" role="presentation" onClick={mute}>
+          <div
+            className="player-control-btn"
+            role="presentation"
+            onClick={mute}
+          >
             <span className="icon-volume-muted" />
           </div>
         </Tooltip>
 
         {!isPlaying && (
           <Tooltip title="Play">
-            <div className="mute-btn" role="presentation" onClick={play}>
+            <div
+              className="player-control-btn"
+              role="presentation"
+              onClick={play}
+            >
               <span className="icon-play" />
             </div>
           </Tooltip>
@@ -64,7 +85,11 @@ export const LiveShowControl = (props: TLiveShowControl) => {
 
         {isPlaying && (
           <Tooltip title="Stop">
-            <div className="mute-btn" role="presentation" onClick={stop}>
+            <div
+              className="player-control-btn"
+              role="presentation"
+              onClick={stop}
+            >
               <span className="icon-stop" />
             </div>
           </Tooltip>
