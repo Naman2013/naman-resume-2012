@@ -81,6 +81,8 @@ class Telescope extends PureComponent<TTelescope> {
     isMaskActive: false,
     isModalActive: false,
     isGridActive: true,
+    showTitleMessage: false,
+    transitionStrokeColor: 'aqua',
     portalDimensions: {
       bottom: 0,
       height: 0,
@@ -104,7 +106,7 @@ class Telescope extends PureComponent<TTelescope> {
         activeInstrumentID: previousInstrumentID,
         previousInstrumentID: activeInstrumentID,
       }));
-      this.transitionZoomOut();
+      this.showTitleMessage();
     }
 
     if (missionMetaData.missionTargetID === 0) {
@@ -129,6 +131,15 @@ class Telescope extends PureComponent<TTelescope> {
   currentZoomOutTransition = null;
 
   doFOVTransitionInterval = null;
+
+  showTitleMessage = () => {
+    this.setState({ showTitleMessage: true }, () => {
+      setTimeout(() => {
+        this.setState({ showTitleMessage: false });
+        this.transitionZoomOut();
+      }, 1000);
+    });
+  };
 
   transitionZoomOut() {
     let remainingDuration = 0;
@@ -161,7 +172,10 @@ class Telescope extends PureComponent<TTelescope> {
   }
 
   transitionPOV() {
-    this.setState({ timesFlippedInstrumentBorder: 0 });
+    this.setState({
+      timesFlippedInstrumentBorder: 0,
+      transitionStrokeColor: '#FAD59A',
+    });
     this.doFOVTransitionInterval = setInterval(() => {
       this.setState(prevState => {
         const {
@@ -208,6 +222,7 @@ class Telescope extends PureComponent<TTelescope> {
         vertical: targetTelescope.PORTAL.vertical,
       }
     );
+    this.setState({ transitionStrokeColor: 'aqua' });
   }
 
   telescopeTransitionComplete() {
@@ -348,17 +363,16 @@ class Telescope extends PureComponent<TTelescope> {
                   <FadeSVG isHidden={isTransitioningTelescope}>
                     {isMaskActive && <Mask radius={radius} />}
                   </FadeSVG>
+                  {this.state.showTitleMessage && (
+                    <UnitText
+                      text="CHANGING FIELD OF VIEW"
+                      x={width / 2}
+                      y={height / 2}
+                      style={{ fill: 'aqua', width: '100%' }}
+                    />
+                  )}
                   {activeInstrumentID && previousInstrumentID && isGridActive && (
                     <FadeSVG isHidden={!isTransitioningTelescope}>
-                      {!this.currentZoomInTransition &&
-                        !this.currentZoomOutTransition && (
-                          <UnitText
-                            text="CHANGING FIELD OF VIEW"
-                            x={width / 2}
-                            y={height / 2}
-                            style={{ fill: 'aqua', width: '100%' }}
-                          />
-                        )}
                       <FieldOfView
                         activeInstrumentID={activeInstrumentID}
                         previousInstrumentID={previousInstrumentID}
@@ -366,6 +380,7 @@ class Telescope extends PureComponent<TTelescope> {
                         canvasWidth={width}
                         currentZoomIn={this.currentZoomInTransition}
                         currentZoomOut={this.currentZoomOutTransition}
+                        stroke={this.state.transitionStrokeColor}
                       />
                     </FadeSVG>
                   )}

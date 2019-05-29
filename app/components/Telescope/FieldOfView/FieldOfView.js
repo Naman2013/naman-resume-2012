@@ -10,21 +10,22 @@ const FieldOfView = ({
   previousInstrumentID,
   currentZoomIn,
   currentZoomOut,
+  stroke,
 }) => {
   const activeTelescope = getTelescope(activeInstrumentID);
   const previousTelescope = getTelescope(previousInstrumentID);
 
   return (
     <g>
-      {currentZoomIn && !currentZoomOut && (
+      {/* {currentZoomIn && !currentZoomOut && (
         <FOV
           tickSpacing={tickSpacing}
           canvasWidth={canvasWidth}
           gridWidth={activeTelescope.PORTAL.horizontal}
           largeRectGridWidth={activeTelescope.FOV.horizontal}
-          stroke="gold"
+          stroke="#FAD59A"
         />
-      )}
+      )} */}
 
       {currentZoomOut && (
         <FOV
@@ -32,7 +33,7 @@ const FieldOfView = ({
           canvasWidth={canvasWidth}
           gridWidth={previousTelescope.PORTAL.horizontal}
           largeRectGridWidth={previousTelescope.FOV.horizontal}
-          stroke={currentZoomIn ? 'aqua' : 'gold'}
+          stroke={stroke}
           telescope={currentZoomIn ? previousTelescope : activeTelescope}
         />
       )}
