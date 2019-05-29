@@ -210,7 +210,12 @@ export const getObjectList = data => (dispatch, getState) => {
     cid,
     ...data,
   })
-    .then(result => dispatch(ACTION.getObjectListSuccess(result.data)))
+    .then(result => {
+      if(!result.data.apiError){
+        return dispatch(ACTION.getObjectListSuccess(result.data));
+      }
+      return dispatch(ACTION.getObjectListError(error));
+    })
     .catch(error => dispatch(ACTION.getObjectListError(error)));
 };
 

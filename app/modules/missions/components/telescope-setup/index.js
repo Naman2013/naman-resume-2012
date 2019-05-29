@@ -27,7 +27,7 @@ export class TelescopeSetup extends Component {
           <TelescopeDropdown
             telescopeList={telescopeList}
             selectedTelescope={selectedTelescope}
-            onSelect={setTelescope}
+            onSelect={telescope => setTelescope(telescope, true)}
           />
         </div>
       </div>

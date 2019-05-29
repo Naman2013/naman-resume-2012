@@ -117,7 +117,7 @@ export const updateTelescopeActiveMission = ({
   scheduledMissionId,
 }) => (dispatch, getState) => {
   const { token, cid, at } = getState().user;
-  const { queueTab } = getState().telescope;
+  const { queueTab, telescopeActiveTab } = getState().telescope;
   const { currentObservatory, currentTelescope } = getState().telescopeDetails;
   const { upcomingSlotsData } = queueTab;
 
@@ -146,15 +146,17 @@ export const updateTelescopeActiveMission = ({
         dispatch(
           updateActiveMissionCompact({ telescopeId, payload: result.data })
         );
-        dispatch(
-          getUpcomingSlotsByTelescope({
-            callSource: 'onlineQueue',
-            obsId: currentObservatory.obsId,
-            domeId: currentTelescope.telePierNumber,
-            telescopeId: currentTelescope.teleId,
-            requestedSlotCount: upcomingSlotsData.requestedSlotCount || 10,
-          })
-        );
+        if(telescopeActiveTab === 1) { // 1 === QUEUE TAB INDEX
+          dispatch(
+            getUpcomingSlotsByTelescope({
+              callSource: 'onlineQueue',
+              obsId: currentObservatory.obsId,
+              domeId: currentTelescope.telePierNumber,
+              telescopeId: currentTelescope.teleId,
+              requestedSlotCount: upcomingSlotsData.requestedSlotCount || 10,
+            })
+          );
+        }
       }
 
       if (format === FORMAT_FULL) {
@@ -188,15 +190,17 @@ export const updateTelescopeActiveMission = ({
             }
           }
 
-          dispatch(
-            getUpcomingSlotsByTelescope({
-              callSource: 'onlineQueue',
-              obsId: currentObservatory.obsId,
-              domeId: currentTelescope.telePierNumber,
-              telescopeId: currentTelescope.teleId,
-              requestedSlotCount: upcomingSlotsData.requestedSlotCount || 10,
-            })
-          );
+          if(telescopeActiveTab === 1) { // 1 === QUEUE TAB INDEX
+            dispatch(
+              getUpcomingSlotsByTelescope({
+                callSource: 'onlineQueue',
+                obsId: currentObservatory.obsId,
+                domeId: currentTelescope.telePierNumber,
+                telescopeId: currentTelescope.teleId,
+                requestedSlotCount: upcomingSlotsData.requestedSlotCount || 10,
+              })
+            );
+          }
         } else {
           dispatch(resetActiveMission());
         }
