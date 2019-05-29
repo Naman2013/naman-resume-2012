@@ -30,7 +30,6 @@ const FOV = ({
         width={largeRectWidth}
         height={smallRectDimension}
         stroke={stroke}
-        strokeDasharray={`${strokeDashArray}, ${strokeDashArray}`}
         fill="none"
       />
       <UnitText
@@ -54,14 +53,14 @@ const FOV = ({
           telescope.FOV.vertical
         } arcminutes`}
       />
-      <rect
+      {/* <rect
         x={smallRectX}
         y={Y}
         width={smallRectDimension}
         height={smallRectDimension}
         stroke={stroke}
         fill="none"
-      />
+      /> */}
     </g>
   );
 };
