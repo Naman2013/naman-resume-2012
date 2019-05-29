@@ -1,8 +1,8 @@
 @import '~app/styles/variables/index';
 
 .reservation-catalog {
-  background-color: $romance;
   &.catalog {
+    background-color: $romance;
     padding: 20px 0 0;
   }
 

@@ -17,6 +17,12 @@ export const makeTelescopeDataSelector = () =>
     state => state.data
   );
 
+export const makeTelescopePageSetupSelector = () =>
+  createSelector(
+    selectTelescope,
+    state => state.pageSetup
+  );
+
 export const makeAllSkyTimelapseSelector = () =>
   createSelector(
     selectTelescope,

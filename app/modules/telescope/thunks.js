@@ -3,6 +3,7 @@ import {
   getUpcomingSlotsByTelescopeApi,
   getFeaturedObjectsByTelescopeApi,
   reserveCommunityMissionApi,
+  getTelescopesApi,
 } from './api';
 import { ACTION } from './reducer';
 
@@ -49,4 +50,12 @@ export const reserveCommunityMission = data => (dispatch, getState) => {
       dispatch(ACTION.reserveCommunityMissionSuccess(result.data))
     )
     .catch(error => dispatch(ACTION.reserveCommunityMissionError(error)));
+};
+
+export const getTelescopes = () => (dispatch, getState) => {
+  const { at, token, cid } = getState().user;
+  dispatch(ACTION.getTelescopes());
+  return getTelescopesApi({ at, token, cid })
+    .then(result => dispatch(ACTION.getTelescopesSuccess(result.data)))
+    .catch(error => dispatch(ACTION.getTelescopesError(error)));
 };

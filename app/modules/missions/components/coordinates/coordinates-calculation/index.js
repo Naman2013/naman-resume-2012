@@ -51,7 +51,7 @@ function removeMinusSign(value) {
 }
 
 export class CoordinatesCalculation extends PureComponent {
-  recalculateRA = (newRAValue) => {
+  recalculateRA = newRAValue => {
     const { setCoordinatesData, coordinatesData } = this.props;
     let ra = cleanCalcInput(newRAValue);
     let ra_h = Math.trunc(ra);
@@ -87,7 +87,7 @@ export class CoordinatesCalculation extends PureComponent {
       ra_s,
       ra,
     });
-  }
+  };
 
   handleRAChange = event => {
     const { setCoordinatesData, coordinatesData } = this.props;
@@ -116,13 +116,13 @@ export class CoordinatesCalculation extends PureComponent {
         [field]: cleanCalcInput(numberValue),
       });
     }
-  }
+  };
 
   handleFieldBlur = ({ field, value }) => {
     this.calculateFields({
       [field]: cleanCalcInput(value),
     });
-  }
+  };
 
   handleSecondsChange = ({ field, valueRAW }) => {
     const { setCoordinatesData, coordinatesData } = this.props;
@@ -143,15 +143,15 @@ export class CoordinatesCalculation extends PureComponent {
         [field]: value,
       });
     }
-  }
+  };
 
   handleSecondsBlur = ({ field, valueRAW }) => {
     this.calculateFields({
       [field]: cleanCalcInput(valueRAW),
     });
-  }
+  };
 
-  recalculateDEC = (newDec) => {
+  recalculateDEC = newDec => {
     const { setCoordinatesData, coordinatesData } = this.props;
     let dec = cleanCalcInput(newDec);
 
@@ -199,9 +199,9 @@ export class CoordinatesCalculation extends PureComponent {
       dec_m: minutes,
       dec_s: seconds,
     });
-  }
+  };
 
-  handleDECChange = (event) => {
+  handleDECChange = event => {
     const { setCoordinatesData, coordinatesData } = this.props;
     const newDEC = event.target.value;
     if (!newDEC) {
@@ -213,9 +213,9 @@ export class CoordinatesCalculation extends PureComponent {
     }
 
     this.recalculateDEC(newDEC);
-  }
+  };
 
-  calculateFields = (values) => {
+  calculateFields = values => {
     const { setCoordinatesData, coordinatesData } = this.props;
     let { dec, dec_d, dec_m, dec_s, ra_h, ra_m, ra_s } = Object.assign(
       {},
@@ -274,12 +274,20 @@ export class CoordinatesCalculation extends PureComponent {
       ra_s,
       ra,
     });
-  }
+  };
 
   render() {
-    const { coordinatesData } = this.props;
+    const { coordinatesData, pageConfig } = this.props;
     const { ra_h, ra_m, ra_s, ra, dec_d, dec_m, dec_s, dec } = coordinatesData;
 
+    const {
+      step2DecDMSPrompt,
+      step2DecDecimalPrompt,
+      step2RADecimalPrompt,
+      step2RAHMSPrompt,
+      step2Title,
+      step2Tooltip,
+    } = pageConfig;
     return (
       <div className="steps row">
         <div className="col-sm-12 step-2">
@@ -287,15 +295,15 @@ export class CoordinatesCalculation extends PureComponent {
             placement="top"
             overlay={
               <Tooltip id="tooltip-step2">
-                <span>Step 2 info</span>
+                <span>{step2Tooltip}</span>
               </Tooltip>
             }
           >
-            <span>Step 2: Enter Coordinates</span>
+            <span>{step2Title}</span>
           </OverlayTrigger>
 
           <div className="input-row">
-            <div className="row-title col-md-1">RA:</div>
+            <div className="row-title col-md-1">{step2RAHMSPrompt.RA}</div>
             <div className="input-container col-md-11">
               <div className="coordinates-input">
                 <input
@@ -313,8 +321,8 @@ export class CoordinatesCalculation extends PureComponent {
                       value: event.target.value,
                     });
                   }}
-                />
-                {' '}h
+                />{' '}
+                {step2RAHMSPrompt.h}
               </div>
               <div className="coordinates-input">
                 <input
@@ -334,7 +342,7 @@ export class CoordinatesCalculation extends PureComponent {
                     });
                   }}
                 />{' '}
-                m
+                {step2RAHMSPrompt.m}
               </div>
               <div className="coordinates-input">
                 <input
@@ -354,13 +362,13 @@ export class CoordinatesCalculation extends PureComponent {
                     });
                   }}
                 />{' '}
-                s
+                {step2RAHMSPrompt.s}
               </div>
             </div>
           </div>
 
           <div className="input-row">
-            <div className="row-title col-md-1">DEC:</div>
+            <div className="row-title col-md-1">{step2DecDMSPrompt.Dec}</div>
             <div className="input-container col-md-11">
               <div className="coordinates-input">
                 <input
@@ -380,7 +388,7 @@ export class CoordinatesCalculation extends PureComponent {
                     });
                   }}
                 />{' '}
-                d
+                {step2DecDMSPrompt.d}
               </div>
               <div className="coordinates-input">
                 <input
@@ -399,7 +407,7 @@ export class CoordinatesCalculation extends PureComponent {
                     });
                   }}
                 />{' '}
-                m
+                {step2DecDMSPrompt.m}
               </div>
               <div className="coordinates-input">
                 <input
@@ -419,13 +427,13 @@ export class CoordinatesCalculation extends PureComponent {
                     });
                   }}
                 />{' '}
-                s
+                {step2DecDMSPrompt.s}
               </div>
             </div>
           </div>
 
           <div className="input-row second">
-            <div className="row-title col-md-1">RA:</div>
+            <div className="row-title col-md-1">{step2RADecimalPrompt.RA}</div>
             <div className="input-container col-md-5">
               <div className="coordinates-input">
                 <input
@@ -438,11 +446,13 @@ export class CoordinatesCalculation extends PureComponent {
                   onChange={this.handleRAChange}
                   onBlur={this.handleRAChange}
                 />{' '}
-                decimal
+                {step2RADecimalPrompt.decimal}
               </div>
             </div>
 
-            <div className="row-title col-md-1">DEC:</div>
+            <div className="row-title col-md-1">
+              {step2DecDecimalPrompt.Dec}
+            </div>
             <div className="input-container col-md-5">
               <div className="coordinates-input">
                 <input
@@ -452,7 +462,7 @@ export class CoordinatesCalculation extends PureComponent {
                   onChange={this.handleDECChange}
                   onBlur={this.handleDECChange}
                 />{' '}
-                decimal
+                {step2DecDecimalPrompt.decimal}
               </div>
             </div>
           </div>
