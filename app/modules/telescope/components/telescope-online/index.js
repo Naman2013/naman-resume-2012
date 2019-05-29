@@ -191,34 +191,40 @@ export class TelescopeOnline extends Component {
                               autoplay={1}
                             />
                           </div>
-                        ) : (
-                          <TelescopeImageViewerController
-                            activeInstrumentID={activeInstrumentID}
-                            instrStarShareCamera={instrStarShareCamera}
-                            render={({ viewportHeight }, onImageChange) =>
-                              provideLiveFeed(
-                                {
-                                  viewportHeight,
-                                  fetchingOnlineStatus: fetchingObservatoryStatus,
-                                  obsAlert: currentObservatory.obsAlert,
-                                  onlineStatus: 'online',
-                                  instrument: currentInstrument,
-                                  offlineImageSource:
-                                    currentInstrument.instrOfflineImgURL,
-                                  activeMission:
-                                    activeTelescopeMission.maskDataArray,
-                                  timestamp: activeTelescopeMission.timestamp,
-                                  missionStart:
-                                    activeTelescopeMission.missionStart,
-                                  missionEnd: activeTelescopeMission.expires,
-                                  activeNeoview:
-                                    currentInstrument.instrHasNeoView,
-                                  handleInfoClick: this.toggleNeoview,
-                                },
-                                onImageChange
-                              )
+                        ) : (      
+                          <DeviceContext.Consumer>
+                            {context =>
+                              !context.isScreenLarge && !context.isScreenXLarge ? (
+                                <TelescopeImageViewerController
+                                  activeInstrumentID={activeInstrumentID}
+                                  instrStarShareCamera={instrStarShareCamera}
+                                  render={({ viewportHeight }, onImageChange) =>
+                                    provideLiveFeed(
+                                      {
+                                        viewportHeight,
+                                        fetchingOnlineStatus: fetchingObservatoryStatus,
+                                        obsAlert: currentObservatory.obsAlert,
+                                        onlineStatus: 'online',
+                                        instrument: currentInstrument,
+                                        offlineImageSource:
+                                          currentInstrument.instrOfflineImgURL,
+                                        activeMission:
+                                          activeTelescopeMission.maskDataArray,
+                                        timestamp: activeTelescopeMission.timestamp,
+                                        missionStart:
+                                          activeTelescopeMission.missionStart,
+                                        missionEnd: activeTelescopeMission.expires,
+                                        activeNeoview:
+                                          currentInstrument.instrHasNeoView,
+                                        handleInfoClick: this.toggleNeoview,
+                                      },
+                                      onImageChange
+                                    )
+                                  }
+                                />
+                              ) : null
                             }
-                          />
+                          </DeviceContext.Consumer>
                         )}
                       </div>
                     )}
