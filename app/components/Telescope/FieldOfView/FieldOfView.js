@@ -32,7 +32,7 @@ const FieldOfView = ({
           canvasWidth={canvasWidth}
           gridWidth={previousTelescope.PORTAL.horizontal}
           largeRectGridWidth={previousTelescope.FOV.horizontal}
-          stroke={currentZoomIn ? 'gold' : 'aqua'}
+          stroke={currentZoomIn ? 'aqua' : 'gold'}
           telescope={currentZoomIn ? previousTelescope : activeTelescope}
         />
       )}
