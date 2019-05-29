@@ -94,6 +94,7 @@ class PartnershipOpportunitiesSection extends Component {
       infoHeading,
       infoEmailAddress,
       infoPhoneNumber,
+      infoHeading2,
     } = data;
     return (
       <DeviceContext.Consumer>
@@ -190,6 +191,7 @@ class PartnershipOpportunitiesSection extends Component {
               </div>
               <div className="contact-data">
                 <h2 className="contact-title">{infoHeading}</h2>
+                <h2 className="contact-subtitle" dangerouslySetInnerHTML={{ __html: infoHeading2 }} />
                 <div className="contact-label">
                   <img src={phone} className="contact-label-icon" alt="phone" />
                   {infoPhoneNumber}
