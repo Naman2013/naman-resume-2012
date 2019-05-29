@@ -1,5 +1,6 @@
+@import '~app/styles/bootstrap/common';
 @import '~app/styles/variables/index';
-@import '~app/styles/mixins/utilities';
+@import '~app/styles/mixins/index';
 
 .livecast-btn {
   color: $lightHeadedAstronaut;
@@ -99,6 +100,22 @@
           height: 20px;
         }
       }
+    }
+  }
+}
+
+
+@include media-breakpoint-down(sm) {
+  .livecast-btn {
+    width: 40px;
+  }
+  .livecast-popup {
+    position: fixed;
+    left: 0px;
+    right: 0px;
+    width: 100%;
+    &::before {
+      right: 97px;
     }
   }
 }
