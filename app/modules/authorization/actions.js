@@ -213,12 +213,6 @@ export const validateResponseAccess = apiResponse => (dispatch, getState) => {
       })
     );
 
-    console.log('AAAAAAAAAAAAAAAAA', {
-      apiError,
-      errorCode,
-      statusCode,
-      loginError,
-    });
     dispatch(showIssueWithUserAccountModal());
     return false;
   }

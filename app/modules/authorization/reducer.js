@@ -102,7 +102,6 @@ export default createReducer(initialState, {
     };
   },
   [SHOW_ISSUE_WITH_USER_ACCOUNT_MODAL](state) {
-    console.log('BBBBBBBBBBBBBBBBBB');
     return {
       ...state,
       issueWithUserAccountModalVisible: true,
