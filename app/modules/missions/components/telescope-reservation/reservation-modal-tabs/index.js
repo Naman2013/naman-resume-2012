@@ -37,10 +37,8 @@ export class ReservationModalTabs extends PureComponent {
       getObjectList,
       setObject,
       resetMissionsData,
-      cancelMissionSlot,
       selectedTelescope,
       selectedSlot,
-      getTelescopeSlot,
       extendedTimer,
       getConstellationList,
       setConstellation,
@@ -55,6 +53,8 @@ export class ReservationModalTabs extends PureComponent {
       setCoordinatesData,
       setTargetName,
       getCoordinatesCategoryList,
+      pageSetup,
+      navigationConfig,
     } = this.props;
     const { countdown } = this.state;
 
@@ -86,6 +86,8 @@ export class ReservationModalTabs extends PureComponent {
               onCountdownTick={this.onCountdownTick}
               onCountdownComplete={onHide}
               scrollToGrabbedMission={scrollToGrabbedMission}
+              pageSetup={pageSetup}
+              navigationConfig={navigationConfig}
             />
           </Tab>
           <Tab eventKey="constellation" title="by constellation">
@@ -108,6 +110,8 @@ export class ReservationModalTabs extends PureComponent {
               onCountdownTick={this.onCountdownTick}
               onCountdownComplete={onHide}
               scrollToGrabbedMission={scrollToGrabbedMission}
+              pageSetup={pageSetup}
+              navigationConfig={navigationConfig}
             />
           </Tab>
           <Tab eventKey="catalog" title="by catalog">
@@ -131,6 +135,8 @@ export class ReservationModalTabs extends PureComponent {
               onCountdownTick={this.onCountdownTick}
               onCountdownComplete={onHide}
               scrollToGrabbedMission={scrollToGrabbedMission}
+              pageSetup={pageSetup}
+              navigationConfig={navigationConfig}
             />
           </Tab>
           <Tab eventKey="coordinates" title="by coordinates">
@@ -155,6 +161,8 @@ export class ReservationModalTabs extends PureComponent {
               onCountdownComplete={onHide}
               scrollToGrabbedMission={scrollToGrabbedMission}
               setCoordinatesData={setCoordinatesData}
+              pageSetup={pageSetup}
+              navigationConfig={navigationConfig}
               byTelescope
             />
           </Tab>

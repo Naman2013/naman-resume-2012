@@ -33,7 +33,7 @@ export default function like({
     likeId,
     membershipType,
     authorId,
-    type,
+    storyType: type,
     objectSlug,
   });
 }

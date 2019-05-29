@@ -1,4 +1,4 @@
-import { fetchAllWidgets } from 'app/modules/telescope-details/actions';
+import {fetchAllTelescopeStatus, fetchAllWidgets} from 'app/modules/telescope-details/actions';
 import {
   fetchDomeCamAction,
   fetchObservatoryWebcam,
@@ -33,6 +33,7 @@ const mapDispatchToProps = {
   fetchWeatherSatellite,
   fetchDomeCamAction,
   fetchObservatoryWebcam,
+  fetchAllTelescopeStatus,
 };
 
 export default compose(

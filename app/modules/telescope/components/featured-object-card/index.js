@@ -4,7 +4,13 @@ import './styles.scss';
 
 export class FeaturedObjectCard extends PureComponent {
   render() {
-    const { featureObject, getTelescopeSlot, onOptionClick, reservedButtonCaption, optionsButtonCaption, } = this.props;
+    const {
+      featureObject,
+      getTelescopeSlot,
+      onOptionClick,
+      reservedButtonCaption,
+      optionsButtonCaption,
+    } = this.props;
     const {
       title,
       ownerAvatarURL,
@@ -49,8 +55,10 @@ export class FeaturedObjectCard extends PureComponent {
             </Button>
           )}
 
-          {missionAvailable && userHasReservation && reservedButtonCaption && (
-            <div className="reserved-mission-capture">{reservedButtonCaption}</div>
+          {userHasReservation && reservedButtonCaption && (
+            <div className="reserved-mission-capture">
+              {reservedButtonCaption}
+            </div>
           )}
         </div>
       </div>

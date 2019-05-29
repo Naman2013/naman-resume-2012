@@ -17,6 +17,7 @@ export class MissionTimeSlot extends PureComponent {
       ownerDisplayName,
       missionStartFormatted,
       showSloohUser,
+      scheduledMissionId,
     } = timeSlot;
     const {
       displayOtherTimeZones,
@@ -35,6 +36,7 @@ export class MissionTimeSlot extends PureComponent {
           SLOT_STATUS.AVAILABLE === slotStatus ? ' open' : ''
         }`}
         onClick={missionSlotOnClick}
+        id={`mission-slot-${scheduledMissionId}`}
       >
         <div className="left">
           <div className="mission-title">

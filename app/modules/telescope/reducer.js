@@ -7,12 +7,15 @@ export const TYPE = constants('telescope', [
   '~GET_UPCOMING_SLOTS_BY_TELESCOPE',
   '~GET_FEATURED_OBJECTS_BY_TELESCOPE',
   '~RESERVE_COMMUNITY_MISSION',
+  '~GET_TELESCOPES',
 ]);
 export const ACTION = actions(TYPE);
 
 export const initialState = {
   isFetching: false,
   serverError: null,
+
+  pageSetup: {},
 
   allSkyTimelapse: {
     isFetching: false,
@@ -46,6 +49,9 @@ export default handleActions(
     [TYPE.RESERVE_COMMUNITY_MISSION]: setQueueTabFetching,
     [TYPE.RESERVE_COMMUNITY_MISSION_SUCCESS]: reserveCommunityMissionSuccess,
     [TYPE.RESERVE_COMMUNITY_MISSION_ERROR]: setQueueTabServerError,
+    [TYPE.GET_TELESCOPES]: setTelescopesFetching,
+    [TYPE.GET_TELESCOPES_SUCCESS]: getTelescopesSuccess,
+    [TYPE.GET_TELESCOPES_ERROR]: setTelescopesError,
   },
   initialState
 );
@@ -109,6 +115,32 @@ function reserveCommunityMissionSuccess(state, action) {
       isFetching: false,
       reservedCommunityMissionData: action.payload,
       reservedCommunityMissionList: action.payload.missionList,
+    },
+  };
+}
+
+function setTelescopesFetching(state) {
+  return {
+    ...state,
+    isFetching: true,
+  };
+}
+
+function setTelescopesError(state, action) {
+  return {
+    ...state,
+    isFetching: false,
+    serverError: action.payload,
+  };
+}
+
+function getTelescopesSuccess(state, action) {
+  return {
+    ...state,
+    isFetching: false,
+    pageSetup: {
+      ...state.pageSetup,
+      ...action.payload,
     },
   };
 }

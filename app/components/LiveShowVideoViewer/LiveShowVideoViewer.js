@@ -13,6 +13,7 @@ import { TabPanel } from 'react-tabs';
 import TelescopeImageViewer from 'app/components/common/telescope-image-viewer/telescope-image-viewer';
 import ShowVideoImageLoader from 'app/components/common/ShowVideoImageLoader';
 import styles from './LiveShowVideoViewer.style';
+import StarShareCamera from '../telescope-details/star-share-camera/star-share-camera';
 
 const { arrayOf, bool, func, number, oneOfType, shape, string } = PropTypes;
 
@@ -93,14 +94,17 @@ class LiveShowVideoViewer extends Component {
           <TabPanel forceRender className={classnames('active-tele-tab')}>
             <div style={videoContainerStyle} className="live-video-container">
               {currentFeed.imageSourceType === 'video' ? (
-                <ShowVideoImageLoader
-                  teleStreamCode={currentFeed.videoStreamCode}
-                  teleStreamURL={currentFeed.videoStreamURL}
-                  cameraSourceType={currentFeed.cameraSourceType}
-                  teleSystem={currentFeed.systemId}
-                  telePort={currentFeed.SSEport}
-                  callSource="situationRoom"
-                />
+                <div>
+                  <ShowVideoImageLoader
+                    teleStreamCode={currentFeed.videoStreamCode}
+                    teleStreamURL={currentFeed.videoStreamURL}
+                    cameraSourceType={currentFeed.cameraSourceType}
+                    teleSystem={currentFeed.systemId}
+                    telePort={currentFeed.SSEport}
+                    callSource="situationRoom"
+                  />
+                  {currentFeed.canStarShare && <StarShareCamera />}
+                </div>
               ) : (
                 // else currentFeed.imageSourceType === 'SSE'
                 <TelescopeImageViewer

@@ -25,6 +25,9 @@ export class AvailbleMissionTile extends Component {
       communityMissions,
       user,
       onMissionView,
+      cancelButtonCaption,
+      scheduleMissionCaption,
+      completeReservationPromptShort,
     } = this.props;
     const {
       title,
@@ -50,7 +53,7 @@ export class AvailbleMissionTile extends Component {
               onComplete={onCancel}
               renderer={props => (
                 <div>
-                  Reservation ends in {props.minutes}:
+                  {completeReservationPromptShort || 'Reservation ends in'} {props.minutes}:
                   <FormattedNumber
                     value={props.seconds}
                     minimumIntegerDigits={2}
@@ -74,8 +77,8 @@ export class AvailbleMissionTile extends Component {
         {tip && <div className="description">{tip}</div>}
         {onSubmit && (
           <div className="actions">
-            <Button text="Cancel" onClickEvent={onCancel} />
-            <Button text="Schedule Mission" onClickEvent={onSubmit} />
+            <Button text={cancelButtonCaption || "Cancel"} onClickEvent={onCancel} />
+            <Button text={scheduleMissionCaption || "Schedule Mission"} onClickEvent={onSubmit} />
           </div>
         )}
         {communityMissions && (

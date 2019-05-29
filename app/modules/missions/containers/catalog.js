@@ -16,6 +16,7 @@ import {
   makeMissionsFirstSlot,
   makeReservedMissionData,
   makeReservedMissionSelector,
+  makeMissionsPageSetupSelector,
 } from '../selectors';
 import {
   getCatalogList,
@@ -39,6 +40,7 @@ const mapStateToProps = createStructuredSelector({
   missionSlot: makeMissionsFirstSlot(),
   reservedMissionData: makeReservedMissionData(),
   reservedMission: makeReservedMissionSelector(),
+  pageSetup: makeMissionsPageSetupSelector(),
 });
 
 const mapDispatchToProps = {

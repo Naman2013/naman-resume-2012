@@ -39,15 +39,16 @@ export class QueueTab extends Component {
   }
 
   getUpcomingSlotsByTelescope = requestedSlotCount => {
-    const { getUpcomingSlotsByTelescope, currentTelescope, currentObservatory, missionsRefreshTimerEnabled } = this.props;
+    const { getUpcomingSlotsByTelescope, currentTelescope, currentObservatory, missionsRefreshTimerEnabled, offlineQueueTab } = this.props;
     stopMissionListTimer();
     getUpcomingSlotsByTelescope({
+      callSource: offlineQueueTab ? 'offlineQueue' : 'onlineQueue',
       obsId: currentObservatory.obsId,
       domeId: currentTelescope.telePierNumber,
       telescopeId: currentTelescope.teleId,
       requestedSlotCount,
     }).then(data => {
-      if( missionsRefreshTimerEnabled ) {
+      if( missionsRefreshTimerEnabled && offlineQueueTab ) {
         setupMissionListTimer(data.payload.refreshIntervalSec * 1000, () => this.getUpcomingSlotsByTelescope(requestedSlotCount))
       }
     });
@@ -112,10 +113,12 @@ export class QueueTab extends Component {
       reservedCommunityMissionData,
       reserveCommunityMission,
       reservedCommunityMission,
+      pageSetup,
     } = this.props;
     
     const { missionList, reservationDateFormatted, showShowMoreButton, showMoreButtonCaption } = upcomingSlotsData;
     const { reservationModalVisible } = this.state;
+    const { navigationConfig } = pageSetup;
 
     return (
       <div className={`animated fadeIn faster queue-tab${
@@ -151,6 +154,8 @@ export class QueueTab extends Component {
             <ReservationModal
               onHide={this.reservationModalHide}
               onComplete={this.reservationComplete}
+              pageSetup={pageSetup}
+              navigationConfig={navigationConfig[0]}
               show
             />
           )}
