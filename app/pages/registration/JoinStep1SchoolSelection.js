@@ -18,6 +18,7 @@ import {
 import { JOIN_PAGE_ENDPOINT_URL } from 'app/services/registration/registration.js';
 import axios from 'axios';
 import debounce from 'lodash/debounce';
+import { DeviceContext } from 'app/providers/DeviceProvider';
 import JoinHeader from './partials/JoinHeader';
 import { CLASSROOM_JOIN_TABS } from './StaticNavTabs';
 import styles from './JoinStep1SchoolSelection.style';
@@ -48,12 +49,14 @@ class JoinStep1SchoolSelectionGeneral extends Component {
     sectionHeading: '',
     schoolDistrictOptions: [],
     schoolOptions: [],
+    selectedSubscriptionPlan: {},
   };
 
   componentDidMount() {
     axios
       .post(JOIN_PAGE_ENDPOINT_URL, {
         callSource: 'selectSchoolDistrict',
+        selectedPlanId: window.localStorage.getItem('selectedPlanId'),
       })
       .then(({ data }) => {
         this.setState({
@@ -61,6 +64,7 @@ class JoinStep1SchoolSelectionGeneral extends Component {
           pageHeading1: data.pageHeading1,
           pageHeading2: data.pageHeading2,
           sectionHeading: data.sectionHeading,
+          selectedSubscriptionPlan: data.selectedSubscriptionPlan,
         });
         const { change } = this.props;
         change(
@@ -199,42 +203,108 @@ class JoinStep1SchoolSelectionGeneral extends Component {
       formFieldLabels,
       schoolDistrictOptions,
       schoolOptions,
+      selectedSubscriptionPlan,
     } = this.state;
 
     return (
       <div>
         <Fragment>
           {formFieldLabels && (
-            <Fragment>
-              <JoinHeader
-                mainHeading={pageHeading1}
-                subHeading={pageHeading2}
-                // activeTab={pathname}
-                activeTab="join/step1SchoolSelection"
-                tabs={CLASSROOM_JOIN_TABS}
-              />
-              <div className="step-root">
-                <div className="inner-container">
-                  <div className="section-heading">{sectionHeading}</div>
-                  <form
-                    className="form"
-                    onSubmit={handleSubmit(this.handleSubmit)}
-                  >
-                    <div className="form-section">
-                      <div className="form-field-container">
-                        <Fragment>
-                          <span className="form-label">
-                            {formFieldLabels.zipcode.label}
-                          </span>
-                          <Field
-                            name="zipcode"
-                            type="name"
-                            label={formFieldLabels.zipcode.hintText}
-                            component={InputField}
-                            onChange={(e, value) =>
-                              this.debouncedZipChange(value)
-                            }
-                          />
+            <DeviceContext.Consumer>
+              {({ isMobile, isDesktop, isTablet }) => (
+                <Fragment>
+                  <JoinHeader
+                    mainHeading={pageHeading1}
+                    subHeading={pageHeading2}
+                    // activeTab={pathname}
+                    activeTab="join/step1SchoolSelection"
+                    tabs={CLASSROOM_JOIN_TABS}
+                    backgroundImage={
+                      isMobile
+                        ? selectedSubscriptionPlan?.planSelectedBackgroundImageUrl_Mobile
+                        : isDesktop
+                        ? selectedSubscriptionPlan?.planSelectedBackgroundImageUrl_Desktop
+                        : isTablet
+                        ? selectedSubscriptionPlan?.planSelectedBackgroundImageUrl_Tablet
+                        : ''
+                    }
+                  />
+                  <div className="step-root">
+                    <div className="inner-container">
+                      <div className="section-heading">{sectionHeading}</div>
+                      <form
+                        className="form"
+                        onSubmit={handleSubmit(this.handleSubmit)}
+                      >
+                        <div className="form-section">
+                          <div className="form-field-container">
+                            <Fragment>
+                              <span className="form-label">
+                                {formFieldLabels.zipcode.label}
+                              </span>
+                              <Field
+                                name="zipcode"
+                                type="name"
+                                label={formFieldLabels.zipcode.hintText}
+                                component={InputField}
+                                onChange={(e, value) =>
+                                  this.debouncedZipChange(value)
+                                }
+                              />
+                            </Fragment>
+                          </div>
+
+                          {!isNewSchool && schoolDistrictOptions.length > 0 && (
+                            <Fragment>
+                              <div className="form-field-container">
+                                <span className="form-label">
+                                  {formFieldLabels.district.label}
+                                </span>
+                                <Field
+                                  name="district"
+                                  className="input-row form-group form-control"
+                                  component="select"
+                                  onChange={event => {
+                                    this.handleSchoolDistrictChange(
+                                      event.target.value
+                                    );
+                                  }}
+                                >
+                                  {schoolDistrictOptions.map(schoolDistrict => (
+                                    <option
+                                      value={schoolDistrict.districtExternalId}
+                                      key={schoolDistrict.districtExternalId}
+                                    >
+                                      {schoolDistrict.DistrictName}
+                                    </option>
+                                  ))}
+                                </Field>
+                              </div>
+
+                              {schoolOptions.length && (
+                                <div className="form-field-container">
+                                  <span className="form-label">
+                                    {formFieldLabels.school.label}
+                                  </span>
+                                  <Field
+                                    name="school"
+                                    className="input-row form-group form-control"
+                                    component="select"
+                                  >
+                                    {schoolOptions.map(school => (
+                                      <option
+                                        value={school.schoolId}
+                                        key={school.schoolExternalId}
+                                      >
+                                        {school.SchoolName}
+                                      </option>
+                                    ))}
+                                  </Field>
+                                </div>
+                              )}
+                            </Fragment>
+                          )}
+
                           <span>
                             <Field
                               name="isNewSchool"
@@ -246,242 +316,206 @@ class JoinStep1SchoolSelectionGeneral extends Component {
                               {formFieldLabels.isSchoolInMarketList.label}
                             </span>
                           </span>
-                        </Fragment>
-                      </div>
 
-                      {!isNewSchool && schoolDistrictOptions.length > 0 && (
-                        <Fragment>
-                          <div className="form-field-container">
-                            <span className="form-label">
-                              {formFieldLabels.district.label}
-                            </span>
-                            <Field
-                              name="district"
-                              className="input-row form-group form-control"
-                              component="select"
-                              onChange={event => {
-                                this.handleSchoolDistrictChange(
-                                  event.target.value
-                                );
-                              }}
-                            >
-                              {schoolDistrictOptions.map(schoolDistrict => (
-                                <option
-                                  value={schoolDistrict.districtExternalId}
-                                  key={schoolDistrict.districtExternalId}
-                                >
-                                  {schoolDistrict.DistrictName}
-                                </option>
-                              ))}
-                            </Field>
-                          </div>
-
-                          {schoolOptions.length && (
-                            <div className="form-field-container">
-                              <span className="form-label">
-                                {formFieldLabels.school.label}
-                              </span>
-                              <Field
-                                name="school"
-                                className="input-row form-group form-control"
-                                component="select"
-                              >
-                                {schoolOptions.map(school => (
-                                  <option
-                                    value={school.schoolId}
-                                    key={school.schoolExternalId}
-                                  >
-                                    {school.SchoolName}
-                                  </option>
-                                ))}
-                              </Field>
-                            </div>
-                          )}
-                        </Fragment>
-                      )}
-
-                      {isNewSchool && (
-                        <Fragment>
-                          <span className="form-label">
-                            {
-                              formFieldLabels.schoolNotInMarketListFormFields
-                                .schoolDistrict.label
-                            }
-                          </span>
-                          <Field
-                            name="districtName"
-                            label={
-                              formFieldLabels.schoolNotInMarketListFormFields
-                                .schoolDistrict.hintText
-                            }
-                            component={InputField}
-                          />
-
-                          <span className="form-label">
-                            {
-                              formFieldLabels.schoolNotInMarketListFormFields
-                                .schoolName.label
-                            }
-                          </span>
-                          <Field
-                            name="schoolName"
-                            label={
-                              formFieldLabels.schoolNotInMarketListFormFields
-                                .schoolName.hintText
-                            }
-                            component={InputField}
-                          />
-
-                          <span className="form-label">
-                            {
-                              formFieldLabels.schoolNotInMarketListFormFields
-                                .schoolCountry.label
-                            }
-                          </span>
-                          <br />
-                          <Field
-                            name="schoolCountry"
-                            component="select"
-                            style={{ margin: '15px' }}
-                          >
-                            {Object.keys(
-                              formFieldLabels.schoolNotInMarketListCountryList
-                            ).map(x => (
-                              <option value={x} key={x}>
-                                {
-                                  formFieldLabels
-                                    .schoolNotInMarketListCountryList[x]
-                                }
-                              </option>
-                            ))}
-                          </Field>
-                          <br />
-
-                          {schoolCountry === 'US' && (
+                          {isNewSchool && (
                             <Fragment>
                               <span className="form-label">
                                 {
                                   formFieldLabels
-                                    .schoolNotInMarketListFormFields.schoolState
+                                    .schoolNotInMarketListFormFields
+                                    .schoolDistrict.label
+                                }
+                              </span>
+                              <Field
+                                name="districtName"
+                                label={
+                                  formFieldLabels
+                                    .schoolNotInMarketListFormFields
+                                    .schoolDistrict.hintText
+                                }
+                                component={InputField}
+                              />
+
+                              <span className="form-label">
+                                {
+                                  formFieldLabels
+                                    .schoolNotInMarketListFormFields.schoolName
                                     .label
+                                }
+                              </span>
+                              <Field
+                                name="schoolName"
+                                label={
+                                  formFieldLabels
+                                    .schoolNotInMarketListFormFields.schoolName
+                                    .hintText
+                                }
+                                component={InputField}
+                              />
+
+                              <span className="form-label">
+                                {
+                                  formFieldLabels
+                                    .schoolNotInMarketListFormFields
+                                    .schoolCountry.label
                                 }
                               </span>
                               <br />
                               <Field
-                                name="schoolState"
+                                name="schoolCountry"
                                 component="select"
                                 style={{ margin: '15px' }}
                               >
                                 {Object.keys(
-                                  formFieldLabels.schoolNotInMarketListStateList
+                                  formFieldLabels.schoolNotInMarketListCountryList
                                 ).map(x => (
                                   <option value={x} key={x}>
                                     {
                                       formFieldLabels
-                                        .schoolNotInMarketListStateList[x]
+                                        .schoolNotInMarketListCountryList[x]
                                     }
                                   </option>
                                 ))}
                               </Field>
                               <br />
+
+                              {schoolCountry === 'US' && (
+                                <Fragment>
+                                  <span className="form-label">
+                                    {
+                                      formFieldLabels
+                                        .schoolNotInMarketListFormFields
+                                        .schoolState.label
+                                    }
+                                  </span>
+                                  <br />
+                                  <Field
+                                    name="schoolState"
+                                    component="select"
+                                    style={{ margin: '15px' }}
+                                  >
+                                    {Object.keys(
+                                      formFieldLabels.schoolNotInMarketListStateList
+                                    ).map(x => (
+                                      <option value={x} key={x}>
+                                        {
+                                          formFieldLabels
+                                            .schoolNotInMarketListStateList[x]
+                                        }
+                                      </option>
+                                    ))}
+                                  </Field>
+                                  <br />
+                                </Fragment>
+                              )}
+
+                              <span className="form-label">
+                                {
+                                  formFieldLabels
+                                    .schoolNotInMarketListFormFields.schoolCity
+                                    .label
+                                }
+                              </span>
+                              <Field
+                                name="schoolCity"
+                                label={
+                                  formFieldLabels
+                                    .schoolNotInMarketListFormFields.schoolCity
+                                    .hintText
+                                }
+                                component={InputField}
+                              />
+
+                              <span className="form-label">
+                                {
+                                  formFieldLabels
+                                    .schoolNotInMarketListFormFields
+                                    .schoolAddress.label
+                                }
+                              </span>
+                              <Field
+                                name="schoolAddress"
+                                label={
+                                  formFieldLabels
+                                    .schoolNotInMarketListFormFields
+                                    .schoolAddress.hintText
+                                }
+                                component={InputField}
+                              />
+
+                              <span className="form-label">
+                                {
+                                  formFieldLabels
+                                    .schoolNotInMarketListFormFields
+                                    .schoolPhoneNumber.label
+                                }
+                              </span>
+                              <Field
+                                name="schoolPhone"
+                                label={
+                                  formFieldLabels
+                                    .schoolNotInMarketListFormFields
+                                    .schoolPhoneNumber.hintText
+                                }
+                                component={InputField}
+                              />
+
+                              <span className="form-label">
+                                {
+                                  formFieldLabels
+                                    .schoolNotInMarketListFormFields
+                                    .schoolWebsite.label
+                                }
+                              </span>
+                              <Field
+                                name="schoolWebsite"
+                                label={
+                                  formFieldLabels
+                                    .schoolNotInMarketListFormFields
+                                    .schoolWebsite.hintText
+                                }
+                                component={InputField}
+                              />
+
+                              <span className="form-label">
+                                {
+                                  formFieldLabels
+                                    .schoolNotInMarketListFormFields
+                                    .districtWebsite.label
+                                }
+                              </span>
+                              <Field
+                                name="districtWebsite"
+                                label={
+                                  formFieldLabels
+                                    .schoolNotInMarketListFormFields
+                                    .districtWebsite.hintText
+                                }
+                                component={InputField}
+                              />
                             </Fragment>
                           )}
 
-                          <span className="form-label">
-                            {
-                              formFieldLabels.schoolNotInMarketListFormFields
-                                .schoolCity.label
-                            }
-                          </span>
-                          <Field
-                            name="schoolCity"
-                            label={
-                              formFieldLabels.schoolNotInMarketListFormFields
-                                .schoolCity.hintText
-                            }
-                            component={InputField}
+                          <br />
+                        </div>
+                        <div className="button-container">
+                          <Button
+                            type="button"
+                            text={intl.formatMessage(messages.GoBack)}
+                            onClickEvent={() => {
+                              browserHistory.push('/join/step1');
+                            }}
                           />
-
-                          <span className="form-label">
-                            {
-                              formFieldLabels.schoolNotInMarketListFormFields
-                                .schoolAddress.label
-                            }
-                          </span>
-                          <Field
-                            name="schoolAddress"
-                            label={
-                              formFieldLabels.schoolNotInMarketListFormFields
-                                .schoolAddress.hintText
-                            }
-                            component={InputField}
-                          />
-
-                          <span className="form-label">
-                            {
-                              formFieldLabels.schoolNotInMarketListFormFields
-                                .schoolPhoneNumber.label
-                            }
-                          </span>
-                          <Field
-                            name="schoolPhone"
-                            label={
-                              formFieldLabels.schoolNotInMarketListFormFields
-                                .schoolPhoneNumber.hintText
-                            }
-                            component={InputField}
-                          />
-
-                          <span className="form-label">
-                            {
-                              formFieldLabels.schoolNotInMarketListFormFields
-                                .schoolWebsite.label
-                            }
-                          </span>
-                          <Field
-                            name="schoolWebsite"
-                            label={
-                              formFieldLabels.schoolNotInMarketListFormFields
-                                .schoolWebsite.hintText
-                            }
-                            component={InputField}
-                          />
-
-                          <span className="form-label">
-                            {
-                              formFieldLabels.schoolNotInMarketListFormFields
-                                .districtWebsite.label
-                            }
-                          </span>
-                          <Field
-                            name="districtWebsite"
-                            label={
-                              formFieldLabels.schoolNotInMarketListFormFields
-                                .districtWebsite.hintText
-                            }
-                            component={InputField}
-                          />
-                        </Fragment>
-                      )}
-
-                      <br />
+                          <button className="submit-button" type="submit">
+                            {intl.formatMessage(messages.Continue)}
+                          </button>
+                        </div>
+                      </form>
                     </div>
-                    <div className="button-container">
-                      <Button
-                        type="button"
-                        text={intl.formatMessage(messages.GoBack)}
-                        onClickEvent={() => {
-                          browserHistory.push('/join/step1');
-                        }}
-                      />
-                      <button className="submit-button" type="submit">
-                        {intl.formatMessage(messages.Continue)}
-                      </button>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </Fragment>
+                  </div>
+                </Fragment>
+              )}
+            </DeviceContext.Consumer>
           )}
         </Fragment>
         <style jsx>{styles}</style>
