@@ -21,12 +21,17 @@ export class Missions extends Component {
       isFetching,
       isTelescopeFetching,
     } = this.props;
-    const { pageIconURL, pageTitle, navigationConfig } = pageSetup;
+    const {
+      pageIconURL,
+      pageTitle,
+      navigationConfig,
+      calculatingTelescopePrompt,
+    } = pageSetup;
     return (
       <div>
         <Spinner
           loading={isFetching || isTelescopeFetching}
-          text={isTelescopeFetching && 'Calculating proper time and telescope'}
+          text={isTelescopeFetching && calculatingTelescopePrompt}
         />
         <HubHeader
           icon={pageIconURL}

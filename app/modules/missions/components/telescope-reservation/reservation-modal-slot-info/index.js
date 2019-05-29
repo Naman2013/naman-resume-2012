@@ -4,7 +4,7 @@ import './styles.scss';
 
 export class ReservationModalSlotInfo extends PureComponent {
   render() {
-    const { timeSlot, title } = this.props;
+    const { timeSlot, title, timeSlotPrompt } = this.props;
     const { missionStart } = timeSlot;
 
     const missionStartTime = moment.utc(missionStart * 1000);
@@ -12,7 +12,7 @@ export class ReservationModalSlotInfo extends PureComponent {
     return (
       <div className="slot-info">
         <div className="title">
-          <div className="label">Time Slot:</div>
+          <div className="label">{timeSlotPrompt}</div>
           <h4>{title}</h4>
         </div>
 

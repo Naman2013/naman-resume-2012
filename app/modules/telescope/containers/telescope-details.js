@@ -12,6 +12,7 @@ import {
 import { TelescopeDetails } from 'app/modules/telescope/components/telescope-details/telescope-details';
 import { connect } from 'react-redux';
 import { bindActionCreators, compose } from 'redux';
+import { getTelescopes } from '../thunks';
 // import { createStructuredSelector } from 'reselect';
 
 // const mapStateToProps = createStructuredSelector({});
@@ -64,6 +65,7 @@ const mapDispatchToProps = {
   fetchObjectDataAction,
   resetObjectData,
   updateCurrentInstrument,
+  getTelescopes,
 };
 
 export default compose(

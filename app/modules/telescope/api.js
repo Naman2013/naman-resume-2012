@@ -14,3 +14,6 @@ export const getFeaturedObjectsByTelescopeApi = data =>
 
 export const reserveCommunityMissionApi = data =>
   axios.post('/api/reservation/reserveCommunityMission', data);
+
+export const getTelescopesApi = data =>
+  axios.post('/api/page/telescopes', data);

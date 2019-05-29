@@ -81,7 +81,7 @@ export class RecommendedObjects extends Component {
       selectedMission,
       successModalShow,
     } = this.state;
-    const sliderProps = getSliderProps(missionList, this.reservationModalShow);
+    const sliderProps = getSliderProps(missionList, this.reservationModalShow, reservedButtonCaption, optionsButtonCaption);
     const shortList = take(missionList, 3) || [];
     return (
       <div className="dashboard-recomended-objects">
