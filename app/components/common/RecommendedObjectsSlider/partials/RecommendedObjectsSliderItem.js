@@ -14,7 +14,13 @@ const getIconStyle = iconURL => ({
 
 const { string, arrayOf, shape, bool } = PropTypes;
 
-const RecommendedObjectsItem = ({ object, intl, reservationModalShow }) => {
+const RecommendedObjectsItem = ({
+  object,
+  intl,
+  reservationModalShow,
+  reservedButtonCaption,
+  optionsButtonCaption,
+}) => {
   const {
     missionStartFormatted,
     title,
@@ -60,9 +66,13 @@ const RecommendedObjectsItem = ({ object, intl, reservationModalShow }) => {
       {missionAvailable && !userHasReservation && (
         <Button
           onClickEvent={() => reservationModalShow(object)}
-          text={intl.formatMessage(messages.Options)}
+          text={optionsButtonCaption}
           theme={{ margin: '30px auto 0', width: '140px' }}
         />
+      )}
+
+      {userHasReservation && reservedButtonCaption && (
+        <div className="reserved-mission-capture">{reservedButtonCaption}</div>
       )}
       <style jsx>{styles}</style>
     </div>

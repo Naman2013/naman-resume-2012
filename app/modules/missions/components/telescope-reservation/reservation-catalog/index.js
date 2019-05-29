@@ -33,24 +33,25 @@ class Catalog extends Component {
       catalogListOpts,
       setCatalog,
       missionSlot,
-      resetMissionsData,
       selectedCatalog,
       selectedCatalogData,
-      reservedMissionData,
       objectData,
       setDesignation,
       designation,
       telescopeData,
       setProcessingRecipe,
       processingRecipe,
-      reservedMission,
       checkTargetVisibility,
       getTelescopeSlot,
       extendedTimer,
       onCountdownTick,
       countdown,
       onCountdownComplete,
+      pageSetup,
+      navigationConfig,
     } = this.props;
+
+    const { completeReservationPromptLong, choosePrompt } = pageSetup;
 
     return (
       <div className="reservation-catalog catalog">
@@ -73,8 +74,9 @@ class Catalog extends Component {
           countdown={countdown}
           onCountdownTick={onCountdownTick}
           onCountdownComplete={onCountdownComplete}
-          description="Quickly schedule a Mission by choosing from millions of cataloget objects. Tell us what you want to see - we’ll make sure that the object 
-        is visible from this observatory and telescope during this time slot - if so, we'll reserve the Mission for you."
+          completeReservationPromptLong={completeReservationPromptLong}
+          choosePrompt={choosePrompt}
+          pageConfig={navigationConfig.byCatalog}
           byTelescope
         />
       </div>

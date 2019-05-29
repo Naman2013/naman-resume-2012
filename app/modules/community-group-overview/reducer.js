@@ -140,6 +140,7 @@ export default createReducer(initialState, {
   [FETCH_GROUP_OVERVIEW_PAGE_META_START](state) {
     return {
       ...state,
+      pageMeta: {},
     };
   },
   [FETCH_GROUP_OVERVIEW_PAGE_META_SUCCESS](state, { payload }) {

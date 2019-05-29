@@ -20,6 +20,8 @@ export class TelescopeDetails extends Component {
   refreshTelescopeStatusTimeout = null;
 
   componentDidMount() {
+    const { getTelescopes } = this.props;
+    getTelescopes();
     this.scaffoldPage();
   }
 
@@ -154,7 +156,7 @@ export class TelescopeDetails extends Component {
     ) {
       return null;
     }
-
+    
     const activeInstrumentID = currentInstrument.instrUniqueId;
     const navigationOptions = buildNavigationOptions(observatoryList);
     const selectedNavigationIndex = findActiveTelescopeIndex(
