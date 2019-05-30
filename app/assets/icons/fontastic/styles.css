@@ -95,3 +95,6 @@
 .icon-stop:before {
   content: "\74";
 }
+.icon-flag:before {
+  content: "\73";
+}
