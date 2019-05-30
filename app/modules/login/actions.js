@@ -1,3 +1,4 @@
+import { closeAllMenus } from 'app/modules/global-navigation/actions';
 import axios from 'axios';
 import { store as storeUser } from 'app/modules/User';
 
@@ -49,6 +50,7 @@ export const logUserIn = loginForm => dispatch => {
       if (apiError) {
         dispatch(logUserInFail(result.data));
       } else {
+        dispatch(closeAllMenus());
         dispatch(resetLogIn());
         dispatch(storeUser(Object.assign({ reload: true }, result.data)));
       }
