@@ -1,5 +1,6 @@
 import React, { PureComponent, Fragment } from 'react';
-import moment from 'moment';
+import Countdown from 'react-countdown-now';
+import { FormattedNumber } from 'react-intl';
 import { ThreeDotsMenu } from '../three-dots-menu';
 import './styles.scss';
 
@@ -19,6 +20,8 @@ export class MissionTimeSlot extends PureComponent {
       missionStartFormatted,
       showSloohUser,
       scheduledMissionId,
+      expires,
+      userHasHold,
     } = timeSlot;
     const {
       displayOtherTimeZones,
@@ -40,7 +43,21 @@ export class MissionTimeSlot extends PureComponent {
       >
         <div className="left">
           <div className="mission-title">
-            {SLOT_STATUS.AVAILABLE === slotStatus ? 'Open Slot' : slotTitle}
+            {slotTitle}{' '}
+            {expires > 0 && userHasHold && (
+              <Countdown
+                date={expires * 1000}
+                renderer={props => (
+                  <span>
+                    {props.minutes}:
+                    <FormattedNumber
+                      value={props.seconds}
+                      minimumIntegerDigits={2}
+                    />
+                  </span>
+                )}
+              />
+            )}
           </div>
           <div className="mission-owner">
             {SLOT_STATUS.AVAILABLE === slotStatus ? (
@@ -67,7 +84,10 @@ export class MissionTimeSlot extends PureComponent {
         </div>
         <div className="right">
           <div className="actions">
-            <ThreeDotsMenu timeSlot={timeSlot} />
+            <ThreeDotsMenu
+              timeSlot={timeSlot}
+              finnishReservation={getTelescopeSlot}
+            />
           </div>
           <div className="time">
             <div className="large">
@@ -80,7 +100,10 @@ export class MissionTimeSlot extends PureComponent {
 
         <div className="mobile">
           <div className="actions">
-            <i className="fa fa-ellipsis-h" aria-hidden="true" />
+            <ThreeDotsMenu
+              timeSlot={timeSlot}
+              finnishReservation={getTelescopeSlot}
+            />
           </div>
 
           <div className="mission-title">

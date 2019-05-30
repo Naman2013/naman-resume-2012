@@ -79,7 +79,7 @@ export class ReservationModalContent extends Component {
       grabType: 'placeholder',
       scheduledMissionId,
       uniqueId,
-    }).then(onHide);
+    }).then(() => onHide(false));
   };
 
   scrollToGrabbedMission = () => {
@@ -115,7 +115,7 @@ export class ReservationModalContent extends Component {
       pageSubheader,
       timeSlotPrompt,
     } = navigationConfig;
-
+    
     return (
       <Fragment>
         {/* <Spinner

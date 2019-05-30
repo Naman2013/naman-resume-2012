@@ -31,27 +31,29 @@ export class Telescope extends Component {
     );
   };
 
-  getTelescopeSlot = mission => {
+  getTelescopeSlot = (mission, finalizeReservation = false) => {
     const { getTelescopeSlot, setSelectedSlot } = this.props;
     const { scheduledMissionId, uniqueId } = mission;
     setSelectedSlot(mission);
     getTelescopeSlot({
-      finalizeReservation: false,
+      finalizeReservation,
       grabType: 'notarget',
       scheduledMissionId,
       uniqueId,
     }).then(() => this.setState({ reservationModalVisible: true }));
   };
 
-  reservationModalHide = () => {
+  reservationModalHide = (cancelMission = true) => {
     const { cancelMissionSlot, selectedSlot, selectedDate } = this.props;
     const { uniqueId, scheduledMissionId } = selectedSlot;
-    cancelMissionSlot({
-      callSource: 'byTelescopeV4',
-      grabType: 'notarget',
-      scheduledMissionId,
-      uniqueId,
-    });
+    if (cancelMission) {
+      cancelMissionSlot({
+        callSource: 'byTelescopeV4',
+        grabType: 'notarget',
+        scheduledMissionId,
+        uniqueId,
+      });
+    }
     this.getMissionSlotDates(selectedDate.reservationDate);
     this.setState({ reservationModalVisible: false });
   };

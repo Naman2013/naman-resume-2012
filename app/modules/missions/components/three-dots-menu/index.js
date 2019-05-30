@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import { Dropdown } from 'react-bootstrap';
+import './styles.scss';
 
 const MENU_ITEMS = {
   EDIT_COORDINATES: 'EDIT_COORDINATES',
@@ -8,22 +9,39 @@ const MENU_ITEMS = {
 };
 
 export class ThreeDotsMenu extends PureComponent {
+  handleSelect = key => {
+    const { finnishReservation } = this.props;
+    switch (key) {
+      case MENU_ITEMS.FINNISH_RESERVATION: {
+        finnishReservation(true);
+        break;
+      }
+      default: {
+        return null;
+      }
+    }
+  };
+
   render() {
     const { timeSlot } = this.props;
     const {
       showPiggybackButton,
       enablePiggybackMenu,
-      piggybackMenuText, //Auto Save to Photo Hub
+      piggybackMenuText,
       showFinishReservationButton,
       enableFinishReservationMenu,
-      finishReservationMenuText, //Finish Reservation
+      finishReservationMenuText,
       showEditCoordinatesButton,
       enableEditCoordinatesMenu,
-      editCoordinatesMenuText, //Edit Coordinates
+      editCoordinatesMenuText,
     } = timeSlot;
-    
+
     return (
-      <Dropdown>
+      <Dropdown
+        className="three-dots-menu"
+        onSelect={this.handleSelect}
+        alignRight
+      >
         <Dropdown.Toggle
           as={props => (
             <i
@@ -32,7 +50,6 @@ export class ThreeDotsMenu extends PureComponent {
               onClick={props.onClick}
             />
           )}
-          id="dropdown-custom-components"
         />
 
         <Dropdown.Menu>
@@ -41,7 +58,7 @@ export class ThreeDotsMenu extends PureComponent {
               eventKey={MENU_ITEMS.PIGGYBACK}
               disabled={!enablePiggybackMenu}
             >
-              Auto Save to Photo Hub
+              {piggybackMenuText || 'Auto Save to Photo Hub'}
             </Dropdown.Item>
           )}
           {showFinishReservationButton && (
@@ -49,7 +66,7 @@ export class ThreeDotsMenu extends PureComponent {
               eventKey={MENU_ITEMS.FINNISH_RESERVATION}
               disabled={!enableFinishReservationMenu}
             >
-              Finish Reservation
+              {finishReservationMenuText || 'Finish Reservation'}
             </Dropdown.Item>
           )}
           {showEditCoordinatesButton && (
@@ -57,7 +74,7 @@ export class ThreeDotsMenu extends PureComponent {
               eventKey={MENU_ITEMS.EDIT_COORDINATES}
               disabled={!enableEditCoordinatesMenu}
             >
-              Edit Coordinates
+              {editCoordinatesMenuText || 'Edit Coordinates'}
             </Dropdown.Item>
           )}
         </Dropdown.Menu>

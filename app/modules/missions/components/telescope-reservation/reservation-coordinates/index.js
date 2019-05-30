@@ -53,12 +53,11 @@ class Coordinates extends Component {
       coordinatesData,
       pageSetup,
       navigationConfig,
+      selectedSlot,
     } = this.props;
 
-    const {
-      completeReservationPromptLong,
-      choosePrompt,
-    } = pageSetup;
+    const { completeReservationPromptLong, choosePrompt } = pageSetup;
+    const { userHasHold } = selectedSlot;
 
     return (
       <div className="reservation-coordinates coordinates">
@@ -88,6 +87,7 @@ class Coordinates extends Component {
           completeReservationPromptLong={completeReservationPromptLong}
           choosePrompt={choosePrompt}
           pageConfig={navigationConfig.byCoordinates}
+          userHasHold={userHasHold}
           byTelescope
         />
       </div>

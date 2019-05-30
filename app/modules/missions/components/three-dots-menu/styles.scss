@@ -1,0 +1,17 @@
+@import '~app/styles/variables/index';
+
+.three-dots-menu {
+  .dropdown-menu {
+    top: 0;
+
+    .dropdown-item {
+      font-family: $primary-font;
+      font-size: 14px;
+      color: $lightHeadedAstronaut;
+
+      &:active {
+        background-color: $geyser;
+      }
+    }
+  }
+}

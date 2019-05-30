@@ -8,9 +8,14 @@ import { ReservationCoordinates } from '../reservation-coordinates';
 import './styles.scss';
 
 export class ReservationModalTabs extends PureComponent {
-  state = {
-    countdown: 300000,
-  };
+  constructor(props) {
+    super(props);
+    const { selectedSlot } = this.props;
+    const expiresCountdown = selectedSlot.expires * 1000 - Date.now();
+    this.state = {
+      countdown: selectedSlot.expires ? expiresCountdown : 300000,
+    };
+  }
 
   onCountdownTick = data => {
     this.setState({ countdown: data.total });

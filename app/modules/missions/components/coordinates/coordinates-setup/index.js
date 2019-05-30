@@ -51,6 +51,7 @@ export class CoordinatesSetup extends PureComponent {
       choosePrompt,
       completeReservationPromptLong,
       pageConfig,
+      userHasHold,
     } = this.props;
     const {
       header,
@@ -86,6 +87,7 @@ export class CoordinatesSetup extends PureComponent {
               onCountdownComplete={onCountdownComplete}
               countdown={countdown}
               completeReservationPromptLong={completeReservationPromptLong}
+              userHasHold={userHasHold}
             />
           )}
         </div>
