@@ -21,6 +21,7 @@ const FOV = ({
   const largeRectX = canvasWidth / 2 - largeRectWidth / 2;
   const Y = canvasWidth / 2 - smallRectDimension / 2;
   const strokeDashArray = smallRectDimension * DASHED_PERCENTAGE;
+  const fontSize = Math.floor(smallRectDimension / 10) - 1;
 
   return (
     <g>
@@ -33,22 +34,25 @@ const FOV = ({
         fill="none"
       />
       <UnitText
-        x={smallRectX + smallRectDimension / 2}
+        x={largeRectX + smallRectDimension / 2}
         y={Y + smallRectDimension / 2}
         style={{ fill: stroke }}
         text={telescope.name}
+        fontSize={fontSize}
       />
 
       <UnitText
-        x={smallRectX + smallRectDimension / 2}
-        y={Y + 10 + smallRectDimension / 2}
+        x={largeRectX + smallRectDimension / 2}
+        y={Y + fontSize + smallRectDimension / 2}
         style={{ fill: stroke }}
+        fontSize={fontSize}
         text="Field of View"
       />
       <UnitText
+        fontSize={fontSize}
         style={{ fill: stroke }}
-        x={smallRectX + smallRectDimension / 2}
-        y={Y + 20 + smallRectDimension / 2}
+        x={largeRectX + smallRectDimension / 2}
+        y={Y + 2 * fontSize + smallRectDimension / 2}
         text={`${telescope.FOV.horizontal}x${
           telescope.FOV.vertical
         } arcminutes`}
