@@ -89,3 +89,9 @@
 .icon-bell:before {
   content: "\71";
 }
+.icon-play:before {
+  content: "\72";
+}
+.icon-stop:before {
+  content: "\74";
+}

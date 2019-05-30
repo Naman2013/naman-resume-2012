@@ -1,0 +1,30 @@
+@import '~app/styles/variables/index';
+
+$thumbSize: 12px;
+
+
+#volume-range {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 2px;
+  background: $lightHeadedAstronaut;
+  outline: none;
+
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: $thumbSize;
+    height: $thumbSize;
+    border-radius: 50%;
+    background: $lightHeadedAstronaut;
+    cursor: pointer;
+  }
+
+  &::-moz-range-thumb {
+    width: $thumbSize;
+    height: $thumbSize;
+    border-radius: 50%;
+    background: $lightHeadedAstronaut;
+    cursor: pointer;
+  }
+}

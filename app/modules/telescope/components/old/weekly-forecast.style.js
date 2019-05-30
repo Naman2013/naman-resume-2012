@@ -12,7 +12,7 @@ export default css`
     list-style-type: none;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: top;
     padding: 0 40px;
     margin-top: 30px;
     border-bottom: 1px solid ${hawkesBlue};
@@ -38,21 +38,32 @@ export default css`
   .actions-list {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
     position: absolute;
     top: 50px;
     width: 100%;
     padding: 0 10px;
   }
-
+  .actions-list > .forecast-action-prev {
+    left: 0;
+  }
+  .actions-list > .forecast-action-next {
+    right: 0;
+  }
   .forecast-action {
     background: none;
     border: none;
     cursor: pointer;
+    position: absolute;
   }
 
   .forecast-action:focus {
     outline: none;
+  }
+
+  .forecast-name {
+    text-align: center;
+    font-size: 13px;
   }
 
   .active-weather-condition-summary {

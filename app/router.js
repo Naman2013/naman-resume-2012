@@ -30,8 +30,8 @@ import SloohRecommends from 'app/containers/SloohRecommends';
 import StaticAppContainer from 'app/containers/static-app-container';
 import StoriesHub from 'app/containers/stories-hub';
 import { AskAstronomerMain, QuestionMain } from 'app/modules/ask-astronomer';
+import { CommunityGroupEdit } from 'app/modules/community-group-overview';
 import { GalleryDetailsMain } from 'app/modules/gallery-details';
-import { fetchPlayer } from 'app/modules/get-audio-player/actions';
 import { ImageDetailsMain } from 'app/modules/image-details';
 import { MissionDetailsMain } from 'app/modules/mission-details';
 import Catalog from 'app/modules/missions/containers/catalog';
@@ -52,7 +52,6 @@ import { TelescopeNavigation } from 'app/modules/telescope/components/old/telesc
 import GroupCreate from 'app/pages/community-groups/GroupCreate';
 import GroupImportGoogleClassrooms from 'app/pages/community-groups/GroupImportGoogleClassrooms';
 import CommunityGroupOverview from 'app/pages/community-groups/GroupOverview';
-import { CommunityGroupEdit } from 'app/modules/community-group-overview';
 import GroupOverviewInfo from 'app/pages/community-groups/GroupOverviewInfo';
 import ExistingMissions from 'app/pages/existing-missions';
 import GuideDetails from 'app/pages/guide-details/GuideDetails';
@@ -133,7 +132,7 @@ history.listen(location => {
     location: pathname,
   });
   // todo do we need this on every page refresh?
-  store.dispatch(fetchPlayer({ pageURL: pathname }));
+  // store.dispatch(fetchPlayer({ pageURL: pathname }));
 });
 
 const getProfileRoutes = () => (

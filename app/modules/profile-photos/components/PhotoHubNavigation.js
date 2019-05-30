@@ -151,8 +151,9 @@ class PhotoHubNavigation extends Component {
                   </div>
                 ))}
               </div>
-              <div className="photohub-tools">
-                {/*
+              {/*
+                <div className="photohub-tools">
+                  {/*
                 {!filterSelectActive ? (
                   <Button
                     withIntl
@@ -171,27 +172,28 @@ class PhotoHubNavigation extends Component {
                     defaultMenuIsOpen
                   />
                 )}
-*/}
-                {!searchActive ? (
-                  <Button
-                    onClickEvent={this.handleSearchClick}
-                    theme={{ marginLeft: '10px' }}
-                    icon={searchAstronaut}
-                  />
-                ) : (
-                  <input
-                    type="text"
-                    className="photo-hub-search-input-field"
-                    onChange={this.handleSearchChange}
-                    onBlur={this.handleSearchBlur}
-                    onKeyPress={this.handleSearchSubmitByEnter}
-                    value={searchValue}
-                    ref={node => {
-                      this.input = node;
-                    }}
-                  />
-                )}
-              </div>
+}
+                  {!searchActive ? (
+                    <Button
+                      onClickEvent={this.handleSearchClick}
+                      theme={{ marginLeft: '10px' }}
+                      icon={searchAstronaut}
+                    />
+                  ) : (
+                    <input
+                      type="text"
+                      className="photo-hub-search-input-field"
+                      onChange={this.handleSearchChange}
+                      onBlur={this.handleSearchBlur}
+                      onKeyPress={this.handleSearchSubmitByEnter}
+                      value={searchValue}
+                      ref={node => {
+                        this.input = node;
+                      }}
+                    />
+                  )}
+                </div>
+              */}
             </div>
           </DisplayAtBreakpoint>
           <DisplayAtBreakpoint screenSmall>

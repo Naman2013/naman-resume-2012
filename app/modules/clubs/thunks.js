@@ -6,6 +6,9 @@ export const getTopThreadList = data => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
   dispatch(ACTION.getTopThreads());
   return getTopThreadsListApi({ at, token, cid, ...data })
-    .then(result => dispatch(ACTION.getTopThreadsSuccess(result.data.threads)))
+    .then(result => {
+      dispatch(ACTION.getTopThreadsSuccess(result.data.threads));
+      return result.data;
+    })
     .catch(error => dispatch(ACTION.getTopThreadsError(error)));
 };

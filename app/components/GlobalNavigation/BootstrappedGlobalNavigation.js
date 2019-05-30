@@ -159,6 +159,7 @@ class GlobalNavigation extends Component {
             activeMenu={activeMenu}
             handleMenuClick={this.handleMenuClick}
             handleNotificationClick={this.handleNotificationClick}
+            closeAllMenus={this.closeAll}
           />
         </div>
 
