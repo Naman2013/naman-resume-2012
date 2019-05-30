@@ -101,7 +101,7 @@ class Telescope extends PureComponent<TTelescope> {
     previousInstrumentID,
     missionMetaData,
   }) {
-    if (activeInstrumentID !== this.props.activeInstrumentID) {
+    if (activeInstrumentID !== this.props.activeInstrumentID && previousInstrumentID!==null) {
       this.setState(() => ({
         activeInstrumentID: previousInstrumentID,
         previousInstrumentID: activeInstrumentID,

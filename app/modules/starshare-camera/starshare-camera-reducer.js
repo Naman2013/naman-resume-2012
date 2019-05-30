@@ -10,6 +10,7 @@ import {
   RESET_SNAP_IMAGE_MESSAGE,
   RESET_SNAPSHOT_LIST,
   RESET_IMAGE_TO_SNAP,
+  SET_PREVIOUS_INSTRUMENT,
 } from './starshare-camera-actions';
 
 const EMPTY = 'EMPTY';
@@ -45,6 +46,7 @@ const initialState = {
   snapshotMsg: '',
   snapshotList: generateInitialEmptyStarshareSlots(6),
   justSnapped: false,
+  previousInstrumentId: null,
 };
 
 export default createReducer(initialState, {
@@ -63,14 +65,18 @@ export default createReducer(initialState, {
       justSnapped: false,
     };
   },
-  [SNAP_IMAGE_SUCCESS](state, {
-    imageData: {
-      apiError,
-      imagesLastSnapped,
-      imageURL,
-      imageID,
-      explanation,
-    } }) {
+  [SNAP_IMAGE_SUCCESS](
+    state,
+    {
+      imageData: {
+        apiError,
+        imagesLastSnapped,
+        imageURL,
+        imageID,
+        explanation,
+      },
+    }
+  ) {
     return {
       ...state,
       apiError,
@@ -107,6 +113,12 @@ export default createReducer(initialState, {
       imageDataToSnapshot: {
         ...initialState.imageDataToSnapshot,
       },
+    };
+  },
+  [SET_PREVIOUS_INSTRUMENT](state, { id }) {
+    return {
+      ...state,
+      previousInstrumentId: id,
     };
   },
 });

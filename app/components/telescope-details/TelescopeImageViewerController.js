@@ -9,6 +9,7 @@ import {
   snapImage,
   resetImageToSnap,
   resetsnapImageMsg,
+  setPreviousInstrument,
 } from 'app/modules/starshare-camera/starshare-camera-actions';
 
 class TelescopeImageViewerController extends Component {
@@ -24,7 +25,7 @@ class TelescopeImageViewerController extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.activeInstrumentID !== this.props.activeInstrumentID) {
-      this.previousInstrumentID = this.props.activeInstrumentID;
+      this.props.setPreviousInstrument(this.props.activeInstrumentID);
     }
   }
 
@@ -43,6 +44,7 @@ class TelescopeImageViewerController extends Component {
       snapAPIError,
       imagesLastSnapped,
       instrStarShareCamera,
+      previousInstrumentId,
     } = this.props;
     const actions = {
       snapImage,
@@ -53,7 +55,7 @@ class TelescopeImageViewerController extends Component {
       <div>
         <Telescope
           activeInstrumentID={activeInstrumentID}
-          previousInstrumentID={this.previousInstrumentID}
+          previousInstrumentID={previousInstrumentId}
           render={render}
         />
         {instrStarShareCamera && (
@@ -77,6 +79,7 @@ const mapStateToProps = ({ starshareCamera }) => ({
   snapAPIError: starshareCamera.apiError,
   imagesLastSnapped: starshareCamera.imagesLastSnapped,
   justSnapped: starshareCamera.justSnapped,
+  previousInstrumentId: starshareCamera.previousInstrumentId,
 });
 
 const mapDispatchToProps = dispatch =>
@@ -85,6 +88,7 @@ const mapDispatchToProps = dispatch =>
       snapImage,
       resetImageToSnap,
       resetsnapImageMsg,
+      setPreviousInstrument,
     },
     dispatch
   );

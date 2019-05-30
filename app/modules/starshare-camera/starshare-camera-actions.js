@@ -8,6 +8,7 @@ export const RESET_SNAP_IMAGE_MESSAGE = 'RESET_SNAP_IMAGE_MESSAGE';
 export const RESET_SNAPSHOT_LIST = 'RESET_SNAPSHOT_LIST';
 
 export const RESET_IMAGE_TO_SNAP = 'RESET_IMAGE_TO_SNAP';
+export const SET_PREVIOUS_INSTRUMENT = 'SET_PREVIOUS_INSTRUMENT';
 
 const setImageData = data => ({
   type: SET_IMAGE_DATA_TO_SNAPSHOT,
@@ -42,6 +43,11 @@ export const setImageDataToSnapshot = data => dispatch => {
 
 export const resetImageToSnap = () => ({
   type: RESET_IMAGE_TO_SNAP,
+});
+
+export const setPreviousInstrument = id => ({
+  type: SET_PREVIOUS_INSTRUMENT,
+  id,
 });
 
 const snapImageStart = () => ({
