@@ -34,7 +34,7 @@ const FieldOfView = ({
           gridWidth={previousTelescope.PORTAL.horizontal}
           largeRectGridWidth={previousTelescope.FOV.horizontal}
           stroke={stroke}
-          telescope={currentZoomIn ? previousTelescope : activeTelescope}
+          telescope={currentZoomIn ? activeTelescope : previousTelescope}
         />
       )}
     </g>

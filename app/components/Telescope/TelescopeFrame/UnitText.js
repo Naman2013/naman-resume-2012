@@ -2,13 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { monoFont } from '../../../styles/variables/fonts';
 
-const UnitText = ({
-  unit,
-  text,
-  x,
-  y,
-  style,
-}) => (
+const UnitText = ({ unit, text, x, y, style }) => (
   <g>
     <text
       {...style}
@@ -24,7 +18,7 @@ const UnitText = ({
     <style jsx>
       {`
         .text {
-          fill: aqua;
+          fill: ${style && style.fill || 'aqua'};
           font-size: 10px;
           font-family: ${monoFont};
         }

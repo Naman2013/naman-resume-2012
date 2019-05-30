@@ -182,6 +182,7 @@ class Telescope extends PureComponent<TTelescope> {
           activeInstrumentID,
           previousInstrumentID,
           timesFlippedInstrumentBorder,
+          transitionStrokeColor,
         } = prevState;
 
         if (timesFlippedInstrumentBorder >= MAX_FOV_FLIPS) {
@@ -200,8 +201,9 @@ class Telescope extends PureComponent<TTelescope> {
             previousInstrumentID === this.state.previousInstrumentID
               ? activeInstrumentID
               : previousInstrumentID,
+          transitionStrokeColor:
+            transitionStrokeColor === 'aqua' ? '#FAD59A' : 'aqua',
         };
-
         return updatedFOVFlipState;
       });
     }, 500);
