@@ -19,6 +19,7 @@ class GuideTiles extends Component {
     ).isRequired,
     isMobile: PropTypes.bool,
     updateReadingListInfo: PropTypes.func.isRequired,
+    emptyText: PropTypes.string,
   };
 
   state = {
@@ -44,7 +45,7 @@ class GuideTiles extends Component {
   };
 
   render() {
-    const { guides, isMobile, updateReadingListInfo } = this.props;
+    const { guides, isMobile, updateReadingListInfo, emptyText } = this.props;
     const { activeId } = this.state;
     return guides.length ? (
       <CenterColumn widths={['645px', '965px', '965px']}>
@@ -83,7 +84,7 @@ class GuideTiles extends Component {
         <style jsx>{style}</style>
       </CenterColumn>
     ) : (
-      <FormattedMessage id="Hubs.noGuides" />
+      <span dangerouslySetInnerHTML={{ __html: emptyText }} />
     );
   }
 }

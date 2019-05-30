@@ -94,13 +94,37 @@ class Lists extends Component {
     const tiles = this.getModeledTiles(filterType, itemList, interestsList);
     switch (filterType) {
       case 'object':
-        return <GuideTopics {...props} list={tiles} />;
+        return (
+          <GuideTopics
+            {...props}
+            list={tiles}
+            emptyText={data.emptySetObjectsDisplay}
+          />
+        );
       case 'story':
-        return <StoryTiles {...props} stories={tiles} />;
+        return (
+          <StoryTiles
+            {...props}
+            stories={tiles}
+            emptyText={profileLists.emptySetDisplay}
+          />
+        );
       case 'guide':
-        return <GuideTiles {...props} guides={tiles} />;
+        return (
+          <GuideTiles
+            {...props}
+            guides={tiles}
+            emptyText={profileLists.emptySetDisplay}
+          />
+        );
       case 'show':
-        return <ShowTiles {...props} shows={tiles} />;
+        return (
+          <ShowTiles
+            {...props}
+            shows={tiles}
+            emptyText={profileLists.emptySetDisplay}
+          />
+        );
       default:
         return null;
     }
