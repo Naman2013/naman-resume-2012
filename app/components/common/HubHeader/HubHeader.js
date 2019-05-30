@@ -32,19 +32,17 @@ const HubHeader = props => {
             dangerouslySetInnerHTML={{ __html: title }}
           />
           {renderRightMenu ? (
-            <div className="right-menu-nav">
-              <DisplayAtBreakpoint screenMedium screenLarge screenXLarge>
-                {renderRightMenu()}
-              </DisplayAtBreakpoint>
-            </div>
+            <DisplayAtBreakpoint screenMedium screenLarge screenXLarge>
+              <div className="right-menu-nav">{renderRightMenu()}</div>
+            </DisplayAtBreakpoint>
+          ) : null}
+          {renderRightMenu ? (
+            <DisplayAtBreakpoint screenSmall>
+              <div className="right-menu-nav">{renderRightMenu()}</div>
+            </DisplayAtBreakpoint>
           ) : null}
         </div>
         {renderNav ? <div className="hub-header-nav">{renderNav()}</div> : null}
-        {renderRightMenu ? (
-          <DisplayAtBreakpoint screenSmall>
-            <div className="right-menu-nav">{renderRightMenu()}</div>
-          </DisplayAtBreakpoint>
-        ) : null}
       </div>
       <style jsx>{style}</style>
     </Fragment>

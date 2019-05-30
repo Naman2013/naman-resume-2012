@@ -485,6 +485,24 @@ export const makeTelescopeMissionListRefreshIntervalSelector = () =>
     state => state.missionListRefreshInterval
   );
 
+export const makeTelescopeMissionscrollToSMIDSelector = () =>
+  createSelector(
+    makeByTelescopeSelector(),
+    state => state.scrollToSMID
+  );
+
+export const makeTelescopeScrolledToSlotSelector = () =>
+  createSelector(
+    makeByTelescopeSelector(),
+    state => state.scrolledToSlot
+  );
+
+export const makeTelescopeMissionListLodadedSelector = () =>
+  createSelector(
+    makeByTelescopeSelector(),
+    state => state.missionListLodaded
+  );
+
 // by coordinates
 
 export const makeByCoordinatesSelector = () =>

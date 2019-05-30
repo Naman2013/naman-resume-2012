@@ -1,4 +1,4 @@
-@import '~app/styles/bootstrap/index';
+@import '~app/styles/bootstrap/common';
 @import '~app/styles/variables/index';
 
 .featured-object-card {
@@ -15,6 +15,15 @@
   &.reserved {
     border-bottom: 6px solid $lightHeadedAstronaut;
     pointer-events: none;
+
+    .reserved-mission-capture {
+      font-family: $primary-font;
+      font-size: 12px;
+      font-weight: bold;
+      line-height: 0.92;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+    }
   }
 
   .mission-title {

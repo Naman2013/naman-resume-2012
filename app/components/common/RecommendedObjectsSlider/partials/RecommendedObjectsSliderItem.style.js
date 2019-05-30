@@ -99,4 +99,16 @@ export default css`
     position: relative;
     top: -5px;
   }
+
+  .reserved-mission-capture {
+    font-family: ${primaryFont};
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 0.92;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    text-align: center;
+    color: ${lightHeadedAstronaut};
+    margin-top: 30px;
+  }
 `;

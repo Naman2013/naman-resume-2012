@@ -15,6 +15,13 @@ export class Telescope extends Component {
     this.getMissionSlotDates();
   }
 
+  componentDidUpdate() {
+    const { scrolledToSlot, missionListLodaded, scrollToSMID } = this.props;
+    if (scrollToSMID && !scrolledToSlot && missionListLodaded) {
+      this.scrollToSlot();
+    }
+  }
+
   getMissionSlotDates = (requestedDate = '') => {
     const { getMissionSlotDates, selectedTelescope } = this.props;
     this.setState({ refreshCountdownLive: false });
@@ -55,17 +62,31 @@ export class Telescope extends Component {
     this.setState({ reservationModalVisible: false });
   };
 
+  scrollToSlot = () => {
+    const { scrollToSMID, missionList, setScrolledToSlot } = this.props;
+    const slotElement = document.getElementById(`mission-slot-${scrollToSMID}`);
+    const scrollLength =
+      missionList[0].scheduledMissionId === scrollToSMID ? 300 : 70;
+    if (slotElement) {
+      window.scrollTo(
+        0,
+        window.scrollY + slotElement.getBoundingClientRect().top - scrollLength
+      );
+      setScrolledToSlot();
+    }
+  };
+
   render() {
     const {
       selectedTelescope,
       telescopeList,
       setTelescope,
       selectedDate,
-      getMissionSlotDates,
       missionList,
       missionListRefreshInterval,
+      pageSetup,
     } = this.props;
-
+    const { setUpTelescopePrompt, navigationConfig } = pageSetup;
     const { reservationModalVisible, refreshCountdownLive } = this.state;
 
     return (
@@ -75,6 +96,7 @@ export class Telescope extends Component {
             selectedTelescope={selectedTelescope}
             telescopeList={telescopeList}
             setTelescope={setTelescope}
+            setUpTelescopePrompt={setUpTelescopePrompt}
           />
 
           <MissionsList
@@ -90,6 +112,8 @@ export class Telescope extends Component {
             <ReservationModal
               onHide={this.reservationModalHide}
               onComplete={this.reservationComplete}
+              pageSetup={pageSetup}
+              navigationConfig={navigationConfig[3]}
               show
             />
           )}

@@ -66,10 +66,14 @@ class BobbieTile extends Component {
             ) : null}
 
             {disableReadMore == true && (
-              <span
-                className="__html-blob-content-container__"
-                dangerouslySetInnerHTML={{ __html: HTMLBlob }}
-              />
+              <Fragment>
+                <ImageClickHandler>
+                  <span
+                    className="__html-blob-content-container__"
+                    dangerouslySetInnerHTML={{ __html: HTMLBlob }}
+                  />
+                </ImageClickHandler>
+              </Fragment>
             )}
             {disableReadMore == false && (
               <Fragment>

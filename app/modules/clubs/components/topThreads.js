@@ -1,17 +1,31 @@
-import React, { useEffect, memo } from 'react';
+import React, { useEffect, memo, useState } from 'react';
+import {
+  setupTopThreadsExpireTimer,
+  stopTopThreadsExpireTimer,
+} from 'app/services/community-groups/timer';
 import BlueLineDrop from '../../../components/common/BlueLineDrop';
 
 import './topThreads.scss';
 
 export const TopThreads = memo(function TopThreads(props) {
+  const [shouldReload, setShouldReload] = useState(false);
   useEffect(() => {
-    props.getTopThreadList({
-      count: 10,
-      page: 1,
-      callSource: 'groups',
-      topicId: props.topicId,
-    });
-  }, [props.topicId]); //eslint-disable-line react-hooks/exhaustive-deps
+    if (props.topicId !== undefined) {
+      stopTopThreadsExpireTimer();
+      props
+        .getTopThreadList({
+          count: 10,
+          page: 1,
+          callSource: 'groups',
+          topicId: props.topicId,
+        })
+        .then(({ expires }) => {
+          setupTopThreadsExpireTimer(expires, () =>
+            setShouldReload(!shouldReload)
+          );
+        });
+    }
+  }, [props.topicId, shouldReload]); //eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div className="top-discussions-wr">

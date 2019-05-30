@@ -1,12 +1,13 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import classnames from 'classnames';
+import { SCREEN_MEDIUM } from 'app/styles/variables/breakpoints';
 import {
   astronaut,
   romance,
   shadows,
 } from 'app/styles/variables/colors_tiles_v4';
 import { primaryFont } from 'app/styles/variables/fonts';
+import classnames from 'classnames';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 const propTypes = {
   children: PropTypes.node.isRequired,
@@ -53,6 +54,12 @@ const Button = ({ children, handleClick, isActive, theme, mod }) => (
           transition-property: color background;
           transition-duration: 0.15s;
           transition-timing-function: ease-in-out;
+        }
+
+        @media screen and (max-width: ${SCREEN_MEDIUM}px) {
+          .action {
+            width: 40px;
+          }
         }
 
         .action.no-border {

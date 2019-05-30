@@ -17,6 +17,12 @@ export const makeTelescopeDataSelector = () =>
     state => state.data
   );
 
+export const makeTelescopePageSetupSelector = () =>
+  createSelector(
+    selectTelescope,
+    state => state.pageSetup
+  );
+
 export const makeAllSkyTimelapseSelector = () =>
   createSelector(
     selectTelescope,
@@ -63,6 +69,12 @@ export const makeWeatherSatelliteSelector = () =>
   createSelector(
     selectTelescopeOverview,
     state => state.weatherSatelliteWidgetResult
+  );
+
+export const makeWeatherConditionsSelector = () =>
+  createSelector(
+    selectTelescopeOverview,
+    state => state.weatherConditionsWidgetResult
   );
 
 export const makeDomeCamSelector = () =>
