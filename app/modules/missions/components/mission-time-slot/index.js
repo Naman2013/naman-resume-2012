@@ -1,5 +1,6 @@
 import React, { PureComponent, Fragment } from 'react';
 import moment from 'moment';
+import { ThreeDotsMenu } from '../three-dots-menu';
 import './styles.scss';
 
 const SLOT_STATUS = {
@@ -24,7 +25,6 @@ export class MissionTimeSlot extends PureComponent {
       displayTime,
       displayTimeZone,
     } = missionStartFormatted;
-
     const missionSlotOnClick =
       SLOT_STATUS.AVAILABLE === slotStatus
         ? () => getTelescopeSlot()
@@ -66,7 +66,9 @@ export class MissionTimeSlot extends PureComponent {
           </div>
         </div>
         <div className="right">
-          <div className="actions" />
+          <div className="actions">
+            <ThreeDotsMenu timeSlot={timeSlot} />
+          </div>
           <div className="time">
             <div className="large">
               {displayTime}
