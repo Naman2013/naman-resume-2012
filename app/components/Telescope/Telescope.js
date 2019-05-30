@@ -1,8 +1,11 @@
 // @flow
 import React, { PureComponent, Fragment } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { Modal } from 'react-bootstrap';
 import Measure from 'react-measure';
 import noop from 'lodash/noop';
+import { setPreviousInstrument } from 'app/modules/starshare-camera/starshare-camera-actions';
 import Fade from '../common/Fade';
 import FadeSVG from '../common/Fade/FadeSVG';
 import easingFunctions, { animateValues } from '../../utils/easingFunctions';
@@ -68,7 +71,8 @@ class Telescope extends PureComponent<TTelescope> {
 
   state = {
     activeInstrumentID: this.props.activeInstrumentID,
-    previousInstrumentID: this.props.previousInstrumentID,
+    previousInstrumentID: this.props.previousInstrumentId,
+    telescopeId: this.props.activeInstrumentID,
     timesFlippedInstrumentBorder: 0,
     isTransitioningTelescope: false,
     horizontalResolution: getTelescope(this.props.activeInstrumentID).FOV
@@ -98,14 +102,16 @@ class Telescope extends PureComponent<TTelescope> {
 
   componentWillReceiveProps({
     activeInstrumentID,
-    previousInstrumentID,
+    previousInstrumentId,
     missionMetaData,
   }) {
+    this.props.setPreviousInstrument(activeInstrumentID);
     if (
-      previousInstrumentID !== null
+      previousInstrumentId !== null &&
+      previousInstrumentId !== activeInstrumentID
     ) {
       this.setState(() => ({
-        activeInstrumentID: previousInstrumentID,
+        activeInstrumentID: previousInstrumentId,
         previousInstrumentID: activeInstrumentID,
       }));
       this.showTitleMessage();
@@ -139,7 +145,7 @@ class Telescope extends PureComponent<TTelescope> {
       setTimeout(() => {
         this.setState({ showTitleMessage: false });
         this.transitionZoomOut();
-      }, 1000);
+      }, 2000);
     });
   };
 
@@ -205,6 +211,10 @@ class Telescope extends PureComponent<TTelescope> {
               : previousInstrumentID,
           transitionStrokeColor:
             transitionStrokeColor === 'aqua' ? '#FAD59A' : 'aqua',
+          telescopeId:
+            this.state.telescopeId === this.state.previousInstrumentID
+              ? activeInstrumentID
+              : previousInstrumentID,
         };
         return updatedFOVFlipState;
       });
@@ -368,18 +378,34 @@ class Telescope extends PureComponent<TTelescope> {
                     {isMaskActive && <Mask radius={radius} />}
                   </FadeSVG>
                   {this.state.showTitleMessage && (
-                    <UnitText
-                      text="CHANGING FIELD OF VIEW"
-                      x={width / 2}
-                      y={height / 2}
-                      style={{ fill: 'aqua', width: '100%' }}
-                    />
+                    <Fragment>
+                      <g>
+                        <rect
+                          x="0"
+                          y="0"
+                          width={width}
+                          height={height}
+                          style={{ fill: 'black' }}
+                        />
+                      </g>
+                      <UnitText
+                        text="CHANGING FIELD OF VIEW"
+                        x={width / 2}
+                        y={height / 2}
+                        fontSize="40"
+                        style={{
+                          fill: 'aqua',
+                          width: '100%',
+                        }}
+                      />
+                    </Fragment>
                   )}
                   {activeInstrumentID && previousInstrumentID && isGridActive && (
                     <FadeSVG isHidden={!isTransitioningTelescope}>
                       <FieldOfView
                         activeInstrumentID={activeInstrumentID}
                         previousInstrumentID={previousInstrumentID}
+                        telescopeId={this.state.telescopeId}
                         tickSpacing={tickSpacing}
                         canvasWidth={width}
                         currentZoomIn={this.currentZoomInTransition}
@@ -514,4 +540,19 @@ class Telescope extends PureComponent<TTelescope> {
   }
 }
 
-export default Telescope;
+const mapStateToProps = ({ starshareCamera }) => ({
+  previousInstrumentId: starshareCamera.previousInstrumentId,
+});
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      setPreviousInstrument,
+    },
+    dispatch
+  );
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Telescope);

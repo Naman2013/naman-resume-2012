@@ -24,12 +24,16 @@ class TelescopeImageViewerController extends Component {
   };
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.activeInstrumentID !== this.props.activeInstrumentID) {
-      this.props.setPreviousInstrument(this.props.activeInstrumentID);
-    }
+    // if (nextProps.activeInstrumentID !== this.props.activeInstrumentID) {
+    //   this.props.setPreviousInstrument(this.props.activeInstrumentID);
+    // }
   }
 
   previousInstrumentID = null;
+
+  componentWillUnmount() {
+    console.log('controller;');
+  }
 
   render() {
     const {
@@ -53,11 +57,7 @@ class TelescopeImageViewerController extends Component {
     };
     return (
       <div>
-        <Telescope
-          activeInstrumentID={activeInstrumentID}
-          previousInstrumentID={previousInstrumentId}
-          render={render}
-        />
+        <Telescope activeInstrumentID={activeInstrumentID} render={render} />
         {instrStarShareCamera && (
           <StarShareCamera
             actions={actions}

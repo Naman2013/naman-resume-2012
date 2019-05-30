@@ -8,12 +8,14 @@ const FieldOfView = ({
   canvasWidth,
   activeInstrumentID,
   previousInstrumentID,
+  telescopeId,
   currentZoomIn,
   currentZoomOut,
   stroke,
 }) => {
   const activeTelescope = getTelescope(activeInstrumentID);
   const previousTelescope = getTelescope(previousInstrumentID);
+  const telescope = getTelescope(telescopeId);
 
   return (
     <g>
@@ -34,7 +36,7 @@ const FieldOfView = ({
           gridWidth={previousTelescope.PORTAL.horizontal}
           largeRectGridWidth={previousTelescope.FOV.horizontal}
           stroke={stroke}
-          telescope={currentZoomIn ? activeTelescope : previousTelescope}
+          telescope={telescope}
         />
       )}
     </g>
