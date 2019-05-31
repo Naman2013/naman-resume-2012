@@ -113,6 +113,7 @@ class Telescope extends PureComponent<TTelescope> {
       this.setState(() => ({
         activeInstrumentID: previousInstrumentId,
         previousInstrumentID: activeInstrumentID,
+        telescopeId: previousInstrumentId
       }));
       this.showTitleMessage();
     }
@@ -145,7 +146,7 @@ class Telescope extends PureComponent<TTelescope> {
       setTimeout(() => {
         this.setState({ showTitleMessage: false });
         this.transitionZoomOut();
-      }, 2000);
+      }, 3000);
     });
   };
 

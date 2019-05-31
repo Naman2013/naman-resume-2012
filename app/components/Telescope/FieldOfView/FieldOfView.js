@@ -33,8 +33,8 @@ const FieldOfView = ({
         <FOV
           tickSpacing={tickSpacing}
           canvasWidth={canvasWidth}
-          gridWidth={previousTelescope.PORTAL.horizontal}
-          largeRectGridWidth={previousTelescope.FOV.horizontal}
+          gridWidth={activeTelescope.PORTAL.horizontal}
+          largeRectGridWidth={activeTelescope.FOV.horizontal}
           stroke={stroke}
           telescope={telescope}
         />
