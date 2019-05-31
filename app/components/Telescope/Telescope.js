@@ -183,7 +183,7 @@ class Telescope extends PureComponent<TTelescope> {
   transitionPOV() {
     this.setState({
       timesFlippedInstrumentBorder: 0,
-      transitionStrokeColor: '#FAD59A',
+      transitionStrokeColor: 'aqua',
     });
     this.doFOVTransitionInterval = setInterval(() => {
       this.setState(prevState => {

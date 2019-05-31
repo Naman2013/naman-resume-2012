@@ -99,7 +99,7 @@ export default class TelescopeOffline extends Component {
               />
             </Tab.Pane>
             <Tab.Pane eventKey="QUEUE">
-              <QueueTab 
+              <QueueTab
                 offlineQueueTab
                 showFeaturedObjects
                 missionsRefreshTimerEnabled
