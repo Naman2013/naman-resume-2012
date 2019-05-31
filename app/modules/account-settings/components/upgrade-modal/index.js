@@ -4,6 +4,8 @@ import { Modal } from 'app/components/modal';
 import { Spinner } from 'app/components/spinner/index';
 import { PaymentStep } from 'app/modules/account-settings/components/upgrade-modal/payment-step';
 import { SelectPlanStep } from 'app/modules/account-settings/components/upgrade-modal/select-plan-step';
+import { destroySession, removeUser } from 'app/modules/User';
+import { Link, browserHistory } from 'react-router';
 
 import React, { useEffect, useState } from 'react';
 
@@ -19,6 +21,7 @@ type TUpgradeModal = {
 
 type TSteps = 'SELECT_PLAN' | 'PAYMENT';
 
+
 const didMount = (props: TUpgradeModal) => () => {
   const {
     getSubscriptionPlans,
@@ -32,7 +35,7 @@ const didMount = (props: TUpgradeModal) => () => {
 };
 
 export const UpgradeModal = (props: TUpgradeModal) => {
-  const [step, setStep] = useState<TSteps>('SELECT_PLAN');
+  const [step, setStep, dispatch] = useState<TSteps>('SELECT_PLAN');
   useEffect(didMount(props), []);
 
   const {
@@ -44,8 +47,23 @@ export const UpgradeModal = (props: TUpgradeModal) => {
     errorData, // errors from issue with user account modal
   } = props;
 
+  let buttonText = "GO BACK";
+  let onCloseFunc = onHide;
+
+  if (props.subscriptionPlansCallSource == 'forcedsloohcrew') {
+    buttonText = 'LOGOUT';
+    onCloseFunc = (dispatch) => {
+      //Force Logout the User - They have opted to not buy a Slooh Plan
+      destroySession();
+      removeUser();
+      onHide();
+      browserHistory.push('/');
+      window.location.reload();
+    }
+  }
+
   return (
-    <Modal show={show} onHide={onHide}>
+    <Modal show={show} onHide={onCloseFunc} goBackText={buttonText} mobileGoBackText={buttonText}>
       <Spinner transparent loading={isFetching} />
 
       {step === 'SELECT_PLAN' && (
