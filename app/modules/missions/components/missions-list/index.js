@@ -16,10 +16,12 @@ export class MissionsList extends Component {
       selectedDate,
       missionList,
       getTelescopeSlot,
+      getMissionSlotDates,
       showDateArrows,
       showShowMoreButton,
       showMoreButtonCaption,
       showMore,
+      getMissionSlots,
     } = this.props;
 
     return (
@@ -39,6 +41,7 @@ export class MissionsList extends Component {
               getTelescopeSlot={finalizeReservation =>
                 getTelescopeSlot(item, finalizeReservation)
               }
+              getMissionSlots={getMissionSlots}
             />
           ))}
 

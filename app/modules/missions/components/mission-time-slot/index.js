@@ -11,7 +11,7 @@ const SLOT_STATUS = {
 
 export class MissionTimeSlot extends PureComponent {
   render() {
-    const { timeSlot, getTelescopeSlot } = this.props;
+    const { timeSlot, getTelescopeSlot, getMissionSlots } = this.props;
     const {
       slotStatus,
       slotTitle,
@@ -49,6 +49,7 @@ export class MissionTimeSlot extends PureComponent {
             {expires > 0 && userHasHold && (
               <Countdown
                 date={expires * 1000}
+                onComplete={getMissionSlots}
                 renderer={props => (
                   <span>
                     {props.minutes}:
@@ -86,12 +87,12 @@ export class MissionTimeSlot extends PureComponent {
         </div>
         <div className="right">
           <div className="actions">
-            {showDotMenu &&
+            {showDotMenu && (
               <ThreeDotsMenu
                 timeSlot={timeSlot}
                 finnishReservation={getTelescopeSlot}
               />
-            }
+            )}
           </div>
           <div className="time">
             <div className="large">
@@ -104,12 +105,12 @@ export class MissionTimeSlot extends PureComponent {
 
         <div className="mobile">
           <div className="actions">
-            {showDotMenuMobile &&
+            {showDotMenuMobile && (
               <ThreeDotsMenu
                 timeSlot={timeSlot}
                 finnishReservation={getTelescopeSlot}
               />
-            }
+            )}
           </div>
 
           <div className="mission-title">

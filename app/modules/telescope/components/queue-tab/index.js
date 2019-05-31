@@ -69,28 +69,32 @@ export class QueueTab extends Component {
     this.getUpcomingSlotsByTelescope(requestedSlotCount + showMoreSlotsIncrement);
   }
 
-  getTelescopeSlot = mission => {
+  getTelescopeSlot = (mission, finalizeReservation = false) => {
     const { getTelescopeSlot, setSelectedSlot } = this.props;
     const { scheduledMissionId, uniqueId } = mission;
     setSelectedSlot(mission);
     getTelescopeSlot({
-      finalizeReservation: false,
+      finalizeReservation: finalizeReservation,
       grabType: 'notarget',
       scheduledMissionId,
       uniqueId,
     }).then(() => this.setState({ reservationModalVisible: true }));
   };
 
-  reservationModalHide = () => {
+  reservationModalHide = (cancelMission = true) => {
     const { cancelMissionSlot, selectedSlot, upcomingSlotsData } = this.props;
     const { uniqueId, scheduledMissionId } = selectedSlot;
     const { requestedSlotCount } = upcomingSlotsData;
-    cancelMissionSlot({
-      callSource: 'byTelescopeV4',
-      grabType: 'notarget',
-      scheduledMissionId,
-      uniqueId,
-    }).then(() => this.getUpcomingSlotsByTelescope(requestedSlotCount));
+    if (cancelMission) {
+      cancelMissionSlot({
+        callSource: 'byTelescopeV4',
+        grabType: 'notarget',
+        scheduledMissionId,
+        uniqueId,
+      }).then(() => this.getUpcomingSlotsByTelescope(requestedSlotCount));
+    } else {
+      this.getUpcomingSlotsByTelescope(requestedSlotCount);
+    }
     this.setState({ reservationModalVisible: false });
   };
 
@@ -116,7 +120,7 @@ export class QueueTab extends Component {
       pageSetup,
     } = this.props;
     
-    const { missionList, reservationDateFormatted, showShowMoreButton, showMoreButtonCaption } = upcomingSlotsData;
+    const { missionList, reservationDateFormatted, showShowMoreButton, showMoreButtonCaption, requestedSlotCount } = upcomingSlotsData;
     const { reservationModalVisible } = this.state;
     const { navigationConfig } = pageSetup;
 
@@ -148,6 +152,7 @@ export class QueueTab extends Component {
             showMore={this.showMore}
             showShowMoreButton={showShowMoreButton}
             showMoreButtonCaption={showMoreButtonCaption}
+            getMissionSlots={() => this.getUpcomingSlotsByTelescope(requestedSlotCount)}
           />
 
           {reservationModalVisible && (

@@ -107,6 +107,7 @@ export class Telescope extends Component {
             getMissionSlotDates={this.getMissionSlotDates}
             missionList={missionList}
             getTelescopeSlot={this.getTelescopeSlot}
+            getMissionSlots={this.getMissionSlotDates}
             showDateArrows
           />
 
