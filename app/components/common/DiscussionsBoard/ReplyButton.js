@@ -62,9 +62,8 @@ class ReplyButton extends Component {
     intl: intlShape.isRequired,
   };
 
-  constructor(props) {
-    super();
-    const { user } = props;
+  componentDidMount() {
+    const { user } = this.props;
 
     prepareReply({
       at: user.at,
