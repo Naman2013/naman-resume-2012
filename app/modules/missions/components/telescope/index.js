@@ -36,7 +36,7 @@ export class Telescope extends Component {
     const { scheduledMissionId, uniqueId } = mission;
     setSelectedSlot(mission);
     getTelescopeSlot({
-      finalizeReservation,
+      finalizeReservation: finalizeReservation,
       grabType: 'notarget',
       scheduledMissionId,
       uniqueId,

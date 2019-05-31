@@ -22,6 +22,8 @@ export class MissionTimeSlot extends PureComponent {
       scheduledMissionId,
       expires,
       userHasHold,
+      showDotMenu,
+      showDotMenuMobile,
     } = timeSlot;
     const {
       displayOtherTimeZones,
@@ -84,10 +86,12 @@ export class MissionTimeSlot extends PureComponent {
         </div>
         <div className="right">
           <div className="actions">
-            <ThreeDotsMenu
-              timeSlot={timeSlot}
-              finnishReservation={getTelescopeSlot}
-            />
+            {showDotMenu &&
+              <ThreeDotsMenu
+                timeSlot={timeSlot}
+                finnishReservation={getTelescopeSlot}
+              />
+            }
           </div>
           <div className="time">
             <div className="large">
@@ -100,10 +104,12 @@ export class MissionTimeSlot extends PureComponent {
 
         <div className="mobile">
           <div className="actions">
-            <ThreeDotsMenu
-              timeSlot={timeSlot}
-              finnishReservation={getTelescopeSlot}
-            />
+            {showDotMenuMobile &&
+              <ThreeDotsMenu
+                timeSlot={timeSlot}
+                finnishReservation={getTelescopeSlot}
+              />
+            }
           </div>
 
           <div className="mission-title">
