@@ -26,10 +26,14 @@ const CardObsLarge = props => {
   const [isOpen, openModal] = useState(false);
   const [likesNumber, changeLikesNumber] = useState(likesCount);
   const onLikeClick = () => {
-    if (!showLikePrompt) {
-      handleLike(customerImageId);
-      changeLikesNumber(likesNumber + 1);
-    }
+    return new Promise((resolve, reject) => {
+      if (!showLikePrompt) {
+        const response = handleLike(customerImageId);
+        changeLikesNumber(likesNumber + 1);
+        resolve(response);
+      }
+      reject();
+    });
   };
   return (
     <Fragment>

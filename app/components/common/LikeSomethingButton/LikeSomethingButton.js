@@ -110,13 +110,22 @@ class LikeHeartButton extends Component {
 
   handleLikeResult = res => {
     const { likeResultHandler } = this.props;
-    const { apiError, showLikePrompt, count, likePrompt } = res.data;
+    const {
+      apiError,
+      showLikePrompt,
+      likesCount,
+      count,
+      likePrompt,
+    } = res.data;
+    const resultLikesCount = count || likesCount;
 
     if (!apiError) {
       this.setState(() => ({
-        likesCount: Number(count),
+        likesCount: Number(resultLikesCount),
       }));
-      likeResultHandler(count);
+      if (typeof likeResultHandler === 'function') {
+        likeResultHandler(resultLikesCount);
+      }
     }
 
     if (showLikePrompt) {
