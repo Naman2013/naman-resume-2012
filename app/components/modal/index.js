@@ -53,7 +53,8 @@ export const Modal = (props: TModal) => {
     <BModal
       {...props}
       dialogAs={() => <ModalDialog {...props} />}
-      backdrop={false}
+      backdrop="static"
+      backdropClassName="custom-modal-backdrop"
       className={cls}
     >
       {children}

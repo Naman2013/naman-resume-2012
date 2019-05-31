@@ -1,45 +1,37 @@
 @import '~app/styles/variables/index';
 
-.filter-dropdown-wrapper {
-  position: relative;
+.filter-modal.modal-dialog {
+  max-width: 572px;
+  font-family: $primary-font;
+  box-shadow: 0 0 6px 0 $shadows;
+}
 
-  .filter-dropdown {
-    position: absolute;
-    z-index: 10;
-    top: 0;
-    right: 0;
-    //border: 1px solid;
+.filter-dropdown {
+  &-header {
+    padding: 20px;
+    background-color: $romance;
     box-shadow: 0 0 6px 0 $shadows;
+    position: relative;
 
-    width: 570px;
-    //max-width: 570px; todo
-
-    &-header {
-      padding: 20px;
-      background-color: $romance;
-      box-shadow: 0 0 6px 0 $shadows;
-      position: relative;
-
-      .close-btn {
-        cursor: pointer;
-      }
+    .close-btn {
+      cursor: pointer;
     }
+  }
 
-    &-body {
-      padding: 30px;
-      background-color: $faintGray;
+  &-body {
+    padding: 30px;
+    background-color: $faintGray;
 
-      & > .h4-custom {
-        margin-bottom: 30px;
-      }
+    & > .h4-custom {
+      margin-bottom: 30px;
     }
+  }
 
-    &-footer {
-      padding: 30px;
-      background-color: $romance;
-      box-shadow: 0 0 6px 0 $shadows;
-      position: relative;
-    }
+  &-footer {
+    padding: 30px;
+    background-color: $romance;
+    box-shadow: 0 0 6px 0 $shadows;
+    position: relative;
   }
 
   hr {
@@ -81,4 +73,8 @@
       }
     }
   }
+}
+
+.filter-dropdown-wrapper {
+  position: relative;
 }
