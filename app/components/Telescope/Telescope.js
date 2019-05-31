@@ -113,7 +113,7 @@ class Telescope extends PureComponent<TTelescope> {
       this.setState(() => ({
         activeInstrumentID: previousInstrumentId,
         previousInstrumentID: activeInstrumentID,
-        telescopeId: previousInstrumentId
+        telescopeId: previousInstrumentId,
       }));
       this.showTitleMessage();
     }
@@ -144,7 +144,6 @@ class Telescope extends PureComponent<TTelescope> {
   showTitleMessage = () => {
     this.setState({ showTitleMessage: true }, () => {
       setTimeout(() => {
-        this.setState({ showTitleMessage: false });
         this.transitionZoomOut();
       }, 3000);
     });
@@ -153,7 +152,10 @@ class Telescope extends PureComponent<TTelescope> {
   transitionZoomOut() {
     let remainingDuration = 0;
 
-    this.setState(() => ({ isTransitioningTelescope: true }));
+    this.setState(() => ({
+      isTransitioningTelescope: true,
+      showTitleMessage: false,
+    }));
 
     if (this.currentZoomOutTransition) {
       remainingDuration = this.currentZoomOutTransition
@@ -378,28 +380,28 @@ class Telescope extends PureComponent<TTelescope> {
                   <FadeSVG isHidden={isTransitioningTelescope}>
                     {isMaskActive && <Mask radius={radius} />}
                   </FadeSVG>
-                  {this.state.showTitleMessage && (
-                    <Fragment>
-                      <g>
-                        <rect
-                          x="0"
-                          y="0"
-                          width={width}
-                          height={height}
-                          style={{ fill: 'black' }}
-                        />
-                      </g>
-                      <UnitText
-                        text="CHANGING FIELD OF VIEW"
-                        x={width / 2}
-                        y={height / 2}
-                        fontSize="40"
-                        style={{
-                          fill: 'aqua',
-                          width: '100%',
-                        }}
+                  {(this.state.showTitleMessage || isTransitioningTelescope) && (
+                    <g>
+                      <rect
+                        x="0"
+                        y="0"
+                        width={width}
+                        height={height}
+                        style={{ fill: 'black' }}
                       />
-                    </Fragment>
+                    </g>
+                  )}
+                  {this.state.showTitleMessage && (
+                    <UnitText
+                      text="CHANGING FIELD OF VIEW"
+                      x={width / 2}
+                      y={height / 2}
+                      fontSize="40"
+                      style={{
+                        fill: 'aqua',
+                        width: '100%',
+                      }}
+                    />
                   )}
                   {activeInstrumentID && previousInstrumentID && isGridActive && (
                     <FadeSVG isHidden={!isTransitioningTelescope}>
