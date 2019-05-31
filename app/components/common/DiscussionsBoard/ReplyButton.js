@@ -15,6 +15,7 @@ import {
   shadows,
 } from 'app/styles/variables/colors_tiles_v4';
 import { dropShadowContainer } from 'app/styles/mixins/utilities';
+import { prepareReply } from 'app/services/discussions/prepare-reply';
 import messages from './ReplyForm.messages';
 
 const {
@@ -29,6 +30,10 @@ const {
 } = PropTypes;
 
 class ReplyButton extends Component {
+  state = {
+    uuid: null,
+  };
+
   static defaultProps = {
     avatarURL: '',
     replyTo: null,
@@ -40,6 +45,7 @@ class ReplyButton extends Component {
     },
     forumId: null,
   };
+
   static propTypes = {
     avatarURL: string,
     submitReply: func.isRequired,
@@ -55,6 +61,21 @@ class ReplyButton extends Component {
     }),
     intl: intlShape.isRequired,
   };
+
+  constructor(props) {
+    super();
+    const { user } = props;
+
+    prepareReply({
+      at: user.at,
+      token: user.token,
+      cid: user.cid,
+    }).then(res => {
+      this.setState(() => ({
+        uuid: res.data.postUUID,
+      }));
+    });
+  }
 
   submitForm = (content, S3URLs, callback) => {
     const {
@@ -94,10 +115,12 @@ class ReplyButton extends Component {
 
   render() {
     const { avatarURL, isDesktop, user, intl } = this.props;
+    const { uuid } = this.state;
     return (
       <div className="reply-form-container">
         <RevealSubmitForm
           {...this.props}
+          uuid={uuid}
           submitForm={this.submitForm}
           placeholder={intl.formatMessage(messages.PublicCommentPlaceholder)}
           revealButtonRender={btnProps => (
