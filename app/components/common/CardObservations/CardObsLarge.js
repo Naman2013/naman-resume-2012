@@ -29,7 +29,7 @@ const CardObsLarge = props => {
     return new Promise((resolve, reject) => {
       if (!showLikePrompt) {
         const response = handleLike(customerImageId);
-        changeLikesNumber(likesNumber + 1);
+        //changeLikesNumber(likesNumber + 1);
         resolve(response);
       }
       reject();
