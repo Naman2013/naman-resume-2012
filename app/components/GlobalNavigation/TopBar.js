@@ -47,7 +47,7 @@ const TopBar = ({
               <ul className="button-list">
                 <li>
                   <Button handleClick={home} mod="no-border">
-                    <i className="i-logo_astronaut" />
+                    <i className="top-nav-icon i-logo_astronaut" />
                   </Button>
                 </li>
                 <li>
@@ -57,7 +57,11 @@ const TopBar = ({
                     mod="no-border"
                   >
                     <i
-                      className={mainIsActive ? 'fa fa-close' : 'fa fa-bars'}
+                      className={
+                        mainIsActive
+                          ? 'top-nav-icon icon-close'
+                          : 'top-nav-icon icon-hamburger'
+                      }
                     />
                   </Button>
                 </li>
@@ -70,8 +74,8 @@ const TopBar = ({
                     <i
                       className={
                         telescopesIsActive
-                          ? 'fa fa-close'
-                          : 'i-telescope_astronaut'
+                          ? 'top-nav-icon icon-close'
+                          : 'top-nav-icon icon-telescope'
                       }
                     />
                   </Button>
@@ -84,7 +88,9 @@ const TopBar = ({
                   >
                     <i
                       className={
-                        searchIsActive ? 'fa fa-close' : 'fa fa-search'
+                        searchIsActive
+                          ? 'top-nav-icon icon-close'
+                          : 'top-nav-icon icon-search'
                       }
                     />
                   </Button>
@@ -136,9 +142,9 @@ const TopBar = ({
                     {user.isAuthorized && (
                       <Fragment>
                         {userIsActive ? (
-                          <i className="fa fa-close" />
+                          <i className="top-nav-icon icon-close" />
                         ) : (
-                          <i className="icon i-user-astronaut" />
+                          <i className="top-nav-icon i-user-astronaut" />
                         )}
                       </Fragment>
                     )}
@@ -146,13 +152,13 @@ const TopBar = ({
                     {!user.isAuthorized && (
                       <Fragment>
                         {userIsActive ? (
-                          <i className="fa fa-close" />
+                          <i className="top-nav-icon icon-close" />
                         ) : (
                           <div className="flex-row justify-content-center">
                             <span className="text">
                               <FormattedMessage {...messages.SignIn} />
                             </span>
-                            <i className="icon i-user-astronaut" />
+                            <i className="top-nav-icon i-user-astronaut" />
                           </div>
                         )}
                       </Fragment>
@@ -204,8 +210,17 @@ const TopBar = ({
                   display: inline-block;
                 }
 
-                .icon {
-                  font-size: 18px;
+                .top-nav-icon {
+                  font-size: 20px;
+                  line-height: 20px;
+                  height: 20px;
+                  display: inline-block;
+                }
+
+                .i-logo_astronaut,
+                .i-user-astronaut {
+                  /* todo make global configs for icons */
+                  width: 20px;
                 }
               `}
             </style>
