@@ -5,7 +5,7 @@ import { Datepicker } from 'app/modules/profile-photos/components/filter-dropdow
 import { FilterElImg } from 'app/modules/profile-photos/components/filter-dropdown/filter-el-img';
 import { FilterElTime } from 'app/modules/profile-photos/components/filter-dropdown/filter-el-time';
 import React, { memo } from 'react';
-import { Button } from 'react-bootstrap';
+import { Button, Modal } from 'react-bootstrap';
 import { Tooltip } from 'react-tippy';
 import useOnClickOutside from 'use-onclickoutside';
 import './index.scss';
@@ -77,7 +77,13 @@ export const FilterDropdown = memo((props: TFilterDropdown) => {
     <div className="filter-dropdown-wrapper">
       <Button onClick={open}>Options</Button>
 
-      {isOpen && (
+      <Modal
+        show={isOpen}
+        onHide={close}
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+        dialogClassName="filter-modal"
+      >
         <div className="filter-dropdown animated fadeIn faster" ref={ref}>
           <div className="filter-dropdown-header d-flex justify-content-between">
             <span>OPTIONS</span>
@@ -194,7 +200,7 @@ export const FilterDropdown = memo((props: TFilterDropdown) => {
             </Button>
           </div>
         </div>
-      )}
+      </Modal>
     </div>
   );
 });
