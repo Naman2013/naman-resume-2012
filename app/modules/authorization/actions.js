@@ -193,7 +193,7 @@ export const validateResponseAccess = apiResponse => (dispatch, getState) => {
     subscriptionPlansCallSource = 'forcedsloohcrew';
     triggerUserAccountIssueModal = true;
   }
-  else if (statusCode === EXPIRED_ACCOUNT_STATUS_CODE) {
+  else if (statusCode === UPSELL_STATUS_CODE) {
     subscriptionPlansCallSource = 'upsell';
     triggerUserAccountIssueModal = true;
   }
