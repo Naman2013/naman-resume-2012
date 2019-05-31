@@ -21,7 +21,6 @@ import { getTelescope } from './telescopeConfig';
 import FieldOfView from './FieldOfView/FieldOfView';
 
 import { moodyBleu, romance } from '../../styles/variables/colors_tiles_v4';
-import Text from '../SVG/Text';
 
 const MAX_RESOLUTION = 250;
 const MAX_DURATION = 10000;
@@ -380,7 +379,8 @@ class Telescope extends PureComponent<TTelescope> {
                   <FadeSVG isHidden={isTransitioningTelescope}>
                     {isMaskActive && <Mask radius={radius} />}
                   </FadeSVG>
-                  {(this.state.showTitleMessage || isTransitioningTelescope) && (
+                  {(this.state.showTitleMessage ||
+                    isTransitioningTelescope) && (
                     <g>
                       <rect
                         x="0"
