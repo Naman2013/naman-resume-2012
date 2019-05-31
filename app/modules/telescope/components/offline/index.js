@@ -14,6 +14,7 @@ export default class TelescopeOffline extends Component {
       fetchWeatherSatellite,
       fetchDomeCamAction,
       fetchObservatoryWebcam,
+      setPreviousInstrument,
     } = this.props;
     const {
       DayNightBarPanelWidgetId,
@@ -24,6 +25,7 @@ export default class TelescopeOffline extends Component {
       FacilityWebcamWidgetId,
       AllskyWidgetId,
     } = currentObservatory;
+    setPreviousInstrument(null);
     fetchAllWidgets({
       obsId,
       DayNightBarPanelWidgetId,
