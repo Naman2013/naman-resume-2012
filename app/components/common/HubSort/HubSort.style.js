@@ -36,14 +36,17 @@ export default css`
   }
 
   .context-container {
-    width: 75%;
     position: absolute;
-    left: 0;
-    margin: 0 50px;
+    right: 0;
   }
 
   .sort-dropdown-container {
-    width: 100%;
     background-color: ${seashell};
+  }
+
+  @media screen and (max-width: 450px) {
+    .context-container.toggle {
+      width: 100%;
+    }
   }
 `;

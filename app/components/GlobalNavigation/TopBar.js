@@ -15,7 +15,12 @@ function isActive(menuName, activeMenu) {
   return menuName === activeMenu;
 }
 
-const TopBar = ({ handleMenuClick, activeMenu, handleNotificationClick }) => {
+const TopBar = ({
+  handleMenuClick,
+  activeMenu,
+  handleNotificationClick,
+  closeAllMenus,
+}) => {
   const mainIsActive = isActive(activeMenu, MENU_INTERFACE.MAIN.name);
   const telescopesIsActive = isActive(
     activeMenu,
@@ -42,7 +47,7 @@ const TopBar = ({ handleMenuClick, activeMenu, handleNotificationClick }) => {
               <ul className="button-list">
                 <li>
                   <Button handleClick={home} mod="no-border">
-                    <i className="i-logo_astronaut" />
+                    <i className="top-nav-icon i-logo_astronaut" />
                   </Button>
                 </li>
                 <li>
@@ -52,7 +57,11 @@ const TopBar = ({ handleMenuClick, activeMenu, handleNotificationClick }) => {
                     mod="no-border"
                   >
                     <i
-                      className={mainIsActive ? 'fa fa-close' : 'fa fa-bars'}
+                      className={
+                        mainIsActive
+                          ? 'top-nav-icon icon-close'
+                          : 'top-nav-icon icon-hamburger'
+                      }
                     />
                   </Button>
                 </li>
@@ -65,8 +74,8 @@ const TopBar = ({ handleMenuClick, activeMenu, handleNotificationClick }) => {
                     <i
                       className={
                         telescopesIsActive
-                          ? 'fa fa-close'
-                          : 'i-telescope_astronaut'
+                          ? 'top-nav-icon icon-close'
+                          : 'top-nav-icon icon-telescope'
                       }
                     />
                   </Button>
@@ -79,7 +88,9 @@ const TopBar = ({ handleMenuClick, activeMenu, handleNotificationClick }) => {
                   >
                     <i
                       className={
-                        searchIsActive ? 'fa fa-close' : 'fa fa-search'
+                        searchIsActive
+                          ? 'top-nav-icon icon-close'
+                          : 'top-nav-icon icon-search'
                       }
                     />
                   </Button>
@@ -103,13 +114,7 @@ const TopBar = ({ handleMenuClick, activeMenu, handleNotificationClick }) => {
                 </li> */}
                 {user.isAuthorized ? (
                   <li>
-                    <Button
-                      mod="no-border"
-                      isActive={alertsIsActive}
-                      handleClick={alerts}
-                    >
-                      <Livecast />
-                    </Button>
+                    <Livecast user={user} onClick={closeAllMenus} />
                   </li>
                 ) : null}
                 {user.isAuthorized ? (
@@ -137,9 +142,9 @@ const TopBar = ({ handleMenuClick, activeMenu, handleNotificationClick }) => {
                     {user.isAuthorized && (
                       <Fragment>
                         {userIsActive ? (
-                          <i className="fa fa-close" />
+                          <i className="top-nav-icon icon-close" />
                         ) : (
-                          <i className="icon i-user-astronaut" />
+                          <i className="top-nav-icon i-user-astronaut" />
                         )}
                       </Fragment>
                     )}
@@ -147,13 +152,13 @@ const TopBar = ({ handleMenuClick, activeMenu, handleNotificationClick }) => {
                     {!user.isAuthorized && (
                       <Fragment>
                         {userIsActive ? (
-                          <i className="fa fa-close" />
+                          <i className="top-nav-icon icon-close" />
                         ) : (
                           <div className="flex-row justify-content-center">
                             <span className="text">
                               <FormattedMessage {...messages.SignIn} />
                             </span>
-                            <i className="icon i-user-astronaut" />
+                            <i className="top-nav-icon i-user-astronaut" />
                           </div>
                         )}
                       </Fragment>
@@ -205,8 +210,17 @@ const TopBar = ({ handleMenuClick, activeMenu, handleNotificationClick }) => {
                   display: inline-block;
                 }
 
-                .icon {
-                  font-size: 18px;
+                .top-nav-icon {
+                  font-size: 20px;
+                  line-height: 20px;
+                  height: 20px;
+                  display: inline-block;
+                }
+
+                .i-logo_astronaut,
+                .i-user-astronaut {
+                  /* todo make global configs for icons */
+                  width: 20px;
                 }
               `}
             </style>

@@ -71,6 +71,12 @@ export const makeWeatherSatelliteSelector = () =>
     state => state.weatherSatelliteWidgetResult
   );
 
+export const makeWeatherConditionsSelector = () =>
+  createSelector(
+    selectTelescopeOverview,
+    state => state.weatherConditionsWidgetResult
+  );
+
 export const makeDomeCamSelector = () =>
   createSelector(
     selectTelescopeOverview,

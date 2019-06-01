@@ -24,6 +24,7 @@ const TabConditions = props => {
     domeCam,
     facilityWebcam,
     weatherSatellite,
+    weatherConditions,
   } = props;
   const { SeeingConditionsWidgetId, obsId } = currentObservatory;
   return (
@@ -77,7 +78,9 @@ const TabConditions = props => {
       </div>
 
       <div className="tile-container">
-        <WeeklyForecast />
+        {weatherConditions.forecastList && (
+          <WeeklyForecast forecastList={weatherConditions.forecastList} />
+        )}
       </div>
 
       <div className="tile-container">

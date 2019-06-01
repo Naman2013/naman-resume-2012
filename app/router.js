@@ -30,8 +30,8 @@ import SloohRecommends from 'app/containers/SloohRecommends';
 import StaticAppContainer from 'app/containers/static-app-container';
 import StoriesHub from 'app/containers/stories-hub';
 import { AskAstronomerMain, QuestionMain } from 'app/modules/ask-astronomer';
+import { CommunityGroupEdit } from 'app/modules/community-group-overview';
 import { GalleryDetailsMain } from 'app/modules/gallery-details';
-import { fetchPlayer } from 'app/modules/get-audio-player/actions';
 import { ImageDetailsMain } from 'app/modules/image-details';
 import { MissionDetailsMain } from 'app/modules/mission-details';
 import Catalog from 'app/modules/missions/containers/catalog';
@@ -52,7 +52,6 @@ import { TelescopeNavigation } from 'app/modules/telescope/components/old/telesc
 import GroupCreate from 'app/pages/community-groups/GroupCreate';
 import GroupImportGoogleClassrooms from 'app/pages/community-groups/GroupImportGoogleClassrooms';
 import CommunityGroupOverview from 'app/pages/community-groups/GroupOverview';
-import { CommunityGroupEdit } from 'app/modules/community-group-overview';
 import GroupOverviewInfo from 'app/pages/community-groups/GroupOverviewInfo';
 import ExistingMissions from 'app/pages/existing-missions';
 import GuideDetails from 'app/pages/guide-details/GuideDetails';
@@ -107,6 +106,10 @@ import validateUser from 'app/route-functions/validateUser';
 import store from 'app/store';
 import firePageview from 'app/utils/ga-wrapper';
 import React, { Fragment } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { setPreviousInstrument } from 'app/modules/starshare-camera/starshare-camera-actions';
+
 // import { hot } from 'react-hot-loader/root';
 import {
   browserHistory,
@@ -133,7 +136,7 @@ history.listen(location => {
     location: pathname,
   });
   // todo do we need this on every page refresh?
-  store.dispatch(fetchPlayer({ pageURL: pathname }));
+  // store.dispatch(fetchPlayer({ pageURL: pathname }));
 });
 
 const getProfileRoutes = () => (
@@ -167,7 +170,7 @@ const getProfileRoutes = () => (
   </Fragment>
 );
 
-const AppRouter = () => (
+const AppRouter = ({ setPreviousInstrument }) => (
   <Router history={browserHistory} onUpdate={globalOnRouteUpdate}>
     <Route path="redirect-confirmation" component={RedirectConfirmation} />
 
@@ -267,6 +270,11 @@ const AppRouter = () => (
         // component={ConnectedTelescopeDetails}
         component={TelescopeDetailsMain}
         onEnter={validateUser}
+        onLeave={() => {
+          if (!window.location.pathname.includes('telescope-details')) {
+            setPreviousInstrument(null);
+          }
+        }}
       >
         <Route path=":instrumentId" component={TelescopeNavigation} />
       </Route>
@@ -552,5 +560,16 @@ const AppRouter = () => (
   </Router>
 );
 
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      setPreviousInstrument,
+    },
+    dispatch
+  );
+
 // export default hot(AppRouter);
-export default AppRouter;
+export default connect(
+  null,
+  mapDispatchToProps
+)(AppRouter);

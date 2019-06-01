@@ -4,33 +4,35 @@ import CenterColumn from 'app/components/common/CenterColumn';
 import LailaTile from 'app/components/common/tiles/LailaTile';
 import style from './GuideTopics.style';
 
-const GuideTopics = ({ list }) => (
-  <CenterColumn widths={['620px', '940px', '940px']}>
-    <ul>
-      {
-        list.map(topic => (
-          <li
-            key={`${topic.iconURL}-${topic.title}`}
-            className="topic"
-          >
+const GuideTopics = ({ list, emptyText }) =>
+  list.length ? (
+    <CenterColumn widths={['620px', '940px', '940px']}>
+      <ul>
+        {list.map(topic => (
+          <li key={`${topic.iconURL}-${topic.title}`} className="topic">
             <LailaTile
               iconURL={topic.iconURL}
               title={topic.title}
               linkURL={topic.linkURL}
             />
-          </li>))
-      }
-    </ul>
-    <style jsx>{style}</style>
-  </CenterColumn>
-);
+          </li>
+        ))}
+      </ul>
+      <style jsx>{style}</style>
+    </CenterColumn>
+  ) : (
+    <span dangerouslySetInnerHTML={{ __html: emptyText }} />
+  );
 
 GuideTopics.propTypes = {
-  list: PropTypes.arrayOf(PropTypes.shape({
-    title: PropTypes.string,
-    iconURL: PropTypes.string,
-    linkURL: PropTypes.string,
-  })).isRequired,
+  list: PropTypes.arrayOf(
+    PropTypes.shape({
+      title: PropTypes.string,
+      iconURL: PropTypes.string,
+      linkURL: PropTypes.string,
+    })
+  ).isRequired,
+  emptyText: PropTypes.string,
 };
 
 export default GuideTopics;

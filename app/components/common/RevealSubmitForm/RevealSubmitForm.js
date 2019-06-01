@@ -21,6 +21,7 @@ import ViewImagesButton from 'app/components/common/style/buttons/ViewImagesButt
 import { Spinner } from 'app/components/spinner/index';
 import styles, { profPic } from './RevealSubmitForm.style';
 import messages from './RevealSubmitForm.messages';
+
 const { bool, func, instanceOf, number, shape, string } = PropTypes;
 
 class RevealSubmitForm extends Component {
@@ -39,6 +40,7 @@ class RevealSubmitForm extends Component {
     }).isRequired,
     intl: intlShape.isRequired,
   };
+
   static defaultProps = {
     imageClass: 'discussion',
     maxLength: null,
@@ -123,14 +125,16 @@ class RevealSubmitForm extends Component {
       uploadLoading: true,
     });
 
-    setPostImages(data)
-      .then(res => this.handleUploadImageResponse(res.data))
-      .catch(err =>
+    setPostImages(data).then(res => {
+      if (!res.data.apiError) {
+        this.handleUploadImageResponse(res.data);
+      } else {
         this.setState({
-          uploadError: err.message,
+          uploadError: res.data.errorMsg,
           uploadLoading: false,
-        })
-      );
+        });
+      }
+    });
   };
 
   handleDeleteImage = imageURL => {
@@ -212,12 +216,14 @@ class RevealSubmitForm extends Component {
           ) : null}
           <Spinner
             loading={isFetching}
-            text={'Please wait...loading discussions'}
+            text="Please wait...loading discussions"
           />
           <form className="form">
             <div className="form-author">
               <div style={profPic(avatarURL)} />
-              {displayName ? `${intl.formatMessage(messages.WrittenBy)} ${displayName}` : commentPlaceholder}
+              {displayName
+                ? `${intl.formatMessage(messages.WrittenBy)} ${displayName}`
+                : commentPlaceholder}
             </div>
             <div className="form-quote">{title || content}</div>
             <textarea

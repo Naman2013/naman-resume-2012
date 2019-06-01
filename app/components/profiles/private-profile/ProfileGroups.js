@@ -117,6 +117,7 @@ class ProfileGroups extends Component {
 
   render() {
     const { groupsCount } = this.props.groupsData;
+    const { privateProfileData } = this.props;
 
     const {
       showPrompt,
@@ -147,7 +148,7 @@ class ProfileGroups extends Component {
                 )}
               </DeviceContext.Consumer>
             ) : (
-              <div>{intl.formatMessage(messages.noGroups)}</div>
+              <div>{privateProfileData.emptySetGroupsDisplay}</div>
             )}
           </ContainerWithTitle>
         </CenterColumn>

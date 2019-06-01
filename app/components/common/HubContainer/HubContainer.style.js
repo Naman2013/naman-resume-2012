@@ -21,9 +21,16 @@ export default css`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    position: relative;
   }
 
   .pagination-container {
     margin: 20px 0;
+  }
+
+  @media screen and (max-width: 450px) {
+    .navigation-bar.toggle {
+      flex-direction: column;
+    }
   }
 `;

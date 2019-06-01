@@ -18,6 +18,7 @@ class StoriesTiles extends Component {
     ).isRequired,
     isMobile: PropTypes.bool,
     updateReadingListInfo: PropTypes.func.isRequired,
+    emptyText: PropTypes.string,
   };
 
   state = {
@@ -46,7 +47,7 @@ class StoriesTiles extends Component {
   };
 
   render() {
-    const { stories, isMobile, updateReadingListInfo } = this.props;
+    const { stories, isMobile, updateReadingListInfo, emptyText } = this.props;
     const { activeId } = this.state;
     return stories.length ? (
       <CenterColumn widths={['645px', '965px', '965px']}>
@@ -85,7 +86,7 @@ class StoriesTiles extends Component {
         <style jsx>{style}</style>
       </CenterColumn>
     ) : (
-      <FormattedMessage id="Hubs.noStories" />
+      <span dangerouslySetInnerHTML={{ __html: emptyText }} />
     );
   }
 }

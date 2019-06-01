@@ -7,6 +7,7 @@ import {
   ObjectSummaryTile,
   ScheduledByTile,
 } from 'app/components/common/tiles';
+import SunsetCountdown from 'app/components/telescope-details/SunsetCountdown';
 import { OBJECT_HOW_BIG } from '../../../../services/objects';
 import Request from '../../../../components/common/network/Request';
 
@@ -22,6 +23,10 @@ const TabLive = ({
   allSkyWidgetID,
   renderTelescopeViewer,
   activeTelescope,
+  activeInstrument,
+  currentObservatory,
+  currentMissionCountdown,
+  fetchAllTelescopeStatus,
 }) => (
   <div>
     <DisplayAtBreakpoint screenSmall screenMedium>
@@ -54,6 +59,18 @@ const TabLive = ({
       </div>
     )}
 
+    {activeInstrument.instrImageSourceType === 'video' &&
+      currentMissionCountdown &&
+      currentMissionCountdown.showCountdown && (
+        <div className="tile-container">
+          <SunsetCountdown
+            label={currentMissionCountdown.countdownLabel}
+            countdownTimestamp={currentMissionCountdown.countdownTimestamp}
+            onExpired={fetchAllTelescopeStatus}
+          />
+        </div>
+      )}
+
     <div className="tile-container">
       <ConnectedAllSkyCamera
         obsId={obsId}
@@ -61,7 +78,7 @@ const TabLive = ({
         AllskyTimelapseWidgetId={activeTelescope.AllskyTimelapseWidgetId}
       />
     </div>
-    {mission.objectId && (
+    {/* {mission.objectId && (
       <div className="tile-container">
         <Request
           serviceURL={OBJECT_HOW_BIG}
@@ -76,7 +93,7 @@ const TabLive = ({
           )}
         />
       </div>
-    )}
+    )} */}
 
     {mission.missionAvailable && (
       <Fragment>
