@@ -2,10 +2,10 @@
 
 import React from 'react';
 
-type TPaymentStep = {};
+type TPaymentStep = { selectedPlanId?: string };
 
 export const PaymentStep = (props: TPaymentStep) => {
-  // const {} = props;
+  const { selectedPlanId } = props;
 
   return (
     <>

@@ -57,7 +57,7 @@ export const SubscriptionPlan = (props: TSubscriptionPlan) => {
             {isDetailsExpanded ? <span className="icon-close" /> : 'details'}
           </Button>
           {!isDetailsExpanded && (
-            <Button className="animated fadeIn faster" onClick={onSelect}>
+            <Button className="animated fadeIn faster" onClick={() => onSelect(plan.planID)}>
               {selectButtonText} <span className="icon-arrow-right" />
             </Button>
           )}
@@ -83,7 +83,7 @@ export const SubscriptionPlan = (props: TSubscriptionPlan) => {
             ) : (
               <Button onClick={() => setDetailsExpanded(false)}>close</Button>
             )}
-            <Button onClick={onSelect} className="btn-active">
+            <Button onClick={() => onSelect(plan.planID)} className="btn-active">
               {selectButtonText}
             </Button>
           </div>
