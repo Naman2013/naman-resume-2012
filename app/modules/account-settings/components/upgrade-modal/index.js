@@ -47,6 +47,8 @@ export const UpgradeModal = (props: TUpgradeModal) => {
     errorData, // errors from issue with user account modal
   } = props;
 
+  console.log(props);
+
   let buttonText = "GO BACK";
   let onCloseFunc = onHide;
 
@@ -77,7 +79,7 @@ export const UpgradeModal = (props: TUpgradeModal) => {
         />
       )}
 
-      {step === 'PAYMENT' && <PaymentStep />}
+      {step === 'PAYMENT' && <PaymentStep/>}
     </Modal>
   );
 };
