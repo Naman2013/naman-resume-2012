@@ -5,6 +5,11 @@ export default css`
   .details-root {
     display: flex;
     padding: 0;
+    position: relative;
+  }
+
+  .telescope-live-container {
+    width: calc(100% - 370px);
   }
 
   .viewer {
@@ -23,7 +28,12 @@ export default css`
 
     .column {
       margin: 0 20px;
-      width: 300px;
+      width: 330px;
+      height: calc(100% - 30px);
+      overflow-y: auto;
+      top: 0;
+      right: 0;
+      position: absolute;
     }
   }
 `;

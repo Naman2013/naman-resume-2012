@@ -57,7 +57,6 @@ class TelescopeImageViewerController extends Component {
     };
     return (
       <div>
-        <Telescope activeInstrumentID={activeInstrumentID} render={render} />
         {instrStarShareCamera && (
           <StarShareCamera
             actions={actions}
@@ -68,6 +67,7 @@ class TelescopeImageViewerController extends Component {
             imagesLastSnapped={imagesLastSnapped}
           />
         )}
+        <Telescope activeInstrumentID={activeInstrumentID} render={render} />
       </div>
     );
   }
