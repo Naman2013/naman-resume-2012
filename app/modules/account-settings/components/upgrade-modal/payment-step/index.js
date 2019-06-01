@@ -15,10 +15,10 @@ import { DEFAULT_JOIN_TABS } from 'app/pages/registration/StaticNavTabs';
 import styles from 'app/pages/registration/JoinStep3.style';
 import messages from 'app/pages/registration/JoinStep3.messages';
 
-type TPaymentStep = {};
+type TPaymentStep = { selectedPlanId?: string };
 
 export const PaymentStep = (props: TPaymentStep) => {
-  // const {} = props;
+  const { selectedPlanId } = props;
 
   return (
     <>

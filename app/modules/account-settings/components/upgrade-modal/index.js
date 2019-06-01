@@ -21,7 +21,6 @@ type TUpgradeModal = {
 
 type TSteps = 'SELECT_PLAN' | 'PAYMENT';
 
-
 const didMount = (props: TUpgradeModal) => () => {
   const {
     getSubscriptionPlans,
@@ -43,29 +42,33 @@ export const UpgradeModal = (props: TUpgradeModal) => {
     onHide,
     isFetching,
     subscriptionPlansData,
-    selectedPlanId,
     errorData, // errors from issue with user account modal
   } = props;
 
-  console.log(props);
+  const [selectedPlanId, setSelectedPlanId] = useState(null);
 
-  let buttonText = "GO BACK";
+  let buttonText = 'GO BACK';
   let onCloseFunc = onHide;
 
   if (props.subscriptionPlansCallSource == 'forcedsloohcrew') {
     buttonText = 'LOGOUT';
-    onCloseFunc = (dispatch) => {
+    onCloseFunc = dispatch => {
       //Force Logout the User - They have opted to not buy a Slooh Plan
       destroySession();
       removeUser();
       onHide();
       browserHistory.push('/');
       window.location.reload();
-    }
+    };
   }
 
   return (
-    <Modal show={show} onHide={onCloseFunc} goBackText={buttonText} mobileGoBackText={buttonText}>
+    <Modal
+      show={show}
+      onHide={onCloseFunc}
+      goBackText={buttonText}
+      mobileGoBackText={buttonText}
+    >
       <Spinner transparent loading={isFetching} />
 
       {step === 'SELECT_PLAN' && (
@@ -75,11 +78,12 @@ export const UpgradeModal = (props: TUpgradeModal) => {
             selectedPlanId,
             isFetching,
           }}
-          goNext={() => setStep('PAYMENT')}
+          goNext={planId => setStep('PAYMENT')}
+          setSelectedPlanId={setSelectedPlanId}
         />
       )}
 
-      {step === 'PAYMENT' && <PaymentStep/>}
+      {step === 'PAYMENT' && <PaymentStep selectedPlanId={selectedPlanId} />}
     </Modal>
   );
 };
