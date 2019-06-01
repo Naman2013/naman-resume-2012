@@ -1,8 +1,5 @@
 // @flow
 
-<<<<<<< HEAD
-import React from 'react';
-=======
 import React, { Fragment } from 'react';
 import Request from 'app/components/common/network/Request';
 import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
@@ -14,7 +11,6 @@ import { DeviceContext } from 'app/providers/DeviceProvider';
 import JoinHeader from 'app/pages/registration/partials/JoinHeader';
 import PlanDetailsCard from 'app/pages/registration/partials/PlanDetailsCard';
 import { DEFAULT_JOIN_TABS } from 'app/pages/registration/StaticNavTabs';
-=======
 import Countdown from 'react-countdown-now';
 import { FormattedMessage } from 'react-intl';
 
