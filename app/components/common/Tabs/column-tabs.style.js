@@ -26,11 +26,11 @@ export default css`
     align-content: stretch;
     list-style-type: none;
     border-top: 1px solid ${hawkesBlue};
+    padding-right: 10px;
   }
 
   .column-tab {
     display: inline-block;
-    flex: 1 100%;
     border-right: 1px solid ${hawkesBlue};
   }
 

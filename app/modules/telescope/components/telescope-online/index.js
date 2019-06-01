@@ -94,64 +94,68 @@ export class TelescopeOnline extends Component {
     return (
       <div className="details-root">
         <DisplayAtBreakpoint screenLarge screenXLarge>
-          <div className="viewer">
-            <DeviceContext.Consumer>
-              {context =>
-                context.isScreenLarge || context.isScreenXLarge ? (
-                  <div>
-                    {/* The Solar Telescope uses a Live Video Stream
+          <div className="telescope-live-container">
+            <div className="viewer">
+              <DeviceContext.Consumer>
+                {context =>
+                  context.isScreenLarge || context.isScreenXLarge ? (
+                    <div>
+                      {/* The Solar Telescope uses a Live Video Stream
                           from YT as opposed to an SSE feed
                           for other telescopes */}
-                    {currentInstrument.instrImageSourceType === 'video' && (
-                      <div>
-                        <VideoImageLoader
+                      {currentInstrument.instrImageSourceType === 'video' && (
+                        <div>
+                          <VideoImageLoader
+                            instrStarShareCamera={instrStarShareCamera}
+                            teleStreamCode={instrStreamCode}
+                            teleStreamURL={instrStreamURL}
+                            teleStreamThumbnailVideoWidth="810"
+                            teleStreamThumbnailVideoHeight="600"
+                            teleStreamThumbnailQuality={
+                              instrStreamThumbnailQuality
+                            }
+                            teleSystem={instrSystem}
+                            telePort={instrPort}
+                            cameraSourceType={instrCameraSourceType}
+                            showOverlay={false}
+                            autoplay={1}
+                          />
+                        </div>
+                      )}
+                      {currentInstrument.instrImageSourceType !== 'video' && (
+                        <TelescopeImageViewerController
+                          activeInstrumentID={activeInstrumentID}
                           instrStarShareCamera={instrStarShareCamera}
-                          teleStreamCode={instrStreamCode}
-                          teleStreamURL={instrStreamURL}
-                          teleStreamThumbnailVideoWidth="810"
-                          teleStreamThumbnailVideoHeight="600"
-                          teleStreamThumbnailQuality={
-                            instrStreamThumbnailQuality
+                          render={({ viewportHeight }, onImageChange) =>
+                            provideLiveFeed(
+                              {
+                                viewportHeight,
+                                fetchingOnlineStatus: fetchingObservatoryStatus,
+                                obsAlert: currentObservatory.obsAlert,
+                                onlineStatus: 'online',
+                                instrument: currentInstrument,
+                                offlineImageSource:
+                                  currentInstrument.instrOfflineImgURL,
+                                activeMission:
+                                  activeTelescopeMission.maskDataArray,
+                                timestamp: activeTelescopeMission.timestamp,
+                                missionStart:
+                                  activeTelescopeMission.missionStart,
+                                missionEnd: activeTelescopeMission.expires,
+                                activeNeoview:
+                                  currentInstrument.instrHasNeoView,
+                                handleInfoClick: this.toggleNeoview,
+                              },
+                              onImageChange
+                            )
                           }
-                          teleSystem={instrSystem}
-                          telePort={instrPort}
-                          cameraSourceType={instrCameraSourceType}
-                          showOverlay={false}
-                          autoplay={1}
                         />
-                      </div>
-                    )}
-                    {currentInstrument.instrImageSourceType !== 'video' && (
-                      <TelescopeImageViewerController
-                        activeInstrumentID={activeInstrumentID}
-                        instrStarShareCamera={instrStarShareCamera}
-                        render={({ viewportHeight }, onImageChange) =>
-                          provideLiveFeed(
-                            {
-                              viewportHeight,
-                              fetchingOnlineStatus: fetchingObservatoryStatus,
-                              obsAlert: currentObservatory.obsAlert,
-                              onlineStatus: 'online',
-                              instrument: currentInstrument,
-                              offlineImageSource:
-                                currentInstrument.instrOfflineImgURL,
-                              activeMission:
-                                activeTelescopeMission.maskDataArray,
-                              timestamp: activeTelescopeMission.timestamp,
-                              missionStart: activeTelescopeMission.missionStart,
-                              missionEnd: activeTelescopeMission.expires,
-                              activeNeoview: currentInstrument.instrHasNeoView,
-                              handleInfoClick: this.toggleNeoview,
-                            },
-                            onImageChange
-                          )
-                        }
-                      />
-                    )}
-                  </div>
-                ) : null
-              }
-            </DeviceContext.Consumer>
+                      )}
+                    </div>
+                  ) : null
+                }
+              </DeviceContext.Consumer>
+            </div>
           </div>
         </DisplayAtBreakpoint>
 
@@ -248,7 +252,7 @@ export class TelescopeOnline extends Component {
                 content: () => <TabQueue {...this.props} />,
               },
               {
-                tabTitle: 'Cond.',
+                tabTitle: 'Conditions',
                 content: () => <TabConditions {...this.props} />,
               },
               {

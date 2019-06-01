@@ -142,7 +142,6 @@ class VideoImageLoader extends Component {
     } = this.props;
     return (
       <div>
-        <YoutubePlayer {...this.props} />
         <StarShareCamera
           actions={actions}
           snapshotMsg={snapshotMsg}
@@ -151,6 +150,7 @@ class VideoImageLoader extends Component {
           snapshotList={snapshotList}
           imagesLastSnapped={imagesLastSnapped}
         />
+        <YoutubePlayer {...this.props} />
       </div>
     );
   }
