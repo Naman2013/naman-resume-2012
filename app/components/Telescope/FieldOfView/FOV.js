@@ -1,18 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import UnitText from '../TelescopeFrame/UnitText';
 
 const DASHED_RECT_PERCENTAGE = 0.25;
 const DASHED_PERCENTAGE = 0.1;
 
 const FOV = ({
-  tickSpacing, canvasWidth, gridWidth, largeRectGridWidth, stroke,
+  tickSpacing,
+  canvasWidth,
+  gridWidth,
+  largeRectGridWidth,
+  stroke,
+  telescope,
 }) => {
-  const smallRectDimension = (gridWidth * tickSpacing);
-  const largeRectWidth = (largeRectGridWidth) ? (largeRectGridWidth * tickSpacing) : ((smallRectDimension * DASHED_RECT_PERCENTAGE) + smallRectDimension);
-  const smallRectX = ((canvasWidth / 2) - (smallRectDimension / 2));
-  const largeRectX = ((canvasWidth / 2) - (largeRectWidth / 2));
-  const Y = ((canvasWidth / 2) - (smallRectDimension / 2));
-  const strokeDashArray = (smallRectDimension * DASHED_PERCENTAGE);
+  const smallRectDimension = gridWidth * tickSpacing;
+  const largeRectWidth = largeRectGridWidth
+    ? largeRectGridWidth * tickSpacing
+    : smallRectDimension * DASHED_RECT_PERCENTAGE + smallRectDimension;
+  const smallRectX = canvasWidth / 2 - smallRectDimension / 2;
+  const largeRectX = canvasWidth / 2 - largeRectWidth / 2;
+  const Y = canvasWidth / 2 - smallRectDimension / 2;
+  const strokeDashArray = smallRectDimension * DASHED_PERCENTAGE;
+  let fontSize = Math.floor(smallRectDimension / 15) - 1;
+  if (fontSize >= 40) {
+    fontSize = 40;
+  }
 
   return (
     <g>
@@ -22,17 +34,40 @@ const FOV = ({
         width={largeRectWidth}
         height={smallRectDimension}
         stroke={stroke}
-        strokeDasharray={`${strokeDashArray}, ${strokeDashArray}`}
         fill="none"
       />
-      <rect
+      <UnitText
+        x={largeRectX + largeRectWidth / 2}
+        y={Y + smallRectDimension / 2}
+        style={{ fill: stroke }}
+        text={telescope.name}
+        fontSize={fontSize}
+      />
+
+      <UnitText
+        x={largeRectX + largeRectWidth / 2}
+        y={Y + fontSize + smallRectDimension / 2}
+        style={{ fill: stroke }}
+        fontSize={fontSize}
+        text="Field of View"
+      />
+      <UnitText
+        fontSize={fontSize}
+        style={{ fill: stroke }}
+        x={largeRectX + largeRectWidth / 2}
+        y={Y + 2 * fontSize + smallRectDimension / 2}
+        text={`${telescope.FOV.horizontal}x${
+          telescope.FOV.vertical
+        } arcminutes`}
+      />
+      {/* <rect
         x={smallRectX}
         y={Y}
         width={smallRectDimension}
         height={smallRectDimension}
         stroke={stroke}
         fill="none"
-      />
+      /> */}
     </g>
   );
 };

@@ -178,30 +178,32 @@ export class TelescopeOnline extends Component {
                           <div>
                             <DeviceContext.Consumer>
                               {context =>
-                                !context.isScreenLarge && !context.isScreenXLarge ? (
-                                <VideoImageLoader
-                                  instrStarShareCamera={instrStarShareCamera}
-                                  teleStreamCode={instrStreamCode}
-                                  teleStreamURL={instrStreamURL}
-                                  teleStreamThumbnailVideoWidth="810"
-                                  teleStreamThumbnailVideoHeight="600"
-                                  teleStreamThumbnailQuality={
-                                    instrStreamThumbnailQuality
-                                  }
-                                  teleSystem={instrSystem}
-                                  telePort={instrPort}
-                                  cameraSourceType={instrCameraSourceType}
-                                  showOverlay={false}
-                                  autoplay={1}
-                                />
+                                !context.isScreenLarge &&
+                                !context.isScreenXLarge ? (
+                                  <VideoImageLoader
+                                    instrStarShareCamera={instrStarShareCamera}
+                                    teleStreamCode={instrStreamCode}
+                                    teleStreamURL={instrStreamURL}
+                                    teleStreamThumbnailVideoWidth="810"
+                                    teleStreamThumbnailVideoHeight="600"
+                                    teleStreamThumbnailQuality={
+                                      instrStreamThumbnailQuality
+                                    }
+                                    teleSystem={instrSystem}
+                                    telePort={instrPort}
+                                    cameraSourceType={instrCameraSourceType}
+                                    showOverlay={false}
+                                    autoplay={1}
+                                  />
                                 ) : null
                               }
                             </DeviceContext.Consumer>
                           </div>
-                        ) : (      
+                        ) : (
                           <DeviceContext.Consumer>
                             {context =>
-                              !context.isScreenLarge && !context.isScreenXLarge ? (
+                              !context.isScreenLarge &&
+                              !context.isScreenXLarge ? (
                                 <TelescopeImageViewerController
                                   activeInstrumentID={activeInstrumentID}
                                   instrStarShareCamera={instrStarShareCamera}
@@ -217,10 +219,12 @@ export class TelescopeOnline extends Component {
                                           currentInstrument.instrOfflineImgURL,
                                         activeMission:
                                           activeTelescopeMission.maskDataArray,
-                                        timestamp: activeTelescopeMission.timestamp,
+                                        timestamp:
+                                          activeTelescopeMission.timestamp,
                                         missionStart:
                                           activeTelescopeMission.missionStart,
-                                        missionEnd: activeTelescopeMission.expires,
+                                        missionEnd:
+                                          activeTelescopeMission.expires,
                                         activeNeoview:
                                           currentInstrument.instrHasNeoView,
                                         handleInfoClick: this.toggleNeoview,

@@ -106,6 +106,10 @@ import validateUser from 'app/route-functions/validateUser';
 import store from 'app/store';
 import firePageview from 'app/utils/ga-wrapper';
 import React, { Fragment } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { setPreviousInstrument } from 'app/modules/starshare-camera/starshare-camera-actions';
+
 // import { hot } from 'react-hot-loader/root';
 import {
   browserHistory,
@@ -166,7 +170,7 @@ const getProfileRoutes = () => (
   </Fragment>
 );
 
-const AppRouter = () => (
+const AppRouter = ({ setPreviousInstrument }) => (
   <Router history={browserHistory} onUpdate={globalOnRouteUpdate}>
     <Route path="redirect-confirmation" component={RedirectConfirmation} />
 
@@ -266,6 +270,11 @@ const AppRouter = () => (
         // component={ConnectedTelescopeDetails}
         component={TelescopeDetailsMain}
         onEnter={validateUser}
+        onLeave={() => {
+          if (!window.location.pathname.includes('telescope-details')) {
+            setPreviousInstrument(null);
+          }
+        }}
       >
         <Route path=":instrumentId" component={TelescopeNavigation} />
       </Route>
@@ -551,5 +560,16 @@ const AppRouter = () => (
   </Router>
 );
 
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      setPreviousInstrument,
+    },
+    dispatch
+  );
+
 // export default hot(AppRouter);
-export default AppRouter;
+export default connect(
+  null,
+  mapDispatchToProps
+)(AppRouter);
