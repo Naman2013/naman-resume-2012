@@ -29,7 +29,7 @@ export default css`
     .column {
       margin: 0 20px;
       width: 330px;
-      height: 100%;
+      height: calc(100% - 30px);
       overflow-y: auto;
       top: 0;
       right: 0;

@@ -26,12 +26,12 @@ export default css`
     align-content: stretch;
     list-style-type: none;
     border-top: 1px solid ${hawkesBlue};
-    padding-right: 10px;
   }
 
   .column-tab {
     display: inline-block;
     border-right: 1px solid ${hawkesBlue};
+    flex: 1;
   }
 
   .column-tab:last-child {
@@ -75,6 +75,7 @@ export default css`
       display: flex;
       justify-content: space-between;
       align-items: center;
+      padding-right: 10px;
     }
 
     .column-tab {
@@ -86,6 +87,10 @@ export default css`
       padding: 0;
       padding-bottom: 20px;
       width: auto;
+    }
+
+    .column-tab {
+      flex: unset;
     }
 
     .column-tab-button.active {
