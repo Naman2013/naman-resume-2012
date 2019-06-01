@@ -170,6 +170,7 @@ export class TelescopeOnline extends Component {
                     activeTelescope={activeTelescope}
                     object={objectDetails.objectData}
                     fetchAllTelescopeStatus={this.fetchAllTelescopeStatus}
+                    activeInstrument={currentInstrument}
                     currentObservatory={currentObservatory}
                     currentMissionCountdown={currentMissionCountdown}
                     renderTelescopeViewer={() => (
