@@ -24,6 +24,7 @@ export const SubscriptionPlan = (props: TSubscriptionPlan) => {
     planCostPostfix,
     selectButtonText,
   } = plan;
+  
   return (
     <div className="subscription-plan">
       <span className="header">{planHeading}</span>
