@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react';
+import React, { Fragment } from 'react';
 import Request from 'app/components/common/network/Request';
 import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
 import {
@@ -11,14 +11,70 @@ import { DeviceContext } from 'app/providers/DeviceProvider';
 import JoinHeader from 'app/pages/registration/partials/JoinHeader';
 import PlanDetailsCard from 'app/pages/registration/partials/PlanDetailsCard';
 import { DEFAULT_JOIN_TABS } from 'app/pages/registration/StaticNavTabs';
+import Countdown from 'react-countdown-now';
+import { FormattedMessage } from 'react-intl';
 
 import styles from 'app/pages/registration/JoinStep3.style';
 import messages from 'app/pages/registration/JoinStep3.messages';
 
-type TPaymentStep = {};
+
+  const CountdownRenderer = ({ completed, minutes, seconds }) => {
+    if (completed) {
+      // Render a completed state
+      //console.log('The countdown has completed.....');
+      return (
+        <Countdown
+          date={
+            Date.now() + this.state.redirectInXSecondsOnExpiredSignupRequest
+          }
+          renderer={this.CountdownExpiredRenderer}
+          onComplete={this.CountdownExpiredComplete}
+        />
+      );
+    }
+    // Render a countdown
+    return (
+      <p style={{ fontSize: '1.3em', color: 'green' }}>
+        <FormattedMessage
+          {...messages.SignupRequestExpireTime}
+          values={{ minutes, seconds }}
+        />
+      </p>
+    );
+  };
+
+  const CountdownExpiredRenderer = ({ seconds, completed }) => {
+    if (!completed) {
+      // Render a countdown to redirect to the homepage
+      return (
+        <p style={{ fontSize: '1.3em', fontWeight: 'bold', color: 'red' }}>
+          <FormattedMessage
+            {...messages.SignupRequestExpireTime}
+            values={{ seconds }}
+          />
+        </p>
+      );
+    }
+  };
+
+  const CountdownExpiredComplete = () => {
+    // console.log('Redirecting the user away from this page....');
+
+    /* reset all browser localstorage data points for the Join flow */
+    window.localStorage.removeItem('selectedPlanId');
+    window.localStorage.removeItem('accountCreationType');
+    window.localStorage.removeItem('join_accountFormDetails');
+    window.localStorage.removeItem('googleProfileId');
+
+    browserHistory.push('/');
+  };
+
+type TPaymentStep = { selectedPlanId?: string };
 
 export const PaymentStep = (props: TPaymentStep) => {
-  // const {} = props;
+
+  const { selectedPlanId } = props;
+  const pathname = "";
 
   return (
     <>
@@ -27,7 +83,6 @@ export const PaymentStep = (props: TPaymentStep) => {
       <Request
         serviceURL={JOIN_PAGE_ENDPOINT_URL}
         requestBody={{ callSource: 'providePaymentDetails', selectedPlanId }}
-        serviceResponseHandler={this.handleJoinPageServiceResponse}
         render={({ fetchingContent, serviceResponse: joinPageRes }) => (
           <Fragment>
             {!fetchingContent && (
@@ -91,7 +146,7 @@ export const PaymentStep = (props: TPaymentStep) => {
                           Date.now() +
                           joinPageRes.customerHasXSecondsToCompleteSignup
                         }
-                        renderer={this.CountdownRenderer}
+                        renderer={CountdownRenderer}
                         onComplete={this.CountdownComplete}
                       />
                       <div className="inner-container">
