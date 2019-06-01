@@ -23,6 +23,7 @@ const TabLive = ({
   allSkyWidgetID,
   renderTelescopeViewer,
   activeTelescope,
+  activeInstrument,
   currentObservatory,
   currentMissionCountdown,
   fetchAllTelescopeStatus,
@@ -58,7 +59,7 @@ const TabLive = ({
       </div>
     )}
 
-    {currentObservatory.showCountdown &&
+    {activeInstrument.instrImageSourceType === 'video' &&
       currentMissionCountdown &&
       currentMissionCountdown.showCountdown && (
         <div className="tile-container">
