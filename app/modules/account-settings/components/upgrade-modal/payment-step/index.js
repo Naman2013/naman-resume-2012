@@ -17,11 +17,6 @@ import { FormattedMessage } from 'react-intl';
 import styles from 'app/pages/registration/JoinStep3.style';
 import messages from 'app/pages/registration/JoinStep3.messages';
 
-type TPaymentStep = { selectedPlanId?: string };
-
-export const PaymentStep = (props: TPaymentStep) => {
-  const { selectedPlanId } = props;
-
   const CountdownRenderer = ({ completed, minutes, seconds }) => {
     if (completed) {
       // Render a completed state
@@ -73,6 +68,7 @@ export const PaymentStep = (props: TPaymentStep) => {
     browserHistory.push('/');
   };
 
+
 type TPaymentStep = { selectedPlanId?: string };
 
 export const PaymentStep = (props: TPaymentStep) => {
@@ -97,6 +93,7 @@ export const PaymentStep = (props: TPaymentStep) => {
                       <JoinHeader
                         mainHeading={joinPageRes.pageHeading1}
                         subHeading={joinPageRes.pageHeading2}
+			showTabs={false}
                         activeTab={pathname}
                         tabs={CLASSROOM_JOIN_TABS}
                         backgroundImage={
@@ -116,7 +113,8 @@ export const PaymentStep = (props: TPaymentStep) => {
                       <JoinHeader
                         mainHeading={joinPageRes.pageHeading1}
                         subHeading={joinPageRes.pageHeading2}
-                        activeTab={pathname}
+                        showTabs={false}
+ 			activeTab={pathname}
                         tabs={DEFAULT_JOIN_TABS}
                         backgroundImage={
                           isMobile
@@ -151,7 +149,6 @@ export const PaymentStep = (props: TPaymentStep) => {
                           joinPageRes.customerHasXSecondsToCompleteSignup
                         }
                         renderer={CountdownRenderer}
-                        onComplete={this.CountdownComplete}
                       />
                       <div className="inner-container">
                         <DisplayAtBreakpoint
