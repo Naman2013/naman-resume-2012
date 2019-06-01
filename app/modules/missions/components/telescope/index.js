@@ -3,12 +3,16 @@ import Countdown from 'react-countdown-now';
 import { TelescopeSetup } from '../telescope-setup';
 import { MissionsList } from '../missions-list';
 import { ReservationModal } from '../telescope-reservation/reservation-modal';
+import { FeaturedObjectsModal } from '../../../telescope/components/featured-objects-modal';
+import { MissionSuccessModal } from '../mission-success-modal';
 import './styles.scss';
 
 export class Telescope extends Component {
   state = {
     reservationModalVisible: false,
     refreshCountdownLive: false,
+    reservationPiggybackVisible: false,
+    successModalShow: false,
   };
 
   componentDidMount() {
@@ -31,12 +35,22 @@ export class Telescope extends Component {
     );
   };
 
+  grabPiggyback = mission => {
+    const { grabPiggyback } = this.props;
+    const { scheduledMissionId, uniqueId } = mission;
+    grabPiggyback({
+      callSource: 'byTelescopeV4',
+      scheduledMissionId,
+      uniqueId,
+    }).then(() => this.setState({ reservationPiggybackVisible: true }));
+  };
+
   getTelescopeSlot = (mission, finalizeReservation = false) => {
     const { getTelescopeSlot, setSelectedSlot } = this.props;
     const { scheduledMissionId, uniqueId } = mission;
     setSelectedSlot(mission);
     getTelescopeSlot({
-      finalizeReservation: finalizeReservation,
+      finalizeReservation,
       grabType: 'notarget',
       scheduledMissionId,
       uniqueId,
@@ -55,13 +69,48 @@ export class Telescope extends Component {
       });
     }
     this.getMissionSlotDates(selectedDate.reservationDate);
-    this.setState({ reservationModalVisible: false });
+    this.setState({
+      reservationModalVisible: false,
+      reservationPiggybackVisible: false,
+      successModalShow: false,
+    });
   };
 
   reservationComplete = () => {
     const { selectedDate } = this.props;
     this.getMissionSlotDates(selectedDate.reservationDate);
     this.setState({ reservationModalVisible: false });
+  };
+
+  reservePiggyback = () => {
+    const { reservePiggyback, piggyBackMissionSlot } = this.props;
+    const {
+      scheduledMissionId,
+      uniqueId,
+      title,
+      objectIconURL,
+      missionStart,
+      missionType,
+      obsName,
+      telescopeName,
+    } = piggyBackMissionSlot;
+
+    reservePiggyback({
+      callSource: 'byTelescopeV4',
+      scheduledMissionId,
+      uniqueId,
+      title,
+      objectIconURL,
+      missionStart,
+      missionType,
+      obsName,
+      telescopeName,
+    }).then(() =>
+      this.setState({
+        successModalShow: true,
+        reservationPiggybackVisible: false,
+      })
+    );
   };
 
   scrollToSlot = () => {
@@ -87,9 +136,18 @@ export class Telescope extends Component {
       missionList,
       missionListRefreshInterval,
       pageSetup,
+      piggyBackMissionSlot,
+      user,
+      piggybackReservedMissionData,
+      piggybackReservedMission,
     } = this.props;
     const { setUpTelescopePrompt, navigationConfig } = pageSetup;
-    const { reservationModalVisible, refreshCountdownLive } = this.state;
+    const {
+      reservationModalVisible,
+      refreshCountdownLive,
+      reservationPiggybackVisible,
+      successModalShow,
+    } = this.state;
 
     return (
       <div className="by-telescope">
@@ -108,6 +166,7 @@ export class Telescope extends Component {
             missionList={missionList}
             getTelescopeSlot={this.getTelescopeSlot}
             getMissionSlots={this.getMissionSlotDates}
+            grabPiggyback={this.grabPiggyback}
             showDateArrows
           />
 
@@ -131,6 +190,25 @@ export class Telescope extends Component {
               />
             </div>
           )}
+
+          {reservationPiggybackVisible && (
+            <FeaturedObjectsModal
+              onHide={this.piggyBackModalHide}
+              selectedMission={piggyBackMissionSlot}
+              user={user}
+              onMissionView={this.reservePiggyback}
+              piggyback
+              show
+            />
+          )}
+
+          <MissionSuccessModal
+            show={successModalShow}
+            onHide={() => this.reservationModalHide(false)}
+            reservedMissionData={piggybackReservedMissionData}
+            reservedMission={piggybackReservedMission}
+            missionSlot={piggyBackMissionSlot}
+          />
         </div>
       </div>
     );

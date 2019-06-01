@@ -11,7 +11,12 @@ const SLOT_STATUS = {
 
 export class MissionTimeSlot extends PureComponent {
   render() {
-    const { timeSlot, getTelescopeSlot, getMissionSlots } = this.props;
+    const {
+      timeSlot,
+      getTelescopeSlot,
+      getMissionSlots,
+      grabPiggyback,
+    } = this.props;
     const {
       slotStatus,
       slotTitle,
@@ -91,6 +96,7 @@ export class MissionTimeSlot extends PureComponent {
               <ThreeDotsMenu
                 timeSlot={timeSlot}
                 finnishReservation={getTelescopeSlot}
+                grabPiggyback={grabPiggyback}
               />
             )}
           </div>
@@ -109,6 +115,7 @@ export class MissionTimeSlot extends PureComponent {
               <ThreeDotsMenu
                 timeSlot={timeSlot}
                 finnishReservation={getTelescopeSlot}
+                grabPiggyback={grabPiggyback}
               />
             )}
           </div>

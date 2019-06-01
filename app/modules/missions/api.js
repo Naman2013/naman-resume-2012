@@ -46,3 +46,10 @@ export const getTelescopeSlotApi = data =>
   axios.post('/api/reservation/grabTelescopeSlot', data);
 export const getCoordinatesCategoryListApi = data =>
   axios.post('/api/reservation/getCoordinatesCategoryList', data);
+
+// Pyggyback missions
+
+export const grabPiggybackApi = data =>
+  axios.post('/api/reservation/grabPiggyback', data);
+export const reservePiggybackApi = data =>
+  axios.post('/api/reservation/reservePiggyback ', data);

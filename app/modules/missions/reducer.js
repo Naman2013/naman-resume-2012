@@ -7,6 +7,8 @@ export const TYPE = constants('profile', [
   'RESET_MISSIONS_DATA',
   '~RESERVE_MISSION_SLOT',
   '~CANCEL_MISSION_SLOT',
+  '~GRAB_PIGGYBACK',
+  '~RESERVE_PIGGYBACK',
 
   // bySlooh1000 page
   '~GET_BY_SLOOH_1000',
@@ -59,6 +61,12 @@ export const initialState = {
     missionList: [],
     reservedMissionList: [],
     reservedMission: {},
+  },
+
+  piggybackMissions: {
+    piggybackMissionList: [],
+    piggybackReservedMissionList: [],
+    piggybackReservedMission: {},
   },
 
   bySlooh1000: {
@@ -139,6 +147,12 @@ export default handleActions(
     [TYPE.CANCEL_MISSION_SLOT]: setFetching,
     [TYPE.CANCEL_MISSION_SLOT_SUCCESS]: resetMissionsData,
     [TYPE.CANCEL_MISSION_SLOT_ERROR]: setServerError,
+    [TYPE.GRAB_PIGGYBACK]: setFetching,
+    [TYPE.GRAB_PIGGYBACK_SUCCESS]: grabPiggybackSuccess,
+    [TYPE.GRAB_PIGGYBACK_ERROR]: setServerError,
+    [TYPE.RESERVE_PIGGYBACK]: setFetching,
+    [TYPE.RESERVE_PIGGYBACK_SUCCESS]: reservePiggybackSuccess,
+    [TYPE.RESERVE_PIGGYBACK_ERROR]: setServerError,
 
     // bySlooh1000 page
     [TYPE.GET_BY_SLOOH_1000]: setFetching,
@@ -278,6 +292,10 @@ function resetMissionsData(state) {
     missions: {
       missionList: [],
       reservedMissionList: [],
+    },
+    piggybackMissions: {
+      piggybackMissionList: [],
+      piggybackReservedMissionList: [],
     },
     bySlooh1000: {
       ...state.bySlooh1000,
@@ -652,6 +670,33 @@ function setTargetName(state, action) {
     byCoordinates: {
       ...state.byCoordinates,
       targetName: action.payload,
+    },
+  };
+}
+
+// Piggyback
+
+function grabPiggybackSuccess(state, action) {
+  return {
+    ...state,
+    isFetching: false,
+    isLoaded: true,
+    piggybackMissions: {
+      ...state.piggybackMissions,
+      piggybackMissionList: action.payload.missionList,
+    },
+  };
+}
+
+function reservePiggybackSuccess(state, action) {
+  return {
+    ...state,
+    isFetching: false,
+    isLoaded: true,
+    piggybackMissions: {
+      ...state.piggybackMissions,
+      piggybackReservedMissionList: action.payload.missionList,
+      piggybackReservedMission: action.payload,
     },
   };
 }
