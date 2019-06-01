@@ -92,12 +92,16 @@
 
   .right {
     display: none;
+    justify-content: flex-end;
     align-items: center;
     padding-right: 40px;
     font-family: $primary-font;
+    position: relative;
 
     .actions {
-      flex: 1;
+      top: 5px;
+      right: 10px;
+      cursor: pointer;
     }
 
     .time {
@@ -133,16 +137,16 @@
     right: -20px;
   }
 
+  .actions {
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    font-size: 20px;
+  }
+
   .mobile {
     width: 100%;
     position: relative;
-
-    .actions {
-      position: absolute;
-      top: -20px;
-      right: -20px;
-      font-size: 20px;
-    }
 
     .mission-title {
       min-height: 35px;

@@ -13,6 +13,7 @@ export class ReservationModalCountdown extends PureComponent {
       countdown,
       onCountdownComplete,
       completeReservationPromptLong,
+      userHasHold,
     } = this.props;
     return (
       <div className="reservation-modal-countdown">
@@ -32,11 +33,13 @@ export class ReservationModalCountdown extends PureComponent {
             )}
           />
         </div>
-        <Button
-          text="Hold one hour"
-          onClickEvent={buttonOnClick}
-          disabled={extendedTimer}
-        />
+        {!userHasHold && (
+          <Button
+            text="Hold one hour"
+            onClickEvent={buttonOnClick}
+            disabled={extendedTimer}
+          />
+        )}
       </div>
     );
   }

@@ -28,6 +28,7 @@ export class AvailbleMissionTile extends Component {
       cancelButtonCaption,
       scheduleMissionCaption,
       completeReservationPromptShort,
+      piggyback,
     } = this.props;
     const {
       title,
@@ -41,9 +42,11 @@ export class AvailbleMissionTile extends Component {
       followPromptIconUrl,
       viewMissionButtonCaption,
       missionStartFormatted,
+      showFollowPromptFlag,
+      showLearnButton,
     } = missionSlot;
     const { displayWeekdayMonthDayUTC } = missionStartFormatted;
-
+    
     return (
       <div className="mission-tile">
         <div className="countdown">
@@ -84,15 +87,19 @@ export class AvailbleMissionTile extends Component {
         {communityMissions && (
           <div className="actions community-mission-actions">
             <div>
-              <Link to={learnButtonLink} className="learn-btn">
-                <Button text={learnButtonCaption}/>
-              </Link>
-              <FollowObjectButton
-                objectId={objectId}
-                user={user}
-                followButtonText={followPrompt}
-                followButtonIconURL={followPromptIconUrl}
-              />
+              {!piggyback || showLearnButton ? (
+                <Link to={learnButtonLink} className="learn-btn">
+                  <Button text={learnButtonCaption}/>
+                </Link>
+              ) : null}
+              {!piggyback || showFollowPromptFlag ? (
+                <FollowObjectButton
+                  objectId={objectId}
+                  user={user}
+                  followButtonText={followPrompt}
+                  followButtonIconURL={followPromptIconUrl}
+                />
+              ) : null}
             </div>
             <div>
               <Button text={viewMissionButtonCaption} onClickEvent={onMissionView} />

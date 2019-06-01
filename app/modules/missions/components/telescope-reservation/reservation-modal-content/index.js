@@ -72,15 +72,14 @@ export class ReservationModalContent extends Component {
   };
 
   getTelescopeSlot = () => {
-    const { getTelescopeSlot, selectedSlot } = this.props;
+    const { getTelescopeSlot, selectedSlot, onHide } = this.props;
     const { uniqueId, scheduledMissionId } = selectedSlot;
 
     getTelescopeSlot({
-      finalizeReservation: true,
-      grabType: 'notarget',
+      grabType: 'placeholder',
       scheduledMissionId,
       uniqueId,
-    }).then(() => this.setState({ extendedTimer: true }));
+    }).then(() => onHide(false));
   };
 
   scrollToGrabbedMission = () => {
@@ -116,7 +115,7 @@ export class ReservationModalContent extends Component {
       pageSubheader,
       timeSlotPrompt,
     } = navigationConfig;
-
+    
     return (
       <Fragment>
         {/* <Spinner

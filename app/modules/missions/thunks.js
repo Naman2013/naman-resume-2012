@@ -18,6 +18,8 @@ import {
   getTelescopeSlotApi,
   checkTargetVisibilityApi,
   getCoordinatesCategoryListApi,
+  grabPiggybackApi,
+  reservePiggybackApi,
 } from 'app/modules/missions/api';
 import { ACTION } from './reducer';
 import {
@@ -210,7 +212,12 @@ export const getObjectList = data => (dispatch, getState) => {
     cid,
     ...data,
   })
-    .then(result => dispatch(ACTION.getObjectListSuccess(result.data)))
+    .then(result => {
+      if(!result.data.apiError){
+        return dispatch(ACTION.getObjectListSuccess(result.data));
+      }
+      return dispatch(ACTION.getObjectListError(error));
+    })
     .catch(error => dispatch(ACTION.getObjectListError(error)));
 };
 
@@ -293,4 +300,22 @@ export const checkTargetVisibility = (data, telescopeId) => (dispatch, getState)
       }
     })
     .catch(error => dispatch(ACTION.checkTargetVisibilityError(error)));
+};
+
+// Piggyback missions
+
+export const grabPiggyback = data => (dispatch, getState) => {
+  const { at, token, cid } = getState().user;
+  dispatch(ACTION.grabPiggyback());
+  return grabPiggybackApi({ at, token, cid, ...data })
+    .then(result => dispatch(ACTION.grabPiggybackSuccess(result.data)))
+    .catch(error => dispatch(ACTION.grabPiggybackError(error)));
+};
+
+export const reservePiggyback = data => (dispatch, getState) => {
+  const { at, token, cid } = getState().user;
+  dispatch(ACTION.reservePiggyback());
+  return reservePiggybackApi({ at, token, cid, ...data })
+    .then(result => dispatch(ACTION.reservePiggybackSuccess(result.data)))
+    .catch(error => dispatch(ACTION.reservePiggybackError(error)));
 };
