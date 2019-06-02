@@ -125,11 +125,15 @@ export default css`
     box-shadow: 0 0 6px 0 #ced2d8;
     padding: 3px;
     margin: 0;
+    overflow: hidden;
   }
 
   .image-wrapper img{
-    width: 100%;
+    width: unset;
     height: 100%;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
   }
 
   .links {
