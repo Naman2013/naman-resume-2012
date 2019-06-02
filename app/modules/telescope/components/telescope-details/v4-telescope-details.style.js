@@ -8,10 +8,6 @@ export default css`
     position: relative;
   }
 
-  .telescope-live-container {
-    width: calc(100% - 370px);
-  }
-
   .viewer {
     width: 100%;
   }
@@ -29,11 +25,7 @@ export default css`
     .column {
       margin: 0 20px;
       width: 330px;
-      height: calc(100% - 30px);
-      overflow-y: auto;
-      top: 0;
-      right: 0;
-      position: absolute;
+      position: relative;
     }
   }
 `;

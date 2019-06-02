@@ -63,7 +63,7 @@ class ColumnTabs extends Component {
           </ul>
         </div>
 
-        <div>
+        <div className="tab-content">
           {this.props.tabConfiguration[this.state.activeTabIndex].content()}
         </div>
 
