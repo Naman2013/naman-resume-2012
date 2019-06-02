@@ -6,7 +6,7 @@ import Button from 'app/components/common/style/buttons/Button';
 import style from './show-excerpt-tile.style';
 
 const ShowTile = ({
-  airdateDisplay,
+  subTitle,
   eventId,
   eventTitle,
   linkLabel,
@@ -24,10 +24,7 @@ const ShowTile = ({
     style={withinReletedSection && { height: '200px', padding: '20px' }}
   >
     <div className="title" dangerouslySetInnerHTML={{ __html: eventTitle }} />
-    <div
-      className="sub-title"
-      dangerouslySetInnerHTML={{ __html: airdateDisplay }}
-    />
+    <div className="sub-title" dangerouslySetInnerHTML={{ __html: subTitle }} />
     {/*<div
       className="description"
       dangerouslySetInnerHTML={{ __html: shortDescription }}
