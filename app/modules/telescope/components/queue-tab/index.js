@@ -18,6 +18,7 @@ export class QueueTab extends Component {
     reservationModalVisible: false,
     reservationPiggybackVisible: false,
     successModalShow: false,
+    editCoordinates: false
   };
 
   componentDidMount(){
@@ -81,18 +82,33 @@ export class QueueTab extends Component {
     }).then(() => this.setState({ reservationModalVisible: true }));
   };
 
+  getMissionSlot = mission => {
+    const { getMissionSlotEdit, currentObservatory, currentTelescope, upcomingSlotsData } = this.props;
+    const { scheduledMissionId } = mission;
+    const { obsId } = currentObservatory;
+    const { reservationDate } = upcomingSlotsData;
+
+    getMissionSlotEdit({
+      type: 'editCoords',
+      scheduledMissionId,
+      obsId,
+      domeId: currentTelescope.telePierNumber,
+      reservationDate,
+    }).then(() => this.setState({ reservationModalVisible: true, editCoordinates: true }));
+  };
+
   grabPiggyback = mission => {
-    const { grabPiggyback } = this.props;
+    const { grabPiggyback, offlineQueueTab } = this.props;
     const { scheduledMissionId, uniqueId } = mission;
     grabPiggyback({
-      callSource: 'byTelescopeV4',
+      callSource: offlineQueueTab ? 'offlineQueue' : 'onlineQueue',
       scheduledMissionId,
       uniqueId,
     }).then(() => this.setState({ reservationPiggybackVisible: true }));
   };
   
   reservePiggyback = () => {
-    const { reservePiggyback, piggyBackMissionSlot } = this.props;
+    const { reservePiggyback, piggyBackMissionSlot, offlineQueueTab } = this.props;
     const {
       scheduledMissionId,
       uniqueId,
@@ -105,7 +121,7 @@ export class QueueTab extends Component {
     } = piggyBackMissionSlot;
 
     reservePiggyback({
-      callSource: 'byTelescopeV4',
+      callSource: offlineQueueTab ? 'offlineQueue' : 'onlineQueue',
       scheduledMissionId,
       uniqueId,
       title,
@@ -126,7 +142,8 @@ export class QueueTab extends Component {
     const { cancelMissionSlot, selectedSlot, upcomingSlotsData } = this.props;
     const { uniqueId, scheduledMissionId } = selectedSlot;
     const { requestedSlotCount } = upcomingSlotsData;
-    if (cancelMission) {
+    const { editCoordinates } = this.state;
+    if (cancelMission && !editCoordinates) {
       cancelMissionSlot({
         callSource: 'byTelescopeV4',
         grabType: 'notarget',
@@ -140,6 +157,7 @@ export class QueueTab extends Component {
       reservationModalVisible: false,
       reservationPiggybackVisible: false,
       successModalShow: false,
+      editCoordinates: false,
     });
   };
 
@@ -147,7 +165,7 @@ export class QueueTab extends Component {
     const { upcomingSlotsData } = this.props;
     const { requestedSlotCount } = upcomingSlotsData;
     this.getUpcomingSlotsByTelescope(requestedSlotCount);
-    this.setState({ reservationModalVisible: false });
+    this.setState({ reservationModalVisible: false, editCoordinates: false });
   };
 
   render(){
@@ -173,6 +191,7 @@ export class QueueTab extends Component {
       reservationModalVisible,
       reservationPiggybackVisible,
       successModalShow,
+      editCoordinates,
     } = this.state;
     const { navigationConfig } = pageSetup;
 
@@ -206,6 +225,7 @@ export class QueueTab extends Component {
             showMoreButtonCaption={showMoreButtonCaption}
             getMissionSlots={() => this.getUpcomingSlotsByTelescope(requestedSlotCount)}
             grabPiggyback={this.grabPiggyback}
+            editCoordinates={this.getMissionSlot}
           />
 
           {reservationModalVisible && (
@@ -214,6 +234,7 @@ export class QueueTab extends Component {
               onComplete={this.reservationComplete}
               pageSetup={pageSetup}
               navigationConfig={navigationConfig[0]}
+              editCoordinates={editCoordinates}
               show
             />
           )}

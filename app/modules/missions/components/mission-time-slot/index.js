@@ -16,6 +16,7 @@ export class MissionTimeSlot extends PureComponent {
       getTelescopeSlot,
       getMissionSlots,
       grabPiggyback,
+      editCoordinates,
     } = this.props;
     const {
       slotStatus,
@@ -97,6 +98,7 @@ export class MissionTimeSlot extends PureComponent {
                 timeSlot={timeSlot}
                 finnishReservation={getTelescopeSlot}
                 grabPiggyback={grabPiggyback}
+                editCoordinates={editCoordinates}
               />
             )}
           </div>
@@ -116,6 +118,7 @@ export class MissionTimeSlot extends PureComponent {
                 timeSlot={timeSlot}
                 finnishReservation={getTelescopeSlot}
                 grabPiggyback={grabPiggyback}
+                editCoordinates={editCoordinates}
               />
             )}
           </div>

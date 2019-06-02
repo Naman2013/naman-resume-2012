@@ -16,9 +16,10 @@ export class ReservationModalContent extends Component {
   };
 
   reserveMissionSlot = () => {
-    const { reserveMissionSlot, missionSlot } = this.props;
+    const { reserveMissionSlot, missionSlot, updateMissionSlot, editCoordinates } = this.props;
+    const reserveMission = editCoordinates ? updateMissionSlot : reserveMissionSlot;
 
-    reserveMissionSlot({
+    reserveMission({
       callSource: 'byTelescopeV4',
       catName: missionSlot.catName,
       catalog: missionSlot.catalog,
@@ -99,6 +100,7 @@ export class ReservationModalContent extends Component {
       onHide,
       pageSetup,
       navigationConfig,
+      editCoordinates,
     } = this.props;
     const { teleName } = selectedTelescope;
     const { missionStart } = selectedSlot;
@@ -107,12 +109,14 @@ export class ReservationModalContent extends Component {
       cancelButtonCaption,
       scheduleMissionCaption,
       completeReservationPromptShort,
+      updateMissionCaption,
     } = pageSetup;
     const { successModalShow, extendedTimer } = this.state;
     const {
       pageHeader1,
       pageHeader2,
       pageSubheader,
+      pageSubheaderEdit,
       timeSlotPrompt,
     } = navigationConfig;
     
@@ -128,7 +132,7 @@ export class ReservationModalContent extends Component {
             {pageHeader1} {teleName} {pageHeader2}{' '}
             {moment.utc(missionStart * 1000).format('HH:mm')} UTC
           </h1>
-          <p className="modal-p">{pageSubheader}</p>
+          <p className="modal-p">{editCoordinates ? pageSubheaderEdit : pageSubheader}</p>
         </div>
 
         <div className="telescope-reservation-modal-content">
@@ -164,7 +168,7 @@ export class ReservationModalContent extends Component {
                     onCancel={onHide}
                     onSubmit={this.reserveMissionSlot}
                     cancelButtonCaption={cancelButtonCaption}
-                    scheduleMissionCaption={scheduleMissionCaption}
+                    scheduleMissionCaption={editCoordinates ? updateMissionCaption : scheduleMissionCaption}
                     completeReservationPromptShort={
                       completeReservationPromptShort
                     }
@@ -194,6 +198,7 @@ export class ReservationModalContent extends Component {
           reservedMissionData={reservedMissionData}
           reservedMission={reservedMission}
           missionSlot={missionSlot}
+          customClass="mission-success-modal"
         />
       </Fragment>
     );

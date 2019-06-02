@@ -28,6 +28,18 @@ class Coordinates extends Component {
     );
   };
 
+  grabUpdatedSlot = () => {
+    const { grabUpdatedSlot, scrollToGrabbedMission } = this.props;
+
+    grabUpdatedSlot(
+      {
+        callSource: 'byTelescopeV4',
+        missionType: 'coord',
+      },
+      scrollToGrabbedMission
+    );
+  };
+
   render() {
     const {
       categoryList,
@@ -54,6 +66,7 @@ class Coordinates extends Component {
       pageSetup,
       navigationConfig,
       selectedSlot,
+      editCoordinates,
     } = this.props;
 
     const { completeReservationPromptLong, choosePrompt } = pageSetup;
@@ -66,7 +79,9 @@ class Coordinates extends Component {
           categoryListOpts={categoryListOpts}
           setCategory={setCategory}
           selectedCategorySlug={selectedCategorySlug}
-          getMissionSlot={this.getMissionSlot}
+          getMissionSlot={
+            editCoordinates ? this.grabUpdatedSlot : this.getMissionSlot
+          }
           selectedCatalog={selectedCatalog}
           selectedCatalogData={selectedCatalogData}
           checkTargetVisibility={checkTargetVisibility}
@@ -88,6 +103,7 @@ class Coordinates extends Component {
           choosePrompt={choosePrompt}
           pageConfig={navigationConfig.byCoordinates}
           userHasHold={userHasHold}
+          editCoordinates={editCoordinates}
           byTelescope
         />
       </div>

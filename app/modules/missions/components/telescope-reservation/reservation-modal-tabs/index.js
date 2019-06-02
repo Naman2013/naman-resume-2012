@@ -60,15 +60,21 @@ export class ReservationModalTabs extends PureComponent {
       getCoordinatesCategoryList,
       pageSetup,
       navigationConfig,
+      editCoordinates,
+      grabUpdatedSlot,
     } = this.props;
     const { countdown } = this.state;
 
     return (
       <div className="reservation-modal-tabs">
         <Tabs
-          defaultActiveKey="slooh1000"
+          defaultActiveKey={editCoordinates ? 'coordinates' : 'slooh1000'}
           id="reservation-modal-tabs"
-          className={missionSlot?.missionAvailable ? 'mission-available' : ''}
+          className={
+            missionSlot?.missionAvailable || editCoordinates
+              ? 'mission-available'
+              : ''
+          }
           unmountOnExit
         >
           <Tab eventKey="slooh1000" title="by slooh 1000">
@@ -168,6 +174,8 @@ export class ReservationModalTabs extends PureComponent {
               setCoordinatesData={setCoordinatesData}
               pageSetup={pageSetup}
               navigationConfig={navigationConfig}
+              editCoordinates={editCoordinates}
+              grabUpdatedSlot={grabUpdatedSlot}
               byTelescope
             />
           </Tab>

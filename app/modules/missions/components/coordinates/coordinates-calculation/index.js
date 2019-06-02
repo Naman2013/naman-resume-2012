@@ -51,8 +51,18 @@ function removeMinusSign(value) {
 }
 
 export class CoordinatesCalculation extends PureComponent {
-  recalculateRA = newRAValue => {
+  componentDidMount() {
     const { setCoordinatesData, coordinatesData } = this.props;
+    const newRA = this.recalculateRA(coordinatesData.ra);
+    const newDEC = this.recalculateDEC(coordinatesData.dec);
+    setCoordinatesData({
+      ...coordinatesData,
+      ...newRA,
+      ...newDEC,
+    });
+  }
+
+  recalculateRA = newRAValue => {
     let ra = cleanCalcInput(newRAValue);
     let ra_h = Math.trunc(ra);
     let ra_m = Math.trunc((ra - ra_h) * 60);
@@ -80,12 +90,20 @@ export class CoordinatesCalculation extends PureComponent {
       ra = 0.0;
     }
 
-    setCoordinatesData({
-      ...coordinatesData,
+    return {
       ra_h,
       ra_m,
       ra_s,
       ra,
+    }
+  };
+
+  setRA = newRAValue => {
+    const { setCoordinatesData, coordinatesData } = this.props;
+    const newRA = this.recalculateRA(newRAValue);
+    setCoordinatesData({
+      ...coordinatesData,
+      ...newRA,
     });
   };
 
@@ -100,7 +118,7 @@ export class CoordinatesCalculation extends PureComponent {
       return;
     }
 
-    this.recalculateRA(newRA);
+    this.setRA(newRA);
   };
 
   handleFieldChange = ({ field, value, allowNegativeValues }) => {
@@ -152,7 +170,6 @@ export class CoordinatesCalculation extends PureComponent {
   };
 
   recalculateDEC = newDec => {
-    const { setCoordinatesData, coordinatesData } = this.props;
     let dec = cleanCalcInput(newDec);
 
     const minutesDivisor = 60;
@@ -192,12 +209,21 @@ export class CoordinatesCalculation extends PureComponent {
       seconds = 0;
     }
 
-    setCoordinatesData({
-      ...coordinatesData,
+    return {
       dec,
       dec_d: degrees,
       dec_m: minutes,
       dec_s: seconds,
+    }
+  };
+
+  setDEC = newDec => {
+    const { setCoordinatesData, coordinatesData } = this.props;
+    const newDEC = this.recalculateDEC(newDec);
+
+    setCoordinatesData({
+      ...coordinatesData,
+      ...newDEC,
     });
   };
 
@@ -212,7 +238,7 @@ export class CoordinatesCalculation extends PureComponent {
       return;
     }
 
-    this.recalculateDEC(newDEC);
+    this.setDEC(newDEC);
   };
 
   calculateFields = values => {
@@ -223,7 +249,7 @@ export class CoordinatesCalculation extends PureComponent {
       values
     );
     let ra;
-
+    console.log()
     // if dec_d is negative, make all numbers negative
     const minutesToHoursDivisor = dec_d >= 0 ? 60 : -60;
     const secondsToHoursDivisor = dec_d >= 0 ? 3600 : -3600;
