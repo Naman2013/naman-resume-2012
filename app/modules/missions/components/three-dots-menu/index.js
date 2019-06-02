@@ -10,7 +10,12 @@ const MENU_ITEMS = {
 
 export class ThreeDotsMenu extends PureComponent {
   handleSelect = key => {
-    const { finnishReservation, grabPiggyback, timeSlot } = this.props;
+    const {
+      finnishReservation,
+      grabPiggyback,
+      editCoordinates,
+      timeSlot,
+    } = this.props;
     switch (key) {
       case MENU_ITEMS.FINNISH_RESERVATION: {
         finnishReservation(true);
@@ -18,6 +23,10 @@ export class ThreeDotsMenu extends PureComponent {
       }
       case MENU_ITEMS.PIGGYBACK: {
         grabPiggyback(timeSlot);
+        break;
+      }
+      case MENU_ITEMS.EDIT_COORDINATES: {
+        editCoordinates(timeSlot);
         break;
       }
       default: {

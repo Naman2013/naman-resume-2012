@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const getMissionsApi = data => axios.post('/api/page/missions', data);
-export const getMissionSlotApi = data =>
+export const grabMissionSlotApi = data =>
   axios.post('/api/reservation/grabMissionSlot', data);
 export const reserveMissionSlotApi = data =>
   axios.post('/api/reservation/reserveMissionSlot', data);
@@ -48,8 +48,15 @@ export const getCoordinatesCategoryListApi = data =>
   axios.post('/api/reservation/getCoordinatesCategoryList', data);
 
 // Pyggyback missions
-
 export const grabPiggybackApi = data =>
   axios.post('/api/reservation/grabPiggyback', data);
 export const reservePiggybackApi = data =>
   axios.post('/api/reservation/reservePiggyback ', data);
+
+// Edit coordinates
+export const getMissionSlotApi = data =>
+  axios.post('/api/reservation/getMissionSlot', data);
+export const grabUpdatedSlotApi = data =>
+  axios.post('/api/reservation/grabUpdatedSlot', data);
+export const updateMissionSlotApi = data =>
+  axios.post('/api/reservation/updateMissionSlot', data);

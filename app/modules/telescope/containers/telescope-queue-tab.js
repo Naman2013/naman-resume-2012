@@ -22,6 +22,7 @@ import {
   cancelMissionSlot,
   grabPiggyback,
   reservePiggyback,
+  getMissionSlotEdit,
 } from '../../missions/thunks';
 import { ACTION as MISSION_ACTION } from '../../missions/reducer';
 import {
@@ -56,6 +57,7 @@ const mapDispatchToProps = {
   reserveCommunityMission,
   grabPiggyback,
   reservePiggyback,
+  getMissionSlotEdit,
 };
 
 export default compose(

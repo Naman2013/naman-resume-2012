@@ -5,7 +5,6 @@
   //max-width: 620px;
   margin: auto;
 
-
   .related-show {
     width: 330px;
     height: 330px;
@@ -24,5 +23,14 @@
     color: $romance;
     text-align: center;
   }
+}
 
+.mission-success-modal {
+  &.custom-modal-backdrop {
+    z-index: 1060;
+  }
+
+  &.modal {
+    z-index: 1070;
+  }
 }

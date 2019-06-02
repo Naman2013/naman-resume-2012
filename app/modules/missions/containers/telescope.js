@@ -13,6 +13,7 @@ import {
   cancelMissionSlot,
   grabPiggyback,
   reservePiggyback,
+  getMissionSlotEdit,
 } from '../thunks';
 import {
   makeTelescopeListSelector,
@@ -59,6 +60,7 @@ const mapDispatchToProps = {
   cancelMissionSlot,
   grabPiggyback,
   reservePiggyback,
+  getMissionSlotEdit,
 };
 
 export default compose(

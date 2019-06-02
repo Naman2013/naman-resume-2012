@@ -13,6 +13,7 @@ export class Telescope extends Component {
     refreshCountdownLive: false,
     reservationPiggybackVisible: false,
     successModalShow: false,
+    editCoordinates: false,
   };
 
   componentDidMount() {
@@ -60,7 +61,8 @@ export class Telescope extends Component {
   reservationModalHide = (cancelMission = true) => {
     const { cancelMissionSlot, selectedSlot, selectedDate } = this.props;
     const { uniqueId, scheduledMissionId } = selectedSlot;
-    if (cancelMission) {
+    const { editCoordinates } = this.state;
+    if (cancelMission && !editCoordinates) {
       cancelMissionSlot({
         callSource: 'byTelescopeV4',
         grabType: 'notarget',
@@ -73,13 +75,14 @@ export class Telescope extends Component {
       reservationModalVisible: false,
       reservationPiggybackVisible: false,
       successModalShow: false,
+      editCoordinates: false,
     });
   };
 
   reservationComplete = () => {
     const { selectedDate } = this.props;
     this.getMissionSlotDates(selectedDate.reservationDate);
-    this.setState({ reservationModalVisible: false });
+    this.setState({ reservationModalVisible: false, editCoordinates: false });
   };
 
   reservePiggyback = () => {
@@ -110,6 +113,23 @@ export class Telescope extends Component {
         successModalShow: true,
         reservationPiggybackVisible: false,
       })
+    );
+  };
+
+  getMissionSlot = mission => {
+    const { getMissionSlotEdit, selectedTelescope, selectedDate } = this.props;
+    const { scheduledMissionId } = mission;
+    const { obsId, domeId } = selectedTelescope;
+    const { reservationDate } = selectedDate;
+
+    getMissionSlotEdit({
+      type: 'editCoords',
+      scheduledMissionId,
+      obsId,
+      domeId,
+      reservationDate,
+    }).then(() =>
+      this.setState({ reservationModalVisible: true, editCoordinates: true })
     );
   };
 
@@ -147,6 +167,7 @@ export class Telescope extends Component {
       refreshCountdownLive,
       reservationPiggybackVisible,
       successModalShow,
+      editCoordinates,
     } = this.state;
 
     return (
@@ -167,6 +188,7 @@ export class Telescope extends Component {
             getTelescopeSlot={this.getTelescopeSlot}
             getMissionSlots={this.getMissionSlotDates}
             grabPiggyback={this.grabPiggyback}
+            editCoordinates={this.getMissionSlot}
             showDateArrows
           />
 
@@ -176,6 +198,7 @@ export class Telescope extends Component {
               onComplete={this.reservationComplete}
               pageSetup={pageSetup}
               navigationConfig={navigationConfig[3]}
+              editCoordinates={editCoordinates}
               show
             />
           )}
