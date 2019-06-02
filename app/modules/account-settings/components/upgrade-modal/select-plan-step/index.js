@@ -5,17 +5,29 @@ import React from 'react';
 
 type TSelectPlanStep = {
   goNext: Function,
+  setSelectedPlanId?: Function,
   subscriptionPlansData: any,
   selectedPlanId?: string,
 };
 
 export const SelectPlanStep = (props: TSelectPlanStep) => {
-  const { subscriptionPlansData, selectedPlanId, goNext } = props;
+  const {
+    subscriptionPlansData,
+    selectedPlanId,
+    goNext,
+    setSelectedPlanId,
+  } = props;
   const {
     subscriptionPlans = [],
     pageHeading1,
     pageHeading2,
   } = subscriptionPlansData;
+
+  const onSelect = planId => {
+    goNext();
+    setSelectedPlanId(planId);
+  };
+
   return (
     <>
       <h1 className="modal-h">{pageHeading1}</h1>
@@ -25,7 +37,7 @@ export const SelectPlanStep = (props: TSelectPlanStep) => {
         <SubscriptionPlan
           plan={plan}
           expanded={Boolean(selectedPlanId)}
-          onSelect={goNext}
+          onSelect={onSelect}
         />
       ))}
     </>
