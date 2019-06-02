@@ -28,10 +28,10 @@ const ShowTile = ({
       className="sub-title"
       dangerouslySetInnerHTML={{ __html: airdateDisplay }}
     />
-    <div
+    {/*<div
       className="description"
       dangerouslySetInnerHTML={{ __html: shortDescription }}
-    />
+    />*/}
     <div className="actions">
       <Button
         text={linkLabel}
