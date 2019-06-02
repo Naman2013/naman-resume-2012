@@ -25,7 +25,9 @@ const LailaTile = ({ iconURL, linkURL, title }) => (
       <h5 className="title">{title}</h5>
       <div className="button-container">
         <Link to={linkURL}>Explore now</Link>
-        <img alt="" src={horizontalArrow} />
+        <Link to={linkURL}>
+          <img alt="" src={horizontalArrow} />
+        </Link>
       </div>
     </div>
     <style jsx>{style}</style>
