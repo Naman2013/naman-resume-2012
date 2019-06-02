@@ -96,5 +96,19 @@ export default css`
     .column-tab-button.active {
       border-bottom: 2px solid ${astronaut};
     }
+
+    .tab-content {
+      padding: 5px;
+      position: absolute;
+      top: 170px;
+      bottom: 30px;
+      overflow-y: auto;
+      max-width: 300px;
+    }
+
+    .menu-title {
+      margin: 16px 0;
+      margin-top: 50px;
+    }
   }
 `;
