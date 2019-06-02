@@ -116,6 +116,7 @@ export class ReservationModalContent extends Component {
       pageHeader1,
       pageHeader2,
       pageSubheader,
+      pageSubheaderEdit,
       timeSlotPrompt,
     } = navigationConfig;
     
@@ -131,7 +132,7 @@ export class ReservationModalContent extends Component {
             {pageHeader1} {teleName} {pageHeader2}{' '}
             {moment.utc(missionStart * 1000).format('HH:mm')} UTC
           </h1>
-          <p className="modal-p">{pageSubheader}</p>
+          <p className="modal-p">{editCoordinates ? pageSubheaderEdit : pageSubheader}</p>
         </div>
 
         <div className="telescope-reservation-modal-content">
