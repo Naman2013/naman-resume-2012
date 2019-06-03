@@ -13,9 +13,9 @@ export default css`
   .stats-popover {
     position: absolute;
     left: 0;
-    bottom: -395px;
+    bottom: -440px;
     width: 100%;
-    height: 415px;
+    height: 460px;
     border: 1px solid ${darkGray};
     border-top: 6px solid ${lightHeadedAstronaut};
     box-shadow: 0 0 6px 0 ${shadows};
@@ -92,7 +92,7 @@ export default css`
   }
 
   :global(.react-tabs__tab-panel) {
-    max-height: 245px;
+    max-height: 300px;
     overflow-x: hidden;
     overflow-y: auto;
   }
