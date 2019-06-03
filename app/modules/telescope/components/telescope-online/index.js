@@ -119,6 +119,7 @@ export class TelescopeOnline extends Component {
                             cameraSourceType={instrCameraSourceType}
                             showOverlay={false}
                             autoplay={1}
+                            isTelescope={true}
                           />
                         </div>
                       )}
