@@ -13,7 +13,7 @@ export default css`
   .stats-popover {
     position: absolute;
     left: 0;
-    bottom: -395px;
+    bottom: -440px;
     width: 100%;
     height: 460px;
     border: 1px solid ${darkGray};
