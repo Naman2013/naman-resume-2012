@@ -8,9 +8,14 @@ import { ReservationCoordinates } from '../reservation-coordinates';
 import './styles.scss';
 
 export class ReservationModalTabs extends PureComponent {
-  state = {
-    countdown: 300000,
-  };
+  constructor(props) {
+    super(props);
+    const { selectedSlot } = this.props;
+    const expiresCountdown = selectedSlot.expires * 1000 - Date.now();
+    this.state = {
+      countdown: selectedSlot.expires ? expiresCountdown : 300000,
+    };
+  }
 
   onCountdownTick = data => {
     this.setState({ countdown: data.total });
@@ -55,15 +60,21 @@ export class ReservationModalTabs extends PureComponent {
       getCoordinatesCategoryList,
       pageSetup,
       navigationConfig,
+      editCoordinates,
+      grabUpdatedSlot,
     } = this.props;
     const { countdown } = this.state;
 
     return (
       <div className="reservation-modal-tabs">
         <Tabs
-          defaultActiveKey="slooh1000"
+          defaultActiveKey={editCoordinates ? 'coordinates' : 'slooh1000'}
           id="reservation-modal-tabs"
-          className={missionSlot?.missionAvailable ? 'mission-available' : ''}
+          className={
+            missionSlot?.missionAvailable || editCoordinates
+              ? 'mission-available'
+              : ''
+          }
           unmountOnExit
         >
           <Tab eventKey="slooh1000" title="by slooh 1000">
@@ -163,6 +174,8 @@ export class ReservationModalTabs extends PureComponent {
               setCoordinatesData={setCoordinatesData}
               pageSetup={pageSetup}
               navigationConfig={navigationConfig}
+              editCoordinates={editCoordinates}
+              grabUpdatedSlot={grabUpdatedSlot}
               byTelescope
             />
           </Tab>

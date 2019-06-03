@@ -15,6 +15,7 @@ import {
 } from '../../../modules/starshare-camera/starshare-camera-actions';
 import './video-image-loader.scss';
 import YoutubePlayer from '../YoutubePlayer/YoutubePlayer';
+import liveShows from 'app/modules/live-shows/live-shows-reducer';
 
 const SSE = 'SSE';
 
@@ -30,12 +31,13 @@ const mapDispatchToProps = dispatch => ({
   ),
 });
 
-const mapStateToProps = ({ starshareCamera }) => ({
+const mapStateToProps = ({ starshareCamera, liveShows }) => ({
   snapshotList: starshareCamera.snapshotList,
   snapshotMsg: starshareCamera.snapshotMsg,
   snapAPIError: starshareCamera.apiError,
   imagesLastSnapped: starshareCamera.imagesLastSnapped,
   justSnapped: starshareCamera.justSnapped,
+  liveShowsData: liveShows.liveShowsResponse,
 });
 
 @connect(
@@ -62,6 +64,7 @@ class VideoImageLoader extends Component {
     callSource: PropTypes.string,
     autoPlay: PropTypes.number,
     showOverlay: PropTypes.bool,
+    isTelescope: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -139,18 +142,24 @@ class VideoImageLoader extends Component {
       snapAPIError,
       snapshotList,
       imagesLastSnapped,
+      liveShowsData,
+      isTelescope,
     } = this.props;
     return (
       <div>
+        {((liveShowsData.canStarShare &&
+          liveShowsData?.additionalFeeds?.length) ||
+          isTelescope) && (
+          <StarShareCamera
+            actions={actions}
+            snapshotMsg={snapshotMsg}
+            justSnapped={justSnapped}
+            snapAPIError={snapAPIError}
+            snapshotList={snapshotList}
+            imagesLastSnapped={imagesLastSnapped}
+          />
+        )}
         <YoutubePlayer {...this.props} />
-        <StarShareCamera
-          actions={actions}
-          snapshotMsg={snapshotMsg}
-          justSnapped={justSnapped}
-          snapAPIError={snapAPIError}
-          snapshotList={snapshotList}
-          imagesLastSnapped={imagesLastSnapped}
-        />
       </div>
     );
   }

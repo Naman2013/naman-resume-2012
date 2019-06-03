@@ -46,6 +46,7 @@ export class Slooh1000Setup extends Component {
       choosePrompt,
       completeReservationPromptLong,
       pageConfig,
+      userHasHold,
     } = this.props;
     const {
       header,
@@ -72,6 +73,7 @@ export class Slooh1000Setup extends Component {
               onCountdownComplete={onCountdownComplete}
               countdown={countdown}
               completeReservationPromptLong={completeReservationPromptLong}
+              userHasHold={userHasHold}
             />
           )}
         </div>

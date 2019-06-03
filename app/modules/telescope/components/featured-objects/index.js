@@ -66,9 +66,8 @@ export class FeaturedObjects extends PureComponent {
     const { currentTelescope, featuredObjectsData, user, reservedCommunityMissionData, reservedCommunityMission } = this.props;
     const { reservationModalVisible, selectedMission, successModalShow } = this.state;
     const { teleName } = currentTelescope;
-    const { missionCount, missionList } = featuredObjectsData;
+    const { missionCount, missionList, reservedButtonCaption } = featuredObjectsData;
     const defaultSliderConfig = getDefaultConfig();
-    
     return (
       <div className="featured-objects">
         <h3 className="featured-objects-title h3-custom">
@@ -88,6 +87,7 @@ export class FeaturedObjects extends PureComponent {
                 key={item.scheduledMissionId}
                 featureObject={item}
                 onOptionClick={() => this.reservationModalShow(item)}
+                reservedButtonCaption={reservedButtonCaption}
               />
             ))}
           </Slider>

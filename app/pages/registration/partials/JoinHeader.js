@@ -7,13 +7,15 @@ import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
 import styles from './JoinHeader.style';
 import messages from './JoinHeader.messages';
 
-const { string, arrayOf, shape } = PropTypes;
+const { boolean, string, arrayOf, shape } = PropTypes;
 
 class JoinHeader extends Component {
   static propTypes = {
     activeTab: string,
     mainHeading: string,
     subHeading: string,
+    showHeading: boolean,
+    showTabs: boolean,
     tabs: arrayOf(
       shape({
         label: string,
@@ -25,6 +27,8 @@ class JoinHeader extends Component {
   static defaultProps = {
     tabs: [],
     activeTab: '/join/step1',
+    showHeading: true,
+    showTabs: true,
     mainHeading: <FormattedMessage {...messages.JoinMainHeader} />,
     subHeading: <FormattedMessage {...messages.JoinSubHeader} />,
   };
@@ -36,6 +40,8 @@ class JoinHeader extends Component {
 
   render() {
     const {
+      showHeading,
+      showTabs,
       activeTab,
       mainHeading,
       subHeading,
@@ -47,18 +53,20 @@ class JoinHeader extends Component {
       <div className="root">
         <DisplayAtBreakpoint screenMedium screenLarge screenXLarge>
           <div className="header">
-            <div className="inner-header-container">
+            {showHeading && <div className="inner-header-container">
               <div className="inner-header-text">
                 <div className="big">{mainHeading}</div>
                 <div className="little">{subHeading}</div>
               </div>
-              <TabbedNav
+              {showTabs && <TabbedNav
                 tabs={tabs}
                 activeTabValue={activeTab}
                 onTabClick={this.changeActiveTab}
                 theme={{ position: 'absolute', bottom: 0 }}
               />
+              }
             </div>
+            }
           </div>
         </DisplayAtBreakpoint>
         <DisplayAtBreakpoint screenSmall>
@@ -66,11 +74,12 @@ class JoinHeader extends Component {
             <div className="big">{mainHeading}</div>
             <div className="little">{subHeading}</div>
           </div>
-          <TabbedNav
+          {showTabs && <TabbedNav
             tabs={tabs}
             activeTabValue={activeTab}
             onTabClick={this.changeActiveTab}
           />
+          }
         </DisplayAtBreakpoint>
         <style jsx>{styles}</style>
         <style jsx>

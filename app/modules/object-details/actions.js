@@ -234,7 +234,7 @@ export const fetchLikeAction = likeId => (dispatch, getState) => {
     at,
     cid,
     likeId,
-  }).then(() => dispatch(fetchLike()));
+  });
 };
 
 //////////////////////////////

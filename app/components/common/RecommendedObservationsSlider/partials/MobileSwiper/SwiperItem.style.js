@@ -2,7 +2,7 @@ import css from 'styled-jsx/css';
 
 export default css`
   .obs-image {
-    width: 220px;
+    width: unset;
     height: 220px;
   }
 

@@ -31,6 +31,7 @@ export class CatalogSetup extends Component {
       choosePrompt,
       completeReservationPromptLong,
       pageConfig,
+      userHasHold,
     } = this.props;
 
     const { explanation } = objectData;
@@ -65,6 +66,7 @@ export class CatalogSetup extends Component {
               onCountdownComplete={onCountdownComplete}
               countdown={countdown}
               completeReservationPromptLong={completeReservationPromptLong}
+              userHasHold={userHasHold}
             />
           )}
         </div>

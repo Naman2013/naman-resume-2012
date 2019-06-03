@@ -7,6 +7,8 @@ export const TYPE = constants('profile', [
   'RESET_MISSIONS_DATA',
   '~RESERVE_MISSION_SLOT',
   '~CANCEL_MISSION_SLOT',
+  '~GRAB_PIGGYBACK',
+  '~RESERVE_PIGGYBACK',
 
   // bySlooh1000 page
   '~GET_BY_SLOOH_1000',
@@ -42,6 +44,9 @@ export const TYPE = constants('profile', [
   '~SET_TARGET_NAME',
   '~GET_COORDINATES_CATEGORY_LIST',
   '~SET_SCROLLED_TO_SLOT',
+  '~GET_MISSION_SLOT_EDIT',
+  '~GRAB_UPDATED_SLOT',
+  '~UPDATE_MISSION_SLOT',
 ]);
 export const ACTION = actions(TYPE);
 
@@ -59,6 +64,12 @@ export const initialState = {
     missionList: [],
     reservedMissionList: [],
     reservedMission: {},
+  },
+
+  piggybackMissions: {
+    piggybackMissionList: [],
+    piggybackReservedMissionList: [],
+    piggybackReservedMission: {},
   },
 
   bySlooh1000: {
@@ -107,6 +118,7 @@ export const initialState = {
     },
     targetName: '',
     categoryList: [],
+    objectType: null,
   },
 
   byTelescope: {
@@ -139,6 +151,12 @@ export default handleActions(
     [TYPE.CANCEL_MISSION_SLOT]: setFetching,
     [TYPE.CANCEL_MISSION_SLOT_SUCCESS]: resetMissionsData,
     [TYPE.CANCEL_MISSION_SLOT_ERROR]: setServerError,
+    [TYPE.GRAB_PIGGYBACK]: setFetching,
+    [TYPE.GRAB_PIGGYBACK_SUCCESS]: grabPiggybackSuccess,
+    [TYPE.GRAB_PIGGYBACK_ERROR]: setServerError,
+    [TYPE.RESERVE_PIGGYBACK]: setFetching,
+    [TYPE.RESERVE_PIGGYBACK_SUCCESS]: reservePiggybackSuccess,
+    [TYPE.RESERVE_PIGGYBACK_ERROR]: setServerError,
 
     // bySlooh1000 page
     [TYPE.GET_BY_SLOOH_1000]: setFetching,
@@ -202,6 +220,15 @@ export default handleActions(
     [TYPE.GET_COORDINATES_CATEGORY_LIST_SUCCESS]: getCoordinatesCategoryListSuccess,
     [TYPE.GET_COORDINATES_CATEGORY_LIST_ERROR]: setServerError,
     [TYPE.SET_SCROLLED_TO_SLOT]: setScrolledToSlot,
+    [TYPE.GET_MISSION_SLOT_EDIT]: setFetching,
+    [TYPE.GET_MISSION_SLOT_EDIT_SUCCESS]: getMissionSlotEditSuccess,
+    [TYPE.GET_MISSION_SLOT_EDIT_ERROR]: setServerError,
+    [TYPE.GRAB_UPDATED_SLOT]: setFetching,
+    [TYPE.GRAB_UPDATED_SLOT_SUCCESS]: getMissionSlotSuccess,
+    [TYPE.GRAB_UPDATED_SLOT_ERROR]: setServerError,
+    [TYPE.UPDATE_MISSION_SLOT]: setFetching,
+    [TYPE.UPDATE_MISSION_SLOT_SUCCESS]: reserveMissionSlotSuccess,
+    [TYPE.UPDATE_MISSION_SLOT_ERROR]: setServerError,
   },
   initialState
 );
@@ -320,6 +347,8 @@ function resetMissionsData(state) {
         dec: 0,
       },
       targetName: '',
+      objectType: null,
+      presetOption: null,
     },
   };
 }
@@ -494,6 +523,10 @@ function checkCatalogVisibilitySuccess(state, action) {
 }
 
 function getPresetOptionsSuccess(state, action) {
+  const presetOption = state.byCoordinates.presetOption;
+  const itemList = [...action.payload.telescopeList[0].telePresetList];
+  const selectedRecipe = presetOption ? itemList.filter(item => item.presetOption === presetOption) : [{}];
+
   return {
     ...state,
     isTelescopeFetching: false,
@@ -501,6 +534,7 @@ function getPresetOptionsSuccess(state, action) {
     byCatalog: {
       ...state.byCatalog,
       telescopeData: action.payload.telescopeList[0],
+      processingRecipe: selectedRecipe[0],
     },
   };
 }
@@ -625,10 +659,18 @@ function setSelectedSlot(state, action) {
 // by Coordinates
 
 function getCoordinatesCategoryListSuccess(state, action) {
+  const objectType = state.byCoordinates.objectType;
+  const itemList = [...action.payload.itemList];
+  const selectedCategory = objectType ? itemList.filter(item => item.typeName === objectType) : [];
+
   return {
     ...state,
     isFetching: false,
     isLoaded: true,
+    bySlooh1000: {
+      ...state.bySlooh1000,
+      selectedCategorySlug: selectedCategory[0]?.itemIndex,
+    },
     byCoordinates: {
       ...state.byCoordinates,
       categoryList: action.payload.itemList,
@@ -652,6 +694,59 @@ function setTargetName(state, action) {
     byCoordinates: {
       ...state.byCoordinates,
       targetName: action.payload,
+    },
+  };
+}
+
+function getMissionSlotEditSuccess(state, action) {
+  const mission = action.payload.missionList[0];
+  const { objectRA, objectDec, targetName, objectType, presetOption } = mission;
+  return {
+    ...state,
+    // bySlooh1000: {
+    //   selectedCategorySlug: mission.,
+    // },
+    byCoordinates: {
+      ...state.byCoordinates,
+      coordinatesData: {
+        ...state.byCoordinates.coordinatesData,
+        ra: objectRA,
+        dec: objectDec,
+      },
+      targetName,
+      objectType,
+      presetOption,
+    },
+    byTelescope: {
+      ...state.byTelescope,
+      grabedTelescopeSlot: mission,
+      selectedSlot: mission,
+    },
+  }
+}
+
+// Piggyback
+function grabPiggybackSuccess(state, action) {
+  return {
+    ...state,
+    isFetching: false,
+    isLoaded: true,
+    piggybackMissions: {
+      ...state.piggybackMissions,
+      piggybackMissionList: action.payload.missionList,
+    },
+  };
+}
+
+function reservePiggybackSuccess(state, action) {
+  return {
+    ...state,
+    isFetching: false,
+    isLoaded: true,
+    piggybackMissions: {
+      ...state.piggybackMissions,
+      piggybackReservedMissionList: action.payload.missionList,
+      piggybackReservedMission: action.payload,
     },
   };
 }

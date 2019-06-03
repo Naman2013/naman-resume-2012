@@ -10,6 +10,7 @@ export class ReservationModal extends Component {
       show,
       pageSetup,
       navigationConfig,
+      editCoordinates,
     } = this.props;
     return (
       <Modal
@@ -25,6 +26,7 @@ export class ReservationModal extends Component {
           onComplete={onComplete}
           pageSetup={pageSetup}
           navigationConfig={navigationConfig}
+          editCoordinates={editCoordinates}
         />
       </Modal>
     );

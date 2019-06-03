@@ -58,18 +58,17 @@ export default css`
   }
 
   .actions {
-    position: absolute;
     left: 0;
     right: 0;
     bottom: 0;
     display: flex;
     flex-direction: row;
     justify-content: center;
-    width: 60%;
-    margin: 0 auto;
-    padding: 15px 0;
+    padding: 0;
+    margin: 10px 0 0 0;
+    width: 100%;
   }
-  
+
   .actions button {
     margin: 0 5px;
   }

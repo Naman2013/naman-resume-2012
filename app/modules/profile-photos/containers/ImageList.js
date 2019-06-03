@@ -104,12 +104,15 @@ const mapDispatchToProps = dispatch => ({
 const mapStateToProps = state => {
   return {
     missionsList: state.myPictures.missions.response.imageList,
+    missionsEmptyMsg: state.myPictures.missions.response.emptySetDisplay,
     missionsCount: state.myPictures.missions.imageCount,
     galleryList: state.galleries.galleryList,
     galleryCount: state.galleries.galleryCount,
+    galleryEmptyMsg: state.galleries.emptySetDisplay,
     photoRollList: state.myPictures.photoRoll.response.imageList,
     photoRollCount: state.myPictures.photoRoll.imageCount,
     observationsList: state.myPictures.photoRoll.response.imageList,
+    photoRollEmptyMsg: state.myPictures.photoRoll.response.emptySetDisplay,
     observationsCount: state.myPictures.observations.imageCount,
     fitsData: state.photoHubs.fitsData,
     tagsData: state.photoHubs.tagsData,
@@ -231,11 +234,21 @@ class ImageList extends Component {
   };
 
   placeholder = () => {
-    const { type } = this.props;
+    const {
+      type,
+      photoRollEmptyMsg,
+      missionsEmptyMsg,
+      galleryEmptyMsg,
+    } = this.props;
     return this.props[mapTypeToCount[type]] > 0 ? (
       <div>Loading...</div>
     ) : (
-      <div className="image-list-placeholder">The list is empty.</div>
+      <div className="image-list-placeholder">
+        {type === 'photoroll' && photoRollEmptyMsg}
+        {type === 'observations' && photoRollEmptyMsg}
+        {type === 'missions' && missionsEmptyMsg}
+        {type === 'galleries' && galleryEmptyMsg}
+      </div>
     );
   };
 

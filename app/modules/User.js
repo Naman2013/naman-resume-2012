@@ -232,6 +232,10 @@ export function destroy() {
   };
 }
 
+export function getUserInfo() {
+  return cookie.parse(window.document.cookie);
+}
+
 /**
   Is called on initial app load in App.js
   checks if user is logged in

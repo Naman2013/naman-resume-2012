@@ -47,13 +47,14 @@ type TModal = {
 };
 
 export const Modal = (props: TModal) => {
-  const { children, mobileStyle } = props;
-  const cls = cx({ 'mobile-style': mobileStyle });
+  const { children, mobileStyle, customClass } = props;
+  const cls = cx({ 'mobile-style': mobileStyle }, customClass);
   return (
     <BModal
       {...props}
       dialogAs={() => <ModalDialog {...props} />}
-      backdrop={false}
+      backdrop="static"
+      backdropClassName={`custom-modal-backdrop ${customClass || ''}`}
       className={cls}
     >
       {children}

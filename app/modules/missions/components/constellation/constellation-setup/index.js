@@ -28,6 +28,7 @@ export class ConstellationSetup extends Component {
       choosePrompt,
       completeReservationPromptLong,
       pageConfig,
+      userHasHold,
     } = this.props;
     const {
       header,
@@ -54,6 +55,7 @@ export class ConstellationSetup extends Component {
               onCountdownComplete={onCountdownComplete}
               countdown={countdown}
               completeReservationPromptLong={completeReservationPromptLong}
+              userHasHold={userHasHold}
             />
           )}
         </div>

@@ -48,9 +48,10 @@ class BootstrappedRelatedShows extends Component {
                 </div>
                 <div className="flipped">
                   <FlipedShowCard
-                    eventTitle={show.showTitle}
-                    linkLabel={show.linkText}
+                    eventTitle={show.showTitle || show.eventTitle}
+                    linkLabel={show.linkText || show.linkLabel}
                     linkUrl={show.linkURL}
+                    subTitle={show.subTitle}
                     shortDescription={show.eventDescription}
                     withinReletedSection
                   />

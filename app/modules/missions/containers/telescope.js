@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 
+import { makeUserSelector } from '../../user/selectors';
 import { Telescope } from '../components/telescope';
 import {
   getObservatoryList,
@@ -10,6 +11,9 @@ import {
   getMissionSlotDates,
   getTelescopeSlot,
   cancelMissionSlot,
+  grabPiggyback,
+  reservePiggyback,
+  getMissionSlotEdit,
 } from '../thunks';
 import {
   makeTelescopeListSelector,
@@ -22,6 +26,9 @@ import {
   makeMissionsPageSetupSelector,
   makeTelescopeScrolledToSlotSelector,
   makeTelescopeMissionListLodadedSelector,
+  makePiggybackMissionsFirstSlot,
+  makePiggybackReservedMissionData,
+  makePiggybackReservedMissionSelector,
 } from '../selectors';
 import { ACTION } from '../reducer';
 
@@ -36,6 +43,10 @@ const mapStateToProps = createStructuredSelector({
   pageSetup: makeMissionsPageSetupSelector(),
   scrolledToSlot: makeTelescopeScrolledToSlotSelector(),
   missionListLodaded: makeTelescopeMissionListLodadedSelector(),
+  piggyBackMissionSlot: makePiggybackMissionsFirstSlot(),
+  piggybackReservedMissionData: makePiggybackReservedMissionData(),
+  piggybackReservedMission: makePiggybackReservedMissionSelector(),
+  user: makeUserSelector(),
 });
 
 const mapDispatchToProps = {
@@ -47,6 +58,9 @@ const mapDispatchToProps = {
   setSelectedSlot: ACTION.setSelectedSlot,
   setScrolledToSlot: ACTION.setScrolledToSlot,
   cancelMissionSlot,
+  grabPiggyback,
+  reservePiggyback,
+  getMissionSlotEdit,
 };
 
 export default compose(

@@ -72,7 +72,7 @@ export const getSubscriptionPlans = data => (dispatch, getState) => {
     token,
     at,
     cid,
-    callSource: 'upgrade',
+    callSource: data.callSource || 'upgrade',
     ...data,
   })
     .then(result => dispatch(ACTION.getSubscriptionPlansSuccess(result.data)))
