@@ -85,7 +85,7 @@ class ProfileActivity extends Component {
                   <MissionCard key={item.scheduledMissionId} timeSlot={item} />
                 ))
               ) : (
-                <div>{emptySetUpcomingMissionsDisplay}</div>
+                <div>{emptySetRecentMissionsDisplay}</div>
               )}
             </ContainerWithTitle>
           </CenterColumn>
