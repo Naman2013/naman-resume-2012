@@ -9,7 +9,7 @@ class ProfileLists extends Component {
       getPrivateProfile,
       getPublicProfile,
     } = this.props;
-    if (params.private) getPrivateProfile();
+    //if (params.private) getPrivateProfile();
     if (params.public) getPublicProfile(params.customerUUID);
     if (params.filterType) {
       if (params.private) getProfileLists(params.filterType);

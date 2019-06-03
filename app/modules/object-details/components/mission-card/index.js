@@ -8,8 +8,10 @@ export class MissionCard extends PureComponent {
     const {
       telescopeName,
       title,
+      missionTitle,
       missionStartFormatted,
       userHasReservation,
+      telescopePierName,
     } = timeSlot;
     const {
       displayWeekdayMonthDayUTC,
@@ -23,9 +25,9 @@ export class MissionCard extends PureComponent {
         onClick={onClickHandler}
       >
         <div className="left">
-          <div className="mission-title">{title}</div>
+          <div className="mission-title">{title || missionTitle}</div>
           <div className="mission-owner">
-            <span>{telescopeName}</span>
+            <span>{telescopeName || telescopePierName}</span>
           </div>
         </div>
         <div className="right">
@@ -43,7 +45,7 @@ export class MissionCard extends PureComponent {
             <i className="fa fa-ellipsis-h" aria-hidden="true" />
           </div>
 
-          <div className="mission-title">{title}</div>
+          <div className="mission-title">{title || missionTitle}</div>
 
           <div className="time">
             <div className="large">
@@ -54,7 +56,7 @@ export class MissionCard extends PureComponent {
 
           <div className="mission-owner">
             <div className="date">{displayWeekdayMonthDayUTC}</div>
-            <span>{telescopeName}</span>
+            <span>{telescopeName || telescopePierName}</span>
           </div>
         </div>
       </div>
