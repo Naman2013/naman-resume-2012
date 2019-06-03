@@ -475,7 +475,9 @@ class Telescope extends PureComponent<TTelescope> {
                     centered
                     onHide={this.onHideModal}
                   >
-                    <h3 style={{color:'white'}}>{missionTitle || 'No mission available'}</h3>
+                    <h3 style={{color:'white',
+    marginTop: '-60px',
+    marginBottom: '15px'}}>{missionTitle || 'No mission available'}</h3>
                     <Telescope {...this.props} disableFullscreen />
                   </Modal>
                 )}
