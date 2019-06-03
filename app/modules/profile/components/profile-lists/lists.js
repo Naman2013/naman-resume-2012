@@ -185,7 +185,7 @@ class Lists extends Component {
             filterTypeFieldName="readingListType"
             updateList={this.updateTilesList}
             appendToList={this.appendToTilesList}
-            pageTitle={customerUUID ? "List" : "My Lists"}
+            pageTitle={customerUUID ? "Lists" : "My Lists"}
             filterType={filterType}
             clearTiles={this.clearTiles}
             showHeaderIcon={false}
