@@ -129,9 +129,9 @@ class Missions extends Component {
       reservedCommunityMission,
       isFetching
     } = this.props;
-    const { missionCount, missionList } = missionData;
+    const { missionCount, missionList, explanation } = missionData;
     const { reservationModalVisible, selectedMission, successModalShow, missionListExpired } = this.state;
-
+    
     return (
       <Fragment>
         <Spinner
@@ -169,12 +169,7 @@ class Missions extends Component {
             </div>
           ) : (
             <div>
-              {!isFetching && (
-                <FormattedMessage
-                  {...messages.NoMissions}
-                  values={{ objectTitle: objectDetails.objectTitle }}
-                />
-              )}
+              {!isFetching && explanation}
             </div>
           )}
         </CenterColumn>
