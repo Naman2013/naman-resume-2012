@@ -131,7 +131,7 @@ class Missions extends Component {
     } = this.props;
     const { missionCount, missionList, explanation } = missionData;
     const { reservationModalVisible, selectedMission, successModalShow, missionListExpired } = this.state;
-    
+
     return (
       <Fragment>
         <Spinner
@@ -142,7 +142,7 @@ class Missions extends Component {
             title={`${objectDetails.objectTitle}'s`}
             subTitle={intl.formatMessage(messages.UpcomingMissions)}
             renderNav={() => (
-              <div className="nav-actions">
+              <div className="object-details-missions-actions">
                 {missionListExpired && (
                   <Button
                     onClick={this.getCommunityMissions}
