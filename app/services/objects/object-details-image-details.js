@@ -11,5 +11,7 @@ export default function fetchImageDetailsService({
     at,
     cid,
     customerImageId,
+    useShareToken: 'n',
+    callSource: 'sharedpictures',
   });
 }
