@@ -24,6 +24,7 @@ export const SubscriptionPlan = (props: TSubscriptionPlan) => {
     planCostPostfix,
     selectButtonText,
     planDescription,
+    isPlanActionEnabled
   } = plan;
 
   return (
@@ -58,9 +59,16 @@ export const SubscriptionPlan = (props: TSubscriptionPlan) => {
             {isDetailsExpanded ? <span className="icon-close" /> : 'details'}
           </Button>
           {!isDetailsExpanded && (
-            <Button className="animated fadeIn faster" onClick={() => onSelect(plan.planID)}>
-              {selectButtonText} <span className="icon-arrow-right" />
-            </Button>
+            <Fragment>
+              {isPlanActionEnabled && <Button className="animated fadeIn faster" onClick={() => onSelect(plan.planID)}>
+                {selectButtonText} <span className="icon-arrow-right" />
+              </Button>
+              }
+              {!isPlanActionEnabled && <Button disabled={true} style={{backgroundColor: '#D3D3D3'}} className="animated fadeIn faster" onClick={() => onSelect(plan.planID)}>
+                {selectButtonText}
+              </Button>
+              }
+            </Fragment>
           )}
         </div>
       )}
@@ -84,9 +92,16 @@ export const SubscriptionPlan = (props: TSubscriptionPlan) => {
             ) : (
               <Button onClick={() => setDetailsExpanded(false)}>close</Button>
             )}
-            <Button onClick={() => onSelect(plan.planID)} className="btn-active">
-              {selectButtonText}
-            </Button>
+            <Fragment>
+              {isPlanActionEnabled && <Button className="btn-active" onClick={() => onSelect(plan.planID)}>
+                {selectButtonText}
+              </Button>
+              }
+              {!isPlanActionEnabled && <Button disabled={true} style={{backgroundColor: '#D3D3D3'}} className="animated fadeIn faster" onClick={() => onSelect(plan.planID)}>
+                {selectButtonText}
+              </Button>
+              }
+            </Fragment>
           </div>
         </div>
       </Collapse>
