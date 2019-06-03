@@ -14,7 +14,7 @@ import { DEFAULT_JOIN_TABS } from 'app/pages/registration/StaticNavTabs';
 import Countdown from 'react-countdown-now';
 import { FormattedMessage } from 'react-intl';
 import { browserHistory } from 'react-router';
-
+import { getUserInfo } from 'app/modules/User';
 import styles from 'app/pages/registration/JoinStep3.style';
 import messages from 'app/pages/registration/JoinStep3.messages';
 
@@ -70,24 +70,27 @@ export const PaymentStep = (props: TPaymentStep) => {
   const { selectedPlanId } = props;
   const pathname = "";
 
+  const user = getUserInfo();
+
   return (
     <>
       <Request
         serviceURL={JOIN_PAGE_ENDPOINT_URL}
-        requestBody={{ callSource: 'providePaymentDetails', selectedPlanId }}
+        requestBody={{ callSource: 'providePaymentDetails', cid: user.cid, at: user.at, token: user.token, selectedPlanId, conditionType: 'forcedsloohcrew' }}
         render={({ fetchingContent, serviceResponse: joinPageRes }) => (
           <Fragment>
             {!fetchingContent && (
               <DeviceContext.Consumer>
                 {({ isMobile, isDesktop, isTablet }) => (
                   <Fragment>
-      		    <h1 className="modal-h">Heading</h1>
-	      	    <p className="modal-p mb-5">paragraph</p>
+      		    <h1 className="modal-h">Special Membership Offer</h1>
+	      	    <p className="modal-p mb-5">Continue your membership for just $20 per year</p>
                     {joinPageRes.hasSelectedSchool === 'yes' ? (
                       <JoinHeader
                         mainHeading={joinPageRes.pageHeading1}
                         subHeading={joinPageRes.pageHeading2}
-			showTabs={false}
+                        showHeading={false}
+			                  showTabs={false}
                         activeTab={pathname}
                         tabs={CLASSROOM_JOIN_TABS}
                         backgroundImage={
@@ -107,8 +110,9 @@ export const PaymentStep = (props: TPaymentStep) => {
                       <JoinHeader
                         mainHeading={joinPageRes.pageHeading1}
                         subHeading={joinPageRes.pageHeading2}
+                        showHeading={false}
                         showTabs={false}
- 			activeTab={pathname}
+ 			                  activeTab={pathname}
                         tabs={DEFAULT_JOIN_TABS}
                         backgroundImage={
                           isMobile
@@ -144,9 +148,9 @@ export const PaymentStep = (props: TPaymentStep) => {
                            joinPageRes.customerHasXSecondsToCompleteSignup
                          }
                          renderer={CountdownRenderer}
-			 onComplete={CountdownExpiredComplete}	
-                       />			
-		      </div>
+			                   onComplete={CountdownExpiredComplete}
+                       />
+		                  </div>
                       <div style={{backgroundColor: '#f2f2f2'}} className="inner-container">
                         <DisplayAtBreakpoint
                           screenMedium

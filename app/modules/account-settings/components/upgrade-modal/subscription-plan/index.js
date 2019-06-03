@@ -1,7 +1,7 @@
 // @flow
 
 import BobbieTile from 'app/components/common/tiles/BobbieTile';
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import { Button, Collapse } from 'react-bootstrap';
 import './styles.scss';
 import cx from 'classnames';
@@ -23,12 +23,12 @@ export const SubscriptionPlan = (props: TSubscriptionPlan) => {
     planCostPrefix,
     planCostPostfix,
     selectButtonText,
+    planDescription,
   } = plan;
-  
+
   return (
     <div className="subscription-plan">
-      <span className="header">{planHeading}</span>
-      <hr />
+      {planHeading && <Fragment><span className="header">{planHeading}</span><hr /></Fragment>}
 
       <div className="d-flex justify-content-between align-items-baseline">
         <span className="plan-name">{planName}</span>
@@ -42,7 +42,7 @@ export const SubscriptionPlan = (props: TSubscriptionPlan) => {
 
       <div className="d-flex justify-content-between">
         <span className="header">
-          UPGRADE TODAY AND GET A 14 DAY FREE TRIAL!
+          {planDescription}
         </span>
         <span className="header">{planCostPostfix}</span>
       </div>
