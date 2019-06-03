@@ -316,43 +316,53 @@ class Telescope extends PureComponent<TTelescope> {
               }}
               className="portal"
             >
-              <div className="telescope-float-menu">
-                <Button
-                  renderIcon={() => <i className="fa fa-table" />}
-                  isActive={isGridActive}
-                  onClickEvent={() => {
-                    this.setState({ isGridActive: !isGridActive });
-                  }}
-                  theme={{
-                    ...(isGridActive ? activeButtonTheme : inactiveButtonTheme),
-                    marginBottom: '10px',
-                  }}
-                />
-                <Button
-                  renderIcon={() => <i className="fa fa-eye" />}
-                  isActive={isMaskActive}
-                  onClickEvent={() => {
-                    this.setState({ isMaskActive: !isMaskActive });
-                  }}
-                  theme={{
-                    ...(isMaskActive ? activeButtonTheme : inactiveButtonTheme),
-                    marginBottom: '10px',
-                  }}
-                />
-                {!disableFullscreen && (
+              {!isTransitioningTelescope && !this.state.showTitleMessage && (
+                <div className="telescope-float-menu">
                   <Button
-                    renderIcon={() => <i className="fa fa-arrows-alt" />}
-                    onClickEvent={() =>
-                      this.setState({
-                        isModalActive: true,
-                        isMaskActive: false,
-                      })
-                    }
-                    theme={inactiveButtonTheme}
+                    renderIcon={() => <i className="fa fa-table" />}
+                    isActive={isGridActive}
+                    onClickEvent={() => {
+                      this.setState({ isGridActive: !isGridActive });
+                    }}
+                    theme={{
+                      ...(isGridActive
+                        ? activeButtonTheme
+                        : inactiveButtonTheme),
+                      marginBottom: '10px',
+                    }}
                   />
-                )}
-              </div>
-              <Fade isHidden={isTransitioningTelescope}>
+                  <Button
+                    renderIcon={() => <i className="fa fa-eye" />}
+                    isActive={isMaskActive}
+                    onClickEvent={() => {
+                      this.setState({ isMaskActive: !isMaskActive });
+                    }}
+                    theme={{
+                      ...(isMaskActive
+                        ? activeButtonTheme
+                        : inactiveButtonTheme),
+                      marginBottom: '10px',
+                    }}
+                  />
+                  {!disableFullscreen && (
+                    <Button
+                      renderIcon={() => <i className="fa fa-arrows-alt" />}
+                      onClickEvent={() =>
+                        this.setState({
+                          isModalActive: true,
+                          isMaskActive: false,
+                        })
+                      }
+                      theme={inactiveButtonTheme}
+                    />
+                  )}
+                </div>
+              )}
+              <Fade
+                isHidden={
+                  isTransitioningTelescope || this.state.showTitleMessage
+                }
+              >
                 <div>
                   {this.props.render({ viewportHeight: width }, imageData => {
                     const { imageWidth, imageHeight, missionTitle } = imageData;
@@ -376,7 +386,11 @@ class Telescope extends PureComponent<TTelescope> {
                  move non-scale transition elements into a component to keep this more readable
                  */}
                 <FadeSVG isHidden={transitionScale}>
-                  <FadeSVG isHidden={isTransitioningTelescope}>
+                  <FadeSVG
+                    isHidden={
+                      isTransitioningTelescope || this.state.showTitleMessage
+                    }
+                  >
                     {isMaskActive && <Mask radius={radius} />}
                   </FadeSVG>
                   {(this.state.showTitleMessage ||
@@ -421,14 +435,22 @@ class Telescope extends PureComponent<TTelescope> {
                     <Fragment>
                       <TelescopeFrame
                         isGridVisible={isTransitioningTelescope}
-                        isScaleVisible={!isTransitioningTelescope}
+                        isScaleVisible={
+                          !isTransitioningTelescope &&
+                          !this.state.showTitleMessage
+                        }
                         horizontalResolution={horizontalResolution}
                         verticalResolution={verticalResolution}
                         increment={increment}
                         length={width}
                       />
 
-                      <FadeSVG isHidden={isTransitioningTelescope}>
+                      <FadeSVG
+                        isHidden={
+                          isTransitioningTelescope ||
+                          this.state.showTitleMessage
+                        }
+                      >
                         <Scale
                           dimension={width}
                           scale={
