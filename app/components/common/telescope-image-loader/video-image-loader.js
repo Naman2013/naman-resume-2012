@@ -145,7 +145,6 @@ class VideoImageLoader extends Component {
       liveShowsData,
       isTelescope,
     } = this.props;
-    console.log(liveShowsData);
     return (
       <div>
         {((liveShowsData.canStarShare &&
