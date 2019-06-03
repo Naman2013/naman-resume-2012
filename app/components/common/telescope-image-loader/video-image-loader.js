@@ -12,6 +12,7 @@ import {
 import {
   setImageDataToSnapshot,
   resetImageToSnap,
+  setPreviousInstrument,
 } from '../../../modules/starshare-camera/starshare-camera-actions';
 import './video-image-loader.scss';
 import YoutubePlayer from '../YoutubePlayer/YoutubePlayer';
@@ -25,6 +26,7 @@ const mapDispatchToProps = dispatch => ({
       resetImageToSnap,
       updateActiveSSE,
       resetActiveSSE,
+      setPreviousInstrument,
     },
     dispatch
   ),
@@ -75,6 +77,7 @@ class VideoImageLoader extends Component {
 
   componentDidMount() {
     const { teleSystem, telePort, cameraSourceType } = this.props;
+    this.props.actions.setPreviousInstrument(null);
     this.props.actions.resetActiveSSE();
     this.props.actions.resetImageToSnap();
     if (cameraSourceType === SSE && teleSystem && telePort) {

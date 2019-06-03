@@ -57,7 +57,7 @@ class TelescopeImageViewerController extends Component {
     };
     return (
       <div>
-        <Telescope activeInstrumentID={activeInstrumentID} render={render} />
+        <Telescope activeInstrumentID={activeInstrumentID} render={render} teleCanReserveMissions = {this.props.teleCanReserveMissions}/>
         {instrStarShareCamera && (
           <StarShareCamera
             actions={actions}

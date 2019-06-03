@@ -125,6 +125,9 @@ export class TelescopeOnline extends Component {
                       <TelescopeImageViewerController
                         activeInstrumentID={activeInstrumentID}
                         instrStarShareCamera={instrStarShareCamera}
+                        teleCanReserveMissions={
+                          this.props.currentTelescope.teleCanReserveMissions
+                        }
                         render={({ viewportHeight }, onImageChange) =>
                           provideLiveFeed(
                             {
