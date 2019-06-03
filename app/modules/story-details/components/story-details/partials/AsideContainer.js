@@ -26,6 +26,7 @@ const MAX_COUNT = 3;
 const AsideContainer = ({
   authorInfo,
   isDesktop,
+  isMobile,
   isScreenLarge,
   relatedObject,
   slugLookupId,
@@ -68,6 +69,7 @@ const AsideContainer = ({
       slugLookupId={slugLookupId}
       maxCount={MAX_COUNT}
       isDesktop={isDesktop}
+      isMobile={isMobile}
       isScreenLarge={isScreenLarge}
       title={intl.formatMessage(messages.relatedStories)}
     />

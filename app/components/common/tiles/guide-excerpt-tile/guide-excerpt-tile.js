@@ -31,10 +31,10 @@ const GuideTile = ({
       className="sub-title"
       dangerouslySetInnerHTML={{ __html: guideAuthor }}
     />
-    <div
+    {/*<div
       className="description"
       dangerouslySetInnerHTML={{ __html: shortDescription }}
-    />
+    />*/}
     <div className="actions">
       <Button
         theme={{ height: 'fit-content' }}
