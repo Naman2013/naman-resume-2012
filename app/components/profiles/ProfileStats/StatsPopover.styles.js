@@ -15,7 +15,7 @@ export default css`
     left: 0;
     bottom: -395px;
     width: 100%;
-    height: 415px;
+    height: 460px;
     border: 1px solid ${darkGray};
     border-top: 6px solid ${lightHeadedAstronaut};
     box-shadow: 0 0 6px 0 ${shadows};
