@@ -2,7 +2,6 @@
 import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Modal } from 'react-bootstrap';
 import Measure from 'react-measure';
 import noop from 'lodash/noop';
 import { setPreviousInstrument } from 'app/modules/starshare-camera/starshare-camera-actions';
@@ -19,6 +18,7 @@ import HowBig from './HowBig';
 
 import { getTelescope } from './telescopeConfig';
 import FieldOfView from './FieldOfView/FieldOfView';
+import { Modal } from '../modal';
 
 import { moodyBleu, romance } from '../../styles/variables/colors_tiles_v4';
 
@@ -104,6 +104,7 @@ class Telescope extends PureComponent<TTelescope> {
     previousInstrumentId,
     missionMetaData,
     teleCanReserveMissions,
+    disableFullscreen,
   }) {
     if (teleCanReserveMissions) {
       this.props.setPreviousInstrument(activeInstrumentID);
@@ -113,7 +114,8 @@ class Telescope extends PureComponent<TTelescope> {
     }
     if (
       previousInstrumentId !== null &&
-      previousInstrumentId !== activeInstrumentID
+      previousInstrumentId !== activeInstrumentID &&
+      !disableFullscreen
     ) {
       this.setState(() => ({
         activeInstrumentID: previousInstrumentId,
@@ -282,6 +284,10 @@ class Telescope extends PureComponent<TTelescope> {
 
   handleCompleteHowBigAnimation = () => {
     this.setState(() => ({ transitionScale: false }));
+  };
+
+  onHideModal = () => {
+    this.setState({ isModalActive: false });
   };
 
   render() {
@@ -489,22 +495,18 @@ class Telescope extends PureComponent<TTelescope> {
                     </Fragment>
                   )}
                 </FadeSVG>
-                {!disableFullscreen && (
+                {isModalActive && (
                   <Modal
-                    show={isModalActive}
+                    show
                     size="lg"
                     dialogClassName="telescope-modal"
                     centered
-                    onHide={() => this.setState({ isModalActive: false })}
+                    onHide={this.onHideModal}
                   >
-                    <Modal.Header closeButton>
-                      <Modal.Title>
-                        {missionTitle || 'No mission available'}
-                      </Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                      <Telescope {...this.props} disableFullscreen />
-                    </Modal.Body>
+                    <h3 style={{color:'white',
+    marginTop: '-60px',
+    marginBottom: '15px'}}>{missionTitle || 'No mission available'}</h3>
+                    <Telescope {...this.props} disableFullscreen />
                   </Modal>
                 )}
 

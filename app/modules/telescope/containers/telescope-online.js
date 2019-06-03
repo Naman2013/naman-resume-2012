@@ -18,6 +18,7 @@ import {
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
+import { ACTION } from '../reducer';
 
 const mapStateToProps = createStructuredSelector({
   dayNightBarPanel: makeDayNightBarPanelSelector(),
@@ -35,6 +36,7 @@ const mapDispatchToProps = {
   fetchWeatherSatellite,
   fetchDomeCamAction,
   fetchObservatoryWebcam,
+  setTelescopesActiveTab: ACTION.setTelescopesActiveTab,
   fetchAllTelescopeStatus,
 };
 

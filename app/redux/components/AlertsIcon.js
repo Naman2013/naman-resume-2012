@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 
 const AlertsIcon = ({ notificationsCount, isActive }) => (
   <span className="root">
-    <span className="icon-bell" />
+    <span className="icon-notifications" />
     <span
       className={classnames('count', {
         zero: notificationsCount === 0,
@@ -20,7 +20,7 @@ const AlertsIcon = ({ notificationsCount, isActive }) => (
         position: relative;
       }
 
-      .icon-bell {
+      .icon-notifications {
         font-size: 20px;
         line-height: 20px;
         height: 20px;

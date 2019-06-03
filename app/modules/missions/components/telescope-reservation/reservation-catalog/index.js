@@ -49,9 +49,11 @@ class Catalog extends Component {
       onCountdownComplete,
       pageSetup,
       navigationConfig,
+      selectedSlot,
     } = this.props;
 
     const { completeReservationPromptLong, choosePrompt } = pageSetup;
+    const { userHasHold } = selectedSlot;
 
     return (
       <div className="reservation-catalog catalog">
@@ -77,6 +79,7 @@ class Catalog extends Component {
           completeReservationPromptLong={completeReservationPromptLong}
           choosePrompt={choosePrompt}
           pageConfig={navigationConfig.byCatalog}
+          userHasHold={userHasHold}
           byTelescope
         />
       </div>

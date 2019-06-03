@@ -42,8 +42,9 @@ const fetchErrorsSuccess = payload => ({
   payload,
 });
 
-export const showIssueWithUserAccountModal = () => ({
+export const showIssueWithUserAccountModal = payload => ({
   type: SHOW_ISSUE_WITH_USER_ACCOUNT_MODAL,
+  payload,
 });
 
 export const hideIssueWithUserAccountModal = () => ({
@@ -137,43 +138,85 @@ export const fetchErrors = () => (dispatch, getState) => {
 
 export const validateResponseAccess = apiResponse => (dispatch, getState) => {
   const { handlingScenario } = getState().authorization;
+
+  /*****************************************
+	* POSSIBLE HTTP RESPONSE CODES....
+	*	401 - Unauthorized, Login Issues
+	*	402 - Credentials Required to verify account access
+	* 418 - Expired
+	* 421 - Expired Recently
+	*	419 - Forced Slooh Crew
+	*	420 - Upsell Flow
+	*****************************************/
+
   const REDIRECT_CONFIRMATION_PATH = '/redirect-confirmation';
   const UNAUTHORIZED_STATUS_CODE = 401;
+  const UNAUTHORIZED_CREDSREQD_STATUS_CODE = 402;
   const EXPIRED_ACCOUNT_STATUS_CODE = 418;
+  const EXPIRED_RECENTLY_ACCOUNT_STATUS_CODE = 421;
+  const FORCED_SLOOH_CREW_STATUS_CODE = 419;
+  const UPSELL_STATUS_CODE = 420;
 
   const { apiError, errorCode, statusCode, loginError } = apiResponse;
-  if (
-    statusCode === UNAUTHORIZED_STATUS_CODE ||
-    statusCode === EXPIRED_ACCOUNT_STATUS_CODE
-  ) {
-    // if it is not a log in error, and we are not currently handling something already
-    /**
-      TODO: once the migration is complete and we have hashless URL's in production
-      remove this check and only pass the pathname
-    */
-    if (typeof loginError === 'undefined' && !handlingScenario) {
-      if (SETTINGS.isHashHistory()) {
-        dispatch(setSignInReturnURL(window.location.hash));
-      } else {
-        dispatch(setSignInReturnURL(window.location.pathname));
-      }
-      dispatch(
-        captureErrorState({
-          apiError,
-          errorCode,
-          statusCode,
-          loginError,
-        })
-      );
-      console.log('AAAAAAAAAAAAAAAAA', {
+  //console.log(statusCode);
+
+  let subscriptionPlansCallSource = '';
+  let triggerUserAccountIssueModal = false;
+
+  if ( statusCode === UNAUTHORIZED_STATUS_CODE || statusCode === UNAUTHORIZED_CREDSREQD_STATUS_CODE ) {
+    //login issues....send the user to a screen that requires login....
+    triggerUserAccountIssueModal = false;
+    /* send the user to the login screen */
+    destroySession();
+    dispatch(removeUser());
+    dispatch(push('/'));
+    dispatch(
+      toggleGlobalNavMenu({
+        activeMenu: MENU_INTERFACE.PROFILE.name,
+        isLeftOpen: false,
+        isRightOpen: true,
+        activeLeft: MENU_INTERFACE.MAIN.name,
+        activeRight: MENU_INTERFACE.PROFILE.name,
+        isNotificationMenuOpen: false,
+      })
+    );
+  }
+  else if (statusCode === EXPIRED_ACCOUNT_STATUS_CODE) {
+    subscriptionPlansCallSource = 'expired';
+    triggerUserAccountIssueModal = true;
+  }
+  else if (statusCode === EXPIRED_RECENTLY_ACCOUNT_STATUS_CODE) {
+    subscriptionPlansCallSource = 'expiredrecently';
+    triggerUserAccountIssueModal = true;
+  }
+  else if (statusCode === FORCED_SLOOH_CREW_STATUS_CODE) {
+    subscriptionPlansCallSource = 'forcedsloohcrew';
+    triggerUserAccountIssueModal = true;
+  }
+  else if (statusCode === UPSELL_STATUS_CODE) {
+    subscriptionPlansCallSource = 'upsell';
+    triggerUserAccountIssueModal = true;
+  }
+
+  if (triggerUserAccountIssueModal == true) {
+    if (SETTINGS.isHashHistory()) {
+      dispatch(setSignInReturnURL(window.location.hash));
+    }
+    else {
+      dispatch(setSignInReturnURL(window.location.pathname));
+    }
+    dispatch(
+      captureErrorState({
         apiError,
         errorCode,
         statusCode,
         loginError,
-      });
-      dispatch(showIssueWithUserAccountModal());
-    }
+      })
+    );
+
+    dispatch(showIssueWithUserAccountModal(subscriptionPlansCallSource));
     return false;
   }
+
   return true;
 };

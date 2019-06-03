@@ -68,6 +68,7 @@ class TelescopeImageViewerController extends Component {
             imagesLastSnapped={imagesLastSnapped}
           />
         )}
+        <Telescope activeInstrumentID={activeInstrumentID} render={render} />
       </div>
     );
   }

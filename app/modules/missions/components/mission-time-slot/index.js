@@ -1,5 +1,7 @@
 import React, { PureComponent, Fragment } from 'react';
-import moment from 'moment';
+import Countdown from 'react-countdown-now';
+import { FormattedNumber } from 'react-intl';
+import { ThreeDotsMenu } from '../three-dots-menu';
 import './styles.scss';
 
 const SLOT_STATUS = {
@@ -9,7 +11,13 @@ const SLOT_STATUS = {
 
 export class MissionTimeSlot extends PureComponent {
   render() {
-    const { timeSlot, getTelescopeSlot } = this.props;
+    const {
+      timeSlot,
+      getTelescopeSlot,
+      getMissionSlots,
+      grabPiggyback,
+      editCoordinates,
+    } = this.props;
     const {
       slotStatus,
       slotTitle,
@@ -18,13 +26,16 @@ export class MissionTimeSlot extends PureComponent {
       missionStartFormatted,
       showSloohUser,
       scheduledMissionId,
+      expires,
+      userHasHold,
+      showDotMenu,
+      showDotMenuMobile,
     } = timeSlot;
     const {
       displayOtherTimeZones,
       displayTime,
       displayTimeZone,
     } = missionStartFormatted;
-
     const missionSlotOnClick =
       SLOT_STATUS.AVAILABLE === slotStatus
         ? () => getTelescopeSlot()
@@ -40,7 +51,22 @@ export class MissionTimeSlot extends PureComponent {
       >
         <div className="left">
           <div className="mission-title">
-            {SLOT_STATUS.AVAILABLE === slotStatus ? 'Open Slot' : slotTitle}
+            {slotTitle}{' '}
+            {expires > 0 && userHasHold && (
+              <Countdown
+                date={expires * 1000}
+                onComplete={getMissionSlots}
+                renderer={props => (
+                  <span>
+                    {props.minutes}:
+                    <FormattedNumber
+                      value={props.seconds}
+                      minimumIntegerDigits={2}
+                    />
+                  </span>
+                )}
+              />
+            )}
           </div>
           <div className="mission-owner">
             {SLOT_STATUS.AVAILABLE === slotStatus ? (
@@ -66,7 +92,16 @@ export class MissionTimeSlot extends PureComponent {
           </div>
         </div>
         <div className="right">
-          <div className="actions" />
+          <div className="actions">
+            {showDotMenu && (
+              <ThreeDotsMenu
+                timeSlot={timeSlot}
+                finnishReservation={getTelescopeSlot}
+                grabPiggyback={grabPiggyback}
+                editCoordinates={editCoordinates}
+              />
+            )}
+          </div>
           <div className="time">
             <div className="large">
               {displayTime}
@@ -78,7 +113,14 @@ export class MissionTimeSlot extends PureComponent {
 
         <div className="mobile">
           <div className="actions">
-            <i className="fa fa-ellipsis-h" aria-hidden="true" />
+            {showDotMenuMobile && (
+              <ThreeDotsMenu
+                timeSlot={timeSlot}
+                finnishReservation={getTelescopeSlot}
+                grabPiggyback={grabPiggyback}
+                editCoordinates={editCoordinates}
+              />
+            )}
           </div>
 
           <div className="mission-title">

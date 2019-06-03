@@ -205,13 +205,7 @@ class JoinStep3 extends Component {
       // Render a completed state
       //console.log('The countdown has completed.....');
       return (
-        <Countdown
-          date={
-            Date.now() + this.state.redirectInXSecondsOnExpiredSignupRequest
-          }
-          renderer={this.CountdownExpiredRenderer}
-          onComplete={this.CountdownExpiredComplete}
-        />
+        <div></div>
       );
     }
     // Render a countdown
@@ -327,7 +321,7 @@ class JoinStep3 extends Component {
                             joinPageRes.customerHasXSecondsToCompleteSignup
                           }
                           renderer={this.CountdownRenderer}
-                          onComplete={this.CountdownComplete}
+                          onComplete={this.CountdownExpiredComplete}
                         />
                         <div className="inner-container">
                           <DisplayAtBreakpoint

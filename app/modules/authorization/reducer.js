@@ -37,6 +37,7 @@ const initialState = {
   },
 
   issueWithUserAccountModalVisible: false,
+  subscriptionPlansCallSource: null,
 
   signInReturnURL: '',
 };
@@ -101,11 +102,11 @@ export default createReducer(initialState, {
       },
     };
   },
-  [SHOW_ISSUE_WITH_USER_ACCOUNT_MODAL](state) {
-    console.log('BBBBBBBBBBBBBBBBBB');
+  [SHOW_ISSUE_WITH_USER_ACCOUNT_MODAL](state, { payload }) {
     return {
       ...state,
       issueWithUserAccountModalVisible: true,
+      subscriptionPlansCallSource: payload,
     };
   },
   [HIDE_ISSUE_WITH_USER_ACCOUNT_MODAL](state) {

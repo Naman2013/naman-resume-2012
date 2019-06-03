@@ -28,8 +28,15 @@ class ColumnTabs extends Component {
 
   state = { activeTabIndex: this.props.activeTabIndex };
 
+  componentDidMount() {
+    const { setTelescopesActiveTab } = this.props;
+    setTelescopesActiveTab(this.props.activeTabIndex);
+  }
+
   handleTabClick = event => {
+    const { setTelescopesActiveTab } = this.props;
     this.setState({ activeTabIndex: event.currentTarget.dataset.index });
+    setTelescopesActiveTab(event.currentTarget.dataset.index);
   };
 
   render() {
@@ -56,7 +63,7 @@ class ColumnTabs extends Component {
           </ul>
         </div>
 
-        <div>
+        <div className="tab-content">
           {this.props.tabConfiguration[this.state.activeTabIndex].content()}
         </div>
 

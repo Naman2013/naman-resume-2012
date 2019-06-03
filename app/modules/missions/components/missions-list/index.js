@@ -20,6 +20,9 @@ export class MissionsList extends Component {
       showShowMoreButton,
       showMoreButtonCaption,
       showMore,
+      getMissionSlots,
+      grabPiggyback,
+      editCoordinates,
     } = this.props;
 
     return (
@@ -36,7 +39,12 @@ export class MissionsList extends Component {
             <MissionTimeSlot
               key={item.scheduledMissionId}
               timeSlot={item}
-              getTelescopeSlot={() => getTelescopeSlot(item)}
+              getTelescopeSlot={finalizeReservation =>
+                getTelescopeSlot(item, finalizeReservation)
+              }
+              getMissionSlots={getMissionSlots}
+              grabPiggyback={grabPiggyback}
+              editCoordinates={editCoordinates}
             />
           ))}
 

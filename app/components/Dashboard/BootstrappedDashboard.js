@@ -9,6 +9,8 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import PropTypes from 'prop-types';
 import uniqueId from 'lodash/uniqueId';
+import Request from '../../components/common/network/Request';
+import ConnectUserAndResponseAccess from '../../redux/components/ConnectUserAndResponseAccess';
 import { FormattedMessage, intlShape, injectIntl } from 'react-intl';
 import { getDashboardFeaturedObjects } from 'app/modules/dashboard/actions';
 import { makeDashboardFeaturedObjectsSelector } from 'app/modules/dashboard/selectors';
@@ -18,7 +20,8 @@ import {
   makeQueueTabReservedCommunityMissionDataSelector,
   makeQueueTabReservedCommunityMissionSelector,
 } from 'app/modules/telescope/selectors';
-import TourPopup from './tour-popup/TourPopup';
+import BootstrappedTourPopup from './tour-popup/BootstrappedTourPopup';
+import { DASHBOARD_TOUR_POPUP } from '../../services/dashboard';
 import PromoPanel from 'app/components/home/promo-panel';
 import { getSectionComponent } from './dashboardPanelItemsConfiguration';
 import DashNav from './nav/DashboardNav';
@@ -179,7 +182,27 @@ class BootstrappedDashboard extends Component {
 
     return (
       <div className="root">
-        <TourPopup user={user} />
+	  {user && user.cid && <Request
+    		serviceURL={DASHBOARD_TOUR_POPUP}
+    		method="POST"
+    		render={({ serviceResponse }) => (
+      			<div className="root">
+        			{serviceResponse.hasPopupDataFlag && (
+          			<ConnectUserAndResponseAccess
+            				render={props => (
+              					<BootstrappedTourPopup
+                					{...user}
+                					{...serviceResponse.popupData}
+                					validateResponseAccess={props.validateResponseAccess}
+              					/>
+            				)}
+          			/>
+        			)}
+      			</div>
+    		)}
+	  
+  	/>}
+
         <div className="dash-hero">
           {/*<div
             alt={intl.formatMessage(messages.welcome)}
