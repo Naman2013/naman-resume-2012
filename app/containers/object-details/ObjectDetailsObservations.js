@@ -27,15 +27,14 @@ import CenterColumn from 'app/components/common/CenterColumn';
 import CardObservations from 'app/components/common/CardObservations';
 import { IMAGE_DETAILS } from 'app/services/image-details';
 import { ObjectObservationModal } from 'app/modules/object-details/components/object-observation-modal';
+import isEmpty from 'lodash/isEmpty';
 import {
   makeObjectDetailsDataSelector,
   makeObjectDataSelector,
   makeObjectSharedMemberPhotosSelector,
   makeObjectImageDetailsSelector,
 } from '../../modules/object-details/selectors';
-import {
-  makeUserSelector,
-} from '../../modules/user/selectors';
+import { makeUserSelector } from '../../modules/user/selectors';
 
 import messages from './ObjectDetails.messages';
 import styles from './ObjectDetailsObservations.style';
@@ -181,22 +180,24 @@ class Observations extends Component {
                       }`
                     : 'Photo by';
                   return (
-                    <CardObservations
-                      user={user}
-                      subTitle={photoBy}
-                      title={imageDetails.imageTitle}
-                      description={imageDetails.observationLog}
-                      imageUrl={imageDetails.imageURL}
-                      linkUrl={imageDetails.linkUrl}
-                      likesCount={imageDetails.likesCount}
-                      likePrompt={imageDetails.likePrompt}
-                      showLikePrompt={imageDetails.showLikePrompt}
-                      customerImageId={image.customerImageId}
-                      handleLike={fetchLikeAction}
-                      observationTimeDisplay={
-                        imageDetails.observationTimeDisplay
-                      }
-                    />
+                    !isEmpty(imageDetails) && (
+                      <CardObservations
+                        user={user}
+                        subTitle={photoBy}
+                        title={imageDetails.imageTitle}
+                        description={imageDetails.observationLog}
+                        imageUrl={imageDetails.imageURL}
+                        linkUrl={imageDetails.linkUrl}
+                        likesCount={imageDetails.likesCount}
+                        likePrompt={imageDetails.likePrompt}
+                        showLikePrompt={imageDetails.showLikePrompt}
+                        customerImageId={image.customerImageId}
+                        handleLike={fetchLikeAction}
+                        observationTimeDisplay={
+                          imageDetails.observationTimeDisplay
+                        }
+                      />
+                    )
                   );
                 }}
               />
