@@ -12,6 +12,7 @@ const FOV = ({
   largeRectGridWidth,
   stroke,
   telescope,
+  showArrows
 }) => {
   const smallRectDimension = gridWidth * tickSpacing;
   const largeRectWidth = largeRectGridWidth
@@ -28,6 +29,17 @@ const FOV = ({
 
   return (
     <g>
+      <defs>
+        <marker id="startarrow" markerWidth="20" markerHeight="20"
+          refX="18" refY="1" orient="auto">
+          <polygon points="20 0, 20 2, 12 1" fill={stroke} />
+        </marker>
+        <marker id="endarrow" markerWidth="20" markerHeight="20"
+          refX="2" refY="1" orient="auto" markerUnits="strokeWidth">
+          <polygon points="0 0, 18 1, 0 2" fill={stroke} />
+        </marker>
+      </defs>
+
       <rect
         x={largeRectX}
         y={Y}
@@ -36,30 +48,53 @@ const FOV = ({
         stroke={stroke}
         fill="none"
       />
-      <UnitText
-        x={largeRectX + largeRectWidth / 2}
-        y={Y + smallRectDimension / 2}
-        style={{ fill: stroke }}
-        text={telescope.name}
-        fontSize={fontSize}
-      />
 
-      <UnitText
-        x={largeRectX + largeRectWidth / 2}
-        y={Y + fontSize + smallRectDimension / 2}
-        style={{ fill: stroke }}
-        fontSize={fontSize}
-        text="Field of View"
-      />
-      <UnitText
-        fontSize={fontSize}
-        style={{ fill: stroke }}
-        x={largeRectX + largeRectWidth / 2}
-        y={Y + 2 * fontSize + smallRectDimension / 2}
-        text={`${telescope.FOV.horizontal}x${
-          telescope.FOV.vertical
-        } arcminutes`}
-      />
+      {showArrows && <g><line x1={largeRectX + 16} y1={Y + 20} x2={largeRectX + largeRectWidth / 2 - 2 * fontSize} y2={Y + 20} stroke={stroke} stroke-width="2"
+        marker-start="url(#startarrow)" />
+
+        <line x1={largeRectX + largeRectWidth / 2 + 6 * fontSize} y1={Y + 20} x2={largeRectX + largeRectWidth - 30} y2={Y + 20} stroke={stroke} stroke-width="2"
+          marker-end="url(#endarrow)" />
+
+
+        <line x1={largeRectX + 20} y1={Y + 16} x2={largeRectX + 20} y2={Y + smallRectDimension / 2 - 2 * fontSize} stroke={stroke} stroke-width="2"
+          marker-start="url(#startarrow)" />
+        <line x1={largeRectX + 20} y1={Y + smallRectDimension / 2 + 6 * fontSize} x2={largeRectX + 20} y2={Y + smallRectDimension - 25} stroke={stroke} stroke-width="2"
+          marker-end="url(#endarrow)" />
+        <UnitText
+          x={largeRectX + largeRectWidth / 2}
+          y={Y + smallRectDimension / 2}
+          style={{ fill: stroke, fontFamily: 'BrandonGrotesque' }}
+          text={telescope.topName}
+          fontSize={fontSize}
+        />
+        <UnitText
+          x={largeRectX + largeRectWidth / 2}
+          y={Y + smallRectDimension / 2 + fontSize}
+          style={{ fill: stroke, fontFamily: 'BrandonGrotesque' }}
+          text={telescope.bottomName}
+          fontSize={fontSize}
+        />
+        <UnitText
+          fontSize={fontSize}
+          style={{ fill: stroke }}
+          x={largeRectX + largeRectWidth / 2 + 2 * fontSize}
+          y={Y + 20}
+          text={`${telescope.FOV.horizontal} arcminutes`}
+        />
+
+        <UnitText
+          fontSize={fontSize}
+          style={{
+            fill: stroke,
+            transform: 'rotate(-90)',
+            textAnchor: "start"
+          }}
+          x={-Y - smallRectDimension / 2 - fontSize * 2}
+          y={largeRectX + 20}
+          text={`${telescope.FOV.vertical} arcminutes`}
+        />
+      </g>
+      }
       {/* <rect
         x={smallRectX}
         y={Y}
