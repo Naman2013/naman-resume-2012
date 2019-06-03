@@ -51,6 +51,8 @@ export class CoordinatesSetup extends PureComponent {
       choosePrompt,
       completeReservationPromptLong,
       pageConfig,
+      userHasHold,
+      editCoordinates,
     } = this.props;
     const {
       header,
@@ -68,6 +70,7 @@ export class CoordinatesSetup extends PureComponent {
       step6Title,
       step6Tooltip,
       subheader,
+      subheaderEdit,
     } = pageConfig;
 
     const { explanation } = objectData;
@@ -77,7 +80,7 @@ export class CoordinatesSetup extends PureComponent {
       <div className="coordinates-setup">
         <div className="row setup-header">
           <h2>{header}</h2>
-          <p>{subheader}</p>
+          <p>{editCoordinates ? subheaderEdit : subheader }</p>
           {byTelescope && (
             <ReservationModalCountdown
               extendedTimer={extendedTimer}
@@ -86,6 +89,7 @@ export class CoordinatesSetup extends PureComponent {
               onCountdownComplete={onCountdownComplete}
               countdown={countdown}
               completeReservationPromptLong={completeReservationPromptLong}
+              userHasHold={editCoordinates || userHasHold}
             />
           )}
         </div>

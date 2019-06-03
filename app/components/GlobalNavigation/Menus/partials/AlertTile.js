@@ -81,15 +81,15 @@ class AlertTile extends Component {
           />
           <div dangerouslySetInnerHTML={{ __html: eventSubtitle }} />
           {hasLink && (
-            <div className="link-container">
-              <Link to={linkUrl}>
+            <Link to={linkUrl}>
+              <div className="link-container">
                 <span
                   className="link-text"
                   dangerouslySetInnerHTML={{ __html: linkLabel }}
                 />
-              </Link>
-              <div className="arrow" />
-            </div>
+                <div className="arrow" />
+              </div>
+            </Link>
           )}
         </div>
         <style jsx>

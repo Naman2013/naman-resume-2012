@@ -7,11 +7,11 @@ export class FeaturedObjectsModal extends Component {
   render() {
     const {
       onHide,
-      onComplete,
       show,
       selectedMission,
       user,
       onMissionView,
+      piggyback,
     } = this.props;
 
     const {
@@ -33,6 +33,7 @@ export class FeaturedObjectsModal extends Component {
             user={user}
             tip={tip}
             onMissionView={onMissionView}
+            piggyback={piggyback}
             communityMissions
           />
         </div>

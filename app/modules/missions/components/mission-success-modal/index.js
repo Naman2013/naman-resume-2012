@@ -17,6 +17,7 @@ export class MissionSuccessModal extends Component {
       reservedMissionData,
       missionSlot,
       reservedMission = {},
+      customClass,
     } = this.props;
 
     const {
@@ -43,6 +44,7 @@ export class MissionSuccessModal extends Component {
         onHide={onHide}
         goBackText={goBackLinkText}
         mobileGoBackText={exitLinkText}
+        customClass={customClass}
         mobileStyle
       >
         <div className="modal-wrapper">

@@ -184,9 +184,9 @@ class Request extends Component {
     }
 
     // TODO: this should go...
-    if (authorizationRedirect) {
+    //if (authorizationRedirect) {
       actions.validateResponseAccess(result);
-    }
+    //}
 
     // this is part of the reduce refactor suggested from earlier
     // build the models defined by the client

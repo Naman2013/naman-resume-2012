@@ -4,7 +4,7 @@ import { primaryFont } from '../../../styles/variables/fonts';
 
 export default css`
   .stats-details {
-    padding: 20px 30px 30px;
+    padding: 0;
   }
 
   .stats-details-text {

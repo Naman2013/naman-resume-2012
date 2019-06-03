@@ -1,8 +1,10 @@
 // @flow
 import React, { PureComponent, Fragment } from 'react';
-import { Modal } from 'react-bootstrap';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import Measure from 'react-measure';
 import noop from 'lodash/noop';
+import { setPreviousInstrument } from 'app/modules/starshare-camera/starshare-camera-actions';
 import Fade from '../common/Fade';
 import FadeSVG from '../common/Fade/FadeSVG';
 import easingFunctions, { animateValues } from '../../utils/easingFunctions';
@@ -16,6 +18,7 @@ import HowBig from './HowBig';
 
 import { getTelescope } from './telescopeConfig';
 import FieldOfView from './FieldOfView/FieldOfView';
+import { Modal } from '../modal';
 
 import { moodyBleu, romance } from '../../styles/variables/colors_tiles_v4';
 
@@ -67,7 +70,8 @@ class Telescope extends PureComponent<TTelescope> {
 
   state = {
     activeInstrumentID: this.props.activeInstrumentID,
-    previousInstrumentID: this.props.previousInstrumentID,
+    previousInstrumentID: this.props.previousInstrumentId,
+    telescopeId: this.props.activeInstrumentID,
     timesFlippedInstrumentBorder: 0,
     isTransitioningTelescope: false,
     horizontalResolution: getTelescope(this.props.activeInstrumentID).FOV
@@ -80,6 +84,8 @@ class Telescope extends PureComponent<TTelescope> {
     isMaskActive: false,
     isModalActive: false,
     isGridActive: true,
+    showTitleMessage: false,
+    transitionStrokeColor: 'aqua',
     portalDimensions: {
       bottom: 0,
       height: 0,
@@ -95,15 +101,22 @@ class Telescope extends PureComponent<TTelescope> {
 
   componentWillReceiveProps({
     activeInstrumentID,
-    previousInstrumentID,
+    previousInstrumentId,
     missionMetaData,
+    disableFullscreen,
   }) {
-    if (activeInstrumentID !== this.props.activeInstrumentID) {
+    this.props.setPreviousInstrument(activeInstrumentID);
+    if (
+      previousInstrumentId !== null &&
+      previousInstrumentId !== activeInstrumentID &&
+      !disableFullscreen
+    ) {
       this.setState(() => ({
-        activeInstrumentID: previousInstrumentID,
+        activeInstrumentID: previousInstrumentId,
         previousInstrumentID: activeInstrumentID,
+        telescopeId: previousInstrumentId,
       }));
-      this.transitionZoomOut();
+      this.showTitleMessage();
     }
 
     if (missionMetaData.missionTargetID === 0) {
@@ -129,10 +142,21 @@ class Telescope extends PureComponent<TTelescope> {
 
   doFOVTransitionInterval = null;
 
+  showTitleMessage = () => {
+    this.setState({ showTitleMessage: true }, () => {
+      setTimeout(() => {
+        this.transitionZoomOut();
+      }, 3000);
+    });
+  };
+
   transitionZoomOut() {
     let remainingDuration = 0;
 
-    this.setState(() => ({ isTransitioningTelescope: true }));
+    this.setState(() => ({
+      isTransitioningTelescope: true,
+      showTitleMessage: false,
+    }));
 
     if (this.currentZoomOutTransition) {
       remainingDuration = this.currentZoomOutTransition
@@ -160,13 +184,17 @@ class Telescope extends PureComponent<TTelescope> {
   }
 
   transitionPOV() {
-    this.setState({ timesFlippedInstrumentBorder: 0 });
+    this.setState({
+      timesFlippedInstrumentBorder: 0,
+      transitionStrokeColor: 'aqua',
+    });
     this.doFOVTransitionInterval = setInterval(() => {
       this.setState(prevState => {
         const {
           activeInstrumentID,
           previousInstrumentID,
           timesFlippedInstrumentBorder,
+          transitionStrokeColor,
         } = prevState;
 
         if (timesFlippedInstrumentBorder >= MAX_FOV_FLIPS) {
@@ -185,8 +213,13 @@ class Telescope extends PureComponent<TTelescope> {
             previousInstrumentID === this.state.previousInstrumentID
               ? activeInstrumentID
               : previousInstrumentID,
+          transitionStrokeColor:
+            transitionStrokeColor === 'aqua' ? '#FAD59A' : 'aqua',
+          telescopeId:
+            this.state.telescopeId === this.state.previousInstrumentID
+              ? activeInstrumentID
+              : previousInstrumentID,
         };
-
         return updatedFOVFlipState;
       });
     }, 500);
@@ -207,6 +240,7 @@ class Telescope extends PureComponent<TTelescope> {
         vertical: targetTelescope.PORTAL.vertical,
       }
     );
+    this.setState({ transitionStrokeColor: 'aqua' });
   }
 
   telescopeTransitionComplete() {
@@ -244,6 +278,10 @@ class Telescope extends PureComponent<TTelescope> {
 
   handleCompleteHowBigAnimation = () => {
     this.setState(() => ({ transitionScale: false }));
+  };
+
+  onHideModal = () => {
+    this.setState({ isModalActive: false });
   };
 
   render() {
@@ -347,13 +385,41 @@ class Telescope extends PureComponent<TTelescope> {
                   <FadeSVG isHidden={isTransitioningTelescope}>
                     {isMaskActive && <Mask radius={radius} />}
                   </FadeSVG>
+                  {(this.state.showTitleMessage ||
+                    isTransitioningTelescope) && (
+                    <g>
+                      <rect
+                        x="0"
+                        y="0"
+                        width={width}
+                        height={height}
+                        style={{ fill: 'black' }}
+                      />
+                    </g>
+                  )}
+                  {this.state.showTitleMessage && (
+                    <UnitText
+                      text="CHANGING FIELD OF VIEW"
+                      x={width / 2}
+                      y={height / 2}
+                      fontSize="40"
+                      style={{
+                        fill: 'aqua',
+                        width: '100%',
+                      }}
+                    />
+                  )}
                   {activeInstrumentID && previousInstrumentID && isGridActive && (
                     <FadeSVG isHidden={!isTransitioningTelescope}>
                       <FieldOfView
                         activeInstrumentID={activeInstrumentID}
                         previousInstrumentID={previousInstrumentID}
+                        telescopeId={this.state.telescopeId}
                         tickSpacing={tickSpacing}
                         canvasWidth={width}
+                        currentZoomIn={this.currentZoomInTransition}
+                        currentZoomOut={this.currentZoomOutTransition}
+                        stroke={this.state.transitionStrokeColor}
                       />
                     </FadeSVG>
                   )}
@@ -401,22 +467,18 @@ class Telescope extends PureComponent<TTelescope> {
                     </Fragment>
                   )}
                 </FadeSVG>
-                {!disableFullscreen && (
+                {isModalActive && (
                   <Modal
-                    show={isModalActive}
+                    show
                     size="lg"
                     dialogClassName="telescope-modal"
                     centered
-                    onHide={() => this.setState({ isModalActive: false })}
+                    onHide={this.onHideModal}
                   >
-                    <Modal.Header closeButton>
-                      <Modal.Title>
-                        {missionTitle || 'No mission available'}
-                      </Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                      <Telescope {...this.props} disableFullscreen />
-                    </Modal.Body>
+                    <h3 style={{color:'white',
+    marginTop: '-60px',
+    marginBottom: '15px'}}>{missionTitle || 'No mission available'}</h3>
+                    <Telescope {...this.props} disableFullscreen />
                   </Modal>
                 )}
 
@@ -483,4 +545,19 @@ class Telescope extends PureComponent<TTelescope> {
   }
 }
 
-export default Telescope;
+const mapStateToProps = ({ starshareCamera }) => ({
+  previousInstrumentId: starshareCamera.previousInstrumentId,
+});
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      setPreviousInstrument,
+    },
+    dispatch
+  );
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Telescope);

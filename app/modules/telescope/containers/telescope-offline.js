@@ -13,6 +13,7 @@ import {
   makeWeatherSatelliteSelector,
   makeAllSkyCameraSelector,
 } from 'app/modules/telescope/selectors';
+import { setPreviousInstrument } from 'app/modules/starshare-camera/starshare-camera-actions';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
@@ -31,6 +32,7 @@ const mapDispatchToProps = {
   fetchWeatherSatellite,
   fetchDomeCamAction,
   fetchObservatoryWebcam,
+  setPreviousInstrument,
 };
 
 export default compose(

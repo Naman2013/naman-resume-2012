@@ -339,6 +339,18 @@ class TelescopeImageLoader extends Component {
       );
     }
 
+    //console.log(currentImageUrl);
+    //console.log("CurrH: " + currH);
+    //console.log("CurrW: " + currW);
+    //console.log("Viewport Height: " + viewportHeight);
+
+    const imageStyle = {
+	minHeight: viewportHeight,
+	maxHeight: viewportHeight,
+	height: viewportHeight,
+	objectFit: 'cover'
+    };
+
     return (
       <div className="sse-thumbnails">
         <div className="bottom-image">
@@ -346,9 +358,10 @@ class TelescopeImageLoader extends Component {
 
           <div className="top-image">
             <img
+              style={imageStyle}
               alt=""
               src={currentImageUrl}
-              // height={viewportHeight}
+              height={viewportHeight}
               id={this.generateImageId()}
               draggable="false"
               ref={this.imageRef}

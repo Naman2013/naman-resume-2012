@@ -30,8 +30,8 @@ export default css`
 
   .column-tab {
     display: inline-block;
-    flex: 1 100%;
     border-right: 1px solid ${hawkesBlue};
+    flex: 1;
   }
 
   .column-tab:last-child {
@@ -75,6 +75,7 @@ export default css`
       display: flex;
       justify-content: space-between;
       align-items: center;
+      padding-right: 10px;
     }
 
     .column-tab {
@@ -88,8 +89,26 @@ export default css`
       width: auto;
     }
 
+    .column-tab {
+      flex: unset;
+    }
+
     .column-tab-button.active {
       border-bottom: 2px solid ${astronaut};
+    }
+
+    .tab-content {
+      padding: 5px;
+      position: absolute;
+      top: 170px;
+      bottom: 30px;
+      overflow-y: auto;
+      max-width: 300px;
+    }
+
+    .menu-title {
+      margin: 16px 0;
+      margin-top: 50px;
     }
   }
 `;

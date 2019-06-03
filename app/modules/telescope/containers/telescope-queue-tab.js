@@ -20,9 +20,17 @@ import {
   getTelescopeSlot,
   setTelescope,
   cancelMissionSlot,
+  grabPiggyback,
+  reservePiggyback,
+  getMissionSlotEdit,
 } from '../../missions/thunks';
 import { ACTION as MISSION_ACTION } from '../../missions/reducer';
-import { makeTelescopeSelectedSlotSelector } from '../../missions/selectors';
+import {
+  makeTelescopeSelectedSlotSelector,
+  makePiggybackMissionsFirstSlot,
+  makePiggybackReservedMissionData,
+  makePiggybackReservedMissionSelector,
+} from '../../missions/selectors';
 import { makeUserSelector } from '../../user/selectors';
 
 const mapStateToProps = createStructuredSelector({
@@ -34,6 +42,9 @@ const mapStateToProps = createStructuredSelector({
   user: makeUserSelector(),
   reservedCommunityMission: makeQueueTabReservedCommunityMissionSelector(),
   pageSetup: makeTelescopePageSetupSelector(),
+  piggyBackMissionSlot: makePiggybackMissionsFirstSlot(),
+  piggybackReservedMissionData: makePiggybackReservedMissionData(),
+  piggybackReservedMission: makePiggybackReservedMissionSelector(),
 });
 
 const mapDispatchToProps = {
@@ -44,6 +55,9 @@ const mapDispatchToProps = {
   cancelMissionSlot,
   getFeaturedObjectsByTelescope,
   reserveCommunityMission,
+  grabPiggyback,
+  reservePiggyback,
+  getMissionSlotEdit,
 };
 
 export default compose(

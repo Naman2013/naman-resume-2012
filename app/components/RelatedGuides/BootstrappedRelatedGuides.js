@@ -49,6 +49,7 @@ class BootstrappedRelatedShows extends Component {
                   <FlipedGuideCard
                     guideReferenceTitle={guide.guideTitle}
                     linkLabel={guide.linkLabel}
+                    guideAuthor={guide.guideAuthor}
                     linkUrl={guide.linkUrl}
                     shortDescription={guide.shortDescription}
                     withinReletedSection

@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import { withRouter } from 'react-router';
 import { injectIntl } from 'react-intl';
 import { DeviceContext } from 'app/providers/DeviceProvider';
 import HubContainer from 'app/components/common/HubContainer';
@@ -163,7 +164,8 @@ class Lists extends Component {
   };
 
   render() {
-    const { filterType, filterOptions, profileLists, intl, data } = this.props;
+    const { filterType, filterOptions, profileLists, intl, data, params } = this.props;
+    const { customerUUID } = params;
     if (!profileLists || !data) return null;
     return (
       <DeviceContext.Consumer>
@@ -183,7 +185,7 @@ class Lists extends Component {
             filterTypeFieldName="readingListType"
             updateList={this.updateTilesList}
             appendToList={this.appendToTilesList}
-            pageTitle="My Lists"
+            pageTitle={customerUUID ? "Lists" : "My Lists"}
             filterType={filterType}
             clearTiles={this.clearTiles}
             showHeaderIcon={false}
@@ -204,4 +206,4 @@ class Lists extends Component {
   }
 }
 
-export default injectIntl(Lists);
+export default withRouter(injectIntl(Lists));

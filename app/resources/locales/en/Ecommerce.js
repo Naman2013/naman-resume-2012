@@ -44,6 +44,9 @@ export const Ecommerce = {
   'Ecommerce.SignupRequestExpireTime': 'This signup request will expire in {minutes}:{seconds}.',
   'Ecommerce.SignupRequestExpiered':
     'Signup request expired...redirecting to the homepage in 00:{seconds}.',
+  'Ecommerce.SignupRequestExpireTimeOnUpgrade': 'This request will expire in {minutes}:{seconds}.',
+  'Ecommerce.SignupRequestExpieredOnUpgrade':
+    'Request expired...redirecting to the homepage in 00:{seconds}.',
   'Ecommerce.JoinSlooh': 'Join Slooh!',
   'Ecommerce.JoinSloohTrial': 'Join today and get a 14 day free trial',
   'Ecommerce.JoinNow': 'Join Now',

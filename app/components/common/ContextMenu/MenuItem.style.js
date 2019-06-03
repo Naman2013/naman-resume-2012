@@ -23,9 +23,11 @@ export default css`
   }
 
   .item-container {
-    display: flex;
-    justify-content: space-between;
-    border-bottom: 1px solid ${geyser};
+    display: block;
+    padding-bottom: 30px;
+    padding-top: 40px;
+    margin-left: -15px;
+    padding-left: 20px;
   }
 
   .iconContainer {
@@ -45,11 +47,9 @@ export default css`
   }
 
   .menu-item :global(a) {
-    display: block;
-    padding-bottom: 30px;
-    padding-top: 40px;
-    margin-left: -15px;
-    padding-left: 20px;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid ${geyser};
     font-family: ${secondaryFont};
     text-transform: capitalize;
     text-decoration: none;

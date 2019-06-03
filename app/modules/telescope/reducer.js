@@ -8,6 +8,7 @@ export const TYPE = constants('telescope', [
   '~GET_FEATURED_OBJECTS_BY_TELESCOPE',
   '~RESERVE_COMMUNITY_MISSION',
   '~GET_TELESCOPES',
+  'SET_TELESCOPES_ACTIVE_TAB',
 ]);
 export const ACTION = actions(TYPE);
 
@@ -16,6 +17,8 @@ export const initialState = {
   serverError: null,
 
   pageSetup: {},
+
+  telescopeActiveTab: 0,
 
   allSkyTimelapse: {
     isFetching: false,
@@ -52,9 +55,17 @@ export default handleActions(
     [TYPE.GET_TELESCOPES]: setTelescopesFetching,
     [TYPE.GET_TELESCOPES_SUCCESS]: getTelescopesSuccess,
     [TYPE.GET_TELESCOPES_ERROR]: setTelescopesError,
+    [TYPE.SET_TELESCOPES_ACTIVE_TAB]: setTelescopesActiveTab,
   },
   initialState
 );
+
+function setTelescopesActiveTab(state, action) {
+  return {
+    ...state,
+    telescopeActiveTab: action.payload,
+  };
+}
 
 function getAllSkyTimelapse(state) {
   return set(['allSkyTimelapse', 'isFetching'], true, state);
