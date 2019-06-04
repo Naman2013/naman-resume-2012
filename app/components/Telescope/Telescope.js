@@ -403,26 +403,26 @@ class Telescope extends PureComponent<TTelescope> {
                   </FadeSVG>
                   {(this.state.showTitleMessage ||
                     isTransitioningTelescope) && (
-                      <g>
-                        <rect
-                          x="0"
-                          y="0"
-                          width={width}
-                          height={height}
-                          style={{ fill: 'black' }}
-                        />
-                      </g>
-                    )}
+                    <g>
+                      <rect
+                        x="0"
+                        y="0"
+                        width={width}
+                        height={height}
+                        style={{ fill: 'black' }}
+                      />
+                    </g>
+                  )}
                   {this.state.showTitleMessage && (
                     <UnitText
                       text="CHANGING FIELD-OF-VIEW..."
                       x={width / 2}
                       y={80}
-                      fontSize="60"
+                      fontSize="50"
                       style={{
                         fill: 'aqua',
                         width: '100%',
-                        fontFamily: 'BrandonGrotesque-Black'
+                        fontFamily: 'BrandonGrotesque-Black',
                       }}
                     />
                   )}
@@ -501,11 +501,15 @@ class Telescope extends PureComponent<TTelescope> {
                     centered
                     onHide={this.onHideModal}
                   >
-                    <h3 style={{
-                      color: 'white',
-                      marginTop: '-60px',
-                      marginBottom: '15px'
-                    }}>{missionTitle || 'No mission available'}</h3>
+                    <h3
+                      style={{
+                        color: 'white',
+                        marginTop: '-60px',
+                        marginBottom: '15px',
+                      }}
+                    >
+                      {missionTitle || 'No mission available'}
+                    </h3>
                     <Telescope {...this.props} disableFullscreen />
                   </Modal>
                 )}
