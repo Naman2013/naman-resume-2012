@@ -77,7 +77,7 @@ class Telescope extends PureComponent<TTelescope> {
     horizontalResolution: getTelescope(this.props.activeInstrumentID).FOV
       .horizontal,
     verticalResolution: getTelescope(this.props.activeInstrumentID).FOV
-      .vertical,
+      .horizontal,
     increment: this.props.increment,
     awaitingMission: this.props.missionMetaData.missionTargetID === 0,
     transitionScale: false,
@@ -86,7 +86,6 @@ class Telescope extends PureComponent<TTelescope> {
     isGridActive: true,
     showTitleMessage: false,
     transitionStrokeColor: 'aqua',
-    showArrows: false,
     portalDimensions: {
       bottom: 0,
       height: 0,
@@ -104,11 +103,13 @@ class Telescope extends PureComponent<TTelescope> {
     activeInstrumentID,
     previousInstrumentId,
     missionMetaData,
+    disableFullscreen,
   }) {
     this.props.setPreviousInstrument(activeInstrumentID);
     if (
       previousInstrumentId !== null &&
-      previousInstrumentId !== activeInstrumentID
+      previousInstrumentId !== activeInstrumentID &&
+      !disableFullscreen
     ) {
       this.setState(() => ({
         activeInstrumentID: previousInstrumentId,
@@ -155,7 +156,6 @@ class Telescope extends PureComponent<TTelescope> {
     this.setState(() => ({
       isTransitioningTelescope: true,
       showTitleMessage: false,
-      showArrows: true,
     }));
 
     if (this.currentZoomOutTransition) {
@@ -187,7 +187,6 @@ class Telescope extends PureComponent<TTelescope> {
     this.setState({
       timesFlippedInstrumentBorder: 0,
       transitionStrokeColor: 'aqua',
-      showArrows: false,
     });
     this.doFOVTransitionInterval = setInterval(() => {
       this.setState(prevState => {
@@ -233,7 +232,6 @@ class Telescope extends PureComponent<TTelescope> {
   }
 
   transitionZoomIn() {
-    this.setState({ showArrows: true });
     const targetTelescope = getTelescope(this.state.activeInstrumentID);
     this.currentZoomInTransition = this.transitionTo(
       this.telescopeTransitionComplete,
@@ -269,7 +267,7 @@ class Telescope extends PureComponent<TTelescope> {
           }));
         },
         onComplete: onCompleteCallback.bind(this),
-        ease: easingFunctions.easeInOutQuint,
+        ease: easingFunctions.easeInOutQuad,
       }
     );
   }
@@ -324,53 +322,43 @@ class Telescope extends PureComponent<TTelescope> {
               }}
               className="portal"
             >
-              {!isTransitioningTelescope && !this.state.showTitleMessage && (
-                <div className="telescope-float-menu">
+              <div className="telescope-float-menu">
+                <Button
+                  renderIcon={() => <i className="fa fa-table" />}
+                  isActive={isGridActive}
+                  onClickEvent={() => {
+                    this.setState({ isGridActive: !isGridActive });
+                  }}
+                  theme={{
+                    ...(isGridActive ? activeButtonTheme : inactiveButtonTheme),
+                    marginBottom: '10px',
+                  }}
+                />
+                <Button
+                  renderIcon={() => <i className="fa fa-eye" />}
+                  isActive={isMaskActive}
+                  onClickEvent={() => {
+                    this.setState({ isMaskActive: !isMaskActive });
+                  }}
+                  theme={{
+                    ...(isMaskActive ? activeButtonTheme : inactiveButtonTheme),
+                    marginBottom: '10px',
+                  }}
+                />
+                {!disableFullscreen && (
                   <Button
-                    renderIcon={() => <i className="fa fa-table" />}
-                    isActive={isGridActive}
-                    onClickEvent={() => {
-                      this.setState({ isGridActive: !isGridActive });
-                    }}
-                    theme={{
-                      ...(isGridActive
-                        ? activeButtonTheme
-                        : inactiveButtonTheme),
-                      marginBottom: '10px',
-                    }}
+                    renderIcon={() => <i className="fa fa-arrows-alt" />}
+                    onClickEvent={() =>
+                      this.setState({
+                        isModalActive: true,
+                        isMaskActive: false,
+                      })
+                    }
+                    theme={inactiveButtonTheme}
                   />
-                  <Button
-                    renderIcon={() => <i className="fa fa-eye" />}
-                    isActive={isMaskActive}
-                    onClickEvent={() => {
-                      this.setState({ isMaskActive: !isMaskActive });
-                    }}
-                    theme={{
-                      ...(isMaskActive
-                        ? activeButtonTheme
-                        : inactiveButtonTheme),
-                      marginBottom: '10px',
-                    }}
-                  />
-                  {!disableFullscreen && (
-                    <Button
-                      renderIcon={() => <i className="fa fa-arrows-alt" />}
-                      onClickEvent={() =>
-                        this.setState({
-                          isModalActive: true,
-                          isMaskActive: false,
-                        })
-                      }
-                      theme={inactiveButtonTheme}
-                    />
-                  )}
-                </div>
-              )}
-              <Fade
-                isHidden={
-                  isTransitioningTelescope || this.state.showTitleMessage
-                }
-              >
+                )}
+              </div>
+              <Fade isHidden={isTransitioningTelescope}>
                 <div>
                   {this.props.render({ viewportHeight: width }, imageData => {
                     const { imageWidth, imageHeight, missionTitle } = imageData;
@@ -394,35 +382,30 @@ class Telescope extends PureComponent<TTelescope> {
                  move non-scale transition elements into a component to keep this more readable
                  */}
                 <FadeSVG isHidden={transitionScale}>
-                  <FadeSVG
-                    isHidden={
-                      isTransitioningTelescope || this.state.showTitleMessage
-                    }
-                  >
+                  <FadeSVG isHidden={isTransitioningTelescope}>
                     {isMaskActive && <Mask radius={radius} />}
                   </FadeSVG>
                   {(this.state.showTitleMessage ||
                     isTransitioningTelescope) && (
-                      <g>
-                        <rect
-                          x="0"
-                          y="0"
-                          width={width}
-                          height={height}
-                          style={{ fill: 'black' }}
-                        />
-                      </g>
-                    )}
+                    <g>
+                      <rect
+                        x="0"
+                        y="0"
+                        width={width}
+                        height={height}
+                        style={{ fill: 'black' }}
+                      />
+                    </g>
+                  )}
                   {this.state.showTitleMessage && (
                     <UnitText
-                      text="Changing Field-Of-View..."
+                      text="CHANGING FIELD OF VIEW"
                       x={width / 2}
-                      y={80}
-                      fontSize={width / 20}
+                      y={height / 2}
+                      fontSize="40"
                       style={{
                         fill: 'aqua',
                         width: '100%',
-                        fontFamily: 'BrandonGrotesque-Black',
                       }}
                     />
                   )}
@@ -437,7 +420,6 @@ class Telescope extends PureComponent<TTelescope> {
                         currentZoomIn={this.currentZoomInTransition}
                         currentZoomOut={this.currentZoomOutTransition}
                         stroke={this.state.transitionStrokeColor}
-                        showArrows={this.state.showArrows}
                       />
                     </FadeSVG>
                   )}
@@ -445,22 +427,14 @@ class Telescope extends PureComponent<TTelescope> {
                     <Fragment>
                       <TelescopeFrame
                         isGridVisible={isTransitioningTelescope}
-                        isScaleVisible={
-                          !isTransitioningTelescope &&
-                          !this.state.showTitleMessage
-                        }
+                        isScaleVisible={!isTransitioningTelescope}
                         horizontalResolution={horizontalResolution}
                         verticalResolution={verticalResolution}
                         increment={increment}
                         length={width}
                       />
 
-                      <FadeSVG
-                        isHidden={
-                          isTransitioningTelescope ||
-                          this.state.showTitleMessage
-                        }
-                      >
+                      <FadeSVG isHidden={isTransitioningTelescope}>
                         <Scale
                           dimension={width}
                           scale={
@@ -501,15 +475,9 @@ class Telescope extends PureComponent<TTelescope> {
                     centered
                     onHide={this.onHideModal}
                   >
-                    <h3
-                      style={{
-                        color: 'white',
-                        marginTop: '-60px',
-                        marginBottom: '15px',
-                      }}
-                    >
-                      {missionTitle || 'No mission available'}
-                    </h3>
+                    <h3 style={{color:'white',
+    marginTop: '-60px',
+    marginBottom: '15px'}}>{missionTitle || 'No mission available'}</h3>
                     <Telescope {...this.props} disableFullscreen />
                   </Modal>
                 )}
