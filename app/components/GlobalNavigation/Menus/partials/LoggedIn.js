@@ -68,6 +68,7 @@ const LoggedIn = ({ displayName, avatarURL, menuItems, intl }) => (
           width: 50px;
           background-size: cover;
           border-radius: 100%;
+          background-color: black;
         }
       `}
     </style>
