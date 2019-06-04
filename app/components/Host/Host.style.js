@@ -144,6 +144,10 @@ export default css`
     justify-content: center;
   }
 
+  .circle-icon-line .icon {
+    background-color: black;
+  }
+
   .icon-line {
     display: block;
     position: absolute;

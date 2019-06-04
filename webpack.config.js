@@ -161,12 +161,12 @@ module.exports = {
     },
     proxy: {
       '/api/**': {
-        target: 'https://nova.slooh.com',
+        target: 'https://eris.slooh.com',
         changeOrigin: true,
         secure: true,
       },
       '/sloohapp/**': {
-        target: 'https://nova.slooh.com',
+        target: 'https://eris.slooh.com',
         changeOrigin: true,
         secure: true,
       },

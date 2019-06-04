@@ -4,8 +4,11 @@ export const SUBSCRIPTION_PLANS_ENDPOINT_URL = '/api/registration/getSubscriptio
 export const GOOGLE_CLIENT_ID_ENDPOINT_URL = '/api/registration/getGoogleClientID';
 export const GOOGLE_SSO_SIGNIN_ENDPOINT_URL = '/api/registration/processGoogleSSOSignin';
 export const VALIDATE_NEW_PENDING_CUSTOMER_DETAILS_ENDPOINT_URL='/api/registration/validateNewPendingCustomerDetails';
+
 export const JOIN_CREATE_PENDING_CUSTOMER_ENDPOINT_URL='/api/registration/createPendingCustomer';
 export const JOIN_ACTIVATE_PENDING_CUSTOMER_ENDPOINT_URL='/api/registration/activatePendingCustomer';
+
+export const UPGRADE_CUSTOMER_ENDPOINT_URL = '/api/registration/upgradeCustomer';
 
 export const JOIN_VALIDATE_INVITATIONCODE_ENDPOINT_URL='/api/registration/validateCustomerLinkInvitationAlt';
 export const JOIN_CREATE_INVITED_CUSTOMER_ENDPOINT_URL='/api/registration/activateInvitedCustomer';
