@@ -37,6 +37,7 @@ const FOV = ({
           refX="18"
           refY="1"
           orient="auto"
+          markerUnits="strokeWidth"
         >
           <polygon points="20 0, 20 2, 12 1" fill={stroke} />
         </marker>
@@ -67,20 +68,20 @@ const FOV = ({
           <line
             x1={largeRectX + 10}
             y1={Y + smallRectDimension / 10}
-            x2={largeRectX + largeRectWidth / 2 - 2 * fontSize}
+            x2={largeRectX + largeRectWidth / 2 - 4 * fontSize}
             y2={Y + smallRectDimension / 10}
             stroke={stroke}
-            strokeWidth="2"
+            strokeWidth="1.5"
             markerStart="url(#startarrow)"
           />
 
           <line
-            x1={largeRectX + largeRectWidth / 2 + 6 * fontSize}
+            x1={largeRectX + largeRectWidth / 2 + 4 * fontSize}
             y1={Y + smallRectDimension / 10}
             x2={largeRectX + largeRectWidth - 10}
             y2={Y + smallRectDimension / 10}
             stroke={stroke}
-            strokeWidth="2"
+            strokeWidth="1.5"
             markerEnd="url(#endarrow)"
           />
 
@@ -88,18 +89,18 @@ const FOV = ({
             x1={largeRectX + largeRectWidth / 15}
             y1={Y + 12}
             x2={largeRectX + largeRectWidth / 15}
-            y2={Y + smallRectDimension / 2 - 2 * fontSize}
+            y2={Y + smallRectDimension / 2 - 4 * fontSize}
             stroke={stroke}
-            strokeWidth="2"
+            strokeWidth="1.5"
             markerStart="url(#startarrow)"
           />
           <line
             x1={largeRectX + largeRectWidth / 15}
-            y1={Y + smallRectDimension / 2 + 6 * fontSize}
+            y1={Y + smallRectDimension / 2 + 4 * fontSize}
             x2={largeRectX + largeRectWidth / 15}
             y2={Y + smallRectDimension - 12}
             stroke={stroke}
-            strokeWidth="2"
+            strokeWidth="1.5"
             markerEnd="url(#endarrow)"
           />
           <UnitText
@@ -118,8 +119,8 @@ const FOV = ({
           />
           <UnitText
             fontSize={fontSize}
-            style={{ fill: stroke }}
-            x={largeRectX + largeRectWidth / 2 + 2 * fontSize}
+            style={{ fill: stroke, fontFamily: 'BrandonGrotesque' }}
+            x={largeRectX + largeRectWidth / 2}
             y={Y + smallRectDimension / 10}
             text={`${telescope.FOV.horizontal} arcminutes`}
           />
@@ -130,8 +131,9 @@ const FOV = ({
               fill: stroke,
               transform: 'rotate(-90)',
               textAnchor: 'start',
+              fontFamily: 'BrandonGrotesque'
             }}
-            x={-Y - smallRectDimension / 2 - fontSize * 2}
+            x={-Y - smallRectDimension / 2}
             y={largeRectX + largeRectWidth / 15}
             text={`${telescope.FOV.vertical} arcminutes`}
           />

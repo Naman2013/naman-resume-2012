@@ -21,7 +21,7 @@ const telescopeConfig = {
     key: 'CANARY_TWO_WIDE_FIELD',
     name: 'Canary Two Wide Field',
     topName: 'CANARY TWO',
-    bottomName: 'WIDE FIELD',
+    bottomName: 'WIDE-FIELD',
     instrumentID: '8032dfaf-7909-11e6-a635-0eb2b1774883',
     directionMarkerLengthArcMinutes: 3,
     FOV: {
@@ -36,7 +36,8 @@ const telescopeConfig = {
   CANARY_TWO_ULTRA_WIDE_FIELD: {
     key: 'CANARY_TWO_ULTRA_WIDE_FIELD',
     name: 'Canary Two Ultra Wide Field',
-
+    topName: 'CANARY TWO',
+    bottomName: 'ULTRA-WIDE-FIELD',
     instrumentID: '88814408-7909-11e6-a635-0eb2b1774883',
     directionMarkerLengthArcMinutes: 6,
     FOV: {
@@ -98,7 +99,7 @@ const telescopeConfig = {
     key: 'CHILE_ONE_WIDE_FIELD',
     name: 'Chile One Wide Field',
     topName: 'CHILE ONE',
-    bottomName: ' WIDE FIELD',
+    bottomName: ' WIDE-FIELD',
     instrumentID: 'cd31c5c9-7909-11e6-a635-0eb2b1774883',
     directionMarkerLengthArcMinutes: 2,
     FOV: {
@@ -114,7 +115,7 @@ const telescopeConfig = {
     key: 'CHILE_ONE_ULTRA_WIDE_FIELD',
     name: 'Chile One Ultra Wide Field',
     topName: 'CHILE ONE',
-    bottomName: 'ULTRA WIDE FIELD',
+    bottomName: 'ULTRA-WIDE-FIELD',
     instrumentID: 'd3ca2e16-7909-11e6-a635-0eb2b1774883',
     directionMarkerLengthArcMinutes: 5,
     FOV: {
