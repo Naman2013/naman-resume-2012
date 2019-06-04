@@ -19,6 +19,10 @@ import { getUserInfo } from 'app/modules/User';
 import {
   UPGRADE_CUSTOMER_ENDPOINT_URL,
 } from 'app/services/registration/registration.js';
+import {
+  resetLogIn,
+} from 'app/modules/login/actions';
+import { storeUserNewAT } from 'app/modules/User';
 import styles from 'app/pages/registration/JoinStep3.style';
 import messages from 'app/pages/registration/JoinStep3.messages';
 
@@ -124,7 +128,6 @@ import messages from 'app/pages/registration/JoinStep3.messages';
             const res = response.data;
             if (!res.apiError) {
               if (res.status === 'success') {
-                const { actions } = this.props;
 
                 //Cleanup local localStorage
                 window.localStorage.removeItem('pending_cid');
@@ -143,8 +146,12 @@ import messages from 'app/pages/registration/JoinStep3.messages';
                 window.localStorage.removeItem('password');
 
                 //upgradeCustomer needs to return new "AT"
-
                 //reset the AT cookie so all sub-sequent APIs use the new Account Type in their Request Params
+                storeUserNewAT({
+                  at: res.newAccountTypeNbr
+                });
+
+                window.location.reload();
 
                 //actions.logUserIn(loginDataPayload);
                 browserHistory.push('/');

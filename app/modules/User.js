@@ -25,6 +25,17 @@ export const removeUser = createAction(REMOVE_USER);
 const cookieD = cookieDomain || 'localhost';
 const cookieSecure = !!cookieDomain;
 
+export function storeUserNewAT({
+    at,
+}) {
+  window.document.cookie = cookie.serialize('at', at, {
+    domain: cookieD,
+    secure: cookieSecure,
+    expires: futureDate,
+    path: COOKIE_PATH,
+  });
+}
+
 export function store({
   reload,
   cid,
