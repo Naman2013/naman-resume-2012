@@ -19,18 +19,13 @@ type TAccountDetails = {
 // mocked
 const mockedPaymentDetailsOptions = [
   {
-    label: 'Payment method',
-    currentValue: 'Credit card',
-    formFieldName: 'payment',
-  },
-  {
     label: 'Reset password',
     currentValue: '********',
     formFieldName: 'password',
   },
 ];
 
-const mockedTitle = 'Payment details';
+const mockedTitle = '';
 
 class AccountDetails extends PureComponent<TAccountDetails> {
   render() {
@@ -136,33 +131,6 @@ class AccountDetails extends PureComponent<TAccountDetails> {
             </Row>
           </div>
 
-          <div className="top-bot-40 left-right-minus-20">
-            <Row noGutters>
-              <AccountDetailsHeader title={userCancellationHeading1} noEdit />
-            </Row>
-          </div>
-
-          <div className="top-bot-40 left-right-minus-20">
-            <Row noGutters>
-              <Container>
-                <div className="i-box i-box-white pad-40 margin-bot-10 min-height-150">
-                  <Row>
-                    <Col md={7}>
-                      {userCancellationInstructionsText}
-                      {userCancellationInProgressExplaination}
-                    </Col>
-                    <Col md={5} className="row-reverse">
-                      {canUserCancelTheirAccount && (
-                        <div className="btn-group margin-top-15">
-                          <Btn>Cancel</Btn>
-                        </div>
-                      )}
-                    </Col>
-                  </Row>
-                </div>
-              </Container>
-            </Row>
-          </div>
         </Container>
         <Modal
           show={showForgetPasswordPopup}
