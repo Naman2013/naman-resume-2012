@@ -95,11 +95,12 @@ class MobileViewSwiper extends Component {
         )}
         <div className="swiper-container">
           <Swiper {...sliderConfig} beforeChange={this.handleSlideChange}>
-            {imagesList.map(image => (
+            {imagesList.map((image, index) => (
               <SwiperItem
                 key={image.imageTimestamp}
                 {...image}
                 currentIndex={currentIndex}
+                imageIndex={index}
                 purgeCardState={this.purgeState}
                 setObservationInfo={this.setObservationInfo}
               />
