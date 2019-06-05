@@ -17,6 +17,7 @@ export class ImageDetails extends Component {
     const {
       getImageDetails,
       setObservationTags,
+      shareMemberPicture,
       user,
       observationTagsError,
       validateResponseAccess,
@@ -25,6 +26,7 @@ export class ImageDetails extends Component {
     const actions = {
       getImageDetails,
       setObservationTags,
+      shareMemberPicture,
     };
     return (
       <div>

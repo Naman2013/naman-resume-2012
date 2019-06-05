@@ -50,9 +50,6 @@ class WhereInTheSky extends Component {
     return (
       <div>
         <ModuleContainer title="Where in the night&#39;s sky">
-          <div
-            style={{ border: '1px solid blue', width: '100%', height: '300px' }}
-          />
           <StaticCell title="Distance from earth" theme={cellTheme}>
             <p>Deep space</p>
           </StaticCell>

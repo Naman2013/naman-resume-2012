@@ -192,6 +192,7 @@ class BootstrappedDashboard extends Component {
             				render={props => (
               					<BootstrappedTourPopup
                 					{...user}
+                          user={user}
                 					{...serviceResponse.popupData}
                 					validateResponseAccess={props.validateResponseAccess}
               					/>

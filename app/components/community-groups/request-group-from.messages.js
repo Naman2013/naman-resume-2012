@@ -7,6 +7,11 @@ const messages: Messages = {
     defaultMessage: 'Cancel',
     description: 'Clubs Cancel button',
   },
+  Close: {
+    id: 'Clubs.Close',
+    defaultMessage: 'Close',
+    description: 'Clubs Close button',
+  },
   RequestGroup: {
     id: 'Clubs.RequestGroup',
     defaultMessage: 'Request a group',

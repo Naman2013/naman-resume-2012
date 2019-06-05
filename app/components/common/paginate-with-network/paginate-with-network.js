@@ -14,9 +14,7 @@ class PaginateWithNetwork extends Component {
   };
 
   static defaultProps = {
-    onServiceResponse: resp => {
-      console.log(resp);
-    },
+    onServiceResponse: resp => {},
     activePageNumber: 1,
     filterOptions: {},
     hubActions: { hubGetRequestStart: () => {} },

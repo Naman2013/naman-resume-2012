@@ -36,30 +36,83 @@ const FOV = ({
         stroke={stroke}
         fill="none"
       />
-      <UnitText
-        x={largeRectX + largeRectWidth / 2}
-        y={Y + smallRectDimension / 2}
-        style={{ fill: stroke }}
-        text={telescope.name}
-        fontSize={fontSize}
-      />
 
-      <UnitText
-        x={largeRectX + largeRectWidth / 2}
-        y={Y + fontSize + smallRectDimension / 2}
-        style={{ fill: stroke }}
-        fontSize={fontSize}
-        text="Field of View"
-      />
-      <UnitText
-        fontSize={fontSize}
-        style={{ fill: stroke }}
-        x={largeRectX + largeRectWidth / 2}
-        y={Y + 2 * fontSize + smallRectDimension / 2}
-        text={`${telescope.FOV.horizontal}x${
-          telescope.FOV.vertical
-        } arcminutes`}
-      />
+      {showArrows && (
+        <g>
+          <line
+            x1={largeRectX + 10}
+            y1={Y + smallRectDimension / 6}
+            x2={largeRectX + largeRectWidth / 2 - 4 * fontSize}
+            y2={Y + smallRectDimension / 6}
+            stroke={stroke}
+            strokeWidth="1.5"
+            markerStart="url(#startarrow)"
+          />
+
+          <line
+            x1={largeRectX + largeRectWidth / 2 + 4 * fontSize}
+            y1={Y + smallRectDimension / 6}
+            x2={largeRectX + largeRectWidth - 10}
+            y2={Y + smallRectDimension / 6}
+            stroke={stroke}
+            strokeWidth="1.5"
+            markerEnd="url(#endarrow)"
+          />
+
+          <line
+            x1={largeRectX + largeRectWidth / 10}
+            y1={Y + 12}
+            x2={largeRectX + largeRectWidth / 10}
+            y2={Y + smallRectDimension / 2 - 4 * fontSize}
+            stroke={stroke}
+            strokeWidth="1.5"
+            markerStart="url(#startarrow)"
+          />
+          <line
+            x1={largeRectX + largeRectWidth / 10}
+            y1={Y + smallRectDimension / 2 + 4 * fontSize}
+            x2={largeRectX + largeRectWidth / 10}
+            y2={Y + smallRectDimension - 12}
+            stroke={stroke}
+            strokeWidth="1.5"
+            markerEnd="url(#endarrow)"
+          />
+          <UnitText
+            x={largeRectX + largeRectWidth / 2}
+            y={Y + smallRectDimension / 2}
+            style={{ fill: stroke, fontFamily: 'BrandonGrotesque' }}
+            text={telescope.topName}
+            fontSize={fontSize}
+          />
+          <UnitText
+            x={largeRectX + largeRectWidth / 2}
+            y={Y + smallRectDimension / 2 + fontSize}
+            style={{ fill: stroke, fontFamily: 'BrandonGrotesque' }}
+            text={telescope.bottomName}
+            fontSize={fontSize}
+          />
+          <UnitText
+            fontSize={fontSize}
+            style={{ fill: stroke, fontFamily: 'BrandonGrotesque' }}
+            x={largeRectX + largeRectWidth / 2}
+            y={Y + smallRectDimension / 6}
+            text={`${telescope.FOV.horizontal} arcminutes`}
+          />
+
+          <UnitText
+            fontSize={fontSize}
+            style={{
+              fill: stroke,
+              transform: 'rotate(-90)',
+              textAnchor: 'start',
+              fontFamily: 'BrandonGrotesque',
+            }}
+            x={-Y - smallRectDimension / 2}
+            y={largeRectX + largeRectWidth / 10}
+            text={`${telescope.FOV.vertical} arcminutes`}
+          />
+        </g>
+      )}
       {/* <rect
         x={smallRectX}
         y={Y}
