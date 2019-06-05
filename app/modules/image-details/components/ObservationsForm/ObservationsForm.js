@@ -33,7 +33,7 @@ class ObservationsForm extends Component {
     canShareFlag: true,
   };
 
-  state = { title: '', observation: '' };
+  state = { title: '', observation: '', showPrompt: false, promptText: '' };
 
   onTitleChange = e => {
     e.preventDefault();
@@ -71,7 +71,12 @@ class ObservationsForm extends Component {
         observation
       ).then(data => {
         if (!data.payload.apiError) {
-          shareMemberPicture({ customerImageId });
+          shareMemberPicture({ customerImageId }).then(data =>
+            this.setState({
+              showPrompt: true,
+              promptText: data.payload.sharePrompt,
+            })
+          );
         }
       });
       this.setState(() => ({ title: '', observation: '' }));
@@ -103,10 +108,10 @@ class ObservationsForm extends Component {
           <h2 className="h2-bigger">
             Earn Gravity, and Inspire the Slooh Community!
           </h2>
-          {/* <p className="p-19">
-            Nam dapibus nisl vitae elit fringie lla rutrum. Aenean sollicitudin
-            do erat a massa estibulum sed metus in lorem tristique lorem dolar.
-          </p> */}
+          <p className="p-19">
+            Share your observation with the community and tell them what makes
+            it special.
+          </p>
           <input
             type="text"
             value={title}
