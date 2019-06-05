@@ -110,10 +110,13 @@ class Telescope extends PureComponent<TTelescope> {
       previousInstrumentId !== null &&
       previousInstrumentId !== activeInstrumentID
     ) {
+      const tele = getTelescope(previousInstrumentId);
       this.setState(() => ({
         activeInstrumentID: previousInstrumentId,
         previousInstrumentID: activeInstrumentID,
         telescopeId: previousInstrumentId,
+        horizontalResolution: tele.FOV.horizontal,
+        verticalResolution:tele.FOV.vertical
       }));
       this.showTitleMessage();
     }
@@ -307,6 +310,7 @@ class Telescope extends PureComponent<TTelescope> {
     const { missionMetaData, disableFullscreen } = this.props;
 
     const activeInstrument = getTelescope(activeInstrumentID);
+    console.log(horizontalResolution);
     const tickSpacing = width / horizontalResolution;
     const midPoint = width / 2;
     const arcMinuteLabelLetterSpacing = width * 0.03;
@@ -403,16 +407,16 @@ class Telescope extends PureComponent<TTelescope> {
                   </FadeSVG>
                   {(this.state.showTitleMessage ||
                     isTransitioningTelescope) && (
-                      <g>
-                        <rect
-                          x="0"
-                          y="0"
-                          width={width}
-                          height={height}
-                          style={{ fill: 'black' }}
-                        />
-                      </g>
-                    )}
+                    <g>
+                      <rect
+                        x="0"
+                        y="0"
+                        width={width}
+                        height={height}
+                        style={{ fill: 'black' }}
+                      />
+                    </g>
+                  )}
                   {this.state.showTitleMessage && (
                     <UnitText
                       text="Changing Field-Of-View..."

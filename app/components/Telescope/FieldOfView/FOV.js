@@ -131,7 +131,7 @@ const FOV = ({
               fill: stroke,
               transform: 'rotate(-90)',
               textAnchor: 'start',
-              fontFamily: 'BrandonGrotesque'
+              fontFamily: 'BrandonGrotesque',
             }}
             x={-Y - smallRectDimension / 2}
             y={largeRectX + largeRectWidth / 10}
