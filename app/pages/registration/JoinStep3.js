@@ -129,7 +129,7 @@ class JoinStep3 extends Component {
             window.localStorage.getItem(
               'isAstronomyClubForMembers18AndOver'
             ) === 'true',
-          billingAddressString: paymentDataString[2],
+          billingAddressString: paymentDataString[3],
         };
 //add string aboc to this //ADD THIS BACK AFTER TESTING
             axios
