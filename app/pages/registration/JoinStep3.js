@@ -255,7 +255,7 @@ class JoinStep3 extends Component {
       <div>
         <Request
           serviceURL={JOIN_PAGE_ENDPOINT_URL}
-          requestBody={{ callSource: 'providePaymentDetails', selectedPlanId }}
+          requestBody={{ callSource: 'providePaymentDetails', selectedPlanId, cid: window.localStorage.getItem('pending_cid') }}
           serviceResponseHandler={this.handleJoinPageServiceResponse}
           render={({ fetchingContent, serviceResponse: joinPageRes }) => (
             <Fragment>
