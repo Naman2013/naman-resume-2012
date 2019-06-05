@@ -12,6 +12,7 @@ const FOV = ({
   largeRectGridWidth,
   stroke,
   telescope,
+  showArrows,
 }) => {
   const smallRectDimension = gridWidth * tickSpacing;
   const largeRectWidth = largeRectGridWidth
@@ -28,6 +29,31 @@ const FOV = ({
 
   return (
     <g>
+      <defs>
+        <marker
+          id="startarrow"
+          markerWidth="20"
+          markerHeight="20"
+          refX="18"
+          refY="1"
+          orient="auto"
+          markerUnits="strokeWidth"
+        >
+          <polygon points="20 0, 20 2, 12 1" fill={stroke} />
+        </marker>
+        <marker
+          id="endarrow"
+          markerWidth="20"
+          markerHeight="20"
+          refX="2"
+          refY="1"
+          orient="auto"
+          markerUnits="strokeWidth"
+        >
+          <polygon points="0 0, 0 2, 8 1" fill={stroke} />
+        </marker>
+      </defs>
+
       <rect
         x={largeRectX}
         y={Y}
