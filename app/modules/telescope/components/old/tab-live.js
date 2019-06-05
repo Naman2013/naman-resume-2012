@@ -95,7 +95,7 @@ const TabLive = ({
       </div>
     )} */}
 
-    {mission.missionAvailable && (
+    {/*mission.missionAvailable && (
       <Fragment>
         <div className="tile-container">
           <WhereInTheSky
@@ -105,7 +105,7 @@ const TabLive = ({
           />
         </div>
       </Fragment>
-    )}
+    )*/}
 
     <style jsx>{style}</style>
   </div>
