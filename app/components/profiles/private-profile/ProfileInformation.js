@@ -59,6 +59,8 @@ class ProfileInformation extends Component {
         <GravityBreakdown gravityList={gravityData.gravityList} />,
         <StatsDetails userInfoGuideDetails={userInfoGuideDetails} />,
       ],
+      disabledList: [true, false],
+      defaultIndex: 1,
     };
   };
 
