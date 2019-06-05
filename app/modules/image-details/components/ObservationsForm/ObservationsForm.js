@@ -54,7 +54,7 @@ class ObservationsForm extends Component {
   onSubmitForm = e => {
     e.preventDefault();
     const {
-      actions: { setObservationTags },
+      actions: { setObservationTags, shareMemberPicture },
       customerImageId,
       scheduledMissionId,
       intl,
@@ -69,7 +69,11 @@ class ObservationsForm extends Component {
         scheduledMissionId,
         title,
         observation
-      );
+      ).then(data => {
+        if (!data.payload.apiError) {
+          shareMemberPicture({ customerImageId });
+        }
+      });
       this.setState(() => ({ title: '', observation: '' }));
     }
   };
@@ -99,10 +103,10 @@ class ObservationsForm extends Component {
           <h2 className="h2-bigger">
             Earn Gravity, and Inspire the Slooh Community!
           </h2>
-          <p className="p-19">
+          {/* <p className="p-19">
             Nam dapibus nisl vitae elit fringie lla rutrum. Aenean sollicitudin
             do erat a massa estibulum sed metus in lorem tristique lorem dolar.
-          </p>
+          </p> */}
           <input
             type="text"
             value={title}
