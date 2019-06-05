@@ -90,7 +90,7 @@ export class TelescopeOnline extends Component {
     const currentMissionCountdown = countdownList.find(
       countdown => countdown.teleUniqueId === teleUniqueId
     );
-
+    
     return (
       <div className="details-root">
         <DisplayAtBreakpoint screenLarge screenXLarge>
@@ -248,10 +248,10 @@ export class TelescopeOnline extends Component {
                   />
                 ),
               },
-              {
+              ...(currentInstrument.instrImageSourceType === 'video' ? [] : [{
                 tabTitle: 'Queue',
                 content: () => <TabQueue {...this.props} />,
-              },
+              }]),
               {
                 tabTitle: 'Conditions',
                 content: () => <TabConditions {...this.props} />,
