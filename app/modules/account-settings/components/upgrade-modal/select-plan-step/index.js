@@ -8,6 +8,7 @@ type TSelectPlanStep = {
   setSelectedPlanId?: Function,
   subscriptionPlansData: any,
   selectedPlanId?: string,
+  user?: Shape,
 };
 
 export const SelectPlanStep = (props: TSelectPlanStep) => {
@@ -17,6 +18,7 @@ export const SelectPlanStep = (props: TSelectPlanStep) => {
     goNext,
     setSelectedPlanId,
   } = props;
+
   const {
     subscriptionPlans = [],
     pageHeading1,

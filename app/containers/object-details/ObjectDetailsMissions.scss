@@ -4,3 +4,12 @@
     opacity: 0.5;
   }
 }
+
+.object-details-missions-actions {
+  width: 50%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin: 30px auto 0;
+}

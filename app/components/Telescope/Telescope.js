@@ -77,7 +77,7 @@ class Telescope extends PureComponent<TTelescope> {
     horizontalResolution: getTelescope(this.props.activeInstrumentID).FOV
       .horizontal,
     verticalResolution: getTelescope(this.props.activeInstrumentID).FOV
-      .horizontal,
+      .vertical,
     increment: this.props.increment,
     awaitingMission: this.props.missionMetaData.missionTargetID === 0,
     transitionScale: false,
@@ -269,7 +269,7 @@ class Telescope extends PureComponent<TTelescope> {
           }));
         },
         onComplete: onCompleteCallback.bind(this),
-        ease: easingFunctions.easeInOutQuad,
+        ease: easingFunctions.easeInOutQuint,
       }
     );
   }
@@ -403,22 +403,22 @@ class Telescope extends PureComponent<TTelescope> {
                   </FadeSVG>
                   {(this.state.showTitleMessage ||
                     isTransitioningTelescope) && (
-                    <g>
-                      <rect
-                        x="0"
-                        y="0"
-                        width={width}
-                        height={height}
-                        style={{ fill: 'black' }}
-                      />
-                    </g>
-                  )}
+                      <g>
+                        <rect
+                          x="0"
+                          y="0"
+                          width={width}
+                          height={height}
+                          style={{ fill: 'black' }}
+                        />
+                      </g>
+                    )}
                   {this.state.showTitleMessage && (
                     <UnitText
-                      text="CHANGING FIELD-OF-VIEW..."
+                      text="Changing Field-Of-View..."
                       x={width / 2}
                       y={80}
-                      fontSize="50"
+                      fontSize={width / 20}
                       style={{
                         fill: 'aqua',
                         width: '100%',

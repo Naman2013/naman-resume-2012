@@ -14,6 +14,7 @@ class JoinHeader extends Component {
     activeTab: string,
     mainHeading: string,
     subHeading: string,
+    showHeading: boolean,
     showTabs: boolean,
     tabs: arrayOf(
       shape({
@@ -26,6 +27,7 @@ class JoinHeader extends Component {
   static defaultProps = {
     tabs: [],
     activeTab: '/join/step1',
+    showHeading: true,
     showTabs: true,
     mainHeading: <FormattedMessage {...messages.JoinMainHeader} />,
     subHeading: <FormattedMessage {...messages.JoinSubHeader} />,
@@ -38,6 +40,7 @@ class JoinHeader extends Component {
 
   render() {
     const {
+      showHeading,
       showTabs,
       activeTab,
       mainHeading,
@@ -50,7 +53,7 @@ class JoinHeader extends Component {
       <div className="root">
         <DisplayAtBreakpoint screenMedium screenLarge screenXLarge>
           <div className="header">
-            <div className="inner-header-container">
+            {showHeading && <div className="inner-header-container">
               <div className="inner-header-text">
                 <div className="big">{mainHeading}</div>
                 <div className="little">{subHeading}</div>
@@ -63,6 +66,7 @@ class JoinHeader extends Component {
               />
               }
             </div>
+            }
           </div>
         </DisplayAtBreakpoint>
         <DisplayAtBreakpoint screenSmall>

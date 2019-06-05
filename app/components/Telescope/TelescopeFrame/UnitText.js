@@ -20,7 +20,7 @@ const UnitText = ({ unit, text, x, y, style, fontSize }) => (
         .text {
           fill: ${(style && style.fill) || 'aqua'};
           font-size: ${fontSize || 10}px;
-          font-family: ${monoFont};
+          font-family: ${(style && style.fontFamily) || monoFont};
         }
       `}
     </style>

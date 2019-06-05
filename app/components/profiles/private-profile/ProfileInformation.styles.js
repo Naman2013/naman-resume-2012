@@ -48,6 +48,7 @@ export default css`
   }
 
   .profile-avatar img {
+    background-color: black;
     border-radius: 50%;
     object-fit: cover;
   }

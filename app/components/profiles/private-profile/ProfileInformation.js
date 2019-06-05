@@ -48,7 +48,8 @@ class ProfileInformation extends Component {
 
   getGravityTabs = () => {
     const { gravityData } = this.props.myInformationData;
-    const { intl } = this.props;
+    const { intl, profileData } = this.props;
+    const { userInfoGuideDetails } = profileData;
     return {
       tabsList: [
         intl.formatMessage(messages.Breakdown),
@@ -56,36 +57,33 @@ class ProfileInformation extends Component {
       ],
       panels: [
         <GravityBreakdown gravityList={gravityData.gravityList} />,
-        <StatsDetails
-          text={gravityData.gravityDetailsText}
-          buttonLinkUrl={_get(
-            gravityData,
-            'gravityGuideDetails.buttonLinkUrl',
-            ''
-          )}
-          buttonText={_get(gravityData, 'gravityGuideDetails.buttonText', '')}
-        />,
+        <StatsDetails userInfoGuideDetails={userInfoGuideDetails} />,
       ],
     };
   };
 
   getBadgesTabs = () => {
     const { badgesData } = this.props.myInformationData;
-    const { intl } = this.props;
+    const { intl, profileData } = this.props;
+    const { userInfoGuideDetails } = profileData;
     return {
       tabsList: [
         intl.formatMessage(messages.MyBadges),
         intl.formatMessage(messages.Details),
       ],
-      panels: [<Badges badgesList={badgesData.badgesList} />, null],
+      panels: [
+        <Badges badgesList={badgesData.badgesList} />,
+        <StatsDetails userInfoGuideDetails={userInfoGuideDetails} />,
+      ],
       disabledList: [true, false],
-      defaultIndex: 1
+      defaultIndex: 1,
     };
   };
 
   getMvpTabs = () => {
     const { mvpData } = this.props.myInformationData;
-    const { intl } = this.props;
+    const { intl, profileData } = this.props;
+    const { userInfoGuideDetails } = profileData;
     return {
       tabsList: [
         intl.formatMessage(messages.Specialties),
@@ -93,7 +91,8 @@ class ProfileInformation extends Component {
       ],
       panels: [
         <SpecialistList specialistList={mvpData.specialistObjects} />,
-        null,
+        <StatsDetails userInfoGuideDetails={userInfoGuideDetails} />,
+        ,
       ],
     };
   };

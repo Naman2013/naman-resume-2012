@@ -205,22 +205,24 @@ class Overview extends Component {
                 }}
               />
               <CenterColumn widths={['768px', '965px', '965px']}>
-                <CardObservations
-                  user={user}
-                  title={observation.title}
-                  subTitle={observation.subTitle}
-                  description={observation.desc}
-                  imageUrl={observation.imageURL}
-                  linkUrl={observation.linkUrl}
-                  likesCount={observation.likesCount}
-                  likePrompt={observation.likePrompt}
-                  observationTimeDisplay={observation.timeDisplay}
-                  showLikePrompt={observation.showLikePrompt}
-                  handleLike={fetchLikeAction}
-                  customerImageId={
-                    modeledResult.featuredObservation.customerImageId
-                  }
-                />
+                {observation.title && (
+                  <CardObservations
+                    user={user}
+                    title={observation.title}
+                    subTitle={observation.subTitle}
+                    description={observation.desc}
+                    imageUrl={observation.imageURL}
+                    linkUrl={observation.linkUrl}
+                    likesCount={observation.likesCount}
+                    likePrompt={observation.likePrompt}
+                    observationTimeDisplay={observation.timeDisplay}
+                    showLikePrompt={observation.showLikePrompt}
+                    handleLike={fetchLikeAction}
+                    customerImageId={
+                      modeledResult.featuredObservation.customerImageId
+                    }
+                  />
+                )}
               </CenterColumn>
             </DeviceProvider>
           </section>

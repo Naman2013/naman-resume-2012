@@ -12,6 +12,7 @@ import ProfileActivityQa from 'app/modules/profile/containers/profile-activity-q
 import { ContainerWithTitle } from '../../common/ContainerWithTitle';
 import CenterColumn from '../../common/CenterColumn';
 import MissionTile from '../../common/tiles/MissionTile';
+import { MissionCard } from '../../../modules/object-details/components/mission-card';
 import { ActiveGroups } from './active-groups';
 import { ActiveObjects } from './active-objects';
 import styles from './ProfileActivity.styles';
@@ -50,51 +51,45 @@ class ProfileActivity extends Component {
       activeObjectsList,
       topPicksForYouGroupsHeading,
       topPicksForYouObjectsHeading,
+      recentMissionListHeading,
+      recentMissionList,
+      recentMissionCount,
+      missionListHeading,
+      missionList,
+      missionCount,
+      emptySetUpcomingMissionsDisplay,
+      emptySetRecentMissionsDisplay,
     } = data;
-
+    
     return (
       <div className="profile-activity">
-        {missionsData.missionCount && missionsData.missionsList ? (
-          <div className="profile-section">
-            <CenterColumn>
-              <ContainerWithTitle title={missionsData.missionListHeading}>
-                {missionsData.missionsList.map(item => (
-                  <MissionTile
-                    key={`upcomming_mission_${uniqueId()}`}
-                    title={item.missionTitle}
-                    telescope={item.telescopePierName}
-                    date={this.getMissionDate(item.missionStart)}
-                    time={this.getMissionTime(item.missionStart)}
-                    timezone={item.missionStartTZ}
-                  />
-                ))}
-              </ContainerWithTitle>
-            </CenterColumn>
-          </div>
-        ) : null}
+        <div className="profile-section">
+          <CenterColumn>
+            <ContainerWithTitle title={missionListHeading}>
+              {missionCount > 0 ? (
+                missionList.map(item => (
+                  <MissionCard key={item.scheduledMissionId} timeSlot={item} />
+                ))
+              ) : (
+                <div>{emptySetUpcomingMissionsDisplay}</div>
+              )}
+            </ContainerWithTitle>
+          </CenterColumn>
+        </div>
 
-        {recentMissionsData.recentMissionCount ? (
-          <div className="profile-section">
-            <CenterColumn>
-              <ContainerWithTitle
-                title={
-                  recentMissionsData.recentMissionListHeading ||
-                  'Recent Missions'
-                }
-              >
-                {recentMissionsData.recentMissionList.map(item => (
-                  <MissionTile
-                    key={`recent_mission_${uniqueId()}`}
-                    title={item.missionTitle}
-                    telescope={item.telescopePierName}
-                    date={this.getMissionDate(item.missionStart)}
-                    time={this.getMissionTime(item.missionStart)}
-                  />
-                ))}
-              </ContainerWithTitle>
-            </CenterColumn>
-          </div>
-        ) : null}
+        <div className="profile-section">
+          <CenterColumn>
+            <ContainerWithTitle title={recentMissionListHeading}>
+              {recentMissionCount > 0 ? (
+                recentMissionList.map(item => (
+                  <MissionCard key={item.scheduledMissionId} timeSlot={item} />
+                ))
+              ) : (
+                <div>{emptySetRecentMissionsDisplay}</div>
+              )}
+            </ContainerWithTitle>
+          </CenterColumn>
+        </div>
 
         {askAnAstronomerData.showAskAnAstronomer && (
           <div className="profile-section ask-section">

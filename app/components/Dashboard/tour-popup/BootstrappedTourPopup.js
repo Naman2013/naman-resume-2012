@@ -26,8 +26,7 @@ class BootstrappedTourPopup extends Component {
     user: shape({
       at: string,
       token: string,
-      cid: string,
-      subscriptionPlanName: string,
+      cid: string,      
     }).isRequired,
     intl: intlShape.isRequired,
     validateResponseAccess: func.isRequired,
@@ -48,7 +47,6 @@ class BootstrappedTourPopup extends Component {
       at: null,
       cid: null,
       token: null,
-      subscriptionPlanName: null,
     },
     relatedGuide: {},
   };
@@ -82,6 +80,7 @@ class BootstrappedTourPopup extends Component {
       linkLabel,
       linkURL,
       subTitle,
+      subscriptionPlanName,
       content,
       title,
       user,
@@ -91,8 +90,6 @@ class BootstrappedTourPopup extends Component {
     } = this.props;
 
     const { showModal } = this.state;
-
-    const { subscriptionPlanName } = user;
 
     return (
       <div className="root">

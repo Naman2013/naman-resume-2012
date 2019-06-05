@@ -5,7 +5,7 @@ import {
   openUpsellModal,
 } from 'app/modules/global-navigation/actions';
 import { fetchHandleErrors } from '../../services/authorization/handle-error';
-import { destroySession, removeUser } from '../User';
+import { getUserInfo, destroySession, removeUser } from '../User';
 import SETTINGS from '../../config';
 
 export const FETCH_ERRORS_START = 'FETCH_ERRORS_START';
@@ -138,6 +138,7 @@ export const fetchErrors = () => (dispatch, getState) => {
 
 export const validateResponseAccess = apiResponse => (dispatch, getState) => {
   const { handlingScenario } = getState().authorization;
+  const user = getUserInfo();
 
   /*****************************************
 	* POSSIBLE HTTP RESPONSE CODES....
@@ -181,14 +182,6 @@ export const validateResponseAccess = apiResponse => (dispatch, getState) => {
       })
     );
   }
-  else if (statusCode === EXPIRED_ACCOUNT_STATUS_CODE) {
-    subscriptionPlansCallSource = 'expired';
-    triggerUserAccountIssueModal = true;
-  }
-  else if (statusCode === EXPIRED_RECENTLY_ACCOUNT_STATUS_CODE) {
-    subscriptionPlansCallSource = 'expiredrecently';
-    triggerUserAccountIssueModal = true;
-  }
   else if (statusCode === FORCED_SLOOH_CREW_STATUS_CODE) {
     subscriptionPlansCallSource = 'forcedsloohcrew';
     triggerUserAccountIssueModal = true;
@@ -196,7 +189,15 @@ export const validateResponseAccess = apiResponse => (dispatch, getState) => {
   else if (statusCode === UPSELL_STATUS_CODE) {
     subscriptionPlansCallSource = 'upsell';
     triggerUserAccountIssueModal = true;
+  }   
+  /* else if (statusCode === EXPIRED_ACCOUNT_STATUS_CODE) {
+    subscriptionPlansCallSource = 'expired';
+    triggerUserAccountIssueModal = true;
   }
+  else if (statusCode === EXPIRED_RECENTLY_ACCOUNT_STATUS_CODE) {
+    subscriptionPlansCallSource = 'expiredrecently';
+    triggerUserAccountIssueModal = true;
+  } */
 
   if (triggerUserAccountIssueModal == true) {
     if (SETTINGS.isHashHistory()) {
@@ -214,7 +215,7 @@ export const validateResponseAccess = apiResponse => (dispatch, getState) => {
       })
     );
 
-    dispatch(showIssueWithUserAccountModal(subscriptionPlansCallSource));
+    dispatch(showIssueWithUserAccountModal( subscriptionPlansCallSource, user ));
     return false;
   }
 

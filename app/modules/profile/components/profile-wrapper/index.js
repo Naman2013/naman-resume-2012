@@ -63,6 +63,7 @@ class ProfileWrapper extends Component {
         <Fragment>
           <ProfileInformation
             myInformationData={modelResult.myInformationData}
+            profileData={data}
           />
 
           {modelResult.profileMenuList && (
