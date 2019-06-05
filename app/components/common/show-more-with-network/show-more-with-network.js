@@ -23,12 +23,8 @@ class ShowMoreWithNetwork extends Component {
   };
 
   static defaultProps = {
-    onServiceResponse: (resp) => {
-      console.log(resp);
-    },
-    onPaginationChange: (q) => {
-      console.log(q);
-    },
+    onServiceResponse: (resp) => {},
+    onPaginationChange: (q) => {},
     activePageNumber: 1,
     filterOptions: {},
     count: 10,

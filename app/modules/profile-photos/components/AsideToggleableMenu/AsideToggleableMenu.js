@@ -120,11 +120,11 @@ const AsideToggleableMenu = props => {
               >
                 <AddTagsAsideMenu
                   label={option.label}
-                  tagList={tagsData.tagList}
-                  isFetching={tagsData.isFetching}
-                  setTag={tagActions.setTag}
-                  getTags={tagActions.getTags}
-                  deleteTag={tagActions.deleteTag}
+                  tagList={tagsData?.tagList}
+                  isFetching={tagsData?.isFetching}
+                  setTag={tagActions?.setTag}
+                  getTags={tagActions?.getTags}
+                  deleteTag={tagActions?.deleteTag}
                   customerImageId={customerImageId}
                 />
               </button>
