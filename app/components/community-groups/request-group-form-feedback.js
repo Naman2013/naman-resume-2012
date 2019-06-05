@@ -31,7 +31,7 @@ const RequestGroupFormFeedback = ({
     <div className="actions">
       <Button
         onClickEvent={closeForm}
-        text={intl.formatMessage(messages.Cancel)}
+        text={intl.formatMessage(messages.Close)}
       />
       <Button
         onClickEvent={requestNew}
