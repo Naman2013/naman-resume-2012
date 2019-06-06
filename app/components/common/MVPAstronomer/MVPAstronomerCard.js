@@ -16,7 +16,9 @@ const MVPAstronomerCard = ({
 }) => (
   <div className={`mvp-card ${cardClass}`} key={uniqueId()}>
     <div className="mvp-icon">
-      <img className="mvp-icon-content" src={iconUrl} alt="" />
+      <div className="mvp-icon-container">
+        <img className="mvp-icon-content" src={iconUrl} alt="" />
+      </div>
     </div>
     <h5>{displayName}</h5>
     <div className="mvp-gravity">

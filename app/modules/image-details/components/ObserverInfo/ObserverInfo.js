@@ -37,6 +37,7 @@ const ObserverInfo = ({
   isDesktop,
   displayName,
   gravityRankLabel,
+  observerData,
 }) => (
   <div className="root mb-4">
     {isDesktop ? (
@@ -57,7 +58,9 @@ const ObserverInfo = ({
         />
       </div>
       <div className="avatar-container flex-item">
-        <div className="observer-avatar" style={profPic(avatarURL)} />
+        <div className="observer-avatar-container">
+          <div className="observer-avatar" style={{backgroundImage: `url("${observerData ? observerData.iconUrl : avatarURL}")`}} />
+        </div>
         <div className="avatar-line" />
       </div>
     </div>
@@ -120,10 +123,6 @@ const ObserverInfo = ({
           font-weight: bold;
         }
 
-        .observer-avatar {
-          margin: 0 auto;
-        }
-
         .title {
           flex: 0 0 100%;
           font-size: 11px;
@@ -133,6 +132,24 @@ const ObserverInfo = ({
 
         .avatar-line {
           display: none;
+        }
+
+        .observer-avatar-container {
+          height: 105px;
+          width: 105px;
+          border-radius: 50%;
+          padding: 10px;
+          margin: 0 auto;
+          background-image: url('https://vega.slooh.com/assets/v4/common/Level_Image_Container_Blue_Normal.png');
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+        }
+
+        .observer-avatar-container .observer-avatar {
+          height: 100%;
+          width: 100%;
+          background-size: cover;
         }
 
         @media ${screenMedium} {
@@ -152,7 +169,7 @@ const ObserverInfo = ({
             width: 100%;
           }
 
-          .observer-avatar {
+          .observer-avatar-container {
             margin: 25px auto;
             position: relative;
             z-index: 1;
