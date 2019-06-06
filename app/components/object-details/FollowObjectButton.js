@@ -48,9 +48,13 @@ class FollowObjectButton extends Component {
 
   render() {
     const { text, icon } = this.state;
+    const { width, height } = this.props;
     return (
       <GenericButton
-        theme={{ height: '40px', width: '160px' }}
+        theme={{
+          height: height !== undefined ? height : '40px',
+          width: width !== undefined ? width : '160px',
+        }}
         onClickEvent={this.toggleFollow}
         text={text}
         icon={icon}

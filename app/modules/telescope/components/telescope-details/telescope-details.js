@@ -148,6 +148,7 @@ export class TelescopeDetails extends Component {
       params,
       countdownList,
       updateCurrentInstrument,
+      user,
     } = this.props;
     if (
       !observatoryList.length ||
