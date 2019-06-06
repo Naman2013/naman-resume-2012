@@ -23,6 +23,7 @@ const AsideContainer = ({
   objectId,
   scheduledMissionId,
   showMissionRelatedInfo,
+  iconFileData,
 }) => (
   <div className="aside-container">
     <div>
@@ -31,6 +32,7 @@ const AsideContainer = ({
         isDesktop={isDesktop}
         displayName={displayName}
         gravityRankLabel={gravityRankLabel}
+        observerData={iconFileData?.Member}
       />
     </div>
     {!isDesktop && objectId !== '0' ? <div>
