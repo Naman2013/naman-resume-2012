@@ -23,17 +23,7 @@ class TelescopeImageViewerController extends Component {
     render: noop,
   };
 
-  componentWillReceiveProps(nextProps) {
-    // if (nextProps.activeInstrumentID !== this.props.activeInstrumentID) {
-    //   this.props.setPreviousInstrument(this.props.activeInstrumentID);
-    // }
-  }
-
   previousInstrumentID = null;
-
-  componentWillUnmount() {
-    console.log('controller;');
-  }
 
   render() {
     const {
@@ -67,11 +57,7 @@ class TelescopeImageViewerController extends Component {
             imagesLastSnapped={imagesLastSnapped}
           />
         )}
-        <Telescope
-          activeInstrumentID={activeInstrumentID}
-          render={render}
-          teleCanReserveMissions={this.props.teleCanReserveMissions}
-        />
+        <Telescope activeInstrumentID={activeInstrumentID} render={render} />
       </div>
     );
   }

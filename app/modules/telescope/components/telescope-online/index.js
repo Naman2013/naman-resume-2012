@@ -61,6 +61,38 @@ export class TelescopeOnline extends Component {
     });
   }
 
+  viewerRender = ({ viewportHeight }, onImageChange) => {
+    const {
+      activeTelescopeMission,
+      fetchingObservatoryStatus,
+      currentObservatory,
+      objectDetails,
+      activeTelescope,
+      activeInstrumentID,
+      currentInstrument,
+      countdownList,
+      params,
+      weatherConditions,
+    } = this.props;
+    return provideLiveFeed(
+      {
+        viewportHeight,
+        fetchingOnlineStatus: fetchingObservatoryStatus,
+        obsAlert: currentObservatory.obsAlert,
+        onlineStatus: 'online',
+        instrument: currentInstrument,
+        offlineImageSource: currentInstrument.instrOfflineImgURL,
+        activeMission: activeTelescopeMission.maskDataArray,
+        timestamp: activeTelescopeMission.timestamp,
+        missionStart: activeTelescopeMission.missionStart,
+        missionEnd: activeTelescopeMission.expires,
+        activeNeoview: currentInstrument.instrHasNeoView,
+        handleInfoClick: this.toggleNeoview,
+      },
+      onImageChange
+    );
+  };
+
   render() {
     const {
       activeTelescopeMission,
@@ -90,7 +122,7 @@ export class TelescopeOnline extends Component {
     const currentMissionCountdown = countdownList.find(
       countdown => countdown.teleUniqueId === teleUniqueId
     );
-    
+
     return (
       <div className="details-root">
         <DisplayAtBreakpoint screenLarge screenXLarge>
@@ -119,7 +151,7 @@ export class TelescopeOnline extends Component {
                             cameraSourceType={instrCameraSourceType}
                             showOverlay={false}
                             autoplay={1}
-                            isTelescope={true}
+                            isTelescope
                           />
                         </div>
                       )}
@@ -127,29 +159,7 @@ export class TelescopeOnline extends Component {
                         <TelescopeImageViewerController
                           activeInstrumentID={activeInstrumentID}
                           instrStarShareCamera={instrStarShareCamera}
-                          render={({ viewportHeight }, onImageChange) =>
-                            provideLiveFeed(
-                              {
-                                viewportHeight,
-                                fetchingOnlineStatus: fetchingObservatoryStatus,
-                                obsAlert: currentObservatory.obsAlert,
-                                onlineStatus: 'online',
-                                instrument: currentInstrument,
-                                offlineImageSource:
-                                  currentInstrument.instrOfflineImgURL,
-                                activeMission:
-                                  activeTelescopeMission.maskDataArray,
-                                timestamp: activeTelescopeMission.timestamp,
-                                missionStart:
-                                  activeTelescopeMission.missionStart,
-                                missionEnd: activeTelescopeMission.expires,
-                                activeNeoview:
-                                  currentInstrument.instrHasNeoView,
-                                handleInfoClick: this.toggleNeoview,
-                              },
-                              onImageChange
-                            )
-                          }
+                          render={this.viewerRender}
                         />
                       )}
                     </div>
@@ -213,31 +223,7 @@ export class TelescopeOnline extends Component {
                                 <TelescopeImageViewerController
                                   activeInstrumentID={activeInstrumentID}
                                   instrStarShareCamera={instrStarShareCamera}
-                                  render={({ viewportHeight }, onImageChange) =>
-                                    provideLiveFeed(
-                                      {
-                                        viewportHeight,
-                                        fetchingOnlineStatus: fetchingObservatoryStatus,
-                                        obsAlert: currentObservatory.obsAlert,
-                                        onlineStatus: 'online',
-                                        instrument: currentInstrument,
-                                        offlineImageSource:
-                                          currentInstrument.instrOfflineImgURL,
-                                        activeMission:
-                                          activeTelescopeMission.maskDataArray,
-                                        timestamp:
-                                          activeTelescopeMission.timestamp,
-                                        missionStart:
-                                          activeTelescopeMission.missionStart,
-                                        missionEnd:
-                                          activeTelescopeMission.expires,
-                                        activeNeoview:
-                                          currentInstrument.instrHasNeoView,
-                                        handleInfoClick: this.toggleNeoview,
-                                      },
-                                      onImageChange
-                                    )
-                                  }
+                                  render={this.viewerRender}
                                 />
                               ) : null
                             }
@@ -248,10 +234,14 @@ export class TelescopeOnline extends Component {
                   />
                 ),
               },
-              ...(currentInstrument.instrImageSourceType === 'video' ? [] : [{
-                tabTitle: 'Queue',
-                content: () => <TabQueue {...this.props} />,
-              }]),
+              ...(currentInstrument.instrImageSourceType === 'video'
+                ? []
+                : [
+                    {
+                      tabTitle: 'Queue',
+                      content: () => <TabQueue {...this.props} />,
+                    },
+                  ]),
               {
                 tabTitle: 'Conditions',
                 content: () => <TabConditions {...this.props} />,

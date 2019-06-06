@@ -21,6 +21,7 @@ import FieldOfView from './FieldOfView/FieldOfView';
 import { Modal } from '../modal';
 
 import { moodyBleu, romance } from '../../styles/variables/colors_tiles_v4';
+import ModalTelescope from './ModalTelescope';
 
 const MAX_RESOLUTION = 250;
 const MAX_DURATION = 10000;
@@ -45,23 +46,7 @@ const activeButtonTheme = {
   borderColor: romance,
 };
 
-type TTelescope = {
-  activeInstrumentID: string,
-  previousInstrumentID: string | void,
-  missionMetaData?: {
-    missionTargetID?: number,
-    referenceObjectScale?: number,
-    domain?: string,
-    targetObjectScale?: number,
-    targetObjectURL?: string,
-    targetObjectName?: string,
-  },
-  render?: Function,
-  increment?: number,
-  disableFullscreen?: boolean,
-};
-
-class Telescope extends PureComponent<TTelescope> {
+class Telescope extends PureComponent {
   static defaultProps = {
     increment: 5,
     render: noop,
@@ -100,15 +85,20 @@ class Telescope extends PureComponent<TTelescope> {
     radius: 0,
   };
 
-  componentWillReceiveProps({
-    activeInstrumentID,
-    previousInstrumentId,
-    missionMetaData,
-  }) {
-    this.props.setPreviousInstrument(activeInstrumentID);
+  componentWillReceiveProps(props) {
+    const {
+      activeInstrumentID,
+      previousInstrumentId,
+      missionMetaData,
+      disableFullscreen,
+    } = props;
+    if (!disableFullscreen) {
+      this.props.setPreviousInstrument(activeInstrumentID);
+    }
     if (
       previousInstrumentId !== null &&
-      previousInstrumentId !== activeInstrumentID
+      previousInstrumentId !== activeInstrumentID &&
+      !disableFullscreen
     ) {
       this.setState(() => ({
         activeInstrumentID: previousInstrumentId,
@@ -403,16 +393,16 @@ class Telescope extends PureComponent<TTelescope> {
                   </FadeSVG>
                   {(this.state.showTitleMessage ||
                     isTransitioningTelescope) && (
-                      <g>
-                        <rect
-                          x="0"
-                          y="0"
-                          width={width}
-                          height={height}
-                          style={{ fill: 'black' }}
-                        />
-                      </g>
-                    )}
+                    <g>
+                      <rect
+                        x="0"
+                        y="0"
+                        width={width}
+                        height={height}
+                        style={{ fill: 'black' }}
+                      />
+                    </g>
+                  )}
                   {this.state.showTitleMessage && (
                     <UnitText
                       text="Changing Field-Of-View..."
@@ -493,7 +483,7 @@ class Telescope extends PureComponent<TTelescope> {
                     </Fragment>
                   )}
                 </FadeSVG>
-                {isModalActive && (
+                {!disableFullscreen && isModalActive && (
                   <Modal
                     show
                     size="lg"
@@ -510,7 +500,11 @@ class Telescope extends PureComponent<TTelescope> {
                     >
                       {missionTitle || 'No mission available'}
                     </h3>
-                    <Telescope {...this.props} disableFullscreen />
+                    <div>
+                      {isModalActive && (
+                        <ModalTelescope {...this.props} disableFullscreen />
+                      )}
+                    </div>
                   </Modal>
                 )}
 
