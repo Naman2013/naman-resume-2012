@@ -77,7 +77,9 @@ class Hosts extends Component {
               <div className="vert-line" />
               <div className="icon-container-circle">
                 <div className="circle-icon-line">
-                  <div className="icon" style={profPic(hostPhotoURL)} />
+                  <div className="avatar-container">
+                    <div className="icon" style={{backgroundImage: `url("${hostPhotoURL}")`}} />
+                  </div>
                 </div>
               </div>
             </div>

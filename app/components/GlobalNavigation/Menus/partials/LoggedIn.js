@@ -22,9 +22,13 @@ const LoggedIn = ({ displayName, avatarURL, menuItems, intl }) => (
     <Link to="/profile/private">
       <MenuTitleBar title="">
         <div
-          className="nav-icon avatar"
-          style={getIconStyle(avatarURL || userAstronaut)}
-        />
+          className="nav-icon avatar-container"
+        >
+          <div
+            className="nav-icon avatar"
+            style={getIconStyle(avatarURL || userAstronaut)}
+          />
+        </div>
         <div className="username-container">
           <div
             className="username"
@@ -62,13 +66,21 @@ const LoggedIn = ({ displayName, avatarURL, menuItems, intl }) => (
           background-position: center;
           background-repeat: no-repeat;
         }
-        .avatar {
+        .avatar-container {
           margin: 15px;
           height: 50px;
           width: 50px;
+          padding: 4px;
+          background-image: url("https://vega.slooh.com/assets/v4/common/Level_Image_Container_Blue_Normal.png");
           background-size: cover;
           border-radius: 100%;
-          background-color: black;
+        }
+        .avatar {
+          margin-top: 4px;
+          height: 100%;
+          width: 100%;
+          background-size: cover;
+          border-radius: 100%;
         }
       `}
     </style>

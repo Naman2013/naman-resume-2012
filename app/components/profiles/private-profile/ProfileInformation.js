@@ -167,7 +167,9 @@ class ProfileInformation extends Component {
       <div className="profile-header">
         <div className="profile-information">
           <div className="profile-avatar">
-            <img src={generalInfo.avatarURL} alt="" />
+            <div className="profile-avatar-container">
+              <img src={generalInfo.avatarURL} alt="" />
+            </div>
             <div className="profile-user-name">
               <DisplayAtBreakpoint screenMedium>
                 {generalInfo.memberName}
@@ -226,11 +228,13 @@ class ProfileInformation extends Component {
           {context => (
             <div className="profile-information-mobile">
               <div className="avatar-border">
-                <img
-                  src={generalInfo.avatarURL}
-                  alt=""
-                  className="avatar-inner-ring"
-                />
+                <div className="profile-avatar-container-mobile">
+                  <img
+                    src={generalInfo.avatarURL}
+                    alt=""
+                    className="avatar-inner-ring"
+                  />
+                </div>
               </div>
 
               <div className="vertical-line" style={{ height: '40px' }} />
