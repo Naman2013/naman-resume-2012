@@ -90,15 +90,11 @@ class Telescope extends PureComponent {
       activeInstrumentID,
       previousInstrumentId,
       missionMetaData,
-      disableFullscreen,
     } = props;
-    if (!disableFullscreen) {
       this.props.setPreviousInstrument(activeInstrumentID);
-    }
     if (
       previousInstrumentId !== null &&
-      previousInstrumentId !== activeInstrumentID &&
-      !disableFullscreen
+      previousInstrumentId !== activeInstrumentID
     ) {
       this.setState(() => ({
         activeInstrumentID: previousInstrumentId,
