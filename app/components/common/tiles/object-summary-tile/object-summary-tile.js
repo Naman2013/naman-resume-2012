@@ -53,9 +53,6 @@ const ObjectSummaryTile = props => (
         )}
       </li>
       <li>
-        <GenericButton icon={info} />
-      </li>
-      <li>
         <Link to={`/object-details/${props.objectId}`}>
           <img
             style={{ paddingLeft: '15px' }}
