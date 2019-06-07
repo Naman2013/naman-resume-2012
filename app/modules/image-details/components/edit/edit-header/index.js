@@ -50,7 +50,7 @@ export const EditHeader = props => {
 
           <GalleryBtn {...props} />
 
-          <BtnWithPopover
+          {/*<BtnWithPopover
             isOpen={isShareOpen}
             setOpen={setShareOpen}
             className="ml-2"
@@ -62,7 +62,7 @@ export const EditHeader = props => {
                 <h1>Share</h1>
               </div>
             }
-          />
+          />*/}
 
           <BtnWithPopover
             isOpen={isDeleteOpen}
