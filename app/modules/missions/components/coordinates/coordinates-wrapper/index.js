@@ -21,7 +21,7 @@ export function withCoordinates(WrappedComponent) {
       const { domeId, obsId, telescopeId } = selectedTelescope;
       const { missionStart } = selectedSlot;
 
-      checkTargetVisibility(
+      return checkTargetVisibility(
         {
           domeId,
           missionStart,
@@ -64,7 +64,7 @@ export function withCoordinates(WrappedComponent) {
       }).then(callback);
     };
 
-    grabUpdatedSlot = (data, callback) => {
+    grabUpdatedSlot = (requestData, callback) => {
       const {
         grabUpdatedSlot,
         scrollToGrabbedMission,
@@ -79,20 +79,26 @@ export function withCoordinates(WrappedComponent) {
       const { domeId, obsId, telescopeId } = selectedTelescope;
       const { missionStart, scheduledMissionId, uniqueId } = selectedSlot;
 
-      grabUpdatedSlot({
-        targetName,
-        domeId,
-        missionStart,
-        objectType: categoryList[selectedCategorySlug].typeName,
-        objectDec: coordinatesData.dec,
-        objectRA: coordinatesData.ra,
-        obsId,
-        processingRecipe: processingRecipe.presetOption,
-        scheduledMissionId,
-        telescopeId,
-        uniqueId,
-        ...data,
-      }).then(callback);
+      this.checkTargetVisibility(coordinatesData.ra, coordinatesData.dec).then(
+        ({ data }) => {
+          if (data.objectIsVisible) {
+            grabUpdatedSlot({
+              targetName,
+              domeId,
+              missionStart,
+              objectType: categoryList[selectedCategorySlug].typeName,
+              objectDec: coordinatesData.dec,
+              objectRA: coordinatesData.ra,
+              obsId,
+              processingRecipe: processingRecipe.presetOption,
+              scheduledMissionId,
+              telescopeId,
+              uniqueId,
+              ...requestData,
+            }).then(callback);
+          }
+        }
+      );
     };
 
     reserveMissionSlot = ({ callSource }, callback) => {
