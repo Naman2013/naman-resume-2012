@@ -66,11 +66,19 @@ export default css`
     padding: 10px 0;
   }
 
-  .mvp-icon-content {
-    background-color: ${midnight_express};
+  .mvp-icon-container {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    object-fit: cover;
+    background-image: url('https://vega.slooh.com/assets/v4/common/Level_Image_Container_Blue_Normal.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  .mvp-icon-content {
+    width: 100%;
+    height: 100%;
+    margin-top: 4px;
   }
 `;

@@ -144,8 +144,21 @@ export default css`
     justify-content: center;
   }
 
-  .circle-icon-line .icon {
-    background-color: black;
+  .avatar-container {
+    height: 105px;
+    width: 105px;
+    border-radius: 50%;
+    padding: 10px;
+    background-image: url('https://vega.slooh.com/assets/v4/common/Level_Image_Container_Blue_Normal.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  .avatar-container .icon {
+    height: 100%;
+    width: 100%;
+    background-size: cover;
   }
 
   .icon-line {

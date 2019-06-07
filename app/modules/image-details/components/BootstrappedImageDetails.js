@@ -47,7 +47,7 @@ const BootstrappedImageDetails = props => {
     imageDownloadURL,
     observationTagsError,
   } = props;
-
+  
   const showMissionRelatedInfo = Number(scheduledMissionId) > 0;
   const rightPanelDisplayFlags = [showMissionRelatedInfo];
   const showRightContainer =

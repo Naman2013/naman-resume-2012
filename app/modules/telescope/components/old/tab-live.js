@@ -27,6 +27,7 @@ const TabLive = ({
   currentObservatory,
   currentMissionCountdown,
   fetchAllTelescopeStatus,
+  user,
 }) => (
   <div>
     <DisplayAtBreakpoint screenSmall screenMedium>
@@ -53,9 +54,10 @@ const TabLive = ({
         />
       </div>
     )}
+    {console.log(object)}
     {mission.objectId !== 0 && object && object.objectTitle && (
       <div className="tile-container">
-        <ObjectSummaryTile {...object} />
+        <ObjectSummaryTile {...object} user={user} />
       </div>
     )}
 

@@ -47,9 +47,22 @@ export default css`
     align-items: center;
   }
 
+  .profile-avatar-container,
+  .profile-avatar-container-mobile {
+    padding: 10px;
+    background-image: url('https://vega.slooh.com/assets/v4/common/Level_Image_Container_Blue_Normal.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  .profile-avatar-container-mobile {
+    width: 86px;
+    height: 86px;
+  }
+
   .profile-avatar img {
-    background-color: black;
-    border-radius: 50%;
+    width: 100%;
     object-fit: cover;
   }
 
@@ -107,10 +120,8 @@ export default css`
   }
 
   .avatar-inner-ring {
-    width: 85px;
-    height: 85px;
+    width: 100%;
     margin: 0;
-    border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -198,7 +209,7 @@ export default css`
       align-items: center;
     }
 
-    .profile-avatar img {
+    .profile-avatar-container {
       width: 80px;
       height: 80px;
     }
@@ -256,7 +267,7 @@ export default css`
       border-right: 1px solid ${hawkesBlue};
     }
 
-    .profile-avatar img {
+    .profile-avatar-container {
       width: 100px;
       height: 100px;
     }

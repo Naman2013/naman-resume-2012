@@ -77,6 +77,7 @@ class TelescopeImageLoader extends Component {
     adjustedFade: 0, // duration of fade in of new image
     startingOpacity: null, // starting opacity of the new image
     loading: true,
+    receivedNewImage: true,
   };
 
   componentWillMount() {
@@ -88,6 +89,8 @@ class TelescopeImageLoader extends Component {
   }
 
   componentDidUpdate() {
+    const { receivedNewImage } = this.state;
+
     if (this.props.imageSource !== this.previouslyRenderedImageSource) {
       this.props.actions.resetActiveSSE();
       this.setState({ loading: true, firstLoad: true });
@@ -121,21 +124,26 @@ class TelescopeImageLoader extends Component {
       return;
     }
 
-    const topImage = window.document.getElementById(this.generateImageId());
+    if (receivedNewImage) {
+      const topImage = window.document.getElementById(this.generateImageId());
 
-    if (topImage) {
-      topImage.style.transition = 'opacity';
-      topImage.style.opacity = startingOpacity;
-      topImage.src = currentImageUrl;
-      window.getComputedStyle(topImage, null).opacity;
-      topImage.style.transition = `opacity ${adjustedFade}s`;
-      topImage.style.opacity = '1';
+      if (topImage) {
+        topImage.style.transition = 'opacity';
+        topImage.style.opacity = startingOpacity;
+        topImage.src = currentImageUrl;
+        window.getComputedStyle(topImage, null).opacity;
+        topImage.style.transition = `opacity ${adjustedFade}s`;
+        topImage.style.opacity = '1';
+      }
+
+      this.props.onImageChange({
+        imageWidth: this.imageRef.current.offsetWidth,
+        imageHeight: this.imageRef.current.offsetHeight,
+        missionTitle,
+      });
+
+      this.setState({ receivedNewImage: false });
     }
-    this.props.onImageChange({
-      imageWidth: this.imageRef.current.offsetWidth,
-      imageHeight: this.imageRef.current.offsetHeight,
-      missionTitle,
-    });
   }
 
   componentWillUnmount() {
@@ -266,6 +274,7 @@ class TelescopeImageLoader extends Component {
         statusCode,
         firstLoad: false,
         loading: false,
+        receivedNewImage: true,
       });
     }
   }
@@ -345,10 +354,10 @@ class TelescopeImageLoader extends Component {
     //console.log("Viewport Height: " + viewportHeight);
 
     const imageStyle = {
-	minHeight: viewportHeight,
-	maxHeight: viewportHeight,
-	height: viewportHeight,
-	objectFit: 'cover'
+      minHeight: viewportHeight,
+      maxHeight: viewportHeight,
+      height: viewportHeight,
+      objectFit: 'cover',
     };
 
     return (

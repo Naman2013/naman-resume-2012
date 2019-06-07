@@ -189,7 +189,7 @@ export const PaymentStep = (props: TPaymentStep) => {
               <DeviceContext.Consumer>
                 {({ isMobile, isDesktop, isTablet }) => (
                   <Fragment>
-      		    <h1 className="modal-h">Special Membership Offer</h1>
+      		    <h1 className="modal-h">14 DAY FREE TRIAL</h1>
 	      	    <p className="modal-p mb-5">Continue your membership for just $20 per year</p>
                     {joinPageRes.hasSelectedSchool === 'yes' ? (
                       <JoinHeader
