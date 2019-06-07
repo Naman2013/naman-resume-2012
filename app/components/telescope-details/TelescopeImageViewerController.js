@@ -39,6 +39,7 @@ class TelescopeImageViewerController extends Component {
       imagesLastSnapped,
       instrStarShareCamera,
       previousInstrumentId,
+      missionTitle,
     } = this.props;
     const actions = {
       snapImage,
@@ -57,7 +58,7 @@ class TelescopeImageViewerController extends Component {
             imagesLastSnapped={imagesLastSnapped}
           />
         )}
-        <Telescope activeInstrumentID={activeInstrumentID} render={render} />
+        <Telescope missionTitle={missionTitle} activeInstrumentID={activeInstrumentID} render={render} />
       </div>
     );
   }

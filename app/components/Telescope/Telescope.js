@@ -90,6 +90,7 @@ class Telescope extends PureComponent {
       activeInstrumentID,
       previousInstrumentId,
       missionMetaData,
+      missionTitle,
     } = props;
       this.props.setPreviousInstrument(activeInstrumentID);
     if (
@@ -287,10 +288,9 @@ class Telescope extends PureComponent {
       isModalActive,
       isGridActive,
       radius,
-      missionTitle,
     } = this.state;
 
-    const { missionMetaData, disableFullscreen } = this.props;
+    const { missionTitle, missionMetaData, disableFullscreen } = this.props;
 
     const activeInstrument = getTelescope(activeInstrumentID);
     const tickSpacing = width / horizontalResolution;
@@ -490,7 +490,7 @@ class Telescope extends PureComponent {
                     <h3
                       style={{
                         color: 'white',
-                        marginTop: '-60px',
+                        marginTop: '-40px',
                         marginBottom: '15px',
                       }}
                     >

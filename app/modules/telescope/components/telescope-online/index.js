@@ -159,6 +159,7 @@ export class TelescopeOnline extends Component {
                         <TelescopeImageViewerController
                           activeInstrumentID={activeInstrumentID}
                           instrStarShareCamera={instrStarShareCamera}
+                          missionTitle={activeTelescopeMission.objectTitle}
                           render={this.viewerRender}
                         />
                       )}
