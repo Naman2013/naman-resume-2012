@@ -38,7 +38,12 @@ export const TopThreads = memo(function TopThreads(props) {
             {props.topThreadsList.map(x => (
               <a href={`#card-${x.threadId}`} className="navigation-link">
                 <div className="members-list-card">
-                  <div className="header">{x.title}</div>
+                  <div
+                    className="header __html-blob-content-container__"
+                    dangerouslySetInnerHTML={{
+                      __html: x.title,
+                    }}
+                  />
                   <div className="bottom">
                     <span className="user-info">
                       <img className="avatar" src={x.avatarUrl} />

@@ -24,6 +24,8 @@ import TabbedNav from 'app/components/TabbedNav';
 import JoinHeader from './partials/JoinHeader';
 import PlanDetailsCard from './partials/PlanDetailsCard';
 import { PLAN_DETAILS_JOIN_TABS } from './StaticNavTabs';
+import cookie from 'cookie';
+
 import styles from './JoinStep1SchoolSelection.style';
 import messages from './MembershipPlanDetailsStep.messages';
 
@@ -77,6 +79,8 @@ class MembershipPlanDetailsStep extends Component {
 
   render() {
     const { pathname, tabs, activeTab, intl } = this.props;
+    const { cid } = cookie.parse(window.document.cookie)
+
     return (
       <Fragment>
         <Request
@@ -143,9 +147,10 @@ class MembershipPlanDetailsStep extends Component {
                               browserHistory.goBack();
                             }}
                           />
-                          <button className="submit-button" type="submit">
-                            <FormattedMessage {...messages.JoinNow} />
-                          </button>
+                          {!cid && <button className="submit-button" type="submit">
+                              <FormattedMessage {...messages.JoinNow} />
+                            </button>
+  			  }
                         </div>
                       </form>
                     </div>
