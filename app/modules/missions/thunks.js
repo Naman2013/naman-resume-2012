@@ -298,6 +298,7 @@ export const checkTargetVisibility = (data, telescopeId) => (
       if (result.data.objectIsVisible) {
         dispatch(getPresetOptions(telescopeId));
       }
+      return result;
     })
     .catch(error => dispatch(ACTION.checkTargetVisibilityError(error)));
 };
