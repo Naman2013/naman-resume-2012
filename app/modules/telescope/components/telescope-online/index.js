@@ -105,6 +105,7 @@ export class TelescopeOnline extends Component {
       countdownList,
       params,
       weatherConditions,
+      user,
     } = this.props;
 
     const {
@@ -189,6 +190,7 @@ export class TelescopeOnline extends Component {
                     activeInstrument={currentInstrument}
                     currentObservatory={currentObservatory}
                     currentMissionCountdown={currentMissionCountdown}
+                    user={user}
                     renderTelescopeViewer={() => (
                       <div>
                         {currentInstrument.instrImageSourceType === 'video' ? (

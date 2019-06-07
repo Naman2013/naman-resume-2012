@@ -25,6 +25,7 @@ const mapStateToProps = ({
   telescopeDetails,
   activeTelescopeMissions,
   objectDetails,
+  user,
 }) => {
   const { observatoryList } = telescopeOverview;
 
@@ -53,6 +54,7 @@ const mapStateToProps = ({
 
     activeDetailsSSE: telescopeDetails.activeSSE,
     objectDetails: objectDetails,
+    user,
   };
 };
 
