@@ -97,10 +97,13 @@ class Telescope extends PureComponent {
       previousInstrumentId !== null &&
       previousInstrumentId !== activeInstrumentID
     ) {
+      const tele = getTelescope(previousInstrumentId);
       this.setState(() => ({
         activeInstrumentID: previousInstrumentId,
         previousInstrumentID: activeInstrumentID,
         telescopeId: previousInstrumentId,
+        horizontalResolution: tele.FOV.horizontal,
+        verticalResolution:tele.FOV.vertical
       }));
       this.showTitleMessage();
     }
@@ -293,6 +296,7 @@ class Telescope extends PureComponent {
     const { missionTitle, missionMetaData, disableFullscreen } = this.props;
 
     const activeInstrument = getTelescope(activeInstrumentID);
+    console.log(horizontalResolution);
     const tickSpacing = width / horizontalResolution;
     const midPoint = width / 2;
     const arcMinuteLabelLetterSpacing = width * 0.03;
