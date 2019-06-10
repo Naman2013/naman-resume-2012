@@ -362,7 +362,7 @@ class Login extends Component {
               <span className="title-link">
                 {intl.formatMessage(messages.DontHaveAccount)}
               </span>
-              <Link to="/join/step1">
+              <Link to="/about/memberships">
                 <LargeButtonWithRightIcon
                   icon={horizontalArrowRightWhite}
                   theme={{
