@@ -51,7 +51,7 @@ export default class TelescopeOffline extends Component {
       currentInstrument,
       allObservatoryTelescopeStatus,
     } = this.props;
-
+    
     return (
       <div className="telescope-offline animated fadeIn faster">
         {/* HEADER */}
@@ -98,15 +98,17 @@ export default class TelescopeOffline extends Component {
                 currentObservatory={currentObservatory}
               />
             </Tab.Pane>
-            <Tab.Pane eventKey="QUEUE">
-              <QueueTab
-                offlineQueueTab
-                showFeaturedObjects
-                missionsRefreshTimerEnabled
-                currentTelescope={currentTelescope}
-                currentObservatory={currentObservatory}
-              />
-            </Tab.Pane>
+            {currentInstrument.instrImageSourceType === 'video' && (
+              <Tab.Pane eventKey="QUEUE">
+                <QueueTab
+                  offlineQueueTab
+                  showFeaturedObjects
+                  missionsRefreshTimerEnabled
+                  currentTelescope={currentTelescope}
+                  currentObservatory={currentObservatory}
+                />
+              </Tab.Pane>
+            )}
             <Tab.Pane eventKey="ABOUT_THIS_SCOPE">
               <AboutScope
                 teleName={currentTelescope.teleName}
