@@ -8,7 +8,7 @@ export const Ecommerce = {
   'Ecommerce.Password': 'Password',
   'Ecommerce.SignWithEmail': 'Sign in with email',
   'Ecommerce.DontHaveAccount': "Don't have an account?",
-  'Ecommerce.JoinSloohToday': 'Join Slooh Today',
+  'Ecommerce.JoinSloohToday': 'Start Your Free Trial',
   'Ecommerce.HaveAnInvintationCode': 'Have an Invitation Code?',
   'Ecommerce.Step1': 'Step 1',
   'Ecommerce.Step2': 'Step 2',

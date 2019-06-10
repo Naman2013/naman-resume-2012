@@ -6,8 +6,12 @@ import './styles.scss';
 
 class Coordinates extends Component {
   componentDidMount() {
-    const { getCategoryList } = this.props;
+    const { getCategoryList, editCoordinates, checkTargetVisibility, coordinatesData } = this.props;
+    const { ra, dec } = coordinatesData;
     getCategoryList();
+    if(editCoordinates) {
+      checkTargetVisibility(ra, dec, false);
+    }
   }
 
   componentWillUnmount() {

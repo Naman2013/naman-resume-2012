@@ -190,7 +190,7 @@ export const PaymentStep = (props: TPaymentStep) => {
                 {({ isMobile, isDesktop, isTablet }) => (
                   <Fragment>
       		    <h1 className="modal-h">14 DAY FREE TRIAL</h1>
-	      	    <p className="modal-p mb-5">Continue your membership for just $20 per year</p>
+	      	    <p className="modal-p mb-5">Please continue your Slooh Crew membership for just $20 per year. We value your support.</p>
                     {joinPageRes.hasSelectedSchool === 'yes' ? (
                       <JoinHeader
                         mainHeading={joinPageRes.pageHeading1}
