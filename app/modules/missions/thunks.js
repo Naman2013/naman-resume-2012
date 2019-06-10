@@ -286,7 +286,7 @@ export const checkCatalogVisibility = data => (dispatch, getState) => {
 };
 
 //coordinates
-export const checkTargetVisibility = (data, telescopeId, getPresetOptionsFlag) => (
+export const checkTargetVisibility = (data, telescopeId, getPresetOptionsFlag = true) => (
   dispatch,
   getState
 ) => {
