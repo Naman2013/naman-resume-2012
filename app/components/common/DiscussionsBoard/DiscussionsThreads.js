@@ -261,6 +261,7 @@ class DiscussionsThreads extends Component {
       topicId,
       user,
       validateResponseAccess,
+      discussionGroupId,
     } = this.props;
     const { fetching } = this.state;
     return (
@@ -293,6 +294,13 @@ class DiscussionsThreads extends Component {
                 threadId: thread.threadId,
                 topicId,
               };
+              const flagParams = {
+                forumId,
+                type: callSource,
+                itemId: thread.threadId,
+                topicId,
+                discussionGroupId,
+              };
               return (
                 <DiscussionsItem
                   {...thread}
@@ -308,6 +316,7 @@ class DiscussionsThreads extends Component {
                   isDesktop={isDesktop}
                   key={thread.threadId}
                   likeParams={likeParams}
+                  flagParams={flagParams}
                   topicId={topicId}
                   count={count}
                   submitReply={this.handleReply}

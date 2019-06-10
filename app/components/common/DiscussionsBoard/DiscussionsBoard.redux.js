@@ -217,6 +217,7 @@ class DiscussionsBoard extends Component {
       createThreadFormParams,
       validateResponseAccess,
       user,
+      discussionGroupId,
     } = props;
 
     const discussionsActions = {
@@ -225,7 +226,7 @@ class DiscussionsBoard extends Component {
       toggleThreadComments,
       toggleCommentsReplies,
     };
-    
+
     return (
       <div>
         <DeviceContext.Consumer>
@@ -246,6 +247,7 @@ class DiscussionsBoard extends Component {
                   createThread={createThread}
                   createThreadFormParams={createThreadFormParams}
                   {...context}
+                  discussionGroupId={discussionGroupId}
                 />
               ) : (
                 <DiscussionComments
