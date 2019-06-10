@@ -54,7 +54,7 @@ const TabLive = ({
         />
       </div>
     )}
-    {console.log(object)}
+
     {mission.objectId !== 0 && object && object.objectTitle && (
       <div className="tile-container">
         <ObjectSummaryTile {...object} user={user} />

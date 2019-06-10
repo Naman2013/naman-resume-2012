@@ -681,6 +681,12 @@ function getCoordinatesCategoryListSuccess(state, action) {
 function setCoordinatesData(state, action) {
   return {
     ...state,
+    byCatalog: {
+      ...state.byCatalog,
+      objectData: {},
+      telescopeData: {},
+      processingRecipe: {},
+    },
     byCoordinates: {
       ...state.byCoordinates,
       coordinatesData: action.payload,
