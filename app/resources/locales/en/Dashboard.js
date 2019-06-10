@@ -19,7 +19,7 @@ export const Dashboard = {
   'Dashboard.SignWithEmail': 'Sign in with email',
   'Dashboard.Or': 'or',
   'Dashboard.DontHaveAccount': "Don't have an account?",
-  'Dashboard.JoinSloohToday': 'Start Your Free Trial Button',
+  'Dashboard.JoinSloohToday': 'Start Your Free Trial',
   'Dashboard.HaveAnInvintationCode': 'Have an Invitation Code?',
   'Dashboard.Options': 'Options',
   'Dashboard.Loading': 'Loading',
