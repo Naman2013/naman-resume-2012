@@ -286,7 +286,7 @@ export const checkCatalogVisibility = data => (dispatch, getState) => {
 };
 
 //coordinates
-export const checkTargetVisibility = (data, telescopeId) => (
+export const checkTargetVisibility = (data, telescopeId, getPresetOptionsFlag) => (
   dispatch,
   getState
 ) => {
@@ -295,7 +295,7 @@ export const checkTargetVisibility = (data, telescopeId) => (
   return checkTargetVisibilityApi({ at, token, cid, ...data })
     .then(result => {
       dispatch(ACTION.checkTargetVisibilitySuccess(result.data));
-      if (result.data.objectIsVisible) {
+      if (result.data.objectIsVisible && getPresetOptionsFlag) {
         dispatch(getPresetOptions(telescopeId));
       }
       return result;

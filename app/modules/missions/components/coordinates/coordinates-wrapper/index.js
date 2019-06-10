@@ -11,7 +11,7 @@ export function withCoordinates(WrappedComponent) {
       checkCatalogVisibility({ catName, catalog, designation });
     };
 
-    checkTargetVisibility = (ra, dec) => {
+    checkTargetVisibility = (ra, dec, getPresetOptions = true) => {
       const {
         checkTargetVisibility,
         selectedCatalogData,
@@ -30,7 +30,8 @@ export function withCoordinates(WrappedComponent) {
           dec,
           missionType: 'coord',
         },
-        telescopeId
+        telescopeId,
+        getPresetOptions
       );
     };
 
@@ -79,26 +80,20 @@ export function withCoordinates(WrappedComponent) {
       const { domeId, obsId, telescopeId } = selectedTelescope;
       const { missionStart, scheduledMissionId, uniqueId } = selectedSlot;
 
-      this.checkTargetVisibility(coordinatesData.ra, coordinatesData.dec).then(
-        ({ data }) => {
-          if (data.objectIsVisible) {
-            grabUpdatedSlot({
-              targetName,
-              domeId,
-              missionStart,
-              objectType: categoryList[selectedCategorySlug].typeName,
-              objectDec: coordinatesData.dec,
-              objectRA: coordinatesData.ra,
-              obsId,
-              processingRecipe: processingRecipe.presetOption,
-              scheduledMissionId,
-              telescopeId,
-              uniqueId,
-              ...requestData,
-            }).then(callback);
-          }
-        }
-      );
+      grabUpdatedSlot({
+        targetName,
+        domeId,
+        missionStart,
+        objectType: categoryList[selectedCategorySlug].typeName,
+        objectDec: coordinatesData.dec,
+        objectRA: coordinatesData.ra,
+        obsId,
+        processingRecipe: processingRecipe.presetOption,
+        scheduledMissionId,
+        telescopeId,
+        uniqueId,
+        ...requestData,
+      }).then(callback);
     };
 
     reserveMissionSlot = ({ callSource }, callback) => {

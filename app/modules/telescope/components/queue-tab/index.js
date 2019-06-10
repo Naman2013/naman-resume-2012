@@ -241,7 +241,7 @@ export class QueueTab extends Component {
 
           {reservationPiggybackVisible && (
             <FeaturedObjectsModal
-              onHide={this.piggyBackModalHide}
+              onHide={() => this.setState({reservationPiggybackVisible: false})}
               selectedMission={piggyBackMissionSlot}
               user={user}
               onMissionView={this.reservePiggyback}
