@@ -73,9 +73,11 @@ export default class TelescopeOffline extends Component {
               <Nav.Item>
                 <Nav.Link eventKey="STATUS">STATUS</Nav.Link>
               </Nav.Item>
-              <Nav.Item>
-                <Nav.Link eventKey="QUEUE">QUEUE</Nav.Link>
-              </Nav.Item>
+              {currentInstrument.instrImageSourceType !== 'video' && (
+                <Nav.Item>
+                  <Nav.Link eventKey="QUEUE">QUEUE</Nav.Link>
+                </Nav.Item>
+              )}
               <Nav.Item>
                 <Nav.Link eventKey="ABOUT_THIS_SCOPE">
                   ABOUT THIS SCOPE
@@ -98,7 +100,7 @@ export default class TelescopeOffline extends Component {
                 currentObservatory={currentObservatory}
               />
             </Tab.Pane>
-            {currentInstrument.instrImageSourceType === 'video' && (
+            {currentInstrument.instrImageSourceType !== 'video' && (
               <Tab.Pane eventKey="QUEUE">
                 <QueueTab
                   offlineQueueTab
