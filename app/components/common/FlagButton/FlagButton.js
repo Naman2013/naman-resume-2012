@@ -16,23 +16,30 @@ import styles from './FlagButton.style';
 class FlagButton extends Component {
   state = {
     isModalOpen: false,
+    isFlagged: false,
     modalText: '',
   };
 
   flagItem = e => {
     const { user, flagParams } = this.props;
+    const { isFlagged } = this.state;
     e.preventDefault();
-    flagItem({
-      token: user.token,
-      at: user.at,
-      cid: user.cid,
-      ...flagParams,
-    }).then(res => {
+    if (!isFlagged) {
       this.setState({
-        isModalOpen: true,
-        modalText: res.data.statusMessage,
+        isFlagged: true,
       });
-    });
+      flagItem({
+        token: user.token,
+        at: user.at,
+        cid: user.cid,
+        ...flagParams,
+      }).then(res => {
+        this.setState({
+          isModalOpen: true,
+          modalText: res.data.statusMessage,
+        });
+      });
+    }
   };
 
   closeModal = e => {

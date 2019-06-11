@@ -296,7 +296,7 @@ class DiscussionsThreads extends Component {
               };
               const flagParams = {
                 forumId,
-                type: callSource,
+                type: callSource === 'groups' ? 'group' : callSource,
                 itemId: thread.threadId,
                 topicId,
                 discussionGroupId,
