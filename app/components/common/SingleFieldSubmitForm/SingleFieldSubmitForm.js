@@ -203,7 +203,7 @@ class SingleFieldSubmitForm extends Component {
                 <span dangerouslySetInnerHTML={{ __html: maxLength }} />
               </div>
             ) : null}
-            <div className="flex-container">
+            <div className="flex-container form-acitons">
               <div className="flex-container">
                 <PhotoUploadButton handleUploadImage={this.handleUploadImage} />
                 {uploadError && <span className="errorMsg">{uploadError}</span>}

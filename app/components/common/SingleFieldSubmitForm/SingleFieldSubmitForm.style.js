@@ -38,4 +38,13 @@ export default css`
   .form-input {
     height: 151px;
   }
+
+  :global(.form-acitons label) {
+    margin: 0;
+    margin-right: 5px;
+  }
+
+  :global(.form-actions .thumbnails-container button) {
+    margin: 0;
+  }
 `;
