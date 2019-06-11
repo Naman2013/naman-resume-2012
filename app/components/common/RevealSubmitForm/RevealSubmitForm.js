@@ -174,6 +174,7 @@ class RevealSubmitForm extends Component {
       intl,
       avatarURL,
       commentPlaceholder,
+      threadId,
     } = this.props;
 
     const {
@@ -240,9 +241,9 @@ class RevealSubmitForm extends Component {
                 <span dangerouslySetInnerHTML={{ __html: maxLength }} />
               </div>
             ) : null}
-            <div className="flex-container">
+            <div className="flex-container form-actions">
               <div className="flex-container">
-                <PhotoUploadButton handleUploadImage={this.handleUploadImage} />
+                <PhotoUploadButton handleUploadImage={this.handleUploadImage} id={threadId}/>
                 {uploadError && <span className="errorMsg">{uploadError}</span>}
                 {!uploadError && uploadLoading && (
                   <div className="fa fa-spinner" />
