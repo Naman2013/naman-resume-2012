@@ -90,6 +90,15 @@ export default css`
     display: flex;
   }
 
+  :global(.form-actions .file-upload-label) {
+    margin: 0;
+    margin-right: 5px;
+  }
+
+  :global(.form-actions .thumbnails-container button) {
+    margin: 0;
+  }
+
   @media ${screenMedium} {
     .fake-input {
       width: 540px;

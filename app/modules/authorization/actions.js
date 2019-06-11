@@ -190,14 +190,14 @@ export const validateResponseAccess = apiResponse => (dispatch, getState) => {
     subscriptionPlansCallSource = 'upsell';
     triggerUserAccountIssueModal = true;
   }   
-  /* else if (statusCode === EXPIRED_ACCOUNT_STATUS_CODE) {
+  else if (statusCode === EXPIRED_ACCOUNT_STATUS_CODE) {
     subscriptionPlansCallSource = 'expired';
     triggerUserAccountIssueModal = true;
   }
   else if (statusCode === EXPIRED_RECENTLY_ACCOUNT_STATUS_CODE) {
     subscriptionPlansCallSource = 'expiredrecently';
     triggerUserAccountIssueModal = true;
-  } */
+  }
 
   if (triggerUserAccountIssueModal == true) {
     if (SETTINGS.isHashHistory()) {

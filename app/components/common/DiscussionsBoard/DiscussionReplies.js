@@ -167,6 +167,7 @@ class DiscussionsReplies extends Component {
       topicId,
       user,
       page,
+      flagParams,
     } = this.props;
 
     const comments = commentsList[replyId] || [];
@@ -207,6 +208,11 @@ class DiscussionsReplies extends Component {
                 };
                 return (
                   <RepliesListItem
+                    flagParams={{
+                      ...flagParams,
+                      itemId: displayedComment.replyId,
+                      itemType: 'comment',
+                    }}
                     {...displayedComment}
                     key={displayedComment.replyId}
                     likeParams={likeParams}

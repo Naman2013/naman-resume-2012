@@ -15,6 +15,7 @@ import LikeSomethingButton from 'app/components/common/LikeSomethingButton';
 import ReplyButton from 'app/components/common/DiscussionsBoard/ReplyButton';
 import Button from 'app/components/common/style/buttons/Button';
 import ViewImagesButton from 'app/components/common/style/buttons/ViewImagesButton';
+import FlagButton from 'app/components/common/FlagButton';
 import styles, { profPic } from './DiscussionsCard.style';
 import messages from './DiscussionsCard.messages';
 
@@ -55,6 +56,7 @@ const DiscussionsCard = props => {
     threadId,
     user,
     showTitle,
+    flagParams,
   } = props;
 
   return (
@@ -114,6 +116,7 @@ const DiscussionsCard = props => {
                 submitForm={submitReply}
               />
             ) : null}
+            <FlagButton flagParams={flagParams} />
           </div>
         </div>
       </div>
