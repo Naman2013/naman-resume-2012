@@ -11,9 +11,9 @@ import axios from 'axios';
 import take from 'lodash/take';
 import ConnectUserAndResponseAccess from 'redux/components/ConnectUserAndResponseAccess';
 import { DeviceContext } from 'providers/DeviceProvider';
+import { THREAD_REPLIES } from 'app/services/discussions';
 import DiscussionsThreads from './DiscussionsThreads';
 import DiscussionComments from './DiscussionComments';
-import { THREAD_REPLIES } from 'app/services/discussions';
 
 const { any, bool, func, number, shape, string } = PropTypes;
 
@@ -218,6 +218,7 @@ class DiscussionsBoard extends Component {
       validateResponseAccess,
       user,
       discussionGroupId,
+      showId,
     } = props;
 
     const discussionsActions = {
@@ -225,6 +226,14 @@ class DiscussionsBoard extends Component {
       updateCommentsProps,
       toggleThreadComments,
       toggleCommentsReplies,
+    };
+
+    const flagParams = {
+      forumId,
+      type: callSource === 'shows' ? 'show' : callSource,
+      itemId: threadId,
+      topicId,
+      discussionGroupId: showId,
     };
 
     return (
@@ -265,6 +274,7 @@ class DiscussionsBoard extends Component {
                   user={user}
                   getReplies={this.getReplies}
                   updateComments
+                  flagParams={flagParams}
                 />
               )}
             </Fragment>

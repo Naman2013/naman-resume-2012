@@ -95,14 +95,14 @@ class DiscussionsComment extends Component {
       discussions: { threadsList },
     } = this.props;
 
-    if (threadsList.length > 0){
+    if (threadsList.length > 0) {
       return threadsList.filter(thread => thread.threadId === threadId)[0];
     }
-    
+
     return {
       commentPlaceholder: 'Write a public comment',
-    }
-  }
+    };
+  };
 
   handleShowMore = (paginatedSet, page) => {
     const {
@@ -129,10 +129,10 @@ class DiscussionsComment extends Component {
       const { apiError, reply } = res.data;
       if (!apiError) {
         const { getThreads, threadId, getReplies } = this.props;
-        if(getThreads) {
+        if (getThreads) {
           getThreads();
         }
-        if(getReplies) {
+        if (getReplies) {
           getReplies(threadId);
         }
         //updateThreadsProps(threadsList);
@@ -198,7 +198,10 @@ class DiscussionsComment extends Component {
           commentsList[threadId],
           rep => rep.replyId === replyTo
         );
-        if ((parentThread && parentComment) || (updateComments && parentComment)) {
+        if (
+          (parentThread && parentComment) ||
+          (updateComments && parentComment)
+        ) {
           // safeguard
           if (commentsList[replyTo]) {
             const comments = commentsList[replyTo] || [];
@@ -249,10 +252,10 @@ class DiscussionsComment extends Component {
           }
         }
 
-        if(getThreads) {
+        if (getThreads) {
           getThreads();
         }
-        if(getReplies) {
+        if (getReplies) {
           getReplies(threadId);
           getReplies(threadId, replyTo);
         }
@@ -322,7 +325,10 @@ class DiscussionsComment extends Component {
                 };
                 return (
                   <CommentListItem
-                    flagParams={flagParams}
+                    flagParams={{
+                      ...flagParams,
+                      itemId: displayedComment.replyId,
+                    }}
                     key={displayedComment.replyId}
                     validateResponseAccess={validateResponseAccess}
                     discussions={discussions}
