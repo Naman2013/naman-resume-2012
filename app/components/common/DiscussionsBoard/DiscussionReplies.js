@@ -208,7 +208,10 @@ class DiscussionsReplies extends Component {
                 };
                 return (
                   <RepliesListItem
-                    flagParams={flagParams}
+                    flagParams={{
+                      ...flagParams,
+                      itemId: displayedComment.replyId,
+                    }}
                     {...displayedComment}
                     key={displayedComment.replyId}
                     likeParams={likeParams}
