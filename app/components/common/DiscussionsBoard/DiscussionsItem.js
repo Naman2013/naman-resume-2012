@@ -32,6 +32,7 @@ const DiscussionsItem = props => (
       showTitle
       renderChildReplies={({ renderToggle }) => (
         <DiscussionComments
+          flagParams={props.flagParams}
           validateResponseAccess={props.validateResponseAccess}
           discussions={props.discussions}
           discussionsActions={props.discussionsActions}

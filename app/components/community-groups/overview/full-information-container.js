@@ -181,6 +181,7 @@ class FullInformationOverview extends Component {
                   createThreadFormParams={createThreadFormParams}
                   user={user}
                   validateResponseAccess={actions.validateResponseAccess}
+                  discussionGroupId={discussionGroupId}
                 />
               </div>
             )

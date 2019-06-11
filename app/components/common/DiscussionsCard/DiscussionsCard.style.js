@@ -91,6 +91,11 @@ export default css`
 
   .action-right {
     margin-left: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    min-width: 100px;
+    align-items: center;
   }
 
   .fa-close {
@@ -127,6 +132,11 @@ export default css`
     }
 
     .action-left {
+      justify-content: space-between;
+      min-width: 110px;
+    }
+
+    .action-right {
       justify-content: space-between;
       min-width: 110px;
     }
