@@ -57,6 +57,7 @@ class CommentsTab extends Component {
       user,
       intl,
       validateResponseAccess,
+      showId,
     } = this.props;
 
     return (
@@ -73,6 +74,7 @@ class CommentsTab extends Component {
           canSubmitReplies={canSubmitReplies}
           validateResponseAccess={validateResponseAccess}
           callSource="shows"
+          showId={showId}
         />
         <style jsx>{styles}</style>
       </div>
