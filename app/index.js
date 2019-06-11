@@ -1,4 +1,6 @@
-import 'event-source-polyfill/src/eventsource';
+// import 'event-source-polyfill/src/eventsource';
+import { NativeEventSource, EventSourcePolyfill } from 'event-source-polyfill';
+
 import AppRouter from 'app/router';
 
 import React from 'react';
@@ -15,6 +17,8 @@ import './utils/manual-polyfills';
 
 // styles
 import './styles/index.scss';
+
+window.EventSource = NativeEventSource || EventSourcePolyfill;
 
 ReactDOM.render(
   <I18nProvider>
