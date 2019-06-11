@@ -9,13 +9,14 @@ export function flagItem({
   forumId,
   topicId,
   discussionGroupId,
+  itemType,
 }) {
   return axios.post('/api/discussion/flagItem', {
     at,
     token,
     cid,
     type,
-    itemType: 'thread',
+    itemType,
     itemId,
     forumId,
     topicId,

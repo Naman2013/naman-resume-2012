@@ -233,6 +233,7 @@ class DiscussionsBoard extends Component {
       type: callSource === 'shows' ? 'show' : callSource,
       itemId: threadId,
       topicId,
+      itemType: 'thread',
       discussionGroupId: showId,
     };
 

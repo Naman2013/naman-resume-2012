@@ -211,6 +211,7 @@ class DiscussionsReplies extends Component {
                     flagParams={{
                       ...flagParams,
                       itemId: displayedComment.replyId,
+                      itemType: 'comment',
                     }}
                     {...displayedComment}
                     key={displayedComment.replyId}
