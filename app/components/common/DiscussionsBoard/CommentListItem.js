@@ -35,6 +35,7 @@ const CommentListItem = props => (
       showTitle={false}
       renderChildReplies={({ renderToggle }) => (
         <DiscussionReplies
+          flagParams={props.flagParams}
           handleReplyToComment={props.submitReply}
           validateResponseAccess={props.validateResponseAccess}
           discussions={props.discussions}

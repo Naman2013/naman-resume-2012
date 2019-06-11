@@ -278,6 +278,7 @@ class DiscussionsComment extends Component {
       topicId,
       user,
       validateResponseAccess,
+      flagParams,
     } = this.props;
 
     const { commentsList } = discussions;
@@ -321,6 +322,7 @@ class DiscussionsComment extends Component {
                 };
                 return (
                   <CommentListItem
+                    flagParams={flagParams}
                     key={displayedComment.replyId}
                     validateResponseAccess={validateResponseAccess}
                     discussions={discussions}
