@@ -328,6 +328,7 @@ class DiscussionsComment extends Component {
                     flagParams={{
                       ...flagParams,
                       itemId: displayedComment.replyId,
+                      itemType: 'reply',
                     }}
                     key={displayedComment.replyId}
                     validateResponseAccess={validateResponseAccess}

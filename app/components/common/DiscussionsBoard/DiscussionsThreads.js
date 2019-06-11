@@ -300,6 +300,7 @@ class DiscussionsThreads extends Component {
                 itemId: thread.threadId,
                 topicId,
                 discussionGroupId,
+                itemType: 'thread',
               };
               return (
                 <DiscussionsItem
