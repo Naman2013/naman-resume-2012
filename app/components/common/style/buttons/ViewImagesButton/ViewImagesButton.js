@@ -38,7 +38,7 @@ class ViewImagesButton extends Component {
   };
 
   toggleLightbox = e => {
-    // e.preventDefault();
+    e.preventDefault();
     this.setState(state => ({
       lightboxIsOpen: !state.lightboxIsOpen,
       currentImageIdx: 0,
@@ -74,7 +74,14 @@ class ViewImagesButton extends Component {
                 onClickNext={this.onClickNext}
                 showThumbnails={images.length > 1}
               />*/}
-              <Modal show={lightboxIsOpen} onHide={this.toggleLightbox}>
+              <Modal 
+                show={lightboxIsOpen} 
+                onHide={() => this.setState(({
+                  lightboxIsOpen: false,
+                  currentImageIdx: 0,
+                }))}
+                customClass="view-uploaded-image-modal"
+              >
                 <div className="text-center">
                   <div className="modal-img-wrapper">
                     <img src={images[0]} alt="" />

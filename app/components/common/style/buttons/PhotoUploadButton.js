@@ -5,13 +5,13 @@ import styles from './PhotoUploadButton.style';
 
 const { func, number, oneOfType, string } = PropTypes;
 
-const PhotoUploadButton = ({ handleUploadImage, disabled }) => (
+const PhotoUploadButton = ({ handleUploadImage, disabled, id = '' }) => (
   <div className={cx('button-input-container', { disabled })}>
-    <label htmlFor="file-upload">
+    <label htmlFor={`file-upload${id}`} className="file-upload-label">
       <span className="icon-clip" />
     </label>
     <input
-      id="file-upload"
+      id={`file-upload${id}`}
       type="file"
       className="upload-button"
       onChange={handleUploadImage}
