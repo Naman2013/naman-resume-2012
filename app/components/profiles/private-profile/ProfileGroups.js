@@ -70,8 +70,8 @@ class ProfileGroups extends Component {
   };
 
   renderClubBtns = () => {
-    const { privateProfileData = {} } = this.props;
-    const { groupControls = {} } = privateProfileData;
+    const { data } = this.props;
+    const { groupControls = {} } = data;
 
     const {
       canCreateNewClubs,
@@ -108,8 +108,9 @@ class ProfileGroups extends Component {
   };
 
   render() {
-    const { groupsCount, groupsList } = this.props.groupsData;
-    const { privateProfileData } = this.props;
+    const { data, groupsData } = this.props;
+    const { groupsCount, groupsList } = groupsData;
+    const { emptySetGroupsDisplay } = data;
     const {
       showPrompt,
       promptText,
@@ -118,7 +119,7 @@ class ProfileGroups extends Component {
       showCreatePopup,
     } = this.state;
     const { intl } = this.props;
-
+    
     return (
       <div className="profile-groups">
         <CenterColumn>
@@ -139,7 +140,7 @@ class ProfileGroups extends Component {
                 )}
               </DeviceContext.Consumer>
             ) : (
-              <div>{privateProfileData.emptySetGroupsDisplay}</div>
+              <div>{emptySetGroupsDisplay}</div>
             )}
           </ContainerWithTitle>
         </CenterColumn>
