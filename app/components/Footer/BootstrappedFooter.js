@@ -12,7 +12,7 @@ const Footer = ({ primaryLinks, copyrightText }) => (
       <ul className="buttons">
         {primaryLinks.map(item => (
           <li key={uniqueId()}>
-            <Link to={item.link}>
+            <Link target="_blank" to={item.link}>
               <span className="action">{item.name}</span>
             </Link>
           </li>
