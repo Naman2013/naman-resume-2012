@@ -296,7 +296,6 @@ class Telescope extends PureComponent {
     const { missionTitle, missionMetaData, disableFullscreen } = this.props;
 
     const activeInstrument = getTelescope(activeInstrumentID);
-    console.log(horizontalResolution);
     const tickSpacing = width / horizontalResolution;
     const midPoint = width / 2;
     const arcMinuteLabelLetterSpacing = width * 0.03;
