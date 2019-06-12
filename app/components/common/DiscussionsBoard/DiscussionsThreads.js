@@ -11,6 +11,7 @@ import axios from 'axios';
 import { FormattedMessage } from 'react-intl';
 import take from 'lodash/take';
 import { submitReply } from 'app/services/discussions/submit-reply';
+import Pagination from 'app/components/common/pagination/v4-pagination/pagination';
 import { THREAD_LIST, THREAD_REPLIES } from 'app/services/discussions';
 import DiscussionsItem from './DiscussionsItem';
 import CREATE_THREAD_FORM from './DiscussionsThreadFormInterface';
@@ -65,6 +66,7 @@ class DiscussionsThreads extends Component {
 
   state = {
     fetching: true,
+    activePage: 1,
   };
 
   componentWillReceiveProps(nextProps) {
@@ -73,7 +75,7 @@ class DiscussionsThreads extends Component {
     }
   }
 
-  getThreads = (parms = this.props) => {
+  getThreads = (parms = this.props, page = 1) => {
     const {
       callSource,
       count,
@@ -85,13 +87,14 @@ class DiscussionsThreads extends Component {
 
     this.setState({
       fetching: true,
+      page,
     });
 
     axios
       .post(THREAD_LIST, {
         callSource,
         count,
-        page: 1,
+        page,
         topicId,
         at: user.at,
         token: user.token,
@@ -248,6 +251,10 @@ class DiscussionsThreads extends Component {
     });
   };
 
+  handlePageChange = ({ activePage }) => {
+    this.getThreads(this.props, activePage);
+  };
+
   render() {
     const {
       callSource,
@@ -263,7 +270,9 @@ class DiscussionsThreads extends Component {
       validateResponseAccess,
       discussionGroupId,
     } = this.props;
-    const { fetching } = this.state;
+    const { fetching, activePage } = this.state;
+    const { threadsCount } = discussions;
+
     return (
       <div className="root">
         {CREATE_THREAD_FORM[callSource].render({
@@ -273,19 +282,19 @@ class DiscussionsThreads extends Component {
         })}
         <div className="comments-bar">
           <FormattedMessage {...messages.Comments} /> (
-          {discussions.threadsCount})
+          {threadsCount})
         </div>
         {fetching && (
           <div>
             <FormattedMessage {...messages.Loading} />
           </div>
         )}
-        {!fetching && discussions.threadsCount === 0 ? (
+        {!fetching && threadsCount === 0 ? (
           <div>
             <FormattedMessage {...messages.NoThreads} />
           </div>
         ) : null}
-        {!fetching && discussions.threadsCount > 0 && (
+        {!fetching && threadsCount > 0 && (
           <div>
             {discussions.threadsList.map(thread => {
               const likeParams = {
@@ -330,6 +339,16 @@ class DiscussionsThreads extends Component {
             })}
           </div>
         )}
+        {threadsCount ? (
+          <div className="discussions-pagination">
+            <Pagination
+              pagesPerPage={4}
+              activePage={activePage}
+              onPageChange={this.handlePageChange}
+              totalPageCount={Math.ceil(threadsCount / 10)}
+            />
+          </div>
+        ) : null}
         <style jsx>{styles}</style>
       </div>
     );
