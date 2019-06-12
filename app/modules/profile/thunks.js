@@ -21,6 +21,13 @@ export const getPrivateProfile = () => (dispatch, getState) => {
     .catch(error => dispatch(ACTION.getPrivateProfileError(error)));
 };
 
+export const getProfile = customerUUID => (dispatch, getState) => {
+  if (customerUUID) {
+    return getPublicProfile(customerUUID)(dispatch, getState);
+  }
+  return getPrivateProfile()(dispatch, getState);
+};
+
 export const getProfileLists = (readingListType, customerUUID) => (
   dispatch,
   getState
