@@ -1,3 +1,4 @@
+import { Spinner } from 'app/components/spinner/index';
 import React, { cloneElement, Component, Fragment } from 'react';
 import SubPageNavigation from 'app/components/common/sub-page-navigation';
 import ProfileInformation from 'app/components/profiles/private-profile/ProfileInformation';
@@ -55,11 +56,12 @@ class ProfileWrapper extends Component {
   });
 
   render() {
-    const { children, data, params } = this.props;
+    const { children, data, params, isLoading } = this.props;
     const modelResult = this.modelData(data);
-
     return (
       <div className="root">
+        <Spinner loading={isLoading} />
+
         <Fragment>
           <ProfileInformation
             myInformationData={modelResult.myInformationData}

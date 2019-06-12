@@ -1,8 +1,6 @@
 import React, { Suspense } from 'react';
 
-const ProfileContainer = React.lazy(() =>
-  import('./containers/profile')
-);
+const ProfileContainer = React.lazy(() => import('./containers/profile'));
 
 const PublicProfileContainer = React.lazy(() =>
   import('./containers/public-profile')
