@@ -32,7 +32,7 @@ class ProfileQaContainer extends Component {
     },
     {
       title: intl.formatMessage(messages.QuestionsToAnswer),
-      linkURL: '/profile/private/qa/allunanswered',
+      linkURL: '/profile/public/qa/allunanswered',
     },
   ];
 

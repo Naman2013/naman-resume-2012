@@ -77,7 +77,8 @@ export class WeeklyForecast extends Component {
       showNextButton,
     } = this.state;
     const { forecastList } = this.props;
-    return (
+    
+    return forecastList?.length > 0 ? (
       <ModuleContainer title="Weekly forecast">
         <div className="carousel-container">
           <ul className="week-carousel">
@@ -149,6 +150,6 @@ export class WeeklyForecast extends Component {
         </div>
         <style jsx>{style}</style>
       </ModuleContainer>
-    );
+    ) : null;
   }
 }

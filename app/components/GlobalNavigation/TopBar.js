@@ -1,6 +1,6 @@
 import { Livecast } from 'app/components/GlobalNavigation/Menus/livecast';
 import React, { Fragment } from 'react';
-import { browserHistory } from 'react-router';
+import { browserHistory, Link } from 'react-router';
 import { FormattedMessage } from 'react-intl';
 import ConnectUser from 'app/redux/components/ConnectUser';
 import AlertsIcon from 'app/redux/components/AlertsIcon';
@@ -155,6 +155,7 @@ const TopBar = ({
                           <i className="top-nav-icon icon-close" />
                         ) : (
                           <div className="flex-row justify-content-center">
+			    <div style={{marginTop: "-3px"}}><Link className="button text" to="/about/memberships"><span style={{color: "#415671"}} className="text">Start Your Free Trial</span></Link>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</div>
                             <span className="text">
                               <FormattedMessage {...messages.SignIn} />
                             </span>

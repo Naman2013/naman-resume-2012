@@ -43,9 +43,10 @@ export class Livecast extends PureComponent<TLivecast, TState> {
     axios
       .post('/api/events/getLivecast', { cid, at, token })
       .then(({ data }) => {
+        const { LiveShowData = [] } = data;
         this.setState({
           livecastData: data,
-          liveShows: [...data.LiveShowData],
+          liveShows: [...LiveShowData],
         });
       });
   };

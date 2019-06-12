@@ -94,4 +94,8 @@ export default css`
     width: 100%;
     white-space: nowrap;
   }
+
+  :global(.discussions-pagination .pagination-root) {
+    margin: 10px auto;
+  }
 `;
