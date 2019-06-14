@@ -61,38 +61,6 @@ export class TelescopeOnline extends Component {
     });
   }
 
-  viewerRender = ({ viewportHeight }, onImageChange) => {
-    const {
-      activeTelescopeMission,
-      fetchingObservatoryStatus,
-      currentObservatory,
-      objectDetails,
-      activeTelescope,
-      activeInstrumentID,
-      currentInstrument,
-      countdownList,
-      params,
-      weatherConditions,
-    } = this.props;
-    return provideLiveFeed(
-      {
-        viewportHeight,
-        fetchingOnlineStatus: fetchingObservatoryStatus,
-        obsAlert: currentObservatory.obsAlert,
-        onlineStatus: 'online',
-        instrument: currentInstrument,
-        offlineImageSource: currentInstrument.instrOfflineImgURL,
-        activeMission: activeTelescopeMission.maskDataArray,
-        timestamp: activeTelescopeMission.timestamp,
-        missionStart: activeTelescopeMission.missionStart,
-        missionEnd: activeTelescopeMission.expires,
-        activeNeoview: currentInstrument.instrHasNeoView,
-        handleInfoClick: this.toggleNeoview,
-      },
-      onImageChange
-    );
-  };
-
   render() {
     const {
       activeTelescopeMission,
@@ -161,7 +129,29 @@ export class TelescopeOnline extends Component {
                           activeInstrumentID={activeInstrumentID}
                           instrStarShareCamera={instrStarShareCamera}
                           missionTitle={activeTelescopeMission.objectTitle}
-                          render={this.viewerRender}
+                          render={({ viewportHeight }, onImageChange) =>
+                            provideLiveFeed(
+                              {
+                                viewportHeight,
+                                fetchingOnlineStatus: fetchingObservatoryStatus,
+                                obsAlert: currentObservatory.obsAlert,
+                                onlineStatus: 'online',
+                                instrument: currentInstrument,
+                                offlineImageSource:
+                                  currentInstrument.instrOfflineImgURL,
+                                activeMission:
+                                  activeTelescopeMission.maskDataArray,
+                                timestamp: activeTelescopeMission.timestamp,
+                                missionStart:
+                                  activeTelescopeMission.missionStart,
+                                missionEnd: activeTelescopeMission.expires,
+                                activeNeoview:
+                                  currentInstrument.instrHasNeoView,
+                                handleInfoClick: this.toggleNeoview,
+                              },
+                              onImageChange
+                            )
+                          }
                         />
                       )}
                     </div>
@@ -227,7 +217,31 @@ export class TelescopeOnline extends Component {
                                 <TelescopeImageViewerController
                                   activeInstrumentID={activeInstrumentID}
                                   instrStarShareCamera={instrStarShareCamera}
-                                  render={this.viewerRender}
+                                  render={({ viewportHeight }, onImageChange) =>
+                                    provideLiveFeed(
+                                      {
+                                        viewportHeight,
+                                        fetchingOnlineStatus: fetchingObservatoryStatus,
+                                        obsAlert: currentObservatory.obsAlert,
+                                        onlineStatus: 'online',
+                                        instrument: currentInstrument,
+                                        offlineImageSource:
+                                          currentInstrument.instrOfflineImgURL,
+                                        activeMission:
+                                          activeTelescopeMission.maskDataArray,
+                                        timestamp:
+                                          activeTelescopeMission.timestamp,
+                                        missionStart:
+                                          activeTelescopeMission.missionStart,
+                                        missionEnd:
+                                          activeTelescopeMission.expires,
+                                        activeNeoview:
+                                          currentInstrument.instrHasNeoView,
+                                        handleInfoClick: this.toggleNeoview,
+                                      },
+                                      onImageChange
+                                    )
+                                  }
                                 />
                               ) : null
                             }
