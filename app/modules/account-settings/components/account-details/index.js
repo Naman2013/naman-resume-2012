@@ -47,12 +47,13 @@ class AccountDetails extends PureComponent<TAccountDetails> {
       accountStatusLabel,
       accountStatus,
     } = accountTypeSection;
+
     const {
-      userCancellationHeading1,
-      userCancellationInstructionsText,
-      userCancellationInProgressExplaination,
-      userCancellationInProgress,
       canUserCancelTheirAccount,
+      isCancellationInProgress,
+      cancelInstructionalText,
+      cancelButtonText,
+      cancelHeading,
     } = accountCancelSection;
 
     const getFormFields = data => {
@@ -131,6 +132,27 @@ class AccountDetails extends PureComponent<TAccountDetails> {
             </Row>
           </div>
 
+          <div className="top-bot-40 left-right-minus-20">
+            <Row noGutters>
+              <Container>
+                <div className="i-box i-box-white pad-40 margin-bot-10 min-height-150">
+                  <Row>
+                    <Col md={7}>
+                      <span className="text">{cancelHeading}</span>
+                      <span className="text">{cancelInstructionalText}</span>
+                    </Col>
+                    <Col md={5} className="row-reverse">
+                      {canUserCancelTheirAccount && (
+                        <div className="btn-group margin-top-15">
+                          <Btn>{cancelButtonText}</Btn>
+                        </div>
+                      )}
+                    </Col>
+                  </Row>
+                </div>
+              </Container>
+            </Row>
+          </div>
         </Container>
         <Modal
           show={showForgetPasswordPopup}
