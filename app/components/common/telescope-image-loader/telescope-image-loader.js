@@ -78,6 +78,7 @@ class TelescopeImageLoader extends Component {
     startingOpacity: null, // starting opacity of the new image
     loading: true,
     receivedNewImage: true,
+    newMission: true,
   };
 
   componentWillMount() {
@@ -275,6 +276,7 @@ class TelescopeImageLoader extends Component {
         firstLoad: false,
         loading: false,
         receivedNewImage: true,
+        newMission: scheduledMissionID !== activeTelescopeMissionID,
       });
     }
   }
@@ -317,7 +319,7 @@ class TelescopeImageLoader extends Component {
       prevH,
       startingOpacity,
       adjustedFade,
-      loading,
+      newMission,
     } = this.state;
 
     const { loadThumbnails, viewportHeight } = this.props;
@@ -360,12 +362,16 @@ class TelescopeImageLoader extends Component {
       objectFit: 'cover',
     };
 
+    const topImageStyle = {
+      backgroundColor: newMission ? '#000' : 'transparent',
+    };
+
     return (
       <div className="sse-thumbnails">
         <div className="bottom-image">
           <img alt="" width="100%" src={previousImageUrl} draggable="false" />
 
-          <div className="top-image">
+          <div className="top-image" style={topImageStyle}>
             <img
               style={imageStyle}
               alt=""
@@ -406,7 +412,6 @@ class TelescopeImageLoader extends Component {
               width: 100%;
               height: 100%;
               position: relative;
-              background: #000;
             }
           `}
         </style>
