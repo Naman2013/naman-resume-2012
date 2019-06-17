@@ -7,6 +7,7 @@ import { Modal } from '../../../../components/modal';
 import { AccountDetailsHeader } from './header';
 import { AccountOptionRow } from './option-row';
 import { AccountType } from './account-type';
+import { CancelAccount } from './cancel-account';
 import { TFormField, TTypeSectionItem } from '../../types';
 import UpgradeModal from '../../containers/upgrade-modal';
 
@@ -41,6 +42,8 @@ class AccountDetails extends PureComponent<TAccountDetails> {
       dismissResetPasswordPopup,
       showForgetPasswordPopup,
       forgetPasswordPopupText,
+      isModalOpen,
+      setModalOpen
     } = this.props;
 
     if (isEmpty(accountTypeSection)) return null;
@@ -76,101 +79,83 @@ class AccountDetails extends PureComponent<TAccountDetails> {
     const formFields = getFormFields(accountDetails.formFields);
 
     return (
+      <>
+        <Fragment>
+          <AccountType
+            currentSubscriptionPlan={currentSubscriptionPlan}
+            accountTypeHeading={accountTypeHeading}
+            accountStatusLabel={accountStatusLabel}
+            accountStatus={accountStatus}
+          />
 
-      <Fragment>
-        <AccountType
-          currentSubscriptionPlan={currentSubscriptionPlan}
-          accountTypeHeading={accountTypeHeading}
-          accountStatusLabel={accountStatusLabel}
-          accountStatus={accountStatus}
-        />
+          <Container>
+            <div className="top-bot-40 left-right-minus-20">
+              <Row noGutters>
+                <AccountDetailsHeader
+                  title={accountDetails.accountDetailsHeading}
+                />
+              </Row>
+            </div>
 
-        <Container>
-          <div className="top-bot-40 left-right-minus-20">
-            <Row noGutters>
-              <AccountDetailsHeader
-                title={accountDetails.accountDetailsHeading}
-              />
-            </Row>
-          </div>
+            <div className="top-bot-40 left-right-minus-20">
+              <Row noGutters>
+                <Container>
+                  {formFields.map((el, i) => {
+                    return (
+                      <AccountOptionRow
+                        withReset={el.formFieldName === 'displayName'}
+                        i={i}
+                        {...el}
+                        key={`${el.label}-${el.currentValue}`}
+                        fetchAccountFormFieldAction={fetchAccountFormFieldAction}
+                      />
+                    );
+                  })}
+                </Container>
+              </Row>
+            </div>
 
-          <div className="top-bot-40 left-right-minus-20">
-            <Row noGutters>
-              <Container>
-                {formFields.map((el, i) => {
-                  return (
-                    <AccountOptionRow
-                      withReset={el.formFieldName === 'displayName'}
-                      i={i}
-                      {...el}
-                      key={`${el.label}-${el.currentValue}`}
-                      fetchAccountFormFieldAction={fetchAccountFormFieldAction}
-                    />
-                  );
-                })}
-              </Container>
-            </Row>
-          </div>
+            <div className="top-bot-40 left-right-minus-20">
+              <Row noGutters>
+                <AccountDetailsHeader title={mockedTitle} />
+              </Row>
+            </div>
 
-          <div className="top-bot-40 left-right-minus-20">
-            <Row noGutters>
-              <AccountDetailsHeader title={mockedTitle} />
-            </Row>
-          </div>
+            <div className="top-bot-40 left-right-minus-20">
+              <Row noGutters>
+                <Container>
+                  {mockedPaymentDetailsOptions.map((option, i) => {
+                    return (
+                      <AccountOptionRow
+                        key={i}
+                        i={i}
+                        {...option}
+                        isPassword={option.formFieldName === 'password'}
+                        resetPassword={resetPassword}
+                        email={accountEmail}
+                      />
+                    );
+                  })}
+                </Container>
+              </Row>
+            </div>
+            <CancelAccount {...this.props}/>
+          </Container>
 
-          <div className="top-bot-40 left-right-minus-20">
-            <Row noGutters>
-              <Container>
-                {mockedPaymentDetailsOptions.map((option, i) => {
-                  return (
-                    <AccountOptionRow
-                      key={i}
-                      i={i}
-                      {...option}
-                      isPassword={option.formFieldName === 'password'}
-                      resetPassword={resetPassword}
-                      email={accountEmail}
-                    />
-                  );
-                })}
-              </Container>
-            </Row>
-          </div>
+          <Modal
+            show={showForgetPasswordPopup}
+            onHide={dismissResetPasswordPopup}
+          >
+            <div className='color-white' dangerouslySetInnerHTML={{ __html: forgetPasswordPopupText }} />
+            <Btn className='color-white' onClick={dismissResetPasswordPopup}>Close</Btn>
+          </Modal>
+        </Fragment>
 
-          <div className="top-bot-40 left-right-minus-20">
-            <Row noGutters>
-              <Container>
-                <div className="i-box i-box-white pad-40 margin-bot-10 min-height-150">
-                  <Row>
-                    <Col md={7}>
-                      <span className="text">{cancelHeading}</span>
-                      <span className="text">{cancelInstructionalText}</span>
-                    </Col>
-                    <Col md={5} className="row-reverse">
-                      {canUserCancelTheirAccount && (
-                        <div className="btn-group margin-top-15">
-                          <Btn onClick={() => setModalOpen(true)}>{cancelButtonText}</Btn>
-                        </div>
-                      )}
-                    </Col>
-                  </Row>
-                </div>
-              </Container>
-            </Row>
-          </div>
-          {isModalOpen && (
-            <UpgradeModal subscriptionPlansCallSource="downgrade" show={isModalOpen} onHide={() => setModalOpen(false)} />
-          )}
-        </Container>
+        {isModalOpen && (
+          <UpgradeModal subscriptionPlansCallSource="downgrade" show={isModalOpen} onHide={() => setModalOpen(false)} />
+        )}
 
-        <Modal
-          show={showForgetPasswordPopup}
-          onHide={dismissResetPasswordPopup}
-        >
-          <div className='color-white' dangerouslySetInnerHTML={{ __html: forgetPasswordPopupText }} />
-          <Btn className='color-white' onClick={dismissResetPasswordPopup}>Close</Btn>
-        </Modal>
-      </Fragment>
+      </>
     );
   }
 }

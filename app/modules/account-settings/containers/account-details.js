@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import { compose } from 'redux';
+import React, { useState } from 'react';
 import { createStructuredSelector } from 'reselect';
 import {
   makeAccountTypeSectionSelector,
