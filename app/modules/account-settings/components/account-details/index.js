@@ -1,5 +1,5 @@
 // @flow
-import React, { PureComponent, Fragment } from 'react';
+import React, { PureComponent, Fragment, useState} from 'react';
 import isEmpty from 'lodash/fp/isEmpty';
 import { Col, Container, Row } from 'react-bootstrap';
 import Btn from 'app/atoms/Btn';
@@ -8,6 +8,7 @@ import { AccountDetailsHeader } from './header';
 import { AccountOptionRow } from './option-row';
 import { AccountType } from './account-type';
 import { TFormField, TTypeSectionItem } from '../../types';
+import UpgradeModal from '../../containers/upgrade-modal';
 
 type TAccountDetails = {
   accountTypeSection: Object<TTypeSectionItem>,
@@ -28,6 +29,7 @@ const mockedPaymentDetailsOptions = [
 const mockedTitle = '';
 
 class AccountDetails extends PureComponent<TAccountDetails> {
+
   render() {
     const {
       accountTypeSection,
@@ -40,7 +42,9 @@ class AccountDetails extends PureComponent<TAccountDetails> {
       showForgetPasswordPopup,
       forgetPasswordPopupText,
     } = this.props;
+
     if (isEmpty(accountTypeSection)) return null;
+
     const {
       currentSubscriptionPlan,
       accountTypeHeading,
@@ -72,6 +76,7 @@ class AccountDetails extends PureComponent<TAccountDetails> {
     const formFields = getFormFields(accountDetails.formFields);
 
     return (
+
       <Fragment>
         <AccountType
           currentSubscriptionPlan={currentSubscriptionPlan}
@@ -144,7 +149,7 @@ class AccountDetails extends PureComponent<TAccountDetails> {
                     <Col md={5} className="row-reverse">
                       {canUserCancelTheirAccount && (
                         <div className="btn-group margin-top-15">
-                          <Btn>{cancelButtonText}</Btn>
+                          <Btn onClick={() => setModalOpen(true)}>{cancelButtonText}</Btn>
                         </div>
                       )}
                     </Col>
@@ -153,7 +158,11 @@ class AccountDetails extends PureComponent<TAccountDetails> {
               </Container>
             </Row>
           </div>
+          {isModalOpen && (
+            <UpgradeModal subscriptionPlansCallSource="downgrade" show={isModalOpen} onHide={() => setModalOpen(false)} />
+          )}
         </Container>
+
         <Modal
           show={showForgetPasswordPopup}
           onHide={dismissResetPasswordPopup}
