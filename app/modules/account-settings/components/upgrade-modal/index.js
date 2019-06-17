@@ -64,35 +64,39 @@ export const UpgradeModal = (props: TUpgradeModal) => {
   }
 
   return (
-    <Modal
-      show={show}
-      onHide={onCloseFunc}
-      goBackText={buttonText}
-      mobileGoBackText={buttonText}
-    >
-      <Spinner transparent loading={isFetching} />
+    <>
+      <Modal
+        show={show}
+        onHide={onCloseFunc}
+        goBackText={buttonText}
+        mobileGoBackText={buttonText}
+      >
+        <Spinner transparent loading={isFetching} />
 
-      {step === 'SELECT_PLAN' && (
-        <>
-          <SelectPlanStep
-            {...{
-              subscriptionPlansData,
-              selectedPlanId,
-              isFetching,
-            }}
-            goNext={planId => setStep('PAYMENT')}
-            setSelectedPlanId={setSelectedPlanId}
-          />
-          {props.subscriptionPlansCallSource == 'downgrade' && <div style={{width: "100%", minWidth: "100%", marginLeft: "auto", marginRight: "auto", textAlign: "center"}}>
-            <br/>
-            <br/>
-            <Btn onClick={() => setModalOpen(true)}>Cancel My Account</Btn>
-          </div>
-          }
-        </>
-      )}
+        {step === 'SELECT_PLAN' && (
+          <>
+            <SelectPlanStep
+              {...{
+                subscriptionPlansData,
+                selectedPlanId,
+                isFetching,
+              }}
+              goNext={planId => setStep('PAYMENT')}
+              setSelectedPlanId={setSelectedPlanId}
+            />
+            {props.subscriptionPlansCallSource == 'downgrade' && <div style={{width: "100%", minWidth: "100%", marginLeft: "auto", marginRight: "auto", textAlign: "center"}}>
+              <br/>
+              <br/>
+              <Btn onClick={() => setStep('CANCEL')}>Cancel My Account</Btn>
+            </div>
+            }
+          </>
+        )}
 
-      {step === 'PAYMENT' && <PaymentStep conditionType={props.subscriptionPlansCallSource} selectedPlanId={selectedPlanId} />}
-    </Modal>
+        {step === 'PAYMENT' && <PaymentStep conditionType={props.subscriptionPlansCallSource} selectedPlanId={selectedPlanId} />}
+        
+        {step === 'CANCEL' && <div>hello world....</div>}
+      </Modal>
+    </>
   );
 };

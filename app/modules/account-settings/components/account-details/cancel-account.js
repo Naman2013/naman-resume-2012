@@ -9,13 +9,6 @@ import UpgradeModal from '../../containers/upgrade-modal';
 import { AccountDetailsHeader } from './header';
 
 const CancelAccount = props => {
-  //const {
-  //  currentSubscriptionPlan,
-  //  accountTypeHeading,
-  //  accountStatusLabel,
-  //  accountStatus,
-  //} = props;
-
   const {
     canUserCancelTheirAccount,
     isCancellationInProgress,

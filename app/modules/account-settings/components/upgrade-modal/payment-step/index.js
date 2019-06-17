@@ -4,8 +4,8 @@ import React, { Fragment } from 'react';
 import Request from 'app/components/common/network/Request';
 import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
 import {
-  JOIN_ACTIVATE_PENDING_CUSTOMER_ENDPOINT_URL,
   JOIN_PAGE_ENDPOINT_URL,
+  UPGRADE_CUSTOMER_ENDPOINT_URL,
 } from 'app/services/registration/registration.js';
 import { DeviceContext } from 'app/providers/DeviceProvider';
 import JoinHeader from 'app/pages/registration/partials/JoinHeader';
@@ -16,9 +16,6 @@ import { FormattedMessage } from 'react-intl';
 import { browserHistory } from 'react-router';
 import axios from 'axios';
 import { getUserInfo } from 'app/modules/User';
-import {
-  UPGRADE_CUSTOMER_ENDPOINT_URL,
-} from 'app/services/registration/registration.js';
 import {
   resetLogIn,
 } from 'app/modules/login/actions';
