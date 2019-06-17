@@ -170,7 +170,7 @@ import messages from 'app/pages/registration/JoinStep3.messages';
 type TPaymentStep = { selectedPlanId?: string };
 
 export const PaymentStep = (props: TPaymentStep) => {
-  const { selectedPlanId } = props;
+  const { selectedPlanId, conditionType } = props;
   const pathname = "";
 
   const user = getUserInfo();
@@ -182,7 +182,7 @@ export const PaymentStep = (props: TPaymentStep) => {
     <>
       <Request
         serviceURL={JOIN_PAGE_ENDPOINT_URL}
-        requestBody={{ callSource: 'providePaymentDetails', cid: user.cid, at: user.at, token: user.token, selectedPlanId: selectedPlanId, conditionType: 'forcedsloohcrew' }}
+        requestBody={{ callSource: 'providePaymentDetails', cid: user.cid, at: user.at, token: user.token, selectedPlanId: selectedPlanId, conditionType: conditionType }}
         render={({ fetchingContent, serviceResponse: joinPageRes }) => (
           <Fragment>
             {!fetchingContent && (

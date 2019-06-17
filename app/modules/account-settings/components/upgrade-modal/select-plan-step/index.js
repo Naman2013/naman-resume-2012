@@ -2,6 +2,7 @@
 
 import { SubscriptionPlan } from 'app/modules/account-settings/components/upgrade-modal/subscription-plan/index';
 import React from 'react';
+import Btn from 'app/atoms/Btn';
 
 type TSelectPlanStep = {
   goNext: Function,
@@ -42,6 +43,8 @@ export const SelectPlanStep = (props: TSelectPlanStep) => {
           onSelect={onSelect}
         />
       ))}
+
+
     </>
   );
 };

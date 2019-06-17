@@ -6,6 +6,7 @@ import { PaymentStep } from 'app/modules/account-settings/components/upgrade-mod
 import { SelectPlanStep } from 'app/modules/account-settings/components/upgrade-modal/select-plan-step';
 import { destroySession, removeUser } from 'app/modules/User';
 import { Link, browserHistory } from 'react-router';
+import Btn from 'app/atoms/Btn';
 
 import React, { useEffect, useState } from 'react';
 
@@ -72,18 +73,26 @@ export const UpgradeModal = (props: TUpgradeModal) => {
       <Spinner transparent loading={isFetching} />
 
       {step === 'SELECT_PLAN' && (
-        <SelectPlanStep
-          {...{
-            subscriptionPlansData,
-            selectedPlanId,
-            isFetching,
-          }}
-          goNext={planId => setStep('PAYMENT')}
-          setSelectedPlanId={setSelectedPlanId}
-        />
+        <>
+          <SelectPlanStep
+            {...{
+              subscriptionPlansData,
+              selectedPlanId,
+              isFetching,
+            }}
+            goNext={planId => setStep('PAYMENT')}
+            setSelectedPlanId={setSelectedPlanId}
+          />
+          {props.subscriptionPlansCallSource == 'downgrade' && <div style={{width: "100%", minWidth: "100%", marginLeft: "auto", marginRight: "auto", textAlign: "center"}}>
+            <br/>
+            <br/>
+            <Btn onClick={() => setModalOpen(true)}>Cancel My Account</Btn>
+          </div>
+          }
+        </>
       )}
 
-      {step === 'PAYMENT' && <PaymentStep selectedPlanId={selectedPlanId} />}
+      {step === 'PAYMENT' && <PaymentStep conditionType={props.subscriptionPlansCallSource} selectedPlanId={selectedPlanId} />}
     </Modal>
   );
 };
