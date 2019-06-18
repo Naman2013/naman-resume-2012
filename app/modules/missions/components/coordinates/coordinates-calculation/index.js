@@ -32,15 +32,11 @@ function cleanCalcInput(value) {
 
 function validNonCalculatedField(value, { allowNegativeValues }) {
   const VALID_NON_CALC_VALUES = [''];
-  if (allowNegativeValues) {
-    VALID_NON_CALC_VALUES.push('-');
+  if (allowNegativeValues && value[0] === '-') {
+    return true;
   }
-  console.log(parseInt(value, 10));
-  console.log('allowNegativeValues', value);
-  console.log('allowNegativeValues', VALID_NON_CALC_VALUES);
-  console.log('allowNegativeValues', VALID_NON_CALC_VALUES.indexOf(value[0]));
-  return value.length === 0 || VALID_NON_CALC_VALUES.indexOf(value[0]) > -1;
-  //return VALID_NON_CALC_VALUES.indexOf(value) > -1;
+
+  return VALID_NON_CALC_VALUES.indexOf(value) > -1;
 }
 
 function numberOnly(value) {
@@ -129,15 +125,12 @@ export class CoordinatesCalculation extends PureComponent {
   handleFieldChange = ({ field, value, allowNegativeValues }) => {
     const { setCoordinatesData, coordinatesData } = this.props;
     const numberValue = numberOnly(value);
-    console.log(value,numberValue, coordinatesData);
     if (validNonCalculatedField(numberValue, { allowNegativeValues })) {
-      console.log('aaaaa');
       setCoordinatesData({
         ...coordinatesData,
         [field]: numberValue,
       });
     } else {
-      console.log('bbbbb');
       this.calculateFields({
         [field]: cleanCalcInput(numberValue),
       });
@@ -146,18 +139,9 @@ export class CoordinatesCalculation extends PureComponent {
 
   handleFieldBlur = ({ field, value, allowNegativeValues }) => {
     const { setCoordinatesData, coordinatesData } = this.props;
-    if (validNonCalculatedField(value, { allowNegativeValues })) {
-      console.log('ccc');
-      setCoordinatesData({
-        ...coordinatesData,
-        [field]: value,
-      });
-    } else {
-      console.log('dddd');
-      this.calculateFields({
-        [field]: cleanCalcInput(value),
-      });
-    }
+    this.calculateFields({
+      [field]: cleanCalcInput(value),
+    });
   };
 
   handleSecondsChange = ({ field, valueRAW }) => {
@@ -189,7 +173,6 @@ export class CoordinatesCalculation extends PureComponent {
 
   recalculateDEC = newDec => {
     let dec = cleanCalcInput(newDec);
-    console.log(newDec,dec);
     const minutesDivisor = 60;
     const secondsDivisor = 3600;
 
@@ -225,6 +208,10 @@ export class CoordinatesCalculation extends PureComponent {
       dec = MIN_DECLINATION;
       minutes = 0;
       seconds = 0;
+    }
+
+    if (newDec === "-0" && degrees == 0){
+      degrees = "-0";
     }
 
     return {
@@ -267,14 +254,13 @@ export class CoordinatesCalculation extends PureComponent {
       values
     );
     let ra;
-    console.log('dec_d',dec_d);
+    const tempDec_d = dec_d;
     // if dec_d is negative, make all numbers negative
     const minutesToHoursDivisor = dec_d >= 0 ? 60 : -60;
     const secondsToHoursDivisor = dec_d >= 0 ? 3600 : -3600;
 
     // perform value casting
     dec_d = parseInt(dec_d, 10);
-    console.log(minutesToHoursDivisor, secondsToHoursDivisor, dec_d);
     // set the appropriate ranges for minutes, seconds and hours
     dec_m = cleanTimeInput(dec_m);
     ra_h = cleanTimeInput(ra_h);
@@ -286,6 +272,11 @@ export class CoordinatesCalculation extends PureComponent {
 
     dec = round(dec_d + secondsToHours + minutesToHours, 7);
     ra = round(ra_h + ra_m / 60 + ra_s / 3600, 7);
+
+    if(tempDec_d == "-0"){
+      dec_d = '-0';
+      dec = '-' + dec;
+    }
 
     if (dec >= 90) {
       dec = 90.0;
@@ -308,16 +299,6 @@ export class CoordinatesCalculation extends PureComponent {
       ra_s = 0;
     }
 
-    console.log({
-      dec_d,
-      dec_m,
-      dec_s,
-      dec,
-      ra_h,
-      ra_m,
-      ra_s,
-      ra,
-    });
     setCoordinatesData({
       dec_d,
       dec_m,
