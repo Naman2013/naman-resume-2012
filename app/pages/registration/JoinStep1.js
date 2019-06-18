@@ -16,6 +16,7 @@ import { DeviceContext } from 'app/providers/DeviceProvider';
 import JoinHeader from './partials/JoinHeader';
 import SubscriptionPlanCard from './partials/SubscriptionPlanCard';
 import { DEFAULT_JOIN_TABS } from './StaticNavTabs';
+import { getUserInfo } from 'app/modules/User';
 
 import styles from './JoinStep1.style';
 
@@ -46,6 +47,15 @@ class JoinStep1 extends Component {
     window.localStorage.removeItem('isClassroom');
     window.localStorage.removeItem('invitationCodeAlt');
     window.localStorage.removeItem('inviteeEmailAddress');
+
+    if (
+	(getUserInfo().cid) &&
+	(getUserInfo().at) &&
+	(getUserInfo().token)
+    ) {
+	//user is already logged in, redirect to dashboard/homepage
+	browserHistory.push("/");
+    }
   }
 
   setSelectedPlan(subscriptionPlanId, isAstronomyClub, isClassroom) {
