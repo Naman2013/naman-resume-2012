@@ -43,7 +43,7 @@ const AccountType = props => {
 
   const renderActions = () => {
     return (
-      <div className="btn-group pad-top-20 pad-bot-40">
+      <div className="btn-group pad-top-15">
         <Btn mod="circle" onClick={goToPlanInfoUrl}>
           <Icon i="info" />
         </Btn>

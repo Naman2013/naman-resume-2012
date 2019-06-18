@@ -1,4 +1,4 @@
-export const Profile = {
+﻿export const Profile = {
   'Profile.Gravity': 'Gravity',
   'Profile.Badges': 'Badges',
   'Profile.MVP': 'MVP',
@@ -29,5 +29,5 @@ export const Profile = {
   'Profile.AskAnAstronomer': 'Ask an Astronomer',
   'Profile.ViewGuide': 'View Guide',
   'Profile.MyClubs': 'My Clubs',
-  'Profile.Groups': 'Groups',
+  'Profile.Groups': 'Clubs',
 };

@@ -156,6 +156,8 @@ const initialState = {
       linkLabel: null,
       linkUrl: null,
     },
+    showVisibilitySeason:false,
+    showMidnightCulmination:false,
   },
   objectMissions: {},
   objectQuests: {},
