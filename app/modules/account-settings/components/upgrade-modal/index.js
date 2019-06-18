@@ -4,6 +4,7 @@ import { Modal } from 'app/components/modal';
 import { Spinner } from 'app/components/spinner/index';
 import { PaymentStep } from 'app/modules/account-settings/components/upgrade-modal/payment-step';
 import { SelectPlanStep } from 'app/modules/account-settings/components/upgrade-modal/select-plan-step';
+import { CancelStep } from 'app/modules/account-settings/components/upgrade-modal/cancel-step';
 import { destroySession, removeUser } from 'app/modules/User';
 import { Link, browserHistory } from 'react-router';
 import Btn from 'app/atoms/Btn';
@@ -44,12 +45,18 @@ export const UpgradeModal = (props: TUpgradeModal) => {
     isFetching,
     subscriptionPlansData,
     errorData, // errors from issue with user account modal
+    disableGoBack,
   } = props;
 
   const [selectedPlanId, setSelectedPlanId] = useState(null);
 
   let buttonText = 'GO BACK';
   let onCloseFunc = onHide;
+  let myDisableGoBack = false;
+
+  if (step == "CANCEL") {
+    myDisableGoBack = true;
+  }
 
   if (props.subscriptionPlansCallSource == 'forcedsloohcrew') {
     buttonText = 'LOGOUT';
@@ -70,6 +77,7 @@ export const UpgradeModal = (props: TUpgradeModal) => {
         onHide={onCloseFunc}
         goBackText={buttonText}
         mobileGoBackText={buttonText}
+        disableGoBack={myDisableGoBack}
       >
         <Spinner transparent loading={isFetching} />
 
@@ -94,8 +102,8 @@ export const UpgradeModal = (props: TUpgradeModal) => {
         )}
 
         {step === 'PAYMENT' && <PaymentStep conditionType={props.subscriptionPlansCallSource} selectedPlanId={selectedPlanId} />}
-        
-        {step === 'CANCEL' && <div>hello world....</div>}
+
+        {step === 'CANCEL' && <CancelStep {...props}/>}
       </Modal>
     </>
   );
