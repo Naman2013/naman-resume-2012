@@ -32,9 +32,10 @@ function cleanCalcInput(value) {
 
 function validNonCalculatedField(value, { allowNegativeValues }) {
   const VALID_NON_CALC_VALUES = [''];
-  if (allowNegativeValues) {
-    VALID_NON_CALC_VALUES.push('-');
+  if (allowNegativeValues && value[0] === '-') {
+    return true;
   }
+
   return VALID_NON_CALC_VALUES.indexOf(value) > -1;
 }
 
@@ -136,7 +137,8 @@ export class CoordinatesCalculation extends PureComponent {
     }
   };
 
-  handleFieldBlur = ({ field, value }) => {
+  handleFieldBlur = ({ field, value, allowNegativeValues }) => {
+    const { setCoordinatesData, coordinatesData } = this.props;
     this.calculateFields({
       [field]: cleanCalcInput(value),
     });
@@ -171,7 +173,6 @@ export class CoordinatesCalculation extends PureComponent {
 
   recalculateDEC = newDec => {
     let dec = cleanCalcInput(newDec);
-
     const minutesDivisor = 60;
     const secondsDivisor = 3600;
 
@@ -207,6 +208,10 @@ export class CoordinatesCalculation extends PureComponent {
       dec = MIN_DECLINATION;
       minutes = 0;
       seconds = 0;
+    }
+
+    if (newDec === "-0" && degrees == 0){
+      degrees = "-0";
     }
 
     return {
@@ -249,14 +254,13 @@ export class CoordinatesCalculation extends PureComponent {
       values
     );
     let ra;
-    console.log()
+    const tempDec_d = dec_d;
     // if dec_d is negative, make all numbers negative
     const minutesToHoursDivisor = dec_d >= 0 ? 60 : -60;
     const secondsToHoursDivisor = dec_d >= 0 ? 3600 : -3600;
 
     // perform value casting
     dec_d = parseInt(dec_d, 10);
-
     // set the appropriate ranges for minutes, seconds and hours
     dec_m = cleanTimeInput(dec_m);
     ra_h = cleanTimeInput(ra_h);
@@ -268,6 +272,11 @@ export class CoordinatesCalculation extends PureComponent {
 
     dec = round(dec_d + secondsToHours + minutesToHours, 7);
     ra = round(ra_h + ra_m / 60 + ra_s / 3600, 7);
+
+    if(tempDec_d == "-0"){
+      dec_d = '-0';
+      dec = '-' + dec;
+    }
 
     if (dec >= 90) {
       dec = 90.0;
@@ -411,6 +420,7 @@ export class CoordinatesCalculation extends PureComponent {
                     this.handleFieldBlur({
                       field: 'dec_d',
                       value: event.target.value,
+                      allowNegativeValues: true,
                     });
                   }}
                 />{' '}

@@ -53,8 +53,7 @@ const ObjectProfile = ({
     </Row>
 
     <Row wrap>
-      {(visibilitySeason.showVisibilitySeason ||
-        midnightCulmination.showMidnightCulmination) && (
+      {(visibilitySeason.show || midnightCulmination.show) && (
         <StaticCell
           flexScale={['100%', '100%', '20%']}
           hasBorderScale={[true]}
@@ -66,7 +65,7 @@ const ObjectProfile = ({
           }}
         >
           <Row wrap>
-            {visibilitySeason.showVisibilitySeason === true && (
+            {visibilitySeason.show && (
               <StaticCell
                 title={visibilitySeason.title}
                 theme={{ padding: '7px', marginBottom: '20px' }}
@@ -76,7 +75,7 @@ const ObjectProfile = ({
               </StaticCell>
             )}
 
-            {midnightCulmination.showMidnightCulmination === true && (
+            {midnightCulmination.show && (
               <StaticCell
                 flexScale={['100%']}
                 title={midnightCulmination.label}
