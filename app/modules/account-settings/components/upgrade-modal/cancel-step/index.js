@@ -16,6 +16,7 @@ import axios from 'axios';
 import { getUserInfo } from 'app/modules/User';
 import styles from 'app/pages/registration/JoinStep3.style';
 import messages from 'app/pages/registration/JoinStep3.messages';
+import '../../../styles.scss';
 
 export const cancelStepClose = props => {
   //Force the user back to the account settings page, they have opted to cancel their plan
@@ -52,7 +53,7 @@ export const CancelStep = (props) => {
                       <br/>
                       <p className="modal-p mb-5">{cancelPageRes.statusMessage}</p>
                       <br/>
-                      <Btn onClick={() => cancelStepClose(props)}>Close</Btn>
+                      <Btn className='white-button' onClick={() => cancelStepClose(props)}>Close</Btn>
 
                     </div>
                   </Fragment>

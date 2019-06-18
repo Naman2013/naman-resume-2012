@@ -8,6 +8,7 @@ import { CancelStep } from 'app/modules/account-settings/components/upgrade-moda
 import { destroySession, removeUser } from 'app/modules/User';
 import { Link, browserHistory } from 'react-router';
 import Btn from 'app/atoms/Btn';
+import '../../styles.scss';
 
 import React, { useEffect, useState } from 'react';
 
@@ -95,7 +96,7 @@ export const UpgradeModal = (props: TUpgradeModal) => {
             {props.subscriptionPlansCallSource == 'downgrade' && <div style={{width: "100%", minWidth: "100%", marginLeft: "auto", marginRight: "auto", textAlign: "center"}}>
               <br/>
               <br/>
-              <Btn onClick={() => setStep('CANCEL')}>Cancel My Account</Btn>
+              <Btn className='white-button' onClick={() => setStep('CANCEL')}>Cancel My Account</Btn>
             </div>
             }
           </>
