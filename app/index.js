@@ -11,7 +11,7 @@ import './monitoring';
 // providers
 import I18nProvider from './providers/I18nProvider';
 // redux store
-import store from './store';
+import store from 'app/store';
 // utilities
 import './utils/manual-polyfills';
 

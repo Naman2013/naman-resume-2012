@@ -92,6 +92,7 @@ class JoinStep1 extends Component {
                               ? serviceResponse.planSelectedBackgroundImageUrl_Tablet
                               : ''
                           }
+			  showLogin={true}
                         />
                         <div className="step-root">
                           <div className="section-heading">
