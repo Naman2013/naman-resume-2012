@@ -76,7 +76,7 @@ import NewMissions from 'app/pages/new-missions';
 import ObjectDetails from 'app/pages/object-details/ObjectDetails';
 import ObjectPosts from 'app/pages/object-posts/ObjectPosts';
 import PlaceholderPage from 'app/pages/Placeholder';
-import Quest from 'app/pages/quest-details';
+import Quest from 'app/modules/quests/containers/quest-details';
 import RedirectConfirmation from 'app/pages/redirect-confirmation/RedirectConfirmation';
 import Join from 'app/pages/registration/Join';
 import JoinByLandingPage from 'app/pages/registration/JoinByLandingPage';
