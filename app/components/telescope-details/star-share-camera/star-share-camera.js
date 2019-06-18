@@ -12,6 +12,7 @@ import {
 } from 'app/modules/starshare-camera/starshare-camera-actions';
 import removeStyle from 'app/utils/removeStyle';
 import ModalGeneric from 'app/components/common/modals/modal-generic';
+import uniqueId from 'lodash/uniqueId';
 import Snap from './Snap';
 import './star-share-camera.scss';
 
@@ -139,7 +140,7 @@ class StarShareCamera extends Component {
         {snapshotList.map((snapshot, i) => {
           return (
             <button
-              key={snapshot.imageID}
+              key={`${snapshot.imageID}-${uniqueId()}`}
               onClick={() => openLightbox(snapshot.imageURL)}
               className={getSnapClasses(i, snappingImages)}
             >
@@ -147,7 +148,7 @@ class StarShareCamera extends Component {
                 <Snap
                   width="100px"
                   height="50px"
-                  key={snapshot.imageID}
+                  key={`${snapshot.imageID}-${uniqueId()}`}
                   imageURL={snapshot.imageURL}
                 />
               )}
