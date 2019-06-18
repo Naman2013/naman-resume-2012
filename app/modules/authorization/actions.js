@@ -168,19 +168,21 @@ export const validateResponseAccess = apiResponse => (dispatch, getState) => {
     //login issues....send the user to a screen that requires login....
     triggerUserAccountIssueModal = false;
     /* send the user to the login screen */
+
     destroySession();
     dispatch(removeUser());
-    dispatch(push('/'));
-    dispatch(
-      toggleGlobalNavMenu({
-        activeMenu: MENU_INTERFACE.PROFILE.name,
-        isLeftOpen: false,
-        isRightOpen: true,
-        activeLeft: MENU_INTERFACE.MAIN.name,
-        activeRight: MENU_INTERFACE.PROFILE.name,
-        isNotificationMenuOpen: false,
-      })
-    );
+    dispatch(push('/join/step1'));
+
+    //dispatch(
+    //  toggleGlobalNavMenu({
+    //    activeMenu: MENU_INTERFACE.PROFILE.name,
+    //    isLeftOpen: false,
+    //    isRightOpen: true,
+    //    activeLeft: MENU_INTERFACE.MAIN.name,
+    //    activeRight: MENU_INTERFACE.PROFILE.name,
+    //    isNotificationMenuOpen: false,
+    //  })
+    //);
   }
   else if (statusCode === FORCED_SLOOH_CREW_STATUS_CODE) {
     subscriptionPlansCallSource = 'forcedsloohcrew';
