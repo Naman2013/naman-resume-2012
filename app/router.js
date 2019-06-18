@@ -47,6 +47,7 @@ import {
 } from 'app/modules/profile';
 import ImagesLayout from 'app/modules/profile-photos/components/ImagesLayout';
 import { ProfilePhotos } from 'app/modules/profile-photos/components/profile-photos';
+import { QuestDetailsLazy } from 'app/modules/quests';
 import { TelescopeDetailsMain } from 'app/modules/telescope';
 import { TelescopeNavigation } from 'app/modules/telescope/components/old/telescope-navigation';
 import GroupCreate from 'app/pages/community-groups/GroupCreate';
@@ -76,7 +77,6 @@ import NewMissions from 'app/pages/new-missions';
 import ObjectDetails from 'app/pages/object-details/ObjectDetails';
 import ObjectPosts from 'app/pages/object-posts/ObjectPosts';
 import PlaceholderPage from 'app/pages/Placeholder';
-import Quest from 'app/modules/quests/containers/quest-details';
 import RedirectConfirmation from 'app/pages/redirect-confirmation/RedirectConfirmation';
 import Join from 'app/pages/registration/Join';
 import JoinByLandingPage from 'app/pages/registration/JoinByLandingPage';
@@ -98,7 +98,6 @@ import ReserveByTelescope from 'app/pages/reserve-by-telescope';
 import ReserveByCatalog from 'app/pages/reserve/reserve-by-catalog';
 import ReserveObjects from 'app/pages/reserve/reserve-by-objects';
 import Show from 'app/pages/show';
-// import { ConnectedTelescopeDetails } from 'app/modules/telescope/components/telescope-details';
 import TelescopeOverview from 'app/pages/telescope-overview';
 import globalOnRouteUpdate from 'app/route-functions/globalOnRouteUpdate';
 import validateRegistrationPaths from 'app/route-functions/validateRegistrationPaths';
@@ -456,7 +455,7 @@ const AppRouter = ({ setPreviousInstrument }) => (
 
       <Route
         path="quest-details/:questId"
-        component={Quest}
+        component={QuestDetailsLazy}
         onEnter={validateUser}
       />
       <Route
