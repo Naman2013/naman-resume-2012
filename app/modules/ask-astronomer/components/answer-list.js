@@ -116,80 +116,79 @@ class AnswerList extends Component {
 
     return (
       <div key={threadId}>
-        {numberOfAnswersToThread > 0 ? (
-          <div className="replies-list-contanier">
-            <div className="num-replies">
-              <span className="replies-number">
-                <FormattedMessage {...messages.Answers} />:{' '}
-                {numberOfAnswersToThread}
-              </span>
-            </div>
-            <div className="replies-list">
-              {displayedAnswers.map(answer => {
-                const likeParams = {
-                  callSource: 'qanda',
-                  objectId,
+        <div className="replies-list-contanier">
+          <div className="num-replies">
+            <span className="replies-number">
+              <FormattedMessage {...messages.Answers} />:{' '}
+              {numberOfAnswersToThread}
+            </span>
+          </div>
+          <div className="replies-list">
+            {displayedAnswers.map(answer => {
+              const likeParams = {
+                callSource: 'qanda',
+                objectId,
+                replyId: answer.replyId,
+                topicId,
+                replyType: 'answer',
+              };
+              const answerReplies = allReplies[answer.replyId] || {
+                replies: [],
+              };
+              const allDisplayedRepliesObj = answerReplies.replies.filter(
+                item =>
+                  displayedReplies[answer.replyId] &&
+                  displayedReplies[answer.replyId].indexOf(item.replyId) > -1
+              );
+              const toggleAllAnswerReplies = () =>
+                actions.toggleAllAnswerRepliesAndDisplay({
+                  threadId,
                   replyId: answer.replyId,
-                  topicId,
-                  replyType: 'answer',
-                };
-                const answerReplies = allReplies[answer.replyId] || {
-                  replies: [],
-                };
-                const allDisplayedRepliesObj = answerReplies.replies.filter(
-                  item =>
-                    displayedReplies[answer.replyId] &&
-                    displayedReplies[answer.replyId].indexOf(item.replyId) > -1
-                );
-                const toggleAllAnswerReplies = () =>
-                  actions.toggleAllAnswerRepliesAndDisplay({
-                    threadId,
-                    replyId: answer.replyId,
-                    showAllReplies: !answerReplies.showAllReplies,
-                  });
+                  showAllReplies: !answerReplies.showAllReplies,
+                });
 
-                return (
-                  <AnswerListItem
-                    answer={answer}
-                    answerReplies={allReplies[answer.replyId]}
-                    canReplyToAnswers={canReplyToAnswers}
-                    displayedReplies={allDisplayedRepliesObj}
-                    fetchingReplies={fetchingReplies[answer.replyId]}
-                    isDesktop={isDesktop}
-                    isTopAnswer={
-                      answers.topAnswer && answer.replyId === answers.topAnswer
-                    }
-                    key={answer.replyId}
-                    likeParams={likeParams}
-                    numberOfRepliesToAnswer={answer.replyToponlyCount}
-                    objectId={objectId}
-                    showAllReplies={answerReplies.showAllReplies}
-                    submitReply={this.submitReply}
-                    threadId={threadId}
-                    toggleAllAnswerReplies={toggleAllAnswerReplies}
-                    topicId={topicId}
-                    user={user}
-                    modalActions={modalActions}
-                    updateQuestionsList={updateQuestionsList}
-                  />
-                );
-              })}
-              <div className="text-center mt-3 mb-3">
-                {!this.isLastPage(
-                  answers.replies.length,
-                  answers.page,
-                  count
-                ) && (
-                  <Button
-                    onClick={() =>
-                      this.loadMore(answers.replies, answers.page + 1, count)
-                    }
-                  >
-                    Load More
-                  </Button>
-                )}
-              </div>
-              {/*{showPagination && (
+              return (
+                <AnswerListItem
+                  answer={answer}
+                  answerReplies={allReplies[answer.replyId]}
+                  canReplyToAnswers={canReplyToAnswers}
+                  displayedReplies={allDisplayedRepliesObj}
+                  fetchingReplies={fetchingReplies[answer.replyId]}
+                  isDesktop={isDesktop}
+                  isTopAnswer={
+                    answers.topAnswer && answer.replyId === answers.topAnswer
+                  }
+                  key={answer.replyId}
+                  likeParams={likeParams}
+                  numberOfRepliesToAnswer={answer.replyToponlyCount}
+                  objectId={objectId}
+                  showAllReplies={answerReplies.showAllReplies}
+                  submitReply={this.submitReply}
+                  threadId={threadId}
+                  toggleAllAnswerReplies={toggleAllAnswerReplies}
+                  topicId={topicId}
+                  user={user}
+                  modalActions={modalActions}
+                  updateQuestionsList={updateQuestionsList}
+                />
+              );
+            })}
+            <div className="text-center mt-3 mb-3">
+              {!this.isLastPage(
+                answers.replies.length,
+                answers.page,
+                count
+              ) && (
+                <Button
+                  onClick={() =>
+                    this.loadMore(answers.replies, answers.page + 1, count)
+                  }
+                >
+                  Load More
+                </Button>
+              )}
+            </div>
+            {/*{showPagination && (
                 <PaginateSet
                   handlePageChange={this.handlePageChange}
                   fullDataSet={answers.replies}
@@ -198,9 +197,8 @@ class AnswerList extends Component {
                   page={answers.page}
                 />
               )}*/}
-            </div>
           </div>
-        ) : null}
+        </div>
         <style jsx>{styles}</style>
       </div>
     );
