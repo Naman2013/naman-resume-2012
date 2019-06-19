@@ -1,5 +1,5 @@
 import css from 'styled-jsx/css';
-import { primaryFont, secondaryFont } from '../../../styles/variables/fonts';
+import { primaryFont, secondaryFont } from '../../../../../styles/variables/fonts';
 import {
   astronaut,
   blue_tile_feat,
@@ -8,12 +8,12 @@ import {
   golda,
   seashell,
   golden,
-} from '../../../styles/variables/colors_tiles_v4';
+} from '../../../../../styles/variables/colors_tiles_v4';
 import {
   screenMedium,
   screenLarge,
   screenXLarge,
-} from '../../../styles/variables/breakpoints';
+} from '../../../../../styles/variables/breakpoints';
 
 export default css`
   .root {

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import AbelList from '../common/AbelList';
+import AbelList from '../../../../components/common/AbelList';
 import ResourcesButton from './resources-button.redux';
 import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
 import style from './content-list.style';

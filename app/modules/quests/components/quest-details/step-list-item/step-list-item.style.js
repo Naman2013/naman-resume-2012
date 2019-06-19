@@ -1,16 +1,16 @@
 import css from 'styled-jsx/css';
-import { primaryFont, secondaryFont } from '../../../styles/variables/fonts';
+import { primaryFont, secondaryFont } from '../../../../../styles/variables/fonts';
 import {
   astronaut,
   shadows,
   romance,
-} from '../../../styles/variables/colors_tiles_v4';
+} from '../../../../../styles/variables/colors_tiles_v4';
 import { faintShadow } from 'app/styles/variables/shadows';
 import {
   screenMedium,
   screenLarge,
   screenXLarge,
-} from '../../../styles/variables/breakpoints';
+} from '../../../../../styles/variables/breakpoints';
 
 export default css`
   .root {
@@ -66,6 +66,7 @@ export default css`
     flex-direction: row;
     justify-content: flex-end;
     align-items: center;
+    cursor: pointer;
   }
 
   .action-message {

@@ -1,5 +1,5 @@
 import css from 'styled-jsx/css';
-import { primaryFont, secondaryFont } from '../../../styles/variables/fonts';
+import { primaryFont, secondaryFont } from '../../../../../styles/variables/fonts';
 import {
   astronaut,
   blue_tile_feat,
@@ -9,13 +9,13 @@ import {
   golda,
   seashell,
   golden,
-} from '../../../styles/variables/colors_tiles_v4';
+} from '../../../../../styles/variables/colors_tiles_v4';
 import {
   screenMedium,
   screenLarge,
   screenXLarge,
-} from '../../../styles/variables/breakpoints';
-import { questShield } from '../../../styles/variables/iconURLs';
+} from '../../../../../styles/variables/breakpoints';
+import { questShield } from '../../../../../styles/variables/iconURLs';
 
 export default css`
   .root {
