@@ -1,7 +1,12 @@
 import { actions, constants } from 'ducks-helpers';
 import { handleActions } from 'redux-actions';
 
-export const TYPE = constants('quests', ['~GET_QUESTS']);
+export const TYPE = constants('quests', [
+  '~GET_QUESTS',
+
+  // QUEST STEP PAGE
+  '~GET_QUEST_STEP',
+]);
 
 export const ACTION = actions(TYPE);
 
@@ -15,7 +20,7 @@ export default handleActions(
     [TYPE.GET_QUESTS_SUCCESS]: getQuestsSuccess,
     [TYPE.GET_QUESTS_ERROR]: getQuestsError,
   },
-  initialState,
+  initialState
 );
 
 function getQuests(state = initialState) {
