@@ -22,7 +22,6 @@ import ObjectDetailsShows from 'app/containers/object-details/ObjectDetailsShows
 import ObjectDetailsStories from 'app/containers/object-details/ObjectDetailsStories';
 import ObjectList from 'app/containers/object-post/ObjectList';
 import QuestComplete from 'app/containers/quest-complete';
-import QuestStep from 'app/containers/quest-step';
 import QuestsHub from 'app/containers/quests-hub';
 import Reservations from 'app/containers/Reservations';
 import ShowsHub from 'app/containers/shows-hub';
@@ -47,7 +46,7 @@ import {
 } from 'app/modules/profile';
 import ImagesLayout from 'app/modules/profile-photos/components/ImagesLayout';
 import { ProfilePhotos } from 'app/modules/profile-photos/components/profile-photos';
-import { QuestDetailsLazy } from 'app/modules/quests';
+import { QuestDetailsLazy, QuestStepLazy } from 'app/modules/quests';
 import { TelescopeDetailsMain } from 'app/modules/telescope';
 import { TelescopeNavigation } from 'app/modules/telescope/components/old/telescope-navigation';
 import GroupCreate from 'app/pages/community-groups/GroupCreate';
@@ -465,7 +464,7 @@ const AppRouter = ({ setPreviousInstrument }) => (
       />
       <Route
         path="quest-details/:questId/:step"
-        component={QuestStep}
+        component={QuestStepLazy}
         onEnter={validateUser}
       />
 

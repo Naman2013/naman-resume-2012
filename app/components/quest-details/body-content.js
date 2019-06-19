@@ -15,6 +15,7 @@ const BodyContent = ({
   <div className="root" style={theme}>
     <h4 className="title">{title}</h4>
     <AboutContent content={content} />
+    <div id="google-classroom-share" />
     <DisplayAtBreakpoint screenMedium>
       {showResources ? <ResourcesButton {...resourcesProps} /> : null}
     </DisplayAtBreakpoint>
