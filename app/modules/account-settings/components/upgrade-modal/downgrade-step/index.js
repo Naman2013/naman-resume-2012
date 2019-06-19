@@ -37,7 +37,7 @@ export const DowngradeStep = (props) => {
           cid: user.cid,
           at: user.at,
           token: user.token,
-          callSource: props.conditionType,
+          conditionType: props.conditionType,
           selectedPlanId: props.selectedPlan.planID }}
         render={({ fetchingContent, serviceResponse: downgradePageRes }) => (
           <Fragment>

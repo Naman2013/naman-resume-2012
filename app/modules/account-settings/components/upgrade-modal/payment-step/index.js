@@ -108,7 +108,9 @@ import messages from 'app/pages/registration/JoinStep3.messages';
 
         /* Process the Customer's Activation and Sign the User into the website */
         const upgradeCustomerData = {
-          customerId: getUserInfo().cid,
+          cid: getUserInfo().cid,
+	  at: getUserInfo().at,
+	  token: getUserInfo().token,
           selectedPlanId: paymentDataString[1],
           conditionType: paymentDataString[2],
           paymentMethod,

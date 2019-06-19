@@ -34,7 +34,7 @@ const CancelAccount = props => {
                     <h2 className="h-4">{cancelInstructionalText}</h2>
                   </Col>
                   <Col md={5} className="row-reverse">
-                    <Btn onClick={() => setModalOpen(true)}>{cancelButtonText}</Btn>
+                    {canUserCancelTheirAccount == true && <Btn onClick={() => setModalOpen(true)}>{cancelButtonText}</Btn>}
                   </Col>
                 </Row>
               </div>
