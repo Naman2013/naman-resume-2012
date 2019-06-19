@@ -233,7 +233,7 @@ export const PaymentStep = (props: TPaymentStep) => {
                         }
                       />
                     )}
-                    <div className="step-root">
+                    <div style={{marginTop: "-100px"}} className="step-root">
                       <DisplayAtBreakpoint
                         screenMedium
                         screenLarge
