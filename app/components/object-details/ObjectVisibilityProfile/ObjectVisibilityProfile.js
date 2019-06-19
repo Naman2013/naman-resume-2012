@@ -166,7 +166,7 @@ class ObjectVisibilityProfile extends Component {
                               : riseSet.rise}
                           </p>
                         </StaticCell>
-                        <StaticCell title={riseSet.transitLabel}>
+                        <StaticCell title={riseSet.transitLabel} hasBorderScale={[true]}>
                           <p>
                             {fetchingContent
                               ? `${intl.formatMessage(messages.Loading)}...`
