@@ -4,28 +4,28 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Offline from '../condition-snapshot/Offline';
 import GenericLoadingBox from '../../common/loading-screens/generic-loading-box';
-import { fetchDomeCamTimelapseAction } from '../../../modules/Telescope-Overview';
+import { fetchTeidePeakCamTimelapseAction } from '../../../modules/Telescope-Overview';
 import { white } from '../../../styles/variables/colors';
-import './domecam-timelapse-widget.scss';
+import './teidepeak-cam-timelapse-widget.scss';
 
 const mapStateToProps = ({
   telescopeOverview,
-  telescopeOverview: { domeCamTimelapseWidgetResult },
+  telescopeOverview: { teidePeakCamTimelapseWidgetResult },
 }) => ({
-  domeCamTimelapseTitle: domeCamTimelapseWidgetResult.title,
-  refreshIntervalSec: domeCamTimelapseWidgetResult.refreshIntervalSec,
-  domeCamTimelapseURL: domeCamTimelapseWidgetResult.domecamTimelapseURL,
-  offlineImageURL: domeCamTimelapseWidgetResult.offlineImageURL,
-  onlineStatus: domeCamTimelapseWidgetResult.onlineStatus,
-  widgetWidth: domeCamTimelapseWidgetResult.widgetWidth,
-  fetchingDomeCamTimelapseWidgetResult:
-    telescopeOverview.fetchingDomeCamTimelapseWidgetResult,
+  domeCamTimelapseTitle: teidePeakCamTimelapseWidgetResult.title,
+  refreshIntervalSec: teidePeakCamTimelapseWidgetResult.refreshIntervalSec,
+  domeCamTimelapseURL: teidePeakCamTimelapseWidgetResult.domecamTimelapseURL,
+  offlineImageURL: teidePeakCamTimelapseWidgetResult.offlineImageURL,
+  onlineStatus: teidePeakCamTimelapseWidgetResult.onlineStatus,
+  widgetWidth: teidePeakCamTimelapseWidgetResult.widgetWidth,
+  fetchingTeidePeakCamTimelapseWidgetResult:
+    telescopeOverview.fetchingTeidePeakCamTimelapseWidgetResult,
 });
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(
     {
-      fetchDomeCamTimelapseAction,
+      fetchTeidePeakCamTimelapseAction,
     },
     dispatch
   ),
@@ -35,7 +35,7 @@ const mapDispatchToProps = dispatch => ({
   mapStateToProps,
   mapDispatchToProps
 )
-class DomeCamTimelapseWidget extends Component {
+class TeidePeakCamTimelapseWidget extends Component {
   static propTypes = {
     obsId: PropTypes.string.isRequired,
     DomecamTimelapseWidgetId: PropTypes.string.isRequired,
@@ -47,9 +47,8 @@ class DomeCamTimelapseWidget extends Component {
   };
 
   componentDidMount() {
-    const { obsId, DomecamTimelapseWidgetId, teidePeakCam } = this.props;
-
-    this.props.actions.fetchDomeCamTimelapseAction({
+    const { obsId, DomecamTimelapseWidgetId } = this.props;
+    this.props.actions.fetchTeidePeakCamTimelapseAction({
       obsId,
       DomecamTimelapseWidgetId,
     });
@@ -57,7 +56,7 @@ class DomeCamTimelapseWidget extends Component {
 
   render() {
     const {
-      fetchingDomeCamTimelapseWidgetResult,
+      fetchingTeidePeakCamTimelapseWidgetResult,
       domeCamTimelapseTitle,
       refreshIntervalSec,
       domeCamTimelapseURL,
@@ -103,4 +102,4 @@ class DomeCamTimelapseWidget extends Component {
   }
 }
 
-export default DomeCamTimelapseWidget;
+export default TeidePeakCamTimelapseWidget;
