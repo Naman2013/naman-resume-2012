@@ -5,6 +5,7 @@ import { Spinner } from 'app/components/spinner/index';
 import { PaymentStep } from 'app/modules/account-settings/components/upgrade-modal/payment-step';
 import { SelectPlanStep } from 'app/modules/account-settings/components/upgrade-modal/select-plan-step';
 import { CancelStep } from 'app/modules/account-settings/components/upgrade-modal/cancel-step';
+import { DowngradeStep } from 'app/modules/account-settings/components/upgrade-modal/downgrade-step';
 import { destroySession, removeUser } from 'app/modules/User';
 import { Link, browserHistory } from 'react-router';
 import Btn from 'app/atoms/Btn';
@@ -15,7 +16,6 @@ import React, { useEffect, useState } from 'react';
 type TUpgradeModal = {
   show: boolean,
   onHide: Function,
-
   getSubscriptionPlans: Function,
   subscriptionPlansData: any,
   selectedPlan?: Shape,
@@ -45,6 +45,7 @@ export const UpgradeModal = (props: TUpgradeModal) => {
     onHide,
     isFetching,
     subscriptionPlansData,
+    subscriptionPlansCallSource,
     errorData, // errors from issue with user account modal
     disableGoBack,
   } = props;
@@ -86,19 +87,25 @@ export const UpgradeModal = (props: TUpgradeModal) => {
           <>
             <SelectPlanStep
               {...{
+                subscriptionPlansCallSource,
                 subscriptionPlansData,
                 selectedPlan,
                 isFetching,
               }}
-              goNext={plan => {
-                  if (plan.isAstronomyClub == true) {
-                    setStep('ASTRONOMY_CLUB_DEFINE_CLUB');
-                  }
-                  else if (plan.isClassroom == true) {
-                    setStep('CLASSROOM_SELECT_SCHOOL');
+              goNext={subscriptionPlansCallSource, selectedPlan => {
+                  if (subscriptionPlansCallSource == 'downgrade') {
+                    setStep('DOWNGRADE');
                   }
                   else {
-                    setStep('PAYMENT');
+                    if (selectedPlan.isAstronomyClub == true) {
+                      setStep('ASTRONOMY_CLUB_DEFINE_CLUB');
+                    }
+                    else if (selectedPlan.isClassroom == true) {
+                      setStep('CLASSROOM_SELECT_SCHOOL');
+                    }
+                    else {
+                      setStep('PAYMENT');
+                    }
                   }
                 }
               }
@@ -120,6 +127,9 @@ export const UpgradeModal = (props: TUpgradeModal) => {
         {step === 'PAYMENT' && <PaymentStep conditionType={props.subscriptionPlansCallSource} selectedPlan={selectedPlan} />}
 
         {step === 'CANCEL' && <CancelStep {...props}/>}
+
+        {step === 'DOWNGRADE' && <DowngradeStep {...props} conditionType={props.subscriptionPlansCallSource} selectedPlan={selectedPlan} />}
+
       </Modal>
     </>
   );

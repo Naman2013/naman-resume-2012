@@ -14,6 +14,7 @@ type TSelectPlanStep = {
 
 export const SelectPlanStep = (props: TSelectPlanStep) => {
   const {
+    subscriptionPlansCallSource,
     subscriptionPlansData,
     selectedPlan,
     goNext,
@@ -27,7 +28,7 @@ export const SelectPlanStep = (props: TSelectPlanStep) => {
   } = subscriptionPlansData;
 
   const onSelect = plan => {
-    goNext(plan);
+    goNext(subscriptionPlansCallSource, plan);
     setSelectedPlan(plan);
   };
 
