@@ -9,6 +9,7 @@ export const JOIN_CREATE_PENDING_CUSTOMER_ENDPOINT_URL='/api/registration/create
 export const JOIN_ACTIVATE_PENDING_CUSTOMER_ENDPOINT_URL='/api/registration/activatePendingCustomer';
 
 export const UPGRADE_CUSTOMER_ENDPOINT_URL = '/api/registration/upgradeCustomer';
+export const CANCEL_CUSTOMER_ENDPOINT_URL = '/api/registration/cancelCustomer';
 
 export const JOIN_VALIDATE_INVITATIONCODE_ENDPOINT_URL='/api/registration/validateCustomerLinkInvitationAlt';
 export const JOIN_CREATE_INVITED_CUSTOMER_ENDPOINT_URL='/api/registration/activateInvitedCustomer';

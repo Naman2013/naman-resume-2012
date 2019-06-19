@@ -115,7 +115,7 @@ const AccountType = props => {
       </DeviceContext.Consumer>
 
       {isModalOpen && (
-        <UpgradeModal show={isModalOpen} onHide={() => setModalOpen(false)} />
+        <UpgradeModal subscriptionPlansCallSource="upgrade" show={isModalOpen} onHide={() => setModalOpen(false)} />
       )}
     </>
   );
