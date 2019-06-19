@@ -164,10 +164,12 @@ import messages from 'app/pages/registration/JoinStep3.messages';
   }; //end handleIframeTaskUpgrade
 
 
-type TPaymentStep = { selectedPlanId?: string };
+type TPaymentStep = { selectedPlan?: Shape };
 
 export const PaymentStep = (props: TPaymentStep) => {
-  const { selectedPlanId, conditionType } = props;
+  const { selectedPlan, conditionType } = props;
+  const selectedPlanId  = selectedPlan.planID;
+
   const pathname = "";
 
   const user = getUserInfo();

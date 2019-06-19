@@ -6,18 +6,18 @@ import Btn from 'app/atoms/Btn';
 
 type TSelectPlanStep = {
   goNext: Function,
-  setSelectedPlanId?: Function,
+  setSelectedPlan?: Function,
   subscriptionPlansData: any,
-  selectedPlanId?: string,
+  selectedPlan?: Shape,
   user?: Shape,
 };
 
 export const SelectPlanStep = (props: TSelectPlanStep) => {
   const {
     subscriptionPlansData,
-    selectedPlanId,
+    selectedPlan,
     goNext,
-    setSelectedPlanId,
+    setSelectedPlan,
   } = props;
 
   const {
@@ -26,9 +26,9 @@ export const SelectPlanStep = (props: TSelectPlanStep) => {
     pageHeading2,
   } = subscriptionPlansData;
 
-  const onSelect = planId => {
+  const onSelect = plan => {
     goNext();
-    setSelectedPlanId(planId);
+    setSelectedPlan(plan);
   };
 
   return (
@@ -39,7 +39,7 @@ export const SelectPlanStep = (props: TSelectPlanStep) => {
       {subscriptionPlans.map(plan => (
         <SubscriptionPlan
           plan={plan}
-          expanded={Boolean(selectedPlanId)}
+          expanded={Boolean(selectedPlan)}
           onSelect={onSelect}
         />
       ))}

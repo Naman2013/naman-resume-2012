@@ -18,7 +18,7 @@ type TUpgradeModal = {
 
   getSubscriptionPlans: Function,
   subscriptionPlansData: any,
-  selectedPlanId?: string,
+  selectedPlan?: Shape,
   isFetching: Boolean,
 };
 
@@ -27,11 +27,11 @@ type TSteps = 'SELECT_PLAN' | 'PAYMENT';
 const didMount = (props: TUpgradeModal) => () => {
   const {
     getSubscriptionPlans,
-    selectedPlanId,
+    selectedPlan,
     subscriptionPlansCallSource,
   } = props;
   getSubscriptionPlans({
-    selectedPlanId,
+    selectedPlan,
     callSource: subscriptionPlansCallSource,
   });
 };
@@ -49,7 +49,7 @@ export const UpgradeModal = (props: TUpgradeModal) => {
     disableGoBack,
   } = props;
 
-  const [selectedPlanId, setSelectedPlanId] = useState(null);
+  const [selectedPlan, setSelectedPlan] = useState(null);
 
   let buttonText = 'GO BACK';
   let onCloseFunc = onHide;
@@ -87,11 +87,11 @@ export const UpgradeModal = (props: TUpgradeModal) => {
             <SelectPlanStep
               {...{
                 subscriptionPlansData,
-                selectedPlanId,
+                selectedPlan,
                 isFetching,
               }}
               goNext={planId => setStep('PAYMENT')}
-              setSelectedPlanId={setSelectedPlanId}
+              setSelectedPlan={setSelectedPlan}
             />
             {props.subscriptionPlansCallSource == 'downgrade' && <div style={{width: "100%", minWidth: "100%", marginLeft: "auto", marginRight: "auto", textAlign: "center"}}>
               <br/>
@@ -102,7 +102,11 @@ export const UpgradeModal = (props: TUpgradeModal) => {
           </>
         )}
 
-        {step === 'PAYMENT' && <PaymentStep conditionType={props.subscriptionPlansCallSource} selectedPlanId={selectedPlanId} />}
+        {step === 'CLASSROOM_SELECT_SCHOOL' && <div>Select your School</div>}
+
+        {step === 'ASTRONOMY_CLUB_DEFINE_CLUB' && <div>Define your Astronomy Club...</div>}
+
+        {step === 'PAYMENT' && <PaymentStep conditionType={props.subscriptionPlansCallSource} selectedPlan={selectedPlan} />}
 
         {step === 'CANCEL' && <CancelStep {...props}/>}
       </Modal>
