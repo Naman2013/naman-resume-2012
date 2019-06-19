@@ -27,7 +27,7 @@ export const SelectPlanStep = (props: TSelectPlanStep) => {
   } = subscriptionPlansData;
 
   const onSelect = plan => {
-    goNext();
+    goNext(plan);
     setSelectedPlan(plan);
   };
 

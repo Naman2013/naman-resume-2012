@@ -90,7 +90,18 @@ export const UpgradeModal = (props: TUpgradeModal) => {
                 selectedPlan,
                 isFetching,
               }}
-              goNext={planId => setStep('PAYMENT')}
+              goNext={plan => {
+                  if (plan.isAstronomyClub == true) {
+                    setStep('ASTRONOMY_CLUB_DEFINE_CLUB');
+                  }
+                  else if (plan.isClassroom == true) {
+                    setStep('CLASSROOM_SELECT_SCHOOL');
+                  }
+                  else {
+                    setStep('PAYMENT');
+                  }
+                }
+              }
               setSelectedPlan={setSelectedPlan}
             />
             {props.subscriptionPlansCallSource == 'downgrade' && <div style={{width: "100%", minWidth: "100%", marginLeft: "auto", marginRight: "auto", textAlign: "center"}}>

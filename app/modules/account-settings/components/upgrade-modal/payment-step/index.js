@@ -282,7 +282,7 @@ export const PaymentStep = (props: TPaymentStep) => {
                 )}
               </DeviceContext.Consumer>
             )}
-	    <style jsx>{styles}</style>
+	          <style jsx>{styles}</style>
           </Fragment>
         )}
       />
