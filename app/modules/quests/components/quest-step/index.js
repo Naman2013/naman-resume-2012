@@ -1,8 +1,17 @@
+// @flow
+
+import type { QuestStepModule } from 'app/modules/quests/types';
+import { questModuleType } from 'app/modules/quests/types';
 import React, { Component } from 'react';
 import { Container } from 'react-bootstrap';
 import { Spinner } from 'app/components/spinner/index';
+import QuestModuleTextOutput from '../../containers/quest-modules/textoutput';
 
-export class QuestStep extends Component {
+type TQuestStep = {
+  moduleList: QuestStepModule,
+};
+
+export class QuestStep extends Component<TQuestStep> {
   componentDidMount = () => {
     const { getQuestStep, routeParams, getQuestOutput } = this.props;
     const { questId, step } = routeParams;
@@ -29,6 +38,17 @@ export class QuestStep extends Component {
               </li>
             ))}
           </ul>
+
+          <hr />
+
+          {moduleList.map(
+            module =>
+              module.moduleType === questModuleType.textoutput && (
+                <QuestModuleTextOutput module={module}/>
+              )
+          )}
+
+          <hr />
         </Container>
 
         <div>footer</div>
