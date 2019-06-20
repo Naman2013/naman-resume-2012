@@ -68,7 +68,7 @@ const ObjectProfile = ({
             {visibilitySeason.show && (
               <StaticCell
                 title={visibilitySeason.title}
-                theme={{ padding: '7px', marginBottom: '20px' }}
+                theme={{ padding: '0px', paddingBottom: '20px', marginBottom: '20px' }}
                 hasBottomBorder={midnightCulmination.show}
               >
                 {visibilitySeason.observatories}
