@@ -29,6 +29,12 @@ export const makeAllSkyTimelapseSelector = () =>
     state => state.allSkyTimelapse
   );
 
+export const makeTeidePeakCamCameraSelector = () =>
+  createSelector(
+    selectTelescopeOverview,
+    state => state.teidePeakCamTimelapseWidgetResult
+  );
+
 export const makeAllSkyTimelapseURLSelector = () =>
   createSelector(
     makeAllSkyTimelapseSelector(),

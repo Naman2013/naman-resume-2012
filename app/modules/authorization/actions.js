@@ -172,6 +172,7 @@ export const validateResponseAccess = apiResponse => (dispatch, getState) => {
     destroySession();
     dispatch(removeUser());
     dispatch(push('/join/step1'));
+    dispatch(window.location.reload());
 
     //dispatch(
     //  toggleGlobalNavMenu({
