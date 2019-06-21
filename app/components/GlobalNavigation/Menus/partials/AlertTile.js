@@ -40,6 +40,7 @@ class AlertTile extends Component {
 
   render() {
     const {
+      canDismiss,
       eventId,
       eventLabel,
       eventSubtitle,
@@ -54,6 +55,11 @@ class AlertTile extends Component {
     return (
       <div className="root" key={eventId}>
         <div className="tile-container">
+          {canDismiss && (
+            <div className="dismiss" onClick={this.dismiss}>
+              <span className="fa fa-close" />
+            </div>
+          )}
           {loading && (
             <div className="dismiss">
               <span className="fa fa-spinner" />
