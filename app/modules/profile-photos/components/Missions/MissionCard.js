@@ -68,7 +68,7 @@ class MissionCard extends PureComponent<TMissionCard> {
     this.showModal();
   };
 
-  onDownloadFile = (url, name) => downloadFile(url, name);
+  onDownloadFile = (e,url, name) => {e.preventDefault();downloadFile(url, name);}
 
   setModal = modalComponent => {
     this.setState(state => ({
@@ -135,12 +135,14 @@ class MissionCard extends PureComponent<TMissionCard> {
                 {groupImageList.map(({ imageId, imageTitle, imageURL }) => {
                   return (
                     <li key={`${imageId}-${imageTitle}`}>
-                      <span
-                        className="cursor-pointer"
-                        onClick={() => onDownloadFile(imageURL, imageTitle)}
+                      <a
+                      href={imageURL}
+                      download
+                        className="cursor-pointer link"
+                        onClick={(e) => onDownloadFile(e,imageURL, imageTitle)}
                       >
                         {imageTitle}
-                      </span>
+                      </a>
                     </li>
                   );
                 })}
