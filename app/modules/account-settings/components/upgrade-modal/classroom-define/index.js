@@ -16,6 +16,12 @@ import {
   CLASSROOM_CREATE_NEW_SCHOOL,
 } from 'app/services/classroom/classroom';
 import { JOIN_PAGE_ENDPOINT_URL } from 'app/services/registration/registration.js';
+import { GoogleLogin } from 'react-google-login';
+import {
+  GOOGLE_CLIENT_ID_ENDPOINT_URL,
+  GOOGLE_SSO_SIGNIN_ENDPOINT_URL,
+} from 'app/services/registration/registration.js';
+import Request from 'app/components/common/network/Request';
 import axios from 'axios';
 import debounce from 'lodash/debounce';
 import { DeviceContext } from 'app/providers/DeviceProvider';
@@ -185,6 +191,48 @@ class ClassroomDefineSchoolSelectionGeneral extends Component {
     }
   };
 
+  /* The API response to the Google SSO Request was successful, process the response data elements accordingly and send the information back to the Slooh servers */
+  processGoogleSuccessResponse = googleTokenData => {
+    // console.log("Processing Google Signin: " + googleTokenData);
+
+    /* Process the Google SSO tokens and get back information about this user via the Slooh APIs/Google APIs, etc. */
+    axios
+      .post(GOOGLE_SSO_SIGNIN_ENDPOINT_URL, {
+        authenticationCode: googleTokenData.code,
+      })
+      .then(response => {
+        const res = response.data;
+        if (!res.apiError) {
+          const googleProfileResult = {
+            googleProfileId: res.googleProfileId,
+            googleProfileEmail: res.googleProfileInfo.email,
+            googleProfileGivenName: res.googleProfileInfo.givenName,
+            googleProfileFamilyName: res.googleProfileInfo.familyName,
+            googleProfilePictureURL: res.googleProfileInfo.profilePictureURL,
+          };
+
+          /* Set the account creation type as Google and the Google Profile Id in browser storage */
+          window.localStorage.setItem(
+            'googleProfileId',
+            googleProfileResult.googleProfileId
+          );
+          window.localStorage.setItem(
+            'googleProfileEmail',
+            googleProfileResult.googleProfileEmail
+          );
+
+          console.log(window.localStorage);
+        }
+      })
+      .catch(err => {
+        throw ('Error: ', err);
+      });
+  };
+
+  processGoogleFailureResponse = googleMessageData => {
+    console.log(googleMessageData);
+  };
+
   render() {
     const {
       pathname,
@@ -211,9 +259,61 @@ class ClassroomDefineSchoolSelectionGeneral extends Component {
             <DeviceContext.Consumer>
               {({ isMobile, isDesktop, isTablet }) => (
                 <Fragment>
+                  <h1 className="modal-h">Classroom Setup</h1>
+  	      	      <p className="modal-p mb-5">Just need a couple of more details to complete your classroom account.</p>
+
                   <div className="step-root">
                     <div className="inner-container">
-                      <div className="section-heading">{sectionHeading}</div>
+                      <div className="section-heading">Step 1: Using Google Classroom?</div>
+                      <div style={{textAlign: "center"}}>
+                        <Request
+                          serviceURL={GOOGLE_CLIENT_ID_ENDPOINT_URL}
+                          requestBody={{
+                            callSource: 'upgrade',
+                          }}
+                          render={({
+                            fetchingContent: fetchingGoogleClient,
+                            serviceResponse: googleClientResponse,
+                          }) => (
+                            <Fragment>
+                              {!fetchingGoogleClient && (
+                                <div style={{marginLeft: "auto", marginRight: "auto", textAlign: "center", width: "350px"}} className="google-login-button">
+                                  <GoogleLogin
+                                    prompt="select_account"
+                                    responseType={
+                                      googleClientResponse.googleClientResponseType
+                                    }
+                                    fetchBasicProfile={
+                                      googleClientResponse.googleClientFetchBasicProfile
+                                    }
+                                    accessType={
+                                      googleClientResponse.googleClientAccessType
+                                    }
+                                    scope={
+                                      googleClientResponse.googleClientScope
+                                    }
+                                    clientId={
+                                      googleClientResponse.googleClientID
+                                    }
+                                    buttonText={
+                                      googleClientResponse.loginButtonText
+                                    }
+                                    onSuccess={
+                                      this.processGoogleSuccessResponse
+                                    }
+                                    onFailure={
+                                      this.processGoogleFailureResponse
+                                    }
+                                  />
+                                </div>
+                              )}
+                            </Fragment>
+                          )}
+                        />
+                      </div>
+                      <br/>
+                      <br/>
+                      <div className="section-heading">Step 2: {sectionHeading}</div>
                       <form
                         className="form"
                         onSubmit={handleSubmit(this.handleSubmit)}
