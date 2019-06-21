@@ -6,7 +6,7 @@ import { PaymentStep } from 'app/modules/account-settings/components/upgrade-mod
 import { SelectPlanStep } from 'app/modules/account-settings/components/upgrade-modal/select-plan-step';
 import { CancelStep } from 'app/modules/account-settings/components/upgrade-modal/cancel-step';
 import { DowngradeStep } from 'app/modules/account-settings/components/upgrade-modal/downgrade-step';
-import JoinStep1SchoolSelectionGeneral from 'app/pages/registration/JoinStep1SchoolSelection';
+import ClassroomDefineSchoolSelectionGeneral from 'app/modules/account-settings/components/upgrade-modal/classroom-define';
 
 import { destroySession, removeUser } from 'app/modules/User';
 import { Link, browserHistory } from 'react-router';
@@ -74,6 +74,10 @@ export const UpgradeModal = (props: TUpgradeModal) => {
     };
   }
 
+  let goNextAfterSchoolSelection = dispatch => {
+    setStep('PAYMENT');
+  }
+  
   return (
     <>
       <Modal
@@ -95,7 +99,6 @@ export const UpgradeModal = (props: TUpgradeModal) => {
                 isFetching,
               }}
               goNext={(subscriptionPlansCallSource, selectedPlan) => {
-                  console.log(selectedPlan);
                   if (subscriptionPlansCallSource == 'downgrade') {
                     setStep('DOWNGRADE');
                   }
@@ -123,7 +126,7 @@ export const UpgradeModal = (props: TUpgradeModal) => {
           </>
         )}
 
-        {step === 'CLASSROOM_SELECT_SCHOOL' && <JoinStep1SchoolSelectionGeneral {...props}/>}
+        {step === 'CLASSROOM_SELECT_SCHOOL' && <ClassroomDefineSchoolSelectionGeneral {...props} goNext={goNextAfterSchoolSelection}/>}
 
         {step === 'ASTRONOMY_CLUB_DEFINE_CLUB' && <div>Define your Astronomy Club...</div>}
 
