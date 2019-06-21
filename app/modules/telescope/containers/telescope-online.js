@@ -14,6 +14,7 @@ import {
   makeMoonlightBarSelector,
   makeDayNightBarSelector,
   makeWeatherConditionsSelector,
+  makeTeidePeakCamCameraSelector,
 } from 'app/modules/telescope/selectors';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
@@ -29,6 +30,7 @@ const mapStateToProps = createStructuredSelector({
   domeCam: makeDomeCamSelector(),
   facilityWebcam: makeFacilityWebcamSelector(),
   moonlightBar: makeMoonlightBarSelector(),
+  teidePeakCam: makeTeidePeakCamCameraSelector(),
 });
 
 const mapDispatchToProps = {

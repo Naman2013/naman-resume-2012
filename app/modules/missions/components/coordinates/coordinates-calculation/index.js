@@ -51,6 +51,10 @@ function removeMinusSign(value) {
   return String(value).replace(/[-]/g, '');
 }
 
+function isNegative(n) {
+  return ((n = +n) || 1 / n) < 0;
+}
+
 export class CoordinatesCalculation extends PureComponent {
   componentDidMount() {
     const { setCoordinatesData, coordinatesData } = this.props;
@@ -272,8 +276,8 @@ export class CoordinatesCalculation extends PureComponent {
 
     dec = round(dec_d + secondsToHours + minutesToHours, 7);
     ra = round(ra_h + ra_m / 60 + ra_s / 3600, 7);
-
-    if(tempDec_d == "-0"){
+    
+    if(isNegative(tempDec_d) && tempDec_d == "-0"){
       dec_d = '-0';
       dec = '-' + dec;
     }

@@ -37,18 +37,29 @@ export class Livecast extends PureComponent<TLivecast, TState> {
     liveShows: [],
   };
 
-  componentDidMount = () => {
+  refetchTimer: null;
+
+  fetchData = () => {
     const { user } = this.props;
     const { cid, at, token } = user;
     axios
       .post('/api/events/getLivecast', { cid, at, token })
       .then(({ data }) => {
-        const { LiveShowData = [] } = data;
+        const { LiveShowData = [], refreshInterval } = data;
         this.setState({
           livecastData: data,
           liveShows: [...LiveShowData],
         });
+
+        this.refetchTimer = window.setTimeout(
+          this.fetchData,
+          refreshInterval * 1000
+        );
       });
+  };
+
+  componentDidMount = () => {
+    this.fetchData();
   };
 
   setOpen = isOpen => this.setState({ isOpen });
