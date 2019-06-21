@@ -96,6 +96,8 @@ class SingleFieldSubmitForm extends Component {
         responseMessage: message || intl.formatMessage(messages.FormIssueText),
       });
     }
+      setTimeout(this.closeModal,1000);
+
   };
 
   closeModal = e => {
