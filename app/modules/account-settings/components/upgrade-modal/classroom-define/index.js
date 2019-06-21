@@ -260,7 +260,7 @@ class ClassroomDefineSchoolSelectionGeneral extends Component {
               {({ isMobile, isDesktop, isTablet }) => (
                 <Fragment>
                   <h1 className="modal-h">Classroom Setup</h1>
-  	      	      <p className="modal-p mb-5">Just need a couple of more details to complete your classroom account.</p>
+  	      	      <p className="modal-p mb-5">We need a few more details to complete your classroom account.</p>
 
                   <div className="step-root">
                     <div className="inner-container">
