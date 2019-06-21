@@ -75,6 +75,7 @@ class TimedNotifications extends Component<TTimedNotifications> {
                     <div>
                       <AlertTile
                         {..._storedAlert}
+                        canDismiss={false}
                         dismissAlert={this.dismissAlert}
                       />
                     </div>

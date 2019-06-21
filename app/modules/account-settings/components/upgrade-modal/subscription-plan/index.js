@@ -93,11 +93,11 @@ export const SubscriptionPlan = (props: TSubscriptionPlan) => {
               <Button onClick={() => setDetailsExpanded(false)}>close</Button>
             )}
             <Fragment>
-              {isPlanActionEnabled && <Button className="btn-active" onClick={() => onSelect(plan.planID)}>
+              {isPlanActionEnabled && <Button className="btn-active" onClick={() => onSelect(plan)}>
                 {selectButtonText}
               </Button>
               }
-              {!isPlanActionEnabled && <Button disabled={true} style={{backgroundColor: '#D3D3D3'}} className="animated fadeIn faster" onClick={() => onSelect(plan.planID)}>
+              {!isPlanActionEnabled && <Button disabled={true} style={{backgroundColor: '#D3D3D3'}} className="animated fadeIn faster" onClick={() => onSelect(plan)}>
                 {selectButtonText}
               </Button>
               }

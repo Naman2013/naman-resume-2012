@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import Modal from 'react-modal';
 import { customModalStylesBlackOverlay } from 'app/styles/mixins/utilities';
 import { flagItem } from 'app/services/discussions/flag';
+import { Tooltip } from 'react-tippy';
 
 import styles from './FlagButton.style';
 
@@ -56,9 +57,20 @@ class FlagButton extends Component {
     return (
       <Fragment>
         <div>
-          <button className="button-container" onClick={this.flagItem}>
-            <span className="button-icon icon-flag" />
-          </button>
+          <Tooltip
+            title="Flag as Inappropriate"
+            arrow
+            distance={0}
+            position="top"
+          >
+            <button
+              type="button"
+              className="button-container"
+              onClick={this.flagItem}
+            >
+              <span className="button-icon icon-flag" />
+            </button>
+          </Tooltip>
         </div>
         <Modal
           ariaHideApp={false}

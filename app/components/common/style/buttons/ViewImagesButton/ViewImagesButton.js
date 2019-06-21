@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Lightbox from 'react-images';
 import uniqueId from 'lodash/uniqueId';
+import { Magnifier } from 'react-image-magnifiers';
 import { DeviceContext } from 'providers/DeviceProvider';
 import Button from 'app/components/common/style/buttons/Button';
 import LargeButtonWithRightIcon from 'app/components/common/style/buttons/LargeButtonWithRightIcon';
@@ -74,17 +75,19 @@ class ViewImagesButton extends Component {
                 onClickNext={this.onClickNext}
                 showThumbnails={images.length > 1}
               />*/}
-              <Modal 
-                show={lightboxIsOpen} 
-                onHide={() => this.setState(({
-                  lightboxIsOpen: false,
-                  currentImageIdx: 0,
-                }))}
+              <Modal
+                show={lightboxIsOpen}
+                onHide={() =>
+                  this.setState({
+                    lightboxIsOpen: false,
+                    currentImageIdx: 0,
+                  })
+                }
                 customClass="view-uploaded-image-modal"
               >
                 <div className="text-center">
                   <div className="modal-img-wrapper">
-                    <img src={images[0]} alt="" />
+                    <Magnifier imageSrc={images[0]} />
                   </div>
                 </div>
               </Modal>
