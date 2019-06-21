@@ -22,4 +22,8 @@ export default css`
   :global(.view-uploaded-image-modal.modal) {
     z-index: 10070;
   }
+  .text-center {
+    max-width: 800px;
+    margin: 0 auto;
+  }
 `;
