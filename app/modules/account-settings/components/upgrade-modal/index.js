@@ -6,6 +6,8 @@ import { PaymentStep } from 'app/modules/account-settings/components/upgrade-mod
 import { SelectPlanStep } from 'app/modules/account-settings/components/upgrade-modal/select-plan-step';
 import { CancelStep } from 'app/modules/account-settings/components/upgrade-modal/cancel-step';
 import { DowngradeStep } from 'app/modules/account-settings/components/upgrade-modal/downgrade-step';
+import JoinStep1SchoolSelectionGeneral from 'app/pages/registration/JoinStep1SchoolSelection';
+
 import { destroySession, removeUser } from 'app/modules/User';
 import { Link, browserHistory } from 'react-router';
 import Btn from 'app/atoms/Btn';
@@ -92,7 +94,8 @@ export const UpgradeModal = (props: TUpgradeModal) => {
                 selectedPlan,
                 isFetching,
               }}
-              goNext={subscriptionPlansCallSource, selectedPlan => {
+              goNext={(subscriptionPlansCallSource, selectedPlan) => {
+                  console.log(selectedPlan);
                   if (subscriptionPlansCallSource == 'downgrade') {
                     setStep('DOWNGRADE');
                   }
@@ -120,7 +123,7 @@ export const UpgradeModal = (props: TUpgradeModal) => {
           </>
         )}
 
-        {step === 'CLASSROOM_SELECT_SCHOOL' && <div>Select your School</div>}
+        {step === 'CLASSROOM_SELECT_SCHOOL' && <JoinStep1SchoolSelectionGeneral {...props}/>}
 
         {step === 'ASTRONOMY_CLUB_DEFINE_CLUB' && <div>Define your Astronomy Club...</div>}
 
