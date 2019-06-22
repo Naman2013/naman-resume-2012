@@ -43,9 +43,7 @@ export const SubscriptionPlan = (props: TSubscriptionPlan) => {
       <hr />
 
       <div className="d-flex justify-content-between">
-        <span className="header">
-          {teaserContent}
-        </span>
+        <span className="header" dangerouslySetInnerHTML={{__html: teaserContent}}/>
         <span className="header">{planCostPostfix}</span>
       </div>
 
