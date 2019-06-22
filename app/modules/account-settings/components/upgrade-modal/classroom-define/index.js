@@ -44,6 +44,10 @@ class ClassroomDefineSchoolSelectionGeneral extends Component {
   constructor(props) {
     super(props);
     this.debouncedZipChange = debounce(this.handleZipCodeChange, 300);
+
+    //clear localStorage
+    window.localStorage.removeItem('isClassroom');
+    window.localStorage.removeItem('selectedSchoolId');
   }
 
   state = {
@@ -151,10 +155,10 @@ class ClassroomDefineSchoolSelectionGeneral extends Component {
 
   handleSubmit = values => {
     //formValues.preventDefault();
-    console.log(values);
 
     if (!values.isNewSchool) {
       if (values.school) {
+        window.localStorage.setItem('isClassroom', "true" );
         window.localStorage.setItem('selectedSchoolId', values.school);
         this.props.goNext();
       } else {
@@ -185,6 +189,7 @@ class ClassroomDefineSchoolSelectionGeneral extends Component {
           schoolState,
         })
         .then(({ data }) => {
+          window.localStorage.setItem('isClassroom', "true");
           window.localStorage.setItem('selectedSchoolId', data.schoolId);
           this.props.goNext();
         });
@@ -220,6 +225,8 @@ class ClassroomDefineSchoolSelectionGeneral extends Component {
             'googleProfileEmail',
             googleProfileResult.googleProfileEmail
           );
+
+          //link it to the customer account if the email address matches....
 
           console.log(window.localStorage);
         }
@@ -259,9 +266,8 @@ class ClassroomDefineSchoolSelectionGeneral extends Component {
             <DeviceContext.Consumer>
               {({ isMobile, isDesktop, isTablet }) => (
                 <Fragment>
-                  <h1 className="modal-h">Classroom Setup</h1>
+                  <h1 className="modal-h">Classroom Set Up</h1>
   	      	      <p className="modal-p mb-5">We need a few more details to complete your classroom account.</p>
-
                   <div className="step-root">
                     <div className="inner-container">
                       <div className="section-heading">Step 1: Using Google Classroom?</div>

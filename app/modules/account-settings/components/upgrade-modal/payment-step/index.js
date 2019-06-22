@@ -109,13 +109,18 @@ import messages from 'app/pages/registration/JoinStep3.messages';
         /* Process the Customer's Activation and Sign the User into the website */
         const upgradeCustomerData = {
           cid: getUserInfo().cid,
-	  at: getUserInfo().at,
-	  token: getUserInfo().token,
+	        at: getUserInfo().at,
+	        token: getUserInfo().token,
           selectedPlanId: paymentDataString[1],
           conditionType: paymentDataString[2],
           paymentMethod,
           paymentToken: paymentNonceTokenData,
           billingAddressString: paymentDataString[3],
+          isAstronomyClub: window.localStorage.getItem('isAstronomyClub'),
+          astronomyClubName: window.localStorage.getItem('astronomyClubName'),
+          astronomyClub18AndOver: window.localStorage.getItem('astronomyClub18AndOver'),
+          isClassroom: window.localStorage.getItem('isClassroom'),
+          selectedSchoolId: window.localStorage.getItem('selectedSchoolId'),
         };
           //add string aboc to this //ADD THIS BACK AFTER TESTING
           axios
@@ -135,9 +140,7 @@ import messages from 'app/pages/registration/JoinStep3.messages';
                 window.localStorage.removeItem('isAstronomyClub');
                 window.localStorage.removeItem('isClassroom');
                 window.localStorage.removeItem('astronomyClubName');
-                window.localStorage.removeItem(
-                  'isAstronomyClubForMembers18AndOver'
-                );
+                window.localStorage.removeItem('astronomyClub18AndOver');
 
                 /* cleanup local storage */
                 window.localStorage.removeItem('accountCreationType');
@@ -183,7 +186,19 @@ export const PaymentStep = (props: TPaymentStep) => {
     <>
       <Request
         serviceURL={JOIN_PAGE_ENDPOINT_URL}
-        requestBody={{ callSource: 'providePaymentDetails', cid: user.cid, at: user.at, token: user.token, selectedPlanId: selectedPlanId, conditionType: conditionType }}
+        requestBody={{
+          callSource: 'providePaymentDetails',
+          cid: user.cid,
+          at: user.at,
+          token: user.token,
+          selectedPlanId: selectedPlanId,
+          conditionType: conditionType,
+          isAstronomyClub: window.localStorage.getItem('isAstronomyClub'),
+          astronomyClubName: window.localStorage.getItem('astronomyClubName'),
+          astronomyClub18AndOver: window.localStorage.getItem('astronomyClub18AndOver'),
+          isClassroom: window.localStorage.getItem('isClassroom'),
+          selectedSchoolId: window.localStorage.getItem('selectedSchoolId'),
+        }}
         render={({ fetchingContent, serviceResponse: joinPageRes }) => (
           <Fragment>
             {!fetchingContent && (
