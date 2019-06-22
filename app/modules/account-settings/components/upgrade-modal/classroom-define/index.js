@@ -20,7 +20,9 @@ import { GoogleLogin } from 'react-google-login';
 import {
   GOOGLE_CLIENT_ID_ENDPOINT_URL,
   GOOGLE_SSO_SIGNIN_ENDPOINT_URL,
+  GOOGLE_SSO_LINKACCT_ENDPOINT_URL,
 } from 'app/services/registration/registration.js';
+import { getUserInfo } from 'app/modules/User';
 import Request from 'app/components/common/network/Request';
 import axios from 'axios';
 import debounce from 'lodash/debounce';
@@ -216,19 +218,36 @@ class ClassroomDefineSchoolSelectionGeneral extends Component {
             googleProfilePictureURL: res.googleProfileInfo.profilePictureURL,
           };
 
-          /* Set the account creation type as Google and the Google Profile Id in browser storage */
-          window.localStorage.setItem(
-            'googleProfileId',
-            googleProfileResult.googleProfileId
-          );
-          window.localStorage.setItem(
-            'googleProfileEmail',
-            googleProfileResult.googleProfileEmail
-          );
-
           //link it to the customer account if the email address matches....
+          const user = getUserInfo();
 
-          console.log(window.localStorage);
+          axios
+            .post(GOOGLE_SSO_LINKACCT_ENDPOINT_URL, {
+              cid: user.cid,
+              at: user.at,
+              token: user.token,
+              googleProfileId: res.googleProfileId,
+            })
+            .then(response => {
+              const res = response.data;
+              if (!res.apiError) {
+                /* the API verifies that the email address matches that on the account */f
+                if (res.status == "success") {
+                  /* Set the Google Profile ID/Email */
+                  window.localStorage.setItem(
+                    'googleProfileId',
+                    googleProfileResult.googleProfileId
+                  );
+                  window.localStorage.setItem(
+                    'googleProfileEmail',
+                    googleProfileResult.googleProfileEmail
+                  );
+                }
+              }
+            })
+            .catch(err => {
+              throw ('Error: ', err);
+            });
         }
       })
       .catch(err => {
