@@ -24,7 +24,8 @@ export const SubscriptionPlan = (props: TSubscriptionPlan) => {
     planCostPostfix,
     selectButtonText,
     planDescription,
-    isPlanActionEnabled
+    isPlanActionEnabled,
+    teaserContent,
   } = plan;
 
   return (
@@ -43,7 +44,7 @@ export const SubscriptionPlan = (props: TSubscriptionPlan) => {
 
       <div className="d-flex justify-content-between">
         <span className="header">
-          {planDescription}
+          {teaserContent}
         </span>
         <span className="header">{planCostPostfix}</span>
       </div>
