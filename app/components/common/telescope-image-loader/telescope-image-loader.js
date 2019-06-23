@@ -369,7 +369,13 @@ class TelescopeImageLoader extends Component {
     return (
       <div className="sse-thumbnails">
         <div className="bottom-image">
-          <img alt="" width="100%" src={previousImageUrl} draggable="false" />
+          <img
+            alt=""
+            width="100%"
+            src={previousImageUrl}
+            draggable="false"
+            style={imageStyle}
+          />
 
           <div className="top-image" style={topImageStyle}>
             <img
