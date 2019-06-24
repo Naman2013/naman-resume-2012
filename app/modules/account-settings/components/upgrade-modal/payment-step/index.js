@@ -116,10 +116,10 @@ import messages from 'app/pages/registration/JoinStep3.messages';
           paymentMethod,
           paymentToken: paymentNonceTokenData,
           billingAddressString: paymentDataString[3],
-          isAstronomyClub: window.localStorage.getItem('isAstronomyClub'),
+          isAstronomyClub: window.localStorage.getItem('isAstronomyClub') === 'true',
           astronomyClubName: window.localStorage.getItem('astronomyClubName'),
-          astronomyClub18AndOver: window.localStorage.getItem('astronomyClub18AndOver'),
-          isClassroom: window.localStorage.getItem('isClassroom'),
+          astronomyClub18AndOver: window.localStorage.getItem('astronomyClub18AndOver') === 'true',
+          isClassroom: window.localStorage.getItem('isClassroom') === 'true',
           selectedSchoolId: window.localStorage.getItem('selectedSchoolId'),
         };
           //add string aboc to this //ADD THIS BACK AFTER TESTING
