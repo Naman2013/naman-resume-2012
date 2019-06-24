@@ -6,7 +6,8 @@ import { PaymentStep } from 'app/modules/account-settings/components/upgrade-mod
 import { SelectPlanStep } from 'app/modules/account-settings/components/upgrade-modal/select-plan-step';
 import { CancelStep } from 'app/modules/account-settings/components/upgrade-modal/cancel-step';
 import { DowngradeStep } from 'app/modules/account-settings/components/upgrade-modal/downgrade-step';
-import JoinStep1SchoolSelectionGeneral from 'app/pages/registration/JoinStep1SchoolSelection';
+import ClassroomDefineSchoolSelectionGeneral from 'app/modules/account-settings/components/upgrade-modal/classroom-define';
+import AstronomyClubDefineClubGeneral from 'app/modules/account-settings/components/upgrade-modal/astronomyclub-define-club';
 
 import { destroySession, removeUser } from 'app/modules/User';
 import { Link, browserHistory } from 'react-router';
@@ -36,6 +37,13 @@ const didMount = (props: TUpgradeModal) => () => {
     selectedPlan,
     callSource: subscriptionPlansCallSource,
   });
+
+  //clear localStorage
+  window.localStorage.removeItem('isClassroom');
+  window.localStorage.removeItem('selectedSchoolId');
+  window.localStorage.removeItem('isAstronomyClub');
+  window.localStorage.removeItem('astronomyClubName');
+  window.localStorage.removeItem('astronomyClub18AndOver');
 };
 
 export const UpgradeModal = (props: TUpgradeModal) => {
@@ -74,6 +82,14 @@ export const UpgradeModal = (props: TUpgradeModal) => {
     };
   }
 
+  let goNextAfterSchoolSelection = dispatch => {
+    setStep('PAYMENT');
+  }
+
+  let goNextAfterAstronomyClubDefined = dispatch => {
+    setStep('PAYMENT');
+  }
+
   return (
     <>
       <Modal
@@ -95,7 +111,6 @@ export const UpgradeModal = (props: TUpgradeModal) => {
                 isFetching,
               }}
               goNext={(subscriptionPlansCallSource, selectedPlan) => {
-                  console.log(selectedPlan);
                   if (subscriptionPlansCallSource == 'downgrade') {
                     setStep('DOWNGRADE');
                   }
@@ -123,9 +138,9 @@ export const UpgradeModal = (props: TUpgradeModal) => {
           </>
         )}
 
-        {step === 'CLASSROOM_SELECT_SCHOOL' && <JoinStep1SchoolSelectionGeneral {...props}/>}
+        {step === 'CLASSROOM_SELECT_SCHOOL' && <ClassroomDefineSchoolSelectionGeneral {...props} selectedPlan={selectedPlan} goNext={goNextAfterSchoolSelection}/>}
 
-        {step === 'ASTRONOMY_CLUB_DEFINE_CLUB' && <div>Define your Astronomy Club...</div>}
+        {step === 'ASTRONOMY_CLUB_DEFINE_CLUB' && <AstronomyClubDefineClubGeneral {...props} selectedPlan={selectedPlan} goNext={goNextAfterAstronomyClubDefined}/>}
 
         {step === 'PAYMENT' && <PaymentStep conditionType={props.subscriptionPlansCallSource} selectedPlan={selectedPlan} />}
 

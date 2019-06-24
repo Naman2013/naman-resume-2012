@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import TabbedNav from 'app/components/TabbedNav';
 import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
+import { Link } from 'react-router';
 
 import {
   toggleGlobalNavMenu,
@@ -83,10 +84,9 @@ class JoinHeader extends Component {
               <div className="inner-header-text">
                 <div className="big">{mainHeading}</div>
                 <div className="little">{subHeading}</div>
-		{showLogin == true && <>
-			<div style={{width: "80%", minWidth: "80%"}} className="little">If you are a current/former member or were invited to Slooh by a teacher, please click Login to access your account.</div>
-			<div style={{marginTop: "-60px", width: "100%", minWidth: "100%", textAlign: "right"}}><Btn onClick={this.openLoginPanel}>Login</Btn></div>
-		</>}
+        		{showLogin == true && <>
+        			<br/><div className="little">If you are a member or were invited to Slooh by a teacher, please <Link style={{textDecoration: "none", color: "#337ab7", fontWeight: "bold"}} onClick={this.openLoginPanel}>login</Link> to access your account.</div>
+        		</>}
               </div>
               {showTabs && <TabbedNav
                 tabs={tabs}
@@ -104,8 +104,7 @@ class JoinHeader extends Component {
             <div className="big">{mainHeading}</div>
             <div className="little">{subHeading}</div>
 		{showLogin == true && <>
-			<div style={{width: "80%", minWidth: "80%"}} className="little">If you are a current/former member or were invited to Slooh by a teacher, please click Login to access your account.</div>
-			<div style={{marginTop: "-60px", width: "100%", minWidth: "100%", textAlign: "right"}}><Btn onClick={this.openLoginPanel}>Login</Btn></div>
+      <br/><div className="little">If you are a member or were invited to Slooh by a teacher, please <Link style={{textDecoration: "none", color: "#337ab7", fontWeight: "bold"}} onClick={this.openLoginPanel}>login</Link> to access your account.</div>
 		</>}
           </div>
           {showTabs && <TabbedNav
