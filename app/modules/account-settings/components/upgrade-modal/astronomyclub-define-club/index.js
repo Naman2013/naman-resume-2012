@@ -110,8 +110,6 @@ class AstronomyClubDefineClubGeneral extends Component {
 
   /* This function handles a field change in the form and sets the state accordingly */
   handleFieldChange = ({ field, value }) => {
-    console.log(field);
-    console.log(value);
 
     /* Get the existing state of the signup form, modify it and re-set the state */
     const newAccountFormData = cloneDeep(this.state.accountFormDetails);
