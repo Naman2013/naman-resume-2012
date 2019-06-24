@@ -63,6 +63,7 @@ export default css`
     width: 60%;
     margin: 0 auto;
     padding: 15px 0;
+    padding-bottom: 0;
   }
 
   @media ${screenMedium} {
