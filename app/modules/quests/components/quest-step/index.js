@@ -19,33 +19,19 @@ type TQuestStep = {
 export class QuestStep extends Component<TQuestStep> {
   state = { prevStepId: null, nextStepId: null, lastStepId: null };
 
-  componentDidMount = () => {
-    this.refreshData(this.props);
-  };
-
-  refreshData = props => {
-    const { getQuestStep, routeParams, getQuestOutput } = props;
-    const { questId, step } = routeParams;
-    getQuestStep(questId, step);
-    getQuestOutput(questId, step);
-  };
-
-  componentWillReceiveProps(nextProps) {
-    const { stepData, routeParams } = nextProps;
-    const { routeParams: prevRouteParams } = this.props;
-    if (routeParams.step !== prevRouteParams.step) {
-      this.refreshData(nextProps);
-    } else if (stepData?.stepMenuList?.length) {
+  static getDerivedStateFromProps(props) {
+    const { stepData, routeParams } = props;
+    if (stepData?.stepMenuList?.length) {
       const prevStepIndex =
         stepData.stepMenuList.findIndex(
-          item => item.stepModuleId == routeParams.step
+          item => item.stepModuleId === routeParams.step
         ) - 1;
       const nextStepIndex =
         stepData.stepMenuList.findIndex(
-          item => item.stepModuleId == routeParams.step
+          item => item.stepModuleId === routeParams.step
         ) + 1;
       const lastStepIndex = stepData.stepMenuList.length - 1;
-      this.setState({
+      return {
         prevStepId:
           prevStepIndex > -1
             ? stepData.stepMenuList[prevStepIndex].stepModuleId
@@ -55,11 +41,35 @@ export class QuestStep extends Component<TQuestStep> {
             ? stepData.stepMenuList[nextStepIndex].stepModuleId
             : null,
         lastStepId:
-          stepData.stepMenuList[lastStepIndex].stepModuleId != routeParams.step
+          stepData.stepMenuList[lastStepIndex].stepModuleId !== routeParams.step
             ? stepData.stepMenuList[lastStepIndex].stepModuleId
             : null,
-      });
+      };
     }
+    return null;
+  }
+
+  componentDidMount() {
+    this.refreshData();
+  }
+
+  componentDidUpdate(prevProps) {
+    const {
+      routeParams: { step },
+    } = this.props;
+    const {
+      routeParams: { step: prevStep },
+    } = prevProps;
+    if (prevStep !== step) {
+      this.refreshData();
+    }
+  }
+
+  refreshData() {
+    const { getQuestStep, routeParams, getQuestOutput } = this.props;
+    const { questId, step } = routeParams;
+    getQuestStep(questId, step);
+    getQuestOutput(questId, step);
   }
 
   navigateToPrevStep = () => {

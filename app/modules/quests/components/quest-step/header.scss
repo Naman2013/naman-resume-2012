@@ -1,3 +1,5 @@
+@import '~app/styles/variables/media-queries';
+
 .step-header {
   display: flex;
   flex-direction: row;
@@ -64,4 +66,7 @@
   top: -5px;
   left: -4px;
   font-size: 10px;
+}
+@include sm-low {
+
 }
