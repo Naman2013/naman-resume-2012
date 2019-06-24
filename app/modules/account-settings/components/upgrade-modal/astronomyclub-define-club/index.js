@@ -1,5 +1,5 @@
 /***********************************
- * V4 Join
+ * V4 Upgrade - Astronomy Club
  ***********************************/
 
 import React, { Component, cloneElement, Fragment } from 'react';
@@ -110,6 +110,9 @@ class AstronomyClubDefineClubGeneral extends Component {
 
   /* This function handles a field change in the form and sets the state accordingly */
   handleFieldChange = ({ field, value }) => {
+    console.log(field);
+    console.log(value);
+
     /* Get the existing state of the signup form, modify it and re-set the state */
     const newAccountFormData = cloneDeep(this.state.accountFormDetails);
     newAccountFormData[field].value = value;
@@ -247,7 +250,7 @@ class AstronomyClubDefineClubGeneral extends Component {
                                     onChange={event => {
                                       this.handleFieldChange({
                                         field: 'astronomyClub18AndOver',
-                                        value: event.target.value,
+                                        value: !event.target.value,
                                       });
                                     }}
                                   />
@@ -278,12 +281,11 @@ class AstronomyClubDefineClubGeneral extends Component {
   }
 }
 
-const mapStateToProps = ({ joinAccountForm }) => ({
-  joinAccountForm,
+const mapStateToProps = ({ upgradeAccountForm }) => ({
+  upgradeAccountForm,
 });
 
 const joinStep2Validation = createValidator({
-  username: [required],
 });
 
 export default connect(
@@ -291,7 +293,7 @@ export default connect(
   null
 )(
   reduxForm({
-    form: 'joinAccountForm',
+    form: 'updateAccountForm',
     validate: joinStep2Validation,
     enableReinitialize: true,
   })(injectIntl(AstronomyClubDefineClubGeneral))

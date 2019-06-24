@@ -118,7 +118,7 @@ import messages from 'app/pages/registration/JoinStep3.messages';
           billingAddressString: paymentDataString[3],
           isAstronomyClub: window.localStorage.getItem('isAstronomyClub') === 'true',
           astronomyClubName: window.localStorage.getItem('astronomyClubName'),
-          astronomyClub18AndOver: window.localStorage.getItem('astronomyClub18AndOver') === 'true',
+          isAstronomyClubForMembers18AndOver: window.localStorage.getItem('astronomyClub18AndOver') === 'true',
           isClassroom: window.localStorage.getItem('isClassroom') === 'true',
           selectedSchoolId: window.localStorage.getItem('selectedSchoolId'),
         };
