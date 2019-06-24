@@ -61,7 +61,7 @@ export class TelescopeOnline extends Component {
     });
   }
 
-  viewerRender = ({ viewportHeight }, onImageChange) => {
+  viewerRender = ({ viewportHeight, fullscreenMode }, onImageChange) => {
     const {
       activeTelescopeMission,
       fetchingObservatoryStatus,
@@ -77,6 +77,7 @@ export class TelescopeOnline extends Component {
     return provideLiveFeed(
       {
         viewportHeight,
+        fullscreenMode,
         fetchingOnlineStatus: fetchingObservatoryStatus,
         obsAlert: currentObservatory.obsAlert,
         onlineStatus: 'online',
@@ -265,6 +266,7 @@ export class TelescopeOnline extends Component {
 function provideLiveFeed(
   {
     viewportHeight,
+    fullscreenMode,
     fetchingOnlineStatus,
     obsAlert,
     onlineStatus,
@@ -282,6 +284,7 @@ function provideLiveFeed(
   return (
     <LiveFeed
       viewportHeight={viewportHeight}
+      fullscreenMode={fullscreenMode}
       fetchingOnlineStatus={fetchingOnlineStatus}
       obsAlert={obsAlert}
       onlineStatus={onlineStatus}

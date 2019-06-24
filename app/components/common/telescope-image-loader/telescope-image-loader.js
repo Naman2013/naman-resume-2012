@@ -127,7 +127,6 @@ class TelescopeImageLoader extends Component {
 
     if (receivedNewImage) {
       const topImage = window.document.getElementById(this.generateImageId());
-
       if (topImage) {
         topImage.style.transition = 'opacity';
         topImage.style.opacity = startingOpacity;
@@ -306,7 +305,8 @@ class TelescopeImageLoader extends Component {
   }
 
   generateImageId() {
-    return `tele-id-${this.props.teleId}`;
+    const { teleId, fullscreenMode } = this.props;
+    return `tele-id-${teleId}${fullscreenMode ? 'fullscreen' : ''}`;
   }
 
   render() {
