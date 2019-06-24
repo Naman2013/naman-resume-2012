@@ -11,6 +11,7 @@ import { QuestStepHeader } from './header';
 import { QuestStepFooter } from './footer';
 import './styles.scss';
 import QuestModuleTextOutput from '../../containers/quest-modules/textoutput';
+import QuestModuleDataCollection from '../../containers/quest-modules/data-collection';
 
 type TQuestStep = {
   moduleList: QuestStepModule,
@@ -126,6 +127,13 @@ export class QuestStep extends Component<TQuestStep> {
             module =>
               module.moduleType === questModuleType.textoutput && (
                 <QuestModuleTextOutput module={module} />
+              )
+          )}
+
+          {moduleList.map(
+            module =>
+              module.moduleType === questModuleType.datacollectdifferent && (
+                <QuestModuleDataCollection module={module} />
               )
           )}
 
