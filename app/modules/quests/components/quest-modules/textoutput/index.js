@@ -1,10 +1,18 @@
 import React, { PureComponent } from 'react';
 
 export class QuestModuleTextOutput extends PureComponent {
-  // componentDidMount
+  componentDidMount = () => {
+    const { module, params, getQuestOutput } = this.props;
+    const { questId } = params;
+    const { moduleId } = module;
+
+    if (questId && moduleId) getQuestOutput(questId, moduleId);
+  };
 
   render() {
-    const { module } = this.props;
+    const { questOutput } = this.props;
+    console.log(questOutput);
+
     return <div>TextOutput</div>;
   }
 }

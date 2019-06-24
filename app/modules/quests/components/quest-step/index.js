@@ -6,7 +6,6 @@ import React, { Component } from 'react';
 import { Container } from 'react-bootstrap';
 import { Spinner } from 'app/components/spinner/index';
 import { browserHistory } from 'react-router';
-import Btn from 'atoms/Btn/index';
 import { QuestStepHeader } from './header';
 import { QuestStepFooter } from './footer';
 import './styles.scss';
@@ -105,8 +104,7 @@ export class QuestStep extends Component<TQuestStep> {
   render() {
     const { loading, moduleList, stepData, routeParams } = this.props;
     const { prevStepId, nextStepId, lastStepId } = this.state;
-    console.log(moduleList);
-    console.log(stepData);
+
     return (
       <div>
         <Spinner loading={loading} />
@@ -135,7 +133,7 @@ export class QuestStep extends Component<TQuestStep> {
           {moduleList.map(
             module =>
               module.moduleType === questModuleType.textoutput && (
-                <QuestModuleTextOutput module={module} />
+                <QuestModuleTextOutput module={module} key={module.moduleId} />
               )
           )}
 
