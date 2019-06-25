@@ -1,5 +1,6 @@
 import TopicList from 'app/components/guides/TopicList';
 import React, { PureComponent } from 'react';
+import './styles.scss';
 
 export class QuestModuleTextOutput extends PureComponent {
   componentDidMount = () => {
@@ -14,7 +15,11 @@ export class QuestModuleTextOutput extends PureComponent {
     const { questOutput } = this.props;
     const { panelList } = questOutput;
 
-    return <TopicList list={panelList} />;
+    return (
+      <div className="quest-output-module">
+        <TopicList list={panelList} />
+      </div>
+    );
   }
 }
 
