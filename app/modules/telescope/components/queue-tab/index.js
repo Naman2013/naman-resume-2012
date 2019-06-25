@@ -79,7 +79,12 @@ export class QueueTab extends Component {
       grabType: 'notarget',
       scheduledMissionId,
       uniqueId,
-    }).then(() => this.setState({ reservationModalVisible: true }));
+    }).then(({ payload }) => {
+      const { apiError, statusCode } = payload;
+      if(!apiError && (statusCode < 400 || statusCode >= 500)){
+        this.setState({ reservationModalVisible: true });
+      }
+    });
   };
 
   getMissionSlot = mission => {
