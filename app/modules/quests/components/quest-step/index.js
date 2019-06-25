@@ -119,12 +119,12 @@ export class QuestStep extends Component<TQuestStep> {
           disableNext={nextStepId === null}
         />
 
-        <div className="top-v-line">
+        <div className="top-v-line d-none d-md-flex">
           <div />
           <div />
         </div>
 
-        <div className="container">
+        <div className="container step-container">
           <QuestStepBox
             subTitle="some text"
             title={stepData.stepHeaderTitle}

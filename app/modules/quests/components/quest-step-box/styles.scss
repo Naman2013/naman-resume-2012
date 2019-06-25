@@ -51,9 +51,28 @@
       font-weight: bold;
       font-size: 11px;
     }
+
+    .step-controls {
+      border-left: 1px solid $hawkesBlue;
+      margin: -30px;
+      padding: 30px;
+    }
   }
 
   .step-modules {
     padding: 80px;
+  }
+
+
+  // RESPONSIVE
+  @include media-breakpoint-down(sm) {
+    & {
+      box-shadow: none;
+      background-color: transparent;
+
+      .shield-row {
+        display: none;
+      }
+    }
   }
 }
