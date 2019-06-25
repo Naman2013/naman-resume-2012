@@ -1,14 +1,17 @@
 @import '~app/styles/variables/media-queries';
 @import '~app/styles/bootstrap/common';
+@import '~app/styles/variables/colors.scss';
 
-.step-header {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-start;
-  height: 92px;
-  background-color: white;
-  box-shadow: 0 0 6px 0 $shadows;
+.header-root {
+  .step-header{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    height: 92px;
+    background-color: white;
+    box-shadow: 0 0 6px 0 $shadows;
+  }
   .step-back {
     display: flex;
     align-items: center;
@@ -68,5 +71,73 @@
     left: -4px;
     font-size: 10px;
   }
+  .open-menu.open {
+    background-color: $lightHeadedAstronaut;
+  }
+  .menu-icon-close {
+    color: white;
+    position: relative;
+    top: 2px;
+  }
+  .step-back-mobile {
+    display: none;
+  }
+  .step-title-mobile {
+    display: none;
+  }
+  .step-navigation-mobile {
+    display: none;
+  }
+  @include sm-low {
+    .step-back {
+      display: none;
+    }
+    .step-back-mobile {
+      display: block;
+      > a {
+        > span:before {
+          position: relative;
+          top: 2px;
+          color: $romance;
+        }
+      }
+    }
+    .step-title {
+      display: none;
+    }
+    .step-title-mobile {
+      display: block;
+      margin-left: 10px;
+      > span {
+        font-size: 11px;
+        font-weight: 900;
+        color: $romance;
+      }
+    }
+    .step-navigation {
+      display: none;
+    }
+    .step-navigation-mobile {
+      display: block;
+      cursor: pointer;
+      > svg {
+        g > circle {
+          fill: #ffffff;
+        }
+      }
+    }
+    .step-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 50px;
+      background-color: #34455b;
+      padding: 0 20px;
+    }
+    .step-header > .mobile-part {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+    }
+  }
 }
-

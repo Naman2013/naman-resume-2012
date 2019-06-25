@@ -1,3 +1,4 @@
+/* eslint-disable import/order */
 // @flow
 
 import { QuestStepBox } from 'app/modules/quests/components/quest-step-box';
@@ -9,6 +10,7 @@ import { Spinner } from 'app/components/spinner/index';
 import { browserHistory } from 'react-router';
 import { QuestStepHeader } from './header';
 import { QuestStepFooter } from './footer';
+import cn from 'classnames';
 import './styles.scss';
 import QuestModuleTextOutput from '../../containers/quest-modules/textoutput';
 
@@ -105,6 +107,7 @@ export class QuestStep extends Component<TQuestStep> {
   render() {
     const { loading, moduleList, stepData = {}, routeParams } = this.props;
     const { prevStepId, nextStepId, lastStepId } = this.state;
+    console.log(stepData);
 
     return (
       <div className="quest-step-page">
@@ -117,6 +120,9 @@ export class QuestStep extends Component<TQuestStep> {
           questId={routeParams.questId}
           disablePrev={prevStepId === null}
           disableNext={nextStepId === null}
+          stepId={routeParams.step}
+          stepMenuList={stepData?.stepMenuList}
+          stepMenuTitle={stepData?.stepMenuHeader}
         />
 
         <div className="top-v-line d-none d-md-flex">
