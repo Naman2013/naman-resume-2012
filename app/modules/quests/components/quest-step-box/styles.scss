@@ -1,0 +1,44 @@
+@import '~app/styles/bootstrap/common';
+
+.quest-step-box {
+  box-shadow: 0 0 6px 0 $shadows;
+  background-color: $romance;
+
+  .shield-row {
+    padding: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    border-bottom: 1px dashed $hawkesBlue;
+
+    // todo can be global
+    .grey-ball {
+      width: 24px;
+      height: 24px;
+      box-shadow: inset 0 0 7px 0 rgba(157, 167, 180, 0.5);
+      background-color: $faintGray;
+      border-radius: 50%;
+    }
+
+    .shield {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      top: -40px;
+    }
+  }
+
+  .step-title-row {
+    padding: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid $hawkesBlue;
+
+    .step-title {
+      font-family: $secondary-font;
+      font-size: 26px;
+    }
+  }
+}

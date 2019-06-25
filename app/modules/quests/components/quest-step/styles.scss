@@ -1,0 +1,17 @@
+@import '~app/styles/bootstrap/common';
+
+.quest-step-page {
+  .top-v-line {
+    display: flex;
+    height: 100px;
+
+    & > div {
+      flex: 1;
+
+      &:first-child {
+        border-right: 2px solid $silver;
+      }
+    }
+  }
+
+}

@@ -1,5 +1,6 @@
 // @flow
 
+import { QuestStepBox } from 'app/modules/quests/components/quest-step-box';
 import type { QuestStepModule } from 'app/modules/quests/types';
 import { questModuleType } from 'app/modules/quests/types';
 import React, { Component } from 'react';
@@ -102,11 +103,11 @@ export class QuestStep extends Component<TQuestStep> {
   };
 
   render() {
-    const { loading, moduleList, stepData, routeParams } = this.props;
+    const { loading, moduleList, stepData = {}, routeParams } = this.props;
     const { prevStepId, nextStepId, lastStepId } = this.state;
 
     return (
-      <div>
+      <div className="quest-step-page">
         <Spinner loading={loading} />
 
         <QuestStepHeader
@@ -118,27 +119,36 @@ export class QuestStep extends Component<TQuestStep> {
           disableNext={nextStepId === null}
         />
 
-        <Container>
-          <h2>Modules</h2>
-          <ul>
-            {moduleList.map(m => (
-              <li key={m.moduleId}>
-                {m.moduleId} - {m.moduleType}
-              </li>
-            ))}
-          </ul>
+        <div className="top-v-line">
+          <div />
+          <div />
+        </div>
 
-          <hr />
+        <div className="container">
+          <QuestStepBox
+            subTitle="some text"
+            title={stepData.stepHeaderTitle}
+            completed={stepData.stepCompleted}
+          >
+            <h2>Modules</h2>
+            <ul>
+              {moduleList.map(m => (
+                <li key={m.moduleId}>
+                  {m.moduleId} - {m.moduleType}
+                </li>
+              ))}
+            </ul>
 
-          {moduleList.map(
-            module =>
-              module.moduleType === questModuleType.textoutput && (
-                <QuestModuleTextOutput module={module} key={module.moduleId} />
-              )
-          )}
+            <hr />
+          </QuestStepBox>
+        </div>
 
-          <hr />
-        </Container>
+        {moduleList.map(
+          module =>
+            module.moduleType === questModuleType.textoutput && (
+              <QuestModuleTextOutput module={module} key={module.moduleId} />
+            )
+        )}
 
         <QuestStepFooter
           stepFooterTitle={stepData?.stepFooterTitle}
