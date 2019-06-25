@@ -140,15 +140,17 @@ export class QuestStep extends Component<TQuestStep> {
             </ul>
 
             <hr />
+            {moduleList.map(
+              module =>
+                module.moduleType === questModuleType.textoutput && (
+                  <QuestModuleTextOutput
+                    module={module}
+                    key={module.moduleId}
+                  />
+                )
+            )}
           </QuestStepBox>
         </div>
-
-        {moduleList.map(
-          module =>
-            module.moduleType === questModuleType.textoutput && (
-              <QuestModuleTextOutput module={module} key={module.moduleId} />
-            )
-        )}
 
         <QuestStepFooter
           stepFooterTitle={stepData?.stepFooterTitle}

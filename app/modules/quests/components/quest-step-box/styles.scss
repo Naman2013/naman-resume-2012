@@ -4,12 +4,15 @@
   box-shadow: 0 0 6px 0 $shadows;
   background-color: $romance;
 
-  .shield-row {
-    padding: 30px;
+  .step-box-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
     position: relative;
+  }
+
+  .shield-row {
+    padding: 30px;
     border-bottom: 1px dashed $hawkesBlue;
 
     // todo can be global
@@ -31,14 +34,26 @@
 
   .step-title-row {
     padding: 30px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     border-bottom: 1px solid $hawkesBlue;
 
     .step-title {
       font-family: $secondary-font;
       font-size: 26px;
     }
+  }
+
+  .sub-title-row {
+    padding: 30px;
+    border-bottom: 1px solid $hawkesBlue;
+
+    .sub-title {
+      font-family: $primary-font;
+      font-weight: bold;
+      font-size: 11px;
+    }
+  }
+
+  .step-modules {
+    padding: 80px;
   }
 }
