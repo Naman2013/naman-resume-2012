@@ -129,6 +129,7 @@ class SSELiveImageViewer extends Component {
       viewportHeight,
       onImageChange,
       currentMission,
+      fullscreenMode,
     } = this.props;
 
     const { obsId, domeId } = obsIdTeleIdDomeIdFromTeleId(teleId);
@@ -138,6 +139,7 @@ class SSELiveImageViewer extends Component {
     return (
       <TelescopeImageLoader
         viewportHeight={viewportHeight}
+        fullscreenMode={fullscreenMode}
         imageSource={imageSource}
         teleId={teleId}
         obsId={obsId}
