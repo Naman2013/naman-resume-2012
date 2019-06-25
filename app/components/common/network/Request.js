@@ -140,8 +140,9 @@ class Request extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (!isMatch(this.props.requestBody, nextProps.requestBody)) {
-      this.fetchServiceContent(nextProps.requestBody);
+    const { user, requestBody } = this.props;
+    if (!isMatch(requestBody, nextProps.requestBody) || !isMatch(user, nextProps.user)) {
+      this.fetchServiceContent(nextProps.requestBody, nextProps.user);
     }
   }
 
@@ -224,7 +225,7 @@ class Request extends Component {
     }
   }
 
-  fetchServiceContent(nextRequestBody) {
+  fetchServiceContent(nextRequestBody, nextUser) {
     const {
       serviceURL,
       method,
@@ -246,12 +247,12 @@ class Request extends Component {
 
     const validatedRequestBody = nextRequestBody || requestBody;
 
-    const { cid, at, token, } = user;
-    let resultedUserParams = user;
+    const { cid, at, token, } = nextUser || user;
+    let resultedUserParams = nextUser || user;
 
     if (userParams.length > 0)
-      resultedUserParams = getFieldsFromObj(user, userParams);
-
+      resultedUserParams = getFieldsFromObj(nextUser || user, userParams);
+      
     if (method === POST) {
       axios
         .post(
