@@ -78,6 +78,7 @@ class TelescopeImageLoader extends Component {
     startingOpacity: null, // starting opacity of the new image
     loading: true,
     receivedNewImage: true,
+    newMission: true,
   };
 
   componentWillMount() {
@@ -126,7 +127,6 @@ class TelescopeImageLoader extends Component {
 
     if (receivedNewImage) {
       const topImage = window.document.getElementById(this.generateImageId());
-
       if (topImage) {
         topImage.style.transition = 'opacity';
         topImage.style.opacity = startingOpacity;
@@ -275,6 +275,7 @@ class TelescopeImageLoader extends Component {
         firstLoad: false,
         loading: false,
         receivedNewImage: true,
+        newMission: scheduledMissionID !== activeTelescopeMissionID,
       });
     }
   }
@@ -304,7 +305,8 @@ class TelescopeImageLoader extends Component {
   }
 
   generateImageId() {
-    return `tele-id-${this.props.teleId}`;
+    const { teleId, fullscreenMode } = this.props;
+    return `tele-id-${teleId}${fullscreenMode ? 'fullscreen' : ''}`;
   }
 
   render() {
@@ -317,7 +319,7 @@ class TelescopeImageLoader extends Component {
       prevH,
       startingOpacity,
       adjustedFade,
-      loading,
+      newMission,
     } = this.state;
 
     const { loadThumbnails, viewportHeight } = this.props;
@@ -360,12 +362,22 @@ class TelescopeImageLoader extends Component {
       objectFit: 'cover',
     };
 
+    const topImageStyle = {
+      backgroundColor: newMission ? '#000' : 'transparent',
+    };
+
     return (
       <div className="sse-thumbnails">
         <div className="bottom-image">
-          <img alt="" width="100%" src={previousImageUrl} draggable="false" />
+          <img
+            alt=""
+            width="100%"
+            src={previousImageUrl}
+            draggable="false"
+            style={imageStyle}
+          />
 
-          <div className="top-image">
+          <div className="top-image" style={topImageStyle}>
             <img
               style={imageStyle}
               alt=""
@@ -406,7 +418,6 @@ class TelescopeImageLoader extends Component {
               width: 100%;
               height: 100%;
               position: relative;
-              background: #000;
             }
           `}
         </style>

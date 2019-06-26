@@ -7,6 +7,7 @@ import determineImageLoader from '../determine-image-loader';
 const LiveFeed = props => {
   const {
     viewportHeight,
+    fullscreenMode,
     fetchingOnlineStatus,
     obsAlert,
     onlineStatus,
@@ -42,7 +43,11 @@ const LiveFeed = props => {
 
   return (
     <div className="root">
-      {determineImageLoader(instrument, { viewportHeight }, onImageChange)}
+      {determineImageLoader(
+        instrument,
+        { viewportHeight, fullscreenMode },
+        onImageChange
+      )}
     </div>
   );
 };

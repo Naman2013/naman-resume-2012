@@ -148,7 +148,6 @@ export default css`
     height: 105px;
     width: 105px;
     border-radius: 50%;
-    padding: 10px;
     background-image: url('https://vega.slooh.com/assets/v4/common/Level_Image_Container_Blue_Normal.png');
     background-size: cover;
     background-position: center;
@@ -158,6 +157,7 @@ export default css`
   .avatar-container .icon {
     height: 100%;
     width: 100%;
+    border-radius: 50%;
     background-size: cover;
   }
 
