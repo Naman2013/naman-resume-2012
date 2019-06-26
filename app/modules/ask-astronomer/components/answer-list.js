@@ -83,9 +83,11 @@ class AnswerList extends Component {
     });
   };
 
-  submitReply = (params, callback) => {
-    const { actions } = this.props;
-    actions.replyToAnswer(params).then(res => callback(res.payload));
+  submitReply = (requestParams, callback) => {
+    const { actions, objectId } = this.props;
+    actions
+      .replyToAnswer({ ...requestParams, objectId })
+      .then(res => callback(res.payload));
   };
 
   render() {

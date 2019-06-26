@@ -110,7 +110,6 @@ export class Question extends Component {
       isDesktop,
       likeParams,
       user,
-      objectId,
       submitAnswer,
       // modalActions,
       // updateQuestionsList,
@@ -119,11 +118,12 @@ export class Question extends Component {
       fetchingReplies,
       fetchingQuestions,
       fetchingDiscuss,
+      params: { objectId },
     } = this.props;
 
     if (!questions || !questions.length) {
       // go back to questions list
-      browserHistory.push(`/object-details/${params.objectId}/ask`);
+      browserHistory.push(`/object-details/${objectId}/ask`);
       return null;
     }
 
