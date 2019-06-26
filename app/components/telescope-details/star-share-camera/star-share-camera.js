@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Lightbox from 'react-images';
 import classnames from 'classnames';
+import take from 'lodash/take';
 import { canUseDOM } from 'exenv';
 import {
   snapImage,
@@ -69,7 +70,32 @@ class StarShareCamera extends Component {
     lightboxOpen: false,
     lightboxImage: '',
     snappingPhoto: false,
+    snapshotList: [],
   };
+
+  componentDidMount() {
+    const { mobileStarShare } = this.props;
+    this.getSnapshotListData();
+  }
+
+  componentDidUpdate(prevProps) {
+    const { snapshotList, mobileStarShare } = this.props;
+    if (
+      snapshotList !== prevProps.snapshotList ||
+      mobileStarShare !== prevProps.mobileStarShare
+    ) {
+      this.getSnapshotListData();
+    }
+  }
+
+  getSnapshotListData() {
+    const { snapshotList, mobileStarShare } = this.props;
+    if (mobileStarShare) {
+      this.setState({ snapshotList: take(snapshotList, 4) });
+    } else {
+      this.setState({ snapshotList });
+    }
+  }
 
   componentWillReceiveProps(nextProps) {
     const { snapshotMsg } = this.props;
@@ -128,8 +154,9 @@ class StarShareCamera extends Component {
       lightboxImage,
       snappingPhoto,
       openedModal,
+      snapshotList,
     } = this.state;
-    const { snapshotList, snapshotMsg, snapAPIError, justSnapped } = this.props;
+    const { snapshotMsg, snapAPIError, justSnapped } = this.props;
     const snappingImages = justSnapped && snappingPhoto;
 
     return (

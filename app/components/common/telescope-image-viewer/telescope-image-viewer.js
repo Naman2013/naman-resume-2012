@@ -18,6 +18,7 @@ function TelescopeImageViewer({
   isInteractive,
   callSource,
   shouldUseTransitions,
+  isMobile,
 }) {
   const setIds = obsIdTeleIdDomeIdFromTeleId(teleId);
   const teleThumbWidth = '866px';
@@ -45,7 +46,7 @@ function TelescopeImageViewer({
           shouldUseTransitions={shouldUseTransitions}
         />
 
-        <StarShareCamera />
+        <StarShareCamera mobileStarShare={isMobile} />
       </InteractiveViewer>
     </div>
   );
