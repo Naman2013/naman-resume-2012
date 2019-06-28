@@ -180,9 +180,9 @@ class BootstrappedDashboard extends Component {
   }
 
   dashboardHeroClicked() {
-    this.setState( {
-      guestPopupForceShow: true,
-    });
+    //this.setState( {
+    //  guestPopupForceShow: true,
+    //});
   }
 
   dashboardHeroPopupClosed() {
