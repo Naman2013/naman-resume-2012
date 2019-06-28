@@ -164,7 +164,7 @@ class BootstrappedDashboard extends Component {
   };
 
   state = {
-    guestPopupShow: false,
+    guestPopupForceShow: false,
   };
 
   componentDidMount() {
@@ -172,10 +172,23 @@ class BootstrappedDashboard extends Component {
     setTimeout(function() {
 
         that.setState({
-            guestPopupShow : true}
+            guestPopupForceShow : true
+          }
         );
 
       }, 15000);
+  }
+
+  dashboardHeroClicked() {
+    this.setState( {
+      guestPopupForceShow: true,
+    });
+  }
+
+  dashboardHeroPopupClosed() {
+    this.setState( {
+      guestPopupForceShow: false,
+    });
   }
 
   render() {
@@ -216,8 +229,9 @@ class BootstrappedDashboard extends Component {
                 					     validateResponseAccess={props.validateResponseAccess}
               					   />
                            }
-                           {serviceResponse.displayType == 'guest-join' && this.state.guestPopupShow && <BootstrappedTourPopupForGuestJoin
-                 					     {...serviceResponse.popupData}
+                           {serviceResponse.displayType == 'guest-join' && this.state.guestPopupForceShow && <BootstrappedTourPopupForGuestJoin
+                               id="dashboardGuestModal"
+                               {...serviceResponse.popupData}
                  					     validateResponseAccess={props.validateResponseAccess}
                					   />
                            }
@@ -238,7 +252,9 @@ class BootstrappedDashboard extends Component {
             <DashHeroMobile />
           </DisplayAtBreakpoint>
           <DisplayAtBreakpoint screenMedium screenLarge screenXLarge>
-            <DashHero />
+            <div onClick={() => this.dashboardHeroClicked()}>
+              <DashHero/>
+            </div>
           </DisplayAtBreakpoint>
         </div>
         {promoPanelShow

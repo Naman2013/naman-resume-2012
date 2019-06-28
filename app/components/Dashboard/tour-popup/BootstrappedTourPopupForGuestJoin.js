@@ -50,7 +50,7 @@ class BootstrappedTourPopupForGuestJoin extends Component {
       subscriptionPlanCallSource,
     } = this.props;
 
-    const { showModal } = this.state;
+    let { showModal } = this.state;
 
     return (
       <div className="root">

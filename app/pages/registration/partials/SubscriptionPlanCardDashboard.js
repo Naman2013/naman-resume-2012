@@ -25,10 +25,6 @@ class SubscriptionPlanCardDashboard extends Component {
 
   static defaultProps = {};
 
-  state = {
-    showDetails: false,
-  };
-
   viewPlanDetails(subscriptionPlanId, isAstronomyClub, isClassroom) {
     window.localStorage.setItem('selectedPlanId', subscriptionPlanId);
     window.localStorage.setItem('isAstronomyClub', isAstronomyClub);
@@ -69,8 +65,6 @@ class SubscriptionPlanCardDashboard extends Component {
       setSelectedPlan,
       teaserContent,
     } = this.props;
-
-    const { showDetails } = this.state;
 
     return (
       <div className="root">
@@ -117,25 +111,20 @@ class SubscriptionPlanCardDashboard extends Component {
                   }
                 />
               </div>
-              <Button text={selectButtonText} onClickEvent={() =>
-                this.selectPlan(
-                  planID,
-                  isAstronomyClub,
-                  isClassroom
-                )} />
+              <Button text={selectButtonText}
+                onClickEvent={() =>
+                  this.selectPlan(
+                    planID,
+                    isAstronomyClub,
+                    isClassroom
+                  )}
+              />
             </div>
           </div>
         </DisplayAtBreakpoint>
         <DisplayAtBreakpoint screenSmall>
           <SubscriptionPlanCardSmall {...this.props} />
         </DisplayAtBreakpoint>
-        {showDetails ? (
-          <div
-            className="inner-container"
-            id={'subscriptionPlanDetails_' + planID}
-            dangerouslySetInnerHTML={{ __html: aboutThisPlan }}
-          />
-        ) : null}
         <style jsx>{styles}</style>
       </div>
     );
