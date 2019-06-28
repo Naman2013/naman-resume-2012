@@ -6,6 +6,7 @@ import { info } from 'app/styles/variables/iconURLs';
 import SubscriptionPlanCardSmall from './SubscriptionPlanCardSmall';
 import { browserHistory } from 'react-router';
 import styles from './SubscriptionPlanCard.style';
+import styles2 from 'app/pages/registration/JoinStep1SchoolSelection.style';
 
 const { func, number, oneOfType, string } = PropTypes;
 
@@ -34,7 +35,11 @@ class SubscriptionPlanCardDashboard extends Component {
     browserHistory.push('/join/membershipPlanDetailsStep');
   }
 
-  selectPlan(subscriptionPlanId, isAstronomyClub, isClassroom) {
+  selectPlan = formValues => {
+    const { subscriptionPlanId, isAstronomyClub, isClassroom } = this.props;
+
+    formValues.preventDefault();
+
     window.localStorage.setItem('selectedPlanId', subscriptionPlanId);
     window.localStorage.setItem('isAstronomyClub', isAstronomyClub);
     window.localStorage.setItem('isClassroom', isClassroom);
@@ -74,7 +79,7 @@ class SubscriptionPlanCardDashboard extends Component {
               Welcome!
             </div>
             <div className="emphasize border-bottom title">
-              Join now to enjoy Slooh for <span style={{fontWeight: "bold"}}>FREE</span>.
+              Join now to enjoy Slooh for <span style={{fontWeight: "bold"}}>14 days</span>
             </div>
             <div className="flex border-bottom padded-top-bottom">
               <div>
@@ -94,6 +99,7 @@ class SubscriptionPlanCardDashboard extends Component {
                 dangerouslySetInnerHTML={{ __html: teaserContent }}
               />
               <span
+                style={{textAlign: "center", marginLeft: "55px"}}
                 className="emphasize"
                 dangerouslySetInnerHTML={{ __html: planCostPostfix }}
               />
@@ -111,14 +117,9 @@ class SubscriptionPlanCardDashboard extends Component {
                   }
                 />
               </div>
-              <Button text={selectButtonText}
-                onClickEvent={() =>
-                  this.selectPlan(
-                    planID,
-                    isAstronomyClub,
-                    isClassroom
-                  )}
-              />
+              <form className="form" onSubmit={this.selectPlan}>
+                <button className="submit-button">{selectButtonText}</button>
+              </form>
             </div>
           </div>
         </DisplayAtBreakpoint>
@@ -126,6 +127,7 @@ class SubscriptionPlanCardDashboard extends Component {
           <SubscriptionPlanCardSmall {...this.props} />
         </DisplayAtBreakpoint>
         <style jsx>{styles}</style>
+        <style jsx>{styles2}</style>
       </div>
     );
   }
