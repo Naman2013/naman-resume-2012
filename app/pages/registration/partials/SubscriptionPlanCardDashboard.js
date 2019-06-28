@@ -36,11 +36,11 @@ class SubscriptionPlanCardDashboard extends Component {
   }
 
   selectPlan = formValues => {
-    const { subscriptionPlanId, isAstronomyClub, isClassroom } = this.props;
+    const { planID, isAstronomyClub, isClassroom } = this.props;
 
     formValues.preventDefault();
 
-    window.localStorage.setItem('selectedPlanId', subscriptionPlanId);
+    window.localStorage.setItem('selectedPlanId', planID);
     window.localStorage.setItem('isAstronomyClub', isAstronomyClub);
     window.localStorage.setItem('isClassroom', isClassroom);
 
