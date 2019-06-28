@@ -46,6 +46,10 @@ const sectionOrder = [
 ];
 
 class BootstrappedDashboard extends Component {
+  constructor(props) {
+    super(props);
+  }
+
   static propTypes = {
     featuredObservations: shape({
       featuredObservationsShow: bool,
@@ -159,7 +163,20 @@ class BootstrappedDashboard extends Component {
     userIsLoggedIn: false,
   };
 
-  state = {};
+  state = {
+    guestPopupShow: false,
+  };
+
+  componentDidMount() {
+    var that = this;
+    setTimeout(function() {
+
+        that.setState({
+            guestPopupShow : true}
+        );
+
+      }, 15000);
+  }
 
   render() {
     let {
@@ -183,7 +200,7 @@ class BootstrappedDashboard extends Component {
 
     return (
       <div className="root">
-	  <Request
+	    <Request
     		serviceURL={DASHBOARD_TOUR_POPUP}
     		method="POST"
     		render={({ serviceResponse }) => (
@@ -199,7 +216,7 @@ class BootstrappedDashboard extends Component {
                 					     validateResponseAccess={props.validateResponseAccess}
               					   />
                            }
-                           {serviceResponse.displayType == 'guest-join' && <BootstrappedTourPopupForGuestJoin
+                           {serviceResponse.displayType == 'guest-join' && this.state.guestPopupShow && <BootstrappedTourPopupForGuestJoin
                  					     {...serviceResponse.popupData}
                  					     validateResponseAccess={props.validateResponseAccess}
                					   />
@@ -210,7 +227,7 @@ class BootstrappedDashboard extends Component {
         			)}
       			</div>
     		)}
-  	 />
+  	    />
 
         <div className="dash-hero">
           {/*<div
