@@ -20,7 +20,8 @@ import {
   makeQueueTabReservedCommunityMissionDataSelector,
   makeQueueTabReservedCommunityMissionSelector,
 } from 'app/modules/telescope/selectors';
-import BootstrappedTourPopup from './tour-popup/BootstrappedTourPopup';
+import BootstrappedTourPopupForUser from './tour-popup/BootstrappedTourPopupForUser';
+import BootstrappedTourPopupForGuestJoin from './tour-popup/BootstrappedTourPopupForGuestJoin';
 import { DASHBOARD_TOUR_POPUP } from '../../services/dashboard';
 import PromoPanel from 'app/components/home/promo-panel';
 import { getSectionComponent } from './dashboardPanelItemsConfiguration';
@@ -172,9 +173,9 @@ class BootstrappedDashboard extends Component {
       getDashboardFeaturedObjects,
     } = this.props;
 
-    recommendedObjects = { 
+    recommendedObjects = {
       ...recommendedObjects,
-      reserveCommunityMission, 
+      reserveCommunityMission,
       reservedCommunityMission,
       reservedCommunityMissionData,
       getDashboardFeaturedObjects,
@@ -182,7 +183,7 @@ class BootstrappedDashboard extends Component {
 
     return (
       <div className="root">
-	  {user && user.cid && <Request
+	  <Request
     		serviceURL={DASHBOARD_TOUR_POPUP}
     		method="POST"
     		render={({ serviceResponse }) => (
@@ -190,19 +191,26 @@ class BootstrappedDashboard extends Component {
         			{serviceResponse.hasPopupDataFlag && (
           			<ConnectUserAndResponseAccess
             				render={props => (
-              					<BootstrappedTourPopup
-                					{...user}
-                          user={user}
-                					{...serviceResponse.popupData}
-                					validateResponseAccess={props.validateResponseAccess}
-              					/>
+              					<>
+                          {serviceResponse.displayType == 'user' && <BootstrappedTourPopupForUser
+                					     {...user}
+                               user={user}
+                					     {...serviceResponse.popupData}
+                					     validateResponseAccess={props.validateResponseAccess}
+              					   />
+                           }
+                           {serviceResponse.displayType == 'guest-join' && <BootstrappedTourPopupForGuestJoin
+                 					     {...serviceResponse.popupData}
+                 					     validateResponseAccess={props.validateResponseAccess}
+               					   />
+                           }
+                        </>
             				)}
           			/>
         			)}
       			</div>
     		)}
-	  
-  	/>}
+  	 />
 
         <div className="dash-hero">
           {/*<div
