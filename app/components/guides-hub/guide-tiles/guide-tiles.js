@@ -45,7 +45,7 @@ class GuideTiles extends Component {
   };
 
   render() {
-    const { guides, isMobile, updateReadingListInfo, emptyText } = this.props;
+    const { guides, isMobile, updateReadingListInfo, emptyText, onUpdate } = this.props;
     const { activeId } = this.state;
     return guides.length ? (
       <CenterColumn widths={['645px', '965px', '965px']}>
@@ -53,7 +53,7 @@ class GuideTiles extends Component {
           {!isMobile &&
             guides.map(guide => (
               <li
-                key={uniqueId()}
+                key={guide.guideId}
                 className="tile"
                 data-id={guide.guideId}
                 onMouseOver={this.setActiveTile}
@@ -64,12 +64,13 @@ class GuideTiles extends Component {
                 </div>
                 <div
                   className={classnames('excerpt', {
-                    'show-excerpt': activeId === guide.guideId,
+                    'show-excerpt': activeId == guide.guideId,
                   })}
                 >
                   <GuideExcerptTile
                     {...guide}
                     updateReadingInfoInList={updateReadingListInfo}
+                    onUpdate={onUpdate}
                   />
                 </div>
               </li>
