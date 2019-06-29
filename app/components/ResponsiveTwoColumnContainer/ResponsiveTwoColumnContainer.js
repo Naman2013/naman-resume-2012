@@ -143,7 +143,7 @@ class ResponsiveTwoColumnContainer extends Component {
             width: 100%;
           }
 
-          @media screen and (min-width: 1025px) {
+          @media screen and (min-width: 1024px) {
             .root {
               width: 940px;
               margin: 0 auto;
