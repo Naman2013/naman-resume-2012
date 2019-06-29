@@ -47,7 +47,7 @@ class StoriesTiles extends Component {
   };
 
   render() {
-    const { stories, isMobile, updateReadingListInfo, emptyText } = this.props;
+    const { stories, isMobile, updateReadingListInfo, emptyText, onUpdate } = this.props;
     const { activeId } = this.state;
     return stories.length ? (
       <CenterColumn widths={['645px', '965px', '965px']}>
@@ -55,7 +55,7 @@ class StoriesTiles extends Component {
           {!isMobile &&
             stories.map(story => (
               <li
-                key={uniqueId()}
+                key={story.postId}
                 className="tile"
                 data-id={story.postId}
                 onMouseOver={this.setActiveTile}
@@ -72,6 +72,7 @@ class StoriesTiles extends Component {
                   <StoryExcerptTile
                     {...story}
                     updateReadingInfoInList={updateReadingListInfo}
+                    onUpdate={onUpdate}
                   />
                 </div>
               </li>

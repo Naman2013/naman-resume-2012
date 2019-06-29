@@ -89,7 +89,7 @@ class Lists extends Component {
   };
 
   GetTiles = (filterType, props) => {
-    const { profileLists, data } = this.props;
+    const { profileLists, data, onUpdate } = this.props;
     const { interestsList } = data;
     const { itemList } = profileLists;
     const tiles = this.getModeledTiles(filterType, itemList, interestsList);
@@ -108,6 +108,7 @@ class Lists extends Component {
             {...props}
             stories={tiles}
             emptyText={profileLists.emptySetDisplay}
+            onUpdate={onUpdate}
           />
         );
       case 'guide':
@@ -116,6 +117,7 @@ class Lists extends Component {
             {...props}
             guides={tiles}
             emptyText={profileLists.emptySetDisplay}
+            onUpdate={onUpdate}
           />
         );
       case 'show':
@@ -124,6 +126,7 @@ class Lists extends Component {
             {...props}
             shows={tiles}
             emptyText={profileLists.emptySetDisplay}
+            onUpdate={onUpdate}
           />
         );
       default:
