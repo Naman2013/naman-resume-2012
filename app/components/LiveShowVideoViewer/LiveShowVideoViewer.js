@@ -61,6 +61,7 @@ class LiveShowVideoViewer extends Component {
       showStreamCode,
       showStreamURL,
       isMobile,
+      showId,
     } = this.props;
 
     const width = '100';
@@ -69,7 +70,7 @@ class LiveShowVideoViewer extends Component {
     const currentFeed = additionalFeeds.find(
       (feed, i) => selectedTab === i + 1
     );
-
+    
     return (
       <div className="root">
         <TabPanel
@@ -122,6 +123,8 @@ class LiveShowVideoViewer extends Component {
                   callSource="situationRoom"
                   shouldUseTransitions={false}
                   isMobile={isMobile}
+                  currentFeed={currentFeed}
+                  showId={showId}
                 />
               )}
             </div>

@@ -122,12 +122,13 @@ class StarShareCamera extends Component {
   };
 
   takeSnapshot = () => {
-    const { actions } = this.props;
+    const { actions, currentFeed, showId } = this.props;
+    
     this.setState(
       {
         snappingPhoto: true,
       },
-      () => actions.snapImage()
+      () => actions.snapImage({ showId, systemId: currentFeed?.systemId, tabDesc: currentFeed?.tabDesc })
     );
   };
 
