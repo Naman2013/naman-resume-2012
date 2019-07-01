@@ -106,7 +106,7 @@ class LiveShowVideoViewer extends Component {
                     callSource="situationRoom"
                     isMobile={isMobile}
                   />
-                  {currentFeed.canStarShare && <StarShareCamera />}
+                  {currentFeed.canStarShare && <StarShareCamera currentFeed={currentFeed} showId={showId} />}
                 </div>
               ) : (
                 // else currentFeed.imageSourceType === 'SSE'
