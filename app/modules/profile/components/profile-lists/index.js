@@ -19,15 +19,20 @@ class ProfileLists extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { params, getProfileLists } = this.props;
+    const { params } = this.props;
     if (prevProps.params.filterType !== params.filterType) {
-      if (params.private) getProfileLists(params.filterType);
-      if (params.public) {
-        getProfileLists(params.filterType, params.customerUUID);
-      }
+      this.fetchData();
     }
     return null;
   }
+
+  fetchData = () => {
+    const { params, getProfileLists } = this.props;
+    if (params.private) getProfileLists(params.filterType);
+    if (params.public) {
+      getProfileLists(params.filterType, params.customerUUID);
+    }
+  };
 
   render() {
     const { data, params, profileLists } = this.props;
@@ -45,6 +50,7 @@ class ProfileLists extends Component {
           profileLists={profileLists}
           filterType={params.filterType}
           filterOptions={formatedHubFilter}
+          onUpdate={this.fetchData}
         />
       </div>
     );

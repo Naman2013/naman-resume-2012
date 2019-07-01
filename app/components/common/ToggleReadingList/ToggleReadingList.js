@@ -42,6 +42,7 @@ class ToggleReadingList extends Component {
       readingListType,
       readingListPrompt,
       updateReadingInfoInList,
+      onUpdate,
     } = this.props;
     toggleReadingListState({
       listItemId: itemId,
@@ -56,6 +57,10 @@ class ToggleReadingList extends Component {
           icon: res.data.promptIconUrl,
           text: readingListPrompt ? res.data.readingListPrompt : null,
         }));
+
+        if (onUpdate) {
+          onUpdate();
+        }
       }
     });
   };

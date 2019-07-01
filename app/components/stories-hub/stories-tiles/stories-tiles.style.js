@@ -7,6 +7,7 @@ export default css`
     ${resetMarginPadding}
     list-style-type: none;
     margin: 0 -10px;
+    margin-top: 40px;
   }
 
   .tile {

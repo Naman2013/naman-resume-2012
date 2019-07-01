@@ -14,7 +14,6 @@ export default css`
     ${faintShadow}
     padding: 25px;
     text-align: left;
-    max-height: 135px;
     color: ${astronaut};
   }
 

@@ -60,6 +60,7 @@ class LiveShowVideoViewer extends Component {
       selectedTab,
       showStreamCode,
       showStreamURL,
+      isMobile,
     } = this.props;
 
     const width = '100';
@@ -102,6 +103,7 @@ class LiveShowVideoViewer extends Component {
                     teleSystem={currentFeed.systemId}
                     telePort={currentFeed.SSEport}
                     callSource="situationRoom"
+                    isMobile={isMobile}
                   />
                   {currentFeed.canStarShare && <StarShareCamera />}
                 </div>
@@ -120,6 +122,7 @@ class LiveShowVideoViewer extends Component {
                   callSource="situationRoom"
                   shouldUseTransitions={false}
                   removeFadeTransitions
+                  isMobile={isMobile}
                 />
               )}
             </div>

@@ -68,7 +68,7 @@ class ProfileActivity extends Component {
             <ContainerWithTitle title={missionListHeading}>
               {missionCount > 0 ? (
                 missionList.map(item => (
-                  <MissionCard key={item.scheduledMissionId} timeSlot={item} />
+                  <MissionCard key={item.scheduledMissionId} timeSlot={item} profileMission />
                 ))
               ) : (
                 <div>{emptySetUpcomingMissionsDisplay}</div>
@@ -82,7 +82,7 @@ class ProfileActivity extends Component {
             <ContainerWithTitle title={recentMissionListHeading}>
               {recentMissionCount > 0 ? (
                 recentMissionList.map(item => (
-                  <MissionCard key={item.scheduledMissionId} timeSlot={item} />
+                  <MissionCard key={item.scheduledMissionId} timeSlot={item} profileMission />
                 ))
               ) : (
                 <div>{emptySetRecentMissionsDisplay}</div>

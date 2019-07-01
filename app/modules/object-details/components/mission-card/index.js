@@ -4,7 +4,7 @@ import './styles.scss';
 
 export class MissionCard extends PureComponent {
   render() {
-    const { timeSlot, onClickHandler } = this.props;
+    const { timeSlot, onClickHandler, profileMission } = this.props;
     const {
       telescopeName,
       title,
@@ -21,7 +21,9 @@ export class MissionCard extends PureComponent {
 
     return (
       <div
-        className={`missions-card${userHasReservation ? ' reserved' : ''}`}
+        className={`missions-card${userHasReservation ? ' reserved' : ''}${
+          profileMission ? ' profile-mission' : ''
+        }`}
         onClick={onClickHandler}
       >
         <div className="left">

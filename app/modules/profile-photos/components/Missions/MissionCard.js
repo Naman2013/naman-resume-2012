@@ -103,6 +103,7 @@ class MissionCard extends PureComponent<TMissionCard> {
       ownerMemberSince,
       groupList,
       buttonText,
+      ownerDisplayName,
     } = data;
     const { closeModal, onDownloadFile } = this;
     return (
@@ -119,10 +120,7 @@ class MissionCard extends PureComponent<TMissionCard> {
           <p>{takenByText}</p>
           <img src={ownerAvatarURL} alt="" />
           <p className="flex-column text-left">
-            <p>
-              <span>{ownerFirstName}</span> <span>{ownerMembershipType}</span>
-            </p>
-            <p>Member Since {ownerMemberSince}</p>
+            <p>{ownerDisplayName}</p>
           </p>
         </h5>
 
@@ -150,7 +148,7 @@ class MissionCard extends PureComponent<TMissionCard> {
             );
           })}
 
-        <p className="top-bot-20">To download: Click on image</p>
+        <p className="top-bot-20">Click links above to download</p>
         <Button onClickEvent={closeModal} mod="auto">
           {buttonText}
         </Button>

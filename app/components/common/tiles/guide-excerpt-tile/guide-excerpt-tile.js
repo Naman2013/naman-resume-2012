@@ -18,6 +18,7 @@ const GuideTile = ({
   toggleReadingListFlag,
   updateReadingInfoInList,
   withinReletedSection,
+  onUpdate,
 }) => (
   <div
     className="guide-tile-root"
@@ -48,6 +49,7 @@ const GuideTile = ({
           readingListType={readingListType}
           readingListPrompt={null}
           promptIconUrl={promptIconUrl}
+          onUpdate={onUpdate}
         />
       ) : null}
     </div>

@@ -229,6 +229,7 @@ export class TelescopeOnline extends Component {
                                   activeInstrumentID={activeInstrumentID}
                                   instrStarShareCamera={instrStarShareCamera}
                                   render={this.viewerRender}
+                                  mobileStarShare={context.isMobile}
                                 />
                               ) : null
                             }

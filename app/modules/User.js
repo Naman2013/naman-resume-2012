@@ -59,6 +59,9 @@ export function store({
     expires: futureDate,
     path: COOKIE_PATH,
   });
+
+
+
   window.document.cookie = cookie.serialize('token', token, {
     domain: cookieD,
     secure: cookieSecure,

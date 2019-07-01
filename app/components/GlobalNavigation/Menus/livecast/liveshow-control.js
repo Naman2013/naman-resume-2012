@@ -68,7 +68,7 @@ export const LiveShowControl = (props: TLiveShowControl) => {
 
       <hr />
 
-      <div className="controls">
+      <div className="controls" id="volume-range">
         <input
           type="range"
           name="points"
@@ -76,7 +76,6 @@ export const LiveShowControl = (props: TLiveShowControl) => {
           max="100"
           onChange={handleVolumeChange}
           value={volume}
-          id="volume-range"
         />
 
         {!isMuted && (
