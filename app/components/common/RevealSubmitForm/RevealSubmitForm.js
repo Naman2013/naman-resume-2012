@@ -31,6 +31,7 @@ class RevealSubmitForm extends Component {
     placeholder: string,
     revealButtonRender: func,
     submitForm: func.isRequired,
+    onDisplayForm: func,
     submitLabel: string,
     uuid: string,
     user: shape({
@@ -94,11 +95,21 @@ class RevealSubmitForm extends Component {
   };
 
   displayForm = e => {
+    const { onDisplayForm } = this.props;
     e.preventDefault();
-    this.setState({
-      showPopup: true,
-      modalDescription: null,
-    });
+    if (typeof onDisplayForm === 'function') {
+      onDisplayForm().then(() => {
+        this.setState({
+          showPopup: true,
+          modalDescription: null,
+        });
+      });
+    } else {
+      this.setState({
+        showPopup: true,
+        modalDescription: null,
+      });
+    }
   };
 
   closeModal = e => {
@@ -243,7 +254,10 @@ class RevealSubmitForm extends Component {
             ) : null}
             <div className="flex-container form-actions">
               <div className="flex-container">
-                <PhotoUploadButton handleUploadImage={this.handleUploadImage} id={threadId}/>
+                <PhotoUploadButton
+                  handleUploadImage={this.handleUploadImage}
+                  id={threadId}
+                />
                 {uploadError && <span className="errorMsg">{uploadError}</span>}
                 {!uploadError && uploadLoading && (
                   <div className="fa fa-spinner" />
