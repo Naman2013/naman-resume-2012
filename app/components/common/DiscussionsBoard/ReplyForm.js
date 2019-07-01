@@ -43,6 +43,7 @@ class ReplyForm extends Component {
     },
     forumId: null,
   };
+
   static propTypes = {
     avatarURL: string,
     submitReply: func.isRequired,
@@ -61,20 +62,9 @@ class ReplyForm extends Component {
 
   constructor(props) {
     super();
-    const { user } = props;
     this.state = {
       uuid: '',
     };
-
-    prepareReply({
-      at: user.at,
-      token: user.token,
-      cid: user.cid,
-    }).then(res => {
-      this.setState(() => ({
-        uuid: res.data.postUUID,
-      }));
-    });
   }
 
   submitForm = (content, S3URLs, callback) => {
@@ -105,6 +95,20 @@ class ReplyForm extends Component {
     );
   };
 
+  handleDisplayForm = () => {
+    const { user } = this.props;
+
+    return prepareReply({
+      at: user.at,
+      token: user.token,
+      cid: user.cid,
+    }).then(res => {
+      this.setState(() => ({
+        uuid: res.data.postUUID,
+      }));
+    });
+  };
+
   handleSubmitReply = (data, callback) => {
     const { intl } = this.props;
     const message = data.apiError
@@ -123,6 +127,7 @@ class ReplyForm extends Component {
           submitForm={this.submitForm}
           placeholder={placeholder}
           uuid={this.state.uuid}
+          onDisplayForm={this.handleDisplayForm}
         />
 
         <style jsx>{`

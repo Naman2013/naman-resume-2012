@@ -99,7 +99,7 @@ class TelescopeImageLoader extends Component {
       return;
     }
 
-    const { loadThumbnails, missionTitle } = this.props;
+    const { loadThumbnails, missionTitle, removeFadeTransitions } = this.props;
 
     const {
       currentImageUrl,
@@ -127,7 +127,7 @@ class TelescopeImageLoader extends Component {
 
     if (receivedNewImage) {
       const topImage = window.document.getElementById(this.generateImageId());
-      if (topImage) {
+      if (topImage && !removeFadeTransitions) {
         topImage.style.transition = 'opacity';
         topImage.style.opacity = startingOpacity;
         topImage.src = currentImageUrl;

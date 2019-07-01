@@ -62,10 +62,10 @@ class ReplyButton extends Component {
     intl: intlShape.isRequired,
   };
 
-  componentDidMount() {
+  preparePostUID() {
     const { user } = this.props;
 
-    prepareReply({
+    return prepareReply({
       at: user.at,
       token: user.token,
       cid: user.cid,
@@ -125,7 +125,11 @@ class ReplyButton extends Component {
           revealButtonRender={btnProps => (
             <Button
               text={intl.formatMessage(messages.Reply)}
-              onClickEvent={btnProps.displayForm}
+              onClickEvent={e => {
+                this.preparePostUID().then(() => {
+                  btnProps.displayForm(e);
+                });
+              }}
             />
           )}
         />
