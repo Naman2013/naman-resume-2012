@@ -119,6 +119,7 @@ class LiveShowVideoViewer extends Component {
                   isInteractive={false}
                   callSource="situationRoom"
                   shouldUseTransitions={false}
+                  removeFadeTransitions
                 />
               )}
             </div>
