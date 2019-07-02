@@ -23,6 +23,9 @@ export class TelescopeOnline extends Component {
       fetchDomeCamAction,
       fetchObservatoryWebcam,
       currentObservatory,
+      currentTelescope,
+      currentInstrument,
+      updateCurrentInstrument,
     } = this.props;
     const { observatoryData } = activeTelescope;
     const { AllskyWidgetId } = currentObservatory;
@@ -35,6 +38,11 @@ export class TelescopeOnline extends Component {
       FacilityWebcamWidgetId,
       DayNightBarWidgetId,
     } = observatoryData;
+
+    if(currentTelescope?.teleInstrumentList[0]?.instrUniqueId !== currentInstrument.instrUniqueId) {
+      updateCurrentInstrument(currentTelescope.teleInstrumentList[0]);
+    }
+
     fetchAllWidgets({
       obsId,
       DayNightBarPanelWidgetId,
