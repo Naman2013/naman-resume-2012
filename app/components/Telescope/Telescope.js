@@ -59,9 +59,9 @@ class Telescope extends PureComponent {
     telescopeId: this.props.activeInstrumentID,
     timesFlippedInstrumentBorder: 0,
     isTransitioningTelescope: false,
-    horizontalResolution: getTelescope(this.props.activeInstrumentID).FOV
+    horizontalResolution: getTelescope(this.props.activeInstrumentID).PORTAL
       .horizontal,
-    verticalResolution: getTelescope(this.props.activeInstrumentID).FOV
+    verticalResolution: getTelescope(this.props.activeInstrumentID).PORTAL
       .vertical,
     increment: this.props.increment,
     awaitingMission: this.props.missionMetaData.missionTargetID === 0,
@@ -102,8 +102,8 @@ class Telescope extends PureComponent {
         activeInstrumentID: previousInstrumentId,
         previousInstrumentID: activeInstrumentID,
         telescopeId: previousInstrumentId,
-        horizontalResolution: tele.FOV.horizontal,
-        verticalResolution:tele.FOV.vertical
+        horizontalResolution: tele.PORTAL.horizontal,
+        verticalResolution:tele.PORTAL.vertical
       }));
       this.showTitleMessage();
     }
