@@ -54,7 +54,7 @@ const snapImageStart = () => ({
   type: SNAP_IMAGE_START,
 });
 
-export const snapImage = () => (dispatch, getState) => {
+export const snapImage = (data = {}) => (dispatch, getState) => {
   const {
     user: { token, at, cid },
     starshareCamera: { imageDataToSnapshot },
@@ -71,6 +71,7 @@ export const snapImage = () => (dispatch, getState) => {
         at,
         cid,
         ...imageDataToSnapshot,
+        ...data,
       })
       .then(result => {
         if (!result.data.apiError) {
