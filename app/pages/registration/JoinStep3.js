@@ -181,6 +181,7 @@ class JoinStep3 extends Component {
                 }
               } else {
                 /* process / display error to user */ 
+		document.getElementById('embeddedHostedPaymentForm').contentWindow.captureActivationError(res);
               }
             }
           })
@@ -330,6 +331,7 @@ class JoinStep3 extends Component {
                             screenXLarge
                           >
                             <iframe
+			      id="embeddedHostedPaymentForm"
                               frameBorder="0"
                               style={{ width: '100%', minHeight: '750px' }}
                               src={joinPageRes.hostedPaymentFormURL}
@@ -338,6 +340,7 @@ class JoinStep3 extends Component {
 
                           <DisplayAtBreakpoint screenSmall>
                             <iframe
+			      id="embeddedHostedPaymentForm"
                               frameBorder="0"
                               style={{ width: '100%', minHeight: '850px' }}
                               src={joinPageRes.hostedPaymentFormURL}

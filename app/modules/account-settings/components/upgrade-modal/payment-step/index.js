@@ -4,8 +4,8 @@ import React, { Fragment } from 'react';
 import Request from 'app/components/common/network/Request';
 import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
 import {
-  JOIN_ACTIVATE_PENDING_CUSTOMER_ENDPOINT_URL,
   JOIN_PAGE_ENDPOINT_URL,
+  UPGRADE_CUSTOMER_ENDPOINT_URL,
 } from 'app/services/registration/registration.js';
 import { DeviceContext } from 'app/providers/DeviceProvider';
 import JoinHeader from 'app/pages/registration/partials/JoinHeader';
@@ -16,9 +16,6 @@ import { FormattedMessage } from 'react-intl';
 import { browserHistory } from 'react-router';
 import axios from 'axios';
 import { getUserInfo } from 'app/modules/User';
-import {
-  UPGRADE_CUSTOMER_ENDPOINT_URL,
-} from 'app/services/registration/registration.js';
 import {
   resetLogIn,
 } from 'app/modules/login/actions';
@@ -111,12 +108,19 @@ import messages from 'app/pages/registration/JoinStep3.messages';
 
         /* Process the Customer's Activation and Sign the User into the website */
         const upgradeCustomerData = {
-          customerId: getUserInfo().cid,
+          cid: getUserInfo().cid,
+	        at: getUserInfo().at,
+	        token: getUserInfo().token,
           selectedPlanId: paymentDataString[1],
           conditionType: paymentDataString[2],
           paymentMethod,
           paymentToken: paymentNonceTokenData,
           billingAddressString: paymentDataString[3],
+          isAstronomyClub: window.localStorage.getItem('isAstronomyClub') === 'true',
+          astronomyClubName: window.localStorage.getItem('astronomyClubName'),
+          isAstronomyClubForMembers18AndOver: window.localStorage.getItem('astronomyClub18AndOver') === 'true',
+          isClassroom: window.localStorage.getItem('isClassroom') === 'true',
+          selectedSchoolId: window.localStorage.getItem('selectedSchoolId'),
         };
           //add string aboc to this //ADD THIS BACK AFTER TESTING
           axios
@@ -136,9 +140,7 @@ import messages from 'app/pages/registration/JoinStep3.messages';
                 window.localStorage.removeItem('isAstronomyClub');
                 window.localStorage.removeItem('isClassroom');
                 window.localStorage.removeItem('astronomyClubName');
-                window.localStorage.removeItem(
-                  'isAstronomyClubForMembers18AndOver'
-                );
+                window.localStorage.removeItem('astronomyClub18AndOver');
 
                 /* cleanup local storage */
                 window.localStorage.removeItem('accountCreationType');
@@ -167,10 +169,12 @@ import messages from 'app/pages/registration/JoinStep3.messages';
   }; //end handleIframeTaskUpgrade
 
 
-type TPaymentStep = { selectedPlanId?: string };
+type TPaymentStep = { selectedPlan?: Shape };
 
 export const PaymentStep = (props: TPaymentStep) => {
-  const { selectedPlanId } = props;
+  const { selectedPlan, conditionType } = props;
+  const selectedPlanId  = selectedPlan.planID;
+
   const pathname = "";
 
   const user = getUserInfo();
@@ -182,15 +186,27 @@ export const PaymentStep = (props: TPaymentStep) => {
     <>
       <Request
         serviceURL={JOIN_PAGE_ENDPOINT_URL}
-        requestBody={{ callSource: 'providePaymentDetails', cid: user.cid, at: user.at, token: user.token, selectedPlanId: selectedPlanId, conditionType: 'forcedsloohcrew' }}
+        requestBody={{
+          callSource: 'providePaymentDetails',
+          cid: user.cid,
+          at: user.at,
+          token: user.token,
+          selectedPlanId: selectedPlanId,
+          conditionType: conditionType,
+          isAstronomyClub: window.localStorage.getItem('isAstronomyClub'),
+          astronomyClubName: window.localStorage.getItem('astronomyClubName'),
+          astronomyClub18AndOver: window.localStorage.getItem('astronomyClub18AndOver'),
+          isClassroom: window.localStorage.getItem('isClassroom'),
+          selectedSchoolId: window.localStorage.getItem('selectedSchoolId'),
+        }}
         render={({ fetchingContent, serviceResponse: joinPageRes }) => (
           <Fragment>
             {!fetchingContent && (
               <DeviceContext.Consumer>
                 {({ isMobile, isDesktop, isTablet }) => (
                   <Fragment>
-      		    <h1 className="modal-h">14 DAY FREE TRIAL</h1>
-	      	    <p className="modal-p mb-5">Please continue your Slooh Crew membership for just $20 per year. We value your support.</p>
+      		    <h1 className="modal-h">{joinPageRes.pageHeading1}</h1>
+	      	    <p className="modal-p mb-5">{joinPageRes.pageHeading2}</p>
                     {joinPageRes.hasSelectedSchool === 'yes' ? (
                       <JoinHeader
                         mainHeading={joinPageRes.pageHeading1}
@@ -234,7 +250,7 @@ export const PaymentStep = (props: TPaymentStep) => {
                         }
                       />
                     )}
-                    <div className="step-root">
+                    <div style={{marginTop: "-100px"}} className="step-root">
                       <DisplayAtBreakpoint
                         screenMedium
                         screenLarge
@@ -283,7 +299,7 @@ export const PaymentStep = (props: TPaymentStep) => {
                 )}
               </DeviceContext.Consumer>
             )}
-	    <style jsx>{styles}</style>
+	          <style jsx>{styles}</style>
           </Fragment>
         )}
       />

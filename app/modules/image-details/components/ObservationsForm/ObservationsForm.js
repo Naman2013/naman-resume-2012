@@ -93,7 +93,7 @@ class ObservationsForm extends Component {
     const { title, observation, showPrompt, promptText } = this.state;
 
     return (
-      <div className="root observations-form">
+      <div className="root observations-form" id="img-details-obs-form">
         <form className="root-form">
           <div className="header">
             <span className="icon-person">

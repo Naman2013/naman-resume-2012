@@ -15,6 +15,16 @@
     pointer-events: none;
   }
 
+  &.profile-mission {
+    pointer-events: none;
+
+    .mobile {
+      .actions {
+        display: none;
+      }
+    }
+  }
+
   > div {
     width: 50%;
   }

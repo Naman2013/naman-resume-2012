@@ -127,10 +127,10 @@ class AskAstronomer extends Component {
     this.fetchQuestions({ currentPage: page });
   };
 
-  submitAnswer = (params, callback) => {
-    const { actions, page } = this.props;
+  submitAnswer = (requestParams, callback) => {
+    const { actions, page, params: { objectId }, } = this.props;
     return actions
-      .submitAnswerToQuestion(params)
+      .submitAnswerToQuestion({...requestParams, objectId})
       .then(res => callback(res.payload));
   };
 

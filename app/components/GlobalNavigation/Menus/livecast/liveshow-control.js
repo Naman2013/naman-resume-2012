@@ -21,19 +21,37 @@ export const LiveShowControl = (props: TLiveShowControl) => {
   const { title = '', description = '' } = liveShow;
 
   const [volume, setVolume] = useState(initialVolume);
+  const [volumeBeforeMute, setVolumeBeforeMute] = useState(null);
+  const [isMuted, setMuted] = useState(false);
 
   const handleVolumeChange = evt => {
     const { value } = evt.target;
     setVolume(value);
+    if (Number(value) === 0) {
+      setMuted(true);
+    }
+    if (Number(value) > 0) {
+      setMuted(false);
+    }
     if (isPlaying) {
       onVolumeChange(value);
     }
   };
 
   const mute = () => {
+    setVolumeBeforeMute(volume);
     setVolume(0);
+    setMuted(true);
     if (isPlaying) {
       onVolumeChange(0);
+    }
+  };
+
+  const unmute = () => {
+    setVolume(volumeBeforeMute);
+    setMuted(false);
+    if (isPlaying) {
+      onVolumeChange(volumeBeforeMute);
     }
   };
 
@@ -50,7 +68,7 @@ export const LiveShowControl = (props: TLiveShowControl) => {
 
       <hr />
 
-      <div className="controls">
+      <div className="controls" id="volume-range">
         <input
           type="range"
           name="points"
@@ -58,18 +76,31 @@ export const LiveShowControl = (props: TLiveShowControl) => {
           max="100"
           onChange={handleVolumeChange}
           value={volume}
-          id="volume-range"
         />
 
-        <Tooltip title="Mute">
-          <div
-            className="player-control-btn"
-            role="presentation"
-            onClick={mute}
-          >
-            <span className="icon-volume-muted" />
-          </div>
-        </Tooltip>
+        {!isMuted && (
+          <Tooltip title="Mute">
+            <div
+              className="player-control-btn"
+              role="presentation"
+              onClick={mute}
+            >
+              <span className="icon-volume-muted" />
+            </div>
+          </Tooltip>
+        )}
+
+        {isMuted && (
+          <Tooltip title="Unmute">
+            <div
+              className="player-control-btn"
+              role="presentation"
+              onClick={unmute}
+            >
+              <span className="icon-volume" />
+            </div>
+          </Tooltip>
+        )}
 
         {!isPlaying && (
           <Tooltip title="Play">

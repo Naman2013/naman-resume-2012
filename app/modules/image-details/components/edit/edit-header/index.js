@@ -20,7 +20,7 @@ export const EditHeader = props => {
   };
 
   const onWriteObservation = () =>
-    window.scrollTo(0, document.body.scrollHeight);
+    window.scrollTo(0, document.getElementById("img-details-obs-form").offsetTop);
 
   return (
     <Row className="edit-header">

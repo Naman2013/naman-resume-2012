@@ -361,7 +361,7 @@ class Telescope extends PureComponent {
                 }
               >
                 <div>
-                  {this.props.render({ viewportHeight: width }, imageData => {
+                  {this.props.render({ viewportHeight: width, fullscreenMode: disableFullscreen }, imageData => {
                     const { imageWidth, imageHeight, missionTitle } = imageData;
 
                     const radiusSize = (imageHeight * 0.65) / 2;

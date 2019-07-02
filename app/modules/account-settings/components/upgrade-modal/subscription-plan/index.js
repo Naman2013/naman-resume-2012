@@ -24,7 +24,8 @@ export const SubscriptionPlan = (props: TSubscriptionPlan) => {
     planCostPostfix,
     selectButtonText,
     planDescription,
-    isPlanActionEnabled
+    isPlanActionEnabled,
+    teaserContent,
   } = plan;
 
   return (
@@ -42,9 +43,7 @@ export const SubscriptionPlan = (props: TSubscriptionPlan) => {
       <hr />
 
       <div className="d-flex justify-content-between">
-        <span className="header">
-          {planDescription}
-        </span>
+        <span className="header" dangerouslySetInnerHTML={{__html: teaserContent}}/>
         <span className="header">{planCostPostfix}</span>
       </div>
 
@@ -60,11 +59,11 @@ export const SubscriptionPlan = (props: TSubscriptionPlan) => {
           </Button>
           {!isDetailsExpanded && (
             <Fragment>
-              {isPlanActionEnabled && <Button className="animated fadeIn faster" onClick={() => onSelect(plan.planID)}>
+              {isPlanActionEnabled && <Button className="animated fadeIn faster" onClick={() => onSelect(plan)}>
                 {selectButtonText} <span className="icon-arrow-right" />
               </Button>
               }
-              {!isPlanActionEnabled && <Button disabled={true} style={{backgroundColor: '#D3D3D3'}} className="animated fadeIn faster" onClick={() => onSelect(plan.planID)}>
+              {!isPlanActionEnabled && <Button disabled={true} style={{backgroundColor: '#D3D3D3'}} className="animated fadeIn faster" onClick={() => onSelect(plan)}>
                 {selectButtonText}
               </Button>
               }
@@ -93,11 +92,11 @@ export const SubscriptionPlan = (props: TSubscriptionPlan) => {
               <Button onClick={() => setDetailsExpanded(false)}>close</Button>
             )}
             <Fragment>
-              {isPlanActionEnabled && <Button className="btn-active" onClick={() => onSelect(plan.planID)}>
+              {isPlanActionEnabled && <Button className="btn-active" onClick={() => onSelect(plan)}>
                 {selectButtonText}
               </Button>
               }
-              {!isPlanActionEnabled && <Button disabled={true} style={{backgroundColor: '#D3D3D3'}} className="animated fadeIn faster" onClick={() => onSelect(plan.planID)}>
+              {!isPlanActionEnabled && <Button disabled={true} style={{backgroundColor: '#D3D3D3'}} className="animated fadeIn faster" onClick={() => onSelect(plan)}>
                 {selectButtonText}
               </Button>
               }

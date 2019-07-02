@@ -49,6 +49,7 @@ const Card = props => {
     renderChildReplies,
     renderReplyButton,
     replyToponlyCount,
+    replyCount,
     S3Files,
     title,
     toggleComments,
@@ -110,7 +111,7 @@ const Card = props => {
               <CommentButton
                 isActive={showComments}
                 onClickEvent={toggleComments}
-                count={replyToponlyCount}
+                count={replyToponlyCount || replyCount}
                 alwaysShowCount
               />
             ) : null}

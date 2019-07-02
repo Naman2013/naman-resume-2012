@@ -5,6 +5,7 @@ import { DeviceContext } from 'app/providers/DeviceProvider';
 import Btn from 'app/atoms/Btn';
 import Icon from 'app/atoms/Icon';
 import UpgradeModal from '../../containers/upgrade-modal';
+import { Button } from 'react-bootstrap';
 
 const AccountType = props => {
   const {
@@ -47,9 +48,9 @@ const AccountType = props => {
         <Btn mod="circle" onClick={goToPlanInfoUrl}>
           <Icon i="info" />
         </Btn>
-        {isUpgradeAvailable && (
-          <Btn onClick={() => setModalOpen(true)}>{upgradeButtonLabel}</Btn>
-        )}
+        {isUpgradeAvailable === true && <Button onClick={() => setModalOpen(true)}>{upgradeButtonLabel}</Button>}
+        {isUpgradeAvailable === false && <Button style={{backgroundColor: '#D3D3D3'}}>{upgradeButtonLabel}</Button>}
+
       </div>
     );
   };
@@ -115,7 +116,7 @@ const AccountType = props => {
       </DeviceContext.Consumer>
 
       {isModalOpen && (
-        <UpgradeModal show={isModalOpen} onHide={() => setModalOpen(false)} />
+        <UpgradeModal subscriptionPlansCallSource="upgrade" show={isModalOpen} onHide={() => setModalOpen(false)} />
       )}
     </>
   );

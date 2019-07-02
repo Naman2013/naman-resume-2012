@@ -160,6 +160,11 @@ module.exports = {
       disableDotRule: true,
     },
     proxy: {
+      '/getHosted*.php': {
+        target: 'https://nova.slooh.com',
+        changeOrigin: true,
+        secure: true,
+      },
       '/api/**': {
         target: 'https://nova.slooh.com',
         changeOrigin: true,

@@ -2,21 +2,23 @@
 
 import { SubscriptionPlan } from 'app/modules/account-settings/components/upgrade-modal/subscription-plan/index';
 import React from 'react';
+import Btn from 'app/atoms/Btn';
 
 type TSelectPlanStep = {
   goNext: Function,
-  setSelectedPlanId?: Function,
+  setSelectedPlan?: Function,
   subscriptionPlansData: any,
-  selectedPlanId?: string,
+  selectedPlan?: Shape,
   user?: Shape,
 };
 
 export const SelectPlanStep = (props: TSelectPlanStep) => {
   const {
+    subscriptionPlansCallSource,
     subscriptionPlansData,
-    selectedPlanId,
+    selectedPlan,
     goNext,
-    setSelectedPlanId,
+    setSelectedPlan,
   } = props;
 
   const {
@@ -25,9 +27,9 @@ export const SelectPlanStep = (props: TSelectPlanStep) => {
     pageHeading2,
   } = subscriptionPlansData;
 
-  const onSelect = planId => {
-    goNext();
-    setSelectedPlanId(planId);
+  const onSelect = plan => {
+    goNext(subscriptionPlansCallSource, plan);
+    setSelectedPlan(plan);
   };
 
   return (
@@ -38,10 +40,12 @@ export const SelectPlanStep = (props: TSelectPlanStep) => {
       {subscriptionPlans.map(plan => (
         <SubscriptionPlan
           plan={plan}
-          expanded={Boolean(selectedPlanId)}
+          expanded={Boolean(selectedPlan)}
           onSelect={onSelect}
         />
       ))}
+
+
     </>
   );
 };

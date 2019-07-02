@@ -10,8 +10,12 @@ const CustomerService = () => (
     <div className="help-page-inner">
       <div className="help-page-section">
         <div className="help-page-paragraph">
-          If you have questions about Slooh or any of our membership plans,
-          please email us at <a href="mailto:friend@slooh.com">friend@slooh.com</a>.
+          For Account Queries, please contact <a href="mailto:custserv@slooh.com">custserv@slooh.com</a>.
+        </div>
+      </div>
+      <div className="help-page-section">
+        <div className="help-page-paragraph">
+          For Technical Support, please contact <a href="mailto:support@slooh.com">support@slooh.com</a>.
         </div>
       </div>
     </div>

@@ -4,7 +4,7 @@ import SSELiveImageViewer from './LiveImageViewer/SSELiveImageViewer';
 
 export default function determineImageLoader(
   instrument,
-  { viewportHeight },
+  { viewportHeight, fullscreenMode },
   onImageChange
 ) {
   const { instrImageSourceType, instrCameraSourceType } = instrument;
@@ -13,6 +13,7 @@ export default function determineImageLoader(
     return (
       <SSELiveImageViewer
         viewportHeight={viewportHeight}
+        fullscreenMode={fullscreenMode}
         telePort={instrument.instrPort}
         teleSystem={instrument.instrSystem}
         teleId={instrument.instrTelescopeId}

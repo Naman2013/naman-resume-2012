@@ -18,6 +18,7 @@ const ShowTile = ({
   toggleReadingListFlag,
   updateReadingInfoInList,
   withinReletedSection,
+  onUpdate,
 }) => (
   <div
     className="show-tile-root"
@@ -42,6 +43,7 @@ const ShowTile = ({
           readingListType={readingListType}
           readingListPrompt={null}
           promptIconUrl={promptIconUrl}
+          onUpdate={onUpdate}
         />
       ) : null}
     </div>

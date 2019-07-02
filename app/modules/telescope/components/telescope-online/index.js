@@ -217,6 +217,7 @@ export class TelescopeOnline extends Component {
                                 <TelescopeImageViewerController
                                   activeInstrumentID={activeInstrumentID}
                                   instrStarShareCamera={instrStarShareCamera}
+                                  mobileStarShare={context.isMobile}
                                   render={({ viewportHeight }, onImageChange) =>
                                     provideLiveFeed(
                                       {
@@ -279,6 +280,7 @@ export class TelescopeOnline extends Component {
 function provideLiveFeed(
   {
     viewportHeight,
+    fullscreenMode,
     fetchingOnlineStatus,
     obsAlert,
     onlineStatus,
@@ -296,6 +298,7 @@ function provideLiveFeed(
   return (
     <LiveFeed
       viewportHeight={viewportHeight}
+      fullscreenMode={fullscreenMode}
       fetchingOnlineStatus={fetchingOnlineStatus}
       obsAlert={obsAlert}
       onlineStatus={onlineStatus}
