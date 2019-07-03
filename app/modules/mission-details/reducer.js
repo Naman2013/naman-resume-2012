@@ -1,9 +1,17 @@
 // @flow
 import { actions, constants } from 'ducks-helpers';
 import { handleActions } from 'redux-actions';
+import { apply } from 'qim';
 import { API_URL } from './api';
 
-export const TYPE = constants('mission-details', ['~GET_MISSION_DETAILS']);
+export const TYPE = constants('mission-details', [
+  '~GET_MISSION_DETAILS',
+
+  // tags
+  '~SET_TAG',
+  '~GET_TAGS',
+  '~DELETE_TAG',
+]);
 export const ACTION = actions(TYPE);
 
 type TInitialState = {
@@ -29,6 +37,11 @@ export const initialState: TInitialState = {
   imageCount: 0,
   maxImageCount: 0,
   imageList: [],
+  tagsData: {
+    isFetching: false,
+    data: {},
+    tagList: [],
+  },
 };
 
 export default handleActions(
@@ -36,6 +49,19 @@ export default handleActions(
     [TYPE.GET_MISSION_DETAILS]: setFetching,
     [TYPE.GET_MISSION_DETAILS_SUCCESS]: getMissionDetailsSuccess,
     [TYPE.GET_MISSION_DETAILS_ERROR]: setServerError,
+
+    // TAGS
+    [TYPE.GET_TAGS]: setTagFetching,
+    [TYPE.GET_TAGS_SUCCESS]: getTagsSuccess,
+    [TYPE.GET_TAGS_ERROR]: setServerError,
+
+    [TYPE.SET_TAG]: setTagFetching,
+    [TYPE.SET_TAG_SUCCESS]: setTagSuccess,
+    [TYPE.SET_TAG_ERROR]: setServerError,
+
+    [TYPE.DELETE_TAG]: setTagFetching,
+    [TYPE.DELETE_TAG_SUCCESS]: setTagSuccess,
+    [TYPE.DELETE_TAG_ERROR]: setServerError,
   },
   initialState
 );
@@ -66,4 +92,40 @@ function getMissionDetailsSuccess(state, { payload }) {
     maxImageCount: payload.maxImageCount,
     imageList: payload.imageList,
   };
+}
+
+const setTagsDataImmutable = (data, state) =>
+  apply(['tagsData'], () => data, state);
+
+function getTagsSuccess(state, action) {
+  return setTagsDataImmutable(
+    {
+      isFetching: false,
+      data: action.payload,
+      tagList: action.payload.tagList,
+    },
+    state
+  );
+}
+
+function setTagSuccess(state, action) {
+  return setTagsDataImmutable(
+    {
+      isFetching: false,
+      data: action.payload,
+      tagList: action.payload.tagList,
+    },
+    state
+  );
+}
+
+function setTagFetching(state) {
+  return setTagsDataImmutable(
+    {
+      isFetching: true,
+      data: state.tagsData.data,
+      tagList: state.tagsData.tagList,
+    },
+    state
+  );
 }

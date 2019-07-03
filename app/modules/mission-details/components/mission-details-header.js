@@ -4,6 +4,7 @@ import cn from 'classnames';
 import { Col, Row } from 'react-bootstrap';
 import Btn from 'app/atoms/Btn';
 import noop from 'lodash/fp/noop';
+import { TagBtn } from 'app/modules/image-details/components/edit/edit-header/tag-btn';
 
 type TMissionDetailsHeader = {
   image: Object,
@@ -21,6 +22,7 @@ const MissionDetailsHeader = (props: TMissionDetailsHeader) => {
     missionDateCreated,
     imageCount,
     isMobile,
+    scheduledMissionId,
   } = props;
   const getTelescopeName = () => {
     return props.image && props.image.telescopeName;
@@ -46,9 +48,7 @@ const MissionDetailsHeader = (props: TMissionDetailsHeader) => {
           <h5 className="h-5 h-5-normal">{missionDateCreated}</h5>
         </Col>
         <Col lg={4} md={4} sm={12}>
-          <h5
-            className="h-5 h-5-normal mission-details-ceil"
-          >
+          <h5 className="h-5 h-5-normal mission-details-ceil">
             <span>{getTelescopeName()}</span>
             <span>{getInstrumentName()}</span>
           </h5>
@@ -68,9 +68,11 @@ const MissionDetailsHeader = (props: TMissionDetailsHeader) => {
               isMobile ? 'start' : 'end'
             }`}
           >
-            <Btn onClick={noop} mod="circle">
-              <i className="fa fa-tag" />
-            </Btn>
+            <TagBtn
+              objectId={scheduledMissionId}
+              placeholder="Add tags to this mission"
+              {...props}
+            />
             <Btn onClick={noop} mod="circle">
               <i className="icon icon-download nightfall" />
             </Btn>

@@ -9,6 +9,13 @@
 
 .mission-details {
 
+  .custom-popover {
+    width: 300px;
+    right: -10px;
+    //bottom: -40px;
+    top: initial;
+  }
+
   &.root-wrapper {
 
     .body-wrapper {
