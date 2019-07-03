@@ -19,4 +19,9 @@ export const makeQuestsStepModuleListSelector = () =>
     makeQuestsStepDataSelector(),
     state => state.stepModuleList || []
   );
+export const makeQuestOutputSelector = () =>
+  createSelector(
+    selectQuests,
+    state => state.questOutput
+  );
 // END: QUEST STEP PAGE

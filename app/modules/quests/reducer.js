@@ -15,17 +15,26 @@ const initialState = {
   isFetching: false,
 
   stepData: {},
+  questOutput: {},
 };
 
 export default handleActions(
   {
+    // ABOUT PAGE
     [TYPE.GET_QUESTS]: start,
     [TYPE.GET_QUESTS_SUCCESS]: getQuestsSuccess,
     [TYPE.GET_QUESTS_ERROR]: error,
+    // END: ABOUT PAGE
 
+    // STEP PAGE
     [TYPE.GET_QUEST_STEP]: start,
     [TYPE.GET_QUEST_STEP_SUCCESS]: getStepSuccess,
     [TYPE.GET_QUEST_STEP_ERROR]: error,
+
+    [TYPE.GET_QUEST_OUTPUT]: start,
+    [TYPE.GET_QUEST_OUTPUT_SUCCESS]: getQuestOutputSuccess,
+    [TYPE.GET_QUEST_OUTPUT_ERROR]: error,
+    // END: STEP PAGE
   },
   initialState
 );
@@ -56,5 +65,13 @@ function getStepSuccess(state, { payload }) {
     ...state,
     isFetching: false,
     stepData: payload,
+  };
+}
+
+function getQuestOutputSuccess(state, { payload }) {
+  return {
+    ...state,
+    isFetching: false,
+    questOutput: payload,
   };
 }

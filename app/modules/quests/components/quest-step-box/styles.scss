@@ -1,0 +1,112 @@
+@import '~app/styles/bootstrap/common';
+
+.quest-step-box {
+  box-shadow: 0 0 6px 0 $shadows;
+  background-color: $romance;
+
+  .step-box-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+  }
+
+  .shield-row {
+    padding: 30px;
+    border-bottom: 1px dashed $hawkesBlue;
+
+    // todo can be global
+    .grey-ball {
+      width: 24px;
+      height: 24px;
+      box-shadow: inset 0 0 7px 0 rgba(157, 167, 180, 0.5);
+      background-color: $faintGray;
+      border-radius: 50%;
+    }
+
+    .shield {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      top: -40px;
+    }
+  }
+
+  .step-title-row {
+    padding: 30px;
+    border-bottom: 1px solid $hawkesBlue;
+
+    .step-title {
+      font-family: $secondary-font;
+      font-size: 26px;
+    }
+  }
+
+  .sub-title-row {
+    padding: 30px;
+    border-bottom: 1px solid $hawkesBlue;
+
+    .sub-title {
+      font-family: $primary-font;
+      font-weight: bold;
+      font-size: 11px;
+      text-transform: uppercase;
+    }
+
+    .step-controls {
+      border-left: 1px solid $hawkesBlue;
+      margin: -30px;
+      padding: 30px;
+    }
+  }
+
+  .step-modules {
+    padding: 80px;
+    background-color: $romance;
+  }
+
+
+  // RESPONSIVE
+  .mobile-view-step-info {
+    background-color: $romance;
+    padding: 25px 40px;
+    box-shadow: 0 0 6px 0 $shadows;
+    font-family: $primary-font;
+
+    .step-box-row {
+      border-bottom: 1px solid $hawkesBlue;
+      padding: 15px 0;
+
+      &:last-of-type {
+        border: none;
+      }
+    }
+
+    .step-number, .step-sub-title {
+      font-size: 10px;
+      font-weight: bold;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .step-title {
+      font-size: 22px;
+    }
+
+  }
+
+
+  // RESPONSIVE
+  @include media-breakpoint-down(sm) {
+    & {
+      box-shadow: none;
+      background-color: transparent;
+    }
+
+    .step-modules {
+      padding: 40px;
+      margin: 10px 0;
+      box-shadow: 0 0 6px 0 $shadows;
+    }
+  }
+}

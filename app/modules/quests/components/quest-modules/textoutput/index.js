@@ -1,11 +1,25 @@
+import TopicList from 'app/components/guides/TopicList';
 import React, { PureComponent } from 'react';
+import './styles.scss';
 
 export class QuestModuleTextOutput extends PureComponent {
-  // componentDidMount
+  componentDidMount = () => {
+    const { module, params, getQuestOutput } = this.props;
+    const { questId } = params;
+    const { moduleId } = module;
+
+    if (questId && moduleId) getQuestOutput(questId, moduleId);
+  };
 
   render() {
-    const { module } = this.props;
-    return <div>TextOutput</div>;
+    const { questOutput } = this.props;
+    const { panelList } = questOutput;
+
+    return (
+      <div className="quest-output-module">
+        <TopicList list={panelList} />
+      </div>
+    );
   }
 }
 

@@ -1,13 +1,5 @@
-.dashed-btn {
-  width: 110px;
-  height: 40px;
-  border-radius: 100px;
-  border: 1px dashed #41566f;
-}
-.dashed-btn.disabled {
-  opacity: 0.2;
-  cursor: not-allowed;
-}
+@import '~app/styles/variables/media-queries';
+
 .step-footer {
   display: flex;
   align-items: center;
@@ -19,14 +11,33 @@
   background-color: #ffffff;
   position: absolute;
   bottom: 1px;
+  .dashed-btn {
+    width: 110px;
+    height: 40px;
+    border-radius: 100px;
+    border: 1px dashed #41566f;
+  }
+
+  .dashed-btn.disabled {
+    opacity: 0.2;
+    cursor: not-allowed;
+  }
+
+  .step-footer-title {
+    text-align: center;
+  }
+
+  .step-footer-title > div:nth-child(1) {
+    font-size: 10px;
+  }
+
+  .step-footer-title > div:nth-child(2) {
+    margin-top: 5px;
+    font-size: 19px;
+  }
 }
-.step-footer-title {
-  text-align: center;
-}
-.step-footer-title > div:nth-child(1) {
-  font-size: 10px;
-}
-.step-footer-title > div:nth-child(2) {
-  margin-top: 5px;
-  font-size: 19px;
+@include sm-low {
+  .step-footer {
+    display: none;
+  }
 }
