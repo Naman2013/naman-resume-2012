@@ -137,7 +137,7 @@ export class QuestStep extends Component<TQuestStep> {
             title={stepData.stepHeaderTitle}
             completed={stepData.stepCompleted}
           >
-            <h2>Modules</h2>
+            {/* <h2>Modules</h2>
             <ul>
               {moduleList.map(m => (
                 <li key={m.moduleId}>
@@ -146,12 +146,13 @@ export class QuestStep extends Component<TQuestStep> {
               ))}
             </ul>
 
-            <hr />
+            <hr /> */}
 
             {moduleList.map(
               module =>
                 module.moduleType === questModuleType.datacollectdifferent && (
-                  <QuestModuleDataCollection module={module} />
+                  <QuestModuleDataCollection module={module} 
+                  questId={routeParams.questId} />
                 )
             )}
             

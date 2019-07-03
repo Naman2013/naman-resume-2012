@@ -4,4 +4,6 @@ import axios from 'axios';
 export const getQuestStepApi = data => axios.post('/api/quests/getStep', data);
 export const getQuestOutputApi = data =>
   axios.post('/api/quests/getOutputPanel', data);
+export const getDataCollectionApi = data =>
+  axios.post('/api/quests/getDataCollection', data);
 // END: QUEST STEP PAGE

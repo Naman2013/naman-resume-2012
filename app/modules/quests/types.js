@@ -1,6 +1,7 @@
 // @flow
 
 export const questModuleType = {
+  datacollectsame: 'datacollectsame',
   datacollectdifferent: 'datacollectdifferent',
   imageordering: 'imageordering',
   textinput: 'textinput',
@@ -10,6 +11,7 @@ export const questModuleType = {
 };
 
 const moduleTypes =
+  questModuleType.datacollectsame |
   questModuleType.datacollectdifferent |
   questModuleType.imageordering |
   questModuleType.textinput |

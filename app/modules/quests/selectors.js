@@ -14,14 +14,22 @@ export const makeQuestsStepDataSelector = () =>
     selectQuests,
     state => state.stepData
   );
+
 export const makeQuestsStepModuleListSelector = () =>
   createSelector(
     makeQuestsStepDataSelector(),
     state => state.stepModuleList || []
   );
+
 export const makeQuestOutputSelector = () =>
   createSelector(
     selectQuests,
     state => state.questOutput
+  );
+
+export const makeQuestDataCollectionSelector = () =>
+  createSelector(
+    selectQuests,
+    state => state.questDataCollection
   );
 // END: QUEST STEP PAGE

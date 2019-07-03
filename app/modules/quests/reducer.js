@@ -7,6 +7,7 @@ export const TYPE = constants('quests', [
   // QUEST STEP PAGE
   '~GET_QUEST_STEP',
   '~GET_QUEST_OUTPUT',
+  '~GET_DATA_COLLECTION',
 ]);
 
 export const ACTION = actions(TYPE);
@@ -16,6 +17,7 @@ const initialState = {
 
   stepData: {},
   questOutput: {},
+  questDataCollection: {},
 };
 
 export default handleActions(
@@ -34,6 +36,10 @@ export default handleActions(
     [TYPE.GET_QUEST_OUTPUT]: start,
     [TYPE.GET_QUEST_OUTPUT_SUCCESS]: getQuestOutputSuccess,
     [TYPE.GET_QUEST_OUTPUT_ERROR]: error,
+
+    [TYPE.GET_DATA_COLLECTION]: start,
+    [TYPE.GET_DATA_COLLECTION_SUCCESS]: getDataCollectionSuccess,
+    [TYPE.GET_DATA_COLLECTION_ERROR]: error,
     // END: STEP PAGE
   },
   initialState
@@ -73,5 +79,13 @@ function getQuestOutputSuccess(state, { payload }) {
     ...state,
     isFetching: false,
     questOutput: payload,
+  };
+}
+
+function getDataCollectionSuccess(state, { payload }) {
+  return {
+    ...state,
+    isFetching: false,
+    questDataCollection: payload,
   };
 }
