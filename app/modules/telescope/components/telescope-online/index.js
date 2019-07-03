@@ -23,9 +23,6 @@ export class TelescopeOnline extends Component {
       fetchDomeCamAction,
       fetchObservatoryWebcam,
       currentObservatory,
-      currentTelescope,
-      currentInstrument,
-      updateCurrentInstrument,
     } = this.props;
     const { observatoryData } = activeTelescope;
     const { AllskyWidgetId } = currentObservatory;
@@ -39,9 +36,7 @@ export class TelescopeOnline extends Component {
       DayNightBarWidgetId,
     } = observatoryData;
 
-    if(currentTelescope?.teleInstrumentList[0]?.instrUniqueId !== currentInstrument.instrUniqueId) {
-      updateCurrentInstrument(currentTelescope.teleInstrumentList[0]);
-    }
+    this.checkCurrentInstrument();
 
     fetchAllWidgets({
       obsId,
@@ -57,6 +52,22 @@ export class TelescopeOnline extends Component {
       facilityWebcamWidgetId: FacilityWebcamWidgetId,
     });
   };
+
+  componentDidUpdate() {
+    this.checkCurrentInstrument();
+  }
+
+  checkCurrentInstrument = () => {
+    const {
+      currentTelescope,
+      currentInstrument,
+      updateCurrentInstrument,
+    } = this.props;
+
+    if(currentTelescope?.teleInstrumentList[0]?.instrUniqueId !== currentInstrument.instrUniqueId && currentTelescope?.teleInstrumentList[1]?.instrUniqueId !== currentInstrument.instrUniqueId) {
+      updateCurrentInstrument(currentTelescope.teleInstrumentList[0]);
+    }
+  }
 
   fetchAllTelescopeStatus(obsUniqueId = 0) {
     const { observatoryList, params } = this.props;
