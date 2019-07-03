@@ -65,7 +65,6 @@
     background-color: $romance;
   }
 
-
   // RESPONSIVE
   .mobile-view-step-info {
     background-color: $romance;
@@ -82,7 +81,8 @@
       }
     }
 
-    .step-number, .step-sub-title {
+    .step-number,
+    .step-sub-title {
       font-size: 10px;
       font-weight: bold;
       letter-spacing: 2px;
@@ -92,11 +92,15 @@
     .step-title {
       font-size: 22px;
     }
-
   }
 
-
   // RESPONSIVE
+  @include media-breakpoint-down(lg) {
+    .step-modules {
+      padding: 50px;
+    }
+  }
+
   @include media-breakpoint-down(sm) {
     & {
       box-shadow: none;

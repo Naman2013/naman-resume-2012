@@ -1,7 +1,7 @@
 @import '~app/styles/bootstrap/common';
 
 .dc-slot-card {
-  width: 50%;
+  width: calc(50% - 20px);
   margin: 0 10px 20px;
   padding: 40px;
   box-shadow: 0 0 6px 0 $shadows;
