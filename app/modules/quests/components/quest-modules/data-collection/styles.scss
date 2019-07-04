@@ -7,3 +7,11 @@
     margin: 20px -10px 112px;
   }
 }
+
+@include media-breakpoint-down(sm) {
+  .data-collection-module {
+    .data-collection-slot-list {
+      margin: 20px -30px 112px;
+    }
+  }
+}

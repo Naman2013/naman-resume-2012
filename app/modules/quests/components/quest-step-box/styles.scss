@@ -1,6 +1,8 @@
 @import '~app/styles/bootstrap/common';
 
 .quest-step-box {
+  max-width: 780px;
+  margin: auto;
   box-shadow: 0 0 6px 0 $shadows;
   background-color: $romance;
 
