@@ -41,6 +41,7 @@
     display: flex;
     justify-content: space-between;
     margin-top: 20px;
+    position: relative;
 
     .dc-slot-card-find-btn {
       padding: 15px 20px;
@@ -54,6 +55,42 @@
       padding: 0;
       height: 40px;
       width: 40px;
+
+      &.open {
+        color: $romance;
+        background-color: $lightHeadedAstronaut;
+
+        &:after {
+          position: absolute;
+          top: -19px;
+          display: block;
+          width: 100%;
+          height: 11px;
+          margin: auto;
+          content: '';
+          transform: rotate(180deg);
+          background: url('https://vega.slooh.com/assets/v4/common/icon_navarrow_blue.svg')
+            no-repeat center center;
+        }
+      }
+    }
+
+    .dc-slot-info-popover {
+      padding: 20px 30px;
+      font-family: $primary-font;
+      font-weight: 400;
+
+      .dc-slot-info-title {
+        font-size: 19px;
+        line-height: 1.47;
+        color: $lightHeadedAstronaut;
+      }
+
+      .dc-slot-info-text {
+        font-size: 18px;
+        line-height: 1.44;
+        color: $raven;
+      }
     }
   }
 }

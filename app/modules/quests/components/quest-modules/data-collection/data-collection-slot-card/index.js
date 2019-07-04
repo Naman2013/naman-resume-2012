@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
+import cn from 'classnames';
 import Dots from 'atoms/icons/Dots';
 import { astronaut } from 'app/styles/variables/colors_tiles_v4';
+import { QuestButtonsPopover } from '../../../quest-buttons-popover';
 import './styles.scss';
 
 export const DataCollectionSlotCard = props => {
@@ -14,7 +16,11 @@ export const DataCollectionSlotCard = props => {
     showSlotTitle,
     showSlotInfo,
     showDotMenu,
+    slotInfoTitle,
+    slotInfo,
   } = slot;
+
+  const [isInfoMenuOpen, toggleInfoMenu] = useState(false);
   return (
     <div className="dc-slot-card">
       <div className="dc-slot-card-number">
@@ -32,21 +38,37 @@ export const DataCollectionSlotCard = props => {
           {slotButtonCaption}
         </Button>
         {showSlotInfo && (
-          <Button className="dc-slot-card-info-btn">
-            <img
-              alt=""
-              src="https://vega.slooh.com/assets/v4/common/info_icon.svg"
-            />
+          <Button
+            className={cn('dc-slot-card-info-btn', { open: isInfoMenuOpen })}
+            onClick={() => toggleInfoMenu(!isInfoMenuOpen)}
+          >
+            {!isInfoMenuOpen ? (
+              <img
+                alt=""
+                src="https://vega.slooh.com/assets/v4/common/info_icon.svg"
+              />
+            ) : (
+              <i className="menu-icon-close icon-close" />
+            )}
           </Button>
         )}
         {showDotMenu && (
           <Button
-            onClick={() => toggleMenu(!isOpen)}
+            onClick={() => toggleInfoMenu(!isInfoMenuOpen)}
             className="dc-slot-card-dots-menu"
           >
             <Dots theme={{ circleColor: astronaut }} />
           </Button>
         )}
+
+        <QuestButtonsPopover isOpen={isInfoMenuOpen}>
+          {isInfoMenuOpen && (
+            <div className="dc-slot-info-popover">
+              <div className="dc-slot-info-title">{slotInfoTitle}</div>
+              <div className="dc-slot-info-text">{slotInfo}</div>
+            </div>
+          )}
+        </QuestButtonsPopover>
       </div>
     </div>
   );
