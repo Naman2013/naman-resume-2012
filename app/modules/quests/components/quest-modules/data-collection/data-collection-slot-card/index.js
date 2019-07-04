@@ -5,7 +5,7 @@ import { astronaut } from 'app/styles/variables/colors_tiles_v4';
 import './styles.scss';
 
 export const DataCollectionSlotCard = props => {
-  const { slot } = props;
+  const { slot, showDataCollectionSlotModal } = props;
   const {
     slotSequence,
     thumbnailURL,
@@ -25,7 +25,12 @@ export const DataCollectionSlotCard = props => {
         <img src={thumbnailURL} />
       </div>
       <div className="dc-slot-card-actions">
-        <Button className="dc-slot-card-find-btn">{slotButtonCaption}</Button>
+        <Button
+          className="dc-slot-card-find-btn"
+          onClick={showDataCollectionSlotModal}
+        >
+          {slotButtonCaption}
+        </Button>
         {showSlotInfo && (
           <Button className="dc-slot-card-info-btn">
             <img
