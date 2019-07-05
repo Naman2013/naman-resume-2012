@@ -9,6 +9,31 @@
 
 .mission-details {
 
+  .custom-popover {
+    width: 300px;
+    right: -10px;
+    //bottom: -40px;
+    top: initial;
+
+    @include sm-low {
+      right: unset;
+      z-index: 1000;
+    }
+  }
+
+  .tags-popover {
+    position: relative;
+
+    .tag-list {
+      max-height: 300px;
+      overflow: auto;
+
+      .btn {
+        margin: 10px 0;
+      }
+    }
+  }
+
   &.root-wrapper {
 
     .body-wrapper {

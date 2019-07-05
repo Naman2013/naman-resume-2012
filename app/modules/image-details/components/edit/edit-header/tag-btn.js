@@ -5,12 +5,12 @@ import { Button } from 'react-bootstrap';
 import { Tooltip } from 'react-tippy';
 
 const didMount = props => () => {
-  const { getTags, customerImageId } = props;
-  getTags({ customerImageId });
+  const { getTags, objectId } = props;
+  getTags({ objectId });
 };
 
 export const TagBtn = props => {
-  const { tagList, tagsFetching } = props;
+  const { tagList, tagsFetching, placeholder } = props;
 
   const [isTagsOpen, setTagsOpen] = useState(false);
 
@@ -20,20 +20,20 @@ export const TagBtn = props => {
 
   const submitTag = evt => {
     evt.preventDefault();
-    const { setTag, customerImageId } = props;
+    const { setTag, objectId } = props;
     setTag({
       text: tagVal,
-      customerImageId,
+      objectId,
     });
     // clear form
     setTagVal('');
   };
 
   const deleteTag = text => {
-    const { deleteTag, customerImageId } = props;
+    const { deleteTag, objectId } = props;
     deleteTag({
       text,
-      customerImageId,
+      objectId,
     });
   };
 
@@ -51,7 +51,7 @@ export const TagBtn = props => {
             <input
               type="text"
               className="observation-control observation-control-sm"
-              placeholder="Add tags to this image"
+              placeholder={placeholder}
               onChange={evt => setTagVal(evt.target.value)}
               value={tagVal}
             />
