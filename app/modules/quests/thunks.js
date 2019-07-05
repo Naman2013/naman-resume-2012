@@ -3,6 +3,7 @@ import {
   getQuestStepApi,
   getDataCollectionApi,
   getDataCollectionImagesApi,
+  setDataCollectionImageApi,
 } from 'app/modules/quests/api';
 import { ACTION } from './reducer';
 
@@ -69,5 +70,21 @@ export const getDataCollectionImages = data => (dispatch, getState) => {
       dispatch(ACTION.getDataCollectionImagesSuccess(result.data))
     )
     .catch(error => dispatch(ACTION.getDataCollectionImagesError(error)));
+};
+
+export const setDataCollectionImages = data => (dispatch, getState) => {
+  const { at, token, cid } = getState().user;
+  dispatch(ACTION.setDataCollectionImages());
+  const opts = {
+    at,
+    cid,
+    token,
+    ...data,
+  };
+  return setDataCollectionImageApi({ ...opts })
+    .then(result =>
+      dispatch(ACTION.setDataCollectionImagesSuccess(result.data))
+    )
+    .catch(error => dispatch(ACTION.setDataCollectionImagesError(error)));
 };
 // END: QUEST STEP PAGE
