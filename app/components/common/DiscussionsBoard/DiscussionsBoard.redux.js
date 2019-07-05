@@ -28,6 +28,7 @@ class DiscussionsBoard extends Component {
     topLevelThread: bool,
     createThread: func.isRequired,
     createThreadFormParams: shape({}),
+    isClub: bool,
   };
 
   static defaultProps = {
@@ -39,6 +40,7 @@ class DiscussionsBoard extends Component {
     topicId: null,
     topLevelThread: true,
     createThreadFormParams: {},
+    isClub: false,
   };
 
   state = {
@@ -219,6 +221,7 @@ class DiscussionsBoard extends Component {
       user,
       discussionGroupId,
       showId,
+      isClub,
     } = props;
 
     const discussionsActions = {
@@ -258,6 +261,7 @@ class DiscussionsBoard extends Component {
                   createThreadFormParams={createThreadFormParams}
                   {...context}
                   discussionGroupId={discussionGroupId}
+                  isClub={isClub}
                 />
               ) : (
                 <DiscussionComments

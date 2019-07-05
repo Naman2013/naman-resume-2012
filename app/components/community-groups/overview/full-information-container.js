@@ -182,6 +182,7 @@ class FullInformationOverview extends Component {
                   user={user}
                   validateResponseAccess={actions.validateResponseAccess}
                   discussionGroupId={discussionGroupId}
+                  isClub
                 />
               </div>
             )
