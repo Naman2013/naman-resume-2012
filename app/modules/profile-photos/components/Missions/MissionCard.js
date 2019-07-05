@@ -213,7 +213,6 @@ class MissionCard extends PureComponent<TMissionCard> {
               {telescopeName}
             </div>
 
-            <div className="onhover-field show-onhover">ULTRA-WIDE-FIELD</div>
             {fitsIsAvailable && (
               <Fragment>
                 <div className="onhover-field show-onhover flex-row justify-content-between">
