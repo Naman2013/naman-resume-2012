@@ -1,9 +1,24 @@
+@import '~app/styles/bootstrap/common';
+@import '~app/styles/variables/index';
+
 $BOTTOM_MARGIN_FIX: 3000px; // todo
 .profile-image-list-wrapper {
   .filter-dropdown-btn {
     position: absolute;
     right: 50px;
     top: -73px;
+  }
+
+  @include media-breakpoint-down(sm) {
+    .filter-dropdown-btn {
+      width: calc(100% - 70px);
+      left: 37px;
+      top: -46px;
+
+      button {
+        width: 100%;
+      }
+    }
   }
 
   .filter-shader {
