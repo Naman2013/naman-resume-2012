@@ -7,6 +7,7 @@ import './styles.scss';
 export class QuestModuleDataCollection extends PureComponent {
   state = {
     dcSlotModalVisible: false,
+    selectedSlot: null,
   };
 
   componentDidMount() {
@@ -16,8 +17,15 @@ export class QuestModuleDataCollection extends PureComponent {
     if (questId && moduleId) getDataCollection(questId, moduleId);
   }
 
-  showDataCollectionSlotModal = () => {
-    this.setState({ dcSlotModalVisible: true });
+  getDataCollectionImages = slotId => {
+    const { module, questId, getDataCollectionImages } = this.props;
+    const { moduleId } = module;
+    getDataCollectionImages({ moduleId, questId, slotId });
+  };
+
+  showDataCollectionSlotModal = slotId => {
+    this.getDataCollectionImages(slotId);
+    this.setState({ dcSlotModalVisible: true, selectedSlot: slotId });
   };
 
   closeDataCollectionSlotModal = () => {
@@ -25,9 +33,15 @@ export class QuestModuleDataCollection extends PureComponent {
   };
 
   render() {
-    const { questDataCollection } = this.props;
+    const {
+      questDataCollection,
+      getDataCollectionImagesSuccess,
+      questId,
+      module,
+    } = this.props;
     const { modulePrompt, moduleInstructions, slotArray } = questDataCollection;
-    const { dcSlotModalVisible } = this.state;
+    const { moduleId } = module;
+    const { dcSlotModalVisible, selectedSlot } = this.state;
     console.log(questDataCollection);
     return (
       <div className="data-collection-module">
@@ -47,6 +61,10 @@ export class QuestModuleDataCollection extends PureComponent {
           <DataCollectionSlotModal
             show
             onHide={this.closeDataCollectionSlotModal}
+            // getDataCollectionImagesSuccess={getDataCollectionImagesSuccess}
+            // questId={questId}
+            // moduleId={moduleId}
+            // slotId={selectedSlot}
           />
         )}
       </div>

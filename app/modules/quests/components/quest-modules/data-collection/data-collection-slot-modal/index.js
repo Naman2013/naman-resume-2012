@@ -6,9 +6,9 @@ import { WriteObservationImageCard } from 'app/modules/object-details/components
 
 export class DataCollectionSlotModal extends Component {
   componentDidMount() {
-    // const { getMyPictures, objectDetails } = this.props;
+    // const { getDataCollectionImagesSuccess, objectDetails } = this.props;
     // const { objectId } = objectDetails;
-    // getMyPictures({
+    // getDataCollectionImagesSuccess({
     //   viewType: 'photoRoll',
     //   astroObjectIds: [objectId],
     // });

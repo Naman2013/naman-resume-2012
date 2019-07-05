@@ -8,6 +8,7 @@ export const TYPE = constants('quests', [
   '~GET_QUEST_STEP',
   '~GET_QUEST_OUTPUT',
   '~GET_DATA_COLLECTION',
+  '~GET_DATA_COLLECTION_IMAGES',
 ]);
 
 export const ACTION = actions(TYPE);
@@ -18,6 +19,7 @@ const initialState = {
   stepData: {},
   questOutput: {},
   questDataCollection: {},
+  questDataCollectionImages: {},
 };
 
 export default handleActions(
@@ -40,6 +42,10 @@ export default handleActions(
     [TYPE.GET_DATA_COLLECTION]: start,
     [TYPE.GET_DATA_COLLECTION_SUCCESS]: getDataCollectionSuccess,
     [TYPE.GET_DATA_COLLECTION_ERROR]: error,
+
+    [TYPE.GET_DATA_COLLECTION_IMAGES]: start,
+    [TYPE.GET_DATA_COLLECTION_IMAGES_SUCCESS]: getDataCollectionImagesSuccess,
+    [TYPE.GET_DATA_COLLECTION_IMAGES_ERROR]: error,
     // END: STEP PAGE
   },
   initialState
@@ -87,5 +93,13 @@ function getDataCollectionSuccess(state, { payload }) {
     ...state,
     isFetching: false,
     questDataCollection: payload,
+  };
+}
+
+function getDataCollectionImagesSuccess(state, { payload }) {
+  return {
+    ...state,
+    isFetching: false,
+    questDataCollectionImages: payload,
   };
 }

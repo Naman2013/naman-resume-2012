@@ -6,4 +6,8 @@ export const getQuestOutputApi = data =>
   axios.post('/api/quests/getOutputPanel', data);
 export const getDataCollectionApi = data =>
   axios.post('/api/quests/getDataCollection', data);
+export const getDataCollectionImagesApi = data =>
+  axios.post('/api/quests/getDataCollectionImages', data);
+export const setDataCollectionImageApi = data =>
+  axios.post('/api/quests/setDataCollectionImage', data);
 // END: QUEST STEP PAGE
