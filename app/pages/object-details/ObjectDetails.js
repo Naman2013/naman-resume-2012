@@ -117,7 +117,7 @@ class ObjectDetails extends Component {
     } = this.props;
 
     return (
-      <div>
+      <div key={`object-details-${objectId}`}>
         <header className="header">
           <div className="icon" />
           {objectTitle}
