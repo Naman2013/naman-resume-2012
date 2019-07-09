@@ -7,7 +7,6 @@ import { FilterElTime } from 'app/modules/profile-photos/components/filter-dropd
 import React, { memo } from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import { Tooltip } from 'react-tippy';
-import useOnClickOutside from 'use-onclickoutside';
 import './index.scss';
 
 type TFilterDropdown = {
@@ -43,9 +42,6 @@ export const FilterDropdown = memo((props: TFilterDropdown) => {
 
   const open = () => setOpen(true);
   const close = () => setOpen(false);
-
-  const ref = React.useRef(null);
-  useOnClickOutside(ref, close);
 
   const isTelescopeSelected = (observatoryId, pierNumber) => {
     const {
@@ -84,7 +80,7 @@ export const FilterDropdown = memo((props: TFilterDropdown) => {
         centered
         dialogClassName="filter-modal"
       >
-        <div className="filter-dropdown animated fadeIn faster" ref={ref}>
+        <div className="filter-dropdown animated fadeIn faster">
           <div className="filter-dropdown-header d-flex justify-content-between">
             <span>OPTIONS</span>
             <Tooltip title="Close">
