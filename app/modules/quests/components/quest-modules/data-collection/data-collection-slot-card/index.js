@@ -3,6 +3,7 @@ import { Button } from 'react-bootstrap';
 import cn from 'classnames';
 import Dots from 'atoms/icons/Dots';
 import { astronaut } from 'app/styles/variables/colors_tiles_v4';
+import ImageClickHandler from 'app/components/common/ImageClickHandler';
 import { QuestButtonsPopover } from '../../../quest-buttons-popover';
 import './styles.scss';
 
@@ -18,6 +19,7 @@ export const DataCollectionSlotCard = props => {
     showDotMenu,
     slotInfoTitle,
     slotInfo,
+    imageURL,
   } = slot;
 
   const [isInfoMenuOpen, toggleInfoMenu] = useState(false);
@@ -28,7 +30,9 @@ export const DataCollectionSlotCard = props => {
       </div>
       {showSlotTitle && <div className="dc-slot-card-title">{slotTitle}</div>}
       <div className="dc-slot-card-thumbnail-box">
-        <img src={thumbnailURL} />
+        <ImageClickHandler imageUrl={imageURL} >
+          <img src={thumbnailURL} />
+        </ImageClickHandler>
       </div>
       <div className="dc-slot-card-actions">
         <Button

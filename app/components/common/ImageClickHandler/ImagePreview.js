@@ -37,44 +37,63 @@ export default class ImagePreview extends React.PureComponent {
   };
 
   render() {
-    const { url, id, withMagnifier } = this.props;
+    const { url, id, withMagnifier, imageUrl } = this.props;
     const { imgLoaded } = this.state;
+
     return (
       <Fragment>
-        <Request
-          serviceURL={url}
-          method="POST"
-          requestBody={{
-            imageRelatedRecordId: id,
-          }}
-          render={({ fetchingContent, serviceResponse }) => {
-            if (!fetchingContent && !imgLoaded)
-              preloadImage(
-                serviceResponse.imageFullsizeURL,
-                this.handleImageLoad
-              );
-            return withMagnifier ? (
-              <div className="magnifier-wrapper">
-                {!fetchingContent && imgLoaded && (
-                  <Magnifier
-                    className="image"
-                    imageSrc={serviceResponse.imageFullsizeURL}
-                    largeImageSrc={serviceResponse.imageFullsizeURL}
-                    imageAlt={serviceResponse.imageAltText}
-                    mouseActivation={MOUSE_ACTIVATION.CLICK}
-                    touchActivation={TOUCH_ACTIVATION.DOUBLE_TAP}
-                  />
-                )}
-              </div>
-            ) : (
-              <img
+        {imageUrl ? (
+          <div className="magnifier-wrapper">
+            {withMagnifier ? (
+              <Magnifier
                 className="image"
-                src={serviceResponse.imageFullsizeURL}
-                alt={serviceResponse.imageAltText}
+                imageSrc={imageUrl}
+                largeImageSrc={imageUrl}
+                imageAlt=""
+                mouseActivation={MOUSE_ACTIVATION.CLICK}
+                touchActivation={TOUCH_ACTIVATION.DOUBLE_TAP}
               />
-            );
-          }}
-        />
+            ) : (
+              <img className="image" src={imageUrl} alt="" />
+            )}
+          </div>
+        ) : (
+          <Request
+            serviceURL={url}
+            method="POST"
+            requestBody={{
+              imageRelatedRecordId: id,
+            }}
+            render={({ fetchingContent, serviceResponse }) => {
+              if (!fetchingContent && !imgLoaded) {
+                preloadImage(
+                  serviceResponse.imageFullsizeURL,
+                  this.handleImageLoad
+                );
+              }
+              return withMagnifier ? (
+                <div className="magnifier-wrapper">
+                  {!fetchingContent && imgLoaded && (
+                    <Magnifier
+                      className="image"
+                      imageSrc={serviceResponse.imageFullsizeURL}
+                      largeImageSrc={serviceResponse.imageFullsizeURL}
+                      imageAlt={serviceResponse.imageAltText}
+                      mouseActivation={MOUSE_ACTIVATION.CLICK}
+                      touchActivation={TOUCH_ACTIVATION.DOUBLE_TAP}
+                    />
+                  )}
+                </div>
+              ) : (
+                <img
+                  className="image"
+                  src={serviceResponse.imageFullsizeURL}
+                  alt={serviceResponse.imageAltText}
+                />
+              );
+            }}
+          />
+        )}
         <style jsx>{style}</style>
       </Fragment>
     );
