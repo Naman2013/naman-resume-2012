@@ -73,7 +73,7 @@ class QuestionFilter extends Component {
           className="title"
           dangerouslySetInnerHTML={{ __html: countText || this.countText }}
         />
-        {showDropdown && totalCount ? (
+        {showDropdown ? (
           <DropDown
             options={dropdownOptions || this.dropdownOptions}
             selectedIndex={selectedIndex}
