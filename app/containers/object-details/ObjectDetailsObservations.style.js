@@ -23,4 +23,8 @@ export default css`
     justify-content: center;
     margin: 25px auto;
   }
+
+  .observations-pagination {
+    margin-bottom: 40px;
+  }
 `;
