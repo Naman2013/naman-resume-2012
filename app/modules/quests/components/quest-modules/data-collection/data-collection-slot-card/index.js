@@ -24,6 +24,7 @@ export const DataCollectionSlotCard = props => {
   } = slot;
 
   const [isInfoMenuOpen, toggleInfoMenu] = useState(false);
+  const [isDotsMenuOpen, toggleDotsMenu] = useState(false);
   return (
     <div className="dc-slot-card">
       <div className="dc-slot-card-number">
@@ -59,10 +60,14 @@ export const DataCollectionSlotCard = props => {
         )}
         {showDotMenu && (
           <Button
-            onClick={() => toggleInfoMenu(!isInfoMenuOpen)}
-            className="dc-slot-card-dots-menu"
+            onClick={() => toggleDotsMenu(!isDotsMenuOpen)}
+            className={cn('dc-slot-card-dots-menu', { open: isDotsMenuOpen })}
           >
-            <Dots theme={{ circleColor: astronaut }} />
+            {!isDotsMenuOpen ? (
+              <Dots theme={{ circleColor: astronaut }} />
+            ) : (
+              <i className="menu-icon-close icon-close" />
+            )}
           </Button>
         )}
 
@@ -71,6 +76,13 @@ export const DataCollectionSlotCard = props => {
             <div className="dc-slot-info-popover">
               <div className="dc-slot-info-title">{slotInfoTitle}</div>
               <div className="dc-slot-info-text">{slotInfo}</div>
+            </div>
+          )}
+        </QuestButtonsPopover>
+
+        <QuestButtonsPopover isOpen={isDotsMenuOpen}>
+          {isDotsMenuOpen && (
+            <div className="dc-slot-dots-popover">
             </div>
           )}
         </QuestButtonsPopover>
