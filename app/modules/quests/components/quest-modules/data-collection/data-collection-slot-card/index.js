@@ -39,7 +39,7 @@ export const DataCollectionSlotCard = props => {
       <div className="dc-slot-card-actions">
         <Button
           className="dc-slot-card-find-btn"
-          onClick={() => showDataCollectionSlotModal(slotId)}
+          onClick={() => showDataCollectionSlotModal(slot)}
         >
           {slotButtonCaption}
         </Button>

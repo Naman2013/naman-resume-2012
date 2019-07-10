@@ -4,7 +4,8 @@ import './styles.scss';
 export class DataCollectionImageCard extends PureComponent {
   render() {
     const { imageData, onClick } = this.props;
-    const { imageURL, objectTitle, displayDate, displayTime } = imageData;
+    const { imageURL, objectTitle, imageTimeFormatted } = imageData;
+    const { displayDateTime } = imageTimeFormatted;
 
     return (
       <div className="dc-image-card" onClick={onClick}>
@@ -13,7 +14,7 @@ export class DataCollectionImageCard extends PureComponent {
         </div>
 
         <h5>{objectTitle}</h5>
-        <p>{`${displayDate}  ${displayTime}`}</p>
+        <p>{displayDateTime}</p>
       </div>
     );
   }
