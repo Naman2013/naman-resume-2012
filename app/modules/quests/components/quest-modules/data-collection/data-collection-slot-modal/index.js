@@ -20,6 +20,7 @@ export class DataCollectionSlotModal extends Component {
       show,
       questDataCollectionSlotImages,
       selectedSlot,
+      setDataCollectionSlotImages,
     } = this.props;
     const { imageList, imageCount } = questDataCollectionSlotImages;
     const { slotSequence } = selectedSlot;
@@ -37,7 +38,7 @@ export class DataCollectionSlotModal extends Component {
                   <Col md={6} xl={4}>
                     <DataCollectionImageCard
                       imageData={item}
-                      onClick={() => selectImage(item)}
+                      onClick={() => setDataCollectionSlotImages(item)}
                     />
                   </Col>
                 ))}

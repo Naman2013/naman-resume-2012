@@ -3,7 +3,7 @@ import {
   getQuestStepApi,
   getDataCollectionApi,
   getDataCollectionSlotImagesApi,
-  setDataCollectionImageApi,
+  setDataCollectionSlotImageApi,
 } from 'app/modules/quests/api';
 import { ACTION } from './reducer';
 
@@ -72,19 +72,19 @@ export const getDataCollectionSlotImages = data => (dispatch, getState) => {
     .catch(error => dispatch(ACTION.getDataCollectionSlotImagesError(error)));
 };
 
-export const setDataCollectionImages = data => (dispatch, getState) => {
+export const setDataCollectionSlotImages = data => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
-  dispatch(ACTION.setDataCollectionImages());
+  dispatch(ACTION.setDataCollectionSlotImages());
   const opts = {
     at,
     cid,
     token,
     ...data,
   };
-  return setDataCollectionImageApi({ ...opts })
+  return setDataCollectionSlotImageApi({ ...opts })
     .then(result =>
-      dispatch(ACTION.setDataCollectionImagesSuccess(result.data))
+      dispatch(ACTION.setDataCollectionSlotImagesSuccess(result.data))
     )
-    .catch(error => dispatch(ACTION.setDataCollectionImagesError(error)));
+    .catch(error => dispatch(ACTION.setDataCollectionSlotImagesError(error)));
 };
 // END: QUEST STEP PAGE

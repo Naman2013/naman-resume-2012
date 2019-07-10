@@ -9,6 +9,7 @@ import {
 import {
   getDataCollection,
   getDataCollectionSlotImages,
+  setDataCollectionSlotImages,
 } from 'app/modules/quests/thunks';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
@@ -25,6 +26,7 @@ const mapStateToProps = createStructuredSelector({
 const mapDispatchToProps = {
   getDataCollection,
   getDataCollectionSlotImages,
+  setDataCollectionSlotImages,
 };
 
 export default compose(

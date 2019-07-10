@@ -24,6 +24,23 @@ export class QuestModuleDataCollection extends PureComponent {
     getDataCollectionSlotImages({ moduleId, questId, slotId });
   };
 
+  setDataCollectionSlotImages = image => {
+    const {
+      module,
+      questId,
+      setDataCollectionSlotImages,
+      getDataCollection,
+    } = this.props;
+    const { moduleId } = module;
+    const { customerImageId } = image;
+    setDataCollectionSlotImages({ moduleId, questId, customerImageId }).then(
+      () => {
+        this.setState({ dcSlotModalVisible: false });
+        getDataCollection(questId, moduleId);
+      }
+    );
+  };
+
   showDataCollectionSlotModal = slot => {
     this.getDataCollectionSlotImages(slot);
     this.setState({ dcSlotModalVisible: true, selectedSlot: slot });
@@ -39,6 +56,7 @@ export class QuestModuleDataCollection extends PureComponent {
       questId,
       module,
       questDataCollectionSlotImages,
+      setDataCollectionSlotImages,
     } = this.props;
     const { modulePrompt, moduleInstructions, slotArray } = questDataCollection;
     const { moduleId } = module;
@@ -64,6 +82,7 @@ export class QuestModuleDataCollection extends PureComponent {
             onHide={this.closeDataCollectionSlotModal}
             questDataCollectionSlotImages={questDataCollectionSlotImages}
             selectedSlot={selectedSlot}
+            setDataCollectionSlotImages={this.setDataCollectionSlotImages}
           />
         )}
       </div>
