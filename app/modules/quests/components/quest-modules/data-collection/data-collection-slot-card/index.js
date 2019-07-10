@@ -20,6 +20,7 @@ export const DataCollectionSlotCard = props => {
     slotInfoTitle,
     slotInfo,
     imageURL,
+    slotId,
   } = slot;
 
   const [isInfoMenuOpen, toggleInfoMenu] = useState(false);
@@ -37,7 +38,7 @@ export const DataCollectionSlotCard = props => {
       <div className="dc-slot-card-actions">
         <Button
           className="dc-slot-card-find-btn"
-          onClick={showDataCollectionSlotModal}
+          onClick={() => showDataCollectionSlotModal(slotId)}
         >
           {slotButtonCaption}
         </Button>

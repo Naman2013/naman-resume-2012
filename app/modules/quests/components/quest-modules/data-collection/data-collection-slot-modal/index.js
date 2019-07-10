@@ -2,7 +2,7 @@ import { Modal } from 'app/components/modal';
 import React, { Component } from 'react';
 import { Row, Col, Button } from 'react-bootstrap';
 import { Link } from 'react-router';
-import { WriteObservationImageCard } from 'app/modules/object-details/components/write-observation-image-card';
+import { DataCollectionImageCard } from '../data-collection-image-card';
 
 export class DataCollectionSlotModal extends Component {
   componentDidMount() {
@@ -15,29 +15,28 @@ export class DataCollectionSlotModal extends Component {
   }
 
   render() {
-    const { onHide, show } = this.props;
+    const {
+      onHide,
+      show,
+      questDataCollectionSlotImages,
+      selectedSlot,
+    } = this.props;
+    const { imageList, imageCount } = questDataCollectionSlotImages;
+    const { slotSequence } = selectedSlot;
 
     return (
       <Modal show={show} onHide={onHide} goBackText="GO BACK">
-        Modal
-        {/* <div className="write-observation-step1">
-          {!isFetching && myPictures?.imageList?.length > 0 && (
+        <div className="container image-selection-modal">
+          {imageCount > 0 && (
             <>
-              <h1 className="modal-h">Select an Image for your Observation.</h1>
+              <h1 className="modal-h">
+                Select your Image for slot {slotSequence}.
+              </h1>
               <Row>
-                <Col md={6} xl={4}>
-                  <WriteObservationImageCard
-                    imageData={myPictures?.imageList[0]}
-                    objectDetails={objectDetails}
-                    onClick={() => selectImage(myPictures?.imageList[0])}
-                    defaultCard
-                  />
-                </Col>
-                {myPictures?.imageList.map(item => (
+                {imageList.map(item => (
                   <Col md={6} xl={4}>
-                    <WriteObservationImageCard
+                    <DataCollectionImageCard
                       imageData={item}
-                      objectDetails={objectDetails}
                       onClick={() => selectImage(item)}
                     />
                   </Col>
@@ -45,7 +44,7 @@ export class DataCollectionSlotModal extends Component {
               </Row>
             </>
           )}
-          {!isFetching && myPictures?.imageList?.length === 0 && (
+          {/* {!isFetching && myPictures?.imageList?.length === 0 && (
             <>
               <h1 className="modal-h">{myPictures?.missionLink?.displayTitle}</h1>
               <p className="modal-p my-5">
@@ -57,8 +56,8 @@ export class DataCollectionSlotModal extends Component {
                 </Button>
               </Link>
             </>
-          )}
-        </div>*/}
+          )} */}
+        </div>
       </Modal>
     );
   }

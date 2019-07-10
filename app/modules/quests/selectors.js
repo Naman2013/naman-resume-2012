@@ -32,4 +32,10 @@ export const makeQuestDataCollectionSelector = () =>
     selectQuests,
     state => state.questDataCollection
   );
+
+export const makeQuestDataCollectionSlotImagesSelector = () =>
+  createSelector(
+    selectQuests,
+    state => state.questDataCollectionSlotImages
+  );
 // END: QUEST STEP PAGE

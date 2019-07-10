@@ -17,15 +17,16 @@ export class QuestModuleDataCollection extends PureComponent {
     if (questId && moduleId) getDataCollection(questId, moduleId);
   }
 
-  getDataCollectionImages = slotId => {
-    const { module, questId, getDataCollectionImages } = this.props;
+  getDataCollectionSlotImages = slot => {
+    const { module, questId, getDataCollectionSlotImages } = this.props;
     const { moduleId } = module;
-    getDataCollectionImages({ moduleId, questId, slotId });
+    const { slotId } = slot;
+    getDataCollectionSlotImages({ moduleId, questId, slotId });
   };
 
-  showDataCollectionSlotModal = slotId => {
-    this.getDataCollectionImages(slotId);
-    this.setState({ dcSlotModalVisible: true, selectedSlot: slotId });
+  showDataCollectionSlotModal = slot => {
+    this.getDataCollectionSlotImages(slot);
+    this.setState({ dcSlotModalVisible: true, selectedSlot: slot });
   };
 
   closeDataCollectionSlotModal = () => {
@@ -35,14 +36,14 @@ export class QuestModuleDataCollection extends PureComponent {
   render() {
     const {
       questDataCollection,
-      getDataCollectionImagesSuccess,
       questId,
       module,
+      questDataCollectionSlotImages,
     } = this.props;
     const { modulePrompt, moduleInstructions, slotArray } = questDataCollection;
     const { moduleId } = module;
     const { dcSlotModalVisible, selectedSlot } = this.state;
-    console.log(questDataCollection);
+    console.log(questDataCollectionSlotImages);
     return (
       <div className="data-collection-module">
         <QuestStepInfo title={modulePrompt} description={moduleInstructions} />
@@ -61,10 +62,8 @@ export class QuestModuleDataCollection extends PureComponent {
           <DataCollectionSlotModal
             show
             onHide={this.closeDataCollectionSlotModal}
-            // getDataCollectionImagesSuccess={getDataCollectionImagesSuccess}
-            // questId={questId}
-            // moduleId={moduleId}
-            // slotId={selectedSlot}
+            questDataCollectionSlotImages={questDataCollectionSlotImages}
+            selectedSlot={selectedSlot}
           />
         )}
       </div>
