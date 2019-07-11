@@ -4,10 +4,10 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { logout } from 'app/modules/User';
 
-const mapDispatchToProps = () =>
+const mapDispatchToProps = dispatch =>
   bindActionCreators({
     signOut: logout,
-  });
+  }, dispatch);
 
 const Logout = ({ buttonText, signOut, theme, render }) => (
   <a style={theme} onClick={signOut}>
