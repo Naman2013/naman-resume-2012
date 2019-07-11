@@ -142,6 +142,10 @@ module.exports = {
       },
     }),
 
+    new webpack.EnvironmentPlugin({
+      SENTRY_ENV: 'PRODUCTION'
+    }),
+
     // new webpack.optimize.CommonsChunkPlugin({
     //   name: 'vendors',
     //   filename: 'common.js',
