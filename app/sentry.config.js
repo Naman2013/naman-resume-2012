@@ -1,4 +1,4 @@
-import { BrowserClient } from '@sentry/browser';
+import * as Sentry from '@sentry/browser';
 
 const dsnConf = {
   // slooh-llc-test sentry project
@@ -8,4 +8,5 @@ const dsnConf = {
 };
 
 const dsn = dsnConf[process.env.SENTRY_ENV];
-const client = new BrowserClient({ dsn });
+
+Sentry.init({ dsn });
