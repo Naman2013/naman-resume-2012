@@ -3,6 +3,7 @@ import { Button } from 'react-bootstrap';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import take from 'lodash/take';
 import {
   replyToAnswer,
   toggleAllAnswerRepliesAndDisplay,
@@ -53,20 +54,31 @@ class AnswerList extends Component {
     threadId: null,
   };
 
-  loadMore = (fullDataSet, page, count) => {
-    const endIndex = count * page;
-    const updatedDataSet = fullDataSet
-      .slice(0, endIndex)
-      .map(item => item.replyId);
+  state = {
+    displayedAnswers: [],
+    page: 1,
+  };
 
-    const { actions, threadId } = this.props;
-    // make call to update page and displayed answers here
-    actions.updateAnswersDisplayList({
+  componentDidMount() {
+    const { answers, paginationCount } = this.props;
+    this.setState({
+      displayedAnswers: take(answers.replies, paginationCount),
+    });
+  }
+
+  loadMore = (page, count) => {
+    const { answers } = this.props;
+    this.setState({
       page,
-      threadId,
-      displayedAnswers: updatedDataSet,
+      displayedAnswers: take(answers.replies, count * page),
     });
   };
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    const { answers, paginationCount } = nextProps;
+    const { page } = prevState;
+    return { displayedAnswers: take(answers.replies, paginationCount * page) };
+  }
 
   isLastPage = (totalCount, currentPage, numberOnPage) => {
     return totalCount <= currentPage * numberOnPage;
@@ -96,7 +108,6 @@ class AnswerList extends Component {
       allReplies,
       answers,
       canReplyToAnswers,
-      displayedAnswers,
       displayedReplies,
       fetchingReplies,
       modalActions,
@@ -109,6 +120,7 @@ class AnswerList extends Component {
       user,
       updateQuestionsList,
     } = this.props;
+    const { displayedAnswers, page } = this.state;
     const { showAllAnswers } = answers;
     const count = showAllAnswers ? paginationCount : 1;
     const showPagination =
@@ -176,16 +188,8 @@ class AnswerList extends Component {
               );
             })}
             <div className="text-center mt-3 mb-3">
-              {!this.isLastPage(
-                answers.replies.length,
-                answers.page,
-                count
-              ) && (
-                <Button
-                  onClick={() =>
-                    this.loadMore(answers.replies, answers.page + 1, count)
-                  }
-                >
+              {!this.isLastPage(answers.replies.length, page, count) && (
+                <Button onClick={() => this.loadMore(page + 1, count)}>
                   Load More
                 </Button>
               )}
