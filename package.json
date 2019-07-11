@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server",
-    "start:dev": "webpack-dev-server --hot --progress --color --open --config webpack.config.js",
-    "start:dev:virt": "webpack-dev-server --hot --progress --color --open --config webpack.config.js --host 0.0.0.0",
+    "start": "cross-env SENTRY_ENV=TEST webpack-dev-server",
+    "start:dev": "cross-env SENTRY_ENV=TEST webpack-dev-server --hot --progress --color --open --config webpack.config.js",
+    "start:dev:virt": "cross-env SENTRY_ENV=TEST webpack-dev-server --hot --progress --color --open --config webpack.config.js --host 0.0.0.0",
     "start:prod": "npm run build:nova && npx servor dist index.html 8080",
     "test": "echo 'temp disabled'",
     "build:nova": "apiUrl=https://nova.slooh.com apiPortNumber=443 cookieDomain=.slooh.com  NODE_ENV=production webpack -p --config webpack.production.config.js --colors --progress",
@@ -60,6 +60,7 @@
     }
   },
   "dependencies": {
+    "@sentry/browser": "^5.5.0",
     "animate.css": "^3.7.0",
     "axios": "^0.15.3",
     "base-64": "^0.1.0",
@@ -165,6 +166,7 @@
     "clean-webpack-plugin": "^2.0.1",
     "compression-webpack-plugin": "^2.0.0",
     "copy-webpack-plugin": "^4.5.1",
+    "cross-env": "^5.2.0",
     "css-loader": "^2.1.1",
     "cssnano": "^4.1.10",
     "enzyme": "^3.3.0",
