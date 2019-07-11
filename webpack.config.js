@@ -133,6 +133,10 @@ module.exports = {
       },
     }),
 
+    new webpack.EnvironmentPlugin({
+      SENTRY_ENV: 'PRODUCTION'
+    }),
+
     new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output
       // both options are optional
