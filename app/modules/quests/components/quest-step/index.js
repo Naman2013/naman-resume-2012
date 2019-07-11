@@ -151,8 +151,11 @@ export class QuestStep extends Component<TQuestStep> {
             {moduleList.map(
               module =>
                 module.moduleType === questModuleType.datacollectdifferent && (
-                  <QuestModuleDataCollection module={module} 
-                  questId={routeParams.questId} />
+                  <QuestModuleDataCollection 
+                    module={module} 
+                    questId={routeParams.questId}
+                    navigateToNextStep={this.navigateToNextStep}
+                  />
                 )
             )}
             

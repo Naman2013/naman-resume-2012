@@ -57,6 +57,7 @@ export class QuestModuleDataCollection extends PureComponent {
       module,
       questDataCollectionSlotImages,
       setDataCollectionSlotImages,
+      navigateToNextStep,
     } = this.props;
     const { modulePrompt, moduleInstructions, slotArray } = questDataCollection;
     const { moduleId } = module;
@@ -64,7 +65,11 @@ export class QuestModuleDataCollection extends PureComponent {
     console.log(questDataCollectionSlotImages);
     return (
       <div className="data-collection-module">
-        <QuestStepInfo title={modulePrompt} description={moduleInstructions} />
+        <QuestStepInfo
+          title={modulePrompt}
+          description={moduleInstructions}
+          navigateToNextStep={navigateToNextStep}
+        />
 
         <div className="data-collection-slot-list">
           {slotArray?.map(slot => (
