@@ -92,6 +92,7 @@ class RevealSubmitForm extends Component {
         modalDescription: message || intl.formatMessage(messages.FormIssueText),
       });
     }
+    setTimeout(this.closeModal, 1000);
   };
 
   displayForm = e => {
@@ -115,6 +116,10 @@ class RevealSubmitForm extends Component {
   closeModal = e => {
     this.setState({
       showPopup: false,
+      formTitle: '',
+      formText: '',
+      S3URLs: [],
+      isFetching: false,
     });
   };
 
