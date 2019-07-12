@@ -109,7 +109,7 @@ class RevealSubmitForm extends Component {
         isFetching: false,
       });
     }
-    setTimeout(this.closeModal,1000);
+    setTimeout(this.closeModal, 1000);
   };
 
   displayForm = e => {
@@ -133,6 +133,10 @@ class RevealSubmitForm extends Component {
   closeModal = e => {
     this.setState({
       showPopup: false,
+      formTitle: '',
+      formText: '',
+      S3URLs: [],
+      isFetching: false,
     });
   };
 
