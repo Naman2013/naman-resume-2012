@@ -40,6 +40,7 @@ class RevealSubmitForm extends Component {
       token: string,
     }).isRequired,
     intl: intlShape.isRequired,
+    isClub: bool,
   };
 
   static defaultProps = {
@@ -49,9 +50,11 @@ class RevealSubmitForm extends Component {
     revealButtonRender: null,
     submitLabel: 'Post',
     uuid: null,
+    isClub: false,
   };
 
   state = {
+    formTitle: '',
     formText: '',
     showPopup: false,
     modalDescription: null,
@@ -59,6 +62,12 @@ class RevealSubmitForm extends Component {
     uploadLoading: false,
     S3URLs: [],
     isFetching: false,
+  };
+
+  onTitleChange = e => {
+    this.setState({
+      formTitle: e.target.value,
+    });
   };
 
   onTextChange = e => {
@@ -69,10 +78,15 @@ class RevealSubmitForm extends Component {
 
   submitForm = e => {
     e.preventDefault();
-    const { formText, S3URLs } = this.state;
+    const { isClub } = this.props;
+    const { formTitle, formText, S3URLs } = this.state;
     if (formText.replace(/\s/g, '').length) {
       this.setState({ isFetching: true });
-      this.props.submitForm(formText, S3URLs, this.handleSubmit);
+      if (isClub) {
+        this.props.submitForm(formText, S3URLs, formTitle, this.handleSubmit);
+      } else {
+        this.props.submitForm(formText, S3URLs, this.handleSubmit);
+      }
     }
   };
 
@@ -83,15 +97,19 @@ class RevealSubmitForm extends Component {
         showPopup: true,
         modalDescription:
           message || intl.formatMessage(messages.ResponceSubmittedText),
+        formTitle: '',
         formText: '',
         S3URLs: [],
+        isFetching: false,
       });
     } else {
       this.setState({
         showPopup: true,
         modalDescription: message || intl.formatMessage(messages.FormIssueText),
+        isFetching: false,
       });
     }
+    setTimeout(this.closeModal,1000);
   };
 
   displayForm = e => {
@@ -186,10 +204,12 @@ class RevealSubmitForm extends Component {
       avatarURL,
       commentPlaceholder,
       threadId,
+      isClub,
     } = this.props;
 
     const {
       S3URLs,
+      formTitle,
       formText,
       modalDescription,
       showPopup,
@@ -238,6 +258,15 @@ class RevealSubmitForm extends Component {
                 : commentPlaceholder}
             </div>
             <div className="form-quote" dangerouslySetInnerHTML={{__html: title || content}} />
+            {isClub && (
+              <input
+                type="text"
+                className="reveal-form-input"
+                placeholder="Title"
+                value={formTitle}
+                onChange={this.onTitleChange}
+              />
+            )}
             <textarea
               className="reveal-form-input"
               onChange={this.onTextChange}
