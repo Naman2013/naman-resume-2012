@@ -257,7 +257,7 @@ class RevealSubmitForm extends Component {
                 ? `${intl.formatMessage(messages.WrittenBy)} ${displayName}`
                 : commentPlaceholder}
             </div>
-            <div className="form-quote">{title || content}</div>
+            <div className="form-quote" dangerouslySetInnerHTML={{__html: title || content}} />
             {isClub && (
               <input
                 type="text"
