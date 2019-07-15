@@ -44,7 +44,7 @@ const LoggedIn = ({ displayName, avatarURL, menuItems, intl }) => (
     <MenuList items={menuItems} />
     <Logout
       render={() => (
-        <PrimaryButton text={intl.formatMessage(messages.LogOut)} anchor="#" />
+        <PrimaryButton indent={false} isExternalLink={false} text={intl.formatMessage(messages.LogOut)} anchor="#" />
       )}
     />
     <style jsx>
