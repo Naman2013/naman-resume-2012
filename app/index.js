@@ -1,4 +1,5 @@
 // import 'event-source-polyfill/src/eventsource';
+import './sentry.config';
 import { NativeEventSource, EventSourcePolyfill } from 'event-source-polyfill';
 
 import AppRouter from 'app/router';
