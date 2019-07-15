@@ -69,10 +69,9 @@ export class QuestStep extends Component<TQuestStep> {
   }
 
   refreshData() {
-    const { getQuestStep, routeParams, getQuestOutput } = this.props;
+    const { getQuestStep, routeParams } = this.props;
     const { questId, step } = routeParams;
     getQuestStep(questId, step);
-    getQuestOutput(questId, step);
   }
 
   navigateToPrevStep = () => {
@@ -108,7 +107,6 @@ export class QuestStep extends Component<TQuestStep> {
   render() {
     const { loading, moduleList, stepData = {}, routeParams } = this.props;
     const { prevStepId, nextStepId, lastStepId } = this.state;
-    console.log(stepData);
 
     return (
       <div className="quest-step-page">
