@@ -58,6 +58,7 @@ export const UpgradeModal = (props: TUpgradeModal) => {
     subscriptionPlansCallSource,
     errorData, // errors from issue with user account modal
     disableGoBack,
+    preSelectedPlan,
   } = props;
 
   const [selectedPlan, setSelectedPlan] = useState(null);
