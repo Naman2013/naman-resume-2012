@@ -9,6 +9,7 @@ export const PRIMARY_CONFIGURATION = (primaryLinks = []) => ({
     _ID: uniqueId(),
     text: link.name,
     anchor: link.link,
+    isExternalLink: link.isExternalLink,
   })),
 });
 
@@ -18,5 +19,6 @@ export const SECONDARY_CONFIGURATION = (secondaryLinks = []) => ({
     _ID: uniqueId(),
     text: link.name,
     anchor: link.link,
+    isExternalLink: link.isExternalLink,
   })),
 });

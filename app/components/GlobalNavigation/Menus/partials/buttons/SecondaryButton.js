@@ -6,11 +6,17 @@ import {
 } from '../../../../../styles/variables/colors_tiles_v4';
 import { primaryFont } from '../../../../../styles/variables/fonts';
 
-const SecondaryButton = ({ anchor, text }) => (
+const SecondaryButton = ({ anchor, text, isExternalLink }) => (
   <div className="secondary-button">
-    <Link className="action" to={anchor}>
-      {text}
-    </Link>
+    {isExternalLink ? (
+      <a className="action" href={anchor} target="_blank">
+        {text}
+      </a>
+    ) : (
+      <Link className="action" to={anchor}>
+        {text}
+      </Link>
+    )}
     <style jsx>
       {`
         .secondary-button {
