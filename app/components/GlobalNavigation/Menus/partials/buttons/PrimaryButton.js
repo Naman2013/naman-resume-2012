@@ -7,11 +7,17 @@ import {
 } from 'app/styles/variables/colors_tiles_v4';
 import { primaryFont } from 'app/styles/variables/fonts';
 
-const PrimaryButton = ({ text, anchor }) => (
+const PrimaryButton = ({ text, anchor, isExternalLink }) => (
   <div className="primary-button">
-    <Link className="action" to={anchor}>
-      <a className="link-text">{text}</a>
-    </Link>
+    {isExternalLink ? (
+      <a className="action" href={anchor} target="_blank">
+        <span className="link-text">{text}</span>
+      </a>
+    ) : (
+      <Link className="action" to={anchor}>
+        <span className="link-text">{text}</span>
+      </Link>
+    )}
     <style jsx>
       {`
         .primary-button {
