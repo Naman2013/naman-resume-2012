@@ -180,6 +180,7 @@ export const PaymentStep = (props: TPaymentStep) => {
   const user = getUserInfo();
 
   //Listen for a message from the Window/IFrames to capture the ECommerce Hosted Payment Form Messaging
+  window.removeEventListener('message', handleIframeTaskUpgrade);
   window.addEventListener('message', handleIframeTaskUpgrade);
 
   return (
