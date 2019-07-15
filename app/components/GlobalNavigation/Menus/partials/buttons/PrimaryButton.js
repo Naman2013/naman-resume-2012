@@ -7,19 +7,43 @@ import {
 } from 'app/styles/variables/colors_tiles_v4';
 import { primaryFont } from 'app/styles/variables/fonts';
 
-const PrimaryButton = ({ text, anchor, isExternalLink }) => (
+const PrimaryButton = ({ text, anchor, isExternalLink, indent }) => (
   <div className="primary-button">
-    {isExternalLink ? (
-      <a className="action" href={anchor} target="_blank">
-        <span className="link-text">{text}</span>
-      </a>
-    ) : (
-      <Link className="action" to={anchor}>
-        <span className="link-text">{text}</span>
-      </Link>
-    )}
+    {indent === true && isExternalLink === true &&
+      <>
+        <a className="action indent" href={anchor} target="_blank">
+          <span className="link-text">{text}</span>
+        </a>
+      </>
+    }
+    {indent === true && isExternalLink === false &&
+      <>
+        <Link className="action indent" to={anchor}>
+          <span className="link-text">{text}</span>
+        </Link>
+      </>
+    }
+    {indent === false && isExternalLink === true &&
+      <>
+        <a className="action" href={anchor} target="_blank">
+          <span className="link-text">{text}</span>
+        </a>
+      </>
+    }
+    {indent === false && isExternalLink === false &&
+      <>
+        <Link className="action" to={anchor}>
+          <span className="link-text">{text}</span>
+        </Link>
+      </>
+    }
+
     <style jsx>
       {`
+        .indent {
+          margin-left: 20px !important;
+        }
+
         .primary-button {
           font-family: ${primaryFont};
           color: ${astronaut};

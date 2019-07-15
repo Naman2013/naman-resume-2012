@@ -10,6 +10,7 @@ export const PRIMARY_CONFIGURATION = (primaryLinks = []) => ({
     text: link.name,
     anchor: link.link,
     isExternalLink: link.isExternalLink,
+    indent: link.indent,
   })),
 });
 
@@ -20,5 +21,6 @@ export const SECONDARY_CONFIGURATION = (secondaryLinks = []) => ({
     text: link.name,
     anchor: link.link,
     isExternalLink: link.isExternalLink,
+    indent: link.indent,
   })),
 });
