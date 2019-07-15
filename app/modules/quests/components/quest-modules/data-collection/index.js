@@ -33,12 +33,18 @@ export class QuestModuleDataCollection extends PureComponent {
     } = this.props;
     const { moduleId } = module;
     const { customerImageId } = image;
-    setDataCollectionSlotImages({ moduleId, questId, customerImageId }).then(
-      () => {
-        this.setState({ dcSlotModalVisible: false });
+    const { selectedSlot } = this.state;
+    setDataCollectionSlotImages({
+      moduleId,
+      questId,
+      customerImageId,
+      slotId: selectedSlot.slotId,
+    }).then(({ payload }) => {
+      this.setState({ dcSlotModalVisible: false });
+      if (payload.refreshStep) {
         getDataCollection(questId, moduleId);
       }
-    );
+    });
   };
 
   showDataCollectionSlotModal = slot => {
@@ -62,7 +68,7 @@ export class QuestModuleDataCollection extends PureComponent {
     const { modulePrompt, moduleInstructions, slotArray } = questDataCollection;
     const { moduleId } = module;
     const { dcSlotModalVisible, selectedSlot } = this.state;
-    console.log(questDataCollectionSlotImages);
+
     return (
       <div className="data-collection-module">
         <QuestStepInfo
