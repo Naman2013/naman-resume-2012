@@ -7,6 +7,9 @@ export const TYPE = constants('quests', [
   // QUEST STEP PAGE
   '~GET_QUEST_STEP',
   '~GET_QUEST_OUTPUT',
+  '~GET_DATA_COLLECTION',
+  '~GET_DATA_COLLECTION_SLOT_IMAGES',
+  '~SET_DATA_COLLECTION_SLOT_IMAGES',
 ]);
 
 export const ACTION = actions(TYPE);
@@ -16,6 +19,8 @@ const initialState = {
 
   stepData: {},
   questOutput: {},
+  questDataCollection: {},
+  questDataCollectionSlotImages: {},
 };
 
 export default handleActions(
@@ -34,6 +39,18 @@ export default handleActions(
     [TYPE.GET_QUEST_OUTPUT]: start,
     [TYPE.GET_QUEST_OUTPUT_SUCCESS]: getQuestOutputSuccess,
     [TYPE.GET_QUEST_OUTPUT_ERROR]: error,
+
+    [TYPE.GET_DATA_COLLECTION]: start,
+    [TYPE.GET_DATA_COLLECTION_SUCCESS]: getDataCollectionSuccess,
+    [TYPE.GET_DATA_COLLECTION_ERROR]: error,
+
+    [TYPE.GET_DATA_COLLECTION_SLOT_IMAGES]: start,
+    [TYPE.GET_DATA_COLLECTION_SLOT_IMAGES_SUCCESS]: getDataCollectionSlotImagesSuccess,
+    [TYPE.GET_DATA_COLLECTION_SLOT_IMAGES_ERROR]: error,
+
+    [TYPE.SET_DATA_COLLECTION_SLOT_IMAGES]: start,
+    [TYPE.SET_DATA_COLLECTION_SLOT_IMAGES_SUCCESS]: setDataCollectionSlotImagesSuccess,
+    [TYPE.SET_DATA_COLLECTION_SLOT_IMAGES_ERROR]: error,
     // END: STEP PAGE
   },
   initialState
@@ -73,5 +90,28 @@ function getQuestOutputSuccess(state, { payload }) {
     ...state,
     isFetching: false,
     questOutput: payload,
+  };
+}
+
+function getDataCollectionSuccess(state, { payload }) {
+  return {
+    ...state,
+    isFetching: false,
+    questDataCollection: payload,
+  };
+}
+
+function getDataCollectionSlotImagesSuccess(state, { payload }) {
+  return {
+    ...state,
+    isFetching: false,
+    questDataCollectionSlotImages: payload,
+  };
+}
+
+function setDataCollectionSlotImagesSuccess(state) {
+  return {
+    ...state,
+    isFetching: false,
   };
 }

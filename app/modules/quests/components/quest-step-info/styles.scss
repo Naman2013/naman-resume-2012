@@ -1,0 +1,20 @@
+@import '~app/styles/bootstrap/common';
+
+.quest-step-info {
+  font-family: $secondary-font;
+
+  .quest-step-title {
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 0.83;
+    color: $lightHeadedAstronaut;
+  }
+
+  .quest-step-description {
+    font-size: 19px;
+    font-weight: 400;
+    line-height: 1.53;
+    color: $raven;
+    margin-top: 20px;
+  }
+}

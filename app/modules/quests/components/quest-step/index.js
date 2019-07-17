@@ -13,6 +13,7 @@ import { QuestStepFooter } from './footer';
 import cn from 'classnames';
 import './styles.scss';
 import QuestModuleTextOutput from '../../containers/quest-modules/textoutput';
+import QuestModuleDataCollection from '../../containers/quest-modules/data-collection';
 
 type TQuestStep = {
   moduleList: QuestStepModule,
@@ -68,10 +69,9 @@ export class QuestStep extends Component<TQuestStep> {
   }
 
   refreshData() {
-    const { getQuestStep, routeParams, getQuestOutput } = this.props;
+    const { getQuestStep, routeParams } = this.props;
     const { questId, step } = routeParams;
     getQuestStep(questId, step);
-    getQuestOutput(questId, step);
   }
 
   navigateToPrevStep = () => {
@@ -107,7 +107,6 @@ export class QuestStep extends Component<TQuestStep> {
   render() {
     const { loading, moduleList, stepData = {}, routeParams } = this.props;
     const { prevStepId, nextStepId, lastStepId } = this.state;
-    console.log(stepData);
 
     return (
       <div className="quest-step-page">
@@ -136,7 +135,7 @@ export class QuestStep extends Component<TQuestStep> {
             title={stepData.stepHeaderTitle}
             completed={stepData.stepCompleted}
           >
-            <h2>Modules</h2>
+            {/* <h2>Modules</h2>
             <ul>
               {moduleList.map(m => (
                 <li key={m.moduleId}>
@@ -145,7 +144,19 @@ export class QuestStep extends Component<TQuestStep> {
               ))}
             </ul>
 
-            <hr />
+            <hr /> */}
+
+            {moduleList.map(
+              module =>
+                module.moduleType === questModuleType.datacollectdifferent && (
+                  <QuestModuleDataCollection 
+                    module={module} 
+                    questId={routeParams.questId}
+                    navigateToNextStep={this.navigateToNextStep}
+                  />
+                )
+            )}
+            
             {moduleList.map(
               module =>
                 module.moduleType === questModuleType.textoutput && (
