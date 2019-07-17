@@ -8,7 +8,7 @@ import { QuestButtonsPopover } from '../../../quest-buttons-popover';
 import './styles.scss';
 
 export const DataCollectionSlotCard = props => {
-  const { slot, showDataCollectionSlotModal } = props;
+  const { slot, showDataCollectionSlotModal, readOnly } = props;
   const {
     slotSequence,
     thumbnailURL,
@@ -40,6 +40,7 @@ export const DataCollectionSlotCard = props => {
         <Button
           className="dc-slot-card-find-btn"
           onClick={() => showDataCollectionSlotModal(slot)}
+          disabled={readOnly}
         >
           {slotButtonCaption}
         </Button>

@@ -107,7 +107,8 @@ export class QuestStep extends Component<TQuestStep> {
   render() {
     const { loading, moduleList, stepData = {}, routeParams } = this.props;
     const { prevStepId, nextStepId, lastStepId } = this.state;
-
+    const { readOnly } = stepData;
+    
     return (
       <div className="quest-step-page">
         <Spinner loading={loading} />
@@ -153,6 +154,7 @@ export class QuestStep extends Component<TQuestStep> {
                     module={module} 
                     questId={routeParams.questId}
                     navigateToNextStep={this.navigateToNextStep}
+                    readOnly={readOnly}
                   />
                 )
             )}

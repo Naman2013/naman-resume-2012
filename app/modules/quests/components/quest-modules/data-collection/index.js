@@ -64,6 +64,7 @@ export class QuestModuleDataCollection extends PureComponent {
       questDataCollectionSlotImages,
       setDataCollectionSlotImages,
       navigateToNextStep,
+      readOnly,
     } = this.props;
     const { modulePrompt, moduleInstructions, slotArray } = questDataCollection;
     const { moduleId } = module;
@@ -83,6 +84,7 @@ export class QuestModuleDataCollection extends PureComponent {
               key={slot.slotId}
               slot={slot}
               showDataCollectionSlotModal={this.showDataCollectionSlotModal}
+              readOnly={readOnly}
             />
           ))}
         </div>
