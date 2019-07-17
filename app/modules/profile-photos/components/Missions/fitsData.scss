@@ -1,10 +1,17 @@
 @import "~app/styles/variables/fonts";
+@import "~app/styles/variables/colors.scss";
+
 
 .fitsData {
   max-width: 70vw;
   padding: 0 20px;
   text-align: center;
   font-family: $primary-font;
+
+  .link{
+  color: $lightHeadedAstronaut;
+
+}
 
   h2 {
     margin-bottom: 20px;

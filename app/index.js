@@ -1,4 +1,5 @@
 // import 'event-source-polyfill/src/eventsource';
+import './sentry.config';
 import { NativeEventSource, EventSourcePolyfill } from 'event-source-polyfill';
 
 import AppRouter from 'app/router';
@@ -11,7 +12,7 @@ import './monitoring';
 // providers
 import I18nProvider from './providers/I18nProvider';
 // redux store
-import store from './store';
+import store from 'app/store';
 // utilities
 import './utils/manual-polyfills';
 

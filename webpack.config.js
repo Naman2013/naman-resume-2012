@@ -133,6 +133,10 @@ module.exports = {
       },
     }),
 
+    new webpack.EnvironmentPlugin({
+      SENTRY_ENV: 'PRODUCTION'
+    }),
+
     new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output
       // both options are optional
@@ -160,6 +164,11 @@ module.exports = {
       disableDotRule: true,
     },
     proxy: {
+      '/getHosted*.php': {
+        target: 'https://nova.slooh.com',
+        changeOrigin: true,
+        secure: true,
+      },
       '/api/**': {
         target: 'https://nova.slooh.com',
         changeOrigin: true,

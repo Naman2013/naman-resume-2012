@@ -68,7 +68,7 @@ class MissionCard extends PureComponent<TMissionCard> {
     this.showModal();
   };
 
-  onDownloadFile = (url, name) => downloadFile(url, name);
+  onDownloadFile = (e,url, name) => {e.preventDefault();downloadFile(url, name);}
 
   setModal = modalComponent => {
     this.setState(state => ({
@@ -103,6 +103,7 @@ class MissionCard extends PureComponent<TMissionCard> {
       ownerMemberSince,
       groupList,
       buttonText,
+      ownerDisplayName,
     } = data;
     const { closeModal, onDownloadFile } = this;
     return (
@@ -119,10 +120,7 @@ class MissionCard extends PureComponent<TMissionCard> {
           <p>{takenByText}</p>
           <img src={ownerAvatarURL} alt="" />
           <p className="flex-column text-left">
-            <p>
-              <span>{ownerFirstName}</span> <span>{ownerMembershipType}</span>
-            </p>
-            <p>Member Since {ownerMemberSince}</p>
+            <p>{ownerDisplayName}</p>
           </p>
         </h5>
 
@@ -135,12 +133,14 @@ class MissionCard extends PureComponent<TMissionCard> {
                 {groupImageList.map(({ imageId, imageTitle, imageURL }) => {
                   return (
                     <li key={`${imageId}-${imageTitle}`}>
-                      <span
-                        className="cursor-pointer"
-                        onClick={() => onDownloadFile(imageURL, imageTitle)}
+                      <a
+                      href={imageURL}
+                      download
+                        className="cursor-pointer link"
+                        onClick={(e) => onDownloadFile(e,imageURL, imageTitle)}
                       >
                         {imageTitle}
-                      </span>
+                      </a>
                     </li>
                   );
                 })}
@@ -148,7 +148,7 @@ class MissionCard extends PureComponent<TMissionCard> {
             );
           })}
 
-        <p className="top-bot-20">To download: Click on image</p>
+        <p className="top-bot-20">Click links above to download</p>
         <Button onClickEvent={closeModal} mod="auto">
           {buttonText}
         </Button>
@@ -213,7 +213,6 @@ class MissionCard extends PureComponent<TMissionCard> {
               {telescopeName}
             </div>
 
-            <div className="onhover-field show-onhover">ULTRA-WIDE-FIELD</div>
             {fitsIsAvailable && (
               <Fragment>
                 <div className="onhover-field show-onhover flex-row justify-content-between">

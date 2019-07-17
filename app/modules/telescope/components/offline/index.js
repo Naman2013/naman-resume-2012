@@ -45,6 +45,7 @@ export default class TelescopeOffline extends Component {
     const {
       domeCam,
       allSkyCam,
+      teidePeakCam,
       facilityWebcam,
       currentTelescope,
       currentObservatory,
@@ -92,6 +93,7 @@ export default class TelescopeOffline extends Component {
               <StatusTab
                 domeCam={domeCam}
                 allSkyCam={allSkyCam}
+                teidePeakCam={teidePeakCam}
                 facilityWebcam={facilityWebcam}
                 obsId={currentObservatory.obsId}
                 allSkyWidgetID={currentObservatory.AllskyWidgetId}

@@ -35,6 +35,9 @@ export class TelescopeOnline extends Component {
       FacilityWebcamWidgetId,
       DayNightBarWidgetId,
     } = observatoryData;
+
+    this.checkCurrentInstrument();
+
     fetchAllWidgets({
       obsId,
       DayNightBarPanelWidgetId,
@@ -50,6 +53,22 @@ export class TelescopeOnline extends Component {
     });
   };
 
+  componentDidUpdate() {
+    this.checkCurrentInstrument();
+  }
+
+  checkCurrentInstrument = () => {
+    const {
+      currentTelescope,
+      currentInstrument,
+      updateCurrentInstrument,
+    } = this.props;
+
+    if(currentTelescope?.teleInstrumentList[0]?.instrUniqueId !== currentInstrument.instrUniqueId && currentTelescope?.teleInstrumentList[1]?.instrUniqueId !== currentInstrument.instrUniqueId) {
+      updateCurrentInstrument(currentTelescope.teleInstrumentList[0]);
+    }
+  }
+
   fetchAllTelescopeStatus(obsUniqueId = 0) {
     const { observatoryList, params } = this.props;
     this.props.fetchAllTelescopeStatus({
@@ -61,7 +80,7 @@ export class TelescopeOnline extends Component {
     });
   }
 
-  viewerRender = ({ viewportHeight }, onImageChange) => {
+  viewerRender = ({ viewportHeight, fullscreenMode }, onImageChange) => {
     const {
       activeTelescopeMission,
       fetchingObservatoryStatus,
@@ -77,6 +96,7 @@ export class TelescopeOnline extends Component {
     return provideLiveFeed(
       {
         viewportHeight,
+        fullscreenMode,
         fetchingOnlineStatus: fetchingObservatoryStatus,
         obsAlert: currentObservatory.obsAlert,
         onlineStatus: 'online',
@@ -228,6 +248,7 @@ export class TelescopeOnline extends Component {
                                   activeInstrumentID={activeInstrumentID}
                                   instrStarShareCamera={instrStarShareCamera}
                                   render={this.viewerRender}
+                                  mobileStarShare={context.isMobile}
                                 />
                               ) : null
                             }
@@ -265,6 +286,7 @@ export class TelescopeOnline extends Component {
 function provideLiveFeed(
   {
     viewportHeight,
+    fullscreenMode,
     fetchingOnlineStatus,
     obsAlert,
     onlineStatus,
@@ -282,6 +304,7 @@ function provideLiveFeed(
   return (
     <LiveFeed
       viewportHeight={viewportHeight}
+      fullscreenMode={fullscreenMode}
       fetchingOnlineStatus={fetchingOnlineStatus}
       obsAlert={obsAlert}
       onlineStatus={onlineStatus}

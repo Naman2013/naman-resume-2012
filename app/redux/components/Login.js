@@ -1,3 +1,4 @@
+import { closeAllMenus } from 'app/modules/global-navigation/actions';
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
@@ -49,6 +50,7 @@ const defaultProps = {};
 
 class Login extends Component {
   static propTypes = propTypes;
+
   static defaultProps = defaultProps;
 
   state = {
@@ -157,6 +159,8 @@ class Login extends Component {
     this.setState(() => ({
       inForgotPasswordMode: false,
     }));
+
+    actions.closeAllMenus();
   };
 
   processGoogleFailureResponse = googleMessageData => {
@@ -218,7 +222,7 @@ class Login extends Component {
       }),
     };
 
-    const googleProfileData = this.state.googleProfileData;
+    const { googleProfileData } = this.state;
 
     return (
       <div className="root">
@@ -402,7 +406,7 @@ class Login extends Component {
 
 const mapStateToProps = ({ appConfig, googleProfileData, logIn }) => ({
   loginFailed: logIn.loginFailed,
-  googleProfileData: googleProfileData,
+  googleProfileData,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -411,6 +415,7 @@ const mapDispatchToProps = dispatch => ({
       resetLogIn,
       logUserIn,
       logGoogleUserIn,
+      closeAllMenus,
     },
     dispatch
   ),

@@ -4,6 +4,17 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import TabbedNav from 'app/components/TabbedNav';
 import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
+import { Link } from 'react-router';
+
+import {
+  toggleGlobalNavMenu,
+} from 'app/modules/global-navigation/actions';
+import MENU_INTERFACE from 'app/components/GlobalNavigation/Menus/MenuInterface';
+
+import store from 'app/store';
+
+import Btn from 'app/atoms/Btn';
+
 import styles from './JoinHeader.style';
 import messages from './JoinHeader.messages';
 
@@ -16,6 +27,7 @@ class JoinHeader extends Component {
     subHeading: string,
     showHeading: boolean,
     showTabs: boolean,
+    showLogin: boolean,
     tabs: arrayOf(
       shape({
         label: string,
@@ -29,6 +41,7 @@ class JoinHeader extends Component {
     activeTab: '/join/step1',
     showHeading: true,
     showTabs: true,
+    showLogin: false,
     mainHeading: <FormattedMessage {...messages.JoinMainHeader} />,
     subHeading: <FormattedMessage {...messages.JoinSubHeader} />,
   };
@@ -38,10 +51,24 @@ class JoinHeader extends Component {
     // browserHistory.push(activeTab);
   };
 
+  openLoginPanel = props => {
+	store.dispatch(
+		toggleGlobalNavMenu({
+        		activeMenu: MENU_INTERFACE.PROFILE.name,
+		        isLeftOpen: false,
+        		isRightOpen: true,
+	        	activeLeft: MENU_INTERFACE.MAIN.name,
+	        	activeRight: MENU_INTERFACE.PROFILE.name,
+		        isNotificationMenuOpen: false,
+      		})
+	);
+  }
+
   render() {
     const {
       showHeading,
       showTabs,
+      showLogin,
       activeTab,
       mainHeading,
       subHeading,
@@ -57,6 +84,9 @@ class JoinHeader extends Component {
               <div className="inner-header-text">
                 <div className="big">{mainHeading}</div>
                 <div className="little">{subHeading}</div>
+        		{showLogin == true && <>
+        			<br/><div className="little">If you are a member or were invited to Slooh by a teacher, please <Link style={{cursor: "pointer", textDecoration: "none", color: "#337ab7", fontWeight: "bold"}} onClick={this.openLoginPanel}>login</Link> to access your account.</div>
+        		</>}
               </div>
               {showTabs && <TabbedNav
                 tabs={tabs}
@@ -73,6 +103,9 @@ class JoinHeader extends Component {
           <div className="inner-header-text">
             <div className="big">{mainHeading}</div>
             <div className="little">{subHeading}</div>
+		{showLogin == true && <>
+      <br/><div className="little">If you are a member or were invited to Slooh by a teacher, please <Link style={{textDecoration: "none", color: "#337ab7", fontWeight: "bold"}} onClick={this.openLoginPanel}>login</Link> to access your account.</div>
+		</>}
           </div>
           {showTabs && <TabbedNav
             tabs={tabs}

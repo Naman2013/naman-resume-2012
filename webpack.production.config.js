@@ -62,7 +62,7 @@ module.exports = {
     path: outPath,
     publicPath: '/',
     filename: '[name].[hash].js',
-    chunkFilename: '[name].[hash].chunk.js',
+    chunkFilename: 'chunks/[name].[hash].chunk.js',
   },
   resolve: {
     alias: {
@@ -142,6 +142,10 @@ module.exports = {
       },
     }),
 
+    new webpack.EnvironmentPlugin({
+      SENTRY_ENV: 'PRODUCTION'
+    }),
+
     // new webpack.optimize.CommonsChunkPlugin({
     //   name: 'vendors',
     //   filename: 'common.js',
@@ -187,8 +191,8 @@ module.exports = {
     new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output
       // both options are optional
-      filename: isProduction ? '[name].[hash].css' : '[name].css',
-      chunkFilename: isProduction ? '[id].[hash].css' : '[id].css',
+      filename: isProduction ? 'chunks/[name].[hash].css' : '[name].css',
+      chunkFilename: isProduction ? 'chunks/[id].[hash].css' : '[id].css',
       disable: !isProduction,
     }),
   ],

@@ -73,6 +73,8 @@ class JoinStep3 extends Component {
   componentWillUnmount() {
     const { actions } = this.props;
     actions.resetLogIn();
+
+    window.removeEventListener('message', this.handleIframeTask);
   }
 
   handleIframeTask = e => {

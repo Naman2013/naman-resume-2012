@@ -34,7 +34,7 @@ import cx from 'classnames';
 import PropTypes from 'prop-types';
 import React, { cloneElement, Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
+import { withRouter, browserHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { getFitsData, deleteTag, getTags, setTag } from '../thunks';
 import './image-list.scss';
@@ -132,17 +132,26 @@ const mapStateToProps = state => {
 @withRouter
 class ImageList extends Component {
   state = {
-    activePage: 1,
+    activePage: parseInt(this.props.location?.query?.page, 10) || 1,
     isFilterOpen: false,
   };
 
   componentDidMount() {
     const { actions, type, deviceInfo, params = {} } = this.props;
+    const { activePage } = this.state;
+    console.log('props', this.props);
     const fetchImages = actions[mapTypeToRequest[type]];
     const imagesToFetch = getImagesCountToFetch(deviceInfo);
     const { customerUUID } = params;
+    const PHOTOS_ON_ONE_PAGE = 9;
+    const PREVIOUS_PAGE = activePage - 1;
+    const firstImageNumber =
+      activePage === 1 ? 1 : PREVIOUS_PAGE * PHOTOS_ON_ONE_PAGE + 1;
+    
     fetchImages({
       sharedOnly: type === 'observations',
+      firstImageNumber,
+      firstMissionNumber: firstImageNumber,
       maxImageCount: imagesToFetch,
       maxMissionCount: imagesToFetch,
       customerUUID,
@@ -210,9 +219,9 @@ class ImageList extends Component {
   setFilterOpen = isFilterOpen => this.setState({ isFilterOpen });
 
   handlePageChange = ({ activePage }) => {
-    const { actions, type, deviceInfo, params = {} } = this.props;
+    const { actions, type, deviceInfo, params = {}, location: { pathname }, } = this.props;
     const { customerUUID } = params;
-
+    
     // used for determine first photo sequence number and fetch next 9 photos
     const PHOTOS_ON_ONE_PAGE = 9;
     const PREVIOUS_PAGE = activePage - 1;
@@ -223,7 +232,13 @@ class ImageList extends Component {
     const fetchImages = actions[mapTypeToRequest[type]];
     const imagesToFetch = getImagesCountToFetch(deviceInfo);
 
+    browserHistory.push({
+      pathname: pathname,
+      search: `?page=${activePage}`,
+    });
+
     fetchImages({
+      sharedOnly: type === 'observations',
       firstMissionNumber: this.startFrom,
       firstImageNumber: this.startFrom,
       maxImageCount: imagesToFetch,

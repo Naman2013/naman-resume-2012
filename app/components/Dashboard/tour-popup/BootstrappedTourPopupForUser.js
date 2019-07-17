@@ -13,7 +13,7 @@ import messages from './BootstrappedTourPopup.messages';
 
 const { bool, string, shape, func } = PropTypes;
 
-class BootstrappedTourPopup extends Component {
+class BootstrappedTourPopupForUser extends Component {
   static propTypes = {
     canDismiss: bool,
     dismissText: string,
@@ -26,7 +26,7 @@ class BootstrappedTourPopup extends Component {
     user: shape({
       at: string,
       token: string,
-      cid: string,      
+      cid: string,
     }).isRequired,
     intl: intlShape.isRequired,
     validateResponseAccess: func.isRequired,
@@ -131,4 +131,4 @@ class BootstrappedTourPopup extends Component {
   }
 }
 
-export default injectIntl(BootstrappedTourPopup);
+export default injectIntl(BootstrappedTourPopupForUser);

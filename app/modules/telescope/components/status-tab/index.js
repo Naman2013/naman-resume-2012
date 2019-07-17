@@ -21,6 +21,7 @@ export const StatusTab = props => {
     currentObservatory,
     facilityWebcam,
     domeCam,
+    teidePeakCam,
   } = props;
   return (
     <div className="animated fadeIn faster status-tab">
@@ -50,10 +51,12 @@ export const StatusTab = props => {
             </Col>
             <Col lg={4} md={12} sm={12}>
               <PicoDelTeidesWidget
-                domeCam={domeCam}
+                obsId={obsId}
+                teidePeakCam={teidePeakCam}
                 title={facilityWebcam.title}
                 activeTelescope={currentTelescope}
                 facilityWebcamUrl={facilityWebcam.facilityWebcamURL}
+                observatoryData={currentObservatory}
               />
             </Col>
           </Row>

@@ -16,6 +16,7 @@ export const getDashboardPopupInfo = () => (dispatch, getState) => {
     token,
     at,
     cid,
+    callSource: "accountSettings",
   })
     .then(result => {
       dispatch(ACTION.getDashboardPopupInfoSuccess(result.data));

@@ -55,16 +55,7 @@ import CommunityGroupOverview from 'app/pages/community-groups/GroupOverview';
 import GroupOverviewInfo from 'app/pages/community-groups/GroupOverviewInfo';
 import ExistingMissions from 'app/pages/existing-missions';
 import GuideDetails from 'app/pages/guide-details/GuideDetails';
-import Community from 'app/pages/help/Community';
 import CustomerService from 'app/pages/help/CustomerService';
-import MembershipLevels from 'app/pages/help/MembershipLevels';
-import NewToSlooh from 'app/pages/help/NewToSlooh';
-import PostingGuidelines from 'app/pages/help/PostingGuidelines';
-import Privacy from 'app/pages/help/Privacy';
-import SiteFeedback from 'app/pages/help/SiteFeedback';
-import SpaceSituationRoom from 'app/pages/help/SpaceSituationRoom';
-import TelescopesAndReservations from 'app/pages/help/TelescopesAndReservations';
-import TermsAndConditions from 'app/pages/help/TermsAndConditions';
 import Galleries from 'app/pages/my-pictures/Galleries';
 import GalleryImageDetails from 'app/pages/my-pictures/GalleryImageDetails';
 import GalleryImages from 'app/pages/my-pictures/GalleryImages';
@@ -330,19 +321,7 @@ const AppRouter = ({ setPreviousInstrument }) => (
         />
       </Route>
 
-      <Route path="help/posting-guidelines" component={PostingGuidelines} />
-      <Route path="help/new-to-slooh" component={NewToSlooh} />
-      <Route
-        path="help/telescopes-and-reservations"
-        component={TelescopesAndReservations}
-      />
-      <Route path="help/community" component={Community} />
-      <Route path="help/space-situation-room" component={SpaceSituationRoom} />
-      <Route path="help/membership-levels" component={MembershipLevels} />
       <Route path="help/customer-service" component={CustomerService} />
-      <Route path="help/site-feedback" component={SiteFeedback} />
-      <Route path="help/terms-and-conditions" component={TermsAndConditions} />
-      <Route path="help/privacy" component={Privacy} />
 
       <Route
         path="guides(/:filterType)"

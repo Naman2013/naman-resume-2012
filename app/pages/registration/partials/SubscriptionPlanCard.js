@@ -47,6 +47,7 @@ class SubscriptionPlanCard extends Component {
       planName,
       selectButtonText,
       setSelectedPlan,
+      teaserContent,
     } = this.props;
 
     const { showDetails } = this.state;
@@ -74,7 +75,7 @@ class SubscriptionPlanCard extends Component {
             <div className="flex border-bottom padded-top-bottom">
               <div
                 className="emphasize"
-                dangerouslySetInnerHTML={{ __html: planDescription }}
+                dangerouslySetInnerHTML={{ __html: teaserContent }}
               />
               <span
                 className="emphasize"

@@ -127,6 +127,7 @@ class ShowVideoImageLoader extends Component {
       teleStreamThumbnailVideoWidth,
       teleStreamThumbnailVideoHeight,
       clipped,
+      isMobile,
     } = this.props;
 
     const videoImageLoaderClassnames = classnames(
@@ -156,7 +157,7 @@ class ShowVideoImageLoader extends Component {
           showVideoControls={1}
           autoplay={1}
         />
-        <StarShareCamera />
+        <StarShareCamera mobileStarShare={isMobile} />
         <style jsx>{styles}</style>
       </div>
     );

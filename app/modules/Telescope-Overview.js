@@ -68,6 +68,9 @@ const FETCH_DOME_CAM_TIMELAPSE_SUCCESS = 'FETCH_DOME_CAM_TIMELAPSE_SUCCESS';
 const FETCH_ALL_SKY_TIMELAPSE_START = 'FETCH_ALL_SKY_TIMELAPSE_START';
 const FETCH_ALL_SKY_TIMELAPSE_SUCCESS = 'FETCH_ALL_SKY_TIMELAPSE_SUCCESS';
 
+const FETCH_TEIDE_PEAK_CAM_TIMELAPSE_START = 'FETCH_TEIDE_PEAK_CAM_TIMELAPSE_START';
+const FETCH_TEIDE_PEAK_CAM_TIMELAPSE_SUCCESS = 'FETCH_TEIDE_PEAK_CAM_TIMELAPSE_SUCCESS';
+
 export const getCurrentObservatory = (observatoryList = [], observatoryId) => {
   return observatoryList.find(observatory => observatory.obsUniqueId === observatoryId);
 };
@@ -428,6 +431,23 @@ export const fetchDomeCamTimelapseAction = ({ obsId, DomecamTimelapseWidgetId })
   }).then(result => dispatch(fetchDomeCamTimelapseSuccess(result.data)));
 };
 
+const fetchTeidePeakCamTimelapseStart = () => ({
+  type: FETCH_TEIDE_PEAK_CAM_TIMELAPSE_START,
+});
+
+const fetchTeidePeakCamTimelapseSuccess = payload => ({
+  type: FETCH_TEIDE_PEAK_CAM_TIMELAPSE_SUCCESS,
+  payload,
+});
+
+export const fetchTeidePeakCamTimelapseAction = ({ obsId, DomecamTimelapseWidgetId }) => (dispatch) => {
+  dispatch(fetchTeidePeakCamTimelapseStart());
+  return fetchDomeCamTimelapse({
+    obsId,
+    DomecamTimelapseWidgetId,
+  }).then(result => dispatch(fetchTeidePeakCamTimelapseSuccess(result.data)));
+};
+
 const fetchAllSkyTimelapseStart = () => ({
   type: FETCH_ALL_SKY_TIMELAPSE_START,
 });
@@ -492,6 +512,7 @@ const initialState = {
   fetchingAllSkyTimelapseWidgetResult: true,
   fetchingDomeCamWidgetResult: true,
   fetchingDomeCamTimelapseWidgetResult: true,
+  fetchingTeidePeakCamTimelapseWidgetResult: true,
   fetchingSeeingConditionsResult: true,
   fetchingObservatoryLiveWebcamResult: true,
   fetchingWeatherForecastWidgetResult: true,
@@ -579,6 +600,13 @@ const initialState = {
     allSkyCamURL: '',
     onlineStatus: '',
     title: '',
+  },
+  teidePeakCamTimelapseWidgetResult: {
+    domeCamTimelapseTitle: 'Loading',
+    refreshIntervalSec: 0,
+    domeCamTimelapseURL: '',
+    offlineImageURL: '',
+    offlineStatus: '',
   },
   allSkyTimelapseWidgetResult: {
     title: 'Loading',
@@ -822,6 +850,20 @@ export default createReducer(initialState, {
       ...state,
       fetchingAllSkyTimelapseWidgetResult: false,
       allSkyTimelapseWidgetResult: payload,
+    };
+  },
+  [FETCH_TEIDE_PEAK_CAM_TIMELAPSE_START](state) {
+    return {
+      ...state,
+      fetchingTeidePeakCamTimelapseWidgetResult: true,
+      teidePeakCamTimelapseWidgetResult: { ...initialState.teidePeakCamTimelapseWidgetResult },
+    };
+  },
+  [FETCH_TEIDE_PEAK_CAM_TIMELAPSE_SUCCESS](state, { payload }) {
+    return {
+      ...state,
+      fetchingTeidePeakCamTimelapseWidgetResult: false,
+      teidePeakCamTimelapseWidgetResult: payload,
     };
   },
 

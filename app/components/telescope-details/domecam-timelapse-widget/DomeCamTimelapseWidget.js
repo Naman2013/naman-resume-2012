@@ -47,7 +47,8 @@ class DomeCamTimelapseWidget extends Component {
   };
 
   componentDidMount() {
-    const { obsId, DomecamTimelapseWidgetId } = this.props;
+    const { obsId, DomecamTimelapseWidgetId, teidePeakCam } = this.props;
+
     this.props.actions.fetchDomeCamTimelapseAction({
       obsId,
       DomecamTimelapseWidgetId,

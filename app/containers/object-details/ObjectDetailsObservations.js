@@ -27,6 +27,7 @@ import CenterColumn from 'app/components/common/CenterColumn';
 import CardObservations from 'app/components/common/CardObservations';
 import { IMAGE_DETAILS } from 'app/services/image-details';
 import { ObjectObservationModal } from 'app/modules/object-details/components/object-observation-modal';
+import Pagination from 'app/components/common/pagination/v4-pagination/pagination';
 import isEmpty from 'lodash/isEmpty';
 import {
   makeObjectDetailsDataSelector,
@@ -65,19 +66,8 @@ class Observations extends Component {
   };
 
   componentDidMount() {
-    const {
-      fetchSharedMemberPhotosAction,
-      params: { objectId },
-    } = this.props;
     const { page } = this.state;
-    const requestBody = {
-      objectId,
-      pagingMode: 'content',
-      count: 9,
-      page,
-      v4Filter: this.selectedFilter,
-    };
-    fetchSharedMemberPhotosAction(requestBody);
+    this.getObservations(page);
   }
 
   get dropdownOptions() {
@@ -98,6 +88,23 @@ class Observations extends Component {
     return currentFilterObj.value;
   }
 
+  getObservations = page => {
+    const {
+      fetchSharedMemberPhotosAction,
+      params: { objectId },
+    } = this.props;
+
+    const requestBody = {
+      objectId,
+      pagingMode: 'content',
+      count: 9,
+      page,
+      v4Filter: this.selectedFilter,
+    };
+
+    fetchSharedMemberPhotosAction(requestBody);
+  } 
+
   handleSelect = (e, selectedItem) => {
     this.setState(() => ({
       selectedIndex: findIndex(
@@ -115,6 +122,10 @@ class Observations extends Component {
     this.setState({ writeObservationModalShow: false });
   };
 
+  handlePageChange = ({ activePage }) => {
+    this.getObservations(activePage);
+  };
+
   render() {
     const {
       objectDetails,
@@ -124,9 +135,10 @@ class Observations extends Component {
       getMyPictures,
       user,
     } = this.props;
-    const { writeObservationModalShow } = this.state;
+    const { writeObservationModalShow, page } = this.state;
+    const { pages, imageCount, imageList } = sharedMemberPhotos;
 
-    if (!sharedMemberPhotos.imageCount) {
+    if (!imageCount) {
       return (
         <p>
           <FormattedMessage
@@ -162,7 +174,7 @@ class Observations extends Component {
         />
         <CenterColumn widths={['645px', '965px', '965px']}>
           <div className="root">
-            {sharedMemberPhotos.imageList.map(image => (
+            {imageList.map(image => (
               <Request
                 method="POST"
                 authorizationRedirect
@@ -202,6 +214,17 @@ class Observations extends Component {
                 }}
               />
             ))}
+
+            {pages > 1 ? (
+              <div className="observations-pagination">
+                <Pagination
+                  pagesPerPage={4}
+                  activePage={page}
+                  onPageChange={this.handlePageChange}
+                  totalPageCount={pages}
+                />
+              </div>
+            ) : null}
           </div>
         </CenterColumn>
 

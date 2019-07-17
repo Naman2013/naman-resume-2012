@@ -17,6 +17,7 @@ const StoryExcerptTile = ({
   title,
   toggleReadingListFlag,
   updateReadingInfoInList,
+  onUpdate,
 }) => (
   <div className="story-tile-root">
     <div className="title" dangerouslySetInnerHTML={{ __html: title }} />
@@ -38,6 +39,7 @@ const StoryExcerptTile = ({
           readingListPrompt={null}
           readingListType={readingListType}
           updateReadingInfoInList={updateReadingInfoInList}
+          onUpdate={onUpdate}
         />
       ) : null}
     </div>

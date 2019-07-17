@@ -32,6 +32,7 @@ import {
   FETCH_IMAGE_DETAILS_START,
   FETCH_IMAGE_DETAILS_FAIL,
   FETCH_IMAGE_DETAILS_SUCCESS,
+  FETCH_SHARED_MEMBER_PHOTOS_START,
   FETCH_SHARED_MEMBER_PHOTOS_SUCCESS,
   GET_MY_PICTURES,
   GET_MY_PICTURES_START,
@@ -156,6 +157,8 @@ const initialState = {
       linkLabel: null,
       linkUrl: null,
     },
+    showVisibilitySeason:false,
+    showMidnightCulmination:false,
   },
   objectMissions: {},
   objectQuests: {},
@@ -170,6 +173,13 @@ const initialState = {
 
 export default createReducer(initialState, {
   /* SHARED MEMBER PHOTOS */
+  [FETCH_SHARED_MEMBER_PHOTOS_START](state) {
+    return {
+      ...state,
+      sharedMemberPhotos: {},
+    };
+  },
+
   [FETCH_SHARED_MEMBER_PHOTOS_SUCCESS](state, { payload }) {
     return {
       ...state,
