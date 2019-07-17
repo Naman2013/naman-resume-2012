@@ -20,7 +20,7 @@ type TQuestStep = {
 };
 
 export class QuestStep extends Component<TQuestStep> {
-  state = { prevStepId: null, nextStepId: null, lastStepId: null };
+  state = { prevStepId: null, nextStepId: null };
 
   static getDerivedStateFromProps(props) {
     const { stepData, routeParams } = props;
@@ -33,7 +33,6 @@ export class QuestStep extends Component<TQuestStep> {
         stepData.stepMenuList.findIndex(
           item => item.stepModuleId === routeParams.step
         ) + 1;
-      const lastStepIndex = stepData.stepMenuList.length - 1;
       return {
         prevStepId:
           prevStepIndex > -1
@@ -42,10 +41,6 @@ export class QuestStep extends Component<TQuestStep> {
         nextStepId:
           nextStepIndex < stepData.stepMenuList.length
             ? stepData.stepMenuList[nextStepIndex].stepModuleId
-            : null,
-        lastStepId:
-          stepData.stepMenuList[lastStepIndex].stepModuleId !== routeParams.step
-            ? stepData.stepMenuList[lastStepIndex].stepModuleId
             : null,
       };
     }
@@ -94,19 +89,9 @@ export class QuestStep extends Component<TQuestStep> {
     }
   };
 
-  navigateToLastStep = () => {
-    const { routeParams } = this.props;
-    const { lastStepId } = this.state;
-    if (lastStepId !== null) {
-      browserHistory.push(
-        `/quest-details/${routeParams.questId}/${lastStepId}`
-      );
-    }
-  };
-
   render() {
     const { loading, moduleList, stepData = {}, routeParams } = this.props;
-    const { prevStepId, nextStepId, lastStepId } = this.state;
+    const { prevStepId, nextStepId } = this.state;
 
     return (
       <div className="quest-step-page">
@@ -149,14 +134,14 @@ export class QuestStep extends Component<TQuestStep> {
             {moduleList.map(
               module =>
                 module.moduleType === questModuleType.datacollectdifferent && (
-                  <QuestModuleDataCollection 
-                    module={module} 
+                  <QuestModuleDataCollection
+                    module={module}
                     questId={routeParams.questId}
                     navigateToNextStep={this.navigateToNextStep}
                   />
                 )
             )}
-            
+
             {moduleList.map(
               module =>
                 module.moduleType === questModuleType.textoutput && (
@@ -174,8 +159,8 @@ export class QuestStep extends Component<TQuestStep> {
           currentlyViewingCaption={stepData?.currentlyViewingCaption}
           navigateToNextStep={this.navigateToNextStep}
           disableNext={nextStepId === null}
-          navigateToLastStep={this.navigateToLastStep}
-          disableLast={lastStepId === null}
+          navigateToLastStep={this.navigateToPrevStep}
+          disableLast={prevStepId === null}
         />
       </div>
     );
