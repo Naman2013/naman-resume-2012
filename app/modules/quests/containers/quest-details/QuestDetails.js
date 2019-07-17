@@ -62,12 +62,14 @@ export const QuestDetails = props => {
         {modal.modalComponent}
       </Modal>
       <QuestTitleSection
-        preTitle={pageMeta.questSubtitle}
+        preTitle={pageMeta.questType}
         title={pageMeta.questTitle}
         iconURL={pageMeta.iconURL}
         showActionButton={pageMeta.showStartQuestButton}
         actionButtonCaption={pageMeta.startQuestButtonCaption}
         actionButtonEvent={userActions.setupQuest}
+        inProgressButtonCaption={pageMeta.inProgressButtonCaption}
+        showInProgressButton={pageMeta.showInProgressButton}
       />
       <CenterColumn>
         <GuideSection
