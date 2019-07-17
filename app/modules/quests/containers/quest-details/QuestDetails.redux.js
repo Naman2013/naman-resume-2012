@@ -16,6 +16,7 @@ import questActions from 'app/modules/quest-details/actions';
 import { validateResponseAccess } from 'app/modules/authorization/actions';
 import { START_QUEST } from 'app/services/quests';
 import Quest from './QuestDetails';
+import { Spinner } from 'app/components/spinner/index';
 
 const { func, number, oneOfType, shape, string } = PropTypes;
 
@@ -37,7 +38,13 @@ export class ConnectedQuestDetails extends Component {
     user: {},
   };
 
-  state = {};
+  state = {
+    isLoading: false,
+  };
+
+  startLoading = () => this.setState({ isLoading: true });
+
+  stopLoading = () => this.setState({ isLoading: false });
 
   componentDidMount() {
     const { actions, questId } = this.props;
@@ -47,7 +54,8 @@ export class ConnectedQuestDetails extends Component {
   setupQuest = () => {
     const { actions, questId } = this.props;
     const { at, token, cid } = this.props.user;
-    axios
+    this.startLoading();
+    return axios
       .post(START_QUEST, {
         at,
         cid,
@@ -55,10 +63,10 @@ export class ConnectedQuestDetails extends Component {
         questId,
       })
       .then(res => {
-        if (res.data.startedQuest) {
-          this.goToStep(1);
-        }
-        actions.validateResponseAccess(res);
+        const { actions, questId } = this.props;
+        actions.fetchQuestPageMeta({ questId }).then(() => {
+          this.stopLoading();
+        });
       });
   };
 
@@ -73,8 +81,11 @@ export class ConnectedQuestDetails extends Component {
       goToStep: this.goToStep,
     };
 
+    const { isLoading } = this.state;
+
     return (
       <div className="root">
+        <Spinner loading={isLoading} />
         <DeviceContext.Consumer>
           {context => (
             <Quest {...this.props} {...context} userActions={userActions} />
