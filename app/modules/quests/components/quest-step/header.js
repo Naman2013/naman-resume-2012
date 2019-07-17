@@ -79,6 +79,7 @@ export const QuestStepHeader = ({
         isOpen={isOpen}
         stepMenuList={stepMenuList}
         title={stepMenuTitle}
+        onClose={() => toggleMenu(false)}
         questId={questId}
       />
     </div>

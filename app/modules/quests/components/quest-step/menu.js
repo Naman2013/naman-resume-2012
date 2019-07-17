@@ -16,11 +16,15 @@ export const QuestStepContextMenu = ({
   title,
   menuTopAdjustment,
   questId,
+  onClose,
 }) => {
   const goToStep = index => {
     browserHistory.push(
       `/quest-details/${questId}/${stepMenuList[index].stepModuleId}`
     );
+    if (typeof onClose === 'function') {
+      onClose();
+    }
   };
   const containerLeft = isOpen ? OPEN_LOCATION : CLOSE_LOCATION;
   return (
