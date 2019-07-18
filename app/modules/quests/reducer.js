@@ -20,7 +20,12 @@ const initialState = {
   stepData: {},
   questOutput: {},
   questDataCollection: {},
-  questDataCollectionSlotImages: {},
+  questDataCollectionSlotImages: {
+    imageList: [],
+    firstImageNumber: 1,
+    maxImageCount: 9,
+    pagingMode: 'api',
+  },
 };
 
 export default handleActions(
@@ -94,6 +99,7 @@ function getQuestOutputSuccess(state, { payload }) {
 }
 
 function getDataCollectionSuccess(state, { payload }) {
+  const { questDataCollection } = state;
   return {
     ...state,
     isFetching: false,
@@ -102,10 +108,17 @@ function getDataCollectionSuccess(state, { payload }) {
 }
 
 function getDataCollectionSlotImagesSuccess(state, { payload }) {
+  const { questDataCollectionSlotImages } = state;
   return {
     ...state,
     isFetching: false,
-    questDataCollectionSlotImages: payload,
+    questDataCollectionSlotImages: {
+      ...payload,
+      imageList: [
+        ...questDataCollectionSlotImages.imageList,
+        ...payload.imageList,
+      ],
+    },
   };
 }
 

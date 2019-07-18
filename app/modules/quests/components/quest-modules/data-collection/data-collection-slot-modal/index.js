@@ -2,17 +2,49 @@ import { Modal } from 'app/components/modal';
 import React, { Component } from 'react';
 import { Row, Col, Button } from 'react-bootstrap';
 import { Link } from 'react-router';
+import { Spinner } from 'app/components/spinner/index';
 import { DataCollectionImageCard } from '../data-collection-image-card';
+import './styles.scss';
 
 export class DataCollectionSlotModal extends Component {
   componentDidMount() {
-    // const { getDataCollectionImagesSuccess, objectDetails } = this.props;
-    // const { objectId } = objectDetails;
-    // getDataCollectionImagesSuccess({
-    //   viewType: 'photoRoll',
-    //   astroObjectIds: [objectId],
-    // });
+    const { questDataCollectionSlotImages } = this.props;
+    const { firstImageNumber } = questDataCollectionSlotImages;
+    this.getDataCollectionSlotImages(firstImageNumber);
   }
+
+  getDataCollectionSlotImages = firstImageNumber => {
+    const {
+      moduleId,
+      questId,
+      getDataCollectionSlotImages,
+      selectedSlot,
+      questDataCollectionSlotImages,
+    } = this.props;
+    const { slotId } = selectedSlot;
+    const { maxImageCount, pagingMode } = questDataCollectionSlotImages;
+
+    getDataCollectionSlotImages({
+      moduleId,
+      questId,
+      slotId,
+      firstImageNumber,
+      maxImageCount,
+      pagingMode,
+    });
+  };
+
+  showMore = () => {
+    const { questDataCollectionSlotImages } = this.props;
+    const {
+      showMoreImagesIncrement,
+      firstImageNumber,
+    } = questDataCollectionSlotImages;
+    const newFirstImageNumber = firstImageNumber + showMoreImagesIncrement;
+
+    this.getDataCollectionSlotImages(newFirstImageNumber);
+    this.setState({ firstImageNumber: newFirstImageNumber });
+  };
 
   render() {
     const {
@@ -21,13 +53,21 @@ export class DataCollectionSlotModal extends Component {
       questDataCollectionSlotImages,
       selectedSlot,
       setDataCollectionSlotImages,
+      loading,
     } = this.props;
-    const { imageList, imageCount } = questDataCollectionSlotImages;
+    const {
+      imageList,
+      imageCount,
+      showShowMoreButton,
+      showMoreButtonCaption,
+    } = questDataCollectionSlotImages;
     const { slotSequence } = selectedSlot;
 
     return (
       <Modal show={show} onHide={onHide} goBackText="GO BACK">
         <div className="container image-selection-modal">
+          <Spinner loading={loading} />
+
           {imageCount > 0 && (
             <>
               <h1 className="modal-h">
@@ -45,19 +85,12 @@ export class DataCollectionSlotModal extends Component {
               </Row>
             </>
           )}
-          {/* {!isFetching && myPictures?.imageList?.length === 0 && (
-            <>
-              <h1 className="modal-h">{myPictures?.missionLink?.displayTitle}</h1>
-              <p className="modal-p my-5">
-                {myPictures?.missionLink?.displaySubTitle}
-              </p>
-              <Link to={`/${myPictures?.missionLink?.buttonLink}`}>
-                <Button className="modal-btn">
-                  {myPictures?.missionLink?.confirmButtonText}
-                </Button>
-              </Link>
-            </>
-          )} */}
+
+          {showShowMoreButton && (
+            <Button className="show-more modal-btn" onClick={this.showMore}>
+              {showMoreButtonCaption}
+            </Button>
+          )}
         </div>
       </Modal>
     );
