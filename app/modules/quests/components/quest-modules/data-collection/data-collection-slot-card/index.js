@@ -47,7 +47,7 @@ export const DataCollectionSlotCard = props => {
         {showSlotInfo && (
           <Button
             className={cn('dc-slot-card-info-btn', { open: isInfoMenuOpen })}
-            onClick={() => toggleInfoMenu(!isInfoMenuOpen)}
+            onClick={() => !isDotsMenuOpen && toggleInfoMenu(!isInfoMenuOpen)}
           >
             {!isInfoMenuOpen ? (
               <img
@@ -61,7 +61,7 @@ export const DataCollectionSlotCard = props => {
         )}
         {showDotMenu && (
           <Button
-            onClick={() => toggleDotsMenu(!isDotsMenuOpen)}
+            onClick={() => !isInfoMenuOpen && toggleDotsMenu(!isDotsMenuOpen)}
             className={cn('dc-slot-card-dots-menu', { open: isDotsMenuOpen })}
           >
             {!isDotsMenuOpen ? (
