@@ -60,6 +60,8 @@ export class DataCollectionSlotModal extends Component {
       imageCount,
       showShowMoreButton,
       showMoreButtonCaption,
+      emptySetFlag,
+      emptySetDisplay,
     } = questDataCollectionSlotImages;
     const { slotSequence } = selectedSlot;
 
@@ -68,22 +70,23 @@ export class DataCollectionSlotModal extends Component {
         <div className="container image-selection-modal">
           <Spinner loading={loading} />
 
+          <h1 className="modal-h">
+            Select your Image for slot {slotSequence}.
+          </h1>
+
+          {emptySetFlag && !loading && <h3 className="modal-h3">{emptySetDisplay}</h3>}
+
           {imageCount > 0 && (
-            <>
-              <h1 className="modal-h">
-                Select your Image for slot {slotSequence}.
-              </h1>
-              <Row>
-                {imageList.map(item => (
-                  <Col md={6} xl={4}>
-                    <DataCollectionImageCard
-                      imageData={item}
-                      onClick={() => setDataCollectionSlotImages(item)}
-                    />
-                  </Col>
-                ))}
-              </Row>
-            </>
+            <Row>
+              {imageList.map(item => (
+                <Col md={6} xl={4}>
+                  <DataCollectionImageCard
+                    imageData={item}
+                    onClick={() => setDataCollectionSlotImages(item)}
+                  />
+                </Col>
+              ))}
+            </Row>
           )}
 
           {showShowMoreButton && (

@@ -28,6 +28,8 @@
   }
 
   p {
+    display: flex;
+    justify-content: space-between;
     margin: 0px;
     font-family: $primary-font;
     font-size: 11px;

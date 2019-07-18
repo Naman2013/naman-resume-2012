@@ -49,7 +49,7 @@ export default handleActions(
     [TYPE.GET_DATA_COLLECTION_SUCCESS]: getDataCollectionSuccess,
     [TYPE.GET_DATA_COLLECTION_ERROR]: error,
 
-    [TYPE.GET_DATA_COLLECTION_SLOT_IMAGES]: start,
+    [TYPE.GET_DATA_COLLECTION_SLOT_IMAGES]: startGetDataCollectionSlotImages,
     [TYPE.GET_DATA_COLLECTION_SLOT_IMAGES_SUCCESS]: getDataCollectionSlotImagesSuccess,
     [TYPE.GET_DATA_COLLECTION_SLOT_IMAGES_ERROR]: error,
 
@@ -104,6 +104,18 @@ function getDataCollectionSuccess(state, { payload }) {
     ...state,
     isFetching: false,
     questDataCollection: payload,
+  };
+}
+
+function startGetDataCollectionSlotImages(state) {
+  const { questDataCollectionSlotImages } = state;
+  return {
+    ...state,
+    isFetching: true,
+    questDataCollectionSlotImages: {
+      ...questDataCollectionSlotImages,
+      imageList: [],
+    },
   };
 }
 
