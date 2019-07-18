@@ -9,5 +9,7 @@ export default (userLinks = []) => ({
     _ID: uniqueId(),
     text: link.name,
     anchor: link.link,
+    indent: link.indent,
+    isExternalLink: link.isExternalLink,
   })),
 });
