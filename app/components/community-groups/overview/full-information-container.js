@@ -61,6 +61,7 @@ class FullInformationOverview extends Component {
     pageMeta: shape({
       canPost: bool,
       canSeeGroupContent: bool,
+      topicId: number,
     }),
     joinOrLeaveGroup: func.isRequired,
     joinPrompt: string,
@@ -81,6 +82,7 @@ class FullInformationOverview extends Component {
     pageMeta: {
       canPost: false,
       canSeeGroupContent: false,
+      topicId: null,
     },
     joinPrompt: '',
     showJoinPrompt: false,
@@ -118,6 +120,7 @@ class FullInformationOverview extends Component {
       joinOrLeaveGroup,
       showJoinPrompt,
       topicId: pageMeta.topicId,
+      canSeeGroupContent: pageMeta.canSeeGroupContent,
       user,
     };
 
@@ -172,7 +175,7 @@ class FullInformationOverview extends Component {
           }
           isScreenSize={context.isScreenLarge}
           renderMainContent={() =>
-            !isEditMode && this.props.pageMeta.canSeeGroupContent && (
+            !isEditMode && pageMeta.canSeeGroupContent === true && (
               <div className="discuss-container">
                 <DiscussionsBoard
                   errorMessage={intl.formatMessage(messages.FetchingListError)}
@@ -184,6 +187,7 @@ class FullInformationOverview extends Component {
                   user={user}
                   validateResponseAccess={actions.validateResponseAccess}
                   discussionGroupId={discussionGroupId}
+		  canSeeGroupContent={pageMeta.canSeeGroupContent}
                   isClub
                 />
               </div>
