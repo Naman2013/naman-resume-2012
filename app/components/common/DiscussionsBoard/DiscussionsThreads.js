@@ -68,6 +68,12 @@ class DiscussionsThreads extends Component {
     fetching: true,
     activePage: 1,
   };
+   
+  componentDidMount() {
+    if (this.props && this.props.topicId !== null) {
+	this.getThreads(this.props);
+    }
+  } 
 
   componentWillReceiveProps(nextProps) {
     if (this.props.topicId !== nextProps.topicId) {
@@ -265,6 +271,7 @@ class DiscussionsThreads extends Component {
       errorMessage,
       forumId,
       isDesktop,
+      isClub,
       topicId,
       user,
       validateResponseAccess,
@@ -279,6 +286,7 @@ class DiscussionsThreads extends Component {
           ...createThreadFormParams,
           createThread: this.createThread,
           isDesktop,
+          isClub,
         })}
         <div className="comments-bar">
           <FormattedMessage {...messages.Comments} /> (
