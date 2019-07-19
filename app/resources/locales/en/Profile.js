@@ -12,7 +12,7 @@
   'Profile.Guides': 'Guides',
   'Profile.Loading': 'Loading...',
   'Profile.NoTiles': 'You have no items',
-  'Profile.QaSectionTitle': 'MY Q&A HUB',
+  'Profile.QaSectionTitle': 'MY AAA HUB',
   'Profile.MyQuestions': 'My questions',
   'Profile.MyAnswers': 'My answers',
   'Profile.QuestionsToAnswer': 'Questions to answer',
