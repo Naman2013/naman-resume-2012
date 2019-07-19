@@ -60,6 +60,7 @@ class FullInformationOverview extends Component {
     heading: string,
     pageMeta: shape({
       canPost: bool,
+      canSeeGroupContent: bool,
     }),
     joinOrLeaveGroup: func.isRequired,
     joinPrompt: string,
@@ -79,6 +80,7 @@ class FullInformationOverview extends Component {
     heading: '',
     pageMeta: {
       canPost: false,
+      canSeeGroupContent: false,
     },
     joinPrompt: '',
     showJoinPrompt: false,
@@ -138,7 +140,7 @@ class FullInformationOverview extends Component {
             />
           )}
 
-        <ResponsiveTwoColumnContainer
+        {this.props.pageMeta.canSeeGroupContent && <ResponsiveTwoColumnContainer
           renderNavigationComponent={navProps => (
             <TwoTabbedNav
               firstTitle={intl.formatMessage(messages.NavTitle)}
@@ -150,7 +152,7 @@ class FullInformationOverview extends Component {
             />
           )}
           renderAsideContent={() =>
-            !isEditMode && (
+            !isEditMode && this.props.pageMeta.canSeeGroupContent && (
               <div>
                 <TopThreads
                   topicId={pageMeta.topicId}
@@ -170,7 +172,7 @@ class FullInformationOverview extends Component {
           }
           isScreenSize={context.isScreenLarge}
           renderMainContent={() =>
-            !isEditMode && (
+            !isEditMode && this.props.pageMeta.canSeeGroupContent && (
               <div className="discuss-container">
                 <DiscussionsBoard
                   errorMessage={intl.formatMessage(messages.FetchingListError)}
@@ -187,6 +189,7 @@ class FullInformationOverview extends Component {
             )
           }
         />
+      }
 
         <style jsx>
           {`
