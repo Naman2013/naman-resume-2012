@@ -1,6 +1,7 @@
 import { createSelector } from 'reselect';
 
 export const selectQuests = state => state.quests;
+export const selectQuestsDetails = state => state.questDetails;
 
 export const makeQuestsLoadingSelector = () =>
   createSelector(
@@ -19,6 +20,12 @@ export const makeQuestsStepModuleListSelector = () =>
   createSelector(
     makeQuestsStepDataSelector(),
     state => state.stepModuleList || []
+  );
+
+export const makeQuestsDetailsModalSelector = () =>
+  createSelector(
+    selectQuestsDetails,
+    state => state.modal
   );
 
 export const makeQuestOutputSelector = () =>

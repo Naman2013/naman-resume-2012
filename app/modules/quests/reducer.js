@@ -3,6 +3,7 @@ import { handleActions } from 'redux-actions';
 
 export const TYPE = constants('quests', [
   '~GET_QUESTS',
+  '~GET_APPENDIX',
 
   // QUEST STEP PAGE
   '~GET_QUEST_STEP',
@@ -34,6 +35,10 @@ export default handleActions(
     [TYPE.GET_QUESTS]: start,
     [TYPE.GET_QUESTS_SUCCESS]: getQuestsSuccess,
     [TYPE.GET_QUESTS_ERROR]: error,
+
+    [TYPE.GET_APPENDIX]: start,
+    [TYPE.GET_APPENDIX_SUCCESS]: getQuestsAppendixSuccess,
+    [TYPE.GET_APPENDIX_ERROR]: error,
     // END: ABOUT PAGE
 
     // STEP PAGE
@@ -69,6 +74,13 @@ function start(state = initialState) {
 }
 
 function getQuestsSuccess(state = initialState) {
+  return {
+    ...state,
+    isFetching: false,
+  };
+}
+
+function getQuestsAppendixSuccess(state) {
   return {
     ...state,
     isFetching: false,

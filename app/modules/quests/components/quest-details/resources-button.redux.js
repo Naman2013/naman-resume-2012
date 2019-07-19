@@ -13,6 +13,7 @@ import { customModalStylesBlackOverlay } from 'app/styles/mixins/utilities';
 import ResourcesButton from './resources-button';
 import { GET_APPENDIX } from 'app/services/quests';
 import ResourcesModal from './modals/resources-modal';
+import { ACTION } from '../../reducer';
 
 const { bool, func, number, shape, string } = PropTypes;
 
@@ -27,6 +28,7 @@ class ConnectedResourcesButton extends Component {
   openResourcesModal = e => {
     e.preventDefault();
     const { actions, questId, moduleId, user } = this.props;
+    actions.getAppendix();
     axios
       .post(GET_APPENDIX, {
         questId,
@@ -36,6 +38,7 @@ class ConnectedResourcesButton extends Component {
         token: user.token,
       })
       .then(res => {
+        actions.getAppendixSuccess();
         actions.validateResponseAccess(res);
         actions.setAndOpenModal({
           modalComponent: (
@@ -43,6 +46,9 @@ class ConnectedResourcesButton extends Component {
           ),
           modalStyles: customModalStylesBlackOverlay,
         });
+      })
+      .catch(() => {
+        actions.getAppendixError();
       });
   };
 
@@ -69,6 +75,9 @@ const mapDispatchToProps = dispatch => ({
       setAndOpenModal: questActions.setAndOpenModal,
       closeModal: questActions.closeModal,
       validateResponseAccess,
+      getAppendix: ACTION.getAppendix,
+      getAppendixSuccess: ACTION.getAppendixSuccess,
+      getAppendixError: ACTION.getAppendixError,
     },
     dispatch
   ),

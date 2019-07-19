@@ -59,6 +59,14 @@
       border-left: 1px solid $hawkesBlue;
       margin: -30px;
       padding: 30px;
+
+      .button-container {
+        margin: 0;
+
+        > div {
+          margin: 0;
+        }
+      }
     }
   }
 
