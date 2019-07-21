@@ -31,19 +31,22 @@ const MainContainer = ({
   validateResponseAccess,
 }) => (
   <div className="image-main-container">
-      <ObservationInformation
-        canLikeFlag={canLikeFlag}
-        customerImageId={customerImageId}
-        fileData={fileData}
-        likesCount={likesCount}
-        likePrompt={likePrompt}
-        observationLog={observationLog}
-        observationTimeDisplay={observationTimeDisplay}
-        observationTitle={observationTitle}
-        imageTitle={imageTitle}
-        user={user}
-      />
-      <br/>
+      {observationLog && <>
+        <ObservationInformation
+         canLikeFlag={canLikeFlag}
+      	 customerImageId={customerImageId}
+       	 fileData={fileData}
+       	 likesCount={likesCount}
+       	 likePrompt={likePrompt}
+       	 observationLog={observationLog}
+       	 observationTimeDisplay={observationTimeDisplay}
+       	 observationTitle={observationTitle}
+       	 imageTitle={imageTitle}
+       	 user={user}
+      	/>
+      	<br/>
+      </>
+      }
     {canEditFlag && (
       <>
 	      <ObservationsForm
