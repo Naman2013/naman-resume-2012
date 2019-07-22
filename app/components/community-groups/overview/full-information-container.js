@@ -60,6 +60,8 @@ class FullInformationOverview extends Component {
     heading: string,
     pageMeta: shape({
       canPost: bool,
+      canSeeGroupContent: bool,
+      topicId: number,
     }),
     joinOrLeaveGroup: func.isRequired,
     joinPrompt: string,
@@ -79,6 +81,8 @@ class FullInformationOverview extends Component {
     heading: '',
     pageMeta: {
       canPost: false,
+      canSeeGroupContent: false,
+      topicId: null,
     },
     joinPrompt: '',
     showJoinPrompt: false,
@@ -116,6 +120,7 @@ class FullInformationOverview extends Component {
       joinOrLeaveGroup,
       showJoinPrompt,
       topicId: pageMeta.topicId,
+      canSeeGroupContent: pageMeta.canSeeGroupContent,
       user,
     };
 
@@ -138,7 +143,7 @@ class FullInformationOverview extends Component {
             />
           )}
 
-        <ResponsiveTwoColumnContainer
+        {this.props.pageMeta.canSeeGroupContent && <ResponsiveTwoColumnContainer
           renderNavigationComponent={navProps => (
             <TwoTabbedNav
               firstTitle={intl.formatMessage(messages.NavTitle)}
@@ -150,7 +155,7 @@ class FullInformationOverview extends Component {
             />
           )}
           renderAsideContent={() =>
-            !isEditMode && (
+            !isEditMode && this.props.pageMeta.canSeeGroupContent && (
               <div>
                 <TopThreads
                   topicId={pageMeta.topicId}
@@ -170,7 +175,7 @@ class FullInformationOverview extends Component {
           }
           isScreenSize={context.isScreenLarge}
           renderMainContent={() =>
-            !isEditMode && (
+            !isEditMode && pageMeta.canSeeGroupContent === true && (
               <div className="discuss-container">
                 <DiscussionsBoard
                   errorMessage={intl.formatMessage(messages.FetchingListError)}
@@ -182,11 +187,14 @@ class FullInformationOverview extends Component {
                   user={user}
                   validateResponseAccess={actions.validateResponseAccess}
                   discussionGroupId={discussionGroupId}
+		  canSeeGroupContent={pageMeta.canSeeGroupContent}
+                  isClub
                 />
               </div>
             )
           }
         />
+      }
 
         <style jsx>
           {`

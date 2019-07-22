@@ -121,7 +121,7 @@ class DiscussionsComment extends Component {
       return currentThread;
     });
     updateThreadsProps(newThreadList);
-    updateCommentsProps(threadId, null, paginatedSet);
+    updateCommentsProps(threadId, null, paginatedSet, page);
   };
 
   handleReply = (params, callback) => {

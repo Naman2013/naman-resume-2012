@@ -158,6 +158,7 @@ export default createReducer(initialState, {
   [TOGGLE_JOIN_GROUP_SUCCESS](state, { payload }) {
     const {
       canPost,
+      canSeeGroupContent,
       askPrompt,
       joinPrompt,
       showAskPrompt,
@@ -173,6 +174,7 @@ export default createReducer(initialState, {
         joinPrompt,
         showJoinPrompt,
         canPost,
+        canSeeGroupContent,
       }),
     };
   },

@@ -41,6 +41,7 @@ const GroupsHeader = ({
   discussionGroupId,
   isEditMode,
   editButtonText,
+  canSeeGroupContent,
 }) => (
   <div className="root">
     <div className="image-and-main-container">
@@ -77,7 +78,7 @@ const GroupsHeader = ({
             {editButtonText}
           </Button>
         )}
-        {condensed ? (
+        {condensed && canSeeGroupContent ? (
           <DiscussionBoardDescription
             groupId={discussionGroupId}
             description={description}
@@ -93,7 +94,7 @@ const GroupsHeader = ({
               onClickEvent={joinOrLeaveGroup}
             />
           ) : null}
-          {isMobile && !condensed ? (
+          {isMobile && canSeeGroupContent && !condensed ? (
             <Button icon={info} onClickEvent={showInformation} />
           ) : null}
         </div>

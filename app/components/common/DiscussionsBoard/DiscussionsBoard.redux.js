@@ -28,6 +28,7 @@ class DiscussionsBoard extends Component {
     topLevelThread: bool,
     createThread: func.isRequired,
     createThreadFormParams: shape({}),
+    isClub: bool,
   };
 
   static defaultProps = {
@@ -39,6 +40,7 @@ class DiscussionsBoard extends Component {
     topicId: null,
     topLevelThread: true,
     createThreadFormParams: {},
+    isClub: false,
   };
 
   state = {
@@ -48,6 +50,7 @@ class DiscussionsBoard extends Component {
     commentsList: {},
     displayedComments: {},
     discussionKey: Date.now(),
+    page: this.props.page,
   };
 
   updateThreadsProps = (threadsList, threadsCount, displayed) => {
@@ -90,7 +93,7 @@ class DiscussionsBoard extends Component {
       validateResponseAccess,
       user,
     } = this.props;
-    const { commentsList } = this.state;
+    const { commentsList, page } = this.state;
 
     axios
       .post(THREAD_REPLIES, {
@@ -134,13 +137,14 @@ class DiscussionsBoard extends Component {
           this.updateCommentsProps(
             replyTo || threadId,
             newReplies,
-            displayedComments
+            displayedComments,
+            page
           );
         }
       });
   };
 
-  updateCommentsProps = (id, comments, displayed) => {
+  updateCommentsProps = (id, comments, displayed, newPage) => {
     this.setState(state => {
       const { commentsList, displayedComments } = state;
       const newCommentsList = Object.assign({}, commentsList);
@@ -157,6 +161,7 @@ class DiscussionsBoard extends Component {
       return {
         commentsList: newCommentsList,
         displayedComments: newDisplayedComments,
+        page: newPage,
       };
     });
   };
@@ -209,7 +214,6 @@ class DiscussionsBoard extends Component {
       count,
       errorMessage,
       forumId,
-      page,
       topicId,
       threadId,
       topLevelThread,
@@ -219,7 +223,10 @@ class DiscussionsBoard extends Component {
       user,
       discussionGroupId,
       showId,
+      isClub,
     } = props;
+
+    const { page } = this.state;
 
     const discussionsActions = {
       updateThreadsProps,
@@ -258,6 +265,7 @@ class DiscussionsBoard extends Component {
                   createThreadFormParams={createThreadFormParams}
                   {...context}
                   discussionGroupId={discussionGroupId}
+                  isClub={isClub}
                 />
               ) : (
                 <DiscussionComments

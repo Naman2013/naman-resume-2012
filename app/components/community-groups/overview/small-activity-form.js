@@ -33,17 +33,18 @@ class SmallActivityForm extends Component {
 
   state = {};
 
-  submitForm = (content, S3URLs, callback) => {
+  submitForm = (content, S3URLs, title, callback) => {
     const { topicId, forumId, intl } = this.props;
 
     this.props
       .createThread({
         S3URLs,
         content,
+        title,
         topicId,
         forumId,
       })
-      .then((data) => {
+      .then(data => {
         const message = data.apiError
           ? intl.formatMessage(messages.SubmitPostError)
           : intl.formatMessage(messages.PostSubmitted);
@@ -52,8 +53,9 @@ class SmallActivityForm extends Component {
   };
 
   render() {
-    const { placeholder, intl } = this.props;
-    const formPlaceholder = placeholder || `${intl.formatMessage(messages.WriteSomething)}...`;
+    const { placeholder, intl, isClub } = this.props;
+    const formPlaceholder =
+      placeholder || `${intl.formatMessage(messages.WriteSomething)}...`;
 
     return (
       <div className="root">
@@ -61,6 +63,7 @@ class SmallActivityForm extends Component {
           {...this.props}
           submitForm={this.submitForm}
           placeholder={formPlaceholder}
+          commentPlaceholder={isClub && 'Start a discussion'}
         />
       </div>
     );
