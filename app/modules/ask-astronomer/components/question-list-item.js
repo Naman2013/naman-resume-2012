@@ -5,6 +5,7 @@ import { likeThread } from 'app/services/discussions/like';
 import Card from 'app/modules/ask-astronomer/components/Card';
 import { browserHistory } from 'react-router';
 import AnswerList from './answer-list';
+import noop from 'lodash/noop';
 
 import style from './question-list-item.style';
 
@@ -80,7 +81,8 @@ const QuestionListItem = props => {
         )}
         commentText="Answers"
         modalActions={modalActions}
-        renderChildReplies={() => (
+        renderChildReplies={noop}
+        /*renderChildReplies={() => (
           <AnswerList
             answers={answers}
             canAnswerQuestions={canAnswerQuestions}
@@ -94,7 +96,7 @@ const QuestionListItem = props => {
             modalActions={modalActions}
             updateQuestionsList={updateQuestionsList}
           />
-        )}
+        )}*/
         // renderChildReplies={() => {} }
       />
       {fetching && <div className="fa fa-spinner loader" />}

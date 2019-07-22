@@ -64,11 +64,6 @@ export const fetchAstronomerQuestions = ({
       answerState: answerState || questionFilter,
     })
     .then(result => {
-      if (result.data.threads.length > 0) {
-        result.data.threads.forEach(thread =>
-          dispatch(fetchAstronomerAnswers({ threadId: thread.threadId }))
-        );
-      }
       return dispatch(
         fetchAstronomerQuestionsSuccess(
           Object.assign(
@@ -117,20 +112,22 @@ export const refetchAstronomerQuestions = ({
     })
     .then(result => {
       if (result.data.threads.length > 0) {
-        const promises = result.data.threads.map(thread =>
+        result.data.threads.map(thread =>
           dispatch(fetchAstronomerAnswers({ threadId: thread.threadId }))
         );
-        // return Promise.all(promises);
       }
-      /*return fetchAstronomerQuestionsSuccess(
-        Object.assign(
-          {
-            page: currentPage || page,
-            answerState: answerState || questionFilter,
-          },
-          result.data
+
+      return dispatch(
+        fetchAstronomerQuestionsSuccess(
+          Object.assign(
+            {
+              page: currentPage || page,
+              answerState: answerState || questionFilter,
+            },
+            result.data
+          )
         )
-      );*/
+      );
     })
     .catch(error => dispatch(fetchAstronomerQuestionsFail(error)));
 };

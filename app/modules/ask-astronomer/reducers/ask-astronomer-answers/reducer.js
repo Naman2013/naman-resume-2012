@@ -18,7 +18,7 @@ import {
 } from '../ask-astronomer-answer-discuss/actions';
 
 const initialState = {
-  fetchingObj: {},
+  // fetchingObj: {},
   page: 1,
   error: false,
   resultsCount: 0,
@@ -26,72 +26,79 @@ const initialState = {
   allAnswers: {},
   allDisplayedAnswers: {},
   allAnswerSubmissions: {},
-  submitToThreadId: null,
+  // submitToThreadId: null,
   fetching: false,
+  answers: [],
 };
 
 export default createReducer(initialState, {
   [FETCH_ASTRONOMER_ANSWERS_START](state, { payload }) {
-    const { threadId } = payload;
-    const newFetching = cloneDeep(state.fetchingObj);
+    // const { threadId } = payload;
+    // const newFetching = cloneDeep(state.fetchingObj);
 
-    newFetching[threadId] = true;
+    // newFetching[threadId] = true;
     return {
       ...state,
-      fetchingObj: newFetching,
+      fetching: true,
     };
   },
   [FETCH_ASTRONOMER_ANSWERS_SUCCESS](state, { payload }) {
+
+    // debugger;
+
     const { replies = [], threadId, resultsCount } = payload;
-    const newAllAnswers = cloneDeep(state.allAnswers);
+    /*const newAllAnswers = cloneDeep(state.allAnswers);
     const newAllDisplayedAnswers = cloneDeep(state.allDisplayedAnswers);
-    const newFetching = cloneDeep(state.fetchingObj);
+    // const newFetching = cloneDeep(state.fetchingObj);
     const isAnswerContainsReply = threadId === state.submitToThreadId;
     const answerPage = newAllAnswers[threadId]
       ? newAllAnswers[threadId].page
       : 1;
     const newPage = isAnswerContainsReply
       ? Math.ceil(replies.length / state.paginationCount)
-      : answerPage;
+      : answerPage;*/
 
-    newAllAnswers[threadId] = {
+    /*newAllAnswers[threadId] = {
       replies,
       page: newPage || 1,
       showAllAnswers: newAllAnswers[threadId]
         ? newAllAnswers[threadId].showAllAnswers
         : false,
       topAnswer: replies.length > 0 ? replies[0].replyId : null,
-    };
+    };*/
 
-    const toAnswer = newPage * state.paginationCount;
+    /*const toAnswer = newPage * state.paginationCount;
     newAllDisplayedAnswers[threadId] = replies.map((item, index) => {
       if (index < toAnswer) {
         return item.replyId;
       }
-    });
+    });*/
 
-    newFetching[threadId] = false;
+    // newFetching[threadId] = false;
     return {
       ...state,
-      fetchingObj: newFetching,
-      allAnswers: newAllAnswers,
-      allDisplayedAnswers: newAllDisplayedAnswers,
-      resultsCount,
-      submitToThreadId: isAnswerContainsReply ? null : state.submitToThreadId,
+      answers: replies,
+      fetching: false,
+      // fetchingObj: newFetching,
+      // allAnswers: newAllAnswers,
+      // allDisplayedAnswers: newAllDisplayedAnswers,
+      // resultsCount,
+      // submitToThreadId: isAnswerContainsReply ? null : state.submitToThreadId,
     };
   },
   [FETCH_ASTRONOMER_ANSWERS_FAIL](state, { payload }) {
-    const { threadId } = payload;
-    const newFetching = cloneDeep(state.fetchingObj);
-    newFetching[threadId] = false;
+    // const { threadId } = payload;
+    // const newFetching = cloneDeep(state.fetchingObj);
+    // newFetching[threadId] = false;
     return {
       ...state,
-      fetchingObj: false,
-      error: true,
-      allAnswers: {},
-      allDisplayedAnswers: {},
-      resultsCount: 0,
-      page: 0,
+      // fetchingObj: false,
+      // error: true,
+      // allAnswers: {},
+      // allDisplayedAnswers: {},
+      // resultsCount: 0,
+      // page: 0,
+      fetching: false,
     };
   },
   [TOGGLE_ALL_ASK_ASTRONOMER_ANSWERS](state, { payload }) {
@@ -109,22 +116,22 @@ export default createReducer(initialState, {
   // PAGE HANDLE
   [UPDATE_TOGGLE_ASK_ASTRONOMER_ANSWER_DISPLAY_LIST](state, { payload }) {
     const { page, threadId, displayedAnswers } = payload;
-
+    console.log(state);
     const newAllDisplayedAnswers = cloneDeep(state.allDisplayedAnswers);
     const newAllState = cloneDeep(state.allAnswers);
     if (newAllState[threadId]) {
       newAllState[threadId].page = page || 1;
-    }
 
-    const toAnswer = newAllState[threadId].page * state.paginationCount;
-    newAllDisplayedAnswers[threadId] = newAllState[threadId].replies.map(
-      (item, index) => {
-        // if (toAnswer - state.paginationCount <= index && index < toAnswer) {
-        if (index < toAnswer) {
-          return item.replyId;
+      const toAnswer = newAllState[threadId].page * state.paginationCount;
+      newAllDisplayedAnswers[threadId] = newAllState[threadId].replies.map(
+        (item, index) => {
+          // if (toAnswer - state.paginationCount <= index && index < toAnswer) {
+          if (index < toAnswer) {
+            return item.replyId;
+          }
         }
-      }
-    );
+      );
+    }
 
     return {
       ...state,
@@ -223,7 +230,7 @@ export default createReducer(initialState, {
       allAnswers: newAllAnswers,
       allAnswerSubmissions: newAnswerSubmissions,
       allDisplayedAnswers: newAllDisplayedAnswers,
-      submitToThreadId: threadId,
+      // submitToThreadId: threadId,
       fetching: false,
     };
   },

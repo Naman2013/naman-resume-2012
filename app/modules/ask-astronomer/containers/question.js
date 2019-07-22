@@ -22,6 +22,8 @@ const mapStateToProps = ({
   user,
 }) => ({
   allAnswers: astronomerAnswers.allAnswers,
+  answers: astronomerAnswers.answers,
+  fetching: astronomerAnswers.fetching,
   allDisplayedAnswers: astronomerAnswers.allDisplayedAnswers,
   answerFetching: astronomerAnswers.fetching,
   appConfig,

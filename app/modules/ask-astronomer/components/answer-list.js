@@ -120,10 +120,12 @@ class AnswerList extends Component {
       <div key={threadId}>
         <div className="replies-list-contanier">
           <div className="num-replies">
-            <span className="replies-number">
-              <FormattedMessage {...messages.Answers} />:{' '}
-              {numberOfAnswersToThread}
-            </span>
+            {Boolean(+numberOfAnswersToThread) && (
+              <span className="replies-number">
+                <FormattedMessage {...messages.Answers} />:{' '}
+                {numberOfAnswersToThread}
+              </span>
+            )}
           </div>
           <div className="replies-list">
             {displayedAnswers.map(answer => {
@@ -176,19 +178,19 @@ class AnswerList extends Component {
               );
             })}
             <div className="text-center mt-3 mb-3">
-              {!this.isLastPage(
+              {/*{!this.isLastPage(
                 answers.replies.length,
                 answers.page,
                 count
-              ) && (
-                <Button
-                  onClick={() =>
-                    this.loadMore(answers.replies, answers.page + 1, count)
-                  }
-                >
-                  Load More
-                </Button>
-              )}
+              ) && (*/}
+              <Button
+                onClick={() =>
+                  this.loadMore(answers.replies, answers.page + 1, count)
+                }
+              >
+                Load More
+              </Button>
+              {/*)}*/}
             </div>
             {/*{showPagination && (
                 <PaginateSet

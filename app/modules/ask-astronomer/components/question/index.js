@@ -19,13 +19,16 @@ export class Question extends Component {
   };
 
   componentDidMount = () => {
-    // this.checkData().then(() =>{} /*this.toggleAllAnswers(true)*/);
     this.fetchQuestion();
   };
 
+  componentDidCatch(error, info) {
+    console.log(error, info);
+  }
+
   componentWillUnmount = () => {
     // if (this.checkData()) {
-    // this.toggleAllAnswers(false);
+    this.toggleAllAnswers(false); // todo
     // }
   };
 
@@ -37,27 +40,8 @@ export class Question extends Component {
     const { refetchAstronomerQuestions } = actions;
 
     // getAllQuestions({ objectId, ...filter });
-    return refetchAstronomerQuestions({ objectId, threadId });
+    return refetchAstronomerQuestions({ objectId, threadId, currentPage: 1 });
   };
-
-  fetchQuestions = () => {
-    const {
-      actions,
-      params: { objectId },
-    } = this.props;
-    const { refetchAstronomerQuestions } = actions;
-
-    // getAllQuestions({ objectId, ...filter });
-    refetchAstronomerQuestions({ objectId });
-  };
-
-  // todo
-  /*fetchAnswers = () => {
-    const { fetchAstronomerAnswers, params } = this.props;
-    const { threadId } = params;
-    console.log(threadId);
-    fetchAstronomerAnswers({ threadId });
-  };*/
 
   showModal = () => {
     this.setState(() => ({
@@ -84,19 +68,7 @@ export class Question extends Component {
     return submitAnswerToQuestion(params).then(res => callback(res.payload));
   };
 
-  checkData = () => {
-    const { questions, params } = this.props;
-
-    if (!questions || !questions.length) {
-      // go back to questions list
-      // browserHistory.push(`/object-details/${params.objectId}/ask`);
-      // return this.fetchQuestion();
-      return false;
-    }
-    // return Promise.resolve();
-    return true;
-  };
-
+  // todo remove me
   toggleAllAnswers = res => {
     const { questions, params, actions } = this.props;
     const { toggleAllAnswersAndDisplay } = actions;
@@ -114,6 +86,8 @@ export class Question extends Component {
       params,
       actions,
       allAnswers,
+      answers,
+      fetching,
       canAnswerQuestions,
       canReplyToAnswers,
       fetchingAnswers,
@@ -131,8 +105,6 @@ export class Question extends Component {
       params: { objectId },
     } = this.props;
 
-    console.log(this.props);
-// debugger;
     if (!questions || !questions.length) {
       // go back to questions list
       // browserHistory.push(`/object-details/${objectId}/ask`);
@@ -158,9 +130,7 @@ export class Question extends Component {
       submitAnswerToQuestion,
     } = actions;
 
-    // this.checkData();
-
-    const item = questions.find(el => +el.threadId === +params.threadId) || {};
+    const item = questions[0];
 
     const likeThreadParams = Object.assign({}, likeParams, {
       threadId: item.threadId,
@@ -168,26 +138,28 @@ export class Question extends Component {
       forumId: item.forumId,
     });
 
-    const threadAnswers = allAnswers[item.threadId] || { replies: [] };
+    /*const threadAnswers = allAnswers[item.threadId] || { replies: [] };
     const allDisplayedAnswersObjs = threadAnswers.replies.filter(
       answer =>
         allDisplayedAnswers[item.threadId] &&
         allDisplayedAnswers[item.threadId].indexOf(answer.replyId) > -1
-    );
+    );*/
+    const allDisplayedAnswersObjs = answers;
 
-    const answers = allAnswers[params.threadId];
-    const fetching = fetchingAnswers[params.threadId];
+    // const answers = replies;
+    // const fetching = fetchingAnswers[params.threadId];
     // debugger;
     if (!answers) {
       return null;
     }
 
-    console.log('ALL DATA');
+    console.log('answers', answers);
 
     return (
       <div style={{ position: 'relative' }}>
         <Spinner
           loading={
+            fetching ||
             answerFetching ||
             fetchingReplies ||
             fetchingQuestions ||
@@ -206,7 +178,7 @@ export class Question extends Component {
             <Card
               {...item}
               objectId={objectId}
-              showComments={answers.showAllAnswers}
+              showComments
               likeHandler={likeThread}
               likeParams={likeThreadParams}
               isDesktop={isDesktop}
@@ -219,7 +191,7 @@ export class Question extends Component {
                   submitForm={this.submitAnswer}
                   modalActions={modalActions}
                   updateQuestionsList={() => {
-                    this.fetchQuestions();
+                    this.fetchQuestion();
                   }}
                   user={user}
                 />
@@ -239,12 +211,11 @@ export class Question extends Component {
                   topicId={item.topicId}
                   modalActions={modalActions}
                   updateQuestionsList={() => {
-                    this.fetchQuestions();
+                    this.fetchQuestion();
                   }}
                 />
               )}
             />
-            {fetching && <div className="fa fa-spinner loader" />}
             <style jsx>{style}</style>
           </div>
         </Container>
