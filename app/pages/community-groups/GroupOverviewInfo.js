@@ -54,7 +54,7 @@ class CommunityGroupOverview extends Component {
       actions,
     } = this.props;
     return (
-      <div className="root">
+      <div className="root" key={`community-group-${groupId}`}>
         <Header
           showInformation={this.showInformation}
           joinOrLeaveGroup={this.joinLeaveGroup}
