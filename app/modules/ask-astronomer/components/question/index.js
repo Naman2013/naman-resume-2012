@@ -19,11 +19,25 @@ export class Question extends Component {
   };
 
   componentDidMount = () => {
-    if (this.checkData()) {
-      this.toggleAllAnswers(true);
-    }
+    // this.checkData().then(() =>{} /*this.toggleAllAnswers(true)*/);
+    this.fetchQuestion();
+  };
 
-    // this.fetchAnswers();
+  componentWillUnmount = () => {
+    // if (this.checkData()) {
+    // this.toggleAllAnswers(false);
+    // }
+  };
+
+  fetchQuestion = () => {
+    const {
+      actions,
+      params: { objectId, threadId },
+    } = this.props;
+    const { refetchAstronomerQuestions } = actions;
+
+    // getAllQuestions({ objectId, ...filter });
+    return refetchAstronomerQuestions({ objectId, threadId });
   };
 
   fetchQuestions = () => {
@@ -44,12 +58,6 @@ export class Question extends Component {
     console.log(threadId);
     fetchAstronomerAnswers({ threadId });
   };*/
-
-  componentWillUnmount = () => {
-    if (this.checkData()) {
-      this.toggleAllAnswers(false);
-    }
-  };
 
   showModal = () => {
     this.setState(() => ({
@@ -81,9 +89,11 @@ export class Question extends Component {
 
     if (!questions || !questions.length) {
       // go back to questions list
-      browserHistory.push(`/object-details/${params.objectId}/ask`);
-      return null;
+      // browserHistory.push(`/object-details/${params.objectId}/ask`);
+      // return this.fetchQuestion();
+      return false;
     }
+    // return Promise.resolve();
     return true;
   };
 
@@ -121,9 +131,11 @@ export class Question extends Component {
       params: { objectId },
     } = this.props;
 
+    console.log(this.props);
+// debugger;
     if (!questions || !questions.length) {
       // go back to questions list
-      browserHistory.push(`/object-details/${objectId}/ask`);
+      // browserHistory.push(`/object-details/${objectId}/ask`);
       return null;
     }
 
@@ -146,7 +158,7 @@ export class Question extends Component {
       submitAnswerToQuestion,
     } = actions;
 
-    this.checkData();
+    // this.checkData();
 
     const item = questions.find(el => +el.threadId === +params.threadId) || {};
 
@@ -165,6 +177,12 @@ export class Question extends Component {
 
     const answers = allAnswers[params.threadId];
     const fetching = fetchingAnswers[params.threadId];
+    // debugger;
+    if (!answers) {
+      return null;
+    }
+
+    console.log('ALL DATA');
 
     return (
       <div style={{ position: 'relative' }}>
