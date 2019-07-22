@@ -139,7 +139,6 @@ class ImageList extends Component {
   componentDidMount() {
     const { actions, type, deviceInfo, params = {} } = this.props;
     const { activePage } = this.state;
-    console.log('props', this.props);
     const fetchImages = actions[mapTypeToRequest[type]];
     const imagesToFetch = getImagesCountToFetch(deviceInfo);
     const { customerUUID } = params;
