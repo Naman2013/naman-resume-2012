@@ -22,16 +22,6 @@ export class Question extends Component {
     this.fetchQuestion();
   };
 
-  componentDidCatch(error, info) {
-    console.log(error, info);
-  }
-
-  componentWillUnmount = () => {
-    // if (this.checkData()) {
-    this.toggleAllAnswers(false); // todo
-    // }
-  };
-
   fetchQuestion = () => {
     const {
       actions,
@@ -39,7 +29,6 @@ export class Question extends Component {
     } = this.props;
     const { refetchAstronomerQuestions } = actions;
 
-    // getAllQuestions({ objectId, ...filter });
     return refetchAstronomerQuestions({ objectId, threadId, currentPage: 1 });
   };
 
@@ -68,36 +57,18 @@ export class Question extends Component {
     return submitAnswerToQuestion(params).then(res => callback(res.payload));
   };
 
-  // todo remove me
-  toggleAllAnswers = res => {
-    const { questions, params, actions } = this.props;
-    const { toggleAllAnswersAndDisplay } = actions;
-
-    const item = questions.find(el => +el.threadId === +params.threadId) || {};
-    toggleAllAnswersAndDisplay({
-      threadId: item.threadId,
-      showAllAnswers: res,
-    });
-  };
-
   render() {
     const {
       questions,
-      params,
       actions,
-      allAnswers,
       answers,
+      visibleAnswersCount,
       fetching,
       canAnswerQuestions,
       canReplyToAnswers,
-      fetchingAnswers,
       isDesktop,
       likeParams,
       user,
-      submitAnswer,
-      // modalActions,
-      // updateQuestionsList,
-      allDisplayedAnswers,
       answerFetching,
       fetchingReplies,
       fetchingQuestions,
@@ -106,8 +77,6 @@ export class Question extends Component {
     } = this.props;
 
     if (!questions || !questions.length) {
-      // go back to questions list
-      // browserHistory.push(`/object-details/${objectId}/ask`);
       return null;
     }
 
@@ -138,22 +107,9 @@ export class Question extends Component {
       forumId: item.forumId,
     });
 
-    /*const threadAnswers = allAnswers[item.threadId] || { replies: [] };
-    const allDisplayedAnswersObjs = threadAnswers.replies.filter(
-      answer =>
-        allDisplayedAnswers[item.threadId] &&
-        allDisplayedAnswers[item.threadId].indexOf(answer.replyId) > -1
-    );*/
-    const allDisplayedAnswersObjs = answers;
-
-    // const answers = replies;
-    // const fetching = fetchingAnswers[params.threadId];
-    // debugger;
     if (!answers) {
       return null;
     }
-
-    console.log('answers', answers);
 
     return (
       <div style={{ position: 'relative' }}>
@@ -201,9 +157,9 @@ export class Question extends Component {
               renderChildReplies={() => (
                 <AnswerList
                   answers={answers}
+                  visibleAnswersCount={visibleAnswersCount}
                   canAnswerQuestions={canAnswerQuestions}
                   canReplyToAnswers={canReplyToAnswers}
-                  displayedAnswers={allDisplayedAnswersObjs}
                   isDesktop={isDesktop}
                   numberOfAnswersToThread={item.replyToponlyCount}
                   objectId={objectId}

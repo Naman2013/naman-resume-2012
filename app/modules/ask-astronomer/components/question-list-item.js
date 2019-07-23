@@ -4,8 +4,8 @@ import SubmitAnswerButton from 'app/modules/ask-astronomer/components/SubmitAnsw
 import { likeThread } from 'app/services/discussions/like';
 import Card from 'app/modules/ask-astronomer/components/Card';
 import { browserHistory } from 'react-router';
-import AnswerList from './answer-list';
 import noop from 'lodash/noop';
+import AnswerList from './answer-list';
 
 import style from './question-list-item.style';
 
@@ -50,12 +50,11 @@ const QuestionListItem = props => {
         {...props.item}
         objectId={objectId}
         showComments={answers.showAllAnswers}
-        toggleComments={() => {
-          toggleAllAnswers();
+        toggleComments={() =>
           browserHistory.push(
             `/object-details/${props.params.objectId}/question/${item.threadId}`
-          );
-        }}
+          )
+        }
         likeHandler={likeThread}
         isDesktop={isDesktop}
         user={user}
@@ -68,13 +67,11 @@ const QuestionListItem = props => {
             submitForm={submitAnswer}
             modalActions={modalActions}
             updateQuestionsList={() => {
-              updateQuestionsList().then(() => {
+              updateQuestionsList().then(() =>
                 browserHistory.push(
-                  `/object-details/${props.params.objectId}/question/${
-                    item.threadId
-                  }`
-                );
-              });
+                  `/object-details/${props.params.objectId}/question/${item.threadId}`
+                )
+              );
             }}
             user={user}
           />
@@ -82,22 +79,6 @@ const QuestionListItem = props => {
         commentText="Answers"
         modalActions={modalActions}
         renderChildReplies={noop}
-        /*renderChildReplies={() => (
-          <AnswerList
-            answers={answers}
-            canAnswerQuestions={canAnswerQuestions}
-            canReplyToAnswers={canReplyToAnswers}
-            displayedAnswers={displayedAnswers}
-            isDesktop={isDesktop}
-            numberOfAnswersToThread={item.replyToponlyCount}
-            objectId={objectId}
-            threadId={item.threadId}
-            topicId={item.topicId}
-            modalActions={modalActions}
-            updateQuestionsList={updateQuestionsList}
-          />
-        )}*/
-        // renderChildReplies={() => {} }
       />
       {fetching && <div className="fa fa-spinner loader" />}
       <style jsx>{style}</style>

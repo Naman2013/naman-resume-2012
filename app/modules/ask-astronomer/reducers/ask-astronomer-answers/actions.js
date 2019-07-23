@@ -3,11 +3,13 @@ import { submitReply } from '../../../../services/discussions/submit-reply';
 import { fetchAstronomerAnswerReplies } from '../ask-astronomer-answer-discuss/actions';
 
 export const FETCH_ASTRONOMER_ANSWERS_START = 'FETCH_ASTRONOMER_ANSWERS_START';
-export const FETCH_ASTRONOMER_ANSWERS_SUCCESS = 'FETCH_ASTRONOMER_ANSWERS_SUCCESS';
+export const FETCH_ASTRONOMER_ANSWERS_SUCCESS =
+  'FETCH_ASTRONOMER_ANSWERS_SUCCESS';
 export const FETCH_ASTRONOMER_ANSWERS_FAIL = 'FETCH_ASTRONOMER_ANSWERS_FAIL';
 export const UPDATE_TOGGLE_ASK_ASTRONOMER_ANSWER_DISPLAY_LIST =
   'UPDATE_TOGGLE_ASK_ASTRONOMER_ANSWER_DISPLAY_LIST';
-export const TOGGLE_ALL_ASK_ASTRONOMER_ANSWERS = 'TOGGLE_ALL_ASK_ASTRONOMER_ANSWERS';
+export const TOGGLE_ALL_ASK_ASTRONOMER_ANSWERS =
+  'TOGGLE_ALL_ASK_ASTRONOMER_ANSWERS';
 export const SUBMIT_ANSWER_FOR_ASTRONOMER_QUESTION_START =
   'SUBMIT_ANSWER_FOR_ASTRONOMER_QUESTION_START';
 export const SUBMIT_ANSWER_FOR_ASTRONOMER_QUESTION_SUCCESS =
@@ -30,7 +32,10 @@ const fetchAstronomerAnswersFail = payload => ({
   payload,
 });
 
-export const fetchAstronomerAnswers = ({ lang, threadId, ver }) => (dispatch, getState) => {
+export const fetchAstronomerAnswers = ({ lang, threadId, ver }) => (
+  dispatch,
+  getState
+) => {
   const { cid, at, token } = getState().user;
   const { page } = getState().astronomerAnswers;
   const { allReplies } = getState().astronomerDiscuss;
@@ -47,16 +52,30 @@ export const fetchAstronomerAnswers = ({ lang, threadId, ver }) => (dispatch, ge
     ver,
     page,
   })
-    .then((result) => {
-      result.data.replies.map((item) => {
-        if (allReplies && allReplies[item.replyId] && allReplies[item.replyId].showAllReplies) {
-          dispatch(fetchAstronomerAnswerReplies({ threadId, replyTo: item.replyId, showAllReplies: true }));
+    .then(result => {
+      result.data.replies.map(item => {
+        if (
+          allReplies &&
+          allReplies[item.replyId] &&
+          allReplies[item.replyId].showAllReplies
+        ) {
+          dispatch(
+            fetchAstronomerAnswerReplies({
+              threadId,
+              replyTo: item.replyId,
+              showAllReplies: true,
+            })
+          );
         }
       });
 
-      return dispatch(fetchAstronomerAnswersSuccess(Object.assign({ threadId }, result.data)));
+      return dispatch(
+        fetchAstronomerAnswersSuccess(Object.assign({ threadId }, result.data))
+      );
     })
-    .catch(error => dispatch(fetchAstronomerAnswersFail(Object.assign({ threadId }, error))));
+    .catch(error =>
+      dispatch(fetchAstronomerAnswersFail(Object.assign({ threadId }, error)))
+    );
 };
 
 const toggleAllAnswers = payload => ({
@@ -72,13 +91,15 @@ export const toggleAllAnswersAndDisplay = payload => (dispatch, getState) => {
   const displayedAnswers = showAllAnswers
     ? threadsAnswers?.map(answer => answer.replyId)
     : threadsAnswers?.length > 0
-      ? [threadsAnswers[0].replyId]
-      : [];
+    ? [threadsAnswers[0].replyId]
+    : [];
 
-  dispatch(updateAnswersDisplayList({
-    threadId,
-    displayedAnswers,
-  }));
+  dispatch(
+    updateAnswersDisplayList({
+      threadId,
+      displayedAnswers,
+    })
+  );
 
   dispatch(toggleAllAnswers(payload));
 };
@@ -86,6 +107,12 @@ export const toggleAllAnswersAndDisplay = payload => (dispatch, getState) => {
 export const updateAnswersDisplayList = payload => dispatch =>
   dispatch({
     type: UPDATE_TOGGLE_ASK_ASTRONOMER_ANSWER_DISPLAY_LIST,
+    payload,
+  });
+
+export const loadMore = payload => dispatch =>
+  dispatch({
+    type: 'AAA/LOAD_MORE_ANSWERS',
     payload,
   });
 
@@ -136,6 +163,9 @@ export const submitAnswerToQuestion = ({
     ver,
   })
     .then(result =>
-      dispatch(submitAnswerToQuestionSuccess(Object.assign({ threadId }, result.data))))
+      dispatch(
+        submitAnswerToQuestionSuccess(Object.assign({ threadId }, result.data))
+      )
+    )
     .catch(error => dispatch(submitAnswerToQuestionFail(error)));
 };

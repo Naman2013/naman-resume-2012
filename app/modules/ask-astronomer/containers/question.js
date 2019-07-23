@@ -23,6 +23,7 @@ const mapStateToProps = ({
 }) => ({
   allAnswers: astronomerAnswers.allAnswers,
   answers: astronomerAnswers.answers,
+  visibleAnswersCount: astronomerAnswers.visible,
   fetching: astronomerAnswers.fetching,
   allDisplayedAnswers: astronomerAnswers.allDisplayedAnswers,
   answerFetching: astronomerAnswers.fetching,

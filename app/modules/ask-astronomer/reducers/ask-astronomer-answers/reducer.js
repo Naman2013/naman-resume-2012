@@ -17,90 +17,45 @@ import {
   // TOGGLE_ASK_ASTRONOMER_ANSWER_REPLIES,
 } from '../ask-astronomer-answer-discuss/actions';
 
+const PAGE_COUNT = 5;
+
 const initialState = {
-  // fetchingObj: {},
-  page: 1,
-  error: false,
-  resultsCount: 0,
-  paginationCount: 5,
-  allAnswers: {},
-  allDisplayedAnswers: {},
-  allAnswerSubmissions: {},
-  // submitToThreadId: null,
   fetching: false,
   answers: [],
+  visible: PAGE_COUNT,
 };
 
 export default createReducer(initialState, {
-  [FETCH_ASTRONOMER_ANSWERS_START](state, { payload }) {
-    // const { threadId } = payload;
-    // const newFetching = cloneDeep(state.fetchingObj);
+  'AAA/LOAD_MORE_ANSWERS': state => {
+    return {
+      ...state,
+      visible: state.visible + PAGE_COUNT,
+    };
+  },
 
-    // newFetching[threadId] = true;
+  [FETCH_ASTRONOMER_ANSWERS_START](state) {
     return {
       ...state,
       fetching: true,
     };
   },
   [FETCH_ASTRONOMER_ANSWERS_SUCCESS](state, { payload }) {
+    const { replies = [] } = payload;
 
-    // debugger;
-
-    const { replies = [], threadId, resultsCount } = payload;
-    /*const newAllAnswers = cloneDeep(state.allAnswers);
-    const newAllDisplayedAnswers = cloneDeep(state.allDisplayedAnswers);
-    // const newFetching = cloneDeep(state.fetchingObj);
-    const isAnswerContainsReply = threadId === state.submitToThreadId;
-    const answerPage = newAllAnswers[threadId]
-      ? newAllAnswers[threadId].page
-      : 1;
-    const newPage = isAnswerContainsReply
-      ? Math.ceil(replies.length / state.paginationCount)
-      : answerPage;*/
-
-    /*newAllAnswers[threadId] = {
-      replies,
-      page: newPage || 1,
-      showAllAnswers: newAllAnswers[threadId]
-        ? newAllAnswers[threadId].showAllAnswers
-        : false,
-      topAnswer: replies.length > 0 ? replies[0].replyId : null,
-    };*/
-
-    /*const toAnswer = newPage * state.paginationCount;
-    newAllDisplayedAnswers[threadId] = replies.map((item, index) => {
-      if (index < toAnswer) {
-        return item.replyId;
-      }
-    });*/
-
-    // newFetching[threadId] = false;
     return {
       ...state,
       answers: replies,
       fetching: false,
-      // fetchingObj: newFetching,
-      // allAnswers: newAllAnswers,
-      // allDisplayedAnswers: newAllDisplayedAnswers,
-      // resultsCount,
-      // submitToThreadId: isAnswerContainsReply ? null : state.submitToThreadId,
     };
   },
   [FETCH_ASTRONOMER_ANSWERS_FAIL](state, { payload }) {
-    // const { threadId } = payload;
-    // const newFetching = cloneDeep(state.fetchingObj);
-    // newFetching[threadId] = false;
     return {
       ...state,
-      // fetchingObj: false,
-      // error: true,
-      // allAnswers: {},
-      // allDisplayedAnswers: {},
-      // resultsCount: 0,
-      // page: 0,
       fetching: false,
     };
   },
+
+  // todo remove
   [TOGGLE_ALL_ASK_ASTRONOMER_ANSWERS](state, { payload }) {
     const { threadId } = payload;
     const newAllAnswers = cloneDeep(state.allAnswers);
@@ -114,9 +69,9 @@ export default createReducer(initialState, {
     };
   },
   // PAGE HANDLE
+  // todo remove
   [UPDATE_TOGGLE_ASK_ASTRONOMER_ANSWER_DISPLAY_LIST](state, { payload }) {
     const { page, threadId, displayedAnswers } = payload;
-    console.log(state);
     const newAllDisplayedAnswers = cloneDeep(state.allDisplayedAnswers);
     const newAllState = cloneDeep(state.allAnswers);
     if (newAllState[threadId]) {
