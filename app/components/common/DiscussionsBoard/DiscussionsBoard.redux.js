@@ -248,7 +248,7 @@ class DiscussionsBoard extends Component {
     };
 
     return (
-      <div>
+      <div key={`discussions-${topicId}`}>
         <DeviceContext.Consumer>
           {context => (
             <Fragment>
