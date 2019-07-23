@@ -49,7 +49,7 @@ export const TopThreads = memo(function TopThreads(props) {
                       <img className="avatar" src={x.avatarUrl} />
                       {x.displayName}
                     </span>
-                    <div className="date-container">{x.freshness}</div>
+                    <div className="date-container">{x.totalLikes} likes</div>
                   </div>
                 </div>
               </a>
