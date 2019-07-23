@@ -68,12 +68,12 @@ class DiscussionsThreads extends Component {
     fetching: true,
     activePage: 1,
   };
-   
+
   componentDidMount() {
     if (this.props && this.props.topicId !== null) {
 	this.getThreads(this.props);
     }
-  } 
+  }
 
   componentWillReceiveProps(nextProps) {
     if (this.props.topicId !== nextProps.topicId) {
@@ -105,6 +105,7 @@ class DiscussionsThreads extends Component {
         at: user.at,
         token: user.token,
         cid: user.cid,
+        threadId: this.props.jumpToThreadId,
       })
       .then(res => {
         validateResponseAccess(res);
@@ -123,6 +124,7 @@ class DiscussionsThreads extends Component {
 
         this.setState({
           fetching: false,
+          page,
         });
       });
   };
