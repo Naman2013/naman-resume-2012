@@ -70,6 +70,7 @@ class FullInformationOverview extends Component {
     membersList: arrayOf(shape({})),
     showJoinPrompt: bool,
     intl: intlShape.isRequired,
+    jumpToThreadId: number,
   };
 
   static defaultProps = {
@@ -88,6 +89,7 @@ class FullInformationOverview extends Component {
     showJoinPrompt: false,
     membersCount: 0,
     membersList: [],
+    jumpToThreadId: null,
   };
 
   render() {
@@ -112,6 +114,7 @@ class FullInformationOverview extends Component {
       user,
       intl,
       isEditMode,
+      jumpToThreadId,
     } = this.props;
 
     const createThreadFormParams = {
@@ -160,6 +163,7 @@ class FullInformationOverview extends Component {
                 <TopThreads
                   topicId={pageMeta.topicId}
                   isDesktop={context.isDesktop}
+                  discussionGroupId={discussionGroupId}
                 />
                 <MembersList
                   membersSort={membersSort}
@@ -187,7 +191,8 @@ class FullInformationOverview extends Component {
                   user={user}
                   validateResponseAccess={actions.validateResponseAccess}
                   discussionGroupId={discussionGroupId}
-		  canSeeGroupContent={pageMeta.canSeeGroupContent}
+                  jumpToThreadId={jumpToThreadId}
+		              canSeeGroupContent={pageMeta.canSeeGroupContent}
                   isClub
                 />
               </div>

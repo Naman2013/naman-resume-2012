@@ -35,6 +35,7 @@ const DiscussionsCard = props => {
     avatarURL,
     allowReplies,
     creationDate,
+    modified,
     content,
     customerId,
     displayName,
@@ -70,7 +71,7 @@ const DiscussionsCard = props => {
               dangerouslySetInnerHTML={{ __html: displayName }}
             />
           </div>
-          <span className="date">{moment.utc(creationDate).fromNow()}</span>
+          <span className="date">{moment.utc(modified).fromNow()}</span>
         </div>
         <br />
         {showTitle == true && (
@@ -82,7 +83,7 @@ const DiscussionsCard = props => {
         />
         <div className="explainantion-container">
           <div className="explainantion-item">
-            {moment.utc(creationDate).fromNow()}
+            {moment.utc(modified).fromNow()}
           </div>
           <div className="explainantion-item">
             <FormattedMessage {...messages.Likes} />: {likesCount}{' '}

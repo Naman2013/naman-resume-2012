@@ -50,7 +50,7 @@ class CommunityGroupOverview extends Component {
     const {
       communityGroupOverview,
       pageMeta,
-      routeParams: { groupId },
+      routeParams: { groupId, threadId },
       actions,
     } = this.props;
     return (
@@ -67,6 +67,7 @@ class CommunityGroupOverview extends Component {
             <FullInformationOverview
               joinOrLeaveGroup={this.joinLeaveGroup}
               context={context}
+              jumpToThreadId={threadId}
             />
           )}
         </DeviceContext.Consumer>

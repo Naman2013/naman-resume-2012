@@ -25,6 +25,7 @@ export const makeTopThreadsDataSelector = () =>
           freshness: x.freshness,
           threadId: x.threadId,
           title: x.title,
+          totalLikes: x.totalLikes,
         };
       })
   );
