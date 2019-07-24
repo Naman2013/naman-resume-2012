@@ -110,10 +110,14 @@ export const updateAnswersDisplayList = payload => dispatch =>
     payload,
   });
 
-export const loadMore = payload => dispatch =>
+export const loadMore = () => dispatch =>
   dispatch({
     type: 'AAA/LOAD_MORE_ANSWERS',
-    payload,
+  });
+
+export const clearAnswers = () => dispatch =>
+  dispatch({
+    type: 'AAA/CLEAR_ANSWERS',
   });
 
 const submitAnswerToQuestionStart = payload => ({

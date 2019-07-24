@@ -33,9 +33,17 @@ export default createReducer(initialState, {
     };
   },
 
+  'AAA/CLEAR_ANSWERS': state => {
+    return {
+      ...state,
+      answers: [],
+    };
+  },
+
   [FETCH_ASTRONOMER_ANSWERS_START](state) {
     return {
       ...state,
+      answers: [],
       fetching: true,
     };
   },
@@ -56,7 +64,7 @@ export default createReducer(initialState, {
   },
 
   // todo remove
-  [TOGGLE_ALL_ASK_ASTRONOMER_ANSWERS](state, { payload }) {
+  /*[TOGGLE_ALL_ASK_ASTRONOMER_ANSWERS](state, { payload }) {
     const { threadId } = payload;
     const newAllAnswers = cloneDeep(state.allAnswers);
 
@@ -67,10 +75,10 @@ export default createReducer(initialState, {
       ...state,
       allAnswers: newAllAnswers,
     };
-  },
+  },*/
   // PAGE HANDLE
   // todo remove
-  [UPDATE_TOGGLE_ASK_ASTRONOMER_ANSWER_DISPLAY_LIST](state, { payload }) {
+  /* [UPDATE_TOGGLE_ASK_ASTRONOMER_ANSWER_DISPLAY_LIST](state, { payload }) {
     const { page, threadId, displayedAnswers } = payload;
     const newAllDisplayedAnswers = cloneDeep(state.allDisplayedAnswers);
     const newAllState = cloneDeep(state.allAnswers);
@@ -94,7 +102,7 @@ export default createReducer(initialState, {
       allAnswers: newAllState,
       allDisplayedAnswers: newAllDisplayedAnswers,
     };
-  },
+  },*/
   // todo NOT USED
   /* [REPLY_TO_ASTRONOMER_ANSWER_SUCCESS](state, { payload }) {
     const { threadId, replyTo } = payload;

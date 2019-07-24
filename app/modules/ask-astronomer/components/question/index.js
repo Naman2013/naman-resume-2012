@@ -22,6 +22,11 @@ export class Question extends Component {
     this.fetchQuestion();
   };
 
+  componentWillUnmount = () => {
+    const { actions } = this.props;
+    actions.clearAnswers();
+  };
+
   fetchQuestion = () => {
     const {
       actions,
