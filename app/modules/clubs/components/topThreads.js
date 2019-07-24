@@ -30,13 +30,18 @@ export const TopThreads = memo(function TopThreads(props) {
   return (
     <div className="top-discussions-wr">
       <BlueLineDrop
-        title={`Popular Discussions (${props.topThreadsList.length})`}
+        title={`Popular Discussions (${props.topThreadsList?.length})`}
         isDesktop={props.isDesktop}
         isDefaultOpen
         render={() => (
           <div className="members-list">
-            {props.topThreadsList.map(x => (
-              <a href={`#card-${x.threadId}`} className="navigation-link">
+            {props.topThreadsList?.map(x => (
+              <a
+                href={`/community-groups/${props.discussionGroupId}/${
+                  x.threadId
+                }`}
+                className="navigation-link"
+              >
                 <div className="members-list-card">
                   <div
                     className="header __html-blob-content-container__"
@@ -49,7 +54,7 @@ export const TopThreads = memo(function TopThreads(props) {
                       <img className="avatar" src={x.avatarUrl} />
                       {x.displayName}
                     </span>
-                    <div className="date-container">{x.freshness}</div>
+                    <div className="date-container">{x.totalLikes} likes</div>
                   </div>
                 </div>
               </a>

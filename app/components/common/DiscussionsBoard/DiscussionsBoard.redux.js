@@ -29,6 +29,7 @@ class DiscussionsBoard extends Component {
     createThread: func.isRequired,
     createThreadFormParams: shape({}),
     isClub: bool,
+    jumpToThreadId: number,
   };
 
   static defaultProps = {
@@ -41,6 +42,7 @@ class DiscussionsBoard extends Component {
     topLevelThread: true,
     createThreadFormParams: {},
     isClub: false,
+    jumpToThreadId: null,
   };
 
   state = {
@@ -216,6 +218,7 @@ class DiscussionsBoard extends Component {
       forumId,
       topicId,
       threadId,
+      jumpToThreadId,
       topLevelThread,
       createThread,
       createThreadFormParams,
@@ -245,7 +248,7 @@ class DiscussionsBoard extends Component {
     };
 
     return (
-      <div>
+      <div key={`discussions-${topicId}`}>
         <DeviceContext.Consumer>
           {context => (
             <Fragment>
@@ -266,6 +269,7 @@ class DiscussionsBoard extends Component {
                   {...context}
                   discussionGroupId={discussionGroupId}
                   isClub={isClub}
+                  jumpToThreadId={jumpToThreadId}
                 />
               ) : (
                 <DiscussionComments

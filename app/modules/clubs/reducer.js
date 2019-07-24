@@ -35,7 +35,7 @@ function getTopThreadsSuccess(state, action) {
   return {
     ...state,
     isFetching: false,
-    topThreadsList: action.payload,
+    topThreadsList: action.payload || [],
   };
 }
 
