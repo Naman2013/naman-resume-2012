@@ -10,6 +10,7 @@ import {
   golda,
 } from 'app/styles/variables/colors_tiles_v4';
 import style from './title-section.style';
+import _noop from 'lodash/noop';
 
 const QuestDetailsTitleSection = ({
   iconURL,
@@ -18,6 +19,8 @@ const QuestDetailsTitleSection = ({
   actionButtonEvent,
   actionButtonCaption,
   title,
+  showInProgressButton,
+  inProgressButtonCaption,
 }) => (
   <div className="root">
     <CenterColumn
@@ -52,6 +55,9 @@ const QuestDetailsTitleSection = ({
             text={actionButtonCaption}
             onClickEvent={actionButtonEvent}
           />
+        ) : null}
+        {showInProgressButton ? (
+          <GenericButton text={inProgressButtonCaption} onClickEvent={_noop} />
         ) : null}
       </div>
     </CenterColumn>

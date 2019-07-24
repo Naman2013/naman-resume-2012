@@ -14,7 +14,9 @@
     }
   }
 
-
+  .step-container {
+    margin-bottom: 130px;
+  }
 
   // RESPONSIVE
   @include media-breakpoint-down(sm) {
