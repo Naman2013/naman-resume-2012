@@ -31,35 +31,39 @@ const MainContainer = ({
   validateResponseAccess,
 }) => (
   <div className="image-main-container">
-    {!canEditFlag && (
-      <ObservationInformation
-        canLikeFlag={canLikeFlag}
-        customerImageId={customerImageId}
-        fileData={fileData}
-        likesCount={likesCount}
-        likePrompt={likePrompt}
-        observationLog={observationLog}
-        observationTimeDisplay={observationTimeDisplay}
-        observationTitle={observationTitle}
-        imageTitle={imageTitle}
-        user={user}
-      />
-    )}
+      {observationLog && <>
+        <ObservationInformation
+         canLikeFlag={canLikeFlag}
+      	 customerImageId={customerImageId}
+       	 fileData={fileData}
+       	 likesCount={likesCount}
+       	 likePrompt={likePrompt}
+       	 observationLog={observationLog}
+       	 observationTimeDisplay={observationTimeDisplay}
+       	 observationTitle={observationTitle}
+       	 imageTitle={imageTitle}
+       	 user={user}
+      	/>
+      	<br/>
+      </>
+      }
     {canEditFlag && (
-      <ObservationsForm
-        canShareFlag={canShareFlag}
-        actions={actions}
-        customerImageId={customerImageId}
-        observationLog={observationLog}
-        observationTitle={observationTitle}
-        saveLabel={saveLabel}
-        scheduledMissionId={scheduledMissionId}
-        user={user}
-        validateResponseAccess={validateResponseAccess}
-      />
+      <>
+	      <ObservationsForm
+       		 canShareFlag={canShareFlag}
+	        actions={actions}
+        	customerImageId={customerImageId}
+        	observationLog={observationLog}
+        	observationTitle={observationTitle}
+        	saveLabel={saveLabel}
+        	scheduledMissionId={scheduledMissionId}
+        	user={user}
+        	validateResponseAccess={validateResponseAccess}
+      	       />
+	       <br/>
+	</>
     )}
-    {showCommentsLink ? (
-      <DiscussionsBoard
+      {showCommentsLink ? (<DiscussionsBoard
         topLevelThread={false}
         callSource={callSource}
         count={10}
@@ -71,7 +75,7 @@ const MainContainer = ({
         user={user}
         validateResponseAccess={validateResponseAccess}
       />
-    ) : null}
+      ) : null}
   </div>
 );
 

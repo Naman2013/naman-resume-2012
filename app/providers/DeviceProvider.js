@@ -36,7 +36,7 @@ export const DeviceContext = React.createContext();
 class DeviceProvider extends Component {
   static propTypes = {
     children: PropTypes.node.isRequired,
-  }
+  };
 
   state = {
     isDesktop: isDesktop(window.innerWidth),
@@ -46,7 +46,7 @@ class DeviceProvider extends Component {
     isScreenLarge: isScreenLarge(window.innerWidth),
     isScreenXLarge: isScreenXLarge(window.innerWidth),
     windowWidth: window.innerWidth,
-  }
+  };
 
   componentDidMount() {
     window.addEventListener('resize', this.handleResize);
@@ -57,16 +57,18 @@ class DeviceProvider extends Component {
   }
 
   handleResize = throttle(() => {
-    this.setState({
-      isDesktop: isDesktop(window.innerWidth),
-      isMobile: isMobile(window.innerWidth),
-      isTablet: isTablet(window.innerWidth),
-      isScreenMedium: isScreenMedium(window.innerWidth),
-      isScreenLarge: isScreenLarge(window.innerWidth),
-      isScreenXLarge: isScreenXLarge(window.innerWidth),
-      windowWidth: window.innerWidth,
-    });
-  }, PAGE_RESIZE_THROTTLE_DURATION)
+    if (window.innerWidth !== this.state.windowWidth) {
+      this.setState({
+        isDesktop: isDesktop(window.innerWidth),
+        isMobile: isMobile(window.innerWidth),
+        isTablet: isTablet(window.innerWidth),
+        isScreenMedium: isScreenMedium(window.innerWidth),
+        isScreenLarge: isScreenLarge(window.innerWidth),
+        isScreenXLarge: isScreenXLarge(window.innerWidth),
+        windowWidth: window.innerWidth,
+      });
+    }
+  }, PAGE_RESIZE_THROTTLE_DURATION);
 
   render() {
     const { children } = this.props;

@@ -6,6 +6,7 @@
  ***********************************/
 
 import React, { Component } from 'react';
+import { browserHistory } from 'react-router';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import { FormattedMessage } from 'react-intl';
@@ -17,6 +18,7 @@ import DiscussionsItem from './DiscussionsItem';
 import CREATE_THREAD_FORM from './DiscussionsThreadFormInterface';
 import styles from './DiscussionsBoard.style';
 import messages from './DiscussionsThreads.messages';
+import pageMeta from 'app/modules/quest-details/actions/pageMeta';
 
 const {
   any,
@@ -66,16 +68,25 @@ class DiscussionsThreads extends Component {
 
   state = {
     fetching: true,
-    activePage: 1,
+    activePage: null,
   };
 
-  componentWillReceiveProps(nextProps) {
-    if (this.props.topicId !== nextProps.topicId) {
-      this.getThreads(nextProps);
+  componentDidMount() {
+    if (this.props && this.props.topicId !== null) {
+      this.getThreads(this.props);
     }
   }
 
-  getThreads = (parms = this.props, page = 1) => {
+  componentWillReceiveProps(nextProps) {
+    const { topicId, jumpToThreadId } = this.props;
+    const { activePage } = this.state;
+    if (topicId !== nextProps.topicId) {
+      //console.log('aaaa', activePage);
+      this.getThreads(nextProps, activePage);
+    }
+  }
+
+  getThreads = (parms = this.props, page = 1, paging = false) => {
     const {
       callSource,
       count,
@@ -83,12 +94,16 @@ class DiscussionsThreads extends Component {
       validateResponseAccess,
       user,
       discussionsActions: { updateThreadsProps },
+      jumpToThreadId,
     } = parms;
 
     this.setState({
       fetching: true,
-      page,
+      activePage: paging && page,
     });
+
+    const jumpThreadData =
+      jumpToThreadId && !paging ? { threadId: jumpToThreadId } : {};
 
     axios
       .post(THREAD_LIST, {
@@ -99,9 +114,15 @@ class DiscussionsThreads extends Component {
         at: user.at,
         token: user.token,
         cid: user.cid,
+        ...jumpThreadData,
       })
       .then(res => {
         validateResponseAccess(res);
+        this.setState({
+          fetching: false,
+          activePage: res.data.page || page,
+        });
+
         if (!res.data.apiError) {
           const { threads, threadCount } = res.data;
           let newThreads = [].concat(threads);
@@ -113,11 +134,10 @@ class DiscussionsThreads extends Component {
             return currentThread;
           });
           updateThreadsProps(newThreads, threadCount);
-        }
 
-        this.setState({
-          fetching: false,
-        });
+          if (jumpToThreadId && !paging) {
+          }
+        }
       });
   };
 
@@ -252,7 +272,11 @@ class DiscussionsThreads extends Component {
   };
 
   handlePageChange = ({ activePage }) => {
-    this.getThreads(this.props, activePage);
+    const { jumpToThreadId, discussionGroupId } = this.props;
+    if (jumpToThreadId) {
+      browserHistory.push(`/community-groups/${discussionGroupId}`);
+    }
+    this.getThreads(this.props, activePage, true);
   };
 
   render() {
@@ -265,24 +289,26 @@ class DiscussionsThreads extends Component {
       errorMessage,
       forumId,
       isDesktop,
+      isClub,
       topicId,
       user,
       validateResponseAccess,
       discussionGroupId,
+      jumpToThreadId,
     } = this.props;
     const { fetching, activePage } = this.state;
     const { threadsCount } = discussions;
-
+    
     return (
       <div className="root">
         {CREATE_THREAD_FORM[callSource].render({
           ...createThreadFormParams,
           createThread: this.createThread,
           isDesktop,
+          isClub,
         })}
         <div className="comments-bar">
-          <FormattedMessage {...messages.Comments} /> (
-          {threadsCount})
+          <FormattedMessage {...messages.Comments} /> ({threadsCount})
         </div>
         {fetching && (
           <div>
@@ -334,13 +360,17 @@ class DiscussionsThreads extends Component {
                   user={user}
                   getThreads={this.getThreads}
                   getReplies={this.getReplies}
+                  jumpToThreadId={jumpToThreadId}
                 />
               );
             })}
           </div>
         )}
-        {threadsCount ? (
-          <div className="discussions-pagination">
+        {threadsCount && activePage ? (
+          <div
+            className="discussions-pagination"
+            key={`discussion-pagination-${topicId}-${jumpToThreadId}`}
+          >
             <Pagination
               pagesPerPage={4}
               activePage={activePage}

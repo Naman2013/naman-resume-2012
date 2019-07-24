@@ -1,24 +1,31 @@
 import { createSelector } from 'reselect';
 
-export const selectTopThreads = state => state.clubs;
+export const selectClubs = state => state.clubs;
 
 export const makeTopThreadsLoadingSelector = () =>
   createSelector(
-    selectTopThreads,
+    selectClubs,
     state => state.isFetching
+  );
+
+export const makeTopThreadsSelector = () =>
+  createSelector(
+    selectClubs,
+    state => state.topThreadsList
   );
 
 export const makeTopThreadsDataSelector = () =>
   createSelector(
-    selectTopThreads,
+    makeTopThreadsSelector(),
     state =>
-      state.topThreadsList.map(x => {
+      state.map(x => {
         return {
           avatarUrl: x.avatarURL,
           displayName: x.displayName,
           freshness: x.freshness,
           threadId: x.threadId,
           title: x.title,
+          totalLikes: x.totalLikes,
         };
       })
   );
