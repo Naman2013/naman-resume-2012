@@ -13,11 +13,8 @@ const { arrayOf, any, bool, func, number, shape, string } = PropTypes;
 
 const QuestionListItem = props => {
   const {
-    actions,
     answers,
     canAnswerQuestions,
-    canReplyToAnswers,
-    displayedAnswers,
     likeParams,
     fetching,
     isDesktop,
@@ -25,20 +22,11 @@ const QuestionListItem = props => {
     modalActions,
     objectId,
     submitAnswer,
-    toggleAllAnswersAndDisplay,
     user,
     updateQuestionsList,
     key,
-    showComments,
   } = props;
 
-  const toggleAllAnswers = () =>
-    toggleAllAnswersAndDisplay({
-      threadId: item.threadId,
-      showAllAnswers: !answers.showAllAnswers,
-      // showAllAnswers: false,
-    });
-  // toggleAllAnswers();
   const likeThreadParams = Object.assign({}, likeParams, {
     threadId: item.threadId,
     authorId: item.customerId,
