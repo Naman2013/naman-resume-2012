@@ -1,7 +1,3 @@
-/* ********************************
- * V4 Private profile QA container
- ********************************* */
-
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl, intlShape } from 'react-intl';

@@ -120,7 +120,11 @@ class AskAstronomer extends Component {
     const { getAllQuestions, fetchAstronomerQuestions } = actions;
 
     // getAllQuestions({ objectId, ...filter });
-    return fetchAstronomerQuestions({ objectId, ...filter });
+    return fetchAstronomerQuestions({
+      objectId,
+      answerState: 'objectonly', // default value
+      ...filter,
+    });
   };
 
   handlePageChange = page => {
@@ -128,9 +132,13 @@ class AskAstronomer extends Component {
   };
 
   submitAnswer = (requestParams, callback) => {
-    const { actions, page, params: { objectId }, } = this.props;
+    const {
+      actions,
+      page,
+      params: { objectId },
+    } = this.props;
     return actions
-      .submitAnswerToQuestion({...requestParams, objectId})
+      .submitAnswerToQuestion({ ...requestParams, objectId })
       .then(res => callback(res.payload));
   };
 
