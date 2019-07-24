@@ -119,7 +119,7 @@ class CommunityGroupOverview extends Component {
     const {
       communityGroupOverview,
       pageMeta,
-      routeParams: { groupId, edit },
+      routeParams: { groupId, edit, threadId },
       actions,
     } = this.props;
     const { showPopup } = this.state;
@@ -156,6 +156,7 @@ class CommunityGroupOverview extends Component {
                   context={context}
                   discussionGroupId={groupId}
                   isEditMode={edit}
+                  jumpToThreadId={threadId}
                 />
               </CenterColumn>
               <Modal
