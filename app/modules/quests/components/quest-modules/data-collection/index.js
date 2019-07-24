@@ -30,9 +30,12 @@ export class QuestModuleDataCollection extends PureComponent {
       questId,
       setDataCollectionSlotImages,
       getDataCollection,
+      getQuestStep,
+      stepData,
     } = this.props;
     const { moduleId } = module;
     const { customerImageId } = image;
+    const { stepModuleId } = stepData;
     const { selectedSlot } = this.state;
     setDataCollectionSlotImages({
       moduleId,
@@ -42,13 +45,14 @@ export class QuestModuleDataCollection extends PureComponent {
     }).then(({ payload }) => {
       this.setState({ dcSlotModalVisible: false });
       if (payload.refreshStep) {
-        getDataCollection(questId, moduleId);
+        getQuestStep(questId, stepModuleId).then(() =>
+          getDataCollection(questId, moduleId)
+        );
       }
     });
   };
 
   showDataCollectionSlotModal = slot => {
-    this.getDataCollectionSlotImages(slot);
     this.setState({ dcSlotModalVisible: true, selectedSlot: slot });
   };
 
@@ -63,7 +67,10 @@ export class QuestModuleDataCollection extends PureComponent {
       module,
       questDataCollectionSlotImages,
       setDataCollectionSlotImages,
+      getDataCollectionSlotImages,
       navigateToNextStep,
+      readOnly,
+      loading,
     } = this.props;
     const { modulePrompt, moduleInstructions, slotArray } = questDataCollection;
     const { moduleId } = module;
@@ -83,6 +90,7 @@ export class QuestModuleDataCollection extends PureComponent {
               key={slot.slotId}
               slot={slot}
               showDataCollectionSlotModal={this.showDataCollectionSlotModal}
+              readOnly={readOnly}
             />
           ))}
         </div>
@@ -93,7 +101,11 @@ export class QuestModuleDataCollection extends PureComponent {
             onHide={this.closeDataCollectionSlotModal}
             questDataCollectionSlotImages={questDataCollectionSlotImages}
             selectedSlot={selectedSlot}
+            getDataCollectionSlotImages={getDataCollectionSlotImages}
             setDataCollectionSlotImages={this.setDataCollectionSlotImages}
+            moduleId={moduleId}
+            questId={questId}
+            loading={loading}
           />
         )}
       </div>

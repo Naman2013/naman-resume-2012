@@ -3,8 +3,10 @@ import {
   makeQuestsLoadingSelector,
   makeQuestsStepDataSelector,
   makeQuestsStepModuleListSelector,
+  makeQuestsDetailsModalSelector,
 } from 'app/modules/quests/selectors';
 import { getQuestOutput, getQuestStep } from 'app/modules/quests/thunks';
+import modalActions from 'app/modules/quest-details/actions/modal';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
@@ -13,11 +15,13 @@ const mapStateToProps = createStructuredSelector({
   loading: makeQuestsLoadingSelector(),
   stepData: makeQuestsStepDataSelector(),
   moduleList: makeQuestsStepModuleListSelector(),
+  resourceModal: makeQuestsDetailsModalSelector(),
 });
 
 const mapDispatchToProps = {
   getQuestStep,
   getQuestOutput,
+  closeModal: modalActions.closeModal,
 };
 
 export default compose(

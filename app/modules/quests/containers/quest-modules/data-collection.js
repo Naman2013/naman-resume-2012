@@ -10,6 +10,7 @@ import {
   getDataCollection,
   getDataCollectionSlotImages,
   setDataCollectionSlotImages,
+  getQuestStep,
 } from 'app/modules/quests/thunks';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
@@ -27,6 +28,7 @@ const mapDispatchToProps = {
   getDataCollection,
   getDataCollectionSlotImages,
   setDataCollectionSlotImages,
+  getQuestStep,
 };
 
 export default compose(

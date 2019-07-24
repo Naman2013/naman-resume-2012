@@ -3,9 +3,22 @@ import { questShield } from 'app/styles/variables/iconURLs';
 import React from 'react';
 import './styles.scss';
 import { Button } from 'react-bootstrap';
+import ResourcesButton from '../quest-details/resources-button.redux';
 
 export const QuestStepBox = props => {
-  const { children, subTitle, title, completed } = props;
+  const { children, subTitle, completed, stepData, questId } = props;
+  const {
+    showResources,
+    stepHeaderTitle,
+    resourcesModuleId,
+    resourcesButtonCaption,
+  } = stepData;
+  const resourcesProps = {
+    resourcesButtonText: resourcesButtonCaption,
+    questId,
+    moduleId: resourcesModuleId,
+  };
+
   return (
     <div className="quest-step-box">
       {/* TABLET/DESKTOP VIEW */}
@@ -19,14 +32,14 @@ export const QuestStepBox = props => {
         </div>
 
         <div className="step-title-row step-box-row">
-          <span className="step-title">{title}</span>
+          <span className="step-title">{stepHeaderTitle}</span>
           <CompleteCheckbox completed={completed} />
         </div>
 
         <div className="sub-title-row step-box-row">
           <span className="sub-title">{subTitle}</span>
           <div className="step-controls">
-            <Button>Resources</Button>
+            {showResources ? <ResourcesButton {...resourcesProps} /> : null}
           </div>
         </div>
       </div>
@@ -34,17 +47,17 @@ export const QuestStepBox = props => {
       {/* MOBILE VIEW */}
       <div className="d-sm-block d-md-none mobile-view-step-info">
         <div className="step-box-row">
-          <span className="step-number">{title}</span>
+          <span className="step-number">{stepHeaderTitle}</span>
           <CompleteCheckbox completed={completed} sm />
         </div>
         <div className="step-box-row">
-          <span className="step-title">{title}</span>
+          <span className="step-title">{stepHeaderTitle}</span>
         </div>
         <div className="step-box-row">
           <span className="step-sub-title">{subTitle}</span>
         </div>
         <div className="step-box-row">
-          <Button>Resources</Button>
+          {showResources ? <ResourcesButton {...resourcesProps} /> : null}
         </div>
       </div>
 

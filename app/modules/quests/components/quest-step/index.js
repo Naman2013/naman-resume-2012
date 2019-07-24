@@ -6,6 +6,7 @@ import type { QuestStepModule } from 'app/modules/quests/types';
 import { questModuleType } from 'app/modules/quests/types';
 import React, { Component } from 'react';
 import { Container } from 'react-bootstrap';
+import Modal from 'react-modal';
 import { Spinner } from 'app/components/spinner/index';
 import { browserHistory } from 'react-router';
 import { QuestStepHeader } from './header';
@@ -90,9 +91,10 @@ export class QuestStep extends Component<TQuestStep> {
   };
 
   render() {
-    const { loading, moduleList, stepData = {}, routeParams } = this.props;
-    const { prevStepId, nextStepId } = this.state;
-
+    const { loading, moduleList, stepData = {}, routeParams, resourceModal, questActions, closeModal } = this.props;
+    const { prevStepId, nextStepId, lastStepId } = this.state;
+    const { readOnly } = stepData;
+    
     return (
       <div className="quest-step-page">
         <Spinner loading={loading} />
@@ -109,6 +111,16 @@ export class QuestStep extends Component<TQuestStep> {
           stepMenuTitle={stepData?.stepMenuHeader}
         />
 
+        <Modal
+          ariaHideApp={false}
+          isOpen={resourceModal?.showModal}
+          style={resourceModal?.modalStyles}
+          contentLabel="quests details"
+          onRequestClose={closeModal}
+        >
+          {resourceModal.modalComponent}
+        </Modal>
+
         <div className="top-v-line d-none d-md-flex">
           <div />
           <div />
@@ -116,9 +128,11 @@ export class QuestStep extends Component<TQuestStep> {
 
         <div className="container step-container">
           <QuestStepBox
+            stepData={stepData}
             subTitle="some text"
             title={stepData.stepHeaderTitle}
             completed={stepData.stepCompleted}
+            questId={routeParams.questId}
           >
             {/* <h2>Modules</h2>
             <ul>
@@ -138,6 +152,7 @@ export class QuestStep extends Component<TQuestStep> {
                     module={module}
                     questId={routeParams.questId}
                     navigateToNextStep={this.navigateToNextStep}
+                    readOnly={readOnly}
                   />
                 )
             )}
