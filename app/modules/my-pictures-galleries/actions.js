@@ -1,5 +1,8 @@
 import axios from 'axios';
-import { fetchMyPicturesCount, fetchMissionCount } from '../my-pictures/actions';
+import {
+  fetchMyPicturesCount,
+  fetchMissionCount,
+} from '../my-pictures/actions';
 
 export const CREATE_GALLERY_START = 'CREATE_GALLERY_START';
 export const CREATE_GALLERY_SUCCESS = 'CREATE_GALLERY_SUCCESS';
@@ -30,22 +33,23 @@ const createGalleryFail = payload => ({
   payload,
 });
 
-export const createGallery = ({
-  title,
-}) => (dispatch, getState) => {
+export const createGallery = ({ title }) => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
   dispatch(createGalleryStart());
-  return axios.post('/api/images/createGallery', {
-    // at: 3, // for testing purposes
-    // cid: 185651, // for testing purposes
-    // token: 'ff278b57d3724d41a3d48194e2f29526b30e9c0f', // for testing purposes
-    at,
-    cid,
-    token,
-    title,
-  })
-  .then(result => dispatch(createGallerySuccess(Object.assign(result.data, { title }))))
-  .catch(error => dispatch(createGalleryFail(error)));
+  return axios
+    .post('/api/images/createGallery', {
+      // at: 3, // for testing purposes
+      // cid: 185651, // for testing purposes
+      // token: 'ff278b57d3724d41a3d48194e2f29526b30e9c0f', // for testing purposes
+      at,
+      cid,
+      token,
+      title,
+    })
+    .then(result =>
+      dispatch(createGallerySuccess(Object.assign(result.data, { title })))
+    )
+    .catch(error => dispatch(createGalleryFail(error)));
 };
 
 const fetchGalleriesStart = () => ({
@@ -68,29 +72,33 @@ export const fetchGalleries = ({
   pagingMode = 'app',
   noFilters = false,
   customerUUID,
+  publicGalleries,
 }) => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
   const { selectedFilters } = getState().myPicturesFilters;
   const filters = noFilters ? {} : selectedFilters;
+  const publicGalleriesData = publicGalleries ? { publicGalleries } : {};
   dispatch(fetchGalleriesStart());
   // dispatch(fetchGalleriesCount({})); // for pagination
   // dispatch(fetchMissionCount()); // for deeplinking
   // dispatch(fetchMyPicturesCount());// for deeplinking
-  return axios.post('/api/images/getGalleryList', {
-    // at: 3, // for testing purposes
-    // cid: 185651, // for testing purposes
-    // token: 'ff278b57d3724d41a3d48194e2f29526b30e9c0f', // for testing purposes
-    at,
-    cid,
-    token,
-    pagingMode,
-    customerUUID,
-    maxGalleryCount: maxImageCount,
-    firstGalleryNumber: firstImageNumber,
-    ...filters,
-  })
-  .then(result => dispatch(fetchGalleriesSuccess(result.data)))
-  .catch(error => dispatch(fetchGalleriesFail(error)));
+  return axios
+    .post('/api/images/getGalleryList', {
+      // at: 3, // for testing purposes
+      // cid: 185651, // for testing purposes
+      // token: 'ff278b57d3724d41a3d48194e2f29526b30e9c0f', // for testing purposes
+      at,
+      cid,
+      token,
+      pagingMode,
+      customerUUID,
+      maxGalleryCount: maxImageCount,
+      firstGalleryNumber: firstImageNumber,
+      ...filters,
+      ...publicGalleriesData,
+    })
+    .then(result => dispatch(fetchGalleriesSuccess(result.data)))
+    .catch(error => dispatch(fetchGalleriesFail(error)));
 };
 
 const fetchGalleriesCountStart = payload => ({
@@ -108,32 +116,36 @@ const fetchGalleriesCountFail = payload => ({
   payload,
 });
 
-export const fetchGalleriesCount = ({ customerUUID }) => (dispatch, getState) => {
+export const fetchGalleriesCount = ({ customerUUID }) => (
+  dispatch,
+  getState
+) => {
   const { at, token, cid } = getState().user;
   const { selectedFilters } = getState().myPicturesFilters;
   dispatch(fetchGalleriesCountStart());
 
-  return axios.post('/api/images/getGalleryCount', {
-    // at: 3, // for testing purposes
-    // cid: 185651, // for testing purposes
-    // token: 'ff278b57d3724d41a3d48194e2f29526b30e9c0f', // for testing purposes
-    at,
-    cid,
-    token,
-    customerUUID,
-    ...selectedFilters,
-  })
-  .then(result => {
-    if (result.apiError) {
-      dispatch(fetchGalleriesCountFail(result));
-    } else {
-      dispatch(fetchGalleriesCountSuccess(result.data))
-    }
-  })
-  .catch(error => dispatch(fetchGalleriesCountFail(error)));
+  return axios
+    .post('/api/images/getGalleryCount', {
+      // at: 3, // for testing purposes
+      // cid: 185651, // for testing purposes
+      // token: 'ff278b57d3724d41a3d48194e2f29526b30e9c0f', // for testing purposes
+      at,
+      cid,
+      token,
+      customerUUID,
+      ...selectedFilters,
+    })
+    .then(result => {
+      if (result.apiError) {
+        dispatch(fetchGalleriesCountFail(result));
+      } else {
+        dispatch(fetchGalleriesCountSuccess(result.data));
+      }
+    })
+    .catch(error => dispatch(fetchGalleriesCountFail(error)));
 };
 
-export const fetchGalleriesAndCounts = (params) => (dispatch) => {
+export const fetchGalleriesAndCounts = params => dispatch => {
   dispatch(fetchMissionCount(params));
   dispatch(fetchMyPicturesCount(params));
   dispatch(fetchGalleriesCount(params));
@@ -155,16 +167,17 @@ export const fetchMoreGalleries = ({
   const { at, token, cid } = getState().user;
   const { selectedFilters } = getState().myPicturesFilters;
   const filters = noFilters ? {} : selectedFilters;
-  return axios.post('/api/images/getGalleryList', {
-    at,
-    cid,
-    token,
-    pagingMode,
-    maxGalleryCount: maxImageCount,
-    firstGalleryNumber: firstImageNumber,
-    customerUUID,
-    ...filters,
-  })
-  .then(result => dispatch(fetchMoreGalleriesSuccess(result.data)))
-  .catch(error => dispatch(fetchGalleriesFail(error)));
+  return axios
+    .post('/api/images/getGalleryList', {
+      at,
+      cid,
+      token,
+      pagingMode,
+      maxGalleryCount: maxImageCount,
+      firstGalleryNumber: firstImageNumber,
+      customerUUID,
+      ...filters,
+    })
+    .then(result => dispatch(fetchMoreGalleriesSuccess(result.data)))
+    .catch(error => dispatch(fetchGalleriesFail(error)));
 };
