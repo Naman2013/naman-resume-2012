@@ -59,8 +59,7 @@ export default class TelescopeOffline extends Component {
       weatherSatellite,
       weatherConditions,
     } = this.props;
-
-
+    
     return (
       <div className="telescope-offline animated fadeIn faster">
         {/* HEADER */}

@@ -1,5 +1,6 @@
 import React from 'react';
 import ObservatoryBot from 'app/components/telescope-details/ObservatoryBot/ObservatoryBot';
+import { ObservatoryBotOffline } from 'app/modules/telescope/components/status-tab/stellite-widget/ObservatoryBotOffline';
 import { ModuleContainer } from './module-container';
 
 const ObsBotWidget = props => {
@@ -11,6 +12,10 @@ const ObsBotWidget = props => {
     noDescription,
     noCounter,
     noScroll,
+    dayNightMap,
+    weatherSatellite,
+    weatherConditions,
+    obsId,
   } = props;
   return (
     <div className="root">
@@ -18,6 +23,12 @@ const ObsBotWidget = props => {
         title={title || 'Observatory Bot'}
         titleIcon="i-logo_astronaut"
       >
+        <ObservatoryBotOffline
+          obsId={obsId}
+          dayNightMap={dayNightMap}
+          weatherSatellite={weatherSatellite}
+          weatherConditions={weatherConditions}
+        />
         <ObservatoryBot
           viewGroup={ViewGroup}
           teleSystem={teleSystem}

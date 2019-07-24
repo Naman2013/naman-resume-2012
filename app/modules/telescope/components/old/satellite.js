@@ -12,11 +12,11 @@ export class Satellite extends Component {
   closeModal = () => this.setState({ isModalOpen: false });
 
   render() {
-    const { satelliteImageURL } = this.props;
+    const { satelliteImageURL, hideHeader } = this.props;
     const { isModalOpen } = this.state;
 
     return (
-      <ModuleContainer title="Satellite">
+      <ModuleContainer title="Satellite" hideHeader={hideHeader}>
         <img
           alt="satellite"
           style={{ width: '100%', cursor: 'pointer' }}
