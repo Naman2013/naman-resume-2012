@@ -95,7 +95,8 @@ export default createReducer(initialState, {
       allDisplayedAnswers: newAllDisplayedAnswers,
     };
   },
-  [REPLY_TO_ASTRONOMER_ANSWER_SUCCESS](state, { payload }) {
+  // todo NOT USED
+ /* [REPLY_TO_ASTRONOMER_ANSWER_SUCCESS](state, { payload }) {
     const { threadId, replyTo } = payload;
 
     const newAllState = cloneDeep(state.allAnswers);
@@ -115,7 +116,7 @@ export default createReducer(initialState, {
       ...state,
       allAnswers: newAllState,
     };
-  },
+  },*/
   [SUBMIT_ANSWER_FOR_ASTRONOMER_QUESTION_START](state, { payload }) {
     const { threadId } = payload;
     const newAnswerSubmissions = cloneDeep(state.allAnswerSubmissions);

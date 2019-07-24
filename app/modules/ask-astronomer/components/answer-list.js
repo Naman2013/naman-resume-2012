@@ -62,9 +62,7 @@ class AnswerList extends Component {
 
   submitReply = (requestParams, callback) => {
     const { actions, objectId } = this.props;
-    actions
-      .replyToAnswer({ ...requestParams, objectId })
-      .then(res => callback(res.payload));
+    actions.replyToAnswer({ ...requestParams, objectId }).then(callback);
   };
 
   render() {
@@ -100,7 +98,7 @@ class AnswerList extends Component {
             )}
           </div>
           <div className="replies-list">
-            {answers.slice(0, visibleAnswersCount).map(answer => {
+            {answers.slice(0, visibleAnswersCount).map((answer, ind) => {
               const likeParams = {
                 callSource: 'qanda',
                 objectId,
@@ -132,7 +130,8 @@ class AnswerList extends Component {
                   fetchingReplies={fetchingReplies[answer.replyId]}
                   isDesktop={isDesktop}
                   isTopAnswer={
-                    answers.topAnswer && answer.replyId === answers.topAnswer
+                    // answers.topAnswer && answer.replyId === answers.topAnswer
+                    ind === 0 // todo currently top answer is the first one
                   }
                   key={answer.replyId}
                   likeParams={likeParams}
