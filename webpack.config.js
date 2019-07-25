@@ -180,12 +180,12 @@ module.exports = {
         secure: true,
       },
       '/sse/**': {
-        target: 'https://supernova.slooh.com',
+        target: 'https://nova.slooh.com',
         changeOrigin: true,
         secure: true,
       },
       '/bot/**': {
-        target: 'https://supernova.slooh.com',
+        target: 'https://slooh.com',
         changeOrigin: true,
         secure: true,
       },

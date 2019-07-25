@@ -76,7 +76,7 @@ class AllSkyCamera extends Component {
 
     return (
       <div className="root all-sky-camera">
-        <ModuleContainer title="All sky camera snap">
+        <ModuleContainer title="All sky camera">
           <ImagePortalViewer
             imageURL={imageURL}
             title={title}
