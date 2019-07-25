@@ -44,6 +44,7 @@ const mapStateToProps = state => ({
   questions: state.astronomerQuestions.threadList,
   page: state.astronomerQuestions.page,
   totalCount: state.astronomerQuestions.threadCount,
+  pages: state.astronomerQuestions.pages, // number of total pages
   count: state.astronomerQuestions.count,
   canAnswerQuestions: state.astronomerQuestions.canAnswerQuestions,
   canReplyToAnswers: state.astronomerQuestions.canReplyToAnswers,
@@ -188,6 +189,7 @@ class AskAstronomer extends Component {
       pageData,
       questionsData,
       fetchingAnswersBool,
+      pages,
     } = this.props;
 
     const {
@@ -298,6 +300,7 @@ class AskAstronomer extends Component {
                         updateQuestionsList={this.updateQuestionsList}
                         changeAnswerState={this.updateQuestionsList}
                         fetchingAnswersBool={fetchingAnswersBool}
+                        pages={pages}
                       />
                     )}
                   />

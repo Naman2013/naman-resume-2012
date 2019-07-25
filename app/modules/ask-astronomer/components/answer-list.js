@@ -57,7 +57,7 @@ class AnswerList extends Component {
 
   isLoadMoreVisible = () => {
     const { answers = [], visibleAnswersCount } = this.props;
-    return visibleAnswersCount <= answers.length;
+    return visibleAnswersCount < answers.length;
   };
 
   submitReply = (requestParams, callback) => {

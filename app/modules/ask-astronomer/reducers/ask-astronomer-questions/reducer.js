@@ -36,7 +36,6 @@ export default createReducer(initialState, {
   },
   [REFETCH_ASTRONOMER_QUESTIONS_START](state) {
     // const { appendToList, threadCount } = payload;
-    console.log('reducer FETCH_ASTRONOMER_QUESTIONS_START');
     return {
       ...state,
       // threadList: appendToList ? state.threadList : [],
