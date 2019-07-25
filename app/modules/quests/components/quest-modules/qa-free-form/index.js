@@ -6,14 +6,16 @@ export class QuestModuleQaFreeForm extends PureComponent {
   componentDidMount = () => {
     const { module, questId, getQaFreeForm } = this.props;
     const { moduleId } = module;
-    if (questId && moduleId) getQaFreeForm({questId, moduleId});
+    if (questId && moduleId) getQaFreeForm({ questId, moduleId });
   };
 
   render() {
-    const { questOutput } = this.props;
+    const { questQaFreeForm, module } = this.props;
+    const { moduleId } = module;
+    const { moduleUUID } = questQaFreeForm[moduleId] || {};
     console.log(this.props);
     // const { panelList } = questOutput;
 
-    return <div className="quest-qa-free-form">fasdfsadf</div>;
+    return <div className="quest-qa-free-form">{moduleUUID}</div>;
   }
 }

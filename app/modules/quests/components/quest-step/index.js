@@ -66,6 +66,11 @@ export class QuestStep extends Component<TQuestStep> {
     }
   }
 
+  componentWillUnmount() {
+    const { clearQuestStepData } = this.props;
+    clearQuestStepData();
+  }
+
   refreshData() {
     const { getQuestStep, routeParams } = this.props;
     const { questId, step } = routeParams;
@@ -153,6 +158,7 @@ export class QuestStep extends Component<TQuestStep> {
                   {module.moduleType === questModuleType.datacollectdifferent && (
                     <QuestModuleDataCollection
                       module={module}
+                      key={module.moduleId}
                       questId={routeParams.questId}
                       navigateToNextStep={this.navigateToNextStep}
                       readOnly={readOnly}

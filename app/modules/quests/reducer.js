@@ -7,6 +7,7 @@ export const TYPE = constants('quests', [
 
   // QUEST STEP PAGE
   '~GET_QUEST_STEP',
+  'CLEAR_QUEST_STEP_DATA',
   '~GET_QUEST_OUTPUT',
   '~GET_DATA_COLLECTION',
   '~GET_DATA_COLLECTION_SLOT_IMAGES',
@@ -48,6 +49,8 @@ export default handleActions(
     [TYPE.GET_QUEST_STEP]: start,
     [TYPE.GET_QUEST_STEP_SUCCESS]: getStepSuccess,
     [TYPE.GET_QUEST_STEP_ERROR]: error,
+
+    [TYPE.CLEAR_QUEST_STEP_DATA]: clearQuestStepData,
 
     [TYPE.GET_QUEST_OUTPUT]: start,
     [TYPE.GET_QUEST_OUTPUT_SUCCESS]: getQuestOutputSuccess,
@@ -111,11 +114,19 @@ function getStepSuccess(state, { payload }) {
   };
 }
 
+function clearQuestStepData(state) {
+  return {
+    ...state,
+    stepData: {},
+  };
+}
+
 function getQuestOutputSuccess(state, { payload }) {
+  const { questOutput } = state;
   return {
     ...state,
     isFetching: false,
-    questOutput: payload,
+    questOutput: { ...questOutput, [payload.moduleId]: payload },
   };
 }
 
@@ -163,9 +174,10 @@ function setDataCollectionSlotImagesSuccess(state) {
 }
 
 function getQaFreeFormSuccess(state, { payload }) {
+  const { questQaFreeForm } = state;
   return {
     ...state,
     isFetching: false,
-    questQaFreeForm: payload,
+    questQaFreeForm: { ...questQaFreeForm, [payload.moduleId]: payload },
   };
 }

@@ -10,6 +10,7 @@ import modalActions from 'app/modules/quest-details/actions/modal';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
+import { ACTION } from '../reducer';
 
 const mapStateToProps = createStructuredSelector({
   loading: makeQuestsLoadingSelector(),
@@ -22,6 +23,7 @@ const mapDispatchToProps = {
   getQuestStep,
   getQuestOutput,
   closeModal: modalActions.closeModal,
+  clearQuestStepData: ACTION.clearQuestStepData,
 };
 
 export default compose(
