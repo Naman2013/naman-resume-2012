@@ -15,6 +15,8 @@ import cn from 'classnames';
 import './styles.scss';
 import QuestModuleTextOutput from '../../containers/quest-modules/textoutput';
 import QuestModuleDataCollection from '../../containers/quest-modules/data-collection';
+import QuestModuleQaFreeForm from '../../containers/quest-modules/qa-free-form';
+
 
 type TQuestStep = {
   moduleList: QuestStepModule,
@@ -146,25 +148,33 @@ export class QuestStep extends Component<TQuestStep> {
             <hr /> */}
 
             {moduleList.map(
-              module =>
-                module.moduleType === questModuleType.datacollectdifferent && (
-                  <QuestModuleDataCollection
-                    module={module}
-                    questId={routeParams.questId}
-                    navigateToNextStep={this.navigateToNextStep}
-                    readOnly={readOnly}
-                  />
-                )
-            )}
+              module => (
+                <>
+                  {module.moduleType === questModuleType.datacollectdifferent && (
+                    <QuestModuleDataCollection
+                      module={module}
+                      questId={routeParams.questId}
+                      navigateToNextStep={this.navigateToNextStep}
+                      readOnly={readOnly}
+                    />
+                  )}
 
-            {moduleList.map(
-              module =>
-                module.moduleType === questModuleType.textoutput && (
-                  <QuestModuleTextOutput
-                    module={module}
-                    key={module.moduleId}
-                  />
-                )
+                  {module.moduleType === questModuleType.textoutput && (
+                    <QuestModuleTextOutput
+                      module={module}
+                      key={module.moduleId}
+                    />
+                  )}
+
+                  {module.moduleType === questModuleType.qafreeform && (
+                    <QuestModuleQaFreeForm
+                      module={module}
+                      key={module.moduleId}
+                      questId={routeParams.questId}
+                    />
+                  )}
+                </>
+              )
             )}
           </QuestStepBox>
         </div>

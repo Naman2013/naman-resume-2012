@@ -11,6 +11,7 @@ export const TYPE = constants('quests', [
   '~GET_DATA_COLLECTION',
   '~GET_DATA_COLLECTION_SLOT_IMAGES',
   '~SET_DATA_COLLECTION_SLOT_IMAGES',
+  '~GET_QA_FREE_FORM',
 ]);
 
 export const ACTION = actions(TYPE);
@@ -27,6 +28,8 @@ const initialState = {
     maxImageCount: 9,
     pagingMode: 'api',
   },
+
+  questQaFreeForm: {},
 };
 
 export default handleActions(
@@ -62,6 +65,12 @@ export default handleActions(
     [TYPE.SET_DATA_COLLECTION_SLOT_IMAGES_SUCCESS]: setDataCollectionSlotImagesSuccess,
     [TYPE.SET_DATA_COLLECTION_SLOT_IMAGES_ERROR]: error,
     // END: STEP PAGE
+
+    // QA MODULES
+    [TYPE.GET_QA_FREE_FORM]: start,
+    [TYPE.GET_QA_FREE_FORM_SUCCESS]: getQaFreeFormSuccess,
+    [TYPE.GET_QA_FREE_FORM_ERROR]: error,
+    // END: QA MODULES
   },
   initialState
 );
@@ -150,5 +159,13 @@ function setDataCollectionSlotImagesSuccess(state) {
   return {
     ...state,
     isFetching: false,
+  };
+}
+
+function getQaFreeFormSuccess(state, { payload }) {
+  return {
+    ...state,
+    isFetching: false,
+    questQaFreeForm: payload,
   };
 }
