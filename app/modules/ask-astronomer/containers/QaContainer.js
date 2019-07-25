@@ -105,6 +105,7 @@ const mapStateToProps = ({ astronomerAnswers, astronomerQuestions, user }) => ({
   questionFilter: astronomerQuestions.questionFilter,
   questions: astronomerQuestions.threadList,
   page: astronomerQuestions.page,
+  pages: astronomerQuestions.pages,
   totalCount: astronomerQuestions.threadCount,
   count: astronomerQuestions.count,
   canAnswerQuestions: astronomerQuestions.canAnswerQuestions,
