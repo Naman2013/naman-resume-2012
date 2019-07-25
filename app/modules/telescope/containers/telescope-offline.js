@@ -13,6 +13,7 @@ import {
   makeWeatherSatelliteSelector,
   makeAllSkyCameraSelector,
   makeTeidePeakCamCameraSelector,
+  makeWeatherConditionsSelector,
 } from 'app/modules/telescope/selectors';
 import { setPreviousInstrument } from 'app/modules/starshare-camera/starshare-camera-actions';
 import { connect } from 'react-redux';
@@ -23,6 +24,7 @@ const mapStateToProps = createStructuredSelector({
   dayNightBarPanel: makeDayNightBarPanelSelector(),
   dayNightMap: makeDayNightMapSelector(),
   weatherSatellite: makeWeatherSatelliteSelector(),
+  weatherConditions: makeWeatherConditionsSelector(),
   domeCam: makeDomeCamSelector(),
   facilityWebcam: makeFacilityWebcamSelector(),
   allSkyCam: makeAllSkyCameraSelector(),
