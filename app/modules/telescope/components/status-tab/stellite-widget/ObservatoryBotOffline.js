@@ -4,14 +4,23 @@ import '../styles.scss';
 // eslint-disable-next-line import/no-cycle
 import {
   DayNightMap,
+  ObservatoryInformation,
   Satellite,
   WeeklyForecast,
 } from 'app/modules/telescope/components/old';
 // eslint-disable-next-line import/no-cycle
 import { MoonlightConditions } from 'app/modules/telescope/moonlight-conditions/moonlight-conditions-container';
+import MissionControlStatusWidget from 'app/components/telescope-details/weather-mission-control-status-widget';
 
 export const ObservatoryBotOffline = props => {
-  const { weatherSatellite, weatherConditions, dayNightMap } = props;
+  const {
+    weatherSatellite,
+    weatherConditions,
+    dayNightMap,
+    clockList,
+    obsId,
+    missionControlStatusWidgetId,
+  } = props;
 
   return (
     <div className="observatory-offline">
@@ -24,6 +33,12 @@ export const ObservatoryBotOffline = props => {
         {/* TABS NAVS */}
         <Container>
           <Nav variant="tabs">
+            <Nav.Item>
+              <Nav.Link eventKey="TIME">TIME</Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Nav.Link eventKey="STATUS_REPORT">STATUS REPORT</Nav.Link>
+            </Nav.Item>
             <Nav.Item>
               <Nav.Link eventKey="SATELLITE">SATELLITE</Nav.Link>
             </Nav.Item>
@@ -39,6 +54,19 @@ export const ObservatoryBotOffline = props => {
           </Nav>
         </Container>
         <Tab.Content>
+          <Tab.Pane eventKey="TIME">
+            <ObservatoryInformation
+              clockList={clockList}
+              compactMode
+              hideHeader
+            />
+          </Tab.Pane>
+          <Tab.Pane eventKey="STATUS_REPORT">
+            <MissionControlStatusWidget
+              obsId={obsId}
+              missionControlStatusWidgetId={missionControlStatusWidgetId}
+            />
+          </Tab.Pane>
           <Tab.Pane eventKey="SATELLITE">
             <Satellite
               satelliteImageURL={weatherSatellite.satelliteImageURL}
@@ -70,4 +98,7 @@ ObservatoryBotOffline.propTypes = {
   weatherSatellite: PropTypes.object.isRequired,
   weatherConditions: PropTypes.object.isRequired,
   dayNightMap: PropTypes.object.isRequired,
+  clockList: PropTypes.object.isRequired,
+  obsId: PropTypes.string.isRequired,
+  missionControlStatusWidgetId: PropTypes.string.isRequired,
 };

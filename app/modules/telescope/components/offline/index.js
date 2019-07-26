@@ -24,14 +24,12 @@ export default class TelescopeOffline extends Component {
       DomecamWidgetId,
       FacilityWebcamWidgetId,
       AllskyWidgetId,
-      DayNightBarWidgetId,
     } = currentObservatory;
     setPreviousInstrument(null);
     fetchAllWidgets({
       obsId,
       DayNightBarPanelWidgetId,
       DayNightMapWidgetId,
-      DayNightBarWidgetId,
       AllskyWidgetId,
       DomecamWidgetId,
     });
@@ -56,6 +54,7 @@ export default class TelescopeOffline extends Component {
       dayNightMap,
       dayNightBarPanel,
       dayNightBar,
+      DayNightBarPanel,
       weatherSatellite,
       weatherConditions,
     } = this.props;
@@ -108,8 +107,7 @@ export default class TelescopeOffline extends Component {
                 currentTelescope={currentTelescope}
                 currentObservatory={currentObservatory}
                 dayNightMap={dayNightMap}
-                dayNightBarPanel={dayNightBarPanel}
-                dayNightBar={dayNightBar}
+                DayNightBarPanel={DayNightBarPanel}
                 weatherSatellite={weatherSatellite}
                 weatherConditions={weatherConditions}
               />
