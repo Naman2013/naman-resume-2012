@@ -139,7 +139,6 @@ class ImageList extends Component {
   componentDidMount() {
     const { actions, type, deviceInfo, params = {} } = this.props;
     const { activePage } = this.state;
-    console.log('props', this.props);
     const fetchImages = actions[mapTypeToRequest[type]];
     const imagesToFetch = getImagesCountToFetch(deviceInfo);
     const { customerUUID } = params;
@@ -155,6 +154,7 @@ class ImageList extends Component {
       maxImageCount: imagesToFetch,
       maxMissionCount: imagesToFetch,
       customerUUID,
+      publicGalleries: params.public ? 'y' : null,
     });
     //  fetchMissionsAndCounts | fetchGalleriesAndCounts | fetchPhotoRollAndCounts
     this.fetchFilters();
@@ -183,6 +183,7 @@ class ImageList extends Component {
         maxImageCount: imagesToFetch,
         maxMissionCount: imagesToFetch,
         customerUUID,
+        publicGalleries: params.public ? 'y' : null,
       });
 
       this.setState({ activePage: currentPage <= 0 ? 1 : currentPage });
@@ -195,6 +196,7 @@ class ImageList extends Component {
         maxMissionCount: Math.max(imagesToFetchCount, 10),
         maxImageCount: Math.max(imagesToFetchCount, 10),
         customerUUID,
+        publicGalleries: params.public ? 'y' : null,
       });
     }
 
@@ -205,6 +207,7 @@ class ImageList extends Component {
         maxImageCount: imagesToFetch,
         maxMissionCount: imagesToFetch,
         customerUUID,
+        publicGalleries: params.public ? 'y' : null,
       });
     }
   }
@@ -244,6 +247,7 @@ class ImageList extends Component {
       maxImageCount: imagesToFetch,
       maxMissionCount: imagesToFetch,
       customerUUID,
+      publicGalleries: params.public ? 'y' : null,
     });
     this.setState({ activePage });
   };
@@ -299,6 +303,7 @@ class ImageList extends Component {
       maxImageCount: imagesToFetch,
       maxMissionCount: imagesToFetch,
       customerUUID,
+      publicGalleries: params.public ? 'y' : null,
     });
   };
 

@@ -130,12 +130,12 @@ history.listen(location => {
   // store.dispatch(fetchPlayer({ pageURL: pathname }));
 });
 
-const getProfileRoutes = () => (
+const getProfileRoutes = ({ publicProfile }) => (
   <Fragment>
     <IndexRedirect to="activity" />
     <Route path="activity" component={ProfileActivity} />
     <Route path="photos" component={ProfilePhotos}>
-      <IndexRedirect to="photoroll" />
+      <IndexRedirect to={publicProfile ? 'observations' : 'photoroll'} />
       <Route path=":type" component={ImagesLayout} />
     </Route>
     <Route path="lists">
@@ -467,7 +467,7 @@ const AppRouter = ({ setPreviousInstrument }) => (
           component={PrivateProfileMain}
           onEnter={validateUser}
         >
-          {getProfileRoutes()}
+          {getProfileRoutes({ publicProfile: false })}
         </Route>
 
         <Route
@@ -475,7 +475,7 @@ const AppRouter = ({ setPreviousInstrument }) => (
           component={PublicProfileMain}
           onEnter={validateUser}
         >
-          {getProfileRoutes()}
+          {getProfileRoutes({ publicProfile: true })}
         </Route>
       </Route>
 

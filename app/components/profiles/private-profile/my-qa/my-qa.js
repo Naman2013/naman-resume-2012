@@ -72,9 +72,10 @@ class MyQa extends Component {
         <div className="main-block">
           {totalCount === 0 && params.filter === 'asked' ? (
             <InfoTile
-              subject={intl.formatMessage(messages.InfoTileSubject)}
-              title={intl.formatMessage(messages.InfoTileTitle)}
-              text="Text placeholder"
+              //subject={intl.formatMessage(messages.InfoTileSubject)}
+              title={intl.formatMessage(messages.InfoTileSubject)}
+             // title={intl.formatMessage(messages.InfoTileTitle)}
+             // text="Text placeholder"
             />
           ) : (
             <MainContainer
