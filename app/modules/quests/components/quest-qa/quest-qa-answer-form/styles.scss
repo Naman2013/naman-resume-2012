@@ -1,0 +1,14 @@
+@import '~app/styles/variables/index';
+
+.quest-qa-answer-form {
+  margin-top: 10px;
+  padding: 40px;
+  box-shadow: 0 0 6px 0 $shadows;
+  background-color: $romance;
+
+  .quest-qa-answer-image {
+    img {
+      width: 100%;
+    }
+  }
+}

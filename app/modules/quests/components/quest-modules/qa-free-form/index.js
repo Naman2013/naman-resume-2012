@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import { QuestQaHeader } from '../../quest-qa/quest-qa-header';
+import { QuestQaAnswerForm } from '../../quest-qa/quest-qa-answer-form';
 import './styles.scss';
 
 const ACTIVITY_STATES = {
@@ -17,8 +18,13 @@ export class QuestModuleQaFreeForm extends PureComponent {
   render() {
     const { questQaFreeForm, module } = this.props;
     const { moduleId } = module;
-    const { activityTitle, activityState, activityInstructions } =
-      questQaFreeForm[moduleId] || {};
+    const {
+      activityTitle,
+      activityState,
+      activityInstructions,
+      moduleBaseImageURL,
+      moduleBaseThumbnailURL,
+    } = questQaFreeForm[moduleId] || {};
     console.log(this.props);
     // const { panelList } = questOutput;
 
@@ -30,6 +36,11 @@ export class QuestModuleQaFreeForm extends PureComponent {
         />
 
         <div className="quest-qa-instructions">{activityInstructions}</div>
+
+        <QuestQaAnswerForm
+          imageUrl={moduleBaseImageURL}
+          thumbnailUrl={moduleBaseThumbnailURL}
+        />
       </div>
     );
   }
