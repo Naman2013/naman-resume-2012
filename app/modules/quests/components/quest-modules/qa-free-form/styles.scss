@@ -1,6 +1,8 @@
+@import '~app/styles/variables/index';
+
 .quest-output-module {
   & > div {
-    width: 100%!important;
+    width: 100% !important;
 
     ul {
       margin: 0;
@@ -14,5 +16,14 @@
     .tile-content-container {
       padding: 0;
     }
+  }
+}
+
+.quest-qa-free-form {
+  .quest-qa-instructions {
+    font-family: $secondary-font;
+    font-size: 19px;
+    line-height: 1.5;
+    color: $raven;
   }
 }

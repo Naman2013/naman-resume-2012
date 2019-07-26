@@ -17,7 +17,8 @@ export class QuestModuleQaFreeForm extends PureComponent {
   render() {
     const { questQaFreeForm, module } = this.props;
     const { moduleId } = module;
-    const { activityTitle, activityState } = questQaFreeForm[moduleId] || {};
+    const { activityTitle, activityState, activityInstructions } =
+      questQaFreeForm[moduleId] || {};
     console.log(this.props);
     // const { panelList } = questOutput;
 
@@ -27,6 +28,8 @@ export class QuestModuleQaFreeForm extends PureComponent {
           title={activityTitle}
           completed={activityState === ACTIVITY_STATES.complete}
         />
+
+        <div className="quest-qa-instructions">{activityInstructions}</div>
       </div>
     );
   }
