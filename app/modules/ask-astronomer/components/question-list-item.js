@@ -4,6 +4,7 @@ import SubmitAnswerButton from 'app/modules/ask-astronomer/components/SubmitAnsw
 import { likeThread } from 'app/services/discussions/like';
 import Card from 'app/modules/ask-astronomer/components/Card';
 import { browserHistory } from 'react-router';
+import noop from 'lodash/noop';
 import AnswerList from './answer-list';
 
 import style from './question-list-item.style';
@@ -12,11 +13,8 @@ const { arrayOf, any, bool, func, number, shape, string } = PropTypes;
 
 const QuestionListItem = props => {
   const {
-    actions,
     answers,
     canAnswerQuestions,
-    canReplyToAnswers,
-    displayedAnswers,
     likeParams,
     fetching,
     isDesktop,
@@ -24,20 +22,11 @@ const QuestionListItem = props => {
     modalActions,
     objectId,
     submitAnswer,
-    toggleAllAnswersAndDisplay,
     user,
     updateQuestionsList,
     key,
-    showComments,
   } = props;
 
-  const toggleAllAnswers = () =>
-    toggleAllAnswersAndDisplay({
-      threadId: item.threadId,
-      showAllAnswers: !answers.showAllAnswers,
-      // showAllAnswers: false,
-    });
-  // toggleAllAnswers();
   const likeThreadParams = Object.assign({}, likeParams, {
     threadId: item.threadId,
     authorId: item.customerId,
@@ -49,12 +38,11 @@ const QuestionListItem = props => {
         {...props.item}
         objectId={objectId}
         showComments={answers.showAllAnswers}
-        toggleComments={() => {
-          toggleAllAnswers();
+        toggleComments={() =>
           browserHistory.push(
             `/object-details/${props.params.objectId}/question/${item.threadId}`
-          );
-        }}
+          )
+        }
         likeHandler={likeThread}
         isDesktop={isDesktop}
         user={user}
@@ -66,36 +54,17 @@ const QuestionListItem = props => {
             replyTo={item.threadId}
             submitForm={submitAnswer}
             modalActions={modalActions}
-            updateQuestionsList={() => {
-              updateQuestionsList().then(() => {
-                browserHistory.push(
-                  `/object-details/${props.params.objectId}/question/${
-                    item.threadId
-                  }`
-                );
-              });
-            }}
+            updateQuestionsList={() =>
+              browserHistory.push(
+                `/object-details/${props.params.objectId}/question/${item.threadId}`
+              )
+            }
             user={user}
           />
         )}
         commentText="Answers"
         modalActions={modalActions}
-        renderChildReplies={() => (
-          <AnswerList
-            answers={answers}
-            canAnswerQuestions={canAnswerQuestions}
-            canReplyToAnswers={canReplyToAnswers}
-            displayedAnswers={displayedAnswers}
-            isDesktop={isDesktop}
-            numberOfAnswersToThread={item.replyToponlyCount}
-            objectId={objectId}
-            threadId={item.threadId}
-            topicId={item.topicId}
-            modalActions={modalActions}
-            updateQuestionsList={updateQuestionsList}
-          />
-        )}
-        // renderChildReplies={() => {} }
+        renderChildReplies={noop}
       />
       {fetching && <div className="fa fa-spinner loader" />}
       <style jsx>{style}</style>

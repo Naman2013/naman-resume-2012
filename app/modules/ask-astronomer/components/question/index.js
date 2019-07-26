@@ -19,36 +19,22 @@ export class Question extends Component {
   };
 
   componentDidMount = () => {
-    if (this.checkData()) {
-      this.toggleAllAnswers(true);
-    }
-
-    // this.fetchAnswers();
+    this.fetchQuestion();
   };
 
-  fetchQuestions = () => {
+  componentWillUnmount = () => {
+    const { actions } = this.props;
+    actions.clearAnswers();
+  };
+
+  fetchQuestion = () => {
     const {
       actions,
-      params: { objectId },
+      params: { objectId, threadId },
     } = this.props;
     const { refetchAstronomerQuestions } = actions;
 
-    // getAllQuestions({ objectId, ...filter });
-    refetchAstronomerQuestions({ objectId });
-  };
-
-  // todo
-  /*fetchAnswers = () => {
-    const { fetchAstronomerAnswers, params } = this.props;
-    const { threadId } = params;
-    console.log(threadId);
-    fetchAstronomerAnswers({ threadId });
-  };*/
-
-  componentWillUnmount = () => {
-    if (this.checkData()) {
-      this.toggleAllAnswers(false);
-    }
+    return refetchAstronomerQuestions({ objectId, threadId, currentPage: 1 });
   };
 
   showModal = () => {
@@ -76,44 +62,18 @@ export class Question extends Component {
     return submitAnswerToQuestion(params).then(res => callback(res.payload));
   };
 
-  checkData = () => {
-    const { questions, params } = this.props;
-
-    if (!questions || !questions.length) {
-      // go back to questions list
-      browserHistory.push(`/object-details/${params.objectId}/ask`);
-      return null;
-    }
-    return true;
-  };
-
-  toggleAllAnswers = res => {
-    const { questions, params, actions } = this.props;
-    const { toggleAllAnswersAndDisplay } = actions;
-
-    const item = questions.find(el => +el.threadId === +params.threadId) || {};
-    toggleAllAnswersAndDisplay({
-      threadId: item.threadId,
-      showAllAnswers: res,
-    });
-  };
-
   render() {
     const {
       questions,
-      params,
       actions,
-      allAnswers,
+      answers,
+      visibleAnswersCount,
+      fetching,
       canAnswerQuestions,
       canReplyToAnswers,
-      fetchingAnswers,
       isDesktop,
       likeParams,
       user,
-      submitAnswer,
-      // modalActions,
-      // updateQuestionsList,
-      allDisplayedAnswers,
       answerFetching,
       fetchingReplies,
       fetchingQuestions,
@@ -122,8 +82,6 @@ export class Question extends Component {
     } = this.props;
 
     if (!questions || !questions.length) {
-      // go back to questions list
-      browserHistory.push(`/object-details/${objectId}/ask`);
       return null;
     }
 
@@ -146,9 +104,7 @@ export class Question extends Component {
       submitAnswerToQuestion,
     } = actions;
 
-    this.checkData();
-
-    const item = questions.find(el => +el.threadId === +params.threadId) || {};
+    const item = questions[0];
 
     const likeThreadParams = Object.assign({}, likeParams, {
       threadId: item.threadId,
@@ -156,20 +112,15 @@ export class Question extends Component {
       forumId: item.forumId,
     });
 
-    const threadAnswers = allAnswers[item.threadId] || { replies: [] };
-    const allDisplayedAnswersObjs = threadAnswers.replies.filter(
-      answer =>
-        allDisplayedAnswers[item.threadId] &&
-        allDisplayedAnswers[item.threadId].indexOf(answer.replyId) > -1
-    );
-
-    const answers = allAnswers[params.threadId];
-    const fetching = fetchingAnswers[params.threadId];
+    if (!answers) {
+      return null;
+    }
 
     return (
       <div style={{ position: 'relative' }}>
         <Spinner
           loading={
+            fetching ||
             answerFetching ||
             fetchingReplies ||
             fetchingQuestions ||
@@ -188,7 +139,7 @@ export class Question extends Component {
             <Card
               {...item}
               objectId={objectId}
-              showComments={answers.showAllAnswers}
+              showComments
               likeHandler={likeThread}
               likeParams={likeThreadParams}
               isDesktop={isDesktop}
@@ -201,7 +152,7 @@ export class Question extends Component {
                   submitForm={this.submitAnswer}
                   modalActions={modalActions}
                   updateQuestionsList={() => {
-                    this.fetchQuestions();
+                    this.fetchQuestion();
                   }}
                   user={user}
                 />
@@ -211,9 +162,9 @@ export class Question extends Component {
               renderChildReplies={() => (
                 <AnswerList
                   answers={answers}
+                  visibleAnswersCount={visibleAnswersCount}
                   canAnswerQuestions={canAnswerQuestions}
                   canReplyToAnswers={canReplyToAnswers}
-                  displayedAnswers={allDisplayedAnswersObjs}
                   isDesktop={isDesktop}
                   numberOfAnswersToThread={item.replyToponlyCount}
                   objectId={objectId}
@@ -221,12 +172,11 @@ export class Question extends Component {
                   topicId={item.topicId}
                   modalActions={modalActions}
                   updateQuestionsList={() => {
-                    this.fetchQuestions();
+                    this.fetchQuestion();
                   }}
                 />
               )}
             />
-            {fetching && <div className="fa fa-spinner loader" />}
             <style jsx>{style}</style>
           </div>
         </Container>

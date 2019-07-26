@@ -146,7 +146,7 @@ class ImageList extends Component {
     const PREVIOUS_PAGE = activePage - 1;
     const firstImageNumber =
       activePage === 1 ? 1 : PREVIOUS_PAGE * PHOTOS_ON_ONE_PAGE + 1;
-    
+
     fetchImages({
       sharedOnly: type === 'observations',
       firstImageNumber,
@@ -222,9 +222,15 @@ class ImageList extends Component {
   setFilterOpen = isFilterOpen => this.setState({ isFilterOpen });
 
   handlePageChange = ({ activePage }) => {
-    const { actions, type, deviceInfo, params = {}, location: { pathname }, } = this.props;
+    const {
+      actions,
+      type,
+      deviceInfo,
+      params = {},
+      location: { pathname },
+    } = this.props;
     const { customerUUID } = params;
-    
+
     // used for determine first photo sequence number and fetch next 9 photos
     const PHOTOS_ON_ONE_PAGE = 9;
     const PREVIOUS_PAGE = activePage - 1;
@@ -236,7 +242,7 @@ class ImageList extends Component {
     const imagesToFetch = getImagesCountToFetch(deviceInfo);
 
     browserHistory.push({
-      pathname: pathname,
+      pathname,
       search: `?page=${activePage}`,
     });
 
@@ -326,6 +332,7 @@ class ImageList extends Component {
       timeList,
       myPicturesFilters,
       tagsData,
+      params,
     } = this.props;
     const tagActions = {
       getTags,
@@ -343,21 +350,23 @@ class ImageList extends Component {
 
     return (
       <div className={cn}>
-        <div className="filter-dropdown-btn">
-          <FilterDropdown
-            isOpen={isFilterOpen}
-            setOpen={this.setFilterOpen}
-            onChange={this.handleFilterChange}
-            telescopeList={telescopeList}
-            timeList={timeList}
-            objectTypeList={objectTypeList}
-            selectedFilters={selectedFilters}
-            onApply={this.handleApplyFilter}
-            //tags component
-            setSelectedTagsTabIndex={setSelectedTagsTabIndex}
-            myPicturesFilters={myPicturesFilters}
-          />
-        </div>
+        {params.private && (
+          <div className="filter-dropdown-btn">
+            <FilterDropdown
+              isOpen={isFilterOpen}
+              setOpen={this.setFilterOpen}
+              onChange={this.handleFilterChange}
+              telescopeList={telescopeList}
+              timeList={timeList}
+              objectTypeList={objectTypeList}
+              selectedFilters={selectedFilters}
+              onApply={this.handleApplyFilter}
+              //tags component
+              setSelectedTagsTabIndex={setSelectedTagsTabIndex}
+              myPicturesFilters={myPicturesFilters}
+            />
+          </div>
+        )}
         {isFilterOpen && (
           <div className="filter-shader animated fadeIn faster" />
         )}

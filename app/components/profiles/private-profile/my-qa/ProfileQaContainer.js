@@ -1,7 +1,3 @@
-/* ********************************
- * V4 Private profile QA container
- ********************************* */
-
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl, intlShape } from 'react-intl';
@@ -21,11 +17,23 @@ class ProfileQaContainer extends Component {
     intl: intlShape.isRequired,
   };
 
-  getNavItems = (intl, AskAstronomerData) => {
-    //build the nav options based on the API data returned about member's account tier
-    let navOptions = [];
+  getPublicNavItems = customerUUID => [
+    {
+      title: 'Questions',
+      linkURL: `/profile/public/${customerUUID}/qa/asked`,
+    },
+    {
+      title: 'Answers',
+      linkURL: `/profile/public/${customerUUID}/qa/answeredbyme`,
+    },
+    {
+      title: 'Questions to answer',
+      linkURL: `/profile/public/${customerUUID}/qa/allunanswered`,
+    },
+  ];
 
-    navOptions.push({
+  getPrivateNavItems = intl => [
+    {
       title: intl.formatMessage(messages.MyQuestions),
       linkURL: '/profile/private/qa/asked',
     });
@@ -37,11 +45,9 @@ class ProfileQaContainer extends Component {
 
     navOptions.push({
       title: intl.formatMessage(messages.QuestionsToAnswer),
-      linkURL: '/profile/public/qa/allunanswered',
-    });
-
-    return navOptions;
-  }
+      linkURL: '/profile/private/qa/allunanswered',
+    },
+  ];
 
   render() {
 
@@ -64,37 +70,17 @@ class ProfileQaContainer extends Component {
         <ContainerWithTitle
           title={intl.formatMessage(messages.QaSectionTitle)}
           activeFilter={params.filter}
-          navItems={this.getNavItems(intl, myAskData)}
+          navItems={
+            params.private
+              ? this.getPrivateNavItems(intl)
+              : this.getPublicNavItems(params.customerUUID)
+          }
           parentPath="profile/private/qa"
           showNavigation
         >
-
-          {params.filter == "asked" &&
-            <QaContainer params={params}>
-              <MyQa key={`qa-tab-${params.filter}`} />
-            </QaContainer>
-          }
-
-          {params.filter == "answeredbyme" && myAskData.canAnswerQuestions && <QaContainer params={params}>
-              <MyQa key={`qa-tab-${params.filter}`} />
-            </QaContainer>
-          }
-
-          {params.filter == "answeredbyme" && myAskData.canAnswerQuestions === false && <QaContainer params={params}>
-              <p>hello1</p>
-            </QaContainer>
-          }
-
-          {params.filter == "allunanswered" && myAskData.canAnswerQuestions && <QaContainer params={params}>
-              <MyQa key={`qa-tab-${params.filter}`} />
-            </QaContainer>
-          }
-
-          {params.filter == "allunanswered" && myAskData.canAnswerQuestions === false && <QaContainer params={params}>
-              <p>hello2</p>
-            </QaContainer>
-          }
-
+          <QaContainer params={params}>
+            <MyQa key={`qa-tab-${params.filter}`} isPrivate={params.private} />
+          </QaContainer>
         </ContainerWithTitle>
       </CenterColumn>
     );
