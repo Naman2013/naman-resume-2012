@@ -22,11 +22,14 @@ export class QuestModuleQaFreeForm extends PureComponent {
       activityTitle,
       activityState,
       activityInstructions,
+      activityPrompt,
       moduleBaseImageURL,
       moduleBaseThumbnailURL,
+      textInputReadOnly,
+      textInputPlaceholder,
+      showSubmitButton,
+      submitButtonCaption,
     } = questQaFreeForm[moduleId] || {};
-    console.log(this.props);
-    // const { panelList } = questOutput;
 
     return (
       <div className="quest-qa-free-form">
@@ -40,6 +43,11 @@ export class QuestModuleQaFreeForm extends PureComponent {
         <QuestQaAnswerForm
           imageUrl={moduleBaseImageURL}
           thumbnailUrl={moduleBaseThumbnailURL}
+          answerFieldPrompt={activityPrompt}
+          readOnly={textInputReadOnly}
+          placeholder={textInputPlaceholder}
+          submitButtonCaption={submitButtonCaption}
+          showSubmitButton={showSubmitButton}
         />
       </div>
     );
