@@ -64,8 +64,7 @@ class QaContainer extends Component {
 
   updateQuestionsList = () => {
     const { actions } = this.props;
-
-    actions.fetchAstronomerQuestions({});
+    return actions.fetchAstronomerQuestions({});
   };
 
   render() {
@@ -101,6 +100,7 @@ class QaContainer extends Component {
 const mapStateToProps = ({ astronomerAnswers, astronomerQuestions, user }) => ({
   allAnswers: astronomerAnswers.allAnswers,
   allDisplayedAnswers: astronomerAnswers.allDisplayedAnswers,
+  fetchingAnswersBool: astronomerAnswers.fetching,
   questionFilter: astronomerQuestions.questionFilter,
   questions: astronomerQuestions.threadList,
   page: astronomerQuestions.page,

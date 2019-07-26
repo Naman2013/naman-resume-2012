@@ -54,13 +54,11 @@ const QuestionListItem = props => {
             replyTo={item.threadId}
             submitForm={submitAnswer}
             modalActions={modalActions}
-            updateQuestionsList={() => {
-              updateQuestionsList().then(() =>
-                browserHistory.push(
-                  `/object-details/${props.params.objectId}/question/${item.threadId}`
-                )
-              );
-            }}
+            updateQuestionsList={() =>
+              browserHistory.push(
+                `/object-details/${props.params.objectId}/question/${item.threadId}`
+              )
+            }
             user={user}
           />
         )}
