@@ -17,7 +17,22 @@ class ProfileQaContainer extends Component {
     intl: intlShape.isRequired,
   };
 
-  getNavItems = intl => [
+  getPublicNavItems = customerUUID => [
+    {
+      title: 'Questions',
+      linkURL: `/profile/public/${customerUUID}/qa/asked`,
+    },
+    {
+      title: 'Answers',
+      linkURL: `/profile/public/${customerUUID}/qa/answeredbyme`,
+    },
+    {
+      title: 'Questions to answer',
+      linkURL: `/profile/public/${customerUUID}/qa/allunanswered`,
+    },
+  ];
+
+  getPrivateNavItems = intl => [
     {
       title: intl.formatMessage(messages.MyQuestions),
       linkURL: '/profile/private/qa/asked',
@@ -28,7 +43,7 @@ class ProfileQaContainer extends Component {
     },
     {
       title: intl.formatMessage(messages.QuestionsToAnswer),
-      linkURL: '/profile/public/qa/allunanswered',
+      linkURL: '/profile/private/qa/allunanswered',
     },
   ];
 
@@ -40,12 +55,16 @@ class ProfileQaContainer extends Component {
         <ContainerWithTitle
           title={intl.formatMessage(messages.QaSectionTitle)}
           activeFilter={params.filter}
-          navItems={this.getNavItems(intl)}
+          navItems={
+            params.private
+              ? this.getPrivateNavItems(intl)
+              : this.getPublicNavItems(params.customerUUID)
+          }
           parentPath="profile/private/qa"
           showNavigation
         >
           <QaContainer params={params}>
-            <MyQa key={`qa-tab-${params.filter}`} />
+            <MyQa key={`qa-tab-${params.filter}`} isPrivate={params.private} />
           </QaContainer>
         </ContainerWithTitle>
       </CenterColumn>
