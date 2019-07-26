@@ -36,14 +36,12 @@ class ProfileQaContainer extends Component {
     {
       title: intl.formatMessage(messages.MyQuestions),
       linkURL: '/profile/private/qa/asked',
-    });
-
-    navOptions.push({
+    },
+    {
       title: intl.formatMessage(messages.MyAnswers),
       linkURL: '/profile/private/qa/answeredbyme',
-    });
-
-    navOptions.push({
+    },
+    {
       title: intl.formatMessage(messages.QuestionsToAnswer),
       linkURL: '/profile/private/qa/allunanswered',
     },
