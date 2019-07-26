@@ -6,8 +6,7 @@ import React, { Component, cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import Modal from 'react-modal';
-
+import { Modal } from 'app/components/modal';
 import {
   fetchAstronomerQuestions,
   askQuestion,
