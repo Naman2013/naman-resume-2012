@@ -39,6 +39,9 @@
       .module-container {
         margin: 0;
         box-shadow: none;
+        .moonlight-actions > .button-container {
+          width: 25% !important;
+        }
       }
     }
   }
