@@ -1,6 +1,11 @@
-import TopicList from 'app/components/guides/TopicList';
 import React, { PureComponent } from 'react';
+import { QuestQaHeader } from '../../quest-qa/quest-qa-header';
 import './styles.scss';
+
+const ACTIVITY_STATES = {
+  complete: 'complete',
+  incomplete: 'incomplete',
+};
 
 export class QuestModuleQaFreeForm extends PureComponent {
   componentDidMount = () => {
@@ -12,10 +17,17 @@ export class QuestModuleQaFreeForm extends PureComponent {
   render() {
     const { questQaFreeForm, module } = this.props;
     const { moduleId } = module;
-    const { moduleUUID } = questQaFreeForm[moduleId] || {};
+    const { activityTitle, activityState } = questQaFreeForm[moduleId] || {};
     console.log(this.props);
     // const { panelList } = questOutput;
 
-    return <div className="quest-qa-free-form">{moduleUUID}</div>;
+    return (
+      <div className="quest-qa-free-form">
+        <QuestQaHeader
+          title={activityTitle}
+          completed={activityState === ACTIVITY_STATES.complete}
+        />
+      </div>
+    );
   }
 }
