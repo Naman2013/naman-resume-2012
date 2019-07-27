@@ -52,10 +52,13 @@ export default class TelescopeOffline extends Component {
       currentInstrument,
       allObservatoryTelescopeStatus,
       dayNightMap,
+      DayNightBarPanel,
       weatherSatellite,
       weatherConditions,
     } = this.props;
-    
+
+    console.log(`DayNightBarPanelWidgetId`, DayNightBarPanel);
+
     return (
       <div className="telescope-offline animated fadeIn faster">
         {/* HEADER */}
@@ -104,6 +107,7 @@ export default class TelescopeOffline extends Component {
                 currentTelescope={currentTelescope}
                 currentObservatory={currentObservatory}
                 dayNightMap={dayNightMap}
+                DayNightBarPanel={DayNightBarPanel}
                 weatherSatellite={weatherSatellite}
                 weatherConditions={weatherConditions}
               />
