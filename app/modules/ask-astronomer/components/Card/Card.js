@@ -46,6 +46,7 @@ const Card = props => {
     likePrompt,
     likesCount,
     modalActions,
+    objectName,
     renderChildReplies,
     renderReplyButton,
     replyToponlyCount,
@@ -55,6 +56,7 @@ const Card = props => {
     toggleComments,
     showComments,
     showLikePrompt,
+    showObjectName,
     user,
   } = props;
 
@@ -81,6 +83,10 @@ const Card = props => {
           </div>
           <span className="date">{moment.utc(creationDate).fromNow()}</span>
         </div>
+
+        {showObjectName && (
+          <div className="object-name-container">{objectName}</div>
+        )}
 
         <div
           className="content"
