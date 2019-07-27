@@ -26,7 +26,7 @@ export const ObservatoryBotOffline = props => {
   return (
     <div className="observatory-offline">
       <Tab.Container
-        defaultActiveKey="SATELLITE"
+        defaultActiveKey="TIME"
         id="tabs"
         unmountOnExit
         mountOnEnter
