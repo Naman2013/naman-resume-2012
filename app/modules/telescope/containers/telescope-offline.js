@@ -8,6 +8,7 @@ import TelescopeOffline from 'app/modules/telescope/components/offline';
 import {
   makeDayNightBarPanelSelector,
   makeDayNightMapSelector,
+  makeDayNightBarSelector,
   makeDomeCamSelector,
   makeFacilityWebcamSelector,
   makeWeatherSatelliteSelector,
@@ -21,6 +22,7 @@ import { createStructuredSelector } from 'reselect';
 
 const mapStateToProps = createStructuredSelector({
   dayNightBarPanel: makeDayNightBarPanelSelector(),
+  dayNightBar: makeDayNightBarSelector(),
   dayNightMap: makeDayNightMapSelector(),
   weatherSatellite: makeWeatherSatelliteSelector(),
   domeCam: makeDomeCamSelector(),
