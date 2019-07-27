@@ -81,8 +81,6 @@ class BootstrappedShow extends Component {
     }
 
     if (this.props.upcomingFlag !== nextProps.upcomingFlag) {
-      console.log(this.props);
-      console.log(nextProps);
       this.setState({
         isUpcomingShow: nextProps.upcomingFlag,
       });
@@ -119,7 +117,7 @@ class BootstrappedShow extends Component {
     const milliTimestamp = Number(timestamp) * 1000;
     const remainingTime = milliExpires - milliTimestamp;
 
-    //this state can not support a show with a lead time of more than 24.9 days - 32bit signed integer limit is 2147483647 
+    //this state can not support a show with a lead time of more than 24.9 days - 32bit signed integer limit is 2147483647
     if ( (remainingTime > 1000) && (remainingTime < 21000000) ) {
       this.timerPointer = setTimeout(::this.setNextShowState, remainingTime);
     }
