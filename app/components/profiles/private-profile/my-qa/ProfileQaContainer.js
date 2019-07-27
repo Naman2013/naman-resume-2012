@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl, intlShape } from 'react-intl';
+import { connect } from 'react-redux';
 
 import QaContainer from '../../../../modules/ask-astronomer/containers/QaContainer';
 import { ContainerWithTitle } from '../../../common/ContainerWithTitle';
@@ -32,7 +33,7 @@ class ProfileQaContainer extends Component {
     },
   ];
 
-  getPrivateNavItems = intl => [
+  getPrivateNavItems = (intl, canAnswerQuestions) => [
     {
       title: intl.formatMessage(messages.MyQuestions),
       linkURL: '/profile/private/qa/asked',
@@ -40,16 +41,19 @@ class ProfileQaContainer extends Component {
     {
       title: intl.formatMessage(messages.MyAnswers),
       linkURL: '/profile/private/qa/answeredbyme',
+      disabled: !canAnswerQuestions,
     },
     {
       title: intl.formatMessage(messages.QuestionsToAnswer),
       linkURL: '/profile/private/qa/allunanswered',
+      disabled: !canAnswerQuestions,
     },
   ];
 
   render() {
+    const { params, intl, canAnswerQuestions } = this.props;
 
-    const { params, intl } = this.props;
+    console.log(this.props);
 
     let myAskData = null;
     if (this.props) {
@@ -57,8 +61,7 @@ class ProfileQaContainer extends Component {
         if (this.props.privateProfileData.askAnAstronomerData) {
           myAskData = this.props.privateProfileData.askAnAstronomerData;
         }
-      }
-      else if (this.props.data) {
+      } else if (this.props.data) {
         myAskData = this.props.data.askAnAstronomerData;
       }
     }
@@ -70,7 +73,7 @@ class ProfileQaContainer extends Component {
           activeFilter={params.filter}
           navItems={
             params.private
-              ? this.getPrivateNavItems(intl)
+              ? this.getPrivateNavItems(intl, canAnswerQuestions)
               : this.getPublicNavItems(params.customerUUID)
           }
           parentPath="profile/private/qa"
@@ -85,4 +88,13 @@ class ProfileQaContainer extends Component {
   }
 }
 
-export default injectIntl(ProfileQaContainer);
+const mapStateToProps = ({ astronomerQuestions }) => ({
+  canAnswerQuestions: astronomerQuestions.canAnswerQuestions,
+});
+
+const mapDispatchToProps = () => ({});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(injectIntl(ProfileQaContainer));
