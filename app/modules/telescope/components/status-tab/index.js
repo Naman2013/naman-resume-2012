@@ -24,8 +24,10 @@ export const StatusTab = props => {
     facilityWebcam,
     domeCam,
     teidePeakCam,
-    DayNightBarPanel,
+    dayNightBarPanel,
+    dayNightBar,
   } = props;
+
   return (
     <div className="animated fadeIn faster status-tab">
       <div className="telescope-views">
@@ -115,10 +117,13 @@ export const StatusTab = props => {
             </Box>
 
             <WeatherConditions obsId={obsId} />
-            <DayNightBar
-              dayNightBarPanelURL={DayNightBarPanel.dayNightBarPanelURL}
-              dayNightBar={dayNightBar}
-            />
+
+            {dayNightBar.dayNightRawData && (
+              <DayNightBar
+                dayNightBarPanelURL={dayNightBarPanel.dayNightBarPanelURL}
+                dayNightBar={dayNightBar}
+              />
+            )}
           </Col>
         </Row>
       </Container>

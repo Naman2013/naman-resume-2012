@@ -27,7 +27,6 @@ const TabConditions = props => {
     weatherConditions,
   } = props;
   const { SeeingConditionsWidgetId, obsId } = currentObservatory;
-  console.log(`dayNightBar`, dayNightBar);
   return (
     <div>
       {currentTelescope.teleHasNeoView && (

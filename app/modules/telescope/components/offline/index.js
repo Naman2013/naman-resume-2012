@@ -24,12 +24,14 @@ export default class TelescopeOffline extends Component {
       DomecamWidgetId,
       FacilityWebcamWidgetId,
       AllskyWidgetId,
+      DayNightBarWidgetId,
     } = currentObservatory;
     setPreviousInstrument(null);
     fetchAllWidgets({
       obsId,
       DayNightBarPanelWidgetId,
       DayNightMapWidgetId,
+      DayNightBarWidgetId,
       AllskyWidgetId,
       DomecamWidgetId,
     });
@@ -52,12 +54,11 @@ export default class TelescopeOffline extends Component {
       currentInstrument,
       allObservatoryTelescopeStatus,
       dayNightMap,
-      DayNightBarPanel,
+      dayNightBarPanel,
+      dayNightBar,
       weatherSatellite,
       weatherConditions,
     } = this.props;
-
-    console.log(`DayNightBarPanelWidgetId`, DayNightBarPanel);
 
     return (
       <div className="telescope-offline animated fadeIn faster">
@@ -107,7 +108,8 @@ export default class TelescopeOffline extends Component {
                 currentTelescope={currentTelescope}
                 currentObservatory={currentObservatory}
                 dayNightMap={dayNightMap}
-                DayNightBarPanel={DayNightBarPanel}
+                dayNightBarPanel={dayNightBarPanel}
+                dayNightBar={dayNightBar}
                 weatherSatellite={weatherSatellite}
                 weatherConditions={weatherConditions}
               />
