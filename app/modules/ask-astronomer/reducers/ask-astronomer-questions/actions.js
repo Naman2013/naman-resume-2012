@@ -45,6 +45,7 @@ export const fetchAstronomerQuestions = ({
   currentPage,
   objectId,
   ver,
+  customerUUID,
 }) => (dispatch, getState) => {
   const { cid, at, token } = getState().user;
   const { count, questionFilter, page } = getState().astronomerQuestions;
@@ -62,6 +63,7 @@ export const fetchAstronomerQuestions = ({
       ver,
       objectId,
       answerState: answerState || questionFilter,
+      customerUUID,
     })
     .then(result => {
       return dispatch(
