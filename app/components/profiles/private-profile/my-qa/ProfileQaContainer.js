@@ -53,8 +53,6 @@ class ProfileQaContainer extends Component {
   render() {
     const { params, intl, canAnswerQuestions } = this.props;
 
-    console.log(this.props);
-
     let myAskData = null;
     if (this.props) {
       if (this.props.privateProfileData) {
