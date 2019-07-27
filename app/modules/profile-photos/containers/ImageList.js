@@ -212,6 +212,20 @@ class ImageList extends Component {
     }
   }
 
+  componentWillUnmount(){
+    this.handleFilterChange({
+      pierNumber: null,
+      observatoryId: null,
+      filterType: null,
+      timeFilter: null,
+      dateFilter: null,
+      missionSystemTags: [],
+      missionUserTags: [],
+      pictureUserTags: [],
+    });
+    this.handleApplyFilter();
+  }
+
   fetchFilters = () => {
     const { actions } = this.props;
     const { fetchFiltersLists, fetchObjectTypeList } = actions;
