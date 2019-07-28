@@ -120,7 +120,7 @@ class SubmitReplyReplyButton extends Component {
         cid: user.cid,
         callSource,
       },
-      data => this.handleSubmitReply(data)
+      this.handleSubmitReply
     );
   };
 

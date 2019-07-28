@@ -4,10 +4,10 @@ import { ModuleHeader } from './module-header';
 import style from './module-container.style';
 
 const ModuleContainer = props => {
-  const { children, title, titleIcon, hideHeader } = props;
+  const { children, title, titleIcon } = props;
   return (
     <div className="module-container">
-      {!hideHeader && <ModuleHeader title={title} titleIcon={titleIcon} />}
+      <ModuleHeader title={title} titleIcon={titleIcon} />
       {children}
       <style jsx>{style}</style>
     </div>

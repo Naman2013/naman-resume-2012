@@ -1,10 +1,7 @@
-/* ********************************
- * V4 Private profile QA container
- ********************************* */
-
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl, intlShape } from 'react-intl';
+import { connect } from 'react-redux';
 
 import QaContainer from '../../../../modules/ask-astronomer/containers/QaContainer';
 import { ContainerWithTitle } from '../../../common/ContainerWithTitle';
@@ -21,31 +18,40 @@ class ProfileQaContainer extends Component {
     intl: intlShape.isRequired,
   };
 
-  getNavItems = (intl, AskAstronomerData) => {
-    //build the nav options based on the API data returned about member's account tier
-    let navOptions = [];
+  getPublicNavItems = customerUUID => [
+    {
+      title: 'Questions',
+      linkURL: `/profile/public/${customerUUID}/qa/asked`,
+    },
+    {
+      title: 'Answers',
+      linkURL: `/profile/public/${customerUUID}/qa/answeredbyme`,
+    },
+    {
+      title: 'Questions to answer',
+      linkURL: `/profile/public/${customerUUID}/qa/allunanswered`,
+    },
+  ];
 
-    navOptions.push({
+  getPrivateNavItems = (intl, canAnswerQuestions) => [
+    {
       title: intl.formatMessage(messages.MyQuestions),
       linkURL: '/profile/private/qa/asked',
-    });
-
-    navOptions.push({
+    },
+    {
       title: intl.formatMessage(messages.MyAnswers),
       linkURL: '/profile/private/qa/answeredbyme',
-    });
-
-    navOptions.push({
+      disabled: !canAnswerQuestions,
+    },
+    {
       title: intl.formatMessage(messages.QuestionsToAnswer),
-      linkURL: '/profile/public/qa/allunanswered',
-    });
-
-    return navOptions;
-  }
+      linkURL: '/profile/private/qa/allunanswered',
+      disabled: !canAnswerQuestions,
+    },
+  ];
 
   render() {
-
-    const { params, intl } = this.props;
+    const { params, intl, canAnswerQuestions } = this.props;
 
     let myAskData = null;
     if (this.props) {
@@ -53,8 +59,7 @@ class ProfileQaContainer extends Component {
         if (this.props.privateProfileData.askAnAstronomerData) {
           myAskData = this.props.privateProfileData.askAnAstronomerData;
         }
-      }
-      else if (this.props.data) {
+      } else if (this.props.data) {
         myAskData = this.props.data.askAnAstronomerData;
       }
     }
@@ -64,41 +69,30 @@ class ProfileQaContainer extends Component {
         <ContainerWithTitle
           title={intl.formatMessage(messages.QaSectionTitle)}
           activeFilter={params.filter}
-          navItems={this.getNavItems(intl, myAskData)}
+          navItems={
+            params.private
+              ? this.getPrivateNavItems(intl, canAnswerQuestions)
+              : this.getPublicNavItems(params.customerUUID)
+          }
           parentPath="profile/private/qa"
           showNavigation
         >
-
-          {params.filter == "asked" &&
-            <QaContainer params={params}>
-              <MyQa key={`qa-tab-${params.filter}`} />
-            </QaContainer>
-          }
-
-          {params.filter == "answeredbyme" && myAskData.canAnswerQuestions && <QaContainer params={params}>
-              <MyQa key={`qa-tab-${params.filter}`} />
-            </QaContainer>
-          }
-
-          {params.filter == "answeredbyme" && myAskData.canAnswerQuestions === false && <QaContainer params={params}>
-              <p>hello1</p>
-            </QaContainer>
-          }
-
-          {params.filter == "allunanswered" && myAskData.canAnswerQuestions && <QaContainer params={params}>
-              <MyQa key={`qa-tab-${params.filter}`} />
-            </QaContainer>
-          }
-
-          {params.filter == "allunanswered" && myAskData.canAnswerQuestions === false && <QaContainer params={params}>
-              <p>hello2</p>
-            </QaContainer>
-          }
-
+          <QaContainer params={params}>
+            <MyQa key={`qa-tab-${params.filter}`} isPrivate={params.private} />
+          </QaContainer>
         </ContainerWithTitle>
       </CenterColumn>
     );
   }
 }
 
-export default injectIntl(ProfileQaContainer);
+const mapStateToProps = ({ astronomerQuestions }) => ({
+  canAnswerQuestions: astronomerQuestions.canAnswerQuestions,
+});
+
+const mapDispatchToProps = () => ({});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(injectIntl(ProfileQaContainer));

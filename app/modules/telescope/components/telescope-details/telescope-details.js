@@ -149,10 +149,7 @@ export class TelescopeDetails extends Component {
       countdownList,
       updateCurrentInstrument,
       user,
-      dayNightBar,
-      dayNightBarPanel,
     } = this.props;
-
     if (
       !observatoryList.length ||
       !countdownList.length ||
@@ -160,7 +157,7 @@ export class TelescopeDetails extends Component {
     ) {
       return null;
     }
-
+    
     const activeInstrumentID = currentInstrument.instrUniqueId;
     const navigationOptions = buildNavigationOptions(observatoryList);
     const selectedNavigationIndex = findActiveTelescopeIndex(
@@ -183,7 +180,7 @@ export class TelescopeDetails extends Component {
           telescope.teleUniqueId === activeTelescope.telescopeUniqueID
       )
     );
-
+    
     return (
       <div>
         <TelescopeNavigation
@@ -197,15 +194,12 @@ export class TelescopeDetails extends Component {
         {/* Telescope: Offline State */}
         {activeTelescopeStatus &&
           activeTelescopeStatus.onlineStatus === 'offline' && (
-
             <TelescopeOffline
-              {...this.props}
               key={`currentTelescopeId-${currentTelescope.teleId}`}
               currentTelescope={currentTelescope}
               currentObservatory={currentObservatory}
               currentInstrument={currentInstrument}
               allObservatoryTelescopeStatus={allObservatoryTelescopeStatus}
-              activeTelescopeStatus={activeTelescopeStatus}
             />
           )}
         {/* Telescope: Online State */}

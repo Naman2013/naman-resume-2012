@@ -11,34 +11,25 @@ const mapStateToProps = ({
   telescopeOverview: { weatherMissionControlStatusWidgetResult },
 }) => ({
   title: weatherMissionControlStatusWidgetResult.title,
-  refreshIntervalSec:
-    weatherMissionControlStatusWidgetResult.refreshIntervalSec,
-  missionControlStatusURL:
-    weatherMissionControlStatusWidgetResult.missionControlStatusURL,
-  fetchingWeatherMissionControlStatusWidgetResult:
-    telescopeOverview.fetchingWeatherMissionControlStatusWidgetResult,
+  refreshIntervalSec: weatherMissionControlStatusWidgetResult.refreshIntervalSec,
+  missionControlStatusURL: weatherMissionControlStatusWidgetResult.missionControlStatusURL,
+  fetchingWeatherMissionControlStatusWidgetResult: telescopeOverview.fetchingWeatherMissionControlStatusWidgetResult,
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators(
-    {
-      fetchWeatherMissionControlStatus,
-    },
-    dispatch
-  ),
+  actions: bindActionCreators({
+    fetchWeatherMissionControlStatus,
+  }, dispatch),
 });
 
-@connect(
-  mapStateToProps,
-  mapDispatchToProps
-)
+@connect(mapStateToProps, mapDispatchToProps)
 class WeatherMissionControlStatusWidget extends Component {
   static propTypes = {
     obsId: PropTypes.string.isRequired,
     missionControlStatusWidgetId: PropTypes.string.isRequired,
     fetchingWeatherMissionControlStatusWidgetResult: PropTypes.bool.isRequired,
     refreshIntervalSec: PropTypes.number.isRequired,
-    missionControlStatusURL: PropTypes.string.isRequired,
+    missionControlStatusURL : PropTypes.string.isRequired,
     actions: PropTypes.shape({
       fetchWeatherMissionControlStatus: PropTypes.func.isRequired,
     }).isRequired,
@@ -53,14 +44,10 @@ class WeatherMissionControlStatusWidget extends Component {
   }
 
   componentWillUpdate(nextProps) {
-    if (
-      this.props.missionControlStatusWidgetId !==
-        nextProps.missionControlStatusWidgetId &&
-      this.props.obsId !== nextProps.obsId
-    ) {
+    if (this.props.missionControlStatusWidgetId !== nextProps.missionControlStatusWidgetId && this.props.obsId !== nextProps.obsId) {
       this.props.actions.fetchWeatherMissionControlStatus({
         obsId: nextProps.obsId,
-        missionControlStatusWidgetId: nextProps.missionControlStatusWidgetId,
+        missionControlStatusWidgetId: nextProps.missionControlStatusWidgetId ,
       });
     }
   }
@@ -72,22 +59,21 @@ class WeatherMissionControlStatusWidget extends Component {
       fetchingWeatherMissionControlStatisWidgetResult,
       title,
       refreshIntervalSec,
-      missionControlStatusURL,
+      missionControlStatusURL ,
     } = this.props;
 
     return (
       <div className="telescope-block weather-missioncontrolstatus-widget">
         <div className="live-weather-missioncontrolstatus">
-          {missionControlStatusURL ? (
-            <RefreshedImage
-              imageURL={missionControlStatusURL}
-              refreshIntervalSec={refreshIntervalSec}
-              imageAltText=""
-            />
-          ) : (
-            <GenericLoadingBox />
-          )}
-        </div>
+           {
+             missionControlStatusURL ?
+               <RefreshedImage
+                 imageURL={missionControlStatusURL}
+                 refreshIntervalSec={refreshIntervalSec}
+                 imageAltText=""
+                 /> : <GenericLoadingBox />
+           }
+         </div>
       </div>
     );
   }

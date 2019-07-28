@@ -6,8 +6,7 @@ import React, { Component, cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import Modal from 'react-modal';
-
+import { Modal } from 'app/components/modal';
 import {
   fetchAstronomerQuestions,
   askQuestion,
@@ -65,8 +64,7 @@ class QaContainer extends Component {
 
   updateQuestionsList = () => {
     const { actions } = this.props;
-
-    actions.fetchAstronomerQuestions({});
+    return actions.fetchAstronomerQuestions({});
   };
 
   render() {
@@ -102,9 +100,11 @@ class QaContainer extends Component {
 const mapStateToProps = ({ astronomerAnswers, astronomerQuestions, user }) => ({
   allAnswers: astronomerAnswers.allAnswers,
   allDisplayedAnswers: astronomerAnswers.allDisplayedAnswers,
+  fetchingAnswersBool: astronomerAnswers.fetching,
   questionFilter: astronomerQuestions.questionFilter,
   questions: astronomerQuestions.threadList,
   page: astronomerQuestions.page,
+  pages: astronomerQuestions.pages,
   totalCount: astronomerQuestions.threadCount,
   count: astronomerQuestions.count,
   canAnswerQuestions: astronomerQuestions.canAnswerQuestions,

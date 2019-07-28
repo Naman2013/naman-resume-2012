@@ -3,11 +3,11 @@ import { ModuleContainer } from './index';
 import style from './observatory-information.style';
 
 const ObservatoryInformation = props => {
-  const { clockList, compactMode, hideHeader } = props;
+  const { clockList, compactMode } = props;
   const { obsClosed, obsCurrentTime, obsOpen } = clockList;
   let cls = 'observatory-data-list';
   return (
-    <ModuleContainer title="Observatory information" hideHeader={hideHeader}>
+    <ModuleContainer title="Observatory information">
       <ul className={compactMode ? `${cls} compact` : cls}>
         <li className="datum">
           <h4 className="title">{obsOpen.displayLabel}</h4>

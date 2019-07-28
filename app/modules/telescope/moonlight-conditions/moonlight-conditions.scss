@@ -4,6 +4,7 @@
 @import '~app/styles/variables/shadows.scss';
 
 .moonlight-conditions {
+  padding: 0;
   list-style-type: none;
   color: $lightHeadedAstronaut;
   padding: 0 40px 0 40px;
@@ -44,8 +45,6 @@
 }
 
 .moonlight-actions {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  padding: 20px 40px 40px;
+  padding: 40px;
+  padding-top: 20px;
 }

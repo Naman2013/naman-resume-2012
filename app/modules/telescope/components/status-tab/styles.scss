@@ -1,5 +1,4 @@
 @import "~app/styles/variables/index";
-@import "../../../../styles/variables/colors.scss";
 
 .status-tab {
   //padding-top: 40px;
@@ -26,23 +25,5 @@
 
   .module-container {
     margin: 0 10px 20px 10px;
-  }
-
-  .observatory-offline {
-    .container {
-      .nav-tabs > .nav-item > a {
-        font-weight: 600;
-
-      }
-    }
-    .tab-content > div {
-      .module-container {
-        margin: 0;
-        box-shadow: none;
-        .moonlight-actions > .button-container {
-          width: 25% !important;
-        }
-      }
-    }
   }
 }

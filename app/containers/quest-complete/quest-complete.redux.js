@@ -39,7 +39,6 @@ class ConnectedQuestComplete extends Component {
 
     const userActions = {};
 
-    console.log(this.props);
     return (
       <Fragment>
         <DeviceContext.Consumer>

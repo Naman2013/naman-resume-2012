@@ -1,14 +1,22 @@
 import { getReplies } from '../../../../services/discussions/get-replies';
 import { submitReply } from '../../../../services/discussions/submit-reply';
 
-export const FETCH_ASTRONOMER_ANSWER_REPLIES_FAIL = 'FETCH_ASTRONOMER_ANSWER_REPLIES_FAIL';
-export const FETCH_ASTRONOMER_ANSWER_REPLIES_START = 'FETCH_ASTRONOMER_ANSWER_REPLIES_START';
-export const FETCH_ASTRONOMER_ANSWER_REPLIES_SUCCESS = 'FETCH_ASTRONOMER_ANSWER_REPLIES_SUCCESS';
-export const REPLY_TO_ASTRONOMER_ANSWER_FAIL = 'REPLY_TO_ASTRONOMER_ANSWER_FAIL';
-export const REPLY_TO_ASTRONOMER_ANSWER_START = 'REPLY_TO_ASTRONOMER_ANSWER_START';
-export const REPLY_TO_ASTRONOMER_ANSWER_SUCCESS = 'REPLY_TO_ASTRONOMER_ANSWER_SUCCESS';
-export const TOGGLE_ALL_ASK_ASTRONOMER_ANSWER_REPLIES = 'TOGGLE_ALL_ASK_ASTRONOMER_ANSWER_REPLIES';
-export const UPDATE_ASK_ASTRONOMER_ANSWER_REPLIES_DISPLAY_LIST = 'UPDATE_ASK_ASTRONOMER_ANSWER_REPLIES_DISPLAY_LIST';
+export const FETCH_ASTRONOMER_ANSWER_REPLIES_FAIL =
+  'FETCH_ASTRONOMER_ANSWER_REPLIES_FAIL';
+export const FETCH_ASTRONOMER_ANSWER_REPLIES_START =
+  'FETCH_ASTRONOMER_ANSWER_REPLIES_START';
+export const FETCH_ASTRONOMER_ANSWER_REPLIES_SUCCESS =
+  'FETCH_ASTRONOMER_ANSWER_REPLIES_SUCCESS';
+export const REPLY_TO_ASTRONOMER_ANSWER_FAIL =
+  'REPLY_TO_ASTRONOMER_ANSWER_FAIL';
+export const REPLY_TO_ASTRONOMER_ANSWER_START =
+  'REPLY_TO_ASTRONOMER_ANSWER_START';
+export const REPLY_TO_ASTRONOMER_ANSWER_SUCCESS =
+  'REPLY_TO_ASTRONOMER_ANSWER_SUCCESS';
+export const TOGGLE_ALL_ASK_ASTRONOMER_ANSWER_REPLIES =
+  'TOGGLE_ALL_ASK_ASTRONOMER_ANSWER_REPLIES';
+export const UPDATE_ASK_ASTRONOMER_ANSWER_REPLIES_DISPLAY_LIST =
+  'UPDATE_ASK_ASTRONOMER_ANSWER_REPLIES_DISPLAY_LIST';
 
 const fetchAstronomerAnswerRepliesStart = payload => ({
   type: FETCH_ASTRONOMER_ANSWER_REPLIES_START,
@@ -34,7 +42,7 @@ export const fetchAstronomerAnswerReplies = ({
 }) => (dispatch, getState) => {
   const { cid, at, token } = getState().user;
   const { page } = getState().astronomerDiscuss;
-  
+
   dispatch(fetchAstronomerAnswerRepliesStart({ replyTo }));
   return getReplies({
     at,
@@ -48,10 +56,19 @@ export const fetchAstronomerAnswerReplies = ({
     ver,
     page,
   })
-  .then(result => dispatch(fetchAstronomerAnswerRepliesSuccess(Object.assign({ replyTo, showAllReplies }, result.data))))
-  .catch(error => dispatch(fetchAstronomerAnswerRepliesFail(Object.assign({ replyTo }, error))));
+    .then(result =>
+      dispatch(
+        fetchAstronomerAnswerRepliesSuccess(
+          Object.assign({ replyTo, showAllReplies }, result.data)
+        )
+      )
+    )
+    .catch(error =>
+      dispatch(
+        fetchAstronomerAnswerRepliesFail(Object.assign({ replyTo }, error))
+      )
+    );
 };
-
 
 const replyToAnswerStart = payload => ({
   type: REPLY_TO_ASTRONOMER_ANSWER_START,
@@ -80,8 +97,12 @@ export const replyToAnswer = payload => (dispatch, getState) => {
     objectId,
   } = payload;
   const { cid, at, token } = getState().user;
-  dispatch(replyToAnswerStart({ replyTo }))
-  dispatch(toggleAllAnswerRepliesAndDisplay(Object.assign({ showAllReplies: true }, payload)));
+  dispatch(replyToAnswerStart({ replyTo }));
+  dispatch(
+    toggleAllAnswerRepliesAndDisplay(
+      Object.assign({ showAllReplies: true }, payload)
+    )
+  );
 
   return submitReply({
     at,
@@ -97,8 +118,16 @@ export const replyToAnswer = payload => (dispatch, getState) => {
     topicId,
     ver,
   })
-  .then(result => dispatch(replyToAnswerSuccess(Object.assign({ replyTo, threadId }, result.data))))
-  .catch(error => dispatch(replyToAnswerFail(Object.assign({ replyTo }, error))));
+    .then(result => {
+      dispatch(
+        replyToAnswerSuccess(Object.assign({ replyTo, threadId }, result.data))
+      );
+      return result.data;
+    })
+    .catch(error => {
+        dispatch(replyToAnswerFail(Object.assign({replyTo}, error)))
+      }
+    );
 };
 
 export const toggleAllAnswerReplies = payload => ({
@@ -111,11 +140,19 @@ export const updateAnswerRepliesDisplayList = payload => ({
   payload,
 });
 
-export const toggleAllAnswerRepliesAndDisplay = payload => (dispatch, getState) => {
+export const toggleAllAnswerRepliesAndDisplay = payload => (
+  dispatch,
+  getState
+) => {
   const { showAllReplies, replyId } = payload;
   const { allReplies } = getState().astronomerDiscuss;
-  if (showAllReplies || !allReplies[replyId]) { // we haven't fetched the replies yet, so let's do so
-    dispatch(fetchAstronomerAnswerReplies(Object.assign({ showAllReplies, replyTo: replyId }, payload)));
+  if (showAllReplies || !allReplies[replyId]) {
+    // we haven't fetched the replies yet, so let's do so
+    dispatch(
+      fetchAstronomerAnswerReplies(
+        Object.assign({ showAllReplies, replyTo: replyId }, payload)
+      )
+    );
   } else {
     dispatch(toggleAllAnswerReplies(payload));
   }

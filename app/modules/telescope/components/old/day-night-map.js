@@ -12,10 +12,10 @@ export class DayNightMap extends Component {
   closeModal = () => this.setState({ isModalOpen: false });
 
   render() {
-    const { dayNightMapURL, hideHeader } = this.props;
+    const { dayNightMapURL } = this.props;
     const { isModalOpen } = this.state;
     return (
-      <ModuleContainer title="Day/night map" hideHeader={hideHeader}>
+      <ModuleContainer title="Day/night map">
         <img
           alt="Day night map"
           style={{ width: '100%', cursor: 'pointer' }}

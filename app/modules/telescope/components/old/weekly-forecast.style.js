@@ -11,7 +11,7 @@ export default css`
     width: 100%;
     list-style-type: none;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: top;
     padding: 0 40px;
     margin-top: 30px;
@@ -40,21 +40,15 @@ export default css`
     align-items: center;
     justify-content: flex-start;
     position: absolute;
-    top: 45px;
+    top: 50px;
     width: 100%;
     padding: 0 10px;
   }
-
-  .actions-list > .forecast-action-prev,
-  .actions-list > .forecast-action-next {
-    font-size: 22px;
-  }
-
   .actions-list > .forecast-action-prev {
-    left: 5%;
+    left: 0;
   }
   .actions-list > .forecast-action-next {
-    right: 5%;
+    right: 0;
   }
   .forecast-action {
     background: none;

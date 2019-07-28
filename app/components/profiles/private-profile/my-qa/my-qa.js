@@ -60,9 +60,16 @@ class MyQa extends Component {
   };
 
   componentDidMount() {
-    const { actions, params } = this.props;
-    actions.fetchAstronomerQuestions({ answerState: params.filter });
+    const { params } = this.props;
+    const { filter } = params;
+    this.getAstronomerQuestions({ answerState: filter });
   }
+
+  getAstronomerQuestions = data => {
+    const { actions, params } = this.props;
+    const { customerUUID } = params;
+    actions.fetchAstronomerQuestions({ ...data, customerUUID });
+  };
 
   render() {
     const { context, actions, totalCount, params, intl } = this.props;
@@ -74,8 +81,8 @@ class MyQa extends Component {
             <InfoTile
               //subject={intl.formatMessage(messages.InfoTileSubject)}
               title={intl.formatMessage(messages.InfoTileSubject)}
-             // title={intl.formatMessage(messages.InfoTileTitle)}
-             // text="Text placeholder"
+              // title={intl.formatMessage(messages.InfoTileTitle)}
+              // text="Text placeholder"
             />
           ) : (
             <MainContainer
@@ -92,7 +99,7 @@ class MyQa extends Component {
                 QA_TABS_DATA[params.filter].dropdownOptions.length > 0
               }
               dropdownOptions={QA_TABS_DATA[params.filter].dropdownOptions}
-              changeAnswerState={actions.fetchAstronomerQuestions}
+              changeAnswerState={this.getAstronomerQuestions}
             />
           )}
         </div>

@@ -76,10 +76,10 @@ export class WeeklyForecast extends Component {
       showPrevButton,
       showNextButton,
     } = this.state;
-    const { forecastList, hideHeader } = this.props;
-
+    const { forecastList } = this.props;
+    
     return forecastList?.length > 0 ? (
-      <ModuleContainer title="Weekly forecast" hideHeader={hideHeader}>
+      <ModuleContainer title="Weekly forecast">
         <div className="carousel-container">
           <ul className="week-carousel">
             {slicedForecastList.map((elem, index) => (
@@ -139,6 +139,15 @@ export class WeeklyForecast extends Component {
           </ul>
         </div>
 
+        <div className="condition-summary">
+          <h4 className="title">
+            {forecastList[currentIndex].SeeingCondsTitle}
+          </h4>
+          <h5 className="secondary-title">Level 3</h5>
+          <p className="condition-summary-content">
+            {forecastList[currentIndex].SeeingCond}
+          </p>
+        </div>
         <style jsx>{style}</style>
       </ModuleContainer>
     ) : null;

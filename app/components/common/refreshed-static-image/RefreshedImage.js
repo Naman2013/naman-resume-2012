@@ -10,7 +10,6 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { ModalImg } from 'app/modules/telescope/components/modal-img';
 
 export default class RefreshedImage extends Component {
   static propTypes = {
@@ -18,12 +17,12 @@ export default class RefreshedImage extends Component {
     refreshIntervalSec: PropTypes.number.isRequired,
     imageAltText: PropTypes.string,
     maxImageWidth: PropTypes.string,
-  };
+  }
 
   static defaultProps = {
     imageAltText: '',
     maxImageWidth: '100%',
-  };
+  }
 
   constructor(props) {
     super(props);
@@ -34,8 +33,7 @@ export default class RefreshedImage extends Component {
     backImageURL: `${this.props.imageURL}?version=${new Date().getTime()}`,
     frontImageURL: `${this.props.imageURL}?version=${new Date().getTime()}`,
     frontImageOpacity: 0,
-    isModalOpen: false,
-  };
+  }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.imageURL !== this.props.imageURL) {
@@ -43,7 +41,7 @@ export default class RefreshedImage extends Component {
       this.setState({
         backImageURL: `${nextProps.imageURL}?version=${new Date().getTime()}`,
         frontImageURL: `${nextProps.imageURL}?version=${new Date().getTime()}`,
-      });
+      })
     }
   }
 
@@ -57,7 +55,7 @@ export default class RefreshedImage extends Component {
       backImageURL: frontImageURL,
       frontImageOpacity: 0,
     });
-  };
+  }
 
   bootstrapTimer() {
     const { refreshIntervalSec, imageURL } = this.props;
@@ -73,13 +71,9 @@ export default class RefreshedImage extends Component {
     }
   }
 
-  openModal = () => this.setState({ isModalOpen: true });
-
-  closeModal = () => this.setState({ isModalOpen: false });
-
   render() {
     const { imageAltText, maxImageWidth } = this.props;
-    const { backImageURL, frontImageURL, isModalOpen } = this.state;
+    const { backImageURL, frontImageURL } = this.state;
 
     return (
       <div>
@@ -89,7 +83,6 @@ export default class RefreshedImage extends Component {
           key={`${backImageURL}-back`}
           alt={imageAltText}
           src={backImageURL}
-          onClick={this.openModal}
         />
         <img
           width={maxImageWidth}
@@ -98,34 +91,23 @@ export default class RefreshedImage extends Component {
           key={`${frontImageURL}-front`}
           alt={imageAltText}
           src={frontImageURL}
-          onClick={this.openModal}
         />
-        <ModalImg
-          isOpen={isModalOpen}
-          imageURL={backImageURL}
-          onHide={this.closeModal}
-        />
-        <ModalImg
-          isOpen={isModalOpen}
-          imageURL={frontImageURL}
-          onHide={this.closeModal}
-        />
-        <style jsx>
-          {`
-            div {
-              position: relative;
-            }
 
-            .front {
-              position: absolute;
-              top: 0;
-              left: 0;
-            }
+        <style jsx>{`
+          div {
+            position: relative;
+          }
 
-            img {
-              height: auto;
-            }
-          `}
+          .front {
+            position: absolute;
+            top: 0;
+            left: 0;
+          }
+
+          img {
+            height: auto;
+          }
+        `}
         </style>
       </div>
     );

@@ -10,7 +10,6 @@ export const MoonlightWidget = memo(function MoonlightWidget(props) {
   const [title, setTitle] = useState('');
   const [relatedGuideUrl, setGuideUrl] = useState('');
   const [subwidgets, setSubwidgets] = useState([]);
-  const { hideHeader } = props;
 
   useEffect(() => {
     const { widgetId, obsId } = props.moonlightWidget;
@@ -27,7 +26,7 @@ export const MoonlightWidget = memo(function MoonlightWidget(props) {
   }, [props.moonlightWidget.widgetId]); //eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <ModuleContainer title={title} hideHeader={hideHeader}>
+    <ModuleContainer title={title}>
       <ul className="moonlight-conditions">
         {subwidgets.map(x => (
           <li className="moonlight-condition">
