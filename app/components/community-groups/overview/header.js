@@ -23,6 +23,7 @@ import { info } from 'app/styles/variables/iconURLs';
 import { screenMedium, screenLarge } from 'app/styles/variables/breakpoints';
 import { dropShadowContainer } from 'app/styles/mixins/utilities';
 import DiscussionBoardDescription from 'app/components/common/DiscussionsBoard/DiscussionBoardDescription';
+import AskToJoinGroup from 'app/components/common/AskToJoinGroup';
 import messages from './activity-form.messages';
 
 const { string } = PropTypes;
@@ -42,6 +43,10 @@ const GroupsHeader = ({
   isEditMode,
   editButtonText,
   canSeeGroupContent,
+  showAskToJoin,
+  joinActionIconUrl,
+  askPrompt,
+  updatePrompt,
 }) => (
   <div className="root">
     <div className="image-and-main-container">
@@ -96,6 +101,14 @@ const GroupsHeader = ({
           ) : null}
           {isMobile && canSeeGroupContent && !condensed ? (
             <Button icon={info} onClickEvent={showInformation} />
+          ) : null}
+          {showAskToJoin ? (
+            <AskToJoinGroup
+              updatePrompt={updatePrompt}
+              discussionGroupId={discussionGroupId}
+              askPrompt={askPrompt}
+              joinActionIconUrl={joinActionIconUrl}
+            /> 
           ) : null}
         </div>
       </div>

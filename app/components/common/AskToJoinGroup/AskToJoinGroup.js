@@ -34,6 +34,8 @@ class AskToJoinGroup extends Component {
 
   toggleGroup = () => {
     const { user, discussionGroupId, askPrompt, updatePrompt } = this.props;
+    const { text } = this.state;
+
     askToJoin({
       at: user.at,
       token: user.token,
@@ -47,7 +49,7 @@ class AskToJoinGroup extends Component {
         });
         this.setState(() => ({
           icon: res.data.askPromptIconUrl,
-          text: askPrompt ? res.data.askPrompt : null,
+          text: res.data.askPrompt ? res.data.askPrompt : text,
         }));
       }
     });
