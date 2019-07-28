@@ -19,12 +19,12 @@ const messages: Messages = {
   },
   AllUnanswered: {
     id: 'Profile.AllUnanswered',
-    defaultMessage: 'All unanswered',
+    defaultMessage: 'All questions',
     description: 'Filter option',
   },
   ByMySpecialities: {
     id: 'Profile.ByMySpecialities',
-    defaultMessage: 'By my specialities',
+    defaultMessage: 'My MVP Objects',
     description: 'Filter option',
   },
   YourAskedQuestions: {
