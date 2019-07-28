@@ -151,9 +151,7 @@ export class Question extends Component {
                   replyTo={item.threadId}
                   submitForm={this.submitAnswer}
                   modalActions={modalActions}
-                  updateQuestionsList={() => {
-                    this.fetchQuestion();
-                  }}
+                  updateQuestionsList={() => this.fetchQuestion()}
                   user={user}
                 />
               )}
@@ -171,9 +169,7 @@ export class Question extends Component {
                   threadId={item.threadId}
                   topicId={item.topicId}
                   modalActions={modalActions}
-                  updateQuestionsList={() => {
-                    this.fetchQuestion();
-                  }}
+                  updateQuestionsList={() => this.fetchQuestion()}
                 />
               )}
             />

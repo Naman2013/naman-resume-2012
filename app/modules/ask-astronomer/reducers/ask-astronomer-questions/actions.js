@@ -94,7 +94,6 @@ export const refetchAstronomerQuestions = ({
 }) => (dispatch, getState) => {
   const { cid, at, token } = getState().user;
   const { count, questionFilter, page } = getState().astronomerQuestions;
-  console.log('refetchAstronomerQuestions');
   dispatch({
     type: REFETCH_ASTRONOMER_QUESTIONS_START,
   });
