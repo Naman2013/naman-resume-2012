@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { Container, Nav, Tab } from 'react-bootstrap';
 import '../styles.scss';
 // eslint-disable-next-line import/no-cycle
