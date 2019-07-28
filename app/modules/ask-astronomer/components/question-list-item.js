@@ -27,6 +27,8 @@ const QuestionListItem = props => {
     key,
   } = props;
 
+  const objId = props.params.objectId || item.objectId;
+
   const likeThreadParams = Object.assign({}, likeParams, {
     threadId: item.threadId,
     authorId: item.customerId,
@@ -40,7 +42,7 @@ const QuestionListItem = props => {
         showComments={answers.showAllAnswers}
         toggleComments={() =>
           browserHistory.push(
-            `/object-details/${props.params.objectId}/question/${item.threadId}`
+            `/object-details/${objId}/question/${item.threadId}`
           )
         }
         likeHandler={likeThread}
@@ -56,7 +58,7 @@ const QuestionListItem = props => {
             modalActions={modalActions}
             updateQuestionsList={() =>
               browserHistory.push(
-                `/object-details/${props.params.objectId}/question/${item.threadId}`
+                `/object-details/${objId}/question/${item.threadId}`
               )
             }
             user={user}
