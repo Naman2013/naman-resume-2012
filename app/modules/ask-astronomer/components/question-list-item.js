@@ -43,6 +43,7 @@ const QuestionListItem = props => {
     authorId: item.customerId,
     forumId: item.forumId,
   });
+  const objId = props.params.objectId || item.objectId;
   return (
     <div className="shadowed-container margin" key={key}>
       <Card
@@ -52,7 +53,7 @@ const QuestionListItem = props => {
         toggleComments={() => {
           toggleAllAnswers();
           browserHistory.push(
-            `/object-details/${props.params.objectId}/question/${item.threadId}`
+            `/object-details/${objId}/question/${item.threadId}`
           );
         }}
         likeHandler={likeThread}
@@ -69,7 +70,7 @@ const QuestionListItem = props => {
             updateQuestionsList={() => {
               updateQuestionsList().then(() => {
                 browserHistory.push(
-                  `/object-details/${props.params.objectId}/question/${
+                  `/object-details/${objId}/question/${
                     item.threadId
                   }`
                 );
