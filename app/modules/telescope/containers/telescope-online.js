@@ -1,4 +1,8 @@
-import {fetchAllTelescopeStatus, fetchAllWidgets, updateCurrentInstrument} from 'app/modules/telescope-details/actions';
+import {
+  fetchAllTelescopeStatus,
+  fetchAllWidgets,
+  updateCurrentInstrument,
+} from 'app/modules/telescope-details/actions';
 import {
   fetchDomeCamAction,
   fetchObservatoryWebcam,
