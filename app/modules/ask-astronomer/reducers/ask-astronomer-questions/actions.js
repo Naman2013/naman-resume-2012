@@ -64,6 +64,7 @@ export const fetchAstronomerQuestions = ({
       objectId,
       answerState: answerState || questionFilter,
       customerUUID,
+      questionListType: 'list-page',
     })
     .then(result => {
       return dispatch(
@@ -110,6 +111,7 @@ export const refetchAstronomerQuestions = ({
       objectId,
       threadId,
       answerState: answerState || questionFilter,
+      questionPageType: 'question-page',
     })
     .then(result => {
       if (result.data.threads.length > 0) {
