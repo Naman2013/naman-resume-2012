@@ -111,7 +111,7 @@ export const refetchAstronomerQuestions = ({
       objectId,
       threadId,
       answerState: answerState || questionFilter,
-      questionPageType: 'question-page',
+      questionListType: 'question-page',
     })
     .then(result => {
       if (result.data.threads.length > 0) {
