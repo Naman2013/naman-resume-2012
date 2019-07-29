@@ -16,6 +16,7 @@ const mapStateToProps = ({
     weatherMissionControlStatusWidgetResult.refreshIntervalSec,
   missionControlStatusURL:
     weatherMissionControlStatusWidgetResult.missionControlStatusURL,
+  content: weatherMissionControlStatusWidgetResult.content,
   fetchingWeatherMissionControlStatusWidgetResult:
     telescopeOverview.fetchingWeatherMissionControlStatusWidgetResult,
 });
@@ -74,20 +75,26 @@ class WeatherMissionControlStatusWidget extends Component {
       title,
       refreshIntervalSec,
       missionControlStatusURL,
+      content,
     } = this.props;
 
     return (
       <div className="telescope-block weather-missioncontrolstatus-widget">
         <div className="live-weather-missioncontrolstatus">
-          {missionControlStatusURL ? (
-            <RefreshedImage
-              imageURL={missionControlStatusURL}
-              refreshIntervalSec={refreshIntervalSec}
-              imageAltText=""
-            />
-          ) : (
-            <GenericLoadingBox />
-          )}
+          <div className="title">{title}</div>
+          <div
+            className="content"
+            dangerouslySetInnerHTML={{ __html: content }}
+          />
+          {/*{missionControlStatusURL ? (*/}
+          {/*  <RefreshedImage*/}
+          {/*    imageURL={missionControlStatusURL}*/}
+          {/*    refreshIntervalSec={refreshIntervalSec}*/}
+          {/*    imageAltText=""*/}
+          {/*  />*/}
+          {/*) : (*/}
+          {/*  <GenericLoadingBox />*/}
+          {/*)}*/}
         </div>
       </div>
     );
