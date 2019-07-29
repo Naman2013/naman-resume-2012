@@ -47,6 +47,8 @@ const GroupsHeader = ({
   joinActionIconUrl,
   askPrompt,
   updatePrompt,
+  pendingPrompt,
+  pendingPromptFlag,
 }) => (
   <div className="root">
     <div className="image-and-main-container">
@@ -108,9 +110,14 @@ const GroupsHeader = ({
               discussionGroupId={discussionGroupId}
               askPrompt={askPrompt}
               joinActionIconUrl={joinActionIconUrl}
-            /> 
+              disabled={pendingPromptFlag}
+            />
           ) : null}
         </div>
+
+        {pendingPromptFlag && (
+          <div className="ask-pending-prompt">{pendingPrompt}</div>
+        )}
       </div>
     </div>
 
@@ -192,6 +199,12 @@ const GroupsHeader = ({
       .right {
         text-align: right;
         flex: 1;
+      }
+
+      .ask-pending-prompt {
+        font-family: ${secondaryFont};
+        font-size: 19px;
+        text-align: center;
       }
 
       @media ${screenMedium} {

@@ -11,6 +11,7 @@ const LargeButtonWithRightIcon = ({
   icon,
   renderIcon,
   theme,
+  disabled,
 }) => (
   <button
     className={classnames('button-container', {
@@ -18,6 +19,7 @@ const LargeButtonWithRightIcon = ({
     })}
     style={theme}
     onClick={onClickEvent}
+    disabled={disabled}
   >
     <span className="text" dangerouslySetInnerHTML={{ __html: text }} />
     {icon ? <img className="icon" src={icon} /> : null}

@@ -55,6 +55,7 @@ class AskToJoinGroup extends Component {
     });
   };
   render() {
+    const { disabled } = this.props;
     const { icon, text } = this.state;
     return (
       <Fragment>
@@ -62,6 +63,7 @@ class AskToJoinGroup extends Component {
           icon={icon}
           text={text}
           onClickEvent={this.toggleGroup}
+          disabled={disabled}
         />
       </Fragment>
     );
