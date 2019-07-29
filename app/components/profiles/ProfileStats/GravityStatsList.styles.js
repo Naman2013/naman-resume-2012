@@ -1,5 +1,8 @@
 import css from 'styled-jsx/css';
-import { lightHeadedAstronaut } from '../../../styles/variables/colors_tiles_v4';
+import {
+  lightHeadedAstronaut,
+  hawkesBlue,
+} from '../../../styles/variables/colors_tiles_v4';
 import { primaryFont } from '../../../styles/variables/fonts';
 
 export default css`
@@ -16,10 +19,17 @@ export default css`
     font-family: ${primaryFont};
     font-size: 14px;
     font-weight: 500;
-    padding: 15px 15px 15px 25px;
+    padding: 15px 25px;
   }
 
   .gravity-stats-list * {
     margin-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid ${hawkesBlue};
+    width: 100%;
+  }
+
+  .gravity-stats-list > div:last-child {
+    border-bottom: none;
   }
 `;
