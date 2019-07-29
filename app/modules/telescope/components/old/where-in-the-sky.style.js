@@ -3,10 +3,16 @@ import { secondaryFont } from 'app/styles/variables/fonts';
 import { astronaut } from 'app/styles/variables/colors_tiles_v4';
 
 export default css`
-  p {
-    margin: 0;
-    font-family: ${secondaryFont};
-    font-size: 20px;
-    color: ${astronaut};
+  .sky-chart-widget img {
+    width: 100%;
+  }
+
+  :global(.sky-chart-widget-modal) {
+    max-height: calc(100vh - 50px);
+    justify-content: center;
+  }
+
+  :global(.sky-chart-widget-modal .modal-content) {
+    width: auto;
   }
 `;
