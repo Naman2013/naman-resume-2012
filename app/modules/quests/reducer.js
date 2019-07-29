@@ -13,6 +13,7 @@ export const TYPE = constants('quests', [
   '~GET_DATA_COLLECTION_SLOT_IMAGES',
   '~SET_DATA_COLLECTION_SLOT_IMAGES',
   '~GET_QA_FREE_FORM',
+  '~SET_QA_FREE_FORM',
 ]);
 
 export const ACTION = actions(TYPE);
@@ -73,6 +74,10 @@ export default handleActions(
     [TYPE.GET_QA_FREE_FORM]: start,
     [TYPE.GET_QA_FREE_FORM_SUCCESS]: getQaFreeFormSuccess,
     [TYPE.GET_QA_FREE_FORM_ERROR]: error,
+
+    [TYPE.SET_QA_FREE_FORM]: start,
+    [TYPE.SET_QA_FREE_FORM_SUCCESS]: setQaFreeFormSuccess,
+    [TYPE.SET_QA_FREE_FORM_ERROR]: error,
     // END: QA MODULES
   },
   initialState
@@ -181,3 +186,12 @@ function getQaFreeFormSuccess(state, { payload }) {
     questQaFreeForm: { ...questQaFreeForm, [payload.moduleId]: payload },
   };
 }
+
+function setQaFreeFormSuccess(state, { payload }) {
+  return {
+    ...state,
+    isFetching: false,
+    //questQaFreeForm: { ...questQaFreeForm, [payload.moduleId]: payload },
+  };
+}
+
