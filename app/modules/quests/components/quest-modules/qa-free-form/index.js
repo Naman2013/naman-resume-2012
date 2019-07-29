@@ -15,6 +15,21 @@ export class QuestModuleQaFreeForm extends PureComponent {
     if (questId && moduleId) getQaFreeForm({ questId, moduleId });
   };
 
+  setQaFreeForm = (action, answerText) => {
+    const { setQaFreeForm, questQaFreeForm, module } = this.props;
+    const { moduleId } = module;
+    const { questId, questUUID, moduleUUID } = questQaFreeForm[moduleId];
+
+    setQaFreeForm({
+      questId,
+      questUUID,
+      moduleId,
+      moduleUUID,
+      action,
+      answerText,
+    });
+  };
+
   render() {
     const { questQaFreeForm, module } = this.props;
     const { moduleId } = module;
@@ -48,6 +63,7 @@ export class QuestModuleQaFreeForm extends PureComponent {
           placeholder={textInputPlaceholder}
           submitButtonCaption={submitButtonCaption}
           showSubmitButton={showSubmitButton}
+          onClick={this.setQaFreeForm}
         />
       </div>
     );

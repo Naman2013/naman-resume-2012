@@ -8,6 +8,7 @@ import {
 import {
   getQaFreeForm,
   getQuestStep,
+  setQaFreeForm,
 } from 'app/modules/quests/thunks';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
@@ -23,6 +24,7 @@ const mapStateToProps = createStructuredSelector({
 const mapDispatchToProps = {
   getQaFreeForm,
   getQuestStep,
+  setQaFreeForm,
 };
 
 export default compose(

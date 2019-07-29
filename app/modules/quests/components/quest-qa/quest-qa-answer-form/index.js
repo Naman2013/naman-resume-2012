@@ -13,6 +13,7 @@ export class QuestQaAnswerForm extends PureComponent {
       placeholder,
       submitButtonCaption,
       showSubmitButton,
+      onClick,
     } = this.props;
 
     return (
@@ -35,7 +36,10 @@ export class QuestQaAnswerForm extends PureComponent {
 
         <div className="quest-qa-answer-actions">
           {showSubmitButton && (
-            <Button className="quest-qa-answer-submit-btn" onClick={() => {}}>
+            <Button
+              className="quest-qa-answer-submit-btn"
+              onClick={() => onClick('submit')}
+            >
               {submitButtonCaption}
             </Button>
           )}
