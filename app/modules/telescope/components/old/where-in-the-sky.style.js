@@ -6,4 +6,13 @@ export default css`
   .sky-chart-widget img {
     width: 100%;
   }
+
+  :global(.sky-chart-widget-modal) {
+    max-height: calc(100vh - 50px);
+    justify-content: center;
+  }
+
+  :global(.sky-chart-widget-modal .modal-content) {
+    width: auto;
+  }
 `;

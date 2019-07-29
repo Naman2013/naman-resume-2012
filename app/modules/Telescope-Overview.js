@@ -204,7 +204,7 @@ export const fetchSkyChartWidget = ({ obsId, widgetUniqueId, scheduledMissionId 
   dispatch(startFetchSkyChartWidget);
   if (obsId && widgetUniqueId && scheduledMissionId) {
     fetchStarChart({
-      scheduledMissionId: 2150221,
+      scheduledMissionId,
       obsId,
       widgetUniqueId,
     }).then((result) => {

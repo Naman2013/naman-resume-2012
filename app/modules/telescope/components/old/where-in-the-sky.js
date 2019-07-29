@@ -61,6 +61,7 @@ class WhereInTheSky extends Component {
             isOpen={isOpen}
             imageURL={starChartURL}
             onHide={this.toggleModal}
+            customClassName="sky-chart-widget-modal"
           />
         </ModuleContainer>
         <style jsx>{style}</style>
