@@ -13,6 +13,7 @@ import {
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
+import { ACTION } from '../../reducer';
 
 const mapStateToProps = createStructuredSelector({
   loading: makeQuestsLoadingSelector(),
@@ -25,6 +26,7 @@ const mapDispatchToProps = {
   getQaFreeForm,
   getQuestStep,
   setQaFreeForm,
+  setQaFreeFormAnswer: ACTION.setQaFreeFormAnswer,
 };
 
 export default compose(

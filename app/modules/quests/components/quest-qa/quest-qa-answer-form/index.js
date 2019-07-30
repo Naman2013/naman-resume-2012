@@ -5,33 +5,40 @@ import './styles.scss';
 
 export class QuestQaAnswerForm extends PureComponent {
   render() {
+    const { moduleData, onClick, onChange } = this.props;
     const {
-      imageUrl,
-      thumbnailUrl,
-      answerFieldPrompt,
-      readOnly,
-      placeholder,
+      moduleBaseImageURL,
+      moduleBaseThumbnailURL,
+      activityPrompt,
+      textInputReadOnly,
+      textInputPlaceholder,
       submitButtonCaption,
       showSubmitButton,
-      onClick,
-    } = this.props;
+      showEditButton,
+      editButtonCaption,
+      showCancelButton,
+      cancelButtonCaption,
+      answerText,
+    } = moduleData;
 
     return (
       <div className="quest-qa-answer-form">
-        {imageUrl && (
+        {moduleBaseImageURL && (
           <div className="quest-qa-answer-image">
-            <ImageClickHandler imageUrl={imageUrl}>
-              <img src={thumbnailUrl} />
+            <ImageClickHandler imageUrl={moduleBaseImageURL}>
+              <img src={moduleBaseThumbnailURL} />
             </ImageClickHandler>
           </div>
         )}
 
-        <div className="quest-qa-answer-prompt">{answerFieldPrompt}</div>
+        <div className="quest-qa-answer-prompt">{activityPrompt}</div>
 
         <textarea
           className="quest-qa-answer-field"
-          placeholder={placeholder}
-          readOnly={readOnly}
+          placeholder={textInputPlaceholder}
+          readOnly={textInputReadOnly}
+          onChange={onChange}
+          value={answerText}
         />
 
         <div className="quest-qa-answer-actions">
@@ -41,6 +48,22 @@ export class QuestQaAnswerForm extends PureComponent {
               onClick={() => onClick('submit')}
             >
               {submitButtonCaption}
+            </Button>
+          )}
+          {showEditButton && (
+            <Button
+              className="quest-qa-answer-edit-btn"
+              onClick={() => onClick('edit')}
+            >
+              {editButtonCaption}
+            </Button>
+          )}
+          {showCancelButton && (
+            <Button
+              className="quest-qa-answer-cancel-btn"
+              onClick={() => onClick('cancel')}
+            >
+              {cancelButtonCaption}
             </Button>
           )}
         </div>

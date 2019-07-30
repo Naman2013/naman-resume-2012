@@ -71,7 +71,7 @@ export class QuestStep extends Component<TQuestStep> {
     clearQuestStepData();
   }
 
-  refreshData() {
+  refreshData = () => {
     const { getQuestStep, routeParams } = this.props;
     const { questId, step } = routeParams;
     getQuestStep(questId, step);
