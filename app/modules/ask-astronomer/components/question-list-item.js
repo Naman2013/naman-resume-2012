@@ -50,7 +50,7 @@ const QuestionListItem = props => {
         isDesktop={isDesktop}
         user={user}
         likeParams={likeThreadParams}
-        allowReplies={canAnswerQuestions}
+        allowReplies={!!(canAnswerQuestions && !params.public)}
         renderReplyButton={() => (
           <SubmitAnswerButton
             {...props.item}
@@ -68,7 +68,6 @@ const QuestionListItem = props => {
         commentText="Answers"
         modalActions={modalActions}
         renderChildReplies={noop}
-        params={params}
       />
       {fetching && <div className="fa fa-spinner loader" />}
       <style jsx>{style}</style>
