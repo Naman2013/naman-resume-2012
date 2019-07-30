@@ -45,6 +45,7 @@ export const fetchAstronomerQuestions = ({
   currentPage,
   objectId,
   ver,
+  customerUUID,
 }) => (dispatch, getState) => {
   const { cid, at, token } = getState().user;
   const { count, questionFilter, page } = getState().astronomerQuestions;
@@ -62,13 +63,10 @@ export const fetchAstronomerQuestions = ({
       ver,
       objectId,
       answerState: answerState || questionFilter,
+      customerUUID,
+      questionListType: 'list-page',
     })
     .then(result => {
-      if (result.data.threads.length > 0) {
-        result.data.threads.forEach(thread =>
-          dispatch(fetchAstronomerAnswers({ threadId: thread.threadId }))
-        );
-      }
       return dispatch(
         fetchAstronomerQuestionsSuccess(
           Object.assign(
@@ -93,10 +91,10 @@ export const refetchAstronomerQuestions = ({
   currentPage,
   objectId,
   ver,
+  threadId,
 }) => (dispatch, getState) => {
   const { cid, at, token } = getState().user;
   const { count, questionFilter, page } = getState().astronomerQuestions;
-  console.log('refetchAstronomerQuestions');
   dispatch({
     type: REFETCH_ASTRONOMER_QUESTIONS_START,
   });
@@ -111,14 +109,17 @@ export const refetchAstronomerQuestions = ({
       token,
       ver,
       objectId,
+      threadId,
       answerState: answerState || questionFilter,
+      questionListType: 'question-page',
     })
     .then(result => {
       if (result.data.threads.length > 0) {
-        result.data.threads.forEach(thread =>
+        result.data.threads.map(thread =>
           dispatch(fetchAstronomerAnswers({ threadId: thread.threadId }))
         );
       }
+
       return dispatch(
         fetchAstronomerQuestionsSuccess(
           Object.assign(

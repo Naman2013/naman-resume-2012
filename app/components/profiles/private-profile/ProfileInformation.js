@@ -14,11 +14,11 @@ import DisplayAtBreakpoint from '../../common/DisplayAtBreakpoint';
 import BackBar from '../../common/style/buttons/BackBar';
 import {
   Badges,
-  GravityBreakdown,
   ProfileStatsItem,
   SpecialistList,
   StatsDetails,
   StatsPopover,
+  GravityStatsList,
 } from '../ProfileStats';
 import messages from './ProfileInformation.messages';
 import styles from './ProfileInformation.styles';
@@ -52,15 +52,15 @@ class ProfileInformation extends Component {
     const { userInfoGuideDetails } = profileData;
     return {
       tabsList: [
-        intl.formatMessage(messages.Breakdown),
-        intl.formatMessage(messages.Details),
+        intl.formatMessage(messages.Stats),
+        intl.formatMessage(messages.Guide),
       ],
       panels: [
-        <GravityBreakdown gravityList={gravityData.gravityList} />,
+        <GravityStatsList gravityList={gravityData.gravityList} />,
         <StatsDetails userInfoGuideDetails={userInfoGuideDetails} />,
       ],
-      disabledList: [true, false],
-      defaultIndex: 1,
+      disabledList: [false, false],
+      defaultIndex: 0,
     };
   };
 
@@ -71,7 +71,7 @@ class ProfileInformation extends Component {
     return {
       tabsList: [
         intl.formatMessage(messages.MyBadges),
-        intl.formatMessage(messages.Details),
+        intl.formatMessage(messages.Guide),
       ],
       panels: [
         <Badges badgesList={badgesData.badgesList} />,
@@ -89,7 +89,7 @@ class ProfileInformation extends Component {
     return {
       tabsList: [
         intl.formatMessage(messages.Specialties),
-        intl.formatMessage(messages.Details),
+        intl.formatMessage(messages.Guide),
       ],
       panels: [
         <SpecialistList specialistList={mvpData.specialistObjects} />,

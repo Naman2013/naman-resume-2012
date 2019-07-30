@@ -32,6 +32,7 @@ const MainContainer = ({
   changeAnswerState,
   params,
   fetchingAnswersBool,
+  pages,
 }) => (
   <div style={{ position: 'relative' }}>
     <Filter
@@ -65,6 +66,7 @@ const MainContainer = ({
         modalActions={modalActions}
         user={user}
         updateQuestionsList={updateQuestionsList}
+        pages={pages}
       />
     )}
     <style jsx>{styles}</style>

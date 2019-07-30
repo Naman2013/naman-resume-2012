@@ -127,7 +127,7 @@ export class TelescopeOnline extends Component {
       weatherConditions,
       user,
     } = this.props;
-
+    
     const {
       instrStreamCode,
       instrStreamURL,
@@ -201,7 +201,7 @@ export class TelescopeOnline extends Component {
                 content: () => (
                   <TabLive
                     obsId={currentObservatory.obsId}
-                    skyChartWidgetID={currentObservatory.SkychartWidgetId}
+                    skyChartWidgetId={currentObservatory.SkyChartWidgetId}
                     allSkyWidgetID={currentObservatory.AllskyWidgetId}
                     mission={activeTelescopeMission}
                     activeTelescope={activeTelescope}

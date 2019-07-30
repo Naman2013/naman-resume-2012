@@ -13,13 +13,7 @@ import { Button } from 'react-bootstrap';
 const { func, shape, string } = PropTypes;
 
 const SubmitReplyFeedbackModal = props => {
-  const {
-    modalActions,
-    message,
-    updateQuestionsList,
-    title,
-    doneButtonLabel,
-  } = props;
+  const { modalActions, message, title, doneButtonLabel } = props;
 
   return (
     <div className="aaa-modal-success">
@@ -29,13 +23,7 @@ const SubmitReplyFeedbackModal = props => {
         className="modal-p mt-5"
         dangerouslySetInnerHTML={{ __html: message }}
       />
-      <Button
-        onClick={() => {
-          updateQuestionsList();
-          modalActions.closeModal();
-        }}
-        className="modal-btn"
-      >
+      <Button onClick={() => modalActions.closeModal()} className="modal-btn">
         {doneButtonLabel}
       </Button>
     </div>
@@ -49,7 +37,6 @@ SubmitReplyFeedbackModal.propTypes = {
     showModal: func,
   }).isRequired,
   message: string,
-  updateQuestionsList: func.isRequired,
   title: string,
   doneButtonLabel: string,
 };

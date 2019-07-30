@@ -23,6 +23,7 @@ import { info } from 'app/styles/variables/iconURLs';
 import { screenMedium, screenLarge } from 'app/styles/variables/breakpoints';
 import { dropShadowContainer } from 'app/styles/mixins/utilities';
 import DiscussionBoardDescription from 'app/components/common/DiscussionsBoard/DiscussionBoardDescription';
+import AskToJoinGroup from 'app/components/common/AskToJoinGroup';
 import messages from './activity-form.messages';
 
 const { string } = PropTypes;
@@ -42,6 +43,12 @@ const GroupsHeader = ({
   isEditMode,
   editButtonText,
   canSeeGroupContent,
+  showAskToJoin,
+  joinActionIconUrl,
+  askPrompt,
+  updatePrompt,
+  pendingPrompt,
+  pendingPromptFlag,
 }) => (
   <div className="root">
     <div className="image-and-main-container">
@@ -97,7 +104,20 @@ const GroupsHeader = ({
           {isMobile && canSeeGroupContent && !condensed ? (
             <Button icon={info} onClickEvent={showInformation} />
           ) : null}
+          {showAskToJoin ? (
+            <AskToJoinGroup
+              updatePrompt={updatePrompt}
+              discussionGroupId={discussionGroupId}
+              askPrompt={askPrompt}
+              joinActionIconUrl={joinActionIconUrl}
+              disabled={pendingPromptFlag}
+            />
+          ) : null}
         </div>
+
+        {pendingPromptFlag && (
+          <div className="ask-pending-prompt">{pendingPrompt}</div>
+        )}
       </div>
     </div>
 
@@ -179,6 +199,12 @@ const GroupsHeader = ({
       .right {
         text-align: right;
         flex: 1;
+      }
+
+      .ask-pending-prompt {
+        font-family: ${secondaryFont};
+        font-size: 19px;
+        text-align: center;
       }
 
       @media ${screenMedium} {

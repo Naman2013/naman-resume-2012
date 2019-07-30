@@ -36,7 +36,6 @@ export default createReducer(initialState, {
   },
   [REFETCH_ASTRONOMER_QUESTIONS_START](state) {
     // const { appendToList, threadCount } = payload;
-    console.log('reducer FETCH_ASTRONOMER_QUESTIONS_START');
     return {
       ...state,
       // threadList: appendToList ? state.threadList : [],
@@ -45,27 +44,16 @@ export default createReducer(initialState, {
     };
   },
   [FETCH_ASTRONOMER_QUESTIONS_SUCCESS](state, { payload }) {
-    const {
-      threads,
-      threadCount,
-      page,
-      appendToList,
-      canReplyToAnswers,
-      canAnswerQuestions,
-      answerState,
-    } = payload;
+    const { threads, appendToList, answerState } = payload;
     const threadList = appendToList
       ? [].concat(state.threadList, threads)
       : threads;
 
     return {
       ...state,
+      ...payload,
       fetching: false,
-      threadCount,
-      page,
       threadList,
-      canAnswerQuestions,
-      canReplyToAnswers,
       questionFilter: answerState,
     };
   },

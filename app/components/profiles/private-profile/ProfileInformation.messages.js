@@ -22,11 +22,6 @@ const messages: Messages = {
     defaultMessage: 'Breakdown',
     description: 'Profile statistic label',
   },
-  Details: {
-    id: 'Profile.Details',
-    defaultMessage: 'Details',
-    description: 'Profile statistic label',
-  },
   MyBadges: {
     id: 'Profile.MyBadges',
     defaultMessage: 'My Badges',
@@ -35,6 +30,16 @@ const messages: Messages = {
   Specialties: {
     id: 'Profile.Specialties',
     defaultMessage: 'Specialties',
+    description: 'Profile statistic label',
+  },
+  Guide: {
+    id: 'Profile.Guide',
+    defaultMessage: 'Guide',
+    description: 'Profile statistic label',
+  },
+  Stats: {
+    id: 'Profile.Stats',
+    defaultMessage: 'Stats',
     description: 'Profile statistic label',
   },
 };
