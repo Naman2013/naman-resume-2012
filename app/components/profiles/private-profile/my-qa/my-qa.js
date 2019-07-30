@@ -113,6 +113,7 @@ class MyQa extends Component {
             title={intl.formatMessage(messages.AskAnAstronomer)}
             icon="https://vega.slooh.com/assets/v4/common/membership/astronomer_member.png"
             buttonText={intl.formatMessage(messages.ViewGuide)}
+            guideURL="/guides/topic/227"
           />
         </DisplayAtBreakpoint>
         <style jsx>{style}</style>
