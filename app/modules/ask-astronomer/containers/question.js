@@ -38,6 +38,8 @@ const mapStateToProps = ({
   canAnswerQuestions: astronomerQuestions.canAnswerQuestions,
   canReplyToAnswers: astronomerQuestions.canReplyToAnswers,
   fetchingQuestions: astronomerQuestions.fetching,
+  showObjectName: astronomerQuestions.showObjectName,
+  objectName: astronomerQuestions.objectName,
   fetchingAnswers: astronomerAnswers.fetchingObj,
   user,
   objectDetails,

@@ -79,30 +79,18 @@ export class Question extends Component {
       fetchingQuestions,
       fetchingDiscuss,
       params: { objectId },
+      showObjectName,
+      objectName,
     } = this.props;
 
     if (!questions || !questions.length) {
       return null;
     }
 
-    const {
-      showPrompt,
-      promptComponent,
-      promptStyles,
-      // aaaQuestionPrompt,
-    } = this.state;
+    const { showPrompt, promptComponent } = this.state;
 
     const { setModal, showModal, closeModal } = this;
     const modalActions = { setModal, showModal, closeModal };
-
-    const {
-      askQuestion,
-      changeAnswerState,
-      fetchAstronomerQuestions,
-      toggleAllAnswersAndDisplay,
-      fetchObjectSpecialistsAction,
-      submitAnswerToQuestion,
-    } = actions;
 
     const item = questions[0];
 
@@ -135,6 +123,10 @@ export class Question extends Component {
         </Modal>
 
         <Container>
+          {showObjectName && (
+            <h1 className="h1-custom">Question about {objectName}</h1>
+          )}
+
           <div className="shadowed-container margin">
             <Card
               {...item}

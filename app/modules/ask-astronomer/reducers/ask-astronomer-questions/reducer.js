@@ -44,29 +44,16 @@ export default createReducer(initialState, {
     };
   },
   [FETCH_ASTRONOMER_QUESTIONS_SUCCESS](state, { payload }) {
-    const {
-      threads,
-      threadCount,
-      page,
-      pages,
-      appendToList,
-      canReplyToAnswers,
-      canAnswerQuestions,
-      answerState,
-    } = payload;
+    const { threads, appendToList, answerState } = payload;
     const threadList = appendToList
       ? [].concat(state.threadList, threads)
       : threads;
 
     return {
       ...state,
+      ...payload,
       fetching: false,
-      threadCount,
-      page,
-      pages,
       threadList,
-      canAnswerQuestions,
-      canReplyToAnswers,
       questionFilter: answerState,
     };
   },
