@@ -25,6 +25,7 @@ const QuestionListItem = props => {
     user,
     updateQuestionsList,
     key,
+    params,
   } = props;
 
   const objId = props.params.objectId || item.objectId;
@@ -49,7 +50,7 @@ const QuestionListItem = props => {
         isDesktop={isDesktop}
         user={user}
         likeParams={likeThreadParams}
-        allowReplies={canAnswerQuestions}
+        allowReplies={!!(canAnswerQuestions && !params.public)}
         renderReplyButton={() => (
           <SubmitAnswerButton
             {...props.item}
