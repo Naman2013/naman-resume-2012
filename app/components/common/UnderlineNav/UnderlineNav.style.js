@@ -63,6 +63,15 @@ export default css`
     cursor: pointer;
   }
 
+  .item-container.disabled {
+    pointer-events: none;
+  }
+
+  .item-container.disabled .nav-item {
+    pointer-events: none;
+    color: #dedede;
+  }
+
   .is-active .nav-item {
     color: ${astronaut};
   }

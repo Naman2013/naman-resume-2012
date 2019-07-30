@@ -32,6 +32,7 @@ const QuestionList = ({
   totalCount,
   updateQuestionsList,
   params,
+  pages,
 }) => (
   <div>
     {questions.map(item => {
@@ -63,17 +64,20 @@ const QuestionList = ({
         />
       );
     })}
-    <div className="d-flex">
-      <Pagination
-        onChange={handlePageChange}
-        defaultPageSize={count}
-        current={page}
-        total={totalCount}
-        showTitle={false}
-        prevIcon={<span className="icon icon-arrow-left" />}
-        nextIcon={<span className="icon icon-arrow-right" />}
-      />
-    </div>
+
+    {pages > 1 && (
+      <div className="d-flex">
+        <Pagination
+          onChange={handlePageChange}
+          defaultPageSize={count}
+          current={page}
+          total={totalCount}
+          showTitle={false}
+          prevIcon={<span className="icon icon-arrow-left" />}
+          nextIcon={<span className="icon icon-arrow-right" />}
+        />
+      </div>
+    )}
   </div>
 );
 

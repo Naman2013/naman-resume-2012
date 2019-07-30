@@ -23,7 +23,7 @@ const PromptWithClose = ({ closeForm, promptText, intl }) => (
     <div className="actions">
       <Button
         onClickEvent={closeForm}
-        text={intl.formatMessage(messages.Cancel)}
+        text={intl.formatMessage(messages.Close)}
       />
     </div>
     <style jsx>{styles}</style>

@@ -32,9 +32,19 @@ const messages: Messages = {
     defaultMessage: 'You asked {count} questions',
     description: 'Count text',
   },
+  AskedQuestions: {
+    id: 'Profile.AskedQuestions',
+    defaultMessage: '{count} questions',
+    description: 'Count text',
+  },
   YourAnsweredQuestions: {
     id: 'Profile.YourAnsweredQuestions',
     defaultMessage: 'You answered {count} questions',
+    description: 'Count text',
+  },
+  AnsweredQuestions: {
+    id: 'Profile.AnsweredQuestions',
+    defaultMessage: '{count} questions',
     description: 'Count text',
   },
   QuestionsToAnswers: {

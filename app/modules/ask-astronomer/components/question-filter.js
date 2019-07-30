@@ -29,20 +29,23 @@ class QuestionFilter extends Component {
   };
 
   get dropdownOptions() {
-    return [
-      {
-        label: <FormattedMessage {...messages.AllQuestions} />,
-        value: 'objectonly',
-      },
-      {
-        label: <FormattedMessage {...messages.AllAnswered} />,
-        value: 'allanswered',
-      },
-      {
-        label: <FormattedMessage {...messages.AllUnanswered} />,
-        value: 'allunanswered',
-      },
-    ];
+    const { dropdownOptions } = this.props;
+    return (
+      dropdownOptions || [
+        {
+          label: <FormattedMessage {...messages.AllQuestions} />,
+          value: 'objectonly',
+        },
+        {
+          label: <FormattedMessage {...messages.AllAnswered} />,
+          value: 'allanswered',
+        },
+        {
+          label: <FormattedMessage {...messages.AllUnanswered} />,
+          value: 'allunanswered',
+        },
+      ]
+    );
   }
 
   get countText() {
@@ -75,7 +78,7 @@ class QuestionFilter extends Component {
         />
         {showDropdown ? (
           <DropDown
-            options={dropdownOptions || this.dropdownOptions}
+            options={this.dropdownOptions}
             selectedIndex={selectedIndex}
             handleSelect={this.handleSelect}
           />

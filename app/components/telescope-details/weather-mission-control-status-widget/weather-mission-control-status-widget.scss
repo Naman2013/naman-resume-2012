@@ -1,0 +1,17 @@
+@import '../../../styles/variables/colors.scss';
+
+.weather-missioncontrolstatus-widget {
+  .live-weather-missioncontrolstatus {
+    padding: 10px 20px;
+    .title {
+      font-size: 16px;
+      font-weight: 500;
+      border-bottom: 1px solid $hawkesBlue;
+      padding: 10px 0;
+    }
+    .content {
+      font-size: 14px;
+      margin: 5px 0 0 10px;
+    }
+  }
+}

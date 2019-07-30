@@ -1,10 +1,12 @@
 import React from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import {
+  DayNightBar,
   ObsBotWidget,
   ObservatoryInformation,
   WeatherConditions,
 } from 'app/modules/telescope/components/old';
+import { TelescopeOfflineWidget } from 'app/modules/telescope/components/old/telescope-offline-widget';
 import { Box } from 'app/modules/telescope/components/box';
 import { ConnectedAllSkyCamera } from 'app/modules/telescope/components/old/all-sky-camera';
 import { DomCameraWidget } from 'app/modules/telescope/components/old/dom-camera-widget';
@@ -22,7 +24,10 @@ export const StatusTab = props => {
     facilityWebcam,
     domeCam,
     teidePeakCam,
+    dayNightBarPanel,
+    dayNightBar,
   } = props;
+
   return (
     <div className="animated fadeIn faster status-tab">
       <div className="telescope-views">
@@ -66,7 +71,20 @@ export const StatusTab = props => {
       <Container>
         <Row>
           <Col lg={8}>
-            <ObservatoryInformation clockList={clockList} compactMode />
+            <TelescopeOfflineWidget
+              {...props}
+              shortFeed
+              noScroll
+              noCounter
+              noDescription
+              title="This Just In"
+              ViewGroup="conditions"
+              teleSystem={currentTelescope.teleSystem}
+              clockList={clockList}
+              missionControlStatusWidgetId={
+                currentObservatory.MissionControlStatusWidgetId
+              }
+            />
             <ObsBotWidget
               {...props}
               shortFeed
@@ -76,6 +94,7 @@ export const StatusTab = props => {
               title="This Just In"
               ViewGroup="conditions"
               teleSystem={currentTelescope.teleSystem}
+              clockList={clockList}
             />
           </Col>
 
@@ -98,6 +117,13 @@ export const StatusTab = props => {
             </Box>
 
             <WeatherConditions obsId={obsId} />
+
+            {dayNightBar.dayNightRawData && (
+              <DayNightBar
+                dayNightBarPanelURL={dayNightBarPanel.dayNightBarPanelURL}
+                dayNightBar={dayNightBar}
+              />
+            )}
           </Col>
         </Row>
       </Container>

@@ -1,5 +1,6 @@
 import { Question } from 'app/modules/ask-astronomer/components/question';
 import {
+  clearAnswers,
   submitAnswerToQuestion,
   toggleAllAnswersAndDisplay,
 } from 'app/modules/ask-astronomer/reducers/ask-astronomer-answers/actions';
@@ -22,6 +23,9 @@ const mapStateToProps = ({
   user,
 }) => ({
   allAnswers: astronomerAnswers.allAnswers,
+  answers: astronomerAnswers.answers,
+  visibleAnswersCount: astronomerAnswers.visible,
+  fetching: astronomerAnswers.fetching,
   allDisplayedAnswers: astronomerAnswers.allDisplayedAnswers,
   answerFetching: astronomerAnswers.fetching,
   appConfig,
@@ -34,6 +38,8 @@ const mapStateToProps = ({
   canAnswerQuestions: astronomerQuestions.canAnswerQuestions,
   canReplyToAnswers: astronomerQuestions.canReplyToAnswers,
   fetchingQuestions: astronomerQuestions.fetching,
+  showObjectName: astronomerQuestions.showObjectName,
+  objectName: astronomerQuestions.objectName,
   fetchingAnswers: astronomerAnswers.fetchingObj,
   user,
   objectDetails,
@@ -52,6 +58,7 @@ const mapDispatchToProps = dispatch => ({
       toggleAllAnswersAndDisplay,
       fetchObjectSpecialistsAction,
       submitAnswerToQuestion,
+      clearAnswers,
     },
     dispatch
   ),

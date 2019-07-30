@@ -1,17 +1,18 @@
+import {
+  loadMore,
+  toggleAllAnswersAndDisplay,
+  updateAnswersDisplayList,
+} from 'app/modules/ask-astronomer/reducers/ask-astronomer-answers/actions';
 import React, { Component } from 'react';
 import { Button } from 'react-bootstrap';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import take from 'lodash/take';
 import {
   replyToAnswer,
   toggleAllAnswerRepliesAndDisplay,
 } from '../reducers/ask-astronomer-answer-discuss/actions';
-import {
-  toggleAllAnswersAndDisplay,
-  updateAnswersDisplayList,
-} from '../reducers/ask-astronomer-answers/actions';
+
 import AnswerListItem from './answer-list-item';
 import messages from './answer-list.messages';
 import styles from './answer-list.style';
@@ -31,6 +32,7 @@ const mapDispatchToProps = dispatch => ({
       toggleAllAnswersAndDisplay,
       updateAnswersDisplayList,
       replyToAnswer,
+      loadMore,
     },
     dispatch
   ),
@@ -50,56 +52,17 @@ class AnswerList extends Component {
     allReplies: {},
     displayedReplies: {},
     fetchingReplies: {},
-    displayedAnswers: [],
     threadId: null,
   };
 
-  state = {
-    displayedAnswers: [],
-    page: 1,
-  };
-
-  componentDidMount() {
-    const { answers, paginationCount } = this.props;
-    this.setState({
-      displayedAnswers: take(answers.replies, paginationCount),
-    });
-  }
-
-  loadMore = (page, count) => {
-    const { answers } = this.props;
-    this.setState({
-      page,
-      displayedAnswers: take(answers.replies, count * page),
-    });
-  };
-
-  static getDerivedStateFromProps(nextProps, prevState) {
-    const { answers, paginationCount } = nextProps;
-    const { page } = prevState;
-    return { displayedAnswers: take(answers.replies, paginationCount * page) };
-  }
-
-  isLastPage = (totalCount, currentPage, numberOnPage) => {
-    return totalCount <= currentPage * numberOnPage;
-  };
-
-  handlePageChange = (paginatedSet, page) => {
-    const { actions, threadId } = this.props;
-    // make call to update page and displayed answers here
-
-    actions.updateAnswersDisplayList({
-      page,
-      threadId,
-      displayedAnswers: paginatedSet,
-    });
+  isLoadMoreVisible = () => {
+    const { answers = [], visibleAnswersCount } = this.props;
+    return visibleAnswersCount < answers.length;
   };
 
   submitReply = (requestParams, callback) => {
     const { actions, objectId } = this.props;
-    actions
-      .replyToAnswer({ ...requestParams, objectId })
-      .then(res => callback(res.payload));
+    actions.replyToAnswer({ ...requestParams, objectId }).then(callback);
   };
 
   render() {
@@ -107,6 +70,7 @@ class AnswerList extends Component {
       actions,
       allReplies,
       answers,
+      visibleAnswersCount,
       canReplyToAnswers,
       displayedReplies,
       fetchingReplies,
@@ -114,31 +78,27 @@ class AnswerList extends Component {
       isDesktop,
       numberOfAnswersToThread,
       objectId,
-      paginationCount,
       threadId,
       topicId,
       user,
       updateQuestionsList,
     } = this.props;
-    const { displayedAnswers, page } = this.state;
-    const { showAllAnswers } = answers;
-    const count = showAllAnswers ? paginationCount : 1;
-    const showPagination =
-      showAllAnswers &&
-      displayedAnswers.length > 0 &&
-      count < answers.replies.length;
+
+    const { loadMore } = actions;
 
     return (
       <div key={threadId}>
         <div className="replies-list-contanier">
           <div className="num-replies">
-            <span className="replies-number">
-              <FormattedMessage {...messages.Answers} />:{' '}
-              {numberOfAnswersToThread}
-            </span>
+            {Boolean(+numberOfAnswersToThread) && (
+              <span className="replies-number">
+                <FormattedMessage {...messages.Answers} />:{' '}
+                {numberOfAnswersToThread}
+              </span>
+            )}
           </div>
           <div className="replies-list">
-            {displayedAnswers.map(answer => {
+            {answers.slice(0, visibleAnswersCount).map((answer, ind) => {
               const likeParams = {
                 callSource: 'qanda',
                 objectId,
@@ -170,7 +130,8 @@ class AnswerList extends Component {
                   fetchingReplies={fetchingReplies[answer.replyId]}
                   isDesktop={isDesktop}
                   isTopAnswer={
-                    answers.topAnswer && answer.replyId === answers.topAnswer
+                    // answers.topAnswer && answer.replyId === answers.topAnswer
+                    ind === 0 // todo currently top answer is the first one
                   }
                   key={answer.replyId}
                   likeParams={likeParams}
@@ -187,22 +148,11 @@ class AnswerList extends Component {
                 />
               );
             })}
-            <div className="text-center mt-3 mb-3">
-              {!this.isLastPage(answers.replies.length, page, count) && (
-                <Button onClick={() => this.loadMore(page + 1, count)}>
-                  Load More
-                </Button>
-              )}
-            </div>
-            {/*{showPagination && (
-                <PaginateSet
-                  handlePageChange={this.handlePageChange}
-                  fullDataSet={answers.replies}
-                  count={count}
-                  totalCount={answers.replies.length}
-                  page={answers.page}
-                />
-              )}*/}
+            {this.isLoadMoreVisible() && (
+              <div className="text-center mt-3 mb-3">
+                <Button onClick={loadMore}>Load More</Button>
+              </div>
+            )}
           </div>
         </div>
         <style jsx>{styles}</style>
