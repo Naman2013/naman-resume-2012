@@ -27,10 +27,6 @@ class ProfileQaContainer extends Component {
       title: 'Answers',
       linkURL: `/profile/public/${customerUUID}/qa/answeredbyme`,
     },
-    {
-      title: 'Questions to answer',
-      linkURL: `/profile/public/${customerUUID}/qa/allunanswered`,
-    },
   ];
 
   getPrivateNavItems = (intl, canAnswerQuestions) => [

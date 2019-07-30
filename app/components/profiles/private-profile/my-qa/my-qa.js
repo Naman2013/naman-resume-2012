@@ -14,8 +14,10 @@ const { shape, func, number } = PropTypes;
 
 const QA_TABS_DATA = {
   asked: {
-    countText: (count, intl) =>
-      intl.formatMessage(messages.YourAskedQuestions, { count }),
+    countText: (count, intl, isPublic) =>
+      isPublic
+        ? intl.formatMessage(messages.AskedQuestions, { count })
+        : intl.formatMessage(messages.YourAskedQuestions, { count }),
     dropdownOptions: [
       {
         label: <FormattedMessage {...messages.AllQuestions} />,
@@ -29,8 +31,10 @@ const QA_TABS_DATA = {
     ],
   },
   answeredbyme: {
-    countText: (count, intl) =>
-      intl.formatMessage(messages.YourAnsweredQuestions, { count }),
+    countText: (count, intl, isPublic) =>
+      isPublic
+        ? intl.formatMessage(messages.AnsweredQuestions, { count })
+        : intl.formatMessage(messages.YourAnsweredQuestions, { count }),
     dropdownOptions: [],
   },
   allunanswered: {
@@ -90,7 +94,8 @@ class MyQa extends Component {
               {...context}
               countText={QA_TABS_DATA[params.filter].countText(
                 totalCount,
-                intl
+                intl,
+                !!params.public
               )}
               likeParams={{
                 callSource: 'qanda',

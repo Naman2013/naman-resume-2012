@@ -58,6 +58,7 @@ const Card = props => {
     showLikePrompt,
     showObjectName,
     user,
+    params,
   } = props;
 
   const setModalAndShow = updatedLikePrompt => {
@@ -124,7 +125,7 @@ const Card = props => {
             {S3Files.length > 0 ? <ViewImagesButton images={S3Files} /> : null}
           </div>
           <div className="action-right">
-            {allowReplies ? renderReplyButton() : null}
+            {allowReplies && params.private ? renderReplyButton() : null}
           </div>
         </div>
       </div>
