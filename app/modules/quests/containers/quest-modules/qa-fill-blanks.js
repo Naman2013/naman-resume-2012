@@ -1,4 +1,4 @@
-import { QuestModuleQaFreeForm } from 'app/modules/quests/components/quest-modules/qa-free-form';
+import { QuestModuleQaFillBlanks } from 'app/modules/quests/components/quest-modules/qa-fill-blanks';
 import {
   makeQuestsLoadingSelector,
   makeQuestsStepDataSelector,
@@ -34,4 +34,4 @@ export default compose(
     mapStateToProps,
     mapDispatchToProps
   )
-)(QuestModuleQaFreeForm);
+)(QuestModuleQaFillBlanks);
