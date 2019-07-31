@@ -116,3 +116,6 @@
 .icon-twitter:before {
   content: "\7a";
 }
+.icon-tick:before {
+  content: "\41";
+}
