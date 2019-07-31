@@ -109,8 +109,8 @@ export const StatusTab = props => {
               <hr />
 
               {/* <h4 className="h4-custom">Measured FWHM Telemetry:</h4> */}
-              <h2 className="h2-custom">N.N Arcseconds</h2>
-              <hr />
+              {/* <h2 className="h2-custom">N.N Arcseconds</h2> */}
+              {/* <hr /> */}
 
               <h4 className="h4-custom">Transparency:</h4>
               <h2 className="h2-custom">Moderate Haze</h2>
