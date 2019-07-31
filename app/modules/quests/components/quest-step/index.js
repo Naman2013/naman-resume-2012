@@ -23,7 +23,7 @@ type TQuestStep = {
 };
 
 export class QuestStep extends Component<TQuestStep> {
-  state = { prevStepId: null, nextStepId: null };
+  state = { prevStepId: null, nextStepId: null, stepKey: null };
 
   static getDerivedStateFromProps(props) {
     const { stepData, routeParams } = props;
@@ -51,7 +51,7 @@ export class QuestStep extends Component<TQuestStep> {
   }
 
   componentDidMount() {
-    this.refreshData();
+    this.getQuestStep();
   }
 
   componentDidUpdate(prevProps) {
@@ -62,7 +62,7 @@ export class QuestStep extends Component<TQuestStep> {
       routeParams: { step: prevStep },
     } = prevProps;
     if (prevStep !== step) {
-      this.refreshData();
+      this.getQuestStep();
     }
   }
 
@@ -71,10 +71,10 @@ export class QuestStep extends Component<TQuestStep> {
     clearQuestStepData();
   }
 
-  refreshData = () => {
+  getQuestStep = () => {
     const { getQuestStep, routeParams } = this.props;
     const { questId, step } = routeParams;
-    getQuestStep(questId, step);
+    getQuestStep(questId, step).then(() => this.setState({ stepKey: `quest-step-${step}-${Date.now()}`}));
   }
 
   navigateToPrevStep = () => {
@@ -99,11 +99,11 @@ export class QuestStep extends Component<TQuestStep> {
 
   render() {
     const { loading, moduleList, stepData = {}, routeParams, resourceModal, questActions, closeModal } = this.props;
-    const { prevStepId, nextStepId, lastStepId } = this.state;
+    const { prevStepId, nextStepId, stepKey } = this.state;
     const { readOnly } = stepData;
     
     return (
-      <div className="quest-step-page">
+      <div className="quest-step-page" key={stepKey}>
         <Spinner loading={loading} />
 
         <QuestStepHeader
@@ -152,31 +152,33 @@ export class QuestStep extends Component<TQuestStep> {
 
             <hr /> */}
 
-            {moduleList.map(
+            {stepKey && moduleList.map(
               module => (
                 <>
                   {module.moduleType === questModuleType.datacollectdifferent && (
                     <QuestModuleDataCollection
                       module={module}
-                      key={module.moduleId}
+                      key={`quest-data-collection-${module.moduleId}`}
                       questId={routeParams.questId}
                       navigateToNextStep={this.navigateToNextStep}
                       readOnly={readOnly}
+                      refreshQuestStep={this.getQuestStep}
                     />
                   )}
 
                   {module.moduleType === questModuleType.textoutput && (
                     <QuestModuleTextOutput
                       module={module}
-                      key={module.moduleId}
+                      key={`quest-text-output-${module.moduleId}`}
                     />
                   )}
 
                   {module.moduleType === questModuleType.qafreeform && (
                     <QuestModuleQaFreeForm
                       module={module}
-                      key={module.moduleId}
+                      key={`quest-qa-freeform-${module.moduleId}`}
                       questId={routeParams.questId}
+                      refreshQuestStep={this.getQuestStep}
                     />
                   )}
                 </>

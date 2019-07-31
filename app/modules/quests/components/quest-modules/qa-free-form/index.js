@@ -18,16 +18,6 @@ export class QuestModuleQaFreeForm extends PureComponent {
     }
   };
 
-  getAllQaFreeFormModules = () => {
-    const { questQaFreeForm, questId, getQaFreeForm } = this.props;
-    const modules = Object.keys(questQaFreeForm);
-
-    for (let i = 0; i < modules.length; i++) {
-      const moduleId = modules[i];
-      getQaFreeForm({ questId, moduleId });
-    }
-  };
-
   setQaFreeForm = action => {
     const {
       setQaFreeForm,
@@ -35,6 +25,7 @@ export class QuestModuleQaFreeForm extends PureComponent {
       module,
       getQaFreeForm,
       getQuestStep,
+      refreshQuestStep,
     } = this.props;
     const { moduleId } = module;
     const { questId, questUUID, moduleUUID, answerText } = questQaFreeForm[
@@ -52,9 +43,7 @@ export class QuestModuleQaFreeForm extends PureComponent {
       const { refreshModule, refreshStep, stepModuleId } = payload;
 
       if (refreshStep) {
-        getQuestStep(questId, stepModuleId).then(() => {
-          this.getAllQaFreeFormModules();
-        });
+        refreshQuestStep();
       } else if (refreshModule) {
         getQaFreeForm({ questId, moduleId });
       }
