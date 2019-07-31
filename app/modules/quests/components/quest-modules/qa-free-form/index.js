@@ -10,10 +10,11 @@ const ACTIVITY_STATES = {
 
 export class QuestModuleQaFreeForm extends PureComponent {
   componentDidMount = () => {
-    const { module, questId, getQaFreeForm } = this.props;
-    const { moduleId } = module;
+    const { module, questId, getQaFreeForm, stepData } = this.props;
+    const { questUUID } = stepData;
+    const { moduleId, moduleUUID } = module;
     if (questId && moduleId) {
-      getQaFreeForm({ questId, moduleId });
+      getQaFreeForm({ questId, moduleId, moduleUUID, questUUID });
     }
   };
 

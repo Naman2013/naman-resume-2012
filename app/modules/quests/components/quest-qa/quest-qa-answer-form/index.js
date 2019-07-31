@@ -19,6 +19,7 @@ export class QuestQaAnswerForm extends PureComponent {
       showCancelButton,
       cancelButtonCaption,
       answerText,
+      textInputMaxChars,
     } = moduleData;
 
     return (
@@ -39,6 +40,7 @@ export class QuestQaAnswerForm extends PureComponent {
           readOnly={textInputReadOnly}
           onChange={onChange}
           value={answerText}
+          maxlength={textInputMaxChars}
         />
 
         <div className="quest-qa-answer-actions">
