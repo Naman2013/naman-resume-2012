@@ -15,13 +15,15 @@ import cn from 'classnames';
 import './styles.scss';
 import QuestModuleTextOutput from '../../containers/quest-modules/textoutput';
 import QuestModuleDataCollection from '../../containers/quest-modules/data-collection';
+import QuestModuleQaFreeForm from '../../containers/quest-modules/qa-free-form';
+
 
 type TQuestStep = {
   moduleList: QuestStepModule,
 };
 
 export class QuestStep extends Component<TQuestStep> {
-  state = { prevStepId: null, nextStepId: null };
+  state = { prevStepId: null, nextStepId: null, stepKey: null };
 
   static getDerivedStateFromProps(props) {
     const { stepData, routeParams } = props;
@@ -49,7 +51,7 @@ export class QuestStep extends Component<TQuestStep> {
   }
 
   componentDidMount() {
-    this.refreshData();
+    this.getQuestStep();
   }
 
   componentDidUpdate(prevProps) {
@@ -60,14 +62,19 @@ export class QuestStep extends Component<TQuestStep> {
       routeParams: { step: prevStep },
     } = prevProps;
     if (prevStep !== step) {
-      this.refreshData();
+      this.getQuestStep();
     }
   }
 
-  refreshData() {
+  componentWillUnmount() {
+    const { clearQuestStepData } = this.props;
+    clearQuestStepData();
+  }
+
+  getQuestStep = () => {
     const { getQuestStep, routeParams } = this.props;
     const { questId, step } = routeParams;
-    getQuestStep(questId, step);
+    getQuestStep(questId, step).then(() => this.setState({ stepKey: `quest-step-${step}-${Date.now()}`}));
   }
 
   navigateToPrevStep = () => {
@@ -92,11 +99,11 @@ export class QuestStep extends Component<TQuestStep> {
 
   render() {
     const { loading, moduleList, stepData = {}, routeParams, resourceModal, questActions, closeModal } = this.props;
-    const { prevStepId, nextStepId, lastStepId } = this.state;
+    const { prevStepId, nextStepId, stepKey } = this.state;
     const { readOnly } = stepData;
     
     return (
-      <div className="quest-step-page">
+      <div className="quest-step-page" key={stepKey}>
         <Spinner loading={loading} />
 
         <QuestStepHeader
@@ -145,26 +152,37 @@ export class QuestStep extends Component<TQuestStep> {
 
             <hr /> */}
 
-            {moduleList.map(
-              module =>
-                module.moduleType === questModuleType.datacollectdifferent && (
-                  <QuestModuleDataCollection
-                    module={module}
-                    questId={routeParams.questId}
-                    navigateToNextStep={this.navigateToNextStep}
-                    readOnly={readOnly}
-                  />
-                )
-            )}
+            {stepKey && moduleList.map(
+              module => (
+                <>
+                  {module.moduleType === questModuleType.datacollectdifferent && (
+                    <QuestModuleDataCollection
+                      module={module}
+                      key={`quest-data-collection-${module.moduleId}`}
+                      questId={routeParams.questId}
+                      navigateToNextStep={this.navigateToNextStep}
+                      readOnly={readOnly}
+                      refreshQuestStep={this.getQuestStep}
+                    />
+                  )}
 
-            {moduleList.map(
-              module =>
-                module.moduleType === questModuleType.textoutput && (
-                  <QuestModuleTextOutput
-                    module={module}
-                    key={module.moduleId}
-                  />
-                )
+                  {module.moduleType === questModuleType.textoutput && (
+                    <QuestModuleTextOutput
+                      module={module}
+                      key={`quest-text-output-${module.moduleId}`}
+                    />
+                  )}
+
+                  {module.moduleType === questModuleType.qafreeform && (
+                    <QuestModuleQaFreeForm
+                      module={module}
+                      key={`quest-qa-freeform-${module.moduleId}`}
+                      questId={routeParams.questId}
+                      refreshQuestStep={this.getQuestStep}
+                    />
+                  )}
+                </>
+              )
             )}
           </QuestStepBox>
         </div>

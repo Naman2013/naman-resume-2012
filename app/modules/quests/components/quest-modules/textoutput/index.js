@@ -12,8 +12,9 @@ export class QuestModuleTextOutput extends PureComponent {
   };
 
   render() {
-    const { questOutput } = this.props;
-    const { panelList } = questOutput;
+    const { questOutput, module } = this.props;
+    const { moduleId } = module;
+    const { panelList } = questOutput[moduleId] || {};
 
     return (
       <div className="quest-output-module">

@@ -46,3 +46,11 @@ export const makeQuestDataCollectionSlotImagesSelector = () =>
     state => state.questDataCollectionSlotImages
   );
 // END: QUEST STEP PAGE
+
+// QUEST QA MODULES
+export const makeQuestQaFreeFormSelector = () =>
+  createSelector(
+    selectQuests,
+    state => state.questQaFreeForm
+  );
+// END: QUEST QA MODULES

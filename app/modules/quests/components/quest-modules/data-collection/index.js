@@ -32,6 +32,7 @@ export class QuestModuleDataCollection extends PureComponent {
       getDataCollection,
       getQuestStep,
       stepData,
+      refreshQuestStep,
     } = this.props;
     const { moduleId } = module;
     const { customerImageId } = image;
@@ -45,9 +46,7 @@ export class QuestModuleDataCollection extends PureComponent {
     }).then(({ payload }) => {
       this.setState({ dcSlotModalVisible: false });
       if (payload.refreshStep) {
-        getQuestStep(questId, stepModuleId).then(() =>
-          getDataCollection(questId, moduleId)
-        );
+        refreshQuestStep();
       }
     });
   };

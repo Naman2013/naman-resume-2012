@@ -4,6 +4,8 @@ import {
   getDataCollectionApi,
   getDataCollectionSlotImagesApi,
   setDataCollectionSlotImageApi,
+  getQaFreeFormApi,
+  setQaFreeFormApi,
 } from 'app/modules/quests/api';
 import { ACTION } from './reducer';
 
@@ -88,3 +90,34 @@ export const setDataCollectionSlotImages = data => (dispatch, getState) => {
     .catch(error => dispatch(ACTION.setDataCollectionSlotImagesError(error)));
 };
 // END: QUEST STEP PAGE
+
+
+// QUEST QA MODULES
+export const getQaFreeForm = data => (dispatch, getState) => {
+  const { at, token, cid } = getState().user;
+  dispatch(ACTION.getQaFreeForm());
+  const opts = {
+    at,
+    cid,
+    token,
+    ...data,
+  };
+  return getQaFreeFormApi({ ...opts })
+    .then(result => dispatch(ACTION.getQaFreeFormSuccess(result.data)))
+    .catch(error => dispatch(ACTION.getQaFreeFormError(error)));
+};
+
+export const setQaFreeForm = data => (dispatch, getState) => {
+  const { at, token, cid } = getState().user;
+  dispatch(ACTION.setQaFreeForm());
+  const opts = {
+    at,
+    cid,
+    token,
+    ...data,
+  };
+  return setQaFreeFormApi({ ...opts })
+    .then(result => dispatch(ACTION.setQaFreeFormSuccess(result.data)))
+    .catch(error => dispatch(ACTION.setQaFreeFormError(error)));
+};
+// END: QUEST QA MODULES

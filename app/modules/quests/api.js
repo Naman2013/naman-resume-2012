@@ -11,3 +11,10 @@ export const getDataCollectionSlotImagesApi = data =>
 export const setDataCollectionSlotImageApi = data =>
   axios.post('/api/quests/setDataCollectionSlotImage', data);
 // END: QUEST STEP PAGE
+
+// QUEST QA MODULES
+export const getQaFreeFormApi = data =>
+  axios.post('/api/quests/getQAFreeform', data);
+export const setQaFreeFormApi = data =>
+  axios.post('/api/quests/setQAFreeform', data);
+// END: QUEST QA MODULES

@@ -7,10 +7,14 @@ export const TYPE = constants('quests', [
 
   // QUEST STEP PAGE
   '~GET_QUEST_STEP',
+  'CLEAR_QUEST_STEP_DATA',
   '~GET_QUEST_OUTPUT',
   '~GET_DATA_COLLECTION',
   '~GET_DATA_COLLECTION_SLOT_IMAGES',
   '~SET_DATA_COLLECTION_SLOT_IMAGES',
+  '~GET_QA_FREE_FORM',
+  '~SET_QA_FREE_FORM',
+  'SET_QA_FREE_FORM_ANSWER',
 ]);
 
 export const ACTION = actions(TYPE);
@@ -27,6 +31,8 @@ const initialState = {
     maxImageCount: 9,
     pagingMode: 'api',
   },
+
+  questQaFreeForm: {},
 };
 
 export default handleActions(
@@ -46,6 +52,8 @@ export default handleActions(
     [TYPE.GET_QUEST_STEP_SUCCESS]: getStepSuccess,
     [TYPE.GET_QUEST_STEP_ERROR]: error,
 
+    [TYPE.CLEAR_QUEST_STEP_DATA]: clearQuestStepData,
+
     [TYPE.GET_QUEST_OUTPUT]: start,
     [TYPE.GET_QUEST_OUTPUT_SUCCESS]: getQuestOutputSuccess,
     [TYPE.GET_QUEST_OUTPUT_ERROR]: error,
@@ -62,6 +70,18 @@ export default handleActions(
     [TYPE.SET_DATA_COLLECTION_SLOT_IMAGES_SUCCESS]: setDataCollectionSlotImagesSuccess,
     [TYPE.SET_DATA_COLLECTION_SLOT_IMAGES_ERROR]: error,
     // END: STEP PAGE
+
+    // QA MODULES
+    [TYPE.GET_QA_FREE_FORM]: start,
+    [TYPE.GET_QA_FREE_FORM_SUCCESS]: getQaFreeFormSuccess,
+    [TYPE.GET_QA_FREE_FORM_ERROR]: error,
+
+    [TYPE.SET_QA_FREE_FORM]: start,
+    [TYPE.SET_QA_FREE_FORM_SUCCESS]: setQaFreeFormSuccess,
+    [TYPE.SET_QA_FREE_FORM_ERROR]: error,
+
+    [TYPE.SET_QA_FREE_FORM_ANSWER]: setQaFreeFormAnswer,
+    // END: QA MODULES
   },
   initialState
 );
@@ -102,11 +122,19 @@ function getStepSuccess(state, { payload }) {
   };
 }
 
+function clearQuestStepData(state) {
+  return {
+    ...state,
+    stepData: {},
+  };
+}
+
 function getQuestOutputSuccess(state, { payload }) {
+  const { questOutput } = state;
   return {
     ...state,
     isFetching: false,
-    questOutput: payload,
+    questOutput: { ...questOutput, [payload.moduleId]: payload },
   };
 }
 
@@ -150,5 +178,37 @@ function setDataCollectionSlotImagesSuccess(state) {
   return {
     ...state,
     isFetching: false,
+  };
+}
+
+function getQaFreeFormSuccess(state, { payload }) {
+  const { questQaFreeForm } = state;
+  return {
+    ...state,
+    isFetching: false,
+    questQaFreeForm: { ...questQaFreeForm, [payload.moduleId]: payload },
+  };
+}
+
+function setQaFreeFormSuccess(state, { payload }) {
+  return {
+    ...state,
+    isFetching: false,
+  };
+}
+
+function setQaFreeFormAnswer(state, { payload }) {
+  const { questQaFreeForm } = state;
+  const { moduleId, answerText } = payload;
+  return {
+    ...state,
+    isFetching: false,
+    questQaFreeForm: {
+      ...questQaFreeForm,
+      [moduleId]: {
+        ...questQaFreeForm[moduleId],
+        answerText,
+      },
+    },
   };
 }

@@ -67,7 +67,7 @@ export class DataCollectionSlotModal extends Component {
 
     return (
       <Modal show={show} onHide={onHide} goBackText="GO BACK">
-        <div className="container image-selection-modal">
+        <div className="image-selection-modal">
           <Spinner loading={loading} />
 
           <h1 className="modal-h">

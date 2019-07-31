@@ -1,29 +1,32 @@
-import { QuestStep } from 'app/modules/quests/components/quest-step';
+import { QuestModuleQaFreeForm } from 'app/modules/quests/components/quest-modules/qa-free-form';
 import {
   makeQuestsLoadingSelector,
   makeQuestsStepDataSelector,
   makeQuestsStepModuleListSelector,
-  makeQuestsDetailsModalSelector,
+  makeQuestQaFreeFormSelector,
 } from 'app/modules/quests/selectors';
-import { getQuestOutput, getQuestStep } from 'app/modules/quests/thunks';
-import modalActions from 'app/modules/quest-details/actions/modal';
+import {
+  getQaFreeForm,
+  getQuestStep,
+  setQaFreeForm,
+} from 'app/modules/quests/thunks';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
-import { ACTION } from '../reducer';
+import { ACTION } from '../../reducer';
 
 const mapStateToProps = createStructuredSelector({
   loading: makeQuestsLoadingSelector(),
   stepData: makeQuestsStepDataSelector(),
   moduleList: makeQuestsStepModuleListSelector(),
-  resourceModal: makeQuestsDetailsModalSelector(),
+  questQaFreeForm: makeQuestQaFreeFormSelector(),
 });
 
 const mapDispatchToProps = {
+  getQaFreeForm,
   getQuestStep,
-  getQuestOutput,
-  closeModal: modalActions.closeModal,
-  clearQuestStepData: ACTION.clearQuestStepData,
+  setQaFreeForm,
+  setQaFreeFormAnswer: ACTION.setQaFreeFormAnswer,
 };
 
 export default compose(
@@ -31,4 +34,4 @@ export default compose(
     mapStateToProps,
     mapDispatchToProps
   )
-)(QuestStep);
+)(QuestModuleQaFreeForm);
