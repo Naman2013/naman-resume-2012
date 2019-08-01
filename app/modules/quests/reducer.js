@@ -274,7 +274,7 @@ function setQaFillBlanksAnswer(state, { payload }) {
 }
 
 function getQaMultipleChoiceSuccess(state, { payload }) {
-  const { questQaFillBlanks } = state;
+  const { questQaMultipleChoice } = state;
   return {
     ...state,
     isFetching: false,

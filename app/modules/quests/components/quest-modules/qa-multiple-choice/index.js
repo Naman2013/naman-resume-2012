@@ -8,17 +8,17 @@ const ACTIVITY_STATES = {
   incomplete: 'incomplete',
 };
 
-export class QuestModuleQaFillBlanks extends PureComponent {
+export class QuestModuleQaMultipleChoice extends PureComponent {
   componentDidMount = () => {
-    this.getQaFillBlanks();
+    this.getQaMultipleChoice();
   };
 
-  getQaFillBlanks = () => {
-    const { module, questId, getQaFillBlanks, stepData } = this.props;
+  getQaMultipleChoice = () => {
+    const { module, questId, getQaMultipleChoice, stepData } = this.props;
     const { questUUID } = stepData;
     const { moduleId, moduleUUID } = module;
     if (questId && moduleId) {
-      getQaFillBlanks({ questId, moduleId, moduleUUID, questUUID });
+      getQaMultipleChoice({ questId, moduleId, moduleUUID, questUUID });
     }
   };
 
@@ -65,13 +65,13 @@ export class QuestModuleQaFillBlanks extends PureComponent {
   };
 
   render() {
-    const { questQaFillBlanks, module } = this.props;
+    const { questQaMultipleChoice, module } = this.props;
     const { moduleId } = module;
     const { activityTitle, activityState, activityInstructions } =
-      questQaFillBlanks[moduleId] || {};
+      questQaMultipleChoice[moduleId] || {};
 
     return (
-      <div className="quest-qa-fill-blanks">
+      <div className="quest-qa-multiple-choice">
         <QuestQaHeader
           title={activityTitle}
           completed={activityState === ACTIVITY_STATES.complete}
@@ -80,7 +80,7 @@ export class QuestModuleQaFillBlanks extends PureComponent {
         <div className="quest-qa-instructions">{activityInstructions}</div>
 
         <QuestQaAnswerForm
-          moduleData={questQaFillBlanks[moduleId] || {}}
+          moduleData={questQaMultipleChoice[moduleId] || {}}
           onClick={this.setQaFreeForm}
           onChange={this.answerChange}
           qaFillBlanks
