@@ -16,6 +16,7 @@ import './styles.scss';
 import QuestModuleTextOutput from '../../containers/quest-modules/textoutput';
 import QuestModuleDataCollection from '../../containers/quest-modules/data-collection';
 import QuestModuleQaFreeForm from '../../containers/quest-modules/qa-free-form';
+import QuestModuleQaFillBlanks from '../../containers/quest-modules/qa-fill-blanks';
 
 
 type TQuestStep = {
@@ -177,6 +178,15 @@ export class QuestStep extends Component<TQuestStep> {
                     <QuestModuleQaFreeForm
                       module={module}
                       key={`quest-qa-freeform-${module.moduleId}`}
+                      questId={routeParams.questId}
+                      refreshQuestStep={this.getQuestStep}
+                    />
+                  )}
+
+                  {module.moduleType === questModuleType.qafillblanks && (
+                    <QuestModuleQaFillBlanks
+                      module={module}
+                      key={`quest-qa-fillblanks-${module.moduleId}`}
                       questId={routeParams.questId}
                       refreshQuestStep={this.getQuestStep}
                     />

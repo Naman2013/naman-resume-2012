@@ -75,6 +75,7 @@ export class QuestModuleQaFreeForm extends PureComponent {
           moduleData={questQaFreeForm[moduleId] || {}}
           onClick={this.setQaFreeForm}
           onChange={this.answerChange}
+          qaFreeForm
         />
       </div>
     );

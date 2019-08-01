@@ -3,12 +3,12 @@ import {
   makeQuestsLoadingSelector,
   makeQuestsStepDataSelector,
   makeQuestsStepModuleListSelector,
-  makeQuestQaFreeFormSelector,
+  makeQuestQaFillBlanksSelector,
 } from 'app/modules/quests/selectors';
 import {
-  getQaFreeForm,
+  getQaFillBlanks,
   getQuestStep,
-  setQaFreeForm,
+  setQaFillBlanks,
 } from 'app/modules/quests/thunks';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
@@ -19,13 +19,13 @@ const mapStateToProps = createStructuredSelector({
   loading: makeQuestsLoadingSelector(),
   stepData: makeQuestsStepDataSelector(),
   moduleList: makeQuestsStepModuleListSelector(),
-  questQaFreeForm: makeQuestQaFreeFormSelector(),
+  questQaFillBlanks: makeQuestQaFillBlanksSelector(),
 });
 
 const mapDispatchToProps = {
-  getQaFreeForm,
+  getQaFillBlanks,
   getQuestStep,
-  setQaFreeForm,
+  setQaFillBlanks,
   setQaFreeFormAnswer: ACTION.setQaFreeFormAnswer,
 };
 

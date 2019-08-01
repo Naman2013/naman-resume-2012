@@ -5,7 +5,13 @@ import './styles.scss';
 
 export class QuestQaAnswerForm extends PureComponent {
   render() {
-    const { moduleData, onClick, onChange } = this.props;
+    const {
+      moduleData,
+      onClick,
+      onChange,
+      qaFreeForm,
+      qaFillBlanks,
+    } = this.props;
     const {
       moduleBaseImageURL,
       moduleBaseThumbnailURL,
@@ -20,6 +26,8 @@ export class QuestQaAnswerForm extends PureComponent {
       cancelButtonCaption,
       answerText,
       textInputMaxChars,
+      answers,
+      questions,
     } = moduleData;
 
     return (
@@ -34,14 +42,33 @@ export class QuestQaAnswerForm extends PureComponent {
 
         <div className="quest-qa-answer-prompt">{activityPrompt}</div>
 
-        <textarea
-          className="quest-qa-answer-field"
-          placeholder={textInputPlaceholder}
-          readOnly={textInputReadOnly}
-          onChange={onChange}
-          value={answerText}
-          maxlength={textInputMaxChars}
-        />
+        {qaFreeForm && (
+          <textarea
+            className="quest-qa-answer-field"
+            placeholder={textInputPlaceholder}
+            readOnly={textInputReadOnly}
+            onChange={onChange}
+            value={answerText}
+            maxLength={textInputMaxChars}
+          />
+        )}
+
+        {qaFillBlanks &&
+          questions &&
+          questions.map(question => (
+            <div key={`qa-fill-blanks-question-${question.questionId}`} className="qa-fill-blanks-question">
+              <label for={`qa-fill-blanks-question-${question.questionId}`}>{question.questionText}</label>
+              <input
+                className="quest-qa-answer-input-field"
+                id={`qa-fill-blanks-question-${question.questionId}`}
+                placeholder={textInputPlaceholder}
+                readOnly={textInputReadOnly}
+                onChange={onChange}
+                value={answers[question.questionIndex].answerText}
+                maxLength={textInputMaxChars}
+              />
+            </div>
+          ))}
 
         <div className="quest-qa-answer-actions">
           {showSubmitButton && (
