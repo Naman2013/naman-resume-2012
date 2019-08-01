@@ -8,6 +8,8 @@ import {
   setQaFreeFormApi,
   getQaFillBlanksApi,
   setQaFillBlanksApi,
+  getQaMultipleChoiceApi,
+  setQaMultipleChoiceApi,
 } from 'app/modules/quests/api';
 import { ACTION } from './reducer';
 
@@ -93,7 +95,6 @@ export const setDataCollectionSlotImages = data => (dispatch, getState) => {
 };
 // END: QUEST STEP PAGE
 
-
 // QUEST QA MODULES
 export const getQaFreeForm = data => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
@@ -149,5 +150,33 @@ export const setQaFillBlanks = data => (dispatch, getState) => {
   return setQaFillBlanksApi({ ...opts })
     .then(result => dispatch(ACTION.setQaFillBlanksSuccess(result.data)))
     .catch(error => dispatch(ACTION.setQaFillBlanksError(error)));
+};
+
+export const getQaMultipleChoice = data => (dispatch, getState) => {
+  const { at, token, cid } = getState().user;
+  dispatch(ACTION.getQaMultipleChoice());
+  const opts = {
+    at,
+    cid,
+    token,
+    ...data,
+  };
+  return getQaMultipleChoiceApi({ ...opts })
+    .then(result => dispatch(ACTION.getQaMultipleChoiceSuccess(result.data)))
+    .catch(error => dispatch(ACTION.getQaMultipleChoiceError(error)));
+};
+
+export const setQaMultipleChoice = data => (dispatch, getState) => {
+  const { at, token, cid } = getState().user;
+  dispatch(ACTION.setQaMultipleChoice());
+  const opts = {
+    at,
+    cid,
+    token,
+    ...data,
+  };
+  return setQaMultipleChoiceApi({ ...opts })
+    .then(result => dispatch(ACTION.setQaMultipleChoiceSuccess(result.data)))
+    .catch(error => dispatch(ACTION.setQaMultipleChoiceError(error)));
 };
 // END: QUEST QA MODULES
