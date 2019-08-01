@@ -61,4 +61,20 @@
       margin-bottom: 20px;
     }
   }
+
+  .qa-multiple-choice-answer {
+    box-shadow: 0 0 6px 0 $shadows;
+    background-color: $romance;
+    padding: 20px;
+    margin-top: 15px;
+    cursor: pointer;
+
+    .qa-multiple-choice-answer-text {
+      font-family: $secondary-font;
+      font-size: 19px;
+      font-weight: 400;
+      line-height: 1.53;
+      color: $lightHeadedAstronaut;
+    }
+  }
 }

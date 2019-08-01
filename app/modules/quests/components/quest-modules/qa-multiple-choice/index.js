@@ -83,7 +83,7 @@ export class QuestModuleQaMultipleChoice extends PureComponent {
           moduleData={questQaMultipleChoice[moduleId] || {}}
           onClick={this.setQaFreeForm}
           onChange={this.answerChange}
-          qaFillBlanks
+          qaMultipleChoice
         />
       </div>
     );

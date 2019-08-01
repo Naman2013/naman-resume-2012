@@ -16,6 +16,7 @@ export class QuestQaAnswerForm extends PureComponent {
       onChange,
       qaFreeForm,
       qaFillBlanks,
+      qaMultipleChoice,
     } = this.props;
     const {
       moduleBaseImageURL,
@@ -77,6 +78,19 @@ export class QuestQaAnswerForm extends PureComponent {
                 value={answers[question.questionIndex].answerText}
                 maxLength={textInputMaxChars}
               />
+            </div>
+          ))}
+
+        {qaMultipleChoice &&
+          answers &&
+          answers.map(answer => (
+            <div
+              key={`qa-multiple-choice-answer-${answer.answerId}`}
+              className="qa-multiple-choice-answer"
+            >
+              <div className="qa-multiple-choice-answer-text">
+                {answer.answerText}
+              </div>
             </div>
           ))}
 
