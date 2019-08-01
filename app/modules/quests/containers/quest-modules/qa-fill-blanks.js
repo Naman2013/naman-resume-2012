@@ -26,7 +26,7 @@ const mapDispatchToProps = {
   getQaFillBlanks,
   getQuestStep,
   setQaFillBlanks,
-  setQaFreeFormAnswer: ACTION.setQaFreeFormAnswer,
+  setQaFillBlanksAnswer: ACTION.setQaFillBlanksAnswer,
 };
 
 export default compose(

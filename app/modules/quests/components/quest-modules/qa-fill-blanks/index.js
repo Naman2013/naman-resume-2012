@@ -54,10 +54,14 @@ export class QuestModuleQaFillBlanks extends PureComponent {
     });
   };
 
-  answerChange = e => {
-    const { module, setQaFreeFormAnswer } = this.props;
+  answerChange = (e, questionIndex) => {
+    const { module, setQaFillBlanksAnswer } = this.props;
     const { moduleId } = module;
-    setQaFreeFormAnswer({ moduleId, answerText: e.target.value });
+    setQaFillBlanksAnswer({
+      moduleId,
+      answerText: e.target.value,
+      questionIndex,
+    });
   };
 
   render() {

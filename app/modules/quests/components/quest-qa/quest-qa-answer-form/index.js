@@ -3,6 +3,11 @@ import { Button } from 'react-bootstrap';
 import ImageClickHandler from 'app/components/common/ImageClickHandler';
 import './styles.scss';
 
+const ACTIONS = {
+  SUBMIT: 'submit',
+  EDIT: 'edit',
+  CANCEL: 'cancel',
+};
 export class QuestQaAnswerForm extends PureComponent {
   render() {
     const {
@@ -56,14 +61,19 @@ export class QuestQaAnswerForm extends PureComponent {
         {qaFillBlanks &&
           questions &&
           questions.map(question => (
-            <div key={`qa-fill-blanks-question-${question.questionId}`} className="qa-fill-blanks-question">
-              <label for={`qa-fill-blanks-question-${question.questionId}`}>{question.questionText}</label>
+            <div
+              key={`qa-fill-blanks-question-${question.questionId}`}
+              className="qa-fill-blanks-question"
+            >
+              <label htmlFor={`qa-fill-blanks-question-${question.questionId}`}>
+                {question.questionText}
+              </label>
               <input
                 className="quest-qa-answer-input-field"
                 id={`qa-fill-blanks-question-${question.questionId}`}
                 placeholder={textInputPlaceholder}
                 readOnly={textInputReadOnly}
-                onChange={onChange}
+                onChange={e => onChange(e, question.questionIndex)}
                 value={answers[question.questionIndex].answerText}
                 maxLength={textInputMaxChars}
               />
@@ -74,7 +84,7 @@ export class QuestQaAnswerForm extends PureComponent {
           {showSubmitButton && (
             <Button
               className="quest-qa-answer-submit-btn"
-              onClick={() => onClick('submit')}
+              onClick={() => onClick(ACTIONS.SUBMIT)}
             >
               {submitButtonCaption}
             </Button>
@@ -82,7 +92,7 @@ export class QuestQaAnswerForm extends PureComponent {
           {showEditButton && (
             <Button
               className="quest-qa-answer-edit-btn"
-              onClick={() => onClick('edit')}
+              onClick={() => onClick(ACTIONS.EDIT)}
             >
               {editButtonCaption}
             </Button>
@@ -90,7 +100,7 @@ export class QuestQaAnswerForm extends PureComponent {
           {showCancelButton && (
             <Button
               className="quest-qa-answer-cancel-btn"
-              onClick={() => onClick('cancel')}
+              onClick={() => onClick(ACTIONS.CANCEL)}
             >
               {cancelButtonCaption}
             </Button>

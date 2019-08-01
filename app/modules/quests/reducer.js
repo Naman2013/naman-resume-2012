@@ -17,6 +17,7 @@ export const TYPE = constants('quests', [
   'SET_QA_FREE_FORM_ANSWER',
   '~GET_QA_FILL_BLANKS',
   '~SET_QA_FILL_BLANKS',
+  'SET_QA_FILL_BLANKS_ANSWER',
 ]);
 
 export const ACTION = actions(TYPE);
@@ -84,7 +85,7 @@ export default handleActions(
     [TYPE.SET_QA_FREE_FORM_ERROR]: error,
 
     [TYPE.SET_QA_FREE_FORM_ANSWER]: setQaFreeFormAnswer,
-    
+
     [TYPE.GET_QA_FILL_BLANKS]: start,
     [TYPE.GET_QA_FILL_BLANKS_SUCCESS]: getQaFillBlanksSuccess,
     [TYPE.GET_QA_FILL_BLANKS_ERROR]: error,
@@ -92,6 +93,8 @@ export default handleActions(
     [TYPE.SET_QA_FILL_BLANKS]: start,
     [TYPE.SET_QA_FILL_BLANKS_SUCCESS]: setQaFillBlanksSuccess,
     [TYPE.SET_QA_FILL_BLANKS_ERROR]: error,
+
+    [TYPE.SET_QA_FILL_BLANKS_ANSWER]: setQaFillBlanksAnswer,
     // END: QA MODULES
   },
   initialState
@@ -237,5 +240,24 @@ function setQaFillBlanksSuccess(state, { payload }) {
   return {
     ...state,
     isFetching: false,
+  };
+}
+
+function setQaFillBlanksAnswer(state, { payload }) {
+  const { questQaFillBlanks } = state;
+  const { moduleId, answerText, questionIndex } = payload;
+  const { answers } = questQaFillBlanks[moduleId];
+  answers[questionIndex] = { ...answers[questionIndex], answerText };
+  
+  return {
+    ...state,
+    isFetching: false,
+    questQaFillBlanks: {
+      ...questQaFillBlanks,
+      [moduleId]: {
+        ...questQaFillBlanks[moduleId],
+        answers: [...answers],
+      },
+    },
   };
 }
