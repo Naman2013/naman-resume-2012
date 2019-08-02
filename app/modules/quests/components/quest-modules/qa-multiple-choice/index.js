@@ -37,7 +37,7 @@ export class QuestModuleQaMultipleChoice extends PureComponent {
       questUUID,
       moduleId,
       moduleUUID,
-      answerIndex,
+      answerIndex: answerIndex,
       answerLetter,
     }).then(({ payload }) => {
       const { refreshModule, refreshStep, stepModuleId } = payload;

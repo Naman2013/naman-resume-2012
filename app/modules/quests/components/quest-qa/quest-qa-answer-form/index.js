@@ -89,11 +89,16 @@ export class QuestQaAnswerForm extends PureComponent {
               className="qa-multiple-choice-answer"
               onClick={() => onClick(answer.answerIndex, answer.answerLetter)}
             >
-              <div className="qa-multiple-choice-answer-label">
-                {answer.answerLetter}
+              <div className="qa-multiple-choice-answer-item-container">
+                <div className="qa-multiple-choice-answer-label">
+                  <img src={answer.answerIconURL} />
+                </div>
+                <div className="qa-multiple-choice-answer-text">
+                  {answer.answerText}
+                </div>
               </div>
-              <div className="qa-multiple-choice-answer-text">
-                {answer.answerText}
+              <div className="qa-multiple-choice-scoring-text">
+                {answer.scoringText}
               </div>
             </div>
           ))}
