@@ -14,11 +14,11 @@ import take from 'lodash/take';
 import { submitReply } from 'app/services/discussions/submit-reply';
 import Pagination from 'app/components/common/pagination/v4-pagination/pagination';
 import { THREAD_LIST, THREAD_REPLIES } from 'app/services/discussions';
+import pageMeta from 'app/modules/quest-details/actions/pageMeta';
 import DiscussionsItem from './DiscussionsItem';
 import CREATE_THREAD_FORM from './DiscussionsThreadFormInterface';
 import styles from './DiscussionsBoard.style';
 import messages from './DiscussionsThreads.messages';
-import pageMeta from 'app/modules/quest-details/actions/pageMeta';
 
 const {
   any,
@@ -80,7 +80,10 @@ class DiscussionsThreads extends Component {
   componentWillReceiveProps(nextProps) {
     const { topicId, jumpToThreadId } = this.props;
     const { activePage } = this.state;
-    if (topicId !== nextProps.topicId) {
+    if (
+      topicId !== nextProps.topicId ||
+      jumpToThreadId !== nextProps.jumpToThreadId
+    ) {
       //console.log('aaaa', activePage);
       this.getThreads(nextProps, activePage);
     }
@@ -298,7 +301,7 @@ class DiscussionsThreads extends Component {
     } = this.props;
     const { fetching, activePage } = this.state;
     const { threadsCount } = discussions;
-    
+
     return (
       <div className="root">
         {CREATE_THREAD_FORM[callSource].render({
