@@ -45,7 +45,7 @@ class AskToJoinGroup extends Component {
       if (!res.data.apiError) {
         updatePrompt({
           promptText: res.data.statusMessage,
-          showPrompt: res.data.success,
+          showPrompt: res.data.statusMessage,
         });
         this.setState(() => ({
           icon: res.data.askPromptIconUrl,
