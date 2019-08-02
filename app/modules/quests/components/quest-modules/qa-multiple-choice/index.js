@@ -22,45 +22,31 @@ export class QuestModuleQaMultipleChoice extends PureComponent {
     }
   };
 
-  setQaFreeForm = action => {
+  setQaMultipleChoice = (answerIndex, answerLetter) => {
     const {
-      setQaFreeForm,
-      questQaFillBlanks,
+      setQaMultipleChoice,
+      questQaMultipleChoice,
       module,
-      getQaFillBlanks,
-      getQuestStep,
       refreshQuestStep,
     } = this.props;
     const { moduleId } = module;
-    const { questId, questUUID, moduleUUID, answerText } = questQaFillBlanks[
-      moduleId
-    ];
+    const { questId, questUUID, moduleUUID } = questQaMultipleChoice[moduleId];
 
-    setQaFreeForm({
+    setQaMultipleChoice({
       questId,
       questUUID,
       moduleId,
       moduleUUID,
-      action,
-      answerText,
+      answerIndex,
+      answerLetter,
     }).then(({ payload }) => {
       const { refreshModule, refreshStep, stepModuleId } = payload;
 
       if (refreshStep) {
         refreshQuestStep();
       } else if (refreshModule) {
-        getQaFillBlanks({ questId, moduleId });
+        this.getQaMultipleChoice();
       }
-    });
-  };
-
-  answerChange = (e, questionIndex) => {
-    const { module, setQaFillBlanksAnswer } = this.props;
-    const { moduleId } = module;
-    setQaFillBlanksAnswer({
-      moduleId,
-      answerText: e.target.value,
-      questionIndex,
     });
   };
 
@@ -81,8 +67,7 @@ export class QuestModuleQaMultipleChoice extends PureComponent {
 
         <QuestQaAnswerForm
           moduleData={questQaMultipleChoice[moduleId] || {}}
-          onClick={this.setQaFreeForm}
-          onChange={this.answerChange}
+          onClick={this.setQaMultipleChoice}
           qaMultipleChoice
         />
       </div>
