@@ -46,7 +46,11 @@ import {
 } from 'app/modules/profile';
 import ImagesLayout from 'app/modules/profile-photos/components/ImagesLayout';
 import { ProfilePhotos } from 'app/modules/profile-photos/components/profile-photos';
-import { QuestDetailsLazy, QuestStepLazy } from 'app/modules/quests';
+import {
+  QuestCompleteLazy,
+  QuestDetailsLazy,
+  QuestStepLazy,
+} from 'app/modules/quests';
 import { TelescopeDetailsMain } from 'app/modules/telescope';
 import { TelescopeNavigation } from 'app/modules/telescope/components/old/telescope-navigation';
 import GroupCreate from 'app/pages/community-groups/GroupCreate';
@@ -437,6 +441,11 @@ const AppRouter = ({ setPreviousInstrument }) => (
         onEnter={validateUser}
       />
       <Route
+        path="quest-completed/:questId"
+        component={QuestCompleteLazy}
+        onEnter={validateUser}
+      />
+      <Route
         path="quest-details/:questId/completed-overview"
         component={QuestComplete}
         onEnter={validateUser}
@@ -499,23 +508,23 @@ const AppRouter = ({ setPreviousInstrument }) => (
         component={CommunityGroupOverview}
       />
 
-        <Route
-          path="community-groups/:groupId/edit=:edit"
-          onEnter={validateUser}
-          component={CommunityGroupEdit}
-        />
+      <Route
+        path="community-groups/:groupId/edit=:edit"
+        onEnter={validateUser}
+        component={CommunityGroupEdit}
+      />
 
-         <Route
-           path="community-groups/:groupId/info"
-           onEnter={validateUser}
-           component={GroupOverviewInfo}
-         />
+      <Route
+        path="community-groups/:groupId/info"
+        onEnter={validateUser}
+        component={GroupOverviewInfo}
+      />
 
-         <Route
-           path="community-groups/:groupId/:threadId"
-           onEnter={validateUser}
-           component={CommunityGroupOverview}
-         />
+      <Route
+        path="community-groups/:groupId/:threadId"
+        onEnter={validateUser}
+        component={CommunityGroupOverview}
+      />
 
       <Route
         path="account-settings"
