@@ -53,14 +53,19 @@ export class QuestModuleQaMultipleChoice extends PureComponent {
   render() {
     const { questQaMultipleChoice, module } = this.props;
     const { moduleId } = module;
-    const { activityTitle, activityState, activityInstructions } =
-      questQaMultipleChoice[moduleId] || {};
+    const {
+      activityTitle,
+      activityState,
+      activityInstructions,
+      activitySequenceText,
+    } = questQaMultipleChoice[moduleId] || {};
 
     return (
       <div className="quest-qa-multiple-choice">
         <QuestQaHeader
           title={activityTitle}
           completed={activityState === ACTIVITY_STATES.complete}
+          sequenceText={activitySequenceText}
         />
 
         <div className="quest-qa-instructions">{activityInstructions}</div>

@@ -59,14 +59,19 @@ export class QuestModuleQaFreeForm extends PureComponent {
   render() {
     const { questQaFreeForm, module } = this.props;
     const { moduleId } = module;
-    const { activityTitle, activityState, activityInstructions } =
-      questQaFreeForm[moduleId] || {};
+    const {
+      activityTitle,
+      activityState,
+      activityInstructions,
+      activitySequenceText,
+    } = questQaFreeForm[moduleId] || {};
 
     return (
       <div className="quest-qa-free-form">
         <QuestQaHeader
           title={activityTitle}
           completed={activityState === ACTIVITY_STATES.complete}
+          sequenceText={activitySequenceText}
         />
 
         <div className="quest-qa-instructions">{activityInstructions}</div>

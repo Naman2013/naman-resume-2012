@@ -22,13 +22,12 @@ export class QuestModuleQaFillBlanks extends PureComponent {
     }
   };
 
-  setQaFreeForm = action => {
+  setQaFillBlanks = action => {
     const {
-      setQaFreeForm,
+      setQaFillBlanks,
       questQaFillBlanks,
       module,
       getQaFillBlanks,
-      getQuestStep,
       refreshQuestStep,
     } = this.props;
     const { moduleId } = module;
@@ -36,7 +35,7 @@ export class QuestModuleQaFillBlanks extends PureComponent {
       moduleId
     ];
 
-    setQaFreeForm({
+    setQaFillBlanks({
       questId,
       questUUID,
       moduleId,
@@ -67,21 +66,26 @@ export class QuestModuleQaFillBlanks extends PureComponent {
   render() {
     const { questQaFillBlanks, module } = this.props;
     const { moduleId } = module;
-    const { activityTitle, activityState, activityInstructions } =
-      questQaFillBlanks[moduleId] || {};
+    const {
+      activityTitle,
+      activityState,
+      activityInstructions,
+      activitySequenceText,
+    } = questQaFillBlanks[moduleId] || {};
 
     return (
       <div className="quest-qa-fill-blanks">
         <QuestQaHeader
           title={activityTitle}
           completed={activityState === ACTIVITY_STATES.complete}
+          sequenceText={activitySequenceText}
         />
 
         <div className="quest-qa-instructions">{activityInstructions}</div>
 
         <QuestQaAnswerForm
           moduleData={questQaFillBlanks[moduleId] || {}}
-          onClick={this.setQaFreeForm}
+          onClick={this.setQaFillBlanks}
           onChange={this.answerChange}
           qaFillBlanks
         />
