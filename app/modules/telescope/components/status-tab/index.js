@@ -106,14 +106,12 @@ export const StatusTab = props => {
               <p className="p-19">
                 Almost continuous distortion with occasional brief good moments.
               </p>
-              <hr />
-
+              {/* <hr /> */}
               {/* <h4 className="h4-custom">Measured FWHM Telemetry:</h4> */}
-              <h2 className="h2-custom">N.N Arcseconds</h2>
-              <hr />
-
-              <h4 className="h4-custom">Transparency:</h4>
-              <h2 className="h2-custom">Moderate Haze</h2>
+              {/* <h2 className="h2-custom">N.N Arcseconds</h2> */}
+              {/* <hr /> */}
+              {/* <h4 className="h4-custom">Transparency:</h4> */}
+              {/* <h2 className="h2-custom">Moderate Haze</h2> */}
             </Box>
 
             <WeatherConditions obsId={obsId} />
