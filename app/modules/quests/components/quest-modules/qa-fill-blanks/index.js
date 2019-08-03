@@ -8,31 +8,34 @@ const ACTIVITY_STATES = {
   incomplete: 'incomplete',
 };
 
-export class QuestModuleQaFreeForm extends PureComponent {
+export class QuestModuleQaFillBlanks extends PureComponent {
   componentDidMount = () => {
-    const { module, questId, getQaFreeForm, stepData } = this.props;
+    this.getQaFillBlanks();
+  };
+
+  getQaFillBlanks = () => {
+    const { module, questId, getQaFillBlanks, stepData } = this.props;
     const { questUUID } = stepData;
     const { moduleId, moduleUUID } = module;
     if (questId && moduleId) {
-      getQaFreeForm({ questId, moduleId, moduleUUID, questUUID });
+      getQaFillBlanks({ questId, moduleId, moduleUUID, questUUID });
     }
   };
 
-  setQaFreeForm = action => {
+  setQaFillBlanks = action => {
     const {
-      setQaFreeForm,
-      questQaFreeForm,
+      setQaFillBlanks,
+      questQaFillBlanks,
       module,
-      getQaFreeForm,
-      getQuestStep,
+      getQaFillBlanks,
       refreshQuestStep,
     } = this.props;
     const { moduleId } = module;
-    const { questId, questUUID, moduleUUID, answerText } = questQaFreeForm[
+    const { questId, questUUID, moduleUUID, answerText } = questQaFillBlanks[
       moduleId
     ];
 
-    setQaFreeForm({
+    setQaFillBlanks({
       questId,
       questUUID,
       moduleId,
@@ -45,29 +48,33 @@ export class QuestModuleQaFreeForm extends PureComponent {
       if (refreshStep) {
         refreshQuestStep();
       } else if (refreshModule) {
-        getQaFreeForm({ questId, moduleId });
+        getQaFillBlanks({ questId, moduleId });
       }
     });
   };
 
-  answerChange = e => {
-    const { module, setQaFreeFormAnswer } = this.props;
+  answerChange = (e, questionIndex) => {
+    const { module, setQaFillBlanksAnswer } = this.props;
     const { moduleId } = module;
-    setQaFreeFormAnswer({ moduleId, answerText: e.target.value });
+    setQaFillBlanksAnswer({
+      moduleId,
+      answerText: e.target.value,
+      questionIndex,
+    });
   };
 
   render() {
-    const { questQaFreeForm, module } = this.props;
+    const { questQaFillBlanks, module } = this.props;
     const { moduleId } = module;
     const {
       activityTitle,
       activityState,
       activityInstructions,
       activitySequenceText,
-    } = questQaFreeForm[moduleId] || {};
+    } = questQaFillBlanks[moduleId] || {};
 
     return (
-      <div className="quest-qa-free-form">
+      <div className="quest-qa-fill-blanks">
         <QuestQaHeader
           title={activityTitle}
           completed={activityState === ACTIVITY_STATES.complete}
@@ -77,10 +84,10 @@ export class QuestModuleQaFreeForm extends PureComponent {
         <div className="quest-qa-instructions">{activityInstructions}</div>
 
         <QuestQaAnswerForm
-          moduleData={questQaFreeForm[moduleId] || {}}
-          onClick={this.setQaFreeForm}
+          moduleData={questQaFillBlanks[moduleId] || {}}
+          onClick={this.setQaFillBlanks}
           onChange={this.answerChange}
-          qaFreeForm
+          qaFillBlanks
         />
       </div>
     );

@@ -17,4 +17,12 @@ export const getQaFreeFormApi = data =>
   axios.post('/api/quests/getQAFreeform', data);
 export const setQaFreeFormApi = data =>
   axios.post('/api/quests/setQAFreeform', data);
+export const getQaFillBlanksApi = data =>
+  axios.post('/api/quests/getQAFillBlanks', data);
+export const setQaFillBlanksApi = data =>
+  axios.post('/api/quests/setQAFillBlanks', data);
+export const getQaMultipleChoiceApi = data =>
+  axios.post('/api/quests/getQAMultipleChoice', data);
+export const setQaMultipleChoiceApi = data =>
+  axios.post('/api/quests/setQAMultipleChoice', data);
 // END: QUEST QA MODULES
