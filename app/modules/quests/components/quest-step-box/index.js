@@ -13,6 +13,7 @@ export const QuestStepBox = props => {
     stepData,
     questId,
     showHeader,
+    showModule,
   } = props;
   const {
     showResources,
@@ -72,7 +73,7 @@ export const QuestStepBox = props => {
         </>
       )}
 
-      <div className="step-modules">{children}</div>
+      {showModule && <div className="step-modules">{children}</div>}
     </div>
   );
 };
