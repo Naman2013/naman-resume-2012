@@ -53,4 +53,16 @@ export const makeQuestQaFreeFormSelector = () =>
     selectQuests,
     state => state.questQaFreeForm
   );
+
+export const makeQuestQaFillBlanksSelector = () =>
+  createSelector(
+    selectQuests,
+    state => state.questQaFillBlanks
+  );
+
+export const makeQuestQaMultipleChoiceSelector = () =>
+  createSelector(
+    selectQuests,
+    state => state.questQaMultipleChoice
+  );
 // END: QUEST QA MODULES

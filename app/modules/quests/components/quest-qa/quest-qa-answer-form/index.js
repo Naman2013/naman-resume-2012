@@ -3,9 +3,21 @@ import { Button } from 'react-bootstrap';
 import ImageClickHandler from 'app/components/common/ImageClickHandler';
 import './styles.scss';
 
+const ACTIONS = {
+  SUBMIT: 'submit',
+  EDIT: 'edit',
+  CANCEL: 'cancel',
+};
 export class QuestQaAnswerForm extends PureComponent {
   render() {
-    const { moduleData, onClick, onChange } = this.props;
+    const {
+      moduleData,
+      onClick,
+      onChange,
+      qaFreeForm,
+      qaFillBlanks,
+      qaMultipleChoice,
+    } = this.props;
     const {
       moduleBaseImageURL,
       moduleBaseThumbnailURL,
@@ -20,6 +32,8 @@ export class QuestQaAnswerForm extends PureComponent {
       cancelButtonCaption,
       answerText,
       textInputMaxChars,
+      answers,
+      questions,
     } = moduleData;
 
     return (
@@ -34,20 +48,66 @@ export class QuestQaAnswerForm extends PureComponent {
 
         <div className="quest-qa-answer-prompt">{activityPrompt}</div>
 
-        <textarea
-          className="quest-qa-answer-field"
-          placeholder={textInputPlaceholder}
-          readOnly={textInputReadOnly}
-          onChange={onChange}
-          value={answerText}
-          maxlength={textInputMaxChars}
-        />
+        {qaFreeForm && (
+          <textarea
+            className="quest-qa-answer-field"
+            placeholder={textInputPlaceholder}
+            readOnly={textInputReadOnly}
+            onChange={onChange}
+            value={answerText}
+            maxLength={textInputMaxChars}
+          />
+        )}
+
+        {qaFillBlanks &&
+          questions &&
+          questions.map(question => (
+            <div
+              key={`qa-fill-blanks-question-${question.questionId}`}
+              className="qa-fill-blanks-question"
+            >
+              <label htmlFor={`qa-fill-blanks-question-${question.questionId}`}>
+                {question.questionText}
+              </label>
+              <input
+                className="quest-qa-answer-input-field"
+                id={`qa-fill-blanks-question-${question.questionId}`}
+                placeholder={textInputPlaceholder}
+                readOnly={textInputReadOnly}
+                onChange={e => onChange(e, question.questionIndex)}
+                value={answers[question.questionIndex].answerText}
+                maxLength={textInputMaxChars}
+              />
+            </div>
+          ))}
+
+        {qaMultipleChoice &&
+          answers &&
+          answers.map(answer => (
+            <div
+              key={`qa-multiple-choice-answer-${answer.answerId}`}
+              className="qa-multiple-choice-answer"
+              onClick={() => onClick(answer.answerIndex, answer.answerLetter)}
+            >
+              <div className="qa-multiple-choice-answer-item-container">
+                <div className="qa-multiple-choice-answer-label">
+                  <img src={answer.answerIconURL} />
+                </div>
+                <div className="qa-multiple-choice-answer-text">
+                  {answer.answerText}
+                </div>
+              </div>
+              <div className="qa-multiple-choice-scoring-text">
+                {answer.scoringText}
+              </div>
+            </div>
+          ))}
 
         <div className="quest-qa-answer-actions">
           {showSubmitButton && (
             <Button
               className="quest-qa-answer-submit-btn"
-              onClick={() => onClick('submit')}
+              onClick={() => onClick(ACTIONS.SUBMIT)}
             >
               {submitButtonCaption}
             </Button>
@@ -55,7 +115,7 @@ export class QuestQaAnswerForm extends PureComponent {
           {showEditButton && (
             <Button
               className="quest-qa-answer-edit-btn"
-              onClick={() => onClick('edit')}
+              onClick={() => onClick(ACTIONS.EDIT)}
             >
               {editButtonCaption}
             </Button>
@@ -63,7 +123,7 @@ export class QuestQaAnswerForm extends PureComponent {
           {showCancelButton && (
             <Button
               className="quest-qa-answer-cancel-btn"
-              onClick={() => onClick('cancel')}
+              onClick={() => onClick(ACTIONS.CANCEL)}
             >
               {cancelButtonCaption}
             </Button>

@@ -15,6 +15,11 @@ export const TYPE = constants('quests', [
   '~GET_QA_FREE_FORM',
   '~SET_QA_FREE_FORM',
   'SET_QA_FREE_FORM_ANSWER',
+  '~GET_QA_FILL_BLANKS',
+  '~SET_QA_FILL_BLANKS',
+  'SET_QA_FILL_BLANKS_ANSWER',
+  '~GET_QA_MULTIPLE_CHOICE',
+  '~SET_QA_MULTIPLE_CHOICE',
 ]);
 
 export const ACTION = actions(TYPE);
@@ -33,6 +38,8 @@ const initialState = {
   },
 
   questQaFreeForm: {},
+  questQaFillBlanks: {},
+  questQaMultipleChoice: {},
 };
 
 export default handleActions(
@@ -81,6 +88,24 @@ export default handleActions(
     [TYPE.SET_QA_FREE_FORM_ERROR]: error,
 
     [TYPE.SET_QA_FREE_FORM_ANSWER]: setQaFreeFormAnswer,
+
+    [TYPE.GET_QA_FILL_BLANKS]: start,
+    [TYPE.GET_QA_FILL_BLANKS_SUCCESS]: getQaFillBlanksSuccess,
+    [TYPE.GET_QA_FILL_BLANKS_ERROR]: error,
+
+    [TYPE.SET_QA_FILL_BLANKS]: start,
+    [TYPE.SET_QA_FILL_BLANKS_SUCCESS]: setQaFillBlanksSuccess,
+    [TYPE.SET_QA_FILL_BLANKS_ERROR]: error,
+
+    [TYPE.SET_QA_FILL_BLANKS_ANSWER]: setQaFillBlanksAnswer,
+
+    [TYPE.GET_QA_MULTIPLE_CHOICE]: start,
+    [TYPE.GET_QA_MULTIPLE_CHOICE_SUCCESS]: getQaMultipleChoiceSuccess,
+    [TYPE.GET_QA_MULTIPLE_CHOICE_ERROR]: error,
+
+    [TYPE.SET_QA_MULTIPLE_CHOICE]: start,
+    [TYPE.SET_QA_MULTIPLE_CHOICE_SUCCESS]: setQaMultipleChoiceSuccess,
+    [TYPE.SET_QA_MULTIPLE_CHOICE_ERROR]: error,
     // END: QA MODULES
   },
   initialState
@@ -210,5 +235,59 @@ function setQaFreeFormAnswer(state, { payload }) {
         answerText,
       },
     },
+  };
+}
+
+function getQaFillBlanksSuccess(state, { payload }) {
+  const { questQaFillBlanks } = state;
+  return {
+    ...state,
+    isFetching: false,
+    questQaFillBlanks: { ...questQaFillBlanks, [payload.moduleId]: payload },
+  };
+}
+
+function setQaFillBlanksSuccess(state, { payload }) {
+  return {
+    ...state,
+    isFetching: false,
+  };
+}
+
+function setQaFillBlanksAnswer(state, { payload }) {
+  const { questQaFillBlanks } = state;
+  const { moduleId, answerText, questionIndex } = payload;
+  const { answers } = questQaFillBlanks[moduleId];
+  answers[questionIndex] = { ...answers[questionIndex], answerText };
+
+  return {
+    ...state,
+    isFetching: false,
+    questQaFillBlanks: {
+      ...questQaFillBlanks,
+      [moduleId]: {
+        ...questQaFillBlanks[moduleId],
+        answers: [...answers],
+      },
+    },
+  };
+}
+
+function getQaMultipleChoiceSuccess(state, { payload }) {
+  const { questQaMultipleChoice } = state;
+  return {
+    ...state,
+    isFetching: false,
+    questQaMultipleChoice: {
+      ...questQaMultipleChoice,
+      [payload.moduleId]: payload,
+    },
+  };
+}
+
+function setQaMultipleChoiceSuccess(state, { payload }) {
+  return {
+    ...state,
+    isFetching: false,
   };
 }

@@ -8,6 +8,7 @@ export const questModuleType = {
   textoutput: 'textoutput',
   qamultiplechoice: 'qamultiplechoice',
   qafreeform: 'qafreeform',
+  qafillblanks: 'qafillblanks',
 };
 
 const moduleTypes =
@@ -17,7 +18,8 @@ const moduleTypes =
   questModuleType.textinput |
   questModuleType.textoutput |
   questModuleType.qamultiplechoice |
-  questModuleType.qafreeform;
+  questModuleType.qafreeform |
+  questModuleType.qafillblanks;
 
 export type QuestStepModule = {
   moduleId: string,

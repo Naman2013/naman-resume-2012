@@ -8,66 +8,60 @@ const ACTIVITY_STATES = {
   incomplete: 'incomplete',
 };
 
-export class QuestModuleQaFreeForm extends PureComponent {
+export class QuestModuleQaMultipleChoice extends PureComponent {
   componentDidMount = () => {
-    const { module, questId, getQaFreeForm, stepData } = this.props;
+    this.getQaMultipleChoice();
+  };
+
+  getQaMultipleChoice = () => {
+    const { module, questId, getQaMultipleChoice, stepData } = this.props;
     const { questUUID } = stepData;
     const { moduleId, moduleUUID } = module;
     if (questId && moduleId) {
-      getQaFreeForm({ questId, moduleId, moduleUUID, questUUID });
+      getQaMultipleChoice({ questId, moduleId, moduleUUID, questUUID });
     }
   };
 
-  setQaFreeForm = action => {
+  setQaMultipleChoice = (answerIndex, answerLetter) => {
     const {
-      setQaFreeForm,
-      questQaFreeForm,
+      setQaMultipleChoice,
+      questQaMultipleChoice,
       module,
-      getQaFreeForm,
-      getQuestStep,
       refreshQuestStep,
     } = this.props;
     const { moduleId } = module;
-    const { questId, questUUID, moduleUUID, answerText } = questQaFreeForm[
-      moduleId
-    ];
+    const { questId, questUUID, moduleUUID } = questQaMultipleChoice[moduleId];
 
-    setQaFreeForm({
+    setQaMultipleChoice({
       questId,
       questUUID,
       moduleId,
       moduleUUID,
-      action,
-      answerText,
+      answerIndex: answerIndex,
+      answerLetter,
     }).then(({ payload }) => {
       const { refreshModule, refreshStep, stepModuleId } = payload;
 
       if (refreshStep) {
         refreshQuestStep();
       } else if (refreshModule) {
-        getQaFreeForm({ questId, moduleId });
+        this.getQaMultipleChoice();
       }
     });
   };
 
-  answerChange = e => {
-    const { module, setQaFreeFormAnswer } = this.props;
-    const { moduleId } = module;
-    setQaFreeFormAnswer({ moduleId, answerText: e.target.value });
-  };
-
   render() {
-    const { questQaFreeForm, module } = this.props;
+    const { questQaMultipleChoice, module } = this.props;
     const { moduleId } = module;
     const {
       activityTitle,
       activityState,
       activityInstructions,
       activitySequenceText,
-    } = questQaFreeForm[moduleId] || {};
+    } = questQaMultipleChoice[moduleId] || {};
 
     return (
-      <div className="quest-qa-free-form">
+      <div className="quest-qa-multiple-choice">
         <QuestQaHeader
           title={activityTitle}
           completed={activityState === ACTIVITY_STATES.complete}
@@ -77,10 +71,9 @@ export class QuestModuleQaFreeForm extends PureComponent {
         <div className="quest-qa-instructions">{activityInstructions}</div>
 
         <QuestQaAnswerForm
-          moduleData={questQaFreeForm[moduleId] || {}}
-          onClick={this.setQaFreeForm}
-          onChange={this.answerChange}
-          qaFreeForm
+          moduleData={questQaMultipleChoice[moduleId] || {}}
+          onClick={this.setQaMultipleChoice}
+          qaMultipleChoice
         />
       </div>
     );
