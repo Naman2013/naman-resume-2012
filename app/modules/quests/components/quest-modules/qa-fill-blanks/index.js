@@ -64,7 +64,7 @@ export class QuestModuleQaFillBlanks extends PureComponent {
   };
 
   render() {
-    const { questQaFillBlanks, module } = this.props;
+    const { questQaFillBlanks, module, readOnly } = this.props;
     const { moduleId } = module;
     const {
       activityTitle,
@@ -87,6 +87,7 @@ export class QuestModuleQaFillBlanks extends PureComponent {
           moduleData={questQaFillBlanks[moduleId] || {}}
           onClick={this.setQaFillBlanks}
           onChange={this.answerChange}
+          readOnly={readOnly}
           qaFillBlanks
         />
       </div>

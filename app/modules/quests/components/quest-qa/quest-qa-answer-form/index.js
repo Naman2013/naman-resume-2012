@@ -17,6 +17,7 @@ export class QuestQaAnswerForm extends PureComponent {
       qaFreeForm,
       qaFillBlanks,
       qaMultipleChoice,
+      readOnly,
     } = this.props;
     const {
       moduleBaseImageURL,
@@ -86,8 +87,11 @@ export class QuestQaAnswerForm extends PureComponent {
           answers.map(answer => (
             <div
               key={`qa-multiple-choice-answer-${answer.answerId}`}
-              className="qa-multiple-choice-answer"
+              className={`qa-multiple-choice-answer${
+                readOnly ? ' disabled' : ''
+              }`}
               onClick={() => onClick(answer.answerIndex, answer.answerLetter)}
+              disabled={readOnly}
             >
               <div className="qa-multiple-choice-answer-item-container">
                 <div className="qa-multiple-choice-answer-label">
@@ -108,6 +112,7 @@ export class QuestQaAnswerForm extends PureComponent {
             <Button
               className="quest-qa-answer-submit-btn"
               onClick={() => onClick(ACTIONS.SUBMIT)}
+              disabled={readOnly}
             >
               {submitButtonCaption}
             </Button>
@@ -116,6 +121,7 @@ export class QuestQaAnswerForm extends PureComponent {
             <Button
               className="quest-qa-answer-edit-btn"
               onClick={() => onClick(ACTIONS.EDIT)}
+              disabled={readOnly}
             >
               {editButtonCaption}
             </Button>
@@ -124,6 +130,7 @@ export class QuestQaAnswerForm extends PureComponent {
             <Button
               className="quest-qa-answer-cancel-btn"
               onClick={() => onClick(ACTIONS.CANCEL)}
+              disabled={readOnly}
             >
               {cancelButtonCaption}
             </Button>

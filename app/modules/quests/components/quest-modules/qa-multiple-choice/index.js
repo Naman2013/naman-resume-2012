@@ -37,7 +37,7 @@ export class QuestModuleQaMultipleChoice extends PureComponent {
       questUUID,
       moduleId,
       moduleUUID,
-      answerIndex: answerIndex,
+      answerIndex,
       answerLetter,
     }).then(({ payload }) => {
       const { refreshModule, refreshStep, stepModuleId } = payload;
@@ -51,7 +51,7 @@ export class QuestModuleQaMultipleChoice extends PureComponent {
   };
 
   render() {
-    const { questQaMultipleChoice, module } = this.props;
+    const { questQaMultipleChoice, module, readOnly } = this.props;
     const { moduleId } = module;
     const {
       activityTitle,
@@ -73,6 +73,7 @@ export class QuestModuleQaMultipleChoice extends PureComponent {
         <QuestQaAnswerForm
           moduleData={questQaMultipleChoice[moduleId] || {}}
           onClick={this.setQaMultipleChoice}
+          readOnly={readOnly}
           qaMultipleChoice
         />
       </div>
