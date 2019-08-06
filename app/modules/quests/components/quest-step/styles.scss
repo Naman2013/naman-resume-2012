@@ -1,6 +1,8 @@
 @import '~app/styles/bootstrap/common';
 
 .quest-step-page {
+  padding-bottom: 100px;
+
   .top-v-line {
     display: flex;
     height: 100px;
@@ -15,7 +17,7 @@
   }
 
   .step-container {
-    margin-bottom: 130px;
+    margin-bottom: 30px;
   }
 
   // RESPONSIVE
@@ -29,5 +31,4 @@
       }
     }
   }
-
 }
