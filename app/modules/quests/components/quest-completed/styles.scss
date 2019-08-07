@@ -1,16 +1,10 @@
 @import '../../../../styles/variables/colors.scss';
 @import '../../../../styles/variables/fonts.scss';
-
-:root {
-  --faintGray: #f8f8f8;
-}
-:root {
-  --hawkesBlue: #d9dee4;
-}
+@import '../../../../styles/variables/media-queries.scss';
 
 .quest-complete {
   position: relative;
-  background-color: var(--faintGray);
+  background-color: $faintGray;
 }
 
 .quest-complete__body {
@@ -28,42 +22,48 @@
     height: 440px;
     z-index: 1;
     font-family: $primary-font;
+
+    .title {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-align: center;
+      color: $golda;
+      text-transform: uppercase;
+      padding-top: 82px;
+    }
+
+    .subtitle {
+      font-size: 36px;
+      font-weight: 900;
+      letter-spacing: 4px;
+      text-align: center;
+      color: $romance;
+      text-transform: uppercase;
+      margin-top: 20px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid $black;
+    }
+
+    .vertical-line {
+      height: 40px;
+      width: 1px;
+      background-color: $black;
+    }
   }
-  .quest-complete__body-banner > .title {
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-align: center;
-    color: $golda;
-    text-transform: uppercase;
-    padding-top: 82px;
-  }
-  .quest-complete__body-banner > .subtitle {
-    font-size: 36px;
-    font-weight: 900;
-    letter-spacing: 4px;
-    text-align: center;
-    color: #ffffff;
-    text-transform: uppercase;
-    margin-top: 20px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid #111111;
-  }
-  .quest-complete__body-banner > .vertical-line {
-    height: 40px;
-    width: 1px;
-    background-color: #111111;
-  }
+
   .quest-complete__body-content {
     width: 780px;
     height: auto;
-    background-color: #ffffff;
-    box-shadow: 0 0 6px 0 #ced2d8;
+    background-color: $romance;
+    box-shadow: 0 0 6px 0 $shadows;
     margin: 0 auto;
     transform: translateY(-150px);
   }
+
   .quest-emblem {
     position: relative;
+
     .blue-shield {
       position: absolute;
       background-repeat: no-repeat;
@@ -71,13 +71,19 @@
       background-image: url(https://vega.slooh.com/assets/v4/common/quest_shield.png);
       height: 112px;
       width: 112px;
-      left: 43%;
+      left: calc(50% - 56px);
       top: -60px;
+
       .icon-container {
         position: relative;
         display: inline-block;
         top: 31px;
         left: 36px;
+
+        img {
+          width: 40px;
+          height: 40px;
+        }
       }
     }
   }
@@ -93,36 +99,41 @@
     flex-direction: row;
     justify-content: space-between;
   }
+
   .quest-badge__header-left {
 
+    .title {
+      font-size: 12px;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      font-family: $primary-font;
+      color: $lightHeadedAstronaut;
+    }
+
+    .subtitle {
+      font-family: $primary-font;
+      font-size: 30px;
+      color: $lightHeadedAstronaut;
+      margin-top: 12px;
+    }
   }
-  .quest-badge__header-left > .title {
-    font-size: 12px;
-    letter-spacing: 0.6px;
-    text-transform: uppercase;
-    font-family: $primary-font;
-    color: $lightHeadedAstronaut;
-  }
-  .quest-badge__header-left > .subtitle {
-    font-family: $secondary-font;
-    font-size: 30px;
-    color: $lightHeadedAstronaut;
-    margin-top: 12px;
-  }
+
   .quest-badge__header-right {
     display: flex;
     align-items: center;
+
+    .download {
+      width: 40px;
+      height: 40px;
+      text-align: center;
+      font-size: 18px;
+      border: 1px dashed $lightHeadedAstronaut;
+      border-radius: 50%;
+      padding-top: 7px;
+      cursor: pointer;
+    }
   }
-  .quest-badge__header-right > .download {
-    width: 40px;
-    height: 40px;
-    text-align: center;
-    font-size: 18px;
-    border: 1px dashed $lightHeadedAstronaut;
-    border-radius: 50%;
-    padding-top: 7px;
-    cursor: pointer;
-  }
+
   .quest-badge__body {
     margin-top: 25px;
     font-family: $secondary-font;
@@ -132,83 +143,92 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border-top: 1px solid var(--hawkesBlue);
-    border-bottom: 1px solid var(--hawkesBlue);
+    border-top: 1px solid $hawkesBlue;
+    border-bottom: 1px solid $hawkesBlue;
+
+    .title {
+      font-family: $primary-font;
+      font-size: 20px;
+      color: $lightHeadedAstronaut;
+      text-transform: none;
+      font-weight: 500;
+    }
+
+    .review-btn {
+      width: 160px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      height: 100%;
+      border-left: 1px solid $hawkesBlue;
+    }
   }
-  .quest-badge-review > .title {
-    font-size: 20px;
-    color: $lightHeadedAstronaut;
-    text-transform: none;
-    font-weight: 500;
-  }
-  .quest-badge-review > .review-btn {
-    width: 160px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    height: 100%;
-    border-left: 1px solid var(--hawkesBlue);
-  }
-  .quest-badge-details > .learn-more > button {
-    width: 140px;
-    height: 40px;
-    border-radius: 100px;
-    border: dashed 1px $lightHeadedAstronaut;
+
+  .quest-badge-review-btn {
     cursor: pointer;
-    outline: none;
-    color: $lightHeadedAstronaut;
-    font-size: 11px;
-    text-transform: uppercase;
-    padding: 0;
   }
+
   .quest-badge-list {
     list-style: none;
     padding: 0;
     margin: 0;
     font-family: $primary-font;
   }
+
   .quest-list-element {
-    height: 80px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border-bottom: 1px solid var(--hawkesBlue);
+    min-height: 80px;
+    height: auto;
+    border-bottom: 1px solid $hawkesBlue;
+
+    .title {
+      color: $raven;
+      font-family: $primary-font;
+      font-size: 19px;
+      text-transform: none;
+      font-weight: 500;
+      width: calc(100% - 60px);
+    }
+
+    .quest-complete-checkbox {
+      background-color: $lightHeadedAstronaut;
+      box-shadow: none;
+    }
   }
-  .quest-list-element > .title {
-    color: $raven;
-    font-family: $primary-font;
-    font-size: 19px;
-    text-transform: none;
-    font-weight: 500;
-  }
-  .quest-list-element > .quest-complete-checkbox {
-    background-color: $lightHeadedAstronaut;
-    box-shadow: none;
-  }
+
   .quest-badge-details {
     margin-top: 40px;
-  }
-  .quest-badge-details > .title {
-    font-family: $primary-font;
-    font-size: 11px;
-    font-weight: 500;
-    line-height: 1;
-    letter-spacing: 1px;
-    color: $lightHeadedAstronaut;
-    text-transform: uppercase;
-  }
-  .quest-badge-details > .info {
-    margin-top: 18px;
-    font-family: $secondary-font;
-    font-size: 19px;
-    font-weight: 400;
-    line-height: 1.53;
-    color: $raven;
-    width: 620px;
-    letter-spacing: 0.5px;
+
+    .title {
+      font-family: $primary-font;
+      font-size: 11px;
+      font-weight: 500;
+      line-height: 1;
+      letter-spacing: 1px;
+      color: $lightHeadedAstronaut;
+      text-transform: uppercase;
+    }
+
+    .info {
+      margin-top: 18px;
+      font-family: $secondary-font;
+      font-size: 19px;
+      font-weight: 400;
+      line-height: 1.53;
+      color: $raven;
+      width: 100%;
+      letter-spacing: 0.5px;
+    }
   }
 
   .quest-list-more {
+    background-image: url("https://vega.slooh.com/assets/v4/common/White_Paper_Subtle.png");
+    background-size: contain;
+    background-repeat: repeat;
+    margin-top: 70px;
+
     .quest-list-more-title {
       font-family: $primary-font;
       font-size: 24px;
@@ -217,6 +237,7 @@
       color: $lightHeadedAstronaut;
       padding: 51px 0 40px 40px;
     }
+
     .list {
       display: flex;
       justify-content: space-between;
@@ -226,15 +247,46 @@
     .quest-list-item {
       padding: 0 10px;
       position: relative;
+      width: 320px;
     }
   }
 }
 
-@media (max-width: 812px) {
+@media (max-width: $screen-md-min) {
   .quest-complete__body {
     .quest-complete__body-content {
-      max-width: 812px;
-      width: 100%;
+      max-width: 100%;
+      width: auto;
+
+      .quest-list-more {
+        .quest-list-more-title {
+          text-align: center;
+        }
+
+        .list {
+          flex-direction: column;
+          align-items: center;
+
+          .quest-list-item {
+            margin-top: 20px;
+          }
+
+          .quest-list-item:first-child {
+            margin-top: 0;
+          }
+        }
+
+       }
+    }
+  }
+}
+
+@media (max-width: $screen-md-min) {
+  .quest-complete__body {
+    .quest-list-element {
+      .quest-complete-checkbox {
+        display: none;
+      }
     }
   }
 }

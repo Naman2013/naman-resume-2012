@@ -1,9 +1,10 @@
 import React, { PureComponent } from 'react';
-import './styles.scss';
+import { Link } from 'react-router';
 import { CompleteCheckbox } from 'app/modules/quests/components/complete-checkbox';
 import { downloadFile } from 'app/utils/downloadFile';
-import { Link } from 'react-router';
 import QuestHubTileBig from 'app/components/common/tiles/QuestHubTileBig';
+import './styles.scss';
+import Btn from 'app/atoms/Btn';
 
 export class QuestCompleted extends PureComponent {
   // TODO: add questUUID
@@ -27,16 +28,22 @@ export class QuestCompleted extends PureComponent {
       suggestedQuestsList,
       stepsCompletedList,
       readyForMoreQuestsPrompt,
+      congratulationsText,
+      questCompletedText,
+      youAreAwardedText,
+      badgeNameText,
+      earnedInText,
+      didYouKnowPrompt,
+      didYouKnowText,
+      reviewQuestButtonCaption,
     } = questCompletedData;
 
     return (
       <div className="quest-complete__body">
         <div className="quest-complete__body-banner">
-          <div className="title">{questCompletedData.congratulationsText}</div>
-          <div className="subtitle">
-            {questCompletedData.questCompletedText}
-          </div>
-          <div className="vertical-line"></div>
+          <div className="title">{congratulationsText}</div>
+          <div className="subtitle">{questCompletedText}</div>
+          <div className="vertical-line" />
         </div>
         <div className="quest-complete__body-content">
           <div className="quest-emblem">
@@ -45,22 +52,17 @@ export class QuestCompleted extends PureComponent {
                 <img
                   className="icon-content"
                   alt=""
-                  width="40"
-                  height="40"
                   src="https://vega.slooh.com/assets/v4/icons/object_types/SpiralGalaxy.svg"
                 />
               </div>
             </div>
           </div>
+
           <div className="quest-badge">
             <div className="quest-badge__header">
               <div className="quest-badge__header-left">
-                <div className="title">
-                  {questCompletedData.youAreAwardedText}:
-                </div>
-                <div className="subtitle">
-                  {questCompletedData.badgeNameText}
-                </div>
+                <div className="title">{youAreAwardedText}:</div>
+                <div className="subtitle">{badgeNameText}</div>
               </div>
               <div className="quest-badge__header-right">
                 <div onClick={this.onDownloadClick} className="download">
@@ -70,7 +72,12 @@ export class QuestCompleted extends PureComponent {
             </div>
             <div className="quest-badge__body">
               <div className="quest-badge-review">
-                <div className="title">{questCompletedData.earnedInText}</div>
+                <div className="title">{earnedInText}</div>
+                <div className="quest-badge-review-btn">
+                  <Btn className="dashed-btn">
+                    <span>{reviewQuestButtonCaption}</span>
+                  </Btn>
+                </div>
               </div>
               <ul className="quest-badge-list">
                 {stepsCompletedList.map(item => (
@@ -81,16 +88,15 @@ export class QuestCompleted extends PureComponent {
                 ))}
               </ul>
               <div className="quest-badge-details">
-                <div className="title">
-                  {questCompletedData.didYouKnowPrompt}
-                </div>
-                <div className="info">{questCompletedData.didYouKnowText}</div>
+                <div className="title">{didYouKnowPrompt}</div>
+                <div className="info">{didYouKnowText}</div>
               </div>
             </div>
           </div>
+
           <div className="quest-list-more">
             <div className="quest-list-more-title">
-              {questCompletedData.readyForMoreQuestsPrompt}
+              {readyForMoreQuestsPrompt}
             </div>
             <div className="list">
               {suggestedQuestsList.map(item => (
