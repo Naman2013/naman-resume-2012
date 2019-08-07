@@ -1,4 +1,5 @@
 import { createSelector } from 'reselect';
+import {getQuestCompleted} from "app/modules/quests/thunks";
 
 export const selectQuests = state => state.quests;
 export const selectQuestsDetails = state => state.questDetails;
@@ -32,6 +33,12 @@ export const makeQuestOutputSelector = () =>
   createSelector(
     selectQuests,
     state => state.questOutput
+  );
+
+export const makeQuestCompletedSelector = () =>
+  createSelector(
+    selectQuests,
+    state => state.questCompletedData
   );
 
 export const makeQuestDataCollectionSelector = () =>

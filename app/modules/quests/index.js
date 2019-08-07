@@ -4,7 +4,7 @@ const QuestDetailsContainer = React.lazy(() =>
   import('./containers/quest-details/QuestDetails.redux')
 );
 const QuestCompletedContainer = React.lazy(() =>
-  import('./containers/quest-completed/QuestCompleted')
+  import('./containers/quest-completed')
 );
 const QuestStepContainer = React.lazy(
   () => import('./containers/quest-step') // /quest-step.redux

@@ -85,14 +85,14 @@ export default css`
 
   .title {
     border-bottom: none;
-    color: ${lightHeadedAstronaut};    
+    color: ${lightHeadedAstronaut};
     font-family: ${secondaryFont};
     font-size: 21px;
     font-weight: 300;
     letter-spacing: 0;
     padding: 135px 0 0 0;
     margin: 0;
-    text-transform: none;    
+    text-transform: none;
   }
 
   .level {
@@ -101,7 +101,7 @@ export default css`
     font-size: 10px;
     font-weight: bold;
     letter-spacing: 2px;
-    padding-top: 25px;    
+    padding-top: 25px;
     text-transform: uppercase;
   }
 
