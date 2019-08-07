@@ -157,8 +157,8 @@ const initialState = {
       linkLabel: null,
       linkUrl: null,
     },
-    showVisibilitySeason:false,
-    showMidnightCulmination:false,
+    showVisibilitySeason: false,
+    showMidnightCulmination: false,
   },
   objectMissions: {},
   objectQuests: {},
@@ -176,6 +176,7 @@ export default createReducer(initialState, {
   [FETCH_SHARED_MEMBER_PHOTOS_START](state) {
     return {
       ...state,
+      isFetching: true,
       sharedMemberPhotos: {},
     };
   },
@@ -183,6 +184,7 @@ export default createReducer(initialState, {
   [FETCH_SHARED_MEMBER_PHOTOS_SUCCESS](state, { payload }) {
     return {
       ...state,
+      isFetching: false,
       sharedMemberPhotos: payload,
     };
   },

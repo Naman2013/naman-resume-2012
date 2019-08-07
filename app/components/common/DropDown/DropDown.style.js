@@ -40,6 +40,7 @@ export default css`
     text-transform: uppercase !important;
     font-size: 11px !important;
     font-weight: bold !important;
+    cursor: pointer;
   }
 
   :global(.slooh-select__indicators) {
