@@ -53,6 +53,12 @@ export const makeAllSkyCameraSelector = () =>
     state => state.allSkyWidgetResult
   );
 
+export const makeSkyConditionsSelector = () =>
+  createSelector(
+    selectTelescopeOverview,
+    state => state.seeingConditionsWidgetResult
+  );
+
 export const makeDayNightBarPanelSelector = () =>
   createSelector(
     selectTelescopeDetails,
