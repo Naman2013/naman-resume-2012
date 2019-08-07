@@ -27,6 +27,7 @@ class CustomerAdminTools extends Component<TCustomerAdminTools> {
 
   render() {
     const { location, isFetching, customerAdminToolsURL } = this.props;
+
     return (
       <Fragment>
         <HubHeader

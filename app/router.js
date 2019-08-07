@@ -531,7 +531,7 @@ const AppRouter = ({ setPreviousInstrument }) => (
       </Route>
 
       <Route
-        path="customer-admin-tools"
+        path="admin-tools"
         component={CustomerAdminToolsMain}
         onEnter={validateUser}
       />
