@@ -441,7 +441,7 @@ const AppRouter = ({ setPreviousInstrument }) => (
         onEnter={validateUser}
       />
       <Route
-        path="quest-completed/:questId"
+        path="/quest-completion/:questId/:questCompletionModuleId"
         component={QuestCompleteLazy}
         onEnter={validateUser}
       />
