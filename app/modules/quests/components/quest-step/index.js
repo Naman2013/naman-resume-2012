@@ -110,7 +110,18 @@ export class QuestStep extends Component<TQuestStep> {
       closeModal,
     } = this.props;
     const { prevStepId, nextStepId, stepKey } = this.state;
-    const { readOnly, stepTopTitle, stepCompleted, stepHeaderTitle, stepMenuList, stepMenuHeader, stepFooterTitle, currentlyViewingCaption } = stepData;
+    const {
+      readOnly,
+      stepTopTitle,
+      stepCompleted,
+      stepHeaderTitle,
+      stepMenuList,
+      stepMenuHeader,
+      stepFooterTitle,
+      currentlyViewingCaption,
+      nextButtonCaption,
+      lastButtonCaption,
+    } = stepData;
     
     return (
       <div className="quest-step-page" key={stepKey}>
@@ -216,6 +227,8 @@ export class QuestStep extends Component<TQuestStep> {
           disableNext={nextStepId === null}
           navigateToLastStep={this.navigateToPrevStep}
           disableLast={prevStepId === null}
+          nextButtonCaption={nextButtonCaption}
+          lastButtonCaption={lastButtonCaption}
         />
       </div>
     );
