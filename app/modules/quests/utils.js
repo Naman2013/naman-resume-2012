@@ -6,6 +6,10 @@ export const getQuestModuleList = (moduleList = []) => {
 
   if (moduleList.length > 0) {
     moduleList.map(module => {
+      if (!prevModuleType && module.moduleType === questModuleType.textoutput) {
+        newModuleList.push([{}]);
+      }
+
       if (
         module.moduleType === questModuleType.textoutput ||
         prevModuleType === questModuleType.textoutput ||

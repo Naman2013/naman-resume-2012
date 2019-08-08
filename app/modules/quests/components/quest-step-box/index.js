@@ -6,7 +6,14 @@ import { Button } from 'react-bootstrap';
 import ResourcesButton from '../quest-details/resources-button.redux';
 
 export const QuestStepBox = props => {
-  const { children, completed, stepData, questId, showHeader } = props;
+  const {
+    children,
+    completed,
+    stepData,
+    questId,
+    showHeader,
+    showModule,
+  } = props;
   const {
     showResources,
     stepHeaderTitle,
@@ -75,7 +82,7 @@ export const QuestStepBox = props => {
         </>
       )}
 
-      <div className="step-modules">{children}</div>
+      {showModule && <div className="step-modules">{children}</div>}
     </div>
   );
 };

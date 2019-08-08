@@ -35,6 +35,7 @@ export class QuestQaAnswerForm extends PureComponent {
       textInputMaxChars,
       answers,
       questions,
+      moduleReadOnly,
     } = moduleData;
 
     return (
@@ -88,10 +89,10 @@ export class QuestQaAnswerForm extends PureComponent {
             <div
               key={`qa-multiple-choice-answer-${answer.answerId}`}
               className={`qa-multiple-choice-answer${
-                readOnly ? ' disabled' : ''
+                moduleReadOnly ? ' disabled' : ''
               }`}
               onClick={() => onClick(answer.answerIndex, answer.answerLetter)}
-              disabled={readOnly}
+              disabled={moduleReadOnly}
             >
               <div className="qa-multiple-choice-answer-item-container">
                 <div className="qa-multiple-choice-answer-label">
