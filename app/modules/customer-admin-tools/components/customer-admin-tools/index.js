@@ -37,7 +37,7 @@ class CustomerAdminTools extends Component<TCustomerAdminTools> {
         />
         <iframe style={{
           width: "100%",
-          minHeight: "600px",
+          minHeight: "1000px",
           }} src={customerAdminToolsURL}/>
       </Fragment>
     );
