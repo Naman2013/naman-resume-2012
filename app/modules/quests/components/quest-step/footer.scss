@@ -1,4 +1,5 @@
 @import '~app/styles/variables/media-queries';
+@import '~app/styles/variables/colors.scss';
 
 .step-footer {
   display: flex;
@@ -25,6 +26,7 @@
 
   .step-footer-title {
     text-align: center;
+    color: $lightHeadedAstronaut;
   }
 
   .step-footer-title > div:nth-child(1) {

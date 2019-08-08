@@ -6,19 +6,16 @@ import { Button } from 'react-bootstrap';
 import ResourcesButton from '../quest-details/resources-button.redux';
 
 export const QuestStepBox = props => {
-  const {
-    children,
-    subTitle,
-    completed,
-    stepData,
-    questId,
-    showHeader,
-  } = props;
+  const { children, completed, stepData, questId, showHeader } = props;
   const {
     showResources,
     stepHeaderTitle,
     resourcesModuleId,
     resourcesButtonCaption,
+    stepTopTitle,
+    showStepProgressMsg,
+    stepProgressMsg,
+    iconURL,
   } = stepData;
   const resourcesProps = {
     resourcesButtonText: resourcesButtonCaption,
@@ -36,17 +33,21 @@ export const QuestStepBox = props => {
               <div className="grey-ball" />
               <div className="shield">
                 <img src={questShield} alt="questShield" />
+                <img src={iconURL} alt="" className="quest-icon" />
               </div>
               <div className="grey-ball" />
             </div>
 
             <div className="step-title-row step-box-row">
-              <span className="step-title">{stepHeaderTitle}</span>
+              <span className="step-title">{stepTopTitle}</span>
               <CompleteCheckbox completed={completed} />
             </div>
 
             <div className="sub-title-row step-box-row">
-              <span className="sub-title">{subTitle}</span>
+              <span className="sub-title">
+                {showStepProgressMsg && stepProgressMsg}
+              </span>
+
               <div className="step-controls">
                 {showResources ? <ResourcesButton {...resourcesProps} /> : null}
               </div>
@@ -60,10 +61,12 @@ export const QuestStepBox = props => {
               <CompleteCheckbox completed={completed} sm />
             </div>
             <div className="step-box-row">
-              <span className="step-title">{stepHeaderTitle}</span>
+              <span className="step-title">{stepTopTitle}</span>
             </div>
             <div className="step-box-row">
-              <span className="step-sub-title">{subTitle}</span>
+              {showStepProgressMsg && (
+                <span className="step-sub-title">{stepProgressMsg}</span>
+              )}
             </div>
             <div className="step-box-row">
               {showResources ? <ResourcesButton {...resourcesProps} /> : null}

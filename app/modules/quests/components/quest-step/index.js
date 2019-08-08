@@ -102,22 +102,22 @@ export class QuestStep extends Component<TQuestStep> {
   render() {
     const { loading, moduleList, stepData = {}, routeParams, resourceModal, questActions, closeModal } = this.props;
     const { prevStepId, nextStepId, stepKey } = this.state;
-    const { readOnly } = stepData;
+    const { readOnly, stepTopTitle, stepCompleted, stepHeaderTitle, stepMenuList, stepMenuHeader, stepFooterTitle, currentlyViewingCaption } = stepData;
     
     return (
       <div className="quest-step-page" key={stepKey}>
         <Spinner loading={loading} />
 
         <QuestStepHeader
-          stepHeaderTitle={stepData?.stepHeaderTitle}
+          stepHeaderTitle={stepHeaderTitle}
           navigateToPrevStep={this.navigateToPrevStep}
           navigateToNextStep={this.navigateToNextStep}
           questId={routeParams.questId}
           disablePrev={prevStepId === null}
           disableNext={nextStepId === null}
           stepId={routeParams.step}
-          stepMenuList={stepData?.stepMenuList}
-          stepMenuTitle={stepData?.stepMenuHeader}
+          stepMenuList={stepMenuList}
+          stepMenuTitle={stepMenuHeader}
         />
 
         <Modal
@@ -139,9 +139,7 @@ export class QuestStep extends Component<TQuestStep> {
           <div className="container step-container">
             <QuestStepBox
               stepData={stepData}
-              subTitle="some text"
-              title={stepData.stepHeaderTitle}
-              completed={stepData.stepCompleted}
+              completed={stepCompleted}
               questId={routeParams.questId}
               showHeader={index === 0}
             >
@@ -201,8 +199,8 @@ export class QuestStep extends Component<TQuestStep> {
         ))}
 
         <QuestStepFooter
-          stepFooterTitle={stepData?.stepFooterTitle}
-          currentlyViewingCaption={stepData?.currentlyViewingCaption}
+          stepFooterTitle={stepFooterTitle}
+          currentlyViewingCaption={currentlyViewingCaption}
           navigateToNextStep={this.navigateToNextStep}
           disableNext={nextStepId === null}
           navigateToLastStep={this.navigateToPrevStep}

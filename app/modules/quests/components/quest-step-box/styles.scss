@@ -31,6 +31,13 @@
       left: 50%;
       transform: translateX(-50%);
       top: -40px;
+
+      .quest-icon {
+        position: absolute;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
     }
   }
 
@@ -41,6 +48,7 @@
     .step-title {
       font-family: $secondary-font;
       font-size: 26px;
+      color: $lightHeadedAstronaut;
     }
   }
 
@@ -50,9 +58,10 @@
 
     .sub-title {
       font-family: $primary-font;
-      font-weight: bold;
+      font-weight: 400;
       font-size: 11px;
       text-transform: uppercase;
+      color: $lightHeadedAstronaut;
     }
 
     .step-controls {
