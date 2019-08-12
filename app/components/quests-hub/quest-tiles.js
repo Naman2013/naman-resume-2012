@@ -91,7 +91,7 @@ class QuestTiles extends Component {
     ) : (
       (
         <div className="container">
-          <p className="mt-5">{questsComingSoonMessage}</p>
+          <p style={{fontSize: "1.5em"}} className="mt-5">{questsComingSoonMessage}</p>
         </div>
       ) || <FormattedMessage id="Hubs.noQuests" />
     );
