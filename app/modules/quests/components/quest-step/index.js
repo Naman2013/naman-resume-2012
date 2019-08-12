@@ -27,7 +27,6 @@ export class QuestStep extends Component<TQuestStep> {
   state = {
     prevStepId: null,
     nextStepId: null,
-    lastStepId: null,
     stepKey: null,
   };
 
@@ -42,8 +41,6 @@ export class QuestStep extends Component<TQuestStep> {
         stepData.stepMenuList.findIndex(
           item => item.stepModuleId === routeParams.step
         ) + 1;
-      const lastStepId =
-        stepData.stepMenuList[stepData.stepMenuList.length - 1].stepModuleId;
       return {
         prevStepId:
           prevStepIndex > -1
@@ -53,7 +50,6 @@ export class QuestStep extends Component<TQuestStep> {
           nextStepIndex < stepData.stepMenuList.length
             ? stepData.stepMenuList[nextStepIndex].stepModuleId
             : null,
-        lastStepId,
       };
     }
     return null;
@@ -100,9 +96,10 @@ export class QuestStep extends Component<TQuestStep> {
 
   navigateToNextStep = () => {
     const { routeParams, stepData } = this.props;
-    const { nextStepId, lastStepId } = this.state;
+    const { nextStepId } = this.state;
+    const { questCompletionList } = stepData;
     if (nextStepId !== null) {
-      if (nextStepId !== lastStepId) {
+      if (nextStepId !== questCompletionList[0].questCompletionModuleId) {
         browserHistory.push(
           `/quest-details/${routeParams.questId}/${nextStepId}`
         );
