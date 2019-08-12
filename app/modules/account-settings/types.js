@@ -43,6 +43,16 @@ export type TAccountCancelSectionItem = {
   userCancellationInstructionsText: string,
 };
 
+export type TAccountEditPaymentSectionItem = {
+  canUserEditPayment: boolean,
+  editPaymentMethod: string,
+  editPaymentMethod2: string,
+  editPaymentButtonText: string,
+  editPaymentHeading: string,
+  hostedPaymentFormURL: string,
+  curPaymentInfo: shape,
+};
+
 export type TInfoItem = {
   linkUrl: string,
   name: string,
@@ -54,6 +64,7 @@ export type TInitialState = {
   isLoaded: boolean,
   serverError: boolean,
   accountCancelSection: Object<TAccountCancelSectionItem>,
+  editPaymentSection: Object<TAccountEditPaymentSectionItem>,
   accountDetails: Object<TAccountDetailsItem>,
   accountMenuList: Object<TInfoItem>,
   accountTypeSection: Object<TTypeSectionItem>,

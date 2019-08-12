@@ -8,6 +8,7 @@ import { AccountDetailsHeader } from './header';
 import { AccountOptionRow } from './option-row';
 import { AccountType } from './account-type';
 import { CancelAccount } from './cancel-account';
+import { EditPayment } from './edit-payment';
 import { TFormField, TTypeSectionItem } from '../../types';
 import UpgradeModal from '../../containers/upgrade-modal';
 
@@ -37,6 +38,7 @@ class AccountDetails extends PureComponent<TAccountDetails> {
       accountDetails,
       fetchAccountFormFieldAction,
       accountCancelSection,
+      editPaymentSection,
       resetPassword,
       accountEmail,
       dismissResetPasswordPopup,
@@ -117,12 +119,6 @@ class AccountDetails extends PureComponent<TAccountDetails> {
 
             <div className="top-bot-40 left-right-minus-20">
               <Row noGutters>
-                <AccountDetailsHeader title={mockedTitle} />
-              </Row>
-            </div>
-
-            <div className="top-bot-40 left-right-minus-20">
-              <Row noGutters>
                 <Container>
                   {mockedPaymentDetailsOptions.map((option, i) => {
                     return (
@@ -139,6 +135,9 @@ class AccountDetails extends PureComponent<TAccountDetails> {
                 </Container>
               </Row>
             </div>
+
+            <EditPayment {...this.props}/>
+
             <CancelAccount {...this.props}/>
           </Container>
 
