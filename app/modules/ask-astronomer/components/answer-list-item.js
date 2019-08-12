@@ -36,7 +36,7 @@ const AnswerListItem = props => {
         </div>
       )}
       <Card
-        {...props.answer}
+        {...answer}
         topicId={topicId}
         objectId={objectId}
         threadId={threadId}
@@ -50,6 +50,7 @@ const AnswerListItem = props => {
         submitReply={submitReply}
         user={user}
         toggleComments={toggleAllAnswerReplies}
+        commentBtnDisabled={!Number(answer.replyToponlyCount)}
         renderReplyButton={() => (
           <SubmitAnswerReplyButton
             {...props.answer}
