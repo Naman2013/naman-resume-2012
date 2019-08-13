@@ -157,14 +157,15 @@ const initialState = {
       linkLabel: null,
       linkUrl: null,
     },
-    showVisibilitySeason:false,
-    showMidnightCulmination:false,
+    showVisibilitySeason: false,
+    showMidnightCulmination: false,
   },
   objectMissions: {},
   objectQuests: {},
   objectFollow: {},
   objectSpecialists: {},
   objectObservation: {
+    isFetching: false,
     myPictures: {},
   },
   imageDetails: {},
@@ -176,6 +177,7 @@ export default createReducer(initialState, {
   [FETCH_SHARED_MEMBER_PHOTOS_START](state) {
     return {
       ...state,
+      isFetching: true,
       sharedMemberPhotos: {},
     };
   },
@@ -183,6 +185,7 @@ export default createReducer(initialState, {
   [FETCH_SHARED_MEMBER_PHOTOS_SUCCESS](state, { payload }) {
     return {
       ...state,
+      isFetching: false,
       sharedMemberPhotos: payload,
     };
   },
@@ -366,8 +369,8 @@ export default createReducer(initialState, {
   [GET_MY_PICTURES_START](state) {
     return {
       ...state,
-      isFetching: true,
       objectObservation: {
+        isFetching: true,
         ...initialState.objectObservation,
       },
     };
@@ -378,6 +381,7 @@ export default createReducer(initialState, {
       isFetching: false,
       objectObservation: {
         ...state.objectObservation,
+        isFetching: false,
         myPictures: payload,
       },
     };
@@ -385,7 +389,10 @@ export default createReducer(initialState, {
   [GET_MY_PICTURES_FAIL](state, { payload }) {
     return {
       ...state,
-      isFetching: false,
+      objectObservation: {
+        ...state.objectObservation,
+        isFetching: false,
+      },
       errorBody: payload,
     };
   },

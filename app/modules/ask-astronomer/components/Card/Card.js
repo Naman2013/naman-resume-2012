@@ -58,6 +58,7 @@ const Card = props => {
     showLikePrompt,
     showObjectName,
     user,
+    commentBtnDisabled,
   } = props;
 
   const setModalAndShow = updatedLikePrompt => {
@@ -115,6 +116,7 @@ const Card = props => {
             />
             {renderChildReplies ? (
               <CommentButton
+                isDisabled={commentBtnDisabled}
                 isActive={showComments}
                 onClickEvent={toggleComments}
                 count={replyToponlyCount || replyCount}
