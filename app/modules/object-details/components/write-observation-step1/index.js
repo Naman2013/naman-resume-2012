@@ -10,6 +10,7 @@ export class WriteObservationStep1 extends Component {
     const { objectId } = objectDetails;
     getMyPictures({
       viewType: 'photoRoll',
+      viewType2: 'shareMyPhotos',
       astroObjectIds: [objectId],
     });
   }
