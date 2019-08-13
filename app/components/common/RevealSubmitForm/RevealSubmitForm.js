@@ -15,6 +15,7 @@ import PhotoUploadButton from 'app/components/common/style/buttons/PhotoUploadBu
 import deletePostImage from 'app/services/post-creation/delete-post-image';
 import setPostImages from 'app/modules/set-post-images';
 import Button from 'app/components/common/style/buttons/Button';
+import { MultiUploadImageList } from 'app/modules/multi-upload-images/components/multi-upload-image-list';
 import BackBar from 'app/components/common/style/buttons/BackBar';
 import { customModalStylesFitContent } from 'app/styles/mixins/utilities';
 import ViewImagesButton from 'app/components/common/style/buttons/ViewImagesButton';
@@ -62,6 +63,7 @@ class RevealSubmitForm extends Component {
     uploadLoading: false,
     S3URLs: [],
     isFetching: false,
+    fileRef: React.createRef(),
   };
 
   onTitleChange = e => {
@@ -141,34 +143,38 @@ class RevealSubmitForm extends Component {
     });
   };
 
-  handleUploadImage = event => {
+  handleUploadImage = async event => {
     event.preventDefault();
 
+    const { files } = event.target;
     const { cid, token, at } = this.props.user;
     const { uuid } = this.props;
-    const data = new FormData();
-    data.append('cid', cid);
-    data.append('token', token);
-    data.append('at', at);
-    data.append('uniqueId', uuid);
-    data.append('imageClass', 'discussion');
-    data.append('attachment', event.target.files[0]);
+    this.setState({ uploadLoading: true });
+    for (let i = 0; i < files.length; i++) {
+      const data = new FormData();
+      data.append('cid', cid);
+      data.append('token', token);
+      data.append('at', at);
+      data.append('uniqueId', uuid);
+      data.append('imageClass', 'discussion');
+      data.append('attachment', files[i]);
 
-    this.setState({
-      uploadError: null,
-      uploadLoading: true,
-    });
+      this.setState({
+        uploadError: null,
+      });
 
-    setPostImages(data).then(res => {
-      if (!res.data.apiError) {
-        this.handleUploadImageResponse(res.data);
-      } else {
-        this.setState({
-          uploadError: res.data.errorMsg,
-          uploadLoading: false,
-        });
-      }
-    });
+      await setPostImages(data).then(res => {
+        if (!res.data.apiError) {
+          this.handleUploadImageResponse(res.data);
+        } else {
+          this.setState({
+            uploadError: res.data.errorMsg,
+            uploadLoading: false,
+          });
+        }
+      });
+    }
+    this.setState({ uploadLoading: false });
   };
 
   handleDeleteImage = imageURL => {
@@ -186,14 +192,24 @@ class RevealSubmitForm extends Component {
       uniqueId: uuid,
       imageClass,
       imageURL,
-    }).then(result => this.handleUploadImageResponse(result.data));
+    })
+      .then(result => this.handleUploadImageResponse(result.data))
+      .finally(() => {
+        this.setState({ uploadLoading: false });
+      });
   };
 
   handleUploadImageResponse = uploadFileData => {
     this.setState({
       S3URLs: uploadFileData.S3URLs,
-      uploadLoading: false,
     });
+  };
+
+  handleAddImage = () => {
+    const { fileRef } = this.state;
+    if (fileRef.current) {
+      fileRef.current.click();
+    }
   };
 
   render() {
@@ -221,6 +237,7 @@ class RevealSubmitForm extends Component {
       uploadError,
       uploadLoading,
       isFetching,
+      fileRef,
     } = this.state;
     return (
       <div className="root">
@@ -262,7 +279,16 @@ class RevealSubmitForm extends Component {
                 ? `${intl.formatMessage(messages.WrittenBy)} ${displayName}`
                 : commentPlaceholder}
             </div>
-            <div className="form-quote" dangerouslySetInnerHTML={{__html: title || content}} />
+            <div
+              className="form-quote"
+              dangerouslySetInnerHTML={{ __html: title || content }}
+            />
+            <MultiUploadImageList
+              isLoading={uploadLoading}
+              onAddImage={this.handleAddImage}
+              imageList={S3URLs}
+              onDeleteImage={this.handleDeleteImage}
+            />
             {isClub && (
               <input
                 type="text"
@@ -289,6 +315,8 @@ class RevealSubmitForm extends Component {
             <div className="flex-container form-actions">
               <div className="flex-container">
                 <PhotoUploadButton
+                  multiple
+                  setRef={fileRef}
                   handleUploadImage={this.handleUploadImage}
                   id={threadId}
                 />

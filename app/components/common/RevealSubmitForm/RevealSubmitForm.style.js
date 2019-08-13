@@ -99,6 +99,11 @@ export default css`
     margin: 0;
   }
 
+  :global(.multi-upload-image-list) {
+    padding: 0 !important;
+    margin-bottom: 15px;
+  }
+
   @media ${screenMedium} {
     .fake-input {
       width: 540px;

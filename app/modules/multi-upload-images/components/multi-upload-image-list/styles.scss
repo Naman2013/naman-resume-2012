@@ -1,0 +1,46 @@
+.multi-upload-image-list {
+  padding-left: 20px;
+  padding-right: 20px;
+  &.slider .slick-slider {
+    padding: 0 25px;
+    .slick-list .slick-track {
+      display: flex;
+      justify-content: center;
+    }
+  }
+  &:not(.slider) .slick-track {
+    width: auto !important;
+  }
+  .spinner-wrapper {
+    position: relative;
+    top: 20px;
+  }
+  .add-button-container {
+    width: 122px;
+    height: 122px;
+    background-color: #eaedf2;
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+    border: 1px dashed #495d76;
+    line-height: 122px;
+    margin: 5px;
+  }
+  .slick-slider {
+    margin-top: 15px;
+    margin-bottom: 0;
+    .slick-arrow {
+      border: none;
+    }
+    .slick-list {
+      position: relative;
+      margin: -5px;
+      .slick-track {
+        position: inherit;
+        .slick-slide {
+          width: auto !important;
+        }
+      }
+    }
+  }
+}

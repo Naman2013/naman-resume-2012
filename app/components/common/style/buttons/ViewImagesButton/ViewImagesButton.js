@@ -86,9 +86,26 @@ class ViewImagesButton extends Component {
                 customClass="view-uploaded-image-modal"
               >
                 <div className="text-center">
+                  {!!(images.length > 1) && (
+                    <button
+                      onClick={this.onClickPrev}
+                      disabled={currentImageIdx === 0}
+                      className="slick-arrow-btn slick-prev"
+                    ></button>
+                  )}
                   <div className="modal-img-wrapper">
-                    <Magnifier imageSrc={images[0]} />
+                    <div className="view-uploaded-image-title">
+                      {currentImageIdx + 1} OF {images.length}
+                    </div>
+                    <Magnifier imageSrc={images[currentImageIdx]} />
                   </div>
+                  {!!(images.length > 1) && (
+                    <button
+                      onClick={this.onClickNext}
+                      disabled={currentImageIdx === images.length - 1}
+                      className="slick-arrow-btn slick-next"
+                    ></button>
+                  )}
                 </div>
               </Modal>
               {firstImage && context.isDesktop ? (

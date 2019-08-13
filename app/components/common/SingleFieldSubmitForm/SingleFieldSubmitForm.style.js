@@ -44,6 +44,12 @@ export default css`
     margin-right: 5px;
   }
 
+  :global(.form-container .multi-upload-image-list) {
+    padding-left: 25px !important;
+    padding-right: 25px !important;
+    margin-bottom: 0;
+  }
+
   :global(.form-actions .thumbnails-container button) {
     margin: 0;
   }

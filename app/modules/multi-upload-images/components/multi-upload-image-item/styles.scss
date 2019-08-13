@@ -1,0 +1,23 @@
+@import '~app/styles/variables/colors.scss';
+
+.multi-upload-image-item {
+
+  .image-container {
+    position: relative;
+    width: 122px;
+    height: 122px;
+    background-color: black !important;
+    background-size: contain !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    margin: 5px;
+
+    .image-container-close {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      color: $white;
+      cursor: pointer;
+    }
+  }
+}

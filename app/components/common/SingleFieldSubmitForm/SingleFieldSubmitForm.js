@@ -19,6 +19,7 @@ import setPostImages from 'app/modules/set-post-images';
 import Button from 'app/components/common/style/buttons/Button';
 import ViewImagesButton from 'app/components/common/style/buttons/ViewImagesButton';
 import { customModalStylesV4 } from 'app/styles/mixins/utilities';
+import { MultiUploadImageList } from 'app/modules/multi-upload-images/components/multi-upload-image-list';
 import styles from './SingleFieldSubmitForm.style';
 import messages from './SingleFieldSubmitForm.messages';
 
@@ -60,6 +61,7 @@ class SingleFieldSubmitForm extends Component {
     uploadError: null,
     uploadLoading: false,
     S3URLs: [],
+    fileRef: React.createRef(),
   };
 
   onTextChange = e =>
@@ -96,8 +98,7 @@ class SingleFieldSubmitForm extends Component {
         responseMessage: message || intl.formatMessage(messages.FormIssueText),
       });
     }
-      setTimeout(this.closeModal,1000);
-
+    setTimeout(this.closeModal, 1000);
   };
 
   closeModal = e => {
@@ -106,32 +107,35 @@ class SingleFieldSubmitForm extends Component {
     });
   };
 
-  handleUploadImage = event => {
+  handleUploadImage = async event => {
     event.preventDefault();
-
+    const { files } = event.target;
     const { cid, token, at } = this.props.user;
     const { uuid, imageClass } = this.props;
-    const data = new FormData();
-    data.append('cid', cid);
-    data.append('token', token);
-    data.append('at', at);
-    data.append('uniqueId', uuid);
-    data.append('imageClass', imageClass);
-    data.append('attachment', event.target.files[0]);
+    this.setState({ uploadLoading: true });
+    for (let i = 0; i < files.length; i++) {
+      const data = new FormData();
+      data.append('cid', cid);
+      data.append('token', token);
+      data.append('at', at);
+      data.append('uniqueId', uuid);
+      data.append('imageClass', imageClass);
+      data.append('attachment', files[i]);
 
-    this.setState({
-      uploadError: null,
-      uploadLoading: true,
-    });
+      this.setState({
+        uploadError: null,
+      });
 
-    setPostImages(data)
-      .then(res => this.handleUploadImageResponse(res.data))
-      .catch(err =>
-        this.setState({
-          uploadError: err.message,
-          uploadLoading: false,
-        })
-      );
+      await setPostImages(data)
+        .then(res => this.handleUploadImageResponse(res.data))
+        .catch(err =>
+          this.setState({
+            uploadError: err.message,
+            uploadLoading: false,
+          })
+        );
+    }
+    this.setState({ uploadLoading: false });
   };
 
   handleDeleteImage = imageURL => {
@@ -142,6 +146,7 @@ class SingleFieldSubmitForm extends Component {
     const { cid, token, at } = this.props.user;
     const { uuid } = this.props;
     const imageClass = 'discussion';
+    this.setState({ uploadLoading: true });
     deletePostImage({
       cid,
       token,
@@ -149,14 +154,24 @@ class SingleFieldSubmitForm extends Component {
       uniqueId: uuid,
       imageClass,
       imageURL,
-    }).then(result => this.handleUploadImageResponse(result.data));
+    })
+      .then(result => this.handleUploadImageResponse(result.data))
+      .finally(() => {
+        this.setState({ uploadLoading: false });
+      });
   };
 
   handleUploadImageResponse = uploadFileData => {
     this.setState({
       S3URLs: uploadFileData.S3URLs,
-      uploadLoading: false,
     });
+  };
+
+  handleAddImage = () => {
+    const { fileRef } = this.state;
+    if (fileRef.current) {
+      fileRef.current.click();
+    }
   };
 
   render() {
@@ -177,10 +192,17 @@ class SingleFieldSubmitForm extends Component {
       showPopup,
       uploadError,
       uploadLoading,
+      fileRef,
     } = this.state;
 
     return (
       <div className="form-container">
+        <MultiUploadImageList
+          onAddImage={this.handleAddImage}
+          imageList={S3URLs}
+          isLoading={uploadLoading}
+          onDeleteImage={this.handleDeleteImage}
+        />
         <div>
           {renderFormHeader ? renderFormHeader() : null}
           <form className="form">
@@ -207,7 +229,11 @@ class SingleFieldSubmitForm extends Component {
             ) : null}
             <div className="flex-container form-acitons">
               <div className="flex-container">
-                <PhotoUploadButton handleUploadImage={this.handleUploadImage} />
+                <PhotoUploadButton
+                  multiple
+                  setRef={fileRef}
+                  handleUploadImage={this.handleUploadImage}
+                />
                 {uploadError && <span className="errorMsg">{uploadError}</span>}
                 {!uploadError && uploadLoading && (
                   <div className="fa fa-spinner" />
