@@ -52,8 +52,6 @@ export const EditPaymentModal = (props: TEditPaymentModal) => {
   let onCloseFunc = onHide;
   let myDisableGoBack = false;
 
-  console.log(props);
-
   return (
     <>
       <Modal
