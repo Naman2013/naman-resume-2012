@@ -19,7 +19,6 @@ const BootstrappedObservationSliderItem = props => {
     observationTimeDisplay,
     intl,
     handleLike,
-    onLike,
     customerImageId,
     likePrompt,
     showLikePrompt,
@@ -29,8 +28,7 @@ const BootstrappedObservationSliderItem = props => {
   const [likesNumber, changeLikesNumber] = useState(likesCount);
   const onLikeClick = () => {
     if (!showLikePrompt) {
-      if (handleLike) handleLike(customerImageId);
-      if (onLike) onLike(customerImageId);
+      handleLike(customerImageId);
       changeLikesNumber(likesNumber + 1);
     }
   };
