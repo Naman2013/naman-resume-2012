@@ -43,7 +43,7 @@ export const GalleryBtn = props => {
       isOpen={isOpen}
       setOpen={setOpen}
       className="ml-2 gallery-btn"
-      tooltip="Plus"
+      tooltip="Add to Gallery"
       icon={<span className="icon-plus" />}
       popoverHeader="ADD IMAGE TO GALLERY"
       popover={

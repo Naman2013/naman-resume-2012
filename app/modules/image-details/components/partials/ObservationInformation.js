@@ -66,7 +66,7 @@ class BootstrappedImageDetails extends Component {
   state = {
     isOpen: false,
     likePrompt: '',
-    count: 0,
+    count: this.props.likesCount,
   };
 
   componentWillReceiveProps(nextProps) {

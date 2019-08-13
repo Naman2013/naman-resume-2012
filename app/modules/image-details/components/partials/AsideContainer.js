@@ -5,14 +5,7 @@ import MissionImageDetailList from 'app/modules/image-details/components/Mission
 import ObserverInfo from 'app/modules/image-details/components/ObserverInfo';
 import ObjectDetailList from 'app/modules/image-details/components/ObjectDetailList';
 
-const {
-  arrayOf,
-  bool,
-  number,
-  oneOfType,
-  shape,
-  string,
-} = PropTypes;
+const { arrayOf, bool, number, oneOfType, shape, string } = PropTypes;
 
 const AsideContainer = ({
   avatarURL,
@@ -35,26 +28,32 @@ const AsideContainer = ({
         observerData={iconFileData?.Member}
       />
     </div>
-    {!isDesktop && objectId !== '0' ? <div>
-      <ObjectDetailList
-        isDesktop={isDesktop}
-        objectId={objectId}
-        scheduledMissionId={scheduledMissionId}
-      />
-    </div> : null}
-    {showMissionRelatedInfo ? <div>
-      <MissionDetailList
-        isDesktop={isDesktop}
-        scheduledMissionId={scheduledMissionId}
-        customerImageId={customerImageId}
-      />
-    </div> : null}
-    {showMissionRelatedInfo ? <div>
-      <MissionImageDetailList
-        isDesktop={isDesktop}
-        scheduledMissionId={scheduledMissionId}
-      />
-    </div> : null}
+    {!isDesktop && objectId !== '0' ? (
+      <div>
+        <ObjectDetailList
+          isDesktop={isDesktop}
+          objectId={objectId}
+          scheduledMissionId={scheduledMissionId}
+        />
+      </div>
+    ) : null}
+    {showMissionRelatedInfo ? (
+      <div>
+        <MissionDetailList
+          isDesktop={isDesktop}
+          scheduledMissionId={scheduledMissionId}
+          customerImageId={customerImageId}
+        />
+      </div>
+    ) : null}
+    {/*{showMissionRelatedInfo ? (*/}
+    {/*  <div>*/}
+    {/*    <MissionImageDetailList*/}
+    {/*      isDesktop={isDesktop}*/}
+    {/*      scheduledMissionId={scheduledMissionId}*/}
+    {/*    />*/}
+    {/*  </div>*/}
+    {/*) : null}*/}
   </div>
 );
 
@@ -75,7 +74,7 @@ AsideContainer.defaultProps = {
   customerImageId: null,
   displayName: '',
   fileData: {
-    Telescope: ''
+    Telescope: '',
   },
   gravityRankLabel: '',
   isDesktop: true,
