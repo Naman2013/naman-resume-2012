@@ -13,9 +13,9 @@ export class WriteObservationStep2 extends Component {
       onSubmit,
       objectDetails,
     } = this.props;
-    const { imageURL } = imageData;
+    const { imageURL, observationLog } = imageData;
     const { objectIconURL } = objectDetails;
-
+    console.log(imageData);
     return (
       <div className="write-observation-step2">
         <h1 className="modal-h">Add an Observation!</h1>
@@ -24,8 +24,11 @@ export class WriteObservationStep2 extends Component {
             <div>
               <h3>Image Selected!</h3>
               <p>
+                {observationLog
+                  ? `Your image is set. Now, share your Observation below.`
+                  : `
                 Your image is set. Now, write your Observation below, and add it
-                to Slooh to finish up!
+                to Slooh to finish up!`}
               </p>
             </div>
             <div>
