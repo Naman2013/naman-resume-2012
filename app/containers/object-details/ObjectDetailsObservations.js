@@ -106,7 +106,7 @@ class Observations extends Component {
       page,
       v4Filter: this.selectedFilter,
     };
-
+    this.setState({ page });
     fetchSharedMemberPhotosAction(requestBody);
   } 
 
