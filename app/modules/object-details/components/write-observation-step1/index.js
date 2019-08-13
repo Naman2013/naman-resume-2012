@@ -30,15 +30,18 @@ export class WriteObservationStep1 extends Component {
           <>
             <h1 className="modal-h">Select an Image for your Observation.</h1>
             <Row>
-              {myPictures?.imageList.map(item => (
-                <Col md={6} xl={4}>
-                  <WriteObservationImageCard
-                    imageData={item}
-                    objectDetails={objectDetails}
-                    onClick={() => selectImage(item)}
-                  />
-                </Col>
-              ))}
+              {myPictures?.imageList.map(
+                item =>
+                  item.canShareFlag && (
+                    <Col md={6} xl={4}>
+                      <WriteObservationImageCard
+                        imageData={item}
+                        objectDetails={objectDetails}
+                        onClick={() => selectImage(item)}
+                      />
+                    </Col>
+                  )
+              )}
             </Row>
           </>
         )}
