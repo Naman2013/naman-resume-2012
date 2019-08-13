@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { IMAGE_DETAILS } from 'app/services/image-details';
 import { LIKE } from 'app/services/like';
+import CardObservations from 'app/components/common/CardObservations';
 import SliderItem from './BootstrappedSliderItem';
 
 const { number } = PropTypes;
@@ -90,7 +91,7 @@ class RecommendedObservationsItem extends Component {
     return (
       <SliderItem
         {...this.state}
-        onLike={this.handleLike}
+        handleLike={this.handleLike}
         customerImageId={customerImageId}
       />
     );
