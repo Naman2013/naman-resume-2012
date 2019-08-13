@@ -11,6 +11,7 @@ import { CancelAccount } from './cancel-account';
 import { EditPayment } from './edit-payment';
 import { TFormField, TTypeSectionItem } from '../../types';
 import UpgradeModal from '../../containers/upgrade-modal';
+import EditPaymentModal from '../../containers/editpayment-modal';
 
 type TAccountDetails = {
   accountTypeSection: Object<TTypeSectionItem>,

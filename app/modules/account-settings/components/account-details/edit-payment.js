@@ -5,7 +5,7 @@ import { Col, Container, Row } from 'react-bootstrap';
 import { DeviceContext } from 'app/providers/DeviceProvider';
 import Btn from 'app/atoms/Btn';
 import Icon from 'app/atoms/Icon';
-import UpgradeModal from '../../containers/upgrade-modal';
+import EditPaymentModal from '../../containers/editpayment-modal';
 import { AccountDetailsHeader } from './header';
 
 const EditPayment = props => {
@@ -50,7 +50,7 @@ const EditPayment = props => {
     </DeviceContext.Consumer>
 
     {isModalOpen && (
-      <UpgradeModal subscriptionPlansCallSource="downgrade" show={isModalOpen} onHide={() => setModalOpen(false)} />
+      <EditPaymentModal {...props.editPaymentSection} show={isModalOpen} onHide={() => setModalOpen(false)} />
     )}
     </>
   );
