@@ -54,6 +54,18 @@ export class WriteObservationModal extends Component {
     );
   };
 
+  onShare = () => {
+    const { shareMemberPicture } = this.props;
+    const { imageData } = this.state;
+    const { customerImageId } = imageData;
+
+    shareMemberPicture({ customerImageId }).then(() =>
+      this.setState({
+        currentStep: WRITE_OBSERVATIONS_STEPS.STEP_3,
+      })
+    );
+  };
+
   render() {
     const {
       getMyPictures,
@@ -86,6 +98,7 @@ export class WriteObservationModal extends Component {
             setTitle={this.setTitle}
             setText={this.setText}
             onSubmit={this.onSubmit}
+            onShare={this.onShare}
             objectDetails={objectDetails}
           />
         )}
