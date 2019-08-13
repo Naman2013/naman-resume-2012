@@ -165,6 +165,7 @@ const initialState = {
   objectFollow: {},
   objectSpecialists: {},
   objectObservation: {
+    isFetching: false,
     myPictures: {},
   },
   imageDetails: {},
@@ -368,8 +369,8 @@ export default createReducer(initialState, {
   [GET_MY_PICTURES_START](state) {
     return {
       ...state,
-      isFetching: true,
       objectObservation: {
+        isFetching: true,
         ...initialState.objectObservation,
       },
     };
@@ -380,6 +381,7 @@ export default createReducer(initialState, {
       isFetching: false,
       objectObservation: {
         ...state.objectObservation,
+        isFetching: false,
         myPictures: payload,
       },
     };
@@ -387,7 +389,10 @@ export default createReducer(initialState, {
   [GET_MY_PICTURES_FAIL](state, { payload }) {
     return {
       ...state,
-      isFetching: false,
+      objectObservation: {
+        ...state.objectObservation,
+        isFetching: false,
+      },
       errorBody: payload,
     };
   },
