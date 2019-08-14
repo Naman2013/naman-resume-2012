@@ -61,6 +61,7 @@ class SubmitQuestionForm extends PureComponent {
       uuid: '',
       fileRef: React.createRef(),
       uploadLoading: true,
+      toggleModal: false,
     };
     prepareThread({
       at: user.at,
@@ -72,6 +73,10 @@ class SubmitQuestionForm extends PureComponent {
         uploadLoading: false,
       }));
     });
+  }
+
+  componentWillUnmount() {
+    document.body.style.overflow = 'unset';
   }
 
   onChangeQuestionText = e => {
@@ -169,8 +174,20 @@ class SubmitQuestionForm extends PureComponent {
     }
   };
 
+  handleToggleModal = () => {
+    const { toggleModal } = this.state;
+    if (!toggleModal) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    this.setState({
+      toggleModal: !this.state.toggleModal,
+    });
+  };
+
   render() {
-    const { S3URLs, uploadLoading, fileRef } = this.state;
+    const { S3URLs, uploadLoading, fileRef, toggleModal } = this.state;
     const { title, askPrompt, intl } = this.props;
 
     const { questionText } = this.state;
@@ -186,8 +203,11 @@ class SubmitQuestionForm extends PureComponent {
         <MultiUploadImageList
           onAddImage={this.handleAddImage}
           imageList={S3URLs}
+          mobileVisible={toggleModal}
           onDeleteImage={this.handleDeleteImage}
+          handleToggleModal={this.handleToggleModal}
           useLoader={false}
+          isLoading={uploadLoading}
         />
 
         <textarea
@@ -202,6 +222,7 @@ class SubmitQuestionForm extends PureComponent {
             <PhotoUploadButton
               multiple
               setRef={fileRef}
+              handleToggleModal={this.handleToggleModal}
               handleUploadImage={this.handleUploadImage}
             />
           </div>

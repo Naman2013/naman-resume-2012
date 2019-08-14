@@ -63,8 +63,13 @@ class RevealSubmitForm extends Component {
     uploadLoading: false,
     S3URLs: [],
     isFetching: false,
+    toggleModal: false,
     fileRef: React.createRef(),
   };
+
+  componentWillUnmount() {
+    document.body.style.overflow = 'unset';
+  }
 
   onTitleChange = e => {
     this.setState({
@@ -181,7 +186,7 @@ class RevealSubmitForm extends Component {
     if (!imageURL) {
       return;
     }
-
+    this.setState({ uploadLoading: true });
     const { cid, token, at } = this.props.user;
     const { uuid, imageClass } = this.props;
 
@@ -212,6 +217,18 @@ class RevealSubmitForm extends Component {
     }
   };
 
+  handleToggleModal = () => {
+    const { toggleModal } = this.state;
+    if (!toggleModal) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    this.setState({
+      toggleModal: !this.state.toggleModal,
+    });
+  };
+
   render() {
     const {
       maxLength,
@@ -238,6 +255,7 @@ class RevealSubmitForm extends Component {
       uploadLoading,
       isFetching,
       fileRef,
+      toggleModal,
     } = this.state;
     return (
       <div className="root">
@@ -272,7 +290,7 @@ class RevealSubmitForm extends Component {
             loading={isFetching}
             text="Please wait...loading discussions"
           />
-          <form className="form">
+          <form className="form reveal-submit-form">
             <div className="form-author">
               <div style={profPic(avatarURL)} />
               {displayName
@@ -286,8 +304,11 @@ class RevealSubmitForm extends Component {
             <MultiUploadImageList
               isLoading={uploadLoading}
               onAddImage={this.handleAddImage}
+              mobileVisible={toggleModal}
               imageList={S3URLs}
               onDeleteImage={this.handleDeleteImage}
+              handleToggleModal={this.handleToggleModal}
+              slidesToShow={3}
             />
             {isClub && (
               <input
@@ -318,6 +339,7 @@ class RevealSubmitForm extends Component {
                   multiple
                   setRef={fileRef}
                   handleUploadImage={this.handleUploadImage}
+                  handleToggleModal={this.handleToggleModal}
                   id={threadId}
                 />
                 {uploadError && <span className="errorMsg">{uploadError}</span>}

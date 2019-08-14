@@ -67,6 +67,9 @@ export default css`
 
   .slick-arrow-btn.slick-next {
     right: 20px;
+  }
+
+  .slick-arrow-btn.slick-next:before {
     transform: rotate(180deg);
   }
 

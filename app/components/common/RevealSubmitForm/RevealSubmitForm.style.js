@@ -104,6 +104,10 @@ export default css`
     margin-bottom: 15px;
   }
 
+  :global(.reveal-submit-form .slick-list) {
+    max-width: 396px !important;
+  }
+
   @media ${screenMedium} {
     .fake-input {
       width: 540px;

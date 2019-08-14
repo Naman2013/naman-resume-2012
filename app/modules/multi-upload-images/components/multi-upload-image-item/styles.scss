@@ -1,4 +1,5 @@
 @import '~app/styles/variables/colors.scss';
+@import '~app/styles/bootstrap/_common';
 
 .multi-upload-image-item {
 
@@ -18,6 +19,16 @@
       right: 5px;
       color: $white;
       cursor: pointer;
+    }
+  }
+  @include media-breakpoint-down(sm) {
+    & {
+      display: inline-block;
+
+      .image-container {
+        width: 240px;
+        height: 240px;
+      }
     }
   }
 }

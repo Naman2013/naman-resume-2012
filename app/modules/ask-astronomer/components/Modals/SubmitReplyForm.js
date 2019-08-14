@@ -50,6 +50,7 @@ class SubmitReplyForm extends PureComponent {
       uuid: '',
       fileRef: React.createRef(),
       uploadLoading: true,
+      toggleModal: false,
     };
     prepareReply({
       at: user.at,
@@ -61,6 +62,10 @@ class SubmitReplyForm extends PureComponent {
         uploadLoading: false,
       }));
     });
+  }
+
+  componentWillUnmount() {
+    document.body.style.overflow = 'unset';
   }
 
   handleUploadImage = async event => {
@@ -158,8 +163,20 @@ class SubmitReplyForm extends PureComponent {
     }
   };
 
+  handleToggleModal = () => {
+    const { toggleModal } = this.state;
+    if (!toggleModal) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    this.setState({
+      toggleModal: !this.state.toggleModal,
+    });
+  };
+
   render() {
-    const { S3URLs, uploadLoading, fileRef } = this.state;
+    const { S3URLs, uploadLoading, fileRef, toggleModal } = this.state;
     const { authorInfo, freshness, content, modalActions, intl } = this.props;
 
     const { answerText } = this.state;
@@ -197,8 +214,11 @@ class SubmitReplyForm extends PureComponent {
         <MultiUploadImageList
           onAddImage={this.handleAddImage}
           imageList={S3URLs}
+          mobileVisible={toggleModal}
           onDeleteImage={this.handleDeleteImage}
+          handleToggleModal={this.handleToggleModal}
           useLoader={false}
+          isLoading={uploadLoading}
         />
 
         <textarea
@@ -212,6 +232,7 @@ class SubmitReplyForm extends PureComponent {
             <PhotoUploadButton
               multiple
               setRef={fileRef}
+              handleToggleModal={this.handleToggleModal}
               handleUploadImage={this.handleUploadImage}
             />
           </div>
