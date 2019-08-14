@@ -12,6 +12,8 @@ import React, { Fragment, useEffect, useState } from 'react';
 
 import axios from 'axios';
 
+import { getUserInfo } from 'app/modules/User';
+
 import {
   EDIT_PAYMENT_ENDPOINT_URL,
 } from 'app/services/registration/registration.js';
@@ -91,7 +93,9 @@ const handleIframeTask = e => {
         const editPaymentData = {
           paymentMethod,
           paymentToken: paymentNonceTokenData,
-          customerId: window.localStorage.getItem('pending_cid'),
+          cid: getUserInfo().cid,
+	  at: getUserInfo().at,
+	  token: getUserInfo().token,
           billingAddressString: paymentDataString[3],
         };
 	//add string aboc to this //ADD THIS BACK AFTER TESTING
