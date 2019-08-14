@@ -280,6 +280,7 @@ class DiscussionsThreads extends Component {
       browserHistory.push(`/community-groups/${discussionGroupId}`);
     }
     this.getThreads(this.props, activePage, true);
+    this.threadsContainer.scrollIntoView();
   };
 
   render() {
@@ -310,7 +311,10 @@ class DiscussionsThreads extends Component {
           isDesktop,
           isClub,
         })}
-        <div className="comments-bar">
+        <div 
+          className="comments-bar" 
+          ref={node => { this.threadsContainer = node; }}
+        >
           <FormattedMessage {...messages.Comments} /> ({threadsCount})
         </div>
         {fetching && (

@@ -129,6 +129,7 @@ class Observations extends Component {
 
   handlePageChange = ({ activePage }) => {
     this.getObservations(activePage);
+    this.observationContainer.scrollIntoView();
   };
 
   render() {
@@ -152,7 +153,10 @@ class Observations extends Component {
           title={`${objectDetails.objectTitle}'s`}
           subTitle={intl.formatMessage(messages.Observations)}
           renderNav={() => (
-            <div className="nav-actions">
+            <div
+              className="nav-actions"
+              ref={node => { this.observationContainer = node; }}
+            >
               <GenericButton
                 onClickEvent={this.showWriteObservationModal}
                 text="Add observation"
