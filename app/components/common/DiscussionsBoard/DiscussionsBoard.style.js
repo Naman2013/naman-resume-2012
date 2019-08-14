@@ -12,6 +12,7 @@ import {
   customModalStylesV4,
 } from 'app/styles/mixins/utilities';
 import { faintShadow } from 'app/styles/variables/shadows';
+import { screenMedium } from 'app/styles/variables/breakpoints';
 
 export default css`
   .root {
@@ -37,8 +38,9 @@ export default css`
     padding: 25px;
     ${faintShadow}
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
+    flex-direction: column;
   }
 
   .comments-search input {
@@ -53,13 +55,16 @@ export default css`
     resize: none;
     vertical-align: top;
     width: 150px;
+    flex: 1;
   }
 
   .comments-bar .comments-search {
-    margin-left: 15px;
+    margin-top: 15px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex: 1;
+    width: 100%;
   }
 
   .flex {
@@ -124,5 +129,17 @@ export default css`
 
   :global(.discussions-pagination .pagination-root) {
     margin: 10px auto;
+  }
+
+  @media ${screenMedium} {
+    .comments-bar {
+      flex-direction: row;
+      align-items: center;
+    }
+
+    .comments-bar .comments-search {
+      margin-top: 0;
+      margin-left: 15px;
+    }
   }
 `;
