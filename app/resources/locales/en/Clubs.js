@@ -14,7 +14,8 @@ export const Clubs = {
   'Clubs.LastName': 'Please provide a Last Name',
   'Clubs.EmailAddress': 'Please provide an Email Address',
   'Clubs.ConfirmEmailAddress': 'Please confirm the Email Address',
-  'Clubs.EmailsDontMatch': 'The Email Address and the Email Verification fields must match.',
+  'Clubs.EmailsDontMatch':
+    'The Email Address and the Email Verification fields must match.',
   'Clubs.SendInvitation': 'Send Invitation',
   'Clubs.WriteSomething': 'Write Something',
   'Clubs.SubmitPostError': 'There was an error submitting your post.',
@@ -33,4 +34,6 @@ export const Clubs = {
   'Clubs.PublicGroup': 'Public Club',
   'Clubs.PrivateGroup': 'Private Club',
   'Clubs.Submit': 'Submit',
+  'Clubs.Search': 'Search',
+  'Clubs.Reset': 'Reset',
 };

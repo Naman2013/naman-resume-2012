@@ -17,6 +17,16 @@ const messages: Messages = {
     defaultMessage: 'There is nothing to show here',
     description: 'AskAnAstronomer No Threads',
   },
+  Search: {
+    id: 'Clubs.Search',
+    defaultMessage: 'Search',
+    description: 'Clubs Search',
+  },
+  Reset: {
+    id: 'Clubs.Reset',
+    defaultMessage: 'Reset',
+    description: 'Clubs Reset',
+  },
 };
 
 const definedMessages: typeof messages = defineMessages(messages);
