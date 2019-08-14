@@ -289,6 +289,7 @@ class DiscussionsThreads extends Component {
       browserHistory.push(`/community-groups/${discussionGroupId}`);
     }
     this.getThreads(this.props, activePage, true);
+    this.threadsContainer.scrollIntoView();
   };
 
   handleSearchEnterPress = e => {
@@ -330,7 +331,10 @@ class DiscussionsThreads extends Component {
           isDesktop,
           isClub,
         })}
-        <div className="comments-bar">
+        <div 
+          className="comments-bar" 
+          ref={node => { this.threadsContainer = node; }}
+        >
           {showSearchTermResultHeading ? <span>{searchTermResultHeading}</span> : <span><FormattedMessage {...messages.Comments} /> ({threadsCount})</span>}
 
           <div className="comments-search">

@@ -18,6 +18,7 @@ const MainContainer = ({
   commentsTopicId,
   customerImageId,
   fileData,
+  showLikePrompt,
   likePrompt,
   likesCount,
   observationLog,
@@ -31,39 +32,42 @@ const MainContainer = ({
   validateResponseAccess,
 }) => (
   <div className="image-main-container">
-      {observationLog && <>
+    {observationLog && (
+      <>
         <ObservationInformation
-         canLikeFlag={canLikeFlag}
-      	 customerImageId={customerImageId}
-       	 fileData={fileData}
-       	 likesCount={likesCount}
-       	 likePrompt={likePrompt}
-       	 observationLog={observationLog}
-       	 observationTimeDisplay={observationTimeDisplay}
-       	 observationTitle={observationTitle}
-       	 imageTitle={imageTitle}
-       	 user={user}
-      	/>
-      	<br/>
+          canLikeFlag={canLikeFlag}
+          customerImageId={customerImageId}
+          fileData={fileData}
+          likesCount={likesCount}
+          likePrompt={likePrompt}
+          showLikePrompt={showLikePrompt}
+          observationLog={observationLog}
+          observationTimeDisplay={observationTimeDisplay}
+          observationTitle={observationTitle}
+          imageTitle={imageTitle}
+          user={user}
+        />
+        <br />
       </>
-      }
+    )}
     {canEditFlag && (
       <>
-	      <ObservationsForm
-       		 canShareFlag={canShareFlag}
-	        actions={actions}
-        	customerImageId={customerImageId}
-        	observationLog={observationLog}
-        	observationTitle={observationTitle}
-        	saveLabel={saveLabel}
-        	scheduledMissionId={scheduledMissionId}
-        	user={user}
-        	validateResponseAccess={validateResponseAccess}
-      	       />
-	       <br/>
-	</>
+        <ObservationsForm
+          canShareFlag={canShareFlag}
+          actions={actions}
+          customerImageId={customerImageId}
+          observationLog={observationLog}
+          observationTitle={observationTitle}
+          saveLabel={saveLabel}
+          scheduledMissionId={scheduledMissionId}
+          user={user}
+          validateResponseAccess={validateResponseAccess}
+        />
+        <br />
+      </>
     )}
-      {showCommentsLink ? (<DiscussionsBoard
+    {showCommentsLink ? (
+      <DiscussionsBoard
         topLevelThread={false}
         callSource={callSource}
         count={10}
@@ -75,7 +79,7 @@ const MainContainer = ({
         user={user}
         validateResponseAccess={validateResponseAccess}
       />
-      ) : null}
+    ) : null}
   </div>
 );
 
