@@ -18,6 +18,7 @@ const MainContainer = ({
   commentsTopicId,
   customerImageId,
   fileData,
+  showLikePrompt,
   likePrompt,
   likesCount,
   observationLog,
@@ -39,6 +40,7 @@ const MainContainer = ({
           fileData={fileData}
           likesCount={likesCount}
           likePrompt={likePrompt}
+          showLikePrompt={showLikePrompt}
           observationLog={observationLog}
           observationTimeDisplay={observationTimeDisplay}
           observationTitle={observationTitle}
