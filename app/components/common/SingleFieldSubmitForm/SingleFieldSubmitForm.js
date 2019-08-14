@@ -20,6 +20,7 @@ import Button from 'app/components/common/style/buttons/Button';
 import ViewImagesButton from 'app/components/common/style/buttons/ViewImagesButton';
 import { customModalStylesV4 } from 'app/styles/mixins/utilities';
 import { MultiUploadImageList } from 'app/modules/multi-upload-images/components/multi-upload-image-list';
+import { prepareThread } from 'app/services/discussions/prepare-thread';
 import styles from './SingleFieldSubmitForm.style';
 import messages from './SingleFieldSubmitForm.messages';
 
@@ -62,7 +63,17 @@ class SingleFieldSubmitForm extends Component {
     uploadLoading: false,
     S3URLs: [],
     fileRef: React.createRef(),
+    uuid: this.props.uuid,
   };
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (prevState.uuid === null) {
+      return {
+        uuid: nextProps.uuid,
+      };
+    }
+    return null;
+  }
 
   onTextChange = e =>
     this.setState({
@@ -82,7 +93,7 @@ class SingleFieldSubmitForm extends Component {
   };
 
   handleSubmit = (error, message) => {
-    const { intl } = this.props;
+    const { intl, user } = this.props;
     if (!error) {
       this.setState({
         showPopup: true,
@@ -91,6 +102,18 @@ class SingleFieldSubmitForm extends Component {
         formText: '',
         formTitle: '',
         S3URLs: [],
+      });
+
+      prepareThread({
+        at: user.at,
+        token: user.token,
+        cid: user.cid,
+      }).then(res => {
+        if (!res.data.apiError) {
+          this.setState({
+            uuid: res.data.postUUID,
+          });
+        }
       });
     } else {
       this.setState({
@@ -111,7 +134,8 @@ class SingleFieldSubmitForm extends Component {
     event.preventDefault();
     const { files } = event.target;
     const { cid, token, at } = this.props.user;
-    const { uuid, imageClass } = this.props;
+    const { imageClass } = this.props;
+    const { uuid } = this.state;
     this.setState({ uploadLoading: true });
     for (let i = 0; i < files.length; i++) {
       const data = new FormData();

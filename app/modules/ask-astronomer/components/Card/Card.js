@@ -11,6 +11,7 @@ import noop from 'lodash/noop';
 import moment from 'moment/moment';
 import CommentButton from 'app/components/common/style/buttons/CommentButton';
 import LikeSomethingButton from 'app/components/common/LikeSomethingButton';
+import ViewImage from 'app/modules/multi-upload-images/components/view-image';
 import Button from 'app/components/common/style/buttons/Button';
 import ViewImagesButton from 'app/components/common/style/buttons/ViewImagesButton';
 import {
@@ -93,6 +94,7 @@ const Card = props => {
           className="content"
           dangerouslySetInnerHTML={{ __html: content || title }}
         />
+        {!!S3Files.length && <ViewImage images={S3Files} />}
         <div className="explainantion-container">
           <div className="explainantion-item">
             {moment.utc(creationDate).fromNow()}
@@ -123,7 +125,7 @@ const Card = props => {
                 alwaysShowCount
               />
             ) : null}
-            {S3Files.length > 0 ? <ViewImagesButton images={S3Files} /> : null}
+            {/*{S3Files.length > 0 ? <ViewImagesButton images={S3Files} /> : null}*/}
           </div>
           <div className="action-right">
             {allowReplies ? renderReplyButton() : null}

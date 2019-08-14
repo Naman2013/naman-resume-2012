@@ -20,6 +20,7 @@ import BackBar from 'app/components/common/style/buttons/BackBar';
 import { customModalStylesFitContent } from 'app/styles/mixins/utilities';
 import ViewImagesButton from 'app/components/common/style/buttons/ViewImagesButton';
 import { Spinner } from 'app/components/spinner/index';
+import { prepareThread } from 'app/services/discussions/prepare-thread';
 import styles, { profPic } from './RevealSubmitForm.style';
 import messages from './RevealSubmitForm.messages';
 
@@ -65,7 +66,17 @@ class RevealSubmitForm extends Component {
     isFetching: false,
     toggleModal: false,
     fileRef: React.createRef(),
+    uuid: this.props.uuid,
   };
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (prevState.uuid === null) {
+      return {
+        uuid: nextProps.uuid,
+      };
+    }
+    return null;
+  }
 
   componentWillUnmount() {
     document.body.style.overflow = 'unset';
@@ -98,7 +109,7 @@ class RevealSubmitForm extends Component {
   };
 
   handleSubmit = (error, message) => {
-    const { intl } = this.props;
+    const { intl, user } = this.props;
     if (!error) {
       this.setState({
         showPopup: true,
@@ -108,6 +119,18 @@ class RevealSubmitForm extends Component {
         formText: '',
         S3URLs: [],
         isFetching: false,
+      });
+
+      prepareThread({
+        at: user.at,
+        token: user.token,
+        cid: user.cid,
+      }).then(res => {
+        if (!res.data.apiError) {
+          this.setState({
+            uuid: res.data.postUUID,
+          });
+        }
       });
     } else {
       this.setState({
@@ -153,7 +176,7 @@ class RevealSubmitForm extends Component {
 
     const { files } = event.target;
     const { cid, token, at } = this.props.user;
-    const { uuid } = this.props;
+    const { uuid } = this.state;
     this.setState({ uploadLoading: true });
     for (let i = 0; i < files.length; i++) {
       const data = new FormData();
