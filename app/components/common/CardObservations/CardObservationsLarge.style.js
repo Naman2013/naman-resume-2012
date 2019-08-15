@@ -169,6 +169,10 @@ export default css`
     height: 35px;
     object-fit: contain;
   }
+  
+  .memberIcon {
+    filter: invert(1);
+  }
 
   @media ${screenMedium} {
     .image-wrapper {

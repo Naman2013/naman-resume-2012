@@ -181,6 +181,10 @@ export default css`
     object-fit: contain;
   }
 
+  .memberIcon {
+    filter: invert(1);
+  }
+
   @media ${screenMedium} {
     .card-obs {
       width: 95%;

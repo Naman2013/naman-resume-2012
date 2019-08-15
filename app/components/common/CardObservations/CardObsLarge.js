@@ -61,7 +61,7 @@ const CardObsLarge = props => {
                         {iconFileData[item].hasLink ? (
                           <Link to={iconFileData[item].linkUrl} target="_blank" className="link">
                             <img
-                              className="linkIcon"
+                              className={`linkIcon${item === 'Member' ? ' memberIcon' : ''}`}
                               src={iconFileData[item].iconUrl}
                               alt={iconFileData[item].label}
                             />
@@ -69,7 +69,7 @@ const CardObsLarge = props => {
                         ) : (
                           <div className="link">
                             <img
-                              className="linkIcon"
+                              className={`linkIcon${item === 'Member' ? ' memberIcon' : ''}`}
                               src={iconFileData[item].iconUrl}
                               alt={iconFileData[item].label}
                             />
