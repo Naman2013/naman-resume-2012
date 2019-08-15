@@ -1,6 +1,7 @@
 import css from 'styled-jsx/css';
 import { astronaut } from 'app/styles/variables/colors_tiles_v4';
 import { primaryFont } from 'app/styles/variables/fonts';
+import { SCREEN_MEDIUM } from 'app/styles/variables/breakpoints';
 
 export default css`
   button {
@@ -36,7 +37,8 @@ export default css`
     justify-content: space-between;
   }
 
-  label {
+  label,
+  .file-upload-button {
     border: 1px dashed;
     font-size: 11px;
     height: 40px;
@@ -77,5 +79,18 @@ export default css`
 
   .button-input-container.disabled label {
     pointer-events: none;
+  }
+
+  .file-upload-button {
+    display: none;
+  }
+
+  @media screen and (max-width: ${SCREEN_MEDIUM}px) {
+    .file-upload-label.use-nodal {
+      display: none;
+    }
+    .file-upload-button {
+      display: inline-block;
+    }
   }
 `;

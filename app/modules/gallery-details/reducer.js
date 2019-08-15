@@ -3,7 +3,10 @@ import { actions, constants } from 'ducks-helpers';
 import { handleActions } from 'redux-actions';
 import { API_URL } from './api';
 
-export const TYPE = constants('gallery-details', ['~GET_GALLERY_DETAILS']);
+export const TYPE = constants('gallery-details', [
+  '~GET_GALLERY_DETAILS',
+  '~REMOVE_IMAGE_FROM_GALLERY',
+]);
 export const ACTION = actions(TYPE);
 
 type TInitialState = {
@@ -25,6 +28,7 @@ export const initialState: TInitialState = {
   imageCount: 0,
   canEditFlag: true,
   imageList: [],
+  galleryCountChange: 0,
 };
 
 export default handleActions(
@@ -32,6 +36,9 @@ export default handleActions(
     [TYPE.GET_GALLERY_DETAILS]: setFetching,
     [TYPE.GET_GALLERY_DETAILS_SUCCESS]: getGalleryDetailsSuccess,
     [TYPE.GET_GALLERY_DETAILS_ERROR]: setServerError,
+    [TYPE.REMOVE_IMAGE_FROM_GALLERY]: setFetching,
+    [TYPE.REMOVE_IMAGE_FROM_GALLERY_SUCCESS]: removeImageFromGallerySuccess,
+    [TYPE.REMOVE_IMAGE_FROM_GALLERY_ERROR]: setServerError,
   },
   initialState
 );
@@ -59,5 +66,14 @@ function getGalleryDetailsSuccess(state, { payload }) {
     imageCount: payload.imageCount,
     canEditFlag: payload.canEditFlag,
     imageList: payload.imageList,
+  };
+}
+
+function removeImageFromGallerySuccess(state, { payload }) {
+  return {
+    ...state,
+    isFetching: false,
+    isLoaded: true,
+    galleryCountChange: payload.galleryCountChange,
   };
 }

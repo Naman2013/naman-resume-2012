@@ -12,7 +12,6 @@ import {
 } from '../../../../styles/variables/colors_tiles_v4';
 import { primaryFont, secondaryFont } from '../../../../styles/variables/fonts';
 
-
 const borderBottom = `border-bottom: 1px solid ${hawkesBlue};`;
 const centerChildren = `
   display: flex;
@@ -32,7 +31,7 @@ export default css`
     margin-bottom: 20px;
     color: ${lightHeadedAstronaut};
   }
-  
+
   .card-obs {
     pointer-events: auto;
     background: url(${white_texture_bg});
@@ -41,7 +40,7 @@ export default css`
     justify-content: space-between;
     flex-direction: column;
   }
-  
+
   .card-obs-small {
     min-height: auto;
     max-height: inherit;
@@ -54,7 +53,7 @@ export default css`
     width: 100%;
     text-align: initial;
   }
-  
+
   .top-small {
     padding: 50px;
   }
@@ -82,7 +81,7 @@ export default css`
   .button:not(:last-child) {
     border-right: 1px solid #dee0e2;
   }
-  
+
   .capture-date {
     ${toUpper}
     ${centerChildren}
@@ -99,7 +98,7 @@ export default css`
     padding-right: 20px;
   }
 
-  .picture { 
+  .picture {
     width: 35%;
     ${centerChildren}
     justify-content: flex-end;
@@ -130,7 +129,6 @@ export default css`
   .text {
     font-size: 19px;
     padding: 20px 0;
-    
   }
 
   .image-wrapper {
@@ -141,7 +139,7 @@ export default css`
     overflow: hidden;
   }
 
-  .image-wrapper img{
+  .image-wrapper img {
     width: unset;
     height: 100%;
     position: relative;
@@ -153,16 +151,16 @@ export default css`
     display: flex;
   }
 
-  .link {
+  .links :global(> div) {
+    margin-right: 25px;
+  }
+
+  .links :global(.link) {
     ${centerChildren}
-    background-color: ${lightHeadedAstronaut};
     border-radius: 50%;
     width: 40px;
     height: 40px;
-  }
-
-  .link:not(:last-child) {
-    margin-right: 25px;
+    cursor: pointer;
   }
 
   .details {
@@ -174,13 +172,17 @@ export default css`
   }
 
   .icon {
-    margin-right: 8px
+    margin-right: 8px;
   }
 
   .linkIcon {
-    width: 20px;
-    height: 20px;
-    transform: rotate(-45deg);
+    width: 35px;
+    height: 35px;
+    object-fit: contain;
+  }
+
+  .memberIcon {
+    filter: invert(1);
   }
 
   @media ${screenMedium} {
@@ -194,11 +196,11 @@ export default css`
     }
 
     .info {
-      width: 48%
+      width: 48%;
     }
 
     .picture {
-      width: 48%
+      width: 48%;
     }
 
     .top {
@@ -222,7 +224,7 @@ export default css`
       height: 240px;
     }
     .info {
-      width: 55%
+      width: 55%;
     }
     .picture {
       min-width: 40%;

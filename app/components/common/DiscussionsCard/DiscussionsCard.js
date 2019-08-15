@@ -16,6 +16,7 @@ import ReplyButton from 'app/components/common/DiscussionsBoard/ReplyButton';
 import Button from 'app/components/common/style/buttons/Button';
 import ViewImagesButton from 'app/components/common/style/buttons/ViewImagesButton';
 import FlagButton from 'app/components/common/FlagButton';
+import ViewImage from 'app/modules/multi-upload-images/components/view-image';
 import styles, { profPic } from './DiscussionsCard.style';
 import messages from './DiscussionsCard.messages';
 
@@ -96,6 +97,7 @@ class DiscussionsCard extends PureComponent {
             className="content"
             dangerouslySetInnerHTML={{ __html: content }}
           />
+          {!!S3Files.length && <ViewImage images={S3Files} />}
           <div className="explainantion-container">
             <div className="explainantion-item">
               {moment.utc(modified).fromNow()}
@@ -124,9 +126,9 @@ class DiscussionsCard extends PureComponent {
                   alwaysShowCount
                 />
               ) : null}
-              {S3Files.length > 0 ? (
-                <ViewImagesButton images={S3Files} />
-              ) : null}
+              {/*{S3Files.length > 0 ? (*/}
+                {/*<ViewImagesButton images={S3Files} />*/}
+              {/*) : null}*/}
             </div>
             <div className="action-right">
               {allowReplies ? (

@@ -10,6 +10,7 @@ import { browserHistory } from 'react-router';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import { FormattedMessage } from 'react-intl';
+import { Button } from 'react-bootstrap';
 import take from 'lodash/take';
 import { submitReply } from 'app/services/discussions/submit-reply';
 import Pagination from 'app/components/common/pagination/v4-pagination/pagination';
@@ -69,6 +70,8 @@ class DiscussionsThreads extends Component {
   state = {
     fetching: true,
     activePage: null,
+    showSearchTermResultHeading: false,
+    searchTermResultHeading: null,
   };
 
   componentDidMount() {
@@ -108,6 +111,9 @@ class DiscussionsThreads extends Component {
     const jumpThreadData =
       jumpToThreadId && !paging ? { threadId: jumpToThreadId } : {};
 
+    const searchValue = this.searchInput.value.trim();
+    const searchData = searchValue ? { searchTerms: searchValue } : {};
+
     axios
       .post(THREAD_LIST, {
         callSource,
@@ -117,6 +123,7 @@ class DiscussionsThreads extends Component {
         at: user.at,
         token: user.token,
         cid: user.cid,
+        ...searchData,
         ...jumpThreadData,
       })
       .then(res => {
@@ -124,6 +131,8 @@ class DiscussionsThreads extends Component {
         this.setState({
           fetching: false,
           activePage: res.data.page || page,
+          showSearchTermResultHeading: res.data.showSearchTermResultHeading,
+          searchTermResultHeading: res.data.searchTermResultHeading,
         });
 
         if (!res.data.apiError) {
@@ -280,7 +289,19 @@ class DiscussionsThreads extends Component {
       browserHistory.push(`/community-groups/${discussionGroupId}`);
     }
     this.getThreads(this.props, activePage, true);
+    this.threadsContainer.scrollIntoView();
   };
+
+  handleSearchEnterPress = e => {
+    if(e.keyCode == 13) {
+      this.getThreads(this.props);
+    }
+  }
+
+  resetSearch = () => {
+    this.searchInput.value = '';
+    this.getThreads(this.props);
+  }
 
   render() {
     const {
@@ -299,9 +320,9 @@ class DiscussionsThreads extends Component {
       discussionGroupId,
       jumpToThreadId,
     } = this.props;
-    const { fetching, activePage } = this.state;
+    const { fetching, activePage, showSearchTermResultHeading, searchTermResultHeading } = this.state;
     const { threadsCount } = discussions;
-
+    
     return (
       <div className="root">
         {CREATE_THREAD_FORM[callSource].render({
@@ -310,8 +331,28 @@ class DiscussionsThreads extends Component {
           isDesktop,
           isClub,
         })}
-        <div className="comments-bar">
-          <FormattedMessage {...messages.Comments} /> ({threadsCount})
+        <div 
+          className="comments-bar" 
+          ref={node => { this.threadsContainer = node; }}
+        >
+          {showSearchTermResultHeading ? <span>{searchTermResultHeading}</span> : <span><FormattedMessage {...messages.Comments} /> ({threadsCount})</span>}
+
+          <div className="comments-search">
+            <input 
+              placeholder="Search"
+              ref={node => { this.searchInput = node }}
+              onKeyUp={this.handleSearchEnterPress}
+            />
+            {showSearchTermResultHeading ? (
+              <Button onClick={this.resetSearch}>
+                <FormattedMessage {...messages.Reset} />
+              </Button>
+            ) : ( 
+              <Button onClick={() => this.getThreads(this.props)}>
+                <FormattedMessage {...messages.Search} />
+              </Button>
+            )}
+          </div>
         </div>
         {fetching && (
           <div>

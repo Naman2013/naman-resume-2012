@@ -42,7 +42,7 @@ export const TagBtn = props => {
       isOpen={isTagsOpen}
       setOpen={setTagsOpen}
       className="ml-2"
-      tooltip="Label"
+      tooltip="Tags"
       icon={<span className="icon-label" />}
       popover={
         <div className="tags-popover">
