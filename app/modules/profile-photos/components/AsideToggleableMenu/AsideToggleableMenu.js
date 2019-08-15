@@ -32,6 +32,7 @@ const AsideToggleableMenu = props => {
     tagActions,
     tagsData,
     galleryId,
+    typeGallery,
   } = props;
 
   return (
@@ -52,7 +53,7 @@ const AsideToggleableMenu = props => {
       <div className="options-list">
         {optionsList.map(option => {
           if (option.action === 'removeFromGallery') {
-            return (
+            return typeGallery ? (
               <div className="action-menu-container option">
                 <div className="remove-gallery-image" style={{ opacity: visible ? 1 : 0 }}>
                   <RemoveGalleryImageBtn
@@ -62,7 +63,7 @@ const AsideToggleableMenu = props => {
                   />
                 </div>
               </div>
-            );
+            ) : null;
           }
           if (option.action === 'remove') {
             return (
