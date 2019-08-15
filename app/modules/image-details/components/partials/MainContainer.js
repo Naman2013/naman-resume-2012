@@ -46,14 +46,16 @@ const MainContainer = ({
           observationTitle={observationTitle}
           imageTitle={imageTitle}
           user={user}
+          actions={actions}
+          canShareFlag={canShareFlag}
+          canEditFlag={canEditFlag}
         />
         <br />
       </>
     )}
-    {canEditFlag && (
+    {canEditFlag && !observationLog && (
       <>
         <ObservationsForm
-          canShareFlag={canShareFlag}
           actions={actions}
           customerImageId={customerImageId}
           observationLog={observationLog}
