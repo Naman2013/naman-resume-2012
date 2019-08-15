@@ -12,7 +12,6 @@ import {
 } from '../../../../styles/variables/colors_tiles_v4';
 import { primaryFont, secondaryFont } from '../../../../styles/variables/fonts';
 
-
 const borderBottom = `border-bottom: 1px solid ${hawkesBlue};`;
 const centerChildren = `
   display: flex;
@@ -163,6 +162,7 @@ export default css`
     border-radius: 50%;
     width: 40px;
     height: 40px;
+    cursor: pointer;
   }
 
   .details {

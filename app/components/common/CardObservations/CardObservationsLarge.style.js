@@ -150,6 +150,7 @@ export default css`
     border-radius: 50%;
     width: 40px;
     height: 40px;
+    cursor: pointer;
   }
 
   .details {
