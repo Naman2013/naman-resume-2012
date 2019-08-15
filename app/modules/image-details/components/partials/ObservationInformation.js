@@ -137,10 +137,11 @@ class BootstrappedImageDetails extends Component {
     } = this.props;
 
     shareMemberPicture({ customerImageId }).then(data =>
-      this.setState({
+      /*this.setState({
         isOpen: true,
         promptText: data.payload.sharePrompt,
-      })
+      })*/
+      window.location.reload()
     );
   };
   /*
