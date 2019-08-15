@@ -24,6 +24,7 @@ type TPhotoRollCard = {
   isShareToken?: boolean,
   tagActions: Object,
   galleryId: string,
+  typeGallery: boolean,
 };
 
 class PhotoRollCard extends Component<TPhotoRollCard> {
@@ -70,6 +71,7 @@ class PhotoRollCard extends Component<TPhotoRollCard> {
       isMobile,
       currentItem: observation,
       tagActions,
+      typeGallery,
     } = this.props;
     const { menuIsVisible, width } = this.state;
     const inCenter = index % 3 === 1;
@@ -104,6 +106,7 @@ class PhotoRollCard extends Component<TPhotoRollCard> {
                   optionsList={this.optionsList}
                   redirectToImage={this.redirectToImage}
                   toggleMenuVisibility={this.toggleMenuVisibility}
+                  typeGallery={typeGallery}
                   {...this.props}
                 />
                 <div className="overlay-top">

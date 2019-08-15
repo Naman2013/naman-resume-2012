@@ -84,6 +84,7 @@ class GalleryDetails extends Component<TGalleryDetails> {
                   isMobile={isMobile}
                   isDesktop={isDesktop}
                   galleryId={params.galleryId}
+                  typeGallery
                 />
               ))}
             </section>
