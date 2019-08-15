@@ -204,6 +204,7 @@ class Observations extends Component {
                           likePrompt={imageDetails.likePrompt}
                           showLikePrompt={imageDetails.showLikePrompt}
                           commentsCount={imageDetails.commentsCount}
+                          iconFileData={imageDetails.iconFileData}
                           customerImageId={image.customerImageId}
                           handleLike={fetchLikeAction}
                           observationTimeDisplay={

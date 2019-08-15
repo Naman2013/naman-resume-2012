@@ -1,6 +1,8 @@
 import React, { Fragment, useState } from 'react';
+import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import { injectIntl } from 'react-intl';
+import { Tooltip } from 'react-tippy';
 import LikeSomethingButton from 'app/components/common/LikeSomethingButton';
 import { ModalImg } from 'app/modules/telescope/components/modal-img';
 import style from './CardObservationsLarge.style';
@@ -22,6 +24,7 @@ const CardObsLarge = props => {
     likePrompt,
     showLikePrompt,
     socialShareDescription,
+    iconFileData,
   } = props;
   const [isOpen, openModal] = useState(false);
   const [likesNumber, changeLikesNumber] = useState(likesCount);
@@ -29,7 +32,6 @@ const CardObsLarge = props => {
     return new Promise((resolve, reject) => {
       if (!showLikePrompt) {
         const response = handleLike(customerImageId);
-        //changeLikesNumber(likesNumber + 1);
         resolve(response);
       }
       reject();
@@ -54,31 +56,27 @@ const CardObsLarge = props => {
                     )}
                   </div>
                   <div className="links">
-                    <div className="link">
-                      <img
-                        src="https://vega.slooh.com/assets/v4/icons/user_astronaut.svg"
-                        alt="user"
-                      />
-                    </div>
-                    <div className="link">
-                      <img
-                        className="linkIcon"
-                        src="https://vega.slooh.com/assets/v4/icons/solar_system/Jupiter.png"
-                        alt="system"
-                      />
-                    </div>
-                    <div className="link">
-                      <img
-                        src="https://vega.slooh.com/assets/v4/common/icon_observatory.svg"
-                        alt="observatory"
-                      />
-                    </div>
-                    <div className="link">
-                      <img
-                        src="https://vega.slooh.com/assets/v4/icons/location_marker.png"
-                        alt="location"
-                      />
-                    </div>
+                    {Object.keys(iconFileData).map(item => (
+                      <Tooltip title={iconFileData[item].text}>
+                        {iconFileData[item].hasLink ? (
+                          <Link to={iconFileData[item].linkUrl} target="_blank" className="link">
+                            <img
+                              className="linkIcon"
+                              src={iconFileData[item].iconUrl}
+                              alt={iconFileData[item].label}
+                            />
+                          </Link>
+                        ) : (
+                          <div className="link">
+                            <img
+                              className="linkIcon"
+                              src={iconFileData[item].iconUrl}
+                              alt={iconFileData[item].label}
+                            />
+                          </div>
+                        )}
+                      </Tooltip>
+                    ))}
                   </div>
                 </div>
                 <div className="picture">

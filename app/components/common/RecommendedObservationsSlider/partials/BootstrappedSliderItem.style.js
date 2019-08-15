@@ -153,16 +153,16 @@ export default css`
     display: flex;
   }
 
-  .link {
+  .links :global(> div) {
+    margin-right: 25px;
+  }
+
+  .links :global(.link) {
     ${centerChildren}
     background-color: ${lightHeadedAstronaut};
     border-radius: 50%;
     width: 40px;
     height: 40px;
-  }
-
-  .link:not(:last-child) {
-    margin-right: 25px;
   }
 
   .details {
@@ -178,9 +178,9 @@ export default css`
   }
 
   .linkIcon {
-    width: 20px;
-    height: 20px;
-    transform: rotate(-45deg);
+    width: 25px;
+    height: 25px;
+    object-fit: contain;
   }
 
   @media ${screenMedium} {
