@@ -48,11 +48,12 @@ const MainContainer = ({
           user={user}
           actions={actions}
           canShareFlag={canShareFlag}
+          canEditFlag={canEditFlag}
         />
         <br />
       </>
     )}
-    {canEditFlag && (
+    {canEditFlag && !observationLog && (
       <>
         <ObservationsForm
           actions={actions}

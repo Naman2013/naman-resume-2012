@@ -33,6 +33,10 @@ class ObservationsForm extends Component {
     canShareFlag: true,
   };
 
+  /*  static getDerivedStateFromProps(props, state) {
+    return {};
+  }*/
+
   state = { title: '', observation: '', showPrompt: false, promptText: '' };
 
   onTitleChange = e => {

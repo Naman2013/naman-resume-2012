@@ -5,6 +5,8 @@
  *
  ***********************************/
 
+import Btn from 'app/atoms/Btn';
+import Icon from 'app/atoms/Icon';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
@@ -141,6 +143,11 @@ class BootstrappedImageDetails extends Component {
       })
     );
   };
+  /*
+  onEdit = () => {
+    const { observationLog, observationTitle } = this.props;
+    console.log(observationLog, observationTitle);
+  };*/
 
   render() {
     const {
@@ -151,6 +158,7 @@ class BootstrappedImageDetails extends Component {
       observationTitle,
       imageTitle,
       canShareFlag,
+      canEditFlag,
     } = this.props;
 
     const { isOpen, likePrompt, count, promptText } = this.state;
@@ -193,6 +201,13 @@ class BootstrappedImageDetails extends Component {
               dangerouslySetInnerHTML={{ __html: promptText || likePrompt }}
             />
           </Modal>
+          {/*{canEditFlag && (
+            <div className="pull-right my-3">
+              <Btn mod="circle" onClick={this.onEdit}>
+                <Icon i="pencil" />
+              </Btn>
+            </div>
+          )}*/}
           {canShareFlag && (
             <div className="pull-right my-3">
               <Button onClick={this.onShare}>Share</Button>
