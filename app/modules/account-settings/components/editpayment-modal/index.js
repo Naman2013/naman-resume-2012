@@ -108,7 +108,6 @@ const handleIframeTask = e => {
             const res = response.data;
             if (!res.apiError) {
               if (res.status === 'success') {
-                const { actions } = this.props;
 
                 //Cleanup local localStorage
                 window.localStorage.removeItem('selectedPlanId');
