@@ -141,6 +141,7 @@
     max-width: 800px;
     height: 499px;
     margin: 0 auto;
+    max-height: calc(100vh - 130px);
   }
   .view-uploaded-image-modal.custom-modal-backdrop {
     z-index: 10060;
@@ -184,10 +185,6 @@
 
 @media (max-width: $screen-md-min) {
   .view-uploaded-image-modal {
-    .text-center {
-      max-height: 369px;
-      height: 100%;
-    }
     .modal-img-wrapper {
       padding: 10px;
     }

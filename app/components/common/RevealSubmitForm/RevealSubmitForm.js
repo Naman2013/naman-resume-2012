@@ -70,7 +70,7 @@ class RevealSubmitForm extends Component {
   };
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    if (prevState.uuid === null) {
+    if (!prevState.uuid) {
       return {
         uuid: nextProps.uuid,
       };
