@@ -56,6 +56,7 @@ module.exports = {
     //   'redux-logger',
     //   'redux-thunk',
     // ],
+    vendors: ['babel-polyfill'],
     bundle: './index.js',
   },
   output: {

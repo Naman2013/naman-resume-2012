@@ -114,6 +114,7 @@ class ObjectDetails extends Component {
       },
       user,
       children,
+      objectData,
     } = this.props;
 
     return (
@@ -133,7 +134,7 @@ class ObjectDetails extends Component {
           */}
         </header>
         <Navigation objectId={objectId} />
-        {cloneElement(children)}
+        {objectData?.objectId && cloneElement(children)}
         <style jsx>{style}</style>
         <style jsx>{`
           .icon {

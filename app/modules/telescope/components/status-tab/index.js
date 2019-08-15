@@ -26,6 +26,7 @@ export const StatusTab = props => {
     teidePeakCam,
     dayNightBarPanel,
     dayNightBar,
+    skyConditions,
   } = props;
 
   return (
@@ -101,10 +102,12 @@ export const StatusTab = props => {
           <Col lg={4}>
             <Box header="SKY CONDITIONS">
               {/*<div className="sky-cond">test</div>*/}
-              <h4 className="h4-custom">SEEING CONDITIONS:</h4>
-              <h2 className="h2-custom">Level 3</h2>
+              <h4 className="h4-custom">{skyConditions.title}</h4>
+              <h2 className="h2-custom">
+                Level {skyConditions.seeingConditionsIndex}
+              </h2>
               <p className="p-19">
-                Almost continuous distortion with occasional brief good moments.
+                {skyConditions.seeingConditionsDescription}
               </p>
               {/* <hr /> */}
               {/* <h4 className="h4-custom">Measured FWHM Telemetry:</h4> */}

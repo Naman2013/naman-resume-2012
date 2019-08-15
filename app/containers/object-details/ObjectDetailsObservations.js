@@ -29,7 +29,9 @@ import { IMAGE_DETAILS } from 'app/services/image-details';
 import { ObjectObservationModal } from 'app/modules/object-details/components/object-observation-modal';
 import Pagination from 'app/components/common/pagination/v4-pagination/pagination';
 import isEmpty from 'lodash/isEmpty';
+import { Spinner } from 'app/components/spinner/index';
 import {
+  makeObjectDetailsFetchingSelector,
   makeObjectDetailsDataSelector,
   makeObjectDataSelector,
   makeObjectSharedMemberPhotosSelector,
@@ -41,6 +43,7 @@ import messages from './ObjectDetails.messages';
 import styles from './ObjectDetailsObservations.style';
 
 const mapStateToProps = createStructuredSelector({
+  isFetching: makeObjectDetailsFetchingSelector(),
   objectData: makeObjectDataSelector(),
   imageDetails: makeObjectImageDetailsSelector(),
   sharedMemberPhotos: makeObjectSharedMemberPhotosSelector(),
@@ -54,14 +57,16 @@ const mapDispatchToProps = {
   fetchSharedMemberPhotosAction,
 };
 
+const DEFAULT_PAGE = 1;
+
 @connect(
   mapStateToProps,
   mapDispatchToProps
 )
 class Observations extends Component {
   state = {
-    selectedIndex: 0,
-    page: 1,
+    selectedIndex: 1,
+    page: DEFAULT_PAGE,
     writeObservationModalShow: false,
   };
 
@@ -101,17 +106,17 @@ class Observations extends Component {
       page,
       v4Filter: this.selectedFilter,
     };
-
+    this.setState({ page });
     fetchSharedMemberPhotosAction(requestBody);
   } 
 
   handleSelect = (e, selectedItem) => {
-    this.setState(() => ({
+    this.setState({
       selectedIndex: findIndex(
         this.dropdownOptions,
         filter => filter.value === selectedItem.value
       ),
-    }));
+    }, () => this.getObservations(DEFAULT_PAGE));
   };
 
   showWriteObservationModal = () => {
@@ -124,6 +129,7 @@ class Observations extends Component {
 
   handlePageChange = ({ activePage }) => {
     this.getObservations(activePage);
+    this.observationContainer.scrollIntoView();
   };
 
   render() {
@@ -134,30 +140,23 @@ class Observations extends Component {
       fetchLikeAction,
       getMyPictures,
       user,
+      isFetching,
     } = this.props;
-    const { writeObservationModalShow, page } = this.state;
+    const { writeObservationModalShow, page, selectedIndex } = this.state;
     const { pages, imageCount, imageList } = sharedMemberPhotos;
-
-    if (!imageCount) {
-      return (
-        <p>
-          <FormattedMessage
-            {...messages.NoObservations}
-            values={{ objectTitle: objectDetails.objectTitle }}
-          />
-        </p>
-      );
-    }
-
-    const { selectedIndex } = this.state;
 
     return (
       <Fragment>
+        <Spinner loading={isFetching} />
+
         <ObjectDetailsSectionTitle
           title={`${objectDetails.objectTitle}'s`}
           subTitle={intl.formatMessage(messages.Observations)}
           renderNav={() => (
-            <div className="nav-actions">
+            <div
+              className="nav-actions"
+              ref={node => { this.observationContainer = node; }}
+            >
               <GenericButton
                 onClickEvent={this.showWriteObservationModal}
                 text="Add observation"
@@ -172,61 +171,74 @@ class Observations extends Component {
             </div>
           )}
         />
-        <CenterColumn widths={['645px', '965px', '965px']}>
-          <div className="root">
-            {imageList.map(image => (
-              <Request
-                method="POST"
-                authorizationRedirect
-                serviceURL={IMAGE_DETAILS}
-                serviceExpiresFieldName="expires"
-                requestBody={{
-                  customerImageId: image.customerImageId,
-                  useShareToken: 'n',
-                  callSource: 'sharedPictures',
-                }}
-                render={({ serviceResponse: imageDetails }) => {
-                  const photoBy = imageDetails.linkableFileData
-                    ? `${imageDetails.linkableFileData['Photo by'].label} ${
-                        imageDetails.linkableFileData['Photo by'].text
-                      }`
-                    : 'Photo by';
-                  return (
-                    !isEmpty(imageDetails) && (
-                      <CardObservations
-                        user={user}
-                        subTitle={photoBy}
-                        title={imageDetails.imageTitle}
-                        description={imageDetails.observationLog}
-                        imageUrl={imageDetails.imageURL}
-                        linkUrl={imageDetails.linkUrl}
-                        likesCount={imageDetails.likesCount}
-                        likePrompt={imageDetails.likePrompt}
-                        showLikePrompt={imageDetails.showLikePrompt}
-                        customerImageId={image.customerImageId}
-                        handleLike={fetchLikeAction}
-                        observationTimeDisplay={
-                          imageDetails.observationTimeDisplay
-                        }
-                      />
-                    )
-                  );
-                }}
-              />
-            ))}
-
-            {pages > 1 ? (
-              <div className="observations-pagination">
-                <Pagination
-                  pagesPerPage={4}
-                  activePage={page}
-                  onPageChange={this.handlePageChange}
-                  totalPageCount={pages}
+        {imageCount && !isFetching ? (
+          <CenterColumn widths={['645px', '965px', '965px']}>
+            <div className="root">
+              {imageList.map(image => (
+                <Request
+                  method="POST"
+                  authorizationRedirect
+                  serviceURL={IMAGE_DETAILS}
+                  serviceExpiresFieldName="expires"
+                  requestBody={{
+                    customerImageId: image.customerImageId,
+                    useShareToken: 'n',
+                    callSource: 'sharedPictures',
+                  }}
+                  render={({ serviceResponse: imageDetails }) => {
+                    const photoBy = imageDetails.linkableFileData
+                      ? `${imageDetails.linkableFileData['Photo by'].label} ${
+                          imageDetails.linkableFileData['Photo by'].text
+                        }`
+                      : 'Photo by';
+                    return (
+                      !isEmpty(imageDetails) && (
+                        <CardObservations
+                          user={user}
+                          subTitle={photoBy}
+                          title={imageDetails.imageTitle}
+                          description={imageDetails.observationLog}
+                          imageUrl={imageDetails.imageURL}
+                          linkUrl={imageDetails.linkUrl}
+                          likesCount={imageDetails.likesCount}
+                          likePrompt={imageDetails.likePrompt}
+                          showLikePrompt={imageDetails.showLikePrompt}
+                          commentsCount={imageDetails.commentsCount}
+                          iconFileData={imageDetails.iconFileData}
+                          customerImageId={image.customerImageId}
+                          handleLike={fetchLikeAction}
+                          observationTimeDisplay={
+                            imageDetails.observationTimeDisplay
+                          }
+                        />
+                      )
+                    );
+                  }}
                 />
-              </div>
-            ) : null}
-          </div>
-        </CenterColumn>
+              ))}
+
+              {pages > 1 ? (
+                <div className="observations-pagination">
+                  <Pagination
+                    pagesPerPage={4}
+                    activePage={page}
+                    onPageChange={this.handlePageChange}
+                    totalPageCount={pages}
+                  />
+                </div>
+              ) : null}
+            </div>
+          </CenterColumn>
+        ) : null }
+
+        {!imageCount && !isFetching && (
+          <p>
+            <FormattedMessage
+              {...messages.NoObservations}
+              values={{ objectTitle: objectDetails.objectTitle }}
+            />
+          </p>
+        )}
 
         {writeObservationModalShow && (
           <ObjectObservationModal
