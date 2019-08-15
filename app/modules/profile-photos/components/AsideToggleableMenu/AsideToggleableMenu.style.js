@@ -45,6 +45,11 @@ export default css`
     align-items: center;
   }
 
+  .remove-gallery-image {
+    width: 100%;
+    height: 100%;
+  }
+
   .narrow .options-list {
     padding: 0 10px;
     flex: none;
