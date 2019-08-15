@@ -32,7 +32,7 @@ export const MultiUploadImageList = ({
   slideList.push({
     render: () => (
       <div onClick={onAddImage} className="add-button-container">
-        ADD
+        ADD PHOTOS
       </div>
     ),
   });
