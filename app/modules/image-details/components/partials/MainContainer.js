@@ -46,6 +46,8 @@ const MainContainer = ({
           observationTitle={observationTitle}
           imageTitle={imageTitle}
           user={user}
+          actions={actions}
+          canShareFlag={canShareFlag}
         />
         <br />
       </>
@@ -53,7 +55,6 @@ const MainContainer = ({
     {canEditFlag && (
       <>
         <ObservationsForm
-          canShareFlag={canShareFlag}
           actions={actions}
           customerImageId={customerImageId}
           observationLog={observationLog}

@@ -13,6 +13,7 @@ import {
   romance,
 } from 'app/styles/variables/colors_tiles_v4';
 import { likeImage } from 'app/services/my-pictures/like-image';
+import { Button } from 'react-bootstrap';
 import Modal from 'react-modal';
 import { primaryFont, secondaryFont } from 'app/styles/variables/fonts';
 import { customModalStyles } from 'app/styles/mixins/utilities';
@@ -67,6 +68,7 @@ class BootstrappedImageDetails extends Component {
     isOpen: false,
     likePrompt: this.props.likePrompt,
     count: this.props.likesCount,
+    promptText: null,
   };
 
   componentWillReceiveProps(nextProps) {
@@ -87,6 +89,7 @@ class BootstrappedImageDetails extends Component {
     e.preventDefault();
     this.setState({
       isOpen: false,
+      promptText: null,
     });
   };
 
@@ -125,6 +128,20 @@ class BootstrappedImageDetails extends Component {
     }
   };
 
+  onShare = () => {
+    const {
+      actions: { shareMemberPicture },
+      customerImageId,
+    } = this.props;
+
+    shareMemberPicture({ customerImageId }).then(data =>
+      this.setState({
+        isOpen: true,
+        promptText: data.payload.sharePrompt,
+      })
+    );
+  };
+
   render() {
     const {
       canLikeFlag,
@@ -133,12 +150,13 @@ class BootstrappedImageDetails extends Component {
       observationTimeDisplay,
       observationTitle,
       imageTitle,
+      canShareFlag,
     } = this.props;
 
-    const { isOpen, likePrompt, count } = this.state;
+    const { isOpen, likePrompt, count, promptText } = this.state;
     return (
       <div className="root">
-        <div className="obs-container component-container">
+        <div className="obs-container component-container clearfix">
           <div
             className="obs-title"
             dangerouslySetInnerHTML={{ __html: observationTitle || imageTitle }}
@@ -159,7 +177,9 @@ class BootstrappedImageDetails extends Component {
             className="obs-content"
             dangerouslySetInnerHTML={{ __html: observationLog }}
           />
-          <LikeButton onClickEvent={this.likeObservation} count={count} />
+          <div className="pull-left">
+            <LikeButton onClickEvent={this.likeObservation} count={count} />
+          </div>
           <Modal
             ariaHideApp={false}
             isOpen={isOpen}
@@ -168,8 +188,16 @@ class BootstrappedImageDetails extends Component {
             onRequestClose={this.closeModal}
           >
             <i className="fa fa-close" onClick={this.closeModal} />
-            <p className="" dangerouslySetInnerHTML={{ __html: likePrompt }} />
+            <p
+              className=""
+              dangerouslySetInnerHTML={{ __html: promptText || likePrompt }}
+            />
           </Modal>
+          {canShareFlag && (
+            <div className="pull-right my-3">
+              <Button onClick={this.onShare}>Share</Button>
+            </div>
+          )}
         </div>
         <style jsx>{`
           .root {

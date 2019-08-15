@@ -54,11 +54,10 @@ class ObservationsForm extends Component {
   onSubmitForm = e => {
     e.preventDefault();
     const {
-      actions: { setObservationTags, shareMemberPicture },
+      actions: { setObservationTags },
       customerImageId,
       scheduledMissionId,
       intl,
-      observationTagsError,
     } = this.props;
     const { title, observation } = this.state;
     if (!title || !observation) {
@@ -69,16 +68,12 @@ class ObservationsForm extends Component {
         scheduledMissionId,
         title,
         observation
-      ).then(data => {
-        if (!data.payload.apiError) {
-          shareMemberPicture({ customerImageId }).then(data =>
-            this.setState({
-              showPrompt: true,
-              promptText: data.payload.sharePrompt,
-            })
-          );
-        }
-      });
+      ).then(() =>
+        this.setState({
+          showPrompt: true,
+          promptText: 'Saved!',
+        })
+      );
       this.setState(() => ({ title: '', observation: '' }));
     }
   };
@@ -128,7 +123,7 @@ class ObservationsForm extends Component {
 
           <div className="text-right">
             <Button className="ml-3" onClick={this.onSubmitForm}>
-              Submit
+              Save
             </Button>
           </div>
         </form>
