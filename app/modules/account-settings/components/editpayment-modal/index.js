@@ -113,8 +113,8 @@ const handleIframeTask = e => {
                 //Cleanup local localStorage
                 window.localStorage.removeItem('selectedPlanId');
 
-
-		console.log("Close Modal Popup....");
+		//refresh the page
+		window.location.reload();
 
               } else {
                 /* process / display error to user */ 
