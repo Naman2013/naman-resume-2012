@@ -146,7 +146,6 @@ export default css`
 
   .links :global(.link) {
     ${centerChildren}
-    background-color: ${lightHeadedAstronaut};
     border-radius: 50%;
     width: 40px;
     height: 40px;
@@ -166,8 +165,8 @@ export default css`
   }
 
   .linkIcon {
-    width: 25px;
-    height: 25px;
+    width: 35px;
+    height: 35px;
     object-fit: contain;
   }
 
