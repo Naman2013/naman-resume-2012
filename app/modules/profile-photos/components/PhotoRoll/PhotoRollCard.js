@@ -23,12 +23,14 @@ type TPhotoRollCard = {
   count: number,
   isShareToken?: boolean,
   tagActions: Object,
+  galleryId: string,
 };
 
 class PhotoRollCard extends Component<TPhotoRollCard> {
   state = { menuIsVisible: false };
 
   optionsList = [
+    { label: 'Remove from Gallery', action: 'removeFromGallery' },
     { label: 'Add to gallery', action: 'addToGallery' },
     { label: 'Delete image', action: 'remove' },
     { label: 'Write observation', action: 'redirect' },

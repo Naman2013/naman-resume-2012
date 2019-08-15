@@ -9,6 +9,7 @@ import { FormattedMessage } from 'react-intl';
 
 import DeleteImage from 'app/components/my-pictures/actions/DeleteImageV4';
 import AddToGallery from 'app/components/my-pictures/actions/AddToGalleryV4';
+import RemoveGalleryImageBtn from 'app/modules/gallery-details/containers/remove-gallery-image';
 
 import styles from './AsideToggleableMenu.style';
 import messages from './AsideToggleableMenu.messages';
@@ -30,6 +31,7 @@ const AsideToggleableMenu = props => {
     mod,
     tagActions,
     tagsData,
+    galleryId,
   } = props;
 
   return (
@@ -49,6 +51,19 @@ const AsideToggleableMenu = props => {
 
       <div className="options-list">
         {optionsList.map(option => {
+          if (option.action === 'removeFromGallery') {
+            return (
+              <div className="action-menu-container option">
+                <div className="remove-gallery-image" style={{ opacity: visible ? 1 : 0 }}>
+                  <RemoveGalleryImageBtn
+                    label={option.label}
+                    galleryId={galleryId}
+                    customerImageId={customerImageId}
+                  />
+                </div>
+              </div>
+            );
+          }
           if (option.action === 'remove') {
             return (
               <DeleteImage
