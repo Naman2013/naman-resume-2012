@@ -73,10 +73,11 @@ class ObservationsForm extends Component {
         title,
         observation
       ).then(() =>
-        this.setState({
+        /*this.setState({
           showPrompt: true,
           promptText: 'Saved!',
-        })
+        })*/
+        window.location.reload()
       );
       this.setState(() => ({ title: '', observation: '' }));
     }
