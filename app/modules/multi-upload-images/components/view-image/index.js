@@ -12,23 +12,7 @@ class ViewImage extends Component {
   state = {
     lightboxIsOpen: false,
     currentImageIdx: 0,
-    slideList: [],
   };
-
-  componentDidMount() {
-    const { images } = this.props;
-    this.setState({
-      slideList: images.map((item, index) => ({
-        render: () => (
-          <img
-            className="carousel-image"
-            src={item}
-            onClick={() => this.goToImage(index)}
-          />
-        ),
-      })),
-    });
-  }
 
   onKeyboardClickPrev = event => {
     if (event.keyCode === 37) {
@@ -84,29 +68,33 @@ class ViewImage extends Component {
 
   render() {
     const { images } = this.props;
-    const { currentImageIdx, lightboxIsOpen, slideList } = this.state;
+    const { currentImageIdx, lightboxIsOpen } = this.state;
     return (
       <div className="view-image-root">
         <div className="carousel-image-container">
-          {!!(images.length > 1) && (
-            <button
-              onClick={this.onClickPrev}
-              disabled={currentImageIdx === 0}
-              className="slick-arrow-btn slick-prev"
-            ></button>
-          )}
-          <img
-            className="carousel-image"
-            src={images[currentImageIdx]}
-            onClick={() => this.goToImage(currentImageIdx)}
-          />
-          {!!(images.length > 1) && (
-            <button
-              onClick={this.onClickNext}
-              disabled={currentImageIdx === images.length - 1}
-              className="slick-arrow-btn slick-next"
-            ></button>
-          )}
+          <div className="carousel-wrapper">
+            {!!(images.length > 1) && (
+              <button
+                onClick={this.onClickPrev}
+                disabled={currentImageIdx === 0}
+                className="slick-arrow-btn slick-prev"
+              ></button>
+            )}
+            <div className="carousel-image-wrapper">
+              <img
+                className="carousel-image"
+                src={images[currentImageIdx]}
+                onClick={() => this.goToImage(currentImageIdx)}
+              />
+            </div>
+            {!!(images.length > 1) && (
+              <button
+                onClick={this.onClickNext}
+                disabled={currentImageIdx === images.length - 1}
+                className="slick-arrow-btn slick-next"
+              ></button>
+            )}
+          </div>
         </div>
         <Modal
           show={lightboxIsOpen}
@@ -129,7 +117,10 @@ class ViewImage extends Component {
               <div className="view-uploaded-image-title">
                 {currentImageIdx + 1} OF {images.length}
               </div>
-              <Magnifier imageSrc={images[currentImageIdx]} />
+              <div
+                className="modal-img"
+                style={{ backgroundImage: `url("${images[currentImageIdx]}")` }}
+              />
             </div>
             {!!(images.length > 1) && (
               <button
