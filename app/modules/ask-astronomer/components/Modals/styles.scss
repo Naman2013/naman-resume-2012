@@ -13,6 +13,20 @@
   box-shadow: 0 0 12px 0 rgba(190, 190, 190, 0.5);
   position: relative;
 
+  .multi-upload-image-list {
+    padding: 0;
+    margin-bottom: 15px;
+    .slick-slider {
+      padding: 0 !important;
+    }
+    .slick-prev {
+      left: -50px;
+    }
+    .slick-next {
+      right: -50px;
+    }
+  }
+
   .fullpage-form {
     height: 100%;
     width: 100%;

@@ -1,0 +1,34 @@
+@import '~app/styles/variables/colors.scss';
+@import '~app/styles/bootstrap/_common';
+
+.multi-upload-image-item {
+
+  .image-container {
+    position: relative;
+    width: 122px;
+    height: 122px;
+    background-color: black !important;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    margin: 5px;
+
+    .image-container-close {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      color: $white;
+      cursor: pointer;
+    }
+  }
+  @include media-breakpoint-down(sm) {
+    & {
+      display: inline-block;
+
+      .image-container {
+        width: 240px;
+        height: 240px;
+      }
+    }
+  }
+}

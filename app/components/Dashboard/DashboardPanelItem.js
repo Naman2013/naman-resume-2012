@@ -25,7 +25,7 @@ const PanelItem = ({
         <div className="outer-well">
           <div className="inner-well">
             <h5>{('0' + orderNumber).slice(-2)}</h5>
-            <h1 dangerouslySetInnerHTML={{ __html: title }} />
+            <h1 style={{fontSize: "1.5em"}} dangerouslySetInnerHTML={{ __html: title }} />
             <h3 dangerouslySetInnerHTML={{ __html: subtitle }} />
           </div>
           {render()}

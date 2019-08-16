@@ -109,6 +109,7 @@ import {
   Router,
 } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
+import { CustomerAdminToolsMain } from './modules/customer-admin-tools';
 import { AccountSettingsMain } from './modules/account-settings';
 import AccountDetails from './modules/account-settings/containers/account-details';
 import TakeATour from './modules/account-settings/containers/take-a-tour';
@@ -526,6 +527,12 @@ const AppRouter = ({ setPreviousInstrument }) => (
         <Route path="account-details" component={AccountDetails} />
         <Route path="take-a-tour" component={TakeATour} />
       </Route>
+
+      <Route
+        path="admin-tools"
+        component={CustomerAdminToolsMain}
+        onEnter={validateUser}
+      />
 
       <Route path="missions" component={MissionsMain} onEnter={validateUser}>
         <IndexRedirect to="bySlooh1000" />
