@@ -24,7 +24,7 @@ type TQuestStep = {
 };
 
 export class QuestStep extends Component<TQuestStep> {
-  state = { prevStepId: null, nextStepId: null, stepKey: null };
+  state = { prevStepId: null, nextStepId: null, stepKey: null, stepId: null, };
 
   static getDerivedStateFromProps(props) {
     const { stepData, routeParams } = props;
@@ -76,7 +76,7 @@ export class QuestStep extends Component<TQuestStep> {
     const { getQuestStep, routeParams } = this.props;
     const { questId, step } = routeParams;
     getQuestStep(questId, step).then(() =>
-      this.setState({ stepKey: `quest-step-${step}-${Date.now()}` })
+      this.setState({ stepKey: `quest-step-${step}-${Date.now()}`, stepId: step })
     );
   };
 
@@ -109,7 +109,7 @@ export class QuestStep extends Component<TQuestStep> {
       resourceModal,
       closeModal,
     } = this.props;
-    const { prevStepId, nextStepId, stepKey } = this.state;
+    const { prevStepId, nextStepId, stepKey, stepId } = this.state;
     const {
       readOnly,
       stepTopTitle,
@@ -154,7 +154,7 @@ export class QuestStep extends Component<TQuestStep> {
           <div />
         </div>
 
-        {stepKey &&
+        {stepKey && stepId == routeParams.step &&
           moduleList.map((modules, index) => (
             <div className="container step-container">
               <QuestStepBox
@@ -166,8 +166,9 @@ export class QuestStep extends Component<TQuestStep> {
               >
                 {modules.map(module => (
                   <>
-                    {module.moduleType ===
-                      questModuleType.datacollectdifferent && (
+                    {(module.moduleType ===
+                      questModuleType.datacollectsame || module.moduleType ===
+                      questModuleType.datacollectdifferent) && (
                       <QuestModuleDataCollection
                         module={module}
                         key={`quest-data-collection-${module.moduleId}`}
