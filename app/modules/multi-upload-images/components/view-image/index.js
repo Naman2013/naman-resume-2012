@@ -1,8 +1,7 @@
-import { Modal } from 'app/components/modal';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Magnifier } from 'react-image-magnifiers';
 import './styles.scss';
+import { ViewImageModal } from 'app/modules/multi-upload-images/components/view-image/modal';
 
 class ViewImage extends Component {
   static propTypes = {
@@ -96,41 +95,18 @@ class ViewImage extends Component {
             )}
           </div>
         </div>
-        <Modal
-          show={lightboxIsOpen}
+        <ViewImageModal
+          showModal={lightboxIsOpen}
           onHide={() =>
             this.setState({
               lightboxIsOpen: false,
             })
           }
-          customClass="view-uploaded-image-modal"
-        >
-          <div className="text-center">
-            {!!(images.length > 1) && (
-              <button
-                onClick={this.onClickPrev}
-                disabled={currentImageIdx === 0}
-                className="slick-arrow-btn slick-prev"
-              ></button>
-            )}
-            <div className="modal-img-wrapper">
-              <div className="view-uploaded-image-title">
-                {currentImageIdx + 1} OF {images.length}
-              </div>
-              <div
-                className="modal-img"
-                style={{ backgroundImage: `url("${images[currentImageIdx]}")` }}
-              />
-            </div>
-            {!!(images.length > 1) && (
-              <button
-                onClick={this.onClickNext}
-                disabled={currentImageIdx === images.length - 1}
-                className="slick-arrow-btn slick-next"
-              ></button>
-            )}
-          </div>
-        </Modal>
+          images={images}
+          onClickPrev={this.onClickPrev}
+          onClickNext={this.onClickNext}
+          currentImageIndex={currentImageIdx}
+        />
       </div>
     );
   }
