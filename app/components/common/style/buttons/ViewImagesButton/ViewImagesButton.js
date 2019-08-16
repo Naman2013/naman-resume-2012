@@ -20,16 +20,36 @@ class ViewImagesButton extends Component {
     currentImageIdx: 0,
   };
 
+  onKeyboardClickPrev = event => {
+    if (event.keyCode === 37) {
+      this.onClickPrev();
+    }
+  };
+
   onClickPrev = () => {
-    this.setState(state => ({
-      currentImageIdx: state.currentImageIdx - 1,
-    }));
+    const { currentImageIdx } = this.state;
+    const { images } = this.props;
+    if (currentImageIdx > 0) {
+      this.setState(state => ({
+        currentImageIdx: state.currentImageIdx - 1,
+      }));
+    }
+  };
+
+  onKeyboardClickNext = event => {
+    if (event.keyCode === 39) {
+      this.onClickNext();
+    }
   };
 
   onClickNext = () => {
-    this.setState(state => ({
-      currentImageIdx: state.currentImageIdx + 1,
-    }));
+    const { currentImageIdx } = this.state;
+    const { images } = this.props;
+    if (currentImageIdx < images.length - 1) {
+      this.setState(state => ({
+        currentImageIdx: state.currentImageIdx + 1,
+      }));
+    }
   };
 
   goToImage = idx => {
@@ -40,6 +60,14 @@ class ViewImagesButton extends Component {
 
   toggleLightbox = e => {
     e.preventDefault();
+    const { lightboxIsOpen } = this.state;
+    if (!lightboxIsOpen) {
+      document.body.addEventListener('keydown', this.onKeyboardClickPrev);
+      document.body.addEventListener('keydown', this.onKeyboardClickNext);
+    } else {
+      document.body.removeEventListener('keydown', this.onKeyboardClickPrev);
+      document.body.removeEventListener('keydown', this.onKeyboardClickNext);
+    }
     this.setState(state => ({
       lightboxIsOpen: !state.lightboxIsOpen,
       currentImageIdx: 0,
@@ -86,9 +114,26 @@ class ViewImagesButton extends Component {
                 customClass="view-uploaded-image-modal"
               >
                 <div className="text-center">
+                  {!!(images.length > 1) && (
+                    <button
+                      onClick={this.onClickPrev}
+                      disabled={currentImageIdx === 0}
+                      className="slick-arrow-btn slick-prev"
+                    ></button>
+                  )}
                   <div className="modal-img-wrapper">
-                    <Magnifier imageSrc={images[0]} />
+                    <div className="view-uploaded-image-title">
+                      {currentImageIdx + 1} OF {images.length}
+                    </div>
+                    <Magnifier imageSrc={images[currentImageIdx]} />
                   </div>
+                  {!!(images.length > 1) && (
+                    <button
+                      onClick={this.onClickNext}
+                      disabled={currentImageIdx === images.length - 1}
+                      className="slick-arrow-btn slick-next"
+                    ></button>
+                  )}
                 </div>
               </Modal>
               {firstImage && context.isDesktop ? (

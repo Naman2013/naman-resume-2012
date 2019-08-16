@@ -51,6 +51,7 @@ class GalleryDetails extends Component<TGalleryDetails> {
       imageList,
       canEditFlag,
       apiURL,
+      params,
     } = this.props;
     const { activePage } = this.state;
     if (isFetching) return <div>Loading...</div>;
@@ -82,6 +83,8 @@ class GalleryDetails extends Component<TGalleryDetails> {
                   currentItem={item}
                   isMobile={isMobile}
                   isDesktop={isDesktop}
+                  galleryId={params.galleryId}
+                  typeGallery
                 />
               ))}
             </section>

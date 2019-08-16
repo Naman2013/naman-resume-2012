@@ -33,6 +33,12 @@ export const makeAccountCancelSectionSelector = () =>
     state => state.accountCancelSection
   );
 
+export const makeAccountEditPaymentSectionSelector = () =>
+  createSelector(
+    selectAccountSettings,
+    state => state.editPaymentSection
+  );
+
 export const makeSubscriptionPlansDataSelector = () =>
   createSelector(
     selectAccountSettings,

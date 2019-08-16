@@ -19,7 +19,7 @@ export default css`
     margin: 0 auto;
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: space-around;
     border-radius: 50%;
     width: 52px;
     height: 52px;

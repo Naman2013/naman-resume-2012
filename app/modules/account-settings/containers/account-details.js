@@ -9,6 +9,7 @@ import {
   makeEmailSelector,
   makeShowPasswordPopupSelector,
   makePasswordPopupTextSelector,
+  makeAccountEditPaymentSectionSelector,
 } from '../selectors';
 import {
   fetchAccountFormFieldAction,
@@ -21,6 +22,7 @@ const mapStateToProps = createStructuredSelector({
   accountTypeSection: makeAccountTypeSectionSelector(),
   accountDetails: makeAccountDetailsSelector(),
   accountCancelSection: makeAccountCancelSectionSelector(),
+  editPaymentSection: makeAccountEditPaymentSectionSelector(),
   accountEmail: makeEmailSelector(),
   showForgetPasswordPopup: makeShowPasswordPopupSelector(),
   forgetPasswordPopupText: makePasswordPopupTextSelector(),

@@ -93,7 +93,7 @@ class Quests extends Component {
                         </div>
                       ) : (
                         <div>
-                          <p>
+                          <p style={{fontSize: "1.5em"}}>
                             {serviceResponse.questsComingSoonMessage}
                             {/*<FormattedMessage*/}
                             {/*  {...messages.NoQuests}*/}

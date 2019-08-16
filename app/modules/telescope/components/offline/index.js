@@ -4,6 +4,7 @@ import { StatusTab } from 'app/modules/telescope/components/status-tab';
 import QueueTab from 'app/modules/telescope/containers/telescope-queue-tab';
 import { Container, Nav, Tab } from 'react-bootstrap';
 import './styles.scss';
+import { fetchSeeingConditionsWidget } from 'app/modules/Telescope-Overview';
 
 export default class TelescopeOffline extends Component {
   componentDidMount = () => {
@@ -14,6 +15,7 @@ export default class TelescopeOffline extends Component {
       fetchWeatherSatellite,
       fetchDomeCamAction,
       fetchObservatoryWebcam,
+      fetchSeeingConditionsWidget,
       setPreviousInstrument,
     } = this.props;
     const {
@@ -25,6 +27,7 @@ export default class TelescopeOffline extends Component {
       FacilityWebcamWidgetId,
       AllskyWidgetId,
       DayNightBarWidgetId,
+      SeeingConditionsWidgetId,
     } = currentObservatory;
     setPreviousInstrument(null);
     fetchAllWidgets({
@@ -40,6 +43,10 @@ export default class TelescopeOffline extends Component {
     fetchObservatoryWebcam({
       obsId,
       facilityWebcamWidgetId: FacilityWebcamWidgetId,
+    });
+    fetchSeeingConditionsWidget({
+      obsId,
+      widgetUniqueId: SeeingConditionsWidgetId,
     });
   };
 
@@ -58,6 +65,7 @@ export default class TelescopeOffline extends Component {
       dayNightBar,
       weatherSatellite,
       weatherConditions,
+      skyConditions,
     } = this.props;
 
     return (
@@ -112,6 +120,7 @@ export default class TelescopeOffline extends Component {
                 dayNightBar={dayNightBar}
                 weatherSatellite={weatherSatellite}
                 weatherConditions={weatherConditions}
+                skyConditions={skyConditions}
               />
             </Tab.Pane>
             {currentInstrument.instrImageSourceType !== 'video' && (

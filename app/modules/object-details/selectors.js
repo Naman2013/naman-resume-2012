@@ -44,6 +44,12 @@ export const makeObjectObservationDataSelector = () =>
     state => state.objectObservation
   );
 
+export const makeObjectObservationIsFetchingSelector = () =>
+  createSelector(
+    makeObjectObservationDataSelector(),
+    state => state.isFetching
+  );
+
 export const makeObjectObservationMyPicturesSelector = () =>
   createSelector(
     makeObjectObservationDataSelector(),
