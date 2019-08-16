@@ -1,5 +1,6 @@
 import { createSelector } from 'reselect';
 import {getQuestCompleted} from "app/modules/quests/thunks";
+import { getQuestModuleList } from './utils';
 
 export const selectQuests = state => state.quests;
 export const selectQuestsDetails = state => state.questDetails;
@@ -20,7 +21,7 @@ export const makeQuestsStepDataSelector = () =>
 export const makeQuestsStepModuleListSelector = () =>
   createSelector(
     makeQuestsStepDataSelector(),
-    state => state.stepModuleList || []
+    state => getQuestModuleList(state.stepModuleList) || []
   );
 
 export const makeQuestsDetailsModalSelector = () =>

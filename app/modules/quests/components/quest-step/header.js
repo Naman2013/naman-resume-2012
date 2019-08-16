@@ -4,7 +4,7 @@ import Dots from 'atoms/icons/Dots';
 import Btn from 'atoms/Btn/index';
 import { Link } from 'react-router';
 import cn from 'classnames';
-import { astronaut } from 'app/styles/variables/colors_tiles_v4';
+import { astronaut, lightHeadedAstronaut } from 'app/styles/variables/colors_tiles_v4';
 import { QuestStepContextMenu } from './menu';
 import './header.scss';
 
@@ -26,7 +26,7 @@ export const QuestStepHeader = ({
       <div className="step-header">
         <div className="step-back">
           <Link to={`/quest-details/${questId}`}>
-            <BackArrow />
+            <BackArrow theme={{ arrowColor: lightHeadedAstronaut }} />
           </Link>
         </div>
         <div className="mobile-part">
