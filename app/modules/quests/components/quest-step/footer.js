@@ -12,6 +12,8 @@ export const QuestStepFooter = ({
   disableLast,
   stepFooterTitle,
   currentlyViewingCaption,
+  nextButtonCaption,
+  lastButtonCaption,
 }) => (
   <div className="step-footer">
     <div>
@@ -19,7 +21,7 @@ export const QuestStepFooter = ({
         onClick={navigateToLastStep}
         className={cn('dashed-btn', disableLast && 'disabled')}
       >
-        <span>Last Step</span>
+        <span>{lastButtonCaption}</span>
       </Btn>
     </div>
     <div className="step-footer-title">
@@ -31,7 +33,7 @@ export const QuestStepFooter = ({
         onClick={navigateToNextStep}
         className={cn('dashed-btn', disableNext && 'disabled')}
       >
-        <span>Next Step</span>
+        <span>{nextButtonCaption}</span>
       </Btn>
     </div>
   </div>

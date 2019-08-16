@@ -73,6 +73,10 @@
     margin-top: 15px;
     cursor: pointer;
 
+    &.disabled {
+      pointer-events: none;
+    }
+
     .qa-multiple-choice-answer-item-container {
       display: flex;
       align-items: center;

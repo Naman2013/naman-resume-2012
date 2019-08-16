@@ -19,7 +19,6 @@ import QuestModuleQaFreeForm from '../../containers/quest-modules/qa-free-form';
 import QuestModuleQaFillBlanks from '../../containers/quest-modules/qa-fill-blanks';
 import QuestModuleQaMultipleChoice from '../../containers/quest-modules/qa-multiple-choice';
 
-
 type TQuestStep = {
   moduleList: QuestStepModule,
 };
@@ -76,8 +75,10 @@ export class QuestStep extends Component<TQuestStep> {
   getQuestStep = () => {
     const { getQuestStep, routeParams } = this.props;
     const { questId, step } = routeParams;
-    getQuestStep(questId, step).then(() => this.setState({ stepKey: `quest-step-${step}-${Date.now()}`}));
-  }
+    getQuestStep(questId, step).then(() =>
+      this.setState({ stepKey: `quest-step-${step}-${Date.now()}` })
+    );
+  };
 
   navigateToPrevStep = () => {
     const { routeParams } = this.props;
@@ -100,24 +101,42 @@ export class QuestStep extends Component<TQuestStep> {
   };
 
   render() {
-    const { loading, moduleList, stepData = {}, routeParams, resourceModal, questActions, closeModal } = this.props;
+    const {
+      loading,
+      moduleList,
+      stepData = {},
+      routeParams,
+      resourceModal,
+      closeModal,
+    } = this.props;
     const { prevStepId, nextStepId, stepKey } = this.state;
-    const { readOnly } = stepData;
+    const {
+      readOnly,
+      stepTopTitle,
+      stepCompleted,
+      stepHeaderTitle,
+      stepMenuList,
+      stepMenuHeader,
+      stepFooterTitle,
+      currentlyViewingCaption,
+      nextButtonCaption,
+      lastButtonCaption,
+    } = stepData;
     
     return (
       <div className="quest-step-page" key={stepKey}>
         <Spinner loading={loading} />
 
         <QuestStepHeader
-          stepHeaderTitle={stepData?.stepHeaderTitle}
+          stepHeaderTitle={stepHeaderTitle}
           navigateToPrevStep={this.navigateToPrevStep}
           navigateToNextStep={this.navigateToNextStep}
           questId={routeParams.questId}
           disablePrev={prevStepId === null}
           disableNext={nextStepId === null}
           stepId={routeParams.step}
-          stepMenuList={stepData?.stepMenuList}
-          stepMenuTitle={stepData?.stepMenuHeader}
+          stepMenuList={stepMenuList}
+          stepMenuTitle={stepMenuHeader}
         />
 
         <Modal
@@ -135,85 +154,81 @@ export class QuestStep extends Component<TQuestStep> {
           <div />
         </div>
 
-        <div className="container step-container">
-          <QuestStepBox
-            stepData={stepData}
-            subTitle="some text"
-            title={stepData.stepHeaderTitle}
-            completed={stepData.stepCompleted}
-            questId={routeParams.questId}
-          >
-            {/* <h2>Modules</h2>
-            <ul>
-              {moduleList.map(m => (
-                <li key={m.moduleId}>
-                  {m.moduleId} - {m.moduleType}
-                </li>
-              ))}
-            </ul>
+        {stepKey &&
+          moduleList.map((modules, index) => (
+            <div className="container step-container">
+              <QuestStepBox
+                stepData={stepData}
+                completed={stepData.stepCompleted}
+                questId={routeParams.questId}
+                showHeader={index === 0}
+                showModule={modules[0]?.moduleType}
+              >
+                {modules.map(module => (
+                  <>
+                    {module.moduleType ===
+                      questModuleType.datacollectdifferent && (
+                      <QuestModuleDataCollection
+                        module={module}
+                        key={`quest-data-collection-${module.moduleId}`}
+                        questId={routeParams.questId}
+                        navigateToNextStep={this.navigateToNextStep}
+                        readOnly={readOnly}
+                        refreshQuestStep={this.getQuestStep}
+                      />
+                    )}
 
-            <hr /> */}
+                    {module.moduleType === questModuleType.textoutput && (
+                      <QuestModuleTextOutput
+                        module={module}
+                        key={`quest-text-output-${module.moduleId}`}
+                        readOnly={readOnly}
+                      />
+                    )}
 
-            {stepKey && moduleList.map(
-              module => (
-                <>
-                  {module.moduleType === questModuleType.datacollectdifferent && (
-                    <QuestModuleDataCollection
-                      module={module}
-                      key={`quest-data-collection-${module.moduleId}`}
-                      questId={routeParams.questId}
-                      navigateToNextStep={this.navigateToNextStep}
-                      readOnly={readOnly}
-                      refreshQuestStep={this.getQuestStep}
-                    />
-                  )}
+                    {module.moduleType === questModuleType.qafreeform && (
+                      <QuestModuleQaFreeForm
+                        module={module}
+                        key={`quest-qa-freeform-${module.moduleId}`}
+                        questId={routeParams.questId}
+                        refreshQuestStep={this.getQuestStep}
+                        readOnly={readOnly}
+                      />
+                    )}
 
-                  {module.moduleType === questModuleType.textoutput && (
-                    <QuestModuleTextOutput
-                      module={module}
-                      key={`quest-text-output-${module.moduleId}`}
-                    />
-                  )}
+                    {module.moduleType === questModuleType.qafillblanks && (
+                      <QuestModuleQaFillBlanks
+                        module={module}
+                        key={`quest-qa-fillblanks-${module.moduleId}`}
+                        questId={routeParams.questId}
+                        refreshQuestStep={this.getQuestStep}
+                        readOnly={readOnly}
+                      />
+                    )}
 
-                  {module.moduleType === questModuleType.qafreeform && (
-                    <QuestModuleQaFreeForm
-                      module={module}
-                      key={`quest-qa-freeform-${module.moduleId}`}
-                      questId={routeParams.questId}
-                      refreshQuestStep={this.getQuestStep}
-                    />
-                  )}
-
-                  {module.moduleType === questModuleType.qafillblanks && (
-                    <QuestModuleQaFillBlanks
-                      module={module}
-                      key={`quest-qa-fillblanks-${module.moduleId}`}
-                      questId={routeParams.questId}
-                      refreshQuestStep={this.getQuestStep}
-                    />
-                  )}
-
-                  {module.moduleType === questModuleType.qamultiplechoice && (
-                    <QuestModuleQaMultipleChoice
-                      module={module}
-                      key={`quest-qa-multiplechoice-${module.moduleId}`}
-                      questId={routeParams.questId}
-                      refreshQuestStep={this.getQuestStep}
-                    />
-                  )}
-                </>
-              )
-            )}
-          </QuestStepBox>
-        </div>
+                    {module.moduleType === questModuleType.qamultiplechoice && (
+                      <QuestModuleQaMultipleChoice
+                        module={module}
+                        key={`quest-qa-multiplechoice-${module.moduleId}`}
+                        questId={routeParams.questId}
+                        refreshQuestStep={this.getQuestStep}
+                      />
+                    )}
+                  </>
+                ))}
+              </QuestStepBox>
+            </div>
+          ))}
 
         <QuestStepFooter
-          stepFooterTitle={stepData?.stepFooterTitle}
-          currentlyViewingCaption={stepData?.currentlyViewingCaption}
+          stepFooterTitle={stepFooterTitle}
+          currentlyViewingCaption={currentlyViewingCaption}
           navigateToNextStep={this.navigateToNextStep}
           disableNext={nextStepId === null}
           navigateToLastStep={this.navigateToPrevStep}
           disableLast={prevStepId === null}
+          nextButtonCaption={nextButtonCaption}
+          lastButtonCaption={lastButtonCaption}
         />
       </div>
     );
