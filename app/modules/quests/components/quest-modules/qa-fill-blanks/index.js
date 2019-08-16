@@ -31,9 +31,12 @@ export class QuestModuleQaFillBlanks extends PureComponent {
       refreshQuestStep,
     } = this.props;
     const { moduleId } = module;
-    const { questId, questUUID, moduleUUID, answerText } = questQaFillBlanks[
+    const { questId, questUUID, moduleUUID, answers } = questQaFillBlanks[
       moduleId
     ];
+    const answerList = answers.map(answer => {
+      return { answerIndex: answer.answerIndex, answerText: answer.answerText };
+    });
 
     setQaFillBlanks({
       questId,
@@ -41,7 +44,7 @@ export class QuestModuleQaFillBlanks extends PureComponent {
       moduleId,
       moduleUUID,
       action,
-      answerText,
+      answerList,
     }).then(({ payload }) => {
       const { refreshModule, refreshStep, stepModuleId } = payload;
 

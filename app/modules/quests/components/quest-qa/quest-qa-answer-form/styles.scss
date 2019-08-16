@@ -60,6 +60,17 @@
       color: $lightHeadedAstronaut;
       text-transform: uppercase;
       margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .qa-free-form-scoring-text {
+      font-family: $primary-font;
+      font-size: 10px;
+      line-height: 2.2;
+      letter-spacing: 2px;
+      color: $lightHeadedAstronaut;
     }
   }
 
