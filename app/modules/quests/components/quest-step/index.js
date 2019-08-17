@@ -121,22 +121,10 @@ export class QuestStep extends Component<TQuestStep> {
       questActions,
       closeModal,
     } = this.props;
-    const {
-      loading,
-      moduleList,
-      stepData = {},
-      routeParams,
-      resourceModal,
-      closeModal,
-    } = this.props;
     const { prevStepId, nextStepId, stepKey } = this.state;
     const {
       readOnly,
-      stepTopTitle,
-      stepCompleted,
       stepHeaderTitle,
-      stepMenuList,
-      stepMenuHeader,
       stepFooterTitle,
       currentlyViewingCaption,
       nextButtonCaption,

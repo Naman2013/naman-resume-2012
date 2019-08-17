@@ -31,6 +31,7 @@ export class QuestCompleted extends PureComponent {
       congratulationsText,
       questCompletedText,
       youAreAwardedText,
+      yourAccomplishmentsText,
       badgeNameText,
       earnedInText,
       didYouKnowPrompt,
@@ -61,7 +62,10 @@ export class QuestCompleted extends PureComponent {
           <div className="quest-badge">
             <div className="quest-badge__header">
               <div className="quest-badge__header-left">
-                <div className="title">{youAreAwardedText}:</div>
+                <div className="title">
+                  {youAreAwardedText}
+                  <span>:</span>
+                </div>
                 <div className="subtitle">{badgeNameText}</div>
               </div>
               <div className="quest-badge__header-right">
@@ -77,6 +81,21 @@ export class QuestCompleted extends PureComponent {
                   <Btn className="dashed-btn">
                     <span>{reviewQuestButtonCaption}</span>
                   </Btn>
+                </div>
+              </div>
+              <div className="quest-badge-mobile">
+                <div className="quest-badge-navigation">
+                  <Btn className="dashed-btn">
+                    <span>{reviewQuestButtonCaption}</span>
+                  </Btn>
+                  <div className="quest-badge-mobile-download">
+                    <div onClick={this.onDownloadClick} className="download">
+                      <span className="icon-download" />
+                    </div>
+                  </div>
+                </div>
+                <div className="quest-badge-accomplishments">
+                  <span>{yourAccomplishmentsText}</span>
                 </div>
               </div>
               <ul className="quest-badge-list">

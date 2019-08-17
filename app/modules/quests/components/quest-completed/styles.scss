@@ -35,7 +35,7 @@
 
     .subtitle {
       font-size: 36px;
-      font-weight: 900;
+      font-weight: 500;
       letter-spacing: 4px;
       text-align: center;
       color: $romance;
@@ -103,10 +103,11 @@
   .quest-badge__header-left {
 
     .title {
+      font-family: $primary-font;
       font-size: 12px;
+      font-weight: 500;
       letter-spacing: 0.6px;
       text-transform: uppercase;
-      font-family: $primary-font;
       color: $lightHeadedAstronaut;
     }
 
@@ -118,7 +119,7 @@
     }
   }
 
-  .quest-badge__header-right {
+  .quest-badge__header-right, .quest-badge-mobile-download {
     display: flex;
     align-items: center;
 
@@ -131,12 +132,22 @@
       border-radius: 50%;
       padding-top: 7px;
       cursor: pointer;
+
+      .icon-download:before {
+        font-weight: 700 !important;
+        line-height: 22px;
+        font-size: 18px;
+      }
     }
   }
 
   .quest-badge__body {
     margin-top: 25px;
     font-family: $secondary-font;
+
+    .quest-badge-mobile {
+      display: none;
+    }
   }
   .quest-badge-review {
     height: 80px;
@@ -165,6 +176,11 @@
   }
 
   .quest-badge-review-btn {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding-left: 20px;
+    border-left: 1px solid $hawkesBlue;
     cursor: pointer;
   }
 
@@ -255,8 +271,9 @@
 @media (max-width: $screen-md-min) {
   .quest-complete__body {
     .quest-complete__body-content {
-      max-width: 100%;
+      max-width: 90%;
       width: auto;
+      margin: 0 auto;
 
       .quest-list-more {
         .quest-list-more-title {
@@ -281,11 +298,93 @@
   }
 }
 
-@media (max-width: $screen-md-min) {
+@media (max-width: $screen-sm-min) {
   .quest-complete__body {
-    .quest-list-element {
-      .quest-complete-checkbox {
+    .quest-complete__body-banner {
+      height: 430px;
+      .subtitle {
+        font-size: 18px;
+        margin-top: 10px;
+        border-bottom: unset;
+      }
+      .vertical-line {
         display: none;
+      }
+    }
+
+    .quest-complete__body-content {
+      box-shadow: unset;
+      transform: translateY(-205px);
+      .quest-badge {
+        padding: 0;
+        .quest-badge__body {
+          position: relative;
+          width: 100vw;
+          transform: translateX(-5vw);
+          padding: 0;
+        }
+        .quest-badge__header {
+          padding: 60px 40px 25px;
+          box-shadow: 0 0 6px 0 #ced2d8;
+          .quest-badge__header-left {
+            text-align: center;
+            .title {
+              > span {
+                display: none;
+              }
+            }
+          }
+          .quest-badge__header-right {
+            display: none;
+          }
+        }
+        .quest-badge__body {
+          .quest-badge-review {
+            border: unset;
+            padding: 0 40px;
+            .quest-badge-review-btn {
+              display: none;
+            }
+          }
+          .quest-badge-mobile {
+            display: flex;
+            flex-direction: column;
+            .quest-badge-navigation {
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              padding: 5px 40px;
+            }
+            .quest-badge-accomplishments {
+              margin-top: 15px;
+              height: 56px;
+              border-top: 1px solid #d9dee4;
+              border-bottom: 1px solid #d9dee4;
+              padding: 0 40px;
+              > span {
+                line-height: 56px;
+                font-size: 11px;
+                color: #41566f;
+                letter-spacing: 0.6px;
+                font-weight: 500;
+              }
+            }
+          }
+          .quest-badge-list {
+            .quest-list-element {
+              padding: 0 40px;
+              .title {
+                width: 100%;
+              }
+              .quest-complete-checkbox {
+                display: none;
+              }
+            }
+          }
+          .quest-badge-details {
+            padding: 0 40px;
+          }
+        }
       }
     }
   }
