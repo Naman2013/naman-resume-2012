@@ -145,8 +145,8 @@ class BootstrappedImageDetails extends Component {
   };
 
   onEdit = () => {
-    const { observationLog, observationTitle } = this.props;
-    console.log(observationLog, observationTitle);
+    const { observationLog, observationTitle, onEdit } = this.props;
+    onEdit(observationLog, observationTitle);
   };
 
   render() {

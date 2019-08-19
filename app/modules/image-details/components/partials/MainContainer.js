@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import DiscussionsBoard from 'app/components/common/DiscussionsBoard';
 import ObservationsForm from 'app/modules/image-details/components/ObservationsForm';
@@ -31,61 +31,80 @@ const MainContainer = ({
   user,
   validateResponseAccess,
   refetchData,
-}) => (
-  <div className="image-main-container">
-    {observationLog && (
-      <>
-        <ObservationInformation
-          canLikeFlag={canLikeFlag}
-          customerImageId={customerImageId}
-          fileData={fileData}
-          likesCount={likesCount}
-          likePrompt={likePrompt}
-          showLikePrompt={showLikePrompt}
-          observationLog={observationLog}
-          observationTimeDisplay={observationTimeDisplay}
-          observationTitle={observationTitle}
-          imageTitle={imageTitle}
-          user={user}
-          actions={actions}
-          canShareFlag={canShareFlag}
-          canEditFlag={canEditFlag}
-        />
-        <br />
-      </>
-    )}
-    {canEditFlag && !observationLog && (
-      <>
-        <ObservationsForm
-          actions={actions}
-          customerImageId={customerImageId}
-          observationLog={observationLog}
-          observationTitle={observationTitle}
-          saveLabel={saveLabel}
-          scheduledMissionId={scheduledMissionId}
+}) => {
+  const [isEditMode, setEditMode] = useState(!!observationLog);
+  const [title, setTitle] = useState('');
+  const [observation, setObservation] = useState('');
+
+  const isFormVisible = () => canEditFlag && isEditMode;
+
+  const isLogVisible = () => !isEditMode;
+
+  return (
+    <div className="image-main-container">
+      {isLogVisible() && (
+        <>
+          <ObservationInformation
+            canLikeFlag={canLikeFlag}
+            customerImageId={customerImageId}
+            fileData={fileData}
+            likesCount={likesCount}
+            likePrompt={likePrompt}
+            showLikePrompt={showLikePrompt}
+            observationLog={observationLog}
+            observationTimeDisplay={observationTimeDisplay}
+            observationTitle={observationTitle}
+            imageTitle={imageTitle}
+            user={user}
+            actions={actions}
+            canShareFlag={canShareFlag}
+            canEditFlag={canEditFlag}
+            onEdit={(observationLog, observationTitle) => {
+              setEditMode(true);
+              setTitle(observationTitle);
+              setObservation(observationLog);
+            }}
+          />
+          <br />
+        </>
+      )}
+      {isFormVisible() && (
+        <>
+          <ObservationsForm
+            actions={actions}
+            customerImageId={customerImageId}
+            saveLabel={saveLabel}
+            scheduledMissionId={scheduledMissionId}
+            user={user}
+            validateResponseAccess={validateResponseAccess}
+            refetchData={refetchData}
+            onSave={() => setEditMode(false)}
+            title={title}
+            observation={observation}
+            onTitleChange={setTitle}
+            onObservationChange={setObservation}
+            // onTitleChange={setTitle}
+          />
+          <br />
+        </>
+      )}
+      {showCommentsLink ? (
+        <DiscussionsBoard
+          topLevelThread={false}
+          callSource={callSource}
+          count={10}
+          commentsCount={commentsCount}
+          commentsThreadId={commentsThreadId}
+          forumId={commentsForumId}
+          topicId={commentsTopicId}
+          threadId={commentsThreadId}
           user={user}
           validateResponseAccess={validateResponseAccess}
-          refetchData={refetchData}
         />
-        <br />
-      </>
-    )}
-    {showCommentsLink ? (
-      <DiscussionsBoard
-        topLevelThread={false}
-        callSource={callSource}
-        count={10}
-        commentsCount={commentsCount}
-        commentsThreadId={commentsThreadId}
-        forumId={commentsForumId}
-        topicId={commentsTopicId}
-        threadId={commentsThreadId}
-        user={user}
-        validateResponseAccess={validateResponseAccess}
-      />
-    ) : null}
-  </div>
-);
+      ) : null}
+    </div>
+  );
+};
 
 MainContainer.propTypes = {
   callSource: string,

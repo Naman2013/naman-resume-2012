@@ -13,8 +13,6 @@ const { bool, number, oneOfType, shape, string } = PropTypes;
 class ObservationsForm extends Component {
   static propTypes = {
     customerImageId: oneOfType([number, string]).isRequired,
-    observationTitle: string,
-    observationLog: string,
     saveLabel: string,
     canShareFlag: bool,
     scheduledMissionId: oneOfType([number, string]).isRequired,
@@ -28,31 +26,19 @@ class ObservationsForm extends Component {
 
   static defaultProps = {
     saveLabel: '',
-    observationLog: '',
-    observationTitle: '',
     canShareFlag: true,
   };
 
-  /*  static getDerivedStateFromProps(props, state) {
-    return {};
-  }*/
-
-  state = { title: '', observation: '', showPrompt: false, promptText: '' };
+  state = { showPrompt: false, promptText: '' };
 
   onTitleChange = e => {
-    e.preventDefault();
-
-    this.setState({
-      title: e.target.value,
-    });
+    const { onTitleChange } = this.props;
+    onTitleChange(e.target.value);
   };
 
   onObservationChange = e => {
-    e.preventDefault();
-
-    this.setState({
-      observation: e.target.value,
-    });
+    const { onObservationChange } = this.props;
+    onObservationChange(e.target.value);
   };
 
   onSubmitForm = e => {
@@ -62,9 +48,9 @@ class ObservationsForm extends Component {
       customerImageId,
       scheduledMissionId,
       intl,
-      refetchData,
+      title,
+      observation,
     } = this.props;
-    const { title, observation } = this.state;
     if (!title || !observation) {
       window.alert(intl.formatMessage(messages.MissingRequired));
     } else {
@@ -78,20 +64,28 @@ class ObservationsForm extends Component {
           showPrompt: true,
           promptText: 'Saved!',
         });
-        refetchData();
       });
-      this.setState(() => ({ title: '', observation: '' }));
     }
   };
 
-  closeModal = e => {
+  closeModal = () => {
+    const {
+      refetchData,
+      onSave,
+      onTitleChange,
+      onObservationChange,
+    } = this.props;
     this.setState({
       showPrompt: false,
     });
+    refetchData().then(onSave);
+    onTitleChange('');
+    onObservationChange('');
   };
 
   render() {
-    const { title, observation, showPrompt, promptText } = this.state;
+    const { title, observation } = this.props;
+    const { showPrompt, promptText } = this.state;
 
     return (
       <div className="root observations-form" id="img-details-obs-form">

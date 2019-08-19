@@ -20,7 +20,7 @@ export class ImageDetails extends Component {
       getImageDetails,
       params: { customerImageId, shareToken },
     } = this.props;
-    getImageDetails({
+    return getImageDetails({
       callSource: CALLSOURCE_PHOTOVIEW,
       customerImageId,
       shareToken,
