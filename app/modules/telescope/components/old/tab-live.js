@@ -19,7 +19,7 @@ const TabLive = ({
   mission,
   object,
   obsId,
-  skyChartWidgetID,
+  skyChartWidgetId,
   allSkyWidgetID,
   renderTelescopeViewer,
   activeTelescope,
@@ -97,17 +97,17 @@ const TabLive = ({
       </div>
     )} */}
 
-    {/*mission.missionAvailable && (
+    {mission.missionAvailable && (
       <Fragment>
         <div className="tile-container">
           <WhereInTheSky
             obsId={obsId}
-            AllskyWidgetId={skyChartWidgetID}
+            skyChartWidgetId={skyChartWidgetId}
             scheduledMissionId={mission.scheduledMissionId}
           />
         </div>
       </Fragment>
-    )*/}
+    )}
 
     <style jsx>{style}</style>
   </div>
@@ -115,7 +115,7 @@ const TabLive = ({
 
 TabLive.propTypes = {
   obsId: PropTypes.string.isRequired,
-  skyChartWidgetID: PropTypes.string.isRequired,
+  skyChartWidgetId: PropTypes.string.isRequired,
   allSkyWidgetID: PropTypes.string.isRequired,
   mission: PropTypes.shape({
     missionAvailable: PropTypes.bool,

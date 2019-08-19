@@ -200,13 +200,13 @@ const startFetchSkyChartWidget = () => ({
   type: SKYCHART_WIDGET_START,
 });
 
-export const fetchSkyChartWidget = ({ obsId, skyChartWidgetId, scheduledMissionId }) => (dispatch) => {
+export const fetchSkyChartWidget = ({ obsId, widgetUniqueId, scheduledMissionId }) => (dispatch) => {
   dispatch(startFetchSkyChartWidget);
-  if (obsId && skyChartWidgetId && scheduledMissionId) {
+  if (obsId && widgetUniqueId && scheduledMissionId) {
     fetchStarChart({
       scheduledMissionId,
       obsId,
-      widgetUniqueId: skyChartWidgetId,
+      widgetUniqueId,
     }).then((result) => {
       if (!result.data.apiError) {
         dispatch(setSkyChartWidget(result.data));

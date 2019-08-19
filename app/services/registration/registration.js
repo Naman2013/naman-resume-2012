@@ -21,3 +21,5 @@ export const CREATE_CUSTOMER_LINK_INVITATION_ENDPOINT_URL = '/api/registration/c
 export const FORGOT_PASSWORD_REQUEST_ENDPOINT_URL = '/api/registration/forgotPasswordRequest';
 export const FORGOT_PASSWORD_CONFIRMRESETTOKEN_ENDPOINT_URL = '/api/registration/forgotPasswordConfirmResetToken';
 export const FORGOT_PASSWORD_CHANGEPASSWORD_ENDPOINT_URL = '/api/registration/forgotPasswordChangePassword';
+
+export const EDIT_PAYMENT_ENDPOINT_URL='/api/registration/editPayment';

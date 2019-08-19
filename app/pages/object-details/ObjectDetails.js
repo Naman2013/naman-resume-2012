@@ -114,10 +114,11 @@ class ObjectDetails extends Component {
       },
       user,
       children,
+      objectData,
     } = this.props;
 
     return (
-      <div>
+      <div key={`object-details-${objectId}`}>
         <header className="header">
           <div className="icon" />
           {objectTitle}
@@ -133,7 +134,7 @@ class ObjectDetails extends Component {
           */}
         </header>
         <Navigation objectId={objectId} />
-        {cloneElement(children)}
+        {objectData?.objectId && cloneElement(children)}
         <style jsx>{style}</style>
         <style jsx>{`
           .icon {

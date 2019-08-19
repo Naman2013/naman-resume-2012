@@ -756,12 +756,14 @@ class BrowseTaggedDataSearch extends Component {
             .root {
               position: relative;
               display: inline-block;
-              margin: 50px 25px;
+              margin: 50px 0px;
               padding-left: 0px;
               background-color: ${romance};
               height: 100%;
               width: 100%;
               margin-bottom: 200px;
+              padding-left: 25px;
+              padding-right: 25px;
             }
 
             .search-results-container {

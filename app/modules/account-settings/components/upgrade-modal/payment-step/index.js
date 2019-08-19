@@ -109,8 +109,9 @@ import messages from 'app/pages/registration/JoinStep3.messages';
         /* Process the Customer's Activation and Sign the User into the website */
         const upgradeCustomerData = {
           cid: getUserInfo().cid,
-	        at: getUserInfo().at,
-	        token: getUserInfo().token,
+	  at: getUserInfo().at,
+	  token: getUserInfo().token,
+	  customerId: getUserInfo().cid,
           selectedPlanId: paymentDataString[1],
           conditionType: paymentDataString[2],
           paymentMethod,
@@ -180,6 +181,7 @@ export const PaymentStep = (props: TPaymentStep) => {
   const user = getUserInfo();
 
   //Listen for a message from the Window/IFrames to capture the ECommerce Hosted Payment Form Messaging
+  window.removeEventListener('message', handleIframeTaskUpgrade);
   window.addEventListener('message', handleIframeTaskUpgrade);
 
   return (

@@ -1,18 +1,5 @@
 import css from 'styled-jsx/css';
-import { faintShadow } from 'app/styles/variables/shadows';
-import {
-  astronaut,
-  romance,
-  golden_yellow,
-  shadows,
-  geyser,
-} from 'app/styles/variables/colors_tiles_v4';
-import { primaryFont, secondaryFont } from 'app/styles/variables/fonts';
-import { screenLarge } from 'app/styles/variables/breakpoints';
-import {
-  backgroundImageCover,
-  dropShadowContainer,
-} from 'app/styles/mixins/utilities';
+import { lightHeadedAstronaut } from 'app/styles/variables/colors_tiles_v4';
 
 export default css`
   .nav-actions {
@@ -22,5 +9,13 @@ export default css`
     align-items: center;
     justify-content: center;
     margin: 25px auto;
+  }
+
+  .nav-actions :global(.slooh-select__single-value) {
+    color: ${lightHeadedAstronaut};
+  }
+
+  .observations-pagination {
+    margin-bottom: 40px;
   }
 `;

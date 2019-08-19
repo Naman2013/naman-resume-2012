@@ -1,7 +1,13 @@
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { getMissionDetails } from '../thunks';
+import {
+  deleteTag,
+  getTags,
+  setTag,
+  getMissionDetails,
+} from 'app/modules/mission-details/thunks';
+
 import MissionDetails from '../components/mission-details';
 import {
   makeMissionDetailsLoadingSelector,
@@ -11,6 +17,8 @@ import {
   makeMissionDetailsImageCountSelector,
   makeMissionDetailsImageListSelector,
   makeMissionDetailsApiURLSelector,
+  makeTagListSelector,
+  makeTagsFetchingSelector,
 } from '../selectors';
 
 const mapStateToProps = createStructuredSelector({
@@ -21,10 +29,15 @@ const mapStateToProps = createStructuredSelector({
   imageCount: makeMissionDetailsImageCountSelector(),
   imageList: makeMissionDetailsImageListSelector(),
   apiURL: makeMissionDetailsApiURLSelector(),
+  tagList: makeTagListSelector(),
+  tagsFetching: makeTagsFetchingSelector(),
 });
 
 const mapDispatchToProps = {
   getMissionDetails,
+  getTags,
+  setTag,
+  deleteTag,
 };
 
 export default compose(

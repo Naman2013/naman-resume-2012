@@ -16,7 +16,7 @@ class Memberships extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      upgradeSubscriptionPlanId: false,
+      selectedPlan: null,
     };
     window.localStorage.removeItem('selectedPlanId');
   }
@@ -25,7 +25,8 @@ class Memberships extends Component {
     subscriptionPlanId,
     isAstronomyClubFlag,
     isClassroomFlag,
-    triggerUpgradeFlow
+    triggerUpgradeFlow,
+    selectedPlan,
   ) {
     window.localStorage.setItem('selectedPlanId', subscriptionPlanId);
     window.localStorage.setItem('isAstronomyClub', isAstronomyClubFlag);
@@ -36,7 +37,7 @@ class Memberships extends Component {
     const isClassroom = window.localStorage.getItem('isClassroom') === 'true';
 
     if (triggerUpgradeFlow) {
-      this.setUpgradeModalOpen(subscriptionPlanId);
+      this.setUpgradeModalOpen(selectedPlan);
     } else if (isClassroom) {
       /* Teacher Subscription Plans should prompt for School Selection */
       browserHistory.push('/join/step1SchoolSelection');
@@ -46,8 +47,8 @@ class Memberships extends Component {
     }
   }
 
-  setUpgradeModalOpen = upgradeSubscriptionPlanId =>
-    this.setState({ upgradeSubscriptionPlanId });
+  setUpgradeModalOpen = selectedPlan =>
+    this.setState({ selectedPlan });
 
   viewPlanDetails(subscriptionPlanId, isAstronomyClub, isClassroom) {
     window.localStorage.setItem('selectedPlanId', subscriptionPlanId);
@@ -59,13 +60,20 @@ class Memberships extends Component {
   }
 
   render() {
-    const { upgradeSubscriptionPlanId } = this.state;
+    const { selectedPlan } = this.state;
+
+    let subscriptionPlansCallSource = "join";
+    if ((selectedPlan) && (selectedPlan.triggerUpgradeFlow === true)) {
+      subscriptionPlansCallSource = "upgrade";
+    }
+
     return (
       <div>
-        {upgradeSubscriptionPlanId && (
+        {selectedPlan && (
           <UpgradeModal
-            show={upgradeSubscriptionPlanId}
-            selectedPlanId={upgradeSubscriptionPlanId}
+            show={selectedPlan}
+            preSelectedPlan={selectedPlan}
+            subscriptionPlansCallSource={subscriptionPlansCallSource}
             onHide={() => this.setUpgradeModalOpen(false)}
           />
         )}
@@ -103,7 +111,8 @@ class Memberships extends Component {
                                 subscriptionPlan.planID,
                                 subscriptionPlan.isAstronomyClub,
                                 subscriptionPlan.isClassroom,
-                                subscriptionPlan.triggerUpgradeFlow
+                                subscriptionPlan.triggerUpgradeFlow,
+                                subscriptionPlan,
                               )
                             }
                           />

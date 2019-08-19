@@ -43,3 +43,16 @@ export const makeMissionDetailsApiURLSelector = () =>
     selectMissionDetails,
     state => state.apiURL
   );
+
+// TAGS
+export const makeTagsFetchingSelector = () =>
+  createSelector(
+    selectMissionDetails,
+    state => state.tagsData.isFetching
+  );
+
+export const makeTagListSelector = () =>
+  createSelector(
+    selectMissionDetails,
+    state => state.tagsData.tagList
+  );

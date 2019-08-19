@@ -44,6 +44,7 @@ const mapStateToProps = state => ({
   questions: state.astronomerQuestions.threadList,
   page: state.astronomerQuestions.page,
   totalCount: state.astronomerQuestions.threadCount,
+  pages: state.astronomerQuestions.pages, // number of total pages
   count: state.astronomerQuestions.count,
   canAnswerQuestions: state.astronomerQuestions.canAnswerQuestions,
   canReplyToAnswers: state.astronomerQuestions.canReplyToAnswers,
@@ -120,7 +121,11 @@ class AskAstronomer extends Component {
     const { getAllQuestions, fetchAstronomerQuestions } = actions;
 
     // getAllQuestions({ objectId, ...filter });
-    return fetchAstronomerQuestions({ objectId, ...filter });
+    return fetchAstronomerQuestions({
+      objectId,
+      answerState: 'objectonly', // default value
+      ...filter,
+    });
   };
 
   handlePageChange = page => {
@@ -128,9 +133,13 @@ class AskAstronomer extends Component {
   };
 
   submitAnswer = (requestParams, callback) => {
-    const { actions, page, params: { objectId }, } = this.props;
+    const {
+      actions,
+      page,
+      params: { objectId },
+    } = this.props;
     return actions
-      .submitAnswerToQuestion({...requestParams, objectId})
+      .submitAnswerToQuestion({ ...requestParams, objectId })
       .then(res => callback(res.payload));
   };
 
@@ -180,6 +189,7 @@ class AskAstronomer extends Component {
       pageData,
       questionsData,
       fetchingAnswersBool,
+      pages,
     } = this.props;
 
     const {
@@ -290,6 +300,7 @@ class AskAstronomer extends Component {
                         updateQuestionsList={this.updateQuestionsList}
                         changeAnswerState={this.updateQuestionsList}
                         fetchingAnswersBool={fetchingAnswersBool}
+                        pages={pages}
                       />
                     )}
                   />

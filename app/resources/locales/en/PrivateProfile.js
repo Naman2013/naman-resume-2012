@@ -3,7 +3,7 @@ export const PrivateProfile = {
   'Photos.Observations': 'Observations',
   'Photos.Missions': 'Missions',
   'Photos.Galleries': 'Galleries',
-  'Photos.MyPhotoHub': 'My Photo Hub',
+  'Photos.MyPhotoHub': 'Photo Hub',
   'Photos.CardMenu.MenuTitle': 'More options',
   'Photos.Filters.AllObservations': 'All observation',
   'Photos.Filters.MostRecent': 'Most recent',

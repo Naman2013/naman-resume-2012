@@ -35,6 +35,9 @@ export class TelescopeOnline extends Component {
       FacilityWebcamWidgetId,
       DayNightBarWidgetId,
     } = observatoryData;
+
+    this.checkCurrentInstrument();
+
     fetchAllWidgets({
       obsId,
       DayNightBarPanelWidgetId,
@@ -49,6 +52,22 @@ export class TelescopeOnline extends Component {
       facilityWebcamWidgetId: FacilityWebcamWidgetId,
     });
   };
+
+  componentDidUpdate() {
+    this.checkCurrentInstrument();
+  }
+
+  checkCurrentInstrument = () => {
+    const {
+      currentTelescope,
+      currentInstrument,
+      updateCurrentInstrument,
+    } = this.props;
+
+    if(currentTelescope?.teleInstrumentList[0]?.instrUniqueId !== currentInstrument.instrUniqueId && currentTelescope?.teleInstrumentList[1]?.instrUniqueId !== currentInstrument.instrUniqueId) {
+      updateCurrentInstrument(currentTelescope.teleInstrumentList[0]);
+    }
+  }
 
   fetchAllTelescopeStatus(obsUniqueId = 0) {
     const { observatoryList, params } = this.props;
@@ -75,7 +94,7 @@ export class TelescopeOnline extends Component {
       weatherConditions,
       user,
     } = this.props;
-
+    
     const {
       instrStreamCode,
       instrStreamURL,
@@ -171,7 +190,7 @@ export class TelescopeOnline extends Component {
                 content: () => (
                   <TabLive
                     obsId={currentObservatory.obsId}
-                    skyChartWidgetID={currentObservatory.SkychartWidgetId}
+                    skyChartWidgetId={currentObservatory.SkyChartWidgetId}
                     allSkyWidgetID={currentObservatory.AllskyWidgetId}
                     mission={activeTelescopeMission}
                     activeTelescope={activeTelescope}

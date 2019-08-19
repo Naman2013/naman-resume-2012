@@ -55,16 +55,7 @@ import CommunityGroupOverview from 'app/pages/community-groups/GroupOverview';
 import GroupOverviewInfo from 'app/pages/community-groups/GroupOverviewInfo';
 import ExistingMissions from 'app/pages/existing-missions';
 import GuideDetails from 'app/pages/guide-details/GuideDetails';
-import Community from 'app/pages/help/Community';
 import CustomerService from 'app/pages/help/CustomerService';
-import MembershipLevels from 'app/pages/help/MembershipLevels';
-import NewToSlooh from 'app/pages/help/NewToSlooh';
-import PostingGuidelines from 'app/pages/help/PostingGuidelines';
-import Privacy from 'app/pages/help/Privacy';
-import SiteFeedback from 'app/pages/help/SiteFeedback';
-import SpaceSituationRoom from 'app/pages/help/SpaceSituationRoom';
-import TelescopesAndReservations from 'app/pages/help/TelescopesAndReservations';
-import TermsAndConditions from 'app/pages/help/TermsAndConditions';
 import Galleries from 'app/pages/my-pictures/Galleries';
 import GalleryImageDetails from 'app/pages/my-pictures/GalleryImageDetails';
 import GalleryImages from 'app/pages/my-pictures/GalleryImages';
@@ -120,6 +111,7 @@ import {
   Router,
 } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
+import { CustomerAdminToolsMain } from './modules/customer-admin-tools';
 import { AccountSettingsMain } from './modules/account-settings';
 import AccountDetails from './modules/account-settings/containers/account-details';
 import TakeATour from './modules/account-settings/containers/take-a-tour';
@@ -139,12 +131,12 @@ history.listen(location => {
   // store.dispatch(fetchPlayer({ pageURL: pathname }));
 });
 
-const getProfileRoutes = () => (
+const getProfileRoutes = ({ publicProfile }) => (
   <Fragment>
     <IndexRedirect to="activity" />
     <Route path="activity" component={ProfileActivity} />
     <Route path="photos" component={ProfilePhotos}>
-      <IndexRedirect to="photoroll" />
+      <IndexRedirect to={publicProfile ? 'observations' : 'photoroll'} />
       <Route path=":type" component={ImagesLayout} />
     </Route>
     <Route path="lists">
@@ -332,19 +324,7 @@ const AppRouter = ({ setPreviousInstrument }) => (
         />
       </Route>
 
-      <Route path="help/posting-guidelines" component={PostingGuidelines} />
-      <Route path="help/new-to-slooh" component={NewToSlooh} />
-      <Route
-        path="help/telescopes-and-reservations"
-        component={TelescopesAndReservations}
-      />
-      <Route path="help/community" component={Community} />
-      <Route path="help/space-situation-room" component={SpaceSituationRoom} />
-      <Route path="help/membership-levels" component={MembershipLevels} />
       <Route path="help/customer-service" component={CustomerService} />
-      <Route path="help/site-feedback" component={SiteFeedback} />
-      <Route path="help/terms-and-conditions" component={TermsAndConditions} />
-      <Route path="help/privacy" component={Privacy} />
 
       <Route
         path="guides(/:filterType)"
@@ -488,7 +468,7 @@ const AppRouter = ({ setPreviousInstrument }) => (
           component={PrivateProfileMain}
           onEnter={validateUser}
         >
-          {getProfileRoutes()}
+          {getProfileRoutes({ publicProfile: false })}
         </Route>
 
         <Route
@@ -496,7 +476,7 @@ const AppRouter = ({ setPreviousInstrument }) => (
           component={PublicProfileMain}
           onEnter={validateUser}
         >
-          {getProfileRoutes()}
+          {getProfileRoutes({ publicProfile: true })}
         </Route>
       </Route>
 
@@ -522,17 +502,23 @@ const AppRouter = ({ setPreviousInstrument }) => (
         component={CommunityGroupOverview}
       />
 
-      <Route
-        path="community-groups/:groupId/edit=:edit"
-        onEnter={validateUser}
-        component={CommunityGroupEdit}
-      />
+        <Route
+          path="community-groups/:groupId/edit=:edit"
+          onEnter={validateUser}
+          component={CommunityGroupEdit}
+        />
 
-      <Route
-        path="community-groups/:groupId/info"
-        onEnter={validateUser}
-        component={GroupOverviewInfo}
-      />
+         <Route
+           path="community-groups/:groupId/info"
+           onEnter={validateUser}
+           component={GroupOverviewInfo}
+         />
+
+         <Route
+           path="community-groups/:groupId/:threadId"
+           onEnter={validateUser}
+           component={CommunityGroupOverview}
+         />
 
       <Route
         path="account-settings"
@@ -543,6 +529,12 @@ const AppRouter = ({ setPreviousInstrument }) => (
         <Route path="account-details" component={AccountDetails} />
         <Route path="take-a-tour" component={TakeATour} />
       </Route>
+
+      <Route
+        path="admin-tools"
+        component={CustomerAdminToolsMain}
+        onEnter={validateUser}
+      />
 
       <Route path="missions" component={MissionsMain} onEnter={validateUser}>
         <IndexRedirect to="bySlooh1000" />

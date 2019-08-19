@@ -29,7 +29,11 @@ export const deleteImage = customerImageId => (dispatch, getState) => {
 
 // TAGS
 export const getTags = data => (dispatch, getState) => {
-  const { customerImageId, tagClass = 'image', tagType = 'user' } = data;
+  const {
+    objectId: customerImageId,
+    tagClass = 'image',
+    tagType = 'user',
+  } = data;
   const { at, token, cid } = getState().user;
   dispatch(ACTION.getTags());
   return getTagsApi({ at, token, cid, customerImageId, tagClass, tagType })
@@ -38,7 +42,12 @@ export const getTags = data => (dispatch, getState) => {
 };
 
 export const setTag = data => (dispatch, getState) => {
-  const { customerImageId, text, tagClass = 'image', tagType = 'user' } = data;
+  const {
+    objectId: customerImageId,
+    text,
+    tagClass = 'image',
+    tagType = 'user',
+  } = data;
   const { at, token, cid } = getState().user;
   dispatch(ACTION.setTag());
   return setTagApi({ at, token, cid, customerImageId, tagClass, tagType, text })
@@ -47,7 +56,12 @@ export const setTag = data => (dispatch, getState) => {
 };
 
 export const deleteTag = data => (dispatch, getState) => {
-  const { customerImageId, text, tagClass = 'image', tagType = 'user' } = data;
+  const {
+    objectId: customerImageId,
+    text,
+    tagClass = 'image',
+    tagType = 'user',
+  } = data;
   const { at, token, cid } = getState().user;
   dispatch(ACTION.deleteTag());
   return deleteTagApi({

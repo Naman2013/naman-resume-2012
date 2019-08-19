@@ -11,6 +11,7 @@ import noop from 'lodash/noop';
 import moment from 'moment/moment';
 import CommentButton from 'app/components/common/style/buttons/CommentButton';
 import LikeSomethingButton from 'app/components/common/LikeSomethingButton';
+import ViewImage from 'app/modules/multi-upload-images/components/view-image';
 import Button from 'app/components/common/style/buttons/Button';
 import ViewImagesButton from 'app/components/common/style/buttons/ViewImagesButton';
 import {
@@ -46,6 +47,7 @@ const Card = props => {
     likePrompt,
     likesCount,
     modalActions,
+    objectName,
     renderChildReplies,
     renderReplyButton,
     replyToponlyCount,
@@ -55,7 +57,9 @@ const Card = props => {
     toggleComments,
     showComments,
     showLikePrompt,
+    showObjectName,
     user,
+    commentBtnDisabled,
   } = props;
 
   const setModalAndShow = updatedLikePrompt => {
@@ -82,10 +86,15 @@ const Card = props => {
           <span className="date">{moment.utc(creationDate).fromNow()}</span>
         </div>
 
+        {showObjectName && (
+          <div className="object-name-container">{objectName}</div>
+        )}
+
         <div
           className="content"
           dangerouslySetInnerHTML={{ __html: content || title }}
         />
+        {!!S3Files.length && <ViewImage images={S3Files} />}
         <div className="explainantion-container">
           <div className="explainantion-item">
             {moment.utc(creationDate).fromNow()}
@@ -109,13 +118,14 @@ const Card = props => {
             />
             {renderChildReplies ? (
               <CommentButton
+                isDisabled={commentBtnDisabled}
                 isActive={showComments}
                 onClickEvent={toggleComments}
                 count={replyToponlyCount || replyCount}
                 alwaysShowCount
               />
             ) : null}
-            {S3Files.length > 0 ? <ViewImagesButton images={S3Files} /> : null}
+            {/*{S3Files.length > 0 ? <ViewImagesButton images={S3Files} /> : null}*/}
           </div>
           <div className="action-right">
             {allowReplies ? renderReplyButton() : null}

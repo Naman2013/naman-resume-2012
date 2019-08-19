@@ -58,7 +58,7 @@ export default createReducer(initialState, {
     }) : [];
     newFetching[replyTo] = false;
 
-    
+
     return {
       ...state,
       fetchingObj: newFetching,

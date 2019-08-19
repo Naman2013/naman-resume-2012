@@ -56,6 +56,7 @@ module.exports = {
     //   'redux-logger',
     //   'redux-thunk',
     // ],
+    vendors: ['babel-polyfill'],
     bundle: './index.js',
   },
   output: {
@@ -140,6 +141,10 @@ module.exports = {
       'process.env': {
         NODE_ENV: JSON.stringify('production'),
       },
+    }),
+
+    new webpack.EnvironmentPlugin({
+      SENTRY_ENV: 'PRODUCTION'
     }),
 
     // new webpack.optimize.CommonsChunkPlugin({

@@ -43,6 +43,7 @@ module.exports = {
       'redux-logger',
       'redux-thunk',
     ],*/
+    vendors: ['babel-polyfill'],
     bundle: './index.js',
   },
   // output: {
@@ -133,6 +134,10 @@ module.exports = {
       },
     }),
 
+    new webpack.EnvironmentPlugin({
+      SENTRY_ENV: 'PRODUCTION',
+    }),
+
     new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output
       // both options are optional
@@ -176,12 +181,12 @@ module.exports = {
         secure: true,
       },
       '/sse/**': {
-        target: 'https://supernova.slooh.com',
+        target: 'https://nova.slooh.com',
         changeOrigin: true,
         secure: true,
       },
       '/bot/**': {
-        target: 'https://supernova.slooh.com',
+        target: 'https://slooh.com',
         changeOrigin: true,
         secure: true,
       },

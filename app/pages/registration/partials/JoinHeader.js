@@ -85,7 +85,7 @@ class JoinHeader extends Component {
                 <div className="big">{mainHeading}</div>
                 <div className="little">{subHeading}</div>
         		{showLogin == true && <>
-        			<br/><div className="little">If you are a member or were invited to Slooh by a teacher, please <Link style={{textDecoration: "none", color: "#337ab7", fontWeight: "bold"}} onClick={this.openLoginPanel}>login</Link> to access your account.</div>
+        			<br/><div className="little">If you are a member or were invited to Slooh by a teacher, please <Link style={{cursor: "pointer", textDecoration: "none", color: "#337ab7", fontWeight: "bold"}} onClick={this.openLoginPanel}>login</Link> to access your account.</div>
         		</>}
               </div>
               {showTabs && <TabbedNav

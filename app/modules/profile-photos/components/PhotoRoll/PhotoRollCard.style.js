@@ -69,8 +69,8 @@ export default css`
   .root {
     margin-top: 20px;
     color: black;
-    flex-basis: 48%;
-    max-width: 48%;
+    flex-basis: 100%;
+    max-width: 100%;
   }
 
   .onhover-overlay {
@@ -144,13 +144,18 @@ export default css`
     border: 2px solid ${romance};
   }
 
-  @media ${screenMedium} {
-    .photoRollCard:hover .onhover-overlay {
-      display: flex;
-    }
+  .photoRollCard:hover .onhover-overlay {
+    display: flex;
   }
 
   @media ${screenLarge} {
+    .root {
+      flex-basis: 32%;
+      max-width: 32%;
+    }
+  }
+
+  @media ${screenMedium} {
     .root {
       flex-basis: 32%;
       max-width: 32%;

@@ -2,63 +2,67 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { ModuleContainer } from './module-container';
-import StaticCell from 'app/components/common/grid/StaticCell';
 import { fetchSkyChartWidget } from 'app/modules/Telescope-Overview';
-import { hawkesBlue } from 'app/styles/variables/colors_tiles_v4';
+import { ModuleContainer } from './module-container';
+import { ModalImg } from 'app/modules/telescope/components/modal-img';
 import style from './where-in-the-sky.style';
-
-const cellTheme = {
-  borderBottom: `1px solid ${hawkesBlue}`,
-  minHeight: 'auto',
-};
 
 class WhereInTheSky extends Component {
   static propTypes = {
     obsId: PropTypes.string.isRequired,
-    AllskyWidgetId: PropTypes.string.isRequired,
+    skyChartWidgetId: PropTypes.string.isRequired,
     scheduledMissionId: PropTypes.string.isRequired,
     fetchSkyChartWidget: PropTypes.func.isRequired,
   };
 
-  constructor(props) {
-    super(props);
-    const { obsId, AllskyWidgetId, scheduledMissionId } = this.props;
+  state = {
+    isOpen: false,
+  };
+
+  componentDidMount() {
+    const { obsId, skyChartWidgetId, scheduledMissionId } = this.props;
     this.props.fetchSkyChartWidget({
       obsId,
-      skyChartWidgetId: AllskyWidgetId,
+      widgetUniqueId: skyChartWidgetId,
       scheduledMissionId,
     });
   }
 
   componentDidUpdate(prevProps) {
-    const { obsId, AllskyWidgetId, scheduledMissionId } = this.props;
+    const { obsId, skyChartWidgetId, scheduledMissionId } = this.props;
     if (
       obsId !== prevProps.obsId ||
-      AllskyWidgetId !== prevProps.AllskyWidgetId ||
+      skyChartWidgetId !== prevProps.skyChartWidgetId ||
       scheduledMissionId !== prevProps.scheduledMissionId
     ) {
       this.props.fetchSkyChartWidget({
         obsId,
         scheduledMissionId,
-        skyChartWidgetId: AllskyWidgetId,
+        widgetUniqueId: skyChartWidgetId,
       });
     }
   }
 
+  toggleModal = () => {
+    const { isOpen } = this.state;
+    this.setState({ isOpen: !isOpen });
+  };
+
   render() {
+    const { skyChartWidgetData } = this.props;
+    const { title, starChartURL } = skyChartWidgetData;
+    const { isOpen } = this.state;
+
     return (
-      <div>
-        <ModuleContainer title="Where in the night&#39;s sky">
-          <StaticCell title="Distance from earth" theme={cellTheme}>
-            <p>Deep space</p>
-          </StaticCell>
-          <StaticCell title="Apparent angular size" theme={cellTheme}>
-            <p>0 31 50</p>
-          </StaticCell>
-          <StaticCell title="Actual size" theme={cellTheme}>
-            <p>0 31 50</p>
-          </StaticCell>
+      <div className="sky-chart-widget">
+        <ModuleContainer title={title}>
+          <img src={starChartURL} onClick={this.toggleModal} />
+          <ModalImg
+            isOpen={isOpen}
+            imageURL={starChartURL}
+            onHide={this.toggleModal}
+            customClassName="sky-chart-widget-modal"
+          />
         </ModuleContainer>
         <style jsx>{style}</style>
       </div>
@@ -67,7 +71,7 @@ class WhereInTheSky extends Component {
 }
 
 const mapStateToProps = ({ telescopeOverview }) => ({
-  skyChartWidgetResult: telescopeOverview.skyChartWidgetResult,
+  skyChartWidgetData: telescopeOverview.skyChartWidgetResult,
 });
 
 const mapDispatchToProps = dispatch =>

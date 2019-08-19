@@ -15,10 +15,12 @@ import PhotoUploadButton from 'app/components/common/style/buttons/PhotoUploadBu
 import deletePostImage from 'app/services/post-creation/delete-post-image';
 import setPostImages from 'app/modules/set-post-images';
 import Button from 'app/components/common/style/buttons/Button';
+import { MultiUploadImageList } from 'app/modules/multi-upload-images/components/multi-upload-image-list';
 import BackBar from 'app/components/common/style/buttons/BackBar';
 import { customModalStylesFitContent } from 'app/styles/mixins/utilities';
 import ViewImagesButton from 'app/components/common/style/buttons/ViewImagesButton';
 import { Spinner } from 'app/components/spinner/index';
+import { prepareThread } from 'app/services/discussions/prepare-thread';
 import styles, { profPic } from './RevealSubmitForm.style';
 import messages from './RevealSubmitForm.messages';
 
@@ -40,6 +42,7 @@ class RevealSubmitForm extends Component {
       token: string,
     }).isRequired,
     intl: intlShape.isRequired,
+    isClub: bool,
   };
 
   static defaultProps = {
@@ -49,9 +52,11 @@ class RevealSubmitForm extends Component {
     revealButtonRender: null,
     submitLabel: 'Post',
     uuid: null,
+    isClub: false,
   };
 
   state = {
+    formTitle: '',
     formText: '',
     showPopup: false,
     modalDescription: null,
@@ -59,6 +64,28 @@ class RevealSubmitForm extends Component {
     uploadLoading: false,
     S3URLs: [],
     isFetching: false,
+    toggleModal: false,
+    fileRef: React.createRef(),
+    uuid: this.props.uuid,
+  };
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (!prevState.uuid) {
+      return {
+        uuid: nextProps.uuid,
+      };
+    }
+    return null;
+  }
+
+  componentWillUnmount() {
+    document.body.style.overflow = 'unset';
+  }
+
+  onTitleChange = e => {
+    this.setState({
+      formTitle: e.target.value,
+    });
   };
 
   onTextChange = e => {
@@ -69,29 +96,50 @@ class RevealSubmitForm extends Component {
 
   submitForm = e => {
     e.preventDefault();
-    const { formText, S3URLs } = this.state;
+    const { isClub } = this.props;
+    const { formTitle, formText, S3URLs } = this.state;
     if (formText.replace(/\s/g, '').length) {
       this.setState({ isFetching: true });
-      this.props.submitForm(formText, S3URLs, this.handleSubmit);
+      if (isClub) {
+        this.props.submitForm(formText, S3URLs, formTitle, this.handleSubmit);
+      } else {
+        this.props.submitForm(formText, S3URLs, this.handleSubmit);
+      }
     }
   };
 
   handleSubmit = (error, message) => {
-    const { intl } = this.props;
+    const { intl, user } = this.props;
     if (!error) {
       this.setState({
         showPopup: true,
         modalDescription:
           message || intl.formatMessage(messages.ResponceSubmittedText),
+        formTitle: '',
         formText: '',
         S3URLs: [],
+        isFetching: false,
+      });
+
+      prepareThread({
+        at: user.at,
+        token: user.token,
+        cid: user.cid,
+      }).then(res => {
+        if (!res.data.apiError) {
+          this.setState({
+            uuid: res.data.postUUID,
+          });
+        }
       });
     } else {
       this.setState({
         showPopup: true,
         modalDescription: message || intl.formatMessage(messages.FormIssueText),
+        isFetching: false,
       });
     }
+    setTimeout(this.closeModal, 1000);
   };
 
   displayForm = e => {
@@ -113,46 +161,55 @@ class RevealSubmitForm extends Component {
   };
 
   closeModal = e => {
+    e.preventDefault();
     this.setState({
       showPopup: false,
+      formTitle: '',
+      formText: '',
+      S3URLs: [],
+      isFetching: false,
     });
   };
 
-  handleUploadImage = event => {
+  handleUploadImage = async event => {
     event.preventDefault();
 
+    const { files } = event.target;
     const { cid, token, at } = this.props.user;
-    const { uuid } = this.props;
-    const data = new FormData();
-    data.append('cid', cid);
-    data.append('token', token);
-    data.append('at', at);
-    data.append('uniqueId', uuid);
-    data.append('imageClass', 'discussion');
-    data.append('attachment', event.target.files[0]);
+    const { uuid } = this.state;
+    this.setState({ uploadLoading: true });
+    for (let i = 0; i < files.length; i++) {
+      const data = new FormData();
+      data.append('cid', cid);
+      data.append('token', token);
+      data.append('at', at);
+      data.append('uniqueId', uuid);
+      data.append('imageClass', 'discussion');
+      data.append('attachment', files[i]);
 
-    this.setState({
-      uploadError: null,
-      uploadLoading: true,
-    });
+      this.setState({
+        uploadError: null,
+      });
 
-    setPostImages(data).then(res => {
-      if (!res.data.apiError) {
-        this.handleUploadImageResponse(res.data);
-      } else {
-        this.setState({
-          uploadError: res.data.errorMsg,
-          uploadLoading: false,
-        });
-      }
-    });
+      await setPostImages(data).then(res => {
+        if (!res.data.apiError) {
+          this.handleUploadImageResponse(res.data);
+        } else {
+          this.setState({
+            uploadError: res.data.errorMsg,
+            uploadLoading: false,
+          });
+        }
+      });
+    }
+    this.setState({ uploadLoading: false });
   };
 
   handleDeleteImage = imageURL => {
     if (!imageURL) {
       return;
     }
-
+    this.setState({ uploadLoading: true });
     const { cid, token, at } = this.props.user;
     const { uuid, imageClass } = this.props;
 
@@ -163,13 +220,35 @@ class RevealSubmitForm extends Component {
       uniqueId: uuid,
       imageClass,
       imageURL,
-    }).then(result => this.handleUploadImageResponse(result.data));
+    })
+      .then(result => this.handleUploadImageResponse(result.data))
+      .finally(() => {
+        this.setState({ uploadLoading: false });
+      });
   };
 
   handleUploadImageResponse = uploadFileData => {
     this.setState({
       S3URLs: uploadFileData.S3URLs,
-      uploadLoading: false,
+    });
+  };
+
+  handleAddImage = () => {
+    const { fileRef } = this.state;
+    if (fileRef.current) {
+      fileRef.current.click();
+    }
+  };
+
+  handleToggleModal = () => {
+    const { toggleModal } = this.state;
+    if (!toggleModal) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    this.setState({
+      toggleModal: !this.state.toggleModal,
     });
   };
 
@@ -186,16 +265,20 @@ class RevealSubmitForm extends Component {
       avatarURL,
       commentPlaceholder,
       threadId,
+      isClub,
     } = this.props;
 
     const {
       S3URLs,
+      formTitle,
       formText,
       modalDescription,
       showPopup,
       uploadError,
       uploadLoading,
       isFetching,
+      fileRef,
+      toggleModal,
     } = this.state;
     return (
       <div className="root">
@@ -230,14 +313,35 @@ class RevealSubmitForm extends Component {
             loading={isFetching}
             text="Please wait...loading discussions"
           />
-          <form className="form">
+          <form className="form reveal-submit-form">
             <div className="form-author">
               <div style={profPic(avatarURL)} />
               {displayName
                 ? `${intl.formatMessage(messages.WrittenBy)} ${displayName}`
                 : commentPlaceholder}
             </div>
-            <div className="form-quote">{title || content}</div>
+            <div
+              className="form-quote"
+              dangerouslySetInnerHTML={{ __html: title || content }}
+            />
+            <MultiUploadImageList
+              isLoading={uploadLoading}
+              onAddImage={this.handleAddImage}
+              mobileVisible={toggleModal}
+              imageList={S3URLs}
+              onDeleteImage={this.handleDeleteImage}
+              handleToggleModal={this.handleToggleModal}
+              slidesToShow={3}
+            />
+            {isClub && (
+              <input
+                type="text"
+                className="reveal-form-input"
+                placeholder="Title"
+                value={formTitle}
+                onChange={this.onTitleChange}
+              />
+            )}
             <textarea
               className="reveal-form-input"
               onChange={this.onTextChange}
@@ -255,7 +359,10 @@ class RevealSubmitForm extends Component {
             <div className="flex-container form-actions">
               <div className="flex-container">
                 <PhotoUploadButton
+                  multiple
+                  setRef={fileRef}
                   handleUploadImage={this.handleUploadImage}
+                  handleToggleModal={this.handleToggleModal}
                   id={threadId}
                 />
                 {uploadError && <span className="errorMsg">{uploadError}</span>}

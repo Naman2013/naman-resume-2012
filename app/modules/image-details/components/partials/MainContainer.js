@@ -18,6 +18,7 @@ const MainContainer = ({
   commentsTopicId,
   customerImageId,
   fileData,
+  showLikePrompt,
   likePrompt,
   likesCount,
   observationLog,
@@ -31,32 +32,41 @@ const MainContainer = ({
   validateResponseAccess,
 }) => (
   <div className="image-main-container">
-    {!canEditFlag && (
-      <ObservationInformation
-        canLikeFlag={canLikeFlag}
-        customerImageId={customerImageId}
-        fileData={fileData}
-        likesCount={likesCount}
-        likePrompt={likePrompt}
-        observationLog={observationLog}
-        observationTimeDisplay={observationTimeDisplay}
-        observationTitle={observationTitle}
-        imageTitle={imageTitle}
-        user={user}
-      />
+    {observationLog && (
+      <>
+        <ObservationInformation
+          canLikeFlag={canLikeFlag}
+          customerImageId={customerImageId}
+          fileData={fileData}
+          likesCount={likesCount}
+          likePrompt={likePrompt}
+          showLikePrompt={showLikePrompt}
+          observationLog={observationLog}
+          observationTimeDisplay={observationTimeDisplay}
+          observationTitle={observationTitle}
+          imageTitle={imageTitle}
+          user={user}
+          actions={actions}
+          canShareFlag={canShareFlag}
+          canEditFlag={canEditFlag}
+        />
+        <br />
+      </>
     )}
-    {canEditFlag && (
-      <ObservationsForm
-        canShareFlag={canShareFlag}
-        actions={actions}
-        customerImageId={customerImageId}
-        observationLog={observationLog}
-        observationTitle={observationTitle}
-        saveLabel={saveLabel}
-        scheduledMissionId={scheduledMissionId}
-        user={user}
-        validateResponseAccess={validateResponseAccess}
-      />
+    {canEditFlag && !observationLog && (
+      <>
+        <ObservationsForm
+          actions={actions}
+          customerImageId={customerImageId}
+          observationLog={observationLog}
+          observationTitle={observationTitle}
+          saveLabel={saveLabel}
+          scheduledMissionId={scheduledMissionId}
+          user={user}
+          validateResponseAccess={validateResponseAccess}
+        />
+        <br />
+      </>
     )}
     {showCommentsLink ? (
       <DiscussionsBoard

@@ -11,7 +11,7 @@ export const Objects = {
   'Objects.Overview': 'Overview',
   'Objects.Missions': 'Missions',
   'Objects.Quests': 'Quests',
-  'Objects.Ask': 'Ask',
+  'Objects.Ask': 'AAA',
   'Objects.Observations': 'Observations',
   'Objects.Shows': 'Shows',
   'Objects.Stories': 'Illuminations',

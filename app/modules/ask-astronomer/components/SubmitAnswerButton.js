@@ -138,6 +138,8 @@ class SubmitAnswerButton extends Component {
     const message = `${data.responseLabel}
     <p>${data.responseText}</p>`;
 
+    updateQuestionsList();
+
     modalActions.setModal({
       promptComponent: (
         <SubmitReplyFeedbackModal
@@ -145,7 +147,6 @@ class SubmitAnswerButton extends Component {
           doneButtonLabel={data.doneButtonLabel}
           modalActions={modalActions}
           message={message}
-          updateQuestionsList={updateQuestionsList}
         />
       ),
       promptStyles: customModalStylesBlackOverlay,

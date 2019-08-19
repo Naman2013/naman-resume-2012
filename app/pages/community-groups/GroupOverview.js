@@ -15,9 +15,13 @@ import { DeviceContext } from 'providers/DeviceProvider';
 import Header from 'app/components/community-groups/overview/header';
 import FullInformationOverview from 'app/components/community-groups/overview/full-information-container';
 import CenterColumn from 'app/components/common/CenterColumn';
-import { modalStyleFullPage } from 'app/styles/mixins/utilities';
+import {
+  modalStyleFullPage,
+  customModalStylesBlackOverlay,
+} from 'app/styles/mixins/utilities';
 import MembersList from 'app/components/community-groups/overview/members-list';
 import BackBar from 'app/components/common/style/buttons/BackBar';
+import PromptWithClose from 'app/components/community-groups/prompt-with-close';
 
 import { joinOrLeaveGroup } from 'app/modules/community-groups/actions';
 import { astronaut, seashell } from 'app/styles/variables/colors_tiles_v4';
@@ -60,6 +64,8 @@ class CommunityGroupOverview extends Component {
 
   state = {
     showPopup: false,
+    showAskPrompt: false,
+    promptText: '',
   };
 
   componentWillMount() {
@@ -98,9 +104,13 @@ class CommunityGroupOverview extends Component {
       actions,
     } = this.props;
 
-    actions.joinOrLeaveGroup({
-      discussionGroupId: groupId,
-    });
+    actions
+      .joinOrLeaveGroup({
+        discussionGroupId: groupId,
+      })
+      .then(() => {
+        this.refreshHeader();
+      });
   };
 
   showInformation = e => {
@@ -109,9 +119,24 @@ class CommunityGroupOverview extends Component {
     });
   };
 
+  updatePrompt = data => {
+    this.setState({
+      showPrompt: data.showPrompt,
+      promptText: (
+        <PromptWithClose
+          promptText={data.promptText}
+          closeForm={this.closeModal}
+        />
+      ),
+    });
+    this.refreshHeader();
+  };
+
   closeModal = e => {
     this.setState({
       showPopup: false,
+      showPrompt: false,
+      promptText: '',
     });
   };
 
@@ -119,10 +144,10 @@ class CommunityGroupOverview extends Component {
     const {
       communityGroupOverview,
       pageMeta,
-      routeParams: { groupId, edit },
+      routeParams: { groupId, edit, threadId },
       actions,
     } = this.props;
-    const { showPopup } = this.state;
+    const { showPopup, showPrompt, promptText } = this.state;
 
     const modalStyles = modalStyleFullPage;
 
@@ -145,6 +170,7 @@ class CommunityGroupOverview extends Component {
                   showInformation={this.showInformation}
                   joinOrLeaveGroup={this.joinLeaveGroup}
                   discussionGroupId={groupId}
+                  updatePrompt={this.updatePrompt}
                   {...context}
                   {...communityGroupOverview}
                   {...pageMeta}
@@ -156,6 +182,7 @@ class CommunityGroupOverview extends Component {
                   context={context}
                   discussionGroupId={groupId}
                   isEditMode={edit}
+                  jumpToThreadId={threadId}
                 />
               </CenterColumn>
               <Modal
@@ -167,7 +194,7 @@ class CommunityGroupOverview extends Component {
               >
                 <BackBar onClickEvent={this.closeModal} />
                 <Header
-                  condensed={true}
+                  condensed
                   showInformation={this.showInformation}
                   joinOrLeaveGroup={this.joinLeaveGroup}
                   discussionGroupId={groupId}
@@ -194,6 +221,17 @@ class CommunityGroupOverview extends Component {
             </Fragment>
           )}
         </DeviceContext.Consumer>
+
+        <Modal
+          ariaHideApp={false}
+          isOpen={showPrompt}
+          style={customModalStylesBlackOverlay}
+          contentLabel="Groups"
+          shouldCloseOnOverlayClick={false}
+          onRequestClose={this.closeModal}
+        >
+          {promptText}
+        </Modal>
 
         <style jsx>{`
           .root {

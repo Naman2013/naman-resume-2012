@@ -4,6 +4,7 @@ import { StatusTab } from 'app/modules/telescope/components/status-tab';
 import QueueTab from 'app/modules/telescope/containers/telescope-queue-tab';
 import { Container, Nav, Tab } from 'react-bootstrap';
 import './styles.scss';
+import { fetchSeeingConditionsWidget } from 'app/modules/Telescope-Overview';
 
 export default class TelescopeOffline extends Component {
   componentDidMount = () => {
@@ -14,6 +15,7 @@ export default class TelescopeOffline extends Component {
       fetchWeatherSatellite,
       fetchDomeCamAction,
       fetchObservatoryWebcam,
+      fetchSeeingConditionsWidget,
       setPreviousInstrument,
     } = this.props;
     const {
@@ -24,12 +26,15 @@ export default class TelescopeOffline extends Component {
       DomecamWidgetId,
       FacilityWebcamWidgetId,
       AllskyWidgetId,
+      DayNightBarWidgetId,
+      SeeingConditionsWidgetId,
     } = currentObservatory;
     setPreviousInstrument(null);
     fetchAllWidgets({
       obsId,
       DayNightBarPanelWidgetId,
       DayNightMapWidgetId,
+      DayNightBarWidgetId,
       AllskyWidgetId,
       DomecamWidgetId,
     });
@@ -38,6 +43,10 @@ export default class TelescopeOffline extends Component {
     fetchObservatoryWebcam({
       obsId,
       facilityWebcamWidgetId: FacilityWebcamWidgetId,
+    });
+    fetchSeeingConditionsWidget({
+      obsId,
+      widgetUniqueId: SeeingConditionsWidgetId,
     });
   };
 
@@ -51,8 +60,14 @@ export default class TelescopeOffline extends Component {
       currentObservatory,
       currentInstrument,
       allObservatoryTelescopeStatus,
+      dayNightMap,
+      dayNightBarPanel,
+      dayNightBar,
+      weatherSatellite,
+      weatherConditions,
+      skyConditions,
     } = this.props;
-    
+
     return (
       <div className="telescope-offline animated fadeIn faster">
         {/* HEADER */}
@@ -100,6 +115,12 @@ export default class TelescopeOffline extends Component {
                 clockList={allObservatoryTelescopeStatus.clockList}
                 currentTelescope={currentTelescope}
                 currentObservatory={currentObservatory}
+                dayNightMap={dayNightMap}
+                dayNightBarPanel={dayNightBarPanel}
+                dayNightBar={dayNightBar}
+                weatherSatellite={weatherSatellite}
+                weatherConditions={weatherConditions}
+                skyConditions={skyConditions}
               />
             </Tab.Pane>
             {currentInstrument.instrImageSourceType !== 'video' && (

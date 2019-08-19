@@ -19,12 +19,12 @@ const messages: Messages = {
   },
   AllUnanswered: {
     id: 'Profile.AllUnanswered',
-    defaultMessage: 'All unanswered',
+    defaultMessage: 'All questions',
     description: 'Filter option',
   },
   ByMySpecialities: {
     id: 'Profile.ByMySpecialities',
-    defaultMessage: 'By my specialities',
+    defaultMessage: 'My MVP Objects',
     description: 'Filter option',
   },
   YourAskedQuestions: {
@@ -32,9 +32,19 @@ const messages: Messages = {
     defaultMessage: 'You asked {count} questions',
     description: 'Count text',
   },
+  AskedQuestions: {
+    id: 'Profile.AskedQuestions',
+    defaultMessage: '{count} questions',
+    description: 'Count text',
+  },
   YourAnsweredQuestions: {
     id: 'Profile.YourAnsweredQuestions',
     defaultMessage: 'You answered {count} questions',
+    description: 'Count text',
+  },
+  AnsweredQuestions: {
+    id: 'Profile.AnsweredQuestions',
+    defaultMessage: '{count} questions',
     description: 'Count text',
   },
   QuestionsToAnswers: {

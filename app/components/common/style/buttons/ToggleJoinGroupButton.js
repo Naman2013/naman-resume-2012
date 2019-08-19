@@ -6,13 +6,14 @@ import { DeviceContext } from 'providers/DeviceProvider';
 
 const { bool, func, number, oneOfType, string } = PropTypes;
 
-const ToggleJoinGroupButton = ({ icon, text, onClickEvent }) => (
+const ToggleJoinGroupButton = ({ icon, text, onClickEvent, disabled }) => (
   <Fragment>
     <GenericButton
       theme={{ height: '40px' }}
       onClickEvent={onClickEvent}
       text={text}
       icon={icon}
+      disabled={disabled}
     />
   </Fragment>
 );
