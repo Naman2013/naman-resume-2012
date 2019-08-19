@@ -15,16 +15,14 @@ export class PicoDelTeidesWidget extends Component {
   closeModal = () => this.setState({ isModalOpen: false });
 
   renderTimelapseCollapsible = () => {
-    const { activeTelescope, teidePeakCam, observatoryData } = this.props;
+    const { teidePeakCam, widgetId, obsId } = this.props;
     const {
-      domeCamTimelapseURL,
+      facilityWebcamTimelapseURL,
       offlineImageURL,
       onlineStatus,
       refreshIntervalSec,
       fetchingDomeCamTimelapseWidgetResult,
     } = teidePeakCam;
-    const { obsId, DomecamTimelapseWidgetId } =
-      observatoryData || activeTelescope;
     const { isTimelapseExpanded } = this.state;
 
     return (
@@ -47,8 +45,8 @@ export class PicoDelTeidesWidget extends Component {
               onlineStatus={onlineStatus}
               offlineImageURL={offlineImageURL}
               refreshIntervalSec={refreshIntervalSec}
-              domeCamTimelapseURL={domeCamTimelapseURL}
-              DomecamTimelapseWidgetId={DomecamTimelapseWidgetId}
+              domeCamTimelapseURL={facilityWebcamTimelapseURL}
+              DomecamTimelapseWidgetId={widgetId}
               fetchingDomeCamTimelapseWidgetResult={
                 fetchingDomeCamTimelapseWidgetResult
               }

@@ -16,16 +16,14 @@ export class DomCameraWidget extends Component {
 
   renderTimelapseCollapsible = () => {
     const {
-      activeTelescope,
       onlineStatus,
       offlineImageURL,
       refreshIntervalSec,
-      domeCamTimelapseURL,
+      facilityWebcamTimelapseURL,
       fetchingDomeCamTimelapseWidgetResult,
+      widgetId,
+      obsId,
     } = this.props;
-    const { observatoryData } = activeTelescope;
-    const { obsId, DomecamTimelapseWidgetId } =
-      observatoryData || activeTelescope;
     const { isTimelapseExpanded } = this.state;
     return (
       <div className="text-center">
@@ -47,8 +45,8 @@ export class DomCameraWidget extends Component {
               onlineStatus={onlineStatus}
               offlineImageURL={offlineImageURL}
               refreshIntervalSec={refreshIntervalSec}
-              domeCamTimelapseURL={domeCamTimelapseURL}
-              DomecamTimelapseWidgetId={DomecamTimelapseWidgetId}
+              domeCamTimelapseURL={facilityWebcamTimelapseURL}
+              DomecamTimelapseWidgetId={widgetId}
               fetchingDomeCamTimelapseWidgetResult={
                 fetchingDomeCamTimelapseWidgetResult
               }

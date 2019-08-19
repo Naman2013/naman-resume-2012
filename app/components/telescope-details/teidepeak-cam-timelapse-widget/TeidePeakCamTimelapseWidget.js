@@ -14,7 +14,7 @@ const mapStateToProps = ({
 }) => ({
   domeCamTimelapseTitle: teidePeakCamTimelapseWidgetResult.title,
   refreshIntervalSec: teidePeakCamTimelapseWidgetResult.refreshIntervalSec,
-  domeCamTimelapseURL: teidePeakCamTimelapseWidgetResult.domecamTimelapseURL,
+  domeCamTimelapseURL: teidePeakCamTimelapseWidgetResult.facilityWebcamTimelapseURL,
   offlineImageURL: teidePeakCamTimelapseWidgetResult.offlineImageURL,
   onlineStatus: teidePeakCamTimelapseWidgetResult.onlineStatus,
   widgetWidth: teidePeakCamTimelapseWidgetResult.widgetWidth,

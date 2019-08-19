@@ -14,7 +14,7 @@ const mapStateToProps = ({
 }) => ({
   domeCamTimelapseTitle: domeCamTimelapseWidgetResult.title,
   refreshIntervalSec: domeCamTimelapseWidgetResult.refreshIntervalSec,
-  domeCamTimelapseURL: domeCamTimelapseWidgetResult.domecamTimelapseURL,
+  domeCamTimelapseURL: domeCamTimelapseWidgetResult.facilityWebcamTimelapseURL,
   offlineImageURL: domeCamTimelapseWidgetResult.offlineImageURL,
   onlineStatus: domeCamTimelapseWidgetResult.onlineStatus,
   widgetWidth: domeCamTimelapseWidgetResult.widgetWidth,

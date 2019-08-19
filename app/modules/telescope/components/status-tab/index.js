@@ -27,6 +27,7 @@ export const StatusTab = props => {
     dayNightBarPanel,
     dayNightBar,
     skyConditions,
+    observatoryList,
   } = props;
 
   return (
@@ -50,19 +51,22 @@ export const StatusTab = props => {
             </Col>
             <Col lg={4} md={12} sm={12}>
               <DomCameraWidget
+                obsId={observatoryList[0]?.obsId}
                 domeCam={domeCam}
                 domeCamURL={domeCam.domeCamURL}
                 activeTelescope={currentObservatory}
+                widgetId={observatoryList[0]?.FacilityWebcamTimelapseWidgetId}
               />
             </Col>
             <Col lg={4} md={12} sm={12}>
               <PicoDelTeidesWidget
-                obsId={obsId}
+                obsId={observatoryList[1]?.obsId}
                 teidePeakCam={teidePeakCam}
                 title={facilityWebcam.title}
                 activeTelescope={currentTelescope}
                 facilityWebcamUrl={facilityWebcam.facilityWebcamURL}
                 observatoryData={currentObservatory}
+                widgetId={observatoryList[1]?.FacilityWebcamTimelapseWidgetId}
               />
             </Col>
           </Row>
