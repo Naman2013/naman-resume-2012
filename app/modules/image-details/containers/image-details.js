@@ -13,6 +13,7 @@ const mapStateToProps = ({ user, imageDetails }) => {
     user,
     observationTagsError: imageDetails.observationTagsError,
     imageDetailsData: imageDetails.data,
+    isFetching: imageDetails.isFetching,
   };
 };
 

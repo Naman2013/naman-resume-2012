@@ -1,4 +1,4 @@
-import Request from 'app/components/common/network/Request';
+import { Spinner } from 'app/components/spinner/index';
 import {
   CALLSOURCE_PHOTOVIEW,
   USE_SHARE_TOKEN_TRUE,
@@ -38,6 +38,7 @@ export class ImageDetails extends Component {
       validateResponseAccess,
       params: { customerImageId, scheduledMissionId },
       imageDetailsData,
+      isFetching,
     } = this.props;
     const actions = {
       getImageDetails,
@@ -45,22 +46,25 @@ export class ImageDetails extends Component {
       shareMemberPicture,
     };
     return (
-      <DeviceContext.Consumer>
-        {context => (
-          <BoostrappedImageDetails
-            actions={actions}
-            observationTagsError={observationTagsError}
-            callSource={CALLSOURCE_PHOTOVIEW}
-            customerImageId={customerImageId}
-            scheduledMissionId={scheduledMissionId}
-            user={user}
-            validateResponseAccess={validateResponseAccess}
-            refetchData={this.fetchData}
-            {...context}
-            {...imageDetailsData}
-          />
-        )}
-      </DeviceContext.Consumer>
+      <div>
+        <Spinner loading={isFetching} />
+        <DeviceContext.Consumer>
+          {context => (
+            <BoostrappedImageDetails
+              actions={actions}
+              observationTagsError={observationTagsError}
+              callSource={CALLSOURCE_PHOTOVIEW}
+              customerImageId={customerImageId}
+              scheduledMissionId={scheduledMissionId}
+              user={user}
+              validateResponseAccess={validateResponseAccess}
+              refetchData={this.fetchData}
+              {...context}
+              {...imageDetailsData}
+            />
+          )}
+        </DeviceContext.Consumer>
+      </div>
     );
   }
 }

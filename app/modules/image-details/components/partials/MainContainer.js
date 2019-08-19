@@ -64,6 +64,7 @@ const MainContainer = ({
               setTitle(observationTitle);
               setObservation(observationLog);
             }}
+            refetchData={refetchData}
           />
           <br />
         </>

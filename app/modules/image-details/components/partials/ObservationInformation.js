@@ -134,14 +134,16 @@ class BootstrappedImageDetails extends Component {
     const {
       actions: { shareMemberPicture },
       customerImageId,
+      refetchData,
     } = this.props;
 
-    shareMemberPicture({ customerImageId }).then(data =>
+    shareMemberPicture({ customerImageId }).then(data => {
       this.setState({
         isOpen: true,
         promptText: data.payload.sharePrompt,
-      })
-    );
+      });
+      refetchData();
+    });
   };
 
   onEdit = () => {
@@ -202,14 +204,14 @@ class BootstrappedImageDetails extends Component {
             />
           </Modal>
           {canEditFlag && (
-            <div className="pull-right my-3">
+            <div className="pull-right my-3 ml-3">
               <Btn mod="circle" onClick={this.onEdit}>
                 <Icon i="pencil" />
               </Btn>
             </div>
           )}
           {canShareFlag && (
-            <div className="pull-right my-3">
+            <div className="pull-right my-3 ml-3">
               <Button onClick={this.onShare}>Share</Button>
             </div>
           )}
