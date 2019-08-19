@@ -46,8 +46,9 @@ const BootstrappedImageDetails = props => {
     imageDownloadFilename,
     imageDownloadURL,
     observationTagsError,
+    refetchData,
   } = props;
-  
+
   const showMissionRelatedInfo = Number(scheduledMissionId) > 0;
   const rightPanelDisplayFlags = [showMissionRelatedInfo];
   const showRightContainer =
@@ -131,7 +132,13 @@ const BootstrappedImageDetails = props => {
           </div>
         )}
         isScreenSize={isScreenLarge}
-        renderMainContent={() => <MainContainer {...props} actions={actions} />}
+        renderMainContent={() => (
+          <MainContainer
+            {...props}
+            actions={actions}
+            refetchData={refetchData}
+          />
+        )}
       />
       <style jsx>{styles}</style>
     </div>

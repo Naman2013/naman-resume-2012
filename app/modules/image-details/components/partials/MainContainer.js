@@ -30,6 +30,7 @@ const MainContainer = ({
   showCommentsLink,
   user,
   validateResponseAccess,
+  refetchData,
 }) => (
   <div className="image-main-container">
     {observationLog && (
@@ -64,6 +65,7 @@ const MainContainer = ({
           scheduledMissionId={scheduledMissionId}
           user={user}
           validateResponseAccess={validateResponseAccess}
+          refetchData={refetchData}
         />
         <br />
       </>

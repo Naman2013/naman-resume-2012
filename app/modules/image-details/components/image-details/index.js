@@ -13,6 +13,21 @@ export class ImageDetails extends Component {
 
   static defaultProps = {};
 
+  componentDidMount = () => this.fetchData();
+
+  fetchData = () => {
+    const {
+      getImageDetails,
+      params: { customerImageId, shareToken },
+    } = this.props;
+    getImageDetails({
+      callSource: CALLSOURCE_PHOTOVIEW,
+      customerImageId,
+      shareToken,
+      useShareToken: USE_SHARE_TOKEN_TRUE,
+    });
+  };
+
   render() {
     const {
       getImageDetails,
@@ -21,7 +36,8 @@ export class ImageDetails extends Component {
       user,
       observationTagsError,
       validateResponseAccess,
-      params: { customerImageId, scheduledMissionId, shareToken },
+      params: { customerImageId, scheduledMissionId },
+      imageDetailsData,
     } = this.props;
     const actions = {
       getImageDetails,
@@ -29,39 +45,22 @@ export class ImageDetails extends Component {
       shareMemberPicture,
     };
     return (
-      <div>
-        <Request
-          authorizationRedirect
-          serviceURL={IMAGE_DETAILS}
-          method="POST"
-          serviceExpiresFieldName="expires"
-          requestBody={{
-            callSource: CALLSOURCE_PHOTOVIEW,
-            customerImageId,
-            shareToken,
-            useShareToken: USE_SHARE_TOKEN_TRUE,
-          }}
-          render={({ fetchingContent, serviceResponse }) => (
-            <div>
-              <DeviceContext.Consumer>
-                {context => (
-                  <BoostrappedImageDetails
-                    actions={actions}
-                    observationTagsError={observationTagsError}
-                    callSource={CALLSOURCE_PHOTOVIEW}
-                    customerImageId={customerImageId}
-                    scheduledMissionId={scheduledMissionId}
-                    user={user}
-                    validateResponseAccess={validateResponseAccess}
-                    {...context}
-                    {...serviceResponse}
-                  />
-                )}
-              </DeviceContext.Consumer>
-            </div>
-          )}
-        />
-      </div>
+      <DeviceContext.Consumer>
+        {context => (
+          <BoostrappedImageDetails
+            actions={actions}
+            observationTagsError={observationTagsError}
+            callSource={CALLSOURCE_PHOTOVIEW}
+            customerImageId={customerImageId}
+            scheduledMissionId={scheduledMissionId}
+            user={user}
+            validateResponseAccess={validateResponseAccess}
+            refetchData={this.fetchData}
+            {...context}
+            {...imageDetailsData}
+          />
+        )}
+      </DeviceContext.Consumer>
     );
   }
 }

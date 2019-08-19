@@ -62,6 +62,7 @@ class ObservationsForm extends Component {
       customerImageId,
       scheduledMissionId,
       intl,
+      refetchData,
     } = this.props;
     const { title, observation } = this.state;
     if (!title || !observation) {
@@ -72,13 +73,13 @@ class ObservationsForm extends Component {
         scheduledMissionId,
         title,
         observation
-      ).then(() =>
-        /*this.setState({
+      ).then(() => {
+        this.setState({
           showPrompt: true,
           promptText: 'Saved!',
-        })*/
-        window.location.reload()
-      );
+        });
+        refetchData();
+      });
       this.setState(() => ({ title: '', observation: '' }));
     }
   };

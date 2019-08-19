@@ -137,18 +137,17 @@ class BootstrappedImageDetails extends Component {
     } = this.props;
 
     shareMemberPicture({ customerImageId }).then(data =>
-      /*this.setState({
+      this.setState({
         isOpen: true,
         promptText: data.payload.sharePrompt,
-      })*/
-      window.location.reload()
+      })
     );
   };
-  /*
+
   onEdit = () => {
     const { observationLog, observationTitle } = this.props;
     console.log(observationLog, observationTitle);
-  };*/
+  };
 
   render() {
     const {
@@ -202,13 +201,13 @@ class BootstrappedImageDetails extends Component {
               dangerouslySetInnerHTML={{ __html: promptText || likePrompt }}
             />
           </Modal>
-          {/*{canEditFlag && (
+          {canEditFlag && (
             <div className="pull-right my-3">
               <Btn mod="circle" onClick={this.onEdit}>
                 <Icon i="pencil" />
               </Btn>
             </div>
-          )}*/}
+          )}
           {canShareFlag && (
             <div className="pull-right my-3">
               <Button onClick={this.onShare}>Share</Button>
