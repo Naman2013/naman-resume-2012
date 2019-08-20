@@ -256,8 +256,8 @@
 
     .list {
       display: flex;
-      justify-content: space-between;
-      padding: 0 40px 50px;
+      justify-content: space-around;
+      padding: 0 15px 25px;
     }
 
     .quest-list-item {
@@ -278,19 +278,18 @@
       .quest-list-more {
         .quest-list-more-title {
           text-align: center;
+          padding: 51px 40px 40px;
         }
 
         .list {
-          flex-direction: column;
+          flex-direction: row;
           align-items: center;
+          flex-wrap: wrap;
 
           .quest-list-item {
-            margin-top: 20px;
+            margin: 20px auto;
           }
 
-          .quest-list-item:first-child {
-            margin-top: 0;
-          }
         }
 
        }
