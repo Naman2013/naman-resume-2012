@@ -270,6 +270,7 @@
 
 @media (max-width: $screen-md-min) {
   .quest-complete__body {
+    background-color: $romance;
     .quest-complete__body-content {
       max-width: 90%;
       width: auto;
