@@ -23,6 +23,13 @@ export const initialState: TInitialState = {
   accountTypeSection: {},
   accountDetails: {},
   accountCancelSection: {},
+  editPaymentSection: {
+    curPaymentInfo: {
+      cardType: null,
+      last4: null,
+      expirationDate: null,
+    }
+  },
   showForgetPasswordPopup: false,
   forgetPasswordText: '',
 
@@ -82,6 +89,7 @@ function fetchAccountSettingsSuccess(state, action) {
     accountTypeSection,
     accountDetails,
     accountCancelSection,
+    editPaymentSection,
   } = action.payload;
   return {
     ...state,
@@ -91,6 +99,7 @@ function fetchAccountSettingsSuccess(state, action) {
     accountTypeSection,
     accountDetails,
     accountCancelSection,
+    editPaymentSection,
   };
 }
 

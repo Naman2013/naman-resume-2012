@@ -9,6 +9,7 @@ import { reducer } from 'redux-form';
 // v4
 import logIn from 'app/modules/login/reducer';
 import accountSettings from 'app/modules/account-settings/reducer';
+import customerAdminTools from 'app/modules/customer-admin-tools/reducer';
 import about from './about/reducer';
 import activeTelescopeMissions from './active-telescope-missions/active-telescope-missions-reducer';
 import adStats from './ad-management/ad-stats';
@@ -188,6 +189,7 @@ export default combineReducers({
   telescope,
   missions,
   accountSettings,
+  customerAdminTools,
   missionDetails,
   imageDetails,
   galleryDetails,

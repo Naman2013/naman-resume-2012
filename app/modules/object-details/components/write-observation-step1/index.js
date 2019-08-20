@@ -10,6 +10,7 @@ export class WriteObservationStep1 extends Component {
     const { objectId } = objectDetails;
     getMyPictures({
       viewType: 'photoRoll',
+      viewType2: 'shareMyPhotos',
       astroObjectIds: [objectId],
     });
   }
@@ -23,30 +24,25 @@ export class WriteObservationStep1 extends Component {
       isFetching,
     } = this.props;
     const { customerImageId, scheduledMissionId } = imageDetails;
-    
+
     return (
       <div className="write-observation-step1">
         {!isFetching && myPictures?.imageList?.length > 0 && (
           <>
             <h1 className="modal-h">Select an Image for your Observation.</h1>
             <Row>
-              <Col md={6} xl={4}>
-                <WriteObservationImageCard
-                  imageData={myPictures?.imageList[0]}
-                  objectDetails={objectDetails}
-                  onClick={() => selectImage(myPictures?.imageList[0])}
-                  defaultCard
-                />
-              </Col>
-              {myPictures?.imageList.map(item => (
-                <Col md={6} xl={4}>
-                  <WriteObservationImageCard
-                    imageData={item}
-                    objectDetails={objectDetails}
-                    onClick={() => selectImage(item)}
-                  />
-                </Col>
-              ))}
+              {myPictures?.imageList.map(
+                item =>
+                  item.canShareFlag && (
+                    <Col md={6} xl={4}>
+                      <WriteObservationImageCard
+                        imageData={item}
+                        objectDetails={objectDetails}
+                        onClick={() => selectImage(item)}
+                      />
+                    </Col>
+                  )
+              )}
             </Row>
           </>
         )}

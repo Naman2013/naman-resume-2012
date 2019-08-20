@@ -1,0 +1,11 @@
+@import "~app/styles/variables/colors.scss";
+
+.remove-gallery-image-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  color: $black;
+  cursor: pointer;
+}

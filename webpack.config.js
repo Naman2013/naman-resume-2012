@@ -43,6 +43,7 @@ module.exports = {
       'redux-logger',
       'redux-thunk',
     ],*/
+    vendors: ['babel-polyfill'],
     bundle: './index.js',
   },
   // output: {
@@ -134,7 +135,7 @@ module.exports = {
     }),
 
     new webpack.EnvironmentPlugin({
-      SENTRY_ENV: 'PRODUCTION'
+      SENTRY_ENV: 'PRODUCTION',
     }),
 
     new MiniCssExtractPlugin({
