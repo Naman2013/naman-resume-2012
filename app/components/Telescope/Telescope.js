@@ -24,7 +24,7 @@ import { moodyBleu, romance } from '../../styles/variables/colors_tiles_v4';
 import ModalTelescope from './ModalTelescope';
 
 const MAX_RESOLUTION = 250;
-const MAX_DURATION = 10000;
+const MAX_DURATION = 4000;
 const ZOOM_OUT_DURATION = MAX_DURATION / 2;
 const MAX_FOV_FLIPS = 5;
 
