@@ -120,7 +120,7 @@ class ObservationsForm extends Component {
             className="observation-control"
           />
           <textarea
-            placeholder="Tell us something interesting and earn Gravity!"
+            placeholder="Tell us something interesting and informative."
             value={observation}
             onChange={this.onObservationChange}
             className="observation-control"
