@@ -71,7 +71,7 @@ const TabConditions = props => {
           domeCamURL={domeCam.domeCamURL}
           {...props}
           obsId={observatoryList[0]?.obsId}
-          widgetId={observatoryList[0]?.FacilityWebcamTimelapseWidgetId}
+          widgetId={currentObservatory.DomecamTimelapseWidgetId}
         />
       </div>
 
@@ -79,7 +79,7 @@ const TabConditions = props => {
         <PicoDelTeidesWidget
           {...props}
           obsId={observatoryList[1]?.obsId}
-          widgetId={observatoryList[1]?.FacilityWebcamTimelapseWidgetId}
+          widgetId={currentObservatory.FacilityWebcamTimelapseWidgetId}
           title={facilityWebcam.title}
           facilityWebcamUrl={facilityWebcam.facilityWebcamURL}
         />

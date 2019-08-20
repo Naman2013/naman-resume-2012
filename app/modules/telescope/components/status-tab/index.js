@@ -55,7 +55,7 @@ export const StatusTab = props => {
                 domeCam={domeCam}
                 domeCamURL={domeCam.domeCamURL}
                 activeTelescope={currentObservatory}
-                widgetId={observatoryList[0]?.FacilityWebcamTimelapseWidgetId}
+                widgetId={currentObservatory.DomecamTimelapseWidgetId}
               />
             </Col>
             <Col lg={4} md={12} sm={12}>
@@ -66,7 +66,7 @@ export const StatusTab = props => {
                 activeTelescope={currentTelescope}
                 facilityWebcamUrl={facilityWebcam.facilityWebcamURL}
                 observatoryData={currentObservatory}
-                widgetId={observatoryList[1]?.FacilityWebcamTimelapseWidgetId}
+                widgetId={currentObservatory.FacilityWebcamTimelapseWidgetId}
               />
             </Col>
           </Row>
