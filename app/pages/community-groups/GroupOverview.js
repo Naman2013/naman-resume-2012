@@ -15,7 +15,10 @@ import { DeviceContext } from 'providers/DeviceProvider';
 import Header from 'app/components/community-groups/overview/header';
 import FullInformationOverview from 'app/components/community-groups/overview/full-information-container';
 import CenterColumn from 'app/components/common/CenterColumn';
-import { modalStyleFullPage, customModalStylesBlackOverlay } from 'app/styles/mixins/utilities';
+import {
+  modalStyleFullPage,
+  customModalStylesBlackOverlay,
+} from 'app/styles/mixins/utilities';
 import MembersList from 'app/components/community-groups/overview/members-list';
 import BackBar from 'app/components/common/style/buttons/BackBar';
 import PromptWithClose from 'app/components/community-groups/prompt-with-close';
@@ -101,9 +104,13 @@ class CommunityGroupOverview extends Component {
       actions,
     } = this.props;
 
-    actions.joinOrLeaveGroup({
-      discussionGroupId: groupId,
-    });
+    actions
+      .joinOrLeaveGroup({
+        discussionGroupId: groupId,
+      })
+      .then(() => {
+        this.refreshHeader();
+      });
   };
 
   showInformation = e => {
@@ -122,6 +129,7 @@ class CommunityGroupOverview extends Component {
         />
       ),
     });
+    this.refreshHeader();
   };
 
   closeModal = e => {
@@ -186,7 +194,7 @@ class CommunityGroupOverview extends Component {
               >
                 <BackBar onClickEvent={this.closeModal} />
                 <Header
-                  condensed={true}
+                  condensed
                   showInformation={this.showInformation}
                   joinOrLeaveGroup={this.joinLeaveGroup}
                   discussionGroupId={groupId}

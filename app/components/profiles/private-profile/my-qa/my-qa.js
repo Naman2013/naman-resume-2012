@@ -81,7 +81,7 @@ class MyQa extends Component {
     return (
       <div className="root">
         <div className="main-block">
-          {totalCount === 0 && params.filter === 'asked' ? (
+          {totalCount === 0 && params.filter === 'asked' && !params.public ? (
             <InfoTile
               //subject={intl.formatMessage(messages.InfoTileSubject)}
               title={intl.formatMessage(messages.InfoTileSubject)}

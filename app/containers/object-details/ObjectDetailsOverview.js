@@ -156,6 +156,8 @@ const obsData = resp => ({
   likePrompt: resp.likePrompt,
   timeDisplay: resp.observationTimeDisplay,
   showLikePrompt: resp.showLikePrompt,
+  commentsCount: resp.commentsCount,
+  iconFileData: resp.iconFileData,
 });
 
 @connect(
@@ -217,6 +219,8 @@ class Overview extends Component {
                     likePrompt={observation.likePrompt}
                     observationTimeDisplay={observation.timeDisplay}
                     showLikePrompt={observation.showLikePrompt}
+                    commentsCount={observation.commentsCount}
+                    iconFileData={observation.iconFileData}
                     handleLike={fetchLikeAction}
                     customerImageId={
                       modeledResult.featuredObservation.customerImageId
