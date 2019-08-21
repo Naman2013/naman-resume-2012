@@ -32,7 +32,7 @@ const MainContainer = ({
   validateResponseAccess,
   refetchData,
 }) => {
-  const [isEditMode, setEditMode] = useState(!!observationLog);
+  const [isEditMode, setEditMode] = useState(!observationLog);
   const [title, setTitle] = useState('');
   const [observation, setObservation] = useState('');
 

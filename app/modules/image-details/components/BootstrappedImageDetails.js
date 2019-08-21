@@ -98,18 +98,6 @@ const BootstrappedImageDetails = props => {
         </div>
       </div>
 
-      {/*<div className="row">
-        <div className="col-md-8 mb-5 main-container">
-          <MainContainer {...props} actions={actions} />
-        </div>
-        <div className="col-md-4 mb-5 main-container">
-          <AsideContainer
-            {...props}
-            showMissionRelatedInfo={showMissionRelatedInfo}
-          />
-        </div>
-      </div>*/}
-
       <ResponsiveTwoColumnContainer
         renderNavigationComponent={navProps => (
           <TwoTabbedNav

@@ -49,20 +49,22 @@ export class ImageDetails extends Component {
       <div>
         <Spinner loading={isFetching} />
         <DeviceContext.Consumer>
-          {context => (
-            <BoostrappedImageDetails
-              actions={actions}
-              observationTagsError={observationTagsError}
-              callSource={CALLSOURCE_PHOTOVIEW}
-              customerImageId={customerImageId}
-              scheduledMissionId={scheduledMissionId}
-              user={user}
-              validateResponseAccess={validateResponseAccess}
-              refetchData={this.fetchData}
-              {...context}
-              {...imageDetailsData}
-            />
-          )}
+          {context =>
+            imageDetailsData.ver && (
+              <BoostrappedImageDetails
+                actions={actions}
+                observationTagsError={observationTagsError}
+                callSource={CALLSOURCE_PHOTOVIEW}
+                customerImageId={customerImageId}
+                scheduledMissionId={scheduledMissionId}
+                user={user}
+                validateResponseAccess={validateResponseAccess}
+                refetchData={this.fetchData}
+                {...context}
+                {...imageDetailsData}
+              />
+            )
+          }
         </DeviceContext.Consumer>
       </div>
     );
