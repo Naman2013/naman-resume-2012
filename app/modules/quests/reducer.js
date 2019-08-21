@@ -9,6 +9,7 @@ export const TYPE = constants('quests', [
   '~GET_QUEST_STEP',
   'CLEAR_QUEST_STEP_DATA',
   '~GET_QUEST_OUTPUT',
+  '~GET_QUEST_COMPLETED',
   '~GET_DATA_COLLECTION',
   '~GET_DATA_COLLECTION_SLOT_IMAGES',
   '~SET_DATA_COLLECTION_SLOT_IMAGES',
@@ -29,6 +30,10 @@ const initialState = {
 
   stepData: {},
   questOutput: {},
+  questCompletedData: {
+    stepsCompletedList: [],
+    suggestedQuestsList: [],
+  },
   questDataCollection: {},
   questDataCollectionSlotImages: {
     imageList: [],
@@ -64,6 +69,10 @@ export default handleActions(
     [TYPE.GET_QUEST_OUTPUT]: start,
     [TYPE.GET_QUEST_OUTPUT_SUCCESS]: getQuestOutputSuccess,
     [TYPE.GET_QUEST_OUTPUT_ERROR]: error,
+
+    [TYPE.GET_QUEST_COMPLETED]: start,
+    [TYPE.GET_QUEST_COMPLETED_SUCCESS]: getQuestCompletedSuccess,
+    [TYPE.GET_QUEST_COMPLETED_ERROR]: error,
 
     [TYPE.GET_DATA_COLLECTION]: start,
     [TYPE.GET_DATA_COLLECTION_SUCCESS]: getDataCollectionSuccess,
@@ -160,6 +169,16 @@ function getQuestOutputSuccess(state, { payload }) {
     ...state,
     isFetching: false,
     questOutput: { ...questOutput, [payload.moduleId]: payload },
+  };
+}
+
+function getQuestCompletedSuccess(state, { payload }) {
+  return {
+    ...state,
+    isFetching: false,
+    questCompletedData: {
+      ...payload,
+    },
   };
 }
 

@@ -4,6 +4,7 @@ import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
 import CenterColumn from 'app/components/common/CenterColumn';
 import GenericButton from 'app/components/common/style/buttons/Button';
 import Medallion from 'app/components/common/TiaraTitleSection/Medallion';
+import { CompleteCheckbox } from 'app/modules/quests/components/complete-checkbox';
 import {
   white_tile_paper,
   golden,
@@ -11,6 +12,7 @@ import {
 } from 'app/styles/variables/colors_tiles_v4';
 import style from './title-section.style';
 import _noop from 'lodash/noop';
+import { Button } from 'react-bootstrap';
 
 const QuestDetailsTitleSection = ({
   iconURL,
@@ -21,6 +23,7 @@ const QuestDetailsTitleSection = ({
   title,
   showInProgressButton,
   inProgressButtonCaption,
+  completed,
 }) => (
   <div className="root">
     <CenterColumn
@@ -50,15 +53,30 @@ const QuestDetailsTitleSection = ({
         {title}
       </h2>
       <div className="action-container">
-        {showActionButton ? (
+        {showActionButton && !completed ? (
           <GenericButton
             text={actionButtonCaption}
             onClickEvent={actionButtonEvent}
           />
         ) : null}
-        {showInProgressButton ? (
+
+        {showInProgressButton && !completed ? (
           <GenericButton text={inProgressButtonCaption} onClickEvent={_noop} />
         ) : null}
+
+        {completed && (
+          <>
+            <CompleteCheckbox completed={!completed} />
+
+            <Button onClick={() => {}} className="quest-download-pdf-btn">
+              <span className="icon-download" />
+            </Button>
+
+            <Button onClick={() => {}} className="quest-download-pdf-btn">
+              <img src="https://vega.slooh.com/assets/v4/icons/shield_icon.svg" />
+            </Button>
+          </>
+        )}
       </div>
     </CenterColumn>
 

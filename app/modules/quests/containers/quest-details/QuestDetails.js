@@ -70,6 +70,7 @@ export const QuestDetails = props => {
         actionButtonEvent={userActions.setupQuest}
         inProgressButtonCaption={pageMeta.inProgressButtonCaption}
         showInProgressButton={pageMeta.showInProgressButton}
+        completed={pageMeta.completed}
       />
       <CenterColumn>
         <GuideSection

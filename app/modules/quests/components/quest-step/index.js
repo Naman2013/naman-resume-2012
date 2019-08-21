@@ -91,12 +91,19 @@ export class QuestStep extends Component<TQuestStep> {
   };
 
   navigateToNextStep = () => {
-    const { routeParams } = this.props;
+    const { routeParams, stepData } = this.props;
     const { nextStepId } = this.state;
+    const { questCompletionList } = stepData;
     if (nextStepId !== null) {
-      browserHistory.push(
-        `/quest-details/${routeParams.questId}/${nextStepId}`
-      );
+      if (nextStepId !== questCompletionList[0].questCompletionModuleId) {
+        browserHistory.push(
+          `/quest-details/${routeParams.questId}/${nextStepId}`
+        );
+      } else {
+        browserHistory.push(
+          `/quest-completion/${routeParams.questId}/${stepData.questCompletionList[0].questCompletionModuleId}`
+        );
+      }
     }
   };
 
@@ -107,22 +114,19 @@ export class QuestStep extends Component<TQuestStep> {
       stepData = {},
       routeParams,
       resourceModal,
+      questActions,
       closeModal,
     } = this.props;
     const { prevStepId, nextStepId, stepKey, stepId } = this.state;
     const {
       readOnly,
-      stepTopTitle,
-      stepCompleted,
       stepHeaderTitle,
-      stepMenuList,
-      stepMenuHeader,
       stepFooterTitle,
       currentlyViewingCaption,
       nextButtonCaption,
       lastButtonCaption,
     } = stepData;
-    
+
     return (
       <div className="quest-step-page" key={stepKey}>
         <Spinner loading={loading} />
@@ -135,8 +139,9 @@ export class QuestStep extends Component<TQuestStep> {
           disablePrev={prevStepId === null}
           disableNext={nextStepId === null}
           stepId={routeParams.step}
-          stepMenuList={stepMenuList}
-          stepMenuTitle={stepMenuHeader}
+          stepMenuList={stepData?.stepMenuList}
+          questCompletionList={stepData?.questCompletionList}
+          stepMenuTitle={stepData?.stepMenuHeader}
         />
 
         <Modal

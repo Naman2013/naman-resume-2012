@@ -46,7 +46,11 @@ import {
 } from 'app/modules/profile';
 import ImagesLayout from 'app/modules/profile-photos/components/ImagesLayout';
 import { ProfilePhotos } from 'app/modules/profile-photos/components/profile-photos';
-import { QuestDetailsLazy, QuestStepLazy } from 'app/modules/quests';
+import {
+  QuestCompleteLazy,
+  QuestDetailsLazy,
+  QuestStepLazy,
+} from 'app/modules/quests';
 import { TelescopeDetailsMain } from 'app/modules/telescope';
 import { TelescopeNavigation } from 'app/modules/telescope/components/old/telescope-navigation';
 import GroupCreate from 'app/pages/community-groups/GroupCreate';
@@ -435,6 +439,11 @@ const AppRouter = ({ setPreviousInstrument }) => (
       <Route
         path="quest-details/:questId"
         component={QuestDetailsLazy}
+        onEnter={validateUser}
+      />
+      <Route
+        path="/quest-completion/:questId/:questCompletionModuleId"
+        component={QuestCompleteLazy}
         onEnter={validateUser}
       />
       <Route

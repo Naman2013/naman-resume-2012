@@ -1,0 +1,391 @@
+@import '../../../../styles/variables/colors.scss';
+@import '../../../../styles/variables/fonts.scss';
+@import '../../../../styles/variables/media-queries.scss';
+
+.quest-complete {
+  position: relative;
+  background-color: $faintGray;
+}
+
+.quest-complete__body {
+  width: 100%;
+  height: auto;
+
+  .quest-complete__body-banner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-image: url("https://vega.slooh.com/assets/v4/common/guide_header_bg_image.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 440px;
+    z-index: 1;
+    font-family: $primary-font;
+
+    .title {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-align: center;
+      color: $golda;
+      text-transform: uppercase;
+      padding-top: 82px;
+    }
+
+    .subtitle {
+      font-size: 36px;
+      font-weight: 500;
+      letter-spacing: 4px;
+      text-align: center;
+      color: $romance;
+      text-transform: uppercase;
+      margin-top: 20px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid $black;
+    }
+
+    .vertical-line {
+      height: 40px;
+      width: 1px;
+      background-color: $black;
+    }
+  }
+
+  .quest-complete__body-content {
+    width: 780px;
+    height: auto;
+    background-color: $romance;
+    box-shadow: 0 0 6px 0 $shadows;
+    margin: 0 auto;
+    transform: translateY(-150px);
+  }
+
+  .quest-emblem {
+    position: relative;
+
+    .blue-shield {
+      position: absolute;
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-image: url(https://vega.slooh.com/assets/v4/common/quest_shield.png);
+      height: 112px;
+      width: 112px;
+      left: calc(50% - 56px);
+      top: -60px;
+
+      .icon-container {
+        position: relative;
+        display: inline-block;
+        top: 31px;
+        left: 36px;
+
+        img {
+          width: 40px;
+          height: 40px;
+        }
+      }
+    }
+  }
+
+  .quest-badge {
+    display: flex;
+    flex-direction: column;
+    padding: 0 40px;
+  }
+  .quest-badge__header {
+    padding-top: 100px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .quest-badge__header-left {
+
+    .title {
+      font-family: $primary-font;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      color: $lightHeadedAstronaut;
+    }
+
+    .subtitle {
+      font-family: $primary-font;
+      font-size: 30px;
+      color: $lightHeadedAstronaut;
+      margin-top: 12px;
+    }
+  }
+
+  .quest-badge__header-right, .quest-badge-mobile-download {
+    display: flex;
+    align-items: center;
+
+    .download {
+      width: 40px;
+      height: 40px;
+      text-align: center;
+      font-size: 18px;
+      border: 1px dashed $lightHeadedAstronaut;
+      border-radius: 50%;
+      padding-top: 7px;
+      cursor: pointer;
+
+      .icon-download:before {
+        font-weight: 700 !important;
+        line-height: 22px;
+        font-size: 18px;
+      }
+    }
+  }
+
+  .quest-badge__body {
+    margin-top: 25px;
+    font-family: $secondary-font;
+
+    .quest-badge-mobile {
+      display: none;
+    }
+  }
+  .quest-badge-review {
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid $hawkesBlue;
+    border-bottom: 1px solid $hawkesBlue;
+
+    .title {
+      font-family: $primary-font;
+      font-size: 20px;
+      color: $lightHeadedAstronaut;
+      text-transform: none;
+      font-weight: 500;
+    }
+
+    .review-btn {
+      width: 160px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      height: 100%;
+      border-left: 1px solid $hawkesBlue;
+    }
+  }
+
+  .quest-badge-review-btn {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding-left: 20px;
+    border-left: 1px solid $hawkesBlue;
+    cursor: pointer;
+  }
+
+  .quest-badge-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-family: $primary-font;
+  }
+
+  .quest-list-element {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 80px;
+    height: auto;
+    border-bottom: 1px solid $hawkesBlue;
+
+    .title {
+      color: $raven;
+      font-family: $primary-font;
+      font-size: 19px;
+      text-transform: none;
+      font-weight: 500;
+      width: calc(100% - 60px);
+    }
+
+    .quest-complete-checkbox {
+      background-color: $lightHeadedAstronaut;
+      box-shadow: none;
+    }
+  }
+
+  .quest-badge-details {
+    margin-top: 40px;
+
+    .title {
+      font-family: $primary-font;
+      font-size: 11px;
+      font-weight: 500;
+      line-height: 1;
+      letter-spacing: 1px;
+      color: $lightHeadedAstronaut;
+      text-transform: uppercase;
+    }
+
+    .info {
+      margin-top: 18px;
+      font-family: $secondary-font;
+      font-size: 19px;
+      font-weight: 400;
+      line-height: 1.53;
+      color: $raven;
+      width: 100%;
+      letter-spacing: 0.5px;
+    }
+  }
+
+  .quest-list-more {
+    background-image: url("https://vega.slooh.com/assets/v4/common/White_Paper_Subtle.png");
+    background-size: contain;
+    background-repeat: repeat;
+    margin-top: 70px;
+
+    .quest-list-more-title {
+      font-family: $primary-font;
+      font-size: 24px;
+      font-weight: 500;
+      line-height: 1.21;
+      color: $lightHeadedAstronaut;
+      padding: 51px 0 40px 40px;
+    }
+
+    .list {
+      display: flex;
+      justify-content: space-around;
+      padding: 0 15px 25px;
+    }
+
+    .quest-list-item {
+      padding: 0 10px;
+      position: relative;
+      width: 320px;
+    }
+  }
+}
+
+@media (max-width: $screen-md-min) {
+  .quest-complete__body {
+    background-color: $romance;
+    .quest-complete__body-content {
+      max-width: 90%;
+      width: auto;
+      margin: 0 auto;
+
+      .quest-list-more {
+        .quest-list-more-title {
+          text-align: center;
+          padding: 51px 40px 40px;
+        }
+
+        .list {
+          flex-direction: row;
+          align-items: center;
+          flex-wrap: wrap;
+
+          .quest-list-item {
+            margin: 20px auto;
+          }
+
+        }
+
+       }
+    }
+  }
+}
+
+@media (max-width: $screen-sm-min) {
+  .quest-complete__body {
+    .quest-complete__body-banner {
+      height: 430px;
+      .subtitle {
+        font-size: 18px;
+        margin-top: 10px;
+        border-bottom: unset;
+      }
+      .vertical-line {
+        display: none;
+      }
+    }
+
+    .quest-complete__body-content {
+      box-shadow: unset;
+      transform: translateY(-205px);
+      .quest-badge {
+        padding: 0;
+        .quest-badge__body {
+          position: relative;
+          width: 100vw;
+          transform: translateX(-5vw);
+          padding: 0;
+        }
+        .quest-badge__header {
+          padding: 60px 40px 25px;
+          box-shadow: 0 0 6px 0 #ced2d8;
+          .quest-badge__header-left {
+            text-align: center;
+            .title {
+              > span {
+                display: none;
+              }
+            }
+          }
+          .quest-badge__header-right {
+            display: none;
+          }
+        }
+        .quest-badge__body {
+          .quest-badge-review {
+            border: unset;
+            padding: 0 40px;
+            .quest-badge-review-btn {
+              display: none;
+            }
+          }
+          .quest-badge-mobile {
+            display: flex;
+            flex-direction: column;
+            .quest-badge-navigation {
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              padding: 5px 40px;
+            }
+            .quest-badge-accomplishments {
+              margin-top: 15px;
+              height: 56px;
+              border-top: 1px solid #d9dee4;
+              border-bottom: 1px solid #d9dee4;
+              padding: 0 40px;
+              > span {
+                line-height: 56px;
+                font-size: 11px;
+                color: #41566f;
+                letter-spacing: 0.6px;
+                font-weight: 500;
+              }
+            }
+          }
+          .quest-badge-list {
+            .quest-list-element {
+              padding: 0 40px;
+              .title {
+                width: 100%;
+              }
+              .quest-complete-checkbox {
+                display: none;
+              }
+            }
+          }
+          .quest-badge-details {
+            padding: 0 40px;
+          }
+        }
+      }
+    }
+  }
+}
