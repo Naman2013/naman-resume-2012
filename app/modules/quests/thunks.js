@@ -1,6 +1,7 @@
 import {
   getQuestOutputApi,
   getQuestStepApi,
+  getQuestCompletedApi,
   getDataCollectionApi,
   getDataCollectionSlotImagesApi,
   setDataCollectionSlotImageApi,
@@ -42,6 +43,20 @@ export const getQuestOutput = (questId, moduleId) => (dispatch, getState) => {
   return getQuestOutputApi({ ...opts })
     .then(result => dispatch(ACTION.getQuestOutputSuccess(result.data)))
     .catch(error => dispatch(ACTION.getQuestOutputError(error)));
+};
+
+export const getQuestCompleted = data => (dispatch, getState) => {
+  const { at, token, cid } = getState().user;
+  dispatch(ACTION.getQuestCompleted());
+  const opts = {
+    at,
+    cid,
+    token,
+    ...data,
+  };
+  return getQuestCompletedApi({ ...opts })
+    .then(result => dispatch(ACTION.getQuestCompletedSuccess(result.data)))
+    .catch(error => dispatch(ACTION.getQuestCompletedError(error)));
 };
 
 export const getDataCollection = (questId, moduleId) => (

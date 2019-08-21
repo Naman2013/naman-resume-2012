@@ -18,6 +18,7 @@ export const QuestStepHeader = ({
   stepId,
   stepMenuList,
   stepMenuTitle,
+  questCompletionList,
 }) => {
   const [isOpen, toggleMenu] = useState(false);
   return (
@@ -78,6 +79,7 @@ export const QuestStepHeader = ({
         stepId={stepId}
         isOpen={isOpen}
         stepMenuList={stepMenuList}
+        questCompletionList={questCompletionList}
         title={stepMenuTitle}
         onClose={() => toggleMenu(false)}
         questId={questId}

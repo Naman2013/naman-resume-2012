@@ -15,8 +15,8 @@ import { DeviceContext } from 'providers/DeviceProvider';
 import questActions from 'app/modules/quest-details/actions';
 import { validateResponseAccess } from 'app/modules/authorization/actions';
 import { START_QUEST } from 'app/services/quests';
-import Quest from './QuestDetails';
 import { Spinner } from 'app/components/spinner/index';
+import Quest from './QuestDetails';
 
 const { func, number, oneOfType, shape, string } = PropTypes;
 
@@ -71,8 +71,18 @@ export class ConnectedQuestDetails extends Component {
   };
 
   goToStep = stepId => {
-    const { questId } = this.props;
-    browserHistory.push(`/quest-details/${questId}/${stepId}`);
+    const {
+      questId,
+      pageMeta: { questCompletionList },
+    } = this.props;
+
+    if (stepId === 0) {
+      browserHistory.push(
+        `/quest-completion/${questId}/${questCompletionList[0].questCompletionModuleId}`
+      );
+    } else {
+      browserHistory.push(`/quest-details/${questId}/${stepId}`);
+    }
   };
 
   render() {

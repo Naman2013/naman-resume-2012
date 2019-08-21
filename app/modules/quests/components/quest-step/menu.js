@@ -17,11 +17,18 @@ export const QuestStepContextMenu = ({
   menuTopAdjustment,
   questId,
   onClose,
+  questCompletionList,
 }) => {
   const goToStep = index => {
-    browserHistory.push(
-      `/quest-details/${questId}/${stepMenuList[index].stepModuleId}`
-    );
+    if (index === stepMenuList.length - 1) {
+      browserHistory.push(
+        `/quest-completion/${questId}/${questCompletionList[0].questCompletionModuleId}`
+      );
+    } else {
+      browserHistory.push(
+        `/quest-details/${questId}/${stepMenuList[index].stepModuleId}`
+      );
+    }
     if (typeof onClose === 'function') {
       onClose();
     }
