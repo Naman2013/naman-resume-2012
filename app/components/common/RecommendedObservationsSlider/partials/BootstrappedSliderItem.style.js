@@ -9,6 +9,7 @@ import {
   moodyBleu,
   shadows,
   lightHeadedAstronaut,
+  black,
 } from '../../../../styles/variables/colors_tiles_v4';
 import { primaryFont, secondaryFont } from '../../../../styles/variables/fonts';
 
@@ -141,10 +142,12 @@ export default css`
 
   .image-wrapper img {
     width: unset;
+    max-width: 100%;
     height: 100%;
     position: relative;
     left: 50%;
     transform: translateX(-50%);
+    object-fit: contain;
   }
 
   .links {
@@ -215,10 +218,6 @@ export default css`
     .card-obs {
       width: 80%;
     }
-    .image-wrapper {
-      width: 300px;
-      height: 300px;
-    }
     .image-wrapper-small {
       width: 240px;
       height: 240px;
@@ -229,14 +228,21 @@ export default css`
     .picture {
       min-width: 40%;
     }
-    .top {
-      padding: 80px 80px 50px;
-    }
     .top-small {
       padding: 50px;
     }
     .title {
       font-size: 24px;
+    }
+  }
+
+  @media screen and (min-width: 1200px) {
+    .image-wrapper {
+      width: 300px;
+      height: 300px;
+    }
+    .top {
+      padding: 80px 80px 50px;
     }
   }
 `;
