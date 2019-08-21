@@ -66,4 +66,8 @@ export default css.global`
   .dash-item-first .slick-next:before {
     background: url('https://vega.slooh.com/assets/v4/common/slider_arrow_white.svg') 0 0 no-repeat;
   }
+
+  .dash-obs .slick-list {
+    max-height: 500px;
+  }
 `;
