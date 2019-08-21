@@ -69,7 +69,10 @@ export class QuestQaAnswerForm extends PureComponent {
               className="qa-fill-blanks-question"
             >
               <label htmlFor={`qa-fill-blanks-question-${question.questionId}`}>
-                {question.questionText}
+                <span>{question.questionText}</span>
+                <div className="qa-free-form-scoring-text">
+                  {answers[question.questionIndex].scoringText}
+                </div>
               </label>
               <input
                 className="quest-qa-answer-input-field"
