@@ -5,34 +5,35 @@ import DomeCamTimelapseWidget from '../domecam-timelapse-widget';
 
 const inlineTitleStyle = {
   color: 'white',
-}
+};
 
 const inlineTimelapseStyle = {
   minWidth: '100%',
   width: '100%',
-}
+};
 
 export default function generateDomecamTabConfiguration({
   obsId,
   DomecamWidgetId,
   DomecamTimelapseWidgetId,
 }) {
-  return (
-  [
+  return [
     {
       tabText: 'Dome Cam',
       tabContent: (
         <CenterContent>
-          <DomeCamWidget obsId={obsId} DomecamWidgetId={DomecamWidgetId}/>
+          <DomeCamWidget obsId={obsId} DomecamWidgetId={DomecamWidgetId} />
         </CenterContent>
       ),
     },
     {
       tabText: 'Time Lapse',
       tabContent: (
-          <DomeCamTimelapseWidget obsId={obsId} DomecamTimelapseWidgetId={DomecamTimelapseWidgetId}/>
+        <DomeCamTimelapseWidget
+          obsId={obsId}
+          DomecamTimelapseWidgetId={DomecamTimelapseWidgetId}
+        />
       ),
     },
-  ]
-  );
+  ];
 }

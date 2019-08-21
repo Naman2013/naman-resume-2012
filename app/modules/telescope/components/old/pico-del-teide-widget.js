@@ -46,7 +46,7 @@ export class PicoDelTeidesWidget extends Component {
               offlineImageURL={offlineImageURL}
               refreshIntervalSec={refreshIntervalSec}
               domeCamTimelapseURL={facilityWebcamTimelapseURL}
-              DomecamTimelapseWidgetId={widgetId}
+              FacilityWebcamTimelapseWidgetId={widgetId}
               fetchingDomeCamTimelapseWidgetResult={
                 fetchingDomeCamTimelapseWidgetResult
               }
