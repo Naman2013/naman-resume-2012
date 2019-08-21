@@ -138,7 +138,6 @@ export default css`
     background-color: black;
     margin: 0;
     overflow: hidden;
-    background-color: ${black};
   }
 
   .image-wrapper img {

@@ -127,7 +127,6 @@ export default css`
     padding: 3px;
     margin: 0;
     overflow: hidden;
-    background-color: ${black};
   }
 
   .image-wrapper img {
