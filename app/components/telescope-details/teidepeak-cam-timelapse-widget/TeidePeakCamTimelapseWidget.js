@@ -20,7 +20,7 @@ const mapStateToProps = ({
   onlineStatus: teidePeakCamTimelapseWidgetResult.onlineStatus,
   widgetWidth: teidePeakCamTimelapseWidgetResult.widgetWidth,
   fetchingTeidePeakCamTimelapseWidgetResult:
-    telescopeOverview.fetchingTeidePeakCamTimelapseWidgetResult,
+  telescopeOverview.fetchingTeidePeakCamTimelapseWidgetResult,
 });
 
 const mapDispatchToProps = dispatch => ({

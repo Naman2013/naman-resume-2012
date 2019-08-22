@@ -78,7 +78,7 @@ const TabConditions = props => {
       <div className="tile-container">
         <PicoDelTeidesWidget
           {...props}
-          obsId={observatoryList[1]?.obsId}
+          obsId={currentObservatory.obsId}
           widgetId={currentObservatory.FacilityWebcamTimelapseWidgetId}
           title={facilityWebcam.title}
           facilityWebcamUrl={facilityWebcam.facilityWebcamURL}

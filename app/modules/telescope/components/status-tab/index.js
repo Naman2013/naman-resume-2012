@@ -60,7 +60,7 @@ export const StatusTab = props => {
             </Col>
             <Col lg={4} md={12} sm={12}>
               <PicoDelTeidesWidget
-                obsId={observatoryList[1]?.obsId}
+                obsId={currentObservatory.obsId}
                 teidePeakCam={teidePeakCam}
                 title={facilityWebcam.title}
                 activeTelescope={currentTelescope}
