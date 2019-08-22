@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import BackArrow from 'atoms/icons/BackArrow';
 import Dots from 'atoms/icons/Dots';
-import Btn from 'atoms/Btn/index';
+import { Button } from 'react-bootstrap';
 import { Link } from 'react-router';
 import cn from 'classnames';
-import { astronaut, lightHeadedAstronaut } from 'app/styles/variables/colors_tiles_v4';
+import {
+  astronaut,
+  lightHeadedAstronaut,
+} from 'app/styles/variables/colors_tiles_v4';
 import { QuestStepContextMenu } from './menu';
 import './header.scss';
 
@@ -19,6 +22,10 @@ export const QuestStepHeader = ({
   stepMenuList,
   stepMenuTitle,
   questCompletionList,
+  showHeaderNextButton,
+  enableHeaderNextButton,
+  showHeaderLastButton,
+  enableHeaderLastButton,
 }) => {
   const [isOpen, toggleMenu] = useState(false);
   return (
@@ -44,18 +51,24 @@ export const QuestStepHeader = ({
           dangerouslySetInnerHTML={{ __html: stepHeaderTitle }}
         />
         <div className="step-navigation">
-          <Btn
-            onClick={navigateToPrevStep}
-            className={cn('step-button-container', disablePrev && 'disabled')}
-          >
-            <div className="icon-slider-left prev" />
-          </Btn>
-          <Btn
-            onClick={navigateToNextStep}
-            className={cn('step-button-container', disableNext && 'disabled')}
-          >
-            <div className="icon-slider-right next" />
-          </Btn>
+          {showHeaderLastButton && (
+            <Button
+              onClick={navigateToPrevStep}
+              className={cn('step-button-container', disablePrev && 'disabled')}
+              disabled={!enableHeaderLastButton}
+            >
+              <div className="icon-slider-left prev" />
+            </Button>
+          )}
+          {showHeaderNextButton && (
+            <Button
+              onClick={navigateToNextStep}
+              className={cn('step-button-container', disableNext && 'disabled')}
+              disabled={!enableHeaderNextButton}
+            >
+              <div className="icon-slider-right next" />
+            </Button>
+          )}
           <div
             onClick={() => toggleMenu(!isOpen)}
             className={cn('step-button-container open-menu', { open: isOpen })}
