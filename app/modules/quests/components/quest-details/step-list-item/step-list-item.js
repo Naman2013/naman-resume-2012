@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import uniqueId from 'lodash/uniqueId';
 import { intlShape, injectIntl } from 'react-intl';
+import cx from 'classnames';
 import {
   horizontalArrow,
   complete,
@@ -16,54 +17,64 @@ const StepListItem = ({
   stepCompleted,
   stepStatusMsg,
   stepActionMsg,
+  stepEnabled,
+  showActionMsg,
+  showStepCard,
   goToStep,
   intl,
-}) => (
-  <div className="root" key={uniqueId()}>
-    <h5 className="title">
-      {stepTitle}
-      {stepCompleted ? (
-        <img
-          className="check-icon"
-          src={complete}
-          alt={intl.formatMessage(messages.CompletedIcon)}
-        />
-      ) : (
-        <img
-          className="check-icon"
-          src={incomplete}
-          alt={intl.formatMessage(messages.IncompletedIcon)}
-        />
-      )}
-    </h5>
-
-    <div className="action-container">
-      <div className="action-left">
-        {stepStatusMsg}
+}) => {
+  return showStepCard ? (
+    <div className={cx('root', { disabled: !stepEnabled })} key={uniqueId()}>
+      <h5 className="title">
+        {stepTitle}
         {stepCompleted ? (
           <img
-            className="check"
+            className="check-icon"
             src={complete}
             alt={intl.formatMessage(messages.CompletedIcon)}
           />
         ) : (
           <img
-            className="check"
+            className="check-icon"
             src={incomplete}
             alt={intl.formatMessage(messages.IncompletedIcon)}
           />
         )}
-      </div>
-      <div className="action-right" onClick={() => goToStep(stepModuleId)}>
-        <span className="action-message">{stepActionMsg}</span>
-        <div className="arrow-container">
-          <img alt={intl.formatMessage(messages.GoTo)} src={horizontalArrow} />
+      </h5>
+
+      <div className="action-container">
+        <div className="action-left">
+          {stepStatusMsg}
+          {stepCompleted ? (
+            <img
+              className="check"
+              src={complete}
+              alt={intl.formatMessage(messages.CompletedIcon)}
+            />
+          ) : (
+            <img
+              className="check"
+              src={incomplete}
+              alt={intl.formatMessage(messages.IncompletedIcon)}
+            />
+          )}
         </div>
+        {showActionMsg && (
+          <div className="action-right" onClick={() => goToStep(stepModuleId)}>
+            <span className="action-message">{stepActionMsg}</span>
+            <div className="arrow-container">
+              <img
+                alt={intl.formatMessage(messages.GoTo)}
+                src={horizontalArrow}
+              />
+            </div>
+          </div>
+        )}
       </div>
+      <style jsx>{style}</style>
     </div>
-    <style jsx>{style}</style>
-  </div>
-);
+  ) : null;
+};
 
 StepListItem.propTypes = {
   stepModuleId: PropTypes.number.isRequired,
