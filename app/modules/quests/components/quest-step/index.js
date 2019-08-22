@@ -18,6 +18,7 @@ import QuestModuleDataCollection from '../../containers/quest-modules/data-colle
 import QuestModuleQaFreeForm from '../../containers/quest-modules/qa-free-form';
 import QuestModuleQaFillBlanks from '../../containers/quest-modules/qa-fill-blanks';
 import QuestModuleQaMultipleChoice from '../../containers/quest-modules/qa-multiple-choice';
+import QuestModuleGuidePanel from '../../containers/quest-modules/guide-panel';
 
 type TQuestStep = {
   moduleList: QuestStepModule,
@@ -218,6 +219,14 @@ export class QuestStep extends Component<TQuestStep> {
                         key={`quest-qa-multiplechoice-${module.moduleId}`}
                         questId={routeParams.questId}
                         refreshQuestStep={this.getQuestStep}
+                      />
+                    )}
+
+                    {module.moduleType === questModuleType.guidepanel && (
+                      <QuestModuleGuidePanel
+                        module={module}
+                        key={`quest-text-output-${module.moduleId}`}
+                        readOnly={readOnly}
                       />
                     )}
                   </>

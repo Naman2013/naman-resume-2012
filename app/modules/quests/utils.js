@@ -1,18 +1,22 @@
 import { questModuleType } from 'app/modules/quests/types';
 
+const isSeparateCurrentModule = moduleType =>
+  moduleType === questModuleType.textoutput ||
+  moduleType === questModuleType.guidepanel;
+
 export const getQuestModuleList = (moduleList = []) => {
   const newModuleList = [];
   let prevModuleType = null;
 
   if (moduleList.length > 0) {
     moduleList.map(module => {
-      if (!prevModuleType && module.moduleType === questModuleType.textoutput) {
+      if (!prevModuleType && isSeparateCurrentModule(module.moduleType)) {
         newModuleList.push([{}]);
       }
 
       if (
-        module.moduleType === questModuleType.textoutput ||
-        prevModuleType === questModuleType.textoutput ||
+        isSeparateCurrentModule(module.moduleType) ||
+        isSeparateCurrentModule(prevModuleType) ||
         !prevModuleType
       ) {
         newModuleList.push([{ ...module }]);

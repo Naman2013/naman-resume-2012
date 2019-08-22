@@ -11,6 +11,7 @@ import {
   setQaFillBlanksApi,
   getQaMultipleChoiceApi,
   setQaMultipleChoiceApi,
+  getQuestGuidePanelApi,
 } from 'app/modules/quests/api';
 import { ACTION } from './reducer';
 
@@ -195,3 +196,20 @@ export const setQaMultipleChoice = data => (dispatch, getState) => {
     .catch(error => dispatch(ACTION.setQaMultipleChoiceError(error)));
 };
 // END: QUEST QA MODULES
+
+// QUEST GUIDES MODULES
+export const getQuestGuidePanel = data => (dispatch, getState) => {
+  const { at, token, cid } = getState().user;
+  dispatch(ACTION.getQuestGuidePanel());
+  const opts = {
+    at,
+    cid,
+    token,
+    ...data,
+  };
+  return getQuestGuidePanelApi({ ...opts })
+    .then(result => dispatch(ACTION.getQuestGuidePanelSuccess(result.data)))
+    .catch(error => dispatch(ACTION.getQuestGuidePanelError(error)));
+};
+
+// END: QUEST GUIDES MODULES
