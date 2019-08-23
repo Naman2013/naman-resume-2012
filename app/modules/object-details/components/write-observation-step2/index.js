@@ -59,21 +59,22 @@ export class WriteObservationStep2 extends Component {
         </div>
 
         {observationLog ? (
-          <div className="observation-details-card">
-            <div
-              className="observation-details-title"
-              dangerouslySetInnerHTML={{ __html: observationTitle }}
-            />
+          <div>
             <div className="observation-details-info">
-              <div className="observation-details-author">{owner}</div>
               <div className="observation-details-date">{`${displayDate} ${displayTime}`}</div>
             </div>
-            <div
-              className="observation-details-content"
-              dangerouslySetInnerHTML={{ __html: observationLog }}
-            />
-            <div className="observation-details-actions">
-              <Button onClick={onShare}>Share</Button>
+            <div className="observation-details-card">
+              <div
+                className="observation-details-title"
+                dangerouslySetInnerHTML={{ __html: observationTitle }}
+              />
+              <div
+                className="observation-details-content"
+                dangerouslySetInnerHTML={{ __html: observationLog }}
+              />
+              <div className="observation-details-actions">
+                <Button onClick={onShare}>Share</Button>
+              </div>
             </div>
           </div>
         ) : (

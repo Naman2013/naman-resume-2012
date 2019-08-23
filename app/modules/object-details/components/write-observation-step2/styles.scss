@@ -115,6 +115,20 @@
     }
   }
 
+  .observation-details-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    font-family: $primary-font;
+    font-size: 10px;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: $lightHeadedAstronaut;
+    padding: 10px 0;
+    background-color: $white;
+    padding-right: 10px;
+  }
+
   .observation-details-card {
     padding: 50px 50px 40px;
     box-shadow: 0 0 6px 0 $shadows;
@@ -130,18 +144,6 @@
       padding: 15px 0;
       border-bottom: 1px solid $astronaut;
       color: $lightHeadedAstronaut;
-    }
-
-    .observation-details-info {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      font-family: $primary-font;
-      font-size: 10px;
-      text-transform: uppercase;
-      font-weight: 700;
-      color: $lightHeadedAstronaut;
-      padding: 10px 0;
     }
 
     .observation-details-content {
