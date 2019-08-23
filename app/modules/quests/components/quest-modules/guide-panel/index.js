@@ -31,7 +31,7 @@ export class QuestModuleGuidePanel extends PureComponent {
       mobileSubTitle,
       mobileSubTitleLinkUrl,
     } = questGuidePanel[moduleId] || {};
-    console.log(this.props);
+    
     return (
       <div className="quest-guide-panel-module">
         <div className="guide-panel-content">
@@ -69,7 +69,7 @@ export class QuestModuleGuidePanel extends PureComponent {
               linkUrl={imageLinkUrl}
             />
           </div>
-          
+
           <div
             className="guide-panel-tagline"
             dangerouslySetInnerHTML={{ __html: tagline }}
