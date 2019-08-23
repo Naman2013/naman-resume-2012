@@ -30,7 +30,7 @@ export default css`
   }
 
   .badges-list-item-div {
-    margin-top: 30px;
+    margin-top: 40px;
     width: 100px;
     height: 100px;
     margin-left: auto;
@@ -46,7 +46,7 @@ export default css`
     margin-left: auto;
     margin-right: auto;
     padding: 0px;
-    position: relative;
+    position: relative; 
   }
 
   .badges-list-item-img {
@@ -62,5 +62,7 @@ export default css`
     width: 100px;
     padding: 0px;
     margin-left: -10px;
+    text-align: center;
+    margin-top: 10px;
   }
 `;
