@@ -11,6 +11,17 @@ export default css`
     padding: 0 30px 30px;
   }
 
+  .blue-shield-badge {
+    position: absolute;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-image: url(https://vega.slooh.com/assets/v4/common/quest_shield.png);
+    height: 80px;
+    width: 80px;
+    left: calc(50% - 50px);
+    top: -15px;
+  }
+
   .badges-list :global(a) {
     width: 33%;
     display: flex;
@@ -24,6 +35,7 @@ export default css`
     height: 100px;
     margin-left: auto;
     margin-right: auto;
+    position: relative;
   }
 
   .badges-list-item-img-span {
@@ -34,12 +46,16 @@ export default css`
     margin-left: auto;
     margin-right: auto;
     padding: 0px;
+    position: relative;
   }
 
   .badges-list-item-img {
-    width: 60px;
-    height: 60px;
     object-fit: cover;
+    position: absolute;
+    left: 20px;
+    top: 2px;
+    width: 40px;
+    height: 40px;
   }
   .badges-list-item-description {
     min-width: 100px;
