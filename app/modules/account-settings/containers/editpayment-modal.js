@@ -5,7 +5,10 @@ import {
   makeSubscriptionPlansDataSelector,
   makeSubscriptionPlansFetchingSelector,
 } from 'app/modules/account-settings/selectors';
-import { getSubscriptionPlans } from 'app/modules/account-settings/thunks';
+import {
+  getSubscriptionPlans,
+  fetchAccountSettingsAction,
+} from 'app/modules/account-settings/thunks';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
@@ -17,6 +20,7 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = {
   getSubscriptionPlans,
+  fetchAccountSettingsAction,
 };
 
 export default compose(
