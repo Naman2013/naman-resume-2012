@@ -34,9 +34,9 @@ export class QuestModuleQaFillBlanks extends PureComponent {
     const { questId, questUUID, moduleUUID, answers } = questQaFillBlanks[
       moduleId
     ];
-    const answerList = answers.map(answer => {
+    const answerList = JSON.stringify(answers.map(answer => {
       return { answerIndex: answer.answerIndex, answerText: answer.answerText };
-    });
+    }));
 
     setQaFillBlanks({
       questId,
