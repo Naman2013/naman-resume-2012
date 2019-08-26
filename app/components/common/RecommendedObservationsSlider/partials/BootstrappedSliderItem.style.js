@@ -25,6 +25,12 @@ const toUpper = `
 `;
 
 export default css`
+  .dashboardObservationText {
+    max-height: 165px;
+    min-height: 165px;
+    overflow-y: hidden;
+  }
+
   .card-obs-wrapper {
     width: 100%;
     display: flex;
@@ -131,7 +137,7 @@ export default css`
     font-size: 19px;
     padding: 20px 0;
   }
-
+ 
   .image-wrapper {
     box-shadow: 0 0 6px 0 #ced2d8;
     padding: 3px;
