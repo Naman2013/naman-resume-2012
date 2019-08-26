@@ -15,6 +15,7 @@ export const EditHeader = props => {
     canEditFlag,
     canShareFlag,
     observationLog,
+    refetchData,
   } = props;
 
   const [isDeleteOpen, setDeleteOpen] = useState(false);
@@ -32,8 +33,8 @@ export const EditHeader = props => {
       customerImageId,
     } = props;
 
-    shareMemberPicture({ customerImageId }).then(data =>
-      window.location.reload()
+    shareMemberPicture({ customerImageId }).then(
+      data => typeof refetchData === 'function' && refetchData()
     );
   };
 

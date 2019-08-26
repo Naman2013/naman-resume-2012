@@ -17,10 +17,9 @@ export const TYPE = constants('image-details', [
   '~ADD_IMAGE_TO_GALLERY',
 
   // observation submit form
-  '~SET_OBSERVATION_TAGS'
+  '~SET_OBSERVATION_TAGS',
 ]);
 export const ACTION = actions(TYPE);
-
 
 export const initialState = {
   isFetching: false,
@@ -51,7 +50,7 @@ export default handleActions(
     [TYPE.GET_IMAGE_DETAILS_ERROR]: setServerError,
 
     // TAGS
-    [TYPE.GET_TAGS]: setFetching,
+    [TYPE.GET_TAGS]: setTagFetching,
     [TYPE.GET_TAGS_SUCCESS]: getTagsSuccess,
     [TYPE.GET_TAGS_ERROR]: setServerError,
 

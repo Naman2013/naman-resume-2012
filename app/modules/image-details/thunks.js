@@ -11,10 +11,10 @@ import {
 } from 'app/modules/image-details/api';
 import { ACTION } from './reducer';
 
-export const getImageDetails = customerImageId => (dispatch, getState) => {
+export const getImageDetails = data => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
   dispatch(ACTION.getImageDetails());
-  return getImageDetailsApi({ at, token, cid, customerImageId })
+  return getImageDetailsApi({ at, token, cid, ...data })
     .then(result => dispatch(ACTION.getImageDetailsSuccess(result.data)))
     .catch(error => dispatch(ACTION.getImageDetailsError(error)));
 };

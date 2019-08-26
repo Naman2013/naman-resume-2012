@@ -7,12 +7,13 @@ import {
 import { shareMemberPicture } from 'app/modules/share-member-photo/actions';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { createStructuredSelector } from 'reselect';
 
 const mapStateToProps = ({ user, imageDetails }) => {
   return {
     user,
     observationTagsError: imageDetails.observationTagsError,
+    imageDetailsData: imageDetails.data,
+    isFetching: imageDetails.isFetching,
   };
 };
 
