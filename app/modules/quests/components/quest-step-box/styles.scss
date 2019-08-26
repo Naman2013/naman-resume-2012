@@ -32,6 +32,12 @@
       transform: translateX(-50%);
       top: -40px;
 
+      .shield-background {
+        width: 112px;
+        position: relative;
+        top: -10px;
+      }
+
       .quest-icon {
         position: absolute;
         top: 20px;
