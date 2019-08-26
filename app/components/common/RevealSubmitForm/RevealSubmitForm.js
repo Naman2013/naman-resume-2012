@@ -161,7 +161,10 @@ class RevealSubmitForm extends Component {
   };
 
   closeModal = e => {
-    e.preventDefault();
+    if(e) {
+      e.preventDefault();
+    }
+    
     this.setState({
       showPopup: false,
       formTitle: '',

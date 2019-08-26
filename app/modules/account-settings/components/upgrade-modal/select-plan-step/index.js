@@ -34,8 +34,8 @@ export const SelectPlanStep = (props: TSelectPlanStep) => {
 
   return (
     <>
-      <h1 className="modal-h">{pageHeading1}</h1>
-      <p className="modal-p mb-5">{pageHeading2}</p>
+      <h1 className="modal-h" dangerouslySetInnerHTML={{ __html: pageHeading1 }}/>
+      <p className="modal-p mb-5" dangerouslySetInnerHTML={{ __html: pageHeading2 }}/>
 
       {subscriptionPlans.map(plan => (
         <SubscriptionPlan
