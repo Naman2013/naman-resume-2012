@@ -72,13 +72,15 @@ class ObservationsForm extends Component {
         scheduledMissionId,
         title,
         observation
-      ).then(() =>
-        /*this.setState({
+      ).then(() => {
+        this.setState({
           showPrompt: true,
           promptText: 'Saved!',
-        })*/
-        window.location.reload()
-      );
+        });
+        setTimeout(() => {
+          this.closeModal();
+        }, 3000);
+      });
       this.setState(() => ({ title: '', observation: '' }));
     }
   };
@@ -135,11 +137,16 @@ class ObservationsForm extends Component {
         <Modal
           ariaHideApp={false}
           isOpen={showPrompt}
-          style={customModalStyles}
+          style={{
+            ...customModalStyles,
+            content: { ...customModalStyles.content, maxWidth: '350px' },
+          }}
           contentLabel="Observation Form"
           onRequestClose={this.closeModal}
         >
-          <i className="fa fa-close" onClick={this.closeModal} />
+          <div className="dismiss" onClick={this.closeModal}>
+            <span className="fa fa-close" />
+          </div>
           {promptText}
         </Modal>
         <style jsx>{styles}</style>
