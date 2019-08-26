@@ -42,10 +42,22 @@ export default css`
 
   .obs-form-button {
   }
-  .fa-close {
+
+  .fa.fa-close {
+    position: relative;
+    top: 2px;
+  }
+
+  .dismiss {
     position: absolute;
-    top: 5px;
-    right: 10px;
     cursor: pointer;
+    right: 10px;
+    top: 5px;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background-color: ${shadows};
+    color: ${romance};
+    text-align: center;
   }
 `;

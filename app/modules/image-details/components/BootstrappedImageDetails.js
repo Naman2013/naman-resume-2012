@@ -42,10 +42,12 @@ const BootstrappedImageDetails = props => {
     scheduledMissionId,
     iconFileData,
     canEditFlag,
+    canShareFlag,
     customerImageId,
     imageDownloadFilename,
     imageDownloadURL,
     observationTagsError,
+    observationLog,
   } = props;
   
   const showMissionRelatedInfo = Number(scheduledMissionId) > 0;
@@ -65,6 +67,10 @@ const BootstrappedImageDetails = props => {
                   customerImageId={customerImageId}
                   imageDownloadFilename={imageDownloadFilename}
                   imageDownloadURL={imageDownloadURL}
+                  observationLog={observationLog}
+                  canEditFlag={canEditFlag}
+                  canShareFlag={canShareFlag}
+                  actions={actions}
                 />
               ) : (
                 <ViewHeader imageTitle={imageTitle} />
