@@ -3,7 +3,6 @@ import css from 'styled-jsx/css';
 export default css`
   .badges-list {
     min-width: 320px;
-    max-width: 320px;
     display: flex;
     flex-flow: row wrap;
     align-items: center;
