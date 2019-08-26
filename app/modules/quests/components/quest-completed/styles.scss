@@ -208,6 +208,15 @@
       width: calc(100% - 60px);
     }
 
+    .title-mobile {
+      display: none;
+      color: $raven;
+      font-family: $primary-font;
+      font-size: 19px;
+      text-transform: none;
+      font-weight: 500;
+    }
+
     .quest-complete-checkbox {
       background-color: $lightHeadedAstronaut;
       box-shadow: none;
@@ -374,6 +383,10 @@
             .quest-list-element {
               padding: 0 40px;
               .title {
+                display: none;
+              }
+              .title-mobile {
+                display: block;
                 width: 100%;
               }
               .quest-complete-checkbox {
