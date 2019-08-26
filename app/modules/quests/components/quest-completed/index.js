@@ -116,7 +116,7 @@ export class QuestCompleted extends PureComponent {
 
           <div className="quest-list-more">
             <div className="quest-list-more-title">
-              {readyForMoreQuestsPrompt}!
+              {readyForMoreQuestsPrompt}
             </div>
             <div className="list">
               {suggestedQuestsList.map(item => (
