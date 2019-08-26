@@ -46,16 +46,16 @@ export default css`
     margin-left: auto;
     margin-right: auto;
     padding: 0px;
-    position: relative; 
+    position: relative;
   }
 
   .badges-list-item-img {
     object-fit: cover;
     position: absolute;
-    left: 20px;
-    top: 2px;
-    width: 40px;
-    height: 40px;
+    left: 24px;
+    top: 7px;
+    width: 32px;
+    height: 32px;
   }
   .badges-list-item-description {
     min-width: 100px;
