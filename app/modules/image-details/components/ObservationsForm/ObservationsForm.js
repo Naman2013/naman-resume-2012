@@ -89,6 +89,7 @@ class ObservationsForm extends Component {
     this.setState({
       showPrompt: false,
     });
+    window.location.reload();
   };
 
   render() {
