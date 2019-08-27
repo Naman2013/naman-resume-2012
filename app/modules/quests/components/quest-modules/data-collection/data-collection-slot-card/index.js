@@ -34,8 +34,10 @@ export const DataCollectionSlotCard = props => {
     slotInfoTitle,
     slotInfo,
     imageURL,
+    objectId,
     slotId,
     slotHasImage,
+    customerImageId,
     //dotMenu,
   } = slot;
 
@@ -157,7 +159,7 @@ export const DataCollectionSlotCard = props => {
                   {slotHasImage && (
                     <div
                       onClick={() =>
-                        removeDataCollectionSlotImage(slotId, 5430270)
+                        removeDataCollectionSlotImage(slotId, customerImageId)
                       }
                     >
                       {dotMenu?.removeImageText}
@@ -179,7 +181,7 @@ export const DataCollectionSlotCard = props => {
                   <Link>
                     <div>
                       <FollowObjectButton
-                        objectId={6}
+                        objectId={objectId}
                         user={user}
                         followButtonText={dotMenu?.objectInfo?.followPrompt}
                         followButtonIconURL={
