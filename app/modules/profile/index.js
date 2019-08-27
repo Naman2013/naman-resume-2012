@@ -37,3 +37,14 @@ export const ProfileListsMain = props => (
     <ProfileListsContainer {...props} />
   </Suspense>
 );
+
+// Dashboard
+const ProfileDashboardContainerLoadable = React.lazy(() =>
+  import('./containers/dashborad')
+);
+
+export const ProfileDashboardContainer = props => (
+  <Suspense fallback={<div>Loading...</div>}>
+    <ProfileDashboardContainerLoadable {...props} />
+  </Suspense>
+);

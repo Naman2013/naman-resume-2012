@@ -41,6 +41,7 @@ import Telescope from 'app/modules/missions/containers/telescope';
 import { MissionsMain } from 'app/modules/missions/index';
 import {
   PrivateProfileMain,
+  ProfileDashboardContainer,
   ProfileListsMain,
   ProfileMain,
   PublicProfileMain,
@@ -148,6 +149,7 @@ const getProfileRoutes = ({ publicProfile }) => (
       <Route path=":filter" component={ProfileQaContainer} />
     </Route>
     <Route path="groups" component={ProfileGroups} />
+    <Route path="dashboard" component={ProfileDashboardContainer} />
     <Route
       path="groups/create"
       component={GroupCreate}
@@ -502,23 +504,23 @@ const AppRouter = ({ setPreviousInstrument }) => (
         component={CommunityGroupOverview}
       />
 
-        <Route
-          path="community-groups/:groupId/edit=:edit"
-          onEnter={validateUser}
-          component={CommunityGroupEdit}
-        />
+      <Route
+        path="community-groups/:groupId/edit=:edit"
+        onEnter={validateUser}
+        component={CommunityGroupEdit}
+      />
 
-         <Route
-           path="community-groups/:groupId/info"
-           onEnter={validateUser}
-           component={GroupOverviewInfo}
-         />
+      <Route
+        path="community-groups/:groupId/info"
+        onEnter={validateUser}
+        component={GroupOverviewInfo}
+      />
 
-         <Route
-           path="community-groups/:groupId/:threadId"
-           onEnter={validateUser}
-           component={CommunityGroupOverview}
-         />
+      <Route
+        path="community-groups/:groupId/:threadId"
+        onEnter={validateUser}
+        component={CommunityGroupOverview}
+      />
 
       <Route
         path="account-settings"
