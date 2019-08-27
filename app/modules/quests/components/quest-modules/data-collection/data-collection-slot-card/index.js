@@ -27,6 +27,7 @@ export const DataCollectionSlotCard = props => {
     thumbnailURL,
     slotButtonCaption,
     slotTitle,
+    showSlotButton,
     showSlotTitle,
     showSlotInfo,
     showDotMenu,
@@ -79,13 +80,15 @@ export const DataCollectionSlotCard = props => {
         </ImageClickHandler>
       </div>
       <div className="dc-slot-card-actions">
-        <Button
-          className="dc-slot-card-find-btn"
-          onClick={() => showDataCollectionSlotModal(slot)}
-          disabled={readOnly}
-        >
-          {slotButtonCaption}
-        </Button>
+        {showSlotButton &&
+          <Button
+            className="dc-slot-card-find-btn"
+            onClick={() => showDataCollectionSlotModal(slot)}
+            disabled={readOnly}
+          >
+            {slotButtonCaption}
+          </Button>
+        }
         {showSlotInfo && (
           <Button
             className={cn('dc-slot-card-info-btn', { open: isInfoMenuOpen })}
@@ -115,7 +118,7 @@ export const DataCollectionSlotCard = props => {
         )}
 
         <QuestButtonsPopover isOpen={isInfoMenuOpen}>
-          {isInfoMenuOpen && !slotHasImage && (
+          {isInfoMenuOpen && slotInfo.showSlotContentsDesc && (
             <div className="dc-slot-info-popover">
               <div className="dc-slot-info-title">{slotInfoTitle}</div>
               <div className="dc-slot-info-text">
@@ -123,7 +126,7 @@ export const DataCollectionSlotCard = props => {
               </div>
             </div>
           )}
-          {isInfoMenuOpen && slotHasImage && (
+          {isInfoMenuOpen && slotInfo.showObjectDetails && (
             <div className="data-collection-image-info">
               <div className="dc-slot-info-popover">
                 <div className="dc-slot-info-title">{slotInfoTitle}</div>
