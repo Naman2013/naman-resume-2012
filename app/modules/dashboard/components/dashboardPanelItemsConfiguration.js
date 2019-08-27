@@ -1,13 +1,13 @@
 import React from 'react';
 import uniqueId from 'lodash/uniqueId';
 import DashboardPanelItem from './DashboardPanelItem';
-import { RecommendedObjects } from '../common/RecommendedObjectsSlider/RecommendedObjectsSlider';
-import RecommendedGuides from '../common/RecommendedGuidesSlider';
-import RecommendedObservations from '../common/RecommendedObservationsSlider';
-import RecommendedShows from '../common/RecommendedShowsSlider';
-import RecommendedStories from '../common/RecommendedStoriesSlider';
-import RecommendedGroups from '../common/RecommendedGroupsSlider';
-import RecommendedQuests from '../common/RecommendedQuestsSlider';
+import { RecommendedObjects } from '../../../components/common/RecommendedObjectsSlider/RecommendedObjectsSlider';
+import RecommendedGuides from '../../../components/common/RecommendedGuidesSlider';
+import RecommendedObservations from '../../../components/common/RecommendedObservationsSlider';
+import RecommendedShows from '../../../components/common/RecommendedShowsSlider';
+import RecommendedStories from '../../../components/common/RecommendedStoriesSlider';
+import RecommendedGroups from '../../../components/common/RecommendedGroupsSlider';
+import RecommendedQuests from '../../../components/common/RecommendedQuestsSlider';
 
 const RecommendedObjectsPanel = props =>
   props.recommendedObjectsShow ? (
@@ -22,7 +22,7 @@ const RecommendedObjectsPanel = props =>
 const FeaturedObservationsPanel = props =>
   props.featuredObservationsShow ? (
     <DashboardPanelItem
-     
+
       orderNumber={props.orderNumber}
       title={props.featuredObservationsHeading}
       subtitle={props.featuredObservationsSubHeading}

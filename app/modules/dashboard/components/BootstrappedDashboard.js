@@ -20,11 +20,11 @@ import {
 } from 'app/modules/telescope/selectors';
 import PromoPanel from 'app/components/home/promo-panel';
 import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
-import Request from '../common/network/Request';
-import ConnectUserAndResponseAccess from '../../redux/components/ConnectUserAndResponseAccess';
+import Request from '../../../components/common/network/Request';
+import ConnectUserAndResponseAccess from '../../../redux/components/ConnectUserAndResponseAccess';
 import BootstrappedTourPopupForUser from './tour-popup/BootstrappedTourPopupForUser';
 import BootstrappedTourPopupForGuestJoin from './tour-popup/BootstrappedTourPopupForGuestJoin';
-import { DASHBOARD_TOUR_POPUP } from '../../services/dashboard';
+import { DASHBOARD_TOUR_POPUP } from '../../../services/dashboard';
 import { getSectionComponent } from './dashboardPanelItemsConfiguration';
 import DashNav from './nav/DashboardNav';
 import DashHero from './hero/DashboardHero';

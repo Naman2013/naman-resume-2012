@@ -1,4 +1,3 @@
-import DashboardPage from 'app/components/Dashboard';
 import {
   ProfileActivity,
   ProfileGroups,
@@ -31,6 +30,7 @@ import StaticAppContainer from 'app/containers/static-app-container';
 import StoriesHub from 'app/containers/stories-hub';
 import { AskAstronomerMain, QuestionMain } from 'app/modules/ask-astronomer';
 import { CommunityGroupEdit } from 'app/modules/community-group-overview';
+import Dashboard from 'app/modules/dashboard/containers/dashborad';
 import { GalleryDetailsMain } from 'app/modules/gallery-details';
 import { ImageDetailsMain } from 'app/modules/image-details';
 import { MissionDetailsMain } from 'app/modules/mission-details';
@@ -180,7 +180,7 @@ const AppRouter = ({ setPreviousInstrument }) => (
     </Route>
 
     <Route path="/" component={App}>
-      <IndexRoute component={DashboardPage} onEnter={validateUser} />
+      <IndexRoute component={Dashboard} onEnter={validateUser} />
 
       <Route path="about" component={About} onEnter={validateUser}>
         <IndexRedirect to="about-slooh" />

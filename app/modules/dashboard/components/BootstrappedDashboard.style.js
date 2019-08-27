@@ -1,6 +1,6 @@
 import css from 'styled-jsx/css';
-import { faintGray } from '../../styles/variables/colors_tiles_v4';
-import { screenMedium } from '../../styles/variables/breakpoints';
+import { faintGray } from '../../../styles/variables/colors_tiles_v4';
+import { screenMedium } from '../../../styles/variables/breakpoints';
 
 export default css`
   .root {
