@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import { Button } from 'react-bootstrap';
+import cx from 'classnames';
 import ImageClickHandler from 'app/components/common/ImageClickHandler';
 import './styles.scss';
 
@@ -70,7 +71,12 @@ export class QuestQaAnswerForm extends PureComponent {
             >
               <label htmlFor={`qa-fill-blanks-question-${question.questionId}`}>
                 <span>{question.questionText}</span>
-                <div className="qa-fill-blanks-scoring-text">
+                <div
+                  className={cx('qa-fill-blanks-scoring-text', {
+                    'scoring-text-bold':
+                      answers[question.questionIndex].scoringTextBold,
+                  })}
+                >
                   {answers[question.questionIndex].scoringText}
                 </div>
               </label>

@@ -73,6 +73,10 @@
       color: $lightHeadedAstronaut;
       margin-left: 15px;
       text-align: right;
+
+      &.scoring-text-bold {
+        font-weight: 700;
+      }
     }
   }
 
