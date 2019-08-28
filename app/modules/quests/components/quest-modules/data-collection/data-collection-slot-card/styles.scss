@@ -154,6 +154,7 @@
     .data-collection-menu {
       .dc-slot-dots-popover {
         padding: 0;
+
         .title {
           height: 50px;
           font-family: $primary-font;
@@ -166,8 +167,17 @@
           padding: 0 20px;
           text-transform: uppercase;
         }
+
         .content {
           padding: 0 20px;
+
+          > * {
+            &[disabled] {
+              pointer-events: none;
+              opacity: 0.5;
+            }
+          }
+
           & div {
             height: 50px;
             border-bottom: 1px solid $hr-silver;
@@ -179,6 +189,7 @@
             color: $lightHeadedAstronaut;
             text-transform: uppercase;
             cursor: pointer;
+
             & button {
               border: none;
               padding: 0;

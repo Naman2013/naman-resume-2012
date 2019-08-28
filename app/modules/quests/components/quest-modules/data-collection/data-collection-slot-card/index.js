@@ -38,35 +38,11 @@ export const DataCollectionSlotCard = props => {
     slotId,
     slotHasImage,
     customerImageId,
-    //dotMenu,
+    dotMenu,
+    dotMenuTitle,
+    enableDotMenu,
+    enableSlotButton,
   } = slot;
-
-  const dotMenu = {
-    showCheckForMissions: true,
-    enableCheckForMissions: true,
-    checkForMissionsText: 'CHECK FOR MISSIONS',
-    checkForMissionsUrl: '/object-details/4/missions',
-    showObjectInfo: true,
-    enableObjectInfo: true,
-    showRemoveImage: true,
-    enableRemoveImage: true,
-    removeImageText: 'REMOVE THIS IMAGE',
-    showDownloadImage: true,
-    enableDownloadImage: true,
-    downloadImageText: 'DOWNLOAD THIS IMAGE',
-    objectInfo: {
-      learnAboutText: 'LEARN ABOUT MARS',
-      learnAboutUrl: '/object-details/4',
-      showFollowPromptFlag: true,
-      followPrompt: 'FOLLOW MARS',
-      followPromptIconUrl:
-        'https://vega.slooh.com/assets/v4/common/plus_icon.svg',
-      followActionIconUrl:
-        'https://vega.slooh.com/assets/v4/common/plus_icon.svg',
-      toggleFollowConfirmationFlag: false,
-      toggleFollowConfirmationPrompt: false,
-    },
-  };
 
   const [isInfoMenuOpen, toggleInfoMenu] = useState(false);
   const [isDotsMenuOpen, toggleDotsMenu] = useState(false);
@@ -77,16 +53,22 @@ export const DataCollectionSlotCard = props => {
       </div>
       {showSlotTitle && <div className="dc-slot-card-title">{slotTitle}</div>}
       <div className="dc-slot-card-thumbnail-box">
-        <ImageClickHandler imageUrl={imageURL}>
-          <img src={thumbnailURL} />
-        </ImageClickHandler>
+        {slotHasImage ? (
+          <ImageClickHandler imageUrl={imageURL}>
+            <img src={thumbnailURL} />
+          </ImageClickHandler>
+        ) : (
+          <div>
+            <img src={thumbnailURL} />
+          </div>
+        )}
       </div>
       <div className="dc-slot-card-actions">
         {showSlotButton &&
           <Button
             className="dc-slot-card-find-btn"
             onClick={() => showDataCollectionSlotModal(slot)}
-            disabled={readOnly}
+            disabled={!enableSlotButton}
           >
             {slotButtonCaption}
           </Button>
@@ -110,6 +92,7 @@ export const DataCollectionSlotCard = props => {
           <Button
             onClick={() => !isInfoMenuOpen && toggleDotsMenu(!isDotsMenuOpen)}
             className={cn('dc-slot-card-dots-menu', { open: isDotsMenuOpen })}
+            disabled={!enableDotMenu}
           >
             {!isDotsMenuOpen ? (
               <Dots theme={{ circleColor: astronaut }} />
@@ -155,42 +138,58 @@ export const DataCollectionSlotCard = props => {
           <QuestButtonsPopover isOpen={isDotsMenuOpen}>
             {isDotsMenuOpen && (
               <div className="dc-slot-dots-popover">
-                <div className="title">MORE OPTIONS:</div>
-                <div onClick={() => toggleDotsMenu(false)} className="content">
-                  {slotHasImage && (
+                <div className="title">{dotMenuTitle}:</div>
+                <div className="content">
+                  {dotMenu?.showRemoveImage && (
                     <div
-                      onClick={() =>
-                        removeDataCollectionSlotImage(slotId, customerImageId)
-                      }
+                      onClick={() => {
+                        toggleDotsMenu(false);
+                        removeDataCollectionSlotImage(slotId, customerImageId);
+                      }}
+                      disabled={!dotMenu?.enableRemoveImage}
                     >
                       {dotMenu?.removeImageText}
                     </div>
                   )}
-                  {slotHasImage && (
-                    <div onClick={() => onDownloadImage(imageURL)}>
+                  {dotMenu?.showDownloadImage && (
+                    <div
+                      onClick={() => {
+                        toggleDotsMenu(false); 
+                        onDownloadImage(imageURL);
+                      }}
+                      disabled={!dotMenu?.enableDownloadImage}
+                    >
                       {dotMenu?.downloadImageText}
                     </div>
                   )}
-                  {!slotHasImage && (
-                    <Link to={dotMenu?.checkForMissionsUrl}>
+                  {dotMenu?.showCheckForMissions && (
+                    <Link 
+                      to={dotMenu?.checkForMissionsUrl}
+                      disabled={!dotMenu?.enableCheckForMissions}
+                    >
                       <div>{dotMenu?.checkForMissionsText}</div>
                     </Link>
                   )}
-                  <Link to={dotMenu?.objectInfo?.learnAboutUrl}>
-                    <div>{dotMenu?.objectInfo?.learnAboutText}</div>
-                  </Link>
-                  <Link>
-                    <div>
-                      <FollowObjectButton
-                        objectId={objectId}
-                        user={user}
-                        followButtonText={dotMenu?.objectInfo?.followPrompt}
-                        followButtonIconURL={
-                          dotMenu?.objectInfo?.followPromptIconUrl
-                        }
-                      />
-                    </div>
-                  </Link>
+                  {dotMenu?.showObjectInfo && (
+                    <>
+                      <Link 
+                        to={dotMenu?.objectInfo?.learnAboutUrl} 
+                        disabled={dotMenu?.enableObjectInfo}
+                      >
+                        <div>{dotMenu?.objectInfo?.learnAboutText}</div>
+                      </Link>
+                      <div disabled={dotMenu?.enableObjectInfo}>
+                        <FollowObjectButton
+                          objectId={objectId}
+                          user={user}
+                          followButtonText={dotMenu?.objectInfo?.followPrompt}
+                          followButtonIconURL={
+                            dotMenu?.objectInfo?.followPromptIconUrl
+                          }
+                        />
+                      </div>
+                    </>
+                  )}
                 </div>
               </div>
             )}
