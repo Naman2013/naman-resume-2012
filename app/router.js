@@ -160,7 +160,7 @@ const getProfileRoutes = ({ publicProfile }) => (
       component={GroupImportGoogleClassrooms}
       onEnter={validateUser}
     />
-    <Route path="quests" component={ProfileQuests} />
+    <Route path="quests/:viewType" component={ProfileQuests} />
   </Fragment>
 );
 

@@ -31,3 +31,5 @@ export const setQaMultipleChoiceApi = data =>
 
 export const getQuestGuidePanelApi = data =>
   axios.post('/api/quests/getQuestGuidePanel', data);
+export const getCustomerQuestsApi = data =>
+  axios.post('/api/profiles/getCustomerQuests', data);

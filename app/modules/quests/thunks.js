@@ -12,6 +12,7 @@ import {
   getQaMultipleChoiceApi,
   setQaMultipleChoiceApi,
   getQuestGuidePanelApi,
+  getCustomerQuestsApi,
 } from 'app/modules/quests/api';
 import { ACTION } from './reducer';
 
@@ -213,3 +214,17 @@ export const getQuestGuidePanel = data => (dispatch, getState) => {
 };
 
 // END: QUEST GUIDES MODULES
+
+export const getCustomerQuests = data => (dispatch, getState) => {
+  const { at, token, cid } = getState().user;
+  dispatch(ACTION.getCustomerQuests());
+  const opts = {
+    at,
+    cid,
+    token,
+    ...data,
+  };
+  return getCustomerQuestsApi({ ...opts })
+    .then(result => dispatch(ACTION.getCustomerQuestsSuccess(result.data)))
+    .catch(error => dispatch(ACTION.getCustomerQuestsError(error)));
+};

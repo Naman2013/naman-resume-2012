@@ -10,6 +10,7 @@ export const TYPE = constants('quests', [
   'CLEAR_QUEST_STEP_DATA',
   '~GET_QUEST_OUTPUT',
   '~GET_QUEST_COMPLETED',
+  '~GET_CUSTOMER_QUESTS',
 
   '~GET_DATA_COLLECTION',
   '~GET_DATA_COLLECTION_SLOT_IMAGES',
@@ -34,6 +35,7 @@ const initialState = {
 
   stepData: {},
   questOutput: {},
+  customerQuests: { QuestList: [] },
   questCompletedData: {
     stepsCompletedList: [],
     suggestedQuestsList: [],
@@ -126,6 +128,10 @@ export default handleActions(
     [TYPE.GET_QUEST_GUIDE_PANEL]: start,
     [TYPE.GET_QUEST_GUIDE_PANEL_SUCCESS]: getQuestGuidePanelSuccess,
     [TYPE.GET_QUEST_GUIDE_PANEL_ERROR]: error,
+
+    [TYPE.GET_CUSTOMER_QUESTS]: start,
+    [TYPE.GET_CUSTOMER_QUESTS_SUCCESS]: getCustomerQuestsSuccess,
+    [TYPE.GET_CUSTOMER_QUESTS_ERROR]: error,
   },
   initialState
 );
@@ -327,5 +333,15 @@ function getQuestGuidePanelSuccess(state, { payload }) {
     ...state,
     isFetching: false,
     questGuidePanel: { ...questGuidePanel, [payload.moduleId]: payload },
+  };
+}
+
+function getCustomerQuestsSuccess(state, { payload }) {
+  return {
+    ...state,
+    isFetching: false,
+    customerQuests: {
+      ...payload,
+    },
   };
 }

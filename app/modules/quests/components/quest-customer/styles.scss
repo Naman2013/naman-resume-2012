@@ -1,0 +1,25 @@
+.quest-list {
+  display: flex;
+  flex-wrap: wrap;
+  height: auto;
+  width: 100%;
+  margin-bottom: 10px;
+
+  .quest-list-item {
+    position: relative;
+    margin: 10px auto 0;
+
+    div {
+      a {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
+
+        .quest-info {
+          position: inherit;
+        }
+      }
+    }
+  }
+}
