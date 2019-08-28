@@ -6,6 +6,15 @@ import {
 import React, { Component } from 'react';
 
 export class Dashboard extends Component {
+  constructor(props) {
+    super(props);
+    const { embed, router, user } = this.props;
+    // Redirect user to /profile/dashboard from / if user is authenticated
+    if (!embed && user.isAuthorized) {
+      router.push('/profile/private/dashboard');
+    }
+  }
+
   componentDidMount() {
     this.getDashboardFeaturedObjects();
   }

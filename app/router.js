@@ -134,7 +134,6 @@ history.listen(location => {
 
 const getProfileRoutes = ({ publicProfile }) => (
   <Fragment>
-    <IndexRedirect to="activity" />
     <Route path="activity" component={ProfileActivity} />
     <Route path="photos" component={ProfilePhotos}>
       <IndexRedirect to={publicProfile ? 'observations' : 'photoroll'} />
@@ -471,6 +470,7 @@ const AppRouter = ({ setPreviousInstrument }) => (
           onEnter={validateUser}
         >
           {getProfileRoutes({ publicProfile: false })}
+          <IndexRedirect to="dashboard" />
         </Route>
 
         <Route
@@ -479,6 +479,7 @@ const AppRouter = ({ setPreviousInstrument }) => (
           onEnter={validateUser}
         >
           {getProfileRoutes({ publicProfile: true })}
+          <IndexRedirect to="activity" />
         </Route>
       </Route>
 
@@ -562,7 +563,6 @@ const mapDispatchToProps = dispatch =>
     dispatch
   );
 
-// export default hot(AppRouter);
 export default connect(
   null,
   mapDispatchToProps

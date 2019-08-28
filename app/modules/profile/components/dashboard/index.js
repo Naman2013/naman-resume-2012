@@ -3,6 +3,6 @@ import React, { Component } from 'react';
 
 export class Dashboard extends Component {
   render() {
-    return <DashboardContainer hideHero hideNav />;
+    return <DashboardContainer hideHero hideNav embed />;
   }
 }
