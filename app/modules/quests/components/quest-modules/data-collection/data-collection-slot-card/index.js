@@ -123,9 +123,10 @@ export const DataCollectionSlotCard = props => {
           {isInfoMenuOpen && slotInfo.showSlotContentsDesc && (
             <div className="dc-slot-info-popover">
               <div className="dc-slot-info-title">{slotInfoTitle}</div>
-              <div className="dc-slot-info-text">
-                {slotInfo?.slotContentsDesc}
-              </div>
+              <div 
+                className="dc-slot-info-text" 
+                dangerouslySetInnerHTML={{ __html: slotInfo?.slotContentsDesc }}
+              />
             </div>
           )}
           {isInfoMenuOpen && slotInfo.showObjectDetails && (
