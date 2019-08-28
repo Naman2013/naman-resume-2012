@@ -46,10 +46,6 @@ const sectionOrder = [
 ];
 
 class BootstrappedDashboard extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   static propTypes = {
     featuredObservations: shape({
       featuredObservationsShow: bool,
@@ -176,18 +172,6 @@ class BootstrappedDashboard extends Component {
     }, 15000);
   }
 
-  dashboardHeroClicked() {
-    //this.setState( {
-    //  guestPopupForceShow: true,
-    //});
-  }
-
-  dashboardHeroPopupClosed() {
-    this.setState({
-      guestPopupForceShow: false,
-    });
-  }
-
   render() {
     let {
       promoPanel: { promoArray, promoPanelShow },
@@ -253,7 +237,7 @@ class BootstrappedDashboard extends Component {
             <DashHeroMobile />
           </DisplayAtBreakpoint>
           <DisplayAtBreakpoint screenMedium screenLarge screenXLarge>
-            <div onClick={() => this.dashboardHeroClicked()}>
+            <div>
               <DashHero />
             </div>
           </DisplayAtBreakpoint>
