@@ -33,9 +33,10 @@ export default css`
   }
 
   .dash-nav {
-    position: absolute;
+    position: static;
     height: 160px;
     width: 100%;
+    background-image: url('https://vega.slooh.com/assets/v4/dashboard/Darkest_Pattern_Canvas.png');
   }
 
   .sections-wrapper {
