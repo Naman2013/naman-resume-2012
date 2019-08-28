@@ -26,7 +26,7 @@ export class Dashboard extends Component {
   };
 
   render() {
-    const { user } = this.props;
-    return <DashboardDisplay {...user} />;
+    const { user, hideHero, hideNav } = this.props;
+    return <DashboardDisplay {...{ hideHero, hideNav, user }} />;
   }
 }

@@ -182,6 +182,8 @@ class BootstrappedDashboard extends Component {
       reservedCommunityMission,
       reservedCommunityMissionData,
       getDashboardFeaturedObjects,
+      hideHero,
+      hideNav,
     } = this.props;
 
     recommendedObjects = {
@@ -228,28 +230,28 @@ class BootstrappedDashboard extends Component {
             </div>
           )}
         />
-        <div className="dash-hero">
-          {/*<div
-            alt={intl.formatMessage(messages.welcome)}
-            className="hero-img"
-          />*/}
-          <DisplayAtBreakpoint screenSmall>
-            <DashHeroMobile />
-          </DisplayAtBreakpoint>
-          <DisplayAtBreakpoint screenMedium screenLarge screenXLarge>
-            <div>
-              <DashHero />
-            </div>
-          </DisplayAtBreakpoint>
-        </div>
+        {!hideHero && (
+          <div className="dash-hero">
+            <DisplayAtBreakpoint screenSmall>
+              <DashHeroMobile />
+            </DisplayAtBreakpoint>
+            <DisplayAtBreakpoint screenMedium screenLarge screenXLarge>
+              <div>
+                <DashHero />
+              </div>
+            </DisplayAtBreakpoint>
+          </div>
+        )}
         {promoPanelShow
           ? promoArray.map(promoObject => (
               <PromoPanel {...promoObject} key={uniqueId()} />
             ))
           : null}
-        <div className="dash-nav">
-          <DashNav />
-        </div>
+        {!hideNav && (
+          <div className="dash-nav">
+            <DashNav />
+          </div>
+        )}
         <div className="sections-wrapper">
           {sectionOrder.map(
             (section, i) =>

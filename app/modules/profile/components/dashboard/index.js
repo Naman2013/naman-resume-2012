@@ -1,9 +1,8 @@
-import DashboardDisplay from 'app/modules/dashboard/components/DashboardDisplay';
+import DashboardContainer from 'app/modules/dashboard/containers/dashborad';
 import React, { Component } from 'react';
 
 export class Dashboard extends Component {
   render() {
-    const { user } = this.props;
-    return <DashboardDisplay {...user} />;
+    return <DashboardContainer hideHero hideNav />;
   }
 }
