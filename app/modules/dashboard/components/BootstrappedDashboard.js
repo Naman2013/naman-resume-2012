@@ -36,8 +36,8 @@ import messages from './BootstrappedDashboard.messages';
 const { arrayOf, bool, number, shape, string } = PropTypes;
 
 const sectionOrder = [
-  'recommendedObjects',
   'featuredObservations',
+  'recommendedObjects',
   'recommendedGuides',
   'recommendedQuests',
   'recommendedShows',
