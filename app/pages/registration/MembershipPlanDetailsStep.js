@@ -103,12 +103,8 @@ class MembershipPlanDetailsStep extends Component {
                 {!fetchingContent && (
                   <Fragment>
                     <div className="join-root-alt-header">
-                      <h1>
-                        <FormattedMessage {...messages.JoinSlooh} />
-                      </h1>
-                      <h2>
-                        <FormattedMessage {...messages.JoinSloohTrial} />
-                      </h2>
+                      <h1 dangerouslySetInnerHTML={{__html: serviceResponse.pageHeading1}}/>
+                      <h2 dangerouslySetInnerHTML={{__html: serviceResponse.pageHeading2}}/>
                     </div>
                     <PlanDetailsCard
                       {...serviceResponse.selectedSubscriptionPlan}
