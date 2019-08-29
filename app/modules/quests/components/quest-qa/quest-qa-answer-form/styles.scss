@@ -65,12 +65,18 @@
       justify-content: space-between;
     }
 
-    .qa-free-form-scoring-text {
+    .qa-fill-blanks-scoring-text {
       font-family: $primary-font;
       font-size: 10px;
       line-height: 2.2;
       letter-spacing: 2px;
       color: $lightHeadedAstronaut;
+      margin-left: 15px;
+      text-align: right;
+
+      &.scoring-text-bold {
+        font-weight: 700;
+      }
     }
   }
 

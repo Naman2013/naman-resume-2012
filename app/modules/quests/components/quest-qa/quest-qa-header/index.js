@@ -8,7 +8,7 @@ export const QuestQaHeader = props => {
   return (
     <div className="quest-qa-header">
       <div className="quest-qa-mobile-title-container">
-        <div className="quest-qa-sequence-title">fasdfasdf{sequenceText}</div>
+        <div className="quest-qa-sequence-title">{sequenceText}</div>
         <CompleteCheckbox completed={completed} />
       </div>
       <div className="quest-qa-title-container">
