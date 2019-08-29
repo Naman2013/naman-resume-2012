@@ -1,12 +1,16 @@
+import { actions, constants } from 'ducks-helpers';
 import cloneDeep from 'lodash/cloneDeep';
+import { SET_AVATAR_SUCCESS } from '../avatar/actions';
 import createReducer from '../utils/createReducer';
 import {
+  FETCH_DASHBOARD_FAILURE,
   FETCH_DASHBOARD_START,
   FETCH_DASHBOARD_SUCCESS,
-  FETCH_DASHBOARD_FAILURE,
   GET_DASHBOARD_FEATURED_OBJECTS_SUCCESS,
 } from './actions';
-import { SET_AVATAR_SUCCESS } from '../avatar/actions';
+
+export const TYPE = constants('profile', ['~GET_DASHBOARD_PAGE']);
+export const ACTION = actions(TYPE);
 
 const initialState = {
   refreshIntervalSec: 300,
