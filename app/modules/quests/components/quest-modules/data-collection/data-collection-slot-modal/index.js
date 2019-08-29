@@ -110,7 +110,7 @@ export class DataCollectionSlotModal extends Component {
                       className="object-mission-link"
                       key={`object-mission-link-${link.linkIndex}`}
                     >
-                      <Link to={link.linkURL} className="modal-h2">
+                      <Link to={link.linkURL} className="modal-p">
                         {link.linkLabel}
                       </Link>
                     </div>
