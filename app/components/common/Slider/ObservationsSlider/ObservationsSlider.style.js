@@ -93,4 +93,8 @@ export default css.global`
   .dash-obs .slick-list {
     max-height: 547px;
   }
+
+  .dash-obs .slick-list {
+    z-index: unset !important;
+  }
 `;
