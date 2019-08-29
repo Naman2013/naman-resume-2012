@@ -9,7 +9,7 @@ type TProfileQuests = {};
 export const ProfileQuests = (props: TProfileQuests) => {
   const { params } = props;
 
-  const getPrivateNavItems = () => [
+  const profileQuestTab = [
     {
       title: 'In progress',
       linkURL: '/profile/private/quests/inprogress',
@@ -25,7 +25,7 @@ export const ProfileQuests = (props: TProfileQuests) => {
       <CenterColumn>
         <ContainerWithTitle
           title="My Quets"
-          navItems={getPrivateNavItems()}
+          navItems={profileQuestTab}
           showNavigation
           activeFilter={params.viewType}
         >

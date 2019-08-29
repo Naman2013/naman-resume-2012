@@ -1,6 +1,6 @@
 .quest-list {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 33% 34% 33%;
   height: auto;
   width: 100%;
   margin-bottom: 10px;

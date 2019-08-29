@@ -4,25 +4,6 @@ import QuestHubTileBig from 'app/components/common/tiles/QuestHubTileBig';
 
 export class QuestCustomer extends PureComponent {
 
-  static getDerivedStateFromProps(nextProps) {
-    const {
-      customerQuestsData: { QuestList },
-    } = nextProps;
-    return {
-      quests: QuestList.map(item => {
-        return {
-          linkUrl: item.LinkURL,
-          questType: item.QuestType,
-          iconURL: item.IconUrl,
-          questDifficulty: item.Difficulty,
-          questTitle: item.QuestTitle,
-          questId: item.QuestId,
-          questAuthor: 'ADDED BY: THE SLOOH TEAM',
-        };
-      }),
-    };
-  }
-
   componentDidMount() {
     const { getCustomerQuests, viewType } = this.props;
     getCustomerQuests({ viewType });
@@ -36,7 +17,7 @@ export class QuestCustomer extends PureComponent {
   }
 
   render() {
-    const { customerQuestsData, viewType } = this.props;
+    const { customerQuestsData } = this.props;
     const { QuestList } = customerQuestsData;
 
     return (
