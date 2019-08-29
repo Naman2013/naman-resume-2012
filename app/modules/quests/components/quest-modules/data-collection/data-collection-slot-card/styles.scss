@@ -49,6 +49,12 @@
         cursor: pointer;
       }
     }
+
+    .dc-slot-card-empty-image {
+      img {
+        cursor: auto;
+      }
+    }
   }
 
   .dc-slot-card-actions {
@@ -124,11 +130,15 @@
 
           .slot-info-title {
             font-family: $secondary-font;
-            font-size: 16px;
+            font-size: 19px;
             font-weight: 400;
             line-height: 1.47;
             color: $lightHeadedAstronaut;
-            text-transform: unset;
+            text-transform: none;
+            letter-spacing: normal;
+            display: flex;
+            align-items: center;
+            padding: 5px 0 5px 20px;
           }
 
           .slot-info-date {

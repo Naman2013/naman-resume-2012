@@ -58,7 +58,7 @@ export const DataCollectionSlotCard = props => {
             <img src={thumbnailURL} />
           </ImageClickHandler>
         ) : (
-          <div>
+          <div className="dc-slot-card-empty-image">
             <img src={thumbnailURL} />
           </div>
         )}
