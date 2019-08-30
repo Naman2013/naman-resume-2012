@@ -24,7 +24,7 @@ export const ProfileQuests = (props: TProfileQuests) => {
     <div className="profile-quest">
       <CenterColumn>
         <ContainerWithTitle
-          title="My Quets"
+          title="My Quests"
           navItems={profileQuestTab}
           showNavigation
           activeFilter={params.viewType}

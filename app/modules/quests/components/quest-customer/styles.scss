@@ -1,9 +1,26 @@
+@import "~app/styles/variables/index.scss";
+
 .quest-list {
   display: grid;
   grid-template-columns: 33% 34% 33%;
   height: auto;
   width: 100%;
   margin-bottom: 10px;
+
+  .quest-list-empty {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 18px;
+    color: $lightHeadedAstronaut;
+    margin-top: 10px;
+
+    a {
+      color: $lightHeadedAstronaut;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
 
   .quest-list-item {
     position: relative;

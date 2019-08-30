@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import './styles.scss';
-import QuestHubTileBig from 'app/components/common/tiles/QuestHubTileBig';
+import QuestCard from 'app/components/common/tiles/Quest-card';
 
 export class QuestCustomer extends PureComponent {
 
@@ -18,14 +18,14 @@ export class QuestCustomer extends PureComponent {
 
   render() {
     const { customerQuestsData } = this.props;
-    const { QuestList } = customerQuestsData;
+    const { QuestList, emptySetDisplay } = customerQuestsData;
 
     return (
       <div className="quest-list">
         {QuestList
           ? QuestList.map(item => (
               <div className="quest-list-item">
-                <QuestHubTileBig
+                <QuestCard
                   linkUrl={item.LinkURL}
                   questType={item.QuestType}
                   iconURL={item.IconUrl}
@@ -35,6 +35,12 @@ export class QuestCustomer extends PureComponent {
               </div>
             ))
           : null}
+        {emptySetDisplay ? (
+          <div
+            className="quest-list-empty"
+            dangerouslySetInnerHTML={{ __html: emptySetDisplay }}
+          />
+        ) : null}
       </div>
     );
   }
