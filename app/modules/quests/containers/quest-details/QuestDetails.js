@@ -17,6 +17,7 @@ import QuestTitleSection from 'app/modules/quests/components/quest-details/title
 import QuestStepList from 'app/modules/quests/components/quest-details/step-list';
 import { resources } from 'app/styles/variables/iconURLs';
 import { romance } from 'app/styles/variables/colors_tiles_v4';
+import { downloadFile } from 'app/utils/downloadFile';
 import styles from './QuestDetails.style';
 
 const { bool, func, number, shape, string, instanceOf } = PropTypes;
@@ -30,6 +31,10 @@ export const QuestDetails = props => {
     moduleId: pageMeta.resourcesModuleId,
   };
 
+  const onDownloadPDF = () => {
+    downloadFile(pageMeta.aboutDownloadPDFURL, 'QuestCompletion.pdf');
+  };
+
   const questSectionProps = {
     questId,
     content: () => (
@@ -38,6 +43,8 @@ export const QuestDetails = props => {
         content={pageMeta.aboutText}
         showResources={pageMeta.showResources}
         resourcesProps={resourcesProps}
+        showAboutDownloadPDF={pageMeta.showAboutDownloadPDF}
+        onDownloadPDF={onDownloadPDF}
       />
     ),
     column: () => (
@@ -45,6 +52,8 @@ export const QuestDetails = props => {
         list={pageMeta.aboutBulletPoints}
         showResources={pageMeta.showResources}
         resourcesProps={resourcesProps}
+        showAboutDownloadPDF={pageMeta.showAboutDownloadPDF}
+        onDownloadPDF={onDownloadPDF}
       />
     ),
     alignContent: 'right',
