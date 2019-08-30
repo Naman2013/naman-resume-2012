@@ -2,15 +2,18 @@ import { Modal } from 'app/components/modal';
 import React, { Component } from 'react';
 import { Row, Col, Button } from 'react-bootstrap';
 import { Link } from 'react-router';
+import Pagination from 'app/components/common/pagination/v4-pagination/pagination';
 import { Spinner } from 'app/components/spinner/index';
 import { DataCollectionImageCard } from '../data-collection-image-card';
 import './styles.scss';
 
 export class DataCollectionSlotModal extends Component {
+  state = {
+    activePage: 1,
+  };
+
   componentDidMount() {
-    const { questDataCollectionSlotImages } = this.props;
-    const { firstImageNumber } = questDataCollectionSlotImages;
-    this.getDataCollectionSlotImages(firstImageNumber);
+    this.getDataCollectionSlotImages(1);
   }
 
   getDataCollectionSlotImages = firstImageNumber => {
@@ -36,6 +39,7 @@ export class DataCollectionSlotModal extends Component {
 
   showMore = () => {
     const { questDataCollectionSlotImages } = this.props;
+    const { activePage } = this.state;
     const {
       showMoreImagesIncrement,
       firstImageNumber,
@@ -43,7 +47,20 @@ export class DataCollectionSlotModal extends Component {
     const newFirstImageNumber = firstImageNumber + showMoreImagesIncrement;
 
     this.getDataCollectionSlotImages(newFirstImageNumber);
-    this.setState({ firstImageNumber: newFirstImageNumber });
+    this.setState({
+      activePage: activePage + 1,
+    });
+  };
+
+  handlePageChange = ({ activePage }) => {
+    const {
+      questDataCollectionSlotImages: { maxImageCount },
+    } = this.props;
+    const newFirstImageNumber = (activePage - 1) * maxImageCount + 1;
+    this.setState({
+      activePage,
+    });
+    this.getDataCollectionSlotImages(newFirstImageNumber);
   };
 
   render() {
@@ -55,6 +72,7 @@ export class DataCollectionSlotModal extends Component {
       setDataCollectionSlotImages,
       loading,
     } = this.props;
+    const { activePage } = this.state;
     const {
       imageList,
       imageCount,
@@ -62,6 +80,8 @@ export class DataCollectionSlotModal extends Component {
       showMoreButtonCaption,
       emptySetFlag,
       emptySetDisplay,
+      totalImageCount,
+      maxImageCount,
       slotContentsHeader,
       slotContentsDesc,
       showSlotContentsDesc,
@@ -133,10 +153,23 @@ export class DataCollectionSlotModal extends Component {
             </Row>
           )}
 
-          {showShowMoreButton && (
-            <Button className="show-more modal-btn" onClick={this.showMore}>
-              {showMoreButtonCaption}
-            </Button>
+          <div className="mobile-container">
+            {showShowMoreButton && (
+              <Button className="show-more modal-btn" onClick={this.showMore}>
+                {showMoreButtonCaption}
+              </Button>
+            )}
+          </div>
+
+          {!loading && !!totalImageCount && (
+            <div className="desktop-container">
+              <Pagination
+                pagesPerPage={4}
+                activePage={activePage}
+                onPageChange={this.handlePageChange}
+                totalPageCount={Math.ceil(totalImageCount / maxImageCount)}
+              />
+            </div>
           )}
         </div>
       </Modal>
