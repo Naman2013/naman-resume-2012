@@ -58,6 +58,7 @@ class ProfileWrapper extends Component {
   render() {
     const { children, data, params, isLoading } = this.props;
     const modelResult = this.modelData(data);
+
     return (
       <div className="root">
         <Spinner loading={isLoading} />
