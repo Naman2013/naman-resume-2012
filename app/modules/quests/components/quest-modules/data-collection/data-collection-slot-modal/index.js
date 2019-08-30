@@ -13,9 +13,7 @@ export class DataCollectionSlotModal extends Component {
   };
 
   componentDidMount() {
-    const { questDataCollectionSlotImages } = this.props;
-    const { firstImageNumber } = questDataCollectionSlotImages;
-    this.getDataCollectionSlotImages(firstImageNumber);
+    this.getDataCollectionSlotImages(1);
   }
 
   getDataCollectionSlotImages = firstImageNumber => {
@@ -121,14 +119,16 @@ export class DataCollectionSlotModal extends Component {
             )}
           </div>
 
-          <div className="desktop-container">
-            <Pagination
-              pagesPerPage={4}
-              activePage={activePage}
-              onPageChange={this.handlePageChange}
-              totalPageCount={Math.ceil(totalImageCount / maxImageCount)}
-            />
-          </div>
+          {!loading && !!totalImageCount && (
+            <div className="desktop-container">
+              <Pagination
+                pagesPerPage={4}
+                activePage={activePage}
+                onPageChange={this.handlePageChange}
+                totalPageCount={Math.ceil(totalImageCount / maxImageCount)}
+              />
+            </div>
+          )}
         </div>
       </Modal>
     );
