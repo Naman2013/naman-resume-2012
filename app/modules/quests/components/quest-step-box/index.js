@@ -1,4 +1,5 @@
 import { CompleteCheckbox } from 'app/modules/quests/components/complete-checkbox';
+import { QuestStepInfo } from 'app/modules/quests/components/quest-step-info';
 import { questShield } from 'app/styles/variables/iconURLs';
 import React from 'react';
 import './styles.scss';
@@ -63,6 +64,8 @@ export const QuestStepBox = props => {
                 {showResources ? <ResourcesButton {...resourcesProps} /> : null}
               </div>
             </div>
+
+            <QuestStepInfo stepData={stepData} />
           </div>
 
           {/* MOBILE VIEW */}
@@ -82,6 +85,8 @@ export const QuestStepBox = props => {
             <div className="step-box-row">
               {showResources ? <ResourcesButton {...resourcesProps} /> : null}
             </div>
+
+            <QuestStepInfo stepData={stepData} />
           </div>
         </>
       )}

@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react';
-import { QuestStepInfo } from '../../quest-step-info';
 import { DataCollectionSlotCard } from './data-collection-slot-card';
 import { DataCollectionSlotModal } from './data-collection-slot-modal';
 import './styles.scss';
@@ -86,25 +85,17 @@ export class QuestModuleDataCollection extends PureComponent {
       questId,
       module,
       questDataCollectionSlotImages,
-      setDataCollectionSlotImages,
       getDataCollectionSlotImages,
-      navigateToNextStep,
       readOnly,
       loading,
       user,
     } = this.props;
-    const { modulePrompt, moduleInstructions, slotArray } = questDataCollection;
+    const { slotArray } = questDataCollection;
     const { moduleId } = module;
     const { dcSlotModalVisible, selectedSlot } = this.state;
 
     return (
       <div className="data-collection-module">
-        <QuestStepInfo
-          title={modulePrompt}
-          description={moduleInstructions}
-          navigateToNextStep={navigateToNextStep}
-        />
-
         <div className="data-collection-slot-list">
           {slotArray?.map(slot => (
             <DataCollectionSlotCard

@@ -2,6 +2,10 @@
 
 .quest-step-info {
   font-family: $secondary-font;
+  padding: 80px 80px 0 80px;
+  margin-bottom: -40px;
+  display: flex;
+  align-items: flex-end;
 
   .quest-step-title {
     font-size: 24px;
@@ -16,5 +20,31 @@
     line-height: 1.53;
     color: $raven;
     margin-top: 20px;
+  }
+
+  .btn {
+    font-family: $primary-font;
+    white-space: nowrap;
+  }
+
+  // RESPONSIVE
+  @include media-breakpoint-down(lg) {
+    padding: 50px 50px 0 50px;
+    margin-bottom: -10px;
+  }
+
+  @include media-breakpoint-down(sm) {
+    padding: 20px 0 0 0;
+    flex-direction: column;
+    align-items: stretch;
+
+    .quest-step-title {
+      display: none;
+    }
+
+    .btn {
+      display: block;
+      margin: 15px 0;
+    }
   }
 }
