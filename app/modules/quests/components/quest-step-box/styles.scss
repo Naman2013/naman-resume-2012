@@ -32,6 +32,12 @@
       transform: translateX(-50%);
       top: -40px;
 
+      .shield-background {
+        width: 112px;
+        position: relative;
+        top: -10px;
+      }
+
       .quest-icon {
         position: absolute;
         top: 20px;
@@ -90,6 +96,7 @@
     padding: 25px 40px;
     box-shadow: 0 0 6px 0 $shadows;
     font-family: $primary-font;
+    color: $lightHeadedAstronaut;
 
     .step-box-row {
       border-bottom: 1px solid $hawkesBlue;

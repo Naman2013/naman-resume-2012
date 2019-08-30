@@ -102,6 +102,7 @@ export class QuestCompleted extends PureComponent {
                 {stepsCompletedList.map(item => (
                   <li key={item.stepSequence} className="quest-list-element">
                     <div className="title">{item.stepSummary}</div>
+                    <div className="title-mobile">{item.stepSummaryMobile}</div>
                     <CompleteCheckbox />
                   </li>
                 ))}
@@ -115,7 +116,7 @@ export class QuestCompleted extends PureComponent {
 
           <div className="quest-list-more">
             <div className="quest-list-more-title">
-              {readyForMoreQuestsPrompt}!
+              {readyForMoreQuestsPrompt}
             </div>
             <div className="list">
               {suggestedQuestsList.map(item => (

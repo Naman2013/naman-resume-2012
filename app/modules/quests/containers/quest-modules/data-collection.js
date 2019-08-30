@@ -6,6 +6,8 @@ import {
   makeQuestDataCollectionSelector,
   makeQuestDataCollectionSlotImagesSelector,
 } from 'app/modules/quests/selectors';
+
+import { makeUserSelector } from 'app/modules/user/selectors';
 import {
   getDataCollection,
   getDataCollectionSlotImages,
@@ -22,6 +24,7 @@ const mapStateToProps = createStructuredSelector({
   moduleList: makeQuestsStepModuleListSelector(),
   questDataCollection: makeQuestDataCollectionSelector(),
   questDataCollectionSlotImages: makeQuestDataCollectionSlotImagesSelector(),
+  user: makeUserSelector(),
 });
 
 const mapDispatchToProps = {

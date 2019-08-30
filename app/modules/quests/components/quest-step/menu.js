@@ -8,6 +8,7 @@ import { browserHistory } from 'react-router';
 
 const CONTAINER_WIDTH = 440;
 const OPEN_LOCATION = 0;
+const BADGE_ITEM_TYPE = 'badge';
 
 export const QuestStepContextMenu = ({
   stepId,
@@ -20,7 +21,7 @@ export const QuestStepContextMenu = ({
   questCompletionList,
 }) => {
   const goToStep = index => {
-    if (index === stepMenuList.length - 1) {
+    if (stepMenuList[index].itemType === BADGE_ITEM_TYPE) {
       browserHistory.push(
         `/quest-completion/${questId}/${questCompletionList[0].questCompletionModuleId}`
       );
@@ -54,15 +55,15 @@ export const QuestStepContextMenu = ({
           <div className="top-gradient" />
           <div className="step-list-container">
             {stepMenuList?.length &&
-              stepMenuList.map((item, index) => (
-                <div onClick={() => goToStep(index)} className="step-list-item">
+              stepMenuList.map((item, index) => item.showMenuItem && (
+                <div key={`step-list-item-${item.stepModuleId}`} onClick={() => goToStep(index)} className={cn('step-list-item', { disabled: !item.enableMenuItem })}>
                   <div className="step-item-title">
                     {item.stepModuleId === stepId && (
                       <div className="item-step" />
                     )}
                     <div>{item.stepMenuTitle}</div>
                   </div>
-                  <CompleteCheckbox completed={item.stepSelected} />
+                  <CompleteCheckbox completed={item.stepCompleted} />
                 </div>
               ))}
           </div>

@@ -24,6 +24,27 @@ export class QuestModuleDataCollection extends PureComponent {
     getDataCollectionSlotImages({ moduleId, questId, slotId });
   };
 
+  removeDataCollectionSlotImage = (slotId, imageId) => {
+    const {
+      module,
+      questId,
+      setDataCollectionSlotImages,
+      refreshQuestStep,
+    } = this.props;
+    const { moduleId } = module;
+    setDataCollectionSlotImages({
+      moduleId,
+      questId,
+      customerImageId: imageId,
+      slotId,
+      deleteSlotImage: '1',
+    }).then(({ payload }) => {
+      if (payload.refreshStep) {
+        refreshQuestStep();
+      }
+    });
+  };
+
   setDataCollectionSlotImages = image => {
     const {
       module,
@@ -70,6 +91,7 @@ export class QuestModuleDataCollection extends PureComponent {
       navigateToNextStep,
       readOnly,
       loading,
+      user,
     } = this.props;
     const { modulePrompt, moduleInstructions, slotArray } = questDataCollection;
     const { moduleId } = module;
@@ -89,6 +111,8 @@ export class QuestModuleDataCollection extends PureComponent {
               key={slot.slotId}
               slot={slot}
               showDataCollectionSlotModal={this.showDataCollectionSlotModal}
+              removeDataCollectionSlotImage={this.removeDataCollectionSlotImage}
+              user={user}
               readOnly={readOnly}
             />
           ))}

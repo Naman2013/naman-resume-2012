@@ -1,0 +1,100 @@
+@import '~app/styles/bootstrap/common';
+@import '~app/styles/variables/index';
+
+.quest-guide-panel-module {
+  .guide-panel-title {
+    font-family: $secondary-font;
+    font-size: 24px;
+    color: $lightHeadedAstronaut;
+    text-transform: none;
+  }
+
+  .guide-panel-subtitle {
+    list-style-type: none;
+    font-family: $primary-font;
+    color: $lightHeadedAstronaut;
+    text-transform: uppercase;
+    font-size: 10px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin: 10px 0 20px;
+    padding: 10px 0;
+    border-bottom: 1px solid $geyser;
+    border-top: 1px solid $geyser;
+  }
+
+  .guide-panel-description {
+    font-family: $secondary-font;
+    font-size: 19px;
+    line-height: 1.53;
+    color: $lightHeadedAstronaut;
+    margin-bottom: 40px;
+  }
+
+  .guide-panel-content {
+    display: flex;
+    flex-flow: row wrap;
+
+    .guide-panel-info,
+    .guide-panel-guide-card {
+      flex: 1;
+    }
+  }
+
+  .guide-panel-tagline {
+    flex-basis: 100%;
+    display: flex;
+    margin-top: 20px;
+    font-family: $secondary-font;
+    font-size: 18px;
+    line-height: 1.53;
+    color: $raven;
+  }
+
+  .guide-panel-guide-link {
+    display: flex;
+    align-items: center;
+
+    img {
+      margin-left: 10px;
+    }
+  }
+
+  .guide-panel-guide-card {
+    margin-left: 25px;
+  }
+
+  .guide-panel-mobile-content {
+    display: none;
+  }
+
+  @include media-breakpoint-down(sm) {
+    & {
+      .guide-panel-mobile-content {
+        display: block;
+
+        .guide-panel-subtitle {
+          display: flex;
+          align-items: center;
+
+          a {
+            display: flex;
+            align-items: center;
+          }
+
+          img {
+            margin-left: 10px;
+          }
+        }
+
+        .guide-panel-guide-card {
+          margin-left: 0;
+        }
+      }
+
+      .guide-panel-content {
+        display: none;
+      }
+    }
+  }
+}

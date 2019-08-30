@@ -62,8 +62,9 @@ export default css`
     background: url(${questShield});
     background-size: cover;
     background-repeat: no-repeat;
-    height: 78px;
-    width: 78px;
+    height: 112px;
+    width: 112px;
+    top: -15px;
     left: 50%;
     transform: translateX(-50%);
   }

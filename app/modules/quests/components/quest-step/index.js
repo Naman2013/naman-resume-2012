@@ -18,6 +18,7 @@ import QuestModuleDataCollection from '../../containers/quest-modules/data-colle
 import QuestModuleQaFreeForm from '../../containers/quest-modules/qa-free-form';
 import QuestModuleQaFillBlanks from '../../containers/quest-modules/qa-fill-blanks';
 import QuestModuleQaMultipleChoice from '../../containers/quest-modules/qa-multiple-choice';
+import QuestModuleGuidePanel from '../../containers/quest-modules/guide-panel';
 
 type TQuestStep = {
   moduleList: QuestStepModule,
@@ -125,6 +126,12 @@ export class QuestStep extends Component<TQuestStep> {
       currentlyViewingCaption,
       nextButtonCaption,
       lastButtonCaption,
+      enableNextButton,
+      enableLastButton,
+      showHeaderNextButton,
+      enableHeaderNextButton,
+      showHeaderLastButton,
+      enableHeaderLastButton,
     } = stepData;
 
     return (
@@ -142,6 +149,10 @@ export class QuestStep extends Component<TQuestStep> {
           stepMenuList={stepData?.stepMenuList}
           questCompletionList={stepData?.questCompletionList}
           stepMenuTitle={stepData?.stepMenuHeader}
+          showHeaderNextButton={showHeaderNextButton}
+          enableHeaderNextButton={enableHeaderNextButton}
+          showHeaderLastButton={showHeaderLastButton}
+          enableHeaderLastButton={enableHeaderLastButton}
         />
 
         <Modal
@@ -220,6 +231,14 @@ export class QuestStep extends Component<TQuestStep> {
                         refreshQuestStep={this.getQuestStep}
                       />
                     )}
+
+                    {module.moduleType === questModuleType.guidepanel && (
+                      <QuestModuleGuidePanel
+                        module={module}
+                        key={`quest-text-output-${module.moduleId}`}
+                        readOnly={readOnly}
+                      />
+                    )}
                   </>
                 ))}
               </QuestStepBox>
@@ -235,6 +254,8 @@ export class QuestStep extends Component<TQuestStep> {
           disableLast={prevStepId === null}
           nextButtonCaption={nextButtonCaption}
           lastButtonCaption={lastButtonCaption}
+          enableNextButton={enableNextButton}
+          enableLastButton={enableLastButton}
         />
       </div>
     );

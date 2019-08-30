@@ -160,7 +160,10 @@ const getProfileRoutes = ({ publicProfile }) => (
       component={GroupImportGoogleClassrooms}
       onEnter={validateUser}
     />
-    <Route path="quests" component={ProfileQuests} />
+    <Route path="quests">
+      <IndexRedirect to="inprogress" />
+      <Route path=":viewType" component={ProfileQuests} />
+    </Route>
   </Fragment>
 );
 
@@ -509,23 +512,23 @@ const AppRouter = ({ setPreviousInstrument }) => (
         component={CommunityGroupOverview}
       />
 
-        <Route
-          path="community-groups/:groupId/edit=:edit"
-          onEnter={validateUser}
-          component={CommunityGroupEdit}
-        />
+      <Route
+        path="community-groups/:groupId/edit=:edit"
+        onEnter={validateUser}
+        component={CommunityGroupEdit}
+      />
 
-         <Route
-           path="community-groups/:groupId/info"
-           onEnter={validateUser}
-           component={GroupOverviewInfo}
-         />
+      <Route
+        path="community-groups/:groupId/info"
+        onEnter={validateUser}
+        component={GroupOverviewInfo}
+      />
 
-         <Route
-           path="community-groups/:groupId/:threadId"
-           onEnter={validateUser}
-           component={CommunityGroupOverview}
-         />
+      <Route
+        path="community-groups/:groupId/:threadId"
+        onEnter={validateUser}
+        component={CommunityGroupOverview}
+      />
 
       <Route
         path="account-settings"

@@ -10,9 +10,12 @@ export const TYPE = constants('quests', [
   'CLEAR_QUEST_STEP_DATA',
   '~GET_QUEST_OUTPUT',
   '~GET_QUEST_COMPLETED',
+  '~GET_CUSTOMER_QUESTS',
+
   '~GET_DATA_COLLECTION',
   '~GET_DATA_COLLECTION_SLOT_IMAGES',
   '~SET_DATA_COLLECTION_SLOT_IMAGES',
+
   '~GET_QA_FREE_FORM',
   '~SET_QA_FREE_FORM',
   'SET_QA_FREE_FORM_ANSWER',
@@ -21,6 +24,8 @@ export const TYPE = constants('quests', [
   'SET_QA_FILL_BLANKS_ANSWER',
   '~GET_QA_MULTIPLE_CHOICE',
   '~SET_QA_MULTIPLE_CHOICE',
+
+  '~GET_QUEST_GUIDE_PANEL',
 ]);
 
 export const ACTION = actions(TYPE);
@@ -30,6 +35,7 @@ const initialState = {
 
   stepData: {},
   questOutput: {},
+  customerQuests: { QuestList: [] },
   questCompletedData: {
     stepsCompletedList: [],
     suggestedQuestsList: [],
@@ -45,6 +51,8 @@ const initialState = {
   questQaFreeForm: {},
   questQaFillBlanks: {},
   questQaMultipleChoice: {},
+
+  questGuidePanel: {},
 };
 
 export default handleActions(
@@ -116,6 +124,14 @@ export default handleActions(
     [TYPE.SET_QA_MULTIPLE_CHOICE_SUCCESS]: setQaMultipleChoiceSuccess,
     [TYPE.SET_QA_MULTIPLE_CHOICE_ERROR]: error,
     // END: QA MODULES
+
+    [TYPE.GET_QUEST_GUIDE_PANEL]: start,
+    [TYPE.GET_QUEST_GUIDE_PANEL_SUCCESS]: getQuestGuidePanelSuccess,
+    [TYPE.GET_QUEST_GUIDE_PANEL_ERROR]: error,
+
+    [TYPE.GET_CUSTOMER_QUESTS]: start,
+    [TYPE.GET_CUSTOMER_QUESTS_SUCCESS]: getCustomerQuestsSuccess,
+    [TYPE.GET_CUSTOMER_QUESTS_ERROR]: error,
   },
   initialState
 );
@@ -308,5 +324,24 @@ function setQaMultipleChoiceSuccess(state, { payload }) {
   return {
     ...state,
     isFetching: false,
+  };
+}
+
+function getQuestGuidePanelSuccess(state, { payload }) {
+  const { questGuidePanel } = state;
+  return {
+    ...state,
+    isFetching: false,
+    questGuidePanel: { ...questGuidePanel, [payload.moduleId]: payload },
+  };
+}
+
+function getCustomerQuestsSuccess(state, { payload }) {
+  return {
+    ...state,
+    isFetching: false,
+    customerQuests: {
+      ...payload,
+    },
   };
 }
