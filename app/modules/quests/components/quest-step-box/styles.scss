@@ -87,6 +87,7 @@
 
   .step-modules {
     padding: 80px;
+    padding-bottom: 20px;
     background-color: $romance;
   }
 
@@ -124,6 +125,7 @@
   @include media-breakpoint-down(lg) {
     .step-modules {
       padding: 50px;
+      //padding-bottom: 20px;
     }
   }
 
@@ -135,6 +137,7 @@
 
     .step-modules {
       padding: 40px;
+      //padding-bottom: 20px;
       margin: 10px 0;
       box-shadow: 0 0 6px 0 $shadows;
     }

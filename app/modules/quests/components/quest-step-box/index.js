@@ -4,6 +4,7 @@ import { questShield } from 'app/styles/variables/iconURLs';
 import React from 'react';
 import './styles.scss';
 import { Button } from 'react-bootstrap';
+import { Link } from 'react-router';
 import ResourcesButton from '../quest-details/resources-button.redux';
 
 export const QuestStepBox = props => {
@@ -24,6 +25,9 @@ export const QuestStepBox = props => {
     showStepProgressMsg,
     stepProgressMsg,
     iconURL,
+    claimBadgeButtonCaption,
+    showClaimBadgeButtonBottom,
+    claimBadgeButtonURL,
   } = stepData;
   const resourcesProps = {
     resourcesButtonText: resourcesButtonCaption,
@@ -92,6 +96,16 @@ export const QuestStepBox = props => {
       )}
 
       {showModule && <div className="step-modules">{children}</div>}
+      {showClaimBadgeButtonBottom && (
+        <div className="text-center ">
+          <Link
+            className="quest-next-step-btn btn btn-primary"
+            to={claimBadgeButtonURL}
+          >
+            {claimBadgeButtonCaption}
+          </Link>
+        </div>
+      )}
     </div>
   );
 };
