@@ -1,4 +1,4 @@
-import { getFitsDataApi, deleteTagApi, getTagsApi, setTagApi } from './api';
+import { getFitsDataApi, deleteTagApi, getTagsApi, setTagApi, uploadToMyPicturesPageApi } from './api';
 import { ACTION } from './reducer';
 
 export const getFitsData = scheduledMissionId => (dispatch, getState) => {
@@ -43,4 +43,16 @@ export const deleteTag = data => (dispatch, getState) => {
   })
     .then(result => dispatch(ACTION.deleteTagSuccess(result.data)))
     .catch(error => dispatch(ACTION.deleteTagError(error)));
+};
+
+export const uploadToMyPicturesPage = () => (dispatch, getState) => {
+  const { at, token, cid } = getState().user;
+  dispatch(ACTION.uploadToMyPicturesPage());
+  return uploadToMyPicturesPageApi({
+    at,
+    token,
+    cid,
+  })
+    .then(result => dispatch(ACTION.uploadToMyPicturesPageSuccess(result.data)))
+    .catch(error => dispatch(ACTION.uploadToMyPicturesPageError(error)));
 };

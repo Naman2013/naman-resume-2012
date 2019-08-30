@@ -36,7 +36,7 @@ import React, { cloneElement, Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, browserHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
-import { getFitsData, deleteTag, getTags, setTag } from '../thunks';
+import { getFitsData, deleteTag, getTags, setTag, uploadToMyPicturesPage } from '../thunks';
 import './image-list.scss';
 import style from './ImageList.style';
 
@@ -96,6 +96,7 @@ const mapDispatchToProps = dispatch => ({
       getTags,
       setTag,
       deleteTag,
+      uploadToMyPicturesPage,
     },
     dispatch
   ),
@@ -139,6 +140,7 @@ class ImageList extends Component {
   componentDidMount() {
     const { actions, type, deviceInfo, params = {} } = this.props;
     const { activePage } = this.state;
+    const { uploadToMyPicturesPage } = actions;
     const fetchImages = actions[mapTypeToRequest[type]];
     const imagesToFetch = getImagesCountToFetch(deviceInfo);
     const { customerUUID } = params;
@@ -158,6 +160,7 @@ class ImageList extends Component {
     });
     //  fetchMissionsAndCounts | fetchGalleriesAndCounts | fetchPhotoRollAndCounts
     this.fetchFilters();
+    uploadToMyPicturesPage();
   }
 
   componentDidUpdate(prevProps) {
