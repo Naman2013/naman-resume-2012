@@ -62,6 +62,11 @@ export class DataCollectionSlotModal extends Component {
       showMoreButtonCaption,
       emptySetFlag,
       emptySetDisplay,
+      slotContentsHeader,
+      slotContentsDesc,
+      showSlotContentsDesc,
+      showEmptySetContentsDesc,
+      emptySetContentsDesc,
     } = questDataCollectionSlotImages;
     const { slotSequence } = selectedSlot;
 
@@ -70,11 +75,50 @@ export class DataCollectionSlotModal extends Component {
         <div className="image-selection-modal">
           <Spinner loading={loading} />
 
-          <h1 className="modal-h">
-            Select your Image for slot {slotSequence}.
-          </h1>
+          {!emptySetFlag && !loading && (
+            <>
+              <h1 className="modal-h">{slotContentsHeader}</h1>
 
-          {emptySetFlag && !loading && <h3 className="modal-h3">{emptySetDisplay}</h3>}
+              {showSlotContentsDesc && (
+                <p
+                  className="modal-p"
+                  dangerouslySetInnerHTML={{ __html: slotContentsDesc }}
+                />
+              )}
+            </>
+          )}
+
+          {emptySetFlag && !loading && (
+            <>
+              <h1 className="modal-h">{slotContentsHeader}</h1>
+              <p
+                className="modal-p"
+                dangerouslySetInnerHTML={{ __html: emptySetDisplay }}
+              />
+
+              {showEmptySetContentsDesc && (
+                <div className="empty-set-content">
+                  <p
+                    className="modal-p"
+                    dangerouslySetInnerHTML={{
+                      __html: emptySetContentsDesc?.noImagesFoundPrompt,
+                    }}
+                  />
+
+                  {emptySetContentsDesc?.slotObjectMissionLinks.map(link => (
+                    <div
+                      className="object-mission-link"
+                      key={`object-mission-link-${link.linkIndex}`}
+                    >
+                      <Link to={link.linkURL} className="modal-p">
+                        {link.linkLabel}
+                      </Link>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </>
+          )}
 
           {imageCount > 0 && (
             <Row>

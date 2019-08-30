@@ -1,4 +1,5 @@
 @import '~app/styles/bootstrap/common';
+@import '~app/styles/variables/fonts';
 
 .dc-slot-card {
   width: calc(50% - 20px);
@@ -48,6 +49,12 @@
         cursor: pointer;
       }
     }
+
+    .dc-slot-card-empty-image {
+      img {
+        cursor: auto;
+      }
+    }
   }
 
   .dc-slot-card-actions {
@@ -89,6 +96,125 @@
       }
     }
 
+    .data-collection-image-info {
+      .dc-slot-info-popover {
+        padding: 0;
+
+        .dc-slot-info-title {
+          font-family: $primary-font;
+          font-size: 11px;
+          font-weight: 900;
+          line-height: 50px;
+          padding-left: 20px;
+          letter-spacing: 0.6px;
+          color: $lightHeadedAstronaut;
+          height: 50px;
+          border-bottom: 1px solid $hawkesBlue;
+          text-transform: uppercase;
+        }
+
+        .dc-slot-info-text {
+          font-family: $primary-font;
+          font-size: 10px;
+          font-weight: 700;
+          letter-spacing: 2.2px;
+          color: $lightHeadedAstronaut;
+          text-transform: uppercase;
+
+          > div {
+            min-height: 50px;
+            border-bottom: 1px solid $hawkesBlue;
+            padding-left: 20px;
+            line-height: 50px;
+          }
+
+          .slot-info-title {
+            font-family: $secondary-font;
+            font-size: 19px;
+            font-weight: 400;
+            line-height: 1.47;
+            color: $lightHeadedAstronaut;
+            text-transform: none;
+            letter-spacing: normal;
+            display: flex;
+            align-items: center;
+            padding: 5px 0 5px 20px;
+          }
+
+          .slot-info-date {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-left: 0;
+
+            > div {
+              width: 50%;
+              height: 100%;
+              padding-left: 20px;
+            }
+
+            > div:nth-child(2) {
+              border-left: 1px solid $hawkesBlue;
+            }
+          }
+        }
+      }
+    }
+
+    .data-collection-menu {
+      .dc-slot-dots-popover {
+        padding: 0;
+
+        .title {
+          height: 50px;
+          font-family: $primary-font;
+          font-size: 11px;
+          font-weight: 900;
+          line-height: 50px;
+          letter-spacing: 0.6px;
+          color: $lightHeadedAstronaut;
+          border-bottom: 1px solid $hr-silver;
+          padding: 0 20px;
+          text-transform: uppercase;
+        }
+
+        .content {
+          padding: 0 20px;
+
+          > * {
+            &[disabled] {
+              pointer-events: none;
+              opacity: 0.5;
+            }
+          }
+
+          & div {
+            height: 50px;
+            border-bottom: 1px solid $hr-silver;
+            font-family: $primary-font;
+            font-size: 11px;
+            font-weight: 700;
+            line-height: 50px;
+            letter-spacing: 0.6px;
+            color: $lightHeadedAstronaut;
+            text-transform: uppercase;
+            cursor: pointer;
+
+            & button {
+              border: none;
+              padding: 0;
+              margin: 0;
+              font-family: $primary-font;
+              font-size: 11px;
+              color: $lightHeadedAstronaut;
+              & span {
+                margin: 0;
+              }
+            }
+          }
+        }
+      }
+    }
     .dc-slot-info-popover,
     .dc-slot-dots-popover {
       padding: 20px 30px;

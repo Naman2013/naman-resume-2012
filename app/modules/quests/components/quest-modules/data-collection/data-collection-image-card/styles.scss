@@ -39,6 +39,10 @@
     letter-spacing: 1px;
     color: $lightHeadedAstronaut;
     text-transform: uppercase;
+
+    &.telescope-info {
+      font-weight: 400;
+    }
   }
 
   .image-background {
