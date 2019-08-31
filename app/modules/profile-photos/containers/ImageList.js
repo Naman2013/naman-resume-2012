@@ -28,6 +28,7 @@ import {
   selectSelectedFilters,
   selectTelescopeList,
   selectTimeList,
+  photoHubsUploadToMyPicturesPageDataSelector,
 } from 'app/modules/profile-photos/selectors';
 import ConnectUser from 'app/redux/components/ConnectUser';
 import cx from 'classnames';
@@ -123,6 +124,7 @@ const mapStateToProps = state => {
     objectTypeList: selectObjectTypeList()(state),
     selectedFilters: selectSelectedFilters()(state),
     myPicturesFilters: state.myPicturesFilters,
+    uploadToMyPicturesPageData: photoHubsUploadToMyPicturesPageDataSelector()(state),
   };
 };
 
@@ -350,6 +352,7 @@ class ImageList extends Component {
       myPicturesFilters,
       tagsData,
       params,
+      uploadToMyPicturesPageData,
     } = this.props;
     const tagActions = {
       getTags,
