@@ -91,6 +91,8 @@ import ReserveByCatalog from 'app/pages/reserve/reserve-by-catalog';
 import ReserveObjects from 'app/pages/reserve/reserve-by-objects';
 import Show from 'app/pages/show';
 // import { ConnectedTelescopeDetails } from 'app/modules/telescope/components/telescope-details';
+import DirectJoinUpgradeFlow from 'app/pages/registration/DirectJoinUpgradeFlow';
+
 import TelescopeOverview from 'app/pages/telescope-overview';
 import globalOnRouteUpdate from 'app/route-functions/globalOnRouteUpdate';
 import validateRegistrationPaths from 'app/route-functions/validateRegistrationPaths';
@@ -199,6 +201,12 @@ const AppRouter = ({ setPreviousInstrument }) => (
         />
         <Route path="step2" component={JoinStep2} />
         <Route path="step3" component={JoinStep3} />
+
+	<Route
+	  path="directJoinUpgrade/:subscriptionPlanHashCode"
+          component={DirectJoinUpgradeFlow}
+	/>
+
         <Route
           path="byLandingPage/:subscriptionPlanHashCode"
           component={JoinByLandingPage}
