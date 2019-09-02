@@ -51,10 +51,10 @@ export default css`
   .badges-list-item-img {
     object-fit: cover;
     position: absolute;
-    width: 30px;
-    height: 30px;
-    left: 25px;
-    top: 5px;
+    width: 25px;
+    height: 25px;
+    left: 27.5px;
+    top: 7.5px;
 }
   }
   .badges-list-item-description {
