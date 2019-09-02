@@ -1,9 +1,29 @@
+@import "~app/styles/variables/index.scss";
+
 .quest-list {
   display: grid;
-  grid-template-columns: 33% 34% 33%;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-column-gap: 6px;
+  grid-row-gap: 6px;
+  justify-items: center;
   height: auto;
   width: 100%;
   margin-bottom: 10px;
+
+  .quest-list-empty {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 18px;
+    color: $lightHeadedAstronaut;
+    margin-top: 10px;
+
+    a {
+      color: $lightHeadedAstronaut;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
 
   .quest-list-item {
     position: relative;
@@ -20,6 +40,21 @@
           position: inherit;
         }
       }
+    }
+  }
+}
+
+.quest-list-empty {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 27px;
+  color: $lightHeadedAstronaut;
+  margin-top: 10px;
+
+  a {
+    color: $lightHeadedAstronaut;
+    &:hover {
+      text-decoration: underline;
     }
   }
 }

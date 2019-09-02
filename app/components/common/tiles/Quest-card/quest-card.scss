@@ -1,0 +1,119 @@
+@import "~app/styles/variables/index.scss";
+
+.card-container {
+  width: 300px;
+  height: 300px;
+  box-shadow: 0 0 8px 1px rgba(65,86,113,0.2);
+  color: $astronaut;
+  cursor: pointer;
+
+  &:hover {
+    .avers {
+      display: none;
+    }
+    .reverse {
+      display: block;
+    }
+  }
+
+  .reverse {
+    display: none;
+    border-bottom: 4px solid $astronaut;
+    height: inherit;
+    .card-container__content {
+      display: flex;
+      flex-direction: column;
+      height: inherit;
+      padding: 30px 40px;
+    }
+
+    .card-container__content-title {
+      font-size: 18px;
+      margin-top: 10px;
+      color: $astronaut;
+    }
+
+    .card-container__content-subtitle {
+      line-height: 45px;
+      border-top: 1px solid $shadows;
+      border-bottom: 1px solid $shadows;
+      margin-top: 30px;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    .card-container__content-btn {
+      margin-top: 40px;
+    }
+  }
+
+  .avers {
+    display: block;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: inherit;
+
+    .card-container__content {
+      .card-container__content-logo {
+        display: flex;
+        align-items: center;
+        position: relative;
+        margin-top: 35px;
+        width: auto;
+
+        .blue-shield {
+          position: relative;
+          background-repeat: no-repeat;
+          background-size: contain;
+          background-image: url(https://vega.slooh.com/assets/v4/common/quest_shield.png);
+          height: 112px;
+          width: 112px;
+          margin: 0 auto;
+          .icon-content {
+            position: absolute;
+            top: 29%;
+            left: 33%;
+          }
+        }
+      }
+
+      .card-container__content-title {
+        margin-top: 25px;
+        font-family: $secondary-font;
+        font-size: 18px;
+        font-weight: 300;
+        text-align: center;
+        color: $astronaut;
+      }
+    }
+
+    .card-container__footer {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      width: 100%;
+      box-shadow: 0 0 5px 0 rgba(88, 88, 88, 0.5);
+      color: $astronaut;
+
+      .card-container__footer-element {
+        width: 50%;
+        height: 70px;
+        line-height: 70px;
+        text-align: center;
+
+        span {
+          font-size: 10px;
+          font-weight: 700;
+          letter-spacing: 2px;
+          text-transform: uppercase;
+        }
+
+        &:first-child {
+          border-right: 1px solid $shadows;
+        }
+      }
+    }
+  }
+}
+
