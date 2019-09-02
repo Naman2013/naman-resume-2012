@@ -1,8 +1,11 @@
 import { CompleteCheckbox } from 'app/modules/quests/components/complete-checkbox';
+import { QuestStepInfo } from 'app/modules/quests/components/quest-step-info';
 import { questShield } from 'app/styles/variables/iconURLs';
 import React from 'react';
+import cx from 'classnames';
 import './styles.scss';
 import { Button } from 'react-bootstrap';
+import { Link } from 'react-router';
 import ResourcesButton from '../quest-details/resources-button.redux';
 
 export const QuestStepBox = props => {
@@ -23,6 +26,9 @@ export const QuestStepBox = props => {
     showStepProgressMsg,
     stepProgressMsg,
     iconURL,
+    claimBadgeButtonCaption,
+    showClaimBadgeButtonBottom,
+    claimBadgeButtonURL,
   } = stepData;
   const resourcesProps = {
     resourcesButtonText: resourcesButtonCaption,
@@ -31,7 +37,7 @@ export const QuestStepBox = props => {
   };
 
   return (
-    <div className="quest-step-box">
+    <div className={cx('quest-step-box', { 'first-module': showHeader })}>
       {showHeader && (
         <>
           {/* TABLET/DESKTOP VIEW */}
@@ -65,6 +71,8 @@ export const QuestStepBox = props => {
                 </div>
               ) : null}
             </div>
+
+            <QuestStepInfo stepData={stepData} />
           </div>
 
           {/* MOBILE VIEW */}
@@ -84,11 +92,27 @@ export const QuestStepBox = props => {
             <div className="step-box-row">
               {showResources ? <ResourcesButton {...resourcesProps} /> : null}
             </div>
+
+            <QuestStepInfo stepData={stepData} />
           </div>
         </>
       )}
 
-      {showModule && <div className="step-modules">{children}</div>}
+      {showModule && (
+        <div className="step-modules">
+          {children}
+          {showClaimBadgeButtonBottom && (
+            <div className="text-center ">
+              <Link
+                className="quest-next-step-btn btn btn-primary"
+                to={claimBadgeButtonURL}
+              >
+                {claimBadgeButtonCaption}
+              </Link>
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 };
