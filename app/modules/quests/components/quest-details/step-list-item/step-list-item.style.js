@@ -56,7 +56,8 @@ export default css`
     padding-right: 0;
     margin: 0;
     font-family: ${primaryFont};
-    font-weight: 800;
+    font-weight: 700;
+    letter-spacing: 2px;
     text-transform: uppercase;
     text-decoration: none;
     font-size: 10px;
@@ -103,6 +104,10 @@ export default css`
     height: 50px;
     width: 50px;
     border-left: 1px solid ${shadows};
+  }
+
+  .arrow-container > img {
+    margin-bottom: 4px;
   }
 
   @media ${screenMedium} {
