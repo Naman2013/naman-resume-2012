@@ -25,18 +25,18 @@ type TQuestStep = {
 };
 
 export class QuestStep extends Component<TQuestStep> {
-  state = { prevStepId: null, nextStepId: null, stepKey: null, stepId: null, };
+  state = { prevStepId: null, nextStepId: null, stepKey: null, stepId: null };
 
   static getDerivedStateFromProps(props) {
     const { stepData, routeParams } = props;
     if (stepData?.stepMenuList?.length) {
       const prevStepIndex =
         stepData.stepMenuList.findIndex(
-          item => item.stepModuleId === routeParams.step
+          item => item.stepModuleId == routeParams.step
         ) - 1;
       const nextStepIndex =
         stepData.stepMenuList.findIndex(
-          item => item.stepModuleId === routeParams.step
+          item => item.stepModuleId == routeParams.step
         ) + 1;
       return {
         prevStepId:
@@ -44,7 +44,7 @@ export class QuestStep extends Component<TQuestStep> {
             ? stepData.stepMenuList[prevStepIndex].stepModuleId
             : null,
         nextStepId:
-          nextStepIndex < stepData.stepMenuList.length
+          nextStepIndex < stepData.stepMenuList.length - 1
             ? stepData.stepMenuList[nextStepIndex].stepModuleId
             : null,
       };
@@ -77,7 +77,10 @@ export class QuestStep extends Component<TQuestStep> {
     const { getQuestStep, routeParams } = this.props;
     const { questId, step } = routeParams;
     getQuestStep(questId, step).then(() =>
-      this.setState({ stepKey: `quest-step-${step}-${Date.now()}`, stepId: step })
+      this.setState({
+        stepKey: `quest-step-${step}-${Date.now()}`,
+        stepId: step,
+      })
     );
   };
 
@@ -170,7 +173,8 @@ export class QuestStep extends Component<TQuestStep> {
           <div />
         </div>
 
-        {stepKey && stepId == routeParams.step &&
+        {stepKey &&
+          stepId == routeParams.step &&
           moduleList.map((modules, index) => (
             <div className="container step-container">
               <QuestStepBox
@@ -182,9 +186,9 @@ export class QuestStep extends Component<TQuestStep> {
               >
                 {modules.map(module => (
                   <>
-                    {(module.moduleType ===
-                      questModuleType.datacollectsame || module.moduleType ===
-                      questModuleType.datacollectdifferent) && (
+                    {(module.moduleType === questModuleType.datacollectsame ||
+                      module.moduleType ===
+                        questModuleType.datacollectdifferent) && (
                       <QuestModuleDataCollection
                         module={module}
                         key={`quest-data-collection-${module.moduleId}`}
