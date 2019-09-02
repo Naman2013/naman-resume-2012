@@ -84,7 +84,11 @@ export const QuestStepHeader = ({
           onClick={() => toggleMenu(!isOpen)}
           className="step-navigation-mobile"
         >
-          <Dots theme={{ circleColor: astronaut }} />
+          {!isOpen ? (
+            <Dots theme={{ circleColor: astronaut }} />
+          ) : (
+            <i className="menu-icon-close icon-close" />
+          )}
         </div>
       </div>
       <QuestStepContextMenu

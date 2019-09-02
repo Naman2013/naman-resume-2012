@@ -59,9 +59,11 @@ export const QuestStepBox = props => {
                 {showStepProgressMsg && stepProgressMsg}
               </span>
 
-              <div className="step-controls">
-                {showResources ? <ResourcesButton {...resourcesProps} /> : null}
-              </div>
+              {!showResources ? (
+                <div className="step-controls">
+                  <ResourcesButton {...resourcesProps} />
+                </div>
+              ) : null}
             </div>
           </div>
 
