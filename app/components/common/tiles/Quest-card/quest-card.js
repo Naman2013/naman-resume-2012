@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Button from 'app/components/common/style/buttons/Button';
 import './quest-card.scss';
 
-const QuestCard = ({ linkUrl, questType, questDifficulty, iconURL, title }) => (
+const QuestCard = ({ linkUrl, questType, questDifficulty, iconURL, title, linkLabel }) => (
   <div>
     <div className="card-container">
       <div className="avers">
@@ -41,7 +41,7 @@ const QuestCard = ({ linkUrl, questType, questDifficulty, iconURL, title }) => (
           </div>
           <div className="card-container__content-btn">
             <Button
-              text="View Label"
+              text={linkLabel}
               onClickEvent={() => browserHistory.push(linkUrl)}
             />
           </div>
