@@ -65,11 +65,14 @@ export const QuestStepBox = props => {
                 {showStepProgressMsg && stepProgressMsg}
               </span>
 
-              {!showResources ? (
-                <div className="step-controls">
-                  <ResourcesButton {...resourcesProps} />
-                </div>
-              ) : null}
+              <div
+                className={cx(
+                  'step-controls',
+                  !showResources ? 'step-controls-hide' : null
+                )}
+              >
+                {showResources ? <ResourcesButton {...resourcesProps} /> : null}
+              </div>
             </div>
 
             <QuestStepInfo stepData={stepData} />
