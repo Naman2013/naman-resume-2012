@@ -1,11 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
 import AbelList from '../../../../components/common/AbelList';
 import ResourcesButton from './resources-button.redux';
-import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
 import style from './content-list.style';
 
-const ContentList = ({ list, resourcesProps, showResources }) => (
+const ContentList = ({
+  list,
+  resourcesProps,
+  showResources,
+  showAboutDownloadPDF,
+  onDownloadPDF,
+}) => (
   <div className="root">
     <AbelList
       theme={{
@@ -14,7 +20,16 @@ const ContentList = ({ list, resourcesProps, showResources }) => (
       list={list}
     />
     <DisplayAtBreakpoint screenSmall screenLarge screenXLarge>
-      {showResources ? <ResourcesButton {...resourcesProps} /> : null}
+      <div className="quest-content-buttons-container">
+        {showResources ? <ResourcesButton {...resourcesProps} /> : null}
+        {showAboutDownloadPDF && (
+          <div className="download-quest-pdf">
+            <div onClick={onDownloadPDF} className="download">
+              <span className="icon-download" />
+            </div>
+          </div>
+        )}
+      </div>
     </DisplayAtBreakpoint>
     <style jsx>{style}</style>
   </div>
