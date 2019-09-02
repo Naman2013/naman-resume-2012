@@ -25,6 +25,7 @@ const TabConditions = props => {
     facilityWebcam,
     weatherSatellite,
     weatherConditions,
+    observatoryList,
   } = props;
   const { SeeingConditionsWidgetId, obsId } = currentObservatory;
   return (
@@ -66,12 +67,19 @@ const TabConditions = props => {
       </div>
 
       <div className="tile-container">
-        <DomCameraWidget domeCamURL={domeCam.domeCamURL} {...props} />
+        <DomCameraWidget
+          domeCamURL={domeCam.domeCamURL}
+          {...props}
+          obsId={observatoryList[0]?.obsId}
+          widgetId={currentObservatory.DomecamTimelapseWidgetId}
+        />
       </div>
 
       <div className="tile-container">
         <PicoDelTeidesWidget
           {...props}
+          obsId={currentObservatory.obsId}
+          widgetId={currentObservatory.FacilityWebcamTimelapseWidgetId}
           title={facilityWebcam.title}
           facilityWebcamUrl={facilityWebcam.facilityWebcamURL}
         />

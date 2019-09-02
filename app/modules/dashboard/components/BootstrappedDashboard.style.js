@@ -1,6 +1,6 @@
 import css from 'styled-jsx/css';
-import { faintGray } from '../../styles/variables/colors_tiles_v4';
-import { screenMedium } from '../../styles/variables/breakpoints';
+import { faintGray } from '../../../styles/variables/colors_tiles_v4';
+import { screenMedium } from '../../../styles/variables/breakpoints';
 
 export default css`
   .root {
@@ -33,9 +33,10 @@ export default css`
   }
 
   .dash-nav {
-    position: absolute;
+    position: static;
     height: 160px;
     width: 100%;
+    background-image: url('https://vega.slooh.com/assets/v4/dashboard/Darkest_Pattern_Canvas.png');
   }
 
   .sections-wrapper {

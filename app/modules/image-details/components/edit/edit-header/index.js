@@ -8,7 +8,15 @@ import { Button, Col, Row } from 'react-bootstrap';
 import './styles.scss';
 
 export const EditHeader = props => {
-  const { imageTitle, customerImageId, deleteImage } = props;
+  const {
+    imageTitle,
+    customerImageId,
+    deleteImage,
+    canEditFlag,
+    canShareFlag,
+    observationLog,
+    refetchData,
+  } = props;
 
   const [isDeleteOpen, setDeleteOpen] = useState(false);
   const [isDownloadOpen, setDownloadOpen] = useState(false);
@@ -17,6 +25,17 @@ export const EditHeader = props => {
   const onDownloadFile = () => {
     const { imageDownloadURL, imageDownloadFilename } = props;
     downloadFile(imageDownloadURL, imageDownloadFilename);
+  };
+
+  const onShare = () => {
+    const {
+      actions: { shareMemberPicture },
+      customerImageId,
+    } = props;
+
+    shareMemberPicture({ customerImageId }).then(
+      data => typeof refetchData === 'function' && refetchData()
+    );
   };
 
   const onWriteObservation = () =>
@@ -32,10 +51,14 @@ export const EditHeader = props => {
       </Col>
       <Col lg={6}>
         <div className="float-right">
-          <Button onClick={() => onWriteObservation()}>
-            Write Observation
-          </Button>
-
+          {!!(canEditFlag && !observationLog) && (
+            <Button onClick={() => onWriteObservation()}>
+              Write Observation
+            </Button>
+          )}
+          {!(canEditFlag && !observationLog) && !!canShareFlag && (
+            <Button onClick={onShare}>Share Observation</Button>
+          )}
           <TagBtn
             objectId={customerImageId}
             placeholder="Add tags to this image"

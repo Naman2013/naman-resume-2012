@@ -31,29 +31,29 @@ class RecommendedObservationsItem extends Component {
       });
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { currentIndex, user } = this.props;
-    const { token, at, cid } = user;
-    if (
-      currentIndex !== nextProps.currentIndex &&
-      nextProps.imageIndex === nextProps.currentIndex
-    ) {
-      axios
-        .post(IMAGE_DETAILS, {
-          cid,
-          at,
-          customerImageId: nextProps.customerImageId,
-          token,
-          useShareToken: 'n',
-          callSource: 'sharedpictures',
-        })
-        .then(res => {
-          this.setState({
-            ...res.data,
-          });
-        });
-    }
-  }
+  // componentWillReceiveProps(nextProps) {
+  //   const { currentIndex, user } = this.props;
+  //   const { token, at, cid } = user;
+  //   if (
+  //     currentIndex !== nextProps.currentIndex &&
+  //     nextProps.imageIndex === nextProps.currentIndex
+  //   ) {
+  //     axios
+  //       .post(IMAGE_DETAILS, {
+  //         cid,
+  //         at,
+  //         customerImageId: nextProps.customerImageId,
+  //         token,
+  //         useShareToken: 'n',
+  //         callSource: 'sharedpictures',
+  //       })
+  //       .then(res => {
+  //         this.setState({
+  //           ...res.data,
+  //         });
+  //       });
+  //   }
+  // }
 
   handleLike = () => {
     const { user, customerImageId } = this.props;
