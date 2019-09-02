@@ -15,9 +15,9 @@ export default css`
     background-repeat: no-repeat;
     background-size: contain;
     background-image: url(https://vega.slooh.com/assets/v4/common/quest_shield.png);
-    height: 80px;
-    width: 80px;
-    left: calc(50% - 50px);
+    width: 75px;
+    height: 75px;
+    left: calc(50% - 47px);
     top: -15px;
   }
 
@@ -51,10 +51,11 @@ export default css`
   .badges-list-item-img {
     object-fit: cover;
     position: absolute;
-    left: 24px;
-    top: 7px;
-    width: 32px;
-    height: 32px;
+    width: 25px;
+    height: 25px;
+    left: 27.5px;
+    top: 7.5px;
+}
   }
   .badges-list-item-description {
     min-width: 100px;
@@ -62,6 +63,6 @@ export default css`
     padding: 0px;
     margin-left: -10px;
     text-align: center;
-    margin-top: 10px;
+    margin-top: 5px;
   }
 `;
