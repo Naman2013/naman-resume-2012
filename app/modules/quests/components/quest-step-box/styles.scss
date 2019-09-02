@@ -6,6 +6,12 @@
   box-shadow: 0 0 6px 0 $shadows;
   background-color: $romance;
 
+  &.first-module {
+    .step-modules {
+      padding-top: 0;
+    }
+  }
+
   .step-box-row {
     display: flex;
     justify-content: space-between;
