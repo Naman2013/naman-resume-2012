@@ -24,6 +24,7 @@ import {
   grabUpdatedSlotApi,
   updateMissionSlotApi,
   cancelReservationApi,
+  cancelPiggybackApi,
 } from 'app/modules/missions/api';
 import { ACTION } from './reducer';
 import {
@@ -343,6 +344,14 @@ export const reservePiggyback = data => (dispatch, getState) => {
   return reservePiggybackApi({ at, token, cid, ...data })
     .then(result => dispatch(ACTION.reservePiggybackSuccess(result.data)))
     .catch(error => dispatch(ACTION.reservePiggybackError(error)));
+};
+
+export const cancelPiggyback = data => (dispatch, getState) => {
+  const { at, token, cid } = getState().user;
+  dispatch(ACTION.cancelPiggyback());
+  return cancelPiggybackApi({ at, token, cid, ...data })
+    .then(result => dispatch(ACTION.cancelPiggybackSuccess(result.data)))
+    .catch(error => dispatch(ACTION.cancelPiggybackError(error)));
 };
 
 // Edit coordinates

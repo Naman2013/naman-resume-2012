@@ -54,6 +54,8 @@ export const grabPiggybackApi = data =>
   axios.post('/api/reservation/grabPiggyback', data);
 export const reservePiggybackApi = data =>
   axios.post('/api/reservation/reservePiggyback ', data);
+export const cancelPiggybackApi = data =>
+  axios.post('/api/reservation/cancelPiggyback', data);
 
 // Edit coordinates
 export const getMissionSlotApi = data =>

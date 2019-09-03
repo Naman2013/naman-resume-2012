@@ -7,9 +7,10 @@ export const TYPE = constants('profile', [
   'RESET_MISSIONS_DATA',
   '~RESERVE_MISSION_SLOT',
   '~CANCEL_MISSION_SLOT',
+  '~CANCEL_RESERVATION',
   '~GRAB_PIGGYBACK',
   '~RESERVE_PIGGYBACK',
-  '~CANCEL_RESERVATION',
+  '~CANCEL_PIGGYBACK',
 
   // bySlooh1000 page
   '~GET_BY_SLOOH_1000',
@@ -67,13 +68,15 @@ export const initialState = {
     reservedMission: {},
   },
 
+  cancelReservation: {},
+
   piggybackMissions: {
     piggybackMissionList: [],
     piggybackReservedMissionList: [],
     piggybackReservedMission: {},
   },
 
-  cancelReservation: {},
+  cancelPiggyback: {},
 
   bySlooh1000: {
     bySlooh1000Data: {},
@@ -163,7 +166,10 @@ export default handleActions(
     [TYPE.CANCEL_RESERVATION]: setFetching,
     [TYPE.CANCEL_RESERVATION_SUCCESS]: cancelReservationSuccess,
     [TYPE.CANCEL_RESERVATION_ERROR]: setServerError,
-
+    [TYPE.CANCEL_PIGGYBACK]: setFetching,
+    [TYPE.CANCEL_PIGGYBACK_SUCCESS]: cancelPiggybackSuccess,
+    [TYPE.CANCEL_PIGGYBACK_ERROR]: setServerError,
+    
     // bySlooh1000 page
     [TYPE.GET_BY_SLOOH_1000]: setFetching,
     [TYPE.GET_BY_SLOOH_1000_SUCCESS]: getBySlooh1000Success,
@@ -313,6 +319,7 @@ function resetMissionsData(state) {
       reservedMissionList: [],
     },
     cancelReservation: {},
+    cancelPiggyback: {},
     bySlooh1000: {
       ...state.bySlooh1000,
       selectedCategorySlug: null,
@@ -770,5 +777,14 @@ function reservePiggybackSuccess(state, action) {
       piggybackReservedMissionList: action.payload.missionList,
       piggybackReservedMission: action.payload,
     },
+  };
+}
+
+function cancelPiggybackSuccess(state, action) {
+  return {
+    ...state,
+    isFetching: false,
+    isLoaded: true,
+    cancelPiggyback: action.payload,
   };
 }

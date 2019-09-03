@@ -35,8 +35,27 @@ class ProfileActivity extends Component {
 
   getMissionTime = timestamp => moment.unix(timestamp).format('HH:mm');
 
+  cancelReservation = timeSlot => {
+    const { cancelReservation } = this.props;
+    const { scheduledMissionId } = timeSlot;
+
+    cancelReservation({ scheduledMissionId });
+  };
+
+  cancelPiggyback = timeSlot => {
+    const { cancelPiggyback } = this.props;
+    const { scheduledMissionId } = timeSlot;
+
+    cancelPiggyback({ scheduledMissionId });
+  };
+
   render() {
-    const { data, activityData, cancelReservation } = this.props;
+    const {
+      data,
+      activityData,
+      cancelReservation,
+      cancelPiggyback,
+    } = this.props;
     const {
       missionsData,
       recentMissionsData,
@@ -60,7 +79,7 @@ class ProfileActivity extends Component {
       emptySetUpcomingMissionsDisplay,
       emptySetRecentMissionsDisplay,
     } = data;
-    console.log(this.props);
+
     return (
       <div className="profile-activity">
         <div className="profile-section">
@@ -71,7 +90,8 @@ class ProfileActivity extends Component {
                   <MissionCard
                     key={item.scheduledMissionId}
                     timeSlot={item}
-                    cancelReservation={cancelReservation}
+                    cancelReservation={this.cancelReservation}
+                    cancelPiggyback={this.cancelPiggyback}
                     profileMission
                   />
                 ))

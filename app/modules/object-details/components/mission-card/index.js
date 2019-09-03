@@ -10,6 +10,7 @@ export class MissionCard extends PureComponent {
       onClickHandler,
       profileMission,
       cancelReservation,
+      cancelPiggyback,
     } = this.props;
     const {
       telescopeName,
@@ -45,9 +46,8 @@ export class MissionCard extends PureComponent {
             {showDotMenu && (
               <ThreeDotsMenu
                 timeSlot={timeSlot}
-                cancelReservation={() =>
-                  cancelReservation({ scheduledMissionId })
-                }
+                cancelReservation={cancelReservation}
+                cancelPiggyback={cancelPiggyback}
               />
             )}
           </div>
@@ -65,9 +65,8 @@ export class MissionCard extends PureComponent {
             {showDotMenu && (
               <ThreeDotsMenu
                 timeSlot={timeSlot}
-                cancelReservation={() =>
-                  cancelReservation({ scheduledMissionId })
-                }
+                cancelReservation={cancelReservation}
+                cancelPiggyback={cancelPiggyback}
               />
             )}
           </div>

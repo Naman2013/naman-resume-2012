@@ -17,9 +17,10 @@ export class ThreeDotsMenu extends PureComponent {
       grabPiggyback,
       editCoordinates,
       cancelReservation,
+      cancelPiggyback,
       timeSlot,
     } = this.props;
-    console.log(key);
+
     switch (key) {
       case MENU_ITEMS.FINNISH_RESERVATION: {
         finnishReservation(true);
@@ -34,11 +35,10 @@ export class ThreeDotsMenu extends PureComponent {
         break;
       }
       case MENU_ITEMS.CANCEL_PIGGYBACK: {
-        //editCoordinates(timeSlot);
+        cancelPiggyback();
         break;
       }
       case MENU_ITEMS.CANCEL_MISSION: {
-        console.log('CANCEL');
         cancelReservation();
         break;
       }
