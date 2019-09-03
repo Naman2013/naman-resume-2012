@@ -15,6 +15,7 @@ import MissionTile from 'app/components/common/tiles/MissionTile';
 import { MissionCard } from 'app/modules/object-details/components/mission-card';
 import { ActiveGroups } from 'app/components/profiles/private-profile/active-groups';
 import { ActiveObjects } from 'app/components/profiles/private-profile//active-objects';
+import { MissionConfirmationModal } from 'app/modules/missions/components/mission-confirmation-modal';
 import './styles.scss';
 
 const { shape } = PropTypes;
@@ -31,22 +32,32 @@ class ProfileActivity extends Component {
 
   static defaultProps = {};
 
-  getMissionDate = timestamp => moment.unix(timestamp).format('ddd. MMM. DD');
-
-  getMissionTime = timestamp => moment.unix(timestamp).format('HH:mm');
+  state = {
+    cancelReservationModalVisible: false,
+    cancelPiggybackModalVisible: false,
+    selectedSlot: {},
+  };
 
   cancelReservation = timeSlot => {
-    const { cancelReservation } = this.props;
-    const { scheduledMissionId } = timeSlot;
+    const { cancelReservation, getPrivateProfile } = this.props;
+    const { selectedSlot } = this.state;
+    const { scheduledMissionId } = selectedSlot;
 
-    cancelReservation({ scheduledMissionId });
+    cancelReservation({ scheduledMissionId }).then(() => {
+      this.setState({ cancelReservationModalVisible: false });
+      getPrivateProfile();
+    });
   };
 
   cancelPiggyback = timeSlot => {
-    const { cancelPiggyback } = this.props;
-    const { scheduledMissionId } = timeSlot;
+    const { cancelPiggyback, getPrivateProfile } = this.props;
+    const { selectedSlot } = this.state;
+    const { scheduledMissionId } = selectedSlot;
 
-    cancelPiggyback({ scheduledMissionId });
+    cancelPiggyback({ scheduledMissionId }).then(() => {
+      this.setState({ cancelPiggybackModalVisible: false });
+      getPrivateProfile();
+    });
   };
 
   render() {
@@ -80,8 +91,32 @@ class ProfileActivity extends Component {
       emptySetRecentMissionsDisplay,
     } = data;
 
+    const {
+      cancelReservationModalVisible,
+      cancelPiggybackModalVisible,
+      selectedSlot,
+    } = this.state;
+    const {
+      cancelMissionDialogPrompt,
+      cancelPiggybackDialogPrompt,
+    } = selectedSlot;
+
     return (
       <div className="profile-activity">
+        <MissionConfirmationModal
+          onConfirm={this.cancelReservation}
+          onHide={() => this.setState({ cancelReservationModalVisible: false })}
+          show={cancelReservationModalVisible}
+          confirmationPrompt={cancelMissionDialogPrompt}
+        />
+
+        <MissionConfirmationModal
+          onConfirm={this.cancelPiggyback}
+          onHide={() => this.setState({ cancelPiggybackModalVisible: false })}
+          show={cancelPiggybackModalVisible}
+          confirmationPrompt={cancelPiggybackDialogPrompt}
+        />
+
         <div className="profile-section">
           <CenterColumn>
             <ContainerWithTitle title={missionListHeading}>
@@ -90,8 +125,18 @@ class ProfileActivity extends Component {
                   <MissionCard
                     key={item.scheduledMissionId}
                     timeSlot={item}
-                    cancelReservation={this.cancelReservation}
-                    cancelPiggyback={this.cancelPiggyback}
+                    cancelReservation={selectedSlot =>
+                      this.setState({
+                        cancelReservationModalVisible: true,
+                        selectedSlot,
+                      })
+                    }
+                    cancelPiggyback={selectedSlot =>
+                      this.setState({
+                        cancelPiggybackModalVisible: true,
+                        selectedSlot,
+                      })
+                    }
                     profileMission
                   />
                 ))

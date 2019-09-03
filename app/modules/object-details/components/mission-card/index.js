@@ -46,8 +46,8 @@ export class MissionCard extends PureComponent {
             {showDotMenu && (
               <ThreeDotsMenu
                 timeSlot={timeSlot}
-                cancelReservation={cancelReservation}
-                cancelPiggyback={cancelPiggyback}
+                cancelReservation={() => cancelReservation(timeSlot)}
+                cancelPiggyback={() => cancelPiggyback(timeSlot)}
               />
             )}
           </div>
@@ -65,8 +65,8 @@ export class MissionCard extends PureComponent {
             {showDotMenu && (
               <ThreeDotsMenu
                 timeSlot={timeSlot}
-                cancelReservation={cancelReservation}
-                cancelPiggyback={cancelPiggyback}
+                cancelReservation={() => cancelReservation(timeSlot)}
+                cancelPiggyback={() => cancelPiggyback(timeSlot)}
               />
             )}
           </div>
