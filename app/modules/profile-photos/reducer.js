@@ -9,6 +9,9 @@ export const TYPE = constants('profile', [
   '~SET_TAG',
   '~GET_TAGS',
   '~DELETE_TAG',
+
+  // photo upload
+  '~UPLOAD_TO_MY_PICTURES_PAGE',
 ]);
 export const ACTION = actions(TYPE);
 
@@ -28,6 +31,8 @@ export const initialState = {
     data: {},
     tagList: [],
   },
+
+  uploadToMyPicturesPageData: {},
 };
 
 export default handleActions(
@@ -48,6 +53,11 @@ export default handleActions(
     [TYPE.DELETE_TAG]: setTagFetching,
     [TYPE.DELETE_TAG_SUCCESS]: setTagSuccess,
     [TYPE.DELETE_TAG_ERROR]: setServerError,
+
+    // UPLOAD PICTURES
+    [TYPE.UPLOAD_TO_MY_PICTURES_PAGE]: setFetching,
+    [TYPE.UPLOAD_TO_MY_PICTURES_PAGE_SUCCESS]: uploadToMyPicturesPageSuccess,
+    [TYPE.UPLOAD_TO_MY_PICTURES_PAGE_ERROR]: setServerError,
   },
   initialState
 );
@@ -113,4 +123,13 @@ function getFitsDataSuccess(state, action) {
     },
     state
   );
+}
+
+function uploadToMyPicturesPageSuccess(state, action) {
+  return {
+    ...state,
+    isFetching: false,
+    isLoaded: true,
+    uploadToMyPicturesPageData: action.payload,
+  };
 }

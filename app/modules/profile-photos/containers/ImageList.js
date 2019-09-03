@@ -28,6 +28,7 @@ import {
   selectSelectedFilters,
   selectTelescopeList,
   selectTimeList,
+  photoHubsUploadToMyPicturesPageDataSelector,
 } from 'app/modules/profile-photos/selectors';
 import ConnectUser from 'app/redux/components/ConnectUser';
 import cx from 'classnames';
@@ -36,7 +37,7 @@ import React, { cloneElement, Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, browserHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
-import { getFitsData, deleteTag, getTags, setTag } from '../thunks';
+import { getFitsData, deleteTag, getTags, setTag, uploadToMyPicturesPage } from '../thunks';
 import './image-list.scss';
 import style from './ImageList.style';
 
@@ -96,6 +97,7 @@ const mapDispatchToProps = dispatch => ({
       getTags,
       setTag,
       deleteTag,
+      uploadToMyPicturesPage,
     },
     dispatch
   ),
@@ -122,6 +124,7 @@ const mapStateToProps = state => {
     objectTypeList: selectObjectTypeList()(state),
     selectedFilters: selectSelectedFilters()(state),
     myPicturesFilters: state.myPicturesFilters,
+    uploadToMyPicturesPageData: photoHubsUploadToMyPicturesPageDataSelector()(state),
   };
 };
 
@@ -139,6 +142,7 @@ class ImageList extends Component {
   componentDidMount() {
     const { actions, type, deviceInfo, params = {} } = this.props;
     const { activePage } = this.state;
+    const { uploadToMyPicturesPage } = actions;
     const fetchImages = actions[mapTypeToRequest[type]];
     const imagesToFetch = getImagesCountToFetch(deviceInfo);
     const { customerUUID } = params;
@@ -158,6 +162,7 @@ class ImageList extends Component {
     });
     //  fetchMissionsAndCounts | fetchGalleriesAndCounts | fetchPhotoRollAndCounts
     this.fetchFilters();
+    uploadToMyPicturesPage();
   }
 
   componentDidUpdate(prevProps) {
@@ -347,6 +352,7 @@ class ImageList extends Component {
       myPicturesFilters,
       tagsData,
       params,
+      uploadToMyPicturesPageData,
     } = this.props;
     const tagActions = {
       getTags,

@@ -4,6 +4,9 @@ export const myPicturesFilters = state => state.myPicturesFilters;
 
 export const objectTypeList = state => state.objectTypeList;
 
+export const photoHubs = state => state.photoHubs;
+
+
 export const selectTelescopeList = () =>
   createSelector(
     myPicturesFilters,
@@ -26,4 +29,10 @@ export const selectObjectTypeList = () =>
   createSelector(
     objectTypeList,
     state => state.objectListResponse.objectTypeList
+  );
+
+export const photoHubsUploadToMyPicturesPageDataSelector = () =>
+  createSelector(
+    photoHubs,
+    state => state.uploadToMyPicturesPageData
   );
