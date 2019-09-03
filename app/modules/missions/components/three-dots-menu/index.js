@@ -6,6 +6,8 @@ const MENU_ITEMS = {
   EDIT_COORDINATES: 'EDIT_COORDINATES',
   FINNISH_RESERVATION: 'FINISH_RESERVATION',
   PIGGYBACK: 'PIGGYBACK',
+  CANCEL_PIGGYBACK: 'CANCEL_PIGGYBACK',
+  CANCEL_MISSION: 'CANCEL_MISSION',
 };
 
 export class ThreeDotsMenu extends PureComponent {
@@ -29,6 +31,14 @@ export class ThreeDotsMenu extends PureComponent {
         editCoordinates(timeSlot);
         break;
       }
+      case MENU_ITEMS.CANCEL_PIGGYBACK: {
+        //editCoordinates(timeSlot);
+        break;
+      }
+      case MENU_ITEMS.CANCEL_MISSION: {
+        //editCoordinates(timeSlot);
+        break;
+      }
       default: {
         return null;
       }
@@ -47,6 +57,10 @@ export class ThreeDotsMenu extends PureComponent {
       showEditCoordinatesButton,
       enableEditCoordinatesMenu,
       editCoordinatesMenuText,
+      showCancelPiggybackMenu,
+      cancelPiggybackMenuText,
+      showCancelMissionMenu,
+      cancelMissionMenuText,
     } = timeSlot;
 
     return (
@@ -88,6 +102,16 @@ export class ThreeDotsMenu extends PureComponent {
               disabled={!enableEditCoordinatesMenu}
             >
               {editCoordinatesMenuText || 'Edit Coordinates'}
+            </Dropdown.Item>
+          )}
+          {showCancelMissionMenu && (
+            <Dropdown.Item eventKey={MENU_ITEMS.CANCEL_MISSION}>
+              {cancelMissionMenuText}
+            </Dropdown.Item>
+          )}
+          {showCancelPiggybackMenu && (
+            <Dropdown.Item eventKey={MENU_ITEMS.CANCEL_PIGGYBACK}>
+              {cancelMissionMenuText}
             </Dropdown.Item>
           )}
         </Dropdown.Menu>
