@@ -53,6 +53,7 @@
     align-items: center;
     justify-content: space-between;
     height: inherit;
+    background-image: url($questTexture);
 
     .card-container__content {
       .card-container__content-logo {
