@@ -23,6 +23,7 @@ import {
   getMissionSlotApi,
   grabUpdatedSlotApi,
   updateMissionSlotApi,
+  cancelReservationApi,
 } from 'app/modules/missions/api';
 import { ACTION } from './reducer';
 import {
@@ -180,6 +181,14 @@ export const cancelMissionSlot = data => (dispatch, getState) => {
   return cancelMissionSlotApi({ at, token, cid, ...data })
     .then(result => dispatch(ACTION.cancelMissionSlotSuccess(result.data)))
     .catch(error => dispatch(ACTION.cancelMissionSlotError(error)));
+};
+
+export const cancelReservation = data => (dispatch, getState) => {
+  const { at, token, cid } = getState().user;
+  dispatch(ACTION.cancelReservation());
+  return cancelReservationApi({ at, token, cid, ...data })
+    .then(result => dispatch(ACTION.cancelReservationSuccess(result.data)))
+    .catch(error => dispatch(ACTION.cancelReservationError(error)));
 };
 
 // by Slooh 1000

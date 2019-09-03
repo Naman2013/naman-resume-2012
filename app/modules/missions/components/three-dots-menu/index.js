@@ -16,8 +16,10 @@ export class ThreeDotsMenu extends PureComponent {
       finnishReservation,
       grabPiggyback,
       editCoordinates,
+      cancelReservation,
       timeSlot,
     } = this.props;
+    console.log(key);
     switch (key) {
       case MENU_ITEMS.FINNISH_RESERVATION: {
         finnishReservation(true);
@@ -36,7 +38,8 @@ export class ThreeDotsMenu extends PureComponent {
         break;
       }
       case MENU_ITEMS.CANCEL_MISSION: {
-        //editCoordinates(timeSlot);
+        console.log('CANCEL');
+        cancelReservation();
         break;
       }
       default: {
@@ -111,7 +114,7 @@ export class ThreeDotsMenu extends PureComponent {
           )}
           {showCancelPiggybackMenu && (
             <Dropdown.Item eventKey={MENU_ITEMS.CANCEL_PIGGYBACK}>
-              {cancelMissionMenuText}
+              {cancelPiggybackMenuText}
             </Dropdown.Item>
           )}
         </Dropdown.Menu>

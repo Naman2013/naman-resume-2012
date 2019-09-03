@@ -5,7 +5,12 @@ import './styles.scss';
 
 export class MissionCard extends PureComponent {
   render() {
-    const { timeSlot, onClickHandler, profileMission } = this.props;
+    const {
+      timeSlot,
+      onClickHandler,
+      profileMission,
+      cancelReservation,
+    } = this.props;
     const {
       telescopeName,
       title,
@@ -14,6 +19,7 @@ export class MissionCard extends PureComponent {
       userHasReservation,
       telescopePierName,
       showDotMenu,
+      scheduledMissionId,
     } = timeSlot;
     const {
       displayWeekdayMonthDayUTC,
@@ -36,7 +42,14 @@ export class MissionCard extends PureComponent {
         </div>
         <div className="right">
           <div className="actions">
-            {showDotMenu && <ThreeDotsMenu timeSlot={timeSlot} />}
+            {showDotMenu && (
+              <ThreeDotsMenu
+                timeSlot={timeSlot}
+                cancelReservation={() =>
+                  cancelReservation({ scheduledMissionId })
+                }
+              />
+            )}
           </div>
           <div className="date">{displayWeekdayMonthDayUTC}</div>
           <div className="time">
@@ -49,7 +62,14 @@ export class MissionCard extends PureComponent {
 
         <div className="mobile">
           <div className="actions">
-            {showDotMenu && <ThreeDotsMenu timeSlot={timeSlot} />}
+            {showDotMenu && (
+              <ThreeDotsMenu
+                timeSlot={timeSlot}
+                cancelReservation={() =>
+                  cancelReservation({ scheduledMissionId })
+                }
+              />
+            )}
           </div>
 
           <div className="mission-title">{title || missionTitle}</div>

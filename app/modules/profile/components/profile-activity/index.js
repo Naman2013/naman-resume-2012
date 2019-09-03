@@ -9,13 +9,13 @@ import uniqueId from 'lodash/uniqueId';
 import moment from 'moment';
 
 import ProfileActivityQa from 'app/modules/profile/containers/profile-activity-qa';
-import { ContainerWithTitle } from '../../common/ContainerWithTitle';
-import CenterColumn from '../../common/CenterColumn';
-import MissionTile from '../../common/tiles/MissionTile';
-import { MissionCard } from '../../../modules/object-details/components/mission-card';
-import { ActiveGroups } from './active-groups';
-import { ActiveObjects } from './active-objects';
-import styles from './ProfileActivity.styles';
+import { ContainerWithTitle } from 'app/components/common/ContainerWithTitle';
+import CenterColumn from 'app/components/common/CenterColumn';
+import MissionTile from 'app/components/common/tiles/MissionTile';
+import { MissionCard } from 'app/modules/object-details/components/mission-card';
+import { ActiveGroups } from 'app/components/profiles/private-profile/active-groups';
+import { ActiveObjects } from 'app/components/profiles/private-profile//active-objects';
+import './styles.scss';
 
 const { shape } = PropTypes;
 
@@ -36,7 +36,7 @@ class ProfileActivity extends Component {
   getMissionTime = timestamp => moment.unix(timestamp).format('HH:mm');
 
   render() {
-    const { data, activityData } = this.props;
+    const { data, activityData, cancelReservation } = this.props;
     const {
       missionsData,
       recentMissionsData,
@@ -60,7 +60,7 @@ class ProfileActivity extends Component {
       emptySetUpcomingMissionsDisplay,
       emptySetRecentMissionsDisplay,
     } = data;
-    
+    console.log(this.props);
     return (
       <div className="profile-activity">
         <div className="profile-section">
@@ -68,7 +68,12 @@ class ProfileActivity extends Component {
             <ContainerWithTitle title={missionListHeading}>
               {missionCount > 0 ? (
                 missionList.map(item => (
-                  <MissionCard key={item.scheduledMissionId} timeSlot={item} profileMission />
+                  <MissionCard
+                    key={item.scheduledMissionId}
+                    timeSlot={item}
+                    cancelReservation={cancelReservation}
+                    profileMission
+                  />
                 ))
               ) : (
                 <div>{emptySetUpcomingMissionsDisplay}</div>
@@ -82,7 +87,11 @@ class ProfileActivity extends Component {
             <ContainerWithTitle title={recentMissionListHeading}>
               {recentMissionCount > 0 ? (
                 recentMissionList.map(item => (
-                  <MissionCard key={item.scheduledMissionId} timeSlot={item} profileMission />
+                  <MissionCard
+                    key={item.scheduledMissionId}
+                    timeSlot={item}
+                    profileMission
+                  />
                 ))
               ) : (
                 <div>{emptySetRecentMissionsDisplay}</div>
@@ -119,7 +128,6 @@ class ProfileActivity extends Component {
             </CenterColumn>
           </div>
         )}
-        <style jsx>{styles}</style>
       </div>
     );
   }
