@@ -25,7 +25,12 @@ type TQuestStep = {
 };
 
 export class QuestStep extends Component<TQuestStep> {
-  state = { prevStepId: null, nextStepId: null, stepKey: null, stepId: null };
+  state = {
+    prevStepId: null,
+    nextStepId: null,
+    stepKey: null,
+    stepId: null,
+  };
 
   static getDerivedStateFromProps(props) {
     const { stepData, routeParams } = props;
@@ -76,12 +81,19 @@ export class QuestStep extends Component<TQuestStep> {
   getQuestStep = () => {
     const { getQuestStep, routeParams } = this.props;
     const { questId, step } = routeParams;
-    getQuestStep(questId, step).then(() =>
+    getQuestStep(questId, step).then(data => {
+      const {
+        payload: { redirectStep, redirectStepURL },
+      } = data;
+      if (redirectStep === true) {
+        browserHistory.push(redirectStepURL);
+        return;
+      }
       this.setState({
         stepKey: `quest-step-${step}-${Date.now()}`,
         stepId: step,
-      })
-    );
+      });
+    });
   };
 
   navigateToPrevStep = () => {
@@ -135,11 +147,12 @@ export class QuestStep extends Component<TQuestStep> {
       enableHeaderNextButton,
       showHeaderLastButton,
       enableHeaderLastButton,
+      redirectStep,
     } = stepData;
 
     return (
       <div className="quest-step-page" key={stepKey}>
-        <Spinner loading={loading} />
+        <Spinner loading={loading || redirectStep} />
 
         <QuestStepHeader
           stepHeaderTitle={stepHeaderTitle}
@@ -174,6 +187,7 @@ export class QuestStep extends Component<TQuestStep> {
         </div>
 
         {stepKey &&
+          !redirectStep &&
           stepId == routeParams.step &&
           moduleList.map((modules, index) => (
             <div className="container step-container">
