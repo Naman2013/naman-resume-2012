@@ -46,7 +46,7 @@ import {
 } from '../thunks';
 import './image-list.scss';
 import style from './ImageList.style';
-import { UploadPhoto } from 'app/modules/profile-photos/components/UploadPhoto';
+import { UploadPhoto } from 'app/modules/profile-photos/components/upload-photo';
 
 const mapTypeToList = {
   observations: 'observationsList',
@@ -404,6 +404,8 @@ class ImageList extends Component {
           <div className="filter-shader animated fadeIn faster" />
         )}
 
+        <UploadPhoto uploadPhotoData={uploadToMyPicturesPageData} />
+
         <SelectedFilters
           {...{
             selectedFilters,
@@ -471,10 +473,6 @@ class ImageList extends Component {
         ) : (
           this.placeholder()
         )}
-        <UploadPhoto
-          isOpen={isUploadPhotoModalOpen}
-          setOpen={this.setUploadPhotoModalOpen()}
-        />
       </div>
     );
   }

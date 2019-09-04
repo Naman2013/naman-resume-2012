@@ -5,7 +5,7 @@ $BOTTOM_MARGIN_FIX: 3000px; // todo
 .profile-image-list-wrapper {
   .filter-dropdown-btn {
     position: absolute;
-    right: 175px;
+    right: 120px;
     top: -73px;
   }
 
@@ -30,7 +30,6 @@ $BOTTOM_MARGIN_FIX: 3000px; // todo
     bottom: -($BOTTOM_MARGIN_FIX);
     background-color: rgba(10, 12, 14, 0.9);
   }
-
 
   // apply styles when filter dropdown is opened
   &.filter-open {
