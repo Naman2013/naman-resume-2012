@@ -1,6 +1,4 @@
-import css from 'styled-jsx/css';
-
-export default css`
+.profile-activity {
   .profile-section {
     margin-top: 15px;
     padding-bottom: 60px;
@@ -10,4 +8,4 @@ export default css`
   .ask-section {
     margin-top: 60px;
   }
-`;
+}
