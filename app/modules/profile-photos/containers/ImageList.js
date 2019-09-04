@@ -37,9 +37,16 @@ import React, { cloneElement, Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, browserHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
-import { getFitsData, deleteTag, getTags, setTag, uploadToMyPicturesPage } from '../thunks';
+import {
+  getFitsData,
+  deleteTag,
+  getTags,
+  setTag,
+  uploadToMyPicturesPage,
+} from '../thunks';
 import './image-list.scss';
 import style from './ImageList.style';
+import { UploadPhoto } from 'app/modules/profile-photos/components/UploadPhoto';
 
 const mapTypeToList = {
   observations: 'observationsList',
@@ -124,7 +131,9 @@ const mapStateToProps = state => {
     objectTypeList: selectObjectTypeList()(state),
     selectedFilters: selectSelectedFilters()(state),
     myPicturesFilters: state.myPicturesFilters,
-    uploadToMyPicturesPageData: photoHubsUploadToMyPicturesPageDataSelector()(state),
+    uploadToMyPicturesPageData: photoHubsUploadToMyPicturesPageDataSelector()(
+      state
+    ),
   };
 };
 
@@ -137,6 +146,7 @@ class ImageList extends Component {
   state = {
     activePage: parseInt(this.props.location?.query?.page, 10) || 1,
     isFilterOpen: false,
+    isUploadPhotoModalOpen: false,
   };
 
   componentDidMount() {
@@ -217,7 +227,7 @@ class ImageList extends Component {
     }
   }
 
-  componentWillUnmount(){
+  componentWillUnmount() {
     this.handleFilterChange({
       pierNumber: null,
       observatoryId: null,
@@ -239,6 +249,9 @@ class ImageList extends Component {
   };
 
   setFilterOpen = isFilterOpen => this.setState({ isFilterOpen });
+
+  setUploadPhotoModalOpen = isUploadPhotoModalOpen =>
+    this.setState({ isUploadPhotoModalOpen });
 
   handlePageChange = ({ activePage }) => {
     const {
@@ -359,7 +372,7 @@ class ImageList extends Component {
       setTag,
       deleteTag,
     };
-    const { activePage, isFilterOpen } = this.state;
+    const { activePage, isFilterOpen, isUploadPhotoModalOpen } = this.state;
     const arrOfImages = this.props[mapTypeToList[type]];
     const count = this.props[mapTypeToCount[type]];
     const currentImagesNumber = arrOfImages.length * activePage;
@@ -458,6 +471,10 @@ class ImageList extends Component {
         ) : (
           this.placeholder()
         )}
+        <UploadPhoto
+          isOpen={isUploadPhotoModalOpen}
+          setOpen={this.setUploadPhotoModalOpen()}
+        />
       </div>
     );
   }
