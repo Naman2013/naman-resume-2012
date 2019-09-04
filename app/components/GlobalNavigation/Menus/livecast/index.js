@@ -7,6 +7,7 @@ import axios from 'axios';
 import React, { PureComponent } from 'react';
 import YouTube from 'react-youtube';
 import './styles.scss';
+import { Spinner } from 'app/components/spinner/index';
 
 type TLivecast = {
   onClick: Function,
@@ -19,8 +20,8 @@ type TState = {
 };
 
 const YT_OPTIONS = {
-  height: '1',
-  width: '1',
+  height: '200', // 1
+  width: '200', // 1
   playerVars: {
     autoplay: 1,
     playsinline: 1,
@@ -36,6 +37,7 @@ export class Livecast extends PureComponent<TLivecast, TState> {
     playingVideoId: null,
     volume: 50,
     liveShows: [],
+    loading: false,
   };
 
   refetchTimer: null;
@@ -69,8 +71,9 @@ export class Livecast extends PureComponent<TLivecast, TState> {
     let { volume } = this.state;
 
     this.YTPlayer = event.target;
-    this.YTPlayer.setVolume(volume);
-    this.YTPlayer.pauseVideo();
+    // this.YTPlayer.playVideo();
+    // this.YTPlayer.setVolume(volume);
+    // this.YTPlayer.pauseVideo();
   };
 
   setVolume = volume =>
@@ -78,6 +81,12 @@ export class Livecast extends PureComponent<TLivecast, TState> {
 
   setPlay = playingVideoId =>
     this.setState({ playingVideoId }, () => this.YTPlayer.playVideo());
+
+  setLoading = playerState => {
+    if (playerState === -1 || playerState === 3) {
+      this.setState({ loading: true });
+    } else this.setState({ loading: false });
+  };
 
   render() {
     const { onClick } = this.props;
@@ -87,6 +96,7 @@ export class Livecast extends PureComponent<TLivecast, TState> {
       volume,
       playingVideoId,
       liveShows,
+      loading,
     } = this.state;
 
     const { displayTitle } = livecastData;
@@ -104,12 +114,14 @@ export class Livecast extends PureComponent<TLivecast, TState> {
 
         <YouTube
           onReady={this.onPlayerReady}
+          onStateChange={state => this.setLoading(state.data)}
           videoId={playingVideoId}
           opts={YT_OPTIONS}
         />
 
         {isOpen && (
           <LivecastPopup setOpen={this.setOpen} title={displayTitle}>
+            <Spinner loading={loading} />
             <>
               {liveShows.map(liveShow => (
                 <LiveShowControl
