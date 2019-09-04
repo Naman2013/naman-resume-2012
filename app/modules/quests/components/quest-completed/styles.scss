@@ -11,6 +11,10 @@
   width: 100%;
   height: auto;
 
+  .btn {
+    font-family: $primary-font;
+  }
+
   .quest-complete__body-banner {
     display: flex;
     flex-direction: column;
@@ -93,6 +97,7 @@
     flex-direction: column;
     padding: 0 40px;
   }
+
   .quest-badge__header {
     padding-top: 100px;
     display: flex;
@@ -149,6 +154,7 @@
       display: none;
     }
   }
+
   .quest-badge-review {
     height: 80px;
     display: flex;
@@ -280,6 +286,7 @@
 @media (max-width: $screen-md-min) {
   .quest-complete__body {
     background-color: $romance;
+
     .quest-complete__body-content {
       max-width: 90%;
       width: auto;
@@ -302,7 +309,7 @@
 
         }
 
-       }
+      }
     }
   }
 }
@@ -311,11 +318,13 @@
   .quest-complete__body {
     .quest-complete__body-banner {
       height: 430px;
+
       .subtitle {
         font-size: 18px;
         margin-top: 10px;
         border-bottom: unset;
       }
+
       .vertical-line {
         display: none;
       }
@@ -324,52 +333,64 @@
     .quest-complete__body-content {
       box-shadow: unset;
       transform: translateY(-205px);
+
       .quest-badge {
         padding: 0;
+
         .quest-badge__body {
           position: relative;
           width: 100vw;
           transform: translateX(-5vw);
           padding: 0;
         }
+
         .quest-badge__header {
           padding: 60px 40px 25px;
           box-shadow: 0 0 6px 0 #ced2d8;
+
           .quest-badge__header-left {
             text-align: center;
+
             .title {
               > span {
                 display: none;
               }
             }
           }
+
           .quest-badge__header-right {
             display: none;
           }
         }
+
         .quest-badge__body {
           .quest-badge-review {
             border: unset;
             padding: 0 40px;
+
             .quest-badge-review-btn {
               display: none;
             }
           }
+
           .quest-badge-mobile {
             display: flex;
             flex-direction: column;
+
             .quest-badge-navigation {
               display: flex;
               align-items: center;
               justify-content: space-between;
               padding: 5px 40px;
             }
+
             .quest-badge-accomplishments {
               margin-top: 15px;
               height: 56px;
               border-top: 1px solid #d9dee4;
               border-bottom: 1px solid #d9dee4;
               padding: 0 40px;
+
               > span {
                 line-height: 56px;
                 font-size: 11px;
@@ -379,21 +400,26 @@
               }
             }
           }
+
           .quest-badge-list {
             .quest-list-element {
               padding: 0 40px;
+
               .title {
                 display: none;
               }
+
               .title-mobile {
                 display: block;
                 width: 100%;
               }
+
               .quest-complete-checkbox {
                 display: none;
               }
             }
           }
+
           .quest-badge-details {
             padding: 0 40px;
           }

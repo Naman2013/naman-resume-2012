@@ -23,7 +23,7 @@ export class QuestCompleted extends PureComponent {
   };
 
   render() {
-    const { questCompletedData } = this.props;
+    const { questCompletedData, routeParams } = this.props;
     const {
       suggestedQuestsList,
       stepsCompletedList,
@@ -38,6 +38,8 @@ export class QuestCompleted extends PureComponent {
       didYouKnowText,
       reviewQuestButtonCaption,
     } = questCompletedData;
+
+    const { questId } = routeParams;
 
     return (
       <div className="quest-complete__body">
@@ -78,16 +80,22 @@ export class QuestCompleted extends PureComponent {
               <div className="quest-badge-review">
                 <div className="title">{earnedInText}</div>
                 <div className="quest-badge-review-btn">
-                  <Btn className="dashed-btn">
-                    <span>{reviewQuestButtonCaption}</span>
-                  </Btn>
+                  <Link
+                    className="btn btn-primary"
+                    to={`/quest-details/${questId}`}
+                  >
+                    {reviewQuestButtonCaption}
+                  </Link>
                 </div>
               </div>
               <div className="quest-badge-mobile">
                 <div className="quest-badge-navigation">
-                  <Btn className="dashed-btn">
-                    <span>{reviewQuestButtonCaption}</span>
-                  </Btn>
+                  <Link
+                    className="btn btn-primary"
+                    to={`/quest-details/${questId}`}
+                  >
+                    {reviewQuestButtonCaption}
+                  </Link>
                   <div className="quest-badge-mobile-download">
                     <div onClick={this.onDownloadClick} className="download">
                       <span className="icon-download" />
