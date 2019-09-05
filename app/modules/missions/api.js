@@ -9,6 +9,8 @@ export const cancelMissionSlotApi = data =>
   axios.post('/api/reservation/cancelMissionSlot', data);
 export const getMissionListApi = data =>
   axios.post('/api/reservation/getMissionList', data);
+export const cancelReservationApi = data =>
+  axios.post('/api/reservation/cancelReservation', data);
 
 // bySlooh1000 page
 export const getBySlooh1000Api = data =>
@@ -52,6 +54,8 @@ export const grabPiggybackApi = data =>
   axios.post('/api/reservation/grabPiggyback', data);
 export const reservePiggybackApi = data =>
   axios.post('/api/reservation/reservePiggyback ', data);
+export const cancelPiggybackApi = data =>
+  axios.post('/api/reservation/cancelPiggyback', data);
 
 // Edit coordinates
 export const getMissionSlotApi = data =>

@@ -4,9 +4,9 @@ import axios from 'axios';
 import Modal from 'react-modal';
 import { Link } from 'react-router';
 import { intlShape, injectIntl } from 'react-intl';
-import { customModalStyles } from '../../../styles/mixins/utilities';
-import { DASHBOARD_DISMISS_TOUR_POPUP } from '../../../services/dashboard';
-import BobbieTileWelcomeToPlan from '../../../components/common/tiles/BobbieTile/BobbieTileWelcomeToPlan';
+import { customModalStyles } from '../../../../styles/mixins/utilities';
+import { DASHBOARD_DISMISS_TOUR_POPUP } from '../../../../services/dashboard';
+import BobbieTileWelcomeToPlan from '../../../../components/common/tiles/BobbieTile/BobbieTileWelcomeToPlan';
 
 import styles from './BootstrappedTourPopup.styles';
 import messages from './BootstrappedTourPopup.messages';

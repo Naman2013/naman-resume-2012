@@ -6,7 +6,8 @@ import {
 } from '../../../styles/variables/breakpoints';
 
 export default css.global`
-  .slick-prev, .slick-next {
+  .slick-prev,
+  .slick-next {
     width: 50px;
     height: 50px;
     /* margin: 0 15px; */
@@ -20,40 +21,51 @@ export default css.global`
   }
 
   .slick-prev:before {
-    content: "";
+    content: '';
     position: absolute;
     width: 17px;
     height: 14px;
     top: 35%;
     left: 35%;
     z-index: 9;
-    background: url('https://vega.slooh.com/assets/v4/common/slider_arrow_blue.svg') 0 0 no-repeat;
+    background: url('https://vega.slooh.com/assets/v4/common/slider_arrow_blue.svg')
+      0 0 no-repeat;
   }
+
   .slick-next:before {
-    content: "";
+    content: '';
     position: absolute;
     width: 17px;
     height: 14px;
     top: 35%;
     left: 35%;
     z-index: 9;
-    background: url('https://vega.slooh.com/assets/v4/common/slider_arrow_blue.svg') 0 0 no-repeat;
+    background: url('https://vega.slooh.com/assets/v4/common/slider_arrow_blue.svg')
+      0 0 no-repeat;
     transform: rotate(180deg);
   }
 
-  .dash-item-first .slick-prev, .dash-item-first .slick-next {
-    border: solid 2px #FAD59A;
+  .dash-item-first .slick-prev,
+  .dash-item-first .slick-next {
+    border: solid 2px #fad59a;
   }
   .dash-item-first .slick-prev:before {
-    background: url('https://vega.slooh.com/assets/v4/common/slider_arrow_white.svg') 0 0 no-repeat;
+    background: url('https://vega.slooh.com/assets/v4/common/slider_arrow_white.svg')
+      0 0 no-repeat;
   }
   .dash-item-first .slick-next:before {
-    background: url('https://vega.slooh.com/assets/v4/common/slider_arrow_white.svg') 0 0 no-repeat;
+    background: url('https://vega.slooh.com/assets/v4/common/slider_arrow_white.svg')
+      0 0 no-repeat;
   }
 
-  .slick-slide > div, .slick-slide > div > div {
+  .slick-slide > div,
+  .slick-slide > div > div {
     outline: 0;
     outline: none;
+  }
+
+  .slick-arrow.slick-disabled {
+    cursor: not-allowed;
   }
 
   @media ${screenMedium} {
