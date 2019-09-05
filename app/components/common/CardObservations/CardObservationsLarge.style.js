@@ -70,13 +70,13 @@ export default css`
     font-size: 11px;
   }
 
-  .button {
+  .buttons :global(.button) {
     ${toUpper}
     padding: 20px 15px;
     ${centerChildren}
   }
 
-  .button:not(:last-child) {
+  .buttons :global(.button:not(:last-child)) {
     border-right: 1px solid #dee0e2;
   }
 
@@ -155,7 +155,7 @@ export default css`
     cursor: pointer;
   }
 
-  .details {
+  .buttons :global(.details) {
     width: 100px;
     display: flex;
     justify-content: space-between;

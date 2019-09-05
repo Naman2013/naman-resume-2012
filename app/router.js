@@ -1,5 +1,4 @@
 import {
-  ProfileActivity,
   ProfileGroups,
 } from 'app/components/profiles/private-profile';
 import ProfileQaContainer from 'app/components/profiles/private-profile/my-qa/ProfileQaContainer';
@@ -44,6 +43,7 @@ import {
   ProfileListsMain,
   ProfileMain,
   PublicProfileMain,
+  ProfileActivity,
 } from 'app/modules/profile';
 import ImagesLayout from 'app/modules/profile-photos/components/ImagesLayout';
 import { ProfilePhotos } from 'app/modules/profile-photos/components/profile-photos';

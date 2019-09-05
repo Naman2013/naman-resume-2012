@@ -1,4 +1,5 @@
 import React, { Fragment, useState } from 'react';
+import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import { ModalImg } from 'app/modules/telescope/components/modal-img';
 import { injectIntl } from 'react-intl';
@@ -114,13 +115,13 @@ const CardObsSmall = props => {
             {!commentsCount ? '0' : commentsCount}
           </div>
           {linkUrl && (
-            <a href={linkUrl} className="button details">
+            <Link to={linkUrl} className="button details">
               {intl.formatMessage(messages.Details)}
               <img
                 src="https://vega.slooh.com/assets/v4/icons/horz_arrow_right_astronaut.svg"
                 alt="arrow-right"
               />
-            </a>
+            </Link>
           )}
         </div>
       </div>
