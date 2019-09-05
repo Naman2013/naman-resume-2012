@@ -174,11 +174,11 @@ export const DataCollectionSlotCard = props => {
                     <>
                       <Link 
                         to={dotMenu?.objectInfo?.learnAboutUrl} 
-                        disabled={dotMenu?.enableObjectInfo}
+                        disabled={!dotMenu?.enableObjectInfo}
                       >
                         <div>{dotMenu?.objectInfo?.learnAboutText}</div>
                       </Link>
-                      <div disabled={dotMenu?.enableObjectInfo}>
+                      <div className="follow-object-button" disabled={!dotMenu?.enableObjectInfo}>
                         <FollowObjectButton
                           objectId={objectId}
                           user={user}
