@@ -20,8 +20,8 @@ type TState = {
 };
 
 const YT_OPTIONS = {
-  height: '200', // 1
-  width: '200', // 1
+  height: '1',
+  width: '1',
   playerVars: {
     autoplay: 1,
     playsinline: 1,
@@ -79,6 +79,10 @@ export class Livecast extends PureComponent<TLivecast, TState> {
   setVolume = volume =>
     this.setState({ volume }, () => this.YTPlayer.setVolume(volume));
 
+  onMute = () => this.YTPlayer.mute();
+
+  onUnMute = () => this.YTPlayer.unMute();
+
   setPlay = playingVideoId =>
     this.setState({ playingVideoId }, () => this.YTPlayer.playVideo());
 
@@ -131,6 +135,8 @@ export class Livecast extends PureComponent<TLivecast, TState> {
                   setPlay={this.setPlay}
                   isPlaying={playingVideoId === liveShow.streamCode}
                   onVolumeChange={this.setVolume}
+                  onMute={this.onMute}
+                  onUnMute={this.onUnMute}
                 />
               ))}
             </>
