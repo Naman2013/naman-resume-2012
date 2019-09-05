@@ -34,7 +34,9 @@ export const initialState = {
   },
 
   uploadToMyPicturesPageData: {},
-  uploadPhotoData: {},
+  uploadPhotoData: {
+    imageData: {},
+  },
 };
 
 export default handleActions(
@@ -146,6 +148,6 @@ function setMyPicturesUploadSuccess(state, action) {
     ...state,
     isFetching: false,
     isLoaded: true,
-    Photo: action.payload,
+    uploadPhotoData: action.payload,
   };
 }

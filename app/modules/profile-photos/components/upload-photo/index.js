@@ -1,27 +1,69 @@
 import React, { Component } from 'react';
 import { Button, Modal } from 'react-bootstrap';
+import { Spinner } from 'app/components/spinner/index';
+import { Select } from 'app/components/common/select';
+import { Datepicker } from 'app/modules/profile-photos/components/filter-dropdown/datepicker';
 import './index.scss';
+
+const REFERENCE_TYPES = {
+  slooh1000: 'slooh1000',
+  catalog: 'catalog',
+  other: 'other',
+};
 
 export class UploadPhoto extends Component {
   state = {
     isUploadModalOpen: false,
+    referenceType: REFERENCE_TYPES.slooh1000,
+    catalog: '',
+  };
+
+  onTypeChange = e => {
+    this.setState({ referenceType: e.target.value });
+  };
+
+  onFileUpload = e => {
+    e.preventDefault();
+
+    const { files } = e.target;
+    const { setMyPicturesUpload, user } = this.props;
+    const { cid, token, at } = user;
+    const data = new FormData();
+    data.append('cid', cid);
+    data.append('token', token);
+    data.append('at', at);
+    data.append('attachment', files[0]);
+
+    setMyPicturesUpload(data);
+  };
+
+  setCatalog = catalog => {
+    console.log(catalog);
   };
 
   render() {
-    const { uploadPhotoPageData } = this.props;
+    const {
+      uploadPhotoPageData,
+      imageData,
+      isFetching,
+      catalogListOpts,
+    } = this.props;
     const {
       DisplayTitle,
       DisplaySlooh1000,
       DisplayCatalog,
       DisplayOther,
+      DisplayObservationLogHeader,
     } = uploadPhotoPageData;
-    const { isUploadModalOpen } = this.state;
+    const { isUploadModalOpen, referenceType } = this.state;
+    const { imageUrl } = imageData;
 
     return (
       <div className="photohub-upload-photo-container">
         <Button onClick={() => this.setState({ isUploadModalOpen: true })}>
           Upload
         </Button>
+
         <Modal
           show={isUploadModalOpen}
           onHide={() => this.setState({ isUploadModalOpen: false })}
@@ -29,43 +71,87 @@ export class UploadPhoto extends Component {
           centered
           dialogClassName="upload-modal"
         >
+          <Spinner loading={isFetching} />
           <h2 className="h2-custom text-center">{DisplayTitle}</h2>
 
           <form className="upload-photo-form">
             <div className="upload-photo-form-left">
               <div className="upload-photo-form-input-file">
-                <label htmlFor="photoHubUploadInput">Upload photo</label>
-                <input type="file" id="photoHubUploadInput" />
+                <label htmlFor="photoHubUploadInput">
+                  Upload photo
+                  {imageUrl && <img src={imageUrl} />}
+                </label>
+                <input
+                  type="file"
+                  id="photoHubUploadInput"
+                  onChange={this.onFileUpload}
+                />
               </div>
+
+              {/* <Datepicker
+                className="upload-custom-date"
+                value={activeDateFilter}
+                onChange={dateFilter => onChange({ dateFilter })}
+                placeholder="SET DATE"
+                outputFormat="YYYY-MM-DD"
+              /> */}
             </div>
+
             <div className="upload-photo-form-right">
               <div className="upload-photo-radio">
                 <input
                   id="photoTypeSlooh1000"
                   type="radio"
                   name="photoType"
-                  value="slooh1000"
+                  value={REFERENCE_TYPES.slooh1000}
+                  checked={referenceType === REFERENCE_TYPES.slooh1000}
+                  onChange={this.onTypeChange}
                 />
                 <label htmlFor="photoTypeSlooh1000">{DisplaySlooh1000}</label>
               </div>
+
               <div className="upload-photo-radio">
                 <input
                   id="photoTypeCatalog"
                   type="radio"
                   name="photoType"
-                  value="catalog"
+                  value={REFERENCE_TYPES.catalog}
+                  checked={referenceType === REFERENCE_TYPES.catalog}
+                  onChange={this.onTypeChange}
                 />
                 <label htmlFor="photoTypeCatalog">{DisplayCatalog}</label>
+
+                <Select
+                  handleChange={this.setCatalog}
+                  options={catalogListOpts}
+                  //value={selectedCatalog}
+                  isDisabled={referenceType !== REFERENCE_TYPES.catalog}
+                />
               </div>
+
               <div className="upload-photo-radio">
                 <input
                   id="photoTypeOther"
                   type="radio"
                   name="photoType"
-                  value="other"
+                  value={REFERENCE_TYPES.other}
+                  checked={referenceType === REFERENCE_TYPES.other}
+                  onChange={this.onTypeChange}
                 />
                 <label htmlFor="photoTypeOther">{DisplayOther}</label>
               </div>
+            </div>
+
+            <div className="upload-photo-observation-log">
+              <h4 className="h4-custom">{DisplayObservationLogHeader}</h4>
+              <input
+                placeholder="Title your Observation"
+                onChange={e => setTitle(e.target.value)}
+              />
+              <textarea
+                placeholder="Write your Observation"
+                onChange={e => setText(e.target.value)}
+              />
             </div>
           </form>
         </Modal>

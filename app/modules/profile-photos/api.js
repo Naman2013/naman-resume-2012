@@ -14,4 +14,11 @@ export const uploadToMyPicturesPageApi = data =>
   axios.post('/api/images/uploadToMyPicturesPage', data);
 
 export const setMyPicturesUploadApi = data =>
-  axios.post('/api/images/setMyPicturesUpload', data);
+  axios({
+    method: 'post',
+    url: '/api/images/setMyPicturesUpload',
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+    data,
+  });

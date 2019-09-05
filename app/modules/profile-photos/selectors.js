@@ -1,4 +1,6 @@
 import { createSelector } from 'reselect';
+import _get from 'lodash/get';
+import { getSelectOptions } from 'app/utils/common-methods';
 
 export const myPicturesFilters = state => state.myPicturesFilters;
 
@@ -46,4 +48,26 @@ export const photoHubsUploadPhotoDataSelector = () =>
   createSelector(
     photoHubs,
     state => state.uploadPhotoData
+  );
+
+export const makeUploadImageDataSelector = () =>
+  createSelector(
+    photoHubsUploadPhotoDataSelector(),
+    state => state.imageData
+  );
+
+export const makePhotoHubsCatalogListSelector = () =>
+  createSelector(
+    photoHubsUploadToMyPicturesPageDataSelector(),
+    state => state.CatalogList
+  );
+
+export const makePhotoHubsCatalogListSelectOptsSelector = () =>
+  createSelector(
+    makePhotoHubsCatalogListSelector(),
+    state => {
+      // console.log(state);
+      // const catList = _get(state, 'catalogList', []);
+      return getSelectOptions(state, 'catalog', 'catFullName');
+    }
   );
