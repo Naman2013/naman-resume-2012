@@ -11,17 +11,19 @@ type TLiveShowControl = {
 };
 
 export const LiveShowControl = (props: TLiveShowControl) => {
+  const [volumeBeforeMute, setVolumeBeforeMute] = useState(null);
   const {
     liveShow,
     volume: initialVolume,
     isPlaying,
     setPlay,
     onVolumeChange,
+    onMute,
+    onUnMute,
   } = props;
   const { title = '', description = '' } = liveShow;
 
   const [volume, setVolume] = useState(initialVolume);
-  const [volumeBeforeMute, setVolumeBeforeMute] = useState(null);
   const [isMuted, setMuted] = useState(false);
 
   const handleVolumeChange = evt => {
@@ -43,7 +45,7 @@ export const LiveShowControl = (props: TLiveShowControl) => {
     setVolume(0);
     setMuted(true);
     if (isPlaying) {
-      onVolumeChange(0);
+      onMute();
     }
   };
 
@@ -51,7 +53,7 @@ export const LiveShowControl = (props: TLiveShowControl) => {
     setVolume(volumeBeforeMute);
     setMuted(false);
     if (isPlaying) {
-      onVolumeChange(volumeBeforeMute);
+      onUnMute();
     }
   };
 
