@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
+import { Tooltip } from 'react-tippy';
 import AbelList from '../../../../components/common/AbelList';
 import ResourcesButton from './resources-button.redux';
 import style from './content-list.style';
@@ -11,6 +12,7 @@ const ContentList = ({
   showResources,
   showAboutDownloadPDF,
   onDownloadPDF,
+  aboutDownloadPDFTooltipText,
 }) => (
   <div className="root">
     <AbelList
@@ -23,11 +25,13 @@ const ContentList = ({
       <div className="quest-content-buttons-container">
         {showResources ? <ResourcesButton {...resourcesProps} /> : null}
         {showAboutDownloadPDF && (
-          <div className="download-quest-pdf">
-            <div onClick={onDownloadPDF} className="download">
-              <span className="icon-download" />
+          <Tooltip title={aboutDownloadPDFTooltipText} position="top">
+            <div className="download-quest-pdf">
+              <div onClick={onDownloadPDF} className="download">
+                <span className="icon-download" />
+              </div>
             </div>
-          </div>
+          </Tooltip>
         )}
       </div>
     </DisplayAtBreakpoint>

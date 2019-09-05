@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Tooltip } from 'react-tippy';
 import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
 import AboutContent from 'app/components/guides/AboutContent';
 import ResourcesButton from './resources-button.redux';
@@ -13,6 +14,7 @@ const BodyContent = ({
   theme,
   showAboutDownloadPDF,
   onDownloadPDF,
+  aboutDownloadPDFTooltipText,
 }) => (
   <div className="root" style={theme}>
     <h4 className="title">{title}</h4>
@@ -22,11 +24,16 @@ const BodyContent = ({
       <div className="quest-content-buttons-container">
         {showResources ? <ResourcesButton {...resourcesProps} /> : null}
         {showAboutDownloadPDF && (
-          <div className="download-quest-pdf">
-            <div onClick={onDownloadPDF} className="download">
-              <span className="icon-download" />
+          <Tooltip
+            title={aboutDownloadPDFTooltipText}
+            position="top"
+          >
+            <div className="download-quest-pdf">
+              <div onClick={onDownloadPDF} className="download">
+                <span className="icon-download" />
+              </div>
             </div>
-          </div>
+          </Tooltip>
         )}
       </div>
     </DisplayAtBreakpoint>

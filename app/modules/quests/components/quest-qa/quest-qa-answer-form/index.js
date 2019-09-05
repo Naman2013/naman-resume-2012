@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import { Button } from 'react-bootstrap';
+import { Tooltip } from 'react-tippy';
 import cx from 'classnames';
 import ImageClickHandler from 'app/components/common/ImageClickHandler';
 import './styles.scss';
@@ -28,10 +29,13 @@ export class QuestQaAnswerForm extends PureComponent {
       textInputPlaceholder,
       submitButtonCaption,
       showSubmitButton,
+      submitButtonTooltipText,
       showEditButton,
+      editButtonTooltipText,
       editButtonCaption,
       showCancelButton,
       cancelButtonCaption,
+      cancelButtonTooltipText,
       answerText,
       textInputMaxChars,
       answers,
@@ -104,9 +108,15 @@ export class QuestQaAnswerForm extends PureComponent {
               disabled={moduleReadOnly}
             >
               <div className="qa-multiple-choice-answer-item-container">
-                <div className="qa-multiple-choice-answer-label">
-                  <img src={answer.answerIconURL} />
-                </div>
+                <Tooltip
+                  title={answer.answerLetterTooltipText}
+                  distance={10}
+                  position="top"
+                >
+                  <div className="qa-multiple-choice-answer-label">
+                    <img src={answer.answerIconURL} />
+                  </div>
+                </Tooltip>
                 <div className="qa-multiple-choice-answer-text">
                   {answer.answerText}
                 </div>
@@ -119,31 +129,48 @@ export class QuestQaAnswerForm extends PureComponent {
 
         <div className="quest-qa-answer-actions">
           {showSubmitButton && (
-            <Button
-              className="quest-qa-answer-submit-btn"
-              onClick={() => onClick(ACTIONS.SUBMIT)}
-              disabled={readOnly}
+            <Tooltip
+              title={submitButtonTooltipText}
+              distance={20}
+              position="top"
             >
-              {submitButtonCaption}
-            </Button>
+              <Button
+                className="quest-qa-answer-submit-btn"
+                onClick={() => onClick(ACTIONS.SUBMIT)}
+                disabled={readOnly}
+              >
+                {submitButtonCaption}
+              </Button>
+            </Tooltip>
           )}
           {showEditButton && (
-            <Button
-              className="quest-qa-answer-edit-btn"
-              onClick={() => onClick(ACTIONS.EDIT)}
-              disabled={readOnly}
+            <Tooltip
+              title={editButtonTooltipText}
+              position="top"
+              distance={20}
             >
-              {editButtonCaption}
-            </Button>
+              <Button
+                className="quest-qa-answer-edit-btn"
+                onClick={() => onClick(ACTIONS.EDIT)}
+                disabled={readOnly}
+              >
+                {editButtonCaption}
+              </Button>
+            </Tooltip>
           )}
           {showCancelButton && (
-            <Button
-              className="quest-qa-answer-cancel-btn"
-              onClick={() => onClick(ACTIONS.CANCEL)}
-              disabled={readOnly}
+            <Tooltip
+              title={cancelButtonTooltipText}
+              position="top"
             >
-              {cancelButtonCaption}
-            </Button>
+              <Button
+                className="quest-qa-answer-cancel-btn"
+                onClick={() => onClick(ACTIONS.CANCEL)}
+                disabled={readOnly}
+              >
+                {cancelButtonCaption}
+              </Button>
+            </Tooltip>
           )}
         </div>
       </div>
