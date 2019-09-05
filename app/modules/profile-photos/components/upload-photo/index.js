@@ -3,7 +3,7 @@ import { Button, Modal } from 'react-bootstrap';
 import { Spinner } from 'app/components/spinner/index';
 import { Select } from 'app/components/common/select';
 import { Datepicker } from 'app/modules/profile-photos/components/filter-dropdown/datepicker';
-import './index.scss';
+import './styles.scss';
 
 const REFERENCE_TYPES = {
   slooh1000: 'slooh1000',
@@ -15,7 +15,7 @@ export class UploadPhoto extends Component {
   state = {
     isUploadModalOpen: false,
     referenceType: REFERENCE_TYPES.slooh1000,
-    catalog: '',
+    selectedCatalog: {},
   };
 
   onTypeChange = e => {
@@ -38,7 +38,13 @@ export class UploadPhoto extends Component {
   };
 
   setCatalog = catalog => {
-    console.log(catalog);
+    const { uploadPhotoPageData } = this.props;
+    const { CatalogList } = uploadPhotoPageData;
+    const selectedCatalog = CatalogList.filter(
+      item => item.catalog === catalog
+    )[0];
+
+    this.setState({ selectedCatalog });
   };
 
   render() {
@@ -55,7 +61,7 @@ export class UploadPhoto extends Component {
       DisplayOther,
       DisplayObservationLogHeader,
     } = uploadPhotoPageData;
-    const { isUploadModalOpen, referenceType } = this.state;
+    const { isUploadModalOpen, referenceType, selectedCatalog } = this.state;
     const { imageUrl } = imageData;
 
     return (
@@ -110,7 +116,7 @@ export class UploadPhoto extends Component {
                 <label htmlFor="photoTypeSlooh1000">{DisplaySlooh1000}</label>
               </div>
 
-              <div className="upload-photo-radio">
+              <div className="upload-photo-radio reference-type">
                 <input
                   id="photoTypeCatalog"
                   type="radio"
@@ -121,12 +127,30 @@ export class UploadPhoto extends Component {
                 />
                 <label htmlFor="photoTypeCatalog">{DisplayCatalog}</label>
 
-                <Select
-                  handleChange={this.setCatalog}
-                  options={catalogListOpts}
-                  //value={selectedCatalog}
-                  isDisabled={referenceType !== REFERENCE_TYPES.catalog}
-                />
+                <div className="reference-type-content">
+                  <Select
+                    handleChange={this.setCatalog}
+                    options={catalogListOpts}
+                    value={selectedCatalog.catalog}
+                    isDisabled={referenceType !== REFERENCE_TYPES.catalog}
+                  />
+
+                  <textarea
+                    className="textarea designation"
+                    // placeholder={step2DesignationPrompt}
+                    // value={designation}
+                    // onChange={e => setDesignation(e.target.value)}
+                    disabled={referenceType !== REFERENCE_TYPES.catalog}
+                  />
+
+                  <div className="designation-format">
+                    Format: {selectedCatalog.catFormat}
+                  </div>
+
+                  <div className="designation-example">
+                    Example: {selectedCatalog.catExample}
+                  </div>
+                </div>
               </div>
 
               <div className="upload-photo-radio">

@@ -79,8 +79,43 @@
           cursor: pointer;
         }
 
-        .slooh-select-container {
-          margin-top: 10px;
+        &.reference-type {
+          .reference-type-content {
+            width: 100%;
+            padding-left: 17px;
+
+            .slooh-select-container {
+              margin-top: 10px;
+            }
+
+            textarea {
+              display: block;
+              width: 100%;
+              margin-top: 25px;
+              padding: 15px 20px;
+              font-size: 16px;
+              font-family: $secondary-font;
+              font-weight: 400;
+              line-height: 18px;
+              color: $astronaut;
+              border: none;
+              border-radius: 4px;
+              box-shadow: inset 0 0 7px 0 $pale-grey-two;
+              background-color: $pale-grey;
+              resize: none;
+              outline: none;
+            }
+
+            .designation-format,
+            .designation-example {
+              margin-top: 10px;
+              font-family: $secondary-font;
+              font-size: 16px;
+              font-weight: 400;
+              line-height: 29px;
+              color: $raven;
+            }
+          }
         }
       }
     }
