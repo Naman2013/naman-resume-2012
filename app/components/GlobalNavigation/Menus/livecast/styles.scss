@@ -114,8 +114,19 @@
     left: 0px;
     right: 0px;
     width: 100%;
+
     &::before {
       right: 97px;
+    }
+
+    .popup-body {
+      .controls {
+        justify-content: space-around;
+
+        input {
+          display: none;
+        }
+      }
     }
   }
 }

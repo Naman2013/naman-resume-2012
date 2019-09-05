@@ -22,7 +22,7 @@ const UNMUTE_PLAYER = 'UNMUTE_PLAYER';
 export const set = createAction(SET_USER, 'user');
 export const removeUser = createAction(REMOVE_USER);
 
-const cookieD = cookieDomain || '172.27.3.178';
+const cookieD = cookieDomain || 'localhost';
 const cookieSecure = !!cookieDomain;
 
 export function storeUserNewAT({
