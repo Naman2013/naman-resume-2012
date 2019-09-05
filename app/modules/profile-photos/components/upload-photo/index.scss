@@ -53,12 +53,16 @@
       }
 
       .upload-photo-radio {
+        display: flex;
+        align-items: center;
+
         input {
           margin-right: 5px;
           cursor: pointer;
         }
 
         label {
+          margin: 0px;
           cursor: pointer;
         }
       }

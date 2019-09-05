@@ -46,7 +46,7 @@ import {
 } from '../thunks';
 import './image-list.scss';
 import style from './ImageList.style';
-import { UploadPhoto } from 'app/modules/profile-photos/components/upload-photo';
+import UploadPhoto from 'app/modules/profile-photos/containers/upload-photo';
 
 const mapTypeToList = {
   observations: 'observationsList',
@@ -131,9 +131,6 @@ const mapStateToProps = state => {
     objectTypeList: selectObjectTypeList()(state),
     selectedFilters: selectSelectedFilters()(state),
     myPicturesFilters: state.myPicturesFilters,
-    uploadToMyPicturesPageData: photoHubsUploadToMyPicturesPageDataSelector()(
-      state
-    ),
   };
 };
 
@@ -365,7 +362,6 @@ class ImageList extends Component {
       myPicturesFilters,
       tagsData,
       params,
-      uploadToMyPicturesPageData,
     } = this.props;
     const tagActions = {
       getTags,
@@ -404,7 +400,7 @@ class ImageList extends Component {
           <div className="filter-shader animated fadeIn faster" />
         )}
 
-        <UploadPhoto uploadPhotoData={uploadToMyPicturesPageData} />
+        <UploadPhoto />
 
         <SelectedFilters
           {...{

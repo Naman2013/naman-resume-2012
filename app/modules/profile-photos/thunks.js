@@ -1,4 +1,11 @@
-import { getFitsDataApi, deleteTagApi, getTagsApi, setTagApi, uploadToMyPicturesPageApi } from './api';
+import {
+  getFitsDataApi,
+  deleteTagApi,
+  getTagsApi,
+  setTagApi,
+  uploadToMyPicturesPageApi,
+  setMyPicturesUploadApi,
+} from './api';
 import { ACTION } from './reducer';
 
 export const getFitsData = scheduledMissionId => (dispatch, getState) => {
@@ -45,6 +52,7 @@ export const deleteTag = data => (dispatch, getState) => {
     .catch(error => dispatch(ACTION.deleteTagError(error)));
 };
 
+//Photohub upload
 export const uploadToMyPicturesPage = () => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
   dispatch(ACTION.uploadToMyPicturesPage());
@@ -55,4 +63,16 @@ export const uploadToMyPicturesPage = () => (dispatch, getState) => {
   })
     .then(result => dispatch(ACTION.uploadToMyPicturesPageSuccess(result.data)))
     .catch(error => dispatch(ACTION.uploadToMyPicturesPageError(error)));
+};
+
+export const setMyPicturesUpload = () => (dispatch, getState) => {
+  const { at, token, cid } = getState().user;
+  dispatch(ACTION.setMyPicturesUpload());
+  return setMyPicturesUploadApi({
+    at,
+    token,
+    cid,
+  })
+    .then(result => dispatch(ACTION.setMyPicturesUploadSuccess(result.data)))
+    .catch(error => dispatch(ACTION.setMyPicturesUploadError(error)));
 };

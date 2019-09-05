@@ -12,6 +12,7 @@ export const TYPE = constants('profile', [
 
   // photo upload
   '~UPLOAD_TO_MY_PICTURES_PAGE',
+  '~SET_MY_PICTURES_UPLOAD',
 ]);
 export const ACTION = actions(TYPE);
 
@@ -33,6 +34,7 @@ export const initialState = {
   },
 
   uploadToMyPicturesPageData: {},
+  uploadPhotoData: {},
 };
 
 export default handleActions(
@@ -58,6 +60,10 @@ export default handleActions(
     [TYPE.UPLOAD_TO_MY_PICTURES_PAGE]: setFetching,
     [TYPE.UPLOAD_TO_MY_PICTURES_PAGE_SUCCESS]: uploadToMyPicturesPageSuccess,
     [TYPE.UPLOAD_TO_MY_PICTURES_PAGE_ERROR]: setServerError,
+
+    [TYPE.SET_MY_PICTURES_UPLOAD]: setFetching,
+    [TYPE.SET_MY_PICTURES_UPLOAD_SUCCESS]: setMyPicturesUploadSuccess,
+    [TYPE.SET_MY_PICTURES_UPLOAD_ERROR]: setServerError,
   },
   initialState
 );
@@ -125,11 +131,21 @@ function getFitsDataSuccess(state, action) {
   );
 }
 
+//Phohtohub upload
 function uploadToMyPicturesPageSuccess(state, action) {
   return {
     ...state,
     isFetching: false,
     isLoaded: true,
     uploadToMyPicturesPageData: action.payload,
+  };
+}
+
+function setMyPicturesUploadSuccess(state, action) {
+  return {
+    ...state,
+    isFetching: false,
+    isLoaded: true,
+    Photo: action.payload,
   };
 }

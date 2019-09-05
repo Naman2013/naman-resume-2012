@@ -8,13 +8,13 @@ export class UploadPhoto extends Component {
   };
 
   render() {
-    const { uploadPhotoData } = this.props;
+    const { uploadPhotoPageData } = this.props;
     const {
       DisplayTitle,
       DisplaySlooh1000,
       DisplayCatalog,
       DisplayOther,
-    } = uploadPhotoData;
+    } = uploadPhotoPageData;
     const { isUploadModalOpen } = this.state;
 
     return (
@@ -44,7 +44,7 @@ export class UploadPhoto extends Component {
                   id="photoTypeSlooh1000"
                   type="radio"
                   name="photoType"
-                  value="SLOOH_1000"
+                  value="slooh1000"
                 />
                 <label htmlFor="photoTypeSlooh1000">{DisplaySlooh1000}</label>
               </div>
@@ -53,7 +53,7 @@ export class UploadPhoto extends Component {
                   id="photoTypeCatalog"
                   type="radio"
                   name="photoType"
-                  value="CATALOG"
+                  value="catalog"
                 />
                 <label htmlFor="photoTypeCatalog">{DisplayCatalog}</label>
               </div>
@@ -62,7 +62,7 @@ export class UploadPhoto extends Component {
                   id="photoTypeOther"
                   type="radio"
                   name="photoType"
-                  value="OTHER"
+                  value="other"
                 />
                 <label htmlFor="photoTypeOther">{DisplayOther}</label>
               </div>
