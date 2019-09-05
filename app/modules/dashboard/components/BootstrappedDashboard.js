@@ -9,8 +9,6 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import PropTypes from 'prop-types';
 import uniqueId from 'lodash/uniqueId';
-import Request from '../../components/common/network/Request';
-import ConnectUserAndResponseAccess from '../../redux/components/ConnectUserAndResponseAccess';
 import { FormattedMessage, intlShape, injectIntl } from 'react-intl';
 import { getDashboardFeaturedObjects } from 'app/modules/dashboard/actions';
 import { makeDashboardFeaturedObjectsSelector } from 'app/modules/dashboard/selectors';
@@ -20,24 +18,26 @@ import {
   makeQueueTabReservedCommunityMissionDataSelector,
   makeQueueTabReservedCommunityMissionSelector,
 } from 'app/modules/telescope/selectors';
+import PromoPanel from 'app/components/home/promo-panel';
+import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
+import Request from '../../../components/common/network/Request';
+import ConnectUserAndResponseAccess from '../../../redux/components/ConnectUserAndResponseAccess';
 import BootstrappedTourPopupForUser from './tour-popup/BootstrappedTourPopupForUser';
 import BootstrappedTourPopupForGuestJoin from './tour-popup/BootstrappedTourPopupForGuestJoin';
-import { DASHBOARD_TOUR_POPUP } from '../../services/dashboard';
-import PromoPanel from 'app/components/home/promo-panel';
+import { DASHBOARD_TOUR_POPUP } from '../../../services/dashboard';
 import { getSectionComponent } from './dashboardPanelItemsConfiguration';
 import DashNav from './nav/DashboardNav';
 import DashHero from './hero/DashboardHero';
 import DashHeroMobile from './hero/DashboardHeroMobile';
 import styles from './BootstrappedDashboard.style';
 import messages from './BootstrappedDashboard.messages';
-import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
 // import { connect } from 'react-redux';
 
 const { arrayOf, bool, number, shape, string } = PropTypes;
 
 const sectionOrder = [
-  'recommendedObjects',
   'featuredObservations',
+  'recommendedObjects',
   'recommendedGuides',
   'recommendedQuests',
   'recommendedShows',
@@ -46,10 +46,6 @@ const sectionOrder = [
 ];
 
 class BootstrappedDashboard extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   static propTypes = {
     featuredObservations: shape({
       featuredObservationsShow: bool,
@@ -168,27 +164,12 @@ class BootstrappedDashboard extends Component {
   };
 
   componentDidMount() {
-    var that = this;
+    let that = this;
     setTimeout(function() {
-
-        that.setState({
-            guestPopupForceShow : true
-          }
-        );
-
-      }, 15000);
-  }
-
-  dashboardHeroClicked() {
-    //this.setState( {
-    //  guestPopupForceShow: true,
-    //});
-  }
-
-  dashboardHeroPopupClosed() {
-    this.setState( {
-      guestPopupForceShow: false,
-    });
+      that.setState({
+        guestPopupForceShow: true,
+      });
+    }, 15000);
   }
 
   render() {
@@ -201,6 +182,8 @@ class BootstrappedDashboard extends Component {
       reservedCommunityMission,
       reservedCommunityMissionData,
       getDashboardFeaturedObjects,
+      hideHero,
+      hideNav,
     } = this.props;
 
     recommendedObjects = {
@@ -213,71 +196,79 @@ class BootstrappedDashboard extends Component {
 
     return (
       <div className="root">
-	    <Request
-    		serviceURL={DASHBOARD_TOUR_POPUP}
-    		method="POST"
-    		render={({ serviceResponse }) => (
-      			<div className="root">
-        			{serviceResponse.hasPopupDataFlag && (
-          			<ConnectUserAndResponseAccess
-            				render={props => (
-              					<>
-                          {serviceResponse.displayType == 'user' && <BootstrappedTourPopupForUser
-                					     {...user}
-                               user={user}
-                					     {...serviceResponse.popupData}
-                					     validateResponseAccess={props.validateResponseAccess}
-              					   />
-                           }
-                           {serviceResponse.displayType == 'guest-join' && this.state.guestPopupForceShow && <BootstrappedTourPopupForGuestJoin
-                               id="dashboardGuestModal"
-                               {...serviceResponse.popupData}
-                 					     validateResponseAccess={props.validateResponseAccess}
-               					   />
-                           }
-                        </>
-            				)}
-          			/>
-        			)}
-      			</div>
-    		)}
-  	    />
-
-        <div className="dash-hero">
-          {/*<div
-            alt={intl.formatMessage(messages.welcome)}
-            className="hero-img"
-          />*/}
-          <DisplayAtBreakpoint screenSmall>
-            <DashHeroMobile />
-          </DisplayAtBreakpoint>
-          <DisplayAtBreakpoint screenMedium screenLarge screenXLarge>
-            <div onClick={() => this.dashboardHeroClicked()}>
-              <DashHero/>
+        <Request
+          serviceURL={DASHBOARD_TOUR_POPUP}
+          method="POST"
+          render={({ serviceResponse }) => (
+            <div className="root">
+              {serviceResponse.hasPopupDataFlag && (
+                <ConnectUserAndResponseAccess
+                  render={props => (
+                    <>
+                      {serviceResponse.displayType == 'user' && (
+                        <BootstrappedTourPopupForUser
+                          {...user}
+                          user={user}
+                          {...serviceResponse.popupData}
+                          validateResponseAccess={props.validateResponseAccess}
+                        />
+                      )}
+                      {serviceResponse.displayType == 'guest-join' &&
+                        this.state.guestPopupForceShow && (
+                          <BootstrappedTourPopupForGuestJoin
+                            id="dashboardGuestModal"
+                            {...serviceResponse.popupData}
+                            validateResponseAccess={
+                              props.validateResponseAccess
+                            }
+                          />
+                        )}
+                    </>
+                  )}
+                />
+              )}
             </div>
-          </DisplayAtBreakpoint>
-        </div>
+          )}
+        />
+        {!hideHero && (
+          <div className="dash-hero">
+            <DisplayAtBreakpoint screenSmall>
+              <DashHeroMobile />
+            </DisplayAtBreakpoint>
+            <DisplayAtBreakpoint screenMedium screenLarge screenXLarge>
+              <div>
+                <DashHero />
+              </div>
+            </DisplayAtBreakpoint>
+          </div>
+        )}
         {promoPanelShow
           ? promoArray.map(promoObject => (
               <PromoPanel {...promoObject} key={uniqueId()} />
             ))
           : null}
-        <div className="dash-nav">
-          <DashNav />
-        </div>
+        {!hideNav && (
+          <div className="dash-nav">
+            <DashNav />
+          </div>
+        )}
         <div className="sections-wrapper">
           {sectionOrder.map(
             (section, i) =>
               this.props[section] &&
               getSectionComponent(
                 section,
-                Object.assign({ orderNumber: i + 1 }, this.props[section], {
-                  user,
-                }, recommendedObjects)
+                Object.assign(
+                  { orderNumber: i + 1 },
+                  this.props[section],
+                  {
+                    user,
+                  },
+                  recommendedObjects
+                )
               )
           )}
         </div>
-
         <style jsx>{styles}</style>
       </div>
     );
