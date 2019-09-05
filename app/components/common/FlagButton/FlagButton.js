@@ -1,8 +1,6 @@
 /***********************************
  * V4 Flag Button
  *
- *
- *
  ***********************************/
 
 import React, { Component, Fragment } from 'react';
