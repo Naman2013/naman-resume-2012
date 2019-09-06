@@ -71,3 +71,9 @@ export const makePhotoHubsCatalogListSelectOptsSelector = () =>
       return getSelectOptions(state, 'catalog', 'catFullName');
     }
   );
+
+export const photoHubsUploadToMyPicturesDataSelector = () =>
+  createSelector(
+    photoHubs,
+    state => state.uploadToMyPicturesData
+  );

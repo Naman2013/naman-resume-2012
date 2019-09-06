@@ -5,6 +5,7 @@ import {
   setTagApi,
   uploadToMyPicturesPageApi,
   setMyPicturesUploadApi,
+  uploadToMyPicturesApi,
 } from './api';
 import { ACTION } from './reducer';
 
@@ -71,4 +72,12 @@ export const setMyPicturesUpload = data => (dispatch, getState) => {
   return setMyPicturesUploadApi(data)
     .then(result => dispatch(ACTION.setMyPicturesUploadSuccess(result.data)))
     .catch(error => dispatch(ACTION.setMyPicturesUploadError(error)));
+};
+
+export const uploadToMyPictures = data => (dispatch, getState) => {
+  const { at, token, cid } = getState().user;
+  dispatch(ACTION.uploadToMyPictures());
+  return uploadToMyPicturesApi(data)
+    .then(result => dispatch(ACTION.uploadToMyPicturesSuccess(result.data)))
+    .catch(error => dispatch(ACTION.uploadToMyPicturesError(error)));
 };

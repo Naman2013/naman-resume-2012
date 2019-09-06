@@ -16,6 +16,7 @@ export class UploadPhoto extends Component {
     isUploadModalOpen: false,
     referenceType: REFERENCE_TYPES.slooh1000,
     selectedCatalog: {},
+    designation: '',
   };
 
   onTypeChange = e => {
@@ -60,8 +61,14 @@ export class UploadPhoto extends Component {
       DisplayCatalog,
       DisplayOther,
       DisplayObservationLogHeader,
+      DisplayUploadBtn,
     } = uploadPhotoPageData;
-    const { isUploadModalOpen, referenceType, selectedCatalog } = this.state;
+    const {
+      isUploadModalOpen,
+      referenceType,
+      selectedCatalog,
+      designation,
+    } = this.state;
     const { imageUrl } = imageData;
 
     return (
@@ -137,9 +144,11 @@ export class UploadPhoto extends Component {
 
                   <textarea
                     className="textarea designation"
-                    // placeholder={step2DesignationPrompt}
-                    // value={designation}
-                    // onChange={e => setDesignation(e.target.value)}
+                    placeholder="Type designation here"
+                    value={designation}
+                    onChange={e =>
+                      this.setState({ designation: e.target.value })
+                    }
                     disabled={referenceType !== REFERENCE_TYPES.catalog}
                   />
 
@@ -176,6 +185,10 @@ export class UploadPhoto extends Component {
                 placeholder="Write your Observation"
                 onChange={e => setText(e.target.value)}
               />
+            </div>
+
+            <div className="upload-photo-upload-button">
+              <Button onClick={() => {}}>{DisplayUploadBtn}</Button>
             </div>
           </form>
         </Modal>

@@ -4,8 +4,12 @@ import {
   makeUploadImageDataSelector,
   photoHubsUploadToMyPicturesPageDataSelector,
   makePhotoHubsCatalogListSelectOptsSelector,
+  photoHubsUploadToMyPicturesDataSelector,
 } from 'app/modules/profile-photos/selectors';
-import { setMyPicturesUpload } from 'app/modules/profile-photos/thunks';
+import {
+  setMyPicturesUpload,
+  uploadToMyPictures,
+} from 'app/modules/profile-photos/thunks';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
@@ -17,10 +21,12 @@ const mapStateToProps = createStructuredSelector({
   imageData: makeUploadImageDataSelector(),
   user: makeUserSelector(),
   catalogListOpts: makePhotoHubsCatalogListSelectOptsSelector(),
+  uploadToMyPicturesData: photoHubsUploadToMyPicturesDataSelector(),
 });
 
 const mapDispatchToProps = {
   setMyPicturesUpload,
+  uploadToMyPictures,
 };
 
 export default compose(

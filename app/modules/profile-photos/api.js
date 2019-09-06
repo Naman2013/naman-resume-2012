@@ -22,3 +22,6 @@ export const setMyPicturesUploadApi = data =>
     },
     data,
   });
+
+export const uploadToMyPicturesApi = data =>
+  axios.post('/api/images/uploadToMyPictures', data);

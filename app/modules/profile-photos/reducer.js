@@ -13,6 +13,7 @@ export const TYPE = constants('profile', [
   // photo upload
   '~UPLOAD_TO_MY_PICTURES_PAGE',
   '~SET_MY_PICTURES_UPLOAD',
+  '~UPLOAD_TO_MY_PICTURES',
 ]);
 export const ACTION = actions(TYPE);
 
@@ -37,6 +38,7 @@ export const initialState = {
   uploadPhotoData: {
     imageData: {},
   },
+  uploadToMyPicturesData: {},
 };
 
 export default handleActions(
@@ -66,6 +68,10 @@ export default handleActions(
     [TYPE.SET_MY_PICTURES_UPLOAD]: setFetching,
     [TYPE.SET_MY_PICTURES_UPLOAD_SUCCESS]: setMyPicturesUploadSuccess,
     [TYPE.SET_MY_PICTURES_UPLOAD_ERROR]: setServerError,
+
+    [TYPE.UPLOAD_TO_MY_PICTURES]: setFetching,
+    [TYPE.UPLOAD_TO_MY_PICTURES_SUCCESS]: uploadToMyPicturesSuccess,
+    [TYPE.UPLOAD_TO_MY_PICTURES_ERROR]: setServerError,
   },
   initialState
 );
@@ -149,5 +155,14 @@ function setMyPicturesUploadSuccess(state, action) {
     isFetching: false,
     isLoaded: true,
     uploadPhotoData: action.payload,
+  };
+}
+
+function uploadToMyPicturesSuccess(state, action) {
+  return {
+    ...state,
+    isFetching: false,
+    isLoaded: true,
+    uploadToMyPicturesData: action.payload,
   };
 }
