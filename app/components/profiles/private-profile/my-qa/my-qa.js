@@ -66,7 +66,7 @@ class MyQa extends Component {
   componentDidMount() {
     const { params } = this.props;
     const { filter } = params;
-    this.getAstronomerQuestions({ answerState: filter });
+    this.getAstronomerQuestions({ answerState: filter, currentPage: 1 });
   }
 
   getAstronomerQuestions = data => {
