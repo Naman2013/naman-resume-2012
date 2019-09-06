@@ -23,6 +23,8 @@ import {
   getMissionSlotApi,
   grabUpdatedSlotApi,
   updateMissionSlotApi,
+  cancelReservationApi,
+  cancelPiggybackApi,
 } from 'app/modules/missions/api';
 import { ACTION } from './reducer';
 import {
@@ -182,6 +184,14 @@ export const cancelMissionSlot = data => (dispatch, getState) => {
     .catch(error => dispatch(ACTION.cancelMissionSlotError(error)));
 };
 
+export const cancelReservation = data => (dispatch, getState) => {
+  const { at, token, cid } = getState().user;
+  dispatch(ACTION.cancelReservation());
+  return cancelReservationApi({ at, token, cid, ...data })
+    .then(result => dispatch(ACTION.cancelReservationSuccess(result.data)))
+    .catch(error => dispatch(ACTION.cancelReservationError(error)));
+};
+
 // by Slooh 1000
 export const getBySlooh1000 = () => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
@@ -334,6 +344,14 @@ export const reservePiggyback = data => (dispatch, getState) => {
   return reservePiggybackApi({ at, token, cid, ...data })
     .then(result => dispatch(ACTION.reservePiggybackSuccess(result.data)))
     .catch(error => dispatch(ACTION.reservePiggybackError(error)));
+};
+
+export const cancelPiggyback = data => (dispatch, getState) => {
+  const { at, token, cid } = getState().user;
+  dispatch(ACTION.cancelPiggyback());
+  return cancelPiggybackApi({ at, token, cid, ...data })
+    .then(result => dispatch(ACTION.cancelPiggybackSuccess(result.data)))
+    .catch(error => dispatch(ACTION.cancelPiggybackError(error)));
 };
 
 // Edit coordinates

@@ -24,7 +24,7 @@ class AccountSettings extends Component<TAccountSettings> {
 
   componentDidUpdate(prevProps) {
     const { fetchAccountSettingsAction, accountDetails } = this.props;
-    if (!isEqual(prevProps.accountDetails, accountDetails)) {
+    if (!isEqual(prevProps.accountDetails, accountDetails) && prevProps.accountDetailsHeading) {
       fetchAccountSettingsAction();
     }
   }

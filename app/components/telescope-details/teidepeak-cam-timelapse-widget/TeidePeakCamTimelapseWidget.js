@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import Offline from '../condition-snapshot/Offline';
 import GenericLoadingBox from '../../common/loading-screens/generic-loading-box';
 import { fetchTeidePeakCamTimelapseAction } from '../../../modules/Telescope-Overview';
+import { fetchFacilityCamTimelapseAction } from '../../../modules/Telescope-Overview';
 import { white } from '../../../styles/variables/colors';
 import './teidepeak-cam-timelapse-widget.scss';
 
@@ -14,18 +15,19 @@ const mapStateToProps = ({
 }) => ({
   domeCamTimelapseTitle: teidePeakCamTimelapseWidgetResult.title,
   refreshIntervalSec: teidePeakCamTimelapseWidgetResult.refreshIntervalSec,
-  domeCamTimelapseURL: teidePeakCamTimelapseWidgetResult.domecamTimelapseURL,
+  facilityWebcamTimelapseURL: teidePeakCamTimelapseWidgetResult.facilityWebcamTimelapseURL,
   offlineImageURL: teidePeakCamTimelapseWidgetResult.offlineImageURL,
   onlineStatus: teidePeakCamTimelapseWidgetResult.onlineStatus,
   widgetWidth: teidePeakCamTimelapseWidgetResult.widgetWidth,
   fetchingTeidePeakCamTimelapseWidgetResult:
-    telescopeOverview.fetchingTeidePeakCamTimelapseWidgetResult,
+  telescopeOverview.fetchingTeidePeakCamTimelapseWidgetResult,
 });
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(
     {
       fetchTeidePeakCamTimelapseAction,
+      fetchFacilityCamTimelapseAction,
     },
     dispatch
   ),
@@ -38,28 +40,26 @@ const mapDispatchToProps = dispatch => ({
 class TeidePeakCamTimelapseWidget extends Component {
   static propTypes = {
     obsId: PropTypes.string.isRequired,
-    DomecamTimelapseWidgetId: PropTypes.string.isRequired,
+    FacilityWebcamTimelapseWidgetId: PropTypes.string.isRequired,
     fetchingDomeCamTimelapseWidgetResult: PropTypes.bool.isRequired,
     refreshIntervalSec: PropTypes.number.isRequired,
-    domeCamTimelapseURL: PropTypes.string.isRequired,
+    facilityWebcamTimelapseURL: PropTypes.string.isRequired,
     onlineStatus: PropTypes.string.isRequired,
     offlineImageURL: PropTypes.string.isRequired,
   };
 
   componentDidMount() {
-    const { obsId, DomecamTimelapseWidgetId } = this.props;
-    this.props.actions.fetchTeidePeakCamTimelapseAction({
+    const { obsId, FacilityWebcamTimelapseWidgetId } = this.props;
+    this.props.actions.fetchFacilityCamTimelapseAction({
       obsId,
-      DomecamTimelapseWidgetId,
+      FacilityWebcamTimelapseWidgetId,
     });
   }
 
   render() {
     const {
-      fetchingTeidePeakCamTimelapseWidgetResult,
       domeCamTimelapseTitle,
-      refreshIntervalSec,
-      domeCamTimelapseURL,
+      facilityWebcamTimelapseURL,
       onlineStatus,
       offlineImageURL,
       widgetWidth,
@@ -79,7 +79,7 @@ class TeidePeakCamTimelapseWidget extends Component {
           {onlineStatus === 'offline' && (
             <Offline offlineImageURL={offlineImageURL} />
           )}
-          {onlineStatus === 'online' && domeCamTimelapseURL ? (
+          {onlineStatus === 'online' && facilityWebcamTimelapseURL ? (
             <video
               style={{ width: `${widgetWidth}px` }}
               className="domecamtimelapse-video"
@@ -91,7 +91,7 @@ class TeidePeakCamTimelapseWidget extends Component {
               controls
               controlsList="nodownload"
             >
-              <source src={domeCamTimelapseURL} type="video/mp4" />
+              <source src={facilityWebcamTimelapseURL} type="video/mp4" />
             </video>
           ) : (
             <GenericLoadingBox />

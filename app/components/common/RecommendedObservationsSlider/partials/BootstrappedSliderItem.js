@@ -47,7 +47,7 @@ const BootstrappedObservationSliderItem = props => {
                     <h2 className="title">{imageTitle}</h2>
                     <h5 className="author">{displayName}</h5>
                     {(observationLog || socialShareDescription) && (
-                      <p className="i-text-box">
+                      <p className="dashboardObservationText i-text-box">
                         {observationLog || socialShareDescription}
                       </p>
                     )}
@@ -120,13 +120,13 @@ const BootstrappedObservationSliderItem = props => {
                     {!commentsCount ? '0' : commentsCount}
                   </div>
                   {linkUrl && (
-                    <a href={linkUrl} className="button details">
+                    <Link to={linkUrl} className="button details">
                       {intl.formatMessage(messages.Details)}
                       <img
                         src="https://vega.slooh.com/assets/v4/icons/horz_arrow_right_astronaut.svg"
                         alt="arrow-right"
                       />
-                    </a>
+                    </Link>
                   )}
                 </div>
                 <div className="capture-date">

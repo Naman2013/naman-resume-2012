@@ -14,6 +14,10 @@ const ProfileListsContainer = React.lazy(() =>
   import('./containers/profile-lists')
 );
 
+const ProfileActivityContainer = React.lazy(() =>
+  import('./containers/profile-activity')
+);
+
 export const ProfileMain = props => (
   <Suspense fallback={<div>Loading...</div>}>
     <ProfileContainer {...props} />
@@ -35,5 +39,22 @@ export const PrivateProfileMain = props => (
 export const ProfileListsMain = props => (
   <Suspense fallback={<div>Loading...</div>}>
     <ProfileListsContainer {...props} />
+  </Suspense>
+);
+
+export const ProfileActivity = props => (
+  <Suspense fallback={<div>Loading...</div>}>
+    <ProfileActivityContainer {...props} />
+  </Suspense>
+);
+
+// Dashboard
+const ProfileDashboardContainerLoadable = React.lazy(() =>
+  import('./containers/dashborad')
+);
+
+export const ProfileDashboardContainer = props => (
+  <Suspense fallback={<div>Loading...</div>}>
+    <ProfileDashboardContainerLoadable {...props} />
   </Suspense>
 );

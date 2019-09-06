@@ -1,6 +1,4 @@
-import DashboardPage from 'app/components/Dashboard';
 import {
-  ProfileActivity,
   ProfileGroups,
 } from 'app/components/profiles/private-profile';
 import ProfileQaContainer from 'app/components/profiles/private-profile/my-qa/ProfileQaContainer';
@@ -30,6 +28,7 @@ import StaticAppContainer from 'app/containers/static-app-container';
 import StoriesHub from 'app/containers/stories-hub';
 import { AskAstronomerMain, QuestionMain } from 'app/modules/ask-astronomer';
 import { CommunityGroupEdit } from 'app/modules/community-group-overview';
+import Dashboard from 'app/modules/dashboard/containers/dashborad';
 import { GalleryDetailsMain } from 'app/modules/gallery-details';
 import { ImageDetailsMain } from 'app/modules/image-details';
 import { MissionDetailsMain } from 'app/modules/mission-details';
@@ -40,9 +39,11 @@ import Telescope from 'app/modules/missions/containers/telescope';
 import { MissionsMain } from 'app/modules/missions/index';
 import {
   PrivateProfileMain,
+  ProfileDashboardContainer,
   ProfileListsMain,
   ProfileMain,
   PublicProfileMain,
+  ProfileActivity,
 } from 'app/modules/profile';
 import ImagesLayout from 'app/modules/profile-photos/components/ImagesLayout';
 import { ProfilePhotos } from 'app/modules/profile-photos/components/profile-photos';
@@ -131,7 +132,6 @@ history.listen(location => {
 
 const getProfileRoutes = ({ publicProfile }) => (
   <Fragment>
-    <IndexRedirect to="activity" />
     <Route path="activity" component={ProfileActivity} />
     <Route path="photos" component={ProfilePhotos}>
       <IndexRedirect to={publicProfile ? 'observations' : 'photoroll'} />
@@ -146,6 +146,7 @@ const getProfileRoutes = ({ publicProfile }) => (
       <Route path=":filter" component={ProfileQaContainer} />
     </Route>
     <Route path="groups" component={ProfileGroups} />
+    <Route path="dashboard" component={ProfileDashboardContainer} />
     <Route
       path="groups/create"
       component={GroupCreate}
@@ -176,7 +177,7 @@ const AppRouter = ({ setPreviousInstrument }) => (
     </Route>
 
     <Route path="/" component={App}>
-      <IndexRoute component={DashboardPage} onEnter={validateUser} />
+      <IndexRoute component={Dashboard} onEnter={validateUser} />
 
       <Route path="about" component={About} onEnter={validateUser}>
         <IndexRedirect to="about-slooh" />
@@ -467,6 +468,7 @@ const AppRouter = ({ setPreviousInstrument }) => (
           onEnter={validateUser}
         >
           {getProfileRoutes({ publicProfile: false })}
+          <IndexRedirect to="dashboard" />
         </Route>
 
         <Route
@@ -475,6 +477,7 @@ const AppRouter = ({ setPreviousInstrument }) => (
           onEnter={validateUser}
         >
           {getProfileRoutes({ publicProfile: true })}
+          <IndexRedirect to="activity" />
         </Route>
       </Route>
 
@@ -500,23 +503,23 @@ const AppRouter = ({ setPreviousInstrument }) => (
         component={CommunityGroupOverview}
       />
 
-        <Route
-          path="community-groups/:groupId/edit=:edit"
-          onEnter={validateUser}
-          component={CommunityGroupEdit}
-        />
+      <Route
+        path="community-groups/:groupId/edit=:edit"
+        onEnter={validateUser}
+        component={CommunityGroupEdit}
+      />
 
-         <Route
-           path="community-groups/:groupId/info"
-           onEnter={validateUser}
-           component={GroupOverviewInfo}
-         />
+      <Route
+        path="community-groups/:groupId/info"
+        onEnter={validateUser}
+        component={GroupOverviewInfo}
+      />
 
-         <Route
-           path="community-groups/:groupId/:threadId"
-           onEnter={validateUser}
-           component={CommunityGroupOverview}
-         />
+      <Route
+        path="community-groups/:groupId/:threadId"
+        onEnter={validateUser}
+        component={CommunityGroupOverview}
+      />
 
       <Route
         path="account-settings"
@@ -558,7 +561,6 @@ const mapDispatchToProps = dispatch =>
     dispatch
   );
 
-// export default hot(AppRouter);
 export default connect(
   null,
   mapDispatchToProps

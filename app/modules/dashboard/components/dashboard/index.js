@@ -1,32 +1,20 @@
-/***********************************
- * V4 Dashboard the new home page
- *
- *
- *
- ***********************************/
-
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { getDashboardFeaturedObjects } from 'app/modules/dashboard/actions';
+import DashboardDisplay from 'app/modules/dashboard/components/DashboardDisplay';
 import {
   setupFeaturedObjectsExpireTimer,
   stopFeaturedObjectsExpireTimer,
 } from 'app/services/dashboard/timer';
-import DashboardDisplay from './DashboardDisplay';
+import React, { Component } from 'react';
 
-const mapStateToProps = ({ user }) => ({
-  user,
-});
+export class Dashboard extends Component {
+  constructor(props) {
+    super(props);
+    const { embed, router, user } = this.props;
+    // Redirect user to /profile/dashboard from / if user is authenticated
+    if (!embed && user.isAuthorized) {
+      router.push('/profile/private/dashboard');
+    }
+  }
 
-const mapDispatchToProps = {
-  getDashboardFeaturedObjects,
-};
-
-@connect(
-  mapStateToProps,
-  mapDispatchToProps
-)
-class Dashboard extends Component {
   componentDidMount() {
     this.getDashboardFeaturedObjects();
   }
@@ -47,9 +35,7 @@ class Dashboard extends Component {
   };
 
   render() {
-    const { user } = this.props;
-    return <DashboardDisplay {...user} />;
+    const { user, hideHero, hideNav } = this.props;
+    return <DashboardDisplay {...{ hideHero, hideNav, user }} />;
   }
 }
-
-export default Dashboard;

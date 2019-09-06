@@ -42,6 +42,10 @@ export default css`
     color: ${shadows};
     font-weight: bold;
   }
+  
+  :global(.photohub-nav-block a:hover) {
+    color: ${shadows};
+  }
 
   :global(a.photohub-nav-active.photohub-nav-link) {
     color: ${astronaut};

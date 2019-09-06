@@ -14,6 +14,8 @@ import fetchWeatherMissionControlStatusWidget from '../services/sky-widgets/weat
 import fetchDomeCam from '../services/sky-widgets/dome-cam';
 import fetchDomeCamTimelapse from '../services/sky-widgets/dome-cam-timelapse';
 
+import fetchFacilityCamTimelapse from '../services/sky-widgets/facility-cam-timelapse';
+
 import fetchAllSkyCamera from '../services/sky-widgets/all-sky-camera';
 import fetchAllSkyTimelapse from '../services/sky-widgets/all-sky-timelapse';
 
@@ -49,8 +51,10 @@ const WEATHER_CONDITIONS_WIDGET_SUCCESS = 'WEATHER_CONDITIONS_WIDGET_SUCCESS';
 const WEATHER_SATELLITE_WIDGET_START = 'WEATHER_SATELLITE_WIDGET_START';
 const WEATHER_SATELLITE_WIDGET_SUCCESS = 'WEATHER_SATELLITE_WIDGET_SUCCESS';
 
-const WEATHER_MISSION_CONTROL_STATUS_WIDGET_START = 'WEATHER_MISSION_CONTROL_STATUS_WIDGET_START';
-const WEATHER_MISSION_CONTROL_STATUS_WIDGET_SUCCESS = 'WEATHER_MISSION_CONTROL_STATUS_WIDGET_SUCCESS';
+const WEATHER_MISSION_CONTROL_STATUS_WIDGET_START =
+  'WEATHER_MISSION_CONTROL_STATUS_WIDGET_START';
+const WEATHER_MISSION_CONTROL_STATUS_WIDGET_SUCCESS =
+  'WEATHER_MISSION_CONTROL_STATUS_WIDGET_SUCCESS';
 
 const TELESCOPE_CARD_DATA_SUCCESS = 'TELESCOPE_CARD_DATA_SUCCESS';
 const TELESCOPE_CARD_DATA_FAIL = 'TELESCOPE_CARD_DATA_FAIL';
@@ -68,11 +72,15 @@ const FETCH_DOME_CAM_TIMELAPSE_SUCCESS = 'FETCH_DOME_CAM_TIMELAPSE_SUCCESS';
 const FETCH_ALL_SKY_TIMELAPSE_START = 'FETCH_ALL_SKY_TIMELAPSE_START';
 const FETCH_ALL_SKY_TIMELAPSE_SUCCESS = 'FETCH_ALL_SKY_TIMELAPSE_SUCCESS';
 
-const FETCH_TEIDE_PEAK_CAM_TIMELAPSE_START = 'FETCH_TEIDE_PEAK_CAM_TIMELAPSE_START';
-const FETCH_TEIDE_PEAK_CAM_TIMELAPSE_SUCCESS = 'FETCH_TEIDE_PEAK_CAM_TIMELAPSE_SUCCESS';
+const FETCH_TEIDE_PEAK_CAM_TIMELAPSE_START =
+  'FETCH_TEIDE_PEAK_CAM_TIMELAPSE_START';
+const FETCH_TEIDE_PEAK_CAM_TIMELAPSE_SUCCESS =
+  'FETCH_TEIDE_PEAK_CAM_TIMELAPSE_SUCCESS';
 
 export const getCurrentObservatory = (observatoryList = [], observatoryId) => {
-  return observatoryList.find(observatory => observatory.obsUniqueId === observatoryId);
+  return observatoryList.find(
+    observatory => observatory.obsUniqueId === observatoryId
+  );
 };
 
 const getCurrentTimeInSeconds = () => new Date().getTime() / 1000;
@@ -86,9 +94,10 @@ const observatoryTelescopeStatusFail = () => ({
   type: OBSERVATORY_STATUS_FAIL,
 });
 
-export const fetchObservatoryTelescopeStatus = obsId => (dispatch) => {
-  return axios.get(`/api/obs/getObservatoryStatus?obsId=${obsId}`)
-    .then((response) => {
+export const fetchObservatoryTelescopeStatus = obsId => dispatch => {
+  return axios
+    .get(`/api/obs/getObservatoryStatus?obsId=${obsId}`)
+    .then(response => {
       dispatch(observatoryTelescopeStatusSuccess(response.data));
     })
     .catch(() => dispatch(observatoryTelescopeStatusFail()));
@@ -103,81 +112,90 @@ export const observatoryListSuccess = payload => ({
   payload,
 });
 
-
 export const observatoryListError = error => ({
   type: OBSERVATORY_REQUEST_FAIL,
   observatoryListError: error,
 });
 
-export const fetchAllWidgetsByObservatory = observatory => (dispatch) => {
+export const fetchAllWidgetsByObservatory = observatory => dispatch => {
   dispatch(fetchMoonPhase(observatory));
   dispatch(fetchSmallSatelliteView(observatory));
 };
 
 // @param: callSource : STRING | details || byTelescope
-export const getObservatoryList = (currentObservatoryId, callSource) => (dispatch, getState) => {
+export const getObservatoryList = (currentObservatoryId, callSource) => (
+  dispatch,
+  getState
+) => {
   dispatch(observatoryListStart());
   const { token, at, cid } = getState().user;
-  return axios.post('/api/obs/list', {
-    at,
-    cid,
-    token,
-    callSource,
-    lang: 'en',
-    status: 'live',
-    listType: 'full',
-  })
-  .then((response) => {
-    const { observatoryList } = response.data;
-    const currentObservatory = getCurrentObservatory(observatoryList, currentObservatoryId);
-    dispatch(observatoryListSuccess(response.data));
+  return axios
+    .post('/api/obs/list', {
+      at,
+      cid,
+      token,
+      callSource,
+      lang: 'en',
+      status: 'live',
+      listType: 'full',
+    })
+    .then(response => {
+      const { observatoryList } = response.data;
+      const currentObservatory = getCurrentObservatory(
+        observatoryList,
+        currentObservatoryId
+      );
+      dispatch(observatoryListSuccess(response.data));
 
-    // if we have an observatory to work with, then call for the telescope availability now
-    if (currentObservatory) {
-      const { obsId } = currentObservatory;
-      dispatch(fetchAllWidgetsByObservatory(currentObservatory));
-      dispatch(fetchObservatoryTelescopeStatus(obsId));
-    }
-  })
-  .catch((error) => {
-    dispatch(observatoryListError(error));
-    throw error;
-  });
+      // if we have an observatory to work with, then call for the telescope availability now
+      if (currentObservatory) {
+        const { obsId } = currentObservatory;
+        dispatch(fetchAllWidgetsByObservatory(currentObservatory));
+        dispatch(fetchObservatoryTelescopeStatus(obsId));
+      }
+    })
+    .catch(error => {
+      dispatch(observatoryListError(error));
+      throw error;
+    });
 };
 
 const fetchMoonPhase = observatory => (dispatch, getState) => {
   const { token, at, cid } = getState().user;
 
-   // only make call if /api/obs/list response has MoonPhaseWidgetId defined
+  // only make call if /api/obs/list response has MoonPhaseWidgetId defined
   if (observatory && observatory.MoonPhaseWidgetId) {
-    return axios.post('/api/moon/phase', {
-      token,
-      at,
-      cid,
-      ver: 'v1',
-      lang: 'en',
-      obsId: observatory.obsId,
-      widgetUniqueId: observatory.MoonPhaseWidgetId,
-      timestamp: getCurrentTimeInSeconds(),
-    })
-    .then(result => dispatch(setMoonPhaseWidget(result.data)));
+    return axios
+      .post('/api/moon/phase', {
+        token,
+        at,
+        cid,
+        ver: 'v1',
+        lang: 'en',
+        obsId: observatory.obsId,
+        widgetUniqueId: observatory.MoonPhaseWidgetId,
+        timestamp: getCurrentTimeInSeconds(),
+      })
+      .then(result => dispatch(setMoonPhaseWidget(result.data)));
   }
 };
 
 const fetchSmallSatelliteView = observatory => (dispatch, getState) => {
   const { token, at, cid } = getState().user;
-  if (observatory && observatory.SatelliteWidgetId) {  // only make call if /api/obs/list response has SatelliteWidgetId defined
-    return axios.post('/api/wx/satellite', {
-      token,
-      at,
-      cid,
-      ver: 'v1',
-      lang: 'en',
-      obsId: observatory.obsId,
-      widgetUniqueId: observatory.SatelliteWidgetId,
-      timestamp: getCurrentTimeInSeconds(),
-    })
-    .then(result => dispatch(setSatelliteViewWidget(result.data)));
+  if (observatory && observatory.SatelliteWidgetId) {
+    // only make call if /api/obs/list response has SatelliteWidgetId defined
+    return axios
+      .post('/api/wx/satellite', {
+        token,
+        at,
+        cid,
+        ver: 'v1',
+        lang: 'en',
+        obsId: observatory.obsId,
+        widgetUniqueId: observatory.SatelliteWidgetId,
+        timestamp: getCurrentTimeInSeconds(),
+      })
+      .then(result => dispatch(setSatelliteViewWidget(result.data)));
   }
 };
 
@@ -200,14 +218,18 @@ const startFetchSkyChartWidget = () => ({
   type: SKYCHART_WIDGET_START,
 });
 
-export const fetchSkyChartWidget = ({ obsId, widgetUniqueId, scheduledMissionId }) => (dispatch) => {
+export const fetchSkyChartWidget = ({
+  obsId,
+  widgetUniqueId,
+  scheduledMissionId,
+}) => dispatch => {
   dispatch(startFetchSkyChartWidget);
   if (obsId && widgetUniqueId && scheduledMissionId) {
     fetchStarChart({
       scheduledMissionId,
       obsId,
       widgetUniqueId,
-    }).then((result) => {
+    }).then(result => {
       if (!result.data.apiError) {
         dispatch(setSkyChartWidget(result.data));
       }
@@ -224,7 +246,7 @@ const successMoonlightWidget = payload => ({
   payload,
 });
 
-export const fetchMoonlightWidget = ({ obsId, widgetUniqueId }) => (dispatch) => {
+export const fetchMoonlightWidget = ({ obsId, widgetUniqueId }) => dispatch => {
   dispatch(startFetchMoonlightWidget());
   if (obsId && widgetUniqueId) {
     fetchMoonlightBar({
@@ -243,7 +265,10 @@ const successSeeingConditionsWidget = payload => ({
   payload,
 });
 
-export const fetchSeeingConditionsWidget = ({ obsId, widgetUniqueId }) => (dispatch) => {
+export const fetchSeeingConditionsWidget = ({
+  obsId,
+  widgetUniqueId,
+}) => dispatch => {
   dispatch(startFetchSeeingConditionsWidget());
   if (obsId && widgetUniqueId) {
     fetchSeeingConditionsBar({
@@ -266,12 +291,12 @@ const fetchObservatoryWebcamSuccess = observatoryLiveWebcamResult => ({
 export const fetchObservatoryWebcam = ({
   obsId,
   facilityWebcamWidgetId,
-}) => (dispatch) => {
+}) => dispatch => {
   dispatch(startFetchObservatoryWebcam());
   return fetchFacilityWebcam({
     obsId,
     widgetUniqueId: facilityWebcamWidgetId,
-  }).then((result) => {
+  }).then(result => {
     if (!result.data.apiError) {
       dispatch(fetchObservatoryWebcamSuccess(result.data));
     }
@@ -291,12 +316,12 @@ const fetchWeatherConditionsSuccess = weatherConditionsWidgetResult => ({
 export const fetchWeatherConditions = ({
   obsId,
   weatherConditionsWidgetId,
-}) => (dispatch) => {
+}) => dispatch => {
   dispatch(startWeatherConditions());
   return fetchWeatherConditionsWidget({
     obsId,
     widgetUniqueId: weatherConditionsWidgetId,
-  }).then((result) => {
+  }).then(result => {
     if (!result.data.apiError) {
       dispatch(fetchWeatherConditionsSuccess(result.data));
     }
@@ -316,19 +341,18 @@ const fetchWeatherForecastSuccess = weatherForecastWidgetResult => ({
 export const fetchWeatherForecast = ({
   obsId,
   MiniWeatherPanelWidgetId,
-}) => (dispatch) => {
+}) => dispatch => {
   dispatch(startWeatherForecast());
 
   return fetchWeatherForecastWidget({
     obsId,
     widgetUniqueId: MiniWeatherPanelWidgetId,
-  }).then((result) => {
+  }).then(result => {
     if (!result.data.apiError) {
       dispatch(fetchWeatherForecastSuccess(result.data));
     }
   });
 };
-
 
 /* weather satellite */
 const startWeatherSatellite = () => ({
@@ -343,12 +367,12 @@ const fetchWeatherSatelliteSuccess = weatherSatelliteWidgetResult => ({
 export const fetchWeatherSatellite = ({
   obsId,
   SatelliteWidgetId,
-}) => (dispatch) => {
+}) => dispatch => {
   dispatch(startWeatherSatellite());
   return fetchWeatherSatelliteWidget({
     obsId,
     widgetUniqueId: SatelliteWidgetId,
-  }).then((result) => {
+  }).then(result => {
     if (!result.data.apiError) {
       dispatch(fetchWeatherSatelliteSuccess(result.data));
     }
@@ -368,12 +392,12 @@ const fetchWeatherMissionControlStatusSuccess = weatherMissionControlStatusWidge
 export const fetchWeatherMissionControlStatus = ({
   obsId,
   missionControlStatusWidgetId,
-}) => (dispatch) => {
+}) => dispatch => {
   dispatch(startWeatherMissionControlStatus());
   return fetchWeatherMissionControlStatusWidget({
     obsId,
     widgetUniqueId: missionControlStatusWidgetId,
-  }).then((result) => {
+  }).then(result => {
     if (!result.data.apiError) {
       dispatch(fetchWeatherMissionControlStatusSuccess(result.data));
     }
@@ -389,7 +413,7 @@ const fetchAllSkySuccess = payload => ({
   payload,
 });
 
-export const fetchAllSkyAction = ({ obsId, AllskyWidgetId }) => (dispatch) => {
+export const fetchAllSkyAction = ({ obsId, AllskyWidgetId }) => dispatch => {
   dispatch(fetchAllSkyStart());
   return fetchAllSkyCamera({
     obsId,
@@ -406,7 +430,7 @@ const fetchDomeCamSuccess = payload => ({
   payload,
 });
 
-export const fetchDomeCamAction = ({ obsId, DomecamWidgetId }) => (dispatch) => {
+export const fetchDomeCamAction = ({ obsId, DomecamWidgetId }) => dispatch => {
   dispatch(fetchDomeCamStart());
   return fetchDomeCam({
     obsId,
@@ -423,12 +447,35 @@ const fetchDomeCamTimelapseSuccess = payload => ({
   payload,
 });
 
-export const fetchDomeCamTimelapseAction = ({ obsId, DomecamTimelapseWidgetId }) => (dispatch) => {
+export const fetchDomeCamTimelapseAction = ({
+  obsId,
+  DomecamTimelapseWidgetId,
+}) => dispatch => {
   dispatch(fetchDomeCamTimelapseStart());
   return fetchDomeCamTimelapse({
     obsId,
     DomecamTimelapseWidgetId,
   }).then(result => dispatch(fetchDomeCamTimelapseSuccess(result.data)));
+};
+
+const fetchFacilityCamTimelapseStart = () => ({
+  type: FETCH_TEIDE_PEAK_CAM_TIMELAPSE_START,
+});
+
+const fetchFacilityCamTimelapseSuccess = payload => ({
+  type: FETCH_DOME_CAM_TIMELAPSE_SUCCESS,
+  payload,
+});
+
+export const fetchFacilityCamTimelapseAction = ({
+  obsId,
+  FacilityWebcamTimelapseWidgetId,
+}) => dispatch => {
+  dispatch(fetchFacilityCamTimelapseStart());
+  return fetchFacilityCamTimelapse({
+    obsId,
+    FacilityWebcamTimelapseWidgetId,
+  }).then(result => dispatch(fetchTeidePeakCamTimelapseSuccess(result.data)));
 };
 
 const fetchTeidePeakCamTimelapseStart = () => ({
@@ -440,7 +487,10 @@ const fetchTeidePeakCamTimelapseSuccess = payload => ({
   payload,
 });
 
-export const fetchTeidePeakCamTimelapseAction = ({ obsId, DomecamTimelapseWidgetId }) => (dispatch) => {
+export const fetchTeidePeakCamTimelapseAction = ({
+  obsId,
+  DomecamTimelapseWidgetId,
+}) => dispatch => {
   dispatch(fetchTeidePeakCamTimelapseStart());
   return fetchDomeCamTimelapse({
     obsId,
@@ -457,7 +507,10 @@ const fetchAllSkyTimelapseSuccess = payload => ({
   payload,
 });
 
-export const fetchAllSkyTimelapseAction = ({ obsId, AllskyTimelapseWidgetId }) => (dispatch) => {
+export const fetchAllSkyTimelapseAction = ({
+  obsId,
+  AllskyTimelapseWidgetId,
+}) => dispatch => {
   dispatch(fetchAllSkyTimelapseStart());
   return fetchAllSkyTimelapse({
     obsId,
@@ -479,8 +532,9 @@ const fetchTelescopeCardDataStart = () => ({
 });
 
 export const fetchTelescopeCardData = () => (dispatch, getState) => {
-
-  const { telescopeOverview: { telescopeCardData } } = getState();
+  const {
+    telescopeOverview: { telescopeCardData },
+  } = getState();
 
   // if (telescopeCardData) {
   //   return;
@@ -488,13 +542,13 @@ export const fetchTelescopeCardData = () => (dispatch, getState) => {
 
   dispatch(fetchTelescopeCardDataStart());
 
-  return axios.post('/api/obs/getTelescopeCardData')
-    .then((response) => {
+  return axios
+    .post('/api/obs/getTelescopeCardData')
+    .then(response => {
       dispatch(fetchTelescopeCardDataSuccess(response.data));
     })
     .catch(() => dispatch(fetchTelescopeCardDataFail()));
 };
-
 
 const initialState = {
   // list of available observatories
@@ -679,7 +733,9 @@ export default createReducer(initialState, {
     return {
       ...state,
       fetchingObservatoryLiveWebcamResult: true,
-      observatoryLiveWebcamResult: { ...initialState.observatoryLiveWebcamResult },
+      observatoryLiveWebcamResult: {
+        ...initialState.observatoryLiveWebcamResult,
+      },
     };
   },
   [OBSERVATORY_WEBCAM_SUCCESS](state, { observatoryLiveWebcamResult }) {
@@ -693,7 +749,9 @@ export default createReducer(initialState, {
     return {
       ...state,
       fetchingWeatherForecastWidgetResult: true,
-      weatherForecastWidgetResult: { ...initialState.weatherForecastWidgetResult },
+      weatherForecastWidgetResult: {
+        ...initialState.weatherForecastWidgetResult,
+      },
     };
   },
   [WEATHER_FORECAST_WIDGET_SUCCESS](state, { weatherForecastWidgetResult }) {
@@ -707,7 +765,9 @@ export default createReducer(initialState, {
     return {
       ...state,
       fetchingWeatherSatelliteWidgetResult: true,
-      weatherSatelliteWidgetResult: { ...initialState.weatherSatelliteWidgetResult },
+      weatherSatelliteWidgetResult: {
+        ...initialState.weatherSatelliteWidgetResult,
+      },
     };
   },
   [WEATHER_SATELLITE_WIDGET_SUCCESS](state, { weatherSatelliteWidgetResult }) {
@@ -721,10 +781,15 @@ export default createReducer(initialState, {
     return {
       ...state,
       fetchingWeatherConditionsWidgetResult: true,
-      weatherConditionsWidgetResult: { ...initialState.weatherConditionsWidgetResult },
+      weatherConditionsWidgetResult: {
+        ...initialState.weatherConditionsWidgetResult,
+      },
     };
   },
-  [WEATHER_CONDITIONS_WIDGET_SUCCESS](state, { weatherConditionsWidgetResult }) {
+  [WEATHER_CONDITIONS_WIDGET_SUCCESS](
+    state,
+    { weatherConditionsWidgetResult }
+  ) {
     return {
       ...state,
       fetchingWeatherConditionsWidgetResult: false,
@@ -735,10 +800,15 @@ export default createReducer(initialState, {
     return {
       ...state,
       fetchingWeatherMissionControlStatusWidgetResult: true,
-      weatherMissionControlStatusWidgetResult: { ...initialState.weatherMissionControlStatusWidgetResult },
+      weatherMissionControlStatusWidgetResult: {
+        ...initialState.weatherMissionControlStatusWidgetResult,
+      },
     };
   },
-  [WEATHER_MISSION_CONTROL_STATUS_WIDGET_SUCCESS](state, { weatherMissionControlStatusWidgetResult }) {
+  [WEATHER_MISSION_CONTROL_STATUS_WIDGET_SUCCESS](
+    state,
+    { weatherMissionControlStatusWidgetResult }
+  ) {
     return {
       ...state,
       fetchingWeatherMissionControlStatusWidgetResult: false,
@@ -780,7 +850,9 @@ export default createReducer(initialState, {
   [SEEING_CONDITIONS_WIDGET_START](state) {
     return {
       ...state,
-      seeingConditionsWidgetResult: { ...initialState.seeingConditionsWidgetResult },
+      seeingConditionsWidgetResult: {
+        ...initialState.seeingConditionsWidgetResult,
+      },
     };
   },
   [SEEING_CONDITIONS_WIDGET_SUCCESS](state, { payload }) {
@@ -821,14 +893,18 @@ export default createReducer(initialState, {
     return {
       ...state,
       fetchingDomeCamTimelapseWidgetResult: true,
-      domeCamTimelapseWidgetResult: { ...initialState.domeCamTimelapseWidgetResult },
+      domeCamTimelapseWidgetResult: {
+        ...initialState.domeCamTimelapseWidgetResult,
+      },
     };
   },
   [FETCH_DOME_CAM_TIMELAPSE_START](state) {
     return {
       ...state,
       fetchingDomeCamTimelapseWidgetResult: true,
-      domeCamTimelapseWidgetResult: { ...initialState.domeCamTimelapseWidgetResult },
+      domeCamTimelapseWidgetResult: {
+        ...initialState.domeCamTimelapseWidgetResult,
+      },
     };
   },
   [FETCH_DOME_CAM_TIMELAPSE_SUCCESS](state, { payload }) {
@@ -842,7 +918,9 @@ export default createReducer(initialState, {
     return {
       ...state,
       fetchingAllSkyTimelapseWidgetResult: true,
-      allSkyTimelapseWidgetResult: { ...initialState.allSkyTimelapseWidgetResult },
+      allSkyTimelapseWidgetResult: {
+        ...initialState.allSkyTimelapseWidgetResult,
+      },
     };
   },
   [FETCH_ALL_SKY_TIMELAPSE_SUCCESS](state, { payload }) {
@@ -856,7 +934,9 @@ export default createReducer(initialState, {
     return {
       ...state,
       fetchingTeidePeakCamTimelapseWidgetResult: true,
-      teidePeakCamTimelapseWidgetResult: { ...initialState.teidePeakCamTimelapseWidgetResult },
+      teidePeakCamTimelapseWidgetResult: {
+        ...initialState.teidePeakCamTimelapseWidgetResult,
+      },
     };
   },
   [FETCH_TEIDE_PEAK_CAM_TIMELAPSE_SUCCESS](state, { payload }) {
@@ -866,5 +946,4 @@ export default createReducer(initialState, {
       teidePeakCamTimelapseWidgetResult: payload,
     };
   },
-
 });

@@ -6,6 +6,7 @@ import {
   moodyBleu,
   shadows,
   lightHeadedAstronaut,
+  black,
 } from 'app/styles/variables/colors_tiles_v4';
 
 const borderBottom = `border-bottom: 1px solid ${hawkesBlue};`;
@@ -27,7 +28,7 @@ export default css`
     margin-bottom: 20px;
     color: ${lightHeadedAstronaut};
   }
-  
+
   .card-obs {
     width: 100%;
     pointer-events: auto;
@@ -37,7 +38,7 @@ export default css`
     justify-content: space-between;
     flex-direction: column;
   }
-  
+
   .card-obs-small {
     min-height: auto;
     max-height: inherit;
@@ -50,7 +51,7 @@ export default css`
     width: 100%;
     text-align: initial;
   }
-  
+
   .top-small {
     padding: 50px;
   }
@@ -69,16 +70,16 @@ export default css`
     font-size: 11px;
   }
 
-  .button {
+  .buttons :global(.button) {
     ${toUpper}
     padding: 20px 15px;
     ${centerChildren}
   }
 
-  .button:not(:last-child) {
+  .buttons :global(.button:not(:last-child)) {
     border-right: 1px solid #dee0e2;
   }
-  
+
   .capture-date {
     ${toUpper}
     ${centerChildren}
@@ -95,7 +96,7 @@ export default css`
     padding-right: 20px;
   }
 
-  .picture { 
+  .picture {
     width: 35%;
     ${centerChildren}
     justify-content: flex-end;
@@ -128,12 +129,14 @@ export default css`
     overflow: hidden;
   }
 
-  .image-wrapper img{
+  .image-wrapper img {
     width: unset;
+    max-width: 100%;
     height: 100%;
     position: relative;
     left: 50%;
     transform: translateX(-50%);
+    object-fit: contain;
   }
 
   .links {
@@ -152,7 +155,7 @@ export default css`
     cursor: pointer;
   }
 
-  .details {
+  .buttons :global(.details) {
     width: 100px;
     display: flex;
     justify-content: space-between;
@@ -161,7 +164,7 @@ export default css`
   }
 
   .icon {
-    margin-right: 8px
+    margin-right: 8px;
   }
 
   .linkIcon {
@@ -169,7 +172,7 @@ export default css`
     height: 35px;
     object-fit: contain;
   }
-  
+
   .memberIcon {
     filter: invert(1);
   }
@@ -181,11 +184,11 @@ export default css`
     }
 
     .info {
-      width: 48%
+      width: 48%;
     }
 
     .picture {
-      width: 48%
+      width: 48%;
     }
 
     .top {
@@ -206,7 +209,7 @@ export default css`
       height: 240px;
     }
     .info {
-      width: 55%
+      width: 55%;
     }
     .picture {
       min-width: 40%;
