@@ -99,32 +99,18 @@ export class QuestQaAnswerForm extends PureComponent {
         {qaMultipleChoice &&
           answers &&
           answers.map(answer => (
-            <div
-              key={`qa-multiple-choice-answer-${answer.answerId}`}
-              className={`qa-multiple-choice-answer${
-                moduleReadOnly ? ' disabled' : ''
-              }`}
-              onClick={() => onClick(answer.answerIndex, answer.answerLetter)}
-              disabled={moduleReadOnly}
+            <Tooltip
+              title={answer.answerLetterTooltipText}
+              position="top"
+              distance={-30}
             >
-              <div className="qa-multiple-choice-answer-item-container">
-                <Tooltip
-                  title={answer.answerLetterTooltipText}
-                  distance={10}
-                  position="top"
-                >
-                  <div className="qa-multiple-choice-answer-label">
-                    <img src={answer.answerIconURL} />
-                  </div>
-                </Tooltip>
-                <div className="qa-multiple-choice-answer-text">
-                  {answer.answerText}
-                </div>
-              </div>
-              <Tooltip
-                title={answer.answerLetterTooltipText}
-                distance={10}
-                position="top"
+              <div
+                key={`qa-multiple-choice-answer-${answer.answerId}`}
+                className={`qa-multiple-choice-answer${
+                  moduleReadOnly ? ' disabled' : ''
+                }`}
+                onClick={() => onClick(answer.answerIndex, answer.answerLetter)}
+                disabled={moduleReadOnly}
               >
                 <div className="qa-multiple-choice-answer-item-container">
                   <div className="qa-multiple-choice-answer-label">
@@ -134,11 +120,11 @@ export class QuestQaAnswerForm extends PureComponent {
                     {answer.answerText}
                   </div>
                 </div>
-              </Tooltip>
-              <div className="qa-multiple-choice-scoring-text">
-                {answer.scoringText}
+                <div className="qa-multiple-choice-scoring-text">
+                  {answer.scoringText}
+                </div>
               </div>
-            </div>
+            </Tooltip>
           ))}
 
         <div className="quest-qa-answer-actions">
@@ -158,11 +144,7 @@ export class QuestQaAnswerForm extends PureComponent {
             </Tooltip>
           )}
           {showEditButton && (
-            <Tooltip
-              title={editButtonTooltipText}
-              position="top"
-              distance={20}
-            >
+            <Tooltip title={editButtonTooltipText} position="top" distance={20}>
               <Button
                 className="quest-qa-answer-edit-btn"
                 onClick={() => onClick(ACTIONS.EDIT)}
@@ -173,10 +155,7 @@ export class QuestQaAnswerForm extends PureComponent {
             </Tooltip>
           )}
           {showCancelButton && (
-            <Tooltip
-              title={cancelButtonTooltipText}
-              position="top"
-            >
+            <Tooltip title={cancelButtonTooltipText} position="top">
               <Button
                 className="quest-qa-answer-cancel-btn"
                 onClick={() => onClick(ACTIONS.CANCEL)}
