@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import { Button } from 'react-bootstrap';
 import ImageClickHandler from 'app/components/common/ImageClickHandler';
 import './styles.scss';
+import { Tooltip } from 'react-tippy';
 
 const ACTIONS = {
   SUBMIT: 'submit',
@@ -89,14 +90,20 @@ export class QuestQaAnswerForm extends PureComponent {
               className="qa-multiple-choice-answer"
               onClick={() => onClick(answer.answerIndex, answer.answerLetter)}
             >
-              <div className="qa-multiple-choice-answer-item-container">
-                <div className="qa-multiple-choice-answer-label">
-                  <img src={answer.answerIconURL} />
+              <Tooltip
+                title={answer.answerLetterTooltipText}
+                distance={10}
+                position="top"
+              >
+                <div className="qa-multiple-choice-answer-item-container">
+                  <div className="qa-multiple-choice-answer-label">
+                    <img src={answer.answerIconURL} />
+                  </div>
+                  <div className="qa-multiple-choice-answer-text">
+                    {answer.answerText}
+                  </div>
                 </div>
-                <div className="qa-multiple-choice-answer-text">
-                  {answer.answerText}
-                </div>
-              </div>
+              </Tooltip>
               <div className="qa-multiple-choice-scoring-text">
                 {answer.scoringText}
               </div>
