@@ -46,6 +46,44 @@ export class UploadPhoto extends Component {
     setMyPicturesUpload(data);
   };
 
+  getRequestData = () => {
+    const {
+      referenceType,
+      selectedCatalog,
+      designator,
+      astroObjectId,
+    } = this.state;
+    const { imageData } = this.props;
+    const { catalog } = selectedCatalog;
+
+    switch (referenceType) {
+      case REFERENCE_TYPES.slooh1000: {
+        return {
+          ...imageData,
+          referenceType,
+          astroObjectId,
+        };
+      }
+      case REFERENCE_TYPES.catalog: {
+        return {
+          ...imageData,
+          referenceType,
+          catalog,
+          designator,
+        };
+      }
+      case REFERENCE_TYPES.other: {
+        return {
+          ...imageData,
+          referenceType,
+        };
+      }
+      default: {
+        return {};
+      }
+    }
+  };
+
   setCatalog = catalog => {
     const { uploadPhotoPageData } = this.props;
     const { CatalogList } = uploadPhotoPageData;
@@ -58,12 +96,9 @@ export class UploadPhoto extends Component {
 
   uploadToMyPictures = () => {
     const { uploadToMyPictures, imageData } = this.props;
-    const { referenceType, selectedCatalog, designator } = this.state;
-    const { catalog } = selectedCatalog;
-    console.log(selectedCatalog);
 
     uploadToMyPictures({
-      imageDataList: [{ ...imageData, referenceType }], //, catalog, designator
+      imageDataList: [{ ...imageData, ...this.getRequestData() }],
     });
   };
 

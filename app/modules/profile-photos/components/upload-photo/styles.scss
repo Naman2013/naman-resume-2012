@@ -18,6 +18,10 @@
     //overflow-y: auto;
     background: $white;
 
+    h2 {
+      font-weight: 700;
+    }
+
     .upload-photo-form {
       display: flex;
       flex-flow: row wrap;
