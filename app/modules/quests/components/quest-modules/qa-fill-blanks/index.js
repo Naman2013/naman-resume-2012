@@ -31,9 +31,12 @@ export class QuestModuleQaFillBlanks extends PureComponent {
       refreshQuestStep,
     } = this.props;
     const { moduleId } = module;
-    const { questId, questUUID, moduleUUID, answerText } = questQaFillBlanks[
+    const { questId, questUUID, moduleUUID, answers } = questQaFillBlanks[
       moduleId
     ];
+    const answerList = JSON.stringify(answers.map(answer => {
+      return { answerIndex: answer.answerIndex, answerText: answer.answerText };
+    }));
 
     setQaFillBlanks({
       questId,
@@ -41,7 +44,7 @@ export class QuestModuleQaFillBlanks extends PureComponent {
       moduleId,
       moduleUUID,
       action,
-      answerText,
+      answerList,
     }).then(({ payload }) => {
       const { refreshModule, refreshStep, stepModuleId } = payload;
 
@@ -64,7 +67,7 @@ export class QuestModuleQaFillBlanks extends PureComponent {
   };
 
   render() {
-    const { questQaFillBlanks, module } = this.props;
+    const { questQaFillBlanks, module, readOnly } = this.props;
     const { moduleId } = module;
     const {
       activityTitle,
@@ -87,6 +90,7 @@ export class QuestModuleQaFillBlanks extends PureComponent {
           moduleData={questQaFillBlanks[moduleId] || {}}
           onClick={this.setQaFillBlanks}
           onChange={this.answerChange}
+          readOnly={readOnly}
           qaFillBlanks
         />
       </div>

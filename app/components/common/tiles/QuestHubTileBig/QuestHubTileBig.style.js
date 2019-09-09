@@ -31,8 +31,8 @@ export default css`
     background: url(${questShield});
     background-size: cover;
     background-repeat: no-repeat;
-    height: 78px;
-    width: 78px;
+    width: 93px;
+    height: 93px;
     left: 50%;
     top: 50px;
     transform: translateX(-50%);
@@ -58,7 +58,7 @@ export default css`
   .icon-container {
     display: block;
     position: relative;
-    top: 65px;
+    top: 74px;
     width: 100%;
     height: 40px;
   }
@@ -80,6 +80,8 @@ export default css`
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    width: 35px;
+    height: 35px;
   }
 
   .title {

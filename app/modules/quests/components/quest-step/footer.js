@@ -2,7 +2,7 @@
 
 import React from 'react';
 import cn from 'classnames';
-import Btn from 'atoms/Btn/index';
+import { Button } from 'react-bootstrap';
 import './footer.scss';
 
 export const QuestStepFooter = ({
@@ -12,27 +12,33 @@ export const QuestStepFooter = ({
   disableLast,
   stepFooterTitle,
   currentlyViewingCaption,
+  nextButtonCaption,
+  lastButtonCaption,
+  enableLastButton,
+  enableNextButton,
 }) => (
   <div className="step-footer">
     <div>
-      <Btn
+      <Button
         onClick={navigateToLastStep}
         className={cn('dashed-btn', disableLast && 'disabled')}
+        disabled={!enableLastButton}
       >
-        <span>Last Step</span>
-      </Btn>
+        <span>{lastButtonCaption}</span>
+      </Button>
     </div>
     <div className="step-footer-title">
       <div dangerouslySetInnerHTML={{ __html: currentlyViewingCaption }} />
       <div dangerouslySetInnerHTML={{ __html: stepFooterTitle }} />
     </div>
     <div>
-      <Btn
+      <Button
         onClick={navigateToNextStep}
         className={cn('dashed-btn', disableNext && 'disabled')}
+        disabled={!enableNextButton}
       >
-        <span>Next Step</span>
-      </Btn>
+        <span>{nextButtonCaption}</span>
+      </Button>
     </div>
   </div>
 );

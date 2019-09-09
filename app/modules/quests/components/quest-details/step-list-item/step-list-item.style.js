@@ -1,11 +1,14 @@
 import css from 'styled-jsx/css';
-import { primaryFont, secondaryFont } from '../../../../../styles/variables/fonts';
+import { faintShadow } from 'app/styles/variables/shadows';
+import {
+  primaryFont,
+  secondaryFont,
+} from '../../../../../styles/variables/fonts';
 import {
   astronaut,
   shadows,
   romance,
 } from '../../../../../styles/variables/colors_tiles_v4';
-import { faintShadow } from 'app/styles/variables/shadows';
 import {
   screenMedium,
   screenLarge,
@@ -20,6 +23,15 @@ export default css`
     margin: 15px 15px;
     background-color: ${romance};
     ${faintShadow}
+  }
+
+  .root.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  .root.hidden {
+    display: none;
   }
 
   .title {
@@ -44,7 +56,8 @@ export default css`
     padding-right: 0;
     margin: 0;
     font-family: ${primaryFont};
-    font-weight: 800;
+    font-weight: 700;
+    letter-spacing: 2px;
     text-transform: uppercase;
     text-decoration: none;
     font-size: 10px;
@@ -91,6 +104,10 @@ export default css`
     height: 50px;
     width: 50px;
     border-left: 1px solid ${shadows};
+  }
+
+  .arrow-container > img {
+    margin-bottom: 4px;
   }
 
   @media ${screenMedium} {

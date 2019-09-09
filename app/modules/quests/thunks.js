@@ -1,6 +1,7 @@
 import {
   getQuestOutputApi,
   getQuestStepApi,
+  getQuestCompletedApi,
   getDataCollectionApi,
   getDataCollectionSlotImagesApi,
   setDataCollectionSlotImageApi,
@@ -10,6 +11,8 @@ import {
   setQaFillBlanksApi,
   getQaMultipleChoiceApi,
   setQaMultipleChoiceApi,
+  getQuestGuidePanelApi,
+  getCustomerQuestsApi,
 } from 'app/modules/quests/api';
 import { ACTION } from './reducer';
 
@@ -42,6 +45,20 @@ export const getQuestOutput = (questId, moduleId) => (dispatch, getState) => {
   return getQuestOutputApi({ ...opts })
     .then(result => dispatch(ACTION.getQuestOutputSuccess(result.data)))
     .catch(error => dispatch(ACTION.getQuestOutputError(error)));
+};
+
+export const getQuestCompleted = data => (dispatch, getState) => {
+  const { at, token, cid } = getState().user;
+  dispatch(ACTION.getQuestCompleted());
+  const opts = {
+    at,
+    cid,
+    token,
+    ...data,
+  };
+  return getQuestCompletedApi({ ...opts })
+    .then(result => dispatch(ACTION.getQuestCompletedSuccess(result.data)))
+    .catch(error => dispatch(ACTION.getQuestCompletedError(error)));
 };
 
 export const getDataCollection = (questId, moduleId) => (
@@ -180,3 +197,34 @@ export const setQaMultipleChoice = data => (dispatch, getState) => {
     .catch(error => dispatch(ACTION.setQaMultipleChoiceError(error)));
 };
 // END: QUEST QA MODULES
+
+// QUEST GUIDES MODULES
+export const getQuestGuidePanel = data => (dispatch, getState) => {
+  const { at, token, cid } = getState().user;
+  dispatch(ACTION.getQuestGuidePanel());
+  const opts = {
+    at,
+    cid,
+    token,
+    ...data,
+  };
+  return getQuestGuidePanelApi({ ...opts })
+    .then(result => dispatch(ACTION.getQuestGuidePanelSuccess(result.data)))
+    .catch(error => dispatch(ACTION.getQuestGuidePanelError(error)));
+};
+
+// END: QUEST GUIDES MODULES
+
+export const getCustomerQuests = data => (dispatch, getState) => {
+  const { at, token, cid } = getState().user;
+  dispatch(ACTION.getCustomerQuests());
+  const opts = {
+    at,
+    cid,
+    token,
+    ...data,
+  };
+  return getCustomerQuestsApi({ ...opts })
+    .then(result => dispatch(ACTION.getCustomerQuestsSuccess(result.data)))
+    .catch(error => dispatch(ACTION.getCustomerQuestsError(error)));
+};

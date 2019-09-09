@@ -4,7 +4,14 @@ import './styles.scss';
 export class DataCollectionImageCard extends PureComponent {
   render() {
     const { imageData, onClick } = this.props;
-    const { imageURL, objectTitle, imageTimeFormatted, selected } = imageData;
+    const {
+      imageURL,
+      objectTitle,
+      imageTimeFormatted,
+      selected,
+      telescopeName,
+      instrumentName,
+    } = imageData;
     const { displayDateTime } = imageTimeFormatted;
 
     return (
@@ -14,6 +21,8 @@ export class DataCollectionImageCard extends PureComponent {
         </div>
 
         <h5>{objectTitle}</h5>
+        <p className="telescope-info">{telescopeName}</p>
+        <p className="telescope-info">{instrumentName}</p>
         <p>
           {displayDateTime}
           {selected && <span>[SELECTED]</span>}

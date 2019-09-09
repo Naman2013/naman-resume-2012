@@ -9,9 +9,13 @@ export const TYPE = constants('quests', [
   '~GET_QUEST_STEP',
   'CLEAR_QUEST_STEP_DATA',
   '~GET_QUEST_OUTPUT',
+  '~GET_QUEST_COMPLETED',
+  '~GET_CUSTOMER_QUESTS',
+
   '~GET_DATA_COLLECTION',
   '~GET_DATA_COLLECTION_SLOT_IMAGES',
   '~SET_DATA_COLLECTION_SLOT_IMAGES',
+
   '~GET_QA_FREE_FORM',
   '~SET_QA_FREE_FORM',
   'SET_QA_FREE_FORM_ANSWER',
@@ -20,6 +24,8 @@ export const TYPE = constants('quests', [
   'SET_QA_FILL_BLANKS_ANSWER',
   '~GET_QA_MULTIPLE_CHOICE',
   '~SET_QA_MULTIPLE_CHOICE',
+
+  '~GET_QUEST_GUIDE_PANEL',
 ]);
 
 export const ACTION = actions(TYPE);
@@ -29,6 +35,11 @@ const initialState = {
 
   stepData: {},
   questOutput: {},
+  customerQuests: { QuestList: [] },
+  questCompletedData: {
+    stepsCompletedList: [],
+    suggestedQuestsList: [],
+  },
   questDataCollection: {},
   questDataCollectionSlotImages: {
     imageList: [],
@@ -40,6 +51,8 @@ const initialState = {
   questQaFreeForm: {},
   questQaFillBlanks: {},
   questQaMultipleChoice: {},
+
+  questGuidePanel: {},
 };
 
 export default handleActions(
@@ -64,6 +77,10 @@ export default handleActions(
     [TYPE.GET_QUEST_OUTPUT]: start,
     [TYPE.GET_QUEST_OUTPUT_SUCCESS]: getQuestOutputSuccess,
     [TYPE.GET_QUEST_OUTPUT_ERROR]: error,
+
+    [TYPE.GET_QUEST_COMPLETED]: start,
+    [TYPE.GET_QUEST_COMPLETED_SUCCESS]: getQuestCompletedSuccess,
+    [TYPE.GET_QUEST_COMPLETED_ERROR]: error,
 
     [TYPE.GET_DATA_COLLECTION]: start,
     [TYPE.GET_DATA_COLLECTION_SUCCESS]: getDataCollectionSuccess,
@@ -107,6 +124,14 @@ export default handleActions(
     [TYPE.SET_QA_MULTIPLE_CHOICE_SUCCESS]: setQaMultipleChoiceSuccess,
     [TYPE.SET_QA_MULTIPLE_CHOICE_ERROR]: error,
     // END: QA MODULES
+
+    [TYPE.GET_QUEST_GUIDE_PANEL]: start,
+    [TYPE.GET_QUEST_GUIDE_PANEL_SUCCESS]: getQuestGuidePanelSuccess,
+    [TYPE.GET_QUEST_GUIDE_PANEL_ERROR]: error,
+
+    [TYPE.GET_CUSTOMER_QUESTS]: start,
+    [TYPE.GET_CUSTOMER_QUESTS_SUCCESS]: getCustomerQuestsSuccess,
+    [TYPE.GET_CUSTOMER_QUESTS_ERROR]: error,
   },
   initialState
 );
@@ -160,6 +185,16 @@ function getQuestOutputSuccess(state, { payload }) {
     ...state,
     isFetching: false,
     questOutput: { ...questOutput, [payload.moduleId]: payload },
+  };
+}
+
+function getQuestCompletedSuccess(state, { payload }) {
+  return {
+    ...state,
+    isFetching: false,
+    questCompletedData: {
+      ...payload,
+    },
   };
 }
 
@@ -289,5 +324,24 @@ function setQaMultipleChoiceSuccess(state, { payload }) {
   return {
     ...state,
     isFetching: false,
+  };
+}
+
+function getQuestGuidePanelSuccess(state, { payload }) {
+  const { questGuidePanel } = state;
+  return {
+    ...state,
+    isFetching: false,
+    questGuidePanel: { ...questGuidePanel, [payload.moduleId]: payload },
+  };
+}
+
+function getCustomerQuestsSuccess(state, { payload }) {
+  return {
+    ...state,
+    isFetching: false,
+    customerQuests: {
+      ...payload,
+    },
   };
 }

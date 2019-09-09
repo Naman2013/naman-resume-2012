@@ -18,7 +18,6 @@ const { arrayOf, func, number, shape, string } = PropTypes;
 
 export const QuestComplete = props => {
   const { actions, modal, user, pageMeta, questId, complete } = props;
-  console.log(props);
   return (
     <div className="root">
       <Modal

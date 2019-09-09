@@ -3,7 +3,7 @@
 @import '~app/styles/variables/colors.scss';
 
 .header-root {
-  .step-header{
+  .step-header {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -30,6 +30,7 @@
     border-right: 1px solid #d9dee4;
     padding-left: 39px;
     font-size: 20px;
+    color: $lightHeadedAstronaut;
   }
   .step-back svg path {
     fill: #648282;
@@ -46,6 +47,7 @@
     height: 40px;
     width: 40px;
     margin-top: 4px;
+    padding: 0;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -56,7 +58,8 @@
     opacity: 0.2;
     cursor: not-allowed;
   }
-  .step-button-container > .prev, .step-button-container > .next {
+  .step-button-container > .prev,
+  .step-button-container > .next {
     position: relative;
   }
   .step-button-container > .prev:before {

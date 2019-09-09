@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import BackArrow from 'atoms/icons/BackArrow';
 import Dots from 'atoms/icons/Dots';
-import Btn from 'atoms/Btn/index';
+import { Button } from 'react-bootstrap';
 import { Link } from 'react-router';
 import cn from 'classnames';
-import { astronaut } from 'app/styles/variables/colors_tiles_v4';
+import {
+  astronaut,
+  lightHeadedAstronaut,
+} from 'app/styles/variables/colors_tiles_v4';
 import { QuestStepContextMenu } from './menu';
 import './header.scss';
 
@@ -18,6 +21,11 @@ export const QuestStepHeader = ({
   stepId,
   stepMenuList,
   stepMenuTitle,
+  questCompletionList,
+  showHeaderNextButton,
+  enableHeaderNextButton,
+  showHeaderLastButton,
+  enableHeaderLastButton,
 }) => {
   const [isOpen, toggleMenu] = useState(false);
   return (
@@ -25,7 +33,7 @@ export const QuestStepHeader = ({
       <div className="step-header">
         <div className="step-back">
           <Link to={`/quest-details/${questId}`}>
-            <BackArrow />
+            <BackArrow theme={{ arrowColor: lightHeadedAstronaut }} />
           </Link>
         </div>
         <div className="mobile-part">
@@ -43,18 +51,24 @@ export const QuestStepHeader = ({
           dangerouslySetInnerHTML={{ __html: stepHeaderTitle }}
         />
         <div className="step-navigation">
-          <Btn
-            onClick={navigateToPrevStep}
-            className={cn('step-button-container', disablePrev && 'disabled')}
-          >
-            <div className="icon-slider-left prev" />
-          </Btn>
-          <Btn
-            onClick={navigateToNextStep}
-            className={cn('step-button-container', disableNext && 'disabled')}
-          >
-            <div className="icon-slider-right next" />
-          </Btn>
+          {showHeaderLastButton && (
+            <Button
+              onClick={navigateToPrevStep}
+              className={cn('step-button-container', disablePrev && 'disabled')}
+              disabled={!enableHeaderLastButton}
+            >
+              <div className="icon-slider-left prev" />
+            </Button>
+          )}
+          {showHeaderNextButton && (
+            <Button
+              onClick={navigateToNextStep}
+              className={cn('step-button-container', disableNext && 'disabled')}
+              disabled={!enableHeaderNextButton}
+            >
+              <div className="icon-slider-right next" />
+            </Button>
+          )}
           <div
             onClick={() => toggleMenu(!isOpen)}
             className={cn('step-button-container open-menu', { open: isOpen })}
@@ -70,7 +84,11 @@ export const QuestStepHeader = ({
           onClick={() => toggleMenu(!isOpen)}
           className="step-navigation-mobile"
         >
-          <Dots theme={{ circleColor: astronaut }} />
+          {!isOpen ? (
+            <Dots theme={{ circleColor: astronaut }} />
+          ) : (
+            <i className="menu-icon-close icon-close" />
+          )}
         </div>
       </div>
       <QuestStepContextMenu
@@ -78,6 +96,7 @@ export const QuestStepHeader = ({
         stepId={stepId}
         isOpen={isOpen}
         stepMenuList={stepMenuList}
+        questCompletionList={questCompletionList}
         title={stepMenuTitle}
         onClose={() => toggleMenu(false)}
         questId={questId}

@@ -60,6 +60,23 @@
       color: $lightHeadedAstronaut;
       text-transform: uppercase;
       margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .qa-fill-blanks-scoring-text {
+      font-family: $primary-font;
+      font-size: 10px;
+      line-height: 2.2;
+      letter-spacing: 2px;
+      color: $lightHeadedAstronaut;
+      margin-left: 15px;
+      text-align: right;
+
+      &.scoring-text-bold {
+        font-weight: 700;
+      }
     }
   }
 
@@ -72,6 +89,10 @@
     padding: 20px;
     margin-top: 15px;
     cursor: pointer;
+
+    &.disabled {
+      pointer-events: none;
+    }
 
     .qa-multiple-choice-answer-item-container {
       display: flex;
@@ -114,6 +135,7 @@
     .qa-multiple-choice-scoring-text {
       font-family: $primary-font;
       font-size: 10px;
+      font-weight: 700;
       line-height: 2.2;
       letter-spacing: 2px;
       color: $lightHeadedAstronaut;

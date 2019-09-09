@@ -6,6 +6,8 @@ export const getQuestOutputApi = data =>
   axios.post('/api/quests/getOutputPanel', data);
 export const getDataCollectionApi = data =>
   axios.post('/api/quests/getDataCollection', data);
+export const getQuestCompletedApi = data =>
+  axios.post('/api/quests/getQuestCompleted', data);
 export const getDataCollectionSlotImagesApi = data =>
   axios.post('/api/quests/getDataCollectionSlotImages', data);
 export const setDataCollectionSlotImageApi = data =>
@@ -26,3 +28,8 @@ export const getQaMultipleChoiceApi = data =>
 export const setQaMultipleChoiceApi = data =>
   axios.post('/api/quests/setQAMultipleChoice', data);
 // END: QUEST QA MODULES
+
+export const getQuestGuidePanelApi = data =>
+  axios.post('/api/quests/getQuestGuidePanel', data);
+export const getCustomerQuestsApi = data =>
+  axios.post('/api/profiles/getCustomerQuests', data);

@@ -6,6 +6,12 @@
   box-shadow: 0 0 6px 0 $shadows;
   background-color: $romance;
 
+  &.first-module {
+    .step-modules {
+      padding-top: 0;
+    }
+  }
+
   .step-box-row {
     display: flex;
     justify-content: space-between;
@@ -31,6 +37,19 @@
       left: 50%;
       transform: translateX(-50%);
       top: -40px;
+
+      .shield-background {
+        width: 112px;
+        position: relative;
+        top: -10px;
+      }
+
+      .quest-icon {
+        position: absolute;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
     }
   }
 
@@ -41,6 +60,7 @@
     .step-title {
       font-family: $secondary-font;
       font-size: 26px;
+      color: $lightHeadedAstronaut;
     }
   }
 
@@ -50,9 +70,10 @@
 
     .sub-title {
       font-family: $primary-font;
-      font-weight: bold;
+      font-weight: 400;
       font-size: 11px;
       text-transform: uppercase;
+      color: $lightHeadedAstronaut;
     }
 
     .step-controls {
@@ -68,10 +89,17 @@
         }
       }
     }
+
+    .step-controls-hide {
+      margin: 0;
+      padding: 0;
+      border: unset;
+    }
   }
 
   .step-modules {
     padding: 80px;
+    padding-bottom: 20px;
     background-color: $romance;
   }
 
@@ -81,6 +109,7 @@
     padding: 25px 40px;
     box-shadow: 0 0 6px 0 $shadows;
     font-family: $primary-font;
+    color: $lightHeadedAstronaut;
 
     .step-box-row {
       border-bottom: 1px solid $hawkesBlue;
@@ -108,6 +137,7 @@
   @include media-breakpoint-down(lg) {
     .step-modules {
       padding: 50px;
+      //padding-bottom: 20px;
     }
   }
 
@@ -119,6 +149,7 @@
 
     .step-modules {
       padding: 40px;
+      //padding-bottom: 20px;
       margin: 10px 0;
       box-shadow: 0 0 6px 0 $shadows;
     }

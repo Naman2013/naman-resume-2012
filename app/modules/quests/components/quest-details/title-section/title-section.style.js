@@ -1,5 +1,8 @@
 import css from 'styled-jsx/css';
-import { primaryFont, secondaryFont } from '../../../../../styles/variables/fonts';
+import {
+  primaryFont,
+  secondaryFont,
+} from '../../../../../styles/variables/fonts';
 import {
   astronaut,
   blue_tile_feat,
@@ -59,8 +62,9 @@ export default css`
     background: url(${questShield});
     background-size: cover;
     background-repeat: no-repeat;
-    height: 78px;
-    width: 78px;
+    height: 112px;
+    width: 112px;
+    top: -15px;
     left: 50%;
     transform: translateX(-50%);
   }
@@ -81,6 +85,27 @@ export default css`
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+
+  .action-container :global(.quest-download-pdf-btn) {
+    width: 50px;
+    height: 50px;
+    padding: 0;
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    position: relative;
+  }
+
+  .action-container :global(.quest-download-pdf-btn span) {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    left: 1px;
   }
 
   @media ${screenMedium} {

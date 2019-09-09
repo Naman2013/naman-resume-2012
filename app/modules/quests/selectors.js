@@ -1,4 +1,5 @@
 import { createSelector } from 'reselect';
+import { getQuestModuleList } from './utils';
 
 export const selectQuests = state => state.quests;
 export const selectQuestsDetails = state => state.questDetails;
@@ -19,7 +20,7 @@ export const makeQuestsStepDataSelector = () =>
 export const makeQuestsStepModuleListSelector = () =>
   createSelector(
     makeQuestsStepDataSelector(),
-    state => state.stepModuleList || []
+    state => getQuestModuleList(state.stepModuleList) || []
   );
 
 export const makeQuestsDetailsModalSelector = () =>
@@ -32,6 +33,12 @@ export const makeQuestOutputSelector = () =>
   createSelector(
     selectQuests,
     state => state.questOutput
+  );
+
+export const makeQuestCompletedSelector = () =>
+  createSelector(
+    selectQuests,
+    state => state.questCompletedData
   );
 
 export const makeQuestDataCollectionSelector = () =>
@@ -66,3 +73,15 @@ export const makeQuestQaMultipleChoiceSelector = () =>
     state => state.questQaMultipleChoice
   );
 // END: QUEST QA MODULES
+
+export const makeQuestGuidePanelSelector = () =>
+  createSelector(
+    selectQuests,
+    state => state.questGuidePanel
+  );
+
+export const makeCustomerQuestsSelector = () =>
+  createSelector(
+    selectQuests,
+    state => state.customerQuests
+  );

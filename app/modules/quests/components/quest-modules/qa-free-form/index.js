@@ -57,7 +57,7 @@ export class QuestModuleQaFreeForm extends PureComponent {
   };
 
   render() {
-    const { questQaFreeForm, module } = this.props;
+    const { questQaFreeForm, module, readOnly } = this.props;
     const { moduleId } = module;
     const {
       activityTitle,
@@ -80,6 +80,7 @@ export class QuestModuleQaFreeForm extends PureComponent {
           moduleData={questQaFreeForm[moduleId] || {}}
           onClick={this.setQaFreeForm}
           onChange={this.answerChange}
+          readOnly={readOnly}
           qaFreeForm
         />
       </div>
