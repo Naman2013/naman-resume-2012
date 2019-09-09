@@ -3,6 +3,7 @@ import { Button, Modal } from 'react-bootstrap';
 import { Spinner } from 'app/components/spinner/index';
 import { Select } from 'app/components/common/select';
 import { Datepicker } from 'app/modules/profile-photos/components/filter-dropdown/datepicker';
+import FindObject from 'app/modules/browse-find-data/containers/find-object';
 import './styles.scss';
 
 const REFERENCE_TYPES = {
@@ -15,8 +16,15 @@ export class UploadPhoto extends Component {
   state = {
     isUploadModalOpen: false,
     referenceType: REFERENCE_TYPES.slooh1000,
+    astroObjectId: null,
     selectedCatalog: {},
-    designation: '',
+    designator: '',
+    title: '',
+    text: '',
+  };
+
+  findObject = e => {
+    const { fetchBrowseFindDataAction } = this.props;
   };
 
   onTypeChange = e => {
@@ -48,6 +56,17 @@ export class UploadPhoto extends Component {
     this.setState({ selectedCatalog });
   };
 
+  uploadToMyPictures = () => {
+    const { uploadToMyPictures, imageData } = this.props;
+    const { referenceType, selectedCatalog, designator } = this.state;
+    const { catalog } = selectedCatalog;
+    console.log(selectedCatalog);
+
+    uploadToMyPictures({
+      imageDataList: [{ ...imageData, referenceType }], //, catalog, designator
+    });
+  };
+
   render() {
     const {
       uploadPhotoPageData,
@@ -67,7 +86,8 @@ export class UploadPhoto extends Component {
       isUploadModalOpen,
       referenceType,
       selectedCatalog,
-      designation,
+      designator,
+      astroObjectId,
     } = this.state;
     const { imageUrl } = imageData;
 
@@ -111,7 +131,7 @@ export class UploadPhoto extends Component {
             </div>
 
             <div className="upload-photo-form-right">
-              <div className="upload-photo-radio">
+              <div className="upload-photo-radio reference-type">
                 <input
                   id="photoTypeSlooh1000"
                   type="radio"
@@ -121,6 +141,14 @@ export class UploadPhoto extends Component {
                   onChange={this.onTypeChange}
                 />
                 <label htmlFor="photoTypeSlooh1000">{DisplaySlooh1000}</label>
+
+                <div className="reference-type-content">
+                  <FindObject
+                    onSelect={astroObjectId => this.setState({ astroObjectId })}
+                    selectedObject={astroObjectId}
+                    isDisabled={referenceType !== REFERENCE_TYPES.slooh1000}
+                  />
+                </div>
               </div>
 
               <div className="upload-photo-radio reference-type">
@@ -145,9 +173,9 @@ export class UploadPhoto extends Component {
                   <textarea
                     className="textarea designation"
                     placeholder="Type designation here"
-                    value={designation}
+                    value={designator}
                     onChange={e =>
-                      this.setState({ designation: e.target.value })
+                      this.setState({ designator: e.target.value })
                     }
                     disabled={referenceType !== REFERENCE_TYPES.catalog}
                   />
@@ -179,16 +207,18 @@ export class UploadPhoto extends Component {
               <h4 className="h4-custom">{DisplayObservationLogHeader}</h4>
               <input
                 placeholder="Title your Observation"
-                onChange={e => setTitle(e.target.value)}
+                onChange={e => this.setState({ title: e.target.value })}
               />
               <textarea
                 placeholder="Write your Observation"
-                onChange={e => setText(e.target.value)}
+                onChange={e => this.setState({ text: e.target.value })}
               />
             </div>
 
             <div className="upload-photo-upload-button">
-              <Button onClick={() => {}}>{DisplayUploadBtn}</Button>
+              <Button onClick={this.uploadToMyPictures}>
+                {DisplayUploadBtn}
+              </Button>
             </div>
           </form>
         </Modal>

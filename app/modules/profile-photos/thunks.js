@@ -67,7 +67,6 @@ export const uploadToMyPicturesPage = () => (dispatch, getState) => {
 };
 
 export const setMyPicturesUpload = data => (dispatch, getState) => {
-  const { at, token, cid } = getState().user;
   dispatch(ACTION.setMyPicturesUpload());
   return setMyPicturesUploadApi(data)
     .then(result => dispatch(ACTION.setMyPicturesUploadSuccess(result.data)))
@@ -77,7 +76,12 @@ export const setMyPicturesUpload = data => (dispatch, getState) => {
 export const uploadToMyPictures = data => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
   dispatch(ACTION.uploadToMyPictures());
-  return uploadToMyPicturesApi(data)
+  return uploadToMyPicturesApi({
+    at,
+    token,
+    cid,
+    ...data,
+  })
     .then(result => dispatch(ACTION.uploadToMyPicturesSuccess(result.data)))
     .catch(error => dispatch(ACTION.uploadToMyPicturesError(error)));
 };
