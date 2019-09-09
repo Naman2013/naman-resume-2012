@@ -14,11 +14,7 @@ import {
   uploadToMyPictures,
 } from 'app/modules/profile-photos/thunks';
 import { makeUserSelector } from 'app/modules/user/selectors';
-import {
-  fetchBrowseFindDataAction,
-  resetBrowseFindDataAction,
-} from 'app/modules/browse-find-data/actions';
-import { selectBrowseFindData } from 'app/modules/browse-find-data/selectors';
+import { setObservationTags } from 'app/modules/image-details/thunks';
 
 const mapStateToProps = createStructuredSelector({
   isFetching: photoHubsIsFetchingSelector(),
@@ -32,7 +28,7 @@ const mapStateToProps = createStructuredSelector({
 const mapDispatchToProps = {
   setMyPicturesUpload,
   uploadToMyPictures,
-  fetchBrowseFindDataAction,
+  setObservationTags,
 };
 
 export default compose(

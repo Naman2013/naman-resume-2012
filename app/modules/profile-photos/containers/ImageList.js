@@ -238,6 +238,28 @@ class ImageList extends Component {
     this.handleApplyFilter();
   }
 
+  fetchImages = () => {
+    const { actions, type, deviceInfo, params = {} } = this.props;
+    const { activePage } = this.state;
+    const fetchImages = actions[mapTypeToRequest[type]];
+    const imagesToFetch = getImagesCountToFetch(deviceInfo);
+    const { customerUUID } = params;
+    const PHOTOS_ON_ONE_PAGE = 9;
+    const PREVIOUS_PAGE = activePage - 1;
+    const firstImageNumber =
+      activePage === 1 ? 1 : PREVIOUS_PAGE * PHOTOS_ON_ONE_PAGE + 1;
+
+    fetchImages({
+      sharedOnly: type === 'observations',
+      firstImageNumber,
+      firstMissionNumber: firstImageNumber,
+      maxImageCount: imagesToFetch,
+      maxMissionCount: imagesToFetch,
+      customerUUID,
+      publicGalleries: params.public ? 'y' : null,
+    });
+  };
+
   fetchFilters = () => {
     const { actions } = this.props;
     const { fetchFiltersLists, fetchObjectTypeList } = actions;
@@ -400,7 +422,7 @@ class ImageList extends Component {
           <div className="filter-shader animated fadeIn faster" />
         )}
 
-        <UploadPhoto />
+        <UploadPhoto onHide={this.fetchImages} />
 
         <SelectedFilters
           {...{

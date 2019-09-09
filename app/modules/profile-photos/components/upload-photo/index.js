@@ -23,10 +23,6 @@ export class UploadPhoto extends Component {
     text: '',
   };
 
-  findObject = e => {
-    const { fetchBrowseFindDataAction } = this.props;
-  };
-
   onTypeChange = e => {
     this.setState({ referenceType: e.target.value });
   };
@@ -95,10 +91,28 @@ export class UploadPhoto extends Component {
   };
 
   uploadToMyPictures = () => {
-    const { uploadToMyPictures, imageData } = this.props;
+    const {
+      uploadToMyPictures,
+      imageData,
+      setObservationTags,
+      onHide,
+    } = this.props;
+    const { title, text } = this.state;
 
     uploadToMyPictures({
       imageDataList: [{ ...imageData, ...this.getRequestData() }],
+    }).then(({ payload }) => {
+      if (title || text) {
+        setObservationTags(
+          payload?.ImageStatus[0]?.CustomerImageId,
+          null,
+          title,
+          text
+        ).then(() => this.setState({ isUploadModalOpen: false }));
+      } else {
+        this.setState({ isUploadModalOpen: false });
+      }
+      onHide();
     });
   };
 
