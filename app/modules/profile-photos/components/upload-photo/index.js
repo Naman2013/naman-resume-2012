@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Modal } from 'react-bootstrap';
+import cx from 'classnames';
 import { Spinner } from 'app/components/spinner/index';
 import { Select } from 'app/components/common/select';
 import { Datepicker } from 'app/modules/profile-photos/components/filter-dropdown/datepicker';
@@ -24,7 +25,9 @@ export class UploadPhoto extends Component {
   };
 
   onTypeChange = e => {
-    this.setState({ referenceType: e.target.value });
+    this.setState({
+      referenceType: e.target.value,
+    });
   };
 
   onFileUpload = e => {
@@ -193,9 +196,17 @@ export class UploadPhoto extends Component {
 
                 <div className="reference-type-content">
                   <FindObject
-                    onSelect={astroObjectId => this.setState({ astroObjectId })}
+                    onSelect={astroObjectId =>
+                      this.setState({
+                        astroObjectId,
+                      })
+                    }
                     selectedObject={astroObjectId}
-                    isDisabled={referenceType !== REFERENCE_TYPES.slooh1000}
+                    onFind={() =>
+                      this.setState({
+                        referenceType: REFERENCE_TYPES.slooh1000,
+                      })
+                    }
                   />
                 </div>
               </div>
@@ -219,23 +230,27 @@ export class UploadPhoto extends Component {
                     isDisabled={referenceType !== REFERENCE_TYPES.catalog}
                   />
 
-                  <textarea
-                    className="textarea designation"
-                    placeholder="Type designation here"
-                    value={designator}
-                    onChange={e =>
-                      this.setState({ designator: e.target.value })
-                    }
-                    disabled={referenceType !== REFERENCE_TYPES.catalog}
-                  />
+                  {referenceType === REFERENCE_TYPES.catalog && (
+                    <>
+                      <textarea
+                        className="textarea designation"
+                        placeholder="Type designation here"
+                        value={designator}
+                        onChange={e =>
+                          this.setState({ designator: e.target.value })
+                        }
+                        disabled={referenceType !== REFERENCE_TYPES.catalog}
+                      />
 
-                  <div className="designation-format">
-                    Format: {selectedCatalog.catFormat}
-                  </div>
+                      <div className="designation-format">
+                        Format: {selectedCatalog.catFormat}
+                      </div>
 
-                  <div className="designation-example">
-                    Example: {selectedCatalog.catExample}
-                  </div>
+                      <div className="designation-example">
+                        Example: {selectedCatalog.catExample}
+                      </div>
+                    </>
+                  )}
                 </div>
               </div>
 

@@ -1,3 +1,4 @@
+@import '~app/styles/bootstrap/common';
 @import '~app/styles/variables/index';
 
 .photohub-upload-photo-container {
@@ -14,8 +15,8 @@
   .modal-content {
     border: none;
     padding: 40px;
-    //max-height: calc(100vh - 42px);
-    //overflow-y: auto;
+    max-height: calc(100vh - 42px);
+    overflow-y: auto;
     background: $white;
 
     h2 {
@@ -157,6 +158,19 @@
         width: 100%;
         padding: 0 15px;
         text-align: right;
+      }
+    }
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .upload-modal.modal-dialog {
+    .modal-content {
+      .upload-photo-form {
+        .upload-photo-form-left,
+        .upload-photo-form-right {
+          width: 100%;
+        }
       }
     }
   }

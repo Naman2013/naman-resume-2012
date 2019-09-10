@@ -9,9 +9,9 @@ export class FindObject extends PureComponent {
   };
 
   findObject = e => {
-    const { fetchBrowseFindDataAction } = this.props;
+    const { fetchBrowseFindDataAction, onFind } = this.props;
     const { findValue } = this.state;
-    fetchBrowseFindDataAction(findValue);
+    fetchBrowseFindDataAction(findValue).then(() => onFind());
   };
 
   resetFindData = () => {
