@@ -16,6 +16,7 @@ export const QuestStepBox = props => {
     questId,
     showHeader,
     showModule,
+    setQuestCompleted,
   } = props;
   const {
     showResources,
@@ -75,7 +76,7 @@ export const QuestStepBox = props => {
               </div>
             </div>
 
-            <QuestStepInfo stepData={stepData} />
+            <QuestStepInfo stepData={stepData} setQuestCompleted={setQuestCompleted} />
           </div>
 
           {/* MOBILE VIEW */}
@@ -106,12 +107,12 @@ export const QuestStepBox = props => {
           {children}
           {showClaimBadgeButtonBottom && (
             <div className="text-center ">
-              <Link
+              <a
+                onClick={setQuestCompleted}
                 className="quest-next-step-btn btn btn-primary"
-                to={claimBadgeButtonURL}
               >
                 {claimBadgeButtonCaption}
-              </Link>
+              </a>
             </div>
           )}
         </div>

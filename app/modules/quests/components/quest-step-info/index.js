@@ -2,7 +2,7 @@ import React from 'react';
 import './styles.scss';
 import { Link } from 'react-router';
 
-export const QuestStepInfo = ({ stepData }) => {
+export const QuestStepInfo = ({ stepData, setQuestCompleted }) => {
   const {
     stepModulePrompt,
     stepModuleInstructions,
@@ -29,12 +29,12 @@ export const QuestStepInfo = ({ stepData }) => {
         </Link>
       )}
       {showClaimBadgeButtonTop && (
-        <Link
+        <a
           className="quest-next-step-btn btn btn-primary"
-          to={claimBadgeButtonURL}
+          onClick={setQuestCompleted}
         >
           {claimBadgeButtonCaption}
-        </Link>
+        </a>
       )}
     </div>
   );

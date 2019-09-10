@@ -96,6 +96,25 @@ export class QuestStep extends Component<TQuestStep> {
     });
   };
 
+  setQuestCompleted = event => {
+    event.preventDefault();
+    const { routeParams, setQuestCompleted, stepData } = this.props;
+    const { questId } = routeParams;
+    const { callSetQuestCompleted } = stepData;
+
+    if (!callSetQuestCompleted) {
+      setQuestCompleted({ questId }).then(data => {
+        browserHistory.push(
+          `/quest-completion/${routeParams.questId}/${stepData.questCompletionList[0].questCompletionModuleId}`
+        );
+      });
+    } else {
+      browserHistory.push(
+        `/quest-completion/${routeParams.questId}/${stepData.questCompletionList[0].questCompletionModuleId}`
+      );
+    }
+  };
+
   navigateToPrevStep = () => {
     const { routeParams } = this.props;
     const { prevStepId } = this.state;
@@ -197,6 +216,7 @@ export class QuestStep extends Component<TQuestStep> {
                 questId={routeParams.questId}
                 showHeader={index === 0}
                 showModule={modules[0]?.moduleType}
+                setQuestCompleted={this.setQuestCompleted}
               >
                 {modules.map(module => (
                   <>
