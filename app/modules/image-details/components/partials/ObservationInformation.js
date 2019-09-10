@@ -16,10 +16,12 @@ import {
 } from 'app/styles/variables/colors_tiles_v4';
 import { likeImage } from 'app/services/my-pictures/like-image';
 import { Button } from 'react-bootstrap';
-import Modal from 'react-modal';
+import { Modal } from 'app/components/modal';
 import { primaryFont, secondaryFont } from 'app/styles/variables/fonts';
 import { customModalStyles } from 'app/styles/mixins/utilities';
 import LikeButton from 'app/components/common/style/buttons/LikeButton';
+import { WriteObservationStep3 } from 'app/modules/object-details/components/write-observation-step3';
+
 
 const {
   any,
@@ -88,11 +90,16 @@ class BootstrappedImageDetails extends Component {
   }
 
   closeModal = e => {
-    e.preventDefault();
+    if(e) {
+      e.preventDefault();
+    }
+    const { refetchData } = this.props;
+
     this.setState({
       isOpen: false,
       promptText: null,
     });
+    refetchData();
   };
 
   likeObservation = e => {
@@ -134,15 +141,12 @@ class BootstrappedImageDetails extends Component {
     const {
       actions: { shareMemberPicture },
       customerImageId,
-      refetchData,
     } = this.props;
 
-    shareMemberPicture({ customerImageId }).then(data => {
+    shareMemberPicture({ customerImageId }).then(() => {
       this.setState({
-        isOpen: true,
-        promptText: data.payload.sharePrompt,
+        isOpen: true
       });
-      refetchData();
     });
   };
 
@@ -161,6 +165,7 @@ class BootstrappedImageDetails extends Component {
       imageTitle,
       canShareFlag,
       canEditFlag,
+      shareMemberPhotoData,
     } = this.props;
 
     const { isOpen, likePrompt, count, promptText } = this.state;
@@ -190,19 +195,17 @@ class BootstrappedImageDetails extends Component {
           <div className="pull-left">
             <LikeButton onClickEvent={this.likeObservation} count={count} />
           </div>
+
           <Modal
-            ariaHideApp={false}
-            isOpen={isOpen}
-            style={customModalStyles}
-            contentLabel="Observations"
-            onRequestClose={this.closeModal}
+            show={isOpen}
+            onHide={this.closeModal}
           >
-            <i className="fa fa-close" onClick={this.closeModal} />
-            <p
-              className=""
-              dangerouslySetInnerHTML={{ __html: promptText || likePrompt }}
+            <WriteObservationStep3 
+              onHide={this.closeModal}
+              shareMemberPhotoData={shareMemberPhotoData}
             />
           </Modal>
+          
           {canEditFlag && (
             <div className="pull-right my-3 ml-3">
               <Btn mod="circle" onClick={this.onEdit}>

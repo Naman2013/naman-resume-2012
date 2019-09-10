@@ -39,6 +39,7 @@ export class ImageDetails extends Component {
       params: { customerImageId, scheduledMissionId },
       imageDetailsData,
       isFetching,
+      shareMemberPhotoData,
     } = this.props;
     const actions = {
       getImageDetails,
@@ -60,6 +61,7 @@ export class ImageDetails extends Component {
                 user={user}
                 validateResponseAccess={validateResponseAccess}
                 refetchData={this.fetchData}
+                shareMemberPhotoData={shareMemberPhotoData}
                 {...context}
                 {...imageDetailsData}
               />
