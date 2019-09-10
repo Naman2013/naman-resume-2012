@@ -74,6 +74,7 @@ export class WriteObservationModal extends Component {
       onHide,
       imageDetails,
       isFetching,
+      shareMemberPhotoData,
     } = this.props;
     const { currentStep, imageData } = this.state;
     const { STEP_1, STEP_2, STEP_3 } = WRITE_OBSERVATIONS_STEPS;
@@ -103,7 +104,12 @@ export class WriteObservationModal extends Component {
           />
         )}
 
-        {currentStep === STEP_3 && <WriteObservationStep3 onHide={onHide} />}
+        {currentStep === STEP_3 && (
+          <WriteObservationStep3
+            onHide={onHide}
+            shareMemberPhotoData={shareMemberPhotoData}
+          />
+        )}
       </Fragment>
     );
   }
