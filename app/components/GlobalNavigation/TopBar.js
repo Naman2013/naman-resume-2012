@@ -1,4 +1,5 @@
 import { Livecast } from 'app/components/GlobalNavigation/Menus/livecast';
+import { LiveActivityLoadable } from 'app/modules/live-activity';
 import React, { Fragment } from 'react';
 import { browserHistory, Link } from 'react-router';
 import { FormattedMessage } from 'react-intl';
@@ -113,20 +114,23 @@ const TopBar = ({
                   </Button>
                 </li> */}
                 {user.isAuthorized ? (
-                  <li>
-                    <Livecast user={user} onClick={closeAllMenus} />
-                  </li>
-                ) : null}
-                {user.isAuthorized ? (
-                  <li>
-                    <Button
-                      mod="no-border"
-                      isActive={alertsIsActive}
-                      handleClick={alerts}
-                    >
-                      <AlertsIcon isActive={alertsIsActive} />
-                    </Button>
-                  </li>
+                  <>
+                    <li>
+                      <LiveActivityLoadable onClick={closeAllMenus} />
+                    </li>
+                    <li>
+                      <Livecast user={user} onClick={closeAllMenus} />
+                    </li>
+                    <li>
+                      <Button
+                        mod="no-border"
+                        isActive={alertsIsActive}
+                        handleClick={alerts}
+                      >
+                        <AlertsIcon isActive={alertsIsActive} />
+                      </Button>
+                    </li>
+                  </>
                 ) : null}
                 <li>
                   <Button
@@ -155,7 +159,20 @@ const TopBar = ({
                           <i className="top-nav-icon icon-close" />
                         ) : (
                           <div className="flex-row justify-content-center">
-			    <div style={{marginTop: "-3px"}}><Link className="button text" to="/about/memberships"><span style={{color: "#415671"}} className="text">Join now for FREE!</span></Link>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</div>
+                            <div style={{ marginTop: '-3px' }}>
+                              <Link
+                                className="button text"
+                                to="/about/memberships"
+                              >
+                                <span
+                                  style={{ color: '#415671' }}
+                                  className="text"
+                                >
+                                  Join now for FREE!
+                                </span>
+                              </Link>
+                              &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                            </div>
                             <span className="text">
                               <FormattedMessage {...messages.SignIn} />
                             </span>
