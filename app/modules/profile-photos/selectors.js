@@ -66,8 +66,6 @@ export const makePhotoHubsCatalogListSelectOptsSelector = () =>
   createSelector(
     makePhotoHubsCatalogListSelector(),
     state => {
-      // console.log(state);
-      // const catList = _get(state, 'catalogList', []);
       return getSelectOptions(state, 'catalog', 'catFullName');
     }
   );

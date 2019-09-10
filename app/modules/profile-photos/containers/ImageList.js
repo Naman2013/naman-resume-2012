@@ -143,7 +143,6 @@ class ImageList extends Component {
   state = {
     activePage: parseInt(this.props.location?.query?.page, 10) || 1,
     isFilterOpen: false,
-    isUploadPhotoModalOpen: false,
   };
 
   componentDidMount() {
@@ -269,9 +268,6 @@ class ImageList extends Component {
 
   setFilterOpen = isFilterOpen => this.setState({ isFilterOpen });
 
-  setUploadPhotoModalOpen = isUploadPhotoModalOpen =>
-    this.setState({ isUploadPhotoModalOpen });
-
   handlePageChange = ({ activePage }) => {
     const {
       actions,
@@ -390,7 +386,7 @@ class ImageList extends Component {
       setTag,
       deleteTag,
     };
-    const { activePage, isFilterOpen, isUploadPhotoModalOpen } = this.state;
+    const { activePage, isFilterOpen } = this.state;
     const arrOfImages = this.props[mapTypeToList[type]];
     const count = this.props[mapTypeToCount[type]];
     const currentImagesNumber = arrOfImages.length * activePage;
