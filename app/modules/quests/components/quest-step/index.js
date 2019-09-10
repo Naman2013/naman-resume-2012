@@ -102,7 +102,7 @@ export class QuestStep extends Component<TQuestStep> {
     const { questId } = routeParams;
     const { callSetQuestCompleted } = stepData;
 
-    if (!callSetQuestCompleted) {
+    if (callSetQuestCompleted) {
       setQuestCompleted({ questId }).then(data => {
         browserHistory.push(
           `/quest-completion/${routeParams.questId}/${stepData.questCompletionList[0].questCompletionModuleId}`
