@@ -16,6 +16,15 @@ export const FeedItem = (props: TFeedItem) => (
       <span className="feed-data-date">{props.item.date}</span>
       <span className="feed-data-user">{props.item.user}</span>
     </div>
-    <div className="feed-msg">{props.item.text}</div>
+
+    <div className="feed-msg">
+      {props.item.currentUser ? (
+        <div className="arrow-right" />
+      ) : (
+        <div className="arrow-left" />
+      )}
+
+      {props.item.text}
+    </div>
   </div>
 );

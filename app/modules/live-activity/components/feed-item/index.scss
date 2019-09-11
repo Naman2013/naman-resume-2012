@@ -27,6 +27,7 @@
     width: 80%;
     margin-left: auto;
     font-size: 14px;
+    position: relative;
   }
 
   /* CURRENT USER */
@@ -42,5 +43,27 @@
       margin-right: auto;
       margin-left: 0;
     }
+  }
+
+  .arrow-left {
+    width: 0;
+    height: 0;
+    border-top: 10px solid transparent;
+    border-bottom: 15px solid transparent;
+    border-right:15px solid $online;
+    position: absolute;
+    top: -9px;
+    right: 0;
+  }
+
+  .arrow-right {
+    width: 0;
+    height: 0;
+    border-top: 10px solid transparent;
+    border-bottom: 15px solid transparent;
+    border-left:15px solid $golda;
+    position: absolute;
+    top: -9px;
+    left: 0;
   }
 }
