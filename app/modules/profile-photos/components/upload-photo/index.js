@@ -53,7 +53,8 @@ export class UploadPhoto extends Component {
       designator,
       astroObjectId,
     } = this.state;
-    const { imageData } = this.props;
+    const { uploadPhotoData } = this.props;
+    const { imageData } = uploadPhotoData;
     const { catalog } = selectedCatalog;
 
     switch (referenceType) {
@@ -104,10 +105,11 @@ export class UploadPhoto extends Component {
   uploadToMyPictures = () => {
     const {
       uploadToMyPictures,
-      imageData,
+      uploadPhotoData,
       setObservationTags,
       onHide,
     } = this.props;
+    const { imageData } = uploadPhotoData;
     const { title, text } = this.state;
 
     uploadToMyPictures({
