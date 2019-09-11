@@ -20,6 +20,7 @@ import { Spinner } from 'app/components/spinner/index';
 import Quest from './QuestDetails';
 
 const { func, number, oneOfType, shape, string } = PropTypes;
+const BADGE_ITEM_TYPE = 'badge';
 
 export class ConnectedQuestDetails extends Component {
   static propTypes = {
@@ -71,12 +72,12 @@ export class ConnectedQuestDetails extends Component {
       });
   };
 
-  goToStep = stepId => {
+  goToStep = (stepId, type) => {
     const { questId, pageMeta } = this.props;
     const { questCompletionList, stepList } = pageMeta;
-    const { callSetQuestCompleted } = stepList[1];
 
-    if (stepId === 0) {
+    if (type === BADGE_ITEM_TYPE) {
+      const callSetQuestCompleted = stepList[stepList.length - 1];
       callQuestCompletedPage(
         questId,
         callSetQuestCompleted,

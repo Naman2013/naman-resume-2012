@@ -155,7 +155,7 @@ export const callQuestCompletedPage = (
   };
 
   if (callSetQuestCompleted) {
-    setQuestCompletedApi({ questId }).then(data => {
+    setQuestCompletedApi({ questId }).then(() => {
       navigateToCompletedPage();
     });
   } else {

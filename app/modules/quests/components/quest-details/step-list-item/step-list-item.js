@@ -23,6 +23,7 @@ const StepListItem = ({
   goToStep,
   intl,
   stepIconURL,
+  itemType,
 }) => {
   return showStepCard ? (
     <div className={cx('root', { disabled: !stepEnabled })} key={uniqueId()}>
@@ -61,7 +62,7 @@ const StepListItem = ({
           )}
         </div>
         {showActionMsg && (
-          <div className="action-right" onClick={() => goToStep(stepModuleId)}>
+          <div className="action-right" onClick={() => goToStep(stepModuleId, itemType)}>
             <span className="action-message">{stepActionMsg}</span>
             <div className="arrow-container">
               <img
