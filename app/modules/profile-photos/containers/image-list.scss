@@ -7,6 +7,10 @@ $BOTTOM_MARGIN_FIX: 3000px; // todo
     position: absolute;
     right: 120px;
     top: -73px;
+
+    &.position-right {
+      right: 0;
+    }
   }
 
   @include media-breakpoint-down(sm) {

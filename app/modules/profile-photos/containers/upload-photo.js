@@ -10,6 +10,7 @@ import {
   photoHubsUploadToMyPicturesDataSelector,
 } from 'app/modules/profile-photos/selectors';
 import {
+  uploadToMyPicturesPage,
   setMyPicturesUpload,
   uploadToMyPictures,
 } from 'app/modules/profile-photos/thunks';
@@ -29,6 +30,7 @@ const mapDispatchToProps = {
   setMyPicturesUpload,
   uploadToMyPictures,
   setObservationTags,
+  uploadToMyPicturesPage,
 };
 
 export default compose(

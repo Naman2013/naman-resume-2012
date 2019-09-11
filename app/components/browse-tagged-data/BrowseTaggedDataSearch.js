@@ -76,7 +76,7 @@ class BrowseTaggedDataSearch extends Component {
     const { isOpen } = nextProps;
 
     if (!isOpen) {
-      this.doTearDown();
+      //this.doTearDown();
     } else {
       document.getElementById('BrowseTaggedDataSearchInputField').focus();
       this.handleClick({ value: '' });

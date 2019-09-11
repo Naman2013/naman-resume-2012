@@ -8,6 +8,14 @@ export class FindObject extends PureComponent {
     findValue: '',
   };
 
+  componentDidMount() {
+    this.resetFindData();
+  }
+
+  componentWillUnmount() {
+    this.resetFindData();
+  }
+
   findObject = e => {
     const { fetchBrowseFindDataAction, onFind } = this.props;
     const { findValue } = this.state;

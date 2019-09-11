@@ -42,11 +42,11 @@ import {
   deleteTag,
   getTags,
   setTag,
-  uploadToMyPicturesPage,
 } from '../thunks';
 import './image-list.scss';
 import style from './ImageList.style';
 import UploadPhoto from 'app/modules/profile-photos/containers/upload-photo';
+import { makePrivateProfileUserDataSelector } from 'app/modules/profile/selectors';
 
 const mapTypeToList = {
   observations: 'observationsList',
@@ -104,7 +104,6 @@ const mapDispatchToProps = dispatch => ({
       getTags,
       setTag,
       deleteTag,
-      uploadToMyPicturesPage,
     },
     dispatch
   ),
@@ -131,6 +130,7 @@ const mapStateToProps = state => {
     objectTypeList: selectObjectTypeList()(state),
     selectedFilters: selectSelectedFilters()(state),
     myPicturesFilters: state.myPicturesFilters,
+    privateProfileData: makePrivateProfileUserDataSelector()(state),
   };
 };
 
@@ -148,7 +148,6 @@ class ImageList extends Component {
   componentDidMount() {
     const { actions, type, deviceInfo, params = {} } = this.props;
     const { activePage } = this.state;
-    const { uploadToMyPicturesPage } = actions;
     const fetchImages = actions[mapTypeToRequest[type]];
     const imagesToFetch = getImagesCountToFetch(deviceInfo);
     const { customerUUID } = params;
@@ -168,7 +167,6 @@ class ImageList extends Component {
     });
     //  fetchMissionsAndCounts | fetchGalleriesAndCounts | fetchPhotoRollAndCounts
     this.fetchFilters();
-    uploadToMyPicturesPage();
   }
 
   componentDidUpdate(prevProps) {
@@ -380,6 +378,7 @@ class ImageList extends Component {
       myPicturesFilters,
       tagsData,
       params,
+      privateProfileData,
     } = this.props;
     const tagActions = {
       getTags,
@@ -390,7 +389,7 @@ class ImageList extends Component {
     const arrOfImages = this.props[mapTypeToList[type]];
     const count = this.props[mapTypeToCount[type]];
     const currentImagesNumber = arrOfImages.length * activePage;
-
+    const { canUploadToPhotoHub } = privateProfileData;
     const cn = cx('profile-image-list-wrapper', {
       'filter-open': isFilterOpen,
     });
@@ -398,7 +397,7 @@ class ImageList extends Component {
     return (
       <div className={cn}>
         {params.private && (
-          <div className="filter-dropdown-btn">
+          <div className={cx('filter-dropdown-btn', { 'position-right': !canUploadToPhotoHub })}>
             <FilterDropdown
               isOpen={isFilterOpen}
               setOpen={this.setFilterOpen}
@@ -418,7 +417,7 @@ class ImageList extends Component {
           <div className="filter-shader animated fadeIn faster" />
         )}
 
-        <UploadPhoto onHide={this.fetchImages} />
+        {canUploadToPhotoHub && <UploadPhoto onHide={this.fetchImages} />}
 
         <SelectedFilters
           {...{

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import cx from 'classnames';
+import { Tooltip } from 'react-tippy';
 import { Spinner } from 'app/components/spinner/index';
 import { Select } from 'app/components/common/select';
 import { Datepicker } from 'app/modules/profile-photos/components/filter-dropdown/datepicker';
@@ -90,7 +91,14 @@ export class UploadPhoto extends Component {
       item => item.catalog === catalog
     )[0];
 
-    this.setState({ selectedCatalog });
+    this.setState({ selectedCatalog, designator: '' });
+  };
+
+  showUploadModal = () => {
+    const { uploadToMyPicturesPage } = this.props;
+
+    uploadToMyPicturesPage();
+    this.setState({ isUploadModalOpen: true });
   };
 
   uploadToMyPictures = () => {
@@ -111,13 +119,17 @@ export class UploadPhoto extends Component {
           null,
           title,
           text
-        ).then(() => this.setState({ isUploadModalOpen: false }));
+        ).then(() => this.uploadModalHide());
       } else {
-        this.setState({ isUploadModalOpen: false });
+        this.uploadModalHide();
       }
       onHide();
     });
   };
+
+  uploadModalHide = () => {
+    this.setState({ isUploadModalOpen: false });
+  }
 
   render() {
     const {
@@ -145,19 +157,27 @@ export class UploadPhoto extends Component {
 
     return (
       <div className="photohub-upload-photo-container">
-        <Button onClick={() => this.setState({ isUploadModalOpen: true })}>
-          Upload
-        </Button>
+        <Button onClick={this.showUploadModal}>Upload</Button>
 
         <Modal
           show={isUploadModalOpen}
-          onHide={() => this.setState({ isUploadModalOpen: false })}
+          onHide={this.uploadModalHide}
           aria-labelledby="contained-modal-title-vcenter"
           centered
           dialogClassName="upload-modal"
         >
           <Spinner loading={isFetching} />
-          <h2 className="h2-custom text-center">{DisplayTitle}</h2>
+
+          <div className="photohub-upload-modal-header d-flex justify-content-between">
+            <span>{DisplayTitle}</span>
+            <Tooltip title="Close">
+              <span
+                className="icon-close close-btn"
+                onClick={this.uploadModalHide}
+                role="presentation"
+              />
+            </Tooltip>
+          </div>
 
           <form className="upload-photo-form">
             <div className="upload-photo-form-left">

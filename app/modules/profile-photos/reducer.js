@@ -154,7 +154,7 @@ function setMyPicturesUploadSuccess(state, action) {
     ...state,
     isFetching: false,
     isLoaded: true,
-    uploadPhotoData: action.payload,
+    uploadPhotoData: { imageData: {}, ...action.payload },
   };
 }
 
