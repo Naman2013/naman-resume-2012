@@ -4,7 +4,7 @@ import { createStructuredSelector } from 'reselect';
 import { UploadPhoto } from 'app/modules/profile-photos/components/upload-photo';
 import {
   photoHubsIsFetchingSelector,
-  makeUploadImageDataSelector,
+  photoHubsUploadPhotoDataSelector,
   photoHubsUploadToMyPicturesPageDataSelector,
   makePhotoHubsCatalogListSelectOptsSelector,
   photoHubsUploadToMyPicturesDataSelector,
@@ -20,7 +20,7 @@ import { setObservationTags } from 'app/modules/image-details/thunks';
 const mapStateToProps = createStructuredSelector({
   isFetching: photoHubsIsFetchingSelector(),
   uploadPhotoPageData: photoHubsUploadToMyPicturesPageDataSelector(),
-  imageData: makeUploadImageDataSelector(),
+  uploadPhotoData: photoHubsUploadPhotoDataSelector(),
   user: makeUserSelector(),
   catalogListOpts: makePhotoHubsCatalogListSelectOptsSelector(),
   uploadToMyPicturesData: photoHubsUploadToMyPicturesDataSelector(),

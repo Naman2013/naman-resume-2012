@@ -129,12 +129,12 @@ export class UploadPhoto extends Component {
 
   uploadModalHide = () => {
     this.setState({ isUploadModalOpen: false });
-  }
+  };
 
   render() {
     const {
       uploadPhotoPageData,
-      imageData,
+      uploadPhotoData,
       isFetching,
       catalogListOpts,
     } = this.props;
@@ -153,6 +153,7 @@ export class UploadPhoto extends Component {
       designator,
       astroObjectId,
     } = this.state;
+    const { imageData, explanationText } = uploadPhotoData;
     const { imageUrl } = imageData;
 
     return (
@@ -191,6 +192,8 @@ export class UploadPhoto extends Component {
                   id="photoHubUploadInput"
                   onChange={this.onFileUpload}
                 />
+
+                <p className="photo-explanation-text">{explanationText}</p>
               </div>
 
               {/* <Datepicker

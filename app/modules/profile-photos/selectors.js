@@ -50,12 +50,6 @@ export const photoHubsUploadPhotoDataSelector = () =>
     state => state.uploadPhotoData
   );
 
-export const makeUploadImageDataSelector = () =>
-  createSelector(
-    photoHubsUploadPhotoDataSelector(),
-    state => state.imageData
-  );
-
 export const makePhotoHubsCatalogListSelector = () =>
   createSelector(
     photoHubsUploadToMyPicturesPageDataSelector(),
