@@ -212,7 +212,7 @@ class ImageList extends Component {
     }
   }
 
-  componentWillUnmount(){
+  componentWillUnmount() {
     this.handleFilterChange({
       pierNumber: null,
       observatoryId: null,
