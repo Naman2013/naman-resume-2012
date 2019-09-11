@@ -4,6 +4,7 @@
 import { QuestStepBox } from 'app/modules/quests/components/quest-step-box';
 import type { QuestStepModule } from 'app/modules/quests/types';
 import { questModuleType } from 'app/modules/quests/types';
+import { callQuestCompletedPage } from 'app/modules/quests/thunks';
 import React, { Component } from 'react';
 import { Container } from 'react-bootstrap';
 import Modal from 'react-modal';
@@ -102,17 +103,11 @@ export class QuestStep extends Component<TQuestStep> {
     const { questId } = routeParams;
     const { callSetQuestCompleted } = stepData;
 
-    if (callSetQuestCompleted) {
-      setQuestCompleted({ questId }).then(data => {
-        browserHistory.push(
-          `/quest-completion/${routeParams.questId}/${stepData.questCompletionList[0].questCompletionModuleId}`
-        );
-      });
-    } else {
-      browserHistory.push(
-        `/quest-completion/${routeParams.questId}/${stepData.questCompletionList[0].questCompletionModuleId}`
-      );
-    }
+    callQuestCompletedPage(
+      questId,
+      callSetQuestCompleted,
+      stepData.questCompletionList[0].questCompletionModuleId
+    );
   };
 
   navigateToPrevStep = () => {
@@ -167,6 +162,7 @@ export class QuestStep extends Component<TQuestStep> {
       showHeaderLastButton,
       enableHeaderLastButton,
       redirectStep,
+      callSetQuestCompleted,
     } = stepData;
 
     return (
@@ -188,6 +184,7 @@ export class QuestStep extends Component<TQuestStep> {
           enableHeaderNextButton={enableHeaderNextButton}
           showHeaderLastButton={showHeaderLastButton}
           enableHeaderLastButton={enableHeaderLastButton}
+          callSetQuestCompleted={callSetQuestCompleted}
         />
 
         <Modal

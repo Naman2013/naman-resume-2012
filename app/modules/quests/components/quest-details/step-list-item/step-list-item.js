@@ -22,6 +22,7 @@ const StepListItem = ({
   showStepCard,
   goToStep,
   intl,
+  stepIconURL,
 }) => {
   return showStepCard ? (
     <div className={cx('root', { disabled: !stepEnabled })} key={uniqueId()}>
@@ -30,13 +31,13 @@ const StepListItem = ({
         {stepCompleted ? (
           <img
             className="check-icon"
-            src={complete}
+            src={stepIconURL}
             alt={intl.formatMessage(messages.CompletedIcon)}
           />
         ) : (
           <img
             className="check-icon"
-            src={incomplete}
+            src={stepIconURL}
             alt={intl.formatMessage(messages.IncompletedIcon)}
           />
         )}

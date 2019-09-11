@@ -3,6 +3,7 @@ import cn from 'classnames';
 import Fade from 'app/components/common/Fade';
 import { CLOSE_LOCATION } from 'app/components/common/ContextMenu/ContextMenu';
 import { CompleteCheckbox } from 'app/modules/quests/components/complete-checkbox';
+import { callQuestCompletedPage } from 'app/modules/quests/thunks';
 import './menu.scss';
 import { browserHistory } from 'react-router';
 
@@ -19,11 +20,14 @@ export const QuestStepContextMenu = ({
   questId,
   onClose,
   questCompletionList,
+  callSetQuestCompleted,
 }) => {
   const goToStep = index => {
     if (stepMenuList[index].itemType === BADGE_ITEM_TYPE) {
-      browserHistory.push(
-        `/quest-completion/${questId}/${questCompletionList[0].questCompletionModuleId}`
+      callQuestCompletedPage(
+        questId,
+        callSetQuestCompleted,
+        questCompletionList[0].questCompletionModuleId
       );
     } else {
       browserHistory.push(

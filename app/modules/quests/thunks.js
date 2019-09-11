@@ -15,6 +15,7 @@ import {
   getCustomerQuestsApi,
   setQuestCompletedApi,
 } from 'app/modules/quests/api';
+import { browserHistory } from 'react-router';
 import { ACTION } from './reducer';
 
 // QUEST STEP PAGE
@@ -140,6 +141,26 @@ export const setQuestCompleted = data => (dispatch, getState) => {
   return setQuestCompletedApi({ ...opts })
     .then(result => dispatch(ACTION.setQuestCompletedSuccess(result.data)))
     .catch(error => dispatch(ACTION.setQuestCompletedError(error)));
+};
+
+export const callQuestCompletedPage = (
+  questId,
+  callSetQuestCompleted,
+  questCompletionModuleId
+) => {
+  const navigateToCompletedPage = () => {
+    browserHistory.push(
+      `/quest-completion/${questId}/${questCompletionModuleId}`
+    );
+  };
+
+  if (callSetQuestCompleted) {
+    setQuestCompletedApi({ questId }).then(data => {
+      navigateToCompletedPage();
+    });
+  } else {
+    navigateToCompletedPage();
+  }
 };
 
 export const setQaFreeForm = data => (dispatch, getState) => {

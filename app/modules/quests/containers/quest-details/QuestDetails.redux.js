@@ -13,6 +13,7 @@ import { bindActionCreators } from 'redux';
 import { browserHistory } from 'react-router';
 import { DeviceContext } from 'providers/DeviceProvider';
 import questActions from 'app/modules/quest-details/actions';
+import { callQuestCompletedPage } from 'app/modules/quests/thunks';
 import { validateResponseAccess } from 'app/modules/authorization/actions';
 import { START_QUEST } from 'app/services/quests';
 import { Spinner } from 'app/components/spinner/index';
@@ -71,14 +72,15 @@ export class ConnectedQuestDetails extends Component {
   };
 
   goToStep = stepId => {
-    const {
-      questId,
-      pageMeta: { questCompletionList },
-    } = this.props;
+    const { questId, pageMeta } = this.props;
+    const { questCompletionList, stepList } = pageMeta;
+    const { callSetQuestCompleted } = stepList[1];
 
     if (stepId === 0) {
-      browserHistory.push(
-        `/quest-completion/${questId}/${questCompletionList[0].questCompletionModuleId}`
+      callQuestCompletedPage(
+        questId,
+        callSetQuestCompleted,
+        questCompletionList[0].questCompletionModuleId
       );
     } else {
       browserHistory.push(`/quest-details/${questId}/${stepId}`);
