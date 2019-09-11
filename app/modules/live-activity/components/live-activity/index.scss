@@ -1,0 +1,63 @@
+@import '~app/styles/bootstrap/common';
+@import '~app/styles/variables/index';
+@import '~app/styles/mixins/index';
+
+.live-activity-wrapper {
+  // todo make common
+  color: $lightHeadedAstronaut;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 9;
+
+  .icon-bubble-comment-streamline-talk {
+    font-size: 20px;
+    display: inline-block;
+    height: 20px;
+    cursor: pointer;
+  }
+
+
+  .live-activity-window-wrapper {
+    position: absolute;
+    top: 60px;
+    left: -235px;
+
+
+    .live-activity-window {
+      // todo make common
+
+      background-color: $romance;
+
+      width: 400px;
+      @include boxShadow();
+    }
+
+    .live-activity-window-header {
+      cursor: move;
+      padding: 20px;
+      border-bottom: 1px solid $hawkesBlue;
+
+      .h4-custom {
+        font-family: $primary-font;
+      }
+
+
+      .icon-close {
+        font-size: 8px;
+        height: 8px;
+        cursor: pointer;
+      }
+    }
+
+    .popup-body {
+      padding: 30px;
+      border-bottom: 6px solid $lightHeadedAstronaut;
+    }
+
+  }
+
+}

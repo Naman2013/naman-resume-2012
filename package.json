@@ -95,7 +95,7 @@
     "react-countdown-now": "^2.1.0",
     "react-dates": "^20.2.0",
     "react-dom": "^16.8.5",
-    "react-draggable": "^3.0.3",
+    "react-draggable": "^3.3.2",
     "react-google-login": "^3.2.1",
     "react-helmet": "^5.2.0",
     "react-image-magnifiers": "^1.0.1",

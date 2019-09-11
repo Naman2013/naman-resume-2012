@@ -115,9 +115,9 @@ const TopBar = ({
                 </li> */}
                 {user.isAuthorized ? (
                   <>
-                    {/*<li>
+                    <li>
                       <LiveActivityLoadable onClick={closeAllMenus} />
-                    </li>*/}
+                    </li>
                     <li>
                       <Livecast user={user} onClick={closeAllMenus} />
                     </li>
