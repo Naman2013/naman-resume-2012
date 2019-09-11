@@ -35,28 +35,40 @@
       height: 100%;
       @include boxShadow();
       border-bottom: 6px solid $lightHeadedAstronaut;
-    }
+      display: flex;
+      flex-direction: column;
 
-    .live-activity-window-header {
-      cursor: move;
-      padding: 20px;
-      border-bottom: 1px solid $hawkesBlue;
 
-      .h4-custom {
-        font-family: $primary-font;
+      .live-activity-window-header {
+        cursor: move;
+        padding: 20px;
+        border-bottom: 1px solid $hawkesBlue;
+
+        .h4-custom {
+          font-family: $primary-font;
+        }
+
+
+        .icon-close {
+          font-size: 8px;
+          height: 8px;
+          cursor: pointer;
+        }
       }
 
+      .live-activity-window-body {
+        padding: 30px;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
 
-      .icon-close {
-        font-size: 8px;
-        height: 8px;
-        cursor: pointer;
+        .live-activity-window-feed {
+          flex: 1;
+        }
       }
+
     }
 
-    .popup-body {
-      padding: 30px;
-    }
 
   }
 

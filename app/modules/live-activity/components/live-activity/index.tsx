@@ -13,11 +13,14 @@ export class LiveActivity extends React.Component<TLiveActivity, {}> {
   render() {
     return (
       <div className="live-activity-wrapper">
+        {/* BTN */}
         <span
           role="presentation"
           className="icon-bubble-comment-streamline-talk"
           onClick={() => {}}
         />
+
+        {/* WINDOW */}
         <div className="live-activity-window-wrapper">
           <Draggable handle=".live-activity-window-header">
             <div>
@@ -25,7 +28,6 @@ export class LiveActivity extends React.Component<TLiveActivity, {}> {
                 width={400}
                 height={400}
                 minConstraints={[300, 300]}
-                // maxConstraints={[300, 300]}
               >
                 <div className="live-activity-window">
                   <div className="live-activity-window-header d-flex justify-content-between align-items-center">
@@ -38,11 +40,18 @@ export class LiveActivity extends React.Component<TLiveActivity, {}> {
                       />
                     </Tooltip>
                   </div>
-                  <div className="popup-body">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                    Alias in laudantium qui voluptatibus? Asperiores consequatur
-                    cum dignissimos distinctio eaque, expedita nesciunt odio
-                    tempore veniam vitae. Aut commodi id laudantium provident!
+                  <div className="live-activity-window-body">
+                    <div className="live-activity-window-feed">
+                      Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                      Aspernatur consectetur deserunt dignissimos, dolor est
+                      expedita id itaque labore, nostrum odit perferendis
+                      placeat quod, voluptatum. Culpa ipsam maxime natus
+                      pariatur. Sed?
+                    </div>
+
+                    <div className="live-activity-window-msg-block">
+                      <input type="text" />
+                    </div>
                   </div>
                 </div>
               </ResizableBox>
