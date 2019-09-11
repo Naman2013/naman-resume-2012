@@ -1,5 +1,8 @@
 @import '~app/styles/variables/index';
 
+$msgBg: lighten($online, 35%);
+$msgOwnBg: lighten($golda, 15%);
+
 .feed-item {
   margin-bottom: 20px;
   text-align: right;
@@ -20,8 +23,7 @@
   }
 
   .feed-msg {
-    background-color: $online;
-    color: #fff;
+    background-color: $msgBg;
     padding: 15px;
     border-radius: 10px;
     width: 80%;
@@ -39,7 +41,7 @@
     }
 
     .feed-msg {
-      background-color: $golda;
+      background-color: $msgOwnBg;
       margin-right: auto;
       margin-left: 0;
     }
@@ -50,7 +52,7 @@
     height: 0;
     border-top: 10px solid transparent;
     border-bottom: 15px solid transparent;
-    border-right:15px solid $online;
+    border-right: 15px solid $msgBg;
     position: absolute;
     top: -9px;
     right: 0;
@@ -61,7 +63,7 @@
     height: 0;
     border-top: 10px solid transparent;
     border-bottom: 15px solid transparent;
-    border-left:15px solid $golda;
+    border-left: 15px solid $msgOwnBg;
     position: absolute;
     top: -9px;
     left: 0;
