@@ -1,0 +1,46 @@
+@import '~app/styles/variables/index';
+
+.feed-item {
+  margin-bottom: 20px;
+  text-align: right;
+
+  .feed-data {
+    margin-bottom: 5px;
+    display: flex;
+    justify-content: flex-end;
+
+    &-date {
+      color: lighten($lightHeadedAstronaut, 20%);
+      margin: 0 5px;
+    }
+
+    &-user {
+      font-weight: bold;
+    }
+  }
+
+  .feed-msg {
+    background-color: $online;
+    color: #fff;
+    padding: 15px;
+    border-radius: 10px;
+    width: 80%;
+    margin-left: auto;
+    font-size: 14px;
+  }
+
+  /* CURRENT USER */
+  &.feed-item-current-user {
+    text-align: left;
+
+    .feed-data {
+      flex-direction: row-reverse;
+    }
+
+    .feed-msg {
+      background-color: $golda;
+      margin-right: auto;
+      margin-left: 0;
+    }
+  }
+}
