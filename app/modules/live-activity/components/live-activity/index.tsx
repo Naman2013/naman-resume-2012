@@ -41,17 +41,17 @@ export class LiveActivity extends React.Component<TLiveActivity, {}> {
                     </Tooltip>
                   </div>
                   <div className="live-activity-window-body">
-                    <div className="live-activity-window-feed">
+                    <div className="live-activity-window-body-feed">
                       Lorem ipsum dolor sit amet, consectetur adipisicing elit.
                       Aspernatur consectetur deserunt dignissimos, dolor est
                       expedita id itaque labore, nostrum odit perferendis
                       placeat quod, voluptatum. Culpa ipsam maxime natus
                       pariatur. Sed?
                     </div>
+                  </div>
 
-                    <div className="live-activity-window-msg-block">
-                      <input type="text" />
-                    </div>
+                  <div className="live-activity-window-footer">
+                    <input type="text" placeholder="Type your message" />
                   </div>
                 </div>
               </ResizableBox>
