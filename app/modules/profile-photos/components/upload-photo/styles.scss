@@ -5,6 +5,13 @@
   position: absolute;
   right: 0;
   top: -73px;
+
+  @include media-breakpoint-down(sm) {
+    & {
+      right: 37px;
+      top: -46px;
+    }
+  }
 }
 
 .upload-modal.modal-dialog {

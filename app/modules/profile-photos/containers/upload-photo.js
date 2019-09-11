@@ -16,6 +16,7 @@ import {
 } from 'app/modules/profile-photos/thunks';
 import { makeUserSelector } from 'app/modules/user/selectors';
 import { setObservationTags } from 'app/modules/image-details/thunks';
+import { ACTION } from 'app/modules/profile-photos/reducer';
 
 const mapStateToProps = createStructuredSelector({
   isFetching: photoHubsIsFetchingSelector(),
@@ -31,6 +32,7 @@ const mapDispatchToProps = {
   uploadToMyPictures,
   setObservationTags,
   uploadToMyPicturesPage,
+  clearUploadedPhotoData: ACTION.clearUploadedPhotoData,
 };
 
 export default compose(

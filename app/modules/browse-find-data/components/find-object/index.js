@@ -4,10 +4,6 @@ import { Button } from 'react-bootstrap';
 import './styles.scss';
 
 export class FindObject extends PureComponent {
-  state = {
-    findValue: '',
-  };
-
   componentDidMount() {
     this.resetFindData();
   }
@@ -17,25 +13,25 @@ export class FindObject extends PureComponent {
   }
 
   findObject = e => {
-    const { fetchBrowseFindDataAction, onFind } = this.props;
-    const { findValue } = this.state;
+    const { fetchBrowseFindDataAction, onFind, findValue } = this.props;
     fetchBrowseFindDataAction(findValue).then(() => onFind());
   };
 
   resetFindData = () => {
-    const { resetBrowseFindDataAction } = this.props;
-    this.setState({ findValue: '' });
+    const { resetBrowseFindDataAction, onChange } = this.props;
+    onChange('');
     resetBrowseFindDataAction();
   };
 
   render() {
     const {
       browserFindData,
-      isDisabled,
       onSelect,
       selectedObject,
+      findObjectResultVisible,
+      onChange,
+      findValue,
     } = this.props;
-    const { findValue } = this.state;
     const { findMessage, findData } = browserFindData;
 
     return (
@@ -43,20 +39,15 @@ export class FindObject extends PureComponent {
         <input
           placeholder="Find a Slooh 1000 Object"
           value={findValue}
-          onChange={e => this.setState({ findValue: e.target.value })}
-          disabled={isDisabled}
+          onChange={e => onChange(e.target.value)}
         />
 
         <div className="find-object-actions">
-          <Button onClick={this.findObject} disabled={isDisabled}>
-            Find
-          </Button>
-          <Button onClick={this.resetFindData} disabled={isDisabled}>
-            Clear
-          </Button>
+          <Button onClick={this.findObject}>Find</Button>
+          <Button onClick={this.resetFindData}>Clear</Button>
         </div>
 
-        {findMessage && !isDisabled && (
+        {findMessage && findObjectResultVisible && (
           <>
             <hr />
 

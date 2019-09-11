@@ -14,20 +14,28 @@ const REFERENCE_TYPES = {
   other: 'other',
 };
 
+const INITIAL_STATE = {
+  referenceType: REFERENCE_TYPES.slooh1000,
+  astroObjectId: null,
+  findObjectResultVisible: true,
+  findValue: '',
+  selectedCatalog: {},
+  designator: '',
+  title: '',
+  text: '',
+}
+
 export class UploadPhoto extends Component {
   state = {
     isUploadModalOpen: false,
-    referenceType: REFERENCE_TYPES.slooh1000,
-    astroObjectId: null,
-    selectedCatalog: {},
-    designator: '',
-    title: '',
-    text: '',
+    ...INITIAL_STATE,
   };
 
   onTypeChange = e => {
     this.setState({
       referenceType: e.target.value,
+      findObjectResultVisible: false,
+      findValue: '',
     });
   };
 
@@ -130,7 +138,9 @@ export class UploadPhoto extends Component {
   };
 
   uploadModalHide = () => {
-    this.setState({ isUploadModalOpen: false });
+    const { clearUploadedPhotoData } = this.props;
+    this.setState({ isUploadModalOpen: false, ...INITIAL_STATE });
+    clearUploadedPhotoData();
   };
 
   render() {
@@ -154,6 +164,8 @@ export class UploadPhoto extends Component {
       selectedCatalog,
       designator,
       astroObjectId,
+      findObjectResultVisible,
+      findValue,
     } = this.state;
     const { imageData, explanationText } = uploadPhotoData;
     const { imageUrl } = imageData;
@@ -219,21 +231,25 @@ export class UploadPhoto extends Component {
                 />
                 <label htmlFor="photoTypeSlooh1000">{DisplaySlooh1000}</label>
 
-                <div className="reference-type-content">
-                  <FindObject
-                    onSelect={astroObjectId =>
-                      this.setState({
-                        astroObjectId,
-                      })
-                    }
-                    selectedObject={astroObjectId}
-                    onFind={() =>
-                      this.setState({
-                        referenceType: REFERENCE_TYPES.slooh1000,
-                      })
-                    }
-                  />
-                </div>
+                  <div className="reference-type-content">
+                    <FindObject
+                      onSelect={astroObjectId =>
+                        this.setState({
+                          astroObjectId,
+                        })
+                      }
+                      selectedObject={astroObjectId}
+                      findObjectResultVisible={findObjectResultVisible}
+                      findValue={findValue}
+                      onFind={() =>
+                        this.setState({
+                          referenceType: REFERENCE_TYPES.slooh1000,
+                          findObjectResultVisible: true,
+                        })
+                      }
+                      onChange={findValue => this.setState({ findValue })}
+                    />
+                  </div>
               </div>
 
               <div className="upload-photo-radio reference-type">

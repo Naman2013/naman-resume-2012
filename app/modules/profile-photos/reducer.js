@@ -14,6 +14,7 @@ export const TYPE = constants('profile', [
   '~UPLOAD_TO_MY_PICTURES_PAGE',
   '~SET_MY_PICTURES_UPLOAD',
   '~UPLOAD_TO_MY_PICTURES',
+  'CLEAR_UPLOADED_PHOTO_DATA',
 ]);
 export const ACTION = actions(TYPE);
 
@@ -72,6 +73,8 @@ export default handleActions(
     [TYPE.UPLOAD_TO_MY_PICTURES]: setFetching,
     [TYPE.UPLOAD_TO_MY_PICTURES_SUCCESS]: uploadToMyPicturesSuccess,
     [TYPE.UPLOAD_TO_MY_PICTURES_ERROR]: setServerError,
+
+    [TYPE.CLEAR_UPLOADED_PHOTO_DATA]: clearUploadedPhotoData,
   },
   initialState
 );
@@ -164,5 +167,14 @@ function uploadToMyPicturesSuccess(state, action) {
     isFetching: false,
     isLoaded: true,
     uploadToMyPicturesData: action.payload,
+  };
+}
+
+function clearUploadedPhotoData(state, action) {
+  return {
+    ...state,
+    uploadPhotoData: {
+      imageData: {},
+    },
   };
 }
