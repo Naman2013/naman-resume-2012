@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
 import cn from 'classnames';
 import Dots from 'atoms/icons/Dots';
+import { Tooltip } from 'react-tippy';
 import { astronaut } from 'app/styles/variables/colors_tiles_v4';
 import ImageClickHandler from 'app/components/common/ImageClickHandler';
 import FollowObjectButton from 'app/components/object-details/FollowObjectButton';
@@ -42,6 +43,9 @@ export const DataCollectionSlotCard = props => {
     dotMenuTitle,
     enableDotMenu,
     enableSlotButton,
+    slotButtonTooltipText,
+    slotInfoTooltipText,
+    dotMenuTooltipText,
   } = slot;
 
   const [isInfoMenuOpen, toggleInfoMenu] = useState(false);
@@ -64,50 +68,56 @@ export const DataCollectionSlotCard = props => {
         )}
       </div>
       <div className="dc-slot-card-actions">
-        {showSlotButton &&
-          <Button
-            className="dc-slot-card-find-btn"
-            onClick={() => showDataCollectionSlotModal(slot)}
-            disabled={!enableSlotButton}
-          >
-            {slotButtonCaption}
-          </Button>
-        }
+        {showSlotButton && (
+          <Tooltip title={slotButtonTooltipText} position="top">
+            <Button
+              className="dc-slot-card-find-btn"
+              onClick={() => showDataCollectionSlotModal(slot)}
+              disabled={!enableSlotButton}
+            >
+              {slotButtonCaption}
+            </Button>
+          </Tooltip>
+        )}
         {showSlotInfo && (
-          <Button
-            className={cn('dc-slot-card-info-btn', { open: isInfoMenuOpen })}
-            onClick={() => !isDotsMenuOpen && toggleInfoMenu(!isInfoMenuOpen)}
-          >
-            {!isInfoMenuOpen ? (
-              <img
-                alt=""
-                src="https://vega.slooh.com/assets/v4/common/info_icon.svg"
-              />
-            ) : (
-              <i className="menu-icon-close icon-close" />
-            )}
-          </Button>
+          <Tooltip title={slotInfoTooltipText} position="top">
+            <Button
+              className={cn('dc-slot-card-info-btn', { open: isInfoMenuOpen })}
+              onClick={() => !isDotsMenuOpen && toggleInfoMenu(!isInfoMenuOpen)}
+            >
+              {!isInfoMenuOpen ? (
+                <img
+                  alt=""
+                  src="https://vega.slooh.com/assets/v4/common/info_icon.svg"
+                />
+              ) : (
+                <i className="menu-icon-close icon-close" />
+              )}
+            </Button>
+          </Tooltip>
         )}
         {showDotMenu && (
-          <Button
-            onClick={() => !isInfoMenuOpen && toggleDotsMenu(!isDotsMenuOpen)}
-            className={cn('dc-slot-card-dots-menu', { open: isDotsMenuOpen })}
-            disabled={!enableDotMenu}
-          >
-            {!isDotsMenuOpen ? (
-              <Dots theme={{ circleColor: astronaut }} />
-            ) : (
-              <i className="menu-icon-close icon-close" />
-            )}
-          </Button>
+          <Tooltip title={dotMenuTooltipText} position="top">
+            <Button
+              onClick={() => !isInfoMenuOpen && toggleDotsMenu(!isDotsMenuOpen)}
+              className={cn('dc-slot-card-dots-menu', { open: isDotsMenuOpen })}
+              disabled={!enableDotMenu}
+            >
+              {!isDotsMenuOpen ? (
+                <Dots theme={{ circleColor: astronaut }} />
+              ) : (
+                <i className="menu-icon-close icon-close" />
+              )}
+            </Button>
+          </Tooltip>
         )}
 
         <QuestButtonsPopover isOpen={isInfoMenuOpen}>
           {isInfoMenuOpen && slotInfo.showSlotContentsDesc && (
             <div className="dc-slot-info-popover">
               <div className="dc-slot-info-title">{slotInfoTitle}</div>
-              <div 
-                className="dc-slot-info-text" 
+              <div
+                className="dc-slot-info-text"
                 dangerouslySetInnerHTML={{ __html: slotInfo?.slotContentsDesc }}
               />
             </div>
@@ -154,7 +164,7 @@ export const DataCollectionSlotCard = props => {
                   {dotMenu?.showDownloadImage && (
                     <div
                       onClick={() => {
-                        toggleDotsMenu(false); 
+                        toggleDotsMenu(false);
                         onDownloadImage(imageURL);
                       }}
                       disabled={!dotMenu?.enableDownloadImage}
@@ -163,7 +173,7 @@ export const DataCollectionSlotCard = props => {
                     </div>
                   )}
                   {dotMenu?.showCheckForMissions && (
-                    <Link 
+                    <Link
                       to={dotMenu?.checkForMissionsUrl}
                       disabled={!dotMenu?.enableCheckForMissions}
                     >
@@ -172,8 +182,8 @@ export const DataCollectionSlotCard = props => {
                   )}
                   {dotMenu?.showObjectInfo && (
                     <>
-                      <Link 
-                        to={dotMenu?.objectInfo?.learnAboutUrl} 
+                      <Link
+                        to={dotMenu?.objectInfo?.learnAboutUrl}
                         disabled={!dotMenu?.enableObjectInfo}
                       >
                         <div>{dotMenu?.objectInfo?.learnAboutText}</div>

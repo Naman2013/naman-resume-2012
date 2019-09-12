@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import { Button } from 'react-bootstrap';
+import { Tooltip } from 'react-tippy';
 import cx from 'classnames';
 import ImageClickHandler from 'app/components/common/ImageClickHandler';
 import './styles.scss';
@@ -28,10 +29,13 @@ export class QuestQaAnswerForm extends PureComponent {
       textInputPlaceholder,
       submitButtonCaption,
       showSubmitButton,
+      submitButtonTooltipText,
       showEditButton,
+      editButtonTooltipText,
       editButtonCaption,
       showCancelButton,
       cancelButtonCaption,
+      cancelButtonTooltipText,
       answerText,
       textInputMaxChars,
       answers,
@@ -95,55 +99,71 @@ export class QuestQaAnswerForm extends PureComponent {
         {qaMultipleChoice &&
           answers &&
           answers.map(answer => (
-            <div
-              key={`qa-multiple-choice-answer-${answer.answerId}`}
-              className={`qa-multiple-choice-answer${
-                moduleReadOnly ? ' disabled' : ''
-              }`}
-              onClick={() => onClick(answer.answerIndex, answer.answerLetter)}
-              disabled={moduleReadOnly}
+            <Tooltip
+              title={answer.answerLetterTooltipText}
+              position="top"
+              distance={-30}
             >
-              <div className="qa-multiple-choice-answer-item-container">
-                <div className="qa-multiple-choice-answer-label">
-                  <img src={answer.answerIconURL} />
+              <div
+                key={`qa-multiple-choice-answer-${answer.answerId}`}
+                className={`qa-multiple-choice-answer${
+                  moduleReadOnly ? ' disabled' : ''
+                }`}
+                onClick={() => onClick(answer.answerIndex, answer.answerLetter)}
+                disabled={moduleReadOnly}
+              >
+                <div className="qa-multiple-choice-answer-item-container">
+                  <div className="qa-multiple-choice-answer-label">
+                    <img src={answer.answerIconURL} />
+                  </div>
+                  <div className="qa-multiple-choice-answer-text">
+                    {answer.answerText}
+                  </div>
                 </div>
-                <div className="qa-multiple-choice-answer-text">
-                  {answer.answerText}
+                <div className="qa-multiple-choice-scoring-text">
+                  {answer.scoringText}
                 </div>
               </div>
-              <div className="qa-multiple-choice-scoring-text">
-                {answer.scoringText}
-              </div>
-            </div>
+            </Tooltip>
           ))}
 
         <div className="quest-qa-answer-actions">
           {showSubmitButton && (
-            <Button
-              className="quest-qa-answer-submit-btn"
-              onClick={() => onClick(ACTIONS.SUBMIT)}
-              disabled={readOnly}
+            <Tooltip
+              title={submitButtonTooltipText}
+              distance={20}
+              position="top"
             >
-              {submitButtonCaption}
-            </Button>
+              <Button
+                className="quest-qa-answer-submit-btn"
+                onClick={() => onClick(ACTIONS.SUBMIT)}
+                disabled={readOnly}
+              >
+                {submitButtonCaption}
+              </Button>
+            </Tooltip>
           )}
           {showEditButton && (
-            <Button
-              className="quest-qa-answer-edit-btn"
-              onClick={() => onClick(ACTIONS.EDIT)}
-              disabled={readOnly}
-            >
-              {editButtonCaption}
-            </Button>
+            <Tooltip title={editButtonTooltipText} position="top" distance={20}>
+              <Button
+                className="quest-qa-answer-edit-btn"
+                onClick={() => onClick(ACTIONS.EDIT)}
+                disabled={readOnly}
+              >
+                {editButtonCaption}
+              </Button>
+            </Tooltip>
           )}
           {showCancelButton && (
-            <Button
-              className="quest-qa-answer-cancel-btn"
-              onClick={() => onClick(ACTIONS.CANCEL)}
-              disabled={readOnly}
-            >
-              {cancelButtonCaption}
-            </Button>
+            <Tooltip title={cancelButtonTooltipText} position="top">
+              <Button
+                className="quest-qa-answer-cancel-btn"
+                onClick={() => onClick(ACTIONS.CANCEL)}
+                disabled={readOnly}
+              >
+                {cancelButtonCaption}
+              </Button>
+            </Tooltip>
           )}
         </div>
       </div>

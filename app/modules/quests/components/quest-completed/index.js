@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import { Link } from 'react-router';
+import { Tooltip } from 'react-tippy';
 import { CompleteCheckbox } from 'app/modules/quests/components/complete-checkbox';
 import { downloadFile } from 'app/utils/downloadFile';
 import QuestHubTileBig from 'app/components/common/tiles/QuestHubTileBig';
@@ -37,6 +38,7 @@ export class QuestCompleted extends PureComponent {
       didYouKnowPrompt,
       didYouKnowText,
       reviewQuestButtonCaption,
+      downloadPDFTooltipText,
     } = questCompletedData;
 
     const { questId } = routeParams;
@@ -71,9 +73,15 @@ export class QuestCompleted extends PureComponent {
                 <div className="subtitle">{badgeNameText}</div>
               </div>
               <div className="quest-badge__header-right">
-                <div onClick={this.onDownloadClick} className="download">
-                  <span className="icon-download" />
-                </div>
+                <Tooltip
+                  title={downloadPDFTooltipText}
+                  distance={10}
+                  position="top"
+                >
+                  <div onClick={this.onDownloadClick} className="download">
+                    <span className="icon-download" />
+                  </div>
+                </Tooltip>
               </div>
             </div>
             <div className="quest-badge__body">

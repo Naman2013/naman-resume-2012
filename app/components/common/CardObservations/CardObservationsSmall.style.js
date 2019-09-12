@@ -77,7 +77,7 @@ export default css`
     font-family: ${primaryFont};
   }
 
-  .card-bottom a {
+  .card-bottom :global(a) {
     text-decoration: none;
     color: ${astronaut};
     font-family: ${primaryFont};
@@ -119,7 +119,7 @@ export default css`
     background: ${black};
   }
 
-  .button,
+  .card-bottom :global(.button),
   .capture-date {
     display: flex;
     justify-content: center;
@@ -135,19 +135,19 @@ export default css`
     color: #8d969f;
   }
 
-  .button {
+  .card-bottom :global(.button) {
     border-right: 1px solid ${hawkesBlue};
   }
 
-  .button:last-child {
+  .card-bottom :global(.button:last-child) {
     border-right: none;
   }
 
-  .button img {
+  .card-bottom :global(.button img) {
     margin: 0 5px;
   }
 
-  .button.details {
+  .card-bottom :global(.button.details) {
     width: 50%;
     font-size: 10px;
     justify-content: space-between;
