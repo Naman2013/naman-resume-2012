@@ -1,10 +1,7 @@
-import * as React from 'react';
-// @ts-ignore
+import React from 'react';
 import Draggable from 'react-draggable';
 import './index.scss';
-// @ts-ignore
 import { Tooltip } from 'react-tippy';
-// @ts-ignore
 import { ResizableBox } from 'react-resizable';
 import { FeedItem } from '../feed-item/index';
 

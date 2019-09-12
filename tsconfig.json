@@ -6,7 +6,16 @@
     "jsx": "react",
     "allowJs": true,
     "sourceMap": true,
+    "allowSyntheticDefaultImports": true,
     "module": "esnext",
-    "esModuleInterop": true
-  }
+    "moduleResolution": "node"
+  },
+  "include": [
+    "app/**/*",
+    "typings/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/*.spec.ts"
+  ]
 }
