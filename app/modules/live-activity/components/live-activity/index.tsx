@@ -8,8 +8,6 @@ import { Tooltip } from 'react-tippy';
 import { ResizableBox } from 'react-resizable';
 import { FeedItem } from '../feed-item/index';
 
-type TLiveActivity = {};
-
 const feed = [
   {
     id: 1,
@@ -45,18 +43,20 @@ const feed = [
   },
 ];
 
-export class LiveActivity extends React.Component<TLiveActivity, {}> {
-  render() {
-    return (
-      <div className="live-activity-wrapper">
-        {/* BTN */}
-        <span
-          role="presentation"
-          className="icon-bubble-comment-streamline-talk"
-          onClick={() => {}}
-        />
+export const LiveActivity = () => {
+  const [isOpen, setOpen] = React.useState(false);
 
-        {/* WINDOW */}
+  return (
+    <div className="live-activity-wrapper">
+      {/* BTN */}
+      <span
+        role="presentation"
+        className="icon-bubble-comment-streamline-talk"
+        onClick={() => setOpen(!isOpen)}
+      />
+
+      {/* WINDOW */}
+      {isOpen && (
         <div className="live-activity-window-wrapper">
           <Draggable handle=".live-activity-window-header">
             <div>
@@ -71,7 +71,7 @@ export class LiveActivity extends React.Component<TLiveActivity, {}> {
                     <Tooltip title="Close">
                       <span
                         className="icon-close"
-                        onClick={close}
+                        onClick={() => setOpen(false)}
                         role="presentation"
                       />
                     </Tooltip>
@@ -92,7 +92,7 @@ export class LiveActivity extends React.Component<TLiveActivity, {}> {
             </div>
           </Draggable>
         </div>
-      </div>
-    );
-  }
-}
+      )}
+    </div>
+  );
+};

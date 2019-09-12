@@ -5,7 +5,7 @@ const LiveActivityContainer = React.lazy(() =>
 );
 
 export const LiveActivityLoadable = (props: any) => (
-  <React.Suspense fallback={<div>Loading...</div>}>
+  <React.Suspense fallback={<div>.</div>}>
     <LiveActivityContainer {...props} />
   </React.Suspense>
 );

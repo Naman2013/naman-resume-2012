@@ -1,6 +1,6 @@
 import * as React from 'react';
 import './index.scss';
-import * as cx from 'classnames';
+import { default as cx } from 'classnames';
 
 type TFeedItem = {
   item: any;
