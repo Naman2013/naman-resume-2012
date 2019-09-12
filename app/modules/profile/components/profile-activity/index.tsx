@@ -1,55 +1,58 @@
-/** *********************************
- * V4 Private Profile Activity
- *
- ********************************** */
-
-import React, { Component, Fragment } from 'react';
-import PropTypes from 'prop-types';
-import uniqueId from 'lodash/uniqueId';
-import moment from 'moment';
-
+import React from 'react';
 import ProfileActivityQa from 'app/modules/profile/containers/profile-activity-qa';
 import { ContainerWithTitle } from 'app/components/common/ContainerWithTitle';
 import CenterColumn from 'app/components/common/CenterColumn';
-import MissionTile from 'app/components/common/tiles/MissionTile';
 import { MissionCard } from 'app/modules/object-details/components/mission-card';
 import { ActiveGroups } from 'app/components/profiles/private-profile/active-groups';
 import { ActiveObjects } from 'app/components/profiles/private-profile//active-objects';
 import { MissionConfirmationModal } from 'app/modules/missions/components/mission-confirmation-modal';
 import './styles.scss';
 
-const { shape } = PropTypes;
+type TProfileActivityProps = {
+  cancelReservation: (data: any) => Promise<any>;
+  cancelPiggyback: (data: any) => Promise<any>;
+  getPrivateProfile: (data?: any) => Promise<any>;
 
-class ProfileActivity extends Component {
-  static propTypes = {
-    activityData: shape({
-      missionsData: shape({}).isRequired,
-      recentMissionsData: shape({}).isRequired,
-      askAnAstronomerData: shape({}).isRequired,
-    }).isRequired,
-    data: shape({}).isRequired,
+  data: any;
+  activityData: any;
+};
+type TProfileActivityState = {
+  cancelReservationModalVisible: boolean;
+  cancelPiggybackModalVisible: boolean;
+  selectedSlot: {
+    scheduledMissionId?: number;
+    cancelMissionDialogPrompt?: string;
+    cancelPiggybackDialogPrompt?: string;
   };
+};
 
-  static defaultProps = {};
-
-  state = {
+class ProfileActivity extends React.Component<
+  TProfileActivityProps,
+  TProfileActivityState
+> {
+  state: TProfileActivityState = {
     cancelReservationModalVisible: false,
     cancelPiggybackModalVisible: false,
     selectedSlot: {},
   };
 
-  cancelReservation = timeSlot => {
+  componentDidMount(): void {
+    console.log('didMount');
+  }
+
+  cancelReservation = () => {
     const { cancelReservation, getPrivateProfile } = this.props;
     const { selectedSlot } = this.state;
-    const { scheduledMissionId } = selectedSlot;
 
-    cancelReservation({ scheduledMissionId }).then(() => {
+    cancelReservation({
+      scheduledMissionId: selectedSlot.scheduledMissionId,
+    }).then(() => {
       this.setState({ cancelReservationModalVisible: false });
       getPrivateProfile();
     });
   };
 
-  cancelPiggyback = timeSlot => {
+  cancelPiggyback = () => {
     const { cancelPiggyback, getPrivateProfile } = this.props;
     const { selectedSlot } = this.state;
     const { scheduledMissionId } = selectedSlot;
@@ -61,17 +64,8 @@ class ProfileActivity extends Component {
   };
 
   render() {
-    const {
-      data,
-      activityData,
-      cancelReservation,
-      cancelPiggyback,
-    } = this.props;
-    const {
-      missionsData,
-      recentMissionsData,
-      askAnAstronomerData,
-    } = activityData;
+    const { data, activityData } = this.props;
+    const { askAnAstronomerData } = activityData;
     const {
       showTopPicksForYou,
       topPicksForYouHeading,
@@ -121,17 +115,17 @@ class ProfileActivity extends Component {
           <CenterColumn>
             <ContainerWithTitle title={missionListHeading}>
               {missionCount > 0 ? (
-                missionList.map(item => (
+                missionList.map((item: any) => (
                   <MissionCard
                     key={item.scheduledMissionId}
                     timeSlot={item}
-                    cancelReservation={selectedSlot =>
+                    cancelReservation={(selectedSlot: any) =>
                       this.setState({
                         cancelReservationModalVisible: true,
                         selectedSlot,
                       })
                     }
-                    cancelPiggyback={selectedSlot =>
+                    cancelPiggyback={(selectedSlot: any) =>
                       this.setState({
                         cancelPiggybackModalVisible: true,
                         selectedSlot,
@@ -151,7 +145,7 @@ class ProfileActivity extends Component {
           <CenterColumn>
             <ContainerWithTitle title={recentMissionListHeading}>
               {recentMissionCount > 0 ? (
-                recentMissionList.map(item => (
+                recentMissionList.map((item: any) => (
                   <MissionCard
                     key={item.scheduledMissionId}
                     timeSlot={item}
@@ -177,7 +171,7 @@ class ProfileActivity extends Component {
           <div className="profile-section">
             <CenterColumn>
               <ContainerWithTitle title={topPicksForYouHeading}>
-                <Fragment>
+                <>
                   <ActiveGroups
                     count={activeGroupsCount}
                     list={activeGroupsList}
@@ -188,7 +182,7 @@ class ProfileActivity extends Component {
                     list={activeObjectsList}
                     header={topPicksForYouObjectsHeading}
                   />
-                </Fragment>
+                </>
               </ContainerWithTitle>
             </CenterColumn>
           </div>
