@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import cx from 'classnames';
 import { Tooltip } from 'react-tippy';
+import Datetime from 'react-datetime';
+import moment from 'moment';
 import { Spinner } from 'app/components/spinner/index';
 import { Select } from 'app/components/common/select';
 import { Datepicker } from 'app/modules/profile-photos/components/filter-dropdown/datepicker';
@@ -23,11 +25,15 @@ const INITIAL_STATE = {
   designator: '',
   title: '',
   text: '',
-}
+};
+
+const DATE_FORMAT = 'YYYY-MM-DD';
+const TIME_FORMAT = 'HH:mm:ss';
 
 export class UploadPhoto extends Component {
   state = {
     isUploadModalOpen: false,
+    photoDateTime: moment(),
     ...INITIAL_STATE,
   };
 
@@ -51,7 +57,11 @@ export class UploadPhoto extends Component {
     data.append('at', at);
     data.append('attachment', files[0]);
 
-    setMyPicturesUpload(data);
+    setMyPicturesUpload(data).then(({ payload }) => {
+      if (payload.foundPhotoDateTime) {
+        this.setState({ photoDateTime: moment(payload.photoDateTime) });
+      }
+    });
   };
 
   getRequestData = () => {
@@ -60,10 +70,12 @@ export class UploadPhoto extends Component {
       selectedCatalog,
       designator,
       astroObjectId,
+      photoDateTime,
     } = this.state;
     const { uploadPhotoData } = this.props;
     const { imageData } = uploadPhotoData;
     const { catalog } = selectedCatalog;
+    const formatedDate = photoDateTime.format(`${DATE_FORMAT} ${TIME_FORMAT}`);
 
     switch (referenceType) {
       case REFERENCE_TYPES.slooh1000: {
@@ -71,6 +83,7 @@ export class UploadPhoto extends Component {
           ...imageData,
           referenceType,
           astroObjectId,
+          photoDateTime: formatedDate,
         };
       }
       case REFERENCE_TYPES.catalog: {
@@ -79,12 +92,14 @@ export class UploadPhoto extends Component {
           referenceType,
           catalog,
           designator,
+          photoDateTime: formatedDate,
         };
       }
       case REFERENCE_TYPES.other: {
         return {
           ...imageData,
           referenceType,
+          photoDateTime: formatedDate,
         };
       }
       default: {
@@ -139,7 +154,11 @@ export class UploadPhoto extends Component {
 
   uploadModalHide = () => {
     const { clearUploadedPhotoData } = this.props;
-    this.setState({ isUploadModalOpen: false, ...INITIAL_STATE });
+    this.setState({
+      isUploadModalOpen: false,
+      photoDateTime: moment(),
+      ...INITIAL_STATE,
+    });
     clearUploadedPhotoData();
   };
 
@@ -166,6 +185,7 @@ export class UploadPhoto extends Component {
       astroObjectId,
       findObjectResultVisible,
       findValue,
+      photoDateTime,
     } = this.state;
     const { imageData, explanationText } = uploadPhotoData;
     const { imageUrl } = imageData;
@@ -210,13 +230,15 @@ export class UploadPhoto extends Component {
                 <p className="photo-explanation-text">{explanationText}</p>
               </div>
 
-              {/* <Datepicker
+              <Datetime
                 className="upload-custom-date"
-                value={activeDateFilter}
-                onChange={dateFilter => onChange({ dateFilter })}
-                placeholder="SET DATE"
-                outputFormat="YYYY-MM-DD"
-              /> */}
+                dateFormat={DATE_FORMAT}
+                timeFormat={TIME_FORMAT}
+                value={photoDateTime}
+                onChange={dateTime =>
+                  this.setState({ photoDateTime: moment(dateTime) })
+                }
+              />
             </div>
 
             <div className="upload-photo-form-right">
@@ -231,25 +253,25 @@ export class UploadPhoto extends Component {
                 />
                 <label htmlFor="photoTypeSlooh1000">{DisplaySlooh1000}</label>
 
-                  <div className="reference-type-content">
-                    <FindObject
-                      onSelect={astroObjectId =>
-                        this.setState({
-                          astroObjectId,
-                        })
-                      }
-                      selectedObject={astroObjectId}
-                      findObjectResultVisible={findObjectResultVisible}
-                      findValue={findValue}
-                      onFind={() =>
-                        this.setState({
-                          referenceType: REFERENCE_TYPES.slooh1000,
-                          findObjectResultVisible: true,
-                        })
-                      }
-                      onChange={findValue => this.setState({ findValue })}
-                    />
-                  </div>
+                <div className="reference-type-content">
+                  <FindObject
+                    onSelect={astroObjectId =>
+                      this.setState({
+                        astroObjectId,
+                      })
+                    }
+                    selectedObject={astroObjectId}
+                    findObjectResultVisible={findObjectResultVisible}
+                    findValue={findValue}
+                    onFind={() =>
+                      this.setState({
+                        referenceType: REFERENCE_TYPES.slooh1000,
+                        findObjectResultVisible: true,
+                      })
+                    }
+                    onChange={findValue => this.setState({ findValue })}
+                  />
+                </div>
               </div>
 
               <div className="upload-photo-radio reference-type">
