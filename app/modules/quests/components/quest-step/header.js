@@ -27,6 +27,7 @@ export const QuestStepHeader = ({
   showHeaderLastButton,
   enableHeaderLastButton,
   callSetQuestCompleted,
+  setQuestCompleted,
 }) => {
   const [isOpen, toggleMenu] = useState(false);
   return (
@@ -102,6 +103,7 @@ export const QuestStepHeader = ({
         onClose={() => toggleMenu(false)}
         questId={questId}
         callSetQuestCompleted={callSetQuestCompleted}
+        setQuestCompleted={setQuestCompleted}
       />
     </div>
   );

@@ -132,35 +132,28 @@ export const getQaFreeForm = data => (dispatch, getState) => {
 export const setQuestCompleted = data => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
   dispatch(ACTION.setQuestCompleted());
+  const { questId, moduleId, callSetQuestCompleted } = data;
   const opts = {
     at,
     cid,
     token,
-    ...data,
+    questId,
+    moduleId,
   };
-  return setQuestCompletedApi({ ...opts })
-    .then(result => dispatch(ACTION.setQuestCompletedSuccess(result.data)))
-    .catch(error => dispatch(ACTION.setQuestCompletedError(error)));
-};
 
-export const callQuestCompletedPage = (
-  questId,
-  callSetQuestCompleted,
-  questCompletionModuleId
-) => {
   const navigateToCompletedPage = () => {
-    browserHistory.push(
-      `/quest-completion/${questId}/${questCompletionModuleId}`
-    );
+    browserHistory.push(`/quest-completion/${questId}/${moduleId}`);
   };
 
   if (callSetQuestCompleted) {
-    setQuestCompletedApi({ questId }).then(() => {
-      navigateToCompletedPage();
-    });
-  } else {
-    navigateToCompletedPage();
+    return setQuestCompletedApi(opts)
+      .then(result => {
+        dispatch(ACTION.setQuestCompletedSuccess(result.data));
+        navigateToCompletedPage();
+      })
+      .catch(error => dispatch(ACTION.setQuestCompletedError(error)));
   }
+  navigateToCompletedPage();
 };
 
 export const setQaFreeForm = data => (dispatch, getState) => {

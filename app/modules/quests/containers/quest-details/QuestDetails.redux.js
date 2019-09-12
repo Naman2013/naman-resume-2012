@@ -13,8 +13,8 @@ import { bindActionCreators } from 'redux';
 import { browserHistory } from 'react-router';
 import { DeviceContext } from 'providers/DeviceProvider';
 import questActions from 'app/modules/quest-details/actions';
-import { callQuestCompletedPage } from 'app/modules/quests/thunks';
 import { validateResponseAccess } from 'app/modules/authorization/actions';
+import { setQuestCompleted } from 'app/modules/quests/thunks';
 import { START_QUEST } from 'app/services/quests';
 import { Spinner } from 'app/components/spinner/index';
 import Quest from './QuestDetails';
@@ -73,16 +73,18 @@ export class ConnectedQuestDetails extends Component {
   };
 
   goToStep = (stepId, type) => {
-    const { questId, pageMeta } = this.props;
+    const { questId, pageMeta, actions } = this.props;
+    const { setQuestCompleted } = actions;
     const { questCompletionList, stepList } = pageMeta;
 
     if (type === BADGE_ITEM_TYPE) {
       const callSetQuestCompleted = stepList[stepList.length - 1];
-      callQuestCompletedPage(
+      const moduleId = questCompletionList[0].questCompletionModuleId;
+      setQuestCompleted({
         questId,
         callSetQuestCompleted,
-        questCompletionList[0].questCompletionModuleId
-      );
+        moduleId,
+      });
     } else {
       browserHistory.push(`/quest-details/${questId}/${stepId}`);
     }
@@ -122,6 +124,7 @@ const mapDispatchToProps = dispatch => ({
     {
       ...questActions,
       validateResponseAccess,
+      setQuestCompleted,
     },
     dispatch
   ),

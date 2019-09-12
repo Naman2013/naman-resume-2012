@@ -42,22 +42,27 @@ export const fetchReplies = ({
     dispatch(fetchRepliesStart());
   }
 
-  return axios.post('/api/forum/getReplies', {
-    cid,
-    at,
-    token,
-    lang,
-    ver,
-    threadId,
-    topicId,
-    page,
-    count,
-    replyTo,
-  })
-  .then((result) => {
-    dispatch(fetchRepliesSuccess(Object.assign(result.data, { threadId, page, appendToList })));
-  })
-  .catch(error => dispatch(fetchRepliesFail(error)));
+  return axios
+    .post('/api/forum/getReplies', {
+      cid,
+      at,
+      token,
+      lang,
+      ver,
+      threadId,
+      topicId,
+      page,
+      count,
+      replyTo,
+    })
+    .then(result => {
+      dispatch(
+        fetchRepliesSuccess(
+          Object.assign(result.data, { threadId, page, appendToList })
+        )
+      );
+    })
+    .catch(error => dispatch(fetchRepliesFail(error)));
 };
 
 const prepareReplyStart = () => ({
@@ -74,24 +79,21 @@ const prepareReplyFail = payload => ({
   payload,
 });
 
-export const prepareReply = ({
-  lang,
-  ver,
-  status,
-}) => (dispatch, getState) => {
+export const prepareReply = ({ lang, ver, status }) => (dispatch, getState) => {
   const { cid, at, token } = getState().user;
   dispatch(prepareReplyStart());
 
-  return axios.post('/api/forum/prepareReply', {
-    cid,
-    at,
-    token,
-    lang,
-    ver,
-    status,
-  })
-  .then(result => dispatch(prepareReplySuccess(result.data)))
-  .catch(error => dispatch(prepareReplyFail(error)));
+  return axios
+    .post('/api/forum/prepareReply', {
+      cid,
+      at,
+      token,
+      lang,
+      ver,
+      status,
+    })
+    .then(result => dispatch(prepareReplySuccess(result.data)))
+    .catch(error => dispatch(prepareReplyFail(error)));
 };
 
 const submitReplyStart = () => ({
@@ -122,22 +124,23 @@ export const submitReply = ({
   const { cid, at, token } = getState().user;
   dispatch(submitReplyStart());
 
-  return axios.post('/api/forum/submitReply', {
-    cid,
-    at,
-    token,
-    lang,
-    ver,
-    status,
-    topicId,
-    threadId,
-    replyTo,
-    title,
-    content,
-    S3URLs,
-  })
-  .then(result => dispatch(submitReplySuccess(result.data)))
-  .catch(error => dispatch(submitReplyFail(error)));
+  return axios
+    .post('/api/forum/submitReply', {
+      cid,
+      at,
+      token,
+      lang,
+      ver,
+      status,
+      topicId,
+      threadId,
+      replyTo,
+      title,
+      content,
+      S3URLs,
+    })
+    .then(result => dispatch(submitReplySuccess(result.data)))
+    .catch(error => dispatch(submitReplyFail(error)));
 };
 
 export const resetReplyState = () => ({
