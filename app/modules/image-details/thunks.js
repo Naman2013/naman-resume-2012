@@ -137,14 +137,15 @@ export const setObservationTags = (
 ) => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
   dispatch(ACTION.setObservationTags());
+  const scheduledMission = scheduledMissionId ? { scheduledMissionId } : {};
   return setObservationTagsApi({
     at,
     token,
     cid,
     customerImageId,
-    scheduledMissionId,
     title,
     text,
+    ...scheduledMission,
   })
     .then(result => dispatch(ACTION.setObservationTagsSuccess(result.data)))
     .catch(error => dispatch(ACTION.setServerError(error)));

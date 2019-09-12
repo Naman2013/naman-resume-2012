@@ -1,0 +1,51 @@
+@import '~app/styles/variables/index';
+
+.find-object-container {
+  input {
+    width: 100%;
+    border: none;
+    padding: 15px;
+    border-radius: 4px;
+    box-shadow: inset 0 0 7px 0 $pale-grey-two;
+    background-color: $pale-grey;
+    outline: none;
+    font-family: $secondary-font;
+    font-size: 16px;
+    line-height: 1.13;
+    color: $battleship-grey;
+  }
+
+  .find-object-actions {
+    margin-top: 15px;
+
+    button {
+      margin-right: 15px;
+    }
+  }
+
+  .find-object-message {
+    font-size: 16px;
+    font-family: $secondary-font;
+    color: $lightHeadedAstronaut;
+  }
+
+  .find-object-result-list {
+    margin-top: 10px;
+
+    .search-results-item {
+      font-size: 12px;
+      font-weight: bold;
+      font-family: $primary-font;
+      text-transform: uppercase;
+      padding: 10px 5px;
+      color: $astronaut;
+      transition: all 0.3s ease-in-out;
+      cursor: pointer;
+
+      &:hover,
+      &.selected {
+        background-color: $seashell;
+      }
+    }
+  }
+}
