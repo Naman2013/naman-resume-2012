@@ -144,72 +144,81 @@ export const DataCollectionSlotCard = props => {
             </div>
           )}
         </QuestButtonsPopover>
-
-        <div className="data-collection-menu">
-          <QuestButtonsPopover isOpen={isDotsMenuOpen}>
-            {isDotsMenuOpen && (
-              <div className="dc-slot-dots-popover">
-                <div className="title">{dotMenuTitle}:</div>
-                <div className="content">
-                  {dotMenu?.showRemoveImage && (
-                    <div
-                      onClick={() => {
-                        toggleDotsMenu(false);
-                        removeDataCollectionSlotImage(slotId, customerImageId);
-                      }}
-                      disabled={!dotMenu?.enableRemoveImage}
-                    >
-                      {dotMenu?.removeImageText}
-                    </div>
-                  )}
-                  {dotMenu?.showDownloadImage && (
-                    <div
-                      onClick={() => {
-                        toggleDotsMenu(false);
-                        onDownloadImage(imageURL);
-                      }}
-                      disabled={!dotMenu?.enableDownloadImage}
-                    >
-                      {dotMenu?.downloadImageText}
-                    </div>
-                  )}
-                  {dotMenu?.showCheckForMissions && (
-                    <Link
-                      to={dotMenu?.checkForMissionsUrl}
-                      disabled={!dotMenu?.enableCheckForMissions}
-                    >
-                      <div>{dotMenu?.checkForMissionsText}</div>
-                    </Link>
-                  )}
-                  {dotMenu?.showObjectInfo && (
-                    <>
-                      <Link
-                        to={dotMenu?.objectInfo?.learnAboutUrl}
-                        disabled={!dotMenu?.enableObjectInfo}
+        {isDotsMenuOpen && (
+          <div className="data-collection-menu">
+            <QuestButtonsPopover isOpen={isDotsMenuOpen}>
+              {isDotsMenuOpen && (
+                <div className="dc-slot-dots-popover">
+                  <div className="title">{dotMenuTitle}:</div>
+                  <div className="content">
+                    {dotMenu?.showRemoveImage && (
+                      <div
+                        onClick={() => {
+                          toggleDotsMenu(false);
+                          removeDataCollectionSlotImage(
+                            slotId,
+                            customerImageId
+                          );
+                        }}
+                        disabled={!dotMenu?.enableRemoveImage}
                       >
-                        <div>{dotMenu?.objectInfo?.learnAboutText}</div>
-                      </Link>
-                      <div className="follow-object-button" disabled={!dotMenu?.enableObjectInfo}>
-                        {objectId && (
-                          <FollowObjectButton
-                            key={`follow-object-button-${new Date()}`}
-                            objectId={objectId}
-                            user={user}
-                            followButtonText={dotMenu?.objectInfo?.followPrompt}
-                            followButtonIconURL={
-                              dotMenu?.objectInfo?.followPromptIconUrl
-                            }
-                            callBack={refreshDataCollection}
-                          />
-                        )}
+                        {dotMenu?.removeImageText}
                       </div>
-                    </>
-                  )}
+                    )}
+                    {dotMenu?.showDownloadImage && (
+                      <div
+                        onClick={() => {
+                          toggleDotsMenu(false);
+                          onDownloadImage(imageURL);
+                        }}
+                        disabled={!dotMenu?.enableDownloadImage}
+                      >
+                        {dotMenu?.downloadImageText}
+                      </div>
+                    )}
+                    {dotMenu?.showCheckForMissions && (
+                      <Link
+                        to={dotMenu?.checkForMissionsUrl}
+                        disabled={!dotMenu?.enableCheckForMissions}
+                      >
+                        <div>{dotMenu?.checkForMissionsText}</div>
+                      </Link>
+                    )}
+                    {dotMenu?.showObjectInfo && (
+                      <>
+                        <Link
+                          to={dotMenu?.objectInfo?.learnAboutUrl}
+                          disabled={!dotMenu?.enableObjectInfo}
+                        >
+                          <div>{dotMenu?.objectInfo?.learnAboutText}</div>
+                        </Link>
+                        <div
+                          className="follow-object-button"
+                          disabled={!dotMenu?.enableObjectInfo}
+                        >
+                          {objectId && (
+                            <FollowObjectButton
+                              key={`follow-object-button-${new Date()}`}
+                              objectId={objectId}
+                              user={user}
+                              followButtonText={
+                                dotMenu?.objectInfo?.followPrompt
+                              }
+                              followButtonIconURL={
+                                dotMenu?.objectInfo?.followPromptIconUrl
+                              }
+                              callBack={refreshDataCollection}
+                            />
+                          )}
+                        </div>
+                      </>
+                    )}
+                  </div>
                 </div>
-              </div>
-            )}
-          </QuestButtonsPopover>
-        </div>
+              )}
+            </QuestButtonsPopover>
+          </div>
+        )}
       </div>
     </div>
   );
