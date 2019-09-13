@@ -10,11 +10,15 @@ export class QuestModuleDataCollection extends PureComponent {
   };
 
   componentDidMount() {
+    this.getDataCollection();
+  }
+
+  getDataCollection = () => {
     const { module, questId, getDataCollection } = this.props;
     const { moduleId } = module;
 
     if (questId && moduleId) getDataCollection(questId, moduleId);
-  }
+  };
 
   getDataCollectionSlotImages = slot => {
     const { module, questId, getDataCollectionSlotImages } = this.props;
@@ -105,6 +109,7 @@ export class QuestModuleDataCollection extends PureComponent {
               removeDataCollectionSlotImage={this.removeDataCollectionSlotImage}
               user={user}
               readOnly={readOnly}
+              refreshDataCollection={this.getDataCollection}
             />
           ))}
         </div>

@@ -22,6 +22,7 @@ export const DataCollectionSlotCard = props => {
     readOnly,
     removeDataCollectionSlotImage,
     user,
+    refreshDataCollection,
   } = props;
   const {
     slotSequence,
@@ -189,14 +190,18 @@ export const DataCollectionSlotCard = props => {
                         <div>{dotMenu?.objectInfo?.learnAboutText}</div>
                       </Link>
                       <div className="follow-object-button" disabled={!dotMenu?.enableObjectInfo}>
-                        <FollowObjectButton
-                          objectId={objectId}
-                          user={user}
-                          followButtonText={dotMenu?.objectInfo?.followPrompt}
-                          followButtonIconURL={
-                            dotMenu?.objectInfo?.followPromptIconUrl
-                          }
-                        />
+                        {objectId && (
+                          <FollowObjectButton
+                            key={`follow-object-button-${new Date()}`}
+                            objectId={objectId}
+                            user={user}
+                            followButtonText={dotMenu?.objectInfo?.followPrompt}
+                            followButtonIconURL={
+                              dotMenu?.objectInfo?.followPromptIconUrl
+                            }
+                            callBack={refreshDataCollection}
+                          />
+                        )}
                       </div>
                     </>
                   )}
