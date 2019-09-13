@@ -74,7 +74,11 @@ export const QuestStepContextMenu = ({
                         {item.stepSelected && <div className="item-step" />}
                         <div>{item.stepMenuTitle}</div>
                       </div>
-                      <CompleteCheckbox completed={item.stepCompleted} />
+                      {item.stepIconURL ? (
+                        <img src={item.stepIconURL} alt="" className="step-completed-icon"/>
+                      ) : (
+                        <CompleteCheckbox completed={item.stepCompleted} />
+                      )}
                     </div>
                   )
               )}
