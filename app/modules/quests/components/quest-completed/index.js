@@ -66,10 +66,7 @@ export class QuestCompleted extends PureComponent {
           <div className="quest-badge">
             <div className="quest-badge__header">
               <div className="quest-badge__header-left">
-                <div className="title">
-                  {youAreAwardedText}
-                  <span>:</span>
-                </div>
+                <div className="title">{youAreAwardedText}</div>
                 <div className="subtitle">{badgeNameText}</div>
               </div>
               <div className="quest-badge__header-right">
