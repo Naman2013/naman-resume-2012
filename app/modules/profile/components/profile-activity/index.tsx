@@ -39,12 +39,18 @@ class ProfileActivity extends React.Component<
     selectedSlot: {},
   };
 
+  missionTimer: ReturnType<typeof setTimeout> = null;
+
   isPrivateProfile = (): boolean => {
     return !_isEmpty(this.props.privateProfileData);
   };
 
   componentDidMount(): void {
-    this.fetchMissions();
+    this.fetchMissions().then(() => this.setupRefreshMissionsInterval());
+  }
+
+  componentWillUnmount(): void {
+    clearInterval(this.missionTimer);
   }
 
   fetchMissions = (): Promise<any> => {
@@ -53,6 +59,14 @@ class ProfileActivity extends React.Component<
       return getPrivateProfileMissions();
     }
     return getPublicProfileMissions();
+  };
+
+  setupRefreshMissionsInterval = (): void => {
+    const { profileMissionsData } = this.props;
+    const expiresInSec = profileMissionsData.expires;
+    const currentTimestampInMs = Date.now();
+    const timerVal = expiresInSec * 1000 - currentTimestampInMs;
+    this.missionTimer = setInterval(this.fetchMissions, timerVal);
   };
 
   cancelReservation = () => {
