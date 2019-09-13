@@ -31,6 +31,7 @@ const MainContainer = ({
   user,
   validateResponseAccess,
   refetchData,
+  shareMemberPhotoData,
 }) => {
   const [isEditMode, setEditMode] = useState(!observationLog);
   const [title, setTitle] = useState('');
@@ -65,6 +66,7 @@ const MainContainer = ({
               setObservation(observationLog);
             }}
             refetchData={refetchData}
+            shareMemberPhotoData={shareMemberPhotoData}
           />
           <br />
         </>

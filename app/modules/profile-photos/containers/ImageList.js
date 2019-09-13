@@ -28,6 +28,7 @@ import {
   selectSelectedFilters,
   selectTelescopeList,
   selectTimeList,
+  photoHubsUploadToMyPicturesPageDataSelector,
 } from 'app/modules/profile-photos/selectors';
 import ConnectUser from 'app/redux/components/ConnectUser';
 import cx from 'classnames';
@@ -36,9 +37,16 @@ import React, { cloneElement, Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, browserHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
-import { getFitsData, deleteTag, getTags, setTag } from '../thunks';
+import {
+  getFitsData,
+  deleteTag,
+  getTags,
+  setTag,
+} from '../thunks';
 import './image-list.scss';
 import style from './ImageList.style';
+import UploadPhoto from 'app/modules/profile-photos/containers/upload-photo';
+import { makePrivateProfileUserDataSelector } from 'app/modules/profile/selectors';
 
 const mapTypeToList = {
   observations: 'observationsList',
@@ -122,6 +130,7 @@ const mapStateToProps = state => {
     objectTypeList: selectObjectTypeList()(state),
     selectedFilters: selectSelectedFilters()(state),
     myPicturesFilters: state.myPicturesFilters,
+    privateProfileData: makePrivateProfileUserDataSelector()(state),
   };
 };
 
@@ -212,7 +221,7 @@ class ImageList extends Component {
     }
   }
 
-  componentWillUnmount(){
+  componentWillUnmount() {
     this.handleFilterChange({
       pierNumber: null,
       observatoryId: null,
@@ -225,6 +234,28 @@ class ImageList extends Component {
     });
     this.handleApplyFilter();
   }
+
+  fetchImages = () => {
+    const { actions, type, deviceInfo, params = {} } = this.props;
+    const { activePage } = this.state;
+    const fetchImages = actions[mapTypeToRequest[type]];
+    const imagesToFetch = getImagesCountToFetch(deviceInfo);
+    const { customerUUID } = params;
+    const PHOTOS_ON_ONE_PAGE = 9;
+    const PREVIOUS_PAGE = activePage - 1;
+    const firstImageNumber =
+      activePage === 1 ? 1 : PREVIOUS_PAGE * PHOTOS_ON_ONE_PAGE + 1;
+
+    fetchImages({
+      sharedOnly: type === 'observations',
+      firstImageNumber,
+      firstMissionNumber: firstImageNumber,
+      maxImageCount: imagesToFetch,
+      maxMissionCount: imagesToFetch,
+      customerUUID,
+      publicGalleries: params.public ? 'y' : null,
+    });
+  };
 
   fetchFilters = () => {
     const { actions } = this.props;
@@ -347,6 +378,7 @@ class ImageList extends Component {
       myPicturesFilters,
       tagsData,
       params,
+      privateProfileData,
     } = this.props;
     const tagActions = {
       getTags,
@@ -357,7 +389,7 @@ class ImageList extends Component {
     const arrOfImages = this.props[mapTypeToList[type]];
     const count = this.props[mapTypeToCount[type]];
     const currentImagesNumber = arrOfImages.length * activePage;
-
+    const { canUploadToPhotoHub } = privateProfileData;
     const cn = cx('profile-image-list-wrapper', {
       'filter-open': isFilterOpen,
     });
@@ -365,7 +397,7 @@ class ImageList extends Component {
     return (
       <div className={cn}>
         {params.private && (
-          <div className="filter-dropdown-btn">
+          <div className={cx('filter-dropdown-btn', { 'position-right': !canUploadToPhotoHub })}>
             <FilterDropdown
               isOpen={isFilterOpen}
               setOpen={this.setFilterOpen}
@@ -384,6 +416,8 @@ class ImageList extends Component {
         {isFilterOpen && (
           <div className="filter-shader animated fadeIn faster" />
         )}
+
+        {canUploadToPhotoHub && <UploadPhoto onHide={this.fetchImages} />}
 
         <SelectedFilters
           {...{

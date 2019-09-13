@@ -46,10 +46,11 @@ const BootstrappedObservationSliderItem = props => {
                   <div className="main-info">
                     <h2 className="title">{imageTitle}</h2>
                     <h5 className="author">{displayName}</h5>
-                    {(observationLog || socialShareDescription) && (
-                      <p className="dashboardObservationText i-text-box">
-                        {observationLog || socialShareDescription}
-                      </p>
+                    {observationLog && (
+                      <p
+                        className="dashboardObservationText i-text-box"
+                        dangerouslySetInnerHTML={{ __html: observationLog }}
+                      />
                     )}
                   </div>
                   <div className="links">
