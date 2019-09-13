@@ -71,9 +71,7 @@ export const QuestStepContextMenu = ({
                       })}
                     >
                       <div className="step-item-title">
-                        {item.stepModuleId === stepId && (
-                          <div className="item-step" />
-                        )}
+                        {item.stepSelected && <div className="item-step" />}
                         <div>{item.stepMenuTitle}</div>
                       </div>
                       <CompleteCheckbox completed={item.stepCompleted} />
