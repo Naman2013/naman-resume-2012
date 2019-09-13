@@ -19,12 +19,17 @@ export const QuestStepContextMenu = ({
   questId,
   onClose,
   questCompletionList,
+  callSetQuestCompleted,
+  setQuestCompleted,
 }) => {
   const goToStep = index => {
     if (stepMenuList[index].itemType === BADGE_ITEM_TYPE) {
-      browserHistory.push(
-        `/quest-completion/${questId}/${questCompletionList[0].questCompletionModuleId}`
-      );
+      const moduleId = questCompletionList[0].questCompletionModuleId;
+      setQuestCompleted({
+        questId,
+        callSetQuestCompleted,
+        moduleId,
+      });
     } else {
       browserHistory.push(
         `/quest-details/${questId}/${stepMenuList[index].stepModuleId}`
@@ -55,17 +60,26 @@ export const QuestStepContextMenu = ({
           <div className="top-gradient" />
           <div className="step-list-container">
             {stepMenuList?.length &&
-              stepMenuList.map((item, index) => item.showMenuItem && (
-                <div key={`step-list-item-${item.stepModuleId}`} onClick={() => goToStep(index)} className={cn('step-list-item', { disabled: !item.enableMenuItem })}>
-                  <div className="step-item-title">
-                    {item.stepModuleId === stepId && (
-                      <div className="item-step" />
-                    )}
-                    <div>{item.stepMenuTitle}</div>
-                  </div>
-                  <CompleteCheckbox completed={item.stepCompleted} />
-                </div>
-              ))}
+              stepMenuList.map(
+                (item, index) =>
+                  item.showMenuItem && (
+                    <div
+                      key={`step-list-item-${item.stepModuleId}`}
+                      onClick={() => goToStep(index)}
+                      className={cn('step-list-item', {
+                        disabled: !item.enableMenuItem,
+                      })}
+                    >
+                      <div className="step-item-title">
+                        {item.stepModuleId === stepId && (
+                          <div className="item-step" />
+                        )}
+                        <div>{item.stepMenuTitle}</div>
+                      </div>
+                      <CompleteCheckbox completed={item.stepCompleted} />
+                    </div>
+                  )
+              )}
           </div>
         </div>
       </div>

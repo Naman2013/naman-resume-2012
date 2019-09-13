@@ -96,6 +96,20 @@ export class QuestStep extends Component<TQuestStep> {
     });
   };
 
+  setQuestCompleted = event => {
+    event.preventDefault();
+    const { routeParams, setQuestCompleted, stepData } = this.props;
+    const { questId } = routeParams;
+    const { callSetQuestCompleted } = stepData;
+    const moduleId = stepData.questCompletionList[0].questCompletionModuleId;
+
+    setQuestCompleted({
+      questId,
+      callSetQuestCompleted,
+      moduleId,
+    });
+  };
+
   navigateToPrevStep = () => {
     const { routeParams } = this.props;
     const { prevStepId } = this.state;
@@ -110,6 +124,7 @@ export class QuestStep extends Component<TQuestStep> {
     const { routeParams, stepData } = this.props;
     const { nextStepId } = this.state;
     const { questCompletionList } = stepData;
+
     if (nextStepId !== null) {
       if (nextStepId !== questCompletionList[0].questCompletionModuleId) {
         browserHistory.push(
@@ -132,6 +147,7 @@ export class QuestStep extends Component<TQuestStep> {
       resourceModal,
       questActions,
       closeModal,
+      setQuestCompleted,
     } = this.props;
     const { prevStepId, nextStepId, stepKey, stepId } = this.state;
     const {
@@ -148,6 +164,7 @@ export class QuestStep extends Component<TQuestStep> {
       showHeaderLastButton,
       enableHeaderLastButton,
       redirectStep,
+      callSetQuestCompleted,
     } = stepData;
 
     return (
@@ -169,6 +186,8 @@ export class QuestStep extends Component<TQuestStep> {
           enableHeaderNextButton={enableHeaderNextButton}
           showHeaderLastButton={showHeaderLastButton}
           enableHeaderLastButton={enableHeaderLastButton}
+          callSetQuestCompleted={callSetQuestCompleted}
+          setQuestCompleted={setQuestCompleted}
         />
 
         <Modal
@@ -197,6 +216,7 @@ export class QuestStep extends Component<TQuestStep> {
                 questId={routeParams.questId}
                 showHeader={index === 0}
                 showModule={modules[0]?.moduleType}
+                setQuestCompleted={this.setQuestCompleted}
               >
                 {modules.map(module => (
                   <>

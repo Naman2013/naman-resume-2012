@@ -13,7 +13,9 @@ import {
   setQaMultipleChoiceApi,
   getQuestGuidePanelApi,
   getCustomerQuestsApi,
+  setQuestCompletedApi,
 } from 'app/modules/quests/api';
+import { browserHistory } from 'react-router';
 import { ACTION } from './reducer';
 
 // QUEST STEP PAGE
@@ -125,6 +127,33 @@ export const getQaFreeForm = data => (dispatch, getState) => {
   return getQaFreeFormApi({ ...opts })
     .then(result => dispatch(ACTION.getQaFreeFormSuccess(result.data)))
     .catch(error => dispatch(ACTION.getQaFreeFormError(error)));
+};
+
+export const setQuestCompleted = data => (dispatch, getState) => {
+  const { at, token, cid } = getState().user;
+  dispatch(ACTION.setQuestCompleted());
+  const { questId, moduleId, callSetQuestCompleted } = data;
+  const opts = {
+    at,
+    cid,
+    token,
+    questId,
+    moduleId,
+  };
+
+  const navigateToCompletedPage = () => {
+    browserHistory.push(`/quest-completion/${questId}/${moduleId}`);
+  };
+
+  if (callSetQuestCompleted) {
+    return setQuestCompletedApi(opts)
+      .then(result => {
+        dispatch(ACTION.setQuestCompletedSuccess(result.data));
+        navigateToCompletedPage();
+      })
+      .catch(error => dispatch(ACTION.setQuestCompletedError(error)));
+  }
+  navigateToCompletedPage();
 };
 
 export const setQaFreeForm = data => (dispatch, getState) => {

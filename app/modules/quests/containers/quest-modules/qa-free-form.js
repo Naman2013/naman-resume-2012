@@ -9,6 +9,7 @@ import {
   getQaFreeForm,
   getQuestStep,
   setQaFreeForm,
+  setQuestCompleted,
 } from 'app/modules/quests/thunks';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
@@ -26,6 +27,7 @@ const mapDispatchToProps = {
   getQaFreeForm,
   getQuestStep,
   setQaFreeForm,
+  setQuestCompleted,
   setQaFreeFormAnswer: ACTION.setQaFreeFormAnswer,
 };
 

@@ -1,11 +1,10 @@
 @import '~app/styles/bootstrap/common';
 
 .quest-step-info {
-  font-family: $secondary-font;
-  padding: 30px 80px;
-  //margin-bottom: -40px;
   display: flex;
   align-items: flex-end;
+  font-family: $secondary-font;
+  padding: 30px 80px;
 
   .quest-step-title {
     font-size: 24px;
@@ -25,6 +24,10 @@
   .btn {
     font-family: $primary-font;
     white-space: nowrap;
+  }
+
+  .quest-next-step-btn {
+    cursor: pointer;
   }
 
   // RESPONSIVE

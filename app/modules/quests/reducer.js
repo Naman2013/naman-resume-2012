@@ -26,6 +26,7 @@ export const TYPE = constants('quests', [
   '~SET_QA_MULTIPLE_CHOICE',
 
   '~GET_QUEST_GUIDE_PANEL',
+  '~SET_QUEST_COMPLETED',
 ]);
 
 export const ACTION = actions(TYPE);
@@ -99,6 +100,10 @@ export default handleActions(
     [TYPE.GET_QA_FREE_FORM]: start,
     [TYPE.GET_QA_FREE_FORM_SUCCESS]: getQaFreeFormSuccess,
     [TYPE.GET_QA_FREE_FORM_ERROR]: error,
+
+    [TYPE.SET_QUEST_COMPLETED]: start,
+    [TYPE.SET_QUEST_COMPLETED_SUCCESS]: setQuestCompletedSuccess,
+    [TYPE.SET_QUEST_COMPLETED_ERROR]: error,
 
     [TYPE.SET_QA_FREE_FORM]: start,
     [TYPE.SET_QA_FREE_FORM_SUCCESS]: setQaFreeFormSuccess,
@@ -247,6 +252,13 @@ function getQaFreeFormSuccess(state, { payload }) {
     ...state,
     isFetching: false,
     questQaFreeForm: { ...questQaFreeForm, [payload.moduleId]: payload },
+  };
+}
+
+function setQuestCompletedSuccess(state, { payload }) {
+  return {
+    ...state,
+    isFetching: false,
   };
 }
 

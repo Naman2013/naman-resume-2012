@@ -98,9 +98,14 @@
   }
 
   .step-modules {
-    padding: 80px;
-    padding-bottom: 20px;
+    padding: 80px 80px 20px;
     background-color: $romance;
+
+    .text-center {
+      .quest-next-step-btn {
+        cursor: pointer;
+      }
+    }
   }
 
   // RESPONSIVE

@@ -11,11 +11,9 @@ export class QuestCompleted extends PureComponent {
   // TODO: add questUUID
 
   componentDidMount() {
-    const {
-      getQuestCompleted,
-      params: { questId },
-    } = this.props;
-    getQuestCompleted({ questId });
+    const { getQuestCompleted, params } = this.props;
+    const { questId, questCompletionModuleId: moduleId } = params;
+    getQuestCompleted({ questId, moduleId });
   }
 
   onDownloadClick = () => {

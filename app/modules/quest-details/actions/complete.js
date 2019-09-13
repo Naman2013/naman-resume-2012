@@ -1,8 +1,11 @@
 import axios from 'axios';
 
-export const FETCH_QUEST_COMPLETE_OVERVIEW_START = 'FETCH_QUEST_COMPLETE_OVERVIEW_START';
-export const FETCH_QUEST_COMPLETE_OVERVIEW_SUCCESS = 'FETCH_QUEST_COMPLETE_OVERVIEW_SUCCESS';
-export const FETCH_QUEST_COMPLETE_OVERVIEW_FAILURE = 'FETCH_QUEST_COMPLETE_OVERVIEW_FAILURE';
+export const FETCH_QUEST_COMPLETE_OVERVIEW_START =
+  'FETCH_QUEST_COMPLETE_OVERVIEW_START';
+export const FETCH_QUEST_COMPLETE_OVERVIEW_SUCCESS =
+  'FETCH_QUEST_COMPLETE_OVERVIEW_SUCCESS';
+export const FETCH_QUEST_COMPLETE_OVERVIEW_FAILURE =
+  'FETCH_QUEST_COMPLETE_OVERVIEW_FAILURE';
 
 const fetchQuestCompleteOverviewStart = () => ({
   type: FETCH_QUEST_COMPLETE_OVERVIEW_START,
@@ -26,15 +29,16 @@ export const fetchQuestCompleteOverview = ({
 }) => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
   dispatch(fetchQuestCompleteOverviewStart());
-  return axios.post('/api/quests/getQuestCompleted', {
-    at,
-    cid,
-    lang,
-    questId,
-    moduleId,
-    token,
-    ver,
-  })
+  return axios
+    .post('/api/quests/getQuestCompleted', {
+      at,
+      cid,
+      lang,
+      questId,
+      moduleId,
+      token,
+      ver,
+    })
     .then(result => dispatch(fetchQuestCompleteOverviewSuccess(result.data)))
     .catch(error => dispatch(fetchQuestCompleteOverviewFailure(error)));
 };

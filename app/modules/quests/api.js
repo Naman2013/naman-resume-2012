@@ -8,6 +8,8 @@ export const getDataCollectionApi = data =>
   axios.post('/api/quests/getDataCollection', data);
 export const getQuestCompletedApi = data =>
   axios.post('/api/quests/getQuestCompleted', data);
+export const setQuestCompletedApi = data =>
+  axios.post('/api/quests/setQuestCompleted', data);
 export const getDataCollectionSlotImagesApi = data =>
   axios.post('/api/quests/getDataCollectionSlotImages', data);
 export const setDataCollectionSlotImageApi = data =>
