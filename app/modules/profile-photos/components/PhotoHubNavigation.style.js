@@ -60,6 +60,12 @@ export default css`
   .photohub-dropdown {
     display: flex;
     align-items: center;
+    width: 100%;
+    margin-bottom: 15px;
+  }
+
+  .photohub-dropdown :global(.root) {
+    width: 100%;
   }
 
   :global(.photohub-nav-link) {
