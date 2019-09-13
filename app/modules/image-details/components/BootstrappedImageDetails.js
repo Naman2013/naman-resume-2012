@@ -49,6 +49,7 @@ const BootstrappedImageDetails = props => {
     observationTagsError,
     observationLog,
     refetchData,
+    shareMemberPhotoData,
   } = props;
 
   const showMissionRelatedInfo = Number(scheduledMissionId) > 0;
@@ -73,6 +74,7 @@ const BootstrappedImageDetails = props => {
                   canShareFlag={canShareFlag}
                   actions={actions}
                   refetchData={refetchData}
+                  shareMemberPhotoData={shareMemberPhotoData}
                 />
               ) : (
                 <ViewHeader imageTitle={imageTitle} />
