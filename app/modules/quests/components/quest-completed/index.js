@@ -37,6 +37,7 @@ export class QuestCompleted extends PureComponent {
       didYouKnowText,
       reviewQuestButtonCaption,
       downloadPDFTooltipText,
+      questBadgeIconURL,
     } = questCompletedData;
 
     const { questId } = routeParams;
@@ -55,7 +56,7 @@ export class QuestCompleted extends PureComponent {
                 <img
                   className="icon-content"
                   alt=""
-                  src="https://vega.slooh.com/assets/v4/icons/object_types/SpiralGalaxy.svg"
+                  src={questBadgeIconURL}
                 />
               </div>
             </div>
