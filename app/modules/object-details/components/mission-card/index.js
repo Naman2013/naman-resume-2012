@@ -1,6 +1,5 @@
-import React, { PureComponent, Fragment } from 'react';
-import moment from 'moment';
 import { ThreeDotsMenu } from 'app/modules/missions/components/three-dots-menu';
+import React, { PureComponent } from 'react';
 import './styles.scss';
 
 export class MissionCard extends PureComponent {
