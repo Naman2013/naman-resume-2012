@@ -215,6 +215,7 @@ export class UploadPhoto extends Component {
           </div>
 
           <form className="upload-photo-form">
+	    <p className="upload-photo-instructions">Introducing Photo Upload, which enables Apprentice and Astronomer members to upload photos to their photo roll. This makes it possible for you to share your very best processed photos as Observations. We ask that you only upload and share astronomical images you capture personally, either via Slooh or using your own telescopes.</p>
             <div className="upload-photo-form-left">
               <div className="upload-photo-form-input-file">
                 <label htmlFor="photoHubUploadInput">
