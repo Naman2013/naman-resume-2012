@@ -2,6 +2,8 @@ import {
   getPublicProfileApi,
   getPrivateProfileApi,
   getProfileListsApi,
+  getPublicProfileMissionsApi,
+  getPrivateProfileMissionsApi,
 } from 'app/modules/profile/api';
 import { ACTION } from './reducer';
 
@@ -34,9 +36,31 @@ export const getProfileLists = (readingListType, customerUUID) => (
 ) => {
   const { at, token, cid } = getState().user;
   const body = { at, token, cid, readingListType };
-  if (customerUUID) body.customerUUID = customerUUID;
+  if (customerUUID) {
+    body.customerUUID = customerUUID;
+  }
   dispatch(ACTION.getProfileLists());
   return getProfileListsApi(body)
     .then(result => dispatch(ACTION.getProfileListsSuccess(result.data)))
     .catch(error => dispatch(ACTION.getProfileListsError(error)));
+};
+
+export const getPublicProfileMissions = () => (dispatch, getState) => {
+  const { at, token, cid } = getState().user;
+  dispatch(ACTION.getPublicProfileMissions());
+  return getPublicProfileMissionsApi({ at, token, cid })
+    .then(result =>
+      dispatch(ACTION.getPublicProfileMissionsSuccess(result.data))
+    )
+    .catch(error => dispatch(ACTION.getPublicProfileMissionsError(error)));
+};
+
+export const getPrivateProfileMissions = () => (dispatch, getState) => {
+  const { at, token, cid } = getState().user;
+  dispatch(ACTION.getPrivateProfileMissions());
+  return getPrivateProfileMissionsApi({ at, token, cid })
+    .then(result =>
+      dispatch(ACTION.getPrivateProfileMissionsSuccess(result.data))
+    )
+    .catch(error => dispatch(ACTION.getPrivateProfileMissionsError(error)));
 };

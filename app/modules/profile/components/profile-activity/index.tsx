@@ -1,20 +1,23 @@
 import React from 'react';
-import ProfileActivityQa from 'app/modules/profile/containers/profile-activity-qa';
 import { ContainerWithTitle } from 'app/components/common/ContainerWithTitle';
 import CenterColumn from 'app/components/common/CenterColumn';
 import { MissionCard } from 'app/modules/object-details/components/mission-card';
-import { ActiveGroups } from 'app/components/profiles/private-profile/active-groups';
-import { ActiveObjects } from 'app/components/profiles/private-profile//active-objects';
 import { MissionConfirmationModal } from 'app/modules/missions/components/mission-confirmation-modal';
 import './styles.scss';
+import _isEmpty from 'lodash/isEmpty';
 
 type TProfileActivityProps = {
   cancelReservation: (data: any) => Promise<any>;
   cancelPiggyback: (data: any) => Promise<any>;
   getPrivateProfile: (data?: any) => Promise<any>;
 
+  getPrivateProfileMissions: () => Promise<any>;
+  getPublicProfileMissions: () => Promise<any>;
+
   data: any;
   activityData: any;
+  privateProfileData: any;
+  profileMissionsData: ProfileMissions;
 };
 type TProfileActivityState = {
   cancelReservationModalVisible: boolean;
@@ -36,9 +39,21 @@ class ProfileActivity extends React.Component<
     selectedSlot: {},
   };
 
+  isPrivateProfile = (): boolean => {
+    return !_isEmpty(this.props.privateProfileData);
+  };
+
   componentDidMount(): void {
-    console.log('didMount');
+    this.fetchMissions();
   }
+
+  fetchMissions = (): Promise<any> => {
+    const { getPublicProfileMissions, getPrivateProfileMissions } = this.props;
+    if (this.isPrivateProfile()) {
+      return getPrivateProfileMissions();
+    }
+    return getPublicProfileMissions();
+  };
 
   cancelReservation = () => {
     const { cancelReservation, getPrivateProfile } = this.props;
@@ -64,17 +79,8 @@ class ProfileActivity extends React.Component<
   };
 
   render() {
-    const { data, activityData } = this.props;
-    const { askAnAstronomerData } = activityData;
+    const { profileMissionsData } = this.props;
     const {
-      showTopPicksForYou,
-      topPicksForYouHeading,
-      activeGroupsCount,
-      activeGroupsList,
-      activeObjectsCount,
-      activeObjectsList,
-      topPicksForYouGroupsHeading,
-      topPicksForYouObjectsHeading,
       recentMissionListHeading,
       recentMissionList,
       recentMissionCount,
@@ -83,7 +89,7 @@ class ProfileActivity extends React.Component<
       missionCount,
       emptySetUpcomingMissionsDisplay,
       emptySetRecentMissionsDisplay,
-    } = data;
+    } = profileMissionsData;
 
     const {
       cancelReservationModalVisible,
@@ -158,35 +164,6 @@ class ProfileActivity extends React.Component<
             </ContainerWithTitle>
           </CenterColumn>
         </div>
-
-        {askAnAstronomerData.showAskAnAstronomer && (
-          <div className="profile-section ask-section">
-            <CenterColumn>
-              <ProfileActivityQa askAnAstronomerData={askAnAstronomerData} />
-            </CenterColumn>
-          </div>
-        )}
-
-        {showTopPicksForYou && (
-          <div className="profile-section">
-            <CenterColumn>
-              <ContainerWithTitle title={topPicksForYouHeading}>
-                <>
-                  <ActiveGroups
-                    count={activeGroupsCount}
-                    list={activeGroupsList}
-                    header={topPicksForYouGroupsHeading}
-                  />
-                  <ActiveObjects
-                    count={activeObjectsCount}
-                    list={activeObjectsList}
-                    header={topPicksForYouObjectsHeading}
-                  />
-                </>
-              </ContainerWithTitle>
-            </CenterColumn>
-          </div>
-        )}
       </div>
     );
   }
