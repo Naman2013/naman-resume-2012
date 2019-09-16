@@ -25,7 +25,7 @@ const ContentList = ({
       <div className="quest-content-buttons-container">
         {showResources ? <ResourcesButton {...resourcesProps} /> : null}
         {showAboutDownloadPDF && (
-          <Tooltip title={aboutDownloadPDFTooltipText} position="top">
+          <Tooltip theme="light" title={aboutDownloadPDFTooltipText} position="top">
             <div className="download-quest-pdf">
               <div onClick={onDownloadPDF} className="download">
                 <span className="icon-download" />

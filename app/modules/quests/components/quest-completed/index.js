@@ -73,6 +73,7 @@ export class QuestCompleted extends PureComponent {
                   title={downloadPDFTooltipText}
                   distance={10}
                   position="top"
+                  theme="light"
                 >
                   <div onClick={this.onDownloadClick} className="download">
                     <span className="icon-download" />
