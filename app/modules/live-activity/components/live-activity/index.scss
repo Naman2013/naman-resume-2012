@@ -26,7 +26,11 @@
   .live-activity-window-wrapper {
     position: absolute;
     top: 60px;
-    left: -235px;
+    left: -375px;
+
+    &.live-activity-window-wrapper-mobile {
+      left: -195px;
+    }
 
 
     .live-activity-window {

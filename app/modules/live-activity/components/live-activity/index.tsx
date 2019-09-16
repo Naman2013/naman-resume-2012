@@ -2,8 +2,10 @@ import React from 'react';
 import Draggable from 'react-draggable';
 import './index.scss';
 import { Tooltip } from 'react-tippy';
-import { ResizableBox } from 'react-resizable';
+import { ResizableBox, ResizableProps } from 'react-resizable';
 import { FeedItem } from '../feed-item/index';
+import isMobileScreenSize from '../../../../utils/content-loading-conditions';
+import cx from 'classnames';
 
 const feed = [
   {
@@ -40,8 +42,24 @@ const feed = [
   },
 ];
 
+const getResizableBoxConfigs = (): ResizableProps => {
+  const isMobile = isMobileScreenSize();
+  const defaultWidth = 500;
+  const defaultHeight = 500;
+  const width = isMobile ? screen.availWidth : defaultWidth;
+  const height = isMobile ? screen.availHeight - 53 : defaultHeight;
+
+  return {
+    width,
+    height,
+  };
+};
+
+const RES_CONFIG: ResizableProps = getResizableBoxConfigs();
+
 export const LiveActivity = () => {
   const [isOpen, setOpen] = React.useState(false);
+  const isMobile = isMobileScreenSize();
 
   return (
     <div className="live-activity-wrapper">
@@ -54,13 +72,17 @@ export const LiveActivity = () => {
 
       {/* WINDOW */}
       {isOpen && (
-        <div className="live-activity-window-wrapper">
+        <div
+          className={cx('live-activity-window-wrapper', {
+            'live-activity-window-wrapper-mobile': isMobile,
+          })}
+        >
           <Draggable handle=".live-activity-window-header">
             <div>
               <ResizableBox
-                width={400}
-                height={600}
                 minConstraints={[300, 300]}
+                width={RES_CONFIG.width}
+                height={RES_CONFIG.height}
               >
                 <div className="live-activity-window">
                   <div className="live-activity-window-header d-flex justify-content-between align-items-center">
