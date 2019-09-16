@@ -39,7 +39,7 @@ const BootstrappedObservationSliderItem = props => {
     <Fragment>
       <div className="card-obs-wrapper">
         <div className="card-obs">
-          {imageTitle ? (
+          {imageDownloadURL ? (
             <Fragment>
               <div className="top">
                 <div className="info">
