@@ -3,6 +3,7 @@ import { Button } from 'react-bootstrap';
 import cn from 'classnames';
 import Dots from 'atoms/icons/Dots';
 import { Tooltip } from 'react-tippy';
+import uniqueId from 'lodash/uniqueId';
 import { astronaut } from 'app/styles/variables/colors_tiles_v4';
 import ImageClickHandler from 'app/components/common/ImageClickHandler';
 import FollowObjectButton from 'app/components/object-details/FollowObjectButton';
@@ -198,7 +199,7 @@ export const DataCollectionSlotCard = props => {
                         >
                           {objectId && (
                             <FollowObjectButton
-                              key={`follow-object-button-${new Date()}`}
+                              key={`follow-object-button-${uniqueId()}`}
                               objectId={objectId}
                               user={user}
                               followButtonText={
