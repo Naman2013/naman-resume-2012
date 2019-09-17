@@ -45,10 +45,10 @@ export const getProfileLists = (readingListType, customerUUID) => (
     .catch(error => dispatch(ACTION.getProfileListsError(error)));
 };
 
-export const getPublicProfileMissions = () => (dispatch, getState) => {
+export const getPublicProfileMissions = data => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
   dispatch(ACTION.getPublicProfileMissions());
-  return getPublicProfileMissionsApi({ at, token, cid })
+  return getPublicProfileMissionsApi({ at, token, cid, ...data })
     .then(result =>
       dispatch(ACTION.getPublicProfileMissionsSuccess(result.data))
     )

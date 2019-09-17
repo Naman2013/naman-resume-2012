@@ -3,25 +3,36 @@ import { ContainerWithTitle } from 'app/components/common/ContainerWithTitle';
 import CenterColumn from 'app/components/common/CenterColumn';
 import { MissionCard } from 'app/modules/object-details/components/mission-card';
 import { MissionConfirmationModal } from 'app/modules/missions/components/mission-confirmation-modal';
+import { FeaturedObjectsModal } from 'app/modules/telescope/components/featured-objects-modal';
+import { MissionSuccessModal } from 'app/modules/missions/components/mission-success-modal';
 import './styles.scss';
 import _isEmpty from 'lodash/isEmpty';
 
 type TProfileActivityProps = {
   cancelReservation: (data: any) => Promise<any>;
   cancelPiggyback: (data: any) => Promise<any>;
+  grabPiggyback: (data: any) => Promise<any>;
+  reservePiggyback: (data: any) => Promise<any>;
   getPrivateProfile: (data?: any) => Promise<any>;
 
   getPrivateProfileMissions: () => Promise<any>;
-  getPublicProfileMissions: () => Promise<any>;
+  getPublicProfileMissions: (data?: any) => Promise<any>;
 
   data: any;
   activityData: any;
   privateProfileData: any;
   profileMissionsData: ProfileMissions;
+  params: any;
+  piggyBackMissionSlot: any;
+  piggybackReservedMissionData: any;
+  piggybackReservedMission: any;
+  user: User;
 };
 type TProfileActivityState = {
   cancelReservationModalVisible: boolean;
   cancelPiggybackModalVisible: boolean;
+  reservationPiggybackVisible: boolean;
+  successModalShow: boolean;
   selectedSlot: {
     scheduledMissionId?: number;
     cancelMissionDialogPrompt?: string;
@@ -36,6 +47,8 @@ class ProfileActivity extends React.Component<
   state: TProfileActivityState = {
     cancelReservationModalVisible: false,
     cancelPiggybackModalVisible: false,
+    reservationPiggybackVisible: false,
+    successModalShow: false,
     selectedSlot: {},
   };
 
@@ -54,11 +67,17 @@ class ProfileActivity extends React.Component<
   }
 
   fetchMissions = (): Promise<any> => {
-    const { getPublicProfileMissions, getPrivateProfileMissions } = this.props;
+    const {
+      getPublicProfileMissions,
+      getPrivateProfileMissions,
+      params,
+    } = this.props;
+    const { customerUUID } = params;
+
     if (this.isPrivateProfile()) {
       return getPrivateProfileMissions();
     }
-    return getPublicProfileMissions();
+    return getPublicProfileMissions({ customerUUID });
   };
 
   setupRefreshMissionsInterval = (): void => {
@@ -66,7 +85,9 @@ class ProfileActivity extends React.Component<
     const expiresInSec = profileMissionsData.expires;
     const currentTimestampInMs = Date.now();
     const timerVal = expiresInSec * 1000 - currentTimestampInMs;
-    this.missionTimer = setInterval(this.fetchMissions, timerVal);
+    if (timerVal) {
+      this.missionTimer = setInterval(this.fetchMissions, timerVal);
+    }
   };
 
   cancelReservation = () => {
@@ -92,8 +113,61 @@ class ProfileActivity extends React.Component<
     });
   };
 
+  grabPiggyback = (mission: any) => {
+    const { grabPiggyback } = this.props;
+    const { scheduledMissionId, uniqueId } = mission;
+    grabPiggyback({
+      callSource: 'byTelescopeV4',
+      scheduledMissionId,
+      uniqueId,
+    }).then(() => this.setState({ reservationPiggybackVisible: true }));
+  };
+
+  reservePiggyback = (): void => {
+    const { reservePiggyback, piggyBackMissionSlot } = this.props;
+    const {
+      scheduledMissionId,
+      uniqueId,
+      title,
+      objectIconURL,
+      missionStart,
+      missionType,
+      obsName,
+      telescopeName,
+    } = piggyBackMissionSlot;
+
+    reservePiggyback({
+      callSource: 'byTelescopeV4',
+      scheduledMissionId,
+      uniqueId,
+      title,
+      objectIconURL,
+      missionStart,
+      missionType,
+      obsName,
+      telescopeName,
+    }).then(() =>
+      this.setState({
+        successModalShow: true,
+        reservationPiggybackVisible: false,
+      })
+    );
+  };
+
+  successModalHide = (): void => {
+    clearInterval(this.missionTimer);
+    this.fetchMissions().then(() => this.setupRefreshMissionsInterval());
+    this.setState({ successModalShow: false });
+  };
+
   render() {
-    const { profileMissionsData } = this.props;
+    const {
+      profileMissionsData,
+      piggyBackMissionSlot,
+      piggybackReservedMissionData,
+      piggybackReservedMission,
+      user,
+    } = this.props;
     const {
       recentMissionListHeading,
       recentMissionList,
@@ -108,6 +182,8 @@ class ProfileActivity extends React.Component<
     const {
       cancelReservationModalVisible,
       cancelPiggybackModalVisible,
+      reservationPiggybackVisible,
+      successModalShow,
       selectedSlot,
     } = this.state;
     const {
@@ -151,6 +227,7 @@ class ProfileActivity extends React.Component<
                         selectedSlot,
                       })
                     }
+                    grabPiggyback={this.grabPiggyback}
                     profileMission
                   />
                 ))
@@ -178,6 +255,25 @@ class ProfileActivity extends React.Component<
             </ContainerWithTitle>
           </CenterColumn>
         </div>
+
+        {reservationPiggybackVisible && (
+          <FeaturedObjectsModal
+            onHide={() => this.setState({ reservationPiggybackVisible: false })}
+            selectedMission={piggyBackMissionSlot}
+            user={user}
+            onMissionView={this.reservePiggyback}
+            piggyback
+            show
+          />
+        )}
+
+        <MissionSuccessModal
+          show={successModalShow}
+          onHide={this.successModalHide}
+          reservedMissionData={piggybackReservedMissionData}
+          reservedMission={piggybackReservedMission}
+          missionSlot={piggyBackMissionSlot}
+        />
       </div>
     );
   }

@@ -10,6 +10,7 @@ export class MissionCard extends PureComponent {
       profileMission,
       cancelReservation,
       cancelPiggyback,
+      grabPiggyback,
     } = this.props;
     const {
       telescopeName,
@@ -47,6 +48,7 @@ export class MissionCard extends PureComponent {
                 timeSlot={timeSlot}
                 cancelReservation={() => cancelReservation(timeSlot)}
                 cancelPiggyback={() => cancelPiggyback(timeSlot)}
+                grabPiggyback={grabPiggyback}
               />
             )}
           </div>
@@ -66,6 +68,7 @@ export class MissionCard extends PureComponent {
                 timeSlot={timeSlot}
                 cancelReservation={() => cancelReservation(timeSlot)}
                 cancelPiggyback={() => cancelPiggyback(timeSlot)}
+                grabPiggyback={grabPiggyback}
               />
             )}
           </div>

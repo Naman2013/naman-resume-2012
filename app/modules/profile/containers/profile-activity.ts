@@ -9,22 +9,36 @@ import {
 import {
   cancelReservation,
   cancelPiggyback,
+  grabPiggyback,
+  reservePiggyback,
 } from 'app/modules/missions/thunks';
+import {
+  makePiggybackMissionsFirstSlot,
+  makePiggybackReservedMissionData,
+  makePiggybackReservedMissionSelector,
+} from 'app/modules/missions/selectors';
 import { createStructuredSelector } from 'reselect';
 import {
   makeProfileLoadingSelector,
   makeProfileMissionsDataSelector,
 } from 'app/modules/profile/selectors';
+import { makeUserSelector } from 'app/modules/user/selectors';
 
 const mapStateToProps = createStructuredSelector({
   isLoading: makeProfileLoadingSelector(),
   profileMissionsData: makeProfileMissionsDataSelector(),
+  piggyBackMissionSlot: makePiggybackMissionsFirstSlot(),
+  piggybackReservedMissionData: makePiggybackReservedMissionData(),
+  piggybackReservedMission: makePiggybackReservedMissionSelector(),
+  user: makeUserSelector(),
 });
 
 const mapDispatchToProps = {
   getPrivateProfile,
   cancelReservation,
   cancelPiggyback,
+  grabPiggyback,
+  reservePiggyback,
 
   getPrivateProfileMissions,
   getPublicProfileMissions,
