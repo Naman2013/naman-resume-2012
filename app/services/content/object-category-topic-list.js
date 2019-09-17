@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 export default function fetchCategoryTopicList({
   cid,
@@ -7,7 +7,7 @@ export default function fetchCategoryTopicList({
   status, // optional: published, draft all
   callSource,
 }) {
-  return axios.post('/api/content/getStoryObjectCategoryTopicList', {
+  return API.post('/api/content/getStoryObjectCategoryTopicList', {
     cid,
     at,
     token,

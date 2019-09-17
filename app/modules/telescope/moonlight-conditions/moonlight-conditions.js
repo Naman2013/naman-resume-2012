@@ -1,5 +1,5 @@
 import React, { useEffect, memo, useState } from 'react';
-import axios from 'axios';
+import { API } from 'app/api';
 import { browserHistory } from 'react-router';
 import GenericButton from '../../../components/common/style/buttons/Button';
 import { ModuleContainer } from '../components/old';
@@ -14,7 +14,7 @@ export const MoonlightWidget = memo(function MoonlightWidget(props) {
 
   useEffect(() => {
     const { widgetId, obsId } = props.moonlightWidget;
-    axios
+    API
       .post('/api/widget/moonlightBar', {
         widgetUniqueId: widgetId,
         obsId,

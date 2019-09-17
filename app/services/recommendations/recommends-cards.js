@@ -2,7 +2,7 @@
   recommends-cards: used to fetch Slooh recommends content
   */
 
-import axios from 'axios';
+import { API } from 'app/api';
 
 /**
   @param at: provided by user login
@@ -12,7 +12,7 @@ import axios from 'axios';
   @param: STRING: 'community' TODO: doc other others
 */
 export const fetchRecommendsCards = ({ at, token, cid, objectId, type }) => {
-  return axios.post('/api/recommends/cards', {
+  return API.post('/api/recommends/cards', {
     at,
     token,
     cid,

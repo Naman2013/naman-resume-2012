@@ -1,7 +1,7 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 export default function fetchWeatherMissionControlStatusWidget({ obsId, widgetUniqueId }) {
-  return axios.post('/api/widget/missionControlStatus', {
+  return API.post('/api/widget/missionControlStatus', {
     obsId,
     widgetUniqueId,
   });

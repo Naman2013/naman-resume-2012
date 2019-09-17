@@ -1,5 +1,5 @@
 import { createThread } from 'app/services/discussions/create-thread';
-import axios from 'axios/index';
+import { API } from 'app/api';
 import { fetchAstronomerAnswers } from '../ask-astronomer-answers/actions';
 
 export const FETCH_ASTRONOMER_QUESTIONS_START =
@@ -50,8 +50,8 @@ export const fetchAstronomerQuestions = ({
   const { cid, at, token } = getState().user;
   const { count, questionFilter, page } = getState().astronomerQuestions;
   dispatch(fetchAstronomerQuestionsStart({ appendToList }));
-  return axios
-    .post('/api/forum/getQuestionsList', {
+  return API
+      .post('/api/forum/getQuestionsList', {
       appendToList,
       at,
       callSource: 'qanda',
@@ -98,8 +98,8 @@ export const refetchAstronomerQuestions = ({
   dispatch({
     type: REFETCH_ASTRONOMER_QUESTIONS_START,
   });
-  return axios
-    .post('/api/forum/getQuestionsList', {
+  return API
+      .post('/api/forum/getQuestionsList', {
       at,
       callSource: 'qanda',
       cid,

@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 import createReducer from './utils/createReducer';
 import fetchStarChart from '../services/sky-widgets/star-chart';
 import fetchFacilityWebcam from '../services/sky-widgets/facility-webcam';
@@ -95,8 +95,8 @@ const observatoryTelescopeStatusFail = () => ({
 });
 
 export const fetchObservatoryTelescopeStatus = obsId => dispatch => {
-  return axios
-    .get(`/api/obs/getObservatoryStatus?obsId=${obsId}`)
+  return API
+      .get(`/api/obs/getObservatoryStatus?obsId=${obsId}`)
     .then(response => {
       dispatch(observatoryTelescopeStatusSuccess(response.data));
     })
@@ -129,8 +129,8 @@ export const getObservatoryList = (currentObservatoryId, callSource) => (
 ) => {
   dispatch(observatoryListStart());
   const { token, at, cid } = getState().user;
-  return axios
-    .post('/api/obs/list', {
+  return API
+      .post('/api/obs/list', {
       at,
       cid,
       token,
@@ -165,7 +165,7 @@ const fetchMoonPhase = observatory => (dispatch, getState) => {
 
   // only make call if /api/obs/list response has MoonPhaseWidgetId defined
   if (observatory && observatory.MoonPhaseWidgetId) {
-    return axios
+    return API
       .post('/api/moon/phase', {
         token,
         at,
@@ -184,7 +184,7 @@ const fetchSmallSatelliteView = observatory => (dispatch, getState) => {
   const { token, at, cid } = getState().user;
   if (observatory && observatory.SatelliteWidgetId) {
     // only make call if /api/obs/list response has SatelliteWidgetId defined
-    return axios
+    return API
       .post('/api/wx/satellite', {
         token,
         at,
@@ -542,8 +542,8 @@ export const fetchTelescopeCardData = () => (dispatch, getState) => {
 
   dispatch(fetchTelescopeCardDataStart());
 
-  return axios
-    .post('/api/obs/getTelescopeCardData')
+  return API
+      .post('/api/obs/getTelescopeCardData')
     .then(response => {
       dispatch(fetchTelescopeCardDataSuccess(response.data));
     })

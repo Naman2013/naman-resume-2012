@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 import { getFeaturedContent } from '../../services/featured-content/get-featured-content';
 
 export const FETCH_POPULAR_POSTS_START = 'FETCH_POPULAR_POSTS';
@@ -48,7 +48,7 @@ const fetchPageMetaSuccess = payload => ({
 
 export const fetchPageMeta = () => (dispatch) => {
   dispatch(fetchPageMetaStart());
-  return axios.post('/api/content/getPulsePostListPageLayout')
+  return API.post('/api/content/getPulsePostListPageLayout')
   .then(result => dispatch(fetchPageMetaSuccess(result.data)));
 };
 
@@ -76,7 +76,7 @@ export const fetchPosts = (path, type, page) => (dispatch, getState) => {
   dispatch(fetchPostsStart());
   dispatch(fetchPopularPosts());
 
-  return axios.post(url, {
+  return API.post(url, {
     cid,
     count: postsPerPage,
     page,
@@ -110,7 +110,7 @@ export const searchPosts = ({ searchterm, page }) => (dispatch, getState) => {
 
   dispatch(searchPostsStart());
 
-  return axios.post('/api/content/searchContent', {
+  return API.post('/api/content/searchContent', {
     cid,
     count: postsPerPage,
     page,

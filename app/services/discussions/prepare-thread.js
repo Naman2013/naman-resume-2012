@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 export const prepareThread = ({
   cid,
@@ -8,7 +8,7 @@ export const prepareThread = ({
   ver,
   status,
 }) => (
-  axios.post('/api/forum/prepareThread', {
+  API.post('/api/forum/prepareThread', {
     cid,
     at,
     token,

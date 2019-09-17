@@ -7,7 +7,7 @@
 
   */
 
-import axios from 'axios';
+import { API } from 'app/api';
 
 export default function cancelMission({
   cid,
@@ -15,7 +15,7 @@ export default function cancelMission({
   token,
   scheduledMissionId,
 }) {
-  return axios.post('/api/reservation/cancelReservation', {
+  return API.post('/api/reservation/cancelReservation', {
     cid,
     at,
     token,

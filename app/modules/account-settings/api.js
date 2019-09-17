@@ -1,18 +1,18 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
-export const getApi = data => axios.post('/api/', data);
+export const getApi = data => API.post('/api/', data);
 
 export const getAccountSettingsApi = data =>
-  axios.post('/api/page/accountSettings', data);
+  API.post('/api/page/accountSettings', data);
 
 export const saveAccountFormFieldApi = data =>
-  axios.post('/api/registration/saveAccountFormField', data);
+  API.post('/api/registration/saveAccountFormField', data);
 
 export const getSubscriptionPlansApi = data =>
-  axios.post('/api/registration/getSubscriptionPlans', data);
+  API.post('/api/registration/getSubscriptionPlans', data);
 
 export const resetPasswordApi = data =>
-  axios.post('/api/registration/forgotPasswordRequest', data);
+  API.post('/api/registration/forgotPasswordRequest', data);
 
 export const getDashboardPopupInfoApi = data =>
-  axios.post('/api/app/dashboardPopupInfo', data);
+  API.post('/api/app/dashboardPopupInfo', data);

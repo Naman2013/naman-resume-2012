@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 import { getDashboardFeaturedObjectsApi } from './api';
 
 export const FETCH_DASHBOARD_START = 'FETCH_DASHBOARD_START';
@@ -13,8 +13,8 @@ export const fetchDashboard = ({ lang, ver, lookbackDays }) => (
 ) => {
   const { user } = getState();
   dispatch(fetchDashboardStart());
-  return axios
-    .post('/api/settings/getDashboard', {
+  return API
+      .post('/api/settings/getDashboard', {
       lang,
       lookbackDays,
       ver,

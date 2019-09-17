@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 import { toggleJoinGroup } from '../../services/community-groups/toggle-join-group';
 import { askToJoin } from '../../services/community-groups/ask-to-join';
 import { requestGroup } from '../../services/community-groups/request-group';
@@ -40,7 +40,7 @@ export const fetchGroupsPageMeta = ({
 }) => (dispatch, getState) => {
   const { cid, at, token } = getState().user;
   dispatch(fetchGroupsPageMetaStart());
-  return axios.post('/api/page/discussionGroups', {
+  return API.post('/api/page/discussionGroups', {
     at,
     cid,
     lang,
@@ -76,7 +76,7 @@ export const fetchGroupsList = ({
   const { cid, at, token } = getState().user;
   const { count } = getState().communityGroups;
   dispatch(fetchGroupsListStart());
-  return axios.post('/api/discussiongroups/getGroups', {
+  return API.post('/api/discussiongroups/getGroups', {
     at,
     cid,
     count,

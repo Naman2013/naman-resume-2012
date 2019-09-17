@@ -1,7 +1,7 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 export const getDashboardFeaturedObjectsApi = data =>
-  axios.post('/api/reservation/getDashboardFeaturedObjects', data);
+  API.post('/api/reservation/getDashboardFeaturedObjects', data);
 
 export const getDashboardPageApi = data =>
-  axios.post('/api/page/dashboard', data);
+  API.post('/api/page/dashboard', data);

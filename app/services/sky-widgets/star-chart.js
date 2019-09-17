@@ -1,7 +1,7 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 export default function fetchStarChart({ obsId, widgetUniqueId, scheduledMissionId }) {
-  return axios.post('/api/widget/starChart', {
+  return API.post('/api/widget/starChart', {
     obsId,
     widgetUniqueId,
     scheduledMissionId,

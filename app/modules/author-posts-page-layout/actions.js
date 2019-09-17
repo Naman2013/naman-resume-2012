@@ -1,5 +1,4 @@
-import axios from 'axios';
-
+import { API } from 'app/api';
 
 export const FETCH_AUTHOR_PAGE_META_START = 'FETCH_AUTHOR_PAGE_META_START';
 export const FETCH_AUTHOR_PAGE_META_SUCCESS = 'FETCH_AUTHOR_PAGE_META_SUCCESS';
@@ -13,10 +12,9 @@ const fetchMetaSuccess = payload => ({
   payload,
 });
 
-export const fetchPageMeta = authorId => (dispatch) => {
+export const fetchPageMeta = authorId => dispatch => {
   dispatch(fetchMetaStart());
-  return axios.post(' /api/content/getAuthorPostListPageLayout', {
+  return API.post(' /api/content/getAuthorPostListPageLayout', {
     authorId,
-  })
-  .then(result => dispatch(fetchMetaSuccess(result.data)));
+  }).then(result => dispatch(fetchMetaSuccess(result.data)));
 };

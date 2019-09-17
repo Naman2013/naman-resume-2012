@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 export const FETCH_APP_CONFIG_START = 'FETCH_APP_CONFIG_START';
 export const FETCH_APP_CONFIG_SUCCESS = 'FETCH_APP_CONFIG_SUCCESS';
@@ -23,7 +23,7 @@ export const fetchAppConfig = ({
   ver,
 }) => (dispatch) => {
   dispatch(fetchAppConfigStart());
-  return axios.get('/api/app/getFooter', {
+  return API.get('/api/app/getFooter', {
     ver,
     lang,
   })

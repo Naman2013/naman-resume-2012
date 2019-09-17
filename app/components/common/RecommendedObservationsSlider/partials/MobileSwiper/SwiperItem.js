@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+import { API } from 'app/api';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { IMAGE_DETAILS } from '../../../../../services/image-details';
@@ -35,7 +35,7 @@ class SwiperItem extends Component {
     const { customerImageId, setObservationInfo, purgeCardState } = this.props;
     purgeCardState();
     this.setState({ imageURL: null });
-    axios.post(IMAGE_DETAILS, {
+    API.post(IMAGE_DETAILS, {
       customerImageId,
       useShareToken: 'n',
       callSource: 'sharedpictures',

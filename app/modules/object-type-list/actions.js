@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 export const FETCH_OBJECT_TYPE_LIST_START = 'FETCH_OBJECT_TYPE_LIST_START';
 export const FETCH_OBJECT_TYPE_LIST_SUCCESS = 'FETCH_OBJECT_TYPE_LIST_SUCCESS';
@@ -22,7 +22,7 @@ export const fetchObjectTypeList = () => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
   dispatch(fetchObjectTypeListStart());
 
-  return axios.post('/api/images/getObjectTypeList', {
+  return API.post('/api/images/getObjectTypeList', {
     at,
     token,
     cid,

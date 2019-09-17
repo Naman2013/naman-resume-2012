@@ -7,7 +7,7 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import axios from 'axios';
+import { API } from 'app/api';
 import uniqueId from 'lodash/uniqueId';
 import take from 'lodash/take';
 import { submitReply } from 'app/services/discussions/submit-reply';
@@ -68,8 +68,8 @@ class DiscussionsReplies extends Component {
       discussionsActions: { updateCommentsProps },
     } = this.props;
     if (typeof commentsList[replyId] === 'undefined') {
-      axios
-        .post(THREAD_REPLIES, {
+      API
+      .post(THREAD_REPLIES, {
           callSource,
           topicId,
           threadId,
