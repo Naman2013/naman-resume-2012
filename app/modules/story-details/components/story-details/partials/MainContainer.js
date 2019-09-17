@@ -23,6 +23,7 @@ const MainContainer = ({
   likeParams,
   likePrompt,
   likesCount,
+  likedByMe,
   objectId,
   scheduledMissionId,
   showLikePrompt,
@@ -36,6 +37,7 @@ const MainContainer = ({
       <LikeSomethingButton
         likeHandler={likeStory}
         likesCount={likesCount}
+        likedByMe={likedByMe}
         likePrompt={likePrompt}
         likeParams={likeParams}
         showLikePrompt={showLikePrompt}

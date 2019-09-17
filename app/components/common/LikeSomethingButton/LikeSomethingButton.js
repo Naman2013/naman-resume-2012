@@ -156,7 +156,7 @@ class LikeHeartButton extends Component {
 
   render() {
     const { likePrompt, likesCount, isModalOpen } = this.state;
-    const { mod, user } = this.props;
+    const { mod, user, likedByMe } = this.props;
     if (!user) return null;
     return (
       <Fragment>
@@ -165,6 +165,7 @@ class LikeHeartButton extends Component {
           onClickEvent={this.likeItem}
           count={likesCount}
           alwaysShowCount
+          likedByMe={likedByMe}
         />
         <Modal
           ariaHideApp={false}
