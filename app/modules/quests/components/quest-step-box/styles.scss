@@ -17,6 +17,15 @@
     justify-content: space-between;
     align-items: center;
     position: relative;
+
+    > .step-completed-icon {
+      width: 50px;
+      height: 50px;
+    }
+    > .step-completed-icon-sm {
+      width: 20px;
+      height: 20px;
+    }
   }
 
   .shield-row {

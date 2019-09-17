@@ -30,6 +30,7 @@ export const QuestStepBox = props => {
     claimBadgeButtonCaption,
     showClaimBadgeButtonBottom,
     claimBadgeButtonURL,
+    stepIconURL,
   } = stepData;
   const resourcesProps = {
     resourcesButtonText: resourcesButtonCaption,
@@ -58,7 +59,7 @@ export const QuestStepBox = props => {
 
             <div className="step-title-row step-box-row">
               <span className="step-title">{stepTopTitle}</span>
-              <CompleteCheckbox completed={completed} />
+              <img src={stepIconURL} alt="" className="step-completed-icon" />
             </div>
 
             <div className="sub-title-row step-box-row">
@@ -76,14 +77,21 @@ export const QuestStepBox = props => {
               </div>
             </div>
 
-            <QuestStepInfo stepData={stepData} setQuestCompleted={setQuestCompleted} />
+            <QuestStepInfo
+              stepData={stepData}
+              setQuestCompleted={setQuestCompleted}
+            />
           </div>
 
           {/* MOBILE VIEW */}
           <div className="d-sm-block d-md-none mobile-view-step-info">
             <div className="step-box-row">
               <span className="step-number">{stepHeaderTitle}</span>
-              <CompleteCheckbox completed={completed} sm />
+              <img
+                src={stepIconURL}
+                alt=""
+                className="step-completed-icon-sm"
+              />
             </div>
             <div className="step-box-row">
               <span className="step-title">{stepTopTitle}</span>
