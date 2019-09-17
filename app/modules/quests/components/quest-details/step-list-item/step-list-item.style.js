@@ -13,6 +13,7 @@ import {
   screenMedium,
   screenLarge,
   screenXLarge,
+  SCREEN_MEDIUM,
 } from '../../../../../styles/variables/breakpoints';
 
 export default css`
@@ -146,6 +147,13 @@ export default css`
 
     .check {
       display: none;
+    }
+  }
+
+  @media screen and (max-width: ${SCREEN_MEDIUM}px) {
+    .action-left {
+      flex: 8;
+      margin-right: 10px;
     }
   }
 `;

@@ -87,7 +87,11 @@ export const QuestStepBox = props => {
           <div className="d-sm-block d-md-none mobile-view-step-info">
             <div className="step-box-row">
               <span className="step-number">{stepHeaderTitle}</span>
-              <CompleteCheckbox completed={completed} sm />
+              <img
+                src={stepIconURL}
+                alt=""
+                className="step-completed-icon-sm"
+              />
             </div>
             <div className="step-box-row">
               <span className="step-title">{stepTopTitle}</span>
