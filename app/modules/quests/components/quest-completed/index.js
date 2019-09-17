@@ -38,6 +38,7 @@ export class QuestCompleted extends PureComponent {
       reviewQuestButtonCaption,
       downloadPDFTooltipText,
       questBadgeIconURL,
+      downloadPDFURL,
     } = questCompletedData;
 
     const { questId } = routeParams;
@@ -53,11 +54,7 @@ export class QuestCompleted extends PureComponent {
           <div className="quest-emblem">
             <div className="blue-shield">
               <div className="icon-container">
-                <img
-                  className="icon-content"
-                  alt=""
-                  src={questBadgeIconURL}
-                />
+                <img className="icon-content" alt="" src={questBadgeIconURL} />
               </div>
             </div>
           </div>
@@ -68,17 +65,19 @@ export class QuestCompleted extends PureComponent {
                 <div className="title">{youAreAwardedText}</div>
                 <div className="subtitle">{badgeNameText}</div>
               </div>
-              <div className="quest-badge__header-right">
-                <Tooltip
-                  title={downloadPDFTooltipText}
-                  distance={10}
-                  position="top"
-                >
-                  <div onClick={this.onDownloadClick} className="download">
-                    <span className="icon-download" />
-                  </div>
-                </Tooltip>
-              </div>
+              {!!downloadPDFURL && (
+                <div className="quest-badge__header-right">
+                  <Tooltip
+                    title={downloadPDFTooltipText}
+                    distance={10}
+                    position="top"
+                  >
+                    <div onClick={this.onDownloadClick} className="download">
+                      <span className="icon-download" />
+                    </div>
+                  </Tooltip>
+                </div>
+              )}
             </div>
             <div className="quest-badge__body">
               <div className="quest-badge-review">
