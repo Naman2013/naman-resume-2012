@@ -3,11 +3,7 @@ import PropTypes from 'prop-types';
 import uniqueId from 'lodash/uniqueId';
 import { intlShape, injectIntl } from 'react-intl';
 import cx from 'classnames';
-import {
-  horizontalArrow,
-  complete,
-  incomplete,
-} from 'app/styles/variables/iconURLs';
+import { horizontalArrow } from 'app/styles/variables/iconURLs';
 import style from './step-list-item.style';
 import messages from './step-list-item.messages';
 
@@ -45,24 +41,29 @@ const StepListItem = ({
       </h5>
 
       <div className="action-container">
-        <div className="action-left">
+        <div
+          className={cx('action-left', { 'justify-flex-end': !stepStatusMsg })}
+        >
           {stepStatusMsg}
           {stepCompleted ? (
             <img
               className="check"
-              src={complete}
+              src={stepIconURL}
               alt={intl.formatMessage(messages.CompletedIcon)}
             />
           ) : (
             <img
               className="check"
-              src={incomplete}
+              src={stepIconURL}
               alt={intl.formatMessage(messages.IncompletedIcon)}
             />
           )}
         </div>
         {showActionMsg && (
-          <div className="action-right" onClick={() => goToStep(stepModuleId, itemType)}>
+          <div
+            className="action-right"
+            onClick={() => goToStep(stepModuleId, itemType)}
+          >
             <span className="action-message">{stepActionMsg}</span>
             <div className="arrow-container">
               <img

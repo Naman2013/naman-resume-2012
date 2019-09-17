@@ -82,6 +82,10 @@ export default css`
     cursor: pointer;
   }
 
+  .justify-flex-end {
+    justify-content: flex-end;
+  }
+
   .action-message {
     margin-right: 5px;
     display: none;
