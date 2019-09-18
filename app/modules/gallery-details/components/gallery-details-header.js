@@ -63,12 +63,13 @@ const GalleryDetailsHeader = (props: TGalleryDetailsHeader) => {
               isMobile ? 'start' : 'end'
             }`}
           >
-            <Btn onClick={noop} mod="circle">
+            {/*Hide buttons from UI*/}
+            {/*<Btn onClick={noop} mod="circle">
               <i className="icon icon-download nightfall" />
             </Btn>
             <Btn onClick={noop} mod="circle">
               <i className="fa fa-share-alt" />
-            </Btn>
+            </Btn>*/}
             {canEditFlag ? (
               <Btn onClick={noop} mod="circle">
                 <i className="fa fa-trash" />
