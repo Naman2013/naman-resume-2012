@@ -114,6 +114,7 @@ export default css`
     ${borderBottom}
     ${toUpper}
     padding: 4px 0;
+    color: #415671;
   }
 
   .text {

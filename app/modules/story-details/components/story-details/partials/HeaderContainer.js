@@ -1,4 +1,5 @@
 import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
+import { Link } from 'react-router';
 import LikeSomethingButton from 'app/components/common/LikeSomethingButton';
 import ToggleReadingList from 'app/components/common/ToggleReadingList';
 import { STORY } from 'app/services/reading-lists';
@@ -36,16 +37,20 @@ const HeaderContainer = ({
       />
       <div className="flex by-line">
         <DisplayAtBreakpoint screenMedium screenLarge screenXLarge>
-          <span
-            className="author"
-            dangerouslySetInnerHTML={{ __html: authorInfo.byline }}
-          />
+          <Link to={authorInfo.linkUrl}>
+            <span
+              className="author"
+              dangerouslySetInnerHTML={{ __html: authorInfo.byline }}
+            />
+          </Link>
         </DisplayAtBreakpoint>
         <DisplayAtBreakpoint screenSmall>
-          <span
-            className="author short"
-            dangerouslySetInnerHTML={{ __html: authorInfo.shortByline }}
-          />
+          <Link to={authorInfo.linkUrl}>
+            <span
+              className="author short"
+              dangerouslySetInnerHTML={{ __html: authorInfo.shortByline }}
+            />
+          </Link>
         </DisplayAtBreakpoint>
         <div className="flex actions">
           {toggleReadingListFlag ? (
