@@ -27,6 +27,7 @@ const BodyContent = ({
           <Tooltip
             title={aboutDownloadPDFTooltipText}
             position="top"
+            theme="light"
           >
             <div className="download-quest-pdf">
               <div onClick={onDownloadPDF} className="download">

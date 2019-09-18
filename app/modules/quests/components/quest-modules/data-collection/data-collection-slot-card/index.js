@@ -71,7 +71,7 @@ export const DataCollectionSlotCard = props => {
       </div>
       <div className="dc-slot-card-actions">
         {showSlotButton && (
-          <Tooltip title={slotButtonTooltipText} position="top">
+          <Tooltip theme="light" title={slotButtonTooltipText} position="top">
             <Button
               className="dc-slot-card-find-btn"
               onClick={() => showDataCollectionSlotModal(slot)}
@@ -82,7 +82,7 @@ export const DataCollectionSlotCard = props => {
           </Tooltip>
         )}
         {showSlotInfo && (
-          <Tooltip title={slotInfoTooltipText} position="top">
+          <Tooltip theme="light" title={slotInfoTooltipText} position="top">
             <Button
               className={cn('dc-slot-card-info-btn', { open: isInfoMenuOpen })}
               onClick={() => !isDotsMenuOpen && toggleInfoMenu(!isInfoMenuOpen)}
@@ -99,7 +99,7 @@ export const DataCollectionSlotCard = props => {
           </Tooltip>
         )}
         {showDotMenu && (
-          <Tooltip title={dotMenuTooltipText} position="top">
+          <Tooltip theme="light" title={dotMenuTooltipText} position="top">
             <Button
               onClick={() => !isInfoMenuOpen && toggleDotsMenu(!isDotsMenuOpen)}
               className={cn('dc-slot-card-dots-menu', { open: isDotsMenuOpen })}

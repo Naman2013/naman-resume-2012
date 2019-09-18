@@ -102,6 +102,7 @@ export class QuestQaAnswerForm extends PureComponent {
             <Tooltip
               title={answer.answerLetterTooltipText}
               position="top"
+              theme="light"
               distance={-30}
             >
               <div
@@ -133,6 +134,7 @@ export class QuestQaAnswerForm extends PureComponent {
               title={submitButtonTooltipText}
               distance={20}
               position="top"
+              theme="light"
             >
               <Button
                 className="quest-qa-answer-submit-btn"
@@ -144,7 +146,7 @@ export class QuestQaAnswerForm extends PureComponent {
             </Tooltip>
           )}
           {showEditButton && (
-            <Tooltip title={editButtonTooltipText} position="top" distance={20}>
+            <Tooltip theme="light" title={editButtonTooltipText} position="top" distance={20}>
               <Button
                 className="quest-qa-answer-edit-btn"
                 onClick={() => onClick(ACTIONS.EDIT)}
@@ -155,7 +157,7 @@ export class QuestQaAnswerForm extends PureComponent {
             </Tooltip>
           )}
           {showCancelButton && (
-            <Tooltip title={cancelButtonTooltipText} position="top">
+            <Tooltip theme="light" title={cancelButtonTooltipText} position="top">
               <Button
                 className="quest-qa-answer-cancel-btn"
                 onClick={() => onClick(ACTIONS.CANCEL)}
