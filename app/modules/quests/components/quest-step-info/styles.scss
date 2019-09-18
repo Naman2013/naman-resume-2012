@@ -2,9 +2,16 @@
 
 .quest-step-info {
   display: flex;
-  align-items: flex-end;
+  align-items: flex-start;
+  justify-content: space-between;
   font-family: $secondary-font;
   padding: 30px 80px;
+  padding-right: 10px;
+
+  .quest-next-step-btn {
+    position: relative;
+    top: -4px;
+  }
 
   .quest-step-title {
     font-size: 24px;
@@ -40,6 +47,11 @@
     padding: 0;
     flex-direction: column;
     align-items: center;
+
+    .quest-next-step-btn {
+      position: inherit;
+      top: unset;
+    }
 
     .quest-step-title {
       display: none;
