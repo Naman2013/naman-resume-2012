@@ -52,13 +52,12 @@
 
   .qa-fill-blanks-question {
     label {
-      font-family: $primary-font;
-      font-size: 11px;
+      font-family: $secondary-font;
+      font-size: 19px;
       font-weight: 400;
-      line-height: 1.4;
+      line-height: 1.9;
       letter-spacing: 0.6px;
-      color: $lightHeadedAstronaut;
-      text-transform: uppercase;
+      color: $raven;
       margin-bottom: 20px;
       display: flex;
       align-items: center;
