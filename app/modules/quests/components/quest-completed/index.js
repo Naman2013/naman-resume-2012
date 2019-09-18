@@ -5,7 +5,6 @@ import { CompleteCheckbox } from 'app/modules/quests/components/complete-checkbo
 import { downloadFile } from 'app/utils/downloadFile';
 import QuestHubTileBig from 'app/components/common/tiles/QuestHubTileBig';
 import './styles.scss';
-import Btn from 'app/atoms/Btn';
 
 export class QuestCompleted extends PureComponent {
   // TODO: add questUUID
@@ -13,12 +12,20 @@ export class QuestCompleted extends PureComponent {
   componentDidMount() {
     const { getQuestCompleted, params } = this.props;
     const { questId, questCompletionModuleId: moduleId } = params;
-    getQuestCompleted({ questId, moduleId });
+    getQuestCompleted({ questId, moduleId }).then(this.handleResponse);
   }
 
   onDownloadClick = () => {
     const { questCompletedData } = this.props;
     downloadFile(questCompletedData.downloadPDFURL, 'QuestCompletion.pdf');
+  };
+
+  handleResponse = () => {
+    const { questCompletedData, router, routeParams } = this.props;
+    const { redirectQuest, redirectQuestUrl } = questCompletedData;
+    if (redirectQuest) {
+      router.push(redirectQuestUrl || `/quest-details/${routeParams.questId}`);
+    }
   };
 
   render() {
