@@ -18,9 +18,12 @@ const commonData = {
 };
 
 export const API = axios.create({
-  headers: { 'Content-Type': 'application/json' },
   transformRequest: [
-    data => {
+    (data, headers) => {
+      if (headers['Content-Type'] === 'multipart/form-data') {
+        return data;
+      }
+      headers['Content-Type'] = 'application/json';
       const finalData = { ...data, ...commonData };
       return JSON.stringify(finalData);
     },
