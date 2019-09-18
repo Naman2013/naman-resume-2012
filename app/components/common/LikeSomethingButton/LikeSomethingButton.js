@@ -116,12 +116,14 @@ class LikeHeartButton extends Component {
       likesCount,
       count,
       likePrompt,
+      likedByMe,
     } = res.data;
     const resultLikesCount = count || likesCount;
 
     if (!apiError) {
       this.setState(() => ({
         likesCount: Number(resultLikesCount),
+        likedByMe,
       }));
       if (typeof likeResultHandler === 'function') {
         likeResultHandler(resultLikesCount);
@@ -155,7 +157,12 @@ class LikeHeartButton extends Component {
   };
 
   render() {
-    const { likePrompt, likesCount, isModalOpen } = this.state;
+    const {
+      likePrompt,
+      likesCount,
+      isModalOpen,
+      likedByMe: likedByMeInner,
+    } = this.state;
     const { mod, user, likedByMe } = this.props;
     if (!user) return null;
     return (
@@ -165,7 +172,7 @@ class LikeHeartButton extends Component {
           onClickEvent={this.likeItem}
           count={likesCount}
           alwaysShowCount
-          likedByMe={likedByMe}
+          likedByMe={likedByMe || likedByMeInner}
         />
         <Modal
           ariaHideApp={false}

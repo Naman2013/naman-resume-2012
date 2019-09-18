@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
 import CountButton from './CountButton';
 
 const { bool, func, number, oneOfType, string } = PropTypes;
@@ -15,18 +15,14 @@ const LikeButton = ({
   mod,
   likedByMe,
 }) => {
-  const [liked, setLiked] = useState(likedByMe);
   return (
     <div>
       <CountButton
         mod={mod}
         count={count}
         alwaysShowCount={alwaysShowCount}
-        onClickEvent={e => {
-          onClickEvent(e);
-          setLiked(true);
-        }}
-        icon={liked ? filledHeartIcon : heartIcon}
+        onClickEvent={onClickEvent}
+        icon={likedByMe ? filledHeartIcon : heartIcon}
       />
     </div>
   );
