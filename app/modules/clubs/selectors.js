@@ -26,6 +26,7 @@ export const makeTopThreadsDataSelector = () =>
           threadId: x.threadId,
           title: x.title,
           totalLikes: x.totalLikes,
+          authorInfo: x.authorInfo,
         };
       })
   );
