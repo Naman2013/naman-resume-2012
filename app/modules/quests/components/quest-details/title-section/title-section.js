@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Tooltip } from 'react-tippy';
 import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
 import CenterColumn from 'app/components/common/CenterColumn';
 import GenericButton from 'app/components/common/style/buttons/Button';
@@ -15,16 +16,25 @@ import _noop from 'lodash/noop';
 import { Button } from 'react-bootstrap';
 
 const QuestDetailsTitleSection = ({
-  iconURL,
-  preTitle,
-  showActionButton,
+  questData,
   actionButtonEvent,
-  actionButtonCaption,
-  title,
-  showInProgressButton,
-  inProgressButtonCaption,
-  completed,
-}) => (
+}) => {
+  const { 
+    iconURL,
+    questType,
+    showStartQuestButton,
+    startQuestButtonCaption,
+    questTitle,
+    showInProgressButton,
+    inProgressButtonCaption,
+    completed,
+    showQuestCompletionIcons,
+    showQuestCompleteCheckIcon,
+    showQuestCompleteCheckIconTooltip,
+    questCompleteCheckIconTooltipText,
+  } = questData;
+
+  return (
   <div className="root">
     <CenterColumn
       theme={{
@@ -49,13 +59,13 @@ const QuestDetailsTitleSection = ({
       </div>
 
       <h2 className="title">
-        <span className="pre-title">{preTitle}</span>
-        {title}
+        <span className="pre-title">{questType}</span>
+        {questTitle}
       </h2>
       <div className="action-container">
-        {showActionButton && !completed ? (
+        {showStartQuestButton && !completed ? (
           <GenericButton
-            text={actionButtonCaption}
+            text={startQuestButtonCaption}
             onClickEvent={actionButtonEvent}
           />
         ) : null}
@@ -64,9 +74,13 @@ const QuestDetailsTitleSection = ({
           <GenericButton text={inProgressButtonCaption} onClickEvent={_noop} />
         ) : null}
 
-        {completed && (
+        {showQuestCompletionIcons && (
           <>
-            <CompleteCheckbox completed={!completed} />
+            {showQuestCompleteCheckIcon && (
+              <Tooltip disabled={!showQuestCompleteCheckIconTooltip} theme="light" title={questCompleteCheckIconTooltipText} position="top">
+                <CompleteCheckbox completed={!completed} />
+              </Tooltip>
+            )}
 
             <Button onClick={() => {}} className="quest-download-pdf-btn">
               <span className="icon-download" />
@@ -82,19 +96,20 @@ const QuestDetailsTitleSection = ({
 
     <style jsx>{style}</style>
   </div>
-);
+  );
+};
 
 QuestDetailsTitleSection.defaultProps = {
-  preTitle: '',
+  questType: '',
   iconURL: '',
 };
 
 QuestDetailsTitleSection.propTypes = {
-  preTitle: PropTypes.string,
+  questType: PropTypes.string,
   iconURL: PropTypes.string,
-  title: PropTypes.string.isRequired,
-  showActionButton: PropTypes.bool,
-  actionButtonCaption: PropTypes.string,
+  questTitle: PropTypes.string.isRequired,
+  showStartQuestButton: PropTypes.bool,
+  startQuestButtonCaption: PropTypes.string,
   actionButtonEvent: PropTypes.func,
 };
 

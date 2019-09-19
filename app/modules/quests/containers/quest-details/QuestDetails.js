@@ -73,6 +73,7 @@ export const QuestDetails = props => {
         {modal.modalComponent}
       </Modal>
       <QuestTitleSection
+        questData={pageMeta}
         preTitle={pageMeta.questType}
         title={pageMeta.questTitle}
         iconURL={pageMeta.iconURL}
@@ -82,6 +83,7 @@ export const QuestDetails = props => {
         inProgressButtonCaption={pageMeta.inProgressButtonCaption}
         showInProgressButton={pageMeta.showInProgressButton}
         completed={pageMeta.completed}
+        showQuestCompletionIcons={pageMeta.showQuestCompletionIcons}
       />
       <CenterColumn>
         <GuideSection
