@@ -1,6 +1,5 @@
-import React, { PureComponent, Fragment } from 'react';
-import moment from 'moment';
 import { ThreeDotsMenu } from 'app/modules/missions/components/three-dots-menu';
+import React, { PureComponent } from 'react';
 import './styles.scss';
 
 export class MissionCard extends PureComponent {
@@ -11,6 +10,7 @@ export class MissionCard extends PureComponent {
       profileMission,
       cancelReservation,
       cancelPiggyback,
+      grabPiggyback,
     } = this.props;
     const {
       telescopeName,
@@ -48,6 +48,7 @@ export class MissionCard extends PureComponent {
                 timeSlot={timeSlot}
                 cancelReservation={() => cancelReservation(timeSlot)}
                 cancelPiggyback={() => cancelPiggyback(timeSlot)}
+                grabPiggyback={grabPiggyback}
               />
             )}
           </div>
@@ -67,6 +68,7 @@ export class MissionCard extends PureComponent {
                 timeSlot={timeSlot}
                 cancelReservation={() => cancelReservation(timeSlot)}
                 cancelPiggyback={() => cancelPiggyback(timeSlot)}
+                grabPiggyback={grabPiggyback}
               />
             )}
           </div>

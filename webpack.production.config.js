@@ -31,31 +31,6 @@ module.exports = {
 
   devtool: 'source-map',
   entry: {
-    // vendors: [
-    //   'classnames',
-    //   'cookie',
-    //   'lodash',
-    //   'moment',
-    //   'moment-timezone',
-    //   'axios',
-    //   'react',
-    //   'react-addons-css-transition-group',
-    //   'react-dom',
-    //   'react-draggable',
-    //   'react-onclickoutside',
-    //   'react-redux',
-    //   'react-remarkable',
-    //   'react-router',
-    //   'react-router-redux',
-    //   'react-scroll',
-    //   'react-slick',
-    //   'react-tabs',
-    //   'react-tag-input',
-    //   'redux',
-    //   'redux-form',
-    //   'redux-logger',
-    //   'redux-thunk',
-    // ],
     vendors: ['babel-polyfill'],
     bundle: './index.js',
   },
@@ -70,9 +45,15 @@ module.exports = {
       app: path.resolve(__dirname, './app/'),
       assets: path.resolve(__dirname, './app/assets/'),
     },
+    extensions: ['.tsx', '.ts', '.js'],
   },
   module: {
     rules: [
+      {
+        test: /\.tsx?$/,
+        use: 'ts-loader',
+        exclude: /node_modules/,
+      },
       {
         test: /\.(js)$/,
         loader: 'string-replace-loader',
@@ -144,18 +125,9 @@ module.exports = {
     }),
 
     new webpack.EnvironmentPlugin({
-      SENTRY_ENV: 'PRODUCTION'
+      SENTRY_ENV: 'PRODUCTION',
     }),
 
-    // new webpack.optimize.CommonsChunkPlugin({
-    //   name: 'vendors',
-    //   filename: 'common.js',
-    // }),
-    // new HtmlWebpackPlugin({
-    //   template: `${__dirname}/app/index.html`,
-    //   filename: 'index.html',
-    //   inject: 'body',
-    // }),
     // Minify and optimize the index.html
     new HtmlWebpackPlugin({
       template: 'index.html',
