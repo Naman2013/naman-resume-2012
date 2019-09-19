@@ -16,6 +16,7 @@ const CardObsSmall = props => {
     linkUrl,
     likesCount,
     likedByMe,
+    likeTooltip,
     commentsCount,
     intl,
     handleLike,
@@ -96,6 +97,7 @@ const CardObsSmall = props => {
               likePrompt={likePrompt}
               likesCount={likesNumber}
               likedByMe={likedByMe}
+              likeTooltip={likeTooltip}
               likeHandler={onLikeClick}
               customerId={customerImageId}
               showLikePrompt={showLikePrompt}

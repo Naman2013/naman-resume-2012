@@ -16,7 +16,7 @@ const LikeButton = ({
   likedByMe,
 }) => {
   return (
-    <div>
+    <div className="like-button">
       <CountButton
         mod={mod}
         count={count}
@@ -24,6 +24,11 @@ const LikeButton = ({
         onClickEvent={onClickEvent}
         icon={likedByMe ? filledHeartIcon : heartIcon}
       />
+      <style jsx>{`
+        .like-button {
+          display: inline-block;
+        }
+      `}</style>
     </div>
   );
 };

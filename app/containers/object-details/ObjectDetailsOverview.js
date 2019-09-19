@@ -216,6 +216,7 @@ class Overview extends Component {
                     imageUrl={observation.imageURL}
                     linkUrl={observation.linkUrl}
                     likesCount={observation.likesCount}
+                    likeTooltip={observation.likeTooltip}
                     likePrompt={observation.likePrompt}
                     observationTimeDisplay={observation.timeDisplay}
                     showLikePrompt={observation.showLikePrompt}

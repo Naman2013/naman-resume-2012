@@ -54,6 +54,7 @@ class DiscussionsCard extends PureComponent {
       likePrompt,
       likesCount,
       likedByMe,
+      likeTooltip,
       openModal,
       renderChildReplies,
       replyToponlyCount,
@@ -114,6 +115,7 @@ class DiscussionsCard extends PureComponent {
                 likeHandler={likeHandler}
                 likesCount={likesCount}
                 likedByMe={likedByMe}
+                likeTooltip={likeTooltip}
                 likePrompt={likePrompt}
                 likeParams={likeParams}
                 openModal={openModal}

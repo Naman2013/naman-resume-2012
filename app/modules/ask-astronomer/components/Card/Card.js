@@ -47,6 +47,7 @@ const Card = props => {
     likePrompt,
     likesCount,
     likedByMe,
+    likeTooltip,
     modalActions,
     objectName,
     renderChildReplies,
@@ -113,6 +114,7 @@ const Card = props => {
               likeHandler={likeHandler}
               likesCount={likesCount}
               likedByMe={likedByMe}
+              likeTooltip={likeTooltip}
               likePrompt={likePrompt}
               likeParams={likeParams}
               showLikePrompt={showLikePrompt}

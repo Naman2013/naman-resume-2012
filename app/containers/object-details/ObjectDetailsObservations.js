@@ -108,7 +108,7 @@ class Observations extends Component {
     };
     this.setState({ page });
     fetchSharedMemberPhotosAction(requestBody);
-  } 
+  }
 
   handleSelect = (e, selectedItem) => {
     this.setState({
@@ -201,6 +201,7 @@ class Observations extends Component {
                           imageUrl={imageDetails.imageURL}
                           linkUrl={imageDetails.linkUrl}
                           likesCount={imageDetails.likesCount}
+                          likeTooltip={imageDetails.likeTooltip}
                           likePrompt={imageDetails.likePrompt}
                           showLikePrompt={imageDetails.showLikePrompt}
                           commentsCount={imageDetails.commentsCount}

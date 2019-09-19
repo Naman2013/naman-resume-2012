@@ -24,6 +24,7 @@ const MainContainer = ({
   likePrompt,
   likesCount,
   likedByMe,
+  likeTooltip,
   objectId,
   scheduledMissionId,
   showLikePrompt,
@@ -38,6 +39,7 @@ const MainContainer = ({
         likeHandler={likeStory}
         likesCount={likesCount}
         likedByMe={likedByMe}
+        likeTooltip={likeTooltip}
         likePrompt={likePrompt}
         likeParams={likeParams}
         showLikePrompt={showLikePrompt}
