@@ -6,3 +6,6 @@ export const getGalleryDetailsApi = data => API.post(API_URL, data);
 
 export const removeImageFromGalleryApi = data =>
   API.post('/api/images/removeImageFromGallery', data);
+
+export const deleteGalleryApi = data =>
+  API.post('/api/images/deleteGallery', data);

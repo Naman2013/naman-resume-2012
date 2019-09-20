@@ -6,6 +6,7 @@ import { API_URL } from './api';
 export const TYPE = constants('gallery-details', [
   '~GET_GALLERY_DETAILS',
   '~REMOVE_IMAGE_FROM_GALLERY',
+  '~DELETE_GALLERY',
 ]);
 export const ACTION = actions(TYPE);
 
@@ -39,6 +40,9 @@ export default handleActions(
     [TYPE.REMOVE_IMAGE_FROM_GALLERY]: setFetching,
     [TYPE.REMOVE_IMAGE_FROM_GALLERY_SUCCESS]: removeImageFromGallerySuccess,
     [TYPE.REMOVE_IMAGE_FROM_GALLERY_ERROR]: setServerError,
+    [TYPE.DELETE_GALLERY]: setFetching,
+    [TYPE.DELETE_GALLERY_SUCCESS]: deleteGallerySuccess,
+    [TYPE.DELETE_GALLERY_ERROR]: setServerError,
   },
   initialState
 );
@@ -75,5 +79,13 @@ function removeImageFromGallerySuccess(state, { payload }) {
     isFetching: false,
     isLoaded: true,
     galleryCountChange: payload.galleryCountChange,
+  };
+}
+
+function deleteGallerySuccess(state, { payload }) {
+  return {
+    ...state,
+    isFetching: false,
+    isLoaded: true,
   };
 }
