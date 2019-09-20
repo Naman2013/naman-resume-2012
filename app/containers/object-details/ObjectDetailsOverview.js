@@ -147,6 +147,7 @@ const modelData = resp => ({
 });
 
 const obsData = resp => ({
+  ...resp,
   title: resp.imageTitle,
   subTitle: resp.displayName,
   desc: resp.observationLog,
@@ -217,6 +218,7 @@ class Overview extends Component {
                     linkUrl={observation.linkUrl}
                     likesCount={observation.likesCount}
                     likeTooltip={observation.likeTooltip}
+                    likedByMe={observation.likedByMe}
                     likePrompt={observation.likePrompt}
                     observationTimeDisplay={observation.timeDisplay}
                     showLikePrompt={observation.showLikePrompt}

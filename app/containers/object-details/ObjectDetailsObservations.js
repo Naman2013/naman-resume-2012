@@ -201,6 +201,7 @@ class Observations extends Component {
                           imageUrl={imageDetails.imageURL}
                           linkUrl={imageDetails.linkUrl}
                           likesCount={imageDetails.likesCount}
+                          likedByMe={imageDetails.likedByMe}
                           likeTooltip={imageDetails.likeTooltip}
                           likePrompt={imageDetails.likePrompt}
                           showLikePrompt={imageDetails.showLikePrompt}
