@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 export const FETCH_LIVE_SHOW_INFO_START = 'START_FETCH_LIVE_SHOW_INFO';
 export const FETCH_LIVE_SHOW_INFO_SUCCESS = 'FETCH_LIVE_SHOW_INFO_SUCCESS';
@@ -26,7 +26,7 @@ export const fetchLiveShowInfo = showId => (dispatch, getState) => {
   /* for testing purposes */
   // testShowId = 388;
 
-  return axios.post('/api/events/getLiveShowInfo', {
+  return API.post('/api/events/getLiveShowInfo', {
     at,
     token,
     cid,

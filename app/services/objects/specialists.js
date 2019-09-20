@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 export default function fetchObjectSpecialistsService({
   at,
@@ -7,7 +7,7 @@ export default function fetchObjectSpecialistsService({
   objectId,
   token,
 }) {
-  return axios.post('/api/object/getObjectSpecialists', {
+  return API.post('/api/object/getObjectSpecialists', {
     at,
     cid,
     maxCount,

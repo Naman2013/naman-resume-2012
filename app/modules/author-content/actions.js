@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 export const FETCH_AUTHOR_CONTENT_START = 'FETCH_AUTHOR_CONTENT_START';
 export const FETCH_AUTHOR_CONTENT_SUCCESS = 'FETCH_AUTHOR_CONTENT_SUCCESS';
@@ -30,7 +30,7 @@ export const fetchAuthorContent = ({
   const { cid, at, token } = getState().user;
   const { count } = getState().authorContent;
   dispatch(fetchAuthorContentStart());
-  return axios.post(' /api/content/getContent', {
+  return API.post(' /api/content/getContent', {
     cid,
     at,
     token,

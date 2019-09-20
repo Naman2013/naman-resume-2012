@@ -1,7 +1,7 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 export default function fetchWeatherSatelliteWidget({ obsId, widgetUniqueId }) {
-  return axios.post('/api/wx/satellite', {
+  return API.post('/api/wx/satellite', {
     obsId,
     widgetUniqueId,
   });

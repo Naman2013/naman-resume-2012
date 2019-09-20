@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 export const FETCH_QUEST_PAGE_META_START = 'FETCH_QUEST_PAGE_META_START';
 export const FETCH_QUEST_PAGE_META_SUCCESS = 'FETCH_QUEST_PAGE_META_SUCCESS';
@@ -25,7 +25,7 @@ export const fetchQuestPageMeta = ({
 }) => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
   dispatch(fetchQuestPageMetaStart());
-  return axios.post('/api/quests/getQuest', {
+  return API.post('/api/quests/getQuest', {
     lang,
     questId,
     ver,

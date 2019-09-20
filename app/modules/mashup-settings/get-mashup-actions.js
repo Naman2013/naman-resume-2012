@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 export const FETCH_SETTINGS_START = 'FETCH_SETTINGS_START';
 export const FETCH_SETTINGS_SUCCESS = 'FETCH_SETTINGS_SUCCESS';
@@ -20,7 +20,7 @@ const fetchSettingsFail = payload => ({
 
 export const fetchMashupSettings = pageName => (dispatch) => {
   dispatch(fetchSettingsStart());
-  return axios.post('/api/social/getMashupSettings', {
+  return API.post('/api/social/getMashupSettings', {
     pageName,
   })
   .then(result => dispatch(fetchSettingsSuccess(result.data)))

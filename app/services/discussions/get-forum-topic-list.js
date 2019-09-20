@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 /**
   @param status - (optional) status of Forums and Topics to return (‘published’, ‘draft’, ‘all’) default ‘published’
@@ -13,7 +13,7 @@ export const getForumTopicList = ({
   ver,
   status,
 }) => (
-  axios.post('/api/forum/getForumTopicList', {
+  API.post('/api/forum/getForumTopicList', {
     cid,
     at,
     token,

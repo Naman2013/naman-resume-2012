@@ -1,7 +1,7 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 export default function fetchBrowseTaggedDataService({ token, at, cid, contentTypes }) {
-  return axios.post('/api/search/browseTaggedData', {
+  return API.post('/api/search/browseTaggedData', {
     token,
     at,
     cid,

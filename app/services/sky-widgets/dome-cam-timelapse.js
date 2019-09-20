@@ -1,7 +1,7 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 export default function fetchDomeCamTimelapse({ obsId, DomecamTimelapseWidgetId }) {
-  return axios.post('/api/widget/domecamTimelapse', {
+  return API.post('/api/widget/domecamTimelapse', {
     obsId,
     widgetUniqueId: DomecamTimelapseWidgetId,
   });

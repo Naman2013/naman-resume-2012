@@ -1,11 +1,9 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 export const GET_PAGE_ABOUT = '/api/page/about';
 
-export function fetchAboutDataService({
-  cid, at, token, ver, lang,
-}) {
-  return axios.post(GET_PAGE_ABOUT, {
+export function fetchAboutDataService({ cid, at, token, ver, lang }) {
+  return API.post(GET_PAGE_ABOUT, {
     cid,
     at,
     token,

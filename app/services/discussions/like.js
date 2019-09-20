@@ -24,7 +24,7 @@
   topicId (required) The ID of the Topic for the thread.
   */
 
-import axios from 'axios';
+import { API } from 'app/api';
 
 export function likeReply({
   at,
@@ -39,7 +39,7 @@ export function likeReply({
   replyType,
   callSource,
 }) {
-  return axios.post('/api/forum/likeReply', {
+  return API.post('/api/forum/likeReply', {
     at,
     token,
     cid,
@@ -65,7 +65,7 @@ export function likeThread({
   membershipType,
   callSource,
 }) {
-  return axios.post('/api/forum/likeThread', {
+  return API.post('/api/forum/likeThread', {
     at,
     token,
     cid,

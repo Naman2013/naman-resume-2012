@@ -1,20 +1,20 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 export const getFitsDataApi = data =>
-  axios.post('/api/images/getMissionFITS', data);
+  API.post('/api/images/getMissionFITS', data);
 
-export const getTagsApi = data => axios.post('/api/tags/getTags', data);
+export const getTagsApi = data => API.post('/api/tags/getTags', data);
 
-export const setTagApi = data => axios.post('/api/tags/setTag', data);
+export const setTagApi = data => API.post('/api/tags/setTag', data);
 
-export const deleteTagApi = data => axios.post('/api/tags/deleteTag', data);
+export const deleteTagApi = data => API.post('/api/tags/deleteTag', data);
 
 //Photohub upload
 export const uploadToMyPicturesPageApi = data =>
-  axios.post('/api/images/uploadToMyPicturesPage', data);
+  API.post('/api/images/uploadToMyPicturesPage', data);
 
 export const setMyPicturesUploadApi = data =>
-  axios({
+  API({
     method: 'post',
     url: '/api/images/setMyPicturesUpload',
     headers: {
@@ -24,4 +24,4 @@ export const setMyPicturesUploadApi = data =>
   });
 
 export const uploadToMyPicturesApi = data =>
-  axios.post('/api/images/uploadToMyPictures', data);
+  API.post('/api/images/uploadToMyPictures', data);

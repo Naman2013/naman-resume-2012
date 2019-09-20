@@ -8,7 +8,7 @@
 import React, { Component } from 'react';
 import { browserHistory } from 'react-router';
 import PropTypes from 'prop-types';
-import axios from 'axios';
+import { API } from 'app/api';
 import { FormattedMessage } from 'react-intl';
 import { Button } from 'react-bootstrap';
 import take from 'lodash/take';
@@ -114,7 +114,7 @@ class DiscussionsThreads extends Component {
     const searchValue = this.searchInput.value.trim();
     const searchData = searchValue ? { searchTerms: searchValue } : {};
 
-    axios
+    API
       .post(THREAD_LIST, {
         callSource,
         count,
@@ -166,7 +166,7 @@ class DiscussionsThreads extends Component {
       discussionsActions: { updateCommentsProps },
     } = this.props;
 
-    axios
+    API
       .post(THREAD_REPLIES, {
         callSource,
         topicId,
@@ -322,7 +322,7 @@ class DiscussionsThreads extends Component {
     } = this.props;
     const { fetching, activePage, showSearchTermResultHeading, searchTermResultHeading } = this.state;
     const { threadsCount } = discussions;
-    
+
     return (
       <div className="root">
         {CREATE_THREAD_FORM[callSource].render({
@@ -331,14 +331,14 @@ class DiscussionsThreads extends Component {
           isDesktop,
           isClub,
         })}
-        <div 
-          className="comments-bar" 
+        <div
+          className="comments-bar"
           ref={node => { this.threadsContainer = node; }}
         >
           {showSearchTermResultHeading ? <span>{searchTermResultHeading}</span> : <span><FormattedMessage {...messages.Comments} /> ({threadsCount})</span>}
 
           <div className="comments-search">
-            <input 
+            <input
               placeholder="Search"
               ref={node => { this.searchInput = node }}
               onKeyUp={this.handleSearchEnterPress}
@@ -347,7 +347,7 @@ class DiscussionsThreads extends Component {
               <Button onClick={this.resetSearch}>
                 <FormattedMessage {...messages.Reset} />
               </Button>
-            ) : ( 
+            ) : (
               <Button onClick={() => this.getThreads(this.props)}>
                 <FormattedMessage {...messages.Search} />
               </Button>

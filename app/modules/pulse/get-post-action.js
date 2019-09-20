@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 import { getFeaturedContent } from '../../services/featured-content/get-featured-content';
 import { getSharedMemberPhotos } from '../get-shared-member-photos/actions';
 import { setPageTitle, setStandardMeta, setOpenGraphMeta } from '../pageLevelMetaContent/seo-actions';
@@ -76,7 +76,7 @@ const fetchMetaSuccess = payload => ({
 
 const fetchMeta = slugLookupId => (dispatch) => {
   dispatch(fetchMetaStart());
-  return axios.post(' /api/content/getPulsePostContentPageLayout', {
+  return API.post(' /api/content/getPulsePostContentPageLayout', {
     slugLookupId,
   })
   .then(result => dispatch(fetchMetaSuccess(result.data)));
@@ -107,7 +107,7 @@ export const fetchContent = ({
   const { cid, at, token } = getState().user;
   const { content } = getState().post;
   dispatch(fetchContentStart());
-  return axios.post(' /api/content/getContent', {
+  return API.post(' /api/content/getContent', {
     cid,
     at,
     token,
@@ -144,7 +144,7 @@ export const fetchPost = id => (dispatch, getState) => {
   dispatch(fetchPostStart());
   dispatch(fetchPopularPosts());
 
-  return axios.post('/api/content/getPost', {
+  return API.post('/api/content/getPost', {
     cid,
     postId: id,
   })

@@ -7,7 +7,7 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import axios from 'axios';
+import { API } from 'app/api';
 import uniqueId from 'lodash/uniqueId';
 import take from 'lodash/take';
 import noop from 'lodash/noop';

@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 export const FETCH_CATALOG_START = 'FETCH_CATALOG_START';
 export const FETCH_CATALOG_SUCCESS = 'FETCH_CATALOG_SUCCESS';
@@ -7,7 +7,7 @@ export const FETCH_CATALOG_FAIL = 'FETCH_CATALOG_FAIL';
 export const fetchCatalog = () => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
   dispatch(startGetCatalog());
-  return axios.post('/api/reservation/getCatalogList', {
+  return API.post('/api/reservation/getCatalogList', {
     at,
     token,
     cid,
