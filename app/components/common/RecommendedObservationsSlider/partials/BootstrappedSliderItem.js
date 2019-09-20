@@ -17,6 +17,8 @@ const BootstrappedObservationSliderItem = props => {
     imageDownloadURL,
     linkUrl,
     likesCount,
+    likedByMe,
+    likeTooltip,
     commentsCount,
     observationTimeDisplay,
     intl,
@@ -110,6 +112,8 @@ const BootstrappedObservationSliderItem = props => {
                       mod="no-border"
                       likePrompt={likePrompt}
                       likesCount={likesNumber || likesCount}
+                      likedByMe={likedByMe}
+                      likeTooltip={likeTooltip}
                       likeHandler={onLikeClick}
                       customerId={customerImageId}
                       showLikePrompt={showLikePrompt}

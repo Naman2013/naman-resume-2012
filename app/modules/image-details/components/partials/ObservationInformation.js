@@ -7,6 +7,7 @@
 
 import Btn from 'app/atoms/Btn';
 import Icon from 'app/atoms/Icon';
+import LikeSomethingButton from 'app/components/common/LikeSomethingButton';
 import { Link } from 'react-router';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
@@ -102,23 +103,14 @@ class BootstrappedImageDetails extends Component {
     refetchData();
   };
 
-  likeObservation = e => {
-    e.preventDefault();
-
-    const { customerImageId, user, showLikePrompt } = this.props;
-
-    if (showLikePrompt) {
-      this.setState({
-        isOpen: true,
-      });
-    } else {
-      likeImage({
-        likeId: customerImageId,
-        token: user.token,
-        at: user.at,
-        cid: user.cid,
-      }).then(this.handleLikeResult);
-    }
+  likeObservation = () => {
+    const { customerImageId, user } = this.props;
+    return likeImage({
+      likeId: customerImageId,
+      token: user.token,
+      at: user.at,
+      cid: user.cid,
+    });
   };
 
   handleLikeResult = res => {
@@ -166,6 +158,10 @@ class BootstrappedImageDetails extends Component {
       canShareFlag,
       canEditFlag,
       shareMemberPhotoData,
+      likesCount,
+      likedByMe,
+      likeTooltip,
+      showLikePrompt,
       iconFileData,
     } = this.props;
 
@@ -196,7 +192,15 @@ class BootstrappedImageDetails extends Component {
             dangerouslySetInnerHTML={{ __html: observationLog }}
           />
           <div className="pull-left">
-            <LikeButton onClickEvent={this.likeObservation} count={count} />
+            <LikeSomethingButton
+              likeHandler={this.likeObservation}
+              likesCount={likesCount}
+              likedByMe={likedByMe}
+              likeTooltip={likeTooltip}
+              likePrompt={likePrompt}
+              likeParams={{}}
+              showLikePrompt={showLikePrompt}
+            />
           </div>
 
           <Modal show={isOpen} onHide={this.closeModal}>

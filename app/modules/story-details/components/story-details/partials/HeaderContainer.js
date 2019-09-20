@@ -17,6 +17,8 @@ const HeaderContainer = ({
   likeParams,
   likePrompt,
   likesCount,
+  likedByMe,
+  likeTooltip,
   mainImage,
   objectId,
   postId,
@@ -64,6 +66,8 @@ const HeaderContainer = ({
           <LikeSomethingButton
             likeHandler={likeStory}
             likesCount={likesCount}
+            likedByMe={likedByMe}
+            likeTooltip={likeTooltip}
             likePrompt={likePrompt}
             likeParams={likeParams}
             showLikePrompt={showLikePrompt}

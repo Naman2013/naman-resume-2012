@@ -16,6 +16,8 @@ const CardObsLarge = props => {
     imageUrl,
     linkUrl,
     likesCount,
+    likedByMe,
+    likeTooltip,
     commentsCount,
     observationTimeDisplay,
     intl,
@@ -112,6 +114,8 @@ const CardObsLarge = props => {
                       mod="no-border"
                       likePrompt={likePrompt}
                       likesCount={likesNumber}
+                      likedByMe={likedByMe}
+                      likeTooltip={likeTooltip}
                       likeHandler={onLikeClick}
                       customerId={customerImageId}
                       showLikePrompt={showLikePrompt}

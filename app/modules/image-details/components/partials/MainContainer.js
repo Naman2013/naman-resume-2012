@@ -20,6 +20,8 @@ const MainContainer = ({
   fileData,
   showLikePrompt,
   likePrompt,
+  likedByMe,
+  likeTooltip,
   likesCount,
   observationLog,
   observationTimeDisplay,
@@ -52,7 +54,9 @@ const MainContainer = ({
             fileData={fileData}
             iconFileData={iconFileData}
             likesCount={likesCount}
+            likedByMe={likedByMe}
             likePrompt={likePrompt}
+            likeTooltip={likeTooltip}
             showLikePrompt={showLikePrompt}
             observationLog={observationLog}
             observationTimeDisplay={observationTimeDisplay}
