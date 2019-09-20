@@ -16,7 +16,7 @@ import {
   CLASSROOM_CREATE_NEW_SCHOOL,
 } from 'app/services/classroom/classroom';
 import { JOIN_PAGE_ENDPOINT_URL } from 'app/services/registration/registration.js';
-import axios from 'axios';
+import { API } from 'app/api';
 import debounce from 'lodash/debounce';
 import { DeviceContext } from 'app/providers/DeviceProvider';
 import JoinHeader from './partials/JoinHeader';
@@ -53,7 +53,7 @@ class JoinStep1SchoolSelectionGeneral extends Component {
   };
 
   componentDidMount() {
-    axios
+    API
       .post(JOIN_PAGE_ENDPOINT_URL, {
         callSource: 'selectSchoolDistrict',
         selectedPlanId: window.localStorage.getItem('selectedPlanId'),
@@ -82,8 +82,8 @@ class JoinStep1SchoolSelectionGeneral extends Component {
   handleZipCodeChange = value => {
     if (value.length >= 5) {
       //get a list of school districts for this zipcode.
-      axios
-        .post(CLASSROOM_GET_US_DISTRICTLIST_ENDPOINT_URL, {
+      API
+      .post(CLASSROOM_GET_US_DISTRICTLIST_ENDPOINT_URL, {
           zipcode: value,
           includePleaseSelectOption: 'yes',
         })
@@ -118,8 +118,8 @@ class JoinStep1SchoolSelectionGeneral extends Component {
       //get a list of schools for this school district.
       //console.log("Get a list of schools for this district." + value);
 
-      axios
-        .post(CLASSROOM_GET_US_SCHOOLLIST_ENDPOINT_URL, {
+      API
+      .post(CLASSROOM_GET_US_SCHOOLLIST_ENDPOINT_URL, {
           districtExternalId: value,
           includePleaseSelectOption: 'yes',
         })
@@ -168,8 +168,8 @@ class JoinStep1SchoolSelectionGeneral extends Component {
         schoolCity,
         schoolState,
       } = values;
-      axios
-        .post(CLASSROOM_CREATE_NEW_SCHOOL, {
+      API
+      .post(CLASSROOM_CREATE_NEW_SCHOOL, {
           schoolName,
           schoolAddress,
           schoolCountry,

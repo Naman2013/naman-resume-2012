@@ -49,6 +49,7 @@ const BootstrappedImageDetails = props => {
     observationTagsError,
     observationLog,
     refetchData,
+    shareMemberPhotoData,
   } = props;
 
   const showMissionRelatedInfo = Number(scheduledMissionId) > 0;
@@ -57,7 +58,7 @@ const BootstrappedImageDetails = props => {
     rightPanelDisplayFlags.filter(flag => !!flag).length > 0;
   const [isOpen, openModal] = useState(false);
   return (
-    <div className="container mt-5 image-details">
+    <div key={`image-details-${customerImageId}`} className="container mt-5 image-details">
       <div className="row mb-5">
         <div className="col-12">
           <div className="obs-img-container">
@@ -73,6 +74,7 @@ const BootstrappedImageDetails = props => {
                   canShareFlag={canShareFlag}
                   actions={actions}
                   refetchData={refetchData}
+                  shareMemberPhotoData={shareMemberPhotoData}
                 />
               ) : (
                 <ViewHeader imageTitle={imageTitle} />

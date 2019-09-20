@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 export const TOGGLE_PUBLIC_GALLERY_START = 'TOGGLE_PUBLIC_GALLERY_START';
 export const TOGGLE_PUBLIC_GALLERY_SUCCESS = 'TOGGLE_PUBLIC_GALLERY_SUCCESS';
@@ -24,7 +24,7 @@ export const togglePublicGallery = ({
 }) => (dispatch, getState) => {
   const { token, cid, at } = getState().user;
   dispatch(togglePublicGalleryStart());
-  return axios.post('/api/images/toggleGalleryPublic', {
+  return API.post('/api/images/toggleGalleryPublic', {
     at,
     cid,
     token,

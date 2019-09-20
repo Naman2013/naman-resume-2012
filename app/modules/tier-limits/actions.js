@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 export const FETCH_TIER_LIMITS_START = 'FETCH_TIER_LIMITS_START';
 export const FETCH_TIER_LIMITS_SUCCESS = 'FETCH_TIER_LIMITS_SUCCESS';
@@ -24,7 +24,7 @@ export const fetchTierLimits = ({
 }) => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
   dispatch(fetchTierLimitsStart());
-  return axios.post('/api/settings/checkTierLimits', {
+  return API.post('/api/settings/checkTierLimits', {
     lang,
     ver,
     at,

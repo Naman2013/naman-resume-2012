@@ -9,6 +9,12 @@ export const TYPE = constants('profile', [
   '~SET_TAG',
   '~GET_TAGS',
   '~DELETE_TAG',
+
+  // photo upload
+  '~UPLOAD_TO_MY_PICTURES_PAGE',
+  '~SET_MY_PICTURES_UPLOAD',
+  '~UPLOAD_TO_MY_PICTURES',
+  'CLEAR_UPLOADED_PHOTO_DATA',
 ]);
 export const ACTION = actions(TYPE);
 
@@ -28,6 +34,12 @@ export const initialState = {
     data: {},
     tagList: [],
   },
+
+  uploadToMyPicturesPageData: {},
+  uploadPhotoData: {
+    imageData: {},
+  },
+  uploadToMyPicturesData: {},
 };
 
 export default handleActions(
@@ -48,6 +60,21 @@ export default handleActions(
     [TYPE.DELETE_TAG]: setTagFetching,
     [TYPE.DELETE_TAG_SUCCESS]: setTagSuccess,
     [TYPE.DELETE_TAG_ERROR]: setServerError,
+
+    // UPLOAD PICTURES
+    [TYPE.UPLOAD_TO_MY_PICTURES_PAGE]: setFetching,
+    [TYPE.UPLOAD_TO_MY_PICTURES_PAGE_SUCCESS]: uploadToMyPicturesPageSuccess,
+    [TYPE.UPLOAD_TO_MY_PICTURES_PAGE_ERROR]: setServerError,
+
+    [TYPE.SET_MY_PICTURES_UPLOAD]: setFetching,
+    [TYPE.SET_MY_PICTURES_UPLOAD_SUCCESS]: setMyPicturesUploadSuccess,
+    [TYPE.SET_MY_PICTURES_UPLOAD_ERROR]: setServerError,
+
+    [TYPE.UPLOAD_TO_MY_PICTURES]: setFetching,
+    [TYPE.UPLOAD_TO_MY_PICTURES_SUCCESS]: uploadToMyPicturesSuccess,
+    [TYPE.UPLOAD_TO_MY_PICTURES_ERROR]: setServerError,
+
+    [TYPE.CLEAR_UPLOADED_PHOTO_DATA]: clearUploadedPhotoData,
   },
   initialState
 );
@@ -113,4 +140,41 @@ function getFitsDataSuccess(state, action) {
     },
     state
   );
+}
+
+//Phohtohub upload
+function uploadToMyPicturesPageSuccess(state, action) {
+  return {
+    ...state,
+    isFetching: false,
+    isLoaded: true,
+    uploadToMyPicturesPageData: action.payload,
+  };
+}
+
+function setMyPicturesUploadSuccess(state, action) {
+  return {
+    ...state,
+    isFetching: false,
+    isLoaded: true,
+    uploadPhotoData: { imageData: {}, ...action.payload },
+  };
+}
+
+function uploadToMyPicturesSuccess(state, action) {
+  return {
+    ...state,
+    isFetching: false,
+    isLoaded: true,
+    uploadToMyPicturesData: action.payload,
+  };
+}
+
+function clearUploadedPhotoData(state, action) {
+  return {
+    ...state,
+    uploadPhotoData: {
+      imageData: {},
+    },
+  };
 }

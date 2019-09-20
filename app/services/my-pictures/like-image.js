@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 export const likeImage = ({
   at,
@@ -6,7 +6,7 @@ export const likeImage = ({
   token,
   likeId,
 }) => (
-  axios.post('/api/images/like', {
+  API.post('/api/images/like', {
     at,
     cid,
     token,

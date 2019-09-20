@@ -43,6 +43,10 @@ export default css`
     text-transform: uppercase;
   }
 
+  .display-name {
+    color: ${astronaut};
+  }
+
   .user-info,
   .user-info-container {
     display: flex;

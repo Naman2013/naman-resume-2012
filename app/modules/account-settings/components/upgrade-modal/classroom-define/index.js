@@ -24,7 +24,7 @@ import {
 } from 'app/services/registration/registration.js';
 import { getUserInfo } from 'app/modules/User';
 import Request from 'app/components/common/network/Request';
-import axios from 'axios';
+import { API } from 'app/api';
 import debounce from 'lodash/debounce';
 import { DeviceContext } from 'app/providers/DeviceProvider';
 import styles from 'app/pages/registration/JoinStep1SchoolSelection.style';
@@ -63,7 +63,7 @@ class ClassroomDefineSchoolSelectionGeneral extends Component {
   };
 
   componentDidMount() {
-    axios
+    API
       .post(JOIN_PAGE_ENDPOINT_URL, {
         callSource: 'selectSchoolDistrict',
         selectedPlanId: window.localStorage.getItem('selectedPlanId'),
@@ -92,8 +92,8 @@ class ClassroomDefineSchoolSelectionGeneral extends Component {
   handleZipCodeChange = value => {
     if (value.length >= 5) {
       //get a list of school districts for this zipcode.
-      axios
-        .post(CLASSROOM_GET_US_DISTRICTLIST_ENDPOINT_URL, {
+      API
+      .post(CLASSROOM_GET_US_DISTRICTLIST_ENDPOINT_URL, {
           zipcode: value,
           includePleaseSelectOption: 'yes',
         })
@@ -128,8 +128,8 @@ class ClassroomDefineSchoolSelectionGeneral extends Component {
       //get a list of schools for this school district.
       //console.log("Get a list of schools for this district." + value);
 
-      axios
-        .post(CLASSROOM_GET_US_SCHOOLLIST_ENDPOINT_URL, {
+      API
+      .post(CLASSROOM_GET_US_SCHOOLLIST_ENDPOINT_URL, {
           districtExternalId: value,
           includePleaseSelectOption: 'yes',
         })
@@ -178,8 +178,8 @@ class ClassroomDefineSchoolSelectionGeneral extends Component {
         schoolCity,
         schoolState,
       } = values;
-      axios
-        .post(CLASSROOM_CREATE_NEW_SCHOOL, {
+      API
+      .post(CLASSROOM_CREATE_NEW_SCHOOL, {
           schoolName,
           schoolAddress,
           schoolCountry,
@@ -203,7 +203,7 @@ class ClassroomDefineSchoolSelectionGeneral extends Component {
     // console.log("Processing Google Signin: " + googleTokenData);
 
     /* Process the Google SSO tokens and get back information about this user via the Slooh APIs/Google APIs, etc. */
-    axios
+    API
       .post(GOOGLE_SSO_SIGNIN_ENDPOINT_URL, {
         authenticationCode: googleTokenData.code,
       })
@@ -221,8 +221,8 @@ class ClassroomDefineSchoolSelectionGeneral extends Component {
           //link it to the customer account if the email address matches....
           const user = getUserInfo();
 
-          axios
-            .post(GOOGLE_SSO_LINKACCT_ENDPOINT_URL, {
+          API
+      .post(GOOGLE_SSO_LINKACCT_ENDPOINT_URL, {
               cid: user.cid,
               at: user.at,
               token: user.token,

@@ -2,7 +2,7 @@ import { closeAllMenus } from 'app/modules/global-navigation/actions';
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
-import axios from 'axios';
+import { API } from 'app/api';
 import { Link } from 'react-router';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
@@ -106,8 +106,8 @@ class Login extends Component {
         ),
       }));
 
-      axios
-        .post(FORGOT_PASSWORD_REQUEST_ENDPOINT_URL, {
+      API
+      .post(FORGOT_PASSWORD_REQUEST_ENDPOINT_URL, {
           loginEmailAddress: this.state.loginFormDetails.loginEmailAddress
             .value,
         })
@@ -171,7 +171,7 @@ class Login extends Component {
     //console.log("Processing Google Signin: " + googleTokenData);
 
     /* Process the token and get back information about this user, etc. */
-    const googleSSOResult = axios
+    const googleSSOResult = API
       .post(GOOGLE_SSO_SIGNIN_ENDPOINT_URL, {
         authenticationCode: googleTokenData.code,
       })

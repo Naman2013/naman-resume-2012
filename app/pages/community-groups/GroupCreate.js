@@ -12,7 +12,7 @@ import { validateResponseAccess } from 'app/modules/authorization/actions';
 import { requestGroup } from 'app/services/community-groups/request-group';
 import { browserHistory } from 'react-router';
 
-import axios from 'axios';
+import { API } from 'app/api';
 import Request from 'app/components/common/network/Request';
 import {
   CLASSROOM_CREATENEWGROUP_PAGE_ENDPOINT_URL,
@@ -256,8 +256,8 @@ class GroupCreate extends Component {
     if (formIsComplete) {
       //console.log('submit the new group form and redirect to the new group page');
 
-      const createNewGroupResults = axios
-        .post(CLASSROOM_CREATENEWGROUP_ENDPOINT_URL, {
+      const createNewGroupResults = API
+      .post(CLASSROOM_CREATENEWGROUP_ENDPOINT_URL, {
           groupName: this.state.newGroupFormDetails.groupName.value,
           groupDescription: this.state.newGroupFormDetails.groupDescription
             .value,

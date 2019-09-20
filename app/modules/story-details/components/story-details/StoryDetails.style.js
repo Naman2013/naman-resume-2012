@@ -107,6 +107,7 @@ export default css`
     font-weight: bold;
     font-size: 10px;
     letter-spacing: 1px;
+    color: #415671;
   }
 
   .short {

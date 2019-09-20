@@ -14,7 +14,7 @@ import { DEFAULT_JOIN_TABS } from 'app/pages/registration/StaticNavTabs';
 import Countdown from 'react-countdown-now';
 import { FormattedMessage } from 'react-intl';
 import { browserHistory } from 'react-router';
-import axios from 'axios';
+import { API } from 'app/api';
 import { getUserInfo } from 'app/modules/User';
 import {
   resetLogIn,
@@ -124,8 +124,8 @@ import messages from 'app/pages/registration/JoinStep3.messages';
           selectedSchoolId: window.localStorage.getItem('selectedSchoolId'),
         };
           //add string aboc to this //ADD THIS BACK AFTER TESTING
-          axios
-          .post(
+          API
+      .post(
           UPGRADE_CUSTOMER_ENDPOINT_URL,
             upgradeCustomerData
           )

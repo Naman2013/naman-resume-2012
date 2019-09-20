@@ -1,26 +1,27 @@
 import React, { PureComponent } from 'react';
+import { Link } from 'react-router';
 import { Button } from 'react-bootstrap';
 import './styles.scss';
 
 export class WriteObservationStep3 extends PureComponent {
   render() {
-    const { onHide } = this.props;
+    const { onHide, shareMemberPhotoData } = this.props;
+    const {
+      pageHeading1,
+      pageHeading2,
+      confirmationPageLinkUrl,
+    } = shareMemberPhotoData;
 
     return (
       <div className="write-observation-step3">
-        <h1 className="modal-h">Success! You’ve Added an Observation</h1>
-        <p className="modal-p my-5">
-          You’ve earned 20 Gravity points by sharing your voice with the Slooh
-          Community! We’ll notify you about community activity on your
-          Observation. Find this and all your Observations in your Profile’s
-          Photo Hub section.
-        </p>
+        <h1 className="modal-h">{pageHeading1}</h1>
+        <p className="modal-p my-5">{pageHeading2}</p>
         <Button onClick={onHide} className="modal-btn">
           Close
         </Button>
-        <Button onClick={onHide} className="modal-btn">
-          Go to observation
-        </Button>
+        <Link to={confirmationPageLinkUrl}>
+          <Button className="modal-btn">Go to observation</Button>
+        </Link>
       </div>
     );
   }

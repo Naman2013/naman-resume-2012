@@ -5,7 +5,7 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import axios from 'axios';
+import { API } from 'app/api';
 import { bindActionCreators } from 'redux';
 import questActions from 'app/modules/quest-details/actions';
 import { validateResponseAccess } from 'app/modules/authorization/actions';
@@ -29,8 +29,7 @@ class ConnectedResourcesButton extends Component {
     e.preventDefault();
     const { actions, questId, moduleId, user } = this.props;
     actions.getAppendix();
-    axios
-      .post(GET_APPENDIX, {
+    API.post(GET_APPENDIX, {
         questId,
         moduleId,
         at: user.at,

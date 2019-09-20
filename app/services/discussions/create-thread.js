@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 /**
   @param cid (required) Customer ID
@@ -29,7 +29,7 @@ export const createThread = ({
   callSource,
   objectId,
 }) => (
-  axios.post('/api/forum/createThread', {
+  API.post('/api/forum/createThread', {
     cid,
     at,
     token,

@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 export const FETCH_HIGHLIGHTS_SHOWS_START = 'FETCH_HIGHLIGHTS_SHOWS_START';
 export const FETCH_HIGHLIGHTS_SHOWS_SUCCESS = 'FETCH_HIGHLIGHTS_SHOWS_SUCCESS';
@@ -24,7 +24,7 @@ export const fetchHighlightsShows = ({
   const { count } = getState().videoViewerBrowser;
   dispatch(fetchHighlightsShowsStart());
 
-  return axios.get(' /api/events/highlighted', {
+  return API.get(' /api/events/highlighted', {
     params: {
       count,
       page,

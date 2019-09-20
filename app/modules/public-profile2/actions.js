@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 export const FETCH_PUBLIC_PROFILE_START = 'FETCH_PUBLIC_PROFILE_START';
 export const FETCH_PUBLIC_PROFILE_SUCCESS = 'FETCH_PUBLIC_PROFILE_SUCCESS';
@@ -11,7 +11,7 @@ export const fetchPublicProfile = ({
 }) => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
   dispatch(fetchPublicProfileStart());
-  return axios.post('/api/page/getPublicProfile', {
+  return API.post('/api/page/getPublicProfile', {
     lang,
     customerId,
     ver,
