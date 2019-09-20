@@ -215,6 +215,7 @@ export class QuestStep extends Component<TQuestStep> {
                 completed={stepData.stepCompleted}
                 questId={routeParams.questId}
                 showHeader={index === 0}
+                showFooterClaimButton={index === moduleList.length - 1}
                 showModule={modules[0]?.moduleType}
                 setQuestCompleted={this.setQuestCompleted}
               >
