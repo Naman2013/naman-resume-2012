@@ -169,9 +169,7 @@ class LikeHeartButton extends Component {
     } = this.state;
     const { mod, user, likedByMe, likeTooltip } = this.props;
     if (!user) return null;
-
     const tooltip = likeTooltipInner || likeTooltip;
-    console.log(tooltip, likeTooltip, likeTooltipInner);
     return (
       <Fragment>
         <Tooltip
