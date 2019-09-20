@@ -1,5 +1,9 @@
 import { ACTION } from './reducer';
-import { getGalleryDetailsApi, removeImageFromGalleryApi } from './api';
+import {
+  getGalleryDetailsApi,
+  removeImageFromGalleryApi,
+  deleteGalleryApi,
+} from './api';
 
 export const getGalleryDetails = galleryId => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
@@ -32,4 +36,19 @@ export const removeImageFromGallery = ({ galleryId, customerImageId }) => (
     .then(result => dispatch(ACTION.removeImageFromGallerySuccess(result.data)))
     .then(() => getGalleryDetails(galleryId)(dispatch, getState))
     .catch(error => dispatch(ACTION.removeImageFromGalleryError(error)));
+};
+
+export const deleteGallery = ({ galleryId }) => (dispatch, getState) => {
+  const { at, token, cid } = getState().user;
+  dispatch(ACTION.deleteGallery());
+  const body = {
+    at,
+    token,
+    cid,
+    galleryId,
+  };
+  return deleteGalleryApi(body)
+    .then(result => dispatch(ACTION.deleteGallerySuccess(result.data)))
+    .then(() => getGalleryDetails(galleryId)(dispatch, getState))
+    .catch(error => dispatch(ACTION.deleteGalleryError(error)));
 };

@@ -20,6 +20,7 @@ const GalleryDetailsHeader = (props: TGalleryDetailsHeader) => {
     imageCount,
     isMobile,
     canEditFlag,
+    deleteGallery,
   } = props;
   const width = canEditFlag ? 6 : 12;
   return (
@@ -71,7 +72,7 @@ const GalleryDetailsHeader = (props: TGalleryDetailsHeader) => {
               <i className="fa fa-share-alt" />
             </Btn>*/}
             {canEditFlag ? (
-              <Btn onClick={noop} mod="circle">
+              <Btn onClick={deleteGallery} mod="circle">
                 <i className="fa fa-trash" />
               </Btn>
             ) : null}
