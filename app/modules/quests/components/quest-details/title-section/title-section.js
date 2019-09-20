@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Tooltip } from 'react-tippy';
+import { Link } from 'react-router';
 import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
 import CenterColumn from 'app/components/common/CenterColumn';
 import GenericButton from 'app/components/common/style/buttons/Button';
@@ -18,6 +19,7 @@ import { Button } from 'react-bootstrap';
 const QuestDetailsTitleSection = ({
   questData,
   actionButtonEvent,
+  onDownloadPDF,
 }) => {
   const { 
     iconURL,
@@ -29,10 +31,25 @@ const QuestDetailsTitleSection = ({
     inProgressButtonCaption,
     completed,
     showQuestCompletionIcons,
+    questCompletionIcons = {},
+  } = questData;
+  const { 
     showQuestCompleteCheckIcon,
+    questCompleteCheckIconUrl,
     showQuestCompleteCheckIconTooltip,
     questCompleteCheckIconTooltipText,
-  } = questData;
+    questCompleteCheckIconLinkUrl,
+    showQuestCompleteDownloadIcon,
+    questCompleteDownloadIconUrl,
+    showQuestCompleteDownloadIconTooltip,
+    questCompleteDownloadIconTooltipText,
+    questCompleteDownloadPDFUrl,
+    showQuestCompleteBadgeIcon,
+    questCompleteBadgeIconUrl,
+    showQuestCompleteBadgeIconTooltip,
+    questCompleteBadgeIconTooltipText,
+    questCompleteBadgeIconLinkUrl,
+  } = questCompletionIcons;
 
   return (
   <div className="root">
@@ -78,17 +95,29 @@ const QuestDetailsTitleSection = ({
           <>
             {showQuestCompleteCheckIcon && (
               <Tooltip disabled={!showQuestCompleteCheckIconTooltip} theme="light" title={questCompleteCheckIconTooltipText} position="top">
-                <CompleteCheckbox completed={!completed} />
+                <Link to={questCompleteCheckIconLinkUrl}>
+                  <CompleteCheckbox completed={showQuestCompleteCheckIcon} iconUrl={questCompleteCheckIconUrl} />
+                </Link>
               </Tooltip>
             )}
 
-            <Button onClick={() => {}} className="quest-download-pdf-btn">
-              <span className="icon-download" />
-            </Button>
+            {showQuestCompleteDownloadIcon && (
+              <Tooltip disabled={!showQuestCompleteDownloadIconTooltip} theme="light" title={questCompleteDownloadIconTooltipText} position="top">
+                <Button onClick={() => onDownloadPDF(questCompleteDownloadPDFUrl)} className="quest-download-pdf-btn">
+                  <img src={questCompleteDownloadIconUrl} alt="" />
+                </Button>
+              </Tooltip>
+            )}
 
-            <Button onClick={() => {}} className="quest-download-pdf-btn">
-              <img src="https://vega.slooh.com/assets/v4/icons/shield_icon.svg" />
-            </Button>
+            {showQuestCompleteBadgeIcon && (
+              <Tooltip disabled={!showQuestCompleteBadgeIconTooltip} theme="light" title={questCompleteBadgeIconTooltipText} position="top">
+                <Link to={questCompleteBadgeIconLinkUrl}>
+                  <Button onClick={() => {}} className="quest-download-pdf-btn">
+                    <img src={questCompleteBadgeIconUrl} alt="" />
+                  </Button>
+                </Link>
+              </Tooltip>
+            )}
           </>
         )}
       </div>
