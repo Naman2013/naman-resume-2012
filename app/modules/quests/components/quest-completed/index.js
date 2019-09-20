@@ -1,3 +1,4 @@
+import { withHandleRedirect } from 'app/modules/quests/hoc/with-handle-redirect';
 import React, { PureComponent } from 'react';
 import { Link } from 'react-router';
 import { Tooltip } from 'react-tippy';
@@ -6,6 +7,7 @@ import { downloadFile } from 'app/utils/downloadFile';
 import QuestHubTileBig from 'app/components/common/tiles/QuestHubTileBig';
 import './styles.scss';
 
+@withHandleRedirect
 export class QuestCompleted extends PureComponent {
   // TODO: add questUUID
 
@@ -21,11 +23,8 @@ export class QuestCompleted extends PureComponent {
   };
 
   handleResponse = () => {
-    const { questCompletedData, router, routeParams } = this.props;
-    const { redirectQuest, redirectQuestUrl } = questCompletedData;
-    if (redirectQuest) {
-      router.push(redirectQuestUrl || `/quest-details/${routeParams.questId}`);
-    }
+    const { handleRedirect, questCompletedData } = this.props;
+    handleRedirect(questCompletedData);
   };
 
   render() {
