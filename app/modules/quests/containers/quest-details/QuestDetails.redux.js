@@ -5,6 +5,7 @@
  *
  ***********************************/
 
+import { withHandleRedirect } from 'app/modules/quests/hoc/with-handle-redirect';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { API } from 'app/api';
@@ -22,6 +23,7 @@ import Quest from './QuestDetails';
 const { func, number, oneOfType, shape, string } = PropTypes;
 const BADGE_ITEM_TYPE = 'badge';
 
+@withHandleRedirect
 export class ConnectedQuestDetails extends Component {
   static propTypes = {
     actions: shape({
@@ -50,8 +52,13 @@ export class ConnectedQuestDetails extends Component {
 
   componentDidMount() {
     const { actions, questId } = this.props;
-    actions.fetchQuestPageMeta({ questId });
+    actions.fetchQuestPageMeta({ questId }).then(this.handleResponse);
   }
+
+  handleResponse = () => {
+    const { handleRedirect, pageMeta } = this.props;
+    handleRedirect(pageMeta);
+  };
 
   setupQuest = () => {
     const { actions, questId } = this.props;

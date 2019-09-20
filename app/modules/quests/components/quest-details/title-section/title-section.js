@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Tooltip } from 'react-tippy';
+import { Link } from 'react-router';
 import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
 import CenterColumn from 'app/components/common/CenterColumn';
 import GenericButton from 'app/components/common/style/buttons/Button';
@@ -15,16 +17,41 @@ import _noop from 'lodash/noop';
 import { Button } from 'react-bootstrap';
 
 const QuestDetailsTitleSection = ({
-  iconURL,
-  preTitle,
-  showActionButton,
+  questData,
   actionButtonEvent,
-  actionButtonCaption,
-  title,
-  showInProgressButton,
-  inProgressButtonCaption,
-  completed,
-}) => (
+  onDownloadPDF,
+}) => {
+  const { 
+    iconURL,
+    questType,
+    showStartQuestButton,
+    startQuestButtonCaption,
+    questTitle,
+    showInProgressButton,
+    inProgressButtonCaption,
+    completed,
+    showQuestCompletionIcons,
+    questCompletionIcons = {},
+  } = questData;
+  const { 
+    showQuestCompleteCheckIcon,
+    questCompleteCheckIconUrl,
+    showQuestCompleteCheckIconTooltip,
+    questCompleteCheckIconTooltipText,
+    questCompleteCheckIconLinkUrl,
+    showQuestCompleteDownloadIcon,
+    questCompleteDownloadIconUrl,
+    showQuestCompleteDownloadIconTooltip,
+    questCompleteDownloadIconTooltipText,
+    questCompleteDownloadPDFUrl,
+    showQuestCompleteBadgeIcon,
+    questCompleteBadgeIconUrl,
+    showQuestCompleteBadgeIconTooltip,
+    questCompleteBadgeIconTooltipText,
+    questCompleteBadgeIconLinkUrl,
+  } = questCompletionIcons;
+
+  return (
   <div className="root">
     <CenterColumn
       theme={{
@@ -49,13 +76,13 @@ const QuestDetailsTitleSection = ({
       </div>
 
       <h2 className="title">
-        <span className="pre-title">{preTitle}</span>
-        {title}
+        <span className="pre-title">{questType}</span>
+        {questTitle}
       </h2>
       <div className="action-container">
-        {showActionButton && !completed ? (
+        {showStartQuestButton && !completed ? (
           <GenericButton
-            text={actionButtonCaption}
+            text={startQuestButtonCaption}
             onClickEvent={actionButtonEvent}
           />
         ) : null}
@@ -64,17 +91,33 @@ const QuestDetailsTitleSection = ({
           <GenericButton text={inProgressButtonCaption} onClickEvent={_noop} />
         ) : null}
 
-        {completed && (
+        {showQuestCompletionIcons && (
           <>
-            <CompleteCheckbox completed={!completed} />
+            {showQuestCompleteCheckIcon && (
+              <Tooltip disabled={!showQuestCompleteCheckIconTooltip} theme="light" title={questCompleteCheckIconTooltipText} position="top">
+                <Link to={questCompleteCheckIconLinkUrl}>
+                  <CompleteCheckbox completed={showQuestCompleteCheckIcon} iconUrl={questCompleteCheckIconUrl} />
+                </Link>
+              </Tooltip>
+            )}
 
-            <Button onClick={() => {}} className="quest-download-pdf-btn">
-              <span className="icon-download" />
-            </Button>
+            {showQuestCompleteDownloadIcon && (
+              <Tooltip disabled={!showQuestCompleteDownloadIconTooltip} theme="light" title={questCompleteDownloadIconTooltipText} position="top">
+                <Button onClick={() => onDownloadPDF(questCompleteDownloadPDFUrl)} className="quest-download-pdf-btn">
+                  <img src={questCompleteDownloadIconUrl} alt="" />
+                </Button>
+              </Tooltip>
+            )}
 
-            <Button onClick={() => {}} className="quest-download-pdf-btn">
-              <img src="https://vega.slooh.com/assets/v4/icons/shield_icon.svg" />
-            </Button>
+            {showQuestCompleteBadgeIcon && (
+              <Tooltip disabled={!showQuestCompleteBadgeIconTooltip} theme="light" title={questCompleteBadgeIconTooltipText} position="top">
+                <Link to={questCompleteBadgeIconLinkUrl}>
+                  <Button onClick={() => {}} className="quest-download-pdf-btn">
+                    <img src={questCompleteBadgeIconUrl} alt="" />
+                  </Button>
+                </Link>
+              </Tooltip>
+            )}
           </>
         )}
       </div>
@@ -82,19 +125,20 @@ const QuestDetailsTitleSection = ({
 
     <style jsx>{style}</style>
   </div>
-);
+  );
+};
 
 QuestDetailsTitleSection.defaultProps = {
-  preTitle: '',
+  questType: '',
   iconURL: '',
 };
 
 QuestDetailsTitleSection.propTypes = {
-  preTitle: PropTypes.string,
+  questType: PropTypes.string,
   iconURL: PropTypes.string,
-  title: PropTypes.string.isRequired,
-  showActionButton: PropTypes.bool,
-  actionButtonCaption: PropTypes.string,
+  questTitle: PropTypes.string.isRequired,
+  showStartQuestButton: PropTypes.bool,
+  startQuestButtonCaption: PropTypes.string,
   actionButtonEvent: PropTypes.func,
 };
 

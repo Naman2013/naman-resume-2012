@@ -99,13 +99,8 @@ export default css`
     position: relative;
   }
 
-  .action-container :global(.quest-download-pdf-btn span) {
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    left: 1px;
+  .action-container :global(.quest-download-pdf-btn img) {
+    width: 20px;
   }
 
   @media ${screenMedium} {
