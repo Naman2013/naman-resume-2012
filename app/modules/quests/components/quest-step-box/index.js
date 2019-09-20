@@ -17,6 +17,7 @@ export const QuestStepBox = props => {
     showHeader,
     showModule,
     setQuestCompleted,
+    showFooterClaimButton,
   } = props;
   const {
     showResources,
@@ -113,7 +114,7 @@ export const QuestStepBox = props => {
       {showModule && (
         <div className="step-modules">
           {children}
-          {showClaimBadgeButtonBottom && (
+          {showFooterClaimButton && showClaimBadgeButtonBottom && (
             <div className="text-center ">
               <a
                 onClick={setQuestCompleted}
