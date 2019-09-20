@@ -57,6 +57,7 @@ export default css`
     text-transform: uppercase;
     padding: 5px 0;
     margin-top: 10px;
+    color: #415671;
   }
 
   .card-obs-desc {

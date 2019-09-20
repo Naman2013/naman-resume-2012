@@ -8,3 +8,10 @@ export const getPrivateProfileApi = data =>
 
 export const getProfileListsApi = data =>
   API.post('/api/readinglists/getReadingList', data);
+
+// ===============
+export const getPrivateProfileMissionsApi = data =>
+  API.post('/api/page/getPrivateProfileMissions', data);
+
+export const getPublicProfileMissionsApi = data =>
+  API.post('/api/page/getPublicProfileMissions', data);
