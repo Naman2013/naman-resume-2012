@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 export const SUBMIT_STORY_START = 'SUBMIT_STORY_START';
 export const SUBMIT_STORY_SUCCESS = 'SUBMIT_STORY_SUCCESS';
@@ -30,7 +30,7 @@ export const submitStory = ({
 }) => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
   dispatch(submitStoryStart());
-  return axios.post('/api/content/submitObjectContent', {
+  return API.post('/api/content/submitObjectContent', {
     cid,
     at,
     token,

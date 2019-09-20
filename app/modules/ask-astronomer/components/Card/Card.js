@@ -6,6 +6,7 @@
  ***********************************/
 
 import React, { Component } from 'react';
+import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import noop from 'lodash/noop';
 import moment from 'moment/moment';
@@ -62,6 +63,7 @@ const Card = props => {
     showObjectName,
     user,
     commentBtnDisabled,
+    authorInfo,
   } = props;
 
   const setModalAndShow = updatedLikePrompt => {
@@ -80,10 +82,12 @@ const Card = props => {
         <div className="user-info-container">
           <div className="user-info">
             <div style={profPic(avatarURL)} />
-            <div
-              className="display-name"
-              dangerouslySetInnerHTML={{ __html: displayName }}
-            />
+            <Link to={authorInfo?.linkUrl}>
+              <div
+                className="display-name"
+                dangerouslySetInnerHTML={{ __html: displayName }}
+              />
+            </Link>
           </div>
           <span className="date">{moment.utc(creationDate).fromNow()}</span>
         </div>

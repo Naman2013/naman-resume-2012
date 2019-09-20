@@ -1,7 +1,7 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 export default function fetchBrowseFindDataService({ token, at, cid, findTerm }) {
-  return axios.post('/api/search/findData', {
+  return API.post('/api/search/findData', {
     token,
     at,
     cid,

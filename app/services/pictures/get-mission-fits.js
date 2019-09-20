@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 export default function getMissionFits({
   cid,
@@ -6,7 +6,7 @@ export default function getMissionFits({
   token,
   scheduledMissionId,
 }) {
-  return axios.post('/api/images/getMissionFITS', {
+  return API.post('/api/images/getMissionFITS', {
     cid,
     at,
     token,

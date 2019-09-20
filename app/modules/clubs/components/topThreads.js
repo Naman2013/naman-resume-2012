@@ -1,4 +1,5 @@
 import React, { useEffect, memo, useState } from 'react';
+import { Link } from 'react-router';
 import {
   setupTopThreadsExpireTimer,
   stopTopThreadsExpireTimer,
@@ -37,9 +38,7 @@ export const TopThreads = memo(function TopThreads(props) {
           <div className="members-list">
             {props.topThreadsList?.map(x => (
               <a
-                href={`/community-groups/${props.discussionGroupId}/${
-                  x.threadId
-                }`}
+                href={`/community-groups/${props.discussionGroupId}/${x.threadId}`}
                 className="navigation-link"
               >
                 <div className="members-list-card">
@@ -52,7 +51,7 @@ export const TopThreads = memo(function TopThreads(props) {
                   <div className="bottom">
                     <span className="user-info">
                       <img className="avatar" src={x.avatarUrl} />
-                      {x.displayName}
+                      <Link to={x?.authorInfo?.linkUrl}>{x.displayName}</Link>
                     </span>
                     <div className="date-container">{x.totalLikes} likes</div>
                   </div>

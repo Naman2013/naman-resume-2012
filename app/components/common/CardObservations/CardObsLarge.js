@@ -49,7 +49,9 @@ const CardObsLarge = props => {
                 <div className="info">
                   <div className="main-info">
                     <h2 className="title h-2 h-2-bold">{title}</h2>
-                    <h5 className="author h-5 h-5-normal">{subTitle}</h5>
+                    <Link to={iconFileData?.Member?.linkUrl}>
+                      <h5 className="author h-5 h-5-normal">{subTitle}</h5>
+                    </Link>
                     {description && (
                       <div
                         className="i-text-box"

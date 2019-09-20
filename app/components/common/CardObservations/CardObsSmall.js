@@ -24,6 +24,7 @@ const CardObsSmall = props => {
     likePrompt,
     showLikePrompt,
     socialShareDescription,
+    iconFileData,
   } = props;
   const [isOpen, openModal] = useState(false);
   const [likesNumber, changeLikesNumber] = useState(likesCount);
@@ -38,7 +39,9 @@ const CardObsSmall = props => {
       <div className="card-obs">
         <div className="obs-left">
           <h2 className="card-obs-title h-2 h-2-bold">{title}</h2>
-          <h5 className="card-obs-author h-5 h-5-normal">{subTitle}</h5>
+          <Link to={iconFileData?.Member?.linkUrl}>
+            <h5 className="card-obs-author h-5 h-5-normal">{subTitle}</h5>
+          </Link>
           {description && (
             <div
               className="i-text-box"

@@ -8,6 +8,7 @@
 import Btn from 'app/atoms/Btn';
 import Icon from 'app/atoms/Icon';
 import LikeSomethingButton from 'app/components/common/LikeSomethingButton';
+import { Link } from 'react-router';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
@@ -161,6 +162,7 @@ class BootstrappedImageDetails extends Component {
       likedByMe,
       likeTooltip,
       showLikePrompt,
+      iconFileData,
     } = this.props;
 
     const { isOpen, likePrompt, count, promptText } = this.state;
@@ -172,10 +174,12 @@ class BootstrappedImageDetails extends Component {
             dangerouslySetInnerHTML={{ __html: observationTitle || imageTitle }}
           />
           <div className="obs-name-and-time">
-            <div
-              className="obs-author"
-              dangerouslySetInnerHTML={{ __html: fileData['Photo by'] }}
-            />
+            <Link to={iconFileData?.Member?.linkUrl}>
+              <div
+                className="obs-author"
+                dangerouslySetInnerHTML={{ __html: fileData['Photo by'] }}
+              />
+            </Link>
             <div
               className="obs-time"
               dangerouslySetInnerHTML={{
@@ -251,6 +255,10 @@ class BootstrappedImageDetails extends Component {
           .obs-author,
           .obs-time {
             flex: 1 1 0;
+          }
+
+          .obs-author {
+            color: #415671;
           }
 
           .obs-time {

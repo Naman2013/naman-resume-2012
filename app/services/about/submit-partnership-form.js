@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 export const SUBMIT_PARTRERSHIP_FORM = '/api/app/submitPartnershipForm';
 
@@ -7,7 +7,7 @@ export default function submitPartnershipForm({
   emailAddress,
   message,
 }) {
-  return axios.post(SUBMIT_PARTRERSHIP_FORM, {
+  return API.post(SUBMIT_PARTRERSHIP_FORM, {
     fullName,
     emailAddress,
     message,

@@ -34,6 +34,7 @@ const MainContainer = ({
   validateResponseAccess,
   refetchData,
   shareMemberPhotoData,
+  iconFileData,
 }) => {
   const [isEditMode, setEditMode] = useState(!observationLog);
   const [title, setTitle] = useState('');
@@ -51,6 +52,7 @@ const MainContainer = ({
             canLikeFlag={canLikeFlag}
             customerImageId={customerImageId}
             fileData={fileData}
+            iconFileData={iconFileData}
             likesCount={likesCount}
             likedByMe={likedByMe}
             likePrompt={likePrompt}

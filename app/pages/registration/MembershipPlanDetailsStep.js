@@ -17,7 +17,7 @@ import {
   CLASSROOM_GET_US_SCHOOLLIST_ENDPOINT_URL,
 } from 'app/services/classroom/classroom';
 import { JOIN_PAGE_ENDPOINT_URL } from 'app/services/registration/registration.js';
-import axios from 'axios';
+import { API } from 'app/api';
 import Request from 'app/components/common/network/Request';
 import BobbieTile from 'app/components/common/tiles/BobbieTile';
 import TabbedNav from 'app/components/TabbedNav';

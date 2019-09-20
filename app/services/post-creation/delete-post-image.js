@@ -19,7 +19,7 @@
   lang  (optional) API response language - currently only en (English) - defaults to en
   */
 
-import axios from 'axios';
+import { API } from 'app/api';
 
 export default function deletePostImage({
   cid,
@@ -28,7 +28,7 @@ export default function deletePostImage({
   uniqueId,
   imageClass,
   imageURL }) {
-  return axios.post('/api/content/deletePostImage', {
+  return API.post('/api/content/deletePostImage', {
     cid,
     at,
     token,

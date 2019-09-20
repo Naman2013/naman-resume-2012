@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 export const GUIDE_ENDPOINT_URL = '/api/page/guide';
 export const GUIDES_PAGE_ENDPOINT_URL = '/api/page/guidesHub';
@@ -8,7 +8,7 @@ export const GUIDE_OBJECTS_ENDPOINT_URL = '/api/guides/getGuideObjects';
 export const GUIDE_PANEL_IMAGE_ENDPOINT_URL = '/api/page/contentPanelImage';
 
 export default function fetchGuideDataService({ token, at, cid, guideId }) {
-  return axios.post('/api/page/guide', {
+  return API.post('/api/page/guide', {
     token,
     at,
     cid,
@@ -23,13 +23,12 @@ export const fetchImageDetailsService = ({ customerImageId }) => (
   const { at, token, cid } = getState().user;
   dispatch(fetchMyPicturesImageDetailsStart());
 
-  return axios
-    .post('/api/images/getImageDetails', {
-      at,
-      cid,
-      token,
-      customerImageId,
-    })
+  return API.post('/api/images/getImageDetails', {
+    at,
+    cid,
+    token,
+    customerImageId,
+  })
     .then(result =>
       dispatch(
         fetchMyPicturesImageDetailsSuccess(

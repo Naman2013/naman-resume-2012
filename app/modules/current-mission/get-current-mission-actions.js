@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 export const FETCH_CURRENT_MISSION_START = 'FETCH_CURRENT_MISSION_START';
 export const FETCH_CURRENT_MISSION_SUCCESS = 'FETCH_CURRENT_MISSION_SUCCESS';
@@ -23,7 +23,7 @@ export const fetchCurrentMission = ({ obsId, domeId, telescopeId, format }) => (
 
   dispatch(fetchCurrentMissionStart());
 
-  return axios.post('/api/reservation/getCurrentMission', {
+  return API.post('/api/reservation/getCurrentMission', {
     cid,
     at,
     token,

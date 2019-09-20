@@ -1,8 +1,8 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 export const API_URL = '/api/images/getGalleryPictures ';
 
-export const getGalleryDetailsApi = data => axios.post(API_URL, data);
+export const getGalleryDetailsApi = data => API.post(API_URL, data);
 
 export const removeImageFromGalleryApi = data =>
-  axios.post('/api/images/removeImageFromGallery', data);
+  API.post('/api/images/removeImageFromGallery', data);

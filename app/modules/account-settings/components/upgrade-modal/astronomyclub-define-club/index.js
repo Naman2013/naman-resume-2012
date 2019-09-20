@@ -5,7 +5,7 @@
 import React, { Component, cloneElement, Fragment } from 'react';
 import { Link } from 'react-router';
 import PropTypes from 'prop-types';
-import axios from 'axios';
+import { API } from 'app/api';
 import { GoogleLogin } from 'react-google-login';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';

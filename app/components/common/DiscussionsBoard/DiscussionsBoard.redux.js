@@ -7,7 +7,7 @@
 
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import axios from 'axios';
+import { API } from 'app/api';
 import take from 'lodash/take';
 import ConnectUserAndResponseAccess from 'redux/components/ConnectUserAndResponseAccess';
 import { DeviceContext } from 'providers/DeviceProvider';
@@ -97,7 +97,7 @@ class DiscussionsBoard extends Component {
     } = this.props;
     const { commentsList, page } = this.state;
 
-    axios
+    API
       .post(THREAD_REPLIES, {
         callSource,
         topicId,

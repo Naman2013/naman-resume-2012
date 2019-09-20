@@ -1,5 +1,5 @@
 // API doc: https://docs.google.com/document/d/13_xW9Tw7Tu4yKA8t4EkURTiXfgiTWXzLxK41BGKEPGM
-import axios from 'axios';
+import { API } from 'app/api';
 import store from '../store';
 
 const TOGGLE_READING_LIST_URL = '/api/readinglists/toggleReadingListItem';
@@ -13,7 +13,7 @@ export function toggleReadingListState({ readingListType, listItemId }) {
   const {
     user: { at, cid, token },
   } = store.getState();
-  return axios.post(TOGGLE_READING_LIST_URL, {
+  return API.post(TOGGLE_READING_LIST_URL, {
     cid,
     at,
     token,

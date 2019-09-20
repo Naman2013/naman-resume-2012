@@ -1,7 +1,7 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 export default function fetchObjectDataService({ token, at, cid, objectId }) {
-  return axios.post('/api/object/getObjectData', {
+  return API.post('/api/object/getObjectData', {
     token,
     at,
     cid,

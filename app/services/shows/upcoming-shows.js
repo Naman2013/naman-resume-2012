@@ -1,10 +1,10 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 export function upcomingShows({
   count,
   page,
 }) {
-  return axios.get(' /api/events/upcoming', {
+  return API.get(' /api/events/upcoming', {
     params: {
       count,
       page,

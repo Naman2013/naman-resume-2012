@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 export default function updateMissionSlot({
   token,
@@ -27,7 +27,7 @@ export default function updateMissionSlot({
   targetName,
   objective,
 }) {
-  return axios.post('/api/reservation/updateMissionSlot', {
+  return API.post('/api/reservation/updateMissionSlot', {
     token,
     at,
     cid,
