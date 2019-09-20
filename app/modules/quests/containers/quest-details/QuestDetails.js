@@ -31,8 +31,8 @@ export const QuestDetails = props => {
     moduleId: pageMeta.resourcesModuleId,
   };
 
-  const onDownloadPDF = () => {
-    downloadFile(pageMeta.aboutDownloadPDFURL, 'QuestCompletion.pdf');
+  const onDownloadPDF = pdfUrl => {
+    downloadFile(pdfUrl, 'QuestCompletion.pdf');
   };
 
   const questSectionProps = {
@@ -44,7 +44,7 @@ export const QuestDetails = props => {
         showResources={pageMeta.showResources}
         resourcesProps={resourcesProps}
         showAboutDownloadPDF={pageMeta.showAboutDownloadPDF}
-        onDownloadPDF={onDownloadPDF}
+        onDownloadPDF={() => onDownloadPDF(pageMeta.aboutDownloadPDFURL)}
         aboutDownloadPDFTooltipText={pageMeta.aboutDownloadPDFTooltipText}
       />
     ),
@@ -54,7 +54,7 @@ export const QuestDetails = props => {
         showResources={pageMeta.showResources}
         resourcesProps={resourcesProps}
         showAboutDownloadPDF={pageMeta.showAboutDownloadPDF}
-        onDownloadPDF={onDownloadPDF}
+        onDownloadPDF={() => onDownloadPDF(pageMeta.aboutDownloadPDFURL)}
         aboutDownloadPDFTooltipText={pageMeta.aboutDownloadPDFTooltipText}
       />
     ),
@@ -73,15 +73,9 @@ export const QuestDetails = props => {
         {modal.modalComponent}
       </Modal>
       <QuestTitleSection
-        preTitle={pageMeta.questType}
-        title={pageMeta.questTitle}
-        iconURL={pageMeta.iconURL}
-        showActionButton={pageMeta.showStartQuestButton}
-        actionButtonCaption={pageMeta.startQuestButtonCaption}
+        questData={pageMeta}
         actionButtonEvent={userActions.setupQuest}
-        inProgressButtonCaption={pageMeta.inProgressButtonCaption}
-        showInProgressButton={pageMeta.showInProgressButton}
-        completed={pageMeta.completed}
+        onDownloadPDF={onDownloadPDF}
       />
       <CenterColumn>
         <GuideSection
