@@ -4,12 +4,15 @@
 
 // @flow
 import React, { Component } from 'react';
+import { browserHistory } from 'react-router';
 import cn from 'classnames';
+import { Button } from 'react-bootstrap';
 import BackButton from 'app/atoms/BackButton';
 import { DeviceContext } from 'app/providers/DeviceProvider';
 import PaginateWithNetwork from 'app/components/common/paginate-with-network';
 import ShowMoreWithNetwork from 'app/components/common/show-more-with-network';
 import PhotoRollCard from 'app/modules/profile-photos/components/PhotoRoll/PhotoRollCard';
+import { Modal } from 'app/components/modal';
 import GalleryDetailsHeader from './gallery-details-header';
 
 import './gallery-details.scss';
@@ -19,14 +22,17 @@ type TGalleryDetails = {
   galleryTitle: string,
   galleryDateCreated: string,
   imageCount: number,
-  imageList: Array<Object>,
+  imageList: Array<Record<string, any>>,
   getGalleryDetails: Function,
   canEditFlag: number | boolean,
   apiURL: string,
 };
 
 class GalleryDetails extends Component<TGalleryDetails> {
-  state = { activePage: 1 };
+  state = {
+    activePage: 1,
+    isConfirmModalVisible: false,
+  };
 
   componentDidMount() {
     this.fetchData();
@@ -42,32 +48,69 @@ class GalleryDetails extends Component<TGalleryDetails> {
     this.setState({ activePage });
   };
 
+  deleteGallery = () => {
+    const { params, deleteGallery } = this.props;
+    const { galleryId } = params;
+
+    deleteGallery({ galleryId }).then(() =>
+      browserHistory.push('/profile/private/photos/galleries')
+    );
+  };
+
   render() {
     const {
       isFetching,
       galleryTitle,
       galleryDateCreated,
       imageCount,
-      imageList,
+      imageList = [{}],
       canEditFlag,
       apiURL,
       params,
     } = this.props;
-    const { activePage } = this.state;
-    if (isFetching) return <div>Loading...</div>;
+    const { activePage, isConfirmModalVisible } = this.state;
+    if (isFetching) {
+      return <div>Loading...</div>;
+    }
     return (
       <DeviceContext.Consumer>
         {({ isMobile, isTablet, isDesktop }) => (
           <section className="gallery-details root-wrapper">
             <BackButton />
             <GalleryDetailsHeader
-              image={imageList[0]}
+              image={imageList}
               isMobile={isMobile}
               galleryTitle={galleryTitle}
               galleryDateCreated={galleryDateCreated}
               imageCount={imageCount}
               canEditFlag={canEditFlag}
+              galleryId={params.galleryId}
+              deleteGallery={() =>
+                this.setState({ isConfirmModalVisible: true })
+              }
             />
+
+            <Modal
+              show={isConfirmModalVisible}
+              onHide={() => this.setState({ isConfirmModalVisible: false })}
+              customClass="delete-gallery-confirmation-modal"
+            >
+              <h1 className="modal-h">
+                Are you sure you want to delete your gallery
+                <br />
+                This cannot be undone.
+              </h1>
+
+              <Button
+                onClick={() => this.setState({ isConfirmModalVisible: false })}
+                className="modal-btn"
+              >
+                No
+              </Button>
+              <Button onClick={this.deleteGallery} className="modal-btn">
+                Yes
+              </Button>
+            </Modal>
 
             <section
               className={cn('body-wrapper', {

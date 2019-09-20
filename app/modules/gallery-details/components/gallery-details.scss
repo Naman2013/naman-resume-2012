@@ -1,17 +1,14 @@
-@import "~app/styles/variables/colors.scss";
-@import "~app/styles/variables/media-queries.scss";
+@import '~app/styles/variables/colors.scss';
+@import '~app/styles/variables/media-queries.scss';
 
 .gallery-details {
-
   &.root-wrapper {
-
     .body-wrapper {
       margin: 22px 35px;
       display: flex;
       flex-wrap: wrap;
 
       .root {
-
         @include sm {
           margin: 2px;
         }
@@ -38,7 +35,6 @@
   }
 
   &-box {
-
     .h-5 {
       padding: 28px 0;
     }
@@ -65,5 +61,11 @@
 
   .pagination-wrapper {
     margin: 30px 0 50px;
+  }
+}
+
+.delete-gallery-confirmation-modal {
+  .modal-btn {
+    margin-right: 15px;
   }
 }
