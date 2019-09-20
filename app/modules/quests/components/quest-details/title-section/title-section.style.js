@@ -100,7 +100,7 @@ export default css`
   }
 
   .action-container :global(.quest-download-pdf-btn img) {
-    width: 50px;
+    width: 20px;
   }
 
   @media ${screenMedium} {
