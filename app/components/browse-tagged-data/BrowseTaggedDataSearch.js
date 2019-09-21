@@ -132,7 +132,8 @@ class BrowseTaggedDataSearch extends Component {
       });
 
       /* fetch the browse tagged data */
-      this.props.actions.fetchBrowseTaggedDataAction();
+      const viewType = "globalFind";
+      this.props.actions.fetchBrowseTaggedDataAction(viewType);
     }
   }
 
@@ -162,9 +163,10 @@ class BrowseTaggedDataSearch extends Component {
     event.preventDefault();
 
     const { topNavFindTerm } = this.state;
+    const viewType = "globalFind";
 
     //fetch find data
-    this.props.actions.fetchBrowseFindDataAction(topNavFindTerm);
+    this.props.actions.fetchBrowseFindDataAction(topNavFindTerm, viewType);
   }
 
   /* act on changes to the grandparent node */
@@ -671,7 +673,7 @@ class BrowseTaggedDataSearch extends Component {
                 id="BrowseTaggedDataSearchInputField"
                 name="findTerm"
                 type="name"
-                label="Find a Slooh 1000 Object"
+                label={browseTaggedData.findInstructionalText}
                 component={InputField}
                 onChange={event => {
                   this.handleFieldChange({ value: event.target.value });
