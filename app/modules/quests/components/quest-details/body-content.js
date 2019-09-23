@@ -15,32 +15,34 @@ const BodyContent = ({
   showAboutDownloadPDF,
   onDownloadPDF,
   aboutDownloadPDFTooltipText,
-}) => (
-  <div className="root" style={theme}>
-    <h4 className="title">{title}</h4>
-    <AboutContent content={content} />
-    <div id="google-classroom-share" />
-    <DisplayAtBreakpoint screenMedium>
-      <div className="quest-content-buttons-container">
-        {showResources ? <ResourcesButton {...resourcesProps} /> : null}
-        {showAboutDownloadPDF && (
-          <Tooltip
-            title={aboutDownloadPDFTooltipText}
-            position="top"
-            theme="light"
-          >
-            <div className="download-quest-pdf">
-              <div onClick={onDownloadPDF} className="download">
-                <span className="icon-download" />
+}) => {
+  return (
+    <div className="root" style={theme}>
+      <h4 className="title">{title}</h4>
+      <AboutContent content={content} />
+      <div id="google-classroom-share" />
+      <DisplayAtBreakpoint screenMedium>
+        <div className="quest-content-buttons-container">
+          {showResources ? <ResourcesButton {...resourcesProps} /> : null}
+          {showAboutDownloadPDF && (
+            <Tooltip
+              title={aboutDownloadPDFTooltipText}
+              position="top"
+              theme="light"
+            >
+              <div className="download-quest-pdf">
+                <div onClick={onDownloadPDF} className="download">
+                  <span className="icon-download" />
+                </div>
               </div>
-            </div>
-          </Tooltip>
-        )}
-      </div>
-    </DisplayAtBreakpoint>
-    <style jsx>{style}</style>
-  </div>
-);
+            </Tooltip>
+          )}
+        </div>
+      </DisplayAtBreakpoint>
+      <style jsx>{style}</style>
+    </div>
+  );
+};
 
 BodyContent.propTypes = {
   footer: PropTypes.func,
