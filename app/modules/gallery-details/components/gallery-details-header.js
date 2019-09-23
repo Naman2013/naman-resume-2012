@@ -27,7 +27,7 @@ const GalleryDetailsHeader = (props: TGalleryDetailsHeader) => {
   } = props;
   const width = canEditFlag ? 6 : 12;
 
-  const editRef = useRef(null);
+  const editGalleryInputRef = useRef(null);
   const [editMode, setEditMode] = useState(false);
   const [galleryName, setGalleryName] = useState(galleryTitle);
 
@@ -39,12 +39,14 @@ const GalleryDetailsHeader = (props: TGalleryDetailsHeader) => {
     renameGallery({ galleryId, title: galleryName });
   };
   const onKeyDown = e => {
+    const ENTER_KEYCODE = 13,
+      ESC_KEYCODE = 27;
     switch (e.keyCode) {
-      case 13: {
+      case ENTER_KEYCODE: {
         setEditMode(false);
         break;
       }
-      case 27: {
+      case ESC_KEYCODE: {
         setEditMode(false);
         setGalleryName(galleryTitle);
         break;
@@ -52,9 +54,10 @@ const GalleryDetailsHeader = (props: TGalleryDetailsHeader) => {
     }
   };
 
+  //This effect hook used for set input focus when that will be displayed
   useEffect(() => {
     if (editMode) {
-      editRef.current.focus();
+      editGalleryInputRef.current.focus();
     }
   }, [editMode]);
 
@@ -64,16 +67,16 @@ const GalleryDetailsHeader = (props: TGalleryDetailsHeader) => {
         <Col lg={width} md={width} sm={width}>
           <h1
             className={cn('h-1 h-1-low h-1-lowercase gallery-details-head', {
-              hide: editMode,
+              'd-none': editMode,
             })}
           >
             <span>{galleryName}</span>
           </h1>
           <input
-            className={cn('edit-gallery', { hide: !editMode })}
-            onBlur={() => onRenameGallery()}
+            className={cn('edit-gallery', { 'd-none': !editMode })}
+            onBlur={onRenameGallery}
             type="text"
-            ref={editRef}
+            ref={editGalleryInputRef}
             onChange={e => setGalleryName(e.target.value)}
             onKeyDown={onKeyDown}
             value={galleryName}
