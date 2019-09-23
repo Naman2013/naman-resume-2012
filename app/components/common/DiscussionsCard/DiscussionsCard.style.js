@@ -123,6 +123,10 @@ export default css`
     border-bottom: 0;
   }
 
+  .explainantion-item:last-child {
+    border-top: 0;
+  }
+
   @media ${screenMedium} {
     .date {
       visibility: visible;

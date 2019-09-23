@@ -1,9 +1,10 @@
 // @flow
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import cn from 'classnames';
 import { Col, Row } from 'react-bootstrap';
 import Btn from 'app/atoms/Btn';
 import noop from 'lodash/fp/noop';
+import './gallery-details-header.scss';
 
 type TGalleryDetailsHeader = {
   galleryTitle: string,
@@ -21,15 +22,65 @@ const GalleryDetailsHeader = (props: TGalleryDetailsHeader) => {
     isMobile,
     canEditFlag,
     deleteGallery,
+    renameGallery,
+    galleryId,
   } = props;
   const width = canEditFlag ? 6 : 12;
+
+  const editGalleryInputRef = useRef(null);
+  const [editMode, setEditMode] = useState(false);
+  const [galleryName, setGalleryName] = useState(galleryTitle);
+
+  const onEditGallery = () => {
+    setEditMode(true);
+  };
+  const onRenameGallery = () => {
+    setEditMode(false);
+    renameGallery({ galleryId, title: galleryName });
+  };
+  const onKeyDown = e => {
+    const ENTER_KEYCODE = 13,
+      ESC_KEYCODE = 27;
+    switch (e.keyCode) {
+      case ENTER_KEYCODE: {
+        setEditMode(false);
+        break;
+      }
+      case ESC_KEYCODE: {
+        setEditMode(false);
+        setGalleryName(galleryTitle);
+        break;
+      }
+    }
+  };
+
+  //This effect hook used for set input focus when that will be displayed
+  useEffect(() => {
+    if (editMode) {
+      editGalleryInputRef.current.focus();
+    }
+  }, [editMode]);
+
   return (
-    <header className="header-wrapper shadow i-box-white">
+    <header className="gallery-details-header-root header-wrapper shadow i-box-white">
       <Row noGutters>
         <Col lg={width} md={width} sm={width}>
-          <h1 className="h-1 h-1-low h-1-lowercase gallery-details-head">
-            <span>{galleryTitle}</span>
+          <h1
+            className={cn('h-1 h-1-low h-1-lowercase gallery-details-head', {
+              'd-none': editMode,
+            })}
+          >
+            <span>{galleryName}</span>
           </h1>
+          <input
+            className={cn('edit-gallery', { 'd-none': !editMode })}
+            onBlur={onRenameGallery}
+            type="text"
+            ref={editGalleryInputRef}
+            onChange={e => setGalleryName(e.target.value)}
+            onKeyDown={onKeyDown}
+            value={galleryName}
+          />
         </Col>
         {canEditFlag ? (
           <Col
@@ -38,7 +89,7 @@ const GalleryDetailsHeader = (props: TGalleryDetailsHeader) => {
             sm={6}
             className="flex-row justify-content-end align-items-center"
           >
-            <Btn onClick={noop} mod="circle">
+            <Btn onClick={onEditGallery} mod="circle">
               <i className="fa fa-pencil" />
             </Btn>
           </Col>

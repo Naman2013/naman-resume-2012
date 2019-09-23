@@ -110,6 +110,8 @@ class DiscussionsCard extends PureComponent {
             </div>
             <div className="explainantion-item">
               <FormattedMessage {...messages.Likes} />: {likesCount}{' '}
+            </div>
+            <div className="explainantion-item">
               <FormattedMessage {...messages.Comments} />: {replyToponlyCount}
             </div>
           </div>

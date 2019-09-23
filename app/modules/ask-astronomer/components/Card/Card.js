@@ -107,10 +107,12 @@ const Card = props => {
           </div>
           <div className="explainantion-item">
             {`Likes: ${likesCount} `}{' '}
-            {allowReplies ? (
-              <span>&nbsp;{`${commentText}: ${replyToponlyCount}`}</span>
-            ) : null}
           </div>
+          {allowReplies ? (
+            <div className="explainantion-item">
+              <span>{`${commentText}: ${replyToponlyCount}`}</span>
+            </div>
+          ) : null}
         </div>
         <div className="activity-actions">
           <div className="action-left">

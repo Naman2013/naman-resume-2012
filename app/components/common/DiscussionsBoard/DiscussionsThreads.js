@@ -296,12 +296,12 @@ class DiscussionsThreads extends Component {
     if(e.keyCode == 13) {
       this.getThreads(this.props);
     }
-  }
+  };
 
   resetSearch = () => {
     this.searchInput.value = '';
     this.getThreads(this.props);
-  }
+  };
 
   render() {
     const {
@@ -325,14 +325,7 @@ class DiscussionsThreads extends Component {
 
     return (
       <div className="root">
-        {CREATE_THREAD_FORM[callSource].render({
-          ...createThreadFormParams,
-          createThread: this.createThread,
-          isDesktop,
-          isClub,
-        })}
-        <div
-          className="comments-bar"
+        <div className="comments-bar"
           ref={node => { this.threadsContainer = node; }}
         >
           {showSearchTermResultHeading ? <span>{searchTermResultHeading}</span> : <span><FormattedMessage {...messages.Comments} /> ({threadsCount})</span>}
@@ -354,6 +347,12 @@ class DiscussionsThreads extends Component {
             )}
           </div>
         </div>
+        {CREATE_THREAD_FORM[callSource].render({
+          ...createThreadFormParams,
+          createThread: this.createThread,
+          isDesktop,
+          isClub,
+        })}
         {fetching && (
           <div>
             <FormattedMessage {...messages.Loading} />
