@@ -296,12 +296,12 @@ class DiscussionsThreads extends Component {
     if(e.keyCode == 13) {
       this.getThreads(this.props);
     }
-  }
+  };
 
   resetSearch = () => {
     this.searchInput.value = '';
     this.getThreads(this.props);
-  }
+  };
 
   render() {
     const {
