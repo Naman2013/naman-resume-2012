@@ -24,6 +24,7 @@ type TGalleryDetails = {
   imageCount: number,
   imageList: Array<Record<string, any>>,
   getGalleryDetails: Function,
+  renameGallery: Function,
   canEditFlag: number | boolean,
   apiURL: string,
 };
@@ -67,6 +68,7 @@ class GalleryDetails extends Component<TGalleryDetails> {
       canEditFlag,
       apiURL,
       params,
+      renameGallery,
     } = this.props;
     const { activePage, isConfirmModalVisible } = this.state;
     if (isFetching) {
@@ -88,6 +90,7 @@ class GalleryDetails extends Component<TGalleryDetails> {
               deleteGallery={() =>
                 this.setState({ isConfirmModalVisible: true })
               }
+              renameGallery={renameGallery}
             />
 
             <Modal
