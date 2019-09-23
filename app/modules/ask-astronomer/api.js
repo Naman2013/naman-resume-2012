@@ -1,9 +1,9 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 export const getPageDataApi = ({ objectId }) =>
-  axios.post('/api/object/getAskAnAstronomer', {
+  API.post('/api/object/getAskAnAstronomer', {
     objectId,
   });
 
 export const deletePostImageApi = data =>
-  axios.post('/api/content/deletePostImage', data);
+  API.post('/api/content/deletePostImage', data);

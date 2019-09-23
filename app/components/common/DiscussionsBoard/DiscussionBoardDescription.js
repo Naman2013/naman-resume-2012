@@ -6,7 +6,7 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import PropTypes from 'prop-types';
-import axios from 'axios';
+import { API } from 'app/api';
 import { intlShape, injectIntl } from 'react-intl';
 import { DeviceContext } from 'providers/DeviceProvider';
 import cloneDeep from 'lodash/cloneDeep';
@@ -81,7 +81,7 @@ class DiscussionBoardDescription extends Component {
 
     formValues.preventDefault();
 
-    const setGroupDescriptionResult = axios
+    const setGroupDescriptionResult = API
       .post(CLASSROOM_SET_GROUP_DESCRIPTION_ENDPOINT_URL, {
         cid: user.cid,
         at: user.at,

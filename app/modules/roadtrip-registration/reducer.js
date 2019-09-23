@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 import { reset } from 'redux-form';
 import createReducer from '../utils/createReducer';
 

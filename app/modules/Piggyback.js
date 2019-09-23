@@ -1,5 +1,5 @@
 // todo remove me
-import axios from 'axios';
+import { API } from 'app/api';
 import createReducer from './utils/createReducer';
 import {
   missionConfirmOpen,
@@ -100,8 +100,8 @@ export const reservePiggyback = () => (dispatch, getState) => {
 
   dispatch(startPiggybackReservation());
 
-  return axios
-    .post('/api/reservation/reservePiggyback', {
+  return API
+      .post('/api/reservation/reservePiggyback', {
       token,
       at,
       cid,
@@ -128,7 +128,7 @@ export const grabPiggyback = mission => (dispatch, getState) => {
   }
 
   if (missionAvailable) {
-    return axios
+    return API
       .post('/api/reservation/grabPiggyback', {
         token,
         at,
@@ -157,8 +157,8 @@ export const grabPiggybackByTelescope = ({ uniqueId, scheduledMissionId }) => (
 
   dispatch(startGrabPiggyback());
 
-  return axios
-    .post('/api/reservation/grabPiggyback', {
+  return API
+      .post('/api/reservation/grabPiggyback', {
       token,
       at,
       cid,

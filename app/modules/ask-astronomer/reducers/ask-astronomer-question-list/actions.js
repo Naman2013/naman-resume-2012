@@ -1,4 +1,4 @@
-import axios from 'axios/index';
+import { API } from 'app/api';
 
 export const FETCH_ASTRONOMER_QUESTION_LIST_START =
   'FETCH_ASTRONOMER_QUESTION_LIST_START';
@@ -34,8 +34,8 @@ export const fetchAstronomerQuestionList = ({
   const { cid, at, token } = getState().user;
   const { count } = getState().astronomerQuestionList;
   dispatch(fetchAstronomerQuestionListStart({ appendToList }));
-  return axios
-    .post('/api/forum/getQuestionsList', {
+  return API
+      .post('/api/forum/getQuestionsList', {
       answerState,
       appendToList,
       at,

@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 export const prepareReply = ({
   cid,
@@ -8,7 +8,7 @@ export const prepareReply = ({
   ver,
   status,
 }) => (
-  axios.post('/api/forum/prepareReply', {
+  API.post('/api/forum/prepareReply', {
     cid,
     at,
     token,

@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 export const checkTargetVisibility = ({
   at,
@@ -14,7 +14,7 @@ export const checkTargetVisibility = ({
   ra,
   dec }) => {
 
-  return axios.post('/api/reservation/checkTargetVisibility', {
+  return API.post('/api/reservation/checkTargetVisibility', {
     at,
     cid,
     token,
@@ -39,7 +39,7 @@ export const checkCatalogVisibility = ({
   designation,
   lookaheadReservation }) => {
 
-  return axios.post('/api/reservation/checkCatalogVisibility', {
+  return API.post('/api/reservation/checkCatalogVisibility', {
     at,
     cid,
     token,

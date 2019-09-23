@@ -1,7 +1,7 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 export default function fetchFacilityWebcam({ obsId, widgetUniqueId }) {
-  return axios.post('/api/widget/facilityWebcam', {
+  return API.post('/api/widget/facilityWebcam', {
     obsId,
     widgetUniqueId,
   });

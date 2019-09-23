@@ -1,7 +1,7 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 export const getImageDetailsApi = data =>
-  axios.post('/api/images/getImageDetails', data);
+  API.post('/api/images/getImageDetails', data);
 
 /*
 * {
@@ -11,22 +11,22 @@ export const getImageDetailsApi = data =>
     customerImageId,
   }*/
 export const deleteImageApi = data =>
-  axios.post('/api/images/deleteImage', data);
+  API.post('/api/images/deleteImage', data);
 
-export const getTagsApi = data => axios.post('/api/tags/getTags', data);
+export const getTagsApi = data => API.post('/api/tags/getTags', data);
 
-export const setTagApi = data => axios.post('/api/tags/setTag', data);
+export const setTagApi = data => API.post('/api/tags/setTag', data);
 
-export const deleteTagApi = data => axios.post('/api/tags/deleteTag', data);
+export const deleteTagApi = data => API.post('/api/tags/deleteTag', data);
 
 export const getGalleriesApi = data =>
-  axios.post('/api/images/getGalleryList', data);
+  API.post('/api/images/getGalleryList', data);
 
 export const addImageToGalleryApi = data =>
-  axios.post('/api/images/addImageToGallery', data);
+  API.post('/api/images/addImageToGallery', data);
 
 export const createGalleryApi = data =>
-  axios.post('/api/images/createGallery', data);
+  API.post('/api/images/createGallery', data);
 
 export const setObservationTagsApi = data =>
-  axios.post('/api/images/setObservationTags', data);
+  API.post('/api/images/setObservationTags', data);

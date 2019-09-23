@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 import { fetchReplies } from '../discussions-replies/actions';
 
 export const FETCH_THREAD_LIST_START = 'FETCH_THREAD_LIST_START';
@@ -36,7 +36,7 @@ export const fetchThreadList = ({
   const { cid, at, token } = getState().user;
   const processedSortBy = sortBy && sortBy.replace('-', '');
   dispatch(fetchThreadListStart({ appendToList }));
-  return axios.post('/api/forum/getThreadList', {
+  return API.post('/api/forum/getThreadList', {
     cid,
     at,
     token,
@@ -66,7 +66,7 @@ export const fetchFeaturedThreadList = ({
 }) => (dispatch, getState) => {
   const { cid, at, token } = getState().user;
   dispatch(fetchThreadListStart({ appendToList }));
-  return axios.post('/api/forum/getFeaturedThreadList', {
+  return API.post('/api/forum/getFeaturedThreadList', {
     cid,
     at,
     token,
@@ -94,7 +94,7 @@ export const fetchFollowedTopicThreadList = ({
 }) => (dispatch, getState) => {
   const { cid, at, token } = getState().user;
   dispatch(fetchThreadListStart({ appendToList }));
-  return axios.post('/api/forum/getFollowedTopicThreadList', {
+  return API.post('/api/forum/getFollowedTopicThreadList', {
     cid,
     at,
     token,
@@ -136,7 +136,7 @@ export const fetchThread = ({
   const { cid, at, token } = getState().user;
   dispatch(fetchThreadStart());
 
-  return axios.post('/api/forum/getThread', {
+  return API.post('/api/forum/getThread', {
     cid,
     at,
     token,

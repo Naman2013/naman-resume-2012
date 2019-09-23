@@ -1,6 +1,6 @@
 import createReducer from './utils/createReducer';
 import createAction from './utils/createAction';
-import axios from 'axios';
+import { API } from 'app/api';
 
 const FETCH_USERS_UPCOMING_MISSIONS_START = 'FETCH_USERS_UPCOMING_MISSIONS_START';
 const FETCH_USERS_UPCOMING_MISSIONS_SUCCESS = 'FETCH_USERS_UPCOMING_MISSIONS_SUCCESS';
@@ -11,7 +11,7 @@ export const fetchUsersUpcomingMissions = () => ( dispatch, getState ) => {
 
   dispatch( fetchUsersUpcomingMissionsStart() );
 
-  return axios.post('/api/reservation/getNextUserMission', {
+  return API.post('/api/reservation/getNextUserMission', {
     cid,
     at,
     token,

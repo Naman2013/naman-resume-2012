@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import axios from 'axios';
+import { API } from 'app/api';
 
 class StargazersInfo extends Component {
   state = {
@@ -13,7 +13,7 @@ class StargazersInfo extends Component {
   }
 
   serverRequest() {
-    axios.get(this.props.source)
+    API.get(this.props.source)
     .then((response) => {
       this.setState({
         stargazersDescription: response.data.description,

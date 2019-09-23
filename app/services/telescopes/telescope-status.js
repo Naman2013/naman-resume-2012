@@ -1,5 +1,5 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 export default function fetchTelescopeStatus(obsId) {
-  return axios.get(`/api/obs/getObservatoryStatus?obsId=${obsId}`);
+  return API.get(`/api/obs/getObservatoryStatus?obsId=${obsId}`);
 }

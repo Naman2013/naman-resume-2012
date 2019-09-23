@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 import {
   fetchMissionCount,
   fetchMyPicturesCount,
@@ -45,8 +45,8 @@ export const fetchFiltersLists = () => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
   dispatch(fetchFiltersListsStart());
 
-  return axios
-    .post('/api/images/getFiltersLists', {
+  return API
+      .post('/api/images/getFiltersLists', {
       at,
       token,
       cid,

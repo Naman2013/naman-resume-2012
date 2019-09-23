@@ -17,6 +17,8 @@ const BootstrappedObservationSliderItem = props => {
     imageDownloadURL,
     linkUrl,
     likesCount,
+    likedByMe,
+    likeTooltip,
     commentsCount,
     observationTimeDisplay,
     intl,
@@ -45,7 +47,9 @@ const BootstrappedObservationSliderItem = props => {
                 <div className="info">
                   <div className="main-info">
                     <h2 className="title">{imageTitle}</h2>
-                    <h5 className="author">{displayName}</h5>
+                    <Link to={iconFileData?.Member?.linkUrl}>
+                      <h5 className="author">{displayName}</h5>
+                    </Link>
                     {observationLog && (
                       <p
                         className="dashboardObservationText i-text-box"
@@ -57,9 +61,15 @@ const BootstrappedObservationSliderItem = props => {
                     {Object.keys(iconFileData).map(item => (
                       <Tooltip title={iconFileData[item].text}>
                         {iconFileData[item].hasLink ? (
-                          <Link to={iconFileData[item].linkUrl} target="_blank" className="link">
+                          <Link
+                            to={iconFileData[item].linkUrl}
+                            target="_blank"
+                            className="link"
+                          >
                             <img
-                              className={`linkIcon${item === 'Member' ? ' memberIcon' : ''}`}
+                              className={`linkIcon${
+                                item === 'Member' ? ' memberIcon' : ''
+                              }`}
                               src={iconFileData[item].iconUrl}
                               alt={iconFileData[item].label}
                             />
@@ -67,7 +77,9 @@ const BootstrappedObservationSliderItem = props => {
                         ) : (
                           <div className="link">
                             <img
-                              className={`linkIcon${item === 'Member' ? ' memberIcon' : ''}`}
+                              className={`linkIcon${
+                                item === 'Member' ? ' memberIcon' : ''
+                              }`}
                               src={iconFileData[item].iconUrl}
                               alt={iconFileData[item].label}
                             />
@@ -100,6 +112,8 @@ const BootstrappedObservationSliderItem = props => {
                       mod="no-border"
                       likePrompt={likePrompt}
                       likesCount={likesNumber || likesCount}
+                      likedByMe={likedByMe}
+                      likeTooltip={likeTooltip}
                       likeHandler={onLikeClick}
                       customerId={customerImageId}
                       showLikePrompt={showLikePrompt}

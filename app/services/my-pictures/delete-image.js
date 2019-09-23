@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 export const deleteImage = ({
   at,
@@ -6,7 +6,7 @@ export const deleteImage = ({
   token,
   customerImageId,
 }) => (
-  axios.post('/api/images/deleteImage', {
+  API.post('/api/images/deleteImage', {
     at,
     cid,
     token,

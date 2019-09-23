@@ -7,7 +7,7 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import axios from 'axios';
+import { API } from 'app/api';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { browserHistory } from 'react-router';
@@ -47,7 +47,7 @@ export class ConnectedQuestDetails extends Component {
   setupQuest = () => {
     const { actions, questId } = this.props;
     const { at, token, cid } = this.props.user;
-    axios
+    API
       .post(START_QUEST, {
         at,
         cid,

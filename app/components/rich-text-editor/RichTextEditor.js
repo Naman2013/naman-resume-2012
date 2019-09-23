@@ -10,7 +10,7 @@ import BlockStyleControls from './BlockStyleControls';
 import InlineStyleControls from './InlineStyleControls';
 
 import 'draft-js/dist/Draft.css';
-import styles from './RichTextEditor.scss';
+import './RichTextEditor.scss';
 
 class RichTextEditor extends React.Component {
   static propTypes = {
@@ -214,10 +214,10 @@ class RichTextEditor extends React.Component {
     let urlInput;
     if (showURLInput) {
       urlInput = (
-        <div className={styles.urlInputContainer}>
+        <div className="urlInputContainer">
           <input
             onChange={this.onURLChange}
-            className={styles.urlInput}
+            className="urlInput"
             type="text"
             value={this.state.urlValue}
             onKeyDown={this.onLinkInputKeyDown}
@@ -236,7 +236,7 @@ class RichTextEditor extends React.Component {
     }
 
     return (
-      <div className={`RichEditor-root ${styles.RichTextEditor}`}>
+      <div className={`RichEditor-root RichTextEditor`}>
         <div className="RichEditor-controls-container">
           <BlockStyleControls
             className="RichEditor-controls"
@@ -302,7 +302,7 @@ function findLinkEntities(contentBlock, callback, contentState) {
 const Link = (props) => {
   const { url } = props.contentState.getEntity(props.entityKey).getData();
   return (
-    <a href={url} className={styles.link} target="_blank" rel="noopener noreferrer">
+    <a href={url} className="link" target="_blank" rel="noopener noreferrer">
       {props.children}
     </a>
   );

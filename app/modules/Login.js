@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 import { push } from 'react-router-redux';
 import createReducer from './utils/createReducer';
 import createAction from './utils/createAction';
@@ -35,8 +35,8 @@ export const login = loginFormValues => (dispatch, getState) => {
 
   dispatch(startLogin());
 
-  return axios
-    .post('/api/users/login', {
+  return API
+      .post('/api/users/login', {
       username,
       passwd,
     })
@@ -71,8 +71,8 @@ export const globalHeaderlogin = loginFormValues => (dispatch, getState) => {
 
   dispatch(startLogin());
 
-  return axios
-    .post('/api/users/login', {
+  return API
+      .post('/api/users/login', {
       username,
       passwd,
     })

@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 export const FETCH_RECORDED_SHOW_START = 'FETCH_RECORDED_SHOW_START';
 export const FETCH_RECORDED_SHOW_SUCCESS = 'FETCH_RECORDED_SHOW_SUCCESS';
@@ -23,7 +23,7 @@ export const fetchRecordedShow = ({
 }) => (dispatch, getState) => {
   dispatch(fetchRecordedShowStart());
   const { cid, at, token } = getState().user;
-  return axios.post(' /api/events/getRecordedShowInfo', {
+  return API.post(' /api/events/getRecordedShowInfo', {
     showId,
     cid,
     at,

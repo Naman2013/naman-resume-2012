@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 import {
   fetchMyPicturesCount,
   fetchMissionCount,
@@ -36,8 +36,8 @@ const createGalleryFail = payload => ({
 export const createGallery = ({ title }) => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
   dispatch(createGalleryStart());
-  return axios
-    .post('/api/images/createGallery', {
+  return API
+      .post('/api/images/createGallery', {
       // at: 3, // for testing purposes
       // cid: 185651, // for testing purposes
       // token: 'ff278b57d3724d41a3d48194e2f29526b30e9c0f', // for testing purposes
@@ -82,8 +82,8 @@ export const fetchGalleries = ({
   // dispatch(fetchGalleriesCount({})); // for pagination
   // dispatch(fetchMissionCount()); // for deeplinking
   // dispatch(fetchMyPicturesCount());// for deeplinking
-  return axios
-    .post('/api/images/getGalleryList', {
+  return API
+      .post('/api/images/getGalleryList', {
       // at: 3, // for testing purposes
       // cid: 185651, // for testing purposes
       // token: 'ff278b57d3724d41a3d48194e2f29526b30e9c0f', // for testing purposes
@@ -124,8 +124,8 @@ export const fetchGalleriesCount = ({ customerUUID }) => (
   const { selectedFilters } = getState().myPicturesFilters;
   dispatch(fetchGalleriesCountStart());
 
-  return axios
-    .post('/api/images/getGalleryCount', {
+  return API
+      .post('/api/images/getGalleryCount', {
       // at: 3, // for testing purposes
       // cid: 185651, // for testing purposes
       // token: 'ff278b57d3724d41a3d48194e2f29526b30e9c0f', // for testing purposes
@@ -167,8 +167,8 @@ export const fetchMoreGalleries = ({
   const { at, token, cid } = getState().user;
   const { selectedFilters } = getState().myPicturesFilters;
   const filters = noFilters ? {} : selectedFilters;
-  return axios
-    .post('/api/images/getGalleryList', {
+  return API
+      .post('/api/images/getGalleryList', {
       at,
       cid,
       token,

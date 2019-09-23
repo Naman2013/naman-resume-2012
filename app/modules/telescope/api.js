@@ -1,19 +1,18 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
-export const getApi = data => axios.post('/api/', data);
+export const getApi = data => API.post('/api/', data);
 
 export const getAllSkyTimelapseApi = data =>
-  axios.post('/api/widget/allskyTimelapse', data);
+  API.post('/api/widget/allskyTimelapse', data);
 
 // Queue tab
 export const getUpcomingSlotsByTelescopeApi = data =>
-  axios.post('/api/reservation/getUpcomingSlotsByTelescope', data);
+  API.post('/api/reservation/getUpcomingSlotsByTelescope', data);
 
 export const getFeaturedObjectsByTelescopeApi = data =>
-  axios.post('/api/reservation/getFeaturedObjectsByTelescope', data);
+  API.post('/api/reservation/getFeaturedObjectsByTelescope', data);
 
 export const reserveCommunityMissionApi = data =>
-  axios.post('/api/reservation/reserveCommunityMission', data);
+  API.post('/api/reservation/reserveCommunityMission', data);
 
-export const getTelescopesApi = data =>
-  axios.post('/api/page/telescopes', data);
+export const getTelescopesApi = data => API.post('/api/page/telescopes', data);

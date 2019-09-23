@@ -1,7 +1,7 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 export default function fetchDayNightBarPanel({ obsId, DayNightBarPanelWidgetId }) {
-  return axios.post('/api/widget/dayNightBarPanel', {
+  return API.post('/api/widget/dayNightBarPanel', {
     obsId,
     widgetUniqueId: DayNightBarPanelWidgetId,
   });
