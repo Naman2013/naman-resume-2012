@@ -132,6 +132,10 @@ export default css`
     border-bottom: 0;
   }
 
+  .explainantion-item:nth-child(3) {
+    border-top: 0;
+  }
+
   .object-name-container {
     padding: 15px 0 12px;
     border-bottom: 1px solid ${geyser};
