@@ -96,8 +96,4 @@ export default css`
     overflow-x: hidden;
     overflow-y: auto;
   }
-  
-  :global(.guide-tile-root) {
-    height: 292px !important;
-  }
 `;

@@ -70,7 +70,6 @@ export default css.global`
 
   @media ${screenMedium} {
     .sections-wrapper .slick-list {
-      z-index: 100;
       pointer-events: none;
     }
   }
