@@ -6,6 +6,7 @@
  ***********************************/
 
 import PhotoUploadButton from 'app/components/common/style/buttons/PhotoUploadButton';
+import RichTextEditor from 'app/components/rich-text-editor/RichTextEditor';
 import { Spinner } from 'app/components/spinner/index';
 import { uploadedImgCleanUp } from 'app/modules/ask-astronomer/services/post-image';
 import setPostImages from 'app/modules/set-post-images';
@@ -213,9 +214,9 @@ class SubmitAnswerForm extends PureComponent {
           isLoading={uploadLoading}
         />
 
-        <textarea
+        <RichTextEditor
           className="field-input"
-          value={answerText}
+          editorValue={answerText}
           onChange={this.onChangeAnswerText}
           placeholder={intl.formatMessage(messages.AnswerPlaceholder)}
         />

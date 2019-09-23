@@ -8,6 +8,7 @@ import AddDividerBlock from './divider-block/AddDividerBlock';
 import DividerBlock from './divider-block/DividerBlock';
 import BlockStyleControls from './BlockStyleControls';
 import InlineStyleControls from './InlineStyleControls';
+import cx from 'classnames';
 
 import 'draft-js/dist/Draft.css';
 import './RichTextEditor.scss';
@@ -236,7 +237,7 @@ class RichTextEditor extends React.Component {
     }
 
     return (
-      <div className={`RichEditor-root RichTextEditor`}>
+      <div className={cx(['RichEditor-root', 'RichTextEditor', this.props.className] )}>
         <div className="RichEditor-controls-container">
           <BlockStyleControls
             className="RichEditor-controls"

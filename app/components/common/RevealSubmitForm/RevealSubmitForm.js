@@ -7,6 +7,7 @@ the callback function can be called to handle clearing the form & showing a resp
 callback (error (string), message (string)); If error is null, the component will display message and clear form
 
 */
+import RichTextEditor from 'app/components/rich-text-editor/RichTextEditor';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-modal';
@@ -88,9 +89,9 @@ class RevealSubmitForm extends Component {
     });
   };
 
-  onTextChange = e => {
+  onTextChange = value => {
     this.setState({
-      formText: e.target.value,
+      formText: value,
     });
   };
 
@@ -164,7 +165,7 @@ class RevealSubmitForm extends Component {
     if(e) {
       e.preventDefault();
     }
-    
+
     this.setState({
       showPopup: false,
       formTitle: '',
@@ -345,12 +346,12 @@ class RevealSubmitForm extends Component {
                 onChange={this.onTitleChange}
               />
             )}
-            <textarea
-              className="reveal-form-input"
+            <RichTextEditor
+              editorValue={formText}
               onChange={this.onTextChange}
-              rows={2}
+              className="reveal-form-input"
               maxLength={maxLength}
-              value={formText}
+              rows={2}
               placeholder={placeholder}
             />
             {maxLength ? (
