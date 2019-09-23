@@ -162,7 +162,7 @@ class RevealSubmitForm extends Component {
   };
 
   closeModal = e => {
-    if(e) {
+    if (e) {
       e.preventDefault();
     }
 
@@ -302,7 +302,10 @@ class RevealSubmitForm extends Component {
           isOpen={showPopup}
           style={{
             content: { ...customModalStylesFitContent.content, border: 'none' },
-            overlay: customModalStylesFitContent.overlay,
+            overlay: {
+              ...customModalStylesFitContent.overlay,
+              overflow: 'auto',
+            },
           }}
           contentLabel="Comment"
           onRequestClose={this.closeModal}
