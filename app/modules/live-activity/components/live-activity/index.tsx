@@ -1,8 +1,7 @@
 import React from 'react';
-import Draggable from 'react-draggable';
 import './index.scss';
 import { Tooltip } from 'react-tippy';
-import { ResizableBox, ResizableProps } from 'react-resizable';
+import { Rnd } from 'react-rnd';
 import { FeedItem } from '../feed-item/index';
 import isMobileScreenSize from '../../../../utils/content-loading-conditions';
 import cx from 'classnames';
@@ -42,21 +41,6 @@ const feed = [
   },
 ];
 
-const getResizableBoxConfigs = (): ResizableProps => {
-  const isMobile = isMobileScreenSize();
-  const defaultWidth = 500;
-  const defaultHeight = 500;
-  const width = isMobile ? screen.availWidth : defaultWidth;
-  const height = isMobile ? screen.availHeight - 53 : defaultHeight;
-
-  return {
-    width,
-    height,
-  };
-};
-
-const RES_CONFIG: ResizableProps = getResizableBoxConfigs();
-
 export const LiveActivity = () => {
   const [isOpen, setOpen] = React.useState(false);
   const isMobile = isMobileScreenSize();
@@ -77,39 +61,40 @@ export const LiveActivity = () => {
             'live-activity-window-wrapper-mobile': isMobile,
           })}
         >
-          <Draggable handle=".live-activity-window-header">
-            <div>
-              <ResizableBox
-                minConstraints={[300, 300]}
-                width={RES_CONFIG.width}
-                height={RES_CONFIG.height}
-              >
-                <div className="live-activity-window">
-                  <div className="live-activity-window-header d-flex justify-content-between align-items-center">
-                    <span className="h4-custom ">live feeds</span>
-                    <Tooltip title="Close">
-                      <span
-                        className="icon-close"
-                        onClick={() => setOpen(false)}
-                        role="presentation"
-                      />
-                    </Tooltip>
-                  </div>
-                  <div className="live-activity-window-body">
-                    <div className="live-activity-window-body-feed">
-                      {feed.map(feedItem => (
-                        <FeedItem item={feedItem} />
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="live-activity-window-footer">
-                    <input type="text" placeholder="Type your message" />
-                  </div>
+          <Rnd
+            default={{
+              width: 575,
+              height: 750,
+              x: 0,
+              y: 0,
+            }}
+            minWidth={300}
+            minHeight={300}
+          >
+            <div className="live-activity-window">
+              <div className="live-activity-window-header d-flex justify-content-between align-items-center">
+                <span className="h4-custom ">live feeds</span>
+                <Tooltip title="Close">
+                  <span
+                    className="icon-close"
+                    onClick={() => setOpen(false)}
+                    role="presentation"
+                  />
+                </Tooltip>
+              </div>
+              <div className="live-activity-window-body">
+                <div className="live-activity-window-body-feed">
+                  {feed.map(feedItem => (
+                    <FeedItem item={feedItem} />
+                  ))}
                 </div>
-              </ResizableBox>
+              </div>
+
+              <div className="live-activity-window-footer">
+                <input type="text" placeholder="Type your message" />
+              </div>
             </div>
-          </Draggable>
+          </Rnd>
         </div>
       )}
     </div>
