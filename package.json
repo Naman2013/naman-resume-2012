@@ -17,7 +17,7 @@
     "prod:saturn": "rimraf dist && rimraf node_modules && npm cache clean && npm install && apiUrl=https://saturn.slooh.com apiPortNumber=443 cookieDomain=.slooh.com  NODE_ENV=production webpack -p --config webpack.production.config.js --colors --progress",
     "prod:nova": "npm install && SENTRY_ENV=TEST apiUrl=https://nova.slooh.com apiPortNumber=443 cookieDomain=.slooh.com  NODE_ENV=production webpack -p --config webpack.production.config.js --colors --progress",
     "prod:eris": "SENTRY_ENV=TEST npm install && apiUrl=https://eris.slooh.com apiPortNumber=443 cookieDomain=.slooh.com  NODE_ENV=production webpack -p --config webpack.production.config.js --colors --progress",
-    "prod:orion": "npm install && SENTRY_ENV=TEST apiUrl=https://orion.slooh.com apiPortNumber=443 cookieDomain=.slooh.com  NODE_ENV=production webpack -p --config webpack.production.config.js --colors --progress",
+    "prod:orion": "npm install && SENTRY_ENV=TEST apiUrl=https://nova.slooh.com apiPortNumber=443 cookieDomain=.slooh.com  NODE_ENV=production webpack -p --config webpack.production.config.js --colors --progress",
     "prod:gonogo": "npm install && apiUrl=https://gonogo.slooh.com apiPortNumber=443 cookieDomain=.slooh.com  NODE_ENV=production webpack -p --config webpack.production.config.js --colors --progress",
     "prod": "npm install && apiUrl=https://slooh.com apiPortNumber=443 cookieDomain=.slooh.com  NODE_ENV=production webpack -p --config webpack.production.config.js --colors --progress",
     "storybook": "start-storybook app/assets -p 6006",
