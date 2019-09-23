@@ -34,8 +34,8 @@ export default css`
     background: url(${questShield});
     background-size: cover;
     background-repeat: no-repeat;
-    height: 100px;
-    width: 100px;
+    height: 112px;
+    width: 112px;
     left: 50%;
     top: 50px;
     transform: translateX(-50%);
@@ -78,21 +78,23 @@ export default css`
 
   .icon-content {
     position: absolute;
-    top: 50%;
+    top: 28px;
     left: 50%;
     transform: translate(-50%, -50%);
+    width: 35.4px;
+    height: 40px;
   }
 
   .title {
     border-bottom: none;
-    color: ${lightHeadedAstronaut};    
+    color: ${lightHeadedAstronaut};
     font-family: ${secondaryFont};
     font-size: 21px;
     font-weight: 300;
     letter-spacing: 0;
     padding: 135px 0 0 0;
     margin: 0;
-    text-transform: none;    
+    text-transform: none;
   }
 
   .level {
@@ -101,7 +103,7 @@ export default css`
     font-size: 10px;
     font-weight: bold;
     letter-spacing: 2px;
-    padding-top: 25px;    
+    padding-top: 25px;
     text-transform: uppercase;
   }
 

@@ -1,0 +1,34 @@
+@import '~app/styles/bootstrap/common';
+
+.quest-step-page {
+  padding-bottom: 100px;
+
+  .top-v-line {
+    display: flex;
+    height: 100px;
+
+    & > div {
+      flex: 1;
+
+      &:first-child {
+        border-right: 2px solid $silver;
+      }
+    }
+  }
+
+  .step-container {
+    margin-bottom: 30px;
+  }
+
+  // RESPONSIVE
+  @include media-breakpoint-down(sm) {
+    & {
+      .step-container {
+        width: 100%;
+        max-width: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    }
+  }
+}

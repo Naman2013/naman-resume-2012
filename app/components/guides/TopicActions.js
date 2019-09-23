@@ -12,30 +12,33 @@ const TopicActions = ({
   guideId,
   objectId,
   user,
-}) => (
-  <ul className="button-container">
-    <li>
-      {guideId && (
-        <ToggleReadingList
-          itemId={guideId}
-          readingListType={readingListType}
-          readingListPrompt={followButtonText}
-          promptIconUrl={followButtonIconURL}
-        />
-      )}
-      {objectId && (
-        <FollowObjectButton
-          objectId={objectId}
-          user={user}
-          followButtonText={followButtonText}
-          followButtonIconURL={followButtonIconURL}
-        />
-      )}
-    </li>
+}) => {
+  console.log(readingListType);
+  return (
+    <ul className="button-container">
+      <li>
+        {guideId && (
+          <ToggleReadingList
+            itemId={guideId}
+            readingListType={readingListType}
+            readingListPrompt={followButtonText}
+            promptIconUrl={followButtonIconURL}
+          />
+        )}
+        {objectId && (
+          <FollowObjectButton
+            objectId={objectId}
+            user={user}
+            followButtonText={followButtonText}
+            followButtonIconURL={followButtonIconURL}
+          />
+        )}
+      </li>
 
-    <style jsx>{style}</style>
-  </ul>
-);
+      <style jsx>{style}</style>
+    </ul>
+  );
+};
 
 TopicActions.propTypes = {
   followButtonIconURL: PropTypes.string.isRequired,

@@ -16,6 +16,7 @@ import {
 
 const initialState = {
   taggedData: { },
+  findInstructionalText: '',
 };
 
 export default createReducer(initialState, {

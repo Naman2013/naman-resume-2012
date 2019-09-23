@@ -1,0 +1,150 @@
+@import '~app/styles/bootstrap/common';
+@import '~app/styles/variables/index';
+
+.quest-qa-answer-form {
+  margin: 10px 0 40px;
+  padding: 40px;
+  box-shadow: 0 0 6px 0 $shadows;
+  background-color: $romance;
+
+  .quest-qa-answer-image {
+    margin-bottom: 40px;
+
+    img {
+      width: 100%;
+    }
+  }
+
+  .quest-qa-answer-prompt {
+    margin-bottom: 20px;
+    font-family: $primary-font;
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: 0.6px;
+    color: $lightHeadedAstronaut;
+  }
+
+  .quest-qa-answer-field,
+  .quest-qa-answer-input-field {
+    width: 100%;
+    min-height: 300px;
+    margin-bottom: 30px;
+    box-shadow: inset 0 0 7px 0 $pale-grey-two;
+    background-color: $pale-grey;
+    border: none;
+    padding: 20px;
+    outline: none;
+    font-family: $secondary-font;
+    font-size: 16px;
+    line-height: 1.13;
+    color: $battleship-grey;
+    resize: none;
+  }
+
+  .quest-qa-answer-input-field {
+    min-height: auto;
+  }
+
+  .quest-qa-answer-submit-btn {
+    margin-right: 20px;
+  }
+
+  .qa-fill-blanks-question {
+    label {
+      font-family: $secondary-font;
+      font-size: 19px;
+      font-weight: 400;
+      line-height: 1.9;
+      letter-spacing: 0.6px;
+      color: $raven;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .qa-fill-blanks-scoring-text {
+      font-family: $primary-font;
+      font-size: 10px;
+      line-height: 2.2;
+      letter-spacing: 2px;
+      color: $lightHeadedAstronaut;
+      margin-left: 15px;
+      text-align: right;
+
+      &.scoring-text-bold {
+        font-weight: 700;
+      }
+    }
+  }
+
+  .qa-multiple-choice-answer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 0 6px 0 $shadows;
+    background-color: $romance;
+    padding: 20px;
+    margin-top: 15px;
+    cursor: pointer;
+
+    &.disabled {
+      pointer-events: none;
+    }
+
+    .qa-multiple-choice-answer-item-container {
+      display: flex;
+      align-items: center;
+
+      .qa-multiple-choice-answer-text {
+        font-family: $secondary-font;
+        font-size: 19px;
+        font-weight: 400;
+        line-height: 1.53;
+        color: $lightHeadedAstronaut;
+      }
+
+      .qa-multiple-choice-answer-label {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 34px;
+        height: 34px;
+        min-width: 34px;
+        min-height: 34px;
+        margin-right: 20px;
+        border-radius: 100%;
+        box-shadow: inset 0 0 3px 0 rgba(164, 170, 179, 0.5);
+        background-color: #f3f5f8;
+        font-family: $primary-font;
+        font-size: 11px;
+        font-weight: 900;
+        line-height: 1.09;
+        text-align: center;
+        color: $lightHeadedAstronaut;
+
+        img {
+          width: 100%;
+          border-radius: 100%;
+        }
+      }
+    }
+
+    .qa-multiple-choice-scoring-text {
+      font-family: $primary-font;
+      font-size: 10px;
+      font-weight: 700;
+      line-height: 2.2;
+      letter-spacing: 2px;
+      color: $lightHeadedAstronaut;
+    }
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  .quest-qa-answer-form {
+    padding: 0;
+    box-shadow: none;
+  }
+}
