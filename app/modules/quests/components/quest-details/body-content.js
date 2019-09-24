@@ -28,6 +28,11 @@ const BodyContent = ({
       />
       <div id="google-classroom-share" />
       <DisplayAtBreakpoint screenMedium>
+        {showAboutCurriculum ? (
+          <div className="show-about-curriculum">
+            {aboutCurriculumText}
+          </div>
+        ) : null}
         <div className="quest-content-buttons-container">
           {showResources ? <ResourcesButton {...resourcesProps} /> : null}
           {showAboutDownloadPDF && (
