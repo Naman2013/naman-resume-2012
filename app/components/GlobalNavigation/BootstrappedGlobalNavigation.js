@@ -74,6 +74,10 @@ class GlobalNavigation extends Component {
     isMobile: false,
   };
 
+  state = {
+    totalViewersCount: 0,
+  };
+
   constructor(params) {
     super(params);
 
@@ -83,44 +87,45 @@ class GlobalNavigation extends Component {
     });
 
     //get a connection to pubnub feeds
-    this.pubnub = new PubNubReact({ 
-	ssl: true, 
-	uuid: getUserInfo().cid, 
-	publishKey: process.env.PUBNUB_FEEDS_PUBKEY, 
-	subscribeKey: process.env.PUBNUB_FEEDS_SUBKEY, 
-	secretKey: process.env.PUBNUB_FEEDS_SECRETKEY 
+    this.pubnub = new PubNubReact({
+      ssl: true,
+      uuid: getUserInfo().cid,
+      publishKey: process.env.PUBNUB_FEEDS_PUBKEY,
+      subscribeKey: process.env.PUBNUB_FEEDS_SUBKEY,
+      secretKey: process.env.PUBNUB_FEEDS_SECRETKEY,
     });
 
     this.pubnub.addListener({
-        status: function(statusEvent) {
-            if (statusEvent.category === "PNConnectedCategory") {
-                console.log("Pubnub is connected....");
-            }
-        },
-        message: function(msg) {
-            console.log(msg.message.title);
-            console.log(msg.message.description);
-        },
-        presence: function(presenceEvent) {
-            // handle presence
-	    console.log(presenceEvent.channel);
-	    console.log(presenceEvent);
+      status: statusEvent => {
+        if (statusEvent.category === 'PNConnectedCategory') {
+          console.log('Pubnub is connected....');
         }
-    })      
+      },
+      message: msg => {
+        console.log(msg.message.title);
+        console.log(msg.message.description);
+      },
+      presence: presenceEvent => {
+        // handle presence
+        console.log(presenceEvent.channel);
+        console.log(presenceEvent);
+        this.setState({ totalViewersCount: presenceEvent.occupancy });
+      },
+    });
 
     this.pubnub.init(this);
   }
 
   componentWillMount() {
     this.pubnub.subscribe({
-       channels: [
-         "system.activityfeed",
-         "system.liveevents",
-         "customer." + getUserInfo().cid,
-       ],
-       withPresence: true
-     });
-   }
+      channels: [
+        'system.activityfeed',
+        'system.liveevents',
+        'customer.' + getUserInfo().cid,
+      ],
+      withPresence: true,
+    });
+  }
 
   componentDidMount() {
     if (!this.props.isMobile) {
@@ -138,12 +143,12 @@ class GlobalNavigation extends Component {
     window.removeEventListener('scroll', this.debouncedCloseAll);
     //unmount pubnub
     this.pubnub.unsubscribe({
-       channels: [
-         "system.activityfeed",
-         "system.liveevents",
-         "customer." + getUserInfo().cid,
-       ],
-     });
+      channels: [
+        'system.activityfeed',
+        'system.liveevents',
+        'customer.' + getUserInfo().cid,
+      ],
+    });
   }
 
   closeAll = () => {
@@ -199,6 +204,8 @@ class GlobalNavigation extends Component {
       userMenu,
     } = this.props;
 
+    const { totalViewersCount } = this.state;
+
     const leftMenuContent = MENU_INTERFACE[activeLeft];
     const rightMenuContent = MENU_INTERFACE[activeRight];
     const notificationMenuContent = MENU_INTERFACE[MENU_INTERFACE.ALERTS.name];
@@ -211,6 +218,7 @@ class GlobalNavigation extends Component {
             handleMenuClick={this.handleMenuClick}
             handleNotificationClick={this.handleNotificationClick}
             closeAllMenus={this.closeAll}
+            totalViewersCount={totalViewersCount}
           />
         </div>
 

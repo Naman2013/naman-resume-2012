@@ -54,7 +54,11 @@ const getResizableBoxConfigs = () => {
   };
 };
 
-export const LiveActivity = () => {
+type TLiveActivity = {
+  totalViewersCount: number;
+}
+
+export const LiveActivity = (props: TLiveActivity) => {
   const [isOpen, setOpen] = React.useState(false);
   const isMobile = isMobileScreenSize();
   const defaultSize = getResizableBoxConfigs();
@@ -87,7 +91,7 @@ export const LiveActivity = () => {
           >
             <div className="live-activity-window">
               <div className="live-activity-window-header d-flex justify-content-between align-items-center">
-                <span className="h4-custom ">live feeds</span>
+                <span className="h4-custom ">live feeds {props.totalViewersCount}</span>
                 <Tooltip title="Close">
                   <span
                     className="icon-close"

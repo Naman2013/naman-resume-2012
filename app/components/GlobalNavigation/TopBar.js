@@ -21,6 +21,7 @@ const TopBar = ({
   activeMenu,
   handleNotificationClick,
   closeAllMenus,
+  totalViewersCount,
 }) => {
   const mainIsActive = isActive(activeMenu, MENU_INTERFACE.MAIN.name);
   const telescopesIsActive = isActive(
@@ -116,7 +117,7 @@ const TopBar = ({
                 {user.isAuthorized ? (
                   <>
                     <li>
-                      <LiveActivityLoadable onClick={closeAllMenus} />
+                      <LiveActivityLoadable totalViewersCount={totalViewersCount} onClick={closeAllMenus} />
                     </li>
                     <li>
                       <Livecast user={user} onClick={closeAllMenus} />
