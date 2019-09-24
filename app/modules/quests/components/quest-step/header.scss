@@ -1,0 +1,146 @@
+@import '~app/styles/variables/media-queries';
+@import '~app/styles/bootstrap/common';
+@import '~app/styles/variables/colors.scss';
+
+.header-root {
+  .step-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    height: 92px;
+    background-color: white;
+    box-shadow: 0 0 6px 0 $shadows;
+  }
+  .step-back {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 92px;
+    height: 92px;
+    color: #0a0c0e;
+    font-size: 16px;
+    border-right: 1px solid #d9dee4;
+  }
+  .step-title {
+    display: flex;
+    align-items: center;
+    width: calc(100% - 347px);
+    height: 100%;
+    border-right: 1px solid #d9dee4;
+    padding-left: 39px;
+    font-size: 20px;
+    color: $lightHeadedAstronaut;
+  }
+  .step-back svg path {
+    fill: #648282;
+  }
+  .step-navigation {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 256px;
+    height: 100%;
+  }
+  .step-button-container {
+    cursor: pointer;
+    height: 40px;
+    width: 40px;
+    margin-top: 4px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+    border: 1px dashed #415671;
+  }
+  .step-button-container.disabled {
+    opacity: 0.2;
+    cursor: not-allowed;
+  }
+  .step-button-container > .prev,
+  .step-button-container > .next {
+    position: relative;
+  }
+  .step-button-container > .prev:before {
+    position: absolute;
+    top: -5px;
+    left: -6px;
+    font-size: 10px;
+  }
+  .step-button-container > .next:before {
+    position: absolute;
+    top: -5px;
+    left: -4px;
+    font-size: 10px;
+  }
+  .open-menu.open {
+    background-color: $lightHeadedAstronaut;
+  }
+  .menu-icon-close {
+    color: white;
+    position: relative;
+    top: 2px;
+  }
+  .step-back-mobile {
+    display: none;
+  }
+  .step-title-mobile {
+    display: none;
+  }
+  .step-navigation-mobile {
+    display: none;
+  }
+  @include sm-low {
+    .step-back {
+      display: none;
+    }
+    .step-back-mobile {
+      display: block;
+      > a {
+        > span:before {
+          position: relative;
+          top: 2px;
+          color: $romance;
+        }
+      }
+    }
+    .step-title {
+      display: none;
+    }
+    .step-title-mobile {
+      display: block;
+      margin-left: 10px;
+      > span {
+        font-size: 11px;
+        font-weight: 900;
+        color: $romance;
+      }
+    }
+    .step-navigation {
+      display: none;
+    }
+    .step-navigation-mobile {
+      display: block;
+      cursor: pointer;
+      > svg {
+        g > circle {
+          fill: #ffffff;
+        }
+      }
+    }
+    .step-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 50px;
+      background-color: #34455b;
+      padding: 0 20px;
+    }
+    .step-header > .mobile-part {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+    }
+  }
+}

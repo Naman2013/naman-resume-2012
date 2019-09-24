@@ -24,11 +24,11 @@ class Badges extends Component {
     return (
       <div className="badges-list">
         {badgesList.map(item => (
-          <Link to={item.badgeDescriptionURL} key={uniqueId()}>
-            <div className="badges-list-item">
-              <img alt="" src={item.badgeURL} />
-            </div>
-          </Link>
+          <div className="badges-list-item-div">
+            <div className="blue-shield-badge" />
+            <div className="badges-list-item-img-span"><img className="badges-list-item-img" alt={item.badgeAwardedDate} title={item.badgeAwardedDate} src={item.badgeIconURL} /></div>
+            <div className="badges-list-item-description">{item.badgeTitle}</div>
+          </div>
         ))}
         <style jsx>{styles}</style>
       </div>

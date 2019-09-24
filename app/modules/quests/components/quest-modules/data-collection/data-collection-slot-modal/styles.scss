@@ -1,0 +1,53 @@
+@import '~app/styles/variables/index';
+@import '~app/styles/variables/colors';
+@import '~app/styles/bootstrap/common';
+
+.image-selection-modal {
+  min-height: 100vh;
+
+  .spinner-wrapper {
+    margin-left: -15px;
+  }
+
+  .show-more {
+    margin: 0 auto;
+    display: block;
+  }
+
+  .pagination-root {
+    .button-container {
+      border-color: $white;
+      .text {
+        color: $white;
+      }
+      img {
+        filter: brightness(0) invert(1);
+      }
+    }
+    .page-select {
+      .action {
+        border-color: $white;
+        color: $white;
+        &.active {
+          background-color: $white;
+          color: $black;
+        }
+      }
+    }
+  }
+  .mobile-container {
+    display: none;
+  }
+
+  // RESPONSIVE
+  @include media-breakpoint-down(sm) {
+    & {
+      .mobile-container {
+        display: block;
+      }
+      .desktop-container {
+        display: none;
+      }
+    }
+  }
+}

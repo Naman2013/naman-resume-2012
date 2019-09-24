@@ -1,0 +1,12 @@
+@import '~app/styles/variables/index';
+
+.quest-qa-multiple-choice {
+  margin-bottom: 60px;
+
+  .quest-qa-instructions {
+    font-family: $secondary-font;
+    font-size: 19px;
+    line-height: 1.5;
+    color: $raven;
+  }
+}

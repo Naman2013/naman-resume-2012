@@ -74,11 +74,7 @@ const prepareReplyFail = payload => ({
   payload,
 });
 
-export const prepareReply = ({
-  lang,
-  ver,
-  status,
-}) => (dispatch, getState) => {
+export const prepareReply = ({ lang, ver, status }) => (dispatch, getState) => {
   const { cid, at, token } = getState().user;
   dispatch(prepareReplyStart());
 
