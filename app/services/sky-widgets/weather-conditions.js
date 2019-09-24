@@ -1,8 +1,8 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 export default function fetchWeatherConditionsWidget({
   obsId,
   widgetUniqueId,
 }) {
-  return axios.get('/api/obs/getWXData', { params: { obsId } });
+  return API.get('/api/obs/getWXData', { params: { obsId } });
 }

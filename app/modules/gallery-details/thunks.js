@@ -1,5 +1,10 @@
 import { ACTION } from './reducer';
-import { getGalleryDetailsApi, removeImageFromGalleryApi } from './api';
+import {
+  getGalleryDetailsApi,
+  removeImageFromGalleryApi,
+  deleteGalleryApi,
+  renameGalleryApi,
+} from './api';
 
 export const getGalleryDetails = galleryId => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
@@ -13,6 +18,20 @@ export const getGalleryDetails = galleryId => (dispatch, getState) => {
   return getGalleryDetailsApi(body)
     .then(result => dispatch(ACTION.getGalleryDetailsSuccess(result.data)))
     .catch(error => dispatch(ACTION.getGalleryDetailsError(error)));
+};
+
+export const renameGallery = ({ galleryId, title }) => (dispatch, getState) => {
+  const { at, token, cid } = getState().user;
+  const body = {
+    at,
+    token,
+    cid,
+    galleryId,
+    title,
+  };
+  return renameGalleryApi(body)
+    .then(result => dispatch(ACTION.renameGallerySuccess(result.data)))
+    .catch(error => dispatch(ACTION.renameGalleryError(error)));
 };
 
 export const removeImageFromGallery = ({ galleryId, customerImageId }) => (
@@ -32,4 +51,19 @@ export const removeImageFromGallery = ({ galleryId, customerImageId }) => (
     .then(result => dispatch(ACTION.removeImageFromGallerySuccess(result.data)))
     .then(() => getGalleryDetails(galleryId)(dispatch, getState))
     .catch(error => dispatch(ACTION.removeImageFromGalleryError(error)));
+};
+
+export const deleteGallery = ({ galleryId }) => (dispatch, getState) => {
+  const { at, token, cid } = getState().user;
+  dispatch(ACTION.deleteGallery());
+  const body = {
+    at,
+    token,
+    cid,
+    galleryId,
+  };
+  return deleteGalleryApi(body)
+    .then(result => dispatch(ACTION.deleteGallerySuccess(result.data)))
+    .then(() => getGalleryDetails(galleryId)(dispatch, getState))
+    .catch(error => dispatch(ACTION.deleteGalleryError(error)));
 };

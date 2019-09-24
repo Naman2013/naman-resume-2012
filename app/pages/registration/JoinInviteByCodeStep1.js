@@ -4,7 +4,7 @@
 import React, { Component, cloneElement, Fragment } from 'react';
 import { Link } from 'react-router';
 import PropTypes from 'prop-types';
-import axios from 'axios';
+import { API } from 'app/api';
 import { GoogleLogin } from 'react-google-login';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
@@ -125,8 +125,8 @@ class JoinByInviteCodeStep1 extends Component {
     if (formIsComplete === true) {
       /* Validate the Invitation Email Address and Code */
 
-      const validInvitationCodeResult = axios
-        .post(JOIN_VALIDATE_INVITATIONCODE_ENDPOINT_URL, {
+      const validInvitationCodeResult = API
+      .post(JOIN_VALIDATE_INVITATIONCODE_ENDPOINT_URL, {
           invitationCode: this.state.accountFormDetails.invitationCode.value,
           loginEmailAddress: this.state.accountFormDetails.loginEmailAddress
             .value,

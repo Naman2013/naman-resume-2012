@@ -24,6 +24,10 @@ export default css`
     padding-top: 0px;
   }
 
+  :global(.author-public-profile-url) {
+    height: unset !important;
+  }
+
   .story-tile-root :global(a) {
     display: block;
     height: 100%;

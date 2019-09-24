@@ -98,6 +98,7 @@ export class Question extends Component {
       threadId: item.threadId,
       authorId: item.customerId,
       forumId: item.forumId,
+      callSource: 'qanda',
     });
 
     if (!answers) {

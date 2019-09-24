@@ -16,7 +16,7 @@ import {
   FORGOT_PASSWORD_CONFIRMRESETTOKEN_ENDPOINT_URL,
   FORGOT_PASSWORD_CHANGEPASSWORD_ENDPOINT_URL,
 } from 'app/services/registration/registration.js';
-import axios from 'axios';
+import { API } from 'app/api';
 import Request from 'app/components/common/network/Request';
 import JoinHeader from './partials/JoinHeader';
 import { destroySession } from 'app/modules/User';
@@ -157,8 +157,8 @@ class ResetPassword extends Component {
       this.setState({ passwordFormDetails: passwordFormData });
     } else {
       //Make an API call out to verify the password being requested and if successful change the password.
-      const passwordMeetsRequirementsAndWasChanged = axios
-        .post(FORGOT_PASSWORD_CHANGEPASSWORD_ENDPOINT_URL, {
+      const passwordMeetsRequirementsAndWasChanged = API
+      .post(FORGOT_PASSWORD_CHANGEPASSWORD_ENDPOINT_URL, {
           loginEmailAddress: this.state.passwordFormDetails.loginemailaddress
             .value,
           userEnteredPassword: this.state.passwordFormDetails.password.value,

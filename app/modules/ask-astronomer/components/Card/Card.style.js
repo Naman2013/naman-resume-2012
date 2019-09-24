@@ -43,6 +43,10 @@ export default css`
     text-transform: uppercase;
   }
 
+  .display-name {
+    color: ${astronaut};
+  }
+
   .user-info,
   .user-info-container {
     display: flex;
@@ -126,6 +130,10 @@ export default css`
   .explainantion-item:first-child {
     height: 25px;
     border-bottom: 0;
+  }
+
+  .explainantion-item:nth-child(3) {
+    border-top: 0;
   }
 
   .object-name-container {

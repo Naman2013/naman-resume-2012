@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 export const FETCH_SHOW_CONTENT_START = 'FETCH_SHOW_CONTENT_START';
 export const FETCH_SHOW_CONTENT_SUCCESS = 'FETCH_SHOW_CONTENT_SUCCESS';
@@ -22,7 +22,7 @@ export const fetchShowContent = ({ showId, listType }) => (dispatch, getState) =
   const { cid } = getState().user;
   dispatch(fetchContentStart());
   if (showId) {
-    return axios
+    return API
       .post('/api/content/getShowContent', {
         cid,
         showId,

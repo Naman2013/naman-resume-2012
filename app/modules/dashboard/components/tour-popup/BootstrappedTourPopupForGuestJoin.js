@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import axios from 'axios';
+import { API } from 'app/api';
 import Modal from 'react-modal';
 import Request from 'app/components/common/network/Request';
 import { Link } from 'react-router';

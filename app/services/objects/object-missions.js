@@ -1,7 +1,7 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 export default function fetchObjectMissionsService({ token, at, cid, objectId }) {
-  return axios.post('/api/object/getObjectMissions', {
+  return API.post('/api/object/getObjectMissions', {
     token,
     at,
     cid,

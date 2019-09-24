@@ -42,10 +42,12 @@ const GroupMemberListSort = ({
       <div>
         <p className="leader-label"> {clubLeaderLabel}</p>
         <div className="pic" style={profilePicLeader(iconUrl)} />
-        <div
-          className="leader-title"
-          dangerouslySetInnerHTML={{ __html: displayName }}
-        />
+        <Link to={linkUrl}>
+          <div
+            className="leader-title"
+            dangerouslySetInnerHTML={{ __html: displayName }}
+          />
+        </Link>
         <div className="leader-info">
           <span
             className="gravity-label"
@@ -64,10 +66,12 @@ const GroupMemberListSort = ({
       <>
         <div className="header">
           <div className="pic" style={profilePicSmall(iconUrl)} />
-          <div
-            className="user-title"
-            dangerouslySetInnerHTML={{ __html: displayName }}
-          />
+          <Link to={linkUrl}>
+            <div
+              className="user-title"
+              dangerouslySetInnerHTML={{ __html: displayName }}
+            />
+          </Link>
         </div>
         <div className="member-info">
           <span

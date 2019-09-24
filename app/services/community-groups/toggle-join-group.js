@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 /** V4 toggle join group
 
@@ -24,7 +24,7 @@ export const toggleJoinGroup = ({
   ver,
   lang,
 }) => (
-  axios.post('/api/discussiongroups/toggleJoinGroup', {
+  API.post('/api/discussiongroups/toggleJoinGroup', {
     cid,
     at,
     token,

@@ -1,7 +1,7 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 export const getNextPiggyback = ({ cid, token, at, objectId, type, uniqueId, requestType }) => {
-  return axios.post('/api/recommends/getNextPiggyback', {
+  return API.post('/api/recommends/getNextPiggyback', {
     cid,
     token,
     at,

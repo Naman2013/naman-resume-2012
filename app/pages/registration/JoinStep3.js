@@ -9,7 +9,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Countdown from 'react-countdown-now';
 import { browserHistory } from 'react-router';
-import axios from 'axios';
+import { API } from 'app/api';
 import { FormattedMessage } from 'react-intl';
 import {
   resetLogIn,
@@ -134,8 +134,8 @@ class JoinStep3 extends Component {
           billingAddressString: paymentDataString[3],
         };
 //add string aboc to this //ADD THIS BACK AFTER TESTING
-            axios
-          .post(
+            API
+      .post(
             JOIN_ACTIVATE_PENDING_CUSTOMER_ENDPOINT_URL,
             activatePendingCustomerData
           )
@@ -164,7 +164,7 @@ class JoinStep3 extends Component {
                     pwd: window.localStorage.password,
                   };
 
-                  /* cleanup local storage */ 
+                  /* cleanup local storage */
                   window.localStorage.removeItem('accountCreationType');
                   window.localStorage.removeItem('username');
                   window.localStorage.removeItem('password');
@@ -182,7 +182,7 @@ class JoinStep3 extends Component {
                   browserHistory.push('/');
                 }
               } else {
-                /* process / display error to user */ 
+                /* process / display error to user */
 		document.getElementById('embeddedHostedPaymentForm').contentWindow.captureActivationError(res);
               }
             }
@@ -192,7 +192,7 @@ class JoinStep3 extends Component {
           });
       }
     }
-  }; 
+  };
 
   /* Obtain access to the join api service response and update the  redirectInX Seconds state */
   handleJoinPageServiceResponse = result => {

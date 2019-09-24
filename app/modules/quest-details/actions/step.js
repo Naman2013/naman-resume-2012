@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 export const FETCH_QUEST_STEP_START = 'FETCH_QUEST_STEP_START';
 export const FETCH_QUEST_STEP_SUCCESS = 'FETCH_QUEST_STEP_SUCCESS';
@@ -26,7 +26,7 @@ export const fetchQuestStepPage = ({
 }) => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
   dispatch(fetchQuestStepPageStart());
-  return axios.post('/api/quests/getStep', {
+  return API.post('/api/quests/getStep', {
     at,
     cid,
     lang,

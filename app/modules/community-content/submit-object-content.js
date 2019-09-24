@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 export default function submitObjectContent({
   cid,
@@ -12,7 +12,7 @@ export default function submitObjectContent({
   postTags,
   S3URLs,
 }) {
-  return axios.post('/api/content/submitObjectContent', {
+  return API.post('/api/content/submitObjectContent', {
     cid,
     at,
     token,

@@ -1,7 +1,7 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 export default function fetchFacilityCamTimelapse({ obsId, FacilityWebcamTimelapseWidgetId }) {
-  return axios.post('/api/widget/facilityWebcamTimelapse', {
+  return API.post('/api/widget/facilityWebcamTimelapse', {
     obsId,
     widgetUniqueId: FacilityWebcamTimelapseWidgetId,
   });

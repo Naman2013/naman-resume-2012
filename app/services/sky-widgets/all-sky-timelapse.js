@@ -1,7 +1,7 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 export default function fetchAllSkyTimelapse({ obsId, AllskyTimelapseWidgetId }) {
-  return axios.post('/api/widget/allskyTimelapse', {
+  return API.post('/api/widget/allskyTimelapse', {
     obsId,
     widgetUniqueId: AllskyTimelapseWidgetId,
   });

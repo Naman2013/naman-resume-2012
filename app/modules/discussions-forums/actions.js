@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 import { getForumList } from '../../services/discussions/get-forum-list';
 
 export const FETCH_FORUM_LIST_START = 'FETCH_FORUM_LIST_START';
