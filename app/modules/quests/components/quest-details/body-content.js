@@ -15,11 +15,17 @@ const BodyContent = ({
   showAboutDownloadPDF,
   onDownloadPDF,
   aboutDownloadPDFTooltipText,
+  showAboutCurriculum,
+  aboutCurriculumText,
 }) => {
   return (
     <div className="root" style={theme}>
       <h4 className="title">{title}</h4>
-      <AboutContent content={content} />
+      <AboutContent
+        content={content}
+        showAboutCurriculum={showAboutCurriculum}
+        aboutCurriculumText={aboutCurriculumText}
+      />
       <div id="google-classroom-share" />
       <DisplayAtBreakpoint screenMedium>
         <div className="quest-content-buttons-container">
