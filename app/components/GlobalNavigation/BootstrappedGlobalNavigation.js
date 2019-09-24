@@ -16,6 +16,10 @@ import { customModalStylesBlackOverlay } from 'app/styles/mixins/utilities';
 import { screenMedium, screenLarge } from 'app/styles/variables/breakpoints';
 import debounce from 'lodash/debounce';
 
+//integrate with Pubnub
+import PubNubReact from 'pubnub-react';
+import { getUserInfo } from 'app/modules/User';
+
 const mapStateToProps = ({
   globalNavigation,
   routing: {
@@ -77,7 +81,46 @@ class GlobalNavigation extends Component {
       leading: true,
       trailing: false,
     });
+
+    //get a connection to pubnub feeds
+    this.pubnub = new PubNubReact({ 
+	ssl: true, 
+	uuid: getUserInfo().cid, 
+	publishKey: process.env.PUBNUB_FEEDS_PUBKEY, 
+	subscribeKey: process.env.PUBNUB_FEEDS_SUBKEY, 
+	secretKey: process.env.PUBNUB_FEEDS_SECRETKEY 
+    });
+
+    this.pubnub.addListener({
+        status: function(statusEvent) {
+            if (statusEvent.category === "PNConnectedCategory") {
+                console.log("Pubnub is connected....");
+            }
+        },
+        message: function(msg) {
+            console.log(msg.message.title);
+            console.log(msg.message.description);
+        },
+        presence: function(presenceEvent) {
+            // handle presence
+	    console.log(presenceEvent.channel);
+	    console.log(presenceEvent);
+        }
+    })      
+
+    this.pubnub.init(this);
   }
+
+  componentWillMount() {
+    this.pubnub.subscribe({
+       channels: [
+         "system.activityfeed",
+         "system.liveevents",
+         "customer." + getUserInfo().cid,
+       ],
+       withPresence: true
+     });
+   }
 
   componentDidMount() {
     if (!this.props.isMobile) {
@@ -93,6 +136,14 @@ class GlobalNavigation extends Component {
 
   componentWillUnmount() {
     window.removeEventListener('scroll', this.debouncedCloseAll);
+    //unmount pubnub
+    this.pubnub.unsubscribe({
+       channels: [
+         "system.activityfeed",
+         "system.liveevents",
+         "customer." + getUserInfo().cid,
+       ],
+     });
   }
 
   closeAll = () => {

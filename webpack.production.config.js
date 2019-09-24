@@ -126,6 +126,9 @@ module.exports = {
 
     new webpack.EnvironmentPlugin({
       SENTRY_ENV: 'PRODUCTION',
+      PUBNUB_FEEDS_SUBKEY: '',
+      PUBNUB_FEEDS_PUBKEY: '',
+      PUBNUB_FEEDS_SECRETKEY: ''
     }),
 
     // Minify and optimize the index.html
