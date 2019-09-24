@@ -12,6 +12,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import compact from 'lodash/compact';
 import isMatch from 'lodash/isMatch';
+import axios from 'axios';
 import { API } from 'app/api';
 import { CancelToken } from 'axios';
 import { validateResponseAccess } from 'app/modules/authorization/actions';
@@ -254,7 +255,7 @@ class Request extends Component {
       resultedUserParams = getFieldsFromObj(nextUser || user, userParams);
 
     if (method === POST) {
-      API
+      axios
       .post(
           serviceURL,
           Object.assign(
@@ -269,7 +270,7 @@ class Request extends Component {
     }
 
     if (method === GET) {
-      API
+      axios
       .get(serviceURL, {
           params: Object.assign({}, validatedRequestBody),
         })
