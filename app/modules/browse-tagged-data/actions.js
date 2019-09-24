@@ -9,7 +9,7 @@ export const FETCH_BROWSE_TAGGED_DATA_START = 'FETCH_BROWSE_TAGGED_DATA_START';
 export const FETCH_BROWSE_TAGGED_DATA_FAIL = 'FETCH_BROWSE_TAGGED_DATA_FAIL';
 export const FETCH_BROWSE_TAGGED_DATA_SUCCESS = 'FETCH_BROWSE_TAGGED_DATA_SUCCESS';
 
-export const fetchBrowseTaggedDataAction = (contentTypes) => (dispatch, getState) => {
+export const fetchBrowseTaggedDataAction = (viewType) => (dispatch, getState) => {
   dispatch(fetchBrowseTaggedDataActionStart());
 
   const { token, at, cid } = getState().user;
@@ -18,7 +18,7 @@ export const fetchBrowseTaggedDataAction = (contentTypes) => (dispatch, getState
     token,
     at,
     cid,
-    contentTypes,
+    viewType,
   }).then(
     result => {
       dispatch(fetchBrowseTaggedDataActionSuccess(result.data));

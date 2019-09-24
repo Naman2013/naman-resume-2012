@@ -22,10 +22,10 @@ DeviceConfiguration.initEnum({
 });
 
 export const isDesktop = currentWidth =>
-  currentWidth > DeviceConfiguration.DESKTOP.min;
+  currentWidth >= DeviceConfiguration.DESKTOP.min;
 
 export const isTablet = currentWidth =>
-  !isDesktop(currentWidth) && currentWidth > DeviceConfiguration.TABLET.min;
+  !isDesktop(currentWidth) && currentWidth >= DeviceConfiguration.TABLET.min;
 
 export const isMobile = currentWidth =>
   !isDesktop(currentWidth) && !isTablet(currentWidth);

@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 export const GET_SHARED_MEMBER_PHOTOS_START = 'GET_SHARED_MEMBER_PHOTOS_START';
 export const GET_SHARED_MEMBER_PHOTOS_SUCCESS = 'GET_SHARED_MEMBER_PHOTOS_SUCCESS';
@@ -23,7 +23,7 @@ const getAndStoreImageDetails = ({
   callSource,
 }) => (dispatch, getState) => {
   const { at, cid, token } = getState().user;
-  return axios.post('/api/images/getImageDetails', {
+  return API.post('/api/images/getImageDetails', {
     at,
     cid,
     token,
@@ -58,7 +58,7 @@ export const getSharedMemberPhotos = ({
   makeDetailsCall = false,
 }) => (dispatch, getState) => {
   dispatch(getSharedMemberPhotosStart());
-  return axios.post('/api/images/getSharedMemberPictures', {
+  return API.post('/api/images/getSharedMemberPictures', {
     customerId,
     customerUUID,
     listOrdering: 'asc',

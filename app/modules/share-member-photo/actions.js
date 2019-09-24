@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 export const SHARE_MEMBER_PHOTO_START = 'SHARE_MEMBER_PHOTO_START';
 export const SHARE_MEMBER_PHOTO_SUCCESS = 'SHARE_MEMBER_PHOTO_SUCCESS';
@@ -29,7 +29,7 @@ export const shareMemberPicture = ({
 }) => (dispatch, getState) => {
   const { token, cid, at } = getState().user;
   dispatch(shareMemberPictureStart());
-  return axios.post('/api/images/shareMemberPicture', {
+  return API.post('/api/images/shareMemberPicture', {
     at,
     cid,
     token,

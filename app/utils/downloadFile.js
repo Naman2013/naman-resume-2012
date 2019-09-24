@@ -1,7 +1,7 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 function downloadFile(url, fileName) {
-  return axios({
+  return API({
     url,
     method: 'GET',
     responseType: 'blob',

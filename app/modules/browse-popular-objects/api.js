@@ -1,4 +1,5 @@
-import axios, { CancelToken } from 'axios';
+import { CancelToken } from 'axios';
+import { API } from 'app/api';
 
 export default function fetchCatagoryList({
   cid,
@@ -6,7 +7,7 @@ export default function fetchCatagoryList({
   token,
   callSource, // byTelescope || byPopularObjects
 }) {
-  return axios.post('/api/reservation/getPopularCategoryList', {
+  return API.post('/api/reservation/getPopularCategoryList', {
     cid,
     at,
     token,
@@ -20,7 +21,7 @@ export function fetchCategoryTopicList({
   status, // optional: published, draft all
   callSource,
 }) {
-  return axios.post('/api/content/getObjectCategoryTopicList', {
+  return API.post('/api/content/getObjectCategoryTopicList', {
     cid,
     at,
     token,
@@ -48,7 +49,7 @@ export function fetchPopularObjectList({
 
   return {
     cancelToken: fetchPopularObjectsSource,
-    promise: axios({
+    promise: API({
       url: '/api/reservation/getPopularObjectList',
       method: 'post',
       data: {

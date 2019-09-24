@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 export const ADD_IMAGE_TO_GALLERY_START = 'ADD_IMAGE_TO_GALLERY_START';
 export const ADD_IMAGE_TO_GALLERY_SUCCESS = 'ADD_IMAGE_TO_GALLERY_SUCCESS';
@@ -26,7 +26,7 @@ export const addImageToGallery = ({
 }) => (dispatch, getState) => {
   const { token, cid, at } = getState().user;
   dispatch(addImageToGalleryStart());
-  return axios.post('/api/images/addImageToGallery', {
+  return API.post('/api/images/addImageToGallery', {
     at,
     cid,
     token,

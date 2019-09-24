@@ -5,7 +5,7 @@
 import React, { Component, cloneElement, Fragment } from 'react';
 import { Link } from 'react-router';
 import PropTypes from 'prop-types';
-import axios from 'axios';
+import { API } from 'app/api';
 import { GoogleLogin } from 'react-google-login';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
@@ -383,8 +383,8 @@ class JoinStep2 extends Component {
       /* Last Validation....password and email address validation */
       /* reach out to the Slooh API and verify the user's password and email address is not already taken, etc */
 
-      const customerDetailsMeetsRequirementsResult = axios
-        .post(VALIDATE_NEW_PENDING_CUSTOMER_DETAILS_ENDPOINT_URL, {
+      const customerDetailsMeetsRequirementsResult = API
+      .post(VALIDATE_NEW_PENDING_CUSTOMER_DETAILS_ENDPOINT_URL, {
           userEnteredPassword: this.state.accountFormDetails.password.value,
           userEnteredLoginEmailAddress: this.state.accountFormDetails
             .loginEmailAddress.value,
@@ -469,7 +469,7 @@ class JoinStep2 extends Component {
     }
 
     // JOIN_CREATE_PENDING_CUSTOMER_ENDPOINT_URL
-    axios
+    API
       .post(
         JOIN_CREATE_PENDING_CUSTOMER_ENDPOINT_URL,
         createPendingCustomerData
@@ -520,7 +520,7 @@ class JoinStep2 extends Component {
     // console.log("Processing Google Signin: " + googleTokenData);
 
     /* Process the Google SSO tokens and get back information about this user via the Slooh APIs/Google APIs, etc. */
-    axios
+    API
       .post(GOOGLE_SSO_SIGNIN_ENDPOINT_URL, {
         authenticationCode: googleTokenData.code,
       })

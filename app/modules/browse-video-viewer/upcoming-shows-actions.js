@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 import { upcomingShows } from '../../services/shows/upcoming-shows';
 
 export const FETCH_UPCOMING_SHOWS_START = 'FETCH_UPCOMING_SHOWS_START';

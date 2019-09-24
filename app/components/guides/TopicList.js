@@ -5,7 +5,7 @@ import BobbieTile from 'app/components/common/tiles/BobbieTile';
 import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
 import style from './TopicList.style';
 
-const TopicList = ({ list }) => (
+const TopicList = ({ list = [] }) => (
   <CenterColumn>
     <ul>
       {list.map(tile => <li key={`guide-panel-${tile.guidePanelId}`}>

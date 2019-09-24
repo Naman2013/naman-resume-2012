@@ -17,7 +17,7 @@ import {
   ListGroupItem,
 } from 'react-bootstrap';
 import Request from 'app/components/common/network/Request';
-import axios from 'axios';
+import { API } from 'app/api';
 import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 import Button from 'app/components/common/style/buttons/Button';
 import DiscussionBoardInviteNewMemberToSlooh from 'app/components/community-groups/overview/DiscussionBoardInviteNewMemberToSlooh';
@@ -84,7 +84,7 @@ class DiscussionBoardInvitationsPanel extends Component {
   addExistingMemberToDiscussionGroup = (firstName, lastName, emailAddress) => {
     const { discussionGroupId, user, refreshHeader } = this.props;
 
-    const setInviteCompleteResult = axios
+    const setInviteCompleteResult = API
       .post(CREATE_CUSTOMER_LINK_INVITATION_ENDPOINT_URL, {
         cid: user.cid,
         at: user.at,

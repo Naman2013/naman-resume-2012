@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 export const GET_HOME_PAGE_START = 'GET_HOME_PAGE_START';
 export const GET_HOME_PAGE_SUCCESS = 'GET_HOME_PAGE_SUCCESS';
@@ -30,8 +30,8 @@ export const getHomePageFail = ({ error }) => ({
 export const getHomePage = () => (dispatch, getState) => {
   const { at, cid, token } = getState().user;
   dispatch(getHomePageStart());
-  return axios
-    .post('/api/app/getHomePage', {
+  return API
+      .post('/api/app/getHomePage', {
       at, cid, token,
     })
     .then(result => dispatch(getHomePageSuccess(result)))
@@ -56,8 +56,8 @@ export const getNewHomePageFail = ({ error }) => ({
 export const getNewHomePage = () => (dispatch, getState) => {
   const { at, cid, token } = getState().user;
   dispatch(getNewHomePageStart());
-  return axios
-    .post('/api/app/getNewHomePage', {
+  return API
+      .post('/api/app/getNewHomePage', {
       at, cid, token,
     })
     .then(result => dispatch(getNewHomePageSuccess(result)))
@@ -82,8 +82,8 @@ export const trackUser = () => (dispatch, getState) => {
 
   const { cid } = getState().user;
   dispatch(trackUserStart());
-  axios
-    .post('/api/logging/recordUserAction', {
+  API
+      .post('/api/logging/recordUserAction', {
       cid,
       actionId: 'pagevisit',
       featureId: 'home',

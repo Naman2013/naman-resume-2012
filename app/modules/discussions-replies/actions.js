@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 export const FETCH_REPLIES_START = 'FETCH_REPLIES_START';
 export const FETCH_REPLIES_SUCCESS = 'FETCH_REPLIES_SUCCESS';
@@ -42,7 +42,7 @@ export const fetchReplies = ({
     dispatch(fetchRepliesStart());
   }
 
-  return axios.post('/api/forum/getReplies', {
+  return API.post('/api/forum/getReplies', {
     cid,
     at,
     token,
@@ -74,15 +74,11 @@ const prepareReplyFail = payload => ({
   payload,
 });
 
-export const prepareReply = ({
-  lang,
-  ver,
-  status,
-}) => (dispatch, getState) => {
+export const prepareReply = ({ lang, ver, status }) => (dispatch, getState) => {
   const { cid, at, token } = getState().user;
   dispatch(prepareReplyStart());
 
-  return axios.post('/api/forum/prepareReply', {
+  return API.post('/api/forum/prepareReply', {
     cid,
     at,
     token,
@@ -122,7 +118,7 @@ export const submitReply = ({
   const { cid, at, token } = getState().user;
   dispatch(submitReplyStart());
 
-  return axios.post('/api/forum/submitReply', {
+  return API.post('/api/forum/submitReply', {
     cid,
     at,
     token,

@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 import cookie from 'cookie';
 import { store } from '../User';
 
@@ -26,7 +26,7 @@ const uploadAvatarFailure = payload => ({
 
 export const uploadAvatar = data => (dispatch, getState) => {
   dispatch(uploadAvatarStart());
-  return axios({
+  return API({
     method: 'post',
     url: '/api/users/uploadAvatar',
     headers: {
@@ -55,8 +55,8 @@ const setAvatarFailure = payload => ({
 export const setAvatar = ({ lang, ver, imageURL }) => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
   dispatch(setAvatarStart());
-  return axios
-    .post('/api/users/setAvatar', {
+  return API
+      .post('/api/users/setAvatar', {
       at,
       token,
       cid,

@@ -77,8 +77,8 @@ class ProfileInformation extends Component {
         <Badges badgesList={badgesData.badgesList} />,
         <StatsDetails userInfoGuideDetails={userInfoGuideDetails} />,
       ],
-      disabledList: [true, false],
-      defaultIndex: 1,
+      disabledList: [false, false],
+      defaultIndex: 0,
     };
   };
 

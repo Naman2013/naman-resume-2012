@@ -49,6 +49,7 @@ export default css`
     ${borderBottom}
     ${toUpper}
     padding: 4px 0;
+    color: #648282;
   }
 
   .description {

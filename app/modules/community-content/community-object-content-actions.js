@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 export const FETCH_OBJECT_CONTENT_RESET = 'FETCH_OBJECT_CONTENT_START';
 export const FETCH_OBJECT_CONTENT_SUCCESS = 'FETCH_OBJECT_CONTENT_SUCCESS';
@@ -31,7 +31,7 @@ export const fetchObjectContent = ({
 
   dispatch(fetchContentReset());
 
-  return axios.post('/api/content/getObjectContent', {
+  return API.post('/api/content/getObjectContent', {
     at,
     token,
     cid,

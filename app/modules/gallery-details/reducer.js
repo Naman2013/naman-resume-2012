@@ -6,6 +6,8 @@ import { API_URL } from './api';
 export const TYPE = constants('gallery-details', [
   '~GET_GALLERY_DETAILS',
   '~REMOVE_IMAGE_FROM_GALLERY',
+  '~DELETE_GALLERY',
+  '~RENAME_GALLERY',
 ]);
 export const ACTION = actions(TYPE);
 
@@ -36,9 +38,15 @@ export default handleActions(
     [TYPE.GET_GALLERY_DETAILS]: setFetching,
     [TYPE.GET_GALLERY_DETAILS_SUCCESS]: getGalleryDetailsSuccess,
     [TYPE.GET_GALLERY_DETAILS_ERROR]: setServerError,
+    [TYPE.RENAME_GALLERY]: setFetching,
+    [TYPE.RENAME_GALLERY_SUCCESS]: renameGallerySuccess,
+    [TYPE.RENAME_GALLERY_ERROR]: setServerError,
     [TYPE.REMOVE_IMAGE_FROM_GALLERY]: setFetching,
     [TYPE.REMOVE_IMAGE_FROM_GALLERY_SUCCESS]: removeImageFromGallerySuccess,
     [TYPE.REMOVE_IMAGE_FROM_GALLERY_ERROR]: setServerError,
+    [TYPE.DELETE_GALLERY]: setFetching,
+    [TYPE.DELETE_GALLERY_SUCCESS]: deleteGallerySuccess,
+    [TYPE.DELETE_GALLERY_ERROR]: setServerError,
   },
   initialState
 );
@@ -53,6 +61,15 @@ function setServerError(state, action) {
     isFetching: false,
     serverError: action.payload,
     isLoaded: false,
+  };
+}
+
+function renameGallerySuccess(state, { payload }) {
+  return {
+    ...state,
+    isFetching: false,
+    isLoaded: true,
+    galleryTitle: payload.title,
   };
 }
 
@@ -75,5 +92,13 @@ function removeImageFromGallerySuccess(state, { payload }) {
     isFetching: false,
     isLoaded: true,
     galleryCountChange: payload.galleryCountChange,
+  };
+}
+
+function deleteGallerySuccess(state, { payload }) {
+  return {
+    ...state,
+    isFetching: false,
+    isLoaded: true,
   };
 }

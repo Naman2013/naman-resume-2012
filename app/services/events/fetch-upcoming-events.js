@@ -1,5 +1,5 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 export default function fetchUpcomingEvents() {
-  return axios.get('/api/events/upcoming?limit=50');
+  return API.get('/api/events/upcoming?limit=50');
 }

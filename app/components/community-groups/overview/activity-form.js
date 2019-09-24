@@ -52,6 +52,7 @@ class ActivityForm extends Component {
   state = {
     uuid: null,
     showSmallActivityForm: false,
+    showInfo: false,
   };
 
   componentDidMount() {
@@ -70,10 +71,18 @@ class ActivityForm extends Component {
     });
   }
 
+  toggleInfo = e => {
+    e.preventDefault();
+
+    this.setState(state => ({
+      showInfo: !state.showInfo,
+    }));
+  };
+
   render() {
     const { isDesktop, topicId, forumId, intl, placeholder } = this.props;
 
-    const { uuid } = this.state;
+    const { uuid, showInfo } = this.state;
 
     const formPlaceholder =
       placeholder || `${intl.formatMessage(messages.WriteSomething)}...`;
@@ -85,6 +94,8 @@ class ActivityForm extends Component {
             {...this.props}
             uuid={uuid}
             placeholder={formPlaceholder}
+            toggleInfo={this.toggleInfo}
+            showInfo={showInfo}
           />
         ) : (
           <SmallActivityForm

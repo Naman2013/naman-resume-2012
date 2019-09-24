@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 /**
   @param telescopeId     required   for requestType of 'single', ignored for requestType of 'all' (mission-capable telescopeId)
@@ -6,7 +6,7 @@ import axios from 'axios';
   @param requestType     optional  'single', 'all'    default 'single'
 */
 export const fetchPresetOptions = ({ status, telescopeId, requestType }) => {
-  return axios.post('/api/reservation/getPresetOptions', {
+  return API.post('/api/reservation/getPresetOptions', {
     status,
     telescopeId,
     requestType,

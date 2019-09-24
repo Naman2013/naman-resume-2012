@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 import { grabTelescopeSlotSuccess } from '../grab-telescope-slot/actions';
 import fetchMissionSlot from '../../services/reservations/get-mission-slot';
 import { AVAILABLE_SLOT_MISSION_USER_HAS_HOLD_DEFAULT_PROPS } from './constants';
@@ -32,8 +32,8 @@ export const fetchReservationList = ({
 
   dispatch(fetchReservationStart());
 
-  return axios
-    .post('/api/reservation/getMissionSlotsByTelescope', {
+  return API
+      .post('/api/reservation/getMissionSlotsByTelescope', {
       cid,
       at,
       token,

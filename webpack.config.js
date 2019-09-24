@@ -18,40 +18,9 @@ module.exports = {
   context: sourcePath,
   mode: 'development',
   entry: {
-    /*vendors: [
-      'classnames',
-      'cookie',
-      'lodash',
-      'moment',
-      'moment-timezone',
-      'axios',
-      'react',
-      'react-addons-css-transition-group',
-      'react-dom',
-      'react-draggable',
-      'react-onclickoutside',
-      'react-redux',
-      'react-remarkable',
-      'react-router',
-      'react-router-redux',
-      'react-scroll',
-      'react-slick',
-      'react-tabs',
-      'react-tag-input',
-      'redux',
-      'redux-form',
-      'redux-logger',
-      'redux-thunk',
-    ],*/
     vendors: ['babel-polyfill'],
     bundle: './index.js',
   },
-  // output: {
-  //   path: `${__dirname}/dist`,
-  //   publicPath: '/',
-  //   filename: '[name].js',
-  //   sourceMapFilename: '[name].js.map',
-  // },
   output: {
     path: outPath,
     publicPath: '/',
@@ -63,10 +32,15 @@ module.exports = {
       app: path.resolve(__dirname, './app/'),
       assets: path.resolve(__dirname, './app/assets/'),
     },
+    extensions: ['.tsx', '.ts', '.js'],
   },
-  // target: 'web', // Make web variables accessible to webpack, e.g. window
   module: {
     rules: [
+      {
+        test: /\.tsx?$/,
+        use: 'ts-loader',
+        exclude: /node_modules/,
+      },
       {
         // string-replace loader is here to replace URL's mapped to /api in code
         test: /\.(js)$/,
@@ -166,17 +140,17 @@ module.exports = {
     },
     proxy: {
       '/getHosted*.php': {
-        target: 'https://nova.slooh.com',
+        target: 'https://eris.slooh.com',
         changeOrigin: true,
         secure: true,
       },
       '/api/**': {
-        target: 'https://nova.slooh.com',
+        target: 'https://eris.slooh.com',
         changeOrigin: true,
         secure: true,
       },
       '/sloohapp/**': {
-        target: 'https://nova.slooh.com',
+        target: 'https://eris.slooh.com',
         changeOrigin: true,
         secure: true,
       },

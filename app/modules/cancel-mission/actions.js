@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 import cancelMission from '../../services/reservations/cancel-mission.js';
 import cancelPiggyback from '../../services/reservations/cancel-piggyback.js';
 import { fetchDashboard } from '../dashboard/actions';

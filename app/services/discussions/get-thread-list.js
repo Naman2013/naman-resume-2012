@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 export const getThreadList = ({
   callSource,
@@ -12,7 +12,7 @@ export const getThreadList = ({
   count = 10,
   sortBy,
 }) => (
-  axios.post('/api/forum/getThreadList', {
+  API.post('/api/forum/getThreadList', {
     callSource,
     cid,
     at,

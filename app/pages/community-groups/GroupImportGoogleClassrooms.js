@@ -21,7 +21,7 @@ import { customModalStylesBlackOverlay } from 'app/styles/mixins/utilities';
 import { requestGroup } from 'app/services/community-groups/request-group';
 import { browserHistory } from 'react-router';
 
-import axios from 'axios';
+import { API } from 'app/api';
 import Request from 'app/components/common/network/Request';
 import {
   GROUPS_PAGE_ENDPOINT_URL,
@@ -222,7 +222,7 @@ class GroupImportGoogleClassrooms extends Component {
     let forceReloadStrData = cloneDeep(this.state.forceReloadStr);
     forceReloadStrData = Math.floor(Math.random() * 100000);
 
-    const importGoogleClassroomsResult = axios
+    const importGoogleClassroomsResult = API
       .post(GOOGLE_CLASSROOM_IMPORT_CLASSROOMS_ENDPOINT_URL, {
         googleClassrooms: this.state.googleClassrooms,
         cid: user.cid,
