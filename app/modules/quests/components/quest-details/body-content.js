@@ -21,18 +21,12 @@ const BodyContent = ({
   return (
     <div className="root" style={theme}>
       <h4 className="title">{title}</h4>
-      <AboutContent
-        content={content}
-        showAboutCurriculum={showAboutCurriculum}
-        aboutCurriculumText={aboutCurriculumText}
-      />
+      <AboutContent content={content} />
+      {showAboutCurriculum ? (
+        <div className="show-about-curriculum">{aboutCurriculumText}</div>
+      ) : null}
       <div id="google-classroom-share" />
       <DisplayAtBreakpoint screenMedium>
-        {showAboutCurriculum ? (
-          <div className="show-about-curriculum">
-            {aboutCurriculumText}
-          </div>
-        ) : null}
         <div className="quest-content-buttons-container">
           {showResources ? <ResourcesButton {...resourcesProps} /> : null}
           {showAboutDownloadPDF && (
