@@ -41,9 +41,23 @@ const feed = [
   },
 ];
 
+const getResizableBoxConfigs = () => {
+  const isMobile = isMobileScreenSize();
+  const defaultWidth = 500;
+  const defaultHeight = 500;
+  const width = isMobile ? screen.availWidth : defaultWidth;
+  const height = isMobile ? screen.availHeight - 53 : defaultHeight;
+
+  return {
+    width,
+    height,
+  };
+};
+
 export const LiveActivity = () => {
   const [isOpen, setOpen] = React.useState(false);
   const isMobile = isMobileScreenSize();
+  const defaultSize = getResizableBoxConfigs();
 
   return (
     <div className="live-activity-wrapper">
@@ -63,8 +77,8 @@ export const LiveActivity = () => {
         >
           <Rnd
             default={{
-              width: 575,
-              height: 750,
+              width: defaultSize.width,
+              height: defaultSize.height,
               x: 0,
               y: 0,
             }}
