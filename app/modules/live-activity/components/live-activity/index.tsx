@@ -84,8 +84,10 @@ export const LiveActivity = (props: TLiveActivity) => {
   useEffect(() => {
     if (isOpen && (isFullscreen || isMobile)) {
       document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'unset';
+      document.documentElement.style.overflow = 'unset';
     }
   }, [isFullscreen, isOpen]);
 
