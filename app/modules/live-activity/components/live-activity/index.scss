@@ -163,5 +163,9 @@
     .desktop-container {
       display: none;
     }
+
+    .live-activity-window-wrapper .react-draggable {
+      height: calc(100vh - 110px) !important;
+    }
   }
 }
