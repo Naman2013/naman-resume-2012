@@ -3,6 +3,9 @@
 @import '~app/styles/mixins/index';
 @import '~app/styles/variables/colors.scss';
 
+$headerSize: 54px;
+$screenHeaderSize: 110px;
+
 @mixin live-feed-full-screen-mode {
   position: static;
 
@@ -11,9 +14,9 @@
 
     .react-draggable {
       transform: translate(0) !important;
-      top: 60px !important;
+      top: calc(#{$headerSize} + 6px) !important;
       width: 100% !important;
-      height: calc(100vh - 54px) !important;
+      height: calc(100vh - #{$headerSize}) !important;
     }
   }
 }
@@ -165,7 +168,7 @@
     }
 
     .live-activity-window-wrapper .react-draggable {
-      height: calc(100vh - 110px) !important;
+      height: calc(100vh - #{$screenHeaderSize}) !important;
     }
   }
 }

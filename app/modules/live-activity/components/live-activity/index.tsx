@@ -83,11 +83,11 @@ export const LiveActivity = (props: TLiveActivity) => {
   //This effect used to hide global scroll when live activity opened in full screen mode
   useEffect(() => {
     if (isOpen && (isFullscreen || isMobile)) {
-      document.body.style.overflow = 'hidden';
-      document.documentElement.style.overflow = 'hidden';
+      document.body.classList.add('disable-overflow');
+      document.documentElement.classList.add('disable-overflow');
     } else {
-      document.body.style.overflow = 'unset';
-      document.documentElement.style.overflow = 'unset';
+      document.body.classList.remove('disable-overflow');
+      document.documentElement.classList.remove('disable-overflow');
     }
   }, [isFullscreen, isOpen]);
 
