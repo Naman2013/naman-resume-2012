@@ -1,6 +1,22 @@
 @import '~app/styles/bootstrap/common';
 @import '~app/styles/variables/index';
 @import '~app/styles/mixins/index';
+@import '~app/styles/variables/colors.scss';
+
+@mixin live-feed-full-screen-mode {
+  position: static;
+
+  .live-activity-window-wrapper {
+    position: static;
+
+    .react-draggable {
+      transform: translate(0) !important;
+      top: 60px !important;
+      width: 100% !important;
+      height: calc(100vh - 54px) !important;
+    }
+  }
+}
 
 .live-activity-wrapper {
   // todo make common
@@ -14,6 +30,14 @@
   z-index: 9;
   font-size: 16px;
   user-select: none;
+
+  &.full-screen {
+    @include live-feed-full-screen-mode;
+  }
+
+  .desktop-container {
+    display: inline-block;
+  }
 
   .icon-bubble-comment-streamline-talk {
     font-size: 20px;
@@ -49,6 +73,22 @@
         cursor: move;
         padding: 20px;
         border-bottom: 1px solid $hawkesBlue;
+
+        &-right {
+          display: inline-flex;
+          width: 15%;
+          justify-content: flex-end;
+
+          .full-screen-button {
+            font-size: 12px;
+            border-width: 1px;
+            width: 27px;
+            height: 27px;
+            color: $lightHeadedAstronaut;
+            border-color: $lightHeadedAstronaut;
+            margin-right: 10px;
+          };
+        }
 
         .h4-custom {
           font-family: $primary-font;
@@ -116,4 +156,12 @@
     bottom: 5px;
   }
 
+  //RESPONSIVE
+  @include media-breakpoint-down(md) {
+    @include live-feed-full-screen-mode;
+
+    .desktop-container {
+      display: none;
+    }
+  }
 }

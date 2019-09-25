@@ -117,7 +117,10 @@ const TopBar = ({
                 {user.isAuthorized ? (
                   <>
                     <li>
-                      <LiveActivityLoadable totalViewersCount={totalViewersCount} onClick={closeAllMenus} />
+                      <LiveActivityLoadable
+                        totalViewersCount={totalViewersCount}
+                        onClick={closeAllMenus}
+                      />
                     </li>
                     <li>
                       <Livecast user={user} onClick={closeAllMenus} />
