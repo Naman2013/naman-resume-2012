@@ -1,9 +1,8 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './index.scss';
 import { Tooltip } from 'react-tippy';
 import { Rnd } from 'react-rnd';
 import { FeedItem } from '../feed-item/index';
-import isMobileScreenSize from '../../../../utils/content-loading-conditions';
 import Button from 'app/components/common/style/buttons/Button';
 import { isMobileDevice } from 'app/services.ts';
 import cx from 'classnames';
@@ -58,7 +57,7 @@ const feed = [
 ];
 
 const getResizableBoxConfigs = () => {
-  const isMobile = isMobileScreenSize();
+  const isMobile = isMobileDevice();
   const defaultWidth = 500;
   const defaultHeight = 500;
   const width = isMobile ? screen.availWidth : defaultWidth;
@@ -76,10 +75,19 @@ type TLiveActivity = {
 
 export const LiveActivity = (props: TLiveActivity) => {
   const [isOpen, setOpen] = React.useState(false);
-  const isMobile = isMobileScreenSize();
+  const isMobile = isMobileDevice();
   const defaultSize = getResizableBoxConfigs();
 
   const [isFullscreen, setFullscreen] = useState(false);
+
+  //This effect used to hide global scroll when live activity opened in full screen mode
+  useEffect(() => {
+    if (isOpen && (isFullscreen || isMobile)) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+  }, [isFullscreen, isOpen]);
 
   return (
     <div className={cx("live-activity-wrapper", {'full-screen': isFullscreen})}>
