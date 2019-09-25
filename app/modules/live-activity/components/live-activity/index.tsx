@@ -116,8 +116,8 @@ export const LiveActivity = (props: TLiveActivity) => {
             }}
             minWidth={300}
             minHeight={300}
-            disableDragging={isFullscreen}
-            enableResizing={isFullscreen ? disableResizing : enableResizing}
+            disableDragging={isFullscreen || isMobile}
+            enableResizing={isFullscreen || isMobile ? disableResizing : enableResizing}
           >
             <div className="live-activity-window">
               <div className="live-activity-window-header d-flex justify-content-between align-items-center">
