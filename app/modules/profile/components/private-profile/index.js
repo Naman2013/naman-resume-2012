@@ -4,6 +4,7 @@ import ProfileWrapper from 'app/modules/profile/components/profile-wrapper';
 const PrivateProfile = props => {
   const { privateProfileData, params, children, getProfile, isLoading } = props;
   if (!privateProfileData) return null;
+
   return (
     <Fragment>
       {privateProfileData && (

@@ -154,17 +154,24 @@ class Pagination extends Component {
   render() {
     const { pages, activePage } = this.state;
     const { totalPageCount } = this.props;
+    const firstPageStyle = activePage === 1 ? { cursor: 'default' } : {};
+    const lastPageStyle =
+      activePage === totalPageCount ? { cursor: 'default' } : {};
 
     return (
       totalPageCount > 1 && (
         <div className="pagination-root">
           <ul className="buttons">
             <li className="button">
-              <GenericButton text="First" onClickEvent={this.handleFirstPage} />
+              <GenericButton
+                theme={firstPageStyle}
+                text="First"
+                onClickEvent={this.handleFirstPage}
+              />
             </li>
             <li className="button">
               <GenericButton
-                theme={{ transform: 'rotate(180deg)' }}
+                theme={{ transform: 'rotate(180deg)', ...firstPageStyle }}
                 icon={horizontalArrow}
                 onClickEvent={this.handlePrevPage}
               />
@@ -184,10 +191,15 @@ class Pagination extends Component {
               <GenericButton
                 onClickEvent={this.handleNextPage}
                 icon={horizontalArrow}
+                theme={lastPageStyle}
               />
             </li>
             <li className="button">
-              <GenericButton text="Last" onClickEvent={this.handleLastPage} />
+              <GenericButton
+                theme={lastPageStyle}
+                text="Last"
+                onClickEvent={this.handleLastPage}
+              />
             </li>
           </ul>
           <style jsx>{style}</style>
