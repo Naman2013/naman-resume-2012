@@ -159,16 +159,9 @@ export default css`
     display: flex;
   }
 
-  .links :global(> div) {
-    margin-right: 25px;
-  }
-
   .links :global(.link) {
-    ${centerChildren}
-    border-radius: 50%;
     width: 40px;
     height: 40px;
-    cursor: pointer;
   }
 
   .buttons :global(.details) {
