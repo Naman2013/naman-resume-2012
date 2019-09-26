@@ -33,7 +33,7 @@ export default css`
     margin-bottom: 10px;
     font-family: ${secondaryFont};
     font-size: 20px;
-    font-weight: 0;
+    text-transform: capitalize;
   }
 
   .sub-title {
