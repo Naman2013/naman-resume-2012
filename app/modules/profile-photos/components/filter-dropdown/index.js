@@ -196,7 +196,7 @@ export const FilterDropdown = memo((props: TFilterDropdown) => {
             <Button
               onClick={() => {
                 onApply();
-                close();
+                setOpen(false);
               }}
             >
               apply filters
