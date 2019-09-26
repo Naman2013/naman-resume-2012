@@ -102,14 +102,42 @@ class GlobalNavigation extends Component {
         }
       },
       message: msg => {
-        console.log(msg.message.title);
-        console.log(msg.message.description);
+	const channel = msg.channel;
+	const message = msg.message;
+
+	if (channel == 'system.liveevents') {
+		if (message.messageType) {
+			if (message.messageType == 'livecast') {
+				if (message.action == 'start') {
+					console.log('Show the red indicator on the speaker icon.');
+
+					const numLivecastsPlaying = message.numLivecastsPlaying;
+					console.log('Update the speaker icon number indicator as well...' + numLivecastsPlaying + " livecasts are now playing.");
+
+					//Please also verify that the React state has at least 1 livecast that will be displayed in the livecast popup, if not, make the API call: /api/events/getLivecast to ensure the speaker popup window will have the latest list of livecast(s) for the user to select from.
+ 
+				}
+				else if (message.action == 'stop') {
+					if (message.numLivecastsPlaying == 0) {
+						console.log('Stop showing the red indicator on the speaker icon as there are no more livecasts playing.');
+					}
+					else {
+						const numLivecastsPlaying = message.numLivecastsPlaying;
+						console.log("Update the speaker icon number indicator as now only " + numLivecastsPlaying + " livecasts are now playing.");
+					}
+				}
+			}
+		}
+	}
       },
       presence: presenceEvent => {
         // handle presence
-        console.log(presenceEvent.channel);
-        console.log(presenceEvent);
-        this.setState({ totalViewersCount: presenceEvent.occupancy });
+        //console.log(presenceEvent.channel);
+        //console.log(presenceEvent);
+
+	if (presenceEvent.channel == "system.activityfeed") {
+        	this.setState({ totalViewersCount: presenceEvent.occupancy });
+	}
       },
     });
 
