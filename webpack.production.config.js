@@ -55,22 +55,6 @@ module.exports = {
         exclude: /node_modules/,
       },
       {
-        test: /\.(js)$/,
-        loader: 'string-replace-loader',
-        exclude: /node_modules/,
-        options: {
-          multiple: [
-            // string-replace loader is here to replace URL's mapped to /api in code
-            {
-              search: '/api/',
-              replace: apiUrl ? `${apiUrl}:${apiPortNumber}/api/` : '/api/',
-              flags: 'g',
-            },
-          ],
-        },
-      },
-
-      {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         loader: 'babel-loader',

@@ -64,8 +64,7 @@ export class ConnectedQuestDetails extends Component {
     const { actions, questId } = this.props;
     const { at, token, cid } = this.props.user;
     this.startLoading();
-    API
-      .post(START_QUEST, {
+    return API.post(START_QUEST, {
         at,
         cid,
         token,

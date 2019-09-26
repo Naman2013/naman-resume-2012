@@ -29,8 +29,7 @@ class ConnectedResourcesButton extends Component {
     e.preventDefault();
     const { actions, questId, moduleId, user } = this.props;
     actions.getAppendix();
-    API
-      .post(GET_APPENDIX, {
+    API.post(GET_APPENDIX, {
         questId,
         moduleId,
         at: user.at,
