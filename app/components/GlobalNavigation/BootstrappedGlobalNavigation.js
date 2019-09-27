@@ -72,6 +72,8 @@ class GlobalNavigation extends Component {
     isRightOpen: false,
     showUpsellModal: false,
     isMobile: false,
+    pubnubActivityFeedChannelName: process.env.PUBNUB_CHANNEL_PREFIX + '.system.activityfeed',
+    pubnubLiveEventsChannelName: process.env.PUBNUB_CHANNEL_PREFIX + '.system.liveevents'
   };
 
   state = {
@@ -109,7 +111,9 @@ class GlobalNavigation extends Component {
 	//what is the message??
 	const message = msg.message;
 
-	if (channel == 'system.liveevents') {
+	//console.log(message);
+
+	if (channel == this.props.pubnubLiveEventsChannelName) {
 		//console.log(message);
 
 		if (message.messageType) {
@@ -127,7 +131,7 @@ class GlobalNavigation extends Component {
         //console.log(presenceEvent.channel);
         //console.log(presenceEvent);
 
-	if (presenceEvent.channel == "system.activityfeed") {
+	if (presenceEvent.channel == this.props.pubnubActivityFeedChannelName) {
         	this.setState({ totalViewersCount: presenceEvent.occupancy });
 	}
       },
@@ -139,9 +143,9 @@ class GlobalNavigation extends Component {
   componentWillMount() {
     this.pubnub.subscribe({
       channels: [
-        'system.activityfeed',
-        'system.liveevents',
-        'customer.' + getUserInfo().cid,
+        this.props.pubnubActivityFeedChannelName,
+        this.props.pubnubLiveEventsChannelName,
+        process.env.PUBNUB_CHANNEL_PREFIX + '.customer.' + getUserInfo().cid,
       ],
       withPresence: true,
     });
@@ -164,9 +168,9 @@ class GlobalNavigation extends Component {
     //unmount pubnub
     this.pubnub.unsubscribe({
       channels: [
-        'system.activityfeed',
-        'system.liveevents',
-        'customer.' + getUserInfo().cid,
+        this.props.pubnubActivityFeedChannelName,
+        this.props.pubnubLiveEventsChannelName,
+        process.env.PUBNUB_CHANNEL_PREFIX + '.customer.' + getUserInfo().cid,
       ],
     });
   }
