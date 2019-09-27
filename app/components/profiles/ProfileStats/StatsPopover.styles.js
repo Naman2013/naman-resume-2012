@@ -92,7 +92,7 @@ export default css`
   }
 
   :global(.react-tabs__tab-panel) {
-    max-height: 300px;
+    max-height: 290px;
     overflow-x: hidden;
     overflow-y: auto;
   }

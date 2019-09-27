@@ -1,0 +1,31 @@
+@import '~app/styles/variables/index';
+
+.quest-output-module {
+  & > div {
+    width: 100% !important;
+
+    ul {
+      margin: 0;
+      width: 100%;
+    }
+
+    .root {
+      box-shadow: none;
+    }
+
+    .tile-content-container {
+      padding: 0;
+    }
+  }
+}
+
+.quest-qa-free-form {
+  margin-bottom: 60px;
+
+  .quest-qa-instructions {
+    font-family: $secondary-font;
+    font-size: 19px;
+    line-height: 1.5;
+    color: $raven;
+  }
+}

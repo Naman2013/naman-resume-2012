@@ -1,5 +1,5 @@
 import { closeAllMenus } from 'app/modules/global-navigation/actions';
-import axios from 'axios';
+import { API } from 'app/api';
 import { store as storeUser } from 'app/modules/User';
 
 export const LOGIN_USER_START = 'LOGIN_USER_START';
@@ -39,8 +39,8 @@ export const logUserIn = loginForm => dispatch => {
 
   dispatch(logUserInStart());
 
-  return axios
-    .post('/api/users/login', {
+  return API
+      .post('/api/users/login', {
       username,
       passwd: pwd,
     })
@@ -64,8 +64,8 @@ export const logGoogleUserIn = googleProfileResult => dispatch => {
 
   dispatch(logGoogleUserInStart());
 
-  return axios
-    .post('/api/users/login', {
+  return API
+      .post('/api/users/login', {
       username: googleProfileEmail,
       passwd: 'notrequiredforthiscall',
       googleProfileId,

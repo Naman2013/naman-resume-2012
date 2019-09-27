@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 import moment from 'moment';
 import has from 'lodash/has';
 import noop from 'lodash/noop';
@@ -105,8 +105,8 @@ export const reserveMissionSlot = ({
   objective,
 }) => (dispatch, getState) => {
   const { token, at, cid } = getState().user;
-  return axios
-    .post('/api/reservation/reserveMissionSlot', {
+  return API
+      .post('/api/reservation/reserveMissionSlot', {
       token,
       at,
       cid,
@@ -216,8 +216,8 @@ export const cancelMissionSlot = mission => (dispatch, getState) => {
    */
   dispatch(removeMissionFromConsideration({ uniqueId: mission.uniqueId }));
 
-  return axios
-    .post('/api/reservation/cancelMissionSlot', {
+  return API
+      .post('/api/reservation/cancelMissionSlot', {
       token,
       at,
       cid,
@@ -271,8 +271,8 @@ export const grabMissionSlot = ({
 
   grabMissionSlotStart();
 
-  return axios
-    .post('/api/reservation/grabMissionSlot', {
+  return API
+      .post('/api/reservation/grabMissionSlot', {
       token,
       at,
       cid,
@@ -424,8 +424,8 @@ export function missionGetCards() {
       dispatch(missionGetNextReservation(cardAPIResponse.data.objectList));
     } else {
       const { token, at, cid } = getState().user;
-      return axios
-        .post('/api/recommends/cards', {
+      return API
+      .post('/api/recommends/cards', {
           status: 'published',
           ver: 'v1',
           lang: 'en',
@@ -451,7 +451,7 @@ export function getNextPiggybackSingle(card) {
 
     dispatch(setCurrentCard(card));
 
-    return axios
+    return API
       .post('/api/recommends/getNextPiggyback', {
         token,
         at,
@@ -507,8 +507,8 @@ export function cardsFail(error) {
 export const missionGetUpdates = () => (dispatch, getState) => {
   const { token, at, cid } = getState().user;
 
-  return axios
-    .post('/api/info/getAnnouncements', {
+  return API
+      .post('/api/info/getAnnouncements', {
       token,
       at,
       cid,
@@ -540,8 +540,8 @@ export const missionGetPiggybacks = objectList => (dispatch, getState) => {
   const { token, at, cid } = getState().user;
   dispatch(fetchPiggybacksStart());
 
-  return axios
-    .post('/api/recommends/getNextPiggyback', {
+  return API
+      .post('/api/recommends/getNextPiggyback', {
       cid,
       at,
       token,
@@ -581,7 +581,7 @@ export function missionGetNextReservation(objectList) {
 
     dispatch(fetchMissionsStart());
 
-    return axios
+    return API
       .post('/api/recommends/getNextReservation', {
         requestType: 'multiple',
         uniqueId: '',
@@ -602,8 +602,8 @@ export const updatePiggyback = ({ uniqueId, objectId }) => (
   getState
 ) => {
   const { at, cid, token } = getState().user;
-  return axios
-    .post('/api/recommends/getNextPiggyback', {
+  return API
+      .post('/api/recommends/getNextPiggyback', {
       at,
       token,
       cid,
@@ -641,7 +641,7 @@ export function updateSingleReservations(uniqueId, objectId) {
   return (dispatch, getState) => {
     const { token, at, cid } = getState().user;
 
-    return axios
+    return API
       .post('/api/recommends/getNextReservation', {
         cid,
         at,

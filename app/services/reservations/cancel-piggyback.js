@@ -7,7 +7,7 @@
 
   */
 
-import axios from 'axios';
+import { API } from 'app/api';
 
 export default function cancelPiggyback({
   cid,
@@ -15,7 +15,7 @@ export default function cancelPiggyback({
   token,
   scheduledMissionId,
 }) {
-  return axios.post('/api/reservation/cancelPiggyback', {
+  return API.post('/api/reservation/cancelPiggyback', {
     cid,
     at,
     token,

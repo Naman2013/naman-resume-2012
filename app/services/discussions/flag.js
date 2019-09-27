@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 export function flagItem({
   at,
@@ -11,7 +11,7 @@ export function flagItem({
   discussionGroupId,
   itemType,
 }) {
-  return axios.post('/api/discussion/flagItem', {
+  return API.post('/api/discussion/flagItem', {
     at,
     token,
     cid,

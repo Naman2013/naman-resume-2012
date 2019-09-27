@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 const deleteTag = ({
   token,
@@ -12,7 +12,7 @@ const deleteTag = ({
   uniqueId, //  (required for tagClass content)
   text, // (required)
 }) => (
-  axios.post('/api/tags/deleteTag', {
+  API.post('/api/tags/deleteTag', {
     token,
     at,
     cid,

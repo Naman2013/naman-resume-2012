@@ -31,7 +31,6 @@ import * as modalReducer from './modal';
 import * as stepReducer from './step';
 import * as completeReducer from './complete';
 
-
 export default createReducer(initialState, {
   [FETCH_QUEST_PAGE_META_START]: pageMetaReducer.fetchPageMetaStart,
   [FETCH_QUEST_PAGE_META_SUCCESS]: pageMetaReducer.fetchPageMetaSuccess,

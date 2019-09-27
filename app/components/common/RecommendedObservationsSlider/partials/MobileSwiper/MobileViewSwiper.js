@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import Swiper from 'react-slick';
 import { FormattedMessage } from 'react-intl';
@@ -19,6 +20,7 @@ const emptyState = {
   commentsCount: 0,
   loading: true,
   error: false,
+  iconFileData: {},
 };
 
 const sliderConfig = {
@@ -40,6 +42,7 @@ class MobileViewSwiper extends Component {
     likesCount,
     error,
     linkUrl,
+    iconFileData,
   }) => {
     this.setState({
       title,
@@ -49,6 +52,7 @@ class MobileViewSwiper extends Component {
       commentsCount,
       error,
       linkUrl,
+      iconFileData,
       loading: false,
     });
   };
@@ -71,6 +75,7 @@ class MobileViewSwiper extends Component {
       loading,
       error,
       linkUrl,
+      iconFileData,
     } = this.state;
 
     return (
@@ -78,7 +83,9 @@ class MobileViewSwiper extends Component {
         {!loading ? (
           <div className="top">
             <div className="title">{title}</div>
-            <div className="author">{author}</div>
+            <Link to={iconFileData?.Member?.linkUrl}>
+              <div className="author">{author}</div>
+            </Link>
             <div
               className="description"
               dangerouslySetInnerHTML={{ __html: description }}

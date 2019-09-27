@@ -15,7 +15,7 @@ export const resetBrowseFindDataAction = () => (dispatch, getState) => {
   dispatch(fetchBrowseFindDataActionReset());
 }
 
-export const fetchBrowseFindDataAction = (findTerm) => (dispatch, getState) => {
+export const fetchBrowseFindDataAction = (findTerm, viewType) => (dispatch, getState) => {
   dispatch(fetchBrowseFindDataActionStart());
 
   const { token, at, cid } = getState().user;
@@ -25,6 +25,7 @@ export const fetchBrowseFindDataAction = (findTerm) => (dispatch, getState) => {
     at,
     cid,
     findTerm,
+    viewType,
   }).then(
     result => {
       dispatch(fetchBrowseFindDataActionSuccess(result.data));

@@ -5,6 +5,7 @@ import { injectIntl } from 'react-intl';
 import { Tooltip } from 'react-tippy';
 import { ModalImg } from 'app/modules/telescope/components/modal-img';
 import LikeSomethingButton from 'app/components/common/LikeSomethingButton';
+import { ReturnObservationIcon } from 'app/components/common/RecommendedObservationsSlider/partials/GetObservationIcon';
 
 import style from './BootstrappedSliderItem.style';
 import messages from './BootstrappedSliderItem.messages';
@@ -17,6 +18,8 @@ const BootstrappedObservationSliderItem = props => {
     imageDownloadURL,
     linkUrl,
     likesCount,
+    likedByMe,
+    likeTooltip,
     commentsCount,
     observationTimeDisplay,
     intl,
@@ -39,38 +42,34 @@ const BootstrappedObservationSliderItem = props => {
     <Fragment>
       <div className="card-obs-wrapper">
         <div className="card-obs">
-          {imageTitle ? (
+          {imageDownloadURL ? (
             <Fragment>
               <div className="top">
                 <div className="info">
                   <div className="main-info">
                     <h2 className="title">{imageTitle}</h2>
-                    <h5 className="author">{displayName}</h5>
-                    {(observationLog || socialShareDescription) && (
-                      <p className="dashboardObservationText i-text-box">
-                        {observationLog || socialShareDescription}
-                      </p>
+                    <Link to={iconFileData?.Member?.linkUrl}>
+                      <h5 className="author">{displayName}</h5>
+                    </Link>
+                    {observationLog && (
+                      <p
+                        className="dashboardObservationText i-text-box"
+                        dangerouslySetInnerHTML={{ __html: observationLog }}
+                      />
                     )}
                   </div>
                   <div className="links">
                     {Object.keys(iconFileData).map(item => (
                       <Tooltip title={iconFileData[item].text}>
                         {iconFileData[item].hasLink ? (
-                          <Link to={iconFileData[item].linkUrl} target="_blank" className="link">
-                            <img
-                              className={`linkIcon${item === 'Member' ? ' memberIcon' : ''}`}
-                              src={iconFileData[item].iconUrl}
-                              alt={iconFileData[item].label}
-                            />
+                          <Link
+                            to={iconFileData[item].linkUrl}
+                            target="_blank"
+                          >
+                            <ReturnObservationIcon item={iconFileData[item]} />
                           </Link>
                         ) : (
-                          <div className="link">
-                            <img
-                              className={`linkIcon${item === 'Member' ? ' memberIcon' : ''}`}
-                              src={iconFileData[item].iconUrl}
-                              alt={iconFileData[item].label}
-                            />
-                          </div>
+                          <ReturnObservationIcon item={iconFileData[item]} />
                         )}
                       </Tooltip>
                     ))}
@@ -99,6 +98,8 @@ const BootstrappedObservationSliderItem = props => {
                       mod="no-border"
                       likePrompt={likePrompt}
                       likesCount={likesNumber || likesCount}
+                      likedByMe={likedByMe}
+                      likeTooltip={likeTooltip}
                       likeHandler={onLikeClick}
                       customerId={customerImageId}
                       showLikePrompt={showLikePrompt}

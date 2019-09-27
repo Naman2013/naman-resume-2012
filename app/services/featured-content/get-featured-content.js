@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 /**
   @param featuredType    (required)   myPictures, featuredObjects, popularPosts, moreAbout
@@ -21,7 +21,7 @@ export const getFeaturedContent = ({
   status,
   startTimestamp,
 }) => (
-  axios.post('/api/content/getFeaturedContent', {
+  API.post('/api/content/getFeaturedContent', {
     featuredType,
     slugLookupId,
     ignorePostId,

@@ -60,6 +60,7 @@ export default css`
   }
   .display-name {
     margin-left: 10px;
+    color: ${astronaut};
   }
 
   .content {
@@ -120,6 +121,10 @@ export default css`
   .explainantion-item:first-child {
     height: 25px;
     border-bottom: 0;
+  }
+
+  .explainantion-item:last-child {
+    border-top: 0;
   }
 
   @media ${screenMedium} {

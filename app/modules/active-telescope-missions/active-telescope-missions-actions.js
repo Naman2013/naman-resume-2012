@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 import {
   fetchObjectContent,
@@ -130,8 +130,8 @@ export const updateTelescopeActiveMission = ({
 
   dispatch(fetchContentReset());
 
-  return axios
-    .post('/api/reservation/getCurrentMission', {
+  return API
+      .post('/api/reservation/getCurrentMission', {
       token,
       cid,
       at,

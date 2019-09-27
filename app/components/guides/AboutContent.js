@@ -6,6 +6,7 @@ import React, { Component, Fragment } from 'react';
 import style from './AboutContent.style';
 
 const TRUNCATED_CONTENT_LENGTH = 210;
+const MAX_LENGTH = TRUNCATED_CONTENT_LENGTH * 1.2; // + 20%
 const TRUNCATED_BUTTON_TEXT = 'read more';
 const DISPLAYED_BUTTON_TEXT = 'read less';
 
@@ -43,25 +44,31 @@ class AboutContent extends Component {
   render() {
     const { content } = this.props;
     const { contentLength, buttonText } = this.state;
-
     return (
       <Fragment>
         <span>
-          <span
-            className="__html-blob-content-container__"
-            dangerouslySetInnerHTML={{
-              __html: prepareContent(content, contentLength),
-            }}
-          />
-          {content.length > TRUNCATED_CONTENT_LENGTH && (
-            <p>
-              <button
-                onClick={this.handleReadMoreClick}
-                className="action-read-more"
-              >
-                {buttonText}
-              </button>
-            </p>
+          {content.length > MAX_LENGTH ? (
+            <>
+              <span
+                className="__html-blob-content-container__"
+                dangerouslySetInnerHTML={{
+                  __html: prepareContent(content, contentLength),
+                }}
+              />
+              <p>
+                <button
+                  onClick={this.handleReadMoreClick}
+                  className="action-read-more"
+                >
+                  {buttonText}
+                </button>
+              </p>
+            </>
+          ) : (
+            <span
+              className="__html-blob-content-container__"
+              dangerouslySetInnerHTML={{ __html: content }}
+            />
           )}
         </span>
         <style jsx>{style}</style>

@@ -7,6 +7,8 @@
 
 import Btn from 'app/atoms/Btn';
 import Icon from 'app/atoms/Icon';
+import LikeSomethingButton from 'app/components/common/LikeSomethingButton';
+import { Link } from 'react-router';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
@@ -16,10 +18,11 @@ import {
 } from 'app/styles/variables/colors_tiles_v4';
 import { likeImage } from 'app/services/my-pictures/like-image';
 import { Button } from 'react-bootstrap';
-import Modal from 'react-modal';
+import { Modal } from 'app/components/modal';
 import { primaryFont, secondaryFont } from 'app/styles/variables/fonts';
 import { customModalStyles } from 'app/styles/mixins/utilities';
 import LikeButton from 'app/components/common/style/buttons/LikeButton';
+import { WriteObservationStep3 } from 'app/modules/object-details/components/write-observation-step3';
 
 const {
   any,
@@ -88,30 +91,26 @@ class BootstrappedImageDetails extends Component {
   }
 
   closeModal = e => {
-    e.preventDefault();
+    if (e) {
+      e.preventDefault();
+    }
+    const { refetchData } = this.props;
+
     this.setState({
       isOpen: false,
       promptText: null,
     });
+    refetchData();
   };
 
-  likeObservation = e => {
-    e.preventDefault();
-
-    const { customerImageId, user, showLikePrompt } = this.props;
-
-    if (showLikePrompt) {
-      this.setState({
-        isOpen: true,
-      });
-    } else {
-      likeImage({
-        likeId: customerImageId,
-        token: user.token,
-        at: user.at,
-        cid: user.cid,
-      }).then(this.handleLikeResult);
-    }
+  likeObservation = () => {
+    const { customerImageId, user } = this.props;
+    return likeImage({
+      likeId: customerImageId,
+      token: user.token,
+      at: user.at,
+      cid: user.cid,
+    });
   };
 
   handleLikeResult = res => {
@@ -134,15 +133,12 @@ class BootstrappedImageDetails extends Component {
     const {
       actions: { shareMemberPicture },
       customerImageId,
-      refetchData,
     } = this.props;
 
-    shareMemberPicture({ customerImageId }).then(data => {
+    shareMemberPicture({ customerImageId }).then(() => {
       this.setState({
         isOpen: true,
-        promptText: data.payload.sharePrompt,
       });
-      refetchData();
     });
   };
 
@@ -161,6 +157,12 @@ class BootstrappedImageDetails extends Component {
       imageTitle,
       canShareFlag,
       canEditFlag,
+      shareMemberPhotoData,
+      likesCount,
+      likedByMe,
+      likeTooltip,
+      showLikePrompt,
+      iconFileData,
     } = this.props;
 
     const { isOpen, likePrompt, count, promptText } = this.state;
@@ -172,10 +174,12 @@ class BootstrappedImageDetails extends Component {
             dangerouslySetInnerHTML={{ __html: observationTitle || imageTitle }}
           />
           <div className="obs-name-and-time">
-            <div
-              className="obs-author"
-              dangerouslySetInnerHTML={{ __html: fileData['Photo by'] }}
-            />
+            <Link to={iconFileData?.Member?.linkUrl}>
+              <div
+                className="obs-author"
+                dangerouslySetInnerHTML={{ __html: fileData['Photo by'] }}
+              />
+            </Link>
             <div
               className="obs-time"
               dangerouslySetInnerHTML={{
@@ -188,21 +192,24 @@ class BootstrappedImageDetails extends Component {
             dangerouslySetInnerHTML={{ __html: observationLog }}
           />
           <div className="pull-left">
-            <LikeButton onClickEvent={this.likeObservation} count={count} />
+            <LikeSomethingButton
+              likeHandler={this.likeObservation}
+              likesCount={likesCount}
+              likedByMe={likedByMe}
+              likeTooltip={likeTooltip}
+              likePrompt={likePrompt}
+              likeParams={{}}
+              showLikePrompt={showLikePrompt}
+            />
           </div>
-          <Modal
-            ariaHideApp={false}
-            isOpen={isOpen}
-            style={customModalStyles}
-            contentLabel="Observations"
-            onRequestClose={this.closeModal}
-          >
-            <i className="fa fa-close" onClick={this.closeModal} />
-            <p
-              className=""
-              dangerouslySetInnerHTML={{ __html: promptText || likePrompt }}
+
+          <Modal show={isOpen} onHide={this.closeModal}>
+            <WriteObservationStep3
+              onHide={this.closeModal}
+              shareMemberPhotoData={shareMemberPhotoData}
             />
           </Modal>
+
           {canEditFlag && (
             <div className="pull-right my-3 ml-3">
               <Btn mod="circle" onClick={this.onEdit}>
@@ -248,6 +255,10 @@ class BootstrappedImageDetails extends Component {
           .obs-author,
           .obs-time {
             flex: 1 1 0;
+          }
+
+          .obs-author {
+            color: #415671;
           }
 
           .obs-time {

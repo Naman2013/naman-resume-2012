@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import axios from 'axios';
+import { API } from 'app/api';
 import noop from 'lodash/noop';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';

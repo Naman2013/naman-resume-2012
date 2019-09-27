@@ -1,10 +1,10 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 export function previousShows({
   count,
   page,
 }) {
-  return axios.get(' /api/events/previous', {
+  return API.get(' /api/events/previous', {
     params: {
       count,
       page,

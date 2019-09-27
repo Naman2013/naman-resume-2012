@@ -10,7 +10,7 @@ import '../../styles.scss';
 
 import React, { Fragment, useEffect, useState } from 'react';
 
-import axios from 'axios';
+import { API } from 'app/api';
 
 import { getUserInfo } from 'app/modules/User';
 
@@ -100,8 +100,8 @@ const handleIframeTask = (e, props) => {
         billingAddressString: paymentDataString[3],
       };
 //add string aboc to this //ADD THIS BACK AFTER TESTING
-          axios
-        .post(
+          API
+      .post(
           EDIT_PAYMENT_ENDPOINT_URL,
           editPaymentData
         )
@@ -116,7 +116,7 @@ const handleIframeTask = (e, props) => {
               onHide();
 
             } else {
-              /* process / display error to user */ 
+              /* process / display error to user */
               document.getElementById('embeddedHostedPaymentForm').contentWindow.captureActivationError(res);
             }
           }

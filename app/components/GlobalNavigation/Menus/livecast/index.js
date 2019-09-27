@@ -3,7 +3,7 @@
 import { LiveShowControl } from 'app/components/GlobalNavigation/Menus/livecast/liveshow-control';
 import { LivecastPopup } from 'app/components/GlobalNavigation/Menus/livecast/popup';
 import type { TLivecastData } from 'app/components/GlobalNavigation/Menus/livecast/types';
-import axios from 'axios';
+import { API } from 'app/api';
 import React, { PureComponent, Fragment } from 'react';
 import YouTube from 'react-youtube';
 import './styles.scss';
@@ -49,7 +49,7 @@ export class Livecast extends PureComponent<TLivecast, TState> {
   fetchData = () => {
     const { user } = this.props;
     const { cid, at, token } = user;
-    axios
+    API
       .post('/api/events/getLivecast', { cid, at, token })
       .then(({ data }) => {
         const { LiveShowData = [], refreshInterval } = data;
@@ -132,10 +132,10 @@ export class Livecast extends PureComponent<TLivecast, TState> {
 						if (loadedLivecast.streamCode != livecastInProgress.StreamCode) {
 							tmpLoadedLivecast.streamCode = livecastInProgress.StreamCode;
 							streamCodesUpdated = true;
-							
+
 						}
 
-						tmpLiveShows.push(tmpLoadedLivecast);						
+						tmpLiveShows.push(tmpLoadedLivecast);
 					}
 				});
 			});
@@ -146,7 +146,7 @@ export class Livecast extends PureComponent<TLivecast, TState> {
 			}
 		}
 
-		this.setState({	nbrLivecastsInProgress: numLivecasts });	
+		this.setState({	nbrLivecastsInProgress: numLivecasts });
 		//console.log(numLivecasts);
    	}
   }

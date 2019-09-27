@@ -54,7 +54,7 @@ class FullActivityForm extends Component {
   };
 
   render() {
-    const { user, intl, placeholder } = this.props;
+    const { user, intl, placeholder, toggleInfo, showInfo } = this.props;
 
     const formPlaceholder =
       placeholder || `${intl.formatMessage(messages.WriteSomething)}...`;
@@ -62,12 +62,19 @@ class FullActivityForm extends Component {
     return (
       <div className="form-container">
         <div>
-          <FormHeader avatarURL={user.avatarURL} />
-          <SingleFieldSubmitForm
-            {...this.props}
-            submitForm={this.submitForm}
-            placeholder={formPlaceholder}
+          <FormHeader
+            avatarURL={user.avatarURL}
+            toggleInfo={toggleInfo}
+            showInfo={showInfo}
           />
+
+          {showInfo ? (
+            <SingleFieldSubmitForm
+              {...this.props}
+              submitForm={this.submitForm}
+              placeholder={formPlaceholder}
+            />
+          ) : null}
         </div>
       </div>
     );

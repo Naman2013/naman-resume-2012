@@ -45,7 +45,7 @@ export const initialState = {
 
 export default handleActions(
   {
-    [TYPE.GET_IMAGE_DETAILS]: setFetching,
+    [TYPE.GET_IMAGE_DETAILS]: setFetchingImageDetails,
     [TYPE.GET_IMAGE_DETAILS_SUCCESS]: getImageDetailsSuccess,
     [TYPE.GET_IMAGE_DETAILS_ERROR]: setServerError,
 
@@ -102,6 +102,10 @@ function setObservationTagsSuccess(state, action) {
     isFetching: false,
     observationTagsError: action.payload.apiError,
   };
+}
+
+function setFetchingImageDetails(state) {
+  return { ...state, isFetching: true, data: {} };
 }
 
 function getImageDetailsSuccess(state, action) {

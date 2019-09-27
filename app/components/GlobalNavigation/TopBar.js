@@ -12,7 +12,16 @@ import CenterBar from './CenterBar';
 import Button from './Button';
 import messages from './TopBar.messages';
 
+const SEARCH_LABEL = 'SEARCH';
+
 function isActive(menuName, activeMenu) {
+  if (menuName === SEARCH_LABEL) {
+    document.body.classList.add('hide-overflow');
+    document.documentElement.classList.add('hide-overflow');
+  } else {
+    document.body.classList.remove('hide-overflow');
+    document.documentElement.classList.remove('hide-overflow');
+  }
   return menuName === activeMenu;
 }
 
@@ -121,7 +130,7 @@ const TopBar = ({
                     <li>
                       <LiveActivityLoadable
                         totalViewersCount={totalViewersCount}
-			activityFeedMessages={activityFeedMessages}
+			                  activityFeedMessages={activityFeedMessages}
                         onClick={closeAllMenus}
                       />
                     </li>

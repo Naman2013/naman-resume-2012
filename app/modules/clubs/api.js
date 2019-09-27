@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 export const getTopThreadsListApi = data =>
-  axios.post('/api/forum/getThreadList', { ...data, topThreadsOnly: true });
+  API.post('/api/forum/getThreadList', { ...data, topThreadsOnly: true });

@@ -7,11 +7,11 @@ import {
   SHARE_MEMBER_PHOTO_RESET,
 } from './actions';
 
-
 const initialState = {
   error: false,
   showSharePrompt: false,
   sharePrompt: '',
+  shareMemberPhotoData: {},
 };
 
 export default createReducer(initialState, {
@@ -24,6 +24,7 @@ export default createReducer(initialState, {
     return {
       ...state,
       ...payload,
+      shareMemberPhotoData: payload,
     };
   },
   [SHARE_MEMBER_PHOTO_FAIL](state) {

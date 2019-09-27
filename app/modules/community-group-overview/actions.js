@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 import { fetchGroupActivity } from '../community-group-activity-list/actions';
 
 export const FETCH_GROUP_OVERVIEW_START = 'FETCH_GROUP_OVERVIEW_START';
@@ -71,8 +71,8 @@ export const fetchGoogleClassroomStudentsPanel = groupId => (
 ) => {
   const { cid, at, token } = getState().user;
   dispatch(fetchGoogleClassroomStudentsPanelStart());
-  return axios
-    .post('/api/classroom/google/importGoogleClassroomStudentsPanel', {
+  return API
+      .post('/api/classroom/google/importGoogleClassroomStudentsPanel', {
       at,
       cid,
       token,
@@ -102,8 +102,8 @@ const fetchGroupInvitationPanelFail = payload => ({
 export const fetchGroupInvitationPanel = groupId => (dispatch, getState) => {
   const { cid, at, token } = getState().user;
   dispatch(fetchGroupInvitationPanelStart());
-  return axios
-    .post('/api/classroom/getGroupInvitationPanel', {
+  return API
+      .post('/api/classroom/getGroupInvitationPanel', {
       at,
       cid,
       token,
@@ -137,8 +137,8 @@ export const fetchGroupOverview = ({
 }) => (dispatch, getState) => {
   const { cid, at, token } = getState().user;
   dispatch(fetchGroupOverviewStart());
-  return axios
-    .post('/api/discussiongroups/getGroupInformation', {
+  return API
+      .post('/api/discussiongroups/getGroupInformation', {
       at,
       cid,
       discussionGroupId,
@@ -175,8 +175,8 @@ export const fetchGroupMembers = ({
 }) => (dispatch, getState) => {
   const { cid, at, token } = getState().user;
   dispatch(fetchGroupMembersStart());
-  return axios
-    .post('/api/discussiongroups/getGroupMembers', {
+  return API
+      .post('/api/discussiongroups/getGroupMembers', {
       at,
       cid,
       discussionGroupId,
@@ -214,8 +214,8 @@ export const fetchGroupOverviewPageMeta = ({
 }) => (dispatch, getState) => {
   const { cid, at, token } = getState().user;
   dispatch(fetchGroupOverviewPageMetaStart());
-  return axios
-    .post('/api/page/discussionGroupPage', {
+  return API
+      .post('/api/page/discussionGroupPage', {
       at,
       cid,
       lang,
@@ -274,8 +274,8 @@ export const changeGroupDescription = ({ groupId, groupDescription }) => (
 ) => {
   const { cid, at, token } = getState().user;
   dispatch(groupDescriptionChangeStart);
-  return axios
-    .post('/api/classroom/setGroupDescription', {
+  return API
+      .post('/api/classroom/setGroupDescription', {
       at,
       cid,
       token,
@@ -303,8 +303,8 @@ const fetchInvitePopupContentFail = payload => ({
 export const fetchInvitePopupContent = groupId => (dispatch, getState) => {
   const { cid, at, token } = getState().user;
   dispatch(fetchInvitePopupContentStart());
-  return axios
-    .post('/api/classroom/getGroupInvitationPanel', {
+  return API
+      .post('/api/classroom/getGroupInvitationPanel', {
       at,
       cid,
       token,
@@ -331,8 +331,8 @@ const addExistingUserFail = payload => ({
 export const addExistingUser = (user, groupId) => (dispatch, getState) => {
   const { cid, at, token } = getState().user;
   dispatch(addExistingUserStart());
-  return axios
-    .post('/api/registration/createCustomerLinkInvitation', {
+  return API
+      .post('/api/registration/createCustomerLinkInvitation', {
       cid,
       at,
       token,
@@ -360,8 +360,8 @@ const addGoogleUserFail = payload => ({
 export const addGoogleUser = (user, groupId) => (dispatch, getState) => {
   const { cid, at, token } = getState().user;
   dispatch(addGoogleUserStart());
-  return axios
-    .post('/api/classroom/google/importGoogleClassroomStudent', {
+  return API
+      .post('/api/classroom/google/importGoogleClassroomStudent', {
       cid,
       at,
       token,

@@ -20,3 +20,9 @@ export const makePrivateProfileUserDataSelector = () =>
     selectProfile,
     state => state.privateProfileData
   );
+
+export const makeProfileMissionsDataSelector = () =>
+  createSelector(
+    selectProfile,
+    state => state.profileMissionsData
+  );

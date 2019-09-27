@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 export const getReplies = ({
   at,
@@ -13,7 +13,7 @@ export const getReplies = ({
   topicId,
   ver,
 }) => (
-  axios.post('/api/forum/getReplies', {
+  API.post('/api/forum/getReplies', {
     cid,
     callSource,
     at,

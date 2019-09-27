@@ -1,0 +1,18 @@
+.quest-output-module {
+  & > div {
+    width: 100%!important;
+
+    ul {
+      margin: 0;
+      width: 100%;
+    }
+
+    .root {
+      box-shadow: none;
+    }
+
+    .tile-content-container {
+      padding: 0;
+    }
+  }
+}

@@ -207,7 +207,7 @@ class PhotoHubNavigation extends Component {
                   />
                 )}
               </div>
-              <div className="photohub-tools">
+              {/* <div className="photohub-tools">
                 {!mobileFilterActive ? (
                   <Button
                     onClickEvent={this.handle3DotsClick}
@@ -222,7 +222,7 @@ class PhotoHubNavigation extends Component {
                     options={filterDropdownOptions}
                   />
                 )}
-              </div>
+              </div> */}
             </div>
           </DisplayAtBreakpoint>
         </div>

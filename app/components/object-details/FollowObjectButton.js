@@ -29,7 +29,7 @@ class FollowObjectButton extends Component {
   };
 
   toggleFollow = () => {
-    const { objectId, user } = this.props;
+    const { objectId, user, callBack } = this.props;
 
     fetchFollowObject({
       at: user.at,
@@ -42,6 +42,9 @@ class FollowObjectButton extends Component {
           icon: res.data.promptIconUrl,
           text: res.data.followPrompt,
         });
+        if (callBack) {
+          callBack();
+        }
       }
     });
   };
