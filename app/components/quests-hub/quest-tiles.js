@@ -5,9 +5,9 @@ import uniqueId from 'lodash/uniqueId';
 import { FormattedMessage } from 'react-intl';
 import CenterColumn from 'app/components/common/CenterColumn';
 import QuestHubTileBig from 'app/components/common/tiles/QuestHubTileBig';
-import QuestHubTileSmall from 'app/components/common/tiles/QuestHubTileSmall';
 import QuestExcerptTile from 'app/components/common/tiles/quest-excerpt-tile';
 
+import QuestCard from 'app/components/common/tiles/Quest-card';
 import style from './quest-tiles.style';
 
 class QuestTiles extends Component {
@@ -79,19 +79,32 @@ class QuestTiles extends Component {
                 </div>
               </li>
             ))}
-          {isMobile &&
-            quests.map(quest => (
-              <li key={uniqueId()} className="tile">
-                <QuestHubTileSmall {...quest} />
-              </li>
-            ))}
+          <div className="quest-list">
+            {isMobile && quests
+              ? quests.map(quest => (
+                  <div className="quest-list-item">
+                    <QuestCard
+                      linkUrl={quest.linkUrl}
+                      questType={quest.questType}
+                      iconURL={quest.iconURL}
+                      questDifficulty={quest.questDifficulty}
+                      title={quest.questTitle}
+                      linkLabel={quest.linkLabel}
+                      questAuthor={quest.questAuthor}
+                    />
+                  </div>
+                ))
+              : null}
+          </div>
         </ul>
         <style jsx>{style}</style>
       </CenterColumn>
     ) : (
       (
         <div className="container">
-          <p style={{fontSize: "1.5em"}} className="mt-5">{questsComingSoonMessage}</p>
+          <p style={{ fontSize: '1.5em' }} className="mt-5">
+            {questsComingSoonMessage}
+          </p>
         </div>
       ) || <FormattedMessage id="Hubs.noQuests" />
     );
