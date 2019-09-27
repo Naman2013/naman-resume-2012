@@ -76,6 +76,7 @@ class GlobalNavigation extends Component {
 
   state = {
     totalViewersCount: 0,
+    allLivecastsInProgress: { },
   };
 
   constructor(params) {
@@ -98,40 +99,31 @@ class GlobalNavigation extends Component {
     this.pubnub.addListener({
       status: statusEvent => {
         if (statusEvent.category === 'PNConnectedCategory') {
-          console.log('Pubnub is connected....');
+          //console.log('Pubnub is connected....');
         }
       },
       message: msg => {
+	//what channel did this message come from???
 	const channel = msg.channel;
+
+	//what is the message??
 	const message = msg.message;
 
 	if (channel == 'system.liveevents') {
+		//console.log(message);
+
 		if (message.messageType) {
 			if (message.messageType == 'livecast') {
-				if (message.action == 'start') {
-					console.log('Show the red indicator on the speaker icon.');
-
-					const numLivecastsPlaying = message.numLivecastsPlaying;
-					console.log('Update the speaker icon number indicator as well...' + numLivecastsPlaying + " livecasts are now playing.");
-
-					//Please also verify that the React state has at least 1 livecast that will be displayed in the livecast popup, if not, make the API call: /api/events/getLivecast to ensure the speaker popup window will have the latest list of livecast(s) for the user to select from.
- 
-				}
-				else if (message.action == 'stop') {
-					if (message.numLivecastsPlaying == 0) {
-						console.log('Stop showing the red indicator on the speaker icon as there are no more livecasts playing.');
-					}
-					else {
-						const numLivecastsPlaying = message.numLivecastsPlaying;
-						console.log("Update the speaker icon number indicator as now only " + numLivecastsPlaying + " livecasts are now playing.");
-					}
+				if (message.action == 'broadcastUpdate') {
+					//update the livecasts in progress
+					this.setState({ allLivecastsInProgress: message.livecasts });
 				}
 			}
 		}
 	}
       },
       presence: presenceEvent => {
-        // handle presence
+        // handle presence (users that have joined or left the channel)
         //console.log(presenceEvent.channel);
         //console.log(presenceEvent);
 
@@ -232,7 +224,7 @@ class GlobalNavigation extends Component {
       userMenu,
     } = this.props;
 
-    const { totalViewersCount } = this.state;
+    const { totalViewersCount, allLivecastsInProgress } = this.state;
 
     const leftMenuContent = MENU_INTERFACE[activeLeft];
     const rightMenuContent = MENU_INTERFACE[activeRight];
@@ -247,6 +239,7 @@ class GlobalNavigation extends Component {
             handleNotificationClick={this.handleNotificationClick}
             closeAllMenus={this.closeAll}
             totalViewersCount={totalViewersCount}
+	    allLivecastsInProgress={allLivecastsInProgress}
           />
         </div>
 
