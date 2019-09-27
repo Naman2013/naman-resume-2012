@@ -21,41 +21,6 @@ const disableResizing = {
   bottom: false,
 };
 
-const feed = [
-  {
-    id: 1,
-    user: 'Todd',
-    currentUser: false,
-    date: '09/11/2019 3:25PM',
-    text:
-      'Lorem ipsum dolor sit amet, consectetur adipisicing elit Aspernatur consectetur deserunt dignissimos, dolor est expedita id itaque labore, nostrum odit perferendis',
-  },
-  {
-    id: 2,
-    user: 'Ed',
-    currentUser: false,
-    date: '09/12/2019 5:25PM',
-    text:
-      'consectetur adipisicing elit Aspernatur consectetur deserunt dignissimos, dolor est expedita id itaque labore, nostrum odit perferendis',
-  },
-  {
-    id: 3,
-    user: 'Ivan',
-    currentUser: true,
-    date: '09/12/2019 10:25PM',
-    text:
-      'dignissimos, dolor est expedita id itaque labore, nostrum odit perferendis',
-  },
-  {
-    id: 4,
-    user: 'Sviatoslav',
-    currentUser: false,
-    date: '09/13/2019 1:25AM',
-    text:
-      'consectetur adipisicing elit Aspernatur consectetur deserunt dignissimos, dolor est expedita id itaque labore, nostrum odit perferendis',
-  },
-];
-
 const getResizableBoxConfigs = () => {
   const isMobile = isMobileDevice();
   const defaultWidth = 500;
@@ -71,6 +36,7 @@ const getResizableBoxConfigs = () => {
 
 type TLiveActivity = {
   totalViewersCount: number;
+  activityFeedMessages: Array;
 }
 
 export const LiveActivity = (props: TLiveActivity) => {
@@ -141,7 +107,7 @@ export const LiveActivity = (props: TLiveActivity) => {
               </div>
               <div className="live-activity-window-body">
                 <div className="live-activity-window-body-feed">
-                  {feed.map(feedItem => (
+                  {props.activityFeedMessages.map(feedItem => (
                     <FeedItem item={feedItem} />
                   ))}
                 </div>

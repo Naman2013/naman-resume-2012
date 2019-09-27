@@ -24,7 +24,7 @@ export const FeedItem = (props: TFeedItem) => (
         <div className="arrow-left" />
       )}
 
-      {props.item.text}
+      <span dangerouslySetInnerHTML={{ __html: props.item.text }}/>
     </div>
   </div>
 );
