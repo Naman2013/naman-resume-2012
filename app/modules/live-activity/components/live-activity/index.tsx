@@ -36,7 +36,7 @@ const getResizableBoxConfigs = () => {
 
 type TLiveActivity = {
   totalViewersCount: number;
-  activityFeedMessages: Array;
+  activityFeedMessages: Array<any>;
 }
 
 export const LiveActivity = (props: TLiveActivity) => {
