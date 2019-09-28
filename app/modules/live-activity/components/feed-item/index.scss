@@ -1,7 +1,7 @@
 @import '~app/styles/variables/index';
 
-$msgBg: lighten($online, 35%);
-$msgOwnBg: lighten($golda, 15%);
+$msgBg: lighten($lightHeadedAstronaut, 60%);
+$msgOwnBg: lighten($golda, 25%);
 
 .feed-item {
   margin-bottom: 20px;
@@ -24,11 +24,14 @@ $msgOwnBg: lighten($golda, 15%);
 
   .feed-msg {
     background-color: $msgBg;
-    padding: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
     border-radius: 10px;
     width: 80%;
     margin-left: auto;
-    font-size: 14px;
+    font-size: 16px;
     position: relative;
   }
 

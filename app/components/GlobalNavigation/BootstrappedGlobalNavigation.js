@@ -102,8 +102,25 @@ class GlobalNavigation extends Component {
     this.pubnub.addListener({
       status: statusEvent => {
         if (statusEvent.category === 'PNConnectedCategory') {
-          //console.log('Pubnub is connected....');
-        }
+          console.log('Pubnub is connected....');
+		this.pubnub.history(
+    		  {
+        		channel: this.props.pubnubActivityFeedChannelName,
+        		count: 50,
+        		stringifiedTimeToken: false,
+			reverse: false,
+    		  },
+    		  (status, response) => {
+			let historyMessages = response.messages;
+			historyMessages.forEach(historyMessage => {
+				console.log(historyMessage);
+
+				this.buildFeedMessage(historyMessage.entry, true);
+			});
+        		console.log(response);
+    		  }
+		)
+	} //end of if connected
       },
       message: msg => {
 	//what channel did this message come from???
@@ -127,32 +144,7 @@ class GlobalNavigation extends Component {
 		}
 	}
 	else if (channel == this.props.pubnubActivityFeedChannelName) {
-		//convert the string message into a json object
-		let messageJSONObj = JSON.parse(message);
-
-		//console.log(messageJSON.message_by_locale.en);
-
-		let isMessageFromCurrentUser = false;
-		if (messageJSONObj.customerUUID == getUserInfo().customerUUID) {
-			isMessageFromCurrentUser = true;
-		}
-
-		let newMessage = {
-			id: messageJSONObj.messageID,
-			user: messageJSONObj.displayName,
-			currentUser: isMessageFromCurrentUser,
-			date: '00/00/0000 12:00 UTC',
-			text: messageJSONObj.message_by_locale.en			
-		};
-
-		this.setState(state => {
-		        const activityFeedMessages = [...this.state.activityFeedMessages, newMessage];
-      			return {
-        			activityFeedMessages,
-      			};
-    		});
-
-		//console.log(this.state.activityFeedMessages);
+		this.buildFeedMessage(message, true);
 	}
       },
       presence: presenceEvent => {
@@ -167,6 +159,44 @@ class GlobalNavigation extends Component {
     });
 
     this.pubnub.init(this);
+  }
+
+  buildFeedMessage(message, appendFlag) {
+	//convert the string message into a json object
+	let messageJSONObj = JSON.parse(message);
+
+	//console.log(messageJSON.message_by_locale.en);
+
+	let isMessageFromCurrentUser = false;
+	if (messageJSONObj.customerUUID == getUserInfo().customerUUID) {
+		isMessageFromCurrentUser = true;
+	}
+
+	let newMessage = {
+		id: messageJSONObj.messageID,
+		user: messageJSONObj.displayName,
+		currentUser: isMessageFromCurrentUser,
+		date: '00/00/0000 12:00 UTC',
+		text: messageJSONObj.message_by_locale.en			
+	};
+
+	if (appendFlag === true) {
+		this.setState(state => {
+		        const activityFeedMessages = [...this.state.activityFeedMessages, newMessage];
+      			return {
+        			activityFeedMessages,
+      			};
+    		});
+	}
+	else {
+		this.setState(state => {
+		        const activityFeedMessages = [newMessage, ...this.state.activityFeedMessages];
+      			return {
+        			activityFeedMessages,
+      			};
+    		});
+	}
+	//console.log(this.state.activityFeedMessages);
   }
 
   componentWillMount() {
