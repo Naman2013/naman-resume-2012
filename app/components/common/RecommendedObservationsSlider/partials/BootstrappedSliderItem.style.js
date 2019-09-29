@@ -187,8 +187,13 @@ export default css`
   }
 
   :global(.obs-image-magnifier > div > img) {
-    max-height: 90vh;
-    object-fit: contain;
+    height: 90vh;
+    width: auto !important;
+  }
+
+  :global(.obs-image-wrapper > .modal-content) {
+    width: auto;
+    margin: 0 auto;
   }
 
   @media ${screenMedium} {
