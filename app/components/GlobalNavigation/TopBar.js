@@ -130,7 +130,7 @@ const TopBar = ({
                     <li>
                       <LiveActivityLoadable
                         totalViewersCount={totalViewersCount}
-			                  activityFeedMessages={activityFeedMessages}
+			activityFeedMessages={activityFeedMessages}
                         onClick={closeAllMenus}
                       />
                     </li>

@@ -34,6 +34,11 @@ const getResizableBoxConfigs = () => {
   };
 };
 
+const submitMessage = (event:any) => {
+	event.preventDefault();
+	console.log(event);
+}
+
 type TLiveActivity = {
   totalViewersCount: number;
   activityFeedMessages: Array<any>;
@@ -114,9 +119,9 @@ export const LiveActivity = (props: TLiveActivity) => {
               </div>
 
               <div className="live-activity-window-footer">
-                <input type="text" placeholder="Type your message" />
+		<input type="text" value="Please type a message"/>
               </div>
-            </div>
+            </div>s
           </Rnd>
         </div>
       )}

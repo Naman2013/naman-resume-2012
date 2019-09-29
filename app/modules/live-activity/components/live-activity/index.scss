@@ -126,7 +126,7 @@ $screenHeaderSize: 110px;
           line-height: 1.13;
           letter-spacing: normal;
           color: $battleship-grey;
-
+          z-index: 9999;
           &:focus {
             outline: none;
           }
