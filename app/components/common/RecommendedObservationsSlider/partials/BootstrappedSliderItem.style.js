@@ -186,6 +186,11 @@ export default css`
     filter: invert(1);
   }
 
+  :global(.obs-image-magnifier > div > img) {
+    max-height: 90vh;
+    object-fit: contain;
+  }
+
   @media ${screenMedium} {
     .card-obs {
       width: 95%;

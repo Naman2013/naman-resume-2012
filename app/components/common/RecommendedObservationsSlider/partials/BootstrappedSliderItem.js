@@ -62,10 +62,7 @@ const BootstrappedObservationSliderItem = props => {
                     {Object.keys(iconFileData).map(item => (
                       <Tooltip title={iconFileData[item].text}>
                         {iconFileData[item].hasLink ? (
-                          <Link
-                            to={iconFileData[item].linkUrl}
-                            target="_blank"
-                          >
+                          <Link to={iconFileData[item].linkUrl} target="_blank">
                             <ReturnObservationIcon item={iconFileData[item]} />
                           </Link>
                         ) : (
@@ -87,6 +84,7 @@ const BootstrappedObservationSliderItem = props => {
                       isOpen={isOpen}
                       imageURL={imageDownloadURL}
                       onHide={() => openModal(!isOpen)}
+                      magnifierClassName="obs-image-magnifier"
                     />
                   </div>
                 </div>
