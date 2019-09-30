@@ -168,13 +168,14 @@ export class Livecast extends PureComponent<TLivecast, TState> {
     return (
      <Fragment>
       <div className="livecast-btn">
-         <span
+         {nbrLivecastsInProgress > 0 && <span
            className={classnames('count', {
               zero: nbrLivecastsInProgress === 0,
            })}
          >
-           <span style={{marginLeft: '5px'}}>{nbrLivecastsInProgress}</span>
+         	<span style={{marginLeft: '5px'}}>&nbsp;</span>
          </span>
+        }
 
         <span
           role="presentation"

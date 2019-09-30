@@ -46,7 +46,8 @@ const submitMessage = (event: any, pubnubConnection:any, pubnubActivityFeedChann
 
     let message = {
 	    id: -1,
-	    currentUser: true,
+	    messageType: "user-generated",
+	    currentUser: true,	    
 	    displayName: getUserInfo().displayName,
             customerUUID: getUserInfo().customerUUID,
             date: '', 
