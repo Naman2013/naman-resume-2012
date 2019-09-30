@@ -80,10 +80,13 @@ class GlobalNavigation extends Component {
     totalViewersCount: 0,
     allLivecastsInProgress: { },
     activityFeedMessages: [],
+    activityWindowHasBeenScrolledToBottom: false,
   };
 
   constructor(params) {
     super(params);
+
+    this.checkActivityWindowScroll.bind(this);
 
     this.debouncedCloseAll = debounce(this.closeAll, 500, {
       leading: true,
@@ -113,12 +116,13 @@ class GlobalNavigation extends Component {
     		  (status, response) => {
 			let historyMessages = response.messages;
 			historyMessages.forEach(historyMessage => {
-				console.log(historyMessage);
-
+				//console.log(historyMessage);
 				this.buildFeedMessage(historyMessage.entry, true);
 			});
 
         		//console.log(response);
+
+	      		setInterval(() => this.checkActivityWindowScroll(), 5000);
     		  }
 		)
 	} //end of if connected
@@ -160,6 +164,24 @@ class GlobalNavigation extends Component {
     });
 
     this.pubnub.init(this);
+  }
+
+  checkActivityWindowScroll() {
+	//console.log("checking scroll function....");
+
+	if (this.state.activityWindowHasBeenScrolledToBottom == false) {
+		//console.log("activity window has not been scrolled yet....");
+		
+		var liveActivityWindowBodyFeedObj = document.getElementById('live-activity-window-body-feed'); 
+		if (liveActivityWindowBodyFeedObj != null) {
+			//console.log("found the activity window to be open....");
+			
+			liveActivityWindowBodyFeedObj.scrollIntoView(false);
+			this.setState({ activityWindowHasBeenScrolledToBottom: true });	
+			
+			//console.log("scrolling to bottom.....");
+		}
+	}
   }
 
   buildFeedMessage(message, appendFlag) {
