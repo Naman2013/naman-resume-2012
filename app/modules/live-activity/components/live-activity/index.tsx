@@ -1,11 +1,11 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import './index.scss';
 import { Tooltip } from 'react-tippy';
 import { Rnd } from 'react-rnd';
-import { FeedItem } from '../feed-item/index';
 import Button from 'app/components/common/style/buttons/Button';
 import { isMobileDevice } from 'app/services.ts';
 import cx from 'classnames';
+import { FeedItem } from '../feed-item/index';
 
 const enableResizing = {
   top: true,
@@ -34,15 +34,19 @@ const getResizableBoxConfigs = () => {
   };
 };
 
-const submitMessage = (event:any) => {
-	event.preventDefault();
-	console.log(event);
-}
+const submitMessage = (event: any) => {
+  event.preventDefault();
+
+  if (event.keyCode === 13) {
+    //DO SOMETHING
+    console.log(event.target.value);
+  }
+};
 
 type TLiveActivity = {
   totalViewersCount: number;
   activityFeedMessages: Array<any>;
-}
+};
 
 export const LiveActivity = (props: TLiveActivity) => {
   const [isOpen, setOpen] = React.useState(false);
@@ -60,10 +64,12 @@ export const LiveActivity = (props: TLiveActivity) => {
       document.body.classList.remove('disable-overflow');
       document.documentElement.classList.remove('disable-overflow');
     }
-  }, [isFullscreen, isOpen]);
+  }, [isFullscreen, isMobile, isOpen]);
 
   return (
-    <div className={cx("live-activity-wrapper", {'full-screen': isFullscreen})}>
+    <div
+      className={cx('live-activity-wrapper', { 'full-screen': isFullscreen })}
+    >
       {/* BTN */}
       <span
         role="presentation"
@@ -88,24 +94,28 @@ export const LiveActivity = (props: TLiveActivity) => {
             minWidth={300}
             minHeight={300}
             disableDragging={isFullscreen || isMobile}
-            enableResizing={isFullscreen || isMobile ? disableResizing : enableResizing}
+            enableResizing={
+              isFullscreen || isMobile ? disableResizing : enableResizing
+            }
           >
             <div className="live-activity-window">
               <div className="live-activity-window-header d-flex justify-content-between align-items-center">
-                <span className="h4-custom ">live feeds ({props.totalViewersCount} Members Online)</span>
+                <span className="h4-custom ">
+                  live feeds ({props.totalViewersCount} Members Online)
+                </span>
                 <div className="live-activity-window-header-right">
                   <div className="desktop-container">
                     <Button
-                        mod="full-screen-button"
-                        renderIcon={() => <i className="fa fa-arrows-alt" />}
-                        onClickEvent={() => setFullscreen(!isFullscreen)}
+                      mod="full-screen-button"
+                      renderIcon={() => <i className="fa fa-arrows-alt" />}
+                      onClickEvent={() => setFullscreen(!isFullscreen)}
                     />
                   </div>
                   <Tooltip title="Close">
                     <span
-                        className="icon-close"
-                        onClick={() => setOpen(false)}
-                        role="presentation"
+                      className="icon-close"
+                      onClick={() => setOpen(false)}
+                      role="presentation"
                     />
                   </Tooltip>
                 </div>
@@ -119,9 +129,14 @@ export const LiveActivity = (props: TLiveActivity) => {
               </div>
 
               <div className="live-activity-window-footer">
-		<input type="text" value="Please type a message"/>
+                <input
+                  type="text"
+                  placeholder="Please type a message"
+                  onKeyUp={submitMessage}
+                  onMouseDown={e => e.stopPropagation()}
+                />
               </div>
-            </div>s
+            </div>
           </Rnd>
         </div>
       )}
