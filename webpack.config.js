@@ -144,17 +144,17 @@ module.exports = {
     },
     proxy: {
       '/getHosted*.php': {
-        target: 'https://eris.slooh.com',
+        target: 'https://nova.slooh.com',
         changeOrigin: true,
         secure: true,
       },
       '/api/**': {
-        target: 'https://eris.slooh.com',
+        target: 'https://nova.slooh.com',
         changeOrigin: true,
         secure: true,
       },
       '/sloohapp/**': {
-        target: 'https://eris.slooh.com',
+        target: 'https://nova.slooh.com',
         changeOrigin: true,
         secure: true,
       },
