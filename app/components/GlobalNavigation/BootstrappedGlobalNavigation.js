@@ -115,14 +115,15 @@ class GlobalNavigation extends Component {
     		  },
     		  (status, response) => {
 			let historyMessages = response.messages;
+
 			historyMessages.forEach(historyMessage => {
 				//console.log(historyMessage);
 				this.buildFeedMessage(historyMessage.entry, true);
 			});
 
-        		//console.log(response);
+	        	//console.log(response);
 
-	      		setInterval(() => this.checkActivityWindowScroll(), 5000);
+		      	setInterval(() => this.checkActivityWindowScroll(), 5000);
     		  }
 		)
 	} //end of if connected
@@ -185,43 +186,48 @@ class GlobalNavigation extends Component {
   }
 
   buildFeedMessage(message, appendFlag) {
-	//console.log(message);
+	try {
+		//console.log(message);
 
-	//convert the string message into a json object
-	let messageJSONObj = JSON.parse(message);
+		//convert the string message into a json object
+		let messageJSONObj = JSON.parse(message);
 
-	//console.log(messageJSON.message_by_locale.en);
+		//console.log(messageJSON.message_by_locale.en);
 
-	let isMessageFromCurrentUser = false;
-	if (messageJSONObj.customerUUID == getUserInfo().customerUUID) {
-		isMessageFromCurrentUser = true;
+		let isMessageFromCurrentUser = false;
+		if (messageJSONObj.customerUUID == getUserInfo().customerUUID) {
+			isMessageFromCurrentUser = true;
+		}
+
+		let newMessage = {
+			id: messageJSONObj.messageID,
+			user: messageJSONObj.displayName,
+			currentUser: isMessageFromCurrentUser,
+			date: '00/00/0000 12:00 UTC',
+			text: messageJSONObj.message_by_locale.en			
+		};
+
+		if (appendFlag === true) {
+			this.setState(state => {
+			        const activityFeedMessages = [...this.state.activityFeedMessages, newMessage];
+      				return {
+        				activityFeedMessages,
+	      			};
+    			});
+		}
+		else {
+			this.setState(state => {
+		        	const activityFeedMessages = [newMessage, ...this.state.activityFeedMessages];
+	      			return {
+        				activityFeedMessages,
+      				};
+	    		});
+		}
+		//console.log(this.state.activityFeedMessages);
 	}
-
-	let newMessage = {
-		id: messageJSONObj.messageID,
-		user: messageJSONObj.displayName,
-		currentUser: isMessageFromCurrentUser,
-		date: '00/00/0000 12:00 UTC',
-		text: messageJSONObj.message_by_locale.en			
-	};
-
-	if (appendFlag === true) {
-		this.setState(state => {
-		        const activityFeedMessages = [...this.state.activityFeedMessages, newMessage];
-      			return {
-        			activityFeedMessages,
-      			};
-    		});
+	catch(e) {
+		//do nothing, ignore this message....
 	}
-	else {
-		this.setState(state => {
-		        const activityFeedMessages = [newMessage, ...this.state.activityFeedMessages];
-      			return {
-        			activityFeedMessages,
-      			};
-    		});
-	}
-	//console.log(this.state.activityFeedMessages);
   }
 
   componentWillMount() {
