@@ -117,6 +117,7 @@ class GlobalNavigation extends Component {
 
 				this.buildFeedMessage(historyMessage.entry, true);
 			});
+
         		//console.log(response);
     		  }
 		)

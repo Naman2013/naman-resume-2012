@@ -35,7 +35,7 @@ const getResizableBoxConfigs = () => {
   };
 };
 
-const submitMessage = (event: any, pubnubConnection:any, pubnubActivityFeedChannelName:string) => {
+const submitMessage = (event: any, pubnubConnection:any, pubnubActivityFeedChannelName:string, myTextInputField:any) => {
   event.preventDefault();
 
   if (event.keyCode === 13) {
@@ -64,6 +64,9 @@ const submitMessage = (event: any, pubnubConnection:any, pubnubActivityFeedChann
         storeInHistory: true, //override default storage options
     }
     );
+
+    myTextInputField.value = '';
+    setTimeout(function() { var liveActivityWindowBodyFeedObj = document.getElementById('live-activity-window-body-feed'); liveActivityWindowBodyFeedObj.scrollIntoView(false); }, 1000);
   }
 };
 
@@ -147,7 +150,7 @@ export const LiveActivity = (props: TLiveActivity) => {
                 </div>
               </div>
               <div className="live-activity-window-body">
-                <div className="live-activity-window-body-feed">
+                <div id="live-activity-window-body-feed" className="live-activity-window-body-feed">
                   {props.activityFeedMessages.map(feedItem => (
                     <FeedItem item={feedItem} />
                   ))}
@@ -158,7 +161,7 @@ export const LiveActivity = (props: TLiveActivity) => {
                 <input
                   type="text"
                   placeholder="Please type a message"
-                  onKeyUp={e => submitMessage(e, props.pubnubConnection, props.pubnubActivityFeedChannelName)}
+                  onKeyUp={e => submitMessage(e, props.pubnubConnection, props.pubnubActivityFeedChannelName, e.target)}
                   onMouseDown={e => e.stopPropagation()}
                 />
               </div>
