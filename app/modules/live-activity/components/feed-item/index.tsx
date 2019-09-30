@@ -13,18 +13,18 @@ export const FeedItem = (props: TFeedItem) => (
     })}
   >
     <div className="feed-data">
-      <span className="feed-data-date">{props.item.date}</span>
-      <span className="feed-data-user">{props.item.user}</span>
+      {/* <span className="feed-data-date">{props.item.date}</span> */}
+      {/* <span className="feed-data-user">{props.item.user}</span> */}
     </div>
 
     <div className="feed-msg">
       {props.item.currentUser ? (
-        <div className="arrow-right" />
-      ) : (
         <div className="arrow-left" />
+      ) : (
+        <div className="arrow-right" />
       )}
 
-      {props.item.text}
+      <span dangerouslySetInnerHTML={{ __html: props.item.text }}/>
     </div>
   </div>
 );

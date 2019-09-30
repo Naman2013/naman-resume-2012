@@ -12,7 +12,16 @@ import CenterBar from './CenterBar';
 import Button from './Button';
 import messages from './TopBar.messages';
 
+const SEARCH_LABEL = 'SEARCH';
+
 function isActive(menuName, activeMenu) {
+  if (menuName === SEARCH_LABEL) {
+    document.body.classList.add('hide-overflow');
+    document.documentElement.classList.add('hide-overflow');
+  } else {
+    document.body.classList.remove('hide-overflow');
+    document.documentElement.classList.remove('hide-overflow');
+  }
   return menuName === activeMenu;
 }
 
@@ -21,6 +30,13 @@ const TopBar = ({
   activeMenu,
   handleNotificationClick,
   closeAllMenus,
+  totalViewersCount,
+  allLivecastsInProgress,
+  activityFeedMessages,
+  pubnubConnection,
+  pubnubActivityFeedChannelName,
+  userDisplayName,
+  isChatEnabled,
 }) => {
   const mainIsActive = isActive(activeMenu, MENU_INTERFACE.MAIN.name);
   const telescopesIsActive = isActive(
@@ -115,11 +131,19 @@ const TopBar = ({
                 </li> */}
                 {user.isAuthorized ? (
                   <>
-                    {/*<li>
-                      <LiveActivityLoadable onClick={closeAllMenus} />
-                    </li>*/}
                     <li>
-                      <Livecast user={user} onClick={closeAllMenus} />
+                      <LiveActivityLoadable
+                        totalViewersCount={totalViewersCount}
+			activityFeedMessages={activityFeedMessages}
+			pubnubConnection={pubnubConnection}
+			pubnubActivityFeedChannelName={pubnubActivityFeedChannelName}
+			userDisplayName={userDisplayName}
+			isChatEnabled={isChatEnabled}
+                        onClick={closeAllMenus}
+                      />
+                    </li>
+                    <li>
+                      <Livecast user={user} allLivecastsInProgress={allLivecastsInProgress} onClick={closeAllMenus} />
                     </li>
                     <li>
                       <Button

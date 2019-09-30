@@ -110,6 +110,10 @@ module.exports = {
 
     new webpack.EnvironmentPlugin({
       SENTRY_ENV: 'PRODUCTION',
+      PUBNUB_FEEDS_SUBKEY: '',
+      PUBNUB_FEEDS_PUBKEY: '',
+      PUBNUB_FEEDS_SECRETKEY: '',
+      PUBNUB_CHANNEL_PREFIX: 'dev.'
     }),
 
     new MiniCssExtractPlugin({
@@ -140,17 +144,17 @@ module.exports = {
     },
     proxy: {
       '/getHosted*.php': {
-        target: 'https://eris.slooh.com',
+        target: 'https://nova.slooh.com',
         changeOrigin: true,
         secure: true,
       },
       '/api/**': {
-        target: 'https://eris.slooh.com',
+        target: 'https://nova.slooh.com',
         changeOrigin: true,
         secure: true,
       },
       '/sloohapp/**': {
-        target: 'https://eris.slooh.com',
+        target: 'https://nova.slooh.com',
         changeOrigin: true,
         secure: true,
       },

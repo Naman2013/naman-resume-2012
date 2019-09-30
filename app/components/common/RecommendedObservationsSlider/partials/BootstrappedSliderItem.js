@@ -5,6 +5,7 @@ import { injectIntl } from 'react-intl';
 import { Tooltip } from 'react-tippy';
 import { ModalImg } from 'app/modules/telescope/components/modal-img';
 import LikeSomethingButton from 'app/components/common/LikeSomethingButton';
+import { ReturnObservationIcon } from 'app/components/common/RecommendedObservationsSlider/partials/GetObservationIcon';
 
 import style from './BootstrappedSliderItem.style';
 import messages from './BootstrappedSliderItem.messages';
@@ -61,29 +62,11 @@ const BootstrappedObservationSliderItem = props => {
                     {Object.keys(iconFileData).map(item => (
                       <Tooltip title={iconFileData[item].text}>
                         {iconFileData[item].hasLink ? (
-                          <Link
-                            to={iconFileData[item].linkUrl}
-                            target="_blank"
-                            className="link"
-                          >
-                            <img
-                              className={`linkIcon${
-                                item === 'Member' ? ' memberIcon' : ''
-                              }`}
-                              src={iconFileData[item].iconUrl}
-                              alt={iconFileData[item].label}
-                            />
+                          <Link to={iconFileData[item].linkUrl} target="_blank">
+                            <ReturnObservationIcon item={iconFileData[item]} />
                           </Link>
                         ) : (
-                          <div className="link">
-                            <img
-                              className={`linkIcon${
-                                item === 'Member' ? ' memberIcon' : ''
-                              }`}
-                              src={iconFileData[item].iconUrl}
-                              alt={iconFileData[item].label}
-                            />
-                          </div>
+                          <ReturnObservationIcon item={iconFileData[item]} />
                         )}
                       </Tooltip>
                     ))}
@@ -101,6 +84,8 @@ const BootstrappedObservationSliderItem = props => {
                       isOpen={isOpen}
                       imageURL={imageDownloadURL}
                       onHide={() => openModal(!isOpen)}
+                      customClassName="obs-image-wrapper"
+                      magnifierClassName="obs-image-magnifier"
                     />
                   </div>
                 </div>

@@ -159,16 +159,9 @@ export default css`
     display: flex;
   }
 
-  .links :global(> div) {
-    margin-right: 25px;
-  }
-
   .links :global(.link) {
-    ${centerChildren}
-    border-radius: 50%;
     width: 40px;
     height: 40px;
-    cursor: pointer;
   }
 
   .buttons :global(.details) {
@@ -191,6 +184,16 @@ export default css`
 
   .memberIcon {
     filter: invert(1);
+  }
+
+  :global(.obs-image-magnifier > div > img) {
+    height: 90vh;
+    width: auto !important;
+  }
+
+  :global(.obs-image-wrapper > .modal-content) {
+    width: auto;
+    margin: 0 auto;
   }
 
   @media ${screenMedium} {

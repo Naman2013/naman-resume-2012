@@ -44,7 +44,6 @@ class AboutContent extends Component {
   render() {
     const { content } = this.props;
     const { contentLength, buttonText } = this.state;
-
     return (
       <Fragment>
         <span>
