@@ -213,6 +213,22 @@
   }
 }
 
+.obs-image-magnifier {
+  div {
+    img {
+      height: 90vh;
+      width: auto !important;
+    }
+  }
+}
+
+.obs-image-wrapper {
+  .modal-content {
+    width: auto;
+    margin: 0 auto;
+  }
+}
+
 @media screen and (min-width: 1200px) {
   .image-wrapper {
     width: 300px;

@@ -89,6 +89,8 @@ const CardObsLarge = props => {
                       isOpen={isOpen}
                       imageURL={imageUrl}
                       onHide={() => openModal(!isOpen)}
+                      customClassName="obs-image-wrapper"
+                      magnifierClassName="obs-image-magnifier"
                     />
                   </div>
                 </div>
