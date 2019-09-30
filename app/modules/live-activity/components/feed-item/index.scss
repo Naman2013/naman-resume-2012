@@ -5,7 +5,7 @@ $msgOwnBg: lighten($golda, 25%);
 
 .feed-item {
   margin-bottom: 20px;
-  text-align: right;
+  text-align: left;
 
   .feed-data {
     margin-bottom: 5px;
@@ -30,7 +30,7 @@ $msgOwnBg: lighten($golda, 25%);
     padding-right: 15px;
     border-radius: 10px;
     width: 80%;
-    margin-left: auto;
+    margin-right: auto;
     font-size: 16px;
     position: relative;
   }
@@ -45,8 +45,8 @@ $msgOwnBg: lighten($golda, 25%);
 
     .feed-msg {
       background-color: $msgOwnBg;
-      margin-right: auto;
-      margin-left: 0;
+      margin-left: auto;
+      margin-right: 0;
     }
   }
 
@@ -55,7 +55,7 @@ $msgOwnBg: lighten($golda, 25%);
     height: 0;
     border-top: 10px solid transparent;
     border-bottom: 15px solid transparent;
-    border-right: 15px solid $msgBg;
+    border-right: 15px solid $msgOwnBg;
     position: absolute;
     top: -9px;
     right: 0;
@@ -66,7 +66,7 @@ $msgOwnBg: lighten($golda, 25%);
     height: 0;
     border-top: 10px solid transparent;
     border-bottom: 15px solid transparent;
-    border-left: 15px solid $msgOwnBg;
+    border-left: 15px solid $msgBg;
     position: absolute;
     top: -9px;
     left: 0;
