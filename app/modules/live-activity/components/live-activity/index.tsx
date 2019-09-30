@@ -35,7 +35,7 @@ const getResizableBoxConfigs = () => {
   };
 };
 
-const submitMessage = (event: any, pubnubConnection:any, pubnubActivityFeedChannelName:string, myTextInputField:any) => {
+const submitMessage = (event: any, pubnubConnection:any, pubnubActivityFeedChannelName:string, userDisplayName: string, myTextInputField:any) => {
   event.preventDefault();
 
   if (event.keyCode === 13) {
@@ -48,11 +48,11 @@ const submitMessage = (event: any, pubnubConnection:any, pubnubActivityFeedChann
 	    id: -1,
 	    messageType: "user-generated",
 	    currentUser: true,	    
-	    displayName: getUserInfo().displayName,
+	    displayName: userDisplayName,
             customerUUID: getUserInfo().customerUUID,
             date: '', 
             message_by_locale: {
-		en: '<a href="/profile/public/' + getUserInfo().customerUUID + '/activity">' + 'DISPLAYNAMEHERE' + '</a> - ' + event.target.value
+		en: '<a href="/profile/public/' + getUserInfo().customerUUID + '/activity">' + userDisplayName + '</a> - ' + event.target.value
 	    }
     }
 
@@ -76,6 +76,7 @@ type TLiveActivity = {
   activityFeedMessages: Array<any>;
   pubnubConnection: Object;
   pubnubActivityFeedChannelName: string;
+  userDisplayName: string;
 };
 
 export const LiveActivity = (props: TLiveActivity) => {
@@ -162,7 +163,7 @@ export const LiveActivity = (props: TLiveActivity) => {
                 <input
                   type="text"
                   placeholder="Please type a message"
-                  onKeyUp={e => submitMessage(e, props.pubnubConnection, props.pubnubActivityFeedChannelName, e.target)}
+                  onKeyUp={e => submitMessage(e, props.pubnubConnection, props.pubnubActivityFeedChannelName, props.userDisplayName, e.target)}
                   onMouseDown={e => e.stopPropagation()}
                 />
               </div>

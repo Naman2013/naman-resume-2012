@@ -35,6 +35,7 @@ const TopBar = ({
   activityFeedMessages,
   pubnubConnection,
   pubnubActivityFeedChannelName,
+  userDisplayName,
 }) => {
   const mainIsActive = isActive(activeMenu, MENU_INTERFACE.MAIN.name);
   const telescopesIsActive = isActive(
@@ -135,6 +136,7 @@ const TopBar = ({
 			activityFeedMessages={activityFeedMessages}
 			pubnubConnection={pubnubConnection}
 			pubnubActivityFeedChannelName={pubnubActivityFeedChannelName}
+			userDisplayName={userDisplayName}
                         onClick={closeAllMenus}
                       />
                     </li>

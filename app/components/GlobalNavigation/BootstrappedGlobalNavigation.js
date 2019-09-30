@@ -105,7 +105,7 @@ class GlobalNavigation extends Component {
     this.pubnub.addListener({
       status: statusEvent => {
         if (statusEvent.category === 'PNConnectedCategory') {
-          console.log('Pubnub is connected....');
+          //console.log('Pubnub is connected....');
 		this.pubnub.history(
     		  {
         		channel: this.props.pubnubActivityFeedChannelName,
@@ -319,6 +319,11 @@ class GlobalNavigation extends Component {
     const rightMenuContent = MENU_INTERFACE[activeRight];
     const notificationMenuContent = MENU_INTERFACE[MENU_INTERFACE.ALERTS.name];
 
+    let displayName = '';
+    if (userMenu && userMenu.userInfo) {
+	displayName = userMenu.userInfo.displayName;
+    }
+
     return (
       <div className="root">
         <div className="top-bar">
@@ -332,6 +337,7 @@ class GlobalNavigation extends Component {
 	    activityFeedMessages={activityFeedMessages}
 	    pubnubConnection={this.pubnub}
 	    pubnubActivityFeedChannelName={pubnubActivityFeedChannelName}
+	    userDisplayName={displayName}
           />
         </div>
 
