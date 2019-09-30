@@ -117,7 +117,7 @@ class GlobalNavigation extends Component {
 
 				this.buildFeedMessage(historyMessage.entry, true);
 			});
-        		console.log(response);
+        		//console.log(response);
     		  }
 		)
 	} //end of if connected
@@ -162,6 +162,8 @@ class GlobalNavigation extends Component {
   }
 
   buildFeedMessage(message, appendFlag) {
+	//console.log(message);
+
 	//convert the string message into a json object
 	let messageJSONObj = JSON.parse(message);
 
@@ -285,6 +287,7 @@ class GlobalNavigation extends Component {
       showUpsellModal,
       user,
       userMenu,
+      pubnubActivityFeedChannelName
     } = this.props;
 
     const { totalViewersCount, allLivecastsInProgress, activityFeedMessages } = this.state;
@@ -304,6 +307,8 @@ class GlobalNavigation extends Component {
             totalViewersCount={totalViewersCount}
 	    allLivecastsInProgress={allLivecastsInProgress}
 	    activityFeedMessages={activityFeedMessages}
+	    pubnubConnection={this.pubnub}
+	    pubnubActivityFeedChannelName={pubnubActivityFeedChannelName}
           />
         </div>
 

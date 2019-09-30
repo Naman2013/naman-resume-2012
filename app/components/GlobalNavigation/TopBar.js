@@ -33,6 +33,8 @@ const TopBar = ({
   totalViewersCount,
   allLivecastsInProgress,
   activityFeedMessages,
+  pubnubConnection,
+  pubnubActivityFeedChannelName,
 }) => {
   const mainIsActive = isActive(activeMenu, MENU_INTERFACE.MAIN.name);
   const telescopesIsActive = isActive(
@@ -131,6 +133,8 @@ const TopBar = ({
                       <LiveActivityLoadable
                         totalViewersCount={totalViewersCount}
 			activityFeedMessages={activityFeedMessages}
+			pubnubConnection={pubnubConnection}
+			pubnubActivityFeedChannelName={pubnubActivityFeedChannelName}
                         onClick={closeAllMenus}
                       />
                     </li>

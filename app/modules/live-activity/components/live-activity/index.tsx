@@ -6,6 +6,7 @@ import Button from 'app/components/common/style/buttons/Button';
 import { isMobileDevice } from 'app/services.ts';
 import cx from 'classnames';
 import { FeedItem } from '../feed-item/index';
+import { getUserInfo } from 'app/modules/User';
 
 const enableResizing = {
   top: true,
@@ -34,18 +35,43 @@ const getResizableBoxConfigs = () => {
   };
 };
 
-const submitMessage = (event: any) => {
+const submitMessage = (event: any, pubnubConnection:any, pubnubActivityFeedChannelName:string) => {
   event.preventDefault();
 
   if (event.keyCode === 13) {
     //DO SOMETHING
-    console.log(event.target.value);
+    //console.log(event.target.value);
+    //console.log(pubnubConnection);
+    //console.log(getUserInfo());
+
+    let message = {
+	    id: -1,
+	    currentUser: true,
+	    displayName: getUserInfo().displayName,
+            customerUUID: getUserInfo().customerUUID,
+            date: '', 
+            message_by_locale: {
+		en: '<a href="/profile/public/' + getUserInfo().customerUUID + '/activity">' + 'DISPLAYNAMEHERE' + '</a> - ' + event.target.value
+	    }
+    }
+
+    //publish the message
+    pubnubConnection.publish(
+    {
+	message: JSON.stringify(message),
+        channel: pubnubActivityFeedChannelName,
+        sendByPost: false, // true to send via post
+        storeInHistory: true, //override default storage options
+    }
+    );
   }
 };
 
 type TLiveActivity = {
   totalViewersCount: number;
   activityFeedMessages: Array<any>;
+  pubnubConnection: Object;
+  pubnubActivityFeedChannelName: string;
 };
 
 export const LiveActivity = (props: TLiveActivity) => {
@@ -132,7 +158,7 @@ export const LiveActivity = (props: TLiveActivity) => {
                 <input
                   type="text"
                   placeholder="Please type a message"
-                  onKeyUp={submitMessage}
+                  onKeyUp={e => submitMessage(e, props.pubnubConnection, props.pubnubActivityFeedChannelName)}
                   onMouseDown={e => e.stopPropagation()}
                 />
               </div>
