@@ -44,6 +44,12 @@ const submitMessage = (event: any, pubnubConnection:any, pubnubActivityFeedChann
     //console.log(pubnubConnection);
     //console.log(getUserInfo());
 
+    let tmpUserDisplayName = userDisplayName;
+
+    if (userDisplayName == '') {
+	tmpUserDisplayName = '...';
+    }
+
     let message = {
 	    id: -1,
 	    messageType: "user-generated",
@@ -52,7 +58,7 @@ const submitMessage = (event: any, pubnubConnection:any, pubnubActivityFeedChann
             customerUUID: getUserInfo().customerUUID,
             date: '', 
             message_by_locale: {
-		en: '<a href="/profile/public/' + getUserInfo().customerUUID + '/activity">' + userDisplayName + '</a> - ' + event.target.value
+		en: '<a href="/profile/public/' + getUserInfo().customerUUID + '/activity">' + tmpUserDisplayName + '</a> - ' + event.target.value
 	    }
     }
 

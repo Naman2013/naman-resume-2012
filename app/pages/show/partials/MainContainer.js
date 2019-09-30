@@ -69,12 +69,6 @@ class LiveShowMainContent extends Component {
               {...this.props}
               headerLabel={this.props.headerLabel}
             />
-            <br />
-            <iframe
-              frameBorder="0"
-              style={{ width: '100%', minHeight: '575px' }}
-              src={showLiveChatURL}
-            />
           </div>
         ) : (
           <div>
