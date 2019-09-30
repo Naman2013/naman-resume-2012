@@ -190,7 +190,8 @@ class GlobalNavigation extends Component {
 		//console.log(message);
 
 		//convert the string message into a json object
-		let messageJSONObj = JSON.parse(message);
+		//let messageJSONObj = JSON.parse(message);
+		let messageJSONObj = message;
 
 		//console.log(messageJSON.message_by_locale.en);
 

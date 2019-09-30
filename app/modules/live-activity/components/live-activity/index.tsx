@@ -65,7 +65,7 @@ const submitMessage = (event: any, pubnubConnection:any, pubnubActivityFeedChann
     //publish the message
     pubnubConnection.publish(
     {
-	message: JSON.stringify(message),
+	message: message,
         channel: pubnubActivityFeedChannelName,
         sendByPost: false, // true to send via post
         storeInHistory: true, //override default storage options
