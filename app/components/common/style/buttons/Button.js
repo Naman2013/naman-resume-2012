@@ -80,6 +80,7 @@ Button.propTypes = {
   type: string,
   withIntl: bool,
   disabled: bool,
+  mod: string,
 };
 Button.defaultProps = {
   type: 'text',

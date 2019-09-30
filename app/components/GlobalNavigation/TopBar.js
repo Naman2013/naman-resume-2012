@@ -30,6 +30,13 @@ const TopBar = ({
   activeMenu,
   handleNotificationClick,
   closeAllMenus,
+  totalViewersCount,
+  allLivecastsInProgress,
+  activityFeedMessages,
+  pubnubConnection,
+  pubnubActivityFeedChannelName,
+  userDisplayName,
+  isChatEnabled,
 }) => {
   const mainIsActive = isActive(activeMenu, MENU_INTERFACE.MAIN.name);
   const telescopesIsActive = isActive(
@@ -124,11 +131,19 @@ const TopBar = ({
                 </li> */}
                 {user.isAuthorized ? (
                   <>
-                    {/*<li>
-                      <LiveActivityLoadable onClick={closeAllMenus} />
-                    </li>*/}
                     <li>
-                      <Livecast user={user} onClick={closeAllMenus} />
+                      <LiveActivityLoadable
+                        totalViewersCount={totalViewersCount}
+			activityFeedMessages={activityFeedMessages}
+			pubnubConnection={pubnubConnection}
+			pubnubActivityFeedChannelName={pubnubActivityFeedChannelName}
+			userDisplayName={userDisplayName}
+			isChatEnabled={isChatEnabled}
+                        onClick={closeAllMenus}
+                      />
+                    </li>
+                    <li>
+                      <Livecast user={user} allLivecastsInProgress={allLivecastsInProgress} onClick={closeAllMenus} />
                     </li>
                     <li>
                       <Button
