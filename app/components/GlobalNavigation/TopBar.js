@@ -36,6 +36,7 @@ const TopBar = ({
   pubnubConnection,
   pubnubActivityFeedChannelName,
   userDisplayName,
+  isChatEnabled,
 }) => {
   const mainIsActive = isActive(activeMenu, MENU_INTERFACE.MAIN.name);
   const telescopesIsActive = isActive(
@@ -137,6 +138,7 @@ const TopBar = ({
 			pubnubConnection={pubnubConnection}
 			pubnubActivityFeedChannelName={pubnubActivityFeedChannelName}
 			userDisplayName={userDisplayName}
+			isChatEnabled={isChatEnabled}
                         onClick={closeAllMenus}
                       />
                     </li>

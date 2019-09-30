@@ -324,6 +324,11 @@ class GlobalNavigation extends Component {
 	displayName = userMenu.userInfo.displayName;
     }
 
+    let isChatEnabled = true;
+    if (userMenu && userMenu.userInfo) {
+	isChatEnabled = userMenu.userInfo.isChatEnabled;
+    }
+
     return (
       <div className="root">
         <div className="top-bar">
@@ -338,6 +343,7 @@ class GlobalNavigation extends Component {
 	    pubnubConnection={this.pubnub}
 	    pubnubActivityFeedChannelName={pubnubActivityFeedChannelName}
 	    userDisplayName={displayName}
+	    isChatEnabled={isChatEnabled}
           />
         </div>
 

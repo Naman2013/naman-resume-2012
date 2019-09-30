@@ -83,6 +83,7 @@ type TLiveActivity = {
   pubnubConnection: Object;
   pubnubActivityFeedChannelName: string;
   userDisplayName: string;
+  isChatEnabled: boolean,
 };
 
 export const LiveActivity = (props: TLiveActivity) => {
@@ -165,7 +166,8 @@ export const LiveActivity = (props: TLiveActivity) => {
                 </div>
               </div>
 
-              <div className="live-activity-window-footer">
+	     
+              {props.isChatEnabled == true && <div className="live-activity-window-footer">
                 <input
                   type="text"
                   placeholder="Please type a message"
@@ -173,6 +175,7 @@ export const LiveActivity = (props: TLiveActivity) => {
                   onMouseDown={e => e.stopPropagation()}
                 />
               </div>
+	      }
             </div>
           </Rnd>
         </div>
