@@ -186,16 +186,6 @@ export default css`
     filter: invert(1);
   }
 
-  :global(.obs-image-magnifier > div > img) {
-    height: 90vh;
-    width: auto !important;
-  }
-
-  :global(.obs-image-wrapper > .modal-content) {
-    width: auto;
-    margin: 0 auto;
-  }
-
   @media ${screenMedium} {
     .card-obs {
       width: 95%;
