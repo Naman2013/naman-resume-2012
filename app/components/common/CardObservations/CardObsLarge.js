@@ -32,6 +32,7 @@ const CardObsLarge = props => {
   } = props;
   const [isOpen, openModal] = useState(false);
   const [likesNumber, changeLikesNumber] = useState(likesCount);
+  const title = observationTitle || imageTitle;
   const onLikeClick = () => {
     return new Promise((resolve, reject) => {
       if (!showLikePrompt) {
@@ -45,14 +46,12 @@ const CardObsLarge = props => {
     <Fragment>
       <div className="card-obs-wrapper">
         <div className="card-obs">
-          {observationTitle || imageTitle ? (
+          {title ? (
             <Fragment>
               <div className="top">
                 <div className="info">
                   <div className="main-info">
-                    <h2 className="title h-2 h-2-bold">
-                      {observationTitle || imageTitle}
-                    </h2>
+                    <h2 className="title h-2 h-2-bold">{title}</h2>
                     <Link to={iconFileData?.Member?.linkUrl}>
                       <h5 className="author h-5 h-5-normal">{subTitle}</h5>
                     </Link>
