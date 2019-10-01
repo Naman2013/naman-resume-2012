@@ -9,7 +9,8 @@ import style from './CardObservationsSmall.style';
 
 const CardObsSmall = props => {
   const {
-    title,
+    observationTitle,
+    imageTitle,
     subTitle,
     description,
     imageUrl,
@@ -38,7 +39,9 @@ const CardObsSmall = props => {
     <Fragment>
       <div className="card-obs">
         <div className="obs-left">
-          <h2 className="card-obs-title h-2 h-2-bold">{title}</h2>
+          <h2 className="card-obs-title h-2 h-2-bold">
+            {observationTitle || imageTitle}
+          </h2>
           <Link to={iconFileData?.Member?.linkUrl}>
             <h5 className="card-obs-author h-5 h-5-normal">{subTitle}</h5>
           </Link>
@@ -138,7 +141,8 @@ const CardObsSmall = props => {
 };
 
 CardObsSmall.propTypes = {
-  title: PropTypes.string.isRequired,
+  observationTitle: PropTypes.string.isRequired,
+  imageTitle: PropTypes.string.isRequired,
   subTitle: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   imageUrl: PropTypes.string.isRequired,

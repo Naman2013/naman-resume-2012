@@ -11,7 +11,8 @@ import messages from './CardObsLarge.messages';
 
 const CardObsLarge = props => {
   const {
-    title,
+    observationTitle,
+    imageTitle,
     subTitle,
     description,
     imageUrl,
@@ -44,12 +45,14 @@ const CardObsLarge = props => {
     <Fragment>
       <div className="card-obs-wrapper">
         <div className="card-obs">
-          {title ? (
+          {observationTitle || imageTitle ? (
             <Fragment>
               <div className="top">
                 <div className="info">
                   <div className="main-info">
-                    <h2 className="title h-2 h-2-bold">{title}</h2>
+                    <h2 className="title h-2 h-2-bold">
+                      {observationTitle || imageTitle}
+                    </h2>
                     <Link to={iconFileData?.Member?.linkUrl}>
                       <h5 className="author h-5 h-5-normal">{subTitle}</h5>
                     </Link>
@@ -64,10 +67,7 @@ const CardObsLarge = props => {
                     {Object.keys(iconFileData).map(item => (
                       <Tooltip title={iconFileData[item].text}>
                         {iconFileData[item].hasLink ? (
-                          <Link
-                            to={iconFileData[item].linkUrl}
-                            target="_blank"
-                          >
+                          <Link to={iconFileData[item].linkUrl} target="_blank">
                             <ReturnObservationIcon item={iconFileData[item]} />
                           </Link>
                         ) : (
@@ -151,7 +151,8 @@ const CardObsLarge = props => {
 };
 
 CardObsLarge.propTypes = {
-  title: PropTypes.string.isRequired,
+  observationTitle: PropTypes.string.isRequired,
+  imageTitle: PropTypes.string.isRequired,
   subTitle: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   imageUrl: PropTypes.string.isRequired,

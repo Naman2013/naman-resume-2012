@@ -12,6 +12,7 @@ import messages from './BootstrappedSliderItem.messages';
 
 const BootstrappedObservationSliderItem = props => {
   const {
+    observationTitle,
     imageTitle,
     displayName,
     observationLog,
@@ -47,7 +48,7 @@ const BootstrappedObservationSliderItem = props => {
               <div className="top">
                 <div className="info">
                   <div className="main-info">
-                    <h2 className="title">{imageTitle}</h2>
+                    <h2 className="title">{observationTitle || imageTitle}</h2>
                     <Link to={iconFileData?.Member?.linkUrl}>
                       <h5 className="author">{displayName}</h5>
                     </Link>
@@ -62,10 +63,7 @@ const BootstrappedObservationSliderItem = props => {
                     {Object.keys(iconFileData).map(item => (
                       <Tooltip title={iconFileData[item].text}>
                         {iconFileData[item].hasLink ? (
-                          <Link
-                            to={iconFileData[item].linkUrl}
-                            target="_blank"
-                          >
+                          <Link to={iconFileData[item].linkUrl} target="_blank">
                             <ReturnObservationIcon item={iconFileData[item]} />
                           </Link>
                         ) : (
