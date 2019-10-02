@@ -22,14 +22,17 @@ const SETTINGS = {
 export default SETTINGS;
 
 // MultiLanguage
-export type LangItemConf = {
+export type ProjectConf = {
   locale: string;
+  SENTRY_ENV?: string;
+  PUBNUB_CHANNEL_PREFIX?: string;
+  COOKIE_DOMAIN?: string;
   productID: number;
 };
-export type LangItemsConf = {
-  [key: string]: LangItemConf;
+export type ProjectsConf = {
+  [key: string]: ProjectConf;
 };
-const langConf: LangItemsConf = {
+const langConf: ProjectsConf = {
   'change.slooh.cn': {
     locale: 'cn',
     productID: 2,
@@ -44,7 +47,9 @@ const langConf: LangItemsConf = {
   },
 };
 
-export const getLangConf = (): LangItemConf => {
-  const hostname: string = window.location.hostname;
+export const getProjectConf = (): ProjectConf => {
+  const { hostname } = window.location;
   return langConf[hostname] || langConf.default;
 };
+
+export const getProjectLocale = () => getProjectConf().locale;

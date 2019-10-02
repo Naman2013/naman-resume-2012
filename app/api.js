@@ -1,4 +1,4 @@
-import {getLangConf} from 'app/config';
+import { getProjectConf } from 'app/config';
 import axios from 'axios';
 
 const commonData = {
@@ -26,7 +26,7 @@ export const API = axios.create({
       }
       // handle 'application/json'
       headers['Content-Type'] = 'application/json';
-      const i18n = getLangConf();
+      const i18n = getProjectConf();
       const finalData = { ...data, ...commonData, i18n };
       return JSON.stringify(finalData);
     },
