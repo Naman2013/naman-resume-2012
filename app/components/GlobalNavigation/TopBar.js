@@ -37,6 +37,7 @@ const TopBar = ({
   pubnubActivityFeedChannelName,
   userDisplayName,
   isChatEnabled,
+  scrollActivityFeedToBottom,
 }) => {
   const mainIsActive = isActive(activeMenu, MENU_INTERFACE.MAIN.name);
   const telescopesIsActive = isActive(
@@ -140,6 +141,7 @@ const TopBar = ({
 			userDisplayName={userDisplayName}
 			isChatEnabled={isChatEnabled}
                         onClick={closeAllMenus}
+			scrollActivityFeedToBottom={scrollActivityFeedToBottom}
                       />
                     </li>
                     <li>

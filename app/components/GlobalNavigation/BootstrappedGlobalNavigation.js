@@ -167,6 +167,21 @@ class GlobalNavigation extends Component {
     this.pubnub.init(this);
   }
 
+  scrollActivityFeedToBottom() {
+	var liveActivityWindowBodyFeedObj = document.getElementById('live-activity-window-body-feed'); 
+	if (liveActivityWindowBodyFeedObj != null) {
+		//console.log("found the activity window to be open....");
+			
+		liveActivityWindowBodyFeedObj.scrollIntoView(false);	
+		
+		//console.log("scrolling to bottom.....");
+		return true;
+	}
+	else {
+		return false;
+	}
+  }
+
   checkActivityWindowScroll() {
 	//console.log("checking scroll function....");
 
@@ -175,12 +190,10 @@ class GlobalNavigation extends Component {
 		
 		var liveActivityWindowBodyFeedObj = document.getElementById('live-activity-window-body-feed'); 
 		if (liveActivityWindowBodyFeedObj != null) {
-			//console.log("found the activity window to be open....");
-			
-			liveActivityWindowBodyFeedObj.scrollIntoView(false);
-			this.setState({ activityWindowHasBeenScrolledToBottom: true });	
-			
-			//console.log("scrolling to bottom.....");
+			//scroll the activity feed to the bottom
+			if (this.scrollActivityFeedToBottom() == true) {
+				this.setState({ activityWindowHasBeenScrolledToBottom: true });				
+			}
 		}
 	}
   }
@@ -189,8 +202,7 @@ class GlobalNavigation extends Component {
 	try {
 		//console.log(message);
 
-		//convert the string message into a json object
-		//let messageJSONObj = JSON.parse(message);
+		//messages are in JSON format
 		let messageJSONObj = message;
 
 		//console.log(messageJSON.message_by_locale.en);
@@ -351,6 +363,7 @@ class GlobalNavigation extends Component {
 	    pubnubActivityFeedChannelName={pubnubActivityFeedChannelName}
 	    userDisplayName={displayName}
 	    isChatEnabled={isChatEnabled}
+  	    scrollActivityFeedToBottom={this.scrollActivityFeedToBottom}
           />
         </div>
 
