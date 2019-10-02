@@ -216,7 +216,8 @@
 .obs-image-magnifier {
   > div {
     > img {
-      height: 90vh;
+      max-height: 90vh;
+      max-width: 100%;
       width: auto !important;
     }
   }
