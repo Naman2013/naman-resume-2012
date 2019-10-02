@@ -84,6 +84,7 @@ type TLiveActivity = {
   pubnubActivityFeedChannelName: string;
   userDisplayName: string;
   isChatEnabled: boolean,
+  scrollActivityFeedToBottom: any,
 };
 
 export const LiveActivity = (props: TLiveActivity) => {
@@ -159,6 +160,8 @@ export const LiveActivity = (props: TLiveActivity) => {
                 </div>
               </div>
               <div className="live-activity-window-body">
+		<p style={{color: "#007bff", fontSize: "1.1em", fontStyle: "italic", marginLeft: "auto", marginRight: "auto", cursor: "pointer"}}onClick={props.scrollActivityFeedToBottom}>jump to newest</p>
+		<br/>
                 <div id="live-activity-window-body-feed" className="live-activity-window-body-feed">
                   {props.activityFeedMessages.map(feedItem => (
                     <FeedItem item={feedItem} />
