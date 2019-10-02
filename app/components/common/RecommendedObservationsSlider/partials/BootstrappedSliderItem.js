@@ -12,6 +12,7 @@ import messages from './BootstrappedSliderItem.messages';
 
 const BootstrappedObservationSliderItem = props => {
   const {
+    observationTitle,
     imageTitle,
     displayName,
     observationLog,
@@ -32,6 +33,7 @@ const BootstrappedObservationSliderItem = props => {
   } = props;
   const [isOpen, openModal] = useState(false);
   const [likesNumber, changeLikesNumber] = useState(likesCount);
+  const title = observationTitle || imageTitle;
   const onLikeClick = () => {
     if (!showLikePrompt) {
       handleLike(customerImageId);
@@ -47,7 +49,7 @@ const BootstrappedObservationSliderItem = props => {
               <div className="top">
                 <div className="info">
                   <div className="main-info">
-                    <h2 className="title">{imageTitle}</h2>
+                    <h2 className="title">{title}</h2>
                     <Link to={iconFileData?.Member?.linkUrl}>
                       <h5 className="author">{displayName}</h5>
                     </Link>
