@@ -123,6 +123,9 @@ module.exports = {
       chunkFilename: isProduction ? '[id].[hash].css' : '[id].css',
       disable: !isProduction,
     }),
+    new CopyWebpackPlugin([
+      { from: path.join(sourcePath, 'public'), to: outPath },
+    ]),
   ],
 
   // Emit a source map for easier debugging

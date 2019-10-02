@@ -156,6 +156,9 @@ module.exports = {
       chunkFilename: isProduction ? 'chunks/[id].[hash].css' : '[id].css',
       disable: !isProduction,
     }),
+    new CopyWebpackPlugin([
+      { from: path.join(sourcePath, 'public'), to: outPath },
+    ]),
   ],
   optimization: {
     minimize: true,

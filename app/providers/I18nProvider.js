@@ -8,7 +8,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { IntlProvider } from 'react-intl';
 import { addAppLocaleData } from '../utils/i18n/localeData';
-import * as en from '../resources/locales/en';
+// import * as en from '../public/locales/en';
 import localeTypes from '../constants/locale-types';
 
 addAppLocaleData();
@@ -18,14 +18,15 @@ class I18nProvider extends Component {
     children: PropTypes.node.isRequired,
   };
 
-  getMessagesByLocale = locale => Object.assign(...Object.values(this.getFolderByLocale(locale)));
+  getMessagesByLocale = locale =>
+    Object.assign(...Object.values(this.getFolderByLocale(locale)));
 
-  getFolderByLocale = (locale) => {
+  getFolderByLocale = locale => {
     switch (locale) {
       case localeTypes.en:
-        return en;
+        return {};
       default:
-        return en;
+        return {};
     }
   };
 
@@ -34,7 +35,7 @@ class I18nProvider extends Component {
     const locale = localeTypes.en;
 
     return (
-      <IntlProvider locale={locale} messages={this.getMessagesByLocale(locale)}>
+      <IntlProvider locale={locale} messages={{}}>
         {children}
       </IntlProvider>
     );

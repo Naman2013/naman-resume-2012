@@ -15,6 +15,7 @@ import I18nProvider from './providers/I18nProvider';
 import store from 'app/store';
 // utilities
 import './utils/manual-polyfills';
+import './i18n';
 
 // styles
 import './styles/index.scss';
