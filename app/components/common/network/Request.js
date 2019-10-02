@@ -255,7 +255,7 @@ class Request extends Component {
       resultedUserParams = getFieldsFromObj(nextUser || user, userParams);
 
     if (method === POST) {
-      axios
+      API
       .post(
           serviceURL,
           Object.assign(
@@ -270,7 +270,7 @@ class Request extends Component {
     }
 
     if (method === GET) {
-      axios
+      API
       .get(serviceURL, {
           params: Object.assign({}, validatedRequestBody),
         })
