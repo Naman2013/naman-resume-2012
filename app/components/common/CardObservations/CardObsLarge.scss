@@ -225,10 +225,12 @@
 
 .obs-image-wrapper {
   max-width: unset !important;
+  width: 100vw !important;
+  margin: 0 !important;
 
   .modal-content {
     width: auto;
-    margin: 0 auto;
+    margin: 21px auto;
   }
 }
 
