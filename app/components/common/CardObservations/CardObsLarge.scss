@@ -224,13 +224,15 @@
 }
 
 .obs-image-wrapper {
-  max-width: unset !important;
-  width: 100vw !important;
-  margin: 0 !important;
+  &.modal-dialog {
+    max-width: unset;
+    width: 100vw;
+    margin: 0;
 
-  .modal-content {
-    width: auto;
-    margin: 21px auto;
+    .modal-content {
+      width: auto;
+      margin: 21px auto;
+    }
   }
 }
 
