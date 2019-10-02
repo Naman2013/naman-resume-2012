@@ -223,6 +223,8 @@
 }
 
 .obs-image-wrapper {
+  max-width: unset !important;
+
   .modal-content {
     width: auto;
     margin: 0 auto;
