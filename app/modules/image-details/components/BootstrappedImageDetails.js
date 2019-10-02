@@ -8,7 +8,6 @@ import ObjectDetailList from 'app/modules/image-details/components/ObjectDetailL
 import MainContainer from './partials/MainContainer';
 import AsideContainer from './partials/AsideContainer';
 import styles from './ImageDetails.style';
-import './styles.scss';
 
 const {
   any,
