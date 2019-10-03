@@ -66,6 +66,7 @@ export class ImageDetails extends Component<
   }
 
   componentDidMount(): void {
+    console.log('MOUNT');
     this.fetchData();
   }
 
@@ -103,6 +104,7 @@ export class ImageDetails extends Component<
       shareMemberPhotoData,
     } = this.props;
     const { isOpenModal } = this.state;
+    console.log('RENDER');
 
     const showMissionRelatedInfo = Number(scheduledMissionId) > 0;
     const rightPanelDisplayFlags = [showMissionRelatedInfo];
