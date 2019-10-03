@@ -35,7 +35,7 @@ const {
   string,
 } = PropTypes;
 
-class BootstrappedImageDetails extends Component {
+class ObservationInformation extends Component {
   static propTypes = {
     canLikeFlag: bool,
     customerImageId: oneOfType([number, string]),
@@ -282,4 +282,4 @@ class BootstrappedImageDetails extends Component {
   }
 }
 
-export default BootstrappedImageDetails;
+export default ObservationInformation;

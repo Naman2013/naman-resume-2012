@@ -11,7 +11,6 @@ import {
   CALLSOURCE_PHOTOVIEW,
   USE_SHARE_TOKEN_TRUE,
 } from 'app/modules/image-details/components/imageDetailsConfiguration';
-import { Link } from 'react-router';
 
 type TProfileActivityProps = {
   getImageDetails: (data: any) => Promise<any>;
@@ -67,7 +66,6 @@ export class ImageDetails extends Component<
   }
 
   componentDidMount(): void {
-    console.log('MOUNT', this.props);
     this.fetchData();
   }
 
@@ -141,14 +139,12 @@ export class ImageDetails extends Component<
                 )}
               </div>
               <div className="obs-image-container">
-              <Link to="/my-pictures/show-image/5931918/b6ad17b384d8998d78d6efe169e320691f65cd19">
                 <img
                   className="obs-image"
                   src={imageURL}
                   style={{ cursor: 'pointer' }}
                   onClick={() => this.setState({ isOpenModal: true })}
                 />
-                </Link>
                 <ModalImg
                   isOpen={isOpenModal}
                   imageURL={imageURL}
@@ -199,7 +195,6 @@ export class ImageDetails extends Component<
             />
           )}
         />
-        {/* <style jsx>{styles}</style> */}
       </Fragment>
     );
   }
