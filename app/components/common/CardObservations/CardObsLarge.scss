@@ -214,18 +214,25 @@
 }
 
 .obs-image-magnifier {
-  div {
-    img {
-      height: 90vh;
+  > div {
+    > img {
+      max-height: 90vh;
+      max-width: 100%;
       width: auto !important;
     }
   }
 }
 
 .obs-image-wrapper {
-  .modal-content {
-    width: auto;
-    margin: 0 auto;
+  &.modal-dialog {
+    max-width: unset;
+    width: 100vw;
+    margin: 0;
+
+    .modal-content {
+      width: auto;
+      margin: 21px auto;
+    }
   }
 }
 
