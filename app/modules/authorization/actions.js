@@ -6,7 +6,7 @@ import {
 } from 'app/modules/global-navigation/actions';
 import { fetchHandleErrors } from '../../services/authorization/handle-error';
 import { getUserInfo, destroySession, removeUser } from '../User';
-import SETTINGS from '../../config';
+import SETTINGS from '../../config/config';
 
 export const FETCH_ERRORS_START = 'FETCH_ERRORS_START';
 export const FETCH_ERRORS_SUCCESS = 'FETCH_ERRORS_SUCCESS';
@@ -192,7 +192,7 @@ export const validateResponseAccess = apiResponse => (dispatch, getState) => {
   else if (statusCode === UPSELL_STATUS_CODE) {
     subscriptionPlansCallSource = 'upsell';
     triggerUserAccountIssueModal = true;
-  }   
+  }
   else if (statusCode === EXPIRED_ACCOUNT_STATUS_CODE) {
     subscriptionPlansCallSource = 'expired';
     triggerUserAccountIssueModal = true;

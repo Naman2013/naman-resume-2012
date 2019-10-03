@@ -9,6 +9,7 @@
     "allowSyntheticDefaultImports": true,
     "module": "esnext",
     "moduleResolution": "node",
+    "resolveJsonModule": true,
     "baseUrl":".",
     "paths": {
       "app/*" :["./app/*"]
