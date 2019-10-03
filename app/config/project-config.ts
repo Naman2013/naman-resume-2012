@@ -2,9 +2,9 @@ import projectsConf from '../../project-config.json';
 
 export type ProjectConf = {
   SENTRY_ENV?: 'PRODUCTION' | 'TEST';
-  PUBNUB_CHANNEL_PREFIX?: string;
+  PUBNUB_CHANNEL_PREFIX?: 'prod' | 'dev';
   COOKIE_DOMAIN?: string;
-  locale: string;
+  locale: 'en' | 'cn';
   productID: number | string;
 };
 export type ProjectsConf = {

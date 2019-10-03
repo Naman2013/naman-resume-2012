@@ -1,20 +1,29 @@
 {
   "change.slooh.cn": {
     "SENTRY_ENV": "PRODUCTION",
-    "PUBNUB_CHANNEL_PREFIX": "dev",
+    "PUBNUB_CHANNEL_PREFIX": "prod",
     "COOKIE_DOMAIN": ".slooh.cn",
     "locale": "cn",
     "productID": 2
   },
+  "slooh.com": {
+    "SENTRY_ENV": "PRODUCTION",
+    "productID": "slooh.com-test-productID"
+  },
   "nova.slooh.com": {
-    "SENTRY_ENV": "TEST",
-    "PUBNUB_CHANNEL_PREFIX": "dev"
+    "productID": "nova-productID"
+  },
+  "orion.slooh.com": {
+    "productID": "orion-productID"
+  },
+  "eris.slooh.com": {
+    "productID": "eris-productID"
   },
   "default": {
     "SENTRY_ENV": "TEST",
-    "PUBNUB_CHANNEL_PREFIX": "prod",
+    "PUBNUB_CHANNEL_PREFIX": "dev",
     "COOKIE_DOMAIN": ".slooh.com",
     "locale": "en",
-    "productID": 1
+    "productID": "default-productID"
   }
 }

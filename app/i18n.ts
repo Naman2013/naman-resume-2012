@@ -4,7 +4,7 @@ import { initReactI18next } from 'react-i18next';
 import { projectLocale } from 'app/config/project-config';
 
 const fallbackLng = ['en'];
-const availableLanguages = ['en'];
+const availableLanguages = ['en', 'cn'];
 
 i18n
   .use(Backend) // load translation using xhr -> see /public/locales. We will add locales in the next step
