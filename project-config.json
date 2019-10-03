@@ -1,17 +1,17 @@
 {
   "change.slooh.cn": {
-    "SENTRY_ENV": "test",
+    "SENTRY_ENV": "PRODUCTION",
     "PUBNUB_CHANNEL_PREFIX": "dev",
     "COOKIE_DOMAIN": ".slooh.cn",
     "locale": "cn",
     "productID": 2
   },
   "nova.slooh.com": {
-    "SENTRY_ENV": "test",
+    "SENTRY_ENV": "TEST",
     "PUBNUB_CHANNEL_PREFIX": "dev"
   },
   "default": {
-    "SENTRY_ENV": "production",
+    "SENTRY_ENV": "TEST",
     "PUBNUB_CHANNEL_PREFIX": "prod",
     "COOKIE_DOMAIN": ".slooh.com",
     "locale": "en",

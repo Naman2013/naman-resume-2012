@@ -1,4 +1,5 @@
 import * as Sentry from '@sentry/browser';
+import { projectSentryEnv } from 'app/config/project-config';
 
 const dsnConf = {
   // slooh-llc-test sentry project
@@ -7,6 +8,6 @@ const dsnConf = {
   PRODUCTION: 'https://bc063dd1bbeb4509a04605076d008c26@sentry.io/264781',
 };
 
-const dsn = dsnConf[process.env.SENTRY_ENV];
+const dsn = dsnConf[projectSentryEnv];
 
 Sentry.init({ dsn });

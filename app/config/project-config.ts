@@ -1,7 +1,7 @@
 import projectsConf from '../../project-config.json';
 
 export type ProjectConf = {
-  SENTRY_ENV?: string;
+  SENTRY_ENV?: 'PRODUCTION' | 'TEST';
   PUBNUB_CHANNEL_PREFIX?: string;
   COOKIE_DOMAIN?: string;
   locale: string;
@@ -22,3 +22,4 @@ const getProjectConf = (): ProjectConf => {
 
 export const projectConf = getProjectConf();
 export const projectLocale = projectConf.locale;
+export const projectSentryEnv = projectConf.SENTRY_ENV;
