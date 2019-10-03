@@ -10,11 +10,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 const apiUrl = process.env.apiUrl || '';
 const apiPortNumber = process.env.apiPortNumber || '';
-const cookieDomain = process.env.cookieDomain || '.slooh.com';
 
-// console.log(apiUrl, apiPortNumber, cookieDomain);
-
-// console.log(JSON.stringify(process.env.cookieDomain));
 
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
@@ -102,7 +98,6 @@ module.exports = {
 
     // new WebpackMd5Hash(),
     new webpack.DefinePlugin({
-      cookieDomain: JSON.stringify(process.env.cookieDomain),
       'process.env': {
         NODE_ENV: JSON.stringify('production'),
       },

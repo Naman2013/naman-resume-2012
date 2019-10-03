@@ -23,3 +23,4 @@ const getProjectConf = (): ProjectConf => {
 export const projectConf = getProjectConf();
 export const projectLocale = projectConf.locale;
 export const projectSentryEnv = projectConf.SENTRY_ENV;
+export const projectCookieDomain = projectConf.COOKIE_DOMAIN;

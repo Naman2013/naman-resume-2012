@@ -102,7 +102,6 @@ module.exports = {
       filename: 'index.html',
     }),
     new webpack.DefinePlugin({
-      cookieDomain: JSON.stringify(process.env.cookieDomain),
       'process.env': {
         NODE_ENV: JSON.stringify(process.env.NODE_ENV),
       },
