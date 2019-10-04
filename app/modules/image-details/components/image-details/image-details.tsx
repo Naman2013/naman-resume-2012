@@ -17,11 +17,17 @@ type TProfileActivityProps = {
   validateResponseAccess: (data: any) => Promise<any>;
   setObservationTags: (data: any) => Promise<any>;
   shareMemberPicture: (data: any) => Promise<any>;
-  
+  refetchData: any;
+
+  likedByMe: boolean;
+  likeTooltip: string;
+  avatarURL: string;
   callSource: string;
   canEditFlag: boolean;
+  isDesktop: boolean;
   canLikeFlag: boolean;
   canShareFlag: boolean;
+  showMissionRelatedInfo: boolean;
   commentsCount: number;
   commentsForumId: number | string;
   commentsThreadId: number | string;
