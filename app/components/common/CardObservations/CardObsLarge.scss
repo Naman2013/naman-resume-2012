@@ -186,6 +186,12 @@
 }
 
 @media screen and (min-width: $screen-lg-min) {
+  .card-obs-wrapper {
+    .card-obs {
+      width: 80%;
+    }
+  }
+
   .image-wrapper-small {
     width: 240px;
     height: 240px;
