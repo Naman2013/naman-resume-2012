@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { API } from 'app/api';
 import PropTypes from 'prop-types';
+import {withTranslation} from 'react-i18next';
 import { FormattedMessage } from 'react-intl';
 import { IMAGE_DETAILS } from '../../../../../services/image-details';
 
@@ -9,6 +10,7 @@ import messages from './SwiperItem.messages';
 
 const { number, func } = PropTypes;
 
+@withTranslation
 class SwiperItem extends Component {
   state = {
     imageURL: '',
@@ -77,13 +79,14 @@ class SwiperItem extends Component {
 
   render() {
     const { imageURL } = this.state;
+    const { t } = this.props;
     return (
       <div className="mobile-swiper-root">
         {imageURL ? (
           <img className="obs-image" src={imageURL} alt="Observation" />
         ) : (
           <div className="obs-image center-content">
-            <FormattedMessage {...messages.LoadingImage} />
+            {t('.LoadingImage')}
             ...
           </div>
         )}

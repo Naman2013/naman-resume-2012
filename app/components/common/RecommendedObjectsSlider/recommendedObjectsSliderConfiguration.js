@@ -36,7 +36,8 @@ export const getSliderProps = (
   slideList = [],
   reservationModalShow,
   reservedButtonCaption,
-  optionsButtonCaption
+  optionsButtonCaption,
+  t // todo FIX ME
 ) =>
   Object.assign(
     {
@@ -49,6 +50,6 @@ export const getSliderProps = (
     },
     {
       sliderConfig: getSliderConfiguration(),
-      emptyMessage: <FormattedMessage {...messages.NothingToShow} />,
+      emptyMessage: t('.NothingToShow'),
     }
   );

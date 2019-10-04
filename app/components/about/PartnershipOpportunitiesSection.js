@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { withTranslation } from 'react-i18next';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import Modal from 'react-modal';
 import { DeviceContext } from '../../providers/DeviceProvider';
@@ -42,6 +43,7 @@ const initialState = {
   message: '',
 };
 
+@withTranslation
 class PartnershipOpportunitiesSection extends Component {
   state = {
     ...initialState,
@@ -86,6 +88,7 @@ class PartnershipOpportunitiesSection extends Component {
     const {
       intl: { formatMessage },
       data,
+      t,
     } = this.props;
     const {
       sectionHeading,
@@ -112,11 +115,7 @@ class PartnershipOpportunitiesSection extends Component {
                 role="button"
               />
               <div className="modal-header">
-                {response.success ? (
-                  <FormattedMessage {...messages.Success} />
-                ) : (
-                  <FormattedMessage {...messages.Error} />
-                )}
+                {response.success ? t('.Success') : t('.Error')}
               </div>
               <div className="modal-body">{response.statusMessage}</div>
             </Modal>
@@ -128,9 +127,7 @@ class PartnershipOpportunitiesSection extends Component {
               <div className="bottom-inputs">
                 <div className="inputs-row">
                   <div className="name row-item">
-                    <div className="input-label">
-                      <FormattedMessage {...messages.NameLabel} />
-                    </div>
+                    <div className="input-label">{t('.NameLabel')}</div>
                     <input
                       className="input common-input"
                       placeholder={formatMessage(messages.NamePlaceholder)}
@@ -140,9 +137,7 @@ class PartnershipOpportunitiesSection extends Component {
                     />
                   </div>
                   <div className="email row-item">
-                    <div className="input-label">
-                      <FormattedMessage {...messages.EmailLabel} />
-                    </div>
+                    <div className="input-label">{t('.EmailLabel')}</div>
                     <input
                       className="input common-input"
                       placeholder={formatMessage(messages.EmailPlaceholder)}
@@ -162,7 +157,7 @@ class PartnershipOpportunitiesSection extends Component {
 
                 <div className="bottom-buttons">
                   <Button
-                    text={<FormattedMessage {...messages.Cancel} />}
+                    text={t('.Cancel')}
                     withIntl
                     onClickEvent={this.handleCancel}
                     theme={{
@@ -172,7 +167,7 @@ class PartnershipOpportunitiesSection extends Component {
                   />
 
                   <Button
-                    text={<FormattedMessage {...messages.Submit} />}
+                    text={t('.Submit')}
                     withIntl
                     onClickEvent={this.handleSubmit}
                     theme={{
@@ -191,7 +186,10 @@ class PartnershipOpportunitiesSection extends Component {
               </div>
               <div className="contact-data">
                 <h2 className="contact-title">{infoHeading}</h2>
-                <h2 className="contact-subtitle" dangerouslySetInnerHTML={{ __html: infoHeading2 }} />
+                <h2
+                  className="contact-subtitle"
+                  dangerouslySetInnerHTML={{ __html: infoHeading2 }}
+                />
                 <div className="contact-label">
                   <img src={phone} className="contact-label-icon" alt="phone" />
                   {infoPhoneNumber}

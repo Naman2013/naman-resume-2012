@@ -30,13 +30,13 @@ const getUpcomingShowsItem = (imageList = []) =>
     render: () => <UpcomingShowSliderItem {...object} />,
   }));
 
-export const getSliderProps = (imageList = []) =>
+export const getSliderProps = (imageList = [], t) =>
   Object.assign(
     {
       slideList: getUpcomingShowsItem(imageList),
     },
     {
       sliderConfig: getSliderConfiguration(),
-      emptyMessage: <FormattedMessage {...messages.noShows} />,
+      emptyMessage: t('.noShows'),
     }
   );

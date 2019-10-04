@@ -2,13 +2,14 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import messages from './StaticNavTabs.messages';
 
+// todo FIX ME
 export const DEFAULT_JOIN_TABS = [
   {
-    label: <FormattedMessage {...messages.Step1} />,
+    label: t('.Step1'),
     value: '/join/step1',
   },
   {
-    label: <FormattedMessage {...messages.Step2} />,
+    label: t('.Step2'),
     value: '/join/step2',
   },
   {
@@ -19,22 +20,22 @@ export const DEFAULT_JOIN_TABS = [
 
 export const JOIN_BY_INVITE_TABS = [
   {
-    label: <FormattedMessage {...messages.Step1} />,
+    label: t('.Step1'),
     value: '/join/inviteByCodeStep1',
   },
   {
-    label: <FormattedMessage {...messages.Step2} />,
+    label: t('.Step2'),
     value: '/join/inviteByCodeStep2',
   },
 ];
 
 export const CLASSROOM_JOIN_TABS = [
   {
-    label: <FormattedMessage {...messages.Step1} />,
+    label: t('.Step1'),
     value: '/join/step1',
   },
   {
-    label: <FormattedMessage {...messages.Step2} />,
+    label: t('.Step2'),
     value: 'join/step1SchoolSelection',
   },
   {
@@ -49,11 +50,11 @@ export const CLASSROOM_JOIN_TABS = [
 
 export const PLAN_DETAILS_JOIN_TABS = [
   {
-    label: <FormattedMessage {...messages.PlanDetails} />,
+    label: t('.PlanDetails'),
     value: '/join/membershipPlanDetailsStep',
   },
   {
-    label: <FormattedMessage {...messages.Step2} />,
+    label: t('.Step2'),
     value: '/join/step2',
   },
   {

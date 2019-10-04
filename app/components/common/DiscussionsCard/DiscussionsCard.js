@@ -7,6 +7,7 @@
 
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import {withTranslation} from 'react-i18next';
 import { Link } from 'react-router';
 import uniqueId from 'lodash/uniqueId';
 import moment from 'moment';
@@ -32,6 +33,7 @@ const {
   string,
 } = PropTypes;
 
+@withTranslation
 class DiscussionsCard extends PureComponent {
   componentDidMount() {
     const { jumpToThreadId, threadId } = this.props;
@@ -71,6 +73,7 @@ class DiscussionsCard extends PureComponent {
       showTitle,
       flagParams,
       authorInfo,
+      t,
     } = this.props;
 
     return (
@@ -109,10 +112,10 @@ class DiscussionsCard extends PureComponent {
               {moment.utc(modified).fromNow()}
             </div>
             <div className="explainantion-item">
-              <FormattedMessage {...messages.Likes} />: {likesCount}{' '}
+              {t('.Likes')}: {likesCount}{' '}
             </div>
             <div className="explainantion-item">
-              <FormattedMessage {...messages.Comments} />: {replyToponlyCount}
+              {t('.Comments')}: {replyToponlyCount}
             </div>
           </div>
           <div className="activity-actions">

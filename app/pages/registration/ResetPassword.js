@@ -3,6 +3,7 @@
  ********************************** */
 
 import React, { Component, cloneElement, Fragment } from 'react';
+import {withTranslation} from 'react-i18next';
 import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -35,6 +36,7 @@ import styles from './JoinStep1SchoolSelection.style';
 
 const { string } = PropTypes;
 
+@withTranslation
 class ResetPassword extends Component {
   static propTypes = {
     pathname: string,
@@ -204,7 +206,7 @@ class ResetPassword extends Component {
   };
 
   render() {
-    const { pathname, intl } = this.props;
+    const { pathname, intl, t } = this.props;
 
     const { cid, passwordResetToken } = this.props.params;
 
@@ -366,7 +368,7 @@ class ResetPassword extends Component {
                             </div>
                             <div className="button-container">
                               <button className="submit-button" type="submit">
-                                <FormattedMessage {...messages.Continue} />
+                                {t('.Continue')}
                               </button>
                             </div>
                           </form>

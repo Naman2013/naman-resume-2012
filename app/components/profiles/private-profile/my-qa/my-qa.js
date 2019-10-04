@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { withTranslation } from 'react-i18next';
 import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
 
 import MainContainer from '../../../../modules/ask-astronomer/containers/partials/MainContainer';
@@ -20,12 +21,12 @@ const QA_TABS_DATA = {
         : intl.formatMessage(messages.YourAskedQuestions, { count }),
     dropdownOptions: [
       {
-        label: <FormattedMessage {...messages.AllQuestions} />,
+        label: t('.AllQuestions'), // todo hardcode text here
         value: 'asked',
       },
-      { label: <FormattedMessage {...messages.Answered} />, value: 'answered' },
+      { label: t('.Answered'), value: 'answered' }, // todo hardcode text here
       {
-        label: <FormattedMessage {...messages.Unanswered} />,
+        label: t('.Unanswered'), // todo hardcode text here
         value: 'unanswered',
       },
     ],
@@ -41,17 +42,18 @@ const QA_TABS_DATA = {
     countText: (count, intl) => intl.formatMessage(messages.QuestionsToAnswers),
     dropdownOptions: [
       {
-        label: <FormattedMessage {...messages.AllUnanswered} />,
+        label: t('.AllUnanswered'), // todo hardcode text here
         value: 'allunanswered',
       },
       {
-        label: <FormattedMessage {...messages.ByMySpecialities} />,
+        label: t('.ByMySpecialities'), // todo hardcode text here
         value: 'specialist',
       },
     ],
   },
 };
 
+@withTranslation
 class MyQa extends Component {
   static propTypes = {
     actions: shape({

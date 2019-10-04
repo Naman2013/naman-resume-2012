@@ -3,12 +3,13 @@
  ********************************** */
 
 import React, { Component, cloneElement, Fragment } from 'react';
-import { Link } from 'react-router';
+import { withTranslation } from 'react-i18next';
+import { Link, browserHistory } from 'react-router';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import cloneDeep from 'lodash/cloneDeep';
 import Button from 'app/components/common/style/buttons/Button';
-import { browserHistory } from 'react-router';
+
 import { Field, reduxForm } from 'redux-form';
 import { intlShape, injectIntl, FormattedMessage } from 'react-intl';
 import InputField from 'app/components/form/InputField';
@@ -21,16 +22,17 @@ import { API } from 'app/api';
 import Request from 'app/components/common/network/Request';
 import BobbieTile from 'app/components/common/tiles/BobbieTile';
 import TabbedNav from 'app/components/TabbedNav';
+import cookie from 'cookie';
 import JoinHeader from './partials/JoinHeader';
 import PlanDetailsCard from './partials/PlanDetailsCard';
 import { PLAN_DETAILS_JOIN_TABS } from './StaticNavTabs';
-import cookie from 'cookie';
 
 import styles from './JoinStep1SchoolSelection.style';
 import messages from './MembershipPlanDetailsStep.messages';
 
 const { string, arrayOf, shape } = PropTypes;
 
+@withTranslation
 class MembershipPlanDetailsStep extends Component {
   static propTypes = {
     pathname: string,
@@ -78,8 +80,8 @@ class MembershipPlanDetailsStep extends Component {
   };
 
   render() {
-    const { pathname, tabs, activeTab, intl } = this.props;
-    const { cid } = cookie.parse(window.document.cookie)
+    const { pathname, tabs, activeTab, intl, t } = this.props;
+    const { cid } = cookie.parse(window.document.cookie);
 
     return (
       <Fragment>
@@ -93,18 +95,23 @@ class MembershipPlanDetailsStep extends Component {
             <div
               className="join-root-alt"
               style={{
-                backgroundImage: `url(${
-                  serviceResponse?.selectedSubscriptionPlan
-                    ?.planSelectedBackgroundImageUrl_Desktop
-                })`,
+                backgroundImage: `url(${serviceResponse?.selectedSubscriptionPlan?.planSelectedBackgroundImageUrl_Desktop})`,
               }}
             >
               <div className="step-root">
                 {!fetchingContent && (
                   <Fragment>
                     <div className="join-root-alt-header">
-                      <h1 dangerouslySetInnerHTML={{__html: serviceResponse.pageHeading1}}/>
-                      <h2 dangerouslySetInnerHTML={{__html: serviceResponse.pageHeading2}}/>
+                      <h1
+                        dangerouslySetInnerHTML={{
+                          __html: serviceResponse.pageHeading1,
+                        }}
+                      />
+                      <h2
+                        dangerouslySetInnerHTML={{
+                          __html: serviceResponse.pageHeading2,
+                        }}
+                      />
                     </div>
                     <PlanDetailsCard
                       {...serviceResponse.selectedSubscriptionPlan}
@@ -143,10 +150,11 @@ class MembershipPlanDetailsStep extends Component {
                               browserHistory.goBack();
                             }}
                           />
-                          {!cid && <button className="submit-button" type="submit">
-                              <FormattedMessage {...messages.JoinNow} />
+                          {!cid && (
+                            <button className="submit-button" type="submit">
+                              {t('.JoinNow')}
                             </button>
-  			  }
+                          )}
                         </div>
                       </form>
                     </div>

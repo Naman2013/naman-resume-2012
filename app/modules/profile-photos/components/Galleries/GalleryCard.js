@@ -5,6 +5,7 @@
 
 import React from 'react';
 import cn from 'classnames';
+import { useTranslation } from 'react-i18next';
 import { FormattedMessage } from 'react-intl';
 import { browserHistory } from 'react-router';
 import Btn from 'app/atoms/Btn';
@@ -22,6 +23,7 @@ export default ({ index, isDesktop, currentItem: gallery }) => {
     galleryLinkURL,
   } = gallery;
   const bg = `linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.85)), url(${imageURL})`;
+  const { t } = useTranslation();
   return (
     <div className={cn(['root', { inCenter: inCenter && isDesktop }])}>
       <div className="galleryCardWrapper">
@@ -31,7 +33,7 @@ export default ({ index, isDesktop, currentItem: gallery }) => {
             <div className="info">
               <div className={cn('text', 'date')}>{displayDate}</div>
               <div className={cn('text', 'images-count')}>
-                {galleryPictureCount} <FormattedMessage {...messages.Images} />
+                {galleryPictureCount} {t('.Images')}
               </div>
             </div>
             <div className="galleryCard-actions">

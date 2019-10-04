@@ -54,14 +54,14 @@ const getRecommendedObservationsItems = (imageList = []) => {
   });
 };
 
-export const getSliderProps = (slideList = []) => {
+export const getSliderProps = (slideList = [], t) => {
   return Object.assign(
     {
       slideList: getRecommendedObservationsItems(slideList),
     },
     {
       sliderConfig: getSliderConfiguration(),
-      emptyMessage: <FormattedMessage {...messages.NothingToShow} />,
+      emptyMessage: t('.NothingToShow'),
     }
   );
 };

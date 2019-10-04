@@ -7,6 +7,7 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import {withTranslation} from 'react-i18next';
 import { intlShape, injectIntl, FormattedMessage } from 'react-intl';
 import Button from 'app/components/common/style/buttons/Button';
 import styles from './request-group-form.style';
@@ -14,6 +15,7 @@ import messages from './request-group-from.messages';
 
 const { func } = PropTypes;
 
+@withTranslation
 class RequestGroupForm extends Component {
   static propTypes = {
     closeForm: func.isRequired,
@@ -65,7 +67,7 @@ class RequestGroupForm extends Component {
   };
 
   render() {
-    const { closeForm, intl } = this.props;
+    const { closeForm, intl, t } = this.props;
 
     const {
       requestFormTitle,
@@ -75,9 +77,7 @@ class RequestGroupForm extends Component {
 
     return (
       <form className="root">
-        <div className="title">
-          <FormattedMessage {...messages.RequestGroup} />
-        </div>
+        <div className="title">{t('.RequestGroup')}</div>
         <div className="input-container">
           <input
             name="title"

@@ -1,7 +1,9 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import uniqueId from 'lodash/uniqueId';
+import { useTranslation } from 'react-i18next';
 import { FormattedMessage } from 'react-intl';
+import { sloohLogoAstronaut } from 'app/styles/variables/iconURLs';
 import messages from './Main.messages';
 import MenuList from './partials/MenuList';
 import MenuTitleBar from './partials/MenuTitleBar';
@@ -10,19 +12,18 @@ import {
   PRIMARY_CONFIGURATION,
   SECONDARY_CONFIGURATION,
 } from './mainConfiguration';
-import { sloohLogoAstronaut } from 'app/styles/variables/iconURLs';
 
-const Main = ({ mainMenu }) => (
-  <Fragment>
-    <MenuTitleBar
-      title={<FormattedMessage {...messages.title} />}
-      iconURL={sloohLogoAstronaut}
-    />
-    <MenuList items={PRIMARY_CONFIGURATION(mainMenu.primaryLinks)} />
-    <SocialMenu />
-    <MenuList items={SECONDARY_CONFIGURATION(mainMenu.secondaryLinks)} />
-  </Fragment>
-);
+const Main = ({ mainMenu }) => {
+  const { t } = useTranslation();
+  return (
+    <Fragment>
+      <MenuTitleBar title={t('.title')} iconURL={sloohLogoAstronaut} />
+      <MenuList items={PRIMARY_CONFIGURATION(mainMenu.primaryLinks)} />
+      <SocialMenu />
+      <MenuList items={SECONDARY_CONFIGURATION(mainMenu.secondaryLinks)} />
+    </Fragment>
+  );
+};
 
 Main.propTypes = {
   mainMenu: PropTypes.shape({

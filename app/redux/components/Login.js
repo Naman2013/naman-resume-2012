@@ -1,6 +1,7 @@
 import { closeAllMenus } from 'app/modules/global-navigation/actions';
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import {withTranslation} from 'react-i18next';
 import { bindActionCreators } from 'redux';
 import { API } from 'app/api';
 import { Link } from 'react-router';
@@ -48,6 +49,7 @@ const propTypes = {
 
 const defaultProps = {};
 
+@withTranslation
 class Login extends Component {
   static propTypes = propTypes;
 
@@ -106,11 +108,9 @@ class Login extends Component {
         ),
       }));
 
-      API
-      .post(FORGOT_PASSWORD_REQUEST_ENDPOINT_URL, {
-          loginEmailAddress: this.state.loginFormDetails.loginEmailAddress
-            .value,
-        })
+      API.post(FORGOT_PASSWORD_REQUEST_ENDPOINT_URL, {
+        loginEmailAddress: this.state.loginFormDetails.loginEmailAddress.value,
+      })
         .then(response => {
           const { actions } = this.props;
 
@@ -171,10 +171,9 @@ class Login extends Component {
     //console.log("Processing Google Signin: " + googleTokenData);
 
     /* Process the token and get back information about this user, etc. */
-    const googleSSOResult = API
-      .post(GOOGLE_SSO_SIGNIN_ENDPOINT_URL, {
-        authenticationCode: googleTokenData.code,
-      })
+    const googleSSOResult = API.post(GOOGLE_SSO_SIGNIN_ENDPOINT_URL, {
+      authenticationCode: googleTokenData.code,
+    })
       .then(response => {
         const { actions } = this.props;
 
@@ -209,7 +208,7 @@ class Login extends Component {
   };
 
   render() {
-    const { loginFailed, intl } = this.props;
+    const { loginFailed, intl, t } = this.props;
 
     const googleClientIDModel = {
       name: 'GOOGLE_CLIENT_ID_MODEL',
@@ -255,9 +254,7 @@ class Login extends Component {
             onSubmit={this.props.handleSubmit(this.handleSubmit)}
           >
             {loginFailed ? (
-              <div className="field-error">
-                <FormattedMessage {...messages.LoginFailed} />
-              </div>
+              <div className="field-error">{t('.LoginFailed')}</div>
             ) : null}
             {this.state.loginFormDetails.loginEmailAddress.errorText.length >
               0 && (

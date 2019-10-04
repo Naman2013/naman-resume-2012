@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
+import {withTranslation} from 'react-i18next';
 import { FormattedMessage } from 'react-intl';
 import Request from 'app/components/common/network/Request';
 import InAppNavigation from 'app/components/common/InAppNavigation';
@@ -59,8 +60,8 @@ const guidePageModel = {
       alignContent: 'right',
     },
     sterlingTitleProps: {
-      title: <FormattedMessage {...messages.SterlingTitle} />,
-      subTitle: <FormattedMessage {...messages.SterlingSubtitle} />,
+      title: t('.SterlingTitle'),// todo hardcode text here
+      subTitle: t('.SterlingSubtitle'),// todo hardcode text here
     },
     guideTopicsProps: {
       list: resp.chapterNavigationInfo.chapterList.map(chapter => ({
@@ -92,6 +93,7 @@ const guideObjectsModel = {
   }),
 };
 
+@withTranslation
 export default class Guides extends React.Component {
   static propTypes = {
     params: PropTypes.shape({

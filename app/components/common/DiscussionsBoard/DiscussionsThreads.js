@@ -6,6 +6,7 @@
  ***********************************/
 
 import React, { Component } from 'react';
+import {withTranslation} from 'react-i18next';
 import { browserHistory } from 'react-router';
 import PropTypes from 'prop-types';
 import { API } from 'app/api';
@@ -32,6 +33,7 @@ const {
   string,
 } = PropTypes;
 
+@withTranslation
 class DiscussionsThreads extends Component {
   static propTypes = {
     discussions: shape({
@@ -319,6 +321,7 @@ class DiscussionsThreads extends Component {
       validateResponseAccess,
       discussionGroupId,
       jumpToThreadId,
+      t,
     } = this.props;
     const { fetching, activePage, showSearchTermResultHeading, searchTermResultHeading } = this.state;
     const { threadsCount } = discussions;
@@ -328,7 +331,7 @@ class DiscussionsThreads extends Component {
         <div className="comments-bar"
           ref={node => { this.threadsContainer = node; }}
         >
-          {showSearchTermResultHeading ? <span>{searchTermResultHeading}</span> : <span><FormattedMessage {...messages.Comments} /> ({threadsCount})</span>}
+          {showSearchTermResultHeading ? <span>{searchTermResultHeading}</span> : <span>{t('.Comments')} ({threadsCount})</span>}
 
           <div className="comments-search">
             <input
@@ -338,11 +341,11 @@ class DiscussionsThreads extends Component {
             />
             {showSearchTermResultHeading ? (
               <Button onClick={this.resetSearch}>
-                <FormattedMessage {...messages.Reset} />
+                {t('.Reset')}
               </Button>
             ) : (
               <Button onClick={() => this.getThreads(this.props)}>
-                <FormattedMessage {...messages.Search} />
+                {t('.Search')}
               </Button>
             )}
           </div>
@@ -355,12 +358,12 @@ class DiscussionsThreads extends Component {
         })}
         {fetching && (
           <div>
-            <FormattedMessage {...messages.Loading} />
+            {t('.Loading')}
           </div>
         )}
         {!fetching && threadsCount === 0 ? (
           <div>
-            <FormattedMessage {...messages.NoThreads} />
+            {t('.NoThreads')}
           </div>
         ) : null}
         {!fetching && threadsCount > 0 && (

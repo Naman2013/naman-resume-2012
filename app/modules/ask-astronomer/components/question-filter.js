@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes, { array, string, bool } from 'prop-types';
 import findIndex from 'lodash/findIndex';
+import {withTranslation} from 'react-i18next';
 import { FormattedMessage } from 'react-intl';
 import DropDown from 'app/components/common/DropDown';
 import styles from './question-filter.style';
@@ -8,6 +9,7 @@ import messages from './question-filter.messages';
 
 const { func, shape } = PropTypes;
 
+@withTranslation
 class QuestionFilter extends Component {
   static propTypes = {
     dropdownOptions: array,
@@ -29,19 +31,19 @@ class QuestionFilter extends Component {
   };
 
   get dropdownOptions() {
-    const { dropdownOptions } = this.props;
+    const { dropdownOptions, t } = this.props;
     return (
       dropdownOptions || [
         {
-          label: <FormattedMessage {...messages.AllQuestions} />,
+          label: t('.AllQuestions'),
           value: 'objectonly',
         },
         {
-          label: <FormattedMessage {...messages.AllAnswered} />,
+          label: t('.AllAnswered'),
           value: 'allanswered',
         },
         {
-          label: <FormattedMessage {...messages.AllUnanswered} />,
+          label: t('.AllUnanswered'),
           value: 'allunanswered',
         },
       ]

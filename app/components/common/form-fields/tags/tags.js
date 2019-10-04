@@ -1,16 +1,18 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import {withTranslation} from 'react-i18next';
 import { FormattedMessage } from 'react-intl';
-import messages from './tags.messages';
 import deleteTag from 'app/services/tags/delete-tag';
 import setTag from 'app/services/tags/set-tag';
 import GenericButton from 'app/components/common/style/buttons/Button';
+import messages from './tags.messages';
 import TagInput from './partials/input';
 import TagDisplay from './partials/display';
 import styles from './tags.style';
 
 const { arrayOf, func, number, shape, string } = PropTypes;
 
+@withTranslation
 class Tags extends Component {
   static propTypes = {
     customerImageId: number,
@@ -136,7 +138,7 @@ class Tags extends Component {
   };
 
   render() {
-    const { tags, noTagsMsg, tagLabel, tagPrompt } = this.props;
+    const { tags, noTagsMsg, tagLabel, tagPrompt, t } = this.props;
 
     const { newTagText, hasError } = this.state;
     return (
@@ -160,13 +162,7 @@ class Tags extends Component {
               theme={{ margin: '15px auto' }}
             />
             <div className="tag-error">
-              <span>
-                {hasError ? (
-                  <FormattedMessage {...messages.AddTagErrorText} />
-                ) : (
-                  ''
-                )}
-              </span>
+              <span>{hasError ? t('.AddTagErrorText') : ''}</span>
             </div>
           </Fragment>
         )}

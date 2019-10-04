@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import { useTranslation } from 'react-i18next';
 import { FormattedMessage } from 'react-intl';
 import { DeviceContext } from 'app/providers/DeviceProvider';
 import SterlingTitle from 'app/components/common/titles/SterlingTitle';
@@ -14,14 +15,15 @@ const titleThemeMedium = {
 
 const FeaturedGallery = props => {
   const { imageList } = props;
+  const { t } = useTranslation();
   return (
     <div className="root">
       <DeviceContext.Consumer>
         {context => (
           <Fragment>
             <SterlingTitle
-              title={<FormattedMessage {...messages.FeaturedTitle} />}
-              subTitle={<FormattedMessage {...messages.FeaturedSubtitle} />}
+              title={t('.FeaturedTitle')}
+              subTitle={t('.FeaturedSubtitle')}
               theme={context.isScreenMedium ? titleThemeMedium : titleTheme}
             />
             <div className="i-wrapper">

@@ -5,6 +5,7 @@
 
 import React from 'react';
 import cn from 'classnames';
+import { useTranslation } from 'react-i18next';
 import { FormattedMessage } from 'react-intl';
 import { browserHistory } from 'react-router';
 
@@ -18,6 +19,7 @@ export default ({ index, isDesktop, currentItem: observation }) => {
   const onClickDetails = () => {
     return browserHistory.push(observation.photoViewFullURL);
   };
+  const { t } = useTranslation();
   return (
     <div className={cn(['root', { inCenter: inCenter && isDesktop }])}>
       <div className="observationCard">
@@ -54,7 +56,7 @@ export default ({ index, isDesktop, currentItem: observation }) => {
             {commentsCount}
           </div>
           <div className="details" onClick={onClickDetails}>
-            <FormattedMessage {...messages.Details} />
+            {t('.Details')}
             <img
               src="https://vega.slooh.com/assets/v4/icons/horz_arrow_right_astronaut.svg"
               alt="arrow-right"

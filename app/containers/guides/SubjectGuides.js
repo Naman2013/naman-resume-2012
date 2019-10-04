@@ -56,8 +56,8 @@ const subjectGuideModel = {
       alignContent: 'right',
     },
     sterlingTitleProps: {
-      title: <FormattedMessage {...messages.SubjectsSterlingTitle} />,
-      subTitle: <FormattedMessage {...messages.SubjectsSterlingSubtitle} />,
+      title: t('.SubjectsSterlingTitle'), // todo FIX ME
+      subTitle: t('.SubjectsSterlingSubtitle'),
     },
     subjectGuideListProps: {
       list:

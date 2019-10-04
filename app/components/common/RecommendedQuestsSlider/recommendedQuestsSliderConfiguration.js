@@ -18,13 +18,13 @@ const getRecommendedQuestsItems = (recommendedQuestList = []) =>
     render: () => <RecommendedQuestItem key={quest.linkUrl} {...quest} />,
   }));
 
-export const getSliderProps = (slideList = []) =>
+export const getSliderProps = (slideList = [], t) =>
   Object.assign(
     {
       slideList: getRecommendedQuestsItems(slideList),
     },
     {
       sliderConfig: getSliderConfiguration(),
-      emptyMessage: <FormattedMessage {...messages.NothingToShow} />,
+      emptyMessage: t('.NothingToShow'),
     }
   );

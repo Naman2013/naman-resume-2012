@@ -3,7 +3,8 @@
  ***********************************/
 
 import React, { Component, cloneElement, Fragment } from 'react';
-import { Link } from 'react-router';
+import { withTranslation } from 'react-i18next';
+import { Link, browserHistory } from 'react-router';
 import PropTypes from 'prop-types';
 import { API } from 'app/api';
 import { GoogleLogin } from 'react-google-login';
@@ -14,7 +15,7 @@ import cloneDeep from 'lodash/cloneDeep';
 import noop from 'lodash/noop';
 import InputField from 'app/components/form/InputField';
 import { createValidator, required } from 'app/modules/utils/validation';
-import { browserHistory } from 'react-router';
+
 import Button from 'app/components/common/style/buttons/Button';
 import Request from 'app/components/common/network/Request';
 import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
@@ -29,13 +30,14 @@ import {
 import { DeviceContext } from 'app/providers/DeviceProvider';
 import JoinHeader from './partials/JoinHeader';
 import PlanDetailsCard from './partials/PlanDetailsCard';
-import { DEFAULT_JOIN_TABS } from './StaticNavTabs';
-import { CLASSROOM_JOIN_TABS } from './StaticNavTabs';
+import { DEFAULT_JOIN_TABS, CLASSROOM_JOIN_TABS } from './StaticNavTabs';
+
 import styles from './JoinStep2.style';
 import messages from './JoinStep2.messages';
 
 const { string, func } = PropTypes;
 
+@withTranslation
 class JoinStep2 extends Component {
   static propTypes = {
     pathname: string.isRequired,
@@ -383,13 +385,15 @@ class JoinStep2 extends Component {
       /* Last Validation....password and email address validation */
       /* reach out to the Slooh API and verify the user's password and email address is not already taken, etc */
 
-      const customerDetailsMeetsRequirementsResult = API
-      .post(VALIDATE_NEW_PENDING_CUSTOMER_DETAILS_ENDPOINT_URL, {
+      const customerDetailsMeetsRequirementsResult = API.post(
+        VALIDATE_NEW_PENDING_CUSTOMER_DETAILS_ENDPOINT_URL,
+        {
           userEnteredPassword: this.state.accountFormDetails.password.value,
           userEnteredLoginEmailAddress: this.state.accountFormDetails
             .loginEmailAddress.value,
           selectedPlanId: window.localStorage.selectedPlanId,
-        })
+        }
+      )
         .then(response => {
           const res = response.data;
           if (res.apiError == false) {
@@ -469,11 +473,10 @@ class JoinStep2 extends Component {
     }
 
     // JOIN_CREATE_PENDING_CUSTOMER_ENDPOINT_URL
-    API
-      .post(
-        JOIN_CREATE_PENDING_CUSTOMER_ENDPOINT_URL,
-        createPendingCustomerData
-      )
+    API.post(
+      JOIN_CREATE_PENDING_CUSTOMER_ENDPOINT_URL,
+      createPendingCustomerData
+    )
       .then(response => {
         const res = response.data;
         if (!res.apiError) {
@@ -520,10 +523,9 @@ class JoinStep2 extends Component {
     // console.log("Processing Google Signin: " + googleTokenData);
 
     /* Process the Google SSO tokens and get back information about this user via the Slooh APIs/Google APIs, etc. */
-    API
-      .post(GOOGLE_SSO_SIGNIN_ENDPOINT_URL, {
-        authenticationCode: googleTokenData.code,
-      })
+    API.post(GOOGLE_SSO_SIGNIN_ENDPOINT_URL, {
+      authenticationCode: googleTokenData.code,
+    })
       .then(response => {
         const res = response.data;
         if (!res.apiError) {
@@ -603,7 +605,7 @@ class JoinStep2 extends Component {
   };
 
   render() {
-    const { pathname } = this.props;
+    const { pathname, t } = this.props;
     const {
       // googleProfileData,
       accountFormDetails,
@@ -701,7 +703,7 @@ class JoinStep2 extends Component {
                             <div>
                               <br />
                               <p>
-                                <FormattedMessage {...messages.YourSchool} />:{' '}
+                                {t('.YourSchool')}:{' '}
                                 {joinPageRes.selectedSchool.schoolName}
                               </p>
                               <p style={{ fontSize: '1.0em' }}>
@@ -860,7 +862,7 @@ class JoinStep2 extends Component {
                                           });
                                         }}
                                       />{' '}
-                                      <FormattedMessage {...messages.Yes} />
+                                      {t('.Yes')}
                                     </label>
                                     <span style={{ paddingLeft: '15px' }}>
                                       <label>
@@ -877,7 +879,7 @@ class JoinStep2 extends Component {
                                             });
                                           }}
                                         />
-                                        <FormattedMessage {...messages.No} />
+                                        {t('.No')}
                                       </label>
                                     </span>
                                   </fieldset>
@@ -1260,7 +1262,7 @@ class JoinStep2 extends Component {
                                 }}
                               />
                               <button className="submit-button" type="submit">
-                                <FormattedMessage {...messages.GoToPayment} />
+                                {t('.GoToPayment')}
                               </button>
                             </div>
                           </form>
