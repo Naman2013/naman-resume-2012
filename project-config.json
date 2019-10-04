@@ -8,21 +8,25 @@
   },
   "slooh.com": {
     "SENTRY_ENV": "PRODUCTION",
-    "productID": "slooh.com-test-productID"
+    "productID": "slooh.com-test-productID",
+    "COOKIE_DOMAIN": ".slooh.com"
   },
   "nova.slooh.com": {
-    "productID": "nova-productID"
+    "productID": "nova-productID",
+    "COOKIE_DOMAIN": ".slooh.com"
   },
   "orion.slooh.com": {
-    "productID": "orion-productID"
+    "productID": "orion-productID",
+    "COOKIE_DOMAIN": ".slooh.com"
   },
   "eris.slooh.com": {
-    "productID": "eris-productID"
+    "productID": "eris-productID",
+    "COOKIE_DOMAIN": ".slooh.com"
   },
   "default": {
     "SENTRY_ENV": "TEST",
     "PUBNUB_CHANNEL_PREFIX": "dev",
-    "COOKIE_DOMAIN": ".slooh.com",
+    "COOKIE_DOMAIN": null,
     "locale": "en",
     "productID": "default-productID"
   }
