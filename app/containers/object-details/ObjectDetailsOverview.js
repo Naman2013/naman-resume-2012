@@ -212,6 +212,8 @@ class Overview extends Component {
                   <CardObservations
                     user={user}
                     title={observation.title}
+                    observationTitle={imageDetails.observationTitle}
+                    imageTitle={imageDetails.imageTitle}
                     subTitle={observation.subTitle}
                     description={observation.desc}
                     imageUrl={observation.imageURL}
