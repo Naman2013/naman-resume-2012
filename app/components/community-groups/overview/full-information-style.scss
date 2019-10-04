@@ -1,0 +1,15 @@
+@import "~app/styles/variables/index";
+
+.discuss-container {
+  margin-top: 15px;
+}
+
+.popular-discussion-wrapper {
+  display: none;
+}
+
+@include lg() {
+  .popular-discussion-wrapper {
+    display: block;
+  }
+}
