@@ -33,13 +33,13 @@ const AsideContainer = ({
       </DisplayAtBreakpoint>
       <div className="mvp">
         <div className="mvp-header">
-          <h1>{t('.MVPHeader1')}</h1>
-          <h2>{t('.MVPHeader2')}</h2>
+          <h1>{t('AskAnAstronomer.MVPHeader1')}</h1>
+          <h2>{t('AskAnAstronomer.MVPHeader2')}</h2>
         </div>
         {objectSpecialists && objectSpecialists.specialistsCount > 0 ? (
           <MVPAstronomerList {...objectSpecialists} />
         ) : (
-          <div className="card-container__specialists">{t('.NoMVP')}</div>
+          <div className="card-container__specialists">{t('AskAnAstronomer.NoMVP')}</div>
         )}
       </div>
       <style jsx>{styles}</style>

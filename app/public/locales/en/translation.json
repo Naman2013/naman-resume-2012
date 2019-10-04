@@ -277,11 +277,16 @@
     "Missions": "Missions",
     "Galleries": "Galleries",
     "MyPhotoHub": "Photo Hub",
-    "CardMenu.MenuTitle": "More options",
-    "Filters.AllObservations": "All observation",
-    "Filters.MostRecent": "Most recent",
-    "Filters.MostPopular": "Most popular",
-    "Filters.SavedForLater": "Saved for later",
+    "CardMenu": {
+      "MenuTitle": "More options"
+    },
+    "Filters": {
+      "AllObservations": "All observation",
+      "MostRecent": "Most recent",
+      "MostPopular": "Most popular",
+      "SavedForLater": "Saved for later"
+    },
+
     "Options": "Options",
     "Images": "Images",
     "OpenMission": "Open mission",

@@ -44,7 +44,7 @@ const AsideToggleableMenu = props => {
       onClick={e => e.stopPropagation()}
     >
       <div style={{ opacity: visible ? 1 : 0 }} className="heading">
-        {t('.MoreOptions')}
+        {t('Photos.CardMenu.MenuTitle')}
         <i
           className="fa fa-close"
           aria-hidden="true"

@@ -122,7 +122,7 @@ class AnswerReplyList extends Component {
           <div className="replies-list-contanier">
             <div className="num-replies">
               <span className="replies-number">
-                {t('.Replies')}: {numberOfRepliesToAnswer}
+                {t('AskAnAstronomer.Replies')}: {numberOfRepliesToAnswer}
               </span>
             </div>
             <div className="replies-list">

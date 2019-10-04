@@ -95,7 +95,7 @@ class AnswerList extends Component {
           <div className="num-replies">
             {Boolean(+numberOfAnswersToThread) && (
               <span className="replies-number">
-                {t('.Answers')}
+                {t('AskAnAstronomer.Answers')}
                 {numberOfAnswersToThread}
               </span>
             )}

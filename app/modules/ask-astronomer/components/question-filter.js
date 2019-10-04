@@ -35,15 +35,15 @@ class QuestionFilter extends Component {
     return (
       dropdownOptions || [
         {
-          label: t('.AllQuestions'),
+          label: t('AskAnAstronomer.AllQuestions'),
           value: 'objectonly',
         },
         {
-          label: t('.AllAnswered'),
+          label: t('AskAnAstronomer.AllAnswered'),
           value: 'allanswered',
         },
         {
-          label: t('.AllUnanswered'),
+          label: t('AskAnAstronomer.AllUnanswered'),
           value: 'allunanswered',
         },
       ]

@@ -1,6 +1,7 @@
 import Card from 'app/modules/ask-astronomer/components/Card';
 import SubmitAnswerReplyButton from 'app/modules/ask-astronomer/components/SubmitAnswerReplyButton';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { injectIntl } from 'react-intl';
 import { likeReply } from '../../../services/discussions/like';
 import messages from './answer-list-item.messages';
@@ -28,12 +29,11 @@ const AnswerListItem = props => {
     intl,
     updateQuestionsList,
   } = props;
+  const { t } = useTranslation();
   return (
     <div className="answer-list-item">
       {isTopAnswer && (
-        <div className="top-answer">
-          {intl.formatMessage(messages.TopAnswer)}
-        </div>
+        <div className="top-answer">{t('AskAnAstronomer.TopAnswer')}</div>
       )}
       <Card
         {...answer}
