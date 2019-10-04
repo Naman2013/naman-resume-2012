@@ -38,7 +38,7 @@ export class ImageDetails extends Component<TProfileActivityProps> {
       setObservationTags,
       shareMemberPicture,
     };
-    console.log(`image-details-${customerImageId}`);
+
     return (
       <div>
         <Spinner loading={isFetching} />
