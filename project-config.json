@@ -6,10 +6,17 @@
     "locale": "cn",
     "productID": 2
   },
+  "gonogo.slooh.com": {
+    "SENTRY_ENV": "PRODUCTION",
+    "productID": "slooh.com-test-productID",
+    "COOKIE_DOMAIN": ".slooh.com",
+    "PUBNUB_CHANNEL_PREFIX": "prod"
+  },
   "slooh.com": {
     "SENTRY_ENV": "PRODUCTION",
     "productID": "slooh.com-test-productID",
-    "COOKIE_DOMAIN": ".slooh.com"
+    "COOKIE_DOMAIN": ".slooh.com",
+    "PUBNUB_CHANNEL_PREFIX": "prod"
   },
   "nova.slooh.com": {
     "productID": "nova-productID",
@@ -25,9 +32,12 @@
   },
   "default": {
     "SENTRY_ENV": "TEST",
-    "PUBNUB_CHANNEL_PREFIX": "dev",
     "COOKIE_DOMAIN": null,
     "locale": "en",
-    "productID": "default-productID"
+    "productID": "default-productID",
+    "PUBNUB_CHANNEL_PREFIX": "dev",
+    "PUBNUB_FEEDS_SUBKEY": "sub-c-15f5f3fa-a890-11e9-9764-faf49bb54dbb",
+    "PUBNUB_FEEDS_PUBKEY": "pub-c-e2ae41bc-2edd-4b67-90ff-f204c3d8a01e",
+    "PUBNUB_FEEDS_SECRETKEY": "sec-c-OGZkMWEyYjgtZGE5Yi00YWJhLTk3YTItOGJmNWQwYzFhYzEw"
   }
 }

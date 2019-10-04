@@ -107,13 +107,6 @@ module.exports = {
       },
     }),
 
-    new webpack.EnvironmentPlugin({
-      PUBNUB_FEEDS_SUBKEY: '',
-      PUBNUB_FEEDS_PUBKEY: '',
-      PUBNUB_FEEDS_SECRETKEY: '',
-      PUBNUB_CHANNEL_PREFIX: 'dev.'
-    }),
-
     new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output
       // both options are optional

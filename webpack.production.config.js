@@ -11,7 +11,6 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const apiUrl = process.env.apiUrl || '';
 const apiPortNumber = process.env.apiPortNumber || '';
 
-
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const sourcePath = path.join(__dirname, './app');
@@ -101,13 +100,6 @@ module.exports = {
       'process.env': {
         NODE_ENV: JSON.stringify('production'),
       },
-    }),
-
-    new webpack.EnvironmentPlugin({
-      PUBNUB_FEEDS_SUBKEY: '',
-      PUBNUB_FEEDS_PUBKEY: '',
-      PUBNUB_FEEDS_SECRETKEY: '',
-      PUBNUB_CHANNEL_PREFIX: ''
     }),
 
     // Minify and optimize the index.html
