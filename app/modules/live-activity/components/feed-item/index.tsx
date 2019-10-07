@@ -7,7 +7,7 @@ type TFeedItem = {
   item: any;
 };
 
-const contentClickHandler = e => {
+const contentClickHandler = (e:any) => {
   if (e.target instanceof HTMLAnchorElement) {
     const targetLink = e.target.closest('a');
     e.preventDefault();
