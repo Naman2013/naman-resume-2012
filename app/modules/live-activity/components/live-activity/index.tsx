@@ -5,8 +5,8 @@ import { Rnd } from 'react-rnd';
 import Button from 'app/components/common/style/buttons/Button';
 import { isMobileDevice } from 'app/services.ts';
 import cx from 'classnames';
-import { FeedItem } from '../feed-item/index';
 import { getUserInfo } from 'app/modules/User';
+import { FeedItem } from '../feed-item/index';
 
 const enableResizing = {
   top: true,
@@ -35,7 +35,13 @@ const getResizableBoxConfigs = () => {
   };
 };
 
-const submitMessage = (event: any, pubnubConnection:any, pubnubActivityFeedChannelName:string, userDisplayName: string, myTextInputField:any) => {
+const submitMessage = (
+  event: any,
+  pubnubConnection: any,
+  pubnubActivityFeedChannelName: string,
+  userDisplayName: string,
+  myTextInputField: any
+) => {
   event.preventDefault();
 
   if (event.keyCode === 13) {
@@ -47,33 +53,38 @@ const submitMessage = (event: any, pubnubConnection:any, pubnubActivityFeedChann
     let tmpUserDisplayName = userDisplayName;
 
     if (userDisplayName == '') {
-	tmpUserDisplayName = '...';
+      tmpUserDisplayName = '...';
     }
 
     let message = {
-	    id: -1,
-	    messageType: "user-generated",
-	    currentUser: true,	    
-	    displayName: userDisplayName,
-            customerUUID: getUserInfo().customerUUID,
-            date: '', 
-            message_by_locale: {
-		en: '<a href="/profile/public/' + getUserInfo().customerUUID + '/activity">' + tmpUserDisplayName + '</a> - ' + event.target.value
-	    }
-    }
+      id: -1,
+      messageType: 'user-generated',
+      currentUser: true,
+      displayName: userDisplayName,
+      customerUUID: getUserInfo().customerUUID,
+      date: '',
+      message_by_locale: {
+        en: `<a href="/profile/public/${
+          getUserInfo().customerUUID
+        }/activity">${tmpUserDisplayName}</a> - ${event.target.value}`,
+      },
+    };
 
     //publish the message
-    pubnubConnection.publish(
-    {
-	message: message,
-        channel: pubnubActivityFeedChannelName,
-        sendByPost: false, // true to send via post
-        storeInHistory: true, //override default storage options
-    }
-    );
+    pubnubConnection.publish({
+      message,
+      channel: pubnubActivityFeedChannelName,
+      sendByPost: false, // true to send via post
+      storeInHistory: true, //override default storage options
+    });
 
     myTextInputField.value = '';
-    setTimeout(function() { var liveActivityWindowBodyFeedObj = document.getElementById('live-activity-window-body-feed'); liveActivityWindowBodyFeedObj.scrollIntoView(false); }, 1000);
+    setTimeout(function() {
+      let liveActivityWindowBodyFeedObj = document.getElementById(
+        'live-activity-window-body-feed'
+      );
+      liveActivityWindowBodyFeedObj.scrollIntoView(false);
+    }, 1000);
   }
 };
 
@@ -83,8 +94,8 @@ type TLiveActivity = {
   pubnubConnection: Object;
   pubnubActivityFeedChannelName: string;
   userDisplayName: string;
-  isChatEnabled: boolean,
-  scrollActivityFeedToBottom: any,
+  isChatEnabled: boolean;
+  scrollActivityFeedToBottom: any;
 };
 
 export const LiveActivity = (props: TLiveActivity) => {
@@ -160,25 +171,48 @@ export const LiveActivity = (props: TLiveActivity) => {
                 </div>
               </div>
               <div className="live-activity-window-body">
-		<p style={{color: "#007bff", fontSize: "1.1em", fontStyle: "italic", marginLeft: "auto", marginRight: "auto", cursor: "pointer"}}onClick={props.scrollActivityFeedToBottom}>jump to newest</p>
-		<br/>
-                <div id="live-activity-window-body-feed" className="live-activity-window-body-feed">
+                <p
+                  style={{
+                    color: '#007bff',
+                    fontSize: '1.1em',
+                    fontStyle: 'italic',
+                    marginLeft: 'auto',
+                    marginRight: 'auto',
+                    cursor: 'pointer',
+                  }}
+                  onClick={props.scrollActivityFeedToBottom}
+                >
+                  jump to newest
+                </p>
+                <br />
+                <div
+                  id="live-activity-window-body-feed"
+                  className="live-activity-window-body-feed"
+                >
                   {props.activityFeedMessages.map(feedItem => (
                     <FeedItem item={feedItem} />
                   ))}
                 </div>
               </div>
 
-	     
-              {props.isChatEnabled == true && <div className="live-activity-window-footer">
-                <input
-                  type="text"
-                  placeholder="Please type a message"
-                  onKeyUp={e => submitMessage(e, props.pubnubConnection, props.pubnubActivityFeedChannelName, props.userDisplayName, e.target)}
-                  onMouseDown={e => e.stopPropagation()}
-                />
-              </div>
-	      }
+              {props.isChatEnabled == true && (
+                <div className="live-activity-window-footer">
+                  <input
+                    type="text"
+                    placeholder="Please type a message"
+                    onKeyUp={e =>
+                      submitMessage(
+                        e,
+                        props.pubnubConnection,
+                        props.pubnubActivityFeedChannelName,
+                        props.userDisplayName,
+                        e.target
+                      )
+                    }
+                    onMouseDown={e => e.stopPropagation()}
+                  />
+                </div>
+              )}
             </div>
           </Rnd>
         </div>
