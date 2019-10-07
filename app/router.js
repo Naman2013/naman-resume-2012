@@ -206,10 +206,10 @@ const AppRouter = ({ setPreviousInstrument }) => (
         <Route path="step2" component={JoinStep2} />
         <Route path="step3" component={JoinStep3} />
 
-	<Route
-	  path="directJoinUpgrade/:subscriptionPlanHashCode"
-          component={DirectJoinUpgradeFlow}
-	/>
+      	<Route
+      	  path="enablePlan/:subscriptionPlanHashCode"
+                component={DirectJoinUpgradeFlow}
+      	/>
 
         <Route
           path="byLandingPage/:subscriptionPlanHashCode"
