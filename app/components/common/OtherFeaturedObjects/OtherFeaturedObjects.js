@@ -11,11 +11,7 @@ const { func, number, string, array, shape, any } = PropTypes;
 
 class OtherFeaturedObjects extends Component {
   componentWillMount() {
-    const {
-      params,
-      fetchOtherFeaturedObjects,
-      slugLookupId,
-    } = this.props;
+    const { params, fetchOtherFeaturedObjects, slugLookupId } = this.props;
 
     fetchOtherFeaturedObjects({
       ...params,
@@ -32,7 +28,10 @@ class OtherFeaturedObjects extends Component {
       style,
     } = this.props;
     const title = sectionTitle + sectionObjectTitle;
-    const itemStyles = { flexDirection: layoutDirection, padding: layoutDirection === 'row' ? '25px' : 'auto' };
+    const itemStyles = {
+      flexDirection: layoutDirection,
+      padding: layoutDirection === 'row' ? '25px' : 'auto',
+    };
     return (
       <section className={styles.otherFeaturedObjects} style={style}>
         <header className={styles.otherFeaturedObjectsHeader}>
@@ -40,24 +39,37 @@ class OtherFeaturedObjects extends Component {
           <p dangerouslySetInnerHTML={{ __html: sectionSubtitle }} />
         </header>
         <div className="itemsContainer" style={itemStyles}>
-          {
-            itemList.map(v =>
-              <div className={styles.otherFeaturedObjectsContainer} key={uniqueId()}>
-                <article>
-                  <h4 dangerouslySetInnerHTML={{ __html: v.itemTitle }} />
-                  <img alt="" className={styles.otherFeaturedObjectsIcon} src={v.itemIconURL} />
-                  <h2 dangerouslySetInnerHTML={{ __html: v.itemObjectTitle }} />
-                  <p className={styles.otherFeaturedObjectsDescription} dangerouslySetInnerHTML={{ __html: v.itemDescription }} />
-                  <Link
-                    className={`btn btn-primary ${styles.otherFeaturedObjectsLink}`}
-                    to={v.itemURL ? v.itemURL : `/objects/latest-entries/${v.slugLookupId}/all`}
-                  >
-                    Go to Object Page
-                  </Link>
-                  <hr className={styles.otherFeaturedObjectsHr} />
-                </article>
-              </div>
-          )}
+          {itemList.map(v => (
+            <div
+              className={styles.otherFeaturedObjectsContainer}
+              key={uniqueId()}
+            >
+              <article>
+                <h4 dangerouslySetInnerHTML={{ __html: v.itemTitle }} />
+                <img
+                  alt=""
+                  className={styles.otherFeaturedObjectsIcon}
+                  src={v.itemIconURL}
+                />
+                <h2 dangerouslySetInnerHTML={{ __html: v.itemObjectTitle }} />
+                <p
+                  className={styles.otherFeaturedObjectsDescription}
+                  dangerouslySetInnerHTML={{ __html: v.itemDescription }}
+                />
+                <Link
+                  className={`btn btn-primary ${styles.otherFeaturedObjectsLink}`}
+                  to={
+                    v.itemURL
+                      ? v.itemURL
+                      : `/objects/latest-entries/${v.slugLookupId}/all`
+                  }
+                >
+                  Go to Object Page
+                </Link>
+                <hr className={styles.otherFeaturedObjectsHr} />
+              </article>
+            </div>
+          ))}
         </div>
         <style jsx>{`
           .itemsContainer {
@@ -84,10 +96,17 @@ OtherFeaturedObjects.propTypes = {
 };
 
 const mapStateToProps = ({ otherFeaturedObjects }) => ({
-  ...otherFeaturedObjects
+  ...otherFeaturedObjects,
 });
-const mapDispatchToProps = dispatch => (bindActionCreators({
-  fetchOtherFeaturedObjects
-}, dispatch));
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      fetchOtherFeaturedObjects,
+    },
+    dispatch
+  );
 
-export default connect(mapStateToProps, mapDispatchToProps)(OtherFeaturedObjects);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(OtherFeaturedObjects);

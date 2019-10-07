@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 export default function fetchSharedMemberPhotosService({
   token,
@@ -10,7 +10,7 @@ export default function fetchSharedMemberPhotosService({
   page,
   v4Filter,
 }) {
-  return axios.post('/api/images/getSharedMemberPictures', {
+  return API.post('/api/images/getSharedMemberPictures', {
     token,
     at,
     cid,

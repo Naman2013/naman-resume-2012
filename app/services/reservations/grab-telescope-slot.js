@@ -21,7 +21,7 @@
       match with the By Telescope slot uniqueId that issued the request
 */
 
-import axios from 'axios';
+import { API } from 'app/api';
 
 export default function grabTelescopeSlot({
   cid,
@@ -32,7 +32,7 @@ export default function grabTelescopeSlot({
   finalizeReservation,
   uniqueId,
 }) {
-  return axios.post('/api/reservation/grabTelescopeSlot', {
+  return API.post('/api/reservation/grabTelescopeSlot', {
     cid,
     at,
     token,

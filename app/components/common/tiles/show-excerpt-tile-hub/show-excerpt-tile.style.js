@@ -11,14 +11,14 @@ export default css`
   .show-tile-root {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     font-family: ${primaryFont};
     position: relative;
     background-color: ${romance};
     width: 300px;
     height: 300px;
     color: ${astronaut};
-    padding: 25px 25px 65px;
+    padding: 25px;
     border: 1px solid ${shadows};
     border-bottom: 4px solid ${astronaut};
   }
@@ -63,7 +63,7 @@ export default css`
     bottom: 0;
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-between;
     padding: 0;
     margin: 10px 0 0 0;
     width: 100%;

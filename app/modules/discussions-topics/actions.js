@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 import { getTopicList, SORT_MENU_ORDER } from '../../services/discussions/get-topic-list';
 
 export const FETCH_TOPIC_LIST_START = 'FETCH_TOPIC_LIST_START';
@@ -76,7 +76,7 @@ export const toggleFollowTopic = ({
 }) => (dispatch, getState) => {
   const { cid, at, token } = getState().user;
   dispatch(toggleFollowTopicStart());
-  return axios.post('/api/forum/toggleFollowTopic', {
+  return API.post('/api/forum/toggleFollowTopic', {
     cid,
     at,
     token,

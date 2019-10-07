@@ -1,0 +1,74 @@
+@import '~app/styles/variables/index';
+
+$msgBg: lighten($lightHeadedAstronaut, 60%);
+$msgOwnBg: lighten($golda, 25%);
+
+.feed-item {
+  margin-bottom: 20px;
+  text-align: left;
+
+  .feed-data {
+    margin-bottom: 5px;
+    display: flex;
+    justify-content: flex-end;
+
+    &-date {
+      color: lighten($lightHeadedAstronaut, 20%);
+      margin: 0 5px;
+    }
+
+    &-user {
+      font-weight: bold;
+    }
+  }
+
+  .feed-msg {
+    background-color: $msgBg;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+    border-radius: 10px;
+    width: 80%;
+    margin-right: auto;
+    font-size: 16px;
+    position: relative;
+  }
+
+  /* CURRENT USER */
+  &.feed-item-current-user {
+    text-align: left;
+
+    .feed-data {
+      flex-direction: row-reverse;
+    }
+
+    .feed-msg {
+      background-color: $msgOwnBg;
+      margin-left: auto;
+      margin-right: 0;
+    }
+  }
+
+  .arrow-left {
+    width: 0;
+    height: 0;
+    border-top: 10px solid transparent;
+    border-bottom: 15px solid transparent;
+    border-right: 15px solid $msgOwnBg;
+    position: absolute;
+    top: -9px;
+    right: 0;
+  }
+
+  .arrow-right {
+    width: 0;
+    height: 0;
+    border-top: 10px solid transparent;
+    border-bottom: 15px solid transparent;
+    border-left: 15px solid $msgBg;
+    position: absolute;
+    top: -9px;
+    left: 0;
+  }
+}

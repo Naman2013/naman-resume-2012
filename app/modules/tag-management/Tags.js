@@ -1,5 +1,5 @@
 import createReducer from '../utils/createReducer';
-import axios from 'axios';
+import { API } from 'app/api';
 import { setTag } from '../../services/tags/set-tag';
 
 const SET_TAGS_START = 'SET_TAGS_START';
@@ -49,7 +49,7 @@ export const deleteTag = tagData => (dispatch, getState) => {
 
   startSetTag();
 
-  return axios.post('/api/tags/deleteTag', {
+  return API.post('/api/tags/deleteTag', {
     token,
     at,
     cid,
@@ -103,7 +103,7 @@ export function getTags(tagData) {
     const { token, at, cid } = getState().user;
     dispatch(startGetTag());
 
-    return axios.post('/api/tags/getTags', {
+    return API.post('/api/tags/getTags', {
       // at: 3, // for testing purposes
       // cid: 185651, // for testing purposes
       // token: 'ff278b57d3724d41a3d48194e2f29526b30e9c0f', // for testing purposes

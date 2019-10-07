@@ -108,7 +108,7 @@ class Observations extends Component {
     };
     this.setState({ page });
     fetchSharedMemberPhotosAction(requestBody);
-  } 
+  }
 
   handleSelect = (e, selectedItem) => {
     this.setState({
@@ -196,11 +196,14 @@ class Observations extends Component {
                         <CardObservations
                           user={user}
                           subTitle={photoBy}
-                          title={imageDetails.imageTitle}
+                          observationTitle={imageDetails.observationTitle}
+                          imageTitle={imageDetails.imageTitle}
                           description={imageDetails.observationLog}
                           imageUrl={imageDetails.imageURL}
                           linkUrl={imageDetails.linkUrl}
                           likesCount={imageDetails.likesCount}
+                          likedByMe={imageDetails.likedByMe}
+                          likeTooltip={imageDetails.likeTooltip}
                           likePrompt={imageDetails.likePrompt}
                           showLikePrompt={imageDetails.showLikePrompt}
                           commentsCount={imageDetails.commentsCount}

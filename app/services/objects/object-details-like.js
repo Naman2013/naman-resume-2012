@@ -1,7 +1,7 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 export default function fetchLikeService({ token, at, cid, likeId }) {
-  return axios.post('/api/images/like', {
+  return API.post('/api/images/like', {
     token,
     at,
     cid,

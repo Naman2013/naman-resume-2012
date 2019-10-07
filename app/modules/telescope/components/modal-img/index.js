@@ -3,7 +3,13 @@ import { Modal } from 'react-bootstrap';
 import { Magnifier } from 'react-image-magnifiers';
 
 export const ModalImg = props => {
-  const { isOpen, imageURL, onHide, customClassName } = props;
+  const {
+    isOpen,
+    imageURL,
+    onHide,
+    customClassName,
+    magnifierClassName,
+  } = props;
   return (
     <Modal
       size="lg"
@@ -13,7 +19,7 @@ export const ModalImg = props => {
       dialogClassName={customClassName}
     >
       <Modal.Body>
-        <Magnifier imageSrc={imageURL} />
+        <Magnifier imageSrc={imageURL} className={magnifierClassName} />
       </Modal.Body>
     </Modal>
   );

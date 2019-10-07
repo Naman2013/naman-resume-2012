@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 export const MY_PICS_VERIFY_OWNER_START = 'MY_PICS_VERIFY_OWNER_START';
 export const MY_PICS_VERIFY_OWNER_SUCCESS = 'MY_PICS_VERIFY_OWNER_SUCCESS';
@@ -25,7 +25,7 @@ export const verifyMyPicsOwner = ({
 }) => (dispatch, getState) => {
   const { cid } = getState().user;
   dispatch(verifyMyPicsOwnerStart());
-  return axios.post('/api/images/verifyOwner', {
+  return API.post('/api/images/verifyOwner', {
     cid,
     itemType,
     itemId,

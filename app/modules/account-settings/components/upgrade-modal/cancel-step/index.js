@@ -12,7 +12,7 @@ import { FormattedMessage } from 'react-intl';
 import { browserHistory } from 'react-router';
 import Btn from 'app/atoms/Btn';
 
-import axios from 'axios';
+import { API } from 'app/api';
 import { getUserInfo } from 'app/modules/User';
 import styles from 'app/pages/registration/JoinStep3.style';
 import messages from 'app/pages/registration/JoinStep3.messages';

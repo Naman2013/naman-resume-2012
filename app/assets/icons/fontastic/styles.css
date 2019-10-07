@@ -116,3 +116,9 @@
 .icon-twitter:before {
   content: "\7a";
 }
+.icon-tick:before {
+  content: "\41";
+}
+.icon-bubble-comment-streamline-talk:before {
+  content: "\42";
+}

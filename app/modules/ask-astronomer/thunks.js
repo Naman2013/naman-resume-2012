@@ -1,5 +1,5 @@
 import { getPageDataApi } from 'app/modules/ask-astronomer/api';
-import axios from 'axios';
+import { API } from 'app/api';
 import { ACTION } from './reducers/reducer';
 
 export const getAllQuestions = ({
@@ -13,8 +13,8 @@ export const getAllQuestions = ({
   const { cid, at, token } = getState().user;
   const { count, questionFilter, page } = getState().astronomerQuestions; // todo
   dispatch(ACTION.getAllQuestions());
-  return axios
-    .post('/api/forum/getQuestionsList', {
+  return API
+      .post('/api/forum/getQuestionsList', {
       at,
       callSource: 'qanda',
       cid,

@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 /**
   formData: {
@@ -12,7 +12,7 @@ import axios from 'axios';
 */
 
 export default function setPostImages(data) {
-  return axios({
+  return API({
     method: 'post',
     url: '/api/content/setPostImage',
     headers: {

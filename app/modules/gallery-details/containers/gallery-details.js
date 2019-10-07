@@ -1,7 +1,7 @@
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { getGalleryDetails } from '../thunks';
+import { getGalleryDetails, deleteGallery, renameGallery } from '../thunks';
 import GalleryDetails from '../components/gallery-details';
 import {
   makeGalleryDetailsLoadingSelector,
@@ -25,6 +25,8 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = {
   getGalleryDetails,
+  renameGallery,
+  deleteGallery,
 };
 
 export default compose(

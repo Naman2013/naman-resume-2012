@@ -1,7 +1,7 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 export const getCommunityMissionsApi = data =>
-  axios.post('/api/reservation/getCommunityMissions', data);
+  API.post('/api/reservation/getCommunityMissions', data);
 
 export const getMyPicturesApi = data =>
-  axios.post('/api/images/getMyPictures', data);
+  API.post('/api/images/getMyPictures', data);

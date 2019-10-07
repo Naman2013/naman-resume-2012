@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import axios from 'axios';
+import { API } from 'app/api';
 import noop from 'lodash/noop';
 import { SHOWS_UPCOMING_ENDPOINT_URL } from 'app/services/shows';
 import SloohSlider from 'app/components/common/Slider';
@@ -29,7 +29,7 @@ class UpcomingShowsInHub extends Component {
   componentDidMount() {
     const { validateResponseAccess } = this.props;
 
-    axios.get(SHOWS_UPCOMING_ENDPOINT_URL).then(res => {
+    API.get(SHOWS_UPCOMING_ENDPOINT_URL).then(res => {
       if (!res.data.apiError) {
         this.setState({
           upcomingShows: res.data.eventList,

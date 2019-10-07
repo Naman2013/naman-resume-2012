@@ -1,7 +1,7 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 export default function fetchDayNightMap({ obsId, DayNightMapWidgetId }) {
-  return axios.post('/api/widget/dayNightMap', {
+  return API.post('/api/widget/dayNightMap', {
     obsId,
     widgetUniqueId: DayNightMapWidgetId,
   });

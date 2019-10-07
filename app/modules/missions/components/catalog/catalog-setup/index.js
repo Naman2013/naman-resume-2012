@@ -141,7 +141,7 @@ export class CatalogSetup extends Component {
                   </Tooltip>
                 }
               >
-              <span>{step3Title}</span>
+                <span>{step3Title}</span>
               </OverlayTrigger>
             </div>
 

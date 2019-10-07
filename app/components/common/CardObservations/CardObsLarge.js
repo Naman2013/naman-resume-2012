@@ -5,17 +5,21 @@ import { injectIntl } from 'react-intl';
 import { Tooltip } from 'react-tippy';
 import LikeSomethingButton from 'app/components/common/LikeSomethingButton';
 import { ModalImg } from 'app/modules/telescope/components/modal-img';
-import style from './CardObservationsLarge.style';
+import { ReturnObservationIcon } from 'app/components/common/RecommendedObservationsSlider/partials/GetObservationIcon';
+import './CardObsLarge.scss';
 import messages from './CardObsLarge.messages';
 
 const CardObsLarge = props => {
   const {
-    title,
+    observationTitle,
+    imageTitle,
     subTitle,
     description,
     imageUrl,
     linkUrl,
     likesCount,
+    likedByMe,
+    likeTooltip,
     commentsCount,
     observationTimeDisplay,
     intl,
@@ -28,6 +32,7 @@ const CardObsLarge = props => {
   } = props;
   const [isOpen, openModal] = useState(false);
   const [likesNumber, changeLikesNumber] = useState(likesCount);
+  const title = observationTitle || imageTitle;
   const onLikeClick = () => {
     return new Promise((resolve, reject) => {
       if (!showLikePrompt) {
@@ -47,7 +52,9 @@ const CardObsLarge = props => {
                 <div className="info">
                   <div className="main-info">
                     <h2 className="title h-2 h-2-bold">{title}</h2>
-                    <h5 className="author h-5 h-5-normal">{subTitle}</h5>
+                    <Link to={iconFileData?.Member?.linkUrl}>
+                      <h5 className="author h-5 h-5-normal">{subTitle}</h5>
+                    </Link>
                     {description && (
                       <div
                         className="i-text-box"
@@ -59,21 +66,11 @@ const CardObsLarge = props => {
                     {Object.keys(iconFileData).map(item => (
                       <Tooltip title={iconFileData[item].text}>
                         {iconFileData[item].hasLink ? (
-                          <Link to={iconFileData[item].linkUrl} target="_blank" className="link">
-                            <img
-                              className={`linkIcon${item === 'Member' ? ' memberIcon' : ''}`}
-                              src={iconFileData[item].iconUrl}
-                              alt={iconFileData[item].label}
-                            />
+                          <Link to={iconFileData[item].linkUrl} target="_blank">
+                            <ReturnObservationIcon item={iconFileData[item]} />
                           </Link>
                         ) : (
-                          <div className="link">
-                            <img
-                              className={`linkIcon${item === 'Member' ? ' memberIcon' : ''}`}
-                              src={iconFileData[item].iconUrl}
-                              alt={iconFileData[item].label}
-                            />
-                          </div>
+                          <ReturnObservationIcon item={iconFileData[item]} />
                         )}
                       </Tooltip>
                     ))}
@@ -91,6 +88,8 @@ const CardObsLarge = props => {
                       isOpen={isOpen}
                       imageURL={imageUrl}
                       onHide={() => openModal(!isOpen)}
+                      customClassName="obs-image-wrapper"
+                      magnifierClassName="obs-image-magnifier"
                     />
                   </div>
                 </div>
@@ -102,6 +101,8 @@ const CardObsLarge = props => {
                       mod="no-border"
                       likePrompt={likePrompt}
                       likesCount={likesNumber}
+                      likedByMe={likedByMe}
+                      likeTooltip={likeTooltip}
                       likeHandler={onLikeClick}
                       customerId={customerImageId}
                       showLikePrompt={showLikePrompt}
@@ -123,13 +124,13 @@ const CardObsLarge = props => {
                     {!commentsCount ? '0' : commentsCount}
                   </div>
                   {linkUrl && (
-                    <a href={linkUrl} className="button details">
+                    <Link to={linkUrl} className="button details">
                       {intl.formatMessage(messages.Details)}
                       <img
                         src="https://vega.slooh.com/assets/v4/icons/horz_arrow_right_astronaut.svg"
                         alt="arrow-right"
                       />
-                    </a>
+                    </Link>
                   )}
                 </div>
                 <div className="capture-date">
@@ -146,13 +147,13 @@ const CardObsLarge = props => {
           )}
         </div>
       </div>
-      <style jsx>{style}</style>
     </Fragment>
   );
 };
 
 CardObsLarge.propTypes = {
-  title: PropTypes.string.isRequired,
+  observationTitle: PropTypes.string.isRequired,
+  imageTitle: PropTypes.string.isRequired,
   subTitle: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   imageUrl: PropTypes.string.isRequired,

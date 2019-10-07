@@ -79,13 +79,13 @@ export default css`
     font-size: 11px;
   }
 
-  .button {
+  .buttons :global(.button) {
     ${toUpper}
     padding: 20px 15px;
     ${centerChildren}
   }
 
-  .button:not(:last-child) {
+  .buttons :global(.button:not(:last-child)) {
     border-right: 1px solid #dee0e2;
   }
 
@@ -137,7 +137,7 @@ export default css`
     font-size: 19px;
     padding: 20px 0;
   }
- 
+
   .image-wrapper {
     box-shadow: 0 0 6px 0 #ced2d8;
     padding: 3px;
@@ -159,19 +159,12 @@ export default css`
     display: flex;
   }
 
-  .links :global(> div) {
-    margin-right: 25px;
-  }
-
   .links :global(.link) {
-    ${centerChildren}
-    border-radius: 50%;
     width: 40px;
     height: 40px;
-    cursor: pointer;
   }
 
-  .details {
+  .buttons :global(.details) {
     width: 100px;
     display: flex;
     justify-content: space-between;

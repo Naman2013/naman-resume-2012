@@ -1,7 +1,7 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 export default function fetchCurrentConditions({ obsId, widgetUniqueId }) {
-  return axios.post('/api/widget/currentConditions', {
+  return API.post('/api/widget/currentConditions', {
     obsId,
     widgetUniqueId,
   });

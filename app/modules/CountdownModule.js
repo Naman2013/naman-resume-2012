@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 import createReducer from './utils/createReducer';
 import createAction from './utils/createAction';
 
@@ -15,7 +15,7 @@ export function fetchActiveOrUpcomingEvent() {
     dispatch(upcomingEventsRequest());
 
     try {
-      const { status, data, data: { eventList } } = await axios.get('/api/events/upcoming?limit=50');
+      const { status, data, data: { eventList } } = await API.get('/api/events/upcoming?limit=50');
 
       if (status >= 400) {
         throw new Error(data);

@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 /**
   @param sortBy    (optional)   mostrecent (default), mostactive, alphabetic
@@ -27,7 +27,7 @@ export const getTopicList = ({
   sortBy,
   forumId,
 }) => (
-  axios.post('/api/forum/getTopicList', {
+  API.post('/api/forum/getTopicList', {
     cid,
     at,
     token,

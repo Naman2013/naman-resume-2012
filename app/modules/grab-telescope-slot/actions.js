@@ -1,6 +1,6 @@
 // todo remove me
 
-import axios from 'axios';
+import { API } from 'app/api';
 import { cancelMissionSlot } from '../missions-old';
 import { fetchDateRanges } from '../mission-slots-by-telescope/mission-slot-dates-actions';
 import { fetchReservationSuccess } from '../mission-slots-by-telescope/mission-slots-by-telescope-actions';
@@ -109,8 +109,8 @@ export const grabTelescopeSlot = ({
 }) => (dispatch, getState) => {
   const { at, cid, token } = getState().user;
 
-  return axios
-    .post('/api/reservation/grabTelescopeSlot', {
+  return API
+      .post('/api/reservation/grabTelescopeSlot', {
       at,
       cid,
       token,

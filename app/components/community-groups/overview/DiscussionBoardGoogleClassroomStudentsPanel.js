@@ -6,7 +6,7 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import axios from 'axios';
+import { API } from 'app/api';
 import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 import FormSectionHeader from 'app/components/common/form-sections/section-header';
 import Request from 'app/components/common/network/Request';
@@ -82,7 +82,7 @@ class DiscussionBoardGoogleClassroomStudentsPanel extends Component {
     }));
 
     //make an axios call out to create the student account or assign the existing student customer to this Google Classroom.
-    const googleClassroomImportStudentResult = axios
+    const googleClassroomImportStudentResult = API
       .post(GOOGLE_CLASSROOM_IMPORTSTUDENT_ENDPOINT_URL, {
         cid: user.cid,
         at: user.at,

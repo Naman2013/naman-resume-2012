@@ -1,5 +1,4 @@
 import {
-  ProfileActivity,
   ProfileGroups,
 } from 'app/components/profiles/private-profile';
 import ProfileQaContainer from 'app/components/profiles/private-profile/my-qa/ProfileQaContainer';
@@ -21,7 +20,6 @@ import ObjectDetailsShows from 'app/containers/object-details/ObjectDetailsShows
 import ObjectDetailsStories from 'app/containers/object-details/ObjectDetailsStories';
 import ObjectList from 'app/containers/object-post/ObjectList';
 import QuestComplete from 'app/containers/quest-complete';
-import QuestStep from 'app/containers/quest-step';
 import QuestsHub from 'app/containers/quests-hub';
 import Reservations from 'app/containers/Reservations';
 import ShowsHub from 'app/containers/shows-hub';
@@ -45,9 +43,15 @@ import {
   ProfileListsMain,
   ProfileMain,
   PublicProfileMain,
+  ProfileActivity,
 } from 'app/modules/profile';
 import ImagesLayout from 'app/modules/profile-photos/components/ImagesLayout';
 import { ProfilePhotos } from 'app/modules/profile-photos/components/profile-photos';
+import {
+  QuestCompleteLazy,
+  QuestDetailsLazy,
+  QuestStepLazy,
+} from 'app/modules/quests';
 import { TelescopeDetailsMain } from 'app/modules/telescope';
 import { TelescopeNavigation } from 'app/modules/telescope/components/old/telescope-navigation';
 import GroupCreate from 'app/pages/community-groups/GroupCreate';
@@ -68,7 +72,6 @@ import NewMissions from 'app/pages/new-missions';
 import ObjectDetails from 'app/pages/object-details/ObjectDetails';
 import ObjectPosts from 'app/pages/object-posts/ObjectPosts';
 import PlaceholderPage from 'app/pages/Placeholder';
-import Quest from 'app/pages/quest-details';
 import RedirectConfirmation from 'app/pages/redirect-confirmation/RedirectConfirmation';
 import Join from 'app/pages/registration/Join';
 import JoinByLandingPage from 'app/pages/registration/JoinByLandingPage';
@@ -90,9 +93,7 @@ import ReserveByTelescope from 'app/pages/reserve-by-telescope';
 import ReserveByCatalog from 'app/pages/reserve/reserve-by-catalog';
 import ReserveObjects from 'app/pages/reserve/reserve-by-objects';
 import Show from 'app/pages/show';
-// import { ConnectedTelescopeDetails } from 'app/modules/telescope/components/telescope-details';
 import DirectJoinUpgradeFlow from 'app/pages/registration/DirectJoinUpgradeFlow';
-
 import TelescopeOverview from 'app/pages/telescope-overview';
 import globalOnRouteUpdate from 'app/route-functions/globalOnRouteUpdate';
 import validateRegistrationPaths from 'app/route-functions/validateRegistrationPaths';
@@ -161,7 +162,10 @@ const getProfileRoutes = ({ publicProfile }) => (
       component={GroupImportGoogleClassrooms}
       onEnter={validateUser}
     />
-    <Route path="quests" component={ProfileQuests} />
+    <Route path="quests">
+      <IndexRedirect to="inprogress" />
+      <Route path=":viewType" component={ProfileQuests} />
+    </Route>
   </Fragment>
 );
 
@@ -445,7 +449,12 @@ const AppRouter = ({ setPreviousInstrument }) => (
 
       <Route
         path="quest-details/:questId"
-        component={Quest}
+        component={QuestDetailsLazy}
+        onEnter={validateUser}
+      />
+      <Route
+        path="/quest-completion/:questId/:questCompletionModuleId"
+        component={QuestCompleteLazy}
         onEnter={validateUser}
       />
       <Route
@@ -455,7 +464,7 @@ const AppRouter = ({ setPreviousInstrument }) => (
       />
       <Route
         path="quest-details/:questId/:step"
-        component={QuestStep}
+        component={QuestStepLazy}
         onEnter={validateUser}
       />
 
@@ -518,7 +527,6 @@ const AppRouter = ({ setPreviousInstrument }) => (
         onEnter={validateUser}
         component={CommunityGroupEdit}
       />
-
       <Route
         path="community-groups/:groupId/info"
         onEnter={validateUser}

@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { API } from 'app/api';
 
 export const SET_IMAGE_DATA_TO_SNAPSHOT = 'SET_IMAGE_DATA_TO_SNAPSHOT';
 export const SNAP_IMAGE_START = 'SNAP_IMAGE_START';
@@ -65,7 +65,7 @@ export const snapImage = (data = {}) => (dispatch, getState) => {
   dispatch(snapImageStart());
 
   if (callSource && imageURL && imageID) {
-    return axios
+    return API
       .post('/api/images/snapImage', {
         token,
         at,

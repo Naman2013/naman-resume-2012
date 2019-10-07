@@ -9,7 +9,7 @@ export default css`
     border: 2px white solid;
   }
 
-  :global(.magnifier-wrapper div[style="position: relative;"] > img) {
+  :global(.magnifier-wrapper .image > div > img) {
     max-width: 100%;
     max-height: 90vh;
     height: auto;
@@ -18,11 +18,8 @@ export default css`
     width: auto !important;
   }
 
-  :global(.magnifier-wrapper div[style="user-select: none; cursor: move;"] > div > img) {
+  :global(.magnifier-wrapper .image > div > div > img) {
     visibility: hidden;
-  }
-
-  :global(.magnifier-wrapper div[style="position: relative;"] > div > img) {
     min-width: 200%;
   }
 `;
