@@ -11,7 +11,6 @@ import SterlingTitle from 'app/components/common/titles/SterlingTitle';
 import GuidePanels from 'app/components/guides/GuidePanels';
 import { GUIDE_ENDPOINT_URL } from 'app/services/guides/guide-data';
 import { validateResponseAccess } from 'app/modules/authorization/actions';
-import messages from './SubjectGuides.messages';
 
 const subjectGuideModel = {
   name: 'SUBJECT_GUIDE_MODEL',

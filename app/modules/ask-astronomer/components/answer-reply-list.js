@@ -11,7 +11,7 @@ import {
 } from '../reducers/ask-astronomer-answer-discuss/actions';
 import styles from './answer-list.style';
 import AnswerReplyListItem from './answer-reply-list-item';
-import messages from './answer-reply-list.messages';
+
 
 const mapStateToProps = ({ astronomerAnswers, astronomerDiscuss, user }) => ({
   paginationCount: astronomerDiscuss.paginationCount,

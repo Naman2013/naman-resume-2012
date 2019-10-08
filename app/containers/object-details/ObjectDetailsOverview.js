@@ -7,7 +7,7 @@
 
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import {withTranslation} from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { browserHistory } from 'react-router';
@@ -32,7 +32,6 @@ import {
   fetchLikeAction,
 } from 'app/modules/object-details/actions';
 
-import messages from './ObjectDetails.messages';
 import style from './ObjectDetailsOverview.style';
 import ObjectRelatedTile from './ObjectRelatedTile';
 
@@ -379,8 +378,8 @@ class Overview extends Component {
           )}
 
           <SterlingTitle
-            title={t('.MVPAstronomers')}
-            subTitle={t('.MostActive', {
+            title={t('Objects.MVPAstronomers')}
+            subTitle={t('Objects.MostActive', {
               objectTitle: objectData.objectTitle,
             })}
           />
@@ -394,7 +393,9 @@ class Overview extends Component {
               </div>
             ) : (
               <p className="error-message">
-                {t('.NoSpecialists', { objectTitle: objectData.objectTitle })}
+                {t('Objects.NoSpecialists', {
+                  objectTitle: objectData.objectTitle,
+                })}
               </p>
             )}
           </CenterColumn>

@@ -102,7 +102,9 @@ class MyQa extends Component {
               showDropdown={
                 QA_TABS_DATA[params.filter].getDropdownOptions(t).length > 0
               }
-              dropdownOptions={QA_TABS_DATA[params.filter].getDropdownOptions(t)}
+              dropdownOptions={QA_TABS_DATA[params.filter].getDropdownOptions(
+                t
+              )}
               changeAnswerState={this.getAstronomerQuestions}
             />
           )}

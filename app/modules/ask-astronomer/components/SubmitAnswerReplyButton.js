@@ -16,7 +16,7 @@ import { withTranslation } from 'react-i18next';
 import FullpageForm from './Modals/FullpageForm';
 import SubmitReplyFeedbackModal from './Modals/SubmitReplyFeedbackModal';
 import SubmitReplyForm from './Modals/SubmitReplyForm';
-import messages from './SubmitAnswerButton.messages';
+
 
 const {
   arrayOf,
@@ -88,8 +88,8 @@ class SubmitReplyReplyButton extends Component {
           submitForm={this.submitForm}
           user={user}
           prepareCall={prepareReply}
-          submitButtonText={t('.Discuss')}
-          fieldPlaceholder={t('.ReplyPlaceholder')}
+          submitButtonText={t('AskAnAstronomer.Discuss')}
+          fieldPlaceholder={t('AskAnAstronomer.ReplyPlaceholder')}
         />
       ),
       promptStyles: modalStyleFullPage,
@@ -160,7 +160,7 @@ class SubmitReplyReplyButton extends Component {
 
     return (
       <div className="reply-form-container">
-        <Button text={t('.Reply')} onClickEvent={this.setCommentModal} />
+        <Button text={t('AskAnAstronomer.Reply')} onClickEvent={this.setCommentModal} />
       </div>
     );
   }

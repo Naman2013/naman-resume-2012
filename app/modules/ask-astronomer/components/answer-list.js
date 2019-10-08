@@ -14,7 +14,7 @@ import {
 } from '../reducers/ask-astronomer-answer-discuss/actions';
 
 import AnswerListItem from './answer-list-item';
-import messages from './answer-list.messages';
+
 import styles from './answer-list.style';
 
 const mapStateToProps = ({ astronomerAnswers, astronomerDiscuss, user }) => ({

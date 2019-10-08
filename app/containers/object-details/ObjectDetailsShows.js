@@ -23,7 +23,6 @@ import {
   fetchObjectDetailsAction,
   fetchObjectDataAction,
 } from 'app/modules/object-details/actions';
-import messages from './ObjectDetails.messages';
 
 const { number } = PropTypes;
 
@@ -84,7 +83,7 @@ class Shows extends Component {
         <DeviceProvider>
           <ObjectDetailsSectionTitle
             title={objectDetails.objectTitle + "'s"}
-            subTitle={t('.RelatedShows')}
+            subTitle={t('Objects.RelatedShows')}
           />
         </DeviceProvider>
         <CenterColumn widths={['645px', '965px', '965px']}>
@@ -111,7 +110,7 @@ class Shows extends Component {
                   ))
                 ) : (
                   <p>
-                    {t('.NoShows', { objectTitle: objectDetails.objectTitle })}
+                    {t('Objects.NoShows', { objectTitle: objectDetails.objectTitle })}
                   </p>
                 )}
               </div>

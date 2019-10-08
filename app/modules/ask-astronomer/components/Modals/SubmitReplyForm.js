@@ -18,7 +18,7 @@ import React, { PureComponent } from 'react';
 import { Button } from 'react-bootstrap';
 import { withTranslation } from 'react-i18next';
 import './styles.scss';
-import messages from './SubmitQuestionForm.messages';
+
 
 const { func, shape, string } = PropTypes;
 @withTranslation
@@ -225,7 +225,7 @@ class SubmitReplyForm extends PureComponent {
           className="field-input"
           value={answerText}
           onChange={this.onChangeAnswerText}
-          placeholder={t('.CommentPlaceholder')}
+          placeholder={t('AskAnAstronomer.CommentPlaceholder')}
         />
         <div className="buttons-wrapper d-flex justify-content-between">
           <div>
@@ -238,9 +238,9 @@ class SubmitReplyForm extends PureComponent {
           </div>
           <div>
             <Button onClick={this.closeModal} className="mr-3">
-              {t('.Cancel')}
+              {t('AskAnAstronomer.Cancel')}
             </Button>
-            <Button onClick={this.submitForm}>{t('.Submit')}</Button>
+            <Button onClick={this.submitForm}>{t('AskAnAstronomer.Submit')}</Button>
           </div>
         </div>
       </form>

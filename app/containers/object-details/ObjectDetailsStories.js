@@ -23,7 +23,6 @@ import {
   fetchObjectDetailsAction,
   fetchObjectDataAction,
 } from 'app/modules/object-details/actions';
-import messages from './ObjectDetails.messages';
 
 const mapStateToProps = ({
   objectDetails,
@@ -73,7 +72,7 @@ class Stories extends Component {
         <DeviceProvider>
           <ObjectDetailsSectionTitle
             title={`${objectDetails.objectTitle}'s`}
-            subTitle={t('.RelatedStories')}
+            subTitle={t('Objects.RelatedStories')}
           />
         </DeviceProvider>
         <CenterColumn widths={['645px', '965px', '965px']}>
@@ -99,7 +98,7 @@ class Stories extends Component {
                   ))
                 ) : (
                   <p>
-                    {t('.NoStories', {
+                    {t('Objects.NoStories', {
                       objectTitle: objectDetails.objectTitle,
                     })}
                   </p>

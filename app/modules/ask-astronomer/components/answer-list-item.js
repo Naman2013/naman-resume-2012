@@ -3,7 +3,7 @@ import SubmitAnswerReplyButton from 'app/modules/ask-astronomer/components/Submi
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { likeReply } from '../../../services/discussions/like';
-import messages from './answer-list-item.messages';
+
 import AnswerReplyList from './answer-reply-list';
 
 const AnswerListItem = props => {
@@ -44,7 +44,7 @@ const AnswerListItem = props => {
         likeHandler={likeReply}
         likeParams={likeParams}
         modalActions={modalActions}
-        commentText={t('.Replies')}
+        commentText={t('AskAnAstronomer.Replies')}
         showComments={showAllReplies}
         submitReply={submitReply}
         user={user}
@@ -56,7 +56,7 @@ const AnswerListItem = props => {
             replyTo={answer.replyId}
             submitForm={submitReply}
             modalActions={modalActions}
-            replyButtonText={t('.Reply')}
+            replyButtonText={t('AskAnAstronomer.Reply')}
             user={user}
             topicId={topicId}
             objectId={objectId}

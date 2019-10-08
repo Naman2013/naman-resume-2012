@@ -16,7 +16,6 @@ import {
   GUIDE_ENDPOINT_URL,
   GUIDE_OBJECTS_ENDPOINT_URL,
 } from 'app/services/guides/guide-data';
-import messages from './ObjectCategoryGuide.messages';
 
 const guidePageModel = {
   name: 'GUIDE_PAGE_MODEL',

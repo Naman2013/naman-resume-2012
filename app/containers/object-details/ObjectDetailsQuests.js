@@ -23,7 +23,6 @@ import {
   fetchObjectDetailsAction,
   fetchObjectQuestsAction,
 } from '../../modules/object-details/actions';
-import messages from './ObjectDetails.messages';
 import styles from './ObjectDetailsQuests.style';
 
 const mapStateToProps = ({ objectDetails, appConfig, user }) => ({
@@ -60,7 +59,7 @@ class Quests extends Component {
         <DeviceProvider>
           <ObjectDetailsSectionTitle
             title={`${objectDetails.objectTitle}'s`}
-            subTitle={t('.RelatedQuests')}
+            subTitle={t('Objects.RelatedQuests')}
           />
 
           <CenterColumn widths={['645px', '965px', '965px']}>

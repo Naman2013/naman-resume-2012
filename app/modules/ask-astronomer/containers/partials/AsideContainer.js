@@ -6,7 +6,7 @@ import AskQuestionTile from 'app/modules/ask-astronomer/components/AskQuestionTi
 import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
 import MVPAstronomerList from 'app/components/common/MVPAstronomer/MVPAstronomerList';
 import styles from '../AskAstronomer.style';
-import messages from './AsideContainer.messages';
+
 
 const AsideContainer = ({
   modalActions,

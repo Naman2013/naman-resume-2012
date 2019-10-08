@@ -17,7 +17,7 @@ import React, { PureComponent } from 'react';
 import { Button } from 'react-bootstrap';
 import { withTranslation } from 'react-i18next';
 import './styles.scss';
-import messages from './SubmitQuestionForm.messages';
+
 
 const {
   any,
@@ -228,9 +228,9 @@ class SubmitQuestionForm extends PureComponent {
           </div>
           <div>
             <Button onClick={this.cancel} className="mr-3">
-              {t('.Cancel')}
+              {t('AskAnAstronomer.Cancel')}
             </Button>
-            <Button onClick={this.submitForm}>{t('.Submit')}</Button>
+            <Button onClick={this.submitForm}>{t('AskAnAstronomer.Submit')}</Button>
           </div>
         </div>
       </form>

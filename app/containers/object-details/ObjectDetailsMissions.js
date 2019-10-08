@@ -40,7 +40,6 @@ import DeviceProvider from '../../../app/providers/DeviceProvider';
 import ObjectDetailsSectionTitle from '../../components/object-details/ObjectDetailsSectionTitle';
 import MissionTile from 'app/components/common/tiles/MissionTile';
 import CenterColumn from '../../../app/components/common/CenterColumn';
-import messages from './ObjectDetails.messages';
 import './ObjectDetailsMissions.scss';
 
 const mapStateToProps = createStructuredSelector({
@@ -141,7 +140,7 @@ class Missions extends Component {
         <DeviceProvider>
           <ObjectDetailsSectionTitle
             title={`${objectDetails.objectTitle}'s`}
-            subTitle={t('.UpcomingMissions')}
+            subTitle={t('Objects.UpcomingMissions')}
             renderNav={() => (
               <div className="object-details-missions-actions">
                 {missionListExpired && (

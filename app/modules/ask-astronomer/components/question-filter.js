@@ -4,7 +4,7 @@ import findIndex from 'lodash/findIndex';
 import {withTranslation} from 'react-i18next';
 import DropDown from 'app/components/common/DropDown';
 import styles from './question-filter.style';
-import messages from './question-filter.messages';
+
 
 const { func, shape } = PropTypes;
 

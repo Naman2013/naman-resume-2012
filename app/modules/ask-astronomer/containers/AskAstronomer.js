@@ -30,7 +30,7 @@ import React, { Component } from 'react';
 import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import messages from './AskAstronomer.messages';
+
 import style from './AskAstronomer.style';
 import AsideContainer from './partials/AsideContainer';
 import MainContainer from './partials/MainContainer';
@@ -260,9 +260,9 @@ class AskAstronomer extends Component {
                   <ResponsiveTwoColumnContainer
                     renderNavigationComponent={navProps => (
                       <TwoTabbedNav
-                        firstTitle={t('.Questions')}
+                        firstTitle={t('AskAnAstronomer.Questions')}
                         secondTitle={
-                          context.isMobile ? t('.AskNow') : t('.MVPAstronomers')
+                          context.isMobile ? t('AskAnAstronomer.AskNow') : t('AskAnAstronomer.MVPAstronomers')
                         }
                         firstTabIsActive={navProps.showMainContainer}
                         firstTabOnClick={navProps.onShowMainContainer}

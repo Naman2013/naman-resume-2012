@@ -39,7 +39,6 @@ import {
 } from '../../modules/object-details/selectors';
 import { makeUserSelector } from '../../modules/user/selectors';
 
-import messages from './ObjectDetails.messages';
 import styles from './ObjectDetailsObservations.style';
 
 const mapStateToProps = createStructuredSelector({
@@ -155,7 +154,7 @@ class Observations extends Component {
 
         <ObjectDetailsSectionTitle
           title={`${objectDetails.objectTitle}'s`}
-          subTitle={t('.Observations')}
+          subTitle={t('Objects.Observations')}
           renderNav={() => (
             <div
               className="nav-actions"
@@ -239,7 +238,7 @@ class Observations extends Component {
 
         {!imageCount && !isFetching && (
           <p>
-            {t('.NoObservations', { objectTitle: objectDetails.objectTitle })}
+            {t('Objects.NoObservations', { objectTitle: objectDetails.objectTitle })}
           </p>
         )}
 

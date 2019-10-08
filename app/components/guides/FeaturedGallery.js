@@ -4,7 +4,6 @@ import { DeviceContext } from 'app/providers/DeviceProvider';
 import SterlingTitle from 'app/components/common/titles/SterlingTitle';
 import RecommendedObservations from 'app/components/common/RecommendedObservationsSlider';
 import style from './FeaturedGallery.style';
-import messages from './FeaturedGallery.messages';
 
 const titleTheme = {};
 const titleThemeMedium = {
@@ -21,8 +20,8 @@ const FeaturedGallery = props => {
         {context => (
           <Fragment>
             <SterlingTitle
-              title={t('.FeaturedTitle')}
-              subTitle={t('.FeaturedSubtitle')}
+              title={t('Guides.FeaturedTitle')}
+              subTitle={t('Guides.FeaturedSubtitle')}
               theme={context.isScreenMedium ? titleThemeMedium : titleTheme}
             />
             <div className="i-wrapper">
