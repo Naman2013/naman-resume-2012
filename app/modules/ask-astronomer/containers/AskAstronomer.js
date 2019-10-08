@@ -314,4 +314,4 @@ class AskAstronomer extends Component {
   }
 }
 
-export default injectIntl(AskAstronomer);
+export default AskAstronomer;

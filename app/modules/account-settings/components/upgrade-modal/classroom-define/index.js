@@ -659,6 +659,6 @@ const ClassroomDefineSchoolSelection = connect(state => {
     'schoolCountry'
   );
   return { zipCode, isNewSchool, district, schoolCountry };
-})(injectIntl(ClassroomDefineSchoolSelectionForm));
+})(ClassroomDefineSchoolSelectionForm);
 
 export default ClassroomDefineSchoolSelection;

@@ -396,6 +396,6 @@ export default connect(
   null
 )(
   reduxForm({ form: 'resetPasswordForm', enableReinitialize: true })(
-    injectIntl(ResetPassword)
+    ResetPassword
   )
 );

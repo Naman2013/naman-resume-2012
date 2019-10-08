@@ -294,4 +294,4 @@ class SingleFieldSubmitForm extends Component {
   }
 }
 
-export default injectIntl(SingleFieldSubmitForm);
+export default SingleFieldSubmitForm;

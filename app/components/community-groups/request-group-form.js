@@ -121,4 +121,4 @@ class RequestGroupForm extends Component {
   }
 }
 
-export default injectIntl(RequestGroupForm);
+export default RequestGroupForm;

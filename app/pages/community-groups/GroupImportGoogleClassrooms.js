@@ -440,6 +440,6 @@ export default connect(
   mapDispatchToProps
 )(
   reduxForm({ form: 'importGoogleClassroomsForm', enableReinitialize: true })(
-    injectIntl(GroupImportGoogleClassrooms)
+    GroupImportGoogleClassrooms
   )
 );

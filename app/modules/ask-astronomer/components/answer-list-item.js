@@ -107,4 +107,4 @@ AnswerListItem.defaultProps = {
   isTopAnswer: false,
 };
 
-export default injectIntl(AnswerListItem);
+export default AnswerListItem;

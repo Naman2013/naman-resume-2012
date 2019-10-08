@@ -43,4 +43,4 @@ RequestGroupFormFeedback.propTypes = {
   intl: intlShape.isRequired,
 };
 
-export default injectIntl(RequestGroupFormFeedback);
+export default RequestGroupFormFeedback;

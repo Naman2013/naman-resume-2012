@@ -126,4 +126,4 @@ BootstrappedStoryDetails.defaultProps = {
   authorInfo: {},
 };
 
-export default injectIntl(BootstrappedStoryDetails);
+export default BootstrappedStoryDetails;

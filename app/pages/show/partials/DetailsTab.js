@@ -105,4 +105,4 @@ class DetailsTab extends Component {
   }
 }
 
-export default injectIntl(DetailsTab);
+export default DetailsTab;

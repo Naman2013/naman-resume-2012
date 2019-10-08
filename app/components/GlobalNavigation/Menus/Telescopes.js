@@ -103,4 +103,4 @@ Telescopes.propTypes = {
   intl: intlShape.isRequired,
 };
 
-export default injectIntl(Telescopes);
+export default Telescopes;

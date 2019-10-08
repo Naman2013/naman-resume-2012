@@ -173,4 +173,4 @@ class LiveShow extends Component {
   }
 }
 
-export default injectIntl(LiveShow);
+export default LiveShow;

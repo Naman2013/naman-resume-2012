@@ -289,4 +289,4 @@ const mapDispatchToProps = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(injectIntl(BootstrappedDashboard));
+)(BootstrappedDashboard);

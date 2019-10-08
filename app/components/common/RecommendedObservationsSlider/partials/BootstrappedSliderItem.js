@@ -161,4 +161,4 @@ BootstrappedObservationSliderItem.propTypes = {
   showLikePrompt: PropTypes.bool.isRequired,
 };
 
-export default injectIntl(BootstrappedObservationSliderItem);
+export default BootstrappedObservationSliderItem;

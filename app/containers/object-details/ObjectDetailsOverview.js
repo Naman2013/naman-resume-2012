@@ -422,4 +422,4 @@ Overview.propTypes = {
   intl: intlShape.isRequired,
 };
 
-export default injectIntl(Overview);
+export default Overview;

@@ -219,4 +219,4 @@ PartnershipOpportunitiesSection.propTypes = {
 
 PartnershipOpportunitiesSection.defaultProps = {};
 
-export default injectIntl(PartnershipOpportunitiesSection);
+export default PartnershipOpportunitiesSection;

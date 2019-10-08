@@ -116,4 +116,4 @@ Quests.propTypes = {
   intl: intlShape.isRequired,
 };
 
-export default injectIntl(Quests);
+export default Quests;

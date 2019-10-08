@@ -207,4 +207,4 @@ class UpcomingShow extends Component {
   }
 }
 
-export default injectIntl(UpcomingShow);
+export default UpcomingShow;

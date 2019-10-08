@@ -95,4 +95,4 @@ StepListItem.propTypes = {
 
 StepListItem.defaultProps = {};
 
-export default injectIntl(StepListItem);
+export default StepListItem;

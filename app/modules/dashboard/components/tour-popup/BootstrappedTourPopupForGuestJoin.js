@@ -80,4 +80,4 @@ class BootstrappedTourPopupForGuestJoin extends Component {
   }
 }
 
-export default injectIntl(BootstrappedTourPopupForGuestJoin);
+export default BootstrappedTourPopupForGuestJoin;

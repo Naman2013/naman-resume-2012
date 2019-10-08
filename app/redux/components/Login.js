@@ -419,5 +419,5 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(
-  reduxForm({ form: 'loginForm', validate: loginValidation })(injectIntl(Login))
+  reduxForm({ form: 'loginForm', validate: loginValidation })(Login)
 );

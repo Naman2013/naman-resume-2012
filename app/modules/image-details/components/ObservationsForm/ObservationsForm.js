@@ -152,4 +152,4 @@ class ObservationsForm extends Component {
   }
 }
 
-export default injectIntl(ObservationsForm);
+export default ObservationsForm;

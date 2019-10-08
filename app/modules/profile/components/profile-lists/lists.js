@@ -217,4 +217,4 @@ class Lists extends Component {
   }
 }
 
-export default withRouter(injectIntl(Lists));
+export default withRouter(Lists);

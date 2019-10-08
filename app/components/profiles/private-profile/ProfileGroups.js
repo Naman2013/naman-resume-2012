@@ -173,4 +173,4 @@ class ProfileGroups extends Component {
   }
 }
 
-export default injectIntl(ProfileGroups);
+export default ProfileGroups;

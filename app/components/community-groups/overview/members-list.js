@@ -141,4 +141,4 @@ class GroupMemberList extends Component {
   }
 }
 
-export default injectIntl(GroupMemberList);
+export default GroupMemberList;

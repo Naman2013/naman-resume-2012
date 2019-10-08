@@ -79,4 +79,4 @@ class FullActivityForm extends Component {
   }
 }
 
-export default injectIntl(FullActivityForm);
+export default FullActivityForm;

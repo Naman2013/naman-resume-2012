@@ -7,7 +7,6 @@ import { GuidePromoTile } from '../../../common/tiles/GuidePromoTile';
 import { InfoTile } from '../../../common/tiles/InfoTile';
 
 import style from './my-qa.style';
-import messages from './my-qa.messages';
 
 const { shape, func, number } = PropTypes;
 
@@ -15,16 +14,16 @@ const QA_TABS_DATA = {
   asked: {
     countText: (count, t, isPublic) =>
       isPublic
-        ? t('.AskedQuestions', { count })
-        : t('.YourAskedQuestions', { count }),
+        ? t('Profile.AskedQuestions', { count })
+        : t('Profile.YourAskedQuestions', { count }),
     getDropdownOptions: t => [
       {
-        label: t('.AllQuestions'), // todo hardcode text here
+        label: t('Profile.AllQuestions'), // todo hardcode text here
         value: 'asked',
       },
-      { label: t('.Answered'), value: 'answered' }, // todo hardcode text here
+      { label: t('Profile.Answered'), value: 'answered' }, // todo hardcode text here
       {
-        label: t('.Unanswered'), // todo hardcode text here
+        label: t('Profile.Unanswered'), // todo hardcode text here
         value: 'unanswered',
       },
     ],
@@ -32,19 +31,19 @@ const QA_TABS_DATA = {
   answeredbyme: {
     countText: (count, t, isPublic) =>
       isPublic
-        ? t('.AnsweredQuestions', { count })
-        : t('.YourAnsweredQuestions', { count }),
+        ? t('Profile.AnsweredQuestions', { count })
+        : t('Profile.YourAnsweredQuestions', { count }),
     getDropdownOptions: t => [],
   },
   allunanswered: {
-    countText: (count, t) => t('.QuestionsToAnswers'),
+    countText: (count, t) => t('Profile.QuestionsToAnswers'),
     getDropdownOptions: t => [
       {
-        label: t('.AllUnanswered'), // todo hardcode text here
+        label: t('Profile.AllUnanswered'), // todo hardcode text here
         value: 'allunanswered',
       },
       {
-        label: t('.ByMySpecialities'), // todo hardcode text here
+        label: t('Profile.ByMySpecialities'), // todo hardcode text here
         value: 'specialist',
       },
     ],
@@ -83,9 +82,9 @@ class MyQa extends Component {
         <div className="main-block">
           {totalCount === 0 && params.filter === 'asked' && !params.public ? (
             <InfoTile
-              //subject={t('.InfoTileSubject')}
-              title={t('.InfoTileSubject')}
-              // title={t('.InfoTileTitle')}
+              //subject={t('Profile.InfoTileSubject')}
+              title={t('Profile.InfoTileSubject')}
+              // title={t('Profile.InfoTileTitle')}
               // text="Text placeholder"
             />
           ) : (
@@ -110,9 +109,9 @@ class MyQa extends Component {
         </div>
         <DisplayAtBreakpoint screenLarge screenXLarge>
           <GuidePromoTile
-            title={t('.AskAnAstronomer')}
+            title={t('Profile.AskAnAstronomer')}
             icon="https://vega.slooh.com/assets/v4/common/membership/astronomer_member.png"
-            buttonText={t('.ViewGuide')}
+            buttonText={t('Profile.ViewGuide')}
             guideURL="/guides/topic/227"
           />
         </DisplayAtBreakpoint>
@@ -122,4 +121,4 @@ class MyQa extends Component {
   }
 }
 
-export default injectIntl(MyQa);
+export default MyQa;

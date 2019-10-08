@@ -359,4 +359,4 @@ class CreateStoryForm extends Component {
   }
 }
 
-export default injectIntl(CreateStoryForm);
+export default CreateStoryForm;

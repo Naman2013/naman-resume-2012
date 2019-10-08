@@ -219,4 +219,4 @@ class FullInformationOverview extends Component {
   }
 }
 
-export default injectIntl(FullInformationOverview);
+export default FullInformationOverview;

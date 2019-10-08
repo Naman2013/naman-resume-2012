@@ -140,4 +140,4 @@ class ReplyForm extends Component {
   }
 }
 
-export default injectIntl(ReplyForm);
+export default ReplyForm;

@@ -396,4 +396,4 @@ class RevealSubmitForm extends Component {
   }
 }
 
-export default injectIntl(RevealSubmitForm);
+export default RevealSubmitForm;

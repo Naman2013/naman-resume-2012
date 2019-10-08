@@ -162,4 +162,4 @@ CardObsLarge.propTypes = {
   handleLike: PropTypes.func.isRequired,
 };
 
-export default injectIntl(CardObsLarge);
+export default CardObsLarge;

@@ -176,4 +176,4 @@ const mapStateToProps = ({ user }) => ({
 export default connect(
   mapStateToProps,
   null
-)(injectIntl(MembershipPlanDetailsStep));
+)(MembershipPlanDetailsStep);

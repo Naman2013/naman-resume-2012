@@ -111,4 +111,4 @@ class AsideContainerWithTabs extends Component {
   }
 }
 
-export default injectIntl(AsideContainerWithTabs);
+export default AsideContainerWithTabs;

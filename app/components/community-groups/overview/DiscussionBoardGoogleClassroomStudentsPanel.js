@@ -307,4 +307,4 @@ class DiscussionBoardGoogleClassroomStudentsPanel extends Component {
   }
 }
 
-export default injectIntl(DiscussionBoardGoogleClassroomStudentsPanel);
+export default DiscussionBoardGoogleClassroomStudentsPanel;

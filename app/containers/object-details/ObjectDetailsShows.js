@@ -135,4 +135,4 @@ Shows.propTypes = {
   intl: intlShape.isRequired,
 };
 
-export default injectIntl(Shows);
+export default Shows;

@@ -436,6 +436,6 @@ export default connect(
   mapDispatchToProps
 )(
   reduxForm({ form: 'newGroupAccountForm', enableReinitialize: true })(
-    injectIntl(GroupCreate)
+    GroupCreate
   )
 );

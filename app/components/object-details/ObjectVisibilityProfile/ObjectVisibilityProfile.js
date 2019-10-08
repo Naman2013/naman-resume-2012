@@ -217,4 +217,4 @@ ObjectVisibilityProfile.propTypes = {
   defaultObsId: PropTypes.string.isRequired,
 };
 
-export default injectIntl(ObjectVisibilityProfile);
+export default ObjectVisibilityProfile;

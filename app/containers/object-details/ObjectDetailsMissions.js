@@ -202,4 +202,4 @@ Missions.propTypes = {
   intl: intlShape.isRequired,
 };
 
-export default injectIntl(Missions);
+export default Missions;

@@ -150,4 +150,4 @@ CardObsSmall.propTypes = {
   showLikePrompt: PropTypes.bool.isRequired,
 };
 
-export default injectIntl(CardObsSmall);
+export default CardObsSmall;

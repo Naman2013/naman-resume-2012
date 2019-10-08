@@ -34,4 +34,4 @@ PromptWithClose.propTypes = {
   promptText: string.isRequired,
 };
 
-export default injectIntl(PromptWithClose);
+export default PromptWithClose;

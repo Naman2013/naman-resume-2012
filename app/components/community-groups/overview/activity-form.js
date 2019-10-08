@@ -129,4 +129,4 @@ class ActivityForm extends Component {
   }
 }
 
-export default injectIntl(ActivityForm);
+export default ActivityForm;

@@ -190,6 +190,6 @@ export default connect(
   null
 )(
   reduxForm({ form: 'editGroupDescriptionForm', enableReinitialize: true })(
-    injectIntl(DiscussionBoardDescription)
+    DiscussionBoardDescription
   )
 );

@@ -131,4 +131,4 @@ class BootstrappedTourPopupForUser extends Component {
   }
 }
 
-export default injectIntl(BootstrappedTourPopupForUser);
+export default BootstrappedTourPopupForUser;

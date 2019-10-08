@@ -202,4 +202,4 @@ class RecentShow extends Component {
   }
 }
 
-export default injectIntl(RecentShow);
+export default RecentShow;

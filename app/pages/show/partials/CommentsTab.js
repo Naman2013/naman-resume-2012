@@ -82,4 +82,4 @@ class CommentsTab extends Component {
   }
 }
 
-export default injectIntl(CommentsTab);
+export default CommentsTab;

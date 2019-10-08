@@ -178,4 +178,4 @@ class SubmitAnswerButton extends Component {
   }
 }
 
-export default injectIntl(SubmitAnswerButton);
+export default SubmitAnswerButton;

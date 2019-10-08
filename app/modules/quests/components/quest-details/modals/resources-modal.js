@@ -37,4 +37,4 @@ ResourcesModal.defaultProps = {
   closeModal: noop,
 };
 
-export default injectIntl(ResourcesModal);
+export default ResourcesModal;

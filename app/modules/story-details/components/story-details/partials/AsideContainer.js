@@ -95,4 +95,4 @@ AsideContainer.propTypes = {
 AsideContainer.defaultProps = {
   isDesktop: true,
 };
-export default injectIntl(AsideContainer);
+export default AsideContainer;

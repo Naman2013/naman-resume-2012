@@ -69,4 +69,4 @@ class BestTelescope extends Component {
   }
 }
 
-export default injectIntl(BestTelescope);
+export default BestTelescope;

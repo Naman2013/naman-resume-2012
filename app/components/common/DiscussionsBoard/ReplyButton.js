@@ -138,4 +138,4 @@ class ReplyButton extends Component {
   }
 }
 
-export default injectIntl(ReplyButton);
+export default ReplyButton;

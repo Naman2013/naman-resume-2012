@@ -82,4 +82,4 @@ RecommendedObjectsItem.propTypes = {
   intl: shape({}).isRequired,
 };
 
-export default injectIntl(RecommendedObjectsItem);
+export default RecommendedObjectsItem;

@@ -123,4 +123,4 @@ Stories.propTypes = {
   intl: intlShape.isRequired,
 };
 
-export default injectIntl(Stories);
+export default Stories;

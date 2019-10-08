@@ -245,4 +245,4 @@ class RelatedObject extends Component {
   }
 }
 
-export default injectIntl(RelatedObject);
+export default RelatedObject;

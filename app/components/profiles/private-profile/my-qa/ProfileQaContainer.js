@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {withTranslation} from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 
 import QaContainer from '../../../../modules/ask-astronomer/containers/QaContainer';
@@ -8,14 +8,11 @@ import { ContainerWithTitle } from '../../../common/ContainerWithTitle';
 import CenterColumn from '../../../common/CenterColumn/CenterColumn';
 import MyQa from './my-qa';
 
-import messages from './ProfileQaContainer.messages';
-
 const { shape } = PropTypes;
 @withTranslation
 class ProfileQaContainer extends Component {
   static propTypes = {
     params: shape({}).isRequired,
-    intl: intlShape.isRequired,
   };
 
   getPublicNavItems = customerUUID => [
@@ -31,16 +28,16 @@ class ProfileQaContainer extends Component {
 
   getPrivateNavItems = (t, canAnswerQuestions) => [
     {
-      title: t('.MyQuestions'),
+      title: t('Profile.MyQuestions'),
       linkURL: '/profile/private/qa/asked',
     },
     {
-      title: t('.MyAnswers'),
+      title: t('Profile.MyAnswers'),
       linkURL: '/profile/private/qa/answeredbyme',
       disabled: !canAnswerQuestions,
     },
     {
-      title: t('.QuestionsToAnswer'),
+      title: t('Profile.QuestionsToAnswer'),
       linkURL: '/profile/private/qa/allunanswered',
       disabled: !canAnswerQuestions,
     },
@@ -63,7 +60,7 @@ class ProfileQaContainer extends Component {
     return (
       <CenterColumn>
         <ContainerWithTitle
-          title={t('.QaSectionTitle')}
+          title={t('Profile.QaSectionTitle')}
           activeFilter={params.filter}
           navItems={
             params.private
@@ -91,4 +88,4 @@ const mapDispatchToProps = () => ({});
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(injectIntl(ProfileQaContainer));
+)(ProfileQaContainer);

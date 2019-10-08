@@ -305,5 +305,5 @@ export default connect(
     form: 'updateAccountForm',
     validate: joinStep2Validation,
     enableReinitialize: true,
-  })(injectIntl(AstronomyClubDefineClubGeneral))
+  })(AstronomyClubDefineClubGeneral)
 );

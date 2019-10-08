@@ -240,4 +240,4 @@ class SubmitAnswerForm extends PureComponent {
   }
 }
 
-export default injectIntl(SubmitAnswerForm);
+export default SubmitAnswerForm;

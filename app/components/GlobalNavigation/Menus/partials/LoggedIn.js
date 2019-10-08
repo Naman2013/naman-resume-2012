@@ -108,4 +108,4 @@ LoggedIn.propTypes = {
 
 LoggedIn.defaultProps = {};
 
-export default injectIntl(LoggedIn);
+export default LoggedIn;

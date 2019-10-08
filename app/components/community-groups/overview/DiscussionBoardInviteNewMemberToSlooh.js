@@ -271,5 +271,5 @@ export default connect(
   reduxForm({
     form: 'discussionBoardInviteNewMemberToSloohForm',
     enableReinitialize: true,
-  })(injectIntl(DiscussionBoardInviteNewMemberToSlooh))
+  })(DiscussionBoardInviteNewMemberToSlooh)
 );

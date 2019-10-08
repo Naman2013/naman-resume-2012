@@ -306,4 +306,4 @@ class DiscussionBoardInvitationsPanel extends Component {
   }
 }
 
-export default injectIntl(DiscussionBoardInvitationsPanel);
+export default DiscussionBoardInvitationsPanel;

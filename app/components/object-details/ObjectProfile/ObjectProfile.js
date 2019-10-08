@@ -139,4 +139,4 @@ ObjectProfile.propTypes = {
   }).isRequired,
 };
 
-export default injectIntl(ObjectProfile);
+export default ObjectProfile;

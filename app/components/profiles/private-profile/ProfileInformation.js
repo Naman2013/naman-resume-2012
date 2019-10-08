@@ -277,4 +277,4 @@ class ProfileInformation extends Component {
   }
 }
 
-export default injectIntl(ProfileInformation);
+export default ProfileInformation;

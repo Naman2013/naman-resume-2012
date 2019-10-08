@@ -67,4 +67,4 @@ class SmallActivityForm extends Component {
   }
 }
 
-export default injectIntl(SmallActivityForm);
+export default SmallActivityForm;

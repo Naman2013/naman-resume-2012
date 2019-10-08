@@ -260,4 +260,4 @@ Observations.propTypes = {
   intl: intlShape.isRequired,
 };
 
-export default injectIntl(Observations);
+export default Observations;

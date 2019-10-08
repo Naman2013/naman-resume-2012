@@ -248,4 +248,4 @@ class SubmitReplyForm extends PureComponent {
   }
 }
 
-export default injectIntl(SubmitReplyForm);
+export default SubmitReplyForm;
