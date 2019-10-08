@@ -8,7 +8,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withTranslation } from 'react-i18next';
 import RevealSubmitForm from 'app/components/common/RevealSubmitForm';
-import messages from './activity-form.messages';
 
 const { bool, number, string } = PropTypes;
 @withTranslation
@@ -45,15 +44,15 @@ class SmallActivityForm extends Component {
       })
       .then(data => {
         const message = data.apiError
-          ? t('.SubmitPostError')
-          : t('.PostSubmitted');
+          ? t('Clubs.SubmitPostError')
+          : t('Clubs.PostSubmitted');
         callback(data.apiError, message);
       });
   };
 
   render() {
     const { placeholder, t, isClub } = this.props;
-    const formPlaceholder = placeholder || `${t('.WriteSomething')}...`;
+    const formPlaceholder = placeholder || `${t('Clubs.WriteSomething')}...`;
 
     return (
       <div className="root">

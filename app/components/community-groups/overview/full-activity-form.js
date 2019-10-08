@@ -10,7 +10,6 @@ import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import FormHeader from 'app/components/common/FormHeader';
 import SingleFieldSubmitForm from 'app/components/common/SingleFieldSubmitForm';
-import messages from './activity-form.messages';
 
 const { bool, number, string } = PropTypes;
 @withTranslation
@@ -47,8 +46,8 @@ class FullActivityForm extends Component {
       })
       .then(data => {
         const message = data.apiError
-          ? t('.SubmitPostError')
-          : t('.PostSubmitted');
+          ? t('Clubs.SubmitPostError')
+          : t('Clubs.PostSubmitted');
         callback(data.apiError, message);
       });
   };
@@ -56,7 +55,7 @@ class FullActivityForm extends Component {
   render() {
     const { user, t, placeholder, toggleInfo, showInfo } = this.props;
 
-    const formPlaceholder = placeholder || `${t('.WriteSomething')}...`;
+    const formPlaceholder = placeholder || `${t('Clubs.WriteSomething')}...`;
 
     return (
       <div className="form-container">

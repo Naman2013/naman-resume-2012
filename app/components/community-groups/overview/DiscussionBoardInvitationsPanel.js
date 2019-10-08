@@ -28,7 +28,6 @@ import _get from 'lodash/get';
 import { screenLarge } from 'app/styles/variables/breakpoints';
 import { astronaut } from '../../../styles/variables/colors_tiles_v4';
 import style from './DiscussionBoardInvitationsPanel.style';
-import messages from './DiscussionBoard.messages';
 import { faintShadow } from '../../../styles/variables/shadows';
 
 const { arrayOf, bool, func, number, shape, string } = PropTypes;
@@ -141,7 +140,7 @@ class DiscussionBoardInvitationsPanel extends Component {
               <Fragment>
                 {fetchingContent && (
                   <div>
-                    <h3>{t('.LoadingClubInvitations')}</h3>
+                    <h3>{t('Clubs.LoadingClubInvitations')}</h3>
                     <br />
                   </div>
                 )}
@@ -184,7 +183,7 @@ class DiscussionBoardInvitationsPanel extends Component {
                       <div className="button-cancel">
                         <Button
                           type="button"
-                          text={t('.Cancel')}
+                          text={t('Clubs.Cancel')}
                           onClickEvent={this.toggleInviteMode}
                         />
                         <br />
@@ -265,7 +264,7 @@ class DiscussionBoardInvitationsPanel extends Component {
                             )
                           )
                         ) : (
-                          <p>{t('.NoInvitations')}</p>
+                          <p>{t('Clubs.NoInvitations')}</p>
                         )}
                       </Row>
                     </Container>

@@ -18,7 +18,6 @@ import MembersCardList from './members-list-card-list';
 import MemberListCard from './members-list-card';
 import { profPic } from '../styles';
 import styles from './members-list.style';
-import messages from './members-list.messages';
 
 const { arrayOf, bool, func, number, shape, string } = PropTypes;
 @withTranslation
@@ -103,7 +102,7 @@ class GroupMemberList extends Component {
     return (
       <div className="members-list" style={theme}>
         <BlueLineDrop
-          title={t('.GroupMembers', { membersCount })}
+          title={t('Clubs.GroupMembers', { membersCount })}
           isDesktop={isDesktop}
           render={() => (
             <div className="members-container">
@@ -127,7 +126,7 @@ class GroupMemberList extends Component {
                     totalCount={members.length}
                     page={page}
                     idField="customerId"
-                    buttonText={[t('.MoreMember'), t('.MoreMembers')]}
+                    buttonText={[t('Clubs.MoreMember'), t('Clubs.MoreMembers')]}
                   />
                 )}
                 {renderToggle ? renderToggle() : null}

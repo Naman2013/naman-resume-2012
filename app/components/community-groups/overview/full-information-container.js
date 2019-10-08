@@ -23,7 +23,6 @@ import MembersList from './members-list';
 import { TopThreads } from '../../../modules/clubs';
 import { createActivity } from '../../../modules/community-group-activity-list/actions';
 import { astronaut } from '../../../styles/variables/colors_tiles_v4';
-import messages from './activity-form.messages';
 
 const { arrayOf, bool, func, number, shape, string } = PropTypes;
 const mapStateToProps = ({ communityGroupOverview, user }) => ({
@@ -151,8 +150,8 @@ class FullInformationOverview extends Component {
           <ResponsiveTwoColumnContainer
             renderNavigationComponent={navProps => (
               <TwoTabbedNav
-                firstTitle={t('.NavTitle')}
-                secondTitle={t('.NavSecondTitle')}
+                firstTitle={t('Clubs.NavTitle')}
+                secondTitle={t('Clubs.NavSecondTitle')}
                 firstTabIsActive={navProps.showMainContainer}
                 firstTabOnClick={navProps.onShowMainContainer}
                 secondTabIsActive={navProps.showAsideContainer}
@@ -186,7 +185,7 @@ class FullInformationOverview extends Component {
               pageMeta.canSeeGroupContent === true && (
                 <div className="discuss-container">
                   <DiscussionsBoard
-                    errorMessage={t('.FetchingListError')}
+                    errorMessage={t('Clubs.FetchingListError')}
                     topicId={pageMeta.topicId}
                     forumId={pageMeta.forumId}
                     callSource="groups"

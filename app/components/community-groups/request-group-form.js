@@ -10,7 +10,6 @@ import PropTypes from 'prop-types';
 import { withTranslation } from 'react-i18next';
 import Button from 'app/components/common/style/buttons/Button';
 import styles from './request-group-form.style';
-import messages from './request-group-from.messages';
 
 const { func } = PropTypes;
 
@@ -76,7 +75,7 @@ class RequestGroupForm extends Component {
 
     return (
       <form className="root">
-        <div className="title">{t('.RequestGroup')}</div>
+        <div className="title">{t('Clubs.RequestGroup')}</div>
         <div className="input-container">
           <input
             name="title"
@@ -84,7 +83,7 @@ class RequestGroupForm extends Component {
             type="text"
             id="group-title"
             value={requestFormTitle}
-            placeholder={t('.GroupTitle')}
+            placeholder={t('Clubs.GroupTitle')}
             onChange={this.changeFormTitle}
           />
         </div>
@@ -93,7 +92,7 @@ class RequestGroupForm extends Component {
             className="field-input"
             value={requestFormText}
             onChange={this.onChangeRequestForm}
-            placeholder={t('.GroupDescription')}
+            placeholder={t('Clubs.GroupDescription')}
           />
         </div>
         <div className="button-container">
@@ -101,19 +100,19 @@ class RequestGroupForm extends Component {
             <Button
               onClickEvent={this.changeFormPrivacy}
               data-privacy="public"
-              text={t('.PublicGroup')}
+              text={t('Clubs.PublicGroup')}
               isActive={requestFormPrivacy === 'public'}
             />
             <Button
               onClickEvent={this.changeFormPrivacy}
               data-privacy="private"
-              text={t('.PrivateGroup')}
+              text={t('Clubs.PrivateGroup')}
               isActive={requestFormPrivacy === 'private'}
             />
           </div>
           <div className="actions">
-            <Button onClickEvent={closeForm} text={t('.Cancel')} />
-            <Button onClickEvent={this.submitRequestForm} text={t('.Submit')} />
+            <Button onClickEvent={closeForm} text={t('Clubs.Cancel')} />
+            <Button onClickEvent={this.submitRequestForm} text={t('Clubs.Submit')} />
           </div>
         </div>
         <style jsx>{styles}</style>

@@ -17,7 +17,6 @@ import {
 import { secondaryFont } from 'app/styles/variables/fonts';
 import { dropShadowContainer } from 'app/styles/mixins/utilities';
 import { screenLarge, screenMedium } from 'app/styles/variables/breakpoints';
-import messages from './activity-form.messages';
 
 const { bool, number, shape, string } = PropTypes;
 
@@ -83,7 +82,7 @@ class ActivityForm extends Component {
 
     const { uuid, showInfo } = this.state;
 
-    const formPlaceholder = placeholder || `${t('.WriteSomething')}...`;
+    const formPlaceholder = placeholder || `${t('Clubs.WriteSomething')}...`;
 
     return (
       <div className="root">

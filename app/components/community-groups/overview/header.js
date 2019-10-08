@@ -24,7 +24,6 @@ import { screenMedium, screenLarge } from 'app/styles/variables/breakpoints';
 import { dropShadowContainer } from 'app/styles/mixins/utilities';
 import DiscussionBoardDescription from 'app/components/common/DiscussionsBoard/DiscussionBoardDescription';
 import AskToJoinGroup from 'app/components/common/AskToJoinGroup';
-import messages from './activity-form.messages';
 
 const { string } = PropTypes;
 
@@ -129,7 +128,7 @@ const GroupsHeader = ({
       {!condensed ? (
         <div className="info-container">
           <div className="info-inner-container">
-            <div className="groups-header-subtitle">{t('.CommunityGroup')}</div>
+            <div className="groups-header-subtitle">{t('Clubs.CommunityGroup')}</div>
             <div
               className="groups-header-title"
               dangerouslySetInnerHTML={{ __html: title }}

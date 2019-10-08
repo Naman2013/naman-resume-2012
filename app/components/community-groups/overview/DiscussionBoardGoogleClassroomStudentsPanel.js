@@ -29,7 +29,6 @@ import {
   ListGroup,
   ListGroupItem,
 } from 'react-bootstrap';
-import messages from './DiscussionBoard.messages';
 import { romance, astronaut } from '../../../styles/variables/colors_tiles_v4';
 
 const { arrayOf, bool, func, number, shape, string } = PropTypes;
@@ -108,7 +107,7 @@ class DiscussionBoardGoogleClassroomStudentsPanel extends Component {
           //force reload the Student List Panel.
           refreshHeader();
           this.setState(() => ({
-            panelLoadingMessage: `${t('.RefreshingStudentsList')}....`,
+            panelLoadingMessage: `${t('Clubs.RefreshingStudentsList')}....`,
             refreshModeStr: `googleClassroomStudentListPanel_${Math.floor(
               Math.random() * 500000 + 1
             )}`,
@@ -239,7 +238,7 @@ class DiscussionBoardGoogleClassroomStudentsPanel extends Component {
                             )
                           )
                         ) : (
-                          <p>{t('.NoInvitations')}</p>
+                          <p>{t('Clubs.NoInvitations')}</p>
                         )}
                         {serviceResponse.customerLinksData
                           .hasStudentsToInvite && (
@@ -251,7 +250,7 @@ class DiscussionBoardGoogleClassroomStudentsPanel extends Component {
                               fontStyle: 'italic',
                             }}
                           >
-                            <br />* {t('.AddStudentNote')} *
+                            <br />* {t('Clubs.AddStudentNote')} *
                             <br />
                             <br />
                           </p>

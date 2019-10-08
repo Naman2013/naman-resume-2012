@@ -18,7 +18,6 @@ import Request from 'app/components/common/network/Request';
 import { API } from 'app/api';
 import { screenMedium, screenLarge } from 'app/styles/variables/breakpoints';
 import styles from './DiscussionBoardInviteNewMemberToSlooh.style';
-import messages from './DiscussionBoard.messages';
 
 const { any, bool, func, number, shape, string } = PropTypes;
 @withTranslation
@@ -62,21 +61,21 @@ class DiscussionBoardInviteNewMemberToSlooh extends PureComponent {
 
     if (!formValues.firstName || formValues.firstName.value === '') {
       isFormComplete = false;
-      inviteFormData.firstName.errorText = t('.FirstName');
+      inviteFormData.firstName.errorText = t('Clubs.FirstName');
     } else {
       inviteFormData.firstName.errorText = '';
     }
 
     if (!formValues.lastName || formValues.lastName.value === '') {
       isFormComplete = false;
-      inviteFormData.lastName.errorText = t('.LastName');
+      inviteFormData.lastName.errorText = t('Clubs.LastName');
     } else {
       inviteFormData.lastName.errorText = '';
     }
 
     if (!formValues.emailAddress || formValues.emailAddress.value === '') {
       isFormComplete = false;
-      inviteFormData.emailAddress.errorText = t('.EmailAddress');
+      inviteFormData.emailAddress.errorText = t('Clubs.EmailAddress');
     } else {
       inviteFormData.emailAddress.errorText = '';
     }
@@ -90,7 +89,9 @@ class DiscussionBoardInviteNewMemberToSlooh extends PureComponent {
       );
     } else if (formValues.emailAddress != formValues.emailAddressVerification) {
       isFormComplete = false;
-      inviteFormData.emailAddressVerification.errorText = t('.EmailsDontMatch');
+      inviteFormData.emailAddressVerification.errorText = t(
+        'Clubs.EmailsDontMatch'
+      );
     } else {
       inviteFormData.emailAddressVerification.errorText = '';
     }
