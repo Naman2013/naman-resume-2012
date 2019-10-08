@@ -90,11 +90,10 @@ class Login extends Component {
 
   startForgotPassword = () => {
     const newLoginFormData = cloneDeep(this.state.loginFormDetails);
+    const { t } = this.props;
 
     if (this.state.loginFormDetails.loginEmailAddress.value === '') {
-      newLoginFormData.loginEmailAddress.errorText = this.props.intl.formatMessage(
-        messages.ForgotPasswordError
-      );
+      newLoginFormData.loginEmailAddress.errorText = t('.ForgotPasswordError');
 
       this.setState(() => ({
         loginFormDetails: newLoginFormData,
@@ -103,9 +102,7 @@ class Login extends Component {
     } else {
       this.setState(() => ({
         inForgotPasswordMode: true,
-        forgotPasswordStatusMessage: this.props.intl.formatMessage(
-          messages.ForgotPasswordRequest
-        ),
+        forgotPasswordStatusMessage: t('.ForgotPasswordRequest'),
       }));
 
       API.post(FORGOT_PASSWORD_REQUEST_ENDPOINT_URL, {

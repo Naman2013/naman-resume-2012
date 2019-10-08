@@ -4,7 +4,7 @@
 
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { withTranslation } from 'react-i18next';
+import { useTranslation, withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { API } from 'app/api';
@@ -56,9 +56,7 @@ class DiscussionBoardGoogleClassroomStudentsPanel extends Component {
   state = {
     refreshModeStr: 'false',
     importStudentErrorText: '',
-    panelLoadingMessage: this.props.intl.formatMessage(
-      messages.LoadingStudentsList
-    ),
+    panelLoadingMessage: '',
   };
 
   addStudentToDiscussionGroup = (
@@ -69,7 +67,7 @@ class DiscussionBoardGoogleClassroomStudentsPanel extends Component {
   ) => {
     //console.log(firstName + " : " + lastName + " : " + emailAddress + " : " + googleProfileId);
 
-    const { user, discussionGroupId, refreshHeader } = this.props;
+    const { user, discussionGroupId, refreshHeader, t } = this.props;
 
     const studentAccountDetails = {
       googleProfileId,
@@ -111,9 +109,7 @@ class DiscussionBoardGoogleClassroomStudentsPanel extends Component {
           //force reload the Student List Panel.
           refreshHeader();
           this.setState(() => ({
-            panelLoadingMessage: `${this.props.intl.formatMessage(
-              messages.RefreshingStudentsList
-            )}....`,
+            panelLoadingMessage: `${t('.RefreshingStudentsList')}....`,
             refreshModeStr: `googleClassroomStudentListPanel_${Math.floor(
               Math.random() * 500000 + 1
             )}`,

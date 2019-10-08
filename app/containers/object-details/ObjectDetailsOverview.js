@@ -381,7 +381,7 @@ class Overview extends Component {
 
           <SterlingTitle
             title={t('.MVPAstronomers')}
-            subTitle={intl.formatMessage(messages.MostActive, {
+            subTitle={t('.MostActive', {
               objectTitle: objectData.objectTitle,
             })}
           />

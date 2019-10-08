@@ -103,6 +103,7 @@ class JoinByInviteCodeStep1 extends Component {
     //assume the form is ready to submit unless validation issues occur.
     let formIsComplete = true;
     const { accountFormDetails } = this.state;
+    const { t } = this.props;
 
     const accountFormDetailsData = cloneDeep(accountFormDetails);
 
@@ -111,15 +112,15 @@ class JoinByInviteCodeStep1 extends Component {
     accountFormDetailsData.invitationCode.errorText = '';
 
     if (accountFormDetailsData.loginEmailAddress.value === '') {
-      accountFormDetailsData.loginEmailAddress.errorText = this.props.intl.formatMessage(
-        messages.PleaseEnterEmail
+      accountFormDetailsData.loginEmailAddress.errorText = t(
+        '.PleaseEnterEmail'
       );
       formIsComplete = false;
     }
 
     if (accountFormDetailsData.invitationCode.value === '') {
-      accountFormDetailsData.invitationCode.errorText = this.props.intl.formatMessage(
-        messages.PleaseEnterInvitationCode
+      accountFormDetailsData.invitationCode.errorText = t(
+        '.PleaseEnterInvitationCode'
       );
       formIsComplete = false;
     }

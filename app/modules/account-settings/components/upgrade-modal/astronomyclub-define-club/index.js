@@ -130,7 +130,7 @@ class AstronomyClubDefineClubGeneral extends Component {
     let formIsComplete = true;
     const { accountFormDetails, accountCreationType } = this.state;
 
-    const { intl } = this.props;
+    const { t } = this.props;
 
     const accountFormDetailsData = cloneDeep(accountFormDetails);
 
@@ -140,8 +140,8 @@ class AstronomyClubDefineClubGeneral extends Component {
     /* Special Verifications if this is an Astronomy Club */
     if (this.state.isAstronomyClub) {
       if (accountFormDetailsData.astronomyClubName.value === '') {
-        accountFormDetailsData.astronomyClubName.errorText = intl.formatMessage(
-          messages.AstronomyClubRequierMessage
+        accountFormDetailsData.astronomyClubName.errorText = t(
+          '.AstronomyClubRequierMessage'
         );
         formIsComplete = false;
       }

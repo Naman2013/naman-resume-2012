@@ -3,13 +3,13 @@
  ********************************** */
 
 import React, { Component, cloneElement, Fragment } from 'react';
-import {withTranslation} from 'react-i18next';
-import { Link } from 'react-router';
+import { withTranslation } from 'react-i18next';
+import { Link, browserHistory } from 'react-router';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import cloneDeep from 'lodash/cloneDeep';
 import Button from 'app/components/common/style/buttons/Button';
-import { browserHistory } from 'react-router';
+
 import { Field, reduxForm } from 'redux-form';
 import { intlShape, injectIntl, FormattedMessage } from 'react-intl';
 import InputField from 'app/components/form/InputField';
@@ -19,9 +19,7 @@ import {
 } from 'app/services/registration/registration.js';
 import { API } from 'app/api';
 import Request from 'app/components/common/network/Request';
-import JoinHeader from './partials/JoinHeader';
 import { destroySession } from 'app/modules/User';
-import { CLASSROOM_JOIN_TABS } from './StaticNavTabs';
 import LargeButtonWithRightIcon from 'app/components/common/style/buttons/LargeButtonWithRightIcon';
 import {
   nightfall,
@@ -30,6 +28,8 @@ import {
   shadows,
 } from 'app/styles/variables/colors_tiles_v4';
 import { horizontalArrowRightWhite } from 'app/styles/variables/iconURLs';
+import { CLASSROOM_JOIN_TABS } from './StaticNavTabs';
+import JoinHeader from './partials/JoinHeader';
 
 import messages from './ResetPassword.messages';
 import styles from './JoinStep1SchoolSelection.style';
@@ -128,6 +128,7 @@ class ResetPassword extends Component {
   handleSubmit = formValues => {
     formValues.preventDefault();
     let formIsComplete = true;
+    const { t } = this.props;
 
     const passwordFormData = cloneDeep(this.state.passwordFormDetails);
 
@@ -136,9 +137,7 @@ class ResetPassword extends Component {
 
     /* a password is assigned to a Google account even though they can sign-in using google, this way they can login without google if needed */
     if (passwordFormData.password.value === '') {
-      passwordFormData.password.errorText = this.props.intl.formatMessage(
-        messages.PasswordRequierMessage
-      );
+      passwordFormData.password.errorText = t('.PasswordRequierMessage');
       formIsComplete = false;
     } else {
       /* verify the password and the verification password fields match */
@@ -147,8 +146,8 @@ class ResetPassword extends Component {
         passwordFormData.password.value !==
         passwordFormData.passwordverification.value
       ) {
-        passwordFormData.passwordverification.errorText = this.props.intl.formatMessage(
-          messages.PasswordsDontMatchMessage
+        passwordFormData.passwordverification.errorText = t(
+          '.PasswordsDontMatchMessage'
         );
         formIsComplete = false;
       }
@@ -159,14 +158,16 @@ class ResetPassword extends Component {
       this.setState({ passwordFormDetails: passwordFormData });
     } else {
       //Make an API call out to verify the password being requested and if successful change the password.
-      const passwordMeetsRequirementsAndWasChanged = API
-      .post(FORGOT_PASSWORD_CHANGEPASSWORD_ENDPOINT_URL, {
+      const passwordMeetsRequirementsAndWasChanged = API.post(
+        FORGOT_PASSWORD_CHANGEPASSWORD_ENDPOINT_URL,
+        {
           loginEmailAddress: this.state.passwordFormDetails.loginemailaddress
             .value,
           userEnteredPassword: this.state.passwordFormDetails.password.value,
           cid: this.props.params.cid,
           passwordResetToken: this.props.params.passwordResetToken,
-        })
+        }
+      )
         .then(response => {
           const res = response.data;
           if (res.apiError == false) {
@@ -216,7 +217,7 @@ class ResetPassword extends Component {
         {/* <div className="inner-container"> */}
         <Request
           serviceURL={FORGOT_PASSWORD_CONFIRMRESETTOKEN_ENDPOINT_URL}
-          requestBody={{ cid: cid, passwordResetToken: passwordResetToken }}
+          requestBody={{ cid, passwordResetToken }}
           serviceResponseHandler={this.handleServiceResponse}
           render={({ fetchingContent, serviceResponse }) => (
             <Fragment>
@@ -388,7 +389,7 @@ class ResetPassword extends Component {
 }
 
 const mapStateToProps = ({ resetPasswordForm }) => ({
-  resetPasswordForm: resetPasswordForm,
+  resetPasswordForm,
 });
 
 export default connect(

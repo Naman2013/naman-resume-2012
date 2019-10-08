@@ -241,7 +241,7 @@ class JoinStep2 extends Component {
     let formIsComplete = true;
     const { accountFormDetails, accountCreationType } = this.state;
 
-    const { intl } = this.props;
+    const { t } = this.props;
 
     const accountFormDetailsData = cloneDeep(accountFormDetails);
 
@@ -267,22 +267,22 @@ class JoinStep2 extends Component {
         */
 
       if (accountFormDetailsData.givenName.value === '') {
-        accountFormDetailsData.givenName.errorText = intl.formatMessage(
-          messages.FirstNameRequierMessage
+        accountFormDetailsData.givenName.errorText = t(
+          '.FirstNameRequierMessage'
         );
         formIsComplete = false;
       }
 
       if (accountFormDetailsData.familyName.value === '') {
-        accountFormDetailsData.familyName.errorText = intl.formatMessage(
-          messages.LastNameRequierMessage
+        accountFormDetailsData.familyName.errorText = t(
+          '.LastNameRequierMessage'
         );
         formIsComplete = false;
       }
 
       if (accountFormDetailsData.loginEmailAddress.value === '') {
-        accountFormDetailsData.loginEmailAddress.errorText = intl.formatMessage(
-          messages.EmailRequierMessage
+        accountFormDetailsData.loginEmailAddress.errorText = t(
+          '.EmailRequierMessage'
         );
         formIsComplete = false;
       } else {
@@ -292,8 +292,8 @@ class JoinStep2 extends Component {
           accountFormDetailsData.loginEmailAddress.value !==
           accountFormDetailsData.loginEmailAddressVerification.value
         ) {
-          accountFormDetailsData.loginEmailAddressVerification.errorText = intl.formatMessage(
-            messages.EmailsDontMatchMessage
+          accountFormDetailsData.loginEmailAddressVerification.errorText = t(
+            '.EmailsDontMatchMessage'
           );
           formIsComplete = false;
         }
@@ -307,15 +307,15 @@ class JoinStep2 extends Component {
       */
 
       if (accountFormDetailsData.givenName.value === '') {
-        accountFormDetailsData.givenName.errorText = intl.formatMessage(
-          messages.FirstNameRequierMessage
+        accountFormDetailsData.givenName.errorText = t(
+          '.FirstNameRequierMessage'
         );
         formIsComplete = false;
       }
 
       if (accountFormDetailsData.familyName.value === '') {
-        accountFormDetailsData.familyName.errorText = intl.formatMessage(
-          messages.LastNameRequierMessage
+        accountFormDetailsData.familyName.errorText = t(
+          '.LastNameRequierMessage'
         );
         formIsComplete = false;
       }
@@ -324,8 +324,8 @@ class JoinStep2 extends Component {
     /* Special Verifications if this is an Astronomy Club */
     if (this.state.isAstronomyClub) {
       if (accountFormDetailsData.astronomyClubName.value === '') {
-        accountFormDetailsData.astronomyClubName.errorText = intl.formatMessage(
-          messages.AstronomyClubRequierMessage
+        accountFormDetailsData.astronomyClubName.errorText = t(
+          '.AstronomyClubRequierMessage'
         );
         formIsComplete = false;
       }
@@ -334,8 +334,8 @@ class JoinStep2 extends Component {
     if (this.state.isAgeRestricted === true) {
       /* Make sure that the 13/Older indicator is selected with a value */
       if (accountFormDetailsData.is13YearsAndOlder.value === null) {
-        accountFormDetailsData.is13YearsAndOlder.errorText = intl.formatMessage(
-          messages.AgeRequierMessage
+        accountFormDetailsData.is13YearsAndOlder.errorText = t(
+          '.AgeRequierMessage'
         );
         formIsComplete = false;
       } else if (accountFormDetailsData.is13YearsAndOlder.value === false) {
@@ -343,16 +343,16 @@ class JoinStep2 extends Component {
         if (
           accountFormDetailsData.not13YearsOldLegalGuardianOk.value === false
         ) {
-          accountFormDetailsData.not13YearsOldLegalGuardianOk.errorText = intl.formatMessage(
-            messages.MinAgeErrorMessage
+          accountFormDetailsData.not13YearsOldLegalGuardianOk.errorText = t(
+            '.MinAgeErrorMessage'
           );
           formIsComplete = false;
         }
 
         //make sure the parent email address field is filled in.
         if (accountFormDetailsData.parentEmailAddress.value === '') {
-          accountFormDetailsData.parentEmailAddress.errorText = intl.formatMessage(
-            messages.ParentEmailRequierMessage
+          accountFormDetailsData.parentEmailAddress.errorText = t(
+            '.ParentEmailRequierMessage'
           );
           formIsComplete = false;
         }
@@ -361,9 +361,7 @@ class JoinStep2 extends Component {
 
     /* a password is assigned to a Google account even though they can sign-in using google, this way they can login without google if needed */
     if (accountFormDetailsData.password.value === '') {
-      accountFormDetailsData.password.errorText = intl.formatMessage(
-        messages.PasswordRequierMessage
-      );
+      accountFormDetailsData.password.errorText = t('.PasswordRequierMessage');
       formIsComplete = false;
     } else {
       /* verify the password and the verification password fields match */
@@ -372,8 +370,8 @@ class JoinStep2 extends Component {
         accountFormDetailsData.password.value !==
         accountFormDetailsData.passwordVerification.value
       ) {
-        accountFormDetailsData.passwordVerification.errorText = intl.formatMessage(
-          messages.PasswordsDontMatchMessage
+        accountFormDetailsData.passwordVerification.errorText = t(
+          '.PasswordsDontMatchMessage'
         );
         formIsComplete = false;
       }

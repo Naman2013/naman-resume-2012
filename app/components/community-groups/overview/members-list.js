@@ -104,7 +104,6 @@ class GroupMemberList extends Component {
     return (
       <div className="members-list" style={theme}>
         <BlueLineDrop
-          // title={intl.formatMessage(messages.GroupMembers, { membersCount })}
           title={t('.GroupMembers', { membersCount })}
           isDesktop={isDesktop}
           render={() => (
