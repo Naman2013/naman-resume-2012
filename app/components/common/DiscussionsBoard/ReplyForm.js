@@ -17,7 +17,7 @@ import {
   shadows,
 } from 'app/styles/variables/colors_tiles_v4';
 import { dropShadowContainer } from 'app/styles/mixins/utilities';
-import messages from './ReplyForm.messages';
+
 
 const {
   arrayOf,
@@ -112,8 +112,8 @@ class ReplyForm extends Component {
   handleSubmitReply = (data, callback) => {
     const { t } = this.props;
     const message = data.apiError
-      ? t('.CommentErrorText')
-      : t('.CommentSuccessText');
+      ? t('AskAnAstronomer.CommentErrorText')
+      : t('AskAnAstronomer.CommentSuccessText');
     callback(data.apiError, message);
   };
 

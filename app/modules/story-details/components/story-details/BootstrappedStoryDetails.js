@@ -16,7 +16,7 @@ import { useTranslation } from 'react-i18next';
 import AsideContainer from './partials/AsideContainer';
 import HeaderContainer from './partials/HeaderContainer';
 import MainContainer from './partials/MainContainer';
-import messages from './StoryDetails.messages';
+
 import styles from './StoryDetails.style';
 
 const { arrayOf, bool, number, oneOfType, shape, string } = PropTypes;
@@ -79,8 +79,8 @@ const BootstrappedStoryDetails = props => {
           <ResponsiveTwoColumnContainer
             renderNavigationComponent={navProps => (
               <TwoTabbedNav
-                firstTitle={t('.story')}
-                secondTitle={t('.related')}
+                firstTitle={t('Stories.story')}
+                secondTitle={t('Stories.related')}
                 firstTabIsActive={navProps.showMainContainer}
                 firstTabOnClick={navProps.onShowMainContainer}
                 secondTabIsActive={navProps.showAsideContainer}

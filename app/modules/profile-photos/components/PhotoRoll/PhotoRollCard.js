@@ -11,7 +11,7 @@ import Button from 'app/components/common/style/buttons/Button';
 import Dots from 'app/atoms/icons/Dots';
 import { downloadFile } from 'app/utils/downloadFile';
 import AsideToggleableMenu from '../AsideToggleableMenu';
-import messages from './PhotoRollCard.messages';
+
 import style from './PhotoRollCard.style';
 
 type TPhotoRollCard = {
@@ -129,7 +129,7 @@ class PhotoRollCard extends Component<TPhotoRollCard> {
                   <Button
                     withIntl
                     onClickEvent={this.redirectToImage()}
-                    text={t('.Details')}
+                    text={t('Photos.Details')}
                     theme={{ borderColor: '#fff', color: '#fff' }}
                   />
                   <div style={{ display: 'flex' }}>

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import RichTextEditor from 'app/components/rich-text-editor/RichTextEditor';
-import messages from './headline-and-content-inputs.messages';
+
 
 import styles from './headline-and-content-inputs.style';
 

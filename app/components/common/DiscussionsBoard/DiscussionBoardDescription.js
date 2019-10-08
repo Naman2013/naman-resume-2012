@@ -14,7 +14,6 @@ import TextareaField from 'app/components/form/TextareaField';
 import Button from 'app/components/common/style/buttons/Button';
 import { screenMedium, screenLarge } from 'app/styles/variables/breakpoints';
 import { CLASSROOM_SET_GROUP_DESCRIPTION_ENDPOINT_URL } from 'app/services/classroom/classroom';
-import messages from './DiscussionBoard.messages';
 
 const { any, bool, func, number, shape, string } = PropTypes;
 @withTranslation
@@ -133,7 +132,7 @@ class DiscussionBoardDescription extends Component {
                 <div className="button-actions">
                   <Button
                     type="button"
-                    text={t('.Cancel')}
+                    text={t('AskAnAstronomer.Cancel')}
                     onClickEvent={this.cancelEditMode}
                   />
 
@@ -141,7 +140,7 @@ class DiscussionBoardDescription extends Component {
                     className="submit-button"
                     type="submit"
                     onClickEvent={this.handleSubmit}
-                    text={t('.SaveChanges')}
+                    text={t('AskAnAstronomer.SaveChanges')}
                   />
                 </div>
               )}
@@ -152,7 +151,7 @@ class DiscussionBoardDescription extends Component {
           <div className="button-actions">
             <Button
               type="button"
-              text={t('.EditDescription')}
+              text={t('AskAnAstronomer.EditDescription')}
               onClickEvent={this.enableEditMode}
             />
           </div>

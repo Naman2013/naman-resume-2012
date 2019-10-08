@@ -8,7 +8,7 @@ import cn from 'classnames';
 import { useTranslation } from 'react-i18next';
 import { browserHistory } from 'react-router';
 
-import messages from './ObservationCard.messages';
+
 import style from './ObservationCard.style';
 
 export default ({ index, isDesktop, currentItem: observation }) => {
@@ -55,7 +55,7 @@ export default ({ index, isDesktop, currentItem: observation }) => {
             {commentsCount}
           </div>
           <div className="details" onClick={onClickDetails}>
-            {t('.Details')}
+            {t('Photos.Details')}
             <img
               src="https://vega.slooh.com/assets/v4/icons/horz_arrow_right_astronaut.svg"
               alt="arrow-right"

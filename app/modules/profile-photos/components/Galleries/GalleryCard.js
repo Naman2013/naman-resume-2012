@@ -8,7 +8,7 @@ import cn from 'classnames';
 import { useTranslation } from 'react-i18next';
 import { browserHistory } from 'react-router';
 import Btn from 'app/atoms/Btn';
-import messages from '../Missions/MissionCard.messages';
+
 import style from './GalleryCard.style';
 
 export default ({ index, isDesktop, currentItem: gallery }) => {
@@ -32,7 +32,7 @@ export default ({ index, isDesktop, currentItem: gallery }) => {
             <div className="info">
               <div className={cn('text', 'date')}>{displayDate}</div>
               <div className={cn('text', 'images-count')}>
-                {galleryPictureCount} {t('.Images')}
+                {galleryPictureCount} {t('Photos.Images')}
               </div>
             </div>
             <div className="galleryCard-actions">

@@ -8,7 +8,6 @@ import StoryTiles from 'app/components/stories-hub/stories-tiles';
 import GuideTiles from 'app/components/guides-hub/guide-tiles';
 import ShowTiles from 'app/components/shows-hub/show-tiles';
 import isEmpty from 'lodash/fp/isEmpty';
-import messages from './my-lists.messages';
 
 @withTranslation
 class Lists extends Component {
@@ -207,7 +206,7 @@ class Lists extends Component {
                   updateReadingListInfo: this.updateItemInfo,
                   updatePrompt: this.updatePrompt,
                   isMobile: context.isMobile,
-                }) || <div>{t('.NoTiles')}</div>}
+                }) || <div>{t('Photos.NoTiles')}</div>}
               </Fragment>
             )}
           />

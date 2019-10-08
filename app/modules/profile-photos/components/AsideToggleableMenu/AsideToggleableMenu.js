@@ -11,7 +11,7 @@ import AddToGallery from 'app/components/my-pictures/actions/AddToGalleryV4';
 import RemoveGalleryImageBtn from 'app/modules/gallery-details/containers/remove-gallery-image';
 
 import styles from './AsideToggleableMenu.style';
-import messages from './AsideToggleableMenu.messages';
+
 
 const AsideToggleableMenu = props => {
   const {

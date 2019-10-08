@@ -12,7 +12,7 @@ import Button from 'app/components/common/style/buttons/Button';
 import { downloadFile } from 'app/utils/downloadFile';
 import { customModalStylesFitDevice } from 'app/styles/mixins/utilities';
 import AsideToggleableMenu from '../AsideToggleableMenu';
-import messages from './MissionCard.messages';
+
 import style from './MissionCard.style';
 import './fitsData.scss';
 
@@ -209,7 +209,7 @@ class MissionCard extends PureComponent<TMissionCard> {
                 {displayDate}
               </div>
               <div className="mission-details-tile mission-details-images">
-                {missionImageCount} {t('.Images')}
+                {missionImageCount} {t('Photos.Images')}
               </div>
             </div>
             <div

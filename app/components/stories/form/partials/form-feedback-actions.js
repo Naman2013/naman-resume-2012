@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Button from 'app/components/common/style/buttons/Button';
 import styles from './form-feedback-actions.style';
-import messages from './form-feedback-actions.messages';
+
 
 const { func, string } = PropTypes;
 const FormFeedbackActions = props => {

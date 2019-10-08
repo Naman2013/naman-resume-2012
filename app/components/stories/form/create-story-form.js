@@ -14,7 +14,7 @@ import ActionItems from './partials/action-items';
 import ContentCategorySelector from './partials/content-category-selector';
 import ObjectCategoryAndTopicSelects from './partials/object-category-and-topic-selects';
 import FormFeedbackActions from './partials/form-feedback-actions';
-import messages from './create-story-form.messages';
+
 
 @withTranslation
 class CreateStoryForm extends Component {
@@ -190,26 +190,26 @@ class CreateStoryForm extends Component {
       const missingFields = [];
 
       if (!bodyContent) {
-        missingFields.push(`<li>${t('.bodyContentErrorMessage')}</li>`);
+        missingFields.push(`<li>${t('Stories.bodyContentErrorMessage')}</li>`);
       }
 
       if (!headlineContent) {
-        missingFields.push(`<li>${t('.headlineErrorMessage')}</li>`);
+        missingFields.push(`<li>${t('Stories.headlineErrorMessage')}</li>`);
       }
 
       if (!selectedContentCategory) {
-        missingFields.push(`<li>${t('.contentCategoryErrorMessage')}</li>`);
+        missingFields.push(`<li>${t('Stories.contentCategoryErrorMessage')}</li>`);
       }
 
       if (!selectedObjectCategory) {
-        missingFields.push(`<li>${t('.objectCategoryErrorMessage')}</li>`);
+        missingFields.push(`<li>${t('Stories.objectCategoryErrorMessage')}</li>`);
       }
 
       actions.setAndOpenModal({
         modalStyles: customModalStylesBlackOverlay,
         modalComponent: (
           <GenericModal
-            title={t('.errorMessagePopupTitle')}
+            title={t('Stories.errorMessagePopupTitle')}
             promptText={missingFields.join('')}
             renderActions={() => (
               <Button onClickEvent={actions.closeModal} text="close" />

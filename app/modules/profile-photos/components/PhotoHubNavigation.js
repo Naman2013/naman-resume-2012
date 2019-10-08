@@ -16,24 +16,24 @@ import DropDown from 'app/components/common/DropDown';
 import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
 import Button from 'app/components/common/style/buttons/Button';
 
-import messages from './PhotoHubNavigation.messages';
+
 import style from './PhotoHubNavigation.style';
 
 const getFilterDropdownOptions = t => [
   {
-    label: t('.AllObservations'),
+    label: t('Photos.AllObservations'),
     value: 'all',
   },
   {
-    label: t('.MostRecent'),
+    label: t('Photos.MostRecent'),
     value: 'recent',
   },
   {
-    label: t('.MostPopular'),
+    label: t('Photos.MostPopular'),
     value: 'popular',
   },
   {
-    label: t('.SavedForLater'),
+    label: t('Photos.SavedForLater'),
     value: 'saved',
   },
 ];
@@ -52,7 +52,7 @@ class PhotoHubNavigation extends Component {
         ).subMenus,
     activeIndex: 1,
     filterSelectActive: false,
-    optionLabel: 'Options', // t('.Options'),
+    optionLabel: 'Options', // t('Photos.Options'),
     filtersActiveIndex: 0,
     mobileFilterActive: false,
   };
@@ -136,7 +136,7 @@ class PhotoHubNavigation extends Component {
     return (
       <div className="photohub-root">
         <div className="header">
-          <div className="photohub-title">{t('.MyPhotoHub')}</div>
+          <div className="photohub-title">{t('Photos.MyPhotoHub')}</div>
           <DisplayAtBreakpoint screenMedium screenLarge screenXLarge>
             <div className="photohub-nav-bar">
               <div className="photohub-links">

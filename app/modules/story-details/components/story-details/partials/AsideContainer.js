@@ -13,7 +13,7 @@ import {
   CONTENT_RELATED_STORIES,
   CONTENT_RELATED_SHOWS,
 } from 'app/services/content';
-import messages from './AsideContainer.messages';
+
 
 const { arrayOf, bool, number, oneOfType, shape, string } = PropTypes;
 
@@ -58,7 +58,7 @@ const AsideContainer = ({
         maxCount={MAX_COUNT}
         isDesktop={isDesktop}
         isScreenLarge={isScreenLarge}
-        title={t('.relatedShows')}
+        title={t('Stories.relatedShows')}
       />
 
       <RelatedStories
@@ -70,7 +70,7 @@ const AsideContainer = ({
         isDesktop={isDesktop}
         isMobile={isMobile}
         isScreenLarge={isScreenLarge}
-        title={t('.relatedStories')}
+        title={t('Stories.relatedStories')}
       />
 
       <RelatedGuides
@@ -81,7 +81,7 @@ const AsideContainer = ({
         maxCount={MAX_COUNT}
         isDesktop={isDesktop}
         isScreenLarge={isScreenLarge}
-        title={t('.relatedGuides')}
+        title={t('Stories.relatedGuides')}
       />
     </div>
   );

@@ -16,7 +16,7 @@ import {
 } from 'app/styles/variables/colors_tiles_v4';
 import { dropShadowContainer } from 'app/styles/mixins/utilities';
 import { prepareReply } from 'app/services/discussions/prepare-reply';
-import messages from './ReplyForm.messages';
+
 
 const {
   arrayOf,
@@ -107,8 +107,8 @@ class ReplyButton extends Component {
   handleSubmitReply = (data, callback) => {
     const { t } = this.props;
     const message = data.apiError
-      ? t('.CommentErrorText')
-      : t('.CommentSuccessText');
+      ? t('AskAnAstronomer.CommentErrorText')
+      : t('AskAnAstronomer.CommentSuccessText');
     callback(data.apiError, message);
   };
 
@@ -121,10 +121,10 @@ class ReplyButton extends Component {
           {...this.props}
           uuid={uuid}
           submitForm={this.submitForm}
-          placeholder={t('.PublicCommentPlaceholder')}
+          placeholder={t('AskAnAstronomer.PublicCommentPlaceholder')}
           revealButtonRender={btnProps => (
             <Button
-              text={t('.Reply')}
+              text={t('AskAnAstronomer.Reply')}
               onClickEvent={e => {
                 this.preparePostUID().then(() => {
                   btnProps.displayForm(e);

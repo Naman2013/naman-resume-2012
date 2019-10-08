@@ -19,7 +19,7 @@ import pageMeta from 'app/modules/quest-details/actions/pageMeta';
 import DiscussionsItem from './DiscussionsItem';
 import CREATE_THREAD_FORM from './DiscussionsThreadFormInterface';
 import styles from './DiscussionsBoard.style';
-import messages from './DiscussionsThreads.messages';
+
 
 const {
   any,
@@ -330,7 +330,7 @@ class DiscussionsThreads extends Component {
         <div className="comments-bar"
           ref={node => { this.threadsContainer = node; }}
         >
-          {showSearchTermResultHeading ? <span>{searchTermResultHeading}</span> : <span>{t('.Comments')} ({threadsCount})</span>}
+          {showSearchTermResultHeading ? <span>{searchTermResultHeading}</span> : <span>{t('AskAnAstronomer.Comments')} ({threadsCount})</span>}
 
           <div className="comments-search">
             <input
@@ -340,11 +340,11 @@ class DiscussionsThreads extends Component {
             />
             {showSearchTermResultHeading ? (
               <Button onClick={this.resetSearch}>
-                {t('.Reset')}
+                {t('AskAnAstronomer.Reset')}
               </Button>
             ) : (
               <Button onClick={() => this.getThreads(this.props)}>
-                {t('.Search')}
+                {t('AskAnAstronomer.Search')}
               </Button>
             )}
           </div>
@@ -357,12 +357,12 @@ class DiscussionsThreads extends Component {
         })}
         {fetching && (
           <div>
-            {t('.Loading')}
+            {t('AskAnAstronomer.Loading')}
           </div>
         )}
         {!fetching && threadsCount === 0 ? (
           <div>
-            {t('.NoThreads')}
+            {t('AskAnAstronomer.NoThreads')}
           </div>
         ) : null}
         {!fetching && threadsCount > 0 && (
