@@ -90,7 +90,7 @@
     "NavSecondTitle": "Members",
     "FetchingListError": "There was an error fetching list",
     "CommunityGroup": "Community Group",
-    "GroupMembers": "Club Members ({membersCount})",
+    "GroupMembers": "Club Members ({{membersCount}})",
     "MoreMember": "MORE MEMBER",
     "MoreMembers": "MORE MEMBERS",
     "RequestGroup": "Request a club",
@@ -191,13 +191,13 @@
     "No": "No",
     "GoToPayment": "Go to payment",
     "SignupRequestExpireTime":
-    "This signup request will expire in {minutes}:{seconds}.",
+    "This signup request will expire in {{minutes}}:{{seconds}}.",
     "SignupRequestExpiered":
-    "Signup request expired...redirecting to the homepage in 00:{seconds}.",
+    "Signup request expired...redirecting to the homepage in 00:{{seconds}}.",
     "SignupRequestExpireTimeOnUpgrade":
-    "This request will expire in {minutes}:{seconds}.",
+    "This request will expire in {{minutes}}:{{seconds}}.",
     "SignupRequestExpieredOnUpgrade":
-    "Request expired...redirecting to the homepage in 00:{seconds}.",
+    "Request expired...redirecting to the homepage in 00:{{seconds}}.",
     "JoinSlooh": "14 DAY FREE TRIAL",
     "JoinSloohTrial": "Join today and get a 14 day free trial",
     "JoinNow": "Join Now",
@@ -248,25 +248,25 @@
     "RelatedObjects": "Related Objects",
     "UpcomingMissions": "Upcoming Missions",
     "NoMissions":
-    "Sorry, there are no missions available for {objectTitle} at this time.",
+    "Sorry, there are no missions available for {{objectTitle}} at this time.",
     "NoObservations":
-    "Sorry, there are no images available for {objectTitle} at this time.",
+    "Sorry, there are no images available for {{objectTitle}} at this time.",
     "FeaturedObservation": "Featured Observation",
     "CommunityObservation": "Community Observation",
     "MVPAstronomers": "MVP Astronomers",
-    "MostActive": "Most Active on {objectTitle}",
+    "MostActive": "Most Active on {{objectTitle}}",
     "ViewSpecialist": "View Specialist",
     "RelatedQuests": "Related Quests",
     "NoSpecialists":
-    "Sorry, there are no specialists for {objectTitle} available at this time.",
+    "Sorry, there are no specialists for {{objectTitle}} available at this time.",
     "NoQuests":
-    "Sorry, there are no quests available for {objectTitle} at this time.",
+    "Sorry, there are no quests available for {{objectTitle}} at this time.",
     "RelatedShows": "Related Shows",
     "NoShows":
-    "Sorry, there are no shows available for {objectTitle} at this time.",
+    "Sorry, there are no shows available for {{objectTitle}} at this time.",
     "RelatedStories": "Related Stories",
     "NoStories":
-    "Sorry, there are no stories available for {objectTitle} at this time.",
+    "Sorry, there are no stories available for {{objectTitle}} at this time.",
     "ObservationsDetails": "Details",
     "ReadMore": "read more",
     "ReadLess": "read less"
@@ -316,8 +316,8 @@
     "Unanswered": "Unanswered",
     "AllUnanswered": "All questions",
     "ByMySpecialities": "My MVP Objects",
-    "YourAskedQuestions": "You asked {count} questions",
-    "YourAnsweredQuestions": "You answered {count} questions",
+    "YourAskedQuestions": "You asked {{count}} questions",
+    "YourAnsweredQuestions": "You answered {{count}} questions",
     "QuestionsToAnswers": "ANSWER QUESTIONS, EARN GRAVITY",
     "InfoTileSubject": "You Haven’t Asked any Questions",
     "InfoTileTitle": "",
