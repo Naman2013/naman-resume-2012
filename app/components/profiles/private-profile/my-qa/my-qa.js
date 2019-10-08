@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withTranslation } from 'react-i18next';
-import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
-
 import MainContainer from '../../../../modules/ask-astronomer/containers/partials/MainContainer';
 import DisplayAtBreakpoint from '../../../common/DisplayAtBreakpoint';
 import { GuidePromoTile } from '../../../common/tiles/GuidePromoTile';

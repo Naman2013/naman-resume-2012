@@ -8,7 +8,6 @@ import { useTranslation, withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { API } from 'app/api';
-import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 import FormSectionHeader from 'app/components/common/form-sections/section-header';
 import Request from 'app/components/common/network/Request';
 import BarHeader from 'app/components/common/form-sections/bar-header';

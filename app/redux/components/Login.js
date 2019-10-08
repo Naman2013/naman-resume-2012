@@ -7,7 +7,6 @@ import { API } from 'app/api';
 import { Link } from 'react-router';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
-import { FormattedMessage, intlShape, injectIntl } from 'react-intl';
 import Button from 'app/components/common/style/buttons/Button';
 import LargeButtonWithRightIcon from 'app/components/common/style/buttons/LargeButtonWithRightIcon';
 import InputField from 'app/components/form/InputField';

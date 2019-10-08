@@ -11,7 +11,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {withTranslation} from 'react-i18next';
 import Modal from 'react-modal';
-import { intlShape, injectIntl } from 'react-intl';
 import PhotoUploadButton from 'app/components/common/style/buttons/PhotoUploadButton';
 import deletePostImage from 'app/services/post-creation/delete-post-image';
 import setPostImages from 'app/modules/set-post-images';

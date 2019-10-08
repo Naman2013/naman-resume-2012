@@ -11,7 +11,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import has from 'lodash/has';
 import uniqueId from 'lodash/uniqueId';
-import { intlShape, injectIntl, FormattedMessage } from 'react-intl';
 import Request from 'app/components/common/network/Request';
 import CenterColumn from 'app/components/common/CenterColumn';
 import DeviceProvider, { DeviceContext } from 'providers/DeviceProvider';

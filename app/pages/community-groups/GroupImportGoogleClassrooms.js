@@ -6,7 +6,6 @@ import { withTranslation } from 'react-i18next';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Modal from 'react-modal';
-import { intlShape, injectIntl } from 'react-intl';
 import GroupTiles from 'app/components/groups-hub/group-tiles';
 import RequestGroupForm from 'app/components/community-groups/request-group-form';
 import PromptWithClose from 'app/components/community-groups/prompt-with-close';

@@ -19,7 +19,6 @@ import {
 } from 'react-bootstrap';
 import Request from 'app/components/common/network/Request';
 import { API } from 'app/api';
-import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 import Button from 'app/components/common/style/buttons/Button';
 import DiscussionBoardInviteNewMemberToSlooh from 'app/components/community-groups/overview/DiscussionBoardInviteNewMemberToSlooh';
 import { CLASSROOM_GET_GROUP_INVITATION_PANEL_ENDPOINT_URL } from 'app/services/classroom/classroom';

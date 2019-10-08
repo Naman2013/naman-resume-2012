@@ -2,7 +2,6 @@ import React, { Fragment, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 import PropTypes from 'prop-types';
-import { injectIntl } from 'react-intl';
 import { Tooltip } from 'react-tippy';
 import LikeSomethingButton from 'app/components/common/LikeSomethingButton';
 import { ModalImg } from 'app/modules/telescope/components/modal-img';

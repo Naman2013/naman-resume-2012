@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
 import Request from 'app/components/common/network/Request';
 import TiaraTitleSection from 'app/components/common/TiaraTitleSection';
 import CenterColumn from 'app/components/common/CenterColumn';

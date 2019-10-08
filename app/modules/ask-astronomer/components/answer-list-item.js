@@ -2,7 +2,6 @@ import Card from 'app/modules/ask-astronomer/components/Card';
 import SubmitAnswerReplyButton from 'app/modules/ask-astronomer/components/SubmitAnswerReplyButton';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { injectIntl } from 'react-intl';
 import { likeReply } from '../../../services/discussions/like';
 import messages from './answer-list-item.messages';
 import AnswerReplyList from './answer-reply-list';

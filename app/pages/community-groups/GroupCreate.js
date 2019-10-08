@@ -25,7 +25,6 @@ import InputField from 'app/components/form/InputField';
 
 import style from 'app/containers/groups-hub/groups-hub.style';
 import style2 from 'app/pages/registration/partials/JoinHeader.style';
-import { intlShape, injectIntl } from 'react-intl';
 import style3 from './GroupCreate.style';
 
 import messages from './Groups.messages';

@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import noop from 'lodash/noop';
 import {useTranslation} from 'react-i18next';
-import { intlShape, injectIntl } from 'react-intl';
 import SterlingTitle from 'app/components/common/titles/SterlingTitle';
 import IntroText from 'app/components/common/form-sections/intro-text';
 import GenericButton from 'app/components/common/style/buttons/Button';

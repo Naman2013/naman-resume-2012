@@ -2,7 +2,6 @@ import React, { Component, cloneElement } from 'react';
 import { withTranslation } from 'react-i18next';
 import { browserHistory, Link } from 'react-router';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
 import TabbedNav from 'app/components/TabbedNav';
 import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
 

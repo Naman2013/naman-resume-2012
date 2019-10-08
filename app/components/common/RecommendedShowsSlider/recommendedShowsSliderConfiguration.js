@@ -1,5 +1,4 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
 import defaultSliderConfiguration from '../Slider/sliderConfig';
 import BigShowTile from '../tiles/BigShowTile';
 

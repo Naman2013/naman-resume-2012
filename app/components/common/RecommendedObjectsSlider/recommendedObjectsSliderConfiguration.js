@@ -1,6 +1,4 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
-
 import defaultSliderConfiguration from 'app/components/common/Slider/sliderConfig';
 import RecommendedObjectsItem from './partials/RecommendedObjectsSliderItem';
 

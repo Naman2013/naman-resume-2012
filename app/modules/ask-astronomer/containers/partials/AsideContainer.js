@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import noop from 'lodash/noop';
 import { useTranslation } from 'react-i18next';
-import { FormattedMessage } from 'react-intl';
 import AskQuestionTile from 'app/modules/ask-astronomer/components/AskQuestionTile';
 import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
 import MVPAstronomerList from 'app/components/common/MVPAstronomer/MVPAstronomerList';

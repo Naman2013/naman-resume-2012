@@ -12,7 +12,6 @@ import { Link, browserHistory } from 'react-router';
 import classnames from 'classnames';
 import Modal from 'react-modal';
 import uniqueId from 'lodash/uniqueId';
-import { intlShape, injectIntl } from 'react-intl';
 import {
   profilePhotoStyle,
   customModalStylesBlackOverlay,

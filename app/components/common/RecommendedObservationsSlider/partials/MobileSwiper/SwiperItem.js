@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { API } from 'app/api';
 import PropTypes from 'prop-types';
 import {withTranslation} from 'react-i18next';
-import { FormattedMessage } from 'react-intl';
 import { IMAGE_DETAILS } from '../../../../../services/image-details';
 
 import styles from './SwiperItem.style';

@@ -2,7 +2,6 @@ import uniqueId from 'lodash/uniqueId';
 import React, { Component } from 'react';
 import { Button } from 'react-bootstrap';
 import { withTranslation } from 'react-i18next';
-import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import take from 'lodash/take';
 import { bindActionCreators } from 'redux';

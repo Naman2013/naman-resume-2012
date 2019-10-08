@@ -9,7 +9,6 @@ import React, { Component, Fragment } from 'react';
 import {withTranslation} from 'react-i18next';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 import { createStructuredSelector } from 'reselect';
 import { Button } from 'react-bootstrap';

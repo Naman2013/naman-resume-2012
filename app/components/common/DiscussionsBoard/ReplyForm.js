@@ -7,7 +7,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {withTranslation} from 'react-i18next';
-import { intlShape, injectIntl } from 'react-intl';
 import FormHeader from 'app/components/common/FormHeader';
 import SingleFieldSubmitForm from 'app/components/common/SingleFieldSubmitForm';
 import RevealSubmitForm from 'app/components/common/RevealSubmitForm';

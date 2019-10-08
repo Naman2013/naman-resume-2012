@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 import {withTranslation} from 'react-i18next';
-import { intlShape, injectIntl } from 'react-intl';
 import Request from 'app/components/common/network/Request';
 import ViewOurGuide from '../view-our-guide';
 import { RISE_SET_TIMES } from 'app/services/objects';

@@ -10,7 +10,6 @@ import PropTypes from 'prop-types';
 import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { intlShape, injectIntl } from 'react-intl';
 import { screenLarge } from 'app/styles/variables/breakpoints';
 import { fetchGroupMembers } from 'app/modules/community-group-overview/actions';
 import ResponsiveTwoColumnContainer from 'app/components/ResponsiveTwoColumnContainer';

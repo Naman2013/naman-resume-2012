@@ -8,7 +8,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {withTranslation} from 'react-i18next';
-import { injectIntl, intlShape } from 'react-intl';
 import ThreeTabbedNav from 'app/components/ThreeTabbedNav';
 import TwoTabbedNav from 'app/components/TwoTabbedNav';
 import LabeledTitleTiles from 'app/components/common/style/LabeledTitleTiles';

@@ -9,7 +9,6 @@ import { connect } from 'react-redux';
 import Button from 'app/components/common/style/buttons/Button';
 import { browserHistory } from 'react-router';
 import { Field, reduxForm, formValueSelector } from 'redux-form';
-import { intlShape, injectIntl } from 'react-intl';
 import InputField from 'app/components/form/InputField';
 import {
   CLASSROOM_GET_US_DISTRICTLIST_ENDPOINT_URL,

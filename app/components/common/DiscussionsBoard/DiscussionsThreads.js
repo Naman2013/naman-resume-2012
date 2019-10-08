@@ -10,7 +10,6 @@ import {withTranslation} from 'react-i18next';
 import { browserHistory } from 'react-router';
 import PropTypes from 'prop-types';
 import { API } from 'app/api';
-import { FormattedMessage } from 'react-intl';
 import { Button } from 'react-bootstrap';
 import take from 'lodash/take';
 import { submitReply } from 'app/services/discussions/submit-reply';

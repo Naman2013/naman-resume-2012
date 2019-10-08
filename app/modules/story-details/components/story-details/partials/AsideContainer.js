@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
-import { injectIntl, intlShape } from 'react-intl';
 import Host from 'app/components/Host';
 import BlueLineDrop from 'app/components/common/BlueLineDrop';
 import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';

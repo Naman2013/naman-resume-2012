@@ -9,8 +9,6 @@ import RelatedObject from 'app/components/RelatedObject/BootstrappedRelatedObjec
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { withTranslation } from 'react-i18next';
-import { injectIntl, intlShape } from 'react-intl';
-
 import { RELATED_GUIDES, RELATED_SHOWS } from 'app/services/events';
 import RelatedGuides from '../../../components/RelatedGuides';
 import RelatedShows from '../../../components/RelatedShows';

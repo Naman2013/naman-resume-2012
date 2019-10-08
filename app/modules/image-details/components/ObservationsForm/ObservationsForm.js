@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
 import {withTranslation} from 'react-i18next';
 import Modal from 'react-modal';
-import { intlShape, injectIntl } from 'react-intl';
 import { customModalStyles } from 'app/styles/mixins/utilities';
 import styles from './ObservationsForm.style';
 import messages from './ObservationsForm.messages';

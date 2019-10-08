@@ -6,7 +6,6 @@
 import React from 'react';
 import cn from 'classnames';
 import { useTranslation } from 'react-i18next';
-import { FormattedMessage } from 'react-intl';
 import { browserHistory } from 'react-router';
 import Btn from 'app/atoms/Btn';
 import messages from '../Missions/MissionCard.messages';

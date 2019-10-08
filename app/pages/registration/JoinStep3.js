@@ -10,7 +10,6 @@ import { connect } from 'react-redux';
 import Countdown from 'react-countdown-now';
 import { browserHistory } from 'react-router';
 import { API } from 'app/api';
-import { FormattedMessage } from 'react-intl';
 import {
   resetLogIn,
   logUserIn,

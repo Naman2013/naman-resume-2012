@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
-import { FormattedMessage } from 'react-intl';
 import SelectList from 'app/components/common/form-sections/select-list';
 import messages from './object-category-and-topic-selects.messages';
 import styles from './object-category-and-topic-selects.style';

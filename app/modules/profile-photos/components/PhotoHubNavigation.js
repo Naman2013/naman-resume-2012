@@ -8,7 +8,6 @@ import React, { Component } from 'react';
 import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import { Link, browserHistory, withRouter } from 'react-router';
-import { FormattedMessage } from 'react-intl';
 import findIndex from 'lodash/findIndex';
 import { searchAstronaut } from 'app/styles/variables/iconURLs';
 import { astronaut } from 'app/styles/variables/colors_tiles_v4';

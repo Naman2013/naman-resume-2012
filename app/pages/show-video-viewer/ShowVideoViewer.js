@@ -4,7 +4,6 @@ import {withTranslation} from 'react-i18next';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import noop from 'lodash/noop';
-import { FormattedMessage } from 'react-intl';
 import GoogleAd from '../../components/common/google-ads/GoogleAd';
 import VideoImageLoader from '../../components/common/telescope-image-loader/video-image-loader';
 import CommunityMashup from '../../components/situation-room/CommunityMashup';

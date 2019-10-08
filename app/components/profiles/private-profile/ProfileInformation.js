@@ -6,7 +6,6 @@ import _get from 'lodash/get';
 import PropTypes from 'prop-types';
 import React, { Component, Fragment } from 'react';
 import {withTranslation} from 'react-i18next';
-import { injectIntl, intlShape } from 'react-intl';
 import Modal from 'react-modal';
 
 import { DeviceContext } from '../../../providers/DeviceProvider';

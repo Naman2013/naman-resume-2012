@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import flatten from 'lodash/flatten';
 import { withTranslation } from 'react-i18next';
-import { injectIntl, intlShape } from 'react-intl';
 import IntroText from 'app/components/common/form-sections/intro-text';
 import FormSectionHeader from 'app/components/common/form-sections/section-header';
 import Tags from 'app/components/common/form-fields/tags';

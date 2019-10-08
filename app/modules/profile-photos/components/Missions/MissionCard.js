@@ -8,7 +8,6 @@ import cn from 'classnames';
 import { withTranslation } from 'react-i18next';
 import Modal from 'react-modal';
 import { browserHistory } from 'react-router';
-import { FormattedMessage } from 'react-intl';
 import Button from 'app/components/common/style/buttons/Button';
 import { downloadFile } from 'app/utils/downloadFile';
 import { customModalStylesFitDevice } from 'app/styles/mixins/utilities';

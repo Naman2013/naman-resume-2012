@@ -6,7 +6,6 @@ import {
 import React, { Component } from 'react';
 import { Button } from 'react-bootstrap';
 import { withTranslation } from 'react-i18next';
-import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {

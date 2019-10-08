@@ -9,7 +9,6 @@ import React, { Component, Fragment } from 'react';
 import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { intlShape, injectIntl, FormattedMessage } from 'react-intl';
 import GenericLoadingBox from 'app/components/common/loading-screens/generic-loading-box';
 import DeviceProvider from 'providers/DeviceProvider';
 import has from 'lodash/has';

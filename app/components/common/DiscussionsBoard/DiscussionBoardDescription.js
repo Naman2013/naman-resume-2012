@@ -8,7 +8,6 @@ import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import PropTypes from 'prop-types';
 import { API } from 'app/api';
-import { intlShape, injectIntl } from 'react-intl';
 import { DeviceContext } from 'providers/DeviceProvider';
 import cloneDeep from 'lodash/cloneDeep';
 import TextareaField from 'app/components/form/TextareaField';

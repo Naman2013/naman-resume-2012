@@ -1,7 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { browserHistory } from 'react-router';
-import { FormattedMessage, intlShape, injectIntl } from 'react-intl';
 import { primaryFont } from 'app/styles/variables/fonts';
 import {
   romance,

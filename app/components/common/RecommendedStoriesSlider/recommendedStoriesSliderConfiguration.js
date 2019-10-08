@@ -1,5 +1,4 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
 import has from 'lodash/has';
 import defaultSliderConfiguration from 'app/components/common/Slider/sliderConfig';
 import StoryTile from 'app/components/common/tiles/StoryTile';

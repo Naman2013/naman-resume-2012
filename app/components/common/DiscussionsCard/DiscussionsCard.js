@@ -11,7 +11,6 @@ import {withTranslation} from 'react-i18next';
 import { Link } from 'react-router';
 import uniqueId from 'lodash/uniqueId';
 import moment from 'moment';
-import { FormattedMessage } from 'react-intl';
 import CommentButton from 'app/components/common/style/buttons/CommentButton';
 import LikeSomethingButton from 'app/components/common/LikeSomethingButton';
 import ReplyButton from 'app/components/common/DiscussionsBoard/ReplyButton';

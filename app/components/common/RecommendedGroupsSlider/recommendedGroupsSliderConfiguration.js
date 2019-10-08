@@ -1,6 +1,5 @@
 import React from 'react';
 import uniqueId from 'lodash/uniqueId';
-import { FormattedMessage } from 'react-intl';
 import defaultSliderConfiguration from 'app/components/common/Slider/sliderConfig';
 import GroupTile from 'app/components/common/tiles/GroupTile';
 

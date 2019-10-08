@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react';
 import { useTranslation } from 'react-i18next';
-import { FormattedMessage } from 'react-intl';
 import { DeviceContext } from 'app/providers/DeviceProvider';
 import SterlingTitle from 'app/components/common/titles/SterlingTitle';
 import RecommendedObservations from 'app/components/common/RecommendedObservationsSlider';

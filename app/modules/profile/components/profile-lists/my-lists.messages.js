@@ -1,4 +1,3 @@
-import { defineMessages } from 'react-intl';
 import { Messages } from 'app/utils/i18n/MessageDescriptor';
 
 const messages: Messages = {

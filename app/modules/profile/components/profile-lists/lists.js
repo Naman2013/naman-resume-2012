@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { withTranslation } from 'react-i18next';
 import { withRouter } from 'react-router';
-import { injectIntl } from 'react-intl';
 import { DeviceContext } from 'app/providers/DeviceProvider';
 import HubContainer from 'app/components/common/HubContainer';
 import GuideTopics from 'app/components/guides/GuideTopics';

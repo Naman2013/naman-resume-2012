@@ -7,7 +7,6 @@ import Request from 'app/components/common/network/Request';
 import { Link } from 'react-router';
 import { SUBSCRIPTION_PLANS_ENDPOINT_URL } from 'app/services/registration/registration.js';
 import SubscriptionPlanCardDashboard from 'app/pages/registration/partials/SubscriptionPlanCardDashboard';
-import { intlShape, injectIntl } from 'react-intl';
 import { customModalStyles } from '../../../../styles/mixins/utilities';
 import styles from './BootstrappedTourPopup.styles';
 import messages from './BootstrappedTourPopup.messages';

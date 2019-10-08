@@ -5,7 +5,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
-import { FormattedMessage } from 'react-intl';
 import style from './StoryCard.style';
 import messages from './StoryCard.messages';
 

@@ -8,7 +8,6 @@ import React, { Component } from 'react';
 import { withTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 import PropTypes from 'prop-types';
-import { intlShape, injectIntl } from 'react-intl';
 import { prepareThread } from 'app/services/discussions/prepare-thread';
 import {
   romance,

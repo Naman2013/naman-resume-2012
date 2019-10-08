@@ -28,7 +28,6 @@ import { DeviceContext } from 'app/providers/DeviceProvider';
 import { customModalStylesV4 } from 'app/styles/mixins/utilities';
 import React, { Component } from 'react';
 import { withTranslation } from 'react-i18next';
-import { injectIntl } from 'react-intl';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import messages from './AskAstronomer.messages';

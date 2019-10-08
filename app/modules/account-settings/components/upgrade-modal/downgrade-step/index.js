@@ -8,7 +8,6 @@ import {
 } from 'app/services/registration/registration.js';
 import PlanDetailsCard from 'app/pages/registration/partials/PlanDetailsCard';
 import { DeviceContext } from 'app/providers/DeviceProvider';
-import { FormattedMessage } from 'react-intl';
 import { browserHistory } from 'react-router';
 import Btn from 'app/atoms/Btn';
 

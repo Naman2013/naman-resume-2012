@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react';
 import { withTranslation } from 'react-i18next';
-import { injectIntl } from 'react-intl';
 import HubContainer from '../../common/HubContainer';
 import Request from '../../common/network/Request';
 import { DeviceContext } from '../../../providers/DeviceProvider';

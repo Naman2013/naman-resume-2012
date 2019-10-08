@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import { ModalImg } from 'app/modules/telescope/components/modal-img';
-import { injectIntl } from 'react-intl';
 import messages from 'app/components/common/CardObservations/CardObsLarge.messages';
 import LikeSomethingButton from 'app/components/common/LikeSomethingButton';
 import style from './CardObservationsSmall.style';

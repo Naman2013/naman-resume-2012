@@ -5,7 +5,6 @@
 
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { FormattedMessage } from 'react-intl';
 import SubPageNavigation from '../common/sub-page-navigation';
 import messages from './Navigation.messages';
 

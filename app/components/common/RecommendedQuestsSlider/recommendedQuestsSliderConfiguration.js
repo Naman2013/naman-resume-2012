@@ -1,8 +1,6 @@
 import React from 'react';
 import defaultSliderConfiguration from 'app/components/common/Slider/sliderConfig';
 import RecommendedQuestItem from './partials/RecommendedQuestItem';
-import { FormattedMessage } from 'react-intl';
-
 import messages from './RecommendedQuestsSlider.messages';
 
 const getSliderConfiguration = () =>

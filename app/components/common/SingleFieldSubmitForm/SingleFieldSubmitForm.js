@@ -12,7 +12,6 @@ import React, { Component } from 'react';
 import noop from 'lodash/noop';
 import PropTypes from 'prop-types';
 import {withTranslation} from 'react-i18next';
-import { intlShape, injectIntl } from 'react-intl';
 import PhotoUploadButton from 'app/components/common/style/buttons/PhotoUploadButton';
 import Modal from 'react-modal';
 import deletePostImage from 'app/services/post-creation/delete-post-image';

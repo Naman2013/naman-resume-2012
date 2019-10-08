@@ -8,7 +8,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withTranslation } from 'react-i18next';
-import { injectIntl, intlShape } from 'react-intl';
 import LikeSomethingButton from 'app/components/common/LikeSomethingButton';
 import { romance } from 'app/styles/variables/colors_tiles_v4';
 import DiscussionsBoard from 'app/components/common/DiscussionsBoard';

@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 import cn from 'classnames';
-import { FormattedMessage } from 'react-intl';
-
 import styles from './RecommendedQuestItem.style';
 import messages from './RecommendedQuestItem.messages';
 

@@ -2,7 +2,6 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import uniqueId from 'lodash/uniqueId';
 import { useTranslation } from 'react-i18next';
-import { FormattedMessage } from 'react-intl';
 import { sloohLogoAstronaut } from 'app/styles/variables/iconURLs';
 import messages from './Main.messages';
 import MenuList from './partials/MenuList';

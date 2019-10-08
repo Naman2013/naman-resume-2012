@@ -5,7 +5,6 @@ import { withTranslation } from 'react-i18next';
 import { browserHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { intlShape, injectIntl } from 'react-intl';
 import StoryTiles from 'app/components/stories-hub/stories-tiles';
 import Request from 'app/components/common/network/Request';
 import HubContainer from 'app/components/common/HubContainer';

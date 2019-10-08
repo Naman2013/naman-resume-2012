@@ -12,7 +12,6 @@ import JoinHeader from 'app/pages/registration/partials/JoinHeader';
 import PlanDetailsCard from 'app/pages/registration/partials/PlanDetailsCard';
 import { DEFAULT_JOIN_TABS } from 'app/pages/registration/StaticNavTabs';
 import Countdown from 'react-countdown-now';
-import { FormattedMessage } from 'react-intl';
 import { browserHistory } from 'react-router';
 import { API } from 'app/api';
 import { getUserInfo, storeUserNewAT } from 'app/modules/User';

@@ -8,7 +8,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withTranslation } from 'react-i18next';
-import { intlShape, injectIntl, FormattedMessage } from 'react-intl';
 import Button from 'app/components/common/style/buttons/Button';
 import styles from './request-group-form.style';
 import messages from './request-group-from.messages';

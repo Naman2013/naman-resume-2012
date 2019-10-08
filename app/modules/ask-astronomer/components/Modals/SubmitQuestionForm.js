@@ -16,7 +16,6 @@ import { MultiUploadImageList } from 'app/modules/multi-upload-images/components
 import React, { PureComponent } from 'react';
 import { Button } from 'react-bootstrap';
 import { withTranslation } from 'react-i18next';
-import { injectIntl, intlShape } from 'react-intl';
 import './styles.scss';
 import messages from './SubmitQuestionForm.messages';
 

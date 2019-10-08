@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
-import { FormattedMessage, intlShape, injectIntl } from 'react-intl';
 import Logout from 'redux/components/Logout';
 import {
   userAstronaut,

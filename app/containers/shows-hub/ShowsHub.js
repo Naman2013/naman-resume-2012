@@ -5,7 +5,6 @@ import noop from 'lodash/noop';
 import { withTranslation } from 'react-i18next';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { intlShape, injectIntl } from 'react-intl';
 import ShowTiles from 'app/components/shows-hub/show-tiles';
 import Request from 'app/components/common/network/Request';
 import HubContainer from 'app/components/common/HubContainer';

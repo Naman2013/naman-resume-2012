@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import uniqueId from 'lodash/uniqueId';
 import {useTranslation} from 'react-i18next';
-import { intlShape, injectIntl } from 'react-intl';
 import cx from 'classnames';
 import { horizontalArrow } from 'app/styles/variables/iconURLs';
 import style from './step-list-item.style';

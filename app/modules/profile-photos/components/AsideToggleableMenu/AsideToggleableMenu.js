@@ -6,8 +6,6 @@ import { AddTagsAsideMenu } from 'app/modules/profile-photos/components/add-tags
 import React from 'react';
 import PropTypes, { number } from 'prop-types';
 import { useTranslation } from 'react-i18next';
-import { FormattedMessage } from 'react-intl';
-
 import DeleteImage from 'app/components/my-pictures/actions/DeleteImageV4';
 import AddToGallery from 'app/components/my-pictures/actions/AddToGalleryV4';
 import RemoveGalleryImageBtn from 'app/modules/gallery-details/containers/remove-gallery-image';

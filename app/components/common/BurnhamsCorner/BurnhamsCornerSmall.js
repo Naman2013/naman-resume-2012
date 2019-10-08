@@ -1,7 +1,6 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
-import { FormattedMessage } from 'react-intl';
 import TileButton from './TileButton';
 
 import style from './BurnhamsCornerSmall.style';

@@ -13,7 +13,6 @@ import {
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { withTranslation } from 'react-i18next';
-import { injectIntl, intlShape } from 'react-intl';
 import FullpageForm from './Modals/FullpageForm';
 import SubmitReplyFeedbackModal from './Modals/SubmitReplyFeedbackModal';
 import SubmitReplyForm from './Modals/SubmitReplyForm';

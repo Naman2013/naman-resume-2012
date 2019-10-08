@@ -13,7 +13,6 @@ import TwoTabbedNav from 'app/components/TwoTabbedNav';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { injectIntl, intlShape } from 'react-intl';
 import AsideContainer from './partials/AsideContainer';
 import HeaderContainer from './partials/HeaderContainer';
 import MainContainer from './partials/MainContainer';

@@ -10,7 +10,6 @@ import PropTypes from 'prop-types';
 import { withTranslation } from 'react-i18next';
 import { Tab, Tabs, TabList } from 'react-tabs';
 import Select from 'react-select';
-import { FormattedMessage } from 'react-intl';
 import { liveShow } from '../../styles/variables/iconURLs';
 
 import styles from './LiveShowVideoViewerNav.style';

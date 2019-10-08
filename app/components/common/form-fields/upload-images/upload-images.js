@@ -4,7 +4,6 @@ import GenericButton from 'app/components/common/style/buttons/Button';
 import setPostImage from 'app/services/post-creation/set-post-image';
 import deletePostImage from 'app/services/post-creation/delete-post-image';
 import {useTranslation, withTranslation} from 'react-i18next';
-import { FormattedMessage } from 'react-intl';
 import ImagesInput from './partials/input';
 import ImagesDisplay from './partials/display';
 import styles from './upload-images.style';

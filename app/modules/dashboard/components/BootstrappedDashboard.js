@@ -9,7 +9,6 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import PropTypes from 'prop-types';
 import uniqueId from 'lodash/uniqueId';
-import { FormattedMessage, intlShape, injectIntl } from 'react-intl';
 import { getDashboardFeaturedObjects } from 'app/modules/dashboard/actions';
 import { makeDashboardFeaturedObjectsSelector } from 'app/modules/dashboard/selectors';
 import { reserveCommunityMission } from 'app/modules/telescope/thunks';

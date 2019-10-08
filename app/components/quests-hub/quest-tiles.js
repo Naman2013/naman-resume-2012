@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import uniqueId from 'lodash/uniqueId';
 import {withTranslation} from 'react-i18next';
-import { FormattedMessage } from 'react-intl';
 import CenterColumn from 'app/components/common/CenterColumn';
 import QuestHubTileBig from 'app/components/common/tiles/QuestHubTileBig';
 import QuestHubTileSmall from 'app/components/common/tiles/QuestHubTileSmall';

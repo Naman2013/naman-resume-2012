@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withTranslation } from 'react-i18next';
-import { FormattedMessage, injectIntl } from 'react-intl';
 import Modal from 'react-modal';
 import { DeviceContext } from '../../providers/DeviceProvider';
 import Button from '../common/style/buttons/Button';

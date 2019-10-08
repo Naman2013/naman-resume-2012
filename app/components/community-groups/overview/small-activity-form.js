@@ -7,8 +7,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withTranslation } from 'react-i18next';
-import { intlShape, injectIntl } from 'react-intl';
-
 import RevealSubmitForm from 'app/components/common/RevealSubmitForm';
 import messages from './activity-form.messages';
 

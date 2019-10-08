@@ -2,7 +2,6 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import {withTranslation} from 'react-i18next';
-import { FormattedMessage } from 'react-intl';
 import CountdownCircleTimer from 'app/components/common/CountdownCircleTimer';
 import styles from './UpcomingShowCountdown.style';
 import messages from './UpcomingShowCountdown.messages';

@@ -4,7 +4,6 @@
 
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
 import { useTranslation } from 'react-i18next';
 import Request from '../../components/common/network/Request';
 import CenterColumn from '../../components/common/CenterColumn';

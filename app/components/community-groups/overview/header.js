@@ -9,7 +9,6 @@ import { useTranslation } from 'react-i18next';
 import { Link, browserHistory } from 'react-router';
 import PropTypes from 'prop-types';
 import pick from 'lodash/pick';
-import { FormattedMessage } from 'react-intl';
 import LabeledTitleTiles from 'app/components/common/style/LabeledTitleTiles';
 import LargeButtonWithRightIcon from 'app/components/common/style/buttons/LargeButtonWithRightIcon';
 import Button from 'app/components/common/style/buttons/Button';

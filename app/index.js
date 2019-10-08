@@ -11,7 +11,6 @@ import './monitoring';
 // redux store
 import store from 'app/store';
 // providers
-import I18nProvider from './providers/I18nProvider';
 // utilities
 import './utils/manual-polyfills';
 import './i18n';
@@ -22,10 +21,8 @@ import './styles/index.scss';
 window.EventSource = NativeEventSource || EventSourcePolyfill;
 
 ReactDOM.render(
-  <I18nProvider>
-    <Provider store={store}>
-      <AppRouter />
-    </Provider>
-  </I18nProvider>,
+  <Provider store={store}>
+    <AppRouter />
+  </Provider>,
   window.document.getElementById('app')
 );

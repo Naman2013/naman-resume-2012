@@ -11,7 +11,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import findIndex from 'lodash/findIndex';
 import has from 'lodash/has';
-import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 import { Button } from 'react-bootstrap';
 import { createStructuredSelector } from 'reselect';
 import GenericButton from 'app/components/common/style/buttons/Button';

@@ -9,7 +9,6 @@ import { Field, reduxForm } from 'redux-form';
 import InputField from 'app/components/form/InputField';
 import PropTypes from 'prop-types';
 import cloneDeep from 'lodash/cloneDeep';
-import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 import { DeviceContext } from 'providers/DeviceProvider';
 import TextareaField from 'app/components/form/TextareaField';
 import Button from 'app/components/common/style/buttons/Button';

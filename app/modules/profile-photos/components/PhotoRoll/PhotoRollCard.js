@@ -7,7 +7,6 @@ import React, { Component } from 'react';
 import cn from 'classnames';
 import {useTranslation, withTranslation} from 'react-i18next';
 import { browserHistory } from 'react-router';
-import { FormattedMessage } from 'react-intl';
 import Button from 'app/components/common/style/buttons/Button';
 import Dots from 'app/atoms/icons/Dots';
 import { downloadFile } from 'app/utils/downloadFile';

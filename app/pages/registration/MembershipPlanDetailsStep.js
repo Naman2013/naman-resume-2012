@@ -11,7 +11,6 @@ import cloneDeep from 'lodash/cloneDeep';
 import Button from 'app/components/common/style/buttons/Button';
 
 import { Field, reduxForm } from 'redux-form';
-import { intlShape, injectIntl, FormattedMessage } from 'react-intl';
 import InputField from 'app/components/form/InputField';
 import {
   CLASSROOM_GET_US_DISTRICTLIST_ENDPOINT_URL,

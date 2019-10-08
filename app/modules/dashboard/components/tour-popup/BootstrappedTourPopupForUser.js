@@ -4,7 +4,6 @@ import { API } from 'app/api';
 import { withTranslation } from 'react-i18next';
 import Modal from 'react-modal';
 import { Link } from 'react-router';
-import { intlShape, injectIntl } from 'react-intl';
 import { customModalStyles } from '../../../../styles/mixins/utilities';
 import { DASHBOARD_DISMISS_TOUR_POPUP } from '../../../../services/dashboard';
 import BobbieTileWelcomeToPlan from '../../../../components/common/tiles/BobbieTile/BobbieTileWelcomeToPlan';

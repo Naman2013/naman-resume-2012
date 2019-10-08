@@ -1,7 +1,6 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import {withTranslation} from 'react-i18next';
-import { FormattedMessage } from 'react-intl';
 import Request from 'app/components/common/network/Request';
 import InAppNavigation from 'app/components/common/InAppNavigation';
 import CenterColumn from 'app/components/common/CenterColumn';

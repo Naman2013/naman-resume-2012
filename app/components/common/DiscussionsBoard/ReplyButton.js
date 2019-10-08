@@ -7,7 +7,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {withTranslation} from 'react-i18next';
-import { intlShape, injectIntl } from 'react-intl';
 import Button from 'app/components/common/style/buttons/Button';
 import RevealSubmitForm from 'app/components/common/RevealSubmitForm';
 import {
