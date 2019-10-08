@@ -112,10 +112,7 @@ class Shows extends Component {
                   ))
                 ) : (
                   <p>
-                    <FormattedMessage
-                      {...messages.NoShows}
-                      values={{ objectTitle: objectDetails.objectTitle }}
-                    />
+                    {t('.NoShows', { objectTitle: objectDetails.objectTitle })}
                   </p>
                 )}
               </div>

@@ -6,7 +6,7 @@
  ***********************************/
 
 import React, { Component, Fragment } from 'react';
-import {withTranslation} from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import has from 'lodash/has';
@@ -15,10 +15,10 @@ import { intlShape, injectIntl, FormattedMessage } from 'react-intl';
 import Request from 'app/components/common/network/Request';
 import CenterColumn from 'app/components/common/CenterColumn';
 import DeviceProvider, { DeviceContext } from 'providers/DeviceProvider';
-import ObjectDetailsSectionTitle from '../../components/object-details/ObjectDetailsSectionTitle';
 import QuestHubTileBig from 'app/components/common/tiles/QuestHubTileBig';
 import QuestHubTileSmall from 'app/components/common/tiles/QuestHubTileSmall';
 import { OBJECT_QUESTS } from 'app/services/objects';
+import ObjectDetailsSectionTitle from '../../components/object-details/ObjectDetailsSectionTitle';
 
 import {
   fetchObjectDetailsAction,
@@ -60,7 +60,7 @@ class Quests extends Component {
       <Fragment>
         <DeviceProvider>
           <ObjectDetailsSectionTitle
-            title={objectDetails.objectTitle + "'s"}
+            title={`${objectDetails.objectTitle}'s`}
             subTitle={t('.RelatedQuests')}
           />
 
@@ -95,14 +95,8 @@ class Quests extends Component {
                         </div>
                       ) : (
                         <div>
-                          <p style={{fontSize: "1.5em"}}>
+                          <p style={{ fontSize: '1.5em' }}>
                             {serviceResponse.questsComingSoonMessage}
-                            {/*<FormattedMessage*/}
-                            {/*  {...messages.NoQuests}*/}
-                            {/*  values={{*/}
-                            {/*    objectTitle: objectDetails.objectTitle,*/}
-                            {/*  }}*/}
-                            {/*/>*/}
                           </p>
                         </div>
                       )}

@@ -37,7 +37,7 @@ export const getSliderProps = (
   reservationModalShow,
   reservedButtonCaption,
   optionsButtonCaption,
-  t // todo FIX ME
+  t
 ) =>
   Object.assign(
     {

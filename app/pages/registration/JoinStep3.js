@@ -203,7 +203,7 @@ class JoinStep3 extends Component {
     }));
   };
 
-  CountdownRenderer = ({ completed, minutes, seconds }) => {
+  CountdownRenderer = ({ completed, minutes, seconds, t }) => {
     if (completed) {
       // Render a completed state
       //console.log('The countdown has completed.....');
@@ -214,26 +214,9 @@ class JoinStep3 extends Component {
     // Render a countdown
     return (
       <p style={{ fontSize: '1.3em', color: 'green' }}>
-        <FormattedMessage
-          {...messages.SignupRequestExpireTime}
-          values={{ minutes, seconds }}
-        />
+        {t('.SignupRequestExpireTime', { minutes, seconds })}
       </p>
     );
-  };
-
-  CountdownExpiredRenderer = ({ seconds, completed }) => {
-    if (!completed) {
-      // Render a countdown to redirect to the homepage
-      return (
-        <p style={{ fontSize: '1.3em', fontWeight: 'bold', color: 'red' }}>
-          <FormattedMessage
-            {...messages.SignupRequestExpireTime}
-            values={{ seconds }}
-          />
-        </p>
-      );
-    }
   };
 
   CountdownExpiredComplete = () => {

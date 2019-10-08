@@ -705,10 +705,8 @@ class JoinStep2 extends Component {
                                 {joinPageRes.selectedSchool.schoolName}
                               </p>
                               <p style={{ fontSize: '1.0em' }}>
-                                <FormattedMessage
-                                  {...messages.YourSchoolDistrict}
-                                />
-                                : {joinPageRes.selectedSchool.districtName}
+                                {t('.YourSchoolDistrict')}:{' '}
+                                {joinPageRes.selectedSchool.districtName}
                               </p>
                               <br />
                               <br />

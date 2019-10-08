@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import uniqueId from 'lodash/uniqueId';
+import {withTranslation} from 'react-i18next';
 import { FormattedMessage } from 'react-intl';
 import CenterColumn from 'app/components/common/CenterColumn';
 import QuestHubTileBig from 'app/components/common/tiles/QuestHubTileBig';
@@ -10,6 +11,7 @@ import QuestExcerptTile from 'app/components/common/tiles/quest-excerpt-tile';
 
 import style from './quest-tiles.style';
 
+@withTranslation
 class QuestTiles extends Component {
   static propTypes = {
     quests: PropTypes.arrayOf(
@@ -50,6 +52,7 @@ class QuestTiles extends Component {
       isMobile,
       updateReadingListInfo,
       questsComingSoonMessage,
+      t,
     } = this.props;
     const { activeId } = this.state;
     return quests.length ? (
@@ -91,9 +94,11 @@ class QuestTiles extends Component {
     ) : (
       (
         <div className="container">
-          <p style={{fontSize: "1.5em"}} className="mt-5">{questsComingSoonMessage}</p>
+          <p style={{ fontSize: '1.5em' }} className="mt-5">
+            {questsComingSoonMessage}
+          </p>
         </div>
-      ) || <FormattedMessage id="Hubs.noQuests" />
+      ) || t('Hubs.noQuests')
     );
   }
 }

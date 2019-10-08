@@ -6,7 +6,7 @@
  ***********************************/
 
 import React, { Component, Fragment } from 'react';
-import {withTranslation} from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import findIndex from 'lodash/findIndex';
@@ -110,15 +110,18 @@ class Observations extends Component {
     };
     this.setState({ page });
     fetchSharedMemberPhotosAction(requestBody);
-  }
+  };
 
   handleSelect = (e, selectedItem) => {
-    this.setState({
-      selectedIndex: findIndex(
-        this.dropdownOptions,
-        filter => filter.value === selectedItem.value
-      ),
-    }, () => this.getObservations(DEFAULT_PAGE));
+    this.setState(
+      {
+        selectedIndex: findIndex(
+          this.dropdownOptions,
+          filter => filter.value === selectedItem.value
+        ),
+      },
+      () => this.getObservations(DEFAULT_PAGE)
+    );
   };
 
   showWriteObservationModal = () => {
@@ -157,7 +160,9 @@ class Observations extends Component {
           renderNav={() => (
             <div
               className="nav-actions"
-              ref={node => { this.observationContainer = node; }}
+              ref={node => {
+                this.observationContainer = node;
+              }}
             >
               <GenericButton
                 onClickEvent={this.showWriteObservationModal}
@@ -189,9 +194,7 @@ class Observations extends Component {
                   }}
                   render={({ serviceResponse: imageDetails }) => {
                     const photoBy = imageDetails.linkableFileData
-                      ? `${imageDetails.linkableFileData['Photo by'].label} ${
-                          imageDetails.linkableFileData['Photo by'].text
-                        }`
+                      ? `${imageDetails.linkableFileData['Photo by'].label} ${imageDetails.linkableFileData['Photo by'].text}`
                       : 'Photo by';
                     return (
                       !isEmpty(imageDetails) && (
@@ -233,14 +236,11 @@ class Observations extends Component {
               ) : null}
             </div>
           </CenterColumn>
-        ) : null }
+        ) : null}
 
         {!imageCount && !isFetching && (
           <p>
-            <FormattedMessage
-              {...messages.NoObservations}
-              values={{ objectTitle: objectDetails.objectTitle }}
-            />
+            {t('.NoObservations', { objectTitle: objectDetails.objectTitle })}
           </p>
         )}
 

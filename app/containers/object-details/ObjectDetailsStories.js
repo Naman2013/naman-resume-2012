@@ -6,7 +6,7 @@
  ***********************************/
 
 import React, { Component, Fragment } from 'react';
-import {withTranslation} from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { intlShape, injectIntl, FormattedMessage } from 'react-intl';
@@ -73,7 +73,7 @@ class Stories extends Component {
       <Fragment>
         <DeviceProvider>
           <ObjectDetailsSectionTitle
-            title={objectDetails.objectTitle + "'s"}
+            title={`${objectDetails.objectTitle}'s`}
             subTitle={t('.RelatedStories')}
           />
         </DeviceProvider>
@@ -100,10 +100,9 @@ class Stories extends Component {
                   ))
                 ) : (
                   <p>
-                    <FormattedMessage
-                      {...messages.NoStories}
-                      values={{ objectTitle: objectDetails.objectTitle }}
-                    />
+                    {t('.NoStories', {
+                      objectTitle: objectDetails.objectTitle,
+                    })}
                   </p>
                 )}
               </div>

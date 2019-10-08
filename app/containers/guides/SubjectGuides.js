@@ -56,8 +56,8 @@ const subjectGuideModel = {
       alignContent: 'right',
     },
     sterlingTitleProps: {
-      title: t('.SubjectsSterlingTitle'), // todo FIX ME
-      subTitle: t('.SubjectsSterlingSubtitle'),
+      title: 'Topics within this guide',
+      subTitle: 'Select a Topic for more information',
     },
     subjectGuideListProps: {
       list:
@@ -84,40 +84,40 @@ const SubjectGuides = ({ params: { guideId } }) => (
         fetchingContent,
         modeledResponses: { SUBJECT_GUIDE_MODEL },
       }) => (
-          <Fragment>
-            {!fetchingContent && (
-              <Fragment>
-                <TiaraTitleSection
-                  {...SUBJECT_GUIDE_MODEL.tiaraTitleSectionProps}
+        <Fragment>
+          {!fetchingContent && (
+            <Fragment>
+              <TiaraTitleSection
+                {...SUBJECT_GUIDE_MODEL.tiaraTitleSectionProps}
+              />
+
+              <CenterColumn
+                theme={{
+                  boxShadow: 'rgba(65, 86, 113, 0.2) 0px 3px 8px 1px',
+                  marginBottom: '60px',
+                }}
+              >
+                <GuideSection
+                  {...SUBJECT_GUIDE_MODEL.guideSectionProps}
+                  guideId={guideId}
                 />
+              </CenterColumn>
+              <GuidePanels guideId={guideId} />
 
-                <CenterColumn
-                  theme={{
-                    boxShadow: 'rgba(65, 86, 113, 0.2) 0px 3px 8px 1px',
-                    marginBottom: '60px',
-                  }}
-                >
-                  <GuideSection
-                    {...SUBJECT_GUIDE_MODEL.guideSectionProps}
-                    guideId={guideId}
-                  />
-                </CenterColumn>
-                <GuidePanels guideId={guideId} />
+              {Array.isArray(SUBJECT_GUIDE_MODEL.subjectGuideListProps.list) &&
+                SUBJECT_GUIDE_MODEL.subjectGuideListProps.list.length > 0 && (
+                  <SterlingTitle {...SUBJECT_GUIDE_MODEL.sterlingTitleProps} />
+                )}
 
-                {Array.isArray(SUBJECT_GUIDE_MODEL.subjectGuideListProps.list) &&
-                  SUBJECT_GUIDE_MODEL.subjectGuideListProps.list.length > 0 && (
-                    <SterlingTitle {...SUBJECT_GUIDE_MODEL.sterlingTitleProps} />
-                  )}
-
-                <CenterColumn>
-                  <SubjectGuideList
-                    {...SUBJECT_GUIDE_MODEL.subjectGuideListProps}
-                  />
-                </CenterColumn>
-              </Fragment>
-            )}
-          </Fragment>
-        )}
+              <CenterColumn>
+                <SubjectGuideList
+                  {...SUBJECT_GUIDE_MODEL.subjectGuideListProps}
+                />
+              </CenterColumn>
+            </Fragment>
+          )}
+        </Fragment>
+      )}
     />
   </div>
 );

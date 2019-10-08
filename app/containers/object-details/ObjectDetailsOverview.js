@@ -395,10 +395,7 @@ class Overview extends Component {
               </div>
             ) : (
               <p className="error-message">
-                <FormattedMessage
-                  {...messages.NoSpecialists}
-                  values={{ objectTitle: objectData.objectTitle }}
-                />
+                {t('.NoSpecialists', { objectTitle: objectData.objectTitle })}
               </p>
             )}
           </CenterColumn>

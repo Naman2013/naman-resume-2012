@@ -19,7 +19,7 @@ const QA_TABS_DATA = {
       isPublic
         ? t('.AskedQuestions', { count })
         : t('.YourAskedQuestions', { count }),
-    dropdownOptions: [
+    getDropdownOptions: t => [
       {
         label: t('.AllQuestions'), // todo hardcode text here
         value: 'asked',
@@ -36,11 +36,11 @@ const QA_TABS_DATA = {
       isPublic
         ? t('.AnsweredQuestions', { count })
         : t('.YourAnsweredQuestions', { count }),
-    dropdownOptions: [],
+    getDropdownOptions: t => [],
   },
   allunanswered: {
     countText: (count, t) => t('.QuestionsToAnswers'),
-    dropdownOptions: [
+    getDropdownOptions: t => [
       {
         label: t('.AllUnanswered'), // todo hardcode text here
         value: 'allunanswered',
@@ -103,9 +103,9 @@ class MyQa extends Component {
                 callSource: 'qanda',
               }}
               showDropdown={
-                QA_TABS_DATA[params.filter].dropdownOptions.length > 0
+                QA_TABS_DATA[params.filter].getDropdownOptions(t).length > 0
               }
-              dropdownOptions={QA_TABS_DATA[params.filter].dropdownOptions}
+              dropdownOptions={QA_TABS_DATA[params.filter].getDropdownOptions(t)}
               changeAnswerState={this.getAstronomerQuestions}
             />
           )}
