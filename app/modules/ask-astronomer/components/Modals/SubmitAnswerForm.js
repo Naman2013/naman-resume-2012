@@ -68,10 +68,9 @@ class SubmitAnswerForm extends PureComponent {
     document.body.style.overflow = 'unset';
   }
 
-  onChangeAnswerText = e => {
-    e.preventDefault();
+  onChangeAnswerText = value => {
     this.setState({
-      answerText: e.target.value,
+      answerText: value,
     });
   };
 
