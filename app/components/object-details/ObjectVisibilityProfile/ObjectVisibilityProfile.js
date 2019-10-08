@@ -8,7 +8,7 @@ import { RISE_SET_TIMES } from 'app/services/objects';
 import { downwardFacingChevron } from 'app/styles/variables/iconURLs';
 import { GridContainer, Row, StaticCell } from '../../common/grid';
 import style from './ObjectVisibilityProfile.style';
-import messages from './ObjectVisibilityProfile.messages';
+
 
 import { DEFAULT_OBSID } from './constants';
 
@@ -162,14 +162,14 @@ class ObjectVisibilityProfile extends Component {
                         >
                           <p>
                             {fetchingContent
-                              ? `${t('.Loading')}...`
+                              ? `${t('Objects.Loading')}...`
                               : riseSet.rise}
                           </p>
                         </StaticCell>
                         <StaticCell title={riseSet.transitLabel} hasBorderScale={[true]}>
                           <p>
                             {fetchingContent
-                              ? `${t('.Loading')}...`
+                              ? `${t('Objects.Loading')}...`
                               : riseSet.transit}
                           </p>
                         </StaticCell>
@@ -179,7 +179,7 @@ class ObjectVisibilityProfile extends Component {
                         >
                           <p>
                             {fetchingContent
-                              ? `${t('.Loading')}...`
+                              ? `${t('Objects.Loading')}...`
                               : riseSet.set}
                           </p>
                         </StaticCell>
@@ -188,7 +188,7 @@ class ObjectVisibilityProfile extends Component {
                         <StaticCell title={riseSet.notesLabel}>
                           <p>
                             {fetchingContent
-                              ? `${t('.Loading')}...`
+                              ? `${t('Objects.Loading')}...`
                               : riseSet.notes}
                           </p>
                         </StaticCell>

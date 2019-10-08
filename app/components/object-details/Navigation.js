@@ -6,35 +6,35 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import SubPageNavigation from '../common/sub-page-navigation';
-import messages from './Navigation.messages';
+
 
 const generateNavItems = (objectId, t) => [
   {
-    title: t('.Overview'),
+    title: t('Objects.Overview'),
     link: `/object-details/${objectId}/overview`,
   },
   {
-    title: t('.Missions'),
+    title: t('Objects.Missions'),
     link: `/object-details/${objectId}/missions`,
   },
   {
-    title: t('.Quests'),
+    title: t('Objects.Quests'),
     link: `/object-details/${objectId}/quests`,
   },
   {
-    title: t('.Ask'),
+    title: t('Objects.Ask'),
     link: `/object-details/${objectId}/ask`,
   },
   {
-    title: t('.Observations'),
+    title: t('Objects.Observations'),
     link: `/object-details/${objectId}/observations`,
   },
   {
-    title: t('.Shows'),
+    title: t('Objects.Shows'),
     link: `/object-details/${objectId}/shows`,
   },
   {
-    title: t('.Stories'),
+    title: t('Objects.Stories'),
     link: `/object-details/${objectId}/stories`,
   },
 ];

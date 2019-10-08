@@ -22,7 +22,6 @@ import Button from 'app/components/common/style/buttons/Button';
 import { blue_tile_feat } from '../../styles/variables/colors_tiles_v4';
 
 import styles from './RelatedObject.style';
-import messages from './RelatedObject.messages';
 
 const { arrayOf, bool, number, shape, string } = PropTypes;
 
@@ -230,7 +229,7 @@ class RelatedObject extends Component {
           ariaHideApp={false}
           isOpen={modalIsOpen}
           style={customModalStylesBlackOverlay}
-          contentLabel={t('.RelatedObjects')}
+          contentLabel={t('Objects.RelatedObjects')}
           onRequestClose={this.closeModal}
         >
           <i className="fa fa-close" onClick={this.closeModal} />

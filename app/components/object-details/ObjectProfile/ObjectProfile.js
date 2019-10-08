@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { GridContainer, Row, StaticCell } from '../../common/grid';
 import BestTelescope from './BestTelescope';
 import style from './ObjectProfile.style';
-import messages from './ObjectProfile.messages';
+
 
 const ObjectProfile = ({
   scienceName,

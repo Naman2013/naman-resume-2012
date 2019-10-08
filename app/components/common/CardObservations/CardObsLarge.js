@@ -7,7 +7,6 @@ import LikeSomethingButton from 'app/components/common/LikeSomethingButton';
 import { ModalImg } from 'app/modules/telescope/components/modal-img';
 import { ReturnObservationIcon } from 'app/components/common/RecommendedObservationsSlider/partials/GetObservationIcon';
 import './CardObsLarge.scss';
-import messages from './CardObsLarge.messages';
 
 const CardObsLarge = props => {
   const {
@@ -124,7 +123,7 @@ const CardObsLarge = props => {
                   </div>
                   {linkUrl && (
                     <Link to={linkUrl} className="button details">
-                      {t('.Details')}
+                      {t('Objects.Details')}
                       <img
                         src="https://vega.slooh.com/assets/v4/icons/horz_arrow_right_astronaut.svg"
                         alt="arrow-right"
@@ -135,12 +134,12 @@ const CardObsLarge = props => {
                 <div className="capture-date">
                   {observationTimeDisplay
                     ? observationTimeDisplay[0]
-                    : `${t('.Loading')}...`}
+                    : `${t('Objects.Loading')}...`}
                 </div>
               </div>
             </Fragment>
           ) : (
-            <div className="loading">{t('.Loading')}...</div>
+            <div className="loading">{t('Objects.Loading')}...</div>
           )}
         </div>
       </div>

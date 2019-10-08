@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import TileButton from './TileButton';
 
 import style from './BurnhamsCornerLarge.style';
-import messages from './BurnhamsCorner.messages';
 
 const BurnhamsCornerLarge = ({
   objectTitle,
@@ -35,7 +34,7 @@ const BurnhamsCornerLarge = ({
             {needToShowMore && (
               <p>
                 <button onClick={toggleReadMore} className="action-read-more">
-                  {showMore ? t('.ReadLess') : t('.ReadMore')}
+                  {showMore ? t('Objects.ReadLess') : t('Objects.ReadMore')}
                 </button>
               </p>
             )}

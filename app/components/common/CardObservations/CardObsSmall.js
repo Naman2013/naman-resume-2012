@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import { ModalImg } from 'app/modules/telescope/components/modal-img';
-import messages from 'app/components/common/CardObservations/CardObsLarge.messages';
 import LikeSomethingButton from 'app/components/common/LikeSomethingButton';
 import style from './CardObservationsSmall.style';
 
@@ -123,7 +122,7 @@ const CardObsSmall = props => {
           </div>
           {linkUrl && (
             <Link to={linkUrl} className="button details">
-              {t('.Details')}
+              {t('Objects.Details')}
               <img
                 src="https://vega.slooh.com/assets/v4/icons/horz_arrow_right_astronaut.svg"
                 alt="arrow-right"
