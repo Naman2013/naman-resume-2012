@@ -12,6 +12,7 @@ import ResponsiveTwoColumnContainer from 'app/components/ResponsiveTwoColumnCont
 import TwoTabbedNav from 'app/components/TwoTabbedNav';
 import PropTypes from 'prop-types';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { injectIntl, intlShape } from 'react-intl';
 import AsideContainer from './partials/AsideContainer';
 import HeaderContainer from './partials/HeaderContainer';
@@ -35,9 +36,9 @@ const BootstrappedStoryDetails = props => {
     storyDetails,
     type,
     user,
-    intl,
     likeStory,
   } = props;
+  const { t } = useTranslation();
 
   const likeParams = {
     likeType: 'post',
@@ -79,8 +80,8 @@ const BootstrappedStoryDetails = props => {
           <ResponsiveTwoColumnContainer
             renderNavigationComponent={navProps => (
               <TwoTabbedNav
-                firstTitle={intl.formatMessage(messages.story)}
-                secondTitle={intl.formatMessage(messages.related)}
+                firstTitle={t('.story')}
+                secondTitle={t('.related')}
                 firstTabIsActive={navProps.showMainContainer}
                 firstTabOnClick={navProps.onShowMainContainer}
                 secondTabIsActive={navProps.showAsideContainer}

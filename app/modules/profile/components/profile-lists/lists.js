@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import { withTranslation } from 'react-i18next';
 import { withRouter } from 'react-router';
 import { injectIntl } from 'react-intl';
 import { DeviceContext } from 'app/providers/DeviceProvider';
@@ -10,6 +11,7 @@ import ShowTiles from 'app/components/shows-hub/show-tiles';
 import isEmpty from 'lodash/fp/isEmpty';
 import messages from './my-lists.messages';
 
+@withTranslation
 class Lists extends Component {
   state = { tiles: [], items: [] };
 
@@ -167,7 +169,14 @@ class Lists extends Component {
   };
 
   render() {
-    const { filterType, filterOptions, profileLists, intl, data, params } = this.props;
+    const {
+      filterType,
+      filterOptions,
+      profileLists,
+      t,
+      data,
+      params,
+    } = this.props;
     const { customerUUID } = params;
     if (!profileLists || !data) return null;
     return (
@@ -188,7 +197,7 @@ class Lists extends Component {
             filterTypeFieldName="readingListType"
             updateList={this.updateTilesList}
             appendToList={this.appendToTilesList}
-            pageTitle={customerUUID ? "Lists" : "My Lists"}
+            pageTitle={customerUUID ? 'Lists' : 'My Lists'}
             filterType={filterType}
             clearTiles={this.clearTiles}
             showHeaderIcon={false}
@@ -199,7 +208,7 @@ class Lists extends Component {
                   updateReadingListInfo: this.updateItemInfo,
                   updatePrompt: this.updatePrompt,
                   isMobile: context.isMobile,
-                }) || <div>{intl.formatMessage(messages.NoTiles)}</div>}
+                }) || <div>{t('.NoTiles')}</div>}
               </Fragment>
             )}
           />

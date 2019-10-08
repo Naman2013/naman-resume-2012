@@ -1,4 +1,5 @@
 import React, { Fragment, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import { injectIntl } from 'react-intl';
@@ -31,6 +32,7 @@ const BootstrappedObservationSliderItem = props => {
     iconFileData,
   } = props;
   const [isOpen, openModal] = useState(false);
+  const { t } = useTranslation();
   const [likesNumber, changeLikesNumber] = useState(likesCount);
   const onLikeClick = () => {
     if (!showLikePrompt) {
@@ -121,7 +123,7 @@ const BootstrappedObservationSliderItem = props => {
                   </div>
                   {linkUrl && (
                     <Link to={linkUrl} className="button details">
-                      {intl.formatMessage(messages.Details)}
+                      {t('.Details')}
                       <img
                         src="https://vega.slooh.com/assets/v4/icons/horz_arrow_right_astronaut.svg"
                         alt="arrow-right"
@@ -132,14 +134,12 @@ const BootstrappedObservationSliderItem = props => {
                 <div className="capture-date">
                   {observationTimeDisplay
                     ? observationTimeDisplay[0]
-                    : `${intl.formatMessage(messages.Loading)}...`}
+                    : `${t('.Loading')}...`}
                 </div>
               </div>
             </Fragment>
           ) : (
-            <div className="loading">
-              {intl.formatMessage(messages.Loading)}...
-            </div>
+            <div className="loading">{t('.Loading')}...</div>
           )}
         </div>
       </div>

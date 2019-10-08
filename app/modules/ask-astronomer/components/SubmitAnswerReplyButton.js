@@ -12,6 +12,7 @@ import {
 } from 'app/styles/mixins/utilities';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import { withTranslation } from 'react-i18next';
 import { injectIntl, intlShape } from 'react-intl';
 import FullpageForm from './Modals/FullpageForm';
 import SubmitReplyFeedbackModal from './Modals/SubmitReplyFeedbackModal';
@@ -29,6 +30,7 @@ const {
   string,
 } = PropTypes;
 
+@withTranslation
 class SubmitReplyReplyButton extends Component {
   static defaultProps = {
     avatarURL: '',
@@ -79,7 +81,7 @@ class SubmitReplyReplyButton extends Component {
   };
 
   setFullpageCommentModal = () => {
-    const { modalActions, user, intl } = this.props;
+    const { modalActions, user, t } = this.props;
     modalActions.setModal({
       promptComponent: (
         <FullpageForm
@@ -87,8 +89,8 @@ class SubmitReplyReplyButton extends Component {
           submitForm={this.submitForm}
           user={user}
           prepareCall={prepareReply}
-          submitButtonText={intl.formatMessage(messages.Discuss)}
-          fieldPlaceholder={intl.formatMessage(messages.ReplyPlaceholder)}
+          submitButtonText={t('.Discuss')}
+          fieldPlaceholder={t('.ReplyPlaceholder')}
         />
       ),
       promptStyles: modalStyleFullPage,
@@ -154,21 +156,12 @@ class SubmitReplyReplyButton extends Component {
       user,
       replyButtonText,
       modalActions,
-      intl,
+      t,
     } = this.props;
 
     return (
       <div className="reply-form-container">
-        <Button
-          text={intl.formatMessage(messages.Reply)}
-          onClickEvent={this.setCommentModal}
-        />
-        {/*<DisplayAtBreakpoint screenSmall>
-          <Button
-            text={intl.formatMessage(messages.Reply)}
-            onClickEvent={this.setFullpageCommentModal}
-          />
-        </DisplayAtBreakpoint>*/}
+        <Button text={t('.Reply')} onClickEvent={this.setCommentModal} />
       </div>
     );
   }

@@ -7,6 +7,7 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { withTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 import take from 'lodash/take';
 import uniqueId from 'lodash/uniqueId';
@@ -21,7 +22,7 @@ import styles from './members-list.style';
 import messages from './members-list.messages';
 
 const { arrayOf, bool, func, number, shape, string } = PropTypes;
-
+@withTranslation
 class GroupMemberList extends Component {
   static propTypes = {
     fetchGroupMembers: func.isRequired,
@@ -95,7 +96,7 @@ class GroupMemberList extends Component {
       fetchGroupMembers,
       renderToggle,
       theme,
-      intl,
+      t,
     } = this.props;
 
     const { members, displayedMembers, page } = this.state;
@@ -103,7 +104,8 @@ class GroupMemberList extends Component {
     return (
       <div className="members-list" style={theme}>
         <BlueLineDrop
-          title={intl.formatMessage(messages.GroupMembers, { membersCount })}
+          // title={intl.formatMessage(messages.GroupMembers, { membersCount })}
+          title={t('.GroupMembers', { membersCount })}
           isDesktop={isDesktop}
           render={() => (
             <div className="members-container">
@@ -127,10 +129,7 @@ class GroupMemberList extends Component {
                     totalCount={members.length}
                     page={page}
                     idField="customerId"
-                    buttonText={[
-                      intl.formatMessage(messages.MoreMember),
-                      intl.formatMessage(messages.MoreMembers),
-                    ]}
+                    buttonText={[t('.MoreMember'), t('.MoreMembers')]}
                   />
                 )}
                 {renderToggle ? renderToggle() : null}

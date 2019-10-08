@@ -5,11 +5,10 @@
  *
  ***********************************/
 import React, { Component } from 'react';
+import { withTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import { intlShape, injectIntl } from 'react-intl';
-import FullActivityForm from './full-activity-form';
-import SmallActivityForm from './small-activity-form';
 import { prepareThread } from 'app/services/discussions/prepare-thread';
 import {
   romance,
@@ -23,6 +22,7 @@ import messages from './activity-form.messages';
 
 const { bool, number, shape, string } = PropTypes;
 
+@withTranslation
 class ActivityForm extends Component {
   static propTypes = {
     topicId: number,
@@ -80,12 +80,11 @@ class ActivityForm extends Component {
   };
 
   render() {
-    const { isDesktop, topicId, forumId, intl, placeholder } = this.props;
+    const { isDesktop, topicId, forumId, intl, placeholder, t } = this.props;
 
     const { uuid, showInfo } = this.state;
 
-    const formPlaceholder =
-      placeholder || `${intl.formatMessage(messages.WriteSomething)}...`;
+    const formPlaceholder = placeholder || `${t('.WriteSomething')}...`;
 
     return (
       <div className="root">

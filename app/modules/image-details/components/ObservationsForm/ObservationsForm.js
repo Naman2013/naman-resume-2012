@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
+import {withTranslation} from 'react-i18next';
 import Modal from 'react-modal';
 import { intlShape, injectIntl } from 'react-intl';
 import { customModalStyles } from 'app/styles/mixins/utilities';
@@ -9,7 +10,7 @@ import messages from './ObservationsForm.messages';
 import './styles.scss';
 
 const { bool, number, oneOfType, shape, string } = PropTypes;
-
+@withTranslation
 class ObservationsForm extends Component {
   static propTypes = {
     customerImageId: oneOfType([number, string]).isRequired,
@@ -47,12 +48,12 @@ class ObservationsForm extends Component {
       actions: { setObservationTags },
       customerImageId,
       scheduledMissionId,
-      intl,
+      t,
       title,
       observation,
     } = this.props;
     if (!title || !observation) {
-      window.alert(intl.formatMessage(messages.MissingRequired));
+      window.alert(t('.MissingRequired'));
     } else {
       setObservationTags(
         customerImageId,

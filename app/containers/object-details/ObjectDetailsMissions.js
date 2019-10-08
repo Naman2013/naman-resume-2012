@@ -6,6 +6,7 @@
  ********************************** */
 
 import React, { Component, Fragment } from 'react';
+import {withTranslation} from 'react-i18next';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
@@ -61,6 +62,7 @@ const mapDispatchToProps = {
   mapStateToProps,
   mapDispatchToProps
 )
+@withTranslation
 class Missions extends Component {
   state = {
     reservationModalVisible: false,
@@ -104,7 +106,7 @@ class Missions extends Component {
       missionStart,
     }).then(() => this.setState({ successModalShow: true, reservationModalVisible: false, }));
   }
-  
+
   reservationModalShow = mission => {
     this.setState({ reservationModalVisible: true, selectedMission: mission });
   }
@@ -123,7 +125,7 @@ class Missions extends Component {
       params: { objectId },
       objectDetails,
       missionData,
-      intl,
+      t,
       user,
       reservedCommunityMissionData,
       reservedCommunityMission,
@@ -140,7 +142,7 @@ class Missions extends Component {
         <DeviceProvider>
           <ObjectDetailsSectionTitle
             title={`${objectDetails.objectTitle}'s`}
-            subTitle={intl.formatMessage(messages.UpcomingMissions)}
+            subTitle={t('.UpcomingMissions')}
             renderNav={() => (
               <div className="object-details-missions-actions">
                 {missionListExpired && (

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
+import {withTranslation} from 'react-i18next';
 import { intlShape, injectIntl } from 'react-intl';
 import Request from 'app/components/common/network/Request';
 import ViewOurGuide from '../view-our-guide';
@@ -34,7 +35,7 @@ const riseSetModel = {
     riseAndSetSelectors: resp.riseAndSetSelectors,
   }),
 };
-
+@withTranslation
 class ObjectVisibilityProfile extends Component {
   static propTypes = {
     objectId: PropTypes.string.isRequired,
@@ -59,7 +60,7 @@ class ObjectVisibilityProfile extends Component {
   render() {
     const { dateString, obsId, activeDateIndex } = this.state;
 
-    const { objectId, intl } = this.props;
+    const { objectId, t } = this.props;
 
     return (
       <Request
@@ -162,14 +163,14 @@ class ObjectVisibilityProfile extends Component {
                         >
                           <p>
                             {fetchingContent
-                              ? `${intl.formatMessage(messages.Loading)}...`
+                              ? `${t('.Loading')}...`
                               : riseSet.rise}
                           </p>
                         </StaticCell>
                         <StaticCell title={riseSet.transitLabel} hasBorderScale={[true]}>
                           <p>
                             {fetchingContent
-                              ? `${intl.formatMessage(messages.Loading)}...`
+                              ? `${t('.Loading')}...`
                               : riseSet.transit}
                           </p>
                         </StaticCell>
@@ -179,7 +180,7 @@ class ObjectVisibilityProfile extends Component {
                         >
                           <p>
                             {fetchingContent
-                              ? `${intl.formatMessage(messages.Loading)}...`
+                              ? `${t('.Loading')}...`
                               : riseSet.set}
                           </p>
                         </StaticCell>
@@ -188,7 +189,7 @@ class ObjectVisibilityProfile extends Component {
                         <StaticCell title={riseSet.notesLabel}>
                           <p>
                             {fetchingContent
-                              ? `${intl.formatMessage(messages.Loading)}...`
+                              ? `${t('.Loading')}...`
                               : riseSet.notes}
                           </p>
                         </StaticCell>

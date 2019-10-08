@@ -7,6 +7,7 @@
 
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import {withTranslation} from 'react-i18next';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import has from 'lodash/has';
@@ -54,6 +55,7 @@ const mapDispatchToProps = dispatch => ({
   mapStateToProps,
   mapDispatchToProps
 )
+@withTranslation
 class Shows extends Component {
   static defaultProps = {
     actions: {},
@@ -75,7 +77,7 @@ class Shows extends Component {
       pages,
       count,
       objectDetails,
-      intl,
+      t,
     } = this.props;
 
     return (
@@ -83,7 +85,7 @@ class Shows extends Component {
         <DeviceProvider>
           <ObjectDetailsSectionTitle
             title={objectDetails.objectTitle + "'s"}
-            subTitle={intl.formatMessage(messages.RelatedShows)}
+            subTitle={t('.RelatedShows')}
           />
         </DeviceProvider>
         <CenterColumn widths={['645px', '965px', '965px']}>

@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { API } from 'app/api';
 import noop from 'lodash/noop';
+import { withTranslation } from 'react-i18next';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { intlShape, injectIntl } from 'react-intl';
@@ -31,7 +32,7 @@ const showsHubModel = {
     sortOptions: resp.filterOptions.options,
   }),
 };
-
+@withTranslation
 class Shows extends Component {
   static propTypes = {
     validateResponseAccess: PropTypes.func,
@@ -90,7 +91,7 @@ class Shows extends Component {
   };
 
   render() {
-    const { user, actions, intl, isFetching } = this.props;
+    const { user, actions, t, isFetching } = this.props;
     const { shows } = this.state;
 
     return (
@@ -136,16 +137,14 @@ class Shows extends Component {
                       }}
                       render={() => (
                         <Fragment>
-                          {isFetching ? (
-                            <div>{intl.formatMessage(messages.loading)}</div>
-                          ) : null}
+                          {isFetching ? <div>{t('.loading')}</div> : null}
                           {!isFetching && (
                             <Fragment>
-                                <UpcomingShows
-                                  validateResponseAccess={
-                                    actions.validateResponseAccess
-                                  }
-                                />
+                              <UpcomingShows
+                                validateResponseAccess={
+                                  actions.validateResponseAccess
+                                }
+                              />
                               <ShowTiles
                                 updateReadingListInfo={
                                   this.updateReadingListInShow

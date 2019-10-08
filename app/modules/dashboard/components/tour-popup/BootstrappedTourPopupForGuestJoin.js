@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { API } from 'app/api';
+import { withTranslation } from 'react-i18next';
 import Modal from 'react-modal';
 import Request from 'app/components/common/network/Request';
 import { Link } from 'react-router';
-import {
-  SUBSCRIPTION_PLANS_ENDPOINT_URL,
-} from 'app/services/registration/registration.js';
+import { SUBSCRIPTION_PLANS_ENDPOINT_URL } from 'app/services/registration/registration.js';
 import SubscriptionPlanCardDashboard from 'app/pages/registration/partials/SubscriptionPlanCardDashboard';
 import { intlShape, injectIntl } from 'react-intl';
 import { customModalStyles } from '../../../../styles/mixins/utilities';
@@ -14,7 +13,7 @@ import styles from './BootstrappedTourPopup.styles';
 import messages from './BootstrappedTourPopup.messages';
 
 const { bool, string, shape, func } = PropTypes;
-
+@withTranslation
 class BootstrappedTourPopupForGuestJoin extends Component {
   static propTypes = {
     subTitle: string,
@@ -46,7 +45,7 @@ class BootstrappedTourPopupForGuestJoin extends Component {
       subTitle,
       content,
       title,
-      intl,
+      t,
       subscriptionPlanCallSource,
     } = this.props;
 
@@ -57,27 +56,24 @@ class BootstrappedTourPopupForGuestJoin extends Component {
         <Modal
           isOpen={showModal}
           style={customModalStyles}
-          contentLabel={intl.formatMessage(messages.Tour)}
+          contentLabel={t('.Tour')}
           onRequestClose={this.closeModal}
           ariaHideApp={false}
         >
           <i className="fa fa-close" onClick={this.closeModal} />
           <Request
-          		serviceURL={SUBSCRIPTION_PLANS_ENDPOINT_URL}
-              requestBody={{ callSource: this.props.subscriptionPlanCallSource }}
-              method="POST"
-          		render={({ serviceResponse }) => (
-            			<div className="root">
-                  {serviceResponse.subscriptionPlans && serviceResponse.subscriptionPlans.map(
-                    subscriptionPlan => (
-                      <SubscriptionPlanCardDashboard
-                        {...subscriptionPlan}
-                        />
-                    )
-                  )}
-                  </div>
-          		)}
-        	 />
+            serviceURL={SUBSCRIPTION_PLANS_ENDPOINT_URL}
+            requestBody={{ callSource: this.props.subscriptionPlanCallSource }}
+            method="POST"
+            render={({ serviceResponse }) => (
+              <div className="root">
+                {serviceResponse.subscriptionPlans &&
+                  serviceResponse.subscriptionPlans.map(subscriptionPlan => (
+                    <SubscriptionPlanCardDashboard {...subscriptionPlan} />
+                  ))}
+              </div>
+            )}
+          />
         </Modal>
         <style jsx>{styles}</style>
       </div>

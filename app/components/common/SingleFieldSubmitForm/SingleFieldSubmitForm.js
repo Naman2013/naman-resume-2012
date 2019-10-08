@@ -11,6 +11,7 @@ if you do not want to use this components modal, set useModal to false and do no
 import React, { Component } from 'react';
 import noop from 'lodash/noop';
 import PropTypes from 'prop-types';
+import {withTranslation} from 'react-i18next';
 import { intlShape, injectIntl } from 'react-intl';
 import PhotoUploadButton from 'app/components/common/style/buttons/PhotoUploadButton';
 import Modal from 'react-modal';
@@ -25,7 +26,7 @@ import styles from './SingleFieldSubmitForm.style';
 import messages from './SingleFieldSubmitForm.messages';
 
 const { bool, func, number, shape, string } = PropTypes;
-
+@withTranslation
 class SingleFieldSubmitForm extends Component {
   static propTypes = {
     imageClass: string,
@@ -93,12 +94,12 @@ class SingleFieldSubmitForm extends Component {
   };
 
   handleSubmit = (error, message) => {
-    const { intl, user } = this.props;
+    const { t, user } = this.props;
     if (!error) {
       this.setState({
         showPopup: true,
         responseMessage:
-          message || intl.formatMessage(messages.ResponceSubmittedText),
+          message || t('.ResponceSubmittedText'),
         formText: '',
         formTitle: '',
         S3URLs: [],
@@ -118,7 +119,7 @@ class SingleFieldSubmitForm extends Component {
     } else {
       this.setState({
         showPopup: true,
-        responseMessage: message || intl.formatMessage(messages.FormIssueText),
+        responseMessage: message || t('.FormIssueText'),
       });
     }
     setTimeout(this.closeModal, 1000);

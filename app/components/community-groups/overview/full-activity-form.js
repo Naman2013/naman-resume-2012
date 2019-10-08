@@ -5,6 +5,7 @@
  *
  ********************************** */
 import React, { Component } from 'react';
+import { withTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import { intlShape, injectIntl } from 'react-intl';
@@ -13,7 +14,7 @@ import SingleFieldSubmitForm from 'app/components/common/SingleFieldSubmitForm';
 import messages from './activity-form.messages';
 
 const { bool, number, string } = PropTypes;
-
+@withTranslation
 class FullActivityForm extends Component {
   static propTypes = {
     topicId: number,
@@ -35,7 +36,7 @@ class FullActivityForm extends Component {
   state = {};
 
   submitForm = (content, S3URLs, title, callback) => {
-    const { topicId, forumId, intl } = this.props;
+    const { topicId, forumId, t } = this.props;
 
     this.props
       .createThread({
@@ -47,17 +48,16 @@ class FullActivityForm extends Component {
       })
       .then(data => {
         const message = data.apiError
-          ? intl.formatMessage(messages.SubmitPostError)
-          : intl.formatMessage(messages.PostSubmitted);
+          ? t('.SubmitPostError')
+          : t('.PostSubmitted');
         callback(data.apiError, message);
       });
   };
 
   render() {
-    const { user, intl, placeholder, toggleInfo, showInfo } = this.props;
+    const { user, t, placeholder, toggleInfo, showInfo } = this.props;
 
-    const formPlaceholder =
-      placeholder || `${intl.formatMessage(messages.WriteSomething)}...`;
+    const formPlaceholder = placeholder || `${t('.WriteSomething')}...`;
 
     return (
       <div className="form-container">

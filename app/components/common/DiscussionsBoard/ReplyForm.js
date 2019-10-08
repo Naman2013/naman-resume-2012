@@ -6,6 +6,7 @@
  ***********************************/
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import {withTranslation} from 'react-i18next';
 import { intlShape, injectIntl } from 'react-intl';
 import FormHeader from 'app/components/common/FormHeader';
 import SingleFieldSubmitForm from 'app/components/common/SingleFieldSubmitForm';
@@ -29,7 +30,7 @@ const {
   shape,
   string,
 } = PropTypes;
-
+@withTranslation
 class ReplyForm extends Component {
   static defaultProps = {
     avatarURL: '',
@@ -110,10 +111,10 @@ class ReplyForm extends Component {
   };
 
   handleSubmitReply = (data, callback) => {
-    const { intl } = this.props;
+    const { t } = this.props;
     const message = data.apiError
-      ? intl.formatMessage(messages.CommentErrorText)
-      : intl.formatMessage(messages.CommentSuccessText);
+      ? t('.CommentErrorText')
+      : t('.CommentSuccessText');
     callback(data.apiError, message);
   };
 

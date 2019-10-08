@@ -185,7 +185,7 @@ class DiscussionBoardInvitationsPanel extends Component {
                       <div className="button-cancel">
                         <Button
                           type="button"
-                          text={intl.formatMessage(messages.Cancel)}
+                          text={t('.Cancel')}
                           onClickEvent={this.toggleInviteMode}
                         />
                         <br />

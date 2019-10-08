@@ -6,6 +6,7 @@
  ***********************************/
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import {withTranslation} from 'react-i18next';
 import { intlShape, injectIntl } from 'react-intl';
 import Button from 'app/components/common/style/buttons/Button';
 import RevealSubmitForm from 'app/components/common/RevealSubmitForm';
@@ -28,7 +29,7 @@ const {
   shape,
   string,
 } = PropTypes;
-
+@withTranslation
 class ReplyButton extends Component {
   state = {
     uuid: null,
@@ -105,15 +106,15 @@ class ReplyButton extends Component {
   };
 
   handleSubmitReply = (data, callback) => {
-    const { intl } = this.props;
+    const { t } = this.props;
     const message = data.apiError
-      ? intl.formatMessage(messages.CommentErrorText)
-      : intl.formatMessage(messages.CommentSuccessText);
+      ? t('.CommentErrorText')
+      : t('.CommentSuccessText');
     callback(data.apiError, message);
   };
 
   render() {
-    const { avatarURL, isDesktop, user, intl } = this.props;
+    const { avatarURL, isDesktop, user, t } = this.props;
     const { uuid } = this.state;
     return (
       <div className="reply-form-container">
@@ -121,10 +122,10 @@ class ReplyButton extends Component {
           {...this.props}
           uuid={uuid}
           submitForm={this.submitForm}
-          placeholder={intl.formatMessage(messages.PublicCommentPlaceholder)}
+          placeholder={t('.PublicCommentPlaceholder')}
           revealButtonRender={btnProps => (
             <Button
-              text={intl.formatMessage(messages.Reply)}
+              text={t('.Reply')}
               onClickEvent={e => {
                 this.preparePostUID().then(() => {
                   btnProps.displayForm(e);

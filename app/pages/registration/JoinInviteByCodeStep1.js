@@ -2,7 +2,8 @@
  * V4 Join with an Invitation Code - Enter Email Address/Invitation Code
  *************************************************************************************/
 import React, { Component, cloneElement, Fragment } from 'react';
-import { Link } from 'react-router';
+import { withTranslation } from 'react-i18next';
+import { Link, browserHistory } from 'react-router';
 import PropTypes from 'prop-types';
 import { API } from 'app/api';
 import { GoogleLogin } from 'react-google-login';
@@ -13,27 +14,28 @@ import cloneDeep from 'lodash/cloneDeep';
 import noop from 'lodash/noop';
 import InputField from 'app/components/form/InputField';
 import { createValidator, required } from 'app/modules/utils/validation';
-import { browserHistory } from 'react-router';
+
 import Button from 'app/components/common/style/buttons/Button';
 import Request from 'app/components/common/network/Request';
-import JoinHeader from './partials/JoinHeader';
-import { JOIN_BY_INVITE_TABS } from './StaticNavTabs';
-import messages from './JoinInviteByCodeStep1.messages';
-
 import {
   JOIN_PAGE_ENDPOINT_URL,
   JOIN_VALIDATE_INVITATIONCODE_ENDPOINT_URL,
 } from 'app/services/registration/registration.js';
+import JoinHeader from './partials/JoinHeader';
+import { JOIN_BY_INVITE_TABS } from './StaticNavTabs';
+import messages from './JoinInviteByCodeStep1.messages';
+
 import styles from './JoinStep2.style';
 
 const { string, func } = PropTypes;
-
+@withTranslation
 class JoinByInviteCodeStep1 extends Component {
   static propTypes = {
     pathname: string.isRequired,
     change: func,
     intl: intlShape.isRequired,
   };
+
   static defaultProps = {
     change: noop,
   };
@@ -125,12 +127,14 @@ class JoinByInviteCodeStep1 extends Component {
     if (formIsComplete === true) {
       /* Validate the Invitation Email Address and Code */
 
-      const validInvitationCodeResult = API
-      .post(JOIN_VALIDATE_INVITATIONCODE_ENDPOINT_URL, {
+      const validInvitationCodeResult = API.post(
+        JOIN_VALIDATE_INVITATIONCODE_ENDPOINT_URL,
+        {
           invitationCode: this.state.accountFormDetails.invitationCode.value,
           loginEmailAddress: this.state.accountFormDetails.loginEmailAddress
             .value,
-        })
+        }
+      )
         .then(response => {
           const res = response.data;
           if (res.apiError == false) {
@@ -176,7 +180,7 @@ class JoinByInviteCodeStep1 extends Component {
   };
 
   render() {
-    const { pathname, intl } = this.props;
+    const { pathname, t } = this.props;
     const { accountFormDetails } = this.state;
 
     return (
@@ -271,13 +275,13 @@ class JoinByInviteCodeStep1 extends Component {
                         <div className="button-container">
                           <Button
                             type="button"
-                            text={intl.formatMessage(messages.GoBack)}
+                            text={t('.GoBack')}
                             onClickEvent={() => {
                               browserHistory.push('/');
                             }}
                           />
                           <button className="submit-button" type="submit">
-                            {intl.formatMessage(messages.Continue)}
+                            {t('.Continue')}
                           </button>
                         </div>
                       </form>

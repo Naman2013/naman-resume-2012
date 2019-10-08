@@ -9,6 +9,7 @@ callback (error (string), message (string)); If error is null, the component wil
 */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import {withTranslation} from 'react-i18next';
 import Modal from 'react-modal';
 import { intlShape, injectIntl } from 'react-intl';
 import PhotoUploadButton from 'app/components/common/style/buttons/PhotoUploadButton';
@@ -25,7 +26,7 @@ import styles, { profPic } from './RevealSubmitForm.style';
 import messages from './RevealSubmitForm.messages';
 
 const { bool, func, instanceOf, number, shape, string } = PropTypes;
-
+@withTranslation
 class RevealSubmitForm extends Component {
   static propTypes = {
     imageClass: string,
@@ -109,12 +110,12 @@ class RevealSubmitForm extends Component {
   };
 
   handleSubmit = (error, message) => {
-    const { intl, user } = this.props;
+    const { t, user } = this.props;
     if (!error) {
       this.setState({
         showPopup: true,
         modalDescription:
-          message || intl.formatMessage(messages.ResponceSubmittedText),
+          message || t('.ResponceSubmittedText'),
         formTitle: '',
         formText: '',
         S3URLs: [],
@@ -135,7 +136,7 @@ class RevealSubmitForm extends Component {
     } else {
       this.setState({
         showPopup: true,
-        modalDescription: message || intl.formatMessage(messages.FormIssueText),
+        modalDescription: message || t('.FormIssueText'),
         isFetching: false,
       });
     }
@@ -164,7 +165,7 @@ class RevealSubmitForm extends Component {
     if(e) {
       e.preventDefault();
     }
-    
+
     this.setState({
       showPopup: false,
       formTitle: '',
@@ -264,7 +265,7 @@ class RevealSubmitForm extends Component {
       displayName,
       title,
       content,
-      intl,
+      t,
       avatarURL,
       commentPlaceholder,
       threadId,
@@ -320,7 +321,7 @@ class RevealSubmitForm extends Component {
             <div className="form-author">
               <div style={profPic(avatarURL)} />
               {displayName
-                ? `${intl.formatMessage(messages.WrittenBy)} ${displayName}`
+                ? `${t('.WrittenBy')} ${displayName}`
                 : commentPlaceholder}
             </div>
             <div
@@ -378,7 +379,7 @@ class RevealSubmitForm extends Component {
               </div>
               <div className="buttons-wrapper">
                 <Button
-                  text={intl.formatMessage(messages.Cancel)}
+                  text={t('.Cancel')}
                   onClickEvent={this.closeModal}
                 />
                 <Button

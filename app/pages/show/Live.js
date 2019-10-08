@@ -7,6 +7,7 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { withTranslation } from 'react-i18next';
 import { injectIntl, intlShape } from 'react-intl';
 import ThreeTabbedNav from 'app/components/ThreeTabbedNav';
 import TwoTabbedNav from 'app/components/TwoTabbedNav';
@@ -28,6 +29,7 @@ const {
   string,
 } = PropTypes;
 
+@withTranslation
 class LiveShow extends Component {
   static propTypes = {
     additionalFeeds: arrayOf(shape({})),
@@ -89,7 +91,7 @@ class LiveShow extends Component {
       isScreenLarge,
       isDesktop,
       hasDiscussionThread,
-      intl,
+      t,
       user,
     } = this.props;
 
@@ -100,17 +102,8 @@ class LiveShow extends Component {
       selectedTab,
     } = this.state;
 
-    const headerLabel = intl.formatMessage(messages.AiringNow);
-    const showLiveChatURL =
-      window.location.protocol +
-      '//' +
-      window.location.host +
-      '/getHostedShowChat.php?show_id=' +
-      this.props.showId +
-      '&customer_uuid=' +
-      user.customerUUID +
-      '&customer_token=' +
-      user.token;
+    const headerLabel = t('.AiringNow');
+    const showLiveChatURL = `${window.location.protocol}//${window.location.host}/getHostedShowChat.php?show_id=${this.props.showId}&customer_uuid=${user.customerUUID}&customer_token=${user.token}`;
 
     return (
       <div className="root live-show">
@@ -126,9 +119,9 @@ class LiveShow extends Component {
               <div className="full-width">
                 {hasDiscussionThread ? (
                   <ThreeTabbedNav
-                    firstTitle={intl.formatMessage(messages.About)}
-                    secondTitle={intl.formatMessage(messages.Comments)}
-                    thirdTitle={intl.formatMessage(messages.Details)}
+                    firstTitle={t('.About')}
+                    secondTitle={t('.Comments')}
+                    thirdTitle={t('.Details')}
                     firstTabIsActive={aboutIsActive}
                     firstTabOnClick={this.showAbout}
                     secondTabIsActive={commentsIsActive}
@@ -138,8 +131,8 @@ class LiveShow extends Component {
                   />
                 ) : (
                   <TwoTabbedNav
-                    firstTitle={intl.formatMessage(messages.About)}
-                    secondTitle={intl.formatMessage(messages.Details)}
+                    firstTitle={t('.About')}
+                    secondTitle={t('.Details')}
                     firstTabIsActive={aboutIsActive}
                     firstTabOnClick={this.showAbout}
                     secondTabIsActive={detailsIsActive}
@@ -151,7 +144,7 @@ class LiveShow extends Component {
             renderAsideContent={() => (
               <AsideContainerWithTabs
                 {...this.props}
-                headerTitle={`Slooh ${intl.formatMessage(messages.LiveShow)}`}
+                headerTitle={`Slooh ${t('.LiveShow')}`}
                 aboutIsActive={aboutIsActive}
                 commentsIsActive={commentsIsActive}
                 detailsIsActive={detailsIsActive}

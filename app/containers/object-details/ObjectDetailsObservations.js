@@ -6,6 +6,7 @@
  ***********************************/
 
 import React, { Component, Fragment } from 'react';
+import {withTranslation} from 'react-i18next';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import findIndex from 'lodash/findIndex';
@@ -63,6 +64,7 @@ const DEFAULT_PAGE = 1;
   mapStateToProps,
   mapDispatchToProps
 )
+@withTranslation
 class Observations extends Component {
   state = {
     selectedIndex: 1,
@@ -136,7 +138,7 @@ class Observations extends Component {
     const {
       objectDetails,
       sharedMemberPhotos,
-      intl,
+      t,
       fetchLikeAction,
       getMyPictures,
       user,
@@ -151,7 +153,7 @@ class Observations extends Component {
 
         <ObjectDetailsSectionTitle
           title={`${objectDetails.objectTitle}'s`}
-          subTitle={intl.formatMessage(messages.Observations)}
+          subTitle={t('.Observations')}
           renderNav={() => (
             <div
               className="nav-actions"

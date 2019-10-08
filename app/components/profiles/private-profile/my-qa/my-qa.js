@@ -15,10 +15,10 @@ const { shape, func, number } = PropTypes;
 
 const QA_TABS_DATA = {
   asked: {
-    countText: (count, intl, isPublic) =>
+    countText: (count, t, isPublic) =>
       isPublic
-        ? intl.formatMessage(messages.AskedQuestions, { count })
-        : intl.formatMessage(messages.YourAskedQuestions, { count }),
+        ? t('.AskedQuestions', { count })
+        : t('.YourAskedQuestions', { count }),
     dropdownOptions: [
       {
         label: t('.AllQuestions'), // todo hardcode text here
@@ -32,14 +32,14 @@ const QA_TABS_DATA = {
     ],
   },
   answeredbyme: {
-    countText: (count, intl, isPublic) =>
+    countText: (count, t, isPublic) =>
       isPublic
-        ? intl.formatMessage(messages.AnsweredQuestions, { count })
-        : intl.formatMessage(messages.YourAnsweredQuestions, { count }),
+        ? t('.AnsweredQuestions', { count })
+        : t('.YourAnsweredQuestions', { count }),
     dropdownOptions: [],
   },
   allunanswered: {
-    countText: (count, intl) => intl.formatMessage(messages.QuestionsToAnswers),
+    countText: (count, t) => t('.QuestionsToAnswers'),
     dropdownOptions: [
       {
         label: t('.AllUnanswered'), // todo hardcode text here
@@ -78,16 +78,16 @@ class MyQa extends Component {
   };
 
   render() {
-    const { context, actions, totalCount, params, intl } = this.props;
+    const { context, actions, totalCount, params, t } = this.props;
 
     return (
       <div className="root">
         <div className="main-block">
           {totalCount === 0 && params.filter === 'asked' && !params.public ? (
             <InfoTile
-              //subject={intl.formatMessage(messages.InfoTileSubject)}
-              title={intl.formatMessage(messages.InfoTileSubject)}
-              // title={intl.formatMessage(messages.InfoTileTitle)}
+              //subject={t('.InfoTileSubject')}
+              title={t('.InfoTileSubject')}
+              // title={t('.InfoTileTitle')}
               // text="Text placeholder"
             />
           ) : (
@@ -96,7 +96,7 @@ class MyQa extends Component {
               {...context}
               countText={QA_TABS_DATA[params.filter].countText(
                 totalCount,
-                intl,
+                t,
                 !!params.public
               )}
               likeParams={{
@@ -112,9 +112,9 @@ class MyQa extends Component {
         </div>
         <DisplayAtBreakpoint screenLarge screenXLarge>
           <GuidePromoTile
-            title={intl.formatMessage(messages.AskAnAstronomer)}
+            title={t('.AskAnAstronomer')}
             icon="https://vega.slooh.com/assets/v4/common/membership/astronomer_member.png"
-            buttonText={intl.formatMessage(messages.ViewGuide)}
+            buttonText={t('.ViewGuide')}
             guideURL="/guides/topic/227"
           />
         </DisplayAtBreakpoint>

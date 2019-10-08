@@ -27,6 +27,7 @@ import { fetchObjectSpecialistsAction } from 'app/modules/object-details/actions
 import { DeviceContext } from 'app/providers/DeviceProvider';
 import { customModalStylesV4 } from 'app/styles/mixins/utilities';
 import React, { Component } from 'react';
+import { withTranslation } from 'react-i18next';
 import { injectIntl } from 'react-intl';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -80,6 +81,7 @@ const mapDispatchToProps = dispatch => ({
   mapStateToProps,
   mapDispatchToProps
 )
+@withTranslation
 class AskAstronomer extends Component {
   static defaultProps = {
     fetchingQuestions: false,
@@ -183,7 +185,7 @@ class AskAstronomer extends Component {
       page,
       user,
       objectSpecialists,
-      intl,
+      t,
 
       fetching,
       pageData,
@@ -259,11 +261,9 @@ class AskAstronomer extends Component {
                   <ResponsiveTwoColumnContainer
                     renderNavigationComponent={navProps => (
                       <TwoTabbedNav
-                        firstTitle={intl.formatMessage(messages.Questions)}
+                        firstTitle={t('.Questions')}
                         secondTitle={
-                          context.isMobile
-                            ? intl.formatMessage(messages.AskNow)
-                            : intl.formatMessage(messages.MVPAstronomers)
+                          context.isMobile ? t('.AskNow') : t('.MVPAstronomers')
                         }
                         firstTabIsActive={navProps.showMainContainer}
                         firstTabOnClick={navProps.onShowMainContainer}

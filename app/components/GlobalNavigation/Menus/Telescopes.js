@@ -36,7 +36,7 @@ const Telescopes = ({ intl }) => {
           <MenuTitleBar title={t('.title')}>
             <div className="center-buttons">
               <Button
-                text={intl.formatMessage(messages.setUp)}
+                text={t('.setUp')}
                 theme={{
                   display: 'inline-block',
                   textAlign: 'center',
@@ -46,7 +46,7 @@ const Telescopes = ({ intl }) => {
                 onClickEvent={() => browserHistory.push('/missions')}
               />
               <Button
-                text={intl.formatMessage(messages.myPhotos)}
+                text={t('.myPhotos')}
                 theme={{
                   display: 'inline-block',
                   textAlign: 'center',

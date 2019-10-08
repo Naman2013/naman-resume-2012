@@ -8,11 +8,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import noop from 'lodash/noop';
+import { withTranslation } from 'react-i18next';
 import { injectIntl, intlShape } from 'react-intl';
-import BigBoxInfoContainer from './BigBoxInfoContainer';
 import ThreeTabbedNav from 'app/components/ThreeTabbedNav';
 import TwoTabbedNav from 'app/components/TwoTabbedNav';
 import ResponsiveTwoColumnContainer from 'app/components/ResponsiveTwoColumnContainer';
+import BigBoxInfoContainer from './BigBoxInfoContainer';
 import AboutTab from './AboutTab';
 import CommentsTab from './CommentsTab';
 import DetailsTab from './DetailsTab';
@@ -29,7 +30,7 @@ const {
   shape,
   string,
 } = PropTypes;
-
+@withTranslation
 class AsideContainerWithTabs extends Component {
   static propTypes = {
     aboutIsActive: bool.isRequired,
@@ -68,7 +69,7 @@ class AsideContainerWithTabs extends Component {
       showComments,
       showDetails,
       headerTitle,
-      intl,
+      t,
     } = this.props;
 
     return (
@@ -80,9 +81,9 @@ class AsideContainerWithTabs extends Component {
         <div className="full-width">
           {hasDiscussionThread ? (
             <ThreeTabbedNav
-              firstTitle={intl.formatMessage(messages.About)}
-              secondTitle={intl.formatMessage(messages.Comments)}
-              thirdTitle={intl.formatMessage(messages.Details)}
+              firstTitle={t('.About')}
+              secondTitle={t('.Comments')}
+              thirdTitle={t('.Details')}
               firstTabIsActive={aboutIsActive}
               firstTabOnClick={showAbout}
               secondTabIsActive={commentsIsActive}
@@ -92,8 +93,8 @@ class AsideContainerWithTabs extends Component {
             />
           ) : (
             <TwoTabbedNav
-              firstTitle={intl.formatMessage(messages.About)}
-              secondTitle={intl.formatMessage(messages.Details)}
+              firstTitle={t('.About')}
+              secondTitle={t('.Details')}
               firstTabIsActive={aboutIsActive}
               firstTabOnClick={showAbout}
               secondTabIsActive={detailsIsActive}

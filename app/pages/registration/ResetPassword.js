@@ -251,7 +251,7 @@ class ResetPassword extends Component {
                               color: romance,
                               border: 0,
                             }}
-                            text={intl.formatMessage(messages.Login)}
+                            text={t('.Login')}
                             onClickEvent={this.launchLogin}
                           />
                         </div>
@@ -273,7 +273,7 @@ class ResetPassword extends Component {
                                 color: romance,
                                 border: 0,
                               }}
-                              text={intl.formatMessage(messages.Home)}
+                              text={t('.Home')}
                               onClickEvent={this.cancelAndGoHome}
                             />
                           </div>

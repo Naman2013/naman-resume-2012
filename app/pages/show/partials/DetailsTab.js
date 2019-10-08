@@ -8,6 +8,7 @@
 import RelatedObject from 'app/components/RelatedObject/BootstrappedRelatedObject';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import { withTranslation } from 'react-i18next';
 import { injectIntl, intlShape } from 'react-intl';
 
 import { RELATED_GUIDES, RELATED_SHOWS } from 'app/services/events';
@@ -28,7 +29,7 @@ const {
   shape,
   string,
 } = PropTypes;
-
+@withTranslation
 class DetailsTab extends Component {
   static propTypes = {
     showId: oneOfType([number, string]).isRequired,
@@ -60,7 +61,7 @@ class DetailsTab extends Component {
       relatedObject,
       showId,
       user,
-      intl,
+      t,
     } = this.props;
 
     return (
@@ -75,7 +76,7 @@ class DetailsTab extends Component {
           maxCount={3}
           isDesktop={isDesktop}
           isScreenLarge={isScreenLarge}
-          title={intl.formatMessage(messages.RelatedShows)}
+          title={t('.RelatedShows')}
         />
 
         <RelatedStories
@@ -86,7 +87,7 @@ class DetailsTab extends Component {
           maxCount={3}
           isDesktop={isDesktop}
           isScreenLarge={isScreenLarge}
-          title={intl.formatMessage(messages.RelatedStories)}
+          title={t('.RelatedStories')}
         />
 
         <RelatedGuides
@@ -97,7 +98,7 @@ class DetailsTab extends Component {
           maxCount={3}
           isDesktop={isDesktop}
           isScreenLarge={isScreenLarge}
-          title={intl.formatMessage(messages.RelatedGuides)}
+          title={t('.RelatedGuides')}
         />
 
         <style jsx>{styles}</style>

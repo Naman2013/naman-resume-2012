@@ -6,6 +6,7 @@
  ***********************************/
 
 import React, { Component, Fragment } from 'react';
+import {withTranslation} from 'react-i18next';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import has from 'lodash/has';
@@ -46,12 +47,13 @@ const mapDispatchToProps = dispatch => ({
   mapStateToProps,
   mapDispatchToProps
 )
+@withTranslation
 class Quests extends Component {
   render() {
     const {
       params: { objectId },
       objectDetails,
-      intl,
+      t,
     } = this.props;
 
     return (
@@ -59,7 +61,7 @@ class Quests extends Component {
         <DeviceProvider>
           <ObjectDetailsSectionTitle
             title={objectDetails.objectTitle + "'s"}
-            subTitle={intl.formatMessage(messages.RelatedQuests)}
+            subTitle={t('.RelatedQuests')}
           />
 
           <CenterColumn widths={['645px', '965px', '965px']}>

@@ -12,6 +12,7 @@ import {
 } from 'app/styles/mixins/utilities';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import { withTranslation } from 'react-i18next';
 import { injectIntl, intlShape } from 'react-intl';
 import FullpageForm from './Modals/FullpageForm';
 import SubmitAnswerForm from './Modals/SubmitAnswerForm';
@@ -28,7 +29,7 @@ const {
   shape,
   string,
 } = PropTypes;
-
+@withTranslation
 class SubmitAnswerButton extends Component {
   static defaultProps = {
     avatarURL: '',
@@ -95,8 +96,8 @@ class SubmitAnswerButton extends Component {
           submitForm={this.submitForm}
           user={user}
           prepareCall={prepareReply}
-          submitButtonText={intl.formatMessage(messages.Reply)}
-          fieldPlaceholder={intl.formatMessage(messages.AnswerPlaceholder)}
+          submitButtonText={t('.Reply')}
+          fieldPlaceholder={t('.AnswerPlaceholder')}
         />
       ),
       promptStyles: modalStyleFullPage,
@@ -161,18 +162,15 @@ class SubmitAnswerButton extends Component {
       user,
       replyButtonText,
       modalActions,
-      intl,
+      t,
     } = this.props;
 
     return (
       <div className="reply-form-container">
-        <Button
-          text={intl.formatMessage(messages.SubmitAnswer)}
-          onClickEvent={this.setAnswerModal}
-        />
+        <Button text={t('.SubmitAnswer')} onClickEvent={this.setAnswerModal} />
         {/*<DisplayAtBreakpoint screenSmall>
           <Button
-            text={intl.formatMessage(messages.SubmitAnswer)}
+            text={t('.SubmitAnswer')}
             onClickEvent={this.setFullpageAnswerModal}
           />
         </DisplayAtBreakpoint>*/}

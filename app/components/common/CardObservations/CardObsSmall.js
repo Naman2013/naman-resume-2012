@@ -1,4 +1,5 @@
 import React, { Fragment, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import { ModalImg } from 'app/modules/telescope/components/modal-img';
@@ -18,7 +19,6 @@ const CardObsSmall = props => {
     likedByMe,
     likeTooltip,
     commentsCount,
-    intl,
     handleLike,
     customerImageId,
     likePrompt,
@@ -26,6 +26,7 @@ const CardObsSmall = props => {
     socialShareDescription,
     iconFileData,
   } = props;
+  const { t } = useTranslation();
   const [isOpen, openModal] = useState(false);
   const [likesNumber, changeLikesNumber] = useState(likesCount);
   const onLikeClick = () => {
@@ -123,7 +124,7 @@ const CardObsSmall = props => {
           </div>
           {linkUrl && (
             <Link to={linkUrl} className="button details">
-              {intl.formatMessage(messages.Details)}
+              {t('.Details')}
               <img
                 src="https://vega.slooh.com/assets/v4/icons/horz_arrow_right_astronaut.svg"
                 alt="arrow-right"

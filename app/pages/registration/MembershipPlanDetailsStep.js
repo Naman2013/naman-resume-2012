@@ -145,7 +145,7 @@ class MembershipPlanDetailsStep extends Component {
                         >
                           <Button
                             type="button"
-                            text={intl.formatMessage(messages.GoBack)}
+                            text={t('.GoBack')}
                             onClickEvent={() => {
                               browserHistory.goBack();
                             }}

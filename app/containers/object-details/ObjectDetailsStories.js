@@ -6,6 +6,7 @@
  ***********************************/
 
 import React, { Component, Fragment } from 'react';
+import {withTranslation} from 'react-i18next';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { intlShape, injectIntl, FormattedMessage } from 'react-intl';
@@ -52,6 +53,7 @@ const mapDispatchToProps = dispatch => ({
   mapStateToProps,
   mapDispatchToProps
 )
+@withTranslation
 class Stories extends Component {
   render() {
     const {
@@ -59,7 +61,7 @@ class Stories extends Component {
       objectDetails,
       slugLookupId,
       actions: {},
-      intl,
+      t,
     } = this.props;
 
     const sId = slugLookupId;
@@ -72,7 +74,7 @@ class Stories extends Component {
         <DeviceProvider>
           <ObjectDetailsSectionTitle
             title={objectDetails.objectTitle + "'s"}
-            subTitle={intl.formatMessage(messages.RelatedStories)}
+            subTitle={t('.RelatedStories')}
           />
         </DeviceProvider>
         <CenterColumn widths={['645px', '965px', '965px']}>

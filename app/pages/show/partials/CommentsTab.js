@@ -7,6 +7,7 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { withTranslation } from 'react-i18next';
 import { injectIntl, intlShape } from 'react-intl';
 import LikeSomethingButton from 'app/components/common/LikeSomethingButton';
 import { romance } from 'app/styles/variables/colors_tiles_v4';
@@ -24,7 +25,7 @@ const {
   shape,
   string,
 } = PropTypes;
-
+@withTranslation
 class CommentsTab extends Component {
   static propTypes = {
     content: string,
@@ -55,7 +56,7 @@ class CommentsTab extends Component {
       isDesktop,
       isScreenMedium,
       user,
-      intl,
+      t,
       validateResponseAccess,
       showId,
     } = this.props;
@@ -70,7 +71,7 @@ class CommentsTab extends Component {
           topicId={discussionTopicId}
           user={user}
           isDesktop={isDesktop}
-          header={intl.formatMessage(messages.Comments)}
+          header={t('.Comments')}
           canSubmitReplies={canSubmitReplies}
           validateResponseAccess={validateResponseAccess}
           callSource="shows"

@@ -5,6 +5,7 @@
 
 import PropTypes from 'prop-types';
 import React, { Component, Fragment } from 'react';
+import {withTranslation} from 'react-i18next';
 import { injectIntl, intlShape } from 'react-intl';
 import { Link } from 'react-router';
 import ReactModal from 'react-modal';
@@ -23,7 +24,7 @@ import messages from './ProfileGroups.messages';
 import styles from './ProfileGroups.styles';
 
 const { shape, number, arrayOf } = PropTypes;
-
+@withTranslation
 class ProfileGroups extends Component {
   static defaultProps = {
     groupsData: {},
@@ -118,14 +119,14 @@ class ProfileGroups extends Component {
       showImportPopup,
       showCreatePopup,
     } = this.state;
-    const { intl } = this.props;
-    
+    const { t } = this.props;
+
     return (
       <div className="profile-groups">
         <CenterColumn>
           {this.renderClubBtns()}
 
-          <ContainerWithTitle title={intl.formatMessage(messages.MyClubs)}>
+          <ContainerWithTitle title={t('.MyClubs')}>
             {groupsCount > 0 ? (
               <DeviceContext.Consumer>
                 {context => (

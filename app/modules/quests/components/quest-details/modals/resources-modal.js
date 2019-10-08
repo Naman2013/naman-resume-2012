@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import noop from 'lodash/noop';
+import {useTranslation} from 'react-i18next';
 import { intlShape, injectIntl } from 'react-intl';
 import SterlingTitle from 'app/components/common/titles/SterlingTitle';
 import IntroText from 'app/components/common/form-sections/intro-text';
@@ -13,18 +14,17 @@ const ResourcesModal = ({
   appendixHeader,
   appendixText,
   closeModal,
-  intl,
-}) => (
-  <div className="root">
-    <SterlingTitle title={appendixHeader} subTitle={appendixSubheader} />
-    <IntroText desc={appendixText} />
-    <GenericButton
-      onClickEvent={closeModal}
-      text={intl.formatMessage(messages.Close)}
-    />
-    <style jsx>{style}</style>
-  </div>
-);
+}) => {
+  const { t } = useTranslation();
+  return (
+    <div className="root">
+      <SterlingTitle title={appendixHeader} subTitle={appendixSubheader} />
+      <IntroText desc={appendixText} />
+      <GenericButton onClickEvent={closeModal} text={t('.Close')} />
+      <style jsx>{style}</style>
+    </div>
+  );
+};
 
 ResourcesModal.propTypes = {
   appendixSubheader: PropTypes.string.isRequired,

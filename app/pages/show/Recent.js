@@ -7,6 +7,7 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import {withTranslation} from 'react-i18next';
 import { injectIntl, intlShape } from 'react-intl';
 import ThreeTabbedNav from 'app/components/ThreeTabbedNav';
 import TwoTabbedNav from 'app/components/TwoTabbedNav';
@@ -33,6 +34,7 @@ const {
   string,
 } = PropTypes;
 
+@withTranslation
 class RecentShow extends Component {
   static propTypes = {
     isDesktop: bool.isRequired,
@@ -104,9 +106,9 @@ class RecentShow extends Component {
       showStreamURL,
       title,
       tagLine,
-      intl,
+      t,
     } = this.props;
-    
+
     const {
       aboutIsActive,
       commentsIsActive,
@@ -156,9 +158,9 @@ class RecentShow extends Component {
                 <div className="full-width">
                   {hasDiscussionThread ? (
                     <ThreeTabbedNav
-                      firstTitle={intl.formatMessage(messages.About)}
-                      secondTitle={intl.formatMessage(messages.Comments)}
-                      thirdTitle={intl.formatMessage(messages.Details)}
+                      firstTitle={t('.About')}
+                      secondTitle={t('.Comments')}
+                      thirdTitle={t('.Details')}
                       firstTabIsActive={aboutIsActive}
                       firstTabOnClick={this.showAbout}
                       secondTabIsActive={commentsIsActive}
@@ -168,8 +170,8 @@ class RecentShow extends Component {
                     />
                   ) : (
                     <TwoTabbedNav
-                      firstTitle={intl.formatMessage(messages.About)}
-                      secondTitle={intl.formatMessage(messages.Details)}
+                      firstTitle={t('.About')}
+                      secondTitle={t('.Details')}
                       firstTabIsActive={aboutIsActive}
                       firstTabOnClick={this.showAbout}
                       secondTabIsActive={detailsIsActive}

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import uniqueId from 'lodash/uniqueId';
+import {useTranslation} from 'react-i18next';
 import { intlShape, injectIntl } from 'react-intl';
 import cx from 'classnames';
 import { horizontalArrow } from 'app/styles/variables/iconURLs';
@@ -17,10 +18,10 @@ const StepListItem = ({
   showActionMsg,
   showStepCard,
   goToStep,
-  intl,
   stepIconURL,
   itemType,
 }) => {
+  const { t } = useTranslation();
   return showStepCard ? (
     <div className={cx('root', { disabled: !stepEnabled })} key={uniqueId()}>
       <h5 className="title">
@@ -29,13 +30,13 @@ const StepListItem = ({
           <img
             className="check-icon"
             src={stepIconURL}
-            alt={intl.formatMessage(messages.CompletedIcon)}
+            alt={t('.CompletedIcon')}
           />
         ) : (
           <img
             className="check-icon"
             src={stepIconURL}
-            alt={intl.formatMessage(messages.IncompletedIcon)}
+            alt={t('.IncompletedIcon')}
           />
         )}
       </h5>
@@ -49,13 +50,13 @@ const StepListItem = ({
             <img
               className="check"
               src={stepIconURL}
-              alt={intl.formatMessage(messages.CompletedIcon)}
+              alt={t('.CompletedIcon')}
             />
           ) : (
             <img
               className="check"
               src={stepIconURL}
-              alt={intl.formatMessage(messages.IncompletedIcon)}
+              alt={t('.IncompletedIcon')}
             />
           )}
         </div>
@@ -67,7 +68,7 @@ const StepListItem = ({
             <span className="action-message">{stepActionMsg}</span>
             <div className="arrow-container">
               <img
-                alt={intl.formatMessage(messages.GoTo)}
+                alt={t('.GoTo')}
                 src={horizontalArrow}
               />
             </div>

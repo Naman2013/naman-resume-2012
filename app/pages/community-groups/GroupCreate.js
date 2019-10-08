@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import cloneDeep from 'lodash/cloneDeep';
 import noop from 'lodash/noop';
+import { withTranslation } from 'react-i18next';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import RequestGroupForm from 'app/components/community-groups/request-group-form';
@@ -39,7 +40,7 @@ const groupsHubModel = {
     sortOptions: resp.filterOptions.options,
   }),
 };
-
+@withTranslation
 class GroupCreate extends Component {
   static propTypes = {
     validateResponseAccess: PropTypes.func,
@@ -124,7 +125,7 @@ class GroupCreate extends Component {
     requestFormText,
     requestFormPrivacy,
   }) => {
-    const { actions, user, intl } = this.props;
+    const { actions, user, t } = this.props;
     requestGroup({
       at: user.at,
       token: user.token,
@@ -149,7 +150,7 @@ class GroupCreate extends Component {
           showPrompt: true,
           promptText: (
             <RequestGroupFormFeedback
-              promptText={intl.formatMessage(messages.errorSubmitting)}
+              promptText={t('.errorSubmitting')}
               closeForm={this.closeModal}
               requestNew={this.requestGroup}
             />
@@ -256,15 +257,17 @@ class GroupCreate extends Component {
     if (formIsComplete) {
       //console.log('submit the new group form and redirect to the new group page');
 
-      const createNewGroupResults = API
-      .post(CLASSROOM_CREATENEWGROUP_ENDPOINT_URL, {
+      const createNewGroupResults = API.post(
+        CLASSROOM_CREATENEWGROUP_ENDPOINT_URL,
+        {
           groupName: this.state.newGroupFormDetails.groupName.value,
           groupDescription: this.state.newGroupFormDetails.groupDescription
             .value,
           cid: user.cid,
           at: user.at,
           token: user.token,
-        })
+        }
+      )
         .then(response => {
           const res = response.data;
           if (res.apiError == false) {

@@ -1,4 +1,5 @@
 import React, { Fragment, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import { injectIntl } from 'react-intl';
@@ -29,6 +30,7 @@ const CardObsLarge = props => {
     socialShareDescription,
     iconFileData,
   } = props;
+  const { t } = useTranslation();
   const [isOpen, openModal] = useState(false);
   const [likesNumber, changeLikesNumber] = useState(likesCount);
   const onLikeClick = () => {
@@ -64,10 +66,7 @@ const CardObsLarge = props => {
                     {Object.keys(iconFileData).map(item => (
                       <Tooltip title={iconFileData[item].text}>
                         {iconFileData[item].hasLink ? (
-                          <Link
-                            to={iconFileData[item].linkUrl}
-                            target="_blank"
-                          >
+                          <Link to={iconFileData[item].linkUrl} target="_blank">
                             <ReturnObservationIcon item={iconFileData[item]} />
                           </Link>
                         ) : (
@@ -126,7 +125,7 @@ const CardObsLarge = props => {
                   </div>
                   {linkUrl && (
                     <Link to={linkUrl} className="button details">
-                      {intl.formatMessage(messages.Details)}
+                      {t('.Details')}
                       <img
                         src="https://vega.slooh.com/assets/v4/icons/horz_arrow_right_astronaut.svg"
                         alt="arrow-right"
@@ -137,14 +136,12 @@ const CardObsLarge = props => {
                 <div className="capture-date">
                   {observationTimeDisplay
                     ? observationTimeDisplay[0]
-                    : `${intl.formatMessage(messages.Loading)}...`}
+                    : `${t('.Loading')}...`}
                 </div>
               </div>
             </Fragment>
           ) : (
-            <div className="loading">
-              {intl.formatMessage(messages.Loading)}...
-            </div>
+            <div className="loading">{t('.Loading')}...</div>
           )}
         </div>
       </div>

@@ -1,7 +1,7 @@
 import { closeAllMenus } from 'app/modules/global-navigation/actions';
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import {withTranslation} from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import { bindActionCreators } from 'redux';
 import { API } from 'app/api';
 import { Link } from 'react-router';
@@ -241,7 +241,7 @@ class Login extends Component {
                     color: romance,
                     border: 0,
                   }}
-                  text={intl.formatMessage(messages.Close)}
+                  text={t('.Close')}
                   onClickEvent={this.closeForgotPassword}
                 />
               </div>
@@ -268,7 +268,7 @@ class Login extends Component {
             <Field
               name="username"
               type="email"
-              label={intl.formatMessage(messages.Email)}
+              label={t('.Email')}
               component={InputField}
               onChange={event => {
                 this.handleFieldChange({
@@ -281,7 +281,7 @@ class Login extends Component {
             <Field
               name="pwd"
               type="password"
-              label={intl.formatMessage(messages.Password)}
+              label={t('.Password')}
               component={InputField}
               onChange={event => {
                 this.handleFieldChange({
@@ -303,11 +303,11 @@ class Login extends Component {
             <Button
               theme={{ margin: '0 auto', color: astronaut }}
               type="submit"
-              text={intl.formatMessage(messages.SignWithEmail)}
+              text={t('.SignWithEmail')}
               onClickEvent={this.clearCurrentErrors}
             />
             <div className="or-container">
-              <div className="or-text">{intl.formatMessage(messages.Or)}</div>
+              <div className="or-text">{t('.Or')}</div>
               {/*<div className="or-line" />*/}
             </div>
             <Request
@@ -360,9 +360,7 @@ class Login extends Component {
             />
 
             <div className="register-container">
-              <span className="title-link">
-                {intl.formatMessage(messages.DontHaveAccount)}
-              </span>
+              <span className="title-link">{t('.DontHaveAccount')}</span>
               <Link to="/about/memberships">
                 <LargeButtonWithRightIcon
                   icon={horizontalArrowRightWhite}
@@ -372,14 +370,12 @@ class Login extends Component {
                     border: 0,
                     width: '100%',
                   }}
-                  text={intl.formatMessage(messages.JoinSloohToday)}
+                  text={t('.JoinSloohToday')}
                 />
               </Link>
             </div>
             <div className="register-container">
-              <span className="title-link">
-                {intl.formatMessage(messages.HaveAnInvintationCode)}
-              </span>
+              <span className="title-link">{t('.HaveAnInvintationCode')}</span>
               <Link to="/join/inviteByCodeStep1">
                 <LargeButtonWithRightIcon
                   icon={horizontalArrowRightWhite}
@@ -389,7 +385,7 @@ class Login extends Component {
                     border: 0,
                     width: '100%',
                   }}
-                  text={intl.formatMessage(messages.RedeemInvitationCode)}
+                  text={t('.RedeemInvitationCode')}
                 />
               </Link>
             </div>

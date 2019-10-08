@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { API } from 'app/api';
+import { withTranslation } from 'react-i18next';
 import Modal from 'react-modal';
 import { Link } from 'react-router';
 import { intlShape, injectIntl } from 'react-intl';
@@ -12,7 +13,7 @@ import styles from './BootstrappedTourPopup.styles';
 import messages from './BootstrappedTourPopup.messages';
 
 const { bool, string, shape, func } = PropTypes;
-
+@withTranslation
 class BootstrappedTourPopupForUser extends Component {
   static propTypes = {
     canDismiss: bool,
@@ -67,9 +68,9 @@ class BootstrappedTourPopupForUser extends Component {
 
     this.closeModal();
 
-    API
-      .post(DASHBOARD_DISMISS_TOUR_POPUP, { cid, at, token })
-      .then(res => validateResponseAccess(res.data));
+    API.post(DASHBOARD_DISMISS_TOUR_POPUP, { cid, at, token }).then(res =>
+      validateResponseAccess(res.data)
+    );
   };
 
   render() {
@@ -84,7 +85,7 @@ class BootstrappedTourPopupForUser extends Component {
       content,
       title,
       user,
-      intl,
+      t,
       hasRelatedGuide,
       relatedGuide,
     } = this.props;
@@ -96,7 +97,7 @@ class BootstrappedTourPopupForUser extends Component {
         <Modal
           isOpen={showModal}
           style={customModalStyles}
-          contentLabel={intl.formatMessage(messages.Tour)}
+          contentLabel={t('.Tour')}
           onRequestClose={this.closeModal}
           ariaHideApp={false}
         >

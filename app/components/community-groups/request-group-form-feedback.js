@@ -30,14 +30,8 @@ const RequestGroupFormFeedback = ({
         dangerouslySetInnerHTML={{ __html: promptText }}
       />
       <div className="actions">
-        <Button
-          onClickEvent={closeForm}
-          text={intl.formatMessage(messages.Close)}
-        />
-        <Button
-          onClickEvent={requestNew}
-          text={intl.formatMessage(messages.RequestAnotherGroup)}
-        />
+        <Button onClickEvent={closeForm} text={t('.Close')} />
+        <Button onClickEvent={requestNew} text={t('.RequestAnotherGroup')} />
       </div>
       <style jsx>{styles}</style>
     </form>

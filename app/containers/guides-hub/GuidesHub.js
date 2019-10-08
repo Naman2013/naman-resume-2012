@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { API } from 'app/api';
 import noop from 'lodash/noop';
+import { withTranslation } from 'react-i18next';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { intlShape, injectIntl } from 'react-intl';
@@ -30,7 +31,7 @@ const guidesHubModel = {
     sortOptions: resp.filterOptions.options,
   }),
 };
-
+@withTranslation
 class Guides extends Component {
   static propTypes = {
     validateResponseAccess: PropTypes.func,
@@ -89,7 +90,7 @@ class Guides extends Component {
   };
 
   render() {
-    const { user, actions, intl, isFetching } = this.props;
+    const { user, actions, t, isFetching } = this.props;
     const { guides } = this.state;
 
     return (
@@ -135,9 +136,7 @@ class Guides extends Component {
                       }}
                       render={() => (
                         <Fragment>
-                          {isFetching ? (
-                            <div>{intl.formatMessage(messages.loading)}</div>
-                          ) : null}
+                          {isFetching ? <div>{t('.loading')}</div> : null}
                           {!isFetching && (
                             <GuideTiles
                               updateReadingListInfo={

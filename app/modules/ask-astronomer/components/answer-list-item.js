@@ -45,7 +45,7 @@ const AnswerListItem = props => {
         likeHandler={likeReply}
         likeParams={likeParams}
         modalActions={modalActions}
-        commentText={intl.formatMessage(messages.Replies)}
+        commentText={t('.Replies')}
         showComments={showAllReplies}
         submitReply={submitReply}
         user={user}
@@ -57,7 +57,7 @@ const AnswerListItem = props => {
             replyTo={answer.replyId}
             submitForm={submitReply}
             modalActions={modalActions}
-            replyButtonText={intl.formatMessage(messages.Reply)}
+            replyButtonText={t('.Reply')}
             user={user}
             topicId={topicId}
             objectId={objectId}

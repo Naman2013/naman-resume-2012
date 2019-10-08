@@ -7,6 +7,7 @@
 
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import {withTranslation} from 'react-i18next';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { browserHistory } from 'react-router';
@@ -165,6 +166,7 @@ const obsData = resp => ({
   mapStateToProps,
   mapDispatchToProps
 )
+@withTranslation
 class Overview extends Component {
   navigateByURl = url => {
     browserHistory.push(url);
@@ -176,7 +178,7 @@ class Overview extends Component {
       objectData,
       objectSpecialists,
       imageDetails,
-      intl,
+      t,
       user,
       actions: { fetchLikeAction },
     } = this.props;
@@ -378,7 +380,7 @@ class Overview extends Component {
           )}
 
           <SterlingTitle
-            title={intl.formatMessage(messages.MVPAstronomers)}
+            title={t('.MVPAstronomers')}
             subTitle={intl.formatMessage(messages.MostActive, {
               objectTitle: objectData.objectTitle,
             })}

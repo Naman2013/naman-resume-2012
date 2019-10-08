@@ -7,7 +7,7 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {withTranslation} from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import { intlShape, injectIntl, FormattedMessage } from 'react-intl';
 import Button from 'app/components/common/style/buttons/Button';
 import styles from './request-group-form.style';
@@ -67,7 +67,7 @@ class RequestGroupForm extends Component {
   };
 
   render() {
-    const { closeForm, intl, t } = this.props;
+    const { closeForm, t } = this.props;
 
     const {
       requestFormTitle,
@@ -85,7 +85,7 @@ class RequestGroupForm extends Component {
             type="text"
             id="group-title"
             value={requestFormTitle}
-            placeholder={intl.formatMessage(messages.GroupTitle)}
+            placeholder={t('.GroupTitle')}
             onChange={this.changeFormTitle}
           />
         </div>
@@ -94,7 +94,7 @@ class RequestGroupForm extends Component {
             className="field-input"
             value={requestFormText}
             onChange={this.onChangeRequestForm}
-            placeholder={intl.formatMessage(messages.GroupDescription)}
+            placeholder={t('.GroupDescription')}
           />
         </div>
         <div className="button-container">
@@ -102,25 +102,19 @@ class RequestGroupForm extends Component {
             <Button
               onClickEvent={this.changeFormPrivacy}
               data-privacy="public"
-              text={intl.formatMessage(messages.PublicGroup)}
+              text={t('.PublicGroup')}
               isActive={requestFormPrivacy === 'public'}
             />
             <Button
               onClickEvent={this.changeFormPrivacy}
               data-privacy="private"
-              text={intl.formatMessage(messages.PrivateGroup)}
+              text={t('.PrivateGroup')}
               isActive={requestFormPrivacy === 'private'}
             />
           </div>
           <div className="actions">
-            <Button
-              onClickEvent={closeForm}
-              text={intl.formatMessage(messages.Cancel)}
-            />
-            <Button
-              onClickEvent={this.submitRequestForm}
-              text={intl.formatMessage(messages.Submit)}
-            />
+            <Button onClickEvent={closeForm} text={t('.Cancel')} />
+            <Button onClickEvent={this.submitRequestForm} text={t('.Submit')} />
           </div>
         </div>
         <style jsx>{styles}</style>
