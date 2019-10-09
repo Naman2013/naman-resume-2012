@@ -36,8 +36,8 @@ const BootstrappedObservationSliderItem = props => {
   const title = observationTitle || imageTitle;
   const onLikeClick = () => {
     if (!showLikePrompt) {
-      handleLike(customerImageId);
       changeLikesNumber(likesNumber + 1);
+      return handleLike(customerImageId);
     }
   };
   return (

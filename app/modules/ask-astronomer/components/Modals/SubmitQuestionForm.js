@@ -6,6 +6,7 @@
  ***********************************/
 
 import PhotoUploadButton from 'app/components/common/style/buttons/PhotoUploadButton';
+import RichTextEditor from 'app/components/rich-text-editor/RichTextEditor';
 import { Spinner } from 'app/components/spinner/index';
 import { uploadedImgCleanUp } from 'app/modules/ask-astronomer/services/post-image';
 import setPostImages from 'app/modules/set-post-images';
@@ -79,10 +80,9 @@ class SubmitQuestionForm extends PureComponent {
     document.body.style.overflow = 'unset';
   }
 
-  onChangeQuestionText = e => {
-    e.preventDefault();
+  onChangeQuestionText = value => {
     this.setState({
-      questionText: e.target.value,
+      questionText: value,
     });
   };
 
@@ -210,7 +210,7 @@ class SubmitQuestionForm extends PureComponent {
           isLoading={uploadLoading}
         />
 
-        <textarea
+        <RichTextEditor
           className="field-input"
           value={questionText}
           onChange={this.onChangeQuestionText}
