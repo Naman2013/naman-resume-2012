@@ -19,7 +19,6 @@ import { romance, seashell } from 'app/styles/variables/colors_tiles_v4';
 import MainContainerWithDiscussions from './partials/MainContainerWithDiscussions';
 import AsideContainerDetailsOnly from './partials/AsideContainerDetailsOnly';
 import styles from './Show.style';
-import messages from './Show.messages';
 import ToggleReadingList from '../../components/common/ToggleReadingList/ToggleReadingList';
 
 const {
@@ -162,9 +161,9 @@ class UpcomingShow extends Component {
                 <div className="full-width">
                   {hasDiscussionThread ? (
                     <ThreeTabbedNav
-                      firstTitle={t('.About')}
-                      secondTitle={t('.Comments')}
-                      thirdTitle={t('.Details')}
+                      firstTitle={t('Shows.About')}
+                      secondTitle={t('Shows.Comments')}
+                      thirdTitle={t('Shows.Details')}
                       firstTabIsActive={aboutIsActive}
                       firstTabOnClick={this.showAbout}
                       secondTabIsActive={commentsIsActive}
@@ -174,8 +173,8 @@ class UpcomingShow extends Component {
                     />
                   ) : (
                     <TwoTabbedNav
-                      firstTitle={t('.About')}
-                      secondTitle={t('.Details')}
+                      firstTitle={t('Shows.About')}
+                      secondTitle={t('Shows.Details')}
                       firstTabIsActive={aboutIsActive}
                       firstTabOnClick={this.showAbout}
                       secondTabIsActive={detailsIsActive}

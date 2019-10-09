@@ -13,7 +13,6 @@ import { RELATED_GUIDES, RELATED_SHOWS } from 'app/services/events';
 import RelatedGuides from '../../../components/RelatedGuides';
 import RelatedShows from '../../../components/RelatedShows';
 import RelatedStories from '../../../components/RelatedStories';
-import messages from '../Show.messages';
 
 import styles from './MainContent.style';
 
@@ -74,7 +73,7 @@ class DetailsTab extends Component {
           maxCount={3}
           isDesktop={isDesktop}
           isScreenLarge={isScreenLarge}
-          title={t('.RelatedShows')}
+          title={t('Shows.RelatedShows')}
         />
 
         <RelatedStories
@@ -85,7 +84,7 @@ class DetailsTab extends Component {
           maxCount={3}
           isDesktop={isDesktop}
           isScreenLarge={isScreenLarge}
-          title={t('.RelatedStories')}
+          title={t('Shows.RelatedStories')}
         />
 
         <RelatedGuides
@@ -96,7 +95,7 @@ class DetailsTab extends Component {
           maxCount={3}
           isDesktop={isDesktop}
           isScreenLarge={isScreenLarge}
-          title={t('.RelatedGuides')}
+          title={t('Shows.RelatedGuides')}
         />
 
         <style jsx>{styles}</style>

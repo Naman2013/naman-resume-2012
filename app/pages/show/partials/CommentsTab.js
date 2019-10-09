@@ -12,7 +12,6 @@ import LikeSomethingButton from 'app/components/common/LikeSomethingButton';
 import { romance } from 'app/styles/variables/colors_tiles_v4';
 import DiscussionsBoard from 'app/components/common/DiscussionsBoard';
 import styles from './CommentsTab.style';
-import messages from '../Show.messages';
 
 const {
   any,
@@ -70,7 +69,7 @@ class CommentsTab extends Component {
           topicId={discussionTopicId}
           user={user}
           isDesktop={isDesktop}
-          header={t('.Comments')}
+          header={t('Shows.Comments')}
           canSubmitReplies={canSubmitReplies}
           validateResponseAccess={validateResponseAccess}
           callSource="shows"

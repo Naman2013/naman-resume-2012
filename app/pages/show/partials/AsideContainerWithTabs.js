@@ -17,7 +17,6 @@ import AboutTab from './AboutTab';
 import CommentsTab from './CommentsTab';
 import DetailsTab from './DetailsTab';
 import styles from './AsideContainerWithTabs.style';
-import messages from '../Show.messages';
 
 const {
   any,
@@ -80,9 +79,9 @@ class AsideContainerWithTabs extends Component {
         <div className="full-width">
           {hasDiscussionThread ? (
             <ThreeTabbedNav
-              firstTitle={t('.About')}
-              secondTitle={t('.Comments')}
-              thirdTitle={t('.Details')}
+              firstTitle={t('Shows.About')}
+              secondTitle={t('Shows.Comments')}
+              thirdTitle={t('Shows.Details')}
               firstTabIsActive={aboutIsActive}
               firstTabOnClick={showAbout}
               secondTabIsActive={commentsIsActive}
@@ -92,8 +91,8 @@ class AsideContainerWithTabs extends Component {
             />
           ) : (
             <TwoTabbedNav
-              firstTitle={t('.About')}
-              secondTitle={t('.Details')}
+              firstTitle={t('Shows.About')}
+              secondTitle={t('Shows.Details')}
               firstTabIsActive={aboutIsActive}
               firstTabOnClick={showAbout}
               secondTabIsActive={detailsIsActive}

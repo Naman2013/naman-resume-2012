@@ -13,7 +13,6 @@ import Select from 'react-select';
 import { liveShow } from '../../styles/variables/iconURLs';
 
 import styles from './LiveShowVideoViewerNav.style';
-import messages from './LiveShowVideoViewer.messages';
 
 const {
   any,
@@ -90,7 +89,7 @@ class LiveShowVideoViewerNav extends Component {
                 backgroundSize: '80%',
               })}
             />
-            <span className="opt-desc">{t('.LiveShow')}</span>
+            <span className="opt-desc">{t('Shows.LiveShow')}</span>
           </div>
         ),
       },

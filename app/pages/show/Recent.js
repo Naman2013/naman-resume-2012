@@ -20,7 +20,6 @@ import MainContainerWithDiscussions from './partials/MainContainerWithDiscussion
 import AsideContainerDetailsOnly from './partials/AsideContainerDetailsOnly';
 
 import styles from './Show.style';
-import messages from './Show.messages';
 
 const {
   any,
@@ -157,9 +156,9 @@ class RecentShow extends Component {
                 <div className="full-width">
                   {hasDiscussionThread ? (
                     <ThreeTabbedNav
-                      firstTitle={t('.About')}
-                      secondTitle={t('.Comments')}
-                      thirdTitle={t('.Details')}
+                      firstTitle={t('Shows.About')}
+                      secondTitle={t('Shows.Comments')}
+                      thirdTitle={t('Shows.Details')}
                       firstTabIsActive={aboutIsActive}
                       firstTabOnClick={this.showAbout}
                       secondTabIsActive={commentsIsActive}
@@ -169,8 +168,8 @@ class RecentShow extends Component {
                     />
                   ) : (
                     <TwoTabbedNav
-                      firstTitle={t('.About')}
-                      secondTitle={t('.Details')}
+                      firstTitle={t('Shows.About')}
+                      secondTitle={t('Shows.Details')}
                       firstTabIsActive={aboutIsActive}
                       firstTabOnClick={this.showAbout}
                       secondTabIsActive={detailsIsActive}

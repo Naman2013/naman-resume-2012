@@ -15,7 +15,6 @@ import HeaderContainer from './partials/HeaderContainer';
 import MainContainer from './partials/MainContainer';
 import AsideContainerWithTabs from './partials/AsideContainerWithTabs';
 import styles from './Show.style';
-import messages from './Show.messages';
 
 const {
   any,
@@ -101,7 +100,7 @@ class LiveShow extends Component {
       selectedTab,
     } = this.state;
 
-    const headerLabel = t('.AiringNow');
+    const headerLabel = t('Shows.AiringNow');
     const showLiveChatURL = `${window.location.protocol}//${window.location.host}/getHostedShowChat.php?show_id=${this.props.showId}&customer_uuid=${user.customerUUID}&customer_token=${user.token}`;
 
     return (
@@ -118,9 +117,9 @@ class LiveShow extends Component {
               <div className="full-width">
                 {hasDiscussionThread ? (
                   <ThreeTabbedNav
-                    firstTitle={t('.About')}
-                    secondTitle={t('.Comments')}
-                    thirdTitle={t('.Details')}
+                    firstTitle={t('Shows.About')}
+                    secondTitle={t('Shows.Comments')}
+                    thirdTitle={t('Shows.Details')}
                     firstTabIsActive={aboutIsActive}
                     firstTabOnClick={this.showAbout}
                     secondTabIsActive={commentsIsActive}
@@ -130,8 +129,8 @@ class LiveShow extends Component {
                   />
                 ) : (
                   <TwoTabbedNav
-                    firstTitle={t('.About')}
-                    secondTitle={t('.Details')}
+                    firstTitle={t('Shows.About')}
+                    secondTitle={t('Shows.Details')}
                     firstTabIsActive={aboutIsActive}
                     firstTabOnClick={this.showAbout}
                     secondTabIsActive={detailsIsActive}
@@ -143,7 +142,7 @@ class LiveShow extends Component {
             renderAsideContent={() => (
               <AsideContainerWithTabs
                 {...this.props}
-                headerTitle={`Slooh ${t('.LiveShow')}`}
+                headerTitle={`Slooh ${t('Shows.LiveShow')}`}
                 aboutIsActive={aboutIsActive}
                 commentsIsActive={commentsIsActive}
                 detailsIsActive={detailsIsActive}

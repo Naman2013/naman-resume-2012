@@ -12,7 +12,6 @@ import { fetchRecordedShow } from '../../modules/show-video-viewer/recorded-show
 import { backgroundImageCover } from '../../styles/mixins/utilities';
 import { previousShows } from '../../services/shows/previous-shows';
 import { upcomingShows } from '../../services/shows/upcoming-shows';
-import messages from './ShowVideoViewer.messages';
 
 import { white } from '../../styles/variables/colors';
 
@@ -156,7 +155,7 @@ class ShowVideoViewer extends Component {
     return (
       <div>
         <header className="header">
-          <h1 className="header-title">{t('.VideoViewer')}</h1>
+          <h1 className="header-title">{t('Shows.VideoViewer')}</h1>
         </header>
         <main className="main-container row">
           <div className="col-md-8 col-sm-6">

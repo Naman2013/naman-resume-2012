@@ -4,7 +4,6 @@ import moment from 'moment';
 import {withTranslation} from 'react-i18next';
 import CountdownCircleTimer from 'app/components/common/CountdownCircleTimer';
 import styles from './UpcomingShowCountdown.style';
-import messages from './UpcomingShowCountdown.messages';
 
 const { bool, number, string, shape, oneOfType } = PropTypes;
 
@@ -105,7 +104,7 @@ export default class UpcomingShowCountdown extends PureComponent {
       return (
         <div className="root">
           <span className="countdown-title">
-            {t('.CountdownToShow')}
+            {t('Shows.CountdownToShow')}
           </span>
           <CountdownCircleTimer
             lineWidth={5}
