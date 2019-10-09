@@ -19,7 +19,6 @@ import { DeviceContext } from 'providers/DeviceProvider';
 import { validateResponseAccess } from 'app/modules/authorization/actions';
 import { ACTION as showsActions } from '../../modules/shows/reducer';
 import style from './shows-hub.style';
-import messages from './ShowsHub.messages';
 
 const COUNT = 9;
 const DEFAULT_PAGE = 1;
@@ -136,7 +135,7 @@ class Shows extends Component {
                       }}
                       render={() => (
                         <Fragment>
-                          {isFetching ? <div>{t('.loading')}</div> : null}
+                          {isFetching ? <div>{t('Hubs.loading')}</div> : null}
                           {!isFetching && (
                             <Fragment>
                               <UpcomingShows

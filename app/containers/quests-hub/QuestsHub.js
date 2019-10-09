@@ -18,7 +18,6 @@ import { DeviceContext } from 'providers/DeviceProvider';
 import { validateResponseAccess } from 'app/modules/authorization/actions';
 import { ACTION as questsActions } from '../../modules/quests/reducer';
 import style from './quests-hub.style';
-import messages from './QuestsHub.messages';
 
 const COUNT = 9;
 const DEFAULT_PAGE = 1;
@@ -137,7 +136,7 @@ class Quests extends Component {
                       render={() => (
                         <Fragment>
                           {isFetching ? (
-                            <div>{t('.loading')}</div>
+                            <div>{t('Hubs.loading')}</div>
                           ) : null}
                           {!isFetching && (
                             <QuestTiles

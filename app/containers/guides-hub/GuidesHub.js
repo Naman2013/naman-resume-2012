@@ -18,7 +18,6 @@ import { DeviceContext } from 'providers/DeviceProvider';
 import { validateResponseAccess } from 'app/modules/authorization/actions';
 import { ACTION as guidesActions } from '../../modules/guides/reducer';
 import style from './guides-hub.style';
-import messages from './GuidesHub.messages';
 
 const COUNT = 9;
 const DEFAULT_PAGE = 1;
@@ -135,7 +134,7 @@ class Guides extends Component {
                       }}
                       render={() => (
                         <Fragment>
-                          {isFetching ? <div>{t('.loading')}</div> : null}
+                          {isFetching ? <div>{t('Hubs.loading')}</div> : null}
                           {!isFetching && (
                             <GuideTiles
                               updateReadingListInfo={

@@ -3,7 +3,6 @@ import uniqueId from 'lodash/uniqueId';
 import defaultSliderConfiguration from 'app/components/common/Slider/sliderConfig';
 import BigShowTile from 'app/components/common/tiles/BigShowTile';
 import UpcomingShowSliderItem from './upcoming-shows-slider-item';
-import messages from './upcomingShowsConfig.messages';
 
 const getSliderConfiguration = () =>
   Object.assign({}, defaultSliderConfiguration(), {
@@ -36,6 +35,6 @@ export const getSliderProps = (imageList = [], t) =>
     },
     {
       sliderConfig: getSliderConfiguration(),
-      emptyMessage: t('.noShows'),
+      emptyMessage: t('Hubs.noShows'),
     }
   );

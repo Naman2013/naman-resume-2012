@@ -21,7 +21,6 @@ import {
   getStoriesError,
 } from '../../modules/stories/actions';
 import style from './stories-hub.style';
-import messages from './StoriesHub.messages';
 
 const COUNT = 9;
 const DEFAULT_PAGE = 1;
@@ -140,7 +139,7 @@ class Stories extends Component {
                       renderRightMenu={() => (
                         <div className="flex">
                           <Button
-                            text={t('.submitStory')}
+                            text={t('Hubs.submitStory')}
                             onClickEvent={() =>
                               browserHistory.push(
                                 `/stories/${this.props.params.filterType}/create`
@@ -151,7 +150,7 @@ class Stories extends Component {
                       )}
                       render={() => (
                         <Fragment>
-                          {isFetching ? <div>{t('.loading')}</div> : null}
+                          {isFetching ? <div>{t('Hubs.loading')}</div> : null}
                           {!isFetching && (
                             <StoryTiles
                               stories={stories}

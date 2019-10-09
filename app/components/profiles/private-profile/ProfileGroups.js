@@ -18,7 +18,6 @@ import CenterColumn from '../../common/CenterColumn';
 import { ContainerWithTitle } from '../../common/ContainerWithTitle';
 import PromptWithClose from '../../community-groups/prompt-with-close';
 import GroupTiles from '../../groups-hub/group-tiles';
-import messages from './ProfileGroups.messages';
 
 import styles from './ProfileGroups.styles';
 
@@ -125,7 +124,7 @@ class ProfileGroups extends Component {
         <CenterColumn>
           {this.renderClubBtns()}
 
-          <ContainerWithTitle title={t('.MyClubs')}>
+          <ContainerWithTitle title={t('Profile.MyClubs')}>
             {groupsCount > 0 ? (
               <DeviceContext.Consumer>
                 {context => (
