@@ -28,7 +28,6 @@ const AsideContainer = ({
   slugLookupId,
   postId,
   user,
-  intl,
 }) => {
   const { t } = useTranslation();
   return (

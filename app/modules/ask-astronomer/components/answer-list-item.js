@@ -25,7 +25,6 @@ const AnswerListItem = props => {
     toggleAllAnswerReplies,
     topicId,
     user,
-    intl,
     updateQuestionsList,
   } = props;
   const { t } = useTranslation();

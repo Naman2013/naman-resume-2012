@@ -78,7 +78,7 @@ class ActivityForm extends Component {
   };
 
   render() {
-    const { isDesktop, topicId, forumId, intl, placeholder, t } = this.props;
+    const { isDesktop, topicId, forumId, placeholder, t } = this.props;
 
     const { uuid, showInfo } = this.state;
 

@@ -127,7 +127,7 @@ class SubmitReplyReplyButton extends Component {
 
   handleSubmitReply = data => {
     // set the AskAstronomer.js [parent] modal to say a success or error message
-    const { modalActions, intl, updateQuestionsList } = this.props;
+    const { modalActions, updateQuestionsList } = this.props;
 
     updateQuestionsList();
 

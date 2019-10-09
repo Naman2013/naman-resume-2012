@@ -206,7 +206,7 @@ class ResetPassword extends Component {
   };
 
   render() {
-    const { pathname, intl, t } = this.props;
+    const { pathname, t } = this.props;
 
     const { cid, passwordResetToken } = this.props.params;
 

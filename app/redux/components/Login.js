@@ -203,7 +203,7 @@ class Login extends Component {
   };
 
   render() {
-    const { loginFailed, intl, t } = this.props;
+    const { loginFailed, t } = this.props;
 
     const googleClientIDModel = {
       name: 'GOOGLE_CLIENT_ID_MODEL',

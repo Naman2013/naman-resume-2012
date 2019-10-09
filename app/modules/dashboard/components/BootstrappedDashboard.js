@@ -174,7 +174,6 @@ class BootstrappedDashboard extends Component {
     let {
       promoPanel: { promoArray, promoPanelShow },
       user,
-      intl,
       recommendedObjects,
       reserveCommunityMission,
       reservedCommunityMission,

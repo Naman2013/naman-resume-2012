@@ -114,7 +114,7 @@ class DiscussionBoardInvitationsPanel extends Component {
   };
 
   render() {
-    const { actions, pageMeta, user, discussionGroupId, intl } = this.props;
+    const { actions, pageMeta, user, discussionGroupId } = this.props;
 
     const { refreshModeStr, inInviteMode, t } = this.state;
 

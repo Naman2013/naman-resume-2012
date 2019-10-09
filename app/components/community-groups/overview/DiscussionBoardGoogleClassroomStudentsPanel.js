@@ -120,7 +120,7 @@ class DiscussionBoardGoogleClassroomStudentsPanel extends Component {
   };
 
   render() {
-    const { actions, pageMeta, user, discussionGroupId, intl, t } = this.props;
+    const { actions, pageMeta, user, discussionGroupId, t } = this.props;
 
     const { refreshModeStr } = this.state;
 

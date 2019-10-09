@@ -115,7 +115,7 @@ class GroupTiles extends Component {
         <style jsx>{style}</style>
       </CenterColumn>
     ) : (
-      t('.noGroups')
+      t('Hubs.noGroups')
     );
   }
 }

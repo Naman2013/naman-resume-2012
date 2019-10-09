@@ -76,8 +76,4 @@ const RecommendedObjectsItem = ({
   );
 };
 
-RecommendedObjectsItem.propTypes = {
-  intl: shape({}).isRequired,
-};
-
 export default RecommendedObjectsItem;

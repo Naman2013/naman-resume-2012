@@ -21,7 +21,6 @@ const BootstrappedObservationSliderItem = props => {
     likeTooltip,
     commentsCount,
     observationTimeDisplay,
-    intl,
     handleLike,
     customerImageId,
     likePrompt,

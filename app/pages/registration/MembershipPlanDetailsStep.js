@@ -79,7 +79,7 @@ class MembershipPlanDetailsStep extends Component {
   };
 
   render() {
-    const { pathname, tabs, activeTab, intl, t } = this.props;
+    const { pathname, tabs, activeTab, t } = this.props;
     const { cid } = cookie.parse(window.document.cookie);
 
     return (

@@ -14,7 +14,8 @@
     "NameLabel": "Your Name",
     "EmailLabel": "Your Email Adress",
     "Error": "Error",
-    "Succuss": "Success"
+    "Succuss": "Success",
+    "Success": "Success"
   },
   "Alerts": {
     "AddTagError": "There was an error adding this tag",

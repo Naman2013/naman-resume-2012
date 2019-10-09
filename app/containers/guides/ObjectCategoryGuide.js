@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import {withTranslation} from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import Request from 'app/components/common/network/Request';
 import InAppNavigation from 'app/components/common/InAppNavigation';
 import CenterColumn from 'app/components/common/CenterColumn';
@@ -58,8 +58,8 @@ const guidePageModel = {
       alignContent: 'right',
     },
     sterlingTitleProps: {
-      title: t('.SterlingTitle'),// todo hardcode text here
-      subTitle: t('.SterlingSubtitle'),// todo hardcode text here
+      title: 'Objects within this guide',
+      subTitle: 'Select an Object for more information',
     },
     guideTopicsProps: {
       list: resp.chapterNavigationInfo.chapterList.map(chapter => ({

@@ -17,7 +17,6 @@ const RequestGroupFormFeedback = ({
   closeForm,
   requestNew,
   promptText,
-  intl,
 }) => {
   const { t } = useTranslation();
   return (

@@ -104,7 +104,7 @@ class PartnershipOpportunitiesSection extends Component {
                 role="button"
               />
               <div className="modal-header">
-                {response.success ? t('.Success') : t('.Error')}
+                {response.success ? t('About.Success') : t('About.Error')}
               </div>
               <div className="modal-body">{response.statusMessage}</div>
             </Modal>
@@ -116,7 +116,7 @@ class PartnershipOpportunitiesSection extends Component {
               <div className="bottom-inputs">
                 <div className="inputs-row">
                   <div className="name row-item">
-                    <div className="input-label">{t('.NameLabel')}</div>
+                    <div className="input-label">{t('About.NameLabel')}</div>
                     <input
                       className="input common-input"
                       placeholder={t('About.NamePlaceholder')}
@@ -126,7 +126,7 @@ class PartnershipOpportunitiesSection extends Component {
                     />
                   </div>
                   <div className="email row-item">
-                    <div className="input-label">{t('.EmailLabel')}</div>
+                    <div className="input-label">{t('About.EmailLabel')}</div>
                     <input
                       className="input common-input"
                       placeholder={t('About.EmailPlaceholder')}
@@ -146,7 +146,7 @@ class PartnershipOpportunitiesSection extends Component {
 
                 <div className="bottom-buttons">
                   <Button
-                    text={t('.Cancel')}
+                    text={t('About.Cancel')}
                     withIntl
                     onClickEvent={this.handleCancel}
                     theme={{
@@ -156,7 +156,7 @@ class PartnershipOpportunitiesSection extends Component {
                   />
 
                   <Button
-                    text={t('.Submit')}
+                    text={t('About.Submit')}
                     withIntl
                     onClickEvent={this.handleSubmit}
                     theme={{
@@ -200,12 +200,6 @@ class PartnershipOpportunitiesSection extends Component {
     );
   }
 }
-
-PartnershipOpportunitiesSection.propTypes = {
-  intl: PropTypes.shape({
-    defineMessage: PropTypes.func,
-  }).isRequired,
-};
 
 PartnershipOpportunitiesSection.defaultProps = {};
 

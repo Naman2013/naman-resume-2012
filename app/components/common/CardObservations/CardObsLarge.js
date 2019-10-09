@@ -20,7 +20,6 @@ const CardObsLarge = props => {
     likeTooltip,
     commentsCount,
     observationTimeDisplay,
-    intl,
     handleLike,
     customerImageId,
     likePrompt,

@@ -86,7 +86,6 @@ class SubmitAnswerButton extends Component {
       authorInfo,
       freshness,
       content,
-      intl,
     } = this.props;
     modalActions.setModal({
       promptComponent: (
@@ -134,7 +133,7 @@ class SubmitAnswerButton extends Component {
 
   handleSubmitReply = data => {
     // set the AskAstronomer.js [parent] modal to say a success or error message
-    const { modalActions, intl, updateQuestionsList } = this.props;
+    const { modalActions, updateQuestionsList } = this.props;
     const message = `${data.responseLabel}
     <p>${data.responseText}</p>`;
 
