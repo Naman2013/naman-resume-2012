@@ -26,7 +26,7 @@ type TProfileActivityProps = {
   piggyBackMissionSlot: any;
   piggybackReservedMissionData: any;
   piggybackReservedMission: any;
-  user: User;
+  //user: User;
 };
 type TProfileActivityState = {
   cancelReservationModalVisible: boolean;
