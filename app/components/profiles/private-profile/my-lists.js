@@ -11,7 +11,6 @@ import GuideTopics from '../../guides/GuideTopics';
 import StoryTiles from '../../stories-hub/stories-tiles';
 import GuideTiles from '../../guides-hub/guide-tiles';
 import ShowTiles from '../../shows-hub/show-tiles';
-import messages from './my-lists.messages';
 
 const readingListModel = {
   name: 'READING_LIST_MODEL',
@@ -160,19 +159,19 @@ export default class MyListsHub extends React.Component {
 
     const filterOptions = [
       {
-        title: t('.Objects'),
+        title: t('Profile.Objects'),
         linkURL: '/profile/private/lists/object',
       },
       {
-        title: t('.Stories'),
+        title: t('Profile.Stories'),
         linkURL: '/profile/private/lists/story',
       },
       {
-        title: t('.Shows'),
+        title: t('Profile.Shows'),
         linkURL: '/profile/private/lists/show',
       },
       {
-        title: t('.Guides'),
+        title: t('Profile.Guides'),
         linkURL: '/profile/private/lists/guide',
       },
     ];
