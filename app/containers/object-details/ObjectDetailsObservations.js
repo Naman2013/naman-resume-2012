@@ -256,7 +256,7 @@ class Observations extends Component {
 }
 
 Observations.propTypes = {
-  intl: intlShape.isRequired,
+
 };
 
 export default Observations;

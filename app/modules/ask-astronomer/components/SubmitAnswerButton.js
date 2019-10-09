@@ -57,7 +57,7 @@ class SubmitAnswerButton extends Component {
       token: oneOfType([number, string]),
       cid: oneOfType([number, string]),
     }),
-    intl: intlShape.isRequired,
+
     updateQuestionsList: func.isRequired,
   };
 

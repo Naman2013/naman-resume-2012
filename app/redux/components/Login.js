@@ -43,7 +43,7 @@ const propTypes = {
     resetLogIn: PropTypes.func.isRequired,
     logGoogleUserIn: PropTypes.func.isRequired,
   }).isRequired,
-  intl: intlShape.isRequired,
+
 };
 
 const defaultProps = {};

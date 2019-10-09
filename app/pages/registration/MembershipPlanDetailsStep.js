@@ -42,7 +42,7 @@ class MembershipPlanDetailsStep extends Component {
         value: string,
       })
     ),
-    intl: intlShape.isRequired,
+
   };
 
   static defaultProps = {

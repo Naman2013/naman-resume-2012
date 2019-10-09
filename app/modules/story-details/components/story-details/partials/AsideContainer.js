@@ -89,7 +89,7 @@ const AsideContainer = ({
 
 AsideContainer.propTypes = {
   isDesktop: bool,
-  intl: intlShape.isRequired,
+
 };
 
 AsideContainer.defaultProps = {

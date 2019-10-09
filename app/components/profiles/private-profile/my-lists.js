@@ -20,7 +20,6 @@ const readingListModel = {
   }),
 };
 // todo CHECK ME
-// export default injectIntl(
 @withTranslation
 export default class MyListsHub extends React.Component {
   state = {

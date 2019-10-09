@@ -44,7 +44,7 @@ class SubmitQuestionForm extends PureComponent {
     freshness: string.isRequired,
     content: string.isRequired,
     submitReply: func.isRequired,
-    intl: intlShape.isRequired,
+
     updateQuestionsList: func,
   };
 

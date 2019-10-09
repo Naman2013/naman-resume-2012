@@ -198,7 +198,7 @@ class Missions extends Component {
 }
 
 Missions.propTypes = {
-  intl: intlShape.isRequired,
+
 };
 
 export default Missions;

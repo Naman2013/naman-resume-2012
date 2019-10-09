@@ -59,7 +59,7 @@ class ReplyButton extends Component {
       token: oneOfType([number, string]),
       cid: oneOfType([number, string]),
     }),
-    intl: intlShape.isRequired,
+
   };
 
   preparePostUID() {

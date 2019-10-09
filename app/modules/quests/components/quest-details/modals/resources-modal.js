@@ -30,7 +30,7 @@ ResourcesModal.propTypes = {
   appendixHeader: PropTypes.string.isRequired,
   appendixText: PropTypes.string.isRequired,
   closeModal: PropTypes.func,
-  intl: intlShape.isRequired,
+
 };
 
 ResourcesModal.defaultProps = {

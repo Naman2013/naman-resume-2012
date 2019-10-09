@@ -41,7 +41,7 @@ class RevealSubmitForm extends Component {
       cid: string,
       token: string,
     }).isRequired,
-    intl: intlShape.isRequired,
+
     isClub: bool,
   };
 

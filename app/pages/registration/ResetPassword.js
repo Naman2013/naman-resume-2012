@@ -39,7 +39,7 @@ const { string } = PropTypes;
 class ResetPassword extends Component {
   static propTypes = {
     pathname: string,
-    intl: intlShape.isRequired,
+
   };
 
   static defaultProps = {

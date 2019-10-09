@@ -41,7 +41,7 @@ class JoinStep2 extends Component {
   static propTypes = {
     pathname: string.isRequired,
     change: func,
-    intl: intlShape.isRequired,
+
   };
 
   static defaultProps = {
@@ -1292,5 +1292,5 @@ export default connect(
     form: 'joinAccountForm',
     validate: joinStep2Validation,
     enableReinitialize: true,
-  })(injectIntl(JoinStep2))
+  })(JoinStep2)
 );

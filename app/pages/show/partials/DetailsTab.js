@@ -38,7 +38,7 @@ class DetailsTab extends Component {
       token: oneOfType([number, string]),
       cid: oneOfType([number, string]),
     }).isRequired,
-    intl: intlShape.isRequired,
+
   };
 
   static defaultProps = {};

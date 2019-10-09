@@ -28,7 +28,7 @@ class BootstrappedTourPopupForUser extends Component {
       token: string,
       cid: string,
     }).isRequired,
-    intl: intlShape.isRequired,
+
     validateResponseAccess: func.isRequired,
     hasRelatedGuide: bool.isRequired,
     relatedGuide: shape({}),

@@ -119,7 +119,7 @@ class Stories extends Component {
 }
 
 Stories.propTypes = {
-  intl: intlShape.isRequired,
+
 };
 
 export default Stories;

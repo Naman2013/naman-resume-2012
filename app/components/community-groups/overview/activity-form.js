@@ -32,7 +32,7 @@ class ActivityForm extends Component {
       token: string,
       cid: string,
     }).isRequired,
-    intl: intlShape.isRequired,
+
   };
 
   static defaultProps = {

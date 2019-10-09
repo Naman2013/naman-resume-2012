@@ -19,7 +19,7 @@ class BootstrappedTourPopupForGuestJoin extends Component {
     content: string,
     title: string,
     subscriptionPlanCallSource: string,
-    intl: intlShape.isRequired,
+
     validateResponseAccess: func.isRequired,
   };
 

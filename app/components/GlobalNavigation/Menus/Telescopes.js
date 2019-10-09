@@ -100,7 +100,7 @@ const Telescopes = ({ intl }) => {
 };
 
 Telescopes.propTypes = {
-  intl: intlShape.isRequired,
+
 };
 
 export default Telescopes;

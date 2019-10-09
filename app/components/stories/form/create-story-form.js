@@ -31,7 +31,7 @@ class CreateStoryForm extends Component {
       }),
     }),
     submitLabel: PropTypes.string.isRequired,
-    intl: intlShape.isRequired,
+
 
     uuid: PropTypes.string.isRequired,
     user: PropTypes.shape({

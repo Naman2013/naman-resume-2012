@@ -90,7 +90,7 @@ StepListItem.propTypes = {
   stepStatusMsg: PropTypes.string.isRequired,
   stepActionMsg: PropTypes.string.isRequired,
   goToStep: PropTypes.func.isRequired,
-  intl: intlShape.isRequired,
+
 };
 
 StepListItem.defaultProps = {};

@@ -420,7 +420,7 @@ Overview.propTypes = {
     objectMagnitude: PropTypes.number.isRequired,
     hasBurnhamsData: PropTypes.bool.isRequired,
   }).isRequired,
-  intl: intlShape.isRequired,
+
 };
 
 export default Overview;

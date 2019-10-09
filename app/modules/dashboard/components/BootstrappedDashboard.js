@@ -99,7 +99,7 @@ class BootstrappedDashboard extends Component {
     }),
     subheading: string,
     userIsLoggedIn: bool,
-    intl: intlShape.isRequired,
+
   };
 
   static defaultProps = {

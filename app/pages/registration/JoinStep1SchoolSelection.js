@@ -29,7 +29,7 @@ const { string } = PropTypes;
 class JoinStep1SchoolSelectionGeneral extends Component {
   static propTypes = {
     pathname: string,
-    intl: intlShape.isRequired,
+
   };
 
   static defaultProps = {
@@ -533,6 +533,6 @@ const JoinStep1SchoolSelection = connect(state => {
     'schoolCountry'
   );
   return { zipCode, isNewSchool, district, schoolCountry };
-})(injectIntl(JoinStep1SchoolSelectionForm));
+})(JoinStep1SchoolSelectionForm);
 
 export default JoinStep1SchoolSelection;

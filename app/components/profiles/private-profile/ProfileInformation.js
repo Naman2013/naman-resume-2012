@@ -39,7 +39,7 @@ class ProfileInformation extends Component {
       badgesData: shape({}).isRequired,
       mvpData: shape({}).isRequired,
     }).isRequired,
-    intl: intlShape.isRequired,
+
   };
 
   state = {

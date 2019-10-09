@@ -131,7 +131,7 @@ class Shows extends Component {
 }
 
 Shows.propTypes = {
-  intl: intlShape.isRequired,
+
 };
 
 export default Shows;

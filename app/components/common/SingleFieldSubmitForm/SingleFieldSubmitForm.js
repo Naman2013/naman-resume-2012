@@ -41,7 +41,7 @@ class SingleFieldSubmitForm extends Component {
       cid: string,
       token: string,
     }).isRequired,
-    intl: intlShape.isRequired,
+
   };
 
   static defaultProps = {

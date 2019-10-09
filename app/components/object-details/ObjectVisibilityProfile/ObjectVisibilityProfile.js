@@ -213,7 +213,7 @@ class ObjectVisibilityProfile extends Component {
 }
 
 ObjectVisibilityProfile.propTypes = {
-  intl: intlShape.isRequired,
+
   defaultObsId: PropTypes.string.isRequired,
 };
 

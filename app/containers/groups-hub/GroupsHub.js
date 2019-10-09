@@ -54,7 +54,7 @@ class Groups extends Component {
     params: PropTypes.shape({
       filterType: PropTypes.string,
     }),
-    intl: intlShape.isRequired,
+
     isFetching: PropTypes.bool.isRequired,
   };
 

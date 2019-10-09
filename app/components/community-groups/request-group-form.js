@@ -18,7 +18,7 @@ class RequestGroupForm extends Component {
   static propTypes = {
     closeForm: func.isRequired,
     submitForm: func.isRequired,
-    intl: intlShape.isRequired,
+
   };
 
   static defaultProps = {};

@@ -36,7 +36,7 @@ const { string, func } = PropTypes;
 class AstronomyClubDefineClubGeneral extends Component {
   static propTypes = {
     change: func,
-    intl: intlShape.isRequired,
+
     goNext: func,
   };
 

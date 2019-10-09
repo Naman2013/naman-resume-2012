@@ -13,6 +13,6 @@ const messages: Messages = {
   },
 };
 
-const definedMessages: typeof messages = defineMessages(messages);
+const definedMessages = messages;
 
 export default definedMessages;

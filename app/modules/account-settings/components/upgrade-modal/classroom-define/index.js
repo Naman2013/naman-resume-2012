@@ -36,7 +36,7 @@ const { string } = PropTypes;
 class ClassroomDefineSchoolSelectionGeneral extends Component {
   static propTypes = {
     pathname: string,
-    intl: intlShape.isRequired,
+
   };
 
   static defaultProps = {

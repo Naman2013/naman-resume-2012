@@ -32,7 +32,7 @@ class JoinByInviteCodeStep1 extends Component {
   static propTypes = {
     pathname: string.isRequired,
     change: func,
-    intl: intlShape.isRequired,
+
   };
 
   static defaultProps = {
@@ -307,6 +307,6 @@ export default connect(
   null
 )(
   reduxForm({ form: 'joinAccountForm', enableReinitialize: true })(
-    injectIntl(JoinByInviteCodeStep1)
+    JoinByInviteCodeStep1
   )
 );

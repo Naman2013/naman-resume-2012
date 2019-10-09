@@ -58,7 +58,7 @@ class SubmitReplyReplyButton extends Component {
       token: oneOfType([number, string]),
       cid: oneOfType([number, string]),
     }),
-    intl: intlShape.isRequired,
+
   };
 
   setCommentModal = () => {

@@ -59,7 +59,7 @@ class MyQa extends Component {
     params: shape({}).isRequired,
     totalCount: number.isRequired,
     context: shape({}).isRequired,
-    intl: intlShape.isRequired,
+
   };
 
   componentDidMount() {

@@ -69,7 +69,7 @@ class FullInformationOverview extends Component {
     membersSort: string.isRequired,
     membersList: arrayOf(shape({})),
     showJoinPrompt: bool,
-    intl: intlShape.isRequired,
+
     jumpToThreadId: number,
   };
 

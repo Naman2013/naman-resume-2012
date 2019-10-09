@@ -64,7 +64,7 @@ class GroupImportGoogleClassrooms extends Component {
       filterType: PropTypes.string,
     }),
     isCreateMode: PropTypes.bool,
-    intl: intlShape.isRequired,
+
   };
 
   static defaultProps = {

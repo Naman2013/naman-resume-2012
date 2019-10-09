@@ -18,7 +18,7 @@ const FormFeedbackActions = props => {
 FormFeedbackActions.propTypes = {
   closeResponseFeedback: func.isRequired,
   resetForm: func.isRequired,
-  intl: intlShape.isRequired,
+
   submitButtonCaption: string,
 };
 

@@ -27,7 +27,7 @@ class GroupMemberList extends Component {
     membersCount: number.isRequired,
     membersList: arrayOf(shape({})).isRequired,
     count: number,
-    intl: intlShape.isRequired,
+
   };
 
   static defaultProps = {

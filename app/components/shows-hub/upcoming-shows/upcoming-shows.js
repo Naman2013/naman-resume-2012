@@ -4,12 +4,14 @@ import { API } from 'app/api';
 import noop from 'lodash/noop';
 import { SHOWS_UPCOMING_ENDPOINT_URL } from 'app/services/shows';
 import SloohSlider from 'app/components/common/Slider';
+import {withTranslation} from 'react-i18next';
 import { getSliderProps } from './upcomingShowsConfig';
 import style from './upcoming-shows.style';
 
 const COUNT = 9;
 const DEFAULT_PAGE = 1;
 
+@withTranslation
 class UpcomingShowsInHub extends Component {
   static propTypes = {
     validateResponseAccess: PropTypes.func,
@@ -42,8 +44,9 @@ class UpcomingShowsInHub extends Component {
 
   render() {
     const { upcomingShows } = this.state;
+    const { t } = this.props;
 
-    const sliderProps = upcomingShows ? getSliderProps(upcomingShows) : {};
+    const sliderProps = upcomingShows ? getSliderProps(upcomingShows, t) : {};
     return upcomingShows.length ? (
       <div className="i-root">
         <SloohSlider {...sliderProps} />

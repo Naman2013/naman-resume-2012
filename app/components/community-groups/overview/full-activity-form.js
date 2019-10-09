@@ -20,7 +20,7 @@ class FullActivityForm extends Component {
     canPost: bool,
     placeholder: string,
     uuid: string,
-    intl: intlShape.isRequired,
+
   };
 
   static defaultProps = {

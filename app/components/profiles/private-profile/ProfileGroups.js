@@ -34,7 +34,7 @@ class ProfileGroups extends Component {
       groupsCount: number.isRequired,
       groupsList: arrayOf(shape({})).isRequired,
     }),
-    intl: intlShape.isRequired,
+
   };
 
   state = {

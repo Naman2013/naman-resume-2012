@@ -40,7 +40,7 @@ class Stories extends Component {
     params: PropTypes.shape({
       filterType: PropTypes.string,
     }),
-    intl: intlShape.isRequired,
+
     isFetching: bool.isRequired,
   };
 

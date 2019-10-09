@@ -40,7 +40,7 @@ RequestGroupFormFeedback.propTypes = {
   closeForm: func.isRequired,
   requestNew: func.isRequired,
   promptText: string.isRequired,
-  intl: intlShape.isRequired,
+
 };
 
 export default RequestGroupFormFeedback;

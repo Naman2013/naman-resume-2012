@@ -112,7 +112,7 @@ class Quests extends Component {
 }
 
 Quests.propTypes = {
-  intl: intlShape.isRequired,
+
 };
 
 export default Quests;

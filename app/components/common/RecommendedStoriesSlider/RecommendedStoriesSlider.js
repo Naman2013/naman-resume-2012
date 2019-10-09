@@ -8,6 +8,7 @@
 import React from 'react';
 import has from 'lodash/has';
 import take from 'lodash/take';
+import {useTranslation} from 'react-i18next';
 import SloohSlider from '../../../components/common/Slider';
 import DisplayAtBreakpoint from '../../../components/common/DisplayAtBreakpoint';
 import Request from '../../../components/common/network/Request';
@@ -15,12 +16,14 @@ import { GET_BEST_OF } from '../../../services/dashboard';
 import StoryTile from '../../../components/common/tiles/StoryTile';
 import { getSliderProps } from './recommendedStoriesSliderConfiguration';
 
-const Stories = () => (
+const Stories = () => {
+  const { t } = useTranslation();
+  (
   <Request
     serviceURL={GET_BEST_OF}
     method="POST"
     render={({ serviceResponse }) => {
-      const sliderProps = getSliderProps(serviceResponse.posts);
+      const sliderProps = getSliderProps(serviceResponse.posts, t);
       const shortList = take(serviceResponse.posts, 2) || [];
       return (
         <div className="root">
@@ -58,6 +61,6 @@ const Stories = () => (
       );
     }}
   />
-);
+)};
 
 export default Stories;

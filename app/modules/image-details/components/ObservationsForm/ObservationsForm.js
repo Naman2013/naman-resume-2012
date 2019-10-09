@@ -21,7 +21,7 @@ class ObservationsForm extends Component {
       token: oneOfType([number, string]).isRequired,
       cid: oneOfType([number, string]).isRequired,
     }).isRequired,
-    intl: intlShape.isRequired,
+
   };
 
   static defaultProps = {
