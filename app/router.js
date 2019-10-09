@@ -93,7 +93,7 @@ import ReserveByTelescope from 'app/pages/reserve-by-telescope';
 import ReserveByCatalog from 'app/pages/reserve/reserve-by-catalog';
 import ReserveObjects from 'app/pages/reserve/reserve-by-objects';
 import Show from 'app/pages/show';
-import DirectJoinUpgradeFlow from 'app/pages/registration/DirectJoinUpgradeFlow';
+import EnableHiddenPlan from 'app/pages/registration/EnableHiddenPlan';
 import TelescopeOverview from 'app/pages/telescope-overview';
 import globalOnRouteUpdate from 'app/route-functions/globalOnRouteUpdate';
 import validateRegistrationPaths from 'app/route-functions/validateRegistrationPaths';
@@ -208,7 +208,7 @@ const AppRouter = ({ setPreviousInstrument }) => (
 
       	<Route
       	  path="enablePlan/:subscriptionPlanHashCode"
-                component={DirectJoinUpgradeFlow}
+                component={EnableHiddenPlan}
       	/>
 
         <Route

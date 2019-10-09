@@ -1,5 +1,5 @@
 /** *********************************
- * V4 Join - Step 1 - Select a Plan
+ * V4 Join - Enable a Hidden Plan
  ********************************** */
 
 import React, { Component, cloneElement, Fragment } from 'react';
@@ -21,7 +21,7 @@ import styles from './JoinStep1.style';
 
 const { string } = PropTypes;
 
-class DirectJoinUpgradeFlow extends Component {
+class EnableHiddenPlan extends Component {
   static propTypes = {
     pathname: string,
   };
@@ -31,20 +31,6 @@ class DirectJoinUpgradeFlow extends Component {
 
   constructor(props) {
     super(props);
-
-    /* reset all browser localstorage data points for the Join flow */
-    window.localStorage.removeItem('pending_cid');
-    window.localStorage.removeItem('selectedPlanId');
-    window.localStorage.removeItem('selectedSchoolId');
-    window.localStorage.removeItem('accountCreationType');
-    window.localStorage.removeItem('googleProfileId');
-    window.localStorage.removeItem('googleProfileEmail');
-    window.localStorage.removeItem('username');
-    window.localStorage.removeItem('password');
-    window.localStorage.removeItem('isAstronomyClub');
-    window.localStorage.removeItem('isClassroom');
-    window.localStorage.removeItem('invitationCodeAlt');
-    window.localStorage.removeItem('inviteeEmailAddress');
   }
 
   handleSubscriptionPlanResponse = result => {
@@ -59,18 +45,10 @@ class DirectJoinUpgradeFlow extends Component {
   };
 
   setSelectedPlan(subscriptionPlanId, isAstronomyClub, isClassroom) {
-    window.localStorage.setItem('selectedPlanId', subscriptionPlanId);
-    window.localStorage.setItem('isAstronomyClub', isAstronomyClub);
-    window.localStorage.setItem('isClassroom', isClassroom);
+    window.localStorage.setItem('enableHiddenPlanId', subscriptionPlanId);
 
-    /* Teacher Subscription Plans should prompt for School Selection */
-    if (isClassroom) {
-      /* move to step 2 in the join flow */
-      browserHistory.push('/join/step1SchoolSelection');
-    } else {
-      /* move to step 2 in the join flow */
-      browserHistory.push('/join/step2');
-    }
+    /* move to the products page */
+    browserHistory.push('/about/memberships');
   }
 
   render() {
@@ -81,7 +59,7 @@ class DirectJoinUpgradeFlow extends Component {
         <Request
           serviceURL={JOIN_PAGE_ENDPOINT_URL}
           requestBody={{
-            callSource: 'directJoinUpgradeFlow',
+            callSource: 'enableHiddenPlan',
 	    selectedPlanHashCode: this.props.params.subscriptionPlanHashCode,
             cid: getUserInfo().cid,
 	    at: getUserInfo().at,
@@ -100,4 +78,4 @@ class DirectJoinUpgradeFlow extends Component {
   }
 }
 
-export default DirectJoinUpgradeFlow;
+export default EnableHiddenPlan;
