@@ -6,7 +6,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import style from './StoryCard.style';
-import messages from './StoryCard.messages';
 
 const StoryCard = ({ story: { title, author, iconURL, linkUrl, hasLink } }) => {
   const { t } = useTranslation();
@@ -19,8 +18,8 @@ const StoryCard = ({ story: { title, author, iconURL, linkUrl, hasLink } }) => {
     >
       <div className="story-card">
         <div className="header">
-          <div className="header-tile left">{t('.Slooh')}</div>
-          <div className="header-tile right">{t('.News')}</div>
+          <div className="header-tile left">{t('About.Slooh')}</div>
+          <div className="header-tile right">{t('About.News')}</div>
         </div>
         <div className="logo-wrapper">
           <div className="logo-border">

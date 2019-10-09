@@ -17,9 +17,8 @@ import MenuTitleBar from './partials/MenuTitleBar';
 import TELESCOPE_CONFIGURATION, {
   modelTelescopesFromObsList,
 } from './telescopeConfiguration';
-import messages from './Telescopes.messages';
 
-const Telescopes = ({ intl }) => {
+const Telescopes = () => {
   const { t } = useTranslation();
   return (
     <Request
@@ -32,10 +31,10 @@ const Telescopes = ({ intl }) => {
         serviceResponse: { observatoryList },
       }) => (
         <div className="root">
-          <MenuTitleBar title={t('.title')}>
+          <MenuTitleBar title={t('Telescopes.title')}>
             <div className="center-buttons">
               <Button
-                text={t('.setUp')}
+                text={t('Telescopes.setUp')}
                 theme={{
                   display: 'inline-block',
                   textAlign: 'center',
@@ -45,7 +44,7 @@ const Telescopes = ({ intl }) => {
                 onClickEvent={() => browserHistory.push('/missions')}
               />
               <Button
-                text={t('.myPhotos')}
+                text={t('Telescopes.myPhotos')}
                 theme={{
                   display: 'inline-block',
                   textAlign: 'center',

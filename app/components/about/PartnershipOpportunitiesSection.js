@@ -7,16 +7,7 @@ import Button from '../common/style/buttons/Button';
 import { envelope, phone } from '../../styles/variables/iconURLs';
 import submitPartnershipForm from '../../services/about/submit-partnership-form';
 import style from './PartnershipOpportunitiesSection.style';
-import messages from './PartnershipOpportunitiesSection.messages';
 
-const mockedData = {
-  heading1: 'Oh, The Places We’ll Go!',
-  heading2:
-    'Fusce vehicula dolor arcu sit amet blandit dolor seter mollis necelie Donec viverra eleifend lacus, vitae loreme. ',
-  contactTitle: 'Slooh Press',
-  contactPhone: '1 (877) 427-5664 x3',
-  contactEmail: 'press@slooh.com',
-};
 
 const customModalStyles = {
   content: {
@@ -85,7 +76,6 @@ class PartnershipOpportunitiesSection extends Component {
     } = this.state;
 
     const {
-      intl: { formatMessage },
       data,
       t,
     } = this.props;
@@ -129,7 +119,7 @@ class PartnershipOpportunitiesSection extends Component {
                     <div className="input-label">{t('.NameLabel')}</div>
                     <input
                       className="input common-input"
-                      placeholder={formatMessage(messages.NamePlaceholder)}
+                      placeholder={t('About.NamePlaceholder')}
                       onChange={this.handleNameInput}
                       value={fullName}
                       type="text"
@@ -139,7 +129,7 @@ class PartnershipOpportunitiesSection extends Component {
                     <div className="input-label">{t('.EmailLabel')}</div>
                     <input
                       className="input common-input"
-                      placeholder={formatMessage(messages.EmailPlaceholder)}
+                      placeholder={t('About.EmailPlaceholder')}
                       onChange={this.handleEmailInput}
                       value={emailAddress}
                       type="text"
@@ -149,7 +139,7 @@ class PartnershipOpportunitiesSection extends Component {
                 <textarea
                   className="text-area common-input"
                   onChange={this.handleWriteUsInput}
-                  placeholder={formatMessage(messages.MessagePlaceholder)}
+                  placeholder={t('About.MessagePlaceholder')}
                   rows="3"
                   value={message}
                 />

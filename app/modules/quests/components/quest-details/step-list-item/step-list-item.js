@@ -5,7 +5,6 @@ import {useTranslation} from 'react-i18next';
 import cx from 'classnames';
 import { horizontalArrow } from 'app/styles/variables/iconURLs';
 import style from './step-list-item.style';
-import messages from './step-list-item.messages';
 
 const StepListItem = ({
   stepModuleId,
@@ -29,13 +28,13 @@ const StepListItem = ({
           <img
             className="check-icon"
             src={stepIconURL}
-            alt={t('.CompletedIcon')}
+            alt={t('Quests.CompletedIcon')}
           />
         ) : (
           <img
             className="check-icon"
             src={stepIconURL}
-            alt={t('.IncompletedIcon')}
+            alt={t('Quests.IncompletedIcon')}
           />
         )}
       </h5>
@@ -49,13 +48,13 @@ const StepListItem = ({
             <img
               className="check"
               src={stepIconURL}
-              alt={t('.CompletedIcon')}
+              alt={t('Quests.CompletedIcon')}
             />
           ) : (
             <img
               className="check"
               src={stepIconURL}
-              alt={t('.IncompletedIcon')}
+              alt={t('Quests.IncompletedIcon')}
             />
           )}
         </div>
@@ -67,7 +66,7 @@ const StepListItem = ({
             <span className="action-message">{stepActionMsg}</span>
             <div className="arrow-container">
               <img
-                alt={t('.GoTo')}
+                alt={t('Quests.GoTo')}
                 src={horizontalArrow}
               />
             </div>
