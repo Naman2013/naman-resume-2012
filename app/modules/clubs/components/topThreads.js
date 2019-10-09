@@ -28,18 +28,21 @@ export const TopThreads = memo(function TopThreads(props) {
     }
   }, [props.topicId, shouldReload]); //eslint-disable-line react-hooks/exhaustive-deps
 
+  const { topThreadsList, isDesktop, discussionGroupId } = props;
+
   return (
     <div className="top-discussions-wr">
       <BlueLineDrop
-        title={`Popular Discussions (${props.topThreadsList?.length})`}
-        isDesktop={props.isDesktop}
+        title={`Popular Discussions (${topThreadsList?.length})`}
+        isDesktop={isDesktop}
         isDefaultOpen
         render={() => (
           <div className="members-list">
-            {props.topThreadsList?.map(x => (
+            {topThreadsList?.map(x => (
               <a
-                href={`/community-groups/${props.discussionGroupId}/${x.threadId}`}
+                href={`/community-groups/${discussionGroupId}/${x.threadId}`}
                 className="navigation-link"
+                key={x.threadId}
               >
                 <div className="members-list-card">
                   <div
@@ -50,7 +53,7 @@ export const TopThreads = memo(function TopThreads(props) {
                   />
                   <div className="bottom">
                     <span className="user-info">
-                      <img className="avatar" src={x.avatarUrl} />
+                      <img className="avatar" src={x.avatarUrl} alt="avatar" />
                       <Link to={x?.authorInfo?.linkUrl}>{x.displayName}</Link>
                     </span>
                     <div className="date-container">{x.totalLikes} likes</div>

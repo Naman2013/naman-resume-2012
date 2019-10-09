@@ -93,6 +93,15 @@
     background-size: contain;
     background-color: black;
     height: calc(100vh - 220px);
+    & > div {
+      display: flex;
+      align-items: center;
+      height: 100%;
+      & > img {
+        height: 100%;
+        object-fit: contain;
+      }
+    }
   }
 
   .slick-arrow-btn {
@@ -101,11 +110,10 @@
     transform: translate(0, -50%);
     color: #ffffff;
     cursor: default !important;
-    border: solid 2px #e2b979;
+    border: solid 2px #fff;
     border-radius: 50%;
     z-index: 9;
     background-color: transparent;
-    border-color: white;
   }
 
   .slick-arrow-btn:before {
