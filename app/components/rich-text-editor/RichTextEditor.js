@@ -2,13 +2,12 @@ import { CompositeDecorator, Editor, EditorState, RichUtils } from 'draft-js';
 import { convertToHTML } from 'draft-convert';
 import React from 'react';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
+import cx from 'classnames';
 
 import AddDividerBlock from './divider-block/AddDividerBlock';
 import DividerBlock from './divider-block/DividerBlock';
 import BlockStyleControls from './BlockStyleControls';
 import InlineStyleControls from './InlineStyleControls';
-import cx from 'classnames';
 
 import 'draft-js/dist/Draft.css';
 import './RichTextEditor.scss';
@@ -34,14 +33,21 @@ function findLinkEntities(contentBlock, callback, contentState) {
   }, callback);
 }
 
-const Link = props => {
-  const { url } = props.contentState.getEntity(props.entityKey).getData();
+const Link = ({ contentState, entityKey, children }) => {
+  const { url } = contentState.getEntity(entityKey).getData();
   return (
     <a href={url} className="link" target="_blank" rel="noopener noreferrer">
-      {props.children}
+      {children}
     </a>
   );
 };
+
+const editorStateDecorator = new CompositeDecorator([
+  {
+    strategy: findLinkEntities,
+    component: Link,
+  },
+]);
 
 class RichTextEditor extends React.Component {
   static propTypes = {
@@ -51,17 +57,22 @@ class RichTextEditor extends React.Component {
   constructor(props) {
     super(props);
 
-    const decorator = new CompositeDecorator([
-      {
-        strategy: findLinkEntities,
-        component: Link,
-      },
-    ]);
-
     this.state = {
-      editorState: EditorState.createEmpty(decorator),
+      editorState: EditorState.createEmpty(editorStateDecorator),
       showURLInput: false,
       urlValue: '',
+    };
+  }
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    const { editorValue } = nextProps;
+    const { editorState } = prevState;
+
+    return {
+      editorState:
+        !editorValue && editorState.getCurrentContent().hasText()
+          ? EditorState.createEmpty(editorStateDecorator)
+          : editorState,
     };
   }
 
@@ -108,9 +119,22 @@ class RichTextEditor extends React.Component {
   };
 
   onTab = e => {
+    const { editorState } = this.state;
     // sets tab spacing (i.e.: ul)
     const maxDepth = 4;
-    this.onChange(RichUtils.onTab(e, this.state.editorState, maxDepth));
+    this.onChange(RichUtils.onTab(e, editorState, maxDepth));
+  };
+
+  onURLChange = e => {
+    this.setState({
+      urlValue: e.target.value,
+    });
+  };
+
+  onLinkInputKeyDown = e => {
+    if (e.which === 13) {
+      this.confirmLink(e);
+    }
   };
 
   handleKeyCommand = command => {
@@ -127,15 +151,15 @@ class RichTextEditor extends React.Component {
   // "BlockType" is the top line of tools on the editor,
   // block elements affect all text on that line of the editor
   toggleBlockType = blockType => {
-    this.onChange(RichUtils.toggleBlockType(this.state.editorState, blockType));
+    const { editorState } = this.state;
+    this.onChange(RichUtils.toggleBlockType(editorState, blockType));
   };
 
   // "inline styles" (second line of the editor) styles will not affect the whole line of text,
   // just what is highlighted
   toggleInlineStyle = inlineStyle => {
-    this.onChange(
-      RichUtils.toggleInlineStyle(this.state.editorState, inlineStyle)
-    );
+    const { editorState } = this.state;
+    this.onChange(RichUtils.toggleInlineStyle(editorState, inlineStyle));
   };
 
   promptForLink = e => {
@@ -150,12 +174,8 @@ class RichTextEditor extends React.Component {
       const startOffset = editorState.getSelection().getStartOffset();
       const blockWithLinkAtBeginning = contentState.getBlockForKey(startKey);
       const linkKey = blockWithLinkAtBeginning.getEntityAt(startOffset);
+      const url = linkKey ? contentState.getEntity(linkKey).getData().url : '';
 
-      let url = '';
-      if (linkKey) {
-        const linkInstance = contentState.getEntity(linkKey);
-        url = linkInstance.getData().url;
-      }
       this.setState(
         {
           showURLInput: true,
@@ -197,12 +217,6 @@ class RichTextEditor extends React.Component {
     );
   };
 
-  onLinkInputKeyDown = e => {
-    if (e.which === 13) {
-      this.confirmLink(e);
-    }
-  };
-
   removeLink = e => {
     e.preventDefault();
     const { editorState } = this.state;
@@ -212,12 +226,6 @@ class RichTextEditor extends React.Component {
         editorState: RichUtils.toggleLink(editorState, selection, null),
       });
     }
-  };
-
-  onURLChange = e => {
-    this.setState({
-      urlValue: e.target.value,
-    });
   };
 
   blockRenderer(block) {
@@ -247,14 +255,15 @@ class RichTextEditor extends React.Component {
   }
 
   render() {
-    const { editorState, showURLInput } = this.state;
-    const linkClass = classnames('RichEditor-styleButton', {
+    const { editorState, showURLInput, urlValue } = this.state;
+    const { className } = this.props;
+    const linkClass = cx('RichEditor-styleButton', {
       'RichEditor-activeButton': showURLInput,
     });
 
     // If the user changes block type before entering any text, we can
     // either style the placeholder or hide it. Let's just hide it now.
-    let className = 'RichEditor-editor';
+    let editorClassName = 'RichEditor-editor';
     const contentState = editorState.getCurrentContent();
     let urlInput;
     if (showURLInput) {
@@ -264,14 +273,16 @@ class RichTextEditor extends React.Component {
             onChange={this.onURLChange}
             className="urlInput"
             type="text"
-            value={this.state.urlValue}
+            value={urlValue}
             onKeyDown={this.onLinkInputKeyDown}
             placeholder="http://"
             ref={input => {
               this.urlInput = input;
             }}
           />
-          <button onMouseDown={this.confirmLink}>Add</button>
+          <button type="button" onMouseDown={this.confirmLink}>
+            Add
+          </button>
         </div>
       );
     }
@@ -282,18 +293,12 @@ class RichTextEditor extends React.Component {
           .first()
           .getType() !== 'unstyled'
       ) {
-        className += ' RichEditor-hidePlaceholder';
+        editorClassName += ' RichEditor-hidePlaceholder';
       }
     }
 
     return (
-      <div
-        className={cx([
-          'RichEditor-root',
-          'RichTextEditor',
-          this.props.className,
-        ])}
-      >
+      <div className={cx(['RichEditor-root', 'RichTextEditor', className])}>
         <div className="RichEditor-controls-container">
           <BlockStyleControls
             className="RichEditor-controls"
@@ -307,11 +312,17 @@ class RichTextEditor extends React.Component {
           <div className="RichEditor-controls">
             <span
               className={`fa fa-link ${linkClass}`}
+              role="button"
+              tabIndex="0"
               onClick={this.promptForLink}
+              onKeyPress={this.promptForLink}
             />
             <span
               className="fa fa-chain-broken RichEditor-styleButton"
+              role="button"
+              tabIndex="0"
               onClick={this.removeLink}
+              onKeyPress={this.removeLink}
             />
             <AddDividerBlock
               editorState={editorState}
@@ -320,7 +331,7 @@ class RichTextEditor extends React.Component {
           </div>
           {urlInput}
         </div>
-        <div className={className}>
+        <div className={editorClassName}>
           <Editor
             id="rich-editor"
             blockStyleFn={getBlockStyle}
