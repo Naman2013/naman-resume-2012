@@ -27,7 +27,6 @@ import { browserHistory } from 'react-router';
 import { GOOGLE_CLASSROOM_GET_CLASSROOM_LIST_ENDPOINT_URL } from 'app/services/classroom/classroom.js';
 import { ACTION as clubsActions } from '../../modules/clubs/reducer';
 import style from './groups-hub.style';
-import messages from './GroupsHub.messages';
 
 const COUNT = 9;
 const DEFAULT_PAGE = 1;
@@ -136,7 +135,7 @@ class Groups extends Component {
           showPrompt: true,
           promptText: (
             <RequestGroupFormFeedback
-              promptText={t('.errorSubmitting')}
+              promptText={t('Alerts.errorSubmitting')}
               closeForm={this.closeModal}
               requestNew={this.requestGroup}
             />
@@ -223,7 +222,7 @@ class Groups extends Component {
                         <div className="flex">
                           {serviceResponse.canRequestGroup ? (
                             <Button
-                              text={t('.requestGroup')}
+                              text={t('Alerts.requestGroup')}
                               onClickEvent={this.requestGroup}
                             />
                           ) : null}
@@ -242,7 +241,7 @@ class Groups extends Component {
                       }}
                       render={() => (
                         <Fragment>
-                          {isFetching ? <div>{t('.loading')}</div> : null}
+                          {isFetching ? <div>{t('Alerts.loading')}</div> : null}
                           {!isFetching && (
                             <GroupTiles
                               filterType={this.props.params.filterType}

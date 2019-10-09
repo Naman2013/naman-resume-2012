@@ -3,11 +3,10 @@ import PropTypes from 'prop-types';
 import GenericButton from 'app/components/common/style/buttons/Button';
 import setPostImage from 'app/services/post-creation/set-post-image';
 import deletePostImage from 'app/services/post-creation/delete-post-image';
-import {useTranslation, withTranslation} from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import ImagesInput from './partials/input';
 import ImagesDisplay from './partials/display';
 import styles from './upload-images.style';
-import messages from './upload-images.messages';
 
 const { arrayOf, func, number, shape, string } = PropTypes;
 
@@ -107,7 +106,7 @@ class UploadImages extends Component {
           />
         )}
         {uploadError && !uploadLoading && (
-          <div>{t('.UploadImageErrorText')}</div>
+          <div>{t('Alerts.UploadImageErrorText')}</div>
         )}
         <style jsx>{styles}</style>
       </div>

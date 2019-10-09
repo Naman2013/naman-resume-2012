@@ -22,7 +22,6 @@ import { customModalStylesV4 } from 'app/styles/mixins/utilities';
 import { MultiUploadImageList } from 'app/modules/multi-upload-images/components/multi-upload-image-list';
 import { prepareThread } from 'app/services/discussions/prepare-thread';
 import styles from './SingleFieldSubmitForm.style';
-import messages from './SingleFieldSubmitForm.messages';
 
 const { bool, func, number, shape, string } = PropTypes;
 @withTranslation
@@ -98,7 +97,7 @@ class SingleFieldSubmitForm extends Component {
       this.setState({
         showPopup: true,
         responseMessage:
-          message || t('.ResponceSubmittedText'),
+          message || t('Alerts.ResponceSubmittedText'),
         formText: '',
         formTitle: '',
         S3URLs: [],
@@ -118,7 +117,7 @@ class SingleFieldSubmitForm extends Component {
     } else {
       this.setState({
         showPopup: true,
-        responseMessage: message || t('.FormIssueText'),
+        responseMessage: message || t('Alerts.FormIssueText'),
       });
     }
     setTimeout(this.closeModal, 1000);

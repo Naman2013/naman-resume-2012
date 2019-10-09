@@ -5,7 +5,6 @@ import {withTranslation} from 'react-i18next';
 import Modal from 'react-modal';
 import { customModalStyles } from 'app/styles/mixins/utilities';
 import styles from './ObservationsForm.style';
-import messages from './ObservationsForm.messages';
 import './styles.scss';
 
 const { bool, number, oneOfType, shape, string } = PropTypes;
@@ -52,7 +51,7 @@ class ObservationsForm extends Component {
       observation,
     } = this.props;
     if (!title || !observation) {
-      window.alert(t('.MissingRequired'));
+      window.alert(t('Alerts.MissingRequired'));
     } else {
       setObservationTags(
         customerImageId,

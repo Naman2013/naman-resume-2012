@@ -4,7 +4,6 @@ import {withTranslation} from 'react-i18next';
 import deleteTag from 'app/services/tags/delete-tag';
 import setTag from 'app/services/tags/set-tag';
 import GenericButton from 'app/components/common/style/buttons/Button';
-import messages from './tags.messages';
 import TagInput from './partials/input';
 import TagDisplay from './partials/display';
 import styles from './tags.style';
@@ -161,7 +160,7 @@ class Tags extends Component {
               theme={{ margin: '15px auto' }}
             />
             <div className="tag-error">
-              <span>{hasError ? t('.AddTagErrorText') : ''}</span>
+              <span>{hasError ? t('Alerts.AddTagErrorText') : ''}</span>
             </div>
           </Fragment>
         )}

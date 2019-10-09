@@ -43,7 +43,6 @@ import { primaryFont, secondaryFont } from 'app/styles/variables/fonts';
 import style2 from 'pages/registration/partials/JoinHeader.style';
 import style from '../../containers/groups-hub/groups-hub.style';
 import style3 from './GroupCreate.style';
-import messages from './Groups.messages';
 import './group-import-google-classrooms.scss';
 
 const COUNT = 9;
@@ -143,7 +142,7 @@ class GroupImportGoogleClassrooms extends Component {
           showPrompt: true,
           promptText: (
             <RequestGroupFormFeedback
-              promptText={t('.errorSubmitting')}
+              promptText={t('Alerts.errorSubmitting')}
               closeForm={this.closeModal}
               requestNew={this.requestGroup}
             />

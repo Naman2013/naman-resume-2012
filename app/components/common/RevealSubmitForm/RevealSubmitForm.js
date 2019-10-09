@@ -9,7 +9,7 @@ callback (error (string), message (string)); If error is null, the component wil
 */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {withTranslation} from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import Modal from 'react-modal';
 import PhotoUploadButton from 'app/components/common/style/buttons/PhotoUploadButton';
 import deletePostImage from 'app/services/post-creation/delete-post-image';
@@ -22,7 +22,6 @@ import ViewImagesButton from 'app/components/common/style/buttons/ViewImagesButt
 import { Spinner } from 'app/components/spinner/index';
 import { prepareThread } from 'app/services/discussions/prepare-thread';
 import styles, { profPic } from './RevealSubmitForm.style';
-import messages from './RevealSubmitForm.messages';
 
 const { bool, func, instanceOf, number, shape, string } = PropTypes;
 @withTranslation
@@ -113,8 +112,7 @@ class RevealSubmitForm extends Component {
     if (!error) {
       this.setState({
         showPopup: true,
-        modalDescription:
-          message || t('.ResponceSubmittedText'),
+        modalDescription: message || t('Alerts.ResponceSubmittedText'),
         formTitle: '',
         formText: '',
         S3URLs: [],
@@ -135,7 +133,7 @@ class RevealSubmitForm extends Component {
     } else {
       this.setState({
         showPopup: true,
-        modalDescription: message || t('.FormIssueText'),
+        modalDescription: message || t('Alerts.FormIssueText'),
         isFetching: false,
       });
     }
@@ -161,7 +159,7 @@ class RevealSubmitForm extends Component {
   };
 
   closeModal = e => {
-    if(e) {
+    if (e) {
       e.preventDefault();
     }
 
@@ -320,7 +318,7 @@ class RevealSubmitForm extends Component {
             <div className="form-author">
               <div style={profPic(avatarURL)} />
               {displayName
-                ? `${t('.WrittenBy')} ${displayName}`
+                ? `${t('Alerts.WrittenBy')} ${displayName}`
                 : commentPlaceholder}
             </div>
             <div
@@ -378,7 +376,7 @@ class RevealSubmitForm extends Component {
               </div>
               <div className="buttons-wrapper">
                 <Button
-                  text={t('.Cancel')}
+                  text={t('Alerts.Cancel')}
                   onClickEvent={this.closeModal}
                 />
                 <Button
