@@ -58,7 +58,6 @@ class Stories extends Component {
       params: { objectId },
       objectDetails,
       slugLookupId,
-      actions: {},
       t,
     } = this.props;
 
@@ -117,9 +116,5 @@ class Stories extends Component {
     );
   }
 }
-
-Stories.propTypes = {
-
-};
 
 export default Stories;
