@@ -10,7 +10,6 @@ import {
 import PrimaryButton from './buttons/PrimaryButton';
 import MenuTitleBar from './MenuTitleBar';
 import MenuList from './MenuList';
-import messages from './LoggedIn.messages';
 
 const getIconStyle = url => ({
   backgroundImage: `url(${url})`,
@@ -46,7 +45,7 @@ const LoggedIn = ({ displayName, avatarURL, menuItems }) => {
           <PrimaryButton
             indent={false}
             isExternalLink={false}
-            text={t('.LogOut')}
+            text={t('Dashboard.LogOut')}
             anchor="#"
           />
         )}

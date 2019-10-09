@@ -29,7 +29,6 @@ import DashNav from './nav/DashboardNav';
 import DashHero from './hero/DashboardHero';
 import DashHeroMobile from './hero/DashboardHeroMobile';
 import styles from './BootstrappedDashboard.style';
-import messages from './BootstrappedDashboard.messages';
 // import { connect } from 'react-redux';
 
 const { arrayOf, bool, number, shape, string } = PropTypes;

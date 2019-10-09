@@ -3,8 +3,6 @@ import has from 'lodash/has';
 import defaultSliderConfiguration from 'app/components/common/Slider/sliderConfig';
 import StoryTile from 'app/components/common/tiles/StoryTile';
 
-import messages from './RecommendedStoriesSlider.messages';
-
 const getSliderConfiguration = () =>
   Object.assign({}, defaultSliderConfiguration(), {
     slidesToShow: 3,
@@ -34,6 +32,6 @@ export const getSliderProps = (slideList = [], t) =>
     },
     {
       sliderConfig: getSliderConfiguration(),
-      emptyMessage: t('.NothingToShow'),
+      emptyMessage: t('Dashboard.NothingToShow'),
     }
   );

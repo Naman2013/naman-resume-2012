@@ -8,7 +8,6 @@ import LikeSomethingButton from 'app/components/common/LikeSomethingButton';
 import { ReturnObservationIcon } from 'app/components/common/RecommendedObservationsSlider/partials/GetObservationIcon';
 
 import style from './BootstrappedSliderItem.style';
-import messages from './BootstrappedSliderItem.messages';
 
 const BootstrappedObservationSliderItem = props => {
   const {
@@ -122,7 +121,7 @@ const BootstrappedObservationSliderItem = props => {
                   </div>
                   {linkUrl && (
                     <Link to={linkUrl} className="button details">
-                      {t('.Details')}
+                      {t('Dashboard.Details')}
                       <img
                         src="https://vega.slooh.com/assets/v4/icons/horz_arrow_right_astronaut.svg"
                         alt="arrow-right"
@@ -133,12 +132,12 @@ const BootstrappedObservationSliderItem = props => {
                 <div className="capture-date">
                   {observationTimeDisplay
                     ? observationTimeDisplay[0]
-                    : `${t('.Loading')}...`}
+                    : `${t('Dashboard.Loading')}...`}
                 </div>
               </div>
             </Fragment>
           ) : (
-            <div className="loading">{t('.Loading')}...</div>
+            <div className="loading">{t('Dashboard.Loading')}...</div>
           )}
         </div>
       </div>

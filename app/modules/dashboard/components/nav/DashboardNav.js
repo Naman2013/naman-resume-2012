@@ -17,7 +17,6 @@ import {
   stories,
   groups,
 } from 'app/styles/variables/iconURLs';
-import messages from './DashboardNav.messages';
 import styles from './DashboardNav.style';
 
 const { arrayOf, bool, number, shape, string } = PropTypes;
@@ -39,7 +38,7 @@ class DashboardNav extends Component {
           <Link to="/missions">
             <div className="link-container">
               <img alt="missions" src={missions} />
-              <div className="title-item">{t('.missions')}</div>
+              <div className="title-item">{t('Dashboard.missions')}</div>
             </div>
           </Link>
         </div>
@@ -47,7 +46,7 @@ class DashboardNav extends Component {
           <Link to="/guides/all">
             <div className="link-container">
               <img alt="guides" src={guides} />
-              <div className="title-item">{t('.guides')}</div>
+              <div className="title-item">{t('Dashboard.guides')}</div>
             </div>
           </Link>
         </div>
@@ -55,7 +54,7 @@ class DashboardNav extends Component {
           <Link to="/quests">
             <div className="link-container">
               <img alt="quests" src={quests} />
-              <div className="title-item">{t('.quests')}</div>
+              <div className="title-item">{t('Dashboard.quests')}</div>
             </div>
           </Link>
         </div>
@@ -63,7 +62,7 @@ class DashboardNav extends Component {
           <Link to="/shows">
             <div className="link-container">
               <img alt="shows" src={shows} />
-              <div className="title-item">{t('.shows')}</div>
+              <div className="title-item">{t('Dashboard.shows')}</div>
             </div>
           </Link>
         </div>
@@ -71,7 +70,7 @@ class DashboardNav extends Component {
           <Link to="/stories">
             <div className="link-container">
               <img alt="stories" src={stories} />
-              <div className="title-item">{t('.stories')}</div>
+              <div className="title-item">{t('Dashboard.stories')}</div>
             </div>
           </Link>
         </div>
@@ -79,7 +78,7 @@ class DashboardNav extends Component {
           <Link to="/groups">
             <div className="link-container">
               <img alt="clubs" src={groups} />
-              <div className="title-item">{t('.clubs')}</div>
+              <div className="title-item">{t('Dashboard.clubs')}</div>
             </div>
           </Link>
         </div>

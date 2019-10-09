@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { API } from 'app/api';
 import PropTypes from 'prop-types';
-import {withTranslation} from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import { IMAGE_DETAILS } from '../../../../../services/image-details';
 
 import styles from './SwiperItem.style';
-import messages from './SwiperItem.messages';
 
 const { number, func } = PropTypes;
 
@@ -36,12 +35,11 @@ class SwiperItem extends Component {
     const { customerImageId, setObservationInfo, purgeCardState } = this.props;
     purgeCardState();
     this.setState({ imageURL: null });
-    API
-      .post(IMAGE_DETAILS, {
-        customerImageId,
-        useShareToken: 'n',
-        callSource: 'sharedpictures',
-      })
+    API.post(IMAGE_DETAILS, {
+      customerImageId,
+      useShareToken: 'n',
+      callSource: 'sharedpictures',
+    })
       .then(
         ({
           data: {
@@ -85,7 +83,7 @@ class SwiperItem extends Component {
           <img className="obs-image" src={imageURL} alt="Observation" />
         ) : (
           <div className="obs-image center-content">
-            {t('.LoadingImage')}
+            {t('Dashboard.LoadingImage')}
             ...
           </div>
         )}

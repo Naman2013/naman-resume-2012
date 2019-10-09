@@ -3,8 +3,6 @@ import uniqueId from 'lodash/uniqueId';
 import defaultSliderConfiguration from 'app/components/common/Slider/sliderConfig';
 import GroupTile from 'app/components/common/tiles/GroupTile';
 
-import messages from './RecommendedGroupsSlider.messages';
-
 const getSliderConfiguration = () =>
   Object.assign({}, defaultSliderConfiguration(), {
     slidesToShow: 3,
@@ -33,6 +31,6 @@ export const getSliderProps = (slideList = [], t) =>
     },
     {
       sliderConfig: getSliderConfiguration(),
-      emptyMessage: t('.NothingToShow'),
+      emptyMessage: t('Dashboard.NothingToShow'),
     }
   );

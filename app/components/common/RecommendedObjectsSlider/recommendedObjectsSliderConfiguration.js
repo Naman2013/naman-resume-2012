@@ -2,8 +2,6 @@ import React from 'react';
 import defaultSliderConfiguration from 'app/components/common/Slider/sliderConfig';
 import RecommendedObjectsItem from './partials/RecommendedObjectsSliderItem';
 
-import messages from './RecommendedObjectsSlider.message';
-
 const getSliderConfiguration = () =>
   Object.assign({}, defaultSliderConfiguration(), {
     slidesToShow: 3,
@@ -48,6 +46,6 @@ export const getSliderProps = (
     },
     {
       sliderConfig: getSliderConfiguration(),
-      emptyMessage: t('.NothingToShow'),
+      emptyMessage: t('Dashboard.NothingToShow'),
     }
   );

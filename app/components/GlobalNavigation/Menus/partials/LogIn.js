@@ -5,13 +5,12 @@ import Login from 'redux/components/Login';
 import { romance } from 'app/styles/variables/colors_tiles_v4';
 import { userAstronaut } from 'app/styles/variables/iconURLs';
 import MenuTitleBar from './MenuTitleBar';
-import messages from './Login.messages';
 
 const LogIn = ({ avatarURL }) => {
   const { t } = useTranslation();
   return (
     <div className="root">
-      <MenuTitleBar title={t('.SignIn')} iconURL={avatarURL || userAstronaut} />
+      <MenuTitleBar title={t('Dashboard.SignIn')} iconURL={avatarURL || userAstronaut} />
       <Login />
       <style jsx>
         {`

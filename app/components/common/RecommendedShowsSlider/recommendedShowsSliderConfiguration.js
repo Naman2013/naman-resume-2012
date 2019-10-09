@@ -2,7 +2,6 @@ import React from 'react';
 import defaultSliderConfiguration from '../Slider/sliderConfig';
 import BigShowTile from '../tiles/BigShowTile';
 
-import messages from './RecommendedShowsSlider.messages';
 
 const getSliderConfiguration = () =>
   Object.assign({}, defaultSliderConfiguration(), {
@@ -36,6 +35,6 @@ export const getSliderProps = (slideList = [], t) =>
     },
     {
       sliderConfig: getSliderConfiguration(),
-      emptyMessage: t('.NothingToShow'),
+      emptyMessage: t('Dashboard.NothingToShow'),
     }
   );

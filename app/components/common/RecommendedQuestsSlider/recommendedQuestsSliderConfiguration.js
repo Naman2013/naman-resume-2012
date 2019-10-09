@@ -1,7 +1,6 @@
 import React from 'react';
 import defaultSliderConfiguration from 'app/components/common/Slider/sliderConfig';
 import RecommendedQuestItem from './partials/RecommendedQuestItem';
-import messages from './RecommendedQuestsSlider.messages';
 
 const getSliderConfiguration = () =>
   Object.assign({}, defaultSliderConfiguration(), {
@@ -23,6 +22,6 @@ export const getSliderProps = (slideList = [], t) =>
     },
     {
       sliderConfig: getSliderConfiguration(),
-      emptyMessage: t('.NothingToShow'),
+      emptyMessage: t('Dashboard.NothingToShow'),
     }
   );

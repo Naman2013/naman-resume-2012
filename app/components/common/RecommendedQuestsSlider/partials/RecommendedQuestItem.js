@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 import cn from 'classnames';
 import styles from './RecommendedQuestItem.style';
-import messages from './RecommendedQuestItem.messages';
 
 const { string, bool } = PropTypes;
 
@@ -35,10 +34,10 @@ const RecommendedQuestsItem = ({
         </div>
         <div className="quest-info">
           <div className="quest-info-item left">
-            <span>{t('.Slooh')}</span>
+            <span>{t('Dashboard.Slooh')}</span>
           </div>
           <div className="quest-info-item right">
-            <span>{t('.Quest')}</span>
+            <span>{t('Dashboard.Quest')}</span>
           </div>
         </div>
       </Link>

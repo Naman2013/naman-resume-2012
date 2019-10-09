@@ -6,7 +6,6 @@ import Swiper from 'react-slick';
 import SwiperItem from './SwiperItem';
 
 import styles from './MobileViewSwiper.style';
-import messages from './MobileViewSwiper.messages';
 
 const { arrayOf, shape } = PropTypes;
 
@@ -93,7 +92,7 @@ class MobileViewSwiper extends Component {
           </div>
         ) : (
           <div className="top">
-            {!error ? `${t('.Loading')}...` : t('.ErrorWhileLoading')}
+            {!error ? `${t('Dashboard.Loading')}...` : t('Dashboard.ErrorWhileLoading')}
           </div>
         )}
         <div className="swiper-container">
@@ -129,7 +128,7 @@ class MobileViewSwiper extends Component {
               {commentsCount}
             </div>
             <a href={linkUrl} className="button details">
-              {t('.Details')}
+              {t('Dashboard.Details')}
               <img
                 src="https://vega.slooh.com/assets/v4/icons/horz_arrow_right_astronaut.svg"
                 alt="arrow-right"

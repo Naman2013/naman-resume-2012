@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import Button from '../../style/buttons/Button';
 
 import styles from './RecommendedObjectsSliderItem.style';
-import messages from './RecommendedObjectsSliderItem.messages';
 
 const getIconStyle = iconURL => ({
   backgroundImage: `url(${iconURL})`,
@@ -15,7 +14,6 @@ const { string, arrayOf, shape, bool } = PropTypes;
 
 const RecommendedObjectsItem = ({
   object,
-  intl,
   reservationModalShow,
   reservedButtonCaption,
   optionsButtonCaption,

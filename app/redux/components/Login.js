@@ -35,7 +35,6 @@ import Request from 'app/components/common/network/Request';
 import { GoogleLogin } from 'react-google-login';
 import cloneDeep from 'lodash/cloneDeep';
 import styles from './Login.style';
-import messages from './Login.messages';
 
 const propTypes = {
   actions: PropTypes.shape({
@@ -92,7 +91,7 @@ class Login extends Component {
     const { t } = this.props;
 
     if (this.state.loginFormDetails.loginEmailAddress.value === '') {
-      newLoginFormData.loginEmailAddress.errorText = t('.ForgotPasswordError');
+      newLoginFormData.loginEmailAddress.errorText = t('Dashboard.ForgotPasswordError');
 
       this.setState(() => ({
         loginFormDetails: newLoginFormData,
@@ -101,7 +100,7 @@ class Login extends Component {
     } else {
       this.setState(() => ({
         inForgotPasswordMode: true,
-        forgotPasswordStatusMessage: t('.ForgotPasswordRequest'),
+        forgotPasswordStatusMessage: t('Dashboard.ForgotPasswordRequest'),
       }));
 
       API.post(FORGOT_PASSWORD_REQUEST_ENDPOINT_URL, {
@@ -237,7 +236,7 @@ class Login extends Component {
                     color: romance,
                     border: 0,
                   }}
-                  text={t('.Close')}
+                  text={t('Dashboard.Close')}
                   onClickEvent={this.closeForgotPassword}
                 />
               </div>
@@ -250,7 +249,7 @@ class Login extends Component {
             onSubmit={this.props.handleSubmit(this.handleSubmit)}
           >
             {loginFailed ? (
-              <div className="field-error">{t('.LoginFailed')}</div>
+              <div className="field-error">{t('Dashboard.LoginFailed')}</div>
             ) : null}
             {this.state.loginFormDetails.loginEmailAddress.errorText.length >
               0 && (
@@ -264,7 +263,7 @@ class Login extends Component {
             <Field
               name="username"
               type="email"
-              label={t('.Email')}
+              label={t('Dashboard.Email')}
               component={InputField}
               onChange={event => {
                 this.handleFieldChange({
@@ -277,7 +276,7 @@ class Login extends Component {
             <Field
               name="pwd"
               type="password"
-              label={t('.Password')}
+              label={t('Dashboard.Password')}
               component={InputField}
               onChange={event => {
                 this.handleFieldChange({
@@ -299,11 +298,11 @@ class Login extends Component {
             <Button
               theme={{ margin: '0 auto', color: astronaut }}
               type="submit"
-              text={t('.SignWithEmail')}
+              text={t('Dashboard.SignWithEmail')}
               onClickEvent={this.clearCurrentErrors}
             />
             <div className="or-container">
-              <div className="or-text">{t('.Or')}</div>
+              <div className="or-text">{t('Dashboard.Or')}</div>
               {/*<div className="or-line" />*/}
             </div>
             <Request
@@ -356,7 +355,7 @@ class Login extends Component {
             />
 
             <div className="register-container">
-              <span className="title-link">{t('.DontHaveAccount')}</span>
+              <span className="title-link">{t('Dashboard.DontHaveAccount')}</span>
               <Link to="/about/memberships">
                 <LargeButtonWithRightIcon
                   icon={horizontalArrowRightWhite}
@@ -366,12 +365,12 @@ class Login extends Component {
                     border: 0,
                     width: '100%',
                   }}
-                  text={t('.JoinSloohToday')}
+                  text={t('Dashboard.JoinSloohToday')}
                 />
               </Link>
             </div>
             <div className="register-container">
-              <span className="title-link">{t('.HaveAnInvintationCode')}</span>
+              <span className="title-link">{t('Dashboard.HaveAnInvintationCode')}</span>
               <Link to="/join/inviteByCodeStep1">
                 <LargeButtonWithRightIcon
                   icon={horizontalArrowRightWhite}
@@ -381,7 +380,7 @@ class Login extends Component {
                     border: 0,
                     width: '100%',
                   }}
-                  text={t('.RedeemInvitationCode')}
+                  text={t('Dashboard.RedeemInvitationCode')}
                 />
               </Link>
             </div>

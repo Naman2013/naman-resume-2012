@@ -9,7 +9,6 @@ import { DASHBOARD_DISMISS_TOUR_POPUP } from '../../../../services/dashboard';
 import BobbieTileWelcomeToPlan from '../../../../components/common/tiles/BobbieTile/BobbieTileWelcomeToPlan';
 
 import styles from './BootstrappedTourPopup.styles';
-import messages from './BootstrappedTourPopup.messages';
 
 const { bool, string, shape, func } = PropTypes;
 @withTranslation
@@ -96,7 +95,7 @@ class BootstrappedTourPopupForUser extends Component {
         <Modal
           isOpen={showModal}
           style={customModalStyles}
-          contentLabel={t('.Tour')}
+          contentLabel={t('Dashboard.Tour')}
           onRequestClose={this.closeModal}
           ariaHideApp={false}
         >

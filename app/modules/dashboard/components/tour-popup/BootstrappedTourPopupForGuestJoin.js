@@ -9,7 +9,6 @@ import { SUBSCRIPTION_PLANS_ENDPOINT_URL } from 'app/services/registration/regis
 import SubscriptionPlanCardDashboard from 'app/pages/registration/partials/SubscriptionPlanCardDashboard';
 import { customModalStyles } from '../../../../styles/mixins/utilities';
 import styles from './BootstrappedTourPopup.styles';
-import messages from './BootstrappedTourPopup.messages';
 
 const { bool, string, shape, func } = PropTypes;
 @withTranslation
@@ -55,7 +54,7 @@ class BootstrappedTourPopupForGuestJoin extends Component {
         <Modal
           isOpen={showModal}
           style={customModalStyles}
-          contentLabel={t('.Tour')}
+          contentLabel={t('Dashboard.Tour')}
           onRequestClose={this.closeModal}
           ariaHideApp={false}
         >
