@@ -19,7 +19,6 @@ import ViewImagesButton from 'app/components/common/style/buttons/ViewImagesButt
 import FlagButton from 'app/components/common/FlagButton';
 import ViewImage from 'app/modules/multi-upload-images/components/view-image';
 import styles, { profPic } from './DiscussionsCard.style';
-import messages from './DiscussionsCard.messages';
 
 const {
   any,
@@ -111,10 +110,10 @@ class DiscussionsCard extends PureComponent {
               {moment.utc(modified).fromNow()}
             </div>
             <div className="explainantion-item">
-              {t('.Likes')}: {likesCount}{' '}
+              {t('AskAnAstronomer.Likes')}: {likesCount}{' '}
             </div>
             <div className="explainantion-item">
-              {t('.Comments')}: {replyToponlyCount}
+              {t('AskAnAstronomer.Comments')}: {replyToponlyCount}
             </div>
           </div>
           <div className="activity-actions">
