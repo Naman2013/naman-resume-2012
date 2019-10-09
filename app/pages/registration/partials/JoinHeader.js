@@ -13,7 +13,7 @@ import store from 'app/store';
 import Btn from 'app/atoms/Btn';
 
 import styles from './JoinHeader.style';
-import messages from './JoinHeader.messages';
+
 
 const { boolean, string, arrayOf, shape } = PropTypes;
 
@@ -67,8 +67,8 @@ class JoinHeader extends Component {
       showTabs,
       showLogin,
       activeTab,
-      mainHeading = t('.JoinMainHeader'),
-      subHeading = t('.JoinSubHeader'),
+      mainHeading = t('Ecommerce.JoinMainHeader'),
+      subHeading = t('Ecommerce.JoinSubHeader'),
       tabs,
       backgroundImage,
     } = this.props;

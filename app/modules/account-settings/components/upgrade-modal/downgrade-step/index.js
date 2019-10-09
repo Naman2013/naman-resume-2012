@@ -14,7 +14,6 @@ import Btn from 'app/atoms/Btn';
 import { API } from 'app/api';
 import { getUserInfo } from 'app/modules/User';
 import styles from 'app/pages/registration/JoinStep3.style';
-import messages from 'app/pages/registration/JoinStep3.messages';
 import '../../../styles.scss';
 
 export const downgradeStepClose = props => {

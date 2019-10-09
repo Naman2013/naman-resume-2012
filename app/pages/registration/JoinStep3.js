@@ -27,7 +27,7 @@ import PlanDetailsCard from './partials/PlanDetailsCard';
 import { DEFAULT_JOIN_TABS } from './StaticNavTabs';
 
 import styles from './JoinStep3.style';
-import messages from './JoinStep3.messages';
+
 
 const propTypes = {
   actions: PropTypes.shape({
@@ -213,7 +213,7 @@ class JoinStep3 extends Component {
     // Render a countdown
     return (
       <p style={{ fontSize: '1.3em', color: 'green' }}>
-        {t('.SignupRequestExpireTime', { minutes, seconds })}
+        {t('Ecommerce.SignupRequestExpireTime', { minutes, seconds })}
       </p>
     );
   };

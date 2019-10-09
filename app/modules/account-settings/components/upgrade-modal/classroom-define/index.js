@@ -29,7 +29,6 @@ import { API } from 'app/api';
 import debounce from 'lodash/debounce';
 import { DeviceContext } from 'app/providers/DeviceProvider';
 import styles from 'app/pages/registration/JoinStep1SchoolSelection.style';
-import messages from 'app/pages/registration/JoinInviteByCodeStep1.messages';
 
 const { string } = PropTypes;
 @withTranslation
@@ -627,7 +626,7 @@ class ClassroomDefineSchoolSelectionGeneral extends Component {
                           className="button-container"
                         >
                           <button className="submit-button" type="submit">
-                            {t('.Continue')}
+                            {t('Ecommerce.Continue')}
                           </button>
                         </div>
                       </form>

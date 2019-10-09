@@ -30,7 +30,7 @@ import { horizontalArrowRightWhite } from 'app/styles/variables/iconURLs';
 import { CLASSROOM_JOIN_TABS } from './StaticNavTabs';
 import JoinHeader from './partials/JoinHeader';
 
-import messages from './ResetPassword.messages';
+
 import styles from './JoinStep1SchoolSelection.style';
 
 const { string } = PropTypes;
@@ -136,7 +136,7 @@ class ResetPassword extends Component {
 
     /* a password is assigned to a Google account even though they can sign-in using google, this way they can login without google if needed */
     if (passwordFormData.password.value === '') {
-      passwordFormData.password.errorText = t('.PasswordRequierMessage');
+      passwordFormData.password.errorText = t('Ecommerce.PasswordRequierMessage');
       formIsComplete = false;
     } else {
       /* verify the password and the verification password fields match */
@@ -251,7 +251,7 @@ class ResetPassword extends Component {
                               color: romance,
                               border: 0,
                             }}
-                            text={t('.Login')}
+                            text={t('Ecommerce.Login')}
                             onClickEvent={this.launchLogin}
                           />
                         </div>
@@ -273,7 +273,7 @@ class ResetPassword extends Component {
                                 color: romance,
                                 border: 0,
                               }}
-                              text={t('.Home')}
+                              text={t('Ecommerce.Home')}
                               onClickEvent={this.cancelAndGoHome}
                             />
                           </div>
@@ -368,7 +368,7 @@ class ResetPassword extends Component {
                             </div>
                             <div className="button-container">
                               <button className="submit-button" type="submit">
-                                {t('.Continue')}
+                                {t('Ecommerce.Continue')}
                               </button>
                             </div>
                           </form>

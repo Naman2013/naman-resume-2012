@@ -22,7 +22,6 @@ import { DeviceContext } from 'app/providers/DeviceProvider';
 import JoinHeader from './partials/JoinHeader';
 import { CLASSROOM_JOIN_TABS } from './StaticNavTabs';
 import styles from './JoinStep1SchoolSelection.style';
-import messages from './JoinInviteByCodeStep1.messages';
 
 const { string } = PropTypes;
 @withTranslation
@@ -495,13 +494,13 @@ class JoinStep1SchoolSelectionGeneral extends Component {
                         <div className="button-container">
                           <Button
                             type="button"
-                            text={t('.GoBack')}
+                            text={t('Ecommerce.GoBack')}
                             onClickEvent={() => {
                               browserHistory.push('/join/step1');
                             }}
                           />
                           <button className="submit-button" type="submit">
-                            {t('.Continue')}
+                            {t('Ecommerce.Continue')}
                           </button>
                         </div>
                       </form>

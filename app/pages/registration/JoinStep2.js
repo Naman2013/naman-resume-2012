@@ -32,7 +32,6 @@ import PlanDetailsCard from './partials/PlanDetailsCard';
 import { DEFAULT_JOIN_TABS, CLASSROOM_JOIN_TABS } from './StaticNavTabs';
 
 import styles from './JoinStep2.style';
-import messages from './JoinStep2.messages';
 
 const { string, func } = PropTypes;
 
@@ -360,7 +359,7 @@ class JoinStep2 extends Component {
 
     /* a password is assigned to a Google account even though they can sign-in using google, this way they can login without google if needed */
     if (accountFormDetailsData.password.value === '') {
-      accountFormDetailsData.password.errorText = t('.PasswordRequierMessage');
+      accountFormDetailsData.password.errorText = t('Ecommerce.PasswordRequierMessage');
       formIsComplete = false;
     } else {
       /* verify the password and the verification password fields match */
@@ -700,11 +699,11 @@ class JoinStep2 extends Component {
                             <div>
                               <br />
                               <p>
-                                {t('.YourSchool')}:{' '}
+                                {t('Ecommerce.YourSchool')}:{' '}
                                 {joinPageRes.selectedSchool.schoolName}
                               </p>
                               <p style={{ fontSize: '1.0em' }}>
-                                {t('.YourSchoolDistrict')}:{' '}
+                                {t('Ecommerce.YourSchoolDistrict')}:{' '}
                                 {joinPageRes.selectedSchool.districtName}
                               </p>
                               <br />
@@ -857,7 +856,7 @@ class JoinStep2 extends Component {
                                           });
                                         }}
                                       />{' '}
-                                      {t('.Yes')}
+                                      {t('Ecommerce.Yes')}
                                     </label>
                                     <span style={{ paddingLeft: '15px' }}>
                                       <label>
@@ -874,7 +873,7 @@ class JoinStep2 extends Component {
                                             });
                                           }}
                                         />
-                                        {t('.No')}
+                                        {t('Ecommerce.No')}
                                       </label>
                                     </span>
                                   </fieldset>
@@ -1257,7 +1256,7 @@ class JoinStep2 extends Component {
                                 }}
                               />
                               <button className="submit-button" type="submit">
-                                {t('.GoToPayment')}
+                                {t('Ecommerce.GoToPayment')}
                               </button>
                             </div>
                           </form>

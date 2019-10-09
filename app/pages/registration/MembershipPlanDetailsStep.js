@@ -27,7 +27,7 @@ import PlanDetailsCard from './partials/PlanDetailsCard';
 import { PLAN_DETAILS_JOIN_TABS } from './StaticNavTabs';
 
 import styles from './JoinStep1SchoolSelection.style';
-import messages from './MembershipPlanDetailsStep.messages';
+
 
 const { string, arrayOf, shape } = PropTypes;
 
@@ -144,14 +144,14 @@ class MembershipPlanDetailsStep extends Component {
                         >
                           <Button
                             type="button"
-                            text={t('.GoBack')}
+                            text={t('Ecommerce.GoBack')}
                             onClickEvent={() => {
                               browserHistory.goBack();
                             }}
                           />
                           {!cid && (
                             <button className="submit-button" type="submit">
-                              {t('.JoinNow')}
+                              {t('Ecommerce.JoinNow')}
                             </button>
                           )}
                         </div>

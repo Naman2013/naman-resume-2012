@@ -28,7 +28,6 @@ import {
 } from 'app/services/registration/registration.js';
 import { DeviceContext } from 'app/providers/DeviceProvider';
 import styles from 'app/pages/registration/JoinStep2.style';
-import messages from 'app/pages/registration/JoinStep2.messages';
 
 const { string, func } = PropTypes;
 
@@ -270,7 +269,7 @@ class AstronomyClubDefineClubGeneral extends Component {
                               className="button-container"
                             >
                               <button className="submit-button" type="submit">
-                                {t('.GoToPayment')}
+                                {t('Ecommerce.GoToPayment')}
                               </button>
                             </div>
                             <br />

@@ -22,7 +22,6 @@ import {
 } from 'app/services/registration/registration.js';
 import JoinHeader from './partials/JoinHeader';
 import { JOIN_BY_INVITE_TABS } from './StaticNavTabs';
-import messages from './JoinInviteByCodeStep1.messages';
 
 import styles from './JoinStep2.style';
 
@@ -275,13 +274,13 @@ class JoinByInviteCodeStep1 extends Component {
                         <div className="button-container">
                           <Button
                             type="button"
-                            text={t('.GoBack')}
+                            text={t('Ecommerce.GoBack')}
                             onClickEvent={() => {
                               browserHistory.push('/');
                             }}
                           />
                           <button className="submit-button" type="submit">
-                            {t('.Continue')}
+                            {t('Ecommerce.Continue')}
                           </button>
                         </div>
                       </form>

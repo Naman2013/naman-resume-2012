@@ -18,7 +18,6 @@ import { getUserInfo, storeUserNewAT } from 'app/modules/User';
 import { resetLogIn } from 'app/modules/login/actions';
 
 import styles from 'app/pages/registration/JoinStep3.style';
-import messages from 'app/pages/registration/JoinStep3.messages';
 
 const CountdownRenderer = ({ completed, minutes, seconds, t }) => {
   if (completed) {
@@ -31,7 +30,7 @@ const CountdownRenderer = ({ completed, minutes, seconds, t }) => {
     <p
       style={{ backgroundColor: '#f2f2f2', fontSize: '1.3em', color: 'green' }}
     >
-      {t('.SignupRequestExpireTimeOnUpgrade', { minutes, seconds })}
+      {t('Ecommerce.SignupRequestExpireTimeOnUpgrade', { minutes, seconds })}
     </p>
   );
 };
