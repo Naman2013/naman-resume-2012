@@ -65,7 +65,7 @@ module.exports = {
     ],
   },
   overrides: {
-    files: ['*.{ts,tsx,js,jsx}'], // TODO: need to think about this
+    files: ['*.{ts,tsx}'], // TODO: need to think about this
     parser: 'babel-eslint',
     rules: {
       'no-undef': 'off',
