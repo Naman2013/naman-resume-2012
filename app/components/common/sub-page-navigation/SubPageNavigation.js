@@ -19,7 +19,7 @@ const SubPageNavigation = ({ items, locationPath }) => {
 
   return (
     <Fragment>
-      <ul className="subnav" id="navigationId" ref={ref}>
+      <ul className="subnav" ref={ref}>
         {items.map(item => (
           <li className="item" key={item.link}>
             <Link
