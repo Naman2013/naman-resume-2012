@@ -8,12 +8,16 @@ import PropTypes from 'prop-types';
 import SubPageNavigation from '../common/sub-page-navigation';
 import style from './Navigation.style';
 
-const generateNavItems = list => list.map(item => ({ title: item.name, link: item.link }));
+const generateNavItems = list =>
+  list.map(item => ({ title: item.name, link: item.link }));
 
-const Navigation = ({ aboutSloohSectionsList }) => (
+const Navigation = ({ aboutSloohSectionsList, locationPath }) => (
   <Fragment>
     <div className="navigation-root">
-      <SubPageNavigation items={generateNavItems(aboutSloohSectionsList)} />
+      <SubPageNavigation
+        items={generateNavItems(aboutSloohSectionsList)}
+        locationPath={locationPath}
+      />
       <style jsx>{style}</style>
     </div>
   </Fragment>
@@ -22,10 +26,12 @@ const Navigation = ({ aboutSloohSectionsList }) => (
 Navigation.defaultProps = {};
 
 Navigation.propTypes = {
-  aboutSloohSectionsList: PropTypes.arrayOf(PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    link: PropTypes.string.isRequired,
-  })).isRequired,
+  aboutSloohSectionsList: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      link: PropTypes.string.isRequired,
+    })
+  ).isRequired,
 };
 
 export default Navigation;
