@@ -9,6 +9,7 @@ const ShowTile = ({
   subTitle,
   eventId,
   eventTitle,
+  eventHostName,
   linkLabel,
   linkUrl,
   promptIconUrl,
@@ -25,11 +26,14 @@ const ShowTile = ({
     style={withinReletedSection && { height: '200px', padding: '20px' }}
   >
     <div className="title" dangerouslySetInnerHTML={{ __html: eventTitle }} />
-    <div className="sub-title" dangerouslySetInnerHTML={{ __html: subTitle }} />
-    {/*<div
+    <div
+      className="sub-title"
+      dangerouslySetInnerHTML={{ __html: eventHostName }}
+    />
+    <div
       className="description"
       dangerouslySetInnerHTML={{ __html: shortDescription }}
-    />*/}
+    />
     <div className="actions">
       <Button
         text={linkLabel}

@@ -6,6 +6,7 @@
  ***********************************/
 
 import PhotoUploadButton from 'app/components/common/style/buttons/PhotoUploadButton';
+import RichTextEditor from 'app/components/rich-text-editor/RichTextEditor';
 import { Spinner } from 'app/components/spinner/index';
 import { UploadImgThumb } from 'app/modules/ask-astronomer/components/Modals/upload-img-thumb';
 import { uploadedImgCleanUp } from 'app/modules/ask-astronomer/services/post-image';
@@ -141,10 +142,9 @@ class SubmitReplyForm extends PureComponent {
     });
   };
 
-  onChangeAnswerText = e => {
-    e.preventDefault();
+  onChangeAnswerText = value => {
     this.setState({
-      answerText: e.target.value,
+      answerText: value,
     });
   };
 
@@ -221,9 +221,8 @@ class SubmitReplyForm extends PureComponent {
           isLoading={uploadLoading}
         />
 
-        <textarea
-          className="field-input"
-          value={answerText}
+        <RichTextEditor
+          editorValue={answerText}
           onChange={this.onChangeAnswerText}
           placeholder={t('AskAnAstronomer.CommentPlaceholder')}
         />

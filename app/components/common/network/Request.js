@@ -12,6 +12,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import compact from 'lodash/compact';
 import isMatch from 'lodash/isMatch';
+import axios from 'axios';
 import { API } from 'app/api';
 import { CancelToken } from 'axios';
 import { validateResponseAccess } from 'app/modules/authorization/actions';

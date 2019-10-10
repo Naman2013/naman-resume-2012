@@ -1,33 +1,25 @@
-import { Spinner } from 'app/components/spinner/index';
-import {
-  CALLSOURCE_PHOTOVIEW,
-  USE_SHARE_TOKEN_TRUE,
-} from 'app/modules/image-details/components/imageDetailsConfiguration';
-import { DeviceContext } from 'app/providers/DeviceProvider';
-import { IMAGE_DETAILS } from 'app/services/images';
 import React, { Component } from 'react';
-import BoostrappedImageDetails from '../BootstrappedImageDetails';
+import { Spinner } from 'app/components/spinner/index';
+import { CALLSOURCE_PHOTOVIEW } from 'app/modules/image-details/components/imageDetailsConfiguration';
+import { DeviceContext } from 'app/providers/DeviceProvider';
+import ImageDetailsContent from './image-details';
+import './styles.scss';
 
-export class ImageDetails extends Component {
-  static propTypes = {};
+type TProfileActivityProps = {
+  getImageDetails: (data: any) => Promise<any>;
+  validateResponseAccess: (data: any) => Promise<any>;
+  setObservationTags: (data: any) => Promise<any>;
+  shareMemberPicture: (data: any) => Promise<any>;
 
-  static defaultProps = {};
+  observationTagsError: any;
+  imageDetailsData: ImageDetails;
+  isFetching: boolean;
+  shareMemberPhotoData: any;
+  params: any;
+  user: User;
+};
 
-  componentDidMount = () => this.fetchData();
-
-  fetchData = () => {
-    const {
-      getImageDetails,
-      params: { customerImageId, shareToken },
-    } = this.props;
-    return getImageDetails({
-      callSource: CALLSOURCE_PHOTOVIEW,
-      customerImageId,
-      shareToken,
-      useShareToken: USE_SHARE_TOKEN_TRUE,
-    });
-  };
-
+export class ImageDetails extends Component<TProfileActivityProps> {
   render() {
     const {
       getImageDetails,
@@ -36,7 +28,7 @@ export class ImageDetails extends Component {
       user,
       observationTagsError,
       validateResponseAccess,
-      params: { customerImageId, scheduledMissionId },
+      params: { customerImageId, scheduledMissionId, shareToken },
       imageDetailsData,
       isFetching,
       shareMemberPhotoData,
@@ -46,27 +38,31 @@ export class ImageDetails extends Component {
       setObservationTags,
       shareMemberPicture,
     };
+
     return (
       <div>
         <Spinner loading={isFetching} />
         <DeviceContext.Consumer>
-          {context =>
-            imageDetailsData.ver && (
-              <BoostrappedImageDetails
+          {(context: any) => (
+            <div
+              key={`image-details-${customerImageId}`}
+              className="container mt-5 image-details"
+            >
+              <ImageDetailsContent
                 actions={actions}
                 observationTagsError={observationTagsError}
                 callSource={CALLSOURCE_PHOTOVIEW}
-                customerImageId={customerImageId}
                 scheduledMissionId={scheduledMissionId}
                 user={user}
                 validateResponseAccess={validateResponseAccess}
-                refetchData={this.fetchData}
                 shareMemberPhotoData={shareMemberPhotoData}
+                shareToken={shareToken}
                 {...context}
                 {...imageDetailsData}
+                customerImageId={customerImageId}
               />
-            )
-          }
+            </div>
+          )}
         </DeviceContext.Consumer>
       </div>
     );

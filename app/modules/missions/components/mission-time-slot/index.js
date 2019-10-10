@@ -29,6 +29,8 @@ export class MissionTimeSlot extends PureComponent {
       userHasHold,
       showDotMenu,
       showDotMenuMobile,
+      showNoReservations,
+      noReservationsExplanation,
     } = timeSlot;
     const {
       displayOtherTimeZones,
@@ -40,6 +42,8 @@ export class MissionTimeSlot extends PureComponent {
         ? () => getTelescopeSlot()
         : () => {};
 
+    const title = showNoReservations ? noReservationsExplanation : slotTitle;
+
     return (
       <div
         className={`missions-list-item${
@@ -50,7 +54,7 @@ export class MissionTimeSlot extends PureComponent {
       >
         <div className="left">
           <div className="mission-title">
-            {slotTitle}{' '}
+            {title}{' '}
             {expires > 0 && userHasHold && (
               <Countdown
                 date={expires * 1000}
@@ -72,7 +76,7 @@ export class MissionTimeSlot extends PureComponent {
               <span>Reserve this slot soon!</span>
             ) : (
               <Fragment>
-                <span>Scheduled by:</span>
+                {noReservationsExplanation ? null : <span>Scheduled by:</span>}
 
                 {ownerAvatarURL && (
                   <img
@@ -123,7 +127,7 @@ export class MissionTimeSlot extends PureComponent {
           </div>
 
           <div className="mission-title">
-            {SLOT_STATUS.AVAILABLE === slotStatus ? 'Open Slot' : slotTitle}
+            {SLOT_STATUS.AVAILABLE === slotStatus ? 'Open Slot' : title}
           </div>
 
           <div className="time">

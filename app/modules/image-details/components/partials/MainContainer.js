@@ -36,13 +36,14 @@ const MainContainer = ({
   shareMemberPhotoData,
   iconFileData,
 }) => {
-  const [isEditMode, setEditMode] = useState(!observationLog);
+  const [isEditMode, setEditMode] = useState(false);
   const [title, setTitle] = useState('');
   const [observation, setObservation] = useState('');
 
-  const isFormVisible = () => canEditFlag && isEditMode;
+  const isFormVisible = () =>
+    (canEditFlag && isEditMode) || (!isEditMode && !observationLog);
 
-  const isLogVisible = () => !isEditMode;
+  const isLogVisible = () => !isEditMode && observationLog;
 
   return (
     <div className="image-main-container">

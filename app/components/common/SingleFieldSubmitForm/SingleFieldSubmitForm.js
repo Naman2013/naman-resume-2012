@@ -8,6 +8,7 @@ callback (error (string), message (string)); If error is null, the component wil
 
 if you do not want to use this components modal, set useModal to false and do not use callback
 ***********************************/
+import RichTextEditor from 'app/components/rich-text-editor/RichTextEditor';
 import React, { Component } from 'react';
 import noop from 'lodash/noop';
 import PropTypes from 'prop-types';
@@ -74,9 +75,9 @@ class SingleFieldSubmitForm extends Component {
     return null;
   }
 
-  onTextChange = e =>
+  onTextChange = value =>
     this.setState({
-      formText: e.target.value,
+      formText: value,
     });
 
   onTitleChange = e =>
@@ -237,12 +238,12 @@ class SingleFieldSubmitForm extends Component {
               onChange={this.onTitleChange}
             />
 
-            <textarea
+            <RichTextEditor
               className="form-input"
+              editorValue={formText}
               onChange={this.onTextChange}
-              maxLength={maxLength}
-              value={formText}
               placeholder={placeholder}
+              maxLength={maxLength}
             />
             {maxLength ? (
               <div className="flex-right">

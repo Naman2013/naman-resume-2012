@@ -199,7 +199,8 @@ class Observations extends Component {
                         <CardObservations
                           user={user}
                           subTitle={photoBy}
-                          title={imageDetails.imageTitle}
+                          observationTitle={imageDetails.observationTitle}
+                          imageTitle={imageDetails.imageTitle}
                           description={imageDetails.observationLog}
                           imageUrl={imageDetails.imageURL}
                           linkUrl={imageDetails.linkUrl}

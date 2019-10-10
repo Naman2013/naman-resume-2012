@@ -8,7 +8,8 @@ import style from './CardObservationsSmall.style';
 
 const CardObsSmall = props => {
   const {
-    title,
+    observationTitle,
+    imageTitle,
     subTitle,
     description,
     imageUrl,
@@ -27,10 +28,11 @@ const CardObsSmall = props => {
   const { t } = useTranslation();
   const [isOpen, openModal] = useState(false);
   const [likesNumber, changeLikesNumber] = useState(likesCount);
+  const title = observationTitle || imageTitle;
   const onLikeClick = () => {
     if (!showLikePrompt) {
-      handleLike(customerImageId);
       changeLikesNumber(likesNumber + 1);
+      return handleLike(customerImageId);
     }
   };
   return (
@@ -137,7 +139,8 @@ const CardObsSmall = props => {
 };
 
 CardObsSmall.propTypes = {
-  title: PropTypes.string.isRequired,
+  observationTitle: PropTypes.string.isRequired,
+  imageTitle: PropTypes.string.isRequired,
   subTitle: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   imageUrl: PropTypes.string.isRequired,

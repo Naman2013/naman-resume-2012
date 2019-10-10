@@ -71,7 +71,9 @@
           display: flex;
 
           .observation-icon {
-            margin-right: 25px;
+            display: flex;
+            justify-content: center;
+            width: 90px;
 
             .link {
               @include centerChildren;
@@ -79,6 +81,7 @@
               width: 40px;
               height: 40px;
               cursor: pointer;
+              margin-right: 0;
 
               .linkIcon {
                 width: 35px;
@@ -186,6 +189,12 @@
 }
 
 @media screen and (min-width: $screen-lg-min) {
+  .card-obs-wrapper {
+    .card-obs {
+      width: 80%;
+    }
+  }
+
   .image-wrapper-small {
     width: 240px;
     height: 240px;
@@ -214,18 +223,25 @@
 }
 
 .obs-image-magnifier {
-  div {
-    img {
-      height: 90vh;
+  > div {
+    > img {
+      max-height: 90vh;
+      max-width: 100%;
       width: auto !important;
     }
   }
 }
 
 .obs-image-wrapper {
-  .modal-content {
-    width: auto;
-    margin: 0 auto;
+  &.modal-dialog {
+    max-width: unset;
+    width: 100vw;
+    margin: 0;
+
+    .modal-content {
+      width: auto;
+      margin: 21px auto;
+    }
   }
 }
 

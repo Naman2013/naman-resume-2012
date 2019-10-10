@@ -167,33 +167,43 @@ class GlobalNavigation extends Component {
     this.pubnub.init(this);
   }
 
+  scrollActivityFeedToBottom() {
+	var liveActivityWindowBodyFeedObj = document.getElementById('live-activity-window-body-feed');
+	if (liveActivityWindowBodyFeedObj != null) {
+		//console.log("found the activity window to be open....");
+
+		liveActivityWindowBodyFeedObj.scrollIntoView(false);
+
+		//console.log("scrolling to bottom.....");
+		return true;
+	}
+	else {
+		return false;
+	}
+  }
+
   checkActivityWindowScroll() {
     //console.log("checking scroll function....");
 
-    if (this.state.activityWindowHasBeenScrolledToBottom == false) {
-      //console.log("activity window has not been scrolled yet....");
+	if (this.state.activityWindowHasBeenScrolledToBottom == false) {
+		//console.log("activity window has not been scrolled yet....");
 
-      let liveActivityWindowBodyFeedObj = document.getElementById(
-        'live-activity-window-body-feed'
-      );
-      if (liveActivityWindowBodyFeedObj != null) {
-        //console.log("found the activity window to be open....");
-
-        liveActivityWindowBodyFeedObj.scrollIntoView(false);
-        this.setState({ activityWindowHasBeenScrolledToBottom: true });
-
-        //console.log("scrolling to bottom.....");
-      }
-    }
+		var liveActivityWindowBodyFeedObj = document.getElementById('live-activity-window-body-feed');
+		if (liveActivityWindowBodyFeedObj != null) {
+			//scroll the activity feed to the bottom
+			if (this.scrollActivityFeedToBottom() == true) {
+				this.setState({ activityWindowHasBeenScrolledToBottom: true });
+			}
+		}
+	}
   }
 
   buildFeedMessage(message, appendFlag) {
     try {
       //console.log(message);
 
-      //convert the string message into a json object
-      //let messageJSONObj = JSON.parse(message);
-      let messageJSONObj = message;
+		//messages are in JSON format
+		let messageJSONObj = message;
 
       //console.log(messageJSON.message_by_locale.en);
 
@@ -359,12 +369,13 @@ class GlobalNavigation extends Component {
             handleNotificationClick={this.handleNotificationClick}
             closeAllMenus={this.closeAll}
             totalViewersCount={totalViewersCount}
-            allLivecastsInProgress={allLivecastsInProgress}
-            activityFeedMessages={activityFeedMessages}
-            pubnubConnection={this.pubnub}
-            pubnubActivityFeedChannelName={pubnubActivityFeedChannelName}
-            userDisplayName={displayName}
-            isChatEnabled={isChatEnabled}
+	    allLivecastsInProgress={allLivecastsInProgress}
+	    activityFeedMessages={activityFeedMessages}
+	    pubnubConnection={this.pubnub}
+	    pubnubActivityFeedChannelName={pubnubActivityFeedChannelName}
+	    userDisplayName={displayName}
+	    isChatEnabled={isChatEnabled}
+  	    scrollActivityFeedToBottom={this.scrollActivityFeedToBottom}
           />
         </div>
 
