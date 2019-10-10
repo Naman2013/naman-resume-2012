@@ -84,10 +84,10 @@ class JoinStep3 extends Component {
 
       let paymentMethod = 'creditcard';
       let paymentNonceTokenData = null;
-      console.log(paymentMessageData);
+      //console.log(paymentMessageData);
       var paymentDataString = paymentMessageData.split('!952bccf9afe8e4c04306f70f7bed6610');
 
-      console.log(paymentDataString);
+      //console.log(paymentDataString);
       /* make sure the data message we received is an ECommerce Payment Token */
       if (paymentDataString[0].startsWith('__ECOMMERCE_PAYMENT_TOKEN_')) {
         //Check to see if the payment token is a credit card payment token or a paypal payment token
@@ -146,6 +146,11 @@ class JoinStep3 extends Component {
                 const { actions } = this.props;
 
                 //Cleanup local localStorage
+
+		//cleanup any hidden plan that was accessed now that a plan was redeemed.
+		window.localStorage.removeItem('enableHiddenPlanId');
+
+		//cleanup other localstorage elements
                 window.localStorage.removeItem('pending_cid');
                 window.localStorage.removeItem('selectedPlanId');
                 window.localStorage.removeItem('selectedSchoolId');

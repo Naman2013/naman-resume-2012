@@ -26,7 +26,7 @@ class EnableHiddenPlan extends Component {
     pathname: string,
   };
   static defaultProps = {
-    pathname: 'directJoinUpgradeFlow',
+    pathname: 'endablePlan',
   };
 
   constructor(props) {
