@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import { Button, Modal } from 'react-bootstrap';
-import cx from 'classnames';
 import { Tooltip } from 'react-tippy';
 import Datetime from 'react-datetime';
 import moment from 'moment';
 import { Spinner } from 'app/components/spinner/index';
 import { Select } from 'app/components/common/select';
-import { Datepicker } from 'app/modules/profile-photos/components/filter-dropdown/datepicker';
 import FindObject from 'app/modules/browse-find-data/containers/find-object';
 import './styles.scss';
 
@@ -41,7 +39,9 @@ export class UploadPhoto extends Component {
     this.setState({
       referenceType: e.target.value,
       findObjectResultVisible: false,
+      designator: '',
       findValue: '',
+      astroObjectId: null,
     });
   };
 
@@ -104,6 +104,35 @@ export class UploadPhoto extends Component {
       }
       default: {
         return {};
+      }
+    }
+  };
+
+  isUploadButtonDisabled = () => {
+    const { uploadPhotoData, isFetching } = this.props;
+    const {
+      referenceType,
+      selectedCatalog,
+      designator,
+      astroObjectId,
+    } = this.state;
+    const { imageData } = uploadPhotoData;
+    const { imageUrl } = imageData;
+
+    const defaultCondition = !imageUrl || isFetching;
+
+    switch (referenceType) {
+      case REFERENCE_TYPES.slooh1000: {
+        return defaultCondition || !astroObjectId;
+      }
+      case REFERENCE_TYPES.catalog: {
+        return defaultCondition || !selectedCatalog.catalog || !designator;
+      }
+      case REFERENCE_TYPES.other: {
+        return defaultCondition;
+      }
+      default: {
+        return defaultCondition;
       }
     }
   };
@@ -215,12 +244,20 @@ export class UploadPhoto extends Component {
           </div>
 
           <form className="upload-photo-form">
-	    <p className="upload-photo-instructions">Introducing Photo Upload, which enables Apprentice and Astronomer members to upload photos to their photo roll. This makes it possible for you to share your very best processed photos as Observations. We ask that you only upload and share astronomical images you capture personally, either via Slooh or using your own telescopes.</p>
+            <p className="upload-photo-instructions">
+              Introducing Photo Upload, which enables Apprentice and Astronomer
+              members to upload photos to their photo roll. This makes it
+              possible for you to share your very best processed photos as
+              Observations. We ask that you only upload and share astronomical
+              images you capture personally, either via Slooh or using your own
+              telescopes.
+            </p>
+
             <div className="upload-photo-form-left">
               <div className="upload-photo-form-input-file">
                 <label htmlFor="photoHubUploadInput">
                   Upload photo
-                  {imageUrl && <img src={imageUrl} />}
+                  {imageUrl && <img src={imageUrl} alt="Uploaded" />}
                 </label>
                 <input
                   type="file"
@@ -344,7 +381,10 @@ export class UploadPhoto extends Component {
             </div>
 
             <div className="upload-photo-upload-button">
-              <Button onClick={this.uploadToMyPictures}>
+              <Button
+                onClick={this.uploadToMyPictures}
+                disabled={this.isUploadButtonDisabled()}
+              >
                 {DisplayUploadBtn}
               </Button>
             </div>

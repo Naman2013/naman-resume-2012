@@ -30,6 +30,12 @@ module.exports = {
     'max-len': 0,
     'no-use-before-define': ['error', { functions: false, classes: true }],
     'no-underscore-dangle': 'off',
+    'jsx-a11y/aria-role': [
+      2,
+      {
+        ignoreNonDOM: true,
+      },
+    ],
     'jsx-a11y/href-no-hash': 'off',
     'jsx-a11y/anchor-is-valid': ['warn', { aspects: ['invalidHref'] }],
     'jsx-a11y/label-has-associated-control': 'off',
@@ -65,7 +71,7 @@ module.exports = {
     ],
   },
   overrides: {
-    files: ['*.{ts,tsx}'],
+    files: ['*.{ts,tsx,js,jsx}'],
     parser: 'babel-eslint',
     rules: {
       'no-undef': 'off',
