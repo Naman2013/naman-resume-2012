@@ -21,8 +21,8 @@ import './styles/index.scss';
 window.EventSource = NativeEventSource || EventSourcePolyfill;
 
 ReactDOM.render(
-  <Provider store={store}>
-    <AppRouter />
-  </Provider>,
+    <Provider store={store}>
+      <AppRouter />
+    </Provider>,
   window.document.getElementById('app')
 );
