@@ -20,7 +20,7 @@ import { screenLarge, screenMedium } from 'app/styles/variables/breakpoints';
 
 const { bool, number, shape, string } = PropTypes;
 
-@withTranslation
+@withTranslation()
 class ActivityForm extends Component {
   static propTypes = {
     topicId: number,

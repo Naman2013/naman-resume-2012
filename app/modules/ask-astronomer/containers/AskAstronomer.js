@@ -80,7 +80,7 @@ const mapDispatchToProps = dispatch => ({
   mapStateToProps,
   mapDispatchToProps
 )
-@withTranslation
+@withTranslation()
 class AskAstronomer extends Component {
   static defaultProps = {
     fetchingQuestions: false,

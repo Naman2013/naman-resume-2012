@@ -7,7 +7,7 @@ import styles from './UpcomingShowCountdown.style';
 
 const { bool, number, string, shape, oneOfType } = PropTypes;
 
-@withTranslation
+@withTranslation()
 export default class UpcomingShowCountdown extends PureComponent {
   static propTypes = {
     eventId: number,

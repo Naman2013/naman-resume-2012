@@ -28,7 +28,7 @@ const {
   shape,
   string,
 } = PropTypes;
-@withTranslation
+@withTranslation()
 class ReplyButton extends Component {
   state = {
     uuid: null,

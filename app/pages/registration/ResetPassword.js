@@ -35,7 +35,7 @@ import styles from './JoinStep1SchoolSelection.style';
 
 const { string } = PropTypes;
 
-@withTranslation
+@withTranslation()
 class ResetPassword extends Component {
   static propTypes = {
     pathname: string,

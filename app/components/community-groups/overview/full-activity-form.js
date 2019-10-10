@@ -12,7 +12,7 @@ import FormHeader from 'app/components/common/FormHeader';
 import SingleFieldSubmitForm from 'app/components/common/SingleFieldSubmitForm';
 
 const { bool, number, string } = PropTypes;
-@withTranslation
+@withTranslation()
 class FullActivityForm extends Component {
   static propTypes = {
     topicId: number,

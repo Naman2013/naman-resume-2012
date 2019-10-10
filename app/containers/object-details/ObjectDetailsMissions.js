@@ -60,7 +60,7 @@ const mapDispatchToProps = {
   mapStateToProps,
   mapDispatchToProps
 )
-@withTranslation
+@withTranslation()
 class Missions extends Component {
   state = {
     reservationModalVisible: false,

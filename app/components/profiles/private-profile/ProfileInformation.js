@@ -29,7 +29,7 @@ const PROFILE_STATS = {
   badges: 'badges',
   mvp: 'mvp',
 };
-@withTranslation
+@withTranslation()
 class ProfileInformation extends Component {
   static propTypes = {
     myInformationData: shape({

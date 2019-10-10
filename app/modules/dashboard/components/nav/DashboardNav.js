@@ -21,7 +21,7 @@ import styles from './DashboardNav.style';
 
 const { arrayOf, bool, number, shape, string } = PropTypes;
 
-@withTranslation
+@withTranslation()
 class DashboardNav extends Component {
   static propTypes = {};
 
@@ -30,7 +30,7 @@ class DashboardNav extends Component {
   state = {};
 
   render() {
-    const { t } = useTranslation();
+    const { t } = this.props;
 
     return (
       <div className="root">

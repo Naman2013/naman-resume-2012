@@ -29,7 +29,7 @@ const questsHubModel = {
     sortOptions: resp.filterOptions.options,
   }),
 };
-@withTranslation
+@withTranslation()
 class Quests extends Component {
   static propTypes = {
     validateResponseAccess: PropTypes.func,

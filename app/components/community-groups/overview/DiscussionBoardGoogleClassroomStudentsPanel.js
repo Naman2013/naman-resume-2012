@@ -40,7 +40,7 @@ const mapStateToProps = ({ user }) => ({
   mapStateToProps,
   null
 )
-@withTranslation
+@withTranslation()
 class DiscussionBoardGoogleClassroomStudentsPanel extends Component {
   static propTypes = {
     pageMeta: shape({}),

@@ -62,7 +62,7 @@ const DEFAULT_PAGE = 1;
   mapStateToProps,
   mapDispatchToProps
 )
-@withTranslation
+@withTranslation()
 class Observations extends Component {
   state = {
     selectedIndex: 1,

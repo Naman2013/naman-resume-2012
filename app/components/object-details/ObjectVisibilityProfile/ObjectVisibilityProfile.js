@@ -34,7 +34,7 @@ const riseSetModel = {
     riseAndSetSelectors: resp.riseAndSetSelectors,
   }),
 };
-@withTranslation
+@withTranslation()
 class ObjectVisibilityProfile extends Component {
   static propTypes = {
     objectId: PropTypes.string.isRequired,

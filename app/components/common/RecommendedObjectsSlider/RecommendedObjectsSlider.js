@@ -19,7 +19,7 @@ import DisplayAtBreakpoint from '../DisplayAtBreakpoint';
 import { getSliderProps } from './recommendedObjectsSliderConfiguration';
 import './styles.scss';
 
-@withTranslation
+@withTranslation()
 export class RecommendedObjects extends Component {
   state = {
     reservationModalVisible: false,

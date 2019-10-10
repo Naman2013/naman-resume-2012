@@ -20,7 +20,7 @@ import { screenMedium, screenLarge } from 'app/styles/variables/breakpoints';
 import styles from './DiscussionBoardInviteNewMemberToSlooh.style';
 
 const { any, bool, func, number, shape, string } = PropTypes;
-@withTranslation
+@withTranslation()
 class DiscussionBoardInviteNewMemberToSlooh extends PureComponent {
   static propTypes = {
     discussionGroupId: string,

@@ -29,7 +29,7 @@ const guidesHubModel = {
     sortOptions: resp.filterOptions.options,
   }),
 };
-@withTranslation
+@withTranslation()
 class Guides extends Component {
   static propTypes = {
     validateResponseAccess: PropTypes.func,

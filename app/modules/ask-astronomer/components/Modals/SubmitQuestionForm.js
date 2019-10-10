@@ -29,7 +29,7 @@ const {
   shape,
   string,
 } = PropTypes;
-@withTranslation
+@withTranslation()
 class SubmitQuestionForm extends PureComponent {
   static propTypes = {
     modalActions: shape({

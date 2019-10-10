@@ -23,7 +23,7 @@ const {
   shape,
   string,
 } = PropTypes;
-@withTranslation
+@withTranslation()
 class CommentsTab extends Component {
   static propTypes = {
     content: string,

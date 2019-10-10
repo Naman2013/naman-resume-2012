@@ -31,7 +31,7 @@ import styles from './JoinStep1SchoolSelection.style';
 
 const { string, arrayOf, shape } = PropTypes;
 
-@withTranslation
+@withTranslation()
 class MembershipPlanDetailsStep extends Component {
   static propTypes = {
     pathname: string,

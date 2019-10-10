@@ -9,7 +9,7 @@ import GuideTiles from 'app/components/guides-hub/guide-tiles';
 import ShowTiles from 'app/components/shows-hub/show-tiles';
 import isEmpty from 'lodash/fp/isEmpty';
 
-@withTranslation
+@withTranslation()
 class Lists extends Component {
   state = { tiles: [], items: [] };
 

@@ -28,7 +28,7 @@ const {
   shape,
   string,
 } = PropTypes;
-@withTranslation
+@withTranslation()
 class SubmitAnswerButton extends Component {
   static defaultProps = {
     avatarURL: '',

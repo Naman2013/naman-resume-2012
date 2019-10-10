@@ -28,7 +28,7 @@ const {
   shape,
   string,
 } = PropTypes;
-@withTranslation
+@withTranslation()
 class AsideContainerWithTabs extends Component {
   static propTypes = {
     aboutIsActive: bool.isRequired,

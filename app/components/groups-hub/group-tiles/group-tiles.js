@@ -10,7 +10,7 @@ import { askToJoin } from 'app/services/community-groups/ask-to-join';
 import { toggleJoinGroup } from 'app/services/community-groups/toggle-join-group';
 import style from './group-tiles.style';
 
-@withTranslation
+@withTranslation()
 class GroupTiles extends Component {
   static propTypes = {
     closeModal: PropTypes.func.isRequired,

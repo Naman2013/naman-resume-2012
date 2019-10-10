@@ -20,7 +20,7 @@ import './styles.scss';
 
 
 const { func, shape, string } = PropTypes;
-@withTranslation
+@withTranslation()
 class SubmitAnswerForm extends PureComponent {
   static propTypes = {
     modalActions: shape({

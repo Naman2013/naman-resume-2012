@@ -32,7 +32,7 @@ const {
   string,
 } = PropTypes;
 
-@withTranslation
+@withTranslation()
 class DiscussionsThreads extends Component {
   static propTypes = {
     discussions: shape({

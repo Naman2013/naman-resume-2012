@@ -24,7 +24,7 @@ import { prepareThread } from 'app/services/discussions/prepare-thread';
 import styles, { profPic } from './RevealSubmitForm.style';
 
 const { bool, func, instanceOf, number, shape, string } = PropTypes;
-@withTranslation
+@withTranslation()
 class RevealSubmitForm extends Component {
   static propTypes = {
     imageClass: string,

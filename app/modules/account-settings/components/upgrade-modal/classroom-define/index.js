@@ -31,7 +31,7 @@ import { DeviceContext } from 'app/providers/DeviceProvider';
 import styles from 'app/pages/registration/JoinStep1SchoolSelection.style';
 
 const { string } = PropTypes;
-@withTranslation
+@withTranslation()
 class ClassroomDefineSchoolSelectionGeneral extends Component {
   static propTypes = {
     pathname: string,

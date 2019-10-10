@@ -31,7 +31,7 @@ const {
   string,
 } = PropTypes;
 
-@withTranslation
+@withTranslation()
 class DiscussionsCard extends PureComponent {
   componentDidMount() {
     const { jumpToThreadId, threadId } = this.props;

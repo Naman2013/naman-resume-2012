@@ -20,7 +20,7 @@ import { profPic } from '../styles';
 import styles from './members-list.style';
 
 const { arrayOf, bool, func, number, shape, string } = PropTypes;
-@withTranslation
+@withTranslation()
 class GroupMemberList extends Component {
   static propTypes = {
     fetchGroupMembers: func.isRequired,

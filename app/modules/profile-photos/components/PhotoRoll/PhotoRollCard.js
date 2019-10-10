@@ -27,7 +27,7 @@ type TPhotoRollCard = {
   typeGallery: boolean,
 };
 
-@withTranslation
+@withTranslation()
 class PhotoRollCard extends Component<TPhotoRollCard> {
   state = { menuIsVisible: false };
 

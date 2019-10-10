@@ -46,7 +46,7 @@ const googleClassroomModel = {
     hasGoogleClassroomEnabled: resp.hasGoogleClassroomEnabled,
   }),
 };
-@withTranslation
+@withTranslation()
 class Groups extends Component {
   static propTypes = {
     validateResponseAccess: PropTypes.func,

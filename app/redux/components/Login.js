@@ -47,7 +47,7 @@ const propTypes = {
 
 const defaultProps = {};
 
-@withTranslation
+@withTranslation()
 class Login extends Component {
   static propTypes = propTypes;
 

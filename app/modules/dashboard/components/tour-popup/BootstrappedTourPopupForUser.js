@@ -11,7 +11,7 @@ import BobbieTileWelcomeToPlan from '../../../../components/common/tiles/BobbieT
 import styles from './BootstrappedTourPopup.styles';
 
 const { bool, string, shape, func } = PropTypes;
-@withTranslation
+@withTranslation()
 class BootstrappedTourPopupForUser extends Component {
   static propTypes = {
     canDismiss: bool,

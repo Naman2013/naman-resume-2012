@@ -8,7 +8,7 @@ import styles from './question-filter.style';
 
 const { func, shape } = PropTypes;
 
-@withTranslation
+@withTranslation()
 class QuestionFilter extends Component {
   static propTypes = {
     dropdownOptions: array,

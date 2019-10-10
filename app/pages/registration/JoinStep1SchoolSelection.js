@@ -24,7 +24,7 @@ import { CLASSROOM_JOIN_TABS } from './StaticNavTabs';
 import styles from './JoinStep1SchoolSelection.style';
 
 const { string } = PropTypes;
-@withTranslation
+@withTranslation()
 class JoinStep1SchoolSelectionGeneral extends Component {
   static propTypes = {
     pathname: string,

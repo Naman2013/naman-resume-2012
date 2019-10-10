@@ -27,7 +27,7 @@ const {
   string,
 } = PropTypes;
 
-@withTranslation
+@withTranslation()
 class LiveShow extends Component {
   static propTypes = {
     additionalFeeds: arrayOf(shape({})),

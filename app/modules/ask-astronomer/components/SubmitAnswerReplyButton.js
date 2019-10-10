@@ -29,7 +29,7 @@ const {
   string,
 } = PropTypes;
 
-@withTranslation
+@withTranslation()
 class SubmitReplyReplyButton extends Component {
   static defaultProps = {
     avatarURL: '',

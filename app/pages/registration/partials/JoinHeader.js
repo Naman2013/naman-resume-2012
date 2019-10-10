@@ -17,7 +17,7 @@ import styles from './JoinHeader.style';
 
 const { boolean, string, arrayOf, shape } = PropTypes;
 
-@withTranslation
+@withTranslation()
 class JoinHeader extends Component {
   static propTypes = {
     activeTab: string,

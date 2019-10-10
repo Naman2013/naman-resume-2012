@@ -55,7 +55,7 @@ const groupsHubModel = {
     sortOptions: resp.filterOptions.options,
   }),
 };
-@withTranslation
+@withTranslation()
 class GroupImportGoogleClassrooms extends Component {
   static propTypes = {
     validateResponseAccess: PropTypes.func,

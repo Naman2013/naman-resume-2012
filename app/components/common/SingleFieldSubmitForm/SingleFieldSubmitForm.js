@@ -24,7 +24,7 @@ import { prepareThread } from 'app/services/discussions/prepare-thread';
 import styles from './SingleFieldSubmitForm.style';
 
 const { bool, func, number, shape, string } = PropTypes;
-@withTranslation
+@withTranslation()
 class SingleFieldSubmitForm extends Component {
   static propTypes = {
     imageClass: string,

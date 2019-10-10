@@ -9,7 +9,7 @@ import CenterColumn from '../../../common/CenterColumn/CenterColumn';
 import MyQa from './my-qa';
 
 const { shape } = PropTypes;
-@withTranslation
+@withTranslation()
 class ProfileQaContainer extends Component {
   static propTypes = {
     params: shape({}).isRequired,

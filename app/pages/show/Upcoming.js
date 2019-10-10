@@ -32,7 +32,7 @@ const {
   string,
 } = PropTypes;
 
-@withTranslation
+@withTranslation()
 class UpcomingShow extends Component {
   static propTypes = {
     isDesktop: bool.isRequired,

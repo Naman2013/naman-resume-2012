@@ -11,7 +11,7 @@ import { customModalStyles } from '../../../../styles/mixins/utilities';
 import styles from './BootstrappedTourPopup.styles';
 
 const { bool, string, shape, func } = PropTypes;
-@withTranslation
+@withTranslation()
 class BootstrappedTourPopupForGuestJoin extends Component {
   static propTypes = {
     subTitle: string,

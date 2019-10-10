@@ -37,7 +37,7 @@ const getInlineBgStyle = imgUrl => ({
   backgroundSize: '100%',
 });
 
-@withTranslation
+@withTranslation()
 class LiveShowVideoViewerNav extends Component {
   static propTypes = {
     additionalFeeds: arrayOf(

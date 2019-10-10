@@ -30,7 +30,7 @@ const showsHubModel = {
     sortOptions: resp.filterOptions.options,
   }),
 };
-@withTranslation
+@withTranslation()
 class Shows extends Component {
   static propTypes = {
     validateResponseAccess: PropTypes.func,

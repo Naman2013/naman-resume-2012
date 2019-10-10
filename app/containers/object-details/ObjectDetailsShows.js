@@ -53,7 +53,7 @@ const mapDispatchToProps = dispatch => ({
   mapStateToProps,
   mapDispatchToProps
 )
-@withTranslation
+@withTranslation()
 class Shows extends Component {
   static defaultProps = {
     actions: {},

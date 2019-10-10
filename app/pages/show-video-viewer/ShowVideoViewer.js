@@ -40,7 +40,7 @@ function mapDispatchToProps(dispatch) {
   mapStateToProps,
   mapDispatchToProps
 )
-@withTranslation
+@withTranslation()
 class ShowVideoViewer extends Component {
   static propTypes = {
     actions: shape({

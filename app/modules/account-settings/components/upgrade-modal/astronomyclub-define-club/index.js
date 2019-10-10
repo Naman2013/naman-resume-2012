@@ -31,7 +31,7 @@ import styles from 'app/pages/registration/JoinStep2.style';
 
 const { string, func } = PropTypes;
 
-@withTranslation
+@withTranslation()
 class AstronomyClubDefineClubGeneral extends Component {
   static propTypes = {
     change: func,

@@ -38,7 +38,7 @@ const getFilterDropdownOptions = t => [
   },
 ];
 
-@withTranslation
+@withTranslation()
 class PhotoHubNavigation extends Component {
   state = {
     searchValue: '',

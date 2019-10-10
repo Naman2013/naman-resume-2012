@@ -10,7 +10,7 @@ import styles from './upload-images.style';
 
 const { arrayOf, func, number, shape, string } = PropTypes;
 
-@withTranslation
+@withTranslation()
 class UploadImages extends Component {
   static propTypes = {
     imageClass: string.isRequired,

@@ -45,7 +45,7 @@ const mapDispatchToProps = dispatch => ({
   mapStateToProps,
   mapDispatchToProps
 )
-@withTranslation
+@withTranslation()
 class Quests extends Component {
   render() {
     const {

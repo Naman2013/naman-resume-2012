@@ -26,7 +26,7 @@ import { JOIN_BY_INVITE_TABS } from './StaticNavTabs';
 import styles from './JoinStep2.style';
 
 const { string, func } = PropTypes;
-@withTranslation
+@withTranslation()
 class JoinByInviteCodeStep1 extends Component {
   static propTypes = {
     pathname: string.isRequired,

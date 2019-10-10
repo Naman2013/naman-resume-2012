@@ -38,7 +38,7 @@ const groupsHubModel = {
     sortOptions: resp.filterOptions.options,
   }),
 };
-@withTranslation
+@withTranslation()
 class GroupCreate extends Component {
   static propTypes = {
     validateResponseAccess: PropTypes.func,

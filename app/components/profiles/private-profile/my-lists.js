@@ -19,7 +19,7 @@ const readingListModel = {
   }),
 };
 // todo CHECK ME
-@withTranslation
+@withTranslation()
 export default class MyListsHub extends React.Component {
   state = {
     tiles: [],

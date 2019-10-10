@@ -50,7 +50,7 @@ const QA_TABS_DATA = {
   },
 };
 
-@withTranslation
+@withTranslation()
 class MyQa extends Component {
   static propTypes = {
     actions: shape({

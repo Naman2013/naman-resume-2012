@@ -10,7 +10,7 @@ import styles from './tags.style';
 
 const { arrayOf, func, number, shape, string } = PropTypes;
 
-@withTranslation
+@withTranslation()
 class Tags extends Component {
   static propTypes = {
     customerImageId: number,

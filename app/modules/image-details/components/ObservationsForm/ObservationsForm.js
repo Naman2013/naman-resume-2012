@@ -8,7 +8,7 @@ import styles from './ObservationsForm.style';
 import './styles.scss';
 
 const { bool, number, oneOfType, shape, string } = PropTypes;
-@withTranslation
+@withTranslation()
 class ObservationsForm extends Component {
   static propTypes = {
     customerImageId: oneOfType([number, string]).isRequired,

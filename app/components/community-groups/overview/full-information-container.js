@@ -45,7 +45,7 @@ const mapDispatchToProps = dispatch => ({
   mapStateToProps,
   mapDispatchToProps
 )
-@withTranslation
+@withTranslation()
 class FullInformationOverview extends Component {
   static propTypes = {
     description: string,

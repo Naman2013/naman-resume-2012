@@ -29,7 +29,7 @@ const {
   shape,
   string,
 } = PropTypes;
-@withTranslation
+@withTranslation()
 class ReplyForm extends Component {
   static defaultProps = {
     avatarURL: '',

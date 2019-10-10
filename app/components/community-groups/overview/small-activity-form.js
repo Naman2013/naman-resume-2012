@@ -10,7 +10,7 @@ import { withTranslation } from 'react-i18next';
 import RevealSubmitForm from 'app/components/common/RevealSubmitForm';
 
 const { bool, number, string } = PropTypes;
-@withTranslation
+@withTranslation()
 class SmallActivityForm extends Component {
   static propTypes = {
     topicId: number,

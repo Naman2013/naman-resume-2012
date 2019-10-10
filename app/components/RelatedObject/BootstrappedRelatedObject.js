@@ -32,7 +32,7 @@ const profPic = photoUrl =>
     backgroundRepeat: 'no-repeat',
     background: `url(${photoUrl}) center center no-repeat, url(${blue_tile_feat})`,
   });
-@withTranslation
+@withTranslation()
 class RelatedObject extends Component {
   static propTypes = {
     isDesktop: bool,

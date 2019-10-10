@@ -16,7 +16,7 @@ import { screenMedium, screenLarge } from 'app/styles/variables/breakpoints';
 import { CLASSROOM_SET_GROUP_DESCRIPTION_ENDPOINT_URL } from 'app/services/classroom/classroom';
 
 const { any, bool, func, number, shape, string } = PropTypes;
-@withTranslation
+@withTranslation()
 class DiscussionBoardDescription extends Component {
   constructor(props) {
     super(props);

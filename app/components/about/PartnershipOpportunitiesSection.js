@@ -33,7 +33,7 @@ const initialState = {
   message: '',
 };
 
-@withTranslation
+@withTranslation()
 class PartnershipOpportunitiesSection extends Component {
   state = {
     ...initialState,

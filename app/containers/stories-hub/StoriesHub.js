@@ -32,7 +32,7 @@ const storiesHubModel = {
     sortOptions: resp.filterOptions.options,
   }),
 };
-@withTranslation
+@withTranslation()
 class Stories extends Component {
   static propTypes = {
     validateResponseAccess: PropTypes.func,

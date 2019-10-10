@@ -42,7 +42,7 @@ const mapDispatchToProps = dispatch => ({
   mapStateToProps,
   mapDispatchToProps
 )
-@withTranslation
+@withTranslation()
 class AnswerList extends Component {
   static defaultProps = {
     answers: {

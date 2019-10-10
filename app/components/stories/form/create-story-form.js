@@ -16,7 +16,7 @@ import ObjectCategoryAndTopicSelects from './partials/object-category-and-topic-
 import FormFeedbackActions from './partials/form-feedback-actions';
 
 
-@withTranslation
+@withTranslation()
 class CreateStoryForm extends Component {
   static propTypes = {
     cancelLabel: PropTypes.string.isRequired,

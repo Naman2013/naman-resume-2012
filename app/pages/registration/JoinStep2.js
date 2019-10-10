@@ -35,7 +35,7 @@ import styles from './JoinStep2.style';
 
 const { string, func } = PropTypes;
 
-@withTranslation
+@withTranslation()
 class JoinStep2 extends Component {
   static propTypes = {
     pathname: string.isRequired,

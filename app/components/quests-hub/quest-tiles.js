@@ -10,7 +10,7 @@ import QuestExcerptTile from 'app/components/common/tiles/quest-excerpt-tile';
 
 import style from './quest-tiles.style';
 
-@withTranslation
+@withTranslation()
 class QuestTiles extends Component {
   static propTypes = {
     quests: PropTypes.arrayOf(

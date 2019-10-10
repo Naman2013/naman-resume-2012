@@ -22,7 +22,7 @@ import GroupTiles from '../../groups-hub/group-tiles';
 import styles from './ProfileGroups.styles';
 
 const { shape, number, arrayOf } = PropTypes;
-@withTranslation
+@withTranslation()
 class ProfileGroups extends Component {
   static defaultProps = {
     groupsData: {},

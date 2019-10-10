@@ -164,7 +164,7 @@ const obsData = resp => ({
   mapStateToProps,
   mapDispatchToProps
 )
-@withTranslation
+@withTranslation()
 class Overview extends Component {
   navigateByURl = url => {
     browserHistory.push(url);

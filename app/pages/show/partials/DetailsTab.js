@@ -26,7 +26,7 @@ const {
   shape,
   string,
 } = PropTypes;
-@withTranslation
+@withTranslation()
 class DetailsTab extends Component {
   static propTypes = {
     showId: oneOfType([number, string]).isRequired,

@@ -13,7 +13,7 @@ import styles from './request-group-form.style';
 
 const { func } = PropTypes;
 
-@withTranslation
+@withTranslation()
 class RequestGroupForm extends Component {
   static propTypes = {
     closeForm: func.isRequired,

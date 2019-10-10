@@ -22,7 +22,7 @@ type TMissionCard = {
   currentItem: Object,
 };
 
-@withTranslation
+@withTranslation()
 class MissionCard extends PureComponent<TMissionCard> {
   state = {
     menuIsVisible: false,

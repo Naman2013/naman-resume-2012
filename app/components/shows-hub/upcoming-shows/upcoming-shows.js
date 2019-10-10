@@ -11,7 +11,7 @@ import style from './upcoming-shows.style';
 const COUNT = 9;
 const DEFAULT_PAGE = 1;
 
-@withTranslation
+@withTranslation()
 class UpcomingShowsInHub extends Component {
   static propTypes = {
     validateResponseAccess: PropTypes.func,

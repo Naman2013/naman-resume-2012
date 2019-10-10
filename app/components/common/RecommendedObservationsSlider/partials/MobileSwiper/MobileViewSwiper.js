@@ -26,7 +26,7 @@ const sliderConfig = {
   dots: true,
 };
 
-@withTranslation
+@withTranslation()
 class MobileViewSwiper extends Component {
   state = {
     ...emptyState,

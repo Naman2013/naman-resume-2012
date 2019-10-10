@@ -35,7 +35,7 @@ const mapDispatchToProps = dispatch => ({
   mapStateToProps,
   mapDispatchToProps
 )
-@withTranslation
+@withTranslation()
 class AnswerReplyList extends Component {
   static defaultProps = {
     answerReplies: null,

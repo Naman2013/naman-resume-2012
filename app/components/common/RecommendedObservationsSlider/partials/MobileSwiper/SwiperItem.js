@@ -8,7 +8,7 @@ import styles from './SwiperItem.style';
 
 const { number, func } = PropTypes;
 
-@withTranslation
+@withTranslation()
 class SwiperItem extends Component {
   state = {
     imageURL: '',
