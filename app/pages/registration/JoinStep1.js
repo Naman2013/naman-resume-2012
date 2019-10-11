@@ -110,7 +110,10 @@ class JoinStep1 extends Component {
                           </div>
                           <Request
                             serviceURL={SUBSCRIPTION_PLANS_ENDPOINT_URL}
-                            requestBody={{ callSource: 'join', enableHiddenPlanId: window.localStorage.getItem('enableHiddenPlanId') }}
+                            requestBody={{ 
+				callSource: 'join', 
+				enableHiddenPlanHashCode: window.localStorage.getItem('enableHiddenPlanHashCode'),
+			    }}
                             render={({
                               fetchingContent,
                               serviceResponse: serviceRes,

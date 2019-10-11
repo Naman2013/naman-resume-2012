@@ -44,8 +44,8 @@ class EnableHiddenPlan extends Component {
     }
   };
 
-  setSelectedPlan(subscriptionPlanId, isAstronomyClub, isClassroom) {
-    window.localStorage.setItem('enableHiddenPlanId', subscriptionPlanId);
+  setSelectedPlan = (subscriptionPlanId, isAstronomyClub, isClassroom) => {
+    window.localStorage.setItem('enableHiddenPlanHashCode', this.props.params.subscriptionPlanHashCode);
 
     /* move to the products page */
     browserHistory.push('/about/memberships');
