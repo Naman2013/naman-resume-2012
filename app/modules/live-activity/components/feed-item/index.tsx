@@ -7,7 +7,7 @@ type TFeedItem = {
   item: any;
 };
 
-const contentClickHandler = (e:any) => {
+const contentClickHandler = (e: any) => {
   if (e.target instanceof HTMLAnchorElement) {
     const targetLink = e.target.closest('a');
     e.preventDefault();
@@ -15,28 +15,34 @@ const contentClickHandler = (e:any) => {
   }
 };
 
-export const FeedItem = (props: TFeedItem) => (
-  <div
-    className={cx('feed-item', {
-      'feed-item-current-user': props.item.currentUser,
-    })}
-  >
-    <div className="feed-data">
-      {/* <span className="feed-data-date">{props.item.date}</span> */}
-      {/* <span className="feed-data-user">{props.item.user}</span> */}
-    </div>
+export const FeedItem = (props: TFeedItem) => {
+  const { item } = props;
 
-    <div className="feed-msg">
-      {props.item.currentUser ? (
-        <div className="arrow-left" />
-      ) : (
-        <div className="arrow-right" />
-      )}
+  return (
+    <div
+      className={cx('feed-item', {
+        'feed-item-current-user': item.currentUser,
+      })}
+    >
+      <div className="feed-data">
+        {/* <span className="feed-data-date">{props.item.date}</span> */}
+        {/* <span className="feed-data-user">{props.item.user}</span> */}
+      </div>
 
-      <span
-        onClick={contentClickHandler}
-        dangerouslySetInnerHTML={{ __html: props.item.text }}
-      />
+      <div className="feed-msg">
+        {item.currentUser ? (
+          <div className="arrow-left" />
+        ) : (
+          <div className="arrow-right" />
+        )}
+
+        <span
+          className="feed-msg-text"
+          onClick={contentClickHandler}
+          dangerouslySetInnerHTML={{ __html: item.text }}
+          role="button"
+        />
+      </div>
     </div>
-  </div>
-);
+  );
+};
