@@ -89,6 +89,7 @@ class MembershipPlanDetailsStep extends Component {
           requestBody={{
             callSource: 'membershipspagePlanDetails',
             selectedPlanId: this.state.selectedPlanId,
+	    enableHiddenPlanHashCode: window.localStorage.getItem('enableHiddenPlanHashCode'),
           }}
           render={({ fetchingContent, serviceResponse }) => (
             <div

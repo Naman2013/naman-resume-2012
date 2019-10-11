@@ -93,6 +93,7 @@ import ReserveByTelescope from 'app/pages/reserve-by-telescope';
 import ReserveByCatalog from 'app/pages/reserve/reserve-by-catalog';
 import ReserveObjects from 'app/pages/reserve/reserve-by-objects';
 import Show from 'app/pages/show';
+import EnableHiddenPlan from 'app/pages/registration/EnableHiddenPlan';
 import TelescopeOverview from 'app/pages/telescope-overview';
 import globalOnRouteUpdate from 'app/route-functions/globalOnRouteUpdate';
 import validateRegistrationPaths from 'app/route-functions/validateRegistrationPaths';
@@ -204,6 +205,12 @@ const AppRouter = ({ setPreviousInstrument }) => (
         />
         <Route path="step2" component={JoinStep2} />
         <Route path="step3" component={JoinStep3} />
+
+      	<Route
+      	  path="enablePlan/:subscriptionPlanHashCode"
+                component={EnableHiddenPlan}
+      	/>
+
         <Route
           path="byLandingPage/:subscriptionPlanHashCode"
           component={JoinByLandingPage}

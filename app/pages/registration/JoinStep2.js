@@ -622,6 +622,7 @@ class JoinStep2 extends Component {
             callSource: 'setupCredentials',
             selectedPlanId,
             selectedSchoolId,
+	    enableHiddenPlanHashCode: window.localStorage.getItem('enableHiddenPlanHashCode'),
           }}
           serviceResponseHandler={this.handleJoinPageServiceResponse}
           render={({ fetchingContent, serviceResponse: joinPageRes }) => (
