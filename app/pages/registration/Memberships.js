@@ -80,7 +80,10 @@ class Memberships extends Component {
 
         <Request
           serviceURL={SUBSCRIPTION_PLANS_ENDPOINT_URL}
-          requestBody={{ callSource: 'membershipspage', enableHiddenPlanId: window.localStorage.getItem('enableHiddenPlanId') }}
+          requestBody={{ 
+		callSource: 'membershipspage', 
+		enableHiddenPlanHashCode: window.localStorage.getItem('enableHiddenPlanHashCode'),
+	  }}
           render={({
             fetchingContent,
             serviceResponse: subscriptionResponse,
