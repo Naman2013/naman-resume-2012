@@ -148,7 +148,7 @@ class JoinStep3 extends Component {
                 //Cleanup local localStorage
 
 		//cleanup any hidden plan that was accessed now that a plan was redeemed.
-		window.localStorage.removeItem('enableHiddenPlanId');
+		window.localStorage.removeItem('enableHiddenPlanHashCode');
 
 		//cleanup other localstorage elements
                 window.localStorage.removeItem('pending_cid');
@@ -263,7 +263,12 @@ class JoinStep3 extends Component {
       <div>
         <Request
           serviceURL={JOIN_PAGE_ENDPOINT_URL}
-          requestBody={{ callSource: 'providePaymentDetails', selectedPlanId, cid: window.localStorage.getItem('pending_cid') }}
+          requestBody={{ 
+		callSource: 'providePaymentDetails', 
+		selectedPlanId, 
+		cid: window.localStorage.getItem('pending_cid'),
+		enableHiddenPlanHashCode: window.localStorage.getItem('enableHiddenPlanHashCode'),
+	  }}
           serviceResponseHandler={this.handleJoinPageServiceResponse}
           render={({ fetchingContent, serviceResponse: joinPageRes }) => (
             <Fragment>
