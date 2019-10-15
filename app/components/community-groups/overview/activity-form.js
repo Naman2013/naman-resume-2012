@@ -29,7 +29,6 @@ class ActivityForm extends Component {
     forumId: 0,
 
 
-
     canPost: false,
     placeholder: '',
     user: {
