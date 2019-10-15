@@ -7,8 +7,8 @@ module.exports = {
     'plugin:import/warnings',
     'prettier',
     'prettier/react',
+    "plugin:@typescript-eslint/recommended"
   ],
-  parser: 'babel-eslint',
   rules: {
     'react-hooks/rules-of-hooks': 'error', // Checks rules of Hooks
     'react-hooks/exhaustive-deps': 'warn', // Checks effect dependencies
@@ -64,20 +64,9 @@ module.exports = {
       },
     ],
   },
-  overrides: {
-    files: ['*.{ts,tsx}'], // TODO: need to think about this
-    parser: 'babel-eslint',
-    rules: {
-      'no-undef': 'off',
-    },
-  },
+  parser: "@typescript-eslint/parser",
   parserOptions: {
-    ecmaVersion: 6,
-    sourceType: 'module',
-    ecmaFeatures: {
-      spread: true,
-      legacyDecorators: true,
-    },
+    project: './tsconfig.json'
   },
   globals: {
     global: true,
@@ -125,5 +114,5 @@ module.exports = {
       },
     },
   },
-  plugins: ['prettier', 'import', 'react-hooks'],
+  plugins: ["@typescript-eslint",'prettier', 'import', 'react-hooks'],
 };
