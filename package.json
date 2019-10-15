@@ -24,9 +24,14 @@
     "build-storybook": "build-storybook",
     "storybook-static": "build-storybook -c .storybook -o .out"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
-      "eslint --fix",
+      "./node_modules/.bin/eslint --fix",
       "git add"
     ]
   },
@@ -196,7 +201,7 @@
     "eslint-import-resolver-webpack": "^0.11.0",
     "eslint-plugin-import": "^2.16.0",
     "eslint-plugin-jsx-a11y": "^6.2.1",
-    "eslint-plugin-prettier": "^3.0.1",
+    "eslint-plugin-prettier": "^3.1.1",
     "eslint-plugin-react": "^7.12.4",
     "eslint-plugin-react-hooks": "^1.6.0",
     "file-loader": "^3.0.1",
