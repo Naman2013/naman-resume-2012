@@ -66,6 +66,7 @@
     "ReplySuccessText": "You reply has been submitted!"
   },
   "Clubs": {
+    "Close": "Close",
     "LoadingStudentsList": "Loading Google Classroom Students",
     "RefreshingStudentsList": "Refreshing Google Classroom Students List",
     "Pending": "Pending",

@@ -1,22 +1,12 @@
-/***********************************
- * V4 Community Group Activity Form
- *
- *
- *
- ***********************************/
-import React, { Component } from 'react';
-import { withTranslation } from 'react-i18next';
-import { Link } from 'react-router';
-import PropTypes from 'prop-types';
 import { prepareThread } from 'app/services/discussions/prepare-thread';
-import {
-  romance,
-  seashell,
-  shadows,
-} from 'app/styles/variables/colors_tiles_v4';
-import { secondaryFont } from 'app/styles/variables/fonts';
 import { dropShadowContainer } from 'app/styles/mixins/utilities';
 import { screenLarge, screenMedium } from 'app/styles/variables/breakpoints';
+import { romance } from 'app/styles/variables/colors_tiles_v4';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { withTranslation } from 'react-i18next';
+import FullActivityForm from './full-activity-form';
+import SmallActivityForm from './small-activity-form';
 
 const { bool, number, shape, string } = PropTypes;
 
@@ -32,7 +22,6 @@ class ActivityForm extends Component {
       token: string,
       cid: string,
     }).isRequired,
-
   };
 
   static defaultProps = {
