@@ -8,7 +8,7 @@ import { withTranslation } from 'react-i18next';
 import FullActivityForm from './full-activity-form';
 import SmallActivityForm from './small-activity-form';
 
-const { bool, number, shape, string } = PropTypes;
+const { bool, number, string } = PropTypes;
 
 @withTranslation()
 class ActivityForm extends Component {
@@ -17,35 +17,22 @@ class ActivityForm extends Component {
     forumId: number,
     canPost: bool,
     placeholder: string,
-    user: shape({
-      at: string,
-      token: string,
-      cid: string,
-    }).isRequired,
   };
 
   static defaultProps = {
     topicId: 0,
     forumId: 0,
-
-
     canPost: false,
     placeholder: '',
-    user: {
-      at: '',
-      token: '',
-      cid: '',
-    },
   };
 
   state = {
     uuid: null,
-    showSmallActivityForm: false,
     showInfo: false,
   };
 
   componentDidMount() {
-    const { user } = this.props;
+    const { user = { at: '', token: '', cid: '' } } = this.props;
 
     prepareThread({
       at: user.at,
@@ -69,7 +56,7 @@ class ActivityForm extends Component {
   };
 
   render() {
-    const { isDesktop, topicId, forumId, placeholder, t } = this.props;
+    const { isDesktop, placeholder, t } = this.props;
 
     const { uuid, showInfo } = this.state;
 
