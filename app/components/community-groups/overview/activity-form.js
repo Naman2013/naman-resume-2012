@@ -27,6 +27,7 @@ class ActivityForm extends Component {
   static defaultProps = {
     topicId: 0,
     forumId: 0,
+
     canPost: false,
     placeholder: '',
     user: {
