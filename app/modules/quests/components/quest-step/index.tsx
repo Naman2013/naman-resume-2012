@@ -1,17 +1,11 @@
-/* eslint-disable import/order */
-// @flow
-
 import { QuestStepBox } from 'app/modules/quests/components/quest-step-box';
-import type { QuestStepModule } from 'app/modules/quests/types';
-import { questModuleType } from 'app/modules/quests/types';
-import React, { Component } from 'react';
-import { Container } from 'react-bootstrap';
+import React from 'react';
 import Modal from 'react-modal';
 import { Spinner } from 'app/components/spinner/index';
 import { browserHistory } from 'react-router';
+import { questModuleType } from 'app/modules/quests/data';
 import { QuestStepHeader } from './header';
 import { QuestStepFooter } from './footer';
-import cn from 'classnames';
 import './styles.scss';
 import QuestModuleTextOutput from '../../containers/quest-modules/textoutput';
 import QuestModuleDataCollection from '../../containers/quest-modules/data-collection';
@@ -20,28 +14,48 @@ import QuestModuleQaFillBlanks from '../../containers/quest-modules/qa-fill-blan
 import QuestModuleQaMultipleChoice from '../../containers/quest-modules/qa-multiple-choice';
 import QuestModuleGuidePanel from '../../containers/quest-modules/guide-panel';
 
-type TQuestStep = {
-  moduleList: QuestStepModule,
+
+
+type TQuestStepProps = {
+  moduleList: Array<QuestStepModule[]>;
+  stepData: IQuestStep;
+  routeParams: any; // todo
+  loading: boolean;
+  resourceModal: any;
+  questActions: any;
+  closeModal: any;
+
+  clearQuestStepData: () => Promise<any>;
+  getQuestStep: (questId: string, step: string) => Promise<any>;
+  setQuestCompleted: (arg0: any) => Promise<any>;
 };
 
-export class QuestStep extends Component<TQuestStep> {
-  state = {
+type TQuestStepState = {
+  prevStepId: string;
+  nextStepId: string;
+  stepKey: string;
+  stepId: string;
+}
+export class QuestStep extends React.PureComponent<TQuestStepProps,TQuestStepState> {
+  state: TQuestStepState = {
     prevStepId: null,
     nextStepId: null,
     stepKey: null,
     stepId: null,
   };
 
-  static getDerivedStateFromProps(props) {
+
+  static getDerivedStateFromProps(props: TQuestStepProps): any {
     const { stepData, routeParams } = props;
-    if (stepData?.stepMenuList?.length) {
+    // eslint-disable-next-line
+    if (stepData.stepMenuList?.length) {
       const prevStepIndex =
         stepData.stepMenuList.findIndex(
-          item => item.stepModuleId == routeParams.step
+          (item: any) => item.stepModuleId === routeParams.step
         ) - 1;
       const nextStepIndex =
         stepData.stepMenuList.findIndex(
-          item => item.stepModuleId == routeParams.step
+          (item: any) => item.stepModuleId === routeParams.step
         ) + 1;
       return {
         prevStepId:
@@ -57,11 +71,11 @@ export class QuestStep extends Component<TQuestStep> {
     return null;
   }
 
-  componentDidMount() {
+  componentDidMount(): void {
     this.getQuestStep();
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: TQuestStepProps): void {
     const {
       routeParams: { step },
     } = this.props;
@@ -73,7 +87,7 @@ export class QuestStep extends Component<TQuestStep> {
     }
   }
 
-  componentWillUnmount() {
+  componentWillUnmount(): void {
     const { clearQuestStepData } = this.props;
     clearQuestStepData();
   }
@@ -96,7 +110,7 @@ export class QuestStep extends Component<TQuestStep> {
     });
   };
 
-  setQuestCompleted = event => {
+  setQuestCompleted = (event: Event) => {
     event.preventDefault();
     const { routeParams, setQuestCompleted, stepData } = this.props;
     const { questId } = routeParams;
@@ -142,13 +156,14 @@ export class QuestStep extends Component<TQuestStep> {
     const {
       loading,
       moduleList,
-      stepData = {},
+      stepData,
       routeParams,
       resourceModal,
       questActions,
       closeModal,
       setQuestCompleted,
     } = this.props;
+
     const { prevStepId, nextStepId, stepKey, stepId } = this.state;
     const {
       readOnly,
@@ -179,9 +194,9 @@ export class QuestStep extends Component<TQuestStep> {
           disablePrev={prevStepId === null}
           disableNext={nextStepId === null}
           stepId={routeParams.step}
-          stepMenuList={stepData?.stepMenuList}
-          questCompletionList={stepData?.questCompletionList}
-          stepMenuTitle={stepData?.stepMenuHeader}
+          stepMenuList={stepData.stepMenuList}
+          questCompletionList={stepData.questCompletionList}
+          stepMenuTitle={stepData.stepMenuHeader}
           showHeaderNextButton={showHeaderNextButton}
           enableHeaderNextButton={enableHeaderNextButton}
           showHeaderLastButton={showHeaderLastButton}
@@ -192,8 +207,8 @@ export class QuestStep extends Component<TQuestStep> {
 
         <Modal
           ariaHideApp={false}
-          isOpen={resourceModal?.showModal}
-          style={resourceModal?.modalStyles}
+          isOpen={resourceModal.showModal}
+          style={resourceModal.modalStyles}
           contentLabel="quests details"
           onRequestClose={closeModal}
         >
@@ -207,7 +222,7 @@ export class QuestStep extends Component<TQuestStep> {
 
         {stepKey &&
           !redirectStep &&
-          stepId == routeParams.step &&
+          stepId === routeParams.step &&
           moduleList.map((modules, index) => (
             <div className="container step-container">
               <QuestStepBox
@@ -216,7 +231,7 @@ export class QuestStep extends Component<TQuestStep> {
                 questId={routeParams.questId}
                 showHeader={index === 0}
                 showFooterClaimButton={index === moduleList.length - 1}
-                showModule={modules[0]?.moduleType}
+                showModule={modules[0].moduleType}
                 setQuestCompleted={this.setQuestCompleted}
               >
                 {modules.map(module => (

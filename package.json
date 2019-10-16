@@ -219,7 +219,7 @@
     "styled-jsx": "^3.2.1",
     "terser-webpack-plugin": "^1.2.3",
     "ts-loader": "^6.0.4",
-    "typescript": "^3.6.2",
+    "typescript": "^3.7.0-beta",
     "url-loader": "^1.1.2",
     "webpack": "^4.29.6",
     "webpack-cli": "^3.3.0",
