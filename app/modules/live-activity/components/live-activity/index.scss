@@ -84,7 +84,8 @@ $screenHeaderSize: 110px;
 
           .full-screen-button {
             font-size: 12px;
-            border: none;
+            border-width: 1px;
+            border-color: $lightHeadedAstronaut;
             width: 27px;
             height: 27px;
             color: $lightHeadedAstronaut;
