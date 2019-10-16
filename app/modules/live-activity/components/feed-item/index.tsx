@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { KeyboardEvent } from 'react';
 import './index.scss';
 import * as cx from 'classnames';
 import { browserHistory } from 'react-router';
-import { isEnter } from 'app/modules/utils/validation';
+import { isEnter } from 'app/modules/utils/keyIdentifier.tsx';
 
 type TFeedItem = {
   item: any;
@@ -16,9 +16,9 @@ const contentClickHandler = (e: any) => {
   }
 };
 
-const onKeyPressed = (e: any) => {
+const onKeyPressed = (e: KeyboardEvent<HTMLInputElement>) => {
   if (isEnter(e)) {
-    this.contentClickHandler();
+    contentClickHandler(e);
   }
 };
 

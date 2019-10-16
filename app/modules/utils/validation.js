@@ -72,7 +72,3 @@ export function createValidator(rules) {
     return errors;
   };
 }
-
-export function isEnter(e) {
-  return e.key === 'Enter';
-}
