@@ -26,8 +26,8 @@ const getResizableBoxConfigs = () => {
   const isMobile = isMobileDevice();
   const defaultWidth = 500;
   const defaultHeight = 500;
-  const width = isMobile ? screen.availWidth : defaultWidth;
-  const height = isMobile ? screen.availHeight - 53 : defaultHeight;
+  const width = isMobile ? window.screen.availWidth : defaultWidth;
+  const height = isMobile ? window.screen.availHeight - 53 : defaultHeight;
 
   return {
     width,
@@ -52,7 +52,7 @@ const submitMessage = (
 
     let tmpUserDisplayName = userDisplayName;
 
-    if (userDisplayName == '') {
+    if (userDisplayName === '') {
       tmpUserDisplayName = '...';
     }
 
@@ -99,10 +99,17 @@ type TLiveActivity = {
 };
 
 export const LiveActivity = (props: TLiveActivity) => {
+  const {
+    totalViewersCount,
+    scrollActivityFeedToBottom,
+    isChatEnabled,
+    activityFeedMessages,
+  } = props;
   const [isOpen, setOpen] = React.useState(false);
   const isMobile = isMobileDevice();
   const defaultSize = getResizableBoxConfigs();
 
+  let [showMessageIdentifier, setMessageIdentifier] = useState(true);
   const [isFullscreen, setFullscreen] = useState(false);
 
   //This effect used to hide global scroll when live activity opened in full screen mode
@@ -124,9 +131,19 @@ export const LiveActivity = (props: TLiveActivity) => {
       <span
         role="presentation"
         className="icon-bubble-comment-streamline-talk"
-        onClick={() => setOpen(!isOpen)}
+        onClick={() => {
+          setOpen(!isOpen);
+          setMessageIdentifier(false);
+        }}
       />
-
+      <span
+        role="presentation"
+        className={showMessageIdentifier ? 'message-identifier' : ''}
+        onClick={() => {
+          setOpen(!isOpen);
+          setMessageIdentifier(false);
+        }}
+      />
       {/* WINDOW */}
       {isOpen && (
         <div
@@ -151,7 +168,7 @@ export const LiveActivity = (props: TLiveActivity) => {
             <div className="live-activity-window">
               <div className="live-activity-window-header d-flex justify-content-between align-items-center">
                 <span className="h4-custom ">
-                  live feeds ({props.totalViewersCount} Members Online)
+                  live feeds ({totalViewersCount} Members Online)
                 </span>
                 <div className="live-activity-window-header-right">
                   <div className="desktop-container">
@@ -164,7 +181,10 @@ export const LiveActivity = (props: TLiveActivity) => {
                   <Tooltip title="Close">
                     <span
                       className="icon-close"
-                      onClick={() => setOpen(false)}
+                      onClick={() => {
+                        setOpen(false);
+                        setMessageIdentifier(false);
+                      }}
                       role="presentation"
                     />
                   </Tooltip>
@@ -180,7 +200,9 @@ export const LiveActivity = (props: TLiveActivity) => {
                     marginRight: 'auto',
                     cursor: 'pointer',
                   }}
-                  onClick={props.scrollActivityFeedToBottom}
+                  onClick={scrollActivityFeedToBottom}
+                  onKeyDown={scrollActivityFeedToBottom}
+                  aria-hidden
                 >
                   jump to newest
                 </p>
@@ -189,13 +211,13 @@ export const LiveActivity = (props: TLiveActivity) => {
                   id="live-activity-window-body-feed"
                   className="live-activity-window-body-feed"
                 >
-                  {props.activityFeedMessages.map(feedItem => (
+                  {activityFeedMessages.map(feedItem => (
                     <FeedItem item={feedItem} />
                   ))}
                 </div>
               </div>
 
-              {props.isChatEnabled == true && (
+              {isChatEnabled === true && (
                 <div className="live-activity-window-footer">
                   <input
                     type="text"

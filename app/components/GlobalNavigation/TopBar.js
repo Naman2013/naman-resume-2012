@@ -54,7 +54,7 @@ const TopBar = ({
   const search = () => handleMenuClick(MENU_INTERFACE.SEARCH.name);
   const alerts = () => handleNotificationClick(MENU_INTERFACE.ALERTS.name);
   const profile = () => handleMenuClick(MENU_INTERFACE.PROFILE.name);
-  const help = () => handleMenuClick(MENU_INTERFACE.HELP.name);
+  // const help = () => handleMenuClick(MENU_INTERFACE.HELP.name);
 
   return (
     <Fragment>
@@ -135,17 +135,23 @@ const TopBar = ({
                     <li>
                       <LiveActivityLoadable
                         totalViewersCount={totalViewersCount}
-			activityFeedMessages={activityFeedMessages}
-			pubnubConnection={pubnubConnection}
-			pubnubActivityFeedChannelName={pubnubActivityFeedChannelName}
-			userDisplayName={userDisplayName}
-			isChatEnabled={isChatEnabled}
+                        activityFeedMessages={activityFeedMessages}
+                        pubnubConnection={pubnubConnection}
+                        pubnubActivityFeedChannelName={
+                          pubnubActivityFeedChannelName
+                        }
+                        userDisplayName={userDisplayName}
+                        isChatEnabled={isChatEnabled}
                         onClick={closeAllMenus}
-			scrollActivityFeedToBottom={scrollActivityFeedToBottom}
+                        scrollActivityFeedToBottom={scrollActivityFeedToBottom}
                       />
                     </li>
                     <li>
-                      <Livecast user={user} allLivecastsInProgress={allLivecastsInProgress} onClick={closeAllMenus} />
+                      <Livecast
+                        user={user}
+                        allLivecastsInProgress={allLivecastsInProgress}
+                        onClick={closeAllMenus}
+                      />
                     </li>
                     <li>
                       <Button
