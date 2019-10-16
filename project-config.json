@@ -1,40 +1,33 @@
 {
-  "change.slooh.cn": {
+  "india.slooh.com": {
     "SENTRY_ENV": "PRODUCTION",
-    "PUBNUB_CHANNEL_PREFIX": "prod",
-    "COOKIE_DOMAIN": ".slooh.cn",
-    "locale": "cn",
-    "productID": 2
+    "PUBNUB_CHANNEL_PREFIX": "prod"
+    "productID": "035e02de-e555-11e9-a8f4-06b2ab7e8ae4"
+  },
+  "chandrayaan2.slooh.com": {
+    "productID": "035e02de-e555-11e9-a8f4-06b2ab7e8ae4"
   },
   "gonogo.slooh.com": {
     "SENTRY_ENV": "PRODUCTION",
-    "productID": "slooh.com-test-productID",
-    "COOKIE_DOMAIN": ".slooh.com",
+    "PUBNUB_CHANNEL_PREFIX": "prod"
+  },
+  "main.slooh.com": {
+    "SENTRY_ENV": "PRODUCTION",
+    "PUBNUB_CHANNEL_PREFIX": "prod"
+  },
+  "www.slooh.com": {
+    "SENTRY_ENV": "PRODUCTION",
     "PUBNUB_CHANNEL_PREFIX": "prod"
   },
   "slooh.com": {
     "SENTRY_ENV": "PRODUCTION",
-    "productID": "slooh.com-test-productID",
-    "COOKIE_DOMAIN": ".slooh.com",
     "PUBNUB_CHANNEL_PREFIX": "prod"
-  },
-  "nova.slooh.com": {
-    "productID": "nova-productID",
-    "COOKIE_DOMAIN": ".slooh.com"
-  },
-  "orion.slooh.com": {
-    "productID": "orion-productID",
-    "COOKIE_DOMAIN": ".slooh.com"
-  },
-  "eris.slooh.com": {
-    "productID": "eris-productID",
-    "COOKIE_DOMAIN": ".slooh.com"
   },
   "default": {
     "SENTRY_ENV": "TEST",
-    "COOKIE_DOMAIN": null,
+    "COOKIE_DOMAIN": ".slooh.com",
     "locale": "en",
-    "productID": "default-productID",
+    "productID": "adfb3d74-e551-11e9-a8f4-06b2ab7e8ae4",
     "PUBNUB_CHANNEL_PREFIX": "dev",
     "PUBNUB_FEEDS_SUBKEY": "sub-c-15f5f3fa-a890-11e9-9764-faf49bb54dbb",
     "PUBNUB_FEEDS_PUBKEY": "pub-c-e2ae41bc-2edd-4b67-90ff-f204c3d8a01e",
