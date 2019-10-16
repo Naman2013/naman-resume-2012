@@ -1,23 +1,26 @@
-interface QuestStepModule extends StandardResponse {
+export type TQuestModuleType =
+  | 'datacollectsame'
+  | 'datacollectdifferent'
+  | 'imageordering'
+  | 'textinput'
+  | 'textoutput'
+  | 'qamultiplechoice'
+  | 'qafreeform'
+  | 'qafillblanks'
+  | 'animation'
+  | 'guidepanel';
+
+export declare interface IQuestStepModule {
   moduleIndex: number;
   moduleId: number;
   moduleUUID: string;
   moduleIsComplete: boolean;
   moduleIdUser: number;
   progressMessage: string;
-  moduleType:
-    | 'datacollectsame'
-    | 'datacollectdifferent'
-    | 'imageordering'
-    | 'textinput'
-    | 'textoutput'
-    | 'qamultiplechoice'
-    | 'qafreeform'
-    | 'qafillblanks'
-    | 'guidepanel';
+  moduleType: TQuestModuleType;
 }
 
-interface IQuestStep extends StandardResponse {
+export declare interface IQuestStep extends StandardResponse {
   questId: number;
   questUUID: string;
   questIdUser: number;
@@ -81,13 +84,9 @@ interface IQuestStep extends StandardResponse {
   currentlyViewingCaption: string;
   stepTopTitle: string;
   stepFooterTitle: string;
-  apiError: boolean;
-  errorCode: number;
-  errorMsg: string;
-  statusCode: number;
   userRecordWasUpdated: boolean;
   stepModuleCount: number;
-  stepModuleList: QuestStepModule[];
+  stepModuleList: IQuestStepModule[];
   stepMenuHeader: string;
   stepMenuCount: number;
   stepMenuList: StepMenuItem[];
@@ -96,7 +95,7 @@ interface IQuestStep extends StandardResponse {
   stepsInThisQuest: StepsInQuest;
 }
 
-interface StepMenuItem {
+export declare interface StepMenuItem {
   itemType: string;
   stepSequence: number;
   stepSelected: boolean;
@@ -109,7 +108,7 @@ interface StepMenuItem {
   stepIconURL: string;
 }
 
-interface StepsInQuest {
+export declare interface StepsInQuest {
   customerId: number;
   questId: number;
   questUserStatus: string;

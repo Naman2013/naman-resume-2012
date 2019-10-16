@@ -3,21 +3,15 @@ import React from 'react';
 import Modal from 'react-modal';
 import { Spinner } from 'app/components/spinner/index';
 import { browserHistory } from 'react-router';
-import { questModuleType } from 'app/modules/quests/data';
+import {QuestStepModule} from 'app/modules/quests/components/quest-step-module';
+import {IQuestStep, IQuestStepModule} from 'app/modules/quests/types';
 import { QuestStepHeader } from './header';
 import { QuestStepFooter } from './footer';
 import './styles.scss';
-import QuestModuleTextOutput from '../../containers/quest-modules/textoutput';
-import QuestModuleDataCollection from '../../containers/quest-modules/data-collection';
-import QuestModuleQaFreeForm from '../../containers/quest-modules/qa-free-form';
-import QuestModuleQaFillBlanks from '../../containers/quest-modules/qa-fill-blanks';
-import QuestModuleQaMultipleChoice from '../../containers/quest-modules/qa-multiple-choice';
-import QuestModuleGuidePanel from '../../containers/quest-modules/guide-panel';
-
 
 
 type TQuestStepProps = {
-  moduleList: Array<QuestStepModule[]>;
+  moduleList: Array<IQuestStepModule[]>;
   stepData: IQuestStep;
   routeParams: any; // todo
   loading: boolean;
@@ -159,7 +153,6 @@ export class QuestStep extends React.PureComponent<TQuestStepProps,TQuestStepSta
       stepData,
       routeParams,
       resourceModal,
-      questActions,
       closeModal,
       setQuestCompleted,
     } = this.props;
@@ -229,72 +222,20 @@ export class QuestStep extends React.PureComponent<TQuestStepProps,TQuestStepSta
                 stepData={stepData}
                 completed={stepData.stepCompleted}
                 questId={routeParams.questId}
+                key={routeParams.questId}
                 showHeader={index === 0}
                 showFooterClaimButton={index === moduleList.length - 1}
                 showModule={modules[0].moduleType}
                 setQuestCompleted={this.setQuestCompleted}
               >
-                {modules.map(module => (
-                  <>
-                    {(module.moduleType === questModuleType.datacollectsame ||
-                      module.moduleType ===
-                        questModuleType.datacollectdifferent) && (
-                      <QuestModuleDataCollection
-                        module={module}
-                        key={`quest-data-collection-${module.moduleId}`}
-                        questId={routeParams.questId}
-                        navigateToNextStep={this.navigateToNextStep}
-                        readOnly={readOnly}
-                        refreshQuestStep={this.getQuestStep}
-                      />
-                    )}
-
-                    {module.moduleType === questModuleType.textoutput && (
-                      <QuestModuleTextOutput
-                        module={module}
-                        key={`quest-text-output-${module.moduleId}`}
-                        readOnly={readOnly}
-                      />
-                    )}
-
-                    {module.moduleType === questModuleType.qafreeform && (
-                      <QuestModuleQaFreeForm
-                        module={module}
-                        key={`quest-qa-freeform-${module.moduleId}`}
-                        questId={routeParams.questId}
-                        refreshQuestStep={this.getQuestStep}
-                        readOnly={readOnly}
-                      />
-                    )}
-
-                    {module.moduleType === questModuleType.qafillblanks && (
-                      <QuestModuleQaFillBlanks
-                        module={module}
-                        key={`quest-qa-fillblanks-${module.moduleId}`}
-                        questId={routeParams.questId}
-                        refreshQuestStep={this.getQuestStep}
-                        readOnly={readOnly}
-                      />
-                    )}
-
-                    {module.moduleType === questModuleType.qamultiplechoice && (
-                      <QuestModuleQaMultipleChoice
-                        module={module}
-                        key={`quest-qa-multiplechoice-${module.moduleId}`}
-                        questId={routeParams.questId}
-                        refreshQuestStep={this.getQuestStep}
-                      />
-                    )}
-
-                    {module.moduleType === questModuleType.guidepanel && (
-                      <QuestModuleGuidePanel
-                        module={module}
-                        key={`quest-text-output-${module.moduleId}`}
-                        readOnly={readOnly}
-                      />
-                    )}
-                  </>
-                ))}
+                {modules.map(module =>
+                  <QuestStepModule
+                    module={module}
+                    readOnly={readOnly}
+                    routeParams={routeParams}
+                    navigateToNextStep={this.navigateToNextStep}
+                    refreshQuestStep={this.getQuestStep}
+                  />)}
               </QuestStepBox>
             </div>
           ))}

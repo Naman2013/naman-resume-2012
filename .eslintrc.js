@@ -10,7 +10,7 @@ module.exports = {
     "plugin:@typescript-eslint/recommended"
   ],
   rules: {
-    '@typescript-eslint/interface-name-prefix': 1,
+    '@typescript-eslint/interface-name-prefix': 0,
     'react-hooks/rules-of-hooks': 'error', // Checks rules of Hooks
     'react-hooks/exhaustive-deps': 'warn', // Checks effect dependencies
     'linebreak-style': 0,

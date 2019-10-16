@@ -10,4 +10,5 @@ export const questModuleType = {
   qafreeform: 'qafreeform',
   qafillblanks: 'qafillblanks',
   guidepanel: 'guidepanel',
+  animation: 'animation',
 };
