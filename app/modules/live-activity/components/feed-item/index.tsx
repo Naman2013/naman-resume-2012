@@ -41,7 +41,7 @@ export const FeedItem = (props: TFeedItem) => {
           onClick={contentClickHandler}
           onKeyDown={contentClickHandler}
           dangerouslySetInnerHTML={{ __html: text }}
-          tabIndex="0"
+          tabIndex={0}
           role="button"
         />
       </div>
