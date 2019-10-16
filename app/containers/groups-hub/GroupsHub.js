@@ -222,7 +222,7 @@ class Groups extends Component {
                         <div className="flex">
                           {serviceResponse.canRequestGroup ? (
                             <Button
-                              text={t('Clubs.requestGroup')}
+                              text={t('Hubs.requestGroup')}
                               onClickEvent={this.requestGroup}
                             />
                           ) : null}

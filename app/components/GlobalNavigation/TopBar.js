@@ -206,7 +206,7 @@ const TopBar = ({
                               &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
                             </div>
                             <span className="text">
-                              {t('Navigation..SignIn')}
+                              {t('Navigation.SignIn')}
                             </span>
                             <i className="top-nav-icon i-user-astronaut" />
                           </div>

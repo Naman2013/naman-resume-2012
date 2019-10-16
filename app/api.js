@@ -1,4 +1,4 @@
-import { projectLocale } from 'app/config/project-config';
+import { projectLocale, projectProductId } from 'app/config/project-config';
 import axios from 'axios';
 
 const commonData = {
@@ -26,7 +26,7 @@ export const API = axios.create({
       }
       // handle 'application/json'
       headers['Content-Type'] = 'application/json';
-      const finalData = { ...data, ...commonData, locale: projectLocale };
+      const finalData = { ...data, ...commonData, locale: projectLocale, productId:projectProductId };
       return JSON.stringify(finalData);
     },
   ],

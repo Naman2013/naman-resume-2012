@@ -25,6 +25,7 @@ const getProjectConf = (): ProjectConf => {
 
 export const projectConf = getProjectConf();
 export const projectLocale = projectConf.locale;
+export const projectProductId = projectConf.productID;
 export const projectSentryEnv = projectConf.SENTRY_ENV;
 export const projectCookieDomain = projectConf.COOKIE_DOMAIN;
 export const projectPubnubConf = {
