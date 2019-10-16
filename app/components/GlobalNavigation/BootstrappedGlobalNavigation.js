@@ -356,17 +356,16 @@ class GlobalNavigation extends Component {
     const notificationMenuContent = MENU_INTERFACE[MENU_INTERFACE.ALERTS.name];
 
     let displayName = '';
-    const {
-      displayName: userInfoName,
-      isChatEnabled: userInfoIsChatEnabled,
-    } = userMenu.userInfo;
-    if (userMenu && userMenu.userInfo) {
-      displayName = userInfoName;
-    }
-
     let isChatEnabled = true;
+
     if (userMenu && userMenu.userInfo) {
+      const { userInfo } = userMenu;
+      const {
+        displayName: userInfoName,
+        isChatEnabled: userInfoIsChatEnabled,
+      } = userInfo;
       isChatEnabled = userInfoIsChatEnabled;
+      displayName = userInfoName;
     }
 
     return (
