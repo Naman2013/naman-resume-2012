@@ -193,7 +193,7 @@ class GlobalNavigation extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const routeKey = this.props;
+    const { routeKey } = this.props;
     if (nextProps.routeKey !== routeKey) {
       this.debouncedCloseAll();
     }

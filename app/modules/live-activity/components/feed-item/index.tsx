@@ -2,6 +2,7 @@ import React from 'react';
 import './index.scss';
 import * as cx from 'classnames';
 import { browserHistory } from 'react-router';
+import { isEnter } from 'app/modules/utils/validation';
 
 type TFeedItem = {
   item: any;
@@ -12,6 +13,12 @@ const contentClickHandler = (e: any) => {
     const targetLink = e.target.closest('a');
     e.preventDefault();
     browserHistory.push(targetLink.href);
+  }
+};
+
+const onKeyPressed = (e: any) => {
+  if (isEnter(e)) {
+    this.contentClickHandler();
   }
 };
 
@@ -39,7 +46,7 @@ export const FeedItem = (props: TFeedItem) => {
 
         <span
           onClick={contentClickHandler}
-          onKeyDown={contentClickHandler}
+          onKeyDown={onKeyPressed}
           dangerouslySetInnerHTML={{ __html: text }}
           tabIndex={0}
           role="button"

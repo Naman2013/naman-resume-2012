@@ -109,7 +109,7 @@ export const LiveActivity = (props: TLiveActivity) => {
   const isMobile = isMobileDevice();
   const defaultSize = getResizableBoxConfigs();
 
-  let [showMessageIdentifier, setMessageIdentifier] = useState(true);
+  const [showMessageIdentifier, setMessageIdentifier] = useState(true);
   const [isFullscreen, setFullscreen] = useState(false);
 
   //This effect used to hide global scroll when live activity opened in full screen mode
