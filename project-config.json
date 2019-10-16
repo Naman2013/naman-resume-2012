@@ -1,7 +1,7 @@
 {
   "india.slooh.com": {
     "SENTRY_ENV": "PRODUCTION",
-    "PUBNUB_CHANNEL_PREFIX": "prod"
+    "PUBNUB_CHANNEL_PREFIX": "prod",
     "productID": "035e02de-e555-11e9-a8f4-06b2ab7e8ae4"
   },
   "chandrayaan2.slooh.com": {
