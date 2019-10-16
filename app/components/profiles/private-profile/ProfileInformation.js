@@ -49,7 +49,7 @@ class ProfileInformation extends Component {
     const { t, profileData } = this.props;
     const { userInfoGuideDetails } = profileData;
     return {
-      tabsList: [t('Profile.Stats'), t('Profile.Guide')],
+      tabsList: [t('Profile.Stats'), t('Profile.Guides')],
       panels: [
         <GravityStatsList gravityList={gravityData.gravityList} />,
         <StatsDetails userInfoGuideDetails={userInfoGuideDetails} />,
@@ -64,7 +64,7 @@ class ProfileInformation extends Component {
     const { t, profileData } = this.props;
     const { userInfoGuideDetails } = profileData;
     return {
-      tabsList: [t('Profile.MyBadges'), t('Profile.Guide')],
+      tabsList: [t('Profile.MyBadges'), t('Profile.Guides')],
       panels: [
         <Badges badgesList={badgesData.badgesList} />,
         <StatsDetails userInfoGuideDetails={userInfoGuideDetails} />,
@@ -79,7 +79,7 @@ class ProfileInformation extends Component {
     const { t, profileData } = this.props;
     const { userInfoGuideDetails } = profileData;
     return {
-      tabsList: [t('Profile.Specialties'), t('Profile.Guide')],
+      tabsList: [t('Profile.Specialties'), t('Profile.Guides')],
       panels: [
         <SpecialistList specialistList={mvpData.specialistObjects} />,
         <StatsDetails userInfoGuideDetails={userInfoGuideDetails} />,

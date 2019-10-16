@@ -344,7 +344,7 @@ class DiscussionsThreads extends Component {
               </Button>
             ) : (
               <Button onClick={() => this.getThreads(this.props)}>
-                {t('AskAnAstronomer.Search')}
+                {t('Clubs.Search')}
               </Button>
             )}
           </div>

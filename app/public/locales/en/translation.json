@@ -106,6 +106,7 @@
     "Reset": "Reset"
   },
   "Dashboard": {
+    "RedeemInvitationCode": "Redeem Invitation Code",
     "missions": "missions",
     "guides": "guides",
     "quests": "quests",
