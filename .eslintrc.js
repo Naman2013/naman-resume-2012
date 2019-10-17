@@ -65,7 +65,7 @@ module.exports = {
       },
     ],
   },
-  parser: '@typescript-eslint/parser',
+  parser: 'babel-eslint',
   parserOptions: {
     project: './tsconfig.json',
   },
