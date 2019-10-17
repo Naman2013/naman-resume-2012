@@ -5,9 +5,10 @@ module.exports = {
     'airbnb',
     'plugin:import/errors',
     'plugin:import/warnings',
+    'plugin:import/typescript',
     'prettier',
     'prettier/react',
-    "plugin:@typescript-eslint/recommended"
+    'plugin:@typescript-eslint/recommended',
   ],
   rules: {
     'react-hooks/rules-of-hooks': 'error', // Checks rules of Hooks
@@ -64,9 +65,9 @@ module.exports = {
       },
     ],
   },
-  parser: "@typescript-eslint/parser",
+  parser: '@typescript-eslint/parser',
   parserOptions: {
-    project: './tsconfig.json'
+    project: './tsconfig.json',
   },
   globals: {
     global: true,
@@ -114,5 +115,5 @@ module.exports = {
       },
     },
   },
-  plugins: ["@typescript-eslint",'prettier', 'import', 'react-hooks'],
+  plugins: ['@typescript-eslint', 'prettier', 'import', 'react-hooks'],
 };
