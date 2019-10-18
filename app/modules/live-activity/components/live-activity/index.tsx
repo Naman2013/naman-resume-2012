@@ -69,6 +69,7 @@ const submitMessage = (
         }/activity">${tmpUserDisplayName}</a> - ${event.target.value}`,
       },
     };
+    window.localStorage.setItem('newMessageId', null);
 
     //publish the message
     pubnubConnection.publish({
@@ -77,7 +78,6 @@ const submitMessage = (
       sendByPost: false, // true to send via post
       storeInHistory: true, //override default storage options
     });
-
     myTextInputField.value = '';
     setTimeout(function() {
       let liveActivityWindowBodyFeedObj = document.getElementById(
@@ -108,9 +108,26 @@ export const LiveActivity = (props: TLiveActivity) => {
   const [isOpen, setOpen] = React.useState(false);
   const isMobile = isMobileDevice();
   const defaultSize = getResizableBoxConfigs();
-
-  const [showMessageIdentifier, setMessageIdentifier] = useState(true);
   const [isFullscreen, setFullscreen] = useState(false);
+  const lastStorageMessageId = window.localStorage.getItem('newMessageId');
+  const activityFeedMessage =
+    activityFeedMessages[activityFeedMessages.length - 1];
+  let lastMessageId = '';
+  if (activityFeedMessage) {
+    lastMessageId = activityFeedMessage.id ? activityFeedMessage.id : 'null';
+  }
+
+  const openMessenger = () => {
+    if (!isOpen) {
+      const lastMessageObj =
+        activityFeedMessages[activityFeedMessages.length - 1];
+      if (lastMessageObj.id) {
+        window.localStorage.setItem('newMessageId', lastMessageObj.id);
+      } else {
+        window.localStorage.setItem('newMessageId', null);
+      }
+    }
+  };
 
   //This effect used to hide global scroll when live activity opened in full screen mode
   useEffect(() => {
@@ -133,15 +150,17 @@ export const LiveActivity = (props: TLiveActivity) => {
         className="icon-bubble-comment-streamline-talk"
         onClick={() => {
           setOpen(!isOpen);
-          setMessageIdentifier(false);
+          openMessenger();
         }}
       />
       <span
         role="presentation"
-        className={showMessageIdentifier ? 'message-identifier' : ''}
+        className={
+          lastMessageId !== lastStorageMessageId ? 'message-identifier' : ''
+        }
         onClick={() => {
           setOpen(!isOpen);
-          setMessageIdentifier(false);
+          openMessenger();
         }}
       />
       {/* WINDOW */}
@@ -183,7 +202,6 @@ export const LiveActivity = (props: TLiveActivity) => {
                       className="icon-close"
                       onClick={() => {
                         setOpen(false);
-                        setMessageIdentifier(false);
                       }}
                       role="presentation"
                     />
