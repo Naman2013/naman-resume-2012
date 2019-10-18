@@ -28,7 +28,7 @@ export const SubscriptionPlan = (props: TSubscriptionPlan) => {
     teaserContent,
   } = plan;
 
-  const planCostDisplay = planCostPrefix + planCost + planCostPostfix;
+  const planCostDisplay = planCostPrefix + planCost;  
 
   return (
     <div className="subscription-plan">
