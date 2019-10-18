@@ -45,6 +45,7 @@ export const FeedItem = (props: TFeedItem) => {
         )}
 
         <span
+          className="feed-msg-text"
           onClick={contentClickHandler}
           onKeyDown={onKeyPressed}
           dangerouslySetInnerHTML={{ __html: text }}

@@ -25,7 +25,7 @@ const disableResizing = {
 const getResizableBoxConfigs = () => {
   const isMobile = isMobileDevice();
   const defaultWidth = 500;
-  const defaultHeight = 500;
+  const defaultHeight = 450;
   const width = isMobile ? window.screen.availWidth : defaultWidth;
   const height = isMobile ? window.screen.availHeight - 53 : defaultHeight;
 
@@ -183,6 +183,7 @@ export const LiveActivity = (props: TLiveActivity) => {
             enableResizing={
               isFullscreen || isMobile ? disableResizing : enableResizing
             }
+            dragHandleClassName="live-activity-window-header"
           >
             <div className="live-activity-window">
               <div className="live-activity-window-header d-flex justify-content-between align-items-center">
@@ -191,20 +192,22 @@ export const LiveActivity = (props: TLiveActivity) => {
                 </span>
                 <div className="live-activity-window-header-right">
                   <div className="desktop-container">
-                    <Button
-                      mod="full-screen-button"
-                      renderIcon={() => <i className="fa fa-arrows-alt" />}
-                      onClickEvent={() => setFullscreen(!isFullscreen)}
-                    />
+                    <Tooltip title="Fullscreen">
+                      <Button
+                        mod="full-screen-button"
+                        renderIcon={() => <i className="fa fa-arrows-alt" />}
+                        onClickEvent={() => setFullscreen(!isFullscreen)}
+                      />
+                    </Tooltip>
                   </div>
                   <Tooltip title="Close">
-                    <span
-                      className="icon-close"
-                      onClick={() => {
-                        setOpen(false);
-                      }}
-                      role="presentation"
-                    />
+                    <div className="close-window">
+                      <span
+                        className="icon-close"
+                        onClick={() => setOpen(false)}
+                        role="presentation"
+                      />
+                    </div>
                   </Tooltip>
                 </div>
               </div>
