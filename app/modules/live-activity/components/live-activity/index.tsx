@@ -112,21 +112,15 @@ export const LiveActivity = (props: TLiveActivity) => {
   const lastStorageMessageId = window.localStorage.getItem('newMessageId');
   const activityFeedMessage =
     activityFeedMessages[activityFeedMessages.length - 1];
-  let lastMessageId = '';
-  if (activityFeedMessage) {
-    lastMessageId = activityFeedMessage.id ? activityFeedMessage.id : 'null';
+  let lastMessageId = 'null';
+  if (activityFeedMessage && activityFeedMessage.id !== undefined) {
+    lastMessageId = activityFeedMessage.id
+      ? activityFeedMessage.id
+      : lastMessageId;
   }
 
-  const openMessenger = () => {
-    if (!isOpen) {
-      const lastMessageObj =
-        activityFeedMessages[activityFeedMessages.length - 1];
-      if (lastMessageObj.id) {
-        window.localStorage.setItem('newMessageId', lastMessageObj.id);
-      } else {
-        window.localStorage.setItem('newMessageId', null);
-      }
-    }
+  const setMessageIdToLocalStorage = () => {
+    window.localStorage.setItem('newMessageId', lastMessageId);
   };
 
   //This effect used to hide global scroll when live activity opened in full screen mode
@@ -150,7 +144,7 @@ export const LiveActivity = (props: TLiveActivity) => {
         className="icon-bubble-comment-streamline-talk"
         onClick={() => {
           setOpen(!isOpen);
-          openMessenger();
+          setMessageIdToLocalStorage();
         }}
       />
       <span
@@ -160,7 +154,7 @@ export const LiveActivity = (props: TLiveActivity) => {
         }
         onClick={() => {
           setOpen(!isOpen);
-          openMessenger();
+          setMessageIdToLocalStorage();
         }}
       />
       {/* WINDOW */}
