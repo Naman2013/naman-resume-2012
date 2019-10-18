@@ -28,15 +28,15 @@ export const SubscriptionPlan = (props: TSubscriptionPlan) => {
     teaserContent,
   } = plan;
 
+  const planCostDisplay = planCostPrefix + planCost + planCostPostfix;
+
   return (
     <div className="subscription-plan">
       {planHeading && <Fragment><span className="header">{planHeading}</span><hr /></Fragment>}
 
       <div className="d-flex justify-content-between align-items-baseline">
         <span className="plan-name">{planName}</span>
-	<span className="plan-cost" dangerouslySetInnerHTML={{ __html: planCostPrefix }} />
-	<span className="plan-cost">{planCostPrefix}</span>
-	<span className="plan-cost" dangerouslySetInnerHTML={{ __html: planCostPostfix }} />
+	<span className="plan-cost" dangerouslySetInnerHTML={{ __html: planCostDisplay}} />
       </div>
 
       <hr />
