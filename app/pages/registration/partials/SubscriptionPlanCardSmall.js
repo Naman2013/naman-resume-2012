@@ -63,7 +63,9 @@ class SubscriptionPlanCardSmall extends Component {
           />
           <div className="audience-type border-bottom">{planAudienceType}</div>
           <div className="emphasize border-bottom padded-top-bottom">
-            {`${planCostPrefix}${planCost} ${planCostPostfix}`}
+	    <span dangerouslySetInnerHTML={{ __html: planCostPrefix }} />
+	    <span dangerouslySetInnerHTML={{ __html: planCost }} />
+	    <span dangerouslySetInnerHTML={{ __html: planCostPostfix }} />
           </div>
           <div className="flex padded-top-bottom">
             <div>

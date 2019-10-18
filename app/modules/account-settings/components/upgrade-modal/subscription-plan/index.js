@@ -34,10 +34,9 @@ export const SubscriptionPlan = (props: TSubscriptionPlan) => {
 
       <div className="d-flex justify-content-between align-items-baseline">
         <span className="plan-name">{planName}</span>
-        <span className="plan-cost">
-          {planCostPrefix}
-          {planCost}
-        </span>
+	<span className="plan-cost" dangerouslySetInnerHTML={{ __html: planCostPrefix }} />
+	<span className="plan-cost">{planCostPrefix}</span>
+	<span className="plan-cost" dangerouslySetInnerHTML={{ __html: planCostPostfix }} />
       </div>
 
       <hr />
