@@ -63,9 +63,9 @@ class SubscriptionPlanCardSmall extends Component {
           />
           <div className="audience-type border-bottom">{planAudienceType}</div>
           <div className="emphasize border-bottom padded-top-bottom">
-	    <span className="planCost" dangerouslySetInnerHTML={{ __html: planCostPrefix }} />
-	    <span className="planCost"  dangerouslySetInnerHTML={{ __html: planCost }} />
-	    <span className="planCost"  dangerouslySetInnerHTML={{ __html: planCostPostfix }} />
+	    <span className="plan-cost-small" dangerouslySetInnerHTML={{ __html: planCostPrefix }} />
+	    <span className="plan-cost-small"  dangerouslySetInnerHTML={{ __html: planCost }} />
+	    <span className="plan-cost-small"  dangerouslySetInnerHTML={{ __html: planCostPostfix }} />
           </div>
           <div className="flex padded-top-bottom">
             <div>
