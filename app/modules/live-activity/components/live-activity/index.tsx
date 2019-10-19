@@ -35,6 +35,10 @@ const getResizableBoxConfigs = () => {
   };
 };
 
+const setMessageIdToLocalStorage = id => {
+  window.localStorage.setItem('newMessageId', id);
+};
+
 const submitMessage = (
   event: any,
   pubnubConnection: any,
@@ -45,11 +49,6 @@ const submitMessage = (
   event.preventDefault();
 
   if (event.keyCode === 13) {
-    //DO SOMETHING
-    //console.log(event.target.value);
-    //console.log(pubnubConnection);
-    //console.log(getUserInfo());
-
     let tmpUserDisplayName = userDisplayName;
 
     if (userDisplayName === '') {
@@ -69,7 +68,7 @@ const submitMessage = (
         }/activity">${tmpUserDisplayName}</a> - ${event.target.value}`,
       },
     };
-    window.localStorage.setItem('newMessageId', null);
+    setMessageIdToLocalStorage(null);
 
     //publish the message
     pubnubConnection.publish({
@@ -111,17 +110,11 @@ export const LiveActivity = (props: TLiveActivity) => {
   const [isFullscreen, setFullscreen] = useState(false);
   const lastStorageMessageId = window.localStorage.getItem('newMessageId');
   const activityFeedMessage =
-    activityFeedMessages[activityFeedMessages.length - 1];
-  let lastMessageId = 'null';
-  if (activityFeedMessage && activityFeedMessage.id !== undefined) {
-    lastMessageId = activityFeedMessage.id
-      ? activityFeedMessage.id
-      : lastMessageId;
-  }
+    activityFeedMessages[activityFeedMessages.length - 1] || {};
 
-  const setMessageIdToLocalStorage = () => {
-    window.localStorage.setItem('newMessageId', lastMessageId);
-  };
+  const lastMessageId = activityFeedMessage.id
+    ? activityFeedMessage.id
+    : 'null';
 
   //This effect used to hide global scroll when live activity opened in full screen mode
   useEffect(() => {
@@ -144,7 +137,7 @@ export const LiveActivity = (props: TLiveActivity) => {
         className="icon-bubble-comment-streamline-talk"
         onClick={() => {
           setOpen(!isOpen);
-          setMessageIdToLocalStorage();
+          setMessageIdToLocalStorage(lastMessageId);
         }}
       />
       <span
@@ -154,7 +147,7 @@ export const LiveActivity = (props: TLiveActivity) => {
         }
         onClick={() => {
           setOpen(!isOpen);
-          setMessageIdToLocalStorage();
+          setMessageIdToLocalStorage(lastMessageId);
         }}
       />
       {/* WINDOW */}
