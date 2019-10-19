@@ -35,7 +35,7 @@ const getResizableBoxConfigs = () => {
   };
 };
 
-const setMessageIdToLocalStorage = id => {
+const setMessageIdToLocalStorage = (id: any) => {
   window.localStorage.setItem('newMessageId', id);
 };
 
