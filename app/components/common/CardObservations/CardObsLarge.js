@@ -26,12 +26,13 @@ const CardObsLarge = props => {
     likePrompt,
     showLikePrompt,
     socialShareDescription,
-    iconFileData,
+    iconFileData = { Member: {} },
   } = props;
   const { t } = useTranslation();
   const [isOpen, openModal] = useState(false);
   const [likesNumber, changeLikesNumber] = useState(likesCount);
   const title = observationTitle || imageTitle;
+
   const onLikeClick = () => {
     return new Promise((resolve, reject) => {
       if (!showLikePrompt) {
@@ -51,7 +52,7 @@ const CardObsLarge = props => {
                 <div className="info">
                   <div className="main-info">
                     <h2 className="title h-2 h-2-bold">{title}</h2>
-                    <Link to={iconFileData?.Member?.linkUrl}>
+                    <Link to={iconFileData.Member.linkUrl}>
                       <h5 className="author h-5 h-5-normal">{subTitle}</h5>
                     </Link>
                     {description && (
@@ -124,7 +125,7 @@ const CardObsLarge = props => {
                   </div>
                   {linkUrl && (
                     <Link to={linkUrl} className="button details">
-                      {t('Objects.Details')}
+                      {t('Objects.ObservationsDetails')}
                       <img
                         src="https://vega.slooh.com/assets/v4/icons/horz_arrow_right_astronaut.svg"
                         alt="arrow-right"
