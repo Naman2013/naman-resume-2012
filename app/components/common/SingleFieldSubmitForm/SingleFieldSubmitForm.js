@@ -12,7 +12,7 @@ import RichTextEditor from 'app/components/rich-text-editor/RichTextEditor';
 import React, { Component } from 'react';
 import noop from 'lodash/noop';
 import PropTypes from 'prop-types';
-import { intlShape, injectIntl } from 'react-intl';
+import {withTranslation} from 'react-i18next';
 import PhotoUploadButton from 'app/components/common/style/buttons/PhotoUploadButton';
 import Modal from 'react-modal';
 import deletePostImage from 'app/services/post-creation/delete-post-image';
@@ -23,10 +23,9 @@ import { customModalStylesV4 } from 'app/styles/mixins/utilities';
 import { MultiUploadImageList } from 'app/modules/multi-upload-images/components/multi-upload-image-list';
 import { prepareThread } from 'app/services/discussions/prepare-thread';
 import styles from './SingleFieldSubmitForm.style';
-import messages from './SingleFieldSubmitForm.messages';
 
 const { bool, func, number, shape, string } = PropTypes;
-
+@withTranslation()
 class SingleFieldSubmitForm extends Component {
   static propTypes = {
     imageClass: string,
@@ -42,7 +41,7 @@ class SingleFieldSubmitForm extends Component {
       cid: string,
       token: string,
     }).isRequired,
-    intl: intlShape.isRequired,
+
   };
 
   static defaultProps = {
@@ -94,12 +93,12 @@ class SingleFieldSubmitForm extends Component {
   };
 
   handleSubmit = (error, message) => {
-    const { intl, user } = this.props;
+    const { t, user } = this.props;
     if (!error) {
       this.setState({
         showPopup: true,
         responseMessage:
-          message || intl.formatMessage(messages.ResponceSubmittedText),
+          message || t('Alerts.ResponceSubmittedText'),
         formText: '',
         formTitle: '',
         S3URLs: [],
@@ -119,7 +118,7 @@ class SingleFieldSubmitForm extends Component {
     } else {
       this.setState({
         showPopup: true,
-        responseMessage: message || intl.formatMessage(messages.FormIssueText),
+        responseMessage: message || t('Alerts.FormIssueText'),
       });
     }
     setTimeout(this.closeModal, 1000);
@@ -295,4 +294,4 @@ class SingleFieldSubmitForm extends Component {
   }
 }
 
-export default injectIntl(SingleFieldSubmitForm);
+export default SingleFieldSubmitForm;

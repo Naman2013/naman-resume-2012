@@ -7,13 +7,12 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { withTranslation } from 'react-i18next';
 import { Tab, Tabs, TabList } from 'react-tabs';
 import Select from 'react-select';
-import { FormattedMessage } from 'react-intl';
 import { liveShow } from '../../styles/variables/iconURLs';
 
 import styles from './LiveShowVideoViewerNav.style';
-import messages from './LiveShowVideoViewer.messages';
 
 const {
   any,
@@ -38,6 +37,7 @@ const getInlineBgStyle = imgUrl => ({
   backgroundSize: '100%',
 });
 
+@withTranslation()
 class LiveShowVideoViewerNav extends Component {
   static propTypes = {
     additionalFeeds: arrayOf(
@@ -77,6 +77,7 @@ class LiveShowVideoViewerNav extends Component {
 
   constructor(props) {
     super(props);
+    const { t } = this.props;
     const options = [
       {
         value: 0,
@@ -88,9 +89,7 @@ class LiveShowVideoViewerNav extends Component {
                 backgroundSize: '80%',
               })}
             />
-            <span className="opt-desc">
-              <FormattedMessage {...messages.LiveShow} />
-            </span>
+            <span className="opt-desc">{t('Shows.LiveShow')}</span>
           </div>
         ),
       },

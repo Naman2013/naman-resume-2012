@@ -12,17 +12,20 @@ import Request from 'app/components/common/network/Request';
 import ShowTile from 'app/components/common/tiles/ShowTile';
 import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
 import { HIGHLIGHTED_EVENTS } from 'app/services/events';
+import {useTranslation} from 'react-i18next';
 // import { secondaryFont } from 'app/styles/variables/fonts';
 import { getSliderProps } from './recommendedShowsSliderConfiguration';
 const { arrayOf, bool, func, number, shape, string } = PropTypes;
 
-const Shows = ({}) => (
+const Shows = ({}) => {
+  const { t } = useTranslation();
+  return (
   <Request
     serviceURL={HIGHLIGHTED_EVENTS}
     method="GET"
     render={({ fetchingContent, serviceResponse }) => {
       const sliderProps = serviceResponse.eventList
-        ? getSliderProps(serviceResponse.eventList)
+        ? getSliderProps(serviceResponse.eventList, t)
         : {};
       const shortList = take(serviceResponse.eventList, 2) || [];
       return (
@@ -55,6 +58,6 @@ const Shows = ({}) => (
       );
     }}
   />
-);
+)};
 
 export default Shows;

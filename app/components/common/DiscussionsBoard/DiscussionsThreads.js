@@ -6,10 +6,10 @@
  ***********************************/
 
 import React, { Component } from 'react';
+import {withTranslation} from 'react-i18next';
 import { browserHistory } from 'react-router';
 import PropTypes from 'prop-types';
 import { API } from 'app/api';
-import { FormattedMessage } from 'react-intl';
 import { Button } from 'react-bootstrap';
 import take from 'lodash/take';
 import { submitReply } from 'app/services/discussions/submit-reply';
@@ -19,7 +19,7 @@ import pageMeta from 'app/modules/quest-details/actions/pageMeta';
 import DiscussionsItem from './DiscussionsItem';
 import CREATE_THREAD_FORM from './DiscussionsThreadFormInterface';
 import styles from './DiscussionsBoard.style';
-import messages from './DiscussionsThreads.messages';
+
 
 const {
   any,
@@ -32,6 +32,7 @@ const {
   string,
 } = PropTypes;
 
+@withTranslation()
 class DiscussionsThreads extends Component {
   static propTypes = {
     discussions: shape({
@@ -319,6 +320,7 @@ class DiscussionsThreads extends Component {
       validateResponseAccess,
       discussionGroupId,
       jumpToThreadId,
+      t,
     } = this.props;
     const { fetching, activePage, showSearchTermResultHeading, searchTermResultHeading } = this.state;
     const { threadsCount } = discussions;
@@ -328,7 +330,7 @@ class DiscussionsThreads extends Component {
         <div className="comments-bar"
           ref={node => { this.threadsContainer = node; }}
         >
-          {showSearchTermResultHeading ? <span>{searchTermResultHeading}</span> : <span><FormattedMessage {...messages.Comments} /> ({threadsCount})</span>}
+          {showSearchTermResultHeading ? <span>{searchTermResultHeading}</span> : <span>{t('AskAnAstronomer.Comments')} ({threadsCount})</span>}
 
           <div className="comments-search">
             <input
@@ -338,11 +340,11 @@ class DiscussionsThreads extends Component {
             />
             {showSearchTermResultHeading ? (
               <Button onClick={this.resetSearch}>
-                <FormattedMessage {...messages.Reset} />
+                {t('AskAnAstronomer.Reset')}
               </Button>
             ) : (
               <Button onClick={() => this.getThreads(this.props)}>
-                <FormattedMessage {...messages.Search} />
+                {t('Clubs.Search')}
               </Button>
             )}
           </div>
@@ -355,12 +357,12 @@ class DiscussionsThreads extends Component {
         })}
         {fetching && (
           <div>
-            <FormattedMessage {...messages.Loading} />
+            {t('AskAnAstronomer.Loading')}
           </div>
         )}
         {!fetching && threadsCount === 0 ? (
           <div>
-            <FormattedMessage {...messages.NoThreads} />
+            {t('AskAnAstronomer.NoThreads')}
           </div>
         ) : null}
         {!fetching && threadsCount > 0 && (

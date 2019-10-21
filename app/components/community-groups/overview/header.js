@@ -5,10 +5,10 @@
  *
  ***********************************/
 import React, { Component } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link, browserHistory } from 'react-router';
 import PropTypes from 'prop-types';
 import pick from 'lodash/pick';
-import { FormattedMessage } from 'react-intl';
 import LabeledTitleTiles from 'app/components/common/style/LabeledTitleTiles';
 import LargeButtonWithRightIcon from 'app/components/common/style/buttons/LargeButtonWithRightIcon';
 import Button from 'app/components/common/style/buttons/Button';
@@ -24,7 +24,6 @@ import { screenMedium, screenLarge } from 'app/styles/variables/breakpoints';
 import { dropShadowContainer } from 'app/styles/mixins/utilities';
 import DiscussionBoardDescription from 'app/components/common/DiscussionsBoard/DiscussionBoardDescription';
 import AskToJoinGroup from 'app/components/common/AskToJoinGroup';
-import messages from './activity-form.messages';
 
 const { string } = PropTypes;
 
@@ -49,264 +48,268 @@ const GroupsHeader = ({
   updatePrompt,
   pendingPrompt,
   pendingPromptFlag,
-}) => (
-  <div className="root">
-    <div className="image-and-main-container">
-      {!condensed ? (
-        <div className="groups-header-image">
-          <img
-            className="header-img"
-            src="https://s3.amazonaws.com/webassets-slooh-com/assets/v4/icons/Group_Graphic_Placeholder.png"
-          />
-        </div>
-      ) : null}
-      <div className="main-container">
-        <div
-          className="groups-header-title desktop-hide"
-          dangerouslySetInnerHTML={{ __html: title }}
-        />
-        <LabeledTitleTiles tiles={subtitleList} theme={{ boxShadow: 'none' }} />
-        {canEditGroup && (
-          <Button
-            theme={{
-              color: astronaut,
-              marginLeft: 'auto',
-              marginRight: 'auto',
-              marginTop: '10px',
-            }}
-            onClickEvent={() => {
-              browserHistory.push(
-                `/community-groups/${discussionGroupId}/${
-                  isEditMode ? '' : 'edit=true'
-                }`
-              );
-            }}
-          >
-            {editButtonText}
-          </Button>
-        )}
-        {condensed && canSeeGroupContent ? (
-          <DiscussionBoardDescription
-            groupId={discussionGroupId}
-            description={description}
-            canEdit={canEditGroup && isEditMode}
-          />
-        ) : null}
-
-        <div className="action-container">
-          {showJoinPrompt ? (
-            <LargeButtonWithRightIcon
-              icon="https://vega.slooh.com/assets/v4/common/comment.svg"
-              text={joinPrompt}
-              onClickEvent={joinOrLeaveGroup}
+}) => {
+  const { t } = useTranslation();
+  return (
+    <div className="root">
+      <div className="image-and-main-container">
+        {!condensed ? (
+          <div className="groups-header-image">
+            <img
+              className="header-img"
+              src="https://s3.amazonaws.com/webassets-slooh-com/assets/v4/icons/Group_Graphic_Placeholder.png"
             />
-          ) : null}
-          {isMobile && canSeeGroupContent && !condensed ? (
-            <Button icon={info} onClickEvent={showInformation} />
-          ) : null}
-          {showAskToJoin ? (
-            <AskToJoinGroup
-              updatePrompt={updatePrompt}
-              discussionGroupId={discussionGroupId}
-              askPrompt={askPrompt}
-              joinActionIconUrl={joinActionIconUrl}
-              disabled={pendingPromptFlag}
-            />
-          ) : null}
-        </div>
-
-        {pendingPromptFlag && (
-          <div className="ask-pending-prompt">{pendingPrompt}</div>
-        )}
-      </div>
-    </div>
-
-    {!condensed ? (
-      <div className="info-container">
-        <div className="info-inner-container">
-          <div className="groups-header-subtitle">
-            <FormattedMessage {...messages.CommunityGroup} />
           </div>
+        ) : null}
+        <div className="main-container">
           <div
-            className="groups-header-title"
+            className="groups-header-title desktop-hide"
             dangerouslySetInnerHTML={{ __html: title }}
           />
-          <DiscussionBoardDescription
-            groupId={discussionGroupId}
-            description={description}
-            canEdit={canEditGroup && isEditMode}
+          <LabeledTitleTiles
+            tiles={subtitleList}
+            theme={{ boxShadow: 'none' }}
           />
+          {canEditGroup && (
+            <Button
+              theme={{
+                color: astronaut,
+                marginLeft: 'auto',
+                marginRight: 'auto',
+                marginTop: '10px',
+              }}
+              onClickEvent={() => {
+                browserHistory.push(
+                  `/community-groups/${discussionGroupId}/${
+                    isEditMode ? '' : 'edit=true'
+                  }`
+                );
+              }}
+            >
+              {editButtonText}
+            </Button>
+          )}
+          {condensed && canSeeGroupContent ? (
+            <DiscussionBoardDescription
+              groupId={discussionGroupId}
+              description={description}
+              canEdit={canEditGroup && isEditMode}
+            />
+          ) : null}
+
+          <div className="action-container">
+            {showJoinPrompt ? (
+              <LargeButtonWithRightIcon
+                icon="https://vega.slooh.com/assets/v4/common/comment.svg"
+                text={joinPrompt}
+                onClickEvent={joinOrLeaveGroup}
+              />
+            ) : null}
+            {isMobile && canSeeGroupContent && !condensed ? (
+              <Button icon={info} onClickEvent={showInformation} />
+            ) : null}
+            {showAskToJoin ? (
+              <AskToJoinGroup
+                updatePrompt={updatePrompt}
+                discussionGroupId={discussionGroupId}
+                askPrompt={askPrompt}
+                joinActionIconUrl={joinActionIconUrl}
+                disabled={pendingPromptFlag}
+              />
+            ) : null}
+          </div>
+
+          {pendingPromptFlag && (
+            <div className="ask-pending-prompt">{pendingPrompt}</div>
+          )}
         </div>
       </div>
-    ) : null}
 
-    <style jsx>{`
-      .root {
-        display: block;
-        color: ${astronaut};
-        background-color: ${romance};
-        padding: 15px 0;
-        width: 100%;
-      }
-      .image-and-main-container {
-      }
+      {!condensed ? (
+        <div className="info-container">
+          <div className="info-inner-container">
+            <div className="groups-header-subtitle">{t('Clubs.CommunityGroup')}</div>
+            <div
+              className="groups-header-title"
+              dangerouslySetInnerHTML={{ __html: title }}
+            />
+            <DiscussionBoardDescription
+              groupId={discussionGroupId}
+              description={description}
+              canEdit={canEditGroup && isEditMode}
+            />
+          </div>
+        </div>
+      ) : null}
 
-      .info-container {
-        display: none;
-      }
-
-      .main-container {
-        padding: 0 30px;
-      }
-
-      .header-img {
-        height: 65%;
-        margin-top: 50%;
-        transform: translateY(-90%);
-      }
-
-      .groups-header-image {
-        margin: 0 auto;
-        height: 200px;
-        width: 300px;
-        background-color: ${nightfall};
-        text-align: center;
-      }
-
-      .groups-header-title {
-        font-size: 22px;
-        padding: 15px 0;
-        font-family: ${secondaryFont};
-      }
-
-      .groups-header-information {
-        font-family: ${secondaryFont};
-        font-size: 19px;
-      }
-
-      .action-container {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-evenly;
-        align-items: center;
-      }
-
-      .left {
-        flex: 3;
-        color: ${romance};
-      }
-
-      .right {
-        text-align: right;
-        flex: 1;
-      }
-
-      .ask-pending-prompt {
-        font-family: ${secondaryFont};
-        font-size: 19px;
-        text-align: center;
-      }
-
-      @media ${screenMedium} {
+      <style jsx>{`
         .root {
-          margin: 0 auto;
-          height: 400px;
-          ${dropShadowContainer}
-        }
-
-        .image-and-main-container {
-          align-items: center;
-          display: flex;
-          flex-direction: row;
-          justify-content: center;
+          display: block;
+          color: ${astronaut};
+          background-color: ${romance};
+          padding: 15px 0;
           width: 100%;
-          height: 100%;
         }
-
-        .groups-header-image {
-          margin: 0 15px;
-          height: 278px;
-          width: 278px;
-        }
-
-        .main-container {
-          width: 342px;
-        }
-
-        .header-img {
-          transform: translateY(-50%);
-        }
-      }
-
-      @media ${screenLarge} {
-        .root {
-          align-items: center;
-          display: flex;
-          flex-direction: row;
-          height: 450px;
-          justify-content: center;
-          padding: 0;
-          ${dropShadowContainer}
-        }
-
-        .header-img {
-          transform: translateY(-90%);
-        }
-
         .image-and-main-container {
-          align-items: center;
-          background-image: url(${white_tile_paper});
-          display: flex;
-          flex-direction: column;
-          height: 100%;
-          justify-content: flex-start;
-          margin: 0 auto;
-          width: 300px;
         }
 
         .info-container {
-          display: flex;
-          flex: 1 1 0;
-          display: block;
-          align-items: center;
-        }
-
-        .info-inner-container {
-          width: 300px;
-          margin: 0 auto;
-        }
-
-        .desktop-hide {
           display: none;
         }
 
-        .groups-header-image {
-          margin: 0 15px;
-          height: 200px;
-          width: 100%;
-        }
-
         .main-container {
-          width: 100%;
+          padding: 0 30px;
         }
 
-        .groups-header-subtitle {
-          font-size: 10px;
-          font-weight: bold;
-          text-transform: uppercase;
+        .header-img {
+          height: 65%;
+          margin-top: 50%;
+          transform: translateY(-90%);
+        }
+
+        .groups-header-image {
+          margin: 0 auto;
+          height: 200px;
+          width: 300px;
+          background-color: ${nightfall};
+          text-align: center;
         }
 
         .groups-header-title {
-          font-size: 40px;
+          font-size: 22px;
+          padding: 15px 0;
+          font-family: ${secondaryFont};
         }
 
         .groups-header-information {
           font-family: ${secondaryFont};
           font-size: 19px;
         }
-      }
-    `}</style>
-  </div>
-);
+
+        .action-container {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-evenly;
+          align-items: center;
+        }
+
+        .left {
+          flex: 3;
+          color: ${romance};
+        }
+
+        .right {
+          text-align: right;
+          flex: 1;
+        }
+
+        .ask-pending-prompt {
+          font-family: ${secondaryFont};
+          font-size: 19px;
+          text-align: center;
+        }
+
+        @media ${screenMedium} {
+          .root {
+            margin: 0 auto;
+            height: 400px;
+            ${dropShadowContainer}
+          }
+
+          .image-and-main-container {
+            align-items: center;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+          }
+
+          .groups-header-image {
+            margin: 0 15px;
+            height: 278px;
+            width: 278px;
+          }
+
+          .main-container {
+            width: 342px;
+          }
+
+          .header-img {
+            transform: translateY(-50%);
+          }
+        }
+
+        @media ${screenLarge} {
+          .root {
+            align-items: center;
+            display: flex;
+            flex-direction: row;
+            height: 450px;
+            justify-content: center;
+            padding: 0;
+            ${dropShadowContainer}
+          }
+
+          .header-img {
+            transform: translateY(-90%);
+          }
+
+          .image-and-main-container {
+            align-items: center;
+            background-image: url(${white_tile_paper});
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            justify-content: flex-start;
+            margin: 0 auto;
+            width: 300px;
+          }
+
+          .info-container {
+            display: flex;
+            flex: 1 1 0;
+            display: block;
+            align-items: center;
+          }
+
+          .info-inner-container {
+            width: 300px;
+            margin: 0 auto;
+          }
+
+          .desktop-hide {
+            display: none;
+          }
+
+          .groups-header-image {
+            margin: 0 15px;
+            height: 200px;
+            width: 100%;
+          }
+
+          .main-container {
+            width: 100%;
+          }
+
+          .groups-header-subtitle {
+            font-size: 10px;
+            font-weight: bold;
+            text-transform: uppercase;
+          }
+
+          .groups-header-title {
+            font-size: 40px;
+          }
+
+          .groups-header-information {
+            font-family: ${secondaryFont};
+            font-size: 19px;
+          }
+        }
+      `}</style>
+    </div>
+  );
+};
 
 export default GroupsHeader;

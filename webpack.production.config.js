@@ -10,11 +10,6 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 const apiUrl = process.env.apiUrl || '';
 const apiPortNumber = process.env.apiPortNumber || '';
-const cookieDomain = process.env.cookieDomain || '.slooh.com';
-
-// console.log(apiUrl, apiPortNumber, cookieDomain);
-
-// console.log(JSON.stringify(process.env.cookieDomain));
 
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
@@ -102,18 +97,9 @@ module.exports = {
 
     // new WebpackMd5Hash(),
     new webpack.DefinePlugin({
-      cookieDomain: JSON.stringify(process.env.cookieDomain),
       'process.env': {
         NODE_ENV: JSON.stringify('production'),
       },
-    }),
-
-    new webpack.EnvironmentPlugin({
-      SENTRY_ENV: 'PRODUCTION',
-      PUBNUB_FEEDS_SUBKEY: '',
-      PUBNUB_FEEDS_PUBKEY: '',
-      PUBNUB_FEEDS_SECRETKEY: '',
-      PUBNUB_CHANNEL_PREFIX: ''
     }),
 
     // Minify and optimize the index.html
@@ -156,6 +142,9 @@ module.exports = {
       chunkFilename: isProduction ? 'chunks/[id].[hash].css' : '[id].css',
       disable: !isProduction,
     }),
+    new CopyWebpackPlugin([
+      { from: path.join(sourcePath, 'public'), to: outPath },
+    ]),
   ],
   optimization: {
     minimize: true,

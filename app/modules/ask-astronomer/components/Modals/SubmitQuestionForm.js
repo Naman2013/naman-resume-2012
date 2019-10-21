@@ -16,9 +16,9 @@ import PropTypes from 'prop-types';
 import { MultiUploadImageList } from 'app/modules/multi-upload-images/components/multi-upload-image-list';
 import React, { PureComponent } from 'react';
 import { Button } from 'react-bootstrap';
-import { injectIntl, intlShape } from 'react-intl';
+import { withTranslation } from 'react-i18next';
 import './styles.scss';
-import messages from './SubmitQuestionForm.messages';
+
 
 const {
   any,
@@ -30,7 +30,7 @@ const {
   shape,
   string,
 } = PropTypes;
-
+@withTranslation()
 class SubmitQuestionForm extends PureComponent {
   static propTypes = {
     modalActions: shape({
@@ -45,7 +45,7 @@ class SubmitQuestionForm extends PureComponent {
     freshness: string.isRequired,
     content: string.isRequired,
     submitReply: func.isRequired,
-    intl: intlShape.isRequired,
+
     updateQuestionsList: func,
   };
 
@@ -188,7 +188,7 @@ class SubmitQuestionForm extends PureComponent {
 
   render() {
     const { S3URLs, uploadLoading, fileRef, toggleModal } = this.state;
-    const { title, askPrompt, intl } = this.props;
+    const { title, askPrompt, t } = this.props;
 
     const { questionText } = this.state;
     return (
@@ -228,11 +228,9 @@ class SubmitQuestionForm extends PureComponent {
           </div>
           <div>
             <Button onClick={this.cancel} className="mr-3">
-              {intl.formatMessage(messages.Cancel)}
+              {t('AskAnAstronomer.Cancel')}
             </Button>
-            <Button onClick={this.submitForm}>
-              {intl.formatMessage(messages.Submit)}
-            </Button>
+            <Button onClick={this.submitForm}>{t('AskAnAstronomer.Submit')}</Button>
           </div>
         </div>
       </form>
@@ -240,4 +238,4 @@ class SubmitQuestionForm extends PureComponent {
   }
 }
 
-export default injectIntl(SubmitQuestionForm);
+export default SubmitQuestionForm;

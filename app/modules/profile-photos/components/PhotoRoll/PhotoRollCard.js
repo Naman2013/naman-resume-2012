@@ -5,13 +5,13 @@
  ***********************************/
 import React, { Component } from 'react';
 import cn from 'classnames';
+import {useTranslation, withTranslation} from 'react-i18next';
 import { browserHistory } from 'react-router';
-import { FormattedMessage } from 'react-intl';
 import Button from 'app/components/common/style/buttons/Button';
 import Dots from 'app/atoms/icons/Dots';
 import { downloadFile } from 'app/utils/downloadFile';
 import AsideToggleableMenu from '../AsideToggleableMenu';
-import messages from './PhotoRollCard.messages';
+
 import style from './PhotoRollCard.style';
 
 type TPhotoRollCard = {
@@ -27,6 +27,7 @@ type TPhotoRollCard = {
   typeGallery: boolean,
 };
 
+@withTranslation()
 class PhotoRollCard extends Component<TPhotoRollCard> {
   state = { menuIsVisible: false };
 
@@ -83,7 +84,7 @@ class PhotoRollCard extends Component<TPhotoRollCard> {
       telescopeName,
       instrumentName,
     } = observation;
-
+    const { t } = useTranslation();
     return (
       <div className={cn(['root', { inCenter: inCenter && isDesktop }])}>
         <div
@@ -128,7 +129,7 @@ class PhotoRollCard extends Component<TPhotoRollCard> {
                   <Button
                     withIntl
                     onClickEvent={this.redirectToImage()}
-                    text={<FormattedMessage {...messages.Details} />}
+                    text={t('Photos.Details')}
                     theme={{ borderColor: '#fff', color: '#fff' }}
                   />
                   <div style={{ display: 'flex' }}>

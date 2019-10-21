@@ -1,6 +1,5 @@
 import React, { PureComponent, Fragment } from 'react';
 import Countdown from 'react-countdown-now';
-import { FormattedNumber } from 'react-intl';
 import { ThreeDotsMenu } from '../three-dots-menu';
 import './styles.scss';
 

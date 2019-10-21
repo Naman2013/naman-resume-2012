@@ -16,12 +16,12 @@ import { MultiUploadImageList } from 'app/modules/multi-upload-images/components
 import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
 import { Button } from 'react-bootstrap';
-import { injectIntl, intlShape } from 'react-intl';
+import { withTranslation } from 'react-i18next';
 import './styles.scss';
-import messages from './SubmitQuestionForm.messages';
+
 
 const { func, shape, string } = PropTypes;
-
+@withTranslation()
 class SubmitAnswerForm extends PureComponent {
   static propTypes = {
     modalActions: shape({
@@ -36,7 +36,7 @@ class SubmitAnswerForm extends PureComponent {
     freshness: string.isRequired,
     content: string.isRequired,
     submitReply: func.isRequired,
-    intl: intlShape.isRequired,
+
   };
 
   static defaultProps = {};
@@ -177,7 +177,7 @@ class SubmitAnswerForm extends PureComponent {
 
   render() {
     const { S3URLs, uploadLoading, fileRef, toggleModal } = this.state;
-    const { authorInfo, freshness, content, intl } = this.props;
+    const { authorInfo, freshness, content, t } = this.props;
 
     const { answerText } = this.state;
 
@@ -217,7 +217,7 @@ class SubmitAnswerForm extends PureComponent {
           className="field-input"
           editorValue={answerText}
           onChange={this.onChangeAnswerText}
-          placeholder={intl.formatMessage(messages.AnswerPlaceholder)}
+          placeholder={t('AskAnAstronomer.AnswerPlaceholder')}
         />
         <div className="buttons-wrapper d-flex justify-content-between">
           <div>
@@ -230,11 +230,9 @@ class SubmitAnswerForm extends PureComponent {
           </div>
           <div>
             <Button onClick={this.closeModal} className="mr-3">
-              {intl.formatMessage(messages.Cancel)}
+              {t('AskAnAstronomer.Cancel')}
             </Button>
-            <Button onClick={this.submitForm}>
-              {intl.formatMessage(messages.Submit)}
-            </Button>
+            <Button onClick={this.submitForm}>{t('AskAnAstronomer.Submit')}</Button>
           </div>
         </div>
       </form>
@@ -242,4 +240,4 @@ class SubmitAnswerForm extends PureComponent {
   }
 }
 
-export default injectIntl(SubmitAnswerForm);
+export default SubmitAnswerForm;

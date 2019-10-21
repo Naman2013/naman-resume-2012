@@ -5,7 +5,7 @@ import {
 } from 'app/modules/ask-astronomer/reducers/ask-astronomer-answers/actions';
 import React, { Component } from 'react';
 import { Button } from 'react-bootstrap';
-import { FormattedMessage } from 'react-intl';
+import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {
@@ -14,7 +14,7 @@ import {
 } from '../reducers/ask-astronomer-answer-discuss/actions';
 
 import AnswerListItem from './answer-list-item';
-import messages from './answer-list.messages';
+
 import styles from './answer-list.style';
 
 const mapStateToProps = ({ astronomerAnswers, astronomerDiscuss, user }) => ({
@@ -42,6 +42,7 @@ const mapDispatchToProps = dispatch => ({
   mapStateToProps,
   mapDispatchToProps
 )
+@withTranslation()
 class AnswerList extends Component {
   static defaultProps = {
     answers: {
@@ -82,6 +83,7 @@ class AnswerList extends Component {
       topicId,
       user,
       updateQuestionsList,
+      t,
     } = this.props;
 
     const { loadMore } = actions;
@@ -92,7 +94,7 @@ class AnswerList extends Component {
           <div className="num-replies">
             {Boolean(+numberOfAnswersToThread) && (
               <span className="replies-number">
-                <FormattedMessage {...messages.Answers} />:{' '}
+                {t('AskAnAstronomer.Answers')}
                 {numberOfAnswersToThread}
               </span>
             )}

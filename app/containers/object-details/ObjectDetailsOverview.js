@@ -7,10 +7,10 @@
 
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { browserHistory } from 'react-router';
-import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 import { BURNHAMS_CORNER_CONTENT } from 'app/services/content';
 import CenterColumn from 'app/components/common/CenterColumn';
 import TopicContent from 'app/components/guides/TopicContent';
@@ -32,7 +32,6 @@ import {
   fetchLikeAction,
 } from 'app/modules/object-details/actions';
 
-import messages from './ObjectDetails.messages';
 import style from './ObjectDetailsOverview.style';
 import ObjectRelatedTile from './ObjectRelatedTile';
 
@@ -165,6 +164,7 @@ const obsData = resp => ({
   mapStateToProps,
   mapDispatchToProps
 )
+@withTranslation()
 class Overview extends Component {
   navigateByURl = url => {
     browserHistory.push(url);
@@ -176,7 +176,7 @@ class Overview extends Component {
       objectData,
       objectSpecialists,
       imageDetails,
-      intl,
+      t,
       user,
       actions: { fetchLikeAction },
     } = this.props;
@@ -380,8 +380,8 @@ class Overview extends Component {
           )}
 
           <SterlingTitle
-            title={intl.formatMessage(messages.MVPAstronomers)}
-            subTitle={intl.formatMessage(messages.MostActive, {
+            title={t('Objects.MVPAstronomers')}
+            subTitle={t('Objects.MostActive', {
               objectTitle: objectData.objectTitle,
             })}
           />
@@ -395,10 +395,9 @@ class Overview extends Component {
               </div>
             ) : (
               <p className="error-message">
-                <FormattedMessage
-                  {...messages.NoSpecialists}
-                  values={{ objectTitle: objectData.objectTitle }}
-                />
+                {t('Objects.NoSpecialists', {
+                  objectTitle: objectData.objectTitle,
+                })}
               </p>
             )}
           </CenterColumn>
@@ -423,7 +422,7 @@ Overview.propTypes = {
     objectMagnitude: PropTypes.number.isRequired,
     hasBurnhamsData: PropTypes.bool.isRequired,
   }).isRequired,
-  intl: intlShape.isRequired,
+
 };
 
-export default injectIntl(Overview);
+export default Overview;

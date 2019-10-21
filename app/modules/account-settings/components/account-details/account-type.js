@@ -84,9 +84,7 @@ const AccountType = props => {
                     <hr className="hr" />
                     <ul className="list-with-params">
                       <li>
-                        <h5 className="h-5 font-weight-normal">
-                          {priceDisplayLabel}
-                        </h5>
+                        <h5 className="h-5 font-weight-normal" dangerouslySetInnerHTML={{ __html: priceDisplayLabel }}/>
                       </li>
                       <li>
                         <h5 className="h-5 font-weight-normal">
