@@ -23,7 +23,7 @@ const CardObsSmall = props => {
     likePrompt,
     showLikePrompt,
     socialShareDescription,
-    iconFileData,
+    iconFileData = { Member: {} },
   } = props;
   const { t } = useTranslation();
   const [isOpen, openModal] = useState(false);
@@ -40,7 +40,7 @@ const CardObsSmall = props => {
       <div className="card-obs">
         <div className="obs-left">
           <h2 className="card-obs-title h-2 h-2-bold">{title}</h2>
-          <Link to={iconFileData?.Member?.linkUrl}>
+          <Link to={iconFileData.Member.linkUrl}>
             <h5 className="card-obs-author h-5 h-5-normal">{subTitle}</h5>
           </Link>
           {description && (
@@ -124,7 +124,7 @@ const CardObsSmall = props => {
           </div>
           {linkUrl && (
             <Link to={linkUrl} className="button details">
-              {t('Objects.Details')}
+              {t('Objects.ObservationsDetails')}
               <img
                 src="https://vega.slooh.com/assets/v4/icons/horz_arrow_right_astronaut.svg"
                 alt="arrow-right"
