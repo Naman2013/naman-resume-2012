@@ -7,7 +7,7 @@ module.exports = {
     'plugin:import/warnings',
     'prettier',
     'prettier/react',
-    "plugin:@typescript-eslint/recommended"
+    'plugin:@typescript-eslint/recommended',
   ],
   rules: {
     '@typescript-eslint/interface-name-prefix': 0,
@@ -65,9 +65,9 @@ module.exports = {
       },
     ],
   },
-  parser: "@typescript-eslint/parser",
+  parser: '@typescript-eslint/parser',
   parserOptions: {
-    project: './tsconfig.json'
+    project: './tsconfig.json',
   },
   globals: {
     global: true,
@@ -115,5 +115,5 @@ module.exports = {
       },
     },
   },
-  plugins: ["@typescript-eslint",'prettier', 'import', 'react-hooks'],
+  plugins: ['@typescript-eslint', 'prettier', 'import', 'react-hooks'],
 };
