@@ -1,7 +1,8 @@
 {
   "gonogo.slooh.com": {
     "SENTRY_ENV": "PRODUCTION",
-    "PUBNUB_CHANNEL_PREFIX": "prod"
+    "PUBNUB_CHANNEL_PREFIX": "prod",
+    "loadHtmlFile": "/config/gonogo.slooh.com.html"
   },
   "main.slooh.com": {
     "SENTRY_ENV": "PRODUCTION",
@@ -73,6 +74,12 @@
   },
   "localhost": {
     "COOKIE_DOMAIN": null
+  },
+  "eris.slooh.com": {
+    "loadHtmlFile": "/config/eris.slooh.com.html"
+  },
+  "nova.slooh.com": {
+    "loadHtmlFile": "/config/nova.slooh.com.html"
   },
   "orion.slooh.com": {
     "loadHtmlFile": "/config/orion.slooh.com.html"
