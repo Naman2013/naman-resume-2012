@@ -14,6 +14,7 @@ const apiPortNumber = process.env.apiPortNumber || '';
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const sourcePath = path.join(__dirname, './app');
+const publicPath = path.join(__dirname, './public');
 const outPath = path.join(__dirname, './dist');
 const isProduction = process.env.NODE_ENV === 'production';
 const TerserPlugin = require('terser-webpack-plugin');
@@ -143,7 +144,7 @@ module.exports = {
       disable: !isProduction,
     }),
     new CopyWebpackPlugin([
-      { from: path.join(sourcePath, 'public'), to: outPath },
+      { from: publicPath, to: outPath },
     ]),
   ],
   optimization: {
