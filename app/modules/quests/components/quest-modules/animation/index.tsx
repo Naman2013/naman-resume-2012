@@ -54,7 +54,7 @@ export class AnimationModule extends React.PureComponent<
         // add image onto canvas (it also re-render the canvas)
         //img.set('selectable', false); // make img unselectable
 
-        img.scaleToWidth(canvasContainerWidth);
+        img.scaleToWidth(canvasContainerWidth - 2); // 2px border
         canvas.add(img); //.centerObject(img);
         //img.setCoords();
         canvas.renderAll();
@@ -128,8 +128,8 @@ export class AnimationModule extends React.PureComponent<
     const canvasContainerWidth = this.canvasContainer.getBoundingClientRect()
       .width;
     console.log(canvasContainerWidth);
-    this.canvas.setWidth(canvasContainerWidth);
-    this.canvas.setHeight(canvasContainerWidth);
+    this.canvas.setWidth(canvasContainerWidth - 2); // 2px border
+    this.canvas.setHeight(canvasContainerWidth - 2); // 2px border
   };
 
   render() {
@@ -143,6 +143,7 @@ export class AnimationModule extends React.PureComponent<
         <div className="animation-box">
           <h6>Frame 1</h6>
           <h4>Pluto Oct 28, 2018 00:35 UTC</h4>
+          <div className="vertical-line" />
           <div
             id="animationCanvasContainer"
             ref={node => {
@@ -150,20 +151,63 @@ export class AnimationModule extends React.PureComponent<
             }}
           >
             <canvas id="c" />
-            <br />
-            <Button onClick={this.moveTop}>up</Button>
-            <Button onClick={this.moveDown}>down</Button>
-            <Button onClick={this.moveLeft}>left</Button>
-            <Button onClick={this.moveRigth}>right</Button>
-            <br />
-            <Button onClick={this.zoomIn}>zoom +</Button>
-            <Button onClick={this.zoomOut}>zoom -</Button>
-            <br />
-            <Button onClick={() => console.log(JSON.stringify(this.canvas))}>
-              get json
-            </Button>
+          </div>
+
+          <div className="animation-controls">
+            <div className="controls-block">
+              <div className="buttons-block">
+                <Button
+                  className="move-btn move-btn-left"
+                  onClick={this.moveLeft}
+                >
+                  <div className="icon icon-slider-left" />
+                </Button>
+                <Button
+                  className="move-btn move-btn-right"
+                  onClick={this.moveRigth}
+                >
+                  <div className="icon icon-slider-right" />
+                </Button>
+              </div>
+              <p>X - 0000</p>
+            </div>
+
+            <div className="controls-block">
+              <div className="buttons-block">
+                <Button className="move-btn move-btn-up" onClick={this.moveTop}>
+                  <div className="icon icon-slider-left" />
+                </Button>
+                <Button
+                  className="move-btn move-btn-down"
+                  onClick={this.moveDown}
+                >
+                  <div className="icon icon-slider-right" />
+                </Button>
+              </div>
+              <p>Y - 0000</p>
+            </div>
+
+            <div className="controls-block">
+              <div className="buttons-block">
+                <Button className="zoom-btn" onClick={this.zoomIn}>
+                  <div className="icon icon-plus" />
+                </Button>
+                <Button className="zoom-btn" onClick={this.zoomOut}>
+                  <div className="icon icon-minus" />
+                </Button>
+              </div>
+              <p>100%</p>
+            </div>
+
+            <div className="controls-block">
+              <Button onClick={() => {}}>Play</Button>
+            </div>
           </div>
         </div>
+        <br />
+        <Button onClick={() => console.log(JSON.stringify(this.canvas))}>
+          get json
+        </Button>
       </div>
     );
   }
