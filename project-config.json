@@ -71,6 +71,9 @@
   "india-dev.slooh.com": {
     "productID": "035e02de-e555-11e9-a8f4-06b2ab7e8ae4"
   },
+  "localhost": {
+    "COOKIE_DOMAIN": null
+  },
   "default": {
     "SENTRY_ENV": "TEST",
     "COOKIE_DOMAIN": ".slooh.com",
