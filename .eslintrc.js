@@ -26,6 +26,7 @@ module.exports = {
     'no-shadow': 0,
     'arrow-body-style': 0,
     'quote-props': 0,
+    'react/button-has-type': 0,
     'no-unused-vars': 1,
     'consistent-return': 0,
     'max-len': 0,
@@ -97,8 +98,8 @@ module.exports = {
     browser: true,
   },
   settings: {
-    'import/extensions': ['.js', '.jsx'],
-    'import/parser': 'babel-eslint',
+    // 'import/extensions': ['.js', '.jsx'],
+    // 'import/parser': 'babel-eslint',
     'import/resolver': {
       // You can use only webpack but with this approach webstorm doesn't show
       // any red highlight for alias imports

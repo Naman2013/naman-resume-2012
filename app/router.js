@@ -1,3 +1,4 @@
+//eslint-disable-line
 import { ProfileGroups } from 'app/components/profiles/private-profile';
 import ProfileQaContainer from 'app/components/profiles/private-profile/my-qa/ProfileQaContainer';
 import { ProfileQuests } from 'app/components/profiles/private-profile/profile-quests';
@@ -30,6 +31,7 @@ import Dashboard from 'app/modules/dashboard/containers/dashborad';
 import { FeatureContainerLazy } from 'app/modules/feature-module';
 import { GalleryDetailsMain } from 'app/modules/gallery-details';
 import { ImageDetailsMain } from 'app/modules/image-details';
+import { LeaderboardContainerLazy } from 'app/modules/leaderboard';
 import { MissionDetailsMain } from 'app/modules/mission-details';
 import Catalog from 'app/modules/missions/containers/catalog';
 import Constellation from 'app/modules/missions/containers/constellation';
@@ -499,6 +501,12 @@ const AppRouter = ({ setPreviousInstrument }) => (
           <IndexRedirect to="activity" />
         </Route>
       </Route>
+
+      <Route
+        path="leaderboard"
+        component={LeaderboardContainerLazy}
+        onEnter={validateUser}
+      />
 
       <Route
         path="groups/create"

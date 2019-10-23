@@ -5,6 +5,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import uniqueId from 'lodash/uniqueId';
+import { Link } from 'react-router';
 
 import styles from './GravityStatsList.styles';
 
@@ -27,6 +28,9 @@ class GravityStatsList extends Component {
           <div>{gravityList.nextTier}</div>
           <div>{gravityList.rank}</div>
           <div>{gravityList.topObservation}</div>
+          <Link to="/leaderboard" className="mx-auto mt-4 btn btn-primary">
+            Gravity Leaderboard
+          </Link>
         </div>
         <style jsx>{styles}</style>
       </div>
