@@ -96,6 +96,7 @@ export const QuestStepModule: React.FC<QuestStepModuleProps> = React.memo(
         return (
           <AnimationModule
             module={module}
+            questId={routeParams.questId}
             key={module.moduleId}
             readOnly={readOnly}
           />

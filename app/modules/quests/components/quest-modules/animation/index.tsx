@@ -10,6 +10,10 @@ type AnimationModuleProps = {
   routeParams: any;
   navigateToNextStep: Function;
   refreshQuestStep: Function;
+  getAnimation: Function;
+  getAnimationFrames: Function;
+  stepData: any;
+  questId: string;
 };
 
 type AnimationModuleState = {
@@ -36,6 +40,8 @@ export class AnimationModule extends React.PureComponent<
   // }
 
   componentDidMount() {
+    this.getAnimation();
+    this.getAnimationFrames();
     window.addEventListener('resize', this.onPageRezise);
     const canvas = new fabric.Canvas('c');
     const canvasContainerWidth = this.canvasContainer.getBoundingClientRect()
@@ -83,6 +89,24 @@ export class AnimationModule extends React.PureComponent<
   componentWillUnmount() {
     window.removeEventListener('resize', this.onPageRezise);
   }
+
+  getAnimation = (): void => {
+    const { module, questId, stepData, getAnimation } = this.props;
+    const { questUUID } = stepData;
+    const { moduleId, moduleUUID } = module;
+    if (questId && moduleId) {
+      getAnimation({ questId, questUUID, moduleId, moduleUUID });
+    }
+  };
+
+  getAnimationFrames = (): void => {
+    const { module, questId, stepData, getAnimationFrames } = this.props;
+    const { questUUID } = stepData;
+    const { moduleId, moduleUUID } = module;
+    if (questId && moduleId) {
+      getAnimationFrames({ questId, questUUID, moduleId, moduleUUID });
+    }
+  };
 
   moveTop = () => {
     const item = this.canvas.item(0);

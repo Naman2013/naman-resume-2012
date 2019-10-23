@@ -35,3 +35,10 @@ export const getQuestGuidePanelApi = data =>
   axios.post('/api/quests/getQuestGuidePanel', data);
 export const getCustomerQuestsApi = data =>
   axios.post('/api/profiles/getCustomerQuests', data);
+
+// QUEST ANIMATION MODULE
+export const getAnimationApi = data =>
+  axios.post('/api/quests/getAnimation', data);
+export const getAnimationFramesApi = data =>
+  axios.post('/api/quests/getAnimationFrames', data);
+// END: QUEST ANIMATION MODULE
