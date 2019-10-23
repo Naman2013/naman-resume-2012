@@ -4,13 +4,16 @@ import Nav from 'app/components/common/nav';
 import HubHeader from 'app/components/common/HubHeader';
 
 // name types like <component-name>Props
-type LeaderboardPageProps = {};
+type LeaderboardPageProps = {
+  getLeaderboard: () => void;
+};
 
 export const LeaderboardPage: React.FC<LeaderboardPageProps> = props => {
   // use destruction
   // const { title } = props;
+  const { getLeaderboard } = props;
 
-  React.useEffect(() => console.log('mounted'), []);
+  React.useEffect(() => getLeaderboard(), [getLeaderboard]);
 
   return (
     <>
