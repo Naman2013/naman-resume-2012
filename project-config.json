@@ -6,74 +6,92 @@
   },
   "main.slooh.com": {
     "SENTRY_ENV": "PRODUCTION",
-    "PUBNUB_CHANNEL_PREFIX": "prod"
+    "PUBNUB_CHANNEL_PREFIX": "prod",
+    "loadHhtmlFile": "/config/main.slooh.com.html"
   },
   "www.slooh.com": {
     "SENTRY_ENV": "PRODUCTION",
-    "PUBNUB_CHANNEL_PREFIX": "prod"
+    "PUBNUB_CHANNEL_PREFIX": "prod",
+    "loadHhtmlFile": "/config/www.slooh.com.html"
   },
   "slooh.com": {
     "SENTRY_ENV": "PRODUCTION",
-    "PUBNUB_CHANNEL_PREFIX": "prod"
+    "PUBNUB_CHANNEL_PREFIX": "prod",
+    "loadHhtmlFile": "/config/slooh.com.html"
   },
   "southafrica.slooh.com": {
     "SENTRY_ENV": "PRODUCTION",
     "PUBNUB_CHANNEL_PREFIX": "prod",
-    "productID": "9a751525-f1e0-11e9-a8f4-06b2ab7e8ae4"
+    "productID": "9a751525-f1e0-11e9-a8f4-06b2ab7e8ae4",
+    "loadHhtmlFile": "/config/southafrica.slooh.com.html"
   },
   "newzealand.slooh.com": {
     "SENTRY_ENV": "PRODUCTION",
     "PUBNUB_CHANNEL_PREFIX": "prod",
-    "productID": "898f52c3-f1e0-11e9-a8f4-06b2ab7e8ae4"
+    "productID": "898f52c3-f1e0-11e9-a8f4-06b2ab7e8ae4",
+    "loadHhtmlFile": "/config/newzealand.slooh.com.html"
   },
   "australia.slooh.com": {
     "SENTRY_ENV": "PRODUCTION",
     "PUBNUB_CHANNEL_PREFIX": "prod",
-    "productID": "43a3d05c-f1e0-11e9-a8f4-06b2ab7e8ae4"
+    "productID": "43a3d05c-f1e0-11e9-a8f4-06b2ab7e8ae4",
+    "loadHhtmlFile": "/config/australia.slooh.com.html"
   },
   "china.slooh.com": {
     "SENTRY_ENV": "PRODUCTION",
     "PUBNUB_CHANNEL_PREFIX": "prod",
-    "productID": "e3bf862a-e554-11e9-a8f4-06b2ab7e8ae4"
+    "productID": "e3bf862a-e554-11e9-a8f4-06b2ab7e8ae4",
+    "loadHhtmlFile": "/config/china.slooh.com.html"
   },
   "uk.slooh.com": {
     "SENTRY_ENV": "PRODUCTION",
     "PUBNUB_CHANNEL_PREFIX": "prod",
-    "productID": "acad6e65-f1e0-11e9-a8f4-06b2ab7e8ae4"
+    "productID": "acad6e65-f1e0-11e9-a8f4-06b2ab7e8ae4",
+    "loadHhtmlFile": "/config/uk.slooh.com.html"
   },
   "eu.slooh.com": {
     "SENTRY_ENV": "PRODUCTION",
     "PUBNUB_CHANNEL_PREFIX": "prod",
-    "productID": "bad27bb3-f1e0-11e9-a8f4-06b2ab7e8ae4"
+    "productID": "bad27bb3-f1e0-11e9-a8f4-06b2ab7e8ae4",
+    "loadHhtmlFile": "/config/eu.slooh.com.html"
   },
   "india.slooh.com": {
     "SENTRY_ENV": "PRODUCTION",
     "PUBNUB_CHANNEL_PREFIX": "prod",
-    "productID": "035e02de-e555-11e9-a8f4-06b2ab7e8ae4"
+    "productID": "035e02de-e555-11e9-a8f4-06b2ab7e8ae4",
+    "loadHhtmlFile": "/config/india.slooh.com.html"
   },
   "china-dev.slooh.com": {
-    "productID": "e3bf862a-e554-11e9-a8f4-06b2ab7e8ae4"
+    "productID": "e3bf862a-e554-11e9-a8f4-06b2ab7e8ae4",
+    "loadHhtmlFile": "/config/china-dev.slooh.com.html"
   },
   "uk-dev.slooh.com": {
-    "productID": "acad6e65-f1e0-11e9-a8f4-06b2ab7e8ae4"
+    "productID": "acad6e65-f1e0-11e9-a8f4-06b2ab7e8ae4",
+    "loadHhtmlFile": "/config/uk-dev.slooh.com.html"
   },
   "eu-dev.slooh.com": {
-    "productID": "bad27bb3-f1e0-11e9-a8f4-06b2ab7e8ae4"
+    "productID": "bad27bb3-f1e0-11e9-a8f4-06b2ab7e8ae4",
+    "loadHhtmlFile": "/config/eu-dev.slooh.com.html"
   },
   "australia-dev.slooh.com": {
-    "productID": "43a3d05c-f1e0-11e9-a8f4-06b2ab7e8ae4"
+    "productID": "43a3d05c-f1e0-11e9-a8f4-06b2ab7e8ae4",
+    "loadHhtmlFile": "/config/australia-dev.slooh.com.html"
   },
   "newzealand-dev.slooh.com": {
-    "productID": "898f52c3-f1e0-11e9-a8f4-06b2ab7e8ae4"
+    "productID": "898f52c3-f1e0-11e9-a8f4-06b2ab7e8ae4",
+    "loadHhtmlFile": "/config/newzealand-dev.slooh.com.html"
   },
   "southafrica-dev.slooh.com": {
-    "productID": "9a751525-f1e0-11e9-a8f4-06b2ab7e8ae4"
+    "productID": "9a751525-f1e0-11e9-a8f4-06b2ab7e8ae4",
+    "loadHhtmlFile": "/config/southafrica-dev.slooh.com.html"
   },
   "india-dev.slooh.com": {
-    "productID": "035e02de-e555-11e9-a8f4-06b2ab7e8ae4"
+    "productID": "035e02de-e555-11e9-a8f4-06b2ab7e8ae4",
+    "loadHhtmlFile": "/config/india-dev.slooh.com.html"
   },
   "localhost": {
-    "COOKIE_DOMAIN": null
+    "COOKIE_DOMAIN": null,
+    "loadHhtmlFile": "/config/localhost.html"
   },
   "eris.slooh.com": {
     "loadHtmlFile": "/config/eris.slooh.com.html"
