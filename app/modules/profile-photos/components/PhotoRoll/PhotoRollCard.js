@@ -1,3 +1,4 @@
+/* eslint-disable */
 // @flow
 /***********************************
  *  V4 PhotoRollCard
@@ -5,7 +6,7 @@
  ***********************************/
 import React, { Component } from 'react';
 import cn from 'classnames';
-import {useTranslation, withTranslation} from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import { browserHistory } from 'react-router';
 import Button from 'app/components/common/style/buttons/Button';
 import Dots from 'app/atoms/icons/Dots';
@@ -73,6 +74,7 @@ class PhotoRollCard extends Component<TPhotoRollCard> {
       currentItem: observation,
       tagActions,
       typeGallery,
+      t,
     } = this.props;
     const { menuIsVisible, width } = this.state;
     const inCenter = index % 3 === 1;
@@ -84,7 +86,6 @@ class PhotoRollCard extends Component<TPhotoRollCard> {
       telescopeName,
       instrumentName,
     } = observation;
-    const { t } = useTranslation();
     return (
       <div className={cn(['root', { inCenter: inCenter && isDesktop }])}>
         <div
