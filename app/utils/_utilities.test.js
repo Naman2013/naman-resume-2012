@@ -1,4 +1,4 @@
-import SETTINGS from '../config';
+import SETTINGS from '../config/config';
 import generateInlineURL from './generateInlineURL';
 import purgeHashURL from './purgeHashURL';
 import useAbsoluteURL from './useAbsoluteURL';

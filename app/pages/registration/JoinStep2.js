@@ -3,18 +3,18 @@
  ***********************************/
 
 import React, { Component, cloneElement, Fragment } from 'react';
-import { Link } from 'react-router';
+import { withTranslation } from 'react-i18next';
+import { Link, browserHistory } from 'react-router';
 import PropTypes from 'prop-types';
 import { API } from 'app/api';
 import { GoogleLogin } from 'react-google-login';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
-import { intlShape, injectIntl, FormattedMessage } from 'react-intl';
 import cloneDeep from 'lodash/cloneDeep';
 import noop from 'lodash/noop';
 import InputField from 'app/components/form/InputField';
 import { createValidator, required } from 'app/modules/utils/validation';
-import { browserHistory } from 'react-router';
+
 import Button from 'app/components/common/style/buttons/Button';
 import Request from 'app/components/common/network/Request';
 import DisplayAtBreakpoint from 'app/components/common/DisplayAtBreakpoint';
@@ -29,18 +29,18 @@ import {
 import { DeviceContext } from 'app/providers/DeviceProvider';
 import JoinHeader from './partials/JoinHeader';
 import PlanDetailsCard from './partials/PlanDetailsCard';
-import { DEFAULT_JOIN_TABS } from './StaticNavTabs';
-import { CLASSROOM_JOIN_TABS } from './StaticNavTabs';
+import { DEFAULT_JOIN_TABS, CLASSROOM_JOIN_TABS } from './StaticNavTabs';
+
 import styles from './JoinStep2.style';
-import messages from './JoinStep2.messages';
 
 const { string, func } = PropTypes;
 
+@withTranslation()
 class JoinStep2 extends Component {
   static propTypes = {
     pathname: string.isRequired,
     change: func,
-    intl: intlShape.isRequired,
+
   };
 
   static defaultProps = {
@@ -239,7 +239,7 @@ class JoinStep2 extends Component {
     let formIsComplete = true;
     const { accountFormDetails, accountCreationType } = this.state;
 
-    const { intl } = this.props;
+    const { t } = this.props;
 
     const accountFormDetailsData = cloneDeep(accountFormDetails);
 
@@ -265,22 +265,22 @@ class JoinStep2 extends Component {
         */
 
       if (accountFormDetailsData.givenName.value === '') {
-        accountFormDetailsData.givenName.errorText = intl.formatMessage(
-          messages.FirstNameRequierMessage
+        accountFormDetailsData.givenName.errorText = t(
+          '.FirstNameRequierMessage'
         );
         formIsComplete = false;
       }
 
       if (accountFormDetailsData.familyName.value === '') {
-        accountFormDetailsData.familyName.errorText = intl.formatMessage(
-          messages.LastNameRequierMessage
+        accountFormDetailsData.familyName.errorText = t(
+          '.LastNameRequierMessage'
         );
         formIsComplete = false;
       }
 
       if (accountFormDetailsData.loginEmailAddress.value === '') {
-        accountFormDetailsData.loginEmailAddress.errorText = intl.formatMessage(
-          messages.EmailRequierMessage
+        accountFormDetailsData.loginEmailAddress.errorText = t(
+          '.EmailRequierMessage'
         );
         formIsComplete = false;
       } else {
@@ -290,8 +290,8 @@ class JoinStep2 extends Component {
           accountFormDetailsData.loginEmailAddress.value !==
           accountFormDetailsData.loginEmailAddressVerification.value
         ) {
-          accountFormDetailsData.loginEmailAddressVerification.errorText = intl.formatMessage(
-            messages.EmailsDontMatchMessage
+          accountFormDetailsData.loginEmailAddressVerification.errorText = t(
+            '.EmailsDontMatchMessage'
           );
           formIsComplete = false;
         }
@@ -305,15 +305,15 @@ class JoinStep2 extends Component {
       */
 
       if (accountFormDetailsData.givenName.value === '') {
-        accountFormDetailsData.givenName.errorText = intl.formatMessage(
-          messages.FirstNameRequierMessage
+        accountFormDetailsData.givenName.errorText = t(
+          '.FirstNameRequierMessage'
         );
         formIsComplete = false;
       }
 
       if (accountFormDetailsData.familyName.value === '') {
-        accountFormDetailsData.familyName.errorText = intl.formatMessage(
-          messages.LastNameRequierMessage
+        accountFormDetailsData.familyName.errorText = t(
+          '.LastNameRequierMessage'
         );
         formIsComplete = false;
       }
@@ -322,8 +322,8 @@ class JoinStep2 extends Component {
     /* Special Verifications if this is an Astronomy Club */
     if (this.state.isAstronomyClub) {
       if (accountFormDetailsData.astronomyClubName.value === '') {
-        accountFormDetailsData.astronomyClubName.errorText = intl.formatMessage(
-          messages.AstronomyClubRequierMessage
+        accountFormDetailsData.astronomyClubName.errorText = t(
+          '.AstronomyClubRequierMessage'
         );
         formIsComplete = false;
       }
@@ -332,8 +332,8 @@ class JoinStep2 extends Component {
     if (this.state.isAgeRestricted === true) {
       /* Make sure that the 13/Older indicator is selected with a value */
       if (accountFormDetailsData.is13YearsAndOlder.value === null) {
-        accountFormDetailsData.is13YearsAndOlder.errorText = intl.formatMessage(
-          messages.AgeRequierMessage
+        accountFormDetailsData.is13YearsAndOlder.errorText = t(
+          '.AgeRequierMessage'
         );
         formIsComplete = false;
       } else if (accountFormDetailsData.is13YearsAndOlder.value === false) {
@@ -341,16 +341,16 @@ class JoinStep2 extends Component {
         if (
           accountFormDetailsData.not13YearsOldLegalGuardianOk.value === false
         ) {
-          accountFormDetailsData.not13YearsOldLegalGuardianOk.errorText = intl.formatMessage(
-            messages.MinAgeErrorMessage
+          accountFormDetailsData.not13YearsOldLegalGuardianOk.errorText = t(
+            '.MinAgeErrorMessage'
           );
           formIsComplete = false;
         }
 
         //make sure the parent email address field is filled in.
         if (accountFormDetailsData.parentEmailAddress.value === '') {
-          accountFormDetailsData.parentEmailAddress.errorText = intl.formatMessage(
-            messages.ParentEmailRequierMessage
+          accountFormDetailsData.parentEmailAddress.errorText = t(
+            '.ParentEmailRequierMessage'
           );
           formIsComplete = false;
         }
@@ -359,9 +359,7 @@ class JoinStep2 extends Component {
 
     /* a password is assigned to a Google account even though they can sign-in using google, this way they can login without google if needed */
     if (accountFormDetailsData.password.value === '') {
-      accountFormDetailsData.password.errorText = intl.formatMessage(
-        messages.PasswordRequierMessage
-      );
+      accountFormDetailsData.password.errorText = t('Ecommerce.PasswordRequierMessage');
       formIsComplete = false;
     } else {
       /* verify the password and the verification password fields match */
@@ -370,8 +368,8 @@ class JoinStep2 extends Component {
         accountFormDetailsData.password.value !==
         accountFormDetailsData.passwordVerification.value
       ) {
-        accountFormDetailsData.passwordVerification.errorText = intl.formatMessage(
-          messages.PasswordsDontMatchMessage
+        accountFormDetailsData.passwordVerification.errorText = t(
+          '.PasswordsDontMatchMessage'
         );
         formIsComplete = false;
       }
@@ -383,13 +381,15 @@ class JoinStep2 extends Component {
       /* Last Validation....password and email address validation */
       /* reach out to the Slooh API and verify the user's password and email address is not already taken, etc */
 
-      const customerDetailsMeetsRequirementsResult = API
-      .post(VALIDATE_NEW_PENDING_CUSTOMER_DETAILS_ENDPOINT_URL, {
+      const customerDetailsMeetsRequirementsResult = API.post(
+        VALIDATE_NEW_PENDING_CUSTOMER_DETAILS_ENDPOINT_URL,
+        {
           userEnteredPassword: this.state.accountFormDetails.password.value,
           userEnteredLoginEmailAddress: this.state.accountFormDetails
             .loginEmailAddress.value,
           selectedPlanId: window.localStorage.selectedPlanId,
-        })
+        }
+      )
         .then(response => {
           const res = response.data;
           if (res.apiError == false) {
@@ -469,11 +469,10 @@ class JoinStep2 extends Component {
     }
 
     // JOIN_CREATE_PENDING_CUSTOMER_ENDPOINT_URL
-    API
-      .post(
-        JOIN_CREATE_PENDING_CUSTOMER_ENDPOINT_URL,
-        createPendingCustomerData
-      )
+    API.post(
+      JOIN_CREATE_PENDING_CUSTOMER_ENDPOINT_URL,
+      createPendingCustomerData
+    )
       .then(response => {
         const res = response.data;
         if (!res.apiError) {
@@ -520,10 +519,9 @@ class JoinStep2 extends Component {
     // console.log("Processing Google Signin: " + googleTokenData);
 
     /* Process the Google SSO tokens and get back information about this user via the Slooh APIs/Google APIs, etc. */
-    API
-      .post(GOOGLE_SSO_SIGNIN_ENDPOINT_URL, {
-        authenticationCode: googleTokenData.code,
-      })
+    API.post(GOOGLE_SSO_SIGNIN_ENDPOINT_URL, {
+      authenticationCode: googleTokenData.code,
+    })
       .then(response => {
         const res = response.data;
         if (!res.apiError) {
@@ -603,7 +601,7 @@ class JoinStep2 extends Component {
   };
 
   render() {
-    const { pathname } = this.props;
+    const { pathname, t } = this.props;
     const {
       // googleProfileData,
       accountFormDetails,
@@ -624,6 +622,7 @@ class JoinStep2 extends Component {
             callSource: 'setupCredentials',
             selectedPlanId,
             selectedSchoolId,
+	    enableHiddenPlanHashCode: window.localStorage.getItem('enableHiddenPlanHashCode'),
           }}
           serviceResponseHandler={this.handleJoinPageServiceResponse}
           render={({ fetchingContent, serviceResponse: joinPageRes }) => (
@@ -701,14 +700,12 @@ class JoinStep2 extends Component {
                             <div>
                               <br />
                               <p>
-                                <FormattedMessage {...messages.YourSchool} />:{' '}
+                                {t('Ecommerce.YourSchool')}:{' '}
                                 {joinPageRes.selectedSchool.schoolName}
                               </p>
                               <p style={{ fontSize: '1.0em' }}>
-                                <FormattedMessage
-                                  {...messages.YourSchoolDistrict}
-                                />
-                                : {joinPageRes.selectedSchool.districtName}
+                                {t('Ecommerce.YourSchoolDistrict')}:{' '}
+                                {joinPageRes.selectedSchool.districtName}
                               </p>
                               <br />
                               <br />
@@ -860,7 +857,7 @@ class JoinStep2 extends Component {
                                           });
                                         }}
                                       />{' '}
-                                      <FormattedMessage {...messages.Yes} />
+                                      {t('Ecommerce.Yes')}
                                     </label>
                                     <span style={{ paddingLeft: '15px' }}>
                                       <label>
@@ -877,7 +874,7 @@ class JoinStep2 extends Component {
                                             });
                                           }}
                                         />
-                                        <FormattedMessage {...messages.No} />
+                                        {t('Ecommerce.No')}
                                       </label>
                                     </span>
                                   </fieldset>
@@ -1260,7 +1257,7 @@ class JoinStep2 extends Component {
                                 }}
                               />
                               <button className="submit-button" type="submit">
-                                <FormattedMessage {...messages.GoToPayment} />
+                                {t('Ecommerce.GoToPayment')}
                               </button>
                             </div>
                           </form>
@@ -1295,5 +1292,5 @@ export default connect(
     form: 'joinAccountForm',
     validate: joinStep2Validation,
     enableReinitialize: true,
-  })(injectIntl(JoinStep2))
+  })(JoinStep2)
 );

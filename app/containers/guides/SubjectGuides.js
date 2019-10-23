@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
 import Request from 'app/components/common/network/Request';
 import TiaraTitleSection from 'app/components/common/TiaraTitleSection';
 import CenterColumn from 'app/components/common/CenterColumn';
@@ -12,7 +11,6 @@ import SterlingTitle from 'app/components/common/titles/SterlingTitle';
 import GuidePanels from 'app/components/guides/GuidePanels';
 import { GUIDE_ENDPOINT_URL } from 'app/services/guides/guide-data';
 import { validateResponseAccess } from 'app/modules/authorization/actions';
-import messages from './SubjectGuides.messages';
 
 const subjectGuideModel = {
   name: 'SUBJECT_GUIDE_MODEL',
@@ -56,8 +54,8 @@ const subjectGuideModel = {
       alignContent: 'right',
     },
     sterlingTitleProps: {
-      title: <FormattedMessage {...messages.SubjectsSterlingTitle} />,
-      subTitle: <FormattedMessage {...messages.SubjectsSterlingSubtitle} />,
+      title: 'Topics within this guide',
+      subTitle: 'Select a Topic for more information',
     },
     subjectGuideListProps: {
       list:
@@ -84,40 +82,40 @@ const SubjectGuides = ({ params: { guideId } }) => (
         fetchingContent,
         modeledResponses: { SUBJECT_GUIDE_MODEL },
       }) => (
-          <Fragment>
-            {!fetchingContent && (
-              <Fragment>
-                <TiaraTitleSection
-                  {...SUBJECT_GUIDE_MODEL.tiaraTitleSectionProps}
+        <Fragment>
+          {!fetchingContent && (
+            <Fragment>
+              <TiaraTitleSection
+                {...SUBJECT_GUIDE_MODEL.tiaraTitleSectionProps}
+              />
+
+              <CenterColumn
+                theme={{
+                  boxShadow: 'rgba(65, 86, 113, 0.2) 0px 3px 8px 1px',
+                  marginBottom: '60px',
+                }}
+              >
+                <GuideSection
+                  {...SUBJECT_GUIDE_MODEL.guideSectionProps}
+                  guideId={guideId}
                 />
+              </CenterColumn>
+              <GuidePanels guideId={guideId} />
 
-                <CenterColumn
-                  theme={{
-                    boxShadow: 'rgba(65, 86, 113, 0.2) 0px 3px 8px 1px',
-                    marginBottom: '60px',
-                  }}
-                >
-                  <GuideSection
-                    {...SUBJECT_GUIDE_MODEL.guideSectionProps}
-                    guideId={guideId}
-                  />
-                </CenterColumn>
-                <GuidePanels guideId={guideId} />
+              {Array.isArray(SUBJECT_GUIDE_MODEL.subjectGuideListProps.list) &&
+                SUBJECT_GUIDE_MODEL.subjectGuideListProps.list.length > 0 && (
+                  <SterlingTitle {...SUBJECT_GUIDE_MODEL.sterlingTitleProps} />
+                )}
 
-                {Array.isArray(SUBJECT_GUIDE_MODEL.subjectGuideListProps.list) &&
-                  SUBJECT_GUIDE_MODEL.subjectGuideListProps.list.length > 0 && (
-                    <SterlingTitle {...SUBJECT_GUIDE_MODEL.sterlingTitleProps} />
-                  )}
-
-                <CenterColumn>
-                  <SubjectGuideList
-                    {...SUBJECT_GUIDE_MODEL.subjectGuideListProps}
-                  />
-                </CenterColumn>
-              </Fragment>
-            )}
-          </Fragment>
-        )}
+              <CenterColumn>
+                <SubjectGuideList
+                  {...SUBJECT_GUIDE_MODEL.subjectGuideListProps}
+                />
+              </CenterColumn>
+            </Fragment>
+          )}
+        </Fragment>
+      )}
     />
   </div>
 );

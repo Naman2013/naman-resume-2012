@@ -8,6 +8,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import uniqueId from 'lodash/uniqueId';
 import take from 'lodash/take';
+import {useTranslation} from 'react-i18next';
 import SloohSlider from '../../../components/common/Slider';
 import DisplayAtBreakpoint from '../../../components/common/DisplayAtBreakpoint';
 import { getSliderProps } from './recommendedQuestsSliderConfiguration';
@@ -16,7 +17,8 @@ import RecommendedQuestSliderItem from './partials/RecommendedQuestItem';
 const { arrayOf, shape } = PropTypes;
 
 const RecommendedObjects = ({ recommendedQuestsList = [] }) => {
-  const sliderProps = getSliderProps(recommendedQuestsList);
+  const { t } = useTranslation();
+  const sliderProps = getSliderProps(recommendedQuestsList, t);
   const shortList = take(recommendedQuestsList, 2) || [];
   return (
     <div className="root" key={uniqueId()}>
@@ -27,7 +29,7 @@ const RecommendedObjects = ({ recommendedQuestsList = [] }) => {
         {shortList.map(quest => (
           <RecommendedQuestSliderItem key={quest.linkUrl} {...quest} />
         ))}
-      </DisplayAtBreakpoint>      
+      </DisplayAtBreakpoint>
       <style jsx>{`
         .root {
           margin: 0 auto;

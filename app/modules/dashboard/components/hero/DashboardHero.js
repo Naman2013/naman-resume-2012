@@ -9,7 +9,6 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import uniqueId from 'lodash/uniqueId';
-import { FormattedMessage } from 'react-intl';
 import styles from './DashboardHero.style';
 import TweenMax from "gsap/TweenMax";
 

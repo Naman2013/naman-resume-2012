@@ -1,9 +1,8 @@
 import React, { Fragment, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import { ModalImg } from 'app/modules/telescope/components/modal-img';
-import { injectIntl } from 'react-intl';
-import messages from 'app/components/common/CardObservations/CardObsLarge.messages';
 import LikeSomethingButton from 'app/components/common/LikeSomethingButton';
 import style from './CardObservationsSmall.style';
 
@@ -19,21 +18,21 @@ const CardObsSmall = props => {
     likedByMe,
     likeTooltip,
     commentsCount,
-    intl,
     handleLike,
     customerImageId,
     likePrompt,
     showLikePrompt,
     socialShareDescription,
-    iconFileData,
+    iconFileData = { Member: {} },
   } = props;
+  const { t } = useTranslation();
   const [isOpen, openModal] = useState(false);
   const [likesNumber, changeLikesNumber] = useState(likesCount);
   const title = observationTitle || imageTitle;
   const onLikeClick = () => {
     if (!showLikePrompt) {
-      handleLike(customerImageId);
       changeLikesNumber(likesNumber + 1);
+      return handleLike(customerImageId);
     }
   };
   return (
@@ -41,7 +40,7 @@ const CardObsSmall = props => {
       <div className="card-obs">
         <div className="obs-left">
           <h2 className="card-obs-title h-2 h-2-bold">{title}</h2>
-          <Link to={iconFileData?.Member?.linkUrl}>
+          <Link to={iconFileData.Member.linkUrl}>
             <h5 className="card-obs-author h-5 h-5-normal">{subTitle}</h5>
           </Link>
           {description && (
@@ -125,7 +124,7 @@ const CardObsSmall = props => {
           </div>
           {linkUrl && (
             <Link to={linkUrl} className="button details">
-              {intl.formatMessage(messages.Details)}
+              {t('Objects.ObservationsDetails')}
               <img
                 src="https://vega.slooh.com/assets/v4/icons/horz_arrow_right_astronaut.svg"
                 alt="arrow-right"
@@ -153,4 +152,4 @@ CardObsSmall.propTypes = {
   showLikePrompt: PropTypes.bool.isRequired,
 };
 
-export default injectIntl(CardObsSmall);
+export default CardObsSmall;

@@ -4,7 +4,7 @@ import createReducer from './utils/createReducer';
 import createAction from './utils/createAction';
 import * as userActions from './User';
 
-import SETTINGS from '../config';
+import SETTINGS from '../config/config';
 
 const LOGIN_SHOW = 'LOGIN_SHOW';
 const LOGIN_HIDE = 'LOGIN_HIDE';

@@ -36,6 +36,7 @@ const didMount = (props: TUpgradeModal) => () => {
   getSubscriptionPlans({
     selectedPlan,
     callSource: subscriptionPlansCallSource,
+    enableHiddenPlanHashCode: window.localStorage.getItem('enableHiddenPlanHashCode')
   });
 
   //clear localStorage

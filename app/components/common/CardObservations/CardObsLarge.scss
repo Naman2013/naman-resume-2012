@@ -71,7 +71,9 @@
           display: flex;
 
           .observation-icon {
-            margin-right: 25px;
+            display: flex;
+            justify-content: center;
+            width: 90px;
 
             .link {
               @include centerChildren;
@@ -79,6 +81,7 @@
               width: 40px;
               height: 40px;
               cursor: pointer;
+              margin-right: 0;
 
               .linkIcon {
                 width: 35px;

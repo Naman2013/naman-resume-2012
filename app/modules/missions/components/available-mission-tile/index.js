@@ -2,7 +2,6 @@ import moment from 'moment';
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import Countdown from 'react-countdown-now';
-import { FormattedNumber } from 'react-intl';
 import Button from '../../../../components/common/style/buttons/Button';
 import FollowObjectButton from 'app/components/object-details/FollowObjectButton.js';
 import './styles.scss';

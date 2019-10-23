@@ -13,11 +13,13 @@ import {
   setupFeaturedObjectsExpireTimer,
   stopFeaturedObjectsExpireTimer,
 } from 'app/services/dashboard/timer';
+import { withTranslation } from 'react-i18next';
 import SloohSlider from '../Slider';
 import DisplayAtBreakpoint from '../DisplayAtBreakpoint';
 import { getSliderProps } from './recommendedObjectsSliderConfiguration';
 import './styles.scss';
 
+@withTranslation()
 export class RecommendedObjects extends Component {
   state = {
     reservationModalVisible: false,
@@ -33,7 +35,6 @@ export class RecommendedObjects extends Component {
       setupFeaturedObjectsExpireTimer(timerTime, () =>
         this.getDashboardFeaturedObjects()
       );
-
     });
   };
 
@@ -75,13 +76,20 @@ export class RecommendedObjects extends Component {
       reservedCommunityMission,
       reservedButtonCaption,
       optionsButtonCaption,
+      t,
     } = this.props;
     const {
       reservationModalVisible,
       selectedMission,
       successModalShow,
     } = this.state;
-    const sliderProps = getSliderProps(missionList, this.reservationModalShow, reservedButtonCaption, optionsButtonCaption);
+    const sliderProps = getSliderProps(
+      missionList,
+      this.reservationModalShow,
+      reservedButtonCaption,
+      optionsButtonCaption,
+      t
+    );
     const shortList = take(missionList, 3) || [];
     return (
       <div className="dashboard-recomended-objects">
@@ -111,7 +119,6 @@ export class RecommendedObjects extends Component {
               max-width: 965px;
             }
           }
-
         `}</style>
 
         {reservationModalVisible && (

@@ -5,6 +5,7 @@
 
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {
@@ -18,17 +19,15 @@ import {
 } from 'react-bootstrap';
 import Request from 'app/components/common/network/Request';
 import { API } from 'app/api';
-import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 import Button from 'app/components/common/style/buttons/Button';
 import DiscussionBoardInviteNewMemberToSlooh from 'app/components/community-groups/overview/DiscussionBoardInviteNewMemberToSlooh';
 import { CLASSROOM_GET_GROUP_INVITATION_PANEL_ENDPOINT_URL } from 'app/services/classroom/classroom';
 import { CREATE_CUSTOMER_LINK_INVITATION_ENDPOINT_URL } from 'app/services/registration/registration';
 import _get from 'lodash/get';
 
-import { astronaut } from '../../../styles/variables/colors_tiles_v4';
 import { screenLarge } from 'app/styles/variables/breakpoints';
+import { astronaut } from '../../../styles/variables/colors_tiles_v4';
 import style from './DiscussionBoardInvitationsPanel.style';
-import messages from './DiscussionBoard.messages';
 import { faintShadow } from '../../../styles/variables/shadows';
 
 const { arrayOf, bool, func, number, shape, string } = PropTypes;
@@ -40,10 +39,11 @@ const mapStateToProps = ({ user }) => ({
   mapStateToProps,
   null
 )
+@withTranslation()
 class DiscussionBoardInvitationsPanel extends Component {
   static propTypes = {
     pageMeta: shape({}),
-    intl: intlShape.isRequired,
+
   };
 
   static defaultProps = {
@@ -75,7 +75,7 @@ class DiscussionBoardInvitationsPanel extends Component {
     inviteStatusMessage
   ) => {
     this.setState(() => ({
-      inviteStatusMessage: inviteStatusMessage,
+      inviteStatusMessage,
     }));
 
     this.toggleInviteMode();
@@ -84,29 +84,27 @@ class DiscussionBoardInvitationsPanel extends Component {
   addExistingMemberToDiscussionGroup = (firstName, lastName, emailAddress) => {
     const { discussionGroupId, user, refreshHeader } = this.props;
 
-    const setInviteCompleteResult = API
-      .post(CREATE_CUSTOMER_LINK_INVITATION_ENDPOINT_URL, {
+    const setInviteCompleteResult = API.post(
+      CREATE_CUSTOMER_LINK_INVITATION_ENDPOINT_URL,
+      {
         cid: user.cid,
         at: user.at,
         token: user.token,
         groupId: discussionGroupId,
         inviteeDetails: {
-          firstName: firstName,
-          lastName: lastName,
-          emailAddress: emailAddress,
+          firstName,
+          lastName,
+          emailAddress,
         },
-      })
+      }
+    )
       .then(response => {
         const serviceResponse = response.data;
         refreshHeader();
         if (serviceResponse.apiError == false) {
           //the invitation was successful, reset/reload the form....(need to make this unique to the action)
           this.setState(() => ({
-            refreshModeStr:
-              'invitedDiscussionGroupMember' +
-              discussionGroupId +
-              emailAddress +
-              'addToClub',
+            refreshModeStr: `invitedDiscussionGroupMember${discussionGroupId}${emailAddress}addToClub`,
           }));
         }
       })
@@ -116,9 +114,9 @@ class DiscussionBoardInvitationsPanel extends Component {
   };
 
   render() {
-    const { actions, pageMeta, user, discussionGroupId, intl } = this.props;
+    const { actions, pageMeta, user, discussionGroupId } = this.props;
 
-    const { refreshModeStr, inInviteMode } = this.state;
+    const { refreshModeStr, inInviteMode, t } = this.state;
 
     return (
       <div className="root">
@@ -142,9 +140,7 @@ class DiscussionBoardInvitationsPanel extends Component {
               <Fragment>
                 {fetchingContent && (
                   <div>
-                    <h3>
-                      <FormattedMessage {...messages.LoadingClubInvitations} />
-                    </h3>
+                    <h3>{t('Clubs.LoadingClubInvitations')}</h3>
                     <br />
                   </div>
                 )}
@@ -187,7 +183,7 @@ class DiscussionBoardInvitationsPanel extends Component {
                       <div className="button-cancel">
                         <Button
                           type="button"
-                          text={intl.formatMessage(messages.Cancel)}
+                          text={t('Clubs.Cancel')}
                           onClickEvent={this.toggleInviteMode}
                         />
                         <br />
@@ -224,30 +220,37 @@ class DiscussionBoardInvitationsPanel extends Component {
                                   </Card.Subtitle>
                                 </Card.Body>
                                 <ListGroup>
-				   {x.showInvitationCode == true && <ListGroupItem className="list-card-item">
-                                     <b>Invitation Code: </b>
-                                     {x.invitationcode}
-                                  </ListGroupItem>
-				  }
+                                  {x.showInvitationCode == true && (
+                                    <ListGroupItem className="list-card-item">
+                                      <b>Invitation Code: </b>
+                                      {x.invitationcode}
+                                    </ListGroupItem>
+                                  )}
                                   <ListGroupItem className="list-card-item">
                                     <b>Account status: </b>
                                     {x.status}
                                   </ListGroupItem>
                                   <ListGroupItem className="listy-card-item">
-                                    {x.showAddButton == true && <Button
-                                      type="button"
-                                      text={x.invitationPrompt}
-                                      onClickEvent={() =>
-                                        this.addExistingMemberToDiscussionGroup(
-                                          x.firstname,
-                                          x.lastname,
-                                          x.emailaddress,
-                                          x.googleprofileid
-                                        )
-                                      }
-                                    />
-                                    }
-                                    {x.showClubStatus == true && <span><b>Club status: </b>{x.clubStatus}</span>}
+                                    {x.showAddButton == true && (
+                                      <Button
+                                        type="button"
+                                        text={x.invitationPrompt}
+                                        onClickEvent={() =>
+                                          this.addExistingMemberToDiscussionGroup(
+                                            x.firstname,
+                                            x.lastname,
+                                            x.emailaddress,
+                                            x.googleprofileid
+                                          )
+                                        }
+                                      />
+                                    )}
+                                    {x.showClubStatus == true && (
+                                      <span>
+                                        <b>Club status: </b>
+                                        {x.clubStatus}
+                                      </span>
+                                    )}
                                   </ListGroupItem>
                                 </ListGroup>
 
@@ -261,9 +264,7 @@ class DiscussionBoardInvitationsPanel extends Component {
                             )
                           )
                         ) : (
-                          <p>
-                            <FormattedMessage {...messages.NoInvitations} />
-                          </p>
+                          <p>{t('Clubs.NoInvitations')}</p>
                         )}
                       </Row>
                     </Container>
@@ -305,4 +306,4 @@ class DiscussionBoardInvitationsPanel extends Component {
   }
 }
 
-export default injectIntl(DiscussionBoardInvitationsPanel);
+export default DiscussionBoardInvitationsPanel;

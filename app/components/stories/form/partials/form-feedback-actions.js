@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { intlShape } from 'react-intl';
 import Button from 'app/components/common/style/buttons/Button';
 import styles from './form-feedback-actions.style';
-import messages from './form-feedback-actions.messages';
+
 
 const { func, string } = PropTypes;
 const FormFeedbackActions = props => {
@@ -19,7 +18,7 @@ const FormFeedbackActions = props => {
 FormFeedbackActions.propTypes = {
   closeResponseFeedback: func.isRequired,
   resetForm: func.isRequired,
-  intl: intlShape.isRequired,
+
   submitButtonCaption: string,
 };
 

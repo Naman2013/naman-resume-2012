@@ -102,18 +102,9 @@ module.exports = {
       filename: 'index.html',
     }),
     new webpack.DefinePlugin({
-      cookieDomain: JSON.stringify(process.env.cookieDomain),
       'process.env': {
         NODE_ENV: JSON.stringify(process.env.NODE_ENV),
       },
-    }),
-
-    new webpack.EnvironmentPlugin({
-      SENTRY_ENV: 'PRODUCTION',
-      PUBNUB_FEEDS_SUBKEY: '',
-      PUBNUB_FEEDS_PUBKEY: '',
-      PUBNUB_FEEDS_SECRETKEY: '',
-      PUBNUB_CHANNEL_PREFIX: 'dev.'
     }),
 
     new MiniCssExtractPlugin({
@@ -123,6 +114,9 @@ module.exports = {
       chunkFilename: isProduction ? '[id].[hash].css' : '[id].css',
       disable: !isProduction,
     }),
+    new CopyWebpackPlugin([
+      { from: path.join(sourcePath, 'public'), to: outPath },
+    ]),
   ],
 
   // Emit a source map for easier debugging
