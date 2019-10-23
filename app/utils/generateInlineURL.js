@@ -1,4 +1,4 @@
-import SETTINGS from '../config';
+import SETTINGS from '../config/config';
 import purgeHashURL from './purgeHashURL';
 
 export default function generateInlineURL(URL) {

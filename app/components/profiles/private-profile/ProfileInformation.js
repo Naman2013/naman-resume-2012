@@ -5,7 +5,7 @@
 import _get from 'lodash/get';
 import PropTypes from 'prop-types';
 import React, { Component, Fragment } from 'react';
-import { injectIntl, intlShape } from 'react-intl';
+import { withTranslation } from 'react-i18next';
 import Modal from 'react-modal';
 
 import { DeviceContext } from '../../../providers/DeviceProvider';
@@ -20,7 +20,6 @@ import {
   StatsPopover,
   GravityStatsList,
 } from '../ProfileStats';
-import messages from './ProfileInformation.messages';
 import styles from './ProfileInformation.styles';
 
 const { shape } = PropTypes;
@@ -30,7 +29,7 @@ const PROFILE_STATS = {
   badges: 'badges',
   mvp: 'mvp',
 };
-
+@withTranslation()
 class ProfileInformation extends Component {
   static propTypes = {
     myInformationData: shape({
@@ -39,7 +38,6 @@ class ProfileInformation extends Component {
       badgesData: shape({}).isRequired,
       mvpData: shape({}).isRequired,
     }).isRequired,
-    intl: intlShape.isRequired,
   };
 
   state = {
@@ -48,13 +46,10 @@ class ProfileInformation extends Component {
 
   getGravityTabs = () => {
     const { gravityData } = this.props.myInformationData;
-    const { intl, profileData } = this.props;
+    const { t, profileData } = this.props;
     const { userInfoGuideDetails } = profileData;
     return {
-      tabsList: [
-        intl.formatMessage(messages.Stats),
-        intl.formatMessage(messages.Guide),
-      ],
+      tabsList: [t('Profile.Stats'), t('Profile.Guide')],
       panels: [
         <GravityStatsList gravityList={gravityData.gravityList} />,
         <StatsDetails userInfoGuideDetails={userInfoGuideDetails} />,
@@ -66,13 +61,10 @@ class ProfileInformation extends Component {
 
   getBadgesTabs = () => {
     const { badgesData } = this.props.myInformationData;
-    const { intl, profileData } = this.props;
+    const { t, profileData } = this.props;
     const { userInfoGuideDetails } = profileData;
     return {
-      tabsList: [
-        intl.formatMessage(messages.MyBadges),
-        intl.formatMessage(messages.Guide),
-      ],
+      tabsList: [t('Profile.MyBadges'), t('Profile.Guide')],
       panels: [
         <Badges badgesList={badgesData.badgesList} />,
         <StatsDetails userInfoGuideDetails={userInfoGuideDetails} />,
@@ -84,13 +76,10 @@ class ProfileInformation extends Component {
 
   getMvpTabs = () => {
     const { mvpData } = this.props.myInformationData;
-    const { intl, profileData } = this.props;
+    const { t, profileData } = this.props;
     const { userInfoGuideDetails } = profileData;
     return {
-      tabsList: [
-        intl.formatMessage(messages.Specialties),
-        intl.formatMessage(messages.Guide),
-      ],
+      tabsList: [t('Profile.Specialties'), t('Profile.Guide')],
       panels: [
         <SpecialistList specialistList={mvpData.specialistObjects} />,
         <StatsDetails userInfoGuideDetails={userInfoGuideDetails} />,
@@ -107,7 +96,7 @@ class ProfileInformation extends Component {
   };
 
   render() {
-    const { intl, myInformationData } = this.props;
+    const { t, myInformationData } = this.props;
     const { generalInfo, gravityData, badgesData, mvpData } = myInformationData;
     const { selectedStats } = this.state;
 
@@ -115,7 +104,7 @@ class ProfileInformation extends Component {
       <Fragment>
         <ProfileStatsItem
           type={PROFILE_STATS.gravity}
-          label={intl.formatMessage(messages.Gravity)}
+          label={t('Profile.Gravity')}
           buttonText={gravityData.totalGravity}
           onClickEvent={this.toggleStatsPopover}
           isActive={selectedStats === PROFILE_STATS.gravity}
@@ -123,7 +112,7 @@ class ProfileInformation extends Component {
 
         <ProfileStatsItem
           type={PROFILE_STATS.badges}
-          label={intl.formatMessage(messages.Badges)}
+          label={t('Profile.Badges')}
           buttonText={badgesData.badgesCount}
           onClickEvent={this.toggleStatsPopover}
           isActive={selectedStats === PROFILE_STATS.badges}
@@ -131,7 +120,7 @@ class ProfileInformation extends Component {
 
         <ProfileStatsItem
           type={PROFILE_STATS.mvp}
-          label={intl.formatMessage(messages.MVP)}
+          label={t('Profile.MVP')}
           buttonText={mvpData.specialistObjectsCount}
           onClickEvent={this.toggleStatsPopover}
           isActive={selectedStats === PROFILE_STATS.mvp}
@@ -277,4 +266,4 @@ class ProfileInformation extends Component {
   }
 }
 
-export default injectIntl(ProfileInformation);
+export default ProfileInformation;

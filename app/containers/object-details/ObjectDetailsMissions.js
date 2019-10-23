@@ -6,9 +6,9 @@
  ********************************** */
 
 import React, { Component, Fragment } from 'react';
+import {withTranslation} from 'react-i18next';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 import { createStructuredSelector } from 'reselect';
 import { Button } from 'react-bootstrap';
@@ -40,7 +40,6 @@ import DeviceProvider from '../../../app/providers/DeviceProvider';
 import ObjectDetailsSectionTitle from '../../components/object-details/ObjectDetailsSectionTitle';
 import MissionTile from 'app/components/common/tiles/MissionTile';
 import CenterColumn from '../../../app/components/common/CenterColumn';
-import messages from './ObjectDetails.messages';
 import './ObjectDetailsMissions.scss';
 
 const mapStateToProps = createStructuredSelector({
@@ -61,6 +60,7 @@ const mapDispatchToProps = {
   mapStateToProps,
   mapDispatchToProps
 )
+@withTranslation()
 class Missions extends Component {
   state = {
     reservationModalVisible: false,
@@ -104,7 +104,7 @@ class Missions extends Component {
       missionStart,
     }).then(() => this.setState({ successModalShow: true, reservationModalVisible: false, }));
   }
-  
+
   reservationModalShow = mission => {
     this.setState({ reservationModalVisible: true, selectedMission: mission });
   }
@@ -123,7 +123,7 @@ class Missions extends Component {
       params: { objectId },
       objectDetails,
       missionData,
-      intl,
+      t,
       user,
       reservedCommunityMissionData,
       reservedCommunityMission,
@@ -140,7 +140,7 @@ class Missions extends Component {
         <DeviceProvider>
           <ObjectDetailsSectionTitle
             title={`${objectDetails.objectTitle}'s`}
-            subTitle={intl.formatMessage(messages.UpcomingMissions)}
+            subTitle={t('Objects.UpcomingMissions')}
             renderNav={() => (
               <div className="object-details-missions-actions">
                 {missionListExpired && (
@@ -198,7 +198,7 @@ class Missions extends Component {
 }
 
 Missions.propTypes = {
-  intl: intlShape.isRequired,
+
 };
 
-export default injectIntl(Missions);
+export default Missions;

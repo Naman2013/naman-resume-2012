@@ -4,11 +4,11 @@
 
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import Button from 'app/components/common/style/buttons/Button';
 import { browserHistory } from 'react-router';
 import { Field, reduxForm, formValueSelector } from 'redux-form';
-import { intlShape, injectIntl } from 'react-intl';
 import InputField from 'app/components/form/InputField';
 import {
   CLASSROOM_GET_US_DISTRICTLIST_ENDPOINT_URL,
@@ -22,14 +22,13 @@ import { DeviceContext } from 'app/providers/DeviceProvider';
 import JoinHeader from './partials/JoinHeader';
 import { CLASSROOM_JOIN_TABS } from './StaticNavTabs';
 import styles from './JoinStep1SchoolSelection.style';
-import messages from './JoinInviteByCodeStep1.messages';
 
 const { string } = PropTypes;
-
+@withTranslation()
 class JoinStep1SchoolSelectionGeneral extends Component {
   static propTypes = {
     pathname: string,
-    intl: intlShape.isRequired,
+
   };
 
   static defaultProps = {
@@ -53,40 +52,37 @@ class JoinStep1SchoolSelectionGeneral extends Component {
   };
 
   componentDidMount() {
-    API
-      .post(JOIN_PAGE_ENDPOINT_URL, {
-        callSource: 'selectSchoolDistrict',
-        selectedPlanId: window.localStorage.getItem('selectedPlanId'),
-      })
-      .then(({ data }) => {
-        this.setState({
-          formFieldLabels: data.formFieldLabels,
-          pageHeading1: data.pageHeading1,
-          pageHeading2: data.pageHeading2,
-          sectionHeading: data.sectionHeading,
-          selectedSubscriptionPlan: data.selectedSubscriptionPlan,
-        });
-        const { change } = this.props;
-        change(
-          'schoolCountry',
-          Object.keys(data.formFieldLabels.schoolNotInMarketListCountryList)[0]
-        );
-        change(
-          'schoolState',
-          Object.keys(data.formFieldLabels.schoolNotInMarketListStateList)[0]
-        );
+    API.post(JOIN_PAGE_ENDPOINT_URL, {
+      callSource: 'selectSchoolDistrict',
+      selectedPlanId: window.localStorage.getItem('selectedPlanId'),
+    }).then(({ data }) => {
+      this.setState({
+        formFieldLabels: data.formFieldLabels,
+        pageHeading1: data.pageHeading1,
+        pageHeading2: data.pageHeading2,
+        sectionHeading: data.sectionHeading,
+        selectedSubscriptionPlan: data.selectedSubscriptionPlan,
       });
+      const { change } = this.props;
+      change(
+        'schoolCountry',
+        Object.keys(data.formFieldLabels.schoolNotInMarketListCountryList)[0]
+      );
+      change(
+        'schoolState',
+        Object.keys(data.formFieldLabels.schoolNotInMarketListStateList)[0]
+      );
+    });
   }
 
   /* This function handles a zipcode change in the form and sets the state accordingly */
   handleZipCodeChange = value => {
     if (value.length >= 5) {
       //get a list of school districts for this zipcode.
-      API
-      .post(CLASSROOM_GET_US_DISTRICTLIST_ENDPOINT_URL, {
-          zipcode: value,
-          includePleaseSelectOption: 'yes',
-        })
+      API.post(CLASSROOM_GET_US_DISTRICTLIST_ENDPOINT_URL, {
+        zipcode: value,
+        includePleaseSelectOption: 'yes',
+      })
         .then(response => {
           const res = response.data;
           if (!res.apiError) {
@@ -118,11 +114,10 @@ class JoinStep1SchoolSelectionGeneral extends Component {
       //get a list of schools for this school district.
       //console.log("Get a list of schools for this district." + value);
 
-      API
-      .post(CLASSROOM_GET_US_SCHOOLLIST_ENDPOINT_URL, {
-          districtExternalId: value,
-          includePleaseSelectOption: 'yes',
-        })
+      API.post(CLASSROOM_GET_US_SCHOOLLIST_ENDPOINT_URL, {
+        districtExternalId: value,
+        includePleaseSelectOption: 'yes',
+      })
         .then(response => {
           const res = response.data;
           if (!res.apiError) {
@@ -168,29 +163,27 @@ class JoinStep1SchoolSelectionGeneral extends Component {
         schoolCity,
         schoolState,
       } = values;
-      API
-      .post(CLASSROOM_CREATE_NEW_SCHOOL, {
-          schoolName,
-          schoolAddress,
-          schoolCountry,
-          schoolDistrict: districtName,
-          schoolPhoneNumber,
-          schoolWebsite,
-          districtWebsite,
-          schoolCity,
-          schoolState,
-        })
-        .then(({ data }) => {
-          window.localStorage.setItem('selectedSchoolId', data.schoolId);
-          browserHistory.push('/join/step2');
-        });
+      API.post(CLASSROOM_CREATE_NEW_SCHOOL, {
+        schoolName,
+        schoolAddress,
+        schoolCountry,
+        schoolDistrict: districtName,
+        schoolPhoneNumber,
+        schoolWebsite,
+        districtWebsite,
+        schoolCity,
+        schoolState,
+      }).then(({ data }) => {
+        window.localStorage.setItem('selectedSchoolId', data.schoolId);
+        browserHistory.push('/join/step2');
+      });
     }
   };
 
   render() {
     const {
       pathname,
-      intl,
+      t,
       isNewSchool,
       schoolCountry,
       handleSubmit,
@@ -501,13 +494,13 @@ class JoinStep1SchoolSelectionGeneral extends Component {
                         <div className="button-container">
                           <Button
                             type="button"
-                            text={intl.formatMessage(messages.GoBack)}
+                            text={t('Ecommerce.GoBack')}
                             onClickEvent={() => {
                               browserHistory.push('/join/step1');
                             }}
                           />
                           <button className="submit-button" type="submit">
-                            {intl.formatMessage(messages.Continue)}
+                            {t('Ecommerce.Continue')}
                           </button>
                         </div>
                       </form>
@@ -539,6 +532,6 @@ const JoinStep1SchoolSelection = connect(state => {
     'schoolCountry'
   );
   return { zipCode, isNewSchool, district, schoolCountry };
-})(injectIntl(JoinStep1SchoolSelectionForm));
+})(JoinStep1SchoolSelectionForm);
 
 export default JoinStep1SchoolSelection;

@@ -5,7 +5,7 @@
 
 import PropTypes from 'prop-types';
 import React, { Component, Fragment } from 'react';
-import { injectIntl, intlShape } from 'react-intl';
+import {withTranslation} from 'react-i18next';
 import { Link } from 'react-router';
 import ReactModal from 'react-modal';
 import GroupImportGoogleClassrooms from 'app/pages/community-groups/GroupImportGoogleClassrooms';
@@ -18,12 +18,11 @@ import CenterColumn from '../../common/CenterColumn';
 import { ContainerWithTitle } from '../../common/ContainerWithTitle';
 import PromptWithClose from '../../community-groups/prompt-with-close';
 import GroupTiles from '../../groups-hub/group-tiles';
-import messages from './ProfileGroups.messages';
 
 import styles from './ProfileGroups.styles';
 
 const { shape, number, arrayOf } = PropTypes;
-
+@withTranslation()
 class ProfileGroups extends Component {
   static defaultProps = {
     groupsData: {},
@@ -34,7 +33,7 @@ class ProfileGroups extends Component {
       groupsCount: number.isRequired,
       groupsList: arrayOf(shape({})).isRequired,
     }),
-    intl: intlShape.isRequired,
+
   };
 
   state = {
@@ -118,14 +117,14 @@ class ProfileGroups extends Component {
       showImportPopup,
       showCreatePopup,
     } = this.state;
-    const { intl } = this.props;
-    
+    const { t } = this.props;
+
     return (
       <div className="profile-groups">
         <CenterColumn>
           {this.renderClubBtns()}
 
-          <ContainerWithTitle title={intl.formatMessage(messages.MyClubs)}>
+          <ContainerWithTitle title={t('Profile.MyClubs')}>
             {groupsCount > 0 ? (
               <DeviceContext.Consumer>
                 {context => (
@@ -173,4 +172,4 @@ class ProfileGroups extends Component {
   }
 }
 
-export default injectIntl(ProfileGroups);
+export default ProfileGroups;

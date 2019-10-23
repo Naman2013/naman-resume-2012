@@ -1,30 +1,48 @@
 import React from 'react';
 import './index.scss';
 import * as cx from 'classnames';
+import { browserHistory } from 'react-router';
 
 type TFeedItem = {
   item: any;
 };
 
-export const FeedItem = (props: TFeedItem) => (
-  <div
-    className={cx('feed-item', {
-      'feed-item-current-user': props.item.currentUser,
-    })}
-  >
-    <div className="feed-data">
-      {/* <span className="feed-data-date">{props.item.date}</span> */}
-      {/* <span className="feed-data-user">{props.item.user}</span> */}
-    </div>
+const contentClickHandler = (e: any) => {
+  if (e.target instanceof HTMLAnchorElement) {
+    const targetLink = e.target.closest('a');
+    e.preventDefault();
+    browserHistory.push(targetLink.href);
+  }
+};
 
-    <div className="feed-msg">
-      {props.item.currentUser ? (
-        <div className="arrow-left" />
-      ) : (
-        <div className="arrow-right" />
-      )}
+export const FeedItem = (props: TFeedItem) => {
+  const { item } = props;
 
-      <span dangerouslySetInnerHTML={{ __html: props.item.text }}/>
+  return (
+    <div
+      className={cx('feed-item', {
+        'feed-item-current-user': item.currentUser,
+      })}
+    >
+      <div className="feed-data">
+        {/* <span className="feed-data-date">{props.item.date}</span> */}
+        {/* <span className="feed-data-user">{props.item.user}</span> */}
+      </div>
+
+      <div className="feed-msg">
+        {item.currentUser ? (
+          <div className="arrow-left" />
+        ) : (
+          <div className="arrow-right" />
+        )}
+
+        <span
+          className="feed-msg-text"
+          onClick={contentClickHandler}
+          dangerouslySetInnerHTML={{ __html: item.text }}
+          role="button"
+        />
+      </div>
     </div>
-  </div>
-);
+  );
+};

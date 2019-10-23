@@ -2,9 +2,9 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { API } from 'app/api';
 import noop from 'lodash/noop';
+import {withTranslation} from 'react-i18next';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { intlShape, injectIntl } from 'react-intl';
 import QuestTiles from 'app/components/quests-hub/quest-tiles';
 import Request from 'app/components/common/network/Request';
 import HubContainer from 'app/components/common/HubContainer';
@@ -18,7 +18,6 @@ import { DeviceContext } from 'providers/DeviceProvider';
 import { validateResponseAccess } from 'app/modules/authorization/actions';
 import { ACTION as questsActions } from '../../modules/quests/reducer';
 import style from './quests-hub.style';
-import messages from './QuestsHub.messages';
 
 const COUNT = 9;
 const DEFAULT_PAGE = 1;
@@ -30,14 +29,14 @@ const questsHubModel = {
     sortOptions: resp.filterOptions.options,
   }),
 };
-
+@withTranslation()
 class Quests extends Component {
   static propTypes = {
     validateResponseAccess: PropTypes.func,
     params: PropTypes.shape({
       filterType: PropTypes.string,
     }),
-    intl: intlShape.isRequired,
+
     isFetching: PropTypes.bool.isRequired,
   };
 
@@ -91,7 +90,7 @@ class Quests extends Component {
   };
 
   render() {
-    const { user, actions, intl, isFetching } = this.props;
+    const { user, actions, t, isFetching } = this.props;
     const { quests, questsComingSoonMessage } = this.state;
     return (
       <div>
@@ -137,7 +136,7 @@ class Quests extends Component {
                       render={() => (
                         <Fragment>
                           {isFetching ? (
-                            <div>{intl.formatMessage(messages.loading)}</div>
+                            <div>{t('Hubs.loading')}</div>
                           ) : null}
                           {!isFetching && (
                             <QuestTiles
@@ -182,4 +181,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(injectIntl(Quests));
+)(Quests);

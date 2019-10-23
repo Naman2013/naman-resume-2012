@@ -8,13 +8,11 @@
 import RelatedObject from 'app/components/RelatedObject/BootstrappedRelatedObject';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { injectIntl, intlShape } from 'react-intl';
-
+import { withTranslation } from 'react-i18next';
 import { RELATED_GUIDES, RELATED_SHOWS } from 'app/services/events';
 import RelatedGuides from '../../../components/RelatedGuides';
 import RelatedShows from '../../../components/RelatedShows';
 import RelatedStories from '../../../components/RelatedStories';
-import messages from '../Show.messages';
 
 import styles from './MainContent.style';
 
@@ -28,7 +26,7 @@ const {
   shape,
   string,
 } = PropTypes;
-
+@withTranslation()
 class DetailsTab extends Component {
   static propTypes = {
     showId: oneOfType([number, string]).isRequired,
@@ -39,7 +37,7 @@ class DetailsTab extends Component {
       token: oneOfType([number, string]),
       cid: oneOfType([number, string]),
     }).isRequired,
-    intl: intlShape.isRequired,
+
   };
 
   static defaultProps = {};
@@ -60,7 +58,7 @@ class DetailsTab extends Component {
       relatedObject,
       showId,
       user,
-      intl,
+      t,
     } = this.props;
 
     return (
@@ -75,7 +73,7 @@ class DetailsTab extends Component {
           maxCount={3}
           isDesktop={isDesktop}
           isScreenLarge={isScreenLarge}
-          title={intl.formatMessage(messages.RelatedShows)}
+          title={t('Shows.RelatedShows')}
         />
 
         <RelatedStories
@@ -86,7 +84,7 @@ class DetailsTab extends Component {
           maxCount={3}
           isDesktop={isDesktop}
           isScreenLarge={isScreenLarge}
-          title={intl.formatMessage(messages.RelatedStories)}
+          title={t('Shows.RelatedStories')}
         />
 
         <RelatedGuides
@@ -97,7 +95,7 @@ class DetailsTab extends Component {
           maxCount={3}
           isDesktop={isDesktop}
           isScreenLarge={isScreenLarge}
-          title={intl.formatMessage(messages.RelatedGuides)}
+          title={t('Shows.RelatedGuides')}
         />
 
         <style jsx>{styles}</style>
@@ -106,4 +104,4 @@ class DetailsTab extends Component {
   }
 }
 
-export default injectIntl(DetailsTab);
+export default DetailsTab;

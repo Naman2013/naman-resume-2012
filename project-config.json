@@ -1,0 +1,87 @@
+{
+  "gonogo.slooh.com": {
+    "SENTRY_ENV": "PRODUCTION",
+    "PUBNUB_CHANNEL_PREFIX": "prod"
+  },
+  "main.slooh.com": {
+    "SENTRY_ENV": "PRODUCTION",
+    "PUBNUB_CHANNEL_PREFIX": "prod"
+  },
+  "www.slooh.com": {
+    "SENTRY_ENV": "PRODUCTION",
+    "PUBNUB_CHANNEL_PREFIX": "prod"
+  },
+  "slooh.com": {
+    "SENTRY_ENV": "PRODUCTION",
+    "PUBNUB_CHANNEL_PREFIX": "prod"
+  },
+  "southafrica.slooh.com": {
+    "SENTRY_ENV": "PRODUCTION",
+    "PUBNUB_CHANNEL_PREFIX": "prod",
+    "productID": "9a751525-f1e0-11e9-a8f4-06b2ab7e8ae4"
+  },
+  "newzealand.slooh.com": {
+    "SENTRY_ENV": "PRODUCTION",
+    "PUBNUB_CHANNEL_PREFIX": "prod",
+    "productID": "898f52c3-f1e0-11e9-a8f4-06b2ab7e8ae4"
+  },
+  "australia.slooh.com": {
+    "SENTRY_ENV": "PRODUCTION",
+    "PUBNUB_CHANNEL_PREFIX": "prod",
+    "productID": "43a3d05c-f1e0-11e9-a8f4-06b2ab7e8ae4"
+  },
+  "china.slooh.com": {
+    "SENTRY_ENV": "PRODUCTION",
+    "PUBNUB_CHANNEL_PREFIX": "prod",
+    "productID": "e3bf862a-e554-11e9-a8f4-06b2ab7e8ae4"
+  },
+  "uk.slooh.com": {
+    "SENTRY_ENV": "PRODUCTION",
+    "PUBNUB_CHANNEL_PREFIX": "prod",
+    "productID": "acad6e65-f1e0-11e9-a8f4-06b2ab7e8ae4"
+  },
+  "eu.slooh.com": {
+    "SENTRY_ENV": "PRODUCTION",
+    "PUBNUB_CHANNEL_PREFIX": "prod",
+    "productID": "bad27bb3-f1e0-11e9-a8f4-06b2ab7e8ae4"
+  },
+  "india.slooh.com": {
+    "SENTRY_ENV": "PRODUCTION",
+    "PUBNUB_CHANNEL_PREFIX": "prod",
+    "productID": "035e02de-e555-11e9-a8f4-06b2ab7e8ae4"
+  },
+  "china-dev.slooh.com": {
+    "productID": "e3bf862a-e554-11e9-a8f4-06b2ab7e8ae4"
+  },
+  "uk-dev.slooh.com": {
+    "productID": "acad6e65-f1e0-11e9-a8f4-06b2ab7e8ae4"
+  },
+  "eu-dev.slooh.com": {
+    "productID": "bad27bb3-f1e0-11e9-a8f4-06b2ab7e8ae4"
+  },
+  "australia-dev.slooh.com": {
+    "productID": "43a3d05c-f1e0-11e9-a8f4-06b2ab7e8ae4"
+  },
+  "newzealand-dev.slooh.com": {
+    "productID": "898f52c3-f1e0-11e9-a8f4-06b2ab7e8ae4"
+  },
+  "southafrica-dev.slooh.com": {
+    "productID": "9a751525-f1e0-11e9-a8f4-06b2ab7e8ae4"
+  },
+  "india-dev.slooh.com": {
+    "productID": "035e02de-e555-11e9-a8f4-06b2ab7e8ae4"
+  },
+  "localhost": {
+    "COOKIE_DOMAIN": null
+  },
+  "default": {
+    "SENTRY_ENV": "TEST",
+    "COOKIE_DOMAIN": ".slooh.com",
+    "locale": "en",
+    "productID": "adfb3d74-e551-11e9-a8f4-06b2ab7e8ae4",
+    "PUBNUB_CHANNEL_PREFIX": "dev",
+    "PUBNUB_FEEDS_SUBKEY": "sub-c-15f5f3fa-a890-11e9-9764-faf49bb54dbb",
+    "PUBNUB_FEEDS_PUBKEY": "pub-c-e2ae41bc-2edd-4b67-90ff-f204c3d8a01e",
+    "PUBNUB_FEEDS_SECRETKEY": "sec-c-OGZkMWEyYjgtZGE5Yi00YWJhLTk3YTItOGJmNWQwYzFhYzEw"
+  }
+}

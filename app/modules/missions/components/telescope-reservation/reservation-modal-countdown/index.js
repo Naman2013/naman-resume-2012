@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react';
 import Countdown from 'react-countdown-now';
-import { FormattedNumber } from 'react-intl';
 import Button from 'app/components/common/style/buttons/Button';
 import './index.scss';
 
