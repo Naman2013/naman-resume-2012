@@ -13,3 +13,9 @@
     display: block;
   }
 }
+
+@include xl() {
+  .popular-discussion-wrapper {
+    display: block;
+  }
+}
