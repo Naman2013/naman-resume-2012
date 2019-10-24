@@ -2,8 +2,8 @@ import moment from 'moment';
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import Countdown from 'react-countdown-now';
+import FollowObjectButton from 'app/components/object-details/FollowObjectButton';
 import Button from '../../../../components/common/style/buttons/Button';
-import FollowObjectButton from 'app/components/object-details/FollowObjectButton.js';
 import './styles.scss';
 
 const getMissionDate = timestamp =>
@@ -45,7 +45,7 @@ export class AvailbleMissionTile extends Component {
       showLearnButton,
     } = missionSlot;
     const { displayWeekdayMonthDayUTC } = missionStartFormatted;
-    
+
     return (
       <div className="mission-tile">
         <div className="countdown">
@@ -55,11 +55,11 @@ export class AvailbleMissionTile extends Component {
               onComplete={onCancel}
               renderer={props => (
                 <div>
-                  {completeReservationPromptShort || 'Reservation ends in'} {props.minutes}:
-                  <FormattedNumber
-                    value={props.seconds}
-                    minimumIntegerDigits={2}
-                  />
+                  {completeReservationPromptShort || 'Reservation ends in'}{' '}
+                  {props.minutes}:{/*<FormattedNumber*/}
+                  {/*  value={props.seconds}*/}
+                  {/*  minimumIntegerDigits={2}*/}
+                  {/*/>*/}
                 </div>
               )}
             />
@@ -79,8 +79,14 @@ export class AvailbleMissionTile extends Component {
         {tip && <div className="description">{tip}</div>}
         {onSubmit && (
           <div className="actions">
-            <Button text={cancelButtonCaption || "Cancel"} onClickEvent={onCancel} />
-            <Button text={scheduleMissionCaption || "Schedule Mission"} onClickEvent={onSubmit} />
+            <Button
+              text={cancelButtonCaption || 'Cancel'}
+              onClickEvent={onCancel}
+            />
+            <Button
+              text={scheduleMissionCaption || 'Schedule Mission'}
+              onClickEvent={onSubmit}
+            />
           </div>
         )}
         {communityMissions && (
@@ -88,7 +94,7 @@ export class AvailbleMissionTile extends Component {
             <div>
               {!piggyback || showLearnButton ? (
                 <Link to={learnButtonLink} className="learn-btn">
-                  <Button text={learnButtonCaption}/>
+                  <Button text={learnButtonCaption} />
                 </Link>
               ) : null}
               {!piggyback || showFollowPromptFlag ? (
@@ -101,7 +107,10 @@ export class AvailbleMissionTile extends Component {
               ) : null}
             </div>
             <div>
-              <Button text={viewMissionButtonCaption} onClickEvent={onMissionView} />
+              <Button
+                text={viewMissionButtonCaption}
+                onClickEvent={onMissionView}
+              />
             </div>
           </div>
         )}
