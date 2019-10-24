@@ -503,7 +503,7 @@ const AppRouter = ({ setPreviousInstrument }) => (
       </Route>
 
       <Route
-        path="leaderboard"
+        path="leaderboard(/:tab)"
         component={LeaderboardContainerLazy}
         onEnter={validateUser}
       />
