@@ -12,10 +12,10 @@ export interface LeaderboardResponse extends StandardResponse {
   PageHeading1: string;
   PageHeadingAllTime: string;
   PageHeadingThirtyDay: string;
-  // 30DayLeaderboardData: {
-  //   MyLeaderboard: ILeaderboardItem[];
-  //   SitewideLeaderboard: ILeaderboardItem[];
-  // };
+``  ThirtyDayLeaderboardData: {
+    MyLeaderboard: ILeaderboardItem[];
+    SitewideLeaderboard: ILeaderboardItem[];
+  };
   AllTimeLeaderboardData: {
     MyLeaderboard: ILeaderboardItem[];
     SitewideLeaderboard: ILeaderboardItem[];
