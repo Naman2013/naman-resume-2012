@@ -1,5 +1,6 @@
 import React, { PureComponent, Fragment } from 'react';
 import Countdown from 'react-countdown-now';
+import { twoDigitsTimeFormatting } from 'app/utils/time-formatting';
 import { ThreeDotsMenu } from '../three-dots-menu';
 import './styles.scss';
 
@@ -50,7 +51,9 @@ export class MissionTimeSlot extends PureComponent {
           SLOT_STATUS.AVAILABLE === slotStatus ? ' open' : ''
         }`}
         onClick={missionSlotOnClick}
+        role="button"
         id={`mission-slot-${scheduledMissionId}`}
+        tabIndex={0}
       >
         <div className="left">
           <div className="mission-title">
@@ -61,11 +64,7 @@ export class MissionTimeSlot extends PureComponent {
                 onComplete={getMissionSlots}
                 renderer={props => (
                   <span>
-                    {props.minutes}:
-                    <FormattedNumber
-                      value={props.seconds}
-                      minimumIntegerDigits={2}
-                    />
+                    {props.minutes}:{twoDigitsTimeFormatting(props.seconds)}
                   </span>
                 )}
               />
@@ -84,6 +83,7 @@ export class MissionTimeSlot extends PureComponent {
                       showSloohUser ? ' slooh-user' : ''
                     }`}
                     src={ownerAvatarURL}
+                    alt=""
                   />
                 )}
 
@@ -151,6 +151,7 @@ export class MissionTimeSlot extends PureComponent {
                       showSloohUser ? ' slooh-user' : ''
                     }`}
                     src={ownerAvatarURL}
+                    alt=""
                   />
                 )}
 
