@@ -1,19 +1,46 @@
 @import '~app/styles/bootstrap/common';
 
 .frame-list {
+  width: 100%;
   box-shadow: 0 0 6px 0 $shadows;
   background-color: $romance;
-  display: flex;
-  flex-flow: row nowrap;
+
+  .slick-slider {
+    padding: 0;
+
+    &.arrows-visible {
+      padding: 0 40px;
+    }
+
+    .slick-arrow {
+      width: 40px;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &.slick-prev {
+        left: 0;
+        border-right: 1px solid $hawkesBlue;
+      }
+
+      &.slick-next {
+        width: 41px;
+        right: 0;
+        border-left: 1px solid $hawkesBlue;
+      }
+
+      &:before {
+        color: $lightHeadedAstronaut;
+      }
+    }
+  }
 
   .frame-list-item {
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-grow: 1;
     height: 68px;
-    padding-top: 6px;
-    border-bottom: 6px solid $romance;
     border-right: 1px solid $hawkesBlue;
     font-family: $primary-font;
     font-size: 11px;
@@ -21,9 +48,11 @@
     line-height: 1.64;
     letter-spacing: 1px;
     color: $lightHeadedAstronaut;
+    outline: none;
     cursor: pointer;
 
     &.active {
+      padding-top: 6px;
       border-bottom: 6px solid;
       position: relative;
       color: $lightHeadedAstronaut;

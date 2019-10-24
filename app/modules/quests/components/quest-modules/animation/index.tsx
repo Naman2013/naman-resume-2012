@@ -42,7 +42,7 @@ export class AnimationModule extends React.PureComponent<
   //   this.canvas = new fabric.Canvas('c');
   // }
 
-  componentDidMount() {
+  componentDidMount(): void {
     this.getAnimation();
     this.getAnimationFrames();
     window.addEventListener('resize', this.onPageRezise);
@@ -59,7 +59,7 @@ export class AnimationModule extends React.PureComponent<
 
     fabric.Image.fromURL(
       'https://juno.slooh.com/dev101/2019/10/16c7/8aff/pluto3.jpg',
-      function(img) {
+      (img): void => {
         // add image onto canvas (it also re-render the canvas)
         //img.set('selectable', false); // make img unselectable
 
@@ -89,9 +89,57 @@ export class AnimationModule extends React.PureComponent<
     this.onPageRezise();
   }
 
-  componentWillUnmount() {
+  componentWillUnmount(): void {
     window.removeEventListener('resize', this.onPageRezise);
   }
+
+  moveTop = (): void => {
+    const item = this.canvas.item(0);
+    item.set({ top: item.get('top') - 10 });
+    this.canvas.renderAll();
+  };
+
+  moveDown = (): void => {
+    const item = this.canvas.item(0);
+    item.set({ top: item.get('top') + 10 });
+    this.canvas.renderAll();
+  };
+
+  moveLeft = (): void => {
+    const item = this.canvas.item(0);
+    item.set({ left: item.get('left') - 10 });
+    this.canvas.renderAll();
+  };
+
+  moveRigth = (): void => {
+    const item = this.canvas.item(0);
+    item.set({ left: item.get('left') + 10 });
+    this.canvas.renderAll();
+  };
+
+  zoomIn = (): void => {
+    const item = this.canvas;
+    const zoom = item.getZoom() + 0.1;
+    // zoom = zoom + 1;
+    // if (zoom < 1) zoom = 1;
+    item.setZoom(zoom);
+  };
+
+  zoomOut = (): void => {
+    const item = this.canvas;
+    const zoom = item.getZoom() - 0.1;
+    // zoom = zoom + 1;
+    // if (zoom < 1) zoom = 1;
+    item.setZoom(zoom);
+  };
+
+  onPageRezise = (): void => {
+    const canvasContainerWidth = this.canvasContainer.getBoundingClientRect()
+      .width;
+
+    this.canvas.setWidth(canvasContainerWidth - 2); // 2px border
+    this.canvas.setHeight(canvasContainerWidth - 2); // 2px border
+  };
 
   getAnimation = (): void => {
     const { module, questId, stepData, getAnimation } = this.props;
@@ -111,61 +159,14 @@ export class AnimationModule extends React.PureComponent<
     }
   };
 
-  moveTop = () => {
-    const item = this.canvas.item(0);
-    item.set({ top: item.get('top') - 10 });
-    this.canvas.renderAll();
-  };
-
-  moveDown = () => {
-    const item = this.canvas.item(0);
-    item.set({ top: item.get('top') + 10 });
-    this.canvas.renderAll();
-  };
-
-  moveLeft = () => {
-    const item = this.canvas.item(0);
-    item.set({ left: item.get('left') - 10 });
-    this.canvas.renderAll();
-  };
-
-  moveRigth = () => {
-    const item = this.canvas.item(0);
-    item.set({ left: item.get('left') + 10 });
-    this.canvas.renderAll();
-  };
-
-  zoomIn = () => {
-    const item = this.canvas;
-    const zoom = item.getZoom() + 0.1;
-    // zoom = zoom + 1;
-    // if (zoom < 1) zoom = 1;
-    item.setZoom(zoom);
-  };
-
-  zoomOut = () => {
-    const item = this.canvas;
-    const zoom = item.getZoom() - 0.1;
-    // zoom = zoom + 1;
-    // if (zoom < 1) zoom = 1;
-    item.setZoom(zoom);
-  };
-
-  onPageRezise = () => {
-    const canvasContainerWidth = this.canvasContainer.getBoundingClientRect()
-      .width;
-    console.log(canvasContainerWidth);
-    this.canvas.setWidth(canvasContainerWidth - 2); // 2px border
-    this.canvas.setHeight(canvasContainerWidth - 2); // 2px border
-  };
-
   render() {
-    console.log(this.canvas);
     const { activeFrame, setActiveFrame } = this.props;
     const frameList = [
       { frameId: 1, caption: 'FRAME 1' },
       { frameId: 2, caption: 'FRAME 2' },
       { frameId: 3, caption: 'FRAME 3' },
+      { frameId: 4, caption: 'FRAME 4' },
+      { frameId: 5, caption: 'FRAME 5' },
     ];
     // if(this.canvas) {
     //   console.log(this.canvas.getWidth());
