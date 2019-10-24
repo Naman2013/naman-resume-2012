@@ -29,7 +29,11 @@ const NextArrow: React.FC<SliderArrowProps> = (props: SliderArrowProps) => {
     <div
       className={`icon-slider-right ${className}`}
       style={{ ...style, display: 'flex' }}
-      onClick={e => onClick(e)}
+      onClick={e => {
+        if (onClick) {
+          onClick(e);
+        }
+      }}
       tabIndex={0}
       role="button"
     />
@@ -42,7 +46,11 @@ const PrevArrow: React.FC<SliderArrowProps> = (props: SliderArrowProps) => {
     <div
       className={`icon-slider-left ${className}`}
       style={{ ...style, display: 'flex' }}
-      onClick={e => onClick(e)}
+      onClick={e => {
+        if (onClick) {
+          onClick(e);
+        }
+      }}
       tabIndex={0}
       role="button"
     />
