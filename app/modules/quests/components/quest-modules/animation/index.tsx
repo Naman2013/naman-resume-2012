@@ -1,7 +1,7 @@
 import React from 'react';
 import { fabric } from 'fabric';
 import { Button } from 'react-bootstrap';
-import { IQuestStepModule } from 'app/modules/quests/types';
+import { IQuestStepModule, IQuestAnimation } from 'app/modules/quests/types';
 import { FrameList } from './frame-list';
 import './styles.scss';
 
@@ -17,6 +17,7 @@ type AnimationModuleProps = {
   questId: string;
   activeFrame: any;
   setActiveFrame: Function;
+  questAnimation: IQuestAnimation;
 };
 
 type AnimationModuleState = {
@@ -25,12 +26,6 @@ type AnimationModuleState = {
   // stepKey: string;
   // stepId: string;
 };
-
-// export const AnimationModule: React.FC<AnimationModuleProps> = React.memo(
-//   props => {
-//     return <div>TEST</div>;
-//   }
-// );
 
 export class AnimationModule extends React.PureComponent<
   AnimationModuleProps,
@@ -59,7 +54,7 @@ export class AnimationModule extends React.PureComponent<
 
     fabric.Image.fromURL(
       'https://juno.slooh.com/dev101/2019/10/16c7/8aff/pluto3.jpg',
-      (img): void => {
+      (img: any): void => {
         // add image onto canvas (it also re-render the canvas)
         //img.set('selectable', false); // make img unselectable
 
@@ -118,19 +113,25 @@ export class AnimationModule extends React.PureComponent<
   };
 
   zoomIn = (): void => {
-    const item = this.canvas;
-    const zoom = item.getZoom() + 0.1;
+    //const item = this.canvas;
+    const item = this.canvas.item(0);
+    item.scale(0.75);
+    this.canvas.renderAll();
+    //const zoom = item.scale(1 + 0.1);
     // zoom = zoom + 1;
     // if (zoom < 1) zoom = 1;
-    item.setZoom(zoom);
+    //item.setZoom(zoom);
   };
 
   zoomOut = (): void => {
-    const item = this.canvas;
-    const zoom = item.getZoom() - 0.1;
-    // zoom = zoom + 1;
-    // if (zoom < 1) zoom = 1;
-    item.setZoom(zoom);
+    // const item = this.canvas;
+    // const zoom = item.getZoom() - 0.1;
+    // // zoom = zoom + 1;
+    // // if (zoom < 1) zoom = 1;
+    // item.setZoom(zoom);
+    const item = this.canvas.item(0);
+    item.scale(0.25);
+    this.canvas.renderAll();
   };
 
   onPageRezise = (): void => {
@@ -160,7 +161,9 @@ export class AnimationModule extends React.PureComponent<
   };
 
   render() {
-    const { activeFrame, setActiveFrame } = this.props;
+    const { activeFrame, setActiveFrame, questAnimation } = this.props;
+    const { caption } = activeFrame;
+    const { magnificationUnitsCaption } = questAnimation;
     const frameList = [
       { frameId: 1, caption: 'FRAME 1' },
       { frameId: 2, caption: 'FRAME 2' },
@@ -175,7 +178,7 @@ export class AnimationModule extends React.PureComponent<
     return (
       <div className="animation-module">
         <div className="animation-box">
-          <h6>Frame 1</h6>
+          <h6>{caption}</h6>
           <h4>Pluto Oct 28, 2018 00:35 UTC</h4>
           <div className="vertical-line" />
           <div
@@ -230,7 +233,7 @@ export class AnimationModule extends React.PureComponent<
                   <div className="icon icon-minus" />
                 </Button>
               </div>
-              <p>100%</p>
+              <p>100{magnificationUnitsCaption}</p>
             </div>
 
             <div className="controls-block">

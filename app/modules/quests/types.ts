@@ -127,3 +127,42 @@ export declare interface StepsInQuest {
     stepIsLocked: boolean;
   }[];
 }
+
+export declare interface IQuestAnimation extends StandardResponse {
+  editAnimationButtonCaption: string;
+  editButtonCaption: string;
+  fastButtonCaption: string;
+  finishButtonCaption: string;
+  frameCaption: string;
+  gravityEarnedInThisRequest: boolean;
+  magnificationDefault: number;
+  magnificationMax: number;
+  magnificationMin: number;
+  magnificationStep: number;
+  magnificationUnitsCaption: string;
+  mediumButtonCaption: string;
+  moduleId: number;
+  moduleIdIsValid: boolean;
+  moduleUUID: string;
+  offsetReference: string;
+  outputHeading: string;
+  outputSubheading: string;
+  playButtonCaption: string;
+  previewHeading: string;
+  previewSubheading: string;
+  questId: number;
+  questIdIsValid: boolean;
+  questUUID: string;
+  showTutorial: boolean;
+  slowButtonCaption: string;
+  xOffsetDefault: number;
+  xOffsetLargeStep: number;
+  xOffsetMax: number;
+  xOffsetMin: number;
+  xOffsetSmallStep: number;
+  yOffsetDefault: number;
+  yOffsetLargeStep: number;
+  yOffsetMax: number;
+  yOffsetMin: number;
+  yOffsetSmallStep: number;
+}

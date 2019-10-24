@@ -16,6 +16,7 @@ type SliderArrowProps = {
 };
 
 const sliderSettings = {
+  draggable: false,
   infinite: false,
   swipeToSlide: false,
   speed: 500,

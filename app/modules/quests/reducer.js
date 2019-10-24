@@ -61,7 +61,7 @@ const initialState = {
 
   questAnimation: {},
   questAnimationFrames: {},
-  activeFrame: {},
+  activeFrame: { frameId: 1, caption: 'FRAME 1' },
 };
 
 function start(state = initialState) {
