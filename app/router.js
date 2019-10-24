@@ -1,6 +1,4 @@
-import {
-  ProfileGroups,
-} from 'app/components/profiles/private-profile';
+import { ProfileGroups } from 'app/components/profiles/private-profile';
 import ProfileQaContainer from 'app/components/profiles/private-profile/my-qa/ProfileQaContainer';
 import { ProfileQuests } from 'app/components/profiles/private-profile/profile-quests';
 import { About, AboutSloohSection } from 'app/containers/about';
@@ -29,6 +27,7 @@ import StoriesHub from 'app/containers/stories-hub';
 import { AskAstronomerMain, QuestionMain } from 'app/modules/ask-astronomer';
 import { CommunityGroupEdit } from 'app/modules/community-group-overview';
 import Dashboard from 'app/modules/dashboard/containers/dashborad';
+import { FeatureContainerLazy } from 'app/modules/feature-module';
 import { GalleryDetailsMain } from 'app/modules/gallery-details';
 import { ImageDetailsMain } from 'app/modules/image-details';
 import { MissionDetailsMain } from 'app/modules/mission-details';
@@ -39,11 +38,11 @@ import Telescope from 'app/modules/missions/containers/telescope';
 import { MissionsMain } from 'app/modules/missions/index';
 import {
   PrivateProfileMain,
+  ProfileActivity,
   ProfileDashboardContainer,
   ProfileListsMain,
   ProfileMain,
   PublicProfileMain,
-  ProfileActivity,
 } from 'app/modules/profile';
 import ImagesLayout from 'app/modules/profile-photos/components/ImagesLayout';
 import { ProfilePhotos } from 'app/modules/profile-photos/components/profile-photos';
@@ -52,6 +51,7 @@ import {
   QuestDetailsLazy,
   QuestStepLazy,
 } from 'app/modules/quests';
+import { setPreviousInstrument } from 'app/modules/starshare-camera/starshare-camera-actions';
 import { TelescopeDetailsMain } from 'app/modules/telescope';
 import { TelescopeNavigation } from 'app/modules/telescope/components/old/telescope-navigation';
 import GroupCreate from 'app/pages/community-groups/GroupCreate';
@@ -73,6 +73,7 @@ import ObjectDetails from 'app/pages/object-details/ObjectDetails';
 import ObjectPosts from 'app/pages/object-posts/ObjectPosts';
 import PlaceholderPage from 'app/pages/Placeholder';
 import RedirectConfirmation from 'app/pages/redirect-confirmation/RedirectConfirmation';
+import EnableHiddenPlan from 'app/pages/registration/EnableHiddenPlan';
 import Join from 'app/pages/registration/Join';
 import JoinByLandingPage from 'app/pages/registration/JoinByLandingPage';
 import JoinInviteByCodeStep1 from 'app/pages/registration/JoinInviteByCodeStep1';
@@ -93,7 +94,6 @@ import ReserveByTelescope from 'app/pages/reserve-by-telescope';
 import ReserveByCatalog from 'app/pages/reserve/reserve-by-catalog';
 import ReserveObjects from 'app/pages/reserve/reserve-by-objects';
 import Show from 'app/pages/show';
-import EnableHiddenPlan from 'app/pages/registration/EnableHiddenPlan';
 import TelescopeOverview from 'app/pages/telescope-overview';
 import globalOnRouteUpdate from 'app/route-functions/globalOnRouteUpdate';
 import validateRegistrationPaths from 'app/route-functions/validateRegistrationPaths';
@@ -102,9 +102,6 @@ import store from 'app/store';
 import firePageview from 'app/utils/ga-wrapper';
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { setPreviousInstrument } from 'app/modules/starshare-camera/starshare-camera-actions';
-
 // import { hot } from 'react-hot-loader/root';
 import {
   browserHistory,
@@ -115,10 +112,11 @@ import {
   Router,
 } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
-import { CustomerAdminToolsMain } from './modules/customer-admin-tools';
+import { bindActionCreators } from 'redux';
 import { AccountSettingsMain } from './modules/account-settings';
 import AccountDetails from './modules/account-settings/containers/account-details';
 import TakeATour from './modules/account-settings/containers/take-a-tour';
+import { CustomerAdminToolsMain } from './modules/customer-admin-tools';
 import { StoryDetailsMain } from './modules/story-details';
 
 // Create an enhanced history that syncs navigation events with the store
@@ -197,6 +195,8 @@ const AppRouter = ({ setPreviousInstrument }) => (
         />
       </Route>
 
+      {/*<Route path="feature" component={FeatureContainerLazy} />*/}
+
       <Route path="join" component={Join}>
         <Route path="step1" component={JoinStep1} />
         <Route
@@ -206,10 +206,10 @@ const AppRouter = ({ setPreviousInstrument }) => (
         <Route path="step2" component={JoinStep2} />
         <Route path="step3" component={JoinStep3} />
 
-      	<Route
-      	  path="enablePlan/:subscriptionPlanHashCode"
-                component={EnableHiddenPlan}
-      	/>
+        <Route
+          path="enablePlan/:subscriptionPlanHashCode"
+          component={EnableHiddenPlan}
+        />
 
         <Route
           path="byLandingPage/:subscriptionPlanHashCode"

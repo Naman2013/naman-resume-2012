@@ -1,11 +1,9 @@
+import { projectPubnubConf } from 'app/config/project-config';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Modal from 'react-modal';
-import TopBar from './TopBar';
-import Menu from './Menu';
-import MENU_INTERFACE, { isLeft, isRight } from './Menus/MenuInterface';
 import {
   closeAllMenus,
   closeUpsellModal,
@@ -19,6 +17,9 @@ import debounce from 'lodash/debounce';
 //integrate with Pubnub
 import PubNubReact from 'pubnub-react';
 import { getUserInfo } from 'app/modules/User';
+import MENU_INTERFACE, { isLeft, isRight } from './Menus/MenuInterface';
+import Menu from './Menu';
+import TopBar from './TopBar';
 
 const mapStateToProps = ({
   globalNavigation,
@@ -72,13 +73,13 @@ class GlobalNavigation extends Component {
     isRightOpen: false,
     showUpsellModal: false,
     isMobile: false,
-    pubnubActivityFeedChannelName: process.env.PUBNUB_CHANNEL_PREFIX + '.system.activityfeed',
-    pubnubLiveEventsChannelName: process.env.PUBNUB_CHANNEL_PREFIX + '.system.liveevents'
+    pubnubActivityFeedChannelName: `${projectPubnubConf.PUBNUB_CHANNEL_PREFIX}.system.activityfeed`,
+    pubnubLiveEventsChannelName: `${projectPubnubConf.PUBNUB_CHANNEL_PREFIX}.system.liveevents`,
   };
 
   state = {
     totalViewersCount: 0,
-    allLivecastsInProgress: { },
+    allLivecastsInProgress: {},
     activityFeedMessages: [],
     activityWindowHasBeenScrolledToBottom: false,
   };
@@ -97,70 +98,69 @@ class GlobalNavigation extends Component {
     this.pubnub = new PubNubReact({
       ssl: true,
       uuid: getUserInfo().cid,
-      publishKey: process.env.PUBNUB_FEEDS_PUBKEY,
-      subscribeKey: process.env.PUBNUB_FEEDS_SUBKEY,
-      secretKey: process.env.PUBNUB_FEEDS_SECRETKEY,
+      publishKey: projectPubnubConf.PUBNUB_FEEDS_PUBKEY,
+      subscribeKey: projectPubnubConf.PUBNUB_FEEDS_SUBKEY,
+      secretKey: projectPubnubConf.PUBNUB_FEEDS_SECRETKEY,
     });
 
     this.pubnub.addListener({
       status: statusEvent => {
         if (statusEvent.category === 'PNConnectedCategory') {
           //console.log('Pubnub is connected....');
-		this.pubnub.history(
-    		  {
-        		channel: this.props.pubnubActivityFeedChannelName,
-        		count: 50,
-        		stringifiedTimeToken: false,
-			reverse: false,
-    		  },
-    		  (status, response) => {
-			let historyMessages = response.messages;
+          this.pubnub.history(
+            {
+              channel: this.props.pubnubActivityFeedChannelName,
+              count: 50,
+              stringifiedTimeToken: false,
+              reverse: false,
+            },
+            (status, response) => {
+              let historyMessages = response.messages;
 
-			historyMessages.forEach(historyMessage => {
-				//console.log(historyMessage);
-				this.buildFeedMessage(historyMessage.entry, true);
-			});
+              historyMessages.forEach(historyMessage => {
+                //console.log(historyMessage);
+                this.buildFeedMessage(historyMessage.entry, true);
+              });
 
-	        	//console.log(response);
+              //console.log(response);
 
-		      	setInterval(() => this.checkActivityWindowScroll(), 5000);
-    		  }
-		)
-	} //end of if connected
+              setInterval(() => this.checkActivityWindowScroll(), 5000);
+            }
+          );
+        } //end of if connected
       },
       message: msg => {
-	//what channel did this message come from???
-	const channel = msg.channel;
+        //what channel did this message come from???
+        const { channel } = msg;
 
-	//what is the message??
-	const message = msg.message;
+        //what is the message??
+        const { message } = msg;
 
-	//console.log(message);
+        //console.log(message);
 
-	if (channel == this.props.pubnubLiveEventsChannelName) {
-		//console.log(message);
+        if (channel == this.props.pubnubLiveEventsChannelName) {
+          //console.log(message);
 
-		if (message.messageType) {
-			if (message.messageType == 'livecast') {
-				if (message.action == 'broadcastUpdate') {
-					//update the livecasts in progress
-					this.setState({ allLivecastsInProgress: message.livecasts });
-				}
-			}
-		}
-	}
-	else if (channel == this.props.pubnubActivityFeedChannelName) {
-		this.buildFeedMessage(message, true);
-	}
+          if (message.messageType) {
+            if (message.messageType == 'livecast') {
+              if (message.action == 'broadcastUpdate') {
+                //update the livecasts in progress
+                this.setState({ allLivecastsInProgress: message.livecasts });
+              }
+            }
+          }
+        } else if (channel == this.props.pubnubActivityFeedChannelName) {
+          this.buildFeedMessage(message, true);
+        }
       },
       presence: presenceEvent => {
         // handle presence (users that have joined or left the channel)
         //console.log(presenceEvent.channel);
         //console.log(presenceEvent);
 
-	if (presenceEvent.channel == this.props.pubnubActivityFeedChannelName) {
-        	this.setState({ totalViewersCount: presenceEvent.occupancy });
-	}
+        if (presenceEvent.channel == this.props.pubnubActivityFeedChannelName) {
+          this.setState({ totalViewersCount: presenceEvent.occupancy });
+        }
       },
     });
 
@@ -168,12 +168,12 @@ class GlobalNavigation extends Component {
   }
 
   scrollActivityFeedToBottom() {
-	var liveActivityWindowBodyFeedObj = document.getElementById('live-activity-window-body-feed'); 
+	var liveActivityWindowBodyFeedObj = document.getElementById('live-activity-window-body-feed');
 	if (liveActivityWindowBodyFeedObj != null) {
 		//console.log("found the activity window to be open....");
-			
-		liveActivityWindowBodyFeedObj.scrollIntoView(false);	
-		
+
+		liveActivityWindowBodyFeedObj.scrollIntoView(false);
+
 		//console.log("scrolling to bottom.....");
 		return true;
 	}
@@ -183,64 +183,68 @@ class GlobalNavigation extends Component {
   }
 
   checkActivityWindowScroll() {
-	//console.log("checking scroll function....");
+    //console.log("checking scroll function....");
 
 	if (this.state.activityWindowHasBeenScrolledToBottom == false) {
 		//console.log("activity window has not been scrolled yet....");
-		
-		var liveActivityWindowBodyFeedObj = document.getElementById('live-activity-window-body-feed'); 
+
+		var liveActivityWindowBodyFeedObj = document.getElementById('live-activity-window-body-feed');
 		if (liveActivityWindowBodyFeedObj != null) {
 			//scroll the activity feed to the bottom
 			if (this.scrollActivityFeedToBottom() == true) {
-				this.setState({ activityWindowHasBeenScrolledToBottom: true });				
+				this.setState({ activityWindowHasBeenScrolledToBottom: true });
 			}
 		}
 	}
   }
 
   buildFeedMessage(message, appendFlag) {
-	try {
-		//console.log(message);
+    try {
+      //console.log(message);
 
 		//messages are in JSON format
 		let messageJSONObj = message;
 
-		//console.log(messageJSON.message_by_locale.en);
+      //console.log(messageJSON.message_by_locale.en);
 
-		let isMessageFromCurrentUser = false;
-		if (messageJSONObj.customerUUID == getUserInfo().customerUUID) {
-			isMessageFromCurrentUser = true;
-		}
+      let isMessageFromCurrentUser = false;
+      if (messageJSONObj.customerUUID == getUserInfo().customerUUID) {
+        isMessageFromCurrentUser = true;
+      }
 
-		let newMessage = {
-			id: messageJSONObj.messageID,
-			user: messageJSONObj.displayName,
-			currentUser: isMessageFromCurrentUser,
-			date: '00/00/0000 12:00 UTC',
-			text: messageJSONObj.message_by_locale.en			
-		};
+      let newMessage = {
+        id: messageJSONObj.messageID,
+        user: messageJSONObj.displayName,
+        currentUser: isMessageFromCurrentUser,
+        date: '00/00/0000 12:00 UTC',
+        text: messageJSONObj.message_by_locale.en,
+      };
 
-		if (appendFlag === true) {
-			this.setState(state => {
-			        const activityFeedMessages = [...this.state.activityFeedMessages, newMessage];
-      				return {
-        				activityFeedMessages,
-	      			};
-    			});
-		}
-		else {
-			this.setState(state => {
-		        	const activityFeedMessages = [newMessage, ...this.state.activityFeedMessages];
-	      			return {
-        				activityFeedMessages,
-      				};
-	    		});
-		}
-		//console.log(this.state.activityFeedMessages);
-	}
-	catch(e) {
-		//do nothing, ignore this message....
-	}
+      if (appendFlag === true) {
+        this.setState(state => {
+          const activityFeedMessages = [
+            ...this.state.activityFeedMessages,
+            newMessage,
+          ];
+          return {
+            activityFeedMessages,
+          };
+        });
+      } else {
+        this.setState(state => {
+          const activityFeedMessages = [
+            newMessage,
+            ...this.state.activityFeedMessages,
+          ];
+          return {
+            activityFeedMessages,
+          };
+        });
+      }
+      //console.log(this.state.activityFeedMessages);
+    } catch (e) {
+      //do nothing, ignore this message....
+    }
   }
 
   componentWillMount() {
@@ -248,7 +252,9 @@ class GlobalNavigation extends Component {
       channels: [
         this.props.pubnubActivityFeedChannelName,
         this.props.pubnubLiveEventsChannelName,
-        process.env.PUBNUB_CHANNEL_PREFIX + '.customer.' + getUserInfo().cid,
+        `${projectPubnubConf.PUBNUB_CHANNEL_PREFIX}.customer.${
+          getUserInfo().cid
+        }`,
       ],
       withPresence: true,
     });
@@ -273,7 +279,9 @@ class GlobalNavigation extends Component {
       channels: [
         this.props.pubnubActivityFeedChannelName,
         this.props.pubnubLiveEventsChannelName,
-        process.env.PUBNUB_CHANNEL_PREFIX + '.customer.' + getUserInfo().cid,
+        `${projectPubnubConf.PUBNUB_CHANNEL_PREFIX}.customer.${
+          getUserInfo().cid
+        }`,
       ],
     });
   }
@@ -329,10 +337,14 @@ class GlobalNavigation extends Component {
       showUpsellModal,
       user,
       userMenu,
-      pubnubActivityFeedChannelName
+      pubnubActivityFeedChannelName,
     } = this.props;
 
-    const { totalViewersCount, allLivecastsInProgress, activityFeedMessages } = this.state;
+    const {
+      totalViewersCount,
+      allLivecastsInProgress,
+      activityFeedMessages,
+    } = this.state;
 
     const leftMenuContent = MENU_INTERFACE[activeLeft];
     const rightMenuContent = MENU_INTERFACE[activeRight];
@@ -340,12 +352,12 @@ class GlobalNavigation extends Component {
 
     let displayName = '';
     if (userMenu && userMenu.userInfo) {
-	displayName = userMenu.userInfo.displayName;
+      displayName = userMenu.userInfo.displayName;
     }
 
     let isChatEnabled = true;
     if (userMenu && userMenu.userInfo) {
-	isChatEnabled = userMenu.userInfo.isChatEnabled;
+      isChatEnabled = userMenu.userInfo.isChatEnabled;
     }
 
     return (

@@ -6,7 +6,7 @@
  ***********************************/
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { intlShape, injectIntl } from 'react-intl';
+import {withTranslation} from 'react-i18next';
 import Button from 'app/components/common/style/buttons/Button';
 import RevealSubmitForm from 'app/components/common/RevealSubmitForm';
 import {
@@ -16,7 +16,7 @@ import {
 } from 'app/styles/variables/colors_tiles_v4';
 import { dropShadowContainer } from 'app/styles/mixins/utilities';
 import { prepareReply } from 'app/services/discussions/prepare-reply';
-import messages from './ReplyForm.messages';
+
 
 const {
   arrayOf,
@@ -28,7 +28,7 @@ const {
   shape,
   string,
 } = PropTypes;
-
+@withTranslation()
 class ReplyButton extends Component {
   state = {
     uuid: null,
@@ -59,7 +59,7 @@ class ReplyButton extends Component {
       token: oneOfType([number, string]),
       cid: oneOfType([number, string]),
     }),
-    intl: intlShape.isRequired,
+
   };
 
   preparePostUID() {
@@ -105,15 +105,15 @@ class ReplyButton extends Component {
   };
 
   handleSubmitReply = (data, callback) => {
-    const { intl } = this.props;
+    const { t } = this.props;
     const message = data.apiError
-      ? intl.formatMessage(messages.CommentErrorText)
-      : intl.formatMessage(messages.CommentSuccessText);
+      ? t('AskAnAstronomer.CommentErrorText')
+      : t('AskAnAstronomer.CommentSuccessText');
     callback(data.apiError, message);
   };
 
   render() {
-    const { avatarURL, isDesktop, user, intl } = this.props;
+    const { avatarURL, isDesktop, user, t } = this.props;
     const { uuid } = this.state;
     return (
       <div className="reply-form-container">
@@ -121,10 +121,10 @@ class ReplyButton extends Component {
           {...this.props}
           uuid={uuid}
           submitForm={this.submitForm}
-          placeholder={intl.formatMessage(messages.PublicCommentPlaceholder)}
+          placeholder={t('AskAnAstronomer.PublicCommentPlaceholder')}
           revealButtonRender={btnProps => (
             <Button
-              text={intl.formatMessage(messages.Reply)}
+              text={t('AskAnAstronomer.Reply')}
               onClickEvent={e => {
                 this.preparePostUID().then(() => {
                   btnProps.displayForm(e);
@@ -138,4 +138,4 @@ class ReplyButton extends Component {
   }
 }
 
-export default injectIntl(ReplyButton);
+export default ReplyButton;

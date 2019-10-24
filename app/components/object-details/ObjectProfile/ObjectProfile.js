@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { intlShape, injectIntl } from 'react-intl';
 import { GridContainer, Row, StaticCell } from '../../common/grid';
 import BestTelescope from './BestTelescope';
 import style from './ObjectProfile.style';
-import messages from './ObjectProfile.messages';
+
 
 const ObjectProfile = ({
   scienceName,
@@ -140,4 +139,4 @@ ObjectProfile.propTypes = {
   }).isRequired,
 };
 
-export default injectIntl(ObjectProfile);
+export default ObjectProfile;
