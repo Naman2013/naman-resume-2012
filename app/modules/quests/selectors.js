@@ -97,5 +97,9 @@ export const makeQuestAnimationFramesSelector = () =>
     selectQuests,
     state => state.questAnimationFrames
   );
-
+export const makeQuestAnimationActiveFrameSelector = () =>
+  createSelector(
+    selectQuests,
+    state => state.activeFrame
+  );
 // END: QUEST ANIMATION MODULE

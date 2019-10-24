@@ -2,6 +2,7 @@ import React from 'react';
 import { fabric } from 'fabric';
 import { Button } from 'react-bootstrap';
 import { IQuestStepModule } from 'app/modules/quests/types';
+import { FrameList } from './frame-list';
 import './styles.scss';
 
 type AnimationModuleProps = {
@@ -14,6 +15,8 @@ type AnimationModuleProps = {
   getAnimationFrames: Function;
   stepData: any;
   questId: string;
+  activeFrame: any;
+  setActiveFrame: Function;
 };
 
 type AnimationModuleState = {
@@ -158,6 +161,12 @@ export class AnimationModule extends React.PureComponent<
 
   render() {
     console.log(this.canvas);
+    const { activeFrame, setActiveFrame } = this.props;
+    const frameList = [
+      { frameId: 1, caption: 'FRAME 1' },
+      { frameId: 2, caption: 'FRAME 2' },
+      { frameId: 3, caption: 'FRAME 3' },
+    ];
     // if(this.canvas) {
     //   console.log(this.canvas.getWidth());
     //   this.canvas.set({ height: this.canvas.getWidth() });
@@ -228,6 +237,13 @@ export class AnimationModule extends React.PureComponent<
             </div>
           </div>
         </div>
+
+        <FrameList
+          frameList={frameList}
+          activeFrame={activeFrame}
+          setActiveFrame={setActiveFrame}
+        />
+
         <br />
         <Button onClick={() => console.log(JSON.stringify(this.canvas))}>
           get json

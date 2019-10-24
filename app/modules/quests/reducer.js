@@ -30,6 +30,7 @@ export const TYPE = constants('quests', [
 
   '~GET_ANIMATION',
   '~GET_ANIMATION_FRAMES',
+  'SET_ACTIVE_FRAME',
 ]);
 
 export const ACTION = actions(TYPE);
@@ -60,6 +61,7 @@ const initialState = {
 
   questAnimation: {},
   questAnimationFrames: {},
+  activeFrame: {},
 };
 
 function start(state = initialState) {
@@ -299,6 +301,13 @@ function getAnimationFramesSuccess(state, { payload }) {
     },
   };
 }
+
+function setActiveFrame(state, { payload }) {
+  return {
+    ...state,
+    activeFrame: payload,
+  };
+}
 // END: ANIMATION MODULE
 
 export default handleActions(
@@ -390,6 +399,7 @@ export default handleActions(
     [TYPE.GET_ANIMATION_FRAMES]: start,
     [TYPE.GET_ANIMATION_FRAMES_SUCCESS]: getAnimationFramesSuccess,
     [TYPE.GET_ANIMATION_FRAMES_ERROR]: error,
+    [TYPE.SET_ACTIVE_FRAME]: setActiveFrame,
 
     // END: ANIMATION MODULE
   },
