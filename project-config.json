@@ -4,6 +4,16 @@
     "PUBNUB_CHANNEL_PREFIX": "prod",
     "loadHtmlFile": "/config/gonogo.slooh.com.html"
   },
+  "events.slooh.com": {
+    "SENTRY_ENV": "PRODUCTION",
+    "PUBNUB_CHANNEL_PREFIX": "prod",
+    "loadHtmlFile": "/config/events.slooh.com.html"
+  },
+  "live.slooh.com": {
+    "SENTRY_ENV": "PRODUCTION",
+    "PUBNUB_CHANNEL_PREFIX": "prod",
+    "loadHtmlFile": "/config/live.slooh.com.html"
+  },
   "main.slooh.com": {
     "SENTRY_ENV": "PRODUCTION",
     "PUBNUB_CHANNEL_PREFIX": "prod",
