@@ -16,6 +16,7 @@ import { browserHistory } from 'react-router';
 import { API } from 'app/api';
 import { getUserInfo, storeUserNewAT } from 'app/modules/User';
 import { resetLogIn } from 'app/modules/login/actions';
+import { withTranslation } from 'react-i18next';
 
 import styles from 'app/pages/registration/JoinStep3.style';
 
