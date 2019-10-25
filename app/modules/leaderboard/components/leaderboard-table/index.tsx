@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { ILeaderboardItem } from 'app/modules/leaderboard/types';
 import { Table } from 'react-bootstrap';
+import * as cx from 'classnames';
 
 interface LeaderboardTableProps {
   tableData: ILeaderboardItem[];
@@ -9,7 +10,7 @@ interface LeaderboardTableProps {
 
 export const LeaderboardTable: React.FC<LeaderboardTableProps> = React.memo(
   (props: LeaderboardTableProps) => {
-    const { header, tableData = [] } = props;
+    const { header, tableData = [], highlightCID } = props;
 
     return (
       <>
@@ -25,7 +26,11 @@ export const LeaderboardTable: React.FC<LeaderboardTableProps> = React.memo(
           </thead>
           <tbody>
             {tableData.map(el => (
-              <tr>
+              <tr
+                className={cx({
+                  'table-active': highlightCID === el.CustomerUUID,
+                })}
+              >
                 <td>{el.Ranking}</td>
                 <td>{el.DISPLAYNAME}</td>
                 <td>{el.Gravity}</td>

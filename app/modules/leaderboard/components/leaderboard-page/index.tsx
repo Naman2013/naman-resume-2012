@@ -14,16 +14,15 @@ interface RouteParams {
 interface LeaderboardPageProps extends IRouter<RouteParams> {
   getLeaderboard: () => void;
   leaderboardData: LeaderboardResponse;
+  userData: any;
 }
 
 export const LeaderboardPage: React.FC<LeaderboardPageProps> = React.memo(
   (props: LeaderboardPageProps) => {
-    const { getLeaderboard, leaderboardData, router, routeParams } = props;
-    console.info(leaderboardData);
+    const { getLeaderboard, leaderboardData, router, routeParams, userData } = props;
 
     // useDidMount
     React.useEffect(() => {
-      console.log('useDidMount');
       getLeaderboard();
     }, [getLeaderboard]);
 
@@ -65,13 +64,15 @@ export const LeaderboardPage: React.FC<LeaderboardPageProps> = React.memo(
             <Col md={6}>
               <LeaderboardTable
                 header={leaderboardData.PageHeadingAllTime}
-                tableData={tableByTab[routeParams.tab].left}
+                tableData={tableByTab[routeParams.tab]?.left}
+                highlightCID={userData.customerUUID}
               />
             </Col>
             <Col md={6}>
               <LeaderboardTable
                 header={leaderboardData.PageHeadingThirtyDay}
-                tableData={tableByTab[routeParams.tab].right}
+                tableData={tableByTab[routeParams.tab]?.right}
+                highlightCID={userData.customerUUID}
               />
             </Col>
           </Row>
