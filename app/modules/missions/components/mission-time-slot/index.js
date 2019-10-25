@@ -2,7 +2,6 @@ import React, { PureComponent, Fragment } from 'react';
 import Countdown from 'react-countdown-now';
 import { twoDigitsTimeFormatting } from 'app/utils/time-formatting';
 import { ThreeDotsMenu } from '../three-dots-menu';
-import { FormattedNumber } from 'react-intl';
 import './styles.scss';
 
 const SLOT_STATUS = {
