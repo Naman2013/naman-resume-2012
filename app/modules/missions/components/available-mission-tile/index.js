@@ -5,7 +5,6 @@ import Countdown from 'react-countdown-now';
 import FollowObjectButton from 'app/components/object-details/FollowObjectButton';
 import { twoDigitsTimeFormatting } from 'app/utils/time-formatting';
 import Button from '../../../../components/common/style/buttons/Button';
-import FollowObjectButton from 'app/components/object-details/FollowObjectButton.js';
 import './styles.scss';
 
 const getMissionDate = timestamp =>
