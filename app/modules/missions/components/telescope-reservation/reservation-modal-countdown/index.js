@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import Countdown from 'react-countdown-now';
 import Button from 'app/components/common/style/buttons/Button';
+import { FormattedNumber } from 'react-intl';
 import './index.scss';
 
 export class ReservationModalCountdown extends PureComponent {

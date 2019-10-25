@@ -4,6 +4,7 @@ import { Link } from 'react-router';
 import Countdown from 'react-countdown-now';
 import Button from '../../../../components/common/style/buttons/Button';
 import FollowObjectButton from 'app/components/object-details/FollowObjectButton.js';
+import { FormattedNumber } from 'react-intl';
 import './styles.scss';
 
 const getMissionDate = timestamp =>
