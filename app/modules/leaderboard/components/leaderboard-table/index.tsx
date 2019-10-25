@@ -6,6 +6,7 @@ import * as cx from 'classnames';
 interface LeaderboardTableProps {
   tableData: ILeaderboardItem[];
   header: string;
+  highlightCID: string;
 }
 
 export const LeaderboardTable: React.FC<LeaderboardTableProps> = React.memo(
