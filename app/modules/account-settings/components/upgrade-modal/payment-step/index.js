@@ -176,12 +176,12 @@ export const PaymentStep = (props: TPaymentStep) => {
           token: user.token,
           selectedPlanId,
           conditionType,
-          isAstronomyClub: window.localStorage.getItem('isAstronomyClub'),
+          isAstronomyClub: window.localStorage.getItem('isAstronomyClub') === 'true',
           astronomyClubName: window.localStorage.getItem('astronomyClubName'),
           astronomyClub18AndOver: window.localStorage.getItem(
             'astronomyClub18AndOver'
-          ),
-          isClassroom: window.localStorage.getItem('isClassroom'),
+          ) === 'true',
+          isClassroom: window.localStorage.getItem('isClassroom') === 'true',
           selectedSchoolId: window.localStorage.getItem('selectedSchoolId'),
         }}
         render={({ fetchingContent, serviceResponse: joinPageRes }) => (
