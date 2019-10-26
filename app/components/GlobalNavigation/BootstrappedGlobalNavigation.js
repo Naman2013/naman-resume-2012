@@ -216,7 +216,7 @@ class GlobalNavigation extends Component {
         id: messageJSONObj.messageID,
         user: messageJSONObj.displayName,
         currentUser: isMessageFromCurrentUser,
-        date: '00/00/0000 12:00 UTC',
+        date: '12:00 UTC',
         text: messageJSONObj.message_by_locale.en,
       };
 

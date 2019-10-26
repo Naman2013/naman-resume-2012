@@ -151,9 +151,7 @@ export const LiveActivity = (props: TLiveActivity) => {
           >
             <div className="live-activity-window">
               <div className="live-activity-window-header d-flex justify-content-between align-items-center">
-                <span className="h4-custom ">
-                  live feeds ({props.totalViewersCount} Members Online)
-                </span>
+                <span className="h4-custom "></span>
                 <div className="live-activity-window-header-right">
                   <div className="desktop-container">
                     <Tooltip title="Fullscreen">
