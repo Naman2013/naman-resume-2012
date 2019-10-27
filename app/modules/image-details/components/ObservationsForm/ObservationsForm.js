@@ -106,10 +106,6 @@ class ObservationsForm extends Component {
           <h2 className="h2-bigger">
             Earn Gravity, and Inspire the Slooh Community!
           </h2>
-          <p className="p-19">
-            Share your observation with the community and tell them what makes
-            it special.
-          </p>
           <input
             type="text"
             value={title}
