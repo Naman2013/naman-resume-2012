@@ -6,7 +6,7 @@ const Nav = props => {
   const { items } = props;
   return (
     <div className="nav-container container-fluid">
-      <ul className="list-inline nav-items d-none d-sm-block">
+      <ul className="list-inline nav-items">
         {items.map(el => (
           <li
             key={el.linkURL || el.linkUrl || el.LinkUrl}
