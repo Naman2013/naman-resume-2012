@@ -16,7 +16,7 @@
     "prod:mars:new": "NODE_ENV=production webpack -p --config webpack.production.config.js --colors --progress",
     "prod:saturn": "rimraf dist && rimraf node_modules && npm cache clean && npm install && NODE_ENV=production webpack -p --config webpack.production.config.js --colors --progress",
     "prod:nova": "export NODE_OPTIONS=\"--max_old_space_size=8192\" && npm install && NODE_ENV=production webpack --max_old_space_size=8192 -p --config webpack.production.config.js --colors --progress",
-    "prod:eris": "export NODE_OPTIONS=\"--max_old_space_size=8192\" && npm install && && NODE_ENV=production webpack --expose-gc --expose-gc --max_old_space_size=8192 -p --config webpack.production.config.js --colors --progress",
+    "prod:eris": "export NODE_OPTIONS=\"--max_old_space_size=8192\" && npm install && NODE_ENV=production webpack --expose-gc --expose-gc --max_old_space_size=8192 -p --config webpack.production.config.js --colors --progress",
     "prod:orion": "export NODE_OPTIONS=\"--max_old_space_size=8192\" && npm install && NODE_ENV=production webpack  --expose-gc --max_old_space_size=8192 -p --config webpack.production.config.js --colors --progress",
     "prod:gonogo": "export NODE_OPTIONS=\"--max_old_space_size=8192\"  && npm install && NODE_ENV=production webpack  --expose-gc --max_old_space_size=8192 -p --config webpack.production.config.js --colors --progress",
     "prod": "export NODE_OPTIONS=\"--max_old_space_size=8192\" && npm install && NODE_ENV=production webpack  --expose-gc --max_old_space_size=8192 -p --config webpack.production.config.js --colors --progress",
